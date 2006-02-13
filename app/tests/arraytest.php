@@ -1,39 +1,29 @@
 <?php
-//include the PHPUnit test code
 require_once 'PHPUnit2/Framework/TestCase.php';
 
-//Set up the class to do the tests
-class arrayTest extends PHPUnit2_Framework_TestCase
+class ArrayTest extends PHPUnit2_Framework_TestCase
 {
-    /**
-     * Method to do the test
-     *
-     *@example
-     * public function testNewArrayIsEmpty()
-     * {
-     *   // Create the Array fixture.
-     *   $fixture = Array();
-     *
-     *   // Assert that the size of the Array fixture is 0.
-     *   $this->assertEquals(0, sizeof($fixture));
-     * }
-     */
+    protected $fixture;
 
-    public function testArray()
+    protected function setUp()
     {
-        //create the fixture
-        $fixture = array();
-        //assert that the fixture is NULL
-        $this->assertEquals(0, $fixture);
+        // Create the Array fixture.
+        $this->fixture = Array();
     }
 
-    public function testArrayNotEmpty()
-    { 
-        //create the fixture
-        $fixture = array();
-        $fixture[] = "Element";
-        $this->assertEquals(1,$fixture);
+    public function testNewArrayIsEmpty()
+    {
+        // Assert that the size of the Array fixture is 0.
+        $this->assertEquals(0, sizeof($this->fixture));
     }
 
+    public function testArrayContainsAnElement()
+    {
+        // Add an element to the Array fixture.
+        $this->fixture[] = 'Element';
+
+        // Assert that the size of the Array fixture is 1.
+        $this->assertEquals(1, sizeof($this->fixture));
+    }
 }
 ?>
