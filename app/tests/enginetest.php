@@ -21,13 +21,6 @@ class engineTest extends PHPUnit2_Framework_TestCase
         $this->assertNotNull($this->security);
     }
 
-    //test to set the session
-    public function testSetSession()
-    {
-        $this->session = $this->eng->setSession();
-        $this->assertNotNull($this->session);
-    }
-
     //test for loadclass
     public function testLoadClass()
     {
@@ -46,13 +39,139 @@ class engineTest extends PHPUnit2_Framework_TestCase
         $this->assertNotNull($this->eng->getContent());
     }
 
+    //test to get layout content page
+    public function testGetLayoutContent()
+    {
+        $this->assertNotNull($this->eng->getLayoutTemplate());
+    }
 
+    //test to  setLayoutTemplate
+    public function testSetLayoutTemplate()
+    {
+        $this->assertNotNull($this->eng-> setLayoutTemplate());
+    }
 
+    //test to getPageTemplate
+    public function testGetPageTemplate()
+    {
+        $this->assertNotNull($this->eng->getPageTemplate());
+    }
 
+    //test to setPageTemplate
+    public function testSetPageTemplate()
+    {
+        $this->assertNotNull($this->eng->setPageTemplate());
+    }
 
+    //test for newObject
+    public function testNewObject()
+    {
+        $this->assertNotNull($this->eng->newObject());
+    }
 
+    //test for getObject
+    public function testGetObject()
+    {
+        $this->assertNotNull($this->eng->getObject());
+    }
 
+    //test for getVar
+    public function testGetVar()
+    {
+        $this->assertNotNull($this->eng->getVar());
+    }
 
+    //test for setVar
+    public function testSetVar()
+    {
+        $this->assertNotNull($this->eng->setVar());
+    }
 
+    //test for getVarByRef
+    public function testGetVarByRef()
+    {
+        $this->assertNotNull($this->eng->getVarByRef());
+    }
 
+    //test for setVarByRef
+    public function testSetVarByRef()
+    {
+        $this->assertNotNull($this->eng->setVarByRef());
+    }
+
+    //test for appendArrayVar
+    public function testAppendArrayVar()
+    {
+        $this->assertNotNull($this->eng->appendArrayVar());
+    }
+
+    //test for getParam
+    public function testGetParam()
+    {
+        $this->assertNotNull($this->eng->getParam());
+    }
+
+    //test for getArrayParam
+    public function testGetArrayParam()
+    {
+        $this->assertNotNull($this->eng->getArrayParam());
+    }
+
+    //test to set the session
+    public function testSetSession()
+    {
+        $this->session = $this->eng->setSession();
+        $this->assertNotNull($this->session);
+    }
+
+    //test to get the session
+    public function testGetSession()
+    {
+        $this->session = $this->eng->getSession();
+        $this->assertNotNull($this->session);
+    }
+
+    //test to unset the session
+    public function testUnsetSession()
+    {
+        $this->session = $this->eng->unsetSession();
+        $this->assertNull($this->session);
+    }
+
+    //test for error message
+    public function testSetErrorMessage()
+    {
+        $this->assertNotNull($this->eng->setErrorMessage());
+    }
+
+    public function testAddMessage()
+    {
+        $this->assertNotNull($this->eng->addMessage());
+    }
+
+    public function testNextAction()
+    {
+        $this->assertNotNull($this->eng->nextAction());
+    }
+
+    public function testUri()
+    {
+        $this->assertNotNull($this->eng->uri());
+    }
+
+    public function testGetResourceUri()
+    {
+        $this->assertNotNull($this->eng->getResourceUri());
+    }
+
+    public function testGetJavaScriptFile()
+    {
+        $this->assertNotNull($this->eng->getJavaScriptFile());
+    }
+
+    public function testPutMessages()
+    {
+        $this->assertNotNull($this->eng->putMessages());
+    }
 }
+?>
