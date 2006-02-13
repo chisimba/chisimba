@@ -24,7 +24,7 @@ class engineTest extends PHPUnit2_Framework_TestCase
     //test to set the session
     public function testSetSession()
     {
-        $this->session = session_start();
+        $this->session = $this->eng->setSession();
         $this->assertNotNull($this->session);
     }
 
