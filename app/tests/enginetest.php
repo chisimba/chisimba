@@ -28,6 +28,12 @@ class engineTest extends PHPUnit2_Framework_TestCase
         $this->assertNotNull($this->session);
     }
 
+    //test for loadclass
+    public function testLoadClass()
+    {
+        $this->assertNotNull($this->eng->loadClass);
+    }
+
 
 
 
