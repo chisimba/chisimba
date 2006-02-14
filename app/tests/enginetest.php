@@ -138,6 +138,13 @@ class engineTest extends PHPUnit2_Framework_TestCase
         $this->assertNull($this->session);
     }
 
+    //test to start the session
+    public function testSessionStart()
+    {
+        $this->session = $this->eng->sessionStart();
+        $this->assertNotNull($this->session);
+    }
+
     //test for error message
     public function testSetErrorMessage()
     {
