@@ -35,6 +35,31 @@ class engine
         if (isset($_REQUEST[session_name()])) {
             $this->sessionStart();
         }
+        // initialise member objects that *this object* is dependent on, and thus
+        // must be created on every request
+        $this->_objDbConfig = $this->getObject('dbconfig', 'config');
+        $this->getDbObj();
+        $this->_objConfig = $this->getObject('config', 'config');
+        $this->_objUser =& $this->getObject('user', 'security');
+        $this->_objLanguage =& $this->getObject('language', 'language');
+
+
+        if ($this->_objUser->isLoggedIn())
+        {
+            $this->_objUser->updateLogin();
+        }
+
+        // other fields
+        $this->_messages = array();
+        $this->_templateVars = array();
+        $this->_templateRefs = array();
+        $this->_cachedObjects = array();
+
+        // Get Layout Template from Config file
+        $this->_layoutTemplate = $this->_objConfig->defaultLayoutTemplate();
+
+        // Get Page Template from Config file
+        $this->_pageTemplate = $this->_objConfig->defaultPageTemplate();
 
     }
 
@@ -45,7 +70,7 @@ class engine
      * @param $name string The name of the class to load
      * @param $moduleName string The name of the module to load the class from (optional)
      */
-    public function loadClass()
+    public function loadClass($name, $moduleName = '')
     {
         if ($name == 'config' && $moduleName == 'config' && $this->_objConfig) {
             // special case: skip if config and objConfig exists, this means config
@@ -80,7 +105,39 @@ class engine
     */
     public function getDbObj()
     {
-
+        // I'm keeping $_globalObjDb as a global for now, as it's so convenient to
+        // just pick it up wherever its needed. I'd like to thing of a better
+        // approach that doesn't involve it being a global, but until I do,
+        // it'll live here. I'll also have a member field _objDb for consistency
+        // with the other objects [Sean]
+        global $_globalObjDb;
+        if ($this->_objDb == NULL || $_globalObjDb == NULL) {
+            // I intend to subsume dbconfig into main config,
+            // no particular reason for it to be separate,
+            // at which point the next two lines will be
+            // redundant
+            $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
+            // Connect to the database
+            require_once 'DB.php';
+            $_globalObjDb = DB::connect($this->_objDbConfig->dbConString());
+            if (PEAR::isError($_globalObjDb)) {
+                // manually call the callback function here,
+                // as we haven't had a chance to install it as
+                // the error handler
+                $this->_pearErrorCallback($_globalObjDb);
+                return $_globalObjDb;
+            }
+            // keep a copy as a field as well
+            $this->_objDb =& $_globalObjDb;
+            // install the error handler
+            $this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
+                                            array(&$this, '_pearErrorCallback'));
+            // set the default fetch mode for the DB to assoc, as that's
+            // a much nicer mode than the default DB_FETCHMODE_ORDERED
+            $this->_objDb->setFetchMode(DB_FETCHMODE_ASSOC);
+            // include the dbtable base class for future use
+        }
+        return $this->_objDb;
     }
 
     /**
@@ -91,7 +148,7 @@ class engine
      */
     public function getContent()
     {
-
+        return $this->_content;
     }
 
     /**
@@ -101,7 +158,7 @@ class engine
     */
     public function getLayoutTemplate()
     {
-
+        return $this->_layoutContent;
     }
 
     /**
@@ -111,7 +168,7 @@ class engine
     */
     public function setLayoutTemplate()
     {
-
+        $this->_layoutTemplate = $templateName;
     }
 
     /**
@@ -121,7 +178,7 @@ class engine
     */
     public function getPageTemplate()
     {
-
+        return $this->_pageTemplate;
     }
 
     /**
@@ -131,7 +188,7 @@ class engine
     */
     public function setPageTemplate()
     {
-
+        $this->_pageTemplate = $templateName;
     }
 
     /**
