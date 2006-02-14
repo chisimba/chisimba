@@ -27,6 +27,12 @@ class engineTest extends PHPUnit2_Framework_TestCase
         $this->assertNotNull($this->eng->loadClass());
     }
 
+    //test for run
+    public function testRun()
+    {
+        $this->assertNotNull($this->eng->run());
+    }
+
     //test that the db Object gets instantiated
     public function testGetDbObj()
     {

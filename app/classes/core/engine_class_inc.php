@@ -64,6 +64,45 @@ class engine
     }
 
     /**
+    * This method is for use by the application entry point. It dispatches the
+    * request to the appropriate module controller, and then renders the returned template
+    * inside of the appropriate layout template.
+    */
+    public function run($presetModuleName = NULL, $presetAction = NULL)
+    {
+        if (empty($presetModuleName)) {
+            $requestedModule = strtolower($this->getParam('module', '_default'));
+        } else {
+            $requestedModule = $presetModuleName;
+        }
+        if (empty($presetAction)) {
+            $requestedAction = strtolower($this->getParam('action', ''));
+        } else {
+            $requestedAction = $presetAction;
+        }
+        list($template, $moduleName) = $this->_dispatch($requestedAction, $requestedModule);
+        if ($template != NULL) {
+            $this->_content = $this->_callTemplate($template, $moduleName, 'content', TRUE);
+            if (!empty($this->_layoutTemplate)) {
+                $this->_layoutContent = $this->_callTemplate($this->_layoutTemplate,
+                                                             $moduleName,
+                                                             'layout',
+                                                             TRUE);
+            }
+            else {
+                $this->_layoutContent = $this->_content;
+            }
+            if (!empty($this->_pageTemplate)) {
+                $this->_callTemplate($this->_pageTemplate, $moduleName, 'page');
+            }
+            else {
+                echo $this->_layoutContent;
+            }
+        }
+        $this->_finish();
+    }
+
+    /**
      * Method to load a class definition from the given module.
      * Used when you wish to instantiate objects of the class yourself.
      *
