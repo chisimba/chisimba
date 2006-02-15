@@ -70,7 +70,7 @@ class engine
         // must be created on every request
         $this->_objDbConfig = $this->getObject('dbconfig', 'config');
         $this->getDbObj();
-        //$this->_objConfig = $this->getObject('config', 'config');
+        $this->_objConfig = $this->getObject('config', 'config');
         //$this->_objUser =& $this->getObject('user', 'security');
         //$this->_objLanguage =& $this->getObject('language', 'language');
 
@@ -155,7 +155,7 @@ class engine
             $filename = "modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
         }
         // add the site root path to make an absolute path if the config object has
-        // sbeen loaded
+        // been loaded
         if ($this->_objConfig) {
             $filename = $this->_objConfig->siteRootPath() . $filename;
         }
