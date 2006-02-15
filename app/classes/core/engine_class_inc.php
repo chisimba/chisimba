@@ -19,12 +19,12 @@
 * $Id$
 */
 
-require_once 'classes/core/object_class_inc.php';
-require_once 'classes/core/access_class_inc.php';
-require_once 'classes/core/dbtable_class_inc.php';
-require_once 'classes/core/controller_class_inc.php';
+//require_once 'classes/core/object_class_inc.php';
+//require_once 'classes/core/access_class_inc.php';
+//require_once 'classes/core/dbtable_class_inc.php';
+//require_once 'classes/core/controller_class_inc.php';
 
-require_once 'lib/logging.php';
+//require_once 'lib/logging.php';
 function globalPearErrorCallback($error) {
     log_debug($error);
 }
@@ -178,7 +178,7 @@ class engine
     *
     * @return string The config object
     */
-    public function getDbObj()
+    public function &getDbObj()
     {
         // I'm keeping $_globalObjDb as a global for now, as it's so convenient to
         // just pick it up wherever its needed. I'd like to thing of a better
@@ -241,7 +241,7 @@ class engine
     *
     * @param string $templateName The name of the layout template to use
     */
-    public function setLayoutTemplate()
+    public function setLayoutTemplate($templateName)
     {
         $this->_layoutTemplate = $templateName;
     }
@@ -261,7 +261,7 @@ class engine
     *
     * @param string $templateName The name of the page template to use
     */
-    public function setPageTemplate()
+    public function setPageTemplate($templateName)
     {
         $this->_pageTemplate = $templateName;
     }
@@ -278,7 +278,7 @@ class engine
      * @param $moduleName string The name of the module to load the class from
      * @return mixed The object asked for
      */
-    public function &newObject()
+    public function &newObject($name, $moduleName)
     {
         $this->loadClass($name, $moduleName);
         $objNew =& new $name($this, $moduleName);
@@ -299,7 +299,7 @@ class engine
      * @param $moduleName string The name of the module to load the class from
      * @return mixed The object asked for
      */
-    public function &getObject()
+    public function &getObject($name, $moduleName)
     {
         $instance = NULL;
         if (isset($this->_cachedObjects[$moduleName][$name]))
@@ -333,7 +333,7 @@ class engine
     * @param $default mixed The value to return if the variable is unset (optional)
     * @return mixed The value of the variable, or $default if unset
     */
-    public function getVar()
+    public function getVar($name, $default = NULL)
     {
         return isset($this->_templateVars[$name])
                    ? $this->_templateVars[$name]
@@ -347,7 +347,7 @@ class engine
     * @param $name string The name of the variable
     * @param $val mixed The value to set the variable to
     */
-    public function setVar()
+    public function setVar($name, $val)
     {
         $this->_templateVars[$name] = $val;
     }
@@ -359,7 +359,7 @@ class engine
     * @param $name string The name of the reference variable
     * @return mixed The value of the reference variable, or NULL if unset
     */
-    public function &getVarByRef()
+    public function &getVarByRef($name)
     {
         return isset($this->_templateRefs[$name])
                    ? $this->_templateRefs[$name]
@@ -373,7 +373,7 @@ class engine
     * @param $name string The name of the reference variable
     * @param $ref mixed A reference to the object to set the reference variable to
     */
-    public function setVarByRef()
+    public function setVarByRef($name, &$ref)
     {
         $this->_templateRefs[$name] =& $ref;
     }
@@ -385,7 +385,7 @@ class engine
      * @param string $name The name of the variable holding an array
      * @param mixed $value The value to append to the array
      */
-    public function appendArrayVar()
+    public function appendArrayVar($name, $value)
     {
         if (!isset($this->_templateVars[$name])) {
             $this->_templateVars[$name] = array();
@@ -406,7 +406,7 @@ class engine
     * @param $default mixed The value to return if the parameter is unset (optional)
     * @return mixed The value of the parameter, or $default if unset
     */
-    public function getParam()
+    public function getParam($name, $default = NULL)
     {
         return isset($_REQUEST[$name])
             ? is_string($_REQUEST[$name])
@@ -424,7 +424,7 @@ class engine
     * @param $default mixed The value to return if the parameter is unset (optional)
     * @return mixed The value of the parameter, or $default if unset
     */
-    public function getArrayParam()
+    public function getArrayParam($name, $default = NULL)
     {
         if ((isset($_REQUEST[$name]))&&(is_array($_REQUEST[$name]))){
             return $_REQUEST[$name];
@@ -439,7 +439,7 @@ class engine
     * @param $name string The name of the session value
     * @param $val mixed The value to set the session value to
     */
-    public function setSession()
+    public function setSession($name, $val)
     {
         if (!$this->_sessionStarted) {
             $this->sessionStart();
@@ -454,7 +454,7 @@ class engine
     * @param $default mixed The value to return if the session value is unset (optional)
     * @return mixed the value of the parameter, or $default if unset
     */
-    public function getSession()
+    public function getSession($name, $default = NULL)
     {
         $val = $default;
         if (isset($_SESSION[$name])) {
@@ -468,7 +468,7 @@ class engine
     *
     * @param $name string The name of the session parameter
     */
-    public function unsetSession()
+    public function unsetSession($name)
     {
         unset($_SESSION[$name]);
     }
@@ -491,7 +491,7 @@ class engine
     * @param $field string The name of the field the error applies to (optional)
     * @return FALSE
     */
-    public function setErrorMessage()
+    public function setErrorMessage($errormsg, $field = NULL)
     {
         if (!$this->_hasError) {
             $this->_errorMessage = $errormsg;
@@ -509,7 +509,7 @@ class engine
     *
     * @param $msg string The message
     */
-    public function addMessage()
+    public function addMessage($msg)
     {
         $this->_messages[] = $msg;
     }
@@ -609,7 +609,7 @@ class engine
      *                 subdirectory of the module
      * @param string $moduleName The name of the module the resource belongs to
      */
-    public function getResourceUri()
+    public function getResourceUri($resourceFile, $moduleName)
     {
         return 'modules/' . $moduleName . '/resources/' . $resourceFile;
     }
@@ -635,7 +635,18 @@ class engine
     */
     public function putMessages()
     {
-
+        $str = '';
+        if ($this->_hasError) {
+            $str .= '<script language="JavaScript" type="text/javascript">'
+                .'alert("'.$this->javascript_escape($this->_errorMessage).'");'
+                .'</script>';
+        }
+        foreach ($this->_messages as $msg) {
+            $str .= '<script language="JavaScript" type="text/javascript">'
+                .'alert("'.$this->javascript_escape($msg).'");'
+                .'</script>';
+        }
+        echo $str;
     }
 }
 ?>
