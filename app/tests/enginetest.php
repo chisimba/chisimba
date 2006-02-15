@@ -23,10 +23,10 @@ class engineTest extends PHPUnit2_Framework_TestCase
     }
 
     //test for loadclass
-    public function testLoadClass()
-    {
-        $this->assertNotNull($this->eng->loadClass($observer));
-    }
+ //   public function testLoadClass()
+   // {
+     //   $this->assertNotNull($this->eng->loadClass($observer));
+    //}
 
     //test for run
     public function testRun()

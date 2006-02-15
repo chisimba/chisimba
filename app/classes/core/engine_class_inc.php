@@ -3,10 +3,10 @@
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
-//if (!$GLOBALS['kewl_entry_point_run'])
-//{
-//    die("You cannot view this page directly");
-//}
+if (!$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
 // end security check
 
 /**
@@ -19,11 +19,11 @@
 * $Id$
 */
 
-//require_once 'classes/core/object_class_inc.php';
-//require_once 'classes/core/access_class_inc.php';
-//require_once 'classes/core/dbtable_class_inc.php';
-//require_once 'classes/core/controller_class_inc.php';
+require_once 'classes/core/object_class_inc.php';
+require_once 'classes/core/dbtable_class_inc.php';
 
+//require_once 'classes/core/controller_class_inc.php';
+//require_once 'classes/core/access_class_inc.php';
 //require_once 'lib/logging.php';
 function globalPearErrorCallback($error) {
     log_debug($error);
@@ -188,8 +188,8 @@ class engine
             // redundant
             $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
             // Connect to the database
-            require_once 'DB.php';
-            $_globalObjDb = DB::connect($this->_objDbConfig->dbConString());
+            require_once 'MDB2.php';
+            $_globalObjDb = MDB2::factory($this->_objDbConfig->dbConString());
             if (PEAR::isError($_globalObjDb)) {
                 // manually call the callback function here,
                 // as we haven't had a chance to install it as
@@ -200,11 +200,11 @@ class engine
             // keep a copy as a field as well
             $this->_objDb =& $_globalObjDb;
             // install the error handler
-            $this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
-                                            array(&$this, '_pearErrorCallback'));
-            // set the default fetch mode for the DB to assoc, as that's
-            // a much nicer mode than the default DB_FETCHMODE_ORDERED
-            $this->_objDb->setFetchMode(DB_FETCHMODE_ASSOC);
+            //$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
+             //                               array(&$this, '_pearErrorCallback'));
+            // set the default fetch mode for the MDB2 to assoc, as that's
+            // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+            $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
             // include the dbtable base class for future use
         }
         return $this->_objDb;
@@ -799,7 +799,6 @@ class engine
 
     protected function _pearErrorCallback($error)
     {
-        //log_objError("PEAR DB Error: " . $error->getMessage());
         // TODO: note $error->getMessage() returns a shorter and friendlier but
         //       less informative message, for production should use getMessage
         //       (make a config option?)
