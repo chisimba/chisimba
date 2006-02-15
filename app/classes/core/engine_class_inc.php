@@ -19,8 +19,44 @@
 * $Id$
 */
 
+require_once 'classes/core/object_class_inc.php';
+require_once 'classes/core/access_class_inc.php';
+require_once 'classes/core/dbtable_class_inc.php';
+require_once 'classes/core/controller_class_inc.php';
+
+require_once 'lib/logging.php';
+function globalPearErrorCallback($error) {
+    log_debug($error);
+}
+
 class engine
 {
+    public $_objDb;
+
+    public $_objUser;
+    public $_objLoggedInUsers;
+    public $_objConfig;
+    public $_objLanguage;
+
+    // deprecated objects (i.e. they will go soon)
+    public $_objDbConfig;
+    // end deprecated
+
+    public $_layoutTemplate;
+    public $_pageTemplate = 'default_page_tpl.php';
+    public $_hasError = FALSE;
+    public $_errorField = '';
+    public $_content = '';
+    public $_layoutContent = '';
+    public $_moduleName = NULL;
+    public $_objActiveController = NULL;
+    public $_errorMessage = '';
+    public $_messages = NULL;
+    public $_sessionStarted = FALSE;
+    public $_templateVars = NULL;
+    public $_templateRefs = NULL;
+    public $_cachedObjects = NULL;
+    public $_enableAccessControl = TRUE;
 
     /**
     * Constructor. For use by application entry point script (usually /index.php)
