@@ -13,6 +13,7 @@ class engineTest extends PHPUnit2_Framework_TestCase
     {
         $this->security[] = 'kewl_entry_point_run';
         $this->eng = new engine;
+        $observer = $this->getMock('_dbconfig','config');
     }
 
     //test that the security is in place...
@@ -24,7 +25,7 @@ class engineTest extends PHPUnit2_Framework_TestCase
     //test for loadclass
     public function testLoadClass()
     {
-        $this->assertNotNull($this->eng->loadClass());
+        $this->assertNotNull($this->eng->loadClass($observer));
     }
 
     //test for run

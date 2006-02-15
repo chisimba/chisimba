@@ -31,32 +31,27 @@ function globalPearErrorCallback($error) {
 
 class engine
 {
-    public $_objDb;
-
-    public $_objUser;
-    public $_objLoggedInUsers;
-    public $_objConfig;
-    public $_objLanguage;
-
-    // deprecated objects (i.e. they will go soon)
-    public $_objDbConfig;
-    // end deprecated
-
-    public $_layoutTemplate;
-    public $_pageTemplate = 'default_page_tpl.php';
-    public $_hasError = FALSE;
-    public $_errorField = '';
-    public $_content = '';
-    public $_layoutContent = '';
-    public $_moduleName = NULL;
-    public $_objActiveController = NULL;
-    public $_errorMessage = '';
-    public $_messages = NULL;
-    public $_sessionStarted = FALSE;
-    public $_templateVars = NULL;
-    public $_templateRefs = NULL;
-    public $_cachedObjects = NULL;
-    public $_enableAccessControl = TRUE;
+    protected $_objDb;
+    protected $_objUser;
+    protected $_objLoggedInUsers;
+    protected $_objConfig;
+    protected $_objLanguage;
+    protected $_objDbConfig;
+    protected $_layoutTemplate;
+    protected $_pageTemplate = 'default_page_tpl.php';
+    protected $_hasError = FALSE;
+    protected $_errorField = '';
+    protected $_content = '';
+    protected $_layoutContent = '';
+    protected $_moduleName = NULL;
+    protected $_objActiveController = NULL;
+    protected $_errorMessage = '';
+    protected $_messages = NULL;
+    protected $_sessionStarted = FALSE;
+    protected $_templateVars = NULL;
+    protected $_templateRefs = NULL;
+    protected $_cachedObjects = NULL;
+    protected $_enableAccessControl = TRUE;
 
     /**
     * Constructor. For use by application entry point script (usually /index.php)
@@ -75,9 +70,9 @@ class engine
         // must be created on every request
         $this->_objDbConfig = $this->getObject('dbconfig', 'config');
         $this->getDbObj();
-        $this->_objConfig = $this->getObject('config', 'config');
-        $this->_objUser =& $this->getObject('user', 'security');
-        $this->_objLanguage =& $this->getObject('language', 'language');
+        //$this->_objConfig = $this->getObject('config', 'config');
+        //$this->_objUser =& $this->getObject('user', 'security');
+        //$this->_objLanguage =& $this->getObject('language', 'language');
 
 
         if ($this->_objUser->isLoggedIn())
@@ -647,6 +642,183 @@ class engine
                 .'</script>';
         }
         echo $str;
+    }
+
+    /**
+     * ********************** Protected and Private Methods ***********************
+     */
+
+    /**
+    * Main dispatch method. Called by run to dispatch this request
+    * to the appropriate module, as specified by the 'module'
+    * request parameter.
+    *
+    * @return list(string, string) Template name and module name
+    */
+    protected function _dispatch($action, $requestedModule)
+    {
+        $this->_action = $action;strtolower($this->getParam('action', ''));
+        if (!$this->_loadModule($requestedModule)) {
+            $this->_loadModule('_default');
+            if (!$this->_objActiveController) {
+                die('Default module not found!');
+            }
+            $this->setErrorMessage("Module {$requestedModule} not found");
+        }
+
+	if ($this->_objActiveController->sendNoCacheHeaders($this->_action)) {
+	    // ensure no caching
+	    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");              // Date in the past
+	    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+	    header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
+	    header("Cache-Control: post-check=0, pre-check=0", false);
+	    header("Pragma: no-cache");                                    // HTTP/1.0
+	}
+
+        if ((!$this->_objActiveController->requiresLogin($this->_action))
+            || ($this->_objUser->isLoggedIn())) {
+            return array($this->_dispatchToModule($this->_objActiveController, $this->_action),
+                         $this->_moduleName);
+        }
+        else {
+            if (!$this->_loadModule('security')) {
+                die('Security module not found!');
+            }
+            $this->_moduleName = 'security';
+            return array($this->_dispatchToModule($this->_objActiveController, 'showlogin'),
+                         $this->_moduleName);
+        }
+    }
+
+    /**
+     * Method to load a module controller class and create a new
+     * object of that class.
+     * TODO: make main module an actual module, and if no module requested,
+     * load that module (should be a configurable name)
+     *
+     * @param $moduleName string The name of the module to load
+     * @return controller-subclass The new module controller object
+    */
+    protected function _loadModule($moduleName)
+    {
+        if ($moduleName == '_default') {
+            $moduleName = $this->_objConfig->defaultModuleName();
+        }
+
+        $controllerFile = "modules/" . $moduleName . "/controller.php";
+        $objActiveController = NULL;
+        if (file_exists($controllerFile)
+                && include_once $controllerFile) {
+            $this->_objActiveController = &new $moduleName($this, $moduleName);
+        }
+        if ($this->_objActiveController) {
+            $this->_moduleName = $moduleName;
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+    * Method to dispatch request to given module, providing given action.
+    * If no module object is provided, the main module is dispatched to.
+    * TODO: eliminate main handling here when main becomes a module.
+    *       Can probably eliminate this method altogether at that point.
+    *
+    *  @param $objActiveController controller-subclass The module controller to
+    *                       dispatch to (or NULL for main)
+    *  @param $action string The action parameter
+    *  @return string Template name returned from dispatch method
+    */
+    protected function _dispatchToModule(&$module, $action)
+    {
+        if ($module) {
+            $tpl = $this->_enableAccessControl
+                ? $module->dispatchControl($module,$action) // with module access control
+                : $module->dispatch($action); // without module access control
+            return $tpl;
+        }
+        else {
+            return $this->_getLoggedInTemplate();
+        }
+    }
+
+    /**
+    * Method to find the given template, either in the given module's template
+    * subdir (if a module is specified) or in the core templates subdir.
+    * Type must be 'content' or 'layout'
+    *
+    * @param $tpl string The name of the template to find,
+    *                    including file extension but excluding path
+    * @param $moduleName string The name of the module to search (can be empty to search only core)
+    * @param $type string The type of template to load: 'content' or 'layout' are current options
+    * @return string The full path to the found template
+    */
+    protected function _findTemplate($tpl, $moduleName, $type)
+    {
+        $path = '';
+        if (!empty($moduleName)) {
+            $path = $this->_objConfig->siteRootPath()
+                . "modules/${moduleName}/templates/${type}/${tpl}";
+        }
+        if (empty($path) || !file_exists($path)) {
+            $firstpath = $path;
+            $path = $this->_objConfig->siteRootPath() . "templates/${type}/${tpl}";
+            if (!file_exists($path))
+            {
+                die("Template $tpl not found (looked in $firstpath)!");
+            }
+        }
+        return $path;
+    }
+
+    /**
+    * Method to call the given template, looking first at the given modules templates
+    * and then at the core templates (uses _findTemplate).
+    * Output is either buffered ($buffer = TRUE) and returned as a string, or send directly
+    * to browser.
+    *
+    * @param $tpl string Name of template to call, including file extension but excluding path
+    * @param $moduleName string The name of the module to search for the template
+    *                           (if empty, search core)
+    * @param $type string The type of template to call: 'content' or 'layout'
+    * @param $buffer TRUE|FALSE If TRUE buffer output and return as string, else send to browser
+    * @return string|NULL If buffering returns output, else returns NULL
+    */
+    protected function _callTemplate($tpl, $moduleName, $type, $buffer = FALSE)
+    {
+        return $this->_objActiveController->callTemplate($tpl, $type, $buffer);
+    }
+
+    /**
+    * Method to clean up at end of page rendering.
+    */
+    protected function _finish()
+    {
+        $this->_objDb->disconnect();
+    }
+
+    protected function _pearErrorCallback($error)
+    {
+        //log_objError("PEAR DB Error: " . $error->getMessage());
+        // TODO: note $error->getMessage() returns a shorter and friendlier but
+        //       less informative message, for production should use getMessage
+        //       (make a config option?)
+        $msg = $error->toString();
+        die($msg);
+        $this->setErrorMessage($msg);
+
+    }
+
+    /**
+     * Method that escapes a string suitable for inclusion as a JavaScript
+     * string literal. Add's backslashes for
+     *
+     * @param $str string String to escape
+     * @return string Escaped string
+     */
+    protected function javascript_escape($str)
+    {
+        return addcslashes($str, "\0..\37\"\'\177..\377");
     }
 }
 ?>
