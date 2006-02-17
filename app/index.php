@@ -23,7 +23,7 @@ $GLOBALS['kewl_entry_point_run'] = true;
 
 // initialise the engine object
 require_once 'classes/core/engine_class_inc.php';
-$_globalObjEngine =& new engine;
+$_globalObjEngine = new engine;
 
 //log_debug("page rendering started at ".strftime("%T"));
 

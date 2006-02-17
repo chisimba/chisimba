@@ -5,7 +5,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-    die("You cannot view this page directly");
+   die("You cannot view this page directly");
 }
 // end security check
 
@@ -22,15 +22,18 @@ if (!$GLOBALS['kewl_entry_point_run'])
 require_once 'classes/core/object_class_inc.php';
 require_once 'classes/core/dbtable_class_inc.php';
 
-//require_once 'classes/core/controller_class_inc.php';
-//require_once 'classes/core/access_class_inc.php';
+require_once 'classes/core/access_class_inc.php';
+require_once 'classes/core/controller_class_inc.php';
+
 //require_once 'lib/logging.php';
+
 function globalPearErrorCallback($error) {
     log_debug($error);
 }
 
 class engine
 {
+    public $objEngine;
     protected $_objDb;
     protected $_objUser;
     protected $_objLoggedInUsers;
@@ -75,10 +78,10 @@ class engine
         //$this->_objLanguage =& $this->getObject('language', 'language');
 
 
-        if ($this->_objUser->isLoggedIn())
-        {
-            $this->_objUser->updateLogin();
-        }
+        //if ($this->_objUser->isLoggedIn())
+        //{
+        //    $this->_objUser->updateLogin();
+        //}
 
         // other fields
         $this->_messages = array();
@@ -91,6 +94,7 @@ class engine
 
         // Get Page Template from Config file
         $this->_pageTemplate = $this->_objConfig->defaultPageTemplate();
+        $this->objEngine = $this;
 
     }
 
@@ -186,7 +190,7 @@ class engine
             // no particular reason for it to be separate,
             // at which point the next two lines will be
             // redundant
-            $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
+            $this->_objDbConfig = $this->getObject('dbconfig', 'config');
             // Connect to the database
             require_once 'MDB2.php';
             $_globalObjDb = MDB2::factory($this->_objDbConfig->dbConString());
@@ -200,8 +204,7 @@ class engine
             // keep a copy as a field as well
             $this->_objDb =& $_globalObjDb;
             // install the error handler
-            //$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
-             //                               array(&$this, '_pearErrorCallback'));
+            $this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK, array(&$this, '_pearErrorCallback'));
             // set the default fetch mode for the MDB2 to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
@@ -276,7 +279,7 @@ class engine
     public function &newObject($name, $moduleName)
     {
         $this->loadClass($name, $moduleName);
-        $objNew =& new $name($this, $moduleName);
+        $objNew = new $name($this, $moduleName);
         return $objNew;
     }
 
@@ -305,7 +308,7 @@ class engine
         else
         {
             $this->loadClass($name, $moduleName);
-            $instance =& new $name($this, $moduleName);
+            $instance = new $name($this, $moduleName);
             if (is_null($instance)) {
                 die("Could not instantiate class $name from module $moduleName");
             }
@@ -645,6 +648,24 @@ class engine
     }
 
     /**
+     * Method to be called on PEAR error
+     *
+     * @param object $error
+     */
+    public function _pearErrorCallback($error)
+    {
+        // TODO: note $error->getMessage() returns a shorter and friendlier but
+        //       less informative message, for production should use getMessage
+        //       (make a config option?)
+        $msg = "<p>The system crapped out with the following error</p><br>";
+        $msg .= $error->getMessage();
+        die($msg);
+        $this->setErrorMessage($msg);
+
+    }
+
+
+    /**
      * ********************** Protected and Private Methods ***********************
      */
 
@@ -709,7 +730,7 @@ class engine
         $objActiveController = NULL;
         if (file_exists($controllerFile)
                 && include_once $controllerFile) {
-            $this->_objActiveController = &new $moduleName($this, $moduleName);
+            $this->_objActiveController = new $moduleName($this, $moduleName);
         }
         if ($this->_objActiveController) {
             $this->_moduleName = $moduleName;
@@ -795,17 +816,6 @@ class engine
     protected function _finish()
     {
         $this->_objDb->disconnect();
-    }
-
-    protected function _pearErrorCallback($error)
-    {
-        // TODO: note $error->getMessage() returns a shorter and friendlier but
-        //       less informative message, for production should use getMessage
-        //       (make a config option?)
-        $msg = $error->toString();
-        die($msg);
-        $this->setErrorMessage($msg);
-
     }
 
     /**
