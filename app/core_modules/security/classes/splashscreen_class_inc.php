@@ -12,7 +12,7 @@ class splashscreen extends object
     var $objSkin;
     var $objLanguage;
     var $objConfig;
-    
+
     /**
     * Constructor method to define the table
     */
@@ -23,15 +23,15 @@ class splashscreen extends object
         //Get an instance of the language object
         $this->objLanguage = &$this->getObject('language', 'language');
         //Get an instance of the skin
-        $this->objSkin = &$this->getObject('skin', 'skin'); 
+        $this->objSkin = &$this->getObject('skin', 'skin');
         //Get an instance of the help object
         $this->objHelp=& $this->getObject('helplink','help');
         //Create an instance of the module object
         $this->objModule=& $this->getObject('modulesadmin','modulelist');
         $this->server = $this->objConfig->serverName();
     }
-    
-    
+
+
     /**
     * Method to put the splashscreen on the login page
     * @author Sean Legassick and James Scoble
@@ -41,14 +41,14 @@ class splashscreen extends object
     * from static content.
     */
     function putSplashScreen($goplace = '') {
-    
+
         //the variable to start the form
-        $startForm='<form class="login" name="login_form" 
+        $startForm='<form class="login" name="login_form"
           id="form1" method="post" action="'
           .$this->objEngine->uri(array('action' => 'login'), 'security');
         if ($goplace!="") {
             $startForm=$startForm.'&goplace='.$goplace;
-        }    
+        }
         $startForm=$startForm."\">";
         //the link to registration
         $registerLink="<a href='".$this->uri(array('action'=>'register'),'useradmin')."'>".
@@ -66,10 +66,10 @@ class splashscreen extends object
         $useLdapCheck='<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb">'
             .$this->objLanguage->languageText("phrase_networkid");
         //the variable to hold the login button
-        
+
         $jsWarning = '<noscript><span class="error"><strong>'.$this->objLanguage->languageText('mod_security_javascriptwarning').'</strong></span><br /></noscript>';
-        
-        $loginButton= $jsWarning.'<input name="Submit" type="submit" class="button" 
+
+        $loginButton= $jsWarning.'<input name="Submit" type="submit" class="button"
           onclick="KEWL_validateForm(\'username\',\'\',\'R\',\'password\',\'\',\'R\');'
           .'return document.KEWL_returnValue" value="'
           .$this->objLanguage->languageText("word_login").'"/>';
@@ -81,10 +81,10 @@ class splashscreen extends object
         $ts=fopen($splashFile,"r") or die($this->objLanguage->languageText("error_splashscrmissing")
             .": ".$splashFile.".");
         $ts_content=fread($ts, filesize($splashFile));
-        
+
         $this->objSkin->validateSkinSession();
         $skin = '<input type="hidden" name="skinlocation" value="'.$this->objSkin->getSkin().'" />';
-        
+
         $ts_content=str_replace("[-STARTFORM-]", $startForm, $ts_content);
         $ts_content=str_replace("[-SKIN-]", $skin, $ts_content);
         $ts_content=str_replace("[-USERNAMEBOX-]", $userNameBox, $ts_content);
@@ -98,30 +98,30 @@ class splashscreen extends object
         }
         $ts_content=str_replace("[-LOGINBUTTON-]", $loginButton, $ts_content);
         $ts_content=str_replace("[-LOGIN-]", $login, $ts_content);
-        
+
         $ts_content=str_replace("[-ENDFORM-]", $skin."</form>", $ts_content);
-        
+
         // Course Chooser
-        $ts_content=str_replace("[-CONTEXTCHOOSER-]", $this->getContextDropDown(), $ts_content); 
-        
+        $ts_content=str_replace("[-CONTEXTCHOOSER-]", $this->getContextDropDown(), $ts_content);
+
         //Resource Kit Link
         $ts_content=str_replace('[-RESOURCEKIT-]', $this->uri(array(),'resourcekit'), $ts_content);
-      
+
         //Put the skin chooser if requested
         $skinChooser=$this->objSkin->putSkinChooser();
         $ts_content=str_replace("[-SKINCHOOSER-]", $skinChooser, $ts_content);
         $languageChooser=$this->objLanguage->putlanguageChooser();
-	$ts_content=str_replace("[-LANGUAGECHOOSER-]",$languageChooser, $ts_content);	 
+	$ts_content=str_replace("[-LANGUAGECHOOSER-]",$languageChooser, $ts_content);
         // Put registration link only if allowselfregister is true
         if ($this->objConfig->allowSelfRegister()) {
             $ts_content=str_replace("[-REGISTER-]", $registerLink, $ts_content);
         } else {
             $ts_content=str_replace("[-REGISTER-]", NULL, $ts_content);
         }
-        
+
         // Put the link to reset the user's password
         $ts_content=str_replace("[-NEWPASSWORD-]", $resetLink, $ts_content);
-        
+
         //Create an instance of the module object
 	    $this->objModule=& $this->getObject('modulesadmin','modulelist');
         if($this->objModule->checkIfRegistered('stories','stories')){
@@ -132,60 +132,60 @@ class splashscreen extends object
             $ts_content=str_replace('[-PRELOGINSTORIES-]', ' ', $ts_content);
             $ts_content=str_replace('[-PRELOGINSTORIESFOOTER-]', ' ', $ts_content);
         }
-       
+
         return $ts_content;
     }
-	
+
 	/**
 	*  Method to get the dropdown that contains all the public courses
 	* @author Wesley Nitsckie
 	*/
 	function getContextDropDown(){
 		$objModule = & $this->newObject('modulesadmin','modulelist');
-		$objDBContext = & $this->newObject('dbcontext','context');		
+		$objDBContext = & $this->newObject('dbcontext','context');
 		$dropdown = & $this->newObject('dropdown','htmlelements');
 		$str = '';
-		
+
 		$frmContext=& $this->newObject('form','htmlelements');
 		$frmContext->name='joincontext';
 		$frmContext->setAction($this->uri(array('action'=>'joincontext'),'context'));
 		$frmContext->setDisplayType(3);
-	
+
 		$objLeaveButton=&$this->getObject('geticon','htmlelements');
 		$objLeaveButton->setIcon('close');
 		$objLeaveButton->alt=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
 		$objLeaveButton->title=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
-		
+
 		$objLeaveLink=&$this->getObject('link','htmlelements');
 		$objLeaveLink->href=$this->uri(array('action'=>'leavecontext'));
 		$objLeaveLink->link=$objLeaveButton->show();
-		
+
 		if ($objModule->checkIfRegistered('', 'context')){
 		// Get Context Code & Title
 			$contextObject =& $this->getObject('dbcontext', 'context');
 			$contextCode = $contextObject->getContextCode();
-			
+
 			$this->loadClass('link', 'htmlelements');
 			$contextLink = new link($this->uri(null, 'context'));
 			$contextLink->link = $contextObject->getTitle();
-			
+
 			// Set Context Code to 'root' if not in context
 			if ($contextCode == ''){
 				$contextTitle = $this->objLanguage->languageText('mod_context_lobby');
 			} else {
 				$contextTitle = $contextLink->show().' '.$objLeaveLink->show();
 			}
-			
-	
-		$contextTitle =  str_replace('{context}', '<strong>'.$contextTitle.'</strong>', $this->objLanguage->languageText('mod_postlogin_currentlyincontext')); 
-		
+
+
+		$contextTitle =  str_replace('{context}', '<strong>'.$contextTitle.'</strong>', $this->objLanguage->languageText('mod_postlogin_currentlyincontext'));
+
 		$str .= '<p>'.$contextTitle . '</p>';
 		}
-	
+
 		$dropdown->name='contextCode';
 		$dropdown->cssClass='coursechooser';
 		$dropdown->addFromDB($objDBContext->getAll(),'menutext','contextCode',$objDBContext->getContextCode());
-		
+
 		$button=new button();
 		$button->setToSubmit();
 		$button->setValue($this->objLanguage->languageText('word_go')); //mod_context_entercourse
@@ -193,14 +193,14 @@ class splashscreen extends object
         $frmContext->addToForm($this->objLanguage->languageText('phrase_selectcourse').':<br/>');
 		$frmContext->addToForm($dropdown->show());
 		$frmContext->addToForm($button->show());
-		
+
         if (count($objDBContext->getAll()) == 0) {
             return NULL;
         } else {
             return $frmContext->show();
         }
 	}
-    
+
 
 }  #end of class
 ?>

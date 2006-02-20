@@ -5,7 +5,7 @@
 */
 class ldaplogin extends object
 {
-   
+
     //var $ldapserver="services-ds.uwc.ac.za"; // hard-coded for now - will be changed later
     var $ldapserver="192.102.9.68"; // hard-coded for now - will be changed later
     var $usernumber='generationalqualifier';
@@ -17,8 +17,8 @@ class ldaplogin extends object
             $this->ldapserver=$dbconfig->ldapServer();
         }
     }
-    
-    /** 
+
+    /**
     * method to contact the ldap server and see if a given username is valid there
     * @author James Scoble
     * @param string $username
@@ -74,7 +74,7 @@ class ldaplogin extends object
         // If the login succeeded we can get the info.
         $data=$this->getInfo($ldapconn, $username,$where);
         ldap_close($ldapconn);
-        
+
         return $data; // send an array of the results
     }
 
@@ -110,7 +110,7 @@ class ldaplogin extends object
 
         return $results; // send an array of the results
     }
-    
+
     /**
     * method to check if a user is an Academic
     * @author James Scoble

@@ -19,14 +19,14 @@ class security extends controller
 {
     var $objUser;
     var $objLanguage;
-    
+
     function init()
     {
         $this->objUser =& $this->getObject('user');
         $this->objLanguage =& $this->getObject('language','language');
         //Get an instance of the skin
-        $this->objSkin = &$this->getObject('skin', 'skin'); 
-        $this->objConfig = &$this->getObject('config', 'config'); 
+        $this->objSkin = &$this->getObject('skin', 'skin');
+        $this->objConfig = &$this->getObject('config', 'config');
         $this->setLayoutTemplate(NULL);
     }
 
@@ -34,7 +34,7 @@ class security extends controller
     {
         return $action != 'showlogin' && $action != 'login' && $action != 'error';
     }
-    
+
     function dispatch($action)
     {
         switch ($action) {
@@ -48,7 +48,7 @@ class security extends controller
         case 'showlogin':
             return $this->showPreLoginModule();
         }
-            
+
     }
 
     /**
@@ -61,7 +61,7 @@ class security extends controller
         $password = $this->getParam('password', '');
 
         if ($this->objUser->authenticateUser($username, $password)) {
-            
+
             // we hold off creating a new session until successful
             // (only is we didn't already have a session on the go,
             //  as if so it will already have been started in index.php)
@@ -69,15 +69,15 @@ class security extends controller
                 $this->objEngine->sessionStart();
             }
             else {
-                // php version must be >=4.3.3 for this to work 
-                //session_regenerate_id();
+                // php version must be >=4.3.3 for this to work
+                session_regenerate_id();
             }
             $this->objUser->storeInSession();
-            
+
             //Validate the current skin Session or set it if not present
             //Skin is also passed as a hidden input
             $this->objSkin->validateSkinSession();
-            
+
             // Redirect to logged in page so that user can refresh it
             // without being hassled by browser about resubmitting
             // form details
@@ -89,7 +89,7 @@ class security extends controller
             return $this->nextAction('error', array('message'=>'inactive'));
         } else {
             // unsuccessful authentication of user
-            
+
             // Further checks to support the user
             // Check if the username exists
             if ($this->objUser->valueExists('username', $username)) {
@@ -100,7 +100,7 @@ class security extends controller
             // Check for LDAP error
             if ($this->getSession('ldaperror')=='FAIL'){
                 $this->setSession('ldaperror','');
-                $message = 'no_ldap'; // send a message that the LDAP server cannot be contacted. 
+                $message = 'no_ldap'; // send a message that the LDAP server cannot be contacted.
             }
             return $this->nextAction('error', array('message'=>$message));
         }
@@ -110,12 +110,12 @@ class security extends controller
      * Logoff method, handle logoff logic.
      * @return string Name of template to display
      */
-    function doLogoff()   
+    function doLogoff()
     {
         $this->objUser->logout();
         return $this->showPreLoginModule();
     }
-    
+
     /**
     * Method to show the Pre Login Module
     */
@@ -123,10 +123,10 @@ class security extends controller
     {
         // Validate the skin, checks if it exists or changed
         $this->objSkin->validateSkinSession();
-        
+
         return $this->nextAction(NULL, NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE'));
     }
-    
+
     function errorMessages()
     {
         $this->setVar('pageSuppressToolbar', TRUE);
@@ -136,5 +136,5 @@ class security extends controller
 
 
 }
-        
+
 ?>

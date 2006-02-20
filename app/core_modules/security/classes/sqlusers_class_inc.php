@@ -5,14 +5,14 @@
 */
 class sqlUsers extends dbtable
 {
- 
+
     var $objUser;
     var $objLanguage;
     var $objConfig;
-    
+
     function init()
     {
-	parent::init('tbl_users');
+	    parent::init('tbl_users');
         $this->objConfig=&$this->getObject('config','config');
         $this->objUser=&$this->getObject('user','security');
         $this->objLanguage=&$this->getObject('language','language');
@@ -39,11 +39,11 @@ class sqlUsers extends dbtable
         $sdata['emailAddress']=$info['emailAddress'];
         $sdata['sex']=$info['sex'];
         $sdata['country']=$info['country'];
-        
+
         $id=$this->insert($sdata);
         // No longer creating user folders at this stage - might be used later
         //$this->makeUserFolder($info['userId']);
-        
+
         //$tblusergroups=$this->newObject('usergroups','security');
         //$tblusergroups->newEntry($info['userId'],$info['accessLevel']);
         return $id;
@@ -109,8 +109,8 @@ class sqlUsers extends dbtable
         return $id;
     }
 
-    
-    
+
+
     /**
     * method to lookup list of users for admin functions
     * @author James Scoble
@@ -174,7 +174,7 @@ class sqlUsers extends dbtable
     * @param string $username
     */
     function checkDbase($userId,$username)
-    {      
+    {
         $sql="select COUNT(*) as count from tbl_users where username='".$username."'";
         $count=$this->getArray($sql);
         if ($count[0]['count']>0) { return "username_taken";}
@@ -218,7 +218,7 @@ class sqlUsers extends dbtable
     * address match before making any changes.
     * @param string $username
     * @param string $email
-    * @returns string $status messagecode 
+    * @returns string $status messagecode
     */
     function resetPassword($username,$email)
     {
@@ -226,32 +226,32 @@ class sqlUsers extends dbtable
         $email=trim($email);
         $sql="select userId, username, firstname, surname, password from tbl_users where username='$username' and emailAddress='$email'";
         $result=$this->getArray($sql);
-        if (isset($result[0])){ 
-            // Get the user's info 
-            $userId=$result[0]['userId']; 
-            $password=$result[0]['password']; 
-            $firstname=$result[0]['firstname']; 
-            $surname=$result[0]['surname']; 
-            if ($password!=(sha1('--LDAP--'))){ 
-                $objPassword=&$this->getObject('passwords','useradmin'); 
-                $newpassword=$objPassword->createPassword(); 
-                $cryptpassword=sha1($newpassword); 
-                $this->update('userId',$userId,array('password'=>$cryptpassword)); 
+        if (isset($result[0])){
+            // Get the user's info
+            $userId=$result[0]['userId'];
+            $password=$result[0]['password'];
+            $firstname=$result[0]['firstname'];
+            $surname=$result[0]['surname'];
+            if ($password!=(sha1('--LDAP--'))){
+                $objPassword=&$this->getObject('passwords','useradmin');
+                $newpassword=$objPassword->createPassword();
+                $cryptpassword=sha1($newpassword);
+                $this->update('userId',$userId,array('password'=>$cryptpassword));
                 $this->emailPassword($userId,$username,$firstname,$surname,$email,$newpassword);
-                return "mod_useradmin_passwordreset"; 
-            } else { 
-                // LDAP USER 
-                return "mod_useradmin_ldapnochange"; 
-            } 
-        } else { 
-            // error that no such username/email exists 
-            return "mod_useradmin_nomatch"; 
-        } 
+                return "mod_useradmin_passwordreset";
+            } else {
+                // LDAP USER
+                return "mod_useradmin_ldapnochange";
+            }
+        } else {
+            // error that no such username/email exists
+            return "mod_useradmin_nomatch";
+        }
         return TRUE;
     }
-  
+
     /**
-    * Method to compose and send email for resetting of password 
+    * Method to compose and send email for resetting of password
     * @param string $firstname - data to send
     * @param string $surname - data to send
     * @param string $userId - data to send
@@ -263,7 +263,7 @@ class sqlUsers extends dbtable
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
-        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLanguage->languageText('mod_useradmin_greet1')))."\n" 
+        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLanguage->languageText('mod_useradmin_greet1')))."\n"
         .$this->objLanguage->languageText('mod_useradmin_greet4')."\n"
         .$this->objLanguage->languageText('word_userid').": $userId\n"
         .$this->objLanguage->languageText('phrase_firstname').": $firstname\n"
@@ -275,13 +275,13 @@ class sqlUsers extends dbtable
         .$info['link']." (".$info['url'].")\n"
         .$this->objLanguage->languageText('word_sincerely')."\n"
         .$this->objLanguage->languageText('mod_useradmin_greet5')."\n";
-        $subject=$this->objLanguage->languageText('mod_useradmin_greet6'); 
+        $subject=$this->objLanguage->languageText('mod_useradmin_greet6');
         $emailtext=str_replace('KEWL NextGen',$info['sitename'],$emailtext);
         $subject=str_replace('KEWL NextGen',$info['sitename'],$subject);
         $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
-    
+
     /**
     * Method to determine site URL for email and other purposes
     * @returns array $kngdata an array of the info on the site
@@ -302,7 +302,7 @@ class sqlUsers extends dbtable
             'server'=>$WWWname
             );
     }
-    
+
     /**
     * method to tell if a user is an LDAP user
     * @author James Scoble
@@ -321,8 +321,8 @@ class sqlUsers extends dbtable
             return FALSE;
         }
     }
-    
-    /** 
+
+    /**
     * method to create user folder
     * @author James Scoble, Paul Scott
     * @param string $userId
@@ -361,7 +361,7 @@ class sqlUsers extends dbtable
             return FALSE;
         }
     }
-    
+
 
 } // end of class sqlUsers
 

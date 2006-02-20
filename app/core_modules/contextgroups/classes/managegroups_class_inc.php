@@ -29,7 +29,7 @@ class manageGroups extends object
     * @var permissions Reference to permissions module.
     */
     var $_objPermissions = NULL;
-    
+
     /**
     * @var user Reference to user class in security module.
     */
@@ -56,9 +56,9 @@ class manageGroups extends object
         $this->_objUser = &$this->getObject('user','security');
 
         $this->currentUser = $this->_objUser->PKId();
-        $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Lecturers' ) );
-        $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Students' ) );
-        $this->guestGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Guest' ) );
+        $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Lecturers' ) );
+        $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Students' ) );
+        $this->guestGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Guest' ) );
 
         $this->_arrAcls= array();
         $this->_arrAcls['isAuthor']['id'] = NULL;
@@ -88,11 +88,11 @@ class manageGroups extends object
     * @param string The context code of a new context.
     * @param string The Title of a new context.
     */
-    function createAcls( $contextCode, $title )
+    function createAcls( $contextcode, $title )
     {
         foreach( $this->_arrAcls as $aclName=>$row ) {
             $newAclId = $this->_objPermissions->newAcl(
-                $contextCode.'_'.$aclName,
+                $contextcode.'_'.$aclName,
                 'Access control list for '.$title );
             $this->_arrAcls[$aclName]['id'] = $newAclId;
         }
@@ -105,26 +105,26 @@ class manageGroups extends object
     * @param string The context code of a new context.
     * @param string The Title of a new context.
     */
-    function createGroups( $contextCode, $title )
+    function createGroups( $contextcode, $title )
     {
         // Context node
-        $contextGroupId = $this->_objGroupAdmin->addGroup($contextCode,$title,NULL);
+        $contextGroupId = $this->_objGroupAdmin->addGroup($contextcode,$title,NULL);
         // For each subgroup
         foreach( $this->_arrSubGroups as $groupName=>$groupId ) {
             $newGroupId = $this->_objGroupAdmin->addGroup(
                 $groupName,
-                $contextCode.' '.$groupName,
+                $contextcode.' '.$groupName,
                 $contextGroupId);
             $this->_arrSubGroups[$groupName]['id'] = $newGroupId;
         } // End foreach subgroup
 
         // Add groupMembers
         $this->addGroupMembers();
-        
+
         // Now create the ACLS
-        $this->createAcls( $contextCode, $title );
+        $this->createAcls( $contextcode, $title );
     } // End createGroups
-    
+
     /**
     * Method to import group members into context group.
     * <PRE>
@@ -136,14 +136,14 @@ class manageGroups extends object
     * @param array the list of users with pkids.
     * @return nothing.
     */
-    function importGroupMembers( $contextCode, $members )
+    function importGroupMembers( $contextcode, $members )
     {
         // For each subgroup
         foreach( $members as $groupName=>$users ) {
             // Context node or Site node
-            $fullPath = $contextCode ?
+            $fullPath = $contextcode ?
                 // IF context code give insert into context
-                array( $contextCode, $groupName ) :
+                array( $contextcode, $groupName ) :
                 // IF context code is NULL insert into site groups
                 array( $groupName );
             $contextGroupId = $this->_objGroupAdmin->getLeafId( $fullPath );
@@ -157,12 +157,12 @@ class manageGroups extends object
                     }
                 } // End foreach user
             } else { // End check valid groupId
-                $this->objEngine->setErrorMessage( 'Could not find requested group $groupName in context $contextCode!' );
+                $this->objEngine->setErrorMessage( 'Could not find requested group $groupName in context $contextcode!' );
                 break;
             }
         } // End foreach subgroup
     }
-    
+
     /**
     * Method to add members to the groups for a new context
     */
@@ -191,54 +191,54 @@ class manageGroups extends object
     /**
     * Method to delete the groups when the context is being deleted.
     */
-    function deleteGroups( $contextCode )
+    function deleteGroups( $contextcode )
     {
         // Delete groups
-        $groupId=$this->_objGroupAdmin->getLeafId( array($contextCode) );
+        $groupId=$this->_objGroupAdmin->getLeafId( array($contextcode) );
         $groupId=$this->_objGroupAdmin->deleteGroup($groupId);
         // Delete the acls for the context
-        $this->deleteAcls( $contextCode );
+        $this->deleteAcls( $contextcode );
     }
 
     /**
     * Method to delete the acls for this context.
     */
-    function deleteAcls( $contextCode )
+    function deleteAcls( $contextcode )
     {
         foreach( $this->_arrAcls as $aclName => $row ) {
-            $aclId = $this->_objPermissions->getId( $contextCode.'_'.$aclName, 'name' );
+            $aclId = $this->_objPermissions->getId( $contextcode.'_'.$aclName, 'name' );
             $this->_objPermissions->deleteAcl( $aclId );
         }
     }
-    
+
     /**
     * Method to return all the contexts the user is a member of.
     * @param string UserId
     * @return array List of all context codes the user is a member of.
     */
-    function userContextCodes($userId=NULL)
+    function usercontextcodes($userId=NULL)
     {
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
-        // Get all contextCodes
+        // Get all contextcodes
         $objContext = &$this->getObject('dbcontext','context');
-        $arrContextCodeRows = $objContext->getAll('ORDER BY contextCode');
-        $arrContextCodes = array();
+        $arrcontextcodeRows = $objContext->getAll('ORDER BY contextcode');
+        $arrcontextcodes = array();
         // Now check for membership
-        foreach( $arrContextCodeRows as $row ) {
+        foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
-            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextCode']));
+            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode']));
             // Check membership
             $isMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
             // if member add to list
             if( $isMember ) {
-                $arrContextCodes[] = $row['contextCode'];
+                $arrcontextcodes[] = $row['contextcode'];
             }
         }
         // Users context list
-        return $arrContextCodes;
+        return $arrcontextcodes;
     }
-    
+
     /**
     * Method to return all the contexts the user is a member of.
     * @param string UserId
@@ -251,28 +251,28 @@ class manageGroups extends object
         $userId = $this->_objUser->PKId( $userId );
 
         $objContext = &$this->getObject('dbcontext','context');
-        // Get all contextCodes
+        // Get all contextcodes
         if (empty($fields))
             $fields[]="*";
         else
-            $fields[] = "contextCode";
+            $fields[] = "contextcode";
 
         $sql = "SELECT ";
         $sql.= implode( ',', $fields );
         $sql.= " FROM ".$objContext->_tableName;
         $filter = NULL;
-        $orderBy = " ORDER BY contextCode";
+        $orderBy = " ORDER BY contextcode";
 
-        $arrContextCodeRows = $objContext->getArray($sql.$filter.$orderBy);
+        $arrcontextcodeRows = $objContext->getArray($sql.$filter.$orderBy);
         if($this->_objUser->isAdmin()){
-            return $arrContextCodeRows;
+            return $arrcontextcodeRows;
         }
-        //$arrContextCodes = array();
+        //$arrcontextcodes = array();
 		$arrContext = array();
         // Now check for membership
-        foreach( $arrContextCodeRows as $row ) {
+        foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
-            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextCode']));
+            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode']));
             // Check membership
             $isMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
             // if member add to list
@@ -283,33 +283,33 @@ class manageGroups extends object
         // Users context list
         return $arrContext;
     }
-    
+
    /**
     * Method to return all the contexts the user has a role membership of.
     * @param string UserId
     * @param string The role of the user Lecturer, Student, Guest
     * @return array List of all context codes the user is a member of.
     */
-    function roleContextCodes($userId,$role)
+    function rolecontextcodes($userId,$role)
     {
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
-        // Get all contextCodes
+        // Get all contextcodes
         $objContext = &$this->getObject('dbcontext','context');
-        $arrContextCodeRows = $objContext->getAll();
+        $arrcontextcodeRows = $objContext->getAll();
         // Now check for membership
-        foreach( $arrContextCodeRows as $row ) {
+        foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
-            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextCode'],$role));
+            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode'],$role));
             // Check membership
             $isMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
             // if member add to list
             if( $isMember ) {
-                $arrContextCodes[] = $row['contextCode'];
+                $arrcontextcodes[] = $row['contextcode'];
             }
         }
         // User role in context list
-        return $arrContextCodes;
+        return $arrcontextcodes;
     }
 
     /**
@@ -319,12 +319,12 @@ class manageGroups extends object
     * @param array (Optional)Select the fields from the tbl_groupadmin_groupuser and tbl_user tables.
     * @return array List of all the users in the given role for this context.
     */
-    function contextUsers( $role=NULL, $contextCode=NULL, $fields=NULL )
+    function contextUsers( $role=NULL, $contextcode=NULL, $fields=NULL )
     {
-        // Get the current contextCode if requried
-        $contextCode = $contextCode ? $contextCode : $this->_objDBContext->getContextCode();
+        // Get the current contextcode if requried
+        $contextcode = $contextcode ? $contextcode : $this->_objDBContext->getcontextcode();
         // Define the full path to the group.
-        $fullPath = $role ? array( $contextCode, $role ) : array( $contextCode );
+        $fullPath = $role ? array( $contextcode, $role ) : array( $contextcode );
         // Get the groupId for the given context.
         $groupId = $this->_objGroupAdmin->getLeafId( $fullPath );
         // Fields to retrieve.
@@ -334,7 +334,7 @@ class manageGroups extends object
         // Array of userId and fullnames
         return $arrGroupMembers;
     }
-    
+
     /**
     * Method to return all the public contexts the user IS/NOT a membership of.
     * @param string (Optional)The userId
@@ -346,27 +346,27 @@ class manageGroups extends object
     {
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
-        // Get all contextCodes
+        // Get all contextcodes
         $objContext = &$this->getObject('dbcontext','context');
 
         if (empty($fields))
             $fields[]="*";
         else
-            $fields[] = "contextCode";
-            
+            $fields[] = "contextcode";
+
         $sql = "SELECT ";
         $sql.= implode( ',', $fields );
         $sql.= " FROM ".$objContext->_tableName;
         $filter = " WHERE isClosed<>'1'";
         $orderBy = NULL;
-        $arrContextCodeRows = $objContext->getArray($sql.$filter.$orderBy);
+        $arrcontextcodeRows = $objContext->getArray($sql.$filter.$orderBy);
 
         // Now check for membership / non Membership
         $arrMemberCodes = array();
         $arrNonMemberCodes = array();
-        foreach( $arrContextCodeRows as $row ) {
+        foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
-            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextCode']));
+            $groupId = $this->_objGroupAdmin->getLeafId(array($row['contextcode']));
             // Check membership
             $isGroupMember = $this->_objGroupAdmin->isSubGroupMember($userId,$groupId);
             // if member add to member list

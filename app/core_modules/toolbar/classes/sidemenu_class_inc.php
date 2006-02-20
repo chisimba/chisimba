@@ -67,11 +67,11 @@ class sidemenu extends object
         $this->objContext =& $this->getObject('dbcontext', 'context');
         if($this->objContext->isInContext()){
             $this->contextTitle = $this->objContext->getTitle();
-            $this->contextCode = $this->objContext->getContextCode();
+            $this->contextcode = $this->objContext->getcontextcode();
             $this->context = TRUE;
         }else{
             $this->contextTitle = $this->objLanguage->languageText('word_inlobby');
-            $this->contextCode = '';
+            $this->contextcode = '';
             $this->context = FALSE;
         }
     }
@@ -92,7 +92,7 @@ class sidemenu extends object
 
         $this->objHead->str = $this->objContext->getField('menuText');
         $menu = $this->objHead->show();
-        if(!empty($this->contextCode)){
+        if(!empty($this->contextcode)){
             $menu .= $this->joinInterestGroup();
         }
         $menu .= '<p>'.$this->getMenuList($menus).'</p>';
@@ -297,14 +297,14 @@ class sidemenu extends object
             $objLeaveLink = $objLink->show();
 
             $contextObject =& $this->getObject('dbcontext', 'context');
-            $contextCode = $contextObject->getContextCode();
+            $contextcode = $contextObject->getcontextcode();
 
             $objLink = new link($this->uri(null, 'context'));
             $objLink->link = $this->contextTitle;
             $contextLink = $objLink->show();
 
             // Set Context Code to 'root' if not in context
-            if ($this->contextCode == ''){
+            if ($this->contextcode == ''){
                 $contextTitle = $this->contextTitle;
             } else {
                 $contextTitle = $contextLink.' '.$objLeaveLink;
@@ -326,8 +326,8 @@ class sidemenu extends object
 
                 $objDrop = new dropdown('context_dropdown');
                 $objDrop->cssClass = 'coursechooser';
-                $objDrop->addFromDB($contextAdminUtils->getUserContext(),'menutext','contextCode',
-                $this->contextCode);
+                $objDrop->addFromDB($contextAdminUtils->getUserContext(),'menutext','contextcode',
+                $this->contextcode);
 
                 $objButton = new button();
                 $objButton->setToSubmit();
@@ -374,9 +374,9 @@ class sidemenu extends object
             if($filter == 'context'){
                 // Get available workgroups. Lecturers - all in context
                 if($objCondition->isContextMember('Lecturers')){
-                    $workgroups = $objDBWorkgroup->getAll($this->contextCode);
+                    $workgroups = $objDBWorkgroup->getAll($this->contextcode);
                 }else{
-                    $workgroups = $objDBWorkgroup->getAllForUser($this->contextCode, $this->objUser->userId());
+                    $workgroups = $objDBWorkgroup->getAllForUser($this->contextcode, $this->objUser->userId());
                 }
             }else{
                 $workgroups = $objDBWorkgroup->getAllForUser(NULL, $this->objUser->userId());
