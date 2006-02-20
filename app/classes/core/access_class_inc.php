@@ -5,30 +5,36 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
+
 /**
  * Baseclass for a module's access control class
  *
- * @author Jonathan Abrahams
+ * @author Paul Scott based on methods by Jonathan Abrahams
  * @package core
  */
 class access extends object
 {
     /**
      * Constructor for the access class.
+     *
+     * @param object $objEngine the engine object reference
+     * @param string $moduleName The module name
+     * @return construct for access
      */
     public function __construct(&$objEngine, $moduleName)
     {
         parent::__construct($objEngine, $moduleName);
-        //$this->getPermissions( $moduleName ); // To do: Fix redirect limit reached.
     }
 
     /**
      * Method to controll access to the module.
      * Called by engine before the dispatch method.
+     *
      * @param object The module controller.
      * @param string The action param passed to the dispatch method
+     * @return array The next action to be done
      */
-    function dispatchControl( &$module, $action )
+    public function dispatchControl( &$module, $action )
     {
         // Extract isRegistered
         extract( $this->getModuleInformation( 'decisiontable' ) );
@@ -56,34 +62,40 @@ class access extends object
 
     /**
     * Method to test if the action is valid.
+    *
     * @param string the action.
     * @param string the default to be used if action does not exist.
-    * @return true|false True if action valid, otherwise False.
+    * @return bool true|false True if action valid, otherwise False.
     */
-    function isValid( $action, $default = TRUE )
+    public function isValid( $action, $default = TRUE )
     {
         return $this->objDT->isValid($action, $default);
     }
+
     /**
      * Method to gather information about the given module.
+     *
      * @param string The module name.
+     * @return string $info
      */
-    function getModuleInformation($moduleName)
+    public function getModuleInformation($moduleName)
     {
         $objModAdmin = &$this->getObject( 'modulesadmin', 'modulelist' );
         $array = $objModAdmin->getArray('SELECT isAdmin, dependsContext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
         $info =array();
         $info['isRegistered'] = isset( $array[0] );
-        $info['isAdminMod'] = $info['isRegistered'] ? $array[0]['isAdmin'] : NULL;
-        $info['isContextMod'] = $info['isRegistered'] ? $array[0]['dependsContext'] : NULL;
+        $info['isAdminMod'] = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;
+        $info['isContextMod'] = $info['isRegistered'] ? $array[0]['dependscontext'] : NULL;
         return $info;
     }
 
     /**
      * Method to control access to the module based on the modules configuration parameters.
+     *
      * @param string The module name.
+     * @return array the next action to be completed.
      */
-    function getPermissions($moduleName)
+    public function getPermissions($moduleName)
     {
         // Extract isRegistered, isAdminMod, isContextMod
         extract( $this->getModuleInformation( $moduleName ) );
@@ -107,5 +119,4 @@ class access extends object
         }
     }
 }
-
 ?>

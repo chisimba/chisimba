@@ -8,14 +8,23 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 /**
  * Baseclass for a module's controller class
  *
- * @author Sean Legassick
+ * @author Paul Scott based on methods by Sean Legassick
  * @package core
  */
 class controller extends access
 {
+    /**
+     * Public variable to hold the derived controller name
+     *
+     * @var string
+     */
     public $controllerName;
+
     /**
      * Constructor for the controller class.
+     *
+     * @param object $objEngine by reference from Engine
+     * @param string $moduleName
      */
     public function __construct(&$objEngine, $moduleName)
     {
@@ -25,7 +34,10 @@ class controller extends access
 
     /**
      * Method to initialise the controller object.
-     *   Override in subclasses.
+     * Override in subclasses.
+     *
+     * @param void
+     * @return void
      */
     public function init()
     {
@@ -33,8 +45,9 @@ class controller extends access
 
     /**
      * Method to return current page content.
-     *   For use within layout templates.
+     * For use within layout templates.
      *
+     * @param void
      * @return string Content of rendered content script.
      */
     public function getContent()
@@ -45,6 +58,7 @@ class controller extends access
     /**
      * Method to return the content of the rendered layout template.
      *
+     * @param void
      * @return string Content of rendered layout script.
      */
     public function getLayoutContent()
@@ -56,7 +70,7 @@ class controller extends access
      * Method to be overridden if the controller doesn't require a user login for this request.
      *
      * @param string $action The action for this request
-     * @return TRUE|FALSE Does this controller require login.
+     * @return bool TRUE|FALSE Does this controller require login.
      */
     public function requiresLogin($action)
     {
@@ -67,7 +81,7 @@ class controller extends access
      * Method to be overridden if the controller doesn't require no-cache headers to be sent.
      *
      * @param string $action The action for this request.
-     * @return TRUE|FALSE Does this controller want no-cache headers to be sent
+     * @return bool TRUE|FALSE Does this controller want no-cache headers to be sent
      */
     public function sendNoCacheHeaders($action)
     {
@@ -76,7 +90,7 @@ class controller extends access
 
     /**
      * Method to return a template variable.
-     *   These are used to pass information from module to template.
+     * These are used to pass information from module to template.
      *
      * @param string $name The name of the variable.
      * @param mixed $default The value to return if the variable is unset (optional).
@@ -89,10 +103,11 @@ class controller extends access
 
     /**
      * Method to set a template variable.
-     *   These are used to pass information from module to template.
+     * These are used to pass information from module to template.
      *
      * @param string $name The name of the variable.
      * @param mixed $val The value to set the variable to.
+     * @return void
      */
     public function setVar($name, $val)
     {
@@ -101,7 +116,7 @@ class controller extends access
 
     /**
      * Method to return a template reference variable.
-     *   These are used to pass objects from module to template.
+     * These are used to pass objects from module to template.
      *
      * @param string $name The name of the reference variable.
      * @return mixed The value of the reference variable, or NULL if unset.
@@ -113,10 +128,11 @@ class controller extends access
 
     /**
      * Method to set a template reference variable.
-     *   These are used to pass objects from module to template.
+     * These are used to pass objects from module to template.
      *
      * @param string $name The name of the reference variable.
      * @param mixed $ref A reference to the object to set the reference variable to.
+     * @return void
      */
     public function setVarByRef($name, &$ref)
     {
@@ -129,6 +145,7 @@ class controller extends access
      *
      * @param string $name The name of the variable holding an array.
      * @param mixed $value The value to append to the array.
+     * @return void
      */
     public function appendArrayVar($name, $value)
     {
@@ -139,6 +156,7 @@ class controller extends access
      * Method to set the name of the layout template to use.
      *
      * @param string $templateName The name of the layout template to use.
+     * @return void
      */
     public function setLayoutTemplate($templateName)
     {
@@ -149,6 +167,7 @@ class controller extends access
      * Method to set the name of the page template to use.
      *
      * @param string $templateName The name of the page template to use.
+     * @return void
      */
     public function setPageTemplate($templateName)
     {
@@ -160,14 +179,13 @@ class controller extends access
      *
      * @param string $action Action to perform next.
      * @param array $params Parameters to pass to action.
+     * @return NULL
      */
     public function nextAction($action, $params = array(), $module=NULL)
     {
         //list($template, $_) = $this->_dispatch($action, $this->_moduleName);
 		$params['action'] = $action;
-        $uri = $this->uri($params,$module);
-        $uri = str_replace('&amp;', '&', $uri); // replace
-        header('Location: '.$uri);
+        header('Location: '.$this->uri($params,$module));
         return NULL;
     }
 
@@ -175,6 +193,7 @@ class controller extends access
      * Method to add a global system message.
      *
      * @param string $msg The message.
+     * @return Global error message to engine
      */
     public function addMessage($msg)
     {
@@ -186,7 +205,7 @@ class controller extends access
      *
      * @param string $errormsg The error message.
      * @param string $field The name of the field the error applies to (optional).
-     * @return TRUE |FALSE
+     * @return bool TRUE |FALSE
      */
     public function setErrorMessage($msg, $field = '')
     {
@@ -197,6 +216,9 @@ class controller extends access
      * Method to output javascript.
      *   It will display system error message and/or system messages
      *   as set by setErrorMessage and addMessage.
+     *
+     * @param void
+     * @return void
      */
     public function putMessages()
     {
@@ -205,8 +227,8 @@ class controller extends access
 
     /**
      * Method to call the given template.
-     *   It looks first at the given modules templates and then at the core templates (uses _findTemplate).
-     *   Output is either buffered ($buffer = TRUE) and returned as a string, or send directly to browser.
+     * It looks first at the given modules templates and then at the core templates (uses _findTemplate).
+     * Output is either buffered ($buffer = TRUE) and returned as a string, or send directly to browser.
      *
      * @param string $tpl Name of template to call, including file extension but excluding path.
      * @param string $moduleName The name of the module to search for the template (if empty, search core).
@@ -221,8 +243,6 @@ class controller extends access
         $this->setVarByRef('objSkin', $this->getObject('skin', 'skin'));
         $this->setVarByRef('objUser', $this->getObject('user', 'security'));
         $this->setVarByRef('objLanguage', $this->getObject('language', 'language'));
-        // deprecated objects
-        // $this->setVarByRef('objEngine', $this);
         $path = $this->objEngine->_findTemplate($tpl, $this->moduleName, $type);
         // extract the template vars
         // TODO: think some more about the extract flags to use
@@ -242,5 +262,4 @@ class controller extends access
         }
     }
 }
-
 ?>
