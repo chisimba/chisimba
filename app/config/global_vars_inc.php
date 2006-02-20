@@ -5,20 +5,20 @@
 
 //------ BEGIN CONFIGURABLE CONSTANTS ------------
 // Use this to name your site
-define( 'KEWL_SITENAME', 'paul' );
+define( 'KEWL_SITENAME', 'php5_sandbox' );
 // Institutions short name (e.g UWC, MIT, MUN)
-define( 'KEWL_INSTITUTION_SHORTNAME', 'pas' );
+define( 'KEWL_INSTITUTION_SHORTNAME', 'php5' );
 // Institutions normal name
-define( 'KEWL_INSTITUTION_NAME', 'pas' );
+define( 'KEWL_INSTITUTION_NAME', 'php5' );
 // Proxy setting
-define( 'KEWL_PROXY', 'http://pscott:scott@cache.uwc.ac.za:8080' );
+define( 'KEWL_PROXY', '' );
 // Provide the email address for the website
 define( 'KEWL_SITEEMAIL', 'pscott@uwc.ac.za' );
 // The timeout for a session in minutes
 define( 'KEWL_SYSTEMTIMEOUT', '60' );
 
 // The URL for the site root (KEWL.NextGen can be inside another site)
-define( 'KEWL_SITE_ROOT', '/nextgen/' );
+define( 'KEWL_SITE_ROOT', '/php4nextgen/' );
 
 //The default ICON folder
 define( 'KEWL_DEFAULTICONFOLDER', '/icons/' );
@@ -44,13 +44,13 @@ define( 'KEWL_LOGIN_TEMPLATE', 'login_tpl.php' );
 // Name of logged in page template
  define( 'KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php' );
 // The file system path for the above URL
-define( 'KEWL_SITEROOT_PATH', '/var/www/nextgen/' );
+define( 'KEWL_SITEROOT_PATH', '/var/www/php4nextgen/' );
 // The path to template files
-define( 'KEWL_TEMPLATE_PATH', '/var/www/nextgen/templates/' );
-define( 'KEWL_CONTENT_BASEPATH', '/var/www/nextgen/usrfiles/' );
+define( 'KEWL_TEMPLATE_PATH', '/var/www/php4nextgen/templates/' );
+define( 'KEWL_CONTENT_BASEPATH', '/var/www/php4nextgen/usrfiles/' );
 define( 'KEWL_CONTENT_PATH', 'usrfiles/' );
 define( 'KEWL_CONTENT_ROOT', 'usrfiles' );
-define( 'KEWL_BLOGS_BASEPATH', '/var/www/nextgen/blog/' );
+define( 'KEWL_BLOGS_BASEPATH', '/var/www/php4nextgen/blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
  // ----------- Site options -------------- 
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );
