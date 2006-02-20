@@ -15,10 +15,12 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * configuration method later in the project, for example from
 * php config files to XML
 */
+
 require_once "config/config_db_inc.php";
+
 class dbConfig {
 
-  	//publics for the database
+	//publics for the database
 	public $_dbDriver=NULL;
 	public $_dbServer=NULL;
 	public $_dbUser=NULL;
@@ -43,14 +45,6 @@ class dbConfig {
 	public $_ldapPassword=NULL;
 	public $_ldapDatabase=NULL;
 	public $_ldapConString=NULL;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
-
-	}
 
 	/*----------- SET OF PRPOERTIES FOR MAIN DATABASE -------- */
 
@@ -206,7 +200,34 @@ class dbConfig {
 	}
 
 
+    /**---------------- MIRRORING PROPERTIES -----------**/
 
-}
+    /**
+     * Return's server name (used for dynamic mirroring)
+     */
+    public function serverName()
+    {
+        if (defined('KEWL_SERVERNAME')){
+            return KEWL_SERVERNAME;
+        } else {
+            return 'default';
+        }
+    }
+
+    /**
+     * Returns mirror webservice WSDL URL (in production will usually be a service
+     * on a non-standard port on the localhost)
+     * @return string WSDL URL
+     */
+    public function mirrorWsdlUrl()
+    {
+        if (defined('KEWL_MIRROR_WSDL_URL')) {
+            return KEWL_MIRROR_WSDL_URL;
+        } else {
+            return NULL;
+        }
+    }
+
+} # end of kngDbConfig class
 
 ?>

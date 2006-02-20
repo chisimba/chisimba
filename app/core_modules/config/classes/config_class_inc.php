@@ -5,7 +5,7 @@
 * the functionality of the config object, but requires configuration
 * changes in code.
 *
-* @author Derek Keats
+* @author Paul Scott based on methods by Derek Keats
 */
 require_once "config/global_vars_inc.php";
 
@@ -257,7 +257,7 @@ class config extends dbTable
     * @public string $name The name of the parameter being looked up
     * @public string $module The module code of the module owning the config item
     */
-    protected function _checkForDuplicate($name, $module = "_site_")
+    private function _checkForDuplicate($name, $module = "_site_")
     {
         $where = " WHERE pmodule='$module' AND pname='$name' ";
         if ($this->getRecordCount($where) >= 1) {
@@ -266,13 +266,14 @@ class config extends dbTable
             return false;
         } #if
     } #function _checkForDuplicate
+
     /**
     * Method to get the id field for a module/name combination
     *
     * @public string $name The name of the parameter being looked up
     * @public string $module The module code of the module owning the config item
     */
-    protected function _lookUpId($name, $module = "_site_")
+    private function _lookUpId($name, $module = "_site_")
     {
         $where = " WHERE pmodule='$module' AND pname='$name' ";
         $ar = $this->getAll($where);
