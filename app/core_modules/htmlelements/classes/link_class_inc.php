@@ -1,0 +1,206 @@
+<?php
+/**
+* HTML control class to create anchor (<A href=>) tags
+* 
+* @author Derek Keats 
+* 
+*/
+
+//Include the htmlbase class
+require_once('htmlbase_class_inc.php');
+
+class link extends htmlbase
+{
+    /**
+    * 
+    * @var string $linkType The type of link, e.g. http, mailto, etc.
+    * If not provided the default http is used.
+    */
+    var $linkType;
+
+    /**
+    * 
+    * @var string $href The url to load, without the http://
+    * use lower case "none" if you want to produce <a href="#"
+    * Optional
+    */
+    var $href;
+    
+    /**
+    * 
+    * @var string $target The target frame
+    */
+    var $target;
+
+    /**
+    * 
+    * @var string $link The text to display in the link. 
+    * If it is left out the URL is displayed.
+    */
+    var $link;
+    
+    /**
+    * 
+    * @var string $charset Specifies the character encoding of the target URL
+    */
+    var $charset;
+    
+    /**
+    * 
+    * @var string $hreflang Specifies the base language of the target URL
+    * Optional, rarely used
+    */
+    var $hreflang;
+    /**
+    * 
+    * @var string $rel Specifies the relationship between the current 
+    * document and the target URL
+    * Optional, rarely used
+    * Values:
+    *    alternate
+    *    designates
+    *    stylesheet
+    *    start
+    *    next
+    *    prev
+    *    contents
+    *    index
+    *    glossary
+    *    copyright
+    *    chapter
+    *    section
+    *    subsection
+    *    appendix
+    *    help
+    *    bookmark
+    */
+    
+    var $rel;
+    
+    /**
+    * 
+    * @var string $rev Specifies the relationship between the target 
+    * URL and the current document.
+    * Values:
+    * @see $rel
+    */
+    var $rev;
+    
+    /**
+    * 
+    * @var string $type Specifies the MIME (Multipurpose Internet Mail Extensions) 
+    * type of the target URL
+    */
+    var $type;
+    
+    /**
+    * 
+    * @var string $anchor specifies the anchor (#) on a page for the link
+    */
+    var $anchor;
+    
+    /**
+    * 
+    * @var string $title specifies the link title
+    */
+    var $title;
+    
+    /**
+    * 
+    * @var string $extra Gives the user more flexability 
+    */
+  //  var $extra;
+    
+    /**
+    * Initialization method to set default values
+    */
+    function link($href=null)
+    {
+        $this->href=$href;
+    } 
+
+    /**
+    * Show method
+    */
+    function show()
+    {
+        return $this->_buildLink();
+    } 
+
+    /*-------------- PRIVATE METHODS BELOW LINE ------------------*/
+
+    /**
+    * Method to build the link from the parameters
+    */
+    function _buildLink()
+    {
+        $ret = "<a href=\"";
+        if ($this->linkType!="none" && $this->linkType!=Null) {
+            $ret .= $this->linkType."://";
+        }
+        if ($this->href) {
+            $ret .= $this->href; 
+            if ($this->anchor) {
+                $ret.='#'.$this->anchor;
+            }
+            $ret .= "\" ";
+        } else {
+            die ("Missing URL"); //MULTILINGUALIZE
+        }
+        if ($this->name) {
+            $ret .= " name=\"" . $this->name . "\" ";
+        } 
+        if ($this->cssId) {
+            $ret .= " id=\"" . $this->cssId . "\" ";
+        } 
+        if ($this->cssClass) {
+            $ret .= " class=\"" . $this->cssClass . "\" ";
+        } 
+        if ($this->title) {
+            $ret .= " title=\"" . $this->title . "\" ";
+        } 
+        if ($this->style) {
+            $ret .= " style=\"" . $this->style . "\" ";
+        } 
+        if ($this->dir) {
+            $ret .= " dir=\"" . $this->dir . "\" ";
+        } 
+        if ($this->tabindex) {
+            $ret .= " tabindex=\"" . $this->tabindex . "\" ";
+        } 
+        if ($this->accesskey) {
+            $ret .= " accesskey=\"" . $this->accesskey . "\" ";
+        } 
+        if ($this->target) {
+            $ret .= " target=\"" . $this->target . "\" ";
+        } 
+        if ($this->name) {
+            $ret .= " name=\"" . $this->name . "\" ";
+        } 
+        if ($this->target) {
+            $ret .= " target=\"" . $this->target . "\" ";
+        } 
+        if ($this->charset) {
+            $ret .= " charset=\"" . $this->charset . "\" ";
+        } 
+        if ($this->hreflang) {
+            $ret .= " hreflang=\"" . $this->hreflang . "\" ";
+        } 
+        if ($this->rel) {
+            $ret .= " rel=\"" . $this->rel . "\" ";
+        } 
+        if ($this->rev) {
+            $ret .= " rev=\"" . $this->rev . "\" ";
+        } 
+        if ($this->type) {
+            $ret .= " type=\"" . $this->type . "\" ";
+        } 
+        if ($this->extra) {
+            $ret .= $this->extra;
+        } 
+        $ret .= ">".$this->link."</a>";
+        return $ret;
+    } 
+} 
+
+?>

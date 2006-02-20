@@ -8,12 +8,13 @@ class engineTest extends PHPUnit2_Framework_TestCase
     private $eng;
     protected $security = array();
     private $session;
+    protected $fixture;
 
     protected function setUp()
     {
-        $this->security[] = 'kewl_entry_point_run';
+        $this->fixture = $GLOBALS['kewl_entry_point_run'] = true;
         $this->eng = new engine;
-        $observer = $this->getMock('_dbconfig','config');
+
     }
 
     //test that the security is in place...
@@ -23,10 +24,10 @@ class engineTest extends PHPUnit2_Framework_TestCase
     }
 
     //test for loadclass
- //   public function testLoadClass()
-   // {
-     //   $this->assertNotNull($this->eng->loadClass($observer));
-    //}
+    public function testLoadClass()
+    {
+        $this->assertNotNull($this->eng->loadClass($observer));
+    }
 
     //test for run
     public function testRun()

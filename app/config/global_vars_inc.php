@@ -18,7 +18,7 @@ define( 'KEWL_SITEEMAIL', 'pscott@uwc.ac.za' );
 define( 'KEWL_SYSTEMTIMEOUT', '60' );
 
 // The URL for the site root (KEWL.NextGen can be inside another site)
-define( 'KEWL_SITE_ROOT', '/php4nextgen/' );
+define( 'KEWL_SITE_ROOT', '/5ive/app/' );
 
 //The default ICON folder
 define( 'KEWL_DEFAULTICONFOLDER', '/icons/' );
@@ -44,15 +44,15 @@ define( 'KEWL_LOGIN_TEMPLATE', 'login_tpl.php' );
 // Name of logged in page template
  define( 'KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php' );
 // The file system path for the above URL
-define( 'KEWL_SITEROOT_PATH', '/var/www/php4nextgen/' );
+define( 'KEWL_SITEROOT_PATH', '/var/www/5ive/app/' );
 // The path to template files
-define( 'KEWL_TEMPLATE_PATH', '/var/www/php4nextgen/templates/' );
-define( 'KEWL_CONTENT_BASEPATH', '/var/www/php4nextgen/usrfiles/' );
+define( 'KEWL_TEMPLATE_PATH', '/var/www/5ive/app/templates/' );
+define( 'KEWL_CONTENT_BASEPATH', '/var/www/5ive/app/usrfiles/' );
 define( 'KEWL_CONTENT_PATH', 'usrfiles/' );
 define( 'KEWL_CONTENT_ROOT', 'usrfiles' );
-define( 'KEWL_BLOGS_BASEPATH', '/var/www/php4nextgen/blog/' );
+define( 'KEWL_BLOGS_BASEPATH', '/var/www/5ive/app/blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
- // ----------- Site options -------------- 
+ // ----------- Site options --------------
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );
 define( 'KEWL_ENABLE_LOGGING', 'FALSE' );
 define( 'LDAP_USED', '' );

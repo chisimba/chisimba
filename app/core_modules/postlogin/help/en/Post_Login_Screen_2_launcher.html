@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+<html>
+<head>
+  <script language='javascript'>
+    function popup_window( url, id, width, height )
+    {
+       //extract the url parameters if any, and pass them to the called html
+       var tempvar=document.location.toString(); // fetch the URL string
+       var passedparams = tempvar.lastIndexOf("?");
+       if(passedparams > -1)
+          url += tempvar.substring(passedparams);
+      popup = window.open( url, id, 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=no,width=' + width + ',height=' + height + '' );
+      popup.focus();
+    }
+  </script>
+</head>
+
+<body>
+  <p align='center'>
+    <br/>
+    <a href="javascript:popup_window( 'Post_Login_Screen_2_viewlet_swf.html', 'post_login_screen_2', 886, 596 );">Postlogin and prelogin screens</a>
+  </p>
+</body>
+</html>
+

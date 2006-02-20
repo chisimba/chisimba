@@ -1,0 +1,274 @@
+<?php
+/* -------------------- help class extends controller ----------------*/
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+//End security check
+
+/**
+* Class for providing a service to other modules that want to
+* display help
+*
+* @author Derek Keats, Tohir Solomons
+*/
+class help extends controller {
+    /**
+    *
+    * @var string $help_text: The help content
+    */
+    var $help_text;
+
+    /**
+    * Intialiser for the adminGroups object
+    *
+    * @param byref $ string $engine the engine object
+    */
+    function init()
+    {
+        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->setVarByRef('objLanguage', $this->objLanguage);
+        $this->objConfig = &$this->getObject('config', 'config');
+        $this->loadClass('layer','htmlelements');
+        //Get the activity logger class
+        $this->objLog=$this->newObject('logactivity', 'logger');
+        //Log this module call
+        $this->objLog->log();
+
+        $this->objSkin =&$this->getObject('skin', 'skin');
+
+        //Create an instance of the icon obhect
+        $this->icon = $this->newObject('geticon','htmlelements');
+    }
+
+    /**
+    * *The standard dispatch method for the module. The dispatch() method must
+    * return the name of a page body template which will render the module
+    * output (for more details see Modules and templating)
+    */
+    function dispatch()
+    {
+        //$this->setPageTemplate('help_page_tpl.php');
+        $this->setVar('pageSuppressContainer', TRUE);
+        $this->setVar('suppressFooter', TRUE); # suppress default page footer
+        $this->setVar('pageSuppressIM', TRUE);
+        $this->setVar('pageSuppressToolbar', TRUE);
+        $this->setVar('pageSuppressBanner', TRUE);
+
+        $bodyParams = 'class="help-popup" onLoad="window.focus();"';
+
+        $this->setVar('bodyParams', $bodyParams);
+
+        if ($this->getParam('action') == 'view') {
+            return $this->showHelp($this->getParam('helpid'), $this->getParam('rootModule'));
+        } else {
+            // retrieve helpId from the querystring & switch accordingly
+            $helpId = $this->getParam('helpid', null);
+            $this->help_text=$this->objLanguage->code2Txt($helpId);
+            $this->setVar('richhelp', $this->checkForRichHelp($helpId));
+
+            //echo $this->checkFile();
+
+            return 'main_tpl.php';
+
+        }
+    }
+
+    /**
+    * Method to set login requirement to False
+    * Required to be false. prelogin screen
+    */
+    function requiresLogin()
+    {
+        return FALSE;
+    }
+
+    /**
+    * Method to display a help item
+    *
+    * @param string $helpItem The language text element of the help item
+    * @param string $module The module of the help item
+    */
+    function showHelp($helpItem, $module)
+    {
+
+        if ($helpItem == 'about') {
+            $helptext = 'help_'.$module.'_about';
+            $helptitle = 'help_'.$module.'_about_title';
+        } else {
+            $helptext = 'help_'.$module.'_overview_'.$helpItem;
+            $helptitle = 'help_'.$module.'_title_'.$helpItem;
+        }
+
+        $filter = ' WHERE (code LIKE "help_'.$module.'_title_%" OR code = "help_'.$module.'_about_title") AND code != "'.$helptitle.'" ORDER BY code';
+
+        $helpTitle = $this->objLanguage->code2Txt($helptitle);
+        $helpText = $this->objLanguage->code2Txt($helptext);
+
+        if (strtoupper(substr($helpTitle, 0, 12)) == '[*HELPLINK*]') {
+            $array = explode('/', $helpTitle);
+
+            $helpTitle = $this->objLanguage->code2Txt('help_'.$array[1].'_title_'.$array[2]);
+            $helpText = $this->objLanguage->code2Txt('help_'.$array[1].'_overview_'.$array[2]);
+        }
+
+        $this->setVar('helptitle', $helpTitle);
+
+        $this->setVar('helptext', $helpText);
+
+        $this->setVar('moduleHelp', $this->objLanguage->getAll($filter));
+
+        $this->setVar('module', $module);
+
+        $richHelp = $this->checkForRichHelp('help_'.$module.'_'.$helpItem, '.php');
+
+        $this->setVar('richHelp', $richHelp);
+
+        $viewletHelp = $this->checkForViewlet($module, $helpItem);
+
+        $this->setVar('viewletHelp', $viewletHelp);
+
+        return 'help_display_tpl.php';
+    }
+
+    /**
+    * Method to check whether a viewlet exists for a help
+    *
+    * @param string $module The module of the help item
+    * @param string $action The action of the help item
+    * @return string Link to viewlet | Null if file does not exist
+    */
+    function checkForViewlet($module, $action)
+    {
+        $file = 'help_'.$module.'_viewlet_'.$action;
+        $viewletFile=$this->checkForFile($file, $module, '.php');
+
+        if (isset($viewletFile)) {
+            $viewletFile .= '?skin='.$this->objSkin->getSkinUrl().'kewl_css.php';
+            $this->icon->setIcon('viewlet');
+
+            return '<a href="'.$viewletFile.'">'.$this->icon->show().'</a>';
+        } else {
+            return NULL;
+        }
+    }
+
+
+    /**
+    * Method to check for a rich help
+    *
+    * It takes a language text element, and then checks for a file {languagetextelemnt}.html
+    * file in the /modules/modulename/help/{currentlanguage}/ folder. Folder is the two letter code.
+    * If one exists, return a colour icon, else return a grayed out version.
+    *
+    * @param string $helpId The name of the help language text
+    * @return string $ex The icon to display - either colour or grayed out
+    */
+    function checkForRichHelp($helpId, $extension = '.html')
+    {
+        $rootModule = $this->getParam("rootModule", Null);
+        //See if there is rich help (/modules/thismodule/help/
+        if ($rootModule==Null) {
+            //die("No rootModule");
+            $this->icon->setIcon("help_rich_grey");
+            $ex = $this->icon->show()."&nbsp;";
+            $ex .= "<a href=\"javascript:window.self.close();\">";
+            //Set the close icon
+            $this->icon->setIcon("close");
+            $ex.=$this->icon->show()."</a>";
+            return $ex;
+        } else {
+
+            // Check for Help File
+            $helpfile=$this->checkForFile($helpId, $rootModule, $extension);
+
+            // If the extended help file exists, add a link to it
+            if (isset($helpfile)) {
+                $helpfile .= '?skin='.$this->objSkin->getSkinUrl().'kewl_css.php';
+                //Create a new instance of popup windows generator
+                $this->objPop=& $this->getObject('windowpop','htmlelements');
+                //Set the location of the popped window to the urlPath
+                $this->objPop->set('location',$helpfile);
+                //Set the name of the window
+                $this->objPop->set('window_name','helprich');
+                //Set the display icon
+                $this->icon->setIcon("extended_help");
+                //Set the icon to the help_rich icon
+                $this->objPop->set('linktext', $this->icon->show());
+                //Set the width of the popup window
+                $this->objPop->set('width','700');
+                //Set the height of teh popup window
+                $this->objPop->set('height','550');
+                //Set the number of pixels in for the window
+                $this->objPop->set('left','100');
+                //Set the number of pixels down for the window
+                $this->objPop->set('top','100');
+                //Set scrollbars to appear automatically
+                $this->objPop->set('scrollbars', 'yes');
+                //echo $this->objPop->putJs(); // you only need to do this once per page
+                //Add a close link
+                $ex="<a href=\"javascript:window.self.close();\">";
+                //Set the close icon
+                $this->icon->setIcon("close");
+                $ex.=$this->icon->show()."</a>";
+                return $this->objPop->show()."&nbsp;".$ex;
+            } else {
+                $this->icon->setIcon("help_rich_grey");
+                $ex = $this->icon->show()."&nbsp;";
+                $ex .= "<a href=\"javascript:window.self.close();\">";
+                //Set the close icon
+                $this->icon->setIcon("close");
+                $ex.=$this->icon->show()."</a>";
+                return $ex;
+            }
+        }
+    } //function
+
+    /**
+    * Method to check whether an extended help file exists
+    *
+    * This method first checks whether an extended help file exists in the current language.
+    * If it doesn't exist, check whether it exists in the English (en) subfolder.
+    * If the file exists, return the browser path to the file, else return NULL
+    *
+    * @param string $file The name of the file (minus the .html) to check for existence
+    * @param string $module The module folder to check for the file
+    * @return string |NULL The browser side path to the file
+    */
+    function checkForFile($file, $module, $extension='.html')
+    {
+        // Get Current Language
+        $language = $this->objLanguage->currentLanguage();
+
+        // Instantiate Object to convert between language and ISO Code
+        $objLanguageCode =& $this->newObject('languagecode', 'language');
+        // Get ISO for current code
+        $languageCode=$objLanguageCode->getISO($language);
+
+        // Server Side Path to file
+        $helpfilepath=str_replace("\\", "/", $this->objConfig->siteRootPath()) .'modules/'.$module.'/help/'.$languageCode.'/'. $file .$extension;
+
+        // Browser Side Path to File
+        $helpfile = $this->objConfig->siteRoot().'modules/'.$module.'/help/'.$languageCode.'/'. $file . $extension;
+
+        // Check if file exists
+        if (file_exists($helpfilepath)) {
+            // Return browser side path to file
+            return $helpfile;
+        } else {
+            // If file doesn't exist, check for english version
+            $helpfilepath=str_replace("\\", "/", $this->objConfig->siteRootPath()) .'modules/'.$module.'/help/en/'. $file .$extension;
+            $helpfile = $this->objConfig->siteRoot().'modules/'.$module.'/help/en/'. $file . $extension;
+
+            // If english version exists, return, browser side path ELSE Null
+            if (file_exists($helpfilepath)) {
+                return $helpfile;
+            } else {
+                return NULL;
+            }
+        }
+
+    }
+} // class
+
+?>
