@@ -89,7 +89,7 @@
 			<TABLE>
 			<TR>
 				<TD>
-					Email mbenn at uwc dot ac dot za
+					Email pscott at uwc dot ac dot za
 				</TD>
 			</TR>
 		</TABLE>
