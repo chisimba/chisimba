@@ -1,0 +1,4 @@
+### Job to run "mc.php" at regular intervals
+* * * * * php -q /var/www/5ive/app/cron/mc.php
+### Job to run "seq.php" at regular intervals
+* * * * * php -q /var/www/5ive/app/cron/seq.php
