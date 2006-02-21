@@ -256,7 +256,20 @@ class controller extends access
         if ($buffer) {
             $pageContent = ob_get_contents();
             ob_end_clean();
-            return $pageContent;
+
+            //call on tidy to clean up...
+            // Specify tidy configuration
+            $config = array(
+                'indent'        => true,
+                'output-xhtml'  => true,
+                'wrap'          => 200);
+
+            // Tidy
+            $tidy = new tidy;
+            $tidy->parseString($pageContent, $config, 'utf8');
+            $tidy->cleanRepair();
+
+            return $tidy;
         } else {
             return NULL; // just to be explicit
         }
