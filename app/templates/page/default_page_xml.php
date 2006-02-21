@@ -1,5 +1,6 @@
-<?php header("Content-type: text/html; charset=utf-8"); ?>
-<?
+<?php
+$charset = "utf-8";
+$mime = "text/html";
 
 if (!isset($pageLanguage)) {
     $languageClass =& $this->getObject('language', 'language');
@@ -7,10 +8,42 @@ if (!isset($pageLanguage)) {
     $pageLanguage = $languageCode->getISO($languageClass->currentLanguage());
 }
 
+function fix_code($buffer)
+{
+    return (preg_replace("!\s*/>!", ">", $buffer));
+}
+
+if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
+{
+    if(preg_match("/application\/xhtml\+xml;q=([01]|0\.\d{1,3}|1\.0)/i",$_SERVER["HTTP_ACCEPT"],$matches))
+    {
+       	$xhtml_q = $matches[1];
+        if(preg_match("/text\/html;q=q=([01]|0\.\d{1,3}|1\.0)/i",$_SERVER["HTTP_ACCEPT"],$matches))
+        {
+            $html_q = $matches[1];
+            if((float)$xhtml_q >= (float)$html_q)
+            {
+                $mime = "application/xhtml+xml";
+			}
+        }
+    } else {
+          $mime = "application/xhtml+xml";
+      }
+}
+
+if($mime == "application/xhtml+xml")
+{
+    $prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
+} else {
+	ob_start("fix_code");
+        $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
+}
+
+header("Content-Type: $mime;charset=$charset");
+header("Vary: Accept");
+print $prolog_type;
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html  xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $pageLanguage; ?>" xml:lang="<?php echo $pageLanguage; ?>">
-<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
 <head>
 <title><?php echo $objConfig->siteName(); ?></title>
 <?php
@@ -72,8 +105,7 @@ if (isSet($bodyParams)) {
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
    	<div id="top"><a onclick="location='<?php echo $objConfig->siteRoot(); ?>index.php'">
-		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg"
-                        alt="banner"></a>
+		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
 	</div>
 <?php }
 // Add toolbar bar if not suppressed
