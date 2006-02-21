@@ -214,6 +214,7 @@ class sidemenu extends object
                     $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name'));
                 }
 
+                /*
                 if($line['module'] == 'email'){
                     // Add new email count if the module is email
                     $kngmail =& $this->getObject('kngmail', 'email');
@@ -221,6 +222,7 @@ class sidemenu extends object
                     $count = count($emails);
                     $name .= ' ('.$count.' ' .$this->objLanguage->languageText('word_new').')';
                 }
+                */
                 $this->addNavigationRow($name, $line['module'], $icon, $linkArray);
             }
         }
