@@ -269,7 +269,8 @@ class controller extends access
             $tidy->parseString($pageContent, $config, 'utf8');
             $tidy->cleanRepair();
 
-            return $tidy;
+            //return $tidy;
+            return $pageContent;
         } else {
             return NULL; // just to be explicit
         }
