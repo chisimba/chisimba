@@ -169,22 +169,6 @@ class datetime extends object
      * Date manipulation methods.
      */
 
-    /**
-     * Method to evaluate if a year is a leap year or not
-     *
-     * @access public
-     * @param int $year The year to check
-     * @return True | False
-     */
-     public function isLeapYear($year)
-     {
-        if (($year % 4 == 0) && (($year % 100 != 0) || ($year % 400 == 0)))
-        {
-            return "true";
-        } else {
-            return "false";
-        }
-     } // isLeapYear
 
    /**
     * Method to calculate the day of the week when given a date,
@@ -301,7 +285,8 @@ class datetime extends object
     }
 
     /**
-     * Standard show method, in this case it returns the SQL WHERE
+     * Standard show method to returnr the sql generated from datetime manipulations
+     * in this case it returns the SQL WHERE
      * clause
      *
      * @access public
@@ -309,7 +294,7 @@ class datetime extends object
      * to dateAdded
      * @return string sql clause
      */
-    public function show($dateFieldName = "dateAdded")
+    public function sqlShow($dateFieldName = "dateAdded")
     {
         return " " . $dateFieldName . " >= '" . $this->startDate
          . "' AND " . $dateFieldName . " <= '" . $this->endDate . "'";
