@@ -69,9 +69,15 @@ class dbDecisionTableAction extends dbTable {
      {
          // Get the action for this decisionTable
          $objAction = $this->getObject( 'action' );
+
          $join = $this->join( 'INNER JOIN', $objAction->_tableName , array( 'actionId'=>'id' ) );
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
          // Get all actions for this decisionTable
+         $tables = array( $objAction->_tableName.'.id',  $objAction->_tableName.'.name' );
+         $statement = $join.$filter;
+         //echo $statement;
+
+         //print_r($this->getAll($statement,$tables));
          return $this->getAll($join.$filter, array( $objAction->_tableName.'id',  $objAction->_tableName.'name' ));
      }
 

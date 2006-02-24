@@ -101,7 +101,7 @@ class conditionType extends decisionTableBase
     {
         $retrieved = $this->getRow('name',$name);
         if( !empty( $retrieved ) ) {
-            $this->create( $name,$retrieved['className'], $retrieved['moduleName'] );
+            $this->create( $name,$retrieved['classname'], $retrieved['modulename'] );
             $this->_id = $retrieved['id'];
             return $this;
         } else {

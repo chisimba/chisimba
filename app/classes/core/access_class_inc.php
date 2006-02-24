@@ -38,7 +38,7 @@ class access extends object
     {
         // Extract isRegistered
         extract( $this->getModuleInformation( 'decisiontable' ) );
-        // Safty net if the decision table module has not been registered.
+        // Safety net if the decision table module has not been registered.
         if( !$isRegistered ) {
             return $module->dispatch( $action );
         }

@@ -248,7 +248,6 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         // Get the action object
         $objAction = $this->getObject('action');
         $objAction->connect($this);
-
         // Create the decision table if given
         if( $name ) {
             $this->create( $name );
@@ -258,7 +257,6 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
         // Fetch all action IDs for this decisionTable from db
         $arrActions = $this->_objDBDecisionTableAction->retrieve( $this );
-print_r($arrActions);
         // Create new action objects.
         foreach( $arrActions as $decisionTableAction ) {
             // Fetch the action.
