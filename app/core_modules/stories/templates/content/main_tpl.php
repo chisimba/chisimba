@@ -77,7 +77,7 @@ $objTrLink = $this->newObject('link', 'htmlelements');
 //Create the table header for display
 $this->Table->addHeader($tableHd, "heading");
 //Instantiate the classe for checking expiration
-$objExp = & $this->getObject('expiration', 'datetime');
+$objExp = & $this->getObject('datetime', 'utilities');
 //Loop through and display the records
 $rowcount = 0;
 if (isset($ar)) {
@@ -86,7 +86,7 @@ if (isset($ar)) {
             $oddOrEven = ($rowcount == 0) ? "odd" : "even";
 
             //Check for isactive and replace with icon
-            $isActive = $line['isActive'];
+            $isActive = $line['isactive'];
             if ($isActive == 1) {
                 $objGetIcon->setIcon('online');
                 $objGetIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_isactivealt');
@@ -98,7 +98,7 @@ if (isset($ar)) {
 
 
             //Check is sticky and replace with isSticky icon
-            $isSticky = $line['isSticky'];
+            $isSticky = $line['issticky'];
             if ($isSticky == 1) {
                 $objGetIcon->setIcon('sticky_yes');
                 $objGetIcon->alt = ucfirst($this->objLanguage->code2Txt('mod_'.$textModule.'_alwaysontopalt'));
@@ -109,18 +109,18 @@ if (isset($ar)) {
             $isSticky = $objGetIcon->show();
 
             //Check expiration and replace with icon and warning text
-            $expirationDate = $this->formatDate($line['expirationDate']);
+            $expirationDate = $this->formatDate($line['expirationdate']);
             if ( $objExp->hasExpired($expirationDate) ) {
                  $expirationDate = '<span class="error"><strong>' . $expirationDate
                 . '<strong></span> '. $objExp->getExpiredIcon();
             }
             //$tableRow[]=$line['id'];
             $tableRow[]=$line['category'];
-            $tableRow[]=$this->objUser->fullName($line['creatorId']);
+            $tableRow[]=$this->objUser->fullName($line['creatorid']);
             //$tableRow[]=$line['parentId'];
             $tableRow[]=$line['language'];
             $tableRow[]=$line['title'];
-            $tableRow[]=$this->formatDate($line['dateCreated']);
+            $tableRow[]=$this->formatDate($line['datecreated']);
             $tableRow[]=$expirationDate;
             $tableRow[]=$isSticky;
             $tableRow[]=$isActive;

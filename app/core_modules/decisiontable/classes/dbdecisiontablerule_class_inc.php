@@ -34,7 +34,7 @@ class dbDecisionTableRule extends dbTable {
         parent::init('tbl_decisiontable_decisiontable_rule');
         //$this->upgradeTable();
     }
-    
+
     /**
      * Method to upgrade tables
      *
@@ -50,8 +50,8 @@ class dbDecisionTableRule extends dbTable {
             $sqldata = array();
             @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
-        }    
-    }    
+        }
+    }
     /**
      * Method to add a rule to the decisionTable.
      *
@@ -69,7 +69,7 @@ class dbDecisionTableRule extends dbTable {
         if( $this->valueExists( 'ruleId', $checkDups ) ) {
             return FALSE;
         }
-        
+
         // Package it
         $arrDTaction = array();
         $arrDTaction['decisionTableId'] = $decisionTable->_id;
@@ -77,7 +77,7 @@ class dbDecisionTableRule extends dbTable {
         // Insert it
         return $this->insert( $arrDTaction );
     }
-    
+
      function checkDuplicate($rule, $decisionTable )
      {
         return is_null( $this->retrieveId( $rule,$decisionTable ) ) ? FALSE : TRUE;
@@ -90,7 +90,7 @@ class dbDecisionTableRule extends dbTable {
      */
      function retrieve( $objDecisionTable )
      {
-     
+
          // Get the action for this decisionTable
          $objRule = $this->getObject( 'rule' );
          $join = $this->join( 'INNER JOIN', $objRule->_tableName , array( 'ruleId'=>'id' ) );
@@ -118,6 +118,6 @@ class dbDecisionTableRule extends dbTable {
          } else {
             return NULL;
          }
-     }     
+     }
 }
 ?>

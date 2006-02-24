@@ -33,7 +33,7 @@ class dbDecisionTableAction extends dbTable {
     {
         parent::init('tbl_decisiontable_decisiontable_action');
     }
-    
+
     /**
      * Method to add an action to the decisionTable.
      *
@@ -51,7 +51,7 @@ class dbDecisionTableAction extends dbTable {
         if( $this->valueExists( 'actionId', $checkDups ) ) {
             return FALSE;
         }
-        
+
         // Package it
         $arrDTaction = array();
         $arrDTaction['decisionTableId'] = $decisionTable->_id;
@@ -59,7 +59,7 @@ class dbDecisionTableAction extends dbTable {
         // Insert it
         return $this->insert( $arrDTaction );
     }
-    
+
     /**
      * Method to retrieve all rules for the decisionTable.
      * @param object The decisionTable object.
@@ -74,7 +74,7 @@ class dbDecisionTableAction extends dbTable {
          // Get all actions for this decisionTable
          return $this->getAll($join.$filter, array( $objAction->_tableName.'id',  $objAction->_tableName.'name' ));
      }
-     
+
      function checkDuplicate($action, $decisionTable)
      {
         return is_null( $this->retrieveId( $action,$decisionTable ) ) ? FALSE : TRUE;
@@ -87,7 +87,7 @@ class dbDecisionTableAction extends dbTable {
      */
      function retrieveId( &$objAction, &$objDecisionTable )
      {
-    
+
          // Get the action for this decisionTable
          $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionId'=>'id' ) );
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
@@ -98,6 +98,6 @@ class dbDecisionTableAction extends dbTable {
          } else {
             return NULL;
          }
-     }     
+     }
 }
 ?>

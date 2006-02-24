@@ -37,7 +37,7 @@ class action extends decisionTableAggregate
         $this->_objParts= $this->getObject( 'dbdecisiontableaction' );
         $this->_objChild = $this->getObject('dbactionrule','decisiontable');
         $this->_objCreated = $this->getObject( 'rule','decisiontable' );
-        $this->_dbFK =  'ruleId';              
+        $this->_dbFK =  'ruleid';
         parent::init('tbl_decisiontable_action' );
     }
 
@@ -54,12 +54,12 @@ class action extends decisionTableAggregate
         $result = FALSE;
         // Test all rules.
         foreach( $this->_arrChildren as $rule ) {
-       
+
             // Action is ACCEPTED when any rule is TRUE.
             $result |= $rule->isValid();
         }
         // Return the result of the evaluation.
-        
+
         return $result;
     }
 

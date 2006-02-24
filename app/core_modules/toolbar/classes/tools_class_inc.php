@@ -335,7 +335,7 @@ class tools extends object
             }
 
         // if in a context and module is context aware
-        }else if (isset($this->contextCode) && $moduleInfo['isContextAware'] == '1' ){
+        }else if (isset($this->contextCode) && $moduleInfo['iscontextaware'] == '1' ){
             if(!empty($action)){
                 $moduleLink = $this->addLink($module, $modlink).$this->divide($action);
             }else{

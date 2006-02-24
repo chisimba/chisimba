@@ -81,7 +81,7 @@ class access extends object
     public function getModuleInformation($moduleName)
     {
         $objModAdmin = &$this->getObject( 'modulesadmin', 'modulelist' );
-        $array = $objModAdmin->getArray('SELECT isAdmin, dependsContext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
+        $array = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
         $info =array();
         $info['isRegistered'] = isset( $array[0] );
         $info['isAdminMod'] = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;

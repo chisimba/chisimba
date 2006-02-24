@@ -2,7 +2,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // end security check
 
 /**
@@ -46,7 +46,7 @@ class conditionType extends decisionTableBase
      * @var string
      */
     var $_conditionTypeModuleName = '';
-    
+
     // --- OPERATIONS ---
     function init()
     {
@@ -69,22 +69,22 @@ class conditionType extends decisionTableBase
     {
         // Disable insert / Retrieve
         $tmp = $this->enableAutoInsertRetrieveId;
-        $this->enableAutoInsertRetrieveId = FALSE;    
+        $this->enableAutoInsertRetrieveId = FALSE;
         parent::create( $name );
         $this->enableAutoInsertRetrieveId = $tmp;
-        
+
         // Store Condition Type.
         $this->_conditionTypeClassName = $className;
         $this->_conditionTypeModuleName = $moduleName;
-        
-        // Db fields and values to store 
+
+        // Db fields and values to store
         $this->_dbData['className'] = $className ;
         $this->_dbData['moduleName'] = $moduleName ;
-        
+
         // Ok ready to do insert or retrive.
         if( $this->enableAutoInsertRetrieveId ) {
             $this->autoInsertRetrieveId();
-        }        
+        }
         return $this;
     }
 
@@ -108,13 +108,13 @@ class conditionType extends decisionTableBase
             return false;
         }
     }
-   
+
     /**
      * Method to get the type information.
      * @param string The name of the function( condition Type )
      * @return array The array containing the class name and the module containing the function.
      */
-    function getType( $function ) 
+    function getType( $function )
     {
         $this->retrieve($function);
         $arrType = array();
@@ -141,6 +141,6 @@ class conditionType extends decisionTableBase
         parent::update( 'id', $this->_id, $conditionType );
         return $this;
     }
-    
+
 } /* end of class condition */
 ?>

@@ -42,7 +42,7 @@ class decisionTableBase extends dbTable
      * @var string
      */
     var $enableAutoInsertRetrieveId = TRUE;
-    
+
     /**
      * Property used to store all database data.
      *
@@ -50,7 +50,7 @@ class decisionTableBase extends dbTable
      * @var array
      */
     var $_dbData = array();
-    
+
     // --- OPERATIONS ---
 
     /**
@@ -84,7 +84,7 @@ class decisionTableBase extends dbTable
             $sqldata = array();
             @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
-        }    
+        }
     }
     /**
      * Abstract method to connect to other objects.
@@ -118,18 +118,18 @@ class decisionTableBase extends dbTable
         }
         return $this;
     }
-    
+
     /**
      * Method to insert or retrieve the object.
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return nothing Updates the id property 
+     * @return nothing Updates the id property
      */
     function autoInsertRetrieveId()
     {   // Retrieve ID by insert new object or retrieve existing object
         if( $this->insert()==NULL ) {
-            $this->retrieveId(); 
+            $this->retrieveId();
         }
     }
 
@@ -141,12 +141,12 @@ class decisionTableBase extends dbTable
         $row = $this->getRow('name',$this->_name);
         return $row['id'];
     }
-    
+
     /**
      * Method to insert the object into the database
      * @return the uniqueId|NULL
      */
-    function insert( ) 
+    function insert( )
     {
         assert( $this->_name <> '' ); // Must check, otherwise inserts nulls
         if ( !$this->checkDuplicate() ) {
@@ -156,16 +156,16 @@ class decisionTableBase extends dbTable
             return NULL;
         }
     }
-    
+
     /**
      * Method to test if the value exists
      * @return true|false
      */
-    function checkDuplicate( ) 
+    function checkDuplicate( )
     {
         return parent::valueExists( 'name', $this->_name );
     }
-    
+
     /**
      * Method to delete the object and all its children objects.
      *

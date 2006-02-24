@@ -117,7 +117,7 @@ class sitestories extends dbTable {
         //Initialize the return string
         $ret="";
         //Instantiate the classe for checking expiration
-        $objExp = & $this->getObject('expiration', 'datetime');
+        $objExp = & $this->getObject('datetime','utilities');
         //Get an instance of the language code
         $objLcode = & $this->getObject('languagecode', 'language');
         // Get Icon for stickylabel

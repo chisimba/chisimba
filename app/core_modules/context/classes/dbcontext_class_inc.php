@@ -3,15 +3,15 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // end security check
 /**
-* Class to access the Context Tables 
+* Class to access the Context Tables
 * @package context
 * @category context
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license GNU GPL
-* @version 
+* @version
 * @author Wesley  Nitsckie
 * @example :
 */
@@ -20,52 +20,52 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      /**
      *@var object $objUser : The user Object
      */
-     var $objUser;
-     
+     public $objUser;
+
 	 /**
      *@var object $objFSContext : The File System Object for the context
      */
-     var $objFSContext;
-	 
+     public $objFSContext;
+
      /**
-    *Initialize by send the table name to be accessed 
+    *Initialize by send the table name to be accessed
     */
-    function init(){
-        parent::init('tbl_context');    
+    public function init(){
+        parent::init('tbl_context');
         $this->objUser=&$this->newObject('user','security');
 		$this->objFSContext=&$this->newObject('fscontext','context');
     }
-     
+
     /**
     * Method to get the details for a given
     * context
     * @param int $contextId
     * @return array
     * @access public
-    */    
-    function getContextDetails($contextCode){        
+    */
+    public function getContextDetails($contextCode){
         return $this->getRow('contextCode',$contextCode);
     }
-    
+
     /**
     * Method that gets the root
     * node for a given context
-    * @Param int $contextId 
-    * @return string 
+    * @Param int $contextId
+    * @return string
     *@deprecated
     */
-     function getRootNode($contextCode){
-        $line=$this->getRow('contextCode',$contextCode);
-        return $line["rootNodeId"];
+     public function getRootNode($contextCode){
+        $line=$this->getRow('contextcode',$contextCode);
+        return $line["rootnodeid"];
     }
-     
+
     /**
     *Method to get the root Node Id
     *@param string $contextId : The Context Id
     * @return string
     * @access public
     */
-    function getRootNodeId($contextId=NULL){
+    public function getRootNodeId($contextId=NULL){
         if($contextId==NULL)
         {
             $contextId=$this->getSession('contextId');
@@ -74,81 +74,81 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $line=$this->getRow('tbl_context_parentnodes_has_tbl_context_tbl_context_id',$contextId);
         return $line["id"];
     }
-    
+
     /**
     * Method to get a field from the
-    * current table 
+    * current table
     * @param $fiedname string : the name of the field
     * @param $contextCode int : the context Code
     * @return string | bool : The field value or FALSE when not found
     * @access public
     */
-    function getField($fiedname,$contextCode=NULL){
+    public function getField($fiedname,$contextCode=NULL){
         //if a $contextCode is set then lookup inthe database
         //else look in the session variables
         $this->changeTable('tbl_context');
         if(!isset($contextCode)){
             $contextCode=$this->getContextCode();
             if($this->getSession('context'.$fiedname))
-                return $this->getSession('context'.$fiedname);    
+                return $this->getSession('context'.$fiedname);
             else
                 return FALSE;
         }else{
-            $line= $this->getRow('contextCode',$contextCode);
+            $line= $this->getRow('contextcode',$contextCode);
             if ($line[$fiedname]) {
                 return $line[$fiedname];
             }
             else
-                return FALSE;    
+                return FALSE;
         }
     }
-    
+
     /**
     * Method to save the context
     * @param $mode string: Either edit or add
     * @return NULL
     * @access public
     */
-    function saveContext($mode)
+    public function saveContext($mode)
     {
-       
-        $about = $this->getParam('about');  
+
+        $about = $this->getParam('about');
         $contextCode = $this->getParam('contextcode');
         $title = $this->getParam('title');
         $menuText = $this->getParam('menutext');
         $isActive = $this->getParam('isactive');
         $isClosed = $this->getParam('isclosed');
-        
+
         $objMMedia =& $this->getObject('parse4mmedia','filters');
         $about = $objMMedia->parseAll($about);
         $about = addslashes($about);
-        
+
         if ($mode=="edit")
-        {            
-            $rsArray=array(                
+        {
+            $rsArray=array(
                 'title' => $title,
                 'menuText' => $menuText,
                 'isClosed' => $isClosed,
                 'about' => $about,
                 'isActive' => $isActive);
-            return $this->update("contextCode", $contextCode, $rsArray);        
+            return $this->update("contextCode", $contextCode, $rsArray);
         }else
-            die('Unkown mode');        
-    
+            die('Unkown mode');
+
     }
-    
+
     /**
     * Method to create a context
     * @param $rootNodeId int : The root node ID
     * @return $contextCode : The contextCode
     * @access public
     */
-    function createContext()
+    public function createContext()
     {
-        $this->changeTable('tbl_context');		
-		$objDBParentNodes = & $this->getObject('dbparentnodes', 'context');      
-        $objDBParentBridge = & $this->getObject('dbcontextparentnodes', 'context');             
-		
+        $this->changeTable('tbl_context');
+		$objDBParentNodes = & $this->getObject('dbparentnodes', 'context');
+        $objDBParentBridge = & $this->getObject('dbcontextparentnodes', 'context');
+
         $contextCode = $this->getParam('contextCode');
         if ($this->objFSContext->createContextFolder($contextCode))
 		{
@@ -156,25 +156,25 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 			$menuText = $this->getParam('menutext');
 			$isActive = $this->getParam('isactive');
 			$about = $this->getParam('about');
-			
+
 			if ($isActive='on')
 				$isActive=1;
 			else
 				$isActive=0;
-			
+
 			//add a context
 			$contextId=$this->insert(array(
-					'contextCode'=> $contextCode,                
+					'contextCode'=> $contextCode,
 					'title' => $title,
 					'dateCreated' => date("Y-m-d H:i:s"),
 					'about' => $about,
 					'menutext' => $menuText,
 					'isActive' => $isActive));
-		   
-			// add parent nodes           
+
+			// add parent nodes
 			$objDBParentBridge->createEntry($contextId, $contextCode);
 			$objDBParentNodes->createEntry($contextId, $contextCode, $title);
-             
+
 			$this->resetTable();
 			//create groups
 			$contextGroups=&$this->getObject('manageGroups','contextgroups');
@@ -187,22 +187,22 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 			return FALSE;
 		}
     }
-    
+
     /**
-    * Method that allows users 
+    * Method that allows users
     * to enter a context
     * @return bool
     * @access public
     */
-    function joinContext(){
+    public function joinContext(){
         $this->changeTable('tbl_context');
         $contextCode=$this->getParam('contextCode');
-        
+
         if(!isset($contextCode))
         {
         	 $contextCode=$this->getParam('context_dropdown');
         }
-        
+
         if(isset($contextCode))
         {
             $this->leaveContext();
@@ -211,9 +211,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             $this->setSession('contextCode',$contextCode);
             $this->setSession('contextTitle',$line['title']);
             $this->setSession('contextmenuText',$line['menutext']);
-            $this->setSession('contextisActive',$line['isActive']);
-            $this->setSession('contextisClosed',$line['isClosed']);
-            $this->setSession('contextdateCreated',$line['dateCreated']);
+            $this->setSession('contextisActive',$line['isactive']);
+            $this->setSession('contextisClosed',$line['isclosed']);
+            $this->setSession('contextdateCreated',$line['datecreated']);
             $this->setSession('contextcreatorId',$line['userid']);
             $this->setSession('contextabout',$line['about']);
 
@@ -221,16 +221,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
         else
             return FALSE;
-    } 
-    
+    }
+
     /**
     * Method that allows one
-    * to leave a context that you 
+    * to leave a context that you
     * are currently in
     * @return array
     * @access public
     */
-    function leaveContext(){
+    public function leaveContext(){
         $this->setSession('contextCode',NULL);
         $this->setSession('contextTitle',NULL);
         $this->setSession('contextmenuText',NULL);
@@ -244,99 +244,99 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             $objDbWorkgroup->unsetWorkgroupId();
 		}
    	}
-    
+
     /**
     * Method to retrieve the
     * contextCode from the Session Variable
     * @return contextCode
     * @access public
     */
-    function getContextCode()
+    public function getContextCode()
     {
-        return $this->getSession('contextCode');    
+        return $this->getSession('contextCode');
     }
-    
+
     /**
-    * Method to get the Title of 
+    * Method to get the Title of
     * course that you are currenly logged into
     * @access public
     * @return context Title
-    */        
-    function getTitle($contextCode=NULL)
-    {       
+    */
+    public function getTitle($contextCode=NULL)
+    {
         $this->resetTable();
         if(isset($contextCode))
         {
             $line=$this->getRow('contextCode',$contextCode);
-            return $line["title"];            
+            return $line["title"];
         }else{
-            return $this->getSession('contextmenuText'); 
+            return $this->getSession('contextmenuText');
         }
     }
-    
+
     /**
     * Method to get the MenuText
     * @param string $contextCode : The contextCode
     * @return array
     * @access public
-    */    
-    function getMenuText($contextCode=NULL)
+    */
+    public function getMenuText($contextCode=NULL)
     {
         if(isset($contextCode))
         {
             $line=$this->getRow('contextCode',$contextCode);
-            return $line["menutext"];            
+            return $line["menutext"];
         }else{
-            return $this->getSession('contextmenuText'); 
+            return $this->getSession('contextmenuText');
         }
-        
+
     }
-    
+
     /**
     *Methods to check if one
     *is in a context
     * @access public
     *return boolean $ret
     */
-    
-    function isInContext(){
+
+    public function isInContext(){
         if ($this->getContextCode())
             $ret=TRUE;
         else
             $ret=FALSE;
-            
+
         return $ret;
     }
-    
-    /**
-    *Method to return a list 
-    *of courses
-    *@return array
-    * @access public    
-    */
-    function getListOfContext(){
-        return $this->getAll();
-    }    
-    
-    /**
-    *Method to return a list 
-    *of courses
-    *@return array
-    * @access public    
-    */
-    function getListOfPublicContext(){
-        //return $this->getAll('WHERE ');
-    }    
 
     /**
-    *Method to return a 
+    *Method to return a list
+    *of courses
+    *@return array
+    * @access public
+    */
+    public function getListOfContext(){
+        return $this->getAll();
+    }
+
+    /**
+    *Method to return a list
+    *of courses
+    *@return array
+    * @access public
+    */
+    public function getListOfPublicContext(){
+        //return $this->getAll('WHERE ');
+    }
+
+    /**
+    *Method to return a
     *formatted xml for a sql
     *@param string $contextCode: The contextCode
-    *@param string $sql : The optional sql 
-    *@return string $smlstring : The result returned as xml    
+    *@param string $sql : The optional sql
+    *@return string $smlstring : The result returned as xml
     * @access public
-    */    
-    function getContextXML($contextCode=NULL,$sql=NULL){
+    */
+    public function getContextXML($contextCode=NULL,$sql=NULL){
         if($contextCode==NULL)
         {
             $contextCode=$this->getContextCode();
@@ -345,40 +345,40 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $objDBConfig=&$this->newObject('dbconfig','config');
         //create a sql2xml object and parse the database connection
         $sql2xmlclass = new xml_sql2xml($objDBConfig->dbConString());
-        //get the xml with the given sql   
-        
-        if(isset($sql)) 
+        //get the xml with the given sql
+
+        if(isset($sql))
             $xmlstring = $sql2xmlclass->getxml($sql);
         else
             $xmlstring = $sql2xmlclass->getxml("Select * from tbl_context,tbl_context_parentnodes,tbl_context_nodes,tbl_context_page_content where tbl_context.contextCode='".$contextCode."'");
 
         return $xmlstring;
-        
+
     }
-    
+
     /**
     * Method to delete a course
     *@param string $contextCode: The Context Code
     * @return array
     * @access public
     */
-    
-    function deleteContext($contextCode){
-        $this->delete('contextCode',$contextCode);    
+
+    public function deleteContext($contextCode){
+        $this->delete('contextCode',$contextCode);
     	//delete groups
         $contextGroups=&$this->getObject('manageGroups','contextgroups');
         $contextGroups->deleteGroups($contextCode);
 
    		$this->objFSContext->deleletContextFolder($contextCode);
     }
-    
+
     /**
     *Method to get the parent nodes
     *@param string $contextId : The Context Id
     *@return the parent Node Id
     * @access public
     */
-    function getParentNodes($contextId=NULL){
+    public function getParentNodes($contextId=NULL){
         //set the working to to tbl_context_parentnodes
         $this->changeTable('tbl_context_parentnodes');
         if(isset($contextId)){
@@ -390,58 +390,57 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $this->reset();
         return $ret;
     }
-    
+
     /**
     *Method to get the contextId
-    * @return string 
+    * @return string
     * @access public
     */
-    function getContextId(){
+    public function getContextId(){
         return $this->getSession('contextId');
     }
-    
+
     /**
     *Method to change the working table
-    * @return NULL 
+    * @return NULL
     * @access public
     */
-    function changeTable($tableName){      
+    public function changeTable($tableName){
         parent::init($tableName);
     }
-    
+
     /**
     *Method to reset the working table
-    * @return NULL 
+    * @return NULL
     * @access public
     */
-    function resetTable(){
+    public function resetTable(){
         parent::init('tbl_context');
     }
-    
+
     /**
     *Method to get the current Formmatted date
-    * @return string 
+    * @return string
     * @access public
     */
-    function getDate(){
+    public function getDate(){
         return date("Y-m-d H:i:s");
     }
-    
+
     /**
     * Method to get the course details for a given
     * root node Id
-    * @param string $rootNodeId  The root nodeId 
+    * @param string $rootNodeId  The root nodeId
     * @return array
     */
-    function rootToContext($rootNodeId){
+    public function rootToContext($rootNodeId){
         $this->changeTable('tbl_context_parentnodes');
         $line = $this->getRow('id', $rootNodeId);
        // print_r($line);
         $this->resetTable();
         return $this->getContextDetails($line['tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode']);
-    
-    }
-    
-}
 
+    }
+
+}
 ?>

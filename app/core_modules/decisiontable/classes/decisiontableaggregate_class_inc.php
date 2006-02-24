@@ -26,17 +26,17 @@ class decisionTableAggregate extends decisionTableBase
      * @var object Object reference to the 'Whole' object.
      */
     var $_objParent = NULL;
-    
+
     /**
      * @var object Reference to the 'Parts' object.
      */
     var $_objParts = NULL;
-    
+
     /**
      * @var object Object reference to its child object.
      */
     var $_objChild = NULL;
-    
+
     /**
      * Property used to store all aggregated objects
      *
@@ -44,7 +44,7 @@ class decisionTableAggregate extends decisionTableBase
      * @var array
      */
     var $_arrChildren = array();
-    
+
     // --- OPERATIONS ---
 
     /**
@@ -57,10 +57,10 @@ class decisionTableAggregate extends decisionTableBase
     function init($tableName)
     {
         parent::init($tableName);
-        
+
         $this->_arrChildren = array();
     }
-    
+
     /**
      * Abstract method to connect to other objects.
      *
@@ -88,7 +88,7 @@ class decisionTableAggregate extends decisionTableBase
         $this->_arrChildren = array();
         return parent::create( $name );
     }
-    
+
     /**
      * Method to get the Id for the child of a parent.
      */
@@ -97,7 +97,7 @@ class decisionTableAggregate extends decisionTableBase
         $this->_id = $this->_objParts->retrieveId( $this, $this->_objParent );
         return $this->_id;
     }
-    
+
     /**
      * Method to allow duplicate rule names
      */
@@ -105,7 +105,7 @@ class decisionTableAggregate extends decisionTableBase
     {
         return $this->_objParts->checkDuplicate( $this, $this->_objParent );
     }
-    
+
     /**
      * Method to retrieve the conditions from the database,
      * and initialize the newly created object.
@@ -119,11 +119,11 @@ class decisionTableAggregate extends decisionTableBase
     {
         foreach( $this->_objChild->retrieve( $this ) as $dbChild ) {
             // Insert the child object into this objects properties.
-            $this->createChild($dbChild);            
+            $this->createChild($dbChild);
         }
         return $this;
     }
-    
+
     /**
      * Method used to create child objects for the rule.
      * @param array List of children found in database.
@@ -143,7 +143,7 @@ class decisionTableAggregate extends decisionTableBase
 
         $this->setProperties( $newObject );
     }
-   
+
     /**
      * Method to add a child to the object.
      * @access public
@@ -173,14 +173,14 @@ class decisionTableAggregate extends decisionTableBase
             $this->_id,
             $objCond->_id );
     }
-    
+
     /**
      * Method to set the properties using given parameters.
      *
      * @access public
      * @author Jonathan Abrahams
-     * @param object 
-     * @return nothing 
+     * @param object
+     * @return nothing
      * @version V0.1
      */
     function setProperties( $objChild )

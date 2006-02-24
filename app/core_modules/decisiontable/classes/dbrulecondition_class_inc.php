@@ -33,7 +33,7 @@ class dbRuleCondition extends dbTable {
     {
         parent::init('tbl_decisiontable_rule_condition');
     }
-    
+
     /**
      * Method to add a condition to the rule.
      *
@@ -51,7 +51,7 @@ class dbRuleCondition extends dbTable {
         if( $this->valueExists( 'conditionId', $checkDups ) ) {
             return FALSE;
         }
-        
+
         // Package it
         $arrRuleCond = array();
         $arrRuleCond['ruleId'] = $rule->_id;

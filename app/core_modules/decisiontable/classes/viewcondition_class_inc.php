@@ -41,14 +41,14 @@ class viewCondition extends classParser
      * @var array
      */
     var $_methods = array();
-    
+
     /**
      * The object initialisation method.
      *
      * @access public
      * @author Jonathan Abrahams
      * @return nothing
-     */    
+     */
     function init()
     {
         $this->_classPrefix = 'view';
@@ -78,7 +78,7 @@ class viewCondition extends classParser
         $result = $this->callBack( $this->parser( $this->_objCondition->_params ) );
         return $result;
     }
-    
+
     /**
      * CallBack method used by the evaluate method.
      *
@@ -94,7 +94,7 @@ class viewCondition extends classParser
         $objRadio->addOption('setValue | FALSE', 'FALSE');
         $selected = 'setValue | '.$value;
         $objRadio->setSelected( $selected );
-        
+
         $lblName = "Set Value";
         return array('lblName'=>$lblName,'element'=>$objRadio->show());
     }

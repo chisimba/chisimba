@@ -2,7 +2,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // end security check
 /**
 * Class to manage access with a decision table.
@@ -10,7 +10,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @category access
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license GNU GPL
-* @version 
+* @version
 * @author Jonathan Abrahams
 */
  class decisionTable extends dbTable
@@ -33,7 +33,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @var dbDecisionTableAction Object reference to the dbDecisionTableAction object.
      */
     var $_objDBDecisionTableAction = NULL;
-    
+
     /**
     * List of actions set for this module.
     * @var array $arrActions
@@ -48,10 +48,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         parent::init('tbl_decisiontable_decisiontable');
         $this->_objDBDecisionTableAction = $this->getObject( 'dbdecisiontableaction' );
         $this->_objDBDecisionTableRule = $this->getObject( 'dbdecisiontablerule' );
-        
+
         $this->_arrActions = array();
     }
-    
+
     /**
     * Method to test if the action existists.
     * @param string the action.
@@ -61,7 +61,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     {
         return isset( $this->_arrActions[$action] );
     }
-    
+
     /**
     * Method to test if the action is valid.
     * @param string the action.
@@ -82,11 +82,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @param object the view element object.
     * @return HTML|NULL shows the view element if required otherwise returns null.
     */
-    function showElement( &$objElement ) 
+    function showElement( &$objElement )
     {
        return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
     }
-    
+
     /**
      * Method to create a new decisionTable.
      *
@@ -122,12 +122,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
      * Method to delete all dependents of this decisiontable.
      */
-    function delete() 
+    function delete()
     {
         foreach( $this->_arrActions as $objAction ) {
             $objAction->delete();
         }
-        
+
         $arrRules = $this->_objDBDecisionTableRule->retrieve($this);
         $objRule = &$this->getObject('rule');
         $objRule->connect($this);
@@ -143,12 +143,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
      * Method to delete all dependents of this decisiontable.
      */
-    function retrieveId() 
+    function retrieveId()
     {
         return NULL;
     }
-    
-    
+
+
     /**
      * Method to add an action to the decisionTable.
      *
@@ -216,13 +216,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     {
         return $this->_objDBDecisionTableRule->retrieve($this);
     }
-    
+
     /**
      * Method to retrieve the rules from the database,
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array 
+     * @return array
      * @version V0.1
      */
     function retrieveRuleId( &$objRule )
@@ -230,9 +230,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         // Retrieve the decision table rule
         $objRule->_id = $this->_objDBDecisionTableRule->retrieveId( $objRule, $this );
     }
-    
 
-    
+
+
     /**
      * Method to retrieve the actions from the database,
      * and initialize the newly created object.
@@ -247,8 +247,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     {
         // Get the action object
         $objAction = $this->getObject('action');
-        $objAction->connect($this);        
-        
+        $objAction->connect($this);
+
         // Create the decision table if given
         if( $name ) {
             $this->create( $name );
@@ -258,11 +258,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
         // Fetch all action IDs for this decisionTable from db
         $arrActions = $this->_objDBDecisionTableAction->retrieve( $this );
-        
+print_r($arrActions);
         // Create new action objects.
         foreach( $arrActions as $decisionTableAction ) {
             // Fetch the action.
-            $actionRow = $objAction->getRow( 'id', $decisionTableAction['actionId'] );
+            $actionRow = $objAction->getRow( 'id', $decisionTableAction['actionid'] );
            // Get the action
             if( $actionRow ) {
                 //Create the object

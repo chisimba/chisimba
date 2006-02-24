@@ -33,7 +33,7 @@ class dbActionRule extends dbTable {
     {
         parent::init('tbl_decisiontable_action_rule');
     }
-    
+
     /**
      * Method to add a rule to the action.
      *
@@ -51,7 +51,7 @@ class dbActionRule extends dbTable {
         if( $this->valueExists( 'ruleId', $checkDups ) ) {
             return FALSE;
         }
-        
+
         // Package it
         $arrActRule = array();
         $arrActRule['actionId'] = $action->_id;
@@ -59,7 +59,7 @@ class dbActionRule extends dbTable {
         // Insert it
         return $this->insert( $arrActRule );
     }
-    
+
     /**
      * Method to delete all the action rules
      *
@@ -86,7 +86,7 @@ class dbActionRule extends dbTable {
     {
         return parent::delete( 'actionId' , $actionId."' AND ruleId = '$ruleId" );
     }
-    
+
     /**
      * Method to retrieve all rules for the action.
      * @param object The action object.
@@ -97,7 +97,7 @@ class dbActionRule extends dbTable {
          // Get all Conditions for this rule
          $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionId'=>'id' ) );
          $filter = " WHERE actionId = '".$objAction->_id."'";
-         $fields = array( $objAction->_tableName.'id',  $objAction->_tableName.'name' );     
+         $fields = array( $objAction->_tableName.'id',  $objAction->_tableName.'name' );
          // Get all Rules for this action
          return $this->getAll($join.$filter, $fields );
      }
