@@ -4,35 +4,30 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @since 03 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-$this->loadClass( 'decisiontableaggregate', 'decisiontable' );
-/**
  * Class used to manage actions
  *
  * @access public
- * @author Jonathan Abrahams
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package decisiontable
+ * @subpackage access
+ * @version 0.1
+ * @since 03 Febuary 2005
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
  */
+
+$this->loadClass( 'decisiontableaggregate', 'decisiontable' );
+
 class action extends decisionTableAggregate
 {
-    // --- ATTRIBUTES ---
-
-    // --- OPERATIONS ---
-
     /**
      * The object initialization method.
      *
      * @access public
-     * @author Jonathan Abrahams
-     * @return nothing
+     * @param void
+     * @return void
      */
-    function init()
+    public function init()
     {
         $this->_objParts= $this->getObject( 'dbdecisiontableaction' );
         $this->_objChild = $this->getObject('dbactionrule','decisiontable');
@@ -45,10 +40,10 @@ class action extends decisionTableAggregate
      * Method to evaluate the action and its rules.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param void
      * @return true|false
      */
-    function isValid()
+    public function isValid()
     {
         // Action is assumed FALSE.
         $result = FALSE;
@@ -63,5 +58,5 @@ class action extends decisionTableAggregate
         return $result;
     }
 
-} /* end of class action */
+}
 ?>

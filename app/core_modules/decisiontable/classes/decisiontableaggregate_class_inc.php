@@ -4,38 +4,42 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @since 03 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-$this->loadClass( 'decisiontablebase', 'decisiontable' );
-/**
  * Abstract class used to manage conditions, rules, actions, and decisiontables.
- *
- * @access public
- * @author Jonathan Abrahams
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package decisiontable
+ * @subpackage access
+ * @version 0.1
+ * @since 03 Febuary 2005
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
  */
+$this->loadClass( 'decisiontablebase', 'decisiontable' );
+
 class decisionTableAggregate extends decisionTableBase
 {
-    // --- ATTRIBUTES ---
     /**
-     * @var object Object reference to the 'Whole' object.
+     * Object reference to the 'Whole' object.
+     *
+     * @access public
+     * @var object
      */
-    var $_objParent = NULL;
+    public $_objParent = NULL;
 
     /**
-     * @var object Reference to the 'Parts' object.
+     * Reference to the 'Parts' object.
+     *
+     * @access public
+     * @var object
      */
-    var $_objParts = NULL;
+    public $_objParts = NULL;
 
     /**
-     * @var object Object reference to its child object.
+     * Object reference to its child object.
+     *
+     * @access public
+     * @var object
      */
-    var $_objChild = NULL;
+    public $_objChild = NULL;
 
     /**
      * Property used to store all aggregated objects
@@ -43,18 +47,16 @@ class decisionTableAggregate extends decisionTableBase
      * @access private
      * @var array
      */
-    var $_arrChildren = array();
-
-    // --- OPERATIONS ---
+    private $_arrChildren = array();
 
     /**
      * The object initialization method.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param string
      * @return nothing
      */
-    function init($tableName)
+    public function init($tableName)
     {
         parent::init($tableName);
 
@@ -65,11 +67,10 @@ class decisionTableAggregate extends decisionTableBase
      * Abstract method to connect to other objects.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param object Reference name for the object
-     * @return nothing
+     * @return void
      */
-    function connect( &$object )
+    public function connect( &$object )
     {
         $this->_objParent = &$object;
         $this->_objCreated->connect( $object );
@@ -79,11 +80,10 @@ class decisionTableAggregate extends decisionTableBase
      * Method to create a new object.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param string Reference name for the object
      * @return action Returns this object.
      */
-    function create( $name )
+    public function create( $name )
     {
         $this->_arrChildren = array();
         return parent::create( $name );
@@ -91,8 +91,12 @@ class decisionTableAggregate extends decisionTableBase
 
     /**
      * Method to get the Id for the child of a parent.
+     *
+     * @access public
+     * @param void
+     * @return property
      */
-    function retrieveId( )
+    public function retrieveId( )
     {
         $this->_id = $this->_objParts->retrieveId( $this, $this->_objParent );
         return $this->_id;
@@ -100,6 +104,10 @@ class decisionTableAggregate extends decisionTableBase
 
     /**
      * Method to allow duplicate rule names
+     *
+     * @access public
+     * @param void
+     * @return property
      */
     function checkDuplicate( )
     {
@@ -111,11 +119,10 @@ class decisionTableAggregate extends decisionTableBase
      * and initialize the newly created object.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param void
      * @return array Returns an array of condition objects for this rule
-     * @version V0.1
      */
-    function retrieve( )
+    public function retrieve( )
     {
         foreach( $this->_objChild->retrieve( $this ) as $dbChild ) {
             // Insert the child object into this objects properties.
@@ -126,9 +133,12 @@ class decisionTableAggregate extends decisionTableBase
 
     /**
      * Method used to create child objects for the rule.
+     *
+     * @access public
      * @param array List of children found in database.
+     * @return void
      */
-    function createChild($dbChild)
+    public function createChild($dbChild)
     {
         $objectRow = $this->_objCreated->getRow( 'id', $dbChild[$this->_dbFK] );
 
@@ -146,12 +156,12 @@ class decisionTableAggregate extends decisionTableBase
 
     /**
      * Method to add a child to the object.
+     *
      * @access public
-     * @author Jonathan Abrahams
      * @param object
      * @return uniqueID|false the unique id new row, or false if it exists already.
      */
-    function add($objChild)
+    public function add($objChild)
     {
         // Set this objects properties
         $this->setProperties( $objChild );
@@ -163,11 +173,10 @@ class decisionTableAggregate extends decisionTableBase
      * Method to delete the rule conditions.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param string condId
      * @return true|false Return true if successfull, otherwise false.
      */
-    function deleteChild( $objCond )
+    public function deleteChild( $objCond )
     {
         return $this->_objChild->deleteChild(
             $this->_id,
@@ -178,24 +187,23 @@ class decisionTableAggregate extends decisionTableBase
      * Method to set the properties using given parameters.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param object
-     * @return nothing
-     * @version V0.1
+     * @return void
      */
-    function setProperties( $objChild )
+    public function setProperties( $objChild )
     {
         // Insert a copy of the child object.
         $this->_arrChildren[$objChild->_name] = $objChild;
     }
+
     /**
      * Method to get all the condition IDs.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param void
      * @return array
      */
-    function getIDs()
+    public function getIDs()
     {
         return array_keys( $this->_arrChildren );
     }
@@ -204,10 +212,10 @@ class decisionTableAggregate extends decisionTableBase
      * Method to get the condition object for the id.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param string $id
      * @return object
      */
-    function getID( $id )
+    public function getID( $id )
     {
         return $this->_arrChildren[$id];
     }
@@ -216,12 +224,12 @@ class decisionTableAggregate extends decisionTableBase
      * Method to test if a condition is found in this rule.
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param string id
      * @return true|false
      */
-    function hasID( $id )
+    public function hasID( $id )
     {
         return in_array( $id, $this->getIDs() );
     }
-} /* end of class base */
+}
 ?>

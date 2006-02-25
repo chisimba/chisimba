@@ -3,46 +3,50 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
+
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @since 21 February 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-/**
-* Class used to access the decision table rule bridge table.
-*/
+ * Class used to access the decision table rule bridge table.
+ *
+ * @access public
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package decisiontable
+ * @subpackage access
+ * @version 0.1
+ * @since 21 February 2005
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
+ */
+
 class dbDecisionTableRule extends dbTable {
-    // --- ATTRIBUTES ---
+
     /**
      * Property used to store the unique id.
+     *
+     * @access public
+     * @var $_id
      */
-    var $_id = NULL;
+    public $_id = NULL;
 
     /**
      * The object initialisation method.
      *
      * @access public
-     * @author Jonathan Abrahams
-     * @return nothing
+     * @param void
+     * @return void
      */
-    function init()
+    public function init()
     {
         parent::init('tbl_decisiontable_decisiontable_rule');
-        //$this->upgradeTable();
     }
 
     /**
      * Method to upgrade tables
      *
      * @access public
-     * @author Jonathan Abrahams
-     * @return nothing
+     * @param void
+     * @return void
      */
-    function upgradeTable()
+    public function upgradeTable()
     {
         $sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
         $arrTableExists = $this->getArray( $sqlTableExists );
@@ -52,16 +56,16 @@ class dbDecisionTableRule extends dbTable {
             $this->query( $sqldata[0] );
         }
     }
+
     /**
      * Method to add a rule to the decisionTable.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param object Rule object.
      * @param object DecisionTable object.
      * @return uniqueId|false Return the unique Id or false if already exists.
      */
-    function add( $rule, $decisionTable )
+    public function add( $rule, $decisionTable )
     {
         // no Duplicates
         $checkDups  = $rule->_id."' AND ";
@@ -78,34 +82,46 @@ class dbDecisionTableRule extends dbTable {
         return $this->insert( $arrDTaction );
     }
 
-     function checkDuplicate($rule, $decisionTable )
+    /**
+     * Method to check for duplicates
+     *
+     * @access public
+     * @param string $rule
+     * @param string $decisionTable
+     * @return bool
+     */
+    public function checkDuplicate($rule, $decisionTable )
      {
         return is_null( $this->retrieveId( $rule,$decisionTable ) ) ? FALSE : TRUE;
      }
 
     /**
      * Method to retrieve all rules for the decisionTable.
+     *
+     * @access public
      * @param object The decisionTable object.
      * @return array of all actions for this decisionTable
      */
-     function retrieve( $objDecisionTable )
+     public function retrieve( $objDecisionTable )
      {
-
          // Get the action for this decisionTable
          $objRule = $this->getObject( 'rule' );
          $join = $this->join( 'INNER JOIN', $objRule->_tableName , array( 'ruleId'=>'id' ) );
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
          // Get all Rules for this decisionTable
+
          return $this->getAll($join.$filter, array( $objRule->_tableName.'id',  $objRule->_tableName.'name' ));
      }
 
     /**
      * Method to retrieve a rule for the decisionTable.
+     *
+     * @access public
      * @param object The rule object.
      * @param object The decisionTable object.
      * @return id of rule for this decisionTable
      */
-     function retrieveId( &$objRule, &$objDecisionTable )
+     public function retrieveId( &$objRule, &$objDecisionTable )
      {
          // Get the action for this decisionTable
          $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleId'=>'id' ) );
