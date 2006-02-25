@@ -4,22 +4,26 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
+
 /**
 * Class to manage access with a decision table.
 * @package decisiontable
 * @category access
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license GNU GPL
-* @version
-* @author Jonathan Abrahams
+* @version 2.0
+* @author Paul Scott based on methods by Jonathan Abrahams
 */
+
  class decisionTable extends dbTable
  {
     /**
      * Property used to store the unique id.
+     *
+     * @access public
      * @var string unique id
      */
-    var $_id = '';
+    public $_id = '';
 
     /**
      * Property used for storing the decision tables reference name.
@@ -27,23 +31,32 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @access private
      * @var string
      */
-    var $_name = '';
+    private $_name = '';
 
     /**
-     * @var dbDecisionTableAction Object reference to the dbDecisionTableAction object.
+     * Object reference to the dbDecisionTableAction object.
+     *
+     * @access private
+     * @var dbDecisionTableAction
      */
-    var $_objDBDecisionTableAction = NULL;
+    private $_objDBDecisionTableAction = NULL;
 
     /**
-    * List of actions set for this module.
-    * @var array $arrActions
-    */
-    var $_arrActions;
+     * List of actions set for this module.
+     *
+     * @access private
+     * @var array $arrActions
+     */
+    private $_arrActions;
 
     /**
-    *Initialize the decision table structure.
-    */
-    function init( )
+     *Initialize the decision table structure.
+     *
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function init( )
     {
         parent::init('tbl_decisiontable_decisiontable');
         $this->_objDBDecisionTableAction = $this->getObject( 'dbdecisiontableaction' );
@@ -53,22 +66,26 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     }
 
     /**
-    * Method to test if the action existists.
-    * @param string the action.
-    * @return true|false True if action found, otherwise False.
-    */
-    function hasAction( $action )
+     * Method to test if the action existists.
+     *
+     * @access public
+     * @param string the action.
+     * @return true|false True if action found, otherwise False.
+     */
+    public function hasAction( $action )
     {
         return isset( $this->_arrActions[$action] );
     }
 
     /**
     * Method to test if the action is valid.
+    *
+    * @access public
     * @param string the action.
     * @param string the default to be used if action does not exist.
     * @return true|false True if action valid, otherwise False.
     */
-    function isValid( $action, $default = TRUE )
+    public function isValid( $action, $default = TRUE )
     {
         if( $this->hasAction( $action ) ) {
             return $this->_arrActions[ $action ]->isValid();
@@ -79,10 +96,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     * Method to test if the view element should shown.
+    *
+    * @access public
     * @param object the view element object.
     * @return HTML|NULL shows the view element if required otherwise returns null.
     */
-    function showElement( &$objElement )
+    public function showElement( &$objElement )
     {
        return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
     }
@@ -91,11 +110,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to create a new decisionTable.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param string Reference name for the decisionTable
      * @return action Returns this object.
      */
-    function create($name, $action = NULL )
+    public function create($name, $action = NULL )
     {
         // Store the decisionTable name.
         $this->_name = $name;
@@ -119,10 +137,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
         return $this;
     }
+
     /**
      * Method to delete all dependents of this decisiontable.
+     *
+     * @access public
+     * @param void
+     * @return bool
      */
-    function delete()
+    public function delete()
     {
         foreach( $this->_arrActions as $objAction ) {
             $objAction->delete();
@@ -142,8 +165,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
      * Method to delete all dependents of this decisiontable.
+     *
+     * @access public
+     * @param void
+     * @return NULL
      */
-    function retrieveId()
+    public function retrieveId()
     {
         return NULL;
     }
@@ -151,15 +178,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
      * Method to add an action to the decisionTable.
-     *
      * A copy of the action is stored.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param action
-     * @return nothing
+     * @return void
      */
-    function add($action)
+    public function add($action)
     {
         if( is_array($action) ) {
             foreach( $action as $anAction ) {
@@ -175,44 +200,42 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             $this->_objDBDecisionTableAction->add( $action, $this );
         }
     }
+
     /**
      * Method to add an action to the decisionTable.
-     *
      * A copy of the action is stored.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param action
-     * @return nothing
+     * @return void
      */
-    function addRule($rule)
+    public function addRule($rule)
     {
         // Add a rule to this decisionTable.
         $this->_objDBDecisionTableRule->add( $rule, $this );
     }
+
     /**
      * Method to set the properties.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param object A action objects stored for this decisionTable
-     * @return nothing sets the object properties.
-     * @version V0.1
+     * @return void sets the object properties.
      */
-    function setProperties( $objAction )
+    public function setProperties( $objAction )
     {
         // Insert a copy of the action.
         $this->_arrActions[$objAction->_name] = $objAction;
     }
+
     /**
      * Method to retrieve the rules from the database
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param void
      * @return array Returns an array of rules for this decisionTable
-     * @version V0.1
      */
-    function retrieveRules( )
+    public function retrieveRules( )
     {
         return $this->_objDBDecisionTableRule->retrieve($this);
     }
@@ -221,29 +244,24 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to retrieve the rules from the database,
      *
      * @access public
-     * @author Jonathan Abrahams
+     * @param $objRule
      * @return array
-     * @version V0.1
      */
-    function retrieveRuleId( &$objRule )
+    public function retrieveRuleId( &$objRule )
     {
         // Retrieve the decision table rule
         $objRule->_id = $this->_objDBDecisionTableRule->retrieveId( $objRule, $this );
     }
-
-
 
     /**
      * Method to retrieve the actions from the database,
      * and initialize the newly created object.
      *
      * @access public
-     * @author Jonathan Abrahams
      * @param string The name of the
      * @return array Returns an array of action objects for this decisionTable
-     * @version V0.1
      */
-    function retrieve( $name = NULL )
+    public function retrieve( $name = NULL )
     {
         // Get the action object
         $objAction = $this->getObject('action');
