@@ -4,28 +4,25 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @since 03 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-/**
  * Abstract class used to manage conditions, rules, actions, and decisiontables.
  *
  * @access public
- * @author Jonathan Abrahams
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package decisiontable
+ * @subpackage access
+ * @version 0.1
+ * @since 03 Febuary 2005
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
  */
+
 class decisionTableBase extends dbTable
 {
-    // --- ATTRIBUTES ---
     /**
      * Property used to store the unique row id.
      * @var string unique id
      */
-    var $_id = '';
+    public $_id = '';
 
     /**
      * Property used for storing the objects reference name.
