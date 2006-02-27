@@ -3,7 +3,7 @@
 /**
  * Methods to improve database portability
  *
- * @package    Portability
+ * @package    core
  * @author     Daniel Convissor <danielc@analysisandsolutions.com>
  * @author     Paul Scott - Modifications to allow use within the 5ive (KINKY2) Framework
  * @copyright  2004-2005 The Analysis and Solutions Company
