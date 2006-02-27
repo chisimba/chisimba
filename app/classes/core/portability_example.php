@@ -21,7 +21,6 @@ switch($dbms)
         $user = "postgres";
         $pw = "";
         $db = "portability";
-
         break;
 
     case 'mysqli':
@@ -29,21 +28,28 @@ switch($dbms)
         $user = "root";
         $pw = "";
         $db = "portability";
-        //break;
+        break;
 
     case 'mysql':
         //mysql
         $user = "root";
         $pw = "";
         $db = "portability";
-        //break;
+        break;
 
     case 'mssql':
         //mssql
         $user = "root";
         $pw = "";
         $db = "portability";
-        //break;
+        break;
+
+    case 'oci8':
+        //oracle
+        $user = '';
+        $pw = '';
+        $db = '';
+        break;
 }
 
 $dsns = array(
@@ -53,7 +59,7 @@ $dsns = array(
     //'firebird' => "ibase(firebird)://$user:$pw@localhost:3050/$dbf",
     'mysql'    => "mysql://$user:$pw@/$db",
     'mysqli'   => "mysqli://$user:$pw@localhost:3307/$db",
-    //'oci8'     => "oci8://$user:$pw@/$dbo",
+    'oci8'     => "oci8://$user:$pw@/$db",
     'pgsql'    => "pgsql://$user:$pw@192.102.9.54/$db",
     //'sqlite'   => "sqlite:///$dbs?mode=0666",
     //'sybase'   => "sybase://$user:$pw@$mach/$db",
