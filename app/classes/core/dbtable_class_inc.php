@@ -75,6 +75,14 @@ class dbTable extends object
      */
     private $_lastId = null;
 
+    /**
+     * Property to hold the portability object for queries against multiple RDBM's
+     *
+     * @access private
+     * @var object
+     */
+    private $_portability;
+
 
     /**
     * Method to initialise the dbTable object.
@@ -99,6 +107,18 @@ class dbTable extends object
 
         $this->objDBConfig=&$this->getObject('dbconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
+
+        //get the portability object instantiated
+        //we pass the dsn of the db object to the class via the engine->getDbObj() method
+        require_once('portability_class_inc.php');
+        $this->_portability = new portability($this->_db);
+
+        //When creating tables it is neccessary to use the portability object.
+        //Once that is done, all should be Ok
+        /**
+         * @example portability_example.php
+         * @link portability_example.php
+         */
     }
 
     /**
