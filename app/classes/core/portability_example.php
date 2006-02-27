@@ -178,3 +178,4 @@ if($drop == TRUE)
 {
     $db->query('DROP TABLE setnull ' . $p->getDropRestrict());
 }
+?>
