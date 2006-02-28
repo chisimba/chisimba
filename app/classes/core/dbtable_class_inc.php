@@ -244,8 +244,10 @@ class dbTable extends object
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         $rs = $this->query($sql);
-        $line = $rs->fetchRow();
-        return $line['rc'];
+        //var_dump($rs);
+       // $line = $rs->fetchOne();
+       // return $line['rc'];
+       return $rs[0]['rc'];
     }
 
     /**

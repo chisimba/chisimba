@@ -17,10 +17,10 @@ if ( !file_exists( 'config/config_db_inc.php' ) ) {
 // execution aborted if it is not set.
 $GLOBALS['kewl_entry_point_run'] = true;
 
-// initialise error handling 
-//require('lib/errorhandling/ErrorHandler.inc'); 
-//$error =& new ErrorHandler(); 
- 
+// initialise error handling
+//require('lib/errorhandling/ErrorHandler.inc');
+//$error =& new ErrorHandler();
+
 // initialise the engine object
 require_once 'classes/core/engine_class_inc.php';
 $_globalObjEngine =& new engine;

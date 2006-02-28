@@ -11,7 +11,7 @@ require_once('portability_class_inc.php');
 require_once 'MDB2.php';
 
 //Which db do we wanna connect to?
-$dbms = 'pgsql';
+$dbms = 'mysqli';
 //set up the user and pass, as well as the db to connect to
 
 switch($dbms)

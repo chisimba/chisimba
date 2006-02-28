@@ -17,7 +17,7 @@
        $host = 'localhost';
        $user = 'root';
        $password = '';
-       $dbname = 'nextgen';
+       $dbname = 'testing123';
 
        // Put a 1 here to see any successful alterations.
        // A 0 here will default to showing errors only.

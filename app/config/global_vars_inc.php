@@ -5,11 +5,11 @@
 
 //------ BEGIN CONFIGURABLE CONSTANTS ------------
 // Use this to name your site
-define( 'KEWL_SITENAME', 'php5_sandbox' );
+define( 'KEWL_SITENAME', 'testing123' );
 // Institutions short name (e.g UWC, MIT, MUN)
-define( 'KEWL_INSTITUTION_SHORTNAME', 'php5' );
+define( 'KEWL_INSTITUTION_SHORTNAME', 'testing123' );
 // Institutions normal name
-define( 'KEWL_INSTITUTION_NAME', 'php5' );
+define( 'KEWL_INSTITUTION_NAME', 'testing123' );
 // Proxy setting
 define( 'KEWL_PROXY', '' );
 // Provide the email address for the website
@@ -52,7 +52,7 @@ define( 'KEWL_CONTENT_PATH', 'usrfiles/' );
 define( 'KEWL_CONTENT_ROOT', 'usrfiles' );
 define( 'KEWL_BLOGS_BASEPATH', '/var/www/5ive/app/blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
- // ----------- Site options --------------
+ // ----------- Site options -------------- 
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );
 define( 'KEWL_ENABLE_LOGGING', 'FALSE' );
 define( 'LDAP_USED', '' );

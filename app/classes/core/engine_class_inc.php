@@ -64,18 +64,18 @@ class engine
     /**
      * The User object
      *
-     * @access private
+     * @access public
      * @var object
      */
-    private $_objUser;
+    public $_objUser;
 
     /**
      * The logged in users object
      *
-     * @access private
+     * @access public
      * @var object
      */
-    private $_objLoggedInUsers;
+    public $_objLoggedInUsers;
 
     /**
      * The config object (config/* and /modules/config)
@@ -330,7 +330,11 @@ class engine
             // Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDb = MDB2::factory($this->_objDbConfig->dbConString());
+            $_globalObjDb = &MDB2::factory($this->_objDbConfig->dbConString());
+
+            //set the options
+            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+
             //Check for errors
             if (PEAR::isError($_globalObjDb)) {
                 // manually call the callback function here,
@@ -348,6 +352,7 @@ class engine
             // set the default fetch mode for the DB to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
+            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
             // include the dbtable base class for future use
         }
         //return the local copy

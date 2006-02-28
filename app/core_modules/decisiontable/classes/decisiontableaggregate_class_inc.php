@@ -44,10 +44,10 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Property used to store all aggregated objects
      *
-     * @access private
+     * @access public
      * @var array
      */
-    private $_arrChildren = array();
+    public $_arrChildren = array();
 
     /**
      * The object initialization method.
