@@ -1,70 +1,85 @@
-<?php 
+<?php
 // security check - must be included in all scripts
 if ( !$GLOBALS['kewl_entry_point_run'] ) {
     die( "You cannot view this page directly" );
-} 
+}
 /**
-* 
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
-* @subpackage controller
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams 
-* @filesource 
-*/
-/**
-* Class to manage groups.
-* 
-* @package groupadmin
-* @subpackage controller
-* @access public 
-* @author Jonathan Abrahams 
-*/
+ *Class to manage groups.
+ *
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package groupadmin
+ * @subpackage controller
+ * @version 0.1
+ * @since 22 November 2004
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
+ */
+
 class groupadmin extends controller {
     /**
-    * 
-    * @var groupAdminModel an object reference.
-    */
-    var $objGroupAdminModel;
-    /**
-    * 
-    * @var langauge an object reference.
-    */
-    var $objLanguage;
-    /**
-    * 
-    * @var strValidate an object reference.
-    */
-    var $objStrValidate;
-    /**
-    * 
-    * @var string the current groups Id
-    */
-    var $groupId;
-    /**
-    * 
-    * @var array a list of current groups members
-    */
-    var $memberList;
-    /**
-    * 
-    * @var array a list of current groups non-members
-    */
-    var $usersList;
-    /**
-    * 
-    * @var bool the validation status of a form.
-    */
-    var $valid;
+     * an object reference.
+     *
+     * @access public
+     * @var groupAdminModel
+     */
+    public $objGroupAdminModel;
 
     /**
-    * Method that initializes the objects
-    * 
-    * @access private 
-    * @return nothing 
-    */
-    function init()
+     * an object reference.
+     *
+     * @access public
+     * @var langauge
+     */
+    public $objLanguage;
+
+    /**
+     * an object reference.
+     *
+     * @access public
+     * @var strValidate
+     */
+    public $objStrValidate;
+
+    /**
+     * the current groups Id
+     *
+     * @access public
+     * @var string
+     */
+    public $groupId;
+
+    /**
+     * a list of current groups members
+     *
+     * @access public
+     * @var array
+     */
+    public $memberList;
+
+    /**
+     * a list of current groups non-members
+     *
+     * @access public
+     * @var array
+     */
+    public $usersList;
+
+    /**
+     * the validation status of a form.
+     *
+     * @access public
+     * @var bool
+     */
+    public $valid;
+
+    /**
+     * Method that initializes the objects
+     *
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function init()
     {
         $this->objGroupAdminModel = &$this->getObject( 'groupAdminModel', 'groupadmin' );
         $this->objLanguage = &$this->getObject( 'language', 'language' );
@@ -73,21 +88,21 @@ class groupadmin extends controller {
         $this->objMembers = &$this->getObject( 'groupadmin_members', 'groupadmin' );
 
         $this->setVarByRef( 'objGroupAdminModel', $this->objGroupAdminModel );
-        $this->setVarByRef( 'objLanguage', $this->objLangauge ); 
+        $this->setVarByRef( 'objLanguage', $this->objLangauge );
         // Get the activity logger class
-        $this->objLog = $this->newObject( 'logactivity', 'logger' ); 
+        $this->objLog = $this->newObject( 'logactivity', 'logger' );
         // Log this module call
         $this->objLog->log();
     }
 
     /**
-    * Method to handel the messages.
-    * 
+    * Method to handle the messages.
+    *
     * @param string $action the message.
-    * @access private 
+    * @access public
     * @return string the template file name.
     */
-    function dispatch( $action )
+    public function dispatch( $action )
     {
         $hasAccess = $this->objEngine->_objUser->isContextLecturer();
         $hasAccess|= $this->objEngine->_objUser->isAdmin();
@@ -101,7 +116,7 @@ class groupadmin extends controller {
             $this->setVar('errMessage', $errMessage );
             return 'error_tpl.php';
         }
-        
+
         $this->setLayoutTemplate( "admin_layout_tpl.php" );
         switch ( $action ) {
             case 'main' : return $this->showMain();
@@ -120,22 +135,21 @@ class groupadmin extends controller {
             case 'view_form' : return $this->processViewForm();
 
             default : return $this->showMain();
-        } 
-    } 
-    // /////////////////////////////////////////////////////////
-    // ------------------------ Main -------------------------//
-    // /////////////////////////////////////////////////////////
+        }
+    }
+
     /**
-    * Method to show the main view
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function showMain()
+     * Method to show the main view
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function showMain()
     {
         $groupId = $this->groupId();
         $objLanguage = &$this->objLanguage;
-        $objGroupAdminModel = &$this->objGroupAdminModel; 
+        $objGroupAdminModel = &$this->objGroupAdminModel;
         // On first entry set groupId to first root node | null.
         if ( !$groupId ) {
             $groupRoot = $this->objGroupAdminModel->getRoot();
@@ -144,7 +158,7 @@ class groupadmin extends controller {
             $groupRoot = $this->objGroupAdminModel->getRoot();
             $groupId = null;
             $this->setVar( 'groupId', $groupId );
-        } 
+        }
 
         // Groups tree menu
         $treeNav = $this->objTree->showDHTML();
@@ -154,7 +168,7 @@ class groupadmin extends controller {
         $lnkDelete = &$this->lnkDelete( $groupId );
         $lnkCreate = &$this->lnkCreate();
         $lnkIcnCreate = &$this->lnkIcnCreate();
-        
+
         // Initialise variables
         $info = $this->infoGroup( $groupId );
         $fullPath = $info['fullPath'];
@@ -188,42 +202,42 @@ class groupadmin extends controller {
         $this->setVar( 'nodeControls', $nodeControls );
 
         return 'main_tpl.php';
-    } 
+    }
 
     /**
-    * Method to process the main form post/get elements
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function processMainForm()
+     * Method to process the main form post/get elements
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function processMainForm()
     {
         if ( $this->getParam( 'btnCreate' ) ) {
             return $this->showCreate();
-        } 
+        }
         $groupId = $this->groupId();
         if ( $groupId ) {
             if ( $this->getParam( 'btnEdit' ) ) {
                 return $this->showEdit();
-            } 
+            }
 
             if ( $this->getParam( 'btnDelete' ) ) {
                 return $this->showDelete();
-            } 
-        } 
+            }
+        }
 
         return $this->showMain();
-    } 
-    // ///////////////////////////////////////////////////
-    // ---------------------- Create -------------------//
-    // ///////////////////////////////////////////////////
+    }
+
     /**
-    * Method to show the create group view
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function showCreate()
+     * Method to show the create group view
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function showCreate()
     {
         $objLanguage = &$this->objLanguage;
         $invalidName = $this->getParam( 'invalidName' );
@@ -235,42 +249,42 @@ class groupadmin extends controller {
             $str = 'mod_groupadmin_msgSaved';
         } else {
             $str = 'mod_groupadmin_msgNotSaved';
-        } 
+        }
 
         if ( $this->getParam( 'confirm' ) ) {
             $arrOfRep = array( 'TIMESTAMP' => date( "h:i:s" ) );
             $confirmMsg = $objLanguage->code2Txt( $str, $arrOfRep );
             $this->setVar( 'confirmMsg', $confirmMsg );
-        } 
+        }
         // Page Title
-        $pageTitle = $objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup', '[Create a new group]' ); 
+        $pageTitle = $objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup', '[Create a new group]' );
         // Form Object
         $form = &$this->getObject( 'form', 'htmlelements' );
         $form->name = 'frmCreate';
         $form->displayType = '3';
-        $form->action = $this->uri ( array( 'action' => 'create_form' ) ); 
+        $form->action = $this->uri ( array( 'action' => 'create_form' ) );
         // Form Title: Create a new group
-        $lblTitle = $objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup', '[Create a new group]' ); 
+        $lblTitle = $objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup', '[Create a new group]' );
         // Form Content: Group name label
-        $lblName = $objLanguage->languageText( 'mod_groupadmin_lblName', '[Group name]' ); 
+        $lblName = $objLanguage->languageText( 'mod_groupadmin_lblName', '[Group name]' );
         // Form Content: Group name text input element
         $tinName = &$this->newObject( 'textinput', 'htmlelements' );
         $tinName->name = 'tinName';
         $tinName->value = '';
         if ( $invalidName ) {
             $tinName->value = $invalidName ? '' : $oldName;
-        } 
+        }
         // Form Content: Group description label
-        $lblDesc = $objLanguage->languageText( 'mod_groupadmin_lblDescription', '[Group description]' ); 
+        $lblDesc = $objLanguage->languageText( 'mod_groupadmin_lblDescription', '[Group description]' );
         // Form Content: Group description text input element
         $tinDesc = &$this->newObject( 'textinput', 'htmlelements' );
         $tinDesc->name = 'tinDescription';
         $tinDesc->value = '';
         if ( $invalidDescription ) {
             $tinDesc->value = $invalidDescription ? '' : $oldDescription;
-        } 
+        }
         // Form Content: Parent/Home group label
-        $lblParent = $lblGroupName = $objLanguage->languageText( 'mod_groupadmin_lblParent', '[Parent/Home group]' ); 
+        $lblParent = $lblGroupName = $objLanguage->languageText( 'mod_groupadmin_lblParent', '[Parent/Home group]' );
         // Form Content: Parent/Home group drop down list element
 
         $ddbParent = &new tree_dropdown( $this->objTree->getTreeMenu() );
@@ -278,37 +292,37 @@ class groupadmin extends controller {
         $btnSave = &$this->newObject( 'button', 'htmlelements' );
         $btnSave->name = 'btnSave';
         $btnSave->value = $objLanguage->languageText( 'word_save', '[Save]' );
-        $btnSave->setToSubmit(); 
+        $btnSave->setToSubmit();
         // Link method
         $lnkSave = "<A href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='saved'; document.frmCreate.submit()\">";
-        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>"; 
+        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>";
         // Form Controls: Cancel button
         $btnCancel = &$this->newObject( 'button', 'htmlelements' );
         $btnCancel->name = 'btnCancel';
         $btnCancel->value = $objLanguage->languageText( 'word_cancel', '[Cancel]' );
-        $btnCancel->setToSubmit(); 
+        $btnCancel->setToSubmit();
         // Link method
         $lnkCancel = "<A href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='cancel'; document.frmCreate.submit()\">";
-        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>"; 
+        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>";
         // FORM CONTENT
-        $formContent = '<DIV id=blog-content>'; 
+        $formContent = '<DIV id=blog-content>';
         // GROUP NAME
         $formContent .= '<DIV id=formline>';
         $formContent .= '<DIV id=formlabel>' . $lblName . ':</DIV>';
         $formContent .= '<DIV id=formelement>' . $tinName->show() . '</DIV>';
-        $formContent .= '</DIV>'; 
+        $formContent .= '</DIV>';
         // GROUP DESCRIPTION
         $formContent .= '<DIV id=formline>';
         $formContent .= '<DIV id=formlabel>' . $lblDesc . ':</DIV>';
         $formContent .= '<DIV id=formelement>' . $tinDesc->show() . '</DIV>';
-        $formContent .= '</DIV>'; 
+        $formContent .= '</DIV>';
         // PARENT/HOME GROUP
         $formContent .= '<DIV id=formline>';
         $formContent .= '<DIV id=formlabel>' . $lblParent . ':</DIV>';
         $formContent .= '<DIV id=formelement>' . $ddbParent->show() . '</DIV>';
         $formContent .= '</DIV>';
         $formContent .= '</DIV>';
-        $form->addToForm( $formContent ); 
+        $form->addToForm( $formContent );
         // FORM CONTROLS
         $formControls = '<DIV id=blog-footer>';
         $formControls .= $lnkSave . "&nbsp;/&nbsp;";
@@ -316,7 +330,7 @@ class groupadmin extends controller {
         $formControls .= '</DIV>';
         $form->addToForm( $formControls );
         $form->addToForm( "<input type='hidden' name='button' value='saved'>" );
-        $form->addToForm( "<input type='hidden' name='confirm' value='TRUE'>" ); 
+        $form->addToForm( "<input type='hidden' name='confirm' value='TRUE'>" );
         // Back link button
         $lnkBack = &$this->newObject( 'link', 'htmlelements' );
         $lnkBack->href = $this->uri ( array() );
@@ -337,15 +351,16 @@ class groupadmin extends controller {
         $this->setVar( 'form', $form );
 
         return 'creategroup_tpl.php';
-    } 
+    }
 
     /**
-    * Method to process the create form post/get elements
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function processCreateForm()
+     * Method to process the create form post/get elements
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function processCreateForm()
     {
         $validName = $this->objStrValidate->isAlphaNumeric( $this->getParam( 'tinName' ) );
         $validDescription = $this->objStrValidate->isAlphaNumeric( $this->getParam( 'tinDescription' ) );
@@ -355,7 +370,7 @@ class groupadmin extends controller {
             if ( $validName && $validDescription ) {
                 $this->objGroupAdminModel->addGroup( $this->getParam( 'tinName' ),
                     $this->getParam( 'tinDescription' ),
-                    $groupId 
+                    $groupId
                     );
                 $this->valid = TRUE;
                 return $this->showCreate();
@@ -366,25 +381,24 @@ class groupadmin extends controller {
                 $this->setVar( 'invalidDescription', !$validDescription );
                 $this->valid = FALSE;
                 return $this->showCreate();
-            } 
-        } 
+            }
+        }
 
         if ( $this->getParam( 'button' ) == 'cancel' ) {
             return $this->showMain();
-        } 
+        }
 
         return $this->showMain();
-    } 
-    // /////////////////////////////////////////////////
-    // -------------------- Edit ---------------------//
-    // /////////////////////////////////////////////////
+    }
+
     /**
-    * Method to show the edit group members view
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function showEdit()
+     * Method to show the edit group members view
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function showEdit()
     {
         $objLanguage = &$this->objLanguage;
         $objGroupAdminModel = &$this->objGroupAdminModel;
@@ -396,104 +410,104 @@ class groupadmin extends controller {
         if ( $this->groupId == '' ) {
             $errMsg = 'unknown group';
             $this->setVar( 'errorMsg', $errMsg );
-        } 
+        }
 
         if ( $this->getParam( 'confirm' ) ) {
             $str = 'mod_groupadmin_msgSaved';
             $arrOfRep = array( 'TIMESTAMP' => date( "h:i:s" ) );
             $confirmMsg = $objLanguage->code2Txt( $str, $arrOfRep );
             $this->setVar( 'confirmMsg', $confirmMsg );
-        } 
+        }
         // Context aware
         if ( $this->getParam( 'return' ) == 'context' ) {
             $this->setLayoutTemplate( "context_layout_tpl.php" );
-        } 
+        }
         // Members list dropdown
         $lstMembers = $this->newObject( 'dropdown', 'htmlelements' );
         $lstMembers->name = 'list2[]';
         $lstMembers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true)"';
         foreach ( $memberList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstMembers->addOption( $userPKId, $fullName );
-        } 
+        }
         // Users list dropdown
         $lstUsers = $this->newObject( 'dropdown', 'htmlelements' );
         $lstUsers->name = 'list1[]';
         $lstUsers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
         foreach ( $usersList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstUsers->addOption( $userPKId, $fullName );
-        } 
+        }
         // Build the nonMember table.
         $hdrUsers = $objLanguage->languageText( 'mod_groupadmin_hdrUsers' );
-        $tblUsers = '<table><tr><th>' . $hdrUsers . '</th></tr><tr><td>' . $lstUsers->show() . '</td></tr></table>'; 
+        $tblUsers = '<table><tr><th>' . $hdrUsers . '</th></tr><tr><td>' . $lstUsers->show() . '</td></tr></table>';
         // Build the Member table.
         $hdrMemberList = $objLanguage->languageText( 'mod_groupadmin_hdrMemberList' );
-        $tblMembers = '<table><tr><th>' . $hdrMemberList . '</th></tr><tr><td>' . $lstMembers->show() . '</td></tr></table>'; 
+        $tblMembers = '<table><tr><th>' . $hdrMemberList . '</th></tr><tr><td>' . $lstMembers->show() . '</td></tr></table>';
         // The save button
         $btnSave = $this->newObject( 'button', 'htmlelements' );
         $btnSave->name = 'btnSave';
         $btnSave->cssClass = null;
         $btnSave->value = $objLanguage->languageText( 'word_save' );
         $btnSave->onclick = "selectAllOptions(this.form['list2[]'])";
-        $btnSave->setToSubmit(); 
+        $btnSave->setToSubmit();
         // The save link button
         $btnSave = $this->newObject( 'button', 'htmlelements' );
         $btnSave->name = 'btnSave';
         $btnSave->cssClass = null;
         $btnSave->value = $objLanguage->languageText( 'word_save' );
         $btnSave->onclick = "selectAllOptions(this.form['list2[]'])";
-        $btnSave->setToSubmit(); 
+        $btnSave->setToSubmit();
         // Link method
         $lnkSave = "<A href=\"#\" onclick=\"javascript:selectAllOptions(document.frmEdit['list2[]']); document.frmEdit['button'].value='save'; document.frmEdit.submit()\">";
-        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>"; 
+        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>";
         // The cancel button
         $btnCancel = $this->newObject( 'button', 'htmlelements' );
         $btnCancel->name = 'btnCancel';
         $btnCancel->value = $objLanguage->languageText( 'word_Cancel' );
-        $btnCancel->setToSubmit(); 
+        $btnCancel->setToSubmit();
         // Link method
         $lnkCancel = "<A href=\"#\" onclick=\"javascript:document.frmEdit['button'].value='cancel'; document.frmEdit.submit()\">";
-        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>"; 
+        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>";
         // Form control buttons
-        $buttons = array( $lnkSave, $lnkCancel ); 
+        $buttons = array( $lnkSave, $lnkCancel );
         // The move selected items right button
         $btnRight = $this->newObject( 'button', 'htmlelements' );
         $btnRight->name = 'right';
         $btnRight->value = htmlspecialchars( '>>' );
-        $btnRight->onclick = "moveSelectedOptions(this.form['list1[]'],this.form['list2[]'],true)"; 
+        $btnRight->onclick = "moveSelectedOptions(this.form['list1[]'],this.form['list2[]'],true)";
         // Link method
         $lnkRight = "<A href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
-        $lnkRight .= htmlspecialchars( '>>' ) . "</A>"; 
+        $lnkRight .= htmlspecialchars( '>>' ) . "</A>";
         // The move all items right button
         $btnRightAll = $this->newObject( 'button', 'htmlelements' );
         $btnRightAll->name = 'right';
         $btnRightAll->value = htmlspecialchars( 'All >>' );
-        $btnRightAll->onclick = "moveAllOptions(this.form['list1[]'],this.form['list2[]'],true)"; 
+        $btnRightAll->onclick = "moveAllOptions(this.form['list1[]'],this.form['list2[]'],true)";
         // Link method
         $lnkRightAll = "<A href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
-        $lnkRightAll .= htmlspecialchars( 'All >>' ) . "</A>"; 
+        $lnkRightAll .= htmlspecialchars( 'All >>' ) . "</A>";
         // The move selected items left button
         $btnLeft = $this->newObject( 'button', 'htmlelements' );
         $btnLeft->name = 'left';
         $btnLeft->value = htmlspecialchars( '<<' );
-        $btnLeft->onclick = "moveSelectedOptions(this.form['list2[]'],this.form['list1[]'],true)"; 
+        $btnLeft->onclick = "moveSelectedOptions(this.form['list2[]'],this.form['list1[]'],true)";
         // Link method
         $lnkLeft = "<A href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
-        $lnkLeft .= htmlspecialchars( '<<' ) . "</A>"; 
+        $lnkLeft .= htmlspecialchars( '<<' ) . "</A>";
         // The move all items left button
         $btnLeftAll = $this->newObject( 'button', 'htmlelements' );
         $btnLeftAll->name = 'left';
         $btnLeftAll->value = htmlspecialchars( 'All <<' );
-        $btnLeftAll->onclick = "moveAllOptions(this.form['list2[]'],this.form['list1[]'],true)"; 
+        $btnLeftAll->onclick = "moveAllOptions(this.form['list2[]'],this.form['list1[]'],true)";
         // Link method
         $lnkLeftAll = "<A href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
-        $lnkLeftAll .= htmlspecialchars( 'All <<' ) . "</A>"; 
+        $lnkLeftAll .= htmlspecialchars( 'All <<' ) . "</A>";
         // The move items (Insert and Remove) buttons
         $btns = array( $lnkRight, $lnkRightAll, $lnkLeft, $lnkLeftAll );
-        $tblInsertRemove = '<div>' . implode( '<BR><BR>', $btns ) . '</div>'; 
+        $tblInsertRemove = '<div>' . implode( '<BR><BR>', $btns ) . '</div>';
         // Form Layout Elements
         $tblLayout = &$this->newObject( 'htmltable', 'htmlelements' );
         $tblLayout->row_attributes = 'align=center';
@@ -502,17 +516,17 @@ class groupadmin extends controller {
         $tblLayout->addCell( $tblUsers, null, null );
         $tblLayout->addCell( $tblInsertRemove, null, null );
         $tblLayout->addCell( $tblMembers, null, null );
-        $tblLayout->endRow(); 
+        $tblLayout->endRow();
         // Title and Header
         $ttlEditGroup = $objLanguage->languageText( 'mod_groupadmin_ttlEditGroup' );
         $hlpEditGroup = $objLanguage->languageText( 'mod_groupadmin_hlpEditGroup' );
-        $hdrEditGroup = $objLanguage->languageText( 'mod_groupadmin_hdrEditGroup' ); 
+        $hdrEditGroup = $objLanguage->languageText( 'mod_groupadmin_hdrEditGroup' );
         // Get the Group name and path
         $fullPath = $objGroupAdminModel->getFullPath( $groupId );
 
         if ( isset( $errorMsg ) ) {
             $fullPath = $errorMsg;
-        } 
+        }
         // Context Home Icon
         $lblContextHome = $this->objLanguage->languageText( "word_course" ) . ' ' . $this->objLanguage->languageText( "word_home" );
         $icnContextHome = &$this->newObject( 'geticon', 'htmlelements' );
@@ -524,7 +538,7 @@ class groupadmin extends controller {
         $lnkContextHome->link = $icnContextHome->show() . $lblContextHome;
 
         $return = $this->getParam( 'return' ) == 'context' ? 'context' : 'main';
-        $confirm = $this->getParam( 'confirm' ) ? TRUE : FALSE; 
+        $confirm = $this->getParam( 'confirm' ) ? TRUE : FALSE;
         // Form Elements
         $frmEdit = &$this->getObject( 'form', 'htmlelements' );
         $frmEdit->name = 'frmEdit';
@@ -535,11 +549,11 @@ class groupadmin extends controller {
         $frmEdit->addToForm( "<input type='hidden' name='groupId' value='$groupId'>" );
         $frmEdit->addToForm( "<input type='hidden' name='return' value='$return'>" );
         $frmEdit->addToForm( "<input type='hidden' name='confirm' value='TRUE'>" );
-        $frmEdit->addToForm( "<input type='hidden' name='button' value='saved'>" ); 
+        $frmEdit->addToForm( "<input type='hidden' name='button' value='saved'>" );
         // Back link button
         $lnkBack = &$this->newObject( 'link', 'htmlelements' );
         $lnkBack->href = $this->uri ( array() );
-        $lnkBack->link = $objLanguage->languageText( 'mod_groupadmin_back' ); 
+        $lnkBack->link = $objLanguage->languageText( 'mod_groupadmin_back' );
         // $lnkBack->cssClass = 'pseudobutton';
         $this->setVar( 'frmEdit', $frmEdit );
         $this->setVar( 'return', $return );
@@ -550,26 +564,28 @@ class groupadmin extends controller {
         $this->setVar( 'confirm', $confirm );
 
         return 'editgroup_tpl.php';
-    } 
+    }
 
     /**
-    * Method to show the context
-    * 
-    * @access private 
-    * @return nothing 
-    */
-    function showContext()
+     * Method to show the context
+     *
+     * @access private
+     * @param void
+     * @return nothing
+     */
+    private function showContext()
     {
         header( 'Location:index.php?module=context' );
-    } 
+    }
 
     /**
-    * Method to redirect to correct template.
-    * 
-    * @access private 
-    * @return the template file name.
-    */
-    function redirect( $redirect )
+     * Method to redirect to correct template.
+     *
+     * @access private
+     * @param string
+     * @return the template file name.
+     */
+    private function redirect( $redirect )
     {
         $groupId = $this->groupId();
         switch ( $redirect ) {
@@ -581,57 +597,57 @@ class groupadmin extends controller {
                 return $this->nextAction('main', array('groupId'=>$groupId));
             default :
                 return $this->nextAction('main', array('groupId'=>$groupId));
-        } 
-    } 
+        }
+    }
 
     /**
-    * Method to process the edit form post/get elements
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function processEditForm()
+     * Method to process the edit form post/get elements
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function processEditForm()
     {
         $groupId = $this->groupId();
         $redirect = 'edit';
 
         if ( $this->getParam( 'button' ) == 'save' && $groupId <> '' ) {
             // Get the revised member ids
-            $list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array(); 
+            $list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array();
             // Get the original member ids
             $fields = array ( 'tbl_users.id' );
             $memberList = &$this->objGroupAdminModel->getGroupUsers( $groupId, $fields );
-            $oldList = $this->objGroupAdminModel->getField( $memberList, 'id' ); 
+            $oldList = $this->objGroupAdminModel->getField( $memberList, 'id' );
             // Get the added member ids
-            $addList = array_diff( $list, $oldList ); 
+            $addList = array_diff( $list, $oldList );
             // Get the deleted member ids
-            $delList = array_diff( $oldList, $list ); 
+            $delList = array_diff( $oldList, $list );
             // Add these members
             foreach( $addList as $userId ) {
                 $this->objGroupAdminModel->addGroupUser( $groupId, $userId );
-            } 
+            }
             // Delete these members
             foreach( $delList as $userId ) {
                 $this->objGroupAdminModel->deleteGroupUser( $groupId, $userId );
-            } 
+            }
             return $this->redirect( 'confirm' );
-        } 
+        }
 
         if ( $this->getParam( 'button' ) == 'cancel' ) {
-        } 
+        }
 
         return $this->redirect( $this->getParam( 'return' ) );
-    } 
-    // ///////////////////////////////////////////////
-    // ------------------- Delete ------------------//
-    // ///////////////////////////////////////////////
+    }
+
     /**
-    * Method to show the delete group view
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function showDelete()
+     * Method to show the delete group view
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function showDelete()
     {
         $groupId = $this->groupId();
         $objLanguage = $this->objLanguage;
@@ -643,7 +659,7 @@ class groupadmin extends controller {
             $arrOfRep['TIMESTAMP'] = date( "h:i:s" );
             $confirmMsg = $objLanguage->code2Txt( $str, $arrOfRep );
             $this->setVar( 'confirmMsg', $confirmMsg );
-        } 
+        }
         // The form buttons
         $lblYes = $objLanguage->languageText( 'word_yes' );
         $lblNo = $objLanguage->languageText( 'word_no' );
@@ -691,69 +707,73 @@ class groupadmin extends controller {
         $this->setVar( 'confirm', $confirm );
 
         return 'deletegroup_tpl.php';
-    } 
+    }
 
     /**
-    * Method to process the delete form post/get elements
-    * 
-    * @access private 
-    * @return string the template file name.
-    */
-    function processDeleteForm()
+     * Method to process the delete form post/get elements
+     *
+     * @access private
+     * @param void
+     * @return string the template file name.
+     */
+    private function processDeleteForm()
     {
         $groupId = $this->groupId();
 
         if ( $this->getParam( 'button' ) == 'yes' ) {
             $this->objGroupAdminModel->deleteGroup( $groupId );
             return $this->showDelete();
-        } 
+        }
 
         if ( $this->getParam( 'button' ) == 'no' ) {
             return $this->showMain();
-        } 
+        }
 
         return $this->showMain();
-    } 
+    }
 
     /**
-    * Method to get the group id
-    * 
-    * @access private 
-    * @return string groupId param returned from the template.
-    */
-    function groupId()
+     * Method to get the group id
+     *
+     * @access private
+     * @param void
+     * @return string groupId param returned from the template.
+     */
+    private function groupId()
     {
         $this->groupId = $this->getParam( 'groupId' );
         $this->setVar( 'groupId', $this->groupId );
         return $this->groupId;
-    } 
+    }
 
     /**
-    * Method to get all members of the current group.
-    * 
-    * @access private 
-    * @return array containing the members.
-    */
-    function &memberList()
+     * Method to get all members of the current group.
+     *
+     * @access private
+     * @param void
+     * @return array containing the members.
+     */
+    private function &memberList()
     {
-        $objGAM = &$this->objGroupAdminModel; 
+        $objGAM = &$this->objGroupAdminModel;
         // The member list of this group
         $fields = array ( 'firstName', 'surname', 'tbl_users.id' );
-        $this->memberList = $objGAM->getGroupUsers( $this->groupId, $fields ); 
+        $this->memberList = $objGAM->getGroupUsers( $this->groupId, $fields );
         // The template variable is set and it returns the member list
         $this->setVarByRef( 'memberList', $this->memberList );
         return $this->memberList;
-    } 
+    }
 
     /**
     * Method to get all users not in the selected group.
-    * 
-    * @access private 
+    *
+    * @access private
+    * @param void
     * @return array of all non members.
     */
-    function &usersList()
+    private function &usersList()
     {
-        $objGAM = &$this->objGroupAdminModel; 
+        $objGAM = &$this->objGroupAdminModel;
         // Users list need the firstname, surname, and userId fields.
         $fields = array ( 'firstName', 'surname', 'id' );
         $memberIds = $objGAM->getField( $this->memberList, 'id' );
@@ -765,13 +785,15 @@ class groupadmin extends controller {
         $this->setVarByRef( 'usersList', $this->usersList );
         return $this->usersList;
     }
+
     /**
-    * Method to create the edit link button.
-    * @access private
-    * @param string $groupId The group to edit.
-    * @return link a link object reference
-    */
-    function &lnkEdit( $groupId )
+     * Method to create the edit link button.
+     *
+     * @access private
+     * @param string $groupId The group to edit.
+     * @return link a link object reference
+     */
+    private function &lnkEdit( $groupId )
     {
         // Edit members link button
         $lnkEdit = &$this->newObject( 'link', 'htmlelements' );
@@ -779,14 +801,15 @@ class groupadmin extends controller {
         $lnkEdit->link = $this->objLanguage->languageText( 'mod_groupadmin_edit' );
         return $lnkEdit;
     }
-    
+
     /**
-    * Method to create the delete link button.
-    * @access private
-    * @param string $groupId The group to delete.
-    * @return link a link object reference
-    */
-    function &lnkDelete( $groupId )
+     * Method to create the delete link button.
+     *
+     * @access private
+     * @param string $groupId The group to delete.
+     * @return link a link object reference
+     */
+    private function &lnkDelete( $groupId )
     {
         // Delete group and members link button
         $lnkDelete = &$this->newObject( 'link', 'htmlelements' );
@@ -797,11 +820,13 @@ class groupadmin extends controller {
     }
 
     /**
-    * Method to create the create link button.
-    * @access private
-    * @return link a link object reference
-    */
-    function &lnkCreate()
+     * Method to create the create link button.
+     *
+     * @access private
+     * @param void
+     * @return link a link object reference
+     */
+    private function &lnkCreate()
     {
         // Create a new group link button
         $lnkCreate = &$this->newObject( 'link', 'htmlelements' );
@@ -812,23 +837,28 @@ class groupadmin extends controller {
     }
 
     /**
-    * Method to create the create link button.
-    * @access private
-    * @return link a link object reference
-    */
-    function &lnkIcnCreate()
+     * Method to create the create link button.
+     *
+     * @access private
+     * @param void
+     * @return link a link object reference
+     */
+    private function &lnkIcnCreate()
     {
         $icn = &$this->newObject( 'geticon', 'htmlelements' );
         $href = $this->uri ( array( 'action' => 'create' ) );
         $lnkIcnCreate = $icn->getAddIcon( $href );
         return $lnkIcnCreate;
     }
+
     /**
-    * Method to gather group information.
-    * @access private
-    * @return array list of usefull group information.
-    */
-    function infoGroup( $groupId )
+     * Method to gather group information.
+     *
+     * @access private
+     * @param string
+     * @return array list of usefull group information.
+     */
+    private function infoGroup( $groupId )
     {
         $info = array();
         // Full path
@@ -841,5 +871,4 @@ class groupadmin extends controller {
         return $info;
     }
 } //end of class
-
 ?>
