@@ -13,6 +13,7 @@ require_once "lib/logging.php";
  *
  * @author Paul Scott
  * @example ./examples/soap.eg.php The example
+ * TODO: Finish this class.
  *
  * $Id$
  */
