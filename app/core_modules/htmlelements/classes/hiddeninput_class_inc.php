@@ -60,7 +60,7 @@ class hiddeninput
     {
         $str = '<input type="hidden" value="' . $this->value . '"';
         $str .= ' name="' . $this->name . '"';
-        $str .= '>';
+        $str .= ' />';
         return $str;
     } 
 } 

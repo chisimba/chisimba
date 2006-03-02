@@ -59,9 +59,9 @@ class progressbar
 		  <table height="20" name="<? echo('table_' . $this->name);?>" border="0" cellpadding="0" cellspacing="0" width="<? echo($this->width + 60);?>">
 			<tr>
               <td width="52" height="20"><p>Progress: </p></td>
-		      <td width="4" height="20" valign="top" align="left"><img border="0" src="begin.gif" width="4" height="20"></td>
-		      <td name="<? echo('cell_' . $this->name);?>" align="left" valign="middle" width="<? echo($this->width);?>" height="20" style="background-repeat: repeat-x" background="http://fill_bg.gif"><img name="<? echo($this->name)?>" border="0" src="fill.gif" width="<? echo(($percent * .01) * $width);?>" height="11"></td>
-		      <td width="4"  height="20" valign="top" align="left"><img border="0" src="end-filled.gif" width="4" height="20"></td>
+		      <td width="4" height="20" valign="top" align="left"><img border="0" src="begin.gif" width="4" height="20" /></td>
+		      <td name="<? echo('cell_' . $this->name);?>" align="left" valign="middle" width="<? echo($this->width);?>" height="20" style="background-repeat: repeat-x" background="http://fill_bg.gif"><img name="<? echo($this->name)?>" border="0" src="fill.gif" width="<? echo(($percent * .01) * $width);?>" height="11" /></td>
+		      <td width="4"  height="20" valign="top" align="left"><img border="0" src="end-filled.gif" width="4" height="20" /></td>
 		    </tr>
 		  </table>
 		  </center>

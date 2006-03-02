@@ -218,11 +218,11 @@ class marquee extends object
 		
 			//get the content to be displayec within the marquee
 			$str.=$this->elements;
-			$str.="</marquee><br>";
+			$str.="</marquee><br />";
 		} else {
 			$str="";
 			$str.=$this->elements;
-			$str.="<br>";
+			$str.="<br />";
 		}
 	
 		/**

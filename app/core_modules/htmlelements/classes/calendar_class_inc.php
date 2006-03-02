@@ -59,9 +59,9 @@ class calendar {
 		$str.=' name="'.$this->name.'"';
 		$str.=' value="'.$this->value.'"';
 		$str.=' class="'.$this->css.'"';
-		$str.='>';
+		$str.=' />';
 		//$str.="<a href=\"#\" onclick=\"window.open('modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"modules/htmlelements/resources/images/schedule_ico.gif\"></a>";
-		$str.="<a href=\"#\" onclick=\"window.open('modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"modules/htmlelements/resources/images/schedule_ico.gif\"></a>";
+		$str.="<a href=\"#\" onclick=\"window.open('modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"modules/htmlelements/resources/images/schedule_ico.gif\" /></a>";
 		return $str;
 	}
 

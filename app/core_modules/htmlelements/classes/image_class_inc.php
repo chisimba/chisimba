@@ -74,7 +74,7 @@ class image {
         if ($this->border) {
             $this->imageTag .= " border=\"" . $this->border . "\"";
         }
-        $this->imageTag .= "/>";
+        $this->imageTag .= " />";
 
     }
 

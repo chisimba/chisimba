@@ -69,7 +69,7 @@ class frames
      if($marginwidth != -1)
         $options .= " MARGINWIDTH =\"$marginwidth\"" ;
                                                                                                                              
-    $frame = "<FRAME SRC =\"$url\"" . $options . ">\n" ;
+    $frame = "<FRAME SRC =\"$url\"" . $options . " />\n" ;
     return $frame;
 	 }
 

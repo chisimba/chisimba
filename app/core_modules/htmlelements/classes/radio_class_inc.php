@@ -147,7 +147,7 @@ class radio extends htmlbase
             if($this->extra){
                 $str.=' '.$this->extra;
             }
-            $str.='>' ;
+            $str.=' />' ;
             
             $label = new label($lbl, 'input_'.$this->name.$opt);
             $str.=$label->show();
@@ -196,7 +196,7 @@ class radio extends htmlbase
             if ($this->extra){
                 $str.=' '.$this->extra;
             }
-            $str.='>' ;
+            $str.=' />' ;
             
             $label = new label($lbl, 'input_'.$this->name.$opt);
             $str.=$label->show();

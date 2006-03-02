@@ -100,7 +100,7 @@ class multitabbedbox extends htmlbase{
 	
 //		$width=$width*10;
 		$cnt=0;
-		$str.='<br>';
+		$str.='<br />';
 		foreach($this->tabs as $tab){
 			$cnt=$cnt+1;
 			

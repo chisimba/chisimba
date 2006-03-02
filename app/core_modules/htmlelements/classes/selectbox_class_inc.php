@@ -123,14 +123,14 @@ class selectbox extends object {
         $this->arrHeaders['hdrRight']= $tblRightHeader;
         
         // initialise the hidden form fields.
-        $this->objForm->addToForm( "<INPUT TYPE='HIDDEN' NAME='button' VALUE=''>" );
+        $this->objForm->addToForm( "<input type='hidden' name='button' value='' />" );
         
         // configure the dropdown as select box.
-        $this->objLeftList->extra = ' MULTIPLE SIZE=10 style="width:100pt;" ';
+        $this->objLeftList->extra = ' mu;tiple size=10 style="width:100pt;" ';
         $this->onDblClickParam( $this->objLeftList, $this->moveSelectedOptions( $this->objLeftList, $this->objRightList));
 
         // configure the dropdown as select box.
-        $this->objRightList->extra = ' MULTIPLE SIZE=10 style="width:100pt;" ';
+        $this->objRightList->extra = ' multiple size=10 style="width:100pt;" ';
         $this->onDblClickParam( $this->objRightList, $this->moveSelectedOptions( $this->objRightList, $this->objLeftList ) );
 
         // Create the button objects as links.
@@ -306,7 +306,7 @@ class selectbox extends object {
         $table->width = NULL;
         $table->startRow();
             $table->addCell( $tblLeft->show(), '100pt' );
-            $table->addCell( implode( '<BR>', $arrButtons), '100pt', 'center', 'center' );
+            $table->addCell( implode( '<BR />', $arrButtons), '100pt', 'center', 'center' );
             $table->addCell( $tblRight->show(), '100pt' );
         $table->endRow();
     }

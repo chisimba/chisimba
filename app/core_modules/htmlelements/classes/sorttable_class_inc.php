@@ -175,7 +175,7 @@ class sortTable extends object
     */
     function show()
     {
-        $sortTable = '<SCRIPT language="JavaScript">';
+        $sortTable = '<script language="JavaScript">';
         $sortTable.= $this->create();
 
         // Header
@@ -201,11 +201,11 @@ class sortTable extends object
             $sortTable.= $this->AddLineSortData($array['sortData']);
             $sortTable.= $this->AddLineProperties( $row_attributes );
         }
-        $sortTable .='</SCRIPT>';
+        $sortTable .='</script>';
         
         // Table definition stuff
         $tableAttributes = $this->_getTableAttributes();
-        $sortTable .= sprintf('<TABLE %s>', $tableAttributes );
+        $sortTable .= sprintf('<table %s>', $tableAttributes );
         // Build header
         $th = '';
         // Index for javascript: Column index to sort by.
@@ -215,13 +215,13 @@ class sortTable extends object
             $thData = $headerCell['str'];
             // TODO: Enable/Disable which columns to sort.
             $js = $this->SortRows( $this->name, $index++ );
-            $th .= sprintf('<TH %s><A href="javascript:%s">%s</A></TH>',$thAttr,$js,$thData);
+            $th .= sprintf('<th %s><a href="javascript:%s">%s</a></th>',$thAttr,$js,$thData);
         }
         
-        $sortTable .= sprintf('<THEAD><TR %s>%s</TR></THEAD>', $row_attributes, $th );
+        $sortTable .= sprintf('<thead><tr %s>%s</tr></thead>', $row_attributes, $th );
         // Build Body
-        $sortTable .= sprintf('<TBODY><SCRIPT language=JavaScript>%s</SCRIPT></TBODY>', $this->WriteRows());
-        $sortTable .= '</TABLE>';
+        $sortTable .= sprintf('<tbody><SCRIPT language=JavaScript>%s</script></tbody>', $this->WriteRows());
+        $sortTable .= '</table>';
         return $sortTable;
     }
 

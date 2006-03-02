@@ -42,7 +42,7 @@ class navbuttons extends object
 
 		$ret='<img src="'.$this->objConfig->defaultIconFolder().$filename.'" 
 			alt="'.$alt.'" border="0" 
-			align="absmiddle" valign="middle">';
+			align="absmiddle" valign="middle" />';
 		return $ret;
 	}
 	
@@ -97,7 +97,7 @@ class navbuttons extends object
 		$ret='<input type="'.$type
 			.'" name="'.$label.'" value="'
 			.$this->objLanguage->languageText("word_$label")
-			.'" class="button">';
+			.'" class="button" />';
 		return $ret;
 	}
 

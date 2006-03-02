@@ -94,7 +94,7 @@ class textinput extends htmlbase
         if ($this->extra) {
             $str .= $this->extra;
         }
-        $str .= '>';
+        $str .= ' />';
         return $str;
     } 
 } 

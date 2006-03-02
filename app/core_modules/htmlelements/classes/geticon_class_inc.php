@@ -320,7 +320,7 @@ class getIcon extends object
     if($this->extra) {
         $ret .= $this->extra;
     }
-        $ret .=">";
+        $ret .=" />";
         return $ret;
     }
 }
