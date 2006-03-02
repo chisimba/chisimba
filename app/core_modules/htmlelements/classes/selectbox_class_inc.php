@@ -306,7 +306,7 @@ class selectbox extends object {
         $table->width = NULL;
         $table->startRow();
             $table->addCell( $tblLeft->show(), '100pt' );
-            $table->addCell( implode( '<BR />', $arrButtons), '100pt', 'center', 'center' );
+            $table->addCell( implode( '<br />', $arrButtons), '100pt', 'center', 'center' );
             $table->addCell( $tblRight->show(), '100pt' );
         $table->endRow();
     }
