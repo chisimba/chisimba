@@ -4,31 +4,28 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
-* @subpackage access
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams
-* @filesource
-*/
-  /**
-  * The groupusersdb class is used to access the groupusers table data.
-  * This class is responsible for maintaining the groupusers data.
-  * <PRE>
-  * Public Inteface:
-  *   addGroupUser      - To insert a user into a group in the group hierarchy.
-  *   deleteGroupUser   - To remove a user from a group in the group hierarchy.
-  *   getUserDirectGroups- To get all the direct groups for this user.
-  *   getUserGroups     - To get all the direct and subgroups for this user.
-  *   getGroupUsers     - To get all the direct users for this group.
-  *   getNotGroupUsers  - To get all the users not directly in this group.
-  *   getSubGroupUsers  - To get all direct and subgroups for this user.
-  *   isGroupMember     - To test if the user is a member of the direct group.
-  *   isSubGroupMember  - To test if the user is a member of the direct and subgroups.
-  *</PRE>
-  * @author Jonathan Abrahams
-  */
+ * The groupusersdb class is used to access the groupusers table data.
+ * This class is responsible for maintaining the groupusers data.
+ * <PRE>
+ * Public Inteface:
+ *   addGroupUser      - To insert a user into a group in the group hierarchy.
+ *   deleteGroupUser   - To remove a user from a group in the group hierarchy.
+ *   getUserDirectGroups- To get all the direct groups for this user.
+ *   getUserGroups     - To get all the direct and subgroups for this user.
+ *   getGroupUsers     - To get all the direct users for this group.
+ *   getNotGroupUsers  - To get all the users not directly in this group.
+ *   getSubGroupUsers  - To get all direct and subgroups for this user.
+ *   isGroupMember     - To test if the user is a member of the direct group.
+ *   isSubGroupMember  - To test if the user is a member of the direct and subgroups.
+ *</PRE>
+ * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package groupadmin
+ * @subpackage access
+ * @version 0.1
+ * @since 22 November 2004
+ * @author Paul Scott based on methods by Jonathan Abrahams
+ * @filesource
+ */
 
 class groupusersdb extends dbTable
 {
@@ -41,7 +38,7 @@ class groupusersdb extends dbTable
     * @var usersDb $_objGroups the connection to groups database.
     */
     var $_objGroups;
-  
+
     /**
     * Method to initialize the groupuserDb object.
     */
@@ -78,7 +75,7 @@ class groupusersdb extends dbTable
     function & groups() {
         return $this->_objGroups;
     }
-    
+
     /**
     * Method to get the groups object
     *
@@ -149,7 +146,7 @@ class groupusersdb extends dbTable
 
         return $this->getArray( $sql );
     }
-    
+
     /**
     * Method to get the users group membership.
     * <PRE>
@@ -170,10 +167,10 @@ class groupusersdb extends dbTable
     function getUserGroups( $userId ) {
         // Get the objects.
         $groups =& $this->groups();
-        
+
         // Get the direct groups the user is a member of.
         $directGroups = $this->getUserDirectGroups( $userId );
-        
+
         // Get subgroups for direct groups.
         $userGroups = array( );
         foreach( $directGroups as $row ) {
@@ -202,7 +199,7 @@ class groupusersdb extends dbTable
         $tblUser       = $users->_tableName;
 
         $sql = "SELECT ";
-        $sql.= $fields 
+        $sql.= $fields
                 ? ( is_array( $fields ) ? implode ( ',', $fields ) : $fields )
                 : "$tblUser.id, CONCAT(firstName,' ',surname) as fullName";
         $sql.= " FROM $tblGroupUsers";
@@ -210,7 +207,7 @@ class groupusersdb extends dbTable
         $join = " INNER JOIN $tblUser";
         $join.= " ON ( ( user_id = $tblUser.id ) AND ( group_id = '$groupId' ) )";
         $filter = $filter ? $filter : ereg('firstName',$sql)? " ORDER BY UPPER(firstName)" : NULL;
-        
+
         return $this->getArray( $sql.$join.$filter );
     }
 
@@ -313,11 +310,11 @@ class groupusersdb extends dbTable
         // Get the table names.
         $tblGroupUsers = $this->_tableName;
         $tblUser       = $users->_tableName;
-        
+
         // Get Subgroups for this groupId
         $SubGroups = $groups->getSubgroups( $groupId );
         $lstGroups = "'".implode("', '", $SubGroups )."'";
-    
+
         $sql = "SELECT ";
         $sql.= $fields ? implode (',', $fields ) : " CONCAT( firstName, ' ', surname ) as fullname ";
         $sql.= " FROM $tblGroupUsers, $tblUser";
