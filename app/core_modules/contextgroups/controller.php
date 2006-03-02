@@ -48,17 +48,17 @@ class contextgroups extends controller
         $this->_objDBContext = &$this->getObject('dbcontext','context');
         $this->_objLanguage = &$this->getObject('language','language');
         $this->_objContextCondition = &$this->getObject('contextcondition','contextpermissions');
-        
+
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Lecturers' ) );
         $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Students' ) );
         $this->guestGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Guest' ) );
-        
+
         $this->setVar( 'lectGroupId' , $this->lectGroupId );
         $this->setVar( 'studGroupId' , $this->studGroupId );
         $this->setVar( 'guestGroupId' , $this->guestGroupId );
 
         $this->setVar( 'linkToContextHome', $this->linkToContextHome() );
-        
+
         $this->errCodes= array();
         // Action to take for errors.
         $this->errCodes['notInContext']= array(
@@ -138,14 +138,14 @@ class contextgroups extends controller
         $title = $this->_objLanguage->code2Txt(
             'mod_contextgroups_ttlManage',
             array( 'TITLE'=> $this->_objDBContext->getTitle() ) );
-            
+
         $this->setVar('ttlLecturers', $this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers',array('authors'=>'')) );        $this->setVar('title',$title);
         $this->setVar('ttlStudents', $this->_objLanguage->code2Txt('mod_contextgroups_ttlStudents') );
         $this->setVar('ttlGuests', $this->_objLanguage->languageText('mod_contextgroups_ttlGuest') );
-        
+
         return 'main_tpl.php';
     }
-    
+
     /**
     * Method to process the request to manage a member group.
     * @param string the group to be managed.
@@ -193,7 +193,7 @@ class contextgroups extends controller
         $memberList = $this->_objGroupAdmin->getGroupUsers( $groupId, $fields );
         $memberIds  = $this->_objGroupAdmin->getField( $memberList, 'id' );
         $filter = "'" . implode( "', '", $memberIds ) . "'";
-        
+
         // Users list need the firstname, surname, and userId fields.
         $fields = array ( 'firstName', 'surname', 'id' );
         $usersList = $this->_objGroupAdmin->getUsers( $fields, " WHERE id NOT IN($filter)" );
@@ -208,7 +208,7 @@ class contextgroups extends controller
             $userPKId = $user['id'];
             $lstMembers->addOption( $userPKId, $fullName );
         }
-		
+
 		$tblLayoutM= &$this->newObject( 'htmltable', 'htmlelements' );
 		$tblLayoutM->row_attributes = 'align=center ';
 		$tblLayoutM->width = '100px';
@@ -219,7 +219,7 @@ class contextgroups extends controller
 			$tblLayoutM->addCell( $lstMembers->show() );
 		$tblLayoutM->endRow();
         $this->setVarByRef('lstMembers', $tblLayoutM);
-        
+
         // Users list dropdown
         $lstUsers = $this->newObject( 'dropdown', 'htmlelements' );
         $lstUsers->name = 'list1[]';
@@ -285,7 +285,7 @@ class contextgroups extends controller
 
         return 'manage_tpl.php';
     }
-    
+
     /**
     * Method to create a navigation button link
     */
@@ -310,7 +310,7 @@ class contextgroups extends controller
     {
         // Extracts error, action, title for this error
         extract($this->errCodes[$errCode]);
-        
+
         // Translate text.
         $errMessage = $this->_objLanguage->code2Txt($error,array('ACTION'=>$action));
         $errTitle = $this->_objLanguage->code2Txt($title);
@@ -320,7 +320,7 @@ class contextgroups extends controller
         $this->setVar('errMessage',$errMessage);
         return 'error_tpl.php';
     }
-    
+
     /**
     * Method to redirect to another module
     * @param string The link text.
@@ -348,7 +348,7 @@ class contextgroups extends controller
         $link->link = $this->_objLanguage->languageText($linkName);
         return $link->show();
     }
-    
+
     /**
     * Method to redirect to context home.
     * @return string HTML link element.

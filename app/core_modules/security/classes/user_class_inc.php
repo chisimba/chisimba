@@ -344,7 +344,9 @@ class user extends dbTable
             }
         }
         // Now we check the database
+
         if (($this->lookupAdmin($this->userId()))||($this->inAdminGroup($this->userId()))) {
+
             return TRUE;
         } else {
             return FALSE;
@@ -361,7 +363,9 @@ class user extends dbTable
     function lookupAdmin($userId)
     {
         $sql="SELECT accesslevel from tbl_users where userId='$userId'";
+
         $return=$this->getArray($sql);
+
         if ((isset($return[0]))&&($return[0]['accesslevel']=='1')){
             return TRUE;
         }else{
@@ -427,8 +431,7 @@ class user extends dbTable
         $rs = $this->query($sql);
         if ($rs)
         {
-            $line = $rs->fetchRow();
-            $ret=$line["id"];
+            $ret=$rs[0]["id"];
         }
         else
         {
@@ -555,7 +558,7 @@ class user extends dbTable
     * This function has been simplified down now that it calls getSession
     */
     function userId() {
-        return $this->getSession('userId');
+        return $this->getSession('userid');
     }
 
 

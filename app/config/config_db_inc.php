@@ -4,7 +4,7 @@
 * KEWL.NextGen database.
 */
 // Server name needs to be unique within a mirroring cluster
-define('KEWL_SERVERNAME', 'gen8Srv59Nme5');
+define('KEWL_SERVERNAME', 'gen6Srv42Nme32');
 // The main server ensures all server names are unique within a mirroring cluster
 define('KEWL_MAINSERVERNAME', 'http://kngforge.uwc.ac.za/kng_unstable');
 // The server name was generated
@@ -13,7 +13,7 @@ define('KEWL_DB_DRIVER', 'mysql');
 define('KEWL_DB_SERVER', 'localhost');
 define('KEWL_DB_USER', 'root');
 define('KEWL_DB_PASSWORD', '');
-define('KEWL_DB_DATABASE', 'testing123');
+define('KEWL_DB_DATABASE', 'php5alpha');
 
 /**  configuration information for readonly
 * Use to provide the capability to have a second

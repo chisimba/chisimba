@@ -5,13 +5,13 @@
 
 //------ BEGIN CONFIGURABLE CONSTANTS ------------
 // Use this to name your site
-define( 'KEWL_SITENAME', 'testing123' );
+define( 'KEWL_SITENAME', 'paul' );
 // Institutions short name (e.g UWC, MIT, MUN)
-define( 'KEWL_INSTITUTION_SHORTNAME', 'testing123' );
+define( 'KEWL_INSTITUTION_SHORTNAME', 'paul' );
 // Institutions normal name
-define( 'KEWL_INSTITUTION_NAME', 'testing123' );
+define( 'KEWL_INSTITUTION_NAME', 'paul' );
 // Proxy setting
-define( 'KEWL_PROXY', '' );
+define( 'KEWL_PROXY', 'http://pscott:scott@cache.uwc.ac.za:8080' );
 // Provide the email address for the website
 define( 'KEWL_SITEEMAIL', 'pscott@uwc.ac.za' );
 // The timeout for a session in minutes
@@ -54,7 +54,7 @@ define( 'KEWL_BLOGS_BASEPATH', '/var/www/5ive/app/blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
  // ----------- Site options -------------- 
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );
-define( 'KEWL_ENABLE_LOGGING', 'FALSE' );
+define( 'KEWL_ENABLE_LOGGING', 'TRUE' );
 define( 'LDAP_USED', '' );
 // -------- DO NOT EDIT BELOW THIS LINE ----------------
  ?>

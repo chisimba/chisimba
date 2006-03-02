@@ -4,13 +4,13 @@
 * linked letters of the alphabet
 */
 
-class alphabet extends object 
+class alphabet extends object
 {
 
      var $objLanguage;
-     
+
     /**
-	* @var $listAllName 
+	* @var $listAllName
 	*/
      var $listAllName;
 
@@ -18,7 +18,7 @@ class alphabet extends object
 	* Constructor class for the buttons class, used to
 	* instatntiate a local access to the language object
 	*/
-	function init() 
+	function init()
 	{
 		$this->objLanguage =& $this->getObject('language', 'language');
     }
@@ -28,7 +28,7 @@ class alphabet extends object
 	* to perform an action based on $link depending on what letter
 	* is clicked. If $link is supplied, then an active link is made
 	* @param string $link:the link that should be activated when
-	* the letter is clicked. It takes the form 
+	* the letter is clicked. It takes the form
 	* FILE.PHP?action=someaction&somevariable=somevalue&letter=LETTER
 	* where LETTER will be replaced by the letter as the function
 	* goes through its loop
@@ -42,7 +42,7 @@ class alphabet extends object
                 } else {
                     $target='';
                 }
-		
+
 		// I've added a variable called listAllName that allows you to change the word for 'List All Records'
 		// Tohir 26 August 2004, 9:00am
 		if ($listAllName == '') {
@@ -50,17 +50,17 @@ class alphabet extends object
 		} else {
 			$this->listAllName = $listAllName;
 		}
-		
+
 		$ret=NULL;
-		if ($caps) {
+		//if ($caps) {
 		    $lBound=65;
 			$uBound=90;
-		}
+		//}
 		for ($i=$lBound; $i<=$uBound; $i++) {
 			$link2=str_replace("LETTER",chr($i),$link);
 			$linkall=str_replace("LETTER", "listall", $link);
 			$ret.=' | <a href="'.$link2.'"'.$target.'>'.chr($i)."</a>\n";
-		} 
+		}
 		$ret.=' | <a href="'.$linkall.'"'.$target.'>'.$this->listAllName.'</a> |';
 		return $ret;
 	}

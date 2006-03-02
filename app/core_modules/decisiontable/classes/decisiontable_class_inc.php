@@ -31,7 +31,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @access private
      * @var string
      */
-    private $_name = '';
+    public $_name = '';
 
     /**
      * Object reference to the dbDecisionTableAction object.
@@ -39,15 +39,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @access private
      * @var dbDecisionTableAction
      */
-    private $_objDBDecisionTableAction = NULL;
+    public $_objDBDecisionTableAction = NULL;
 
     /**
      * List of actions set for this module.
      *
-     * @access private
+     * @access public
      * @var array $arrActions
      */
-    private $_arrActions;
+    public $_arrActions;
 
     /**
      *Initialize the decision table structure.

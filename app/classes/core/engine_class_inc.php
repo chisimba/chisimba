@@ -333,7 +333,7 @@ class engine
             $_globalObjDb = &MDB2::factory($this->_objDbConfig->dbConString());
 
             //set the options
-            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 
             //Check for errors
             if (PEAR::isError($_globalObjDb)) {
@@ -352,7 +352,8 @@ class engine
             // set the default fetch mode for the DB to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
-            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            $this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
+            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
             // include the dbtable base class for future use
         }
         //return the local copy

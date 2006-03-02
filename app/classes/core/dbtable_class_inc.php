@@ -563,5 +563,18 @@ class dbTable extends object
         return $this->getArrayWithLimit($sql, 0, 1);
     }
 
+    /**
+     * Select a different database
+     *
+     * @param string $name name of the database that should be selected
+     * @return string name of the database previously connected to
+     * @access public
+     */
+    public function setDatabaseTo($name)
+    {
+        $ret = $this->setDatabase($name);
+        return $ret;
+    }
+
 } // end of dbTable class
 ?>
