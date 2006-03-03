@@ -25,6 +25,8 @@ require_once 'classes/core/object_class_inc.php';
 require_once 'classes/core/access_class_inc.php';
 //database abstraction object
 require_once 'classes/core/dbtable_class_inc.php';
+//database management object
+require_once 'classes/core/dbtablemanager_class_inc.php';
 //front end controller object
 require_once 'classes/core/controller_class_inc.php';
 //log layer
@@ -58,10 +60,18 @@ class engine
     /**
      * database object (global)
      *
-     * @var unknown_type
+     * @var object
      * @access private
      */
     private $_objDb;
+
+    /**
+     * database manager object (global)
+     *
+     * @var object
+     * @access private
+     */
+    private $_objDbManager;
 
     /**
      * The User object
@@ -232,6 +242,8 @@ class engine
         $this->_objDbConfig = $this->getObject('dbconfig', 'config');
         //initialise the db factory method of MDB2
         $this->getDbObj();
+        //initialise the db factory method of MDB2_Schema
+        $this->getDbManagementObj();
         //get the system config stuff
         $this->_objConfig = $this->getObject('config', 'config');
         //the user security module
@@ -360,6 +372,52 @@ class engine
         }
         //return the local copy
         return $this->_objDb;
+    }//end function
+
+
+   /**
+    * Method to return the db management object. Evaluates lazily,
+    * so class file is not included nor object instantiated
+    * until needed.
+    *
+    * @param void
+    * @access public
+    * @return kngConfig The config object
+    */
+    public function &getDbManagementObj()
+    {
+        //global for the management object
+        global $_globalObjDbManager;
+
+        //do the checks that the db object gets instantiated once, then
+        //let MDB2 take over for the on-demand construction
+        if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
+            //load the config object (same as the db Object)
+            $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
+            // Connect to the database
+            require_once 'MDB2/Schema.php';
+            //MDB2 has a factory method, so lets use it now...
+            $_globalObjDbManager = &MDB2_Schema::factory($this->_objDbConfig->dbConString());
+
+            //Check for errors
+            if (PEAR::isError($_globalObjDbManager)) {
+                // manually call the callback function here,
+                // as we haven't had a chance to install it as
+                // the error handler
+                $this->_pearErrorCallback($_globalObjDb);
+                //return the db object for use globally
+                return $_globalObjDbManager;
+            }
+            // keep a copy as a field as well
+            $this->_objDbManager =& $_globalObjDbManager;
+            // install the error handler with our custom callback on error
+            $this->_objDbManager->setErrorHandling(PEAR_ERROR_CALLBACK,
+                                            array(&$this, '_pearErrorCallback'));
+
+        }
+        //return the local copy
+        //var_dump($this->_objDbManager);
+        return $this->_objDbManager;
     }//end function
 
     /**
