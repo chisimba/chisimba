@@ -13,6 +13,12 @@ require_once "lib/logging.php";
 *
 * @author Paul Scott based on methods by Sean Legassick
 * @example ./examples/dbtable.eg.php The example
+* @filesource
+* @copyright (c) 2000-2006, GNU/GPL AVOIR UWC
+* @package core
+* @subpackage dbtable
+* @version 0.1
+* @since 03 March 2006
 *
 * $Id$
 */
