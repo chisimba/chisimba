@@ -926,7 +926,16 @@ class engine
         //      that being said, we should still go for just getMessage() in prod
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
-        $usermsg = $error->getMessage();
+        $errConfig = $this->_objConfig->error_reporting();
+
+        if($errConfig == "developer")
+        {
+            $usermsg = $msg;
+        }
+        else {
+            $usermsg = $error->getMessage();
+        }
+
         $this->setErrorMessage($usermsg);
         $this->putMessages();
         log_debug(__LINE__ . "  " . $msg);

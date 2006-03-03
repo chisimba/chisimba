@@ -52,9 +52,11 @@ define( 'KEWL_CONTENT_PATH', 'usrfiles/' );
 define( 'KEWL_CONTENT_ROOT', 'usrfiles' );
 define( 'KEWL_BLOGS_BASEPATH', '/var/www/5ive/app/blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
- // ----------- Site options -------------- 
+ // ----------- Site options --------------
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );
 define( 'KEWL_ENABLE_LOGGING', 'TRUE' );
-define( 'LDAP_USED', '' );
+define( 'LDAP_USED', 'FALSE' );
+// error reporting, can be production or developer
+define( 'KEWL_ERROR_REPORTING', 'production');
 // -------- DO NOT EDIT BELOW THIS LINE ----------------
  ?>
