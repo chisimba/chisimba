@@ -116,8 +116,9 @@ class dbTable extends object
 
         //get the portability object instantiated
         //we pass the dsn of the db object to the class via the engine->getDbObj() method
-        require_once('portability_class_inc.php');
-        $this->_portability = new portability($this->_db);
+        //This is not neccessary when using dbtableManager
+        //require_once('portability_class_inc.php');
+        //$this->_portability = new portability($this->_db);
 
         //When creating tables it is neccessary to use the portability object.
         //Once that is done, all should be Ok
