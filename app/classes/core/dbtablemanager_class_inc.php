@@ -18,6 +18,7 @@ require_once "lib/logging.php";
 * @subpackage dbtable
 * @version 0.1
 * @since 03 March 2006
+* @example dbdumpexample.php
 *
 * $Id$
 */
