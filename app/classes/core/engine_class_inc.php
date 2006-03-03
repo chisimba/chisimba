@@ -29,8 +29,10 @@ require_once 'classes/core/dbtable_class_inc.php';
 require_once 'classes/core/controller_class_inc.php';
 //log layer
 require_once 'lib/logging.php';
+//error handler
+require_once 'classes/core/errorhandler_class_inc.php';
 
-//function to enable th pear error callback method (global)
+//function to enable the pear error callback method (global)
 function globalPearErrorCallback($error) {
     log_debug($error);
 }
@@ -916,13 +918,35 @@ class engine
      */
     public function _pearErrorCallback($error)
     {
-        //log_objError("PEAR DB Error: " . $error->getMessage());
         // TODO: note $error->getMessage() returns a shorter and friendlier but
         //       less informative message, for production should use getMessage
-        //       (make a config option?)
-        $msg = $error->toString();
-        die($msg);
-        $this->setErrorMessage($msg);
+        //TODO: note 2: Appending the getUserinfo method from the PEAR
+        //      error stack will give you the same detail as toString()
+        //      but it will look decent and not confuse the crap out of users
+        //      that being said, we should still go for just getMessage() in prod
+
+        $msg = $error->getMessage() . ': ' . $error->getUserinfo();
+        $usermsg = $error->getMessage();
+        $this->setErrorMessage($usermsg);
+        $this->putMessages();
+        log_debug(__LINE__ . "  " . $msg);
+
+        die($this->diePage());
+    }
+
+    /**
+     * Method to return a nicely formatted error page for DB errors
+     *
+     * @todo fix this function up for multilingual and prettiness
+     * @access public
+     * @param void
+     * @return string
+     */
+    public function diePage()
+    {
+        $uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+        $message = "<a href=$uri><center><h1>Back</h1></center></a>";
+        return $message;
     }
 
     /**

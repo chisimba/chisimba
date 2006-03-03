@@ -1,13 +1,13 @@
 <?php
 
-$enable_debug_logging = FALSE;
+$enable_debug_logging = TRUE;
 
-if ($enable_debug_logging)
+if ($enable_debug_logging == TRUE)
 {
     require_once 'Log.php';
 
     $conf = array('mode' => 0644, 'timeFormat' => '%Y-%m-%d %H:%M:%S');
-    $log = &Log::singleton('file', 'kewl.log', 'kewl', $conf);
+    $log = &Log::singleton('file', 'error_log/system_errors.log', 'framework', $conf);
     $GLOBALS['DEBUG_LOG_OBJ'] = $log;
 
     function log_debug($str)
@@ -18,7 +18,7 @@ if ($enable_debug_logging)
         ob_end_clean();
 
         $logger = $GLOBALS['DEBUG_LOG_OBJ'];
-        $logger->log($logstr, LOG_DEBUG);
+        $logger->log($logstr, PEAR_LOG_DEBUG);
     }
 }
 else
