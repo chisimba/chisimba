@@ -94,7 +94,7 @@ class user extends dbTable
         tbl_users.title,
         tbl_users.firstName,
         tbl_users.surname,
-        tbl_users.password,
+        tbl_users.pass,
         tbl_users.creationDate,
         tbl_users.emailAddress,
         tbl_users.logins,
@@ -134,7 +134,7 @@ class user extends dbTable
                 DEFINE('STATUS','inactive');
                 return false;
             }
-            if ($line['password']==sha1('--LDAP--')){
+            if ($line['pass']==sha1('--LDAP--')){
                 $objldap=&$this->newObject('ldaplogin','security');
                 $info=$objldap->tryLogin($username,$password);
                 if (is_array($info)){
@@ -146,7 +146,7 @@ class user extends dbTable
             } else {
                 $password=sha1(trim($password));
                 // if the login was successful
-                if ( strtolower($line['password'])==strtolower($password) ){
+                if ( strtolower($line['pass'])==strtolower($password) ){
                     $this->_record = $line;
                     return true;
                 }

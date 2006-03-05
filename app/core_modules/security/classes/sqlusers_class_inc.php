@@ -31,7 +31,7 @@ class sqlUsers extends dbtable
         $sdata['title']=$info['title'];
         $sdata['firstname']=$info['firstName'];
         $sdata['surname']=$info['surname'];
-        $sdata['PASSWORD']=sha1($info['password']);
+        $sdata['pass']=sha1($info['password']);
         $sdata['CreationDate']=$cdate;
         if (isset($info['howCreated'])){
             $sdata['howCreated']=$info['howCreated'];
@@ -69,7 +69,7 @@ class sqlUsers extends dbtable
             'title'=>$this->getParam('title'),
             'firstname'=>$this->getParam('firstname'),
             'surname'=>$this->getParam('surname'),
-            'PASSWORD'=>$cryptpassword,
+            'pass'=>$cryptpassword,
             'CreationDate'=>$cdate,
             'howCreated'=>$howcreated,
             'emailAddress'=>$this->getParam('email'),
@@ -198,12 +198,12 @@ class sqlUsers extends dbtable
     function changePassword($userId,$oldpassword,$newpassword)
     {
         $data=$this->getUsers('userId',$userId,TRUE);
-        if ((($oldpassword=='ADMIN')&&($this->objUser->isAdmin()))||(strtolower($data[0]['PASSWORD'])==strtolower(sha1($oldpassword))))
+        if ((($oldpassword=='ADMIN')&&($this->objUser->isAdmin()))||(strtolower($data[0]['pass'])==strtolower(sha1($oldpassword))))
         {
             // here we proceed to actually do the change
             $cryptpassword=sha1($newpassword);
             //$sql="update tbl_users set password='".$cryptpassword."' where userId='".$userId."'";
-            $this->update('userId',$userId,array('password'=>$cryptpassword));
+            $this->update('userId',$userId,array('pass'=>$cryptpassword));
             return TRUE;
         }
         else
@@ -224,19 +224,19 @@ class sqlUsers extends dbtable
     {
         $username=trim($username);
         $email=trim($email);
-        $sql="select userId, username, firstname, surname, password from tbl_users where username='$username' and emailAddress='$email'";
+        $sql="select userId, username, firstname, surname, pass from tbl_users where username='$username' and emailAddress='$email'";
         $result=$this->getArray($sql);
         if (isset($result[0])){
             // Get the user's info
             $userId=$result[0]['userId'];
-            $password=$result[0]['password'];
+            $password=$result[0]['pass'];
             $firstname=$result[0]['firstname'];
             $surname=$result[0]['surname'];
             if ($password!=(sha1('--LDAP--'))){
                 $objPassword=&$this->getObject('passwords','useradmin');
                 $newpassword=$objPassword->createPassword();
                 $cryptpassword=sha1($newpassword);
-                $this->update('userId',$userId,array('password'=>$cryptpassword));
+                $this->update('userId',$userId,array('pass'=>$cryptpassword));
                 $this->emailPassword($userId,$username,$firstname,$surname,$email,$newpassword);
                 return "mod_useradmin_passwordreset";
             } else {
@@ -312,7 +312,7 @@ class sqlUsers extends dbtable
     function isLDAPUser($userId)
     {
         $data=$this->getUsers('userId',$userId);
-        if ($data[0]['PASSWORD']==sha1('--LDAP--'))
+        if ($data[0]['pass']==sha1('--LDAP--'))
         {
             return TRUE;
         }

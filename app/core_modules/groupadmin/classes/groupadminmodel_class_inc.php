@@ -527,12 +527,12 @@ class groupAdminModel extends dbTable
      *
      * The result of a dbTable::getArray() is usually passed as rows.
      *
-     * @access private
+     * @access public
      * @param array is associated array
      * @param string the field to get
      * @return array|false the only the required field as an array, otherwise FALSE
      */
-    private function getField( $rows, $field )
+    public function getField( $rows, $field )
     {
         $rowFields = array();
         foreach( $rows as $row ) {
