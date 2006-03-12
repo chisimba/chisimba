@@ -23,6 +23,10 @@ require_once "lib/logging.php";
 * $Id$
 */
 
+//lets check to see if the Var_Dump PEAR object exists for debugging,
+//else we just use plain 'ol var_dump
+@include_once 'Var_Dump.php';
+
 class dbTableManager extends object
 {
     /**
@@ -65,6 +69,17 @@ class dbTableManager extends object
      */
     private $_dbmanager = null;
 
+    /**
+     * The non Schema DB Object
+     * We are instantiating this again, in case of first time install
+     * This way, we can create the tables through the magic __call method
+     * and get away with it
+     *
+     *@access private
+     * @var object
+     */
+    private $_db = NULL;
+
    /**
     * Method to initialise the dbTableManager object.
     *
@@ -75,22 +90,31 @@ class dbTableManager extends object
     * @param callback $errorCallback The name of a custom error callback function (defaults to the global)
     * @return void
     */
-    public function init($tableName, $dbName, $pearDbManager = null,
+    public function init($dbName = NULL, $pearDbManager = null,
         $errorCallback = "globalPearErrorCallback")
     {
-        $this->_tableName = $tableName;
-        $this->_dbName = $dbname;
         $this->_errorCallback = $errorCallback;
         if ($pearDbManager == null) {
             $this->_dbmanager = $this->objEngine->getDbManagementObj();
+            $this->_db = $this->objEngine->getDbObj();
         } else {
             $this->_dbmanager = $pearDbManager;
+            $this->_db = $pearDb;
         }
 
+        //check for PEAR Var_dump and initialise it,
+        //otherwise just use regular PHP var_dump();
+        if (class_exists('Var_Dump')) {
+            $var_dump = array('Var_Dump', 'display');
+        } else {
+            $var_dump = 'var_dump';
+        }
+
+        //Load up the config object and get the servername
         $this->objDBConfig=&$this->getObject('dbconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
-        //var_dump($this->_dbmanager);
+        //call_user_func($var_dump, $this->_dbmanager);
     }
 
     /**
@@ -108,7 +132,7 @@ class dbTableManager extends object
      */
     public function parseDbDefFile($input_file, $variables = array(), $fail_on_invalid_names = TRUE)
     {
-        return $this->parseDatabaseDefinitionFile($input_file, $variables,
+        return $this->_dbmanager->parseDatabaseDefinitionFile($input_file, $variables,
         $fail_on_invalid_names, $structure = false);
 
     }
@@ -123,7 +147,133 @@ class dbTableManager extends object
      */
     public function getDefFromDb()
     {
-        return $this->getDefinitionFromDatabase();
+        $this->_dbmanager->getDefinitionFromDatabase();
+    }
+
+    /**
+     * Method to dump the database to a specified schema file
+     * There are three options as to how to dump the db to file
+     * 1. Structure only
+     * 2. Content Only
+     * 3. All - both Structure and content
+     *
+     * @access public
+     * @param string $option
+     * @param string $dumptype
+     * @param string $dumpfile
+     * @return bool
+     */
+    public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile)
+    {
+        //lets set a time limit on this
+        set_time_limit(0);
+
+        if ($option == 'dump')
+        {
+            switch ($dumptype)
+            {
+                case 'structure':
+                    $dump_what = MDB2_SCHEMA_DUMP_STRUCTURE;
+                    break;
+
+                case 'content':
+                    $dump_what = MDB2_SCHEMA_DUMP_CONTENT;
+                    break;
+
+                default:
+                    $dump_what = MDB2_SCHEMA_DUMP_ALL;
+                    break;
+            }
+
+            $dump_config = array(
+                'output_mode' => 'file',
+                'output' => $dumpfile
+            );
+
+            $operation = $this->_dbmanager->dumpDatabase($dump_config, $dump_what);
+            if (PEAR::isError($operation)) {
+                die($operation->getMessage() . ' ' . $operation->getUserInfo());
+            }
+            return TRUE;
+        }//if
+
+        return FALSE;
+    }//func
+
+    /**
+     * Method to get the debug strings from queries if neccessary
+     *
+     * @access private
+     * @param reference to the management object $db
+     * @param string $scope
+     * @param string $message
+     * @return string message
+     */
+    private function printQueries(&$db, $scope, $message)
+    {
+        if ($scope == 'query')
+        {
+            return $message.$db->getOption('log_line_break');
+        }
+        MDB2_defaultDebugOutput($db, $scope, $message);
+    }
+
+
+    /**
+     * Method to create a table
+     * <pre>
+     * $fields = array(
+     *   'id' => array(
+     *   'type'     => 'char',
+     *   'length'   => 32
+     *   'unsigned' => true,
+     *   'autoincrement'  => false,
+     *  ),
+     *  'somename' => array(
+     *   'type'     => 'text',
+     *   'length'   => 12,
+     *  ),
+     * 'somedate'  => array(
+     *   'type'     => 'date',
+     *  ),
+     * );
+     * $table = 'sometable';
+     * </pre>
+     *
+     * since we are on php5 we can use the magic __call() method to:
+     * - load the manager module: $_db->loadModule('Manager', null, true);
+     * - redirect the method call to the manager module: $_db->manager->createTable('sometable', $fields);
+     *
+     * @param string $tableName
+     * @param array $fields
+     */
+    public function createTable($tableName, $fields, $options)
+    {
+        if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
+        {
+            $this->_db->setOption('default_table_type', 'INNODB');
+            //do the table create.
+            //we call on the actual MDB object, NOT the MDB::Schema object to do this.
+            $this->_db->mgCreateTable($tableName, $fields, $options);
+            //return a true, simply because MDB::CreateTable returns void (wtf?)
+            //set up the primary key index
+            $index = array(
+                        'fields' => array(
+                            'id' => array()
+                        )
+                     );
+
+            $this->_db->mgCreateIndex($tableName,'id_key',$index);
+
+
+            return TRUE;
+        }
+        else {
+            $this->_db->mgCreateTable($tableName, $fields, $options);
+
+            return TRUE;
+        }
+
     }
 
 
