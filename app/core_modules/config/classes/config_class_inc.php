@@ -25,6 +25,8 @@ class config extends dbTable
     */
     public $objLanguage;
 
+    public $error_reporting;
+
     /**
     * Standard init function to set the database table and instantiate
     * common classes.
@@ -626,6 +628,11 @@ class config extends dbTable
         //return $this->getValue("content_path");
         return $this->getValue("KEWL_CONTENT_ROOT");
         // KEWL_CONTENT_PATH;
+    }
+
+    public function error_reporting()
+    {
+        return $this->getValue("KEWL_ERROR_REPORTING");
     }
 
 }
