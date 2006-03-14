@@ -247,7 +247,7 @@ class dbTableManager extends object
      * @param string $tableName
      * @param array $fields
      */
-    public function createTable($tableName, $fields, $options)
+    public function createTable($tableName, $fields, $options, $index)
     {
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
@@ -256,23 +256,47 @@ class dbTableManager extends object
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
             //return a true, simply because MDB::CreateTable returns void (wtf?)
-            //set up the primary key index
-            $index = array(
-                        'fields' => array(
-                            'id' => array()
-                        )
-                     );
-
-            $this->_db->mgCreateIndex($tableName,'id_key',$index);
-
-
             return TRUE;
         }
         else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
-
             return TRUE;
         }
+
+    }
+
+    /**
+     * Method to create an index on the table
+     *
+     * @access public
+     * @param string $tableName
+     * @param string $keyname
+     * @param array $index
+     * @return bool true on success | False on failure
+     */
+    public function createTableIndex($tableName, $keyname, $index)
+    {
+        $this->_db->mgCreateIndex($tableName,$keyname,$index);
+        return TRUE;
+    }
+
+    /**
+     * Method to describe a pseudo PK id
+     * Most RDBMS's besides MySQL do not have support for PK's so we fake it.
+     *
+     * @access public
+     * @param unknown_type $tableName
+     * @return bool true
+     */
+    public function createPK($tableName)
+    {
+        $pk = array(
+                'fields' => array(
+                'id' => array()
+                 )
+              );
+        $this->_db->mgCreateIndex($tableName,'id_idx',$pk);
+        return TRUE;
 
     }
 
