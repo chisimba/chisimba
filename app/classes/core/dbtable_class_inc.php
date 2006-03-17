@@ -523,36 +523,6 @@ class dbTable extends object
         return $id;
     }
 
-/**
- *  Not sure if we include this crap or not...
- *  @todo fixme
- */
-    /**
-    * Method to check if table exists
-    *
-    * @param string $table The name of the table to check
-    */
-    public function tableExists($table) {
-        //Get an array of tables
-        $ar = $this->getListOf('tables');
-        $numElements = count($ar);
-        for($counter=0; $counter < $numElements; $counter++) {
-           if($ar[$counter] == $table) {
-               return TRUE;
-           }
-        }
-        return FALSE;
-    }
-
-    /**
-    * Wrapper for the getListOf method of PEAR MDB2
-    *
-    * @param string $What The item to get a list of as per PEAR MDB2
-    */
-    public function getListOf($what)
-    {
-        return $this->_db->getListOf($what);
-    }
 
     /**
     * Method to return the last entry in a table or
@@ -582,6 +552,41 @@ class dbTable extends object
         $ret = $this->setDatabase($name);
         return $ret;
     }
+    
+    /**
+     * Execute a stored procedure and return any results
+     *
+     * @param string $name string that identifies the function to execute
+     * @param mixed  $params  array that contains the paramaters to pass the stored proc
+     * @param mixed   $types  array that contains the types of the columns in
+     *                        the result set
+     * @param mixed $result_class string which specifies which result class to use
+     * @param mixed $result_wrap_class string which specifies which class to wrap results in
+     * @return mixed a result handle or MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function &executeStoredProc($name, $params = null, $types = null, $result_class = true, $result_wrap_class = false)
+    {
+    	return $this->_db->executeStoredProc($name, $params, $types, $result_class, $result_wrap_class);
+    }
+    
+    /**
+     * Return string to call a variable with the current timestamp inside an SQL statement
+     * There are three special variables for current date and time:
+     * - CURRENT_TIMESTAMP (date and time, TIMESTAMP type)
+     * - CURRENT_DATE (date, DATE type)
+     * - CURRENT_TIME (time, TIME type)
+     *
+     * @return string to call a variable with the current timestamp
+     * @access public
+     */
+    public function now($type = 'timestamp')
+    {
+    	return $this->_db->now($type);
+    }
+
+
+    
 
 } // end of dbTable class
 ?>
