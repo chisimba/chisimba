@@ -445,25 +445,131 @@ class dbTableManager extends object
      * @return mixed MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    function createIndex($table, $name, $definition)
+    public function createIndex($table, $name, $definition)
     {
     	$ret = $this->_db->mgCreateIndex($table, $name, $definition);
     	return $ret;
     }
     
+    /**
+     * drop existing index
+     *
+     * @param string    $table         name of table that should be used in method
+     * @param string    $name         name of the index to be dropped
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function dropIndex($table, $name)
+    {
+    	$ret = $this->_db->mgDropIndex($table, $name);
+    	return $ret;
+    }
     
-
-
-
-
-
-
-
+    /**
+     * list all indexes in a table
+     *
+     * @param string    $table      name of table that should be used in method
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listTableIndexes($table)
+    {
+    	$ret = $this->_db->mgListTableIndexes($table);
+    	return $ret;
+    }
     
-
-
-
-
-
+    /**
+     * create a constraint on a table
+     *
+     * @param string    $table         name of the table on which the constraint is to be created
+     * @param string    $name         name of the constraint to be created
+     * @param array     $definition        associative array that defines properties of the constraint to be created.
+     *                                 Currently, only one property named FIELDS is supported. This property
+     *                                 is also an associative with the names of the constraint fields as array
+     *                                 constraints. Each entry of this array is set to another type of associative
+     *                                 array that specifies properties of the constraint that are specific to
+     *                                 each field.
+     *
+     *                                 Example
+     *                                    array(
+     *                                        'fields' => array(
+     *                                            'user_name' => array(),
+     *                                            'last_login' => array()
+     *                                        )
+     *                                    )
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function createConstraint($table, $name, $definition)
+    {
+    	$ret = $this->_db->mgCreateConstraint($table, $name, $definition);
+    	return $ret;
+    }
+    
+     /**
+     * drop existing constraint
+     *
+     * @param string    $table         name of table that should be used in method
+     * @param string    $name         name of the constraint to be dropped
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function dropConstraint($table, $name)
+    {
+    	$ret = $this->_db->mgDropConstraint($table, $name);
+    	return $ret;
+    }
+    
+     /**
+     * list all constraints in a table
+     *
+     * @param string    $table      name of table that should be used in method
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listTableConstraints($table)
+    {
+    	$ret = $this->_db->mgListTableConstraints($table);
+    	return $ret;
+    }
+    
+    /**
+     * create sequence
+     *
+     * @param string    $seq_name     name of the sequence to be created
+     * @param string    $start         start value of the sequence; default is 1
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function createSequence($seq_name, $start = 1)
+    {
+    	$ret = $this->_db->mgCreateSequence($seq_name, $start);
+    	return $ret;
+    }
+    
+    /**
+     * drop existing sequence
+     *
+     * @param string    $seq_name     name of the sequence to be dropped
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function dropSequence($name)
+    {
+    	$ret = $this->_db->mgDropSequence($name);
+    	return $ret;
+    }
+    
+    /**
+     * list all sequences in the current database
+     *
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listSequences()
+    {
+    	$ret = $this->_db->mgListSequences();
+    	return $ret;
+    }
 }
 ?>
