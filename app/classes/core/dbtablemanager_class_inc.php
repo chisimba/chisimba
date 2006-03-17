@@ -396,7 +396,7 @@ class dbTableManager extends object
      */
     public function listDbTables()
     {
-    	$ret = $this->_db->listTables();
+    	$ret = $this->_db->mgListTables();
     	return $ret;
     }
     

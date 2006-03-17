@@ -584,6 +584,18 @@ class dbTable extends object
     {
     	return $this->_db->now($type);
     }
+    
+    /**
+     * list all tables in the current database
+     *
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listDbTables()
+    {
+    	$ret = $this->_db->mgListTables();
+    	return $ret;
+    }
 
 
     
