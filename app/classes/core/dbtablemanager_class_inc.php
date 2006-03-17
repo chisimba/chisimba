@@ -571,5 +571,40 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListSequences();
     	return $ret;
     }
+    
+    /**
+     * Log out and disconnect from the database.
+     *
+     * @return mixed true on success, false if not connected and error
+     *                object on error
+     * @access public
+     */
+    function disconnectDb()
+    {
+        return $this->_db->disconnect();
+    }
+
+    /**
+     * Select a different database
+     *
+     * @param string $name name of the database that should be selected
+     * @return string name of the database previously connected to
+     * @access public
+     */
+    function setDatabase($name)
+    {
+        return $this->_db->setDatabase($name);
+    }
+
+    /**
+     * get the current database
+     *
+     * @return string name of the database
+     * @access public
+     */
+    function getDatabase()
+    {
+        return $this->_db->getDatabase();
+    }
 }
 ?>
