@@ -247,7 +247,7 @@ class dbTableManager extends object
      * @param string $tableName
      * @param array $fields
      */
-    public function createTable($tableName, $fields, $options, $index)
+    public function createTable($tableName, $fields, $options)
     {
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
@@ -264,6 +264,20 @@ class dbTableManager extends object
         }
 
     }
+    
+     /**
+     * drop an existing table
+     *
+     * @param string $name name of the table that should be dropped
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    public function dropTable($name)
+    {
+        $ret = $this->_db->mgDropTable($name);
+        return $ret;
+    }
+
 
     /**
      * Method to create an index on the table
@@ -299,6 +313,155 @@ class dbTableManager extends object
         return TRUE;
 
     }
+    
+    /**
+     * create a new database
+     *
+     * @param string $db name of the database that should be created
+     * @return bool true on success
+     * @access public
+     */
+    public function createDb($db)
+    {
+    	$ret = $this->_db->mgCreateDatabase($db);
+    	return $ret;
+    }
+    
+    /**
+     * drop an existing database
+     *
+     * @param string $db of the database that should be dropped
+     * @return bool True on success
+     * @access public
+     */
+    public function dropDb($db)
+    {
+    	$ret = $this->_db->mgDropDatabase($db);
+    	return $ret;
+    }
+    
+     /**
+     * list all databases
+     *
+     * @return mixed data array on success
+     * @access public
+     */
+    public function listDatabases()
+    {
+    	$ret = $this->_db->mgListDatabases();
+    	return $ret;
+    }
+    
+    /**
+     * list all db users
+     *
+     * @return mixed data array on success
+     * @access public
+     */
+    public function listDbUsers()
+    {
+    	$ret = $this->_db->mgListUsers();
+    	return $ret;
+    }
+    
+     /**
+     * list all views in the current database
+     *
+     * @return mixed data array on success
+     * @access public
+     */
+    public function listDbViews()
+    {
+    	$ret = $this->_db->mgListViews();
+    	return $ret;
+    }
+    
+    /**
+     * list all functions in the current database
+     *
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listDbFunctions()
+    {
+    	$ret = $this->_db->mgListFunctions();
+    	return $ret;
+    }
+    
+    /**
+     * list all tables in the current database
+     *
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listDbTables()
+    {
+    	$ret = $this->_db->listTables();
+    	return $ret;
+    }
+    
+    /**
+     * list all fields in a tables in the current database
+     *
+     * @param string $table name of table that should be used in method
+     * @return mixed data array on success, a MDB2 error on failure
+     * @access public
+     */
+    public function listTableFields($table)
+    {
+    	$ret = $this->_db->mgListTableFields($table);
+    	return $ret;
+    }
+    
+     /**
+     * get the stucture of a field into an array
+     *
+     * @param string    $table         name of the table on which the index is to be created
+     * @param string    $name         name of the index to be created
+     * @param array     $definition        associative array that defines properties of the index to be created.
+     *                                 Currently, only one property named FIELDS is supported. This property
+     *                                 is also an associative with the names of the index fields as array
+     *                                 indexes. Each entry of this array is set to another type of associative
+     *                                 array that specifies properties of the index that are specific to
+     *                                 each field.
+     *
+     *                                Currently, only the sorting property is supported. It should be used
+     *                                 to define the sorting direction of the index. It may be set to either
+     *                                 ascending or descending.
+     *
+     *                                Not all DBMS support index sorting direction configuration. The DBMS
+     *                                 drivers of those that do not support it ignore this property. Use the
+     *                                 function supports() to determine whether the DBMS driver can manage indexes.
+     *
+     *                                 Example
+     *                                    array(
+     *                                        'fields' => array(
+     *                                            'user_name' => array(
+     *                                                'sorting' => 'ascending'
+     *                                            ),
+     *                                            'last_login' => array()
+     *                                        )
+     *                                    )
+     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @access public
+     */
+    function createIndex($table, $name, $definition)
+    {
+    	$ret = $this->_db->mgCreateIndex($table, $name, $definition);
+    	return $ret;
+    }
+    
+    
+
+
+
+
+
+
+
+    
+
+
 
 
 
