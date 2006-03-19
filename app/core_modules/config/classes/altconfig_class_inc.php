@@ -3,7 +3,9 @@
  * Adaptor Pattern around the PEAR::Config Object
  * This class will provide the kng configuration to Engine
  *
- * @author Prince Mbekwa,Paul Scott
+ * @author Prince Mbekwa
+ * @todo sysconfig properties' set and get
+ * @todo module config (especially from module admin)
  * @package config
  */
 //grab the pear::Config properties
