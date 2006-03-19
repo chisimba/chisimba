@@ -110,7 +110,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	var $min_version = '5.1.2';
+	var $min_version = '5.1.1';
 
 	
 
@@ -124,7 +124,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	var $required_settings = Array(	'PHP' => Array('version'=>'5.1.2', 'available'=>true, 'message'=> ''),
+	var $required_settings = Array(	'PHP' => Array('version'=>'5.1.1', 'available'=>true, 'message'=> ''),
 
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
