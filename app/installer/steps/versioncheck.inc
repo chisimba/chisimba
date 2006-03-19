@@ -21,6 +21,8 @@ require_once INSTALL_DIR.'/stepaction.inc';
 * @author Prince Mbekwa
 
 * @version $version$ - 1.0
+* @todo Still to add XML_DTD check
+* @todo Still to add MDB2_schema check
 
 * @package 5ive
 
