@@ -48,12 +48,12 @@ class altconfig
     public function __construct()
     {
         // instantiate object
+        try{
         $this->_objPearConfig = new Config();
-        if(!isset($this->_root))
-        {
-        	$this->readConfig('','XML');
+        }catch (Exception $e){
+        	echo 'Caught exception: ',  $e->getMessage();
+        	exit();
         }
-        
     }
     
 	/**
@@ -71,14 +71,18 @@ class altconfig
      */
     protected function readConfig($config,$property)
     {
-    	// read configuration data and get reference to root
-    	$this->_root =& $this->_objPearConfig->parseConfig("../config/Config.xml",$property);
-		if ($this->_root==TRUE) {
-			$this->errorCallback('Can not find file Config.xml. Run the installer to recitify');
-			return false; 
-		}else{
-			return true;
-		}
+    	
+    	try {
+    		// read configuration data and get reference to root
+    		$path = "../config/";
+    		$this->_root =& $this->_objPearConfig->parseConfig("{$path}Config.xml",$property);
+    		return true;
+    		    		
+    	}catch (Exception $e)
+    	{
+    		 echo 'Caught exception: ',  $e->getMessage();	
+    		 exit();
+    	}
 		
     }
     /**
@@ -97,11 +101,18 @@ class altconfig
     public function writeConfig($values,$property)
     {
     	// set xml root element
-		$this->_options = array('name' => 'Settings');
-		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
-		$this->_objPearConfig->writeConfig("../config/Config.xml",$property, $this->_options);
-		$this->readConfig('','XML');
-    	return true;
+    	try {
+    		$this->_options = array('name' => 'Settings');
+    		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
+    		$path = "../config/";
+    		$this->_objPearConfig->writeConfig("{$path}Config.xml",$property, $this->_options);
+    		$this->readConfig('','XML');
+    		return true;
+    	}catch (Exception $e)
+    	{
+    		 echo 'Caught exception: ',  $e->getMessage();	
+    		 exit();
+    	}
 		
     }
     /**
@@ -119,13 +130,17 @@ class altconfig
     public function readProperties($property)
     {
     	// read configuration data and get reference to root
-    	$this->_root =& $this->_objPearConfig->parseConfig("../config/sysconfig_properties.xml",$property);
-		if ($this->_root==TRUE) {
-			$this->errorCallback('Can not find file sysconfig_properties');
-			return false; 
-		}else{
-			return true;
-		}
+    	try {
+	    	$this->_root =& $this->_objPearConfig->parseConfig("../config/sysconfig_properties.xml",$property);
+			if ($this->_root==TRUE) {
+				throw new Exception('Can not find file sysconfig_properties');				
+			}else{
+				return true;
+			}
+    	}catch (Exception $e){
+    		echo 'Caught exception: ',  $e->getMessage();	
+    		exit();
+    	}	
     	    	
     }
     /**
@@ -148,17 +163,21 @@ class altconfig
      */
     public function writeProperties($propertyValues,$property)
     {
-    	// set xml root element
-		$this->_options = array('name' => 'sysConfigSettings');
-		$this->_root =& $this->_objPearConfig->parseConfig($propertyValues,"PHPArray");
-		$this->_objPearConfig->writeConfig("../config/sysconfig_properties.xml",$property, $this->_options);
-		
-    	if ($this->_objPearConfig==TRUE) {
-			$this->errorCallback('Can not write file sysconfig_properties');
-			return false; 
-		}else{
-			return true;
-		}
+    	try {
+	    	// set xml root element
+			$this->_options = array('name' => 'sysConfigSettings');
+			$this->_root =& $this->_objPearConfig->parseConfig($propertyValues,"PHPArray");
+			$this->_objPearConfig->writeConfig("../config/sysconfig_properties.xml",$property, $this->_options);
+			
+	    	if ($this->_objPearConfig==TRUE) {
+				throw new Exception('Can not write file sysconfig_properties');			
+			}else{
+				return true;
+			}
+    	}catch (Exception $e){
+    		echo 'Caught exception: ',  $e->getMessage();
+    		exit();	
+    	}
     	    	
     }
     
@@ -886,7 +905,7 @@ class altconfig
     * @return void
     * @access public
     */
-    protected function errorCallback($error)
+    public static function errorCallback($exception)
     {
     	$this->_errorCallback = new ErrorException($error,1,1,'altconfig_class_inc.php');
         return $this->_errorCallback;
