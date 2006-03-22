@@ -131,9 +131,7 @@ class PHPCheckAction extends StepAction
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'Zlib'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
-										'PSpell'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
+										
 										'calendar'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'curl'=>Array('version'=>'7.10.5', 'available' => true, 'message'=> ''),
@@ -247,23 +245,6 @@ class PHPCheckAction extends StepAction
 		}
 
 		
-
-		// check pspell
-
-		if (!function_exists('pspell_check')) {
-
-			$this->required_settings['PSpell']['available'] = false;
-
-			$this->required_settings['PSpell']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'PSpell not found. You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['PSpell']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
 		// check calendar
 
 		if (!function_exists('cal_info')) {
@@ -717,7 +698,11 @@ class PEARCheckAction extends StepAction
 	var $required_packages = Array(
 
 									'MDB2'         	=> Array('version'=>'1.6.2','available'=>false,'message' => ''),
-
+									
+									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
+									
+									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									
 									'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
 
 									'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
@@ -781,8 +766,34 @@ class PEARCheckAction extends StepAction
 				$this->required_packages['MDB2']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
 			}
-
 			
+			@include_once 'MDB2/Schema.php';
+
+			if (!class_exists('MDB2_Schema')) {
+
+				$this->errors[] = 'Could not find PEAR::MDB2_Schema';
+
+				$this->required_packages['MDB2_Schema']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+			} else {
+
+				$this->required_packages['MDB2_Schema']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+
+			}
+			
+			@include_once 'MDB2/Driver/mysqli.php';
+
+			if (!class_exists('MDB2_Driver_mysqli')) {
+
+				$this->errors[] = 'Could not find PEAR::MDB2_Driver_mysqli';
+
+				$this->required_packages['MDB2_Driver_mysqli']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+			} else {
+
+				$this->required_packages['MDB2_Driver_mysqli']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+
+			}
 
 			@include_once 'XML/XML_HTMLSax.php';
 
