@@ -75,7 +75,7 @@ class altconfig
     	try {
     		// read configuration data and get reference to root
     		$path = "../config/";
-    		$this->_root =& $this->_objPearConfig->parseConfig("{$path}Config.xml",$property);
+    		$this->_root =& $this->_objPearConfig->parseConfig("{$path}config.xml",$property);
     		return true;
     		    		
     	}catch (Exception $e)
@@ -105,7 +105,7 @@ class altconfig
     		$this->_options = array('name' => 'Settings');
     		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
     		$path = "../config/";
-    		$this->_objPearConfig->writeConfig("{$path}Config.xml",$property, $this->_options);
+    		$this->_objPearConfig->writeConfig("{$path}config.xml",$property, $this->_options);
     		$this->readConfig('','XML');
     		return true;
     	}catch (Exception $e)

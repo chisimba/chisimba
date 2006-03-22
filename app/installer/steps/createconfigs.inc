@@ -618,7 +618,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/Config.xml' : false;
+		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/config.xml' : false;
 		// if the file exists, try and delete it
 
 		if ($main_file !== false && is_file($main_file)) {
