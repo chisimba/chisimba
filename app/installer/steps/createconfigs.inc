@@ -1,9 +1,4 @@
 <?php
-
-
-
-
-
 require_once INSTALL_DIR.'/step.inc';
 
 require_once INSTALL_DIR.'/5ivestepaction.inc';
@@ -11,8 +6,6 @@ require_once INSTALL_DIR.'/5ivestepaction.inc';
 require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 require_once $_SESSION['sys_root'].'/modules/config/classes/altconfig_class_inc.php';
-
-
 
 /**
 
@@ -260,8 +253,8 @@ class CreateConfigsAction extends FiveStepAction
 
 		// Check to see if the configs actually were created.
 
-		if ($this->isRequired()) {
-
+		if (!$this->isRequired()==true) {
+			
 			$this->errors[] = 'Config files were NOT successfully created. The following output was given '.
 
 								'by the config writing script';
@@ -312,19 +305,15 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		// now set up some defines, and save out the main.inc file.
-
 		ob_start();		
 
 			$SQ_INCLUDE_PATH = defined('SQ_INCLUDE_PATH') ? SQ_INCLUDE_PATH : $_SESSION['sys_root'].'/core/include';
-
-			
 
 			ini_set('memory_limit', -1);
 
 			error_reporting(E_ALL & ~E_NOTICE);
 
-			//define('SQ_SYSTEM_ROOT',   dirname(dirname(realpath(__FILE__))));
+			define('KEWL_SYSTEM_ROOT',   dirname(dirname(realpath(__FILE__))));
 
 			$this->_addConfigVar('KEWL_INSTITUTION_SHORTNAME',  $_SESSION['sys_owner']);
 
@@ -629,12 +618,11 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/sysconfig_properties.xml' : false;
-
+		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/Config.xml' : false;
 		// if the file exists, try and delete it
 
 		if ($main_file !== false && is_file($main_file)) {
-
+			
 			return false;
 
 		}
