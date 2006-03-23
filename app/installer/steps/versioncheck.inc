@@ -703,6 +703,10 @@ class PEARCheckAction extends StepAction
 									
 									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									
+									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									
+									'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									
 									'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
 
 									'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
@@ -794,6 +798,32 @@ class PEARCheckAction extends StepAction
 				$this->required_packages['MDB2_Driver_mysqli']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
 			}
+			
+			@include_once 'MDB2/Driver/pgsql.php';
+
+			if (!class_exists('MDB2_Driver_pgsql')) {
+
+				$this->errors[] = 'Could not find PEAR::MDB2_Driver_pgsql';
+
+				$this->required_packages['MDB2_Driver_pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+			} else {
+
+				$this->required_packages['MDB2_Driver_pgsql']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+
+			}
+			@include_once 'MDB2/Driver/sqlite.php';
+
+			if (!class_exists('MDB2_Driver_sqlite')) {
+
+				$this->errors[] = 'Could not find PEAR::MDB2_Driver_sqlite';
+
+				$this->required_packages['MDB2_Driver_sqlite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+			} else {
+
+				$this->required_packages['MDB2_Driver_sqlite']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+
 
 			@include_once 'XML/XML_HTMLSax.php';
 
