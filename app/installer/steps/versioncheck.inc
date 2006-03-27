@@ -823,7 +823,7 @@ class PEARCheckAction extends StepAction
 			} else {
 
 				$this->required_packages['MDB2_Driver_sqlite']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
-
+			}
 
 			@include_once 'XML/XML_HTMLSax.php';
 
@@ -933,8 +933,10 @@ class PEARCheckAction extends StepAction
 
 				$this->required_packages['XML_Util']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
-			}
-		
+			}						
+
+		} else { //end if registry not found
+
 			include_once 'PEAR/Registry.php';
 
 			$pear_registry = new PEAR_Registry($_SESSION['pear_path']); 
@@ -949,9 +951,8 @@ class PEARCheckAction extends StepAction
 
 				return false;
 
-			}else {
-			
-			
+			}
+
 			foreach ($this->required_packages as $package_name => $required_version) {
 
 				$package_info = $pear_registry->packageInfo($package_name);
