@@ -697,7 +697,7 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'1.6.2','available'=>false,'message' => ''),
+									'MDB2'         	=> Array('version'=>'2.0.0','available'=>false,'message' => ''),
 									
 									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 									
@@ -706,6 +706,8 @@ class PEARCheckAction extends StepAction
 									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									
 									'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									
+									'I18Nv2' 			=> Array('version'=> '0.11.4','available'=>false,'message'=>''),
 									
 									'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
 
@@ -717,7 +719,7 @@ class PEARCheckAction extends StepAction
 
 									'XML_Parser'  	=> Array('version'=>'1.0.1','available'=>false,'message' => ''),
 
-									'XML_Util'  	=> Array('version'=>'1.5.3','available'=>false,'message' => ''),
+									'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
 
 									'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
@@ -1042,9 +1044,9 @@ class PEARCheckAction extends StepAction
 		$tpl->set('required', $this->required_packages);
 
 		$tpl->set('checking', 'PEAR Packages');
-
+		$locale = $this->list_system_locales();
 		
-
+		var_dump($locale);
 		echo $tpl->fetch();
 
 									
@@ -1072,14 +1074,21 @@ class PEARCheckAction extends StepAction
 					'<input type="text" name="pear_path" size="40" value="'.$pear_dir.'" />';
 
 		echo $textbox;
-
+		
 		
 
 	}//end paintAction()
-
+	
 	
 
-	
+function list_system_locales(){
+   ob_start();
+   system('locale -a');
+   $str = ob_get_contents();
+   ob_end_clean();
+   return split("\\n", trim($str));
+}
+
 
 	/**
 
