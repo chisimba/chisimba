@@ -38,6 +38,14 @@ class altconfig
     protected $_options;
     
     /**
+     * The sysconfig object for sysconfig storage
+     * 
+     * @access private
+     * @var array
+     */
+    protected $_sysconfigVars;
+    
+    /**
      * The global error callback for altconfig errors
      *
      * @access public
@@ -51,7 +59,7 @@ class altconfig
         try{
         $this->_objPearConfig = new Config();
         }catch (Exception $e){
-        	echo 'Caught exception: ',  $e->getMessage();
+        	$this->errorCallback ('Caught exception: '.$e->getMessage());
         	exit();
         }
     }
@@ -80,7 +88,7 @@ class altconfig
     		    		
     	}catch (Exception $e)
     	{
-    		 echo 'Caught exception: ',  $e->getMessage();	
+    		 $this->errorCallback ('Caught exception: '.$e->getMessage());	
     		 exit();
     	}
 		
@@ -110,7 +118,7 @@ class altconfig
     		return true;
     	}catch (Exception $e)
     	{
-    		 echo 'Caught exception: ',  $e->getMessage();	
+    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
     		 exit();
     	}
 		
@@ -132,13 +140,13 @@ class altconfig
     	// read configuration data and get reference to root
     	try {
 	    	$this->_root =& $this->_objPearConfig->parseConfig("../config/sysconfig_properties.xml",$property);
-			if ($this->_root==TRUE) {
+			if ($this->_root!=TRUE) {
 				throw new Exception('Can not find file sysconfig_properties');				
 			}else{
 				return true;
 			}
     	}catch (Exception $e){
-    		echo 'Caught exception: ',  $e->getMessage();	
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
     		exit();
     	}	
     	    	
@@ -169,17 +177,82 @@ class altconfig
 			$this->_root =& $this->_objPearConfig->parseConfig($propertyValues,"PHPArray");
 			$this->_objPearConfig->writeConfig("../config/sysconfig_properties.xml",$property, $this->_options);
 			
-	    	if ($this->_objPearConfig==TRUE) {
+	    	if ($this->_objPearConfig!=TRUE) {
 				throw new Exception('Can not write file sysconfig_properties');			
 			}else{
 				return true;
 			}
     	}catch (Exception $e){
-    		echo 'Caught exception: ',  $e->getMessage();
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
     		exit();	
     	}
     	    	
     }
+    /**
+    * Method to insert a configuration parameter. 
+    *
+    * @var string $pmodule The module code of the module owning the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @var string $pvalue The value of the config parameter
+    * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
+    */
+    public function insertParam($pname, $pmodule, $pvalue,$isAdminConfigurable)
+    {
+    	try {
+               
+            $this->_sysconfigVars(array('MODULE' => $pmodule,
+                    'PNAME' => $pname,
+                    'VALUE' => $pvalue,
+                    'isADMINCONFIGURABLE'=>$isAdminConfigurable,
+                    'DATECREATED' => date("Y/m/d H:i:s")));
+            $resuts = $this->writeProperties($this->_sysconfigVars,'XML');
+            if ($resuts!=TRUE) {
+            	throw new Exception('Can not write file sysconfig_properties');			
+			}else{
+				 return true;
+            }
+           
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		exit();	
+    	}
+    } #function insertParam
+    
+    /**
+    * Method to get a system configuration parameter. 
+    *
+    * @var string $pmodule The module code of the module owning the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @return  string $value The value of the config parameter
+    */
+    public function getParam($pname, $pmodule)
+    {
+    	try {
+    			//Read conf
+    			$this->readProperties('XML');
+    			
+               //Lets get the parent node section first
+                
+        		$Settings =& $this->_root->getItem("section", "sysConfigSettings");
+        		//Now onto the directive node
+        		//check to see if one of them isset to search by
+        		if(isset($pname)) $SettingsDirective =& $Settings->getItem("directive", "{$pname}");
+        		if(isset($pmodule))$SettingsDirective =& $Settings->getItem("directive", "{$pmodule}");
+        		
+        		//finally unearth whats inside
+        		if (!$SettingsDirective) {
+        			throw new Exception("Item can not be found ! {$pname}");	
+        		}else{ 
+       			$value = $SettingsDirective->getContent();
+        		return $value;
+        		}
+           
+           
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		exit();	
+    	}
+    } #function insertParam
     
     /**
     * The property get name of the getSiteName
@@ -217,7 +290,7 @@ class altconfig
     }
     /**
     * Get short name of the institutionShortName
-    *@access public
+    * @access public
     * @return the short name of the site as string
     */
     public function getinstitutionShortName()
@@ -265,7 +338,7 @@ class altconfig
         return $institutionName;
         // KEWL_INSTITUTION_NAME;
     }
-     /**
+    /**
     * Set name of the institution
     *@access public
    	*@param value of the change to be made
@@ -907,7 +980,7 @@ class altconfig
     */
     public static function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($error,1,1,'altconfig_class_inc.php');
+    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
         return $this->_errorCallback;
     }
 
