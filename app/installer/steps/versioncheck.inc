@@ -1044,9 +1044,7 @@ class PEARCheckAction extends StepAction
 		$tpl->set('required', $this->required_packages);
 
 		$tpl->set('checking', 'PEAR Packages');
-		$locale = $this->list_system_locales();
 		
-		var_dump($locale);
 		echo $tpl->fetch();
 
 									
@@ -1079,15 +1077,6 @@ class PEARCheckAction extends StepAction
 
 	}//end paintAction()
 	
-	
-
-function list_system_locales(){
-   ob_start();
-   system('locale -a');
-   $str = ob_get_contents();
-   ob_end_clean();
-   return split("\\n", trim($str));
-}
 
 
 	/**
@@ -1146,13 +1135,19 @@ function list_system_locales(){
 
 		$locations = Array('/usr/lib/php/PEAR', 
 
-									'/usr/lib/php', 
+									'/usr/lib/php',
+									 
+									'/usr/share/php',
+									
+									'usr/share/pear',
 
 									'/usr/local/lib/php',
 
 									'/usr/local/lib/php/PEAR',
 
 									'c:/php/pear',
+									
+									'c:/php4/pear',
 
 									'c:/php5/pear'
 
