@@ -1,18 +1,20 @@
 <?PHP
-
+$GLOBALS['kewl_entry_point_run'] = true;
 require_once 'PHPUnit2/Framework/TestCase.php';
-require_once '../classes/core/engine_class_inc.php';
+require_once '/var/www/5ive/app/classes/core/engine_class_inc.php';
 
 class engineTest extends PHPUnit2_Framework_TestCase
 {
-    private $eng;
-    protected $security = array();
-    private $session;
+    public $eng;
+    public $security = array();
+    public $session;
     protected $fixture;
 
-    protected function setUp()
+    public function setUp()
     {
-        $this->fixture = $GLOBALS['kewl_entry_point_run'] = true;
+        $GLOBALS['kewl_entry_point_run'] = true;
+        $this->security = $GLOBALS['kewl_entry_point_run'] = true;
+        $this->observer = '/var/www/5ive/app/classes/access_class_inc.php';
         $this->eng = new engine;
 
     }
@@ -26,7 +28,7 @@ class engineTest extends PHPUnit2_Framework_TestCase
     //test for loadclass
     public function testLoadClass()
     {
-        $this->assertNotNull($this->eng->loadClass($observer));
+        $this->assertNotNull($this->eng->loadClass($this->observer));
     }
 
     //test for run
