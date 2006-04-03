@@ -15,8 +15,8 @@ $testcases = array(
 $mysql = array(
     'dsn' => array(
         'phptype' => 'mysql',
-        'username' => 'root',
-        'password' => '',
+        'username' => 'admin',
+        'password' => 'admin1756Tool!',
         'hostspec' => 'localhost',
     ),
     'options' => array(
