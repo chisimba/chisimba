@@ -1,14 +1,7 @@
 <?php
 
 $testcases = array(
-    'MDB2_manager_testcase',
-    'MDB2_api_testcase',
-    'MDB2_usage_testcase',
-    'MDB2_bugs_testcase',
-    'MDB2_reverse_testcase',
-    'MDB2_native_testcase',
-    'MDB2_function_testcase',
-    'MDB2_datatype_testcase',
+    'MDB2_Schema_testcase',
 );
 
 // use a user that has full permissions on a database named "driver_test"
@@ -32,7 +25,7 @@ $pgsql = array(
         'hostspec' => 'localhost',
     )
 );
-/*
+
 $oci8 = array(
     'dsn' => array(
         'phptype' => 'oci8',
@@ -87,7 +80,7 @@ $ibase = array(
         'hostspec' => 'hostname',
     )
 );
-*/
+
 $dbarray = array();
 $dbarray[] = $mysql;
 #$dbarray[] = $pgsql;
