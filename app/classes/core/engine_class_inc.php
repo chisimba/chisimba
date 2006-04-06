@@ -348,7 +348,8 @@ class engine
 
             //set the options
             $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
-
+			MDB2::loadFile('Date');
+			MDB2::loadFile('Iterator');
             //Check for errors
             if (PEAR::isError($_globalObjDb)) {
                 // manually call the callback function here,

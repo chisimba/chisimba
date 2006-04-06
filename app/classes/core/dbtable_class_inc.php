@@ -580,9 +580,9 @@ class dbTable extends object
      * @return string to call a variable with the current timestamp
      * @access public
      */
-    public function now($type = 'timestamp')
+    public function now()
     {
-    	return $this->_db->now($type);
+    	return MDB2_Date::mdbNow();
     }
     
     /**
