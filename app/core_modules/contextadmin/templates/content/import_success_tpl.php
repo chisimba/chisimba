@@ -5,7 +5,7 @@ $link = & $this->newObject('link', 'htmlelements');
 
 $this->objH =& $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1;
-$this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent');
+$this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent','contextadmin');
 
 if(isset($error)){
     $table->width = '100%';
@@ -19,7 +19,7 @@ if(isset($error)){
     $table->endRow();
     
     $this->objH->type=3;
-    $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importfail');
+    $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importfail','contextadmin');
 
 
     $table->startRow();
@@ -43,7 +43,7 @@ if(isset($error)){
     $table->endRow();
     
     $link->href = $this->uri(array('action' => 'courseadmin'), 'contextadmin');
-    $link->link = $this->objLanguage->languageText('mod_contextadmin_returnadmin');
+    $link->link = $this->objLanguage->languageText('mod_contextadmin_returnadmin','contextadmin');
     
     $table->startRow();
     $table->addCell($link->show().'<br>');
@@ -63,7 +63,7 @@ if(isset($error)){
     $table->endRow();
     
     $this->objH->type=3;
-    $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importsuccess');
+    $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importsuccess','contextadmin');
 
 
     $table->startRow();
@@ -76,7 +76,7 @@ if(isset($error)){
     $table->endRow();
     
     $link->href = $this->uri(array('action' => 'content'), 'context');
-    $link->link = $this->objLanguage->languageText('mod_contextadmin_viewcontent');
+    $link->link = $this->objLanguage->languageText('mod_contextadmin_viewcontent','contextadmin');
     
     $table->startRow();
     $table->addCell($link->show().'<br>');
@@ -87,7 +87,7 @@ if(isset($error)){
     $table->endRow();
     
     $link->href = $this->uri(array('action' => 'courseadmin'), 'contextadmin');
-    $link->link = $this->objLanguage->languageText('mod_contextadmin_returnadmin');
+    $link->link = $this->objLanguage->languageText('mod_contextadmin_returnadmin','contextadmin');
     
     $table->startRow();
     $table->addCell($link->show().'<br>');

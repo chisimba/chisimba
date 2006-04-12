@@ -26,7 +26,7 @@ class security extends controller
         $this->objLanguage =& $this->getObject('language','language');
         //Get an instance of the skin
         $this->objSkin = &$this->getObject('skin', 'skin');
-        $this->objConfig = &$this->getObject('config', 'config');
+        $this->objConfig = &$this->getObject('altconfig', 'config');
         $this->setLayoutTemplate(NULL);
     }
 
@@ -124,7 +124,7 @@ class security extends controller
         // Validate the skin, checks if it exists or changed
         $this->objSkin->validateSkinSession();
 
-        return $this->nextAction(NULL, NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE'));
+        return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
 
     function errorMessages()

@@ -113,7 +113,7 @@ if ($module['isreg']) {
 }
 
 
-$str.='<h5>'.$this->objLanguage->languageText("mod_context_whoson").'</h5>'.$onlineUsers;
+$str.='<h5>'.$this->objLanguage->languageText("mod_context_whoson",'context').'</h5>'.$onlineUsers;
 $right=$str;
 $this->rightNav = &$this->newObject('layer','htmlelements');
 $this->rightNav->id = "rightnav";
@@ -121,7 +121,7 @@ $this->rightNav->str = $str;
 //echo $this->rightNav->addToLayer();
 
 //Center
-$heading->str=$this->objLanguage->languageText("mod_context_welcome").' '.$this->objDBContext->getTitle();
+$heading->str=$this->objLanguage->languageText("mod_context_welcome",'context').' '.$this->objDBContext->getTitle();
 $heading->type=2;
 $strCenter=$heading->show();
 $about=stripslashes($this->objDBContext->getField("about"));
@@ -136,9 +136,9 @@ $this->contentNav->str = $centre;
 //echo $this->contentNav->addToLayer();
 
 $objLink->href=$this->URI(array('action'=>'logoff'),'security');
-$objLink->link=$this->objLanguage->languageText("word_logout");
+$objLink->link=$this->objLanguage->languageText("word_logout",'context');
 
-$str=$this->objLanguage->languageText("mod_context_loggedinas").'</span>&nbsp;<strong>'.$this->objUser->fullname().
+$str=$this->objLanguage->languageText("mod_context_loggedinas",'context').'</span>&nbsp;<strong>'.$this->objUser->fullname().
 '</strong>&nbsp; ('.$objLink->show().')';
  $this->setVar('footerStr',$str);
  

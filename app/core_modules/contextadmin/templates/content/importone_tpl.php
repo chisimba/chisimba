@@ -12,12 +12,12 @@ $button = & $this->newObject('button', 'htmlelements');
     
       $this->objH =& $this->getObject('htmlheading', 'htmlelements');
       $this->objH->type=1;
-      $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent');
+      $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent','contextadmin');
          
        $radio->name = 'itype';
        $radio->setBreakSpace('<br>');
-       $radio->addOption('1',$this->objLanguage->languageText("mod_contextadmin_importdeletecontent"));
-       $radio->addOption('0',$this->objLanguage->languageText("mod_contextadmin_importintonode"));   
+       $radio->addOption('1',$this->objLanguage->languageText("mod_contextadmin_importdeletecontent",'contextadmin'));
+       $radio->addOption('0',$this->objLanguage->languageText("mod_contextadmin_importintonode",'contextadmin'));   
        $radio->setSelected('1')  ;
        
        $table->width = "100%";
@@ -27,7 +27,7 @@ $button = & $this->newObject('button', 'htmlelements');
     
     $table->startRow();    
     $button->setToSubmit();    
-    $button->setValue($this->objLanguage->languageText("mod_context_next"));
+    $button->setValue($this->objLanguage->languageText("mod_context_next",'contextadmin'));
     $table->addCell('<br>'.$button->show(),'','','center');
     
     $table->endRow();

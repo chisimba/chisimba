@@ -31,43 +31,43 @@
     $table->addCell(ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextcode',array('context'=>'course'))),'100px');
     $table->addCell($objElement->show());   
     $table->endRow();
-    $objForm->addRule('contextCode',$this->objLanguage->languageText("mod_contextadmin_err_required"), 'required');
+    $objForm->addRule('contextCode',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin'), 'required');
     $objForm->addRule(array('name'=>'contextCode','length'=>20),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length',array('length'=>'20'))),'maxlength');
     
     //add title
     $table->startRow();
     $objElement = new textinput('title');     
     $objElement->size = '55';
-    $table->addCell($this->objLanguage->languageText("mod_contextadmin_title"));
+    $table->addCell($this->objLanguage->languageText("mod_contextadmin_title,'contextadmin'));
     $table->addCell($objElement->show());
     $table->endRow();
-    $objForm->addRule('title',$this->objLanguage->languageText("mod_contextadmin_err_required"), 'required');
+    $objForm->addRule('title',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin','contextadmin'), 'required');
     $objForm->addRule(array('name'=>'title','length'=>250),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length',array('length'=>'50'))),'maxlength');
     
     //add menu text
     $table->startRow();
     $objElement = new textinput('menutext');
     $objElement->size = '55';
-    $table->addCell($this->objLanguage->languageText("mod_contextadmin_menutext"));
+    $table->addCell($this->objLanguage->languageText("mod_contextadmin_menutext",'contextadmin'));
     $table->addCell($objElement->show()."<br>");
     $table->endRow();
-    $objForm->addRule('menutext',$this->objLanguage->languageText("mod_contextadmin_err_required"), 'required');
+    $objForm->addRule('menutext',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin'), 'required');
     $objForm->addRule(array('name'=>'menutext','length'=>250),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length',array('length'=>'50'))),'maxlength');
 
     //add isclosed
     $table->startRow();
     $objElement = new radio('isclosed');
-    $objElement->addOption('0',$this->objLanguage->languageText("mod_contextadmin_isopen"));
-    $objElement->addOption('1',$this->objLanguage->languageText("mod_contextadmin_isclosed"));
+    $objElement->addOption('0',$this->objLanguage->languageText("mod_contextadmin_isopen",'contextadmin'));
+    $objElement->addOption('1',$this->objLanguage->languageText("mod_contextadmin_isclosed",'contextadmin'));
     
     $tmp = $objElement->show();
     //add isactive
     $objElement = new radio('isactive');
-    $objElement->addOption('1',$this->objLanguage->languageText("mod_contextadmin_active"));
-    $objElement->addOption('0',$this->objLanguage->languageText("mod_contextadmin_inactive"));
+    $objElement->addOption('1',$this->objLanguage->languageText("mod_contextadmin_active",'contextadmin'));
+    $objElement->addOption('0',$this->objLanguage->languageText("mod_contextadmin_inactive",'contextadmin'));
     $objElement->setSelected('1');
     
-    $table->addCell($this->objLanguage->languageText("mod_contextadmin_status"));
+    $table->addCell($this->objLanguage->languageText("mod_contextadmin_status",'contextadmin'));
     $table->addCell($objElement->show().'<br>'. $tmp);
     $table->endRow();
     
@@ -78,7 +78,7 @@
     $editor->context = TRUE;
     $editor->width = '300';
     $editor->height = '200';
-    $table->addCell($this->objLanguage->languageText("mod_contextadmin_about"));
+    $table->addCell($this->objLanguage->languageText("mod_contextadmin_about",'contextadmin'));
     $table->addCell($editor->show()); 
     $table->endRow();    
     
@@ -86,7 +86,7 @@
     $table->startRow();
     $objElement = new button('mybutton');    
     $objElement->setToSubmit();    
-    $objElement->setValue($this->objLanguage->languageText("mod_contextadmin_save"));
+    $objElement->setValue($this->objLanguage->languageText("mod_contextadmin_save",'contextadmin'));
     $table->addCell("");
     $table->addCell($objElement->show());
     $table->endRow();
@@ -95,7 +95,7 @@
     $objLink = & $this->newObject('link','htmlelements');
     $objLink->cssClass = 'pseudbutton';
     $objLink->href = $this->uri(array(), 'contextadmin');
-    $objLink->link = $this->objLanguage->languageText("word_back");
+    $objLink->link = $this->objLanguage->languageText("word_back",'contextadmin');
    
     $objForm->addToForm($table);
     $center = $this->objH->show();

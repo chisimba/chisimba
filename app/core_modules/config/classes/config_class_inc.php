@@ -63,7 +63,7 @@ class config extends dbTable
         } else {
             // Get an instance of the language object
             $this->objLanguage = &$this->getObject('language', 'language');
-            die($this->objLanguage->languageText('mod_sysconfig_err_dupattempt'));
+            die($this->objLanguage->languageText('mod_sysconfig_err_dupattempt','config'));
         } #if
     } #function insertParam
 
@@ -284,7 +284,7 @@ class config extends dbTable
         } else {
             // Get an instance of the language object
             $this->objLanguage = &$this->getObject('language', 'language');
-            die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist"));
+            die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist",'config'));
         }
     } #function _lookUpId
     /*------------------ SUBSTITUTION FOR OLD METHODS BELOW LINE -----------------------------*/

@@ -29,7 +29,7 @@ class block_gettinghelp extends object
  		//Create an instance of the language object
         $this->objLanguage =& $this->getObject('language','language');
         //Set the title
-        $this->title=$this->objLanguage->languageText("mod_postlogin_helptitle");
+        $this->title=$this->objLanguage->languageText("mod_postlogin_helptitle",'postlogin');
     }
     
     /**
@@ -38,11 +38,11 @@ class block_gettinghelp extends object
     function show()
 	{
         //Add the text tot he output
-        $ret = $this->objLanguage->languageText("mod_postlogin_helphowto");
+        $ret = $this->objLanguage->languageText("mod_postlogin_helphowto",'postlogin');
         //Create an instance of the help object
         $objHelp = & $this->getObject('helplink','help');
         //Add the help link to the output
-        $ret .= "&nbsp;".$this->objHelp->show('mod_postlogin_helphowto');
+        $ret .= "&nbsp;".$this->objHelp->show('mod_postlogin_helphowto','postlogin');
         return $ret;
     }
 }

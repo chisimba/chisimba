@@ -20,7 +20,7 @@ class skin extends object
         $this->objButtons =& $this->getObject('navbuttons', 'navigation');
         $this->objForm =& $this->newObject('form','htmlelements');
         $this->objDropdown =& $this->newObject('dropdown','htmlelements');
-        $this->objConfig =& $this->newObject('config','config');
+        $this->objConfig =& $this->newObject('altconfig','config');
         //$this->server =& $this->objConfig->serverName();
 
         // Browser Detection Class
@@ -44,8 +44,7 @@ class skin extends object
     function getSkinLocation()
     {
         $this->validateSkinSession();
-
-        return $this->objConfig->siteRootPath().'/skins/'.$this->getSession('skin').'/';
+        return $this->objConfig->getsiteRootPath().'/skins/'.$this->getSession('skin').'/';
     }
 
 
@@ -56,8 +55,8 @@ class skin extends object
     function getSkinUrl()
     {
         $this->validateSkinSession();
-
-        return $this->objConfig->skinRoot().$this->getSession('skin').'/';
+		
+        return $this->objConfig->getskinRoot().$this->getSession('skin').'/';
     }
 
     /**
@@ -72,18 +71,18 @@ class skin extends object
     {
         // Check if skin exists, else set to default
         if ($this->getSession('skin') == '') {
-            $this->setSession('skin', $this->objConfig->defaultSkin());
+            $this->setSession('skin', $this->objConfig->getdefaultSkin());
         }
 
         //Check for a change of skin
         if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
-            $mySkinLocation=$this->objConfig->siteRootPath().'skins/'.$_POST['skinlocation'].'/';
+            $mySkinLocation=$this->objConfig->getsiteRootPath().'skins/'.$_POST['skinlocation'].'/';
 
             //Test if stylesheet exists in the skinlocation
             if (file_exists($mySkinLocation.'kewl_css.php')) {
                 $this->setSession('skin', $_POST['skinlocation']);
             } else {
-                $this->setSession('skin', $this->objConfig->defaultSkin());
+                $this->setSession('skin', $this->objConfig->getdefaultSkin());
             }
         }
     }
@@ -108,7 +107,7 @@ class skin extends object
         $ret = $objNewForm = new form('ignorecheck',$script);
         $ret = $objDropdown = new dropdown('skinlocation');
         //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->siteRootPath()."skins/";
+        $basedir=$this->objConfig->getsiteRootPath()."skins/";
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
@@ -116,7 +115,7 @@ class skin extends object
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
                 if (is_dir($file) && file_exists($basedir.$file.'/kewl_css.php')) {
 
-                    $skinnameFile=$this->objConfig->siteRootPath().'skins/'.$file.'/skinname.txt';
+                    $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
 
                     if (file_exists($skinnameFile)) {
                         $ts=fopen($skinnameFile,'r');
@@ -134,7 +133,7 @@ class skin extends object
         foreach ($dirList as $element=> $value) {
            $ret .= $objDropdown->addOption($element,$value);
         }
-        $ret = $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin').":<br>\n");
+        $ret = $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin','security').":<br>\n");
 
         // Set the current skin as the default selected skin
         $objDropdown->setSelected($this->getSession('skin'));
@@ -172,10 +171,10 @@ class skin extends object
      */
     function putLogout()
     {
-        $logout=$this->objLanguage->languageText('word_logout','Logout');
+        $logout=$this->objLanguage->languageText('word_logout','security','Logout');
         $objConfirm =& $this->getObject('confirm', 'utilities');
 
-        $message = $this->objLanguage->languageText('phrase_confirmlogout');
+        $message = $this->objLanguage->languageText('phrase_confirmlogout','security');
         $extra = ' class="pseudobutton"';
 
         $objConfirm->setConfirm($logout, $this->uri(array('action' => 'logoff'), 'security') ,$message,$extra);
@@ -192,8 +191,8 @@ class skin extends object
         $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '<style type="text/css">
-                @import "'.$this->objConfig->skinRoot().'_common/IE_dd_menu_and_layout_fix.css";
-                body { behavior:url("'.$this->objConfig->skinRoot().'_common/ADxMenu_prof.htc"); }
+                @import "'.$this->objConfig->getskinRoot().'_common/IE_dd_menu_and_layout_fix.css";
+                body { behavior:url("'.$this->objConfig->getskinRoot().'_common/ADxMenu_prof.htc"); }
             </style>';
         }
         return $stylesheet;

@@ -28,22 +28,22 @@ $objSelectBox =& $this->newObject('selectbox','htmlelements');
 
 // set up language items
 $objLanguage =& $this->getObject('language', 'language');
-$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions', 'Link Permissions');
-$aclLabel = $objLanguage->languageText('mod_toolbar_selectacl', 'Select an access control list (ACL)');
-$groupLabel = $objLanguage->languageText('mod_toolbar_selectgroup', 'Select a group');
-$conGroupLabel = $objLanguage->code2Txt('mod_toolbar_selectcongroup', array('context'=>'course'));
-$authorLabel = ucwords($objLanguage->languageText('mod_context_author'));
-$readonlyLabel = ucwords($objLanguage->languageText('mod_context_readonly'));
-$guestLabel = ucwords($objLanguage->languageText('mod_toolbar_guest'));
-$saveLabel = $objLanguage->languageText('word_save', 'Save');
-$closeLabel = $objLanguage->languageText('word_close', 'Close');
-$availACLs = ucwords($objLanguage->languageText('mod_toolbar_availacl', 'Available ACLs'));
-$selectACLs = ucwords($objLanguage->languageText('mod_toolbar_selectedacl', 'Selected ACLs'));
-$selectGroups = ucwords($objLanguage->languageText('mod_toolbar_selectedgroup', 'Selected Groups'));
-$availGroups = ucwords($objLanguage->languageText('mod_toolbar_availgroup', 'Available Groups'));
-$selectConGr = ucwords($objLanguage->code2Txt('mod_toolbar_selectedcongroup', array('context'=>'course')));
-$availConGr = ucwords($objLanguage->code2Txt('mod_toolbar_availcongroup', array('context'=>'course')));
-$restoreLabel = $objLanguage->languageText('mod_toolbar_restoredefaultperms');
+$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions','toolbar', 'Link Permissions');
+$aclLabel = $objLanguage->languageText('mod_toolbar_selectacl','toolbar', 'Select an access control list (ACL)');
+$groupLabel = $objLanguage->languageText('mod_toolbar_selectgroup','toolbar', 'Select a group');
+$conGroupLabel = $objLanguage->code2Txt('mod_toolbar_selectcongroup','toolbar', array('context'=>'course'));
+$authorLabel = ucwords($objLanguage->languageText('mod_context_author','toolbar'));
+$readonlyLabel = ucwords($objLanguage->languageText('mod_context_readonly','toolbar'));
+$guestLabel = ucwords($objLanguage->languageText('mod_toolbar_guest','toolbar'));
+$saveLabel = $objLanguage->languageText('word_save','security', 'Save');
+$closeLabel = $objLanguage->languageText('word_close','security', 'Close');
+$availACLs = ucwords($objLanguage->languageText('mod_toolbar_availacl','toolbar', 'Available ACLs'));
+$selectACLs = ucwords($objLanguage->languageText('mod_toolbar_selectedacl','toolbar', 'Selected ACLs'));
+$selectGroups = ucwords($objLanguage->languageText('mod_toolbar_selectedgroup','toolbar', 'Selected Groups'));
+$availGroups = ucwords($objLanguage->languageText('mod_toolbar_availgroup','toolbar', 'Available Groups'));
+$selectConGr = ucwords($objLanguage->code2Txt('mod_toolbar_selectedcongroup','toolbar',array('context'=>'course')));
+$availConGr = ucwords($objLanguage->code2Txt('mod_toolbar_availcongroup','toolbar', array('context'=>'course')));
+$restoreLabel = $objLanguage->languageText('mod_toolbar_restoredefaultperms','toolbar');
 
 if(!isset($defaultList)){
     $defaultList = 'Site Admin';

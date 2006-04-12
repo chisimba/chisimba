@@ -195,7 +195,7 @@ class InstallWizard extends Wizard
 
 			// details, close the session, and open the 5ive session instead.
 
-			if (file_exists($sys_root.'/conf/Config.xml')) {
+			if (file_exists($sys_root.'/conf/config.xml')) {
 
 				$old_session = $_SESSION;
 

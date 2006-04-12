@@ -121,7 +121,7 @@ class contextadminutils extends object {
      */
      function displayData($arrList, $arrHeadings=array(), $arrAdminLinks=TRUE, $orderBy = 'id'){
         $H3 = & $this->newObject('htmlheading', 'htmlelements');
-        $H3->str = $this->objLanguage->languageText("mod_contextadmin_name");
+        $H3->str = $this->objLanguage->languageText("mod_contextadmin_name",'contextadmin');
         $addIcon = $this->objIcon->getAddIcon($this->uri( array('action' => 'add'), "contextadmin"));
      //   print_r($arrList);
         //start the heading
@@ -168,7 +168,7 @@ class contextadminutils extends object {
          $str = '';
          //course admin
          $this->objIcon->setModuleIcon('contextadmin');
-        $this->objIcon->alt = $this->objLanguage->languageText("mod_contextadmin_configcontext");
+        $this->objIcon->alt = $this->objLanguage->languageText("mod_contextadmin_configcontext",'contextadmin');
         $this->objLink->href = $this->uri(array('action' => 'courseadmin', 'contextCode' => $contextCode), "contextadmin");
         $this->objLink->link = $this->objIcon->show();               
         $str .= $this->objLink->show().'&nbsp;';
@@ -178,7 +178,7 @@ class contextadminutils extends object {
             'fromwhere' => 'contextadmin',
             'contextCode' => $contextCode);
         $this->objIcon->setIcon('edit');
-        $this->objIcon->alt = $this->objLanguage->languageText("mod_contextadmin_editcontext");
+        $this->objIcon->alt = $this->objLanguage->languageText("mod_contextadmin_editcontext",'contextadmin');
         $this->objLink->href = $this->uri($editArray, "contextadmin");
         $this->objLink->link = $this->objIcon->show();               
         $str .= $this->objLink->show().'&nbsp;';
@@ -187,8 +187,8 @@ class contextadminutils extends object {
          $deleteArray = array('action' => 'delete',
             'contextCode' => $contextCode);     
         $this->objIcon->setIcon('delete');
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_contextadmin_deletecontext");
-        $this->objConfirm->setConfirm($this->objIcon->show(),$this->uri($deleteArray, "contextadmin"),$this->objLanguage->languageText("mod_contextadmin_deletequest"));              
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_contextadmin_deletecontext",'contextadmin');
+        $this->objConfirm->setConfirm($this->objIcon->show(),$this->uri($deleteArray, "contextadmin"),$this->objLanguage->languageText("mod_contextadmin_deletequest",'contextadmin'));              
         $str.=$this->objConfirm->show().'&nbsp;';
            
         return $str;

@@ -2,7 +2,7 @@
 
     $this->objH =& $this->getObject('htmlheading', 'htmlelements');
     $this->objH->type=1;
-    $this->objH->str=$this->objLanguage->languageText("mod_contextadmin_exportcontent");
+    $this->objH->str=$this->objLanguage->languageText("mod_contextadmin_exportcontent",'contextadmin');
  
     $center =     $this->objH->show();
         

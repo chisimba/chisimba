@@ -52,7 +52,7 @@ class utilities extends object
     function getContextLinks()
     {
         $this->objIcon->setIcon("home");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome",'context');
         $this->objIcon->align = "absmiddle";
         
         $this->objLink->href=$this->URI(null,'context');
@@ -70,7 +70,7 @@ class utilities extends object
     function getContentLinks()
     {
         $this->objIcon->setModuleIcon("content");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent",'context');
         $this->objIcon->align = "absmiddle";
         
         $params = array('nodeid' => $this->getParam('nodeid'), 'action' => 'content');
@@ -89,7 +89,7 @@ class utilities extends object
     function getCourseAdminLink()
     {
         $this->objIcon->setModuleIcon("contextadmin");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_courseadmin");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_courseadmin",'context');
         $this->objIcon->align = "absmiddle";
         
         $params = array( 'action' => 'courseadmin');

@@ -64,7 +64,7 @@ class toolbar extends object
         $this->objIcon->setIcon('im');
         $this->objIcon->alt="instant messaging";
         $this->objIcon->title = $this->objLanguage->languageText("mod_toolbar_instantmessaging"
-               ,"Instant Messaging");
+               ,'toolbar',"Instant Messaging");
 
         $this->objIcon->extra=" onclick=\"javascript:window.open('" .$this->uri(array('action'=>'showUsers'),'instantmessaging')."', 'IM', 'width=300, height=394, scrollbars=1')\" ";
 
@@ -81,7 +81,7 @@ class toolbar extends object
     function navigation()
     {
         $this->objConfig= $this->getObject('config','config');
-        $str = $this->objLanguage->languageText("mod_toolbar_home", "home");
+        $str = $this->objLanguage->languageText("mod_toolbar_home",'toolbar', "home");
         $this->objLink->style="cursor:hand";
         $this->objLink->link=$str;
         $this->objLink->link($this->objConfig->siteRoot());

@@ -61,19 +61,19 @@ class interface extends object {
         $paramArray = array('order' => 'category');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
-         . "\">" . $this->objLanguage->languageText("word_category")
+         . "\">" . $this->objLanguage->languageText("word_category",'stories')
          . "</a></td>\n";
 
         $paramArray = array('order' => 'language');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
-         . "\">" . $this->objLanguage->languageText('word_language')
+         . "\">" . $this->objLanguage->languageText('word_language','security')
          . "</a></td>\n";
 
         $paramArray = array('order' => 'title');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
-         . "\">" . $this->objLanguage->languageText("word_title")
+         . "\">" . $this->objLanguage->languageText("word_title",'useradmin')
          . "</a></td>\n";
 
 
@@ -81,13 +81,13 @@ class interface extends object {
         $paramArray = array('order' => 'expirationDate');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
-         . "\">" . $this->objLanguage->languageText('phrase_expirationdate')
+         . "\">" . $this->objLanguage->languageText('phrase_expirationdate','security')
          . "</a></td>\n";
 
         $paramArray = array('order' => 'isActive');
         $str .= "<td class=\"heading\"><a href=\""
          . $this->uri($paramArray, "stories")
-         . "\">" . $this->objLanguage->languageText("phrase_isactive")
+         . "\">" . $this->objLanguage->languageText("phrase_isactive",'stories')
          . "</a></td>\n";
 
         $objGetIcon = $this->newObject('geticon', 'htmlelements');

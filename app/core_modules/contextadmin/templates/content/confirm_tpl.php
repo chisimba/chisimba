@@ -17,10 +17,10 @@ $this->table->border="0";
 $this->table->align="center";
 $this->table->width="30%";
 
-$arr = array($objLanguage->languageText("phrase_confirmdeletion"));
+$arr = array($objLanguage->languageText("phrase_confirmdeletion",'contextadmin'));
 $this->table->addRow($arr, "even", "colspan=\"2\"");
 
-$arr = array($objLanguage->languageText('label_coursecode'));
+$arr = array($objLanguage->languageText('label_coursecode','contextadmin'));
 $attr="\"<input type=\"text\" name=\"courseCode\" value=".$_REQUEST['courseCode'].""; 
 $this->table->addRow($arr, "even",$attr);
 

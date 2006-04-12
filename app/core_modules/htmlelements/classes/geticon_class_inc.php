@@ -64,7 +64,7 @@ class getIcon extends object
     */
     function init()
     {
-        $this->_objConfig = & $this->getObject('config','config');
+        $this->_objConfig = & $this->getObject('altconfig','config');
         $this->_objLanguage = & $this->getObject('language', 'language');
         $this->_objSkin = & $this->getObject('skin','skin');
         
@@ -120,7 +120,7 @@ class getIcon extends object
             $this->iconfolder = $this->_objSkin->getSkinUrl().$folder;
         } else {
             // else set folder to be the _common skin
-            $this->iconfolder = $this->_objConfig->skinRoot().'/_common/'.$folder;
+            $this->iconfolder = $this->_objConfig->getskinRoot().'/_common/'.$folder;
         }
     }
 
@@ -144,7 +144,7 @@ class getIcon extends object
     {
         $this->setIcon('edit_sm');
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_edit');
+        $this->title = $this->_objLanguage->languagetext('word_edit','security');
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();
@@ -160,7 +160,7 @@ class getIcon extends object
     {
         $this->setIcon('delete');
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_delete');
+        $this->title = $this->_objLanguage->languagetext('word_delete','security');
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();
@@ -190,7 +190,7 @@ class getIcon extends object
         //Set the delete icon
         $this->setIcon("delete");
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_delete');
+        $this->title = $this->_objLanguage->languagetext('word_delete','security');
         //Get the delete icon for the confirm object
         $delIcon = $this->show();
         //Create an instance of the confirm object
@@ -202,7 +202,7 @@ class getIcon extends object
         }
 
         if ($deletephrase == 'phrase_confirmdelete') {
-            $deletephrase = $this->_objLanguage->languageText($deletephrase);
+            $deletephrase = $this->_objLanguage->languageText($deletephrase,'security');
         }
 
         $objConfirm->setConfirm($delIcon, $location, $deletephrase);

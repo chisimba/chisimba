@@ -234,7 +234,7 @@ class contextadmin extends controller {
            case 'importone':
                if($this->objDBParentNodes->getParentNodeId())
                {
-                   $this->setVar('txt', $this->objLanguage->languageText("mod_contextadmin_importhelp"));
+                   $this->setVar('txt', $this->objLanguage->languageText("mod_contextadmin_importhelp",'contextadmin'));
                     $this->setLayoutTemplate('import_layout_tpl.php');
                     return 'importone_tpl.php';
                 } else {
@@ -310,11 +310,11 @@ class contextadmin extends controller {
     {
         $contextCode = $this->objDBContext->getContextCode();
         $this->objLink->href = $this->objConfig->siteRoot().'usrfiles/content/'.$contextCode.'/staticcontent/index.html';
-        $this->objLink->link = $this->objLanguage->languageText("mod_contextadmin_gotostatic");
+        $this->objLink->link = $this->objLanguage->languageText("mod_contextadmin_gotostatic",'contextadmin');
         $ret = $this->objLink->show();
 
         $this->objLink->href = $this->objConfig->siteRoot().'usrfiles/content/'.$contextCode.'/'.$contextCode.'.zip';
-        $this->objLink->link =$this->objLanguage->languageText("mod_contextadmin_downloadstaticcontent");
+        $this->objLink->link =$this->objLanguage->languageText("mod_contextadmin_downloadstaticcontent",'contextadmin');
         $ret .= '<p><p>'.$this->objLink->show();
 
         return $ret;
@@ -390,7 +390,7 @@ class contextadmin extends controller {
         }else{
             $icon=&$this->newObject('geticon','htmlelements');
             $icon->setModuleIcon('modulelist');
-            $icon->alt=$name.'&nbsp;'.$this->objLanguage->languageText("mod_contextadmin_notregistered");
+            $icon->alt=$name.'&nbsp;'.$this->objLanguage->languageText("mod_contextadmin_notregistered",'contextadmin');
             return $icon->show().'&nbsp;'.$name.'&nbsp;';
         }
     }
@@ -524,7 +524,7 @@ class contextadmin extends controller {
     function getContextLinks()
     {
         $this->objIcon->setIcon("home");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome",'contextadmin');
         $this->objIcon->align = "absmiddle";
 
         $this->objLink->href=$this->URI(null,'context');
@@ -542,7 +542,7 @@ class contextadmin extends controller {
     function getContentLinks()
     {
         $this->objIcon->setModuleIcon("content");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent,'contextadmin'");
         $this->objIcon->align = "absmiddle";
 
         $params = array('nodeid' => $this->getParam('nodeid'), 'action' => 'content');

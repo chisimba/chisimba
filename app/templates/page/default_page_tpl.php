@@ -12,7 +12,7 @@ if (!isset($pageLanguage)) {
 <html  xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $pageLanguage; ?>" xml:lang="<?php echo $pageLanguage; ?>">
 <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
 <head>
-<title><?php echo $objConfig->siteName(); ?></title>
+<title><?php echo $objConfig->getsiteName(); ?></title>
 <?php
 
 if (!isset($pageSuppressSkin)){
@@ -27,7 +27,7 @@ if (!isset($pageSuppressSkin)){
 if (isset($jsLoad)) {
     foreach ($jsLoad as $script) {
 ?>
-       <script type="text/javascript" src="<?php echo $objConfig->siteRoot().$script?>"></script>
+       <script type="text/javascript" src="<?php echo $objConfig->getsiteRoot().$script?>"></script>
     <?php }
 } ?>
 <?php
@@ -71,7 +71,7 @@ if (isSet($bodyParams)) {
 	<div id="container">
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   	<div id="top"><a onclick="location='<?php echo $objConfig->siteRoot(); ?>index.php'">
+   	<div id="top"><a onclick="location='<?php echo $objConfig->getsiteRoot(); ?>/index.php'">
 		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg"
                         alt="banner"></a>
 	</div>
@@ -104,8 +104,8 @@ if (!isset($suppressFooter)) {
 
         $this->loadClass('link', 'htmlelements');
         $link = new link ($this->URI(array('action'=>'logoff'),'security'));
-        $link->link=$objLanguage->languageText("word_logout");
-        $str=$objLanguage->languageText("mod_context_loggedinas").' <strong>'.$this->objUser->fullname().'</strong>  ('.$link->show().')';
+        $link->link=$objLanguage->languageText("word_logout",'security');
+        $str=$objLanguage->languageText("mod_context_loggedinas",'context').' <strong>'.$this->objUser->fullname().'</strong>  ('.$link->show().')';
         $this->footerNav->str = $str;
     } else {
         $this->footerNav->str = '&nbsp';

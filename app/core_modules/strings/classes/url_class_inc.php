@@ -104,7 +104,7 @@ class url extends object {
             $this->objExterIcon = $this->newObject('geticon', 'htmlelements');
             $this->objExterIcon->setIcon("external_link");
             $objLanguage = $this->getObject('language', 'language');
-            $this->objExterIcon->alt = $objLanguage->languageText("mod_strings_exlink");
+            $this->objExterIcon->alt = $objLanguage->languageText("mod_strings_exlink",'strings');
             $repl = $this->objExterIcon->show();
         }
 

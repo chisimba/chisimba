@@ -25,20 +25,20 @@ $objLabel =& $this->newObject('label', 'htmlelements');
 
 // Set up language items
 $objLanguage =& $this->getObject('language', 'language');
-$heading = $objLanguage->languageText('mod_toolbar_confmodulelinks');
-$moduleLabel = $objLanguage->languageText('mod_toolbar_module', 'Module');
-$toolbarLabel = $objLanguage->languageText('mod_toolbar_toolbar');
-$sidemenuLabel = $objLanguage->languageText('mod_toolbar_sidemenu');
-$pageLabel = $objLanguage->languageText('mod_toolbar_page');
-$categoryLabel = $objLanguage->languageText('mod_toolbar_category');
-$menuLabel = $objLanguage->languageText('mod_toolbar_menu');
-$actionLabel = $objLanguage->languageText('mod_toolbar_action');
-$iconLabel = $objLanguage->languageText('mod_toolbar_icon');
-$langCodeLabel = $objLanguage->languageText('mod_toolbar_langcode');
-$permLabel = $objLanguage->languageText('mod_toolbar_permissions');
-$noLinksLabel = $objLanguage->languageText('mod_toolbar_nolinks');
-$restoreLabel = $objLanguage->languageText('mod_toolbar_restoredefaults');
-$selectLabel = $objLanguage->languageText('mod_toolbar_selectmodule');
+$heading = $objLanguage->languageText('mod_toolbar_confmodulelinks','toolbar');
+$moduleLabel = $objLanguage->languageText('mod_toolbar_module','toolbar', 'Module');
+$toolbarLabel = $objLanguage->languageText('mod_toolbar_toolbar','toolbar');
+$sidemenuLabel = $objLanguage->languageText('mod_toolbar_sidemenu','toolbar');
+$pageLabel = $objLanguage->languageText('mod_toolbar_page','toolbar');
+$categoryLabel = $objLanguage->languageText('mod_toolbar_category','toolbar');
+$menuLabel = $objLanguage->languageText('mod_toolbar_menu','toolbar');
+$actionLabel = $objLanguage->languageText('mod_toolbar_action','toolbar');
+$iconLabel = $objLanguage->languageText('mod_toolbar_icon','toolbar');
+$langCodeLabel = $objLanguage->languageText('mod_toolbar_langcode','toolbar');
+$permLabel = $objLanguage->languageText('mod_toolbar_permissions','toolbar');
+$noLinksLabel = $objLanguage->languageText('mod_toolbar_nolinks','toolbar');
+$restoreLabel = $objLanguage->languageText('mod_toolbar_restoredefaults','toolbar');
+$selectLabel = $objLanguage->languageText('mod_toolbar_selectmodule','toolbar');
 $modName = $objLanguage->code2Txt('mod_'.$moduleName.'_name');
 
 $menu = array();

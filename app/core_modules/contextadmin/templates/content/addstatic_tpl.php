@@ -9,18 +9,18 @@ $form->setAction($this->uri($paramArray,'contextadmin'));
 //the file input
 $fileInput=&$this->newObject('textinput','htmlelements');
 $fileInput->fldType='file';
-$fileInput->label=$this->objLanguage->languageText("mod_contextadmin_folderpath");
+$fileInput->label=$this->objLanguage->languageText("mod_contextadmin_folderpath",'contextadmin');
 $fileInput->name='userfile';
 $fileInput->size=60;
 
 //the submit button
 $objElement = new button('mybutton');	
 $objElement->setToSubmit();	
-$objElement->setValue($this->objLanguage->languageText("mod_contextadmin_save"));
+$objElement->setValue($this->objLanguage->languageText("mod_contextadmin_save",'contextadmin'));
 
 //add the objects to the form
 $form->addToForm($fileInput);
-$form->addToForm('<BR><span class="warning">('.$this->objLanguage->languageText("mod_contextadmin_staticwarning").')</span><br>');
+$form->addToForm('<BR><span class="warning">('.$this->objLanguage->languageText("mod_contextadmin_staticwarning",'contextadmin').')</span><br>');
 $form->addToForm($objElement);
 
 //echo $form->show();
@@ -41,7 +41,7 @@ echo $this->rightNav->addToLayer();
 
 //Center
 $heading=&$this->newObject('htmlheading','htmlelements');
-$heading->str=$this->objLanguage->languageText("mod_contextadmin_importcontent");
+$heading->str=$this->objLanguage->languageText("mod_contextadmin_importcontent",'contextadmin');
 $heading->type=3;
 $strCenter=$heading->show();
 $strCenter.=$form->show();

@@ -13,7 +13,7 @@ define('KEWL_DB_DRIVER', 'mysqli');
 define('KEWL_DB_SERVER', 'localhost');
 define('KEWL_DB_USER', 'root');
 define('KEWL_DB_PASSWORD', '');
-define('KEWL_DB_DATABASE', 'php5alpha');
+define('KEWL_DB_DATABASE', 'alpharelease');
 
 /**  configuration information for readonly
 * Use to provide the capability to have a second

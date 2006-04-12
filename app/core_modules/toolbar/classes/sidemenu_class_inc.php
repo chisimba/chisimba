@@ -60,7 +60,7 @@ class sidemenu extends object
 
         // get images from icons/modules folder
         $objSkin = & $this->getObject('skin','skin');
-        $this->iconModFolder = $objSkin->getSkinLocation()."icons/modules/";
+        $this->iconModFolder = $objSkin->getSkinLocation()."icons/modules/";       
         $this->iconFolder = $objSkin->getSkinLocation()."icons/";
 
         // Get Context Code & Title
@@ -70,7 +70,7 @@ class sidemenu extends object
             $this->contextcode = $this->objContext->getcontextcode();
             $this->context = TRUE;
         }else{
-            $this->contextTitle = $this->objLanguage->languageText('word_inlobby');
+            $this->contextTitle = $this->objLanguage->languageText('word_inlobby','postlogin');
             $this->contextcode = '';
             $this->context = FALSE;
         }
@@ -209,9 +209,9 @@ class sidemenu extends object
                     $icon = $line['module'];
                 }
                 if(isset($actions[4]) && !empty($actions[4])){
-                    $name = ucwords($this->objLanguage->code2Txt($actions[4]));
+                    $name = ucwords($this->objLanguage->code2Txt($actions[4],$line['module']));
                 }else{
-                    $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name'));
+                    $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name',$line['module']));
                 }
 
                 /*
@@ -251,6 +251,7 @@ class sidemenu extends object
         }else{
             $this->objIcon->setModuleIcon('default');
         }
+        $this->objIcon->setIcon($icon);
         $this->objIcon->alt = $moduleName;
         $this->objIcon->title= $moduleName;
 
@@ -275,10 +276,10 @@ class sidemenu extends object
         $objButton =& $this->newObject('button','htmlelements');
         $objDrop =& $this->newObject('dropdown','htmlelements');
 
-        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext',array('context'=>'course')));
-        $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext'));
-        $go = $this->objLanguage->languageText('word_go');
-        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext');
+        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','context',array('context'=>'course')));
+        $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext','toolbar'));
+        $go = $this->objLanguage->languageText('word_go','security');
+        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext','postlogin');
         $str = '';
 
         if($objModule->checkIfRegistered('context','context')){
@@ -358,12 +359,12 @@ class sidemenu extends object
         $objButton =& $this->newObject('button','htmlelements');
         $objDrop =& $this->newObject('dropdown','htmlelements');
 
-        $notaMember = $this->objLanguage->code2Txt('phrase_notamemberofanyworkgroup');
-        $leaveGroup = $this->objLanguage->code2Txt('mod_workgroup_leavegroup');
-        $join = ucwords($this->objLanguage->code2Txt('phrase_joinworkgroup'));
-        $notInGroup = $this->objLanguage->code2Txt('phrase_notinworkgroup');
-        $inGroup = $this->objLanguage->code2Txt('phrase_currentlyinworkgroup');
-        $go = $this->objLanguage->languageText('word_go');
+        $notaMember = $this->objLanguage->code2Txt('phrase_notamemberofanyworkgroup','security');
+        $leaveGroup = $this->objLanguage->code2Txt('mod_workgroup_leavegroup','security');
+        $join = ucwords($this->objLanguage->code2Txt('phrase_joinworkgroup','security'));
+        $notInGroup = $this->objLanguage->code2Txt('phrase_notinworkgroup','security');
+        $inGroup = $this->objLanguage->code2Txt('phrase_currentlyinworkgroup','security');
+        $go = $this->objLanguage->languageText('word_go','security');
 
         $str = '';
         if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {

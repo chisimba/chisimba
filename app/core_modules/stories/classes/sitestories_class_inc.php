@@ -65,8 +65,8 @@ class sitestories extends dbTable {
         }
         $ret .= "</p>";
         //Add the author and date
-        $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
-        $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
+        $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby",'stories');
+        $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on",'stories');
         $ret.=" <b>".$dateCreated."</b></p>";
         //Create an instance of the modulesadmin to check if registered
         $this->objModule=&$this->getObject('modulesadmin','modulelist');
@@ -193,8 +193,8 @@ class sitestories extends dbTable {
 
             if ($showAuthor) {
                 //Add the author and date
-                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
-                $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
+                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby",'stories');
+                $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on",'stories');
                 $ret.=" <b>".$dateCreated."</b>";
             }
 
@@ -205,7 +205,7 @@ class sitestories extends dbTable {
                     $ret .= $objComment->addCommentLink();
                     if ($commentCount>0) {
                         $ccStr = $commentCount . " "
-                        . strtolower($this->objLanguage->languageText("word_comments"));
+                        . strtolower($this->objLanguage->languageText("word_comments",'stories'));
                         //Set the location
                         $ccLocation = $this->uri(array(
                           'action' => 'viewstory',
@@ -223,7 +223,7 @@ class sitestories extends dbTable {
             $ar = $this->getTranslations($id);
             if (count($ar) > 0 ) {
                 $ret .= "&nbsp;&nbsp;&nbsp;" .
-                  $this->objLanguage->languageText("mod_stories_alsoavailable");
+                  $this->objLanguage->languageText("mod_stories_alsoavailable",'stories');
                 foreach ($ar as $line) {
                     $lcode = $line['language'];
                     $id = $line['id'];
@@ -265,7 +265,7 @@ class sitestories extends dbTable {
         $objCatDrd->name = 'category_selector';
         $objCatDrd->extra=" onChange=\"Javascript:document.location=document.chCat.category_selector.value;\"";
         //Add the categories
-        $objCatDrd->addOption("", $this->objLanguage->languageText("mod_stories_anothercat"));
+        $objCatDrd->addOption("", $this->objLanguage->languageText("mod_stories_anothercat",'stories'));
         foreach ($ar as $line) {
             $link = $this->uri(array(
               'action' => $this->getParam('action', NULL),

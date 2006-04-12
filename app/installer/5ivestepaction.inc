@@ -2,7 +2,7 @@
 
 
 require_once INSTALL_DIR.'/stepaction.inc';
-require_once 'DB.php';
+require_once 'MDB2/Schema.php';
 
 /**
 * 5iveStepAction
@@ -27,14 +27,13 @@ class FiveStepAction extends StepAction
 	*/
 	function _testDSN($dsn)
 	{
-		$connection = DB::connect($dsn);
-			
-		if (DB::isError($connection)) {
-			$this->errors[] = $connection->getMessage().' with DSN '.$dsn;
-			return false;
-		}
 		
-		$connection->disconnect();
+		$schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+   		if (PEAR::isError($schema)) {
+        	$error = $schema->getMessage() . ' ' . $schema->getUserInfo();
+			return false;
+   		}
+		 $schema->disconnect();
 		
 		return true;
 	}//end _testDSN()

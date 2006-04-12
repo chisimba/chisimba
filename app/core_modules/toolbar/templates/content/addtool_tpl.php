@@ -21,32 +21,32 @@ $objButton =& $this->newObject('button', 'htmlelements');
 
 // set up language items
 $objLanguage =& $this->getObject('language', 'language');
-$addHeading = $objLanguage->languageText('mod_toolbar_addnewlink', 'Add New Link');
-$editHeading = $objLanguage->languageText('mod_toolbar_editlink', 'Edit Link');
-$moduleLabel = $objLanguage->languageText('mod_toolbar_module', 'Module');
-$settingsLabel = $objLanguage->languageText('mod_toolbar_modulesettings', 'Module Settings');
-$toolbarLabel = $objLanguage->languageText('mod_toolbar_toolbar', 'Toolbar');
-$selectLabel = $objLanguage->languageText('mod_toolbar_selectcategory', 'Select Category');
-$adminLabel = $objLanguage->languageText('mod_toolbar_adminonly', 'Admin Only');
-$dependsLabel = $objLanguage->languageText('mod_toolbar_dependscontext', 'Depends Context');
-$saveLabel = $objLanguage->languageText('word_save', 'Save');
-$backLabel = $objLanguage->languageText('word_back', 'Back');
-$setPermLabel = $objLanguage->languageText('mod_toolbar_confperm', 'Configure link Permissions');
-$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions', 'Link Permissions');
+$addHeading = $objLanguage->languageText('mod_toolbar_addnewlink', 'toolbar','Add New Link');
+$editHeading = $objLanguage->languageText('mod_toolbar_editlink', 'toolbar','Edit Link');
+$moduleLabel = $objLanguage->languageText('mod_toolbar_module', 'toolbar','Module');
+$settingsLabel = $objLanguage->languageText('mod_toolbar_modulesettings','toolbar', 'Module Settings');
+$toolbarLabel = $objLanguage->languageText('mod_toolbar_toolbar', 'toolbar','Toolbar');
+$selectLabel = $objLanguage->languageText('mod_toolbar_selectcategory','toolbar','Select Category');
+$adminLabel = $objLanguage->languageText('mod_toolbar_adminonly', 'toolbar','Admin Only');
+$dependsLabel = $objLanguage->languageText('mod_toolbar_dependscontext','toolbar', 'Depends Context');
+$saveLabel = $objLanguage->languageText('word_save','security', 'Save');
+$backLabel = $objLanguage->languageText('word_back','security', 'Back');
+$setPermLabel = $objLanguage->languageText('mod_toolbar_confperm', 'toolbar','Configure link Permissions');
+$linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions','toolbar', 'Link Permissions');
 
 // categories for dropdown list
-$organise = $objLanguage->languageText('category_organise', 'Organise');
-$communicate = $objLanguage->languageText('category_communicate', 'Communicate');
-$learn = $objLanguage->languageText('category_learn', 'Learn');
-$admin = $objLanguage->languageText('category_admin', 'Admin');
-$about = $objLanguage->languageText('category_about', 'About');
-$postgrad = $objLanguage->languageText('category_postgrad', 'Postgraduate');
+$organise = $objLanguage->languageText('category_organise', 'toolbar','Organise');
+$communicate = $objLanguage->languageText('category_communicate','toolbar', 'Communicate');
+$learn = $objLanguage->languageText('category_learn','toolbar', 'Learn');
+$admin = $objLanguage->languageText('category_admin','toolbar', 'Admin');
+$about = $objLanguage->languageText('category_about','toolbar', 'About');
+$postgrad = $objLanguage->languageText('category_postgrad', 'toolbar','Postgraduate');
 
 // Added for testing purposes.
-$user = $objLanguage->languageText('category_user', 'User');
-$course = $objLanguage->languageText('category_course', 'Course');
-$assessment = $objLanguage->languageText('category_assessment', 'Assessment');
-$site = $objLanguage->languageText('category_site', 'Site');
+$user = $objLanguage->languageText('category_user','security', 'User');
+$course = $objLanguage->languageText('category_course','security', 'Course');
+$assessment = $objLanguage->languageText('category_assessment','security', 'Assessment');
+$site = $objLanguage->languageText('category_site','security', 'Site');
 
 if($mode == 'edit'){
     $dependsContext = $data['dependsContext'];

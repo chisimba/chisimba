@@ -30,10 +30,10 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
                 $h3->str='Edit Node';
                 break;
             case 'addchildnode':
-                $h3->str=$this->objLanguage->languageText("mod_context_addchildnode").'&nbsp;'.$line['title'];
+                $h3->str=$this->objLanguage->languageText("mod_context_addchildnode",'context').'&nbsp;'.$line['title'];
                 break;
             case 'addnode':                
-                $h3->str=$this->objLanguage->languageText("mod_context_addsiblingnode").'&nbsp;'.$line['title'];
+                $h3->str=$this->objLanguage->languageText("mod_context_addsiblingnode",'context').'&nbsp;'.$line['title'];
                 break;            
         }
         
@@ -90,10 +90,10 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         $objTImenutext=new textinput('label');
         $objTImenutext->size = '97';
          $objTImenutext->setValue($strMenuText); 
-        $table->addCell($this->objLanguage->languageText("mod_contextadmin_menutext"));
+        $table->addCell($this->objLanguage->languageText("mod_contextadmin_menutext",'context'));
         $table->addCell($objTImenutext->show());
-        $objForm->addRule('label',$this->objLanguage->languageText("mod_context_errsuppmenutext"),'required');
-        $objForm->addRule(array('name'=>'label','length'=>100),$this->objLanguage->languageText("mod_context_errmenutextminlength"),'maxlength');
+        $objForm->addRule('label',$this->objLanguage->languageText("mod_context_errsuppmenutext",'context'),'required');
+        $objForm->addRule(array('name'=>'label','length'=>100),$this->objLanguage->languageText("mod_context_errmenutextminlength",'context'),'maxlength');
         $table->endRow();
         
          //the title
@@ -103,7 +103,7 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         $objTItitle->setValue($strTitle);           
         $table->addCell($this->objLanguage->languageText("word_title"));
         $table->addCell($objTItitle->show());             
-        $objForm->addRule('nodetitle',$this->objLanguage->languageText("mod_context_errsupptitle"),'required');
+        $objForm->addRule('nodetitle',$this->objLanguage->languageText("mod_context_errsupptitle",'context'),'required');
         $table->endRow();
        
        //the editor with body
@@ -112,13 +112,13 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         $editor->context = TRUE;
         $editor->setContent($strBody);
         $helpstr = "&nbsp;".$this->objHelp->show('mod_html_help_editor');        
-        $table->addCell($this->objLanguage->languageText("mod_context_pagecontents"). $helpstr );
+        $table->addCell($this->objLanguage->languageText("mod_context_pagecontents",'context'). $helpstr );
         $table->addCell($editor->show());
      
         
         $objButton=new button('save');
         $objButton->setToSubmit();
-        $objButton->setValue($this->objLanguage->languageText("mod_contextadmin_save"));
+        $objButton->setValue($this->objLanguage->languageText("mod_contextadmin_save",'context'));
         $table->startRow();
         $table->addCell('');
         $table->addCell($objButton->show(),'','','center');
@@ -126,7 +126,7 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
      
          //dublin core metadata
          //==============================
-        $objLink->link = $this->objLanguage->languageText("mod_dublin_dcm");       
+        $objLink->link = $this->objLanguage->languageText("mod_dublin_dcm",'context');       
         $objLink->extra = ' onclick="toggle(\'dublincore\');return false;" ';
         $objLink->href='#';
         
@@ -140,7 +140,7 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
        //JAVASCRIPT
        $scripteditor = new textarea('script','',20,80);       
        $scripteditor->value = stripslashes($strScript);
-       $tab3 = '<center>'.$this->objLanguage->languageText("mod_context_javascript_help").$scripteditor->show().$objButton->show().'</center>';
+       $tab3 = '<center>'.$this->objLanguage->languageText("mod_context_javascript_help",'context').$scripteditor->show().$objButton->show().'</center>';
        //==============================
        
        
@@ -160,9 +160,9 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         
          $multiTab->width ='800px';
          $multiTab->height = '470px';
-         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_context_content"),'url'=>'http://localhost','content' => $tab1,'default' => true));
-         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_dublin_dcm"),'url'=>'http://localhost','content' => $tab2));
-         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_context_javascript"),'url'=>'http://localhost','content' => $tab3));
+         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_context_content",'context'),'url'=>'http://localhost','content' => $tab1,'default' => true));
+         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_dublin_dcm",'context'),'url'=>'http://localhost','content' => $tab2));
+         $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_context_javascript",'context'),'url'=>'http://localhost','content' => $tab3));
 
        //=================================
        //CREATIVE COMMOMS TAB
@@ -173,12 +173,12 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
 		   $objConfig = & $this->newObject('config', 'config');
 		   $objSkin = & $this->newObject('skin', 'skin');
 		   
-           $ccStr ='<center><h1>'.$this->objLanguage->languageText("mod_creativecommons_title").'</h1>';
+           $ccStr ='<center><h1>'.$this->objLanguage->languageText("mod_creativecommons_title",'context').'</h1>';
            $ccStr .= $objCreativeCommons->getLisences($nodeId);
            //user the creative commons engine to generate the license
            $ccStr .= '<iframe width="80%" height="400" src="http://creativecommons.org/license/?partner={partner}&exit_url=http://'.$_SERVER['SERVER_NAME'].$objConfig->siteRoot().'index.php?deed_url=[deed_url]%26license_button=[license_button]%26license_url=[license_url]%26license_name=[license_name]%26module=creativecommons%26action=ccresults&stylesheet=http://'.$_SERVER['SERVER_NAME'].$objConfig->siteRoot().$objSkin->getSkinUrl().'kewl_css.php&partner_icon_url=http://creativecommons.org/images/public/somerights20.gif"  />';
            $ccStr .= $objButton->show().'</center>';
-           $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_creativecommons_name"),'url'=>'http://localhost','content' => $ccStr));
+           $multiTab->addTab(array('name'=>$this->objLanguage->languageText("mod_creativecommons_name",'context'),'url'=>'http://localhost','content' => $ccStr));
        }
 	  
        //==================================

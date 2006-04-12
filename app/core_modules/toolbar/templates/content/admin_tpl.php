@@ -19,7 +19,7 @@ $objHead =& $this->newObject('htmlheading', 'htmlelements');
 $objSkin =& $this->newObject('skin', 'skin');
 
 // set up language items
-$head = $this->objLanguage->languageText('mod_toolbar_siteadmin');
+$head = $this->objLanguage->languageText('mod_toolbar_siteadmin''toolbar',);
 
 // set up icon folder
 $this->iconFolder = $objSkin->getSkinLocation()."icons/";
@@ -82,9 +82,9 @@ if(!empty($modules)){
 
                 // if the link text is specified
                 if(isset($line['name']) && !empty($line['name'])){
-                    $name = ucwords($this->objLanguage->code2Txt($line['name'], $langArray));
+                    $name = ucwords($this->objLanguage->code2Txt($line['name'],$line['module'], $langArray));
                 }else{
-                    $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name'));
+                    $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name',$line['module']));
                 }
 
                 $objLink->link = $objIcon->show().'<br>'.$name;
@@ -93,7 +93,7 @@ if(!empty($modules)){
             $objTable->endRow();
 
             $tab->tabbedbox();
-            $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category));
+            $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,$category));
             $tab->addBoxContent($objTable->show());
             $str .= $tab->show();
         }

@@ -207,7 +207,7 @@ class toolbar extends controller
     function saveToolLink()
     {
         $mod = $_POST['moduleName'];
-        if($_POST['save'] == $this->objLanguage->languageText('word_back', 'Back')){
+        if($_POST['save'] == $this->objLanguage->languageText('word_back','security', 'Back')){
             return $this->nextAction('editlinks', array('modulename'=>$mod));
         }
 
@@ -219,7 +219,7 @@ class toolbar extends controller
     */
     function saveMenuLink()
     {
-        if($_POST['save'] == $this->objLanguage->languageText('word_back', 'Back')){
+        if($_POST['save'] == $this->objLanguage->languageText('word_back','security', 'Back')){
             return $this->nextAction('editlinks', array('modulename'=>$_POST['moduleName']));
         }
         $category = 'menu_'.$_POST['menu'].'-'.$_POST['position'];
@@ -242,7 +242,7 @@ class toolbar extends controller
     */
     function savePageLink()
     {
-        if($_POST['save'] == $this->objLanguage->languageText('word_back', 'Back')){
+        if($_POST['save'] == $this->objLanguage->languageText('word_back','security','Back')){
             return $this->nextAction('editlinks', array('modulename'=>$_POST['moduleName']));
         }
         $category = 'page_'.$_POST['menu'].'_'.$_POST['position'];

@@ -44,13 +44,13 @@ define( 'KEWL_LOGIN_TEMPLATE', 'login_tpl.php' );
 // Name of logged in page template
  define( 'KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php' );
 // The file system path for the above URL
-define( 'KEWL_SITEROOT_PATH', '/var/www/5ive/app/' );
+define( 'KEWL_SITEROOT_PATH', '\htdocs\5ive\app' );
 // The path to template files
-define( 'KEWL_TEMPLATE_PATH', '/var/www/5ive/app/templates/' );
-define( 'KEWL_CONTENT_BASEPATH', '/var/www/5ive/app/usrfiles/' );
+define( 'KEWL_TEMPLATE_PATH', '\htdocs\5ive\app\templates/' );
+define( 'KEWL_CONTENT_BASEPATH', '\htdocs\5ive\app\usrfiles/' );
 define( 'KEWL_CONTENT_PATH', 'usrfiles/' );
 define( 'KEWL_CONTENT_ROOT', 'usrfiles' );
-define( 'KEWL_BLOGS_BASEPATH', '/var/www/5ive/app/blog/' );
+define( 'KEWL_BLOGS_BASEPATH', '\htdocs\5ive\app\blog/' );
 //-----------END CONFIGURABLE CONSTANTS ----------------
  // ----------- Site options --------------
  define( 'KEWL_ALLOW_SELFREGISTER', '1' );

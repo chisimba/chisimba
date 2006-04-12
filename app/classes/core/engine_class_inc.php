@@ -216,6 +216,8 @@ class engine
      * @var object
      */
     private $_enableAccessControl = TRUE;
+    
+    private $_altconfig = null;
 
     /**
      * Constructor.
@@ -245,7 +247,8 @@ class engine
         //initialise the db factory method of MDB2_Schema
         $this->getDbManagementObj();
         //get the system config stuff
-        $this->_objConfig = $this->getObject('config', 'config');
+        //$this->_objConfig = $this->getObject('config', 'config');
+         $this->_objConfig = $this->getObject('altconfig', 'config');
         //the user security module
         $this->_objUser =& $this->getObject('user', 'security');
         //the language elements module
@@ -268,7 +271,7 @@ class engine
         $this->_cachedObjects = array();
 
         // Get Layout Template from Config files
-        $this->_layoutTemplate = $this->_objConfig->defaultLayoutTemplate();
+        $this->_layoutTemplate = $this->_objConfig->getdefaultLayoutTemplate();
     }//end function
 
     /**
@@ -520,7 +523,7 @@ class engine
         // add the site root path to make an absolute path if the config object has
         // sbeen loaded
         if ($this->_objConfig) {
-            $filename = $this->_objConfig->siteRootPath() . $filename;
+            $filename = $this->_objConfig->getsiteRootPath() . $filename;
         }
         if (!file_exists($filename)) {
             die ("Could not load class $name from module $moduleName: filename $filename");
@@ -942,12 +945,12 @@ class engine
     {
         $path = '';
         if (!empty($moduleName)) {
-            $path = $this->_objConfig->siteRootPath()
+            $path = $this->_objConfig->getsiteRootPath()
                 . "modules/${moduleName}/templates/${type}/${tpl}";
         }
         if (empty($path) || !file_exists($path)) {
             $firstpath = $path;
-            $path = $this->_objConfig->siteRootPath() . "templates/${type}/${tpl}";
+            $path = $this->_objConfig->getsiteRootPath() . "templates/${type}/${tpl}";
             if (!file_exists($path))
             {
                 die("Template $tpl not found (looked in $firstpath)!");
@@ -986,7 +989,7 @@ class engine
         //      that being said, we should still go for just getMessage() in prod
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
-        $errConfig = $this->_objConfig->error_reporting();
+        $errConfig = $this->_objConfig->geterror_reporting();
 
         if($errConfig == "developer")
         {
@@ -1093,7 +1096,7 @@ class engine
     private function _loadModule($moduleName)
     {
         if ($moduleName == '_default') {
-            $moduleName = $this->_objConfig->defaultModuleName();
+            $moduleName = $this->_objConfig->getdefaultModuleName();
         }
 
         $controllerFile = "modules/" . $moduleName . "/controller.php";

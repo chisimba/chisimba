@@ -11,8 +11,8 @@ class loggedInUsers extends object
 
     function init()
     {
-        $this->objConfig=&$this->getObject('config','config');
-        $this->systemTimeOut=$this->objConfig->systemTimeout();
+        $this->objConfig=&$this->getObject('altconfig','config');
+        $this->systemTimeOut=$this->objConfig->getsystemTimeout();
     }
 
     /**

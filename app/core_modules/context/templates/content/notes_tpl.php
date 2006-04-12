@@ -16,7 +16,7 @@ $ta->value=$noteValue;
 $ar=array($ta->show());
 $table->addRow($ar, "even", "align=\"center\"");
 
-$saveBut->value=$this->objLanguage->languageText("mod_contextadmin_save").'/Close';
+$saveBut->value=$this->objLanguage->languageText("mod_contextadmin_save",'context').'/Close';
 //$saveBut->setOnClick('this.form.submit();window.close()');
 $saveBut->setToSubmit();
 $ar=array($saveBut->show());

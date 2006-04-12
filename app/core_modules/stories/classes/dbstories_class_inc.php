@@ -101,7 +101,7 @@ class dbStories extends dbTable
         // retrieve the group ID from the querystring
         $keyvalue=$this->getParam("id", NULL);
         if (!$keyvalue) {
-          die($this->objLanguage->languageText("modules_badkey").": ".$keyvalue); 
+          die($this->objLanguage->languageText("modules_badkey",'stories').": ".$keyvalue); 
         }
         // Get the data for edit
         $key="id";

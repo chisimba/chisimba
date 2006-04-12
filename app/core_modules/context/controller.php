@@ -382,7 +382,7 @@ class context extends controller
         if($this->objUser->isLoggedIn())
         {
             $this->objIcon->setIcon("home");
-            $this->objIcon->alt=$this->objLanguage->languageText("word_course").' '.$this->objLanguage->languageText("word_home");
+            $this->objIcon->alt=$this->objLanguage->languageText("word_course",'context').' '.$this->objLanguage->languageText("word_home",'context');
             $this->objIcon->align = "absmiddle";
 
             $str='&nbsp;<a href="'.$this->URI(null,'context').'">';
@@ -411,7 +411,7 @@ class context extends controller
         if(!$this->nodeId=='')
         {
             $this->objIcon->setIcon("student_notes");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_notes");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_notes",'context');
             $this->objIcon->align = "absmiddle";
 
             $location=$this->uri(array(
@@ -477,7 +477,7 @@ class context extends controller
             {
                 //edit a node
                 $this->objIcon->setIcon("edit");
-                $this->objIcon->alt=$this->objLanguage->languageText("word_edit");
+                $this->objIcon->alt=$this->objLanguage->languageText("word_edit",'context');
                    $this->objIcon->align = "absmiddle";
 
                 $str.='&nbsp;<a href="'.$this->URI(array('action' => 'editnode','nodeid' => $this->nodeId)).'">';
@@ -491,12 +491,12 @@ class context extends controller
             if(!$this->nodeId==''){
                 //delete a node
                 $this->objIcon->setIcon("delete");
-                $this->objIcon->alt=$this->objLanguage->languageText("word_delete");
+                $this->objIcon->alt=$this->objLanguage->languageText("word_delete",'context');
                 $this->objIcon->align = "absmiddle";
 
                 $uri=$this->URI(array('action' => 'delete','nodeid' => $this->nodeId));
                 $objConfirm = &$this->newObject('confirm','utilities');
-                $objConfirm->setConfirm($this->objIcon->show(),$uri,$this->objLanguage->languageText("mod_context_delmessnode"));
+                $objConfirm->setConfirm($this->objIcon->show(),$uri,$this->objLanguage->languageText("mod_context_delmessnode",'context'));
                 $str .= $objConfirm->show();
 
             }
@@ -505,7 +505,7 @@ class context extends controller
         // Print to pdf
         if(!$this->nodeId==''){
             $this->objIcon->setModuleIcon('pdf');
-            $this->objIcon->alt=$this->objLanguage->languageText('mod_context_convertpdf', 'Convert to PDF');
+            $this->objIcon->alt=$this->objLanguage->languageText('mod_context_convertpdf','context', 'Convert to PDF');
             $this->objIcon->align = 'absmiddle';
 
             $this->objLink->link('javascript:void(0)');
@@ -520,7 +520,7 @@ class context extends controller
             if(!$this->nodeId==''){
                 //add a sibling node
                 $this->objIcon->setIcon("addsibling");
-                $this->objIcon->alt=$this->objLanguage->languageText("mod_context_addsibling");
+                $this->objIcon->alt=$this->objLanguage->languageText("mod_context_addsibling",'context');
                 $this->objIcon->align = "absmiddle";
 
                 $str.='&nbsp;<a href="'.$this->URI(array('action' => 'addnode','nodeid' => $this->nodeId)).'">';
@@ -533,7 +533,7 @@ class context extends controller
         {
             //add a child node
             $this->objIcon->setIcon("addchild");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_addchild");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_addchild",'context');
             $this->objIcon->align = "absmiddle";
 
 
@@ -565,47 +565,47 @@ class context extends controller
 
             //--- BEGINNING NAV BUTTONS ---//
             $this->objIcon->setIcon("first_grey");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_first");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_first",'context');
             $this->objIcon->align = "absmiddle";
             $firstOFF=$this->objIcon->show();
 
             $this->objIcon->setIcon("first");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_first");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_first",'context');
             $this->objIcon->align = "absmiddle";
             $firstON=$this->objIcon->show();
 
             //---NEXT NAV BUTTONS---//
             $this->objIcon->setIcon("next");
-            $tmp = $this->objLanguage->languageText("mod_context_nav_next").' : '.$objStr->shortenString($this->objDBContentNodes->getField('title',$line['next_Node']));
+            $tmp = $this->objLanguage->languageText("mod_context_nav_next",'context').' : '.$objStr->shortenString($this->objDBContentNodes->getField('title',$line['next_Node']));
             $this->objIcon->alt= $tmp;
             $this->objIcon->align = "absmiddle";
             $nextON=$tmp.$this->objIcon->show();
 
             $this->objIcon->setIcon("next_grey");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_next");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_next",'context');
             $this->objIcon->align = "absmiddle";
             $nextOFF=$this->objIcon->show();
 
             //---PREVIOUS NAV BUTTONS---//
             $this->objIcon->setIcon("prev");
-            $tmp = $this->objLanguage->languageText("mod_context_nav_prev").' : '.$objStr->shortenString($this->objDBContentNodes->getField('title',$line['prev_Node']));
+            $tmp = $this->objLanguage->languageText("mod_context_nav_prev",'context').' : '.$objStr->shortenString($this->objDBContentNodes->getField('title',$line['prev_Node']));
             $this->objIcon->alt=$tmp;
             $this->objIcon->align = "absmiddle";
             $prevON=$this->objIcon->show().$tmp;
 
             $this->objIcon->setIcon("prev_grey");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_prev");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_prev",'context');
             $this->objIcon->align = "absmiddle";
             $prevOFF=$this->objIcon->show();
 
             //---LAST NAV BUTTONS---//
             $this->objIcon->setIcon("last");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_last");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_last",'context');
                $this->objIcon->align = "absmiddle";
             $lastON=$this->objIcon->show();
 
             $this->objIcon->setIcon("last_grey");
-            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_last");
+            $this->objIcon->alt=$this->objLanguage->languageText("mod_context_nav_last",'context');
                $this->objIcon->align = "absmiddle";
             $lastOFF=$this->objIcon->show();
 
@@ -695,7 +695,7 @@ class context extends controller
     public function getContextLinks()
     {
         $this->objIcon->setIcon("home");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursehome",'context');
         $this->objIcon->align = "absmiddle";
 
         $this->objLink->href=$this->URI(null,'context');
@@ -713,7 +713,7 @@ class context extends controller
     public function getContentLinks()
     {
         $this->objIcon->setModuleIcon("content");
-        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent");
+        $this->objIcon->alt=$this->objLanguage->languageText("mod_context_coursecontent",'context');
         $this->objIcon->align = "absmiddle";
 
         $params = array('nodeid' => $this->getParam('nodeid'), 'action' => 'content');

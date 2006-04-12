@@ -97,7 +97,7 @@ class stories extends controller
                 return 'dump_tpl.php';
             default:
                 $this->setVar('str', "<h3>"
-                  . $this->objLanguage->languageText("phrase_unrecognizedaction")
+                  . $this->objLanguage->languageText("phrase_unrecognizedaction",'stories')
                   .": " . $action . "</h3>");
                 return 'dump_tpl.php';
                 break;
@@ -152,7 +152,7 @@ class stories extends controller
     {
         $id=$this->getParam("id", NULL);
         if (!$id) {
-             die($this->objLanguage->languageText("modules_badkey").": ".$keyvalue);
+             die($this->objLanguage->languageText("modules_badkey",'stories').": ".$keyvalue);
         } else {
             $this->objDbStories->delete("id", $id);
         }

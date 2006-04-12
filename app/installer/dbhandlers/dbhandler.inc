@@ -1,6 +1,6 @@
 <?php
 
-require_once 'MDB2/Schema.php';
+require_once 'MDB2.php';
 
 
 
@@ -108,13 +108,15 @@ class DbHandler
 	function &getDbHandler($dsn)
 
 	{
-		$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$this->schema =& MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$this->schema->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
+		
    		if (PEAR::isError($this->schema)) {
         	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
-			return false;
+        	return $handler->success =false;
    		}
-   		
-   		$handler->success = true;	
+   		$this->schema->disconnect();
+   		$handler->success =true;	
 		return $this;
 		
 
@@ -136,7 +138,19 @@ class DbHandler
 
 	*/
 
-	function emptyDatabase() {}
+	function emptyDatabase($db,$dsn) {
+
+		$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));	
+		$ret = $this->schema->db->mgCreateDatabase($db);
+		if (PEAR::isError($this->schema)) {
+        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
+        	$handler->success = false;
+			return $error;
+   		}
+   		var_dump($ret);
+   		$handler->success = true;
+		return true;
+	}
 
 	
 
@@ -178,46 +192,37 @@ class DbHandler
 
 	*/
 
-	function checkVersion() 
+	function checkVersion($dsn) 
 
 	{
 
 		$sql = 'SELECT version()';
 
+		$this->schema =& MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
 		
+   		if (PEAR::isError($this->schema)) {
+        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
+        	return $handler->success =false;
+   		}
 
 		// get a list of tables in the database
-		
-		$result =  $this->schema->db->getServerVersion(false);
+				
+		$result =  $this->schema->getServerVersion(false);
 
 		
+		if (PEAR::isError($this->schema)) {
 
-		if (PEAR::isError($result)) {
-
-			$this->errors[] = $result->getMessage();
+			$this->errors[] =  $this->schema->getMessage();
 
 			$this->success = false;
-
 			return false;
 			exit();
 
 		} 
 
-		
-
-		
-
-		// just search for the first instance of three numbers
-
-		$reg = "/([0-9]+\.[0-9]+\.[0-9]+)/is";
-
-		preg_match($reg, $result[0], $matches);
-
-		
-
-		$ver = $matches[1];
-
-		
+					
+		$ver = $result[0];
+				
 
 		return version_compare($ver, $this->minVersion) >= 0;
 

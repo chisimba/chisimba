@@ -96,7 +96,7 @@ class navbuttons extends object
 		global $objLanguage;
 		$ret='<input type="'.$type
 			.'" name="'.$label.'" value="'
-			.$this->objLanguage->languageText("word_$label")
+			.$this->objLanguage->languageText("word_$label",'security')
 			.'" class="button">';
 		return $ret;
 	}

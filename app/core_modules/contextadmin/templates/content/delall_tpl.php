@@ -17,9 +17,9 @@ $button = & $this->newObject('button', 'htmlelements');
     //give a heading
       $this->objH =& $this->getObject('htmlheading', 'htmlelements');
       $this->objH->type=1;
-      $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent');
+      $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent','contextadmin');
       
-      $str = '<span class="warning">'. $this->objLanguage->languageText('mod_contextadmin_importwarning').'</span><br>';
+      $str = '<span class="warning">'. $this->objLanguage->languageText('mod_contextadmin_importwarning','contextadmin').'</span><br>';
    
    //set the first row
    $table->width = '100%';
@@ -34,7 +34,7 @@ $button = & $this->newObject('button', 'htmlelements');
     $fileInput->size=60;
 
    $table->startRow();
-   $table->addCell('<br>'.$this->objLanguage->languageText("mod_contextadmin_folderpath"));
+   $table->addCell('<br>'.$this->objLanguage->languageText("mod_contextadmin_folderpath",'contextadmin'));
    $table->endRow();
    
    $table->startRow();
@@ -42,11 +42,11 @@ $button = & $this->newObject('button', 'htmlelements');
    $table->endRow();
    
    $table->startRow();
-   $table->addCell(' <span class="warning">('.$this->objLanguage->languageText("mod_contextadmin_staticwarning").')</span><br>');
+   $table->addCell(' <span class="warning">('.$this->objLanguage->languageText("mod_contextadmin_staticwarning",'contextadmin').')</span><br>');
    $table->endRow();
       
     $button->setToSubmit();	
-    $button->setValue($this->objLanguage->languageText("mod_contextadmin_save"));
+    $button->setValue($this->objLanguage->languageText("mod_contextadmin_save",'contextadmin'));
     
     $table->startRow();
    $table->addCell('<br>'.$button->show());

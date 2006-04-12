@@ -5,7 +5,7 @@ require_once INSTALL_DIR.'/5ivestepaction.inc';
 
 require_once INSTALL_DIR.'/html_form/html_form.inc';
 
-require_once $_SESSION['sys_root'].'/modules/config/classes/altconfig_class_inc.php';
+require_once 'Config.php';
 
 /**
 
@@ -95,7 +95,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	
 
-	protected  $_confClass;
+	protected  $_root;
 
 	/**
 
@@ -105,7 +105,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	*/
 
-	var $init_output = '';
+	protected $init_output = '';
 
 	
 
@@ -332,7 +332,7 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN');
 
 			$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
-
+		
 			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
 
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'splashscreen');
@@ -356,10 +356,10 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_MAINSERVERNAME', $_SESSION['main_server']);
 
 			$this->_addConfigVar('KEWL_SERVERNAME_GENERATED', 'TRUE');
-
 			
-
+			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skin/');
 			
+			$this->_addConfigVar('KEWL_SITEROOT', $_SESSION['site_url']);
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
 
@@ -369,13 +369,11 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['log_path']);
 
-			$this->_addConfigVar('SQ_CONF_SYSTEM_OWNER', $_SESSION['sys_owner']);
+			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
 
 			$this->_addConfigVar('KEWL_SITEEMAIL', $_SESSION['root_email']);
 
 			$this->_addConfigVar('KEWL_TECH_EMAIL',    $_SESSION['tech_email']);
-
-			$this->_addConfigVar('SQ_CONF_DEBUG',    $_SESSION['debug_level']);
 
 			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
 
@@ -421,10 +419,17 @@ class CreateConfigsAction extends FiveStepAction
 
 			
 
-			$this->_confClass = new altconfig();
-
-			$write =$this->_confClass->writeConfig($this->config_vars,"XML");
-		
+			$this->_root = new Config();
+			//initial setup of config options
+			$options = array('name' => 'Settings');
+			
+			//parse the array values into config
+			$this->_root->parseConfig($this->config_vars,"PHPArray");
+			//lets write the config
+			$path = $_SESSION['sys_root'].'/config/';
+			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
+		    
+			var_dump($write);
 
 			$GLOBALS['SQ_INSTALL'] = false;
 
@@ -505,11 +510,10 @@ class CreateConfigsAction extends FiveStepAction
 	function _setDSN()
 
 	{
-
+		
 		$dsn = isset($_SESSION['dsn']) ? $_SESSION['dsn'] : false;
 
 		
-
 		if ($dsn === false) {
 
 			$this->errors[] = 'Data Source Name was not set correctly';

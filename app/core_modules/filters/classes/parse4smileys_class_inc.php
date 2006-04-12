@@ -85,7 +85,7 @@ class parse4smileys extends object {
         '\[evil\]'  => 'evil'
         );
         //Get an instance of the config object
-        $objConfig = & $this->getObject('config', 'config');
+        $objConfig = & $this->getObject('altconfig', 'config');
         /* 
         *  Loop through the array and make the arrays for 
         *  $test and $replace for the regex. This is done because
@@ -94,7 +94,7 @@ class parse4smileys extends object {
         foreach ($smileyIcons as $smiley => $image){
             $test[] = "/".$smiley."/isU";
             $replace[] = "<img alt=\"$image\" width=\"15\" height=\"15\" 
-              src=\"".$objConfig->siteRoot()."modules/filters/resources/smileys/$image.gif\" />";
+              src=\"".$objConfig->getsiteRoot()."modules/filters/resources/smileys/$image.gif\" />";
         }
         
         return preg_replace($test, $replace, $str);

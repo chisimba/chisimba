@@ -239,7 +239,7 @@ class controller extends access
     public function callTemplate($tpl, $type, $buffer = FALSE)
     {
         // objects that almost every template will use
-        $this->setVarByRef('objConfig', $this->getObject('config', 'config'));
+        $this->setVarByRef('objConfig', $this->getObject('altconfig', 'config'));
         $this->setVarByRef('objSkin', $this->getObject('skin', 'skin'));
         $this->setVarByRef('objUser', $this->getObject('user', 'security'));
         $this->setVarByRef('objLanguage', $this->getObject('language', 'language'));
