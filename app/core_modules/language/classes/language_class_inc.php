@@ -4,9 +4,10 @@
   *This is a Language class for kewlNextGen
   *@author Prince Mbekwa, Paul Scott
   *@copyright (c) 200-2004 University of the Western Cape
-  *@Version 0.9
-  *@author  Prince Mbekwa,Derek Keats <dkeats@uwc.ac.za>
+  *@Version 0.1
+  *@author  Prince Mbekwa
 */
+
 /**
 *Description of the class
 * Language class for KEWL.NextGen. Provides language translation methods,
@@ -15,86 +16,129 @@
 *
 */
 class language extends dbTable {
-    var $elements;
-    var $objNewForm;
-    var $objDropdown;
-    var $objButtons;
-    var $objConfig;
+	/**
+	 * New form object
+	 *
+	 * @var $objNewForm
+	 */
+    private $objNewForm = null;
+    /**
+     * Dropdown object
+     *
+     * @var objDropdown
+     */
+    private $objDropdown = null;
+    /**
+     * Buttons object
+     *
+     * @var objButtons
+     */
+    private $objButtons = null;
+    /**
+     * Config object
+     *
+     * @var objConfig
+     */
+    public $objConfig =  null;
+    /**
+     * Language Translation2 object
+     *
+     * @var lang object
+     */
+    public $lang = null;
+    /**
+     * The global error callback for altconfig errors
+     *
+     * @access public
+     * @var string
+    */
+    public $_errorCallback;
+    /**
+    * abstractList array of text items and their abstracts
+    * @access public
+    * @var object
+    */
 
+    public $abstractList;
+	
     /**
     * Constructor method for the language class
     */
-    function init()
-    {
-        parent::init("tbl_" . $this->currentLanguage());
-        $this->objConfig = &$this->getObject('config','config');
-        $this->objNewForm = &$this->newObject('form', 'htmlelements');
-        $this->objDropdown = &$this->newObject('dropdown', 'htmlelements');
-        $this->objButtons = &$this->getObject('button', 'htmlelements');
+    public function init()
+    {  
+    	try {
+	    	parent::init('tbl_languagelist');     
+	        $this->objConfig = &$this->getObject('altconfig','config');
+	        $this->lang = &$this->getObject('languageConfig','language');
+	        $this->lang = $this->lang->setup();
+	        $this->objNewForm = &$this->newObject('form', 'htmlelements');
+	        $this->objDropdown = &$this->newObject('dropdown', 'htmlelements');
+	        $this->objButtons = &$this->getObject('button', 'htmlelements');
+	        $this->objAbstract =& $this -> getObject('systext_facet', 'systext');
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**
     * Method to return the language text when passed the language
     * text code. It looks up the language text for the current
     * language in the database.
-    *
+    * @access public
     * @param string $itemName : The language code for the item to be
     * looked up
+    * @param string $modulename : The module name that owns the string
     */
-    function languageText($itemName, $default = false)
+    public function languageText($itemName,$modulename,$default = false)
     {
-        switch ($itemName) {
-            case "mod_context_context":
-                return $this->_getContextWord('context');
-                break;
-            case "mod_context_contexts":
-                return $this->_getContextWord('context', TRUE);
-                break;
-            case "mod_context_author":
-                return $this->_getContextWord('author');
-                break;
-            case "mod_context_authors":
-                return $this->_getContextWord('author', TRUE);
-                break;
-	   case "mod_context_organisation":
-                return $this->_getContextWord('organisation');
-                break;
-            case "mod_context_organisations":
-                return $this->_getContextWord('organisation', TRUE);
-                break;
-            case "mod_context_readonly":
-                return $this->_getContextWord('readonly');
-                break;
-            case "mod_context_readonlys":
-                return $this->_getContextWord('readonly', TRUE);
-                break;
-            case "mod_context_workgroup":
-                return $this->_getContextWord('workgroup');
-                break;
-            case "mod_context_workgroups":
-                return $this->_getContextWord('workgroup', TRUE);
-                break;
-            case "mod_context_story":
-                return $this->_getContextWord('story');
-                break;
-            case "mod_context_stories":
-                return $this->_getContextWord('stories', TRUE);
-                break;
-            default:
-                $line = $this->getRow('code', $itemName);
-                if ($line['content'] != null) {
-                    return trim($line['content']);
+    	try {
+		    	$abstractList = $this -> objAbstract -> getSession('systext');
+		         $notFound = TRUE;		
+		        $arrName = explode("_", $itemName);
+		
+		        if(isset($arrName[2])){
+		
+		            if($arrName[1] == "context"){
+		
+		                $check = array_key_exists($arrName[2], $abstractList);
+		
+		                if($check){
+		
+		                    $notFound = FALSE;
+		
+		                    return trim($abstractList[$arrName[2]]);
+		
+		                }
+		
+		            }
+		
+		        }
+		
+		        if($notFound){
+            	
+                $line = $this->lang->get($itemName, $modulename, 'en');
+                
+               if ($line != null) {
+                    return $line;
                 } else {
                     if ($default != false) {
                         return $default;
                     } else if ($itemName == 'error_languageitemmissing') { // test to prevent recursive loop
                             return "This language item is missing";
                     } else {
-                        return ($this->languageText('error_languageitemmissing') . ":" . $itemName);
+                    	// fetch a string not translated into Italian (test fallback language)
+						return $this->lang->get('error_languageitemmissing', 'error_text');
+                        //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
                     }
                 }
-                break;
-        }
+                
+        	}
+    	}catch (Exception $e){
+    		
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**
@@ -119,43 +163,48 @@ class language extends dbTable {
     * Note that it is not case sensitive, and you can add as many elements as you like.
     *
     * @param string $str the language text code.
+    * @param string modulename
     * @param array $arrOfRep An associative array of [-TAG-], replacement pairs
     * @return string $ret The array parsed
-    *
+    * @access public
     * @author Jonathan Abrahams, Derek Keats
     */
-    function code2Txt($str, $arrOfRep=NULL)
+    public function code2Txt($str,$modulename,$arrOfRep=NULL)
     {
-        $ret=$this->languageText($str);
-        // Process abstracted tags
-        $ret = preg_replace($this->_match('context'), $this->_getContextWord('context'), $ret);
-        $ret = preg_replace($this->_match('contexts'), $this->_getContextWord('context', TRUE), $ret);
-        $ret = preg_replace($this->_match('author'), $this->_getContextWord('author'), $ret);
-        $ret = preg_replace($this->_match('authors'), $this->_getContextWord('author', TRUE), $ret);
-	$ret = preg_replace($this->_match('organisation'), $this->_getContextWord('organisation'), $ret);
-        $ret = preg_replace($this->_match('organisations'), $this->_getContextWord('organisation', TRUE), $ret);
-        $ret = preg_replace($this->_match('readonly'), $this->_getContextWord('readonly'), $ret);
-        $ret = preg_replace($this->_match('readonlys'), $this->_getContextWord('readonly', TRUE), $ret);
-        $ret = preg_replace($this->_match('workgroup'), $this->_getContextWord('workgroup'), $ret);
-        $ret = preg_replace($this->_match('workgroups'), $this->_getContextWord('workgroup', TRUE), $ret);
-        $ret = preg_replace($this->_match('story'), $this->_getContextWord('story'), $ret);
-        $ret = preg_replace($this->_match('stories'), $this->_getContextWord('story', TRUE), $ret);
-        // Process other tags
-        if( $arrOfRep!=NULL ) {
-            foreach( $arrOfRep as $tag=>$rep ) {
-                $ret = preg_replace($this->_match($tag), $rep, $ret);
-            }
-        }
-        return $ret;
+    	try {
+	        $ret=$this->languageText($str,"{$modulename}");
+	        $abstractList = $this->objAbstract->getSession('systext');
+
+	        foreach($abstractList as $textItem => $abstractText){	
+	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);	
+	        }
+	        // Process other tags
+	        if( $arrOfRep!=NULL ) {
+	            foreach( $arrOfRep as $tag=>$rep ) {
+	                $ret = preg_replace($this->_match($tag), $rep, $ret);
+	            }
+	        }
+	        return $ret;
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**
     * Method to return Language list
+    * @access public
+    * @return array
     */
-    function languagelist()
+    public function languagelist()
     {
+    	try {
         $sql = "Select languageName from tbl_languagelist";
         return $this->getArray($sql);
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**
@@ -163,10 +212,13 @@ class language extends dbTable {
     * index page.
     * Construct a form and populate it with all available
     * language translations for selection
+    * @access public 
+    * @return form
     */
-    function putlanguageChooser()
+    public function putlanguageChooser()
     {
-        $ret = $this->languageText("phrase_languagelist") . ":<br>\n";
+    	try {
+        $ret = $this->languageText("phrase_languagelist",'language') . ":<br>\n";
         $script = $_SERVER['PHP_SELF'];
         $ret = $objNewForm = new form('languageCheck', $script);
         $ret = $objDropdown = new dropdown('Languages');
@@ -176,20 +228,27 @@ class language extends dbTable {
                 $objDropdown->addOption($key, $key);
             }
         }
-        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist") . ":<br>\n");
+        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'security') . ":<br>\n");
         $ret .= $objDropdown->show();
-        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go", "[Go]"), 'submit');
+        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go",'security', "[Go]"), 'submit');
         $ret .= $button = $this->objButtons->setToSubmit();
         $ret = $objNewForm->addToForm($ret .= $button = $this->objButtons->show());
         $ret = $objNewForm->show();
         return $ret;
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**
-    * Method to return the default language.
+    * Method to return the default language
+    * @access public
+    * @return default site language
     */
-    function currentLanguage()
+    public function currentLanguage()
     {
+    	try {
         if (isset($_POST['Languages'])) {
             $_SESSION["language"] = $_POST['Languages'];
             $var = $_POST['Languages'];
@@ -197,11 +256,15 @@ class language extends dbTable {
             if (isset($_SESSION["language"])) {
                 $var = $_SESSION["language"];
             } else {
-                $this->objConfig = &$this->getObject('config','config');
-                $var = $this->objConfig->defaultLanguage();
+                $this->objConfig = &$this->getObject('altconfig','config');
+                $var = $this->objConfig->getdefaultLanguage();
             }
         }
         return $var;
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
     }
 
     /**************************** PRIVATE METHODS *******************************/
@@ -212,93 +275,43 @@ class language extends dbTable {
     * @param String The tag
     * @return String The regular expression with tag
     */
-    function _match( $tag )
+    private function _match( $tag )
     {
         return "/\[\-".$tag."\-\]/isU";
     }
-
+    
     /**
-    *
-    *  Method to return the word to substitute for context
-    *
-    */
-    function _getContextWord($type, $plural=FALSE)
+     * Check for system properties 
+     *
+     * @param string $code
+     * @param string $item
+     * @return TRUE/FALSE
+     */
+    
+    public function valueExists($code,$item)
     {
-        $systemType = $this->objConfig->getValue("SYSTEM_TYPE", "contextabstract");
-        switch ($type) {
-            case "context":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_contexts_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_contexts_default");
+    	 $line = $this->lang->get($itemName, '', 'en');
+                if ($line != null) {
+                    return TRUE;
                 } else {
-                    $langKey = "mod_contextabstract_context_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_context_default");
+                	return FALSE;
                 }
-                return $this->languageText($langKey, $default);
-                break;
-            case "author":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_authors_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_authors_default");
-                } else {
-                    $langKey = "mod_contextabstract_author_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_author_default");
-                }
-                return $this->languageText($langKey, $default);
-                break;
-
-            case "organisation":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_organisations_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_organisations_default");
-                } else {
-                    $langKey = "mod_contextabstract_organisation_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_organisation_default");
-                }
-                return $this->languageText($langKey, $default);
-                break;
-
-            case "readonly":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_readonlys_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_readonlys_default");
-                } else {
-                    $langKey = "mod_contextabstract_readonly_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_readonly_default");
-                }
-                return $this->languageText($langKey, $default);
-                break;
-
-            case "workgroup":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_workgroups_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_workgroups_default");
-                } else {
-                    $langKey = "mod_contextabstract_workgroup_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_workgroup_default");
-                }
-                return $this->languageText($langKey, $default);
-                break;
-
-            case "story":
-                if ($plural==TRUE) {
-                    $langKey = "mod_contextabstract_stories_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_stories_default");
-                } else {
-                    $langKey = "mod_contextabstract_story_" . $systemType;
-                    $default = $this->languageText("mod_contextabstract_story_default");
-                }
-                return $this->languageText($langKey, $default);
-                break;
-
-            default:
-                return $this->languageText("mod_contextabstract_unrecabstr" . ": "
-                  . $type, "Unrecognized abstraction type: " . $type);
-                break;
-        }
-
-
+    	
+    	
     }
+    /**
+    * The error callback function, defers to configured error handler
+    *
+    * @param string $error
+    * @return void
+    * @access public
+    */
+    public function errorCallback($exception)
+    {
+    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
+        echo $this->_errorCallback;
+    }
+
 } #end of class
 
 ?>
