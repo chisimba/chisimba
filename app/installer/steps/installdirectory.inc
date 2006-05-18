@@ -482,13 +482,19 @@ class InstallDirectoryAction extends StepAction
 		
 
 		ob_start();
-
+        if (PHP_OS=="WIN32"){
 			echo '<input type="text" id="sys_root" name="sys_root" 
 
-				value="'.$abspath.'" size="50"  class="sq-form-field" />';
+				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 
 			$box = ob_get_contents();
+        }else{
+        	echo '<input type="text" id="sys_root" name="sys_root" 
 
+				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
+
+			$box = ob_get_contents();
+        }
 		ob_end_clean();
 
 
