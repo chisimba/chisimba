@@ -357,7 +357,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_SERVERNAME_GENERATED', 'TRUE');
 			
-			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skin/');
+			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 			
 			$this->_addConfigVar('KEWL_SITEROOT', $_SESSION['site_url']);
 
