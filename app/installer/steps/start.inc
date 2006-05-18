@@ -5,12 +5,6 @@
 require_once INSTALL_DIR.'/step.inc';
 
 require_once INSTALL_DIR.'/stepaction.inc';
-require_once 'I18Nv2/Country.php';
-require_once 'I18Nv2/DecoratedList/HtmlSelect.php';
-require_once 'I18Nv2/DecoratedList/HtmlEntities.php';
-
-
-
 
 /**
 
