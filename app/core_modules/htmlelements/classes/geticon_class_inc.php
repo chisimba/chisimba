@@ -134,6 +134,16 @@ class getIcon extends object
     {
         // Use Internal Method to set Icon
         $this->setIcon($name, NULL, 'icons/modules/');
+        $filename = $this->iconfolder.$this->name.'.'.$this->type;
+        //if icon does not exist in modules folder, try one level up
+        if (!file_exists($filename)) {
+        	$this->setIcon($name);
+        	$filename2 = $this->iconfolder.$this->name.'.'.$this->type;
+        	//if this doesnt exist, use default
+        	if (!file_exists($filename2)) {
+        		$this->setIcon('default');
+        	}
+        }
     }
 
     /**

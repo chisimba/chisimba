@@ -204,7 +204,7 @@ class sidemenu extends object
                     $linkArray = null;
                 }
                 if(isset($actions[3]) && !empty($actions[3])){
-                    $icon = $actions[3];
+                   $icon = $actions[3];
                 }else{
                     $icon = $line['module'];
                 }
@@ -243,15 +243,9 @@ class sidemenu extends object
 
         $this->globalTable->startRow();
 
-        // Replace icon with the default icon if it can't be found.
-        if(file_exists($this->iconModFolder.$icon.'.gif')){
-            $this->objIcon->setModuleIcon($icon);
-        }else if(file_exists($this->iconFolder.$icon.'.gif')){
-            $this->objIcon->setIcon($icon);
-        }else{
-            $this->objIcon->setModuleIcon('default');
-        }
-        $this->objIcon->setIcon($icon);
+        // Replace icon with the default icon if it can't be found (done by geticon class).
+        $this->objIcon->setModuleIcon($icon);
+        
         $this->objIcon->alt = $moduleName;
         $this->objIcon->title= $moduleName;
 

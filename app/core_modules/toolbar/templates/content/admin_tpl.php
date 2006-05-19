@@ -19,10 +19,10 @@ $objHead =& $this->newObject('htmlheading', 'htmlelements');
 $objSkin =& $this->newObject('skin', 'skin');
 
 // set up language items
-$head = $this->objLanguage->languageText('mod_toolbar_siteadmin''toolbar',);
+$head = $this->objLanguage->languageText('mod_toolbar_siteadmin','toolbar');
 
 // set up icon folder
-$this->iconFolder = $objSkin->getSkinLocation()."icons/";
+$this->iconFolder = $objSkin->getSkinLocation()."_common/icons/";
 $this->iconModFolder = $this->iconFolder."modules/";
 
 $objHead->type = 1;
@@ -62,16 +62,9 @@ if(!empty($modules)){
                 }else{
                     $icon = $line['module'];
                 }
-
-                // Check the icon exists or use the default.
-                if(file_exists($this->iconModFolder.$icon.'.gif')){
-                    $objIcon->setModuleIcon($icon);
-                }else if(file_exists($this->iconFolder.$icon.'.gif')){
-                    $objIcon->setIcon($icon);
-                }else{
-                    $objIcon->setModuleIcon('default');
-                }
-
+				// No need to check if the icon exists, done by geticon class.
+                $objIcon->setModuleIcon($icon);
+                
                 // if an action is specified for the link
                 $action = array();
                 if(isset($line['action']) && !empty($line['action'])){

@@ -47,7 +47,6 @@ class skin extends object
         return $this->objConfig->getsiteRootPath().'/skins/'.$this->getSession('skin').'/';
     }
 
-
     /**
     * Method to return the appropriate skin location as a URL
     * @return the path of the skin as a URL
