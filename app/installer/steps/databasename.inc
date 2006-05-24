@@ -14,10 +14,6 @@ require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
-require_once 'DB.php';
-
-
-
 /**
 
 * DatabaseName
@@ -217,8 +213,9 @@ class DbNameAction extends FiveStepAction
 		
 					}
 					
-				$conn = $handler->getDbHandler($dsn);
-				if (!$conn) {
+				$conn = &$handler->getDbHandler($dsn);
+				
+				if (PEAR::isError($conn)) {
 		
 					$this->errors[] = 'Could not get database handler for dsn '.$dsn;
 		
@@ -251,9 +248,9 @@ class DbNameAction extends FiveStepAction
 
 			$conn = &$handler->getDbHandler($dsn);
 			
-				if (!$conn) {
+				if (PEAR::isError($conn)) {
 		
-					$this->errors[] = 'Could not get database handler for dsn '.$dsn;
+					$this->errors[] = 'Could not connect to database using the dsn '.$dsn.' This means that the database does not exist. Please create one or check database create';
 					$dsn = $_SESSION['short_dsn'];
 		
 					$this->success = false;
@@ -394,15 +391,14 @@ class DbNameAction extends FiveStepAction
 
 		// create the appropriate db handler and use it for emptying the database
 
-		$handler->emptyDatabase($db_name,$dsn);
-
+		$success = $handler->emptyDatabase($db_name, $_SESSION['short_dsn']);
 		
 
-		$this->errors += $handler->errors;
+		//$this->errors += $handler->errors;
 
 
 
-		return $handler->success;
+		return $success;
 
 		
 

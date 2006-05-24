@@ -165,12 +165,7 @@ class InstallDirectoryAction extends StepAction
 		// change windows \ characters to / separators
 
 		$sys_root = str_replace('\\', '/',$sys_root);
-
-		
-
-		$sys_root = rtrim($sys_root, '/');
-
-		
+	
 
 		if (!is_dir($sys_root)) {
 

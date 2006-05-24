@@ -28,11 +28,16 @@ class FiveStepAction extends StepAction
 	function _testDSN($dsn)
 	{
 		
-		$schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$schema =&MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$schema->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
+		MDB2::loadFile('Date');
+		MDB2::loadFile('Iterator');
    		if (PEAR::isError($schema)) {
-        	$error = $schema->getMessage() . ' ' . $schema->getUserInfo();
+        	//$error = $schema->getMessage() . ' ' . $schema->getUserInfo();
+        	 $schema->disconnect();
 			return false;
    		}
+   		
 		 $schema->disconnect();
 		
 		return true;

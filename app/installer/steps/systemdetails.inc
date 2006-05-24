@@ -428,7 +428,7 @@ class RootUserAction extends StepAction
 
 			text_box('serverName',$serverName,'20','',false,'tabindex="2"');
 
-			submit_button('getServerName','Generate','javascript:generateServerName();','tabindex="2"');
+			normal_button('getServerName','Generate','javascript:generateServerName();','tabindex="2"');
 
 			$server_name = ob_get_contents();
 

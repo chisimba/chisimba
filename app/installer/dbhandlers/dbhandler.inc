@@ -108,12 +108,14 @@ class DbHandler
 	function &getDbHandler($dsn)
 
 	{
-		$this->schema =& MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$this->schema =&MDB2::factory($dsn, array('debug' => 2, 'log_line_break' => '<br>'));
 		$this->schema->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
+		MDB2::loadFile('Date');
+		MDB2::loadFile('Iterator');
 		
    		if (PEAR::isError($this->schema)) {
-        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
-        	return $handler->success =false;
+           	return false;
+        	
    		}
    		$this->schema->disconnect();
    		$handler->success =true;	
@@ -139,15 +141,17 @@ class DbHandler
 	*/
 
 	function emptyDatabase($db,$dsn) {
-
+		
 		$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));	
-		$ret = $this->schema->db->mgCreateDatabase($db);
-		if (PEAR::isError($this->schema)) {
-        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
-        	$handler->success = false;
-			return $error;
+		$ret = $this->schema->db->CreateDatabase($db);
+		
+		if (PEAR::isError($ret)) {
+        	$ret = $this->schema->db->DropDatabase($db);
+        	        	
+        	$ret = $this->schema->db->CreateDatabase($db);
+        	
    		}
-   		var_dump($ret);
+   		$this->schema->disconnect();
    		$handler->success = true;
 		return true;
 	}
@@ -198,7 +202,7 @@ class DbHandler
 
 		$sql = 'SELECT version()';
 
-		$this->schema =& MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
+		$this->schema =&MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
 		
    		if (PEAR::isError($this->schema)) {
         	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
@@ -208,12 +212,10 @@ class DbHandler
 		// get a list of tables in the database
 				
 		$result =  $this->schema->getServerVersion(false);
-
-		
-		if (PEAR::isError($this->schema)) {
+		if (MDB2::isError($this->schema)) {
 
 			$this->errors[] =  $this->schema->getMessage();
-
+			 $schema->disconnect();
 			$this->success = false;
 			return false;
 			exit();

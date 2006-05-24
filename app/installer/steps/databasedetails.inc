@@ -10,11 +10,6 @@ require_once INSTALL_DIR.'/5ivestepaction.inc';
 
 require_once INSTALL_DIR.'/html_form/html_form.inc';
 
-require_once 'DB.php';
-
-
-
-
 
 /**
 
@@ -181,9 +176,7 @@ class DbDetailsAction extends FiveStepAction
 		if ($_SESSION[$this->db_prefix.'type'] == 'mysql') {
 
 			if ($this->_testDSN($dsn)) {
-
-				
-
+								
 				$_SESSION['short_dsn'] = $dsn;
 
 				$_SESSION['dsn'] = $dsn;

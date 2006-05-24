@@ -377,7 +377,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
 
-			
+			$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_tpl.php');
 
 			// if this is an install, then none of the config vars are going to be defined, so
 
@@ -744,4 +744,3 @@ class CreateConfigsAction extends FiveStepAction
 }//end class
 
 ?>
-

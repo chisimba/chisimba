@@ -36,8 +36,8 @@
 		
 		function generateServerName() {
 	     Stamp = new Date();
-	     document.form.generatedName.value = "TRUE";
-	     document.form.serverName.value = "gen"+Stamp.getHours()+"Srv"+Stamp.getMinutes()+"Nme"+Stamp.getSeconds();
+	     document.wizardform.generatedName.value = "TRUE";
+	     document.wizardform.serverName.value = "gen"+Stamp.getHours()+"Srv"+Stamp.getMinutes()+"Nme"+Stamp.getSeconds();
 		}
 	
 		</script>
@@ -102,8 +102,10 @@
         </div>
         
         <div id="topnav">
+        <br>
 		 <img id="5ive" src="<?php echo $extras;?>/5ive.gif" alt="5ive Installer" />
-        </div>
+       <br> 
+	   </div>
         
               
         <div id="quicklinks">
