@@ -90,7 +90,7 @@ class language extends dbTable {
     * looked up
     * @param string $modulename : The module name that owns the string
     */
-    public function languageText($itemName,$modulename,$default = false)
+    public function languageText($itemName,$modulename = "_default",$default = false)
     {
     	try {
 		    	$abstractList = $this -> objAbstract -> getSession('systext');
