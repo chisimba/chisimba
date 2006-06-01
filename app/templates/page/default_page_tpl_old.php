@@ -12,7 +12,7 @@ if (!isset($pageLanguage)) {
 <html  xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $pageLanguage; ?>" xml:lang="<?php echo $pageLanguage; ?>">
 <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
 <head>
-<title><?php echo $objConfig->siteName(); ?></title>
+<title><?php echo $objConfig->getsiteName(); ?></title>
 <?php
 
 if (!isset($pageSuppressSkin)){
@@ -20,14 +20,18 @@ if (!isset($pageSuppressSkin)){
 	    echo $objSkin->putSimpleSkinCssLinks();
 	}
 	else {
-    	echo $objSkin->putSkinCssLinks();
+    	echo '<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print" /><!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
+<![endif]-->
+<script type="text/javascript" src="js/common.js"></script>';
 	}
 }
 
 if (isset($jsLoad)) {
     foreach ($jsLoad as $script) {
 ?>
-       <script type="text/javascript" src="<?php echo $objConfig->siteRoot().$script?>"></script>
+       <script type="text/javascript" src="<?php echo $objConfig->getsiteRoot().$script?>"></script>
     <?php }
 } ?>
 <?php
@@ -53,7 +57,7 @@ if (isset($headerParams)) {
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo "<body>";
+    echo "<body id=\"type-c\">";
 }
 ?>
 <?php
@@ -68,13 +72,67 @@ if (isSet($bodyParams)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	<div id="container">
+	<!--div id="container"-->
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   	<div id="top"><a onclick="location='<?php echo $objConfig->siteRoot(); ?>index.php'">
+   	<div id="top"><a onclick="location='<?php echo $objConfig->getsiteRoot(); ?>index.php'">
 		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg"
                         alt="banner"></a>
 	</div>
+	
+		<div id="wrap">
+
+			<div id="header">
+				<div id="site-name"><?php echo $objConfig->getsiteName();?></div>
+				<div id="search">
+			<form action="">
+			<label for="searchsite">Site Search:</label>
+			<input id="searchsite" name="searchsite" type="text" />
+			<input type="submit" value="Go" class="f-submit" />
+			</form>
+		</div>
+		<ul id="nav">
+		<li class="first"><a href="#">Home</a></li>
+		<li class="active"><a href="#">User</a>
+			<ul>
+			<li class="first"><a href="#">Blog</a></li>
+			<li class="active"><a href="#">Chat</a></li>
+			<li><a href="#">Photo Gallery</a></li>
+			<li><a href="#">Mailing List</a></li>
+			<li><a href="#">Discussion Forum</a></li>
+			
+			<li class="last"><a href="#">Internal Email</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Resources</a>
+			<ul>
+			<li class="first"><a href="#">Discussion Forum</a></li>
+			<li class="last"><a href="#">Wiki</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Admin</a>
+			<ul>
+			<li class="first"><a href="#">Maecenas</a></li>
+			<li><a href="#">Phasellus</a></li>
+			<li><a href="#">Mauris sollicitudin</a></li>
+			<li><a href="#">Phasellus</a></li>
+			<li><a href="#">Mauris sollicitudin</a></li>
+			<li><a href="#">Phasellus</a></li>
+			<li><a href="#">Mauris sollicitudin</a></li>
+			<li><a href="#">Phasellus</a></li>
+			<li><a href="#">Mauris sollicitudin</a></li>
+			<li><a href="#">Phasellus</a></li>
+			<li><a href="#">Mauris sollicitudin</a></li>
+			<li class="last"><a href="#">Mauris at enim</a></li>
+			</ul>
+		</li>
+		<li class="last"><a href="#">About</a>
+			<ul>
+			
+			<li class="last"><a href="#">Credits</a></li>
+			</ul>
+		</li>
+		</ul>
 <?php }
 // Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
@@ -82,7 +140,7 @@ if (isSet($bodyParams)) {
 	    <div id='toolbar'>
 		<?
 		    $menu=& $this->getObject('menu','toolbar');
-			echo $menu->show();
+			//echo $menu->show();
 		?>
 		</div>
 <?  }
@@ -112,7 +170,7 @@ if (!isset($suppressFooter)) {
     }
 
 
-    echo $this->footerNav->show();
+    //echo $this->footerNav->show();
 }
 ?>
 

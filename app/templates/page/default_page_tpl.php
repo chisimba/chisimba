@@ -20,7 +20,12 @@ if (!isset($pageSuppressSkin)){
 	    echo $objSkin->putSimpleSkinCssLinks();
 	}
 	else {
-    	echo $objSkin->putSkinCssLinks();
+    	echo '<link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
+				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
+				<!--[if lte IE 6]>
+					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
+				<![endif]-->
+				<script type="text/javascript" src="skins/echo/js/common.js"></script>';
 	}
 }
 
@@ -53,7 +58,7 @@ if (isset($headerParams)) {
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo "<body>";
+    echo "<body id=\"type-f\">";
 }
 ?>
 <?php
@@ -68,23 +73,37 @@ if (isSet($bodyParams)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	<div id="container">
+	<!--div id="container"-->
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   	<div id="top"><a onclick="location='<?php echo $objConfig->getsiteRoot(); ?>/index.php'">
-		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg"
-                        alt="banner"></a>
-	</div>
+   	
 <?php }
 // Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
 ?>
-	    <div id='toolbar'>
-		<?
-		    $menu=& $this->getObject('menu','toolbar');
-			echo $menu->show();
-		?>
-		</div>
+
+		<div id="wrap">
+
+			<div id="header">
+				<div id="site-name"><?php echo $objConfig->getsiteName();?></div>
+				<div id="search">
+					<form action="">
+					<label for="searchsite">Site Search:</label>
+					<input id="searchsite" name="searchsite" type="text" />
+					<input type="submit" value="Go" class="f-submit" />
+					</form>
+				</div>
+		
+				<?php
+				 if (!isset($pageSuppressToolbar)) {
+				 	$menu=& $this->getObject('menu','toolbar');
+					echo $menu->show();
+				 }
+				 ?>
+			</div>	 
+				
+		
+			
 <?  }
 
     // get content
@@ -112,16 +131,17 @@ if (!isset($suppressFooter)) {
     }
 
 
-    echo $this->footerNav->show();
+   // echo $this->footerNav->show();
 }
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	</div>
+	<!--/div-->
 <?php } ?>
 <?php
-$this->putMessages();
+//$this->putMessages();
 
 ?>
+</div>
 </body>
 </html>
