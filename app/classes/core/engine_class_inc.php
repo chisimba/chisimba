@@ -127,7 +127,7 @@ class engine
      * @access private
      * @var string
      */
-    private $_pageTemplate = 'default_page_tpl.php';
+    private $_pageTemplate = 'default_page_tpl_html.php';
 
     /**
      * Has an error been generated?
@@ -348,7 +348,7 @@ class engine
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             $_globalObjDb = &MDB2::factory($this->_objDbConfig->dbConString());
-
+//var_dump($_globalObjDb);
             //set the options
             $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 			MDB2::loadFile('Date');

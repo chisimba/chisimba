@@ -1,7 +1,7 @@
 <?php
 $charset = "utf-8";
 $mime = "text/html";
-echo 'dfdfasdfasdfasdfadsfadsf';
+//echo 'dfdfasdfasdfasdfadsfadsf';
 if (!isset($pageLanguage)) {
     $languageClass =& $this->getObject('language', 'language');
     $languageCode =& $this->getObject('languagecode', 'language');
@@ -45,7 +45,7 @@ print $prolog_type;
 
 ?>
 <head>
-<title><?php echo $objConfig->siteName(); ?></title>
+<title><?php echo $objConfig->getSiteName(); ?></title>
 <?php
 
 if (!isset($pageSuppressSkin)){
@@ -60,7 +60,7 @@ if (!isset($pageSuppressSkin)){
 if (isset($jsLoad)) {
     foreach ($jsLoad as $script) {
 ?>
-       <script type="text/javascript" src="<?php echo $objConfig->siteRoot().$script?>"></script>
+       <script type="text/javascript" src="<?php echo $objConfig->getSiteRoot().$script?>"></script>
     <?php }
 } ?>
 <?php
@@ -104,7 +104,7 @@ if (isSet($bodyParams)) {
 	<div id="container">
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   	<div id="top"><a onclick="location='<?php echo $objConfig->siteRoot(); ?>index.php'">
+   	<div id="top"><a onclick="location='<?php echo $objConfig->getSiteRoot(); ?>index.php'">
 		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
 	</div>
 <?php }
