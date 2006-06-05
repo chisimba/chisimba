@@ -265,12 +265,12 @@ class controller extends access
                 'wrap'          => 200);
 
             // Tidy
-            //$tidy = new tidy;
-            //$tidy->parseString($pageContent, $config, 'utf8');
-            //$tidy->cleanRepair();
+            $tidy = new tidy;
+            $tidy->parseString($pageContent, $config, 'utf8');
+            $tidy->cleanRepair();
 
-            //return $tidy;
-            return $pageContent;
+            return $tidy;
+            //return $pageContent;
         } else {
             return NULL; // just to be explicit
         }
