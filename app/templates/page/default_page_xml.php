@@ -106,15 +106,6 @@ if (isSet($bodyParams)) {
  	} */
 ?>
 
-<?php if (!isset($pageSuppressContainer)) { ?>
-	<!-- <div id="container"> -->
-<?php } ?>
-<?php if (!isset($pageSuppressBanner)) { ?>
-   
-<?php }
-// Add toolbar bar if not suppressed
-    if (!isset($pageSuppressToolbar)) {
-?>
 
 		<div id="wrap">
 
