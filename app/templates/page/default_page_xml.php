@@ -97,15 +97,24 @@ if (isSet($bodyParams)) {
 ?>
 <?php
 	// Add instant messaging
-/*	if (!isset($pageSuppressIM)) {
+	if (!isset($pageSuppressIM)) {
 	    $objModules=&$this->getObject('modules','modulelist');
 	    $this->objUser =& $this->getObject('user', 'security');
 	    if ((!isset($_SESSION['disable_im']))&&($objModules->checkIfRegistered('instantmessaging')) && ($this->objUser->isLoggedIn())) { ?>
 			<iframe id="IM" width="0" height="0" src="<?php echo $this->uri(array('action'=>'view'), 'instantmessaging'); ?>"></iframe>
    		<?php }
- 	} */
+ 	}
 ?>
 
+<?php if (!isset($pageSuppressContainer)) { ?>
+	<!-- <div id="container"> -->
+<?php } ?>
+<?php if (!isset($pageSuppressBanner)) { ?>
+   
+<?php }
+// Add toolbar bar if not suppressed
+    if (!isset($pageSuppressToolbar)) {
+?>
 
 		<div id="wrap">
 
@@ -129,7 +138,7 @@ if (isSet($bodyParams)) {
 				
 		
 			
-<?  //}
+<?  }
 
     // get content
     echo $this->getLayoutContent();
