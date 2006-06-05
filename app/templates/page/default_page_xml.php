@@ -129,7 +129,7 @@ if (isSet($bodyParams)) {
 				
 		
 			
-<?  }
+<?  //}
 
     // get content
     echo $this->getLayoutContent();
