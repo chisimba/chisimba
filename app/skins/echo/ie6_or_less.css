@@ -1,0 +1,26 @@
+/*
+LEGAL
+=====
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+*/
+
+#header {width:100%}
+
+#nav-secondary a {width:143px}
+
+#resultslist-wrap li dl {display:inline}
+
+
+/* 
+I've added position:relative to these items below to fix the IE Peakaboo bug. 
+more about it here: http://www.positioniseverything.net/explorer/peekaboo.html 
+*/
+ol.code, .featurebox, #content ul, #sidebar ul {position:relative}
+	
