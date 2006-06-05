@@ -9,7 +9,7 @@ if (!isset($pageLanguage)) {
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html  xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $pageLanguage; ?>" xml:lang="<?php echo $pageLanguage; ?>">
+<html  xmlns='http://www.w3.org/1999/xhtml' lang='<?php echo $pageLanguage; ?>' xml:lang='<?php echo $pageLanguage; ?>'>
 <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-8">
 <head>
 <title><?php echo $objConfig->getsiteName(); ?></title>
