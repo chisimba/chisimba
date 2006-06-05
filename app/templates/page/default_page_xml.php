@@ -23,11 +23,11 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
             $html_q = $matches[1];
             if((float)$xhtml_q >= (float)$html_q)
             {
-               // $mime = "application/xhtml+xml";
+                $mime = "application/xhtml+xml";
 			}
         }
     } else {
-         // $mime = "application/xhtml+xml";
+          $mime = "application/xhtml+xml";
       }
 }
 //echo $mime;
