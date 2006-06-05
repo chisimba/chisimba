@@ -38,7 +38,7 @@ if($mime == "application/xhtml+xml")
 	ob_start("fix_code");
         $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
 }
-echo $prolog_type;
+//echo $prolog_type;
 header("Content-Type: $mime;charset=$charset");
 header("Vary: Accept");
 print $prolog_type;
