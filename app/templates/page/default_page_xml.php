@@ -110,9 +110,9 @@ if (isSet($bodyParams)) {
 	<!-- <div id="container"> -->
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   	<div id="top"><a onclick="location='<?php echo $objConfig->getSiteRoot(); ?>index.php'">
+   <!--	<div id="top"><a onclick="location='<?php //echo $objConfig->getSiteRoot(); ?>index.php'">
 		<img src="<?php //echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
-	</div>
+	</div> -->
 <?php }
 // Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
