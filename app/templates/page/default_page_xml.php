@@ -23,11 +23,11 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
             $html_q = $matches[1];
             if((float)$xhtml_q >= (float)$html_q)
             {
-                $mime = "application/xhtml+xml";
+               // $mime = "application/xhtml+xml";
 			}
         }
     } else {
-          $mime = "application/xhtml+xml";
+         // $mime = "application/xhtml+xml";
       }
 }
 //echo $mime;
@@ -36,7 +36,7 @@ if($mime == "application/xhtml+xml")
 	$prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
 } else {
 	ob_start("fix_code");
-        $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"$pageLanguage\">\n";
+        $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
 }
 //echo $prolog_type;
 header("Content-Type: $mime;charset=$charset");
