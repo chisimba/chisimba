@@ -107,22 +107,39 @@ if (isSet($bodyParams)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	<div id="container">
+	<!-- <div id="container"> -->
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
    	<div id="top"><a onclick="location='<?php echo $objConfig->getSiteRoot(); ?>index.php'">
-		<img src="<?php echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
+		<img src="<?php //echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
 	</div>
 <?php }
 // Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
 ?>
-	    <div id='toolbar'>
-		<?
-		    $menu=& $this->getObject('menu','toolbar');
-			//echo $menu->show();
-		?>
-		</div>
+
+		<div id="wrap">
+
+			<div id="header">
+				<div id="site-name"><?php echo $objConfig->getsiteName();?></div>
+				<div id="search">
+					<form action="">
+					<label for="searchsite">Site Search:</label>
+					<input id="searchsite" name="searchsite" type="text" />
+					<input type="submit" value="Go" class="f-submit" />
+					</form>
+				</div>
+		
+				<?php
+				 if (!isset($pageSuppressToolbar)) {
+				 	$menu=& $this->getObject('menu','toolbar');
+					echo $menu->show();
+				 }
+				 ?>
+			</div>	 
+				
+		
+			
 <?  }
 
     // get content
@@ -155,7 +172,7 @@ if (!isset($suppressFooter)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	</div>
+	<!-- /div -->
 <?php } ?>
 <?php
 //$this->putMessages();
