@@ -92,7 +92,7 @@ if (isset($headerParams)) {
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo "<body>";
+    echo "<body id=\"type-f\">";
 }
 ?>
 <?php
@@ -120,7 +120,7 @@ if (isSet($bodyParams)) {
 	    <div id='toolbar'>
 		<?
 		    $menu=& $this->getObject('menu','toolbar');
-			echo $menu->show();
+			//echo $menu->show();
 		?>
 		</div>
 <?  }
@@ -150,7 +150,7 @@ if (!isset($suppressFooter)) {
     }
 
 
-    echo $this->footerNav->show();
+    //echo $this->footerNav->show();
 }
 ?>
 
@@ -158,7 +158,7 @@ if (!isset($suppressFooter)) {
 	</div>
 <?php } ?>
 <?php
-$this->putMessages();
+//$this->putMessages();
 
 ?>
 </body>
