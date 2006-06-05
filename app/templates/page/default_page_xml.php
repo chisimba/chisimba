@@ -36,7 +36,7 @@ if($mime == "application/xhtml+xml")
 	$prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
 } else {
 	ob_start("fix_code");
-        $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
+        $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"$pageLanguage\">\n";
 }
 //echo $prolog_type;
 header("Content-Type: $mime;charset=$charset");
@@ -110,9 +110,7 @@ if (isSet($bodyParams)) {
 	<!-- <div id="container"> -->
 <?php } ?>
 <?php if (!isset($pageSuppressBanner)) { ?>
-   <!--	<div id="top"><a onclick="location='<?php //echo $objConfig->getSiteRoot(); ?>index.php'">
-		<img src="<?php //echo $objSkin->bannerImageBase(); ?>smallbanner.jpg" alt="banner" /></a>
-	</div> -->
+   
 <?php }
 // Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
@@ -129,7 +127,7 @@ if (isSet($bodyParams)) {
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
 				</div>
-		
+	
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
