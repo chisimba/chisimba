@@ -299,6 +299,8 @@ class InstallDirectoryAction extends StepAction
 
 	{
 
+		$check_dir = $sys_root;
+
 		$dirs = Array('usrfiles','user_images');
 
 		$success = true;
