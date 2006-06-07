@@ -118,8 +118,12 @@ class language extends dbTable {
 		        if($notFound){
             	
                 $line = $this->lang->get($itemName, $modulename, 'en');
-                
-               if ($line != null) {
+                if (strcmp($line,$itemName)) {
+                	$found = true;
+		        } else {
+		        	$found = false;
+		        }
+                if (($line!=null)&&($line!=$itemName)) {
                     return $line;
                 } else {
                     if ($default != false) {
@@ -128,7 +132,7 @@ class language extends dbTable {
                             return "This language item is missing";
                     } else {
                     	// fetch a string not translated into Italian (test fallback language)
-						return $this->lang->get('error_languageitemmissing', 'error_text');
+						return $this->lang->get('error_languageitemmissing', 'error_text','en').": $itemName";
                         //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
                     }
                 }
