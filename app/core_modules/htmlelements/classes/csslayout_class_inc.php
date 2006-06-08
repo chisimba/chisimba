@@ -237,8 +237,19 @@ class csslayout extends object
             $result .= '<div id="content">'.$this->middleColumnContent.'</div>';
         }
         
-        return $result;
+        //return $result;
+      //  $middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  //
+        if (isset($footerStr))
+		{
+			$footer = '<div  id="footer">'.$footerStr.'</div>';
+		}
+		$side1 = '<div id="sidebar">'.$this->leftColumnContent.'</div>';
+		$side2 = '<div id="utility">'.$this->rightColumnContent.'</div>';
+		$middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  
+
+        $str = '<div id="content-wrap">'.$middleContent.$side1.$side2.'</div>';
         
+        return $str;
     }
     
     
