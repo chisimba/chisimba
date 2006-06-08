@@ -70,7 +70,7 @@ class language extends dbTable {
 	    	parent::init('tbl_languagelist');     
 	        $this->objConfig = &$this->getObject('altconfig','config');
 	        $this->lang = &$this->getObject('languageConfig','language');
-	        $this->lang = $this->lang->setup();
+	        $this->lang = &$this->lang->setup();
 	        $this->objNewForm = &$this->newObject('form', 'htmlelements');
 	        $this->objDropdown = &$this->newObject('dropdown', 'htmlelements');
 	        $this->objButtons = &$this->getObject('button', 'htmlelements');
@@ -90,7 +90,9 @@ class language extends dbTable {
     * looked up
     * @param string $modulename : The module name that owns the string
     */
-    public function languageText($itemName,$modulename = "_default",$default = false)
+
+    public function languageText($itemName,$modulename='system',$default = false)
+
     {
     	try {
 		    	$abstractList = $this -> objAbstract -> getSession('systext');
@@ -116,9 +118,11 @@ class language extends dbTable {
 		        }
 		
 		        if($notFound){
-            	
-                $line = $this->lang->get($itemName, $modulename, 'en');
-                if (strcmp($line,$itemName)) {
+				$var = $this->currentLanguage();
+				$var = strtolower($var);         
+                $line = $this->lang->get($itemName, $modulename, "{$var}");
+                
+ 		        if (strcmp($line,$itemName)) {
                 	$found = true;
 		        } else {
 		        	$found = false;
@@ -178,7 +182,7 @@ class language extends dbTable {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");
 	        $abstractList = $this->objAbstract->getSession('systext');
-
+			
 	        foreach($abstractList as $textItem => $abstractText){	
 	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);	
 	        }
@@ -203,8 +207,8 @@ class language extends dbTable {
     public function languagelist()
     {
     	try {
-        $sql = "Select languageName from tbl_languagelist";
-        return $this->getArray($sql);
+       	 $sql = "Select languageName from tbl_languagelist";
+       	 return $this->getArray($sql);
     	}catch (Exception $e){
     		$this->errorCallback ('Caught exception: '.$e->getMessage());
     		 exit();
@@ -256,12 +260,15 @@ class language extends dbTable {
         if (isset($_POST['Languages'])) {
             $_SESSION["language"] = $_POST['Languages'];
             $var = $_POST['Languages'];
+            $this->lang->setLang("{$var}");
         } else {
             if (isset($_SESSION["language"])) {
                 $var = $_SESSION["language"];
+                $this->lang->setLang("{$var}");
             } else {
                 $this->objConfig = &$this->getObject('altconfig','config');
-                $var = $this->objConfig->getdefaultLanguage();
+                $var = $this->objConfig->getdefaultLanguageAbbrev();
+                $this->lang->setLang("{$var}");
             }
         }
         return $var;
@@ -270,9 +277,7 @@ class language extends dbTable {
     		 exit();
     	}
     }
-
-    /**************************** PRIVATE METHODS *******************************/
-
+   
     /**
     * Method to create code2Txt match expression.
     * @access private
@@ -312,7 +317,7 @@ class language extends dbTable {
     */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
+    	$this->_errorCallback = new ErrorException($exception,1,1,'language_class_inc.php');
         echo $this->_errorCallback;
     }
 
