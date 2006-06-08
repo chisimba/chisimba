@@ -11,9 +11,13 @@ if ($objUser->isAdmin()) {
 
 // Create an instance of the postlogin menu on the side
 $userMenu  = &$this->newObject('postloginmenu','toolbar');
-
+$objFeatureBox = $this->newObject('featurebox', 'navigation');
 // Add Post login menu to left column
-$leftSideColumn = $userMenu->show();
+$leftSideColumn ='';;
+
+//add the context box as a feature box
+$objFeature = $this->newObject('featurebox', 'navigation');
+$leftSideColumn = $userMenu->show();//$objFeature->show(null,$userMenu->show());
 
 //Get the story category from querystring
 $storyCategory = $this->getParam('storycategory', 'postlogin');
@@ -33,7 +37,7 @@ $leftSideColumn .= $objBlocks->showBlock('whatsnew', 'whatsnew');
 $leftSideColumn .= $objBlocks->showBlock('rquote', 'quotes');
 $leftSideColumn .= $objBlocks->showBlock('today_weather','weather');
 /******************* END  LEFTSIDE BLOCKS ******************************/
-
+$this->setVar('leftSideColumn', $leftSideColumn);
 
 /******************* BEGIN RIGHTSIDE BLOCKS ******************************/
 // Right Column initialize
@@ -56,6 +60,7 @@ $rightSideColumn .= $objBlocks->showBlock('wikipedia', 'websearch');
 $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
 /******************* END  RIGHTSIDE BLOCKS ******************************/
 
+//$this->setVar('rightSideColumn', $rightSideColumn);
 
 // Create an instance of the css layout class
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
@@ -75,13 +80,15 @@ if($this->objModule->checkIfRegistered('stories','stories')){
     $cnt = $this->objStories->fetchCategory($storyCategory)
       . $this->objStories->putCategoryChooser();
     $cssLayout->setMiddleColumnContent($cnt);
+    //echo $cnt;
 }
-
-echo $cssLayout->show(); 
 
 // Pass the string to the footer area
 if($this->objModule->checkIfRegistered('stories','stories')){
     $this->setVar('footerStr', $this->objStories->fetchCategory("footer"));
 }
+
+echo $cssLayout->show(); 
+
 
 ?>
