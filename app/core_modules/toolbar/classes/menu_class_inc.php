@@ -218,7 +218,7 @@ class menu extends object
 
         // get logout button
         $logout='<nobr>'.$iconList.$im.$this->objSkin->putLogout().'&nbsp;'.'</nobr>';
-
+		return $menu;
         // Display data in a table
         $this->objTable->width="100%";
         $this->objTable->startRow();
@@ -233,6 +233,61 @@ class menu extends object
         $navbar = $this->objTable->show().$this->objLayer->show();
 
         return $navbar;
+    }
+    
+    /**
+     * Create the Menu navigation
+     * 
+     * @access public
+     * @return string
+     */
+    public function navigationMenu()
+    {
+    	$str = '<ul id="nav">
+				<li class="first"><a href="#">Home</a></li>
+				<li class="active"><a href="#">User</a>
+					<ul>
+					<li class="first"><a href="#">Blog</a></li>
+					<li class="active"><a href="#">Chat</a></li>
+					<li><a href="#">Photo Gallery</a></li>
+					<li><a href="#">Mailing List</a></li>
+					<li><a href="#">Discussion Forum</a></li>
+					
+					<li class="last"><a href="#">Internal Email</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Resources</a>
+					<ul>
+					<li class="first"><a href="#">Discussion Forum</a></li>
+					<li class="last"><a href="#">Wiki</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Admin</a>
+					<ul>
+					<li class="first"><a href="#">Maecenas</a></li>
+					<li><a href="#">Phasellus</a></li>
+					<li><a href="#">Mauris sollicitudin</a></li>
+					<li><a href="#">Phasellus</a></li>
+					<li><a href="#">Mauris sollicitudin</a></li>
+					<li><a href="#">Phasellus</a></li>
+					<li><a href="#">Mauris sollicitudin</a></li>
+					<li><a href="#">Phasellus</a></li>
+					<li><a href="#">Mauris sollicitudin</a></li>
+					<li><a href="#">Phasellus</a></li>
+					<li><a href="#">Mauris sollicitudin</a></li>
+					<li class="last"><a href="#">Mauris at enim</a></li>
+					</ul>
+				</li>
+				<li class="last"><a href="#">About</a>
+					<ul>
+					
+					<li class="last"><a href="#">Credits</a></li>
+					</ul>
+				</li>
+				</ul>';
+    	
+    	return $str;
+    	
     }
 }
 ?>

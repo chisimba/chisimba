@@ -74,6 +74,8 @@ class sidemenu extends object
             $this->contextcode = '';
             $this->context = FALSE;
         }
+        
+        $this->globalNodes = array();
     }
 
     /**
@@ -138,7 +140,7 @@ class sidemenu extends object
         $access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-
+	
         $this->objHead->str = $this->objUser->fullName();
         $menu =  $this->objHead->show();
 
@@ -146,9 +148,60 @@ class sidemenu extends object
 
         $menu .= $this->joinContext();
 
-        $menu .= $this->getMenuList($menus);
+        $menu = $this->getMenuList($menus);
         return $menu;
 
+    }
+    
+    /**
+     * Method to diplay the user details combined
+     * with the user's images
+     * @return string
+     */
+    function userDetails()
+    {
+    	$this->objHead->type = 4;
+    	$access = $this->checkAccess();
+        $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
+        $menus = $this->checkPerm($menus);
+
+        $this->objHead->str = $this->objUser->fullName();
+        $menu =  $this->objHead->show();
+
+        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" /></p>';
+
+        
+        return $menu;
+    }
+    
+    /**
+     * Method to get the context details for a user
+     * to join a context or leave a context
+     * @return string
+     */
+    function contextDetails()
+    
+    {
+    	$access = $this->checkAccess();
+        $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
+        $menus = $this->checkPerm($menus);
+    	$menu .= $this->joinContext(); 	
+        return $menu;
+    }
+    
+    /**
+     * Method get the list of items on the sidebar only
+     * @return string
+     * 
+     */
+    function getPostLoginMenuItems()
+    {
+    	$access = $this->checkAccess();
+        $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
+        $menus = $this->checkPerm($menus);
+        
+        $menu = $this->getMenuList($menus);
+        return $menu;
     }
 
     /**
@@ -226,7 +279,9 @@ class sidemenu extends object
                 $this->addNavigationRow($name, $line['module'], $icon, $linkArray);
             }
         }
-        return $this->globalTable->show();
+        $objNav = $this->newObject('sidebar', 'navigation');
+        return $objNav->show($this->globalNodes);
+      //  return $this->globalTable->show();
     }
 
     /**
@@ -257,6 +312,8 @@ class sidemenu extends object
         $this->globalTable->addCell($moduleLink->show(), null, 'absmiddle');
 
         $this->globalTable->endRow();
+        
+        $this->globalNodes[] = array('text' => $moduleLink->show(), 'uri' => $this->uri($linkArray, $module));
     }
 
     /**

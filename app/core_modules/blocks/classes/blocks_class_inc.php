@@ -70,8 +70,12 @@ class blocks extends object
             $title = $objBlock->title;
             $objWrap = & $this->getObject('trimstr', 'strings');
             $title = $objWrap->wrapString($title, 20);
+            
             switch ($blockType) {
                 case NULL:
+                	$objFeatureBox = & $this->newObject('featurebox', 'navigation');
+                	return $objFeatureBox->show($title, $objBlock->show());
+                
                 case "tabbedbox":
                     //Put it all inside a tabbed box
                     $objTab = $this->newObject('tabbedbox', 'htmlelements');

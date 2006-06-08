@@ -37,7 +37,7 @@ window.onload = function()
 </script>";
 
 $this->appendArrayVar('headerParams',$headerParams);
-
+/*
     echo '<div id="leftnav">';
     $this->userMenuBar=& $this->getObject('contextmenu','toolbar');
     echo $this->userMenuBar->show();
@@ -49,4 +49,6 @@ $this->appendArrayVar('headerParams',$headerParams);
 	echo $this->getContent(); 
     
     echo ('</div><!-- End div contentHasLeftMenu -->');
+    */
+echo $this->getContent(); 
 ?>
