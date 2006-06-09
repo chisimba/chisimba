@@ -866,10 +866,11 @@ class engine
                     $output[] = urlencode($key)."=".urlencode($item);
                 }
             }
-            $uri .= '?'.implode('&', $output);
-            // TODO: urlencode the whole caboodle to do &amp; entities thing?
+            $uri .= '?'.implode('&amp;', $output);
+            // TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
         }
-        return $uri;
+
+		return $uri;
     }
 
     /**
