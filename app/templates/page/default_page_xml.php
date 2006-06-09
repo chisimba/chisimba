@@ -176,5 +176,6 @@ if (!isset($suppressFooter)) {
 //$this->putMessages();
 
 ?>
+</div>
 </body>
 </html>
