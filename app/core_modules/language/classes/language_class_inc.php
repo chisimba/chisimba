@@ -226,7 +226,7 @@ class language extends dbTable {
     public function putlanguageChooser()
     {
     	try {
-        $ret = $this->languageText("phrase_languagelist",'language') . ":<br>\n";
+        $ret = $this->languageText("phrase_languagelist",'language') . ":<br />\n";
         $script = $_SERVER['PHP_SELF'];
         $ret = $objNewForm = new form('languageCheck', $script);
         $ret = $objDropdown = new dropdown('Languages');
@@ -236,7 +236,7 @@ class language extends dbTable {
                 $objDropdown->addOption($key, $key);
             }
         }
-        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'security') . ":<br>\n");
+        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'security') . ":<br />\n");
         $ret .= $objDropdown->show();
         $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go",'security', "[Go]"), 'submit');
         $ret .= $button = $this->objButtons->setToSubmit();

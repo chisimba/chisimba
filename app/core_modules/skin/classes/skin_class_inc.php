@@ -132,7 +132,7 @@ class skin extends object
         foreach ($dirList as $element=> $value) {
            $ret .= $objDropdown->addOption($element,$value);
         }
-        $ret = $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin','security').":<br>\n");
+        $ret = $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin','security').":<br />\n");
 
         // Set the current skin as the default selected skin
         $objDropdown->setSelected($this->getSession('skin'));
