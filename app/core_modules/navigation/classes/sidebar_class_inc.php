@@ -71,8 +71,6 @@ class sidebar extends object
     public function show($nodes, $activeId = NULL)
     {
     	try{
-    		//var_dump($nodes);
-    		
     		$cssClass = ' class="first" ';
     		
     		$str = '<ul id="nav-secondary">';	
@@ -86,7 +84,7 @@ class sidebar extends object
 					
 				}
 				
-				$str .='<li><a href="'.$node['uri'].'">'.$node['text'].'</a>';
+				$str .='<li>'.$node['text'];
 				
 				
 				if(is_array($node['haschildren']))
@@ -96,7 +94,7 @@ class sidebar extends object
 					$cssClass2 = ' class="first" ';
 					foreach($node['haschildren'] as $child)
 					{
-						$str .='<li '.$cssClass2.'><a href="'.$child['uri'].'">'.$child['text'].'</a></li>';
+						$str .='<li '.$cssClass2.'>'.$child['text'].'</li>';
 					}
 					
 					//$cssClass2 = ' class="last"';
@@ -107,9 +105,10 @@ class sidebar extends object
 				$str .= '</li>';
 				//reset the cssclass
 				$cssClass = '';
+				
     		}
     		
-    		$str .'</ul>';
+    		$str .='</ul>';
     		return $str;
 	  		
   		
