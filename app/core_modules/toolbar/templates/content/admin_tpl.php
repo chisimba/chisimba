@@ -29,7 +29,7 @@ $objHead->type = 1;
 $objHead->str = $head;
 $str = $objHead->show();
 
-$objIcon->extra=' height=25 width=25 ';
+$objIcon->extra=' height="25" width="25" ';
 
 if(!empty($modules)){
     $langArray = array('context'=>'course', 'contexts'=>'courses', 'author'=>'lecturer', 'authors'=>'lecturers', 'readonly'=>'student', 'readonlys'=>'students');
@@ -80,7 +80,7 @@ if(!empty($modules)){
                     $name = ucwords($this->objLanguage->code2Txt('mod_'.$line['module'].'_name',$line['module']));
                 }
 
-                $objLink->link = $objIcon->show().'<br>'.$name;
+                $objLink->link = $objIcon->show().'<br />'.$name;
                 $objTable->addCell($objLink->show(), '', 'bottom', 'center');
             }
             $objTable->endRow();
