@@ -39,7 +39,7 @@
 
     $objTblclass=$this->newObject('htmltable','htmlelements');
     $objTblclass->width='99%';
-    $objTblclass->attributes=" align='center' border=0";
+    $objTblclass->attributes=" align='center' border='0'";
     $objTblclass->cellspacing='2';
     $objTblclass->cellpadding='2';
 
@@ -159,7 +159,7 @@
 
     $objTable2=$this->newObject('htmltable','htmlelements');
     $objTable2->width='99%';
-    $objTable2->attributes=" border=0";
+    $objTable2->attributes=" border='0'";
     $objTable2->cellspacing='5';
     $objTable2->cellpadding='5';
     $objTable2->startRow();
