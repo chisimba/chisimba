@@ -110,7 +110,7 @@
     $submitButton->setValue($objLanguage->languageText('mod_useradmin_updatedetails'));
     $submitButton->setToSubmit();
     
-    $row=array('&nbsp',$submitButton->show());
+    $row=array('&nbsp;',$submitButton->show());
     $objTblclass->addRow($row);
     
     //print $objTblclass->show();
@@ -130,10 +130,10 @@
     *
     */
     $startForm="<form name='fileupload' enctype='multipart/form-data' method='POST' action='".$this->uri(array('action'=>'imageupload'))."'>\n";
-    $startForm.="<input type='hidden' name='upload' value='1'>\n";
-    $startForm.="<input type='hidden' name='module' value='useradmin'>\n";
-    $startForm.="<input type='hidden' name='action' value='imageupload'>\n";
-    $startForm.="<input type='hidden' name='time' value='".time()."'>\n";
+    $startForm.="<input type='hidden' name='upload' value='1' />\n";
+    $startForm.="<input type='hidden' name='module' value='useradmin' />\n";
+    $startForm.="<input type='hidden' name='action' value='imageupload' />\n";
+    $startForm.="<input type='hidden' name='time' value='".time()."' />\n";
     
     $link2 = NULL;
     
@@ -147,12 +147,12 @@
     }
              
     if ($line['userId']==$this->objUser->userId()){
-        $link2 .="<input type='file' name='userFile'><br><br>";
-        $link2 .="<input type='submit' class='button' value='".$this->objLanguage->languageText('mod_useradmin_changepicture')."'>\n"; 
+        $link2 .="<input type='file' name='userFile' /><br><br>";
+        $link2 .="<input type='submit' class='button' value='".$this->objLanguage->languageText('mod_useradmin_changepicture')."' />\n"; 
     }
     $endForm = textinput('admin_user','hidden',$admin_user).'</form>';
 
-    $col2 = $startForm.'<p align="center"><img src="'.$this->imagelink.'"></p><p align="center">'.$link2.'</p>'.$endForm;
+    $col2 = $startForm.'<p align="center"><img src="'.$this->imagelink.'" /></p><p align="center">'.$link2.'</p>'.$endForm;
     
 
     // Here we build up a table to display all the output
