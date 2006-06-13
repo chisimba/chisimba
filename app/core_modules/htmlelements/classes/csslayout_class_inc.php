@@ -228,26 +228,33 @@ class csslayout extends object
         // Start layout result with the left column
         $result = '<div id="leftnav">'.$this->leftColumnContent.'</div>';
         
+        
+        if (isset($footerStr))
+		{
+			$footer = '<div  id="footer">'.$footerStr.'</div>';
+		}
+        
+        
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
-            $result .= '<div id="contentHasLeftMenu">'.$this->middleColumnContent.'</div>';
+            $result .= '<div id="contentHasLeftMenu">'.'<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>'.'</div>';
         } else {
             // for a three column layout, first load the right column, then the middle column
             $result .= '<div id="rightnav">'.$this->rightColumnContent.'</div>';
-            $result .= '<div id="content">'.$this->middleColumnContent.'</div>';
+            $result .= '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';
         }
         
         //return $result;
       //  $middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  //
-        if (isset($footerStr))
+        /*if (isset($footerStr))
 		{
 			$footer = '<div  id="footer">'.$footerStr.'</div>';
 		}
 		$side1 = '<div id="sidebar">'.$this->leftColumnContent.'</div>';
 		$side2 = '<div id="utility">'.$this->rightColumnContent.'</div>';
 		$middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  
-
-        $str = '<div id="content-wrap">'.$middleContent.$side1.$side2.'</div>';
+*/
+        $str = '<div id="content-wrap">'.$result.'</div>';
         
         return $str;
     }

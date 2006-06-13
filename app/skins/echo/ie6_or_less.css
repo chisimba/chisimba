@@ -22,5 +22,5 @@ http://creativecommons.org/licenses/GPL/2.0/
 I've added position:relative to these items below to fix the IE Peakaboo bug. 
 more about it here: http://www.positioniseverything.net/explorer/peekaboo.html 
 */
-ol.code, .featurebox, #content ul, #sidebar ul {position:relative}
+ol.code, .featurebox, #content ul, #leftnav ul {position:relative}
 	
