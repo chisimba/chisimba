@@ -313,7 +313,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			error_reporting(E_ALL & ~E_NOTICE);
 
-			define('KEWL_SYSTEM_ROOT',   dirname(dirname(realpath(__FILE__))));
+			define('KEWL_SYSTEM_ROOT',   dirname(dirname(realpath(__FILE__))).'/');
 
 			$this->_addConfigVar('KEWL_INSTITUTION_SHORTNAME',  $_SESSION['sys_owner']);
 
@@ -359,7 +359,7 @@ class CreateConfigsAction extends FiveStepAction
 			
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 			
-			$this->_addConfigVar('KEWL_SITEROOT', $_SESSION['site_url']);
+			$this->_addConfigVar('KEWL_SITEROOT', 'http://'.$_SESSION['site_url'].'/'.'5ive/app/');
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
 
@@ -367,7 +367,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('LDAP_USED', 'FALSE');
 
-			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['log_path']);
+			$this->_addConfigVar('KEWL_ERROR_REPORTING', 'developer');
 
 			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
 
@@ -377,7 +377,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
 
-			$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_tpl.php');
+			$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
 
 			// if this is an install, then none of the config vars are going to be defined, so
 
@@ -428,10 +428,7 @@ class CreateConfigsAction extends FiveStepAction
 			//lets write the config
 			$path = $_SESSION['sys_root'].'/config/';
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
-		    
-			var_dump($write);
-
-			$GLOBALS['SQ_INSTALL'] = false;
+		    $GLOBALS['SQ_INSTALL'] = false;
 
 			$result = ob_get_contents();
 
@@ -622,7 +619,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/config.xml' : false;
+		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/sysconfig_properties.xml' : false;
 		// if the file exists, try and delete it
 
 		if ($main_file !== false && is_file($main_file)) {
