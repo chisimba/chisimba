@@ -6,6 +6,7 @@
 					<label for="searchsite">Site Search:</label>
 					<input id="searchsite" name="searchsite" type="text" />
 					<input type="submit" value="Go" class="f-submit" />
+					
 					</form>
 				</div>
 		
