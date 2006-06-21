@@ -1,6 +1,6 @@
 <?php
-$objConfig =& $this->getObject('config', 'config');
-$siteRoot = $objConfig->siteRoot();
+$objConfig =& $this->getObject('altconfig', 'config');
+$siteRoot = $objConfig->getsiteRoot();
 ?>
 <script type="text/javascript">
 __KNG__ = '<?php echo $siteRoot; ?>';
@@ -88,8 +88,8 @@ class htmlarea extends object
         $this->css='textarea';
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
-        $objConfig=&$this->newObject('config','config');
-        $siteRoot=$objConfig->siteRoot();
+        $objConfig=&$this->newObject('altconfig','config');
+        $siteRoot=$objConfig->getsiteRoot();
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
         $this->context = $context;
