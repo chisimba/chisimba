@@ -79,7 +79,7 @@ class cssmenu extends object
 					<li><a href="#">Mauris sollicitudin</a></li>
 
 					<li><a href="#">Phasellus</a></li>
-					<li><a href="#">Mauris sollicitudin</a></li>';
+					<li><a href="'.$this->uri(null,'modulecatalogue').'">Module Catalogue</a></li>';
             
             $str.=$sample."</ul></li>\n";
         }

@@ -106,10 +106,10 @@ class checkBox extends htmlbase
 		$str.=' checked';
 	}
 	if ($this->value) {
-	 	$str.= 'value="'.$this->value.'"';
+	 	$str.= ' value="'.$this->value.'"';
 	}
 	if($this->extra){
-		$str.=$this->extra;	
+		$str.=' '.$this->extra;	
 	}
 	$str.=' />';
 	//This position of the label will depend on the form's display type
