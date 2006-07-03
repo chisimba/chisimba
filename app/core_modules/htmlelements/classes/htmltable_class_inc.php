@@ -419,7 +419,7 @@ class htmlTable extends object
             $ts .= " class=\"" . $this->cssClass . "\"";
         } 
         if ($this->attributes) {
-            $ts .= $this->attributes;
+            $ts .= ' '.$this->attributes;
         } 
         
         $ts .= ">";
