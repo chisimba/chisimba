@@ -68,7 +68,7 @@ class getIcon extends object
         $this->_objLanguage = & $this->getObject('language', 'language');
         $this->_objSkin = & $this->getObject('skin','skin');
         
-        $this->align="absmiddle";
+        $this->align="middle";
     }
 
 
