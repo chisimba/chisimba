@@ -36,44 +36,79 @@ class modulefile extends object {
 	 * @return array a list of the modules
 	 */
 	public function getModuleList($filter='all') {
-        $lookdir=$this->config->getSiteRootPath()."modules";
-        $modlist=$this->checkdir($lookdir);
-        natsort($modlist);
-        $modulelist = array();
-        foreach ($modlist as $line) {
-            switch ($line) {
-            	case '.':
-            	case '..':
-            	case 'CVS':
-                break; // don't bother with system-related dirs
-            	default:
-            		if (is_dir($lookdir.'/'.$line)) {
-                		if ($filter != 'all') {
-							//get only category
-							if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
-								if ($this->moduleCategory($line) == strtolower($filter)) {
-                					$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
-                					$modulelist[$line]['hasController']=$hasController;
-                					$modulelist[$line]['hasRegFile']=$hasRegFile;
-                					$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
-                					//$isReg=in_array($line,$regmodules);
-                					//$modulelist[$line]['isReg']=$isReg;
-								}
-							}
-            			} else {
-            				//get all
-            				$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
-                			$hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'));
-                			$modulelist[$line]['hasController']=$hasController;
-                			$modulelist[$line]['hasRegFile']=$hasRegFile;
-                			$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
-                			//$isReg=in_array($line,$regmodules);
-                			//$modulelist[$line]['isReg']=$isReg;
-                		}
-            		}
+        try {
+        	$lookdir=$this->config->getSiteRootPath()."modules";
+        	$modlist=$this->checkdir($lookdir);
+        	natsort($modlist);
+        	$modulelist = array();
+        	foreach ($modlist as $line) {
+            	switch ($line) {
+            		case '.':
+            		case '..':
+            		case 'CVS':
+            			break; // don't bother with system-related dirs
+            		default:
+            			if (is_dir($lookdir.'/'.$line)) {
+            				if ($filter != 'all') {
+            					//get only category
+            					if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
+            						if ($this->moduleCategory($line) == strtolower($filter)) {
+            							$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
+            							$modulelist[$line]['hasController']=$hasController;
+            							$modulelist[$line]['hasRegFile']=$hasRegFile;
+            							$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
+            							//$isReg=in_array($line,$regmodules);
+            							//$modulelist[$line]['isReg']=$isReg;
+            						}
+            					}
+            				} else {
+            					//get all
+            					$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
+            					$hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'));
+            					$modulelist[$line]['hasController']=$hasController;
+            					$modulelist[$line]['hasRegFile']=$hasRegFile;
+            					$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
+            					//$isReg=in_array($line,$regmodules);
+            					//$modulelist[$line]['isReg']=$isReg;
+            				}
+            			}
+            	}
         	}
-        }
-        return $modulelist;
+        	return $modulelist;
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
+	}
+    
+    public function getCategories() {
+    	try {
+    		$lookdir=$this->config->getSiteRootPath()."modules";
+    		$modlist=$this->checkdir($lookdir);
+    		//natsort($modlist);
+    		$categorylist = array();
+    		foreach ($modlist as $line) {
+    			switch ($line) {
+    				case '.':
+    				case '..':
+    				case 'CVS':
+    					break; // don't bother with system-related dirs
+    				default:
+    					if (is_dir($lookdir.'/'.$line)) {
+    						if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
+    							if ($cat = $this->moduleCategory($line)) {
+    								array_push($categorylist,array('category'=>$cat));
+    							}
+    						}
+    					}
+    			}
+    		}
+    		sort(array_unique($categorylist));
+    		return $categorylist;
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
     }
     
     /**
@@ -83,20 +118,24 @@ class modulefile extends object {
      * @return string|false the category name if it exists or false
      */
     public function moduleCategory($module) {
-    	if ($fn = $this->findregisterfile($module)) {
-    		$fh = fopen($fn,"r");
-    		$content = fread($fh,filesize($fn));
-    		if (preg_match('/MODULE_CATEGORY:\s*(.*)/i',$content,$match)) {
-    			fclose($fh);
-    			return strtolower($match[1]);
+    	try {
+    		if ($fn = $this->findregisterfile($module)) {
+    			$fh = fopen($fn,"r");
+    			$content = fread($fh,filesize($fn));
+    			if (preg_match('/MODULE_CATEGORY:\s*([a-z\-_]*)/i',$content,$match)) {
+    				fclose($fh);
+    				return strtolower($match[1]);
+    			} else {
+    				fclose($fh);
+    				return false;
+    			}
     		} else {
-    			fclose($fh);
     			return false;
     		}
-    	} else {
-    		return false;
-    	}
-    	
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}    	
     }
     
     /**
@@ -108,13 +147,18 @@ class modulefile extends object {
     */
     protected function checkdir($file)
     {
-        $dirObj = dir($file);
-        while (false !== ($entry = $dirObj->read()))
-        {
-            $list[]=$entry;
-        }
-        $dirObj->close();
-        return $list;
+        try {
+        	$dirObj = dir($file);
+        	while (false !== ($entry = $dirObj->read()))
+        	{
+        		$list[]=$entry;
+        	}
+        	$dirObj->close();
+        	return $list;
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
     }
     
      /**
@@ -126,12 +170,17 @@ class modulefile extends object {
     */
     function checkForFile($where,$fname)
     {
-        if (file_exists($where."/".$fname))
-        {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        try {
+        	if (file_exists($where."/".$fname))
+        	{
+        		return TRUE;
+        	} else {
+        		return FALSE;
+        	}
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
     }
     
     /** This is a method to check for existance of registration file
@@ -141,16 +190,21 @@ class modulefile extends object {
     */
     function findregisterfile($modname)
     {
-        $endings=array('php','conf');
-        $path=$this->config->getSiteRootPath()."/modules/".$modname."/register.";
-        foreach ($endings as $line)
-        {
-            if (file_exists($path.$line))
-            {
-                return $path.$line;
-            }
-        }
-        return FALSE;
+        try {
+        	$endings=array('php','conf');
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/register.";
+        	foreach ($endings as $line)
+        	{
+        		if (file_exists($path.$line))
+        		{
+        			return $path.$line;
+        		}
+        	}
+        	return FALSE;
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
     }
 }
 ?>

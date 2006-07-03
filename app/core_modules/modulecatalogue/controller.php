@@ -19,6 +19,13 @@ class modulecatalogue extends controller
 	protected $objDBModCat;
 	
 	/**
+	 * Object to read module information from register files
+	 *
+	 * @var object $objModFile
+	 */
+	protected $objModFile;
+	
+	/**
 	 * Side menu object
 	 *
 	 * @var object $objSideMenu
@@ -68,7 +75,7 @@ class modulecatalogue extends controller
 			//get list of categories
 			$this->objSideMenu->addNodes(array('category'=>'updates'));
 			$this->objSideMenu->addNodes(array('category'=>'all'));
-			$this->objSideMenu->addNodes($this->objDBModCat->getCategories());
+			$this->objSideMenu->addNodes($this->objModFile->getCategories());
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();	
