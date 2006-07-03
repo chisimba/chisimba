@@ -3,7 +3,7 @@ $this->loadClass('link','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
-
+$notice = '';
 //$modules = $this->objDBModCat->getModules($activeCat);
 $modules = $this->objModFile->getModuleList($activeCat,$letter);
 $icon = &$this->getObject('geticon', 'htmlelements');
@@ -49,6 +49,20 @@ foreach ($modules as $modName => $details) {
 	$objTable->endRow();
 }
 
-$content = $objH->show().$objTable->show();
+$msg = $this->getParam('msg');
+if (isset($msg)) {
+	$timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
+	switch ($msg) {
+		case '1': 
+			$timeoutMsg->setMessage($this->objLanguage->languageText('mod_modulecatalogue_registered'));
+			break;
+		default:
+			$timeoutMsg->setMessage($this->objLanguage->languageText('mod_modulecatalogue_uknownerror'));
+			break;
+	}
+	$notice = $timeoutMsg->show();
+}
+
+$content = $objH->show().$notice.$objTable->show();
 echo $content;
 ?>

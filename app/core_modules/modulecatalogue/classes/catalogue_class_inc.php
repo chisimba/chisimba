@@ -43,7 +43,7 @@ class catalogue extends object {
      */
     public function addNodes($nodes) {
     	try {
-    		if (is_array($nodes[0])) {
+    		if (is_array($nodes)) {
     			foreach($nodes as $node) {
     				array_push($this->nodes,$node);	
     			}
@@ -82,12 +82,12 @@ class catalogue extends object {
     		//loop through the nodes
     		foreach($this->nodes as $node)
     		{
-				if(strtolower($node['category']) == strtolower($activeNode))
+				if(strtolower($node) == strtolower($activeNode))
 				{
 					$cssClass = ' class="active" ';	
 				}
-				$name = ucwords($node['category']);
-				$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node['category']),'modulecatalogue')}'>{$name}</a></li>";
+				$name = ucwords($node);
+				$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node),'modulecatalogue')}'>{$name}</a></li>";
 				//reset the cssclass
 				$cssClass = '';
     		}

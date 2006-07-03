@@ -97,13 +97,14 @@ class modulefile extends object {
     					if (is_dir($lookdir.'/'.$line)) {
     						if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
     							if ($cat = $this->moduleCategory($line)) {
-    								array_push($categorylist,array('category'=>$cat));
+    								array_push($categorylist,$cat);
     							}
     						}
     					}
     			}
     		}
-    		sort(array_unique($categorylist));
+    		$categorylist = array_unique($categorylist);
+    		sort($categorylist);
     		return $categorylist;
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());

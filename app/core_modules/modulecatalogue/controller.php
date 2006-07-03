@@ -73,8 +73,7 @@ class modulecatalogue extends controller
 			$this->objModFile = &$this->getObject('modulefile','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
-			$this->objSideMenu->addNodes(array('category'=>'updates'));
-			$this->objSideMenu->addNodes(array('category'=>'all'));
+			$this->objSideMenu->addNodes(array('updates','all'));
 			$this->objSideMenu->addNodes($this->objModFile->getCategories());
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -104,6 +103,8 @@ class modulecatalogue extends controller
 					} else {
 						return 'front_tpl.php';
 					}
+				case 'moduleinfo':
+					return 'info_tpl.php';
 				default:
 					die('unknown action.');
 					break;
