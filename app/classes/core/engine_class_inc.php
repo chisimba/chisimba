@@ -348,7 +348,16 @@ class engine
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             $_globalObjDb = &MDB2::factory($this->_objDbConfig->dbConString());
+	    
+	    //Check for errors on the factory method
+            if (PEAR::isError($_globalObjDb)) {
+                $this->_pearErrorCallback($_globalObjDb);
+                //return the db object for use globally
+                return $_globalObjDb;
+            }
+
 //var_dump($_globalObjDb);
+//die();
             //set the options
             $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 			MDB2::loadFile('Date');
