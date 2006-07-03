@@ -189,11 +189,14 @@ class htmlarea extends object
     ****/
     
     function show(){      
-        $objConfig = & $this->newObject('config', 'config');        
-        $sBasePath = $objConfig->siteRoot().'modules/htmlelements/resources/fckeditor/';
+    	
+        $objConfig = & $this->newObject('altconfig', 'config');        
+        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor/';
+       
         global $Config;
-        $Config['UserFilesPath'] = $objConfig->contentBasePath();
-        $oFCKeditor = new FCKeditor($this->name, $objConfig->siteRoot(), $this->context?'Yes':'No') ;
+        $Config['UserFilesPath'] = $objConfig->getcontentBasePath();
+        
+        $oFCKeditor = new FCKeditor($this->name, $objConfig->getsiteRoot(), $this->context?'Yes':'No') ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
 		$oFCKeditor->Height=$this->height;

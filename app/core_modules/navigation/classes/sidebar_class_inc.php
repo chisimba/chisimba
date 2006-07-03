@@ -72,43 +72,67 @@ class sidebar extends object
     {
     	try{
     		$cssClass = ' class="first" ';
-    		
-    		$str = '<ul id="nav-secondary">';	
-    		 $str .='<li class="first"><a href="'.$this->uri(null, 'default').'">Home</a></li>';
+    		//var_dump($nodes);
+    		$str = '<ul id="nav-secondary">
+    										';	
+    		 $str .='<li class="first">
+    		 			<a href="'.$this->uri(null, 'default').'">Home</a>
+    		 		</li>
+    		 				';
     		//loop through the nodes
     		foreach($nodes as $node)
     		{
-				if($node['sectionid'] == $activeId)
-				{
-					$cssClass = ' class="active" ';	
-					
-				}
-				
-				$str .='<li>'.$node['text'];
-				
-				
 				if(is_array($node['haschildren']))
 				{
-					//print $node['text'].'has chlren';
-					$str .= '<ul>';
-					$cssClass2 = ' class="first" ';
+					$cssClass = ' class="active" ';	
+					$str .='<li '.$cssClass.'>
+								<a href="'.$node['uri'].'">'.$node['text'].'</a>
+								';
+				} else {
+					$str .='<li>
+								<a href="'.$node['uri'].'">'.$node['text'].'</a>
+								';	
+				}
+				
+				
+				
+				$cssClass2 = ' class="first" ';
+				if(is_array($node['haschildren']))
+				{
+					
+					$str .= '<ul>
+								';
+					
 					foreach($node['haschildren'] as $child)
 					{
-						$str .='<li '.$cssClass2.'>'.$child['text'].'</li>';
+						$str .='<li '.$cssClass2.'>
+									<a href="'.$child['uri'].'">'.$child['text'].'</a>
+								</li>
+									';
 					}
 					
-					//$cssClass2 = ' class="last"';
-					$str .= '</ul>';
+					//check for the last item in the arra
+					if($c == $cnt)
+					{
+						$cssClass2 = ' class="last" ';
+					} else {
+						$cssClass2 = '';
+					}
+					
+					$str .= '</ul>
+								';
 					
 					//$str .= $this->show($node['haschildren']);
 				}
-				$str .= '</li>';
+				$str .= '</li>'
+							;
 				//reset the cssclass
 				$cssClass = '';
 				
     		}
     		
-    		$str .='</ul>';
+    		$str .='</ul>
+    					';
     		return $str;
 	  		
   		
