@@ -187,14 +187,15 @@ class languagecode extends object
     function getISO($language)
     {
         // Flip Array - makes key the values, and values the key
-        $tempArray = array_flip($this->iso_639_2_tags); 
-        
+        //$tempArray = array_flip($this->iso_639_2_tags); 
+        $tempArray = $this->iso_639_2_tags;
         // Upper Case the first letter of the Word
-        $language = ucwords($language);
+        $language = strtolower($language);
         
         if (array_key_exists($language, $tempArray)) {
             return $tempArray[$language];
         } else {
+        	//echo "returning null";
             return NULL;
         }
     }
