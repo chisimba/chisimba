@@ -109,7 +109,7 @@ class dropdown extends htmlbase
 	{
 		$str.='<option value="'.$opt.'"';
 		if($this->selected==$opt){
-			$str.=' selected="true"';
+			$str.=' selected="selected"';
 		}
 		$str.='>';
 		$str.=$lbl;
