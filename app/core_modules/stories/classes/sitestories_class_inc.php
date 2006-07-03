@@ -217,7 +217,7 @@ class sitestories extends dbTable {
 
             //Insert a horizontal rule
             if ($elems>1 && $count != $elems) {
-                $ret.="<hr />";
+                $ret.="</p><hr /><p>";
             }
             //Check for translations
             $ar = $this->getTranslations($id);
