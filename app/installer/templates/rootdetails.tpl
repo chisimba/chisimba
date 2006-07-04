@@ -71,6 +71,20 @@
 	
 </tr>
 
+</tr>
+<tr valign="top">
+	<td>
+	<a href="<?php echo HELP_URL?>/system_details#debug" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	</td>
+	<td >
+	Debug enable?
+	</td>
+	<td >
+	<?php echo $debug_enable?>
+	</td>
+	
+</tr>
+
 <tr valign="top">
 	<td>
 	<a href="<?php echo HELP_URL?>/system_details#logpath" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>

@@ -79,7 +79,7 @@ class DbHandler
 
 	/**
 
-	* Version of the db needed for matrix
+	* Version of the db needed for 5ive
 
 	* @var string
 

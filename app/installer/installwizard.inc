@@ -97,8 +97,6 @@ class InstallWizard extends Wizard
 
 							 'databasecreate',
 
-							 'databasepopulate',
-
 							 'complete'
 
 							 );
@@ -116,8 +114,6 @@ class InstallWizard extends Wizard
 										'systemsetup',
 
 										'databasecreate',
-
-										'databasepopulate'
 
 										);
 

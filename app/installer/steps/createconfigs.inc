@@ -215,7 +215,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		
 
-		$this->_addConfigVar('KEWL_SITE_ROOT', $root_url);
+		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url .'/5ive/app/');
 
 		
 
@@ -367,7 +367,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('LDAP_USED', 'FALSE');
 
-			$this->_addConfigVar('KEWL_ERROR_REPORTING', 'developer');
+			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['debug_enable']);
 
 			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
 

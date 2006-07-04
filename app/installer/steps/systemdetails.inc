@@ -165,6 +165,8 @@ class RootUserAction extends StepAction
 		$_SESSION['relContentPath'] = (isset($_POST['relContentPath'])) ? $_POST['relContentPath'] :$_SESSION['relContentPath'] ;
 
 		$_SESSION['log_enable'] = (isset($_POST['log_enable'])) ? $_POST['log_enable'] : '';
+		
+		$_SESSION['debug_enable'] = (isset($_POST['debug_enable'])) ? $_POST['debug_enable'] : '';
 
 		$_SESSION['proxy'] = (isset($_POST['proxy'])) ? $_POST['proxy'] : '';
 
@@ -336,39 +338,40 @@ class RootUserAction extends StepAction
 
 		
 
-		$main_server = isset($_POST['main_server']) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
+		$main_server = isset($_POST['main_server']) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
 
 		
 
 		//Get content path
 
 		$absContentPath = getcwd();
+		
+		$relContentRoot = "usrfiles";
+		if (preg_match("/\/installer/i", "$absContentPath")) {
 
-	    $relContentRoot = "usrfiles";
+			$abspath = str_replace('/installer',"",$absContentPath);
+			$relContentPath = "usrfiles/";
 
-	     if (preg_match("/\/installer/i", "$absContentPath")) {
+	        $_SESSION['relContentPath']=$relContentPath;
 
-	         $relContentPath = "usrfiles/";
+	        $absContentPath = $abspath.'/'.$relContentRoot.'/';
 
-	         $_SESSION['relContentPath']=$relContentPath;
+	        $_SESSION['contentPath']= $absContentPath;
 
-	         $absContentPath = $absContentPath.'/'.$relContentRoot.'/';
+		} else {
 
-	         $_SESSION['contentPath']= $absContentPath;
-
-	     } else {
-
-	     	$relContentPath = "usrfiles\\";
+			$abspath = str_replace('\installer',"",$absContentPath);
+			$relContentPath = "usrfiles\\";
 
 	     	$_SESSION['relContentPath']=$relContentPath;
 
-	     	$absContentPath = $absContentPath."\\".$relContentRoot."\\";
+	     	$absContentPath = $abspath."\\".$relContentRoot."\\";
 
 	     	$_SESSION['contentPath']= $absContentPath;
 
-	     }
 
-	     	  
+		}
+  
 
 		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Captian John Picard';
 
@@ -376,11 +379,9 @@ class RootUserAction extends StepAction
 
 		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : True;
 
-		
+		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : True;
 
 		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
-
-		
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'/error_logs/error.log';
 
@@ -415,7 +416,12 @@ class RootUserAction extends StepAction
 			$log_enable = ob_get_contents();
 
 			ob_clean();
+			
+			check_box('debug_enable', 1, $debug_enable, '', 'tabindex="8"');
 
+			$debug_enable = ob_get_contents();
+
+			ob_clean();
 			
 
 			text_box('sys_name', $def_sysname, '40', '', false, 'tabindex="1"');
@@ -1083,6 +1089,8 @@ class RootUserAction extends StepAction
 		$tpl->set('log_path', $log_path);
 
 		$tpl->set('log_enable',$log_enable);
+		
+		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('postLogin',$cmbpostLogin);
 
@@ -1269,6 +1277,19 @@ class RootUserAction extends StepAction
 			$_SESSION['log_enable'] = "FALSE";
 			$log_enable = "FALSE";
 		}
+		
+		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : '';
+
+		if ($debug_enable==1)
+		{
+			$_SESSION['debug_enable'] = "developer";
+			$debug_enable = "TRUE";
+			
+		}else {
+			
+			$_SESSION['debug_enable'] = "user";
+			$debug_enable = "FALSE";
+		}
 
 		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
@@ -1299,6 +1320,8 @@ class RootUserAction extends StepAction
 		$tpl->set('serverLocation', $serverLocation);
 
 		$tpl->set('log_enable',$log_enable);
+		
+		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('log_path', $log_path);
 

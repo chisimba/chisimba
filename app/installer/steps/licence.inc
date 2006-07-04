@@ -45,9 +45,9 @@ class Licence extends Step
 *
 * This action is fired when the user starts the install process
 * 
-* @author mnyeholt
+* @author Prince Mbekwa
 * @version $Id
-* @package Matrix_Install
+* @package KNG installer
 */
 
 class LicenceAction extends StepAction
