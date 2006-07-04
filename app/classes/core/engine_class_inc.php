@@ -129,7 +129,7 @@ class engine
      * @access private
      * @var string
      */
-    private $_pageTemplate = 'default_page_tpl.php';
+    private $_pageTemplate = 'default_page_xml.php';
 
     /**
      * Has an error been generated?
