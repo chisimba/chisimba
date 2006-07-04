@@ -193,7 +193,9 @@ class languagecode extends object
         $language = strtolower($language);
         
         if (array_key_exists($language, $tempArray)) {
-            return $tempArray[$language];
+        	//$tempArray = array_flip($tempArray);
+        	//print_r($tempArray);
+            return $language;
         } else {
         	//echo "returning null";
             return NULL;
