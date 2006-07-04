@@ -9,7 +9,7 @@
 *
 */
 // checks for configuration file, if none found loads installation page
-if ( !file_exists( 'config/config_db_inc.php' ) ) {
+if ( !file_exists( 'config/altconfig_db_inc.php' ) ) {
 	header( 'Location: install/index.php' );
 	exit();
 }
