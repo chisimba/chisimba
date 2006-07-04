@@ -10,5 +10,18 @@
 
 class customException extends Exception 
 {
-	
+	// constructor
+    function __construct($m)
+    {
+        //log the exception
+    	log_debug($m);
+    	//do the cleanup
+        $this->cleanUp();
+    }
+
+    function cleanUp()
+    {
+        // generic cleanup code here
+    }
+}
 }
