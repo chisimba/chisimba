@@ -33,6 +33,8 @@ require_once 'classes/core/controller_class_inc.php';
 require_once 'lib/logging.php';
 //error handler
 require_once 'classes/core/errorhandler_class_inc.php';
+//the exception handler
+require_once 'classes/core/customexception_class_inc.php';
 
 //function to enable the pear error callback method (global)
 function globalPearErrorCallback($error) {
