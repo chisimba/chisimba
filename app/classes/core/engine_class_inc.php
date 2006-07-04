@@ -347,7 +347,7 @@ class engine
             // Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDb = &MDB2::factory($this->_objDbConfig->dbConString());
+            $_globalObjDb = &MDB2::factory($this->_objDbConfig->getDsn());
 	    
 	    //Check for errors on the factory method
             if (PEAR::isError($_globalObjDb)) {
@@ -407,11 +407,11 @@ class engine
         //let MDB2 take over for the on-demand construction
         if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
             //load the config object (same as the db Object)
-            $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
+            $this->_objDbConfig =& $this->getObject('altconfig', 'config');
             // Connect to the database
             require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDbManager = &MDB2_Schema::factory($this->_objDbConfig->dbConString());
+            $_globalObjDbManager = &MDB2_Schema::factory($this->_objDbConfig->getDsn());
 
             //Check for errors
             if (PEAR::isError($_globalObjDbManager)) {
