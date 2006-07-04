@@ -1,4 +1,5 @@
 <?php
+
 $charset = "utf-8";
 $mime = "text/html";
 
@@ -30,7 +31,7 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
           $mime = "application/xhtml+xml";
       }
 }
-//echo $mime;
+
 if($mime == "application/xhtml+xml")
 {
 	$prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
@@ -38,7 +39,6 @@ if($mime == "application/xhtml+xml")
 	ob_start("fix_code");
         $prolog_type = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"$pageLanguage\">\n";
 }
-//echo $prolog_type;
 header("Content-Type: $mime;charset=$charset");
 header("Vary: Accept");
 print $prolog_type;
@@ -88,14 +88,11 @@ if (isset($headerParams)) {
 ?>
 </head>
 <?php
-
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
     echo "<body id=\"type-f\">";
 }
-?>
-<?php
 	// Add instant messaging
 	if (!isset($pageSuppressIM)) {
 	    $objModules=&$this->getObject('modules','modulelist');
@@ -104,22 +101,22 @@ if (isSet($bodyParams)) {
 			<iframe id="IM" width="0" height="0" src="<?php echo $this->uri(array('action'=>'view'), 'instantmessaging'); ?>"></iframe>
    		<?php }
  	}
-?>
+ 
+ 	if (!isset($pageSuppressContainer)) { 
+ 	} 
+ 
+ 	if (!isset($pageSuppressBanner)) { 
+ 	}
 
-<?php if (!isset($pageSuppressContainer)) { ?>
-	<!-- <div id="container"> -->
-<?php } ?>
-<?php if (!isset($pageSuppressBanner)) { ?>
-   
-<?php }
-// Add toolbar bar if not suppressed
+	// Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
+    	//echo "you poes";
 ?>
 
 		<div id="wrap">
 
 			<div id="header">
-				<div id="site-name"><?php echo $objConfig->getsiteName();?></div>
+				<div id="site-name"><?php //echo $objConfig->getsiteName();?></div>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
@@ -170,7 +167,7 @@ if (!isset($suppressFooter)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	<!-- /div -->
+	 <!--/div -->
 <?php } ?>
 <?php
 //$this->putMessages();
