@@ -146,14 +146,6 @@ class PHPCheckAction extends StepAction
 
 										'mysqli'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
-										'PDO'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
-										'pdo_mysql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
-										'pdo_pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
-										'pdo_sqlite'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-
 										'pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'SQLite'=>Array('version'=>'', 'available' => true, 'message'=> ''),
