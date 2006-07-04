@@ -68,6 +68,13 @@ class modulecatalogue extends controller
 	protected $objRegFile;
 	
 	/**
+	 * object to read/write xml data
+	 *
+	 * @var object $objXML
+	 */
+	protected $objXML;
+	
+	/**
 	 * Standard initialisation function
 	 */
 	public function init() {
@@ -75,6 +82,7 @@ class modulecatalogue extends controller
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
+			$this->objXML = &$this->getObject('xmlserial','utilities');
 			// the class for reading register.conf files
         	$this->objRegFile=$this->newObject('filereader','moduleadmin');
         	$this->objLanguage = &$this->getObject('language','language');
@@ -123,6 +131,11 @@ class modulecatalogue extends controller
 						$output = '';	//failed
 					}
 					return $this->nextAction(null,array('msg'=>$output));
+				case 'xml':
+					$xml = $this->objXML->readXML('resources/catalogue.xml');
+					var_dump($xml);
+					break;
+					
 				default:
 					die('unknown action.');
 					break;
