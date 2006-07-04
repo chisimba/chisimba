@@ -17,7 +17,7 @@
  * $Id $
  */
 
-class jsalerts //extends object
+class jsalerts extends object
 {
 	/**
 	 * Class to handle JavaScript alerts
