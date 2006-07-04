@@ -537,7 +537,9 @@ class engine
             $filename = $this->_objConfig->getsiteRootPath() . $filename;
         }
         if (!file_exists($filename)) {
-            die ("Could not load class $name from module $moduleName: filename $filename");
+        	throw new customException("Could not load class $name from module $moduleName: filename $filename");
+            
+        	//die ("Could not load class $name from module $moduleName: filename $filename");
         }
         $engine =& $this;
         require_once($filename);
