@@ -105,6 +105,15 @@ class modulecatalogue extends controller
 					}
 				case 'moduleinfo':
 					return 'info_tpl.php';
+				case 'register':
+					$regResult=$this->registerModule($this->getParam('mod'));
+					//$this->output.=$this->objModule->output;
+					if ($regResult=='OK'){
+						$output = '';	//success
+					} else {
+						$output = '';	//failed
+					}
+					return $this->nextAction(null,array('msg'=>$output));
 				default:
 					die('unknown action.');
 					break;
@@ -114,6 +123,40 @@ class modulecatalogue extends controller
         	exit();	
 		}
 	}
+	
+	/**
+    * This method is a 'wrapper' function - it takes info from the
+    * 'register.conf' file provided by the module to be registered,
+    * and passes it to its namesake function in the modulesadmin
+    * class - which is where the SQL entries actually happen.
+    * @author James Scoble
+    * @param string $modname the module_id of the module to be used
+    * @returns string $regResult
+    */
+    function registerModule($modname) {
+    	try {
+    		$filepath = $this->objModFile->findRegisterFile($modname);
+    		if ($filepath) // if there were no file it would be FALSE
+    		{
+    			$this->registerdata=$this->objRegFile->readRegisterFile($filepath);
+    			if ($this->registerdata) {
+    				// Added 2005-08-24 as extra check
+    				if ( isset($this->registerdata['WARNING']) && ($this->getParam('confirm')!='1') ){
+    					$this->output.=$this->warningText($modname,$this->registerdata['WARNING']);
+    					return FALSE;
+    				}
+    				$regResult= $this->objModule->registerModule($this->registerdata);
+    				return $regResult;
+    			}
+    		} else {
+    			$this->output.=$this->confirmRegister('mod_moduleadmin_err_nofile');
+    			return FALSE;
+    		}
+    	} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
+    } // end of function
 
 	/**
      * The error callback function, defers to configured error handler

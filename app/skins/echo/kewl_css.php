@@ -331,47 +331,48 @@ A:active {
 */
 
 A.pseudobutton {
-	color: #000000;
+	color: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 90%;
 	text-decoration: none;
 	font-weight: normal;
-	border: 1px solid #000;
-	padding: 2px;
-	/*background: url(images/buttons/button.jpg);*/
+	background: url(images/buttons/button.jpg);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 A.pseudobutton:visited {
-	color: #000000;
+	color: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 90%;
 	text-decoration: none;
 	font-weight: normal;
-	border: 1px solid #000;
-	padding: 2px;
+	background: url(images/buttons/button.jpg);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 	
 A.pseudobutton:hover, A.pseudobutton:visited:hover  {
-	color: #000000;
+	color: #ffffff;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 90%;
 	text-decoration: none;
 	font-weight: normal;
-	border: 1px solid #000;
-	background: #E6DE80;
-	padding: 2px;
+	background: url(images/buttons/button_over.jpg);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 
 a.pseudobutton:active  {
-    color : #000000;
+    color : #ffffff;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 90%;
 	text-decoration: none;
-	font-weight: normal;;
-    border: 1px solid #000;
-	background: #E6DE80;
-	padding: 2px;
+	font-weight: normal;
+    background-image: url(images/buttons/button_over.jpg);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /***********************************************************************************************
