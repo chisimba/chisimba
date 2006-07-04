@@ -82,7 +82,6 @@ class modulecatalogue extends controller
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
-			$this->objXML = &$this->getObject('xmlserial','utilities');
 			// the class for reading register.conf files
         	$this->objRegFile=$this->newObject('filereader','moduleadmin');
         	$this->objLanguage = &$this->getObject('language','language');
@@ -108,9 +107,11 @@ class modulecatalogue extends controller
 			if (!$this->objUser->isAdmin()) {			//no access to non-admin users
 				return 'noaccess_tpl.php';
 			}
-			$activeCat = $this->getParam('cat','Updates');
+			if (!isset($activeCat)) {
+				$activeCat = $this->getParam('cat','Updates');
+			}
 			$this->setVar('activeCat',$activeCat);
-			$this->setVar('letter',$this->getParam('letter','none'));
+			//$this->setVar('letter',$this->getParam('letter','none'));
 			$this->setLayoutTemplate('cat_layout.php');
 			switch ($this->getParam('action')) {		//check action
 				case null:
@@ -122,18 +123,15 @@ class modulecatalogue extends controller
 					}
 				case 'moduleinfo':
 					return 'info_tpl.php';
-				case 'register':
+				case 'uninstall':
+				case 'install':
 					$regResult=$this->registerModule($this->getParam('mod'));
-					//$this->output.=$this->objModule->output;
-					if ($regResult=='OK'){
-						$output = '';	//success
-					} else {
-						$output = '';	//failed
+					if ($regResult == 'OK'){
+						$this->output = 'success';	//success
 					}
-					return $this->nextAction(null,array('msg'=>$output));
+					$this->setVar('output',$this->ouput);
+					return $this->nextAction('list',array('cat'=>$activeCat));
 				case 'xml':
-					$xml = $this->objXML->readXML('resources/catalogue.xml');
-					var_dump($xml);
 					break;
 					
 				default:
@@ -164,14 +162,15 @@ class modulecatalogue extends controller
     			if ($this->registerdata) {
     				// Added 2005-08-24 as extra check
     				if ( isset($this->registerdata['WARNING']) && ($this->getParam('confirm')!='1') ){
-    					$this->output.=$this->warningText($modname,$this->registerdata['WARNING']);
+    					$this->output = $this->registerdata['WARNING'];
     					return FALSE;
     				}
-    				$regResult= $this->objModule->registerModule($this->registerdata);
+    				//$regResult= $this->objModule->registerModule($this->registerdata);
+    				$regResult='OK';
     				return $regResult;
     			}
     		} else {
-    			$this->output.=$this->confirmRegister('mod_moduleadmin_err_nofile');
+    			$this->output ='mod_moduleadmin_err_nofile';
     			return FALSE;
     		}
     	} catch (Exception $e) {
