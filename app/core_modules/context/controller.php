@@ -200,6 +200,9 @@ class context extends controller
     */
     public function dispatch(){
 
+        //turn off the context for 5ive
+        return 'offline_tpl.php';
+        
         $this->checkAgreement();
 
         $action = $this->getParam('action');
