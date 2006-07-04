@@ -594,7 +594,7 @@ class engine
             $this->loadClass($name, $moduleName);
             $instance =& new $name($this, $moduleName);
             if (is_null($instance)) {
-                die("Could not instantiate class $name from module $moduleName");
+            	throw new customException("Could not instantiate class $name from module $moduleName");
             }
             // first check that the map for the given module exists
             if (!isset($this->_cachedObjects[$moduleName]))
@@ -680,7 +680,7 @@ class engine
             $this->_templateVars[$name] = array();
         }
         if (!is_array($this->_templateVars[$name])) {
-            die("Attempt to append to a non-array template variable $name");
+            throw new customException("Attempt to append to a non-array template variable $name");
         }
         $this->_templateVars[$name][] = $value;
     }
@@ -863,8 +863,7 @@ class engine
             }
         }
         elseif ($mode != '') {
-            //log_objError('Incorrect URI mode in Engine::uri');
-            die("Incorrect URI mode in Engine::uri");
+            throw new customException("Incorrect URI mode in Engine::uri");
         }
         if (count($params)>1){
             $params=array_reverse($params,TRUE);
@@ -967,7 +966,7 @@ class engine
             $path = $this->_objConfig->getsiteRootPath() . "templates/${type}/${tpl}";
             if (!file_exists($path))
             {
-                die("Template $tpl not found (looked in $firstpath)!");
+                throw new customException("Template $tpl not found (looked in $firstpath)!");
             }
         }
         return $path;
@@ -1073,7 +1072,7 @@ class engine
         if (!$this->_loadModule($requestedModule)) {
             $this->_loadModule('_default');
             if (!$this->_objActiveController) {
-                die('Default module not found!');
+                throw new customException("Default module not found!");
             }
             $this->setErrorMessage("Module {$requestedModule} not found");
         }
@@ -1094,7 +1093,7 @@ class engine
         }
         else {
             if (!$this->_loadModule('security')) {
-                die('Security module not found!');
+                throw new customException("Security module not found!");
             }
             $this->_moduleName = 'security';
             return array($this->_dispatchToModule($this->_objActiveController, 'showlogin'),
