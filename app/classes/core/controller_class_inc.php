@@ -29,7 +29,15 @@ class controller extends access
     public function __construct(&$objEngine, $moduleName)
     {
         $this->controllerName = get_class($this);
-        parent::__construct($objEngine, $moduleName);
+        try {
+        	parent::__construct($objEngine, $moduleName);
+        }
+        catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+        
     }
 
     /**
@@ -265,9 +273,9 @@ class controller extends access
                 'wrap'          => 200);
 
             // Tidy
-            //$tidy = new tidy;
-            //$tidy->parseString($pageContent, $config, 'utf8');
-            //$tidy->cleanRepair();
+            $tidy = new tidy;
+            $tidy->parseString($pageContent, $config, 'utf8');
+            $tidy->cleanRepair();
 
             //return $tidy;
             return $pageContent;
