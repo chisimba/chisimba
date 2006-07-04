@@ -111,7 +111,7 @@ class dbTable extends object
             $this->_db = $pearDb;
         }
 
-        $this->objDBConfig=&$this->getObject('dbconfig','config');
+        $this->objDBConfig=&$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
         //get the portability object instantiated
