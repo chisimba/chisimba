@@ -5,12 +5,12 @@
 *
 * The entry point into the KEWL application
 *
-* @author Sean Legassick
+* @author Paul Scott based on methods by Sean Legassick
 *
 */
 // checks for configuration file, if none found loads installation page
 if ( !file_exists( 'config/config.xml' ) ) {
-	header( 'Location: installer/index.php' );
+	header( 'Location: install/index.php' );
 	exit();
 }
 // this is a security measure, this can be checked by the included scripts and the script
