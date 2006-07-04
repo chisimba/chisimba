@@ -240,15 +240,15 @@ class engine
 
         // initialise member objects that *this object* is dependent on, and thus
         // must be created on every request
-        //the db config object
-        $this->_objDbConfig = $this->getObject('dbconfig', 'config');
+        //the config objects
+        //all configs now live in one place, referencing the config.xml file in the config directory
+        $this->_objDbConfig = $this->getObject('altconfig', 'config');
+        //and we need a general system config too
+        $this->_objConfig = $this->_objDbConfig;
         //initialise the db factory method of MDB2
         $this->getDbObj();
         //initialise the db factory method of MDB2_Schema
         $this->getDbManagementObj();
-        //get the system config stuff
-        //$this->_objConfig = $this->getObject('config', 'config');
-         $this->_objConfig = $this->getObject('altconfig', 'config');
         //the user security module
         $this->_objUser =& $this->getObject('user', 'security');
         //the language elements module
