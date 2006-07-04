@@ -61,6 +61,13 @@ class modulecatalogue extends controller
 	public $config;
 	
 	/**
+	 * object that reads a module's register.conf file
+	 *
+	 * @var object $objRegFile
+	 */
+	protected $objRegFile;
+	
+	/**
 	 * Standard initialisation function
 	 */
 	public function init() {
@@ -68,7 +75,9 @@ class modulecatalogue extends controller
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
-			$this->objLanguage = &$this->getObject('language','language');
+			// the class for reading register.conf files
+        	$this->objRegFile=$this->newObject('filereader','moduleadmin');
+        	$this->objLanguage = &$this->getObject('language','language');
 			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
 			$this->objModFile = &$this->getObject('modulefile','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
@@ -131,7 +140,7 @@ class modulecatalogue extends controller
     * class - which is where the SQL entries actually happen.
     * @author James Scoble
     * @param string $modname the module_id of the module to be used
-    * @returns string $regResult
+    * @return string $regResult
     */
     function registerModule($modname) {
     	try {
