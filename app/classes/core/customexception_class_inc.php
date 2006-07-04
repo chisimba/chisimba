@@ -22,6 +22,8 @@ class customException extends Exception
     function cleanUp()
     {
         // generic cleanup code here
+        //for now, we can output a message?
+        return "An exception has been encountered, please try again...";
     }
 }
 ?>
