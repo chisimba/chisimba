@@ -9,8 +9,8 @@
 *
 */
 // checks for configuration file, if none found loads installation page
-if ( !file_exists( 'config/altconfig_db_inc.php' ) ) {
-	header( 'Location: install/index.php' );
+if ( !file_exists( 'config/config.xml' ) ) {
+	header( 'Location: installer/index.php' );
 	exit();
 }
 // this is a security measure, this can be checked by the included scripts and the script
