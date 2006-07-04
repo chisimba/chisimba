@@ -343,7 +343,7 @@ class engine
             // no particular reason for it to be separate,
             // at which point the next two lines will be
             // redundant
-            $this->_objDbConfig =& $this->getObject('dbconfig', 'config');
+            $this->_objDbConfig =& $this->getObject('altconfig', 'config');
             // Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
