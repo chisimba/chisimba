@@ -114,18 +114,6 @@ class dbTable extends object
         $this->objDBConfig=&$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
-        //get the portability object instantiated
-        //we pass the dsn of the db object to the class via the engine->getDbObj() method
-        //This is not neccessary when using dbtableManager
-        //require_once('portability_class_inc.php');
-        //$this->_portability = new portability($this->_db);
-
-        //When creating tables it is neccessary to use the portability object.
-        //Once that is done, all should be Ok
-        /**
-         * @example portability_example.php
-         * @link portability_example.php
-         */
     }
 
     /**
@@ -251,10 +239,7 @@ class dbTable extends object
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         $rs = $this->query($sql);
-        //var_dump($rs);
-       // $line = $rs->fetchOne();
-       // return $line['rc'];
-       return $rs[0]['rc'];
+	    return $rs[0]['rc'];
     }
 
     /**
