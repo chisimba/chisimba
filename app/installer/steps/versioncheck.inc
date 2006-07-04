@@ -377,70 +377,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		// check PDO
-
-		if (!extension_loaded('PDO')) {
-
-			$this->required_settings['PDO']['available'] = false;
-
-			$this->required_settings['PDO']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'PDO not found.. You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['PDO']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
-		// check pdo_mysql
-
-		if (!extension_loaded('pdo_mysql')) {
-
-			$this->required_settings['pdo_mysql']['available'] = false;
-
-			$this->required_settings['pdo_mysql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'pdo_mysql not found. . You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['pdo_mysql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
-		// check pdo_pgsql
-
-		if (!extension_loaded('pdo_pgsql')) {
-
-			$this->required_settings['pdo_pgsql']['available'] = false;
-
-			$this->required_settings['pdo_pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'pdo_pgsql not found. . You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['pdo_pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
-		// check pdo_sqlite
-
-		if (!extension_loaded('pdo_sqlite')) {
-
-			$this->required_settings['pdo_sqlite']['available'] = false;
-
-			$this->required_settings['pdo_sqlite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'pdo_sqlite not found. . You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['pdo_sqlite']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
+		
 		// check pgsql
 
 		if (!extension_loaded('pgsql')) {
