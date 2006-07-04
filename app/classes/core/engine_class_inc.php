@@ -129,7 +129,7 @@ class engine
      * @access private
      * @var string
      */
-    private $_pageTemplate = 'default_page_xml.php';
+    private $_pageTemplate = 'default_page_tpl.php';
 
     /**
      * Has an error been generated?
@@ -1031,7 +1031,12 @@ class engine
     public function diePage()
     {
         $uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-        $message = "<a href=$uri><center><h1>Back</h1></center></a>";
+        $message = '<style type="text/css" media="screen">
+                    @import url("skins/echo/main.css");
+                 </style>
+        
+                <div class="featurebox"><h1> An Error has been encountered</h1>
+                 Please email your system log file to the Chisimba developers near you </div>';
         return $message;
     }
 

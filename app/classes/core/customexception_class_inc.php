@@ -23,7 +23,12 @@ class customException extends Exception
     {
         // generic cleanup code here
         //for now, we can output a message?
-        return "An exception has been encountered, please email your system log file to the Chisimba developers near you...";
+        return '<style type="text/css" media="screen">
+                    @import url("skins/echo/main.css");
+                 </style>
+        
+                <div class="featurebox"><h1> An Error has been encountered</h1>
+                 Please email your system log file to the Chisimba developers near you </div>';
     }
 }
 ?>
