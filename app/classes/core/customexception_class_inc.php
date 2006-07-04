@@ -16,14 +16,14 @@ class customException extends Exception
         //log the exception
     	log_debug($m);
     	//do the cleanup
-        $this->cleanUp($m);
+        $this->cleanUp();
     }
 
-    function cleanUp($m)
+    function cleanUp()
     {
         // generic cleanup code here
         //for now, we can output a message?
-        return $m; //"An exception has been encountered, please try again...";
+        return "An exception has been encountered, please email your system log file to the Chisimba developers near you...";
     }
 }
 ?>
