@@ -207,7 +207,7 @@ class SetupTypeAction extends FiveStepAction
 
 		// check existence of files. If the main.inc file exists, then this isn't a new install
 
-		if (file_exists($_SESSION['sys_root'].'/modules/config/main.xml')) {
+		if (file_exists($_SESSION['sys_root'].'/modules/config/config.xml')) {
 
 			$this->errors[] = 'It appears the selected system root ('.$_SESSION['sys_root'].') is an already existing 5ive install. '.
 
@@ -371,7 +371,7 @@ class SetupTypeAction extends FiveStepAction
 
 		$success = true;
 
-		$main_inc = $_SESSION['sys_root'].'/modules/config/main.xml';
+		$main_inc = $_SESSION['sys_root'].'/modules/config/config.xml';
 
 		// check existence of files. If the main.inc file exists, then this isn't a new install
 
@@ -415,11 +415,22 @@ class SetupTypeAction extends FiveStepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/setuptype.tpl');
 
-				
-
 		$inst_type = isset($_SESSION['install_type']) ? $_SESSION['install_type'] : $inst_type;
 
-		
+		if(file_exists($_SESSION['sys_root'].'/config/config.xml'))
+		{
+		   
+		    $hasConfigXML = TRUE;		   
+		   
+		    $disable = '';
+		    
+		} else { 
+		      
+		    $hasConfigXML = FALSE;
+		    
+		    $disable = ' DISABLED ';
+		     
+		}
 
 				
 
@@ -427,7 +438,7 @@ class SetupTypeAction extends FiveStepAction
 
 		
 
-			radio_button('type', 'install', 	$inst_type == 'install', '', '');
+			radio_button('type', 'install', 'TRUE', null, '');
 
 			$install = ob_get_contents();
 
@@ -435,7 +446,7 @@ class SetupTypeAction extends FiveStepAction
 
 			
 
-			radio_button('type', 'update', 	$inst_type == 'update', '', '');
+			radio_button('type', 'update', 	NULL, '', $disable);
 
 			$update = ob_get_contents();
 
@@ -443,7 +454,7 @@ class SetupTypeAction extends FiveStepAction
 
 			
 
-			radio_button('type', 'repair', 	$inst_type == 'repair', '', '');
+			radio_button('type', 'repair', NULL , '', $disable);
 
 			$repair = ob_get_contents();
 
