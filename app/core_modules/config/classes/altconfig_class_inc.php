@@ -1207,6 +1207,49 @@ class altconfig extends object
     	
     }
 
+    /**---------------- MIRRORING PROPERTIES -----------**/
+
+    /**
+     * Return's server name (used for dynamic mirroring)
+     */
+    public function serverName()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first 
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "KEWL_SERVERNAME");
+    	//finally unearth whats inside
+    	$serverName = $SettingsDirective->getContent();
+        if ($serverName!=null){
+            return $serverName;
+        } else {
+            return 'default';
+        }
+    }
+
+    /**
+     * Returns mirror webservice WSDL URL (in production will usually be a service
+     * on a non-standard port on the localhost)
+     * @return string WSDL URL
+     */
+    public function mirrorWsdlUrl()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first 
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "KEWL_MIRROR_WSDL_URL");
+    	//finally unearth whats inside
+    	$mirrorWsdlUrl = $SettingsDirective->getContent();
+        if ($mirrorWsdlUrl!= null) {
+            return $mirrorWsdlUrl;
+        } else {
+            return NULL;
+        }
+    
+	} # end of kngDbConfig class
+
     /**
     * The error callback function, defers to configured error handler
     *
