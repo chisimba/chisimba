@@ -6,7 +6,7 @@
 	<CATAGORY>Content Management System</CATAGORY>
 	<CATAGORY>WIKI</CATAGORY>
 	<CATAGORY>Survey</CATAGORY>
-  </catalog>
+ </catalog>
  	<MODULES>
 	 <MODULE_ID>modulecatalogue</MODULE_ID>
 	 <MODULE_NAME>Module Catalogue</MODULE_NAME>

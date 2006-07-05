@@ -224,8 +224,7 @@ class catalogueconfig extends object {
         			throw new Exception("Item can not be found ! {$pmodule}");	
         		}else{ 
        			$value = $SettingsDirective;
-       		    var_dump($value);
-        		return $value;
+       		   	return $value;
         		}
            
            
