@@ -1037,8 +1037,8 @@ class engine
                  </style>
 
                 <div class="featurebox"><h1> An Error has been encountered</h1>
-                 Please email your system log file to the Chisimba developers near you </div>';
-        $message .= '<a href='.$uri.'>Back</a>';
+                 Please email your system log file to the Chisimba developers near you ';
+        $message .= '<a href='.$uri.'>Back</a></div>';
         return $message;
     }
 
