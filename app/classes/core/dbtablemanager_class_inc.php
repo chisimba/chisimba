@@ -4,7 +4,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-require_once "lib/logging.php"; 
+require_once "lib/logging.php";
 
 /**
 * Class to encapsulate management operations on [a] database(s).
@@ -111,7 +111,7 @@ class dbTableManager extends object
         }
 
         //Load up the config object and get the servername
-        $this->objDBConfig=&$this->getObject('dbconfig','config');
+        $this->objDBConfig=&$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
         //call_user_func($var_dump, $this->_dbmanager);
@@ -264,7 +264,7 @@ class dbTableManager extends object
         }
 
     }
-    
+
      /**
      * drop an existing table
      *
@@ -313,7 +313,7 @@ class dbTableManager extends object
         return TRUE;
 
     }
-    
+
     /**
      * create a new database
      *
@@ -326,7 +326,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgCreateDatabase($db);
     	return $ret;
     }
-    
+
     /**
      * drop an existing database
      *
@@ -339,7 +339,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgDropDatabase($db);
     	return $ret;
     }
-    
+
      /**
      * list all databases
      *
@@ -351,7 +351,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListDatabases();
     	return $ret;
     }
-    
+
     /**
      * list all db users
      *
@@ -363,7 +363,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListUsers();
     	return $ret;
     }
-    
+
      /**
      * list all views in the current database
      *
@@ -375,7 +375,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListViews();
     	return $ret;
     }
-    
+
     /**
      * list all functions in the current database
      *
@@ -387,7 +387,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListFunctions();
     	return $ret;
     }
-    
+
     /**
      * list all tables in the current database
      *
@@ -399,7 +399,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListTables();
     	return $ret;
     }
-    
+
     /**
      * list all fields in a tables in the current database
      *
@@ -412,7 +412,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListTableFields($table);
     	return $ret;
     }
-    
+
      /**
      * get the stucture of a field into an array
      *
@@ -450,7 +450,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgCreateIndex($table, $name, $definition);
     	return $ret;
     }
-    
+
     /**
      * drop existing index
      *
@@ -464,7 +464,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgDropIndex($table, $name);
     	return $ret;
     }
-    
+
     /**
      * list all indexes in a table
      *
@@ -477,7 +477,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListTableIndexes($table);
     	return $ret;
     }
-    
+
     /**
      * create a constraint on a table
      *
@@ -505,7 +505,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgCreateConstraint($table, $name, $definition);
     	return $ret;
     }
-    
+
      /**
      * drop existing constraint
      *
@@ -519,7 +519,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgDropConstraint($table, $name);
     	return $ret;
     }
-    
+
      /**
      * list all constraints in a table
      *
@@ -532,7 +532,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListTableConstraints($table);
     	return $ret;
     }
-    
+
     /**
      * create sequence
      *
@@ -546,7 +546,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgCreateSequence($seq_name, $start);
     	return $ret;
     }
-    
+
     /**
      * drop existing sequence
      *
@@ -559,7 +559,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgDropSequence($name);
     	return $ret;
     }
-    
+
     /**
      * list all sequences in the current database
      *
@@ -571,7 +571,7 @@ class dbTableManager extends object
     	$ret = $this->_db->mgListSequences();
     	return $ret;
     }
-    
+
     /**
      * Log out and disconnect from the database.
      *
@@ -606,7 +606,7 @@ class dbTableManager extends object
     {
         return $this->_db->getDatabase();
     }
-    
+
     /**
      * return version information about the server
      *
@@ -618,7 +618,7 @@ class dbTableManager extends object
     {
         return $this->_db->getServerVersion($native);
     }
-    
+
     /**
      * alter an existing table
      *
