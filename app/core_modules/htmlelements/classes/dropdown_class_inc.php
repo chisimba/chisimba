@@ -99,7 +99,7 @@ class dropdown extends htmlbase
 		$str.=' class="'.$this->cssClass.'" ';
 	}	
 	if ($this->cssId) {
-            $str .= ' id="' . $this->cssId . '"';
+            $str .= ' id="' . $this->cssId . '" ';
         }
     if ($this->extra) {
         $str .= $this->extra;
