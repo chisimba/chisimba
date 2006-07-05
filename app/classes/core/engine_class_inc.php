@@ -218,7 +218,7 @@ class engine
      * @var object
      */
     private $_enableAccessControl = TRUE;
-    
+
     private $_altconfig = null;
 
     /**
@@ -350,7 +350,7 @@ class engine
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             $_globalObjDb = &MDB2::factory($this->_objDbConfig->getDsn());
-	    
+
 	    //Check for errors on the factory method
             if (PEAR::isError($_globalObjDb)) {
                 $this->_pearErrorCallback($_globalObjDb);
@@ -538,7 +538,7 @@ class engine
         }
         if (!file_exists($filename)) {
         	throw new customException("Could not load class $name from module $moduleName: filename $filename");
-            
+
         	//die ("Could not load class $name from module $moduleName: filename $filename");
         }
         $engine =& $this;
@@ -1033,9 +1033,10 @@ class engine
         $message = '<style type="text/css" media="screen">
                     @import url("skins/echo/main.css");
                  </style>
-        
+
                 <div class="featurebox"><h1> An Error has been encountered</h1>
                  Please email your system log file to the Chisimba developers near you </div>';
+        $message .= '<a href="$uri">Back</a>';
         return $message;
     }
 
