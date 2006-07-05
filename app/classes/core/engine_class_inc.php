@@ -934,10 +934,12 @@ class engine
                 .'alert("'.$this->javascript_escape($this->_errorMessage).'");'
                 .'</script>';
         }
-        foreach ($this->_messages as $msg) {
-            $str .= '<script language="JavaScript" type="text/javascript">'
-                .'alert("'.$this->javascript_escape($msg).'");'
-                .'</script>';
+        if(is_array($this->_messages)) {
+        	foreach ($this->_messages as $msg) {
+            	$str .= '<script language="JavaScript" type="text/javascript">'
+                	.'alert("'.$this->javascript_escape($msg).'");'
+                	.'</script>';
+        	}
         }
         echo $str;
     }
@@ -1036,7 +1038,7 @@ class engine
 
                 <div class="featurebox"><h1> An Error has been encountered</h1>
                  Please email your system log file to the Chisimba developers near you </div>';
-        $message .= '<a href="$uri">Back</a>';
+        $message .= '<a href='.$uri.'>Back</a>';
         return $message;
     }
 
