@@ -312,8 +312,9 @@ class sidemenu extends object
         $this->globalTable->addCell($moduleLink->show(), null, 'absmiddle');
 
         $this->globalTable->endRow();
+        print($moduleLink->show());
         
-        $this->globalNodes[] = array('text' => $moduleLink->show(), 'uri' => $this->uri($linkArray, $module));
+        $this->globalNodes[] = array('text' => $moduleName, 'uri' => $this->uri($linkArray, $module));
     }
 
     /**
