@@ -103,7 +103,7 @@ class checkBox extends htmlbase
             $str .= ' id="' . $this->cssId . '"';
     }
 	if($this->ischecked){
-		$str.=' checked';
+		$str.=' checked="checked" ';
 	}
 	if ($this->value) {
 	 	$str.= ' value="'.$this->value.'"';

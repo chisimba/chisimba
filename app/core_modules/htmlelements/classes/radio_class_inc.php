@@ -142,7 +142,7 @@ class radio extends htmlbase
             }
     
             if($this->selected==$opt){
-                $str.=' checked="true"';
+                $str.=' checked="checked"';
             }
             if($this->extra){
                 $str.=' '.$this->extra;
@@ -190,7 +190,7 @@ class radio extends htmlbase
             }
             
             if ($this->selected == $opt){
-                $str.=' checked';
+                $str.=' checked="checked" ';
             }
             
             if ($this->extra){
