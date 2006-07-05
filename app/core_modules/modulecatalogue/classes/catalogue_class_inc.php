@@ -30,9 +30,10 @@ class catalogue extends object {
     {
    		try {
     		$this->nodes = array();
-    	} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+    	} catch (customException $e) {
+			echo customException::cleanUp($e);
+    		exit();	
+        	
 		}
     }
     
@@ -45,15 +46,15 @@ class catalogue extends object {
     	try {
     		if (is_array($nodes)) {
     			foreach($nodes as $node) {
-    				array_push($this->nodes,$node);	
+    				$this->addNodes($node);	
     			}
     		} else {
     			array_push($this->nodes,$nodes);
     		}
-    	} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
-		}
+    	} catch (customException $e) {
+			echo customException::cleanUp($e);
+    		exit();	
+        }
     }
     
     /**
@@ -62,9 +63,9 @@ class catalogue extends object {
     public function clearNodes() {
     	try {
     		$this->nodes = array();
-    	} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+    	} catch (customException $e) {
+			echo customException::cleanUp($e);
+    		exit();	
 		}
     }
     
@@ -93,9 +94,9 @@ class catalogue extends object {
     		}
     		$str .='</ul>';
     		return $str;
-    	} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+    	} catch (customException $e) {
+			echo customException::cleanUp($e);
+    		exit();	
 		}
     }
 }

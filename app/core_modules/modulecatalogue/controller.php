@@ -75,6 +75,14 @@ class modulecatalogue extends controller
 	protected $objXML;
 	
 	/**
+     * The global error callback for altconfig errors
+     *
+     * @access public
+     * @var string
+    */
+    public $_errorCallback;
+	
+	/**
 	 * Standard initialisation function
 	 */
 	public function init() {
@@ -86,11 +94,13 @@ class modulecatalogue extends controller
         	$this->objRegFile=$this->newObject('filereader','moduleadmin');
         	$this->objLanguage = &$this->getObject('language','language');
 			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
-			$this->objModFile = &$this->getObject('modulefile','modulecatalogue');
+			$this->objModFile = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			$this->objSideMenu->addNodes($this->objModFile->getCategories());
+			$var = $this->objModFile->getConfigParam('CATAGORY','');
+			//var_dump($var);
+			$result=$this->objSideMenu->addNodes($var);
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();	
@@ -153,7 +163,7 @@ class modulecatalogue extends controller
     * @param string $modname the module_id of the module to be used
     * @return string $regResult
     */
-    function registerModule($modname) {
+    public function registerModule($modname) {
     	try {
     		$filepath = $this->objModFile->findRegisterFile($modname);
     		if ($filepath) // if there were no file it would be FALSE

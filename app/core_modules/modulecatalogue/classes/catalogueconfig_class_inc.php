@@ -74,7 +74,14 @@ class catalogueconfig extends object {
     */
     public $_errorCallback;
     
-    
+    /**
+	 * The site configuration object
+	 *
+	 * @var object $config
+	 */
+	public $config;
+	
+       
 	/**
     * Method to construct the class.
     */
@@ -83,9 +90,10 @@ class catalogueconfig extends object {
    		// instantiate object
         try{
         $this->_objPearConfig = new Config();
+        $this->objConfig = &$this->getObject('altconfig','config');
         }catch (Exception $e){
-        	$this->errorCallback ('Caught exception: '.$e->getMessage());
-        	exit();
+        $this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
         }
     }
     
@@ -107,7 +115,8 @@ class catalogueconfig extends object {
     	
     	try {
     		// read catalogue data and get reference to root
-    		if(!isset($this->_path)) $this->_path = "../resources";
+    	   		
+    		if(!isset($this->_path)) $this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
     		
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
     		
@@ -117,8 +126,8 @@ class catalogueconfig extends object {
     		return $this->_root;    		
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());	
-    		 exit();
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
     	}
 		
     }
@@ -141,17 +150,102 @@ class catalogueconfig extends object {
     	try {
     		$this->_options = array('name' => 'Settings');
     		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
-    		if(!isset($this->_path)) $this->_path = "../resources";
+    		if(!isset($this->_path)) $this->_path = "../resources/";
     		$this->_objPearConfig->writeConfig("{$path}catalogue.xml",$property, $this->_options);
     		//update the _root object
     		$this->readConfig('','XML');
     		return true;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
-    		 exit();
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
     	}
 		
     }
+    
+    /**
+    * Method to insert a catalogue category. 
+    *
+    * @var string $pmodule The module code of the module owning the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @var string $pvalue The value of the config parameter
+    * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
+    */
+    public function insertConfigParam($pname, $pmodule, $pvalue,$isAdminConfigurable)
+    {
+    	try {
+               
+            $this->$_catalogueconfigVars(array('MODULE' => $pmodule,
+                    'PNAME' => $pname,
+                    'VALUE' => $pvalue,
+                    'isADMINCONFIGURABLE'=>$isAdminConfigurable,
+                    'DATECREATED' => date("Y/m/d H:i:s")));
+            $resuts = $this->writeCatalogue($this->_sysconfigVars,'XML');
+            if ($resuts!=TRUE) {
+            	throw new Exception('Can not write file catalogue.xml');			
+			}else{
+				 return true;
+            }
+           
+    	}catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+    	}
+    } #function insertParam
+    
+    /**
+    * Method to get a system configuration parameter. 
+    *
+    * @var string $pmodule The module code of the module owning the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @return  string $value The value of the config parameter
+    */
+    public function getConfigParam($pmodule)
+    {
+    	try {
+    			//Read conf
+    			if (!isset($this->_property)) {
+    				$this->readCatalogue('','XML');
+    			}
+    			
+               //Lets get the parent node section first
+                
+        		$Settings =& $this->_root->getItem("section", "settings");
+        		//Now onto the directive node
+        		//check to see if one of them isset to search by
+        	    $Settings =& $Settings->getItem("section","catalog");
+        	    
+        	    // $Settings =& $Settings->getItem("section","group");
+        	    //var_dump($Settings);
+        		if(isset($pmodule))$SettingsDirective =& $Settings->getItem("directive", "{$pmodule}");
+        		$SettingsDirective =& $Settings->toArray();
+        		//finally unearth whats inside
+        		if (!$SettingsDirective) {
+        			throw new Exception("Item can not be found ! {$pmodule}");	
+        		}else{ 
+       			$value = $SettingsDirective;
+       		    var_dump($value);
+        		return $value;
+        		}
+           
+           
+    	}catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+    	}
+    } #function insertParam
+    
+    /**
+     * The error callback function, defers to configured error handler
+     *
+     * @param string $error
+     * @return void
+     */
+    public function errorCallback($exception)
+    {
+    	$this->_errorCallback = new ErrorException($exception,1,1,'catalogueconfig_class_inc.php');
+        echo $this->_errorCallback;
+    }
+    
 }
 ?>
