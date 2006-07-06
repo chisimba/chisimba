@@ -24,14 +24,16 @@ foreach ($modules as $modName => $details) {
 	$ucMod = ucwords($modName);
 	$icon->setModuleIcon($modName);
 	$icon->alt = $mod['description'];
-	if ($registered) {
-		$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
-		$instButtonShow = $instButton->show();
-	} else if ($details['hasRegFile']) {
-		$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
-		$instButtonShow = $instButton->show();
+	if ($this->objModFile->findRegisterFile($modName)) {
+		if (!$this->objModule->checkIfRegistered($modName, $modName)) {
+			$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+			$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
+			$instButtonShow = $instButton->show();
+		} else {
+			$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+			$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
+			$instButtonShow = $instButton->show();
+		}
 	} else {
 		$instButtonShow = '';
 	}
@@ -48,11 +50,11 @@ foreach ($modules as $modName => $details) {
 	$objTable->addCell($infoButton->show(),null,null,'left',$class);
 	$objTable->endRow();
 }
-
-if (isset($output)) {
+if (($output=$this->getSession('output'))!=null) {
 	$timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
 	$timeoutMsg->setMessage($output);
 	$notice = $timeoutMsg->show();
+	$this->unsetSession('output');
 }
 
 $content = $objH->show().$notice.$objTable->show();

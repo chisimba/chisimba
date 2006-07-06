@@ -119,7 +119,6 @@ class catalogueconfig extends object {
     		if(!isset($this->_path)) $this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
     		
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
-    		
     		if (PEAR::isError($this->_root)) {
     			throw new Exception('Can not read Catalogue');
     		}

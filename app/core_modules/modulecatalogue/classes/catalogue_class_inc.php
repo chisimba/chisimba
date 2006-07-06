@@ -45,7 +45,7 @@ class catalogue extends object {
     public function addNodes($nodes) {
     	try {
     		if (is_array($nodes)) {
-    			foreach($nodes as $node) {
+    			foreach($nodes as $node) {	
     				$this->addNodes($node);	
     			}
     		} else {

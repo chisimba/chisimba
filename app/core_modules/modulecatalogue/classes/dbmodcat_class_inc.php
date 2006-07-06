@@ -3,7 +3,6 @@
  * Class to facilitate connection to the module catalogue table
  * 
  * @author Nic Appleby
- * @package core
  * @version 1.0
  * @copyright GPL UWC 2006
  *
