@@ -15,6 +15,8 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * and calls approriate methods to kick the ball off)
 *
 * @author Paul Scott based on methods by Sean Legassick
+* @package core
+* @category chisimba
 *
 * $Id$
 */
