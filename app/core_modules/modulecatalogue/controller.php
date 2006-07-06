@@ -26,6 +26,13 @@ class modulecatalogue extends controller
 	protected $objModFile;
 	
 	/**
+	 * Object to read catalogue configuration
+	 *
+	 * @var object $objCatalogueConfig
+	 */
+	protected $objCatalogueConfig;
+	
+	/**
 	 * Side menu object
 	 *
 	 * @var object $objSideMenu
@@ -108,12 +115,13 @@ class modulecatalogue extends controller
         	$this->objLanguage = &$this->getObject('language','language');
         	$this->objModuleAdmin = &$this->getObject('modulesadmin');
 			$this->objModule = &$this->getObject('modules');
+			$this->objModFile = &$this->getObject('modulefile');
 			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
-			$this->objModFile = &$this->getObject('catalogueconfig','modulecatalogue');
+			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			//$var = $this->objModFile->getConfigParam('CATAGORY','');
+			$var = $this->objCatalogueConfig->getNavParam('catagory','');
 			$this->objSideMenu->addNodes($var);
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());

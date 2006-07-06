@@ -4,8 +4,7 @@ $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
 $notice = '';
-//$modules = $this->objDBModCat->getModules($activeCat);
-$modules = $this->objModFile->getModuleList($activeCat);//,$letter);
+$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
 $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');

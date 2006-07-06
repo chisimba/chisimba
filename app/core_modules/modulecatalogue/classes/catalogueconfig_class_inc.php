@@ -108,8 +108,7 @@ class catalogueconfig extends object {
     	try {
     		// read catalogue data and get reference to root
     	   		
-    		if(!isset($this->_path)) $this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
-    		
+    		$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
     		if (PEAR::isError($this->_root)) {
     			throw new Exception('Can not read Catalogue');
@@ -171,9 +170,11 @@ class catalogueconfig extends object {
 				$xmlOptions = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
 				
 				$xml = simplexml_load_file($this->_path);
-							
-				$query = "//module[modulecatagory='{$pname}']/module_id";
-				
+				if($pname !="all"){			
+				 $query = "//module[modulecatagory='{$pname}']/module_id";
+				}else{
+				  $query = "//module/module_id";
+				}
 				$entries = $xml->xpath($query);
 								
         		if (!$entries) {
