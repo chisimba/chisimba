@@ -17,6 +17,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 //grab the pear::Config properties
 // include class
 require_once 'Config.php';
+require_once 'XPath.class.php';
 
 
 class catalogueconfig extends object {
@@ -66,14 +67,7 @@ class catalogueconfig extends object {
      */
     protected $_catalogueconfigVars;
     
-    /**
-     * The global error callback for altconfig errors
-     *
-     * @access public
-     * @var string
-    */
-    public $_errorCallback;
-    
+        
     /**
 	 * The site configuration object
 	 *
@@ -170,21 +164,26 @@ class catalogueconfig extends object {
     * @var string $pvalue The value of the config parameter
     * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
     */
-    public function insertConfigParam($pname, $pmodule, $pvalue,$isAdminConfigurable)
+    public function getModulelist($pname)
     {
     	try {
-               
-            $this->$_catalogueconfigVars(array('MODULE' => $pmodule,
-                    'PNAME' => $pname,
-                    'VALUE' => $pvalue,
-                    'isADMINCONFIGURABLE'=>$isAdminConfigurable,
-                    'DATECREATED' => date("Y/m/d H:i:s")));
-            $resuts = $this->writeCatalogue($this->_sysconfigVars,'XML');
-            if ($resuts!=TRUE) {
-            	throw new Exception('Can not write file catalogue.xml');			
-			}else{
-				 return true;
-            }
+    			    		
+				$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+											
+				$xmlOptions = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
+				
+				$xml = simplexml_load_file($this->_path);
+							
+				$query = "//module[modulecatagory='{$pname}']/module_id";
+				
+				$entries = $xml->xpath($query);
+								
+        		if (!$entries) {
+        			throw new Exception("Item can not be found ! {$pmodule}");	
+        		}else{ 
+       			$value = $entries;
+       				return $value;
+        		}
            
     	}catch (Exception $e){
     		$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -199,11 +198,11 @@ class catalogueconfig extends object {
     * @var string $pname The name of the parameter being set, use UPPER_CASE
     * @return  string $value The value of the config parameter
     */
-    public function getConfigParam($pmodule)
+    public function getNavParam($pmodule)
     {
     	try {
     			//Read conf
-    			if (!isset($this->_property)) {
+    			if (!isset($this->_root)) {
     				$this->readCatalogue('','XML');
     			}
     			
@@ -213,9 +212,7 @@ class catalogueconfig extends object {
         		//Now onto the directive node
         		//check to see if one of them isset to search by
         	    $Settings =& $Settings->getItem("section","catalog");
-        	    
-        	    // $Settings =& $Settings->getItem("section","group");
-        	    //var_dump($Settings);
+        	         	  
         		if(isset($pmodule))$SettingsDirective =& $Settings->getItem("directive", "{$pmodule}");
         		$SettingsDirective =& $Settings->toArray();
         		//finally unearth whats inside
@@ -241,7 +238,7 @@ class catalogueconfig extends object {
      */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'catalogueconfig_class_inc.php');
+    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
         echo $this->_errorCallback;
     }
     

@@ -5,7 +5,7 @@ $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
 $notice = '';
 //$modules = $this->objDBModCat->getModules($activeCat);
-$modules = $this->objModFile->getModuleList($activeCat,$letter);
+$modules = $this->objModFile->getModuleList($activeCat);//,$letter);
 $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
@@ -18,7 +18,7 @@ $objTable->addHeader($head,'heading');
 $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
         
 $count = 0;
-foreach ($modules as $modName => $details) {
+foreach ($modules as $modName ) {
 	$class = ($count % 2 == 0)? 'even' : 'odd';
 	$count++;
 	$ucMod = ucwords($modName);
