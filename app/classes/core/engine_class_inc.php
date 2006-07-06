@@ -44,6 +44,12 @@ function globalPearErrorCallback($error) {
 class engine
 {
     /**
+     * Version Number of the software. (engine)
+     *
+     */
+    public $version = '1.0.0';
+
+	/**
      * Template variable
      *
      * @var string
