@@ -17,8 +17,6 @@ if (!$GLOBALS['kewl_entry_point_run']){
 //grab the pear::Config properties
 // include class
 require_once 'Config.php';
-require_once 'XPath.class.php';
-
 
 class catalogueconfig extends object {
 	
