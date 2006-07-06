@@ -10,6 +10,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * The class representing the modules table, handling all non-administrative
 * operations on the table.
 * @see modulesadmin class for administrative operations
+* @author Nic Appleby
 * @author Derek Keats 
 * @author Sean Legassick
 * @author Jeremy O'Connor
@@ -66,20 +67,20 @@ class modules extends dbTable
                 bridge_lang_to_mod.codeDesc = tbl_languagetexts_desc.code ";
          */
         // JAMES: The triple join is no longer needed. Only tbl_modules and tbl_languagetexts are needed.
-        $sql = "SELECT module_id, module_path from tbl_modules ";
         switch ($getType) {
             case GET_USERVISIBLE:
-                $sql .= "WHERE tbl_modules.isVisible=1 AND tbl_modules.isAdmin!=1 ";
+                $filter = "WHERE tbl_modules.isVisible=1 AND tbl_modules.isAdmin!=1 ";
                 break;
             case GET_VISIBLE:
-                $sql .= "WHERE tbl_modules.isVisible=1 ";
+                $filter = "WHERE tbl_modules.isVisible=1 ";
                 break;
             case GET_ALL:
+            	$filter = '';
                 break;
             default:
                 die("Invalid getType in modules::getModules");
         } 
-        $sql .= "ORDER BY module_id";
+        $filter .= "ORDER BY module_id";
         $modules = $this->getArray($sql);
         $_modules = array();
         foreach ($modules as $module) {
