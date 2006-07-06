@@ -49,3 +49,4 @@ class xmlserial extends object
     }
     
 }
+?>
