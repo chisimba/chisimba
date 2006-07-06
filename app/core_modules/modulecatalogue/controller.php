@@ -82,14 +82,6 @@ class modulecatalogue extends controller
 	protected $output;
 	
 	/**
-     * The global error callback for altconfig errors
-     *
-     * @access public
-     * @var string
-    */
-    public $_errorCallback;
-	
-	/**
 	 * Standard initialisation function
 	 */
 	public function init() {
@@ -100,7 +92,7 @@ class modulecatalogue extends controller
 			// the class for reading register.conf files
         	$this->objRegFile = &$this->newObject('filereader','moduleadmin');
         	$this->objLanguage = &$this->getObject('language','language');
-        	$this->objModule = &$this->getObject('modulesadmin','moduleadmin');
+        	$this->objModule = &$this->getObject('modulesadmin');
 			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
 			$this->objModFile = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');

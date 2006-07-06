@@ -101,7 +101,7 @@ class contextadminutils extends object {
         $this->objDBContentNodes = &$this->getObject('dbcontentnodes', 'context');
         $this->objConfig = &$this->getObject('config', 'config');
         $this->Table = &$this->getObject('htmltable', 'htmlelements');        
-        $this->objModule=& $this->getObject('modulesadmin','modulelist');  
+        $this->objModule=& $this->getObject('modules','modulecatalogue');  
         $this->loadClass('checkbox','htmlelements');
         $this->objConfirm=&$this->newObject('confirm','utilities');
         $this->objExportContent = & $this->newObject('export','contextadmin');
@@ -215,9 +215,8 @@ class contextadminutils extends object {
     * @return array
     */
     function getUserContext(){
-        $objModuleAdmin = & $this->newObject('modulesadmin', 'modulelist');
         $where = 'WHERE (isClosed <> 1 OR isNull(isClosed)) AND (isNull(isActive) OR isActive=1)';
-        if($objModuleAdmin->checkIfRegistered('contextgroups', 'contextgroups'))
+        if($this->objModule->checkIfRegistered('contextgroups', 'contextgroups'))
         {
             $group = & $this->newObject('managegroups', 'contextgroups');
             $codes = $group->userContextCodes($this->objUser->userId());

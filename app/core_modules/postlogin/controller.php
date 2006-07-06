@@ -35,7 +35,7 @@ class postlogin extends controller
         // Create an instance of the user object
         $this->objUser = &$this->getObject('user', 'security');
         // Create an instance of the module object
-        $this->objModule = &$this->getObject('modulesadmin', 'modulelist');
+        $this->objModule = &$this->getObject('modules', 'modulecatalogue');
         // Create an instance of the buttons object
         $this->objButtons = &$this->getObject('navbuttons', 'navigation');
         // Create an instance of the language object

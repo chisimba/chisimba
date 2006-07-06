@@ -77,6 +77,7 @@ $cssLayout->setRightColumnContent($rightSideColumn);
 
 // Create the middle template area
 if($this->objModule->checkIfRegistered('stories','stories')){
+	$this->objStories = $this->getObject('sitestories','stories');
     $cnt = $this->objStories->fetchCategory($storyCategory)
       . $this->objStories->putCategoryChooser();
     $cssLayout->setMiddleColumnContent($cnt);

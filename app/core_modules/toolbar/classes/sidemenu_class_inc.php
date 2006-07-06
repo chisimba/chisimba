@@ -322,7 +322,7 @@ class sidemenu extends object
     */
     function joinContext()
     {
-        $objModule =& $this->getObject('modulesadmin','modulelist');
+        $objModule =& $this->getObject('modules','modulecatalogue');
         $contextAdminUtils =& $this->getObject('contextadminutils','contextadmin');
         $objForm =& $this->newObject('form','htmlelements');
         $objButton =& $this->newObject('button','htmlelements');

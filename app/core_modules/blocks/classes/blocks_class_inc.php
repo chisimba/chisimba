@@ -36,7 +36,7 @@ class blocks extends object
         //Create an instance of the modulesadmin class for checking
         // if a module is registered
         try {
-        	$this->objModule=&$this->getObject('modulesadmin','modulelist');
+        	$this->objModule=&$this->getObject('modules','modulecatalogue');
         }
         catch (customException $e)
         {

@@ -124,7 +124,7 @@ class sitestories extends dbTable {
         $objStIcon = $this->newObject('geticon', 'htmlelements');
 
         //Create an instance of the modulesadmin to check if registered
-        $this->objModule=&$this->getObject('modulesadmin','modulelist');
+        $this->objModule=&$this->getObject('modules','modulecatalogue');
         if ($this->objModule->checkIfRegistered('comment', 'comment')){
             //Create an instance of the comment link
             $objComment = & $this->getObject('commentinterface', 'comment');

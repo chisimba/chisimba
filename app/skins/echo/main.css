@@ -13,7 +13,7 @@ http://creativecommons.org/licenses/GPL/2.0/
 
 /* THE BIG GUYS */
 * {margin:0;padding:0}
-body {min-width:770px;max-width:1200px;margin: 0 auto;padding: 0 0 20px;background: #fff url("images/body_bg.gif") repeat-x 0  100%;color:#333;font:83%/1.5 arial,tahoma,verdana,sans-serif}
+body {min-width:770px;max-width:1200px;margin: 0 auto;padding: 0 0 20px;background: #fff url("images/body_bg.gif") repeat-x 0 100%;color:#333;font:83%/1.5 arial,tahoma,verdana,sans-serif}
 
 /* LINKS */
 a,a:link,a:link,a:link,a:hover {background:transparent;text-decoration:underline;cursor:pointer} 

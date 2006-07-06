@@ -84,9 +84,9 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-
+    
     /**
-     * Mthod to check whether a module dependency is registered
+     * Method to check whether a module dependency is registered
      *
      * @param string $moduleId the id of the dpendency
      * @return TRUE|FALSE
