@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Abstract class to handle the search queries
+ *
+ * @abstract
+ * @copyright AVOIR UWC
+ * @author Paul Scott
+ */
 abstract class lucenesearchquery
 {
 
