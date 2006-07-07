@@ -4,8 +4,10 @@
  * Class that extends the SPL to handle exceptions in a custom way
  *
  * @author Paul Scott
+ * @category Chisimba
  * @package core
- * @copyright AVOIR GNU/GPL
+ * @copyright AVOIR
+ * @licence GNU/GPL
  */
 
 class customException extends Exception
@@ -17,6 +19,7 @@ class customException extends Exception
     	log_debug($m);
     	//do the cleanup
         $this->cleanUp();
+        //send out the pretty error page
 		$this->diePage();
     }
 
