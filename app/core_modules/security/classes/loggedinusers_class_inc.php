@@ -38,16 +38,16 @@ class loggedInUsers extends object
         // ---- Drop old logins just in case any persist by accident
         $sql="DELETE FROM tbl_loggedinusers
         WHERE userId = '".$userId."' and ((NOW()-WhenLastActive)>'".$this->systemTimeOut."')";
-        if ( DB::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
-            die($this->reportError("error_db_cannotexecutequery", DB::errorMessage($globalObjDb).'<br>SQL: '.$sql));
+        if ( MDB2::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
+            die($this->reportError("error_db_cannotexecutequery", MDB2::errorMessage($globalObjDb).'<br>SQL: '.$sql));
         }
         $sql="INSERT INTO tbl_loggedinusers
              (userId, ipAddress, sessionId,whenLoggedIn,
              WhenLastActive, isInvisible, coursecode, themeUsed)
              VALUES ('".$userId."', '".$ip_address."', '".$sessid."', NOW(), NOW(), '"
              .$isinvisible."', '".$coursecode."', '".$theme."')";
-        if ( DB::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
-           die($this->reportError("error_db_cannotexecutequery", DB::errorMessage($globalObjDb).'<br>SQL: '.$sql));
+        if ( MDB2::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
+           die($this->reportError("error_db_cannotexecutequery", MDB2::errorMessage($globalObjDb).'<br>SQL: '.$sql));
         }
     }
 
@@ -62,8 +62,8 @@ class loggedInUsers extends object
    function doLogout($userId) {
        $globalObjDb=&$this->objEngine->getDbObj();
        $sql="DELETE FROM tbl_loggedinusers WHERE userId='".$userId."' and sessionId ='".session_id()."'";
-       if ( DB::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
-           die($this->reportError("error_db_cannotexecutequery", DB::errorMessage($globalObjDb).'<br>SQL: '.$sql));
+       if ( MDB2::isError( $globalObjDb->query( $sql ) ) ) {        #trap errors
+           die($this->reportError("error_db_cannotexecutequery", MDB2::errorMessage($globalObjDb).'<br>SQL: '.$sql));
        }
    }
 
@@ -91,11 +91,11 @@ class loggedInUsers extends object
        $timeActive=0;
        $sql="SELECT (WhenLastActive - whenLoggedIn)/100 AS activeTime FROM
          tbl_loggedinusers WHERE userId='".$userId."' and sessionId='".session_id()."'";
-       if (DB::isError($globalObjDb)) {                                 #connect error
+       if (MDB2::isError($globalObjDb)) {                                 #connect error
            die ($this->reportError("error_db_cannotconnect", $globalObjDb->getMessage()));
        }
-       if ( DB::isError( $rs = $globalObjDb->query( $sql ) ) ) {        #recordset error
-           die($this->reportError("error_db_cannotexecutequery", DB::errorMessage($globalObjDb).'<br>SQL: '.$sql));
+       if ( MDB2::isError( $rs = $globalObjDb->query( $sql ) ) ) {        #recordset error
+           die($this->reportError("error_db_cannotexecutequery", MDB2::errorMessage($globalObjDb).'<br>SQL: '.$sql));
        } else if ($rs) {
            $line = $rs->fetchRow();
            $timeActive=intval($line['activeTime']);
@@ -111,8 +111,8 @@ class loggedInUsers extends object
         $globalObjDb=&$this->objEngine->getDbObj();           # make the connection string available
         //Connect to database using PEAR DB and return recordset
         $sql="SELECT COUNT(id) AS usercount FROM tbl_loggedinusers";
-        if ( DB::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #trap errors
-            die(DB::errorMessage($rs).'<br>SQL: '.$sql);
+        if ( MDB2::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #trap errors
+            die(MDB2::errorMessage($rs).'<br>SQL: '.$sql);
         }
         $line = $rs->fetchRow();
         return $line[0];
@@ -127,8 +127,8 @@ class loggedInUsers extends object
         $globalObjDb=&$this->objEngine->getDbObj();          # make the connection string available
         //Connect to database using PEAR DB and return recordset
         $sql="SELECT ((NOW()-WhenLastActive)/100) AS inactiveTime FROM tbl_loggedinusers WHERE userId='".$userId."' and sessionId='".session_id()."'";
-        if ( DB::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #trap errors
-            die(DB::errorMessage($rs).'<br>SQL: '.$sql);
+        if ( MDB2::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #trap errors
+            die(MDB2::errorMessage($rs).'<br>SQL: '.$sql);
         }
         $line = $rs->fetchRow();
         if (isset($line['inactiveTime'])){
@@ -167,8 +167,8 @@ class loggedInUsers extends object
     {
         $globalObjDb=&$this->objEngine->getDbObj();
         $sql="SELECT COUNT(userId) as isOnLine from tbl_loggedinusers WHERE userId='$userId'";
-        if ( DB::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #recordset error
-            die($this->reportError("error_db_cannotexecutequery", DB::errorMessage($globalObjDb).'<br>SQL: '.$sql, FALSE));
+        if ( MDB2::isError( $rs=$globalObjDb->query( $sql ) ) ) {        #recordset error
+            die($this->reportError("error_db_cannotexecutequery", MDB2::errorMessage($globalObjDb).'<br>SQL: '.$sql, FALSE));
         }
         $line = $rs->fetchRow();
         if ($line['isOnLine']>0){
