@@ -20,23 +20,23 @@ class modulesadmin extends dbTableManager
 	/**
 	 * Current module ID
 	 *
-	 * @var string $MODULE_ID
+	 * @var string $module_id
 	 */
-	private $MODULE_ID; 
+	private $module_id; 
     
 	/**
 	 * Current module's name
 	 *
-	 * @var string $MODULE_NAME
+	 * @var string $module_name
 	 */
-	private $MODULE_NAME;
+	private $module_name;
 	
 	/**
 	 * Descritpion of current module
 	 *
-	 * @var string $MODULE_DESCRIPTION
+	 * @var string $module_description
 	 */
-    private $MODULE_DESCRIPTION;
+    private $module_description;
 
     /**
      * Object interface to TableInfo class
@@ -115,9 +115,9 @@ class modulesadmin extends dbTableManager
             } else            {
                 return FALSE; // If we can't find the name of the module we're supposed to be registering, what are we doing here?
             }
-            $this->MODULE_ID=$registerdata['MODULE_ID'];
-            $this->MODULE_NAME=$registerdata['MODULE_NAME'];
-            $this->MODULE_DESCRIPTION=$registerdata['MODULE_DESCRIPTION'];
+            $this->module_id=$registerdata['MODULE_ID'];
+            $this->module_name=$registerdata['MODULE_NAME'];
+            $this->module_description=$registerdata['MODULE_DESCRIPTION'];
     		$this->objModules->beginTransaction();
     
             //If the module already exists, do not register it, else register it
@@ -692,7 +692,7 @@ class modulesadmin extends dbTableManager
         	$this->objKeyMaker=&$this->newObject('primarykey');
         	$this->objTableInfo=&$this->newObject('tableinfo');
         	if ($moduleId=='NONE'){
-        		$moduleId=$this->MODULE_ID;
+        		$moduleId=$this->module_id;
         	}
         	$this->objTableInfo->tablelist();
         	if ($this->objTableInfo->checktable($table))
@@ -727,7 +727,7 @@ class modulesadmin extends dbTableManager
     private function loadData($tablefile,$moduleId='NONE')
     {
         if ($moduleId=='NONE'){
-            $moduleId=$this->MODULE_ID;
+            $moduleId=$this->module_id;
         }
         $sqlfile=$this->objConfig->siteRootPath().'/modules/'.$moduleId.'/'.$tablefile.'.sql';
         if (!file_exists($sqlfile)){
@@ -776,8 +776,8 @@ class modulesadmin extends dbTableManager
     */
     private function registerModuleLanguageElements() {
     	try { 
-    		$modTitle="mod_".$this->MODULE_ID."_name";
-    		$modDescription="mod_".$this->MODULE_ID."_desc";
+    		$modTitle="mod_".$this->module_id."_name";
+    		$modDescription="mod_".$this->module_id."_desc";
     		$this->objModules->beginTransaction();
     		$this->objModules->delete('id',$modTitle,'tbl_en');
     		$this->objModules->delete('id',$modDescription,'tbl_en');
@@ -785,14 +785,14 @@ class modulesadmin extends dbTableManager
     		$this->objModules->delete('code',$modDescription,'tbl_languagetext');
     		$userId = $this->objUser->userId();
     		$time = $this->objModules->now();
-    		$titleArray = array('id'=>$modTitle,'en'=>addslashes($this->MODULE_NAME),'pageid'=>addslashes($this->MODULE_ID),'isInNextGen'=>true,
+    		$titleArray = array('id'=>$modTitle,'en'=>addslashes($this->module_name),'pageid'=>addslashes($this->module_id),'isInNextGen'=>true,
     				'dateCreated'=>$time,'creatorUserId'=>$userId,'dateLastModified'=>$time,'modifiedByUserId'=>$userId);
-    		$descArray = array('id'=>$modDescription,'en'=>addslashes($this->MODULE_DESCRIPTION),'pageid'=>addslashes($this->MODULE_ID),'isInNextGen'=>true,
+    		$descArray = array('id'=>$modDescription,'en'=>addslashes($this->module_description),'pageid'=>addslashes($this->module_id),'isInNextGen'=>true,
     				'dateCreated'=>$time,'creatorUserId'=>$userId,'dateLastModified'=>$time,'modifiedByUserId'=>$userId);
     		$this->objModules->insert($titleArray,'tbl_en');
     		$this->objModules->insert($descArray,'tbl_en');
-    		$this->objModules->insert(array('code'=>$modTitle,'description'=>$this->MODULE_NAME),'tbl_languagetext');
-    		$this->objModules->insert(array('code'=>$modDescription,'description'=>$this->MODULE_DESCRIPTION),'tbl_languagetext');
+    		$this->objModules->insert(array('code'=>$modTitle,'description'=>$this->module_name),'tbl_languagetext');
+    		$this->objModules->insert(array('code'=>$modDescription,'description'=>$this->module_description),'tbl_languagetext');
     		$this->objModules->commitTransaction();
     	} catch (customException $e) {
     		$this->objModules->rollbackTransaction();
@@ -811,7 +811,7 @@ class modulesadmin extends dbTableManager
         	$terms_arr=explode(',', $terms);
         	$this->objModules->beginTransaction();
         	foreach ($terms_arr as $term) {
-        		$this->objModules->insert(array('module_id$'=>$this->MODULE_ID,'code'=>$term),'tbl_language_modules');
+        		$this->objModules->insert(array('module_id$'=>$this->module_id,'code'=>$term),'tbl_language_modules');
         	}
         	$this->objModules->commitTransaction();
         } catch (Exception $e) {
@@ -950,7 +950,7 @@ class modulesadmin extends dbTableManager
     		$this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
     		$uid = $this->objUser->userId();
     		$now = $this->objModules->now();
-    		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$this->MODULE_ID,'isInNextgen'=>true,
+    		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$this->module_id,'isInNextgen'=>true,
     				'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
     		$this->objModules->insert($enArray,'tbl_en');
     		$this->objModules->commitTransaction();
