@@ -14,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Derek Keats 
 * @author Sean Legassick
 * @author Jeremy O'Connor
-$Id$ 
+* @version $Id$ 
 */
 
 // Constants for $getType parameter of getModules
