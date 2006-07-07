@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="catalogue.xsd">
-<catalog>
-  	 <catagory>Groups</catagory>
-	<catagory>e-Learn</catagory>
-	<catagory>Content Management System</catagory>
-	 <catagory>WIKI</catagory>
-	 <catagory>Survey</catagory>
- </catalog> 	 
+<catalogue>
+  	<category>Groups</category>
+	<category>e-Learn</category>
+	<category>Content Management System</category>
+	<category>WIKI</category>
+	<category>Survey</category>
+</catalogue> 	 
     <module>
         <id>181</id>
         <module_id>decisiontable</module_id>
@@ -58,10 +58,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-        <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+        <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+        <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>5</id>
@@ -166,7 +166,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>	
+        <modulecategory>e-Learn</modulecategory>	
     </module>
     <module>
         <id>13</id>
@@ -180,10 +180,10 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>14</id>
@@ -197,10 +197,10 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>15</id>
@@ -214,10 +214,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>16</id>
@@ -231,10 +231,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>17</id>
@@ -248,10 +248,10 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>18</id>
@@ -265,10 +265,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>19</id>
@@ -282,10 +282,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>20</id>
@@ -299,10 +299,10 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>21</id>
@@ -485,9 +485,9 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>90</id>
@@ -501,10 +501,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>36</id>
@@ -518,10 +518,10 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>184</id>
@@ -548,15 +548,13 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
-         <modulecatagory>WIKI</modulecatagory>
-		 <modulecatagory>Survey</modulecatagory>
-		 <modulecatagory>Groups</modulecatagory>
-	<catagory>e-Learn</catagory>
-	<catagory>Content Management System</catagory>
-	 <modulecatagory>WIKI</modulecatagory>
-	 <modulecatagory>Survey</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
+         <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Survey</modulecategory>
+		 <modulecategory>Groups</modulecategory>
+		 <modulecategory>WIKI</modulecategory>
+	 <modulecategory>Survey</modulecategory>
     </module>
     <module>
         <id>44</id>
@@ -570,7 +568,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>42</id>
@@ -584,7 +582,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>43</id>
@@ -598,7 +596,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>45</id>
@@ -612,7 +610,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>46</id>
@@ -626,7 +624,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>47</id>
@@ -640,8 +638,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>48</id>
@@ -655,8 +653,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>49</id>
@@ -683,7 +681,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>53</id>
@@ -697,7 +695,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>54</id>
@@ -724,7 +722,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>104</id>
@@ -738,8 +736,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>57</id>
@@ -779,8 +777,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>60</id>
@@ -794,7 +792,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
         
     </module>
     <module>
@@ -809,7 +807,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>62</id>
@@ -823,8 +821,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>63</id>
@@ -838,8 +836,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>64</id>
@@ -866,8 +864,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>66</id>
@@ -881,8 +879,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>68</id>
@@ -896,7 +894,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>69</id>
@@ -910,7 +908,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>71</id>
@@ -924,8 +922,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-        <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>72</id>
@@ -939,8 +937,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>73</id>
@@ -954,8 +952,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>96</id>
@@ -969,8 +967,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>75</id>
@@ -984,8 +982,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>76</id>
@@ -999,8 +997,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>77</id>
@@ -1014,8 +1012,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>78</id>
@@ -1029,8 +1027,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>79</id>
@@ -1044,8 +1042,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>80</id>
@@ -1059,8 +1057,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>82</id>
@@ -1074,7 +1072,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>83</id>
@@ -1088,7 +1086,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>84</id>
@@ -1115,8 +1113,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>183</id>
@@ -1143,8 +1141,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>89</id>
@@ -1158,8 +1156,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>94</id>
@@ -1173,8 +1171,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>97</id>
@@ -1201,8 +1199,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>100</id>
@@ -1216,8 +1214,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>101</id>
@@ -1231,7 +1229,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>102</id>
@@ -1271,7 +1269,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>106</id>
@@ -1285,7 +1283,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>107</id>
@@ -1299,7 +1297,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>108</id>
@@ -1313,8 +1311,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>109</id>
@@ -1328,8 +1326,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>110</id>
@@ -1395,8 +1393,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>115</id>
@@ -1410,8 +1408,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>116</id>
@@ -1425,7 +1423,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>117</id>
@@ -1439,7 +1437,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>118</id>
@@ -1453,7 +1451,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>119</id>
@@ -1467,7 +1465,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>120</id>
@@ -1481,7 +1479,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>121</id>
@@ -1495,7 +1493,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>122</id>
@@ -1561,8 +1559,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>127</id>
@@ -1576,7 +1574,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>128</id>
@@ -1590,7 +1588,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>129</id>
@@ -1604,7 +1602,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>130</id>
@@ -1644,7 +1642,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>133</id>
@@ -1671,7 +1669,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>135</id>
@@ -1737,8 +1735,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>140</id>
@@ -1752,8 +1750,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>141</id>
@@ -1780,7 +1778,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>143</id>
@@ -1807,7 +1805,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>145</id>
@@ -1821,7 +1819,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>146</id>
@@ -1835,7 +1833,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>147</id>
@@ -1849,8 +1847,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>148</id>
@@ -1864,8 +1862,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>149</id>
@@ -1879,8 +1877,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>150</id>
@@ -1894,8 +1892,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>Groups</modulecategory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>151</id>
@@ -1909,7 +1907,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>152</id>
@@ -1923,7 +1921,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>153</id>
@@ -1937,7 +1935,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>154</id>
@@ -1951,7 +1949,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>155</id>
@@ -1965,7 +1963,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>156</id>
@@ -1979,7 +1977,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>158</id>
@@ -1993,7 +1991,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>159</id>
@@ -2020,7 +2018,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>161</id>
@@ -2034,7 +2032,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>162</id>
@@ -2048,7 +2046,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>163</id>
@@ -2088,7 +2086,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>166</id>
@@ -2102,7 +2100,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>167</id>
@@ -2116,7 +2114,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>168</id>
@@ -2156,7 +2154,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>171</id>
@@ -2196,7 +2194,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>174</id>
@@ -2210,7 +2208,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>175</id>
@@ -2224,8 +2222,8 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-          <modulecatagory>Groups</modulecatagory>
-         <modulecatagory>e-Learn</modulecatagory>
+        <modulecategory>Groups</modulecategory>
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>176</id>
@@ -2239,8 +2237,8 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-          <modulecatagory>Groups</modulecatagory>
-          <modulecatagory>e-Learn</modulecatagory>
+          <modulecategory>Groups</modulecategory>
+          <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>177</id>
@@ -2254,7 +2252,7 @@
         <hasAdminPage>1</hasAdminPage>
         <isContextAware>1</isContextAware>
         <dependsContext>1</dependsContext>
-         <modulecatagory>e-Learn</modulecatagory>
+         <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>178</id>

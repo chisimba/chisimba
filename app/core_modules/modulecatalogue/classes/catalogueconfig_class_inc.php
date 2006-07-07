@@ -167,7 +167,7 @@ class catalogueconfig extends object {
 								
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){			
-				 $query = "//module[modulecatagory='{$pname}']/module_id";
+				 $query = "//module[modulecategory='{$pname}']/module_id";
 				}else{
 				  $query = "//module/module_id";
 				}
@@ -206,7 +206,7 @@ class catalogueconfig extends object {
         		$Settings =& $this->_root->getItem("section", "settings");
         		//Now onto the directive node
         		//check to see if one of them isset to search by
-        	    $Settings =& $Settings->getItem("section","catalog");
+        	    $Settings =& $Settings->getItem("section","catalogue");
         	         	  
         		if(isset($pmodule))$SettingsDirective =& $Settings->getItem("directive", "{$pmodule}");
         		$SettingsDirective =& $Settings->toArray();

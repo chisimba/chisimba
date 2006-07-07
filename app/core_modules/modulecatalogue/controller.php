@@ -121,7 +121,7 @@ class modulecatalogue extends controller
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			$var = $this->objCatalogueConfig->getNavParam('catagory','');
+			$var = $this->objCatalogueConfig->getNavParam('category','');
 			$this->objSideMenu->addNodes($var);
 
 		} catch (Exception $e) {
@@ -272,8 +272,7 @@ class modulecatalogue extends controller
      * @param string $exception
      * @return void
      */
-    public function errorCallback($exception)
-    {
+    public function errorCallback($exception) {
     	echo customException::cleanUp($exception);
     }
     
