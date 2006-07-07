@@ -13,11 +13,11 @@ $objTable->cellpadding = 2;
 $head = array(' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue','modname'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','instal'),$this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue','txt'),
 			$this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue','inf0'));
-$objTable->addHeader($head,'heading');
-$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
         
 $count = 0;
 if ($modules) {
+	$objTable->addHeader($head,'heading');
+	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
 	foreach ($modules as $modName ) {
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
