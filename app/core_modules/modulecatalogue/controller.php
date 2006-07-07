@@ -123,6 +123,7 @@ class modulecatalogue extends controller
 			$this->objSideMenu->addNodes(array('updates','all'));
 			$var = $this->objCatalogueConfig->getNavParam('catagory','');
 			$this->objSideMenu->addNodes($var);
+
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();	

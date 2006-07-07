@@ -154,21 +154,17 @@ class catalogueconfig extends object {
     }
     
     /**
-    * Method to insert a catalogue category. 
+    * Method to get modulelist for catalogue categories. 
     *
-    * @var string $pmodule The module code of the module owning the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @var string $pvalue The value of the config parameter
-    * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
+    * @var string $pname The name of the parameter being set
+    * @return  $value
     */
     public function getModulelist($pname)
     {
     	try {
     			    		
 				$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
-											
-				$xmlOptions = array(XML_OPTION_CASE_FOLDING => TRUE, XML_OPTION_SKIP_WHITE => TRUE);
-				
+								
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){			
 				 $query = "//module[modulecatagory='{$pname}']/module_id";
@@ -178,7 +174,7 @@ class catalogueconfig extends object {
 				$entries = $xml->xpath($query);
 								
         		if (!$entries) {
-        			throw new Exception("Item can not be found ! {$pmodule}");	
+        			return FALSE;
         		}else{ 
        			$value = $entries;
        				return $value;
@@ -237,8 +233,8 @@ class catalogueconfig extends object {
      */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
-        echo $this->_errorCallback;
+    	echo customException::cleanUp($e);
+    	exit();	
     }
     
 }
