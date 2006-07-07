@@ -111,7 +111,7 @@ class catalogueconfig extends object {
     		$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
     		if (PEAR::isError($this->_root)) {
-    			throw new Exception('Can not read Catalogue');
+    			throw new Exception('Can not read Catalogue.Please make sure that your site_path is set correctly');
     		}
     		return $this->_root;    		
     	}catch (Exception $e)
@@ -212,7 +212,7 @@ class catalogueconfig extends object {
         		$SettingsDirective =& $Settings->toArray();
         		//finally unearth whats inside
         		if (!$SettingsDirective) {
-        			throw new Exception("Item can not be found ! {$pmodule}");	
+        			throw new Exception("Catalogue Navigation items are missing! {$pmodule}");	
         		}else{ 
        			$value = $SettingsDirective;
        		   	return $value;
