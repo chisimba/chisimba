@@ -83,7 +83,7 @@ class logactivity extends dbTable
          $this->objUser = & $this->getObject('user', 'security');
          //  Get an instance of hte modulesadmin class to check if 
          //  the logging module is registered
-         $this->objMod = & $this->getObject('modulesadmin', 'modulelist');
+         $this->objMod = & $this->getObject('modules', 'modulecatalogue');
     } #function init
     
     /**
