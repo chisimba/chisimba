@@ -32,9 +32,9 @@ class register extends object
     */
     function init()
     {
-        $this->objFileReader =& $this->getObject('filereader', 'moduleadmin');
-        $this->objModules =& $this->getObject('modules', 'modulelist');
-        $this->objModulesAdmin =& $this->getObject('modulesadmin', 'modulelist');
+        $this->objFileReader =& $this->getObject('filereader', 'modulecatalogue');
+        $this->objModules =& $this->getObject('modules', 'modulecatalogue');
+        $this->objModulesAdmin =& $this->getObject('modulesadmin', 'modulecatalogue');
         $this->objDbMenu =& $this->getObject('dbmenu');
     }
 

@@ -36,7 +36,7 @@ class menu extends object
         $this->objLanguage =& $this->getObject('language','language');
         $this->objSkin =& $this->newObject('skin','skin');
         $this->objUser =& $this->getObject('user','security');
-        $this->objModule =& $this->getObject('modulesadmin', 'modulelist');
+        $this->objModule =& $this->getObject('modules', 'modulecatalogue');
         $this->objTable =& $this->getObject('htmltable','htmlelements');
         $this->objLayer =& $this->getObject('layer','htmlelements');
 

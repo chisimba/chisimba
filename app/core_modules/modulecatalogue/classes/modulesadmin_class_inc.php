@@ -108,7 +108,7 @@ class modulesadmin extends dbTableManager
     * @param array $registerdata - all the info from the register.conf file.
     * @returns mixed OK | FALSE
     */
-    public function registerModule(&$registerdata) {
+    public function installModule(&$registerdata) {
         try {
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -581,7 +581,7 @@ class modulesadmin extends dbTableManager
     * @param string $registerdata - array of info from the registration file
     * @returns boolean TRUE or FALSE
     */
-    public function deregisterModule($moduleId,&$registerdata)
+    public function uninstallModule($moduleId,&$registerdata)
     {
     	try {
     		if (is_null($moduleId)) {
@@ -590,7 +590,7 @@ class modulesadmin extends dbTableManager
     		$modTitle="mod_{$moduleId}_name";
     		$modDescription="mod_{$moduleId}_desc";
     		//Check if there are modules that depend on this one
-    		$dependantModules=$this->objModules->getDependents($moduleId);
+    		$dependantModules=$this->objModules->getDependencies($moduleId);
     		if (!empty($dependantModules)) {
     			$str="<b>".$this->objLanguage->languageText('mod_hasdependants')."</b><br/>";
     			foreach ($dependantModules as $dependantModule) {

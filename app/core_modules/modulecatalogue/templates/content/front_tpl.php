@@ -15,6 +15,7 @@ $head = array(' ',$this->objLanguage->languageText('mod_modulecatalogue_modname'
 			$this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue','inf0'));
         
 $count = 0;
+$localModules = $this->objModFile->getLocalModuleList();
 if ($modules) {
 	$objTable->addHeader($head,'heading');
 	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
@@ -24,18 +25,24 @@ if ($modules) {
 		$ucMod = ucwords($modName);
 		$icon->setModuleIcon($modName);
 		$icon->alt = $mod['description'];
-		if ($this->objModFile->findRegisterFile($modName)) {
-			if (!$this->objModule->checkIfRegistered($modName, $modName)) {
-				$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-				$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
-				$instButtonShow = $instButton->show();
-			} else {
-				$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-				$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
-				$instButtonShow = $instButton->show();
-			}
+		if (!in_array($modName,$localModules)){
+			$instButton = &new Link($this->uri(array('action'=>'download','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+			$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_download','modulecatalogue','download');
+			$instButtonShow = $instButton->show();
 		} else {
-			$instButtonShow = '';
+			if ($this->objModFile->findRegisterFile($modName)) {
+				if (!$this->objModule->checkIfRegistered($modName, $modName)) {
+					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+					$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
+					$instButtonShow = $instButton->show();
+				} else {
+					$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+					$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
+					$instButtonShow = $instButton->show();
+				}
+			} else {
+				$instButtonShow = '';
+			}
 		}
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue','text elements');

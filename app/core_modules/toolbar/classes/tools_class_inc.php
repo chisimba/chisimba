@@ -98,7 +98,7 @@ class tools extends object
 
         $this->objSkin =& $this->newObject('skin','skin');
 
-        $this->moduleCheck =& $this->newObject('modules','modulelist');
+        $this->moduleCheck =& $this->newObject('modules','modulecatalogue');
 
         $this->objHelp =& $this->getObject('help', 'help');
 

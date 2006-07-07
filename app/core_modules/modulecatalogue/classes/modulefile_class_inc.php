@@ -30,12 +30,11 @@ class modulefile extends object {
 	}
 	
 	/**
-	 * Method to get a list of all modules on the system
+	 * Method to get a list of all modules currently on the system
 	 *
-	 * @param string $filter the category of modules wanted
 	 * @return array a list of the modules
 	 */
-	public function getModuleList($filter='all') {
+	public function getLocalModuleList() {
         try {
         	$lookdir=$this->config->getSiteRootPath()."modules";
         	$modlist=$this->checkdir($lookdir);
@@ -49,28 +48,7 @@ class modulefile extends object {
             			break; // don't bother with system-related dirs
             		default:
             			if (is_dir($lookdir.'/'.$line)) {
-            				if ($filter != 'all') {
-            					//get only category
-            					if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
-            						if ($this->moduleCategory($line) == strtolower($filter)) {
-            							$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
-            							$modulelist[$line]['hasController']=$hasController;
-            							$modulelist[$line]['hasRegFile']=$hasRegFile;
-            							$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
-            							//$isReg=in_array($line,$regmodules);
-            							//$modulelist[$line]['isReg']=$isReg;
-            						}
-            					}
-            				} else {
-            					//get all
-            					$hasController=$this->checkForFile($lookdir.'/'.$line,'controller.php');
-            					$hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'));
-            					$modulelist[$line]['hasController']=$hasController;
-            					$modulelist[$line]['hasRegFile']=$hasRegFile;
-            					$modulelist[$line]['hasClasses']=$this->checkForFile($lookdir.'/'.$line,'classes');
-            					//$isReg=in_array($line,$regmodules);
-            					//$modulelist[$line]['isReg']=$isReg;
-            				}
+            				$modulelist[] = $line;
             			}
             	}
         	}
@@ -80,6 +58,7 @@ class modulefile extends object {
         	exit();	
 		}
 	}
+	
     
     public function getCategories() {
     	try {

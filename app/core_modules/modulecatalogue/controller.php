@@ -111,9 +111,9 @@ class modulecatalogue extends controller
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
 			// the class for reading register.conf files
-        	$this->objRegFile = &$this->newObject('filereader','moduleadmin');
+        	$this->objRegFile = &$this->newObject('filereader','modulecatalogue');
         	$this->objLanguage = &$this->getObject('language','language');
-        	$this->objModuleAdmin = &$this->getObject('modulesadmin');
+        	$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
 			$this->objModule = &$this->getObject('modules');
 			$this->objModFile = &$this->getObject('modulefile');
 			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
@@ -157,7 +157,7 @@ class modulecatalogue extends controller
 				case 'moduleinfo':
 					return 'info_tpl.php';
 				case 'uninstall':
-					if ($this->unInstallModule($this->getParm('mod'))) {
+					if ($this->uninstallModule($this->getParm('mod'))) {
 						$this->ouput = 'success';
 					}
 					$this->setSession('output',$this->output);
@@ -208,7 +208,7 @@ class modulecatalogue extends controller
     					$this->output = $this->registerdata['WARNING'];
     					return FALSE;
     				}
-    				$regResult = $this->objModuleAdmin->registerModule($this->registerdata);
+    				$regResult = $this->objModuleAdmin->installModule($this->registerdata);
     				return $regResult;
     			}
     		} else {
@@ -232,21 +232,24 @@ class modulecatalogue extends controller
     * @param string $modname the module_id of the module to be used
     * @returns boolean TRUE or FALSE
     */
-    private function unInstallModule($modname)
-    {
-        $filepath=$this->findRegisterFile($modname);
-        $this->registerdata=$this->objRegFile->readRegisterFile($filepath);
-        if (is_array($this->registerdata))
-        {
-            return $this->objModuleAdmin->unInstall($modname,$this->registerdata);
-        }
-            else
-            {
-                $this->output=$this->confirmRegister('mod_moduleadmin_err_nofile');
-                return FALSE;
-            }
-    } // end of function unInstallModule()
-
+    private function uninstallModule($modname) {
+    	try {
+    		$filepath=$this->objModFile->findRegisterFile($modname);
+    		$this->registerdata=$this->objRegFile->readRegisterFile($filepath);
+    		if (is_array($this->registerdata))
+    		{
+    			return $this->objModuleAdmin->uninstallModule($modname,$this->registerdata);
+    		}
+    		else
+    		{
+    			$this->output=$this->confirmRegister('mod_moduleadmin_err_nofile');
+    			return FALSE;
+    		}
+    	} catch (Exception $e) {
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
 	/**
     * This is a method to handle first-time registration of the basic modules
     */

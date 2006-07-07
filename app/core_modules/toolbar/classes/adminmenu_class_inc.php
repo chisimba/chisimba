@@ -28,7 +28,7 @@ class adminmenu extends object
     function init()
     {
         $this->objLanguage= $this->getObject('language','language');
-        $this->moduleCheck=$this->newObject('modulesAdmin','modulelist');
+        $this->moduleCheck=$this->newObject('modules','modulecatalogue');
         $this->objUser =& $this->getObject('user', 'security');
 
         $this->objUserPic =& $this->getObject('imageupload', 'useradmin');
