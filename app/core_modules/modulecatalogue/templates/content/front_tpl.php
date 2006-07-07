@@ -17,36 +17,42 @@ $objTable->addHeader($head,'heading');
 $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
         
 $count = 0;
-foreach ($modules as $modName ) {
-	$class = ($count % 2 == 0)? 'even' : 'odd';
-	$count++;
-	$ucMod = ucwords($modName);
-	$icon->setModuleIcon($modName);
-	$icon->alt = $mod['description'];
-	if ($this->objModFile->findRegisterFile($modName)) {
-		if (!$this->objModule->checkIfRegistered($modName, $modName)) {
-			$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-			$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
-			$instButtonShow = $instButton->show();
+if ($modules) {
+	foreach ($modules as $modName ) {
+		$class = ($count % 2 == 0)? 'even' : 'odd';
+		$count++;
+		$ucMod = ucwords($modName);
+		$icon->setModuleIcon($modName);
+		$icon->alt = $mod['description'];
+		if ($this->objModFile->findRegisterFile($modName)) {
+			if (!$this->objModule->checkIfRegistered($modName, $modName)) {
+				$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+				$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue','install');
+				$instButtonShow = $instButton->show();
+			} else {
+				$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+				$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
+				$instButtonShow = $instButton->show();
+			}
 		} else {
-			$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-			$instButton->link = $this->objLanguage->languageText('mod_modulecatalogue_uninstall','modulecatalogue','uninstall');
-			$instButtonShow = $instButton->show();
+			$instButtonShow = '';
 		}
-	} else {
-		$instButtonShow = '';
+		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue','text elements');
+		$infoButton = &new Link($this->uri(array('action'=>'moduleinfo','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue','module info');
+		$infoButton->extra = $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
+		$objTable->startRow();
+		$objTable->addCell($icon->show(),null,null,'left',$class);
+		$objTable->addCell("<a href='{$this->uri(null,$modName)}'>$ucMod</a>",null,null,'left',$class);
+		$objTable->addCell($instButtonShow,null,null,'left',$class);
+		$objTable->addCell($textButton->show(),null,null,'left',$class);
+		$objTable->addCell($infoButton->show(),null,null,'left',$class);
+		$objTable->endRow();
 	}
-	$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-	$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue','text elements');
-	$infoButton = &new Link($this->uri(array('action'=>'moduleinfo','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-	$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue','module info');
-	$infoButton->extra = $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
+} else {
 	$objTable->startRow();
-	$objTable->addCell($icon->show(),null,null,'left',$class);
-	$objTable->addCell("<a href='{$this->uri(null,$modName)}'>$ucMod</a>",null,null,'left',$class);
-	$objTable->addCell($instButtonShow,null,null,'left',$class);
-	$objTable->addCell($textButton->show(),null,null,'left',$class);
-	$objTable->addCell($infoButton->show(),null,null,'left',$class);
+	$objTable->addCell('<span class="empty">'.$this->objLanguage->languageText('mod_modulecatalogue_noitems').'</span>');
 	$objTable->endRow();
 }
 if (($output=$this->getSession('output'))!=null) {
