@@ -299,8 +299,8 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        log_debug("dbtable insert into $tablename");
-        log_debug($fields);
+        //log_debug("dbtable insert into $tablename");
+        //log_debug($fields);
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
@@ -323,7 +323,7 @@ class dbTable extends object
         }
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
-        log_debug("success $ret");
+        //log_debug("success $ret");
 
         return $ret ? $id : false;
     }
@@ -537,7 +537,7 @@ class dbTable extends object
         $ret = $this->setDatabase($name);
         return $ret;
     }
-    
+
     /**
      * Execute a stored procedure and return any results
      *
@@ -554,7 +554,7 @@ class dbTable extends object
     {
     	return $this->_db->executeStoredProc($name, $params, $types, $result_class, $result_wrap_class);
     }
-    
+
     /**
      * Return string to call a variable with the current timestamp inside an SQL statement
      * There are three special variables for current date and time:
@@ -569,7 +569,7 @@ class dbTable extends object
     {
     	return MDB2_Date::mdbNow();
     }
-    
+
     /**
      * list all tables in the current database
      *
@@ -583,7 +583,7 @@ class dbTable extends object
     }
 
 
-    
+
 
 } // end of dbTable class
 ?>
