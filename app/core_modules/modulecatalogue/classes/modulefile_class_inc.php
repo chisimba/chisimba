@@ -186,5 +186,24 @@ class modulefile extends object {
         	exit();	
 		}
     }
+    
+    /** This is a method to check for existance of registration file
+    * @param string modname
+    * @return FALSE on error, string filepatch on success
+    */
+    function findController($modname)
+    {
+        try {
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/controller.php";
+        	if (file_exists($path.$line)) {
+        			return $path.$line;
+        	} else {
+        		return FALSE;
+        	}
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();	
+		}
+    }
 }
 ?>
