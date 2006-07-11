@@ -9,7 +9,9 @@ if (!$GLOBALS['kewl_entry_point_run']){
 *
 * @author Nic Appleby
 * @copyright (c)2006 UWC
-* @version 0.1
+* @category Chisimba
+* @package Modulecatalogue
+* @version $Id
 */
 
 class modulefile extends object {
@@ -59,7 +61,7 @@ class modulefile extends object {
 		}
 	}
 	
-    
+	//not used. will it ever be?
     public function getCategories() {
     	try {
     		$lookdir=$this->config->getSiteRootPath()."modules";

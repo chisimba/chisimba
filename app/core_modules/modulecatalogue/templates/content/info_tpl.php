@@ -24,7 +24,7 @@
     
     // Here we add the title
     $objTblClass->startRow();
-    $objTblClass->addCell("<h1>".$this->confirmRegister('mod_moduleadmin_info',$this->modname)."</h1>", "", NULL, 'center',NULL, 'colspan="2"');
+    $objTblClass->addCell($this->objLanguage->languageText('mod_modulecatalogue_info','modulecategory'), "", NULL, 'center',NULL, 'colspan="2"');
     $objTblClass->endRow();
 
     // Now we get the data for the tables
@@ -36,15 +36,15 @@
     $desc=$this->registerdata['MODULE_DESCRIPTION'];
 
     // Loading the data into the tables
-    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_modname','moduleadmin').':</b>',$longName));
-    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_worddesc','moduleadmin').':</b>',$desc));
-    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_authors','moduleadmin').':</b>',$authors));
-    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_rdate','moduleadmin').':</b>',$releaseDate));
-    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_version','moduleadmin').':</b>',$version));
+    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue').':</b>',$longName));
+    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_worddesc','modulecatalogue').':</b>',$desc));
+    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_authors','modulecatalogue').':</b>',$authors));
+    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_rdate','modulecatalogue').':</b>',$releaseDate));
+    $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_version','modulecatalogue').':</b>',$version));
     if (isset($this->registerdata['MENU_CATEGORY'])){
         foreach ($this->registerdata['MENU_CATEGORY'] as $line)
         {
-            $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_menucat').':</b>',$line));
+            $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_menucat').':</b>',$line));
         }
     }
     
@@ -56,11 +56,11 @@
             $str.="<li><a href='".$this->uri(array('action'=>'info','modname'=>$line))."'>$line</a></li>\n";
         }
         $str.="</ul>\n";
-        $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_moduleadmin_depend1','moduleadmin').':</b>',$str));
+        $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_depend1','modulecatalogue').':</b>',$str));
     }
 
 
-    $str='<b>'.$this->objLanguage->languageText('mod_moduleadmin_tables','moduleadmin').":</b>\n";
+    $str='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_tables','modulecatalogue').":</b>\n";
     if (isset($this->registerdata['TABLE'])){
         $str.="<ul>\n";
         foreach ($this->registerdata['TABLE'] as $table)
@@ -79,7 +79,7 @@
     // Now in case of errors
     if ($this->objModule->errorText){
         $objTblClass->startRow();
-        $objTblClass->addCell('<b>'.$this->objLanguage->languageText('mod_moduleadmin_problem1','moduleadmin','Problems detected').':</b>', "", NULL, NULL, 'odd',"colspan='2'");
+        $objTblClass->addCell('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_problem1','modulecatalogue','Problems detected').':</b>', "", NULL, NULL, 'odd',"colspan='2'");
         $objTblClass->endRow();
         $objTblClass->startRow();
         $objTblClass->addCell($this->objModule->errorText, "", NULL, NULL, 'odd','colspan="2"');
@@ -87,25 +87,19 @@
     }
  
     // Link back
-    $link1="<a href='".$this->uri(array(),'moduleadmin')."'>".$this->objLanguage->languageText('mod_moduleadmin_return','moduleadmin')."</a>";
+    $link1="<a href='".$this->uri(array('cat'=>$this->getParm('cat')),'modulecatalogue')."'>".$this->objLanguage->languageText('mod_modulecatalogue_return','modulecatalogue')."</a>";
     $link2='';
     $space='';
-    if ($this->objModule->checkIfRegistered($this->modname)){
-        if ($this->hasController($this->modname)){
-            $link2="<a href='".$this->uri(array(),$this->modname)."'>"
-            .$this->objLanguage->languageText('mod_moduleadmin_go','moduleadmin')."&nbsp;<b>"
-            .$this->modname."</b></a>";
-            $space='&nbsp;<b>/</b>&nbsp;';
-        }
-        $reglink="<a href='".$this->uri(array('action'=>'register','modname'=>$this->modname))."'>".$objLanguage->languagetext('mod_word_register','moduleadmin')."</a>";
-    } else {
-        $reglink="<a href='".$this->uri(array('action'=>'deregister','modname'=>$this->modname))."'>".$objLanguage->languagetext('mod_word_deregister','moduleadmin')."</a>";
+    if ($this->objModFile->findController($this->modname)){
+    	$link2="<a href='".$this->uri(array(),$this->modname)."'>"
+    	.$this->objLanguage->languageText('mod_modulecatalogue_go','moduleacatalogue')."&nbsp;<b>"
+    	.ucwords($this->modname)."</b></a>";
+    	$space='&nbsp;<b>/</b>&nbsp;';
     }
-    
     $objTblClass->startRow();
     $objTblClass->addCell($link2.$space.$link1, "", NULL, 'center',NULL, 'colspan="2"');
     $objTblClass->endRow();
 
-    print $objTblClass->show();
+    echo $objTblClass->show();
     
 ?>

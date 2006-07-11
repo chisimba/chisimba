@@ -14,6 +14,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Derek Keats 
 * @author Sean Legassick
 * @author Jeremy O'Connor
+* @category Chisimba
+* @package Modulecatalogue
 * @version $Id$ 
 */
 
@@ -29,12 +31,16 @@ class modules extends dbTable
     //private $objConfig;
     public $objConfig;
 
-    public function init()
-    {
-        parent::init('tbl_modules');
-        //Config and Language Objects
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->objConfig =& $this->getObject('altconfig','config');
+    public function init() {
+    	try {
+    		parent::init('tbl_modules');
+    		//Config and Language Objects
+    		$this->objLanguage =& $this->getObject('language', 'language');
+    		$this->objConfig =& $this->getObject('altconfig','config');
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     } 
 
     /**
@@ -49,49 +55,37 @@ class modules extends dbTable
     * @param  $gettype int Type of request
     * @return array List of modules
     */
-    public function getModules($getType)
-    { 
-        // DEREK: This is a pretty shaky method. Can anyone find a better way?
-        // SEAN: I've changed things so that we do two joins on tbl_languagetexts
-        // and thus everything for a module comes back in one row
-        // I think this is better...?
-        /* $sql="SELECT tbl_modules.module_id, tbl_modules.module_path, 
-				tbl_languagetexts_name.id as nameId, tbl_languagetexts_name.English as name, 
-                tbl_languagetexts_desc.id as descId, tbl_languagetexts_desc.English as description
-				FROM tbl_modules 
-                INNER JOIN bridge_lang_to_mod
-				ON tbl_modules.module_id = bridge_lang_to_mod.moduleId 
-				INNER JOIN tbl_languagetexts AS tbl_languagetexts_name ON 
-				bridge_lang_to_mod.codeName = tbl_languagetexts_name.code 
-                INNER JOIN tbl_languagetexts AS tbl_languagetexts_desc ON
-                bridge_lang_to_mod.codeDesc = tbl_languagetexts_desc.code ";
-         */
-        // JAMES: The triple join is no longer needed. Only tbl_modules and tbl_languagetexts are needed.
-        switch ($getType) {
-            case GET_USERVISIBLE:
-                $filter = "WHERE tbl_modules.isVisible=1 AND tbl_modules.isAdmin!=1 ";
-                break;
-            case GET_VISIBLE:
-                $filter = "WHERE tbl_modules.isVisible=1 ";
-                break;
-            case GET_ALL:
-            	$filter = '';
-                break;
-            default:
-                die("Invalid getType in modules::getModules");
-        } 
-        $filter .= "ORDER BY module_id";
-        $modules = $this->getArray($sql);
-        $_modules = array();
-        foreach ($modules as $module) {
-            $_module = array();
-            $_module['module_id'] = $module['module_id'];
-            $_module['module_path'] = $module['module_path'];
-            $_module['title'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_name');
-            $_module['description'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_desc');
-            $_modules[] = $_module;
-        }
-        return !empty($_modules) ? $_modules : FALSE;
+    public function getModules($getType) { 
+    	try {
+    		switch ($getType) {
+    			case GET_USERVISIBLE:
+    				$filter = "WHERE isVisible=1 AND isAdmin!=1 ";
+    				break;
+    			case GET_VISIBLE:
+    				$filter = "WHERE isVisible=1 ";
+    				break;
+    			case GET_ALL:
+    				$filter = '';
+    				break;
+    			default:
+    				throw new customException("Invalid getType in modules::getModules");
+    		}
+    		$filter .= "ORDER BY module_id";
+    		$modules = $this->getArray($sql);
+    		$_modules = array();
+    		foreach ($modules as $module) {
+    			$_module = array();
+    			$_module['module_id'] = $module['module_id'];
+    			$_module['module_path'] = $module['module_path'];
+    			$_module['title'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_name');
+    			$_module['description'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_desc');
+    			$_modules[] = $_module;
+    		}
+    		return !empty($_modules) ? $_modules : FALSE;
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     } 
 
     /**
@@ -99,10 +93,14 @@ class modules extends dbTable
     * @param string $moduleId
     * @return Boolean TRUE|FALSE
     */
-    public function isAdminModule($moduleId)
-    {
-        $row=$this->getRow('module_id',$moduleId);
-        return !empty($row) ? $row['isAdmin'] : FALSE;
+    public function isAdminModule($moduleId) {
+    	try {
+    		$row=$this->getRow('module_id',$moduleId);
+    		return !empty($row) ? $row['isAdmin'] : FALSE;
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     }
 
     /**
@@ -112,10 +110,14 @@ class modules extends dbTable
     * @param string $moduleId The identifier of the module.
     * @return boolen TRUE|FALSE
     */
-     public function checkIfRegistered($moduleId) 
-     {
-        $row = $this->getRow('module_id',$moduleId);
-        return !empty($row);
+     public function checkIfRegistered($moduleId) {
+     	try {
+     		$row = $this->getRow('module_id',$moduleId);
+     		return !empty($row);
+     	} catch (Exception $e) {
+     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+     		exit();
+     	}
      }
      
     /** 
@@ -126,8 +128,13 @@ class modules extends dbTable
     */ 
     public function getVersion($moduleId)
     {
-        $row=$this->getRow('module_id',$moduleId);
-        return !empty($row) ? $row['module_version'] : FALSE;
+    	try {
+    		$row=$this->getRow('module_id',$moduleId);
+    		return !empty($row) ? $row['module_version'] : FALSE;
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     }
     
     /**
@@ -136,13 +143,18 @@ class modules extends dbTable
      * @return mixed the modules dependents
      */
     public function getDependencies($moduleId) {
-    	$sql = "SELECT module_id FROM tbl_modules_dependencies WHERE dependency='$moduleId'";
-        $rs = $this->getArray($sql);
-        $dep = array();
-        foreach ($rs as $rec) {
-        	$dep[] = $rec['module_id'];
-         }
-        return $dep;
+    	try {
+    		$sql = "SELECT module_id FROM tbl_modules_dependencies WHERE dependency='$moduleId'";
+    		$rs = $this->getArray($sql);
+    		$dep = array();
+    		foreach ($rs as $rec) {
+    			$dep[] = $rec['module_id'];
+    		}
+    		return $dep;
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     }
     
     /**
@@ -151,13 +163,18 @@ class modules extends dbTable
     * @returns array $result
     */
     public function getModuleInfo($moduleId) {
-        if ($this->checkIfRegistered($moduleId)){
-            $result = array('isreg'=>TRUE,
-                'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name'));
-        } else {
-            $result = array('isreg'=>FALSE,'name'=>'');
-        }
-        return $result;
+    	try {
+    		if ($this->checkIfRegistered($moduleId)){
+    			$result = array('isreg'=>TRUE,
+    			'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name'));
+    		} else {
+    			$result = array('isreg'=>FALSE,'name'=>'');
+    		}
+    		return $result;
+    	} catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     }
 }
 ?>

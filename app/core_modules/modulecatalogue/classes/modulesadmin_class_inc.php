@@ -12,6 +12,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * file when only the basic user functionality is needed.
 * @author Nic Appleby
 * @copyright GPL UWC 2006
+* @category Chisimba
+* @package Modulecatalogue
 * @version $Id$ 
 */
 
@@ -69,6 +71,13 @@ class modulesadmin extends dbTableManager
 	 */
 	protected $objUser;
 	
+	/**
+	 * System configuration object
+	 *
+	 * @var object $objConfig
+	 */
+	public $objConfig;
+	
     /**
      * Standard initilisation method
      *
@@ -77,6 +86,7 @@ class modulesadmin extends dbTableManager
     {
         try {
         	parent::init('tbl_modules');
+        	$this->objConfig = $this->getObject('altconfig','config');
             $this->objModules = &$this->getObject('modules');
             $this->objUser = &$this->getObject('user','security');
         } catch (Exception $e) {
@@ -128,7 +138,7 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['DEPENDS'])) {
                     foreach ($registerdata['DEPENDS'] as $depends) {
                         if (!$this->checkDependency($depends)) {
-                            $text=$this->objLanguage->languageText('mod_moduleadmin_needmodule');
+                            $text=$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
                             $text=str_replace('{MODULE}',$depends,$text);
                             $this->output.='<b>'.$text.'</b><br />';
                             return FALSE;
@@ -139,7 +149,7 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['TABLE'])) {
                     foreach ($registerdata['TABLE'] as $table) {
                         if (!$this->makeTable($table)) {
-                            $text=$this->objLanguage->languageText('mod_moduleadmin_needinfo');
+                            $text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
                             $text=str_replace('{MODULE}',$table,$text);
                             $this->output.='<b>'.$text.'</b><br />';
                             return FALSE;
@@ -592,11 +602,11 @@ class modulesadmin extends dbTableManager
     		//Check if there are modules that depend on this one
     		$dependantModules=$this->objModules->getDependencies($moduleId);
     		if (!empty($dependantModules)) {
-    			$str="<b>".$this->objLanguage->languageText('mod_hasdependants')."</b><br/>";
+    			$str="<b>".$this->objLanguage->languageText('mod_modulecatalogue_hasdependants','modulecatalogue')."</b><br/>";
     			foreach ($dependantModules as $dependantModule) {
     				$str.=$dependantModule."<br />";
     			}
-    			$this->output.= $str;
+    			$this->output = $str;
     			return FALSE;
     		} else {
     			$this->objModules->beginTransaction(); //Start a transaction;
@@ -606,10 +616,8 @@ class modulesadmin extends dbTableManager
     			$this->objModules->delete('code',$modDescription,'tbl_languagetext');
 
     			$texts=$this->listTexts($registerdata); // remove all specified texts
-    			if ($texts!==FALSE)
-    			{
-    				foreach ($texts as $key=>$value)
-    				{
+    			if ($texts!==FALSE) {
+    				foreach ($texts as $key=>$value) {
     					$this->removeText($key);
     				}
     			}
@@ -646,7 +654,7 @@ class modulesadmin extends dbTableManager
     					$name = $array[0];
     					if(isset($array[2]) && !empty($array[2])){
     						$params = $array[1].'|'.$array[2];
-    					}else{
+    					} else {
     						$params = $array[1];
     					}
     					$conditions[$name] = $objCond->create($name, $params);
@@ -689,8 +697,8 @@ class modulesadmin extends dbTableManager
     private function makeTable($table,$moduleId='NONE')
     {
         try {
-        	$this->objKeyMaker=&$this->newObject('primarykey');
-        	$this->objTableInfo=&$this->newObject('tableinfo');
+        	$this->objKeyMaker=&$this->newObject('primarykey','modulecatalogue');
+        	$this->objTableInfo=&$this->newObject('tableinfo','modulecatalogue');
         	if ($moduleId=='NONE'){
         		$moduleId=$this->module_id;
         	}
@@ -704,7 +712,7 @@ class modulesadmin extends dbTableManager
         		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/'.$table.'.sql';
         	}
         	if (!file_exists($sqlfile)){
-        		throw new Exception("<b>$sqlfile</b>".$this->objLanguage->languageText('phrase_notfound')."<br />");
+        		throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
         	}
         	include($sqlfile);
         	$this->createTable($tablename,$fields,$options);
@@ -735,7 +743,7 @@ class modulesadmin extends dbTableManager
         }
         if (!file_exists($sqlfile))
         {
-            throw new Exception("<b>$sqlfile</b>".$this->objLanguage->languageText('phrase_notfound')."<br />");
+            throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
         }
         ini_set('max_execution_time','120');
         $handle=fopen($sqlfile,'r');
@@ -859,7 +867,6 @@ class modulesadmin extends dbTableManager
         		$table=$rec['tablename'];
         		$droppedTables[]=$table;
         		$this->dropTable($table);
-        		$this->dropTable($table.'_seq');
         	}
         	return $droppedTables;
         } catch (Exception $e) {
@@ -873,19 +880,19 @@ class modulesadmin extends dbTableManager
     * @param $code
     * @returns array with elements flag = 0, 1, 10, or 11, content and desc
     */
-    private function checkText($code) {
+    public function checkText($code) {
         try {
         	$flag['flag']=0;
         	$sql="SELECT * FROM tbl_en WHERE id='".$code."'";
-        	$arr=$this->getArray($sql);
+        	$arr=$this->objModules->getArray($sql);
         	$flag1=0;
         	$content='';
         	foreach($arr as $el) {
         		$flag1=1;
-        		$content=$el['content'];
+        		$content=$el['en'];
         	}
         	$sql="SELECT * FROM tbl_languagetext WHERE code='".$code."'";
-        	$arr=$this->getArray($sql);
+        	$arr=$this->objModules->getArray($sql);
         	$flag2=0;
         	$description='';
         	foreach($arr as $el) {
@@ -908,7 +915,7 @@ class modulesadmin extends dbTableManager
     * @param string $index type of text to be added
     * @returns FALSE or array $texts
     */
-    private function listTexts($rdata,$index='TEXT') {
+    public function listTexts($rdata,$index='TEXT') {
     	try {
     		$texts=array();
     		if (is_array($rdata) && array_key_exists($index,$rdata) && is_array($rdata[$index])) {
@@ -919,7 +926,7 @@ class modulesadmin extends dbTableManager
     					$texts[$code]['desc']=$description;
     				} else {
     					$module=$rdata['MODULE_ID'];
-    					$errorText = $this->objLanguage->languageText('mod_moduleadmin_textproblem',"Module <b>{MODULE}</b> has invalid text defintion for '{CODE}'<br/>");
+    					$errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalgoue');
     					$errorText = str_replace("{MODULE}",$module,$errorText);
     					$errorText = str_replace("{CODE}",$code,$errorText);
     					$this->errorText .= $errorText;
@@ -940,7 +947,7 @@ class modulesadmin extends dbTableManager
     * @author James Scoble
     * @param $code,$description,$content
     */
-    private function addText($code,$description,$content) {
+    public function addText($code,$description,$content) {
     	try {
     		$this->objModules->beginTransaction();
     		$this->removeText($code);
@@ -965,8 +972,7 @@ class modulesadmin extends dbTableManager
     * This is a method to remove specified text entries from both tbl_languagetext and tbl_english
     * @param $code
     */
-    private function removeText($code)
-    {
+    public function removeText($code) {
     	try {
     		$code=addslashes($code);
     		$this->objModules->beginTransaction();
@@ -986,8 +992,7 @@ class modulesadmin extends dbTableManager
      * @param string $exception
      * @return void
      */
-    public function errorCallback($exception)
-    {
+    public function errorCallback($exception) {
     	echo customException::cleanUp($exception);
     }
 }

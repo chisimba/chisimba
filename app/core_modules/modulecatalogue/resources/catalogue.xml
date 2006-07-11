@@ -34,12 +34,12 @@
         <dependsContext>0</dependsContext>
     </module>
     <module>
-        <id>3</id>
-        <module_id>moduleadmin</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.6</module_version>
-        <module_path>moduleadmin</module_path>
+        <id>666</id>
+        <module_id>modulecatalogue</module_id>
+        <module_authors>Nic Appleby</module_authors>
+        <module_releasedate>2006-07-11 16:30:00</module_releasedate>
+        <module_version>1.0</module_version>
+        <module_path>modulecatalogue</module_path>
         <isAdmin>1</isAdmin>
         <isVisible>1</isVisible>
         <hasAdminPage>1</hasAdminPage>
