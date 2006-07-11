@@ -11,7 +11,7 @@
 
 
 require_once dirname(__FILE__).'/wizard.inc';
-
+require_once dirname(__FILE__).'/domtt/domtt_class_inc.php';
 
 
 define('HELP_URL', 'http://cvs.uwc.ac.za');
