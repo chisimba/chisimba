@@ -69,6 +69,8 @@ class SetupType extends Step
 
 		$this->help_topic = 'setup_type';
 
+		$this->step_help = "Select the type of installation you want to do";
+
 		
 
 	}//end SetupType()
