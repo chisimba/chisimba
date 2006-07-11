@@ -47,8 +47,7 @@ $fields = array(
         'notnull' => TRUE
 		),
     'last_updated' => array(
-		'type' => 'datetime',
-		'length' => 100
+		'type' => 'datetime'
 		),
     'last_updated_by' => array(
 		'type' => 'text',
