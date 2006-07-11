@@ -485,6 +485,10 @@ class InstallWizard extends Wizard
 
 		$this->template->set('total_steps', $total_steps);
 
+		$helpStr = "<a href=\"index.html\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '5ive Installer Help<p>".$this->active_step->step_help."</p>', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\"><img src=\"./extra/yellow_help_off.png\" border=\"0\"></a>";
+		
+		$this->template->set('help',$helpStr);  //$this->template->set('help',$this->active_step->getHelpStr());
+
 		
 
 		parent::_paintStep();
