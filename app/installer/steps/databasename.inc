@@ -60,7 +60,7 @@ class DatabaseName extends Step
 
 		$this->help_topic = 'database_name';
 
-		
+		$this->step_help = "Select a name for your new database";
 
 	}//end DatabaseName()
 

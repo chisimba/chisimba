@@ -1,9 +1,12 @@
+<?php
+$objHelp = new domtt();
+?>
 <table class="install-table">
 <tbody valign="top">
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#systemname" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
-	</td>
+	<?php echo $objHelp->show('Select a name for your System','This name will appear as a title in your application');?>
+</td>
 	<td width="50%">
 	System Name.
 	</td>
@@ -13,7 +16,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#servername" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Select a Server Name','This name will be a unique name when it come into contact with other Chisimba Systems');?>
 	</td>
 	<td width="50%">
 	Server Name.
@@ -25,7 +28,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#serverlocation" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Select a Location','Where is your server located');?>
 	</td>
 	<td width="50%">
 	Server location?
@@ -36,7 +39,8 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#systemowner" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+		<?php echo $objHelp->show('System Owner','This person is normally the administrator of the system and will play a super user role within the system');?>
+
 	</td>
 	<td>
 	System Owner.
@@ -48,7 +52,8 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#defaultemail" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+		<?php echo $objHelp->show('System email address','This can be the System Owners email or one that can be created for this Chisimba installation. Updates and error logs will be forwarded to this email address');?>
+
 	</td>
 	<td >
 	Default Email Address.
@@ -60,7 +65,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#logActivity" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Log Activity','Select this if you want the system to log the activity of the user');?>
 	</td>
 	<td >
 	Log user activity?
@@ -74,7 +79,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#debug" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+		<?php echo $objHelp->show('Debug','This will prevent error messegers from appearing');?>
 	</td>
 	<td >
 	Debug enable?
@@ -87,7 +92,7 @@
 
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#logpath" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Debug Path','Select the path to where you want the log file to be stored');?>
 	</td>
 	<td >
 	Error Log Path
@@ -100,7 +105,7 @@
 <tr valign="top">
 	
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#defaultpostlogin" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+		<?php echo $objHelp->show('Post Login Module','This module will be used after a user logs into the system');?>
 	</td>
 	<td >
 	Default postlogin module?
@@ -113,8 +118,7 @@
 <tr valign="top">
 	
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#defaultskin" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
-	</td>
+	<?php echo $objHelp->show('Skin','Choose a default skin');?>	</td>
 	<td >
 	Defaul Skin
 	</td>
@@ -124,7 +128,7 @@
 </tr>
 <tr>
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#rooturl" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Post Login Module','The Site root URL is normally localhost or for example www.yoursite.co.za or www.yoursite.co.za/chisimab');?>
 	</td>
 	<td >
 	Site root URL. 
@@ -136,7 +140,7 @@
 </tr>
 <tr>
 	<td>
-	<a href="<?php echo HELP_URL?>/system_details#proxy" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<?php echo $objHelp->show('Proxy Settings','If you are using a proxy then add your proxy in the format provided');?>
 	</td>
 	<td >
 	Proxy Settings. 

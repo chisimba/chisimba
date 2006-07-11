@@ -62,6 +62,9 @@ class DatabaseDetails extends Step
 		$this->title_logo = 'database_details.gif';
 
 		$this->help_topic = 'database_details';
+		
+		$this->step_help = "Select the type of database you want to use<p/> The default username is normally \'root\'";
+
 
 	}//end DatabaseDetails()
 

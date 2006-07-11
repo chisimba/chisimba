@@ -1,7 +1,10 @@
+<?php
+$objHelp = new domtt();
+?>
 <table class="install-table">
 <tr valign="top">
-	<td>
-	<a href="<?php echo HELP_URL?>/setup_type#install" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<td><?php echo $objHelp->show('Install Chisimba','Select Install to create a new installation');?>
+	
 	</td>
 	<td>
 	<?php echo $install ?>
@@ -11,8 +14,8 @@
 	</td>
 </tr>
 <tr valign="top">
-	<td>
-	<a href="<?php echo HELP_URL?>/setup_type#update" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+	<td><?php echo $objHelp->show('Re-install Chisimba','Select Re-install to re-install Chisiba <p /> [For first time installation, this option will be disabled]');?>
+	
 	</td>
 	<td>
 	<?php echo $update ?>
@@ -24,8 +27,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	<a href="<?php echo HELP_URL?>/setup_type#uninstall" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
-	</td>
+	<?php echo $objHelp->show('Uninstall Chisimba','Select Unistall to remove Chisiba <p /> [For first time installation, this option will be disabled]');?>	</td>
 	<td>
 	<?php echo $repair ?>
 	</td>

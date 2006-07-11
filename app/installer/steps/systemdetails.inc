@@ -88,7 +88,8 @@ class SystemDetails extends Step
 
 		$this->help_topic = 'system_details';
 
-		
+		$this->step_help = "The Installer will now setup you system details. Please refer to the help for more info on each section,";
+
 
 	}//end SystemDetails()
 
@@ -310,7 +311,7 @@ class RootUserAction extends StepAction
 
 		
 
-		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'STAR SHIP: THE NEXT GENERATION';
+		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'Chisimba';
 
 		
 
@@ -1076,7 +1077,7 @@ class RootUserAction extends StepAction
 
 		$tpl->set('sys_owner', $sys_owner);
 
-		//$tpl->set('serverName', $server_name);
+		$tpl->set('serverName', $server_name);
 
 		$tpl->set('contentPath', $contentPath);
 

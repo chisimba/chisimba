@@ -69,6 +69,8 @@ class VersionCheck extends Step
 		$this->conf_required = true;
 
 		$this->help_topic = 'version_check';
+   
+		$this->step_help = "The Installer will check if you have all the required components installed to run Chisimba";
 
 		
 
