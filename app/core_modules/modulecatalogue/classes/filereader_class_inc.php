@@ -1,11 +1,11 @@
 <?
 /**
 * Class for reading the register.conf files.
-* @author James Scoble
+* @author Nic Appleby
 * @version $Id$
 * @copyright 2004
 * @category Chisimba
-* @package Modulecatalogue
+* @package modulecatalogue
 * @license GNU GPL
 */
 
