@@ -289,7 +289,7 @@ class DbDetailsAction extends FiveStepAction
 
 					 array(	'mysqli' => 'MySQLi',
 					 		'msql'=>'MySQL',
-					 		'pgsql'  => 'PostGreSQL',
+					 		'pgsql'  => 'PostgreSQL',
     						'sqlite' => 'SQLite',
     						'oracle8i'=> 'Oracle8'),false,
 
