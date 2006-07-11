@@ -1,16 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+l<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
 
 				
 		<script language="javascript" type="text/javascript"  src="<?php echo $extras;?>/general.js"></script>
-		
+		<script type="text/javascript" language="javascript" src="domtt/domLib.js"></script>
+        <script type="text/javascript" language="javascript" src="domtt/fadomatic.js"></script>
+        <script type="text/javascript" language="javascript" src="domtt/domTT.js"></script>
+        <script>
+            var domTT_styleClass = 'domTTOverlib';
+            var domTT_oneOnly = true;
+        </script>
 
         <title>5ive | Install : <?php echo $title; ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         
         <style type="text/css" media="screen">
             <!-- @import url("<?php echo $extras;?>/screen.css"); -->
+
+            @import url(domtt/example.css);
 
             <!-- Override the complete steps styles -->
             <?php
@@ -31,7 +39,7 @@
 			}
 			submitted = true;
 			
-			return true;
+			return true;     
 		}
 		
 		function generateServerName() {
@@ -123,7 +131,10 @@
                    <td>
                    </td>           
                     <td style="width: 100%; text-align: right;">
-						<a href="<?php echo $help_url;?>" target="_blank"><img src="<?php echo $extras;?>/yellow_help_off.png" border="0" alt="Help" title="Help"  /></a></td>
+						<!--a href="<?php echo $help_url;?>" target="_blank">wes<img src="<?php echo $extras;?>/yellow_help_off.png" border="0" alt="Help" title="Help"  /></a-->
+						<?php echo $help; ?> 
+						
+						</td>
                 </tr>
                 
             </table>
