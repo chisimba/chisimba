@@ -18,4 +18,53 @@
 )
 TYPE=InnoDB;
 ";
+
+$tablename = 'tbl_context_page_content';
+
+$options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+
+$fields = array(
+	'id' => array(
+		'type' => 'text',
+		'length' => 32
+		),
+	'tbl_context_nodes_id' => array(
+		'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+		),
+	'menu_text' => array(
+		'type' => 'text',
+		'length' => 255
+		),
+    'body' => array(
+		'type' => 'text'
+		),
+    'fullname' => array(
+		'type' => 'text',
+		'length' => 255
+		),
+	'description' => array(
+		'type' => 'text'
+		),
+    'isIndexPage' => array(
+		'type' => 'text',
+        'length' => 20
+		),
+    'ownerId' => array(
+		'type' => 'text',
+        'length' => 255
+		),
+    'updated' => array(
+        'type' => 'timestamp'
+        )
+    );
+    
+$name = 'tbl_context_nodes_FKIndex1';
+
+$indexes = array(
+                'fields' => array(
+                	'tbl_context_nodes_id' => array()
+                )
+        );
 ?>
