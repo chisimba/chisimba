@@ -4,7 +4,7 @@
  *  Field indexer Lucene integration class
  *
  * @package lucene
- * @category field
+ * @category Chisimba
  * @author Paul Scott
  * @copyright AVOIR UWC GNU/GPL
  * @filesource
