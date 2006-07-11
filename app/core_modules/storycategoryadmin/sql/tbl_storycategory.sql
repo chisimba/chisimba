@@ -1,4 +1,5 @@
 <?php
+/*
 $sqldata[]="CREATE TABLE `tbl_storycategory` (
   `id` varchar(32) NOT NULL,
   `category` varchar(32) NOT NULL,                                                                                                                                                                                                                                                                                                                                                          
@@ -18,5 +19,45 @@ $sqldata[]="INSERT INTO `tbl_storycategory` VALUES
  ('init_2','prelogin','Prelogin public stories','2005-03-15 09:34:35','1',NULL,NULL,20050315093435) , 
  ('init_3','preloginfooter','Story for prelogin footer','2005-03-15 09:35:41','1',NULL,NULL,20050315093541) , 
  ('init_4','preloginfooter','Story for prelogin footer','2005-03-15 09:37:12','1',NULL,NULL,20050315093712)";
+*/
 
+// Table Name
+$tablename = 'tbl_storycategory';
+
+//Options line for comments, encoding and character set
+$options = array('comment' => 'Table to hold story categories', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+
+// Fields
+$fields = array(
+	'id' => array(
+		'type' => 'text',
+		'length' => 32
+		),
+	'category' => array(
+		'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+		),
+    'title' => array(
+		'type' => 'text',
+        'length' => 250
+		),
+    'dateCreated' => array(
+		'type' => 'datetime'
+		),
+    'creatorId' => array(
+		'type' => 'text',
+        'length' => 25
+		),
+    'dateModified' => array(
+		'type' => 'datetime'
+		),
+    'modifierId' => array(
+		'type' => 'text',
+        'length' => 32
+		),
+    'modified' => array(
+		'type' => 'timestamp'
+		)
+    );
 ?>
