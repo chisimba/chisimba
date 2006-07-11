@@ -60,7 +60,7 @@ class Start extends Step
 
 		$this->actions[] =& new StartAction(get_class($this));
 
-		
+		$this->step_help = "Welcome to the 5ive installer. This installer is designed to help you configure a fresh download of KINKYII, and install necessary data into the system. If at any time during installation you require help with an item, click the nearest help  icon. This will direct you to the 5ive website with the latest information about the selected topic.";
 
 	}//end Start()
 

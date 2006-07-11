@@ -33,6 +33,7 @@ class Licence extends Step
 		$this->auth_required = false;
 		$this->title_logo = 'licence_agreement.gif';
 		$this->help_topic = 'licence_agreement';
+		$this->step_help = "Please read the licence agreement and click the check box if you agree with the terms and conditions";
 		
 	}//end Licence()
 	
@@ -117,6 +118,15 @@ class LicenceAction extends StepAction
 		echo $tpl->fetch();
 		
 	}//end paintAction()
+	
+	/**
+	 * Method to get the help string
+	 */
+	function getHelpStr()
+	{
+	    
+	    return 'THEREASDFASDFASDFASDFASDFSADF';
+	}
 	
 	
 }//end class

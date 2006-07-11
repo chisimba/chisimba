@@ -79,6 +79,8 @@ class InstallDirectory extends Step
 		$this->title_logo = 'system_root.gif';
 
 		$this->help_topic = 'system_root';
+		
+		$this->step_help = "Enter the path to where you want Chisimba to be installed";
 
 		
 

@@ -1076,7 +1076,7 @@ class RootUserAction extends StepAction
 
 		$tpl->set('sys_owner', $sys_owner);
 
-		$tpl->set('serverName', $server_name);
+		//$tpl->set('serverName', $server_name);
 
 		$tpl->set('contentPath', $contentPath);
 
