@@ -17,7 +17,7 @@
        $host = 'localhost';
        $user = 'root';
        $password = '';
-       $dbname = 'testing123';
+       $dbname = 'php5alpha';
 
        // Put a 1 here to see any successful alterations.
        // A 0 here will default to showing errors only.
