@@ -1,0 +1,116 @@
+#install_container {
+	width: 			800px;
+	height: 		auto;
+	border: 		1px solid black;
+	text-align: 	left;
+	padding:		10px;
+}
+
+#install_status {
+	margin-top:	10px;
+}
+
+
+#buttons {
+	margin-top: 	25px;
+}
+
+#errors {
+	font-family: Tahoma;
+	color: red; 
+	font-size: 10px;
+	margin-top: 10px;
+}
+
+#step_title {
+	margin-top: 	10px;
+	background-color: #492e53;
+	width: 100%;
+	border-bottom: 1px solid #877091;
+}
+
+.install-table {
+	margin-top: 10px;
+	width: 100%;
+}
+
+
+.content-small {
+	font-family:		Verdana, Arial, Helvetica, san-serif;
+	font-size:		10px;
+}
+
+.content-big, .content-big h1, .content-big h2, .content-big h3 {
+	font-family:		Verdana, Arial, Helvetica, san-serif;
+	font-size:		150%;
+}
+
+
+/* 5ive LOGO */
+
+#logo {
+	width:			100%;
+	text-align:		left;
+	margin:			0px;
+	padding:		0px;
+}
+
+/* TOPNAV DIV */
+
+#topnav {
+	width:			100%;
+	text-align:		left;
+	margin:			0px;
+	padding:		0px;
+}
+
+
+/* TOP BLUE BAR */
+
+#topbar {
+	width:			100%;
+	margin:			0px;
+	padding:		0px;
+}
+
+
+/* Coding Standards */
+
+.sample-code {
+	margin-top:		10px;
+	margin-bottom:		10px;
+	padding:		3px;
+	border:			1px dashed #1D80AD;
+	background-color:	#CFEFFF;
+	font-family:		courier, monospace;
+	font-size:		10px;
+	color:			#2F2D2F;	
+}
+
+.complete-step {
+	text-align: center;
+
+	/*background-color: rgb(73, 46, 83);*/
+	background: #666 url("images/sprites.gif") repeat-x 0 99%;
+	border: 1px solid Black;
+}
+
+.complete-step a {
+	color: white;
+	text-decoration: none;
+}
+
+.current-step {
+    /*color: #000;*/
+	text-align: center;
+	border: 1px solid Black;
+	background: #c00;
+	color:			#2F2D2F;	
+}
+
+.incomplete-step {
+	text-align: center;
+	
+	border: 1px solid Black;
+	
+}

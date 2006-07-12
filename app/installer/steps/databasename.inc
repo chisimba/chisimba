@@ -226,20 +226,6 @@ class DbNameAction extends FiveStepAction
 				}
 		
 				
-		
-				// check the version of the database to make sure it's compatible
-					
-					
-				if (!$handler->checkVersion($dsn)) {
-		
-					$this->errors[] = 'The database appears to be an unsupported version. This may cause problems with installation.';
-		
-					$this->success = false;
-		
-				}
-
-			
-
 		} else {	
 
 			// just want to test that the database entered exists and is connectable.
@@ -258,21 +244,7 @@ class DbNameAction extends FiveStepAction
 					return false;
 		
 				}
-		
-				
-		
-				// check the version of the database to make sure it's compatible
-					
-					
-				if (!$handler->checkVersion($dsn)) {
-		
-					$this->errors[] = 'The database appears to be an unsupported version. This may cause problems with installation.';
-		
-					$this->success = false;
-		
-				}
-
-			
+							
 
 			// should the tables be created
 

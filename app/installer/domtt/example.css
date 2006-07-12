@@ -1,40 +1,4 @@
 /* Demo Site Styles */
-body {
-	margin: 0;
-	padding: 10px;
-}
-
-a:link, a:visited, a:active {
-	font-family: Verdana, sans-serif; 
-	font-size: 12px;
-	text-decoration: underline;
-	color: #000066;
-	font-weight: bold;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-p {
-	font-family: Verdana, sans-serif; 
-	font-size: 12px;
-	margin: 0;
-	padding: 10px;
-}
-
-p.small {
-	font-family: Verdana, sans-serif; 
-	font-size: 10px;
-}
-
-ol, li {
-	font-size: 12px;
-}
-
-li {
-	margin-bottom: 5px;
-}
 
 div.title {
 	color: #000066;
