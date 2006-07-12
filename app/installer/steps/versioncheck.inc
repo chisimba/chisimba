@@ -1315,7 +1315,7 @@ class PEARDBCheckAction extends StepAction
 	{
 
 		$tpl = new Template(INSTALL_DIR.'/templates/versioncheck.tpl');
-		$tpl->set('checking', 'Supported PEAR DB Packages');
+		$tpl->set('checking', 'Supported PEAR DB client packages');
 
 		$tpl->set('step_name', $this->parent_step);
 
@@ -1353,7 +1353,7 @@ class PEARDBCheckAction extends StepAction
 
 		$tpl->set('step_name', $this->parent_step);
 
-		$tpl->set('checking', 'Supported PEAR DB Packages');
+		$tpl->set('checking', 'Supported PEAR DB client packages');
 
 		$tpl->set('required', $this->required_db);
 
