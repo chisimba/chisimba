@@ -8,6 +8,8 @@
 * @author Jonathan Abrahams
 * @filesource
 */
+
+/*
 $sqldata[] ="CREATE TABLE tbl_decisiontable_decisiontable_action (
   id VARCHAR(32) NOT NULL,
   actionId VARCHAR(32) NOT NULL,
@@ -24,4 +26,40 @@ $sqldata[] ="CREATE TABLE tbl_decisiontable_decisiontable_action (
       ON DELETE CASCADE
       ON UPDATE CASCADE
 ) TYPE=InnoDB COMMENT = 'Bridge table used to keep a list of actions and decision tables.'";
+*/
+
+// Table Name
+$tablename = 'tbl_decisiontable_decisiontable_action';
+
+//Options line for comments, encoding and character set
+$options = array('comment' => 'Bridge table used to keep a list of actions and decision tables.', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+
+// Fields
+$fields = array(
+	'id' => array(
+		'type' => 'text',
+		'length' => 32
+		),
+	'actionId' => array(
+		'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+        ),
+    'decisiontableId' => array(
+		'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+        )
+    );
+    
+//create other indexes here...
+
+$name = 'decisiontableId';
+
+$indexes = array(
+                'fields' => array(
+                	'decisiontableId' => array(),
+                    'actionid' => array()
+                )
+        );
 ?>
