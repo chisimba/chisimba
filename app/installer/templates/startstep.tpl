@@ -1,9 +1,9 @@
 <table cellspacing="0" cellpadding="0" style="color: WhiteSmoke; width: 100%">
 <tr valign="top">
 	<td width="1">
-	<img src="./extra/left_purple.png" border="0" style="height: 66; float: left" />
+	
 	</td>
-	<td style="background-color: #593966; padding-top: 5px;padding-left: 5px;">
+	<td style="padding-top: 5px;padding-left: 5px;">
 	<p>
 		Welcome to the 5ive installer. This installer is designed to help you configure
 		a fresh download of KINKYII, and install necessary data into the system. If at any

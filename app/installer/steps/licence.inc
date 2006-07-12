@@ -33,7 +33,7 @@ class Licence extends Step
 		$this->auth_required = false;
 		$this->title_logo = 'licence_agreement.gif';
 		$this->help_topic = 'licence_agreement';
-		$this->step_help = "Please read the licence agreement and click the check box if you agree with the terms and conditions";
+		$this->step_help = "Please read the licence agreement and click the next button";
 		
 	}//end Licence()
 	
@@ -63,15 +63,15 @@ class LicenceAction extends StepAction
 	*/
 	function processAction()
 	{
-		if (isset($_POST) && isset($_POST['agree'])) {
+		//if (isset($_POST) && isset($_POST['agree'])) {
 			$_SESSION['licence_agree'] = true;
 			$this->success = true;
 			return parent::processAction();
-		} else {
-			$this->errors[] = 'You cannot proceed with the install unless you accept the terms of the licence agreement';
-			$this->success = false;
-			return false;
-		}
+		//} else {
+			//$this->errors[] = 'You cannot proceed with the install unless you accept the terms of the licence agreement';
+		//	$this->success = false;
+		//	return false;
+		//}
 		
 	}//end processAction()
 	
@@ -86,9 +86,9 @@ class LicenceAction extends StepAction
 	*/
 	function isRequired()
 	{
-		if (isset($_SESSION['licence_agree'])) {
-			return false;
-		}
+		//if (isset($_SESSION['licence_agree'])) {
+		//	return false;
+		//}
 		
 		return true;
 		
@@ -110,7 +110,7 @@ class LicenceAction extends StepAction
 			$licence_agree = ' checked ';
 		}
 		ob_start();
-			echo '<input type="checkbox" name="agree" id="agree" value="1" '.$licence_agree.'  class="sq-form-field" />';
+			//echo '<input type="checkbox" name="agree" id="agree" value="1" '.$licence_agree.'  class="sq-form-field" />';
 			$agree_box = ob_get_contents();
 		ob_end_clean();
 		

@@ -195,7 +195,7 @@ class DbCreateAction extends StepAction
 	function firstRegister()
     {
     	$XPost = "";
-     	$url = "http://{$_SESSION['site_url']}/5ive/app/index.php?module=moduleadmin&action=firsttimeregistration";
+     	$url = "http://{$_SESSION['site_url']}/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration";
      // initialize curl handle
      $ch = curl_init();
      // set url to post to

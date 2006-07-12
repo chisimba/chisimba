@@ -8,7 +8,7 @@ echo file_get_contents(INSTALL_DIR.'/LICENCE');
 
 </div>
 
-<p>Yes I have read the terms in the licence agreement <?php echo $licence_check ?> </p>
+
 <p><em>Note that you can use ALT+S as a shortcut for the "Next" button throughout
 the install process</em></p>  
 </div>

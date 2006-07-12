@@ -384,7 +384,7 @@ class RootUserAction extends StepAction
 
 		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
-		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'/error_logs/error.log';
+		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
 
 		ob_start();
 
