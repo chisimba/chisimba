@@ -19,7 +19,7 @@ $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modn
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
 if ($modules) {
-	$objTable->addHeader($head,'heading');
+	$objTable->addHeader($head,'heading','align="left"');
 	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
 	foreach ($modules as $modName ) {
 		if (in_array($modName,$localModules)){//dont display downloadable modules until that functionality is complete
@@ -48,8 +48,8 @@ if ($modules) {
 			$instButton->link = $this->objLanguage->languageText('word_download','modulecatalogue');
 			$instButtonShow = $instButton->show();
 			$checkBox='';
-			$texts = '';//$textButton->show(); only add these once back end functionality is complete
-			$info = '';//$infoButton->show();
+			$texts = '';
+			$info = '';//$infoButton->show(); only add this once back end functionality is complete
 		} else { //local module
 			if ($this->objModFile->findRegisterFile($modName)) {//has regfile
 				$texts = $textButton->show();
@@ -101,7 +101,7 @@ if ($modules) {
 	}
 } else {
 	$objTable->startRow();
-	$objTable->addCell('<span class="empty">'.$this->objLanguage->languageText('mod_modulecatalogue_noitems').'</span>');
+	$objTable->addCell('<span class="empty">'.$this->objLanguage->languageText('mod_modulecatalogue_noitems','modulecatalogue').'</span>');
 	$objTable->endRow();
 }
 if (($output=$this->getSession('output'))!=null) {
