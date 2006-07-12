@@ -291,7 +291,7 @@ class DbDetailsAction extends FiveStepAction
 			combo_box($this->db_prefix.'type', 
 
 					 array(	'mysqli' => 'MySQLi',
-					 		'msql'=>'MySQL',
+					 		'mysql'=>'MySQL',
 					 		'pgsql'  => 'PostgreSQL',
     						'sqlite' => 'SQLite',
     						'oracle8i'=> 'Oracle8'),false,
