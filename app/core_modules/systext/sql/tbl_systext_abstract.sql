@@ -1,4 +1,5 @@
 <?php
+/*
 $sqldata[] = "CREATE TABLE tbl_systext_abstract(
     id VARCHAR(32) NOT NULL,
     systemId VARCHAR(32) NOT NULL,
@@ -17,7 +18,66 @@ $sqldata[] = "CREATE TABLE tbl_systext_abstract(
     ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `Systext_abstract_creator` FOREIGN KEY (`creatorId`) REFERENCES `tbl_users` (`userId`)
     ) TYPE=InnoDB COMMENT='List of text items to be abstracted'";
+*/
 
+// Table Name
+$tablename = 'tbl_systext_abstract';
+
+//Options line for comments, encoding and character set
+$options = array('comments' => 'List of text items to be abstracted', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+
+// Fields
+$fields = array(
+	'id' => array(
+		'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+		),
+    'systemId' => array( 
+        'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
+        ),
+    'textId' => array (
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => TRUE
+        ),
+    'abstract' => array (
+        'type' => 'text',
+        'length' => 50,
+        'notnull' => TRUE
+        ),
+    'creatorId' => array(
+		'type' => 'text',
+        'length' => 25,
+        'notnull' => TRUE
+		),
+    'dateCreated' => array(
+		'type' => 'datetime',
+        'notnull' => TRUE
+		),
+    'canDelete' => array(
+		'type' => 'text',
+        'length' => 3
+		)
+    );
+ 
+//create other indexes here...
+
+$name = 'creatorId';
+
+$indexes = array(
+                'fields' => array(
+                	'systemId' => array(),
+                    'textId' => array(),
+                    'creatorId' => array()
+                )
+        );
+
+
+
+/*
 $sqldata[] = "INSERT INTO tbl_systext_abstract(id, systemId, textId, abstract, creatorId, dateCreated, canDelete)
     values('PKVALUE', 'init_1', 'init_1', 'course', '1', '0000-00-00', 'N')";
 $sqldata[] = "INSERT INTO tbl_systext_abstract(id, systemId, textId, abstract, creatorId, dateCreated, canDelete)
@@ -144,4 +204,5 @@ $sqldata[] = "INSERT INTO tbl_systext_abstract(id, systemId, textId, abstract, c
     values('PKVALUE', 'init_7', 'init_7', 'user', '1', '0000-00-00')";
 $sqldata[] = "INSERT INTO tbl_systext_abstract(id, systemId, textId, abstract, creatorId, dateCreated)
     values('PKVALUE', 'init_7', 'init_8', 'users', '1', '0000-00-00')";
+*/
 ?>
