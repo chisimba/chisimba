@@ -37,4 +37,26 @@ class lucene extends controller
         }
 
 	}
+
+	/**
+	* The Dispatch  methed that the framework needs to evoke the controller
+	*/
+	public function dispatch()
+	{
+		try{
+
+			$action = $this->getParam('action');
+	        switch ($action){
+	            case null:
+	            case 'index':
+
+	            	break;
+	        }
+		}
+		catch (customException $e){
+       		echo customException::cleanUp($e);
+        	exit();
+        }
+	}
 }
+?>
