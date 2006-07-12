@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_groupadmin_group -->
+    <tbl_groupadmin_group>
+        <id>init_1</id>
+        <name>Site Admin</name>
+        <description>The site administration users group list</description>
+        <last_updated>2006-06-05 14:58:40</last_updated>
+        <last_updated_by>1</last_updated_by>
+    </tbl_groupadmin_group>
+    <tbl_groupadmin_group>
+        <id>init_2</id>
+        <name>Lecturers</name>
+        <description>The site wide Lecturers user group</description>
+        <last_updated>2006-06-05 14:58:40</last_updated>
+        <last_updated_by>1</last_updated_by>
+    </tbl_groupadmin_group>
+    <tbl_groupadmin_group>
+        <id>init_3</id>
+        <name>Students</name>
+        <description>The site wide Students user group</description>
+        <last_updated>2006-06-05 14:58:40</last_updated>
+        <last_updated_by>1</last_updated_by>
+    </tbl_groupadmin_group>
+    <tbl_groupadmin_group>
+        <id>init_4</id>
+        <name>Guest</name>
+        <description>The site wide Guest user group</description>
+        <last_updated>2006-06-05 14:58:40</last_updated>
+        <last_updated_by>1</last_updated_by>
+    </tbl_groupadmin_group>
+  <!-- Table tbl_groupadmin_groupuser -->
+    <tbl_groupadmin_groupuser>
+        <id>init_1</id>
+        <group_id>init_1</group_id>
+        <user_id>init_1</user_id>
+        <last_updated>2006-06-05 14:58:40</last_updated>
+        <last_updated_by>1</last_updated_by>
+    </tbl_groupadmin_groupuser>
+</defaultdata>

@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_systext_abstract -->
+    <tbl_systext_abstract>
+        <id>init_1</id>
+        <systemId>init_1</systemId>
+        <textId>init_1</textId>
+        <abstract>course</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_10</id>
+        <systemId>init_1</systemId>
+        <textId>init_10</textId>
+        <abstract>workgroups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_11</id>
+        <systemId>init_1</systemId>
+        <textId>init_11</textId>
+        <abstract>story</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_12</id>
+        <systemId>init_1</systemId>
+        <textId>init_12</textId>
+        <abstract>stories</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_13</id>
+        <systemId>init_2</systemId>
+        <textId>init_1</textId>
+        <abstract>course</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_14</id>
+        <systemId>init_2</systemId>
+        <textId>init_2</textId>
+        <abstract>courses</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_15</id>
+        <systemId>init_2</systemId>
+        <textId>init_3</textId>
+        <abstract>lecturer</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_16</id>
+        <systemId>init_2</systemId>
+        <textId>init_4</textId>
+        <abstract>lecturers</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_17</id>
+        <systemId>init_2</systemId>
+        <textId>init_5</textId>
+        <abstract>organisation</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_18</id>
+        <systemId>init_2</systemId>
+        <textId>init_6</textId>
+        <abstract>organisations</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_19</id>
+        <systemId>init_2</systemId>
+        <textId>init_7</textId>
+        <abstract>student</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_2</id>
+        <systemId>init_1</systemId>
+        <textId>init_2</textId>
+        <abstract>courses</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_20</id>
+        <systemId>init_2</systemId>
+        <textId>init_8</textId>
+        <abstract>students</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_21</id>
+        <systemId>init_2</systemId>
+        <textId>init_9</textId>
+        <abstract>workgroup</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_22</id>
+        <systemId>init_2</systemId>
+        <textId>init_10</textId>
+        <abstract>workgroups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_23</id>
+        <systemId>init_2</systemId>
+        <textId>init_11</textId>
+        <abstract>story</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_24</id>
+        <systemId>init_2</systemId>
+        <textId>init_12</textId>
+        <abstract>stories</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_25</id>
+        <systemId>init_3</systemId>
+        <textId>init_1</textId>
+        <abstract>group</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_26</id>
+        <systemId>init_3</systemId>
+        <textId>init_2</textId>
+        <abstract>groups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_27</id>
+        <systemId>init_3</systemId>
+        <textId>init_3</textId>
+        <abstract>group author</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_28</id>
+        <systemId>init_3</systemId>
+        <textId>init_4</textId>
+        <abstract>group authors</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_29</id>
+        <systemId>init_3</systemId>
+        <textId>init_7</textId>
+        <abstract>readonly member</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_3</id>
+        <systemId>init_1</systemId>
+        <textId>init_3</textId>
+        <abstract>lecturer</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_30</id>
+        <systemId>init_3</systemId>
+        <textId>init_8</textId>
+        <abstract>readonly members</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_31</id>
+        <systemId>init_4</systemId>
+        <textId>init_1</textId>
+        <abstract>workgroup</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_32</id>
+        <systemId>init_4</systemId>
+        <textId>init_2</textId>
+        <abstract>workgroups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_33</id>
+        <systemId>init_4</systemId>
+        <textId>init_3</textId>
+        <abstract>workgroup author</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_34</id>
+        <systemId>init_4</systemId>
+        <textId>init_4</textId>
+        <abstract>workgroup authors</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_35</id>
+        <systemId>init_4</systemId>
+        <textId>init_7</textId>
+        <abstract>workgroup user</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_36</id>
+        <systemId>init_4</systemId>
+        <textId>init_8</textId>
+        <abstract>workgroup users</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_37</id>
+        <systemId>init_5</systemId>
+        <textId>init_1</textId>
+        <abstract>supervision unit</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_38</id>
+        <systemId>init_5</systemId>
+        <textId>init_2</textId>
+        <abstract>supervision units</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_39</id>
+        <systemId>init_5</systemId>
+        <textId>init_3</textId>
+        <abstract>supervisor</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_4</id>
+        <systemId>init_1</systemId>
+        <textId>init_4</textId>
+        <abstract>lecturers</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_40</id>
+        <systemId>init_5</systemId>
+        <textId>init_4</textId>
+        <abstract>supervisors</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_41</id>
+        <systemId>init_5</systemId>
+        <textId>init_7</textId>
+        <abstract>student</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_42</id>
+        <systemId>init_5</systemId>
+        <textId>init_8</textId>
+        <abstract>students</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_43</id>
+        <systemId>init_6</systemId>
+        <textId>init_1</textId>
+        <abstract>alumni group</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_44</id>
+        <systemId>init_6</systemId>
+        <textId>init_2</textId>
+        <abstract>alumni groups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_45</id>
+        <systemId>init_6</systemId>
+        <textId>init_3</textId>
+        <abstract>content author</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_46</id>
+        <systemId>init_6</systemId>
+        <textId>init_4</textId>
+        <abstract>content authors</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_47</id>
+        <systemId>init_6</systemId>
+        <textId>init_5</textId>
+        <abstract>organisation</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_48</id>
+        <systemId>init_6</systemId>
+        <textId>init_6</textId>
+        <abstract>organisations</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_49</id>
+        <systemId>init_6</systemId>
+        <textId>init_7</textId>
+        <abstract>alumnus</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_5</id>
+        <systemId>init_1</systemId>
+        <textId>init_5</textId>
+        <abstract>organisation</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_50</id>
+        <systemId>init_6</systemId>
+        <textId>init_8</textId>
+        <abstract>alumni</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_51</id>
+        <systemId>init_6</systemId>
+        <textId>init_9</textId>
+        <abstract>interest group</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_52</id>
+        <systemId>init_6</systemId>
+        <textId>init_10</textId>
+        <abstract>interest groups</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_53</id>
+        <systemId>init_6</systemId>
+        <textId>init_11</textId>
+        <abstract>announcement</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_54</id>
+        <systemId>init_6</systemId>
+        <textId>init_12</textId>
+        <abstract>announcements</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_55</id>
+        <systemId>init_7</systemId>
+        <textId>init_1</textId>
+        <abstract>content area</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_56</id>
+        <systemId>init_7</systemId>
+        <textId>init_2</textId>
+        <abstract>content areas</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_57</id>
+        <systemId>init_7</systemId>
+        <textId>init_3</textId>
+        <abstract>content author</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_58</id>
+        <systemId>init_7</systemId>
+        <textId>init_4</textId>
+        <abstract>content authors</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_59</id>
+        <systemId>init_7</systemId>
+        <textId>init_7</textId>
+        <abstract>user</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_6</id>
+        <systemId>init_1</systemId>
+        <textId>init_6</textId>
+        <abstract>organisations</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_60</id>
+        <systemId>init_7</systemId>
+        <textId>init_8</textId>
+        <abstract>users</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_7</id>
+        <systemId>init_1</systemId>
+        <textId>init_7</textId>
+        <abstract>student</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_8</id>
+        <systemId>init_1</systemId>
+        <textId>init_8</textId>
+        <abstract>students</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_9</id>
+        <systemId>init_1</systemId>
+        <textId>init_9</textId>
+        <abstract>workgroup</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+  <!-- Table tbl_systext_system -->
+    <tbl_systext_system>
+        <id>init_1</id>
+        <systemType>default</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_2</id>
+        <systemType>elearn</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_3</id>
+        <systemType>groups</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_4</id>
+        <systemType>workgroups</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_5</id>
+        <systemType>pgrad</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_6</id>
+        <systemType>alumni</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>init_7</id>
+        <systemType>content</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+  <!-- Table tbl_systext_text -->
+    <tbl_systext_text>
+        <id>init_1</id>
+        <text>context</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_10</id>
+        <text>workgroups</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_11</id>
+        <text>story</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_12</id>
+        <text>stories</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_2</id>
+        <text>contexts</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_3</id>
+        <text>author</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_4</id>
+        <text>authors</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_5</id>
+        <text>organisation</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_6</id>
+        <text>organisations</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_7</id>
+        <text>readonly</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_8</id>
+        <text>readonlys</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_9</id>
+        <text>workgroup</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+</defaultdata>

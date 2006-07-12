@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_storycategory -->
+    <tbl_storycategory>
+        <id>init_1</id>
+        <category>postlogin</category>
+        <title>Post login stories</title>
+        <dateCreated>2005-03-15 08:46:25</dateCreated>
+        <creatorId>1</creatorId>
+        <dateModified>2005-03-15 10:05:08</dateModified>
+        <modifierId>1</modifierId>
+        <modified>2005-03-15 10:05:08</modified>
+    </tbl_storycategory>
+    <tbl_storycategory>
+        <id>init_2</id>
+        <category>prelogin</category>
+        <title>Prelogin public stories</title>
+        <dateCreated>2005-03-15 09:34:35</dateCreated>
+        <creatorId>1</creatorId>
+        <modified>2005-03-15 09:34:35</modified>
+    </tbl_storycategory>
+    <tbl_storycategory>
+        <id>init_3</id>
+        <category>preloginfooter</category>
+        <title>Story for prelogin footer</title>
+        <dateCreated>2005-03-15 09:35:41</dateCreated>
+        <creatorId>1</creatorId>
+        <modified>2005-03-15 09:35:41</modified>
+    </tbl_storycategory>
+    <tbl_storycategory>
+        <id>init_4</id>
+        <category>preloginfooter</category>
+        <title>Story for prelogin footer</title>
+        <dateCreated>2005-03-15 09:37:12</dateCreated>
+        <creatorId>1</creatorId>
+        <modified>2005-03-15 09:37:12</modified>
+    </tbl_storycategory>
+</defaultdata>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+    <tbl_contentnodes>
+        <id>1kng</id>
+        <userId>1</userId>
+        <body>Replace this body text with your own text for Enter Page.</body>
+        <datecreated>2004-08-05 10:16:33</datecreated>
+        <datemodified>2004-08-05 10:16:33</datemodified>
+        <menutext>Replace me(root)</menutext>
+        <title>Add  your page Title here</title>
+        <updated>2006-07-12 11:44:36</updated>
+    </tbl_contentnodes>
+    <tbl_contentnodes>
+        <id>2kng</id>
+        <parentNodeId>1kng</parentNodeId>
+        <prevNodeId>1kng</prevNodeId>
+        <userId>1</userId>
+        <body>Replace this body text with your own text for page 1. This is just here as placeholder to make it easy for you to edit and add pages to your course. Use the edit and insert buttons to edit and insert</body>
+        <datecreated>2004-08-05 10:16:33</datecreated>
+        <datemodified>2004-08-05 10:16:33</datemodified>
+        <menutext>First Page</menutext>
+        <title>Add  your page Title here</title>
+        <updated>2006-07-12 11:47:12</updated>
+    </tbl_contentnodes>
+</defaultdata>
