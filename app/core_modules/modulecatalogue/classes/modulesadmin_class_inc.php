@@ -947,8 +947,14 @@ class modulesadmin extends dbTableManager
     * @author James Scoble
     * @param $code,$description,$content
     */
-    public function addText($code,$description,$content) {
+    public function addText($code,$description,$content,$modname = null) {
     	try {
+    		if ($modname == null) {
+    			$modname = $this->module_id;
+    		}
+    		if ($modname == null) {
+    			throw new customException("Null value for module name in addText for item $code|$description|$content");
+    		}
     		$this->objModules->beginTransaction();
     		$this->removeText($code);
     		$code=addslashes($code);
@@ -957,7 +963,7 @@ class modulesadmin extends dbTableManager
     		$this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
     		$uid = $this->objUser->userId();
     		$now = $this->objModules->now();
-    		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$this->module_id,'isInNextgen'=>true,
+    		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
     				'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
     		$this->objModules->insert($enArray,'tbl_en');
     		$this->objModules->commitTransaction();

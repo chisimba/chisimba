@@ -12,9 +12,9 @@ $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 
 $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_hascontroller','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue'),
+			$this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue'));
+			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
         
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
@@ -27,7 +27,7 @@ if ($modules) {
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue');
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue');
+		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
 		$infoButton->extra = $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;

@@ -205,7 +205,7 @@ class modulecatalogue extends controller
 				case 'replacetext':
 					$modname = $this->getParm('mod');
 					$texts=$this->moduleText($modname,'replace');
-					//$texts=$this->moduleText($modname);
+					$texts=$this->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$modname);
@@ -434,7 +434,9 @@ class modulecatalogue extends controller
     		$rdata = $this->objRegFile->readRegisterFile($filepath,FALSE);
     		$texts = $this->objModuleAdmin->listTexts($rdata,'TEXT');
     		$uses = $this->objModuleAdmin->listTexts($rdata,'USES');
-    		array_push($texts,$uses);
+    		if ($uses) {
+    			array_push($texts,$uses);
+    		}
     		$this->objModule->beginTransaction(); //Start a transaction;
     		if (is_array($texts)) {
     			foreach ($texts as $code=>$data) {
@@ -442,10 +444,10 @@ class modulecatalogue extends controller
     				$text_desc=$data['desc'];
     				$text_val=$data['content'];
     				if (($action=='fix')&&($isreg['flag']==0)) {
-    					$this->objModuleAdmin->addText($code,$text_desc,$text_val);
+    					$this->objModuleAdmin->addText($code,$text_desc,$text_val,$modname);
     				}
     				if ($action=='replace') {
-    					$this->objModuleAdmin->addText($code,$text_desc,$text_val);
+    					$this->objModuleAdmin->addText($code,$text_desc,$text_val,$modname);
     				}
     				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
     			}

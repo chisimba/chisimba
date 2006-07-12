@@ -22,9 +22,10 @@
     
     $this->modname = $this->getParam('mod');
     
+    $infoHead = '<h3>'.stripslashes(str_replace('MODULE',ucwords($this->modname),$this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue'))).'</h3>';
     // Here we add the title
     $objTblClass->startRow();
-    $objTblClass->addCell($this->objLanguage->languageText('mod_modulecatalogue_info','modulecategory'), "", NULL, 'center',NULL, 'colspan="2"');
+    $objTblClass->addCell($infoHead, "", NULL, 'center',NULL, 'colspan="2"');
     $objTblClass->endRow();
 
     // Now we get the data for the tables
@@ -44,7 +45,7 @@
     if (isset($this->registerdata['MENU_CATEGORY'])){
         foreach ($this->registerdata['MENU_CATEGORY'] as $line)
         {
-            $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_menucat').':</b>',$line));
+            $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_menucat','modulecatalogue').':</b>',$line));
         }
     }
     
@@ -92,7 +93,7 @@
     $space='';
     if ($this->objModFile->findController($this->modname)){
     	$link2="<a href='".$this->uri(array(),$this->modname)."'>"
-    	.$this->objLanguage->languageText('mod_modulecatalogue_go','moduleacatalogue')."&nbsp;<b>"
+    	.$this->objLanguage->languageText('mod_modulecatalogue_go','modulecatalogue')."&nbsp;<b>"
     	.ucwords($this->modname)."</b></a>";
     	$space='&nbsp;<b>/</b>&nbsp;';
     }
