@@ -126,8 +126,13 @@ class lucene extends controller
 
 	            	if (strlen($query) > 0) {
         				$hits = $this->search->find($query);
-       					print_r($hits);
+       					//print_r($hits);
         				$numHits = count($hits);
+    				}
+    				echo "Found $numHits Results for Query $query <br><br>";
+    				foreach($hits as $hit)
+    				{
+    					echo "Title " . $hit->title . " at URL " . "<a href=$hit->url>$hit->url</a> " . "with relevance score of " . $hit->score . "<br><br><hr>";
     				}
 
 
