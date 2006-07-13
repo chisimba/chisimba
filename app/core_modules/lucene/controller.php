@@ -74,6 +74,7 @@ class lucene extends controller
 	public $index;
 	public $doc;
 	public $objConfig;
+	public $search;
 
 	/**
 	 * Constructor
@@ -110,9 +111,29 @@ class lucene extends controller
 	            case 'index':
 	            	//set the path to index
 	            	$this->index->indexPath = $this->objConfig->getcontentBasePath();
+	            	$this->indexPath = $this->index->indexPath;
 	            	//do the indexing
 					$this->index->doIndex($this->doc);
 	            	break;
+
+	            case 'search':
+	            	//move this to a new module. This is only for testing now...
+	            	$query = $this->getParam('query');
+	            	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath());
+	            	//var_dump($this->search->terms());
+	            	//clean the query
+	            	$query = trim($query);
+
+	            	if (strlen($query) > 0) {
+        				$hits = $this->search->find($query);
+       					print_r($hits);
+        				$numHits = count($hits);
+    				}
+
+
+
+
+
 	        }
 		}
 		catch (customException $e){

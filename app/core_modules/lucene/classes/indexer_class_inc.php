@@ -65,6 +65,7 @@ class indexer extends Zend_Search_Lucene_Document
 		}//end foreach
 		//commit the index to disc
 		$this->index->commit();
+		//print_r($this->index->getFieldNames());
      }
 
 }
