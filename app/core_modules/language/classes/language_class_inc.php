@@ -136,7 +136,7 @@ class language extends dbTable {
                             return "This language item is missing";
                     } else {
                     	// fetch a string not translated into Italian (test fallback language)
-						return $this->lang->get('error_languageitemmissing', 'error_text','en').": $itemName";
+						return $this->lang->get('error_languageitemmissing', 'error_text',"{$var}").": $itemName";
                         //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
                     }
                 }
@@ -317,8 +317,7 @@ class language extends dbTable {
     */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'language_class_inc.php');
-        echo $this->_errorCallback;
+    	echo customException::cleanUp($exception);
     }
 
 } #end of class
