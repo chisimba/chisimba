@@ -11,7 +11,8 @@ if (!$GLOBALS['kewl_entry_point_run']){
 *
 * @author Nic Appleby
 * @copyright (c)2006 UWC
-* @version 0.1
+* @version $Id
+* @package modulecatalogue
 */
 
 class catalogue extends object {
@@ -77,18 +78,19 @@ class catalogue extends object {
      */
     public function show($activeNode = null) {
     	try {
-    		//$cssClass = 'class="first"';
+    		$un = $this->getParam('uninstall');
     		$str = '<ul id="nav-secondary">';	
-    		//$str .="<li $cssClass><a href='{$this->uri(null, 'modulecatalogue')}'>Recent</a></li>";
     		//loop through the nodes
-    		foreach($this->nodes as $node)
-    		{
-				if(strtolower($node) == strtolower($activeNode))
-				{
+    		foreach($this->nodes as $node) {
+				if(strtolower($node) == strtolower($activeNode)) {
 					$cssClass = ' class="active" ';	
 				}
 				$name = ucwords($node);
-				$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node),'modulecatalogue')}'>{$name}</a></li>";
+				if ($un) {
+					$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node,'uninstall'=>'1'),'modulecatalogue')}'>{$name}</a></li>";
+				} else {
+					$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node),'modulecatalogue')}'>{$name}</a></li>";
+				}
 				//reset the cssclass
 				$cssClass = '';
     		}

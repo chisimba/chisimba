@@ -122,7 +122,7 @@ class modulecatalogue extends controller
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			$var = $this->objCatalogueConfig->getNavParam('category','');
+			$var = $this->objCatalogueConfig->getNavParam('category');
 			$this->objSideMenu->addNodes($var);
 
 		} catch (Exception $e) {
@@ -187,7 +187,7 @@ class modulecatalogue extends controller
     					}
     				} else {
     					$this->setVar('output',$this->objLanguage->languageText('mod_modulecatalogue_noinfo','modulecatalogue'));
-						return $this->nextAction(null);
+						return 'front_tpl.php';
     				}
 				case 'textelements':
 					$texts = $this->moduleText($this->getParm('mod'));
@@ -199,6 +199,7 @@ class modulecatalogue extends controller
 					$texts = $this->moduleText($modname,'fix');
 					$texts = $this->moduleText($modname);
 					$this->output=$this->objModule->output;
+					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$modname);
 					return 'textelements_tpl.php';
@@ -207,9 +208,28 @@ class modulecatalogue extends controller
 					$texts=$this->moduleText($modname,'replace');
 					$texts=$this->moduleText($modname);
 					$this->output=$this->objModule->output;
+					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$modname);
 					return 'textelements_tpl.php';
+				case 'batchinstall':
+					$selectedModules=$this->getArrayParam('arrayList');
+					if (count($selectedModules)>0) {
+						$this->batchRegister($selectedModules);
+					} else {
+						$this->output ='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_noselect','modulecatalogue').'</b>';
+					}
+					$this->setSession('output',$this->output);
+					return $this->nextAction(null,array('cat'=>$activeCat));
+				case 'batchuninstall':
+					$selectedModules=$this->getArrayParam('arrayList');
+					if (count($selectedModules)>0) {
+						$this->batchDeregister($selectedModules);
+					} else {
+						$this->output ='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_noselect','modulecatalogue').'</b>';
+					}
+					$this->setSession('output',$this->output);
+					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
@@ -459,6 +479,18 @@ class modulecatalogue extends controller
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}
+    }
+    
+    /**
+     * This is a method to update the text elements in all registered modules at once
+     *
+     */
+    function replaceAllText()
+    {
+        $bigarray=$this->objModule->getAll();
+        foreach ($bigarray as $line) {
+            $texts = $this->moduleText($line['module_id'],'replace');
+        }
     }
     
 	/**

@@ -4,12 +4,13 @@ $objCheck=&$this->newObject('checkbox','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
-$notice = '';
+$notice = $top = $bot = '';
 $modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
 $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
+$objTable->width='100%';
 
 $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue'),
@@ -19,8 +20,41 @@ $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modn
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
 if ($modules) {
+	natsort($modules);
 	$objTable->addHeader($head,'heading','align="left"');
 	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
+	$batchuninstall = $this->getParm('uninstall');
+	if ($batchuninstall) {
+		$actiontotake = 'batchuninstall';
+		$batchButton = &new Link($this->uri(array('cat'=>$activeCat),'modulecatalogue'));
+		$batchButton->link = $this->objLanguage->languageText('mod_modulecatalogue_batchinstall','modulecatalogue');
+		$batchButton->extra = "class='pseudobutton'";
+		$batchChange = $batchButton->show(); 
+		$batchButton = &new button('formsub');
+		$batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
+		$batchButton->setToSubmit();  //If you want to make the button a submit button 
+		$batchAction = $batchButton->show(); 
+	} else {
+		$actiontotake = 'batchinstall';
+		$batchButton = &new Link($this->uri(array('cat'=>$activeCat,'uninstall'=>'1'),'modulecatalogue'));
+		$batchButton->link = $this->objLanguage->languageText('mod_modulecatalogue_batchuninstall','modulecatalogue');
+		$batchButton->extra = "class='pseudobutton'";
+		$batchChange = $batchButton->show(); 
+		$batchButton = &new button('formsub');
+		$batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_installselected','modulecatalogue'));
+		$batchButton->setToSubmit();  //If you want to make the button a submit button 
+		$batchAction = $batchButton->show(); 
+	}
+	$topTable = &$this->newObject('htmltable','htmlelements');
+	$topTable->cellpadding = 2;
+	$topTable->addRow(array($batchChange),null,'align="right"');
+	$top = $topTable->show();
+	$bottomTable = &$this->newObject('htmltable','htmlelements');
+	$bottomTable->cellpadding = 2;
+	$bottomTable->startRow();
+	$bottomTable->addCell($batchAction,null,null,'right',null);
+	$bottomTable->endRow();
+	$bot = $bottomTable->show();
 	foreach ($modules as $modName ) {
 		if (in_array($modName,$localModules)){//dont display downloadable modules until that functionality is complete
 		$isRegistered = $hasController = $hasRegFile = '';
@@ -60,7 +94,11 @@ if ($modules) {
 					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 					$instButton->link = $this->objLanguage->languageText('word_install','modulecatalogue');
 					$instButtonShow = $instButton->show();
-					$checkBox=$objCheck->show();
+					if (!$batchuninstall) {
+						$checkBox=$objCheck->show();
+					} else {
+						$checkBox='';
+					}
 					$icon->setIcon('failed','png');
 					$isRegistered = $icon->show();     
 				} else {//registered
@@ -70,7 +108,11 @@ if ($modules) {
 					$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 					$instButton->link = $this->objLanguage->languageText('word_uninstall','modulecatalogue');
 					$instButtonShow = $instButton->show();
-					$checkBox='';
+					if ($batchuninstall) {
+						$checkBox=$objCheck->show();
+					} else {
+						$checkBox='';
+					}
 					$icon->setIcon('ok','png');
 					$isRegistered = $icon->show();
 				}
@@ -111,6 +153,14 @@ if (($output=$this->getSession('output'))!=null) {
 	$this->unsetSession('output');
 }
 
-$content = $objH->show().$notice.$objTable->show();
-echo $content;
+$objForm = new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
+$objForm->displayType = 3;
+$objForm->addToForm($objH->show());
+$objForm->addToForm($notice);
+$objForm->addToForm($top);
+$objForm->addToForm($objTable->show());
+$objForm->addToForm($bot);
+echo $objForm->show();
+//$content = $objH->show().$notice.$topTable->show().$objTable->show().$bottomTable->show();
+//echo $content;
 ?>
