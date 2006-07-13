@@ -119,8 +119,8 @@ class lucene extends controller
 	            case 'search':
 	            	//move this to a new module. This is only for testing now...
 	            	$query = $this->getParam('query');
-	            	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath());
-	            	//var_dump($this->search->terms());
+	            	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
+	            	echo "Searching " . $this->search->count() . " Documents <br><br>";
 	            	//clean the query
 	            	$query = trim($query);
 

@@ -31,28 +31,35 @@ class indexer extends Zend_Search_Lucene_Document
      */
      public function doIndex(&$doc)
      {
-        //instantiate the lucene engine
-        $this->index = new Zend_Search_Lucene($this->indexPath, true);
+        if(file_exists($this->indexPath.'/chisimbaIndex'))
+        {
+        	//we build onto the previous index
+        	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex');
+        }
+        else {
+        	//instantiate the lucene engine
+        	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex', true);
+        }
         //hook up the document parser
         $this->document = new Zend_Search_Lucene_Document();
 		//change directory to the index path
         chdir($this->indexPath);
         $files = $this->globr($this->indexPath, "*");
-		foreach ($files as $filename) {
+		foreach ($files /*glob("*")*/ as $filename) {
+			echo "indexing" . "  " . $filename . "<br><br>";
 
-			//echo "indexing" . "  " . $filename . "<br><br>";
 			//fake the document
 			$docBody = file_get_contents($filename);
 
 			//set the properties that we want to use in our index
-    	    //url
-     		$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('url', $doc->generateUrl($filename)));
-        	//createdBy
-     		//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('createdBy', $doc->getProperty('createdBy', $filename)));
-        	//document teaser
+   		    //url
+   			$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('url', $doc->generateUrl($filename)));
+       		//createdBy
+   			//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('createdBy', $doc->getProperty('createdBy', $filename)));
+       		//document teaser
      		//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('teaser', $doc->getProperty('teaser', $filename)));
         	//doc title
-     		$this->document->addField(Zend_Search_Lucene_Field::Text('title', $filename)); //$doc->getProperty('title', $filename)));
+     		$this->document->addField(Zend_Search_Lucene_Field::Text('title', basename($filename))); //$doc->getProperty('title', $filename)));
         	//doc author
      		//$this->document->addField(Zend_Search_Lucene_Field::Text('author', $doc->getProperty('author', $filename)));
         	//document body
@@ -80,7 +87,8 @@ class indexer extends Zend_Search_Lucene_Document
          */
         private function globr($sDir, $sPattern, $nFlags = NULL)
         {
-                $sDir = escapeshellcmd($sDir);
+                //chdir($sDir);
+        		$sDir = escapeshellcmd($sDir);
                 //echo $sDir;
                 // Get the list of all matching files currently in the
                 // directory.

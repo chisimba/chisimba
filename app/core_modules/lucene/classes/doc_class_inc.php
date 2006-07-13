@@ -29,7 +29,7 @@ class doc extends object
      public function generateUrl($filename)
      {
      	//generate a url for the document/file
-     	return $this->objConfig->getSiteRoot() . $this->objConfig->getContentPath() . $filename;
+     	return $filename;
 
      }
 
