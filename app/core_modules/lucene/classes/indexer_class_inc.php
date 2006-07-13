@@ -36,7 +36,7 @@ class indexer extends Zend_Search_Lucene_Document
      {
         //debug
         echo $this->indexPath;
-        chdir($this->indexPath);
+        //chdir($this->indexPath);
 
 		foreach (glob("*") as $filename) {
 
