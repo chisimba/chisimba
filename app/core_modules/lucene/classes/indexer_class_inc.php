@@ -18,12 +18,12 @@ class indexer extends Zend_Search_Lucene_Document
 
 	public $document;
 	public $index;
+	public $indexPath;
 
-	public function __construct($indexPath)
+	public function init()
 	{
-		$indexPath = '/var/www/phpman';
 		//instantiate the lucene engine
-        $this->index = new Zend_Search_Lucene($indexPath, true);
+        $this->index = new Zend_Search_Lucene($this->indexPath, true);
         //hook up the document parser
         $this->document = new Zend_Search_Lucene_Document();
 	}
@@ -35,8 +35,10 @@ class indexer extends Zend_Search_Lucene_Document
      public function doIndex(&$doc)
      {
         //debug
-        chdir('/var/www/phpman/html');
-		foreach (glob("*.html") as $filename) {
+        echo $this->indexPath;
+        chdir($this->indexPath);
+
+		foreach (glob("*") as $filename) {
 
 			echo "indexing" . "  " . $filename . "<br><br>";
 			//fake the document

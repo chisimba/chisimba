@@ -84,15 +84,13 @@ class lucene extends controller
         try{
 			//the language object
         	$this->objLanguage = $this->getObject('language','language');
+        	$this->objConfig = $this->getObject('altconfig','config');
         	$this->doc = $this->getObject('doc');
         	$this->index = $this->getObject('indexer');
-			$this->index->doIndex($this->doc);
-        	$this->objConfig = $this->getObject('altconfig','config');
+        	$this->index->indexPath = $this->objConfig->getcontentBasePath();
 
-        	//set the path to be indexed (usrfiles)
-        	//$this->indexPath = $this->objConfig->getcontentBasePath();
-
-        }catch (customException $e){
+        }
+        catch (customException $e){
        		echo customException::cleanUp($e);
         	exit();
         }
@@ -110,7 +108,7 @@ class lucene extends controller
 	        switch ($action){
 	            case null:
 	            case 'index':
-
+					$this->index->doIndex($this->doc);
 	            	break;
 	        }
 		}
