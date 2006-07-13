@@ -37,7 +37,8 @@ class indexer extends Zend_Search_Lucene_Document
         $this->document = new Zend_Search_Lucene_Document();
 		//change directory to the index path
         chdir($this->indexPath);
-		foreach (glob("*") as $filename) {
+        $files = $this->globr($this->indexPath, "*");
+		foreach ($files as $filename) {
 
 			//echo "indexing" . "  " . $filename . "<br><br>";
 			//fake the document
@@ -67,6 +68,42 @@ class indexer extends Zend_Search_Lucene_Document
 		$this->index->commit();
 		//print_r($this->index->getFieldNames());
      }
+
+    	/**
+         * Recursive version of glob
+         *
+         * @return array containing all pattern-matched files.
+         *
+         * @param string $sDir      Directory to start with.
+         * @param string $sPattern  Pattern to glob for.
+         * @param int $nFlags      Flags sent to glob.
+         */
+        private function globr($sDir, $sPattern, $nFlags = NULL)
+        {
+                $sDir = escapeshellcmd($sDir);
+                //echo $sDir;
+                // Get the list of all matching files currently in the
+                // directory.
+
+                $aFiles = glob("$sDir/$sPattern", $nFlags);
+
+                // Then get a list of all directories in this directory, and
+                // run ourselves on the resulting array.  This is the
+                // recursion step, which will not execute if there are no
+                // directories.
+
+                foreach (@glob("$sDir/*", GLOB_ONLYDIR) as $sSubDir)
+                {
+                        $aSubFiles = $this->globr($sSubDir, $sPattern, $nFlags);
+                        $aFiles = array_merge($aFiles, $aSubFiles);
+                }
+
+                // The array we return contains the files we found, and the
+                // files all of our children found.
+
+                return $aFiles;
+        }//end function
+
 
 }
 ?>
