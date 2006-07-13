@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Analysis_TokenFilter */
-require_once 'resources/Search/Lucene/Analysis/TokenFilter.php';
+//require_once 'resources/Search/Lucene/Analysis/TokenFilter.php';
 
 
 /**

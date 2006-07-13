@@ -21,23 +21,23 @@
 
 
 /** Zend_Search_Lucene_Search_QueryTokenizer */
-require_once 'resources/Search/Lucene/Search/QueryTokenizer.php';
+//require_once 'resources/Search/Lucene/Search/QueryTokenizer.php';
 
 /** Zend_Search_Lucene_Index_Term */
-require_once 'resources/Search/Lucene/Index/Term.php';
+//require_once 'resources/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Search_Query_Term */
-require_once 'resources/Search/Lucene/Search/Query/Term.php';
+//require_once 'resources/Search/Lucene/Search/Query/Term.php';
 
 /** Zend_Search_Lucene_Search_Query_MultiTerm */
-require_once 'resources/Search/Lucene/Search/Query/MultiTerm.php';
+//require_once 'resources/Search/Lucene/Search/Query/MultiTerm.php';
 
 /** Zend_Search_Lucene_Search_Query_Phrase */
-require_once 'resources/Search/Lucene/Search/Query/Phrase.php';
+//require_once 'resources/Search/Lucene/Search/Query/Phrase.php';
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'resources/Search/Lucene/Exception.php';
+//require_once 'resources/Search/Lucene/Exception.php';
 
 
 /**

@@ -7,7 +7,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 }
 // end security check
 
-require_once '../resources/Search/Lucene.php';
+
 
 /**
  * Indexer class extends object
@@ -19,8 +19,9 @@ class indexer extends Zend_Search_Lucene_Document
 	public $document;
 	public $index;
 
-	public function __construct()
+	public function __construct($indexPath)
 	{
+		$indexPath = '/var/www/phpman';
 		//instantiate the lucene engine
         $this->index = new Zend_Search_Lucene($indexPath, true);
         //hook up the document parser
@@ -33,7 +34,20 @@ class indexer extends Zend_Search_Lucene_Document
      */
      public function doIndex(&$doc)
      {
-        //set the properties that we want to use in our index
+        //debug
+        chdir('/var/www/phpman/html');
+		foreach (glob("*.html") as $filename) {
+
+			echo "indexing" . "  " . $filename . "<br><br>";
+			//fake the document
+			$docBody = file_get_contents($filename);
+			$this->document->addField(Zend_Search_Lucene_Field::Text('title', $filename));
+			$this->document->addField(Zend_Search_Lucene_Field::Text('contents', $docBody));
+			$this->index->addDocument($this->document);
+		}
+
+/*
+     	//set the properties that we want to use in our index
         //url
      	$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('url', $this->doc->generateUrl()));
         //createdBy
@@ -41,15 +55,15 @@ class indexer extends Zend_Search_Lucene_Document
         //document teaser
      	$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('teaser', $this->doc->getProperty('teaser')));
         //doc title
-     	$this->document->addField(Zend_Search_Lucene_Field::Text('title', $this->doc->getProperty('title')));
+     	$this->document->addField(Zend_Search_Lucene_Field::Text('title', $filename)); //$this->doc->getProperty('title')));
         //doc author
      	$this->document->addField(Zend_Search_Lucene_Field::Text('author', $this->doc->getProperty('author')));
         //document body
         //NOTE: this is not actually put into the index, so as to keep the index nice and small
         //      only a reference is inserted to the index.
-     	$this->document->addField(Zend_Search_Lucene_Field::UnStored('contents', $this->doc->getProperty('body')));
+     	$this->document->addField(Zend_Search_Lucene_Field::UnStored('contents', $filebody)); //$this->doc->getProperty('body')));
      	//what else do we need here???
-
+*/
      }
 
 }

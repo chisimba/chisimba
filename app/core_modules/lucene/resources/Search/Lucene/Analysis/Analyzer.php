@@ -21,13 +21,13 @@
 
 
 /** Zend_Search_Lucene_Analysis_Token */
-require_once 'resources/Search/Lucene/Analysis/Token.php';
+//require_once 'resources/Search/Lucene/Analysis/Token.php';
 
 /** Zend_Search_Lucene_Analysis_Analyzer_Common_Text */
-require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text.php';
+//require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text.php';
 
 /** Zend_Search_Lucene_Analysis_Analyzer_Common_Text_CaseInsensitive */
-require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text/CaseInsensitive.php';
+//require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text/CaseInsensitive.php';
 
 
 

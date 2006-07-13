@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Field */
-require_once 'resources/Search/Lucene/Field.php';
+require_once 'Field.php';
 
 
 /**

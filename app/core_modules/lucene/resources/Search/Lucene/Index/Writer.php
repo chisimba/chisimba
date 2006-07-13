@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Index_SegmentWriter */
-require_once 'resources/Search/Lucene/Index/SegmentWriter.php';
+//require_once 'resources/Search/Lucene/Index/SegmentWriter.php';
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
-require_once 'resources/Search/Lucene/Index/SegmentInfo.php';
+//require_once 'resources/Search/Lucene/Index/SegmentInfo.php';
 
 
 /**

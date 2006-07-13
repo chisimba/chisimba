@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Exception */
-require_once 'resources/Search/Lucene/Exception.php';
+//require_once 'resources/Search/Lucene/Exception.php';
 
 
 /**

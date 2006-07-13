@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Analysis_Token */
-require_once 'resources/Search/Lucene/Analysis/Token.php';
+//require_once 'resources/Search/Lucene/Analysis/Token.php';
 
 
 /**

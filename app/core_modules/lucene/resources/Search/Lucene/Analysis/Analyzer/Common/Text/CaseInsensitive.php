@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Analysis_Analyzer_Common_Text */
-require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text.php';
+//require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text.php';
 
 /** Zend_Search_Lucene_Analysis_TokenFilter_LowerCase */
-require_once 'resources/Search/Lucene/Analysis/TokenFilter/LowerCase.php';
+//require_once 'resources/Search/Lucene/Analysis/TokenFilter/LowerCase.php';
 
 
 /**

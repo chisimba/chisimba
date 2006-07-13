@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Storage_File */
-require_once 'resources/Search/Lucene/Storage/File.php';
+//require_once 'resources/Search/Lucene/Storage/File.php';
 
 /** Zend_Search_Lucene_Exception */
-require_once 'resources/Search/Lucene/Exception.php';
+//require_once 'resources/Search/Lucene/Exception.php';
 
 
 /**

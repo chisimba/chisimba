@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Analysis_Analyzer_Common */
-require_once 'resources/Search/Lucene/Analysis/Analyzer/Common.php';
+//require_once 'resources/Search/Lucene/Analysis/Analyzer/Common.php';
 
 
 /**

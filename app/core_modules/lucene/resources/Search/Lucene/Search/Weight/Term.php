@@ -21,7 +21,7 @@
 
 
 /** Zend_Search_Lucene_Search_Weight */
-require_once 'resources/Search/Lucene/Search/Weight.php';
+//require_once 'resources/Search/Lucene/Search/Weight.php';
 
 
 /**

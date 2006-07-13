@@ -48,7 +48,7 @@ class doc extends object
      			return $createdBy;
 
      		case 'body':
-     			$body = file_get_contents($file)
+     			$body = file_get_contents($file);
      	}
 
      }

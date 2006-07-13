@@ -21,10 +21,10 @@
 
 
 /** Zend_Search_Lucene_Search_QueryToken */
-require_once 'resources/Search/Lucene/Search/QueryToken.php';
+//require_once 'resources/Search/Lucene/Search/QueryToken.php';
 
 /** Zend_Search_Lucene_Exception */
-require_once 'resources/Search/Lucene/Exception.php';
+//require_once 'resources/Search/Lucene/Exception.php';
 
 
 /**

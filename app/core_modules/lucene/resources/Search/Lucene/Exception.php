@@ -22,7 +22,7 @@
 /**
  * Framework base exception
  */
-require_once 'resources/Search/Exception.php';
+//require_once '../Exception.php';
 
 
 /**

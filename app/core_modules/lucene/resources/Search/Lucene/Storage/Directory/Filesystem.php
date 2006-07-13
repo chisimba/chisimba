@@ -20,11 +20,9 @@
  */
 
 
-/** Zend_Search_Lucene_Storage_Directory */
-require_once 'resources/Search/Lucene/Storage/Directory.php';
 
-/** Zend_Search_Lucene_Storage_File_Filesystem */
-require_once 'resources/Search/Lucene/Storage/File/Filesystem.php';
+
+
 
 
 /**
