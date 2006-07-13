@@ -87,7 +87,7 @@ class lucene extends controller
         	$this->objConfig = $this->getObject('altconfig','config');
         	$this->doc = $this->getObject('doc');
         	$this->index = $this->getObject('indexer');
-        	$this->index->indexPath = $this->objConfig->getcontentBasePath();
+
 
         }
         catch (customException $e){
@@ -108,6 +108,9 @@ class lucene extends controller
 	        switch ($action){
 	            case null:
 	            case 'index':
+	            	//set the path to index
+	            	$this->index->indexPath = $this->objConfig->getcontentBasePath();
+	            	//do the indexing
 					$this->index->doIndex($this->doc);
 	            	break;
 	        }

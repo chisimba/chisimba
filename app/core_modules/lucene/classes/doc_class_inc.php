@@ -12,10 +12,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
 class doc extends object
 {
+	public $objConfig;
 
     public function init()
     {
-
+		$this->objConfig = $this->getObject('altconfig','config');
     }
 
 	/**
@@ -25,8 +26,10 @@ class doc extends object
       * @param void
       * @return url
       */
-     private function generateUrl()
+     public function generateUrl($filename)
      {
+     	//generate a url for the document/file
+     	return $this->objConfig->getSiteRoot() . $this->objConfig->getContentPath() . $filename;
 
      }
 
@@ -37,7 +40,7 @@ class doc extends object
       * @param $prop
       * @return mixed $docproperties
       */
-     private function getProperty($prop)
+     public function getProperty($prop, $filename)
      {
      	switch ($prop)
      	{
