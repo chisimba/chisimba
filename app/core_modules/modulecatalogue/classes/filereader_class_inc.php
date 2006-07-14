@@ -76,7 +76,6 @@ class filereader extends object
 						case 'DIRECTORY': 			//Create a directory in content folder
 						case 'SUBDIRECTORY': 		//Create a subdirectory in above directory
 						case 'TABLE': 				//Names of SQL tables
-						case 'BIGDATA': 			//data too large for the table-creation method
 						case 'DEPENDS': 			//modules this module needs
 						case 'CLASSES':
 						case 'WARNING'; 			//Warning tag for modules with special requirements or functions

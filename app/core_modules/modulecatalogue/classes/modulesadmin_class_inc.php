@@ -163,10 +163,7 @@ class modulesadmin extends dbTableManager
                     }
                 }
                 // Here we load data into tables from files of SQL statements
-                if (isset($registerdata['BIGDATA'])) {
-                    foreach ($registerdata['BIGDATA'] as $bigdata) {
-                        $this->loadData($bigdata);
-                    }
+                $this->loadData($moduleId);
                 }
                 // Create directory
                 if(isset($registerdata['DIRECTORY'])){
@@ -725,36 +722,39 @@ class modulesadmin extends dbTableManager
     }
     
     /**
-    * function loadData()
     * This is a method to read data from a file and use it to populate (not create) a table.
-    * @todo FIX THIS
-    * @param $tablefile the name of the file
     * @param string $moduleId the id of the module to be used
     * @return boolean TRUE or FALSE
     */
-    private function loadData($tablefile,$moduleId='NONE')
-    {
-        if ($moduleId=='NONE'){
-            $moduleId=$this->module_id;
-        }
-        $sqlfile=$this->objConfig->siteRootPath().'/modules/'.$moduleId.'/'.$tablefile.'.sql';
-        if (!file_exists($sqlfile)){
-            $sqlfile=$this->objConfig->siteRootPath().'/modules/'.$moduleId.'/sql/'.$tablefile.'.sql';
-        }
-        if (!file_exists($sqlfile))
-        {
-            throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
-        }
-        ini_set('max_execution_time','120');
-        $handle=fopen($sqlfile,'r');
-        while (!feof($handle))
-        {
-            $line=fgets($handle,16384); // 16KB
-            $line=str_replace('PKVALUE',($this->objKeyMaker->newkey($tablefile)),$line);
-            $this->localQuery($line);
-        }
-        fclose($handle);
-        return TRUE;
+    public function loadData($moduleId) {
+    	try {
+    		$this->objLanguage = $this->getObject('language','language');
+    		if ($moduleId==null){
+    			$moduleId=$this->module_id;
+    		}
+    		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/defaultdata.xml';
+    		if (!file_exists($sqlfile)){
+    			$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/defaultdata.xml';
+    			if (!file_exists($sqlfile)){
+    				return FALSE;
+    			}
+    		}	
+    		ini_set('max_execution_time','120');
+    		if (!$objXml = simplexml_load_file($sqlfile)) {
+    			throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$sqlfile);
+    		}
+    		foreach ($objXml as $table=>$dummy) {
+    			$sqlArray = array();
+    			foreach ($dummy as $field=>$value) {
+    				$sqlArray[$field]= $value;
+    			}
+    			$this->objModules->insert($sqlArray,$table);
+    		}
+    		return TRUE;
+    	} catch (Exception $e) {
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
     }
 
 	/**
