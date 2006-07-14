@@ -642,8 +642,6 @@ class PEARCheckAction extends StepAction
 
 									'Mail_Mime'   	=> Array('version'=>'1.2.1','available'=>false,'message' => ''),
 
-									'XML_HTMLSax' 	=> Array('version'=>'2.1.2','available'=>false,'message' => ''),
-
 									'XML_Parser'  	=> Array('version'=>'1.0.1','available'=>false,'message' => ''),
 
 									'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
@@ -712,24 +710,6 @@ class PEARCheckAction extends StepAction
 
 			}
 			
-			
-
-			@include_once 'XML/XML_HTMLSax.php';
-
-			if (!class_exists('XML_HTMLSax')) {
-
-				$this->errors[] = 'Could not find PEAR::XML_HTMLSax';
-
-				$this->required_packages['XML_HTMLSax']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Help"  />';
-
-			} else {
-
-				$this->required_packages['XML_HTMLSax']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
-
-			}
-
-			
-
 			@include_once 'Archive/Tar.php';
 
 			if (!class_exists('Archive_Tar')) {
@@ -857,7 +837,7 @@ class PEARCheckAction extends StepAction
 					$this->success = false;
 
 				} else {
-
+				
 					if (version_compare($required_version['version'], $package_info['version']) < 0) {
 
 						$this->required_packages[$package_name]['available'] = true;
