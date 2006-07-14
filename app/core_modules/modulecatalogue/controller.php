@@ -2,7 +2,7 @@
 /**
  * Module administration with catalogue interface. Allows installation and Un-installation of modules
  * via a cagtalogue interface which groups similar modules. Also incorporates module patching.
- * 
+ *
  * @author Nic Appleby
  * @category Chisimba
  * @package modulecatalogue
@@ -18,91 +18,91 @@ class modulecatalogue extends controller
 	 * @var object $objDBModCat
 	 */
 	protected $objDBModCat;
-	
+
 	/**
 	 * Object to read module information from register files
 	 *
 	 * @var object $objModFile
 	 */
 	protected $objModFile;
-	
+
 	/**
 	 * Object to read catalogue configuration
 	 *
 	 * @var object $objCatalogueConfig
 	 */
 	protected $objCatalogueConfig;
-	
+
 	/**
 	 * Side menu object
 	 *
 	 * @var object $objSideMenu
 	 */
 	public $objSideMenu;
-	
+
 	/**
 	 * Logger object to log module calls
 	 *
 	 * @var object $objLog
 	 */
 	public $objLog;
-	
+
 	/**
 	 * User object for security
 	 *
 	 * @var object $objUser
 	 */
 	public $objUser;
-	
+
 	/**
 	 * Language object for multilingual support
 	 *
 	 * @var object $objLanguage
 	 */
 	public $objLanguage;
-	
+
 	/**
 	 * The site configuration object
 	 *
 	 * @var object $config
 	 */
 	public $config;
-	
+
 	/**
 	 * object that reads a module's register.conf file
 	 *
 	 * @var object $objRegFile
 	 */
 	protected $objRegFile;
-	
+
 	/**
 	 * object to read/write module data to database
 	 *
 	 * @var object $objModule
 	 */
 	protected $objModule;
-	
+
 	/**
 	 * object to read/write administrative module data to database
 	 *
 	 * @var object $objModuleAdmin
 	 */
 	protected $objModuleAdmin;
-	
+
 	/**
 	 * object to check system configuration
 	 *
 	 * @var object $objSysConfig
 	 */
 	protected $objSysConfig;
-	
+
 	/**
 	 * output varaiable to store user feedback
 	 *
 	 * @var string $output
 	 */
 	protected $output;
-	
+
 	/**
 	 * Standard initialisation function
 	 */
@@ -127,10 +127,10 @@ class modulecatalogue extends controller
 
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+        	exit();
 		}
 	}
-	
+
 	/**
 	 * Dispatch function
 	 *
@@ -244,10 +244,10 @@ class modulecatalogue extends controller
 			}
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+        	exit();
 		}
 	}
-	
+
 	/**
     * This method is a 'wrapper' function - it takes info from the
     * 'register.conf' file provided by the module to be registered,
@@ -277,10 +277,10 @@ class modulecatalogue extends controller
     		}
     	} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();	
+        	exit();
 		}
     } // end of function
-    
+
      /**
     * This method is a 'wrapper' function - it takes info from the 'register.conf'
     * file provided by the module to be registered, and passes it to its namesake
@@ -307,7 +307,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
     * Method to handle registration of multiple modules at once
     * @param array $modArray
@@ -322,7 +322,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
     * This method is designed to handle the registeration of multiple modules at once.
     * @param string $modname
@@ -360,7 +360,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
     * Method to handle deregistration of multiple modules at once
     * @param array $modArray
@@ -375,7 +375,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
     * This method is designed to handle the deregisteration of multiple modules at once.
     * @param string $modname
@@ -415,13 +415,13 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
 	/**
     * This is a method to handle first-time registration of the basic modules
     */
     private function firstRegister() {
     	try {
-    		$mList=file($this->objConfig->siteRootPath().'/installer/default_modules.txt');
+    		$mList=file($this->objConfig->getsiteRootPath().'/installer/default_modules.txt');
     		foreach ($mList as $line) {
     			$this->installModule(trim($line));
     		}
@@ -437,7 +437,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
      /**
     * This is a method to look through list of texts specified for module,
     * and see if they are registered or not.
@@ -480,7 +480,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
      * This is a method to update the text elements in all registered modules at once
      *
@@ -492,7 +492,7 @@ class modulecatalogue extends controller
             $texts = $this->moduleText($line['module_id'],'replace');
         }
     }
-    
+
 	/**
      * The error callback function, defers to configured error handler
      *
@@ -502,7 +502,7 @@ class modulecatalogue extends controller
     public function errorCallback($exception) {
     	echo customException::cleanUp($exception);
     }
-    
+
     /**
      * Method to determine whether the module requires the user to be logged in.
      *
@@ -520,7 +520,7 @@ class modulecatalogue extends controller
     		exit();
     	}
     }
-    
+
     /**
      * kind of a hack wrapper method to get the messed up params from the header via getParam in the engine
      *
