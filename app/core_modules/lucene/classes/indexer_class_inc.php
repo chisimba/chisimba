@@ -66,7 +66,7 @@ class indexer extends Zend_Search_Lucene_Document
         	//document body
         	//NOTE: this is not actually put into the index, so as to keep the index nice and small
         	//      only a reference is inserted to the index.
-     		$this->document->addField(Zend_Search_Lucene_Field::Text('contents', $doc->getProperty('body', $filename))); //Change to Unstored
+     		$this->document->addField(Zend_Search_Lucene_Field::Unstored('contents', $doc->getProperty('body', $filename)));
      		//what else do we need here???
 
      		//add the document to the index
