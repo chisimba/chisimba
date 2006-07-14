@@ -1,6 +1,6 @@
 <?php
 ini_set("max_execution_time", 3600);
-ini_set("memory_limit", "700MB");
+//ini_set("memory_limit", "700MB");
 
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
