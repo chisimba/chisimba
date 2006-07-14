@@ -14,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @copyright GPL UWC 2006
 * @category Chisimba
 * @package Modulecatalogue
-* @version $Id$ 
+* @version $Id$
 */
 
 class modulesadmin extends dbTableManager
@@ -24,15 +24,15 @@ class modulesadmin extends dbTableManager
 	 *
 	 * @var string $module_id
 	 */
-	private $module_id; 
-    
+	private $module_id;
+
 	/**
 	 * Current module's name
 	 *
 	 * @var string $module_name
 	 */
 	private $module_name;
-	
+
 	/**
 	 * Descritpion of current module
 	 *
@@ -46,38 +46,38 @@ class modulesadmin extends dbTableManager
      * @var object objTableInfo
      */
     private $objTableInfo;
-    
+
     /**
      * Object interface to KeyMaker class
      *
      * @var object $objKeyMaker
      */
-    private $objKeyMaker; 
-    
+    private $objKeyMaker;
+
     private $update=FALSE;
     public $output;
-	
+
     /**
 	 * object to manipulate the modules table
 	 *
 	 * @var object $objModules
 	 */
 	protected $objModules;
-	
+
 	/**
 	 * User data object
 	 *
 	 * @var object $objUser
 	 */
 	protected $objUser;
-	
+
 	/**
 	 * System configuration object
 	 *
 	 * @var object $objConfig
 	 */
 	public $objConfig;
-	
+
     /**
      * Standard initilisation method
      *
@@ -94,7 +94,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
      * Method to check whether a module dependency is registered
      *
@@ -109,7 +109,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to register the module. It stores the module information in
     * the database table tbl_modules, creates any needed SQL tables,
@@ -129,7 +129,7 @@ class modulesadmin extends dbTableManager
             $this->module_name=$registerdata['MODULE_NAME'];
             $this->module_description=$registerdata['MODULE_DESCRIPTION'];
     		$this->objModules->beginTransaction();
-    
+
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$this->update) {
                 return FALSE;
@@ -158,7 +158,7 @@ class modulesadmin extends dbTableManager
                             $sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
                             $this->objModules->query($sql);
                             // Add the table to the records.
-                            $this->objModules->insert(array('kng_module'=>$moduleId,'tablename'=>$table),'tbl_modules_owned_tables'); 
+                            $this->objModules->insert(array('kng_module'=>$moduleId,'tablename'=>$table),'tbl_modules_owned_tables');
                         }
                     }
                 }
@@ -168,7 +168,7 @@ class modulesadmin extends dbTableManager
                 // Create directory
                 if(isset($registerdata['DIRECTORY'])){
                     foreach ($registerdata['DIRECTORY'] as $directory) {
-                        $path = 
+                        $path =
                             $this->objConfig->getcontentBasePath()
                             .'/'.$directory
                             .'/';
@@ -178,10 +178,10 @@ class modulesadmin extends dbTableManager
                     }
                 }
                 // Set up data for the site navigation: toolbar, sidemenus and pages
-                $isAdmin = 0; 
-                $isContext = 0; 
-                $aclList = ''; 
-                $permList = array(); 
+                $isAdmin = 0;
+                $isContext = 0;
+                $aclList = '';
+                $permList = array();
                 $groupArray = array();
                 $groupArray2 = array();
                 if(isset($registerdata['MODULE_ISADMIN'])){
@@ -192,7 +192,7 @@ class modulesadmin extends dbTableManager
                 }
                 /*
                 Set up permissions for the module.
-                Set up a module specific ACL, set up module specific groups and add 
+                Set up a module specific ACL, set up module specific groups and add
                 them to the acl.
                 If there is no ACL, set up groups.
                 */
@@ -209,7 +209,7 @@ class modulesadmin extends dbTableManager
                                 $aclList .= ','.$aclId;
                             }
                             $permList[] = $perms[0];
-    
+
                             if(isset($perms[1]) && !empty($perms[1])){
                                 $groups = explode(',', $perms[1]);
                                 foreach($groups as $group){
@@ -231,13 +231,13 @@ class modulesadmin extends dbTableManager
                         }
                     }
                 }
-    
+
                 // Link existing groups with access to the module.
                 // First check if the group exists and create it if it doesn't.
                 if(isset($registerdata['USE_GROUPS'][0])){
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     $groupList = '';
-    
+
                     foreach($registerdata['USE_GROUPS'] as $group){
                         $grId = $objGroups->getId($group);
                         if(empty($grId)){
@@ -252,12 +252,12 @@ class modulesadmin extends dbTableManager
                     }
                     $aclList .= '|'.$groupList;
                 }
-    
+
                 // Link existing groups with access to a context dependent module
                 if(isset($registerdata['USE_CONTEXT_GROUPS'][0])){
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     $contextGroupList = '';
-    
+
                     foreach($registerdata['USE_CONTEXT_GROUPS'] as $conGroup){
                         if(empty($contextGroupList)){
                             $contextGroupList = $conGroup;
@@ -267,7 +267,7 @@ class modulesadmin extends dbTableManager
                     }
                     $aclList .= '|_con_'.$contextGroupList;
                 }
-    
+
                 // Create a condition type
                 if(isset($registerdata['CONDITION_TYPE'][0])){
                     $objType =& $this->getObject('conditiontype','decisiontable');
@@ -283,7 +283,7 @@ class modulesadmin extends dbTableManager
                         }
                     }
                 }
-    
+
                 /* Create conditions.
                     Create a condition in the decisiontable, returns the condition object.
                     Populate an array with condition objects for use in creating rules.
@@ -299,7 +299,7 @@ class modulesadmin extends dbTableManager
                             $list = '';
                         }
                         $paramList = array();
-    
+
                         if($array[1] == 'hasPermission'){
                             foreach($permList as $perm){
                                 foreach($list as $val){
@@ -327,7 +327,7 @@ class modulesadmin extends dbTableManager
                         }else{
                             $paramList = $list;
                         }
-    
+
                         $name = $array[0];
                         if(!empty($paramList)){
                             $paramList = implode(',', $paramList);
@@ -338,7 +338,7 @@ class modulesadmin extends dbTableManager
                         $conditions[$name] = $objCond->create($name, $params);
                     }
                 }
-    
+
                 // Use existing conditions
                 if(isset($registerdata['USE_CONDITION'][0])){
                     $objCond =& $this->getObject('condition','decisiontable');
@@ -348,7 +348,7 @@ class modulesadmin extends dbTableManager
                         $conditions[$name] = $objCond->create($name);
                     }
                 }
-    
+
                 /* Create rules.
                     Create the decisiontable for the module.
                     Create the action in the decisiontable, returns the action object.
@@ -363,21 +363,21 @@ class modulesadmin extends dbTableManager
                     $objRule =& $this->getObject('rule','decisiontable');
                     $objRule->connect($objDecisionTable);
                     $i = 1;
-    
+
                     // Create the decision table
                     $modTable = $objDecisionTable->create($moduleId);
-    
+
                     foreach($registerdata['RULE'] as $rule){
                         $ruleName = $moduleId.' rule '.$i++;
                         $array = explode('|', $rule);
                         $actionList = explode( ',', $array[0] );
                         $conditionList = explode( ',', $array[1] );
-    
+
                         // Create rule object and add to the decision table
                         $rule = $objRule->create($ruleName);
                         // Add the rule to the decision table.
                         $objDecisionTable->addRule( $rule );
-    
+
                         // Create action object and add to decision table.
                         foreach( $actionList as $anAction ) {
                             $arrActions[$anAction] = $objAction->create($anAction);
@@ -386,21 +386,21 @@ class modulesadmin extends dbTableManager
                             // Add the rule to the action
                             $arrActions[$anAction]->add($rule);
                         }
-    
+
                         // Add the condition to the rule
                         foreach( $conditionList as $aCondition ) {
-    
+
                             $rule->add($conditions[$aCondition]);
                         }
                     }
                 }
-    
+
                 // end Permissions and Security
-    
+
                 // Site Navigation
-    
+
                 // Menu category
-    
+
                 if (isset($registerdata['MENU_CATEGORY'])) {
                     foreach ($registerdata['MENU_CATEGORY'] as $menu_category) {
                         $menu_category=strtolower($menu_category);
@@ -409,7 +409,7 @@ class modulesadmin extends dbTableManager
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end menu category
-    
+
                 // Side menus
                 if (isset($registerdata['SIDEMENU'])) {
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
@@ -420,8 +420,8 @@ class modulesadmin extends dbTableManager
                         $actions = explode('|', $sidemenu);
                         if(isset($actions[1]) && !empty($actions[1])){
                             $sidemenu = str_replace($actions[1],'',$sidemenu);
-                            $conGroups = ''; 
-                            $siteGroups = ''; 
+                            $conGroups = '';
+                            $siteGroups = '';
                             $acls = '';
                             $access = explode(',',$actions[1]);
                             $admin = 0;
@@ -445,7 +445,7 @@ class modulesadmin extends dbTableManager
                                         $acls .= ',';
                                     }
                                     $acls .= $permId;
-    
+
                                 }
                                 // check for module groups, create if don't exist
                                 else{
@@ -480,7 +480,7 @@ class modulesadmin extends dbTableManager
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end side menu
-    
+
                 // admin and lecturer pages
                 if(isset($registerdata['PAGE'][0])){
                     foreach($registerdata['PAGE'] as $line){
@@ -500,22 +500,22 @@ class modulesadmin extends dbTableManager
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end pages
-    
+
                 // end Site Navigation
-    
+
                 // Here we pass CONFIG data to the sysconfig module
                 if (isset($registerdata['CONFIG']))
                 {
                     $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
                     $this->objSysConfig->registerModuleParams($moduleId,$registerdata['CONFIG']);
                 }
-    
+
                 // Icons
                 if (isset($registerdata['ICON'][0]))
                 {
                     $this->moveIcons($moduleId,$registerdata['ICON']);
                 }
-    
+
                 // Now the main data entry - building up arrays of the essential params
                 $sql_arr = array(
                     'module_id' => $moduleId
@@ -568,16 +568,18 @@ class modulesadmin extends dbTableManager
                 {
                     $this->registerDependentModules($moduleId,$registerdata['DEPENDS']);
                 }
-            }
+
             $this->objModules->commitTransaction(); //End the transaction;
-            return "OK";
-        } catch (Exception $e) {
+        }
+
+        catch (Exception $e) {
         	$this->objModules->rollbackTransaction();
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
-    } 
-    
+        return "OK";
+    }
+
      /**
     * This is a method to uninstall a module.
     * This method should check for modules that depend on the current module
@@ -684,7 +686,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
     /**
     * This method looks at the registration data and tries to create any tables specified
     * @param string $table The name of the table to be created
@@ -720,7 +722,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to read data from a file and use it to populate (not create) a table.
     * @param string $moduleId the id of the module to be used
@@ -738,7 +740,7 @@ class modulesadmin extends dbTableManager
     			if (!file_exists($sqlfile)){
     				return FALSE;
     			}
-    		}	
+    		}
     		ini_set('max_execution_time','120');
     		if (!$objXml = simplexml_load_file($sqlfile)) {
     			throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$sqlfile);
@@ -775,7 +777,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to put the module information into the language table
     * It first inserts the name of the module and then inserts the
@@ -783,7 +785,7 @@ class modulesadmin extends dbTableManager
     * @todo This must be moved into the language class
     */
     private function registerModuleLanguageElements() {
-    	try { 
+    	try {
     		$modTitle="mod_".$this->module_id."_name";
     		$modDescription="mod_".$this->module_id."_desc";
     		$this->objModules->beginTransaction();
@@ -808,14 +810,14 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to add language terms to the database
     * @param string $terms A comma delimited string of
     * terms that are used in the language database
     */
     private function registerModuleLanguageTerms($terms) {
-        try { 
+        try {
         	$terms_arr=explode(',', $terms);
         	$this->objModules->beginTransaction();
         	foreach ($terms_arr as $term) {
@@ -828,7 +830,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * Registers modules that this module depends on
     * @param string $moduleId The module ID
@@ -847,7 +849,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to drop tables for the current module. This method
     * gets the list of owned tables from tbl_modules_owned_tables
@@ -857,7 +859,7 @@ class modulesadmin extends dbTableManager
     */
     private function dropTables($moduleId)
     {
-        try { 
+        try {
         	$sql = "SELECT tablename FROM tbl_modules_owned_tables WHERE kng_module='$moduleId'";
         	$rs = $this->objModules->getArray( $sql );
         	$rs_reversed=array_reverse($rs, TRUE);
@@ -874,7 +876,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to check for specified text entries from both tbl_languagetext and tbl_english
     * @param $code
@@ -908,7 +910,7 @@ class modulesadmin extends dbTableManager
         	exit();
         }
     }
-    
+
     /**
     * This is a method to build an array based on another one.
     * @param array $rdata
@@ -941,7 +943,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
     /**
     * This is a method to add specified text entries from both tbl_languagetext and tbl_english
     * @author James Scoble
@@ -973,7 +975,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
     /**
     * This is a method to remove specified text entries from both tbl_languagetext and tbl_english
     * @param $code
@@ -991,7 +993,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
     /**
      * The error callback function, defers to configured error handler
      *
