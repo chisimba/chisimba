@@ -10,7 +10,7 @@
 */
 // checks for configuration file, if none found loads installation page
 if ( !file_exists( 'config/config.xml' ) ) {
-	header( 'Location: install/index.php' );
+	header( 'Location: installer/index.php' );
 	exit();
 }
 // this is a security measure, this can be checked by the included scripts and the script
