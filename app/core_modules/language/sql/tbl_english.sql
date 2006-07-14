@@ -21,15 +21,15 @@ $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 $fields = array(
 	'id' => array(
 		'type' => 'text',
-		'length' => 32
-		),
-	'code' => array(
-		'type' => 'text',
 		'length' => 50,
         'notnull' => TRUE
 		),
-    'Content' => array(
+    'en' => array(
 		'type' => 'text'
+		),
+	'pageId' => array(
+		'type' => 'text',
+		'length' => 150
 		),
     'isInNextGen' => array(
 		'type' => 'integer',
@@ -58,7 +58,7 @@ $name = 'eng_code';
 
 $indexes = array(
                 'fields' => array(
-                	'code' => array()
+                	'id' => array()
                 )
         );
 ?>

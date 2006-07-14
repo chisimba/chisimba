@@ -3,8 +3,8 @@
   <!-- Table tbl_language_modules -->
     <tbl_language_modules>
         <id>77</id>
-        <module_id>moduleadmin</module_id>
-        <code>ModuleAdmin</code>
+        <module_id>modulecatalogue</module_id>
+        <code>ModuleCatalogue</code>
     </tbl_language_modules>
   <!-- Table tbl_languagelist -->
     <tbl_languagelist>
