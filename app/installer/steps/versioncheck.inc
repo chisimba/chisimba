@@ -10,13 +10,13 @@ require_once INSTALL_DIR.'/stepaction.inc';
 
 * VersionCheck
 
-* * 
+* *
 
-* Checks all the required version numbers of the target system 
+* Checks all the required version numbers of the target system
 
-* 
+*
 
-* 
+*
 
 * @author Prince Mbekwa
 
@@ -34,15 +34,15 @@ class VersionCheck extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Checks all version requirements
 
-	* 
+	*
 
 	* @return void
 
@@ -50,17 +50,17 @@ class VersionCheck extends Step
 
 	*/
 
-	function VersionCheck() 
+	function VersionCheck()
 
 	{
 		//Register PHP check actions
 		$this->actions[] =& new PHPCheckAction(get_class($this));
-		
+
 		//Register PEAR db clients
-		
-		$this->actions[] =& new PEARDBCheckAction(get_class($this));	
+
+		$this->actions[] =& new PEARDBCheckAction(get_class($this));
 		//Register PEAR check actions
-		$this->actions[] =& new PEARCheckAction(get_class($this));	
+		$this->actions[] =& new PEARCheckAction(get_class($this));
 
 		$this->step_title = 'System Requirements.';
 
@@ -71,16 +71,16 @@ class VersionCheck extends Step
 		$this->conf_required = true;
 
 		$this->help_topic = 'version_check';
-   
+
 		$this->step_help = "The Installer will check if you have all the required components installed to run Chisimba";
 
-		
+
 
 	}//end VersionCheck()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -94,11 +94,11 @@ class VersionCheck extends Step
 
 * PHPCheckAction
 
-* 
+*
 
 * Perform checks for the PHP version
 
-* 
+*
 
 *
 
@@ -118,7 +118,7 @@ class PHPCheckAction extends StepAction
 
 	var $min_version = '5.1.1';
 
-	
+
 
 	/**
 
@@ -135,7 +135,7 @@ class PHPCheckAction extends StepAction
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'Zlib'=>Array('version'=>'', 'available' => true, 'message'=> ''),
-										
+
 										'calendar'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'curl'=>Array('version'=>'7.10.5', 'available' => true, 'message'=> ''),
@@ -166,15 +166,15 @@ class PHPCheckAction extends StepAction
 
 									);
 
-	
 
-	
+
+
 
 	/**
 
 	* Figure out whether the current PHP version is sufficient
 
-	* 
+	*
 
 	* @return boolean Whether this check succeeded or not.
 
@@ -186,9 +186,9 @@ class PHPCheckAction extends StepAction
 
 	{
 
-		
 
-		
+
+
 
 		if(version_compare(phpversion(), $this->required_settings['PHP']['version']) < 0) {
 
@@ -202,7 +202,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 
 		// check if gd available
 
@@ -222,7 +222,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 
 		// check zlib
 
@@ -240,7 +240,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 		// check calendar
 
 		if (!function_exists('cal_info')) {
@@ -257,7 +257,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 
 		// check curl
 
@@ -295,7 +295,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 
 		// check libxml
 
@@ -313,11 +313,11 @@ class PHPCheckAction extends StepAction
 
 		}
 
-				
+
 
 		// check mysqlclient
 
-					
+
 
 		if (!function_exists('mysql_get_client_info')) {
 
@@ -327,7 +327,7 @@ class PHPCheckAction extends StepAction
 
 			$this->errors[] = 'mysqlclient not found. You need to install this extension';
 
-			
+
 
 		} else {
 
@@ -349,7 +349,7 @@ class PHPCheckAction extends StepAction
 
 		// check mysql_server
 
-		
+
 
 		if (!function_exists('mysql_get_server_info')) {
 
@@ -381,7 +381,7 @@ class PHPCheckAction extends StepAction
 
 		}
 
-		
+
 		// check pgsql
 
 		if (!extension_loaded('pgsql')) {
@@ -512,19 +512,19 @@ class PHPCheckAction extends StepAction
 
 		return $this->success;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display the result of this check.
 
-	* 
+	*
 
 	* @param
 
@@ -540,7 +540,7 @@ class PHPCheckAction extends StepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/versioncheck.tpl');
 
-		
+
 
 		$tpl->set('checking', 'PHP Modules');
 
@@ -548,23 +548,23 @@ class PHPCheckAction extends StepAction
 
 		$tpl->set('required', $this->required_settings);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the confirmation of what passed and what failed.
 
-	* 
+	*
 
 	* @return void
 
@@ -584,17 +584,17 @@ class PHPCheckAction extends StepAction
 
 		$tpl->set('required', $this->required_settings);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -606,7 +606,7 @@ class PHPCheckAction extends StepAction
 
 * PEARCheckAction
 
-* 
+*
 
 * Check whether all the PEAR versions are up to date and available.
 
@@ -618,7 +618,7 @@ class PEARCheckAction extends StepAction
 
 {
 
-	
+
 
 	/**
 
@@ -631,11 +631,11 @@ class PEARCheckAction extends StepAction
 	var $required_packages = Array(
 
 									'MDB2'         	=> Array('version'=>'2.0.0','available'=>false,'message' => ''),
-									
+
 									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
-									
+
 									'I18Nv2' 		=> Array('version'=> '0.11.4','available'=>false,'message'=>''),
-									
+
 									'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
 
 									'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
@@ -650,13 +650,13 @@ class PEARCheckAction extends StepAction
 
 								  );
 
-	
-	
+
+
 	/**
 
 	* Check the pear versions
 
-	* 
+	*
 
 	* @return boolean Whether this check succeeded or not.
 
@@ -678,7 +678,7 @@ class PEARCheckAction extends StepAction
 
 								'but you may encounter some errors.';
 
-			
+
 
 			// go through and manually try and instantiate PEAR classes.
 
@@ -695,7 +695,7 @@ class PEARCheckAction extends StepAction
 				$this->required_packages['MDB2']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
 			}
-			
+
 			@include_once 'MDB2/Schema.php';
 
 			if (!class_exists('MDB2_Schema')) {
@@ -709,7 +709,7 @@ class PEARCheckAction extends StepAction
 				$this->required_packages['MDB2_Schema']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
 			}
-			
+
 			@include_once 'Archive/Tar.php';
 
 			if (!class_exists('Archive_Tar')) {
@@ -724,7 +724,7 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 			@include_once 'Mail.php';
 
@@ -740,7 +740,7 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 			@include_once 'Mail/mime.php';
 
@@ -756,7 +756,7 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 			@include_once 'XML/Parser.php';
 
@@ -772,7 +772,7 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 			@include_once 'Config.php';
 
@@ -788,7 +788,7 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 			@include_once 'XML/Util.php';
 
@@ -802,15 +802,15 @@ class PEARCheckAction extends StepAction
 
 				$this->required_packages['XML_Util']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
-			}						
+			}
 
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
 
-			$pear_registry = new PEAR_Registry($_SESSION['pear_path']); 
+			$pear_registry = new PEAR_Registry($_SESSION['pear_path']);
 
-			
+
 
 			if ($pear_registry == null) {
 
@@ -837,8 +837,19 @@ class PEARCheckAction extends StepAction
 					$this->success = false;
 
 				} else {
-				
-					if (version_compare($required_version['version'], $package_info['version']) < 0) {
+
+					if(is_array($package_info['version']))
+					{
+						$dk = $package_info['version']['api'];
+
+						if($dk > 0)
+						{
+							$this->required_packages[$package_name]['available'] = true;
+							$this->required_packages[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
+						}
+					}
+
+					elseif (version_compare($required_version['version'], $package_info['version']) < 0) {
 
 						$this->required_packages[$package_name]['available'] = true;
 
@@ -848,7 +859,7 @@ class PEARCheckAction extends StepAction
 
 						'not been fully tested with 5ive and may cause some undesirable side-effects.';
 
-						
+
 
 					} elseif (version_compare($required_version['version'], $package_info['version']) == 0) {
 
@@ -872,25 +883,25 @@ class PEARCheckAction extends StepAction
 
 		}// end if registry was found
 
-		
+
 
 
 
 		return $this->success;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display whether the PEAR versions where up to date or not.
 
-	* 
+	*
 
 	* @return void
 
@@ -904,25 +915,25 @@ class PEARCheckAction extends StepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/versioncheck.tpl');
 
-		
+
 
 		$tpl->set('step_name', $this->parent_step);
 
 		$tpl->set('required', $this->required_packages);
 
 		$tpl->set('checking', 'PEAR Packages');
-		
+
 		echo $tpl->fetch();
 
-									
+
 
 		$pear_dir  = isset($_SESSION['pear_path']) ? $_SESSION['pear_path'] : $this->_findPEARPath();
 
-		
 
-		$pear_dir = 
 
-		
+		$pear_dir =
+
+
 
 		$textbox = '<p>Please enter your PEAR path. The installer has guessed that the directory below is '.
 
@@ -939,18 +950,18 @@ class PEARCheckAction extends StepAction
 					'<input type="text" name="pear_path" size="40" value="'.$pear_dir.'" />';
 
 		echo $textbox;
-		
-		
+
+
 
 	}//end paintAction()
-	
+
 
 
 	/**
 
 	* Show the confirmation of what passed and what failed.
 
-	* 
+	*
 
 	* @return void
 
@@ -964,7 +975,7 @@ class PEARCheckAction extends StepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/versioncheck.tpl');
 
-		
+
 
 		$tpl->set('checking', 'PEAR Packages');
 
@@ -972,23 +983,23 @@ class PEARCheckAction extends StepAction
 
 		$tpl->set('required', $this->required_packages);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Try and find the PEAR path.
 
-	* 
+	*
 
 	* @return string the likely PEAR path.
 
@@ -1000,12 +1011,12 @@ class PEARCheckAction extends StepAction
 
 	{
 
-		$locations = Array('/usr/lib/php/PEAR', 
+		$locations = Array('/usr/lib/php/PEAR',
 
 									'/usr/lib/php',
-									 
+
 									'/usr/share/php',
-									
+
 									'usr/share/pear',
 
 									'/usr/local/lib/php',
@@ -1013,14 +1024,14 @@ class PEARCheckAction extends StepAction
 									'/usr/local/lib/php/PEAR',
 
 									'c:/php/pear',
-									
+
 									'c:/php4/pear',
 
 									'c:/php5/pear'
 
 									);
 
-									
+
 
 		foreach ($locations as $location) {
 
@@ -1038,11 +1049,11 @@ class PEARCheckAction extends StepAction
 
 			}
 
-			
+
 
 		}
 
-		
+
 
 		$pear_dir = '';
 
@@ -1058,17 +1069,17 @@ class PEARCheckAction extends StepAction
 
 		}*/
 
-		
+
 
 		return $pear_dir;
 
-		
+
 
 	}//end _findPEARPath()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -1078,11 +1089,11 @@ class PEARCheckAction extends StepAction
 
 * PEAR DB CheckAction
 
-* 
+*
 
 * Perform checks for the PEAR DB clients
 
-* 
+*
 
 *
 
@@ -1100,7 +1111,7 @@ class PEARDBCheckAction extends StepAction
 
 	*/
 
-	
+
 	/**
 
 	* Holds an array about what requirements are needed.
@@ -1112,21 +1123,21 @@ class PEARDBCheckAction extends StepAction
 	*/
 
 	var $required_db = Array(
-									
+
 									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
-									
+
 									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
-									
+
 									'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>''));
-								
-		
+
+
 
 	/**
 
 	* Check the pear versions
 
-	* 
+	*
 
 	* @return boolean Whether this check succeeded or not.
 
@@ -1148,9 +1159,9 @@ class PEARDBCheckAction extends StepAction
 			$mysqli = isset($_POST['MDB2_Driver_mysqli']) ? $_POST['MDB2_Driver_mysqli'] :'';
      		$pgsql = isset($_POST['MDB2_Driver_pgsql']) ? $_POST['MDB2_Driver_pgsql'] :'';
     		$sqlite = isset($_POST['MDB2_Driver_sqlite']) ? $_POST['MDB2_Driver_sqlite'] : '';
-          
+
 			if ($mysqli==1) {
-				
+
 				@include_once 'MDB2/Driver/mysqli.php';
 				if (!class_exists('MDB2_Driver_mysqli')) {
 
@@ -1178,31 +1189,31 @@ class PEARDBCheckAction extends StepAction
 					$this->required_db['<input type="checkbox" name="MDB2_Driver_pgsql" id="MDB2_Driver_pgsql" value="1"  class="sq-form-field" />MDB2_Driver_pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 				}
-				
+
 			}
 			if ($sqlite==1){
 				@include_once 'MDB2/Driver/sqlite.php';
 
 				if (!class_exists('MDB2_Driver_sqlite')) {
-	
+
 					$this->errors[] = 'Could not find PEAR::MDB2_Driver_sqlite';
-	
+
 					$this->required_db['<input type="checkbox" name="MDB2_Driver_sqlite" id="MDB2_Driver_sqlite" value="1"  class="sq-form-field" />MDB2_Driver_sqlite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-	
+
 				} else {
-	
+
 					$this->required_db['<input type="checkbox" name="MDB2_Driver_sqlite" id="MDB2_Driver_sqlite" value="1"  class="sq-form-field" />MDB2_Driver_sqlite']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 				}
-				
+
 			}
 
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
 
-			$pear_registry = new PEAR_Registry($_SESSION['pear_path']); 
+			$pear_registry = new PEAR_Registry($_SESSION['pear_path']);
 
-			
+
 
 			if ($pear_registry == null) {
 
@@ -1238,7 +1249,7 @@ class PEARDBCheckAction extends StepAction
 
 						'not been fully tested with 5ive and may cause some undesirable side-effects.';
 
-						
+
 
 					} elseif (version_compare($required_version['version'], $package_info['version']) == 0) {
 
@@ -1262,25 +1273,25 @@ class PEARDBCheckAction extends StepAction
 
 		}// end if registry was found
 
-		
+
 
 
 
 		return $this->success;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display the result of this check.
 
-	* 
+	*
 
 	* @param
 
@@ -1301,23 +1312,23 @@ class PEARDBCheckAction extends StepAction
 
 		$tpl->set('required', $this->required_db);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the confirmation of what passed and what failed.
 
-	* 
+	*
 
 	* @return void
 
@@ -1337,17 +1348,17 @@ class PEARDBCheckAction extends StepAction
 
 		$tpl->set('required', $this->required_db);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 
