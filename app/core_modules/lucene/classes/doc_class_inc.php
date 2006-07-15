@@ -29,7 +29,14 @@ class doc extends object
      public function generateUrl($filename)
      {
      	//generate a url for the document/file
-     	return $filename;
+     	$sroot = $this->objConfig->getSiteRoot();
+     	$spath = $this->objConfig->getSiteRootPath();
+
+     	//so we have sroot as the url up to the place where index.php is and
+     	//the siterootpath which is /var/www/whatever
+     	//now we replace the siterootpath bit with the sroot to form a url
+     	$url = str_replace($spath, $sroot, $filename);
+     	return $url;
 
      }
 
