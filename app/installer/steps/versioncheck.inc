@@ -800,7 +800,7 @@ class PEARCheckAction extends StepAction
 
 			} else {
 
-				$this->required_packages['XML_Util']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+				$this->required_packages['XML_Util']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 			}
 
@@ -853,7 +853,7 @@ class PEARCheckAction extends StepAction
 
 						$this->required_packages[$package_name]['available'] = true;
 
-						$this->required_packages[$package_name]['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
+						$this->required_packages[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the requirements';
 
@@ -1229,7 +1229,7 @@ class PEARDBCheckAction extends StepAction
 
 					$this->errors[] = '<br> Required PEAR module "'.$package_name.'" is not installed. Please run ';
 
-					$this->errors[] = '<pre>pear install '.$package_name;
+					$this->errors[] = '<pre>pear install --alldeps '.$package_name;
 
 					$this->required_db[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
@@ -1243,9 +1243,7 @@ class PEARDBCheckAction extends StepAction
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets the requirements, but has '.
-
-						'not been fully tested with 5ive and may cause some undesirable side-effects.';
+						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the requirements.';
 
 
 
@@ -1304,7 +1302,7 @@ class PEARDBCheckAction extends StepAction
 	{
 
 		$tpl = new Template(INSTALL_DIR.'/templates/versioncheck.tpl');
-		$tpl->set('checking', 'Supported PEAR DB client packages');
+		$tpl->set('checking', 'Supported PEAR Database client packages');
 
 		$tpl->set('step_name', $this->parent_step);
 
@@ -1342,7 +1340,7 @@ class PEARDBCheckAction extends StepAction
 
 		$tpl->set('step_name', $this->parent_step);
 
-		$tpl->set('checking', 'Supported PEAR DB client packages');
+		$tpl->set('checking', 'Supported PEAR Database client packages');
 
 		$tpl->set('required', $this->required_db);
 
