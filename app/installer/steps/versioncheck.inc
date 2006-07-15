@@ -830,7 +830,7 @@ class PEARCheckAction extends StepAction
 
 					$this->errors[] = '<br> Required PEAR module "'.$package_name.'" is not installed. Please run <\br>';
 
-					$this->errors[] = '<pre>pear install '.$package_name;
+					$this->errors[] = '<pre>pear install --alldeps '.$package_name;
 
 					$this->required_packages[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
@@ -855,9 +855,7 @@ class PEARCheckAction extends StepAction
 
 						$this->required_packages[$package_name]['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets the requirements, but has '.
-
-						'not been fully tested with 5ive and may cause some undesirable side-effects.';
+						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the requirements';
 
 
 
