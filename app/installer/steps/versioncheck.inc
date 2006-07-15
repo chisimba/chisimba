@@ -855,7 +855,7 @@ class PEARCheckAction extends StepAction
 
 						$this->required_packages[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the requirements';
+						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the minumum requirements';
 
 
 
@@ -1243,7 +1243,7 @@ class PEARDBCheckAction extends StepAction
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the requirements.';
+						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the minumum requirements.';
 
 
 
