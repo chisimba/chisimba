@@ -13,7 +13,7 @@ INSERT INTO tbl_language_modules VALUES (77,'moduleadmin','ModuleAdmin');
 $tablename = 'tbl_language_modules';
 
 //Options line for comments, encoding and character set
-$options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'language modules','collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
