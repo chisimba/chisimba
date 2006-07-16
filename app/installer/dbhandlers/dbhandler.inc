@@ -102,10 +102,18 @@ class DbHandler extends dbHandlermanager
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
+			// install the error handler with our custom callback on error
+           
+            // set the default fetch mode for the DB to assoc, as that's
+            // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+            $this->_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
+            $this->_globalObjDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
+            $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_ALL);
 			$_SESSION['DbObj'] =  $this->_globalObjDb;
 		 	require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
+             
              $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
              $this->dbmanager = new dbHandlermanager();
              parent::__construct();
@@ -181,15 +189,13 @@ class DbHandler extends dbHandlermanager
 	public function createTables($tablename,$fields,$options)
 	{
 		try {
-			if ($this->dbmanager ==null) {
-				$this->getDbHandler($_SESSION['dsn']);
-			}
-			
+						
 			$ret = $this->dbmanager->createTable($tablename, $fields, $options);
 			if (!$ret) {
 	        	
 	        		throw new Exception('Error while creating table');
 	   		}
+	   		
 	   		return true;
 		}catch (Exception $e){
 			return false;
@@ -209,9 +215,7 @@ class DbHandler extends dbHandlermanager
     public function createTableIndex($tableName, $keyname, $index)
     {
     	try {
-    		if ($this->dbmanager ==null) {
-				$this->getDbHandler($_SESSION['dsn']);
-			}
+    		
 	        $ret = $this->dbmanager->createTableIndex($tableName,$keyname,$index);
 	        if (PEAR::isError($ret)) {
 	        	
@@ -223,7 +227,18 @@ class DbHandler extends dbHandlermanager
 		}
     }
 
-
+	/**
+     * create a new database
+     *
+     * @param string $db name of the database that should be created
+     * @return bool true on success
+     * @access public
+     */
+    public function createDb($db)
+    {
+    	$ret = $this->dbmanager->createDb($db);
+    	return $ret;
+    }
 	
 
 	/**
