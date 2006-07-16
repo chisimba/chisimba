@@ -164,13 +164,34 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+		// Sql tables live in the modules that own them.
+    $this->_installDb32('modules/security/sql/tbl_users.sql');
+    $this->_installDb32('modules/security/sql/tbl_userloginhistory.sql');
+    $this->_installDb32('modules/security/sql/tbl_loggedinusers.sql');
+    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules.sql');
+    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules_dependencies.sql');
+    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules_owned_tables.sql');
+    $this->_installDb32('modules/systext/sql/tbl_systext_system.sql');
+    $this->_installDb32('modules/systext/sql/tbl_systext_text.sql');
+    $this->_installDb32('modules/systext/sql/tbl_systext_abstract.sql');
+    $this->_installDb32('modules/language/sql/tbl_languagetext.sql');
+    $this->_installDb32('modules/language/sql/tbl_languagelist.sql');
+    $this->_installDb32('modules/language/sql/tbl_english.sql');
+    $this->_installDb32('modules/language/sql/tbl_language_modules.sql');
+    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_categories.sql');
+    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_content.sql');
+    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_contentfrontpage.sql');
+    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_layouts.sql');
+    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_sections.sql');
+    $this->_installDb32('modules/toolbar/sql/tbl_menu_category.sql');
+    $this->_installDb32('modules/sysconfig/sql/tbl_sysconfig_properties.sql');
+
 
 		// now include the step to process
 	
 		//ob_start();
-			$this->init_output = $this->firstRegister();// ob_get_contents();
-			var_dump($this->init_output);
+			//$this->init_output = $this->firstRegister();// ob_get_contents();
+			//var_dump($this->init_output);
 		//ob_end_clean();
 
 		
@@ -215,15 +236,40 @@ class DbCreateAction extends StepAction
 
 	*/
 
-    private function _installDb32()
+    private function _installDb32($parth)
 
 	{
-		$mList=file(INSTALL_DIR.'/dbhandlers/default_modules.txt');
-        foreach ($mList as $line)
-        {
-            $this->registerModule(trim($line));
-        }
-               	
+		try {
+				$sqlfile= isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$parth : false;
+			 	
+	     		if (is_file($sqlfile)) {
+	     			$handler = new DbHandler();
+					$conn = &$handler->getDbHandler($_SESSION['dsn']);
+					include_once($sqlfile);
+					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
+        			if (!$tablecreatereturn) {
+        				$this->errors[] = 'Could not create table'.$tablename;
+        			}
+        			var_dump($tablename);
+        			if ($indexes!=null) {
+        				$tableindex = $conn->createTableIndex($tablename,$name,$indexes);
+	        			if (!$tableindex) {
+	        				$this->errors[] = 'Could not create table indexes for '.$tablename;
+	        				
+	        			}
+	        			var_dump($tableindex);
+        			}
+        			
+					
+				}else{
+					
+					throw new Exception('could not read file'.$sqlfile);
+				}
+		}catch (Exception $e){		
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();	
+		}
+           	
 
 	}//end _installDb32
 
@@ -369,7 +415,7 @@ class DbCreateAction extends StepAction
 
 	{
 
-		$main_file = isset($_SESSION['sys_root']) ? INSTALL_DIR.'/dbhandlers/default_modules.txt' : false;
+		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/dbhandlers/default_modules.txt' : false;
 
 	
 
@@ -482,7 +528,15 @@ class DbCreateAction extends StepAction
 	}//end confirmAction()
 
 	
-
+/**
+     * The error callback function, defers to configured error handler
+     *
+     * @param string $exception
+     * @return void
+     */
+    public function errorCallback($exception) {
+    	echo $exception;
+    }
 	
 
 }//end class

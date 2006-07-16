@@ -119,7 +119,6 @@ class DbHandler extends dbHandlermanager
 	   		}
 	   		$_SESSION['pearDbManager'] =$this->schema; 
 	   		$this->dbmanager = new dbHandlermanager();
-	   		$this->schema->disconnect();
 	   		$this->success =true;	
 			return $this;
 		}catch (Exception $e){
@@ -162,7 +161,57 @@ class DbHandler extends dbHandlermanager
 		}
 	}
 
+	/**
+	 * Create Tables for new 5ive installations
+	 * 
+	 * @return TRUE / FALSE boolean
+	 * @access Public
+	 */
+	public function createTables($tablename,$fields,$options)
+	{
+		try {
+			if ($this->dbmanager ==null) {
+				$this->getDbHandler($_SESSION['dsn']);
+			}
+			
+			//$ret = $this->dbmanager->createTable($tableName, $fields, $options);
+			if (PEAR::isError($ret)) {
+	        	
+	        		throw new Exception('Error while creating table');
+	   		}
+	   		return true;
+		}catch (Exception $e){
+			return false;
+		}
+		
+	}
 	
+	/**
+     * Method to create an index on the table
+     *
+     * @access public
+     * @param string $tableName
+     * @param string $keyname
+     * @param array $index
+     * @return bool true on success | False on failure
+     */
+    public function createTableIndex($tableName, $keyname, $index)
+    {
+    	try {
+    		if ($this->dbmanager ==null) {
+				$this->getDbHandler($_SESSION['dsn']);
+			}
+	        $ret = $this->dbmanager->createTableIndex($tableName,$keyname,$index);
+	        if (PEAR::isError($ret)) {
+	        	
+	        		throw new Exception('Error while creating table indexes');
+	   		}
+	        return TRUE;
+    	}catch (Exception $e){
+			return false;
+		}
+    }
+
 
 	
 
@@ -227,7 +276,6 @@ class DbHandler extends dbHandlermanager
 	
 			} 
 	
-						
 			$ver = $result[0];
 					
 	
