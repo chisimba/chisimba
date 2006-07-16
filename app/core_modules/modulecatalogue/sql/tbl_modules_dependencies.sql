@@ -25,7 +25,7 @@ $fields = array(
 		'length' => 50
 		),
     'dependency' => array(
-		'type' => 'text'
+		'type' => 'text',
         'length' => 50
 		)
     );

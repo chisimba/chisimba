@@ -507,7 +507,7 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['CONFIG']))
                 {
                     $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
-                    $this->objSysConfig->registerModuleParams($moduleId,$registerdata['CONFIG']);
+                    //$this->objSysConfig->registerModuleParams($moduleId,$registerdata['CONFIG']);
                 }
 
                 // Icons

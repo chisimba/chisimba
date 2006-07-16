@@ -86,9 +86,31 @@ class DbHandler extends dbHandlermanager
 	*/
 
 	public $minVersion;
-
 	
- 	
+	public $_globalObjDb;
+	
+	public $_globalObjDbManager;
+
+	public function __construct()
+	{ 	
+		
+			$this->_objDbConfig = $_SESSION['dsn'];
+			// Connect to the database
+            require_once 'MDB2.php';
+            //MDB2 has a factory method, so lets use it now...
+            $this->_globalObjDb = &MDB2::factory($_SESSION['dsn']);
+            $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+			MDB2::loadFile('Date');
+			MDB2::loadFile('Iterator');
+			$_SESSION['DbObj'] =  $this->_globalObjDb;
+		 	require_once 'MDB2/Schema.php';
+            //MDB2 has a factory method, so lets use it now...
+             $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
+             $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
+             $this->dbmanager = new dbHandlermanager();
+             parent::__construct();
+
+	}
 
 	/**
 
@@ -108,19 +130,8 @@ class DbHandler extends dbHandlermanager
 
 	{
 		try{
-			$this->schema =&MDB2::factory($dsn, array('debug' => 2, 'log_line_break' => '<br>'));
-			$this->schema->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
-			MDB2::loadFile('Date');
-			MDB2::loadFile('Iterator');
 			
-	   		if (PEAR::isError($this->schema)) {
-	           	throw new Exception();
-	        	
-	   		}
-	   		$_SESSION['pearDbManager'] =$this->schema; 
-	   		$this->dbmanager = new dbHandlermanager();
-	   		$this->success =true;	
-			return $this;
+	   		return $this;
 		}catch (Exception $e){
 			
 			return false;
@@ -174,8 +185,8 @@ class DbHandler extends dbHandlermanager
 				$this->getDbHandler($_SESSION['dsn']);
 			}
 			
-			//$ret = $this->dbmanager->createTable($tableName, $fields, $options);
-			if (PEAR::isError($ret)) {
+			$ret = $this->dbmanager->createTable($tablename, $fields, $options);
+			if (!$ret) {
 	        	
 	        		throw new Exception('Error while creating table');
 	   		}
@@ -208,7 +219,7 @@ class DbHandler extends dbHandlermanager
 	   		}
 	        return TRUE;
     	}catch (Exception $e){
-			return false;
+			return $e->getMessage();
 		}
     }
 

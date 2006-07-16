@@ -33,7 +33,7 @@ $fields = array(
         'length' => 60
 		),
     'adminOnly' => array(
-		'type' => 'integer'
+		'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
         'default' => 0
@@ -43,7 +43,7 @@ $fields = array(
         'length' => 120
 		),
     'dependsContext' => array(
-		'type' => 'integer'
+		'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
         'default' => 0

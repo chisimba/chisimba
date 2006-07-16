@@ -39,33 +39,33 @@ $fields = array(
 	'userId' => array(
 		'type' => 'text',
 		'length' => 25,
-        'notnull' => TRUE,
+        'notnull' => FALSE,
         'default' => '0'
 		),
     'username' => array(
 		'type' => 'text',
         'length' => 25,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
     'title' => array(
 		'type' => 'text',
         'length' => 25,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
     'firstName' => array(
 		'type' => 'text',
         'length' => 50,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
     'surname' => array(
 		'type' => 'text',
         'length' => 50,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
-    'PASSWORD' => array(
+    'PASS' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
     'creationDate' => array(
 		'type' => 'date',
@@ -74,7 +74,7 @@ $fields = array(
     'emailAddress' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+        'notnull' => FALSE
 		),
     'logins' => array(
 		'type' => 'integer',
@@ -102,11 +102,14 @@ $fields = array(
     'howCreated' => array(
 		'type' => 'text',
         'length' => 32,
+         'notnull' => TRUE,
         'default' => 'unknown'
 		),
-    'update' => array(
-		'type' => 'timestamp'
-		)
+    'updated' => array(
+         'type' => 'date',
+         'notnull' => 1,
+         'default' => '0000-00-00 00:00:00'
+                )
     );
 
 

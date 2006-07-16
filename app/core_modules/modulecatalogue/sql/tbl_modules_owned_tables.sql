@@ -37,7 +37,7 @@ $fields = array(
         'default' => '0'
 		),
     'tablename' => array(
-		'type' => 'text'
+		'type' => 'text',
         'length' => 150,
         'notnull' => TRUE
 		)

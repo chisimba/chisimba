@@ -69,7 +69,7 @@ $fields = array(
         'length' => 1,
         'notnull' => TRUE,
         'default' => 0
-		)
+		),
     'dependsContext' => array(
 		'type' => 'integer',
         'length' => 1,

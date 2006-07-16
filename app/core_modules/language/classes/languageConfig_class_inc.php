@@ -91,13 +91,23 @@ class languageConfig extends object
 			
 			// set the group of strings you want to fetch from
 			$this->lang->setPageID('defaultGroup');
-			$this->caller = $this->moduleName;
+			
 			// add a Lang decorator to provide a fallback language
 			$this->lang =& $this->lang->getDecorator('Lang');
 			$this->lang->setOption('fallbackLang', 'en');
 			// add a default text decorator to deal with empty strings
 			$this->lang = & $this->lang->getDecorator('DefaultText');
-			// replace the empty string with its stringID
+			// add a memory-based cache decorator, to do some basic prefetching and
+			// reduce the load on the db
+			$this->lang = & $this->lang->getDecorator('CacheMemory');
+			//$this->lang = & $this->lang->getDecorator('CacheLiteFunction');
+			$this->lang->setOption('cacheDir', 'cache/');
+			$this->lang->setOption('lifeTime', 3600*24);
+			// add a special chars decorator to replace special characters with the html entity
+			$this->lang = & $this->lang->getDecorator('SpecialChars');
+			
+			// add a UTF-8 decorator to automatically decode UTF-8 strings
+			$this->lang = & $this->lang->getDecorator('UTF8');
 		
 			// use a custom fallback text
 			return $this->lang;

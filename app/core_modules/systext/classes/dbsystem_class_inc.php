@@ -15,7 +15,7 @@ class dbsystem extends dbTable
 {
     function init()
     {
-        parent::init('tbl_systext_system');
+      //  parent::init('tbl_systext_system');
         $this -> table = 'tbl_systext_system';
     }
 

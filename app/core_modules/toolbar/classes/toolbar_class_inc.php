@@ -80,11 +80,11 @@ class toolbar extends object
     */
     function navigation()
     {
-        $this->objConfig= $this->getObject('config','config');
-        $str = $this->objLanguage->languageText("mod_toolbar_home",'toolbar', "home");
+        $this->objConfig= $this->getObject('altconfig','config');
+        $str = $this->objLanguage->languageText("mod_toolbar_home",'security', "home");
         $this->objLink->style="cursor:hand";
         $this->objLink->link=$str;
-        $this->objLink->link($this->objConfig->siteRoot());
+        $this->objLink->link($this->objConfig->getsiteRoot());
         $nav = $this->objLink->show();
 
         // decode URL

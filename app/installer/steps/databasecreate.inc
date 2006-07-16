@@ -245,7 +245,9 @@ class DbCreateAction extends StepAction
 	     		if (is_file($sqlfile)) {
 	     			$handler = new DbHandler();
 					$conn = &$handler->getDbHandler($_SESSION['dsn']);
+					
 					include_once($sqlfile);
+					
 					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
         			if (!$tablecreatereturn) {
         				$this->errors[] = 'Could not create table'.$tablename;
@@ -260,7 +262,7 @@ class DbCreateAction extends StepAction
 	        			var_dump($tableindex);
         			}
         			
-					
+					return true;
 				}else{
 					
 					throw new Exception('could not read file'.$sqlfile);

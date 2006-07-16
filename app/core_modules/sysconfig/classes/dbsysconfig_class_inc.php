@@ -15,6 +15,14 @@ class dbsysconfig extends dbTable
     * @var object $objUser The user object
     */
     var $objUser;
+    
+    /**
+    * Property to hold the config properties object
+    *
+    * @var object $objConfig The config object
+    */
+    var $objConfig;
+
 
     /**
     * Property to hold the language object
@@ -36,6 +44,7 @@ class dbsysconfig extends dbTable
         $this->objUser = &$this->getObject('user', 'security');
         // Get an instance of the language object
         $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objConfig = &$this->getObject('altconfig','config');
     }
     
     /**

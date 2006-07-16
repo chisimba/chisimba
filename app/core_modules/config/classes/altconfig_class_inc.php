@@ -162,7 +162,7 @@ class altconfig extends object
     		if(!isset($path)) $path = "config";
 	    	$this->_property =& $this->_objPearConfig->parseConfig("{$path}/sysconfig_properties.xml",$property);
 			if ($this->_property!=TRUE) {
-				throw new Exception('Can not find file sysconfig_properties');				
+				return FALSE;			
 			}else{
 				return $this->_property;
 			}
@@ -251,7 +251,10 @@ class altconfig extends object
     	try {
     			//Read conf
     			if (!isset($this->_property)) {
-    				$this->readProperties('XML');
+    				$read = $this->readProperties('XML');
+    			}
+    			if ($read==FALSE) {
+    				return $read;
     			}
     			
                //Lets get the parent node section first
@@ -264,7 +267,7 @@ class altconfig extends object
         		
         		//finally unearth whats inside
         		if (!$SettingsDirective) {
-        			throw new Exception("Item can not be found ! {$pname}");	
+        			return FALSE;	
         		}else{ 
        			$value = $SettingsDirective->getContent();
         		return $value;

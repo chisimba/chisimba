@@ -13,7 +13,7 @@ CREATE TABLE `tbl_languagelist` (
 INSERT INTO `tbl_languagelist` (languageCode, languageName) VALUES ('tbl_english', 'English');
 */
 // Table Name
-$tablename = 'tbl_languagelist';
+$tablename = 'tbl_langs_avail';
 
 //Options line for comments, encoding and character set
 $options = array('commment' => 'Holds the list of languages that KEWL has', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
@@ -24,12 +24,17 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
-	'languageCode' => array(
+	'name' => array(
 		'type' => 'text',
 		'length' => 100,
         'notnull' => TRUE
 		),
-    'languageName' => array(
+    'meta' => array(
+		'type' => 'text',
+		'length' => 100,
+        'notnull' => TRUE
+		),
+	' error_text' => array(
 		'type' => 'text',
 		'length' => 100,
         'notnull' => TRUE
