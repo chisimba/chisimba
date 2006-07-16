@@ -10,7 +10,7 @@ CREATE TABLE `tbl_userloginhistory` (
 
 */
 // Table Name
-$tablename = 'tbl_loggedinusers';
+$tablename = 'tbl_userloginhistory';
 
 //Options line for comments, encoding and character set
 $options = array('comment' => 'This table is used to maintain state and enable communication', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
@@ -20,7 +20,7 @@ $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
 	'userId' => array(
 		'type' => 'text',

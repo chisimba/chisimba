@@ -37,12 +37,12 @@ $fields = array(
     'ipAddress' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+
 		),
     'sessionId' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+
 		),
     'whenLoggedIn' => array(
 		'type' => 'datetime',
@@ -63,12 +63,12 @@ $fields = array(
     'coursecode' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+
 		),
     'themeUsed' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => TRUE
+
 		)
     );
 
