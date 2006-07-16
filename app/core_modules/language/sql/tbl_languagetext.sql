@@ -10,7 +10,7 @@ CREATE TABLE tbl_languagetext (
 $tablename = 'tbl_languagetext';
 
 //Options line for comments, encoding and character set
-$options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment'=>'languagetext','collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
