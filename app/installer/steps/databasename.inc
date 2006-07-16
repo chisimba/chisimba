@@ -197,7 +197,7 @@ class DbNameAction extends FiveStepAction
 		
 				
 		
-					if (!$this->_emptyDatabase($_SESSION[$this->db_prefix.'name'],$handler)) {
+					if (!$this->_createDatabase($_SESSION[$this->db_prefix.'name'],$handler)) {
 		
 						$this->success = false;
 		
@@ -355,13 +355,14 @@ class DbNameAction extends FiveStepAction
 
 	*/
 
-	function _emptyDatabase($db_name, &$handler)
+	function _createDatabase($db_name, &$handler)
 
 	{
 
 		// create the appropriate db handler and use it for emptying the database
+		$handler = new DbHandler( $_SESSION['short_dsn']);
 
-		$success = $handler->emptyDatabase($db_name, $_SESSION['short_dsn']);
+		$success = $handler->createDb($db_name);
 		
 
 		//$this->errors += $handler->errors;
