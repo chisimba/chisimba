@@ -14,21 +14,26 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @access public
  * @package lucene
  */
+
+//required top level files
 require_once 'resources/Exception.php';
 require_once 'resources/Search/Exception.php';
 require_once 'resources/Search/Lucene.php';
 
+//lucene specific files
 require_once 'resources/Search/Lucene/Document.php';
 require_once 'resources/Search/Lucene/Exception.php';
 require_once 'resources/Search/Lucene/Field.php';
 
+//storage files
 require_once 'resources/Search/Lucene/Storage/Directory.php';
 require_once 'resources/Search/Lucene/Storage/File.php';
 
+//filesystem adaptors
 require_once 'resources/Search/Lucene/Storage/Directory/Filesystem.php';
 require_once 'resources/Search/Lucene/Storage/File/Filesystem.php';
 
-//analysis
+//analysis adaptors
 require_once 'resources/Search/Lucene/Analysis/Analyzer.php';
 require_once 'resources/Search/Lucene/Analysis/Token.php';
 require_once 'resources/Search/Lucene/Analysis/TokenFilter.php';
@@ -37,7 +42,7 @@ require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text.php';
 require_once 'resources/Search/Lucene/Analysis/Analyzer/Common/Text/CaseInsensitive.php';
 require_once 'resources/Search/Lucene/Analysis/TokenFilter/LowerCase.php';
 
-//index
+//index adaptors
 require_once 'resources/Search/Lucene/Index/FieldInfo.php';
 require_once 'resources/Search/Lucene/Index/SegmentInfo.php';
 require_once 'resources/Search/Lucene/Index/SegmentWriter.php';
@@ -45,7 +50,7 @@ require_once 'resources/Search/Lucene/Index/Term.php';
 require_once 'resources/Search/Lucene/Index/TermInfo.php';
 require_once 'resources/Search/Lucene/Index/Writer.php';
 
-//Search
+//Search adaptors
 require_once 'resources/Search/Lucene/Search/Query.php';
 require_once 'resources/Search/Lucene/Search/QueryHit.php';
 require_once 'resources/Search/Lucene/Search/QueryParser.php';
@@ -54,30 +59,63 @@ require_once 'resources/Search/Lucene/Search/QueryTokenizer.php';
 require_once 'resources/Search/Lucene/Search/Similarity.php';
 require_once 'resources/Search/Lucene/Search/Weight.php';
 
-//Searc/Query
+//Search/Query adaptors
 require_once 'resources/Search/Lucene/Search/Query/MultiTerm.php';
 require_once 'resources/Search/Lucene/Search/Query/Phrase.php';
 require_once 'resources/Search/Lucene/Search/Query/Term.php';
 
-//Search/Similarity
+//Search/Similarity adaptor
 require_once 'resources/Search/Lucene/Search/Similarity/Default.php';
 
-//Search/Weight
+//Search/Weight adaptors
 require_once 'resources/Search/Lucene/Search/Weight/MultiTerm.php';
 require_once 'resources/Search/Lucene/Search/Weight/Phrase.php';
 require_once 'resources/Search/Lucene/Search/Weight/Term.php';
 
 class lucene extends controller
 {
-	//public $indexer;
+	/**
+	 * indexPath variable - to hold the path that we are currently indexing
+	 *
+	 * @var mixed
+	 */
 	public $indexPath;
-	public $index;
-	public $doc;
-	public $objConfig;
-	public $search;
 
 	/**
-	 * Constructor
+	 * Instantiated index object
+	 *
+	 * @var object
+	 */
+	public $index;
+
+	/**
+	 * Instantiated document object
+	 *
+	 * @var object
+	 */
+	public $doc;
+
+	/**
+	 * Configuration object
+	 *
+	 * @var object
+	 */
+	public $objConfig;
+
+	/**
+	 * Instantiated search object
+	 *
+	 * @var object
+	 */
+	public $search;
+
+
+	/**
+	 * Constructor - public init function
+	 * This is the standard initialisation method for the framework
+	 *
+	 * @param void
+	 * @return void
 	 */
 	public function init()
 	{
@@ -85,14 +123,18 @@ class lucene extends controller
         try{
 			//the language object
         	$this->objLanguage = $this->getObject('language','language');
+        	//the config object
         	$this->objConfig = $this->getObject('altconfig','config');
+        	//the lucene document object
         	$this->doc = $this->getObject('doc');
+        	//lucene indexing object
         	$this->index = $this->getObject('indexer');
-
-
         }
+        //catch any exceptions that may have occured and pass them to the error handler
         catch (customException $e){
+        	//output the standard error page
        		echo customException::cleanUp($e);
+       		//kill the script to suppress any further errors
         	exit();
         }
 
@@ -100,6 +142,9 @@ class lucene extends controller
 
 	/**
 	* The Dispatch  methed that the framework needs to evoke the controller
+	*
+	* @param void
+	* @return mixed template
 	*/
 	public function dispatch()
 	{
@@ -112,7 +157,7 @@ class lucene extends controller
 	            	//set the path to index
 	            	$this->index->indexPath = $this->objConfig->getcontentBasePath();
 	            	$this->indexPath = $this->index->indexPath;
-	            	//do the indexing
+	            	//do the indexing - note this indexes an ENTIRE tree, not a single doc
 					$this->index->doIndex($this->doc);
 	            	break;
 
@@ -134,11 +179,6 @@ class lucene extends controller
     				{
     					echo "Title " . $hit->title . " at URL " . "<a href=$hit->url>$hit->url</a> " . "with relevance score of " . $hit->score . "<br><br><hr>";
     				}
-
-
-
-
-
 	        }
 		}
 		catch (customException $e){

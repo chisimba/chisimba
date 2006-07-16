@@ -8,21 +8,41 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Indexer class extends object
+ * This class gets and creates document properties that are used in the index.
+ * It is used for the filesystem stored documents not dbTable derived actions
+ *
+ * @author Paul Scott
+ * @copyright AVOIR UWC
+ * @package lucene
  */
 
 class doc extends object
 {
+	/**
+	 * The config object
+	 *
+	 * @var object configuration
+	 */
 	public $objConfig;
 
-    public function init()
+    /**
+     * Init function
+     * Standard initialisation method for the Chisimba framework
+     *
+     * @param void
+     * @return void
+     * @access public
+     */
+	public function init()
     {
-		$this->objConfig = $this->getObject('altconfig','config');
+		//load up the config object
+    	$this->objConfig = $this->getObject('altconfig','config');
     }
 
 	/**
       * Method to generate a URL
       *
-      * @access private
+      * @access public
       * @param void
       * @return url
       */
@@ -44,6 +64,7 @@ class doc extends object
       * Method to gather the document properties
       * Will this be stored in a db? In metadata? in DC tbl?
       *
+      * @access public
       * @param $prop
       * @return mixed $docproperties
       */

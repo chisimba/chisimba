@@ -1,5 +1,7 @@
 <?php
+//do some ini manipulations to cater for very large document trees
 ini_set("max_execution_time", 3600);
+//set the memory limit to infinite
 ini_set("memory_limit", -1);
 
 // security check - must be included in all scripts
@@ -8,37 +10,70 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 }
 // end security check
 
-
-
 /**
  * Indexer class extends object
+ * The indexer object deals with filesystem based document trees
+ * It will take a document stored on disc and add it to the index
+ *
+ * @author Paul Scott
+ * @package lucene
+ * @copyright AVOIR UWC
  */
-
 class indexer extends Zend_Search_Lucene_Document
 {
 
+	/**
+	 * The document object
+	 *
+	 * @var object
+	 */
 	public $document;
+
+	/**
+	 * The index object
+	 *
+	 * @var object
+	 */
 	public $index;
+
+	/**
+	 * The path that we are indexing
+	 *
+	 * @var string
+	 */
 	public $indexPath;
 
+	/**
+	 * Standard initialisation method
+	 *
+	 * @access public
+	 * @param void
+	 * @return void
+	 */
 	public function init()
 	{
 
 	}
 
 	/**
-     * Pseudo Constructor. Creates our indexable document and adds all
-     * necessary fields to it using the passed stuff from the filesys or dbTable derived classes
+     * Creates our indexable document and adds all
+     * necessary fields to it using the passed stuff from the filesystem.
+     * This method will index an entire tree, recursively globbing through all documents
+     * NOTE: This method should be used very sparingly!!!
+     *
+     * @param $doc - object of the document class passed by reference
+     * @return void
      */
      public function doIndex(&$doc)
      {
-        if(file_exists($this->indexPath.'/chisimbaIndex'))
+        //check if an index exists
+     	if(file_exists($this->indexPath.'/chisimbaIndex'))
         {
         	//we build onto the previous index
         	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex');
         }
         else {
-        	//instantiate the lucene engine
+        	//instantiate the lucene engine and create a new index
         	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex', true);
         }
         //hook up the document parser
@@ -48,9 +83,6 @@ class indexer extends Zend_Search_Lucene_Document
         $files = $this->globr($this->indexPath, "*");
 		foreach ($files /*glob("*")*/ as $filename) {
 			echo "indexing" . "  " . $filename . "<br><br>";
-
-			//fake the document
-			$docBody = file_get_contents($filename);
 
 			//set the properties that we want to use in our index
    		    //url
@@ -74,7 +106,6 @@ class indexer extends Zend_Search_Lucene_Document
 		}//end foreach
 		//commit the index to disc
 		$this->index->commit();
-		//print_r($this->index->getFieldNames());
      }
 
     	/**
