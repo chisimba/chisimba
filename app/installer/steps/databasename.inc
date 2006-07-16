@@ -249,7 +249,7 @@ class DbNameAction extends FiveStepAction
 			// should the tables be created
 
 			$num_tables = $handler->getNumberOfTables();	
-		
+		  
 			if ($conn->success==FALSE) {
 
 				$this->errors[] = 'The installer was unable to check if your system currently has db tables created. '.
@@ -285,7 +285,8 @@ class DbNameAction extends FiveStepAction
 
 		} else {
 
-			$this->errors[] = 'Unable to set the session for some reason'; 
+			$this->errors[] = 'Unable to set the default database';
+			$this->success = false; 
 
 		}
 
