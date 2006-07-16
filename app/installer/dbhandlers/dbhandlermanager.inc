@@ -220,7 +220,7 @@ class dbHandlermanager
             $this->_db->setOption('default_table_type', 'INNODB');
             //do the table create.
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
-            var_dump($this->_db->mgCreateTable($tableName, $fields, $options));
+            $this->_db->mgCreateTable($tableName, $fields, $options);
             //return a true, simply because MDB::CreateTable returns void (wtf?)
             return TRUE;
         }

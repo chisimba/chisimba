@@ -247,22 +247,25 @@ class DbCreateAction extends StepAction
 					$conn = &$handler->getDbHandler($_SESSION['dsn']);
 					
 					include_once($sqlfile);
-					
+				
 					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
         			if (!$tablecreatereturn) {
         				$this->errors[] = 'Could not create table'.$tablename;
         			}
-        			var_dump($tablename);
+        		
         			if ($indexes!=null) {
         				$tableindex = $conn->createTableIndex($tablename,$name,$indexes);
 	        			if (!$tableindex) {
 	        				$this->errors[] = 'Could not create table indexes for '.$tablename;
 	        				
 	        			}
-	        			var_dump($tableindex);
+	        			
         			}
-        			
-					return true;
+        			$sqlfile = null;
+        			$fields =null;
+        			$tablename = null;
+        			$indexes = null;
+        			return true;
 				}else{
 					
 					throw new Exception('could not read file'.$sqlfile);
