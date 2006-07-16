@@ -89,7 +89,7 @@ class dbHandlermanager
        
     			
            $this->_dbmanager = $_SESSION['pearDbManager'];
-           $this->_db = $_SESSION['pearDbManager'] ;
+           $this->_db =$_SESSION['DbObj'];
        
         //check for PEAR Var_dump and initialise it,
         //otherwise just use regular PHP var_dump();
@@ -220,7 +220,7 @@ class dbHandlermanager
             $this->_db->setOption('default_table_type', 'INNODB');
             //do the table create.
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
-            $this->_db->mgCreateTable($tableName, $fields, $options);
+            var_dump($this->_db->mgCreateTable($tableName, $fields, $options));
             //return a true, simply because MDB::CreateTable returns void (wtf?)
             return TRUE;
         }
