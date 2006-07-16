@@ -167,18 +167,11 @@ class DbCreateAction extends StepAction
 		
 
 		// now include the step to process
-
-		ob_start();
-		
-			
-			
-			 
-			 
-
-			$this->init_output .= $this->firstRegister();// ob_get_contents();
+	
+		//ob_start();
+			$this->init_output = $this->firstRegister();// ob_get_contents();
 			var_dump($this->init_output);
-
-		ob_end_clean();
+		//ob_end_clean();
 
 		
 
@@ -195,7 +188,8 @@ class DbCreateAction extends StepAction
 	function firstRegister()
     {
     	$XPost = "";
-     	$url = "http://{$_SESSION['site_url']}/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration";
+     	$url = "http://localhost/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration";
+     	
      // initialize curl handle
      $ch = curl_init();
      // set url to post to
@@ -209,6 +203,7 @@ class DbCreateAction extends StepAction
      // run the whole process
      $result = curl_exec($ch);
      $result = utf8_encode($result);
+     
      return $result;
     }
  

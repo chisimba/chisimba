@@ -179,7 +179,7 @@ class DbNameAction extends FiveStepAction
 		}
 
 		
-
+		$_SESSION['dbname'] = $_SESSION[$this->db_prefix.'name'];
 		$dsn = $_SESSION['short_dsn'].$_SESSION[$this->db_prefix.'name'];
 
 		
@@ -244,15 +244,13 @@ class DbNameAction extends FiveStepAction
 					return false;
 		
 				}
-							
-
+				
+			$conn->success = true;
 			// should the tables be created
 
-			$num_tables = $handler->getNumberOfTables();
-
-			
-
-			if (!$handler->success) {
+			$num_tables = $handler->getNumberOfTables();	
+		
+			if ($conn->success==FALSE) {
 
 				$this->errors[] = 'The installer was unable to check if your system currently has db tables created. '.
 
@@ -267,7 +265,7 @@ class DbNameAction extends FiveStepAction
 
 			// need to quit.
 
-			if (($num_tables > 0) && ($_SESSION['install_type'] == 'install')) {
+			if (($num_tables != null) && ($_SESSION['install_type'] == 'install')) {
 
 				$this->errors[] = 'The database given already contains tables, and must be emptied '.
 
