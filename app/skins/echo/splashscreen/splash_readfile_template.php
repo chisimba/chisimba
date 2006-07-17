@@ -1,47 +1,48 @@
 <div id="wrap">
 	<div id="header">
-				<div id="site-name">[-SITENAME-]</div>
+				<div id="site-name">[-SITENAME-]
+				</div>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
 					<input id="searchsite" name="searchsite" type="text" />
 					<input type="submit" value="Go" class="f-submit" />
-					
+
 					</form>
 				</div>
-		
-				
-	
-	</div>	
 
-				
+
+
+	</div>
+
+
 	<div id="content-wrap">
-		<div id="content">	
+		<div id="content">
 			[-PRELOGINSTORIES-]
 			<div id="footer">
 			[-PRELOGINSTORIESFOOTER-]
 			</div>
 		</div>
-	<div id="leftnav">
+		<div id="leftnav">
 			[-STARTFORM-]
 			<div class="featurebox">
 		            <h3>Login</h3>
-		            
+
 		                        [-USERNAMEBOX-]
-		                
+
 		                        [-PASSWORDBOX-]
 		                 <br />
 		                        [-USELDAPCHECK-][-LOGINBUTTON-]
 		                    <br />
 		                        [-NEWPASSWORD-]
-		                  
+
 			</div>
 			<div class="featurebox">
 		            <h3>Registration</h3>
-		            
+
 		                        [-REGISTER-]
-		               
-				</div>
+
+			</div>
 		        [-SKIN-]
 		        [-ENDFORM-]
 		    <div class="featurebox">
@@ -54,7 +55,7 @@
 		                    </TR>
 		            </TABLE>
 		     </div>
-		        
+
 		     <div class="featurebox">
 		            <h3>Courses</h3>
 		            <TABLE>
@@ -65,10 +66,10 @@
 		                    </TR>
 		            </TABLE>
 		     </div>
-		   
-	</div>
-		        
-	<div id="rightnav">
+
+		</div>
+
+		<div id="rightnav">
 				<div class="featurebox">
 		            <h3>Skinz</h3>
 		            <TABLE>
@@ -99,5 +100,6 @@
 					</TR>
 				</TABLE>
 				</div>
-			</div>
+		</div>
+	</div>
 </div>
