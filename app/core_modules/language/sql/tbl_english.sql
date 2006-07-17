@@ -36,7 +36,7 @@ $fields = array(
 		'length' => 1
 		),
     'dateCreated' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'creatorUserId' => array(
 		'type' => 'text',
@@ -44,7 +44,7 @@ $fields = array(
         'default' => '1'
 		),
     'dateLastModified' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'modifiedByUserId' => array(
 		'type' => 'text',
