@@ -577,7 +577,7 @@ class modulesadmin extends dbTableManager
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
-        return "OK";
+        return TRUE;
     }
 
      /**

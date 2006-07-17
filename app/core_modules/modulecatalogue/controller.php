@@ -158,7 +158,7 @@ class modulecatalogue extends controller
 						return 'front_tpl.php';
 					}
 				case 'uninstall':
-					if ($res = $this->uninstallModule($this->getParm('mod'))) {
+					if ($this->uninstallModule($this->getParm('mod'))) {
 						$this->output = 'success';
 					} else {
 						if ($this->output == '') {
@@ -169,7 +169,7 @@ class modulecatalogue extends controller
 					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'install':
 					$regResult = $this->installModule($this->getParm('mod'));
-					if ($regResult == 'OK'){
+					if ($regResult){
 						$this->output = 'success';	//success
 					} else {
 						if ($this->output == '') {
@@ -268,8 +268,7 @@ class modulecatalogue extends controller
     					$this->output = $this->registerdata['WARNING'];
     					return FALSE;
     				}
-    				$regResult = $this->objModuleAdmin->installModule($this->registerdata);
-    				return $regResult;
+    				return $this->objModuleAdmin->installModule($this->registerdata);
     			}
     		} else {
     			$this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
@@ -315,7 +314,9 @@ class modulecatalogue extends controller
     private function batchRegister($modArray) {
     	try {
     		foreach ($modArray as $line) {
-    			$this->smartRegister($line);
+    			if (!$this->smartRegister($line)) {
+    				throw new customException("Error registering module $line: {$this->objModuleAdmin->output}");
+    			}
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -346,7 +347,7 @@ class modulecatalogue extends controller
     					}
     				}
     				$regResult= $this->objModuleAdmin->installModule($registerdata);
-    				if ($regResult=='OK'){
+    				if ($regResult){
     					$this->output = $this->objLanguage->languageText('mod_modulecatalogue_regconfirm','modulecatalogue');
     				}
     				return $regResult;
@@ -368,7 +369,9 @@ class modulecatalogue extends controller
     private function batchDeregister($modArray) {
     	try {
     		foreach ($modArray as $line) {
-    			$this->smartDeregister($line);
+    			if (!$this->smartDeregister($line)) {
+    				throw new customException("Error uninstalling module $line: {$this->objModuleAdmin->output}");
+    			}
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -423,7 +426,9 @@ class modulecatalogue extends controller
     	try {
     		$mList=file($this->objConfig->getsiteRootPath().'installer/dbhandlers/default_modules.txt');
     		foreach ($mList as $line) {
-    			$this->installModule(trim($line));
+    			if (!$this->installModule(trim($line))) {
+    				throw new customException("Error installing module $line: {$this->objModuleAdmin->output}");
+    			}
     		}
     		// Flag the first time registration as having been run
     		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE);

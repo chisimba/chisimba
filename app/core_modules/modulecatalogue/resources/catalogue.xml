@@ -5,8 +5,9 @@
 	<category>e-Learn</category>
 	<category>Content Management System</category>
 	<category>WIKI</category>
+	<category>Admin</category>
 	<category>Survey</category>
-</catalogue> 	 
+</catalogue>
     <module>
         <id>181</id>
         <module_id>decisiontable</module_id>
@@ -40,6 +41,7 @@
         <module_releasedate>2006-07-11 16:30:00</module_releasedate>
         <module_version>1.0</module_version>
         <module_path>modulecatalogue</module_path>
+        <modulecategory>Admin</modulecategory>
         <isAdmin>1</isAdmin>
         <isVisible>1</isVisible>
         <hasAdminPage>1</hasAdminPage>
@@ -166,7 +168,7 @@
         <hasAdminPage>0</hasAdminPage>
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>	
+        <modulecategory>e-Learn</modulecategory>
     </module>
     <module>
         <id>13</id>
@@ -793,7 +795,7 @@
         <isContextAware>0</isContextAware>
         <dependsContext>0</dependsContext>
         <modulecategory>e-Learn</modulecategory>
-        
+
     </module>
     <module>
         <id>61</id>
