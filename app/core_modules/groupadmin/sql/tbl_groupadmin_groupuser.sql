@@ -42,15 +42,15 @@ $fields = array(
 	'group_id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
     'user_id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
     'last_updated' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'last_updated_by' => array(
 		'type' => 'text',
