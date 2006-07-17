@@ -18,39 +18,39 @@ CREATE TABLE `tbl_sysconfig_properties` (
 $tablename = 'tbl_sysconfig_properties';
 
 //Options line for comments, encoding and character set
-$options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'system properties', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
 	'pmodule' => array(
 		'type' => 'text',
 		'length' => 25,
-        'notnull' => TRUE,
-        'default' => ''
+
+
 		),
     'pname' => array(
 		'type' => 'text',
         'length' => 32,
-        'notnull' => TRUE,
-        'default' => ''
+
+
 		),
     'pvalue' => array(
 		'type' => 'text',
         'length' => 32,
-        'notnull' => TRUE,
-        'default' => ''
+
+
 		),
     'creatorId' => array(
 		'type' => 'text',
         'length' => 25
 		),
     'dateCreated' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE,
         'default' => '0000-00-00 00:00:00'
 		),
@@ -59,7 +59,7 @@ $fields = array(
         'length' => 25
 		),
     'dateModified' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		)
     );
 
