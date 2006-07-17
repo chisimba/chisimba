@@ -32,4 +32,3 @@ login
 calendarbase
 systext
 splashscreen
-splashscreenadmin

@@ -233,9 +233,9 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					if ($check!=TRUE){
+					//if ($check!=TRUE){
 						$this->firstRegister();
-					}
+					//}
 					// Show next installation step
 					return $this->nextAction(NULL,NULL,'installer');
 				default:
@@ -421,7 +421,7 @@ class modulecatalogue extends controller
     */
     private function firstRegister() {
     	try {
-    		$mList=file($this->objConfig->getsiteRootPath().'/installer/default_modules.txt');
+    		$mList=file($this->objConfig->getsiteRootPath().'installer/dbhandlers/default_modules.txt');
     		foreach ($mList as $line) {
     			$this->installModule(trim($line));
     		}
@@ -456,6 +456,8 @@ class modulecatalogue extends controller
     		$uses = $this->objModuleAdmin->listTexts($rdata,'USES');
     		if ($uses) {
     			$text = array_merge($texts,$uses);
+    		} else {
+    			$text = $texts;
     		}
     		$this->objModule->beginTransaction(); //Start a transaction;
     		if (is_array($text)) {
