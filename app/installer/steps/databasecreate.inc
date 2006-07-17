@@ -6,7 +6,7 @@
 
 require_once INSTALL_DIR.'/step.inc';
 
-
+require_once 'xml2array_class_inc.php';
 
 require_once INSTALL_DIR.'/stepaction.inc';
 
@@ -214,7 +214,54 @@ class DbCreateAction extends StepAction
 			//var_dump($this->init_output);
 		//ob_end_clean();
 
+	//OK now lets dump in the default data from the xml files...
+	//get an array of the directories that we need to look through for the default files...
+	$defaults = array('security' => 'modules/security/sql/defaultdata.xml',
+					  'modulecatalogue' => 'modules/modulecatalogue/sql/defaultdata.xml',
+					  'systext' => 'modules/systext/sql/defaultdata.xml',
+					  'language' => 'modules/language/sql/defaultdata.xml',
+					  'cmsadmin' => 'modules/cmsadmin/sql/defaultdata.xml',
+					  'toolbar' => 'modules/toolbar/sql/defaultdata.xml',
+					  'sysconfig' => 'modules/sysconfig/sql/defaultdata.xml',
+					  'groupadmin' => 'modules/groupadmin/sql/defaultdata.xml',
+					  'permissions' => 'modules/permissions/sql/defaultdata.xml',
+					  'decisiontable' => 'modules/decisiontable/sql/defaultdata.xml'
+					  );
 
+	$handler = new DbHandler();
+	$conn = &$handler->getDbHandler($_SESSION['dsn']);
+
+	foreach($defaults as $default)
+	{
+		$xmlfile = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$default : false;
+		if(is_file($xmlfile))
+		{
+			$x = new xml2array();
+			$arr = $x->xmlFileToArray($xmlfile, FALSE, TRUE);
+		//	print_r($arr);
+			//get the table name
+			$toplevel = array_keys($arr);
+			$table = $toplevel[0];
+			//now get the data
+			$data = $arr[$table];
+			//check if data is an array for more than 1 entry
+			if(is_array($data[0]))
+			{
+				foreach($data as $entries)
+				{
+					$data = $entries;
+					//insert to the db
+					$conn->insert($data, $table);
+
+
+				}
+			}
+			$conn->insert($data, $table);
+
+//			die();
+
+		}
+	}
 
 
 

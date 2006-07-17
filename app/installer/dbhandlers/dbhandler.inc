@@ -362,6 +362,42 @@ class DbHandler extends dbHandlermanager
 
 	}//end setDSN()
 
+	function insert($fields, $tablename = '')
+    {
+        //log_debug("dbtable insert into $tablename");
+        //log_debug($fields);
+        if (empty($tablename)) {
+            $tablename = $this->_tableName;
+        }
+        $sql = "INSERT INTO {$tablename} SET ";
+        $comma = "";
+        if (empty($fields['id'])) {
+            $id = "init";
+            $fields['id'] = $id;
+        } else {
+            $id = $fields['id'];
+        }
+        foreach ($fields as $fieldName => $fieldValue) {
+            if ($this->USE_PREPARED_STATEMENTS) {
+                $sql .= "{$comma}{$fieldName}=?";
+                $params[] = $fieldValue;
+            } else {
+                $sql .= "{$comma}{$fieldName}='{$fieldValue}'";
+            }
+            $comma = ', ';
+        }
+        $this->_lastId = $id;
+        $ret = $this->_execute($sql, $params);
+        //log_debug("success $ret");
+
+        return $ret ? $id : false;
+    }
+
+    function _execute($stmt, $params = array())
+    {
+        $sh = $this->_globalObjDb->prepare($stmt);
+        return ($sh->execute($params));
+    }
 
 
 }//end class
