@@ -83,19 +83,19 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 // set up textinput for new system type
     $objText = new textinput('systemtype', $newsystemLabel);
-    $objText -> extra = 'MAXLENGTH=15';
+    $objText -> extra = ' MAXLENGTH="15"';
     $objText -> size = '15';
     $newsystemText = $objText -> show();
 
 // set up textinput for new text item
     $objText = new textinput('text', $newtextLabel);
-    $objText -> extra = 'MAXLENGTH=50';
+    $objText -> extra = ' MAXLENGTH="50"';
     $objText -> size = '15';
     $newtextText = $objText -> show();
 
 // set up textinput for abstracts
     $objText = new textinput('abstract[]');
-    $objText -> extra = 'MAXLENGTH=50';
+    $objText -> extra = ' MAXLENGTH="50"';
     $objText -> size = '15';
     $abstractText = $objText -> show();
 
@@ -150,7 +150,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
         }else{
             if($mode == 'editsystem' and $systemId == $systemType['id']){ // set up input box for editing
                 $objText = new textinput('systemtype', $systemType['systemType']);
-                $objText -> extra = 'MAXLENGTH=15';
+                $objText -> extra = ' MAXLENGTH="15"';
                 $objText -> size = '15';
                 $text = $objText -> show();
                 $str = $systemHiddenText . $text . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
@@ -184,10 +184,10 @@ if(!$GLOBALS['kewl_entry_point_run']){
             $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton;
         }elseif($mode == 'edittext' and $textId == $textItem['id'] and $canDelete != 'N'){
             $objText = new textinput('text', $textItem['text']);
-            $objText -> extra = 'MAXLENGTH=15';
+            $objText -> extra = ' MAXLENGTH="15"';
             $objText -> size = '15';
             $text = $objText -> show();
-            $str = $candeleteHiddenText . $textHiddenText . $text . "<br>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
+            $str = $candeleteHiddenText . $textHiddenText . $text . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
         }else{
             // set up links
             if($textItem['canDelete'] == 'N'){
@@ -207,7 +207,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
             $abstractId = $arrAbstractItem[0]['id'];
             if($mode == 'editsystem' and $systemId == $systemType['id']){
                 $objText = new textinput('abstract[' . $abstractId . "-" . $systemType['id'] . "-" . $textItem['id'] . ']', $arrAbstractItem[0]['abstract']);
-                $objText -> extra = 'MAXLENGTH=50';
+                $objText -> extra = ' MAXLENGTH="50"';
                 $objText -> size = '15';
                 $abstractText = $objText -> show();
                 $objTable -> addCell($abstractText, '', '', 'center', $class, '');
@@ -215,7 +215,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
                 // default can not be edited
                 if($abstractId != 'init1' and $abstractId != 'init_2' and $abstractId != 'init_3' and $abstractId != 'init_4' and $abstractId != 'init_5' and $abstractId != 'init_6' and $abstractId != 'init_7' and $abstractId != 'init_8' and $abstractId != 'init_9' and $abstractId != 'init_10' and $abstractId != 'init_11' and $abstractId != 'init_12'){
                     $objText = new textinput('abstract[' . $abstractId . "-" . $systemType['id'] . "-" . $textItem['id'] . ']', $arrAbstractItem[0]['abstract']);
-                    $objText -> extra = 'MAXLENGTH=50';
+                    $objText -> extra = ' MAXLENGTH="50"';
                     $objText -> size = '15';
                     $abstractText = $objText -> show();
                     $objTable -> addCell($abstractText, '', '', 'center', $class, '');
