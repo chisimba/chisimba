@@ -133,6 +133,7 @@ if (isSet($bodyParams)) {
 				 ?>
 			</div>	 
 		</div>
+	</div>
 				
 		
 			
@@ -174,5 +175,6 @@ if (!isset($suppressFooter)) {
 //$this->putMessages();
 
 ?>
+</div>
 </body>
 </html>
