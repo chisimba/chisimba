@@ -19,7 +19,7 @@ CREATE TABLE `tbl_modules` (
 $tablename = 'tbl_modules';
 
 //Options line for comments, encoding and character set
-$options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'modules', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
@@ -37,7 +37,7 @@ $fields = array(
 		'type' => 'text'
 		),
     'module_releasedate' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'module_version' => array(
 		'type' => 'text',
