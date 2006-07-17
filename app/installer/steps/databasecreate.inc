@@ -185,6 +185,16 @@ class DbCreateAction extends StepAction
     $this->_installDb32('modules/cmsadmin/sql/tbl_cms_sections.sql');
     $this->_installDb32('modules/toolbar/sql/tbl_menu_category.sql');
     $this->_installDb32('modules/sysconfig/sql/tbl_sysconfig_properties.sql');
+//ok thats 20 tables...
+
+    //we need tbl_groupadmin_groupuser as well.
+    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
+//    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_group_groupfk.sql');
+    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_group.sql');
+
+    //tbl_permissions_acl
+    $this->_installDb32('modules/permissions/sql/tbl_permissions_acl.sql');
+	$this->_installDb32('modules/permissions/sql/tbl_permissions_acl_description.sql');
 
 
 		// now include the step to process
