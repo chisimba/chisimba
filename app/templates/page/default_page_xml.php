@@ -173,6 +173,8 @@ if (!isset($suppressFooter)) {
 //$this->putMessages();
 
 ?>
+<?php if (!isset($pageSuppressTrailingDiv)) { ?>
 </div>
+<?php } ?>
 </body>
 </html>
