@@ -25,7 +25,7 @@ require_once INSTALL_DIR.'/dbhandlers/dbhandlermanager.inc';
 
 */
 
-class DbHandler extends dbHandlermanager 
+class DbHandler extends dbHandlermanager
 
 {
 
@@ -39,7 +39,7 @@ class DbHandler extends dbHandlermanager
 
 	public  $dsn;
 
-	
+
 
 	/**
 
@@ -51,7 +51,7 @@ class DbHandler extends dbHandlermanager
 
 	private $schema;
 
-	
+
     private $dbmanager;
 	/**
 
@@ -63,7 +63,7 @@ class DbHandler extends dbHandlermanager
 
 	public  $errors = Array();
 
-	
+
 
 	/**
 
@@ -75,7 +75,7 @@ class DbHandler extends dbHandlermanager
 
 	public $success = false;
 
-	
+
 
 	/**
 
@@ -86,24 +86,25 @@ class DbHandler extends dbHandlermanager
 	*/
 
 	public $minVersion;
-	
+
 	public $_globalObjDb;
-	
+
 	public $_globalObjDbManager;
 
 	public function __construct()
-	{ 	
-		
+	{
+
 			$this->_objDbConfig = $_SESSION['dsn'];
 			// Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             $this->_globalObjDb = &MDB2::factory($_SESSION['dsn']);
-            $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            //var_dump($this->_globalObjDb);
+            //$this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
 			// install the error handler with our custom callback on error
-           
+
             // set the default fetch mode for the DB to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
@@ -113,7 +114,7 @@ class DbHandler extends dbHandlermanager
 		 	require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
-             
+
              $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
              $this->dbmanager = new dbHandlermanager();
              parent::__construct();
@@ -124,7 +125,7 @@ class DbHandler extends dbHandlermanager
 
 	* Get a db handler class for the given dsn
 
-	* 
+	*
 
 	* @param string $dsn The dsn to connect to.
 
@@ -138,21 +139,21 @@ class DbHandler extends dbHandlermanager
 
 	{
 		try{
-			
+
 	   		return $this;
 		}catch (Exception $e){
-			
+
 			return false;
 		}
 
 	}//end getDbHandler()
 
-	
+
 	/**
 
 	* Abstract emptyDatabase method
 
-	* 
+	*
 
 	* @return boolean Whether the database could be emptied or not.
 
@@ -161,16 +162,16 @@ class DbHandler extends dbHandlermanager
 	*/
 
 	public function emptyDatabase($db,$dsn) {
-		
+
 		try {
-			$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));	
+			$this->schema =& MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
 			$ret = $this->schema->db->CreateDatabase($db);
-			
+
 			if (PEAR::isError($ret)) {
 	        	$ret = $this->schema->db->DropDatabase($db);
-	        	        	
+
 	        	$ret = $this->schema->db->CreateDatabase($db);
-	        	
+
 	   		}
 	   		$this->schema->disconnect();
 	   		$this->success = true;
@@ -182,27 +183,27 @@ class DbHandler extends dbHandlermanager
 
 	/**
 	 * Create Tables for new 5ive installations
-	 * 
+	 *
 	 * @return TRUE / FALSE boolean
 	 * @access Public
 	 */
 	public function createTables($tablename,$fields,$options)
 	{
 		try {
-						
+
 			$ret = $this->dbmanager->createTable($tablename, $fields, $options);
 			if (!$ret) {
-	        	
+
 	        		throw new Exception('Error while creating table');
 	   		}
-	   		
+
 	   		return true;
 		}catch (Exception $e){
 			return false;
 		}
-		
+
 	}
-	
+
 	/**
      * Method to create an index on the table
      *
@@ -215,10 +216,10 @@ class DbHandler extends dbHandlermanager
     public function createTableIndex($tableName, $keyname, $index)
     {
     	try {
-    		
+
 	        $ret = $this->dbmanager->createTableIndex($tableName,$keyname,$index);
 	        if (PEAR::isError($ret)) {
-	        	
+
 	        		throw new Exception('Error while creating table indexes');
 	   		}
 	        return TRUE;
@@ -239,13 +240,13 @@ class DbHandler extends dbHandlermanager
     	$ret = $this->dbmanager->createDb($db);
     	return $ret;
     }
-	
+
 
 	/**
 
 	* Get the number of tables in the database
 
-	* 
+	*
 
 	* @return int The number of database tables.
 
@@ -260,15 +261,15 @@ class DbHandler extends dbHandlermanager
 
 	}//end getNumberOfTables()
 
-	
 
-	
+
+
 
 	/**
 
 	* Check the version is allowed
 
-	* 
+	*
 
 	* @return string The version of the database
 
@@ -276,53 +277,53 @@ class DbHandler extends dbHandlermanager
 
 	*/
 
-	public function checkVersion($dsn) 
+	public function checkVersion($dsn)
 
 	{
 		try{
 
 			$sql = 'SELECT version()';
-	
+
 			$this->schema =&MDB2::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
-			
+
 	   		if (PEAR::isError($this->schema)) {
 	        	$error = $this->schema->getMessage() . ' ' . $this->schema->getUserInfo();
 	        	throw new Exception();
 	   		}
-	
+
 			// get a list of tables in the database
-					
+
 			$result =  $this->schema->getServerVersion(false);
 			if (MDB2::isError($this->schema)) {
-	
+
 				$this->errors[] =  $this->schema->getMessage();
 				 $schema->disconnect();
 				$this->success = false;
 				throw new Exception();
-	
-			} 
-	
+
+			}
+
 			$ver = $result[0];
-					
-	
+
+
 			return version_compare($ver, $this->minVersion) >= 0;
 		}catch (Exception $e){
-			
+
 			return false;
 		}
-		
+
 
 	}//end version()
 
-	
 
-	
+
+
 
 	/**
 
 	* Set the dsn this db handler will use
 
-	* 
+	*
 
 	* @param string $dsn the dsn to use.
 
@@ -334,7 +335,7 @@ class DbHandler extends dbHandlermanager
 
 	public function setDSN($dsn) {
 
-	try{	
+	try{
 
 		$this->dsn = $dsn;
 
@@ -349,19 +350,19 @@ class DbHandler extends dbHandlermanager
 
 		$this->success = true;
 
-		
+
 
 		return true;
 	}catch (Exception $e){
-		
+
 		return false;
 	}
 
-		
+
 
 	}//end setDSN()
 
-	
+
 
 }//end class
 

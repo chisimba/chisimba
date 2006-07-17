@@ -30,7 +30,7 @@ require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
 * @version $version$ - 1.0
 
-* @package 5ive 
+* @package 5ive
 
 * @subpackage installer
 
@@ -40,12 +40,12 @@ class DatabaseCreate extends Step
 
 {
 
-	
+
     /**
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -69,13 +69,13 @@ class DatabaseCreate extends Step
 
 		$this->can_cancel = false;
 
-		
+
 
 	}//end DatabaseCreate()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -99,7 +99,7 @@ class DbCreateAction extends StepAction
 
 {
 
-	
+
 
 	/**
 
@@ -115,16 +115,16 @@ class DbCreateAction extends StepAction
 	 * The output of register file outputs
 	 * @var array
 	 */
-	
+
 	var $registerdata = array();
-	
+
 	var $moduleAdmin = null;
 
 	/**
 
 	* Initialise the 5ive system.
 
-	* 
+	*
 
 	* @return boolean Whether all the database tables were created or not.
 
@@ -146,7 +146,7 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 		// make sure that SQ_SYSTEM_ROOT is defined before trying to execute the script.
 
@@ -188,21 +188,21 @@ class DbCreateAction extends StepAction
 
 
 		// now include the step to process
-	
+
 		//ob_start();
 			//$this->init_output = $this->firstRegister();// ob_get_contents();
 			//var_dump($this->init_output);
 		//ob_end_clean();
 
-		
 
-		
 
-		
+
+
+
 
 		return true;
 
-		
+
 
 	}//end processAction()
 
@@ -210,7 +210,7 @@ class DbCreateAction extends StepAction
     {
     	$XPost = "";
      	$url = "http://localhost/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration";
-     	
+
      // initialize curl handle
      $ch = curl_init();
      // set url to post to
@@ -224,11 +224,11 @@ class DbCreateAction extends StepAction
      // run the whole process
      $result = curl_exec($ch);
      $result = utf8_encode($result);
-     
+
      return $result;
     }
- 
-	
+
+
 
 	/**
 
@@ -241,25 +241,25 @@ class DbCreateAction extends StepAction
 	{
 		try {
 				$sqlfile= isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$parth : false;
-			 	
+
 	     		if (is_file($sqlfile)) {
 	     			$handler = new DbHandler();
 					$conn = &$handler->getDbHandler($_SESSION['dsn']);
-					
+
 					include_once($sqlfile);
-				
 					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
+					//echo $tablecreatereturn;
         			if (!$tablecreatereturn) {
         				$this->errors[] = 'Could not create table'.$tablename;
         			}
-        		
+
         			if ($indexes!=null) {
         				$tableindex = $conn->createTableIndex($tablename,$name,$indexes);
 	        			if (!$tableindex) {
 	        				$this->errors[] = 'Could not create table indexes for '.$tablename;
-	        				
+
 	        			}
-	        			
+
         			}
         			$sqlfile = null;
         			$fields =null;
@@ -267,14 +267,14 @@ class DbCreateAction extends StepAction
         			$indexes = null;
         			return true;
 				}else{
-					
+
 					throw new Exception('could not read file'.$sqlfile);
 				}
-		}catch (Exception $e){		
+		}catch (Exception $e){
 			$this->errorCallback('Caught exception: '.$e->getMessage());
-    		exit();	
+    		exit();
 		}
-           	
+
 
 	}//end _installDb32
 
@@ -282,7 +282,7 @@ class DbCreateAction extends StepAction
 
 	* Deletes a directory and all subdirectories
 
-	* 
+	*
 
 	* @param string $dir the directory to delete
 
@@ -322,7 +322,7 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 		closedir($handle);
 
@@ -334,19 +334,19 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 	}//end _rmDashRf()
 
-	
 
-	
+
+
 
 	/**
 
-	* Empty a directory of files. 
+	* Empty a directory of files.
 
-	* 
+	*
 
 	* @param string $dir The directory name (note: NO TRAILING SLASH)
 
@@ -388,17 +388,17 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 		closedir($handle);
 
-		
+
 
 	}//end _emptyDirectory()
 
-	
 
-	
+
+
 
 	/**
 
@@ -408,7 +408,7 @@ class DbCreateAction extends StepAction
 
 	* If the table_columns.inc file exists the user can skip this action.
 
-	* 
+	*
 
 	* @return boolean if this action is required to complete the step.
 
@@ -422,7 +422,7 @@ class DbCreateAction extends StepAction
 
 		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/dbhandlers/default_modules.txt' : false;
 
-	
+
 
 		// if it exists, this action isn't required.
 
@@ -432,23 +432,23 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end isRequired()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display information about the creation status to the user
 
-	* 
+	*
 
 	* @return void
 
@@ -462,13 +462,13 @@ class DbCreateAction extends StepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/oldstep.tpl');
 
-		
 
-		$warning_text = ''; 
+
+		$warning_text = '';
 
 		$message = '';
 
-		
+
 
 		// if this is an install setup type, or it was set that db tables should be
 
@@ -492,29 +492,29 @@ class DbCreateAction extends StepAction
 
 		}
 
-		
+
 
 		$tpl->set('warnings', $warning_text);
 
 		$tpl->set('message', $message);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the user what database stuff was written
 
-	* 
+	*
 
 	* @return void
 
@@ -528,11 +528,11 @@ class DbCreateAction extends StepAction
 
 		echo $this->init_output;
 
-		
+
 
 	}//end confirmAction()
 
-	
+
 /**
      * The error callback function, defers to configured error handler
      *
@@ -542,7 +542,7 @@ class DbCreateAction extends StepAction
     public function errorCallback($exception) {
     	echo $exception;
     }
-	
+
 
 }//end class
 
