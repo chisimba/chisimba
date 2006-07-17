@@ -196,6 +196,16 @@ class DbCreateAction extends StepAction
     $this->_installDb32('modules/permissions/sql/tbl_permissions_acl.sql');
 	$this->_installDb32('modules/permissions/sql/tbl_permissions_acl_description.sql');
 
+	//decision tables
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_action.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_condition.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
+	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule.sql');
 
 		// now include the step to process
 
