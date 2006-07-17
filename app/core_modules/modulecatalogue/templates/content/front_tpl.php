@@ -14,9 +14,9 @@ $objTable->width='100%';
 
 $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue'),
+			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
-        
+
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
 if ($modules) {
@@ -29,21 +29,21 @@ if ($modules) {
 		$batchButton = &new Link($this->uri(array('cat'=>$activeCat),'modulecatalogue'));
 		$batchButton->link = $this->objLanguage->languageText('mod_modulecatalogue_batchinstall','modulecatalogue');
 		$batchButton->extra = "class='pseudobutton'";
-		$batchChange = $batchButton->show(); 
+		$batchChange = $batchButton->show();
 		$batchButton = &new button('formsub');
 		$batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
-		$batchButton->setToSubmit();  //If you want to make the button a submit button 
-		$batchAction = $batchButton->show(); 
+		$batchButton->setToSubmit();  //If you want to make the button a submit button
+		$batchAction = $batchButton->show();
 	} else {
 		$actiontotake = 'batchinstall';
 		$batchButton = &new Link($this->uri(array('cat'=>$activeCat,'uninstall'=>'1'),'modulecatalogue'));
 		$batchButton->link = $this->objLanguage->languageText('mod_modulecatalogue_batchuninstall','modulecatalogue');
 		$batchButton->extra = "class='pseudobutton'";
-		$batchChange = $batchButton->show(); 
+		$batchChange = $batchButton->show();
 		$batchButton = &new button('formsub');
 		$batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_installselected','modulecatalogue'));
-		$batchButton->setToSubmit();  //If you want to make the button a submit button 
-		$batchAction = $batchButton->show(); 
+		$batchButton->setToSubmit();  //If you want to make the button a submit button
+		$batchAction = $batchButton->show();
 	}
 	$topTable = &$this->newObject('htmltable','htmlelements');
 	$topTable->cellpadding = 2;
@@ -59,7 +59,7 @@ if ($modules) {
 		if (in_array($modName,$localModules)){//dont display downloadable modules until that functionality is complete
 		$isRegistered = $hasController = $hasRegFile = '';
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_text','modulecatalogue');
+		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
 		$infoButton->extra = $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
@@ -100,7 +100,7 @@ if ($modules) {
 						$checkBox='';
 					}
 					$icon->setIcon('failed','png');
-					$isRegistered = $icon->show();     
+					$isRegistered = $icon->show();
 				} else {//registered
 					if ($this->objModFile->findController($modName)) {
 						$link = "<a href='{$this->uri(null,$modName)}'>$ucMod</a>";
@@ -123,7 +123,7 @@ if ($modules) {
 				$checkBox='';
 				$icon->setIcon('failed','png');
 				$hasRegFile = $icon->show();
-				
+
 			}
 		}
 		$icon->setModuleIcon($modName);

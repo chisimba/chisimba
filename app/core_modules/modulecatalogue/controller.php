@@ -455,11 +455,11 @@ class modulecatalogue extends controller
     		$texts = $this->objModuleAdmin->listTexts($rdata,'TEXT');
     		$uses = $this->objModuleAdmin->listTexts($rdata,'USES');
     		if ($uses) {
-    			array_push($texts,$uses);
+    			$text = array_merge($texts,$uses);
     		}
     		$this->objModule->beginTransaction(); //Start a transaction;
-    		if (is_array($texts)) {
-    			foreach ($texts as $code=>$data) {
+    		if (is_array($text)) {
+    			foreach ($text as $code=>$data) {
     				$isreg=$this->objModuleAdmin->checkText($code); // this gets an array with 3 elements - flag, content, and desc
     				$text_desc=$data['desc'];
     				$text_val=$data['content'];
