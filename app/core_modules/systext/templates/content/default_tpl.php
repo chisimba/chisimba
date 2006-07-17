@@ -119,16 +119,16 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 // set up heading colspan
     if($mode == 'addsystem'){
-        $colspan = 'colspan=' . (count($arrSystemTypes) + 1);
+        $colspan = 'colspan="' . (count($arrSystemTypes) + 1) .'"';
     }else{
-        $colspan = 'colspan=' . (count($arrSystemTypes));
+        $colspan = 'colspan="' . (count($arrSystemTypes)).'"';
     }
 
 // set up heading rowspan
     if($mode == 'addtext'){
-        $rowspan = 'rowspan=' . (count($arrTextItems) + 1);
+        $rowspan = 'rowspan="' . (count($arrTextItems) + 1).'"';
     }else{
-        $rowspan = 'rowspan=' . (count($arrTextItems));
+        $rowspan = 'rowspan="' . (count($arrTextItems)).'"';
     }
 
 // set up table
@@ -138,7 +138,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 // set up table data
     $objTable -> startRow();
-    $objTable -> addCell($modeHiddenText, '', '', '', 'heading', 'colspan=2 . rowspan=2');
+    $objTable -> addCell($modeHiddenText, '', '', '', 'heading', 'colspan="2"  rowspan="2"');
     $objTable -> addCell($systemLabel . " " . $addsystemIcon, '', '', 'center', 'heading', $colspan);
     $objTable -> endRow();
 
@@ -153,7 +153,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
                 $objText -> extra = 'MAXLENGTH=15';
                 $objText -> size = '15';
                 $text = $objText -> show();
-                $str = $systemHiddenText . $text . "<br>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
+                $str = $systemHiddenText . $text . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
             }else{ // set up links
                 $objLink = new link($this -> uri(array('mode' => 'editsystem', 'systemId' => $systemType['id']), 'systext'));
                 $objLink -> link = $systemType['systemType'];
