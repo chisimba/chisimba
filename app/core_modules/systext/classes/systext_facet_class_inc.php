@@ -275,9 +275,9 @@ class systext_facet extends dbTable
     function updateSession()
     {
         // This list will be generated using the private function _getAbstractList
-       // $this -> abstractList = $this -> _getAbstractList();
-        // Set the session variable
-       // $this -> setSession('systext', $this -> abstractList);
+        $this -> abstractList = $this -> _getAbstractList();
+                // Set the session variable
+        $this -> setSession('systext', $this -> abstractList);
     }
 
     /**
@@ -301,7 +301,8 @@ class systext_facet extends dbTable
     */
     function _getAbstractList()
     {
-        $system_type = $this -> _objConfig -> getValue("SYSTEM_TYPE", "systext");
+        $system_type = 'default';//$this -> _objConfig -> getValue("SYSTEM_TYPE", "systext");
+       
         $systemTypeList = $this -> listSystemTypes();
         $textItemList = $this -> listTextItems();
         $abstractList = array();
@@ -331,6 +332,7 @@ class systext_facet extends dbTable
             }
         }
         ksort($abstractList);
+        
         return $abstractList;
     }
 }

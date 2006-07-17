@@ -15,7 +15,7 @@ class dbsystem extends dbTable
 {
     function init()
     {
-      //  parent::init('tbl_systext_system');
+        parent::init('tbl_systext_system');
         $this -> table = 'tbl_systext_system';
     }
 
@@ -68,9 +68,11 @@ class dbsystem extends dbTable
     */
     function listAllRecords()
     {
-        $sql = "SELECT * FROM " . $this -> table;
-        $sql .= " ORDER BY 'systemType' ";
+        $sql = 'SELECT * FROM ' . $this -> table;
+        $sql .= ' ORDER BY "systemType" ';
+        
         $data = $this -> getArray($sql);
+      
         if(!empty($data)){
             return $data;
         }
