@@ -34,7 +34,7 @@ $fields = array(
 		'length' => 100
 		),
     'last_updated' => array(
-		'type' => 'datetime',
+		'type' => 'date',
 		),
     'last_updated_by' => array(
 		'type' => 'text',

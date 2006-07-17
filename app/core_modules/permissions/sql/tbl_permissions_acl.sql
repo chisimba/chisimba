@@ -59,7 +59,7 @@ $fields = array(
 		'length' => 32
 		),
     'last_updated' => array(
-		'type' => 'datetime',
+		'type' => 'date',
 		),
     'last_updated_by' => array(
 		'type' => 'text',
