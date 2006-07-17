@@ -275,9 +275,9 @@ class systext_facet extends dbTable
     function updateSession()
     {
         // This list will be generated using the private function _getAbstractList
-        $this -> abstractList = $this -> _getAbstractList();
+       // $this -> abstractList = $this -> _getAbstractList();
         // Set the session variable
-        $this -> setSession('systext', $this -> abstractList);
+       // $this -> setSession('systext', $this -> abstractList);
     }
 
     /**
