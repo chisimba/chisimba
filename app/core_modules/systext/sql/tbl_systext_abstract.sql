@@ -24,7 +24,7 @@ $sqldata[] = "CREATE TABLE tbl_systext_abstract(
 $tablename = 'tbl_systext_abstract';
 
 //Options line for comments, encoding and character set
-$options = array('comments' => 'List of text items to be abstracted', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'List of text items to be abstracted', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
@@ -54,7 +54,7 @@ $fields = array(
         'notnull' => TRUE
 		),
     'dateCreated' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE
 		),
     'canDelete' => array(

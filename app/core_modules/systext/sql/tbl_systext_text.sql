@@ -17,14 +17,14 @@ $sqldata[] = "CREATE TABLE tbl_systext_text(
 $tablename = 'tbl_systext_text';
 
 //Options line for comments, encoding and character set
-$options = array('comments' => 'List of text items to be abstracted', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'List of text items to be abstracted', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
     'text' => array( // BAD
         'type' => 'text',
@@ -36,7 +36,7 @@ $fields = array(
         'notnull' => TRUE
 		),
     'dateCreated' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE
 		),
     'canDelete' => array(
