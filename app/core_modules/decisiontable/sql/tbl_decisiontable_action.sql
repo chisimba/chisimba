@@ -30,6 +30,7 @@ $fields = array(
 	'name' => array(
 		'type' => 'text',
 		'length' => 50
+	)
     );
 
 
