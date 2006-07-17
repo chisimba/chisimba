@@ -25,11 +25,11 @@ $fields = array(
 	'userId' => array(
 		'type' => 'text',
 		'length' => 25,
-        'notnull' => TRUE,
-        'default' => '0'
+
+
 		),
     'lastLoginDateTime' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE,
         'default' => '0000-00-00 00:00:00'
 		)

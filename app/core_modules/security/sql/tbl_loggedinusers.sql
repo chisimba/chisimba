@@ -25,14 +25,14 @@ $fields = array(
 	'id' => array(
 		'type' => 'integer',
 		'length' => 11,
-        'notnull' => TRUE,
+
         'autoincrement' => TRUE
 		),
 	'userId' => array(
 		'type' => 'text',
 		'length' => 25,
-        'notnull' => TRUE,
-        'default' => '0'
+
+
 		),
     'ipAddress' => array(
 		'type' => 'text',
@@ -45,12 +45,12 @@ $fields = array(
 
 		),
     'whenLoggedIn' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE,
         'default' => '0000-00-00 00:00:00'
 		),
     'WhenLastActive' => array(
-		'type' => 'datetime',
+		'type' => 'date',
         'notnull' => TRUE,
         'default' => '0000-00-00 00:00:00'
 		),
