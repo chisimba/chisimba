@@ -132,8 +132,6 @@ if (isSet($bodyParams)) {
 				 }
 				 ?>
 			</div>	 
-		</div>
-	</div>
 				
 		
 			
