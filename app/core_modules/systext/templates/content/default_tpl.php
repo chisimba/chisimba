@@ -164,7 +164,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
         $objTable -> addCell($str, '', '', 'center', 'heading', '');
     }
     if($mode == 'addsystem'){ // set up input box for adding a new system type
-        $objTable -> addCell($newsystemText . "<br>" . $saveButton . " " . $cancelButton, '', '', 'center', 'heading', '');
+        $objTable -> addCell($newsystemText . "<br/>" . $saveButton . " " . $cancelButton, '', '', 'center', 'heading', '');
     }
     $objTable -> endRow();
 
@@ -181,7 +181,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
             $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id'], 'candelete' => 'N'), 'systext'));
             $objLink -> link = $textItem['text'];
             $link = $objLink -> show();
-            $str = $candeleteHiddenText . $textHiddenText . $link . "<br>" . $saveButton . " " . $cancelButton;
+            $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton;
         }elseif($mode == 'edittext' and $textId == $textItem['id'] and $canDelete != 'N'){
             $objText = new textinput('text', $textItem['text']);
             $objText -> extra = 'MAXLENGTH=15';
@@ -242,7 +242,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
     if($mode == 'addtext'){ // set up input box for adding a new text item
         $class = (($i++ % 2) == 0)? 'even':'odd';
         $objTable -> startRow();
-        $objTable -> addCell($newtextText . "<br>" . $saveButton . " " . $cancelButton, '', '', '', 'heading', '');
+        $objTable -> addCell($newtextText . "<br/>" . $saveButton . " " . $cancelButton, '', '', '', 'heading', '');
         foreach($arrSystemTypes as $systemType){ // set up input boxes for adding abstracts for a new text item
             $objTable -> addCell($abstractText, '', '', 'center', $class, '');
         }
@@ -261,5 +261,5 @@ if(!$GLOBALS['kewl_entry_point_run']){
     $objLink -> link = $exitLabel;
     $exitLink = $objLink -> show();
 
-    echo "<br>" . $exitLink;
+    echo "<br/>" . $exitLink;
 ?>

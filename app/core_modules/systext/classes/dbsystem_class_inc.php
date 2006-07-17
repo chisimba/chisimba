@@ -13,7 +13,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 class dbsystem extends dbTable
 {
-    function init()
+    public function init()
     {
         parent::init('tbl_systext_system');
         $this -> table = 'tbl_systext_system';
@@ -25,7 +25,7 @@ class dbsystem extends dbTable
     * @param string $systemType  The name of the system type
     * @param string $creatorId  The id of the user who created the system type
     */
-    function addRecord($systemType, $creatorId)
+    public function addRecord($systemType, $creatorId)
     {
         $fields = array();
         $fields['systemType'] = $systemType;
@@ -40,7 +40,7 @@ class dbsystem extends dbTable
     * @param string $id The id of the system type
     * @return array $data  The system type data
     */
-    function getRecord($id)
+    public function getRecord($id)
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " WHERE id = '$id'";
@@ -56,7 +56,7 @@ class dbsystem extends dbTable
     *
     * @param string $id  The system type to be deleted
     */
-    function deleteRecord($id)
+    public function deleteRecord($id)
     {
         $this -> delete('id', $id);
     }
@@ -66,7 +66,7 @@ class dbsystem extends dbTable
     *
     * @return array $data  All system type data
     */
-    function listAllRecords()
+    public function listAllRecords()
     {
         $sql = 'SELECT * FROM ' . $this -> table;
         $sql .= ' ORDER BY "systemType" ';
@@ -85,7 +85,7 @@ class dbsystem extends dbTable
     * @param string $systemId  The id of the system type being edited
     * @param string $systemType  The system type
     */
-    function editRecord($systemId, $systemType)
+    public function editRecord($systemId, $systemType)
     {
         $fields = array();
         $fields['systemType'] = $systemType;

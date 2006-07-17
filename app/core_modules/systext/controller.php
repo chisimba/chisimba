@@ -20,7 +20,13 @@ if(!$GLOBALS['kewl_entry_point_run'])
 
 class systext extends controller
 {
-    function init()
+    
+    /**
+     * Constructor
+     *
+     * @access pubic
+     */
+    public function init()
     {
         $this -> facet =& $this -> getObject('systext_facet');
         $this -> objUser =& $this -> getObject('user', 'security');
@@ -33,18 +39,40 @@ class systext extends controller
         $this -> objLog -> log();
     }
 
+    
     /**
     * This is the main method of the class
     * It calls other functions depending on the value of $action
     *
+    * @access public
+    * 
     * @param string $action
     **/
-    function dispatch($action)
+    public function dispatch($action)
     {
         // Now the main switch statement to pass values for $action
         switch($action){
             case 'submit':
+                return $this->_submit();
+
+            default: //main display template
                 $mode = $this -> getParam('mode');
+                $systemId = $this -> getParam('systemId');
+                $textId = $this -> getParam('textId');
+                $canDelete = $this -> getParam('candelete');
+                return $this -> showMain($mode, $systemId, $textId, $canDelete);
+        }
+    }
+
+    /**
+     * Method to is evoked by the 'submit' action
+     * 
+     * @access private
+     * @return string
+     */
+    private function _submit()
+    {
+        $mode = $this -> getParam('mode');
                 $cancel = $this -> getParam('cancel');
                 $save = $this -> getParam('save');
                 $delete = $this -> getParam('deleted');
@@ -98,17 +126,11 @@ class systext extends controller
                         $this -> facet -> deleteTextItem($this -> getParam('textId'));
                     }
                     return $this -> nextAction('');
-                }
-
-            default: //main display template
-                $mode = $this -> getParam('mode');
-                $systemId = $this -> getParam('systemId');
-                $textId = $this -> getParam('textId');
-                $canDelete = $this -> getParam('candelete');
-                return $this -> showMain($mode, $systemId, $textId, $canDelete);
-        }
+                }    
+        
     }
-
+    
+    
     /**
     * Method to display the main template
     *
@@ -117,9 +139,10 @@ class systext extends controller
     * @param string $textId The text id if any
     * @param string $canDelete An indicator to show if the record can be deleted
     *
-    * return The display template
+    * @return The display template
+    * @access public
     **/
-    function showMain($mode, $systemId, $textId, $canDelete)
+    public function showMain($mode, $systemId, $textId, $canDelete)
     {
         $this -> setVarByRef('mode', $mode);
         $this -> setVarByRef('systemId', $systemId);
@@ -137,8 +160,11 @@ class systext extends controller
     *
     * @param string $systemType The name of the new system type
     * @param array $arrAbstract An array containing the abstracted text
+    * 
+    * @access public
+    * @return object
     */
-    function addSystem($systemType, $arrAbstract)
+    public function addSystem($systemType, $arrAbstract)
     {
         $userId = $this -> objUser -> userId();
         $systemId = $this -> facet -> addSystemType($systemType, $userId);
@@ -156,8 +182,11 @@ class systext extends controller
     *
     * @param string $newText The new text item
     * @param array $arrAbstract An array containing the abstracted text
+    * 
+    * @access public
     */
-    function addText($text, $arrAbstract)
+    
+    public  function addText($text, $arrAbstract)
     {
         $userId = $this -> objUser -> userId();
         $textId = $this -> facet -> addTextItem($text, $userId);
@@ -177,7 +206,7 @@ class systext extends controller
     * @param string $systemType The name of the system type
     * @param array $arrAbstract An array containing the abstracted text
     */
-    function editSystem($systemId, $systemType, $arrAbstract)
+    public function editSystem($systemId, $systemType, $arrAbstract)
     {
         if(!empty($systemType)){ // edits the system type name
             $this -> facet -> editSystemType($systemId, $systemType);
@@ -205,7 +234,7 @@ class systext extends controller
                     }
                 }else{
                     if($check[0]['canDelete'] != 'N'){
-                        $this -> facet -> deleteAbstractText($arrId[0]);
+                       $this -> facet -> deleteAbstractText($arrId[0]);
                     }
                 }
             }else{
@@ -228,7 +257,7 @@ class systext extends controller
     * @param string $text The text item
     * @param array $arrAbstract An array containing the abstracted text
     */
-    function editText($textId, $text, $arrAbstract)
+    public function editText($textId, $text, $arrAbstract)
     {
         if(!empty($text)){ // edits the text item name
             $this -> facet -> editTextItem($textId, $text);

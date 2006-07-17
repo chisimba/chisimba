@@ -13,7 +13,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 class dbtext extends dbTable
 {
-    function init()
+    public public function init()
     {
         parent::init('tbl_systext_text');
         $this -> table = 'tbl_systext_text';
@@ -25,7 +25,7 @@ class dbtext extends dbTable
     * @param string $text  The word to be abstracted eg. contex
     * @param string $creatorId  The id of the user who created the text entry
     */
-    function addRecord($text, $creatorId)
+    public function addRecord($text, $creatorId)
     {
         $fields = array();
         $fields['text'] = $text;
@@ -40,7 +40,7 @@ class dbtext extends dbTable
     * @param string $id The id of the text
     * @return array $data  The text data
     */
-    function getRecord($id)
+    public function getRecord($id)
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " WHERE id = '$id'";
@@ -56,7 +56,7 @@ class dbtext extends dbTable
     *
     * @param string $id  The text to be deleted
     */
-    function deleteRecord($id)
+    public function deleteRecord($id)
     {
         $this -> delete('id', $id);
     }
@@ -66,7 +66,7 @@ class dbtext extends dbTable
     *
     * @return array $data  All text data
     */
-    function listAllRecords()
+    public function listAllRecords()
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " ORDER BY 'text' ";
@@ -83,7 +83,7 @@ class dbtext extends dbTable
     * @param string $textId  The id of the text item being edited
     * @param string $text  The text
     */
-    function editRecord($textId, $text)
+    public function editRecord($textId, $text)
     {
         $fields = array();
         $fields['text'] = $text;

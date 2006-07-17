@@ -13,7 +13,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 class dbabstract extends dbTable
 {
-    function init()
+    public function init()
     {
         parent::init('tbl_systext_abstract');
         $this -> table = 'tbl_systext_abstract';
@@ -28,7 +28,7 @@ class dbabstract extends dbTable
     * @param string $creatorId  The id of the user who created the text entry
     * @param string $canDelete  Indicates whether item can be deleted
     */
-    function addRecord($systemId, $textId, $abstract, $creatorId, $canDelete = NULL)
+    public function addRecord($systemId, $textId, $abstract, $creatorId, $canDelete = NULL)
     {
         $fields = array();
         $fields['systemId'] = $systemId;
@@ -49,7 +49,7 @@ class dbabstract extends dbTable
     * @param string $textId The id of the text item
     * @return array $data  The text data
     */
-    function getRecord($systemId, $textId)
+    public function getRecord($systemId, $textId)
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " WHERE systemId = '$systemId' AND textId = '$textId'";
@@ -66,7 +66,7 @@ class dbabstract extends dbTable
     * @param string $id The id of the abstract
     * @return array $data  The text data
     */
-    function getRecordById($id)
+    public function getRecordById($id)
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " WHERE id = '$id'";
@@ -82,7 +82,7 @@ class dbabstract extends dbTable
     *
     * @param string $id  The text to be deleted
     */
-    function deleteRecord($id)
+    public function deleteRecord($id)
     {
         $this -> delete('id', $id);
     }
@@ -92,7 +92,7 @@ class dbabstract extends dbTable
     *
     * @return array $data  All text abstract data
     */
-    function listRecords($systemId)
+    public function listRecords($systemId)
     {
         $sql = "SELECT * FROM " . $this -> table;
         $sql .= " WHERE systemId = '$systemId'";
@@ -110,7 +110,7 @@ class dbabstract extends dbTable
     * @param string $abstract The abstract
     * @param string $canDelete  Indicates whether item can be deleted
     */
-    function editRecord($id, $abstract, $canDelete = NULL)
+    public function editRecord($id, $abstract, $canDelete = NULL)
     {
         $fields = array();
         $fields['abstract'] = $abstract;

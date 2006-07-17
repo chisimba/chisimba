@@ -95,7 +95,7 @@ class systext_facet extends dbTable
     * @param string $systemType The name of the system type
     * @param string $creatorId  The id of the user who created the system type
     */
-    function addSystemType($systemType, $creatorId)
+    public function addSystemType($systemType, $creatorId)
     {
         return $this -> _objSystemTypeDb -> addRecord($systemType, $creatorId);
     }
@@ -106,7 +106,7 @@ class systext_facet extends dbTable
     * @param string $id The id of the system type
     * @return array $data  The system type data
     */
-    function getSystemType($id)
+    public function getSystemType($id)
     {
         return $this -> _objSystemTypeDb -> getRecord($id);
     }
@@ -116,7 +116,7 @@ class systext_facet extends dbTable
     *
     * @param string $id  The system type to be deleted
     */
-    function deleteSystemType($id)
+    public function deleteSystemType($id)
     {
         return $this -> _objSystemTypeDb -> deleteRecord($id);
     }
@@ -126,7 +126,7 @@ class systext_facet extends dbTable
     *
     * @return array $data  All system type data
     */
-    function listSystemTypes()
+    public function listSystemTypes()
     {
         return $this -> _objSystemTypeDb -> listAllRecords();
     }
@@ -137,7 +137,7 @@ class systext_facet extends dbTable
     * @param string $systemId  The id of the system type being edited
     * @param string $systemType  The system type
     */
-    function editSystemType($systemId, $systemType)
+    public function editSystemType($systemId, $systemType)
     {
         return $this -> _objSystemTypeDb -> editRecord($systemId, $systemType);
     }
@@ -149,7 +149,7 @@ class systext_facet extends dbTable
     * @param string $text  The word to be abstracted eg. contex
     * @param string $creatorId  The id of the user who created the text entry
     */
-    function addTextItem($text, $creatorId)
+    public function addTextItem($text, $creatorId)
     {
         return $this -> _objTextItemDb -> addRecord($text, $creatorId);
     }
@@ -160,7 +160,7 @@ class systext_facet extends dbTable
     * @param string $id The id of the text
     * @return array $data  The text data
     */
-    function getTextItem($id)
+    public function getTextItem($id)
     {
         return $this -> _objTextItemDb -> getRecord($id);
     }
@@ -170,7 +170,7 @@ class systext_facet extends dbTable
     *
     * @param string $id  The text to be deleted
     */
-    function deleteTextItem($id)
+    public function deleteTextItem($id)
     {
         return $this -> _objTextItemDb -> deleteRecord($id);
     }
@@ -180,7 +180,7 @@ class systext_facet extends dbTable
     *
     * @return array $data  All text data
     */
-    function listTextItems()
+    public function listTextItems()
     {
         return $this -> _objTextItemDb -> listAllRecords();
     }
@@ -191,7 +191,7 @@ class systext_facet extends dbTable
     * @param string $textId  The id of the text item being edited
     * @param string $text  The text
     */
-    function editTextItem($textId, $text)
+    public function editTextItem($textId, $text)
     {
         return $this -> _objTextItemDb -> editRecord($textId, $text);
     }
@@ -206,7 +206,7 @@ class systext_facet extends dbTable
     * @param string $creatorId  The id of the user who created the text entry
     * @param string $canDelete  Indicates whether item can be deleted
     */
-    function addAbstractText($systemId, $textId, $abstract, $creatorId, $canDelete = NULL)
+    public function addAbstractText($systemId, $textId, $abstract, $creatorId, $canDelete = NULL)
     {
         return $this -> _objAbstractTextDb -> addRecord($systemId, $textId, $abstract, $creatorId, $canDelete = NULL);
     }
@@ -218,7 +218,7 @@ class systext_facet extends dbTable
     * @param string $textId The id of the text item
     * @return array $data  The text data
     */
-    function getAbstractText($systemId, $textId)
+    public function getAbstractText($systemId, $textId)
     {
         return $this -> _objAbstractTextDb -> getRecord($systemId, $textId);
     }
@@ -229,7 +229,7 @@ class systext_facet extends dbTable
     * @param string $id The id of the abstract
     * @return array $data  The text data
     */
-    function getAbstractTextById($id)
+    public function getAbstractTextById($id)
     {
         return $this -> _objAbstractTextDb -> getRecordById($id);
     }
@@ -239,7 +239,7 @@ class systext_facet extends dbTable
     *
     * @param string $id  The text to be deleted
     */
-    function deleteAbstractText($id)
+    public function deleteAbstractText($id)
     {
         return $this -> _objAbstractTextDb -> deleteRecord($id);
     }
@@ -249,7 +249,7 @@ class systext_facet extends dbTable
     *
     * @return array $data  All text data
     */
-    function listAbstractText($systemId)
+    public function listAbstractText($systemId)
     {
         return $this -> _objAbstractTextDb -> listRecords($systemId);
     }
@@ -261,7 +261,7 @@ class systext_facet extends dbTable
     * @param string $abstract The abstract
     * @param string $canDelete  Indicates whether item can be deleted
     */
-    function editAbstractText($id, $abstract, $canDelete = NULL)
+    public function editAbstractText($id, $abstract, $canDelete = NULL)
     {
         return $this -> _objAbstractTextDb -> editRecord($id, $abstract, $canDelete = NULL);
     }
@@ -272,7 +272,7 @@ class systext_facet extends dbTable
     * @return nothing
     * @access public
     */
-    function updateSession()
+    public function updateSession()
     {
         // This list will be generated using the private function _getAbstractList
         $this -> abstractList = $this -> _getAbstractList();
@@ -286,7 +286,7 @@ class systext_facet extends dbTable
     * @return nothing
     * @access public
     */
-    function fetchSession()
+    public function fetchSession()
     {
         // The assumption is the list has already been made persistent( made available in the session variable) at initialization.
         $this -> abstractList = $this -> getSession('systext');
@@ -299,7 +299,7 @@ class systext_facet extends dbTable
     * the abstracts as values
     * @access private
     */
-    function _getAbstractList()
+    public function _getAbstractList()
     {
         $system_type = 'default';//$this -> _objConfig -> getValue("SYSTEM_TYPE", "systext");
        

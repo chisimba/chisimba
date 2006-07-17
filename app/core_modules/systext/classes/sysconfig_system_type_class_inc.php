@@ -13,7 +13,7 @@ class sysconfig_system_type extends object
     /**
     * Standard Constructor
     */
-    function init()
+    public function init()
     { 
         $this->objAbstract =& $this->getObject('systext_facet', 'systext');
         $this->objLanguage =& $this->getObject('language', 'language');
@@ -22,7 +22,7 @@ class sysconfig_system_type extends object
     /**
     * Method to set the current default value
     */
-    function setDefaultValue($value)
+    public function setDefaultValue($value)
     {
         $this->defaultValue = $value;
     }
@@ -30,7 +30,7 @@ class sysconfig_system_type extends object
     /**
     * Method to return a customized input to the SysConfig form
     */
-    function show()
+    public function show()
     {
         // Load the Radio Button Class
         $this->loadClass('radio', 'htmlelements');
@@ -57,7 +57,7 @@ class sysconfig_system_type extends object
     /**
     * Method to run actions that need to occur once the parameter is updated
     */
-    function postUpdateActions()
+    public function postUpdateActions()
     {
         $this->objAbstract->updateSession();
         return;
