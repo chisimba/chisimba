@@ -122,7 +122,11 @@ class modulecatalogue extends controller
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			$var = $this->objCatalogueConfig->getNavParam('category');
+			$var =$this->objCatalogueConfig->getNavParam('category');
+			$var2 = $var['catalogue']['category'];
+			//sort($var2);
+			//var_dump($var['catalogue']['category']);
+			//var_dump($var2);
 			$this->objSideMenu->addNodes($var);
 
 		} catch (Exception $e) {

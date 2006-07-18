@@ -7,7 +7,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 /**
 * Class for building the catalogue navigation for module catalogue.
 *
-* The class builds a css style navigation menu 
+* The class builds a css style navigation menu
 *
 * @author Nic Appleby
 * @copyright (c)2006 UWC
@@ -16,14 +16,14 @@ if (!$GLOBALS['kewl_entry_point_run']){
 */
 
 class catalogue extends object {
-	
+
 	/**
 	 * Nodes of navigation list
 	 *
 	 * @var array $nodes
 	 */
 	protected $nodes = array();
-	
+
 	/**
     * Method to construct the class.
     */
@@ -33,11 +33,11 @@ class catalogue extends object {
     		$this->nodes = array();
     	} catch (customException $e) {
 			echo customException::cleanUp($e);
-    		exit();	
-        	
+    		exit();
+
 		}
     }
-    
+
     /**
      * Method to add content to the navigation list
      *
@@ -46,18 +46,18 @@ class catalogue extends object {
     public function addNodes($nodes) {
     	try {
     		if (is_array($nodes)) {
-    			foreach($nodes as $node) {	
-    				$this->addNodes($node);	
+    			foreach($nodes as $node) {
+    				$this->addNodes($node);
     			}
     		} else {
     			array_push($this->nodes,$nodes);
     		}
     	} catch (customException $e) {
 			echo customException::cleanUp($e);
-    		exit();	
+    		exit();
         }
     }
-    
+
     /**
      * Method to reset the nodelist
      */
@@ -66,10 +66,10 @@ class catalogue extends object {
     		$this->nodes = array();
     	} catch (customException $e) {
 			echo customException::cleanUp($e);
-    		exit();	
+    		exit();
 		}
     }
-    
+
     /**
      * Method to display the navigation menu
      *
@@ -79,11 +79,11 @@ class catalogue extends object {
     public function show($activeNode = null) {
     	try {
     		$un = $this->getParam('uninstall');
-    		$str = '<ul id="nav-secondary">';	
+    		$str = '<ul id="nav-secondary">';
     		//loop through the nodes
     		foreach($this->nodes as $node) {
 				if(strtolower($node) == strtolower($activeNode)) {
-					$cssClass = ' class="active" ';	
+					$cssClass = ' class="active" ';
 				}
 				$name = ucwords($node);
 				if ($un) {
@@ -98,7 +98,7 @@ class catalogue extends object {
     		return $str;
     	} catch (customException $e) {
 			echo customException::cleanUp($e);
-    		exit();	
+    		exit();
 		}
     }
 }
