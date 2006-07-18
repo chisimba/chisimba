@@ -46,13 +46,13 @@ $fields = array(
 		),
     'whenLoggedIn' => array(
 		'type' => 'date',
-        'notnull' => TRUE,
-        'default' => '0000-00-00 00:00:00'
+
+
 		),
     'WhenLastActive' => array(
 		'type' => 'date',
-        'notnull' => TRUE,
-        'default' => '0000-00-00 00:00:00'
+
+
 		),
     'isInvisible' => array(
 		'type' => 'integer',
