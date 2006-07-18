@@ -164,7 +164,7 @@ class DbCreateAction extends StepAction
 
 		}
 
-		// Sql tables live in the modules that own them.
+	// Sql tables live in the modules that own them.
     $this->_installDb32('modules/security/sql/tbl_users.sql');
     $this->_installDb32('modules/security/sql/tbl_userloginhistory.sql');
     $this->_installDb32('modules/security/sql/tbl_loggedinusers.sql');
@@ -185,7 +185,6 @@ class DbCreateAction extends StepAction
     $this->_installDb32('modules/cmsadmin/sql/tbl_cms_sections.sql');
     $this->_installDb32('modules/toolbar/sql/tbl_menu_category.sql');
     $this->_installDb32('modules/sysconfig/sql/tbl_sysconfig_properties.sql');
-//ok thats 20 tables...
 
     //we need tbl_groupadmin_groupuser as well.
     $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
@@ -206,13 +205,6 @@ class DbCreateAction extends StepAction
 	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
 	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
 	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule.sql');
-
-		// now include the step to process
-
-		//ob_start();
-			//$this->init_output = $this->firstRegister();// ob_get_contents();
-			//var_dump($this->init_output);
-		//ob_end_clean();
 
 	//OK now lets dump in the default data from the xml files...
 	//get an array of the directories that we need to look through for the default files...
@@ -238,7 +230,6 @@ class DbCreateAction extends StepAction
 		{
 			$x = new xml2array();
 			$arr = $x->xmlFileToArray($xmlfile, FALSE, TRUE);
-		//	print_r($arr);
 			//get the table name
 			$toplevel = array_keys($arr);
 			$table = $toplevel[0];
@@ -258,19 +249,10 @@ class DbCreateAction extends StepAction
 			}
 			$conn->insert($data, $table);
 
-//			die();
-
 		}
 	}
 
-
-
-
-
 		return true;
-
-
-
 	}//end processAction()
 
 	function firstRegister()

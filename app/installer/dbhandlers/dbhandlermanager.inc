@@ -21,7 +21,7 @@
 //else we just use plain 'ol var_dump
 @include_once 'Var_Dump.php';
 
-class dbHandlermanager 
+class dbHandlermanager
 {
 	 /**
      * The current table name that we are working with
@@ -86,11 +86,11 @@ class dbHandlermanager
     */
     public function __construct()
     {
-       
-    			
+
+
            $this->_dbmanager = $_SESSION['pearDbManager'];
            $this->_db =$_SESSION['DbObj'];
-       
+
         //check for PEAR Var_dump and initialise it,
         //otherwise just use regular PHP var_dump();
         if (class_exists('Var_Dump')) {
@@ -680,7 +680,7 @@ class dbHandlermanager
     	$ret = $this->_db->mgAlterTable($name, $changes, $check);
     	return $ret;
     }
-	
+
 }
 
 ?>

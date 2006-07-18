@@ -16,37 +16,38 @@ require_once 'MDB2/Schema.php';
 */
 class FiveStepAction extends StepAction
 {
-	
-	
+
+
 	/**
 	* Test whether a DSN can be connected to
-	* 
+	*
 	* @param string $dsn the dsn to test connection to.
 	* @return boolean whether the dsn is accessible.
 	* @access private
 	*/
 	function _testDSN($dsn)
 	{
-		
+
 		$schema =&MDB2_Schema::factory($dsn, array('debug' => true, 'log_line_break' => '<br>'));
 		$schema->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
 		MDB2::loadFile('Date');
 		MDB2::loadFile('Iterator');
    		if (PEAR::isError($schema)) {
-        	//$error = $schema->getMessage() . ' ' . $schema->getUserInfo();
+        	 $error = $schema->getMessage() . ' ' . $schema->getUserInfo();
+        	 echo $error;
         	 $schema->disconnect();
 			return false;
    		}
-   		
+
 		 $schema->disconnect();
-		
+
 		return true;
 	}//end _testDSN()
-	
-	
+
+
 	/**
 	* Test if a directory is writable or not
-	* 
+	*
 	* @param string $check_dir the directory to test
 	* @return boolean if the directory is writable or not
 	* @access protected
@@ -69,10 +70,10 @@ class FiveStepAction extends StepAction
 			unlink($check_dir.'/tmpinstallfile');
 		}
 		return $success;
-		
+
 	}//end _dirIsWritable()
-	
-	
+
+
 }//end class
 
 ?>

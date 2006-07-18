@@ -17,7 +17,7 @@ require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 *
 
-* This class contains all the actions needed to connect and verify a connection to 
+* This class contains all the actions needed to connect and verify a connection to
 
 * the database
 
@@ -35,13 +35,13 @@ class DatabaseDetails extends Step
 
 {
 
-	
+
 
 	/**
 
 	* Define which actions to use
 
-	* 
+	*
 
 	* @return void
 
@@ -55,22 +55,22 @@ class DatabaseDetails extends Step
 
 		$this->actions[] =& new DbDetailsAction(get_class($this));
 
-		
+
 
 		$this->step_title = 'Database Details';
 
 		$this->title_logo = 'database_details.gif';
 
 		$this->help_topic = 'database_details';
-		
+
 		$this->step_help = "Select the type of database you want to use<p/> The default username is normally \'root\'";
 
 
 	}//end DatabaseDetails()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -92,7 +92,7 @@ class DatabaseDetails extends Step
 
 
 
-class DbDetailsAction extends FiveStepAction 
+class DbDetailsAction extends FiveStepAction
 
 {
 
@@ -108,15 +108,15 @@ class DbDetailsAction extends FiveStepAction
 
 	var $db_prefix = 'db_';
 
-	
 
-	
+
+
 
 	/**
 
 	* Process the post form data
 
-	* 
+	*
 
 	* Process the form data from the dbdetails section
 
@@ -150,7 +150,7 @@ class DbDetailsAction extends FiveStepAction
 
 		$_SESSION[$this->db_prefix.'pass'] = isset($_POST[$this->db_prefix.'pass']) ? trim($_POST[$this->db_prefix.'pass']) : '';
 
-		
+
 
 		// check that certain values are filled in correctly
 
@@ -162,9 +162,9 @@ class DbDetailsAction extends FiveStepAction
 
 		}
 
-		
 
-		// try connecting to the database	
+
+		// try connecting to the database
 
 		// note that if the db server has anonymous connections turned on, then this step WILL
 
@@ -174,12 +174,11 @@ class DbDetailsAction extends FiveStepAction
 
 		$dsn = $_SESSION[$this->db_prefix.'type'].'://'.$_SESSION[$this->db_prefix.'user'].':'.$_SESSION[$this->db_prefix.'pass'].'@'.$_SESSION[$this->db_prefix.'loc'].'/'; //.$_SESSION[$this->db_prefix.'name'];
 
-				
 
-		if ($_SESSION[$this->db_prefix.'type'] == 'mysql') {
+		if ($_SESSION[$this->db_prefix.'type'] != '') {
 
 			if ($this->_testDSN($dsn)) {
-								
+
 				$_SESSION['short_dsn'] = $dsn;
 
 				$_SESSION['dsn'] = $dsn;
@@ -191,28 +190,29 @@ class DbDetailsAction extends FiveStepAction
 		} else {
 
 			$_SESSION['short_dsn'] = $dsn;
+			$_SESSION['dsn'] = $dsn;
 
 			$success = true;
 
 		}
 
-		
+
 
 		$this->success = $success;
 
-		
 
-		
+
+
 
 		return parent::processAction();
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
@@ -222,7 +222,7 @@ class DbDetailsAction extends FiveStepAction
 
 	* if the dsn exists and can be connected to, return true
 
-	* 
+	*
 
 	* @return boolean if this action is required to complete the step.
 
@@ -240,25 +240,25 @@ class DbDetailsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return true;
 
 	}//end isRequired()
 
-	
 
-	
+
+
 
 	/**
 
 	* Paint out the screen for collecting DB details.
 
-	* 
+	*
 
 	* If there were errors processing, need to highlight them here
 
-	* 
+	*
 
 	* @return void
 
@@ -274,7 +274,7 @@ class DbDetailsAction extends FiveStepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/dbdetails.tpl');
 
-		
+
 
 		$conn = 'Untested';
 
@@ -284,11 +284,11 @@ class DbDetailsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		ob_start();
 
-			combo_box($this->db_prefix.'type', 
+			combo_box($this->db_prefix.'type',
 
 					 array(	'mysqli' => 'MySQLi',
 					 		'mysql'=>'MySQL',
@@ -334,9 +334,9 @@ class DbDetailsAction extends FiveStepAction
 
 		ob_end_clean();
 
-		
 
-		
+
+
 
 		$tpl->set('type', $cmb);
 
@@ -348,17 +348,17 @@ class DbDetailsAction extends FiveStepAction
 
 		$tpl->set('conn',$conn);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 }//end class
 

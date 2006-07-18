@@ -20,7 +20,7 @@ require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
 *
 
-* This step collects the name of the database that is going to be used. 
+* This step collects the name of the database that is going to be used.
 
 * The user can choose to create a new database (possibly overwriting an
 
@@ -44,9 +44,9 @@ class DatabaseName extends Step
 
 {
 
-	
 
-	
+
+
 
 	function DatabaseName()
 
@@ -64,9 +64,9 @@ class DatabaseName extends Step
 
 	}//end DatabaseName()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -90,7 +90,7 @@ class DatabaseName extends Step
 
 */
 
-class DbNameAction extends FiveStepAction 
+class DbNameAction extends FiveStepAction
 
 {
 
@@ -106,15 +106,15 @@ class DbNameAction extends FiveStepAction
 
 	var $db_prefix = 'db_';
 
-	
 
-	
+
+
 
 	/**
 
 	* Set the prefix for the db tables this collector uses.
 
-	* 
+	*
 
 	* @param string $pr The prefix to use.
 
@@ -132,19 +132,19 @@ class DbNameAction extends FiveStepAction
 
 		$this->db_prefix = $pr;
 
-		
+
 
 	}//end DbDetailsAction
 
-	
 
-	
+
+
 
 	/**
 
 	* Save the database name entered by the user
 
-	* 
+	*
 
 	* If the database name exists, empty the database if the user has selected to.
 
@@ -162,11 +162,11 @@ class DbNameAction extends FiveStepAction
 
 
 
-		$_SESSION[$this->db_prefix.'name'] = isset($_POST[$this->db_prefix.'name']) ? trim($_POST[$this->db_prefix.'name']) : ''; 
+		$_SESSION[$this->db_prefix.'name'] = isset($_POST[$this->db_prefix.'name']) ? trim($_POST[$this->db_prefix.'name']) : '';
 
-		$_SESSION['create_db'] = isset($_POST['create_db']) ? true : false; 
+		$_SESSION['create_db'] = isset($_POST['create_db']) ? true : false;
 
-		
+
 
 		if ($_SESSION[$this->db_prefix.'name'] == '') {
 
@@ -178,11 +178,11 @@ class DbNameAction extends FiveStepAction
 
 		}
 
-		
+
 		$_SESSION['dbname'] = $_SESSION[$this->db_prefix.'name'];
 		$dsn = $_SESSION['short_dsn'].$_SESSION[$this->db_prefix.'name'];
 
-		
+
 
 		/* @var  $handler DbHandler */
 
@@ -190,66 +190,66 @@ class DbNameAction extends FiveStepAction
 
 		$handler = new DbHandler();
 		if (isset($_POST['create_db'])) {
-					
+
 				// first, check if they've checked that they want to create a new database.
-		
+
 				// if so, go off and try to create the database
-		
-				
-		
+
+
+
 					if (!$this->_createDatabase($_SESSION[$this->db_prefix.'name'],$handler)) {
-		
+
 						$this->success = false;
-		
+
 						$this->errors[] = 'Could not access database '.$_SESSION[$this->db_prefix.'name'];
-		
+
 						return false;
-		
+
 					} else {
-		
+
 						$this->success = true;
-		
-		
-		
+
+
+
 					}
-					
+
 				$conn = &$handler->getDbHandler($dsn);
-				
+
 				if (PEAR::isError($conn)) {
-		
+
 					$this->errors[] = 'Could not get database handler for dsn '.$dsn;
-		
+
 					$this->success = false;
-		
+
 					return false;
-		
+
 				}
-		
-				
-		} else {	
+
+
+		} else {
 
 			// just want to test that the database entered exists and is connectable.
 
 			// connect to the database using the values collected before
 
 			$conn = &$handler->getDbHandler($dsn);
-			
+
 				if (PEAR::isError($conn)) {
-		
+
 					$this->errors[] = 'Could not connect to database using the dsn '.$dsn.' This means that the database does not exist. Please create one or check database create';
 					$dsn = $_SESSION['short_dsn'];
-		
+
 					$this->success = false;
-		
+
 					return false;
-		
+
 				}
-				
+
 			$conn->success = true;
 			// should the tables be created
 
-			$num_tables = $handler->getNumberOfTables();	
-		  
+			$num_tables = $handler->getNumberOfTables();
+
 			if ($conn->success==FALSE) {
 
 				$this->errors[] = 'The installer was unable to check if your system currently has db tables created. '.
@@ -258,10 +258,10 @@ class DbNameAction extends FiveStepAction
 
 								'specified.';
 				$this->success = true;
-				
+
 			}
 
-			// if there were already database tables created, and the install type is 'install', 
+			// if there were already database tables created, and the install type is 'install',
 
 			// need to quit.
 
@@ -275,10 +275,10 @@ class DbNameAction extends FiveStepAction
 
 			}
 
-		}		
+		}
 
 		// so if after all this success is true, can set the dsn to being short_dsn.db_name
-    
+
 		if ($this->success) {
 
 			$_SESSION['dsn'] = $_SESSION['short_dsn'].$_SESSION[$this->db_prefix.'name'];
@@ -286,21 +286,21 @@ class DbNameAction extends FiveStepAction
 		} else {
 
 			$this->errors[] = 'Unable to set the default database';
-			$this->success = false; 
+			$this->success = false;
 
 		}
 
-		
+
 
 		return parent::processAction();
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
@@ -310,7 +310,7 @@ class DbNameAction extends FiveStepAction
 
 	* if they've already selected a sysroot and the sys_root exists, can skip
 
-	* 
+	*
 
 	* @return boolean if this action is required to complete the step.
 
@@ -328,23 +328,23 @@ class DbNameAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end isRequired()
 
-	
 
-	
+
+
 
 	/**
 
 	* Attempt to connect and create the database using the given DB connection
 
-	* 
+	*
 
 	* @param string $db_name The name of the database to create
 
@@ -360,31 +360,33 @@ class DbNameAction extends FiveStepAction
 
 	{
 
+		echo $_SESSION['short_dsn'];
 		// create the appropriate db handler and use it for emptying the database
-		$handler = new DbHandler( $_SESSION['short_dsn']);
-
+		$handler = new DbHandler($_SESSION['short_dsn']);
+//var_dump($handler);
+//die();
 		$success = $handler->createDb($db_name);
-		
 
+//var_dump($success);
 		//$this->errors += $handler->errors;
 
 
 
 		return $success;
 
-		
+
 
 	}//end _emptyDatabase()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display a form for entering database details.
 
-	* 
+	*
 
 	* @return void
 
@@ -398,9 +400,9 @@ class DbNameAction extends FiveStepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/dbname.tpl');
 
-		
 
-		
+
+
 
 		ob_start();
 
@@ -418,23 +420,23 @@ class DbNameAction extends FiveStepAction
 
 		ob_end_clean();
 
-		
+
 
 		$tpl->set('db_name',$name);
 
 		$tpl->set('create_db',$create_db);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 }//end class
 
