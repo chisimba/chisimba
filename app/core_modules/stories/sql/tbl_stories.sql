@@ -68,17 +68,17 @@ $fields = array(
 		'type' => 'text'
 		),
     'dateCreated' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'creatorId' => array(
 		'type' => 'text',
         'length' => 25
 		),
     'expirationDate' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'notificationDate' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'isSticky' => array(
 		'type' => 'integer',
@@ -90,7 +90,7 @@ $fields = array(
 		'type' => 'timestamp'
 		),
     'dateModified' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'modifierId' => array(
 		'type' => 'text',

@@ -4,7 +4,7 @@
   `id` int(11) NOT NULL auto_increment,
   `parent_id` varchar(32) default NULL,
   `filetype` varchar(255) default NULL,
-  `name` varchar(255) default NULL,  
+  `name` varchar(255) default NULL,
   `size` int(255) default NULL,
   `filedata` longblob,
   updated TIMESTAMP ( 14 ) NOT NULL,
@@ -44,14 +44,15 @@ $fields = array(
         'type' => 'timestamp'
         )
     );
-    
-$name = 'tbl_context_nodes_FKIndex1';
 
-$indexes = array(
-                'fields' => array(
-                	'tbl_context_nodes_tbl_context_parentnodes_id' => array(), 
-                    'tbl_context_nodes_id' => array(), 
-                    'tbl_context_page_content_id' => array(), 
-                )
-        );
+//What is happening here? dbmanager complains that these fields do not exist.
+//$name = 'tbl_context_nodes_FKIndex1';
+//
+//$indexes = array(
+//               'fields' => array(
+//                	'tbl_context_nodes_tbl_context_parentnodes_id' => array(),
+//                    'tbl_context_nodes_id' => array(),
+//                    'tbl_context_page_content_id' => array(),
+//                )
+//        );
 ?>

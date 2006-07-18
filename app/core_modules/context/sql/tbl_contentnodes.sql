@@ -11,7 +11,7 @@
   `datemodified` datetime default NULL,
   `menutext` varchar(50) default NULL,
   `title` TEXT default NULL,
-  `script` TEXT default NULL,  
+  `script` TEXT default NULL,
   updated TIMESTAMP ( 14 ) NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=InnoDB ";
@@ -50,10 +50,10 @@ $fields = array(
 		'length' => 200
 		),
     'datecreated' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
 	'datemodified' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
 	'menutext' => array(
 		'type' => 'text',

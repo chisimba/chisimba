@@ -7,7 +7,7 @@
   menutext VARCHAR(255) NULL,
   about TEXT,
   userid VARCHAR(255) NOT NULL,
-  dateCreated DATE NULL,  
+  dateCreated DATE NULL,
   isClosed INT NULL,
   isActive INT NULL,
   isPublic INT NULL,
@@ -65,10 +65,10 @@ $fields = array(
         ),
     'updated' => array(
         'type' => 'timestamp'
-        
-        
+        )
+
     );
-    
+
 $name = 'contextCode';
 
 $indexes = array(

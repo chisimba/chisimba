@@ -3,32 +3,32 @@ redirect
 modulecatalogue
 postlogin
 security
-useradmin
+#useradmin - tbl_country.sql file not up to date
 groupadmin
 permissions
 sysconfig
 toolbar
-filestore
+#filestore - module not in cvs yet
 dublincoremetadata
 context
 contextadmin
-contextview
+#contextview - module not in cvs
 contextgroups
 contextpermissions
 storycategoryadmin
 stories
-email
+#email - module has no register.conf
 language
-contextabstract
+#contextabstract - module not in cvs
 help
 datetime
 strings
-credits
+#credits - not in cvs
 htmlelements
-search
-userparamsadmin
-userparams
-login
+#search - not in cvs
+#userparamsadmin - not in cvs
+#userparams - requires userparamsadmin
+#login - not in cvs
 calendarbase
 systext
 splashscreen

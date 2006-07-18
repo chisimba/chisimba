@@ -10,7 +10,7 @@
   name VARCHAR(120) NULL,
   size BIGINT(20) NULL,
   filedate DATETIME NULL,
-  path VARCHAR(255) NULL,  
+  path VARCHAR(255) NULL,
   category varchar(32) default NULL,
   updated TIMESTAMP ( 14 ) NOT NULL,
   PRIMARY KEY(id, tbl_context_parentnodes_id),
@@ -60,7 +60,7 @@ $fields = array(
 		'type' => 'integer'
 		),
     'filedate' => array(
-		'type' => 'datetime'
+		'type' => 'date'
 		),
     'path' => array(
 		'type' => 'text',

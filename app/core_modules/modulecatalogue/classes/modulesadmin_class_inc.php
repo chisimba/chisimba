@@ -86,6 +86,7 @@ class modulesadmin extends dbTableManager
     {
         try {
         	parent::init('tbl_modules');
+        	$this->objLanguage = $this->getObject('language','language');
         	$this->objConfig = $this->getObject('altconfig','config');
             $this->objModules = &$this->getObject('modules');
             $this->objUser = &$this->getObject('user','security');
@@ -533,7 +534,9 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['DEPENDS_CONTEXT'])){
                     $sql_arr['dependsContext']=$registerdata['DEPENDS_CONTEXT'];
                 }
-                $this->objModules->insert($sql_arr,'tbl_modules');
+                if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
+                	return FALSE;
+                }
                 if ($this->update) {
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
                 }
@@ -715,7 +718,9 @@ class modulesadmin extends dbTableManager
         	}
         	include($sqlfile);
         	$this->createTable($tablename,$fields,$options);
-        	$this->createTableIndex($tablename,$name,$indexes);
+        	if (is_array($indexes)) {
+        		$this->createTableIndex($tablename,$name,$indexes);
+        	}
         	return TRUE;
         } catch (Exception $e) {
         	$this->errorCallback('Caught exception: '.$e->getMessage());

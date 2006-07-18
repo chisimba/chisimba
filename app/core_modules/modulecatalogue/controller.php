@@ -426,8 +426,10 @@ class modulecatalogue extends controller
     	try {
     		$mList=file($this->objConfig->getsiteRootPath().'installer/dbhandlers/default_modules.txt');
     		foreach ($mList as $line) {
-    			if (!$this->installModule(trim($line))) {
-    				throw new customException("Error installing module $line: {$this->objModuleAdmin->output}");
+    			if ($line[0]!='#') {
+    				if (!$this->installModule(trim($line))) {
+    					throw new customException("Error installing module $line: {$this->objModuleAdmin->output}");
+    				}
     			}
     		}
     		// Flag the first time registration as having been run
