@@ -98,13 +98,21 @@ class DbHandler extends dbHandlermanager
 			// Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
+            //echo $_SESSION['dsn'];
             $this->_globalObjDb = &MDB2::factory($_SESSION['dsn']);
-            //var_dump($this->_globalObjDb);
+          //  var_dump($this->_globalObjDb);
+
+            if (PEAR::isError($this->_globalObjDb)) {
+                $this->_pearErrorCallback($this->_globalObjDb);
+                //return the db object for use globally
+                return $this->_globalObjDb;
+            }
             //$this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
 			// install the error handler with our custom callback on error
-
+			$this->_globalObjDb->setErrorHandling(PEAR_ERROR_CALLBACK,
+                                            array(&$this, '_pearErrorCallback'));
             // set the default fetch mode for the DB to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
@@ -120,6 +128,20 @@ class DbHandler extends dbHandlermanager
              parent::__construct();
 
 	}
+
+	function _pearErrorCallback($error)
+    {
+        // TODO: note $error->getMessage() returns a shorter and friendlier but
+        //       less informative message, for production should use getMessage
+        //TODO: note 2: Appending the getUserinfo method from the PEAR
+        //      error stack will give you the same detail as toString()
+        //      but it will look decent and not confuse the crap out of users
+        //      that being said, we should still go for just getMessage() in prod
+
+        $msg = $error->getMessage() . ': ' . $error->getUserinfo();
+
+        echo $msg."<br><br>";
+    }
 
 	/**
 
