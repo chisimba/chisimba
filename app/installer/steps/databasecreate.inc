@@ -240,14 +240,16 @@ class DbCreateAction extends StepAction
 			{
 				foreach($data as $entries)
 				{
-					$data = $entries;
 					//insert to the db
-					$conn->insert($data, $table);
+					$conn->insert($entries, $table);
 
 
 				}
 			}
-			$conn->insert($data, $table);
+			else {
+				$conn->insert($data, $table);
+			}
+
 
 		}
 	}
