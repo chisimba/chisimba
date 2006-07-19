@@ -117,7 +117,6 @@ class modulecatalogue extends controller
         	$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
 			$this->objModule = &$this->getObject('modules');
 			$this->objModFile = &$this->getObject('modulefile');
-			$this->objDBModCat = &$this->getObject('dbmodcat','modulecatalogue');
 			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			//get list of categories
