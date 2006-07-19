@@ -62,7 +62,7 @@ class CompleteAction extends StepAction
 
 		//require_once $_SESSION['sys_root'].'/data/private/conf/main.inc';
 		//$tpl->set('login_url', 'http://'.SQ_CONF_SYSTEM_ROOT_URLS.'/'.SQ_CONF_BACKEND_SUFFIX.'/');
-		$tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/');
+		$tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/5ive/app/index.php?module=modulecatalogue&action=firsttimeregistration');
 		echo $tpl->fetch();
 
 	}//end paintAction()
