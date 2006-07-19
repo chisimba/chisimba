@@ -242,7 +242,7 @@ class modulecatalogue extends controller
 						$this->firstRegister();
 					}
 					// Show next installation step
-					return $this->nextAction(null,'splashscreen');
+					return $this->nextAction(null,null,'splashscreen');
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;
