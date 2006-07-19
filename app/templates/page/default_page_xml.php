@@ -109,6 +109,7 @@ if (isSet($bodyParams)) {
  	}
  
  	if (!isset($pageSuppressContainer)) { 
+ 	    echo ' <div>';
  	} 
  
  	if (!isset($pageSuppressBanner)) { 
@@ -173,7 +174,7 @@ if (!isset($suppressFooter)) {
 ?>
 
 <?php if (!isset($pageSuppressContainer)) { ?>
-	 <!--/div -->
+	 </div>
 <?php } ?>
 <?php
 //$this->putMessages();
