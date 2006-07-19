@@ -54,7 +54,7 @@ class skin extends object
     function getSkinUrl()
     {
         $this->validateSkinSession();
-		
+
         return $this->objConfig->getskinRoot().$this->getSession('skin').'/';
     }
 
@@ -139,7 +139,7 @@ class skin extends object
         $objDropdown->cssClass = 'coursechooser';
 
         $ret .= $objDropdown->show();
-        $ret .= $button = $this->objButtons->formButton('submit','go');
+        $ret .= $button = $this->objButtons->formButton('submit',$this->objLanguage->languageText('word_go','postlogin'));
         $ret = $objNewForm->addToForm($ret);
         $ret = $objNewForm->show();
         return $ret;

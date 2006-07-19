@@ -60,14 +60,14 @@ class language extends dbTable {
     */
 
     public $abstractList;
-	
+
     /**
     * Constructor method for the language class
     */
     public function init()
-    {  
+    {
     	try {
-	    	parent::init('tbl_languagelist');     
+	    	parent::init('tbl_languagelist');
 	        $this->objConfig = &$this->getObject('altconfig','config');
 	        $this->lang = &$this->getObject('languageConfig','language');
 	        $this->lang = &$this->lang->setup();
@@ -96,32 +96,32 @@ class language extends dbTable {
     {
     	try {
 		    	$abstractList = $this -> objAbstract -> getSession('systext');
-		         $notFound = TRUE;		
+		         $notFound = TRUE;
 		        $arrName = explode("_", $itemName);
-		
+
 		        if(isset($arrName[2])){
-		
+
 		            if($arrName[1] == "context"){
-		
+
 		                $check = array_key_exists($arrName[2], $abstractList);
-		
+
 		                if($check){
-		
+
 		                    $notFound = FALSE;
-		
+
 		                    return trim($abstractList[$arrName[2]]);
-		
+
 		                }
-		
+
 		            }
-		
+
 		        }
-		
+
 		        if($notFound){
 				$var = $this->currentLanguage();
-				$var = strtolower($var);         
+				$var = strtolower($var);
                 $line = $this->lang->get($itemName, $modulename, "{$var}");
-                
+
  		        if (strcmp($line,$itemName)) {
                 	$found = true;
 		        } else {
@@ -140,10 +140,10 @@ class language extends dbTable {
                         //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
                     }
                 }
-                
+
         	}
     	}catch (Exception $e){
-    		
+
     		$this->errorCallback ('Caught exception: '.$e->getMessage());
     		 exit();
     	}
@@ -182,9 +182,9 @@ class language extends dbTable {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");
 	        $abstractList = $this->objAbstract->getSession('systext');
-			
-	        foreach($abstractList as $textItem => $abstractText){	
-	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);	
+
+	        foreach($abstractList as $textItem => $abstractText){
+	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
 	        }
 	        // Process other tags
 	        if( $arrOfRep!=NULL ) {
@@ -220,7 +220,7 @@ class language extends dbTable {
     * index page.
     * Construct a form and populate it with all available
     * language translations for selection
-    * @access public 
+    * @access public
     * @return form
     */
     public function putlanguageChooser()
@@ -236,9 +236,9 @@ class language extends dbTable {
                 $objDropdown->addOption($key, $key);
             }
         }
-        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'language') . ":<br />\n");
+        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'security') . ":<br />\n");
         $ret .= $objDropdown->show();
-        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go",'security', "[Go]"), 'submit');
+        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go",'postlogin'), 'submit');
         $ret .= $button = $this->objButtons->setToSubmit();
         $ret = $objNewForm->addToForm($ret .= $button = $this->objButtons->show());
         $ret = $objNewForm->show();
@@ -277,7 +277,7 @@ class language extends dbTable {
     		 exit();
     	}
     }
-   
+
     /**
     * Method to create code2Txt match expression.
     * @access private
@@ -288,15 +288,15 @@ class language extends dbTable {
     {
         return "/\[\-".$tag."\-\]/isU";
     }
-    
+
     /**
-     * Check for system properties 
+     * Check for system properties
      *
      * @param string $code
      * @param string $item
      * @return TRUE/FALSE
      */
-    
+
     public function valueExists($code,$item)
     {
     	 $line = $this->lang->get($itemName, '', 'en');
@@ -305,8 +305,8 @@ class language extends dbTable {
                 } else {
                 	return FALSE;
                 }
-    	
-    	
+
+
     }
     /**
     * The error callback function, defers to configured error handler

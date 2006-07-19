@@ -60,7 +60,7 @@ class sidemenu extends object
 
         // get images from icons/modules folder
         $objSkin = & $this->getObject('skin','skin');
-        $this->iconModFolder = $objSkin->getSkinLocation()."icons/modules/";       
+        $this->iconModFolder = $objSkin->getSkinLocation()."icons/modules/";
         $this->iconFolder = $objSkin->getSkinLocation()."icons/";
 
         // Get Context Code & Title
@@ -74,7 +74,7 @@ class sidemenu extends object
             $this->contextcode = '';
             $this->context = FALSE;
         }
-        
+
         $this->globalNodes = array();
     }
 
@@ -140,7 +140,7 @@ class sidemenu extends object
         $access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-	
+
         $this->objHead->str = $this->objUser->fullName();
         $menu =  $this->objHead->show();
 
@@ -152,7 +152,7 @@ class sidemenu extends object
         return $menu;
 
     }
-    
+
     /**
      * Method to diplay the user details combined
      * with the user's images
@@ -170,36 +170,36 @@ class sidemenu extends object
 
         $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" /></p>';
 
-        
+
         return $menu;
     }
-    
+
     /**
      * Method to get the context details for a user
      * to join a context or leave a context
      * @return string
      */
     function contextDetails()
-    
+
     {
     	$access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-    	$menu .= $this->joinContext(); 	
+    	$menu .= $this->joinContext();
         return $menu;
     }
-    
+
     /**
      * Method get the list of items on the sidebar only
      * @return string
-     * 
+     *
      */
     function getPostLoginMenuItems()
     {
     	$access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-        
+
         $menu = $this->getMenuList($menus);
         return $menu;
     }
@@ -300,7 +300,7 @@ class sidemenu extends object
 
         // Replace icon with the default icon if it can't be found (done by geticon class).
         $this->objIcon->setModuleIcon($icon);
-        
+
         $this->objIcon->alt = $moduleName;
         $this->objIcon->title= $moduleName;
 
@@ -312,8 +312,8 @@ class sidemenu extends object
         $this->globalTable->addCell($moduleLink->show(), null, 'absmiddle');
 
         $this->globalTable->endRow();
-       
-        
+
+
         $this->globalNodes[] = array('text' => $moduleName, 'uri' => $this->uri($linkArray, $module));
     }
 
@@ -328,7 +328,7 @@ class sidemenu extends object
         $objButton =& $this->newObject('button','htmlelements');
         $objDrop =& $this->newObject('dropdown','htmlelements');
 
-        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','context',array('context'=>'course')));
+        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','postlogin',array('context'=>'course')));
         $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext','toolbar'));
         $go = $this->objLanguage->languageText('word_go','security');
         $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext','postlogin');
