@@ -181,7 +181,8 @@ class dbTable extends object
     */
     public function getArray($stmt)
     {
-        $ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+        //var_dump($this->_db);
+    	$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
         if (PEAR::isError($ret)) {
             $ret = false;
         }
