@@ -8,7 +8,7 @@
 
 /**
 
-* Class to verify system details 
+* Class to verify system details
 
 */
 
@@ -38,7 +38,7 @@ require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 *
 
-* @author prince mbekwa		
+* @author prince mbekwa
 
 * @version $version$ - 1.0
 
@@ -52,15 +52,15 @@ class SystemDetails extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -74,13 +74,13 @@ class SystemDetails extends Step
 
 		$this->actions[] =& new RootUserAction(get_class($this));
 
-		
+
 
 		$this->auth_required = false;
 
 		$this->conf_required = true;
 
-		
+
 
 		$this->step_title = 'System Details';
 
@@ -93,9 +93,9 @@ class SystemDetails extends Step
 
 	}//end SystemDetails()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -119,15 +119,15 @@ class RootUserAction extends StepAction
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Try and create all the needed database tables.
 
-	* 
+	*
 
 	* @return boolean Whether all the database tables were created or not.
 
@@ -139,7 +139,7 @@ class RootUserAction extends StepAction
 
 	{
 
-		
+
 
 		$_SESSION['root_email'] = (isset($_POST['root_email']) && (strlen($_POST['root_email']) > 0)) ? $_POST['root_email'] : '';
 
@@ -151,13 +151,13 @@ class RootUserAction extends StepAction
 
 		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
 
-		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';	
+		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
 
 		$_SESSION['defaultskin'] = (isset($_POST['defaultskin'])) ? $_POST['defaultskin'] : '';
 
 		$_SESSION['serverName'] = (isset($_POST['serverName'])) ? $_POST['serverName'] : '';
 
-		$_SESSION['main_server'] = (isset($_POST['main_server'])) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';			
+		$_SESSION['main_server'] = (isset($_POST['main_server'])) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
 		$_SESSION['serverLocation'] = (isset($_POST['serverLocation'])) ? $_POST['serverLocation'] : '';
 
@@ -166,22 +166,22 @@ class RootUserAction extends StepAction
 		$_SESSION['relContentPath'] = (isset($_POST['relContentPath'])) ? $_POST['relContentPath'] :$_SESSION['relContentPath'] ;
 
 		$_SESSION['log_enable'] = (isset($_POST['log_enable'])) ? $_POST['log_enable'] : '';
-		
+
 		$_SESSION['debug_enable'] = (isset($_POST['debug_enable'])) ? $_POST['debug_enable'] : '';
 
 		$_SESSION['proxy'] = (isset($_POST['proxy'])) ? $_POST['proxy'] : '';
 
-		
 
-		
 
-		
+
+
+
 
 		// make sure the URL is lower case so that it matches the 5ive convention.
 
 		$_SESSION['site_url'] = isset($_POST['site_url']) ? strtolower($_POST['site_url']) : '';
 
-		
+
 
 		if ($_SESSION['site_url'] == '') {
 
@@ -193,21 +193,21 @@ class RootUserAction extends StepAction
 
 		}
 
-		
+
 
 		// now check if there is the trailing / character at the end... if there is, strip it
 
 		$_SESSION['site_url'] = rtrim($_SESSION['site_url'], '/');
 
-		
+
 
 		// get rid of any http:// part
 
 		$_SESSION['site_url'] = str_replace('http://', '', $_SESSION['site_url']);
 
-		
 
-		if ($_SESSION['sys_owner']=='Captian John Picard') {
+
+		if ($_SESSION['sys_owner']=='Chisimba Framework') {
 
 			$this->errors[] = 'You must set a system owner that is not.'.$_SESSION['sys_owner'];
 
@@ -217,7 +217,7 @@ class RootUserAction extends StepAction
 
 		}
 
-				
+
 
 		if (!valid_email($_SESSION['root_email'])) {
 
@@ -229,7 +229,7 @@ class RootUserAction extends StepAction
 
 		}
 
-		
+
 
 		if ($_SESSION['serverLocation']=='--') {
 
@@ -251,7 +251,7 @@ class RootUserAction extends StepAction
 
 		}
 
-		if ($_SESSION['defaultskin']=='--') {
+		if ($_SESSION['defaultskin']=='echo') {
 
 			$this->errors[] = 'You must select a default skin.';
 
@@ -263,7 +263,7 @@ class RootUserAction extends StepAction
 
 
 
-		if ($_SESSION['postLogin']=='--') {
+		if ($_SESSION['postLogin']=='postlogin') {
 
 			$this->errors[] = 'You must select a post login module.';
 
@@ -271,23 +271,23 @@ class RootUserAction extends StepAction
 
 			return parent::processAction();
 
-		}	
+		}
 
 		return true;
 
-		
+
 
 	}//end processAction()
 
-	
 
-		
+
+
 
 	/**
 
 	* Display information about the creation status to the user
 
-	* 
+	*
 
 	* @return void
 
@@ -305,48 +305,48 @@ class RootUserAction extends StepAction
 
 		$def_email = isset($_SESSION['root_email']) ? $_SESSION['root_email'] : '';
 
-		
+
 
 		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
 
-		
+
 
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'Chisimba';
 
-		
+
 
 		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : $server_name;
 
-		
+
 
 		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
 
-		
+
 
 		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : 'http://user:password@proxy.myhost.com:port';
 
-		
+
 
 		//Get a list of modules to select
 
-				
+
 
 		$defaultpostlogin = isset($_POST['postLogin']) ? $_POST['postLogin'] : '';
 
-		
+
 
 		$defaultskin = isset($_POST['defaultskin']) ? $_POST['defaultskin'] : '';
 
-		
+
 
 		$main_server = isset($_POST['main_server']) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
 
-		
+
 
 		//Get content path
 
 		$absContentPath = getcwd();
-		
+
 		$relContentRoot = "usrfiles";
 		if (preg_match("/\/installer/i", "$absContentPath")) {
 
@@ -372,11 +372,11 @@ class RootUserAction extends StepAction
 
 
 		}
-  
+
 
 		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Captian John Picard';
 
-		
+
 
 		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : True;
 
@@ -388,7 +388,7 @@ class RootUserAction extends StepAction
 
 		ob_start();
 
-			
+
 
 			text_box('root_email', $def_email, '40', '', false, 'tabindex="5"');
 
@@ -402,7 +402,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			text_box('tech_email', $tech_email, '40', '', true, 'tabindex="6"');
 
@@ -410,20 +410,20 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			check_box('log_enable', 1, $log_enable, '', 'tabindex="7"');
 
 			$log_enable = ob_get_contents();
 
 			ob_clean();
-			
+
 			check_box('debug_enable', 1, $debug_enable, '', 'tabindex="8"');
 
 			$debug_enable = ob_get_contents();
 
 			ob_clean();
-			
+
 
 			text_box('sys_name', $def_sysname, '40', '', false, 'tabindex="1"');
 
@@ -431,7 +431,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			text_box('serverName',$serverName,'20','',false,'tabindex="2"');
 
@@ -441,7 +441,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			text_box('contentPath',$contentPath,'40','',true,'');
 
@@ -449,7 +449,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			text_box('relContentPath',$relContentPath,'40','',true,'');
 
@@ -457,7 +457,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
+
 
 			text_box('sys_owner',$def_sysowner,'40','',false,'tabindex="8"');
 
@@ -465,7 +465,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-					
+
 
 			text_box('log_path', $log_path, '40', '', false, 'tabindex="9"');
 
@@ -473,11 +473,11 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			
 
-			combo_box('serverLocation', 
 
-					Array("--"=>'None','AF'=>'Afghanistan',
+			combo_box('serverLocation',
+
+					Array("ZA"=>'South Africa','AF'=>'Afghanistan',
 
 						'AL'=>'Albania',
 
@@ -967,13 +967,13 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-		
+
 
 			//loop through the folders and build an array of available modules
 
 			$basedir= $_SESSION['sys_root']."/modules/";
 
-			
+
 
 			chdir($basedir);
 
@@ -999,7 +999,7 @@ class RootUserAction extends StepAction
 
 		     closedir($dh);
 
-		     
+
 
     	combo_box('postLogin',
 
@@ -1017,7 +1017,7 @@ class RootUserAction extends StepAction
 
 		$basedir= $_SESSION['sys_root']."/skins/";
 
-		
+
 
 		chdir($basedir);
 
@@ -1053,9 +1053,9 @@ class RootUserAction extends StepAction
 
     	$cmbdefaultSkin = ob_get_contents();
 
-		ob_clean();	
+		ob_clean();
 
-			  				
+
 
 		text_box('site_url', isset($_SESSION['site_url'])?$_SESSION['site_url']:$this_url, '40', '', false, 'tabindex="11"');
 
@@ -1063,9 +1063,9 @@ class RootUserAction extends StepAction
 
 		ob_end_clean();
 
-		
 
-		$tpl->set('topic',$this->parent_step); 
+
+		$tpl->set('topic',$this->parent_step);
 
 		$tpl->set('site_url',$box);
 
@@ -1090,7 +1090,7 @@ class RootUserAction extends StepAction
 		$tpl->set('log_path', $log_path);
 
 		$tpl->set('log_enable',$log_enable);
-		
+
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('postLogin',$cmbpostLogin);
@@ -1099,21 +1099,21 @@ class RootUserAction extends StepAction
 
 		$tpl->set('proxy',$proxy);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
+
 
 	/**
 
 	* Show what stuff was saved. Make note about the  lowercase url
 
-	* 
+	*
 
 	* @return void
 
@@ -1125,39 +1125,39 @@ class RootUserAction extends StepAction
 
 	{
 
-		
+
 
 		$tpl = new Template(INSTALL_DIR.'/templates/rootdetails.tpl');
 
-		
+
 
 		$def_email = isset($_SESSION['root_email']) ? $_SESSION['root_email'] : '';
 
-		
+
 
 		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
 
-		
+
 
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'STAR SHIP: THE NEXT GENERATION';
 
-		
+
 
 		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : '';
 
-		
+
 
 		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
 
-		
+
 
 		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] :'http://user:password@proxy.myhost.com:port';
 
-		
+
 
 		//Get a list of modules to select
 
-				
+
 
 		$defaultpostlogin = isset($_SESSION['postLogin']) ? $_SESSION['postLogin'] : '';
 
@@ -1198,16 +1198,16 @@ class RootUserAction extends StepAction
 			if ($key ==$defaultpostlogin) {
 
 				$defaultpostlogin =$value;
-				$_SESSION['postLogin'] = $defaultpostlogin;	
+				$_SESSION['postLogin'] = $defaultpostlogin;
 
-				
+
 			}
 
 		}
 
-		
 
-		//save key for selected skin 
+
+		//save key for selected skin
 
 		$defaultskin = isset($_SESSION['defaultskin']) ? $_SESSION['defaultskin'] : '';
 
@@ -1217,7 +1217,7 @@ class RootUserAction extends StepAction
 
 		$basedir= $_SESSION['sys_root']."/skins/";
 
-		
+
 
 		chdir($basedir);
 
@@ -1256,15 +1256,15 @@ class RootUserAction extends StepAction
 
 		$main_server = isset($_SESSION['main_server']) ? $_SESSION['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
-		
+
 
 		$contentPath = isset($_SESSION['contentPath']) ? $_SESSION['contentPath'] :'';
 
-	        
+
 
 		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] :'';
 
-		
+
 
 		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : '';
 
@@ -1272,35 +1272,35 @@ class RootUserAction extends StepAction
 		{
 			$_SESSION['log_enable'] = "TRUE";
 			$log_enable = "TRUE";
-			
+
 		}else {
-			
+
 			$_SESSION['log_enable'] = "FALSE";
 			$log_enable = "FALSE";
 		}
-		
+
 		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : '';
 
 		if ($debug_enable==1)
 		{
 			$_SESSION['debug_enable'] = "developer";
 			$debug_enable = "TRUE";
-			
+
 		}else {
-			
+
 			$_SESSION['debug_enable'] = "user";
 			$debug_enable = "FALSE";
 		}
 
 		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
-		
+
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'/data/private/logs/error.log';
 
-		
 
-		$tpl->set('topic',$this->parent_step); 
+
+		$tpl->set('topic',$this->parent_step);
 
 		$tpl->set('site_url',$this_url. '<br/> (Please note that 5ive treats all URLS as lower case)');
 
@@ -1321,7 +1321,7 @@ class RootUserAction extends StepAction
 		$tpl->set('serverLocation', $serverLocation);
 
 		$tpl->set('log_enable',$log_enable);
-		
+
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('log_path', $log_path);
@@ -1332,17 +1332,17 @@ class RootUserAction extends StepAction
 
 		$tpl->set('proxy',$proxy);
 
-				
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 
