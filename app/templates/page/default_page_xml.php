@@ -32,6 +32,10 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
       }
 }
 
+if (isset($pageSuppressXML)) {
+	$mime = "text/html";
+}
+
 if($mime == "application/xhtml+xml")
 {
 	$prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
@@ -58,8 +62,10 @@ if (!isset($pageSuppressSkin)){
 				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
 				<!--[if lte IE 6]>
 					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
-				<![endif]-->
-				<script type="text/javascript" src="skins/echo/js/common.js"></script>';
+				<![endif]-->';
+    	if (!isset($pageSuppressToolbar)) {
+				echo '<script type="text/javascript" src="skins/echo/js/common.js"></script>';
+		}
 	}
 }
 
@@ -110,7 +116,6 @@ if (isSet($bodyParams)) {
 
 	// Add toolbar bar if not suppressed
     if (!isset($pageSuppressToolbar)) {
-    	//echo "you poes";
 ?>
 
 		<div id="wrap">
@@ -132,6 +137,7 @@ if (isSet($bodyParams)) {
 				 }
 				 ?>
 			</div>	 
+		</div>
 				
 		
 			
@@ -174,7 +180,6 @@ if (!isset($suppressFooter)) {
 
 ?>
 <?php if (!isset($pageSuppressTrailingDiv)) { ?>
-</div>
 <?php } ?>
 </body>
 </html>
