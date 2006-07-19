@@ -8,7 +8,7 @@
         <title>Dr</title>
         <firstName>Administrative</firstName>
         <surname>User</surname>
-        <pass>86f7e437faa5a7fce15d1ddcb9eaeaea377667b8</pass>
+        <PASS>86f7e437faa5a7fce15d1ddcb9eaeaea377667b8</PASS>
         <creationDate>0000-00-00</creationDate>
         <emailAddress>admin@localhost.local</emailAddress>
         <logins>0</logins>
@@ -17,6 +17,6 @@
         <accesslevel>1</accesslevel>
         <isActive>1</isActive>
         <howCreated>install</howCreated>
-        <updated>2006-07-12 12:08:25</updated>
+        <updated>2006-07-12</updated>
     </tbl_users>
 </defaultdata>

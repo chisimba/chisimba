@@ -55,7 +55,7 @@ $fields = array(
 		),
     'dateCreated' => array(
 		'type' => 'date',
-        'notnull' => TRUE
+
 		),
     'canDelete' => array(
 		'type' => 'text',

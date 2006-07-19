@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+  <!-- Table tbl_systext_text -->
+    <tbl_systext_text>
+        <id>10@init</id>
+        <text>workgroups</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>11@init</id>
+        <text>story</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>12@init</id>
+        <text>stories</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>1@init</id>
+        <text>context</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>2@init</id>
+        <text>contexts</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>3@init</id>
+        <text>author</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>4@init</id>
+        <text>authors</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>5@init</id>
+        <text>organisation</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>6@init</id>
+        <text>organisations</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>7@init</id>
+        <text>readonly</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>8@init</id>
+        <text>readonlys</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>9@init</id>
+        <text>workgroup</text>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+</defaultdata>

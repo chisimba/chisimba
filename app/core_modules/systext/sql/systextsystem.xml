@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+   <!-- Table tbl_systext_system -->
+    <tbl_systext_system>
+        <id>1@init</id>
+        <systemType>default</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>2@init</id>
+        <systemType>elearn</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>3@init</id>
+        <systemType>groups</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>4@init</id>
+        <systemType>workgroups</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>5@init</id>
+        <systemType>pgrad</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>6@init</id>
+        <systemType>alumni</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+    <tbl_systext_system>
+        <id>7@init</id>
+        <systemType>content</systemType>
+        <creatorId>1</creatorId>
+        <dateCreated>0000-00-00 00:00:00</dateCreated>
+    </tbl_systext_system>
+</defaultdata>
