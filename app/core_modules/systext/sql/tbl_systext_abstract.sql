@@ -31,27 +31,27 @@ $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
 		),
     'systemId' => array( 
         'type' => 'text',
 		'length' => 32,
-        'notnull' => TRUE
+
         ),
     'textId' => array (
         'type' => 'text',
         'length' => 32,
-        'notnull' => TRUE
+
         ),
     'abstract' => array (
         'type' => 'text',
         'length' => 50,
-        'notnull' => TRUE
+
         ),
     'creatorId' => array(
 		'type' => 'text',
         'length' => 25,
-        'notnull' => TRUE
+
 		),
     'dateCreated' => array(
 		'type' => 'date',
