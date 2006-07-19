@@ -91,13 +91,13 @@ $fields = array(
 		),
     'accesslevel' => array(
 		'type' => 'text',
-        'length' => 1,
-        'default' => '0'
+        'length' => 10,
+     
 		),
     'isActive' => array(
 		'type' => 'text',
-        'length' => 1,
-        'default' => '1'
+        'length' => 10,
+    
 		),
     'howCreated' => array(
 		'type' => 'text',
