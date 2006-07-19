@@ -39,13 +39,13 @@ $fields = array(
 	'userId' => array(
 		'type' => 'text',
 		'length' => 25,
-        'notnull' => FALSE,
-        'default' => '0'
+
+
 		),
     'username' => array(
 		'type' => 'text',
         'length' => 25,
-        'notnull' => FALSE
+
 		),
     'title' => array(
 		'type' => 'text',
@@ -55,12 +55,12 @@ $fields = array(
     'firstName' => array(
 		'type' => 'text',
         'length' => 50,
-        'notnull' => FALSE
+
 		),
     'surname' => array(
 		'type' => 'text',
         'length' => 50,
-        'notnull' => FALSE
+
 		),
     'PASS' => array(
 		'type' => 'text',
@@ -74,7 +74,7 @@ $fields = array(
     'emailAddress' => array(
 		'type' => 'text',
         'length' => 100,
-        'notnull' => FALSE
+
 		),
     'logins' => array(
 		'type' => 'integer',
@@ -83,7 +83,7 @@ $fields = array(
 		),
     'sex' => array(
 		'type' => 'text',
-        'length' => 1
+        'length' => 10
 		),
     'country' => array(
 		'type' => 'text',
