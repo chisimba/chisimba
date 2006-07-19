@@ -163,7 +163,7 @@ class modulecatalogue extends controller
 					}
 				case 'uninstall':
 					if ($this->uninstallModule($this->getParm('mod'))) {
-						$this->output = 'success';
+						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_uninstallsuccess','modulecatalogue'));
 					} else {
 						if ($this->output == '') {
 							$this->output = $this->objModuleAdmin->output;
@@ -172,9 +172,10 @@ class modulecatalogue extends controller
 					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'install':
-					$regResult = $this->installModule($this->getParm('mod'));
+					$mod = $this->getParm('mod');
+					$regResult = $this->installModule($mod);
 					if ($regResult){
-						$this->output = 'success';	//success
+						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));	//success
 					} else {
 						if ($this->output == '') {
 							$this->output = $this->objModuleAdmin->output;
@@ -241,9 +242,9 @@ class modulecatalogue extends controller
 						$this->firstRegister();
 					}
 					// Show next installation step
-					return $this->nextAction(NULL,NULL,'installer');
+					return $this->nextAction(null,'splashscreen');
 				default:
-					throw new customException('Modulecatalogue received unknown action: '.$action);
+					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;
 			}
 		} catch (Exception $e) {
@@ -319,7 +320,7 @@ class modulecatalogue extends controller
     	try {
     		foreach ($modArray as $line) {
     			if (!$this->smartRegister($line)) {
-    				throw new customException("Error registering module $line: {$this->objModuleAdmin->output}");
+    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_insterror','modulecatalogue')." $line: {$this->objModuleAdmin->output}");
     			}
     		}
     	} catch (Exception $e) {
@@ -352,7 +353,7 @@ class modulecatalogue extends controller
     				}
     				$regResult= $this->objModuleAdmin->installModule($registerdata);
     				if ($regResult){
-    					$this->output = $this->objLanguage->languageText('mod_modulecatalogue_regconfirm','modulecatalogue');
+    					$this->output = str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_regconfirm','modulecatalogue'));
     				}
     				return $regResult;
     			}
@@ -374,7 +375,7 @@ class modulecatalogue extends controller
     	try {
     		foreach ($modArray as $line) {
     			if (!$this->smartDeregister($line)) {
-    				throw new customException("Error uninstalling module $line: {$this->objModuleAdmin->output}");
+    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_uninsterror','modulecatalogue')." $line: {$this->objModuleAdmin->output}");
     			}
     		}
     	} catch (Exception $e) {
@@ -409,7 +410,7 @@ class modulecatalogue extends controller
     				}
     				$regResult= $this->objModuleAdmin->unInstall($modname,$registerdata);
     				if ($regResult) {
-    					$this->output .= $this->objLanguage->languageText('mod_modulecatalogue_deregconfirm','modulecatalogue');
+    					$this->output .= str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_deregconfirm','modulecatalogue'));
     				}
     				return $regResult;
     			}
