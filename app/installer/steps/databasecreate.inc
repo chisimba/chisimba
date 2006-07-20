@@ -230,7 +230,7 @@ class DbCreateAction extends StepAction
 	foreach($defaults as $default)
 	{
 		$xmlfile = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$default : false;
-		echo $xmlfile;
+		//echo $xmlfile;
 		if(is_file($xmlfile))
 		{
 			$x = new xml2array();
