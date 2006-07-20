@@ -48,16 +48,10 @@ class cssmenu extends object
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             $str.='<li >'.$this->objLink->show()."<ul>\n";
             foreach($item as $link=>$val){
-                if(file_exists($this->objSkin->getSkinLocation().'icons/modules/'
-                .$link.'.gif')){
-                    $this->toolbarIcon->setIcon('modules/'.$link);
-                }else{
-                    $this->toolbarIcon->setIcon('modules/default');
-                }
+                $this->toolbarIcon->setIcon('modules/'.$link);
                 $this->toolbarIcon->title=$val;
                 $this->toolbarIcon->align='left';
-                //$this->toolbarIcon->extra=' vspace="3" hspace="5"';
-                $this->toolbarIcon->extra=' width="17" height="17"';
+                $this->toolbarIcon->extra=' vspace="3" hspace="5" width="17" height="17"';
                 $icon=$this->toolbarIcon->show();
 
                 $this->objLink->link($this->uri(array(''),$link));
@@ -72,39 +66,8 @@ class cssmenu extends object
         $str .= '<li class="last"><a href="javascript: if(confirm(\'Are you sure you want to logout?\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">Logout</a></li>';
         $str.="</ul>";
         $menu=$str;
-        //$menu="<div id='nav'>".$str."</div>";
         return $menu;
-		/*
-        $str='<ul id="menuList" class="adxm">';
-        foreach($this->menu as $key=>$item){
-            $this->objLink->link('javascript:;');
-            $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-            $str.='<li >'.$this->objLink->show()."<ul>\n";
-            foreach($item as $link=>$val){
-                if(file_exists($this->objSkin->getSkinLocation().'icons/modules/'
-                .$link.'.gif')){
-                    $this->toolbarIcon->setIcon('modules/'.$link);
-                }else{
-                    $this->toolbarIcon->setIcon('modules/default');
-                }
-                $this->toolbarIcon->title=$val;
-                $this->toolbarIcon->align='left';
-                $this->toolbarIcon->extra=' vspace="3" hspace="5"';
-                $icon=$this->toolbarIcon->show();
-
-                $this->objLink->link($this->uri(array(''),$link));
-                $this->objLink->link=$icon.$val;
-
-                $valLink=$this->objLink->show();
-                $str.="<li>".$valLink."</li>\n";
-            }
-            $str.="</ul></li>\n";
-        }
-        $str.="</ul>";
-        $menu="<div id='menu'>".$str."</div>";
-        return $menu;*/
-
-    }
+	}
 
     /**
     * Method to add a menu heading.
