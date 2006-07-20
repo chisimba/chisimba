@@ -1,20 +1,16 @@
 <div id="wrap">
 	<div id="header">
-				<div id="site-name">[-SITENAME-]
-				</div>
-				<div id="search">
-					<form action="">
-					<label for="searchsite">Site Search:</label>
-					<input id="searchsite" name="searchsite" type="text" />
-					<input type="submit" value="Go" class="f-submit" />
+		<div id="site-name">[-SITENAME-]
+		</div>
+		<div id="search">
+			<form action="">
+			<label for="searchsite">Site Search:</label>
+			<input id="searchsite" name="searchsite" type="text" />
+			<input type="submit" value="Go" class="f-submit" />
 
-					</form>
-				</div>
-
-
-
+			</form>
+		</div>
 	</div>
-
 
 	<div id="content-wrap">
 		<div id="content">
@@ -101,5 +97,5 @@
 				</TABLE>
 				</div>
 		</div>
-	</div>
+</div>
 </div>
