@@ -321,22 +321,17 @@ class RootUserAction extends StepAction
 
 		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
 
-
-
 		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : '';
 
 
 
 		//Get a list of modules to select
 
-
-
 		$defaultpostlogin = isset($_POST['postLogin']) ? $_POST['postLogin'] : 'postlogin';
 
 
 
 		$defaultskin = isset($_POST['defaultskin']) ? $_POST['defaultskin'] : 'echo';
-
 
 
 		$main_server = isset($_POST['main_server']) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
@@ -375,7 +370,6 @@ class RootUserAction extends StepAction
 
 
 		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Chisimba Owner';
-
 
 
 		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : True;
@@ -472,8 +466,6 @@ class RootUserAction extends StepAction
 			$log_path = ob_get_contents();
 
 			ob_clean();
-
-
 
 			combo_box('serverLocation',
 
@@ -1138,7 +1130,6 @@ class RootUserAction extends StepAction
 		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
 
 
-
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : '';
 
 
@@ -1289,6 +1280,7 @@ class RootUserAction extends StepAction
 		}else {
 
 			$_SESSION['debug_enable'] = "production";
+
 			$debug_enable = "FALSE";
 		}
 

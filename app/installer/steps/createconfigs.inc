@@ -35,7 +35,7 @@ class CreateConfigs extends Step
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -47,11 +47,11 @@ class CreateConfigs extends Step
 
 	{
 
-		
+
 
 		$this->actions[] =& new CreateConfigsAction(get_class($this));
 
-		
+
 
 		$this->step_title = 'Create System Configuration ';
 
@@ -67,9 +67,9 @@ class CreateConfigs extends Step
 
 	}//end CreateConfigs()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -89,11 +89,11 @@ class CreateConfigs extends Step
 
 */
 
-class CreateConfigsAction extends FiveStepAction 
+class CreateConfigsAction extends FiveStepAction
 
 {
 
-	
+
 
 	protected  $_root;
 
@@ -107,7 +107,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	protected $init_output = '';
 
-	
+
 
 	/**
 
@@ -119,13 +119,13 @@ class CreateConfigsAction extends FiveStepAction
 
 	var $config_vars = Array();
 
-	
+
 
 	/**
 
 	* Initialise the 5ive system.
 
-	* 
+	*
 
 	* @return boolean Whether all the database tables were created or not.
 
@@ -137,7 +137,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		
+
 
 		// if ignoring errors (ie the script has run, just want to proceed because the errors found
 
@@ -149,7 +149,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		// make sure that SQ_SYSTEM_ROOT is defined before trying to execute the script.
 
@@ -167,7 +167,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		// make sure there is a DSN available for both the primary and secondary connections.
 
@@ -175,11 +175,11 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->success = false;
 
-			return false;	
+			return false;
 
 		}
 
-		
+
 
 		// set the SQ_CONF_SYSTEM_ROOT_URLS define to $_SESSION['site_url']
 
@@ -193,7 +193,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		// if there is already a root url defined, check if it's already defined in the list of
 
@@ -205,7 +205,7 @@ class CreateConfigsAction extends FiveStepAction
 
 				$root_url = KEWL_SITE_ROOT."\n$root_url";
 
-			} else { 
+			} else {
 
 				$root_url = KEWL_SITE_ROOT;
 
@@ -213,17 +213,17 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
 
-		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url .'/5ive/app/');
 
-		
+		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url);
+
+
 
 		// was the database (re) created?
 
 		$database_created = isset($_SESSION['create_db']) && $_SESSION['create_db'];
 
-		
+
 
 		// if this is a Repair, and the database was recreated in the dbnameaction step,
 
@@ -243,27 +243,27 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		// Create the configs
 
 		$this->_createConfig($database_created);
 
-		
+
 
 		// Check to see if the configs actually were created.
 
 		if (!$this->isRequired()==true) {
-			
+
 			$this->errors[] = 'Config files were NOT successfully created. The following output was given '.
 
 								'by the config writing script';
 
 			$this->errors[] = $this->init_output;
 
-		}			
+		}
 
-		
+
 
 		// if it was in repair mode, can now change to being in update mode because all the system settings
 
@@ -275,23 +275,23 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Create the config
 
-	* 
+	*
 
 	* @param boolean $empty_database Whether the database is empty or not.
 
@@ -305,7 +305,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		ob_start();		
+		ob_start();
 
 			$SQ_INCLUDE_PATH = defined('SQ_INCLUDE_PATH') ? SQ_INCLUDE_PATH : $_SESSION['sys_root'].'/core/include';
 
@@ -332,7 +332,7 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN');
 
 			$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
-		
+
 			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
 
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'splashscreen');
@@ -356,10 +356,10 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_MAINSERVERNAME', $_SESSION['main_server']);
 
 			$this->_addConfigVar('KEWL_SERVERNAME_GENERATED', 'TRUE');
-			
+
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
-			
-			$this->_addConfigVar('KEWL_SITEROOT', 'http://'.$_SESSION['site_url'].'/'.'5ive/app/');
+
+			$this->_addConfigVar('KEWL_SITEROOT', 'http://'.$_SESSION['site_url'].'/');
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
 
@@ -397,11 +397,11 @@ class CreateConfigsAction extends FiveStepAction
 
 			}
 
-			
+
 
 			$GLOBALS['SQ_INSTALL'] = true;
 
-						
+
 
 			// when saving with altered variables, the root user gets sent a message notifying
 
@@ -417,12 +417,12 @@ class CreateConfigsAction extends FiveStepAction
 
 			}
 
-			
+
 
 			$this->_root = new Config();
 			//initial setup of config options
 			$options = array('name' => 'Settings');
-			
+
 			//parse the array values into config
 			$this->_root->parseConfig($this->config_vars,"PHPArray");
 			//lets write the config
@@ -436,17 +436,17 @@ class CreateConfigsAction extends FiveStepAction
 
 		$this->init_output = $result;
 
-		
+
 
 	}//end _createConfig()
 
-	
 
-	
+
+
 
 	/**
 
-	* Restores the directory structure for a 5ive install to what it was previous to 
+	* Restores the directory structure for a 5ive install to what it was previous to
 
 	* having the installer run the first time.
 
@@ -478,25 +478,25 @@ class CreateConfigsAction extends FiveStepAction
 
 		 * @todo merge missing modules from cvs
 
-		 * 
+		 *
 
 		 */
 
 		return true;
 
-		
+
 
 	}//end _restoreDirectories()
 
-	
 
-	
+
+
 
 	/**
 
 	* Set the DSN using the values collected earlier during the install
 
-	* 
+	*
 
 	* @return boolean Whether the DSN could be set properly
 
@@ -507,10 +507,10 @@ class CreateConfigsAction extends FiveStepAction
 	function _setDSN()
 
 	{
-		
+
 		$dsn = isset($_SESSION['dsn']) ? $_SESSION['dsn'] : false;
 
-		
+
 		if ($dsn === false) {
 
 			$this->errors[] = 'Data Source Name was not set correctly';
@@ -519,7 +519,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		if (!$this->_testDSN($dsn)) {
 
@@ -527,17 +527,17 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		$this->_addConfigVar('KEWL_DB_DSN', $dsn);
 
-		
+
 
 		// check the secondary database connector.
 
 		$dsn2 = isset($_SESSION['dsn2']) ? $_SESSION['dsn2'] : false;
 
-		
+
 
 		if ($dsn2 === false) {
 
@@ -547,7 +547,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		if (!$this->_testDSN($dsn2)) {
 
@@ -555,7 +555,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		}
 
-		
+
 
 		$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 
@@ -563,19 +563,19 @@ class CreateConfigsAction extends FiveStepAction
 
 		return true;
 
-		
+
 
 	}//end _setDSN()
 
-	
 
-	
+
+
 
 	/**
 
 	* Add values to the config vars array
 
-	* 
+	*
 
 	* @param string $var_name The name of the variable
 
@@ -595,9 +595,9 @@ class CreateConfigsAction extends FiveStepAction
 
 	}//end _addConfigVar()
 
-	
 
-	
+
+
 
 	/**
 
@@ -607,7 +607,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	* if the sysconfig_properties file exists, then the user can skip this action
 
-	* 
+	*
 
 	* @return boolean if this action is required to complete the step.
 
@@ -623,28 +623,28 @@ class CreateConfigsAction extends FiveStepAction
 		// if the file exists, try and delete it
 
 		if ($main_file !== false && is_file($main_file)) {
-			
+
 			return false;
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end isRequired()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display information about the creation status to the user
 
-	* 
+	*
 
 	* @return void
 
@@ -658,19 +658,19 @@ class CreateConfigsAction extends FiveStepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/oldstep.tpl');
 
-		
+
 
 		$warning_text = '';
 
 		$message = '';
 
-		$message = 	'5ive will now try and create the initial setup files. If '. 
+		$message = 	'5ive will now try and create the initial setup files. If '.
 
 					'you are running an update, this will save a backup of your '.
 
 					'old configuration file to the same directory. ';
 
-		
+
 
 		$warning_text = '<span style="color: #BB2222">Note that from this point on, if you do '.
 
@@ -682,23 +682,23 @@ class CreateConfigsAction extends FiveStepAction
 
 		$tpl->set('message', $message);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the user what config settings were written.
 
-	* 
+	*
 
 	* @return void
 
@@ -710,7 +710,7 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
-		echo '<table id="configconf" cellpadding="2" cellspacing="0">';	
+		echo '<table id="configconf" cellpadding="2" cellspacing="0">';
 
 		echo '<tr><td colspan="2"><h4>The following configuration variables were saved to '.
 
@@ -730,13 +730,13 @@ class CreateConfigsAction extends FiveStepAction
 
 		echo '</table>';
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 

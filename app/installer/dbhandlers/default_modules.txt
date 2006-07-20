@@ -32,3 +32,4 @@ htmlelements
 calendarbase
 systext
 splashscreen
+cms
