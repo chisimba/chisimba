@@ -140,7 +140,7 @@ $objHelp = new domtt();
 </tr>
 <tr>
 	<td>
-	<?php echo $objHelp->show('Proxy Settings','If you are using a proxy then add your proxy in the format provided');?>
+	<?php echo $objHelp->show('Proxy Settings','If you are using a proxy then add your proxy settings using the following example : http://user:password@proxy.myhost.com:port');?>
 	</td>
 	<td >
 	Proxy Settings. 
