@@ -331,11 +331,11 @@ class RootUserAction extends StepAction
 
 
 
-		$defaultpostlogin = isset($_POST['postLogin']) ? $_POST['postLogin'] : '';
+		$defaultpostlogin = isset($_POST['postLogin']) ? $_POST['postLogin'] : 'postlogin';
 
 
 
-		$defaultskin = isset($_POST['defaultskin']) ? $_POST['defaultskin'] : '';
+		$defaultskin = isset($_POST['defaultskin']) ? $_POST['defaultskin'] : 'echo';
 
 
 
@@ -374,7 +374,7 @@ class RootUserAction extends StepAction
 		}
 
 
-		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Captian John Picard';
+		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Chisimba Owner';
 
 
 
@@ -1139,7 +1139,7 @@ class RootUserAction extends StepAction
 
 
 
-		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'STAR SHIP: THE NEXT GENERATION';
+		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : '';
 
 
 
@@ -1288,7 +1288,7 @@ class RootUserAction extends StepAction
 
 		}else {
 
-			$_SESSION['debug_enable'] = "user";
+			$_SESSION['debug_enable'] = "production";
 			$debug_enable = "FALSE";
 		}
 
