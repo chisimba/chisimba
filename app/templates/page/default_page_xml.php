@@ -181,6 +181,7 @@ if (!isset($suppressFooter)) {
 
 ?>
 <?php if (!isset($pageSuppressTrailingDiv)) { ?>
+</div>
 <?php } ?>
 </body>
 </html>
