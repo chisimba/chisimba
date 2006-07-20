@@ -109,7 +109,7 @@ if (isSet($bodyParams)) {
  	}
  
  	if (!isset($pageSuppressContainer)) { 
- 	    echo ' <div>';
+ 	    echo '<div>';
  	} 
  
  	if (!isset($pageSuppressBanner)) { 
@@ -120,7 +120,6 @@ if (isSet($bodyParams)) {
 ?>
 
 		<div id="wrap">
-
 			<div id="header">
 				<div id="site-name"><?php //echo $objConfig->getsiteName();?></div>
 				<div id="search">
@@ -129,18 +128,15 @@ if (isSet($bodyParams)) {
 					<input id="searchsite" name="searchsite" type="text" />
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
-				</div>
-	
+				</div>	
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
 					echo $menu->show();
 				 }
 				 ?>
-			</div>	 
-		</div>
-				
-		
+			</div>				
+		</div>				
 			
 <?  }
 
@@ -178,10 +174,6 @@ if (!isset($suppressFooter)) {
 <?php } ?>
 <?php
 //$this->putMessages();
-
 ?>
-<?php if (!isset($pageSuppressTrailingDiv)) { ?>
-</div>
-<?php } ?>
 </body>
 </html>
