@@ -48,7 +48,7 @@ $objHelp = new domtt();
 	<td >
 	<?php echo $sys_owner?>
 	</td>
-	
+
 </tr>
 <tr valign="top">
 	<td>
@@ -61,7 +61,7 @@ $objHelp = new domtt();
 	<td >
 	<?php echo $root_email?>
 	</td>
-	
+
 </tr>
 <tr valign="top">
 	<td>
@@ -73,7 +73,7 @@ $objHelp = new domtt();
 	<td >
 	<?php echo $log_enable?>
 	</td>
-	
+
 </tr>
 
 </tr>
@@ -87,7 +87,7 @@ $objHelp = new domtt();
 	<td >
 	<?php echo $debug_enable?>
 	</td>
-	
+
 </tr>
 
 <tr valign="top">
@@ -100,10 +100,10 @@ $objHelp = new domtt();
 	<td >
 	<?php echo $log_path?>
 	</td>
-	
+
 </tr>
 <tr valign="top">
-	
+
 	<td>
 		<?php echo $objHelp->show('Post Login Module','This module will be used after a user logs into the system');?>
 	</td>
@@ -113,10 +113,10 @@ $objHelp = new domtt();
 	<td>
 	<?php echo $postLogin?>
 	</td>
-	
+
 </tr>
 <tr valign="top">
-	
+
 	<td>
 	<?php echo $objHelp->show('Skin','Choose a default skin');?>	</td>
 	<td >
@@ -124,31 +124,31 @@ $objHelp = new domtt();
 	</td>
 	<td><?php echo $defaultskin ?>
     </td>
-	
+
 </tr>
 <tr>
 	<td>
-	<?php echo $objHelp->show('Post Login Module','The Site root URL is normally localhost or for example www.yoursite.co.za or www.yoursite.co.za/chisimab');?>
+	<?php echo $objHelp->show('Site root URL','The Site root URL is the url of your installation, normally something like localhost/5ive/app/ Dont forget to include the last /');?>
 	</td>
 	<td >
-	Site root URL. 
+	Site root URL.
 	</td>
 	<td >
 	<?php echo $site_url ?>
 	</td>
-	
+
 </tr>
 <tr>
 	<td>
 	<?php echo $objHelp->show('Proxy Settings','If you are using a proxy then add your proxy settings using the following example : http://user:password@proxy.myhost.com:port');?>
 	</td>
 	<td >
-	Proxy Settings. 
+	Proxy Settings.
 	</td>
 	<td >
 	<?php echo $proxy ?>
 	</td>
-	
+
 </tr>
 <?php $contentPath ?>
 <?php $relContentPath ?>
