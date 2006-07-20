@@ -140,7 +140,7 @@ class DbHandler extends dbHandlermanager
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
 
-        echo $msg."<br><br>";
+        //echo $msg."<br><br>";
     }
 
 	/**

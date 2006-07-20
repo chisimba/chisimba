@@ -365,7 +365,7 @@ $this->step_help = "db name action,";
 		$handler = new DbHandler($_SESSION['short_dsn']);
 		$dbs = $handler->listDatabases();
 		//print_r($dbs);
-		$handler->dropDb($db_name);
+		//$handler->dropDb($db_name);
 		$success = $handler->createDb($db_name);
 
 		return $success;
