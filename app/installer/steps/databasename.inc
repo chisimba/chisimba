@@ -132,7 +132,7 @@ class DbNameAction extends FiveStepAction
 
 		$this->db_prefix = $pr;
 
-
+$this->step_help = "db name action,";
 
 	}//end DbDetailsAction
 

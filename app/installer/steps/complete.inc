@@ -29,6 +29,7 @@ class Complete extends Step
 		$this->step_title = 'Complete';
 		$this->title_logo = 'complete.gif';
 		$this->can_cancel = false;
+		$this->step_help = "Congratulations! Your Chisimba installation has been a success. Please follow the link below to view your site";
 
 	}//end CompleteStep()
 

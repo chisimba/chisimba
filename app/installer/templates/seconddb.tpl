@@ -1,4 +1,6 @@
-
+<?php
+$objHelp = new domtt();
+?>
 <table class="install-table">
 	<tr valign="top">
 		<td width="1">
@@ -24,7 +26,7 @@
 	
 	<tr valign="top">
 		<td>
-			<a href="<?php echo HELP_URL?>/create_second_user#useold" target="_blank"><img src="./extra/yellow_help_off.png" alt="Help" title="Help"  border="0" /></a>
+			<?php echo $objHelp->show('Select a secondary database user','<h1>PAUL please give more help this please</h1>');?>
 		</td>
 		<td >
 			Use these values for the secondary user? 

@@ -63,7 +63,7 @@ class CreateConfigs extends Step
 
 		$this->can_cancel = false;
 
-		
+		$this->step_help = "Plase allow Chisimba to create database and the configuration files";
 
 	}//end CreateConfigs()
 

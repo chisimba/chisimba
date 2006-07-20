@@ -323,7 +323,7 @@ class RootUserAction extends StepAction
 
 
 
-		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : 'http://user:password@proxy.myhost.com:port';
+		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : '';
 
 
 

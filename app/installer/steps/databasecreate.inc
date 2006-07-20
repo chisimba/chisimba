@@ -70,7 +70,7 @@ class DatabaseCreate extends Step
 		$this->can_cancel = false;
 
 
-
+        $this->step_help = "Chisimba will now create the database structures. This step may take some time. Please do not interupt the installation at this time";
 	}//end DatabaseCreate()
 
 
