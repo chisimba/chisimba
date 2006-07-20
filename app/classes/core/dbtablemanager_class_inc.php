@@ -189,8 +189,8 @@ class dbTableManager extends object
                 'output_mode' => 'file',
                 'output' => $dumpfile
             );
-
-            $operation = $this->_dbmanager->dumpDatabase($dump_config, $dump_what);
+			$definition = $this->_dbmanager->getDefinitionFromDatabase();
+            $operation = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
             if (PEAR::isError($operation)) {
                 die($operation->getMessage() . ' ' . $operation->getUserInfo());
             }
@@ -299,17 +299,21 @@ class dbTableManager extends object
      * Most RDBMS's besides MySQL do not have support for PK's so we fake it.
      *
      * @access public
-     * @param unknown_type $tableName
+     * @param mixed $tableName
      * @return bool true
      */
     public function createPK($tableName)
     {
-        $pk = array(
-                'fields' => array(
-                'id' => array()
-                 )
-              );
-        $this->_db->mgCreateIndex($tableName,'id_idx',$pk);
+        $index = array(
+        	'fields' => array(
+        	'id' => array('sorting' => 'ascending', ),
+         	),
+        	'primary' => true
+		 );
+
+		$name = 'primary';
+
+		$this->createTableIndex($tableName, $name, $index);
         return TRUE;
 
     }
