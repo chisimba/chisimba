@@ -43,8 +43,7 @@ class cssmenu extends object
     {
     	$str='<ul id="nav" >';
     	$str .= '<li class="first"><a href="'.$this->uri(null, '_default').'">Home</a></li>';
-    	
-        foreach($this->menu as $key=>$item){
+		foreach($this->menu as $key=>$item){
             $this->objLink->link('javascript:;');
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             $str.='<li >'.$this->objLink->show()."<ul>\n";
@@ -57,7 +56,8 @@ class cssmenu extends object
                 }
                 $this->toolbarIcon->title=$val;
                 $this->toolbarIcon->align='left';
-                $this->toolbarIcon->extra=' vspace="3" hspace="5"';
+                //$this->toolbarIcon->extra=' vspace="3" hspace="5"';
+                $this->toolbarIcon->extra=' width="17" height="17"';
                 $icon=$this->toolbarIcon->show();
 
                 $this->objLink->link($this->uri(array(''),$link));
@@ -65,30 +65,16 @@ class cssmenu extends object
 
                 $valLink=$this->objLink->show();
                 $str.="<li>".$valLink."</li>\n";
-               
+
             }
-            $sample = '<li class="first"><a href="#">Maecenas</a></li>
-					<li><a href="#">Phasellus</a></li>
-					<li><a href="#">Mauris sollicitudin</a></li>
-
-					<li><a href="#">Phasellus</a></li>
-					<li><a href="#">Mauris sollicitudin</a></li>
-					<li><a href="#">Phasellus</a></li>
-					<li><a href="#">Mauris sollicitudin</a></li>
-					<li><a href="#">Phasellus</a></li>
-					<li><a href="#">Mauris sollicitudin</a></li>
-
-					<li><a href="#">Phasellus</a></li>
-					<li><a href="'.$this->uri(null,'modulecatalogue').'">Module Catalogue</a></li>';
-            
-            $str.=$sample."</ul></li>\n";
+            $str.="</ul></li>\n";
         }
         $str .= '<li class="last"><a href="javascript: if(confirm(\'Are you sure you want to logout?\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">Logout</a></li>';
         $str.="</ul>";
         $menu=$str;
         //$menu="<div id='nav'>".$str."</div>";
         return $menu;
-    	/*
+		/*
         $str='<ul id="menuList" class="adxm">';
         foreach($this->menu as $key=>$item){
             $this->objLink->link('javascript:;');
@@ -116,8 +102,8 @@ class cssmenu extends object
         }
         $str.="</ul>";
         $menu="<div id='menu'>".$str."</div>";
-        return $menu;
-        */
+        return $menu;*/
+
     }
 
     /**

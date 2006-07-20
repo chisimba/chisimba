@@ -85,8 +85,7 @@ class menu extends object
             if(!empty($about)){
                 $rows['About'] = $about;
             }
-
-            return $rows;
+			return $rows;
         }
         return FALSE;
     }
@@ -142,7 +141,7 @@ class menu extends object
                 }else{
                     $text = $this->objLanguage->code2Txt('mod_'.$v.'_name',$v);
                 }
-                $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, ucwords($category)), ucwords($text),$v);
+                $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar'), ucwords($text),$v);
             }
         }
         return $this->cssMenu->show();
@@ -234,10 +233,10 @@ class menu extends object
 
         return $navbar;
     }
-    
+
     /**
      * Create the Menu navigation
-     * 
+     *
      * @access public
      * @return string
      */
@@ -252,7 +251,7 @@ class menu extends object
 					<li><a href="#">Photo Gallery</a></li>
 					<li><a href="#">Mailing List</a></li>
 					<li><a href="#">Discussion Forum</a></li>
-					
+
 					<li class="last"><a href="#">Internal Email</a></li>
 					</ul>
 				</li>
@@ -280,14 +279,14 @@ class menu extends object
 				</li>
 				<li class="last"><a href="#">About</a>
 					<ul>
-					
+
 					<li class="last"><a href="#">Credits</a></li>
 					</ul>
 				</li>
 				</ul>';
-    	
+
     	return $str;
-    	
+
     }
 }
 ?>
