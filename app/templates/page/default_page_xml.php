@@ -121,7 +121,7 @@ if (isSet($bodyParams)) {
 
 		<div id="wrap">
 			<div id="header">
-				<div id="site-name"><?php //echo $objConfig->getsiteName();?></div>
+				<div id="site-name"><?php echo $objConfig->getsiteName();?></div>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
