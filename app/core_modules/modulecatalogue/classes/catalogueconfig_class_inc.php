@@ -108,7 +108,7 @@ class catalogueconfig extends object {
     	try {
     		// read catalogue data and get reference to root
 
-    		$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/";
+    		$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/";
     		if (file_exists($this->_path.'catalogue.xml')) {
     			$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
     		} else {
