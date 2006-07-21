@@ -370,6 +370,9 @@ class engine
 //die();
             //set the options
             $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            //Quote identifiers also for legacy SQL
+            $_globalObjDb->setOption('quote_identifiers', true);
+
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
             //Check for errors
@@ -434,6 +437,7 @@ class engine
             }
             // keep a copy as a field as well
             $this->_objDbManager =& $_globalObjDbManager;
+            $_globalObjDbManager->setOption('quote_identifiers', true);
             // install the error handler with our custom callback on error
             $this->_objDbManager->setErrorHandling(PEAR_ERROR_CALLBACK,
                                             array(&$this, '_pearErrorCallback'));
