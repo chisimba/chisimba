@@ -108,6 +108,7 @@ class DbHandler extends dbHandlermanager
                 return $this->_globalObjDb;
             }
             //$this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            $this->_globalObjDb->setOption('quote_identifiers', true);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
 			// install the error handler with our custom callback on error
@@ -122,7 +123,7 @@ class DbHandler extends dbHandlermanager
 		 	require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
-
+			$this->_globalObjDbManager->setOption('quote_identifiers', true);
              $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
              $this->dbmanager = new dbHandlermanager();
              parent::__construct();
