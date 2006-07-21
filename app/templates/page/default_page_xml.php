@@ -90,6 +90,18 @@ if (isset($headerParams)) {
 
 }
 
+if (isset($bodyOnLoad)) {
+    echo '<script type="text/javascript" language="javascript">
+    window.onload = function () {'."\n\n";
+
+    foreach ($bodyOnLoad as $bodyParam)
+    {
+        echo $bodyParam."\n\n";
+    }
+
+    echo '}</script>';
+}
+
 
 ?>
 </head>
