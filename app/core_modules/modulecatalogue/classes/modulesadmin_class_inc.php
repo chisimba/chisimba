@@ -48,6 +48,13 @@ class modulesadmin extends dbTableManager
     private $objTableInfo;
 
     /**
+     * Code of last error encountered
+     *
+     * @var integer $_lastError
+     */
+    private $_lastError;
+
+    /**
      * Object interface to KeyMaker class
      *
      * @var object $objKeyMaker
@@ -124,7 +131,8 @@ class modulesadmin extends dbTableManager
         try {
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
-            } else            {
+            } else {
+            	$this->_lastError = 1001;
                 return FALSE; // If we can't find the name of the module we're supposed to be registering, what are we doing here?
             }
             $this->module_id=$registerdata['MODULE_ID'];
@@ -134,7 +142,8 @@ class modulesadmin extends dbTableManager
 
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$this->update) {
-                return FALSE;
+                $this->_lastError = 1002;
+            	return FALSE;
             } else {
                 // check for modules this one is dependant on
                 if (isset($registerdata['DEPENDS'])) {
@@ -143,6 +152,7 @@ class modulesadmin extends dbTableManager
                             $text=$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
                             $text=str_replace('{MODULE}',$depends,$text);
                             $this->output.='<b>'.$text.'</b><br />';
+                            $this->_lastError = 1003;
                             return FALSE;
                         }
                     }
@@ -154,6 +164,7 @@ class modulesadmin extends dbTableManager
                             $text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
                             $text=str_replace('{MODULE}',$table,$text);
                             $this->output.='<b>'.$text.'</b><br />';
+                            $this->_lastError = 1004;
                             return FALSE;
                         } else {
                             // Delete the table from the records.
@@ -536,6 +547,7 @@ class modulesadmin extends dbTableManager
                     $sql_arr['dependsContext']=$registerdata['DEPENDS_CONTEXT'];
                 }
                 if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
+                	$this->_lastError = 1005;
                 	return FALSE;
                 }
                 if ($this->update) {
@@ -610,6 +622,7 @@ class modulesadmin extends dbTableManager
     				$str.=$dependantModule."<br />";
     			}
     			$this->output = $str;
+    			$this->_lastError = 1003;
     			return FALSE;
     		} else {
     			//$this->objModules->beginTransaction(); //Start a transaction;
@@ -744,6 +757,7 @@ class modulesadmin extends dbTableManager
     		if (!file_exists($sqlfile)){
     			$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/defaultdata.xml';
     			if (!file_exists($sqlfile)){
+    				$this->_lastError = 1006;
     				return FALSE;
     			}
     		}
@@ -1045,13 +1059,42 @@ class modulesadmin extends dbTableManager
     /**
     * This is a method to update the text elements in all registered modules at once
     */
-    function updateAllText() {
+    public function updateAllText() {
     	try {
     		$modulesArray = $this->objModules->getAll();
     		foreach ($modulesArray as $module) {
     			$this->moduleText($line['module_id'],'replace');
     		}
     		return TRUE;
+    	} catch (Exception $e) {
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+
+    /**
+     * Method to get the last error
+     *
+     * @return string description of last error
+     */
+    public function getLastError() {
+    	try {
+    		switch ($this->_lastError) {
+    			case 1001:
+    				return 'cannot find moduleid in register.conf';
+    			case 1002:
+    				return 'module already registered';
+    			case 1003:
+    				return 'module dependency check failed';
+    			case 1004:
+    				return 'could not get info to create table';
+    			case 1005:
+    				return 'could not write to table tbl_modules';
+    			case 1006:
+    				return 'could not read table sql file';
+    			default:
+    				return 'uknown error: what did you do?';
+    		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();

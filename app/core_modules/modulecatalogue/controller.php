@@ -231,9 +231,9 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					if ($check!=TRUE){
+					//if ($check!=TRUE){
 						$this->firstRegister();
-					}
+					//}
 					// Show next installation step
 					return $this->nextAction(null,null,'splashscreen');
 				default:
@@ -426,7 +426,7 @@ class modulecatalogue extends controller
     		foreach ($mList as $line) {
     			if ($line[0]!='#') {
     				if (!$this->installModule(trim($line))) {
-    					throw new customException("Error installing module $line: {$this->objModuleAdmin->output}");
+    					throw new customException("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
     				}
     			}
     		}

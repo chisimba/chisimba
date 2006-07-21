@@ -301,8 +301,8 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        log_debug("dbtable insert into $tablename");
-        log_debug($fields);
+        //log_debug("dbtable insert into $tablename");
+        //log_debug($fields);
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
@@ -325,7 +325,7 @@ class dbTable extends object
         }
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
-        log_debug("success $ret");
+        //log_debug("success $ret");
 
         return $ret ? $id : false;
     }
