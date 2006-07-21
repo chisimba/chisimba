@@ -286,25 +286,6 @@ class dbHandlermanager
         return TRUE;
     }
 
-    /**
-     * Method to describe a pseudo PK id
-     * Most RDBMS's besides MySQL do not have support for PK's so we fake it.
-     *
-     * @access public
-     * @param unknown_type $tableName
-     * @return bool true
-     */
-    public function createPK($tableName)
-    {
-        $pk = array(
-                'fields' => array(
-                'id' => array()
-                 )
-              );
-        $this->_db->mgCreateIndex($tableName,'id_idx',$pk);
-        return TRUE;
-
-    }
 
     /**
      * create a new database
