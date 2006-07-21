@@ -1,16 +1,5 @@
 <?php
-/*
-CREATE TABLE `tbl_english` (
-  `code` varchar(50) NOT NULL default '',
-  `Content` mediumtext,
-  `isInNextGen` tinyint(1) default NULL,
-  `dateCreated` datetime default '2004-06-23 19:46:00',
-  `creatorUserId` varchar(25) default '1',
-  `dateLastModified` datetime default NULL,
-  `modifiedByUserId` varchar(25) default NULL,
-  PRIMARY KEY  (code)
-) TYPE=InnoDB ;
-*/
+
 // Table Name
 $tablename = 'tbl_en';
 
