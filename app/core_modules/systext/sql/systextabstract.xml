@@ -7,7 +7,7 @@
         <textId>10@init</textId>
         <abstract>workgroups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -16,7 +16,7 @@
         <textId>11@init</textId>
         <abstract>story</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -25,7 +25,7 @@
         <textId>12@init</textId>
         <abstract>stories</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -34,7 +34,7 @@
         <textId>1@init</textId>
         <abstract>course</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>14@init</id>
@@ -42,7 +42,7 @@
         <textId>2@init</textId>
         <abstract>courses</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>15@init</id>
@@ -50,7 +50,7 @@
         <textId>3@init</textId>
         <abstract>lecturer</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>16@init</id>
@@ -58,7 +58,7 @@
         <textId>4@init</textId>
         <abstract>lecturers</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>17@init</id>
@@ -66,7 +66,7 @@
         <textId>5@init</textId>
         <abstract>organisation</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>18@init</id>
@@ -74,7 +74,7 @@
         <textId>6@init</textId>
         <abstract>organisations</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>19@init</id>
@@ -82,7 +82,7 @@
         <textId>7@init</textId>
         <abstract>student</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>1@init</id>
@@ -90,7 +90,7 @@
         <textId>1@init</textId>
         <abstract>course</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -99,7 +99,7 @@
         <textId>8@init</textId>
         <abstract>students</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>21@init</id>
@@ -107,7 +107,7 @@
         <textId>9@init</textId>
         <abstract>workgroup</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>22@init</id>
@@ -115,7 +115,7 @@
         <textId>10@init</textId>
         <abstract>workgroups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>23@init</id>
@@ -123,7 +123,7 @@
         <textId>11@init</textId>
         <abstract>story</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>24@init</id>
@@ -131,7 +131,7 @@
         <textId>12@init</textId>
         <abstract>stories</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>25@init</id>
@@ -139,7 +139,7 @@
         <textId>1@init</textId>
         <abstract>group</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>26@init</id>
@@ -147,7 +147,7 @@
         <textId>2@init</textId>
         <abstract>groups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>27@init</id>
@@ -155,7 +155,7 @@
         <textId>3@init</textId>
         <abstract>group author</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>28@init</id>
@@ -163,7 +163,7 @@
         <textId>4@init</textId>
         <abstract>group authors</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>29@init</id>
@@ -171,7 +171,7 @@
         <textId>7@init</textId>
         <abstract>readonly member</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>2@init</id>
@@ -179,7 +179,7 @@
         <textId>2@init</textId>
         <abstract>courses</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -188,7 +188,7 @@
         <textId>8@init</textId>
         <abstract>readonly members</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>31@init</id>
@@ -196,7 +196,7 @@
         <textId>1@init</textId>
         <abstract>workgroup</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>32@init</id>
@@ -204,7 +204,7 @@
         <textId>2@init</textId>
         <abstract>workgroups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>33@init</id>
@@ -212,7 +212,7 @@
         <textId>3@init</textId>
         <abstract>workgroup author</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>34@init</id>
@@ -220,7 +220,7 @@
         <textId>4@init</textId>
         <abstract>workgroup authors</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>35@init</id>
@@ -228,7 +228,7 @@
         <textId>7@init</textId>
         <abstract>workgroup user</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>36@init</id>
@@ -236,7 +236,7 @@
         <textId>8@init</textId>
         <abstract>workgroup users</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>37@init</id>
@@ -244,7 +244,7 @@
         <textId>1@init</textId>
         <abstract>supervision unit</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>38@init</id>
@@ -252,7 +252,7 @@
         <textId>2@init</textId>
         <abstract>supervision units</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>39@init</id>
@@ -260,7 +260,7 @@
         <textId>3@init</textId>
         <abstract>supervisor</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>3@init</id>
@@ -268,7 +268,7 @@
         <textId>3@init</textId>
         <abstract>lecturer</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -277,7 +277,7 @@
         <textId>4@init</textId>
         <abstract>supervisors</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>41@init</id>
@@ -285,7 +285,7 @@
         <textId>7@init</textId>
         <abstract>student</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>42@init</id>
@@ -293,7 +293,7 @@
         <textId>8@init</textId>
         <abstract>students</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>43@init</id>
@@ -301,7 +301,7 @@
         <textId>1@init</textId>
         <abstract>alumni group</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>44@init</id>
@@ -309,7 +309,7 @@
         <textId>2@init</textId>
         <abstract>alumni groups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>45@init</id>
@@ -317,7 +317,7 @@
         <textId>3@init</textId>
         <abstract>content author</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>46@init</id>
@@ -325,7 +325,7 @@
         <textId>4@init</textId>
         <abstract>content authors</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>47@init</id>
@@ -333,7 +333,7 @@
         <textId>5@init</textId>
         <abstract>organisation</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>48@init</id>
@@ -341,7 +341,7 @@
         <textId>6@init</textId>
         <abstract>organisations</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>49@init</id>
@@ -349,7 +349,7 @@
         <textId>7@init</textId>
         <abstract>alumnus</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>4@init</id>
@@ -357,7 +357,7 @@
         <textId>4@init</textId>
         <abstract>lecturers</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -366,7 +366,7 @@
         <textId>8@init</textId>
         <abstract>alumni</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>51@init</id>
@@ -374,7 +374,7 @@
         <textId>9@init</textId>
         <abstract>interest group</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>52@init</id>
@@ -382,7 +382,7 @@
         <textId>10@init</textId>
         <abstract>interest groups</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>53@init</id>
@@ -390,7 +390,7 @@
         <textId>11@init</textId>
         <abstract>announcement</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>54@init</id>
@@ -398,7 +398,7 @@
         <textId>12@init</textId>
         <abstract>announcements</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>55@init</id>
@@ -406,7 +406,7 @@
         <textId>1@init</textId>
         <abstract>content area</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>56@init</id>
@@ -414,7 +414,7 @@
         <textId>2@init</textId>
         <abstract>content areas</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>57@init</id>
@@ -422,7 +422,7 @@
         <textId>3@init</textId>
         <abstract>content author</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>58@init</id>
@@ -430,7 +430,7 @@
         <textId>4@init</textId>
         <abstract>content authors</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>59@init</id>
@@ -438,7 +438,7 @@
         <textId>7@init</textId>
         <abstract>user</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>5@init</id>
@@ -446,7 +446,7 @@
         <textId>5@init</textId>
         <abstract>organisation</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -455,7 +455,7 @@
         <textId>8@init</textId>
         <abstract>users</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
         <id>6@init</id>
@@ -463,7 +463,7 @@
         <textId>6@init</textId>
         <abstract>organisations</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -472,7 +472,7 @@
         <textId>7@init</textId>
         <abstract>student</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -481,7 +481,7 @@
         <textId>8@init</textId>
         <abstract>students</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
     <tbl_systext_abstract>
@@ -490,7 +490,7 @@
         <textId>9@init</textId>
         <abstract>workgroup</abstract>
         <creatorId>1</creatorId>
-        <dateCreated>0000-00-00 00:00:00</dateCreated>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
 </defaultdata>
