@@ -137,7 +137,7 @@ class contextadmin extends controller {
 
         $this->objConfig = &$this->getObject('config', 'config');
         $this->Table = &$this->getObject('htmltable', 'htmlelements');
-        $this->objModule=& $this->getObject('modulesadmin','modulelist');
+        $this->objModule=& $this->getObject('modules','modulecatalogue');
         $this->loadClass('checkbox','htmlelements');
         $this->objConfirm=&$this->newObject('confirm','utilities');
         $this->objExportContent = & $this->newObject('export','contextadmin');
@@ -150,7 +150,7 @@ class contextadmin extends controller {
         $this->contextCode = $this->objDBContext->getContextCode();
         $this->contextTitle = $this->objDBContext->getTitle();
         $this->objPage =& $this->getObject('page', 'toolbar');
-        
+
          //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
@@ -276,14 +276,14 @@ class contextadmin extends controller {
     }
 
     function repl(){
-        
-     $content = $this->newObject('dbpagecontent', 'context');   
+
+     $content = $this->newObject('dbpagecontent', 'context');
      $all = $content->getAll();
      foreach($all as $one){
-        $body = str_replace(' ','',$one['body']);
-        $body = str_replace('’','\'',$body);
+        $body = str_replace('ï¿½','',$one['body']);
+        $body = str_replace('ï¿½','\'',$body);
         $cnt = $cnt+1;
-        $content->update('id', $one['id'], array('body'=>$body));   
+        $content->update('id', $one['id'], array('body'=>$body));
      }
      echo $cnt .' pages';
     }
@@ -351,7 +351,7 @@ class contextadmin extends controller {
         }
     }
 
-   
+
     /**
     *Method to show the edit section
      *@access public

@@ -12,6 +12,16 @@ $fname = $this->objModFile->findregisterfile($patch['modname']);
 $patchArray=array(array('modname'=>'modulecatalogue','ver'=>'1.2','regfile'=>$this->objModFile->findregisterfile('modulecatalogue'),'desc'=>'update of critical stuff'),
 				array('modname'=>'ircchat','ver'=>'3.8','regfile'=>$this->objModFile->findregisterfile('ircchat'),'desc'=>'Text elements updated'));
 
+$updateAll = &$this->getObject('link','htmlelements');
+$updateAll->link($this->uri(array('action'=>'updateall')));
+$updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
+
+$objTable = &$this->getObject('htmltable','htmlelements');
+$objTable->startRow();
+$objTable->addCell($h2->show(),null,null,'left');
+$objTable->addCell($updateAll->show(),null,null,'right');
+$objTable->endRow();
+
 foreach ($patchArray as $patch) {
 	$uri = $this->uri(array('action'=>'patch','mod'=>$patch['modname'],'patchver'=>$patch['ver']),'modulecatalogue');
 	$link = &new Link($uri);
@@ -24,7 +34,7 @@ foreach ($patchArray as $patch) {
 			<b>{$this->objLanguage->languageText('word_description','modulecatalogue')}:</b> {$patch['desc']}<hr />";
 }
 
-$content = $objH->show().$h2->show().$str;
+$content = $objH->show().$objTable->show().$str;
 echo $content;
 
 ?>

@@ -69,13 +69,6 @@ class modulecatalogue extends controller
 	public $config;
 
 	/**
-	 * object that reads a module's register.conf file
-	 *
-	 * @var object $objRegFile
-	 */
-	protected $objRegFile;
-
-	/**
 	 * object to read/write module data to database
 	 *
 	 * @var object $objModule
@@ -112,21 +105,19 @@ class modulecatalogue extends controller
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
 			//the class for reading register.conf files
-        	$this->objRegFile = &$this->newObject('filereader','modulecatalogue');
         	$this->objLanguage = &$this->getObject('language','language');
         	$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
 			$this->objModule = &$this->getObject('modules');
 			$this->objModFile = &$this->getObject('modulefile');
 			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
-			//get list of categories
 			$this->objSideMenu->addNodes(array('updates','all'));
-			$var =$this->objCatalogueConfig->getNavParam('category');
-			$var2 = $var['catalogue']['category'];
-			//sort($var2);
-			//var_dump($var['catalogue']['category']);
-			//var_dump($var2);
-			$this->objSideMenu->addNodes($var);
+			$xmlCat = $this->objCatalogueConfig->getNavParam('category');
+			//get list of categories
+			$catArray = $xmlCat['catalogue']['category'];
+			natcasesort($catArray);
+			$this->objSideMenu->addNodes($catArray);
+
 
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -172,7 +163,7 @@ class modulecatalogue extends controller
 					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'install':
 					$mod = $this->getParm('mod');
-					$regResult = $this->installModule($mod);
+					$regResult = $this->installModule(trim($mod));
 					if ($regResult){
 						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));	//success
 					} else {
@@ -185,7 +176,7 @@ class modulecatalogue extends controller
 				case 'info':
 					$filepath = $this->objModFile->findRegisterFile($this->getParm('mod'));
     				if ($filepath) { // if there were no file it would be FALSE
-    					$this->registerdata=$this->objRegFile->readRegisterFile($filepath);
+    					$this->registerdata=$this->objModFile->readRegisterFile($filepath);
     					if ($this->registerdata){
     						return 'info_tpl.php';
     					}
@@ -194,14 +185,14 @@ class modulecatalogue extends controller
 						return 'front_tpl.php';
     				}
 				case 'textelements':
-					$texts = $this->moduleText($this->getParm('mod'));
+					$texts = $this->objModuleAdmin->moduleText($this->getParm('mod'));
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$this->getParm('mod'));
 					return 'textelements_tpl.php';
 				case 'addtext':
 					$modname = $this->getParm('mod');
-					$texts = $this->moduleText($modname,'fix');
-					$texts = $this->moduleText($modname);
+					$texts = $this->objModuleAdmin->moduleText($modname,'fix');
+					$texts = $this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
@@ -209,8 +200,8 @@ class modulecatalogue extends controller
 					return 'textelements_tpl.php';
 				case 'replacetext':
 					$modname = $this->getParm('mod');
-					$texts=$this->moduleText($modname,'replace');
-					$texts=$this->moduleText($modname);
+					$texts=$this->objModuleAdmin->moduleText($modname,'replace');
+					$texts=$this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
@@ -234,6 +225,9 @@ class modulecatalogue extends controller
 					}
 					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat));
+				case 'updateall':
+					$this->objModuleAdmin->updateAllText();
+					return $this->nextAction('list');
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
@@ -265,7 +259,7 @@ class modulecatalogue extends controller
     	try {
     		$filepath = $this->objModFile->findRegisterFile($modname);
     		if ($filepath) { // if there were no file it would be FALSE
-    			$this->registerdata=$this->objRegFile->readRegisterFile($filepath);
+    			$this->registerdata=$this->objModFile->readRegisterFile($filepath);
     			if ($this->registerdata) {
     				// Added 2005-08-24 as extra check
     				if ( isset($this->registerdata['WARNING']) && ($this->getParm('confirm')!='1') ){
@@ -298,7 +292,7 @@ class modulecatalogue extends controller
     private function uninstallModule($modname) {
     	try {
     		$filepath=$this->objModFile->findRegisterFile($modname);
-    		$this->registerdata=$this->objRegFile->readRegisterFile($filepath);
+    		$this->registerdata=$this->objModFile->readRegisterFile($filepath);
     		if (is_array($this->registerdata)) {
     			return $this->objModuleAdmin->uninstallModule($modname,$this->registerdata);
     		} else {
@@ -340,7 +334,7 @@ class modulecatalogue extends controller
     		}
     		$filepath = $this->objModFile->findRegisterFile($modname);
     		if ($filepath) { //if there were no file it would be FALSE
-    			$registerdata=$this->objRegFile->readRegisterFile($filepath);
+    			$registerdata=$this->objModFile->readRegisterFile($filepath);
     			if ($registerdata){
     				if (isset($registerdata['DEPENDS'])){
     					foreach ($registerdata['DEPENDS'] as $line) {
@@ -395,7 +389,7 @@ class modulecatalogue extends controller
     		}
     		$filepath=$this->objModFile->findRegisterFile($modname);
     		if ($filepath) { // if there were no file it would be FALSE
-    			$registerdata=$this->objRegFile->readRegisterFile($filepath);
+    			$registerdata=$this->objModFile->readRegisterFile($filepath);
     			if ($registerdata) {
     				// Here we get a list of modules that depend on this one
     				$depending=$this->objModule->checkForDependentModules($modname);
@@ -447,63 +441,6 @@ class modulecatalogue extends controller
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}
-    }
-
-     /**
-    * This is a method to look through list of texts specified for module,
-    * and see if they are registered or not.
-    * @author James Scoble
-    * @param string $modname
-    * @param string $action - optional, if its 'fix' then the function tries
-    * to add any texts that are missing.
-    * returns array $mtexts
-    */
-    private function moduleText($modname,$action='readonly') {
-    	try {
-    		$mtexts = array();
-    		$filepath = $this->objModFile->findRegisterFile($modname);
-    		$rdata = $this->objRegFile->readRegisterFile($filepath,FALSE);
-    		$texts = $this->objModuleAdmin->listTexts($rdata,'TEXT');
-    		$uses = $this->objModuleAdmin->listTexts($rdata,'USES');
-    		if ($uses) {
-    			$text = array_merge($texts,$uses);
-    		} else {
-    			$text = $texts;
-    		}
-    		$this->objModule->beginTransaction(); //Start a transaction;
-    		if (is_array($text)) {
-    			foreach ($text as $code=>$data) {
-    				$isreg=$this->objModuleAdmin->checkText($code); // this gets an array with 3 elements - flag, content, and desc
-    				$text_desc=$data['desc'];
-    				$text_val=$data['content'];
-    				if (($action=='fix')&&($isreg['flag']==0)) {
-    					$this->objModuleAdmin->addText($code,$text_desc,$text_val,$modname);
-    				}
-    				if ($action=='replace') {
-    					$this->objModuleAdmin->addText($code,$text_desc,$text_val,$modname);
-    				}
-    				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
-    			}
-    		}
-    		$this->objModule->commitTransaction(); //End the transaction;
-    		return $mtexts;
-    	} catch (Exception $e) {
-    		$this->objModule->rollbackTransaction();
-    		$this->errorCallback('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
-    }
-
-    /**
-     * This is a method to update the text elements in all registered modules at once
-     *
-     */
-    function replaceAllText()
-    {
-        $bigarray=$this->objModule->getAll();
-        foreach ($bigarray as $line) {
-            $texts = $this->moduleText($line['module_id'],'replace');
-        }
     }
 
 	/**

@@ -80,7 +80,7 @@ class sysconfig extends controller {
                 //Set the text instructions for the table
                 $this->setVar('step1', $this->objLanguage->languageText("mod_sysconfig_step1"));
                 //Get list of registered modules
-                $this->objMods = & $this->getObject('modules', 'modulelist');
+                $this->objMods = & $this->getObject('modules', 'modulecatalogue');
                 //Return an array of all modules
                 $this->setVar('ary', $this->objMods->getModules(1));
                 //Set the action for the form

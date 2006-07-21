@@ -32,7 +32,7 @@ class register extends object
     */
     function init()
     {
-        $this->objFileReader =& $this->getObject('filereader', 'modulecatalogue');
+        $this->objFileReader =& $this->getObject('modulefile', 'modulecatalogue');
         $this->objModules =& $this->getObject('modules', 'modulecatalogue');
         $this->objModulesAdmin =& $this->getObject('modulesadmin', 'modulecatalogue');
         $this->objDbMenu =& $this->getObject('dbmenu');
@@ -63,9 +63,9 @@ class register extends object
     function setDefaultPermissions($module)
     {
         $data = $this->getModuleData($module);
-        $this->restoreConditions($data, $module);       
+        $this->restoreConditions($data, $module);
     }
-    
+
     /**
     * Method to update the default permissions for a module
     */

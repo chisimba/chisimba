@@ -199,7 +199,6 @@ class sidemenu extends object
     	$access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-
         $menu = $this->getMenuList($menus);
         return $menu;
     }
@@ -405,7 +404,7 @@ class sidemenu extends object
     function joinInterestGroup($filter = 'context')
     {
         // Check if workgroup is registered and active for the context
-        $objModule =& $this->getObject('modulesadmin','modulelist');
+        $objModule =& $this->getObject('modules','modulecatalogue');
         $objCondition =& $this->getObject('contextcondition','contextpermissions');
         $objForm =& $this->newObject('form','htmlelements');
         $objButton =& $this->newObject('button','htmlelements');

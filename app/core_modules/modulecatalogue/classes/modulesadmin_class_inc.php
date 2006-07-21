@@ -89,6 +89,7 @@ class modulesadmin extends dbTableManager
         	$this->objLanguage = $this->getObject('language','language');
         	$this->objConfig = $this->getObject('altconfig','config');
             $this->objModules = &$this->getObject('modules');
+            $this->objModFile = &$this->getObject('modulefile');
             $this->objUser = &$this->getObject('user','security');
         } catch (Exception $e) {
         	$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -129,7 +130,7 @@ class modulesadmin extends dbTableManager
             $this->module_id=$registerdata['MODULE_ID'];
             $this->module_name=$registerdata['MODULE_NAME'];
             $this->module_description=$registerdata['MODULE_DESCRIPTION'];
-    		$this->objModules->beginTransaction();
+    		//$this->objModules->beginTransaction();
 
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$this->update) {
@@ -572,11 +573,11 @@ class modulesadmin extends dbTableManager
                     $this->registerDependentModules($moduleId,$registerdata['DEPENDS']);
                 }
 
-            $this->objModules->commitTransaction(); //End the transaction;
+            //$this->objModules->commitTransaction(); //End the transaction;
         }
 
         catch (Exception $e) {
-        	$this->objModules->rollbackTransaction();
+        	//$this->objModules->rollbackTransaction();
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
@@ -611,7 +612,7 @@ class modulesadmin extends dbTableManager
     			$this->output = $str;
     			return FALSE;
     		} else {
-    			$this->objModules->beginTransaction(); //Start a transaction;
+    			//$this->objModules->beginTransaction(); //Start a transaction;
     			$this->objModules->delete('id',$modTitle,'tbl_en');
     			$this->objModules->delete('code',$modTitle,'tbl_languagetext');
     			$this->objModules->delete('id',$modDescription,'tbl_en');
@@ -679,12 +680,12 @@ class modulesadmin extends dbTableManager
     			$this->objModules->delete('module_id',$moduleId,'tbl_language_modules');
     			$this->objModules->delete('module_id',$moduleId,'tbl_modules_dependencies');
     			$this->objModules->delete('module_id',$moduleId,'tbl_modules');
-    			$this->objModules->commitTransaction();//End the transaction;
+    			//$this->objModules->commitTransaction();//End the transaction;
 
     			return TRUE;
     		}
     	} catch (Exception $e) {
-    		$this->objModules->rollbackTransaction();
+    		//$this->objModules->rollbackTransaction();
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}
@@ -793,7 +794,6 @@ class modulesadmin extends dbTableManager
     	try {
     		$modTitle="mod_".$this->module_id."_name";
     		$modDescription="mod_".$this->module_id."_desc";
-    		$this->objModules->beginTransaction();
     		$this->objModules->delete('id',$modTitle,'tbl_en');
     		$this->objModules->delete('id',$modDescription,'tbl_en');
     		$this->objModules->delete('code',$modTitle,'tbl_languagetext');
@@ -808,10 +808,8 @@ class modulesadmin extends dbTableManager
     		$this->objModules->insert($descArray,'tbl_en');
     		$this->objModules->insert(array('code'=>$modTitle,'description'=>$this->module_name),'tbl_languagetext');
     		$this->objModules->insert(array('code'=>$modDescription,'description'=>$this->module_description),'tbl_languagetext');
-    		$this->objModules->commitTransaction();
     	} catch (customException $e) {
-    		$this->objModules->rollbackTransaction();
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
     }
@@ -824,13 +822,13 @@ class modulesadmin extends dbTableManager
     private function registerModuleLanguageTerms($terms) {
         try {
         	$terms_arr=explode(',', $terms);
-        	$this->objModules->beginTransaction();
+        	//$this->objModules->beginTransaction();
         	foreach ($terms_arr as $term) {
         		$this->objModules->insert(array('module_id$'=>$this->module_id,'code'=>$term),'tbl_language_modules');
         	}
-        	$this->objModules->commitTransaction();
+        	//$this->objModules->commitTransaction();
         } catch (Exception $e) {
-        	$this->objModules->rollbackTransaction();
+        	//$this->objModules->rollbackTransaction();
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
@@ -843,13 +841,13 @@ class modulesadmin extends dbTableManager
     */
     private function registerDependentModules($moduleId,$modulesNeeded) {
         try {
-        	$this->objModules->beginTransaction();
+        	//$this->objModules->beginTransaction();
         	foreach ($modulesNeeded as $moduleNeeded) {
         		$this->objModules->insert(array('module_id'=>$moduleId,'dependency'=>$moduleNeeded),'tbl_modules_dependencies');
         	}
-        	$this->objModules->commitTransaction();
+        	//$this->objModules->commitTransaction();
         } catch (Exception $e) {
-        	$this->objModules->rollbackTransaction();
+        	//$this->objModules->rollbackTransaction();
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
@@ -954,7 +952,7 @@ class modulesadmin extends dbTableManager
     * @author James Scoble
     * @param $code,$description,$content
     */
-    public function addText($code,$description,$content,$modname = null) {
+    private function addText($code,$description,$content,$modname = null) {
     	try {
     		if ($modname == null) {
     			$modname = $this->module_id;
@@ -962,7 +960,7 @@ class modulesadmin extends dbTableManager
     		if ($modname == null) {
     			throw new customException("Null value for module name in addText for item $code|$description|$content");
     		}
-    		$this->objModules->beginTransaction();
+    		//$this->objModules->beginTransaction();
     		$this->removeText($code);
     		$code=addslashes($code);
     		$description=addslashes($description);
@@ -973,9 +971,9 @@ class modulesadmin extends dbTableManager
     		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
     				'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
     		$this->objModules->insert($enArray,'tbl_en');
-    		$this->objModules->commitTransaction();
+    		//$this->objModules->commitTransaction();
     	} catch (Exception $e) {
-    		$this->rollbackTransaction();
+    		//$this->rollbackTransaction();
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}
@@ -985,15 +983,76 @@ class modulesadmin extends dbTableManager
     * This is a method to remove specified text entries from both tbl_languagetext and tbl_english
     * @param $code
     */
-    public function removeText($code) {
+    private function removeText($code) {
     	try {
     		$code=addslashes($code);
-    		$this->objModules->beginTransaction();
+    		//$this->objModules->beginTransaction();
     		$this->objModules->delete('id',$code,'tbl_en');
     		$this->objModules->delete('code',$code,'tbl_languagetext');
-    		$this->objModules->commitTransaction();
+    		//$this->objModules->commitTransaction();
     	} catch (Exception $e) {
-    		$this->rollbackTransaction();
+    		//$this->rollbackTransaction();
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+
+     /**
+    * This is a method to look through list of texts specified for module,
+    * and see if they are registered or not.
+    * @author James Scoble
+    * @param string $modname
+    * @param string $action - optional, if its 'fix' then the function tries
+    * to add any texts that are missing.
+    * returns array $mtexts
+    */
+    public function moduleText($modname,$action='readonly') {
+    	try {
+    		$mtexts = array();
+    		$filepath = $this->objModFile->findRegisterFile($modname);
+    		$rdata = $this->objModFile->readRegisterFile($filepath,FALSE);
+    		$texts = $this->listTexts($rdata,'TEXT');
+    		$uses = $this->listTexts($rdata,'USES');
+    		if ($uses) {
+    			$text = array_merge($texts,$uses);
+    		} else {
+    			$text = $texts;
+    		}
+    		//$this->objModule->beginTransaction(); //Start a transaction;
+    		if (is_array($text)) {
+    			foreach ($text as $code=>$data) {
+    				$isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
+    				$text_desc=$data['desc'];
+    				$text_val=$data['content'];
+    				if (($action=='fix')&&($isreg['flag']==0)) {
+    					$this->addText($code,$text_desc,$text_val,$modname);
+    				}
+    				if ($action=='replace') {
+    					$this->addText($code,$text_desc,$text_val,$modname);
+    				}
+    				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
+    			}
+    		}
+    		//$this->objModule->commitTransaction(); //End the transaction;
+    		return $mtexts;
+    	} catch (Exception $e) {
+    		//$this->objModule->rollbackTransaction();
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+
+    /**
+    * This is a method to update the text elements in all registered modules at once
+    */
+    function updateAllText() {
+    	try {
+    		$modulesArray = $this->objModules->getAll();
+    		foreach ($modulesArray as $module) {
+    			$this->moduleText($line['module_id'],'replace');
+    		}
+    		return TRUE;
+    	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}

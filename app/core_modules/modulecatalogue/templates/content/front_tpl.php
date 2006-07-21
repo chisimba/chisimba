@@ -10,11 +10,20 @@ $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
+$objTable->cellspacing = 3;
 $objTable->width='100%';
+$icon->setIcon('installable','jpg');
+$icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue');
+$instbl = $icon->show();
+$icon->setIcon('installed','jpg');
+$icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue');
+$instld = $icon->show();
+$icon->setIcon('run','jpg');
+$icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue');
+$rnnbl = $icon->show();
 
-$head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_isreg','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
+$head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$instbl,
+			$rnnbl,$instld,$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
 
 $count = 0;

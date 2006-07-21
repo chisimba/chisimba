@@ -27,7 +27,7 @@ class splashscreen extends object
         //Get an instance of the help object
         $this->objHelp=& $this->getObject('helplink','help');
         //Create an instance of the module object
-        $this->objModule=& $this->getObject('modulesadmin','modulelist');
+        $this->objModule=& $this->getObject('modules','modulecatalogue');
         $this->server = $this->objConfig->serverName();
     }
 
@@ -123,7 +123,7 @@ class splashscreen extends object
         $ts_content=str_replace("[-NEWPASSWORD-]", $resetLink, $ts_content);
 
         //Create an instance of the module object
-	    $this->objModule=& $this->getObject('modulesadmin','modulelist');
+	    $this->objModule=& $this->getObject('modules','modulecatalogue');
         if($this->objModule->checkIfRegistered('stories','stories')){
             $this->objStories=& $this->getObject('sitestories', 'stories');
             $ts_content=str_replace('[-PRELOGINSTORIES-]', $this->objStories->fetchCategory('prelogin'), $ts_content);
@@ -141,7 +141,7 @@ class splashscreen extends object
 	* @author Wesley Nitsckie
 	*/
 	function getContextDropDown(){
-		$objModule = & $this->newObject('modulesadmin','modulelist');
+		$objModule = & $this->newObject('modules','modulecatalogue');
 		$objDBContext = & $this->newObject('dbcontext','context');
 		$dropdown = & $this->newObject('dropdown','htmlelements');
 		$str = '';

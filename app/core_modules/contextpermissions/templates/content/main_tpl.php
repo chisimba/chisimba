@@ -1,6 +1,6 @@
 <DIV><?php
 // Get all modules
-$objModAdmin = &$this->getObject('modulesadmin','modulelist');
+$objModAdmin = &$this->getObject('modules','modulecatalogue');
 $modules = $objModAdmin->getAll('ORDER BY module_id');
 $ddbModules = $this->newObject( 'dropdown', 'htmlelements' );
 $ddbModules->dropdown('module_name');

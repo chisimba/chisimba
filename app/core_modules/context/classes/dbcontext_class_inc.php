@@ -238,7 +238,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $this->setSession('contextIsClosed',NULL);
         $this->setSession('contextDateCreated',NULL);
         $this->setSession('contextCreatorId',NULL);
-        $objModule =& $this->getObject('modulesadmin','modulelist');
+        $objModule =& $this->getObject('modules','modulecatalogue');
        	if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
             $objDbWorkgroup =& $this->getObject('dbWorkgroup', 'workgroup');
             $objDbWorkgroup->unsetWorkgroupId();

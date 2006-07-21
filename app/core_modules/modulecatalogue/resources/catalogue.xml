@@ -4,13 +4,26 @@
   	<category>Groups</category>
 	<category>e-Learn</category>
 	<category>Content Management System</category>
-	<category>WIKI</category>
+	<category>Wiki</category>
 	<category>Admin</category>
 	<category>Survey</category>
 </catalogue>
     <module>
         <id>181</id>
         <module_id>decisiontable</module_id>
+        <module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+        <module_version>0.2</module_version>
+        <module_path>decisiontable</module_path>
+        <isAdmin>1</isAdmin>
+        <isVisible>1</isVisible>
+        <hasAdminPage>1</hasAdminPage>
+        <isContextAware>0</isContextAware>
+        <dependsContext>0</dependsContext>
+    </module>
+    <module>
+        <id>1891</id>
+        <module_id>formcatcher</module_id>
         <module_authors>Jonathan Abrahams</module_authors>
         <module_releasedate>0000-00-00 00:00:00</module_releasedate>
         <module_version>0.2</module_version>
@@ -62,7 +75,7 @@
         <dependsContext>0</dependsContext>
         <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-        <modulecategory>WIKI</modulecategory>
+        <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -184,7 +197,7 @@
         <dependsContext>1</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -201,7 +214,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -218,7 +231,7 @@
         <dependsContext>1</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -235,7 +248,7 @@
         <dependsContext>1</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -252,7 +265,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -269,7 +282,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -286,7 +299,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -303,7 +316,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -488,7 +501,7 @@
         <isContextAware>1</isContextAware>
         <dependsContext>0</dependsContext>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -505,7 +518,7 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -522,7 +535,7 @@
         <dependsContext>1</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
     </module>
     <module>
@@ -552,10 +565,10 @@
         <dependsContext>0</dependsContext>
          <modulecategory>Groups</modulecategory>
         <modulecategory>e-Learn</modulecategory>
-         <modulecategory>WIKI</modulecategory>
+         <modulecategory>Wiki</modulecategory>
 		 <modulecategory>Survey</modulecategory>
 		 <modulecategory>Groups</modulecategory>
-		 <modulecategory>WIKI</modulecategory>
+		 <modulecategory>Wiki</modulecategory>
 	 <modulecategory>Survey</modulecategory>
     </module>
     <module>

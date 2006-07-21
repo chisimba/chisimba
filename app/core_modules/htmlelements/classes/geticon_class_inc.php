@@ -67,7 +67,7 @@ class getIcon extends object
         $this->_objConfig = & $this->getObject('altconfig','config');
         $this->_objLanguage = & $this->getObject('language', 'language');
         $this->_objSkin = & $this->getObject('skin','skin');
-        
+
         $this->align="middle";
     }
 
@@ -86,18 +86,18 @@ class getIcon extends object
     function setIcon($name, $type = 'gif', $iconfolder='icons/')
     {
         $this->name = $name;
-        
+
         // Just to be explicit - Tohir
         if ($type == NULL) {
             $this->type = 'gif';
         } else {
             $this->type = $type;
         }
-        
+
         // Before Setting the Icon Folder, check if file exists
         $this->_checkIconInSkin ($iconfolder);
     }
-    
+
     /**
     * Method to set the icon folder, depending on whether the file exists in a skin
     * It sets the folder for the icon
@@ -111,10 +111,10 @@ class getIcon extends object
         if (substr($folder, -1) != '/') {
             $folder .= '/';
         }
-        
+
         // Prepare Filename - Folder + name + Extension
         $filename = $folder.$this->name.'.'.$this->type;
-        
+
         // Check if file exists in the current skin
         if (file_exists($this->_objSkin->getSkinLocation().$filename)) {
             $this->iconfolder = $this->_objSkin->getSkinUrl().$folder;
@@ -154,7 +154,7 @@ class getIcon extends object
     {
         $this->setIcon('edit_sm');
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_edit','security');
+        $this->title = $this->_objLanguage->languagetext('word_edit','stories');
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();

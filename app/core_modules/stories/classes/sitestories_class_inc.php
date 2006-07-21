@@ -69,7 +69,7 @@ class sitestories extends dbTable {
         $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on",'stories');
         $ret.=" <b>".$dateCreated."</b></p>";
         //Create an instance of the modulesadmin to check if registered
-        $this->objModule=&$this->getObject('modulesadmin','modulelist');
+        $this->objModule=&$this->getObject('modules','modulecatalogue');
         if ($this->objModule->checkIfRegistered('comment', 'comment')){
             //Create an instance of the comment link
             $objComment = & $this->getObject('commentinterface', 'comment');

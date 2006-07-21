@@ -157,7 +157,7 @@ class context extends controller
         $this->objLink=&$this->newObject('link','htmlelements');
         $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
         $this->objNote=&$this->newObject('dbnotes','context');
-        $this->objModule=&$this->newObject('modulesadmin','modulelist');
+        $this->objModule=&$this->newObject('modules','modulecatalogue');
         $this->objDublinCore=&$this->newObject('dublincore','dublincoremetadata');
 
         $this->objCal->callingModule = "context";
@@ -202,7 +202,7 @@ class context extends controller
 
         //turn off the context for 5ive
         return 'offline_tpl.php';
-        
+
         $this->checkAgreement();
 
         $action = $this->getParam('action');
@@ -738,7 +738,7 @@ class context extends controller
     {
 
         //check if the nettel module is registered
-        $objModules = & $this->getObject('modulesadmin', 'modulelist');
+        $objModules = & $this->getObject('modules', 'modulecatalogue');
         if($objModules->checkIfRegistered(NULL, 'nettel'))
         {
              // check if the course is closed

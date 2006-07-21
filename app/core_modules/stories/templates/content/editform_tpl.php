@@ -6,7 +6,7 @@ if ( $comeFrom != NULL ) {
     //Make the aback link
     $bread = $this->uri(array(), $comeFrom);
     $links = array('<a href="' . $bread . '">'
-  . $comeFrom . '</a>', $this->objLanguage->languageText("word_edit"));
+  . $comeFrom . '</a>', $this->objLanguage->languageText("word_edit",'stories'));
   $objTl->addToBreadCrumbs($links);
 }
 
