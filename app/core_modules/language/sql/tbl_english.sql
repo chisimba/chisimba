@@ -31,7 +31,7 @@ $fields = array(
     'creatorUserId' => array(
 		'type' => 'text',
 		'length' => 25,
-		'notnull' => TRUE
+		'notnull' => TRUE,
         'default' => '1'
 		),
     'dateLastModified' => array(
