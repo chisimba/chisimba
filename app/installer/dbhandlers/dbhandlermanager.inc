@@ -222,12 +222,38 @@ class dbHandlermanager
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
             //return a true, simply because MDB::CreateTable returns void (wtf?)
+            $this->createPK($tableName);
             return TRUE;
         }
         else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
+            $this->createPK($tableName);
             return TRUE;
         }
+
+    }
+
+        /**
+     * Method to describe a pseudo PK id
+     * Most RDBMS's besides MySQL do not have support for PK's so we fake it.
+     *
+     * @access public
+     * @param mixed $tableName
+     * @return bool true
+     */
+    function createPK($tableName)
+    {
+        $index = array(
+        	'fields' => array(
+        	'id' => array('sorting' => 'ascending', ),
+         	),
+        	'primary' => true
+		 );
+
+		$name = 'primary';
+
+		$this->createTableIndex($tableName, $name, $index);
+        return TRUE;
 
     }
 
