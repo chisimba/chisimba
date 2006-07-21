@@ -113,18 +113,18 @@ if (isSet($bodyParams)) {
 }
 	// Add instant messaging
 	if (!isset($pageSuppressIM)) {
-	    $objModules=&$this->getObject('modules','modulelist');
+	    $objModules=&$this->getObject('modules','modulecatalogue');
 	    $this->objUser =& $this->getObject('user', 'security');
 	    if ((!isset($_SESSION['disable_im']))&&($objModules->checkIfRegistered('instantmessaging')) && ($this->objUser->isLoggedIn())) { ?>
 			<iframe id="IM" width="0" height="0" src="<?php echo $this->uri(array('action'=>'view'), 'instantmessaging'); ?>"></iframe>
    		<?php }
  	}
- 
- 	if (!isset($pageSuppressContainer)) { 
+
+ 	if (!isset($pageSuppressContainer)) {
  	    echo '<div>';
- 	} 
- 
- 	if (!isset($pageSuppressBanner)) { 
+ 	}
+
+ 	if (!isset($pageSuppressBanner)) {
  	}
 
 	// Add toolbar bar if not suppressed
@@ -140,16 +140,16 @@ if (isSet($bodyParams)) {
 					<input id="searchsite" name="searchsite" type="text" />
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
-				</div>	
+				</div>
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
 					echo $menu->show();
 				 }
 				 ?>
-			</div>				
-		</div>				
-			
+			</div>
+		</div>
+
 <?  }
 
     // get content

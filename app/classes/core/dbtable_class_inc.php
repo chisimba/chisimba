@@ -257,7 +257,7 @@ class dbTable extends object
         if ($this->_db->supports('transactions')) {
             $this->_db->beginTransaction();
             $this->_inTransaction = true;
-	    }
+        }
     }
 
     /**
@@ -274,6 +274,7 @@ class dbTable extends object
             $this->_db->commit();
             $this->_inTransaction = false;
         }
+
     }
 
     /**

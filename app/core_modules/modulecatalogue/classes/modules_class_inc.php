@@ -3,7 +3,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // end security check
 
 /**
@@ -11,21 +11,22 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * operations on the table.
 * @see modulesadmin class for administrative operations
 * @author Nic Appleby
-* @author Derek Keats 
+* @author Derek Keats
 * @author Sean Legassick
 * @author Jeremy O'Connor
 * @category Chisimba
 * @package Modulecatalogue
-* @version $Id$ 
+* @version $Id$
 */
 
 // Constants for $getType parameter of getModules
 
 class modules extends dbTable
 {
-    const GET_ALL = 1;
-    const GET_VISIBLE = 2;
-    const GET_USERVISIBLE = 3;
+    //no more constants
+	//const GET_ALL = 1;
+    //const GET_VISIBLE = 2;
+    //const GET_USERVISIBLE = 3;
 
     private $objLanguage;
     //private $objConfig;
@@ -41,11 +42,11 @@ class modules extends dbTable
     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
     		exit();
     	}
-    } 
+    }
 
     /**
     * This method retrieves  all existing modules by querying the database
-    * table tbl_modules. If the user is an administrator, it 
+    * table tbl_modules. If the user is an administrator, it
     * returns all visible modules, otherwise it returns all modules
     * where the value of isAdmin is FALSE. It only returns modules
     * where the value of isVisible is TRUE, thus modules can be
@@ -55,30 +56,30 @@ class modules extends dbTable
     * @param  $gettype int Type of request
     * @return array List of modules
     */
-    public function getModules($getType) { 
+    public function getModules($getType) {
     	try {
     		switch ($getType) {
-    			case GET_USERVISIBLE:
+    			case 3:
     				$filter = "WHERE isVisible=1 AND isAdmin!=1 ";
     				break;
-    			case GET_VISIBLE:
+    			case 2:
     				$filter = "WHERE isVisible=1 ";
     				break;
-    			case GET_ALL:
+    			case 1:
     				$filter = '';
     				break;
     			default:
     				throw new customException("Invalid getType in modules::getModules");
     		}
     		$filter .= "ORDER BY module_id";
-    		$modules = $this->getArray($sql);
+    		$modules = $this->getAll($filter);
     		$_modules = array();
     		foreach ($modules as $module) {
     			$_module = array();
     			$_module['module_id'] = $module['module_id'];
     			$_module['module_path'] = $module['module_path'];
-    			$_module['title'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_name');
-    			$_module['description'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_desc');
+    			$_module['title'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_name',$module['module_id']);
+    			$_module['description'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_desc',$module['module_id']);
     			$_modules[] = $_module;
     		}
     		return !empty($_modules) ? $_modules : FALSE;
@@ -86,7 +87,7 @@ class modules extends dbTable
     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
     		exit();
     	}
-    } 
+    }
 
     /**
     * Method to check if a module is Admin-only or not.
@@ -119,13 +120,13 @@ class modules extends dbTable
      		exit();
      	}
      }
-     
-    /** 
-    * This method returns the version of a module in the database 
-    * ie: The version level of the emodule at the time it was registered.  
-    * @param string $module the module to lookup 
+
+    /**
+    * This method returns the version of a module in the database
+    * ie: The version level of the emodule at the time it was registered.
+    * @param string $module the module to lookup
     * @return string $version the version in the database | FALSE
-    */ 
+    */
     public function getVersion($moduleId)
     {
     	try {
@@ -136,7 +137,7 @@ class modules extends dbTable
     		exit();
     	}
     }
-    
+
     /**
      * Method to return the dependents of a module
      * @param string $moduleId the module to check
@@ -156,7 +157,7 @@ class modules extends dbTable
     		exit();
     	}
     }
-    
+
     /**
     * This is a method to check if a module is registered and turn the result as an array
     * @param string $moduleId
