@@ -22,10 +22,11 @@ $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 50,
-        'notnull' => TRUE
+
 		),
     'en' => array(
-		'type' => 'text'
+		'type' => 'text',
+		'length' => 255,
 		),
 	'pageId' => array(
 		'type' => 'text',
@@ -41,6 +42,7 @@ $fields = array(
     'creatorUserId' => array(
 		'type' => 'text',
 		'length' => 25,
+		'notnull' => TRUE
         'default' => '1'
 		),
     'dateLastModified' => array(

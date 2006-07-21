@@ -24,12 +24,12 @@ $fields = array(
 	'module_id' => array(
 		'type' => 'text',
 		'length' => 50,
-        'notnull' => TRUE
+
 		),
     'code' => array(
 		'type' => 'text',
 		'length' => 50,
-        'notnull' => TRUE
+
 		)
     );
 

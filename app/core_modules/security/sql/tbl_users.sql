@@ -1,29 +1,5 @@
 <?php
-/*
-CREATE TABLE tbl_users (
-  id varchar(32) NOT NULL,
-  userId varchar(25) NOT NULL default '0',
-  username varchar(25) NOT NULL default '',
-  title varchar(25) NOT NULL default '',
-  firstName varchar(50) NOT NULL default '',
-  surname varchar(50) NOT NULL default '',
-  pass varchar(100) NOT NULL default '',
-  creationDate date NOT NULL default '0000-00-00',
-  emailAddress varchar(100) NOT NULL default '',
-  logins int(11) default '0',
-  sex char(1) default '',
-  country char(2) default '',
-  accesslevel char(1) default '0',
-  isActive CHAR(1) DEFAULT '1',
-  howCreated VARCHAR(32) DEFAULT 'unknown',
-  updated timestamp(14),
-  PRIMARY KEY  (id),
-  INDEX userId (userId)
-) TYPE=InnoDB  COMMENT='Primary user information';
 
-INSERT INTO tbl_users (id,userId,username,title,firstName,surname,pass,creationDate,emailAddress,logins,sex,country,accessLevel,isActive,howCreated) VALUES ('init_1','1', 'admin', 'Dr', 'Administrative', 'User', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', '0000-00-00', 'admin@localhost.local', 0, 'M', 'ZA','1','1','install');
-
-*/
 // Table Name
 $tablename = 'tbl_users';
 
@@ -50,7 +26,7 @@ $fields = array(
     'title' => array(
 		'type' => 'text',
         'length' => 25,
-        'notnull' => FALSE
+
 		),
     'firstName' => array(
 		'type' => 'text',
@@ -65,11 +41,11 @@ $fields = array(
     'PASS' => array(
 		'type' => 'text',
         'length' => 100,
-   
+
 		),
     'creationDate' => array(
 		'type' => 'date',
-        
+
 		),
     'emailAddress' => array(
 		'type' => 'text',
@@ -79,6 +55,7 @@ $fields = array(
     'logins' => array(
 		'type' => 'integer',
         'length' => 11,
+        'notnull' => TRUE,
         'default' => 0
 		),
     'sex' => array(
@@ -92,12 +69,12 @@ $fields = array(
     'accesslevel' => array(
 		'type' => 'text',
         'length' => 10,
-     
+
 		),
     'isActive' => array(
 		'type' => 'text',
         'length' => 10,
-    
+
 		),
     'howCreated' => array(
 		'type' => 'text',
@@ -107,8 +84,8 @@ $fields = array(
 		),
     'updated' => array(
          'type' => 'date',
-      
-       
+
+
                 )
     );
 

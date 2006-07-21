@@ -21,7 +21,7 @@ $fields = array(
 	'code' => array(
 		'type' => 'text',
 		'length' => 50,
-        'notnull' => TRUE
+
 		),
     'description' => array(
 		'type' => 'text',
