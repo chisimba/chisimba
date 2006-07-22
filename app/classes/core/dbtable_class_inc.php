@@ -26,6 +26,10 @@ require_once "lib/logging.php";
 class dbTable extends object
 {
     /**
+     * @todo add in developer/production debug levels to methods..
+     */
+
+	/**
      * Whether or not to use prepared statements
      *
      * @access public
@@ -301,28 +305,34 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        //log_debug("dbtable insert into $tablename");
-        //log_debug($fields);
+        log_debug("dbtable insert into {$tablename}");
+        log_debug($fields);
+
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-        $sql = "INSERT INTO {$tablename} SET ";
+
         $comma = "";
         if (empty($fields['id'])) {
-            $id = $this->generateId();
+            $id = "init";
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
         }
-        foreach ($fields as $fieldName => $fieldValue) {
-            if ($this->USE_PREPARED_STATEMENTS) {
-                $sql .= "{$comma}{$fieldName}=?";
-                $params[] = $fieldValue;
-            } else {
-                $sql .= "{$comma}{$fieldName}='{$fieldValue}'";
-            }
-            $comma = ', ';
+        $keys = array_keys($fields);
+        $comma = ", ";
+        foreach($keys as $key) {
+        	$fieldnames .= "{$comma}{$key}";
         }
+        foreach ($fields as $fieldName => $fieldValue) {
+
+        	$fieldValues .= "{$comma}'{$fieldValue}'";
+        }
+        $fieldValues = "VALUES ($fieldValues)";
+		$fieldValues = str_replace("(, ","(",$fieldValues);
+		$fieldnames = "($fieldnames)";
+		$fieldnames = str_replace("(, ","(", $fieldnames);
+        $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
         //log_debug("success $ret");

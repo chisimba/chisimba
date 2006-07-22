@@ -392,7 +392,7 @@ class DbHandler extends dbHandlermanager
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-        $sql = "INSERT INTO {$tablename} SET ";
+
         $comma = "";
         if (empty($fields['id'])) {
             $id = "init";
@@ -400,15 +400,20 @@ class DbHandler extends dbHandlermanager
         } else {
             $id = $fields['id'];
         }
-        foreach ($fields as $fieldName => $fieldValue) {
-            if ($this->USE_PREPARED_STATEMENTS) {
-                $sql .= "{$comma}{$fieldName}=?";
-                $params[] = $fieldValue;
-            } else {
-                $sql .= "{$comma}{$fieldName}='{$fieldValue}'";
-            }
-            $comma = ', ';
+        $keys = array_keys($fields);
+        $comma = ", ";
+        foreach($keys as $key) {
+        	$fieldnames .= "{$comma}{$key}";
         }
+        foreach ($fields as $fieldName => $fieldValue) {
+
+        	$fieldValues .= "{$comma}'{$fieldValue}'";
+        }
+        $fieldValues = "VALUES ($fieldValues)";
+		$fieldValues = str_replace("(, ","(",$fieldValues);
+		$fieldnames = "($fieldnames)";
+		$fieldnames = str_replace("(, ","(", $fieldnames);
+        $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
         //log_debug("success $ret");
@@ -419,7 +424,7 @@ class DbHandler extends dbHandlermanager
     function _execute($stmt, $params = array())
     {
         $sh = $this->_globalObjDb->prepare($stmt);
-        return ($sh->execute($params));
+    	return ($sh->execute($params));
     }
 
 
