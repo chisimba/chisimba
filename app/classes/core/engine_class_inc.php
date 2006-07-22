@@ -394,6 +394,7 @@ class engine
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
             $this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
             $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+            $this->_objDb->setOption('quote_identifiers', true);
 
             // include the dbtable base class for future use
         }
