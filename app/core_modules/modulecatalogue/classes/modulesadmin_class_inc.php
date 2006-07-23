@@ -418,7 +418,7 @@ class modulesadmin extends dbTableManager
                     foreach ($registerdata['MENU_CATEGORY'] as $menu_category) {
                         $menu_category=strtolower($menu_category);
                         $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>$menu_category,'module'=>$moduleId,
-                        		'adminOnly'=>$isAdmin,'permissions'=>$aclList,'dependsContext'=>$isContext);
+                        		'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end menu category
@@ -489,7 +489,7 @@ class modulesadmin extends dbTableManager
                             $groupList = $aclList;
                         }
                         $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'menu_'.$line,'module'=>$moduleId,
-                        		'adminOnly'=>$admin,'permissions'=>$groupList,'dependsContext'=>$isContext);
+                        		'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end side menu
@@ -509,7 +509,7 @@ class modulesadmin extends dbTableManager
                             }
                         }
                         $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'page_'.$line,'module'=>$moduleId,
-                        		'adminOnly'=>$admin,'permissions'=>$aclList,'dependsContext'=>$isContext);
+                        		'adminonly'=>$admin,'permissions'=>$aclList,'dependscontext'=>$isContext);
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end pages
@@ -536,15 +536,15 @@ class modulesadmin extends dbTableManager
                     ,'module_releasedate' => $registerdata['MODULE_RELEASEDATE']
                     ,'module_version' => $registerdata['MODULE_VERSION']
                     ,'module_path' => $registerdata['MODULE_PATH']
-                    ,'isAdmin' => $registerdata['MODULE_ISADMIN']
-                    ,'isVisible' => $registerdata['MODULE_ISVISIBLE']
-                    ,'hasAdminPage' => $registerdata['MODULE_HASADMINPAGE']
+                    ,'isadmin' => $registerdata['MODULE_ISADMIN']
+                    ,'isvisible' => $registerdata['MODULE_ISVISIBLE']
+                    ,'hasadminpage' => $registerdata['MODULE_HASADMINPAGE']
                 );
                 if (isset($registerdata['CONTEXT_AWARE'])){
-                    $sql_arr['isContextAware']=$registerdata['CONTEXT_AWARE'];
+                    $sql_arr['iscontextaware']=$registerdata['CONTEXT_AWARE'];
                 }
                 if (isset($registerdata['DEPENDS_CONTEXT'])){
-                    $sql_arr['dependsContext']=$registerdata['DEPENDS_CONTEXT'];
+                    $sql_arr['dependscontext']=$registerdata['DEPENDS_CONTEXT'];
                 }
                 if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
                 	$this->_lastError = 1005;
@@ -813,11 +813,15 @@ class modulesadmin extends dbTableManager
     		$this->objModules->delete('code',$modTitle,'tbl_languagetext');
     		$this->objModules->delete('code',$modDescription,'tbl_languagetext');
     		$userId = $this->objUser->userId();
+    		if($userId == '')
+    		{
+    			$userId = 0;
+    		}
     		$time = $this->objModules->now();
-    		$titleArray = array('id'=>$modTitle,'en'=>addslashes($this->module_name),'pageid'=>addslashes($this->module_id),'isInNextGen'=>true,
-    				'dateCreated'=>$time,'creatorUserId'=>$userId,'dateLastModified'=>$time,'modifiedByUserId'=>$userId);
-    		$descArray = array('id'=>$modDescription,'en'=>addslashes($this->module_description),'pageid'=>addslashes($this->module_id),'isInNextGen'=>true,
-    				'dateCreated'=>$time,'creatorUserId'=>$userId,'dateLastModified'=>$time,'modifiedByUserId'=>$userId);
+    		$titleArray = array('id'=>$modTitle,'en'=>addslashes($this->module_name),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
+    				'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
+    		$descArray = array('id'=>$modDescription,'en'=>addslashes($this->module_description),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
+    				'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
     		$this->objModules->insert($titleArray,'tbl_en');
     		$this->objModules->insert($descArray,'tbl_en');
     		$this->objModules->insert(array('code'=>$modTitle,'description'=>$this->module_name),'tbl_languagetext');
