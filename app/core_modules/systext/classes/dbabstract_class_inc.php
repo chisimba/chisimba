@@ -31,13 +31,13 @@ class dbabstract extends dbTable
     public function addRecord($systemId, $textId, $abstract, $creatorId, $canDelete = NULL)
     {
         $fields = array();
-        $fields['systemId'] = $systemId;
-        $fields['textId'] = $textId;
+        $fields['systemid'] = $systemId;
+        $fields['textid'] = $textId;
         $fields['abstract'] = $abstract;
-        $fields['creatorId'] = $creatorId;
-        $fields['dateCreated'] = date('Y-m-d H:i:s');
+        $fields['creatorid'] = $creatorId;
+        $fields['datecreated'] = date('Y-m-d H:i:s');
         if(!empty($canDelete)){
-            $fields['canDelete'] = $canDelete;
+            $fields['candelete'] = $canDelete;
         }
         return $this -> insert($fields);
     }
@@ -52,7 +52,7 @@ class dbabstract extends dbTable
     public function getRecord($systemId, $textId)
     {
         $sql = "SELECT * FROM " . $this -> table;
-        $sql .= " WHERE systemId = '$systemId' AND textId = '$textId'";
+        $sql .= " WHERE systemid = '$systemId' AND textid = '$textId'";
         $data = $this -> getArray($sql);
         if(!empty($data)){
             return $data;
@@ -95,7 +95,7 @@ class dbabstract extends dbTable
     public function listRecords($systemId)
     {
         $sql = "SELECT * FROM " . $this -> table;
-        $sql .= " WHERE systemId = '$systemId'";
+        $sql .= " WHERE systemid = '$systemId'";
         $data = $this -> getArray($sql);
         if(!empty($data)){
             return $data;
@@ -115,7 +115,7 @@ class dbabstract extends dbTable
         $fields = array();
         $fields['abstract'] = $abstract;
         if(!empty($canDelete)){
-            $fields['canDelete'] = $canDelete;
+            $fields['candelete'] = $canDelete;
         }
         $this -> update('id', $id, $fields);
     }

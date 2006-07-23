@@ -29,8 +29,8 @@ class dbtext extends dbTable
     {
         $fields = array();
         $fields['text'] = $text;
-        $fields['creatorId'] = $creatorId;
-        $fields['dateCreated'] = date('Y-m-d H:i:s');
+        $fields['creatorid'] = $creatorId;
+        $fields['datecreated'] = date('Y-m-d H:i:s');
         return $this -> insert($fields);
     }
 

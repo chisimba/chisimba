@@ -28,9 +28,9 @@ class dbsystem extends dbTable
     public function addRecord($systemType, $creatorId)
     {
         $fields = array();
-        $fields['systemType'] = $systemType;
-        $fields['creatorId'] = $creatorId;
-        $fields['dateCreated'] = date('Y-m-d H:i:s');
+        $fields['systemtype'] = $systemType;
+        $fields['creatorid'] = $creatorId;
+        $fields['datecreated'] = date('Y-m-d H:i:s');
         return $this -> insert($fields);
     }
 
@@ -69,10 +69,10 @@ class dbsystem extends dbTable
     public function listAllRecords()
     {
         $sql = 'SELECT * FROM ' . $this -> table;
-        $sql .= ' ORDER BY "systemType" ';
-        
+        $sql .= ' ORDER BY "systemtype" ';
+
         $data = $this -> getArray($sql);
-      
+
         if(!empty($data)){
             return $data;
         }
@@ -88,7 +88,7 @@ class dbsystem extends dbTable
     public function editRecord($systemId, $systemType)
     {
         $fields = array();
-        $fields['systemType'] = $systemType;
+        $fields['systemtype'] = $systemType;
         $this -> update('id', $systemId, $fields);
     }
 }
