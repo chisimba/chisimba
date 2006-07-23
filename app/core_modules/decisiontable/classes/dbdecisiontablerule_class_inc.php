@@ -48,11 +48,10 @@ class dbDecisionTableRule extends dbTable {
      */
     public function upgradeTable()
     {
-        /**
-         * @todo FIX CALL TO LIKE - MySQL specific code!!!
-         */
-    	$sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
-        $arrTableExists = $this->getArray( $sqlTableExists );
+        $ret = $this->listDbTables();
+        if(in_array($this->_tableName,$ret)) {
+        	$arrTableExists = $ret;
+        }
         if( empty ( $arrTableExists ) ) {
             $sqldata = array();
             @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';

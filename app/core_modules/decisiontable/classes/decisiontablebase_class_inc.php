@@ -75,13 +75,24 @@ class decisionTableBase extends dbTable
      */
     function upgradeTable()
     {
-        $sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
+        $ret = $this->listDbTables();
+        if(in_array($this->_tableName,$ret)) {
+        	$arrTableExists = $ret;
+        }
+        elseif (empty ( $arrTableExists )) {
+        	$sqldata = array();
+            @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
+            $this->query( $sqldata[0] );
+        }
+    	/**
+    	$sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
         $arrTableExists = $this->getArray( $sqlTableExists );
         if( empty ( $arrTableExists ) ) {
             $sqldata = array();
             @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
         }
+        */
     }
     /**
      * Abstract method to connect to other objects.
