@@ -71,6 +71,7 @@ class dbsystem extends dbTable
         $sql = 'SELECT * FROM ' . $this -> table;
         $sql .= ' ORDER BY "systemtype" ';
 
+        //echo $sql;
         $data = $this -> getArray($sql);
 
         if(!empty($data)){

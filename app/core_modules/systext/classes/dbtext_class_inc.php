@@ -69,7 +69,7 @@ class dbtext extends dbTable
     public function listAllRecords()
     {
         $sql = "SELECT * FROM " . $this -> table;
-        $sql .= " ORDER BY 'text' ";
+        $sql .= ' ORDER BY "text" ';
         $data = $this -> getArray($sql);
         if(!empty($data)){
             return $data;
