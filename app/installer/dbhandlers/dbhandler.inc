@@ -123,7 +123,7 @@ class DbHandler extends dbHandlermanager
 		 	require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
-			$this->_globalObjDbManager->setOption('quote_identifiers', true);
+			//$this->_globalObjDbManager->setOption('quote_identifiers', true);
              $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
              $this->dbmanager = new dbHandlermanager();
              parent::__construct();
@@ -141,7 +141,7 @@ class DbHandler extends dbHandlermanager
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
 
-        //echo $msg."<br><br>";
+        echo $msg."<br><br>";
     }
 
 	/**
