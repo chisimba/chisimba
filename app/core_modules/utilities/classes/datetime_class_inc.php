@@ -161,7 +161,7 @@ class datetime extends object
      */
     public function init()
     {
-        $this->objConfig=&$this->getObject('config','config');
+        $this->objConfig=&$this->getObject('altconfig','config');
         $this->objLanguage = & $this->getObject("language", "language");
     }
 
@@ -467,40 +467,40 @@ class datetime extends object
      {
         switch ($month) {
             case "Jan":
-                return $this->objLanguage->languageText("mod_datetime_jan");
+                return $this->objLanguage->languageText("mod_datetime_jan",'datetime');
                 break;
             case "Feb":
-                return $this->objLanguage->languageText("mod_datetime_feb");
+                return $this->objLanguage->languageText("mod_datetime_feb",'datetime');
                 break;
             case "Mar":
-                return $this->objLanguage->languageText("mod_datetime_mar");
+                return $this->objLanguage->languageText("mod_datetime_mar",'datetime');
                 break;
             case "Apr":
-                return $this->objLanguage->languageText("mod_datetime_apr");
+                return $this->objLanguage->languageText("mod_datetime_apr",'datetime');
                 break;
             case "May":
-                return $this->objLanguage->languageText("mod_datetime_may");
+                return $this->objLanguage->languageText("mod_datetime_may",'datetime');
                 break;
             case "Jun":
-                return $this->objLanguage->languageText("mod_datetime_jun");
+                return $this->objLanguage->languageText("mod_datetime_jun",'datetime');
                 break;
             case "Jul":
-                return $this->objLanguage->languageText("mod_datetime_jul");
+                return $this->objLanguage->languageText("mod_datetime_jul",'datetime');
                 break;
             case "Aug":
-                return $this->objLanguage->languageText("mod_datetime_aug");
+                return $this->objLanguage->languageText("mod_datetime_aug",'datetime');
                 break;
             case "Sep":
-                return $this->objLanguage->languageText("mod_datetime_sep");
+                return $this->objLanguage->languageText("mod_datetime_sep",'datetime');
                 break;
             case "Oct":
-                return $this->objLanguage->languageText("mod_datetime_oct");
+                return $this->objLanguage->languageText("mod_datetime_oct",'datetime');
                 break;
             case "Nov":
-                return $this->objLanguage->languageText("mod_datetime_nov");
+                return $this->objLanguage->languageText("mod_datetime_nov",'datetime');
                 break;
             case "Dec":
-                return $this->objLanguage->languageText("mod_datetime_dec");
+                return $this->objLanguage->languageText("mod_datetime_dec",'datetime');
                 break;
             default:
                 return $month;
@@ -518,27 +518,27 @@ class datetime extends object
     */
     public function monthFull($numMonth)
     {
-        $calMes["01"] = $this->objLanguage->languageText("mod_datetime_january");
-        $calMes["1"] = $this->objLanguage->languageText("mod_datetime_january");
-        $calMes["02"] = $this->objLanguage->languageText("mod_datetime_february");
-        $calMes["2"] = $this->objLanguage->languageText("mod_datetime_february");
-        $calMes["03"] = $this->objLanguage->languageText("mod_datetime_march");
-        $calMes["3"] = $this->objLanguage->languageText("mod_datetime_march");
-        $calMes["04"] = $this->objLanguage->languageText("mod_datetime_april");
-        $calMes["4"] = $this->objLanguage->languageText("mod_datetime_april");
-        $calMes["05"] = $this->objLanguage->languageText("mod_datetime_may");
-        $calMes["5"] = $this->objLanguage->languageText("mod_datetime_may");
-        $calMes["06"] = $this->objLanguage->languageText("mod_datetime_june");
-        $calMes["6"] = $this->objLanguage->languageText("mod_datetime_june");
-        $calMes["07"] = $this->objLanguage->languageText("mod_datetime_july");
-        $calMes["7"] = $this->objLanguage->languageText("mod_datetime_july");
-        $calMes["08"] = $this->objLanguage->languageText("mod_datetime_august");
-        $calMes["8"] = $this->objLanguage->languageText("mod_datetime_august");
-        $calMes["09"] = $this->objLanguage->languageText("mod_datetime_september");
-        $calMes["9"] = $this->objLanguage->languageText("mod_datetime_september");
-        $calMes["10"] = $this->objLanguage->languageText("mod_datetime_october");
-        $calMes["11"] = $this->objLanguage->languageText("mod_datetime_november");
-        $calMes["12"] = $this->objLanguage->languageText("mod_datetime_december");
+        $calMes["01"] = $this->objLanguage->languageText("mod_datetime_january",'datetime');
+        $calMes["1"] = $this->objLanguage->languageText("mod_datetime_january",'datetime');
+        $calMes["02"] = $this->objLanguage->languageText("mod_datetime_february",'datetime');
+        $calMes["2"] = $this->objLanguage->languageText("mod_datetime_february",'datetime');
+        $calMes["03"] = $this->objLanguage->languageText("mod_datetime_march",'datetime');
+        $calMes["3"] = $this->objLanguage->languageText("mod_datetime_march",'datetime');
+        $calMes["04"] = $this->objLanguage->languageText("mod_datetime_april",'datetime');
+        $calMes["4"] = $this->objLanguage->languageText("mod_datetime_april",'datetime');
+        $calMes["05"] = $this->objLanguage->languageText("mod_datetime_may",'datetime');
+        $calMes["5"] = $this->objLanguage->languageText("mod_datetime_may",'datetime');
+        $calMes["06"] = $this->objLanguage->languageText("mod_datetime_june",'datetime');
+        $calMes["6"] = $this->objLanguage->languageText("mod_datetime_june",'datetime');
+        $calMes["07"] = $this->objLanguage->languageText("mod_datetime_july",'datetime');
+        $calMes["7"] = $this->objLanguage->languageText("mod_datetime_july",'datetime');
+        $calMes["08"] = $this->objLanguage->languageText("mod_datetime_august",'datetime');
+        $calMes["8"] = $this->objLanguage->languageText("mod_datetime_august",'datetime');
+        $calMes["09"] = $this->objLanguage->languageText("mod_datetime_september",'datetime');
+        $calMes["9"] = $this->objLanguage->languageText("mod_datetime_september",'datetime');
+        $calMes["10"] = $this->objLanguage->languageText("mod_datetime_october",'datetime');
+        $calMes["11"] = $this->objLanguage->languageText("mod_datetime_november",'datetime');
+        $calMes["12"] = $this->objLanguage->languageText("mod_datetime_december",'datetime');
         return $calMes[$numMonth];
     }
 
@@ -554,47 +554,47 @@ class datetime extends object
         switch($abbrev){
             case "3letter":
                 $calMes = array(
-                    $this->objLanguage->languageText("mod_datetime_jan"),
-                    $this->objLanguage->languageText("mod_datetime_feb"),
-                    $this->objLanguage->languageText("mod_datetime_mar"),
-                    $this->objLanguage->languageText("mod_datetime_apr"),
-                    $this->objLanguage->languageText("mod_datetime_may"),
-                    $this->objLanguage->languageText("mod_datetime_jun"),
-                    $this->objLanguage->languageText("mod_datetime_jul"),
-                    $this->objLanguage->languageText("mod_datetime_aug"),
-                    $this->objLanguage->languageText("mod_datetime_sep"),
-                    $this->objLanguage->languageText("mod_datetime_oct"),
-                    $this->objLanguage->languageText("mod_datetime_nov"),
-                    $this->objLanguage->languageText("mod_datetime_dec"));
+                    $this->objLanguage->languageText("mod_datetime_jan",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_feb",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_mar",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_apr",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_may",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_jun",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_jul",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_aug",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_sep",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_oct",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_nov",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_dec",'datetime'));
                 break;
             case "1letter":
                 $calMes = array(
-                    $this->objLanguage->languageText("mod_datetime_jy"),
-                    $this->objLanguage->languageText("mod_datetime_fy"),
-                    $this->objLanguage->languageText("mod_datetime_mm"),
-                    $this->objLanguage->languageText("mod_datetime_al"),
-                    $this->objLanguage->languageText("mod_datetime_my"),
-                    $this->objLanguage->languageText("mod_datetime_jn"),
-                    $this->objLanguage->languageText("mod_datetime_jl"),
-                    $this->objLanguage->languageText("mod_datetime_ag"),
-                    $this->objLanguage->languageText("mod_datetime_st"),
-                    $this->objLanguage->languageText("mod_datetime_ot"),
-                    $this->objLanguage->languageText("mod_datetime_nv"),
-                    $this->objLanguage->languageText("mod_datetime_dc"));
+                    $this->objLanguage->languageText("mod_datetime_jy",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_fy",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_mm",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_al",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_my",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_jn",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_jl",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_ag",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_st",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_ot",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_nv",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_dc",'datetime'));
                 break;
             default:
-                $calMes = array($this->objLanguage->languageText("mod_datetime_january"),
-                    $this->objLanguage->languageText("mod_datetime_february"),
-                    $this->objLanguage->languageText("mod_datetime_march"),
-                    $this->objLanguage->languageText("mod_datetime_april"),
-                    $this->objLanguage->languageText("mod_datetime_may"),
-                    $this->objLanguage->languageText("mod_datetime_june"),
-                    $this->objLanguage->languageText("mod_datetime_july"),
-                    $this->objLanguage->languageText("mod_datetime_august"),
-                    $this->objLanguage->languageText("mod_datetime_september"),
-                    $this->objLanguage->languageText("mod_datetime_october"),
-                    $this->objLanguage->languageText("mod_datetime_november"),
-                    $this->objLanguage->languageText("mod_datetime_december"));
+                $calMes = array($this->objLanguage->languageText("mod_datetime_january",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_february",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_march",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_april",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_may",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_june",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_july",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_august",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_september",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_october",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_november",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_december",'datetime'));
                 break;;
         } // switch
         return $calMes;
@@ -613,46 +613,46 @@ class datetime extends object
         switch($abbrev){
             case "3letter":
                 $caldays = array(
-                    $this->objLanguage->languageText("mod_datetime_mon"),
-                    $this->objLanguage->languageText("mod_datetime_tue"),
-                    $this->objLanguage->languageText("mod_datetime_wed"),
-                    $this->objLanguage->languageText("mod_datetime_thu"),
-                    $this->objLanguage->languageText("mod_datetime_fri"),
-                    $this->objLanguage->languageText("mod_datetime_sat"),
-                    $this->objLanguage->languageText("mod_datetime_sun"));
+                    $this->objLanguage->languageText("mod_datetime_mon",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_tue",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_wed",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_thu",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_fri",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_sat",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_sun",'datetime'));
                 break;
             case "2letter":
                 $caldays = array(
-                    $this->objLanguage->languageText("mod_datetime_mo"),
-                    $this->objLanguage->languageText("mod_datetime_tu"),
-                    $this->objLanguage->languageText("mod_datetime_we"),
-                    $this->objLanguage->languageText("mod_datetime_th"),
-                    $this->objLanguage->languageText("mod_datetime_fr"),
-                    $this->objLanguage->languageText("mod_datetime_sa"),
-                    $this->objLanguage->languageText("mod_datetime_su"));
+                    $this->objLanguage->languageText("mod_datetime_mo",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_tu",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_we",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_th",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_fr",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_sa",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_su",'datetime'));
                 break;
 
             case "1letter":
                 $caldays = array(
-                    $this->objLanguage->languageText("mod_datetime_m"),
-                    $this->objLanguage->languageText("mod_datetime_tuy"),
-                    $this->objLanguage->languageText("mod_datetime_w"),
-                    $this->objLanguage->languageText("mod_datetime_thy"),
-                    $this->objLanguage->languageText("mod_datetime_f"),
-                    $this->objLanguage->languageText("mod_datetime_say"),
-                    $this->objLanguage->languageText("mod_datetime_suy"));
+                    $this->objLanguage->languageText("mod_datetime_m",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_tuy",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_w",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_thy",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_f",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_say",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_suy",'datetime'));
 
                 break;
 
             default:
                 $caldays = array(
-                    $this->objLanguage->languageText("mod_datetime_monday"),
-                    $this->objLanguage->languageText("mod_datetime_tuesday"),
-                    $this->objLanguage->languageText("mod_datetime_wednesday"),
-                    $this->objLanguage->languageText("mod_datetime_thursday"),
-                    $this->objLanguage->languageText("mod_datetime_friday"),
-                    $this->objLanguage->languageText("mod_datetime_saturday"),
-                    $this->objLanguage->languageText("mod_datetime_sunday"));
+                    $this->objLanguage->languageText("mod_datetime_monday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_tuesday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_wednesday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_thursday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_friday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_saturday",'datetime'),
+                    $this->objLanguage->languageText("mod_datetime_sunday",'datetime'));
                 break;
         }
         if ($this->startweek=="sun") { // Take sunday from the end and put it first

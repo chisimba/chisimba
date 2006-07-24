@@ -127,6 +127,7 @@ class fileupload
     function upload_file($uploaddir,$rename=null,$replace=false,$file_max_size=0,$check_type="")
     {
         
+		$this->set_file_name($_FILES['upload']['name']);
         $this->set_file_type($_FILES['upload']['type']);
         $this->set_file_size($_FILES['upload']['size']);
         $this->error=$_FILES['upload']['error'];
@@ -174,8 +175,10 @@ class fileupload
         
         $this->start_upload($filename,$temp_name,$uploaddir);
         
-        	if($this->error!="")
+        	if($this->error!="") {
+				echo $this->error;
         		return false;
+			}
         	else
         		return $this->file_name;
     }
@@ -208,5 +211,9 @@ class fileupload
        }
     }
 
+    function checkError($code)
+    {
+        return $this->objLanguage->languageText("mod_utilities_fileuploaderror_$code");
+    }
 }//end class
 ?>
