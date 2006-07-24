@@ -213,7 +213,7 @@ class results extends object
 						
 						<h1>Search Results</h1>
 						<h5>'.count($arrResults).' Hits found</h5>
-					<div id="resultslist-wrap"><ol>
+					<div id="resultslist-wrap"><ul>
 						';
 		
 		//the array index
@@ -245,7 +245,7 @@ class results extends object
 			$i++;
 				
 		}
-			$str .='	</ol>
+			$str .='	</ul>
 					</div>';
 		
 		return $str;
