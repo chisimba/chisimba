@@ -7,8 +7,8 @@
         <isActive>1</isActive>
         <parentId>base</parentId>
         <language>en</language>
-        <title>KEWL.NextGen default prelogin story</title>
-        <abstract>This is the KEWL.NextGen main prelogin story</abstract>
+        <title>Chisimba default prelogin story</title>
+        <abstract>This is the Chisimba main prelogin story</abstract>
         <mainText>&amp;nbsp;This is the default prelogin story. To edit this story, go to
 site admin, and choose website stories, and edit this prelogin story.
 Alternatively, you can delete this story and add one or more additional
@@ -28,9 +28,9 @@ stories to the prelogin category.</mainText>
         <isActive>1</isActive>
         <parentId>base</parentId>
         <language>en</language>
-        <title>Welcome to KEWL.NextGen</title>
-        <abstract>Welcome to KEWL.NextGen, an e-learning system produced by the African Virtual Open Initiatives and Resources (AVOIR) project.</abstract>
-        <mainText>&lt;p&gt;KEWL.NextGen is an advanced e-learning system (sometimes referred to as a learning management system, a virtual learning environment) with features similar to common proprietary systems. It is free software (open source) released under the GNU GPL, and available for download from http://avoir.uwc.ac.za/ External link or by anonymous CVS checkout from the repository nextgen in /cvsroot on cvs.uwc.ac.za using the username and password anoncvs.&lt;/p&gt;&lt;p&gt;KEWL.NextGen was developed based on several years of experience in e-learning at the University of the Western Cape and partner institutions using its predecessor KEWL, and is under active development by a team of developers in 11 African higher education institutions.&lt;/p&gt;</mainText>
+        <title>Welcome to Chisimba</title>
+        <abstract>Welcome to Chisimba, a rapid application development platform and next generation framework produced by the African Virtual Open Initiatives and Resources (AVOIR) project.</abstract>
+        <mainText>&lt;p&gt;Chisimba is an advanced rapid application development platform and next generation framework with features similar to common proprietary systems. It is free software (open source) released under the GNU GPL, and available for download via cvs checkout from http://cvs2.uwc.ac.za/ .&lt;/p&gt;&lt;p&gt;KEWL.NextGen was developed based on several years of experience in e-learning at the University of the Western Cape and partner institutions using its predecessor KEWL, and is under active development by a team of developers in 11 African higher education institutions.&lt;/p&gt;</mainText>
         <dateCreated>2005-04-20 12:04:35</dateCreated>
         <creatorId>1</creatorId>
         <expirationDate>2020-04-21 00:00:00</expirationDate>
@@ -44,13 +44,10 @@ stories to the prelogin category.</mainText>
         <isActive>1</isActive>
         <parentId>base</parentId>
         <language>en</language>
-        <title>You have successfully logged in to KEWL.NextGen</title>
+        <title>You have successfully logged in to Chisimba</title>
         <abstract>You now have access to a rich set of features. You should really ask the system administrator for this site to change this message.</abstract>
         <mainText>You now have access to a rich set of features. If you are
-looking for documentation for users you can download it from
-http://kngforge.uwc.ac.za/. You can access the AVOIR project at
-http://avoir.uwc.ac.za/ or explore other documentation, source code,
-etc at http://cvs.uwc.ac.za/</mainText>
+looking for Kewl.Nextgen, please see http://avoir.uwc.ac.za/</mainText>
         <dateCreated>2005-04-20 12:04:34</dateCreated>
         <creatorId>1</creatorId>
         <expirationDate>2025-04-21 00:00:00</expirationDate>
