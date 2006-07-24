@@ -379,7 +379,7 @@ class dbTable extends object
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
-        log_debug($sql);
+        //log_debug($sql);
         //log_debug("success $ret");
 
         return $ret ? $id : false;
@@ -462,7 +462,7 @@ class dbTable extends object
     public function _execute($stmt, $params = array())
     {
         $sh = $this->_db->prepare($stmt);
-        return ($sh->execute());
+        return ($sh->execute($params));
     }
 
     /**
