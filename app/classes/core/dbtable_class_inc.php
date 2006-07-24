@@ -93,6 +93,14 @@ class dbTable extends object
      */
     private $_portability;
 
+    /**
+     * Property to handle the error reporting
+     *
+     * @access private
+     * @var string
+     */
+    private $debug = FALSE;
+
 
     /**
     * Method to initialise the dbTable object.
@@ -117,6 +125,11 @@ class dbTable extends object
 
         $this->objDBConfig=&$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
+        //check if debugging is enabled
+        if($this->objDBConfig->geterror_reporting() == "developer")
+        {
+        	$this->debug = TRUE;
+        }
 
     }
 
@@ -131,6 +144,10 @@ class dbTable extends object
     public function valueExists($field, $value)
     {
         $sql = "SELECT COUNT(*) AS fCount FROM $this->_tableName WHERE $field='$value'";
+        if($this->debug = TRUE)
+        {
+        	log_debug($sql);
+        }
         $rs = $this->_execute($sql);
         if (!$rs) {
             $ret = false;
@@ -156,6 +173,10 @@ class dbTable extends object
     public function getAll($filter = null)
     {
         $stmt = "SELECT * FROM {$this->_tableName} $filter";
+        if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
+        }
         return $this->getArray($stmt);
     }
 
@@ -172,7 +193,10 @@ class dbTable extends object
     {
         $pk_value = addslashes($pk_value);
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
-
+		if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
+        }
         return $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
     }
 
@@ -189,6 +213,10 @@ class dbTable extends object
     	$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
         if (PEAR::isError($ret)) {
             $ret = false;
+        }
+        if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
         }
         return $ret;
     }
@@ -213,6 +241,10 @@ class dbTable extends object
                 $ret[] = $row;
             }
         }
+        if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
+        }
         return $ret;
     }
 
@@ -229,6 +261,10 @@ class dbTable extends object
     public function fetchAll($filter = null)
     {
         $stmt = "SELECT * FROM {$this->_tableName} " . $filter;
+        if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
+        }
         return $this->query($stmt);
     }
 
@@ -244,6 +280,10 @@ class dbTable extends object
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         $rs = $this->query($sql);
+        if($this->debug = TRUE)
+        {
+        	log_debug($sql);
+        }
 	    return $rs[0]['rc'];
     }
 
@@ -305,8 +345,12 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        log_debug("dbtable insert into {$tablename}");
-        log_debug($fields);
+        if($this->debug = TRUE)
+        {
+        	log_debug("dbtable insert into {$tablename}");
+	        log_debug($fields);
+
+        }
 
         if (empty($tablename)) {
             $tablename = $this->_tableName;
@@ -370,6 +414,10 @@ class dbTable extends object
         }
         $sql .= " WHERE {$pkfield}='{$pkvalue}'";
         $ret = $this->_execute($sql, $params);
+        if($this->debug = TRUE)
+        {
+        	log_debug($sql);
+        }
 
         return $ret;
     }
@@ -390,7 +438,10 @@ class dbTable extends object
 
         $sql = "DELETE FROM {$tablename} WHERE {$pkfield}='{$pkvalue}'";
         $ret = $this->_execute($sql);
-
+		if($this->debug = TRUE)
+        {
+        	log_debug($sql);
+        }
         return $ret;
     }
 
@@ -411,7 +462,7 @@ class dbTable extends object
     public function _execute($stmt, $params = array())
     {
         $sh = $this->_db->prepare($stmt);
-        return ($sh->execute($params));
+        return ($sh->execute());
     }
 
     /**
