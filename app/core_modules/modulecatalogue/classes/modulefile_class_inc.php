@@ -294,8 +294,7 @@ class modulefile extends object {
 			} else {
 				return FALSE;
 			} // end of if
-		}
-		catch (Exception $e) {
+		} catch (Exception $e) {
 			echo customException::cleanUp($e->getMessage());
 			exit(0);
 		}

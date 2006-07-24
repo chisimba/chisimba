@@ -7,13 +7,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
-* Descendant of modules which adds administrative functionality.
+* Class for manipulating modules with administrative functionality.
 * Dividing the class in two like this avoids loading this
 * file when only the basic user functionality is needed.
 * @author Nic Appleby
-* @copyright GPL UWC 2006
+* @copyright AVOIR
+* @license GNU/GPL
 * @category Chisimba
-* @package Modulecatalogue
+* @package modulecatalogue
 * @version $Id$
 */
 

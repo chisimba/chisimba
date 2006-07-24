@@ -97,6 +97,13 @@ class modulecatalogue extends controller
 	protected $output;
 
 	/**
+	 * object to manage module patches
+	 *
+	 * @var object $objPatch
+	 */
+	protected $objPatch;
+
+	/**
 	 * Standard initialisation function
 	 */
 	public function init() {
@@ -104,11 +111,12 @@ class modulecatalogue extends controller
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
-			//the class for reading register.conf files
-        	$this->objLanguage = &$this->getObject('language','language');
+			$this->objLanguage = &$this->getObject('language','language');
         	$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
 			$this->objModule = &$this->getObject('modules');
-			$this->objModFile = &$this->getObject('modulefile');
+			//the class for reading register.conf files
+        	$this->objModFile = &$this->getObject('modulefile');
+        	$this->objPatch = &$this->getObject('patch','modulecatalogue');
 			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			$this->objSideMenu->addNodes(array('updates','all'));
@@ -147,6 +155,7 @@ class modulecatalogue extends controller
 				case null:
 				case 'list':
 					if (strtolower($activeCat) == 'updates') {
+						$this->setVar('patchArray',$this->objPatch->checkModules());
 						return 'updates_tpl.php';
 					} else {
 						return 'front_tpl.php';
@@ -313,7 +322,7 @@ class modulecatalogue extends controller
     	try {
     		foreach ($modArray as $line) {
     			if (!$this->smartRegister($line)) {
-    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_insterror','modulecatalogue')." $line: {$this->objModuleAdmin->output}");
+    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_insterror','modulecatalogue')." $line: {$this->output}");
     			}
     		}
     	} catch (Exception $e) {
@@ -340,6 +349,8 @@ class modulecatalogue extends controller
     					foreach ($registerdata['DEPENDS'] as $line) {
     						$result=$this->smartRegister($line);
     						if ($result==FALSE) {
+    							$this->output = $this->objModuleAdmin->output."\n";
+    							$this->output .= str_replace('{MODULE}',$line,$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue'))."\n";
     							return FALSE;
     						}
     					}
@@ -351,7 +362,7 @@ class modulecatalogue extends controller
     				return $regResult;
     			}
     		} else {
-    			$this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
+    			$this->output .= $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue')."\n";
     			return FALSE;
     		}
     	} catch (Exception $e) {
