@@ -335,6 +335,7 @@ class dbTable extends object
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
+        log_debug($sql);
         //log_debug("success $ret");
 
         return $ret ? $id : false;

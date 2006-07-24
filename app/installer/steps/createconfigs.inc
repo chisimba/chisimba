@@ -63,7 +63,9 @@ class CreateConfigs extends Step
 
 		$this->can_cancel = false;
 
+
 		$this->step_help = "Plase allow Chisimba to create database and the configuration files";
+
 
 	}//end CreateConfigs()
 
@@ -208,14 +210,18 @@ class CreateConfigsAction extends FiveStepAction
 			} else {
 
 				$root_url = KEWL_SITE_ROOT;
+				$root_url = $_SELF . '../index.php';
 
 			}
+
 
 		}
 
 
 
-		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url);
+		$_SESSION['end_url'] = $root_url;
+
+		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
 
 
 
@@ -359,7 +365,9 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 
+
 			$this->_addConfigVar('KEWL_SITEROOT', 'http://'.$_SESSION['site_url'].'/');
+
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
 

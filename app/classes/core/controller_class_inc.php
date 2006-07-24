@@ -37,7 +37,7 @@ class controller extends access
         	echo customException::cleanUp($e);
         	die();
         }
-        
+
     }
 
     /**
@@ -264,6 +264,7 @@ class controller extends access
         if ($buffer) {
             $pageContent = ob_get_contents();
             ob_end_clean();
+
 
             //call on tidy to clean up...
             // Specify tidy configuration

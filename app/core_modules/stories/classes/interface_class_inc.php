@@ -8,7 +8,7 @@
 * @author Derek Keats
 *
 */
-class interface extends object {
+class storyinterface extends object {
 
     var $objUser;
     var $objLanguage;

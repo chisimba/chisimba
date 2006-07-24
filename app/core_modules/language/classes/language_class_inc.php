@@ -177,7 +177,7 @@ class language extends dbTable {
     * @access public
     * @author Jonathan Abrahams, Derek Keats
     */
-    public function code2Txt($str,$modulename,$arrOfRep=NULL)
+    public function code2Txt($str,$modulename = "_default",$arrOfRep=NULL)
     {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");

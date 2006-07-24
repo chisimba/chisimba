@@ -1127,7 +1127,8 @@ class PEARDBCheckAction extends StepAction
 									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 
 									'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
-									'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>''));
+									'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>'')
+							);
 
 
 

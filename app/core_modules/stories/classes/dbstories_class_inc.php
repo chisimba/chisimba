@@ -15,7 +15,7 @@ class dbStories extends dbTable
         $this->objUser =& $this->getObject('user', 'security');
         $this->objLanguage =& $this->getObject('language', 'language');
     }
-    
+
     /**
     * Save method for groups admin
     * @param string $mode: edit if coming from edit, add if coming from add
@@ -69,8 +69,8 @@ class dbStories extends dbTable
               'expirationDate'=>$expirationDate));
         }
     }
-    
-   
+
+
     /**
     * Method to ask for confirmation to delete a group
     * @param string $keyvalue The group to be deleted
@@ -79,7 +79,7 @@ class dbStories extends dbTable
         global  $objButtons, $objLanguage, $objSkin, $objUser;
         include ('templates/confirmdelete_tpl.php');          # includes the form template
     }
-    
+
 
     /**
     * Method to delete a group
@@ -88,12 +88,12 @@ class dbStories extends dbTable
     function deleteStories($key, $keyvalue) {
         $this->delete($key, $keyvalue);
     }
-    
+
     /**
     * Method to retrieve the data for edit and prepare the vars for
     * the edit template.
-    * 
-    * @param string $mode The mode should be edit or add 
+    *
+    * @param string $mode The mode should be edit or add
     */
     function getForEdit()
     {
@@ -101,33 +101,33 @@ class dbStories extends dbTable
         // retrieve the group ID from the querystring
         $keyvalue=$this->getParam("id", NULL);
         if (!$keyvalue) {
-          die($this->objLanguage->languageText("modules_badkey",'stories').": ".$keyvalue); 
+          die($this->objLanguage->languageText("modules_badkey",'stories').": ".$keyvalue);
         }
         // Get the data for edit
         $key="id";
         return $this->getRow($key, $keyvalue);
     }
-    
+
     /**
-    * 
+    *
     * Method to return an array of all stories without the abstract and text
     * @param string $filter.
-    * 
+    *
     */
     function fetchStories($filter = NULL)
     {
-        $sql="SELECT id, category, creatorId, isActive, 
-           parentId, language, title, dateCreated, 
+        $sql="SELECT id, category, creatorId, isActive,
+           parentId, language, title, dateCreated,
            expirationDate, notificationDate, isSticky
            FROM tbl_stories ";
-           
+
         if($filter){
             $sql .= "WHERE $filter";
         }
-           
+
         $sql .= "ORDER BY isSticky DESC, dateCreated DESC";
         return $this->getArray($sql);
     }
-    
+
 }  #end of class
 ?>
