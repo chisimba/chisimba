@@ -524,6 +524,10 @@ class dbTable extends object
         if (PEAR::isError($ret)) {
             $ret = false;
         }
+        if($this->debug = TRUE)
+        {
+        	log_debug($stmt);
+        }
         return $ret;
     }
 
@@ -552,6 +556,10 @@ class dbTable extends object
             $insertON = false;
             $strSQL .= "{$tblJoinFrom}.{$key} = {$tblJoinTo}.{$value}";
             $strSQL .= " )";
+        }
+        if($this->debug = TRUE)
+        {
+        	log_debug($strSQL);
         }
         return $strSQL;
     }
@@ -586,6 +594,10 @@ class dbTable extends object
     {
         $sql = "SELECT * FROM " . $this->_tableName . $filter  . " ORDER BY "
           . $orderField . " DESC ";
+        if($this->debug = TRUE)
+        {
+        	log_debug($sql);
+        }
         return $this->getArrayWithLimit($sql, 0, 1);
     }
 
