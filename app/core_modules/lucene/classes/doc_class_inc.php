@@ -77,10 +77,16 @@ class doc extends object
 
      		case 'createdBy':
      			return $createdBy;
+     		case 'teaser':
+     			return 'We still need to get a teaser';
 
      		case 'body':
      			$body = file_get_contents($filename);
      			return $body;
+     		case 'date';
+     			return date("r");
+     		case 'filetype';
+     			return filetype($filename);
      	}
 
      }

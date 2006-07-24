@@ -90,7 +90,7 @@ class indexer extends Zend_Search_Lucene_Document
        		//createdBy
    			//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('createdBy', $doc->getProperty('createdBy', $filename)));
        		//document teaser
-     		//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('teaser', $doc->getProperty('teaser', $filename)));
+     		$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('date', $doc->getProperty('date', $filename)));
         	//doc title
      		$this->document->addField(Zend_Search_Lucene_Field::Text('title', basename($filename))); //$doc->getProperty('title', $filename)));
         	//doc author
