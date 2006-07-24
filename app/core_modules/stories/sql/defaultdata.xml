@@ -45,8 +45,8 @@ stories to the prelogin category.</mainText>
         <parentId>base</parentId>
         <language>en</language>
         <title>You have successfully logged in to KEWL.NextGen</title>
-        <abstract>You now have access to KEWL.NextGen's rich set of features. You should really ask the system administrator for this site to change this message.</abstract>
-        <mainText>You now have access to KEWL.NextGen's rich set of features. If you are
+        <abstract>You now have access to a rich set of features. You should really ask the system administrator for this site to change this message.</abstract>
+        <mainText>You now have access to a rich set of features. If you are
 looking for documentation for users you can download it from
 http://kngforge.uwc.ac.za/. You can access the AVOIR project at
 http://avoir.uwc.ac.za/ or explore other documentation, source code,

@@ -141,7 +141,7 @@ class DbHandler extends dbHandlermanager
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
 
-        echo $msg."<br><br>";
+        //echo $msg."<br><br>";
     }
 
 	/**
@@ -423,8 +423,8 @@ class DbHandler extends dbHandlermanager
 
     function _execute($stmt, $params = array())
     {
-        $sh = $this->_globalObjDb->prepare($stmt);
-    	return ($sh->execute($params));
+    	$sh = $this->_globalObjDb->prepare($stmt, $params, MDB2_PREPARE_MANIP);
+    	return ($sh->execute());
     }
 
 
