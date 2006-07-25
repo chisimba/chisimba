@@ -144,16 +144,16 @@ class dbTable extends object
     public function valueExists($field, $value)
     {
         $sql = "SELECT COUNT(*) AS fCount FROM $this->_tableName WHERE $field='$value'";
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
-        $rs = $this->_execute($sql);
+        $rs = $this->query($sql);
         if (!$rs) {
             $ret = false;
         } else {
-            $line = $rs->fetchOne();
-            if ($line['fCount'] > 0) {
+
+            if ($rs['fCount'] > 0) {
                 $ret = true;
             } else {
                 $ret = false;
@@ -173,7 +173,7 @@ class dbTable extends object
     public function getAll($filter = null)
     {
         $stmt = "SELECT * FROM {$this->_tableName} $filter";
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -193,7 +193,7 @@ class dbTable extends object
     {
         $pk_value = addslashes($pk_value);
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
-		if($this->debug = TRUE)
+		if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -214,7 +214,7 @@ class dbTable extends object
         if (PEAR::isError($ret)) {
             $ret = false;
         }
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -241,7 +241,7 @@ class dbTable extends object
                 $ret[] = $row;
             }
         }
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -261,7 +261,7 @@ class dbTable extends object
     public function fetchAll($filter = null)
     {
         $stmt = "SELECT * FROM {$this->_tableName} " . $filter;
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -280,7 +280,7 @@ class dbTable extends object
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         $rs = $this->query($sql);
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
@@ -345,7 +345,7 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug("dbtable insert into {$tablename}");
 	        log_debug($fields);
@@ -367,6 +367,7 @@ class dbTable extends object
         $comma = ", ";
         foreach($keys as $key) {
         	$fieldnames .= "{$comma}{$key}";
+        	//$fieldValues .= "{$comma}:{$key}";  - for full prepared statement support need to work out how to get the field types
         }
         foreach ($fields as $fieldName => $fieldValue) {
 
@@ -377,6 +378,8 @@ class dbTable extends object
 		$fieldnames = "($fieldnames)";
 		$fieldnames = str_replace("(, ","(", $fieldnames);
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
+        //echo $sql;
+        //die();
         $this->_lastId = $id;
         $ret = $this->_execute($sql, $params);
         //log_debug($sql);
@@ -414,7 +417,7 @@ class dbTable extends object
         }
         $sql .= " WHERE {$pkfield}='{$pkvalue}'";
         $ret = $this->_execute($sql, $params);
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
@@ -438,7 +441,7 @@ class dbTable extends object
 
         $sql = "DELETE FROM {$tablename} WHERE {$pkfield}='{$pkvalue}'";
         $ret = $this->_execute($sql);
-		if($this->debug = TRUE)
+		if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
@@ -524,7 +527,7 @@ class dbTable extends object
         if (PEAR::isError($ret)) {
             $ret = false;
         }
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
@@ -557,7 +560,7 @@ class dbTable extends object
             $strSQL .= "{$tblJoinFrom}.{$key} = {$tblJoinTo}.{$value}";
             $strSQL .= " )";
         }
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($strSQL);
         }
@@ -594,7 +597,7 @@ class dbTable extends object
     {
         $sql = "SELECT * FROM " . $this->_tableName . $filter  . " ORDER BY "
           . $orderField . " DESC ";
-        if($this->debug = TRUE)
+        if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
