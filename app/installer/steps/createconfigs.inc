@@ -311,6 +311,11 @@ class CreateConfigsAction extends FiveStepAction
 
 	{
 
+		$ref = getenv('HTTP_REFERER');
+		if (preg_match("/\/installer/i", $ref)) {
+
+			$ksr = str_replace('/installer',"/",$ref);
+		}
 		ob_start();
 
 			$SQ_INCLUDE_PATH = defined('SQ_INCLUDE_PATH') ? SQ_INCLUDE_PATH : $_SESSION['sys_root'].'/core/include';
@@ -366,7 +371,7 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 
 
-			$this->_addConfigVar('KEWL_SITEROOT', 'http://'.$_SESSION['site_url'].'/');
+			$this->_addConfigVar('KEWL_SITEROOT', $ksr . '/'); //'http://'.$_SESSION['site_url'].'/');
 
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
@@ -435,6 +440,11 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_root->parseConfig($this->config_vars,"PHPArray");
 			//lets write the config
 			$path = $_SESSION['sys_root'].'/config/';
+			if(!is_file($path . 'config.xml'))
+			{
+				touch($path . 'config.xml');
+				chmod($path . 'config.xml', 0777);
+			}
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
 		    $GLOBALS['SQ_INSTALL'] = false;
 
