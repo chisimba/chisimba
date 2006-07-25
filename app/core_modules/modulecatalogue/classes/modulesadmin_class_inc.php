@@ -169,7 +169,7 @@ class modulesadmin extends dbTableManager
                             return FALSE;
                         } else {
                             // Delete the table from the records.
-                            $sqlcheck = $this->objModule->getAll();
+                            $sqlcheck = $this->objModules->getAll();
                             if($this->objModules->count($sqlcheck['kng_module'],$moduleId) > 0)
                             {
                             	$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
