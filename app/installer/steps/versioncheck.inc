@@ -640,7 +640,7 @@ class PEARCheckAction extends StepAction
 
 									'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
 
-									'Mail_Mime'   	=> Array('version'=>'1.2.1','available'=>false,'message' => ''),
+									//'Mail_Mime'   	=> Array('version'=>'1.2.1','available'=>false,'message' => ''),
 
 									'XML_Parser'  	=> Array('version'=>'1.0.1','available'=>false,'message' => ''),
 
