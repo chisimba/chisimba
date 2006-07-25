@@ -315,6 +315,8 @@ class CreateConfigsAction extends FiveStepAction
 		if (preg_match("/\/installer/i", $ref)) {
 
 			$ksr = str_replace('/installer',"/",$ref);
+			$ksr = str_replace('/index.php','',$ksr);
+			$ksr = str_replace('app//','app/',$ksr);
 		}
 		ob_start();
 
@@ -371,7 +373,7 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 
 
-			$this->_addConfigVar('KEWL_SITEROOT', $ksr . '/'); //'http://'.$_SESSION['site_url'].'/');
+			$this->_addConfigVar('KEWL_SITEROOT', $ksr); //'http://'.$_SESSION['site_url'].'/');
 
 
 			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
@@ -380,7 +382,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('LDAP_USED', 'FALSE');
 
-			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['debug_enable']);
+			$this->_addConfigVar('KEWL_ERROR_REPORTING', 'production'); //$_SESSION['debug_enable']);
 
 			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
 
@@ -440,6 +442,10 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_root->parseConfig($this->config_vars,"PHPArray");
 			//lets write the config
 			$path = $_SESSION['sys_root'].'/config/';
+			if(!file_exists($path))
+			{
+				mkdir($path);
+			}
 			if(!is_file($path . 'config.xml'))
 			{
 				touch($path . 'config.xml');

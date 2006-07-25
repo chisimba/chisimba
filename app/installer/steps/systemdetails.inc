@@ -376,7 +376,15 @@ class RootUserAction extends StepAction
 
 		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : True;
 
-		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
+		$ref = getenv('HTTP_REFERER');
+		if (preg_match("/\/installer/i", $ref)) {
+
+			$ksr = str_replace('/installer',"/",$ref);
+			$ksr = str_replace('/index.php','', $ksr);
+			$ksr = str_replace('http://','',$ksr);
+		}
+		$this_url = $ksr;
+		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
 
