@@ -240,11 +240,11 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					if ($check!=TRUE){
+					if (!$check){
 						$this->firstRegister();
 					}
 					// Show next installation step
-					return $this->nextAction(null,null,'splashscreen');
+					return $this->nextAction(null,null,'_default');
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;
@@ -433,7 +433,11 @@ class modulecatalogue extends controller
     */
     private function firstRegister() {
     	try {
-    		$mList=file($this->objConfig->getsiteRootPath().'installer/dbhandlers/default_modules.txt');
+    		$root = $this->objConfig->getsiteRootPath();
+    		if (!file_exists($root.'config/config.xml')){
+    			throw new customException("could not find config.xml! tried {$root}config/config.xml");
+    		}
+    		$mList=file($root.'installer/dbhandlers/default_modules.txt');
     		foreach ($mList as $line) {
     			if ($line[0]!='#') {
     				if (!$this->installModule(trim($line))) {
@@ -443,6 +447,7 @@ class modulecatalogue extends controller
     		}
     		// Flag the first time registration as having been run
     		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE);
+    		log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
     		// Make certain the user-defined postlogin module is registered.
     		$postlogin = $this->objSysConfig->getValue('KEWL_POSTLOGIN_MODULE','_site_');
     		if (($postlogin!='')&&(!($this->objModule->checkIfRegistered($postlogin)))){
