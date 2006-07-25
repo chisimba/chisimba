@@ -170,7 +170,7 @@ class modulesadmin extends dbTableManager
                         } else {
                             // Delete the table from the records.
                             $sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
-                            $this->objModules->query($sql);
+                            $this->objModules->queryOne($sql);
                             // Add the table to the records.
                             $this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
                         }
