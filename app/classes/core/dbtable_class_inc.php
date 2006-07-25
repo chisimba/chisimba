@@ -381,6 +381,10 @@ class dbTable extends object
         //echo $sql;
         //die();
         $this->_lastId = $id;
+        if($this->debug == TRUE)
+        {
+        	log_debug($sql);
+        }
         $ret = $this->_execute($sql, $params);
         //log_debug($sql);
         //log_debug("success $ret");
