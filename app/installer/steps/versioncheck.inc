@@ -116,7 +116,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	var $min_version = '5.1.1';
+	var $min_version = '5.1.2';
 
 
 
@@ -130,7 +130,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	var $required_settings = Array(	'PHP' => Array('version'=>'5.1.1', 'available'=>true, 'message'=> ''),
+	var $required_settings = Array(	'PHP' => Array('version'=>'5.1.2', 'available'=>true, 'message'=> ''),
 
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -148,11 +148,11 @@ class PHPCheckAction extends StepAction
 
 										'mysql_server'=>Array('version'=>'5.1.8', 'available' => true, 'message'=> ''),
 
-										'mysqli'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+										//'mysqli'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
-										'pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+										//'pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
-										'SQLite'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+										//'SQLite'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'SimpleXML'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -366,7 +366,7 @@ class PHPCheckAction extends StepAction
 		}
 
 		// check mysqli
-
+/*
 		if (!extension_loaded('mysqli')) {
 
 			$this->required_settings['mysqli']['available'] = false;
@@ -413,7 +413,7 @@ class PHPCheckAction extends StepAction
 			$this->required_settings['SQLite']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 		}
-
+*/
 		// check SimpleXML
 
 		if (!extension_loaded('SimpleXML')) {
@@ -647,6 +647,10 @@ class PEARCheckAction extends StepAction
 									'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
 
 									'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
+
+									'Log'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
+
+									'Translation2'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
 								  );
 
@@ -1121,13 +1125,13 @@ class PEARDBCheckAction extends StepAction
 	*/
 
 	var $required_db = Array(
-
+									'MDB2_Driver_mysql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 
 									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 
-									'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
-									'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>'')
+									//'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									//'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>'')
 							);
 
 
@@ -1157,7 +1161,7 @@ class PEARDBCheckAction extends StepAction
 			// go through and manually try and instantiate PEAR classes.
 			$mysqli = isset($_POST['MDB2_Driver_mysqli']) ? $_POST['MDB2_Driver_mysqli'] :'';
      		$pgsql = isset($_POST['MDB2_Driver_pgsql']) ? $_POST['MDB2_Driver_pgsql'] :'';
-    		$sqlite = isset($_POST['MDB2_Driver_sqlite']) ? $_POST['MDB2_Driver_sqlite'] : '';
+    		//$sqlite = isset($_POST['MDB2_Driver_sqlite']) ? $_POST['MDB2_Driver_sqlite'] : '';
 
 			if ($mysqli==1) {
 
@@ -1190,6 +1194,7 @@ class PEARDBCheckAction extends StepAction
 				}
 
 			}
+			/*
 			if ($sqlite==1){
 				@include_once 'MDB2/Driver/sqlite.php';
 
@@ -1205,7 +1210,7 @@ class PEARDBCheckAction extends StepAction
 				}
 
 			}
-
+*/
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
@@ -1361,4 +1366,3 @@ class PEARDBCheckAction extends StepAction
 
 
 ?>
-
