@@ -371,7 +371,7 @@ class engine
             //set the options
             $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
             //Quote identifiers also for legacy SQL
-            $_globalObjDb->setOption('quote_identifiers', true);
+            //$_globalObjDb->setOption('quote_identifiers', true);
 
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
