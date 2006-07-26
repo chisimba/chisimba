@@ -193,7 +193,7 @@ class controller extends access
     {
         //list($template, $_) = $this->_dispatch($action, $this->_moduleName);
 		$params['action'] = $action;
-		header('Location: '.$this->uri($params,$module));
+		header('Location: '.html_entity_decode($this->uri($params,$module)));
         return NULL;
     }
 
