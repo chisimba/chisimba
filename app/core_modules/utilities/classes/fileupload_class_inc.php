@@ -126,6 +126,12 @@ class fileupload
     
     function upload_file($uploaddir,$rename=null,$replace=false,$file_max_size=0,$check_type="")
     {
+		if (!is_uploaded_file($_FILES['upload']['tmp_name'])) {
+			throw new CustomException($this->objLanguage->languageText('mod_utilities_errorupload'));
+		}
+		else if ($_FILES['upload']['error'] != UPLOAD_ERR_OK) {
+			throw new CustomException($objFileUpload->checkError($_FILES['file']['error']));
+		}
         
 		$this->set_file_name($_FILES['upload']['name']);
         $this->set_file_type($_FILES['upload']['type']);
