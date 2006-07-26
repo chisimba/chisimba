@@ -60,7 +60,7 @@ class decisionTableBase extends dbTable
     function init($tableName)
     {
         parent::init($tableName);
-        $this->upgradeTable();
+        //$this->upgradeTable(); -still uses old sql - wont work
         $this->_id = NULL;
         $this->_name = '';
         $this->_dbData = array();
@@ -171,7 +171,7 @@ class decisionTableBase extends dbTable
      */
     function checkDuplicate( )
     {
-        return parent::valueExists( 'name', $this->_name );
+        return $this->valueExists( 'name', $this->_name );
     }
 
     /**

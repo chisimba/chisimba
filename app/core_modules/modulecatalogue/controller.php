@@ -240,11 +240,13 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
+					log_debug('in controller - now try firstreg.');
 					if (!$check){
 						$this->firstRegister();
 					}
 					// Show next installation step
-					return $this->nextAction(null,null,'_default');
+					log_debug('back in modcat controller after firstreg. try to redirect now');
+					return $this->nextAction(null,null,'splashscreen');
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;
@@ -449,6 +451,7 @@ class modulecatalogue extends controller
     		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE);
     		log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
     		// Make certain the user-defined postlogin module is registered.
+
     		$postlogin = $this->objSysConfig->getValue('KEWL_POSTLOGIN_MODULE','_site_');
     		if (($postlogin!='')&&(!($this->objModule->checkIfRegistered($postlogin)))){
     			$this->installModule($postlogin);

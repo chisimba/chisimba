@@ -144,10 +144,6 @@ class dbTable extends object
     public function valueExists($field, $value)
     {
         $sql = "SELECT COUNT(*) AS fCount FROM $this->_tableName WHERE $field='$value'";
-        if($this->debug == TRUE)
-        {
-        	log_debug($sql);
-        }
         $rs = $this->query($sql);
         if (!$rs) {
             $ret = false;
@@ -158,6 +154,10 @@ class dbTable extends object
             } else {
                 $ret = false;
             }
+        }
+        if($this->debug == TRUE)
+        {
+        	log_debug("$sql => $ret");
         }
         return $ret;
     }
@@ -345,20 +345,15 @@ class dbTable extends object
     */
     public function insert($fields, $tablename = '')
     {
-        if($this->debug == TRUE)
-        {
-        	log_debug("dbtable insert into {$tablename}");
-	        log_debug($fields);
-
-        }
 
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
 
+
         $comma = "";
         if (empty($fields['id'])) {
-            $id = "init";
+            $id = "init".rand(1000,9999)*time();
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
@@ -381,8 +376,9 @@ class dbTable extends object
         //echo $sql;
         //die();
         $this->_lastId = $id;
-        if($this->debug == TRUE)
-        {
+        if($this->debug == TRUE) {
+        	log_debug("dbtable insert into {$tablename}");
+	        log_debug($fields);
         	log_debug($sql);
         }
         $ret = $this->_execute($sql, $params);
