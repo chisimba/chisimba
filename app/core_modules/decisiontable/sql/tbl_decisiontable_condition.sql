@@ -9,19 +9,23 @@ $options = array('comment' => 'Table used to keep a list of conditions and their
 $fields = array(
 	'id' => array(
 		'type' => 'text',
-		'length' => 32
+		'length' => 32,
+
 		),
 	'name' => array(
 		'type' => 'text',
 		'length' => 50,
+		'notnull' => TRUE
         ),
     'params' => array(
 		'type' => 'text',
 		'length' => 255,
+		'notnull' => TRUE
         ),
     'class' => array(
 		'type' => 'text',
 		'length' => 255,
+		'notnull' => TRUE
         )
     );
 
