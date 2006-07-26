@@ -294,7 +294,8 @@ class DbDetailsAction extends FiveStepAction
 					 		'mysql'=>'MySQL',
 					 		'pgsql'  => 'PostgreSQL',
     						//'sqlite' => 'SQLite',
-    						//'oracle8i'=> 'Oracle8'),false,
+    						//'oracle8i'=> 'Oracle8'
+    						),false,
 
 					Array(isset($_SESSION[$this->db_prefix.'type'])?$_SESSION[$this->db_prefix.'type']:''));
 
