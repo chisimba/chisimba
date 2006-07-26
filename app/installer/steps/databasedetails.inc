@@ -290,11 +290,11 @@ class DbDetailsAction extends FiveStepAction
 
 			combo_box($this->db_prefix.'type',
 
-					 array(	'mysqli' => 'MySQLi',
+					 array(	//'mysqli' => 'MySQLi',
 					 		'mysql'=>'MySQL',
 					 		'pgsql'  => 'PostgreSQL',
-    						'sqlite' => 'SQLite',
-    						'oracle8i'=> 'Oracle8'),false,
+    						//'sqlite' => 'SQLite',
+    						//'oracle8i'=> 'Oracle8'),false,
 
 					Array(isset($_SESSION[$this->db_prefix.'type'])?$_SESSION[$this->db_prefix.'type']:''));
 
