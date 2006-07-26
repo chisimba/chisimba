@@ -24,7 +24,7 @@ class formatfilesize
             return $size . " bytes";
         }
         // kilobytes
-        else if( $data < 1024000 ) {
+        else if( $size < 1024000 ) {
             return round( ( $size / 1024 ), 1 ) . "k";
         }
         // megabytes
