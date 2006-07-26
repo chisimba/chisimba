@@ -1,37 +1,3 @@
-<?
-    /**
-    * Template for Self-registration
-    * Much of this code is as I found it.
-    * The actual HTML elements have mostly been replaced with calls to the htmlelments classes
-    * The code uses several instances of htmltable, as the page consists of several tables one after the other.
-    */
-
-    $objLanguage=& $this->getObject('language', 'language');
-    if (isset($this->message)){
-        print "<h2>".$objLanguage->languageText('word_problem')." : ".$objLanguage->languageText($this->message)."</h2>\n";
-    }
-
-    $this->loadclass('textinput','htmlelements');
-    /* method to act as a 'wrapper' for textelement class
-    * @author James Scoble
-    * @param $name string
-    * @param $type string
-    * @param $value  string
-    * @returns string
-    */
-    function textinput($name,$type,$value=NULL,$extra=NULL)
-    {
-        if (isset($_REQUEST[$name])){
-            $value=$_REQUEST[$name];
-        }
-        $field=new textinput($name,$value);
-        $field->fldType=$type;
-    $field->extra=$extra;
-        return $field->show();
-    }
-
-?>
-<head>
 <script Language="JavaScript">
 <!--
 function invalidString(s,type){
@@ -79,26 +45,24 @@ function ClearForm() {
   document.Form1.department.selectedIndex = 0;
 }
 
-
-
 function Validator(theForm) {
   if (theForm.userId.value == "")
     {
-        alert('<?php echo $objLanguage->languageText('instruction_entergenerateid'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_entergenerateid','useradmin'); ?>');
         theForm.userId.value = "";
         theForm.userId.focus();
         return (false);
     }
   if (theForm.userId.value.length < 5)
     {
-        alert('<?php echo $objLanguage->languageText('instruction_enteratleast5digits'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_enteratleast5digits','useradmin'); ?>');
         theForm.userId.value = "";
         theForm.userId.focus();
         return (false);
     }
   if (theForm.userId.value.length > 15)
     {
-        alert('<?php echo $objLanguage->languageText('instruction_enteratmost9digits'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_enteratmost9digits','useradmin'); ?>');
         theForm.userId.value = ""
         theForm.userId.focus();
         return (false);
@@ -121,19 +85,19 @@ function Validator(theForm) {
             allNum += ch;
         }
   if (!allValid) {
-        alert('<?php echo str_replace('chapter number','userId',$objLanguage->languageText('alert_enteronlydigit')); ?>');
+        alert('<?php echo str_replace('chapter number','userId',$objLanguage->languageText('alert_enteronlydigit','useradmin')); ?>');
         theForm.userId.value = "";
         theForm.userId.focus();
         return (false);
     }
   if (theForm.title.selectedIndex == 0) {
-        alert('<?php echo $objLanguage->languageText('alert_titlenotvalidoption'); ?>');
+        alert('<?php echo $objLanguage->languageText('alert_titlenotvalidoption','useradmin'); ?>');
         theForm.title.value = "";
         theForm.title.focus();
         return (false);
     }
   if (theForm.firstname.value == "") {
-        alert('<?php echo $objLanguage->languageText('instruction_enterfirstname'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_enterfirstname','useradmin'); ?>');
         theForm.firstname.value = "";
         theForm.firstname.focus();
         return (false);
@@ -145,7 +109,7 @@ function Validator(theForm) {
         return (false);
     }
   if (theForm.surname.value == "") {
-        alert('<?php echo $objLanguage->languageText('instruction_entersurname'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_entersurname','useradmin'); ?>');
         theForm.surname.value = "";
         theForm.surname.focus();
         return (false);
@@ -158,7 +122,7 @@ function Validator(theForm) {
     }
 
   if (theForm.username.value == "") {
-        alert('<?php echo $objLanguage->languageText('instruction_entervalidusername'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_entervalidusername','useradmin'); ?>');
         theForm.username.value = "";
         theForm.username.focus();
         return (false);
@@ -171,223 +135,149 @@ function Validator(theForm) {
     }
   if (theForm.email.value == "")
     {
-        alert('<?php echo $objLanguage->languageText('instruction_entervalidemail'); ?>');
+        alert('<?php echo $objLanguage->languageText('instruction_entervalidemail','useradmin'); ?>');
         theForm.email.value = "";
         theForm.email.focus();
         return (false);
     }
   if (!isEmail(theForm.email.value)) {
-    alert('<?php echo $objLanguage->languageText('instruction_entervalidemail'); ?>');
+    alert('<?php echo $objLanguage->languageText('instruction_entervalidemail','useradmin'); ?>');
     theForm.email.value = "";
     theForm.email.focus();
     return(false);
   }
   if (theForm.email.value != theForm.email2.value) {
-        alert('<?php echo $objLanguage->languageText('error_emailnotsame'); ?>');
+        alert('<?php echo $objLanguage->languageText('error_emailnotsame','useradmin'); ?>');
         theForm.email.value = "";
         theForm.email.focus();
         return (false);
-    }
-theForm.B1.disabled=true;
-return (true);
+  }
+  theForm.registermenow.disabled=true;
+  return (true);
 }
-
 //-->
-</Script>
-</head>
-
+</script>
 <?
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='0';
+    $this->loadclass('textinput','htmlelements');
+    $this->loadclass('dropdown','htmlelements');
 
-    $formtags=$this->newObject('formtags','htmlelements');
+    function textinput($name,$type,$value=NULL,$extra=NULL)
+    {
+        if (isset($_REQUEST[$name])){
+            $value=$_REQUEST[$name];
+        }
+        $field=new textinput($name,$value);
+        $field->fldType=$type;
+    	$field->extra=$extra;
+        return $field->show();
+    }
+
+    $objLanguage =& $this->getObject('language', 'language');
+	
+    if (isset($this->message)){
+        echo  
+			"<h2>"
+			.$objLanguage->languageText('word_problem')
+			." : "
+			.$objLanguage->languageText($this->message)
+			."</h2>";
+    }
+
+    //$formtags=$this->newObject('formtags','htmlelements');
+
 ?>
-<form method="post" action="<?php echo $this->uri(array('module'=>'useradmin','action'=>'submitregister'));  ?>"
-    name="Form1" onsubmit="return Validator(this)" ID="Form1">
-<?
-    // create an instance of the help object
-    $objHelp =& $this->getObject('help', 'help');
-    $helpIcon = '&nbsp;'.$objHelp->show('register', 'useradmin');
+	<form 
+		id="Form1"
+    	name="Form1" 
+		method="post" 
+		action="<?php echo $this->uri(array('action'=>'submitregister'),'useradmin');  ?>"
+		onsubmit="return Validator(this);" 
+	>
+<?php
 
-    //Create an instance of the fieldset object
+    $objHelp =& $this->getObject('help', 'help');
+    $helpIcon = $objHelp->show('register', 'useradmin');
+
     $objFieldset = $this->getObject('fieldset', 'htmlelements');
-    $objFieldset->legend=$objLanguage->languageText("heading_registeryourself").$helpIcon;
+    $objFieldset->legend=$objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon;
+    $objFieldset->align='CENTER';
     $objFieldset->legendalign='CENTER';
     $objFieldset->width="50%";
-    $objFieldset->align='CENTER';
-
-    //Headings and explanation messages
-
-    $objTblclass->startRow();
-    $objTblclass->addCell($objLanguage->languageText("heading_registeryourself"),"", NULL, NULL, NULL," colspan=4 class='heading'");
-    $objTblclass->endRow();
-
-    $objTblclass->startRow();
-    $objTblclass->addCell($objLanguage->languageText("message_selfregister"),"", NULL, NULL, NULL," class='even' colspan=4");
-    $objTblclass->endRow();
-
-    // A message is output that uses the short name of the institution
-    $row=array($objLanguage->languageText("step1"), str_replace("[--INSTITUTIONNAME--]",$this->objConfig->getinstitutionShortName(),$objLanguage->languageText("heading_ifyouatinstitute")), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', str_replace("[--INSTITUTIONNAME--]",$this->objConfig->institutionShortName(),$objLanguage->languageText("heading_ifguest")));
-    $objTblclass->addRow($row,'odd');
-
-    // UserId - can be autogenerated using JavaScript
-    $onclick="document.Form1.userId.value=Math.round(Math.random()*1000)+'".date('ydi')."';";
-    $row=array('',textinput('userId','text','','Text1'),'',"<a onclick=\"".$onclick."\" class='pseudobutton' >".$objLanguage->languageText("hyperlink_generaterandomnumber")."</a>" );
-    $objTblclass->addRow($row,'odd');
-
-    $row=array('',$objLanguage->languageText("message_usestudentnum").
-    "<br>".$objLanguage->languageText("message_usestaffnum"),'',$objLanguage->languageText("message_willfillinnumber") );
-    $objTblclass->addRow($row,'odd');
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents =$objTblclass->show()."<br />\n";
-    ?><?
-    // title
-    $this->loadclass('dropdown','htmlelements');
-    $objDrop2= new dropdown('title');
+	//echo $objFieldset->show();
+	
+	$content = '';
+	$content .= $objLanguage->languageText("heading_registeryourself",'useradmin');
+	$content .= "<br />";
+	$content .= $objLanguage->languageText("message_selfregister",'useradmin');
+	$content .= "<br />";
+	//echo $objLanguage->languageText("step1",'useradmin');
+	$content .= str_replace(
+		"[--INSTITUTIONNAME--]",
+		'UWC',//$this->objConfig->institutionShortName(),
+		$objLanguage->languageText("heading_ifyouatinstitute",'useradmin')
+	);
+	$content .= "<br />";
+	$content .= str_replace(
+		"[--INSTITUTIONNAME--]",
+		'UWC',//$this->objConfig->institutionShortName(),
+		$objLanguage->languageText("heading_ifguest",'useradmin')
+	);
+	$content .= "<br />";
+	// UserId
+    $content .= textinput('userId','text',''/*,'Text1'*/);
+	$content .= "<br />";
+	$content .= "<a onclick=\"document.Form1.userId.value=Math.round(Math.random()*1000)+'".date('ydi')."';\" class='pseudobutton' >".$objLanguage->languageText("hyperlink_generaterandomnumber",'useradmin')."</a>";
+	$content .= "<br />";
+	$content .= $objLanguage->languageText("message_usestudentnum",'useradmin');
+	$content .= $objLanguage->languageText("message_usestaffnum",'useradmin');
+	$content .= $objLanguage->languageText("message_willfillinnumber",'useradmin');
+	// Title
+    $objDropdown = new dropdown('title');
+    $objDrop->extra='id="Select1"';
+    $objDropdown->addOption('',$objLanguage->languageText('option_selectatitle','useradmin'));
     $titles=array("title_mr", "title_miss", "title_mrs", "title_ms", "title_dr", "title_prof", "title_rev", "title_assocprof");
-    $objDrop2->addOption('',$objLanguage->languageText('option_selectatitle'));
-    foreach ($titles as $row)
+    foreach ($titles as $title)
     {
-        $row=$objLanguage->languageText($row);
-        $objDrop2->addOption($row,$row);
+        $_title = $objLanguage->languageText($title,'useradmin');
+        $objDropdown->addOption($_title,$_title);
     }
-
-    $objDrop->extra="ID=\"Select1\"";
-
-
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='2';
-
-
-    // First name and surname fields
-    $row=array();
-    $row[]=$objLanguage->languageText("step2");
-    $row[]=$objLanguage->languageText("word_title");
-    $row[]=$objDrop2->show();
-    $row[]=$objLanguage->languageText("phrase_firstname");
-    $row[]=textinput('firstname','text','','Text3');
-        //<!-- <input name="firstname" type="text" size="23" ID="Text3" maxlength="50"></td> -->
-    $row[]=$objLanguage->languageText("word_surname");
-    $row[]=textinput('surname','text','','Text2');
-    $objTblclass->addRow($row,'even');
-
-    // country
+    $content .= $objLanguage->languageText("word_title",'useradmin');
+    $content .= $objDropdown->show();
+	$content .= "<br />";
+	// First Name
+    $content .= $objLanguage->languageText("phrase_firstname",'useradmin');
+    $content .= textinput('firstname','text',''/*,'Text3'*/);
+	$content .= "<br />";
+	// Surname
+    $content .= $objLanguage->languageText("word_surname",'useradmin');
+    $content .= textinput('surname','text',''/*,'Text2'*/);
+	$content .= "<br />";
+    // Country
     $objCountries=&$this->getObject('countries','utilities');
-    $objDrop4=new dropdown('country');
-    $objDrop4->addFromDB($objCountries->getAll(' order by name'), "printable_name", "iso",'ZA');
-    $row=array('&nbsp;','&nbsp;','&nbsp;','&nbsp;','&nbsp;',$objLanguage->languageText('word_country'),$objDrop4->show());
-    $objTblclass->addRow($row,'even');
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents.=$objTblclass->show();
-    $objFieldset->contents.="\n&nbsp;\n";
-
-    //   &nbsp;
-
-
-    // Username
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='0';
-
-    $row=array(
-        $objLanguage->languageText("step3"),
-        $objLanguage->languageText("word_username"),
-        textinput('username','text','','Text4')
-        );
-
-     $objTblclass->addRow($row,'odd');
-
-     $objTblclass->startRow();
-     $objTblclass->addCell('',"", NULL, NULL, NULL,"class='odd'");
-     $objTblclass->addCell($objLanguage->languageText("warning_pleasenote")."&nbsp;".$objLanguage->languageText("warning_usernamenospaces"),"", NULL, NULL, NULL, "colspan=2 class='odd'");
-     $objTblclass->endRow();
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents.=$objTblclass->show()."&nbsp\n";
-
-  //?>&nbsp;<?
-    //Email Address
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='0';
-
-    $row=array(
-        $objLanguage->languageText("step4"),
-        $objLanguage->languageText("Pagetext_emailaddress"),
-        textinput('email','text','','Text5')
-        );
-       //<!--- <input name="email" type="text"size="47" ID="Text5" maxlength="100"></td> -->
-    $objTblclass->addRow($row,'even');
-
-    $row=array(
-        '&nbsp;',
-        '&nbsp;<b>'.$objLanguage->languageText("label_confirmemail").'</b>',
-        textinput('email2','text','','Text6')
-        );
-       //<!---<input name="email2" type="text" size="47" ID="Text6" maxlength="100"></td>-->>
-    $objTblclass->addRow($row,'even');
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents.=$objTblclass->show();
-
-
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='0';
-    $row=array(
-        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-        $objLanguage->languageText("message_confirmemailmessage")
-        );
-    $objTblclass->addRow($row,'even');
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents.=$objTblclass->show()."&nbsp\n";
-
-    //$systemType = $this->objConfig->getValue("SYSTEM_TYPE", "contextabstract");
-    //if ($systemType=='alumni'){
-    //    $objAlumni=&$this->getObject('alumniusers','alumni');
-    //    $objFieldset->contents.=$objAlumni->showRegisterFields()."&nbsp\n";
-    //}
-
-    // Create the Button object for the submit button
+    $objDropdown = new dropdown('country');
+    $objDropdown->addFromDB($objCountries->getAll(' order by name'), "printable_name", "iso", 'ZA');
+	$content .= $objLanguage->languageText('word_country','useradmin');
+	$content .= $objDropdown->show();
+	$content .= "<br />";
+	// Username
+    $content .= $objLanguage->languageText("word_username",'useradmin');
+    $content .= textinput('username','text',''/*,'Text4'*/);
+	$content .= "<br />";
+    // Email
+	$content .= $objLanguage->languageText("Pagetext_emailaddress",'useradmin');
+	$content .= textinput('email','text',''/*,'Text5'*/);
+	$content .= "<br />";
+	$content .= $objLanguage->languageText("label_confirmemail",'useradmin');
+	$content .= textinput('email2','text',''/*,'Text6'*/);
+	$content .= "<br />";
+	$content .= $objLanguage->languageText("message_confirmemailmessage",'useradmin');
+	$content .= "<br />";
+    // Submit button
     $objButton=$this->getObject('button','htmlelements');
-    $objButton->button('B1',$objLanguage->languageText('mod_useradmin_register1','Register me now'));
+    $objButton->button('registermenow',$objLanguage->languageText('mod_useradmin_register1','useradmin'));
     $objButton->setToSubmit();
-
-    // Table for the step6 part of the form - the register button
-    $objTblclass=$this->newObject('htmltable','htmlelements');
-    $objTblclass->width='700';
-    $objTblclass->attributes=" border=0";
-    $objTblclass->cellspacing='0';
-    $objTblclass->cellpadding='0';
-    $row=array(
-        $objLanguage->languageText("phrase_finalstep","Final Step"),'&nbsp;',$objButton->show());
-       // '<input type="submit" class="button"  value="'.$objLanguage->languageText('mod_useradmin_register1','Register me now').'" name="B1" ID="Submit1">');
-        //&nbsp;<input type="reset" class="button"  value="Reset" name="B2"  ID="Button1">
-    $objTblclass->addRow($row,'odd');
-
-    $objTblclass->startRow();
-    $objTblclass->addCell($objLanguage->languageText("message_whenclickregister"),"", NULL, 'center', NULL, 'class=odd colspan="3"');
-    $objTblclass->endRow();
-
-    // Add to the Fieldset object to be output at the end of the file
-    $objFieldset->contents.=$objTblclass->show();
-
-    print $objFieldset->show();
-
-    print $formtags->closeForm();
+	$content .= $objButton->show();
+    $objFieldset->contents = $content;
+    echo $objFieldset->show();
 ?>
+	</form>

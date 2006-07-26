@@ -58,6 +58,8 @@ class useradmin extends controller
 
     function dispatch($cmd) 
     {
+		$this->setVar('pageSuppressXML',true);
+
         // Convert to lowercase here to prevent unnecessary 'case' in switch
         $cmd = strtolower($cmd);
         
@@ -669,10 +671,10 @@ class useradmin extends controller
                 'userId'=>$userId,
                 'username'=>$username,
                 'title'=>$title,
-                'firstname'=>$firstname,
+                'firstName'=>$firstname,
                 'surname'=>$surname, 
-                'PASSWORD'=>$cryptpassword,
-                'CreationDate'=>$cdate, 
+                'pass'=>$cryptpassword,
+                'creationDate'=>$cdate, 
                 'howCreated'=>'selfregister', 
                 'emailAddress'=>$email, 
                 'sex'=>$sex, 
@@ -687,7 +689,7 @@ class useradmin extends controller
             
             $this->setVar('newpassword',$password);
             $this->rvalue='registersuccess_tpl.php';
-            $this->sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,'GUEST');
+            //--$this->sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,'GUEST');
             //$this->objUserAdmin->emailPassword($firstname,$surname,$userId,$username,$email,$password);
         }
         else
