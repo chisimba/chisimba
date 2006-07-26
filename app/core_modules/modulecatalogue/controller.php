@@ -452,6 +452,7 @@ class modulecatalogue extends controller
     		$postlogin = $this->objSysConfig->getValue('KEWL_POSTLOGIN_MODULE','_site_');
     		if (($postlogin!='')&&(!($this->objModule->checkIfRegistered($postlogin)))){
     			$this->installModule($postlogin);
+    			log_debug("Postlogin module $postlogin has been installed!");
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
