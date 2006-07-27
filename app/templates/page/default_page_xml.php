@@ -58,7 +58,8 @@ if (!isset($pageSuppressSkin)){
 	}
 	else {
     	//echo $objSkin->putSkinCssLinks();
-    	echo '<link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
+    	echo '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
 				<!--[if lte IE 6]>
 					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
