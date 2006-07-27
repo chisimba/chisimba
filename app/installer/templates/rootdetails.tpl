@@ -16,7 +16,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Select a Server Name',"This name will be a unique name when your application comes into contact with other Chisimba Systems when taking part in Chisimba's Active Dynamic Mirroring Peer to Peer Network");?>
+	<?php echo $objHelp->show('Select a Server Name','This name will be a unique name when your application comes into contact with other Chisimba Systems when taking part in a Chisimba Active Dynamic Mirroring Peer to Peer Network");?>
 	</td>
 	<td width="50%">
 	Server Name.
