@@ -372,6 +372,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
 
+			$this->_addConfigVar('KEWL_SERVERLOCATION', $_SESSION['serverLocation']);
 
 			$this->_addConfigVar('KEWL_SITEROOT', $ksr); //'http://'.$_SESSION['site_url'].'/');
 
