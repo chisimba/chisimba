@@ -16,9 +16,14 @@ die("You cannot view this page directly");
 class fileicons extends object
 {
     /**
+    * @var string $size Size of the icon, either small or large
+    */
+    public $size = 'small';
+    
+    /**
     * Constructor
     */
-    function init()
+    public function init()
     {
         $this->objIcon = $this->getObject('geticon', 'htmlelements');
     }
@@ -28,7 +33,7 @@ class fileicons extends object
     * @param string $filename Name of the File
     * @return string Icon Image or NULL if an icon does not exist.
     */
-    function getFileIcon($filename)
+    public function getFileIcon($filename)
     {
         return $this->getExtensionIcon($this->getExtension($filename));
     }
@@ -38,7 +43,7 @@ class fileicons extends object
     * @param string $filename Name of the File
     * @return string $extension Extension of the File
     */
-    function getExtension($filename)
+    public function getExtension($filename)
     {
         // get base name of the filename provided by user
         $filename = basename($filename);
@@ -57,7 +62,7 @@ class fileicons extends object
     * @param string $extension Extension of the File
     * @return string Icon Image or NULL if an icon does not exist.
     */
-    function getExtensionIcon($extension)
+    public function getExtensionIcon($extension)
     {
         $filedesc = $extension;
         // Get Image name based on extension
@@ -84,6 +89,7 @@ class fileicons extends object
             case 'mpg' : $imagename = 'mpg'; break;
             case 'ogg' : $imagename = 'ogg'; break;
             case 'pdf' : $imagename = 'pdf'; break;
+            case 'phps' :
             case 'php' : $imagename = 'php'; break;
             case 'png' : $imagename = 'png'; break;
             case 'pps' : $imagename = 'pps'; break;
@@ -120,7 +126,13 @@ class fileicons extends object
         if ($imagename == NULL) {
             return NULL;
         } else {
-            $this->objIcon->setIcon($imagename, NULL, 'icons/filetypes/');
+            if ($this->size == 'large') {
+                $iconfolder =  'icons/filetypes32/';
+            } else {
+                $iconfolder = 'icons/filetypes/';
+            }
+            
+            $this->objIcon->setIcon($imagename, NULL, $iconfolder);
             $this->objIcon->alt = $filedesc;
             $this->objIcon->title = $filedesc;
             return $this->objIcon->show();
