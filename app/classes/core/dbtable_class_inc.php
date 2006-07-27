@@ -353,7 +353,7 @@ class dbTable extends object
 
         $comma = "";
         if (empty($fields['id'])) {
-            $id = "init".rand(1000,9999)*time();
+            $id = "init" . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
@@ -372,7 +372,9 @@ class dbTable extends object
 		$fieldValues = str_replace("(, ","(",$fieldValues);
 		$fieldnames = "($fieldnames)";
 		$fieldnames = str_replace("(, ","(", $fieldnames);
+		//$fieldValues = $this->_db->quote($fieldValues);
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
+        //$sql = $this->_db->quote($sql);
         //echo $sql;
         //die();
         $this->_lastId = $id;
