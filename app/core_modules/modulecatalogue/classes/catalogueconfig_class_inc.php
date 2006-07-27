@@ -102,7 +102,7 @@ class catalogueconfig extends object {
      * @return boolean True/False result.
      *
      */
-    protected function readCatalogue($config,$property)
+    protected function readCatalogue($property)
     {
 
     	try {
@@ -119,7 +119,7 @@ class catalogueconfig extends object {
     			throw new customException("Could not find catalogue.xml: looked in {$this->_path}catalogue.xml");
     		}
     		if (PEAR::isError($this->_root)) {
-    			throw new customException('Can not read Catalogue.Please make sure that your site_path is set correctly');
+    			throw new customException("Can not read Catalogue. Please make sure that your site_path is set correctly\nlooked in {$this->_path}catalogue.xml");
     		}
     		return $this->_root;
     	}catch (Exception $e)
@@ -136,24 +136,54 @@ class catalogueconfig extends object {
      * @access public
      * @param string values to be saved
      * @param string property used to set property value of incoming catalogue string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
      * @return boolean  TRUE for success / FALSE fail .
      *
      */
-    public function writeCatalogue($values,$property)
+    public function writeCatalogue()
     {
     	// set xml root element
     	try {
-    		$this->_options = array('name' => 'Settings');
-    		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
-    		if(!isset($this->_path)) $this->_path = "../resources/";
-    		$this->_objPearConfig->writeConfig("{$path}catalogue.xml",$property, $this->_options);
-    		//update the _root object
-    		$this->readConfig('','XML');
+    		$objModFile = &$this->getObject('modulefile','modulecatalogue');
+    		$xmlStr = "<?xml version='1.0' encoding='ISO-8859-1'?>\n<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='catalogue.xsd'>\n";
+    		if(!isset($this->_path)) {
+    			$this->_path = "{$this->objConfig->getsiteRootPath()}/modules/modulecatalogue/resources/";
+    		}
+    		$xmlStr .= "	<catalogue>\n";
+    		$categories = $objModFile->getCategories();
+    		if (is_array($categories)) {
+    				foreach ($categories as $cat) {
+    					$xmlStr .= "		<category>$cat</category>\n";
+    				}
+    		}
+    		$xmlStr .= "	</catalogue>\n";
+    		$modules = $objModFile->getLocalModuleList();
+    		$id = 001;
+    		foreach ($modules as $mod) {
+    			$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
+    			$xmlStr .= "	<module>
+    	<id>$id</id>\n";
+    		if ($reg) {
+    		$xmlStr .= "		<module_id>{$reg['MODULE_ID']}</module_id>
+    	<module_authors>{$reg['MODULE_AUTHORS']}</module_authors>
+        <module_releasedate>{$reg['MODULE_RELEASEDATE']}</module_releasedate>
+        <module_version>{$reg['MODULE_VERSION']}</module_version>\n";
+    			if (is_array($reg['MODULE_CATEGORY'])) {
+    				foreach ($reg['MODULE_CATEGORY'] as $cat) {
+    					$xmlStr .= "		<module_category>$cat</module_category>\n";
+    				}
+    			}
+        		} else {
+    				$xmlStr .= "		<module_id>$mod</module_id>\n";
+    			}
+    			$xmlStr .= "	</module>\n";
+    			$id++;
+    		}
+    		$xmlStr .= '</settings>';
+    		$fh = fopen($this->_path.'catalogue.xml','w');
+    		fwrite($fh,$xmlStr);
+			fclose($fh);
     		return true;
-    	}catch (Exception $e)
+    	} catch (Exception $e)
     	{
     		$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
@@ -175,7 +205,7 @@ class catalogueconfig extends object {
 
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){
-				 $query = "//module[modulecategory='{$pname}']/module_id";
+				 $query = "//module[module_category='{$pname}']/module_id";
 				}else{
 				  $query = "//module/module_id";
 				}
@@ -207,7 +237,7 @@ class catalogueconfig extends object {
 
                	//Read conf
     			if (!isset($this->_root)) {
-    				$this->readCatalogue('','XML');
+    				$this->readCatalogue('XML');
     			}
     			//Lets get the parent node section first
 

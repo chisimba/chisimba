@@ -62,12 +62,16 @@ class modulefile extends object {
 		}
 	}
 
-	//not used. will it ever be?
-    public function getCategories() {
+	/**
+	 * This method checks all local modules for hte MODULE_CATEGORY tag in the register.conf
+	 * and builds an array of all the local categories
+	 *
+	 * @return array
+	 */
+	public function getCategories() {
     	try {
     		$lookdir=$this->config->getSiteRootPath()."modules";
     		$modlist=$this->checkdir($lookdir);
-    		//natsort($modlist);
     		$categorylist = array();
     		foreach ($modlist as $line) {
     			switch ($line) {
@@ -77,16 +81,13 @@ class modulefile extends object {
     					break; // don't bother with system-related dirs
     				default:
     					if (is_dir($lookdir.'/'.$line)) {
-    						if ($hasRegFile=($this->checkForFile($lookdir.'/'.$line,'register.conf')+$this->checkForFile($lookdir.'/'.$line,'register.php'))) {
-    							if ($cat = $this->moduleCategory($line)) {
+    						if ($cat = $this->moduleCategory($line)) {
     								array_push($categorylist,$cat);
     							}
-    						}
     					}
     			}
     		}
     		$categorylist = array_unique($categorylist);
-    		sort($categorylist);
     		return $categorylist;
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -224,6 +225,7 @@ class modulefile extends object {
 			if (file_exists($filepath)) {
 				$registerdata=array();
 				$lines=file($filepath);
+				$cats = array();
 				foreach ($lines as $line) {
 					$params=explode(':',$line);
 					$len = count($params);
@@ -269,6 +271,7 @@ class modulefile extends object {
 						case 'DEPENDS': 			//modules this module needs
 						case 'CLASSES':
 						case 'WARNING'; 			//Warning tag for modules with special requirements or functions
+						case 'MODULE_CATEGORY':
 						case 'SOAP_CONTROLLER': 	//Boolean flag for SOAP controller
 							$registerdata[$params[0]][]=rtrim($params[1]);
 						break;

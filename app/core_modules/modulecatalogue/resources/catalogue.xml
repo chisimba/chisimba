@@ -1,2298 +1,358 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="catalogue.xsd">
-<catalogue>
-  	<category>Groups</category>
-	<category>e-Learn</category>
-	<category>Content Management System</category>
-	<category>Wiki</category>
-	<category>Admin</category>
-	<category>Survey</category>
-</catalogue>
-    <module>
-        <id>181</id>
-        <module_id>decisiontable</module_id>
-        <module_authors>Jonathan Abrahams</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>decisiontable</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>1891</id>
-        <module_id>formcatcher</module_id>
-        <module_authors>Jonathan Abrahams</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>decisiontable</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>2</id>
-        <module_id>redirect</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>redirect</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>666</id>
-        <module_id>modulecatalogue</module_id>
-        <module_authors>Nic Appleby</module_authors>
-        <module_releasedate>2006-07-11 16:30:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>modulecatalogue</module_path>
-        <modulecategory>Admin</modulecategory>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>4</id>
-        <module_id>postlogin</module_id>
-        <module_authors>Derek Keats, James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.4</module_version>
-        <module_path>postlogin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-        <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>5</id>
-        <module_id>security</module_id>
-        <module_authors>Derek Keats, Sean Legassick, James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.8</module_version>
-        <module_path>security</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>6</id>
-        <module_id>useradmin</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>useradmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>7</id>
-        <module_id>groupadmin</module_id>
-        <module_authors>Jonathan Abrahams</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>groupadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>8</id>
-        <module_id>permissions</module_id>
-        <module_authors>Jonathan Abrahams</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>permissions</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>9</id>
-        <module_id>sysconfig</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>sysconfig</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>10</id>
-        <module_id>toolbar</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.5</module_version>
-        <module_path>toolbar</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>11</id>
-        <module_id>filestore</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>filestore</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>12</id>
-        <module_id>dublincoremetadata</module_id>
-        <module_authors>Wesley Nitsckie</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='catalogue.xsd'>
+	<catalogue>
+		<category>pre-login</category>
+		<category>admin</category>
+		<category>postlogin</category>
+		<category>security</category>
+	</catalogue>
+	<module>
+    	<id>1</id>
+		<module_id>blocks</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2005 02 14</module_releasedate>
+        <module_version>0.1a</module_version>
+	</module>
+	<module>
+    	<id>2</id>
+		<module_id>calendar</module_id>
+    	<module_authors>Tohir Solomons</module_authors>
+        <module_releasedate>2005 02 22</module_releasedate>
         <module_version>1.3</module_version>
-        <module_path>dublincoremetadata</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>13</id>
-        <module_id>context</module_id>
-        <module_authors>Wesley Nitsckie, Shulam Mtegha</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.72</module_version>
-        <module_path>context</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>14</id>
-        <module_id>contextadmin</module_id>
-        <module_authors>Wesley Nitsckie, Nic Appleby</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.33</module_version>
-        <module_path>contextadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>15</id>
-        <module_id>contextview</module_id>
-        <module_authors>James Scoble Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.5</module_version>
-        <module_path>contextview</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>16</id>
-        <module_id>contextgroups</module_id>
-        <module_authors>Jonathan Abrahams, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.3</module_version>
-        <module_path>contextgroups</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>17</id>
-        <module_id>contextpermissions</module_id>
-        <module_authors>Jonathan Abrahams</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>contextpermissions</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>18</id>
-        <module_id>storycategoryadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>2.1</module_version>
-        <module_path>storycategoryadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>19</id>
-        <module_id>stories</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>2.2</module_version>
-        <module_path>stories</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>20</id>
-        <module_id>email</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>email</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>21</id>
-        <module_id>language</module_id>
-        <module_authors>Derek Keats,Prince Mbekwa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>language</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>22</id>
-        <module_id>contextabstract</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>contextabstract</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>23</id>
-        <module_id>help</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>help</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>24</id>
-        <module_id>datetime</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>datetime</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>25</id>
-        <module_id>strings</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>strings</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>26</id>
-        <module_id>credits</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>credits</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>27</id>
-        <module_id>htmlelements</module_id>
-        <module_authors></module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>htmlelements</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>28</id>
-        <module_id>search</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>search</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>29</id>
-        <module_id>userparamsadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>userparamsadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>30</id>
-        <module_id>userparams</module_id>
-        <module_authors>Derek Keats and Jeremy O'Conner</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>userparams</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>31</id>
-        <module_id>login</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>login</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>32</id>
-        <module_id>calendarbase</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>3</id>
+		<module_id>calendarbase</module_id>
+    	<module_authors>Tohir Solomons</module_authors>
+        <module_releasedate>2005 02 22</module_releasedate>
         <module_version>1</module_version>
-        <module_path>calendarbase</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>33</id>
-        <module_id>systext</module_id>
-        <module_authors>Kevin Cyster</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>systext</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>34</id>
-        <module_id>wiki</module_id>
-        <module_authors>Warren Windvogel</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.9</module_version>
-        <module_path>wiki</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>90</id>
-        <module_id>splashscreenadmin</module_id>
-        <module_authors>Nic Appleby</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.5</module_version>
-        <module_path>splashscreenadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>36</id>
-        <module_id>contextfiles</module_id>
-        <module_authors>James Scoble Jeremy O'Connor, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.9</module_version>
-        <module_path>contextfiles</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>184</id>
-        <module_id>patch</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>patch</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>40</id>
-        <module_id>userstats</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.8</module_version>
-        <module_path>userstats</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-         <modulecategory>Wiki</modulecategory>
-		 <modulecategory>Survey</modulecategory>
-		 <modulecategory>Groups</modulecategory>
-		 <modulecategory>Wiki</modulecategory>
-	 <modulecategory>Survey</modulecategory>
-    </module>
-    <module>
-        <id>44</id>
-        <module_id>cmsadmin</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.6</module_version>
-        <module_path>cmsadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>42</id>
-        <module_id>klorclient</module_id>
-        <module_authors>Jameel Adam</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.4</module_version>
-        <module_path>klorclient</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>43</id>
-        <module_id>klorserver</module_id>
-        <module_authors>James Scoble , Jameel Adam</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.4</module_version>
-        <module_path>context</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>45</id>
-        <module_id>cms</module_id>
-        <module_authors>Tohir Solomons, Nic Appleby</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.6</module_version>
-        <module_path>cms</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>46</id>
-        <module_id>userview</module_id>
-        <module_authors>James Scoble Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>userview</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>47</id>
-        <module_id>userfiles</module_id>
-        <module_authors>James Scoble Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>userfiles</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>48</id>
-        <module_id>activitylog</module_id>
-        <module_authors>Jonathan Abrahams and Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>activitylog</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>49</id>
-        <module_id>ajaxserver</module_id>
-        <module_authors>John Beneke</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>ajaxserver</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>51</id>
-        <module_id>courseoutcomes</module_id>
-        <module_authors>Frank Tilugulilwa, Joseph Myalla</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.3</module_version>
-        <module_path>courseoutcomes</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>53</id>
-        <module_id>assignment</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>assignment</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>54</id>
-        <module_id>popupcalendar</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>popupcalendar</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>55</id>
-        <module_id>assignmentadmin</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>assignmentadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>104</id>
-        <module_id>dictionary</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>dictionary</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>57</id>
-        <module_id>autologin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>autologin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>58</id>
-        <module_id>avoir</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>avoir</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>59</id>
-        <module_id>backup</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.9</module_version>
-        <module_path>backup</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>60</id>
-        <module_id>blocks</module_id>
-        <module_authors>Derek Keats, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.3</module_version>
-        <module_path>blocks</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-
-    </module>
-    <module>
-        <id>61</id>
-        <module_id>bloomadmin</module_id>
-        <module_authors>James Kariuki Njenga</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>bloomadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>62</id>
-        <module_id>buddies</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>buddies</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>63</id>
-        <module_id>calendar</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.3</module_version>
-        <module_path>calendar</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>64</id>
-        <module_id>catalogue</module_id>
-        <module_authors>Frank Tilugulilwa &amp; Edgar Mushokolwa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>catalogue</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>65</id>
-        <module_id>chat</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>4</id>
+		<module_id>chat</module_id>
+    	<module_authors>Jeremy OConnor</module_authors>
+        <module_releasedate>2004 08 02</module_releasedate>
         <module_version>1.6</module_version>
-        <module_path>chat</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>66</id>
-        <module_id>chatadmin</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>5</id>
+		<module_id>cms</module_id>
+    	<module_authors></module_authors>
+        <module_releasedate>2006 06 14</module_releasedate>
         <module_version>1.0</module_version>
-        <module_path>chatadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>68</id>
-        <module_id>cmimportantdocuments</module_id>
-        <module_authors>James Scoble Jeremy O'Connor, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>cmimportantdocuments</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>69</id>
-        <module_id>cmsubmissions</module_id>
-        <module_authors>James Scoble Jeremy O'Connor, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+		<module_category>pre-login</module_category>
+	</module>
+	<module>
+    	<id>6</id>
+		<module_id>cmsadmin</module_id>
+	</module>
+	<module>
+    	<id>7</id>
+		<module_id>communications</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 07 07</module_releasedate>
+        <module_version>0.3</module_version>
+	</module>
+	<module>
+    	<id>8</id>
+		<module_id>config</module_id>
+	</module>
+	<module>
+    	<id>9</id>
+		<module_id>context</module_id>
+    	<module_authors>Wesley Nitsckie, Shulam Mtegha</module_authors>
+        <module_releasedate>2004 08 05</module_releasedate>
         <module_version>1.1</module_version>
-        <module_path>cmsubmissions</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>71</id>
-        <module_id>commenttypeadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>10</id>
+		<module_id>contextadmin</module_id>
+    	<module_authors>Wesley Nitsckie</module_authors>
+        <module_releasedate>2004 08 05</module_releasedate>
+        <module_version>1.1</module_version>
+	</module>
+	<module>
+    	<id>11</id>
+		<module_id>contextcalendar</module_id>
+    	<module_authors>Tohir Solomons</module_authors>
+        <module_releasedate>2005 02 22</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>commenttypeadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>72</id>
-        <module_id>comment</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>comment</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>73</id>
-        <module_id>communications</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.3</module_version>
-        <module_path>communications</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>96</id>
-        <module_id>rss</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>12</id>
+		<module_id>contextgroups</module_id>
+    	<module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>2004 02 14</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>13</id>
+		<module_id>contextpermissions</module_id>
+    	<module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>2005 02 01</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>rss</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>75</id>
-        <module_id>contextaudio</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-07-23 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>14</id>
+		<module_id>datetime</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 07 10</module_releasedate>
         <module_version>0.1a</module_version>
-        <module_path>contextaudio</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>76</id>
-        <module_id>contextcalendar</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>15</id>
+		<module_id>dbmanager</module_id>
+	</module>
+	<module>
+    	<id>16</id>
+		<module_id>decisiontable</module_id>
+    	<module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>2005 02 01</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>contextcalendar</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>77</id>
-        <module_id>contextcontent</module_id>
-        <module_authors>Wesley Nitsckie</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.2</module_version>
-        <module_path>contextcontent</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>78</id>
-        <module_id>contextmembers</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>contextmembers</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>79</id>
-        <module_id>contextmigrate</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>contextmigrate</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>80</id>
-        <module_id>contextmodules</module_id>
-        <module_authors>James Scoble, Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.3</module_version>
-        <module_path>contextmodules</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>82</id>
-        <module_id>courseoutcomesadmin</module_id>
-        <module_authors>Frank Tilugulilwa, Joseph Myalla</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>courseoutcomeadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>83</id>
-        <module_id>cpts</module_id>
-        <module_authors>Warren Windvogel</module_authors>
-        <module_releasedate>2001-11-05 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>cpts</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>84</id>
-        <module_id>createlang</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>createlang</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>85</id>
-        <module_id>creativecommons</module_id>
-        <module_authors>Administrative User</module_authors>
-        <module_releasedate>2005-08-05 00:00:00</module_releasedate>
-        <module_version>0.4</module_version>
-        <module_path>creativecommons</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>183</id>
-        <module_id>codereport</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-10-01 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>codereport</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>87</id>
-        <module_id>forum</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>2.12</module_version>
-        <module_path>forum</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>89</id>
-        <module_id>glossary</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.4</module_version>
-        <module_path>glossary</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>94</id>
-        <module_id>splashscreen</module_id>
-        <module_authors>Tohir Solomons</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>17</id>
+		<module_id>dublincoremetadata</module_id>
+    	<module_authors>Wesley Nitsckie</module_authors>
+        <module_releasedate>2004 12 22</module_releasedate>
         <module_version>1.3</module_version>
-        <module_path>splashscreen</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>97</id>
-        <module_id>trackback</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.3</module_version>
-        <module_path>trackback</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>98</id>
-        <module_id>blog</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2a</module_version>
-        <module_path>blog</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>100</id>
-        <module_id>photogallery</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.25</module_version>
-        <module_path>photogallery</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>101</id>
-        <module_id>mirrortools</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>18</id>
+		<module_id>files</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2005/06/23</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>mirrortools</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>102</id>
-        <module_id>mirrordb</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>19</id>
+		<module_id>fileshare</module_id>
+    	<module_authors>James Scoble Jeremy O'Connor</module_authors>
+        <module_releasedate>2004 11 07</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>20</id>
+		<module_id>filters</module_id>
+	</module>
+	<module>
+    	<id>21</id>
+		<module_id>formcatcher</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2006/06/14</module_releasedate>
+        <module_version>0.60</module_version>
+	</module>
+	<module>
+    	<id>22</id>
+		<module_id>freemind</module_id>
+	</module>
+	<module>
+    	<id>23</id>
+		<module_id>groupadmin</module_id>
+    	<module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>2004 08 26</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>mirrordb</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>103</id>
-        <module_id>servername</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>2005-04-28 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>24</id>
+		<module_id>help</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 11 24</module_releasedate>
         <module_version>0.1a</module_version>
-        <module_path>servername</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>105</id>
-        <module_id>essay</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>essay</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>106</id>
-        <module_id>essayadmin</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>essayadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>107</id>
-        <module_id>extensions</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>25</id>
+		<module_id>htmlelements</module_id>
+    	<module_authors></module_authors>
+        <module_releasedate></module_releasedate>
+        <module_version>0.1a</module_version>
+	</module>
+	<module>
+    	<id>26</id>
+		<module_id>ircchat</module_id>
+    	<module_authors>Jeremy O'Connor</module_authors>
+        <module_releasedate>2006 07 13</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>extensions</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>108</id>
-        <module_id>faq</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>faq</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>109</id>
-        <module_id>faqadmin</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>27</id>
+		<module_id>language</module_id>
+    	<module_authors>Derek Keats,Prince Mbekwa</module_authors>
+        <module_releasedate>2004 07 07</module_releasedate>
         <module_version>1.0</module_version>
-        <module_path>faqadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>110</id>
-        <module_id>files</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-06-23 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>28</id>
+		<module_id>logger</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 12 04</module_releasedate>
         <module_version>0.1</module_version>
-        <module_path>files</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>111</id>
-        <module_id>fileshare</module_id>
-        <module_authors>James Scoble Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>fileshare</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>112</id>
-        <module_id>fileview</module_id>
-        <module_authors>James Scoble Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>fileview</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>113</id>
-        <module_id>filters</module_id>
-        <module_authors>Derek Keats, Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>filters</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>114</id>
-        <module_id>findnreplace</module_id>
-        <module_authors>Olusola Abidogun</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>findnreplace</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>115</id>
-        <module_id>freemind</module_id>
-        <module_authors>Wesley Nitsckie, Prince Mbekwa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.3</module_version>
-        <module_path>freemind</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>116</id>
-        <module_id>worksheet</module_id>
-        <module_authors>Tohir Solomons, Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>worksheet</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>117</id>
-        <module_id>testadmin</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.3</module_version>
-        <module_path>testadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>118</id>
-        <module_id>test</module_id>
-        <module_authors>Megan Watson,James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>29</id>
+		<module_id>lucene</module_id>
+	</module>
+	<module>
+    	<id>30</id>
+		<module_id>mail</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2006 07 22</module_releasedate>
+        <module_version>0.1</module_version>
+	</module>
+	<module>
+    	<id>31</id>
+		<module_id>mediamanager</module_id>
+	</module>
+	<module>
+    	<id>32</id>
+		<module_id>modulecatalogue</module_id>
+    	<module_authors>Nic Appleby</module_authors>
+        <module_releasedate>2006 06 14</module_releasedate>
         <module_version>1.2</module_version>
-        <module_path>test</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>119</id>
-        <module_id>gradebook</module_id>
-        <module_authors>Otim Samuel</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+		<module_category>admin</module_category>
+		<module_category>cms</module_category>
+	</module>
+	<module>
+    	<id>33</id>
+		<module_id>modulelist</module_id>
+	</module>
+	<module>
+    	<id>34</id>
+		<module_id>navigation</module_id>
+	</module>
+	<module>
+    	<id>35</id>
+		<module_id>permissions</module_id>
+    	<module_authors>Jonathan Abrahams</module_authors>
+        <module_releasedate>2004 06 30</module_releasedate>
         <module_version>1.1</module_version>
-        <module_path>gradebook</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>120</id>
-        <module_id>guestbook</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>guestbook</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>121</id>
-        <module_id>guestbookadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>guestbook</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>122</id>
-        <module_id>guitar</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>guitar</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>123</id>
-        <module_id>hivaidstips</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>hivaidstips</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>124</id>
-        <module_id>hivaidstipsadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>hivaidstipsadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>125</id>
-        <module_id>homepage</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>homepage</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>126</id>
-        <module_id>instantmessaging</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>instantmessaging</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>127</id>
-        <module_id>introduceyourself</module_id>
-        <module_authors>John Abakpa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>36</id>
+		<module_id>postlogin</module_id>
+    	<module_authors>Derek Keats, James Scoble</module_authors>
+        <module_releasedate>2004 07 24</module_releasedate>
+        <module_version>0.2</module_version>
+		<module_category>postlogin</module_category>
+	</module>
+	<module>
+    	<id>37</id>
+		<module_id>redirect</module_id>
+    	<module_authors>Megan Watson</module_authors>
+        <module_releasedate>2005 03 14</module_releasedate>
         <module_version>1.0</module_version>
-        <module_path>introduceyourself</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>128</id>
-        <module_id>inventory</module_id>
-        <module_authors>Sheba Nyakaisiki, Antonio Morais, Walter Kashumba, Jameel Adam, John Abakpa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>inventory</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>129</id>
-        <module_id>jabberclient</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>jabberclient</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>130</id>
-        <module_id>kbookmark</module_id>
-        <module_authors>James K. Njenga</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>38</id>
+		<module_id>security</module_id>
+    	<module_authors>Derek Keats, Sean Legassick, James Scoble</module_authors>
+        <module_releasedate>2004 06 11</module_releasedate>
+        <module_version>1.5</module_version>
+		<module_category>security</module_category>
+	</module>
+	<module>
+    	<id>39</id>
+		<module_id>serverlist</module_id>
+	</module>
+	<module>
+    	<id>40</id>
+		<module_id>skin</module_id>
+	</module>
+	<module>
+    	<id>41</id>
+		<module_id>soundplayer</module_id>
+	</module>
+	<module>
+    	<id>42</id>
+		<module_id>splashscreen</module_id>
+    	<module_authors>Derek Keats, James Scoble</module_authors>
+        <module_releasedate>2004 07 24</module_releasedate>
+        <module_version>0.2</module_version>
+		<module_category>pre-login</module_category>
+	</module>
+	<module>
+    	<id>43</id>
+		<module_id>stories</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 05 04</module_releasedate>
         <module_version>1.0</module_version>
-        <module_path>kbookmark</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>131</id>
-        <module_id>keepsessionalive</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
+	</module>
+	<module>
+    	<id>44</id>
+		<module_id>storycategoryadmin</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2005 03 15</module_releasedate>
+        <module_version>0.1</module_version>
+	</module>
+	<module>
+    	<id>45</id>
+		<module_id>strings</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 10 30</module_releasedate>
+        <module_version>0.1a</module_version>
+	</module>
+	<module>
+    	<id>46</id>
+		<module_id>sysconfig</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2004 12 11</module_releasedate>
+        <module_version>0.2</module_version>
+	</module>
+	<module>
+    	<id>47</id>
+		<module_id>systext</module_id>
+    	<module_authors>Kevin Cyster</module_authors>
+        <module_releasedate>2005 07 13</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>48</id>
+		<module_id>toolbar</module_id>
+    	<module_authors>Megan Watson</module_authors>
+        <module_releasedate>2004 09 22</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>49</id>
+		<module_id>tree</module_id>
+	</module>
+	<module>
+    	<id>50</id>
+		<module_id>useradmin</module_id>
+    	<module_authors>James Scoble</module_authors>
+        <module_releasedate>2004 06 11</module_releasedate>
+        <module_version>1.1</module_version>
+	</module>
+	<module>
+    	<id>51</id>
+		<module_id>userparams</module_id>
+    	<module_authors>Derek Keats</module_authors>
+        <module_releasedate>2005 01 20</module_releasedate>
+        <module_version>0.1</module_version>
+	</module>
+	<module>
+    	<id>52</id>
+		<module_id>utilities</module_id>
+    	<module_authors>Various</module_authors>
+        <module_releasedate>2006 05 24</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>53</id>
+		<module_id>webservices</module_id>
+	</module>
+	<module>
+    	<id>54</id>
+		<module_id>workgroup</module_id>
+    	<module_authors>Jeremy O'Connor</module_authors>
+        <module_releasedate>2004 10 29</module_releasedate>
+        <module_version>1.0</module_version>
+	</module>
+	<module>
+    	<id>55</id>
+		<module_id>workgroupadmin</module_id>
+    	<module_authors>Jeremy O'Connor</module_authors>
+        <module_releasedate>2004 10 29</module_releasedate>
         <module_version>1.2</module_version>
-        <module_path>keepsessionalive</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>132</id>
-        <module_id>ksuggestionbox</module_id>
-        <module_authors>David Wafula, Jennifer Abagyeh</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>ksuggestionbox</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>133</id>
-        <module_id>languagetext</module_id>
-        <module_authors>Prince Mbekwa, Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>/modules/languagetext/</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>134</id>
-        <module_id>library</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>library</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>135</id>
-        <module_id>license</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>license</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>136</id>
-        <module_id>links</module_id>
-        <module_authors>Administrative User</module_authors>
-        <module_releasedate>2006-01-19 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>links</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>137</id>
-        <module_id>linksadmin</module_id>
-        <module_authors>Administrative User</module_authors>
-        <module_releasedate>2006-01-19 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>linksadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>138</id>
-        <module_id>logger</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.9</module_version>
-        <module_path>logger</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>139</id>
-        <module_id>mailinglist</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>mailinglist</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>140</id>
-        <module_id>mailman</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-08-26 00:00:00</module_releasedate>
-        <module_version>1</module_version>
-        <module_path>mailman</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>141</id>
-        <module_id>makemodule</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>makemodule</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>142</id>
-        <module_id>mathml</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.9</module_version>
-        <module_path>mathml</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>143</id>
-        <module_id>navigation</module_id>
-        <module_authors>Derek Keats Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>navigation</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>144</id>
-        <module_id>noticeboard</module_id>
-        <module_authors>Modou FALL</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>noticeboard</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>145</id>
-        <module_id>pbl</module_id>
-        <module_authors>Fernando Martinez, Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>pbl</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>146</id>
-        <module_id>pbladmin</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>pbladmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>147</id>
-        <module_id>personalspace</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>personalspace</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>148</id>
-        <module_id>podcast</module_id>
-        <module_authors>Administrative User</module_authors>
-        <module_releasedate>2005-04-30 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>podcast</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>149</id>
-        <module_id>podcastadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-04-30 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>podcastadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>150</id>
-        <module_id>popmail</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>popmail</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>Groups</modulecategory>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>151</id>
-        <module_id>supervisor</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>supervisor</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>152</id>
-        <module_id>postgrad</module_id>
-        <module_authors>Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>postgrad</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>153</id>
-        <module_id>presentations</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>2005-06-16 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>presentations</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>154</id>
-        <module_id>profiles</module_id>
-        <module_authors>Kevin Cyster</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>profiles</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>155</id>
-        <module_id>quotes</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>quotes</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>156</id>
-        <module_id>quotesadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>quotesadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>158</id>
-        <module_id>recommend</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>recommend</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>159</id>
-        <module_id>registersite</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>registersite</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>160</id>
-        <module_id>reports</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>reports</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>161</id>
-        <module_id>rubric</module_id>
-        <module_authors>Jeremy OConnor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.3</module_version>
-        <module_path>rubric</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>162</id>
-        <module_id>scorm</module_id>
-        <module_authors>Prince Mbekwa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>scorm</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>163</id>
-        <module_id>serverstatus</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>serverstatus</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>164</id>
-        <module_id>sitestats</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.7</module_version>
-        <module_path>sitestats</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>165</id>
-        <module_id>smsc</module_id>
-        <module_authors>Paul Scott</module_authors>
-        <module_releasedate>2005-06-05 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>smsc</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>166</id>
-        <module_id>sudoku</module_id>
-        <module_authors>Kevin Cyster</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>sudoku</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>167</id>
-        <module_id>survey</module_id>
-        <module_authors>Kevin Cyster</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.01</module_version>
-        <module_path>survey</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>168</id>
-        <module_id>tableadmin</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.2</module_version>
-        <module_path>tableadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>169</id>
-        <module_id>translate</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>translate</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>170</id>
-        <module_id>userimport</module_id>
-        <module_authors>James Scoble</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>userimport</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>171</id>
-        <module_id>websearch</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>websearch</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>0</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>172</id>
-        <module_id>webservices</module_id>
-        <module_authors>Prince Mbekwa</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>webservices</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>173</id>
-        <module_id>whatsnew</module_id>
-        <module_authors>Elijah Omwenga and Otim Samuel</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>whatsnew</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>174</id>
-        <module_id>whatsnewadmin</module_id>
-        <module_authors>Elijah Omwenga and Otim Samuel</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.1</module_version>
-        <module_path>whatsnewadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>175</id>
-        <module_id>workgroup</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>workgroup</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-        <modulecategory>Groups</modulecategory>
-        <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>176</id>
-        <module_id>workgroupadmin</module_id>
-        <module_authors>Jeremy O'Connor</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1.0</module_version>
-        <module_path>workgroupadmin</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-          <modulecategory>Groups</modulecategory>
-          <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>177</id>
-        <module_id>worksheetadmin</module_id>
-        <module_authors>Tohir Solomons, Megan Watson</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>1</module_version>
-        <module_path>worksheetadmin</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>1</hasAdminPage>
-        <isContextAware>1</isContextAware>
-        <dependsContext>1</dependsContext>
-         <modulecategory>e-Learn</modulecategory>
-    </module>
-    <module>
-        <id>178</id>
-        <module_id>wrapgeshi</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1</module_version>
-        <module_path>wrapgeshi</module_path>
-        <isAdmin>0</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
-    <module>
-        <id>179</id>
-        <module_id>viewsource</module_id>
-        <module_authors>Derek Keats</module_authors>
-        <module_releasedate>0000-00-00 00:00:00</module_releasedate>
-        <module_version>0.1a</module_version>
-        <module_path>viewsource</module_path>
-        <isAdmin>1</isAdmin>
-        <isVisible>1</isVisible>
-        <hasAdminPage>0</hasAdminPage>
-        <isContextAware>0</isContextAware>
-        <dependsContext>0</dependsContext>
-    </module>
+	</module>
 </settings>

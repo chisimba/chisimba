@@ -120,6 +120,7 @@ class modulecatalogue extends controller
 			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
 			$this->objSideMenu->addNodes(array('updates','all'));
+			$this->objCatalogueConfig->writeCatalogue();
 			$xmlCat = $this->objCatalogueConfig->getNavParam('category');
 			//get list of categories
 			$catArray = $xmlCat['catalogue']['category'];
@@ -152,6 +153,8 @@ class modulecatalogue extends controller
 			//$this->setVar('letter',$this->getParam('letter','none'));
 			$this->setLayoutTemplate('cat_layout.php');
 			switch ($action) {		//check action
+				case xml:
+							break;
 				case null:
 				case 'list':
 					if (strtolower($activeCat) == 'updates') {
