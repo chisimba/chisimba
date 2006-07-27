@@ -60,6 +60,9 @@ $fields = array(
 		'type' => 'text',
 		'length' => '32',
 		),
+	'dateCreated' => array(
+		'type' => 'date',
+		),
 	'dateLastUpdated' => array(
 		'type' => 'date'
 		),
