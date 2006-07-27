@@ -5,7 +5,7 @@ $objHelp = new domtt();
 <tbody valign="top">
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Select a name for your System','This name will appear as a title in your application');?>
+	<?php echo $objHelp->show('Select a name for your System','This name will appear as a header in your application');?>
 </td>
 	<td width="50%">
 	System Name.
@@ -16,7 +16,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Select a Server Name','This name will be a unique name when it come into contact with other Chisimba Systems');?>
+	<?php echo $objHelp->show('Select a Server Name',"This name will be a unique name when your application comes into contact with other Chisimba Systems when taking part in Chisimba's Active Dynamic Mirroring Peer to Peer Network");?>
 	</td>
 	<td width="50%">
 	Server Name.
@@ -28,7 +28,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Select a Location','Where is your server located');?>
+	<?php echo $objHelp->show('Select a Location','Where is your server located?');?>
 	</td>
 	<td width="50%">
 	Server location?
@@ -39,7 +39,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-		<?php echo $objHelp->show('System Owner','This person is normally the administrator of the system and will play a super user role within the system');?>
+		<?php echo $objHelp->show('System Owner','This person is normally the administrator of the system and will play a superuser or administrative role within the system');?>
 
 	</td>
 	<td>
@@ -65,7 +65,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Log Activity','Select this if you want the system to log the activity of the user');?>
+	<?php echo $objHelp->show('Log Activity','Select this if you want the system to log the activities of users');?>
 	</td>
 	<td >
 	Log user activity?
@@ -79,7 +79,7 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-		<?php echo $objHelp->show('Debug','This will prevent error messegers from appearing');?>
+		<?php echo $objHelp->show('Debug','This will create a log file of any error messages that may be encountered');?>
 	</td>
 	<td >
 	Debug enable?
@@ -118,7 +118,7 @@ $objHelp = new domtt();
 <tr valign="top">
 
 	<td>
-	<?php echo $objHelp->show('Skin','Choose a default skin');?>	</td>
+	<?php echo $objHelp->show('Skin','Choose the default skin');?>	</td>
 	<td >
 	Defaul Skin
 	</td>
@@ -128,7 +128,7 @@ $objHelp = new domtt();
 </tr>
 <tr>
 	<td>
-	<?php echo $objHelp->show('Site root URL','The Site root URL is the url of your installation, normally something like localhost/5ive/app/ Dont forget to include the last /');?>
+	<?php echo $objHelp->show('Site root URL','The Site root URL is the url (FQDN) of your installation.');?>
 	</td>
 	<td >
 	Site root URL.
@@ -140,7 +140,7 @@ $objHelp = new domtt();
 </tr>
 <tr>
 	<td>
-	<?php echo $objHelp->show('Proxy Settings','If you are using a proxy then add your proxy settings using the following example : http://user:password@proxy.myhost.com:port');?>
+	<?php echo $objHelp->show('Proxy Settings','If you connect to the internet through a proxy, then add your proxy settings using the following example : http://user:password@proxy.myhost.com:port');?>
 	</td>
 	<td >
 	Proxy Settings.

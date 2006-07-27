@@ -7,7 +7,7 @@ function chroot_check()
 	} else {
 		elem.style.display = 'block';
 	}
-	
+
 	elem = document.getElementById('chroot_link');
 	if (elem.style.display == 'block') {
 		elem.style.display = 'none';
@@ -29,21 +29,21 @@ function chroot_check()
 		</td>
 		<td >
 			<?php echo $symlinkbox; ?>
-			
+
 		</td>
-		
+
 	</tr>
 	<tr valign="top">
 		<td>
-			
+
 		</td>
 		<td>
-			Check this box if you are on a shared host that uses chroot jails. 
-			The htaccess file generated needs extra options for chrooted user 
-			directories. This is not guaranteed to work, however it may help 
-			in some cases. If you are try to install on a shared host and 
-			encountering some problems, please visit the 
-			<a href="http://fsiu.uwc.ac.za/">5ive Forums</a> and 
+			Check this box if you are on a shared host that uses chroot jails.
+			The htaccess file generated needs extra options for chrooted user
+			directories. This is not guaranteed to work, however it may help
+			in some cases. If you are try to install on a shared host and
+			encountering some problems, please visit the
+			<a href="http://fsiu.uwc.ac.za/">Chisimba Forums</a> and
 			look through the current threads on shared hosting installation.
 		</td>
 		<td><?php echo $shared_host; ?></td>

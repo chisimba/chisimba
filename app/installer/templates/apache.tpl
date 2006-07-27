@@ -1,5 +1,5 @@
 <p>
-	Please select how to configure your server for 5ive.
+	Please select how to configure your server for Chisimba.
 </p>
 
 <p>
@@ -10,7 +10,7 @@
 	<?php echo $alias; ?> Show me what Apache Aliases to create.
 	<br />
 	<a href="<?php echo HELP_URL?>/server_configuration#symlink" target="_blank"><img src="./extra/yellow_help_off.png" border="0" alt="Help" title="Help"  /></a>
-	<?php echo $symlinks; ?> Create Symbolic Links 
+	<?php echo $symlinks; ?> Create Symbolic Links
 	<br />
 </p>
 

@@ -981,7 +981,7 @@ class RootUserAction extends StepAction
 
 			$dirList=array();
 
-			$dirList = array("postlogin"=>'Postlogin');
+			$dirList = array("postlogin"=>'postlogin');
 
 			while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 

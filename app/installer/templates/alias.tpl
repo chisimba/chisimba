@@ -1,8 +1,8 @@
 <h4>
-	These Alias directives should be copied into your httpd.conf file (if 
-	running virtual hosts, they need to be placed in the VirtualHost section 
-	of your httpd.conf file that corresponds to the website 5ive
-	will be running). Apache will need to be restarted before these settings 
+	These Alias directives should be copied into your httpd.conf file (if
+	running virtual hosts, they need to be placed in the VirtualHost section
+	of your httpd.conf file that corresponds to the website Chisimba
+	will be running). Apache will need to be restarted before these settings
 	take effect, however you should wait until installation is complete before
 	restarting.
 </h4>

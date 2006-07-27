@@ -4,10 +4,10 @@ $objHelp = new domtt();
 <table class="install-table">
 	<tr valign="top">
 		<td width="1">
-			
+
 		</td>
 		<td >
-			Current Database Username : 
+			Current Database Username :
 		</td>
 		<td >
 			<?php echo $db_user ?>
@@ -17,24 +17,24 @@ $objHelp = new domtt();
 		<td>
 		</td>
 		<td>
-			Current Database Password : 
+			Current Database Password :
 		</td>
 		<td>
 			<?php echo str_pad('', strlen($db_pass), '*'); ?>
 		</td>
 	</tr>
-	
+
 	<tr valign="top">
 		<td>
-			<?php echo $objHelp->show('Select a secondary database user','<h1>PAUL please give more help this please</h1>');?>
+			<?php echo $objHelp->show('Select a secondary (read-only) database user','A read-only user will have limited permissions on the database, and is used to create views only. This user is unable to write any data to the database.');?>
 		</td>
 		<td >
-			Use these values for the secondary user? 
+			Use these values for the read-only database user?
 		</td>
 		<td>
 			<?php echo $use_old ?>
 		</td>
 	</tr>
-	
+
 </tr>
 </table>
