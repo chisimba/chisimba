@@ -255,11 +255,15 @@ class dbTableManager extends object
             //do the table create.
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
+            //create the "primary" index
+            $this->createPK($tableName);
             //return a true, simply because MDB::CreateTable returns void (wtf?)
             return TRUE;
         }
         else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
+            //create the "primary" index
+            $this->createPK($tableName);
             return TRUE;
         }
 
