@@ -56,6 +56,10 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
+	'context' => array(
+		'type' => 'text',
+		'length' => '32',
+		),
 	'dateLastUpdated' => array(
 		'type' => 'date'
 		),
