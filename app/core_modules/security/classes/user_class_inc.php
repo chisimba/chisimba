@@ -26,7 +26,7 @@ class user extends dbTable
    {
        parent::init("tbl_users");
 
-       $this->objConfig=&$this->getObject('config','config');
+       $this->objConfig=&$this->getObject('altconfig','config');
        $this->objLanguage =& $this->getObject('language', 'language');
        $this->loggedInUsers =& $this->getObject('loggedInUsers');
        $this->userLoginHistory =& $this->getObject('userLoginHistory');
