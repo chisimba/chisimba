@@ -30,15 +30,15 @@ class Start extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -60,13 +60,13 @@ class Start extends Step
 
 		$this->actions[] =& new StartAction(get_class($this));
 
-		$this->step_help = "Welcome to the 5ive installer. This installer is designed to help you configure a fresh download of KINKYII, and install necessary data into the system. If at any time during installation you require help with an item, click the nearest help  icon. This will direct you to the 5ive website with the latest information about the selected topic.";
+		$this->step_help = "Welcome to the Chisimba installer. This installer is designed to help you configure a fresh download of Chisimba, and install necessary data into the system. If at any time during installation you require help with an item, click the nearest help  icon. This will direct you to the Chisimba website with the latest information about the selected topic.";
 
 	}//end Start()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -90,15 +90,15 @@ class StartAction extends StepAction
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Display a splash screen to the user
 
-	* 
+	*
 
 	* @return void
 
@@ -118,7 +118,7 @@ class StartAction extends StepAction
 
 		$wizard->killSession();
 
-		
+
 
 		$tpl = new Template(INSTALL_DIR.'/templates/startstep.tpl');
 
@@ -126,9 +126,9 @@ class StartAction extends StepAction
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 }//end class
 

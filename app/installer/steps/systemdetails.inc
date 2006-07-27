@@ -981,7 +981,7 @@ class RootUserAction extends StepAction
 
 			$dirList=array();
 
-			$dirList = array("--"=>'None');
+			$dirList = array("postlogin"=>'Postlogin');
 
 			while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 
@@ -1005,7 +1005,7 @@ class RootUserAction extends StepAction
 
     			  $dirList,false,
 
-    			  array(isset($_SESSION['postLogin'])?$_SESSION['postLogin']:''),
+    			  array(isset($_SESSION['postLogin'])?$_SESSION['postLogin']:'postlogin'),
 
     			  0,'tabindex="12"');
 
@@ -1208,7 +1208,7 @@ class RootUserAction extends StepAction
 
 		//save key for selected skin
 
-		$defaultskin = isset($_SESSION['defaultskin']) ? $_SESSION['defaultskin'] : '';
+		$defaultskin = isset($_SESSION['defaultskin']) ? $_SESSION['defaultskin'] : 'echo';
 
 		//We need to extract the actual value of the selected key
 
@@ -1224,7 +1224,7 @@ class RootUserAction extends StepAction
 
 		$dirskinList=array();
 
-		$dirskinList = array('--'=>'None');
+		$dirskinList = array('echo'=>'Echo');
 
 		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 
@@ -1302,7 +1302,7 @@ class RootUserAction extends StepAction
 
 		$tpl->set('topic',$this->parent_step);
 
-		$tpl->set('site_url',$this_url. '<br/> (Please note that 5ive treats all URLS as lower case)');
+		$tpl->set('site_url',$this_url. '<br/> (Please note that Chisimba treats all URLS as lower case)');
 
 		$tpl->set('root_email', $def_email);
 

@@ -689,7 +689,7 @@ class CreateConfigsAction extends FiveStepAction
 
 		$message = '';
 
-		$message = 	'5ive will now try and create the initial setup files. If '.
+		$message = 	'Chisimba will now try and create the initial setup files. If '.
 
 					'you are running an update, this will save a backup of your '.
 

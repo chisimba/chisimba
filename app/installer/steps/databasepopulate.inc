@@ -38,15 +38,15 @@ class DatabasePopulate extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -70,13 +70,13 @@ class DatabasePopulate extends Step
 
 		$this->can_cancel = false;
 
-		
+
 
 	}//end DatabasePopulate()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -100,7 +100,7 @@ class DbPopulateAction extends StepAction
 
 {
 
-	
+
 
 	/**
 
@@ -112,13 +112,13 @@ class DbPopulateAction extends StepAction
 
 	var $init_output = Array();
 
-	
+
 
 	/**
 
 	* Initialise the 5ive system.
 
-	* 
+	*
 
 	* @return boolean Whether all the database tables were created or not.
 
@@ -140,7 +140,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		// make sure that SQ_SYSTEM_ROOT is defined before trying to execute the script.
 
@@ -158,7 +158,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		// process 'step3'
 
@@ -170,17 +170,17 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
@@ -190,7 +190,7 @@ class DbPopulateAction extends StepAction
 
 	* listed as installed.
 
-	* 
+	*
 
 	* @return boolean Whether or not to repopulate the database
 
@@ -204,7 +204,7 @@ class DbPopulateAction extends StepAction
 
 		$ret = false;
 
-		
+
 
 		ini_set('memory_limit', -1);
 
@@ -212,7 +212,7 @@ class DbPopulateAction extends StepAction
 
 		$SYSTEM_ROOT = $_SESSION['sys_root'];
 
-		
+
 
 		if (empty($SYSTEM_ROOT) || !is_dir($SYSTEM_ROOT)) {
 
@@ -222,7 +222,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		// Let everyone know we are installing
 
@@ -230,7 +230,7 @@ class DbPopulateAction extends StepAction
 
 		$db = &$GLOBALS['SQ_SYSTEM']->db;
 
-		
+
 
 		$sql = '';
 
@@ -244,7 +244,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		$result = $db->query($sql);
 
@@ -256,7 +256,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		// if there WEREN'T any rows in the database, need to make sure the main system_asset config file
 
@@ -276,7 +276,7 @@ class DbPopulateAction extends StepAction
 
 			$sys_asset_cfg = new System_Asset_Config();
 
-			
+
 
 			// if the config file exists, then delete it so that the assets will be recreated
 
@@ -286,29 +286,29 @@ class DbPopulateAction extends StepAction
 
 			}
 
-			
+
 
 			unset($sys_asset_cfg);
 
 		}
 
-		
+
 
 		return $ret;
 
-		
+
 
 	}//end _repairCheck()
 
-	
 
-	
+
+
 
 	/**
 
 	* Step 03.php script wrapped into a function
 
-	* 
+	*
 
 	* @return void
 
@@ -324,13 +324,13 @@ class DbPopulateAction extends StepAction
 
 		$success = true;
 
-		
+
 
 		// buffer the output because it doesn't all need to be sent to the user.
 
 		ob_start();
 
-		
+
 
 		ini_set('memory_limit', -1);
 
@@ -342,7 +342,7 @@ class DbPopulateAction extends StepAction
 
 		$SYSTEM_ROOT = $_SESSION['sys_root'];
 
-		
+
 
 		if (empty($SYSTEM_ROOT) || !is_dir($SYSTEM_ROOT)) {
 
@@ -352,7 +352,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-			
+
 
 		// Need to configure all the stuff in the asset manager stuff before running this stuff.
 
@@ -366,15 +366,15 @@ class DbPopulateAction extends StepAction
 
 		$am->_loadAssetTypes();
 
-		
+
 
 		// Let everyone know we are installing
 
 		$GLOBALS['SQ_INSTALL'] = true;
 
-		
 
-		
+
+
 
 		if (!regenerate_configs()) {
 
@@ -388,9 +388,9 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
 
-		
+
+
 
 		// if the user deleted database tables during a modify, then this will
 
@@ -400,7 +400,7 @@ class DbPopulateAction extends StepAction
 
 		$repair_populate = $this->_repairCheck();
 
-		
+
 
 		// refactor this stuff out as soon as possible!!
 
@@ -488,7 +488,7 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		// have to repeat the packageSetup if this is a fresh install, or if the db tables had
 
@@ -500,29 +500,29 @@ class DbPopulateAction extends StepAction
 
 		}
 
-		
+
 
 		//$output = ob_get_contents();
 
 		ob_end_clean();
 
-		
+
 
 		return $success;
 
-		
+
 
 	}//end _step03()
 
-	
 
-	
+
+
 
 	/**
 
 	* Display information about the creation status to the user
 
-	* 
+	*
 
 	* @return void
 
@@ -536,13 +536,13 @@ class DbPopulateAction extends StepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/oldstep.tpl');
 
-		
 
-		$warning_text = ''; 
+
+		$warning_text = '';
 
 		$message = '';
 
-		
+
 
 		// if this is an install setup type, or it was set that db tables should be
 
@@ -550,7 +550,7 @@ class DbPopulateAction extends StepAction
 
 		if (($_SESSION['install_type'] == 'install') || (isset($_SESSION['create_db']) && $_SESSION['create_db'])) {
 
-			$message = 	'5ive will now try and populate the database tables needed by the system. Note
+			$message = 	'Chisimba will now try and populate the database tables needed by the system. Note
 
 					 that this step may several minutes to complete, so do not interrupt the processing of this step after
 
@@ -560,35 +560,35 @@ class DbPopulateAction extends StepAction
 
 		else {
 
-			$message = '5ive will now ensure recently installed packages and assets are correctly '.
+			$message = 'Chisimba will now ensure recently installed packages and assets are correctly '.
 
 						'inserted into the database, and that any packages marked for deletion are removed.';
 
 		}
 
-		
+
 
 		$tpl->set('warnings', $warning_text);
 
 		$tpl->set('message', $message);
 
-		
+
 
 		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the user what database stuff was written
 
-	* 
+	*
 
 	* @return void
 
@@ -620,13 +620,13 @@ class DbPopulateAction extends StepAction
 
 		echo '</table>';
 
-		
+
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 

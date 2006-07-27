@@ -30,7 +30,7 @@ require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
 * @version $version$ - 1.0
 
-* @package 5ive
+* @package installer
 
 * @subpackage installer
 
@@ -536,7 +536,7 @@ class DbCreateAction extends StepAction
 
 		if (($_SESSION['install_type'] == 'install') || (isset($_SESSION['create_db']) && $_SESSION['create_db'])) {
 
-			$message = 	'5ive will now try and create the database tables needed by the system. Note
+			$message = 	'Chisimba will now try and create the database tables needed by the system. Note
 
 					 that this step may take some time, so do not interrupt the processing of this step after
 
@@ -546,7 +546,7 @@ class DbCreateAction extends StepAction
 
 		else {
 
-			$message = '5ive will now cache the current database table columns for quicker '.
+			$message = 'Chisimba will now cache the current database table columns for quicker '.
 
 						'database access';
 

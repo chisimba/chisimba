@@ -254,7 +254,7 @@ $this->step_help = "db name action,";
 
 				$this->errors[] = 'The installer was unable to check if your system currently has db tables created. '.
 
-								'You can continue, but please make sure there are no 5ive tables in the database '.
+								'You can continue, but please make sure there are no Chisimba tables in the database '.
 
 								'specified.';
 				$this->success = true;

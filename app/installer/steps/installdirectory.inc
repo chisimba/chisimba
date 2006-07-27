@@ -8,7 +8,7 @@
 
 * This is the installer installdirectory class
 
-* 
+*
 
 */
 
@@ -46,15 +46,15 @@ class InstallDirectory extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Set the actions for this step
 
-	* 
+	*
 
 	* @return void
 
@@ -68,7 +68,7 @@ class InstallDirectory extends Step
 
 		$this->actions[] =& new InstallDirectoryAction(get_class($this));
 
-		
+
 
 		$this->conf_required = true;
 
@@ -79,16 +79,16 @@ class InstallDirectory extends Step
 		$this->title_logo = 'system_root.gif';
 
 		$this->help_topic = 'system_root';
-		
+
 		$this->step_help = "Enter the path to where you want Chisimba to be installed";
 
-		
+
 
 	}//end InstallDirectory()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -106,7 +106,7 @@ class InstallDirectory extends Step
 
 *
 
-* 
+*
 
 */
 
@@ -114,9 +114,9 @@ class InstallDirectoryAction extends StepAction
 
 {
 
-	
 
-	
+
+
 
 	/**
 
@@ -132,9 +132,9 @@ class InstallDirectoryAction extends StepAction
 
 	* 		SYSROOT/config/classes
 
-	* 
+	*
 
-	* 
+	*
 
 	* @return void
 
@@ -150,11 +150,11 @@ class InstallDirectoryAction extends StepAction
 
 		$_SESSION['sys_root'] = $sys_root;
 
-		
+
 
 		if ($sys_root === false || $sys_root == '') {
 
-			$this->errors[] = 'You must set a value for the system root of 5ive';
+			$this->errors[] = 'You must set a value for the system root of Chisimba';
 
 			$this->success = false;
 
@@ -162,12 +162,12 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-		
+
 
 		// change windows \ characters to / separators
 
 		$sys_root = str_replace('\\', '/',$sys_root);
-	
+
 
 		if (!is_dir($sys_root)) {
 
@@ -179,25 +179,25 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-		
 
-		// Iterate back through the installer's path to check if it's in the 
+
+		// Iterate back through the installer's path to check if it's in the
 
 		// system root.
 
 		$install_dir = INSTALL_DIR;
 
-		
+
 
 		$last_length = 0;
 
-		
+
 
 		while (strlen($install_dir) != $last_length) {
 
 			if (!$install_dir) {
 
-				$this->errors[] = '5ive MUST NOT be located under the install directory (currently located '.
+				$this->errors[] = 'Chisimba MUST NOT be located under the install directory (currently located '.
 
 								'at '.INSTALL_DIR.' with system root set to '.$sys_root.'). Please move the '.
 
@@ -209,7 +209,7 @@ class InstallDirectoryAction extends StepAction
 
 			}
 
-			
+
 
 			$last_length = strlen($install_dir);
 
@@ -217,7 +217,7 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-				
+
 
 		// now check if this SYSROOT directory is actually the 5ive sysroot and not just some directory
 
@@ -229,7 +229,7 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-		
+
 
 		$_SESSION['sys_root'] = $sys_root;
 
@@ -237,13 +237,13 @@ class InstallDirectoryAction extends StepAction
 
 		return true;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
@@ -253,7 +253,7 @@ class InstallDirectoryAction extends StepAction
 
 	* if they've already selected a sysroot and the sys_root exists, can skip
 
-	* 
+	*
 
 	* @return boolean if this action is required to complete the step.
 
@@ -271,23 +271,23 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end isRequired()
 
-	
 
-	
+
+
 
 	/**
 
 	* Check whether certain directories exist and are writable
 
-	* 
+	*
 
 	* @param string $sys_root The alleged system root directory
 
@@ -309,14 +309,14 @@ class InstallDirectoryAction extends StepAction
 
 		//make sure we can write to web root
        if(is_dir($sys_root)) {
-		
+
 				$fp = @fopen($check_dir.'/tmpinstallfile', "w");
 
 				if ($fp===false) {
 
 					$this->errors[] = 'Could not open '.$check_dir.' for writing. ';
 
-					
+
 
 					// only output what commands to perform for the first instance
 
@@ -330,7 +330,7 @@ class InstallDirectoryAction extends StepAction
 
 						$this->errors[] = '<p><i>chmod 777 '.$check_dir;
 
-						
+
 
 						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 777';
 
@@ -340,29 +340,29 @@ class InstallDirectoryAction extends StepAction
 
 					$success = false;
 
-					
+
 
 					@fclose($fp);
 					return $success;
 				}
 		}else{
-		
+
 			$success = false;
 			return $success;
-		
+
 		}
-      
+
 		foreach($dirs as $dir) {
 
 			$check_dir = $sys_root.'/'.$dir;
 
-			
+
 
 			// if it is a directory, check whether it is writable
 
 			if (is_dir($check_dir)) {
 
-				
+
 
 				// create a tmp file to see if there's write access.
 
@@ -372,7 +372,7 @@ class InstallDirectoryAction extends StepAction
 
 					$this->errors[] = 'Could not open '.$check_dir.' for writing. ';
 
-					
+
 
 					// only output what commands to perform for the first instance
 
@@ -386,7 +386,7 @@ class InstallDirectoryAction extends StepAction
 
 						$this->errors[] = '<p><i>chmod 777 '.$check_dir;
 
-						
+
 
 						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 777';
 
@@ -396,7 +396,7 @@ class InstallDirectoryAction extends StepAction
 
 					$success = false;
 					return $success;
-					
+
 
 					@fclose($fp);
 
@@ -422,31 +422,31 @@ class InstallDirectoryAction extends StepAction
 
 				$this->errors[] = 'Could not find required directory '.$check_dir.',but the system created it anyway';
 
-				
+
 
 			}
 
 		}
 
-						
+
 
 		return $success;
 
-		
+
 
 	}//end _testSysRoot()
 
-	
 
-	
+
+
 
 	/**
 
-	* Prompt the user for the directory and display the current status of permissions 
+	* Prompt the user for the directory and display the current status of permissions
 
 	* needed
 
-	* 
+	*
 
 	* @param
 
@@ -464,7 +464,7 @@ class InstallDirectoryAction extends StepAction
 
 		$source_dir = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'] : INSTALL_DIR;
 
-		
+
 
 		$path = getcwd();
 
@@ -478,17 +478,17 @@ class InstallDirectoryAction extends StepAction
 
 		}
 
-		
+
 
 		ob_start();
         if (PHP_OS=="WIN32"){
-			echo '<input type="text" id="sys_root" name="sys_root" 
+			echo '<input type="text" id="sys_root" name="sys_root"
 
 				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
 
 			$box = ob_get_contents();
         }else{
-        	echo '<input type="text" id="sys_root" name="sys_root" 
+        	echo '<input type="text" id="sys_root" name="sys_root"
 
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 
@@ -502,21 +502,21 @@ class InstallDirectoryAction extends StepAction
 
 
 
-		echo $tpl->fetch();		
+		echo $tpl->fetch();
 
-		
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Show the user what they selected for the system root.
 
-	* 
+	*
 
 	* @return void
 
@@ -532,9 +532,9 @@ class InstallDirectoryAction extends StepAction
 
 	}//end confirmAction()
 
-	
 
-	
+
+
 
 }//end class
 
