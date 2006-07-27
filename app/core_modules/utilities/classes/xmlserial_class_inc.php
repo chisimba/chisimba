@@ -7,7 +7,7 @@
  * @author James Scoble
  */
 
-require_once('Unserializer.php');
+require_once('xml/Unserializer.php');
 
 class xmlserial extends object
 {
@@ -41,7 +41,7 @@ class xmlserial extends object
     */
     function writeXML($data)
     {
-        require_once('Serializer.php');
+        require_once('xml/Serializer.php');
         $objSerializer = &new XML_Serializer(NULL);
         $objSerializer->serialize($data);
         $xmldata=$objSerializer->getSerializedData();
