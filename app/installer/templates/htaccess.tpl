@@ -1,7 +1,7 @@
 <p>
-	Additionally, a .htaccess file will be created in the 5ive webroot that
+	Additionally, a .htaccess file will be created in the Chisimba webroot that
 	directs all requests to the appropriate handlers. This requires
-	that the webserver has mod_rewrite enabled. The .htaccess file contains the 
+	that the webserver has mod_rewrite enabled. The .htaccess file contains the
 	following directives :
 </p>
 
@@ -9,7 +9,7 @@
 	Options +FollowSymLinks
 
 	RewriteEngine On
-	
+
 	#Set the base uri
 	RewriteBase <?php echo $symlink_dir ?>
 	#Now do some rules for redirection
@@ -27,7 +27,7 @@
 	Options +SymlinksIfOwnerMatch
 
 	RewriteEngine On
-	
+
 	#Set the base uri
 	RewriteBase <?php echo $symlink_dir ?>
 	#Now do some rules for redirection

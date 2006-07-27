@@ -21,7 +21,7 @@ require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 *
 
-* This step determines what type of install is being performed, and 
+* This step determines what type of install is being performed, and
 
 * sets some variables that can be used for later install steps.
 
@@ -41,15 +41,15 @@ class SetupType extends Step
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Set up this step's actions
 
-	* 
+	*
 
 	* @return void
 
@@ -71,13 +71,13 @@ class SetupType extends Step
 
 		$this->step_help = "Select the type of installation you want to do";
 
-		
+
 
 	}//end SetupType()
 
-	
 
-	
+
+
 
 }//end class
 
@@ -91,29 +91,29 @@ class SetupType extends Step
 
 *
 
-* Asks the user what sort of install they want to perform. Will set some values 
+* Asks the user what sort of install they want to perform. Will set some values
 
 * to be used later in the install (ie checking if there's database tables already
 
 * defined for an upgrade etc). There are currently 3 types of install;
 
-* 
+*
 
-*	- Install 		:- 	Installs a fresh checkout of 5ive. Assumes that there's been 
+*	- Install 		:- 	Installs a fresh checkout of 5ive. Assumes that there's been
 
 						no previous installation of the given system root.
 
-	- Reconfigure	:- 	Used to rerun the package management steps which should reset 
+	- Reconfigure	:- 	Used to rerun the package management steps which should reset
 
 						packages to a cleanish state.
 
-	- Modify 		:- 	Lets a user 'reinstall' over an existing install of 5ive. Eventually a 
+	- Modify 		:- 	Lets a user 'reinstall' over an existing install of 5ive. Eventually a
 
 						'repair' install type becomes an 'upgrade' install type.
 
 *
 
-* @author prince mbekwa		
+* @author prince mbekwa
 
 * @version $version$ - 1.0
 
@@ -123,19 +123,19 @@ class SetupType extends Step
 
 */
 
-class SetupTypeAction extends FiveStepAction 
+class SetupTypeAction extends FiveStepAction
 
 {
 
-	
 
-	
+
+
 
 	/**
 
 	* Check what install type was selected.
 
-	* 
+	*
 
 	* @return boolean Whether all the database tables were created or not.
 
@@ -151,7 +151,7 @@ class SetupTypeAction extends FiveStepAction
 
 			$_SESSION['install_type'] = $_POST['type'];
 
-			
+
 
 			switch ($_POST['type']) {
 
@@ -173,23 +173,23 @@ class SetupTypeAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return $this->success;
 
-		
+
 
 	}//end processAction()
 
-	
 
-	
+
+
 
 	/**
 
 	* Make sure the system is in a state ready for a clean install (ie no files exist yet)
 
-	* 
+	*
 
 	* If installing, the following file must NOT exist
 
@@ -211,7 +211,7 @@ class SetupTypeAction extends FiveStepAction
 
 		if (file_exists($_SESSION['sys_root'].'/modules/config/config.xml')) {
 
-			$this->errors[] = 'It appears the selected system root ('.$_SESSION['sys_root'].') is an already existing 5ive install. '.
+			$this->errors[] = 'It appears the selected system root ('.$_SESSION['sys_root'].') is an already existing Chisimba installation. '.
 
 								'Please go back and select the upgrade or modify options for this installation.';
 
@@ -219,27 +219,27 @@ class SetupTypeAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return $success;
 
-		
+
 
 	}//end _installSystem()
 
-	
 
-	
+
+
 
 	/**
 
 	* Make sure the current system is in an okay state to upgrade. Check that the main.xml
 
-	* file is in the sysroot, that a db connection can be made using the DSN values, 
+	* file is in the sysroot, that a db connection can be made using the DSN values,
 
-	* that database tables exist already. 
+	* that database tables exist already.
 
-	* 
+	*
 
 	* @return void
 
@@ -323,7 +323,7 @@ class SetupTypeAction extends FiveStepAction
 
 				}
 
-				
+
 
 			} else {
 
@@ -335,7 +335,7 @@ class SetupTypeAction extends FiveStepAction
 
 		}
 
-		
+
 
 		if ($success) {
 
@@ -343,23 +343,23 @@ class SetupTypeAction extends FiveStepAction
 
 		}
 
-		
+
 
 		return $success;
 
-		
+
 
 	}//end _upgradeSystem()
 
-	
 
-	
+
+
 
 	/**
 
 	* Nuke some stuff so that the system can be repaired
 
-	* 
+	*
 
 	* @return boolean Whether the system is able to be repaired
 
@@ -385,25 +385,25 @@ class SetupTypeAction extends FiveStepAction
 
 			$success =  false;
 
-		} 
+		}
 
-		
+
 
 		return $success;
 
-		
+
 
 	}//end _repairSystem()
 
-	
 
-	
+
+
 
 	/**
 
 	* Ask what install type to use
 
-	* 
+	*
 
 	* @return void
 
@@ -421,24 +421,24 @@ class SetupTypeAction extends FiveStepAction
 
 		if(file_exists($_SESSION['sys_root'].'/config/config.xml'))
 		{
-		   
-		    $hasConfigXML = TRUE;		   
-		   
+
+		    $hasConfigXML = TRUE;
+
 		    $disable = '';
-		    
-		} else { 
-		      
+
+		} else {
+
 		    $hasConfigXML = FALSE;
-		    
+
 		    $disable = ' DISABLED ';
-		     
+
 		}
 
-				
+
 
 		ob_start();
 
-		
+
 
 			radio_button('type', 'install', 'TRUE', null, '');
 
@@ -446,7 +446,7 @@ class SetupTypeAction extends FiveStepAction
 
 			ob_clean();
 
-			
+
 
 			radio_button('type', 'update', 	NULL, '', $disable);
 
@@ -454,37 +454,37 @@ class SetupTypeAction extends FiveStepAction
 
 			ob_clean();
 
-			
+
 
 			radio_button('type', 'repair', NULL , '', $disable);
 
 			$repair = ob_get_contents();
 
-			
+
 
 		ob_end_clean();
 
-		
+
 
 		$tpl->set('install', $install);
 
-		
+
 
 		$tpl->set('update', $update);
 
 		$tpl->set('repair', $repair);
 
-		
+
 
 		echo $tpl->fetch();
 
-			
+
 
 	}//end paintAction()
 
-	
 
-	
+
+
 
 }//end class
 
