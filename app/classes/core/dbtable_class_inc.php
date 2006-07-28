@@ -442,11 +442,12 @@ class dbTable extends object
         }
 
         $sql = "DELETE FROM {$tablename} WHERE {$pkfield}='{$pkvalue}'";
-        $ret = $this->_execute($sql);
+
 		if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
+        $ret = $this->_execute($sql);
         return $ret;
     }
 
