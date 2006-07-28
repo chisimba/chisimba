@@ -9,8 +9,8 @@ if (!$GLOBALS['kewl_entry_point_run'])
 // end security check
                                                                                                                                              
 /**
-* Module class to handle registration and admin of users
-* @copyright (c) 2004 KEWL.NextGen
+* Registration and administration of users.
+* @copyright (c) 2004 UWC/Avoir
 * @version 1.0
 * @package useradmin
 * @author James Scoble
@@ -21,74 +21,43 @@ if (!$GLOBALS['kewl_entry_point_run'])
 class useradmin extends controller
 {
     var $objConfig;
-    var $objButtons;
-    var $dropdown;
-    var $objUserAdmin; // the handle for an instance of the class sqlUsers, in the security module
     var $objLanguage;
-    var $tblusergroups; // not in use
+    var $objButtons;
+    var $objUserAdmin;
     var $objUser;
     var $isAdmin;
-
     var $rstatus; // shows whether a function-call did what was wanted or not
     var $rvalue;    // the return-value for the template to be used.
     var $info;  // for passing information around the class
  
     function init()
     {
-        $this->objConfig =& $this->getObject('config','config');
+        $this->objConfig =& $this->getObject('altconfig','config');
         $this->objLanguage =& $this->getObject('language','language');
         $this->objButtons=&$this->getObject('navbuttons','navigation');
         $this->objUserAdmin=&$this->getObject('sqlUsers','security');
-        // $this->tblusergroups=&$this->getObject('usergroups','security'); not used in this version
         $this->objUser =& $this->getObject('user', 'security');
-
-        $this->isAdmin=$this->objUser->isAdmin();
-        
         if ($this->objUser->isLoggedIn()){
             //Get the activity logger class
             $this->objLog=$this->newObject('logactivity', 'logger'); 
             //Log this module call 
             $this->objLog->log();
         }
-        
-        $this->setVarByRef('menu', $this->userAdminMenu());
-        $this->setVarByRef('alphaBrowseList', $this->alphaBrowseList());
     }
 
 
-    function dispatch($cmd) 
+    function dispatch($action) 
     {
 		$this->setVar('pageSuppressXML',true);
-
-        // Convert to lowercase here to prevent unnecessary 'case' in switch
-        $cmd = strtolower($cmd);
-        
-        if (!isset($userId))  
-        { 
-            $userId=$this->getParam('userId');
-        }
-        
-        // Regard User as an 'admin' if they have access rights to the module
-        if ($this->isValid('access',FALSE)) {
-            $this->isAdmin = TRUE;
-        }
-        
-        // Check if the action requires admin privileges
-        // block non-Admins from other functions
-        if ((!$this->isAdmin)&&($this->requiresAdmin($cmd)))
+	    $this->isAdmin=$this->objUser->isAdmin();       
+        if (!$this->isAdmin && $this->requiresAdmin($action))
         {
-            // User only has access to their own details
-            $cmd='selfedit';  
+			die('Access denied')
         }
-
-        //&& !$this->isAdmin
-        if (!$this->requiresAdmin($cmd) ) {
-            $this->setLayoutTemplate("user_layout_tpl.php");
+        if (!$this->requiresAdmin($action) ) {
+            //$this->setLayoutTemplate("user_layout_tpl.php");
         }
-        
-        
-        
-        switch ($cmd)
+        switch ($action)
         {
             case 'changepassword':
                 $this->rvalue=$this->changePassword();
@@ -97,85 +66,75 @@ class useradmin extends controller
                 $this->rvalue=$this->adminChangePassword($this->getParam('userId'));
                 break;
             case 'needpassword':
-                $this->setLayoutTemplate(NULL);
                 $this->rvalue='forgotpassword_tpl.php';
                 break;
             case 'resetpassword':
-                $this->setLayoutTemplate(NULL);
                 $this->rstatus=$this->resetPassword($this->getParam('username'),$this->getParam('email'));
-                $this->rvalue='okay_tpl.php';
+                $this->rvalue='ok_tpl.php';
                 break; 
             case 'imageupload':
-                $upload=$this->getParam('upload');
-                if ($upload==1){
-                    $this->doUpload();
-                }
-                // Return to selfedit action - only users can change their own image
+                $this->doUpload();
                 return $this->nextAction('selfedit');
             case 'imagereset':
                 $objImage=$this->newObject('imageupload','useradmin');
                 $objImage->resetImage($userId);
                 $objImage->resetImage($userId."_small");
-                
-                // Workaround because permissions is hardcoded
-                if ($this->getParam('admin_user') == 1) {
+                if ($this->getParam('isAdminUser') == '1') {
                     $nextaction = 'edit';
                 } else {
                     $nextaction = 'selfedit';
                 }
-                return $this->nextAction($nextaction, array('userId'=>$userId));
+                return $this->nextAction($nextaction, array('userId'=>$this->getParam('userId')));
                 break;
             case 'edit':
-                $this->setVar('admin_user',TRUE);
-                $this->show4edit($userId);
+                $this->setVar('isAdminUser',TRUE);
+                $this->editUserDetails($userId);
                 break;
             case 'selfedit':
-            case 'mydetails':
-                $this->setVar('admin_user',FALSE);
-                $thisUser=$this->objUser->userId();
-                $this->show4edit($thisUser);
+                $this->setVar('isAdminUser',FALSE);
+                $this->editUserDetails($userId);
                 break;
-    
-            case 'applyselfedit':
-            case 'apply changes':
-                $check=$this->check4edit();
-                if ($check=='Looks Okay')
+            case 'editapply':
+                $status=$this->checkUserDetails();
+                if ($status===true)
                 {
                     $this->applyedit();
                 }
                 else
                 {
                     $this->rvalue='error_tpl.php';
-                    $this->rstatus=$check;
+                    $this->rstatus=$status;
                 }
                 break;
             case 'add':
-            //case 'newuser':
-            //case 'New User':
-                $this->show4add();
-                break;
-    
-            case 'adduser':
-                $check=$this->check4add($this->getParam('username'),$this->getParam('password'),$this->getParam('email'),$this->getParam('passwd'),$this->getParam('userId'));
-                if ($check=='Looks Okay'){
+                $this->addUser();
+                break;    
+            case 'addapply':
+                $status=$this->checkAddUser(
+					$this->getParam('username'),
+					$this->getParam('password'),
+					$this->getParam('email'),
+					$this->getParam('passwd'),
+					$this->getParam('userId')
+				);
+                if ($status===true)
+				{
                     $this->applyadd();
                     $userdata=$this->ListUsers('creationDate',date('Y-m-d'),'TRUE');
                     $this->setVar('userdata',$userdata);
-                    $this->rvalue='list_users_tpl.php';
                     $title = $this->objLanguage->languageText('mod_useradmin_newuseradded');
-                    $this->setVarByRef('title', $title);
-                } else {
-                    $this->rstatus=$check;
+                    $this->setVar('title', $title);
+                    $this->rvalue='list_users_tpl.php';
+                } 
+				else 
+				{
+                    $this->rstatus=$status;
                     $this->rvalue='error_tpl.php';
-                    $this->rvalue='useradd_tpl.php';
                 }
                 break;
-    
             case 'listusers':
-            //case 'List Users':
                 $how=$this->getParam('how');
-                $match=stripslashes($this->getParam('searchField'));
-                
+                $match=stripslashes($this->getParam('searchField'));                
                 if ($this->getParam('search', NULL) != NULL) {
                     $title = $this->objLanguage->languageText('mod_useradmin_searchresultsfor').' ('.$match.')';
                 } else {
@@ -188,8 +147,6 @@ class useradmin extends controller
                     }
                 }
                 $this->setVarByRef('title', $title);
-                
-                //$userdata=$this->ListUsers($how,$match,'TRUE');
                 $userData=$this->objUserAdmin->getUsers($how,$match,FALSE);
                 $userdata=$this->makeListUsersTable($userData,TRUE);
                 $this->setVar('userdata',$userdata);
@@ -197,50 +154,55 @@ class useradmin extends controller
                 break;
             case 'listunused':
                 $userData=$this->objUserAdmin->getUsers('notused','','TRUE');
-                $userTable=$this->makeListUsersTable($userData,'TRUE');
-                $this->setVar('userdata',$userTable);
-                
+                $userdata=$this->makeListUsersTable($userData,'TRUE');
+                $this->setVar('userdata',$userdata);
                 $title = $this->objLanguage->languageText('mod_useradmin_unusedaccounts');
-                $this->setVarByRef('title', $title);
-                    
+                $this->setVar('title', $title);
                 $this->rvalue='list_users_tpl.php';
                 break;
             case 'delete':
-                $check=$this->check4delete($userId);
-                if ($check=='Looks Okay'){
-                    $this->applydelete($userId);
+                $status=$this->checkDelete($this->getParam('userId'));
+                if ($status===true){
+                    $this->applydelete($this->getParam('userId'));
                     $this->rvalue='list_tpl.php';
-                } else if ($check!='Making Sure') {
-                    $this->rstatus=$check;
-                    $this->rvalue='error_tpl.php';
+                } 
+				else 
+				{
+					$results = $this->objUserAdmin->getUsers('userId',$userId,TRUE);
+		            $this->userdata=results[0];
+		            $this->rvalue='confirmdelete_tpl.php';
                 }
                 break;
             case 'batchdelete':
                 $this->batchdelete($this->getArrayParam('userArray'));
-                $this->rvalue='list_tpl.php';
-                return $this->nextAction('listUsers',array('how'=>$this->getParam('how'),'searchField'=>$this->getParam('searchField')));
+                return $this->nextAction(
+					'listUsers',
+					array(
+						'how'=>$this->getParam('how'),
+						'searchField'=>$this->getParam('searchField')
+					)
+				);
                 break;
             case 'register':
                 $this->setLayoutTemplate(NULL);
                 $this->rvalue='register_tpl.php';
                 break;
-            case 'submitregister':
-                $this->newregister();
+            case 'registerapply':
                 $this->setLayoutTemplate(NULL);
+                $this->registerApply();
                 break;
             case 'selfdelete':
-                    $this->rvalue='selfdelete_tpl.php';
+                $this->rvalue='selfdelete_tpl.php';
                 if ($this->selfDelete($this->objUser->userId())){
                     $this->objUser->logout();
                     $this->rvalue='okay_tpl.php';
                 }       
                 break;
             default:
-                // Default View - show list of users with surname 'A'
                 return $this->nextAction('listusers', array('how'=>'surname', 'searchField'=>'A'));
         }
         $this->message=$this->rstatus;
-        $this->setvar('adminMessage',$this->message);	
+        $this->setvar('message',$this->message);	
         return $this->rvalue;
     }
 
@@ -248,7 +210,7 @@ class useradmin extends controller
     /** 
     * This is a method to determine if the user has to be logged in or not
     * It overides that in the parent class
-    * @returns boolean TRUE or FALSE
+    * @returns boolean
     */
     function requiresLogin() 
     {
@@ -256,13 +218,11 @@ class useradmin extends controller
         switch ($action)
         {
             case 'register':
-            case 'submitregister':
-            case 'applyregister':
+            case 'registerapply':
             case 'needpassword':
             case 'resetpassword':
-                $this->setVar('pageSuppressToolbar', TRUE);
+                //$this->setVar('pageSuppressToolbar', TRUE);
                 return FALSE;
-                break;
             default:
                 return TRUE;
         }	
@@ -274,12 +234,9 @@ class useradmin extends controller
     * @param string $cmd - the action send by the URL
     * @return boolean TRUE or FALSE
     */
-    function requiresAdmin($cmd)
+    function requiresAdmin($action)
     {
-        
-        $cmd = strtolower($cmd);
-        
-        switch($cmd)
+        switch($action)
         {
             case 'selfedit':
             case 'applyselfedit':
@@ -289,7 +246,6 @@ class useradmin extends controller
             case 'mydetails':
             case 'register':
             case 'submitregister':
-            case 'applyregister':
             case 'imageupload':
             case 'imagereset':
             case 'needpassword':
@@ -304,81 +260,70 @@ class useradmin extends controller
 
     
     /**
-    * This is a method to display list of users for admin functions
-    * @author James Scoble
-    *
-    * @param string $how - the method of searching used - username, surname or email
-    * @param string $match - the pattern to match for
-    * @param bool $adminLinks - whether to display the Add, Edit and Delete links
+    * Returns a list of users
+    * @param string $how The method of searching - username, surname or email
+    * @param string $match The pattern to match for
+    * @param bool $adminLinks Whether to display the Add, Edit and Delete links
     */
-    function ListUsers($how,$match,$adminLinks)
+    function ListUsers($how, $match, $adminLinks)
     {
-        // An HTML table object is declared, and used to display the date in the template
-        $objTblclass=&$this->newObject('htmltable','htmlelements');
-        $objCheck=&$this->newObject('checkbox','htmlelements');
         $fieldnames=array('userId','username','title','firstName','surname','emailAddress','creationDate','howCreated','isActive');
         $fieldterms=array('word_userid','word_username','word_title','phrase_firstname','word_surname','phrase_emailaddress','phrase_creationdate','phrase_howcreated','phrase_isactive');
-    foreach($fieldterms as $field)
-    {
-        $field2[]=$this->objLanguage->languageText(strtolower($field),$field);
-    }
-    if ($adminLinks){
-        $addlink=$this->uri(array('module'=>'useradmin','action'=>'Add'));
-            $field2[]=$this->objButtons->linkedButton("add",$addlink);
-    }
-        $objTblclass->width='';
-        $objTblclass->attributes=" align='center' border=0";
-        $objTblclass->cellspacing='2';
-        $objTblclass->cellpadding='2';
-        $objTblclass->addHeader($field2,'odd');
-        unset($field2);
-    $r1=$this->objUserAdmin->getUsers($how,$match); // Table-derived functions called here.
-        $rowcount='';
-    foreach ($r1 as $line)
-    {
-        $rowcount=($rowcount==0) ? 1 : 0; // with aknowledgements to Derek Keats for this idea
-        $oddOrEven=($rowcount==0) ? "odd" : "even";
-        foreach($fieldnames as $field)
-        {
-                $dline[]=$line[$field];
+		$header = array();
+	    foreach($fieldterms as $fieldterm) {
+	        $header[]=$this->objLanguage->languageText($fieldterm,'useradmin',$field);
+	    }
+	    if ($adminLinks){
+	        $header[]=$this->objButtons->linkedButton("add",$this->uri(array('action'=>'Add'),'useradmin'));
+	    }
+        $objTable=&$this->newObject('htmltable','htmlelements');
+        $objTable->width='';
+        $objTable->attributes=" align='center' border=0";
+        $objTable->cellspacing='2';
+        $objTable->cellpadding='2';
+        $objTable->addHeader($header,'odd');
+	    $users=$this->objUserAdmin->getUsers($how,$match);
+        $oddOrEven='odd';
+	    foreach ($users as $user)
+	    {
+			$row = array();
+	        $oddOrEven=$oddOrEven=='odd' ? "even" : "odd";
+	        foreach($fieldnames as $field)
+	        {
+                $row[]=$user[$field];
             }
-        if ($adminLinks)
-        {
+	        if ($adminLinks)
+	        {
+                $element='';
                 $editLink=$this->uri(array('module'=>'useradmin','action'=>'edit','userId'=>$line['userId']));
+				$element.$this->objButtons->linkedButton("edit",$editLink);
                 $deleteLink=$this->uri(array('module'=>'useradmin','action'=>'delete','userId'=>$line['userId']));
-                $d1=$this->objButtons->linkedButton("edit",$editLink);
-                $d1.=$this->objButtons->linkedButton("delete",$deleteLink);
-                // Code for the checkbox - only display if user being listed is not a site-Admin
-                // This checkbox allows group deletions of users
-                if (!$this->objUser->lookupAdmin($line['userId'])){
-                    $objCheck->checkbox('userArray[]'); 
-                    $objCheck->setValue($line['userId']); 
+                $element.=$this->objButtons->linkedButton("delete",$deleteLink);
+                if (!$this->objUser->lookupAdmin($user['userId'])){
+			        $objCheckbox=&$this->getObject('checkbox','htmlelements');
+                    $objCheckbox->checkbox('userArray[]'); 
+                    $objCheckbox->setValue($user['userId']); 
                     $checkBox=$objCheck->show(); 
-                } else { 
+                } 
+				else { 
                     $checkBox='&nbsp;';
-                    }
-                $d1.=$checkBox;                                                                                                    
-                $dline[]=$d1;
+                }
+                $element.=$checkBox;                                                                                                    
+                $row[]=$element;
             }
-            $objTblclass->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
-            $objTblclass->addRow($dline,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
-             unset($dline);
-    }
-            return $objTblclass->show();
+            $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
+            $objTable->addRow($row,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
+	    }
+        return $objTable->show();
     }  // end of function ListUsers
 
     /**
-    * This is a method to display list of users for admin functions
-    * @author James Scoble
-    *
-    * @param array $userData - the user information to display
-    * @param bool $adminLinks - whether to display the Add, Edit and Delete links
+    * Make a table from a list of users.
+    * @param array $userData The user information to display
+    * @param bool $adminLinks Whether to display the Add, Edit and Delete links
     */
     function makeListUsersTable($userData,$adminLinks)
     {
-        // An HTML table object is declared, and used to display the data in the template
-        $objTblclass=&$this->newObject('htmltable','htmlelements');
-        $objCheck=&$this->newObject('checkbox','htmlelements');
         $fieldnames=array('userId','username','title','firstName','surname','emailAddress','creationDate','howCreated','isActive');
         $fieldterms=array('word_userid','word_username','word_title','phrase_firstname','word_surname','phrase_emailaddress','phrase_creationdate','phrase_howcreated','phrase_isactive');
         foreach($fieldterms as $field)
@@ -389,11 +334,12 @@ class useradmin extends controller
             $addlink=$this->uri(array('module'=>'useradmin','action'=>'Add'));
             $field2[]=$this->objButtons->linkedButton("add",$addlink);
         }
-        $objTblclass->width='';
-        $objTblclass->attributes=" align='center' border=0";
-        $objTblclass->cellspacing='2';
-        $objTblclass->cellpadding='2';
-        $objTblclass->addHeader($field2,'odd');
+        $objTable=&$this->newObject('htmltable','htmlelements');
+        $objTable->width='';
+        $objTable->attributes=" align='center' border=0";
+        $objTable->cellspacing='2';
+        $objTable->cellpadding='2';
+        $objTable->addHeader($field2,'odd');
         unset($field2);
         
         $rowcount='';
@@ -414,6 +360,7 @@ class useradmin extends controller
                 // Code for the checkbox - only display if user being listed is not a site-Admin
                 // This checkbox allows group deletions of users
                 if (!$this->objUser->lookupAdmin($line['userId'])){
+			        $objCheck=&$this->newObject('checkbox','htmlelements');
                     $objCheck->checkbox('userArray[]'); 
                     $objCheck->setValue($line['userId']); 
                     $checkBox=$objCheck->show(); 
@@ -423,41 +370,35 @@ class useradmin extends controller
                 $d1.=$checkBox;                                                                                                    
                 $dline[]=$d1;
             }
-            $objTblclass->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
-            $objTblclass->addRow($dline,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
+            $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
+            $objTable->addRow($dline,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
              unset($dline);
         }
-            return $objTblclass->show();
+            return $objTable->show();
     }
 
     
     /**
-    * This is a method to display user's info for editing
-    * @author James Scoble
-    *
-    * @param numeric $userid - the primary key of the user in the database
-    *
+    * Edit User Details
+    * @param string $userid User ID
     */
-    function show4edit($userId)
+    function editUserDetails($userId)
     {
-        $r1=$this->objUserAdmin->getUsers('userId',$userId,TRUE);
-        $line=array_shift($r1);
-        if (!$line) 
+        $results=$this->objUserAdmin->getUsers('userId',$userId,TRUE);
+        if (empty($results)) 
         { 
             $this->rstatus= 'error_no_userid';
             $this->rvalue='error_tpl.php';
         }  
         else
         {
-            //$line['accesslevel']=$this->tblusergroups->lookupUser($userId); // don't need this anymore
-            $this->setvar('userdata',$line);
+			$userDetails = $results[0];
+            $this->setvar('userDetails',$userDetails);
+            $this->setvar('isLDAPUser',$this->objUserAdmin->isLDAPUser($userId));
             $this->rvalue='useredit_tpl.php';
-            $this->setvar('ldapflag',$this->objUserAdmin->isLDAPUser($userId));
 
-            $objImage=$this->getObject('imageupload');
-            $this->imagelink=$objImage->userpicture($userId);
         } 
-    }  // end of function show4edit
+    }
 
 
     /**
@@ -465,7 +406,7 @@ class useradmin extends controller
     * @author James Scoble    
     * @returns string $message a code for the type of error, or "Looks Okay" if it does.
     */
-    function check4edit()
+    function checkUserDetails()
     {
         if ($this->getParam('username')==""){
             return("need_username");  
@@ -473,7 +414,8 @@ class useradmin extends controller
         if ($this->getParam('email')==""){
             return "need_email"; 
         }      
-        if ((!$this->isAdmin)&&($this->getParam('userId')!=$this->objUser->userId())) // non-admin trying to edit someone else?
+		// non-admin trying to edit someone else?
+        if ((!$this->isAdmin)&&($this->getParam('userId')!=$this->objUser->userId())) 
         {
             return('Not Admin!');
         }
@@ -481,7 +423,7 @@ class useradmin extends controller
             $result=$this->objUserAdmin->checkDBase('0000',$this->getParam('username'));
             return $result;
         }
-        return "Looks Okay";
+        return true;
     }
 
 
@@ -515,7 +457,7 @@ class useradmin extends controller
             $this->rstatus="changes_made";
             
             // Detect which way to redirect based on the users status on a page
-            if ($this->getParam('admin_user', 0) == '1') {
+            if ($this->getParam('isAdminUser', 0) == '1') {
                 return $this->nextAction('edit', array('userId'=>$userId, 'message'=>'updated'));
             } else {
                 return $this->nextAction('selfedit', array('message'=>'updated'));
@@ -532,18 +474,16 @@ class useradmin extends controller
     * @returns string $message
     *
     */
-    function check4delete($userId)
+    function checkDelete($userId)
     {    
         if (isset($_GET['confirm'])&&($_GET['confirm']=='yes'))
         {   
-            return('Looks Okay');
+            return true;
         }
-        else
-        {
-            $this->rvalue='confirmdelete_tpl.php';
-            $this->userdata=array_shift($this->objUserAdmin->getUsers('userId',$userId,TRUE));
-            return ('Making Sure');
-        }
+		else
+		{
+			return false;
+		}
     } 
 
     /**
@@ -575,15 +515,11 @@ class useradmin extends controller
 
     /**
     * This is a method to display page for adding new user
-    * @author James Scoble
-    *
     */
-    function show4add()
+    function addUser()
     {
-                $this->rvalue='useradd_tpl.php';
- 
+		$this->rvalue='useradd_tpl.php';
     }
-
 
     /**
     * This is a method to insert info into database
@@ -632,17 +568,17 @@ class useradmin extends controller
     * @param string $userId
     * @returns string - either 'Looks Okay' or an error code
     */
-    function check4add($username,$password,$email,$passwd,$userId)
+    function checkAddUser($username,$password,$email,$passwd,$userId)
     {      
         if ($username=="") { return("need_username"); }
         if ($password=="") { return("need_password"); }
         if ($email=="") {return "need_email"; }
         if ($password!=$passwd) {return "password_not_match";}
         // if all these test pass, the code continues...
-        $result=$this->objUserAdmin->checkDbase($userId,$username);
-        if ($result!='Looks Okay') { return $result; }
+        $result=$this->objUserAdmin->checkUserExists($userId,$username);
+        if ($result!==true) { return $result; }
         // passess all other tests, then...
-        return "Looks Okay";
+        return true;
     }
         
     /**
@@ -652,7 +588,7 @@ class useradmin extends controller
     * The class variables $rvalue and $rstatus are used to record the results.
     * @author James Scoble
     */
-    function newregister()
+    function registerApply()
     {
         $names=array('userId','firstname','surname','username','email','title','sex','country');
         foreach ($names as $line)

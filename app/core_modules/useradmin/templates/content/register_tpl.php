@@ -190,7 +190,7 @@ function Validator(theForm) {
 		id="Form1"
     	name="Form1" 
 		method="post" 
-		action="<?php echo $this->uri(array('action'=>'submitregister'),'useradmin');  ?>"
+		action="<?php echo $this->uri(array('action'=>'registerapply'),'useradmin');  ?>"
 		onsubmit="return Validator(this);" 
 	>
 <?php
@@ -198,39 +198,32 @@ function Validator(theForm) {
     $objHelp =& $this->getObject('help', 'help');
     $helpIcon = $objHelp->show('register', 'useradmin');
 
-    $objFieldset = $this->getObject('fieldset', 'htmlelements');
-    $objFieldset->legend=$objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon;
+    $objFieldset = $this->getObject('fieldsetex', 'htmlelements');
+    $objFieldset->setLegend($objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon);
     $objFieldset->align='CENTER';
     $objFieldset->legendalign='CENTER';
     $objFieldset->width="50%";
 	//echo $objFieldset->show();
 	
-	$content = '';
-	$content .= $objLanguage->languageText("heading_registeryourself",'useradmin');
-	$content .= "<br />";
-	$content .= $objLanguage->languageText("message_selfregister",'useradmin');
-	$content .= "<br />";
+	//$objFieldset->addLabel($objLanguage->languageText("heading_registeryourself",'useradmin'));
+	$objFieldset->addLabel($objLanguage->languageText("message_selfregister",'useradmin'));
 	//echo $objLanguage->languageText("step1",'useradmin');
-	$content .= str_replace(
+	// UserId
+    $objFieldset->addLabelledField('User ID',textinput('userId','text',''/*,'Text1'*/));
+	$objFieldset->addLabelledField('', str_replace(
 		"[--INSTITUTIONNAME--]",
 		'UWC',//$this->objConfig->institutionShortName(),
 		$objLanguage->languageText("heading_ifyouatinstitute",'useradmin')
-	);
-	$content .= "<br />";
-	$content .= str_replace(
+	));
+	$objFieldset->addLabelledField('', $objLanguage->languageText("message_usestudentnum",'useradmin'));
+	$objFieldset->addLabelledField('', $objLanguage->languageText("message_usestaffnum",'useradmin'));
+	$objFieldset->addLabelledField('', str_replace(
 		"[--INSTITUTIONNAME--]",
 		'UWC',//$this->objConfig->institutionShortName(),
 		$objLanguage->languageText("heading_ifguest",'useradmin')
-	);
-	$content .= "<br />";
-	// UserId
-    $content .= textinput('userId','text',''/*,'Text1'*/);
-	$content .= "<br />";
-	$content .= "<a onclick=\"document.Form1.userId.value=Math.round(Math.random()*1000)+'".date('ydi')."';\" class='pseudobutton' >".$objLanguage->languageText("hyperlink_generaterandomnumber",'useradmin')."</a>";
-	$content .= "<br />";
-	$content .= $objLanguage->languageText("message_usestudentnum",'useradmin');
-	$content .= $objLanguage->languageText("message_usestaffnum",'useradmin');
-	$content .= $objLanguage->languageText("message_willfillinnumber",'useradmin');
+	));
+	$objFieldset->addLabelledField('', $objLanguage->languageText("message_willfillinnumber",'useradmin'));
+    $objFieldset->addLabelledField('', "<a onclick=\"document.Form1.userId.value=Math.round(Math.random()*1000)+'".date('ydi')."';\" class='pseudobutton' >".$objLanguage->languageText("hyperlink_generaterandomnumber",'useradmin')."</a>");
 	// Title
     $objDropdown = new dropdown('title');
     $objDrop->extra='id="Select1"';
@@ -241,43 +234,27 @@ function Validator(theForm) {
         $_title = $objLanguage->languageText($title,'useradmin');
         $objDropdown->addOption($_title,$_title);
     }
-    $content .= $objLanguage->languageText("word_title",'useradmin');
-    $content .= $objDropdown->show();
-	$content .= "<br />";
+    $objFieldset->addLabelledField($objLanguage->languageText("word_title",'useradmin'), $objDropdown->show());
 	// First Name
-    $content .= $objLanguage->languageText("phrase_firstname",'useradmin');
-    $content .= textinput('firstname','text',''/*,'Text3'*/);
-	$content .= "<br />";
+    $objFieldset->addLabelledField($objLanguage->languageText("phrase_firstname",'useradmin'), textinput('firstname','text',''/*,'Text3'*/));
 	// Surname
-    $content .= $objLanguage->languageText("word_surname",'useradmin');
-    $content .= textinput('surname','text',''/*,'Text2'*/);
-	$content .= "<br />";
+    $objFieldset->addLabelledField($objLanguage->languageText("word_surname",'useradmin'), textinput('surname','text',''/*,'Text2'*/));
     // Country
     $objCountries=&$this->getObject('countries','utilities');
     $objDropdown = new dropdown('country');
     $objDropdown->addFromDB($objCountries->getAll(' order by name'), "printable_name", "iso", 'ZA');
-	$content .= $objLanguage->languageText('word_country','useradmin');
-	$content .= $objDropdown->show();
-	$content .= "<br />";
+	$objFieldset->addLabelledField($objLanguage->languageText('word_country','useradmin'), $objDropdown->show());
 	// Username
-    $content .= $objLanguage->languageText("word_username",'useradmin');
-    $content .= textinput('username','text',''/*,'Text4'*/);
-	$content .= "<br />";
+    $objFieldset->addLabelledField($objLanguage->languageText("word_username",'useradmin'), textinput('username','text',''/*,'Text4'*/));
     // Email
-	$content .= $objLanguage->languageText("Pagetext_emailaddress",'useradmin');
-	$content .= textinput('email','text',''/*,'Text5'*/);
-	$content .= "<br />";
-	$content .= $objLanguage->languageText("label_confirmemail",'useradmin');
-	$content .= textinput('email2','text',''/*,'Text6'*/);
-	$content .= "<br />";
-	$content .= $objLanguage->languageText("message_confirmemailmessage",'useradmin');
-	$content .= "<br />";
+	$objFieldset->addLabelledField($objLanguage->languageText("Pagetext_emailaddress",'useradmin'), textinput('email','text',''/*,'Text5'*/));
+	$objFieldset->addLabelledField($objLanguage->languageText("label_confirmemail",'useradmin'), textinput('email2','text',''/*,'Text6'*/));
+	$objFieldset->addLabelledField('', $objLanguage->languageText("message_confirmemailmessage",'useradmin'));
     // Submit button
     $objButton=$this->getObject('button','htmlelements');
     $objButton->button('registermenow',$objLanguage->languageText('mod_useradmin_register1','useradmin'));
     $objButton->setToSubmit();
-	$content .= $objButton->show();
-    $objFieldset->contents = $content;
+	$objFieldset->addLabelledField('', $objButton->show());
     echo $objFieldset->show();
 ?>
 	</form>

@@ -13,7 +13,7 @@ class sqlUsers extends dbtable
     function init()
     {
 	    parent::init('tbl_users');
-        $this->objConfig=&$this->getObject('config','config');
+        $this->objConfig=&$this->getObject('altconfig','config');
         $this->objUser=&$this->getObject('user','security');
         $this->objLanguage=&$this->getObject('language','language');
     }
@@ -168,12 +168,12 @@ class sqlUsers extends dbtable
     }
 
     /**
-    * method to check info before adding into database
+    * 
     * @author James Scoble
     * @param string $userId
     * @param string $username
     */
-    function checkDbase($userId,$username)
+    function checkUserExists($userId,$username)
     {
         $sql="select COUNT(*) as count from tbl_users where username='".$username."'";
         $count=$this->getArray($sql);
@@ -181,7 +181,7 @@ class sqlUsers extends dbtable
         $sql="select COUNT(*) as count from tbl_users  where userId='".$userId."'";
         $count=$this->getArray($sql);
         if ($count[0]['count']) { return "userid_taken";}
-        return "Looks Okay";
+        return true;
     }
 
     /**
@@ -330,14 +330,14 @@ class sqlUsers extends dbtable
     function makeUserFolder($userId)
     {
         // First we check that the 'userfiles' folder exists
-        $courses = $this->objConfig->userfiles();
+        $courses = $this->objConfig->getcontentBasePath();
         if (!(file_exists($courses))){
             $oldumask = umask(0);
             @mkdir($courses, 0777); // or even 01777 so you get the sticky bit set
             umask($oldumask);
         }
         // Then we create the user folder
-        $dir = $this->objConfig->userfiles()."/".$userId;
+        $dir = $this->objConfig->getcontentBasePath().$userId;
         if (!(file_exists($dir))){
             $oldumask = umask(0);
             @mkdir($dir, 0777); // or even 01777 so you get the sticky bit set
