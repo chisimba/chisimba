@@ -8,7 +8,7 @@
 
 // Tidy
 //$tidy = new tidy;
-$searchResults = '<hr/>This is the search results';
+//$searchResults = '<hr/>This is the search results';
 $output = $this->getContent().$searchResults.$this->footerStr;
 //$tidy->parseString($output, $config, 'utf8');
 //$tidy->cleanRepair();
