@@ -383,7 +383,15 @@ class dbTable extends object
 	        log_debug($fields);
         	log_debug($sql);
         }
-        $ret = $this->_execute($sql, $params);
+        if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
+        {
+        	$ret = $this->_execute($sql, $params);
+        	//log_debug($sql);
+        	//log_debug("success $ret");
+        }
+        else {
+        	$ret = $this->_db->query($sql);
+        }
         //log_debug($sql);
         //log_debug("success $ret");
 
