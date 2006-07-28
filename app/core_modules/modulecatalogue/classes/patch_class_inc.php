@@ -26,6 +26,13 @@ class patch extends dbtable {
 	protected $objModfile;
 
 	/**
+	 * Object to get language elements
+	 *
+	 * @var object $objLanguage
+	 */
+	public $objLanguage;
+
+	/**
 	 * KinkyII init function
 	 *
 	 */
@@ -34,6 +41,7 @@ class patch extends dbtable {
 			parent::init('tbl_modules');
 			$this->objConfig = &$this->getObject('altconfig','config');
 			$this->objModFile = &$this->getObject('modulefile','modulecatalogue');
+			$this->objLanguage = &$this->getObject('language','language');
 		} catch (Exception $e) {
 			echo customException::cleanUp($e->getMessage());
 			exit(0);
@@ -50,12 +58,22 @@ class patch extends dbtable {
 			$modArray=$this->getAll();
 			$modules=array();
 			foreach ($modArray as $module) {
-				//multiply by 1 to get integer representation
-				$codeVersion = $this->readVersion($module['module_id'])*1;
-				$dbVersion = $module['module_version']*1;
+				$codeVersion = (float)$this->readVersion($module['module_id']);
+				$dbVersion = (float)$module['module_version'];
 				// Now compare the two
+				//echo "{$module['module_id']} $dbVersion >= $codeVersion<br/>";
 				if ($codeVersion>$dbVersion) {
-					$modules[]=array('module_id'=>$module['module_id'],'old_version'=>$dbVersion,'new_version'=>$codeVersion);
+					//check for xml document
+					$description = $this->objLanguage->languageText('mod_modulecatalogue_newlangitems','modulecatalogue');
+					if ($updateFile = $this->objModFile->findSqlXML($module['module_id'])) {
+						if (!$objXml = simplexml_load_file($updateFile)) {
+    						throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
+    					}
+    					$desc = $objXml->xpath("//UPDATE[VERSION='{$codeVersion}']/DESCRIPTION");
+    					$description = $desc[0];
+    					//echo $desc[0]."<br/>";var_dump($desc);die();
+					}
+					$modules[]=array('module_id'=>$module['module_id'],'old_version'=>$dbVersion,'new_version'=>$codeVersion,'desc'=>$description);
 				}
 			}
 			return $modules;

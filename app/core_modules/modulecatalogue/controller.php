@@ -250,6 +250,12 @@ class modulecatalogue extends controller
 					// Show next installation step
 					log_debug('back in modcat controller after firstreg. try to redirect now');
 					return $this->nextAction(null,null,'splashscreen');
+				case 'update':
+					$modname = $this->getParam('mod');
+                	$result = $this->objPatch->makeUpdates($modname,NULL,FALSE);
+                	$this->setVar('moduleVersions',$result['info']);
+	        		$this->setVar('updateResults',$result['data']);
+                	return $this->nextAction(null);
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;

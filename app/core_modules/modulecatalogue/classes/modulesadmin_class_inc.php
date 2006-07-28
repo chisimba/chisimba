@@ -1073,7 +1073,7 @@ class modulesadmin extends dbTableManager
     	try {
     		$modulesArray = $this->objModules->getAll();
     		foreach ($modulesArray as $module) {
-    			$this->moduleText($line['module_id'],'replace');
+    			$this->moduleText($module['module_id'],'replace');
     		}
     		return TRUE;
     	} catch (Exception $e) {

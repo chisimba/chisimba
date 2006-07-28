@@ -210,6 +210,24 @@ class modulefile extends object {
 		}
     }
 
+     /** This is a method to check for existance of sql_updates.xml
+    * @param string modname
+    * @return FALSE on error, string filepath on success
+    */
+    public function findSqlXML($modname) {
+        try {
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/sql/sql_updates.xml";
+        	if (file_exists($path)) {
+        			return $path;
+        	} else {
+        		return FALSE;
+        	}
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+		}
+    }
+
     /**
     * Reads the 'register.conf' file provided by the module to be registered
     * and uses file() to load the contents into an array, then read through it
