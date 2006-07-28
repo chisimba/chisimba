@@ -179,8 +179,13 @@ class catalogueconfig extends object {
     			$id++;
     		}
     		$xmlStr .= '</settings>';
-    		touch($this->_path.'catalogue.xml');
-    		chmod($this->_path . 'catalogue.xml',0777);
+    		try {
+    			touch($this->_path.'catalogue.xml');
+    			chmod($this->_path . 'catalogue.xml',0777);
+    		}
+    		catch(Exception $e) {
+    			$this->errorCallback('Caught exception: ' . $e->getMessage());
+    		}
     		$fh = fopen($this->_path.'catalogue.xml','w');
     		fwrite($fh,$xmlStr);
 			fclose($fh);
