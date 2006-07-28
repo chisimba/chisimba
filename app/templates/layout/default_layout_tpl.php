@@ -8,7 +8,15 @@
 
 // Tidy
 //$tidy = new tidy;
-//$searchResults = '<hr/>This is the search results';
+
+if(!$this->getParam('query') == '')
+{
+	$objLucene = & $this->newObject('results', 'lucene');
+	$searchResults = $objLucene->show($this->getParam('query'));
+	
+} else {
+	$searchResults = '';
+}
 $output = $this->getContent().$searchResults.$this->footerStr;
 //$tidy->parseString($output, $config, 'utf8');
 //$tidy->cleanRepair();
