@@ -243,7 +243,7 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					log_debug('in controller - now try firstreg.');
+					log_debug('in controller - now trying firstreg..');
 					if (!$check){
 						$this->firstRegister();
 					}
