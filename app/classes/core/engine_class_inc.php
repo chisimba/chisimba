@@ -1,6 +1,6 @@
 <?php
     	//increase memory_limit - added 28.07.06 by nappleby
-    	ini_set('memory_limit',-1);
+    	ini_set('memory_limit','128M');
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
