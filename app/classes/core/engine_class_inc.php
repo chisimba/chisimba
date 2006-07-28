@@ -239,6 +239,8 @@ class engine
      */
     public function __construct()
     {
+    	//increase memory_limit - added 28.07.06 by nappleby
+    	ini_set('memory_limit','128M');
         // we only initiate session handling here if a session already exists;
         // the session is only created once a successful login has taken place.
         // this has the small security benefit (albeit an obscurity based one)
