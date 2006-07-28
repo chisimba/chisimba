@@ -179,6 +179,8 @@ class catalogueconfig extends object {
     			$id++;
     		}
     		$xmlStr .= '</settings>';
+    		touch($this->_path.'catalogue.xml');
+    		chmod($this->_path . 'catalogue.xml',0777);
     		$fh = fopen($this->_path.'catalogue.xml','w');
     		fwrite($fh,$xmlStr);
 			fclose($fh);
