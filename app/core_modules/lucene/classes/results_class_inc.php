@@ -141,11 +141,11 @@ class results extends object
 				$numHits = count($hits);
 			}
 			//echo "Found $numHits Results for Query $query <br><br>";
-			foreach($hits as $hit)
+			/*foreach($hits as $hit)
 			{
 				$str .= "Title " . $hit->title . " at URL " . "<a href=\"$hit->url\">$hit->url</a> " . "with relevance score of " . $hit->score . "<br/><br/><hr/>";
 			}
-			
+			*/
 			return $this->_displayResults($hits);
 
 		 }
@@ -239,6 +239,7 @@ class results extends object
 								<dd class="desc">Some description of the file must go here</dd>
 								<dd class="filetype">HTML</dd>
 								<dd class="date">'.$arrResults[$indx + $i]->date.'</dd>
+								<dd class="date">Rating : '.$arrResults[$indx + $i]->score.'</dd>
 							</dl>
 						</li>';
 			}
