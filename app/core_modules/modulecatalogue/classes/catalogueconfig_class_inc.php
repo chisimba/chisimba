@@ -182,7 +182,7 @@ class catalogueconfig extends object {
     		try {
     			if(!file_exists($this->_path))
     			{
-    				touch($this->_path);
+    				mkdir($this->_path);
     			}
     			touch($this->_path.'catalogue.xml');
     			chmod($this->_path . 'catalogue.xml',0777);
