@@ -29,7 +29,7 @@ htmlelements
 #userparamsadmin - not in cvs
 #userparams - requires userparamsadmin
 #login - not in cvs
-calendarbase
 systext
 splashscreen
 cms
+calendarbase

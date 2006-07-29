@@ -379,9 +379,9 @@ class dbTable extends object
         //die();
         $this->_lastId = $id;
         if($this->debug == TRUE) {
-        	log_debug("dbtable insert into {$tablename}");
-	        log_debug($fields);
+        	log_debug($fields);
         	log_debug($sql);
+        	log_debug("dbtable insert into {$tablename}");
         }
         if($this->_db->phptype == 'mysql')
         {
@@ -390,7 +390,6 @@ class dbTable extends object
         else {
         	$ret = $this->_db->query($sql);
         }
-        $ret = $this->_execute($sql, $params);
 
         return $ret ? $id : false;
     }

@@ -53,7 +53,7 @@ $fields = array(
 
 		),
     'logins' => array(
-		'type' => 'integer',
+		'type' => 'text',
         'length' => 11,
         'notnull' => TRUE,
         'default' => 0
