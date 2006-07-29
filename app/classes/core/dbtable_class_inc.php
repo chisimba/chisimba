@@ -383,9 +383,14 @@ class dbTable extends object
 	        log_debug($fields);
         	log_debug($sql);
         }
+        if($this->_db->phptype == 'mysql')
+        {
+        	$ret = $this->_execute($sql, $params);
+        }
+        else {
+        	$ret = $this->_db->query($sql);
+        }
         $ret = $this->_execute($sql, $params);
-        //log_debug($sql);
-        //log_debug("success $ret");
 
         return $ret ? $id : false;
     }
