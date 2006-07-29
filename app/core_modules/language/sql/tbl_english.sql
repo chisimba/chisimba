@@ -14,8 +14,8 @@ $fields = array(
 
 		),
     'en' => array(
-		'type' => 'text',
-		'length' => 255,
+		'type' => 'clob',
+		//'length' => 255,
 		),
 	'pageId' => array(
 		'type' => 'text',
