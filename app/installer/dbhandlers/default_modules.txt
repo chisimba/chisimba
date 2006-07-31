@@ -21,7 +21,6 @@ stories
 language
 #contextabstract - module not in cvs
 help
-datetime
 strings
 #credits - not in cvs
 htmlelements
