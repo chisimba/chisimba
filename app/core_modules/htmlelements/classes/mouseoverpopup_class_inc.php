@@ -1,4 +1,13 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
  * Mouse Over Popup Class
@@ -18,20 +27,18 @@
  * $mop->caption='this is a caption';
  * $mop->show();
  **/
-
-require_once("htmlbase_class_inc.php");
-
- class mouseoverpopup extends htmlbase{
+ class mouseoverpopup extends abhtmlbase implements ifhtml
+ {
  	
-	var $urltext;
-	var $caption;
-	var $url;
-	var $content;
+	public $urltext;
+	public $caption;
+	public $url;
+	public $content;
 	
-	var $iframeUrl='';
-	var $iframeCaption;
-	var $iframeWidth;
-	var $iframeHeight;
+	public $iframeUrl='';
+	public $iframeCaption;
+	public $iframeWidth;
+	public $iframeHeight;
 	
 	/**
 	* Initializer Method
@@ -40,14 +47,14 @@ require_once("htmlbase_class_inc.php");
 	* @param string $caption : The tooltip Caption
 	* @param string $url : the url of the link
 	*/
-	function mouseoverpopup($urltext=null,$content=null,$caption=null,$url=null){
+	public function mouseoverpopup($urltext=null,$content=null,$caption=null,$url=null){
 		$this->urltext=$urltext;
 		$this->caption=$caption;
 		$this->content=$content;
 		$this->url=$url;
 	}
 	
-	function show()
+	public function show()
 	{
 		$str='<script language="javascript" src="modules/htmlelements/resources/domLib.js"></script>
     		  <script language="javascript" src="modules/htmlelements/resources/alphaAPI.js"></script>

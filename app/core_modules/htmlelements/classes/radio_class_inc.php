@@ -1,12 +1,16 @@
 <?php
 /* -------------------- security class extends module ----------------*/
-
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
 	die("You cannot view this page directly");
 }
-// end security check
+// // Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+require_once("label_class_inc.php");
+require_once('htmltable_class_inc.php');
 
 /**
 * Radio class for outputting Radio Buttons. 
@@ -29,23 +33,19 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *	echo $objElement->show().'<br>';
 *
 */
-require_once("htmlbase_class_inc.php");
-require_once("label_class_inc.php");
-require_once('htmltable_class_inc.php');
-
-class radio extends htmlbase
+class radio extends abhtmlbase implements ifhtml
 {
   
-    var $options = array();
-    var $selected;
-    var $breakSpace = '';
-    var $tableColumns = 3;
+    public $options = array();
+    public $selected;
+    public $breakSpace = '';
+    public $tableColumns = 3;
     
     /**
     * Class Constructor
     * @param string $name : The name of the radio group
     */
-    function radio($name){
+    public function radio($name){
         $this->name=$name;
         $this->cssClass='transparentbgnb';
     }
@@ -54,7 +54,7 @@ class radio extends htmlbase
     * Method to set the break/space between input options
     * @param string $break : The name of the radio group
     */
-    function setBreakSpace($breakSpace)
+    public function setBreakSpace($breakSpace)
     {
         $this->breakSpace=$breakSpace;
     }
@@ -63,7 +63,7 @@ class radio extends htmlbase
     * Method to set the cssId class 
     * @param string $cssId
     */
-    function setTableColumns($columns)
+    public function setTableColumns($columns)
     {
         $this->tableColumns = $columns;
     } 
@@ -72,7 +72,7 @@ class radio extends htmlbase
     * Method to set the cssId class 
     * @param string $cssId
     */
-    function setId($cssId)
+    public function setId($cssId)
     {
         $this->cssId = $cssId;
     } 
@@ -84,7 +84,7 @@ class radio extends htmlbase
     * @param string $value : The value for a give option
     
     */
-    function addOption($value,$label)
+    public function addOption($value,$label)
     {
         $this->options[$value] = $label;
     }
@@ -93,7 +93,7 @@ class radio extends htmlbase
     * option to be selected
     * @param string $value : Sets the option to 'checked'
     */
-    function setSelected($value)
+    public function setSelected($value)
     {
         if(isset($this->options[$value]))
         {
@@ -104,7 +104,7 @@ class radio extends htmlbase
     /*
     * Method to show the option group
     */
-    function show()
+    public function show()
     {
         if (strtolower($this->breakSpace) == 'table') {
             return $this->showTable();
@@ -116,7 +116,7 @@ class radio extends htmlbase
     /*
     * Method to show the option group with the given breakspace (not table)
     */
-    function showNormal()
+    public function showNormal()
     {
         $str='';
         
@@ -160,7 +160,7 @@ class radio extends htmlbase
     /**
     * Method to show the option group for a table
     */
-    function showTable()
+    public function showTable()
     {
         $table =& new htmltable();
         $table->startRow();

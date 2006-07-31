@@ -4,6 +4,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Class frameset class to group items
@@ -18,28 +20,29 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Wesley Nitsckie updated by Derek Keats 2004 03 16
 * @example :
 */
-class fieldset extends object{
+class fieldset extends object implements ifhtml
+{
 	/**
 	*@var $legend The heading of the frameset
 	*/
-	var $legend;
+	public $legend;
 	/**
 	*@var $legendalign The alignment for the legend
 	*/
-	var $legendalign;
+	public $legendalign;
 
 	/**
 	*@var $content The contents of the frameset
 	*/
-	var $contents;
+	public $contents;
     /**
 	*@var $width The width attribute
 	*/
-	var $width;
+	public $width;
     /**
 	*@var $extra Any other extra items that needs to be added 
 	*/
-	var $extra;
+	public $extra;
     
         /**
         *@var $align how the table is aligned - added 2005 03 31 by James Scoble
@@ -49,7 +52,7 @@ class fieldset extends object{
 	/**
 	*Initialize
 	*/
-	function init()
+	public function init()
 	{
 		$this->contents="";
 	}
@@ -59,7 +62,7 @@ class fieldset extends object{
     *@return null
     *@access public
 	*/
-	function show()
+	public function show()
 	{
             $str="";
             //Add the width if it exists !added by derek
@@ -102,7 +105,7 @@ class fieldset extends object{
     *@return null
     *@access public
 	*/
-	function addContent($content=null){
+	public function addContent($content=null){
 		$this->contents.=$content;
 	}
 	
@@ -111,7 +114,7 @@ class fieldset extends object{
     *@return null
     *@access public
 	*/
-	function reset(){
+	public function reset(){
 		$this->contents=null;
 		$this->legend=null;
 	}
@@ -132,7 +135,7 @@ class fieldset extends object{
     *@return null
     *@access public
 	*/
-	function setExtra($parameters){
+	public function setExtra($parameters){
 		$this->extra=$parameters;
 	}
 }

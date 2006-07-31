@@ -3,6 +3,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Class to create and display headings using the <Hn> tag where n=1 to 6
@@ -16,44 +18,44 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Derek Keats 
 */
 
-class htmlHeading 
+class htmlHeading implements ifhtml
 {
     /**
     * 
     * @var int $type The type of header to produce (H1, H2, etc)
     */
-    var $type = 3;
+    public $type = 3;
 
     /**
     * 
     * @var string $id The CSS ID of the header if used
     */
-    var $id;
+    public $id;
 
     /**
     * 
     * @var string $cssClass The CSS class of the header if used
     */
-    var $cssClass;
+    public $cssClass;
 
     /**
     * 
     * @var string $str The text to place between the header tags
     */
-    var $str;
+    public $str;
 
     /**
     * @var string $align How the header should align on the page
     * Added 2005-04-07 by James Scoble
     */
-    var $align;
+    public $align;
     
     /**
     * Method to show the heading
     * 
     * @return The heading complete as a string
     */
-    function show()
+    public function show()
     {
         $ret = "<h" . $this->type;
         if ($this->id) {

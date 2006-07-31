@@ -1,19 +1,26 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 
 /**
 * A set of button objects to create interface buttons
 */
-class navbuttons extends object
+class navbuttons extends object implements ifhtml
 {
 
-     var $objLanguage;
-     var $objConfig;
+     public $objLanguage;
+     public $objConfig;
 
 	/**
 	* Init method for the buttons class, used to
 	* instantiate a local access to the language object
 	*/
-	function init() 
+	public function init() 
 	{
 		$this->objLanguage =& $this->getObject('language', 'language');
 		$this->objConfig =& $this->getObject('config', 'config');
@@ -24,7 +31,7 @@ class navbuttons extends object
 	* @param string $type: the type of icon to display, translates to the filename
 	* @param string $filename: the filename if it is different from $type
 	*/
-	function button($type, $filename=NULL, $ext="gif",$alt=NULL) 
+	public function button($type, $filename=NULL, $ext="gif",$alt=NULL) 
 	{
 		global $objLanguage, $objConfig;
 		$key='word_'.$type;
@@ -49,7 +56,7 @@ class navbuttons extends object
 	/**
 	* Print an edit button
 	*/
-	function putEditButton() 
+	public function putEditButton() 
 	{
 		return $this->button("edit");
 	}
@@ -57,7 +64,7 @@ class navbuttons extends object
 	/**
 	* Print a delete button
 	*/
-	function putDeleteButton() 
+	public function putDeleteButton() 
 	{
 		return $this->button("delete");
 	}
@@ -65,7 +72,7 @@ class navbuttons extends object
 	/**
 	* Print a info button
 	*/
-	function putInfoButton() 
+	public function putInfoButton() 
 	{
 		return $this->button("info");
 	}
@@ -73,7 +80,7 @@ class navbuttons extends object
 	/**
 	* Print a home button
 	*/
-	function putHomeButton() 
+	public function putHomeButton() 
 	{
 		return $this->button("home");
 	}
@@ -81,7 +88,7 @@ class navbuttons extends object
 	/**
 	* Print an edit button
 	*/
-	function linkedButton($type, $link, $target="_top",$alt=Null) 
+	public function linkedButton($type, $link, $target="_top",$alt=Null) 
 	{
 		$strout='<a href="'.$link.'" target="'.$target.'">'.$this->button($type,Null,'gif',$alt).'</a>';
 		return $strout;
@@ -91,7 +98,7 @@ class navbuttons extends object
 	/**
 	* Method to put a form field button
 	*/
-	function formButton($type, $label) 
+	public function formButton($type, $label) 
 	{
 		global $objLanguage;
 		$ret='<input type="'.$type
@@ -105,7 +112,7 @@ class navbuttons extends object
 	/** 
 	* Method to put a save button
 	*/
-	function putSaveButton() 
+	public function putSaveButton() 
 	{
 		return $this->formButton("submit", "save");
 	}
@@ -113,7 +120,7 @@ class navbuttons extends object
 	/** 
 	* Method to put a search button
 	*/
-	function putSearchButton() 
+	public function putSearchButton() 
 	{
 		return $this->formButton("submit", "search");
 	}
@@ -121,7 +128,7 @@ class navbuttons extends object
 	/**
 	* Print a GO button
 	*/
-	function putGoButton() {
+	public function putGoButton() {
 		return $this->formButton("submit", "go");
 	}
 	
@@ -133,7 +140,7 @@ class navbuttons extends object
 	* @param string $linktext: the text to appear on the button
 	* @param string $space: @values:TRUE|FALSE, whether to print a space after the button
 	*/
-	function pseudoButton($link, $linktext, $space=FALSE)
+	public function pseudoButton($link, $linktext, $space=FALSE)
 	{
 		if (!$space==FALSE) {
 		    $space="&nbsp;";

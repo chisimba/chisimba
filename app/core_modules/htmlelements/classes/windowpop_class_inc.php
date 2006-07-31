@@ -3,7 +3,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * windowPop class to use to make popup windows.
@@ -27,91 +28,92 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *   $this->objPop->putJs(); // you only need to do this once per page
 *   echo $this->objPop->show();
 */
-class windowPop {
+class windowPop implements ifhtml
+{
     /**
     * 
     * @var string $location: The page to appear in the window
     */
-    var $location;
+    public $location;
     /**
     * 
     * @var string $window_name: The name for the popup window
     */
-    var $window_name;
+    public $window_name;
     /**
     * 
     * @var string $features: The third parameter that holds name-value pairs below
     */
-    var $features;
+    public $features;
     /**
     * 
     * @var boolean $directories: Controls the standard browser directory buttons
     */
-    var $directories;
+    public $directories;
     /**
     * 
     * @var int $width: Specifies the width of the window in pixels
     */
-    var $width;
+    public $width;
     /**
     * 
     * @var int $height: Specifies the height of the window in pixels
     */
-    var $height;
+    public $height;
     /**
     * 
     * @var int $top: Specifies the distance from the top of the window in px
     */
-    var $top;
+    public $top;
     /**
     * 
     * @var int $left: Specifies the distance from the left of the window in px
     */
-    var $left;
+    public $left;
     /**
     * 
     * @var boolean $menubar: Controls the menu at the top of the window, defaults to no
     */
-    var $menubar;
+    public $menubar;
     /**
     * 
     * @var boolean $resizable: Controls the ability to resize the window, defaults to no
     */
-    var $resizable;
+    public $resizable;
     /**
     * 
     * @var boolean scrollbars: Controls the horizontal and vertical scrollbars
     */
-    var $scrollbars;
+    public $scrollbars;
     /**
     * 
     * @var boolean $status: Controls the status bar at the bottom of the window
     */
-    var $status;
+    public $status;
     /**
     * 
     * @var boolean $toolbar: Controls the standard browser toolbar
     */
-    var $toolbar;
+    public $toolbar;
     /**
     * 
     * @var string $linktext: The text (or image tag) for the link
     */
-    var $linktext;
+    public $linktext;
     /**
     * 
     * @var string $js: The javascript for the page or page header
     */
-    var $js;
+    public $js;
     /**
     * @var bool $js_iswritten: True if the javascript has already been written 
     * to the page, else false TRUE | FALSE
     */
-    var $js_iswritten;
+    public $js_iswritten;
     /**
     * Method to establish the default values
     */
-    function windowPop()
+    public function windowPop()
     {
         $this->window_name = "new";
         $this->directories = "";
@@ -133,7 +135,7 @@ class windowPop {
     * @var string $property: The name of the property to set
     * @var mixed $value: The value to set the property to be
     */
-    function set($property, $value)
+    public function set($property, $value)
     {
         $this->$property = $value;
     }
@@ -142,7 +144,7 @@ class windowPop {
     * Method to put the javascript in the page and lock it so it can't
     * be written again
     */
-    function putJs()
+    public function putJs()
     {
         if (!$this->js_iswritten) {
             $this->js_iswritten=TRUE;
@@ -156,7 +158,7 @@ class windowPop {
     * Method to show the window link
     * @return string The formatted link
     */
-    function show()
+    public function show()
     {
         
         $this->features="toolbar=".$this->toolbar.", "

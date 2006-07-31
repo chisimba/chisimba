@@ -1,22 +1,28 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
 * HTML control class to create anchor (<A href=>) tags
 * 
 * @author Derek Keats 
 * 
 */
-
-//Include the htmlbase class
-require_once('htmlbase_class_inc.php');
-
-class link extends htmlbase
+class link abhtmlbase implements ifhtml
 {
     /**
     * 
     * @var string $linkType The type of link, e.g. http, mailto, etc.
     * If not provided the default http is used.
     */
-    var $linkType;
+    public $linkType;
 
     /**
     * 
@@ -24,33 +30,33 @@ class link extends htmlbase
     * use lower case "none" if you want to produce <a href="#"
     * Optional
     */
-    var $href;
+    public $href;
     
     /**
     * 
     * @var string $target The target frame
     */
-    var $target;
+    public $target;
 
     /**
     * 
     * @var string $link The text to display in the link. 
     * If it is left out the URL is displayed.
     */
-    var $link;
+    public $link;
     
     /**
     * 
     * @var string $charset Specifies the character encoding of the target URL
     */
-    var $charset;
+    public $charset;
     
     /**
     * 
     * @var string $hreflang Specifies the base language of the target URL
     * Optional, rarely used
     */
-    var $hreflang;
+    public $hreflang;
     /**
     * 
     * @var string $rel Specifies the relationship between the current 
@@ -75,7 +81,7 @@ class link extends htmlbase
     *    bookmark
     */
     
-    var $rel;
+    public $rel;
     
     /**
     * 
@@ -84,37 +90,37 @@ class link extends htmlbase
     * Values:
     * @see $rel
     */
-    var $rev;
+    public $rev;
     
     /**
     * 
     * @var string $type Specifies the MIME (Multipurpose Internet Mail Extensions) 
     * type of the target URL
     */
-    var $type;
+    public $type;
     
     /**
     * 
     * @var string $anchor specifies the anchor (#) on a page for the link
     */
-    var $anchor;
+    public $anchor;
     
     /**
     * 
     * @var string $title specifies the link title
     */
-    var $title;
+    public $title;
     
     /**
     * 
     * @var string $extra Gives the user more flexability 
     */
-  //  var $extra;
+  //  public $extra;
     
     /**
     * Initialization method to set default values
     */
-    function link($href=null)
+    public function link($href=null)
     {
         $this->href=$href;
     } 
@@ -122,7 +128,7 @@ class link extends htmlbase
     /**
     * Show method
     */
-    function show()
+    public function show()
     {
         return $this->_buildLink();
     } 
@@ -132,7 +138,7 @@ class link extends htmlbase
     /**
     * Method to build the link from the parameters
     */
-    function _buildLink()
+    private function _buildLink()
     {
         $ret = "<a href=\"";
         if ($this->linkType!="none" && $this->linkType!=Null) {

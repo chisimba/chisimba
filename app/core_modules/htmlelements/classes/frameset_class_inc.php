@@ -4,6 +4,12 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
  * HTML control class to create layers (<DIV>) tags
  * @package iframe
@@ -14,16 +20,17 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Wesley Nitsckie
 * @example
 */
-class frameset extends htmlbase{
+class frameset extends abhtmlbase implements ifhtml
+{
     /**
     * @var array $frameList
     */
-    var $frameList = array();
+    public $frameList = array();
     
     /**
     * Constructor
     */
-    function init(){
+    public function init(){
     
     
     }
@@ -31,7 +38,7 @@ class frameset extends htmlbase{
     /**
     * Method to show the frameset
     */
-    function show(){
+    public function show(){
         $ret="<iframe width=\"".$this->width."\" height=\"".$this->height."\" ";        
         if ($this->align) {
             $ret .= " align=\"".$this->align."\" ";
@@ -71,7 +78,7 @@ class frameset extends htmlbase{
     * Method to  add an frame
     * @param object $frame The frame object
     */
-    function addFrame($objFrame){
+    public function addFrame($objFrame){
        array_ push($this->frameList, $objFrame);
     }
     

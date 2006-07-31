@@ -4,6 +4,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
 * HTML TABLE class for outputting HTML tables. The HTML TABLE 
 * class can be used to build up complex tables by simply setting parameters
@@ -14,12 +17,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *   stylesheet that makes up the skin. Avoid putting styles
 *   in the table or any other HTML object.
 * 
-* @package htmlTable
+* @package htmlelements
 * @category HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license GNU GPL
 * @version $Id$;
-* @author Derek Keats & Shulam .... 
+* @author Derek Keats 
 * @example
 *        $myTable=$this->newObject('htmltable','htmlelements');
 *        $myTable->width='60%';
@@ -42,53 +45,53 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @todo Implement --> Shulam..you should add the method you ddeveloped to this class, 
 *    but it needs to use some of the capabilities of this class.
 */
-class htmlTable extends object
+class htmlTable extends object implements ifhtml
 {
     /**
     * 
     * @var string $id: the ID tag from the CSS
     */
-    var $id;
+    public $id;
     /**
     * 
     * @var stiong $caption: The table caption, uses styles 
     * defined for caption in the CSS
     */
-    var $caption;
+    public $caption;
     /**
     * 
     * @var sting $heading: The table heading
     * @todo -c"htmlTable" Implement htmlTable heading and footing in building the output
     */
-    var $heading;
+    public $heading;
     /**
     * 
     * @var sting $footing: The table footing if used
     * @todo -c"htmlTable" Implement htmlTable heading and footing in building the output
     */
-    var $footing;
+    public $footing;
     /**
     * 
     * @var sring $width: The width of the table
     */
-    var $width;
+    public $width;
     /**
     * 
     * @var int $border: The width of the table border. Use NULL to override.
     * @todo -c"htmlTable" Implement htmlTable change border to override if NULL
     * and use the values from the CSS class
     */
-    var $border=0;
+    public $border=0;
     /**
     * 
     * @var int cellpadding: the cell padding to use
     */
-    var $cellpadding=0;
+    public $cellpadding=0;
     /**
     * 
     * @var int cellspacing: the cell spacing to use
     */
-    var $cellspacing=0;
+    public $cellspacing=0;
     /**
     * 
     * @var string $css_class: the class from the style sheet to use
@@ -96,24 +99,24 @@ class htmlTable extends object
     * @todo -c"htmlTable" Implement htmlTable Change internal css_class 
     * to another variable and remove this note.
     */
-    var $css_class;
-    var $cssClass;
+    public $css_class;
+    public $cssClass;
     /**
     * 
     * @var string $attributes: allows passing any attributes to the table
     */
-    var $attributes;
+    public $attributes;
     /**
     * 
     * @var string $tr_start: The TR start tag, used to build up the table row tag.
     */
-    var $tr_start;
+    public $tr_start;
     /**
     * 
     * @var sring $row_tag: the row tag for the table. Used in add row or add header
     * to inplement TH for header cell and TD for normal cell
     */
-    var $row_tag;
+    public $row_tag;
     /**
     * 
     * @var string $primary_key: The primary key of a table being
@@ -121,73 +124,73 @@ class htmlTable extends object
     * @see arrayToTable
     * @todo -c"htmlTable" Implement htmlTable Add add|edit|delete to arrayToTable
     */
-    var $primary_key;
+    public $primary_key;
     /**
     * 
     * @var string $cell_attributes: Allows the passing of cell attributes
     * to the table Cells in a row
     */
-    var $cell_attributes=Null;
+    public $cell_attributes=Null;
     /**
     * 
     * @var string $row_attributes: Allows the passing of row attributes
     * to be used in the TR tag
     */
-    var $row_attributes;
+    public $row_attributes;
     /**
     * 
     * @var boolean $alternate_row_colors: TRUE | FALSE whether to implement 
     * alternating row colors in the table. Note the US spelling of colour as
     * color as is the case in HTML.
     */
-    var $alternate_row_colors;
+    public $alternate_row_colors;
     /**
     * 
     * @var boolean $active_rows: TRUE|FALSE - Whether to implement active rows
     */
-    var $active_rows;
+    public $active_rows;
     /**
     * 
     * @var string $content: The content of the table to be rendered
     * on execution of the show method
     */
-    var $content;
+    public $content;
     /**
     * 
     * @var int $rows: The number of rows a table has
     */
-    var $rows;
+    public $rows;
     /**
     * 
     * @var int $cols: The number of columns in a table
     */
-    var $cols;
+    public $cols;
     /**
     * 
     * @var string $tdClasses: css associated with the <td>
     */
-    var $tdClass;
+    public $tdClass;
     /**
     * 
     * @var string $tdClasses: css associated with the <tr>
     */
-    var $trClass;
+    public $trClass;
     /**
     * 
     * @var int $attrs: attributes of the <tr>,<td>
     */
-    var $attrs;
+    public $attrs;
     /**
     * 
     * @var string $summary: Specifies a summary of the table for speech-synthesizing/non-visual browsers
     */
-    var $summary;
+    public $summary;
     
     /**
     * Constructor to establish the default values for the 
     * table properties
     */
-    function init()
+    public function init()
     {
         $this->id = null;
         $this->caption = null;
@@ -213,7 +216,7 @@ class htmlTable extends object
     /**
     * Alternate constructor for including the file. eg. from radio buttons class
     */
-    function htmltable()
+    public function htmltable()
     {
         return $this->init();
     }
@@ -225,7 +228,7 @@ class htmlTable extends object
     * @param string $cssClass : optional CSS class from the skin (normally odd, even, heading)
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
     */
-    function addRow($content, $tdClass = null, $row_attributes = null)
+    public function addRow($content, $tdClass = null, $row_attributes = null)
     {
         if ($this->_validateContent($content)) {
             $this->content .= $this->_addRow($content, null, $tdClass, $row_attributes);
@@ -238,7 +241,7 @@ class htmlTable extends object
     * @param array $content : The array of cell entries for the table
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
     */
-    function addHeader($content, $tdClass=null, $row_attributes = null, $trClass = null)
+    public function addHeader($content, $tdClass=null, $row_attributes = null, $trClass = null)
     {
         if ($this->_validateContent($content)) {
             // adds the header row to the top of the table
@@ -251,7 +254,7 @@ class htmlTable extends object
     * 
     * @param string $summary : summary description for tables
     */
-    function addSummary($summary)
+    public function addSummary($summary)
     {
         $this->summary = $summary;
     } 
@@ -262,7 +265,7 @@ class htmlTable extends object
     * 
     * @param array $ar : the array to be processed
     */
-    function arrayToTable($ar, $limit = null)
+    public function arrayToTable($ar, $limit = null)
     {
         $rowcount = 0; // initialize the odd/even counter
         $oddOrEven = "even";
@@ -298,7 +301,7 @@ class htmlTable extends object
     /**
     * Method to start a row
     */
-    function startRow($class = NULL)
+    public function startRow($class = NULL)
     {
         $this->content .= "<tr";
 		if (!is_null($class)) {
@@ -316,7 +319,7 @@ class htmlTable extends object
     /**
     * Method to start a Header row: <thead>
     */
-    function startHeaderRow()
+    public function startHeaderRow()
     {
         $this->heading .= "<thead";
         if ($this->row_attributes) {
@@ -329,7 +332,7 @@ class htmlTable extends object
     /**
     * Method to add a cell
     */
-    function addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
+    public function addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
     {
         $this->content .= '<td';
         if ($width) {
@@ -353,7 +356,7 @@ class htmlTable extends object
     /**
     * Method to add a header cell
     */
-    function addHeaderCell($str, $width=null, $valign="top", $align='left', $class=null, $attrib=Null)
+    public function addHeaderCell($str, $width=null, $valign="top", $align='left', $class=null, $attrib=Null)
     {
         $this->heading .= '<th';
         if ($width) {
@@ -378,7 +381,7 @@ class htmlTable extends object
     /**
     * Method to end a row
     */
-    function endRow()
+    public function endRow()
     {
         $this->content .= "</tr>";
     }
@@ -386,7 +389,7 @@ class htmlTable extends object
     /**
     * Method to end a row
     */
-    function endHeaderRow()
+    public function endHeaderRow()
     {
         $this->heading .= "</thead>";
     }
@@ -395,7 +398,7 @@ class htmlTable extends object
     /**
     * Method to return the completed table for rendering
     */
-    function show()
+    public function show()
     { 
         $ts = "\n\n<table";
         $ts .= " cellspacing=\"" . $this->cellspacing . "\"";
@@ -449,7 +452,7 @@ class htmlTable extends object
     * ......PLEASE DO NOT MUCK ABOUT IN HERE...CONTACT DEREK FIRST
     * 
     */
-    function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
+    private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
     { 
         if ($row_attributes) {
             $this->row_attributes=$row_attributes;
@@ -501,7 +504,7 @@ class htmlTable extends object
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
     * @return string $row: the formatted table body with the new row added
     */
-    function _addHeaderRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
+    private function _addHeaderRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
     { 
         if ($row_attributes) {
             $this->row_attributes=$row_attributes;
@@ -541,7 +544,7 @@ class htmlTable extends object
     * @param string $content : The content that you wish to validate
     * @return true | false
     */
-    function _validateContent($ct)
+    private function _validateContent($ct)
     {
         if ($ct) {
             return true;
@@ -557,7 +560,7 @@ class htmlTable extends object
     * @param array $ar : the array to parse
     * @return array return: a simple array of keys for use to build table header
     */
-    function _getArrayKeys($ar)
+    private function _getArrayKeys($ar)
     {
         foreach ($ar as $line) { // This is the best I can do, there must be a better way
             return array_keys($line);

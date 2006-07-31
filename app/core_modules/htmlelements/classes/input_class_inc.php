@@ -1,4 +1,10 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
  * Input class acts as an base class
@@ -8,14 +14,13 @@
  * @version $Id$
  * @copyright 2003 
  **/
-
-
- class input {
- 	var $size;
-	var $value;
-	var $name;
-	var $width;
-	var $css;
+ class input implements ifhtml
+ {
+ 	public $size;
+	public $value;
+	public $name;
+	public $width;
+	public $css;
 	
 	/**
      * Initialization method to set default values
@@ -39,44 +44,44 @@
 /**************************************************************
 *         GET METHODS                                         *
 * *************************************************************/
-	function getName(){
+	public function getName(){
 		return $this->$name;
 	}
  	
-	function getSize(){
+	public function getSize(){
 		return $this->$size;
 	}
  	
-	function getValue(){
+	public function getValue(){
 		return $this->$value;
 	}
 	
-	function getCSS(){
+	public function getCSS(){
 		return $this->css;
 	}
 	
-	function getvType(){
+	public function getvType(){
 		return $this->vtype;
 	}
 
 /**************************************************************
 *         SET METHODS                                         *
 * *************************************************************/
-	function setName($name){
+	public function setName($name){
 		$this->name=$name;
 	} 
- 	function setSize($size){
+ 	public function setSize($size){
 		$this->size;
 	}
-	function setValue($value){
+	public function setValue($value){
 		$this->value=$value;
 	}
 	
-	function setCss($css){
+	public function setCss($css){
 		$this->class=$css;
 	}
 	
-	function setvType($vtype){
+	public function setvType($vtype){
 		$this->vtype=$vtype;
 	}
  }

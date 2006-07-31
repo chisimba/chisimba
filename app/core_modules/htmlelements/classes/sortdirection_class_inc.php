@@ -31,7 +31,7 @@ class sortdirection extends object
     * @param string $action Action to take
     * @retrun string A formed URL
     */
-    function sortItems($item, $module = NULL, $action = NULL)
+    public function sortItems($item, $module = NULL, $action = NULL)
     {
         if ($this->getParam('sort') == $item && strtoupper($this->getParam('direction')) == 'ASC') {
             $direction = 'DESC';

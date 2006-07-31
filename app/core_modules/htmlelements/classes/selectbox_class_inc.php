@@ -3,6 +3,10 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
+
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
 * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
 * @package htmlelements
@@ -54,41 +58,42 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *   }
 * </code>
 */
-class selectbox extends object {
+class selectbox extends object implements ifhtml
+{
 
     /**
     * @var dropdown Object reference to the left selectbox.
     */
-    var $objLeftList;
+    public $objLeftList;
     /**
     * @var dropdown Object reference to the right selectbox.
     */
-    var $objRightList;
+    public $objRightList;
     /**
     * @var form Object reference to the form object containing the selectboxes.
     */
-    var $objForm;
+    public $objForm;
     /**
     * @var language Object reference to the Language object.
     */
-    var $objLanguage;
+    public $objLanguage;
     /**
     * @var array The Left and Right selectbox headers.
     */
-    var $arrHeaders = array();
+    public $arrHeaders = array();
     /**
     * @var array All the button objects.
     */
-    var $arrBtnObject = array();
+    public $arrBtnObject = array();
     /**
     * @var array All the control button objects.
     */
-    var $arrBtnCntrlObject = array();
+    public $arrBtnCntrlObject = array();
 
     /**
     * Method to initialise the object
     */
-    function init()
+    public function init()
     {
         // Insert the javascript into the header
         $this->appendArrayVar( 'headerParams', $this->getJavascriptFile('selectbox.js','htmlelements') );
@@ -107,7 +112,7 @@ class selectbox extends object {
     * @param string The Right selectbox dropdown name.
     * @return nothing Connect this object to the required objects.
     */
-    function create( &$objForm, $ddbLeftName, $tblLeftHeader, $ddbRightName, $tblRightHeader )
+    public function create( &$objForm, $ddbLeftName, $tblLeftHeader, $ddbRightName, $tblRightHeader )
     {
         // Connection to external form.
         $this->objForm = &$objForm;
@@ -173,7 +178,7 @@ class selectbox extends object {
     * @param string The label field name in the associated array.
     * @return nothing AddOptions into the Left selectbox.
     */
-    function insertLeftOptions( $arrList=array(), $valueField='', $labelField='' )
+    public function insertLeftOptions( $arrList=array(), $valueField='', $labelField='' )
     {
         foreach( $arrList as $option ){
             $this->objLeftList->addOption( $option[$valueField], $option[$labelField] );
@@ -188,7 +193,7 @@ class selectbox extends object {
     * @param string The label field name in the associated array.
     * @return nothing AddOptions into the Right selectbox.
     */
-    function insertRightOptions( $arrList=array(), $valueField='', $labelField='' )
+    public function insertRightOptions( $arrList=array(), $valueField='', $labelField='' )
     {
         foreach( $arrList as $option ){
             $this->objRightList->addOption( $option[$valueField], $option[$labelField] );
@@ -202,7 +207,7 @@ class selectbox extends object {
     * @param dropdown The to dropdown object.
     * @return string Parsed javascript moveSelectedOptions function.
     */
-    function moveSelectedOptions( &$from, &$to )
+    public function moveSelectedOptions( &$from, &$to )
     {
         return sprintf("moveSelectedOptions(document.%s['%s'], document.%s['%s'],true);",
             $this->objForm->name, $from->name, $this->objForm->name, $to->name );
@@ -215,7 +220,7 @@ class selectbox extends object {
     * @param dropdown The to dropdown object.
     * @return string Parsed javascript moveAllOptions function.
     */
-    function moveAllOptions( &$from, &$to )
+    public function moveAllOptions( &$from, &$to )
     {
         return sprintf("moveAllOptions(document.%s['%s'], document.%s['%s'],true);",
             $this->objForm->name, $from->name, $this->objForm->name, $to->name );
@@ -227,7 +232,7 @@ class selectbox extends object {
     * @param dropdown The dropdown object to select from.
     * @return string Parsed javascript selectAllOptions function.
     */
-    function selectAllOptions( &$object )
+    public function selectAllOptions( &$object )
     {
         return sprintf("selectAllOptions(document.%s['%s']);",
             $this->objForm->name,
@@ -240,7 +245,7 @@ class selectbox extends object {
     * @param string The value field new value.
     * @return string Parsed javascript to set the forms button value.
     */
-    function setFormButton( $value )
+    public function setFormButton( $value )
     {
         return sprintf("document.%s['%s'].value='%s';",
             $this->objForm->name, 'button', $value );
@@ -251,7 +256,7 @@ class selectbox extends object {
     *
     * @return string Parsed javascript to submit the form.
     */
-    function submitForm( )
+    public function submitForm( )
     {
         return sprintf("document.%s.submit();", $this->objForm->name );
     }
@@ -263,7 +268,7 @@ class selectbox extends object {
     * @param string The javascript to run on double click.
     * @return nothing Parse the extra params for the htmlelement with onDblClick.
     */
-    function onDblClickParam( &$object, $onDblClick )
+    public function onDblClickParam( &$object, $onDblClick )
     {
         $object->extra .= sprintf(' onDblClick="javascript: %s"', $onDblClick );
     }
@@ -277,7 +282,7 @@ class selectbox extends object {
     * @param string The header of the table.
     * @return nothing Insert selectbox into a table.
     */
-    function selectBoxTable( &$table, &$selectBox, $header=NULL )
+    public function selectBoxTable( &$table, &$selectBox, $header=NULL )
     {
         // Insert header if given
         if( $header ) {
@@ -300,7 +305,7 @@ class selectbox extends object {
     * @param htmltable The right selectbox to be inserted.
     * @return nothing Layout selectboxes into a table.
     */
-    function layoutTable( &$table, &$tblLeft, $arrButtons, &$tblRight )
+    public function layoutTable( &$table, &$tblLeft, $arrButtons, &$tblRight )
     {
         // Insert left selectbox table, buttons, right selectbox table.
         $table->width = NULL;
@@ -319,7 +324,7 @@ class selectbox extends object {
     * @param string The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
     * @return nothing Set the extra parameter for the given button.
     */
-    function setBtnOnClick( $button, $onClick, $arrBtnObject='arrBtnObject' )
+    public function setBtnOnClick( $button, $onClick, $arrBtnObject='arrBtnObject' )
     {
         $this->{$arrBtnObject}[$button]->extra .= sprintf(' onClick ="javascript: %s"', $onClick );
     }
@@ -350,7 +355,7 @@ class selectbox extends object {
     * @param string The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
     * @return nothing Set the label parameter for the buttons.
     */
-    function setBtnLabel( $button, $label, $field, $arrBtnObject='arrBtnObject' )
+    public function setBtnLabel( $button, $label, $field, $arrBtnObject='arrBtnObject' )
     {
         $this->{$arrBtnObject}[$button]->{$field} = $label;
     }
@@ -359,7 +364,7 @@ class selectbox extends object {
     *  Method to show the selectbox.
     * @return HTML the selectbox as html.
     */
-    function show()
+    public function show()
     {
         //Construct tables for left selectboxes
         $tblLeft = $this->newObject( 'htmltable','htmlelements');
@@ -384,7 +389,7 @@ class selectbox extends object {
     * Method to get the form buttons( btnSave and btnCancel ).
     * @return array the form buttons in and array as HTML.
     */
-    function getFormButtons()
+    public function getFormButtons()
     {
         $buttons = array();
         foreach( $this->arrBtnCntrlObject as $object ) {

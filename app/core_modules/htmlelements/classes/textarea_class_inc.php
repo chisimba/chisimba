@@ -1,4 +1,13 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * textare class to use to make textarea inputs.
@@ -14,26 +23,24 @@
 * @example 
 * @todo -c HTML Editor that will extend this object
 */
-require_once("htmlbase_class_inc.php");
-
- class textarea extends htmlbase
+ class textarea extends abhtmlbase implements ifhtml
  {
  	/**
     * 
     * @var string $cols: The number of columns the textare will have
     */
-	var $cols;
+	public $cols;
 	/**
     * 
     * @var string $rows: The number of rows the textare will have
     */
-	var $rows;
+	public $rows;
 	
 	
 	/**
     * Method to establish the default values
     */
-	function textarea($name=null,$value='',$rows=4,$cols=50)
+	public function textarea($name=null,$value='',$rows=4,$cols=50)
  	{
 		$this->name=$name;
 		$this->value=$value;
@@ -48,7 +55,7 @@ require_once("htmlbase_class_inc.php");
     * 
     * @var string $name: The name of the textare
     */
-	function setName($name)
+	public function setName($name)
 	{
 		$this->name=$name;
 	}
@@ -57,7 +64,7 @@ require_once("htmlbase_class_inc.php");
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
-    function setId($cssId)
+    public function setId($cssId)
     {
         $this->cssId = $cssId;
     } 
@@ -67,7 +74,7 @@ require_once("htmlbase_class_inc.php");
     * @var string $Rows: The number of rows of the textare
     * 
     */
-	function setRows($rows)
+	public function setRows($rows)
 	{
 		$this->rows=$rows;
 	}
@@ -76,7 +83,7 @@ require_once("htmlbase_class_inc.php");
     * @var string $cols: The number of cols of the textare
     * 
     */
-	function setColumns($cols)
+	public function setColumns($cols)
 	{
 		$this->cols=$cols;
 	}
@@ -85,7 +92,7 @@ require_once("htmlbase_class_inc.php");
     * function to set the content
     * @var string $content: The content of the textare
     */
-	function setContent($value)
+	public function setContent($value)
 	{
 		$this->value=$value;
 	}
@@ -93,7 +100,7 @@ require_once("htmlbase_class_inc.php");
     * Method to show the textarea
     * @return string The formatted link
     */
-	function show()
+	public function show()
 	{
 		$str = '<textarea name="'.$this->name.'"';
 		if($this->cssClass){

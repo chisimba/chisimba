@@ -1,4 +1,13 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Hidden Forum Input class
@@ -6,19 +15,18 @@
 * @author Tohir Solomons
 * @copyright 2005
 */
-
-class hiddeninput
+class hiddeninput extends abhtmlbase implements ifhtml
 {
 
     /**
     * @var string $name
     */
-    var $name;
+    public $name;
     
     /**
     * @var string $value
     */
-    var $value;
+    public $value;
    
     /**
     * Initialization method
@@ -26,7 +34,7 @@ class hiddeninput
     * @param string $name optional :sets the name of the hidden form input
     * @param string $value optional :sets the value of the hidden form input
     */
-    function hiddeninput($name = null, $value = null)
+    public function hiddeninput($name = null, $value = null)
     {
         $this->name = $name;
         $this->value = $value;
@@ -37,26 +45,16 @@ class hiddeninput
     * 
     * @param string $name Sets the name of the hidden form input
     */
-    function setName($name)
+    public function setName($name)
     {
         $this->value = $name;
     } 
     
-	/**
-    * Method to set the value of a hidden form input
-    * 
-    * @param string $value Sets the value of the hidden form input
-    */
-    function setValue($value)
-    {
-        $this->value = $value;
-    } 
-
     /**
     * Method to return the hidden form input for display on the form
     * @return string $str: the hidden form input element for display
     */
-    function show()
+    public function show()
     {
         $str = '<input type="hidden" value="' . $this->value . '"';
         $str .= ' name="' . $this->name . '"';

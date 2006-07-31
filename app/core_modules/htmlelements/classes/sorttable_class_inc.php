@@ -55,39 +55,39 @@ class sortTable extends object
     /**
     * @var string $name: The javascript table name
     */
-    var $name;    
+    public $name;    
     /**
     * @var string $arrHeader: The table header data.
     */
-    var $arrHeader;
+    public $arrHeader;
     /**
     * @var string $arrRow: The table data, for rows and cells (data and attributes)
     */
-    var $arrRow;
+    public $arrRow;
     
     /**
     * @var string $row_attributes: Allows the passing of row attributes
     * to be used in the TR tag
     */
-    var $row_attributes;
+    public $row_attributes;
     /**
     * @var string $currentRow: To keep track of the current row.
     */
-    var $currentRow;
+    public $currentRow;
     /**
     * @var string $currentCell: To keep track of the current cell.
     */
-    var $currentCell;
+    public $currentCell;
     /**
     * @var string $sortData: To data to use when sorting.
     */
-    var $sortData;
+    public $sortData;
     
     /**
     * Constructor to establish the default values for the 
     * table properties
     */
-    function init()
+    public function init()
     {
         // Insert the javascript into the header
         $this->appendArrayVar( 'headerParams', $this->getJavascriptFile('sorttable.js','htmlelements') );
@@ -103,7 +103,7 @@ class sortTable extends object
     /**
     * Method to start a row
     */
-    function startRow()
+    public function startRow()
     {
         // Get the current row attributes
         $this->arrRow[$this->currentRow]['row_attributes']=$this->row_attributes;
@@ -114,7 +114,7 @@ class sortTable extends object
     /**
     * Method to start a Header row
     */
-    function startHeaderRow()
+    public function startHeaderRow()
     {
         $this->arrHeader= array();
     }
@@ -130,7 +130,7 @@ class sortTable extends object
     * @param string Extra cell attributes
     * @return nothing
     */
-    function addCell($str, $width=NULL, $valign="top", $align=NULL, $class=NULL, $attrib=NULL)
+    public function addCell($str, $width=NULL, $valign="top", $align=NULL, $class=NULL, $attrib=NULL)
     {
         // Add cell data and attributes for the current row and current cell..
         $this->arrRow[$this->currentRow]['cells'][$this->currentCell++] = array( 'str'=>$str, 'width'=>$width,'valign'=>$valign,'align'=>$align,
@@ -149,7 +149,7 @@ class sortTable extends object
     * @param string Extra header cell attributes
     * @return nothing
     */
-    function addHeaderCell($str, $width=NULL, $valign="top", $align='left', $class=NULL, $attrib=NULL)
+    public function addHeaderCell($str, $width=NULL, $valign="top", $align='left', $class=NULL, $attrib=NULL)
     {
         $this->arrHeader[]=array( 'str'=>$str, 'width'=>$width,'valign'=>$valign,'align'=>$align,
             'class'=>$class,'attrib'=>$attrib);
@@ -158,7 +158,7 @@ class sortTable extends object
     /**
     * Method to end a row
     */
-    function endRow()
+    public function endRow()
     {
         $this->currentRow++;
     }
@@ -166,14 +166,14 @@ class sortTable extends object
     /**
     * Method to end a row
     */
-    function endHeaderRow()
+    public function endHeaderRow()
     {
     }
 
     /**
     * Method to return the completed table for rendering
     */
-    function show()
+    public function show()
     {
         $sortTable = '<script language="JavaScript">';
         $sortTable.= $this->create();
@@ -233,7 +233,7 @@ class sortTable extends object
     * @param array The attributes in an associative array
     * @return string The element attributes as a string.
     */
-    function _getAttributes($array)
+    private function _getAttributes($array)
     {
         extract( $array );
         $attr  = $width ? " width=\"$width\"":NULL;
@@ -250,7 +250,7 @@ class sortTable extends object
     * @param array The attributes in an associative array
     * @return string The table attributes as a string.
     */
-    function _getTableAttributes()
+    private function _getTableAttributes()
     {
         $attr  = '';
         $attr .= $this->width ? " width='$this->width'":NULL;
@@ -262,7 +262,7 @@ class sortTable extends object
     /**
     * Wrapper function for sorttable js.
     */
-    function WriteRows()
+    public function WriteRows()
     {
         return sprintf( "%s.WriteRows();\n", $this->name );
     }
@@ -270,14 +270,14 @@ class sortTable extends object
     /**
     * Wrapper function for sorttable js.
     */
-    function SortRows($table,$column)
+    public function SortRows($table,$column)
     {
         return sprintf("SortRows(%s,'%s');\n",$table,$column);
     }
     /**
     * Wrapper function for sorttable js.
     */
-    function create()
+    public function create()
     {
         return sprintf("var %s = new SortTable('%s');\n", $this->name, $this->name);
     }
@@ -285,7 +285,7 @@ class sortTable extends object
     /**
     * Wrapper function for sorttable js.
     */
-    function AddColumn($name,$td,$align,$type)
+    public function AddColumn($name,$td,$align,$type)
     {
         return sprintf("%s.AddColumn('%s','%s','%s','%s');\n",$this->name,$name, $td,$align,$type);
     }
@@ -301,7 +301,7 @@ class sortTable extends object
     /**
     * Wrapper function for sorttable js.
     */
-    function AddLineSortData( $array )
+    public function AddLineSortData( $array )
     {
         return sprintf( "%s.AddLineSortData('%s');\n",$this->name, implode("','",$array) );
     }

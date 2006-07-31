@@ -1,4 +1,12 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 class frames
 {
    //var $rows = array();

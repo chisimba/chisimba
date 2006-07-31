@@ -18,21 +18,26 @@
 * @author Tohir Solomons
 * @author Kariuki wa Njenga
 */
-require_once("htmlbase_class_inc.php");
 
-class checkBox extends htmlbase
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
+class checkBox  extends abhtmlbase implements ifhtml
 {
-  var $ischecked; 
+	
+  public $ischecked; 
   
   
-  var $value; //Kariuki added
+  public $value; //Kariuki added
 
   
   /**
   * Class Constructor
   * @param string $name : The name of the dropdown
   */
-  function checkbox($name,$label=NULL,$ischecked=false){
+  public function checkbox($name,$label=NULL,$ischecked=false){
   	$this->name=$name;
 	$this->ischecked=$ischecked;
 	$this->label=$label;
@@ -43,7 +48,7 @@ class checkBox extends htmlbase
   *Method to set the label 
   *@param string $label :value to be displayed
   */
-  function setLabel($label)
+  public function setLabel($label)
   {
   	$this->label=$label;
   }
@@ -53,7 +58,7 @@ class checkBox extends htmlbase
   * cssClass
   * @param $cssClass string : The css class associated with the checkbox
   */ 
-  function setCSS($cssClass)
+  public function setCSS($cssClass)
   {
   	$this->cssClass=$cssClass;
   }
@@ -62,7 +67,7 @@ class checkBox extends htmlbase
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
-    function setId($cssId)
+   public function setId($cssId)
     {
         $this->cssId = $cssId;
     } 
@@ -71,26 +76,19 @@ class checkBox extends htmlbase
   * Method to set the checkbox to checked or unchecked
   * @param $isChecked  boolean : toggles between checked and unchecked stated
   */
-  function setChecked($isChecked)
+  public function setChecked($isChecked)
   {
   	$this->ischecked=$isChecked;
   }
   
   
-  /**
-  *  Function to set the value of a checkbox
-  *	 @param $value : the new value of the checkbox
-  */
-  function setValue($value)
-  {
-  	$this->value=$value;
-  }
+
   
   /**
   * Method that outputs the checkbox
   * @return $str string : the output of the checkbox
   */ 
-  function show()
+  public function show()
   {
   	$str='<input type="checkbox"';
 	if($this->name){

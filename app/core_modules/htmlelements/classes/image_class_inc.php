@@ -3,7 +3,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * HTML control class to create image tags
@@ -13,27 +14,28 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @todo -c Implement .mouseover effects --> can someone take this over?
 *
 */
-class image {
+class image implements ifhtml
+{
     /**
     * Define all vars
     */
-    var $width;
-    var $height;
-    var $src;
-    var $align;
-    var $alt;
-    var $imageTag;
-    var $border;
+    public $width;
+    public $height;
+    public $src;
+    public $align;
+    public $alt;
+    public $imageTag;
+    public $border;
     // Javascript tags
-    var $mouseover;
-    var $mouseout;
-    var $onclick;
-    var $over_image_src;
+    public $mouseover;
+    public $mouseout;
+    public $onclick;
+    public $over_image_src;
 
     /**
     * Initialization method to set default values
     */
-    function image()
+    public function image()
     {
         $this->alt = null;
         $this->imageTag = null;
@@ -43,7 +45,7 @@ class image {
     /**
     * Method to return an invisible IFRAME
     */
-    function show()
+    public function show()
     {
         $this->_buildImage();
         return $this->imageTag;
@@ -54,7 +56,7 @@ class image {
     /**
     * Method to build the Iframe from the parameters
     */
-    function _buildImage() {
+    private function _buildImage() {
         $this->imageTag = "<img src=\"" . $this->src . "\"";
         if ($this->width && $this->height) {
             $this->imageTag .= " width=\"" . $this->width . "\"";
@@ -84,7 +86,7 @@ class image {
     * This bug has been fixed in PHP5.
     * @return string the width and height tag for the image
     */
-    function _getImageSize()
+    private function _getImageSize()
     {
         $image_size = getimagesize ($this->src);
         return $image_size['3']; //the formatted witdth and height tag

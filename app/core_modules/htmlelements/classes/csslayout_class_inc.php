@@ -4,6 +4,9 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 
 /**
 * The Css Layout class helps developers to display either two or three column layouts using CSS. 
@@ -18,7 +21,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * The two column layout has a left side column and a broad middle column
 * The three column layout has a left and right side column and a broad middle column
 *
-* NB! At present there is no accommodation for a two column layout with a broad middle column and a right side column
+* NB! At present there is no accommodation for a two column layout with a broad 
+* middle column and a right side column
 * 
 * 
 * @package cssLayout
@@ -34,35 +38,35 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *       $cssLayout->setRightColumnContent('Content in Right Column');
 *       echo $cssLayout->show(); 
 */
-class csslayout extends object
+class csslayout extends object implements ifhtml
 {
 
     /**
     * @var integer $numColumns: the number of columns the layout should have: either two or three
     */
-    var $numColumns;
+    public $numColumns;
     
     /**
     * @var string $leftColumnContent: the contents of the left hand side column
     */
-    var $leftColumnContent;
+    public $leftColumnContent;
     
     /**
     * @var string $rightColumnContent: the contents of the right hand side column
     */
-    var $rightColumnContent;
+    public $rightColumnContent;
     
     /**
     * @var string $middleColumnContent: the contents of the middle column
     */
-    var $middleColumnContent;
+    public $middleColumnContent;
     
     /**
     * Constructor Method for the class
     *
     * This method sets the default number of columns to two, and sets the content of all the columns to have nothing.
     */
-    function init()
+    public function init()
     {
         $this->numColumns = 2;
         $this->leftColumnContent = NULL;
@@ -78,7 +82,7 @@ class csslayout extends object
     * 
     * @param integer $number : The number of 
     */
-    function setNumColumns($number)
+    public function setNumColumns($number)
     {
         if ($number == 2 OR $number == 3) {
             $this->numColumns = $number;
@@ -90,7 +94,7 @@ class csslayout extends object
     *
     * @param string $content : Content of the left hand side column
     */
-    function setLeftColumnContent($content)
+    public function setLeftColumnContent($content)
     {
         $this->leftColumnContent = $content;
     }
@@ -100,7 +104,7 @@ class csslayout extends object
     *
     * @param string $content : Content of the right hand side column
     */
-    function setRightColumnContent($content)
+    public function setRightColumnContent($content)
     {
         $this->rightColumnContent = $content;
     }
@@ -110,7 +114,7 @@ class csslayout extends object
     *
     * @param string $content : Content of the middle column
     */
-    function setMiddleColumnContent($content)
+    public function setMiddleColumnContent($content)
     {
         $this->middleColumnContent = $content;
     }
@@ -121,7 +125,7 @@ class csslayout extends object
     * @access private 
     * @return string $fixLayoutScript: the JavaScript that goes in the header
     */
-    function fixTwoColumnLayoutJavascript()
+    public function fixTwoColumnLayoutJavascript()
     {
         $fixLayoutScript ="
         <script type=\"text/javascript\">        
@@ -166,7 +170,7 @@ class csslayout extends object
     * @access private 
     * @return string $fixLayoutScript: the JavaScript that goes in the header
     */
-    function fixThreeColumnLayoutJavascript()
+    public function fixThreeColumnLayoutJavascript()
     {
         $fixLayoutScript = "
         <script type=\"text/javascript\">        
@@ -215,7 +219,7 @@ class csslayout extends object
     * 
     * @return string $result: the finished layout
     */
-    function show()
+    public function show()
     {
         // Depending on the number of columns, load appropriate script to fix the column heights
         if ($this->numColumns == 2) {
@@ -266,7 +270,7 @@ class csslayout extends object
     * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
     * @access public
     */
-    function putThreeColumnFixInHeader()
+    public function putThreeColumnFixInHeader()
     {
         $headerParams=$this->getJavascriptFile('x.js','htmlelements');
         $headerParams .= $this->fixThreeColumnLayoutJavascript();
@@ -278,13 +282,12 @@ class csslayout extends object
     * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
     * @access public
     */
-    function putTwoColumnFixInHeader()
+    public function putTwoColumnFixInHeader()
     {
         $headerParams=$this->getJavascriptFile('x.js','htmlelements');
         $headerParams .= $this->fixTwoColumnLayoutJavascript();
         $this->appendArrayVar('headerParams',$headerParams);
     }
-
 
 } // End Class
 

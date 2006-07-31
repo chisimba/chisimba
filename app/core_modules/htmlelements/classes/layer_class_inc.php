@@ -3,102 +3,104 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
  * HTML control class to create layers (<DIV>) tags
 */
-class layer extends object {
+class layer extends object implements ifhtml
+{
     /**
     * 
     * @var string $id: the ID tag from the CSS
     */
-    var $id;
+    public $id;
     /**
     * @var string $name: Optional, the name to apply to the object 
     */
-    var $name;
+    public $name;
     /**
     * @var string $css_class: The name of the CSS class to apply 
     * to the layer
     * @deprecated use cssClass
     */
-    var $css_class;
-    var $cssClass;
+    public $css_class;
+    public $cssClass;
     /**
     * @var int $width: The width of the layer
     */
-    var $width;
+    public $width;
     /**
     * @var int $height: The height of the layer
     */
-    var $height;
+    public $height;
     /**
     * @var int $zIndex: The z-index (layer order) of the layer
     */
-    var $zIndex;
+    public $zIndex;
     /**
     * @var string $position: The position of the layer (absolute|
     * @todo -clayer Implement layer: not yet properly implemented
     */
-    var $position;
+    public $position;
     /**
     * @var int $left: The position of the layer from the left margin 
     *  if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
-    var $left;
+    public $left;
     /**
     * @var int $top: The position of the layer from the top margin 
     *  if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
-	var $top;
+	public $top;
     /**
     * @var string $background_color: The background colour of the layer
     */
-    var $background_color;
+    public $background_color;
     /**
     * @var string $visibility: layer visibility (DEFAULT | INHERIT | VISIBLE | HIDDEN)
     */
-    var $visibiity;
+    public $visibiity;
     /**
     * @var string $background_image: URL for an image to apply to the background
     */
-    var $background_image;
+    public $background_image;
     /**
     * @var string $border: border width for the layer
     */ 
-    var $border;
+    public $border;
     /**
     * @var string $overflow: what to do when text overflows the layer 
     *  (VISIBLE | HIDDEN | SCROLL | AUTO)
     */ 
-    var $overflow;
+    public $overflow;
     /**
     * @var string $use_style: An additional style tag to use
     * @todo -clayer Implement layer THis is not yet implemented
     */
-    var $use_style;
+    public $use_style;
     /**
     * @var string $str: the final output string
     */
-	var $str;
+	public $str;
     /**
     * @var string $align: use to generate quick aligned layers (e.g. center, left, right
     */
-    var $align;
+    public $align;
     /**
     * @var string $textalign: use to generate text aligned within the layer 
     * center|left|right
     */
-    var $textalign;
+    public $textalign;
 
     /**
      * Initialization method to set default values
      * @todo -clayer Implement layer. Which ones should be  Null?
      */
-    function init()
+    public function init()
     {
         $this->id = null;
         $this->name = null;
@@ -127,15 +129,15 @@ class layer extends object {
      * This functionality will be moved to show shortly
      * 
      */
-    function addToLayer()
+    public function addToLayer()
     {
-        return $this->show();
+        return $this->show(); 
     } 
     
     /**
     * Show method for compatibility with other classes in htmlElements
     */
-    function show()
+    public function show()
     {
         
         $ret = "<div";
@@ -202,7 +204,7 @@ class layer extends object {
 	* Method to look at all the properties and see if we need
 	* to build a STYLE= element
 	*/
-    function checkForStyle()
+    public function checkForStyle()
     {
         $classVars = get_class_vars(get_class($this));
         foreach ($classVars as $name => $value) {
@@ -221,7 +223,7 @@ class layer extends object {
 	* Method to add to the end of the output string
     * @var string $strn: The string to add to the end
 	*/
-	function addToStr($strn)
+	public function addToStr($strn)
 	{
 		$this->str .= $strn;
 	}
@@ -231,7 +233,7 @@ class layer extends object {
 	* Method to add to the top of the output string
     * @var string $strn: The string to add to the top
 	*/
-	function addToStrTop($strn)
+	public function addToStrTop($strn)
 	{
 		$this->str = $strn.$this->str;
 	}

@@ -3,7 +3,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * 
@@ -15,18 +16,19 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Tohir Solomons
 *
 */
-class label {
+class label implements ifhtml
+{
 
-	var $labelValue;
-	var $forId;
+	public $labelValue;
+	public $forId;
 	
-	function label($labelValue, $forId)
+	public function label($labelValue, $forId)
 	{
 		$this->labelValue=$labelValue;
 		$this->forId=$forId;
 	}
 	
-	function show()
+	public function show()
 	{
 		$str='<label ';
 		
@@ -39,11 +41,11 @@ class label {
 		$str.='</label>';
 		return $str;
 	}
-	function setLabel($labelValue){
+	public function setLabel($labelValue){
 		$this->labelValue =$labelValue;		
 	}
 	
-	function setForId($forId){
+	public function setForId($forId){
 		$this->forId=$forId;
 	}
 }

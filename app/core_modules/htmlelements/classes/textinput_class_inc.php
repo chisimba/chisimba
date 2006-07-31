@@ -1,4 +1,13 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Text Input class controls buttons
@@ -9,14 +18,13 @@
 * @version $Id$
 * @copyright 2003
 */
-require_once("htmlbase_class_inc.php");
-class textinput extends htmlbase
+class textinput extends abhtmlbase implements ifhtml
 {
 
     /**
     * @var integer $size: The width of the text input
     */
-    var $size;
+    public $size;
    
     
 
@@ -25,7 +33,7 @@ class textinput extends htmlbase
     * 
     * @param string $name optional :sets the name of the text input
     */
-    function textinput($name = null, $value = null, $type=null, $size=null)
+    public function textinput($name = null, $value = null, $type=null, $size=null)
     {
         $this->name = $name;
         $this->value = $value;
@@ -47,7 +55,7 @@ class textinput extends htmlbase
     * @param string $css 
     * @deprecated  <----------------------------------------------------------
     */
-    function setCss($css)
+    public function setCss($css)
     {
         $this->cssClass = $css;
     } 
@@ -61,12 +69,12 @@ class textinput extends htmlbase
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
-    function setId($cssId)
+    public function setId($cssId)
     {
         $this->cssId = $cssId;
     } 
 	
-    function setValue($value)
+    public function setValue($value)
     {
         $this->value = $value;
     } 
@@ -75,7 +83,7 @@ class textinput extends htmlbase
     * Method to return the text input for display on the form
     * @return string $str: the text element for display
     */
-    function show()
+    public function show()
     {
         $str = '<input type="'.$this->fldType.'" value="' . $this->value . '"';
         $str .= ' name="' . $this->name . '"';

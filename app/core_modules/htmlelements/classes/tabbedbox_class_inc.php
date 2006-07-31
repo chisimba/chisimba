@@ -1,4 +1,12 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
 * HTML control class to create tabbed boxes using the layers class.
 * The style sheet class is >box<.
@@ -14,18 +22,19 @@
 * @author Derek Keats 
 * 
 */
-class tabbedbox {
+class tabbedbox implements ifhtml
+{
     /**
     * Define all vars
     */
-    var $tabLabel=array(); // JCA - Allow for many labels
-    var $boxContent;
-    var $box;
+    public $tabLabel=array(); // JCA - Allow for many labels
+    public $boxContent;
+    public $box;
 
     /**
     * Initialization method to set default values
     */
-    function tabbedbox()
+    public function tabbedbox()
     {
         $this->tabLabel=NULL;
         $this->boxContent=NULL;
@@ -36,7 +45,7 @@ class tabbedbox {
     * @var string $str: the string to add
     * 
     */
-    function addTabLabel($str)
+    public function addTabLabel($str)
     {
         $this->tabLabel[]=$str;
     }
@@ -46,7 +55,7 @@ class tabbedbox {
     * the box
     * @var string $str: The string to add to the body
     */
-    function addBoxContent($str)
+    public function addBoxContent($str)
     {
         $this->boxContent=$str;
     }
@@ -57,7 +66,7 @@ class tabbedbox {
     * @param string tablabel: The label for the tab
     * @param string boxcontent: the content for the box
     */
-    function buildTabbedBox($tablabel, $boxcontent)
+    public function buildTabbedBox($tablabel, $boxcontent)
     {
         $this->tabLabel=$tablabel;
         $this->boxcontent=$boxcontent;
@@ -69,7 +78,7 @@ class tabbedbox {
     * Method to assemble the box (uses the parent class
     * to assemble the box)
     */
-    function makeTabbedBox()
+    public function makeTabbedBox()
     {
 	$this->box='<fieldset class="tabbox">';
 	// JCA begin - allows for 0:M tabLabels
@@ -85,7 +94,7 @@ class tabbedbox {
     /**
     * Method to return the tabbed box complete for display
     */
-    function show()
+    public function show()
     {
         $this->makeTabbedBox();
         return $this->box;

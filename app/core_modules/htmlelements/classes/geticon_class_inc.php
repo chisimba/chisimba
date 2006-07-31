@@ -3,7 +3,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Class getIcon class to retrieve an icon by name
@@ -22,47 +23,47 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Wesley Nitsckie
 * @example :
 */
-class getIcon extends object
+class getIcon extends object implements ifhtml
 {
 
     /**
     * @var string $type: The extension for the filename for the icon
     */
-    var $type;
+    public $type;
     /**
     * @var string $name: The name of the icon file, without the extension
     */
-    var $name;
+    public $name;
     /**
     * @var string $iconfolder: The icon folder for the icons (used so that
     *   it can be set to other than the default
     */
-    var $iconfolder;
+    public $iconfolder;
     /**
     * @var string $_objConfig: string for the configuration object
     */
-    var $_objConfig;
+    public $_objConfig;
     /**
     * @var string $align: optional align property
     */
-    var $align;
+    public $align;
     /**
     * @var string $alt: The alt text for the icon image
     */
-    var $alt;
+    public $alt;
     /**
     * @var string $title: The title text for the icon image
     */
-    var $title;
+    public $title;
     /**
     * @var string $extra: Additional attributes for the icon image
     */
-    var $extra;
+    public $extra;
 
     /**
     * Standard init method
     */
-    function init()
+    public function init()
     {
         $this->_objConfig = & $this->getObject('altconfig','config');
         $this->_objLanguage = & $this->getObject('language', 'language');
@@ -83,7 +84,7 @@ class getIcon extends object
     *  one specified in the config file for KNG
     *
     */
-    function setIcon($name, $type = 'gif', $iconfolder='icons/')
+    public function setIcon($name, $type = 'gif', $iconfolder='icons/')
     {
         $this->name = $name;
 
@@ -105,7 +106,7 @@ class getIcon extends object
     * @param string $folder Folder to check for file
     * @access private
     */
-    function _checkIconInSkin ($folder)
+    private function _checkIconInSkin ($folder)
     {
         // Check if last character of folder is a slash, else add one
         if (substr($folder, -1) != '/') {
@@ -130,7 +131,7 @@ class getIcon extends object
     *   but not including the extension. For
     *   example, for the icon "help.gif", $name would be set to "help".
     */
-    function setModuleIcon($name)
+    public function setModuleIcon($name)
     {
         // Use Internal Method to set Icon
         $this->setIcon($name, NULL, 'icons/modules/');
@@ -150,7 +151,7 @@ class getIcon extends object
     * Method to return edit linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    function getEditIcon($url)
+    public function getEditIcon($url)
     {
         $this->setIcon('edit_sm');
         // Set title to be the word delete
@@ -166,7 +167,7 @@ class getIcon extends object
    * Method to return delete linked icon
    * @param string $url The uri generated path for the task to be performed
    */
-    function getDeleteIcon($url)
+    public function getDeleteIcon($url)
     {
         $this->setIcon('delete');
         // Set title to be the word delete
@@ -187,7 +188,7 @@ class getIcon extends object
    * @param string $callingModule THe module which is calling it.
    *
    */
-    function getDeleteIconWithConfirm($id, $deleteArray=NULL, $callingModule=NULL, $deletephrase='phrase_confirmdelete')
+    public function getDeleteIconWithConfirm($id, $deleteArray=NULL, $callingModule=NULL, $deletephrase='phrase_confirmdelete')
     {
         //Set up the delete array
         if ($deleteArray == NULL) {
@@ -223,7 +224,7 @@ class getIcon extends object
     * Method to return delete linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    function getAddIcon($url)
+    public function getAddIcon($url)
     {
         $this->setIcon("add");
         $objLink = $this->newObject('link', 'htmlelements');
@@ -236,7 +237,7 @@ class getIcon extends object
     * Method to return upload linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    function getUploadIcon($url)
+    public function getUploadIcon($url)
     {
         $this->setIcon("folder_up");
         $objLink = $this->newObject('link', 'htmlelements');
@@ -249,7 +250,7 @@ class getIcon extends object
     * Method to return upload linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    function getDownloadIcon($url)
+    public function getDownloadIcon($url)
     {
         $this->setIcon("download");
         $objLink = $this->newObject('link', 'htmlelements');
@@ -262,7 +263,7 @@ class getIcon extends object
     * Method to return upload linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    function getViewIcon($url)
+    public function getViewIcon($url)
     {
         $this->setIcon("bookopen");
         $objLink = $this->newObject('link', 'htmlelements');
@@ -285,7 +286,7 @@ class getIcon extends object
     *  one specified in the config file for KNG
     *
     */
-    function getLinkedIcon($url, $name, $type = 'gif', $iconfolder='icons/')
+    public function getLinkedIcon($url, $name, $type = 'gif', $iconfolder='icons/')
     {
         $this->setIcon($name, $type, $iconfolder);
         $objLink = $this->newObject('link', 'htmlelements');
@@ -298,7 +299,7 @@ class getIcon extends object
     * Method to show the icon
     * @return the icon URL as a string
     */
-    function show()
+    public function show()
     {
         $ret = "<img src=\"" . $this->iconfolder
             . $this->name . "." . $this->type

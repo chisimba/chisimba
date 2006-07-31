@@ -18,32 +18,32 @@ class timeoutMessage extends object {
     /**
     * @var string : The confirmation message.
     */
-    var $message;
+    public $message;
     /**
     * @var integer: The timer (in miliseconds) used timeout the message.
     */
-    var $timeout;
+    public $timeout;
     /**
     * @var string: The css id
     */
-    var $cssId;
+    public $cssId;
     /**
     * @var string: The css class
     */
-    var $cssClass;
+    public $cssClass;
     /**
     * @var string: The html tag
     */
-    var $htmlTag;
+    public $htmlTag;
     /**
     * @var string: the CSS Method of hiding - either NONE OR HIDDEN
     */
-    var $typeHide;
+    public $typeHide;
     
     /**
     * Initialization method to set default values
     */
-    function init( ) {
+    public function init( ) {
         //The default message is empty.
         $this->message = '';
         //The default timeout is 5seconds.
@@ -61,7 +61,7 @@ class timeoutMessage extends object {
 	* Method to set the message
 	* @param string
 	*/
-     function setMessage( $message ) {
+    public function setMessage( $message ) {
         $this->message = $message;
     }
     
@@ -69,28 +69,28 @@ class timeoutMessage extends object {
 	* Method to set the timeout.
 	* @param integer unit in miliseconds.
 	*/
-    function setTimeout( $miliSec ) {
+    public function setTimeout( $miliSec ) {
         $this->timeout = $miliSec;
     }
     
     /*
 	* Method to set the hide type to Hidden.
 	*/
-    function setHideTypeToHidden( ) {
+    public function setHideTypeToHidden( ) {
         $this->typeHide = 'hidden';
     }
     
     /*
 	* Method to set the hide type to Hidden.
 	*/
-    function setHideTypeToNone( ) {
+    public function setHideTypeToNone( ) {
         $this->typeHide = 'none';
     }
     
     /*
 	* Private method to insert the java script function.
 	*/
-    function _jscript() {
+    public function _jscript() {
         static $count = 0;
         $jscript = "<script>";
         
@@ -112,14 +112,14 @@ class timeoutMessage extends object {
     /*
 	* Method to show jscript in header.
 	*/
-	function showJScript()
+	public function showJScript()
 	{
         $this->appendArrayVar('headerParams', $this->_jscript() );
     }
     /*
 	* Method to show the message.
 	*/
-	function show()
+	public function show()
 	{
         // Timeout script is Disable for invalid values
         if( $this->timeout > 0 ) {

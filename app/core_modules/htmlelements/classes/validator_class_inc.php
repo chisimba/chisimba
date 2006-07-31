@@ -7,14 +7,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
 class Validator extends controller {
 
-    var $errors; // A variable to store a list of error messages
+    public $errors; // A variable to store a list of error messages
 
     /**
     /* Validate something's been entered
     /* NOTE: Only this method does nothing to prevent SQL injection
     /* use with addslashes() command
     */
-    function validateGeneral($theinput,$description = ''){
+    public function validateGeneral($theinput,$description = ''){
         if (trim($theinput) != "") {
             return true;
         }else{
@@ -26,7 +26,7 @@ class Validator extends controller {
     /**
     * Validate text only
     */
-    function validateTextOnly($theinput,$description = ''){
+    public function validateTextOnly($theinput,$description = ''){
         $result = ereg ("^[A-Za-z\ ]+$", $theinput );
         if ($result){
             return true;
@@ -39,7 +39,7 @@ class Validator extends controller {
     /**
     * Validate text only, no spaces allowed
     */
-    function validateTextOnlyNoSpaces($theinput,$description = ''){
+    public function validateTextOnlyNoSpaces($theinput,$description = ''){
         $result = ereg ("^[A-Za-z0-9]+$", $theinput );
         if ($result){
             return true;
@@ -52,7 +52,7 @@ class Validator extends controller {
     /**
     * Validate email address
     */
-    function validateEmail($themail,$description = ''){
+    public function validateEmail($themail,$description = ''){
         $result = ereg ("^[^@ ]+@[^@ ]+\.[^@ \.]+$", $themail );
         if ($result){
             return true;
@@ -66,7 +66,7 @@ class Validator extends controller {
     /**
     * Validate numbers only
     */
-    function validateNumber($theinput,$description = ''){
+    public function validateNumber($theinput,$description = ''){
         if (is_numeric($theinput)) {
             return true; // The value is numeric, return true
         }else{ 
@@ -78,7 +78,7 @@ class Validator extends controller {
     /**
     * Validate month only
     */
-    function validateMonth($theinput,$description = ''){
+    public function validateMonth($theinput,$description = ''){
         if (is_numeric($theinput) && $theinput <= '12' && $theinput >= '1') {
             return true; // The value is numeric, return true
         }else{ 
@@ -91,7 +91,7 @@ class Validator extends controller {
     /**
     * Validate day only
     */
-    function validateDay($theinput,$description = ''){
+    public function validateDay($theinput,$description = ''){
         if (is_numeric($theinput) && $theinput <= '31' && $theinput >= '1') {
             return true; // The value is numeric, return true
         }else{ 
@@ -105,7 +105,7 @@ class Validator extends controller {
     /**
     * Validate date
     */
-    function validateDate($thedate,$description = ''){
+    public function validateDate($thedate,$description = ''){
 
         if (strtotime($thedate) === -1 || $thedate == '') {
             $this->errors[] = $description;
@@ -119,7 +119,7 @@ class Validator extends controller {
     * Check whether any errors have been found (i.e. validation has returned false)
     * since the object was created
     */
-    function foundErrors() {
+    public function foundErrors() {
         if (count($this->errors) > 0){
             return true;
         }else{
@@ -129,12 +129,12 @@ class Validator extends controller {
 
     // Return a string containing a list of errors found,
     // Seperated by a given deliminator
-    function listErrors($delim = ' '){
+    public function listErrors($delim = ' '){
         return implode($delim,$this->errors);
     }
 
     // Manually add something to the list of errors
-    function addError($description){
+    public function addError($description){
         $this->errors[] = $description;
     }	
 

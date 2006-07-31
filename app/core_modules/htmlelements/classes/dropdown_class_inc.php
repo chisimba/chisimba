@@ -23,30 +23,32 @@
 *	$objElement->show()."<br>";
 */
 
-//inherit from htmlbase
-require_once("htmlbase_class_inc.php");
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
-class dropdown extends htmlbase
+class dropdown extends abhtmlbase implements ifhtml
 {
  
   /**
   * 
   * @var array $options: holds the options for the combo box
   */	
-  var $options=array();
+  public $options=array();
  
   /**
   * 
   * @var string $selected: The value that selected
   */
-  var $selected;
+  public $selected;
   
  
   /**
   * Class Constructor
   * @param string $name : The name of the dropdown
   */
-  function dropdown($name){
+  public function dropdown($name){
   	$this->name=$name;
 	$this->cssId = 'input_'.$name;
   }
@@ -58,7 +60,7 @@ class dropdown extends htmlbase
   * @param string $value : The value for a give option
   
   */
-  function addOption($value=null,$label=null)
+  public function addOption($value=null,$label=null)
   {
     if ($label==null) {
         $label = $value;
@@ -70,7 +72,7 @@ class dropdown extends htmlbase
   * Method to set the selected value
   * @param $value string : The value that you want selected
   */ 
-  function setSelected($value)
+  public function setSelected($value)
   {
 	if(isset($this->options[$value]))
 	{
@@ -83,7 +85,7 @@ class dropdown extends htmlbase
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
-	function setId($cssId)
+	public function setId($cssId)
 	{
 		$this->cssId = $cssId;
 	} 
@@ -92,7 +94,7 @@ class dropdown extends htmlbase
   * Method to show the dropdown
   * @return $str string : The dropdown html
   */ 
-  function show()
+  public function show()
   {
   	$str = '<select name="'.$this->name.'"';
 	if($this->cssClass){
@@ -127,7 +129,7 @@ class dropdown extends htmlbase
   * @param $valueField string : the value the will go in the 'value' of the dropdown
   * @param @selectedValue string : the value that you want to have selected
   */
-  function addFromDB($array, $labelField=null, $valueField=null, $selectedValue=null)
+  public function addFromDB($array, $labelField=null, $valueField=null, $selectedValue=null)
   {
   	if ($array) 
 	{

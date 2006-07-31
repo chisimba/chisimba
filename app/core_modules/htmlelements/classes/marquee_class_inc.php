@@ -4,6 +4,8 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * Marquee class acts as base class
@@ -15,54 +17,54 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 **/
 
 
-class marquee extends object 
+class marquee extends object implements ifhtml
 {
 	/**
 	* variable declaration
 	* these are the attributes to be used in the marquee class
 	*/
 	
-	var $behavior;
-	var $align;
-	var $direction;
-	var $height;
-	var $scrollAmount;
-	var $scrollDelay;
-	var $onMouseOver;
-	var $onMouseOut;
+	public $behavior;
+	public $align;
+	public $direction;
+	public $height;
+	public $scrollAmount;
+	public $scrollDelay;
+	public $onMouseOver;
+	public $onMouseOut;
 	
 	// array variable to hold the elements of the marquee
-	var $elements;
+	public $elements;
 	
 	//dbMarquee object class to use when adding content to the marquee
-	var $objDbMarquee;
+	public $objDbMarquee;
 	
 	//user/administrator authentication
-	var $isAdmin;
+	public $isAdmin;
 	
 	//link management
-	var $objHref;
+	public $objHref;
 	
 	//icon object
-	var $objGetIcon;
+	public $objGetIcon;
 	
 	//language object
-	var $objLanguage;
+	public $objLanguage;
 	
 	//marquee elements
-	var $elements;
+	public $elements;
 	
 	//number of marquee elements
-	var $numElements;
+	public $numElements;
 	
 	//this class also requires the name of your module
-	var $moduleName;
+	public $moduleName;
 	
 	/**
 	* constructor to set default values
 	*/
 	
-	function init()
+	public function init()
 	{
 		/**
 		* establish the necessary routines for identifying administrators
@@ -84,57 +86,57 @@ class marquee extends object
 	* SET METHODS
 	*/
 
-	function setNumElements($numElements)
+	public function setNumElements($numElements)
 	{
 		$this->numElements=$numElements;
 	}
 	
-	function setModuleName($moduleName)
+	public function setModuleName($moduleName)
 	{
 		$this->moduleName=$moduleName;
 	}
 	
-	function setElements($elements)
+	public function setElements($elements)
 	{
 		$this->elements=$elements;
 	}
 	
-	function setBehavior($behavior)
+	public function setBehavior($behavior)
 	{
 		$this->behavior=$behavior;
 	}
 
-	function setAlign($align)
+	public function setAlign($align)
 	{
 		$this->align=$align;
 	}
 
-	function setDirection($direction)
+	public function setDirection($direction)
 	{
 		$this->direction=$direction;
 	}
 	
-	function setHeight($height)
+	public function setHeight($height)
 	{
 		$this->height=$height;
 	}
 	
-	function setScrollAmount($scrollAmount)
+	public function setScrollAmount($scrollAmount)
 	{
 		$this->scrollAmount=$scrollAmount;
 	}
 	
-	function setScrollDelay($scrollDelay)
+	public function setScrollDelay($scrollDelay)
 	{
 		$this->scrollDelay=$scrollDelay;
 	}
 	
-	function setOnMouseOver($onMouseOver)
+	public function setOnMouseOver($onMouseOver)
 	{
 		$this->onMouseOver=$onMouseOver;
 	}
 
-	function setOnMouseOut($onMouseOut)
+	public function setOnMouseOut($onMouseOut)
 	{
 		$this->onMouseOut=$onMouseOut;
 	}
@@ -143,57 +145,57 @@ class marquee extends object
 	* GET METHODS
 	*/
 
-	function getNumElements()
+	public function getNumElements()
 	{
 		return $this->numElements;
 	}
 	
-	function getModuleName()
+	public function getModuleName()
 	{
 		return $this->moduleName;
 	}
 	
-	function getElements()
+	public function getElements()
 	{
 		return $this->elements;
 	}
 	
-	function getBehavior()
+	public function getBehavior()
 	{
 		return $this->behavior;
 	}
 
-	function getAlign()
+	public function getAlign()
 	{
 		return $this->align;
 	}
 
-	function getDirection()
+	public function getDirection()
 	{
 		return $this->direction;
 	}
 
-	function getHeight()
+	public function getHeight()
 	{
 		return $this->height;
 	}
 
-	function getScrollAMount()
+	public function getScrollAMount()
 	{
 		return $this->scrollAmount;
 	}
 
-	function getScrollDelay()
+	public function getScrollDelay()
 	{
 		return $this->scrollDelay;
 	}
 
-	function getOnMouseOver()
+	public function getOnMouseOver()
 	{
 		return $this->onMouseOver;
 	}
 
-	function getOnMouseOut()
+	public function getOnMouseOut()
 	{
 		return $this->onMouseOut;
 	}
@@ -202,7 +204,7 @@ class marquee extends object
 	* show function to display the marquee elements
 	*/
 
-	function show()
+	public function show()
 	{
 		if($this->getNumElements()>1) {
 			$str = "<marquee 

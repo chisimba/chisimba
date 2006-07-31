@@ -1,28 +1,36 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
- * HTML control class to create layers (<DIV>) tags
+ * HTML control class to create and IFRAME(<IFRAME>) tag
 */
-class iframe {
+class iframe implements ifhtml
+{
 	/**
-	* Define all vars, these are obvious so no individually labelled
+	* Define all vars, these are obvious so not individually labelled
 	*/
-    var $width;
-    var $height;
-    var $src;
-    var $align;
-    var $frameborder; //must be 0 or 1
-    var $marginheight;
-    var $marginwidth;
-    var $name;
-	var $id;
-    var $scrolling;
-    var $theFrame;
+    public $width;
+    public $height;
+    public $src;
+    public $align;
+    public $frameborder; //must be 0 or 1
+    public $marginheight;
+    public $marginwidth;
+    public $name;
+	public $id;
+    public $scrolling;
+    public $theFrame;
     
 
     /**
      * Initialization method to set default values
      */
-    function iframe()
+    public function iframe()
     {
         $this->width="800";
         $this->height="600";
@@ -31,7 +39,7 @@ class iframe {
     /**
     * Method to return an invisible IFRAME
     */
-    function invisibleIFrame($src)
+    public function invisibleIFrame($src)
     {
         $this->width=0;
         $this->height=0;
@@ -42,7 +50,7 @@ class iframe {
     /**
     * Show method
     */
-    function show()
+    public function show()
     {
         return $this->_buildIframe();
     }
@@ -53,7 +61,7 @@ class iframe {
     /** 
     * Method to build the Iframe from the parameters
     */
-    function _buildIframe()
+    private function _buildIframe()
     {
         $ret="<iframe width=\"".$this->width."\" height=\"".$this->height."\" ";
         $ret .= "src=\"".$this->src."\"";

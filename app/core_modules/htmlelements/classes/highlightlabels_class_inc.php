@@ -1,4 +1,12 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
+
 /**
 * Highlight Labels
 *
@@ -20,17 +28,17 @@
 *       $objHighlightLabels = $this->getObject('highlightlabels', 'htmlelements');
 *       echo $objHighlightLabels->show();
 */
-class highlightlabels extends object
+class highlightlabels extends object implements ifhtml
 {
     /**
     * @var string $css CSS Declaration for the .checked style
     */
-    var $css;
+    public $css;
     
     /**
     * Constructor
     */
-    function init()
+    public function init()
     { 
         // Define a style for the .checked style
         $this->css = '<style type="text/css" title="text/css">
@@ -44,7 +52,7 @@ class highlightlabels extends object
     /**
     * Method to display the color picker
     */
-    function show()
+    public function show()
     {
         // Send the JavaScript to the header
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('highlightLabels.js', 'htmlelements'));

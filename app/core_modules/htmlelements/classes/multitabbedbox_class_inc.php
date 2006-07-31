@@ -1,4 +1,13 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML base class
+require_once("abhtmlbase_class_inc.php");
+// Include the HTML interface class
+require_once("ifhtml_class_inc.php");
 
 /**
 * HTML control class to create multiple tabbed boxes using the layers class.
@@ -17,31 +26,29 @@
 * $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
 * $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));		
 */
-
-//inherits from htmlbase
-require_once("htmlbase_class_inc.php");
-class multitabbedbox extends htmlbase{
+class multitabbedbox extends abhtmlbase implements ifhtml
+{
 	/**
 	* @var $tabs array :  Array that holds all the tabs
 	*/
-	var $tabs=array();
+	public $tabs=array();
 
 	/**
 	* @var $height int :  the height all the tabs
 	*/
-	var $height;
+	public $height;
 
 	/**
 	* @var $width int : with of all the tabs
 	*/
-	var $width;	
+	public $width;	
 	
 	/**
 	* Constuctor
 	* @param int $height (optional);
 	* @param int $width (optional);
 	*/
-	function multitabbedbox($height=100,$width=500)
+	public function multitabbedbox($height=100,$width=500)
 	{
 		$this->height=$height;
 		$this->width=$width;	
@@ -55,7 +62,7 @@ class multitabbedbox extends htmlbase{
 	* url string
 	* default boolean
 	*/	
-    function addTab($properties=NULL){
+    public function addTab($properties=NULL){
 		if (is_array($properties)) {
 			if (isset($properties['name'])) {				
 				$this->tabs[$properties['name']]['name']=$properties['name'];
@@ -77,7 +84,7 @@ class multitabbedbox extends htmlbase{
 	* Method to show the tabs
 	* @return $str string
 	*/
-	function show(){
+	public function show(){
 		$cnt=0;$str='';$width='';
 		//get the javascript
 		$str='<script language="JavaScript" src="modules/htmlelements/resources/tabbedbox.js"></script>';
