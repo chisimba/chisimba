@@ -25,7 +25,7 @@ a:hover,a:active {color:#069;}
 form {margin: 0 0 1.5em}
 input {font-family: arial,tahoma,verdana,sans-serif;margin: 2px 0}
 fieldset {border: none}
-label {display:block;padding: 5px 0}
+label {display:inline;padding: 5px 0}
 label br {clear:left}
 
 	/* FORMS - general classes */
