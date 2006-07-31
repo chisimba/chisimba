@@ -25,7 +25,6 @@ $fields = array(
     'class' => array(
 		'type' => 'text',
 		'length' => 255,
-		'notnull' => TRUE
         )
     );
 

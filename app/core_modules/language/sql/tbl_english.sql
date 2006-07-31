@@ -22,8 +22,8 @@ $fields = array(
 		'length' => 150
 		),
     'isInNextGen' => array(
-		'type' => 'integer',
-		'length' => 1
+		'type' => 'text',
+		'length' => 10
 		),
     'dateCreated' => array(
 		'type' => 'date'
