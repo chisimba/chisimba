@@ -26,4 +26,4 @@
     <DIV id='nodeInfo'><?php echo $objLanguage->languageText('mod_groupadmin_hlpGroupAdmin'); ?></DIV>
 <?php } ?>
 </DIV>
-<br clear="both">
+<br clear="both" />
