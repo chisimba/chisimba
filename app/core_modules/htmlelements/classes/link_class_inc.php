@@ -15,7 +15,7 @@ require_once("ifhtml_class_inc.php");
 * @author Derek Keats 
 * 
 */
-class link abhtmlbase implements ifhtml
+class link extends abhtmlbase implements ifhtml
 {
     /**
     * 
