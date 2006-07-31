@@ -696,7 +696,9 @@ class engine
         if (!is_array($this->_templateVars[$name])) {
             throw new customException("Attempt to append to a non-array template variable $name");
         }
-        $this->_templateVars[$name][] = $value;
+        if (!in_array($value, $this->_templateVars[$name])) { 
+            $this->_templateVars[$name][] = $value;
+        }
     }
 
     /**
