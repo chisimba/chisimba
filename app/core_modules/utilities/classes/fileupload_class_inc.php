@@ -5,7 +5,7 @@
 * @author Paul Scott
 */
 
-class fileupload
+class fileupload extends object
 {
     var $objLanguage;
     var $directory_name;
@@ -19,7 +19,11 @@ class fileupload
     var $thumb_name;
     var $tmp_name;
 
-  
+
+    public function init()
+    {
+    	$this->objLanguage = $this->getObject('language', 'language');
+    }
     /**
     * Method the set the directory that we want to work with
     * @param $dir_name
@@ -40,7 +44,7 @@ class fileupload
     {
     	$this->max_filesize = $max_file;
     }
-    
+
     /**
     * Method to check for a directory
     * @access Public
@@ -74,14 +78,14 @@ class fileupload
     	$this->file_size = $file_size;
     }
 
-    /** 
+    /**
     * Method to set the file type
     */
     function set_file_type($file_type)
     {
     	$this->file_type = $file_type;
     }
-    
+
     /**
     * Method to get the file type
     */
@@ -90,7 +94,7 @@ class fileupload
     	return $this->file_type;
     }
 
-    /** 
+    /**
     * Method to set the temp filename
     */
     function set_temp_name($temp_name)
@@ -106,24 +110,24 @@ class fileupload
         $this->file_name = $file;
         $this->full_name = $this->directory_name."/".$file;
     }
-    
+
 /**
     * Method to upload the file...
-    * @PARAMS : 
+    * @PARAMS :
     * 	$uploaddir : Directory Name in which uploaded file is placed
     * 	NOTE: file input type field name should be set to fileupload
-    * 	$rename : you may pass string or boolean 
+    * 	$rename : you may pass string or boolean
     * 			 true : rename the file if it already exists and returns the renamed file name.
     * 			 String : rename the file to given string.
     * 	$replace =true : replace the file if it is already existing
     * 	$file_max_size : file size in bytes. 0 for default
     * 	$check_type : checks file type exp ."(jpg|gif|jpeg)"
-    * 
+    *
     * @example UPLOAD::upload_file("temp","file",true,true,0,"jpg|jpeg|bmp|gif")
-    * 
+    *
     * @return : On success it will return file name else return (boolean)false
     */
-    
+
     function upload_file($uploaddir,$rename=null,$replace=false,$file_max_size=0,$check_type="")
     {
 		if (!is_uploaded_file($_FILES['upload']['tmp_name'])) {
@@ -132,7 +136,7 @@ class fileupload
 		else if ($_FILES['upload']['error'] != UPLOAD_ERR_OK) {
 			throw new CustomException($objFileUpload->checkError($_FILES['file']['error']));
 		}
-        
+
 		$this->set_file_name($_FILES['upload']['name']);
         $this->set_file_type($_FILES['upload']['type']);
         $this->set_file_size($_FILES['upload']['size']);
@@ -144,13 +148,13 @@ class fileupload
         $this->check_for_directory();
         $filename = $_FILES['upload']['name'];
         $temp_name = $_FILES['upload']['tmp_name'];
-              
+
         if(!empty($check_type))
         {
         	if(!eregi("\.($check_type)$",$filename))
         	{
-        
-            	$this->error(); 
+
+            	$this->error();
             	return false;
             }
         }
@@ -178,9 +182,9 @@ class fileupload
         	}
         }
 
-        
+
         $this->start_upload($filename,$temp_name,$uploaddir);
-        
+
         	if($this->error!="") {
 				echo $this->error;
         		return false;
@@ -197,23 +201,23 @@ class fileupload
      */
     function start_upload($filename,$temp_name,$uploaddir)
     {
-         
+
         if(!isset($filename))
         	$this->error = FALSE;
 
     	if ($this->file_size <= 0)
         	$this->error = FALSE;
-        
+
     	if ($this->file_size > $this->max_filesize && $this->max_filesize!=0)
         	$this->error = FALSE;
 
     	if ($this->error=="0")
     	{
-         
+
             $destination= $uploaddir . $filename;
 
             move_uploaded_file($temp_name,$destination);
-            
+
        }
     }
 
