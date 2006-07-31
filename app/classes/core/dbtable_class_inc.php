@@ -365,18 +365,14 @@ class dbTable extends object
         	//$fieldValues .= "{$comma}:{$key}";  - for full prepared statement support need to work out how to get the field types
         }
         foreach ($fields as $fieldName => $fieldValue) {
-
-        	$fieldValues .= "{$comma}'{$fieldValue}'";
+			$fieldValue = $this->_db->quote($fieldValue);
+        	$fieldValues .= "{$comma}{$fieldValue}";
         }
         $fieldValues = "VALUES ($fieldValues)";
 		$fieldValues = str_replace("(, ","(",$fieldValues);
 		$fieldnames = "($fieldnames)";
 		$fieldnames = str_replace("(, ","(", $fieldnames);
-		//$fieldValues = $this->_db->quote($fieldValues);
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
-        //$sql = $this->_db->quote($sql);
-        //echo $sql;
-        //die();
         $this->_lastId = $id;
         if($this->debug == TRUE) {
         	log_debug($fields);
