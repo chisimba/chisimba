@@ -3,7 +3,7 @@
 * This class is used by the useradmin module
 * @author James Scoble
 */
-class sqlUsers extends dbtable
+class usersadmin extends dbtable
 {
 
     var $objUser;
@@ -118,8 +118,7 @@ class sqlUsers extends dbtable
     */
  	function getUsers($how,$match,$exact=FALSE)
  	{
- 		//$sql="select userId,username,title,firstName,surname,emailAddress from tbl_users";
- 		$sql="select * from tbl_users";
+ 		$sql="SELECT * FROM tbl_users";
  		if (
 			($how=='username')
 			||($how=='surname')
@@ -131,33 +130,36 @@ class sqlUsers extends dbtable
 		)
 		{
 			if ($match=='listall') {
-	            $match='';
             }
-			if  ($exact==TRUE){
-			    $sql.=" where ".$how." = '".$match."' order by ".$how;
-			} else if ($exact=='greater'){
-			    $sql.=" where ".$how." > '".$match."' order by ".$how;
-			} else if ($exact=='less'){
-			    $sql.=" where ".$how." < '".$match."' order by ".$how;
-			} else {
-			    $sql.=" where ".$how." like '".$match."%' order by ".$how;
+			else {
+				if ($exact===TRUE){
+				    $sql.=" WHERE $how = '$match'";
+				/*
+				} else if ($exact=='greater'){
+				    $sql.=" WHERE $how > '$match'";
+				} else if ($exact=='less'){
+				    $sql.=" WHERE $how < '$match'";
+				*/
+				} else {
+				    $sql.=" WHERE $how LIKE '$match%'";
+				}
 			}
+			$sql .= " ORDER BY $how";
 		}
         if ($how=='notused'){
             $sixMonthsAgo=date('Y-m-d',time()-15552000);
-            $sql.=" where logins='0' and creationdate<'$sixMonthsAgo' order by creationdate";
+            $sql.=" WHERE logins='0' AND creationdate<'$sixMonthsAgo' ORDER BY creationdate";
         }
-		$r1=$this->getArray($sql);
-		$count = count($r1);
+		$results=$this->getArray($sql);
+		$count = count($results);
 		for ($i=0;$i<$count;$i++) {
-			 $keys = array_keys($r1[$i]);
+			 $keys = array_keys($results[$i]);
 			 foreach ($keys as $key) {
-				$r1[$i][$key] = stripslashes($r1[$i][$key]);
+				$results[$i][$key] = stripslashes($results[$i][$key]);
 			 }
 		}		
-		return $r1;
-	}  // end of function getUsers
-
+		return $results;
+	}
 
     /**
     * This is a method to delete a group of users at once
@@ -181,25 +183,32 @@ class sqlUsers extends dbtable
     * Check if userid exists.
     * @param string $userId
     */
-    function checkUserIdExists($userId)
+    function checkUserIdAvailable($userId)
     {
-        $sql="select COUNT(*) as count from tbl_users where userId='".$userId."'";
+        $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
-        if ($count[0]['count']) { return "userid_taken";}
-        return true;
+        if ($count[0]['count']>0) { 
+			return "userid_taken";
+		}
+		else {
+	        return true;
+		}
     }
 
     /**
     * Check if username exists.
-    * @param string $userId
     * @param string $username
     */
-    function checkUsernameExists($username)
+    function checkUsernameAvailable($username)
     {
-        $sql="select COUNT(*) as count from tbl_users where username='".$username."'";
+        $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
-        if ($count[0]['count']>0) { return "username_taken";}
-        return true;
+        if ($count[0]['count']>0) { 
+			return "username_taken";
+		}
+		else {
+	        return true;
+		}
     }
 
     /**
