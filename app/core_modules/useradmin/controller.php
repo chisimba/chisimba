@@ -896,12 +896,12 @@ class useradmin extends controller
         $textinput->size = '40';
         $searchform->addToForm($textinput->show().'<br />');
         $radio = new radio ('how');
-        $radio->addOption('username', $this->objLanguage->languageText('word_username'));
-        $radio->addOption('surname', $this->objLanguage->languageText('word_surname'));
-        $radio->addOption('emailaddress', $this->objLanguage->languageText('phrase_emailaddress'));
+        $radio->addOption('username', $this->objLanguage->languageText('word_username','useradmin'));
+        $radio->addOption('surname', $this->objLanguage->languageText('word_surname','useradmin'));
+        $radio->addOption('emailaddress', $this->objLanguage->languageText('phrase_emailaddress','useradmin'));
         $radio->setSelected('username');
         $searchform->addToForm($radio->show().'<br />');        
-        $submitbutton = new button ('search', $this->objLanguage->languageText('heading_customSearch'));
+        $submitbutton = new button ('search', $this->objLanguage->languageText('heading_customSearch','useradmin'));
         $submitbutton->setToSubmit();
         $searchform->addToForm($submitbutton->show());
         $searchform->addToForm('</div>');        
