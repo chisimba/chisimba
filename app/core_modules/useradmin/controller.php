@@ -30,7 +30,7 @@ class useradmin extends controller
         $this->objConfig =& $this->getObject('altconfig','config');
         $this->objLanguage =& $this->getObject('language','language');
         $this->objButtons=&$this->getObject('navbuttons','navigation');
-        $this->objUserAdmin=&$this->getObject('useradmin','security');
+        $this->objUserAdmin=&$this->getObject('useradmin_model','security');
         $this->objUser =& $this->getObject('user', 'security');
         if ($this->objUser->isLoggedIn()){
             //Get the activity logger class
