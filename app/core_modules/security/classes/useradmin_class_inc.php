@@ -23,37 +23,33 @@ class sqlUsers extends dbtable
     * @param array $info data for new user
     * @returns string $id the PKID of the new login
     */
+	/*
     function addUser($info)
     {
-        $cdate=date("Y-m-d");
         $sdata['userId']=$info['userId'];
         $sdata['username']=$info['username'];
         $sdata['title']=$info['title'];
         $sdata['firstname']=$info['firstName'];
         $sdata['surname']=$info['surname'];
         $sdata['pass']=sha1($info['password']);
-        $sdata['CreationDate']=$cdate;
+        $sdata['CreationDate']=date("Y-m-d");
         if (isset($info['howCreated'])){
             $sdata['howCreated']=$info['howCreated'];
         }
         $sdata['emailAddress']=$info['emailAddress'];
         $sdata['sex']=$info['sex'];
         $sdata['country']=$info['country'];
-
         $id=$this->insert($sdata);
-        // No longer creating user folders at this stage - might be used later
-        //$this->makeUserFolder($info['userId']);
-
-        //$tblusergroups=$this->newObject('usergroups','security');
-        //$tblusergroups->newEntry($info['userId'],$info['accessLevel']);
         return $id;
     }
+	*/
 
     /**
     * Method to create a user account from getParam()
     * @param string $userId
     * @returns string $id
     */
+	/*
     function createUserAccount($userId,$howcreated='selfregister')
     {
         $password=$this->getParam('password');
@@ -80,6 +76,7 @@ class sqlUsers extends dbtable
         $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailAddress'], $password);
         return $id;
     }
+	*/
 
     /**
     * Method to edit a user account using info from getParam()
@@ -87,6 +84,7 @@ class sqlUsers extends dbtable
     * @param string $userId
     * @returns string $id
     */
+	/*
     function editUserAccount($userId)
     {
         $newdata=array(
@@ -108,8 +106,7 @@ class sqlUsers extends dbtable
         $id=$this->update('userId',$userId,$newdata);
         return $id;
     }
-
-
+	*/
 
     /**
     * method to lookup list of users for admin functions
@@ -123,28 +120,41 @@ class sqlUsers extends dbtable
  	{
  		//$sql="select userId,username,title,firstName,surname,emailAddress from tbl_users";
  		$sql="select * from tbl_users";
- 		if (($how=='username')||($how=='surname')||($how=='emailAddress')||
-                    ($how=='userId')||($how=='creationDate')||($how=='logins')||($how=='isActive'))
+ 		if (
+			($how=='username')
+			||($how=='surname')
+			||($how=='emailaddress')
+			||($how=='userid')
+			||($how=='creationdate')
+			||($how=='logins')
+			||($how=='isActive')
+		)
 		{
 			if ($match=='listall') {
-                            $match='';
-                            }
-                        if  ($exact==TRUE){
-                            $sql.=" where ".$how." = '".$match."' order by ".$how;
-                        } else if ($exact=='greater'){
-                            $sql.=" where ".$how." > '".$match."' order by ".$how;
-                        } else if ($exact=='less'){
-                            $sql.=" where ".$how." < '".$match."' order by ".$how;
-                        } else {
-                            $sql.=" where ".$how." like '".$match."%' order by ".$how;
-                        }
+	            $match='';
+            }
+			if  ($exact==TRUE){
+			    $sql.=" where ".$how." = '".$match."' order by ".$how;
+			} else if ($exact=='greater'){
+			    $sql.=" where ".$how." > '".$match."' order by ".$how;
+			} else if ($exact=='less'){
+			    $sql.=" where ".$how." < '".$match."' order by ".$how;
+			} else {
+			    $sql.=" where ".$how." like '".$match."%' order by ".$how;
+			}
 		}
-                if ($how=='notused'){
-                    $sixMonthsAgo=date('Y-m-d',time()-15552000);
-                    $sql.=" where logins='0' and creationDate<'$sixMonthsAgo' order by creationDate";
-                }
-
+        if ($how=='notused'){
+            $sixMonthsAgo=date('Y-m-d',time()-15552000);
+            $sql.=" where logins='0' and creationdate<'$sixMonthsAgo' order by creationdate";
+        }
 		$r1=$this->getArray($sql);
+		$count = count($r1);
+		for ($i=0;$i<$count;$i++) {
+			 $keys = array_keys($r1[$i]);
+			 foreach ($keys as $key) {
+				$r1[$i][$key] = stripslashes($r1[$i][$key]);
+			 }
+		}		
 		return $r1;
 	}  // end of function getUsers
 
@@ -156,31 +166,39 @@ class sqlUsers extends dbtable
     * @author James Scoble
     * @param array $userArray
     */
-    function batchDelete($userArray)
+    function batchDelete($users)
     {
-        foreach ($userArray as $line)
+        foreach ($users as $user)
         {
-            $isAdmin=$this->objUser->lookupAdmin($line);
-            if ($isAdmin==FALSE){
-                $this->delete('userId',$line);
+            $isAdmin=$this->objUser->lookupAdmin($user);
+            if (!$isAdmin){
+                $this->delete('userid',$user);
             }
         }
     }
 
     /**
-    * 
-    * @author James Scoble
+    * Check if userid exists.
+    * @param string $userId
+    */
+    function checkUserIdExists($userId)
+    {
+        $sql="select COUNT(*) as count from tbl_users where userId='".$userId."'";
+        $count=$this->getArray($sql);
+        if ($count[0]['count']) { return "userid_taken";}
+        return true;
+    }
+
+    /**
+    * Check if username exists.
     * @param string $userId
     * @param string $username
     */
-    function checkUserExists($userId,$username)
+    function checkUsernameExists($username)
     {
         $sql="select COUNT(*) as count from tbl_users where username='".$username."'";
         $count=$this->getArray($sql);
         if ($count[0]['count']>0) { return "username_taken";}
-        $sql="select COUNT(*) as count from tbl_users  where userId='".$userId."'";
-        $count=$this->getArray($sql);
-        if ($count[0]['count']) { return "userid_taken";}
         return true;
     }
 
@@ -197,13 +215,14 @@ class sqlUsers extends dbtable
     */
     function changePassword($userId,$oldpassword,$newpassword)
     {
-        $data=$this->getUsers('userId',$userId,TRUE);
-        if ((($oldpassword=='ADMIN')&&($this->objUser->isAdmin()))||(strtolower($data[0]['pass'])==strtolower(sha1($oldpassword))))
+        $data=$this->getUsers('userid',$userId,TRUE);
+		//print_r($data);
+        if (strtolower($data[0]['pass'])==strtolower(sha1($oldpassword)))
         {
             // here we proceed to actually do the change
             $cryptpassword=sha1($newpassword);
             //$sql="update tbl_users set password='".$cryptpassword."' where userId='".$userId."'";
-            $this->update('userId',$userId,array('pass'=>$cryptpassword));
+            $this->update('userid',$userId,array('pass'=>$cryptpassword));
             return TRUE;
         }
         else
@@ -220,6 +239,7 @@ class sqlUsers extends dbtable
     * @param string $email
     * @returns string $status messagecode
     */
+	/*
     function resetPassword($username,$email)
     {
         $username=trim($username);
@@ -249,6 +269,7 @@ class sqlUsers extends dbtable
         }
         return TRUE;
     }
+	*/
 
     /**
     * Method to compose and send email for resetting of password
@@ -260,6 +281,7 @@ class sqlUsers extends dbtable
     * @param string $email - data to send
     * @param string $password - data to send
     */
+	/*
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
@@ -281,11 +303,13 @@ class sqlUsers extends dbtable
         $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
+	*/
 
     /**
     * Method to determine site URL for email and other purposes
     * @returns array $kngdata an array of the info on the site
     */
+	/*
     function siteURL()
     {
         $KNGname=$this->objConfig->getParam('KEWL_SITENAME','KEWL.NextGen');
@@ -302,24 +326,17 @@ class sqlUsers extends dbtable
             'server'=>$WWWname
             );
     }
+	*/
 
     /**
-    * method to tell if a user is an LDAP user
-    * @author James Scoble
-    * @param $userId
-    * @returns boolean TRUE|FALSE
+    * Is a user an LDAP user.
+    * @param string $userId
+    * @returns boolean
     */
     function isLDAPUser($userId)
     {
         $data=$this->getUsers('userId',$userId);
-        if ($data[0]['pass']==sha1('--LDAP--'))
-        {
-            return TRUE;
-        }
-        else
-        {
-            return FALSE;
-        }
+        return $data[0]['pass']==sha1('--LDAP--');
     }
 
     /**
@@ -327,6 +344,7 @@ class sqlUsers extends dbtable
     * @author James Scoble, Paul Scott
     * @param string $userId
     */
+	/*
     function makeUserFolder($userId)
     {
         // First we check that the 'userfiles' folder exists
@@ -344,7 +362,7 @@ class sqlUsers extends dbtable
             umask($oldumask);
         }
     }
-
+	*/
 
     /**
     * Method to set a user to Active or InActive status
@@ -352,17 +370,17 @@ class sqlUsers extends dbtable
     * @param char $newstate;
     * @returns TRUE|FALSE
     */
+
+	/*
     function setActive($userId,$newstate)
     {
-        if ($this->valueExists('userId',$userId)){
-            $arr=array('isActive'=>$newstate);
-            return $this->update('userId',$userId,$arr);
+        if ($this->valueExists('userid',$userId)){
+            return $this->update('userid',$userId,array('isactive'=>$newstate));
         } else {
             return FALSE;
         }
     }
-
-
+	*/
 } // end of class sqlUsers
 
 ?>
