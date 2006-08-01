@@ -20,7 +20,7 @@ __KNG__ = '<?php echo $siteRoot; ?>';
 * @todo -c HTML Editor that will extend this object
 */
 //require_once("htmlbase_class_inc.php");
-include("modules/htmlelements/resources/fckeditor/fckeditor.php") ;
+//include("modules/htmlelements/resources/fckeditor/fckeditor.php") ;
 class htmlarea extends object
  {
      /**
@@ -141,47 +141,7 @@ class htmlarea extends object
     {
         $this->value=$value;
     }
-     /**
-    * Method to show the textarea
-    * @return string The formatted link
-    * @deprecated
-    */
-    function show_OLD()
-    {
-        $str = '<script type="text/javascript">';
-           $str .= '_editor_url = "'.$this->siteRootPath.'modules/htmlelements/resources/htmlarea/";';
-           $str .= '_editor_lang = "en";';
-        $str .= '_site_root_path = "'.$this->siteRootPath.'";';
-        $str .= '</script>';
-        $str .= '<script type="text/javascript" src="'.$this->siteRootPath.'modules/htmlelements/resources/htmlarea/htmlarea.js"></script>';
-        //$str .= '<script type="text/javascript" defer="1">';
-        //$str .= 'HTMLArea.replace("'.$this->name.'");';
-        //$str .= '</script>';
-        $str .= '<textarea name="'.$this->name.'"';
-        $str .= ' id="'.$this->name.'"';
-        if($this->cssClass){
-            $str.=' class="'.$this->cssClass.'">';
-        }
-        /*
-        * if ($this->cssId) {
-            $str .= ' id="' . $this->cssId . '"';
-        }
-        if ($this->extra) {
-            $str .= ' id="' . $this->extra . '"';
-        }
-        */
-        if($this->rows){
-            $str.=' rows="'.$this->rows.'"';
-        }
-        if($this->cols){
-            $str.=' cols="'.$this->cols.'"';
-        }
-        $str.='>';
-        $str.=$this->value;
-        $str.='</textarea>';
-        
-        return $str;
-    }
+   
     
     
     /*****
@@ -189,23 +149,28 @@ class htmlarea extends object
     ****/
     
     function show(){      
-    	
+    	/*
         $objConfig = & $this->newObject('altconfig', 'config');        
-        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor/';
-       
+        $sBasePath = 'modules/htmlelements/resources/fckeditor/';
+      
         global $Config;
         $Config['UserFilesPath'] = $objConfig->getcontentBasePath();
         
-        $oFCKeditor = new FCKeditor($this->name, $objConfig->getsiteRoot(), $this->context?'Yes':'No') ;
-        $oFCKeditor->BasePath = $sBasePath ;
+        $oFCKeditor = new FCKeditor($this->name) ; //, $objConfig->getsiteRoot(), $this->context?'Yes':'No'
+        $oFCKeditor->BasePath = '/5ive/app/modules/htmlelements/resources/fckeditor/';$sBasePath ;
         $oFCKeditor->Width= $this->width ;
 		$oFCKeditor->Height=$this->height;
-        $oFCKeditor->ToolbarSet=$this->toolbarSet;
-        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/silver/' ;     
-        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
-        $oFCKeditor->Value = $this->value;
+        //$oFCKeditor->ToolbarSet=$this->toolbarSet;
+        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/office2003/' ;     
+        //$oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
+       
+        $oFCKeditor->Value ='some value';// $this->value;
         return $oFCKeditor->Create() ;
-            
+          */
+    	
+    	$str .=$this->getJavaScripts();
+    	$str .='<textarea id="elm1" name="'.$this->name.'" rows="15" cols="80" style="width: 100%">'.$this->value.'</textarea>';
+    	return   $str;
     }
     
     /**
@@ -228,6 +193,57 @@ class htmlarea extends object
     */
     function setDefaultToolBarSetWithoutSave(){
          $this->toolbarSet = 'DefaultWithoutSave';
+    }
+    
+    /**
+    * Method to get the javascript files
+    * @return string
+    */
+    public function getJavaScripts()
+    {
+    	$str = '
+    			<script language="javascript" type="text/javascript" src="modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+    			
+    			
+				<script language="javascript" type="text/javascript">
+				
+					tinyMCE.init({
+						mode : "textareas",
+						theme : "advanced",
+						plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable",
+						theme_advanced_buttons1_add_before : "save,newdocument,separator",
+						theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+						theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,separator,forecolor,backcolor",
+						theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+						theme_advanced_buttons3_add_before : "tablecontrols,separator",
+						theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+						theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						theme_advanced_path_location : "bottom",
+						content_css : "example_full.css",
+					    plugin_insertdate_dateFormat : "%Y-%m-%d",
+					    plugin_insertdate_timeFormat : "%H:%M:%S",
+						extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+						external_link_list_url : "example_link_list.js",
+						external_image_list_url : "example_image_list.js",
+						flash_external_list_url : "example_flash_list.js",
+						file_browser_callback : "fileBrowserCallBack",
+						theme_advanced_resize_horizontal : false,
+						theme_advanced_resizing : true
+					});
+				/*
+					function fileBrowserCallBack(field_name, url, type, win) {
+						// This is where you insert your custom filebrowser logic
+						alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
+				
+						// Insert new URL, this would normaly be done in a popup
+						win.document.forms[0].elements[field_name].value = "someurl.htm";
+					}*/
+				</script>
+					';
+    	$this->appendArrayVar('headerParams', $str);
+    	//return $str;
     }
  }
 
