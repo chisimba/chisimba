@@ -1,4 +1,11 @@
-<?
+<?php
+    function textinput($name,$type)
+    {
+        $field=new textinput($name,$value);
+        $field->fldType=$type;
+        return $field->show();
+    }
+
     $adminMessage=$this->getVar('adminMessage');
     if ($adminMessage){
         print "<h2>".$objLanguage->languageText('word_problem').': '.$objLanguage->languageText($adminMessage)."</h2>\n";
@@ -23,19 +30,15 @@
     $objDrop2->addOption('',$objLanguage->languageText('option_selectatitle'));
     foreach ($titles as $row)
     {
-        $row=$objLanguage->languageText($row);
+        $row=$objLanguage->languageText($row,'useradmin');
         $objDrop2->addOption($row,$row);
     }
 
     $this->loadclass('form','htmlelements');
-    $objNewForm= new form('Form1', $this->uri('','useradmin'));
-?>
-<!--- <form action='index.php?module=useradmin' method=post name='Form1'> -->
-<?
- //print textinput('action','hidden','Add User');
-   $objNewForm->addToForm($this->textinput('action','hidden','adduser'));
-?><?
-    $phrase_new_user=$objLanguage->languageText("word_new")." ".$objLanguage->languageText('word_user');
+    $objNewForm= new form('Form1', $this->uri(array('action'=>'addapply'),'useradmin'));
+ 	//print textinput('action','hidden','Add User');
+   	//$objNewForm->addToForm($this->textinput('action','hidden','adduser'));
+    $phrase_new_user=$objLanguage->languageText("word_new",'useradmin')." ".$objLanguage->languageText('word_user','useradmin');
     $objTblclass->startRow();
     $objTblclass->addCell("<h1>".$phrase_new_user."</h1>", "", NULL, 'center', NULL, 'colspan=2');
     $objTblclass->endRow();
@@ -45,18 +48,19 @@
     $objTblclass->endRow();
 
     // userId
-    $row=array($objLanguage->languageText('word_userId','userId'),$this->textinput('userId','text'));
+    $row=array($objLanguage->languageText('word_userId','useradmin','userId'),textinput('userId','text'));
     $objTblclass->addRow($row,'even');
 
     $idbutton="<a onclick=\"document.Form1.userId.value=Math.round(Math.random()*1000)+'".date('ydi')."';\">\n";
-    $idbutton.="<input type='button' class='button' value='".$objLanguage->languageText("hyperlink_generaterandomnumber")."'>\n";
+    $idbutton.="<input type='button' class='button' value='".$objLanguage->languageText("hyperlink_generaterandomnumber",'useradmin')."'>\n";
     $idbutton.="</a>\n";
     $objTblclass->startRow();
-    $objTblclass->addCell($idbutton, "", NULL, 'center', 'heading', 'colspan=2');
+    $objTblclass->addCell('', "", NULL, '', '', '');
+    $objTblclass->addCell($idbutton, "", NULL, '', '', '');
     $objTblclass->endRow();
     
     // username
-    $row=array($objLanguage->languageText('word_username'),$this->textinput('username','text'));
+    $row=array($objLanguage->languageText('word_username'),textinput('username','text'));
     $objTblclass->addRow($row,'even');
 
     //title
@@ -64,23 +68,23 @@
     $objTblclass->addRow($row,'even');
 
     //firstname
-    $row=array($objLanguage->languageText('phrase_firstname'),$this->textinput('firstname','text'));
+    $row=array($objLanguage->languageText('phrase_firstname'),textinput('firstname','text'));
     $objTblclass->addRow($row,'even');
 
     // surname
-    $row=array($objLanguage->languageText('word_surname'),$this->textinput('surname','text'));
+    $row=array($objLanguage->languageText('word_surname'),textinput('surname','text'));
     $objTblclass->addRow($row,'even');
 
     // password
-    $row=array($objLanguage->languageText('word_password'),$this->textinput('password','password'));
+    $row=array($objLanguage->languageText('word_password'),textinput('password','password'));
     $objTblclass->addRow($row,'even');
     
     // password again
-    $row=array($objLanguage->languageText('word_password'),$this->textinput('passwd','password'));
+    $row=array($objLanguage->languageText('word_password'),textinput('passwd','password'));
     $objTblclass->addRow($row,'even');
 
     // email
-    $row=array($objLanguage->languageText('phrase_emailaddress'),$this->textinput('email','text'));
+    $row=array($objLanguage->languageText('phrase_emailaddress'),textinput('email','text'));
     $objTblclass->addRow($row,'even');
 
     // sex

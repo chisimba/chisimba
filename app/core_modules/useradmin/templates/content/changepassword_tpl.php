@@ -1,6 +1,6 @@
 <?
     $this->loadclass('form','htmlelements');
-    $objNewForm= new form('Change', $this->uri(array('action'=>'changepassword'),'useradmin'));
+    $objNewForm= new form('Change', $this->uri(array('action'=>'changepasswordapply','userId'=>$userId),'useradmin'));
     $objButtons=&$this->getObject('navbuttons','navigation');
     $this->loadclass('textinput','htmlelements');
     /* method to act as a 'wrapper' for textelement class

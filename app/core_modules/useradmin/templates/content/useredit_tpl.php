@@ -6,12 +6,13 @@
     echo '<h1>User Details for: '.$userDetails['firstname'].' '.$userDetails['surname'].'</h1>';  
     // Put User Admin menus if user is admin
     if ($isAdminUser) {
-        echo $this->alphaBrowseList();
+        echo $this->alphabetBrowser();
     }
 
     $this->loadclass('textinput','htmlelements');
     $this->loadclass('dropdown','htmlelements');
     $this->loadclass('button','htmlelements');
+    $this->loadclass('radio','htmlelements');
 
     function textinput($name,$type,$value=NULL)
     {

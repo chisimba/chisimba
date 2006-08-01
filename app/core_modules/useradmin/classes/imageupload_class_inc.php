@@ -29,7 +29,7 @@ class imageupload extends object
     * @param string $redim
     * @param string 4extra
     */
-    function doUpload($redim=120,$extra='')
+    function doUpload($userId, $redim=120, $extra='')
     {
         $userfile=$_FILES['userFile']['name'];
         $size=$_FILES['userFile']['size'];
@@ -38,7 +38,7 @@ class imageupload extends object
         if (($type=='image/jpeg')||($type=='image/gif')||($type=='image/png')||($type=='image/bmp')){
             $dirObj=$this->getObject('dircreate','utilities');
             $dirObj->makeFolder('user_images');
-            $newfile=$this->imageFolder.$this->objUser->userId().$extra.'.jpg';
+            $newfile=$this->imageFolder.$userId.$extra.'.jpg';
                                                                                                                                              
             $icon=$this->getObject('resize');
             if ($icon->loadimage($location,$userfile)){
