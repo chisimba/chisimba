@@ -3,7 +3,7 @@
 * This class is used by the useradmin module
 * @author James Scoble
 */
-class usersadmin extends dbtable
+class useradmin extends dbtable
 {
 
     var $objUser;
