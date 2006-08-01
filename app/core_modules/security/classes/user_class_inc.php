@@ -10,34 +10,25 @@
 */
 class user extends dbTable
 {
+    var $objConfig;
     var $objLanguage;
     var $loggedInUsers;
-    var $userGroups;
     var $userLoginHistory;
+    //var $userGroups;
     var $_record = NULL;
-    var $objConfig;
 
-   /*--------------START OF METHODS SECTION ------------------------*/
-
-   /**
-   * Initialiser to set the table that is being called.
-   */
    function init()
    {
        parent::init("tbl_users");
-
        $this->objConfig=&$this->getObject('altconfig','config');
        $this->objLanguage =& $this->getObject('language', 'language');
        $this->loggedInUsers =& $this->getObject('loggedInUsers');
        $this->userLoginHistory =& $this->getObject('userLoginHistory');
-
-       //Get an instance of the skin
-        $this->objSkin = &$this->getObject('skin', 'skin');
+       $this->objSkin = &$this->getObject('skin', 'skin');
    }
 
    /**
-   * Method to get the desired login type
-   * This makes it easy to add login methods
+   * Get the desired login type.
    * @return the login method to use, currently ldap or default
    */
    function loginMethod() {
@@ -45,14 +36,14 @@ class user extends dbTable
         if (isset($_POST['useLdap'])) {
             $useLdap=$_POST['useLdap'];
             if ($useLdap="yes") {
-                $ret="ldap";
+                $result="ldap";
             } else {
-                $ret="default";
+                $result="default";
             }
         } else {
-            $ret="default";
+            $result="default";
         }
-        return $ret;
+        return $result;
    }
 
    /**
@@ -79,39 +70,32 @@ class user extends dbTable
    }
 
    /**
-   * Method to look up user's database info
-   * returns an array on success, FALSE on failure.
-   * @author James Scoble
+   * Look up user's data.
    * @param string $username
+   * @return array on success, FALSE on failure.
    */
     function lookupData($username)
     {
-        // Build the SQL statement to select the user
-        // We have to spell out the fields here, to avoid certain problems
         $sql="SELECT
-        tbl_users.username,
-        tbl_users.userId,
-        tbl_users.title,
-        tbl_users.firstName,
-        tbl_users.surname,
-        tbl_users.pass,
-        tbl_users.creationDate,
-        tbl_users.emailAddress,
-        tbl_users.logins,
-        tbl_users.isActive,
-        tbl_users.accesslevel
-        FROM tbl_users WHERE (username = '".addslashes($username)."')";
-        /*
-        //Return the recordset
-        $rs=$this->query($sql);
-        $line=$rs->fetchRow();
-        //$line=$this->getRow('username',$username);
-        */
-        //$sql="SELECT * FROM tbl_users WHERE (username = '".addslashes($username)."')";
-        $line=$this->getArray($sql);
-        if (isset($line[0]['username']))
+	        tbl_users.username,
+	        tbl_users.userid,
+	        tbl_users.title,
+	        tbl_users.firstname,
+	        tbl_users.surname,
+	        tbl_users.pass,
+	        tbl_users.creationdate,
+	        tbl_users.emailaddress,
+	        tbl_users.logins,
+	        tbl_users.isactive,
+	        tbl_users.accesslevel
+        FROM 
+			tbl_users 
+		WHERE 
+			(username = '".addslashes($username)."')";
+        $array=$this->getArray($sql);
+        if (!empty($array))
         {
-            return $line[0];
+            return $array[0];
         }
         else
         {
@@ -157,7 +141,6 @@ class user extends dbTable
 
    function storeInSession()
    {
-        //log the user into the site
         $this->setSession('isLoggedIn',TRUE);
         $username = $this->_record['username'];
         $this->setSession('username',$username);
@@ -175,15 +158,12 @@ class user extends dbTable
         $email = stripcslashes($this->_record['emailaddress']);
         $this->setSession('email',$email);
         $this->setSession('context','lobby');
-        // ---- Update the login history table
+        // Update the login history table
         $this->userLoginHistory->addHistoryEntry($userId);
-        // ---- Update the users table with the new login count
-        $rsArray=array(
-            'logins'=>$logins);
-        $this->update("userId", $userId, $rsArray);
+        // Update the users table with the new login count
+        $this->update("userid", $userId, array('logins'=>$logins));
         // ---- Insert into the loggedinusers table
         $this->loggedInUsers->insertLogin($userId);
-
         //if ($this->userGroups->isAdministrator($userId)) {
         if ((isset($this->_record['accesslevel']))&&($this->_record['accesslevel']=='1')) {
             $this->setSession('isAdmin',TRUE);
@@ -223,7 +203,13 @@ class user extends dbTable
                     //Check for Alumni status and add to table accordingly
                     if ($this->objConfig->isAlumni()){
                         $objAlumni=$this->getObject('alumniusers','useradmin');
-                        $objAlumni->insert(array('userId'=>$info['userId'],'firstName'=>$info['firstName'],'surname'=>$info['surname']));
+                        $objAlumni->insert(
+							array(
+								'userid'=>$info['userId'],
+								'firstname'=>$info['firstName'],
+								'surname'=>$info['surname']
+							)
+						);
                     }
                     // If LDAP confirms the user is an Academic,
                     // add as a site-lecturer in KNG groups.
@@ -259,7 +245,6 @@ class user extends dbTable
    */
    function updateLogin() {
         $this->loggedInUsers->doUpdateLogin($this->userId());
-
         // also clear inactive users whilst updating this one
         $this->loggedInUsers->clearInactive();
    }
@@ -295,12 +280,6 @@ class user extends dbTable
         $groupId=$this->objGroups->getLeafId(array('Lecturers'));
         $this->objGroups->addGroupUser($groupId,$id);
     }
-
-   /*--------------END OF METHODS SECTION ------------------------*/
-
-
-   /*--------------START OF PROPERTIES SECTION ------------------------*/
-
 
    /**
    * Property to return login status. It returns TRUE if the
@@ -362,7 +341,7 @@ class user extends dbTable
    */
     function lookupAdmin($userId)
     {
-        $sql="SELECT accesslevel from tbl_users where userId='$userId'";
+        $sql="SELECT accesslevel from tbl_users where userid='$userId'";
 
         $return=$this->getArray($sql);
 
@@ -401,7 +380,7 @@ class user extends dbTable
     */
     function getUserId($username)
     {
-        $sql="select userId from tbl_users where userName='".$username."'";
+        $sql="select userid from tbl_users where username='$username'";
         $rs = $this->query($sql);
         if ($rs)
         {
@@ -427,7 +406,7 @@ class user extends dbTable
         {
             $userId=$this->userId();
         }
-        $sql="select id from tbl_users where userId='".$userId."'";
+        $sql="select id from tbl_users where userid='$userId'";
         $rs = $this->query($sql);
         if ($rs)
         {
@@ -448,7 +427,7 @@ class user extends dbTable
     * @parm string $PKId the primary key Id
     * @returns string $userId the user Id
     */
-     function getItemFromPkId($PKId,$field='userId')
+     function getItemFromPkId($PKId,$field='userid')
      {
          $data=$this->getRow('id', $PKId);
          return $data[$field];
@@ -475,7 +454,7 @@ class user extends dbTable
            }
        } else {
            //look up third part numeric ID
-           $sql="SELECT userName FROM tbl_users WHERE userId='".$userId."'";
+           $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
            $rs = $this->query($sql);
            if ($rs) {
                $line = $rs->fetchRow();
@@ -499,25 +478,25 @@ class user extends dbTable
    * default.
    */
    function fullname($userId=NULL) {  //use NULL as the default and evaluate
-          if (!$userId) {
-            $fullname=$this->getSession('name');
-            if ($fullname) {
-                   $ret = $fullname;
-           } else {
-                   $ret =  $this->objLanguage->languageText("error_notloggedin");
-           }
-          } else {
-           //look up third part numeric ID
-            $sql="SELECT firstName, surname FROM tbl_users WHERE userId='".$userId."'";
-            $rs = $this->_execute($sql);
-            if ($rs) {
-                $line = $rs->fetchOne();
-                $ret=$line["firstName"]." ".$line["surname"];
-            } else {
-                   $ret=$this->objLanguage->languageText("error_datanotfound");
-            }
-       }
-       return $ret;
+		if (!$userId) {
+			$fullname=$this->getSession('name');
+			if ($fullname) {
+				$result = $fullname;
+			} else {
+				$result = $this->objLanguage->languageText("error_notloggedin");
+			}
+		} else {
+			//look up third part numeric ID
+			$sql="SELECT CONCAT(firstname, ' ', surname) AS fullname FROM tbl_users WHERE userid='$userId'";
+			$rs = $this->_execute($sql);
+			if ($rs) {
+				$row = $rs->fetchOne();
+				$result=$row['fullname'];
+			} else {
+				$result=$this->objLanguage->languageText("error_datanotfound");
+			}
+		}
+		return $result;
    }
 
    /**
@@ -532,24 +511,24 @@ class user extends dbTable
    * default.
    */
    function email($userId=NULL) {  //use NULL as the default and evaluate
-          if (!$userId){
-            $email=$this->getSession('email');
-            if ($email) {
-                   $ret = $email;
-            } else {
-                   $ret = $this->objLanguage->languageText("error_notloggedin");
-           }
-          } else {
-               $sql="SELECT emailAddress FROM tbl_users WHERE userId='".$userId."'";
-            $rs = $this->query($sql);
-            if ($rs) {
-                $line = $rs->fetchRow();
-                $ret=$line["emailAddress"];
-            } else {
-                   $ret=$this->objLanguage->languageText("error_datanotfound");
-            }
-       }
-       return $ret;
+	if (!$userId){
+		$email=$this->getSession('email');
+		if ($email) {
+			$ret = $email;
+		} else {
+			$ret = $this->objLanguage->languageText("error_notloggedin");
+		}
+	} else {
+		$sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
+		$rs = $this->query($sql);
+		if ($rs) {
+			$line = $rs->fetchRow();
+			$ret=$line["emailaddress"];
+		} else {
+			$ret=$this->objLanguage->languageText("error_datanotfound");
+		}
+	}
+	return $ret;
     }
 
     /**
@@ -569,9 +548,9 @@ class user extends dbTable
    */
    function isActive($userId)
    {
-        $sql="SELECT isActive from tbl_users where userId='$userId'";
-        $return=$this->getArray($sql);
-        if ((isset($return[0]))&&($return[0]['isActive']=='1')){
+        $sql="SELECT isactive from tbl_users where userid='$userId'";
+        $rows=$this->getArray($sql);
+        if (!empty($rows)&&($rows[0]['isActive']=='1')){
             return TRUE;
         } else {
             return FALSE;
@@ -585,7 +564,7 @@ class user extends dbTable
    */
    function howCreated($userId)
    {
-        $sql="SELECT howCreated from tbl_users where userId='$userId'";
+        $sql="SELECT howcreated from tbl_users where userid='$userId'";
         $return=$this->getArray($sql);
         if (isset($return[0])){
             return $return[0]['howCreated'];
@@ -610,7 +589,7 @@ class user extends dbTable
                 $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
-            $sql="SELECT logins FROM tbl_users WHERE userId='".$userId."'";
+            $sql="SELECT logins FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
                 $line = $rs->fetchRow();
@@ -648,15 +627,17 @@ class user extends dbTable
    */
    function getUserImage($height=NULL,$width=NULL,$userId=NULL){
        if($height){
-               $height=' Height="'.$height.'"  ';
+           $height=' height="'.$height.'"  ';
        }
        if($width){
            $width=' width="'.$width.'"  ';
        }
-       return '<img '.$height.$width.' src="'
-           .$this->getUserImagePath($userId)
-           .'" alt="'
-           .$this->fullName($userId).'">';
+       return '<img '
+	   		.$height
+			.$width
+			.' src="'.$this->getUserImagePath($userId).'"'
+			.' alt="'.$this->fullName($userId).'"'
+			'>';
    }
 
 

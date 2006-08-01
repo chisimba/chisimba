@@ -21,8 +21,12 @@ class userLoginHistory extends dbTable {
     */
     function addHistoryEntry($userId)
     {
-        $this->insert(array('userId' => $userId,
-                            'lastLoginDateTime' => date('Y-m-d H:m:s')));
+        $this->insert(
+			array(
+				'userid' => $userId,
+                'lastLoginDateTime' => date('Y-m-d H:m:s')
+			)
+		);
     }
 
     /**
@@ -32,11 +36,17 @@ class userLoginHistory extends dbTable {
     */
     function doGetLastLogin($userId)
     {
-        $sql="SELECT MAX(lastLoginDateTime) AS laston FROM tbl_userloginhistory WHERE userId='".$userId."'";
+        $sql="SELECT 
+			MAX(lastLoginDateTime) AS laston 
+		FROM 
+			tbl_userloginhistory 
+		WHERE 
+			userid='$userId'
+		";
         $rs = $this->query($sql);
         $line = $rs->fetchRow();
         return $line['laston'];
     }
     
-}  #end of class
+}
 ?>
