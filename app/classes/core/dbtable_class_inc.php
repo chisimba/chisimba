@@ -141,9 +141,12 @@ class dbTable extends object
     * @param mixed $value the value to search for
     * @return bool TRUE |FALSE if exists return TRUE, otherwise FALSE.
     */
-    public function valueExists($field, $value)
+    public function valueExists($field, $value, $table=null)
     {
-        $sql = "SELECT COUNT(*) AS fCount FROM $this->_tableName WHERE $field='$value'";
+        if ($table == null) {
+        	$table = $this->_tableName;
+        }
+    	$sql = "SELECT COUNT(*) AS fCount FROM $table WHERE $field='$value'";
         $rs = $this->query($sql);
         if (!$rs) {
             $ret = false;
@@ -349,6 +352,8 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
+		log_debug("dbtable insert into {$tablename}");
+	        log_debug($fields);
 
 
         $comma = "";
@@ -375,7 +380,6 @@ class dbTable extends object
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         if($this->debug == TRUE) {
-        	log_debug($fields);
         	log_debug($sql);
         	log_debug("dbtable insert into {$tablename}");
         }
