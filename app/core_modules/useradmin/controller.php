@@ -30,7 +30,7 @@ class useradmin extends controller
         $this->objConfig =& $this->getObject('altconfig','config');
         $this->objLanguage =& $this->getObject('language','language');
         $this->objButtons=&$this->getObject('navbuttons','navigation');
-        $this->objUserAdmin=&$this->getObject('sqlusers','security');
+        $this->objUserAdmin=&$this->getObject('useradmin','security');
         $this->objUser =& $this->getObject('user', 'security');
         if ($this->objUser->isLoggedIn()){
             //Get the activity logger class
@@ -198,9 +198,9 @@ class useradmin extends controller
                     }
                 }
                 $this->setVarByRef('title', $title);
-                $userData=$this->objUserAdmin->getUsers($how,$match,FALSE);
-                $userdata=$this->makeTableFromUsers($userData,TRUE);
-                $this->setVar('userdata',$userdata);
+                $users=$this->objUserAdmin->getUsers($how,$match,FALSE);
+                $usersTable=$this->makeTableFromUsers($users,TRUE);
+                $this->setVar('usersTable',$usersTable);
                 $this->rvalue='list_users_tpl.php';
                 break;
             case 'listunused':
@@ -296,13 +296,13 @@ class useradmin extends controller
         {
             $$field=$this->getParam($field);
         }
-        $result=$this->objUserAdmin->checkUserIdExists($userId);
+        $result=$this->objUserAdmin->checkUserIdAvailable($userId);
         if ($result!==true)
         {
             $this->rstatus=$result;
             $this->rvalue='register_tpl.php';
         }
-        $result=$this->objUserAdmin->checkUsernameExists($username);
+        $result=$this->objUserAdmin->checkUsernameAvailable($username);
         if ($result!==true)
         {
             $this->rstatus=$result;
@@ -399,9 +399,9 @@ class useradmin extends controller
         if ($password=="") { return("need_password"); }
         if ($email=="") { return "need_email"; }
         if ($password!=$passwd) { return "password_not_match";}
-        $result=$this->objUserAdmin->checkUserIdExists($userId);
+        $result=$this->objUserAdmin->checkUserIdAvailable($userId);
         if ($result!==true) { return $result; }
-        $result=$this->objUserAdmin->checkUsernameExists($username);
+        $result=$this->objUserAdmin->checkUsernameAvailable($username);
         if ($result!==true) { return $result; }
         // passess all other tests, then...
         return true;
@@ -478,7 +478,7 @@ class useradmin extends controller
             return('Not Admin!');
         }
         if ($this->getparam('username')!=$this->getParam('oldUsername')){
-            $result=$this->objUserAdmin->checkUsernameExists($this->getParam('username'));
+            $result=$this->objUserAdmin->checkUsernameAvailable($this->getParam('username'));
             return $result;
         }
         return true;

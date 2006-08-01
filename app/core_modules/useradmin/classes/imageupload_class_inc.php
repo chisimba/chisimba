@@ -1,72 +1,81 @@
-<?
+<?php
 /** 
-* Class imageupload
-* This class enables upload of images for useradmin
+* Handles upload of images.
 * @author James Scoble
-* @version $Id$
 * @copyright 2004
 * @license GNU GPL
 */
 class imageupload extends object
 {
-    var $imageFolder; // for the path on the filesystem of the file
-    var $imageUrl;  // for the URL as seen from a webbrowse of the file
-    var $objUser;
     var $objConfig;
+    var $objUser;
+	/**
+	* @var string The path of the file.
+	*/
+    var $imagePath;
+	/**
+	* @var string The URL of the file.
+	*/
+    var $imageUrl;
    
     function init()
     {
         $this->objConfig=&$this->getObject('altconfig','config');
-        $this->imageFolder = $this->objConfig->getsiteRootPath().'/user_images/';
-        $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
         $this->objUser=&$this->getObject('user','security');
+        $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
+        $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
     }
 
     /**
-    * method to upload the file, and resize it
-    * This gets its info from the "superglobal" variable $_FILES
-    * To resize the file it calls the resize class.
+    * Upload the file and resize it.
     * @param string $redim
     * @param string 4extra
     */
     function doUpload($userId, $redim=120, $extra='')
     {
-        $userfile=$_FILES['userFile']['name'];
-        $size=$_FILES['userFile']['size'];
+        $name=$_FILES['userFile']['name'];
         $type=$_FILES['userFile']['type'];
-        $location=$_FILES['userFile']['tmp_name'];
-        if (($type=='image/jpeg')||($type=='image/gif')||($type=='image/png')||($type=='image/bmp')){
+        $size=$_FILES['userFile']['size'];
+        $tmp_name=$_FILES['userFile']['tmp_name'];
+        if (
+			($type=='image/jpeg')
+			||($type=='image/gif')
+			||($type=='image/png')
+			||($type=='image/bmp')
+		){
             $dirObj=$this->getObject('dircreate','utilities');
             $dirObj->makeFolder('user_images');
-            $newfile=$this->imageFolder.$userId.$extra.'.jpg';
-                                                                                                                                             
-            $icon=$this->getObject('resize');
-            if ($icon->loadimage($location,$userfile)){
-                $icon->size_auto($redim);
-                $icon->setOutput('jpg');
-                $icon->save($newfile);
+            $objResize=$this->getObject('resize');
+            if ($objResize->loadimage($tmp_name,$name)){
+                $objResize->size_auto($redim);
+                $objResize->setOutput('jpg');
+                $objResize->save($this->imageFolder.$userId.$extra.'.jpg');
             }
-            //copy ($location,$newfile); // this is now done by the resize class
         }
     }
 
     /**
-    * methods to supply url to user's picture
+    * Return url to user's picture.
     * @param string $userId
-    * @returns string url
+    * @returns string The url
     */
     function userpicture($userId)
     {
-        if (file_exists($this->imageFolder.$userId.".jpg")){
+        if (file_exists($this->imagePath.$userId.".jpg")){
             return($this->imageUrl.$userId.".jpg");
         } else {
             return ($this->imageUrl."default.jpg");
         }
     }
     
+    /**
+    * Return url to user's small picture.
+    * @param string $userId
+    * @returns string The url
+    */
     function smallUserPicture($userId)
     {
-        if (file_exists($this->imageFolder.$userId."_small.jpg")){
+        if (file_exists($this->imagePath.$userId."_small.jpg")){
             return($this->imageUrl.$userId."_small.jpg");
         } else {
             return ($this->imageUrl."default_small.jpg");
@@ -74,15 +83,15 @@ class imageupload extends object
     }
 
     /**
-    * method to reset user's picture
+    * Reset user's picture.
     * @param string $userId
     */
     function resetImage($userId)
     {
-        if (file_exists($this->imageFolder.$userId.".jpg")){
-            unlink($this->imageFolder.$userId.".jpg");
+        if (file_exists($this->imagePath.$userId.".jpg")){
+            @unlink($this->imagePath.$userId.".jpg");
         }
     }
     
-} // end of class
+}
 ?>
