@@ -637,7 +637,7 @@ class user extends dbTable
 			.$width
 			.' src="'.$this->getUserImagePath($userId).'"'
 			.' alt="'.$this->fullName($userId).'"'
-			'>';
+			.'>';
    }
 
 
