@@ -506,8 +506,8 @@ class useradmin extends controller
         }
         else
         {
-            $this->objUserAdmin->makeUserFolder($this->getParam('userId'));
-            $this->rstatus="changes_made";            
+            //$this->objUserAdmin->makeUserFolder($this->getParam('userId'));
+            //$this->rstatus="changes_made";            
             // Detect which way to redirect based on the users status on a page
             if ($this->getParam('isAdminUser', 0) == '1') {
                 return $this->nextAction('edit', array('userId'=>$userId, 'message'=>'updated'));
