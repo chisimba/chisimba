@@ -33,7 +33,7 @@ class patch extends dbtable {
 	public $objLanguage;
 
 	/**
-	 * KinkyII init function
+	 * Chisimba init function
 	 *
 	 */
 	public function init() {
@@ -69,7 +69,7 @@ class patch extends dbtable {
 						if (!$objXml = simplexml_load_file($updateFile)) {
     						throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
     					}
-    					$desc = $objXml->xpath("//UPDATE[VERSION='{$codeVersion}']/DESCRIPTION");
+    					$desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
     					$description = $desc[0];
     					//echo $desc[0]."<br/>";var_dump($desc);die();
 					}
@@ -84,9 +84,107 @@ class patch extends dbtable {
 	}
 
 	/**
+    * This method returns the version of a module in the database
+    * ie: The version level of the emodule at the time it was registered.
+    * @param string $module the module to lookup
+    * @return string $version the version in the database
+    */
+	function getVersion($module) {
+		try {
+			$row = $this->getRow('module_id',$module);
+			if (!is_array($row)) {
+				return FALSE;
+			}
+			return $row['module_version'];
+		} catch (Exception $e) {
+			echo customException::cleanUp($e->getMessage());
+			exit(0);
+		}
+	}
+
+	/**
+    * This method calls a function to read the XML file
+    * and walks through it, processing each update
+    * @param string $modname the name of the module
+    * @param string $file optional 2nd param for non-standard location of file
+    */
+	function applyUpdates($modname) {
+		try {
+			// Find the updates file
+			$this->objModule = &$this->getObject('modules','modulecatalogue');
+			$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
+			$this->objModfile = &$this->getObject('modulefile','modulecatalogue');
+			$data=array();
+			$file="modules/$modname/sql/sql_updates.xml";
+			// Apply the table changes
+			$oldversion = (float)$this->getVersion($modname);
+			$result = array();
+			if (file_exists($file)){
+				$objXml = simplexml_load_file($file);
+				foreach ($objXml->update as $update) {
+					$ver = (float)$update->version;
+					$verStr = str_replace('.','_',$update->version);
+					if ($ver>$oldversion) {
+						foreach ($update->data as $data) {
+							//$this->objModuleAdmin->alterTable($update->table,$data,false);
+							foreach ($data as $opKey => $opValue) {
+								$pData = array();
+								switch ($opKey) {
+									case 'name':
+										$pData[$opKey] = (string)$opValue;
+										break;
+									case 'add':
+										$name = (string)$opValue->name;
+										$innerData = array();
+										foreach ($opValue as $rowKey => $rowVal) {
+											if ($rowKey != 'name') {
+												$k = (string)$rowKey;
+												$v = (string)$rowVal;
+												$innerData[$k] = $v;
+											}
+										}
+										$pData[$opKey] = array($name=>$innerData);
+										break;
+									case 'remove':
+										$op = (string)$opKey;
+										$strVal = (string)$opValue;
+										$pData[$op] = array($strVal => array());
+										break;
+									case 'change':
+										break;
+									case 'rename':
+										break;
+									default:
+										throw new customException('error in patch data');
+										break;
+								}
+
+								print_r($pData);
+								$patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
+								'patchdata'=>$pData,'applied'=>$this->objModule->now());
+								//$this->objModule->insert($patch,'tbl_module_patches');
+							}
+						}
+					}
+				}
+			}
+			//update version info in db
+			$regData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
+			//$this->objModuleAdmin->installModule($regData,TRUE);
+			$result['current'] = $this->getVersion($modname);
+			$result['old'] = $oldversion;
+			// Now pass along the info to the template.
+			return $result;
+		} catch (Exception $e) {
+			echo customException::cleanUp($e->getMessage());
+			exit(0);
+		}
+	}
+
+	/**
     * This method reads a register.conf file
     * And returns the module version number
-    * @param string $module id
+    * @param string $module the module id
     * $returns string $version
     */
 	private function readVersion($module) {
@@ -111,6 +209,5 @@ class patch extends dbtable {
 			exit(0);
 		}
 	}
-
 }
 ?>

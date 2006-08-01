@@ -82,7 +82,9 @@ class modulefile extends object {
     				default:
     					if (is_dir($lookdir.'/'.$line)) {
     						if ($cat = $this->moduleCategory($line)) {
-    								array_push($categorylist,$cat);
+    								foreach ($cat as $category) {
+    									($categorylist[] = $category);
+    								}
     							}
     					}
     			}
@@ -106,13 +108,13 @@ class modulefile extends object {
     		if ($fn = $this->findregisterfile($module)) {
     			$fh = fopen($fn,"r");
     			$content = fread($fh,filesize($fn));
-    			if (preg_match('/MODULE_CATEGORY:\s*([a-z\-_]*)/i',$content,$match)) {
-    				fclose($fh);
-    				return strtolower($match[1]);
-    			} else {
-    				fclose($fh);
-    				return false;
+    			fclose($fh);
+    			$cat = array();
+    			while (preg_match('/MODULE_CATEGORY:\s*([a-z\-_]*)/i',$content,$match)) {
+    				$cat[] = $match[1];
+    				$content = str_replace($match[0],'__',$content);
     			}
+    			return $cat;
     		} else {
     			return false;
     		}

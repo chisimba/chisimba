@@ -252,10 +252,11 @@ class modulecatalogue extends controller
 					return $this->nextAction(null,null,'splashscreen');
 				case 'update':
 					$modname = $this->getParam('mod');
-                	$result = $this->objPatch->makeUpdates($modname,NULL,FALSE);
-                	$this->setVar('moduleVersions',$result['info']);
-	        		$this->setVar('updateResults',$result['data']);
-                	return $this->nextAction(null);
+                	$this->output = $this->objPatch->applyUpdates($modname);
+                	$this->setVar('module',$modname);
+                	$this->setVar('output',$this->output);
+                	$this->setVar('patchArray',$this->objPatch->checkModules());
+                	return 'updates_tpl.php';
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;

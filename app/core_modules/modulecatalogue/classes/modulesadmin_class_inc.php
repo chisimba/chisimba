@@ -62,7 +62,6 @@ class modulesadmin extends dbTableManager
      */
     private $objKeyMaker;
 
-    private $update=FALSE;
     public $output;
 
     /**
@@ -128,7 +127,7 @@ class modulesadmin extends dbTableManager
     * @param array $registerdata - all the info from the register.conf file.
     * @returns mixed OK | FALSE
     */
-    public function installModule(&$registerdata) {
+    public function installModule(&$registerdata,$update = FALSE) {
         try {
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -142,7 +141,7 @@ class modulesadmin extends dbTableManager
     		//$this->objModules->beginTransaction();
 
             //If the module already exists, do not register it, else register it
-            if ($this->objModules->checkIfRegistered($moduleId) && !$this->update) {
+            if ($this->objModules->checkIfRegistered($moduleId) && !$update) {
                 $this->_lastError = 1002;
             	return FALSE;
             } else {
@@ -161,24 +160,26 @@ class modulesadmin extends dbTableManager
                 // Now we add the tables
                 if (isset($registerdata['TABLE'])) {
                     foreach ($registerdata['TABLE'] as $table) {
-                        if (!$this->makeTable($table)) {
-                            $text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
-                            $text=str_replace('{MODULE}',$table,$text);
-                            $this->output.='<b>'.$text.'</b><br />';
-                            $this->_lastError = 1004;
-                            return FALSE;
-                        } else {
-                            // Delete the table from the records.
-							$sqlchk = "SELECT COUNT(*) AS fCount FROM tbl_modules_owned_tables WHERE kng_module ='$moduleId'";
-							$res = $this->objModules->query($sqlchk);
-							if ($res['fCount'] > 0) {
-                            	$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
-                                $this->objModules->query($sql);
-							}
+                    	if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
+                    		if (!$this->makeTable($table)) {
+                    			$text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
+                    			$text=str_replace('{MODULE}',$table,$text);
+                    			$this->output.='<b>'.$text.'</b><br />';
+                    			$this->_lastError = 1004;
+                    			return FALSE;
+                    		} else {
+                    			// Delete the table from the records.
+                    			$sqlchk = "SELECT COUNT(*) AS fCount FROM tbl_modules_owned_tables WHERE kng_module ='$moduleId'";
+                    			$res = $this->objModules->query($sqlchk);
+                    			if ($res['fCount'] > 0) {
+                    				$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
+                    				$this->objModules->query($sql);
+                    			}
 
-                            // Add the table to the records.
-                            $this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
-                        }
+                    			// Add the table to the records.
+                    			$this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
+                    		}
+                    	}
                     }
                 }
                 // Here we load data into tables from files of SQL statements
@@ -552,13 +553,15 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['DEPENDS_CONTEXT'])){
                     $sql_arr['dependscontext']=$registerdata['DEPENDS_CONTEXT'];
                 }
-                if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
-                	$this->_lastError = 1005;
-                	return FALSE;
-                }
-                if ($this->update) {
+                if ($update) {
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
+                } else {
+                	if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
+                	   	$this->_lastError = 1005;
+                		return FALSE;
+                	}
                 }
+
                 //indicate success
                 //put the language information for name and description
                 $this->registerModuleLanguageElements();
@@ -985,16 +988,18 @@ class modulesadmin extends dbTableManager
     			throw new customException("Null value for module name in addText for item $code|$description|$content");
     		}
     		//$this->objModules->beginTransaction();
-    		$this->removeText($code);
-    		$code=addslashes($code);
-    		$description=addslashes($description);
-    		$content=addslashes($content);
-    		$this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
-    		$uid = $this->objUser->userId();
-    		$now = $this->objModules->now();
-    		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
-    				'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
-    		$this->objModules->insert($enArray,'tbl_en');
+    		//$this->removeText($code);
+    		if (!$this->objModules->valueExists('id',$code,'tbl_en')) {
+    			$code=addslashes($code);
+    			$description=addslashes($description);
+    			$content=addslashes($content);
+    			$this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
+    			$uid = $this->objUser->userId();
+    			$now = $this->objModules->now();
+    			$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
+    			'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
+    			$this->objModules->insert($enArray,'tbl_en');
+    		}
     		//$this->objModules->commitTransaction();
     	} catch (Exception $e) {
     		//$this->rollbackTransaction();
