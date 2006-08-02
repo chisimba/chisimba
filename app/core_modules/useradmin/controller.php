@@ -21,8 +21,8 @@ class useradmin extends controller
     var $objUserAdmin;
     var $objUser;
     var $isAdmin;
-    var $rstatus; // shows whether a function-call did what was wanted or not
-    var $rvalue;    // the return-value for the template to be used.
+    //var $rstatus; // shows whether a function-call did what was wanted or not
+    //var $rvalue;    // the return-value for the template to be used.
     //var $info;  // for passing information around the class
  
     function init()
@@ -55,16 +55,13 @@ class useradmin extends controller
         {
             case 'register':
                 $this->setLayoutTemplate(NULL);
-                $this->rvalue='register_tpl.php';
-                break;
+                return 'register_tpl.php';
             case 'registerapply':
                 $this->setLayoutTemplate(NULL);
-                $this->registerApply();
-                break;
+                return $this->registerApply();
             case 'add':
                 $this->setVar('isAdminUser',TRUE);
-                $this->add();
-                break;    
+                return $this->add();
             case 'addapply':
                 $status=$this->checkAdd(
 					$this->getParam('username'),
@@ -76,7 +73,7 @@ class useradmin extends controller
                 if ($status===true)
 				{
                     $this->addApply();
-					$this->rvalue=$this->nextAction('listusers', array('how'=>'surname', 'searchField'=>'A'));
+					return $this->nextAction('listusers', array('how'=>'surname', 'searchField'=>'A'));
 					/*
 				    $users=$this->objUserAdmin->getUsers('creationdate',date('Y-m-d'));
                     $userdata=$this->makeTableFromUsers($users,TRUE);
@@ -88,34 +85,29 @@ class useradmin extends controller
                 } 
 				else 
 				{
-                    $this->rstatus=$status;
-                    $this->rvalue='error_tpl.php';
+                    $this->message=$status;
+                    return 'error_tpl.php';
                 }
-                break;
             case 'edit':
                 $this->setVar('isAdminUser',TRUE);
-                $this->edit($this->getParam('userId'));
-                break;
+                return $this->edit($this->getParam('userId'));
 			case 'mydetails':
                 $this->setVar('isAdminUser',FALSE);
-                $this->edit($this->objUser->userId());
-                break;
+                return $this->edit($this->objUser->userId());
             case 'selfedit':
                 $this->setVar('isAdminUser',FALSE);
-                $this->edit($this->getParam('userId'));
-                break;
+                return $this->edit($this->getParam('userId'));
             case 'editapply':
                 $status=$this->checkEdit($this->getParam('userId'));
                 if ($status===true)
                 {
-                    $this->editApply($this->getParam('userId'));
+                    return $this->editApply($this->getParam('userId'));
                 }
                 else
                 {
-                    $this->rvalue='error_tpl.php';
-                    $this->rstatus=$status;
+                    $this->message=$status;
+                    return 'error_tpl.php';
                 }
-                break;
             case 'delete':
                 $status=$this->checkDelete($this->getParam('userId'));
                 if ($status===true){
@@ -126,16 +118,17 @@ class useradmin extends controller
 				{
 					$results = $this->objUserAdmin->getUsers('userId',$userId,TRUE);
 		            $this->userdata=$results[0];
-		            $this->rvalue='confirmdelete_tpl.php';
+		            return 'confirmdelete_tpl.php';
                 }
-                break;
             case 'selfdelete':
-                $this->rvalue='selfdelete_tpl.php';
                 if ($this->selfDelete($this->objUser->userId())){
                     $this->objUser->logout();
-                    $this->rvalue='ok_tpl.php';
+                    return 'ok_tpl.php';
                 }       
-                break;
+				else 
+				{
+	                return 'selfdelete_tpl.php';
+				}
             case 'batchdelete':
                 $this->batchDelete($this->getArrayParam('userArray'));
                 return $this->nextAction(
@@ -145,26 +138,21 @@ class useradmin extends controller
 						'searchField'=>$this->getParam('searchField')
 					)
 				);
-                break;
             case 'needpassword':
-                $this->rvalue='forgotpassword_tpl.php';
-                break;
+                return 'forgotpassword_tpl.php';
             case 'changepassword':
 				$this->setVar('userId',$this->getParam('userId'));
-		        $this->rvalue='changepassword_tpl.php';
-                break;
+		        return 'changepassword_tpl.php';
 			case 'changepasswordapply':
-                $this->rvalue=$this->changePassword($this->getParam('userId'));
-				break;
+                return $this->changePassword($this->getParam('userId'));
 			/*
             case 'adminchangepassword':
                 $this->rvalue=$this->adminChangePassword($this->getParam('userId'));
                 break;
 			*/
             case 'resetpassword':
-                $this->rstatus=$this->resetPassword($this->getParam('username'),$this->getParam('email'));
-                $this->rvalue='ok_tpl.php';
-                break; 
+                $this->message=$this->resetPassword($this->getParam('username'),$this->getParam('email'));
+                return 'ok_tpl.php';
             case 'imageupload':
                 $this->imageUpload();
                 if ($this->getParam('isAdminUser') == '1') {
@@ -183,7 +171,6 @@ class useradmin extends controller
                     $nextaction = 'selfedit';
                 }
                 return $this->nextAction($nextaction, array('userId'=>$this->getParam('userId')));
-                break;
             case 'listusers':
                 $how=$this->getParam('how');
                 $match=stripslashes($this->getParam('searchField'));                
@@ -202,24 +189,18 @@ class useradmin extends controller
                 $users=$this->objUserAdmin->getUsers($how,$match,FALSE);
                 $usersTable=$this->makeTableFromUsers($users,TRUE);
                 $this->setVar('usersTable',$usersTable);
-                $this->rvalue='list_users_tpl.php';
-                break;
+                return 'list_users_tpl.php';
             case 'listunused':
                 $userData=$this->objUserAdmin->getUsers('notused','','TRUE');
                 $userdata=$this->makeTableFromUsers($userData,TRUE);
                 $this->setVar('userdata',$userdata);
                 $title = $this->objLanguage->languageText('mod_useradmin_unusedaccounts');
                 $this->setVar('title', $title);
-                $this->rvalue='list_users_tpl.php';
-                break;
+                return 'list_users_tpl.php';
             default:
                 return $this->nextAction('listusers', array('how'=>'surname', 'searchField'=>'A'));
         }
-        $this->message=$this->rstatus;
-        $this->setvar('message',$this->message);	
-        return $this->rvalue;
     }
-
     
     /** 
     * This is a method to determine if the user has to be logged in or not
@@ -300,14 +281,14 @@ class useradmin extends controller
         $result=$this->objUserAdmin->checkUserIdAvailable($userId);
         if ($result!==true)
         {
-            $this->rstatus=$result;
-            $this->rvalue='register_tpl.php';
+            $this->message=$result;
+            return 'register_tpl.php';
         }
         $result=$this->objUserAdmin->checkUsernameAvailable($username);
         if ($result!==true)
         {
-            $this->rstatus=$result;
-            $this->rvalue='register_tpl.php';
+            $this->message=$result;
+            return 'register_tpl.php';
         }
         //$password=rand(10000,99999);
         $objPassword=&$this->getObject('passwords','useradmin');
@@ -329,7 +310,7 @@ class useradmin extends controller
         $this->objUserAdmin->insert($data);
         $this->setVar('newdata',$data);
         $this->setVar('newpassword',$password);
-        $this->rvalue='registersuccess_tpl.php';
+        return 'registersuccess_tpl.php';
         //--$this->sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,'GUEST');
         //$this->objUserAdmin->emailPassword($firstname,$surname,$userId,$username,$email,$password);
     }
@@ -382,7 +363,7 @@ class useradmin extends controller
     function add()
     {
 		$this->setVar('mode','add');
-		$this->rvalue='addedit_tpl.php';
+		return 'addedit_tpl.php';
     }
 
     /**
@@ -449,8 +430,8 @@ class useradmin extends controller
         $results=$this->objUserAdmin->getUsers('userid',$userId,TRUE);
         if (empty($results)) 
         { 
-            $this->rstatus= 'error_no_userid';
-            $this->rvalue='error_tpl.php';
+            $this->message = 'error_no_userid';
+            return 'error_tpl.php';
         }  
         else
         {
@@ -458,7 +439,7 @@ class useradmin extends controller
             $this->setvar('userDetails',$userDetails);
             $this->setvar('isLDAPUser',$this->objUserAdmin->isLDAPUser($userId));
 			$this->setVar('mode','edit');
-            $this->rvalue='addedit_tpl.php';
+            return 'addedit_tpl.php';
         } 
     }
 
@@ -502,8 +483,8 @@ class useradmin extends controller
         $result=$this->objUserAdmin->update('userid',$userId,$data);
         if (!$result) 
         { 
-            $this->rstatus="changes_failed";
-            $this->rvalue='error_tpl.php';             
+            $this->message="changes_failed";
+            return 'error_tpl.php';             
         }
         else
         {
@@ -511,9 +492,9 @@ class useradmin extends controller
             //$this->rstatus="changes_made";            
             // Detect which way to redirect based on the users status on a page
             if ($this->getParam('isAdminUser', 0) == '1') {
-                return $this->nextAction('edit', array('userId'=>$userId, 'message'=>'updated'));
+                return $this->nextAction(NULL, NULL);
             } else {
-                return $this->nextAction('selfedit', array('userId'=>$userId, 'message'=>'updated'));
+                return $this->nextAction('selfedit', array('userId'=>$userId));
             }
         }
     } // end of function applyedit

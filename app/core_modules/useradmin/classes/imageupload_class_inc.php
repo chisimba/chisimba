@@ -49,7 +49,7 @@ class imageupload extends object
             if ($objResize->loadimage($tmp_name,$name)){
                 $objResize->size_auto($redim);
                 $objResize->setOutput('jpg');
-                $objResize->save($this->imageFolder.$userId.$extra.'.jpg');
+                $objResize->save($this->imagePath.$userId.$extra.'.jpg');
             }
         }
     }
