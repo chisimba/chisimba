@@ -41,7 +41,7 @@ class xmlserial extends object
     */
     function writeXML($data)
     {
-        require_once('xml/Serializer.php');
+        require_once('XML/Serializer.php');
         $objSerializer = &new XML_Serializer(NULL);
         $objSerializer->serialize($data);
         $xmldata=$objSerializer->getSerializedData();
