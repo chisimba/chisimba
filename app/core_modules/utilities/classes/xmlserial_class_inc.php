@@ -7,7 +7,7 @@
  * @author James Scoble
  */
 
-require_once('xml/Unserializer.php');
+require_once('XML/Unserializer.php');
 
 class xmlserial extends object
 {
@@ -22,7 +22,7 @@ class xmlserial extends object
     * Method to read in XML, and return an array
     * by calling functions in the Unserialize class
     * @param string $file the XML to read
-    * @param string $type whether its a filename or a string 
+    * @param string $type whether its a filename or a string
     * @returns array $data
     */
     function readXML($file,$type=TRUE)
@@ -47,6 +47,6 @@ class xmlserial extends object
         $xmldata=$objSerializer->getSerializedData();
         return $xmldata;
     }
-    
+
 }
 ?>
