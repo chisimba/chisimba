@@ -68,9 +68,11 @@ class FCKeditor
 			$Link = "{$this->BasePath}editor/fckeditor.html?InstanceName={$this->InstanceName}" ;
 			
 			if ( $this->ToolbarSet != '' )
+			{
 				$Link .= "&amp;Toolbar={$this->ToolbarSet}" ;
-                $Link .= "&KNG={$this->SiteRoot}";
-                $Link .= "&Context={$this->Context}";
+                //$Link .= "&amp;KNG={$this->SiteRoot}";
+                //$Link .= "&amp;Context={$this->Context}";
+			}
 
 			// Render the linked hidden field.
 			$Html .= "<input type=\"hidden\" id=\"{$this->InstanceName}\" name=\"{$this->InstanceName}\" value=\"{$HtmlValue}\" />" ;
