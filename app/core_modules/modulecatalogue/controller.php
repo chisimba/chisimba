@@ -333,9 +333,7 @@ class modulecatalogue extends controller
     private function batchRegister($modArray) {
     	try {
     		foreach ($modArray as $line) {
-    			if (!$this->smartRegister($line)) {
-    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_insterror','modulecatalogue')." $line: {$this->output}");
-    			}
+    			$this->smartRegister($line);
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -390,9 +388,7 @@ class modulecatalogue extends controller
     private function batchDeregister($modArray) {
     	try {
     		foreach ($modArray as $line) {
-    			if (!$this->smartDeregister($line)) {
-    				throw new customException($this->objLanguage->languageText('mod_modulecatalogue_uninsterror','modulecatalogue')." $line: {$this->objModuleAdmin->output}");
-    			}
+    			$this->smartDeregister($line);
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
