@@ -23,9 +23,9 @@
     }
 	
     // Put User Admin menus if user is admin
-    if ($isAdminUser) {
-        echo $this->alphabetBrowser();
-    }
+    //if ($isAdminUser) {
+        //echo $this->alphabetBrowser();
+    //}
 
     $this->loadclass('textinput','htmlelements');
     $this->loadclass('dropdown','htmlelements');
@@ -252,7 +252,7 @@
 	        echo $objHref->show();
 	    }
 	}
-    if ($isAdminUser) {
-        echo $this->userAdminMenu();
-    }
+    //if ($isAdminUser) {
+        //echo $this->userAdminMenu();
+    //}
 ?>
