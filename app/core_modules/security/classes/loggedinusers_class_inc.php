@@ -20,11 +20,10 @@ class loggedInUsers extends dbTable
     */
     function insertLogin($userId) {
         // Delete old logins
-        $sql="DELETE FROM tbl_loggedinusers 
-			WHERE 
-				(userid = '$userId') 
-				AND ((".$this->now()."-whenlastactive)>'{this->systemTimeOut}')
-		";
+        $sql="DELETE FROM tbl_loggedinusers
+			WHERE
+				(userid = '$userId')
+				AND (( . '{$this->now()}'. -whenlastactive)>'{$this->systemTimeOut}')";
 		$this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
@@ -35,23 +34,23 @@ class loggedInUsers extends dbTable
         $isInvisible=FALSE;
         $sql="
 			INSERT INTO tbl_loggedinusers (
-				userid, 
-				ipaddress, 
+				userid,
+				ipaddress,
 				sessionid,
 				whenloggedin,
-             	whenlastactive, 
-				isinvisible, 
-				coursecode, 
+             	whenlastactive,
+				isinvisible,
+				coursecode,
 				themeused
 			)
             VALUES (
-				'$userId', 
-				'$ipAddress', 
-				'$sessionId', 
-				".$this->now().", 
-				".$this->now().", 
-				'$isInvisible', 
-				'$contextCode', 
+				'$userId',
+				'$ipAddress',
+				'$sessionId',
+				".$this->now().",
+				".$this->now().",
+				'$isInvisible',
+				'$contextCode',
 				'$theme'
 			)";
 		$this->query($sql);
@@ -65,9 +64,9 @@ class loggedInUsers extends dbTable
    * @param string $userId The userId of the logged in user
    */
    function doLogout($userId) {
-        $sql="DELETE FROM tbl_loggedinusers 
-		WHERE 
-			userid='$userId' 
+        $sql="DELETE FROM tbl_loggedinusers
+		WHERE
+			userid='$userId'
 			AND sessionid ='".session_id()."'
 		";
 		$this->query($sql);
@@ -79,11 +78,11 @@ class loggedInUsers extends dbTable
     function doUpdateLogin($userId,$contextCode='lobby')
     {
        	$sql="UPDATE tbl_loggedinusers
-        SET 
-		  	whenlastactive = ".$this->now().", 
-			coursecode='$contextCode'  
+        SET
+		  	whenlastactive = ".$this->now().",
+			coursecode='$contextCode'
 		WHERE
-          	userid='$userId' 
+          	userid='$userId'
 			AND sessionid ='".session_id()."'
 		";
 		$this->query($sql);
@@ -94,9 +93,9 @@ class loggedInUsers extends dbTable
      */
     function getMyTimeOn($userId)
     {
-		$sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers 
-		WHERE 
-			userid='$userId' 
+		$sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
+		WHERE
+			userid='$userId'
 			AND sessionid='".session_id()."'
 		";
 		$results = $this->getArray($sql);
@@ -131,12 +130,12 @@ class loggedInUsers extends dbTable
     */
     function getInactiveTime($userId)
     {
-        $sql="SELECT 
-			((".$this->now()."-whenlastactive)/100) AS inactivetime 
-		FROM 
-			tbl_loggedinusers 
-		WHERE 
-			userid='$userId' 
+        $sql="SELECT
+			((".$this->now()."-whenlastactive)/100) AS inactivetime
+		FROM
+			tbl_loggedinusers
+		WHERE
+			userid='$userId'
 			AND sessionid='".session_id()."'
 		";
 		$results = $this->getArray($sql);
@@ -154,8 +153,8 @@ class loggedInUsers extends dbTable
     */
     function clearInactive()
     {
-        $sql="DELETE FROM tbl_loggedinusers 
-		WHERE 
+        $sql="DELETE FROM tbl_loggedinusers
+		WHERE
 			((".$this->now()."-WhenLastActive)/100) > {$this->systemTimeOut}
 		";
 		$this->query($sql);
