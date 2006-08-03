@@ -131,7 +131,7 @@ class loggedInUsers extends dbTable
     function getInactiveTime($userId)
     {
         $sql="SELECT
-			((".$this->now()."-whenlastactive)/100) AS inactivetime
+			(('".$this->now()."'-whenlastactive)/100) AS inactivetime
 		FROM
 			tbl_loggedinusers
 		WHERE
