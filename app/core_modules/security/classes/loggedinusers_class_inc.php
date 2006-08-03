@@ -44,13 +44,13 @@ class loggedInUsers extends dbTable
 				themeused
 			)
             VALUES (
-				'$userId',
-				'$ipAddress',
-				'$sessionId',
-				".$this->now().",
-				".$this->now().",
-				'$isInvisible',
-				'$contextCode',
+				'$userId', 
+				'$ipAddress', 
+				'$sessionId', 
+				'".$this->now()."', 
+				'".$this->now()."', 
+				'$isInvisible', 
+				'$contextCode', 
 				'$theme'
 			)";
 		$this->query($sql);
@@ -78,9 +78,9 @@ class loggedInUsers extends dbTable
     function doUpdateLogin($userId,$contextCode='lobby')
     {
        	$sql="UPDATE tbl_loggedinusers
-        SET
-		  	whenlastactive = ".$this->now().",
-			coursecode='$contextCode'
+        SET 
+		  	whenlastactive = '".$this->now()."', 
+			coursecode='$contextCode'  
 		WHERE
           	userid='$userId'
 			AND sessionid ='".session_id()."'
@@ -152,12 +152,12 @@ class loggedInUsers extends dbTable
     * Method to clear inactive users
     */
     function clearInactive()
-    {
-        $sql="DELETE FROM tbl_loggedinusers
-		WHERE
-			((".$this->now()."-WhenLastActive)/100) > {$this->systemTimeOut}
-		";
-		$this->query($sql);
+    {		
+//        $sql="DELETE FROM tbl_loggedinusers 
+//		WHERE 
+//			((".$this->now()."-WhenLastActive)/100) > {$this->systemTimeOut}
+//		";
+//		$this->query($sql);
     }
 
     /**
