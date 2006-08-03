@@ -23,7 +23,7 @@ class loggedInUsers extends dbTable
         $sql="DELETE FROM tbl_loggedinusers 
 			WHERE 
 				(userid = '$userId') 
-				AND ((NOW()-whenlastactive)>'{this->systemTimeOut}')
+				AND ((".$this->now()."-whenlastactive)>'{this->systemTimeOut}')
 		";
 		$this->query($sql);
         // Update the tbl_loggedinusers table
@@ -48,8 +48,8 @@ class loggedInUsers extends dbTable
 				'$userId', 
 				'$ipAddress', 
 				'$sessionId', 
-				NOW(), 
-				NOW(), 
+				".$this->now().", 
+				".$this->now().", 
 				'$isInvisible', 
 				'$contextCode', 
 				'$theme'
@@ -80,7 +80,7 @@ class loggedInUsers extends dbTable
     {
        	$sql="UPDATE tbl_loggedinusers
         SET 
-		  	whenlastactive = NOW(), 
+		  	whenlastactive = ".$this->now().", 
 			coursecode='$contextCode'  
 		WHERE
           	userid='$userId' 
@@ -132,7 +132,7 @@ class loggedInUsers extends dbTable
     function getInactiveTime($userId)
     {
         $sql="SELECT 
-			((NOW()-whenlastactive)/100) AS inactivetime 
+			((".$this->now()."-whenlastactive)/100) AS inactivetime 
 		FROM 
 			tbl_loggedinusers 
 		WHERE 
@@ -156,7 +156,7 @@ class loggedInUsers extends dbTable
     {
         $sql="DELETE FROM tbl_loggedinusers 
 		WHERE 
-			((NOW()-WhenLastActive)/100) > {$this->systemTimeOut}
+			((".$this->now()."-WhenLastActive)/100) > {$this->systemTimeOut}
 		";
 		$this->query($sql);
     }
