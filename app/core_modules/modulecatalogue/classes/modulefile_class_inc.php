@@ -105,7 +105,7 @@ class modulefile extends object {
      */
     public function moduleCategory($module) {
     	try {
-    		if ($fn = $this->findregisterfile($module)) {
+    		if (($fn = $this->findregisterfile($module)) && (filesize($fn)>0)) {
     			$fh = fopen($fn,"r");
     			$content = fread($fh,filesize($fn));
     			fclose($fh);
