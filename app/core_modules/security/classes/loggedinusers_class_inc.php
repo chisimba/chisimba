@@ -23,7 +23,7 @@ class loggedInUsers extends dbTable
         $sql="DELETE FROM tbl_loggedinusers
 			WHERE
 				(userid = '$userId')
-				AND (( . '{$this->now()}'. -whenlastactive)>'{$this->systemTimeOut}')";
+				AND (('{$this->now()}'-whenlastactive)>'{$this->systemTimeOut}')";
 		$this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
@@ -153,11 +153,11 @@ class loggedInUsers extends dbTable
     */
     function clearInactive()
     {		
-//        $sql="DELETE FROM tbl_loggedinusers 
-//		WHERE 
-//			((".$this->now()."-WhenLastActive)/100) > {$this->systemTimeOut}
-//		";
-//		$this->query($sql);
+        $sql="DELETE FROM tbl_loggedinusers 
+		WHERE 
+			(('".$this->now()."'-WhenLastActive)/100) > '{$this->systemTimeOut}'
+		";
+		$this->query($sql);
     }
 
     /**
