@@ -35,7 +35,7 @@ class dbTable extends object
      * @access public
      * @var string
      */
-    public $USE_PREPARED_STATEMENTS = true;
+    public $USE_PREPARED_STATEMENTS = FALSE;
 
     /**
      * The current table name that we are working with
