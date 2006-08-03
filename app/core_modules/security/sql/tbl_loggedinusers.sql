@@ -35,7 +35,7 @@ $fields = array(
 
 		),
     'WhenLastActive' => array(
-		'type' => 'datetime',
+		'type' => 'date',
 
 
 		),
