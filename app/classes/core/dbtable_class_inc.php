@@ -212,15 +212,16 @@ class dbTable extends object
     */
     public function getArray($stmt)
     {
-        //var_dump($this->_db);
-    	$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
-        if (PEAR::isError($ret)) {
-            $ret = false;
-        }
         if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
+    	//var_dump($this->_db);
+    	$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+        if (PEAR::isError($ret)) {
+            $ret = false;
+        }
+
         return $ret;
     }
 
@@ -235,7 +236,11 @@ class dbTable extends object
     */
     public function getArrayWithLimit($stmt, $first, $count)
     {
-        $rs = $this->_db->limitQuery($stmt, $first, $count);
+        if($this->debug == TRUE)
+        {
+        	log_debug($stmt);
+        }
+    	$rs = $this->_db->limitQuery($stmt, $first, $count);
         if (PEAR::isError($rs)) {
             $ret = false;
         } else {
@@ -244,10 +249,7 @@ class dbTable extends object
                 $ret[] = $row;
             }
         }
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
+
         return $ret;
     }
 
@@ -282,11 +284,12 @@ class dbTable extends object
     public function getRecordCount($filter = null)
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
-        $rs = $this->query($sql);
         if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
+        $rs = $this->query($sql);
+
 	    return $rs[0]['rc'];
     }
 
@@ -353,7 +356,7 @@ class dbTable extends object
             $tablename = $this->_tableName;
         }
 		log_debug("dbtable insert into {$tablename}");
-	        log_debug($fields);
+	    log_debug($fields);
 
 
         $comma = "";
