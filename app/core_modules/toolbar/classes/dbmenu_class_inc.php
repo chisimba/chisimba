@@ -49,17 +49,24 @@ class dbmenu extends dbtable
     */
     function getModules($access=2, $context=TRUE)
     {
-        $sqlFilter = 'category NOT LIKE "menu_%" && category NOT LIKE "page_%" ';
-        $sql = 'show tables like \''.$this->table."'";
+        $sqlFilter = "category NOT LIKE 'menu_%' AND category NOT LIKE 'page_%'";
+        //$sql = 'show tables like \''.$this->table."'";
         if($access == 2){     // non-admin users
-            $sqlFilter .= ' && adminOnly != 1';
+            $sqlFilter .= ' AND adminOnly != 1';
         }
 
         if(!$context){
-            $sqlFilter .= ' && dependsContext != 1';
+            $sqlFilter .= ' AND dependsContext != 1';
         }
 
-        $rows = $this->getArray($sql);
+        $ret = $this->listDbTables(); //$this->getArray($sql);
+        if(in_array($this->table, $ret))
+        {
+        	$rows = TRUE;
+        }
+        else {
+        	unset($rows);
+        }
         if($rows){
             $sql = 'SELECT category, module, permissions FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
@@ -83,16 +90,25 @@ class dbmenu extends dbtable
     function getSideMenus($menu='user', $access=2, $context=TRUE)
     {
         $sqlFilter = "category LIKE 'menu_$menu%'";
-        $sql = 'show tables like \''.$this->table."'";
+        //$sql = 'show tables like \''.$this->table."'";
         if($access == 2){     // lecturer
-            $sqlFilter .= ' && adminOnly != 1';
+            $sqlFilter .= ' AND adminOnly != 1';
         }
 
         if(!$context){
-            $sqlFilter .= ' && dependsContext != 1';
+            $sqlFilter .= ' AND dependsContext != 1';
         }
 
-        $rows = $this->getArray($sql);
+        $ret = $this->listDbTables(); //$this->getArray($sql);
+        if(in_array($this->table, $ret))
+        {
+        	$rows = TRUE;
+        }
+        else {
+        	unset($rows);
+        }
+
+        //$rows = $this->getArray($sql);
         if($rows){
             $sql = 'SELECT category,module,permissions FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
