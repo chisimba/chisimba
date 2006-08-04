@@ -4,10 +4,10 @@
 */
 class loggedInUsers extends dbTable
 {
-    var $objConfig;
-    var $systemTimeOut;
+    public $objConfig;
+    private $systemTimeOut;
 
-    function init()
+    public function init()
     {
 		parent::init('tbl_loggedinusers');
         $this->objConfig=&$this->getObject('altconfig','config');
@@ -18,7 +18,7 @@ class loggedInUsers extends dbTable
 	* Insert a record.
     * @param string $userId The userId of the user logging in
     */
-    function insertLogin($userId) {
+    public function insertLogin($userId) {
         // Delete old logins
         $sql="DELETE FROM tbl_loggedinusers
 			WHERE
@@ -63,7 +63,7 @@ class loggedInUsers extends dbTable
    * index.php.
    * @param string $userId The userId of the logged in user
    */
-   function doLogout($userId) {
+   public function doLogout($userId) {
         $sql="DELETE FROM tbl_loggedinusers
 		WHERE
 			userid='$userId'
@@ -75,7 +75,7 @@ class loggedInUsers extends dbTable
     /**
     * Update the current user's active timestamp.
     */
-    function doUpdateLogin($userId,$contextCode='lobby')
+    public function doUpdateLogin($userId,$contextCode='lobby')
     {
        	$sql="UPDATE tbl_loggedinusers
         SET 
@@ -91,7 +91,7 @@ class loggedInUsers extends dbTable
     /**
      * Return the time logged in.
      */
-    function getMyTimeOn($userId)
+    public function getMyTimeOn($userId)
     {
 		$sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
 		WHERE
@@ -111,7 +111,7 @@ class loggedInUsers extends dbTable
     /**
     * Count active users.
     */
-    function getActiveUserCount()
+    public function getActiveUserCount()
     {
         $sql="SELECT COUNT(id) AS usercount FROM tbl_loggedinusers";
 		$results = $this->getArray($sql);
@@ -128,7 +128,7 @@ class loggedInUsers extends dbTable
     * Return how long since the user was last active.
     * @param string $userId
     */
-    function getInactiveTime($userId)
+    public function getInactiveTime($userId)
     {
         $sql="SELECT
 			(('".$this->now()."'-whenlastactive)/100) AS inactivetime
@@ -151,7 +151,7 @@ class loggedInUsers extends dbTable
     /**
     * Method to clear inactive users
     */
-    function clearInactive()
+    public function clearInactive()
     {		
         $sql="DELETE FROM tbl_loggedinusers 
 		WHERE 
@@ -165,7 +165,7 @@ class loggedInUsers extends dbTable
     * @param string $userId
     * returns TRUE|FALSE
     */
-    function isUserOnline($userId)
+    public function isUserOnline($userId)
     {
         $sql="SELECT COUNT(userid) AS count FROM tbl_loggedinusers WHERE userid='$userid'";
   		$results = $this->getArray($sql);

@@ -7,10 +7,10 @@ class ldaplogin extends object
 {
 
     //var $ldapserver="services-ds.uwc.ac.za"; // hard-coded for now - will be changed later
-    var $ldapserver="192.102.9.68"; // hard-coded for now - will be changed later
-    var $usernumber='generationalqualifier';
+    private $ldapserver="192.102.9.68"; // hard-coded for now - will be changed later
+    private $usernumber='generationalqualifier';
 
-    function init()
+    public function init()
     {
         if (defined('KEWL_LDAP_SERVER')){
             $dbconfig=&$this->getObject('dbconfig','config');
@@ -25,7 +25,7 @@ class ldaplogin extends object
     * @param string $where the LDAP "domain" to look in
     * @return string|bool - string if successful, FALSE if not
     */
-    function checkUser($username,$where="o=UWC")
+    public function checkUser($username,$where="o=UWC")
     {
         $ldapconn = ldap_connect($this->ldapserver);
         $ldapbind = @ldap_bind($ldapconn);
@@ -53,7 +53,7 @@ class ldaplogin extends object
     * @param string $where the LDAP "domain" to look in
     * @return string|bool - string if successful, FALSE if not
     */
-    function tryLogin($username,$passwd,$where='o=UWC')
+    public function tryLogin($username,$passwd,$where='o=UWC')
     {
         // Check for blank password - there's a bug in LDAP that makes it accept '' as valid.
         if ($passwd==''){
@@ -86,7 +86,7 @@ class ldaplogin extends object
     * @param string $where the LDAP "domain" to look in
     * @return string|bool - string if successful, FALSE if not
     */
-    function getInfo($ldapconn,$username,$where='o=uwc')
+    public function getInfo($ldapconn,$username,$where='o=uwc')
     {
         $filter='cn='.$username;
         $look=array('surname','givenname','mail',$this->usernumber);
@@ -118,7 +118,7 @@ class ldaplogin extends object
     * @param string $where the LDAP "domain" to look in
     * @returns TRUE|FALSE
     */
-    function isAcademic($username,$where='ou=ACADEMIC,o=UWC')
+    public function isAcademic($username,$where='ou=ACADEMIC,o=UWC')
     {
         $test=$this->checkUser($username,$where);
         if (!$test){

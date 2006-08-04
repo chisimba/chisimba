@@ -7,13 +7,13 @@
 class importuserdata extends object
 {
 
-    var $userfields;
-    var $fieldcount;
-    var $objUser;
-    var $objUserAdmin;
-    var $objPassword;
+    private $userfields;
+    private $fieldcount;
+    private $objUser;
+    private $objUserAdmin;
+    private $objPassword;
     
-    function init()
+    public function init()
     {
         $this->userfields=array('userId','username','firstname','surname','title','sex','emailAddress');
         $this->fieldcount=count($this->userfields);
@@ -29,7 +29,7 @@ class importuserdata extends object
     * @param string $file the filename and path to load
     * returns array $info
     */
-    function readCSV($file)
+    public function readCSV($file)
     {
         $info=array();
         $fp=fopen($file,'r');
@@ -50,7 +50,7 @@ class importuserdata extends object
         return $info;
     }
 
-    function batchImport($file)
+    public function batchImport($file)
     {
         $info=$this->readCSV($file);
         $data=array();
@@ -71,7 +71,7 @@ class importuserdata extends object
     * @param array $line
     * @returns string $id the new id field of the user
     */
-    function importUser($line)
+    public function importUser($line)
     {
         $userId=$line['userId'];
         $username=$line['username'];
@@ -125,7 +125,7 @@ class importuserdata extends object
     * @param string $email
     * @returns Boolena TRUE|FALSE
     */
-    function checkForUser($username,$firstname,$surname,$email)
+    public function checkForUser($username,$firstname,$surname,$email)
     {
         $data=$this->objUser->getAll("where username='$username' and firstname='$firstname' and surname='$surname' and emailAddress='$email'");
         $count=count($data);

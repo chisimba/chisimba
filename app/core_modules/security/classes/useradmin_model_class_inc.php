@@ -6,11 +6,11 @@
 class useradmin_model extends dbtable
 {
 
-    var $objUser;
-    var $objLanguage;
-    var $objConfig;
+    public $objConfig;
+    private $objUser;
+    private $objLanguage;
 
-    function init()
+    public function init()
     {
 	    parent::init('tbl_users');
         $this->objConfig=&$this->getObject('altconfig','config');
@@ -116,7 +116,7 @@ class useradmin_model extends dbtable
     * @param string $match - the pattern to match for
     * returns array $r1
     */
- 	function getUsers($how,$match,$exact=FALSE)
+ 	public function getUsers($how,$match,$exact=FALSE)
  	{
  		$sql="SELECT * FROM tbl_users";
  		if (
@@ -168,7 +168,7 @@ class useradmin_model extends dbtable
     * @author James Scoble
     * @param array $userArray
     */
-    function batchDelete($users)
+    public function batchDelete($users)
     {
         foreach ($users as $user)
         {
@@ -183,7 +183,7 @@ class useradmin_model extends dbtable
     * Check if userid exists.
     * @param string $userId
     */
-    function checkUserIdAvailable($userId)
+    public function checkUserIdAvailable($userId)
     {
         $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
@@ -199,7 +199,7 @@ class useradmin_model extends dbtable
     * Check if username exists.
     * @param string $username
     */
-    function checkUsernameAvailable($username)
+    public function checkUsernameAvailable($username)
     {
         $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
@@ -222,7 +222,7 @@ class useradmin_model extends dbtable
     * This function checks the supplied password against the one in the database.
     * Only if it matches does it change to the new one.
     */
-    function changePassword($userId,$oldpassword,$newpassword)
+    public function changePassword($userId,$oldpassword,$newpassword)
     {
         $data=$this->getUsers('userid',$userId,TRUE);
 		//print_r($data);
@@ -342,7 +342,7 @@ class useradmin_model extends dbtable
     * @param string $userId
     * @returns boolean
     */
-    function isLDAPUser($userId)
+    public function isLDAPUser($userId)
     {
         $data=$this->getUsers('userId',$userId);
         return $data[0]['pass']==sha1('--LDAP--');

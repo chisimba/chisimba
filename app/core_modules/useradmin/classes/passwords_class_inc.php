@@ -8,14 +8,14 @@
 class passwords
 {
     // $letters is an array that will hold all the alphabetic components for the passwords
-    var $letters;
+    private $letters;
 
-    function passwords()
+    function __construct()
     {
         $this->init();
     }
     
-    function init()
+    public function init()
     {
         // Vowels
         $this->letters['vowels']=array('a','e','i','o','u','oo','ai','ae','y','ee','au');
@@ -34,7 +34,7 @@ class passwords
     * @param string $arr the index of the $letters array to use
     * @returns string $get
     */
-    function getRandom($arr)
+    public function getRandom($arr)
     {
         $count=count($this->letters[$arr]);
         $rnum=rand(0,($count-1));
@@ -49,7 +49,7 @@ class passwords
     * This is a method to produce the alphabetic section of the password
     * @returns string $word - a pseudo-word generated from basic elements
     */
-    function makeWord()
+    public function makeWord()
     {
         $word='';
         $word.=$this->getRandom('sharpletters');
@@ -65,7 +65,7 @@ class passwords
     * This is the method that makes the password
     * @returns string $word
     */
-    function createPassword()
+    public function createPassword()
     {
         $word=$this->makeWord().$this->getRandom('topkeys').rand(100,999);
         return $word;

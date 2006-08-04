@@ -10,14 +10,14 @@
 */
 class user extends dbTable
 {
-    var $objConfig;
-    var $objLanguage;
-    var $loggedInUsers;
-    var $userLoginHistory;
+    public $objConfig;
+    private $objLanguage;
+    private $loggedInUsers;
+    private $userLoginHistory;
     //var $userGroups;
-    var $_record = NULL;
+    private $_record = NULL;
 
-   function init()
+   public function init()
    {
        parent::init("tbl_users");
        $this->objConfig=&$this->getObject('altconfig','config');
@@ -31,7 +31,7 @@ class user extends dbTable
    * Get the desired login type.
    * @return the login method to use, currently ldap or default
    */
-   function loginMethod() {
+   public function loginMethod() {
         // See if they want to login via LDAP
         if (isset($_POST['useLdap'])) {
             $useLdap=$_POST['useLdap'];
@@ -55,7 +55,7 @@ class user extends dbTable
    * @param $password The password given which should be checked
    * @return TRUE|FALSE Boolean value indicating success of authentication
    */
-   function authenticateUser($username, $password) {
+   public function authenticateUser($username, $password) {
         $username = trim($username);
         //$password = sha1(trim($password)); //we don't do this here, we do it later.
         // Login via the chosen method
@@ -74,7 +74,7 @@ class user extends dbTable
    * @param string $username
    * @return array on success, FALSE on failure.
    */
-    function lookupData($username)
+    public function lookupData($username)
     {
         $sql="SELECT
 	        tbl_users.username,
@@ -110,7 +110,7 @@ class user extends dbTable
    * @param string $password The password supplied in the login
    * @return TRUE|FALSE Boolean indication of success of login
    */
-    function loginViaDatabase($username, $password)
+    public function loginViaDatabase($username, $password)
     {
         $line=$this->lookupData($username);
         if ($line) {
@@ -139,7 +139,7 @@ class user extends dbTable
         return false;
    }
 
-   function storeInSession()
+   public function storeInSession()
    {
         $this->setSession('isLoggedIn',TRUE);
         $username = $this->_record['username'];
@@ -177,7 +177,7 @@ class user extends dbTable
    * @param string $username The username supplied in the login
    * @param string $password The password supplied in the login
    */
-    function loginViaLdap($username, $password)
+    public function loginViaLdap($username, $password)
     {
         $objldap=$this->newObject('ldaplogin','security');
         $info=$objldap->tryLogin($username,$password);
@@ -231,7 +231,7 @@ class user extends dbTable
    * the session, and redirects the user to the index page,
    * index.php. This method has no parameters. See comments on insertlogin.
    */
-   function logout() {
+   public function logout() {
        $skin = $this->objSkin->getSkin();
        $this->loggedInUsers->doLogout($this->userId());
        session_unset();
@@ -243,7 +243,7 @@ class user extends dbTable
    * Method to update the curren't user's active timestamp in the
    * tbl_loggedinusers table
    */
-   function updateLogin() {
+   public function updateLogin() {
         $this->loggedInUsers->doUpdateLogin($this->userId());
         // also clear inactive users whilst updating this one
         $this->loggedInUsers->clearInactive();
@@ -252,14 +252,14 @@ class user extends dbTable
    /**
    * Method to return the time logged in for the active user
    */
-   function myTimeOn() {
+   public function myTimeOn() {
         return $this->loggedInUsers->getMyTimeOn($this->userId());
    }
 
    /**
    * Method to verify that the user should still be logged in
    */
-   function notExpired()
+   public function notExpired()
    {
        return TRUE;
        $inactiveTime=$this->loggedInUsers->getInactiveTime($this->userId());
@@ -274,7 +274,7 @@ class user extends dbTable
     * Method to add a new user to the Lecturer group
     * @param string $id the Primary Key ID of the new user
     */
-    function addLecturer($id)
+    public function addLecturer($id)
     {
         $this->objGroups=&$this->getObject('groupadminmodel','groupadmin');
         $groupId=$this->objGroups->getLeafId(array('Lecturers'));
@@ -286,7 +286,7 @@ class user extends dbTable
    * user is logged in and FALSE if not. This method has no
    * parameters.
    */
-   function isLoggedIn() {
+   public function isLoggedIn() {
       $loggedIn=$this->getSession('isLoggedIn');
       if ($loggedIn){
           if ($this->notExpired()){
@@ -310,7 +310,7 @@ class user extends dbTable
     * user is not an administrator. This method does not have
     * any parameters.
     */
-    function isAdmin()
+    public function isAdmin()
     {
         // Here we need to distinguish between the session var not being set,
         // and being set to FALSE or NULL
@@ -339,7 +339,7 @@ class user extends dbTable
    * @param string $userId
    * @returns boolean TRUE or FALSE
    */
-    function lookupAdmin($userId)
+    public function lookupAdmin($userId)
     {
         $sql="SELECT accesslevel from tbl_users where userid='$userId'";
 
@@ -360,7 +360,7 @@ class user extends dbTable
    * @param string $userId
    * @returns boolean TRUE or FALSE
    */
-    function inAdminGroup($userId,$group='Site Admin')
+    public function inAdminGroup($userId,$group='Site Admin')
     {
         $objGroupModel=&$this->getObject('groupadminmodel','groupadmin');
         $id=$this->PKid($userId);
@@ -378,7 +378,7 @@ class user extends dbTable
     * @param string username
     * @returns strin userId
     */
-    function getUserId($username)
+    public function getUserId($username)
     {
         $sql="select userid from tbl_users where username='$username'";
         $rs = $this->query($sql);
@@ -400,7 +400,7 @@ class user extends dbTable
     * @param strong $userId
     * @returns string|FALSE
     */
-    function PKId($userId=NULL)
+    public function PKId($userId=NULL)
     {
         if ($userId==NULL)
         {
@@ -427,7 +427,7 @@ class user extends dbTable
     * @parm string $PKId the primary key Id
     * @returns string $userId the user Id
     */
-     function getItemFromPkId($PKId,$field='userid')
+     public function getItemFromPkId($PKId,$field='userid')
      {
          $data=$this->getRow('id', $PKId);
          return $data[$field];
@@ -444,7 +444,7 @@ class user extends dbTable
    * @param string $userId The numeric ID of a user, it defaults
    * to the userId of the current user when $numID is NULL.
    */
-   function userName($userId=FALSE) { //use FALSE as the default and evaluate
+   public function userName($userId=FALSE) { //use FALSE as the default and evaluate
        if (!$userId) {
            $userName=$this->getSession('username');
            if ($userName) {
@@ -477,7 +477,7 @@ class user extends dbTable
    * to the userId of the current user by setting it to NULL as
    * default.
    */
-   function fullname($userId=NULL) {  //use NULL as the default and evaluate
+   public function fullname($userId=NULL) {  //use NULL as the default and evaluate
 		if (!$userId) {
 			$fullname=$this->getSession('name');
 			if ($fullname) {
@@ -510,7 +510,7 @@ class user extends dbTable
    * to the userId of the current user by setting it to NULL as
    * default.
    */
-   function email($userId=NULL) {  //use NULL as the default and evaluate
+   public function email($userId=NULL) {  //use NULL as the default and evaluate
 	if (!$userId){
 		$email=$this->getSession('email');
 		if ($email) {
@@ -536,7 +536,7 @@ class user extends dbTable
     * is currently logged in
     * This function has been simplified down now that it calls getSession
     */
-    function userId() {
+    public function userId() {
         return $this->getSession('userid');
     }
 
@@ -546,7 +546,7 @@ class user extends dbTable
    * @param string $userId
    * @returns TRUE|FALSE
    */
-   function isActive($userId)
+   public function isActive($userId)
    {
         $sql="SELECT isactive from tbl_users where userid='$userId'";
         $rows=$this->getArray($sql);
@@ -562,7 +562,7 @@ class user extends dbTable
    * @param string $userId
    * @returns string $howCreated
    */
-   function howCreated($userId)
+   public function howCreated($userId)
    {
         $sql="SELECT howcreated from tbl_users where userid='$userId'";
         $return=$this->getArray($sql);
@@ -580,7 +580,7 @@ class user extends dbTable
    * to the userId of the current user by setting it to NULL as
    * default.
    */
-   function logins($userId=NULL) {
+   public function logins($userId=NULL) {
         if (!$userId) {
             $logins=$this->getSession('logins');
             if ($logins){
@@ -604,7 +604,7 @@ class user extends dbTable
    /**
    * Return the last login date for the current user
    */
-   function getLastLoginDate($userId=NULL) {
+   public function getLastLoginDate($userId=NULL) {
         if (!$userId) {
             $userId=$this->userId();
         }
@@ -615,7 +615,7 @@ class user extends dbTable
    /**
    * Return the URL for a user's image, if one exists
    */
-   function getUserImagePath($userId=NULL){
+   public function getUserImagePath($userId=NULL){
        if (!$userId) {
            $userId=$this->userId();
        }
@@ -625,7 +625,7 @@ class user extends dbTable
    /**
    *Method to return a path to the to user's image
    */
-   function getUserImage($height=NULL,$width=NULL,$userId=NULL){
+   public function getUserImage($height=NULL,$width=NULL,$userId=NULL){
        if($height){
            $height=' height="'.$height.'"  ';
        }
@@ -647,7 +647,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user has context Author access.
    */
-   function isContextAuthor()
+   public function isContextAuthor()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->hasContextPermission( 'isAuthor' );
@@ -658,7 +658,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user has context Editor access.
    */
-   function isContextEditor()
+   public function isContextEditor()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->hasContextPermission( 'isEditor' );
@@ -669,7 +669,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is has context Readre access.
    */
-   function isContextReader()
+   public function isContextReader()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->hasContextPermission( 'isReader' );
@@ -681,7 +681,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the context lecturers group.
    */
-   function isContextLecturer()
+   public function isContextLecturer()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isContextMember( 'Lecturers' );
@@ -692,7 +692,7 @@ class user extends dbTable
    * is a cours administrator ie. eithere
    * a lecturere are an administrator
    */
-   function isCourseAdmin()
+   public function isCourseAdmin()
    {
        if($this->isContextLecturer || $this->IsAdmin())
        {
@@ -709,7 +709,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the context Students group.
    */
-   function isContextStudent()
+   public function isContextStudent()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isContextMember( 'Students' );
@@ -720,7 +720,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the context Guest group.
    */
-   function isContextGuest()
+   public function isContextGuest()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isContextMember( 'Guest' );
@@ -732,7 +732,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the site lecturers group.
    */
-   function isLecturer()
+   public function isLecturer()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isMember( 'Lecturers' );
@@ -743,7 +743,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the site Students group.
    */
-   function isStudent()
+   public function isStudent()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isMember( 'Students' );
@@ -754,7 +754,7 @@ class user extends dbTable
    * @since 9 March 2005
    * @return true|false Return true if this user is a member of the site Guest group.
    */
-   function isGuest()
+   public function isGuest()
    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isMember( 'Guest' );

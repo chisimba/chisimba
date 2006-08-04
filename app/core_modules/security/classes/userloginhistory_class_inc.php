@@ -9,7 +9,7 @@ class userLoginHistory extends dbTable {
     /**
     * Constructor method to define the table
     */
-    function init()
+    public function init()
     {
         parent::init('tbl_userloginhistory');
     }
@@ -19,7 +19,7 @@ class userLoginHistory extends dbTable {
     * table
     * @param string $userId: The Unique userId of the user who is logging in.
     */
-    function addHistoryEntry($userId)
+    public function addHistoryEntry($userId)
     {
         $this->insert(
 			array(
@@ -34,7 +34,7 @@ class userLoginHistory extends dbTable {
     * denoted by $userId
     * @param string $userId: The Unique userId of the user being looked up
     */
-    function doGetLastLogin($userId)
+    public function doGetLastLogin($userId)
     {
         $sql="SELECT 
 			MAX(lastLoginDateTime) AS laston 

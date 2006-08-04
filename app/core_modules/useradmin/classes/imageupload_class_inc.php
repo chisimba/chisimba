@@ -2,23 +2,24 @@
 /** 
 * Handles upload of images.
 * @author James Scoble
-* @copyright 2004
+* @author Jeremy O'Connor
+* @copyright 2004, 2006 AVOIR
 * @license GNU GPL
 */
 class imageupload extends object
 {
-    var $objConfig;
-    var $objUser;
+    public $objConfig;
+    private $objUser;
 	/**
 	* @var string The path of the file.
 	*/
-    var $imagePath;
+    private $imagePath;
 	/**
 	* @var string The URL of the file.
 	*/
-    var $imageUrl;
+    private $imageUrl;
    
-    function init()
+    public function init()
     {
         $this->objConfig=&$this->getObject('altconfig','config');
         $this->objUser=&$this->getObject('user','security');
@@ -31,7 +32,7 @@ class imageupload extends object
     * @param string $redim
     * @param string 4extra
     */
-    function doUpload($userId, $redim=120, $extra='')
+    public function doUpload($userId, $redim=120, $extra='')
     {
         $name=$_FILES['userFile']['name'];
         $type=$_FILES['userFile']['type'];
@@ -59,7 +60,7 @@ class imageupload extends object
     * @param string $userId
     * @returns string The url
     */
-    function userpicture($userId)
+    public function userpicture($userId)
     {
         if (file_exists($this->imagePath.$userId.".jpg")){
             return($this->imageUrl.$userId.".jpg");
@@ -73,7 +74,7 @@ class imageupload extends object
     * @param string $userId
     * @returns string The url
     */
-    function smallUserPicture($userId)
+    public function smallUserPicture($userId)
     {
         if (file_exists($this->imagePath.$userId."_small.jpg")){
             return($this->imageUrl.$userId."_small.jpg");
@@ -86,7 +87,7 @@ class imageupload extends object
     * Reset user's picture.
     * @param string $userId
     */
-    function resetImage($userId)
+    public function resetImage($userId)
     {
         if (file_exists($this->imagePath.$userId.".jpg")){
             @unlink($this->imagePath.$userId.".jpg");

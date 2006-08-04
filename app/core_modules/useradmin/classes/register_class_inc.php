@@ -22,7 +22,7 @@ class register extends object
     * @param string $password
     * @param string $accesslevel
     */
-    function sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,$accesslevel)
+    public function sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,$accesslevel)
     {
         $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLang->languageText('mod_useradmin_greet1')))."\n"
         .$this->objLang->languageText('mod_useradmin_greet2')."\n"
