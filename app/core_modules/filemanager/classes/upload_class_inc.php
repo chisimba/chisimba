@@ -71,7 +71,7 @@ class upload extends object
     *
     * It returns an array with details of files uploaded, as well as errors.
     */
-    public function uploadFiles()
+    public function uploadFiles($ext=NULL)
     {
         if (count($_FILES) == 0) { // Checked that Files were Uploaded
             return FALSE;
@@ -82,9 +82,10 @@ class upload extends object
             ini_set('upload_max_filesize', '200M');
             set_time_limit(0);
             
+            
             foreach ($_FILES as $file=>$name)
             {
-                $this->uploadFile($file, $fileUploadResultsArray);
+                $this->uploadFile($file, $ext, $fileUploadResultsArray);
             }
             
             // Return List of Files Uploaded
@@ -95,13 +96,14 @@ class upload extends object
     /**
     * Method to Upload a Single File
     * @param string $fileInputName Name of the File Input. Eg. To upload $_FILES['file1'], simply give 'file1'
+    * @param array $ext Extension to restrict file type to
     * @param array $fileUploadResultsArray File Upload Array to check against for multiple file uploads
     * This is neccessary for multi file uploads. It serves two purposes:
     * 1) It checks that the same file is not uploaded twice.
     * 2) It adds the result of the file upload to that array.
     * @return array Result of the File Upload
     */
-    public function uploadFile($fileInputName, &$fileUploadResultsArray=NULL)
+    public function uploadFile($fileInputName, $ext=NULL, &$fileUploadResultsArray=NULL)
     {
         // First Check if array key exists
         if (array_key_exists($fileInputName, $_FILES)) {
@@ -110,12 +112,17 @@ class upload extends object
             return FALSE;
         }
         
+        if ($ext != NULL && !is_array($ext)) {
+            $ext = array($ext);
+        }
+        
         // Check if Second Parameter is an array
         if (is_array($fileUploadResultsArray)) {
             $doubleUpload = array_key_exists($file['name'], $fileUploadResultsArray);
         } else {
             $doubleUpload = FALSE;
         }
+        
         
         $fileInfoArray = array();
         
@@ -137,6 +144,11 @@ class upload extends object
                 $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'nouploadedfileprovided', 'errorcode'=>$file['error']);
                 $file['name'] = 'nofileprovided';
             }
+            
+        else if (is_array($ext) && !in_array($this->objFileParts->getExtension($file['name']), $ext)) {
+            $fileInfoArray  = array ('success'=>FALSE, 'reason'=>'doesnotmeetextension', 'name'=>$file['name'], 'size'=>$file['size'], 'mimetype'=>$file['type'], 'errorcode'=>$file['error']);
+        }
+            
             
 
         // Prepare to Move File to Location and add database entry

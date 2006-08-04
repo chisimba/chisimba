@@ -401,6 +401,7 @@ class dbfile extends dbTable
         } else {
             $objTable = $this->newObject('htmltable', 'htmlelements');
             $objTable->startRow();
+            $rowStarted = TRUE;
             
             $count = 0;
             
@@ -412,12 +413,21 @@ class dbfile extends dbTable
                 
                 if ($count % 2 == 0) {
                     $objTable->endRow();
+                    $rowStarted = FALSE;
                     if ((count($mediaInfoArray) - $count) != 0) {
                         $objTable->startRow();
+                        $rowStarted = TRUE;
                     }
                 }
                 
-                
+            }
+            
+            if ($rowStarted) {
+                if ($count % 2 == 1) {
+                    $objTable->addCell('&nbsp;', '25%');
+                    $objTable->addCell('&nbsp;', '25%');
+                }
+                $objTable->endRow();
             }
             
             return $objTable->show();
