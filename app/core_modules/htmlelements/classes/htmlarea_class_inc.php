@@ -93,6 +93,8 @@ class htmlarea extends object
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
         $this->context = $context;
+        $this->toolbarSet = 'advanced';
+        
     }
 
     /**
@@ -169,7 +171,7 @@ class htmlarea extends object
           */
     	
     	$str .=$this->getJavaScripts();
-    	$str .='<textarea id="elm1" name="'.$this->name.'" rows="15" cols="80" style="width: 100%">'.$this->value.'</textarea>';
+    	$str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
     	return   $str;
     }
     
@@ -178,14 +180,14 @@ class htmlarea extends object
     * meaning that only the basic commands are available of the editor
     */
     function setBasicToolBar(){
-        $this->toolbarSet = 'Basic';
+        $this->toolbarSet = 'simple';
     }
     
     /**
     * Method to toolbar set to default 
     */
     function setDefaultToolBarSet(){
-         $this->toolbarSet = 'Default';
+         $this->toolbarSet = 'simple';
     }
     
     /**
@@ -209,7 +211,7 @@ class htmlarea extends object
 				
 					tinyMCE.init({
 						mode : "textareas",
-						theme : "advanced",
+						theme : "'.$this->toolbarSet.'",
 						plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable",
 						theme_advanced_buttons1_add_before : "save,newdocument,separator",
 						theme_advanced_buttons1_add : "fontselect,fontsizeselect",
