@@ -147,7 +147,11 @@ class dbTable extends object
         	$table = $this->_tableName;
         }
     	$sql = "SELECT COUNT(*) AS fCount FROM $table WHERE $field='$value'";
-        $rs = $this->query($sql);
+        if($this->debug == TRUE)
+        {
+        	log_debug("$sql => $ret");
+        }
+    	$rs = $this->query($sql);
         if (!$rs) {
             $ret = false;
         } else {
@@ -158,10 +162,7 @@ class dbTable extends object
                 $ret = false;
             }
         }
-        if($this->debug == TRUE)
-        {
-        	log_debug("$sql => $ret");
-        }
+
         return $ret;
     }
 
@@ -425,11 +426,19 @@ class dbTable extends object
             $comma = ',';
         }
         $sql .= " WHERE {$pkfield}='{$pkvalue}'";
-        $ret = $this->_execute($sql, $params);
         if($this->debug == TRUE)
         {
         	log_debug($sql);
         }
+
+        if($this->_db->phptype == 'mysql')
+        {
+        	$ret = $this->_execute($sql, $params);
+        }
+        else {
+        	$ret = $this->_db->query($sql);
+        }
+
 
         return $ret;
     }
@@ -454,7 +463,13 @@ class dbTable extends object
         {
         	log_debug($sql);
         }
-        $ret = $this->_execute($sql);
+        if($this->_db->phptype == 'mysql')
+        {
+        	$ret = $this->_execute($sql, $params);
+        }
+        else {
+        	$ret = $this->_db->query($sql);
+        }
         return $ret;
     }
 
@@ -533,14 +548,15 @@ class dbTable extends object
     */
     public function query($stmt)
     {
-        $ret = $this->_db->queryAll($stmt);
-        if (PEAR::isError($ret)) {
-            $ret = false;
-        }
         if($this->debug == TRUE)
         {
         	log_debug($stmt);
         }
+    	$ret = $this->_db->queryAll($stmt);
+        if (PEAR::isError($ret)) {
+            $ret = false;
+        }
+
         return $ret;
     }
 
