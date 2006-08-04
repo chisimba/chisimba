@@ -134,5 +134,76 @@ class utilities extends object
     function getMapsFolder($contextCode=NULL){
         return $this->getContextFolder($contextCode).'maps/';
     }
+    
+    /**
+    * Method to get the context menu
+    * @return string
+    * @param void
+    * @access public
+    */
+    public function getContextMenu()
+    {
+    	
+    	
+    	
+    	try {
+			
+			//initiate the objects
+			$objSideBar = $this->newObject('sidebar', 'navigation');
+			
+			//get the contextCode
+			$this->objDBContext->getContextCode();	
+			
+			//create the nodes array
+			$nodes = array();
+			
+			//get the section id
+			$section = $this->getParam('id');
+			
+			//create the home for the context
+			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' Home ', 'uri' => 'http://localhost');
+						
+			
+			//get the registered modules for this context
+			$arrContextModules = array(array('moduleid' => 'forum', 'title' => 'Disussion Forum'), array('moduleid' => array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 'title' => 'Chat'), array('moduleid' => 'coursecontent', 'title' => 'Course Content'));
+			foreach($arrContextModules as $contextModule)
+			{
+					$nodes[] = array('text' =>$contextModule['title'], 'uri' => 'http://localhost',  'sectionid' => $contextModule['moduleid']);
+			}
+			/*
+			//start looping through the sections
+			foreach ($arrSections as $section)
+			{
+				
+				//add the sections
+		        if(($this->getParam('action') ==  'showsection') && ($this->getParam('id') == $section['id']) || $this->getParam('sectionid') == $section['id'])
+		        {
+		        	
+		        	$pagenodes = array();
+		        	$arrPages = $this->_objContent->getAll('WHERE sectionid = "'.$section['id'].'" AND published=1 ORDER BY ordering');
+		        	
+		        	foreach( $arrPages as $page)
+		        	{
+		        		$pagenodes[] = array('text' => $page['menutext'] , 'uri' =>$this->uri(array('action' => 'showfulltext', 'id' => $page['id'], 'sectionid' => $section['id']), 'cms'));
+		        		
+		        	}
+		        	
+		        	$nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id'], 'haschildren' => $pagenodes);
+		        	$pagenodes = null;
+		        	
+		        } else {
+		        	$nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id']);	
+		        }
+				
+			}
+			//add the admin link
+			$nodes[] = array('text' => 'Administration', 'uri' =>$this->uri(null, 'cmsadmin'));
+						*/
+			return $objSideBar->show($nodes, $this->getParam('id'));
+		}catch (Exception $e){
+       		echo 'Caught exception: ',  $e->getMessage();
+        	exit();
+        }
+    }
 } 
 ?>

@@ -201,10 +201,10 @@ class context extends controller
     public function dispatch(){
 
         //turn off the context for 5ive
-        return 'offline_tpl.php';
+        //return 'offline_tpl.php';
 
-        $this->checkAgreement();
-
+       // $this->checkAgreement();
+		$this->setLayoutTemplate('context_layout_tpl.php');
         $action = $this->getParam('action');
         switch($action){
             case NULL:

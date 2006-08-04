@@ -291,6 +291,24 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
 
     }
+    
+    /**
+    * Method to get the MenuText
+    * @param string $contextCode : The contextCode
+    * @return array
+    * @access public
+    */
+    public function getAbout($contextCode=NULL)
+    {
+        if(isset($contextCode))
+        {
+            $line=$this->getRow('about',$contextCode);
+            return $line["about"];
+        }else{
+            return $this->getSession('contextabout');
+        }
+
+    }
 
     /**
     *Methods to check if one

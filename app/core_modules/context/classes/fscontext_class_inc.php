@@ -31,7 +31,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
      function init()
      {
-         $this->objConfig=&$this->newObject('config','config');
+         $this->objConfig=&$this->newObject('altconfig','config');
          $this->objZip=&$this->newObject('zip','utilities');
      }
  
@@ -64,7 +64,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      function deleletContextFolder($contextCode)
      {
          //STILL NEED A DECISION ON BLOBS OR FILE SYSTEM
-         $this->objZip->deldir($this->objConfig->siteRootPath().'/usrfiles/content/'.$contextCode.'/');
+         $this->objZip->deldir($this->objConfig->getsiteRootPath().'/usrfiles/content/'.$contextCode.'/');
      }
      
      /**
@@ -95,7 +95,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     function makeFolder($folder,$contextCode=NULL)
     {   
-        $dir = $this->objConfig->siteRootPath().'/usrfiles/content';
+        $dir = $this->objConfig->getsiteRootPath().'/usrfiles/content';
         if (!(file_exists($dir))){
             $oldumask = umask(0);
             $ret = mkdir($dir, 0777);
@@ -103,9 +103,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
         
         if ($contextCode==''){
-            $dir = $this->objConfig->siteRootPath().'/usrfiles/content/'.$folder;
+            $dir = $this->objConfig->getsiteRootPath().'/usrfiles/content/'.$folder;
         } else {
-            $dir=$this->objConfig->siteRootPath().'/usrfiles/content/'.$contextCode.'/'.$folder;
+            $dir=$this->objConfig->getsiteRootPath().'/usrfiles/content/'.$contextCode.'/'.$folder;
         }
         if (!(file_exists($dir))){
             $oldumask = umask(0);

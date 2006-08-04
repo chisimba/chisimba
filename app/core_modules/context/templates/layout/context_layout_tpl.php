@@ -1,5 +1,5 @@
 <?php
-
+/*
 $headerParams=$this->getJavascriptFile('x.js','postlogin');
 $headerParams.="
 <script type=\"text/javascript\">        
@@ -50,5 +50,10 @@ $this->appendArrayVar('headerParams',$headerParams);
     
     echo ('</div><!-- End div contentHasLeftMenu -->');
     */
+
 echo $this->getContent(); 
+
+
+
+
 ?>

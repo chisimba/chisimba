@@ -16,6 +16,8 @@
     $this->loadClass('button','htmlelements');                    
     $editor=&$this->newObject('htmlarea','htmlelements');
     $table=& $this->newObject('htmltable','htmlelements');
+    $tabbedbox = & $this->newObject('multitabbedbox', 'htmlelements');
+    echo $tabbedbox->show();
     
     //setup form
     $objForm = $this->newObject('form','htmlelements');
@@ -38,7 +40,7 @@
     $table->startRow();
     $objElement = new textinput('title');     
     $objElement->size = '55';
-    $table->addCell($this->objLanguage->languageText("mod_contextadmin_title,'contextadmin'));
+    $table->addCell($this->objLanguage->languageText("mod_contextadmin_title",'contextadmin'));
     $table->addCell($objElement->show());
     $table->endRow();
     $objForm->addRule('title',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin','contextadmin'), 'required');
@@ -49,7 +51,7 @@
     $objElement = new textinput('menutext');
     $objElement->size = '55';
     $table->addCell($this->objLanguage->languageText("mod_contextadmin_menutext",'contextadmin'));
-    $table->addCell($objElement->show()."<br>");
+    $table->addCell($objElement->show()."<br/>");
     $table->endRow();
     $objForm->addRule('menutext',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin'), 'required');
     $objForm->addRule(array('name'=>'menutext','length'=>250),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length',array('length'=>'50'))),'maxlength');
@@ -68,7 +70,7 @@
     $objElement->setSelected('1');
     
     $table->addCell($this->objLanguage->languageText("mod_contextadmin_status",'contextadmin'));
-    $table->addCell($objElement->show().'<br>'. $tmp);
+    $table->addCell($objElement->show().'<br/>'. $tmp);
     $table->endRow();
     
     //about

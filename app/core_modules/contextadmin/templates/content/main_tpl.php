@@ -59,9 +59,9 @@ $objWrongIcon = & $this->newObject('geticon', 'htmlelements');
 $objConfIcon = $this->newObject('geticon', 'htmlelements');
 $objLink= &$this->newObject('link','htmlelements');
 
-$objRightIcon->setIcon('greentick');
+$objRightIcon->setIcon('ok' , 'png');
 $objRightIcon->alt = '';
-$objWrongIcon->setIcon('redcross');
+$objWrongIcon->setIcon('failed', 'png');
 $objWrongIcon->alt ='';
 
 //Create the table header for display
@@ -72,7 +72,8 @@ $rowcount = 0;
 if (isset($ar)) {
     if (count($ar) > 0) {
         foreach ($ar as $line) {
-            $oddOrEven = ($rowcount == 0) ? "odd" : "even";         
+            $oddOrEven = ($rowcount == 0) ? "odd" : "even";    
+                 
             $tableRow[]=strtoupper( $line['contextCode'] );
             $tableRow[]=strtoupper( $line['title'] );
             $tableRow[]=$line['dateCreated'];

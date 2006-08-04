@@ -1,5 +1,11 @@
 <?php
 
+
+$objFeatureBox = $this->newObject('featurebox', 'navigation');
+$objBlocks = & $this->newObject('blocks', 'blocks');
+$objLucene = & $this->newObject('results', 'lucene');
+$objContextUtils = & $this->newObject('utilities' , 'context');
+
 /**
 * Method that formats the date to DDMMYYY
 * @param string $date The date
@@ -25,7 +31,7 @@ function formatTime($time)
 
 		return ($time['hours'].':'.$time['minutes']);
 	}
-
+/*
 $headerParams=$this->getJavascriptFile('x.js','postlogin');
 $headerParams.="
 <script type=\"text/javascript\">
@@ -78,6 +84,7 @@ $this->loadClass('link', 'htmlelements');
 
 /*****Online User for Context*****/
 // --- Jonathan Abrahams 14 Febuary 2005 --- Online user counter
+/*
 $objOnlineCount = $this->getObject('onlinecount','contextgroups');
 
 $objOnlineCount->setContextGroup('Lecturers');
@@ -96,7 +103,7 @@ $onlineUsers=implode('<BR>',$arrOnline);
 
 
 
-
+/*
 
 //RIGHT
 $shift=$this->getParam('shift', 0);
@@ -157,7 +164,33 @@ $this->contentNav = &$this->newObject('layer','htmlelements');
 $this->contentNav->id = "content";
 $this->contentNav->addToStr($centre);
  echo $this->contentNav->show();
-
+*/
 // ???
 //echo "[$about]<br/>";
+
+$str = '<h1> Welcome to '. $this->objDBContext->getTitle() .'</h1>';
+$str .= '<p />'.$this->objDBContext->getAbout() .'<p/>';
+
+//context info
+
+$contextInfo .= 'Instructors: <br />'; 
+$contextInfo .= 'No. Registered Students: <br/>'; 
+$contextInfo .= 'Last Accessed: '; 
+$contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
+
+
+
+
+if(!$this->getParam('query') == '')
+{
+	
+	$searchResults = $objLucene->show($this->getParam('query'));
+}
+
+$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+       $cssLayout->setNumColumns(3);
+       $cssLayout->setLeftColumnContent($objContextUtils->getContextMenu());
+       $cssLayout->setMiddleColumnContent($str.	$this->footerStr);
+       $cssLayout->setRightColumnContent($contextInfo);
+       echo $cssLayout->show(); 
 ?>
