@@ -120,7 +120,7 @@ class uploadmessages extends object
                     $link->link = $this->objCleanUrl->processFileName($file['filename']);
                     
                     if ($file['category'] == 'temp') {
-                        $successMessage .= '<li><strong>'.$file['filename'].'</strong> '.$this->objLanguage->languageText('mod_filemanager_successfullyuploadedbutexists', 'filemanager', 'has been successfully uploaded, <span class="highlight">but a file with the same filename already exists.</span>').'</li>';
+                        $successMessage .= stripslashes(html_entity_decode('<li><strong>'.$file['filename'].'</strong> '.$this->objLanguage->languageText('mod_filemanager_successfullyuploadedbutexists', 'filemanager', 'has been successfully uploaded, <span class="highlight">but a file with the same filename already exists.</span>').'</li>'));
                     } else {
                         $successMessage .= '<li><strong>'.$link->show().'</strong> '.$this->objLanguage->languageText('mod_filemanager_successfullyuploaded', 'filemanager', 'has been successfully uploaded.').'</li>';
                     }

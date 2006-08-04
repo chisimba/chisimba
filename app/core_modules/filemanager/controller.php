@@ -217,6 +217,7 @@ class filemanager extends controller
         $resultInfo = '';
         $divider = '';
         
+        
 
         foreach ($listItem as $item)
         {
@@ -227,8 +228,8 @@ class filemanager extends controller
                 // $ext = str_replace('.', '_', $_POST['extension__'.$item]);
             // } else {
                 $option = $_POST[$item];
-                $rename = $_POST['rename__'.$item];
-                $ext = $_POST['extension__'.$item];
+                // $rename = $_POST['rename__'.$item];
+                // $ext = $_POST['extension__'.$item];
             //}
             
             $fileInfo = $this->objFiles->getFileInfo($item);
