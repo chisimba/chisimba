@@ -199,7 +199,8 @@ class dbTableManager extends object
 
         return FALSE;
     }//func
-/*
+
+    /*
     public function getTableXMLSchema($table)
     {
     	$option = 'dump';
@@ -216,10 +217,15 @@ class dbTableManager extends object
                 die($operation->getMessage() . ' ' . $operation->getUserInfo());
         }
 
-        $stringxml = file_get_contents('dumpfile.xml');
+        $thedoc = simplexml_load_file('dumpfile.xml');
+        //print_r($thedoc->table);
+        foreach($thedoc->table as $table)
+        {
+        	print_r($table);
+        }
 
         //unlink('dumpfile.xml');
-        var_dump($xmls);
+
 
 //var_dump($operation);
 //print_r($xml);
