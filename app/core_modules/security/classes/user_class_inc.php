@@ -487,11 +487,11 @@ class user extends dbTable
 			}
 		} else {
 			//look up third part numeric ID
-			$sql="SELECT CONCAT(firstname, ' ', surname) AS fullname FROM tbl_users WHERE userid='$userId'";
+			$sql="SELECT firstname, surname FROM tbl_users WHERE userid='$userId'";
 			$rs = $this->_execute($sql);
 			if ($rs) {
 				$row = $rs->fetchOne();
-				$result=$row['fullname'];
+				$result=$row['firstname'].' '.$row['surname'];
 			} else {
 				$result=$this->objLanguage->languageText("error_datanotfound");
 			}
