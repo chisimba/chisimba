@@ -1040,12 +1040,22 @@ class modulesadmin extends dbTableManager
     		$mtexts = array();
     		$filepath = $this->objModFile->findRegisterFile($modname);
     		$rdata = $this->objModFile->readRegisterFile($filepath,FALSE);
-    		$texts = $this->listTexts($rdata,'TEXT');
+    		$text = $this->listTexts($rdata,'TEXT');
     		$uses = $this->listTexts($rdata,'USES');
     		if ($uses) {
-    			$text = array_merge($texts,$uses);
-    		} else {
-    			$text = $texts;
+    			//$text = array_merge($texts,$uses);
+    			foreach ($uses as $code=>$data) {
+    				$isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
+    				$text_desc=$data['desc'];
+    				$text_val=$data['content'];
+    				if (($action=='fix')&&($isreg['flag']==0)) {
+    					$this->addText($code,$text_desc,$text_val,'system');
+    				}
+    				if ($action=='replace') {
+    					$this->addText($code,$text_desc,$text_val,'system');
+    				}
+    				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
+    			}
     		}
     		//$this->objModule->beginTransaction(); //Start a transaction;
     		if (is_array($text)) {

@@ -243,12 +243,12 @@ class modulecatalogue extends controller
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					log_debug('in controller - now trying firstreg..');
+					log_debug('modulecatalogue controller - registering core modules');
 					if (!$check){
 						$this->firstRegister();
 					}
 					// Show next installation step
-					log_debug('back in modcat controller after firstreg. try to redirect now');
+					log_debug('first time registration complete');
 					return $this->nextAction(null,null,'splashscreen');
 				case 'update':
 					$modname = $this->getParam('mod');
