@@ -146,7 +146,7 @@ class dbTable extends object
         if ($table == null) {
         	$table = $this->_tableName;
         }
-    	$sql = "SELECT COUNT(*) AS fCount FROM $table WHERE $field='$value'";
+    	$sql = "SELECT COUNT(*) AS fcount FROM $table WHERE $field='$value'";
         if($this->debug == TRUE)
         {
         	log_debug("$sql => $ret");
@@ -155,8 +155,7 @@ class dbTable extends object
         if (!$rs) {
             $ret = false;
         } else {
-
-            if ($rs['fCount'] > 0) {
+            if ($rs[0]['fcount'] > 0) {
                 $ret = true;
             } else {
                 $ret = false;
@@ -358,6 +357,10 @@ class dbTable extends object
         }
 		log_debug("dbtable insert into {$tablename}");
 	    log_debug($fields);
+        
+        $fieldnames = '';
+        $fieldValues = '';
+        $params = '';
 
 
         $comma = "";
@@ -456,6 +459,8 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
+        
+        $params = '';
 
         $sql = "DELETE FROM {$tablename} WHERE {$pkfield}='{$pkvalue}'";
 
