@@ -147,7 +147,7 @@ class dbTableManager extends object
      */
     public function getDefFromDb()
     {
-        $this->_dbmanager->getDefinitionFromDatabase();
+        return $this->_dbmanager->getDefinitionFromDatabase();
     }
 
     /**
@@ -420,6 +420,24 @@ class dbTableManager extends object
     {
     	$ret = $this->_db->mgListTableFields($table);
     	return $ret;
+    }
+
+    /**
+     * Method to get the schema definition of a single table
+     *
+     * @param string $table
+     * @return array
+     */
+    public function getTableSchema($table)
+    {
+    	$dbdef = $this->getDefFromDb();
+    	if(array_key_exists($table, $dbdef['tables']))
+    	{
+    		return $dbdef['tables'][$table];
+    	}
+    	else {
+    		return FALSE;
+    	}
     }
 
      /**
