@@ -155,7 +155,7 @@ class loggedInUsers extends dbTable
     {		
         $sql="DELETE FROM tbl_loggedinusers 
 		WHERE 
-			(('".$this->now()."'-WhenLastActive)/100) > '{$this->systemTimeOut}'
+			(('".$this->now()."'-whenlastactive)/100) > '{$this->systemTimeOut}'
 		";
 		$this->query($sql);
     }
