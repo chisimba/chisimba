@@ -36,7 +36,9 @@ if ($output!=null) {
 
 	}
 	$msg = &$this->getObject('timeoutmessage','htmlelements');
-	$msg->message = "<b>$module $old -> $ver</b><br/>";
+	$success = str_replace('[OLDVER]',"<b>$old</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
+	$success = str_replace('[NEWVER]',"<b>$ver</b>",$success);
+	$msg->message = "<b>$module</b> $success<br/>";
 	$tString = $msg->show();
 }
 if (!empty($patchArray)) {

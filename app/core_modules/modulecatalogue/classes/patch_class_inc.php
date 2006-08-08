@@ -126,7 +126,6 @@ class patch extends dbtable {
 					$verStr = str_replace('.','_',$update->version);
 					if ($ver>$oldversion) {
 						foreach ($update->data as $data) {
-							//$this->objModuleAdmin->alterTable($update->table,$data,false);
 							foreach ($data as $opKey => $opValue) {
 								$pData = array();
 								switch ($opKey) {
@@ -151,18 +150,61 @@ class patch extends dbtable {
 										$pData[$op] = array($strVal => array());
 										break;
 									case 'change':
+										$op = (string)$opKey;
+										$chArray = array();
+										$change = array();
+										foreach ($opValue as $name => $chData) {
+											foreach ($chData as $chKey => $chVal) {
+												$chKey = (string)$chKey;
+												if ($chKey == 'definition') {
+													$def = array();
+													foreach ($chVal as $inKey => $inVal) {
+														$inKey = (string)$inKey;
+														$def[$inKey] = (string)$inVal;
+													}
+													$chArray[$chKey] = $def;
+												} else {
+													$chArray[$chKey] = (string)$chVal;
+												}
+											}
+											$change[$name]=$chArray;
+											$pData[$op] = $change;
+										}
 										break;
 									case 'rename':
+										$op = (string)$opKey;
+										$chArray = array();
+										$change = array();
+										foreach ($opValue as $name => $chData) {
+											foreach ($chData as $chKey => $chVal) {
+												$chKey = (string)$chKey;
+												if ($chKey == 'definition') {
+													$def = array();
+													foreach ($chVal as $inKey => $inVal) {
+														$inKey = (string)$inKey;
+														$def[$inKey] = (string)$inVal;
+													}
+													$chArray[$chKey] = $def;
+												} else {
+													if ($chKey == 'name') {
+														$chArray[$chKey] = (string)$chVal;
+													}
+												}
+											}
+											$change[$name]=$chArray;
+											$pData[$op] = $change;
+										}
 										break;
 									default:
 										throw new customException('error in patch data');
 										break;
 								}
 
-								print_r($pData);
+								//print_r($pData);
+								$this->objModuleAdmin->alterTable($update->table,$pData,false);
 								$patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
 								'patchdata'=>$pData,'applied'=>$this->objModule->now());
-								//$this->objModule->insert($patch,'tbl_module_patches');
+								$this->objModule->insert($patch,'tbl_module_patches');
 							}
 						}
 					}
@@ -170,7 +212,7 @@ class patch extends dbtable {
 			}
 			//update version info in db
 			$regData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
-			//$this->objModuleAdmin->installModule($regData,TRUE);
+			$this->objModuleAdmin->installModule($regData,TRUE);
 			$result['current'] = $this->getVersion($modname);
 			$result['old'] = $oldversion;
 			// Now pass along the info to the template.

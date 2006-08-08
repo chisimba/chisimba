@@ -988,7 +988,7 @@ class modulesadmin extends dbTableManager
     			throw new customException("Null value for module name in addText for item $code|$description|$content");
     		}
     		//$this->objModules->beginTransaction();
-    		//$this->removeText($code);
+    		$this->removeText($code);
     		if (!$this->objModules->valueExists('id',$code,'tbl_en')) {
     			$code=addslashes($code);
     			$description=addslashes($description);
@@ -1052,6 +1052,9 @@ class modulesadmin extends dbTableManager
     					$this->addText($code,$text_desc,$text_val,'system');
     				}
     				if ($action=='replace') {
+    					//if ($this->objModules->valueExists('id',$code,'tbl_en')) {
+    					//	$this->removeText($code);
+    					//}
     					$this->addText($code,$text_desc,$text_val,'system');
     				}
     				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
@@ -1067,6 +1070,9 @@ class modulesadmin extends dbTableManager
     					$this->addText($code,$text_desc,$text_val,$modname);
     				}
     				if ($action=='replace') {
+    					//if ($this->objModules->valueExists('id',$code,'tbl_en')) {
+    					//	$this->removeText($code);
+    					//}
     					$this->addText($code,$text_desc,$text_val,$modname);
     				}
     				$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
