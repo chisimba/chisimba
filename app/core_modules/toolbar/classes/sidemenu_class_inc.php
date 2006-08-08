@@ -70,7 +70,7 @@ class sidemenu extends object
             $this->contextcode = $this->objContext->getcontextcode();
             $this->context = TRUE;
         }else{
-            $this->contextTitle = $this->objLanguage->languageText('word_inlobby','postlogin');
+            $this->contextTitle = $this->objLanguage->languageText('word_inlobby');
             $this->contextcode = '';
             $this->context = FALSE;
         }
@@ -327,10 +327,10 @@ class sidemenu extends object
         $objButton =& $this->newObject('button','htmlelements');
         $objDrop =& $this->newObject('dropdown','htmlelements');
 
-        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','postlogin',array('context'=>'course')));
+        $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','context',array('context'=>'course')));
         $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext','toolbar'));
         $go = $this->objLanguage->languageText('word_go','security');
-        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext','postlogin');
+        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext');
         $str = '';
 
         if($objModule->checkIfRegistered('context','context')){

@@ -193,8 +193,8 @@ class sitestories extends dbTable {
 
             if ($showAuthor) {
                 //Add the author and date
-                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby",'postlogin');
-                $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on",'postlogin');
+                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
+                $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
                 $ret.=" <b>".$dateCreated."</b>";
             }
 
