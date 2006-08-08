@@ -91,7 +91,7 @@ class language extends dbTable {
     * @param string $modulename : The module name that owns the string
     */
 
-    public function languageText($itemName,$modulename='language',$default = false)
+    public function languageText($itemName,$modulename='system',$default = false)
 
     {
     	try {
@@ -236,9 +236,9 @@ class language extends dbTable {
                 $objDropdown->addOption($key, $key);
             }
         }
-        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist",'security') . ":<br />\n");
+        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist") . ":<br />\n");
         $ret .= $objDropdown->show();
-        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go",'postlogin'), 'submit');
+        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go"), 'submit');
         $ret .= $button = $this->objButtons->setToSubmit();
         $ret = $objNewForm->addToForm($ret .= $button = $this->objButtons->show());
         $ret = $objNewForm->show();
