@@ -200,41 +200,24 @@ class dbTableManager extends object
         return FALSE;
     }//func
 
-    /*
-    public function getTableXMLSchema($table)
+    /**
+     * Method to get the schema definition of a single table
+     *
+     * @param string $table
+     * @return array
+     */
+    public function getTableSchema($table)
     {
-    	$option = 'dump';
-    	$dumptype = 'all';
-    	$dump_what = MDB2_SCHEMA_DUMP_STRUCTURE;
-    	//set the dump configuration
-    	$dump_config = array(
-                'output_mode' => 'file',
-                'output' => 'dumpfile.xml',
-            );
-        $definition = $this->_dbmanager->getDefinitionFromDatabase();
-        $operation = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
-        if (PEAR::isError($operation)) {
-                die($operation->getMessage() . ' ' . $operation->getUserInfo());
-        }
-
-        $thedoc = simplexml_load_file('dumpfile.xml');
-        //print_r($thedoc->table);
-        foreach($thedoc->table as $table)
+        $dbdef = $this->getDefFromDb();
+        if(array_key_exists($table, $dbdef['tables']))
         {
-        	print_r($table);
+                return $dbdef['tables'][$table];
         }
-
-        //unlink('dumpfile.xml');
-
-
-//var_dump($operation);
-//print_r($xml);
-die();
-        //now we parse the xml and get the table def that we are interested in...
-
-
+        else {
+                return FALSE;
+        }
     }
-*/
+
     /**
      * Method to get the debug strings from queries if neccessary
      *
@@ -252,7 +235,6 @@ die();
         }
         MDB2_defaultDebugOutput($db, $scope, $message);
     }
-
 
     /**
      * Method to create a table
@@ -455,24 +437,6 @@ die();
     {
     	$ret = $this->_db->mgListTableFields($table);
     	return $ret;
-    }
-
-    /**
-     * Method to get the schema definition of a single table
-     *
-     * @param string $table
-     * @return array
-     */
-    public function getTableSchema($table)
-    {
-    	$dbdef = $this->getDefFromDb();
-    	if(array_key_exists($table, $dbdef['tables']))
-    	{
-    		return $dbdef['tables'][$table];
-    	}
-    	else {
-    		return FALSE;
-    	}
     }
 
      /**
