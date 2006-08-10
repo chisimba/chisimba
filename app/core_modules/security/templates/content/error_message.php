@@ -28,7 +28,7 @@ $password->fldType = 'password';
 $table->addRow(array($passwordLabel->show()));
 $table->addRow(array($password->show()));
 
-if ($this->objConfig->useLDAP()) {
+if ($this->objConfig->getuseLDAP()) {
     $ldap = new checkbox('useLdap','yes');
     $ldapLabel = new label('Network Id', 'input_useLdap'); ///*********************************************************** Language Text Element
     $table->addRow(array($ldapLabel->show().' '.$ldap->show()));
@@ -55,46 +55,46 @@ $Header->type=1;
 $Header->cssClass = 'error';
 
 if ($this->getParam('message') == 'wrongpassword') {
-$Header->str=$this->objLanguage->languageText('mod_security_incorrectpassword', 'Incorrect Password');
+$Header->str=$this->objLanguage->languageText('mod_security_incorrectpassword','security');
 } else {
-    $Header->str=$this->objLanguage->languageText('mod_security_noaccount', 'Account doesn\'t exist!');
+    $Header->str=$this->objLanguage->languageText('mod_security_noaccount','security');
 }
 
 if ($this->getParam('message')=='no_ldap') {
-    $Header->str=$this->objLanguage->languageText('mod_security_no_ldap', 'Unable to connect to the LDAP server. Try again later.');
+    $Header->str=$this->objLanguage->languageText('mod_security_no_ldap');
 }
 
 $middleContent = $Header->show();
 
 if ($this->getParam('message') == 'wrongpassword') {
-    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_incorrectpasswordmessage');
+    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_incorrectpasswordmessage','security');
 } else {
-    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_noaccountmessage');
+    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_noaccountmessage','security');
 }
 
 if ($this->getParam('message')=='no_ldap') {
-    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_no_ldap', 'Unable to connect to the LDAP server. Try again later.');
+    $middleContent .= '<p>'.$this->objLanguage->languageText('mod_security_no_ldap','security');
 }
 
-$middleContent .=' '.$this->objLanguage->languageText('mod_security_emailsysadmin');
+$middleContent .=' '.$this->objLanguage->languageText('mod_security_emailsysadmin','security');
 
-$sysAdminEmail = new link ('mailto:'.$objConfig->siteEmail());
-$sysAdminEmail->link = $objConfig->siteEmail();
+$sysAdminEmail = new link ('mailto:'.$objConfig->getsiteEmail());
+$sysAdminEmail->link = $objConfig->getsiteEmail();
 
 $middleContent .= ' ('.$sysAdminEmail->show().'). </p>';
 
 $newPasswordLink = new link ($this->uri(array('action'=>'needpassword'), 'useradmin'));
-$newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'Request New Password');
+$newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword','security');
 
 $registerLink = new link ($this->uri(array('action'=>'register'), 'useradmin'));
-$registerLink->link = $this->objLanguage->languageText('word_register', 'Register');
+$registerLink->link = $this->objLanguage->languageText('word_register');
 
 $backHomeLink = new link ($this->uri(NULL, '_default'));
-$backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', 'Back to Home Page');
+$backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage','security');
 
 if ($this->getParam('message') == 'wrongpassword') {
     $middleContent .= $newPasswordLink->show().' / ';
-} else if ($this->objConfig->allowSelfRegister()) {
+} else if ($this->objConfig->getallowSelfRegister()) {
     $middleContent .= $registerLink->show().' / ';
 }
 

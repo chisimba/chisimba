@@ -30,7 +30,7 @@
     if (isset($change_error))
     {
         $objTblclass->startRow();
-        $objTblclass->addCell($objLanguage->languageText($change_error), "", NULL, 'center', 'heading', 'colspan=3');
+        $objTblclass->addCell($objLanguage->languageText($change_error,'useradmin'), "", NULL, 'center', 'heading', 'colspan=3');
         $objTblclass->endRow();
     }
 

@@ -231,7 +231,7 @@
 	        $objHref=new href(
 				$this->uri(
 					array(
-						'action'=>'adminchangepassword',
+						'action'=>'changepassword',
 						'userId'=>$userDetails['userid'],
 						'username'=>$userDetails['username']
 					),'useradmin'

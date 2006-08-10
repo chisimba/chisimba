@@ -1,5 +1,6 @@
 <?php
 // Table Name
+
 $tablename = 'tbl_userloginhistory';
 
 //Options line for comments, encoding and character set

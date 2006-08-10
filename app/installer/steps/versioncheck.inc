@@ -112,11 +112,11 @@ class PHPCheckAction extends StepAction
 
 	* The minumum version that 5ive will install on.
 
-	* @var type
+	* @var $min_version as string
 
 	*/
 
-	var $min_version = '5.1.2';
+	public $min_version = '5.1.4';
 
 
 
@@ -130,7 +130,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	var $required_settings = Array(	'PHP' => Array('version'=>'5.1.2', 'available'=>true, 'message'=> ''),
+	public $required_settings = Array(	'PHP' => Array('version'=>'5.1.4', 'available'=>true, 'message'=> ''),
 
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -630,7 +630,7 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'2.0.0','available'=>false,'message' => ''),
+									'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
 
 									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 
@@ -859,7 +859,7 @@ class PEARCheckAction extends StepAction
 
 						$this->required_packages[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the minumum requirements';
+						$this->errors[] = 'Your version of '.$package_name.' meets minimum requirements';
 
 
 

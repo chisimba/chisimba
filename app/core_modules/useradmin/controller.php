@@ -136,11 +136,7 @@ class useradmin extends controller
 		        return 'changepassword_tpl.php';
 			case 'changepasswordapply':
                 return $this->changePassword($this->getParam('userId'));
-			/*
-            case 'adminchangepassword':
-                $this->rvalue=$this->adminChangePassword($this->getParam('userId'));
-                break;
-			*/
+						
             case 'resetpassword':
                 $this->message=$this->resetPassword($this->getParam('username'),$this->getParam('email'));
                 return 'ok_tpl.php';
@@ -398,11 +394,13 @@ class useradmin extends controller
         $data['emailaddress']=$this->getParam('email');
         $data['sex']=$this->getParam('sex');
         $data['country']=$this->getParam('country');
+        $data['accesslevel']= 0;
+        $data['isActive']= true;
+               
         $result=$this->objUserAdmin->insert($data);
         if (!$result) 
         { 
             $this->rstatus="changes_failed";
-            //$this->rvalue='error_tpl.php'; 
             $this->rvalue='useradd_tpl.php'; 
         }
         else

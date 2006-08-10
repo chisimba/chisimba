@@ -38,7 +38,7 @@ $fields = array(
         'length' => 50,
 
 		),
-    'PASS' => array(
+    'pass' => array(
 		'type' => 'text',
         'length' => 100,
 

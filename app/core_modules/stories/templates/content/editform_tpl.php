@@ -34,7 +34,7 @@ $saveButton = $this->objButtons->putSaveButton();
 $action=$this->getParam('action', Null);
 
 //The name of the site
-$site = $this->objConfig->siteName();
+$site = $this->objConfig->getsiteName();
 $rep = array('sitename' => $site);
 
 //Set the title

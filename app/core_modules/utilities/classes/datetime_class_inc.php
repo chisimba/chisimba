@@ -426,7 +426,7 @@ class datetime extends object
         //If a notification date has not been set or its more than 24 hrs old
         if ( $notificationDate==NULL || $notificationDate =="0000-00-00 00:00:00" || $chk > 86400) {
             //Establish the mail subject
-            $rep=array('kng' => $this->objConfig->siteName());
+            $rep=array('kng' => $this->objConfig->getsiteName());
             $subject = $this->objLanguage->code2Txt('mod_datetime_contentexpired', $rep);
             $mailBody = $title . "\n\n\n". $body;
             $objMail = & $this->getObject('kngmail', 'email');

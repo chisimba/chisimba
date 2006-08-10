@@ -9,6 +9,7 @@
 */
 
 require_once 'Translation2.php';
+require_once 'I18Nv2.php';
 define('TABLE_PREFIX', 'tbl_');
 
 /**
@@ -42,13 +43,25 @@ class languageConfig extends object
      * @var string
     */
     public $_errorCallback;
+    /**
+     * Config object
+     *
+     * @var objConfig
+     */
+    public $objConfig =  null;
     
 	/**
      * Constructor for the languageConf class.
      *
     */
 		
-	public function init(){}
+	public function init(){
+		
+		//set first time run Locale 
+		 $this->objConfig = &$this->getObject('altconfig','config');
+    	 $lan = $this->objConfig->getdefaultLanguage();
+		 I18Nv2::setLocale("{$lan}");
+	}
 	/**
      * Setup for the languageConf class.
      * tell Translation2 about our db-tables structure,
@@ -100,7 +113,7 @@ class languageConfig extends object
 			// add a memory-based cache decorator, to do some basic prefetching and
 			// reduce the load on the db
 			$this->lang = & $this->lang->getDecorator('CacheMemory');
-			//$this->lang = & $this->lang->getDecorator('CacheLiteFunction');
+			$this->lang = & $this->lang->getDecorator('CacheLiteFunction');
 			$this->lang->setOption('cacheDir', 'cache/');
 			$this->lang->setOption('lifeTime', 3600*24);
 			// add a special chars decorator to replace special characters with the html entity
@@ -129,8 +142,7 @@ class languageConfig extends object
     */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'languageConfig_class_inc.php');
-        return $this->_errorCallback;
+    	echo customException::cleanUp($exception);
     }
 	
 		

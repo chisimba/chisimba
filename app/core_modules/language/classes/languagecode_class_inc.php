@@ -143,6 +143,7 @@ class languagecode extends object
     		
 		// set a selected entry
 		$language = strtoupper($this->objConfig->getCountry());
+		$this->objselect->attributes['select']['name'] = 'country';
 		$this->objselect->selected["{$language}"] = true;
 		
 		// print a HTML safe select box
@@ -152,7 +153,7 @@ class languagecode extends object
     public function dec_country()
     {
     	// set some attributes
-		$this->objselect->attributes['select']['name'] = 'CountrySelect';
+		$this->objselect->attributes['select']['name'] = 'country';
 		$this->objselect->attributes['select']['onchange'] = 'this.form.submit()';
 		
 		// set a selected entry

@@ -33,7 +33,7 @@ class stories extends controller
         $this->objUser = & $this->getObject('user', 'security');
         $this->objLanguage = & $this->getObject('language', 'language');
         // Create the configuration object
-        $this->objConfig = & $this->getObject('config', 'config');
+        $this->objConfig = & $this->getObject('altconfig', 'config');
         // Create an instance of the database language class
         $this->objDbStories = & $this->getObject('dbstories');
         // Create an instance of the interface supporting class

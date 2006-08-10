@@ -23,7 +23,7 @@ class useradmin_model extends dbtable
     * @param array $info data for new user
     * @returns string $id the PKID of the new login
     */
-	/*
+	
     function addUser($info)
     {
         $sdata['userId']=$info['userId'];
@@ -42,14 +42,14 @@ class useradmin_model extends dbtable
         $id=$this->insert($sdata);
         return $id;
     }
-	*/
+	
 
     /**
     * Method to create a user account from getParam()
     * @param string $userId
     * @returns string $id
     */
-	/*
+	
     function createUserAccount($userId,$howcreated='selfregister')
     {
         $password=$this->getParam('password');
@@ -76,7 +76,7 @@ class useradmin_model extends dbtable
         $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailAddress'], $password);
         return $id;
     }
-	*/
+	
 
     /**
     * Method to edit a user account using info from getParam()

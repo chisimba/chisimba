@@ -124,6 +124,7 @@ class language extends dbTable {
 
  		        if (strcmp($line,$itemName)) {
                 	$found = true;
+                	
 		        } else {
 		        	$found = false;
 		        }

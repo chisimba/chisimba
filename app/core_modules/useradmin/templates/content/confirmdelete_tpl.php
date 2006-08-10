@@ -18,7 +18,7 @@
     $yesfield="<form name='useryes' action='$yeslink' method='POST'>\n<input type=submit name='userconfirm' class='button' value='$yesbutton'>\n</form>\n";
     $nofield="<form name='userno' action='$nolink' method='POST'>\n<input type=submit name='userconfirm' class='button' value='$nobutton'>\n</form>\n";
     
-    $checktext=$objLanguage->languageText('delete_user_confirm','Are you sure you want to delete all details for {USER}?');
+    $checktext=$objLanguage->languageText('delete_user_confirm','useradmin');
     $checktext=str_replace('{USER}',$this->userdata['firstName']." ".$this->userdata['surname'],$checktext);
     
     $objTblclass->startRow();

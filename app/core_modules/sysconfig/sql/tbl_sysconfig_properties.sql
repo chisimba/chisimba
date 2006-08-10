@@ -16,20 +16,20 @@ $fields = array(
 	'pmodule' => array(
 		'type' => 'text',
 		'length' => 25,
-
-
+        'notnull' => TRUE,
+        'default' => 'unknown'
 		),
     'pname' => array(
 		'type' => 'text',
         'length' => 32,
-
-
+        'notnull' => TRUE,
+        'default' => 'novalue'
 		),
     'pvalue' => array(
 		'type' => 'text',
         'length' => 32,
-
-
+        'notnull' => TRUE,
+        'default' => 'unknown'
 		),
     'creatorId' => array(
 		'type' => 'text',
