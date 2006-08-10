@@ -213,7 +213,7 @@ class catalogueconfig extends object {
     {
     	try {
 
-				$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+				$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
 
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){
@@ -246,7 +246,7 @@ class catalogueconfig extends object {
     {
     	try {
 
-				$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+				$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
 
 				$xml = simplexml_load_file($this->_path);
 				$query = "//module[contains(module_id,'$str') or contains(module_description,'$str')]/module_id";
@@ -275,7 +275,7 @@ class catalogueconfig extends object {
      */
     public function getModuleDescription($modname) {
     	try {
-    		$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+    		$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
     		$xml = simplexml_load_file($this->_path);
     		$query = "//module[module_id='$modname']/module_description";
     		$entries = $xml->xpath($query);

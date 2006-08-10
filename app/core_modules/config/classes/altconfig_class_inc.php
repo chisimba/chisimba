@@ -311,7 +311,7 @@ class altconfig extends object
     */
     public function getSiteName()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -329,7 +329,7 @@ class altconfig extends object
     */
     public function setSiteName($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //return $this->getValue("sitename");
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -347,7 +347,7 @@ class altconfig extends object
     */
     public function getinstitutionShortName()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -365,7 +365,7 @@ class altconfig extends object
     */
     public function setinstitutionShortName($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SITENAME");
@@ -383,7 +383,7 @@ class altconfig extends object
     */
     public function getinstitutionName()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
     	//Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -401,7 +401,7 @@ class altconfig extends object
     */
     public function setinstitutionName($value)
     {
-       if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+       if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_INSTITUTION_NAME");
@@ -419,7 +419,7 @@ class altconfig extends object
     */
     public function getsiteEmail()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -437,7 +437,7 @@ class altconfig extends object
     */
     public function setsiteEmail($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SITEEMAIL");
@@ -455,7 +455,7 @@ class altconfig extends object
     */
     public function getsystemTimeout()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -474,7 +474,7 @@ class altconfig extends object
     */
     public function setsystemTimeout($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SYSTEMTIMEOUT");
@@ -491,7 +491,7 @@ class altconfig extends object
      */
     public function getPrelogin()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -508,7 +508,7 @@ class altconfig extends object
      */
     public function setPrelogin()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_PRELOGIN_MODULE");
@@ -525,7 +525,7 @@ class altconfig extends object
     */
     public function getsiteRoot()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
     	//Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -543,7 +543,7 @@ class altconfig extends object
     */
     public function setsiteRoot($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SITE_ROOT");
@@ -562,7 +562,7 @@ class altconfig extends object
     */
     public function getdefaultSkin()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -580,7 +580,7 @@ class altconfig extends object
     */
     public function setdefaultSkin($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_SKIN");
@@ -598,7 +598,7 @@ class altconfig extends object
     */
     public function getskinRoot()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -617,7 +617,7 @@ class altconfig extends object
     */
     public function setskinRoot($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -635,7 +635,7 @@ class altconfig extends object
     */
     public function getdefaultLanguage()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -653,7 +653,7 @@ class altconfig extends object
     */
     public function setdefaultLanguage($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_LANGUAGE");
@@ -670,7 +670,7 @@ class altconfig extends object
     */
     public function getdefaultLanguageAbbrev()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
          //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -688,7 +688,7 @@ class altconfig extends object
     */
     public function setdefaultLanguageAbbrev($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_LANGUAGE_ABBREV");
@@ -705,7 +705,7 @@ class altconfig extends object
     */
     public function getbannerExtension()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
          //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -723,7 +723,8 @@ class altconfig extends object
     */
     public function setbannerExtension($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))
+    		$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_BANNER_EXT");
@@ -740,7 +741,8 @@ class altconfig extends object
     */
     public function getsiteRootPath()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))
+    		$this->_root= &$this->readConfig('','XML');
          //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -758,7 +760,7 @@ class altconfig extends object
     */
     public function setsiteRootPath($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SITEROOT_PATH");
@@ -776,7 +778,7 @@ class altconfig extends object
     */
     public function getdefaultLayoutTemplate()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         //Lets get the parent node section first
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
@@ -795,7 +797,7 @@ class altconfig extends object
     */
     public function setdefaultLayoutTemplate($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
         $Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_LAYOUT_TEMPLATE");
@@ -812,7 +814,7 @@ class altconfig extends object
     */
     public function getdefaultPageTemplate()
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
 
         // Check if Parameter is set
         if ($this->checkIfSet('KEWL_DEFAULT_PAGE_TEMPLATE')) {
@@ -855,7 +857,7 @@ class altconfig extends object
     */
     public function setdefaultPageTemplate($value)
     {
-    	if(!is_object($this->_root))if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
     	$Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_PAGE_TEMPLATE");
