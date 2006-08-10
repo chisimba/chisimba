@@ -292,7 +292,9 @@ class useradmin extends controller
 	        'howcreated'=>'selfregister', 
 	        'emailaddress'=>$email, 
 	        'sex'=>$sex, 
-	        'country'=>$country
+	        'country'=>$country,
+	        ' accesslevel'=>0,
+	        ' isActive'=>TRUE,
 	        );
         $this->objUserAdmin->insert($data);
         $this->setVar('newdata',$data);
