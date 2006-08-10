@@ -1,18 +1,26 @@
 <?php
 $this->loadClass('link','htmlelements');
+$this->loadClass('textinput','htmlelements');
 $objCheck=&$this->newObject('checkbox','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
 $notice = $top = $bot = '';
-$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
+if (!isset($result)) {
+	$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
+} else {
+	$modules = $result;
+}
+/*var_dump($result);
+echo "<br/><br/><br/>";
+var_dump ($modules);*/
 $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 $objTable->cellspacing = 3;
 $objTable->width='100%';
-$icon->setIcon('installable','jpg');
+/*$icon->setIcon('installable','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue');
 $instbl = $icon->show();
 $icon->setIcon('installed','jpg');
@@ -20,14 +28,18 @@ $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_isreg','modul
 $instld = $icon->show();
 $icon->setIcon('run','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue');
-$rnnbl = $icon->show();
+$rnnbl = $icon->show();*/
 
-$head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),$instbl,
-			$rnnbl,$instld,$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
+$head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
+			$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),
+			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
+			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
 
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
+//var_dump($result);
+//var_dump($modules);
 if ($modules) {
 	natsort($modules);
 	$objTable->addHeader($head,'heading','align="left"');
@@ -64,9 +76,9 @@ if ($modules) {
 	$bottomTable->addCell($batchAction,null,null,'right',null);
 	$bottomTable->endRow();
 	$bot = $bottomTable->show();
-	foreach ($modules as $modName ) {
+	foreach ($modules as $modName) {
 		if (in_array($modName,$localModules)){//dont display downloadable modules until that functionality is complete
-		$isRegistered = $hasController = $hasRegFile = '';
+		//$isRegistered = $hasController = $hasRegFile = '';
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
@@ -75,17 +87,23 @@ if ($modules) {
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
 		$ucMod = ucwords($modName);
+		$desc = $this->objCatalogueConfig->getModuleDescription($modName);
+		if (!$desc) {
+			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
+		} else {
+			$desc = (string)$desc[0];
+		}
 		$link = $ucMod;
 		$icon->setModuleIcon($modName);
-		$icon->alt = $mod['description'];
+		$icon->alt = $modname;
 		$objCheck->checkbox('arrayList[]');
         $objCheck->setValue($modName);
-        if ($this->objModFile->findController($modName)) {
-        	$icon->setIcon('ok','png');
-        } else {
-        	$icon->setIcon('failed','png');
-        }
-        $hasController = $icon->show();
+        //if ($this->objModFile->findController($modName)) {
+        //	$icon->setIcon('ok','png');
+        //} else {
+        //	$icon->setIcon('failed','png');
+        //}
+        //$hasController = $icon->show();
 		if (!in_array($modName,$localModules)){ //module available on server but not locally
 			$instButton = &new Link($this->uri(array('action'=>'download','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 			$instButton->link = $this->objLanguage->languageText('word_download');
@@ -97,8 +115,8 @@ if ($modules) {
 			if ($this->objModFile->findRegisterFile($modName)) {//has regfile
 				$texts = $textButton->show();
 				$info = $infoButton->show();
-				$icon->setIcon('ok','png');
-				$hasRegFile = $icon->show();
+			//	$icon->setIcon('ok','png');
+			//	$hasRegFile = $icon->show();
 				if (!$this->objModule->checkIfRegistered($modName, $modName)) { //not registered
 					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 					$instButton->link = $this->objLanguage->languageText('word_install');
@@ -108,8 +126,8 @@ if ($modules) {
 					} else {
 						$checkBox='';
 					}
-					$icon->setIcon('failed','png');
-					$isRegistered = $icon->show();
+					//$icon->setIcon('failed','png');
+					//$isRegistered = $icon->show();
 				} else {//registered
 					if ($this->objModFile->findController($modName)) {
 						$link = "<a href='{$this->uri(null,$modName)}'>$ucMod</a>";
@@ -122,16 +140,16 @@ if ($modules) {
 					} else {
 						$checkBox='';
 					}
-					$icon->setIcon('ok','png');
-					$isRegistered = $icon->show();
+					//$icon->setIcon('ok','png');
+					//$isRegistered = $icon->show();
 				}
 			} else { //no regfile
 				$texts = '';
 				$info = '';
 				$instButtonShow = '';
 				$checkBox='';
-				$icon->setIcon('failed','png');
-				$hasRegFile = $icon->show();
+				//$icon->setIcon('failed','png');
+				//$hasRegFile = $icon->show();
 
 			}
 		}
@@ -141,9 +159,10 @@ if ($modules) {
 		$objTable->addCell($checkBox,null,null,'left',$class);
 		$objTable->addCell($icon->show(),null,null,'left',$class);
 		$objTable->addCell($link,null,null,'left',$class);
-		$objTable->addCell($hasRegFile,null,null,'left',$class);
-		$objTable->addCell($hasController,null,null,'left',$class);
-		$objTable->addCell($isRegistered,null,null,'left',$class);
+		$objTable->addCell($desc,null,null,'left',$class);
+		//$objTable->addCell($hasRegFile,null,null,'left',$class);
+		//$objTable->addCell($hasController,null,null,'left',$class);
+		//$objTable->addCell($isRegistered,null,null,'left',$class);
 		$objTable->addCell($instButtonShow,null,null,'left',$class);
 		$objTable->addCell($texts,null,null,'left',$class);
 		$objTable->addCell($info,null,null,'left',$class);
@@ -162,14 +181,29 @@ if (($output=$this->getSession('output'))!=null) {
 	$this->unsetSession('output');
 }
 
-$objForm = new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
+$searchForm = &new form('searchform',$this->uri(array('action'=>'search'),'modulecatalogue'));
+$searchForm->displayType = 3;
+$srchStr = &new textinput('srchstr',null,null,'15');
+$srchButton = &new button('search');
+$srchButton->setValue($this->objLanguage->languageText('word_search'));
+$srchButton->setToSubmit();
+$srchStr = $srchStr->show().$srchButton->show();
+$searchForm->addToForm($srchStr);
+
+$objForm = &new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
 $objForm->displayType = 3;
-$objForm->addToForm($objH->show());
 $objForm->addToForm($notice);
 $objForm->addToForm($top);
 $objForm->addToForm($objTable->show());
 $objForm->addToForm($bot);
-echo $objForm->show();
+
+$hTable = $this->newObject('htmltable','htmlelements');
+$hTable->startRow();
+$hTable->addCell($objH->show(),null,null,'left');
+$hTable->addCell($searchForm->show(),nul,null,'right');
+$hTable->endRow();
+
+echo $hTable->show().$objForm->show();
 //$content = $objH->show().$notice.$topTable->show().$objTable->show().$bottomTable->show();
 //echo $content;
 ?>

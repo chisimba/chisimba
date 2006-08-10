@@ -259,6 +259,25 @@ class modulecatalogue extends controller
                 	return 'updates_tpl.php';
 				case 'makepatch':
 					return 'makepatch_tpl.php';
+				case 'search':
+					$str = $this->getParam('srchstr');
+					$result = $this->objCatalogueConfig->searchModuleList($str);
+					//$nameRes = $this->objModule->getAll("WHERE module_id LIKE '%$str%'");
+					//$desRes = $this->objModule->getAll("WHERE module_description LIKE '%$str%'");
+
+					//if ($desRes != null) {
+					//	if ($nameRes != null) {
+					//		$result = array_merge($nameRes,$desRes);
+					//	} else {
+					//		$result = $desRes;
+					//	}
+					//} else {
+					//	if ($nameRes != null) {
+					//		$result = $nameRes;
+					//	}
+					//}
+					$this->setVar('result',$result);
+					return 'front_tpl.php';
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;

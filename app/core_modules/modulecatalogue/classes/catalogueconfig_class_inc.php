@@ -166,6 +166,7 @@ class catalogueconfig extends object {
     		$xmlStr .= "		<module_id>{$reg['MODULE_ID']}</module_id>
     	<module_authors>{$reg['MODULE_AUTHORS']}</module_authors>
         <module_releasedate>{$reg['MODULE_RELEASEDATE']}</module_releasedate>
+        <module_description>{$reg['MODULE_DESCRIPTION']}</module_description>
         <module_version>{$reg['MODULE_VERSION']}</module_version>\n";
     			if (is_array($reg['MODULE_CATEGORY'])) {
     				foreach ($reg['MODULE_CATEGORY'] as $cat) {
@@ -235,6 +236,61 @@ class catalogueconfig extends object {
     	}
     } #function insertParam
 
+     /**
+    * Method to get modulelist for catalogue categories.
+    *
+    * @var string $pname The name of the parameter being set
+    * @return  $value
+    */
+    public function searchModulelist($str)
+    {
+    	try {
+
+				$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+
+				$xml = simplexml_load_file($this->_path);
+				$query = "//module[contains(module_id,'$str') or contains(module_description,'$str')]/module_id";
+				$entries = $xml->xpath($query);
+
+        		if (!$entries) {
+        			return FALSE;
+        		}else{
+       			$value = $entries;
+       				return $value;
+        		}
+
+    	} catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+    	}
+    }
+
+
+    /**
+     * Method to get module description from the catalogue
+     *
+     * @author Nic Appleby
+     * @param string $modname module name
+     * @return string module description|FALSE if none exists
+     */
+    public function getModuleDescription($modname) {
+    	try {
+    		$this->_path = $this->objConfig->getsiteRoot()."modules/modulecatalogue/resources/catalogue.xml";
+    		$xml = simplexml_load_file($this->_path);
+    		$query = "//module[module_id='$modname']/module_description";
+    		$entries = $xml->xpath($query);
+
+    		if (!$entries) {
+    			return FALSE;
+    		} else {
+    			return $entries;
+    		}
+    	} catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+
     /**
     * Method to get a system configuration parameter.
     *
@@ -247,9 +303,9 @@ class catalogueconfig extends object {
     	try {
 
                	//Read conf
-    			if (!isset($this->_root)) {
+    			//if (!isset($this->_root)) {
     				$this->readCatalogue('XML');
-    			}
+    			//}
     			//Lets get the parent node section first
 
         		$Settings =& $this->_root->getItem("section", "settings");
