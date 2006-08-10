@@ -261,7 +261,8 @@ class modulecatalogue extends controller
 					return 'makepatch_tpl.php';
 				case 'search':
 					$str = $this->getParam('srchstr');
-					$result = $this->objCatalogueConfig->searchModuleList($str);
+					$type = $this->getParam('srchtype');
+					$result = $this->objCatalogueConfig->searchModuleList($str,$type);
 					//$nameRes = $this->objModule->getAll("WHERE module_id LIKE '%$str%'");
 					//$desRes = $this->objModule->getAll("WHERE module_description LIKE '%$str%'");
 

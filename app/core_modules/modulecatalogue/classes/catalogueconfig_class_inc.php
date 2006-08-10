@@ -240,16 +240,26 @@ class catalogueconfig extends object {
     * Method to get modulelist for catalogue categories.
     *
     * @var string $pname The name of the parameter being set
+    * @var string $type either search module_id,description or both
     * @return  $value
     */
-    public function searchModulelist($str)
+    public function searchModulelist($str,$type)
     {
     	try {
-
 				$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
-
+				//echo "$str $type<br/>";
 				$xml = simplexml_load_file($this->_path);
-				$query = "//module[contains(module_id,'$str') or contains(module_description,'$str')]/module_id";
+				switch ($type) {
+					case 'name':
+						$query = "//module[contains(module_id,'$str')]/module_id";
+						break;
+					case 'description':
+						$query = "//module[contains(module_description,'$str')]/module_id";
+						break;
+					default:
+						$query = "//module[contains(module_id,'$str') or contains(module_description,'$str')]/module_id";
+						break;
+				}
 				$entries = $xml->xpath($query);
 
         		if (!$entries) {

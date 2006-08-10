@@ -1,6 +1,8 @@
 <?php
 $this->loadClass('link','htmlelements');
 $this->loadClass('textinput','htmlelements');
+$this->loadClass('dropdown','htmlelements');
+
 $objCheck=&$this->newObject('checkbox','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
@@ -181,14 +183,18 @@ if (($output=$this->getSession('output'))!=null) {
 	$this->unsetSession('output');
 }
 
-$searchForm = &new form('searchform',$this->uri(array('action'=>'search'),'modulecatalogue'));
+$searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
 $searchForm->displayType = 3;
-$srchStr = &new textinput('srchstr',null,null,'15');
+$srchStr = &new textinput('srchstr',$this->getParam('srchstr'),null,'21');
 $srchButton = &new button('search');
 $srchButton->setValue($this->objLanguage->languageText('word_search'));
 $srchButton->setToSubmit();
-$srchStr = $srchStr->show().$srchButton->show();
-$searchForm->addToForm($srchStr);
+$srchType = &new dropdown('srchtype');
+$srchType->addOption('name',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'));
+$srchType->addOption('description',$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'));
+$srchType->addOption('both',$this->objLanguage->languageText('word_all'));
+$srchType->setSelected($this->getParam('srchtype'));
+$srch = $srchType->show().$srchButton->show();
 
 $objForm = &new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
 $objForm->displayType = 3;
@@ -200,10 +206,16 @@ $objForm->addToForm($bot);
 $hTable = $this->newObject('htmltable','htmlelements');
 $hTable->startRow();
 $hTable->addCell($objH->show(),null,null,'left');
-$hTable->addCell($searchForm->show(),nul,null,'right');
+$hTable->addCell($srchStr->show(),nul,null,'right');
 $hTable->endRow();
+$hTable->startRow();
+$hTable->addCell(null,null,null,'left');
+$hTable->addCell($srch,nul,null,'right');
+$hTable->endRow();
+$searchForm->addToForm($hTable->show());
 
-echo $hTable->show().$objForm->show();
+
+echo $searchForm->show().$objForm->show();
 //$content = $objH->show().$notice.$topTable->show().$objTable->show().$bottomTable->show();
 //echo $content;
 ?>
