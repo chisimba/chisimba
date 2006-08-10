@@ -28,7 +28,38 @@ class languagecode extends object
     /**
     * @var array $iso_639_2_tags contains an associative array of all the alpha2 languages
     */
-    var $iso_639_2_tags = array();
+    public $iso_639_2_tags = array();
+    /**
+     * country object
+     *
+     * @var objcountry
+     */
+    public $objcountry;
+    /**
+     * Pear decorator object
+     *
+     * @var objentity
+     */
+    public $objentity;
+    /**
+     * Pear dropdown select
+     *
+     * @var objselect
+     */
+    public $objselect;
+    /**
+     * Default language locale
+     *
+     * @var unknown_type
+     */
+    public $lan;
+    /**
+     * The global error callback for altconfig errors
+     *
+     * @access public
+     * @var string
+    */
+    private $_errorCallback;
     
     /**
     * Standard constructor method 
@@ -36,11 +67,11 @@ class languagecode extends object
     function init()
     { 
     	 $this->objConfig = &$this->getObject('altconfig','config');
-    	 $lan = $this->objConfig->getdefaultLanguage();
+    	 $this->lan = $this->objConfig->getdefaultLanguage();
     	 $neg = &new I18Nv2_Negotiator;
-    	 $c = &new I18Nv2_Country("{$lan}", 'iso-8859-1');
-		 $e = &new I18Nv2_DecoratedList_HtmlEntities($c);
-		 $s = &new I18Nv2_DecoratedList_HtmlSelect($e);
+    	 $this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
+		 $this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
+		 $this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
 		 $this->iso_639_2_tags = $neg->singleI18NLanguage();
 		}
     
@@ -52,7 +83,7 @@ class languagecode extends object
     * @param string $isoKey The two letter ISO code
     * @return string |NULL The Name of the Language
     */
-    function getLanguage($isoKey)
+    public function getLanguage($isoKey)
     {    	
         if (array_key_exists(strtolower($isoKey), $this->iso_639_2_tags->codes)) {
             return $this->iso_639_2_tags->codes[strtolower($isoKey)];
@@ -67,7 +98,7 @@ class languagecode extends object
     * @param string $language The language to check
     * @return string |NULL The ISO code of the Language
     */
-    function getISO($language)
+    public function getISO($language)
     {
     	
         // Flip Array - makes key the values, and values the key
@@ -84,6 +115,63 @@ class languagecode extends object
             return NULL;
         }
     }
+    /**
+     *  This method utilizes ob_iconv_handler(), so you should call it at the beginning of your script (prior to any output).
+     * Automatically transform output between character sets
+     * 
+     * @param string $ocs   desired output character set
+     * @param string $ics   current intput character set 
+	 * @return Returns TRUE on success, PEAR_Error on failure. 
+     */
+    public function autoConv($ocs,$ics)
+    {
+    	try{
+    		I18Nv2::autoConv($ocs, $ics);
+    	}catch (Exception $e){
+    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 exit();
+    	}
+    	    	
+    }//end function
+    /**
+     *  Function provides decorated classes for country and language lists.
+     *
+     * @return dropdown of countrues
+     */
+    public function country()
+    {
+    		
+		// set a selected entry
+		$language = strtoupper($this->objConfig->getCountry());
+		$this->objselect->selected["{$language}"] = true;
+		
+		// print a HTML safe select box
+		return  $this->objselect->getAllCodes();
+    }
     
+    public function dec_country()
+    {
+    	// set some attributes
+		$this->objselect->attributes['select']['name'] = 'CountrySelect';
+		$this->objselect->attributes['select']['onchange'] = 'this.form.submit()';
+		
+		// set a selected entry
+			$language = strtoupper($this->objConfig->getCountry());
+		$this->objselect->selected["{$$language}"] = true;
+		
+		// print a HTML safe select box
+		return  $this->objselect->getAllCodes();
+    }
+    /**
+    * The error callback function, defers to configured error handler
+    *
+    * @param string $error
+    * @return void
+    * @access public
+    */
+    public function errorCallback($exception)
+    {
+    	echo customException::cleanUp($exception);
+    }
 } // End of Class
 ?>
