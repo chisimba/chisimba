@@ -3,7 +3,7 @@
 //create an instance of the css layout class
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
 $this->userMenuBar=& $this->getObject('usermenu','toolbar');
- 
+
 
 //set columns to 2
 $cssLayout->setNumColumns(2);
@@ -31,23 +31,23 @@ $cssLayout->setNumColumns(2);
 	$radio->addOption('surname', $this->objLanguage->languageText('word_surname'));
 	$radio->addOption('emailaddress', $this->objLanguage->languageText('phrase_emailaddress'));
 	$radio->setSelected('username');
-	$searchform->addToForm($radio->show().'<br />');        
-	$submitbutton = new button ('search', $this->objLanguage->languageText('heading_customSearch','useradmin'));
+	$searchform->addToForm($radio->show().'<br />');
+	$submitbutton = new button ('search', $this->objLanguage->languageText('heading_customSearch'));
 	$submitbutton->setToSubmit();
 	$searchform->addToForm($submitbutton->show());
-	$searchform->addToForm('</div>');        
+	$searchform->addToForm('</div>');
 	$searchFieldset =& $this->getObject('fieldset', 'htmlelements');
 	$searchFieldset->setLegend($this->objLanguage->languageText('mod_useradmin_searchforuser','useradmin'));
 	$searchFieldset->addContent($searchform->show());
 	$listFieldset =& $this->newObject('fieldset', 'htmlelements');
 	$listFieldset->setLegend($this->objLanguage->languageText('mod_useradmin_browsebysurname','useradmin'));
 	$linkarray=array('action'=>'ListUsers','how'=>'surname','searchField'=>'LETTER');
-	$url=$this->uri($linkarray,'useradmin');        
+	$url=$this->uri($linkarray,'useradmin');
 	$addNewLink = new link($this->uri(array('action'=>'add')));
-	$addNewLink->link = 'Add New User';        
+	$addNewLink->link = 'Add New User';
 	$cleanupLink = new link($this->uri(array('action'=>'listunused')));
-	$cleanupLink->link = $this->objLanguage->languageText('mod_useradmin_cleanup','useradmin');        
-	
+	$cleanupLink->link = $this->objLanguage->languageText('mod_useradmin_cleanup','useradmin');
+
 	$display = $searchFieldset->show()
 		.$addNewLink->show()
 		.' / '
@@ -57,6 +57,6 @@ $cssLayout->setLeftColumnContent($display);
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());
 
-echo $cssLayout->show(); 
-  
+echo $cssLayout->show();
+
 ?>
