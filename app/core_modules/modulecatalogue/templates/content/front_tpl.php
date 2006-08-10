@@ -88,7 +88,7 @@ if ($modules) {
         $hasController = $icon->show();
 		if (!in_array($modName,$localModules)){ //module available on server but not locally
 			$instButton = &new Link($this->uri(array('action'=>'download','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-			$instButton->link = $this->objLanguage->languageText('word_download','modulecatalogue');
+			$instButton->link = $this->objLanguage->languageText('word_download');
 			$instButtonShow = $instButton->show();
 			$checkBox='';
 			$texts = '';
@@ -101,7 +101,7 @@ if ($modules) {
 				$hasRegFile = $icon->show();
 				if (!$this->objModule->checkIfRegistered($modName, $modName)) { //not registered
 					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-					$instButton->link = $this->objLanguage->languageText('word_install','modulecatalogue');
+					$instButton->link = $this->objLanguage->languageText('word_install');
 					$instButtonShow = $instButton->show();
 					if (!$batchuninstall) {
 						$checkBox=$objCheck->show();
@@ -115,7 +115,7 @@ if ($modules) {
 						$link = "<a href='{$this->uri(null,$modName)}'>$ucMod</a>";
 					}
 					$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-					$instButton->link = $this->objLanguage->languageText('word_uninstall','modulecatalogue');
+					$instButton->link = $this->objLanguage->languageText('word_uninstall');
 					$instButtonShow = $instButton->show();
 					if ($batchuninstall) {
 						$checkBox=$objCheck->show();

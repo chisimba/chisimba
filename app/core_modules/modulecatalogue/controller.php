@@ -257,6 +257,8 @@ class modulecatalogue extends controller
                 	$this->setVar('output',$this->output);
                 	$this->setVar('patchArray',$this->objPatch->checkModules());
                 	return 'updates_tpl.php';
+				case 'makepatch':
+					return 'makepatch_tpl.php';
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
 					break;

@@ -11,13 +11,16 @@ $h2->str = $this->objLanguage->languageText('mod_modulecatalogue_newupdates','mo
 $fname = $this->objModFile->findregisterfile($patch['modname']);
 
 $updateAll = &$this->getObject('link','htmlelements');
+$updateAll->link($this->uri(array('action'=>'makepatch')));
+$updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
+$makePatch = $updateAll->show();
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell($updateAll->show(),null,null,'right');
+$objTable->addCell("{$updateAll->show()}<br/>$makePatch",null,null,'right');
 $objTable->endRow();
 $tString = '';
 if ($output!=null) {

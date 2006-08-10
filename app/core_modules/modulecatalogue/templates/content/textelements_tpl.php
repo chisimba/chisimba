@@ -30,9 +30,9 @@
     $objTblclass->endRow();
 
 
-    $objTblclass->addRow(array($this->objLanguage->languageText('word_code','modulecatalogue'),$this->objLanguage->languageText('word_description','modulecatalogue'),
-    	$this->objLanguage->languageText('word_content','modulecatalogue'),$this->objLanguage->languageText('word_description','modulecatalogue'),
-    	$this->objLanguage->languageText('word_content','modulecatalogue')),'heading');
+    $objTblclass->addRow(array($this->objLanguage->languageText('word_code'),$this->objLanguage->languageText('word_description'),
+    	$this->objLanguage->languageText('word_content'),$this->objLanguage->languageText('word_description'),
+    	$this->objLanguage->languageText('word_content')),'heading');
 
     // Now build up the table from the supplied array $moduledata
     foreach ($moduledata as $line)
@@ -74,7 +74,7 @@
     }
 
     // Button to return to main menu
-    $objTbl2->addCell($objButtons->pseudoButton($this->uri(array('cat'=>$activeCat)),$objLanguage->languagetext('phrase_goback','modulecatalogue')),"",NULL,'center',NULL,NULL);
+    $objTbl2->addCell($objButtons->pseudoButton($this->uri(array('cat'=>$activeCat)),$objLanguage->languagetext('phrase_goback')),"",NULL,'center',NULL,NULL);
 
     $objTbl2->endRow();
 
