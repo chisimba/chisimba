@@ -355,9 +355,8 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-		log_debug("dbtable insert into {$tablename}");
-	    log_debug($fields);
-        
+
+
         $fieldnames = '';
         $fieldValues = '';
         $params = '';
@@ -387,6 +386,8 @@ class dbTable extends object
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         if($this->debug == TRUE) {
+        	log_debug("dbtable insert into {$tablename}");
+	   		log_debug($fields);
         	log_debug($sql);
         	log_debug("dbtable insert into {$tablename}");
         }
@@ -434,7 +435,7 @@ class dbTable extends object
         	log_debug($sql);
         }
 
-        if($this->_db->phptype == 'mysql')
+        if($this->_db->phptype === 'mysql')
         {
         	$ret = $this->_execute($sql, $params);
         }
@@ -459,7 +460,7 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-        
+
         $params = '';
 
         $sql = "DELETE FROM {$tablename} WHERE {$pkfield}='{$pkvalue}'";
