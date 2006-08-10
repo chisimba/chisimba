@@ -15,16 +15,13 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 class useradmin extends controller
 {
-    var $objConfig;
-    var $objLanguage;
-    var $objButtons;
-    var $objUserAdmin;
-    var $objUser;
-    var $isAdmin;
-    //var $rstatus; // shows whether a function-call did what was wanted or not
-    //var $rvalue;    // the return-value for the template to be used.
-    //var $info;  // for passing information around the class
- 
+    public $objConfig;
+    public $objLanguage;
+    public $objButtons;
+    public $objUserAdmin;
+    public $objUser;
+    public $isAdmin;
+    
     function init()
     {
         $this->objConfig =& $this->getObject('altconfig','config');
@@ -49,8 +46,9 @@ class useradmin extends controller
 			die('Access denied');
         }
         if (!$this->requiresAdmin($action)) {
-            //$this->setLayoutTemplate("user_layout_tpl.php");
+           
         }
+         $this->setLayoutTemplate("user_layout_tpl.php");
         switch ($action)
         {
             case 'register':
@@ -74,14 +72,7 @@ class useradmin extends controller
 				{
                     $this->addApply();
 					return $this->nextAction('listusers', array('how'=>'surname', 'searchField'=>'A'));
-					/*
-				    $users=$this->objUserAdmin->getUsers('creationdate',date('Y-m-d'));
-                    $userdata=$this->makeTableFromUsers($users,TRUE);
-                    $this->setVar('userdata',$userdata);
-                    $title = $this->objLanguage->languageText('mod_useradmin_newuseradded','useradmin');
-                    $this->setVar('title', $title);
-                    $this->rvalue='list_users_tpl.php';
-					*/
+					
                 } 
 				else 
 				{
@@ -586,34 +577,6 @@ class useradmin extends controller
         return $template;
     }
     
-    /** 
-    * Change the user's password for admin users.
-    * @param string $userId
-    * @returns string template
-    */
-	/*
-    function adminChangePassword($userId)
-    {
-        //$this->info['userId']=$userId;
-        //$this->info['username']=$this->getParam('username');
-        $newpassword=$this->getParam('newpassword');
-        $confirmpassword=$this->getParam('confirmpassword');
-        $template='adminchangepassword_tpl.php';
-        if (($newpassword!='') && ($newpassword==$confirmpassword))
-        {
-           $change=$this->objUserAdmin->changePassword($userId,'ADMIN',$newpassword);
-           if ($change)
-           {
-               $template=$this->nextAction('edit',array('userId'=>$userId));
-           }
-           else
-           {
-               $this->setVar('change_error','mod_error_passwd');
-           }
-        }
-        return $template;
-    }
-	*/
 
     /**
     * Reset a user's password to a random setting
@@ -692,67 +655,6 @@ class useradmin extends controller
     }
 
     /**
-    * Returns a list of users
-    * @param string $how The method of searching - username, surname or email
-    * @param string $match The pattern to match for
-    * @param bool $adminLinks Whether to display the Add, Edit and Delete links
-	* @deprecated
-    */
-	/*
-    function ListUsers($how, $match, $adminLinks)
-    {
-        $fieldnames=array('userid','username','title','firstname','surname','emailaddress','creationdate','howcreated','isactive');
-        $fieldterms=array('word_userid','word_username','word_title','phrase_firstname','word_surname','phrase_emailaddress','phrase_creationdate','phrase_howcreated','phrase_isactive');
-		$header = array();
-	    foreach($fieldterms as $fieldterm) {
-	        $header[]=$this->objLanguage->languageText($fieldterm,'useradmin',$fieldterm);
-	    }
-	    if ($adminLinks){
-	        $header[]=$this->objButtons->linkedButton("add",$this->uri(array('action'=>'Add'),'useradmin'));
-	    }
-        $objTable=&$this->newObject('htmltable','htmlelements');
-        $objTable->width='';
-        $objTable->attributes=" align='center' border=0";
-        $objTable->cellspacing='2';
-        $objTable->cellpadding='2';
-        $objTable->addHeader($header,'odd');
-	    $users=$this->objUserAdmin->getUsers($how,$match);
-        $oddOrEven='odd';
-	    foreach ($users as $user)
-	    {
-	        $oddOrEven=$oddOrEven=='odd' ? "even" : "odd";
-			$row = array();
-	        foreach($fieldnames as $field)
-	        {
-                $row[]=$user[$field];
-            }
-	        if ($adminLinks)
-	        {
-                $element='';
-                $editLink=$this->uri(array('module'=>'useradmin','action'=>'edit','userId'=>$line['userId']));
-				$element.$this->objButtons->linkedButton("edit",$editLink);
-                $deleteLink=$this->uri(array('module'=>'useradmin','action'=>'delete','userId'=>$line['userId']));
-                $element.=$this->objButtons->linkedButton("delete",$deleteLink);
-                if (!$this->objUser->lookupAdmin($user['userId'])){
-			        $objCheckbox=&$this->getObject('checkbox','htmlelements');
-                    $objCheckbox->checkbox('userArray[]'); 
-                    $objCheckbox->setValue($user['userId']); 
-                    $checkBox=$objCheckbox->show(); 
-                } 
-				else { 
-                    $checkBox='&nbsp;';
-                }
-                $element.=$checkBox;                                                                                                    
-                $row[]=$element;
-            }
-            $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
-            $objTable->addRow($row,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
-	    }
-        return $objTable->show();
-    }  // end of function ListUsers
-	*/
-
-    /**
     * Make a table from a list of users.
     * @param array $users The user information to display
     * @param bool $adminLinks Whether to display the Add, Edit and Delete links
@@ -764,7 +666,7 @@ class useradmin extends controller
 		$header = array();
         foreach($fieldterms as $fieldterm)
         {
-            $header[]=$this->objLanguage->languageText($fieldterm,'useradmin',$fieldterm);
+            $header[]=$this->objLanguage->languageText($fieldterm);
         }
         if ($adminLinks)
 		{
@@ -775,23 +677,28 @@ class useradmin extends controller
         $objTable->attributes=" align='center' border=0";
         $objTable->cellspacing='2';
         $objTable->cellpadding='2';
-        $objTable->addHeader($header,'odd');
+        $objTable->addHeader($header,'heading','align="left"');
 		$oddOrEven = 'odd';
         foreach ($users as $user)
         {
+        	$objTable->startRow();
+        	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
             $oddOrEven=$oddOrEven=='odd' ? "even" : "odd";
 			$row = array();
+			
             foreach($fieldnames as $field)
             {
-                $row[]=$user[$field];
+               $objTable->addCell($user[$field],null,null,'left',$oddOrEven);
             }
             if ($adminLinks)
             {
                 $editLink=$this->uri(array('module'=>'useradmin','action'=>'edit','userId'=>$user['userid']));
                 $deleteLink=$this->uri(array('module'=>'useradmin','action'=>'delete','userId'=>$user['userid']));
 				$element = '';
-                $element.=$this->objButtons->linkedButton("edit",$editLink);
-                $element.=$this->objButtons->linkedButton("delete",$deleteLink);
+				
+				  
+                $objTable->addCell($this->objButtons->linkedButton("edit",$editLink),null,null,'left',$oddOrEven);
+                $objTable->addCell($this->objButtons->linkedButton("delete",$deleteLink),null,null,'left',$oddOrEven);
                 // Code for the checkbox - only display if user being listed is not a site-Admin
                 // This checkbox allows group deletions of users
                 if (!$this->objUser->lookupAdmin($user['userid'])){
@@ -802,13 +709,14 @@ class useradmin extends controller
                 } 
 				else 
 				{
-                    $checkBox='&nbsp;';
+                    $objTable->addCell($checkBox='&nbsp;',null,null,'left',$oddOrEven);
                 }
-                $element.=$checkBox;                                                                                                    
-                $row[]=$element;
+                 	$objTable->addCell($checkBox,null,null,'left',$oddOrEven);                                                                                                  
+               
             }
-            $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
-            $objTable->addRow($row,NULL,"class='".$oddOrEven."' onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"");
+           	
+				$objTable->endRow();
+                    
         }
         return $objTable->show();
     }

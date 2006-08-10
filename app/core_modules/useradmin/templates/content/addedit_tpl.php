@@ -6,10 +6,7 @@
         return $field->show();
     }
 
-//	echo '<pre>';
-//	print_r($userDetails);
-//	echo '</pre>';
-//
+
 	if ($mode == 'add') {
 	    echo '<h1>User Details for new user</h1>';
 	}
@@ -112,7 +109,7 @@
     $titles=array("title_mr", "title_miss", "title_mrs", "title_ms", "title_dr", "title_prof", "title_rev", "title_assocprof");
     foreach ($titles as $title)
     {
-        $_title=trim($objLanguage->languageText($title,'useradmin'));
+        $_title=trim($objLanguage->languageText($title));
         $objDropdown->addOption($_title,$_title);
     }
 	if ($mode == 'edit') {
@@ -163,21 +160,14 @@
 		$objDropdown->show()
 	);
     // Country
-    $objCountries=&$this->getObject('countries','utilities');
-    $objDropdown = new dropdown('country');
-    $objDropdown->addFromDB(
-		$objCountries->getAll(' order by name'), 
-		"printable_name", 
-		"iso", 
-		$mode == 'add' ? 'ZA' : $userDetails['country']
-	);
+    $objCountries=&$this->getObject('languagecode','language');
     $objFieldset->addLabelledField(
     	$objLanguage->languageText('word_country'),
-		$objDropdown->show()
+		$objCountries->country()
 	);
     // Save Button    
     $submitButton = new button('updatedetails');
-    $submitButton->setValue($objLanguage->languageText('mod_useradmin_updatedetails'));
+    $submitButton->setValue($objLanguage->languageText('mod_useradmin_updatedetails','useradmin'));
     $submitButton->setToSubmit();    
     $objFieldset->addLabelledField(
     	'',
