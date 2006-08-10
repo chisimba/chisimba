@@ -177,7 +177,7 @@ function Validator(theForm) {
     if (isset($this->message)){
         echo  
 			"<h2>"
-			.$objLanguage->languageText('word_problem')
+			.$objLanguage->languageText('word_problem','useradmin')
 			." : "
 			.$objLanguage->languageText($this->message)
 			."</h2>";
@@ -199,12 +199,11 @@ function Validator(theForm) {
     $helpIcon = $objHelp->show('register', 'useradmin');
 
     $objFieldset = $this->getObject('fieldsetex', 'htmlelements');
-    $objFieldset->setLegend($objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon);
+    $objFieldset->setLegend("<h1>".$objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon."</h1>");
     $objFieldset->align='CENTER';
     $objFieldset->legendalign='CENTER';
     $objFieldset->width="50%";
-	//echo $objFieldset->show();
-	
+		
 	//$objFieldset->addLabel($objLanguage->languageText("heading_registeryourself",'useradmin'));
 	$objFieldset->addLabel($objLanguage->languageText("message_selfregister",'useradmin'));
 	//echo $objLanguage->languageText("step1",'useradmin');
@@ -234,18 +233,17 @@ function Validator(theForm) {
         $_title = $objLanguage->languageText($title,'useradmin');
         $objDropdown->addOption($_title,$_title);
     }
-    $objFieldset->addLabelledField($objLanguage->languageText("word_title",'useradmin'), $objDropdown->show());
+    $objFieldset->addLabelledField($objLanguage->languageText("word_title"), $objDropdown->show());
 	// First Name
     $objFieldset->addLabelledField($objLanguage->languageText("phrase_firstname",'useradmin'), textinput('firstname','text',''/*,'Text3'*/));
 	// Surname
     $objFieldset->addLabelledField($objLanguage->languageText("word_surname",'useradmin'), textinput('surname','text',''/*,'Text2'*/));
     // Country
-    $objCountries=&$this->getObject('countries','utilities');
-    $objDropdown = new dropdown('country');
-    $objDropdown->addFromDB($objCountries->getAll(' order by name'), "printable_name", "iso", 'ZA');
-	$objFieldset->addLabelledField($objLanguage->languageText('word_country','useradmin'), $objDropdown->show());
+    $objCountries=&$this->getObject('languagecode','language');
+    
+	$objFieldset->addLabelledField($objLanguage->languageText('word_country','useradmin'), $objCountries->country());
 	// Username
-    $objFieldset->addLabelledField($objLanguage->languageText("word_username",'useradmin'), textinput('username','text',''/*,'Text4'*/));
+    $objFieldset->addLabelledField($objLanguage->languageText("word_username"), textinput('username','text',''/*,'Text4'*/));
     // Email
 	$objFieldset->addLabelledField($objLanguage->languageText("Pagetext_emailaddress",'useradmin'), textinput('email','text',''/*,'Text5'*/));
 	$objFieldset->addLabelledField($objLanguage->languageText("label_confirmemail",'useradmin'), textinput('email2','text',''/*,'Text6'*/));

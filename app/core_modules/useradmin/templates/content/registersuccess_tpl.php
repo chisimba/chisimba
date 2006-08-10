@@ -25,9 +25,9 @@ $objTblclass->addRow($row,'even');
 
 
 $objTblclass->startRow();
-$objTblclass->addCell($objLanguage->languageText('mod_useradmin_welcome',"Welcome to KEWL NextGen!"), "", NULL, 'center', NULL, 'colspan=2');
+$objTblclass->addCell($objLanguage->languageText('mod_useradmin_welcome'), "", NULL, 'center', NULL, 'colspan=2');
 $objTblclass->endRow();
 
 print $objTblclass->show();
 
-print "<a href='".$this->uri('','_default')."'>".$objLanguage->languageText('phrase_goto_login','Go to Login Page')."</a>\n";
+print "<a href='".$this->uri('','_default')."'>".$objLanguage->languageText('phrase_goto_login')."</a>\n";

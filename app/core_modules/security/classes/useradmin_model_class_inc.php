@@ -188,7 +188,7 @@ class useradmin_model extends dbtable
         $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
         if ($count[0]['count']>0) { 
-			return "userid_taken";
+			return $this->objLanguage->languageText("userid_taken");
 		}
 		else {
 	        return true;
@@ -204,7 +204,7 @@ class useradmin_model extends dbtable
         $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
         if ($count[0]['count']>0) { 
-			return "username_taken";
+			return $this->objLanguage->languageText("userid_taken");
 		}
 		else {
 	        return true;

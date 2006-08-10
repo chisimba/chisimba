@@ -16,7 +16,7 @@
 
     $message=$this->getVar('message');
     if ($message){
-        echo "<h2>".$objLanguage->languageText('word_problem').': '.$objLanguage->languageText($message)."</h2>";
+        echo "<h2>".$objLanguage->languageText('word_problem','useradmin').': '.$objLanguage->languageText($message)."</h2>";
     }
 	
     // Put User Admin menus if user is admin
