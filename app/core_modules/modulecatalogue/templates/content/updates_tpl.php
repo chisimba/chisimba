@@ -20,7 +20,7 @@ $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updatea
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell("{$updateAll->show()}<br/>$makePatch",null,null,'right');
+$objTable->addCell($updateAll->show(),null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if ($output!=null) {
