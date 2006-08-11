@@ -27,6 +27,11 @@ class hiddeninput extends abhtmlbase implements ifhtml
     * @var string $value
     */
     public $value;
+    
+    /**
+    * @var string $extra
+    */
+    public $extra;
    
     /**
     * Initialization method
@@ -58,6 +63,11 @@ class hiddeninput extends abhtmlbase implements ifhtml
     {
         $str = '<input type="hidden" value="' . $this->value . '"';
         $str .= ' name="' . $this->name . '"';
+        
+        if ($this->extra) {
+            $str .= $this->extra;
+        }
+        
         $str .= ' />';
         return $str;
     } 
