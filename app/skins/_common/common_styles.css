@@ -1,3 +1,93 @@
 .nowrap {
     white-space: nowrap;
 }
+
+
+/* Confirm message that action has occurred successfully */
+.confirm, #confirm
+{
+    color: #000000;
+    background-color: #FFDE39; /* A dark yellow */
+}
+
+/* Use for text that is greyed out or dimmed for some reason */
+.dim {
+    color: #666666;
+}
+
+/* Specify certain text that for error messages */
+.error
+{
+    color: red;
+}
+
+.HighLightText
+{
+    background-color: #669900;
+    color: #ffffff;
+}
+
+.warning /* Specify certain text that you want people to notice or beware of for example: "Please note that the suggestion box
+         is for suggestions about KEWL". */
+{
+    color: #FFA500;
+    font-weight: bold;
+    padding: 2px;
+}
+
+/*  This specify the color of the notes or short little descriptive wording, shown on the login page and
+        after you've logged in for example the following text:"Note this is still very experimental and there is
+        no translation for most things". */
+.minute
+{
+    font-size: 85%;
+    color: #660033;
+}
+
+/* Font of warning to say theres no posts in a forum - at start of forum*/
+.noRecordsMessage {
+    font-style: oblique;
+    text-align: center;
+    font-weight: normal;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    font-size: large;
+}
+
+.wrapperDarkBkg {
+    background-color: #336600;
+    padding: 3px;
+    color: #FFFFFF;
+}
+
+
+.wrapperLightBkg {
+    background-color: #FFFFFF;
+    padding: 3px;
+}
+
+.wrapperLightBkg p {
+    color: black;
+}
+/*
+Tab boxes
+*/
+fieldset.tabbox {
+    border: 1px solid #006600;
+    margin:0;
+    margin-bottom: 10px;
+}
+legend.tabbox {
+    background-color:white;
+    border: 1px solid #006600;
+    color:#000000;
+    font-family:Times, serif;
+    font-weight:bold;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+fieldset.tabbox ul {
+    margin-left: 0px;
+    padding-left: 15px;
+}
