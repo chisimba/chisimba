@@ -93,7 +93,7 @@ if ($modules) {
 		if (!$desc) {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
 		} else {
-			$desc = (string)$desc[0];
+			$desc = htmlentities((string)$desc[0]);
 		}
 		$link = $ucMod;
 		$icon->setModuleIcon($modName);

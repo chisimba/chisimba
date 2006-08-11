@@ -159,21 +159,28 @@ class catalogueconfig extends object {
     		$modules = $objModFile->getLocalModuleList();
     		$id = 001;
     		foreach ($modules as $mod) {
-    			$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
-    			$xmlStr .= "	<module>
+    			if ($mod) {
+    				$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
+    				$module_id = htmlentities($reg['MODULE_ID']);
+    				$module_authors = htmlentities($reg['MODULE_AUTHORS']);
+    				$module_releasedate = htmlentities($reg['MODULE_RELEASEDATE']);
+    				$module_description = htmlentities($reg['MODULE_DESCRIPTION']);
+    				$module_version = htmlentities($reg['MODULE_VERSION']);
+    				$xmlStr .= "	<module>
     	<id>$id</id>\n";
-    		if ($reg) {
-    		$xmlStr .= "		<module_id>{$reg['MODULE_ID']}</module_id>
-    	<module_authors>{$reg['MODULE_AUTHORS']}</module_authors>
-        <module_releasedate>{$reg['MODULE_RELEASEDATE']}</module_releasedate>
-        <module_description>{$reg['MODULE_DESCRIPTION']}</module_description>
-        <module_version>{$reg['MODULE_VERSION']}</module_version>\n";
-    			if (is_array($reg['MODULE_CATEGORY'])) {
-    				foreach ($reg['MODULE_CATEGORY'] as $cat) {
-    					$xmlStr .= "		<module_category>$cat</module_category>\n";
+    				$xmlStr .= "		<module_id>$module_id</module_id>
+    	<module_authors>$module_authors</module_authors>
+        <module_releasedate>$module_releasedate</module_releasedate>
+        <module_description>$module_description</module_description>
+        <module_version>$module_version</module_version>\n";
+    				if (is_array($reg['MODULE_CATEGORY'])) {
+    					foreach ($reg['MODULE_CATEGORY'] as $cat) {
+    						$cat = htmlentities($cat);
+    						$xmlStr .= "		<module_category>$cat</module_category>\n";
+    					}
     				}
-    			}
         		} else {
+        			$mod = htmlentities($mod);
     				$xmlStr .= "		<module_id>$mod</module_id>\n";
     			}
     			$xmlStr .= "	</module>\n";
@@ -225,9 +232,8 @@ class catalogueconfig extends object {
 
         		if (!$entries) {
         			return FALSE;
-        		}else{
-       			$value = $entries;
-       				return $value;
+        		}else {
+       				return $entries;
         		}
 
     	}catch (Exception $e){
@@ -265,8 +271,7 @@ class catalogueconfig extends object {
         		if (!$entries) {
         			return FALSE;
         		}else{
-       			$value = $entries;
-       				return $value;
+       				return $entries;
         		}
 
     	} catch (Exception $e){
