@@ -21,8 +21,12 @@ class dbfile extends dbTable
     {
         parent::init('tbl_files');
         $this->objUser =& $this->getObject('user', 'security');
+        
         $this->objFileParts =& $this->getObject('fileparts', 'files');
+        
         $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objCleanUrl =& $this->getObject('cleanurl');
+        
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
         $this->objUserFolder =& $this->getObject('userfoldercheck');
         
@@ -30,6 +34,18 @@ class dbfile extends dbTable
         
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('formatfilesize', 'files');
+    }
+    
+    public function getFile($fileId)
+    {
+        $file = $this->getRow('id', $fileId);
+        
+        if ($file != FALSE) {
+            $this->currentFile =& $file;
+        }
+        
+        return $file;
+        
     }
     
     /**
@@ -78,9 +94,11 @@ class dbfile extends dbTable
     * Method to get All the Files of a User
     * @param string $userId User Id of the User
     * @param string $category Optional Category Filter
+    * @param array $restrictfiletype Optional File Type Restriction
+    * @param boolean $latestVersionOnly List Latest Version Only or All Version
     * @return array List of Files
     */
-    public function getUserFiles($userId, $category=NULL)
+    public function getUserFiles($userId, $category=NULL, $restrictfiletype=NULL, $latestVersionOnly=FALSE)
     {
         $where = ' WHERE userid="'.$userId.'"';
         
@@ -89,19 +107,38 @@ class dbfile extends dbTable
             $where .= ' AND category="'.$category.'"';
         }
         
+        if ($restrictfiletype != NULL && is_array($restrictfiletype) && count($restrictfiletype) > 0) {
+            
+            $where .= ' AND (';
+            $or = '';
+            
+            foreach ($restrictfiletype as $type)
+            {
+                $where .= $or.'datatype = "'.$type.'" ';
+                $or = ' OR ';
+            }
+            
+            $where .= ')';
+        }
+        
         $where .= ' ORDER BY version DESC, filename';
         
         $results = $this->getAll($where);
         
-        // Need to do some processing to get only the latest results
         
-        $finalResults = array();
-        
-        foreach ($results as $item)
-        {
-            if (!array_key_exists($item['filename'], $finalResults)) { 
-                $finalResults[$item['filename']] = $item;
-            } 
+        if (!$latestVersionOnly) {
+            $finalResults =& $results;
+        } else {
+            // Need to do some processing to get only the latest results
+            
+            $finalResults = array();
+            
+            foreach ($results as $item)
+            {
+                if (!array_key_exists($item['filename'], $finalResults)) { 
+                    $finalResults[$item['filename']] = $item;
+                } 
+            }
         }
         
         return ($finalResults);
@@ -264,7 +301,7 @@ class dbfile extends dbTable
     */
     public function getFileInfo($fileId)
     {
-        $file = $this->getRow('id', $fileId);
+        $file = $this->getFile($fileId);
         
         if ($file == FALSE) {
             return FALSE;
@@ -273,7 +310,7 @@ class dbfile extends dbTable
         $mediaInfo = $this->objMediaFileInfo->getRow('fileId', $fileId);
         
         if ($mediaInfo == FALSE) {
-            $this->currentFile = $file;
+            $this->currentFile =& $file;
             return $file;
         } else {
             $result = array_merge($file, $mediaInfo);
@@ -289,7 +326,7 @@ class dbfile extends dbTable
     * @param string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
-    function getFileInfoTable($fileId)
+    public function getFileInfoTable($fileId)
     {
         if (is_array($this->currentFile) && $this->currentFile['id'] == $fileId) {
             $file = $this->currentFile;
@@ -336,7 +373,7 @@ class dbfile extends dbTable
     * @param string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
-    function getFileMediaInfoTable($fileId)
+    public function getFileMediaInfoTable($fileId)
     {
         if (is_array($this->currentFile) && $this->currentFile['id'] == $fileId) {
             $file = $this->currentFile;
@@ -440,7 +477,7 @@ class dbfile extends dbTable
     * @param string $fileId Record Id of the File
     * @return array list of Versions for a file
     */
-    function getFileHistorySQL($fileId)
+    public function getFileHistorySQL($fileId)
     {
         $file = $this->getRow('id', $fileId);
         
@@ -456,7 +493,7 @@ class dbfile extends dbTable
     * @param string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
-    function getFileHistory($fileId)
+    public function getFileHistory($fileId)
     {
         $historyList = $this->getFileHistorySQL($fileId);
         
@@ -492,6 +529,55 @@ class dbfile extends dbTable
         return $objTable->show();
     }
     
+    
+    public function deleteFile($fileId, $includeArchives=FALSE)
+    {
+        $file = $this->getFile($fileId);
+        
+        if ($file == FALSE) {
+            return FALSE;
+        }
+        
+        if ($includeArchives) {
+            $otherFiles = $this->getAll('WHERE filename="'.$file['filename'].'" AND userid="'.$file['userid'].'" AND id != "'.$fileId.'"');
+            
+            if (count($otherFiles) > 0) {
+                foreach ($otherFiles as $otherfile)
+                {
+                    $this->removeFile($otherfile['id'], $otherfile['path']);
+                }
+            }
+        }
+        
+        $this->removeFile($file['id'], $file['path']);
+    }
+    
+    private function removeFile($fileId, $filePath)
+    {
+        // Get Path to File
+        $fullFilePath = $this->objConfig->getcontentBasePath().$filePath;
+        $this->objCleanUrl->cleanUpUrl($filePath);
+        
+        // Delete File if it exists
+        if (file_exists($fullFilePath)) {
+            unlink($fullFilePath);
+        }
+        
+        // Get thumbnail path
+        $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+        $this->objCleanUrl->cleanUpUrl($thumbnailPath);
+        
+        // Delete thumbnail if it exists
+        if (file_exists($thumbnailPath)) {
+            unlink($thumbnailPath);
+        }
+        
+        // Delete file record
+        return $this->delete('id', $fileId);
+        
+        
+    }
+
     
     
 

@@ -35,8 +35,9 @@ class fileembed extends object
     */
     function embed($file, $type, $width=NULL, $height=NULL)
     {
-        // Clean URL
-        $this->objCleanUrl->cleanUpUrl($file);
+        // For some reason, cleaning the URL messes things up. Turned off for so long
+        // Please clean URLs yourself for the timebeing before calling this function
+        //$this->objCleanUrl->cleanUpUrl($file);
 
         switch ($type)
         {
@@ -132,7 +133,7 @@ class fileembed extends object
     function showSoundPlayer($file)
     {
         $objSoundPlayerBuilder = $this->newObject('buildplayer', 'soundplayer');
-        $objSoundPlayerBuilder->setSoundFile($file = $this->objConfig->getsiteRoot().'/'.$file);
+        $objSoundPlayerBuilder->setSoundFile($file);
         return $objSoundPlayerBuilder->show();
     }
     

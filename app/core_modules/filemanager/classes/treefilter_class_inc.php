@@ -19,6 +19,7 @@ class treefilter extends object
 		$this->loadClass('treenode','tree');
         $this->loadClass('htmllist','tree');
         $this->objLanguage =& $this->getObject('language', 'language');
+        $this->loadClass('dropdown', 'htmlelements');
     }
     
     /**
@@ -50,6 +51,10 @@ class treefilter extends object
         
         $menu->addItem($allFilesNode);
         
+        $uploadItem = new treenode(array('text' => 'Upload File', 'link' => $this->uri(array('action'=>'uploadfiles'))));
+        
+        $menu->addItem($uploadItem);
+        
         $treeMenu = &new htmllist($menu);
         
         //$this->appendArrayVar('headerParams', '<script src="modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>');
@@ -60,6 +65,13 @@ class treefilter extends object
         $title = '<h1>'.htmlentities($fullname."'s Files").'</h1>';
         
         return $title.'<p>'.$objCheckOverwrite->showLink().'</p>'.$treeMenu->getMenu();
+    }
+    
+    function showDropDown()
+    {
+        $dropDown = new dropdown('asfas');
+        $dropDown->addOption('asfsa', 'Fix Me - List of FIlters');
+        return $dropDown->show();
     }
 
 }

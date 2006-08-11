@@ -18,6 +18,7 @@ class filemanager extends controller
         $this->objFileOverwrite =& $this->getObject('checkoverwrite');
         $this->objCleanUrl =& $this->getObject('cleanurl');
         $this->objUpload =& $this->getObject('upload');
+        $this->objFilePreview =& $this->getObject('filepreview');
         $this->objConfig =& $this->getObject('altconfig', 'config');
         $this->objUser =& $this->getObject('user', 'security');
         
@@ -26,6 +27,8 @@ class filemanager extends controller
         $this->objLanguage =& $this->getObject('language', 'language');
         
         $this->loadClass('link', 'htmlelements');
+        $this->loadClass('xajax', 'xajaxwrapper');
+        $this->loadClass('xajaxresponse', 'xajaxwrapper');
     }
     
     /**
@@ -51,6 +54,14 @@ class filemanager extends controller
                 return $this->showFileInfo($this->getParam('id'), $this->getParam('filename'));
             case 'uploadresults':
                 return $this->showUploadResults();
+            case 'multidelete':
+                return $this->showMultiDelete();
+            case 'multideleteconfirm':
+                return $this->multiDeleteConfirm();
+            case 'selecttest':
+                return $this->selecttest();
+            case 'selectfilewindow':
+                return $this->showFileWindow();
             default: 
                 return $this->filesHome();
         }
@@ -257,6 +268,98 @@ class filemanager extends controller
         
         
         return $this->nextAction('checkoverwrite', array('result'=>$resultInfo));
+    }
+    
+    function showMultiDelete()
+    {
+        
+        
+        return 'multidelete_form_tpl.php';
+    }
+    
+    function multiDeleteConfirm()
+    {
+        if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
+            return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete'));
+        } else {
+            $files = $this->getParam('files');
+            foreach ($files as $file)
+            {
+                $fileDetails = $this->objFiles->getFile($file);
+                if ($fileDetails['userid'] = $this->objUser->userId()) {
+                    $this->objFiles->deleteFile($file, TRUE);
+                }
+            }
+            
+            return $this->nextAction(NULL, array('message'=>'filesdeleted'));
+        }
+    }
+    
+    function selecttest()
+    {
+        $objSelectFile = $this->getObject('selectfile', 'filemanager');
+        $objSelectFile->restrictFileList = array('htm');
+        echo $objSelectFile->show();
+    }
+    
+    function showFileWindow()
+    {
+        
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, explode('____', $this->getParam('restrict')), TRUE);
+        
+        $this->setVarByRef('files', $files);
+        
+        // Script to Close Window automatically if opener does not exist
+        $checkOpenerScript = '
+<script type="text/javascript">
+function checkWindowOpener()
+{
+    if (!window.opener) {
+        window.close();
+    }
+}
+</script>
+        ';
+        
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        
+        $xajax = new xajax($this->uri(array('action'=>'selectfilewindow')));
+        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
+        $xajax->processRequests(); // XAJAX method to be called
+        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
+        
+        $inputname = $this->getParam('name');
+        $this->setVarByRef('inputname', $inputname);
+        
+        $this->setLayoutTemplate(NULL);
+        $this->setVar('pageSuppressToolbar', TRUE);
+        return 'popup_showfilewindow_tpl.php';
+    }
+    
+    function generatePreview($fileId, $jsValue)
+    {
+        $objResponse = new xajaxResponse();
+        
+        $file = $this->objFiles->getFileInfo($fileId);
+        
+        if ($file == FALSE) {
+            $objResponse->addAlert('No Such File Exists');
+        } else {
+            
+            $link = new link("javascript:selectFile('".$fileId."', ".$jsValue.");");
+            $link->link = 'Select';
+            
+            $content = '<br /><br />';
+            $content .= '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
+            $content .= $this->objFilePreview->previewFile($fileId);
+            
+            $objResponse->addAssign('previewwindow', 'innerHTML', $content);
+            //$objResponse->addAlert('Hello');
+        }
+        
+        
+        return $objResponse->getXML();
     }
 }
 

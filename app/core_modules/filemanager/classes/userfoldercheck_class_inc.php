@@ -1,11 +1,14 @@
 <?
 /**
- * Adaptor Pattern around the PEAR::Config Object
- * This class will provide the kng configuration to Engine
- *
- * @author Tohir Solomons
- * @package filemanager
- */
+* Check whether User Folder for Upload Exists
+*
+* This class checks whether a user folder exists for file uploads
+* It also creates a number of subfolders to store files in 
+* dependent on file category.
+*
+* @author Tohir Solomons
+* @package filemanager
+*/
 class userfoldercheck extends object
 {
     /**
@@ -18,7 +21,6 @@ class userfoldercheck extends object
     */
     public function init()
     {
-        $this->name = 'fileupload';
         $this->objConfig =& $this->getObject('altconfig', 'config');
         $this->objMkdir =& $this->getObject('mkdir', 'files');
         
@@ -32,15 +34,19 @@ class userfoldercheck extends object
     */
     public function checkUserFolder($userId)
     {
-        // Set Up Path
-        $path = $this->objConfig->getcontentBasePath().'/users/'.$userId;
-        
-        foreach ($this->subFolders as $folder)
-        {
-            $result = $this->objMkdir->mkdirs($path.'/'.$folder);
+        if (trim($userId) == '') {
+            return FALSE;
+        } else {
+            // Set Up Path
+            $path = $this->objConfig->getcontentBasePath().'/users/'.$userId;
+            
+            foreach ($this->subFolders as $folder)
+            {
+                $result = $this->objMkdir->mkdirs($path.'/'.$folder);
+            }
+            
+            return $result;
         }
-        
-        return $result;
     }
     
     /**

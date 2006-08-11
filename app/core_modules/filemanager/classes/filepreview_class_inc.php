@@ -41,7 +41,8 @@ class filepreview extends object
         
         $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
         // Fix Up - Try to get file using controller, instead of hard linking to file
-        // $this->uri(array('action'=>'file', 'id'=>$this->file['id'], 'filename'=>$this->file['filename']), 'filemanager');
+        
+        $this->file['linkname'] = $this->uri(array('action'=>'file', 'id'=>$this->file['id'], 'filename'=>$this->file['filename']), 'filemanager');
         
         switch ($this->file['category'])
         {
@@ -52,6 +53,7 @@ class filepreview extends object
             case 'video': $preview = $this->showVideo(); break;
             case 'flash': $preview = $this->showFlash(); break;
             case 'scripts': $preview = $this->showScript(); break;
+            case 'documents': $preview = $this->showDocument(); break;
         }
         return $preview;
     }
@@ -61,7 +63,8 @@ class filepreview extends object
     */
     function showImage()
     {
-        return $this->objFileEmbed->embed($this->file['path'], 'image');
+        return $this->objFileEmbed->embed($this->file['linkname'], 'image');
+        //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
     }
     
     /**
@@ -71,8 +74,9 @@ class filepreview extends object
     {
         switch ($this->file['datatype'])
         {
+            // An exception is made for the obj 3d because of the way the applet works
             case 'obj': return $this->objFileEmbed->embed($this->file['path'], 'obj3d');
-            case 'wrl': return $this->objFileEmbed->embed($this->file['path'], 'vrml');
+            case 'wrl': return $this->objFileEmbed->embed($this->file['linkname'], 'vrml');
             default: return $this->objFileEmbed->embed($this->file['path'], 'unknown');
         }
     }
@@ -82,7 +86,7 @@ class filepreview extends object
     */
     function showFreemind()
     {
-        return $this->objFileEmbed->embed($this->file['path'], 'freemind');
+        return $this->objFileEmbed->embed($this->file['linkname'], 'freemind');
     }
     
     /**
@@ -90,7 +94,7 @@ class filepreview extends object
     */
     function showAudio()
     {
-        return $this->objFileEmbed->embed($this->file['path'], 'audio');
+        return $this->objFileEmbed->embed($this->file['linkname'], 'audio');
     }
     
     /**
@@ -112,10 +116,10 @@ class filepreview extends object
         
         switch ($this->file['datatype'])
         {
-            case 'mov': return $this->objFileEmbed->embed($this->file['path'], 'quicktime', $width, $height);
-            case '3gp': return $this->objFileEmbed->embed($this->file['path'], 'quicktime', $width, $height);
-            case 'wmv': return $this->objFileEmbed->embed($this->file['path'], 'wmv', $width, $height);
-            default: return $this->objFileEmbed->embed($this->file['path'], 'unknown');
+            case 'mov': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
+            case '3gp': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
+            case 'wmv': return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
+            default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
     
@@ -136,7 +140,7 @@ class filepreview extends object
             $height = '100%';
         }
         
-        return $this->objFileEmbed->embed($this->file['path'], 'flash', $width, $height);
+        return $this->objFileEmbed->embed($this->file['linkname'], 'flash', $width, $height);
     }
     
     /**
@@ -168,7 +172,12 @@ class filepreview extends object
         $objGeshi->startGeshi();
         $objGeshi->enableLineNumbers(2);
         
-        return $objGeshi->show();
+        return stripslashes($objGeshi->show());
+    }
+    
+    function showDocument()
+    {
+        return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
     }
 
 }
