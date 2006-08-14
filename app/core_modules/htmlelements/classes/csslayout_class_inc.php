@@ -240,6 +240,10 @@ class csslayout extends object implements ifhtml
 		else {
 			$footer = NULL;
 		}
+		if (!isset($breadcrumbs))
+		{
+			$breadcrumbs = NULL;
+		}
 
 
         // Depending on the number of columns, use approprate css styles.

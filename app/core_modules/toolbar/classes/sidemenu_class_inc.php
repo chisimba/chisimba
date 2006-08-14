@@ -185,7 +185,7 @@ class sidemenu extends object
     	$access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-    	$menu .= $this->joinContext();
+    	$menu = $this->joinContext();
         return $menu;
     }
 
