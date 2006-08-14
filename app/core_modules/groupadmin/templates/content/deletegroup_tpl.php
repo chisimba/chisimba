@@ -24,7 +24,7 @@
 </TABLE>
 <?php } else { ?>
 <DIV id='blog-content'>
-    <DIV class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgDeleteGroup',array('GROUPNAME'=>":<B>'$fullPath'</B>" ) ); ?></DIV>
+    <DIV class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgDeleteGroup','groupadmin',array('GROUPNAME'=>":<B>'$fullPath'</B>" ) ); ?></DIV>
 </DIV>
 <DIV id='blog-footer'><?php echo $frmDeleteForm->show(); ?></DIV>
 <?php } ?>

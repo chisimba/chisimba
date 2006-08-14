@@ -19,13 +19,13 @@
 
 <?php if( isset( $invalidName ) && $invalidName ) { ?>
 <TR>
-    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField',array('FIELDNAME'=>"'$lblName'") ); ?></TD>
+    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblName'") ); ?></TD>
 </TR>
 <?php } ?>
 
 <?php if( isset( $invalidDescription ) && $invalidDescription ) { ?>
 <TR id='warning2'>
-    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField',array('FIELDNAME'=>"'$lblDesc'") ); ?></TD>
+    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblDesc'") ); ?></TD>
 </TR>
 <?php } ?>
 </TABLE>

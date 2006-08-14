@@ -1,52 +1,16 @@
 <?php
+  
+//create an instance of the css layout class
+$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$this->userMenuBar=& $this->getObject('contextmenu','toolbar');
+//set columns to 2
+$cssLayout->setNumColumns(2);
 
-$headerParams=$this->getJavascriptFile('x.js','postlogin');
-$headerParams.="
-<script type=\"text/javascript\">        
+//add left column
+$cssLayout->setLeftColumnContent($this->userMenuBar->show());
 
-function adjustLayout()
-{
-     var leftnavHeight = 0;
-     var rightnavHeight = 0;
-     var contentHeight = 0;
-     
-     if (document.getElementById('leftnav')) {
-         leftnavHeight = document.getElementById('leftnav').offsetHeight;
-     }
-     
-     
-     if (document.getElementById('contentHasLeftMenu')) {
-         contentHeight = document.getElementById('contentHasLeftMenu').offsetHeight;
-     }
-     
-     biggestHeight = Math.max(leftnavHeight, contentHeight);
-     
-     
-     if (biggestHeight > contentHeight) {
-         document.getElementById('contentHasLeftMenu').style.height = biggestHeight+\"px\";
-    } 
-}
+//set middle content
+$cssLayout->setMiddleColumnContent($this->getContent());
 
-window.onload = function()
-{
-  xAddEventListener(window, \"resize\",
-    adjustLayout, false);
-  adjustLayout();
-}
-
-</script>";
-
-$this->appendArrayVar('headerParams',$headerParams);
-
-    echo '<div id="leftnav">';
-    $this->userMenuBar=& $this->getObject('contextmenu','toolbar');
-    echo $this->userMenuBar->show();
-    echo '</div><!-- End div leftnav -->';
-
-    echo ('<div id="contentHasLeftMenu">');
-
-    // get content
-	echo $this->getContent(); 
-    
-    echo ('</div><!-- End div contentHasLeftMenu -->');
+echo $cssLayout->show(); 
 ?>
