@@ -32,6 +32,9 @@ class upload extends object
         $this->name = 'fileupload';
         $this->formaction = $this->uri(array('action'=>'upload'));
         
+        $this->numInputs = 2;
+        $this->formExtra = '';
+        
         
         $this->objUser =& $this->getObject('user', 'security');
         $this->objFileParts =& $this->getObject('fileparts', 'files');
@@ -58,9 +61,30 @@ class upload extends object
     */
     public function show()
     {
-        return '<form name="form1" id="form1" enctype="multipart/form-data" method="post" action="'.$this->formaction.'">
-  <input type="file" name="'.$this->name.'" size="60" /> <br /><input type="file" name="'.$this->name.'2" size="60" /> <input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />
-</form>';
+        $form = '<form name="form1" id="form1" enctype="multipart/form-data" method="post" action="'.$this->formaction.'">';
+        
+        if (!is_int($this->numInputs) || $this->numInputs < 1) {
+            $this->numInputs = 2;
+        }
+        
+        $break = '';
+        
+        for ($i = 1; $i <= $this->numInputs; $i++)
+        {
+            $form .= $break.'<input type="file" name="'.$this->name.$i.'" size="60" />';
+            $break = '<br />';
+        }
+        
+        if ($this->numInputs == 1) {
+            $form .= '<input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfile', 'filemanager', 'Upload File').'" />';
+        } else {
+            $form .= '<input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />';
+        }
+        
+        $form .= $this->formExtra;
+        $form .= '</form>';
+        
+        return $form;
     }
     
     /**
@@ -70,6 +94,9 @@ class upload extends object
     * It references the $_FILES directly, and handles uploads from there.
     *
     * It returns an array with details of files uploaded, as well as errors.
+    * @access Public
+    * @param array $ext Extensions to restrict to
+    * @return array Results of Upload
     */
     public function uploadFiles($ext=NULL)
     {
