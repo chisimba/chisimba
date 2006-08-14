@@ -21,6 +21,7 @@ class thumbnails extends object
         $this->objMkdir =& $this->getObject('mkdir', 'files');
         $this->objImageResize =& $this->getObject('imageresize', 'files');
         $this->objFileParts =& $this->getObject('fileparts', 'files');
+        $this->objCleanUrl = $this->getObject('cleanurl');
     }
     
     /**
@@ -81,9 +82,18 @@ class thumbnails extends object
         $extension = $this->objFileParts->getExtension($filename);
         
         if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg')) {
-            return $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+            
+            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+            $this->objCleanUrl->cleanUpUrl($url);
+            
+            return $url;
         } else if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg')){
-            return $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
+        
+            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
+            $this->objCleanUrl->cleanUpUrl($url);
+            
+            return $url;
+            
         } else {
             return FALSE;
         }
