@@ -167,7 +167,7 @@ class modules extends dbTable
     	try {
     		if ($this->checkIfRegistered($moduleId)){
     			$result = array('isreg'=>TRUE,
-    			'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name'));
+    			'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name',"{$moduleId}"));
     		} else {
     			$result = array('isreg'=>FALSE,'name'=>'');
     		}
