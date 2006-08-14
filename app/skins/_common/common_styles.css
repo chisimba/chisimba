@@ -91,3 +91,14 @@ fieldset.tabbox ul {
     margin-left: 0px;
     padding-left: 15px;
 }
+
+
+
+table.overflowtable {
+	table-layout:fixed;
+	 }
+table.overflowtable td.overflowcolumn {
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+ } 
