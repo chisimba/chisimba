@@ -27,8 +27,8 @@ class filemanager extends controller
         $this->objLanguage =& $this->getObject('language', 'language');
         
         $this->loadClass('link', 'htmlelements');
-        $this->loadClass('xajax', 'xajaxwrapper');
-        $this->loadClass('xajaxresponse', 'xajaxwrapper');
+        $this->loadClass('xajax', 'ajaxwrapper');
+        $this->loadClass('xajaxresponse', 'ajaxwrapper');
     }
     
     /**
@@ -62,6 +62,8 @@ class filemanager extends controller
                 return $this->selecttest();
             case 'selectfilewindow':
                 return $this->showFileWindow();
+            case 'selectfileuploads':
+                return $this->selectFileUploads();
             default: 
                 return $this->filesHome();
         }
@@ -266,18 +268,21 @@ class filemanager extends controller
         }
         
         
-        
         return $this->nextAction('checkoverwrite', array('result'=>$resultInfo));
     }
     
-    function showMultiDelete()
+    /**
+    * Method to show the Multi Delete Confirmation Page
+    */
+    public function showMultiDelete()
     {
-        
-        
         return 'multidelete_form_tpl.php';
     }
     
-    function multiDeleteConfirm()
+    /**
+    * Method to Delete Multiple Files
+    */
+    public function multiDeleteConfirm()
     {
         if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
             return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete'));
@@ -295,17 +300,31 @@ class filemanager extends controller
         }
     }
     
-    function selecttest()
+    /**
+    * Method to demo the File Selector
+    */
+    public function selecttest()
     {
-        $objSelectFile = $this->getObject('selectfile', 'filemanager');
-        $objSelectFile->restrictFileList = array('htm');
-        echo $objSelectFile->show();
+        return 'demo_showfilewindow_tpl.php';
     }
     
-    function showFileWindow()
+    /**
+    * Method to Show the File Selector Pop Up Window
+    */
+    public function showFileWindow()
     {
+        if ($this->getParam('restrict') == '') {
+            $restriction = '';
+        } else {
+            $restriction = explode('____', $this->getParam('restrict'));
+        }
         
-        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, explode('____', $this->getParam('restrict')), TRUE);
+        if ($this->getParam('mode') == 'fileupload') {
+            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
+            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        }
+        
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
         
         $this->setVarByRef('files', $files);
         
@@ -323,6 +342,7 @@ function checkWindowOpener()
         
         $this->appendArrayVar('headerParams', $checkOpenerScript);
         $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
         
         $xajax = new xajax($this->uri(array('action'=>'selectfilewindow')));
         $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
@@ -332,12 +352,20 @@ function checkWindowOpener()
         $inputname = $this->getParam('name');
         $this->setVarByRef('inputname', $inputname);
         
+        $defaultValue = $this->getParam('value');
+        $this->setVarByRef('defaultValue', $defaultValue);
+        
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressToolbar', TRUE);
         return 'popup_showfilewindow_tpl.php';
     }
     
-    function generatePreview($fileId, $jsValue)
+    /**
+    * Ajax Function to generate previews
+    * @param string $fileId Record Id of the File
+    * @param string $jsValue JavaScript Generated Array Index Value
+    */
+    public function generatePreview($fileId, $jsValue)
     {
         $objResponse = new xajaxResponse();
         
@@ -350,16 +378,65 @@ function checkWindowOpener()
             $link = new link("javascript:selectFile('".$fileId."', ".$jsValue.");");
             $link->link = 'Select';
             
-            $content = '<br /><br />';
+            $content = ' ';
             $content .= '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
             $content .= $this->objFilePreview->previewFile($fileId);
             
+            
+            $objResponse->addScript('appendPreviews('.$jsValue.', "'.addslashes($content).'");');
+            
+            
             $objResponse->addAssign('previewwindow', 'innerHTML', $content);
-            //$objResponse->addAlert('Hello');
         }
         
         
         return $objResponse->getXML();
+    }
+    
+    /**
+    * Method to Handle Uploads From the File Selector Popup
+    */
+    public function selectFileUploads()
+    {
+        // Upload Files
+        if ($this->getParam('restrict') == '') {
+            $results = $this->objUpload->uploadFile('fileupload1');
+        } else {
+            $uploadRestrict = explode('____', $this->getParam('restrict'));
+            $results = $this->objUpload->uploadFile('fileupload1', $uploadRestrict);
+        }
+        
+        $settingsArray = array();
+        $settingsArray['name'] = $this->getParam('name');
+        $settingsArray['context'] = $this->getParam('context');
+        $settingsArray['workgroup'] = $this->getParam('workgroup');
+        $settingsArray['value'] = $this->getParam('value');
+        $settingsArray['restrict'] = $this->getParam('restrict');
+        
+        
+        
+        // Check if no files were provided
+        if (array_key_exists('nofileprovided', $results)) {
+            $settingsArray['error'] = 'nofilesprovided';
+        } else {
+            // Put Message into Array
+            $messages = $this->objUploadMessages->processMessageUrl(array($results));
+            
+            $settingsArray = array_merge($settingsArray, $messages);
+            
+            $settingsArray['mode'] = 'fileupload';
+            
+            if (array_key_exists('success', $results) && $results['success']) {
+                $settingsArray['value'] = $results['fileid'];
+            }
+            
+            if ($results['overwrite']) {
+                $settingsArray['overwrite'] = $results['overwrite'];
+                $settingsArray['value'] = $results['fileid'];
+            }
+        }
+        
+        return $this->nextAction('selectfilewindow', $settingsArray);
     }
 }
 
