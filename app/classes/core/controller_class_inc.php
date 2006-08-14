@@ -20,6 +20,8 @@ class controller extends access
      */
     public $controllerName;
 
+    public $footerStr = NULL;
+
     /**
      * Constructor for the controller class.
      *
@@ -28,7 +30,7 @@ class controller extends access
      */
     public function __construct(&$objEngine, $moduleName)
     {
-        $this->controllerName = get_class($this);
+    	$this->controllerName = get_class($this);
         try {
         	parent::__construct($objEngine, $moduleName);
         }
