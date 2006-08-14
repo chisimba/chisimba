@@ -84,7 +84,7 @@ class toolbar extends object
         $str = $this->objLanguage->languageText("mod_toolbar_home",'security', "home");
         $this->objLink->style="cursor:hand";
         $this->objLink->link=$str;
-        $this->objLink->link($this->uri());
+        $this->objLink->link($this->uri(null,'_default'));
         $nav = $this->objLink->show();
 
         // decode URL

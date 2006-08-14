@@ -9,7 +9,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 /**
 * Class for building the sidebar navigation for KEWL.nextgen.
 *
-* The class builds a css style navigation menu 
+* The class builds a css style navigation menu
 *
 * @author Wesley Nitsckie
 * @copyright (c)2004 UWC
@@ -19,7 +19,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 
 class sidebar extends object
 {
-	
+
 	/**
      * The nodes array
      *
@@ -27,8 +27,8 @@ class sidebar extends object
      * @var array
     */
     protected $nodes;
-    
-	
+
+
     /**
     * Method to construct the class.
     **/
@@ -41,10 +41,10 @@ class sidebar extends object
         	exit();
         }
     }
-    
+
     /**
      * Method to set the array
-     * 
+     *
      * @param array $nodes The list of nodes
      * @access public
      * @return bool
@@ -59,10 +59,10 @@ class sidebar extends object
         	exit();
         }
     }
-    
+
     /**
      * Method to show the sidebar
-     * 
+     *
      * @param array $nodes
      * @param string $activeId This variable is used to check which record should be set to active
      * @access publc
@@ -74,9 +74,9 @@ class sidebar extends object
     		$cssClass = ' class="first" ';
     		//var_dump($nodes);
     		$str = '<ul id="nav-secondary">
-    										';	
+    										';
     		 $str .='<li class="first">
-    		 			<a href="'.$this->uri(null, 'default').'">Home</a>
+    		 			<a href="'.$this->uri(null,'_default').'">Home</a>
     		 		</li>
     		 				';
     		//loop through the nodes
@@ -84,25 +84,25 @@ class sidebar extends object
     		{
 				if(is_array($node['haschildren']))
 				{
-					$cssClass = ' class="active" ';	
+					$cssClass = ' class="active" ';
 					$str .='<li '.$cssClass.'>
 								<a href="'.$node['uri'].'">'.$node['text'].'</a>
 								';
 				} else {
 					$str .='<li>
 								<a href="'.$node['uri'].'">'.$node['text'].'</a>
-								';	
+								';
 				}
-				
-				
-				
+
+
+
 				$cssClass2 = ' class="first" ';
 				if(is_array($node['haschildren']))
 				{
-					
+
 					$str .= '<ul>
 								';
-					
+
 					foreach($node['haschildren'] as $child)
 					{
 						$str .='<li '.$cssClass2.'>
@@ -110,7 +110,7 @@ class sidebar extends object
 								</li>
 									';
 					}
-					
+
 					//check for the last item in the arra
 					if($c == $cnt)
 					{
@@ -118,29 +118,29 @@ class sidebar extends object
 					} else {
 						$cssClass2 = '';
 					}
-					
+
 					$str .= '</ul>
 								';
-					
+
 					//$str .= $this->show($node['haschildren']);
 				}
 				$str .= '</li>'
 							;
 				//reset the cssclass
 				$cssClass = '';
-				
+
     		}
-    		
+
     		$str .='</ul>
     					';
     		return $str;
-	  		
-  		
+
+
   		}catch (Exception $e){
        		echo 'Caught exception: ',  $e->getMessage();
         	exit();
         }
-  		  	
+
     }
 }
 ?>
