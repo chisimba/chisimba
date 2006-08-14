@@ -103,6 +103,7 @@ class menu extends object
     function isVisible($data)
     {
         $i=0; $menu=array();
+        //var_dump($data);
         foreach($data as $item){
             if($this->tools->checkPermissions($item, $this->context)){
                 if(!empty($item['category'])){
@@ -141,7 +142,7 @@ class menu extends object
                 }else{
                     $text = $this->objLanguage->code2Txt('mod_'.$v.'_name',$v);
                 }
-                $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar'), ucwords($text),$v);
+                $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar',ucwords($category)), ucwords($text),$v);
             }
         }
         return $this->cssMenu->show();
