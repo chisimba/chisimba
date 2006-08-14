@@ -298,7 +298,7 @@ class language extends dbTable {
      * @return TRUE/FALSE
      */
 
-    public function valueExists($code,$itemName)
+    public function valueExists($code,$item)
     {
     	 $line = $this->lang->get($item, '', 'en');
                 if ($line != null) {
