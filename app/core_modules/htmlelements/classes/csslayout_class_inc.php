@@ -3,28 +3,28 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // Include the HTML interface class
 require_once("ifhtml_class_inc.php");
 
 
 /**
-* The Css Layout class helps developers to display either two or three column layouts using CSS. 
-* The layouts are particular to the ones used in the KEWL.Nextgen system and works hand in hand with the stylesheet. 
+* The Css Layout class helps developers to display either two or three column layouts using CSS.
+* The layouts are particular to the ones used in the KEWL.Nextgen system and works hand in hand with the stylesheet.
 * Any additional layouts implemented in this class should also correspond with the stylesheet
 *
-* One of the problems with CSS Layouts is that it is difficult to control the height of columns. 
-* We have overcome this by using javascript. An article on this is available at: 
+* One of the problems with CSS Layouts is that it is difficult to control the height of columns.
+* We have overcome this by using javascript. An article on this is available at:
 * http://www.sitepoint.com/print/exploring-limits-css-layout
 *
 * A note on how the layouts look:
 * The two column layout has a left side column and a broad middle column
 * The three column layout has a left and right side column and a broad middle column
 *
-* NB! At present there is no accommodation for a two column layout with a broad 
+* NB! At present there is no accommodation for a two column layout with a broad
 * middle column and a right side column
-* 
-* 
+*
+*
 * @package cssLayout
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license GNU GPL
@@ -36,7 +36,7 @@ require_once("ifhtml_class_inc.php");
 *       $cssLayout->setLeftColumnContent('Content in Left Column');
 *       $cssLayout->setMiddleColumnContent('Content in Middle Column');
 *       $cssLayout->setRightColumnContent('Content in Right Column');
-*       echo $cssLayout->show(); 
+*       echo $cssLayout->show();
 */
 class csslayout extends object implements ifhtml
 {
@@ -45,22 +45,22 @@ class csslayout extends object implements ifhtml
     * @var integer $numColumns: the number of columns the layout should have: either two or three
     */
     public $numColumns;
-    
+
     /**
     * @var string $leftColumnContent: the contents of the left hand side column
     */
     public $leftColumnContent;
-    
+
     /**
     * @var string $rightColumnContent: the contents of the right hand side column
     */
     public $rightColumnContent;
-    
+
     /**
     * @var string $middleColumnContent: the contents of the middle column
     */
     public $middleColumnContent;
-    
+
     /**
     * Constructor Method for the class
     *
@@ -73,14 +73,14 @@ class csslayout extends object implements ifhtml
         $this->rightColumnContent = NULL;
         $this->middleColumnContent = NULL;
     }
-    
+
     /**
     * Method to set the number of columns the layout will have.
     *
     * We only cater for two or three column layouts as per the KEWL.Nextgen project.
     * This function first checks that the parameter is either two or three (for the columns) before assigning it to the variable.
-    * 
-    * @param integer $number : The number of 
+    *
+    * @param integer $number : The number of
     */
     public function setNumColumns($number)
     {
@@ -88,7 +88,7 @@ class csslayout extends object implements ifhtml
             $this->numColumns = $number;
         }
     }
-    
+
     /**
     * Method to set the content of the left column
     *
@@ -98,7 +98,7 @@ class csslayout extends object implements ifhtml
     {
         $this->leftColumnContent = $content;
     }
-    
+
     /**
     * Method to set the content of the right column
     *
@@ -108,7 +108,7 @@ class csslayout extends object implements ifhtml
     {
         $this->rightColumnContent = $content;
     }
-    
+
     /**
     * Method to set the content of the middle column
     *
@@ -118,105 +118,105 @@ class csslayout extends object implements ifhtml
     {
         $this->middleColumnContent = $content;
     }
-    
+
     /**
     * Method to return the JavaScript that fixes a two column css layout using javascript
-    * 
-    * @access private 
+    *
+    * @access private
     * @return string $fixLayoutScript: the JavaScript that goes in the header
     */
     public function fixTwoColumnLayoutJavascript()
     {
         $fixLayoutScript ="
-        <script type=\"text/javascript\">        
-        
+        <script type=\"text/javascript\">
+
         function adjustLayout()
         {
              var leftnavHeight = 0;
              var rightnavHeight = 0;
              var contentHeight = 0;
-             
+
              if (document.getElementById('leftnav')) {
                  leftnavHeight = document.getElementById('leftnav').offsetHeight;
              }
-             
-             
+
+
              if (document.getElementById('contentHasLeftMenu')) {
                  contentHeight = document.getElementById('contentHasLeftMenu').offsetHeight;
              }
-             
+
              biggestHeight = Math.max(leftnavHeight, contentHeight);
-             
+
              if (biggestHeight > contentHeight) {
                  document.getElementById('contentHasLeftMenu').style.height = biggestHeight+\"px\";
-            } 
+            }
         }
-        
+
         window.onload = function()
         {
           xAddEventListener(window, \"resize\",
             adjustLayout, false);
           adjustLayout();
         }
-        
+
         </script>";
-        
+
         return $fixLayoutScript;
     }
-    
+
     /**
     * Method to return the JavaScript that fixes a three column css layout using javascript
-    * 
-    * @access private 
+    *
+    * @access private
     * @return string $fixLayoutScript: the JavaScript that goes in the header
     */
     public function fixThreeColumnLayoutJavascript()
     {
         $fixLayoutScript = "
-        <script type=\"text/javascript\">        
-        
+        <script type=\"text/javascript\">
+
         function adjustLayout()
         {
              var leftnavHeight = 0;
              var rightnavHeight = 0;
              var contentHeight = 0;
-             
+
              if (document.getElementById('leftnav')) {
                  leftnavHeight = document.getElementById('leftnav').offsetHeight;
              }
-             
+
              if (document.getElementById('rightnav')) {
                  rightnavHeight = document.getElementById('rightnav').offsetHeight;
              }
-             
+
              if (document.getElementById('content')) {
                  contentHeight = document.getElementById('content').offsetHeight;
              }
-             
+
              biggestHeight = Math.max(leftnavHeight, rightnavHeight, contentHeight);
-             
-             
+
+
              if (biggestHeight > contentHeight) {
                  document.getElementById('content').style.height = biggestHeight+\"px\";
-            } 
+            }
         }
-        
+
         window.onload = function()
         {
           xAddEventListener(window, \"resize\",
             adjustLayout, false);
           adjustLayout();
         }
-        
+
         </script>";
-        
+
         return $fixLayoutScript;
     }
-    
+
     /**
     * Show method - Method to display the layout
     * This method also places the appropriate javascript in the header
-    * 
+    *
     * @return string $result: the finished layout
     */
     public function show()
@@ -228,17 +228,20 @@ class csslayout extends object implements ifhtml
             // else, load the three column javascript fix
             $this->putThreeColumnFixInHeader();
         }
-        
+
         // Start layout result with the left column
         $result = '<div id="leftnav">'.$this->leftColumnContent.'</div>';
-        
-        
+
+
         if (isset($footerStr))
 		{
 			$footer = '<div  id="footer">'.$footerStr.'</div>';
 		}
-        
-        
+		else {
+			$footer = NULL;
+		}
+
+
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
             $result .= '<div id="contentHasLeftMenu">'.'<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>'.'</div>';
@@ -247,7 +250,7 @@ class csslayout extends object implements ifhtml
             $result .= '<div id="rightnav">'.$this->rightColumnContent.'</div>';
             $result .= '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';
         }
-        
+
         //return $result;
       //  $middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  //
         /*if (isset($footerStr))
@@ -256,15 +259,15 @@ class csslayout extends object implements ifhtml
 		}
 		$side1 = '<div id="sidebar">'.$this->leftColumnContent.'</div>';
 		$side2 = '<div id="utility">'.$this->rightColumnContent.'</div>';
-		$middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  
+		$middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';
 */
         $str = '<div id="content-wrap">'.$result.'</div>';
-        
+
         return $str;
     }
-    
-    
-    
+
+
+
     /**
     * Method to load place a three column javascript fix into the header of a webpage
     * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)
@@ -276,7 +279,7 @@ class csslayout extends object implements ifhtml
         $headerParams .= $this->fixThreeColumnLayoutJavascript();
         $this->appendArrayVar('headerParams',$headerParams);
     }
-    
+
     /**
     * Method to load place a two column javascript fix into the header of a webpage
     * This method can also be used by other modules that just want to load the javascript fix - e.g. splash screen (prelogin)

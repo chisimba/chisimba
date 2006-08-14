@@ -240,7 +240,7 @@ class engine
      */
     public function __construct()
     {
-        // we only initiate session handling here if a session already exists;
+    	// we only initiate session handling here if a session already exists;
         // the session is only created once a successful login has taken place.
         // this has the small security benefit (albeit an obscurity based one)
         // of concealing any information about the session id generator from
@@ -696,7 +696,7 @@ class engine
         if (!is_array($this->_templateVars[$name])) {
             throw new customException("Attempt to append to a non-array template variable $name");
         }
-        if (!in_array($value, $this->_templateVars[$name])) { 
+        if (!in_array($value, $this->_templateVars[$name])) {
             $this->_templateVars[$name][] = $value;
         }
     }
