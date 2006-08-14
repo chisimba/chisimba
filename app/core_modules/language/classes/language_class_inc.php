@@ -178,7 +178,7 @@ class language extends dbTable {
     * @access public
     * @author Jonathan Abrahams, Derek Keats
     */
-    public function code2Txt($str,$modulename = "_default",$arrOfRep=NULL)
+    public function code2Txt($str,$modulename = "system",$arrOfRep=NULL)
     {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");
@@ -300,7 +300,7 @@ class language extends dbTable {
 
     public function valueExists($code,$itemName)
     {
-    	 $line = $this->lang->get($itemName, '', 'en');
+    	 $line = $this->lang->get($item, '', 'en');
                 if ($line != null) {
                     return TRUE;
                 } else {
