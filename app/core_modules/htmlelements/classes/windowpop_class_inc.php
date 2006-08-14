@@ -175,7 +175,7 @@ class windowPop implements ifhtml
         if ($this->left) {
             $this->features .= " left=".$this->left." screenY=".$this->left;
         }
-        return $this->putJs()."<a href=\"javascript:;\" onClick=\"openWindow('"
+        return $this->putJs()."<a href=\"javascript:openWindow('"
          . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
          . $this->linktext . "</a>";
     } 
