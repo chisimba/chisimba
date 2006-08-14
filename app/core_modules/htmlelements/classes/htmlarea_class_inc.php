@@ -171,6 +171,7 @@ class htmlarea extends object
           */
     	
     	$str .=$this->getJavaScripts();
+    	$str .='<form name="imgform"><input type="text" name="hiddentimg"/></form>';
     	$str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
     	return   $str;
     }
@@ -234,14 +235,16 @@ class htmlarea extends object
 						theme_advanced_resize_horizontal : false,
 						theme_advanced_resizing : true
 					});
-				/*
+				
 					function fileBrowserCallBack(field_name, url, type, win) {
 						// This is where you insert your custom filebrowser logic
-						alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
-				
+						//alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
+						mywindow = window.open ("'.$this->uri(array('action' => 'showmedia'), 'mediamanager').'",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
+						
+						//alert(mywindow.document.forms[0].hideme.value);
 						// Insert new URL, this would normaly be done in a popup
-						win.document.forms[0].elements[field_name].value = "someurl.htm";
-					}*/
+						win.document.forms[0].elements[hide'.$this->name.'].value = "'.$this->uri(array('action' => 'list'), 'mediamanager').'";
+					}
 				</script>
 					';
     	$this->appendArrayVar('headerParams', $str);
