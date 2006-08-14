@@ -164,6 +164,14 @@ class skin extends object
         return $this->getSkinUrl().'banners/';
     }
 
+  /**
+    * Method to return the skin location of the common icons folder as a URL
+    * @return the path of the common skin as a URL
+    */
+    function getCommonSkinUrl()
+    {
+        return $this->objConfig->getskinRoot().'/_common/';
+    }
 
     /**
      * Method to put a logout link on the page
