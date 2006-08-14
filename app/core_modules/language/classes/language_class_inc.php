@@ -294,11 +294,11 @@ class language extends dbTable {
      * Check for system properties
      *
      * @param string $code
-     * @param string $item
+     * @param string $itemName
      * @return TRUE/FALSE
      */
 
-    public function valueExists($code,$item)
+    public function valueExists($code,$itemName)
     {
     	 $line = $this->lang->get($itemName, '', 'en');
                 if ($line != null) {

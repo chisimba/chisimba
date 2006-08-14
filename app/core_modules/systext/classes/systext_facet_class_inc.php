@@ -308,7 +308,7 @@ class systext_facet extends dbTable
         $abstractList = array();
 
         foreach($systemTypeList as $arrSystemType){
-            if($arrSystemType['systemType'] == $system_type){
+            if($arrSystemType['systemtype'] == $system_type){
                 $systemTypeId = $arrSystemType['id'];
                 $abstractTextList = $this -> listAbstractText($systemTypeId);
             }
@@ -317,7 +317,7 @@ class systext_facet extends dbTable
             foreach($textItemList as $textItem){
                 $notFound = TRUE;
                 foreach($abstractTextList as $abstractText){
-                    if($textItem['id'] == $abstractText['textId']){
+                    if($textItem['id'] == $abstractText['textid']){
                         $abstractList[$textItem['text']] = $abstractText['abstract'];
                         $notFound = FALSE;
                     }
