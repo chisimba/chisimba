@@ -27,7 +27,7 @@ class loggedInUsers extends dbTable
 		$this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
-        $sesssionId=session_id();
+        $sessionId=session_id();
         $contextCode="lobby";
         $theme="default";
         $myDate=date('Y-m-d H:m:s');
