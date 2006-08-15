@@ -213,7 +213,7 @@
 	        $this->loadclass('href','htmlelements');
 	        $objHref=new href(
 				$this->uri(array('action'=>'changepassword','userId'=>$userDetails['userid']),'useradmin'),
-	        	$objLanguage->languageText("word_change",'useradmin')." ".$objLanguage->languageText("word_password",'useradmin'),"class='pseudobutton'"
+	        	$objLanguage->languageText("word_change")." ".$objLanguage->languageText("word_password"),"class='pseudobutton'"
 			);
 		    echo "<br />";
 	        echo $objHref->show();
