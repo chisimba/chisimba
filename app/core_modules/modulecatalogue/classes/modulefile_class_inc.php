@@ -83,7 +83,7 @@ class modulefile extends object {
     					if (is_dir($lookdir.'/'.$line)) {
     						if ($cat = $this->moduleCategory($line)) {
     								foreach ($cat as $category) {
-    									($categorylist[] = $category);
+    									($categorylist[] = strtolower($category));
     								}
     							}
     					}

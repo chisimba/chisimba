@@ -82,7 +82,7 @@ class sidebar extends object
     		//loop through the nodes
     		foreach($nodes as $node)
     		{
-				if(is_array($node['haschildren']))
+				if(isset($node['haschildren']))
 				{
 					$cssClass = ' class="active" ';
 					$str .='<li '.$cssClass.'>
@@ -97,7 +97,7 @@ class sidebar extends object
 
 
 				$cssClass2 = ' class="first" ';
-				if(is_array($node['haschildren']))
+				if(isset($node['haschildren']))
 				{
 
 					$str .= '<ul>
