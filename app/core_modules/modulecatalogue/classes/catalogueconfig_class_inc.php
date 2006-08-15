@@ -160,20 +160,31 @@ class catalogueconfig extends object {
     		$id = 001;
     		foreach ($modules as $mod) {
     			if ($mod) {
-    				$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
-    				$module_id = htmlentities($reg['MODULE_ID']);
-    				$module_authors = htmlentities($reg['MODULE_AUTHORS']);
-    				$module_releasedate = htmlentities($reg['MODULE_RELEASEDATE']);
-    				$module_description = htmlentities($reg['MODULE_DESCRIPTION']);
-    				$module_version = htmlentities($reg['MODULE_VERSION']);
     				$xmlStr .= "	<module>
     	<id>$id</id>\n";
+    				$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
+    				if (is_array($reg)) {
+    				if (isset($reg['MODULE_ID'])){
+    					$module_id = htmlentities($reg['MODULE_ID']);
+    				}
+    				if (isset($reg['MODULE_AUTHORS'])){
+    					$module_authors = htmlentities($reg['MODULE_AUTHORS']);
+    				}
+    				if (isset($reg['MODULE_RELEASEDATE'])){
+    					$module_releasedate = htmlentities($reg['MODULE_RELEASEDATE']);
+    				}
+    				if (isset($reg['MODULE_DESCRIPTION'])){
+    					$module_description = htmlentities($reg['MODULE_DESCRIPTION']);
+    				}
+    				if (isset($reg['MODULE_VERSION'])){
+    					$module_version = htmlentities($reg['MODULE_VERSION']);
+    				}
     				$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_authors>$module_authors</module_authors>
         <module_releasedate>$module_releasedate</module_releasedate>
         <module_description>$module_description</module_description>
         <module_version>$module_version</module_version>\n";
-    				if (is_array($reg['MODULE_CATEGORY'])) {
+    				if (isset($reg['MODULE_CATEGORY'])) {
     					foreach ($reg['MODULE_CATEGORY'] as $cat) {
     						$cat = htmlentities($cat);
     						$xmlStr .= "		<module_category>$cat</module_category>\n";
@@ -185,7 +196,7 @@ class catalogueconfig extends object {
     			}
     			$xmlStr .= "	</module>\n";
     			$id++;
-    		}
+    		}}
     		$xmlStr .= '</settings>';
     		try {
     			if(!file_exists($this->_path))
@@ -353,7 +364,7 @@ class catalogueconfig extends object {
      */
     public function errorCallback($exception)
     {
-    	echo customException::cleanUp($e);
+    	echo customException::cleanUp($exception);
     	exit();
     }
 

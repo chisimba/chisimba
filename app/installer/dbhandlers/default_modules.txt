@@ -8,7 +8,6 @@ groupadmin
 permissions
 sysconfig
 toolbar
-filestore
 dublincoremetadata
 context
 contextadmin

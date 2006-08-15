@@ -531,15 +531,22 @@ class modulesadmin extends dbTableManager
                 }
 
                 // Now the main data entry - building up arrays of the essential params
+                isset($registerdata['MODULE_AUTHORS'])? $authors = $registerdata['MODULE_AUTHORS'] : $authors = '';
+                isset($registerdata['MODULE_RELEASEDATE'])? $releasedate = $registerdata['MODULE_RELEASEDATE'] : $releasedate = '';
+                isset($registerdata['MODULE_VERSION'])? $version = $registerdata['MODULE_VERSION'] : $version = '';
+                isset($registerdata['MODULE_PATH'])? $modPath = $registerdata['MODULE_PATH'] : $modPath = '';
+                isset($registerdata['MODULE_HASADMINPAGE'])? $adminPage = $registerdata['MODULE_HASADMINPAGE'] : $adminPage = '';
+                isset($registerdata['ISADMIN'])? $adm = $registerdata['ISADMIN'] : $adm = 0;
+                isset($registerdata['ISVISIBLE'])? $vis = $registerdata['ISVISIBLE'] : $vis = 1;
                 $sql_arr = array(
                     'module_id' => $moduleId
-                    ,'module_authors' => addslashes($registerdata['MODULE_AUTHORS'])
-                    ,'module_releasedate' => $registerdata['MODULE_RELEASEDATE']
-                    ,'module_version' => $registerdata['MODULE_VERSION']
-                    ,'module_path' => $registerdata['MODULE_PATH']
-                    ,'isadmin' => $registerdata['MODULE_ISADMIN']
-                    ,'isvisible' => $registerdata['MODULE_ISVISIBLE']
-                    ,'hasadminpage' => $registerdata['MODULE_HASADMINPAGE']
+                    ,'module_authors' => addslashes($authors)
+                    ,'module_releasedate' => $releasedate
+                    ,'module_version' => $version
+                    ,'module_path' => $modPath
+                    ,'isadmin' => $adm
+                    ,'isvisible' => $vis
+                    ,'hasadminpage' => $adminPage
                 );
                 if (isset($registerdata['CONTEXT_AWARE'])){
                     $sql_arr['iscontextaware']=$registerdata['CONTEXT_AWARE'];
