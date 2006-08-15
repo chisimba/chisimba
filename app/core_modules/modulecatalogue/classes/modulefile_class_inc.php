@@ -201,8 +201,8 @@ class modulefile extends object {
     {
         try {
         	$path=$this->config->getSiteRootPath()."/modules/".$modname."/controller.php";
-        	if (file_exists($path.$line)) {
-        			return $path.$line;
+        	if (file_exists($path)) {
+        			return $path;
         	} else {
         		return FALSE;
         	}

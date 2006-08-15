@@ -218,7 +218,7 @@ class tools extends object
 
         if(isset($array[1]) && !empty($array[1])){
 
-            //var_dump($module); var_dump($array); die;
+            //var_dump($module); var_dump($array); //die;
 			if(strtolower($array[1]) == 'site'){
 
                 return TRUE;

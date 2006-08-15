@@ -6,7 +6,7 @@ $this->loadClass('dropdown','htmlelements');
 $objCheck=&$this->newObject('checkbox','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
-$objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading',modulecatalogue);
+$objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
 $notice = $top = $bot = '';
 if (!isset($result)) {
 	$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
@@ -35,15 +35,14 @@ $rnnbl = $icon->show();*/
 $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
+			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'));
+			//,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
 
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
-//var_dump($result);
-//var_dump($modules);
 if ($modules) {
 	natsort($modules);
+	(($count % 2) == 0)? $oddOrEven = 'even' : $oddOrEven = 'odd';
 	$objTable->addHeader($head,'heading','align="left"');
 	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
 	$batchuninstall = $this->getParm('uninstall');
@@ -83,9 +82,7 @@ if ($modules) {
 		//$isRegistered = $hasController = $hasRegFile = '';
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
-		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
-		$infoButton->extra = $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
+		$textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
 		$ucMod = ucwords($modName);
@@ -93,11 +90,20 @@ if ($modules) {
 		if (!$desc) {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
 		} else {
-			$desc = htmlentities((string)$desc[0]);
+			$desc = (string)$desc[0];
+			if (strlen($desc)>40) {
+				$end = substr($desc,40);
+				//echo strchr($end,' ');
+				$end = substr($end,0,strlen($end)-strlen(strchr($end,' '))).'...';
+				$desc = substr($desc,0,40).$end;
+			}
 		}
+		$desc = htmlentities($desc);
+		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		$infoButton->link = $desc;
 		$link = $ucMod;
 		$icon->setModuleIcon($modName);
-		$icon->alt = $modname;
+		$icon->alt = $modName;
 		$objCheck->checkbox('arrayList[]');
         $objCheck->setValue($modName);
         //if ($this->objModFile->findController($modName)) {
@@ -156,18 +162,18 @@ if ($modules) {
 			}
 		}
 		$icon->setModuleIcon($modName);
-		$icon->alt = $mod['description'];
+		$icon->alt = $desc;
 		$objTable->startRow();
 		$objTable->addCell($checkBox,null,null,'left',$class);
 		$objTable->addCell($icon->show(),null,null,'left',$class);
 		$objTable->addCell($link,null,null,'left',$class);
-		$objTable->addCell($desc,null,null,'left',$class);
+		$objTable->addCell($info,null,null,'left',$class);
 		//$objTable->addCell($hasRegFile,null,null,'left',$class);
 		//$objTable->addCell($hasController,null,null,'left',$class);
 		//$objTable->addCell($isRegistered,null,null,'left',$class);
 		$objTable->addCell($instButtonShow,null,null,'left',$class);
 		$objTable->addCell($texts,null,null,'left',$class);
-		$objTable->addCell($info,null,null,'left',$class);
+		//$objTable->addCell($info,null,null,'left',$class);
 		$objTable->endRow();
 		}//temporary if
 	}
@@ -206,11 +212,11 @@ $objForm->addToForm($bot);
 $hTable = $this->newObject('htmltable','htmlelements');
 $hTable->startRow();
 $hTable->addCell($objH->show(),null,null,'left');
-$hTable->addCell($srchStr->show(),nul,null,'right');
+$hTable->addCell($srchStr->show(),null,null,'right');
 $hTable->endRow();
 $hTable->startRow();
 $hTable->addCell(null,null,null,'left');
-$hTable->addCell($srch,nul,null,'right');
+$hTable->addCell($srch,null,null,'right');
 $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 

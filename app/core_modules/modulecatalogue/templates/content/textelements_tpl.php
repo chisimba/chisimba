@@ -13,15 +13,6 @@
 
     echo '<h1>'.$objLanguage->languagetext('mod_modulecatalogue_textelementsfor','modulecatalogue').' <em>'.$modname.'</em></h1>';
 
-
-    // Now in case of errors
-    if ($this->objModule->errorText){
-        $objTblclass->startRow();
-        $objTblclass->addCell('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_problem1','modulecatalogue').':</b>', "", NULL, NULL, 'heading',"colspan='1'");
-        $objTblclass->addCell($this->objModule->errorText, "", NULL, NULL, 'odd','colspan="4"');
-        $objTblclass->endRow();
-    }
-
     // Display the headings
     $objTblclass->startRow();
     $objTblclass->addCell("&nbsp;", "", NULL, NULL, 'heading', NULL);

@@ -168,14 +168,8 @@ class modulesadmin extends dbTableManager
                     			$this->_lastError = 1004;
                     			return FALSE;
                     		} else {
-                    			// Delete the table from the records.
-                    			$sqlchk = "SELECT COUNT(*) AS fCount FROM tbl_modules_owned_tables WHERE kng_module ='$moduleId'";
-                    			$res = $this->objModules->query($sqlchk);
-                    			if ($res['fCount'] > 0) {
-                    				$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
-                    				$this->objModules->query($sql);
-                    			}
-
+                    			$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
+                    			$this->objModules->query($sql);
                     			// Add the table to the records.
                     			$this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
                     		}
@@ -495,7 +489,7 @@ class modulesadmin extends dbTableManager
                         else {
                             $groupList = $aclList;
                         }
-                        $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'menu_'.$line,'module'=>$moduleId,
+                        $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'menu_'.$sidemenu,'module'=>$moduleId,
                         		'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
@@ -566,7 +560,7 @@ class modulesadmin extends dbTableManager
                 //put the language information for name and description
                 $this->registerModuleLanguageElements();
                 // insert the list of language codes used by the module if any
-                $texts=$this->listTexts($registerdata); // get list of all specified texts
+               /* $texts=$this->listTexts($registerdata); // get list of all specified texts
                 if ($texts !== false) {
                     foreach ($texts as $key=>$value)
                     {
@@ -588,7 +582,8 @@ class modulesadmin extends dbTableManager
                             $this->addText($key,$value['desc'],$value['content']);
                         }
                     }
-                }
+                }*/
+                $this->moduleText($registerdata['MODULE_ID'],'replace');
                 if (isset($registerdata['DEPENDS'][0]))
                 {
                     $this->registerDependentModules($moduleId,$registerdata['DEPENDS']);
@@ -741,7 +736,7 @@ class modulesadmin extends dbTableManager
         	}
         	include($sqlfile);
         	$this->createTable($tablename,$fields,$options);
-        	if (is_array($indexes)) {
+        	if (isset($indexes)) {
         		$this->createTableIndex($tablename,$name,$indexes);
         	}
         	return TRUE;
@@ -952,15 +947,20 @@ class modulesadmin extends dbTableManager
     		$texts=array();
     		if (is_array($rdata) && array_key_exists($index,$rdata) && is_array($rdata[$index])) {
     			foreach ($rdata[$index] as $line) {
-    				list($code,$description,$content) = explode('|',$line);
-    				if ($content){
-    					$texts[$code]['content']=$content;
-    					$texts[$code]['desc']=$description;
+    				//list($code,$description,$content) = explode('|',$line);
+    				$cdc = explode('|',$line);
+    				if (count($cdc) != 3) {
+    					throw new customException("Error in register.conf file of module {$rdata['MODULE_ID']} on element {$cdc[0]}");
+    				}
+    				//echo "{$cdc[2]}<br/>";
+    				if ($cdc[2]){
+    					$texts[$cdc[0]]['content']=$cdc[2];
+    					$texts[$cdc[0]]['desc']=$cdc[1];
     				} else {
     					$module=$rdata['MODULE_ID'];
     					$errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalgoue');
     					$errorText = str_replace("{MODULE}",$module,$errorText);
-    					$errorText = str_replace("{CODE}",$code,$errorText);
+    					$errorText = str_replace("{CODE}",$cdc[0],$errorText);
     					$this->errorText .= $errorText;
     				}
     			}
@@ -979,7 +979,7 @@ class modulesadmin extends dbTableManager
     * @author James Scoble
     * @param $code,$description,$content
     */
-    private function addText($code,$description,$content,$modname = null) {
+    private function addText($code,$description,$content,$modname = 'system') {
     	try {
     		if ($modname == null) {
     			$modname = $this->module_id;

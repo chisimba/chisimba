@@ -80,6 +80,7 @@ class catalogue extends object {
     	try {
     		$un = $this->getParam('uninstall');
     		$str = '<ul id="nav-secondary">';
+    		$cssClass = '';
     		//loop through the nodes
     		foreach($this->nodes as $node) {
 				if(strtolower($node) == strtolower($activeNode)) {

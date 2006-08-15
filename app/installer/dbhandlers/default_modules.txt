@@ -3,12 +3,12 @@ redirect
 modulecatalogue
 postlogin
 security
-#useradmin - tbl_country.sql file not up to date
+useradmin
 groupadmin
 permissions
 sysconfig
 toolbar
-#filestore - module not in cvs yet
+filestore
 dublincoremetadata
 context
 contextadmin

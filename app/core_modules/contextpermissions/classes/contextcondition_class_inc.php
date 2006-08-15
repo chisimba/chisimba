@@ -68,7 +68,7 @@ class contextCondition extends condition
      */
     var $_delimiter = '/';
 
-    
+
    // --- OPERATIONS ---
 
     /**
@@ -102,7 +102,7 @@ class contextCondition extends condition
     {
         return $this->_objUser->isAdmin();
     }
-    
+
     /**
      * CallBack method used by the evaluate method.
      *
@@ -124,7 +124,7 @@ class contextCondition extends condition
        }
         return FALSE;
     }
-    
+
     /**
      * CallBack method used by the evaluate method.
      *
@@ -181,12 +181,15 @@ class contextCondition extends condition
     {
         // String to Array using delimiter.
         $arrPath = explode($this->_delimiter,$absPath );
+        //var_dump($arrPath);
         // Get the groupId for the given path.
         $groupId = $this->_objGroupAdmin->getLeafId( $arrPath );
         // Get the current users PKid
         $userPKId = $this->_objUser->PKId();
+        //echo "$userPKId $groupId<br/>";
         // Evaluate result: TRUE means is a member, FALSE means is not a member
         $result = $this->_objGroupAdmin->isSubGroupMember($userPKId, $groupId );
+        //var_dump($result);
         // Returns the result of the evaluation.
         return $result;
     }
@@ -209,7 +212,7 @@ class contextCondition extends condition
         // Returns the result of the evaluation.
         return $result;
     }
-    
+
     /**
      * Callback method to evaluate the value parameter for context permissions.
      *

@@ -155,7 +155,7 @@ class modulecatalogue extends controller
 			//$this->setVar('letter',$this->getParam('letter','none'));
 			$this->setLayoutTemplate('cat_layout.php');
 			switch ($action) {		//check action
-				case xml:
+				case 'xml':
 					$this->objCatalogueConfig->writeCatalogue();
 					$this->nextAction('list');
 					break;
@@ -168,7 +168,8 @@ class modulecatalogue extends controller
 						return 'front_tpl.php';
 					}
 				case 'uninstall':
-					if ($this->uninstallModule($this->getParm('mod'))) {
+					$mod = $this->getParm('mod');
+					if ($this->uninstallModule($mod)) {
 						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_uninstallsuccess','modulecatalogue'));
 					} else {
 						if ($this->output == '') {

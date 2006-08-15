@@ -237,6 +237,7 @@ class csslayout extends object implements ifhtml
 		{
 			$footer = '<div  id="footer">'.$footerStr.'</div>';
 		}
+
 		else {
 			$footer = NULL;
 		}
@@ -244,7 +245,6 @@ class csslayout extends object implements ifhtml
 		{
 			$breadcrumbs = NULL;
 		}
-
 
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {

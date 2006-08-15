@@ -9,7 +9,7 @@
     $objTblClass->attributes=" align='center' border='0'";
     $objTblClass->cellspacing='10';
     $objTblClass->cellpadding='2';
-                                  
+
     // The second table will have the register.conf main data
     $objTbl2=&$this->newObject('htmltable','htmlelements');
     $objTbl2->width='';
@@ -19,9 +19,9 @@
 
     // The 3rd table has a list of the SQL tables the module added to the database.
     $objTbl3=&$this->newObject('htmltable','htmlelements');
-    
+
     $this->modname = $this->getParam('mod');
-    
+
     $infoHead = '<h3>'.stripslashes(str_replace('MODULE',ucwords($this->modname),$this->objLanguage->languageText('mod_modulecatalogue_info','modulecatalogue'))).'</h3>';
     // Here we add the title
     $objTblClass->startRow();
@@ -48,7 +48,7 @@
             $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_menucat','modulecatalogue').':</b>',$line));
         }
     }
-    
+
     // Now the dependencies
     if (isset($this->registerdata['DEPENDS'])){
         $str="<ul>\n";
@@ -76,17 +76,6 @@
     // Finally we put the tables together and print out the result:
     $objTblClass->addRow(array($objTbl2->show(),$objTbl3->show()),'even',"valign='top'");
 
-
-    // Now in case of errors
-    if ($this->objModule->errorText){
-        $objTblClass->startRow();
-        $objTblClass->addCell('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_problem1','modulecatalogue','Problems detected').':</b>', "", NULL, NULL, 'odd',"colspan='2'");
-        $objTblClass->endRow();
-        $objTblClass->startRow();
-        $objTblClass->addCell($this->objModule->errorText, "", NULL, NULL, 'odd','colspan="2"');
-        $objTblClass->endRow();
-    }
- 
     // Link back
     $link1="<a href='".$this->uri(array('cat'=>$this->getParm('cat')),'modulecatalogue')."'>".$this->objLanguage->languageText('mod_modulecatalogue_return','modulecatalogue')."</a>";
     $link2='';
@@ -102,5 +91,5 @@
     $objTblClass->endRow();
 
     echo $objTblClass->show();
-    
+
 ?>

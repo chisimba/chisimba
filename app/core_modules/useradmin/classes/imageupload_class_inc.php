@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
 * Handles upload of images.
 * @author James Scoble
 * @author Jeremy O'Connor
@@ -18,7 +18,7 @@ class imageupload extends object
 	* @var string The URL of the file.
 	*/
     private $imageUrl;
-   
+
     public function init()
     {
         $this->objConfig=&$this->getObject('altconfig','config');
@@ -68,7 +68,7 @@ class imageupload extends object
             return ($this->imageUrl."default.jpg");
         }
     }
-    
+
     /**
     * Return url to user's small picture.
     * @param string $userId
@@ -93,6 +93,6 @@ class imageupload extends object
             @unlink($this->imagePath.$userId.".jpg");
         }
     }
-    
+
 }
 ?>

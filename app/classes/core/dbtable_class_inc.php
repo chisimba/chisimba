@@ -149,7 +149,7 @@ class dbTable extends object
     	$sql = "SELECT COUNT(*) AS fcount FROM $table WHERE $field='$value'";
         if($this->debug == TRUE)
         {
-        	log_debug("$sql => $ret");
+        	log_debug("$sql");
         }
     	$rs = $this->query($sql);
         if (!$rs) {
