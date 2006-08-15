@@ -98,7 +98,11 @@ class datepicker extends object
         
         $this->appendArrayVar('headerParams', $script);
         
-        return "<script>DateInput('".$this->name."', true, '".$this->dateFormat."', '".$this->defaultDate."')</script>";
+        return "<script type=\"text/javascript\">
+//<![CDATA[
+DateInput('".$this->name."', true, '".$this->dateFormat."', '".$this->defaultDate."')
+//]]>
+</script>";
     }
 
 }
