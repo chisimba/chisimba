@@ -217,6 +217,7 @@ class radio extends abhtmlbase implements ifhtml
             {
                 $table->addCell('&nbsp;', $equalColumns.'%');
             }
+            $table->endRow();
         }
         
         return $table->show();
