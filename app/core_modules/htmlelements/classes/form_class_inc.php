@@ -517,8 +517,9 @@ class form implements ifhtml
     private function _getValidatorScripts()
     {
         $jsc = '
-			<script language="JavaScript"  src="modules/htmlelements/resources/validation.js"></script>
-			<script language="JavaScript">
+			<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
+			<script language="JavaScript" type="text/javascript">
+            //<![CDATA[
 			//the following lines are generated 	
 				function validate_' . $this->name . '_form(frm)
 				{ 
@@ -528,6 +529,7 @@ class form implements ifhtml
 				
 					return ok;
 				}
+            //]]>
 			</script>
 	
 			';
