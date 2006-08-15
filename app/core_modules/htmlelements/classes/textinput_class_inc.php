@@ -100,7 +100,7 @@ class textinput extends abhtmlbase implements ifhtml
             $str .= ' id="' . $this->cssId . '"';
         }
         if ($this->extra) {
-            $str .= $this->extra;
+            $str .= ' '.$this->extra;
         }
         $str .= ' />';
         return $str;
