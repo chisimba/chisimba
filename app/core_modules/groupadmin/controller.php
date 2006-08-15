@@ -509,7 +509,7 @@ class groupadmin extends controller {
         $lstMembers->name = 'list2[]';
         $lstMembers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true)"';
         foreach ( $memberList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstMembers->addOption( $userPKId, $fullName );
         } 
@@ -518,7 +518,7 @@ class groupadmin extends controller {
         $lstUsers->name = 'list1[]';
         $lstUsers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
         foreach ( $usersList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstUsers->addOption( $userPKId, $fullName );
         } 
