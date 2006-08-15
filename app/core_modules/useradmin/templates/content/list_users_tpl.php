@@ -32,7 +32,7 @@
     $objForm->addToForm($usersTable);    
     $objButton->button('submit',$objLanguage->languageText('mod_useradmin_deletesected','useradmin')); 
     $objButton->setToSubmit(); 
-    $objForm->addToForm('<p align="center">'.$objButton->show().'</p>'); 
+    $objForm->addToForm('<p align="right">'.$objButton->show().'</p>'); 
     print $objForm->show();    
 	echo '<br />';
 	

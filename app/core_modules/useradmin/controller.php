@@ -181,7 +181,7 @@ class useradmin extends controller
                 $userData=$this->objUserAdmin->getUsers('notused','','TRUE');
                 $userdata=$this->makeTableFromUsers($userData,TRUE);
                 $this->setVar('userdata',$userdata);
-                $title = $this->objLanguage->languageText('mod_useradmin_unusedaccounts');
+                $title = $this->objLanguage->languageText('mod_useradmin_unusedaccounts','useradmin');
                 $this->setVar('title', $title);
                 return 'list_users_tpl.php';
             default:
