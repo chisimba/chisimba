@@ -157,8 +157,8 @@ class parse4mmedia extends object {
     function parseMp3($str)
     { 
         // Get the configuration object for site root
-        $objConfig = $this->getObject('config', 'config');
-        $player = $objConfig->siteRoot() . "modules/filters/resources/mp3player.swf?src=";
+        $objConfig = $this->getObject('altconfig', 'config');
+        $player = $objConfig->getsiteRoot() . "modules/filters/resources/mp3player.swf?src=";
         $search = '/<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*?)<\/a>/isU';
         /*\\0&nbsp;\n\n*/$replace = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"";
         $replace .= ' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" ';
