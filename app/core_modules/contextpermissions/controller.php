@@ -38,6 +38,7 @@ class contextpermissions extends controller {
      */
     function dispatch( $action )
     {
+		$this->setVar('pageSuppressXML',true);
         
         // Test for first-time entry
         if( !$this->getSession( 'module_name' , FALSE ) ) {
@@ -360,27 +361,27 @@ class contextpermissions extends controller {
     function showMain()
     {
         $this->setVar('title', 
-            ucfirst($this->objLanguage->code2Txt( 'mod_contextpermissions_ttlContextPermissions') ));
+            ucfirst($this->objLanguage->code2Txt( 'mod_contextpermissions_ttlContextPermissions','contextpermissions') ));
 
         $this->setVar('lblCreateAction', 
-            $this->objLanguage->languageText( 'mod_contextpermissions_lblCreateAction','[Create new actions]'));
+            $this->objLanguage->languageText( 'mod_contextpermissions_lblCreateAction','contextpermissions','[Create new actions]'));
         $this->setVar('lblCreateRule',
-            $this->objLanguage->languageText('mod_contextpermissions_lblCreateRule','[Create new rules]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblCreateRule','contextpermissions','[Create new rules]'));
         $this->setVar('lblCreateCondition', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblCreateCondition','[Create new conditions]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblCreateCondition','contextpermissions','[Create new conditions]'));
 
         $this->setVar('lblAction', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblAction', '[Actions]') );
+            $this->objLanguage->languageText('mod_contextpermissions_lblAction','contextpermissions', '[Actions]') );
         $this->setVar('lblRule', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblRules', '[Rules]') );
+            $this->objLanguage->languageText('mod_contextpermissions_lblRules','contextpermissions', '[Rules]') );
         $this->setVar('lblCondition', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblCondition', '[Conditions]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblCondition','contextpermissions', '[Conditions]'));
         $this->setVar('lblGenerateConfig', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblGenerateConfig', '[Generate Config]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblGenerateConfig','contextpermissions', '[Generate Config]'));
         $this->setVar('lblUpdatePerms', 
-            $this->objLanguage->languageText('mod_contextpermissions_lblUpdatePerms', '[Update Permissions]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblUpdatePerms','contextpermissions', '[Update Permissions]'));
         $this->setVar('lblControllerActions',
-            $this->objLanguage->languageText('mod_contextpermissions_lblControllerActions', '[Get Actions]'));
+            $this->objLanguage->languageText('mod_contextpermissions_lblControllerActions','contextpermissions', '[Get Actions]'));
         
         $this->setVar('decisionTable', $this->objDecisionTable );
         return 'main_tpl.php';
@@ -410,7 +411,7 @@ class contextpermissions extends controller {
             if( $params<>'' ) {
                 $condition->update($params);
                 $this->setSession('msg',
-                    $this->objLanguage->languageText('mod_contextpermissions_saved','[Saved]') );
+                    $this->objLanguage->languageText('mod_contextpermissions_saved','contextpermissions','[Saved]') );
                 return $this->nextAction('show_condition',array('id'=>$condId));
             } else {
                 $this->setSession('msg',
@@ -434,7 +435,7 @@ class contextpermissions extends controller {
         $this->objCond->retrieveId();
         $condition  = $this->objCond->retrieve();
         $this->setVar('title', 
-            $this->objLanguage->languageText('mod_contextpermissions_ttlCondition', '[Condition]').' : '.$condition->_name);
+            $this->objLanguage->languageText('mod_contextpermissions_ttlCondition','contextpermissions', '[Condition]').' : '.$condition->_name);
         $this->setVar('condition', $condition);
         $this->setVar('msg', $this->getSession('msg') );
         $this->unsetSession('msg');
@@ -455,7 +456,7 @@ class contextpermissions extends controller {
     {
         $this->setVar('decisionTable', $this->objDecisionTable );
         $this->setVar( 'title', 
-            $this->objLanguage->languageText( 'mod_contextpermissions_ttlRegConf','[Registration configuration]') );
+            $this->objLanguage->languageText( 'mod_contextpermissions_ttlRegConf','contextpermissions','[Registration configuration]') );
   
         return 'generate_config_tpl.php';
     }

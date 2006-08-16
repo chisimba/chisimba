@@ -11,7 +11,7 @@ foreach ( $modules as $aModule ) {
 $ddbModules->setSelected( $this->getSession('module_name') );
 
 // Select a module:
-$lblSelectModule = &$this->objLanguage->languageText("mod_contextpermissions_lblSelectModule","[Select a module: ]");
+$lblSelectModule = &$this->objLanguage->languageText("mod_contextpermissions_lblSelectModule",'contextpermissions',"[Select a module: ]");
 $objLabel = &$this->getObject( 'label', 'htmlelements' );
 $objLabel->label( $lblSelectModule, 'input_module_name' );
 
@@ -19,7 +19,7 @@ $frmMod = $this->newObject( 'form', 'htmlelements' );
 $frmMod->action = $this->uri( array('action'=>'show_main') );
 $frmMod->name ='frmMod';
 $frmMod->addToForm( '<H1>'.$title.' </H1>' );
-$frmMod->addToForm( '<P>'.$objLabel->show().'&nbsp;'.$ddbModules->show().'<BR>' );
+$frmMod->addToForm( '<P>'.$objLabel->show().'&nbsp;'.$ddbModules->show().'</P>' );
 echo $frmMod->show();
 
 // Initialize links
@@ -42,6 +42,6 @@ $objViewGrid->name = $this->getParam('id');
 $objViewGrid->class = $this->getParam('class');
 echo $objViewGrid->show();
 
-echo "<P>".implode( ' / ', array( $lnkCreateAction,$lnkCreateRule, $lnkCreateCondition, $lnkGetControllerActions, $lnkGenerateConfig, $lnkUpdatePermissions ));
+echo "<P>".implode( ' / ', array( $lnkCreateAction,$lnkCreateRule, $lnkCreateCondition, $lnkGetControllerActions, $lnkGenerateConfig, $lnkUpdatePermissions ))."</P>";
 
 ?></DIV>

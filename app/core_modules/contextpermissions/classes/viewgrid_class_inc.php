@@ -324,6 +324,7 @@ class viewGrid extends object
 
         // Only action for this module
         $this->_arrActions = $decisionTable->_arrActions;
+		//var_dump($this->_arrActions);
         
         foreach( $decisionTable->_objDBDecisionTableRule->retrieve($decisionTable) as $rule ) {
             $aRule = $objRule->create( $rule['name'] );
