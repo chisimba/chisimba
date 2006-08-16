@@ -33,6 +33,8 @@ class controller extends access
     	$this->controllerName = get_class($this);
         try {
         	parent::__construct($objEngine, $moduleName);
+        	$version = $objEngine->version;
+        	$this->footerStr = "<center>Powered by Chisimba version " .$version . "</center>";
         }
         catch (customException $e)
         {
