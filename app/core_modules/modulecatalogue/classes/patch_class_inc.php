@@ -66,7 +66,12 @@ class patch extends dbtable {
 					//check for xml document
 					$description = $this->objLanguage->languageText('mod_modulecatalogue_newlangitems','modulecatalogue');
 					if ($updateFile = $this->objModFile->findSqlXML($module['module_id'])) {
-						if (!$objXml = simplexml_load_file($updateFile)) {
+						$check = file_get_contents($updateFile);
+						if(empty($check)) {
+							//die("Empty XML File " . $updateFile);
+							continue;
+						}
+						elseif (!$objXml = simplexml_load_file($updateFile)) {
     						throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
     					}
     					$desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
