@@ -746,7 +746,7 @@ class PEARCheckAction extends StepAction
 
 
 
-			@include_once 'Mail/mime.php';
+			/*@include_once 'Mail/mime.php';
 
 			if (!class_exists('Mail_mime')) {
 
@@ -758,7 +758,7 @@ class PEARCheckAction extends StepAction
 
 				$this->required_packages['Mail_Mime']['message'] =  '<img src="./extra/yellow_help_on.png" border="0" alt="Help" title="Help"  />';
 
-			}
+			}*/
 
 
 
@@ -1152,65 +1152,14 @@ class PEARDBCheckAction extends StepAction
 	function processAction()
 
 	{
-
+		$this->errors[] = '<br/>';
 		// check if the pear classes exist
 		$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
 
 		if ($_SESSION['pear_path'] == '') {
 
-			// go through and manually try and instantiate PEAR classes.
-			$mysqli = isset($_POST['MDB2_Driver_mysqli']) ? $_POST['MDB2_Driver_mysqli'] :'';
-     		$pgsql = isset($_POST['MDB2_Driver_pgsql']) ? $_POST['MDB2_Driver_pgsql'] :'';
-    		//$sqlite = isset($_POST['MDB2_Driver_sqlite']) ? $_POST['MDB2_Driver_sqlite'] : '';
-
-			if ($mysqli==1) {
-
-				@include_once 'MDB2/Driver/mysqli.php';
-				if (!class_exists('MDB2_Driver_mysqli')) {
-
-				$this->errors[] = 'Could not find PEAR::MDB2_Driver_mysqli';
-
-				$this->required_db['<input type="checkbox" name="MDB2_Driver_mysqli" id="MDB2_Driver_mysqli" value="checked"  class="sq-form-field" />MDB2_Driver_mysqli']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-				} else {
-
-				$this->required_db['<input type="checkbox" name="MDB2_Driver_mysqli" id="MDB2_Driver_mysqli" value="checked"  class="sq-form-field" />MDB2_Driver_mysqli']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-				}
-			}
-			if ($pgsql==1){
-				@include_once 'MDB2/Driver/pgsql.php';
-
-				if (!class_exists('MDB2_Driver_pgsql')) {
-
-					$this->errors[] = 'Could not find PEAR::MDB2_Driver_pgsql';
-
-					$this->required_db['<input type="checkbox" name="MDB2_Driver_pgsql" id="MDB2_Driver_pgsql" value="1"  class="sq-form-field" />MDB2_Driver_pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-				} else {
-
-					$this->required_db['<input type="checkbox" name="MDB2_Driver_pgsql" id="MDB2_Driver_pgsql" value="1"  class="sq-form-field" />MDB2_Driver_pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-				}
-
-			}
-			/*
-			if ($sqlite==1){
-				@include_once 'MDB2/Driver/sqlite.php';
-
-				if (!class_exists('MDB2_Driver_sqlite')) {
-
-					$this->errors[] = 'Could not find PEAR::MDB2_Driver_sqlite';
-
-					$this->required_db['<input type="checkbox" name="MDB2_Driver_sqlite" id="MDB2_Driver_sqlite" value="1"  class="sq-form-field" />MDB2_Driver_sqlite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-				} else {
-
-					$this->required_db['<input type="checkbox" name="MDB2_Driver_sqlite" id="MDB2_Driver_sqlite" value="1"  class="sq-form-field" />MDB2_Driver_sqlite']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-				}
-
-			}
-*/
+			$this->errors[] = 'Unable to detect your PEAR settings, please provide your pear path.';
+			
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
@@ -1230,12 +1179,12 @@ class PEARDBCheckAction extends StepAction
 			foreach ($this->required_db as $package_name => $required_version) {
 
 				$package_info = $pear_registry->packageInfo($package_name);
-
+				
 				if (empty($package_info)) {
+					
+					//$this->errors[] = 'Required PEAR module "'.$package_name.'" is not installed. Please run ';
 
-					$this->errors[] = '<br> Required PEAR module "'.$package_name.'" is not installed. Please run ';
-
-					$this->errors[] = '<pre>pear install --alldeps '.$package_name;
+					//$this->errors[] = '<pre>pear install --alldeps '.$package_name.'</pre>';
 
 					$this->required_db[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
@@ -1249,7 +1198,7 @@ class PEARDBCheckAction extends StepAction
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
-						$this->errors[] = 'Your version of '.$package_name.' meets and exceeds the minumum requirements.';
+						//$this->errors[] = 'Your version of '.$package_name.' meets the minimum requirements.';
 
 
 
@@ -1263,13 +1212,24 @@ class PEARDBCheckAction extends StepAction
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-						$this->errors[] = 'Please run <pre>pear upgrade '.$package_name.'</pre>';
+						//$this->errors[] = 'Please run <pre>pear upgrade '.$package_name.'</pre>';
 
 						$this->success = true;
 
 					}
 
 				}
+
+			}
+			$driver = false;
+			foreach ($this->required_db as $package) {
+				if ($package['available']) {
+					$driver = true;
+				}
+			}
+			if (!$driver) {
+				$this->errors[] = 'Please install at least one MDB2 databse driver. ';
+				$this->errors[] = 'Eg: <pre>pear install --alldeps MDB2_Driver_mysql</pre>';
 
 			}
 
