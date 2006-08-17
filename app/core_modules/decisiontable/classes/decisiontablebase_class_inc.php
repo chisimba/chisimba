@@ -84,7 +84,7 @@ class decisionTableBase extends dbTable
             @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
         }
-    	/**
+    	/*
     	$sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
         $arrTableExists = $this->getArray( $sqlTableExists );
         if( empty ( $arrTableExists ) ) {
