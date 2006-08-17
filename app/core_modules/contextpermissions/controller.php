@@ -127,7 +127,7 @@ class contextpermissions extends controller {
     function getControllerActions()
     {
         $moduleName = $this->getSession( 'module_name' );
-        $farray=file("modules/$moduleName/controller.php",'r');
+        $farray=file("modules/$moduleName/controller.php");
         $inDispatch = false;
         $exit = false;
         $arrActions = array();
