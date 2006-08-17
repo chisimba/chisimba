@@ -79,7 +79,8 @@ class dbDecisionTableRule extends dbTable {
 
         // Package it
         $arrDTaction = array();
-        $arrDTaction['decisionTableId'] = $decisionTable->_id;
+        // JC $arrDTaction['decisionTableId'] = $decisionTable->_id;
+		$arrDTaction['decisiontableId'] = $decisionTable->_id;
         $arrDTaction['ruleId'] = $rule->_id;
         // Insert it
         return $this->insert( $arrDTaction );
@@ -108,12 +109,13 @@ class dbDecisionTableRule extends dbTable {
      public function retrieve( $objDecisionTable )
      {
          // Get the action for this decisionTable
-         $objRule = $this->getObject( 'rule' );
+         $objRule = $this->newObject( 'rule' );
          $join = $this->join( 'INNER JOIN', $objRule->_tableName , array( 'ruleId'=>'id' ) );
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
          // Get all Rules for this decisionTable
 
-         return $this->getAll($join.$filter, array( $objRule->_tableName.'id',  $objRule->_tableName.'name' ));
+         $arr = $this->getAll($join.$filter, array( $objRule->_tableName.'id',  $objRule->_tableName.'name' ));
+		 return $arr;
      }
 
     /**
@@ -131,7 +133,6 @@ class dbDecisionTableRule extends dbTable {
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
          $filter.= " AND ".$objRule->_tableName.".name = '".$objRule->_name."'";
          $arr = $this->getAll($join.$filter, array ( $objRule->_tableName.'id' ) );
-
          if( !empty($arr) ){
             return $arr[0]['id'];
          } else {

@@ -78,7 +78,7 @@ class condition extends decisionTableBase
     {
         // Store the class type.
         parent::init('tbl_decisiontable_condition');
-        $this->objConditionType = &$this->getObject( 'conditiontype', 'decisiontable' );
+        $this->objConditionType = &$this->newObject( 'conditiontype', 'decisiontable' );
     }
 
     /**

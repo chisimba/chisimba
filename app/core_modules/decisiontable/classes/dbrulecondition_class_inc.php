@@ -98,7 +98,8 @@ class dbRuleCondition extends dbTable {
          $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleId'=>'id' ) );
          $filter = " WHERE ruleId = '".$objRule->_id."'";
          $fields = array( $objRule->_tableName.'id',  $objRule->_tableName.'name' );
-         return $this->getAll($join.$filter, $fields );
+         $arr = $this->getAll($join.$filter, $fields );
+		 return $arr;
      }
 }
 ?>

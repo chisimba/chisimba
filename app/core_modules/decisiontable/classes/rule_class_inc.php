@@ -32,9 +32,9 @@ class rule extends decisionTableAggregate
      */
     function init()
     {
-        $this->_objParts = &$this->getObject( 'dbdecisiontablerule' );
-        $this->_objChild = &$this->getObject('dbrulecondition');
-        $this->_objCreated = &$this->getObject( 'condition' );
+        $this->_objParts = &$this->newObject( 'dbdecisiontablerule' );
+        $this->_objChild = &$this->newObject('dbrulecondition');
+        $this->_objCreated = &$this->newObject( 'condition' );
         $this->_dbFK =  'conditionid';
         parent::init('tbl_decisiontable_rule' );
     }

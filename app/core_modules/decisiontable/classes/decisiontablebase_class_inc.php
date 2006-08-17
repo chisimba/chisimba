@@ -118,7 +118,8 @@ class decisionTableBase extends dbTable
     {
         // Set the name and reset other properties.
         $this->_id = NULL;
-        $this->_name = strtolower($name);
+        // JC $this->_name = strtolower($name);
+		$this->_name = $name;
         $this->_dbData = array('name'=>$name);
         // Get the ID;
         if( $this->enableAutoInsertRetrieveId ) {

@@ -99,7 +99,8 @@ class dbActionRule extends dbTable {
          $filter = " WHERE actionId = '".$objAction->_id."'";
          $fields = array( $objAction->_tableName.'id',  $objAction->_tableName.'name' );
          // Get all Rules for this action
-         return $this->getAll($join.$filter, $fields );
+         $arr = $this->getAll($join.$filter, $fields );
+		 return $arr;
      }
 }
 ?>

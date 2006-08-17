@@ -90,11 +90,11 @@ class classParser extends object
         $function = $callFunction['function'];
         $params = $callFunction['params'];
         // Callback methods available
-        $objConditionType = &$this->getObject( 'conditiontype', 'decisiontable' );
+        $objConditionType = &$this->newObject( 'conditiontype', 'decisiontable' );
         // Call the correct the method from its class and in its module
         $arrType = $objConditionType->getType( $function );
         if( !empty( $arrType ) ) {
-            $condition = &$this->getObject( $this->_classPrefix.$arrType['className'], $arrType['moduleName'] );
+            $condition = &$this->newObject( $this->_classPrefix.$arrType['className'], $arrType['moduleName'] );
         } else {
             // Return FALSE if the conditionType not found
             return FALSE;
