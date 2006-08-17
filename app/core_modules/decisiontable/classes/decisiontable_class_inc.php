@@ -59,8 +59,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     public function init( )
     {
         parent::init('tbl_decisiontable_decisiontable');
-        $this->_objDBDecisionTableAction = $this->getObject( 'dbdecisiontableaction' );
-        $this->_objDBDecisionTableRule = $this->getObject( 'dbdecisiontablerule' );
+        $this->_objDBDecisionTableAction = $this->newObject( 'dbdecisiontableaction' );
+        $this->_objDBDecisionTableRule = $this->newObject( 'dbdecisiontablerule' );
 
         $this->_arrActions = array();
     }
@@ -103,7 +103,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     public function showElement( &$objElement )
     {
-       return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
+       // JC return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
+	   return $this->isValid( $objElement->name ) ? $objElement->show() : NULL;
     }
 
     /**
@@ -152,7 +153,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
 
         $arrRules = $this->_objDBDecisionTableRule->retrieve($this);
-        $objRule = &$this->getObject('rule');
+        $objRule = &$this->newObject('rule');
         $objRule->connect($this);
         foreach( $arrRules as $dbRule ) {
             $objRule->create($dbRule['name']);
@@ -264,8 +265,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     public function retrieve( $name = NULL )
     {
         // Get the action object
-        $objAction = $this->getObject('action');
-        $objAction->connect($this);
+        //JC $objAction = $this->newObject('action');
+        //JC $objAction->connect($this);
         // Create the decision table if given
         if( $name ) {
             $this->create( $name );
@@ -277,6 +278,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $arrActions = $this->_objDBDecisionTableAction->retrieve( $this );
         // Create new action objects.
         foreach( $arrActions as $decisionTableAction ) {
+	        $objAction = $this->newObject('action');
+	        $objAction->connect($this);
             // Fetch the action.
             $actionRow = $objAction->getRow( 'id', $decisionTableAction['actionid'] );
            // Get the action
