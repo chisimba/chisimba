@@ -265,8 +265,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     public function retrieve( $name = NULL )
     {
         // Get the action object
-        //JC $objAction = $this->newObject('action');
-        //JC $objAction->connect($this);
+        // JC $objAction = $this->newObject('action');
+        // JC $objAction->connect($this);
         // Create the decision table if given
         if( $name ) {
             $this->create( $name );
