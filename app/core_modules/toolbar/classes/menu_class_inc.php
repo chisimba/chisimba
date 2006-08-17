@@ -193,9 +193,8 @@ class menu extends object
 
         // get slide out menus
         $modules = $this->menuBar();
-        if(!empty($modules)){
-            $menu = $this->buildMenu($modules);
-        }
+        $menu = $this->buildMenu($modules);
+        
         if(!$menu)
             $menu='';
         // get breadcrumbs

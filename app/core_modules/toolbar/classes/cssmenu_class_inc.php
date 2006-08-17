@@ -64,7 +64,7 @@ class cssmenu extends object
             $str.="</ul></li>\n";
         }
         $str .= '<li class="last"><a href="javascript: if(confirm(\'Are you sure you want to logout?\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">Logout</a></li>';
-        $str.="</ul>";
+        $str .="</ul>";
         $menu=$str;
         return $menu;
 	}
