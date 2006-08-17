@@ -47,15 +47,15 @@ class dbActionRule extends dbTable {
     {
         // no Duplicates
         $checkDups  = $rule->_id."' AND ";
-        $checkDups .= " actionId = '".$action->_id;
-        if( $this->valueExists( 'ruleId', $checkDups ) ) {
+        $checkDups .= " actionid = '".$action->_id;
+        if( $this->valueExists( 'ruleid', $checkDups ) ) {
             return FALSE;
         }
 
         // Package it
         $arrActRule = array();
-        $arrActRule['actionId'] = $action->_id;
-        $arrActRule['ruleId'] = $rule->_id;
+        $arrActRule['actionid'] = $action->_id;
+        $arrActRule['ruleid'] = $rule->_id;
         // Insert it
         return $this->insert( $arrActRule );
     }
@@ -70,7 +70,7 @@ class dbActionRule extends dbTable {
      */
     function delete( $actionId )
     {
-        return parent::delete( 'actionId', $actionId );
+        return parent::delete( 'actionid', $actionId );
     }
 
     /**
@@ -84,7 +84,7 @@ class dbActionRule extends dbTable {
      */
     function deleteChild( $actionId, $ruleId )
     {
-        return parent::delete( 'actionId' , $actionId."' AND ruleId = '$ruleId" );
+        return parent::delete( 'actionid' , $actionId."' AND ruleid = '$ruleId" );
     }
 
     /**
@@ -95,8 +95,8 @@ class dbActionRule extends dbTable {
      function retrieve( $objAction )
      {
          // Get all Conditions for this rule
-         $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionId'=>'id' ) );
-         $filter = " WHERE actionId = '".$objAction->_id."'";
+         $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionid'=>'id' ) );
+         $filter = " WHERE actionid = '".$objAction->_id."'";
          $fields = array( $objAction->_tableName.'id',  $objAction->_tableName.'name' );
          // Get all Rules for this action
          $arr = $this->getAll($join.$filter, $fields );

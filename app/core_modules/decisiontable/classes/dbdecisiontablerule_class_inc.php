@@ -72,14 +72,14 @@ class dbDecisionTableRule extends dbTable {
     {
         // no Duplicates
         $checkDups  = $rule->_id."' AND ";
-        $checkDups .= " decisiontableId = '".$decisionTable->_id;
-        if( $this->valueExists( 'ruleId', $checkDups ) ) {
+        $checkDups .= " decisiontableid = '".$decisionTable->_id;
+        if( $this->valueExists( 'ruleid', $checkDups ) ) {
             return FALSE;
         }
 
         // Package it
         $arrDTaction = array();
-        // JC $arrDTaction['decisionTableId'] = $decisionTable->_id;
+
 		$arrDTaction['decisiontableId'] = $decisionTable->_id;
         $arrDTaction['ruleId'] = $rule->_id;
         // Insert it
@@ -109,7 +109,8 @@ class dbDecisionTableRule extends dbTable {
      public function retrieve( $objDecisionTable )
      {
          // Get the action for this decisionTable
-         $objRule = $this->newObject( 'rule' );
+
+         $objRule = $this->newObject( 'rule' ,'decisiontable' );
          $join = $this->join( 'INNER JOIN', $objRule->_tableName , array( 'ruleId'=>'id' ) );
          $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
          // Get all Rules for this decisionTable
@@ -129,8 +130,8 @@ class dbDecisionTableRule extends dbTable {
      public function retrieveId( &$objRule, &$objDecisionTable )
      {
          // Get the action for this decisionTable
-         $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleId'=>'id' ) );
-         $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
+         $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleid'=>'id' ) );
+         $filter = " WHERE decisiontableid = '".$objDecisionTable->_id."'";
          $filter.= " AND ".$objRule->_tableName.".name = '".$objRule->_name."'";
          $arr = $this->getAll($join.$filter, array ( $objRule->_tableName.'id' ) );
          if( !empty($arr) ){

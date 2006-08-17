@@ -29,7 +29,7 @@ class action extends decisionTableAggregate
      */
     public function init()
     {
-        $this->_objParts= $this->newObject( 'dbdecisiontableaction' );
+        $this->_objParts= $this->newObject( 'dbdecisiontableaction','decisiontable'  );
         $this->_objChild = $this->newObject('dbactionrule','decisiontable');
         $this->_objCreated = $this->newObject( 'rule','decisiontable' );
         $this->_dbFK =  'ruleid';

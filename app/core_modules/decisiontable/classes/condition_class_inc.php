@@ -229,7 +229,7 @@ class condition extends decisionTableBase
         // Call the correct the method from its class and in its module
         $arrType = $this->objConditionType->getType( $function );
         if( !empty( $arrType ) ) {
-            $condition = $this->newObject( $arrType['className'], $arrType['moduleName'] );
+            $condition = $this->newObject( $arrType['classname'], $arrType['modulename'] );
         } else {
             // Return FALSE if the conditionType not found
             return FALSE;

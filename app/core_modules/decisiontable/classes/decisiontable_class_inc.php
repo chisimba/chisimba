@@ -59,8 +59,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     public function init( )
     {
         parent::init('tbl_decisiontable_decisiontable');
-        $this->_objDBDecisionTableAction = $this->newObject( 'dbdecisiontableaction' );
-        $this->_objDBDecisionTableRule = $this->newObject( 'dbdecisiontablerule' );
+        $this->_objDBDecisionTableAction = $this->newObject( 'dbdecisiontableaction','decisiontable' );
+        $this->_objDBDecisionTableRule = $this->newObject( 'dbdecisiontablerule','decisiontable'  );
 
         $this->_arrActions = array();
     }
@@ -278,7 +278,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $arrActions = $this->_objDBDecisionTableAction->retrieve( $this );
         // Create new action objects.
         foreach( $arrActions as $decisionTableAction ) {
-	        $objAction = $this->newObject('action');
+	        $objAction = $this->newObject('action','decisiontable' );
 	        $objAction->connect($this);
             // Fetch the action.
             $actionRow = $objAction->getRow( 'id', $decisionTableAction['actionid'] );

@@ -47,15 +47,15 @@ class dbRuleCondition extends dbTable {
     {
         // no Duplicates
         $checkDups  = $condition->_id."' AND ";
-        $checkDups .= " ruleId = '".$rule->_id;
-        if( $this->valueExists( 'conditionId', $checkDups ) ) {
+        $checkDups .= " ruleid = '".$rule->_id;
+        if( $this->valueExists( 'conditionid', $checkDups ) ) {
             return FALSE;
         }
 
         // Package it
         $arrRuleCond = array();
-        $arrRuleCond['ruleId'] = $rule->_id;
-        $arrRuleCond['conditionId'] = $condition->_id;
+        $arrRuleCond['ruleid'] = $rule->_id;
+        $arrRuleCond['conditionid'] = $condition->_id;
         // Insert it
         return $this->insert( $arrRuleCond );
     }
@@ -70,7 +70,7 @@ class dbRuleCondition extends dbTable {
      */
     function delete( $ruleId )
     {
-        return parent::delete( 'ruleId', $ruleId );
+        return parent::delete( 'ruleid', $ruleId );
     }
 
     /**
@@ -84,7 +84,7 @@ class dbRuleCondition extends dbTable {
      */
     function deleteChild( $ruleId, $condId )
     {
-        return parent::delete( 'ruleId' , $ruleId."' AND conditionId = '$condId" );
+        return parent::delete( 'ruleid' , $ruleId."' AND conditionid = '$condId" );
     }
 
     /**
@@ -95,8 +95,8 @@ class dbRuleCondition extends dbTable {
      function retrieve( $objRule )
      {
          // Get all Conditions for this rule
-         $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleId'=>'id' ) );
-         $filter = " WHERE ruleId = '".$objRule->_id."'";
+         $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleid'=>'id' ) );
+         $filter = " WHERE ruleid = '".$objRule->_id."'";
          $fields = array( $objRule->_tableName.'id',  $objRule->_tableName.'name' );
          $arr = $this->getAll($join.$filter, $fields );
 		 return $arr;

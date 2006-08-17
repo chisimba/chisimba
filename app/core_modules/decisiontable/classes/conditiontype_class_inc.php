@@ -78,8 +78,8 @@ class conditionType extends decisionTableBase
         $this->_conditionTypeModuleName = $moduleName;
 
         // Db fields and values to store
-        $this->_dbData['className'] = $className ;
-        $this->_dbData['moduleName'] = $moduleName ;
+        $this->_dbData['classname'] = $className ;
+        $this->_dbData['modulename'] = $moduleName ;
 
         // Ok ready to do insert or retrive.
         if( $this->enableAutoInsertRetrieveId ) {
@@ -118,8 +118,8 @@ class conditionType extends decisionTableBase
     {
         $this->retrieve($function);
         $arrType = array();
-        $arrType['className'] = $this->_conditionTypeClassName;
-        $arrType['moduleName'] = $this->_conditionTypeModuleName;
+        $arrType['classname'] = $this->_conditionTypeClassName;
+        $arrType['modulename'] = $this->_conditionTypeModuleName;
         return $arrType;
     }
     /**
@@ -134,8 +134,8 @@ class conditionType extends decisionTableBase
     {
         // Package condition properties.
         $conditionType = array();
-        $conditionType['className'] = $this->_conditionTypeClassName;
-        $conditionType['moduleName'] = $this->_conditionTypeModuleName;
+        $conditionType['classname'] = $this->_conditionTypeClassName;
+        $conditionType['modulename'] = $this->_conditionTypeModuleName;
 
         // Update the parameters
         parent::update( 'id', $this->_id, $conditionType );

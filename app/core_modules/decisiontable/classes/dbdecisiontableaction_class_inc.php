@@ -56,9 +56,10 @@ class dbDecisionTableAction extends dbTable {
 
         // Package it
         $arrDTaction = array();
-        // JC $arrDTaction['decisionTableId'] = $decisionTable->_id;
-		$arrDTaction['decisiontableId'] = $decisionTable->_id;
+
+        $arrDTaction['decisiontableId'] = $decisionTable->_id;
         $arrDTaction['actionId'] = $action->_id;
+
 
         // Insert it
         return $this->insert( $arrDTaction );
@@ -74,10 +75,10 @@ class dbDecisionTableAction extends dbTable {
      public function retrieve( $objDecisionTable )
      {
          // Get the action for this decisionTable
-         $objAction = $this->newObject( 'action' );
+         $objAction = $this->newObject( 'action','decisiontable'  );
 
-         $join = $this->join( 'INNER JOIN', $objAction->_tableName , array( 'actionId'=>'id' ) );
-         $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
+         $join = $this->join( 'INNER JOIN', $objAction->_tableName , array( 'actionid'=>'id' ) );
+         $filter = " WHERE decisiontableid = '".$objDecisionTable->_id."'";
          // Get all actions for this decisionTable
          $tables = array( $objAction->_tableName.'.id',  $objAction->_tableName.'.name' );
          $statement = $join.$filter;
@@ -110,8 +111,8 @@ class dbDecisionTableAction extends dbTable {
      public function retrieveId( &$objAction, &$objDecisionTable )
      {
          // Get the action for this decisionTable
-         $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionId'=>'id' ) );
-         $filter = " WHERE decisiontableId = '".$objDecisionTable->_id."'";
+         $join = $this->join( 'INNER JOIN', $objAction->_tableName, array( 'actionid'=>'id' ) );
+         $filter = " WHERE decisiontableid = '".$objDecisionTable->_id."'";
          $filter.= " AND ".$objAction->_tableName.".name = '".$objAction->_name."'";
          $arr = $this->getAll($join.$filter, array ( $objAction->_tableName.'id' ) );
          if( !empty($arr) ){
