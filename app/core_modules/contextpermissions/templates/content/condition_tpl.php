@@ -15,14 +15,14 @@ $ddbType->extra = 'onChange="javascript:document.frmCond[\'button\'].value=\'sav
 $lnkSave = $this->newObject('link', 'htmlelements');
 $lnkSave->href = "#";
 $lnkSave->extra = 'onclick="javascript:document.frmCond[\'button\'].value=\'save\';document.frmCond.submit();"';
-$lnkSave->link = $this->objLanguage->languageText("word_save",'[Save]');
+$lnkSave->link = $this->objLanguage->languageText("word_save");
 $lnkBack = $this->newObject('link', 'htmlelements');
 $lnkBack->href = '#';
 $lnkBack->extra = 'onclick="javascript:document.frmCond[\'button\'].value=\'cancel\';document.frmCond.submit();"';
-$lnkBack->link = $this->objLanguage->languageText("word_back",'[Back]');
+$lnkBack->link = $this->objLanguage->languageText("word_back");
 $arrControls = array( $lnkSave->show(), $lnkBack->show() );
 
-$lblConditionType = $this->objLanguage->code2Txt('mod_contextpermissions_lblConditionType');
+$lblConditionType = $this->objLanguage->code2Txt('mod_contextpermissions_lblConditionType','contextpermissions');
 $objLabel = &$this->getObject('label', 'htmlelements');
 $objLabel->label( $lblConditionType, 'input_type' );
 $lblType = $objLabel->show();
