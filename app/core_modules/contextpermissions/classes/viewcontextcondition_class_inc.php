@@ -57,8 +57,8 @@ class viewContextCondition extends viewCondition
      */
     function isAdmin()
     {
-        $lblMustBeAdmin = $this->objLanguage->languageText('mod_contextpermissions_lblMustBeAdmin',"[The user must be and administrator.]");
-        $lblIsAdmin = $this->objLanguage->languageText('mod_contextpermissions_lblIsAdmin',"[Is Administrator]");
+        $lblMustBeAdmin = $this->objLanguage->languageText('mod_contextpermissions_lblMustBeAdmin','contextpermissions',"[The user must be and administrator.]");
+        $lblIsAdmin = $this->objLanguage->languageText('mod_contextpermissions_lblIsAdmin','contextpermissions',"[Is Administrator]");
         
         $element = "<input type='hidden' name='value' value='isAdmin'>$lblMustBeAdmin";
         $lblName = $lblIsAdmin;
@@ -82,7 +82,7 @@ class viewContextCondition extends viewCondition
         $selected = $function.$dependOn;
         $objRadio->setSelected( $selected );
 
-        $lblDependsOnContext = $this->objLanguage->code2Txt('mod_contextpermissions_lblDependsOnContext');
+        $lblDependsOnContext = $this->objLanguage->code2Txt('mod_contextpermissions_lblDependsOnContext','contextpermissions');
         $objLabel = &$this->getObject('label', 'htmlelements');
         $objLabel->label( $lblDependsOnContext, 'input_value' );
         $lblName = $objLabel->show();
@@ -104,7 +104,7 @@ class viewContextCondition extends viewCondition
         $objDropDown = new dropdown('ddbContext');
         $objDropDown->dropdown('value');
         $options = array('Lecturers','Students','Guest');
-        $lblSelectContextGroup = $this->objLanguage->code2Txt('mod_contextpermissions_lblSelectContextGroup');
+        $lblSelectContextGroup = $this->objLanguage->code2Txt('mod_contextpermissions_lblSelectContextGroup','contextpermissions');
         $objDropDown->addOption( 'isContextMember', $lblSelectContextGroup );
         // Get root path of context
         foreach( $options as $groupName ){
@@ -112,7 +112,7 @@ class viewContextCondition extends viewCondition
         }
         $objDropDown->setSelected( 'isContextMember | '.$relPath );
        
-        $lblRelativeContextPath = $this->objLanguage->code2Txt('mod_contextpermissions_lblRelativeContextPath');
+        $lblRelativeContextPath = $this->objLanguage->code2Txt('mod_contextpermissions_lblRelativeContextPath','contextpermissions');
         $objLabel = &$this->getObject('label', 'htmlelements');
         $objLabel->label( $lblRelativeContextPath, 'input_value' );
         $lblName = $objLabel->show();        
@@ -137,7 +137,7 @@ class viewContextCondition extends viewCondition
         $objDropDown =  &$this->getObject( 'dropdown','htmlelements');
         $objDropDown->dropdown('value');
 
-        $lblSelectGroup = $this->objLanguage->languageText('mod_contextpermissions_lblSelectGroup',"[-- Select a group --]");
+        $lblSelectGroup = $this->objLanguage->languageText('mod_contextpermissions_lblSelectGroup','contextpermissions',"[-- Select a group --]");
         $objDropDown->addOption( 'isMember', $lblSelectGroup );
         foreach( $objGroups->getGroups(array('id')) as $row ){
             $currAbsPath = $objGroups->getFullPath($row['id']);
@@ -145,7 +145,7 @@ class viewContextCondition extends viewCondition
         }
         $objDropDown->setSelected( $function.$absPath );
 
-        $lblAbsolutePath = $this->objLanguage->languageText('mod_contextpermissions_lblAbsolutePath',"[Absolute group path: ]");
+        $lblAbsolutePath = $this->objLanguage->languageText('mod_contextpermissions_lblAbsolutePath','contextpermissions',"[Absolute group path: ]");
         $objLabel = &$this->getObject('label', 'htmlelements');
         $objLabel->label( $lblAbsolutePath, 'input_value' );
         $lblName = $objLabel->show();
@@ -170,7 +170,7 @@ class viewContextCondition extends viewCondition
         $objDropDown =  $this->newObject( 'dropdown','htmlelements');
         $objDropDown->dropdown('value');
 
-        $lblSelectACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectACL',"[-- Select an access control list --]");
+        $lblSelectACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectACL','contextpermissions',"[-- Select an access control list --]");
         $objDropDown->addOption( 'hasPermission', $lblSelectACL );
         // Get root path of context
         foreach( $objPerms->getAcls( array('id','name','description') ) as $acl ){
@@ -179,7 +179,7 @@ class viewContextCondition extends viewCondition
         }
         $objDropDown->setSelected( $function.$aclName );
 
-        $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL',"[Access control list: ]");
+        $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL','contextpermissions',"[Access control list: ]");
         $objLabel = &$this->getObject('label', 'htmlelements');
         $objLabel->label( $lblACL, 'input_value' );
         $lblName = $objLabel->show();
@@ -202,7 +202,7 @@ class viewContextCondition extends viewCondition
         $objDropDown =  $this->newObject( 'dropdown','htmlelements');
         $objDropDown->dropdown('value');
         
-        $lblSelectContextACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectContextACL',"[-- Select an access control list for the context--]");
+        $lblSelectContextACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectContextACL','contextpermissions',"[-- Select an access control list for the context--]");
         $objDropDown->addOption( 'hasContextPermission', $lblSelectContextACL );
         $options = array('isAuthor','isEditor','isReader');
         // Get context permissions
@@ -211,7 +211,7 @@ class viewContextCondition extends viewCondition
         }
         $objDropDown->setSelected( $function.$aclName );
 
-        $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL',"[Access control list: ]");
+        $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL','contextpermissions',"[Access control list: ]");
         $objLabel = &$this->getObject('label', 'htmlelements');
         $objLabel->label( $lblACL, 'input_value' );
         $lblName = $objLabel->show();
