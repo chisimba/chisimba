@@ -24,7 +24,7 @@ class dircreate extends object
 	var  $objConfig;
 
 	function init(){
-		$this->objConfig=&$this->newObject('config','config');
+		$this->objConfig=&$this->newObject('altconfig','config');
 	}
 
     /**
