@@ -242,7 +242,7 @@ class object
      * @param string $moduleName The name of the module to load the class from
      * @return mixed The reference to the new object asked for
      */
-    public function &newObject($name, $moduleName,$exact=FALSE)
+    public function &newObject($name, $moduleName='')
     {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
