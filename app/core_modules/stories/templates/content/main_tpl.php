@@ -18,7 +18,7 @@ $leftSideColumn = $this->objLanguage->code2Txt("mod_".$textModule."_mainleftside
 $cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
 $this->objH =& $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=3; //Heading <h3>
-$this->objH->str=ucwords($objLanguage->code2Txt("mod_".$textModule."_title"));
+$this->objH->str=ucwords($objLanguage->code2Txt("mod_".$textModule."_title", "stories"));
 
 $rightSideColumn = "<div align=\"center\">" . $this->objH->show() . "</div>";
 
