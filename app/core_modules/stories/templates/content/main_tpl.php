@@ -12,7 +12,7 @@ $cssLayout->setNumColumns(2);
 $textModule = 'stories';
 
 //Set the content of the left side column
-$leftSideColumn = $this->objLanguage->code2Txt("mod_".$textModule."_mainleftside");
+$leftSideColumn = $this->objLanguage->code2Txt("mod_".$textModule."_mainleftside", "stories");
 
 // Add Left column
 $cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
