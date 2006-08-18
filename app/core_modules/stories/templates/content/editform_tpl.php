@@ -287,7 +287,7 @@ $objFmTable->addCell($objFmTable2->show(), NULL, "top", "left", NULL, "colspan=\
 $objFmTable->endRow();
 
 //Add the WYSWYG editor label
-$storyLabel = ucfirst($objLanguage->code2Txt("mod_".$textModule."_story"));
+$storyLabel = ucfirst($objLanguage->code2Txt("mod_".$textModule."_story", "stories"));
 $objFmTable->startRow();
 $objFmTable->addCell($storyLabel.":&nbsp;", NULL, "top", "left", NULL, "colspan=\"2\"");
 $objFmTable->endRow();
@@ -305,7 +305,7 @@ if ($inputType == 'plaintext') {
       'inputtype'=>'wyswyg');
     $switchLink = $this->uri($switchArray);
     $switchLink = "<br /><a href=\"" . $switchLink . "\">"
-      . $this->objLanguage->languageText('mod_stories_wyswyg')
+      . $this->objLanguage->languageText('mod_stories_wyswyg', "stories")
       . "</a>";
     //Add the plain text input
     $editor = $this->newObject('textarea', 'htmlelements');
