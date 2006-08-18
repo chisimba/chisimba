@@ -170,7 +170,7 @@ $objFmTable->endRow();
 $objFmTable->startRow();
 $objFmTable->addCell($objLanguage->languageText("word_language").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('language', $language);
-$objTextInput->extra = '"READONLY"';
+$objTextInput->extra = 'readonly="READONLY"';
 $objForm->addRule(array('name'=>'language', 'length'=>2), $objLanguage->languageText("mod_stories_val_lang2chargt", "stories"), 'maxlength');
 $objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnotnull", "stories"),'required');
 
