@@ -43,7 +43,7 @@ $formTitle=ucwords($this->objLanguage->code2Txt("mod_".$textModule."_title", $re
 //Set the fieldset label
 switch ($action) {
     case null:
-        $fieldsetLabel = $this->objLanguage->languageText("mod_stories_viewlabel");
+        $fieldsetLabel = $this->objLanguage->languageText("mod_stories_viewlabel", "stories");
         break;
     case "edit":
         //Get the data
@@ -52,14 +52,14 @@ switch ($action) {
         $category = $ar['category'];
         $language = $ar['language'];
         $parentId = $ar['parentId'];
-        $creatorId = $ar['creatorId'];
-        $isActive = $ar['isActive'];
+        $creatorId = $ar['creatorid'];
+        $isActive = $ar['isactive'];
         $title = htmlentities(stripslashes($ar['title']));
         $abstract = stripslashes($ar['abstract']);
-        $mainText = stripslashes($ar['mainText']);
-        $dateCreated = $ar['dateCreated'];
-        $expirationDate = $ar['expirationDate'];
-        $isSticky = $ar['isSticky'];
+        $mainText = stripslashes($ar['maintext']);
+        $dateCreated = $ar['datecreated'];
+        $expirationDate = $ar['expirationdate'];
+        $isSticky = $ar['issticky'];
         $rep = array('STORY' => "<i>" . $title ."</i>");
         $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_editlabel", $rep);
         break;
@@ -76,7 +76,7 @@ switch ($action) {
         $expirationDate = $expirationDate;
         $dateCreated = date('Y-m-d H:m:s');
         $isSticky = 0;
-        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_addlabel");
+        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_addlabel", "stories");
         break;
     case "translate":
         $id = NULL;
@@ -92,7 +92,7 @@ switch ($action) {
         $expirationDate = $expirationDate;
         $dateCreated = date('Y-m-d H:m:s');
         $isSticky = 0;
-        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_translatelabel");
+        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_translatelabel", "stories");
         break;
     default:
         $fieldsetLabel = "??";
@@ -161,8 +161,8 @@ $objCat->addFromDB($car, 'title', 'category', $category);
 $objFmTable->startRow();
 $objFmTable->addCell($objLanguage->languageText("word_category").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('category', $category);
-$objTextInput->extra = 'READONLY';
-$objForm->addRule('category',$objLanguage->languageText("mod_stories_val_catnotnull"),'required');
+$objTextInput->extra = '"READONLY"';
+$objForm->addRule('category',$objLanguage->languageText("mod_stories_val_catnotnull", "stories"),'required');
 $objFmTable->addCell($objTextInput->show() . " " . $objCat->show(), NULL, "top", "left");
 $objFmTable->endRow();
 
@@ -170,9 +170,9 @@ $objFmTable->endRow();
 $objFmTable->startRow();
 $objFmTable->addCell($objLanguage->languageText("word_language").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('language', $language);
-$objTextInput->extra = 'READONLY';
-$objForm->addRule(array('name'=>'language', 'length'=>2), $objLanguage->languageText("mod_stories_val_lang2chargt"), 'maxlength');
-$objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnotnull"),'required');
+$objTextInput->extra = '"READONLY"';
+$objForm->addRule(array('name'=>'language', 'length'=>2), $objLanguage->languageText("mod_stories_val_lang2chargt", "stories"), 'maxlength');
+$objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnotnull", "stories"),'required');
 
 //Create a dropdown for the language selector
 $objCat = $this->newObject("dropdown", "htmlelements");
@@ -208,7 +208,7 @@ $objRadioElement->addOption('0', $objLanguage->languageText("word_no"));
 $objRadioElement->setSelected($isSticky);
 
 $objFmTable->startRow();
-$objFmTable->addCell($objLanguage->languageText("mod_stories_alwaysontop").":&nbsp;", NULL, "top", "right");
+$objFmTable->addCell($objLanguage->languageText("mod_stories_alwaysontop", "stories").":&nbsp;", NULL, "top", "right");
 $objFmTable->addCell($objRadioElement->show(), NULL, "top", "left");
 $objFmTable->endRow();
 
@@ -222,7 +222,7 @@ $objFmTable->endRow();
 $objFmTable->startRow(NULL, "top", NULL, NULL, " colspan=\"2\"");
 $objFmTable->addCell($objLanguage->languageText("word_title").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('title', $title);
-$objForm->addRule('title',$objLanguage->languageText("mod_stories_val_titnotnull"),'required');
+$objForm->addRule('title',$objLanguage->languageText("mod_stories_val_titnotnull", "stories"),'required');
 $objTextInput->size="78";
 $objTextInput->id='title';
 $objFmTable->addCell($objTextInput->show(), NULL, "top", "left");
@@ -324,7 +324,7 @@ if ($inputType == 'plaintext') {
       'inputtype'=>'plaintext');
     $switchLink = $this->uri($switchArray);
     $switchLink = "<a href=\"" . $switchLink . "\">"
-      . $this->objLanguage->languageText('mod_stories_plaintext')
+      . $this->objLanguage->languageText('mod_stories_plaintext', "stories")
       . "</a>";
     //Add the WYSWYG editor
     $editor = $this->newObject('htmlarea', 'htmlelements');
