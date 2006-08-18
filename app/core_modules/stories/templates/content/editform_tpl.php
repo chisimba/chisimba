@@ -161,7 +161,7 @@ $objCat->addFromDB($car, 'title', 'category', $category);
 $objFmTable->startRow();
 $objFmTable->addCell($objLanguage->languageText("word_category").":&nbsp;", NULL, "top", "right");
 $objTextInput = new textinput('category', $category);
-$objTextInput->extra = '"READONLY"';
+$objTextInput->extra = 'readonly="READONLY"';
 $objForm->addRule('category',$objLanguage->languageText("mod_stories_val_catnotnull", "stories"),'required');
 $objFmTable->addCell($objTextInput->show() . " " . $objCat->show(), NULL, "top", "left");
 $objFmTable->endRow();
