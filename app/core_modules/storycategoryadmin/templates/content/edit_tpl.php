@@ -37,9 +37,9 @@ if (isset($ar)) {
     $id = $ar['id'];
     $category = $ar['category'];
     $title = $ar['title'];
-    $dateCreated = $ar['dateCreated'];
-    $creatorId = $ar['creatorId'];
-    $dateModified = $ar['dateModified'];
+    $dateCreated = $ar['datecreated'];
+    $creatorId = $ar['creatorid'];
+    $dateModified = $ar['datemodified'];
     $modifierId = $ar['modifierId'];
     $modified = $ar['modified'];
 }
