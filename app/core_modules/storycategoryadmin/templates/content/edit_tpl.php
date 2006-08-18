@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
 Set up the form processor
 */
 
@@ -9,11 +9,11 @@ $paramArray=array(
 'mode'=>$mode);
 $formAction=$this->uri($paramArray);
 
-//Load the form class 
+//Load the form class
 $this->loadClass('form','htmlelements');
-//Load the textinput class 
+//Load the textinput class
 $this->loadClass('textinput','htmlelements');
-//Load the textarea class 
+//Load the textarea class
 $this->loadClass('textarea','htmlelements');
 //Load the label class
 $this->loadClass('label','htmlelements');
@@ -28,7 +28,7 @@ $cssLayout = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 //Set the content of the left side column
-$leftSideColumn = $this->objLanguage->languageText("mod_storycategoryadmin_lefteditist");
+$leftSideColumn = $this->objLanguage->languageText("mod_storycategoryadmin_lefteditist", "storycategoryadmin");
 
 // Add Left column
 $cssLayout->setLeftColumnContent($leftSideColumn);
@@ -49,7 +49,7 @@ if ($mode=="edit") {
     $rep = array('category' => $category);
     $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', $rep);
 } else {
-    $fieldsetLabel = $this->objLanguage->languageText("mod_storycategory_addlabel");
+    $fieldsetLabel = $this->objLanguage->languageText("mod_storycategory_addlabel", "storycategoryadmin");
 }
 
 
@@ -93,7 +93,7 @@ $objFieldset->contents="<table><tr><td align=\"right\">"
   . $catLabel->show()
   . ": </td><td>" .$objCat->show() . "</td></tr>"
   ."<tr><td align=\"right\">" .  $titLabel->show()
-  . ": </d><td>".$objTit->show()."</td></tr></table>";
+  . ": </td><td>".$objTit->show()."</td></tr></table>";
 //Add the fieldset to the form
 $objForm->addToForm($objFieldset->show());
 
@@ -101,9 +101,9 @@ $objForm->addToForm($objFieldset->show());
 // Create an instance of the button object
 $this->loadClass('button', 'htmlelements');
 // Create a submit button
-$objElement = new button('submit');	
+$objElement = new button('submit');
 // Set the button type to submit
-$objElement->setToSubmit();	
+$objElement->setToSubmit();
 // Use the language object to add the word save
 $objElement->setValue(' '.$this->objLanguage->languageText("word_save").' ');
 // Create cancel button
