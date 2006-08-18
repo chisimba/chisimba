@@ -109,13 +109,13 @@ $objElement->setValue(' '.$this->objLanguage->languageText("word_save").' ');
 // Create cancel button
 $objCancel = new button('cancel');
 $objCancel->setOnClick("window.location='".$this->uri(NULL)."';");
-$objCancel->setValue(' '.$this->objLanguage->languageText("mod_storycategoryadmin_cancel").' ');
+$objCancel->setValue(' '.$this->objLanguage->languageText("mod_storycategoryadmin_cancel", "storycategoryadmin").' ');
 // Add the button to the form
 $objForm->addToForm('<br/>'.$objElement->show()."&nbsp;".$objCancel->show());
 //Add the heading to the layer
 $this->objH =& $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1; //Heading <h1>
-$this->objH->str=$objLanguage->languageText("mod_storycategoryadmin_title");
+$this->objH->str=$objLanguage->languageText("mod_storycategoryadmin_title", "storycategoryadmin");
 $rightSideColumn = $this->objH->show();
 
 $rightSideColumn .= $objForm->show();
