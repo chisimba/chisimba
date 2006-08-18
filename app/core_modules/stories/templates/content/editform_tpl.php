@@ -38,7 +38,7 @@ $site = $this->objConfig->getsiteName();
 $rep = array('sitename' => $site);
 
 //Set the title
-$formTitle=ucwords($this->objLanguage->code2Txt("mod_".$textModule."_title", $rep));
+$formTitle=ucwords($this->objLanguage->code2Txt("mod_".$textModule."_title", "stories"));
 
 //Set the fieldset label
 switch ($action) {
@@ -61,7 +61,7 @@ switch ($action) {
         $expirationDate = $ar['expirationdate'];
         $isSticky = $ar['issticky'];
         $rep = array('STORY' => "<i>" . $title ."</i>");
-        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_editlabel", $rep);
+        $fieldsetLabel = $this->objLanguage->code2Txt("mod_".$textModule."_editlabel", "stories");
         break;
     case "add":
         $id = NULL;
