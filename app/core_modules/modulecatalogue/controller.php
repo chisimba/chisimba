@@ -243,6 +243,8 @@ class modulecatalogue extends controller
 					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'updateall':
+					ini_set('max_execution_time','6000');
+					set_time_limit(0);
 					$this->objModuleAdmin->updateAllText();
 					return $this->nextAction('list');
 				case 'firsttimeregistration':

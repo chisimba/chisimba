@@ -772,7 +772,7 @@ class modulesadmin extends dbTableManager
     				return FALSE;
     			}
     		}
-    		ini_set('max_execution_time','120');
+    		ini_set('max_execution_time','600');
     		if (!$objXml = simplexml_load_file($sqlfile)) {
     			throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$sqlfile);
     		}
