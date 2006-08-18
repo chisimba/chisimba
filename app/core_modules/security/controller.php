@@ -27,7 +27,6 @@ class security extends controller
         //Get an instance of the skin
         $this->objSkin = &$this->getObject('skin', 'skin');
         $this->objConfig = &$this->getObject('altconfig', 'config');
-        $this->setLayoutTemplate(NULL);
     }
 
     function requiresLogin($action)
@@ -37,6 +36,7 @@ class security extends controller
 
     function dispatch($action)
     {
+        $this->setLayoutTemplate(NULL);
         switch ($action) {
         case 'login':
             return $this->doLogin();
@@ -44,11 +44,10 @@ class security extends controller
             return $this->doLogoff();
         case 'error':
             return $this->errorMessages();
-        default:
         case 'showlogin':
+        default:
             return $this->showPreLoginModule();
         }
-
     }
 
     /**
@@ -59,9 +58,7 @@ class security extends controller
     {
         $username = $this->getParam('username', '');
         $password = $this->getParam('password', '');
-
         if ($this->objUser->authenticateUser($username, $password)) {
-
             // we hold off creating a new session until successful
             // (only is we didn't already have a session on the go,
             //  as if so it will already have been started in index.php)
@@ -73,11 +70,9 @@ class security extends controller
                 session_regenerate_id();
             }
             $this->objUser->storeInSession();
-
             //Validate the current skin Session or set it if not present
             //Skin is also passed as a hidden input
             $this->objSkin->validateSkinSession();
-
             // Redirect to logged in page so that user can refresh it
             // without being hassled by browser about resubmitting
             // form details
@@ -89,7 +84,6 @@ class security extends controller
             return $this->nextAction('error', array('message'=>'inactive'));
         } else {
             // unsuccessful authentication of user
-
             // Further checks to support the user
             // Check if the username exists
             if ($this->objUser->valueExists('username', $username)) {
@@ -123,7 +117,6 @@ class security extends controller
     {
         // Validate the skin, checks if it exists or changed
         $this->objSkin->validateSkinSession();
-
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
 
@@ -132,9 +125,6 @@ class security extends controller
         $this->setVar('pageSuppressToolbar', TRUE);
         return 'error_message.php';
     }
-
-
-
 }
 
 ?>

@@ -111,7 +111,7 @@ class dropdown extends abhtmlbase implements ifhtml
 	{
 		$str.='<option value="'.$opt.'"';
 		if($this->selected==$opt){
-			$str.=' selected="selected"';
+			$str.=' selected="1"';
 		}
 		$str.='>';
 		$str.=$lbl;
