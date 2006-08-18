@@ -35,11 +35,14 @@ $rnnbl = $icon->show();*/
 $head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue'));
-			//,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
+			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
+			,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
 
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
+$actiontotake = 'batchinstall';
+$root = $this->objConfig->getsiteRootPath();
+$defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt');
 if ($modules) {
 	natsort($modules);
 	(($count % 2) == 0)? $oddOrEven = 'even' : $oddOrEven = 'odd';
@@ -91,16 +94,16 @@ if ($modules) {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
 		} else {
 			$desc = (string)$desc[0];
-			if (strlen($desc)>40) {
-				$end = substr($desc,40);
-				//echo strchr($end,' ');
-				$end = substr($end,0,strlen($end)-strlen(strchr($end,' '))).'...';
-				$desc = substr($desc,0,40).$end;
-			}
+			//if (strlen($desc)>40) {
+			//	$end = substr($desc,40);
+			//	//echo strchr($end,' ');
+			//	$end = substr($end,0,strlen($end)-strlen(strchr($end,' '))).'...';
+			//	$desc = substr($desc,0,40).$end;
+			//}
 		}
 		$desc = htmlentities($desc);
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-		$infoButton->link = $desc;
+		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
 		$link = $ucMod;
 		$icon->setModuleIcon($modName);
 		$icon->alt = $modName;
@@ -140,14 +143,20 @@ if ($modules) {
 					if ($this->objModFile->findController($modName)) {
 						$link = "<a href='{$this->uri(null,$modName)}'>$ucMod</a>";
 					}
-					$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
-					$instButton->link = $this->objLanguage->languageText('word_uninstall');
-					$instButtonShow = $instButton->show();
-					if ($batchuninstall) {
-						$checkBox=$objCheck->show();
+					if (!strchr(strtolower($defaults),strtolower($modName))) {
+						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+						$instButton->link = $this->objLanguage->languageText('word_uninstall');
+						$instButtonShow = $instButton->show();
+    					if ($batchuninstall) {
+							$checkBox=$objCheck->show();
+						} else {
+							$checkBox='';
+						}
 					} else {
 						$checkBox='';
-					}
+    					$instButtonShow = '';
+    				}
+					
 					//$icon->setIcon('ok','png');
 					//$isRegistered = $icon->show();
 				}
@@ -167,13 +176,13 @@ if ($modules) {
 		$objTable->addCell($checkBox,null,null,'left',$class);
 		$objTable->addCell($icon->show(),null,null,'left',$class);
 		$objTable->addCell($link,null,null,'left',$class);
-		$objTable->addCell($info,null,null,'left',$class);
+		$objTable->addCell($desc,null,null,'left',$class);
 		//$objTable->addCell($hasRegFile,null,null,'left',$class);
 		//$objTable->addCell($hasController,null,null,'left',$class);
 		//$objTable->addCell($isRegistered,null,null,'left',$class);
 		$objTable->addCell($instButtonShow,null,null,'left',$class);
 		$objTable->addCell($texts,null,null,'left',$class);
-		//$objTable->addCell($info,null,null,'left',$class);
+		$objTable->addCell($info,null,null,'left',$class);
 		$objTable->endRow();
 		}//temporary if
 	}

@@ -67,16 +67,16 @@ class patch extends dbtable {
 					$description = $this->objLanguage->languageText('mod_modulecatalogue_newlangitems','modulecatalogue');
 					if ($updateFile = $this->objModFile->findSqlXML($module['module_id'])) {
 						$check = file_get_contents($updateFile);
-						if(empty($check)) {
-							//die("Empty XML File " . $updateFile);
-							continue;
+						if(!empty($check)) {
+							if (!$objXml = simplexml_load_file($updateFile)) {
+								throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
+    						}
+    						$desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
+    						$description = $desc[0];
+    						//echo $desc[0]."<br/>";var_dump($desc);die();
+						} else {
+							log_debug("WARNING: module {$module['module_id']} has an invalid sql_updates.xml document. Ignoring.");
 						}
-						elseif (!$objXml = simplexml_load_file($updateFile)) {
-    						throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
-    					}
-    					$desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
-    					$description = $desc[0];
-    					//echo $desc[0]."<br/>";var_dump($desc);die();
 					}
 					$modules[]=array('module_id'=>$module['module_id'],'old_version'=>$dbVersion,'new_version'=>$codeVersion,'desc'=>$description);
 				}
@@ -125,6 +125,8 @@ class patch extends dbtable {
 			$oldversion = (float)$this->getVersion($modname);
 			$result = array();
 			if (file_exists($file)){
+				$check = file_get_contents($file);
+				if (!empty($check)) {
 				$objXml = simplexml_load_file($file);
 				foreach ($objXml->update as $update) {
 					$ver = (float)$update->version;
@@ -214,6 +216,7 @@ class patch extends dbtable {
 						}
 					}
 				}
+			}
 			}
 			//update version info in db
 			$regData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));

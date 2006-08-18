@@ -196,19 +196,15 @@ class catalogueconfig extends object {
     			}
     			$xmlStr .= "	</module>\n";
     			$id++;
-    		}}
+    		}
+    		}
     		$xmlStr .= '</settings>';
-    		try {
-    			if(!file_exists($this->_path))
-    			{
-    				mkdir($this->_path);
-    			}
-    			touch($this->_path.'catalogue.xml');
-    			chmod($this->_path . 'catalogue.xml',0777);
+    		if(!file_exists($this->_path))
+    		{
+    			mkdir($this->_path);
     		}
-    		catch(Exception $e) {
-    			$this->errorCallback('Caught exception: ' . $e->getMessage());
-    		}
+    		touch($this->_path.'catalogue.xml');
+    		chmod($this->_path . 'catalogue.xml',0777);
     		$fh = fopen($this->_path.'catalogue.xml','w');
     		fwrite($fh,$xmlStr);
 			fclose($fh);
