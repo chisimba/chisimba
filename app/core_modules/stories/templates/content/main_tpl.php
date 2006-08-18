@@ -38,7 +38,7 @@ $tableHd[]=$this->objLanguage->languageText("word_title");
 $tableHd[]=$this->objLanguage->languageText('phrase_dateposted');
 $tableHd[]=$this->objLanguage->code2Txt('phrase_expirationdate');
 
-$tableHd[]=$this->objLanguage->code2Txt("mod_stories_alwaysontop");
+$tableHd[]=$this->objLanguage->code2Txt("mod_stories_alwaysontop", "stories");
 $tableHd[]=$this->objLanguage->code2Txt("phrase_isactive");
 $tableHd[]="&nbsp;";
 
@@ -112,7 +112,7 @@ if (isset($ar)) {
             $expirationDate = $this->formatDate($line['expirationdate']);
             if ( $objExp->hasExpired($expirationDate) ) {
                  $expirationDate = '<span class="error"><strong>' . $expirationDate
-                . '<strong></span> '. $objExp->getExpiredIcon();
+                . '</strong></span> '. $objExp->getExpiredIcon();
             }
             //$tableRow[]=$line['id'];
             $tableRow[]=$line['category'];
