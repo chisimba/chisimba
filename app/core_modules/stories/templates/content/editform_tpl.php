@@ -347,7 +347,7 @@ $objForm->addToForm($objFieldset->show());
 $objButton = $this->newObject('button', 'htmlelements');
 $objButton->button('save',$this->objLanguage->languageText('word_save'));
 $objButton->setToSubmit();
-$objForm->addToForm($objButton->show()."<br /><br />");
+$objForm->addToForm($objButton->show()."<br /><br /></div>");
 
 //Show the form
 echo $objForm->show();
