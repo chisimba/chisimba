@@ -108,6 +108,8 @@ class modulecatalogue extends controller
 	 */
 	public function init() {
 		try {
+			set_time_limit(0);
+					
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
