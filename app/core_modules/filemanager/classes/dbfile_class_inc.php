@@ -36,16 +36,125 @@ class dbfile extends dbTable
         $this->loadClass('formatfilesize', 'files');
     }
     
+    /**
+    * Method to get the record containing file details
+    * @access Public
+    * @param string $fileId
+    * @return array Details of the File
+    */
     public function getFile($fileId)
     {
-        $file = $this->getRow('id', $fileId);
-        
-        if ($file != FALSE) {
-            $this->currentFile =& $file;
+        // The current file is stored in a private variable to prevent possible unnecessary db queries
+        if ($this->currentFile != '' && $this->currentFile['id'] == $fileId) {
+            return $this->currentFile;
+        } else {
+            $file = $this->getRow('id', $fileId);
+            
+            if ($file != FALSE) {
+                $this->currentFile =& $file;
+            }
+            
+            return $file;
         }
         
-        return $file;
+    }
+    
+    /**
+    * Method to get a single piece of information from a file
+    * @access private
+    * @param string $part Piece to get
+    * @param string $fileId Record Id of the File
+    * @return mixed
+    */
+    private function getPart($part, $fileId)
+    {
+        $file = $this->getFile($fileId);
         
+        if ($file == FALSE) {
+            return FALSE;
+        } else {
+            
+            if (array_key_exists($part, $file)) {
+                return $file[$part];
+            } else {
+                return FALSE;
+            }
+            
+        }
+    }
+    
+    /**
+    * Method to get the filename of a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return string File Name
+    */
+    public function getFileName($fileId)
+    {
+        return $this->getPart('filename', $fileId);
+    }
+    
+    /**
+    * Method to get the size of a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return int File Size
+    */
+    public function getFileSize($fileId)
+    {
+        return $this->getPart('filesize', $fileId);
+    }
+    
+    /**
+    * Method to get the version number of a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return int File Version
+    */
+    public function getFileVersion($fileId)
+    {
+        return $this->getPart('version', $fileId);
+    }
+    
+    /**
+    * Method to get the mimetype of a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return string Mime Type
+    */
+    public function getFileMimetype($fileId)
+    {
+        return $this->getPart('mimetype', $fileId);
+    }
+    
+    /**
+    * Method to get the local path to a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return string Local Path to File
+    */
+    public function getFilePath($fileId)
+    {
+        $path = $this->objConfig->getcontentPath().$this->getPart('path', $fileId);
+        
+        $this->objCleanUrl->cleanUpUrl($path);
+        
+        return $path;
+    }
+    
+    /**
+    * Method to get the absolute path to a file
+    * @access public
+    * @param string $fileId Record Id of the File
+    * @return string Path to File
+    */
+    public function getFullFilePath($fileId)
+    {
+        $path = $this->objConfig->getcontentBasePath().$this->getPart('path', $fileId);
+        
+        $this->objCleanUrl->cleanUpUrl($path);
+        
+        return $path;
     }
     
     /**
@@ -310,14 +419,12 @@ class dbfile extends dbTable
         $mediaInfo = $this->objMediaFileInfo->getRow('fileId', $fileId);
         
         if ($mediaInfo == FALSE) {
-            $this->currentFile =& $file;
             return $file;
         } else {
             $result = array_merge($file, $mediaInfo);
             $result['id'] = $file['id'];
-            $this->currentFile = $result;
             return $result;
-        }
+        } 
     }
     
     /**
@@ -328,11 +435,7 @@ class dbfile extends dbTable
     */
     public function getFileInfoTable($fileId)
     {
-        if (is_array($this->currentFile) && $this->currentFile['id'] == $fileId) {
-            $file = $this->currentFile;
-        } else {
-            $file = $this->getFileInfo($fileId);
-        }
+        $file = $this->getFileInfo($fileId);
         
         if ($file == FALSE) {
             return FALSE;
@@ -375,11 +478,7 @@ class dbfile extends dbTable
     */
     public function getFileMediaInfoTable($fileId)
     {
-        if (is_array($this->currentFile) && $this->currentFile['id'] == $fileId) {
-            $file = $this->currentFile;
-        } else {
-            $file = $this->getFileInfo($fileId);
-        }
+        $file = $this->getFileInfo($fileId);
         
         if ($file == FALSE) {
             return FALSE;
