@@ -158,7 +158,8 @@ class groupadmin_tree extends object {
                 'icon' => $icons['root'].'.gif' ));
         } else {
             $this->_rootNode = NULL;
-            return new treenode( array ( 'text' => '<STRONG>Groups</STRONG>', 'icon' => $icons['root'].'.gif' ));
+            $treenode = new treenode( array ( 'text' => '<STRONG>Groups</STRONG>', 'icon' => $icons['root'].'.gif' ));
+            return $treenode;
         }
     }
 
@@ -229,7 +230,7 @@ class groupadmin_tree extends object {
             }
         }
 
-        return new treenode(  array (
+   $treenode = new treenode(  array (
                     'text'         => $groupName,
                     'link'         => $link,
                     'value'        => $groupId,
@@ -238,6 +239,7 @@ class groupadmin_tree extends object {
                     'cssClass'     => '',
                     'linkTarget'   => $this->treeTargetWindow
                 ));
+             return $treenode;
     }
 
     /**
