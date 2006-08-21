@@ -31,6 +31,7 @@ class modules extends dbTable
     private $objLanguage;
     //private $objConfig;
     public $objConfig;
+    public $output;
 
     public function init() {
     	try {
