@@ -14,13 +14,16 @@ $updateAll = &$this->getObject('link','htmlelements');
 $updateAll->link($this->uri(array('action'=>'makepatch')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
 $makePatch = $updateAll->show();
+$updateAll->link($this->uri(array('action'=>'xml')));
+$updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue');
+$updateCat = $updateAll->show();
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell($updateAll->show(),null,null,'right');//<br/>$makePatch
+$objTable->addCell($updateAll->show()."<br/>$updateCat",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if (isset($output)) {
