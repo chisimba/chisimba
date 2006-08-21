@@ -216,6 +216,7 @@ class DbCreateAction extends StepAction
 					  'toolbar' => 'modules/toolbar/sql/defaultdata.xml',
 					  'sysconfig' => 'modules/sysconfig/sql/defaultdata.xml',
 					  'groupadmin' => 'modules/groupadmin/sql/groupadmin.xml',
+					  'groupadmin2' => 'modules/groupadmin/sql/data.xml',
 					  'permissions' => 'modules/permissions/sql/defaultdata.xml',
 					  'decisiontable' => 'modules/decisiontable/sql/defaultdata.xml',
 					  'language' => 'modules/language/sql/langlist.xml',
@@ -226,9 +227,10 @@ class DbCreateAction extends StepAction
 
 	$handler = new DbHandler();
 	$conn = &$handler->getDbHandler($_SESSION['dsn']);
-
+	$output = '';
 	foreach($defaults as $default)
 	{
+		ob_start();
 		$xmlfile = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$default : false;
 		//echo $xmlfile;
 		if(is_file($xmlfile))
@@ -249,20 +251,19 @@ class DbCreateAction extends StepAction
 				{
 					//insert to the db
 					//print_r($entries);
-					$conn->insert($entries, $table);
-
+					$output = $conn->insert($entries, $table);
 
 				}
 			}
 			else {
-				$conn->insert($data, $table);
+				$output = $conn->insert($data, $table);
 			}
 
 
 		}
 
 	}
-
+		ob_end_clean();
 		return true;
 	}//end processAction()
 
@@ -321,6 +322,7 @@ class DbCreateAction extends StepAction
 	        			}
 
         			}
+        			$this->init_output[] = $tablename.' successfuly created';
         			$sqlfile = null;
         			$fields =null;
         			$tablename = null;
@@ -328,7 +330,7 @@ class DbCreateAction extends StepAction
         			return true;
 				}else{
 
-					throw new Exception('could not read file'.$sqlfile);
+					$this->init_output[] = 'could not read file'.$sqlfile;
 				}
 		}catch (Exception $e){
 			$this->errorCallback('Caught exception: '.$e->getMessage());
@@ -586,7 +588,9 @@ class DbCreateAction extends StepAction
 
 	{
 
-		echo $this->init_output;
+		foreach($this->init_output as $msg) {
+			echo $msg."<br/>";
+		}
 
 
 
