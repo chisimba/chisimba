@@ -1,9 +1,9 @@
 <?php
 //Get yes or no for admin
 if ($objUser->isAdmin()) {
-    $adminMember = $objLanguage->languageText("word_yes",'postlogin');
+    $adminMember = $objLanguage->languageText("word_yes");
 } else {
-    $adminMember = $objLanguage->languageText("word_no",'postlogin');
+    $adminMember = $objLanguage->languageText("word_no");
 } 
 
 

@@ -330,7 +330,7 @@ class sidemenu extends object
         $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','context',array('context'=>'course')));
         $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext','toolbar'));
         $go = $this->objLanguage->languageText('word_go','security');
-        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext');
+        $inCourse = $this->objLanguage->languageText('mod_postlogin_currentlyincontext','postlogin');
         $str = '';
 
         if($objModule->checkIfRegistered('context','context')){
