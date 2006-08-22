@@ -47,9 +47,13 @@ header("Content-Type: $mime;charset=$charset");
 header("Vary: Accept");
 print $prolog_type;
 
+
+if (!isset($pageTitle)) {
+    $pageTitle = $objConfig->getSiteName();
+}
 ?>
 <head>
-<title><?php echo $objConfig->getSiteName(); ?></title>
+<title><?php echo $pageTitle; ?></title>
 <?php
 
 if (!isset($pageSuppressSkin)){
