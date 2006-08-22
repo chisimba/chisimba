@@ -155,7 +155,7 @@ class getIcon extends object implements ifhtml
     {
         $this->setIcon('edit_sm');
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_edit','stories');
+        $this->title = $this->_objLanguage->languagetext('word_edit');
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();
@@ -171,7 +171,7 @@ class getIcon extends object implements ifhtml
     {
         $this->setIcon('delete');
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_delete','security');
+        $this->title = $this->_objLanguage->languagetext('word_delete');
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
         $objLink->link=$this->show();
@@ -201,7 +201,7 @@ class getIcon extends object implements ifhtml
         //Set the delete icon
         $this->setIcon("delete");
         // Set title to be the word delete
-        $this->title = $this->_objLanguage->languagetext('word_delete','security');
+        $this->title = $this->_objLanguage->languagetext('word_delete');
         //Get the delete icon for the confirm object
         $delIcon = $this->show();
         //Create an instance of the confirm object
@@ -213,7 +213,7 @@ class getIcon extends object implements ifhtml
         }
 
         if ($deletephrase == 'phrase_confirmdelete') {
-            $deletephrase = $this->_objLanguage->languageText($deletephrase,'security');
+            $deletephrase = $this->_objLanguage->languageText($deletephrase);
         }
 
         $objConfirm->setConfirm($delIcon, $location, $deletephrase);
