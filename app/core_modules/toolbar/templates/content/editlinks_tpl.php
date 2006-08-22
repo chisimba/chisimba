@@ -39,7 +39,7 @@ $permLabel = $objLanguage->languageText('mod_toolbar_permissions','toolbar');
 $noLinksLabel = $objLanguage->languageText('mod_toolbar_nolinks','toolbar');
 $restoreLabel = $objLanguage->languageText('mod_toolbar_restoredefaults','toolbar');
 $selectLabel = $objLanguage->languageText('mod_toolbar_selectmodule','toolbar');
-$modName = $objLanguage->code2Txt('mod_'.$moduleName.'_name');
+$modName = $objLanguage->code2Txt('mod_'.$moduleName.'_name',$moduleName);
 
 $menu = array();
 $page = array();
@@ -77,9 +77,9 @@ $str .= '<p><b>'.$moduleLabel.':</b>&nbsp;&nbsp;'.$modName.'</p>';
 $objLabel = new label($selectLabel, 'input_modulename');
 
 $objDrop = new dropdown('modulename');
-$objDrop->extra = 'onChange = "document.modselect.submit()"';
+$objDrop->extra = 'onchange="document.modselect.submit()"';
 foreach($moduleList as $item){
-    $modName = $objLanguage->code2Txt('mod_'.$item['module_id'].'_name');
+    $modName = $objLanguage->code2Txt('mod_'.$item['module_id'].'_name',$item['module_id']);
     $objDrop->addOption($item['module_id'], $modName);
 }
 $objDrop->setSelected($moduleName);
@@ -126,6 +126,7 @@ if(!empty($toolBar)){
 $str .= $objTable->show();
 
 // Side menu links
+$objIcon = $this->newObject('geticon','htmlelements');
 $addMenu = $objIcon->getAddIcon($this->uri(array('action'=>'addmenu', 'modulename'=>$moduleName)));
 
 $objHead->str = $sidemenuLabel.'&nbsp;&nbsp;'.$addMenu;
@@ -182,6 +183,7 @@ if(!empty($menu)){
 $str .= $objTable->show();
 
 // Page links
+$objIcon = $this->newObject('geticon','htmlelements');
 $addPage = $objIcon->getAddIcon($this->uri(array('action'=>'addpage', 'modulename'=>$moduleName)));
 
 $objHead->str = $pageLabel.'&nbsp;&nbsp;'.$addPage;
