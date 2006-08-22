@@ -33,20 +33,20 @@ if(!$GLOBALS['kewl_entry_point_run']){
     $objIcon =& $this -> newObject('geticon', 'htmlelements');
 
 // set up language items
-    $header = $this -> objLanguage -> languageText('mod_systext_name');
-    $systemLabel = $this -> objLanguage -> languageText('mod_systext_system');
-    $textLabel = $this -> objLanguage -> languageText('mod_systext_text');
-    $nosystemLabel = $this -> objLanguage -> languageText('mod_systext_nosystem');
-    $notextLabel = $this -> objLanguage -> languageText('mod_systext_notext');
-    $addsystemLabel = $this -> objLanguage -> languageText('mod_systext_addsystem');
-    $newsystemLabel = $this -> objLanguage -> languageText('mod_systext_newsystem');
-    $addtextLabel = $this -> objLanguage -> languageText('mod_systext_addtext');
-    $newtextLabel = $this -> objLanguage -> languageText('mod_systext_newtext');
-    $saveLabel = $this -> objLanguage -> languageText('mod_systext_save');
-    $cancelLabel = $this -> objLanguage -> languageText('mod_systext_cancel');
-    $deleteLabel = $this -> objLanguage -> languageText('mod_systext_delete');
-    $deleteConfirm = $this -> objLanguage -> languageText('mod_systext_deleteconfirm');
-    $exitLabel = $this -> objLanguage -> languageText('mod_systext_exit');
+    $header = $this -> objLanguage -> languageText('mod_systext_name','systext');
+    $systemLabel = $this -> objLanguage -> languageText('mod_systext_system','systext');
+    $textLabel = $this -> objLanguage -> languageText('mod_systext_text','systext');
+    $nosystemLabel = $this -> objLanguage -> languageText('mod_systext_nosystem','systext');
+    $notextLabel = $this -> objLanguage -> languageText('mod_systext_notext','systext');
+    $addsystemLabel = $this -> objLanguage -> languageText('mod_systext_addsystem','systext');
+    $newsystemLabel = $this -> objLanguage -> languageText('mod_systext_newsystem','systext');
+    $addtextLabel = $this -> objLanguage -> languageText('mod_systext_addtext','systext');
+    $newtextLabel = $this -> objLanguage -> languageText('mod_systext_newtext','systext');
+    $saveLabel = $this -> objLanguage -> languageText('mod_systext_save','systext');
+    $cancelLabel = $this -> objLanguage -> languageText('mod_systext_cancel','systext');
+    $deleteLabel = $this -> objLanguage -> languageText('mod_systext_delete','systext');
+    $deleteConfirm = $this -> objLanguage -> languageText('mod_systext_deleteconfirm','systext');
+    $exitLabel = $this -> objLanguage -> languageText('mod_systext_exit','systext');
 
 // set up heading
     $objHeader -> str = $header;
@@ -144,19 +144,20 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 // set up system type headings
     $objTable -> startRow();
+    //var_dump($arrSystemTypes);die();
     foreach($arrSystemTypes as $key => $systemType){
-        if($systemType['id'] == 'init_1'){
-            $str = $systemType['systemType']; // default system can not be edited
+        if($systemType['id'] == '1@init'){
+            $str = $systemType['systemtype']; // default system can not be edited
         }else{
             if($mode == 'editsystem' and $systemId == $systemType['id']){ // set up input box for editing
-                $objText = new textinput('systemtype', $systemType['systemType']);
+                $objText = new textinput('systemtype', $systemType['systemtype']);
                 $objText -> extra = ' MAXLENGTH="15"';
                 $objText -> size = '15';
                 $text = $objText -> show();
                 $str = $systemHiddenText . $text . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
             }else{ // set up links
                 $objLink = new link($this -> uri(array('mode' => 'editsystem', 'systemId' => $systemType['id']), 'systext'));
-                $objLink -> link = $systemType['systemType'];
+                $objLink -> link = $systemType['systemtype'];
                 $link = $objLink -> show();
                 $str = $link;
             }
@@ -190,7 +191,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
             $str = $candeleteHiddenText . $textHiddenText . $text . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
         }else{
             // set up links
-            if($textItem['canDelete'] == 'N'){
+            if($textItem['candelete'] == 'N'){
                 $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id'], 'candelete' => 'N'), 'systext'));
             }else{
                 $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id']), 'systext'));
