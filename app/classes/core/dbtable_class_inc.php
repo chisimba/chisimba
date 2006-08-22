@@ -175,7 +175,22 @@ class dbTable extends object
     */
     public function getAll($filter = null)
     {
-        $stmt = "SELECT * FROM {$this->_tableName} $filter";
+		/*
+		$fields=null;
+	 	if (!is_null($fields) && is_array($fields)) {
+ 			$sql = '';
+ 	        $comma = '';
+ 			foreach ($fields as $field) {
+ 				$sql .= "{$comma}{$field}";
+ 				$comma = ', ';
+ 			}
+    	    $stmt = "SELECT $sql FROM {$this->_tableName} $filter";
+		}
+		else {
+	        $stmt = "SELECT * FROM {$this->_tableName} $filter";
+		}
+		*/
+		$stmt = "SELECT * FROM {$this->_tableName} $filter";
         if($this->debug == TRUE)
         {
         	log_debug($stmt);
@@ -356,13 +371,10 @@ class dbTable extends object
             $tablename = $this->_tableName;
         }
 
-
         $fieldnames = '';
         $fieldValues = '';
         $params = '';
 
-
-        $comma = "";
         if (empty($fields['id'])) {
             $id = "init" . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
@@ -370,19 +382,20 @@ class dbTable extends object
             $id = $fields['id'];
         }
         $keys = array_keys($fields);
-        $comma = ", ";
+        $comma = "";
         foreach($keys as $key) {
         	$fieldnames .= "{$comma}{$key}";
         	//$fieldValues .= "{$comma}:{$key}";  - for full prepared statement support need to work out how to get the field types
+	        $comma = ", ";
         }
+        $comma = "";
         foreach ($fields as $fieldName => $fieldValue) {
 			$fieldValue = $this->_db->quote($fieldValue);
         	$fieldValues .= "{$comma}{$fieldValue}";
+	        $comma = ", ";
         }
-        $fieldValues = "VALUES ($fieldValues)";
-		$fieldValues = str_replace("(, ","(",$fieldValues);
 		$fieldnames = "($fieldnames)";
-		$fieldnames = str_replace("(, ","(", $fieldnames);
+        $fieldValues = "VALUES ($fieldValues)";
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         if($this->debug == TRUE) {
