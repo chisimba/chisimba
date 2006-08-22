@@ -63,22 +63,22 @@ class sysconfig extends controller {
     {
         //Require the user to be admin
         if (!$this->objUser->isAdmin()) {
-            $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_reqadmin"));
+            $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_reqadmin",'sysconfig'));
             return 'main_tpl.php';
         }
         $action = $this->getParam('action', NULL);
-        $title=$this->objLanguage->languageText("mod_sysconfig_title");
+        $title=$this->objLanguage->languageText("mod_sysconfig_title",'sysconfig');
         switch ($action) {
             case NULL:
             case 'step1':
                  // Create page title
                 $pgTitle =& $this->getObject('htmlheading', 'htmlelements');
                 $pgTitle->type = 1;
-                $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_firstep");
+                $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_firstep",'sysconfig');
                 //Set the title for the table
                 $this->setVar('title', $pgTitle->show());
                 //Set the text instructions for the table
-                $this->setVar('step1', $this->objLanguage->languageText("mod_sysconfig_step1"));
+                $this->setVar('step1', $this->objLanguage->languageText("mod_sysconfig_step1",'sysconfig'));
                 //Get list of registered modules
                 $this->objMods = & $this->getObject('modules', 'modulecatalogue');
                 //Return an array of all modules
@@ -107,13 +107,13 @@ class sysconfig extends controller {
                     //Get an array of data for the module whose params are being set
                     $ary = $this->objSysConfig->getProperties($pmodule);
                     //Set the text instructions for the table
-                    $this->setVar('step2', $this->objLanguage->languageText("mod_sysconfig_step2"));
+                    $this->setVar('step2', $this->objLanguage->languageText("mod_sysconfig_step2",'sysconfig'));
                     if (count($ary) >=1) {
                         //Send through the array
                         $this->setVarByRef('ary', $ary);
                     } else {
                         $this->setVar('str', "<h3>" .
-                        $this->objLanguage->languageText("mod_sysconfig_noconfprop")
+                        $this->objLanguage->languageText("mod_sysconfig_noconfprop",'sysconfig')
                         ."</h3>");
                     }
                     // update the session variable 'systext' if $pmodule = systext
@@ -123,7 +123,7 @@ class sysconfig extends controller {
                     }
                     return "step2_tpl.php";
                 } else {
-                    $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_nomoduleset"));
+                    $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_nomoduleset",'sysconfig'));
                     return "dump_tpl.php";
                 }
                 break;
@@ -148,7 +148,7 @@ class sysconfig extends controller {
                 //Get the module for the parameter
                 $pmodule = $this->getParam("pmodule", NULL);
                 //Set the text instructions for the table
-                $this->setVar('step', $this->objLanguage->languageText("mod_sysconfig_edlabel"));
+                $this->setVar('step', $this->objLanguage->languageText("mod_sysconfig_edlabel",'sysconfig'));
                 //Set the mode variable to edit
                 $this->setVar('mode', 'edit');
                 //Get the form

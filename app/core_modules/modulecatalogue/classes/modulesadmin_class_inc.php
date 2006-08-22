@@ -414,7 +414,7 @@ class modulesadmin extends dbTableManager
                 // Site Navigation
 
                 // Menu category
-
+				if (!$update) {
                 if (isset($registerdata['MENU_CATEGORY'])) {
                     foreach ($registerdata['MENU_CATEGORY'] as $menu_category) {
                         $menu_category=strtolower($menu_category);
@@ -514,7 +514,7 @@ class modulesadmin extends dbTableManager
                         $this->objModules->insert($catArray,'tbl_menu_category');
                     }
                 }// end pages
-
+				}
                 // end Site Navigation
 
                 // Here we pass CONFIG data to the sysconfig module

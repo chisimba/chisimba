@@ -77,7 +77,7 @@ $str .= '<p><b>'.$moduleLabel.':</b>&nbsp;&nbsp;'.$modName.'</p>';
 $objLabel = new label($selectLabel, 'input_modulename');
 
 $objDrop = new dropdown('modulename');
-$objDrop->extra = 'onchange="document.modselect.submit()"';
+$objDrop->extra = 'onchange="document.forms[\'modselect\'].submit()"';
 foreach($moduleList as $item){
     $modName = $objLanguage->code2Txt('mod_'.$item['module_id'].'_name',$item['module_id']);
     $objDrop->addOption($item['module_id'], $modName);

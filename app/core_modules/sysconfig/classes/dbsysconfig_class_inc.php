@@ -82,7 +82,7 @@ class dbsysconfig extends dbTable
                     'dateCreated' => date("Y/m/d H:i:s")));
             return true;
         } else {
-            //die($this->objLanguage->languageText('mod_sysconfig_err_dupattempt'));
+            //die($this->objLanguage->languageText('mod_sysconfig_err_dupattempt','sysconfig'));
             return false;
         } #if
     } #function insertParam
@@ -288,7 +288,7 @@ class dbsysconfig extends dbTable
         if (count($ar) > 0) {
             return $ar['0']['id'];
         } else {
-            die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist"));
+            die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist",'sysconfig'));
         }
     } #function _lookUpId
     

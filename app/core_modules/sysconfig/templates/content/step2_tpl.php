@@ -11,7 +11,7 @@ $addLink=$this->uri(array('action' => 'add',
 //The add Icon linked
 // if ($disableadd==TRUE) {
     // $objIcon->setIcon("add_grey");
-    // $objIcon->alt=$this->objLanguage->languageText("mod_sysconfig_addiconalt");
+    // $objIcon->alt=$this->objLanguage->languageText("mod_sysconfig_addiconalt",'sysconfig');
     // $addIcon = $objIcon->show();
 // } else {
     // $addIcon = $objIcon->getAddIcon($addLink);
@@ -23,7 +23,7 @@ $pgHd = 'Site Parameters';
 //Create page header
 $pgTitle =& $this->getObject('htmlheading', 'htmlelements');
 $pgTitle->type = 1;
-$pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep")."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;".$pgHd;
+$pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sysconfig')."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;".$pgHd;
 
 ?>
 <style type="text/css">
@@ -44,7 +44,7 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep")."&n
 </style>
 <table width="96%" border="0" align="center" cellpadding="3" cellspacing="3" class="steplayout">
   <tr>
-    <td><h3><?php echo $pgTitle->show() ?></h3></td><td width="32%" rowspan="2" valign="top" class="infocell"><?php echo $step2 ?></th>
+    <td><h3><?php echo $pgTitle->show() ?></h3></td><td width="32%" rowspan="2" valign="top" class="infocell"><?php echo $step2 ?></td>
   </tr>
   <tr>
     <td width="68%" height="300" valign="top">
@@ -60,9 +60,9 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep")."&n
     
     //Add a row
     $objTable->startRow();
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname")."</b>", "30%", NULL, "LEFT", "heading");
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue")."</b>", "60%", NULL, "LEFT", "heading");
-    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_action")."</b>", "10%", NULL, "RIGHT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "30%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_action",'sysconfig')."</b>", "10%", NULL, "RIGHT", "heading");
     $objTable->endRow();
     if (isset($ary)) {
         //Initialize row counter for odd or even

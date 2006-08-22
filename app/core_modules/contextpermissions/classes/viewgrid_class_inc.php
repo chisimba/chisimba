@@ -189,7 +189,6 @@ class viewGrid extends object
         extract( $this->_properties );
         $arrRules = $this->_arrRules;
         $arrAction = $this->_arrActions;
-        
         $oddeven = 'odd';
         foreach( $arrAction as $idAction => $objAction ) {
             $oddeven = $oddeven=='odd' ? 'even' : 'odd';
@@ -352,11 +351,11 @@ class viewGrid extends object
     * @param string The reference id for the object.
     * @return string The HTML link element.
     */
-    function lnkText($objLink, $action, $id )
-    {
+    function lnkText($objLink, $action, $id ){
+
         $objLnk =& $this->newObject('link','htmlelements');
         $objLnk->href = $this->uri(array('action'=>$action,'class'=>$action,'id'=>$id ));
-        $objLnk->link = $objLink->_name;
+        $objLnk->link = $id;//$objLink->_name;
         $valid = $objLink->isValid() ? 'Valid' : 'Invalid';
         if( isset( $objLink->_params ) ) {
             $objLnk->extra = sprintf( " title='%s - %s'", $valid, $objLink->_params );

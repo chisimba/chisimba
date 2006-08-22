@@ -45,13 +45,13 @@ foreach ($modules as $module)
         //if ($module['pmodule'] == '_site_') {
             // $link->link = 'Configure site parameters';
         // } else {
-            $link->link = ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_name'));
+            $link->link = ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_name',$module['pmodule']));
         //}
         
         $objIcon->setModuleIcon($module['pmodule']);
         $table->addCell($objIcon->show());
         $table->addCell($link->show());
-        $table->addCell(ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_desc')));
+        $table->addCell(ucfirst($this->objLanguage->code2Txt('mod_' . $module['pmodule'] . '_desc',$module['pmodule'])));
         $table->addCell($module['paramcount'], '10%');
         $table->endRow();
     }

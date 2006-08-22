@@ -83,11 +83,11 @@ class sysconfiginterface extends object
             $objElement->setValue($pmodule);
         }
         //Create label for input of module
-        $label = new label($this->objLanguage->languageText("mod_sysconfig_modtxt"), "input_pmodule");
+        $label = new label($this->objLanguage->languageText("mod_sysconfig_modtxt",'sysconfig'), "input_pmodule");
 
 
         $objForm->addToForm("<p><strong>"
-          . $this->objLanguage->languageText("mod_sysconfig_modtxt")
+          . $this->objLanguage->languageText("mod_sysconfig_modtxt",'sysconfig')
           . "</strong>: " . $pmodule."</p>");
 
         //Get the pk value
@@ -115,7 +115,7 @@ class sysconfiginterface extends object
         $objForm->addToForm($objElement->show());
 
         //Add the $name element to the form
-        $objForm->addToForm('<p><b>'. $this->objLanguage->languageText("mod_sysconfig_paramname"). '</b>: ' . $pname.'</p>');
+        $objForm->addToForm('<p><b>'. $this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig'). '</b>: ' . $pname.'</p>');
 
         // Check in Config folder if module is gives as _site_
         if ($pmodule == '_site_') {
@@ -133,7 +133,7 @@ class sysconfiginterface extends object
             // send it the current default value
             $objParamValue->setDefaultValue($pvalue);
         } else {
-            $valueLabel = new label($this->objLanguage->languageText("mod_sysconfig_paramvalue"), "input_pvalue");
+            $valueLabel = new label($this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig'), "input_pvalue");
             //Add the $value element to the form
             $objForm->addToForm("<b>". $valueLabel->show()."</b>: ");
             //Create an element for the input of value
