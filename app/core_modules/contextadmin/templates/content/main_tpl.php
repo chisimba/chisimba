@@ -74,11 +74,11 @@ if (isset($ar)) {
         foreach ($ar as $line) {
             $oddOrEven = ($rowcount == 0) ? "odd" : "even";    
                  
-            $tableRow[]=strtoupper( $line['contextCode'] );
+            $tableRow[]=strtoupper( $line['contextcode'] );
             $tableRow[]=strtoupper( $line['title'] );
-            $tableRow[]=$line['dateCreated'];
-            $tableRow[]= ($line['isActive'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
-            $tableRow[]= ($line['isClosed'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
+            $tableRow[]=$line['datecreated'];
+            $tableRow[]= ($line['isactive'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
+            $tableRow[]= ($line['isclosed'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
             
             //The context configuration link
             $confLink = $this->uri(array('action' => 'courseadmin'));
@@ -92,7 +92,7 @@ if (isset($ar)) {
           
             //The URL for the edit link
             $editLink=$this->uri(array('action' => 'edit',
-             'contextCode' => $line['contextCode'],
+             'contextCode' => $line['contextcode'],
              'id' =>$line['id']));
             $objEditIcon->alt=$this->objLanguage->languageText("mod_quotes_editalt");
             $ed = $objEditIcon->getEditIcon($editLink);
@@ -103,7 +103,7 @@ if (isset($ar)) {
             $delLink = $this->uri(array(
               'action' => 'delete',
               'confirm' => 'yes',
-              'contextCode' => $line['contextCode'],
+              'contextCode' => $line['contextcode'],
               'id' => $line['id']));
             $objConfirm = & $this->newObject('confirm','utilities');
             

@@ -187,7 +187,7 @@ class contextadmin extends controller {
                 $contextId = $this->doAdd();
                 if($contextId){
                     $row = $this->objDBContext->getRow('id', $contextId);
-                    $params = array ('contextCode' => $row['contextCode']);
+                    $params = array ('contextCode' => $row['contextcode']);
                     return $this->nextAction('joincontext', $params);
                 }else {
                     return $this->nextAction('list');
