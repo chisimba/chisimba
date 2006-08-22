@@ -99,12 +99,22 @@ class sidebar extends object
 				$cssClass2 = ' class="first" ';
 				if(isset($node['haschildren']))
 				{
-
+                    $cnt = $node['haschildren'];
+                    $c = 0;
 					$str .= '<ul>
 								';
 
 					foreach($node['haschildren'] as $child)
 					{
+					    $c++;
+					    
+					    if($c == $cnt)
+    					{
+    						$cssClass2 = ' class="last" ';
+    					} else {
+    						$cssClass2 = '';
+    					}
+    					
 						$str .='<li '.$cssClass2.'>
 									<a href="'.$child['uri'].'">'.$child['text'].'</a>
 								</li>
@@ -112,12 +122,7 @@ class sidebar extends object
 					}
 
 					//check for the last item in the arra
-					if($c == $cnt)
-					{
-						$cssClass2 = ' class="last" ';
-					} else {
-						$cssClass2 = '';
-					}
+					
 
 					$str .= '</ul>
 								';
