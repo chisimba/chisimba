@@ -48,7 +48,7 @@ class cssmenu extends object
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             $str.='<li >'.$this->objLink->show()."<ul>\n";
             foreach($item as $link=>$val){
-                $this->toolbarIcon->setIcon('modules/'.$link);
+                $this->toolbarIcon->setIcon($link,null,'icons/modules/');
                 $this->toolbarIcon->title=$val;
                 $this->toolbarIcon->align='left';
                 $this->toolbarIcon->extra=' vspace="3" hspace="5" width="17" height="17"';
