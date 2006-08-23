@@ -230,7 +230,7 @@ function Validator(theForm) {
     $titles=array("title_mr", "title_miss", "title_mrs", "title_ms", "title_dr", "title_prof", "title_rev", "title_assocprof");
     foreach ($titles as $title)
     {
-        $_title = $objLanguage->languageText($title,'useradmin');
+        $_title = $objLanguage->languageText($title);
         $objDropdown->addOption($_title,$_title);
     }
     $objFieldset->addLabelledField($objLanguage->languageText("word_title"), $objDropdown->show());
