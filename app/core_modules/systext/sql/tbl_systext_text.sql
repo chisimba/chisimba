@@ -23,7 +23,7 @@ $fields = array(
         'default' => '1'
 		),
     'dateCreated' => array(
-		'type' => 'date',
+		'type' => 'timestamp',
 
 		),
     'canDelete' => array(
