@@ -107,7 +107,7 @@ $tableHd = array();
 $tableHd[] = $categoryLabel;
 $tableHd[] = '';
 
-$objTable->addHeader($tableHd, 'heading');
+$objTable->addHeader($tableHd, 'heading',"align='left'");
 
 if(!empty($toolBar)){
     $i = 0;
@@ -117,7 +117,7 @@ if(!empty($toolBar)){
         $icons = $objIcon->getEditIcon($this->uri(array('action'=>'edittool', 'id'=>$item['id'])));
         $icons .= $objIcon->getDeleteIconWithConfirm('', array('action'=>'delete', 'id'=>$item['id'], 'modulename'=>$moduleName), 'toolbar');
         
-        $objTable->addRow(array($item['category'], $icons), $class);
+        $objTable->addRow(array($item['category'], $icons), $class,"align='left'");
     }
 }else{
     $objTable->addRow(array($noLinksLabel, ''), 'odd');
