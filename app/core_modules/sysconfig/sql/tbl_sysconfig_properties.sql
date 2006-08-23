@@ -11,7 +11,6 @@ $fields = array(
 	'id' => array(
 		'type' => 'text',
 		'length' => 32,
-
 		),
 	'pmodule' => array(
 		'type' => 'text',
@@ -36,16 +35,14 @@ $fields = array(
         'length' => 25
 		),
     'dateCreated' => array(
-		'type' => 'date',
-
-
+		'type' => 'timestamp',
 		),
     'modifierId' => array(
 		'type' => 'text',
         'length' => 25
 		),
     'dateModified' => array(
-		'type' => 'date'
+		'type' => 'timestamp'
 		)
     );
 

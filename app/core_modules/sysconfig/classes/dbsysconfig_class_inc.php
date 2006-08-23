@@ -202,8 +202,7 @@ class dbsysconfig extends dbTable
     */
     function deleteModuleValues($pmodule)
     {
-        $sql = "DELETE FROM tbl_sysconfig_properties WHERE pmodule='$pmodule'";
-        if ($this->query($sql)) {
+        if ($this->delete('pmodule',$pmodule)) {
             return true;
         } else {
             return false;

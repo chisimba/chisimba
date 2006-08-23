@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_sysconfig_properties</table>
+        <version>0.3</version>
+        <description>changed date fields in tbl_sysconfig_properties to timestamps</description>
+        <data>
+        	<change>
+				<dateCreated>
+					<definition>
+						<type>timestamp</type>
+           			</definition> 
+				</dateCreated> 
+			</change>
+		</data>
+		<data>
+			<change>
+				<dateModified>
+					<definition>
+						<type>timestamp</type>
+           			</definition> 
+				</dateModified> 
+			</change>
+		</data>
+    </update>
+</updates>
