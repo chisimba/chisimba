@@ -226,7 +226,7 @@ function Validator(theForm) {
 	// Title
     $objDropdown = new dropdown('title');
     $objDrop->extra='id="Select1"';
-    $objDropdown->addOption('',$objLanguage->languageText('option_selectatitle','useradmin'));
+    $objDropdown->addOption('',$objLanguage->languageText('option_selectatitle'));
     $titles=array("title_mr", "title_miss", "title_mrs", "title_ms", "title_dr", "title_prof", "title_rev", "title_assocprof");
     foreach ($titles as $title)
     {
