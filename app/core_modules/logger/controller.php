@@ -20,7 +20,7 @@ class logger extends controller
     /**
      * Standard init function
      */
-    function init() 
+    function init()
     {
         //Instantiate the show log class
         $this->showLog = &$this->getObject('logshow');
@@ -36,7 +36,7 @@ class logger extends controller
     /**
      * Dispatch method for logger class
      */
-    function dispatch() 
+    function dispatch()
     {
         $action = $this->getParam("action", NULL);
         switch ($action) {
@@ -45,7 +45,7 @@ class logger extends controller
                 break;
 
             case 'sortbydate':
-                $ar = $this->showLog->showForUser(NULL, " ORDER BY dateCreated DESC");
+                $ar = $this->showLog->showForUser(NULL, " ORDER BY datecreated DESC");
                 $this->setVarByRef('ar', $ar);
                 return "main_tpl.php";
                 break;
@@ -74,7 +74,7 @@ class logger extends controller
                 return "main_tpl.php";
                 break;
                 //Set of date cases
-                
+
             case 'showstatsbydate':
                 //Retrieve the timeframe parameter
                 $timeframe = $this->getParam("timeframe", NULL);
@@ -113,7 +113,7 @@ class logger extends controller
                 die($this->objLanguage->languageText("phrase_actionunknown") .": ".$action);
                 break;
         } //switch
-        
+
     }
 } // end of class
 

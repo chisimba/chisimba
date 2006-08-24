@@ -22,7 +22,7 @@ class logshow extends dbTable
     /**
      * Constructor method
      */
-    public function init() 
+    public function init()
     {
         try {
             parent::init('tbl_logger');
@@ -43,21 +43,21 @@ class logshow extends dbTable
      * a particular order
      *
      */
-    public function showForUser($userId = NULL, $order = Null) 
+    public function showForUser($userId = NULL, $order = Null)
     {
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
         }
-        $where = "WHERE tbl_logger.eventParamName='pagelog' AND tbl_logger.userId='".$userId."'";
+        $where = "WHERE tbl_logger.eventparamname='pagelog' AND tbl_logger.userid='".$userId."'";
         if ($order !== NULL) {
             $where = $where." ".$order;
         }
-        $sql = "SELECT tbl_logger.userId,
+        $sql = "SELECT tbl_logger.userid,
           tbl_users.firstname, tbl_users.surname,
-          tbl_logger.module, tbl_logger.eventParamValue,
-          tbl_logger.dateCreated, tbl_logger.context
+          tbl_logger.module, tbl_logger.eventparamvalue,
+          tbl_logger.datecreated, tbl_logger.context
           FROM tbl_logger LEFT JOIN tbl_users ON
-          tbl_logger.userId=tbl_users.userId $where ";
+          tbl_logger.userId=tbl_users.userid $where ";
         return $this->getArray($sql);
     }
     /**
@@ -67,7 +67,7 @@ class logshow extends dbTable
      * to the current user
      *
      */
-    public function showModulesLogged($userId = NULL) 
+    public function showModulesLogged($userId = NULL)
     {
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
@@ -76,7 +76,7 @@ class logshow extends dbTable
           FROM tbl_logger";
         return $this->getArray($sql);
     } // function showModulesLogged
-    
+
     /**
      * Method to show stats grouped by user
      *
@@ -84,7 +84,7 @@ class logshow extends dbTable
      * to the current user
      *
      */
-    public function showStatsByUser($userId = NULL) 
+    public function showStatsByUser($userId = NULL)
     {
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
@@ -99,17 +99,17 @@ class logshow extends dbTable
         $ar = $this->getArray($sql);
         return $ar;
     } // function showStatsByUser
-    
+
     /**
      * Method to show stats grouped by module
      *
      */
-    public function showStatsByModule($userId = NULL) 
+    public function showStatsByModule($userId = NULL)
     {
         $sql = "SELECT module, COUNT(id) AS Calls, COUNT(DISTINCT userId) AS Users FROM tbl_logger GROUP BY module";
         return $this->getArray($sql);
     } // function showStatsByModule
-    public function showStatsByDate($timeframe = NULL) 
+    public function showStatsByDate($timeframe = NULL)
     {
         $where = " WHERE dateCreated >= '".$timeframe."' ";
         return $this->getAll($where);
