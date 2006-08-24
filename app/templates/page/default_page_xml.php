@@ -114,7 +114,7 @@ if (isset($bodyOnLoad)) {
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo "<body id=\"type-f\">";
+    echo "<body id=\"type-c\">";
 }
 	// Add instant messaging
 	if (!isset($pageSuppressIM)) {
