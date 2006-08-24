@@ -487,11 +487,13 @@ class user extends dbTable
 			}
 		} else {
 			//look up third part numeric ID
-			$sql="SELECT firstname, surname FROM tbl_users WHERE userid='$userId'";
-			$rs = $this->_execute($sql);
-			if ($rs) {
-				$row = $rs->fetchOne();
-				$result=$row['firstname'].' '.$row['surname'];
+			
+			
+			$line = $this->getRow('userid', $userId);
+			
+			if ($line)
+			{
+			    $result=$line['firstname'].' '.$line['surname'];
 			} else {
 				$result=$this->objLanguage->languageText("error_datanotfound");
 			}
