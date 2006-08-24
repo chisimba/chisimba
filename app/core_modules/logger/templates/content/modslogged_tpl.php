@@ -34,6 +34,6 @@ $location=$this->uri(array());
 //Set the link for sortbydate
 $objLink->href=$location;
 //create the link text
-$objLink->link=$objLanguage->languageText("mod_logger_backtomenu");
+$objLink->link=$objLanguage->languageText("mod_logger_backtomenu", "logger");
 echo "<ul><li>".$objLink->show()."</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>";
 ?>

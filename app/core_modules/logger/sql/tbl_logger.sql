@@ -12,21 +12,6 @@ The table for the event log. The fields are:
 
 */
 
-// $sqldata[]="CREATE TABLE `tbl_logger` (
-             // `id` varchar(32) NOT NULL,
-			 // `userId` varchar(25) NOT NULL default '',
-             // `module` varchar(32) default NULL,
-			 // `eventcode` varchar(32) default NULL,
-             // `eventParamName` varchar(32) default NULL,
-			 // `eventParamValue` varchar(32) default NULL,
-			 // `context` varchar(32) default NULL,
-             // `dateCreated` datetime default NULL,
-             // `isLanguageCode` tinyint,
-             // PRIMARY KEY  (`id`),
-			 // KEY `userId` (`userId`),
-			 // CONSTRAINT `logger_user` FOREIGN KEY (`userId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE)
-             // TYPE=InnoDb ROW_FORMAT=DYNAMIC  COMMENT='Table to hold the log events'";
-
 $tablename = 'tbl_logger';
 
 $options = array('comment' => 'Table to hold the log events', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
