@@ -8,8 +8,8 @@ $objLanguage = &$this->getObject('language', 'language');
 foreach($ar as $line) {
     $modline = array();
     $modline['module'] = $line['module'];
-    $modline['title'] = $objLanguage->languagetext('mod_'.$line['module'].'_name');
-    $modline['description'] = $objLanguage->languagetext('mod_'.$line['module'].'_desc');
+    $modline['title'] = $objLanguage->languagetext('mod_'.$line['module'].'_name',"logger");
+    $modline['description'] = $objLanguage->languagetext('mod_'.$line['module'].'_desc', "logger");
     $modarray[] = $modline;
 } // foreach
 //Kill off the array, we don't need it any more
