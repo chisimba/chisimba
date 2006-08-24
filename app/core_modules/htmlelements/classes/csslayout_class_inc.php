@@ -233,9 +233,9 @@ class csslayout extends object implements ifhtml
         $result = '<div id="leftnav">'.$this->leftColumnContent.'</div>';
 
 
-        if (isset($footerStr))
+        if (isset($this->footerStr))
 		{
-			$footer = '<div  id="footer">'.$footerStr.'</div>';
+			$footer = '<div  id="footer">'.$this->footerStr.'</div>';
 		}
 
 		else {

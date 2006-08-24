@@ -34,7 +34,7 @@ class controller extends access
         try {
         	parent::__construct($objEngine, $moduleName);
         	$version = $objEngine->version;
-        	$this->footerStr = "<center>Powered by Chisimba version " .$version . "</center>";
+        	$this->footerStr = "<div id=\"footer\"><center>Powered by Chisimba version " .$version . "</center></div>";
         }
         catch (customException $e)
         {
