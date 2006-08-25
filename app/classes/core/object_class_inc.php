@@ -307,18 +307,32 @@ class object
 
 	}
 
-     /**
-      * Method to append a value to a template variable holding an array. If the
-      * array does not exist, it is created
-      *
-      * @access public
-      * @param string $name The name of the variable holding an array
-      * @param mixed $value The value to append to the array
-      * @return Engine::AppendarrayVar
-      */
+    /**
+    * Method to append a value to a template variable holding an array. If the
+    * array does not exist, it is created
+    *
+    * @access public
+    * @param string $name The name of the variable holding an array
+    * @param mixed $value The value to append to the array
+    * @return Engine::AppendarrayVar
+    */
     public function appendArrayVar($name, $value)
     {
         return $this->objEngine->appendArrayVar($name, $value);
+    }
+
+    /**
+    * Method to set a template variable. These are used to pass
+    * information from module to template.
+    *
+    * @access public
+    * @param $name string The name of the variable
+    * @param $val mixed The value to set the variable to
+    * @return string as associative array of template name
+    */
+    public function setVar($name, $value)
+    {
+        return $this->objEngine->setVar($name, $value);
     }
 }
 ?>
