@@ -111,10 +111,14 @@ if (isset($bodyOnLoad)) {
 ?>
 </head>
 <?php
+if (!isset($bodyType)) {
+    $bodyType = 'type-c';
+}
+
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo "<body id=\"type-c\">";
+    echo '<body id="'.$bodyType.'">';
 }
 	// Add instant messaging
 	if (!isset($pageSuppressIM)) {
