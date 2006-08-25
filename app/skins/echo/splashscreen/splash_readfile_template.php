@@ -13,13 +13,7 @@
 	</div>
 
 	<div id="content-wrap">
-		<div id="content">
-			[-PRELOGINSTORIES-]
-			<div id="footer">
-			[-PRELOGINSTORIESFOOTER-]
-			</div>
-		</div>
-		<div id="leftnav">
+        <div id="rightnav">
 			[-STARTFORM-]
 			<div class="featurebox">
 		            <h3>Login</h3>
@@ -65,7 +59,14 @@
 
 		</div>
 
-		<div id="rightnav">
+		<div id="content">
+			[-PRELOGINSTORIES-]
+			<div id="footer">
+			[-PRELOGINSTORIESFOOTER-]
+			</div>
+		</div>
+		
+		<div id="leftnav">
 				<div class="featurebox">
 		            <h3>Skinz</h3>
 		            <TABLE>
