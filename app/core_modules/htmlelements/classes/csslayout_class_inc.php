@@ -249,6 +249,7 @@ class csslayout extends object implements ifhtml
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
             $result .= '<div id="contentHasLeftMenu">'.'<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>'.'</div>';
+            $this->setVar('bodyType', 'type-b');
         } else {
             // for a three column layout, first load the right column, then the middle column
             $result .= '<div id="leftnav">'.$this->rightColumnContent.'</div>';
