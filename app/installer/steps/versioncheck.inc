@@ -116,7 +116,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	public $min_version = '5.1.4';
+	public $min_version = '5.1.2';
 
 
 
@@ -130,7 +130,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	public $required_settings = Array(	'PHP' => Array('version'=>'5.1.4', 'available'=>true, 'message'=> ''),
+	public $required_settings = Array(	'PHP' => Array('version'=>'5.1.2', 'available'=>true, 'message'=> ''),
 
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -1159,7 +1159,7 @@ class PEARDBCheckAction extends StepAction
 		if ($_SESSION['pear_path'] == '') {
 
 			$this->errors[] = 'Unable to detect your PEAR settings, please provide your pear path.';
-			
+
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
@@ -1179,9 +1179,9 @@ class PEARDBCheckAction extends StepAction
 			foreach ($this->required_db as $package_name => $required_version) {
 
 				$package_info = $pear_registry->packageInfo($package_name);
-				
+
 				if (empty($package_info)) {
-					
+
 					//$this->errors[] = 'Required PEAR module "'.$package_name.'" is not installed. Please run ';
 
 					//$this->errors[] = '<pre>pear install --alldeps '.$package_name.'</pre>';
