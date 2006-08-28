@@ -313,7 +313,10 @@ class DbCreateAction extends StepAction
         			if (!$tablecreatereturn) {
         				$this->errors[] = 'Could not create table'.$tablename;
         			}
-
+					if(!isset($indexes))
+					{
+						$indexes = NULL;
+					}
         			if ($indexes!=null) {
         				$tableindex = $conn->createTableIndex($tablename,$name,$indexes);
 	        			if (!$tableindex) {

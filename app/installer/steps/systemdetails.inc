@@ -313,7 +313,10 @@ class RootUserAction extends StepAction
 
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'Chisimba';
 
-
+		if(!isset($server_name))
+		{
+			$server_name = NULL;
+		}
 
 		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : $server_name;
 
@@ -434,7 +437,10 @@ class RootUserAction extends StepAction
 			ob_clean();
 
 
-
+			if(!isset($serverName))
+			{
+				$serverName = NULL;
+			}
 			text_box('serverName',$serverName,'20','',false,'tabindex="2"');
 
 			normal_button('getServerName','Generate','javascript:generateServerName();','tabindex="2"');
@@ -1073,6 +1079,11 @@ class RootUserAction extends StepAction
 
 		$tpl->set('tech_email', $tech_email);
 
+		if(!isset($rollback_enable))
+		{
+			$rollback_enable = FALSE;
+		}
+
 		$tpl->set('rollback_enable', $rollback_enable);
 
 		$tpl->set('sys_owner', $sys_owner);
@@ -1308,6 +1319,10 @@ class RootUserAction extends StepAction
 
 		$tpl->set('tech_email', $tech_email);
 
+		if(!isset($rollback))
+		{
+			$rollback = FALSE;
+		}
 		$tpl->set('rollback_enable', $rollback);
 
 		$tpl->set('sys_owner', $def_sysowner);

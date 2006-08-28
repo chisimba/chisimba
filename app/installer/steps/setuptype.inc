@@ -417,6 +417,10 @@ class SetupTypeAction extends FiveStepAction
 
 		$tpl = new Template(INSTALL_DIR.'/templates/setuptype.tpl');
 
+		if(!isset($inst_type))
+		{
+			$inst_type = NULL;
+		}
 		$inst_type = isset($_SESSION['install_type']) ? $_SESSION['install_type'] : $inst_type;
 
 		if(file_exists($_SESSION['sys_root'].'/config/config.xml'))

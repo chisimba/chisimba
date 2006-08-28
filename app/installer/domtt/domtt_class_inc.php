@@ -1,7 +1,7 @@
 <?php
 
 /**
-* This class generates a DomTT tool Tip that can be 
+* This class generates a DomTT tool Tip that can be
 * used for any link in your code
 *
 * @package cssLayout
@@ -15,19 +15,21 @@
 
 class domtt
 {
-    /**
+    public $message;
+
+	/**
      * Constructor
      */
     public function __construct()
     {
         $this->javaScriptIsSet = False;
-        
+
     }
-    
-    
+
+
     /**
      * Method to show the domTT Item
-     * 
+     *
      * @return string
      * @access public
      * @author Wesley Nitsckie
@@ -35,29 +37,29 @@ class domtt
     public function show($title = 'Chisimba Installer Help', $message = 'some message' , $linkText = "<img src=\"./extra/yellow_help_off.png\" border=\"0\">", $url = "#"  )
     {
         $this->url = $url;
-        
+
         $this->linkText = $linkText;
-        
+
         $this->message = $message;
-        
+
         $this->title = $title;
-        
-        
-        $str = "<a href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."'<p>".$this->messsage."</p>', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
+
+
+        $str = "<a href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."'<p>".$this->message."</p>', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
         $helpStr = "<a href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."<p>".$this->message."</p>', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
         return $helpStr;
     }
-    
+
     /**
      * Method to get the javaScript files
-     * 
+     *
      * @access public
      * @author Wesley Nitsckie
      * @return null
      */
     public function putScripts()
     {
-        
+
        $str = '<script type="text/javascript" language="javascript" src="./domtt/domLib.js"></script>
         <script type="text/javascript" language="javascript" src="./domtt/fadomatic.js"></script>
         <script type="text/javascript" language="javascript" src="./domtt/domTT.js"></script>
@@ -65,11 +67,11 @@ class domtt
             var domTT_styleClass = \'domTTOverlib\';
             var domTT_oneOnly = true;
         </script>';
-        
+
         $this->javaScriptIsSet = True;
-        
+
         return $str;
-        
+
     }
 }
 ?>

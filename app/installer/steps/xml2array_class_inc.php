@@ -1,5 +1,5 @@
 <?php
-
+ini_set("error_reporting", "E_ALL & ~E_NOTICE");
 class xml2array
 {
 // {{{ toString()
