@@ -1,4 +1,4 @@
-<?  
+<?
     function textinput($name,$type,$value=NULL)
     {
         $field=new textinput($name,$value);
@@ -18,7 +18,7 @@
     if ($message){
         echo "<h2>".$objLanguage->languageText('word_problem','useradmin').': '.$objLanguage->languageText($message)."</h2>";
     }
-	
+
     // Put User Admin menus if user is admin
     //if ($isAdminUser) {
         //echo $this->alphabetBrowser();
@@ -38,10 +38,10 @@
 
     $this->loadclass('form','htmlelements');
 	switch($mode){
-		case 'add': 
+		case 'add':
 			$uri = $this->uri(array('action'=>'addapply'),'useradmin');
 			break;
-		case 'edit': 
+		case 'edit':
 			$uri = $this->uri(array('action'=>'editapply'),'useradmin');
 			break;
 		default:
@@ -50,7 +50,7 @@
 	} // switch
     $objForm = new form('Form1', $uri);
     $objForm->displayType=3;
-	// Action       
+	// Action
     //$objForm->addToForm(textinput('userAdminAction','hidden',$action));
     //$objForm->addToForm(textinput('action','hidden',$action));
 	if ($mode == 'edit') {
@@ -87,12 +87,12 @@
         	$objLanguage->languageText('word_username'),
 			textinput('username','text')
 		);
-	    
-	}	
+
+	}
 	else if ($mode == 'edit') {
 	    // Username
 	    // LDAP users may not change their username
-	    if ($userDetails['howCreated']=='LDAP'){
+	    if ($userDetails['howcreated']=='LDAP'){
 	        $objFieldset->addLabelledField(
 				$objLanguage->languageText('word_username'),
 				$userDetails['username'].textinput('username','hidden',$userDetails['username'])
@@ -136,7 +136,7 @@
 	    	$objLanguage->languageText('word_password'),
 			textinput('password','password')
 		);
-	    
+
 	    // Password confirm
 	    $objFieldset->addLabelledField(
 	    	$objLanguage->languageText('word_password'),
@@ -149,9 +149,9 @@
 		textinput('email','text',$mode == 'add' ? '' : $userDetails['emailaddress'])
 	);
     // Sex
-    $objDropdown = new radio('sex');   
+    $objDropdown = new radio('sex');
     $objDropdown->addOption('M', $objLanguage->languageText('word_male'));
-    $objDropdown->addOption('F', $objLanguage->languageText('word_female'));    
+    $objDropdown->addOption('F', $objLanguage->languageText('word_female'));
 	if ($mode == 'edit') {
 	    $objDropdown->setSelected($userDetails['sex']);
 	}
@@ -165,10 +165,10 @@
     	$objLanguage->languageText('word_country'),
 		$objCountries->country()
 	);
-    // Save Button    
+    // Save Button
     $submitButton = new button('updatedetails');
     $submitButton->setValue($objLanguage->languageText('mod_useradmin_updatedetails','useradmin'));
-    $submitButton->setToSubmit();    
+    $submitButton->setToSubmit();
     $objFieldset->addLabelledField(
     	'',
 		$submitButton->show()
@@ -182,34 +182,34 @@
 	    //$startForm.="<input type='hidden' name='upload' value='1' />";
 	    //$startForm.="<input type='hidden' name='module' value='useradmin' />";
 	    //$startForm.="<input type='hidden' name='action' value='imageupload' />";
-	    //$startForm.="<input type='hidden' name='time' value='".time()."' />";   
+	    //$startForm.="<input type='hidden' name='time' value='".time()."' />";
 	    $objImage=&$this->getObject('imageupload');
 	    $userpicture=$objImage->userpicture($userDetails['userid']);
 		$form .= '<img src="'.$userpicture.'" />';
 	    if ($this->isAdmin || ($userDetails['userid']==$this->objUser->userId())){
 	        if (!preg_match('/default\.jpg/', $userpicture)) {
-	            $form .= 
+	            $form .=
 				'<a href="'.
 					$this->uri(
 						array(
 							'action'=>'imagereset',
-							'userId'=>$userDetails['userid'], 
+							'userId'=>$userDetails['userid'],
 							'isAdminUser' => $isAdminUser
 						)
 					)
 				.'" class="pseudobutton">'.$objLanguage->languageText("phrase_reset_image").'</a>';
 	        }
-	    }             
+	    }
 	    if ($this->isAdmin || ($userDetails['userid']==$this->objUser->userId())){
 			$form .= textinput('isAdminUser','hidden',$isAdminUser);
 			$form .= textinput('userId','hidden',$userDetails['userid']);
 	        $form .= "<input type='file' name='userFile' />";
-	        $form .= "<input type='submit' class='button' value='".$this->objLanguage->languageText('mod_useradmin_changepicture','useradmin')."' />"; 
+	        $form .= "<input type='submit' class='button' value='".$this->objLanguage->languageText('mod_useradmin_changepicture','useradmin')."' />";
 	    }
 	    $form .= '</form>';
 	    echo $form;
 		// Change password
-	    if ($userDetails['userid']==$this->objUser->userId() && !$isLDAPUser){ 
+	    if ($userDetails['userid']==$this->objUser->userId() && !$isLDAPUser){
 	        $this->loadclass('href','htmlelements');
 	        $objHref=new href(
 				$this->uri(array('action'=>'changepassword','userId'=>$userDetails['userid']),'useradmin'),
@@ -225,8 +225,8 @@
 				echo '<br />';
 	            echo $objHref->show();
 	        }
-	    } 
-		else if ($this->isAdmin && !$isLDAPUser){ 
+	    }
+		else if ($this->isAdmin && !$isLDAPUser){
 	        $this->loadclass('href','htmlelements');
 	        $objHref=new href(
 				$this->uri(
