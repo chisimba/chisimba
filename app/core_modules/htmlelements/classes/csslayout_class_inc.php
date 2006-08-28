@@ -136,8 +136,8 @@ class csslayout extends object implements ifhtml
              var rightnavHeight = 0;
              var contentHeight = 0;
 
-             if (document.getElementById('leftnav')) {
-                 leftnavHeight = document.getElementById('leftnav').offsetHeight;
+             if (document.getElementById('rightnav')) {
+                 leftnavHeight = document.getElementById('rightnav').offsetHeight;
              }
 
 
