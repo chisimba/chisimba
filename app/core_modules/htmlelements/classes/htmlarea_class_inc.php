@@ -171,7 +171,7 @@ class htmlarea extends object
           */
     	$str = '';
     	$str =$this->getJavaScripts();
-    	$str .='<form name="imgform"><input type="text" name="hiddentimg"/></form>';
+    	$str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
     	$str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
     	return   $str;
     }
