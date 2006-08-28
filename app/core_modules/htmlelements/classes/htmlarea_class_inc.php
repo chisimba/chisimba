@@ -169,8 +169,8 @@ class htmlarea extends object
         $oFCKeditor->Value ='some value';// $this->value;
         return $oFCKeditor->Create() ;
           */
-    	
-    	$str .=$this->getJavaScripts();
+    	$str = '';
+    	$str =$this->getJavaScripts();
     	$str .='<form name="imgform"><input type="text" name="hiddentimg"/></form>';
     	$str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
     	return   $str;
