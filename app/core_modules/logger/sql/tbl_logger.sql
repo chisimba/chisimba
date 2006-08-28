@@ -52,8 +52,8 @@ $fields = array(
 		'type' => 'date'
 		),
     'isLanguageCode' => array(
-		'type' => 'integer', // tiny int
-		'length' => 1
+		'type' => 'text', // tiny int
+		'length' => 10
 		)
 	);
 
