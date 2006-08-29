@@ -4,7 +4,7 @@ $userMenu  = &$this->newObject('usermenu','toolbar');
 $objTextArea = $this->loadclass('textarea', 'htmlelements');
 $objHiddenInput = $this->loadclass('hiddeninput', 'htmlelements');
 
-$objForm = new form('errormail',$this->uri(array('action'=>'mailall')));
+$objForm = new form('errormail',$this->uri(array('action'=>'errormail')));
 $objTextArea = new textarea('comments','');
 
 // Create an instance of the css layout class
