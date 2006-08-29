@@ -28,7 +28,7 @@ $devmsg = nl2br($devmsg);
 $usrmsg = nl2br($usrmsg);
 
 $blurb = $this->objLanguage->languagetext("mod_errors_blurb", "errors");
-$midcol .= $blurb;
+//$midcol .= $blurb;
 $midcol .= $objFeatureBox->show($this->objLanguage->languagetext("mod_errors_usrtitle", "errors"), $usrmsg);//'<div class="featurebox">' . nl2br($usrmsg) . '</div>';
 $midcol .= $objFeatureBox->show($this->objLanguage->languagetext("mod_errors_devtitle", "errors"), $devmsg);//'<div class="featurebox">' . nl2br($devmsg) . '</div>';
 
