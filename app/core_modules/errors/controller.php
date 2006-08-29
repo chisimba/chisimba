@@ -17,7 +17,9 @@ if (!$GLOBALS['kewl_entry_point_run'])
 class errors extends controller
 {
     public $objLog;
+    public $objConfig;
     public $objLanguage;
+    public $objMail;
 
 	/**
 	* Constructor method to instantiate objects and get variables
@@ -25,6 +27,7 @@ class errors extends controller
     public function init()
     {
         try {
+        	$this->objConfig = $this->getObject('altconfig','config');
         	$this->objLanguage = $this->getObject('language','language');
         }
         catch (customException $e)
@@ -50,6 +53,21 @@ class errors extends controller
             	$this->setVarByRef('devmsg',$devmsg);
             	$this->setVarByRef('usrmsg',$usrmsg);
             	return 'dberror_tpl.php';
+            	break;
+
+            case 'errormail':
+            	$hidmsg = $this->getParam('error');
+            	if(empty($hidmsg))
+            	{
+            		//possible spam usage!!!
+            		die($this->objLanguage->languageText("mod_errors_spammeralert", "errors"));
+            	}
+            	$text = $this->getParam('comments');
+            	//load up the mail class
+            	//$this->objMail = $this->getObject('email', 'mail');
+            	//$this->objMail->
+            	//echo $hidmsg . "<br /><br />" . $text;
+
             	break;
 
         }
