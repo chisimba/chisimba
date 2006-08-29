@@ -173,7 +173,7 @@ $str .= '<p />'.$this->objDBContext->getAbout() .'<p/>';
 
 //context info
 
-$contextInfo .= 'Instructors: <br />'; 
+$contextInfo = 'Instructors: <br />'; 
 $contextInfo .= 'No. Registered Students: <br/>'; 
 $contextInfo .= 'Last Accessed: '; 
 $contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
