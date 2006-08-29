@@ -52,7 +52,9 @@ class engine
      */
     public $version = '1.0.0-RC4-CVS';
 
-	/**
+	public $deathmsg;
+
+    /**
      * Template variable
      *
      * @var string
@@ -1033,8 +1035,9 @@ class engine
         $this->setErrorMessage($usermsg);
         $this->putMessages();
         log_debug(__LINE__ . "  " . $msg);
+        $messages = array($usermsg, $msg);
 
-        die($this->diePage());
+        die($this->diePage($messages));
     }
 
     /**
@@ -1045,17 +1048,25 @@ class engine
      * @param void
      * @return string
      */
-    public function diePage()
+    public function diePage($messages)
     {
-        $uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-        $message = '<style type="text/css" media="screen">
-                    @import url("skins/echo/main.css");
-                 </style>
+    	$this->objLanguage = $this->getObject('language', 'language');
+        $this->objSkin = $this->getObject('skin', 'skin');
+        $message = $this->objSkin->putSkinCssLinks();
+        $uri = NULL;
+        $this->deathmsg = $messages;
+        $uri = $this->uri(array('usrmsg' => urlencode($messages[0]), 'devmsg' => urlencode($messages[1]))) . "&module=errors&action=dberror";
+        $message .= '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
+				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
+				<!--[if lte IE 6]>
+					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
+				<![endif]-->';
+        $message .= '<div class="featurebox"><h1>' . $this->objLanguage->languageText("core_errmsg", "system") . '</h1>';
+        $message .= '<a href='.$uri.'>'. $this->objLanguage->languageText("core_viewerrs", "system") .'</a>';
+        $message .= "</div>";
 
-                <div class="featurebox"><h1> An Error has been encountered</h1>
-                 Please email your system log file to the Chisimba developers near you ';
-        $message .= '<a href='.$uri.'>Back</a></div>';
-        return $message;
+    	return $message;
     }
 
     /**
