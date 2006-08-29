@@ -1,0 +1,59 @@
+<?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+* error module Controller
+*
+* @author Paul Scott
+* @copyright (c) 2004 University of the Western Cape
+* @package httpclient
+* @version 1
+*/
+class errors extends controller
+{
+    public $objLog;
+    public $objLanguage;
+
+	/**
+	* Constructor method to instantiate objects and get variables
+	*/
+    public function init()
+    {
+        try {
+        	$this->objLanguage = $this->getObject('language','language');
+        }
+        catch (customException $e)
+        {
+        	customException::cleanUp();
+        }
+    }
+
+   /**
+	* Method to process actions to be taken
+    *
+    * @param string $action String indicating action to be taken
+	*/
+    public function dispatch($action=Null)
+    {
+        switch ($action)
+        {
+            default:
+            	die($this->objLanguage->languagetext("mod_errors_noerr", "errors"));
+            case 'dberror':
+            	$devmsg = $this->getParam('devmsg');
+            	$usrmsg = $this->getParam('usrmsg');
+            	$this->setVarByRef('devmsg',$devmsg);
+            	$this->setVarByRef('usrmsg',$usrmsg);
+            	return 'dberror_tpl.php';
+            	break;
+
+        }
+    }
+
+}
+?>
