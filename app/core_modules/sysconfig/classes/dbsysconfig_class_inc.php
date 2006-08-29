@@ -23,14 +23,6 @@ class dbsysconfig extends dbTable
     */
     var $objConfig;
 
-
-    /**
-    * Property to hold the language object
-    *
-    * @var object $objLanguage The language object
-    */
-    var $objLanguage;
-
     /**
     * Standard init function to set the database table and instantiate
     * common classes.
@@ -43,7 +35,6 @@ class dbsysconfig extends dbTable
         // Get an instance of the user object
         $this->objUser = &$this->getObject('user', 'security');
         // Get an instance of the language object
-        $this->objLanguage = &$this->getObject('language', 'language');
         $this->objConfig = &$this->getObject('altconfig','config');
     }
     
@@ -54,7 +45,7 @@ class dbsysconfig extends dbTable
     */
     function getModulesParamList()
     {
-        $sql = 'SELECT pmodule, count( pmodule ) AS paramcount FROM tbl_sysconfig_properties GROUP BY pmodule ORDER BY pmodule LIMIT 0 , 30 ';
+        $sql = 'SELECT pmodule, count( pmodule ) AS paramcount FROM tbl_sysconfig_properties GROUP BY pmodule ORDER BY pmodule';
         return $this->getArray($sql);
     }
 
@@ -287,7 +278,8 @@ class dbsysconfig extends dbTable
         if (count($ar) > 0) {
             return $ar['0']['id'];
         } else {
-            die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist",'sysconfig'));
+            //die($this->objLanguage->languageText("mod_sysconfig_err_keynotexist",'sysconfig'));
+            return false;
         }
     } #function _lookUpId
     

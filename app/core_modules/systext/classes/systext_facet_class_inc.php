@@ -45,8 +45,8 @@ class systext_facet extends dbTable
     /**
     * @var systemType _SystemTypeDb an object reference.
     */
-    var $_objSytemTypeDb;
-
+    var $_objSystemTypeDb;
+	
     /**
     * @var textItem _TextItemDb an object reference.
     */
@@ -68,8 +68,9 @@ class systext_facet extends dbTable
     * @access private
     */
     function init()
-    {
-        $this -> _objSystemTypeDb =& $this -> getObject('dbsystem', 'systext');
+    {	
+    	parent::init('tbl_sysconfig_properties');
+    	$this -> _objSystemTypeDb =& $this -> getObject('dbsystem', 'systext');
         $this -> _objTextItemDb =& $this -> getObject('dbtext', 'systext');
         $this -> _objAbstractTextDb =& $this -> getObject('dbabstract', 'systext');
 
@@ -301,8 +302,9 @@ class systext_facet extends dbTable
     */
     public function _getAbstractList()
     {
-        $system_type = 'default';//$this -> _objConfig -> getValue("SYSTEM_TYPE", "systext");
-       
+        $rs = $this->getRow('pname','SYSTEM_TYPE');
+        $system_type = $rs['pvalue'];
+
         $systemTypeList = $this -> listSystemTypes();
         $textItemList = $this -> listTextItems();
         $abstractList = array();

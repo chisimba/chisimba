@@ -50,7 +50,7 @@ if(!isset($defaultList)){
 }
 
 // Script to build the output string
-$javascript = "<SCRIPT language=\"JavaScript\">
+$javascript = "<script language='javascript'>
 
     function setDefault()
     {
@@ -61,7 +61,7 @@ $javascript = "<SCRIPT language=\"JavaScript\">
 
     function restoreDefaults()
     {
-        document.restore.submit();
+        document.forms['restore'].submit();
     }
 
     function getPerms()
@@ -98,9 +98,9 @@ $javascript = "<SCRIPT language=\"JavaScript\">
 
     function buildLists(listArray, left, right)
     {
-        for(var i = 0; i < listArray.length; i++){
+        for(var i = 0; i &lt; listArray.length; i++){
             var label = 'null';
-            for(var j = 0; j < document.acl[left].options.length; j++){
+            for(var j = 0; j &lt; document.acl[left].options.length; j++){
                 if(document.acl[left].options[j].value == listArray[i]){
                     label = document.acl[left].options[j].text;
                     document.acl[left].options[j] = null;
@@ -114,7 +114,7 @@ $javascript = "<SCRIPT language=\"JavaScript\">
     function submitPerms()
     {
         var acls = '';
-        for (var i=0; i<document.acl['rightList[]'].options.length; i++) {
+        for (var i=0; i &lt; document.acl['rightList[]'].options.length; i++) {
             if(acls != ''){
                 acls += ',';
             }
@@ -122,7 +122,7 @@ $javascript = "<SCRIPT language=\"JavaScript\">
         }
 
         var group = '';
-        for (var i=0; i<document.acl['rightGroup[]'].options.length; i++) {
+        for (var i=0; i &lt; document.acl['rightGroup[]'].options.length; i++) {
             if(group != ''){
                 group += ',';
             }
@@ -130,7 +130,7 @@ $javascript = "<SCRIPT language=\"JavaScript\">
         }
 
         var con = '';
-        for (var i=0; i<document.acl['rightConGroup[]'].options.length; i++) {
+        for (var i=0; i &lt; document.acl['rightConGroup[]'].options.length; i++) {
             if(con != ''){
                 con += ',';
             }
@@ -143,13 +143,13 @@ $javascript = "<SCRIPT language=\"JavaScript\">
         window.close();
     }
 
-    </SCRIPT>";
+    </script>";
 echo $javascript;
 
 if($setDefault){
-    $bodyParams = "onload = javascript:setDefault()";
+    $bodyParams = "onload = 'javascript:setDefault()'";
 }else{
-    $bodyParams = "onload = javascript:getPerms()";
+    $bodyParams = "onload = 'javascript:getPerms()'";
 }
 $this->setVarByRef('bodyParams', $bodyParams);
 
@@ -176,7 +176,7 @@ $objSelectBox->insertRightOptions( array() );
 $objHead->str = $aclLabel;
 $objHead->type = 3;
 
-$objForm->addToForm('<p>'.$objHead->show().'<p>'.$objSelectBox->show().'</p>');
+$objForm->addToForm('<p>'.$objHead->show().'</p><p>'.$objSelectBox->show().'</p>');
 
 /* ************** Groups *************** */
 
@@ -225,7 +225,7 @@ $objForm->addToForm('<p>'.$objHead->show().'</p><p>'.$objSelectBox->show().'</p>
 /* *********** Save and close buttons ************* */
 $objButton = new button('save', $saveLabel);
 $objButton->setOnClick('javascript:submitPerms()');
-$btns = '<p><br>'.$objButton->show();
+$btns = '<p><br/>'.$objButton->show();
 
 $objButton = new button('save', $closeLabel);
 $objButton->setOnClick('window.close()');
@@ -249,7 +249,7 @@ $objForm = new form('restore', $this->uri(array('action'=>'restoreperms')));
 $objForm->addToForm($objInput->show());
 $objForm->addToForm($objLink->show());
 
-$str .= '<p><br>'.$objForm->show().'</p>';
+$str .= '<p><br/>'.$objForm->show().'</p>';
 
 $objLayer->str = $str;
 $objLayer->align = 'center';

@@ -128,22 +128,22 @@ class dbmenu extends dbtable
     function getPageItems($page='lecturer', $context=TRUE)
     {
         $sqlFilter = "category LIKE 'page_$page%'";
-        $sql = 'show tables like \''.$this->table."'";
+        //$sql = 'show tables like \''.$this->table."'";
         $page = strtolower($page);
 
         if(!$context){
-            $sqlFilter .= ' && dependsContext != 1';
+            $sqlFilter .= ' AND dependsContext != 1';
         }
 
-        $rows = $this->getArray($sql);
-        if($rows){
+        //$rows = $this->getArray($sql);
+        //if($rows){
             $sql = 'SELECT category, module, permissions FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
             $sql .= 'ORDER BY category, module';
             $modules = $this->getArray($sql);
             return $modules;
-        }
-        return false;
+        //}
+        //return false;
     }
 
     /**

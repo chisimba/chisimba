@@ -183,8 +183,7 @@ class language extends dbTable {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");
 	        $abstractList = $this->objAbstract->getSession('systext');
-
-	        foreach($abstractList as $textItem => $abstractText){
+			foreach($abstractList as $textItem => $abstractText){
 	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
 	        }
 	        // Process other tags

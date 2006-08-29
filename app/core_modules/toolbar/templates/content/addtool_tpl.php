@@ -49,8 +49,8 @@ $assessment = $objLanguage->languageText('category_assessment','security', 'Asse
 $site = $objLanguage->languageText('category_site','security', 'Site');
 
 if($mode == 'edit'){
-    $dependsContext = $data['dependsContext'];
-    $adminOnly = $data['adminOnly'];
+    $dependsContext = $data['dependscontext'];
+    $adminOnly = $data['adminonly'];
     $permissions = $data['permissions'];
 }else{
     $dependsContext = 0;
@@ -118,7 +118,7 @@ $objHead->str = $toolbarLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 // List of available categories
@@ -146,7 +146,7 @@ $objHead->str = $settingsLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 // Admin only module
@@ -168,15 +168,15 @@ $objHead->str = $linkPermLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 $objLink = new link('javascript:void(0)');
 $objLink->link = $setPermLabel;
-$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=480, height=580, scrollbars')\"";
+$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=800, height=600, scrollbars')\"";
 
 $objTable->startRow();
-$objTable->addCell($objLink->show(), '', '','','','colspan=4');
+$objTable->addCell($objLink->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 $formElements = '';
@@ -204,7 +204,7 @@ $btns = '<p>'.$objButton->show();
 $objButton = new button('save', $backLabel);
 $objButton->setToSubmit();
 
-$btns .= '&nbsp;&nbsp;&nbsp;'.$objButton->show();
+$btns .= '&nbsp;&nbsp;&nbsp;'.$objButton->show().'</p>';
 $objTable->addRow(array($btns));
 
 // form

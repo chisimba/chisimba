@@ -31,3 +31,4 @@ systext
 splashscreen
 cms
 calendarbase
+errors

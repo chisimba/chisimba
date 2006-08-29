@@ -47,7 +47,7 @@
 		     </div>
 
 		     <div class="featurebox">
-		            <h3>Courses</h3>
+		            <h3>[-CONTEXT-]</h3>
 		            <TABLE>
 		                    <TR>
 		                            <TD>

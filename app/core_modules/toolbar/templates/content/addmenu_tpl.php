@@ -60,7 +60,7 @@ $catOrganise = $objLanguage->languageText('mod_toolbar_organise','toolbar', 'Man
 $catContent = $objLanguage->languageText('mod_toolbar_content', 'toolbar','Manage Content');
 $catAssign = $objLanguage->languageText('mod_contextadmin_assignment','toolbar', 'Manage Assignments and Tests');
 
-$javascript = "<SCRIPT language=javascript>
+$javascript = "<script language='javascript'>
     function changeOptions()
     {
         var selected = document.menulink.menu.options[document.menulink.menu.selectedIndex].value;
@@ -78,13 +78,13 @@ $javascript = "<SCRIPT language=javascript>
             document.menulink.position.options[3] = new Option('".$catAssign."', 'assign');
         }
     }
-</SCRIPT>";
+</script>";
 
 echo $javascript;
 
 if($mode == 'edit'){
-    $admin = $data['adminOnly'];
-    $depends = $data['dependsContext'];
+    $admin = $data['adminonly'];
+    $depends = $data['dependscontext'];
     $permissions = $data['permissions'];
     $allSite = 0;
 
@@ -189,7 +189,7 @@ $objHead->str = $linkLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 // Available side menus
@@ -270,7 +270,7 @@ $objHead->str = $settingsLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 // Admin only module
@@ -291,7 +291,7 @@ $objHead->str = $linkPermLabel;
 $objHead->type = 3;
 
 $objTable->startRow();
-$objTable->addCell($objHead->show(), '', '','','','colspan=4');
+$objTable->addCell($objHead->show(), '', '','','','colspan="4"');
 $objTable->endRow();
 
 // set available to whole site
@@ -305,10 +305,10 @@ if(!$page){
 
 $objLink = new link('javascript:void(0)');
 $objLink->link = $setPermLabel;
-$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=480, height=580, scrollbars')\"";
+$objLink->extra = "onclick = \"javascript:window.open('". $this->uri(array('action'=>'setperm', 'modulename'=>$moduleName), '', '', TRUE)."', 'setperms', 'width=800, height=600, scrollbars')\"";
 
 $objTable->startRow();
-$objTable->addCell($objLink->show(), '', '','','','colspan=2');
+$objTable->addCell($objLink->show(), '', '','','','colspan="2"');
 $objTable->endRow();
 
 $formElements = '';
@@ -335,7 +335,7 @@ $formElements .= '<p>'.$objButton->show();
 $objButton = new button('save', $backLabel);
 $objButton->setToSubmit();
 
-$formElements .= '&nbsp;&nbsp;&nbsp;'.$objButton->show();
+$formElements .= '&nbsp;&nbsp;&nbsp;'.$objButton->show().'</p>';
 
 if($page){
     $formAction = 'savepage';

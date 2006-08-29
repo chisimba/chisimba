@@ -41,7 +41,7 @@ class sysconfig_system_type extends object
         $systemTypeList = $this->objAbstract->listSystemTypes();
         
         foreach($systemTypeList as $systemType){
-            $objElement -> addOption($systemType['systemType'], $systemType['systemType']);
+            $objElement -> addOption($systemType['systemtype'], $systemType['systemtype']);
         }
         
         // Set Default Selected
