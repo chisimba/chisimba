@@ -1,4 +1,5 @@
 <?php
+$objFeatureBox = $this->newObject('featurebox', 'navigation');
 $userMenu  = &$this->newObject('usermenu','toolbar');
 // Create an instance of the css layout class
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
@@ -23,13 +24,14 @@ $this->href = $this->getObject('href', 'htmlelements');
 
 $devmsg = urldecode($devmsg);
 $usrmsg = urldecode($usrmsg);
+$devmsg = nl2br($devmsg);
+$usrmsg = nl2br($usrmsg);
 
 $blurb = $this->objLanguage->languagetext("mod_errors_blurb", "errors");
 $midcol .= $blurb;
-$midcol .= "<br /><br />";
-$midcol .= $devmsg;
-$midcol .= "<br /><br />";
-$midcol .= $usrmsg;
+$midcol .= $objFeatureBox->show($this->objLanguage->languagetext("mod_errors_usrtitle", "errors"), $usrmsg);//'<div class="featurebox">' . nl2br($usrmsg) . '</div>';
+$midcol .= $objFeatureBox->show($this->objLanguage->languagetext("mod_errors_devtitle", "errors"), $devmsg);//'<div class="featurebox">' . nl2br($devmsg) . '</div>';
+
 $cssLayout->setMiddleColumnContent($midcol);
 
 echo $cssLayout->show();
