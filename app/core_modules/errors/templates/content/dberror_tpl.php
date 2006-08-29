@@ -28,6 +28,7 @@ $blurb = $this->objLanguage->languagetext("mod_errors_blurb", "errors");
 $midcol .= $blurb;
 $midcol .= "<br /><br />";
 $midcol .= $devmsg;
+$midcol .= "<br /><br />";
 $midcol .= $usrmsg;
 $cssLayout->setMiddleColumnContent($midcol);
 
