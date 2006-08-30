@@ -12,15 +12,18 @@
 
 class customException extends Exception
 {
+	public $uri;
+
 	// constructor
     function __construct($m)
     {
-        //log the exception
+    	$msg = urlencode($m);
+    	//log the exception
     	log_debug($m);
     	//do the cleanup
         $this->cleanUp();
         //send out the pretty error page
-		$this->diePage();
+		$this->diePage($msg);
     }
 
     /**
@@ -31,17 +34,10 @@ class customException extends Exception
      * @param void
      * @return string
      */
-    public function diePage()
+    public function diePage($msg)
     {
-        $uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-        $message = '<style type="text/css" media="screen">
-                    @import url("skins/echo/main.css");
-                 </style>
-
-                <div class="featurebox"><h1> An Error has been encountered</h1>
-                 Please email your system log file to the Chisimba developers near you ';
-        $message .= '<a href='.$uri.'>Back</a></div>';
-        print $message;
+    	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=syserr&msg=".$msg;
+    	header("Location: $this->uri");
     }
 
     function cleanUp()

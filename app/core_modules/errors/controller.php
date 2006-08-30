@@ -46,7 +46,7 @@ class errors extends controller
         switch ($action)
         {
             default:
-            	return 'noaction_tpl.php';//die($this->objLanguage->languagetext("mod_errors_noerr", "errors"));
+            	return 'noaction_tpl.php';
             	break;
             case 'dberror':
             	$devmsg = $this->getParam('devmsg');
@@ -61,15 +61,37 @@ class errors extends controller
             	if(empty($hidmsg))
             	{
             		//possible spam usage!!!
-            		return 'spam_tpl.php'; //die($this->objLanguage->languageText("mod_errors_spammeralert", "errors"));
+            		return 'spam_tpl.php';
             		exit();
             	}
             	$text = $this->getParam('comments');
-            	//load up the mail class
-            	//$this->objMail = $this->getObject('email', 'mail');
+            	try {
+            		//load up the mail class
+            		$this->objMail = $this->newObject('email', 'mail');
+       				//set up the mailer
+       				$this->objMailer->from = "Chisimba errors <chisimba@localhost.localdomain>";
+       				$this->objMailer->fromName = "Chisimba error system";
+       				$this->objMailer->subject = "test mail";
+       				$this->objMailer->body = $text;
+       				$this->objMailer->to = array('pscott@uwc.ac.za');
+       				var_dump($this->objMailer->objBaseMail);
+       				$this->objMailer->send();
+
+            	}
+            	catch (customException $e)
+            	{
+            		customException::cleanUp();
+            		exit;
+            	}
             	//$this->objMail->
             	//echo $hidmsg . "<br /><br />" . $text;
 
+            	break;
+            case 'syserr':
+            	$mess = $this->getParam('msg');
+            	$mess = urldecode(htmlentities($mess));
+            	$this->setVarByRef('mess', $mess);
+            	return "syserror_tpl.php";
             	break;
 
         }
