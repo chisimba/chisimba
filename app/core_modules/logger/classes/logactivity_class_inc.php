@@ -63,7 +63,7 @@ class logactivity extends dbTable
     /**
      * Constructor method
      */
-    public function init() 
+    public function init()
     {
         try {
             //  Set the parent table
@@ -81,12 +81,12 @@ class logactivity extends dbTable
             exit;
         }
     } //function init
-    
+
     /**
      * Method to add the current event. It checks if the property logOncePerSession
      * is set and if so it checks if it has already been loged in this session.
      */
-    public function log() 
+    public function log()
     {
         // Only try to do it if Logger is registered
         if ($this->objMod->checkIfRegistered('logger', 'logger')) {
@@ -118,13 +118,13 @@ class logactivity extends dbTable
         } else {
             return FALSE;
         } // if
-        
+
     } // function log()
-    
+
     /**
      * Method to log an event other than a page event
      */
-    public function logEvent($eventcode) 
+    public function logEvent($eventcode)
     {
         $this->_logData();
     }
@@ -135,7 +135,7 @@ class logactivity extends dbTable
      * @param string $value The value to set it to
      *
      */
-    public function setParam($param, $value) 
+    public function setParam($param, $value)
     {
         $this->$param = $value;
         return TRUE;
@@ -145,7 +145,7 @@ class logactivity extends dbTable
      * Method to return the querystring with the module=modulecode
      * part removed. I use preg_replace for case insensitive replacement.
      */
-    private function _cleanParams() 
+    private function _cleanParams()
     {
         if (defined($_SERVER['QUERY_STRING'])) {
             $str = $_SERVER['QUERY_STRING'];
@@ -157,24 +157,24 @@ class logactivity extends dbTable
         }
         return $str;
     } //function _cleanParams
-    
+
     /**
      * Method to get the datetiem for now
      */
-    private function _getDateTime() 
+    private function _getDateTime()
     {
         return date("Y/m/d H:i:s");
     } //function _getDateTime
-    
+
     /**
      * Method to return the context for Logging
      */
-    private function _getContext() 
+    private function _getContext()
     {
         $this->objDBContext = &$this->getObject('dbcontext', 'context');
         return $this->objDBContext->getContextCode();
     } //function _getContext
-    
+
     /**
      * Method to check if there is a session log variable set for
      * the module that is passed to it
@@ -183,11 +183,11 @@ class logactivity extends dbTable
      * current module
      *
      */
-    private function _isLoggedThisSession($module) 
+    private function _isLoggedThisSession($module)
     {
         return $this->getSession($module.'_log', FALSE);
     } //function _isLoggedThisSession
-    
+
     /**
      * Method to set a session log variable set for
      * the module that is passed to it
@@ -196,11 +196,11 @@ class logactivity extends dbTable
      * current module
      *
      */
-    private function _setSessionFlag($module) 
+    private function _setSessionFlag($module)
     {
         $this->setSession($module.'_log', TRUE);
     } //function _setSessionFlag
-    
+
     /**
      * Method to log the data to the database
      *  id - The framework generated primary key
@@ -212,20 +212,20 @@ class logactivity extends dbTable
      *  context - The context of the event
      *  dateCreated - The datetime stamp for the event
      */
-    private function _logData() 
+    private function _logData()
     {
         $this->insert(array(
-            'userId' => $this->objUser->userId() ,
+            'userid' => $this->objUser->userId() ,
             'module' => $this->getParam('module', NULL) ,
-            'eventCode' => $this->eventcode,
-            'eventParamName' => $this->eventParamName,
-            'eventParamValue' => $this->eventParamValue,
-            'isLanguageCode' => $this->isLanguageCode,
+            'eventcode' => $this->eventcode,
+            'eventparamname' => $this->eventParamName,
+            'eventparamvalue' => $this->eventParamValue,
+            'islanguagecode' => $this->isLanguageCode,
             'context' => $this->_getContext() ,
-            'dateCreated' => $this->_getDateTime()
+            'datecreated' => $this->_getDateTime()
         ));
     } //function _logData
-    
+
 } //end of class
 
 ?>

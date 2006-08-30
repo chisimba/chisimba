@@ -36,7 +36,7 @@ echo "<li>".$objLink->show() ."</li>";
 echo "<ul>";
 //Set up the link URL for sortbydate
 $location = $this->uri(array(
-    'action' => 'sortbymodule',
+    'action' => 'showstatsbydate',
     'timeframe' => 'today'
 ));
 //Set the link for sortbydate showing today only
@@ -46,7 +46,7 @@ $objLink->link = $objLanguage->languageText("mod_logger_showtoday", "logger");
 echo "<li>".$objLink->show() ."</li>";
 //Set up the link URL for sortbydate
 $location = $this->uri(array(
-    'action' => 'sortbymodule',
+    'action' => 'showstatsbydate',
     'timeframe' => 'thisweek'
 ));
 //Set the link for sortbydate showing today only
@@ -56,7 +56,7 @@ $objLink->link = $objLanguage->languageText("mod_logger_showthiswk", "logger");
 echo "<li>".$objLink->show() ."</li>";
 //Set up the link URL for sortbydate
 $location = $this->uri(array(
-    'action' => 'sortbymodule',
+    'action' => 'showstatsbydate',
     'timeframe' => 'thismonth'
 ));
 //Set the link for sortbydate showing today only

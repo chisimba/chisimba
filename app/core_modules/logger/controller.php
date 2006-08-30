@@ -79,7 +79,7 @@ class logger extends controller
                 //Retrieve the timeframe parameter
                 $timeframe = $this->getParam("timeframe", NULL);
                 //Create and instance of the datepair class for getting timeframes
-                $objDate = $this->newObject('datepair', 'datetime');
+                $objDate = $this->newObject('datetime', 'utilities');
                 switch ($timeframe) {
                     case 'today':
                     case NULL:
