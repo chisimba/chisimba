@@ -378,7 +378,7 @@ class dbfile extends dbTable
     */
     public function getOriginalFile($filename, $userId)
     {
-        $result = $this->getAll("WHERE filename='$filename' AND category != 'temp' AND userid ='$userId' ORDER BY version DESC");
+        $result = $this->getAll("WHERE filename = '".$filename."' AND category != 'temp' AND userid ='".$userId."' ORDER BY version DESC");
         if (count($result) > 0) {
             return $result[0];
         } else {
@@ -589,7 +589,9 @@ class dbfile extends dbTable
         if ($file == FALSE) {
             return FALSE;
         }
-        return $this->getAll(" WHERE filename=".$file['filename']." AND userid=" .$file['userid']. " AND category != 'temp' ORDER BY version DESC");
+        $filename = $file['filename'];
+        $uid = $file['userid'];
+        return $this->getAll(" WHERE filename = '$filename' AND userid = '$uid' AND category != 'temp' ORDER BY version DESC");
     }
 
     /**
