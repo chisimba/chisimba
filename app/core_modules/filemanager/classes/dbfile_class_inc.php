@@ -646,7 +646,9 @@ class dbfile extends dbTable
         }
 
         if ($includeArchives) {
-            $otherFiles = $this->getAll("WHERE filename=".$file['filename']." AND userid=".$file['userid']." AND id != '$fileId.'");
+        	$filename = $file['filename'];
+        	$uid = $file['userid'];
+            $otherFiles = $this->getAll("WHERE filename = '$filename' AND userid = '$uid' AND id != '$fileId.'");
 
             if (count($otherFiles) > 0) {
                 foreach ($otherFiles as $otherfile)
