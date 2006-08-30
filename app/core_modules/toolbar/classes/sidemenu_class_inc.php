@@ -346,7 +346,7 @@ class sidemenu extends object
             $this->objIcon->title = $leaveCourse;
             $objLeaveButton = $this->objIcon->show();
 
-            $objLink = new link($this->uri(array('action'=>'leavecontext'),'_default'));
+            $objLink = new link($this->uri(array('action'=>'leavecontext'),'context'));
             $objLink->link = $objLeaveButton;
             $objLeaveLink = $objLink->show();
 
