@@ -85,7 +85,7 @@ class registerfileusage extends dbTable
     */
     public function deregisterUse($module, $table, $recordId)
     {
-        $list = $this->getAll(' WHERE module="'.$module.'" AND tablename="'.$table.'" AND recordid="'.$recordId.'"');
+        $list = $this->getAll(' WHERE module=\''.$module.'\' AND tablename=\''.$table.'\' AND recordid=\''.$recordId.'\'');
         foreach ($list as $item)
         {
             $this->delete('id', $item['id']);

@@ -160,21 +160,37 @@ class filepreview extends object
             case 'py': $filetype = 'python'; break;
         }
         
-        // Open File, Read Contents, Close
-        $handle = fopen ($this->file['path'], "r"); 
-        $contents = fread ($handle, filesize ($this->file['path'])); 
-        fclose ($handle);
-        
-        $objGeshi = $this->getObject('geshiwrapper', 'wrapgeshi');
-        $objGeshi->source = $contents;
-        $objGeshi->language = $filetype;
-        
-        $objGeshi->startGeshi();
-        $objGeshi->enableLineNumbers(2);
-        
-        return stripslashes($objGeshi->show());
+        // Check if file has been rendered
+        if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm')) {
+            include($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm');
+        } else {
+            // Open File, Read Contents, Close
+            $handle = fopen ($this->file['path'], "r"); 
+            $contents = fread ($handle, filesize ($this->file['path'])); 
+            fclose ($handle);
+            
+            $objGeshi = $this->getObject('geshiwrapper', 'wrapgeshi');
+            $objGeshi->source = $contents;
+            $objGeshi->language = $filetype;
+            
+            $objGeshi->startGeshi();
+            $objGeshi->enableLineNumbers(2);
+            
+            $content = stripslashes($objGeshi->show());
+            
+            // Write to File to Prevent Server Straim
+            $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+            $handle = fopen($filename, 'w');
+            fwrite($handle, $content);
+            fclose($handle);
+            
+            return $content;
+        }
     }
     
+    /**
+    * Method to show a document
+    */
     function showDocument()
     {
         return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
