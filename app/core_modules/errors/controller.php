@@ -46,7 +46,8 @@ class errors extends controller
         switch ($action)
         {
             default:
-            	die($this->objLanguage->languagetext("mod_errors_noerr", "errors"));
+            	return 'noaction_tpl.php';//die($this->objLanguage->languagetext("mod_errors_noerr", "errors"));
+            	break;
             case 'dberror':
             	$devmsg = $this->getParam('devmsg');
             	$usrmsg = $this->getParam('usrmsg');
@@ -60,7 +61,8 @@ class errors extends controller
             	if(empty($hidmsg))
             	{
             		//possible spam usage!!!
-            		die($this->objLanguage->languageText("mod_errors_spammeralert", "errors"));
+            		return 'spam_tpl.php'; //die($this->objLanguage->languageText("mod_errors_spammeralert", "errors"));
+            		exit();
             	}
             	$text = $this->getParam('comments');
             	//load up the mail class
