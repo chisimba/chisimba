@@ -262,6 +262,7 @@ class context extends controller
                     die('UNEXPECTED ERROR');
             case 'leavecontext';
                 $this->objDBContext->leaveContext();
+                return $this->nextAction(NULL, NULL, '_default');
                 break;
             case 'listsharedcontexts':
                 return 'sharedcontexts_tpl.php';
