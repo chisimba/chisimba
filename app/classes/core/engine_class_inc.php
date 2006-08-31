@@ -1018,7 +1018,8 @@ class engine
         {
             $usermsg = $msg;
             $this->setErrorMessage($usermsg);
-            return $this->putMessages();
+            echo $this->putMessages();
+            die();
         }
         else {
             $usermsg = $error->getMessage();
