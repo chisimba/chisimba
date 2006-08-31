@@ -20,6 +20,7 @@ class errors extends controller
     public $objConfig;
     public $objLanguage;
     public $objMail;
+    public $objUser;
 
 	/**
 	* Constructor method to instantiate objects and get variables
@@ -29,6 +30,7 @@ class errors extends controller
         try {
         	$this->objConfig = $this->getObject('altconfig','config');
         	$this->objLanguage = $this->getObject('language','language');
+        	$this->objUser = $this->getObject('user', 'security');
         }
         catch (customException $e)
         {
@@ -69,13 +71,15 @@ class errors extends controller
             		//load up the mail class
             		$this->objMail = $this->newObject('email', 'mail');
        				//set up the mailer
-       				$this->objMailer->from = "Chisimba errors <chisimba@localhost.localdomain>";
-       				$this->objMailer->fromName = "Chisimba error system";
-       				$this->objMailer->subject = "test mail";
-       				$this->objMailer->body = $text;
-       				$this->objMailer->to = array('pscott@uwc.ac.za');
-       				var_dump($this->objMailer->objBaseMail);
-       				$this->objMailer->send();
+       				$objMailer = $this->getObject('email', 'mail');
+					$objMailer->setValue('to', array('fsiu-dev@uwc.ac.za', $this->objConfig->getsiteEmail()));
+					$objMailer->setValue('from', $this->objUser->email());
+					$objMailer->setValue('fromName', $this->objUser->fullname());
+					$objMailer->setValue('subject', 'Error in Chisimba');
+					$objMailer->setValue('body', $text.$hidmsg);
+					$objMailer->send();
+					return 'thanks_tpl.php';
+					break;
 
             	}
             	catch (customException $e)
