@@ -346,35 +346,27 @@ class engine
         // just pick it up wherever its needed. I'd like to think of a better
         // approach that doesn't involve it being a global, but until I do,
         // it'll live here. I'll also have a member field _objDb for consistency
-        // with the other objects [Sean]
+        // with the other objects
         global $_globalObjDb;
 
         //do the checks that the db object gets instantiated once, then
         //let MDB2 take over for the on-demand construction
         if ($this->_objDb == NULL || $_globalObjDb == NULL) {
-            // I intend to subsume dbconfig into main config,
-            // no particular reason for it to be separate,
-            // at which point the next two lines will be
-            // redundant
             $this->_objDbConfig =& $this->getObject('altconfig', 'config');
             // Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             $_globalObjDb = &MDB2::factory($this->_objDbConfig->getDsn());
 
-	    //Check for errors on the factory method
+	    	//Check for errors on the factory method
             if (PEAR::isError($_globalObjDb)) {
                 $this->_pearErrorCallback($_globalObjDb);
                 //return the db object for use globally
                 return $_globalObjDb;
             }
 
-//var_dump($_globalObjDb);
-//die();
             //set the options
-            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
-            //Quote identifiers also for legacy SQL
-            //$_globalObjDb->setOption('quote_identifiers', true);
+            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
 
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
@@ -396,8 +388,7 @@ class engine
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
             $this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
-            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
-            //$this->_objDb->setOption('quote_identifiers', true);
+            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL);
 
             // include the dbtable base class for future use
         }
@@ -714,7 +705,7 @@ class engine
     */
     public function getParam($name, $default = NULL)
     {
-        return isset($_REQUEST[$name])
+    	return isset($_REQUEST[$name])
             ? is_string($_REQUEST[$name])
                 ? trim($_REQUEST[$name])
                 : $_REQUEST[$name]
@@ -1023,50 +1014,19 @@ class engine
 
         $msg = $error->getMessage() . ': ' . $error->getUserinfo();
         $errConfig = $this->_objConfig->geterror_reporting();
-
         if($errConfig == "developer")
         {
             $usermsg = $msg;
+            $this->setErrorMessage($usermsg);
+            return $this->putMessages();
         }
         else {
             $usermsg = $error->getMessage();
         }
-
-        $this->setErrorMessage($usermsg);
-        $this->putMessages();
         log_debug(__LINE__ . "  " . $msg);
         $messages = array($usermsg, $msg);
 
-        die($this->diePage($messages));
-    }
-
-    /**
-     * Method to return a nicely formatted error page for DB errors
-     *
-     * @todo fix this function up for multilingual and prettiness
-     * @access public
-     * @param void
-     * @return string
-     */
-    public function diePage($messages)
-    {
-    	$this->objLanguage = $this->getObject('language', 'language');
-        $this->objSkin = $this->getObject('skin', 'skin');
-        $message = $this->objSkin->putSkinCssLinks();
-        $uri = NULL;
-        $this->deathmsg = $messages;
-        $uri = $this->uri(array('usrmsg' => urlencode($messages[0]), 'devmsg' => urlencode($messages[1]))) . "&module=errors&action=dberror";
-        $message .= '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
-				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
-				<!--[if lte IE 6]>
-					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
-				<![endif]-->';
-        $message .= '<div class="featurebox"><h1>' . $this->objLanguage->languageText("core_errmsg", "system") . '</h1>';
-        $message .= '<a href='.$uri.'>'. $this->objLanguage->languageText("core_viewerrs", "system") .'</a>';
-        $message .= "</div>";
-
-    	return $message;
+        return customException::dbDeath($messages);
     }
 
     /**
