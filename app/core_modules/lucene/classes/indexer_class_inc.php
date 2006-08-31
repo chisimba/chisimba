@@ -69,6 +69,7 @@ class indexer extends Zend_Search_Lucene_Document
         //check if an index exists
      	if(file_exists($this->indexPath.'/chisimbaIndex'))
         {
+        	chmod($this->indexPath.'/chisimbaIndex', 0777);
         	//we build onto the previous index
         	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex');
         }
