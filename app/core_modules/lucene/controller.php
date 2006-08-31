@@ -109,7 +109,16 @@ class lucene extends controller
 	 */
 	public $search;
 
+/** 
+	* This is a method to determine if the user has to be logged in or not
+    */
+     public function requiresLogin() // overides that in parent class
+     {
+        return FALSE;
 
+     }
+     
+     
 	/**
 	 * Constructor - public init function
 	 * This is the standard initialisation method for the framework
