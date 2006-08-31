@@ -77,16 +77,16 @@ require_once 'modules/lucene/resources/Search/Lucene/Search/Weight/Term.php';
 
 class results extends object
 {
-	
-	
+
+
 	/**
 	 * Configuration object
 	 *
 	 * @var object
 	 */
 	public $objConfig;
-	
-	
+
+
 	/**
 	 * Instantiated search object
 	 *
@@ -116,16 +116,16 @@ class results extends object
         }
 
 	}
-	
-	
+
+
 	/**
 	* Method to show the results
 	* @access public
 	* @return string
 	* @author Wesley Nitsckie
-	* @param 
+	* @param
 	*/
-	
+
 	public function show($query)
 	{
 		try{
@@ -134,7 +134,7 @@ class results extends object
 	    	//echo "Searching " . $this->search->count() . " Documents <br><br>";
 	    	//clean the query
 	    	$query = trim($query);
-	
+
 	    	if (strlen($query) > 0) {
 				$hits = $this->search->find($query);
 					//print_r($hits);
@@ -157,8 +157,8 @@ class results extends object
         	exit();
         }
 	}
-	
-	
+
+
 	/**
 	* Method to format the display of the results
 	* @param array @arrResults The result set
@@ -170,10 +170,10 @@ class results extends object
 		$str = '<hr />';
 		$hitsPerPage = 5;
 		$pagesPerSlide = ceil(count($arrResults)/5);
-		
+
 		//get the page number
 		$pageno = (!$this->getParam('pageno') == '') ? $this->getParam('pageno') : 1;
-		
+
 		//setup prvious link
 		if($pageno == 1)
 		{
@@ -181,7 +181,7 @@ class results extends object
 		} else {
 			$str .=	'<div class="pagination"><p><a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $pageno - 1), '_default').'"><strong>Previous</strong></a>';
 		}
-		
+
 		//show the page slide
 		for($i = 1 ; $i < $pagesPerSlide ; $i++)
 		{
@@ -192,30 +192,30 @@ class results extends object
 				$str .=	'  <a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $i),'_default').' ">'.$i.'</a>';
 			}
 		}
-		
-		
+
+
 		//the next button
-		
+
 		if(($pageno +1) == $pagesPerSlide){
-			
+
 			$str .='<span><strong>Next</strong></span></p>';
 		} else {
-			
+
 			$str .='<a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $pageno + 1), '_default').'"><strong>Next</strong></a></p>';
 		}
-		
+
 		//other info
 		$outof = ($pagesPerSlide == 1) ? 1 :($pagesPerSlide - 1);
 		$str .='			<h4>Page '.$pageno.' of '. $outof  .'</h4>
 						</div>
-						
+
 						<hr />
-						
+
 						<h1>Search Results</h1>
 						<h5>'.count($arrResults).' Hits found</h5>
 					<div id="resultslist-wrap"><ul>
 						';
-		
+
 		//the array index
 		if ($pageno == 1)
 		{
@@ -223,18 +223,18 @@ class results extends object
 		} else {
 			$indx = $pageno * $hitsPerPage;
 		}
-		
-		
+
+
 		//loop through the array
 		$i = 0;
 		while( $i < $hitsPerPage )
 		{
-			if ( is_object($arrResults[$indx + $i]))
+			if ( @is_object($arrResults[$indx + $i]))
 			{
 				$str .='
-				
+
 						<li>
-							<dl>		
+							<dl>
 								<dt>'. ($indx + $i + 1) .' . <a href="'.$arrResults[$indx + $i]->url.'"> '.$arrResults[$indx + $i]->title.'</a></dt>
 								<dd class="desc">Some description of the file must go here</dd>
 								<dd class="filetype">HTML</dd>
@@ -244,14 +244,14 @@ class results extends object
 						</li>';
 			}
 			$i++;
-				
+
 		}
 			$str .='	</ul>
 					</div>';
-		
+
 		return $str;
 	}
-	
+
 }
 
 ?>
