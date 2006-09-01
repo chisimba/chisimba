@@ -220,7 +220,7 @@ class sortTable extends object
         
         $sortTable .= sprintf('<thead><tr %s>%s</tr></thead>', $row_attributes, $th );
         // Build Body
-        $sortTable .= sprintf('<tbody><SCRIPT language=JavaScript>%s</script></tbody>', $this->WriteRows());
+        $sortTable .= sprintf('<tbody><script language="JavaScript">%s</script></tbody>', $this->WriteRows());
         $sortTable .= '</table>';
         return $sortTable;
     }
