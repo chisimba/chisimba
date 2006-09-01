@@ -48,8 +48,8 @@ class logshow extends dbTable
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
         }
-        $where = "WHERE tbl_logger.eventparamname='pagelog' AND tbl_logger.userid='".$userId."'";
-        if ($order !== NULL) {
+        $where = "WHERE tbl_logger.eventparamname='pagelog' AND tbl_logger.userid='$userId.'";
+        if ($order != NULL) {
             $where = $where." ".$order;
         }
         $sql = "SELECT tbl_logger.userid,
@@ -57,7 +57,7 @@ class logshow extends dbTable
           tbl_logger.module, tbl_logger.eventparamvalue,
           tbl_logger.datecreated, tbl_logger.context
           FROM tbl_logger LEFT JOIN tbl_users ON
-          tbl_logger.userId=tbl_users.userid $where ";
+          tbl_logger.userid=tbl_users.userid $where ";
         return $this->getArray($sql);
     }
     /**
@@ -89,13 +89,8 @@ class logshow extends dbTable
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
         }
-        $where = "WHERE tbl_logger.userId='".$userId."' ";
-        $sql = "SELECT tbl_logger.userId,
-          tbl_users.firstname, tbl_users.surname,
-          tbl_logger.module, COUNT(tbl_logger.id) AS Calls
-          FROM tbl_logger LEFT JOIN tbl_users ON
-          tbl_logger.userId=tbl_users.userId
-          $where GROUP BY tbl_logger.module";
+        $where = "WHERE (logger.userid = users.userid) = '$userId' ";
+        $sql = "select users.firstname, users.surname, logger.userid, logger.eventparamvalue, logger.datecreated, logger.context, logger.module from tbl_logger as logger, tbl_users as users ".$where;
         $ar = $this->getArray($sql);
         return $ar;
     } // function showStatsByUser
