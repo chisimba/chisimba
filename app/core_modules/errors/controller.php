@@ -72,7 +72,7 @@ class errors extends controller
             		$this->objMail = $this->newObject('email', 'mail');
        				//set up the mailer
        				$objMailer = $this->getObject('email', 'mail');
-					$objMailer->setValue('to', array('fsiu-dev@uwc.ac.za', $this->objConfig->getsiteEmail()));
+					$objMailer->setValue('to', array('fsiu-dev@uwc.ac.za', $this->objConfig->getsiteEmail(), 'pscott@uwc.ac.za'));
 					$objMailer->setValue('from', $this->objUser->email());
 					$objMailer->setValue('fromName', $this->objUser->fullname());
 					$objMailer->setValue('subject', 'Error in Chisimba');
