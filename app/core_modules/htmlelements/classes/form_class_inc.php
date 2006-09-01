@@ -201,15 +201,18 @@ class form implements ifhtml
     public function show()
     {
 		$str = ($this->hasRules) ? $this->_getValidatorScripts() : '';
-		$submit=($this->hasRules) ? ' onSubmit="return validate_' . $this->name . '_form(this) "' : '';
-        
+		$submit=($this->hasRules) ? ' onsubmit="return validate_' . $this->name . '_form(this) "' : '';
+        if(!empty($this->id)){
+        	$id = ' id="'.$this->id.'"';
+        }
 		$str .= '<form 
-							name="' . $this->name . '" 
-							action="' . $this->action . '" 
-							method="'.$this->method.'" 
-							'.$submit.' 
-							'.$this->extra.'
-							>'; 
+					'.$id.'
+					name="' . $this->name . '" 
+					action="' . $this->action . '" 
+					method="'.$this->method.'" 
+					'.$submit.' 
+					'.$this->extra.'
+					>'; 
         		
         // call the scripts
         $str .= $this->_getShowElements();
@@ -519,7 +522,8 @@ class form implements ifhtml
         $jsc = '
 			<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
 			<script language="JavaScript" type="text/javascript">
-            //<![CDATA[
+            <![CDATA[ 
+            
 			//the following lines are generated 	
 				function validate_' . $this->name . '_form(frm)
 				{ 
@@ -529,7 +533,7 @@ class form implements ifhtml
 				
 					return ok;
 				}
-            //]]>
+            ]]>
 			</script>
 	
 			';
@@ -545,12 +549,14 @@ class form implements ifhtml
      * @param  $errormsg string : the erroe message
      */
     private function _addValidationScript($script = null, $errormsg = null, $fieldname = null)
-    {
-        $this->javascript .='     var el = document.getElementById("input_'.$fieldname.'");';
+    {//.getElementByName("'.$fieldname.'");';  //document.forms['".$this->name."']
+        $this->javascript .=" 
+            var el = frm.".$fieldname.";" ;
 		if (isset($errormsg)) 
 		    $errormsg='alert("' . $errormsg . '");';      		
 		$errmsg=
-        $this->javascript .= 'ok = ok && ' . $script . '
+        $this->javascript .= '
+        					ok = ok && ' . $script . '
 							//alert(ok);
 							if (!ok){
 								' . $errormsg . '      								
