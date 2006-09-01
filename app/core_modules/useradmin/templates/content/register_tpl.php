@@ -160,6 +160,7 @@ function Validator(theForm) {
 <?
     $this->loadclass('textinput','htmlelements');
     $this->loadclass('dropdown','htmlelements');
+    $objFeatureBox = $this->newObject('featurebox', 'navigation');
 
     function textinput($name,$type,$value=NULL,$extra=NULL)
     {
@@ -173,9 +174,9 @@ function Validator(theForm) {
     }
 
     $objLanguage =& $this->getObject('language', 'language');
-	
+
     if (isset($this->message)){
-        echo  
+        echo
 			"<h2>"
 			.$objLanguage->languageText('word_problem','useradmin')
 			." : "
@@ -186,12 +187,12 @@ function Validator(theForm) {
     //$formtags=$this->newObject('formtags','htmlelements');
 
 ?>
-	<form 
+	<form
 		id="Form1"
-    	name="Form1" 
-		method="post" 
+    	name="Form1"
+		method="post"
 		action="<?php echo $this->uri(array('action'=>'registerapply'),'useradmin');  ?>"
-		onsubmit="return Validator(this);" 
+		onsubmit="return Validator(this);"
 	>
 <?php
 
@@ -199,11 +200,11 @@ function Validator(theForm) {
     $helpIcon = $objHelp->show('register', 'useradmin');
 
     $objFieldset = $this->getObject('fieldsetex', 'htmlelements');
-    $objFieldset->setLegend("<h1>".$objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon."</h1>");
+    //$objFieldset->setLegend("<h1>".$objLanguage->languageText("heading_registeryourself",'useradmin').$helpIcon."</h1>");
     $objFieldset->align='CENTER';
     $objFieldset->legendalign='CENTER';
     $objFieldset->width="50%";
-		
+
 	//$objFieldset->addLabel($objLanguage->languageText("heading_registeryourself",'useradmin'));
 	$objFieldset->addLabel($objLanguage->languageText("message_selfregister",'useradmin'));
 	//echo $objLanguage->languageText("step1",'useradmin');
@@ -226,7 +227,7 @@ function Validator(theForm) {
 	// Title
     $objDropdown = new dropdown('title');
     $objDrop->extra='id="Select1"';
-    $objDropdown->addOption('',$objLanguage->languageText('option_selectatitle'));
+    $objDropdown->addOption('',$objLanguage->languageText('option_selectatitle', 'useradmin'));
     $titles=array("title_mr", "title_miss", "title_mrs", "title_ms", "title_dr", "title_prof", "title_rev", "title_assocprof");
     foreach ($titles as $title)
     {
@@ -235,13 +236,13 @@ function Validator(theForm) {
     }
     $objFieldset->addLabelledField($objLanguage->languageText("word_title"), $objDropdown->show());
 	// First Name
-    $objFieldset->addLabelledField($objLanguage->languageText("phrase_firstname",'useradmin'), textinput('firstname','text',''/*,'Text3'*/));
+    $objFieldset->addLabelledField($objLanguage->languageText("phrase_firstname"), textinput('firstname','text',''/*,'Text3'*/));
 	// Surname
-    $objFieldset->addLabelledField($objLanguage->languageText("word_surname",'useradmin'), textinput('surname','text',''/*,'Text2'*/));
+    $objFieldset->addLabelledField($objLanguage->languageText("word_surname"), textinput('surname','text',''/*,'Text2'*/));
     // Country
     $objCountries=&$this->getObject('languagecode','language');
-    
-	$objFieldset->addLabelledField($objLanguage->languageText('word_country','useradmin'), $objCountries->country());
+
+	$objFieldset->addLabelledField($objLanguage->languageText('word_country'), $objCountries->country());
 	// Username
     $objFieldset->addLabelledField($objLanguage->languageText("word_username"), textinput('username','text',''/*,'Text4'*/));
     // Email
@@ -253,6 +254,6 @@ function Validator(theForm) {
     $objButton->button('registermenow',$objLanguage->languageText('mod_useradmin_register1','useradmin'));
     $objButton->setToSubmit();
 	$objFieldset->addLabelledField('', $objButton->show());
-    echo $objFieldset->show();
+    echo $objFeatureBox->show($objLanguage->languageText("heading_registeryourself",'useradmin'),$objFieldset->show());
 ?>
 	</form>
