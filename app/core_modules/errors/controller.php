@@ -72,11 +72,11 @@ class errors extends controller
             		$this->objMail = $this->newObject('email', 'mail');
        				//set up the mailer
        				$objMailer = $this->getObject('email', 'mail');
-					$objMailer->setValue('to', array('fsiu-dev@uwc.ac.za', $this->objConfig->getsiteEmail(), 'pscott@uwc.ac.za'));
+					$objMailer->setValue('to', array('fsiu-dev@uwc.ac.za', $this->objConfig->getsiteEmail(), 'pscott@uwc.ac.za', 'fsiu@uwc.ac.za'));
 					$objMailer->setValue('from', $this->objUser->email());
 					$objMailer->setValue('fromName', $this->objUser->fullname());
-					$objMailer->setValue('subject', 'Error in Chisimba');
-					$objMailer->setValue('body', $text.$hidmsg);
+					$objMailer->setValue('subject', $this->objLanguage->languageText("mod_errors_errsubject", "errors"));
+					$objMailer->setValue('body', $text . "  " . $hidmsg);
 					$objMailer->send();
 					return 'thanks_tpl.php';
 					break;
