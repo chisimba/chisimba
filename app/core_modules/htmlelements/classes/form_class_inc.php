@@ -136,6 +136,8 @@ class form implements ifhtml
         $this->elements = array(); 
         // set the default display type
         $this->displayType = 3;
+        
+        $this->id = 'form_'.$name;
 		
     } 
 
