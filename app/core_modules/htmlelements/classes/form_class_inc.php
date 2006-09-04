@@ -206,6 +206,8 @@ class form implements ifhtml
 		$submit=($this->hasRules) ? ' onsubmit="return validate_' . $this->name . '_form(this) "' : '';
         if(!empty($this->id)){
         	$id = ' id="'.$this->id.'"';
+        } else {
+            $id = '';
         }
 		$str .= '<form 
 					'.$id.'
