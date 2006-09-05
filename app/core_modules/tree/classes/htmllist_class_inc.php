@@ -32,8 +32,10 @@ class htmllist extends presentation
         $this->allListClasses  = '';
         $this->allLiClasses  = '';
         
-        foreach ($options as $option => $value) {
-            $this->$option = $value;
+        if (is_array($options)) {
+            foreach ($options as $option => $value) {
+                $this->$option = $value;
+            }
         }
         
     }
