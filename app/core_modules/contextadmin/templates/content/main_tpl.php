@@ -12,7 +12,7 @@ $cssLayout2 = & $this->newObject('csslayout', 'htmlelements');// Set columns to 
 $cssLayout2->setNumColumns(2);
 
 //Set the content of the left side column
-$leftSideColumn2 = $this->objLanguage->code2Txt('mod_contextadmin_help',array('context'=>'course'));
+$leftSideColumn2 = $this->objLanguage->code2Txt('mod_contextadmin_help','contextadmin',array('context'=>'course'));
 
 
 
@@ -20,7 +20,7 @@ $leftSideColumn2 = $this->objLanguage->code2Txt('mod_contextadmin_help',array('c
 //$cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
 $this->objH =& $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=3; //Heading <h3>
-$this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_name',array('context'=>'course')));
+$this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_name','contextadmin',array('context'=>'course')));
 $rightSideColumn2 = "<div align=\"center\">" 
   . $this->objH->show()  . "</div>";
 
@@ -33,10 +33,10 @@ $table->attributes="align=\"center\"";
 $tableRow=array();
 
 $tableHd[]="Code";
-$tableHd[]=$this->objLanguage->languageText("word_title");
+$tableHd[]=$this->objLanguage->languageText("word_title",'contextadmin');
 $tableHd[]="dateCreated";
-$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isActive");
-$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isclosed");
+$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isActive",'contextadmin');
+$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isclosed",'contextadmin');
 //$tableHd[]="modifierId";
 $allowAdmin = True; //You need to write your security here
 if ($allowAdmin) {
@@ -85,7 +85,7 @@ if (isset($ar)) {
        
                $paramArray = array('action' => 'joincontext','contextCode' => $line['id']);
                 $objConfIcon->setModuleIcon('contextadmin');
-                $objConfIcon->alt=ucwords($this->objLanguage->code2Txt('mod_contextadmin_confcourse',array('context'=>'course')));
+                $objConfIcon->alt=ucwords($this->objLanguage->code2Txt('mod_contextadmin_confcourse','contextadmin',array('context'=>'course')));
                 $objLink->href=$this->uri($paramArray, "contextadmin");                
                 $objLink->link=$objConfIcon->show();
                 $config = $objLink->show().'&nbsp;';
@@ -99,7 +99,7 @@ if (isset($ar)) {
 
             // The delete icon with link uses confirm delete utility
             $objDelIcon->setIcon("delete", "gif");
-            $objDelIcon->alt=$this->objLanguage->code2Txt('mod_contextadmin_deletecontext',array('context'=>'course'));
+            $objDelIcon->alt=$this->objLanguage->code2Txt('mod_contextadmin_deletecontext','contextadmin',array('context'=>'course'));
             $delLink = $this->uri(array(
               'action' => 'delete',
               'confirm' => 'yes',
