@@ -33,7 +33,7 @@ $table->attributes="align=\"center\"";
 $tableRow=array();
 
 $tableHd[]="Code";
-$tableHd[]=$this->objLanguage->languageText("word_title",'contextadmin');
+$tableHd[]=$this->objLanguage->languageText("word_title");
 $tableHd[]="dateCreated";
 $tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isActive",'contextadmin');
 $tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isclosed",'contextadmin');
