@@ -64,6 +64,12 @@ class filemanager extends controller
                 return $this->showFileWindow();
             case 'selectfileuploads':
                 return $this->selectFileUploads();
+            case 'fckimage':
+                return $this->showFCKImages();
+            case 'fckflash':
+                return $this->showFCKFlash();
+            case 'fcklink':
+                return $this->showFCKEditorInterface();
             default: 
                 return $this->filesHome();
         }
@@ -360,6 +366,75 @@ function checkWindowOpener()
         return 'popup_showfilewindow_tpl.php';
     }
     
+    /**
+    * Method to show the FCKEditor Interface For Images
+    */
+    public function showFCKImages()
+    {
+        $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
+        
+        return $this->showFCKEditorInterface($restriction);
+    }
+    
+    /**
+    * Method to show the FCKEditor Interface For Flash
+    */
+    public function showFCKFlash()
+    {
+        $restriction = array('swf');
+        
+        return $this->showFCKEditorInterface($restriction);
+    }
+    
+    
+    /**
+    * Method to show the FCKEditor Interface
+    * @param array $restriction List of FileTypes to Restrict to.
+    */
+    public function showFCKEditorInterface($restriction=array())
+    {
+        
+        
+        if ($this->getParam('mode') == 'fileupload') {
+            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
+            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        }
+        
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
+        
+        $this->setVarByRef('files', $files);
+        
+        // Script to Close Window automatically if opener does not exist
+        $checkOpenerScript = '
+<script type="text/javascript">
+function checkWindowOpener()
+{
+    if (!window.opener) {
+        window.close();
+    }
+}
+</script>
+        ';
+        
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
+        
+        $xajax = new xajax($this->uri(array('action'=>'selectfilewindow')));
+        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
+        $xajax->processRequests(); // XAJAX method to be called
+        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
+        
+        $inputname = $this->getParam('name');
+        $this->setVarByRef('inputname', $inputname);
+        
+        $defaultValue = $this->getParam('value');
+        $this->setVarByRef('defaultValue', $defaultValue);
+        
+        $this->setLayoutTemplate(NULL);
+        $this->setVar('pageSuppressToolbar', TRUE);
+        return 'fckeditor_showfilewindow_tpl.php';
+    }
     /**
     * Ajax Function to generate previews
     * @param string $fileId Record Id of the File
