@@ -46,16 +46,7 @@
 		            </TABLE>
 		     </div>
 
-		     <div class="featurebox">
-		            <h3>[-CONTEXT-]</h3>
-		            <TABLE>
-		                    <TR>
-		                            <TD>
-		                                    [-CONTEXTCHOOSER-]
-		                            </TD>
-		                    </TR>
-		            </TABLE>
-		     </div>
+		     
 
 		</div>
 
