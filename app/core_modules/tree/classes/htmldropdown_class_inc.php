@@ -52,8 +52,11 @@ class htmldropdown extends presentation
         $this->presentation($structure);
 
         $this->inputName  = 'selectinput';
+        $this->id         = 'input_selectinput';
         $this->indentChar = '&nbsp;';
         $this->indentNum  = 4;
+        $this->extra      = '';
+        $this->selected      = '';
 
         foreach ($options as $option => $value) {
             $this->$option = $value;
@@ -77,7 +80,7 @@ class htmldropdown extends presentation
             }
         }
         $count++;
-        return sprintf('<select name="%s" >%s</select>', $this->inputName, $nodeHTML);
+        return sprintf('<select name="%s" id="%s" %s>%s</select>', $this->inputName, $this->id, $this->extra, $nodeHTML);
     }
 
     /**
@@ -87,7 +90,13 @@ class htmldropdown extends presentation
     */
     function _nodeToHTML($node, $prefix = '')
     {
-        $html = sprintf('<option value="%s">%s%s</option>', $node->link, $prefix, $node->text);
+        if ($this->selected != '' && $this->selected == $node->link) {
+            $isSelected = 'selected="selected"';
+        } else {
+            $isSelected = '';
+        }
+        
+        $html = sprintf('<option value="%s" %s>%s%s</option>', $node->link, $isSelected, $prefix, $node->text);
         
         /**
         * Loop through subnodes
