@@ -1,11 +1,4 @@
 <?php
-$objConfig =& $this->getObject('altconfig', 'config');
-$siteRoot = $objConfig->getsiteRoot();
-?>
-<script type="text/javascript">
-__KNG__ = '<?php echo $siteRoot; ?>';
-</script>
-<?php
 
 /**
 * textare class to use to make textarea inputs.
@@ -144,31 +137,53 @@ class htmlarea extends object
         $this->value=$value;
     }
    
+    /**
+    * Method to display the WYSIWYG Editor
+    */
+    function show()
+    {
+        return $this->showTinyMCE();
+    }
     
-    
-    /*****
-    ** NEW EDITOR
-    ****/
-    
-    function show(){      
-    	/*
+    /**
+    * Method to show the FCKEditor
+    * @return string
+    */
+    function showFCKEditor()
+    {
+        include('modules/htmlelements/resources/fckeditor_2.3.1/fckeditor.php') ;
+        
         $objConfig = & $this->newObject('altconfig', 'config');        
-        $sBasePath = 'modules/htmlelements/resources/fckeditor/';
+        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.1/';
       
-        global $Config;
-        $Config['UserFilesPath'] = $objConfig->getcontentBasePath();
+        // global $Config;
+        // $Config['UserFilesPath'] = $objConfig->getcontentBasePath();
         
         $oFCKeditor = new FCKeditor($this->name) ; //, $objConfig->getsiteRoot(), $this->context?'Yes':'No'
-        $oFCKeditor->BasePath = '/5ive/app/modules/htmlelements/resources/fckeditor/';$sBasePath ;
+        $oFCKeditor->BasePath = $sBasePath ;//'/5ive/app/modules/htmlelements/fckeditor_2.3.1/fckeditor/';
         $oFCKeditor->Width= $this->width ;
 		$oFCKeditor->Height=$this->height;
-        //$oFCKeditor->ToolbarSet=$this->toolbarSet;
-        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/office2003/' ;     
-        //$oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
+        $oFCKeditor->ToolbarSet=$this->toolbarSet;
+        $oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
+        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/silver/' ;     
+        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
+        
+        if ($this->context) {
+            $oFCKeditor->Context = 'Yes';
+        } else {
+            $oFCKeditor->Context = 'No';
+        }
        
-        $oFCKeditor->Value ='some value';// $this->value;
-        return $oFCKeditor->Create() ;
-          */
+        $oFCKeditor->Value = $this->value;
+        return $oFCKeditor->CreateHtml() ;
+    }
+    
+    /**
+    * Method to show the tinyMCE Editor
+    * @return string
+    */
+    function showTinyMCE()
+    {      
     	$str = '';
     	$str =$this->getJavaScripts();
     	$str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
@@ -188,7 +203,7 @@ class htmlarea extends object
     * Method to toolbar set to default 
     */
     function setDefaultToolBarSet(){
-         $this->toolbarSet = 'simple';
+         $this->toolbarSet = 'advanced';
     }
     
     /**
