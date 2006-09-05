@@ -518,7 +518,11 @@ class datetime extends object
     */
     public function monthFull($numMonth)
     {
-        $calMes["01"] = $this->objLanguage->languageText("mod_datetime_january" );
+        if($numMonth < 1 || $numMonth > 12)
+        {
+        	return FALSE;
+        }
+    	$calMes["01"] = $this->objLanguage->languageText("mod_datetime_january" );
         $calMes["1"] = $this->objLanguage->languageText("mod_datetime_january" );
         $calMes["02"] = $this->objLanguage->languageText("mod_datetime_february" );
         $calMes["2"] = $this->objLanguage->languageText("mod_datetime_february" );
@@ -881,7 +885,7 @@ class datetime extends object
         }
         return $format;
     }
-    
+
     /**
     * Method to format date into an English Format
     * Given 2006-07-20 10:57:38, it will return it as 20 July 2006
@@ -891,14 +895,14 @@ class datetime extends object
     */
     function formatDateOnly($date)
     {
-        
+
         if (isset($date)) {
-            $date = getdate(strtotime($date)); 
-            
+            $date = getdate(strtotime($date));
+
             return ($date['mday'].' '.$date['month'].' '. $date['year']);
         }
     }
-    
+
     /**
     * Method to format time
     * Given 2006-07-20 13:26:38, it will return it as 13:26
@@ -908,15 +912,15 @@ class datetime extends object
     */
     function formatTime($time)
     {
-        $time = getdate(strtotime($time)); 
-        
+        $time = getdate(strtotime($time));
+
         // Check whether to add a zero prior to the minute.
         if ($time['minutes'] < 10) {
             $zeroes = '0';
         } else {
             $zeroes = '';
         }
-        
+
         return ($time['hours'].':'.$zeroes.$time['minutes']);
     }
 
