@@ -2,11 +2,11 @@
 
          $this->objH =& $this->getObject('htmlheading', 'htmlelements');
     $this->objH->type=1;
-    $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_editcontext',array('context'=>'course')));
+    $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_editcontext','contextadmin',array('context'=>'course')));
  
         
 //load the classes
-$this->objToolBar->addToBreadCrumbs(array($this->objLanguage->languageText('word_edit','contextadmin')));
+$this->objToolBar->addToBreadCrumbs(array($this->objLanguage->languageText('word_edit')));
 if($this->objDBContext->isInContext())
 {
       $this->setVar('footerStr',$this->getContextLinks().'&nbsp;'.$this->getContentLinks());
@@ -33,7 +33,7 @@ if($this->objDBContext->isInContext())
             // Header
             $this->objH =& $this->getObject('htmlheading', 'htmlelements');
             $this->objH->type=1;
-            $this->objH->str=$this->objLanguage->languageText('word_edit','contextadmin').' '.$contextRS['title'];
+            $this->objH->str=$this->objLanguage->languageText('word_edit').' '.$contextRS['title'];
          
             $form = new form('edit_context');
 			$form->id = 'edit_context';
@@ -49,7 +49,7 @@ if($this->objDBContext->isInContext())
             $table->addCell($title->show());
             $table->endRow();
             $form->addRule('title',$this->objLanguage->languageText("mod_contextadmin_err_required"), 'required');
-            $form->addRule(array('name'=>'title','length'=>250),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length',array('length'=>'50'))),'maxlength');
+            $form->addRule(array('name'=>'title','length'=>250),ucwords($this->objLanguage->code2Txt('mod_contextadmin_error_length','contextadmin',array('length'=>'50'))),'maxlength');
             
             //menutext
             $table->startRow();
@@ -67,7 +67,7 @@ if($this->objDBContext->isInContext())
             //hidden contextcode
             $table->startRow();
             $contextCodeInput = new textinput('contextcode');           
-            $contextCodeInput->setValue($contextRS['contextCode']);
+            $contextCodeInput->setValue($contextRS['contextcode']);
             $contextCodeInput->fldType='hidden';
              $table->addCell($contextCodeInput->show());
             $table->endRow();     
@@ -80,7 +80,7 @@ if($this->objDBContext->isInContext())
             $isactive = new radio('isactive');
             $isactive->addOption('1',$this->objLanguage->languageText("mod_contextadmin_active",'contextadmin'));
             $isactive->addOption('0',$this->objLanguage->languageText("mod_contextadmin_inactive",'contextadmin'));
-            if($contextRS['isActive']) 
+            if($contextRS['isactive']) 
                 $isactive->setSelected('1');
             else
                 $isactive->setSelected('0');            
@@ -91,12 +91,12 @@ if($this->objDBContext->isInContext())
             $isclosed = new radio('isclosed');
             $isclosed->addOption('1', $this->objLanguage->languageText("mod_contextadmin_isclosed",'contextadmin'));
             $isclosed->addOption('0', $this->objLanguage->languageText("mod_contextadmin_isopen",'contextadmin'));
-            if($contextRS['isClosed']){
+            if($contextRS['isclosed']){
                 $isclosed->setSelected('1');
             }else{
                 $isclosed->setSelected('0');
             }
-            $table->addCell($isclosed->show().'<br>'.$tmp);                
+            $table->addCell($isclosed->show().'<br/>'.$tmp);                
             $table->endRow();     
             
             //about
@@ -131,8 +131,8 @@ if($this->objDBContext->isInContext())
     $objLink = & $this->newObject('link','htmlelements');
     $objLink->cssClass = 'pseudbutton';
     $objLink->href = $this->uri(array(), 'contextadmin');
-    $objLink->link = $this->objLanguage->languageText("word_back",'contextadmin');
-    $showedit .= '<br>'.$objLink->show(); 
+    $objLink->link = $this->objLanguage->languageText("word_back");
+    $showedit .= '<br/>'.$objLink->show(); 
 
     		//$objConfig=&$this->newObject('config','config');
 	    	//$siteRoot=$objConfig->siteRoot();
