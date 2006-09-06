@@ -83,7 +83,7 @@ if (isset($ar)) {
             //The context configuration link
             $confLink = $this->uri(array('action' => 'courseadmin'));
        
-               $paramArray = array('action' => 'joincontext','contextCode' => $line['id']);
+               $paramArray = array('action' => 'joincontext','contextCode' => $line['contextcode']);
                 $objConfIcon->setModuleIcon('contextadmin');
                 $objConfIcon->alt=ucwords($this->objLanguage->code2Txt('mod_contextadmin_confcourse','contextadmin',array('context'=>'course')));
                 $objLink->href=$this->uri($paramArray, "contextadmin");                
