@@ -458,7 +458,7 @@ function checkWindowOpener()
             $content .= $this->objFilePreview->previewFile($fileId);
             
             
-            $objResponse->addScript('appendPreviews('.$jsValue.', "'.addslashes($content).'");');
+            //$objResponse->addScript('appendPreviews('.$jsValue.', "'.addslashes($content).'");');
             
             
             $objResponse->addAssign('previewwindow', 'innerHTML', $content);
