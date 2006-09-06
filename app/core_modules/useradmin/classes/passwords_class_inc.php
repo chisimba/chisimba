@@ -67,7 +67,7 @@ class passwords
     */
     public function createPassword()
     {
-        $word=$this->makeWord().$this->getRandom('topkeys').rand(100,999);
+        $word=$this->makeWord().rand(100,999);
         return $word;
     }
 
