@@ -194,9 +194,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @return bool
     * @access public
     */
-    public function joinContext(){
+    public function joinContext($contextCode=''){
         $this->changeTable('tbl_context');
-        $contextCode=$this->getParam('contextCode');
+        
+        if ($contextCode == '') {
+            $contextCode=$this->getParam('contextCode');
+        }
 
         if(!isset($contextCode))
         {
