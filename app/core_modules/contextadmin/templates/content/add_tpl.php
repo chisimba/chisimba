@@ -2,7 +2,7 @@
 
     $this->objH =& $this->getObject('htmlheading', 'htmlelements');
     $this->objH->type=1;
-    $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_addnewcontext',array('context'=>'course')));
+    $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_addnewcontext', 'contextadmin', array('context'=>'course')));
     
 
     //setting up the instances of the htmlelements to be used in creating tables, buttons, textfield, buttons etc.
@@ -30,7 +30,7 @@
     $objElement = new textinput('contextCode');   
     $objElement->size = '20';
     $objElement->searchField='contextCode';
-    $table->addCell(ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextcode',array('context'=>'course'))),'100px');
+    $table->addCell(ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextcode', 'contextadmin', array('context'=>'course'))),'100px');
     $table->addCell($objElement->show());   
     $table->endRow();
     $objForm->addRule('contextCode',$this->objLanguage->languageText("mod_contextadmin_err_required",'contextadmin'), 'required');
@@ -97,7 +97,7 @@
     $objLink = & $this->newObject('link','htmlelements');
     $objLink->cssClass = 'pseudbutton';
     $objLink->href = $this->uri(array(), 'contextadmin');
-    $objLink->link = $this->objLanguage->languageText("word_back",'contextadmin');
+    $objLink->link = $this->objLanguage->languageText("word_back");
    
     $objForm->addToForm($table);
     $center = $this->objH->show();
