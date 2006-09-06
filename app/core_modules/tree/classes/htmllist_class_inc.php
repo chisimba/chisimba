@@ -110,13 +110,25 @@ class htmllist extends presentation
         
         
         // Commence Buildling HTML
-        $html = '<li'.$this->allLiClasses.'>';
+        $html = '<li'.$this->allLiClasses;
+        
+        
+        
+        $html .=' >';
         
         if ($node->link) {
             $html .= '<a href="'.$node->link.'">';
         }
         
+        if ($node->cssClass) {
+            $html .= '<span class="'.$node->cssClass.'">';
+        }
+        
         $html .= $node->text;
+        
+        if ($node->cssClass) {
+            $html .= '</span>';
+        }
         
         if ($node->link) {
             $html .= '</a>';
