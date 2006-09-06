@@ -91,7 +91,7 @@ class altconfig extends object
      * @return boolean True/False result.
      *
      */
-    protected function readConfig($config,$property)
+    public function readConfig($config=False,$property)
     {
 
     	try {
@@ -131,7 +131,7 @@ class altconfig extends object
     		$this->_options = array('name' => 'Settings');
     		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
     		if(!isset($this->_path)) $this->_path = "config/";
-    		$this->_objPearConfig->writeConfig("{$path}config.xml",$property, $this->_options);
+    		$this->_objPearConfig->writeConfig("{$this->_path}config.xml",$property, $this->_options);
 
     		$this->readConfig('','XML');
     		return true;
@@ -210,28 +210,39 @@ class altconfig extends object
 
     }
     /**
-    * Method to insert a configuration parameter.
+    * Method to update a configuration parameter.
     *
     * @var string $pmodule The module code of the module owning the config item
     * @var string $pname The name of the parameter being set, use UPPER_CASE
     * @var string $pvalue The value of the config parameter
     * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
     */
-    public function insertParam($pname, $pmodule, $pvalue,$isAdminConfigurable)
+    public function updateParam($pname, $pmodule=False, $pvalue,$isAdminConfigurable=False)
     {
     	try {
+    			   			
+               //Lets get the parent node section first
 
-            $this->_sysconfigVars(array('MODULE' => $pmodule,
-                    'PNAME' => $pname,
-                    'VALUE' => $pvalue,
-                    'isADMINCONFIGURABLE'=>$isAdminConfigurable,
-                    'DATECREATED' => date("Y/m/d H:i:s")));
-            $resuts = $this->writeProperties($this->_sysconfigVars,'XML');
-            if ($resuts!=TRUE) {
-            	throw new Exception('Can not write file sysconfig_properties');
-			}else{
-				 return true;
-            }
+        		$Settings =& $this->_root->getItem("section", "Settings");
+        		//Now onto the directive node
+        		//check to see if one of them isset to search by
+        		
+        		if(isset($pname)){
+        		 $SettingsDirective =& $Settings->getItem("directive", "{$pname}");
+        		}
+        		//finally unearth whats inside
+        		if (!$SettingsDirective) {
+        			return FALSE;
+        		}else{
+	       			$SettingsDirective->setContent($pvalue);
+	       			$path = "config/";
+	       			if (($path !== false) && (file_exists($path.'config.xml'))) {
+				  		unlink($path.'config.xml');	
+				  		$value = $this->_objPearConfig->writeConfig();
+	   					return $value;
+					}  			  	
+        		}
+
 
     	}catch (Exception $e){
     		$this->errorCallback ('Caught exception: '.$e->getMessage());
@@ -1270,8 +1281,8 @@ class altconfig extends object
     */
     public function errorCallback($exception)
     {
-    	$this->_errorCallback = new ErrorException($exception,1,1,'altconfig_class_inc.php');
-        echo $this->_errorCallback;
+    	echo customException::cleanUp($exception);
+    	exit();
     }
 
 
