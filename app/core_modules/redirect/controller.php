@@ -91,8 +91,8 @@ class redirect extends controller
         $modname = $this->getParam('modname');
         $actionname = $this->getParam('actionname');
 
-        $heading = $this->objLanguage->languageText('mod_redirect_noaction')
-            .' '.$actionname;
+        $heading = $this->objLanguage->languageText('mod_redirect_noaction', 'redirect')
+            .' <em>'.$actionname.'</em>';
 
         $subheadTxt = $this->objLanguage->languageText('word_back');
         $subhead->link = $subheadTxt;
@@ -118,14 +118,14 @@ class redirect extends controller
         if(isset($title)){
             $heading = $this->objLanguage->languageText($title);
         }else{
-            $heading = $this->objLanguage->languageText('mod_redirect_nopermission')
+            $heading = $this->objLanguage->languageText('mod_redirect_nopermission', 'redirect')
             .' '.$this->objLanguage->languageText('mod_'.$modname.'_name');
         }
 
         if(isset($msg)){
             $subhead = $this->objLanguage->languageText($msg);
         }else{
-            $subhead = $this->objLanguage->languageText('mod_redirect_contactadminaccess');
+            $subhead = $this->objLanguage->languageText('mod_redirect_contactadminaccess', 'redirect');
         }
 
         if(isset($menu)){
@@ -154,18 +154,18 @@ class redirect extends controller
         if(isset($title)){
             $heading = $this->objLanguage->languageText($title);
         }else{
-            $heading = $this->objLanguage->languageText('mod_redirect_nocourse').' '.
+            $heading = $this->objLanguage->languageText('mod_redirect_nocourse', 'redirect').' '.
             $this->objLanguage->languageText('mod_'.$modname.'_name');
         }
 
-        $subhead = $this->objLanguage->languageText('mod_redirect_entercourse');
+        $subhead = $this->objLanguage->languageText('mod_redirect_entercourse', 'redirect');
         $objLabel->label($subhead, 'input_contextDropdown');
         $subhead = $objLabel->show();
         
         $contexts = $this->showDropDown();
         
         if(!$contexts){
-            $subhead = $this->objLanguage->languageText('mod_redirect_nousercourses');
+            $subhead = $this->objLanguage->languageText('mod_redirect_nousercourses', 'redirect');
         }
         
         if(isset($menu)){        
@@ -237,10 +237,10 @@ class redirect extends controller
             $subhead = $this->objLanguage->languageText($msg);
         }else{
             if($this->objUser->isAdmin()){
-                $subhead = $this->objLanguage->languageText('mod_redirect_registermodule');
+                $subhead = $this->objLanguage->languageText('mod_redirect_registermodule', 'redirect');
                 if(isset($modname)){
                     $linkAction = $this->uri(array('action'=>'register', 'modname'=>$modname),'moduleadmin');
-                    $link = $this->objLanguage->languageText('mod_redirect_register')
+                    $link = $this->objLanguage->languageText('mod_redirect_register', 'redirect')
                     .' '.$modname;
                 }else{
                     $linkAction = $this->uri(array(),'moduleadmin');
@@ -251,7 +251,7 @@ class redirect extends controller
                 $actions = $objLink->show();
                 $this->setVarByRef('actions', $actions);
             }else{
-                $subhead = $this->objLanguage->languageText('mod_redirect_contactadmin');
+                $subhead = $this->objLanguage->languageText('mod_redirect_contactadmin', 'redirect');
             }
         }        
         
