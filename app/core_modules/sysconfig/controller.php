@@ -20,23 +20,29 @@ class sysconfig extends controller {
     /**
     * var object Property to hold sysconfig object
     */
-    var $objSysConfig;
+    public $objSysConfig;
 
     /**
     * var object Property to hold text abstract object
     * @author Kevin Cyster
     */
-    var $objAbstract;
+    public $objAbstract;
 
     /**
     * var object Property to hold language object
     */
-    var $objLanguage;
+    public $objLanguage;
 
     /**
     * var object Property to hold user object
     */
-    var $objUser;
+    public $objUser;
+    /**
+     * object Porperty to hold config values
+     *
+     * @var object
+     */
+    public $config;
 
     /**
     * Standard init function
@@ -130,6 +136,10 @@ class sysconfig extends controller {
             case 'save':
                 //Get the module for the parameter
                 $pmodule = TRIM($_POST['pmodule']);
+                
+                if ($pmodule=='_site_') {
+                	$this->save();
+                }
                 $this->objSysConfig->updateSingle();
 
                 $checkobject = $this->getObject('checkobject');
@@ -141,8 +151,7 @@ class sysconfig extends controller {
                     // $customSysConfig = $this->getObject(strtolower('sysconfig_'.$record['pname']), $pmodule);
                     // $customSysConfig->postUpdateActions();
                 // }
-
-                return $this->nextAction('step2', array('pmodule_id'=> $pmodule));
+				return $this->nextAction('step2', array('pmodule_id'=> $pmodule));
                 break;
             case 'edit':
                 //Get the module for the parameter
@@ -152,7 +161,8 @@ class sysconfig extends controller {
                 //Set the mode variable to edit
                 $this->setVar('mode', 'edit');
                 //Get the form
-                $this->setVar('str', $this->objInterface->showEditAddForm($pmodule, "edit"));
+                
+                $this->setVar('str', $this->objInterface->showEditAddForm($pmodule,"edit"));
                 //Return the edit template
                 return "edit_add_tpl.php";
                 break;
@@ -161,6 +171,14 @@ class sysconfig extends controller {
                 break;
         } #switch
 
+    }
+    
+    private function save()
+    {
+    	$this->objConfig = & $this->getObject('altconfig','config');
+    	$result = $this->objConfig->updateParam($this->getParam('id'),'',$this->getParam('pvalue'));
+    	return $result;
+    	
     }
 
 

@@ -99,8 +99,8 @@ class sysconfiginterface extends object
             $pname = $ar['pname'];
             $pvalue = $ar['pvalue'];
         } else {
-            $pmodule = NULL;
-            $pvalue = NULL;
+            $pname = $this->getParam('id',NULL);
+            $pvalue =$this->getParam('value',NULL);
         } #if
         //Create an element for the input of id
         $objElement = new textinput ("id");
@@ -118,6 +118,7 @@ class sysconfiginterface extends object
         $objForm->addToForm('<p><b>'. $this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig'). '</b>: ' . $pname.'</p>');
 
         // Check in Config folder if module is gives as _site_
+       
         if ($pmodule == '_site_') {
             $moduleToCheck = 'config';
         } else {

@@ -15,22 +15,17 @@ $objIcon = $this->getObject('geticon', 'htmlelements');
 $this->loadClass('link', 'htmlelements');
 
 $modules = array_reverse($modules);
-
-if ($modules[0]['pmodule'] == '_site_') {
-    $table->startRow();
+$table->startRow();
     
-    $link = new link ($this->uri(array('action'=>'step2', 'pmodule_id'=>$modules[0]['pmodule'])));
+    $link = new link ($this->uri(array('action'=>'step2', 'pmodule_id'=>'_site_')));
     $link->link = 'Configure site parameters';
     
-    $table->addCell('&nbsp;');
-    $table->addCell($link->show());
-    $table->addCell('&nbsp;');
-    $table->addCell($modules[0]['paramcount'], '10%');
+    $objIcon->setIcon('computer');
+    $table->addCell($objIcon->show());
+    $table->addCell('<span style="font-size: 140%; font-weight: bolder;">'.$link->show().'</span>', NULL, NULL, NULL, NULL, 'colspan="2"');
+    //$table->addCell($modules[0]['paramcount'], '10%');
     $table->endRow();
     
-    // 
-    // 
-}
 $modules = array_reverse($modules);
 //$modules = array_pop($modules); 
 
