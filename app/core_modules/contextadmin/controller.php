@@ -173,6 +173,11 @@ class contextadmin extends controller {
                  $this->setVar('ar', $this->objContextGroups->userContexts());
                 return 'main_tpl.php';
             case 'courseadmin':
+                
+                // Interim Fix to get courses running at MERIT - NMU
+                // @author Tohir Solomons
+                return $this->nextAction(NULL, NULL, 'context');
+                
                 if($this->objDBContext->isInContext()){
                     $context = TRUE;
                 }else{
@@ -194,7 +199,7 @@ class contextadmin extends controller {
                 }
             case 'joincontext':
                 $this->objDBContext->leaveContext();
-                $this->objDBContext->joinContext();
+                $this->objDBContext->joinContext($this->getParam('contextCode'));
                 return $this->nextAction('courseadmin');
             case 'edit':
                 if(!$this->getParam('contextCode') == ''){

@@ -206,13 +206,20 @@ class context extends controller
        // $this->checkAgreement();
 		$this->setLayoutTemplate('context_layout_tpl.php');
         $action = $this->getParam('action');
+        
         switch($action){
+            default:
             case NULL:
+            case 'contenthome':
+                $objModule = $this->getObject('modules', 'modulecatalogue');
+                
+                if ($objModule->checkIfRegistered('contextcontent')) {
+                    return $this->nextAction(NULL, NULL, 'contextcontent');
+                }
                 if(!$this->objUser->isLoggedIn())
                 {
                      return $this->nextAction('content',null);
                 }
-            case 'contenthome':
                 return 'list_tpl.php';
 
                 // Print page content to pdf
