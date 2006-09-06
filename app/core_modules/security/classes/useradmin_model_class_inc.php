@@ -185,10 +185,10 @@ class useradmin_model extends dbtable
     */
     public function checkUserIdAvailable($userId)
     {
-        $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE userId='$userId'";
+        $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
-        if ($count[0]['count']>0) { 
-			return $this->objLanguage->languageText("userid_taken");
+        if ($count[0]['thecount']>0) { 
+			return $this->objLanguage->languageText("userid_taken", 'useradmin');
 		}
 		else {
 	        return true;
@@ -201,10 +201,10 @@ class useradmin_model extends dbtable
     */
     public function checkUsernameAvailable($username)
     {
-        $sql="SELECT COUNT(*) AS count FROM tbl_users WHERE username='$username'";
+        $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
-        if ($count[0]['count']>0) { 
-			return $this->objLanguage->languageText("userid_taken");
+        if ($count[0]['thecount']>0) { 
+			return $this->objLanguage->languageText("username_taken", 'useradmin', 'This username is taken');
 		}
 		else {
 	        return true;

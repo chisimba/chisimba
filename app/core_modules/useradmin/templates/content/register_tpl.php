@@ -180,7 +180,7 @@ function Validator(theForm) {
 			"<h2>"
 			.$objLanguage->languageText('word_problem','useradmin')
 			." : "
-			.$objLanguage->languageText($this->message)
+			.$this->message
 			."</h2>";
     }
 
