@@ -63,13 +63,13 @@ if (!isset($pageSuppressSkin)){
 	else {
     	//echo $objSkin->putSkinCssLinks();
     	echo '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/echo/main.css" media="screen" />
-				<link rel="stylesheet" type="text/css" href="skins/echo/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/main.css" media="screen" />
+				<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/print.css" media="print" />
 				<!--[if lte IE 6]>
-					<link rel="stylesheet" type="text/css" href="skins/echo/ie6_or_less.css" />
+					<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/ie6_or_less.css" />
 				<![endif]-->';
     	if (!isset($pageSuppressToolbar)) {
-				echo '<script type="text/javascript" src="skins/echo/js/common.js"></script>';
+				echo '<script type="text/javascript" src="skins/'.$objSkin->getSkin().'/js/common.js"></script>';
 		}
 	}
 }
