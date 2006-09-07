@@ -69,7 +69,7 @@ if (!isset($pageSuppressSkin)){
 					<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/ie6_or_less.css" />
 				<![endif]-->';
     	if (!isset($pageSuppressToolbar)) {
-				echo '<script type="text/javascript" src="skins/'.$objSkin->getSkin().'/js/common.js"></script>';
+				echo '<script type="text/javascript" src="skins/_common/js/common.js"></script>';
 		}
 	}
 }
