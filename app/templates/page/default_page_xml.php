@@ -134,10 +134,6 @@ if (isSet($bodyParams)) {
  	}
 
  	if (!isset($pageSuppressBanner)) {
- 	}
-
-	// Add toolbar bar if not suppressed
-    if (!isset($pageSuppressToolbar)) {
 ?>
 
 		<div id="wrap">
