@@ -16,7 +16,7 @@ echo '<h1>Upload File</h1>';
 $this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
 $this->objUpload->numInputs = 1;
 
-$mode = new hiddeninput('mode', 'selectpopup');
+$mode = new hiddeninput('mode', $modeAction);
 $name = new hiddeninput('name', $this->getParam('name'));
 $context = new hiddeninput('context', $this->getParam('context'));
 $workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
@@ -154,5 +154,5 @@ function selectFile(file, id)
 ?>
 </div>
 <div style="width: 70%; baackground-color:#FF00FF;  overflow:auto; top: 0; left: 30%; bottom: 120px; position: absolute; z-index:1;" id="previewwindow" >
-<h1> Todo: Fix up IE</h1>
+<!-- <h1> Todo: Fix up IE</h1> -->
 </div>

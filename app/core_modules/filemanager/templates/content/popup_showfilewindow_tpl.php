@@ -16,7 +16,7 @@ echo '<h1>Upload File</h1>';
 $this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
 $this->objUpload->numInputs = 1;
 
-$mode = new hiddeninput('mode', 'selectpopup');
+$mode = new hiddeninput('mode', 'selectfilewindow');
 $name = new hiddeninput('name', $this->getParam('name'));
 $context = new hiddeninput('context', $this->getParam('context'));
 $workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));

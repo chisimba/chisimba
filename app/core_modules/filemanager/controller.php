@@ -373,7 +373,7 @@ function checkWindowOpener()
     {
         $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
         
-        return $this->showFCKEditorInterface($restriction);
+        return $this->showFCKEditorInterface($restriction, 'fckimage');
     }
     
     /**
@@ -383,7 +383,7 @@ function checkWindowOpener()
     {
         $restriction = array('swf');
         
-        return $this->showFCKEditorInterface($restriction);
+        return $this->showFCKEditorInterface($restriction, 'fckflash');
     }
     
     
@@ -391,7 +391,7 @@ function checkWindowOpener()
     * Method to show the FCKEditor Interface
     * @param array $restriction List of FileTypes to Restrict to.
     */
-    public function showFCKEditorInterface($restriction=array())
+    public function showFCKEditorInterface($restriction=array(), $action='fcklink')
     {
         
         
@@ -403,6 +403,8 @@ function checkWindowOpener()
         $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
         
         $this->setVarByRef('files', $files);
+        
+        $this->setVar('modeAction', $action);
         
         // Script to Close Window automatically if opener does not exist
         $checkOpenerScript = '
@@ -511,7 +513,7 @@ function checkWindowOpener()
             }
         }
         
-        return $this->nextAction('selectfilewindow', $settingsArray);
+        return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
     }
 }
 
