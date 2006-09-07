@@ -112,7 +112,7 @@ class skin extends object
         $dirList=array();
         while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
-                if (is_dir($file) && file_exists($basedir.$file.'/kewl_css.php')) {
+                if (is_dir($file) && file_exists($basedir.$file.'/main.css')) {
 
                     $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
 
