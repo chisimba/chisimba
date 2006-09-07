@@ -120,7 +120,7 @@ $objHelp = new domtt();
 	<td>
 	<?php echo $objHelp->show('Skin','Choose the default skin');?>	</td>
 	<td >
-	Defaul Skin
+	Default Skin
 	</td>
 	<td><?php echo $defaultskin ?>
     </td>
