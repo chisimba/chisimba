@@ -78,7 +78,7 @@ class skin extends object
             $mySkinLocation=$this->objConfig->getsiteRootPath().'skins/'.$_POST['skinlocation'].'/';
 
             //Test if stylesheet exists in the skinlocation
-            if (file_exists($mySkinLocation.'kewl_css.php')) {
+            if (file_exists($mySkinLocation.'main.css')) {
                 $this->setSession('skin', $_POST['skinlocation']);
             } else {
                 $this->setSession('skin', $this->objConfig->getdefaultSkin());
@@ -194,7 +194,7 @@ class skin extends object
     */
     function putSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'kewl_css.php">'."</link>" . "\r\n";
+        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'main.css">'."</link>" . "\r\n";
         $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '<style type="text/css">
@@ -210,7 +210,7 @@ class skin extends object
     */
     function putSimpleSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'kewl_css.php">'."</link>" . "\r\n";
+        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'main.css">'."</link>" . "\r\n";
 		/*
         $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
