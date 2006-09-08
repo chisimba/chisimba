@@ -82,7 +82,24 @@ class url extends object {
             $test .= "/^http:\\/\\/([A-Za-z-\\.]*)/";
         } 
         return @preg_match($test, $str);
-    } 
+    }
+    
+    /**
+    * Method to check if Email is valid
+    *
+    * Adapted from: http://www.totallyphp.co.uk/code/validate_an_email_address_using_regular_expressions.htm
+    *
+    * @param string $email Email Address to Check for
+    * @return boolean TRUE|FALSE
+    */
+    function isValidFormedEmailAddress($email)
+    {
+        if(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
+            return TRUE;
+        } else {
+          return FALSE;
+        }
+    }
 
     /**
      * Method to add something to the end of an external link
