@@ -551,7 +551,7 @@ class engine
         			var_dump(xdebug_get_function_stack());
         		}
         		else {
-        			throw new Exception();
+        			throw new Exception("Could not load class $name from module $moduleName: filename $filename ");
         		}
 
         		die();
