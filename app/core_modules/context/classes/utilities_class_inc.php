@@ -161,14 +161,17 @@ class utilities extends object
 			$section = $this->getParam('id');
 			
 			//create the home for the context
-			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' Home ', 'uri' => 'http://localhost');
+			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' Home ', 'uri' => $this->uri(null,"_default"));
 						
 			
 			//get the registered modules for this context
-			$arrContextModules = array(array('moduleid' => 'forum', 'title' => 'Disussion Forum'), array('moduleid' => array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 'title' => 'Chat'), array('moduleid' => 'coursecontent', 'title' => 'Course Content'));
+			$arrContextModules = array(
+			                         array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 
+			                         array('moduleid' => 'chat', 'title' =>  'Chat'),
+			                         array('moduleid' => 'contextcmscontent', 'title' => 'Course Content'));
 			foreach($arrContextModules as $contextModule)
 			{
-					$nodes[] = array('text' =>$contextModule['title'], 'uri' => 'http://localhost',  'sectionid' => $contextModule['moduleid']);
+					$nodes[] = array('text' =>$contextModule['title'], 'uri' => $this->uri(null,$contextModule['moduleid']),  'sectionid' => $contextModule['moduleid']);
 			}
 			/*
 			//start looping through the sections
