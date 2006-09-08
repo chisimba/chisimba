@@ -13,6 +13,7 @@
 class customException extends Exception
 {
 	public $uri;
+	public $_objConfig;
 
 	// constructor
     function __construct($m)

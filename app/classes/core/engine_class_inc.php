@@ -544,9 +544,19 @@ class engine
             $filename = $this->_objConfig->getsiteRootPath() . $filename;
         }
         if (!file_exists($filename)) {
-        	throw new customException("Could not load class $name from module $moduleName: filename $filename");
+        	if ($this->_objConfig->geterror_reporting() == "developer")
+        	{
+        		if(extension_loaded("xdebug"))
+        		{
+        			var_dump(xdebug_get_function_stack());
+        		}
+        		else {
+        			throw new Exception();
+        		}
 
-        	//die ("Could not load class $name from module $moduleName: filename $filename");
+        		die();
+        	}
+        	throw new customException("Could not load class $name from module $moduleName: filename $filename ");
         }
         $engine =& $this;
         require_once($filename);
@@ -601,7 +611,7 @@ class engine
             $this->loadClass($name, $moduleName);
             $instance =& new $name($this, $moduleName);
             if (is_null($instance)) {
-            	throw new customException("Could not instantiate class $name from module $moduleName");
+            	throw new customException("Could not instantiate class $name from module $moduleName" . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
             }
             // first check that the map for the given module exists
             if (!isset($this->_cachedObjects[$moduleName]))
