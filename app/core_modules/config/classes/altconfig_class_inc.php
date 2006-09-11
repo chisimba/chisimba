@@ -58,6 +58,12 @@ class altconfig extends object
      * @var array
      */
     protected $_sysconfigVars;
+    /**
+     * languagetext object
+     *
+     * @var object
+     */
+    public $Text;
 
     /**
      * The global error callback for altconfig errors
@@ -71,11 +77,20 @@ class altconfig extends object
     {
         // instantiate object
         try{
-        $this->_objPearConfig = new Config();
+        	
+        	$this->_objPearConfig = new Config();
         }catch (Exception $e){
-        	$this->errorCallback ('Caught exception: '.$e->getMessage());
+        	$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
         	exit();
         }
+    }
+    /**
+     * Start initializing objects
+     *
+     */
+    public function init()
+    {
+    		$this->Text = &$this->newObject('language','language');
     }
 
 	/**
@@ -101,12 +116,12 @@ class altconfig extends object
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}config.xml",$property);
 
     		if (PEAR::isError($this->_root)) {
-    			throw new Exception('Can not read XML configs');
+    			throw new Exception($this->Text('word_read_fail'));
     		}
     		return $this->_root;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		 exit();
     	}
 
@@ -137,7 +152,7 @@ class altconfig extends object
     		return true;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		 exit();
     	}
 
@@ -167,7 +182,7 @@ class altconfig extends object
 				return $this->_property;
 			}
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
 
@@ -199,12 +214,12 @@ class altconfig extends object
 			$this->_objPearConfig->writeConfig("config/sysconfig_properties.xml",$property, $this->_options);
 
 	    	if ($this->_objPearConfig!=TRUE) {
-				throw new Exception('Can not write file sysconfig_properties');
+				throw new Exception($this->Text('word_read_fail'));
 			}else{
 				return true;
 			}
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
 
@@ -245,7 +260,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
     } #function insertParam
@@ -286,7 +301,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
     } #function insertParam
