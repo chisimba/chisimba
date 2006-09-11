@@ -182,7 +182,7 @@ class ini extends object
     		return $this->_root;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     	}
 
     }
@@ -259,7 +259,7 @@ class ini extends object
     		return true;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ('Caught exception: '.$e->getMessage());
+    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		 exit();
     	}
 
@@ -301,7 +301,7 @@ class ini extends object
         		
 
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
     } #function getItem
@@ -334,7 +334,7 @@ class ini extends object
         		
 
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
     		exit();
     	}
     } #function setItem
