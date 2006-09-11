@@ -76,7 +76,7 @@ class language extends dbTable {
 	        $this->objButtons = &$this->getObject('button', 'htmlelements');
 	        $this->objAbstract =& $this -> getObject('systext_facet', 'systext');
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
     	}
     }
@@ -137,7 +137,7 @@ class language extends dbTable {
                             return "This language item is missing";
                     } else {
                     	// fetch a string not translated into Italian (test fallback language)
-						return $this->lang->get('error_languageitemmissing', 'error_text',"{$var}").": $itemName from $modulename";
+						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
                         //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
                     }
                 }
@@ -145,7 +145,7 @@ class language extends dbTable {
         	}
     	}catch (Exception $e){
 
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
     	}
     }
@@ -194,7 +194,7 @@ class language extends dbTable {
 	        }
 	        return $ret;
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception') .$e->getMessage());
     		 exit();
     	}
     }
@@ -210,7 +210,7 @@ class language extends dbTable {
        	 $sql = "Select languageName from tbl_languagelist";
        	 return $this->getArray($sql);
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
     	}
     }
@@ -244,7 +244,7 @@ class language extends dbTable {
         $ret = $objNewForm->show();
         return $ret;
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
     	}
     }
@@ -273,7 +273,7 @@ class language extends dbTable {
         }
         return $var;
     	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
+    		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
     	}
     }
