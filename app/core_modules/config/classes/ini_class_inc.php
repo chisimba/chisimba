@@ -94,7 +94,12 @@ class ini extends object
      * @var string
     */
     protected $_root = false;
-    
+    /**
+     * languagetext object
+     *
+     * @var object
+     */
+    public $Text;
     
     //Initialize class
     function init() {
@@ -102,6 +107,7 @@ class ini extends object
     		$this->objConf = new Config();
     		$this->sysconf = & $this->getObject('altconfig','config');
             $this->objUser = & $this->getObject("user", "security");
+             $this->Text = &$this->newObject('language','language');
             
     }
      /**
@@ -142,7 +148,7 @@ class ini extends object
 			$result = $this->objConf->writeConfig("{$iniPath}"."{$iniName}", "INIFile");
 			
 			if ($result==false) {
-				throw new Exception('Can not write INIFile. Check permissions or file path if its correct');
+				throw new Exception($this->Text('word_read_fail'));
 			}
     	}catch (Exception $e){
     		$this->errorCallback($e);
