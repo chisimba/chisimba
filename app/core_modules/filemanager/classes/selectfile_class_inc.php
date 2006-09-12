@@ -35,6 +35,11 @@ class selectfile extends object
     public $workgroup;
     
     /**
+    * @var int $widthOfInput Width of Text Input
+    */
+    public $widthOfInput;
+    
+    /**
     * Constructor
     */
     public function init()
@@ -54,6 +59,8 @@ class selectfile extends object
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('windowpop', 'htmlelements');
+        
+        $this->widthOfInput = 60;
     }
     
     /**
@@ -147,7 +154,7 @@ class selectfile extends object
         $textinput = new textinput ('selectfile_'.$this->name, $defaultName);
         $textinput->setId('selectfile_'.$this->name);
         $textinput->extra = ' readonly="true"';
-        $textinput->size = '60';
+        $textinput->size = $this->widthOfInput;
         
         return $input->show().$textinput->show().' &nbsp; '.$objPop->show();
     }
