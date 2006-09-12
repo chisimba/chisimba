@@ -37,13 +37,13 @@
 		        [-ENDFORM-]
 		    <div class="featurebox">
 		            <h3>Languages</h3>
-		            <TABLE>
-		                    <TR>
-		                            <TD>
+		            <table>
+		                    <tr>
+		                            <td>
 		                                    [-LANGUAGECHOOSER-]
-		                            </TD>
-		                    </TR>
-		            </TABLE>
+		                            </td>
+		                    </tr>
+		            </table>
 		     </div>
 
 
@@ -60,13 +60,13 @@
 		<div id="leftnav">
 				<div class="featurebox">
 		            <h3>Skinz</h3>
-		            <TABLE>
-		                <TR>
-		                    <TD>
+		            <table>
+		                <tr>
+		                    <td>
 		                        [-SKINCHOOSER-]
-		                    </TD>
-		                </TR>
-		            </TABLE>
+		                    </td>
+		                </tr>
+		            </table>
 				</div>
 				<div class="featurebox">
 		            <h3>Our other sites</h3>
@@ -80,13 +80,13 @@
 				 </div>
 				<div class="featurebox">
 		            <h3>Join this project</h3>
-					<TABLE>
-					<TR>
-						<TD>
+					<table>
+					<tr>
+						<td>
 							Email pscott at uwc dot ac dot za
-						</TD>
-					</TR>
-				</TABLE>
+						</td>
+					</tr>
+				</table>
 
 				</div>
 				<center>
