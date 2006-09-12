@@ -1,16 +1,43 @@
 <?php
 
-//apache log file parser class
+/**
+ * apache log file parser class
+ * This is a utility class that may be useful. It was written for the apache log module that has now been removed from cvs.
+ *
+ * @author Paul Scott
+ * @package utilities
+ * @category chisimba
+ * @copyright AVOIR
+ */
 
 class logparser extends object
 {
+	/**
+	 * The file object from filemanager
+	 *
+	 * @var object
+	 */
 	public $objFile;
 
+	/**
+	 * Standard init function
+	 *
+	 * @param void
+	 * @return void
+	 * @access public
+	 */
 	public function init()
 	{
 		$this->objFile = $this->getObject('dbfile', 'filemanager');
 	}
 
+	/**
+	 * Method to convert a logfile to an array to manipulate
+	 *
+	 * @param string filename $file
+	 * @return array
+	 * @access public
+	 */
 	public function log2arr($file)
 	{
 		$fpath = $this->objFile->getFullFilePath($file);
@@ -18,6 +45,12 @@ class logparser extends object
 		return $file;
 	}
 
+	/**
+	 * Get the statistics from the file manager
+	 *
+	 * @param string $file
+	 * @return array
+	 */
 	public function logfileStats($file)
 	{
 		$fname = $this->objFile->getFileName($file);
@@ -27,6 +60,13 @@ class logparser extends object
 		return array('filesize' => $fsize, 'filename' => $fname, 'filepath' => $fpath);
 	}
 
+	/**
+	 * Method to parse and glean info from an apache2 logfile entry
+	 *
+	 * @param string $line
+	 * @return array
+	 * @access public
+	 */
 	public function parselogEntry($line)
 	{
 		$stuff = explode('"',$line);
@@ -54,6 +94,13 @@ class logparser extends object
 		return $requestarr;
 	}
 
+	/**
+	 * Method to fix the dates that appear in std format in the logfiles
+	 *
+	 * @param string $datetime
+	 * @return ISO formatted date
+	 * @access private
+	 */
 	private function fixDates($datetime)
 	{
 		$datetime = explode("/", $datetime);
@@ -78,3 +125,4 @@ class logparser extends object
 		return $ref;
 	}
 }
+?>
