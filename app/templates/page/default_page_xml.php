@@ -1,7 +1,26 @@
 <?php
-
-$charset = "utf-8";
-$mime = "application/xhtml+xml";
+$useragent = $_SERVER['HTTP_USER_AGENT'];
+function isMSIE($useragent)
+{
+		if(eregi("msie", $useragent) && !eregi("opera",$useragent))
+		{
+			return TRUE;
+		}
+		if(eregi("microsoft internet explorer", $useragent))
+		{
+			return TRUE;
+		}
+}
+$ie = isMSIE($useragent);
+if($ie == TRUE)
+{
+	$charset = "utf-8";
+	$mime = "text/html";
+}
+else {
+	$charset = "utf-8";
+	$mime = "application/xhtml+xml";
+}
 
 if (!isset($pageLanguage)) {
     $languageClass =& $this->getObject('language', 'language');
