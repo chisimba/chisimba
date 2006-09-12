@@ -46,7 +46,7 @@
 		            </TABLE>
 		     </div>
 
-		     
+
 
 		</div>
 
@@ -56,7 +56,7 @@
 			[-PRELOGINSTORIESFOOTER-]
 			</div>
 		</div>
-		
+
 		<div id="leftnav">
 				<div class="featurebox">
 		            <h3>Skinz</h3>
@@ -87,7 +87,16 @@
 						</TD>
 					</TR>
 				</TABLE>
+
 				</div>
+				<center>
+    				<a href="http://validator.w3.org/check?uri=referer"><img
+        				src="http://www.w3.org/Icons/valid-html401"
+        				alt="Valid HTML 4.01 Transitional" height="31" width="88" /></a>
+  					</center>
 		</div>
+
+
 </div>
+
 </div>
