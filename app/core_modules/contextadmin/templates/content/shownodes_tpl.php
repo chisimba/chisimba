@@ -4,7 +4,7 @@ $tree = & $this->newObject('sharednodes', 'contextcontent');
 $objHeading = & $this->newObject('htmlheading','htmlelements');
 $objForm = & $this->newObject('form','htmlelements');
 $objInput = & $this->newObject('textinput','htmlelements');
-$button=& $this->newObject ('button','htmlelements');     
+$button=& $this->newObject ('button','htmlelements');
 
 $this->objH =& $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1;
@@ -16,7 +16,7 @@ print $this->objH->show();
  $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importselectnode');
 print $this->objH->show();
 
-//the form    
+//the form
 $objForm->name='frmnodes';
 $objForm->setAction($this->uri(array('action'=>'showimportnode','contextId' => $this->getParam('contextId')),'contextadmin'));
 $objForm->setDisplayType(3);
@@ -37,10 +37,10 @@ print $objForm->show();
 print $tree->biuld($this->objDBContext->getContextId());
 //print 'show nodes';
 ?>
-<script language="javascript">
+<script language="javascript" type="text/javascript">
     document.getElementById("div1").style.visibility = 'hidden';
     function nodeInput(nodeId)
-    {             
+    {
         document.frmnodes.inpnodeId.value = nodeId;
         document.getElementById("div1").style.visibility = 'visible';
     }
