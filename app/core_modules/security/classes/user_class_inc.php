@@ -16,22 +16,29 @@ class user extends dbTable
     private $userLoginHistory;
     //var $userGroups;
     private $_record = NULL;
+    
+    private $imagePath;
+    private $imageUrl;
 
-   public function init()
-   {
-       parent::init("tbl_users");
-       $this->objConfig=&$this->getObject('altconfig','config');
-       $this->objLanguage =& $this->getObject('language', 'language');
-       $this->loggedInUsers =& $this->getObject('loggedInUsers');
-       $this->userLoginHistory =& $this->getObject('userLoginHistory');
-       $this->objSkin = &$this->getObject('skin', 'skin');
-   }
+    public function init()
+    {
+        parent::init("tbl_users");
+        $this->objConfig=&$this->getObject('altconfig','config');
+        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->loggedInUsers =& $this->getObject('loggedInUsers');
+        $this->userLoginHistory =& $this->getObject('userLoginHistory');
+        $this->objSkin = &$this->getObject('skin', 'skin');
 
-   /**
-   * Get the desired login type.
-   * @return the login method to use, currently ldap or default
-   */
-   public function loginMethod() {
+        $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
+        $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
+    }
+
+    /**
+    * Get the desired login type.
+    * @return the login method to use, currently ldap or default
+    */
+    public function loginMethod()
+    {
         // See if they want to login via LDAP
         if (isset($_POST['useLdap'])) {
             $useLdap=$_POST['useLdap'];
@@ -44,18 +51,19 @@ class user extends dbTable
             $result="default";
         }
         return $result;
-   }
+    }
 
-   /**
-   * Method to log a user into the site
-   * Can login via mySQL internal database or via LDAP
-   * Login via LDAP is selected from the form on the login
-   * page.
-   * @param $username The username to authenticate
-   * @param $password The password given which should be checked
-   * @return TRUE|FALSE Boolean value indicating success of authentication
-   */
-   public function authenticateUser($username, $password) {
+    /**
+    * Method to log a user into the site
+    * Can login via mySQL internal database or via LDAP
+    * Login via LDAP is selected from the form on the login
+    * page.
+    * @param $username The username to authenticate
+    * @param $password The password given which should be checked
+    * @return TRUE|FALSE Boolean value indicating success of authentication
+    */
+    public function authenticateUser($username, $password)
+    {
         $username = trim($username);
         //$password = sha1(trim($password)); //we don't do this here, we do it later.
         // Login via the chosen method
@@ -67,38 +75,36 @@ class user extends dbTable
             default:
                 die("Unknown login method");
         }
-   }
+    }
 
-   /**
-   * Look up user's data.
-   * @param string $username
-   * @return array on success, FALSE on failure.
-   */
+    /**
+    * Look up user's data.
+    * @param string $username
+    * @return array on success, FALSE on failure.
+    */
     public function lookupData($username)
     {
         $sql="SELECT
-	        tbl_users.username,
-	        tbl_users.userid,
-	        tbl_users.title,
-	        tbl_users.firstname,
-	        tbl_users.surname,
-	        tbl_users.pass,
-	        tbl_users.creationdate,
-	        tbl_users.emailaddress,
-	        tbl_users.logins,
-	        tbl_users.isactive,
-	        tbl_users.accesslevel
+            tbl_users.username,
+            tbl_users.userid,
+            tbl_users.title,
+            tbl_users.firstname,
+            tbl_users.surname,
+            tbl_users.pass,
+            tbl_users.creationdate,
+            tbl_users.emailaddress,
+            tbl_users.logins,
+            tbl_users.isactive,
+            tbl_users.accesslevel
         FROM 
-			tbl_users 
-		WHERE 
-			(username = '".addslashes($username)."')";
+            tbl_users 
+        WHERE 
+            (username = '".addslashes($username)."')";
         $array=$this->getArray($sql);
         if (!empty($array))
         {
             return $array[0];
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
@@ -146,7 +152,7 @@ class user extends dbTable
         $this->setSession('username',$username);
         $userId=$this->_record['userid'];
         $this->setSession('userid',$userId);
-        $this->setSession('password',$this->getParam('password', ''));
+        //$this->setSession('password',$this->getParam('password', ''));
         $title = stripcslashes($this->_record['title']);
         $this->setSession('title',$title);
         $firstname = stripcslashes($this->_record['firstname']);
@@ -204,12 +210,12 @@ class user extends dbTable
                     if ($this->objConfig->isAlumni()){
                         $objAlumni=$this->getObject('alumniusers','useradmin');
                         $objAlumni->insert(
-							array(
-								'userid'=>$info['userId'],
-								'firstname'=>$info['firstName'],
-								'surname'=>$info['surname']
-							)
-						);
+                            array(
+                                'userid'=>$info['userId'],
+                                'firstname'=>$info['firstName'],
+                                'surname'=>$info['surname']
+                            )
+                        );
                     }
                     // If LDAP confirms the user is an Academic,
                     // add as a site-lecturer in KNG groups.
@@ -225,19 +231,19 @@ class user extends dbTable
         }
     }
 
-   /**
-   * Method to logout user from the site. The method deletes
-   * the user from the database table tbl_loggedinusers, destroys
-   * the session, and redirects the user to the index page,
-   * index.php. This method has no parameters. See comments on insertlogin.
-   */
-   public function logout() {
+    /**
+    * Method to logout user from the site. The method deletes
+    * the user from the database table tbl_loggedinusers, destroys
+    * the session, and redirects the user to the index page,
+    * index.php. This method has no parameters. See comments on insertlogin.
+    */
+    public function logout()
+    {
        $skin = $this->objSkin->getSkin();
        $this->loggedInUsers->doLogout($this->userId());
        session_unset();
-       //session_destroy();
        $this->objSkin->setSession('skin', $skin);
-   }
+    }
 
    /**
    * Method to update the curren't user's active timestamp in the
@@ -478,27 +484,27 @@ class user extends dbTable
    * default.
    */
    public function fullname($userId=NULL) {  //use NULL as the default and evaluate
-		if (!$userId) {
-			$fullname=$this->getSession('name');
-			if ($fullname) {
-				$result = $fullname;
-			} else {
-				$result = $this->objLanguage->languageText("error_notloggedin");
-			}
-		} else {
-			//look up third part numeric ID
-			
-			
-			$line = $this->getRow('userid', $userId);
-			
-			if ($line)
-			{
-			    $result=$line['firstname'].' '.$line['surname'];
-			} else {
-				$result=$this->objLanguage->languageText("error_datanotfound");
-			}
-		}
-		return $result;
+        if (!$userId) {
+            $fullname=$this->getSession('name');
+            if ($fullname) {
+                $result = $fullname;
+            } else {
+                $result = $this->objLanguage->languageText("error_notloggedin");
+            }
+        } else {
+            //look up third part numeric ID
+            
+            
+            $line = $this->getRow('userid', $userId);
+            
+            if ($line)
+            {
+                $result=$line['firstname'].' '.$line['surname'];
+            } else {
+                $result=$this->objLanguage->languageText("error_datanotfound");
+            }
+        }
+        return $result;
    }
 
    /**
@@ -513,24 +519,24 @@ class user extends dbTable
    * default.
    */
    public function email($userId=NULL) {  //use NULL as the default and evaluate
-	if (!$userId){
-		$email=$this->getSession('email');
-		if ($email) {
-			$ret = $email;
-		} else {
-			$ret = $this->objLanguage->languageText("error_notloggedin");
-		}
-	} else {
-		$sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
-		$rs = $this->query($sql);
-		if ($rs) {
-			$line = $rs->fetchRow();
-			$ret=$line["emailaddress"];
-		} else {
-			$ret=$this->objLanguage->languageText("error_datanotfound");
-		}
-	}
-	return $ret;
+    if (!$userId){
+        $email=$this->getSession('email');
+        if ($email) {
+            $ret = $email;
+        } else {
+            $ret = $this->objLanguage->languageText("error_notloggedin");
+        }
+    } else {
+        $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
+        $rs = $this->query($sql);
+        if ($rs) {
+            $line = $rs->fetchRow();
+            $ret=$line["emailaddress"];
+        } else {
+            $ret=$this->objLanguage->languageText("error_datanotfound");
+        }
+    }
+    return $ret;
     }
 
     /**
@@ -614,33 +620,59 @@ class user extends dbTable
    }
 
 
-   /**
-   * Return the URL for a user's image, if one exists
-   */
-   public function getUserImagePath($userId=NULL){
-       if (!$userId) {
-           $userId=$this->userId();
-       }
-       return $this->objConfig->userfiles().'/'.$userId.'.jpg';
-   }
+    /**
+    * Method to check whether the user has a custom image or not.
+    * @param string $userId User Id of the user
+    * @return boolean TRUE/FALSE 
+    */
+    public function hasCustomImage($userId=NULL)
+    {
+        if (!$userId) {
+            $userId=$this->userId();
+        }
+        
+        return file_exists($this->imagePath.$userId.'.jpg');
+    }
 
-   /**
-   *Method to return a path to the to user's image
-   */
-   public function getUserImage($height=NULL,$width=NULL,$userId=NULL){
-       if($height){
-           $height=' height="'.$height.'"  ';
-       }
-       if($width){
-           $width=' width="'.$width.'"  ';
-       }
-       return '<img '
-	   		.$height
-			.$width
-			.' src="'.$this->getUserImagePath($userId).'"'
-			.' alt="'.$this->fullName($userId).'"'
-			.'>';
-   }
+    /**
+    * Method to return a path to the user's image
+    * @param string $userId User Id of the user
+    * @return string Image of User
+    */
+    public function getUserImage($userId=NULL, $forceRefresh=FALSE)
+    {
+        if (!$userId) {
+            $userId=$this->userId();
+        }
+        
+        if ($forceRefresh) {
+            $forceRefresh = '?'.mktime();
+        }
+        
+        if (file_exists($this->imagePath.$userId.'.jpg')){
+            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" />';
+        } else {
+            return '<img src="'.$this->imageUrl.'default.jpg" />';
+        }
+    }
+    
+    /**
+    * Method to return a path to the small user's image
+    * @param string $userId User Id of the user
+    * @return string Small Image of User
+    */
+    public function getSmallUserImage($userId=NULL)
+    {
+        if (!$userId) {
+            $userId=$this->userId();
+        }
+        
+        if (file_exists($this->imagePath.$userId.'.jpg')){
+            return '<img src="'.$this->imageUrl.$userId.'_small.jpg" />';
+        } else {
+            return '<img src="'.$this->imageUrl.'default_small.jpg" />';
+        }
+    }
 
 
    /**
