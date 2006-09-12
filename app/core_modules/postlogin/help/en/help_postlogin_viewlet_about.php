@@ -6,7 +6,7 @@
     <title>Postlogin and prelogin screens</title>
     <meta name="Keywords" content="qarbon,viewlet,viewletbuilder, demo software, animation software, on line training, flash tutorial, flash demo, multimedia presentation, interactive software, training, software, online presentation, it help desk software, presentation software, learning software, online documentation, simulation software, viewlets" />
     <meta name="Description" content="text" />
-    <script language="JavaScript">
+    <script language="JavaScript" type="text/javascript">
 
        function emailscore( version, emailto, viewletname, totalquestions, correctanswers, numofattempts, totalscore, username ) {
       var url = "http://jsp.qarbon.com/viewletbuilder.jsp?action=send_score_emails&country=us&version="+version+"&emailto="+emailto+"&viewletname="+viewletname+"&totalquestions="+totalquestions+"&correct_answers="+correctanswers+"&numofattempts="+numofattempts+"&totalscore="+totalscore+"&username="+username;
@@ -142,7 +142,7 @@
 
 
 
-  
+
     <style type="text/css" media="screen"><!--
       .horizontal { background-image: url(resources/horizontal_slice.gif) }
       .verticalL { background-image: url(resources/vertical_slice_left.gif) }
@@ -179,11 +179,11 @@
         <td class="shadow">&nbsp;</td>
         <td width="26" valign="top"><img src="resources/shadow_right.gif" alt="" height="10" width="26" border="0"></td>
       </tr>
-			
+
     </table>
-		
+
     </body>
-    
+
     </center>
 
 </html>

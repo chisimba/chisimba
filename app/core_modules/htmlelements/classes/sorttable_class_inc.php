@@ -1,8 +1,8 @@
-<?php 
+<?php
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 /**
 * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
 * @package htmlelements
@@ -27,7 +27,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *    $tblEntries->addHeaderCell( 'HeaderCell2' );
 *    $tblEntries->addHeaderCell( 'HeaderCell3','10%');
 * $tblEntries->endHeaderRow();
-* 
+*
 * $dbData = array( ... ); // Your table row data.
 * $oddEven = 'odd';
 * foreach( $dbData as $entry ) {
@@ -37,7 +37,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 *
 *        // Sort your column by meaning data
 *        $lnkEntry = $this->newObject( 'link', 'htmlelments' );
-*        $lnkEntry->href = Your link stuff; 
+*        $lnkEntry->href = Your link stuff;
 *        $lnkEntry->link = Your link text which get used for the sort;
 *        $tblEntries->sortData = $lnkEntry->link;
 *        $tblEntries->addCell($lnkEntry->show());
@@ -55,7 +55,7 @@ class sortTable extends object
     /**
     * @var string $name: The javascript table name
     */
-    public $name;    
+    public $name;
     /**
     * @var string $arrHeader: The table header data.
     */
@@ -64,7 +64,7 @@ class sortTable extends object
     * @var string $arrRow: The table data, for rows and cells (data and attributes)
     */
     public $arrRow;
-    
+
     /**
     * @var string $row_attributes: Allows the passing of row attributes
     * to be used in the TR tag
@@ -82,9 +82,9 @@ class sortTable extends object
     * @var string $sortData: To data to use when sorting.
     */
     public $sortData;
-    
+
     /**
-    * Constructor to establish the default values for the 
+    * Constructor to establish the default values for the
     * table properties
     */
     public function init()
@@ -98,8 +98,8 @@ class sortTable extends object
         $this->sortData = '';
         $this->arrRow = array();
         $this->name = 't';
-    } 
-    
+    }
+
     /**
     * Method to start a row
     */
@@ -110,7 +110,7 @@ class sortTable extends object
         // Start at the first cell for this row
         $this->currentCell=0;
     }
-    
+
     /**
     * Method to start a Header row
     */
@@ -118,7 +118,7 @@ class sortTable extends object
     {
         $this->arrHeader= array();
     }
-    
+
     /**
     * Method to add a cell
     *
@@ -137,7 +137,7 @@ class sortTable extends object
             'class'=>$class,'attrib'=>$attrib, 'sortData'=>$this->sortData );
         $this->sortData = '';
     }
-    
+
     /**
     * Method to add a header cell
     *
@@ -154,7 +154,7 @@ class sortTable extends object
         $this->arrHeader[]=array( 'str'=>$str, 'width'=>$width,'valign'=>$valign,'align'=>$align,
             'class'=>$class,'attrib'=>$attrib);
     }
-    
+
     /**
     * Method to end a row
     */
@@ -162,7 +162,7 @@ class sortTable extends object
     {
         $this->currentRow++;
     }
-    
+
     /**
     * Method to end a row
     */
@@ -186,7 +186,7 @@ class sortTable extends object
             $type='';
             $sortTable.= $this->AddColumn($name,$td,$align,$type);
         }
-        
+
         // Rows
         $row_attributes='';
         foreach( $this->arrRow as $row ) {
@@ -202,7 +202,7 @@ class sortTable extends object
             $sortTable.= $this->AddLineProperties( $row_attributes );
         }
         $sortTable .='</script>';
-        
+
         // Table definition stuff
         $tableAttributes = $this->_getTableAttributes();
         $sortTable .= sprintf('<table %s>', $tableAttributes );
@@ -217,10 +217,10 @@ class sortTable extends object
             $js = $this->SortRows( $this->name, $index++ );
             $th .= sprintf('<th %s><a href="javascript:%s">%s</a></th>',$thAttr,$js,$thData);
         }
-        
+
         $sortTable .= sprintf('<thead><tr %s>%s</tr></thead>', $row_attributes, $th );
         // Build Body
-        $sortTable .= sprintf('<tbody><script language="JavaScript">%s</script></tbody>', $this->WriteRows());
+        $sortTable .= sprintf('<tbody><script language="JavaScript" type="text/javascript">%s</script></tbody>', $this->WriteRows());
         $sortTable .= '</table>';
         return $sortTable;
     }
@@ -243,7 +243,7 @@ class sortTable extends object
         $attr .= $attrib ? " ".$attrib:NULL;
         return $attr;
     }
-    
+
     /**
     * Private method used to get the table attributes.
     *
@@ -281,7 +281,7 @@ class sortTable extends object
     {
         return sprintf("var %s = new SortTable('%s');\n", $this->name, $this->name);
     }
-    
+
     /**
     * Wrapper function for sorttable js.
     */
@@ -289,7 +289,7 @@ class sortTable extends object
     {
         return sprintf("%s.AddColumn('%s','%s','%s','%s');\n",$this->name,$name, $td,$align,$type);
     }
-    
+
     /**
     * Wrapper function for sorttable js.
     */
@@ -297,7 +297,7 @@ class sortTable extends object
     {
         return sprintf( "%s.AddLine('%s');\n",$this->name, implode("','",$array) );
     }
-    
+
     /**
     * Wrapper function for sorttable js.
     */
@@ -313,5 +313,5 @@ class sortTable extends object
     {
         return sprintf( "%s.AddLineProperties('%s');\n", $this->name, $prop );
     }
-} 
+}
 ?>
