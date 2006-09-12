@@ -1,7 +1,7 @@
 <?php
 
 $charset = "utf-8";
-$mime = "text/xml";
+$mime = "text/html";
 
 if (!isset($pageLanguage)) {
     $languageClass =& $this->getObject('language', 'language');
