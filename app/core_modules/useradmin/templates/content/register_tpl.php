@@ -1,4 +1,4 @@
-<script Language="JavaScript">
+<script Language="JavaScript" type="text/javascript">
 <!--
 function invalidString(s,type){
   if (type == "name" || type == "surname"){
