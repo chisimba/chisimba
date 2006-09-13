@@ -362,7 +362,7 @@ function checkWindowOpener()
         $this->setVarByRef('defaultValue', $defaultValue);
         
         $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressToolbar', TRUE);
+        $this->setVar('pageSuppressBanner', TRUE);
         return 'popup_showfilewindow_tpl.php';
     }
     
@@ -434,7 +434,7 @@ function checkWindowOpener()
         $this->setVarByRef('defaultValue', $defaultValue);
         
         $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressToolbar', TRUE);
+        $this->setVar('pageSuppressBanner', TRUE);
         return 'fckeditor_showfilewindow_tpl.php';
     }
     /**

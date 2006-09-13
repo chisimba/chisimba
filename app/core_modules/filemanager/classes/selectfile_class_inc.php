@@ -60,7 +60,7 @@ class selectfile extends object
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('windowpop', 'htmlelements');
         
-        $this->widthOfInput = 60;
+        $this->widthOfInput = '80%';
     }
     
     /**
@@ -153,8 +153,7 @@ class selectfile extends object
         
         $textinput = new textinput ('selectfile_'.$this->name, $defaultName);
         $textinput->setId('selectfile_'.$this->name);
-        $textinput->extra = ' readonly="true"';
-        $textinput->size = $this->widthOfInput;
+        $textinput->extra = ' readonly="true" style="width:'.$this->widthOfInput.'" ';
         
         return $input->show().$textinput->show().' &nbsp; '.$objPop->show();
     }
