@@ -41,9 +41,9 @@ class htmlcleaner  extends object
      * @access public
      * @author Wesley Nitsckie
      */
-    public function cleanHtml($hmtl = NULL)
+    public function cleanHtml($html = NULL)
     {
-        if(is_null($hmtl))
+        if(is_null($html))
         {
             return $html;
         } else {
