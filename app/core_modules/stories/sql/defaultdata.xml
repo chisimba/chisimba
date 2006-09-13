@@ -30,7 +30,7 @@ stories to the prelogin category.</mainText>
         <language>en</language>
         <title>Welcome to Chisimba</title>
         <abstract>Welcome to Chisimba, a rapid application development platform and next generation framework produced by the African Virtual Open Initiatives and Resources (AVOIR) project.</abstract>
-        <mainText>&lt;p&gt;Chisimba is an advanced rapid application development platform and next generation framework with features similar to common proprietary systems. It is free software (open source) released under the GNU GPL, and available for download via cvs checkout from http://cvs2.uwc.ac.za/ .&lt;/p&gt;&lt;p&gt;Chisimba was developed based on several years of experience in software design and architecture at the University of the Western Cape and partner institutions using its predecessor KEWL.NextGen, and is under active development by a team of developers in 16 African higher education institutions.&lt;/p&gt;</mainText>
+        <mainText>Chisimba is an advanced rapid application development platform and next generation framework with features similar to common proprietary systems. It is free software (open source) released under the GNU GPL, and available for download via cvs checkout from http://cvs2.uwc.ac.za/ . Chisimba was developed based on several years of experience in software design and architecture at the University of the Western Cape and partner institutions using its predecessor KEWL.NextGen, and is under active development by a team of developers in 16 African higher education institutions.</mainText>
         <dateCreated>2005-04-20 12:04:35</dateCreated>
         <creatorId>1</creatorId>
         <expirationDate>2020-04-21 00:00:00</expirationDate>
