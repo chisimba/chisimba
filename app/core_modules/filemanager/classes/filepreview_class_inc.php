@@ -213,7 +213,15 @@ class filepreview extends object
                     $this->objFeed = $this->getObject('feeds', 'feed');
                     $feed = $this->objFeed->importString($contents);
                     
-                    $content = '';
+                    $link = new link ($feed->link());
+                    $link->link = $feed->title();
+                    $link->title = $feed->description();
+                    
+                    // Some replacement to make it XHTML compliant
+                    $url = str_replace('&amp;', '&', $link->show());
+                    $url = str_replace('&', '&amp;', $url);
+                        
+                    $content = '<h1>'.$url.'</h1>';
                     
                     foreach ($feed->items as $item)
                     {
