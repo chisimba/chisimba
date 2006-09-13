@@ -120,7 +120,7 @@ class sidemenu extends object
         $this->objHead->str = $this->objUser->fullName();
         $menu = $this->objHead->show();
 
-        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" /></p>';
+        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
 
         $menu .= $this->getMenuList($menus);
         return $menu;
