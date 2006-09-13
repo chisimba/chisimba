@@ -80,6 +80,7 @@ class filefolder extends object
             case 'mdb': // MS Access Database
             case 'vsd': // Visio
             case 'chm': // Windows Help Files
+            case 'rss': // RSS Feeds
                 return 'documents'; break;
             case 'mm': 
                 return 'freemind'; break;

@@ -50,8 +50,10 @@ class uploadmessages extends object
         // Check each file for result
         foreach ($results as $file)
         {
-            if ($file['overwrite']) {
+            if (array_key_exists('overwrite', $file) && $file['overwrite']) {
                 $overwrite = TRUE;
+            } else {
+                $overwrite = FALSE;
             }
             
             if ($file['success'] == TRUE) {

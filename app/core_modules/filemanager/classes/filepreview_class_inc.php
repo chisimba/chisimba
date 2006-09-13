@@ -21,6 +21,7 @@ class filepreview extends object
         $this->objThumbnails = $this->getObject('thumbnails');
         $this->objConfig =& $this->getObject('altconfig', 'config');
         $this->objFileEmbed =& $this->getObject('fileembed');
+        $this->loadClass('link', 'htmlelements');
     }
     
     /**
@@ -178,11 +179,16 @@ class filepreview extends object
             
             $content = stripslashes($objGeshi->show());
             
+            $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
+            $content = $objCleaner->cleanHtml($content);
+            
             // Write to File to Prevent Server Straim
             $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
             $handle = fopen($filename, 'w');
             fwrite($handle, $content);
             fclose($handle);
+            
+            
             
             return $content;
         }
@@ -193,7 +199,51 @@ class filepreview extends object
     */
     function showDocument()
     {
-        return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+        switch($this->file['datatype']) {
+            case 'rss':
+                if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm')) {
+                    include($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm');
+                    break;
+                } else {
+                    // Open File, Read Contents, Close
+                    $handle = fopen ($this->file['path'], "r"); 
+                    $contents = fread ($handle, filesize ($this->file['path'])); 
+                    fclose ($handle);
+                    
+                    $this->objFeed = $this->getObject('feeds', 'feed');
+                    $feed = $this->objFeed->importString($contents);
+                    
+                    $content = '';
+                    
+                    foreach ($feed->items as $item)
+                    {
+                        $link = new link ($item->link());
+                        $link->link = $item->title();
+                        
+                        // Some replacement to make it XHTML compliant
+                        $url = str_replace('&amp;', '&', $link->show());
+                        $url = str_replace('&', '&amp;', $url);
+                        
+                        $content .= '<p><strong>'.$url.'</strong><br />';
+                        $content .= $item->description().'</p>';
+					}
+                    
+                    $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
+                    $content = $objCleaner->cleanHtml($content);
+                    
+                    // Write to File to Prevent Server Straim
+                    $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+                    $handle = fopen($filename, 'w');
+                    fwrite($handle, $content);
+                    fclose($handle);
+                    
+                    return $content;
+                    break;
+                }
+            default: 
+                return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+        }
+        
     }
 
 }
