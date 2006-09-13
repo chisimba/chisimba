@@ -187,7 +187,8 @@ class modulesadmin extends dbTableManager
                             .'/'.$directory
                             .'/';
                         if (!is_dir($path)) {
-                            mkdir($path, 0777);
+                            $objMkdir = $this->getObject('mkdir', 'files');
+                            $objMkdir->mkdirs($path);
                         }
                     }
                 }
