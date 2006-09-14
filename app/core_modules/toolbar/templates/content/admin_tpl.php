@@ -12,6 +12,7 @@ $this->setLayoutTemplate('admin_layout_tpl.php');
 // set up html elements
 $this->objLanguage =& $this->getObject('language','language');
 $tab =& $this->newObject('tabbedbox', 'htmlelements');
+$tabpane =& $this->newObject('tabpane', 'htmlelements');
 $objIcon =& $this->newObject('geticon', 'htmlelements');
 $objLink =& $this->newObject('link', 'htmlelements');
 $objTable =& $this->newObject('htmltable', 'htmlelements');
@@ -84,14 +85,14 @@ if(!empty($modules)){
                 $objTable->addCell($objLink->show(), '', 'bottom', 'center');
             }
             $objTable->endRow();
-
-            $tab->tabbedbox();
+			$tab->tabbedbox();
             $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'));
             $tab->addBoxContent($objTable->show());
             $str .= $tab->show();
+            $tabpane->addTab(array('name'=>$this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'url'=>'http://localhost','content' => $str),'luna-tab-style-sheet');
         }
     }
 }
-
+ $str = $tabpane->show();
 echo $str;
 ?>
