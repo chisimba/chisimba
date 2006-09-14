@@ -442,7 +442,7 @@ class modulecatalogue extends controller
     			$registerdata=$this->objModFile->readRegisterFile($filepath);
     			if ($registerdata) {
     				// Here we get a list of modules that depend on this one
-    				$depending=$this->objModule->checkForDependentModules($modname);
+    				$depending=$this->objModule->getDependencies($modname);
     				if (count($depending)>0) {
     					foreach ($depending as $line) {
     						$result=$this->smartDeregister($line);
@@ -451,7 +451,7 @@ class modulecatalogue extends controller
     						}
     					}
     				}
-    				$regResult= $this->objModuleAdmin->unInstall($modname,$registerdata);
+    				$regResult= $this->objModuleAdmin->uninstallModule($modname,$registerdata);
     				if ($regResult) {
     					$this->output .= str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_deregconfirm','modulecatalogue'));
     				}
