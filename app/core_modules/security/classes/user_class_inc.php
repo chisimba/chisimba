@@ -20,9 +20,12 @@ class user extends dbTable
     private $imagePath;
     private $imageUrl;
 
+    /**
+    * Constructor
+    */
     public function init()
     {
-        parent::init("tbl_users");
+        parent::init('tbl_users');
         $this->objConfig=&$this->getObject('altconfig','config');
         $this->objLanguage =& $this->getObject('language', 'language');
         $this->loggedInUsers =& $this->getObject('loggedInUsers');
@@ -42,13 +45,13 @@ class user extends dbTable
         // See if they want to login via LDAP
         if (isset($_POST['useLdap'])) {
             $useLdap=$_POST['useLdap'];
-            if ($useLdap="yes") {
-                $result="ldap";
+            if ($useLdap='yes') {
+                $result='ldap';
             } else {
-                $result="default";
+                $result='default';
             }
         } else {
-            $result="default";
+            $result='default';
         }
         return $result;
     }
@@ -68,12 +71,12 @@ class user extends dbTable
         //$password = sha1(trim($password)); //we don't do this here, we do it later.
         // Login via the chosen method
         switch($this->loginMethod()) {
-            case "ldap":
+            case 'ldap':
                 return $this->loginViaLdap($username, $password);
-            case "default":
+            case 'default':
                 return $this->loginViaDatabase($username, $password);
             default:
-                die("Unknown login method");
+                die('Unknown login method');
         }
     }
 
@@ -143,33 +146,65 @@ class user extends dbTable
             }
         }
         return false;
-   }
-
-   public function storeInSession()
-   {
+    }
+   
+    /**
+    * Method to store user information in a session
+    * User Information is stored in a session to prevent unnecessary database calls
+    */
+    private function storeUserSession()
+    {
         $this->setSession('isLoggedIn',TRUE);
         $username = $this->_record['username'];
         $this->setSession('username',$username);
-        $userId=$this->_record['userid'];
-        $this->setSession('userid',$userId);
+        $this->setSession('userid', $this->_record['userid']);
+        
         //$this->setSession('password',$this->getParam('password', ''));
+        
         $title = stripcslashes($this->_record['title']);
         $this->setSession('title',$title);
         $firstname = stripcslashes($this->_record['firstname']);
         $surname = stripcslashes($this->_record['surname']);
         $this->setSession('name',$firstname.' '.$surname);
         $logins = $this->_record['logins'];
-        $logins=$logins + 1;
-        $this->setSession('logins',$logins);
+        $this->setSession('logins', $this->_record['logins']);
         $email = stripcslashes($this->_record['emailaddress']);
         $this->setSession('email',$email);
+    }
+    
+    /**
+    * Method to Update the Session Details for the Current User
+    */
+    public function updateUserSession()
+    {
+        if ($this->isLoggedIn()) { // check if logged in
+            $record = $this->getRow('userid', $this->userId()); // Get Fresh Details
+            
+            if ($record != FALSE) { // Check against errors
+                $this->_record = $record; // Update Details
+                $this->storeUserSession();
+            }
+        }
+    }
+
+    /**
+    * Method to store User Information in a session upon authentication
+    */
+    public function storeInSession()
+    {
+        $this->storeUserSession();
+        
+        $logins = $this->_record['logins'];
+        $logins=$logins + 1;
+        $this->setSession('logins',$logins);
+        
         $this->setSession('context','lobby');
         // Update the login history table
-        $this->userLoginHistory->addHistoryEntry($userId);
+        $this->userLoginHistory->addHistoryEntry($this->userId());
         // Update the users table with the new login count
-        $this->update("userid", $userId, array('logins'=>$logins));
+        $this->update('userid', $this->userId(), array('logins'=>$logins));
         // ---- Insert into the loggedinusers table
-        $this->loggedInUsers->insertLogin($userId);
+        $this->loggedInUsers->insertLogin($this->userId());
         //if ($this->userGroups->isAdministrator($userId)) {
         if ((isset($this->_record['accesslevel']))&&($this->_record['accesslevel']=='1')) {
             $this->setSession('isAdmin',TRUE);
@@ -178,11 +213,11 @@ class user extends dbTable
         }
    }
 
-   /**
-   * Method to do the LDAP login against an LDAP database
-   * @param string $username The username supplied in the login
-   * @param string $password The password supplied in the login
-   */
+    /**
+    * Method to do the LDAP login against an LDAP database
+    * @param string $username The username supplied in the login
+    * @param string $password The password supplied in the login
+    */
     public function loginViaLdap($username, $password)
     {
         $objldap=$this->newObject('ldaplogin','security');
@@ -245,35 +280,35 @@ class user extends dbTable
        $this->objSkin->setSession('skin', $skin);
     }
 
-   /**
-   * Method to update the curren't user's active timestamp in the
-   * tbl_loggedinusers table
-   */
-   public function updateLogin() {
+    /**
+    * Method to update the curren't user's active timestamp in the
+    * tbl_loggedinusers table
+    */
+    public function updateLogin() {
         $this->loggedInUsers->doUpdateLogin($this->userId());
         // also clear inactive users whilst updating this one
         $this->loggedInUsers->clearInactive();
-   }
+    }
 
-   /**
-   * Method to return the time logged in for the active user
-   */
-   public function myTimeOn() {
+    /**
+    * Method to return the time logged in for the active user
+    */
+    public function myTimeOn() {
         return $this->loggedInUsers->getMyTimeOn($this->userId());
-   }
+    }
 
-   /**
-   * Method to verify that the user should still be logged in
-   */
-   public function notExpired()
-   {
-       return TRUE;
-       $inactiveTime=$this->loggedInUsers->getInactiveTime($this->userId());
-       if (($inactiveTime>$this->objConfig->systemTimeout())){
-           return FALSE;
-       } else {
-           return TRUE;
-       }
+    /**
+    * Method to verify that the user should still be logged in
+    */
+    public function notExpired()
+    {
+        return TRUE;
+        $inactiveTime=$this->loggedInUsers->getInactiveTime($this->userId());
+        if (($inactiveTime>$this->objConfig->systemTimeout())){
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
     /**
@@ -287,25 +322,26 @@ class user extends dbTable
         $this->objGroups->addGroupUser($groupId,$id);
     }
 
-   /**
-   * Property to return login status. It returns TRUE if the
-   * user is logged in and FALSE if not. This method has no
-   * parameters.
-   */
-   public function isLoggedIn() {
-      $loggedIn=$this->getSession('isLoggedIn');
-      if ($loggedIn){
-          if ($this->notExpired()){
-              $ret = $loggedIn;
-              return $ret;
-          } else {
-              $this->logout();
-              return FALSE;
-          }
-      } else {
-         return FALSE;
-      }
-   }
+    /**
+    * Property to return login status. It returns TRUE if the
+    * user is logged in and FALSE if not. This method has no
+    * parameters.
+    */
+    public function isLoggedIn()
+    {
+        $loggedIn=$this->getSession('isLoggedIn');
+        if ($loggedIn){
+            if ($this->notExpired()){
+                $ret = $loggedIn;
+                return $ret;
+            } else {
+                $this->logout();
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
+    }
 
 
     /**
@@ -338,13 +374,13 @@ class user extends dbTable
         }
     }
 
-   /**
-   * This method looks in the database to see if the user is a site-admin or not.
-   * Don't confuse it with the isAdmin() function above, which checks session data.
-   * @author James Scoble
-   * @param string $userId
-   * @returns boolean TRUE or FALSE
-   */
+    /**
+    * This method looks in the database to see if the user is a site-admin or not.
+    * Don't confuse it with the isAdmin() function above, which checks session data.
+    * @author James Scoble
+    * @param string $userId
+    * @returns boolean TRUE or FALSE
+    */
     public function lookupAdmin($userId)
     {
         $sql="SELECT accesslevel from tbl_users where userid='$userId'";
@@ -358,14 +394,14 @@ class user extends dbTable
         }
     }
 
-   /**
-   * This method consults functions in the groupadmin module's classes to see if the user is a site-admin or not.
-   * Don't confuse it with the isAdmin() function above, which checks session data, or the lookupAdmin() function,
-   * which looks in the tbl_users table.
-   * @author James Scoble
-   * @param string $userId
-   * @returns boolean TRUE or FALSE
-   */
+    /**
+    * This method consults functions in the groupadmin module's classes to see if the user is a site-admin or not.
+    * Don't confuse it with the isAdmin() function above, which checks session data, or the lookupAdmin() function,
+    * which looks in the tbl_users table.
+    * @author James Scoble
+    * @param string $userId
+    * @returns boolean TRUE or FALSE
+    */
     public function inAdminGroup($userId,$group='Site Admin')
     {
         $objGroupModel=&$this->getObject('groupadminmodel','groupadmin');
@@ -433,57 +469,59 @@ class user extends dbTable
     * @parm string $PKId the primary key Id
     * @returns string $userId the user Id
     */
-     public function getItemFromPkId($PKId,$field='userid')
-     {
-         $data=$this->getRow('id', $PKId);
-         return $data[$field];
-     }
+    public function getItemFromPkId($PKId,$field='userid')
+    {
+        $data=$this->getRow('id', $PKId);
+        return $data[$field];
+    }
 
 
-   /**
-   * This method returns the username of a given user. It takes
-   * the userId of a user as a parameter but defaults to the
-   * userId of the currently logged-in user if none is supplied.
-   * This replaces the lookup capabilities of the PEOPLE object of
-   * KEWL 1.2. It can thus be used to lookup the userName of another
-   * user.
-   * @param string $userId The numeric ID of a user, it defaults
-   * to the userId of the current user when $numID is NULL.
-   */
-   public function userName($userId=FALSE) { //use FALSE as the default and evaluate
-       if (!$userId) {
-           $userName=$this->getSession('username');
-           if ($userName) {
-               $ret = $userName;
-           } else {
-               $ret =  $this->objLanguage->languageText("error_notloggedin");
-           }
-       } else {
-           //look up third part numeric ID
-           $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
-           $rs = $this->query($sql);
-           if ($rs) {
-               $line = $rs->fetchRow();
-               $ret=$line["userName"];
-           } else {
-               $ret=$this->objLanguage->languageText("error_datanotfound");
-           }
-       }
-       return $ret;
-   }
+    /**
+    * This method returns the username of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    * This replaces the lookup capabilities of the PEOPLE object of
+    * KEWL 1.2. It can thus be used to lookup the userName of another
+    * user.
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user when $numID is NULL.
+    */
+    public function userName($userId=FALSE) //use FALSE as the default and evaluate
+    { 
+        if (!$userId) {
+            $userName=$this->getSession('username');
+            if ($userName) {
+                $ret = $userName;
+            } else {
+                $ret =  $this->objLanguage->languageText("error_notloggedin");
+            }
+        } else {
+            //look up third part numeric ID
+            $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
+            $rs = $this->query($sql);
+            if ($rs) {
+                $line = $rs->fetchRow();
+                $ret=$line["userName"];
+            } else {
+                $ret=$this->objLanguage->languageText("error_datanotfound");
+            }
+        }
+        return $ret;
+    }
 
-   /**
-   * This method returns the full name of a given user. It takes
-   * the userId of a user as a parameter but defaults to the
-   * userId of the currently logged-in user if none is supplied.
-   * This replaces the lookup capabilities of the PEOPLE object of
-   * KEWL 1.2. It can thus be used to lookup the userName of another
-   * user.
-   * @param string $userId The numeric ID of a user, it defaults
-   * to the userId of the current user by setting it to NULL as
-   * default.
-   */
-   public function fullname($userId=NULL) {  //use NULL as the default and evaluate
+    /**
+    * This method returns the full name of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    * This replaces the lookup capabilities of the PEOPLE object of
+    * KEWL 1.2. It can thus be used to lookup the userName of another
+    * user.
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    */
+    public function fullname($userId=NULL) //use NULL as the default and evaluate
+    {  
         if (!$userId) {
             $fullname=$this->getSession('name');
             if ($fullname) {
@@ -505,38 +543,39 @@ class user extends dbTable
             }
         }
         return $result;
-   }
-
-   /**
-   * This method returns the email address of a given user. It takes
-   * the userId of a user as a parameter but defaults to the
-   * userId of the currently logged-in user if none is supplied.
-   * This replaces the lookup capabilities of the PEOPLE object of
-   * KEWL 1.2. It can thus be used to lookup the userName of another
-   * user.
-   * @param string $userId The numeric ID of a user, it defaults
-   * to the userId of the current user by setting it to NULL as
-   * default.
-   */
-   public function email($userId=NULL) {  //use NULL as the default and evaluate
-    if (!$userId){
-        $email=$this->getSession('email');
-        if ($email) {
-            $ret = $email;
-        } else {
-            $ret = $this->objLanguage->languageText("error_notloggedin");
-        }
-    } else {
-        $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
-        $rs = $this->query($sql);
-        if ($rs) {
-            $line = $rs->fetchRow();
-            $ret=$line["emailaddress"];
-        } else {
-            $ret=$this->objLanguage->languageText("error_datanotfound");
-        }
     }
-    return $ret;
+
+    /**
+    * This method returns the email address of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    * This replaces the lookup capabilities of the PEOPLE object of
+    * KEWL 1.2. It can thus be used to lookup the userName of another
+    * user.
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    */
+    public function email($userId=NULL)//use NULL as the default and evaluate
+    {  
+        if (!$userId){
+            $email=$this->getSession('email');
+            if ($email) {
+                $ret = $email;
+            } else {
+                $ret = $this->objLanguage->languageText("error_notloggedin");
+            }
+        } else {
+            $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
+            $rs = $this->query($sql);
+            if ($rs) {
+                $line = $rs->fetchRow();
+                $ret=$line["emailaddress"];
+            } else {
+                $ret=$this->objLanguage->languageText("error_datanotfound");
+            }
+        }
+        return $ret;
     }
 
     /**
@@ -544,18 +583,19 @@ class user extends dbTable
     * is currently logged in
     * This function has been simplified down now that it calls getSession
     */
-    public function userId() {
+    public function userId()
+    {
         return $this->getSession('userid');
     }
 
 
-   /**
-   * Return whether or not the specified user is Active
-   * @param string $userId
-   * @returns TRUE|FALSE
-   */
-   public function isActive($userId)
-   {
+    /**
+    * Return whether or not the specified user is Active
+    * @param string $userId
+    * @returns TRUE|FALSE
+    */
+    public function isActive($userId)
+    {
         $sql="SELECT isactive from tbl_users where userid='$userId'";
         $rows=$this->getArray($sql);
         if (!empty($rows)&&($rows[0]['isActive']=='1')){
@@ -563,15 +603,15 @@ class user extends dbTable
         } else {
             return FALSE;
         }
-   }
+    }
 
-   /**
-   * Return how the specified user account was created
-   * @param string $userId
-   * @returns string $howCreated
-   */
-   public function howCreated($userId)
-   {
+    /**
+    * Return how the specified user account was created
+    * @param string $userId
+    * @returns string $howCreated
+    */
+    public function howCreated($userId)
+    {
         $sql="SELECT howcreated from tbl_users where userid='$userId'";
         $return=$this->getArray($sql);
         if (isset($return[0])){
@@ -579,16 +619,17 @@ class user extends dbTable
         } else {
             return FALSE;
         }
-   }
+    }
 
-   /**
-   * Return the number of times a current user has logged
-   * into the site.
-   * @param string $userId The numeric ID of a user, it defaults
-   * to the userId of the current user by setting it to NULL as
-   * default.
-   */
-   public function logins($userId=NULL) {
+    /**
+    * Return the number of times a current user has logged
+    * into the site.
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    */
+    public function logins($userId=NULL)
+    {
         if (!$userId) {
             $logins=$this->getSession('logins');
             if ($logins){
@@ -609,15 +650,16 @@ class user extends dbTable
        return $ret;
     }
 
-   /**
-   * Return the last login date for the current user
-   */
-   public function getLastLoginDate($userId=NULL) {
+    /**
+    * Return the last login date for the current user
+    */
+    public function getLastLoginDate($userId=NULL)
+    {
         if (!$userId) {
             $userId=$this->userId();
         }
         return $this->userLoginHistory->doGetLastLogin($userId);
-   }
+    }
 
 
     /**
@@ -675,124 +717,128 @@ class user extends dbTable
     }
 
 
-   /**
-   * Method to check if this user has context Author access
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user has context Author access.
-   */
-   public function isContextAuthor()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->hasContextPermission( 'isAuthor' );
-   }
-   /**
-   * Method to check if this user has context Editor access
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user has context Editor access.
-   */
-   public function isContextEditor()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->hasContextPermission( 'isEditor' );
-   }
-   /**
-   * Method to check if this user has context Reader access
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is has context Readre access.
-   */
-   public function isContextReader()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->hasContextPermission( 'isReader' );
-   }
+    /**
+    * Method to check if this user has context Author access
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user has context Author access.
+    */
+    public function isContextAuthor()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->hasContextPermission( 'isAuthor' );
+    }
+   
+    /**
+    * Method to check if this user has context Editor access
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user has context Editor access.
+    */
+    public function isContextEditor()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->hasContextPermission( 'isEditor' );
+    }
+   
+    /**
+    * Method to check if this user has context Reader access
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is has context Readre access.
+    */
+    public function isContextReader()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->hasContextPermission( 'isReader' );
+    }
 
-   /**
-   * Method to check if this user is a context Lecturer
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the context lecturers group.
-   */
-   public function isContextLecturer()
-   {
+    /**
+    * Method to check if this user is a context Lecturer
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the context lecturers group.
+    */
+    public function isContextLecturer()
+    {
        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
        return $objContextPermissions->isContextMember( 'Lecturers' );
-   }
+    }
 
-   /**
-   * This method checks if a user
-   * is a cours administrator ie. eithere
-   * a lecturere are an administrator
-   */
-   public function isCourseAdmin()
-   {
-       if($this->isContextLecturer || $this->IsAdmin())
-       {
-           return true;
-        }
-       else
-       {
-           return false;
+    /**
+    * This method checks if a user
+    * is a cours administrator ie. eithere
+    * a lecturere are an administrator
+    */
+    public function isCourseAdmin()
+    {
+        if($this->isContextLecturer || $this->IsAdmin())
+        {
+            return true;
+        } else {
+            return false;
         }
     }
-   /**
-   * Method to check if this user is a context Student
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the context Students group.
-   */
-   public function isContextStudent()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isContextMember( 'Students' );
-   }
-   /**
-   * Method to check if this user is a context Lecturers
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the context Guest group.
-   */
-   public function isContextGuest()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isContextMember( 'Guest' );
-   }
+    
+    /**
+    * Method to check if this user is a context Student
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the context Students group.
+    */
+    public function isContextStudent()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->isContextMember( 'Students' );
+    }
 
-   /**
-   * Method to check if this user is a site Lecturer
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the site lecturers group.
-   */
-   public function isLecturer()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isMember( 'Lecturers' );
-   }
-   /**
-   * Method to check if this user is a site Student
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the site Students group.
-   */
-   public function isStudent()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isMember( 'Students' );
-   }
-   /**
-   * Method to check if this user is a site Lecturers
-   * @author Jonathan Abrahams
-   * @since 9 March 2005
-   * @return true|false Return true if this user is a member of the site Guest group.
-   */
-   public function isGuest()
-   {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isMember( 'Guest' );
-   }
+    /**
+    * Method to check if this user is a context Lecturers
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the context Guest group.
+    */
+    public function isContextGuest()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->isContextMember( 'Guest' );
+    }
+
+    /**
+    * Method to check if this user is a site Lecturer
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the site lecturers group.
+    */
+    public function isLecturer()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->isMember( 'Lecturers' );
+    }
+
+    /**
+    * Method to check if this user is a site Student
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the site Students group.
+    */
+    public function isStudent()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->isMember( 'Students' );
+    }
+
+    /**
+    * Method to check if this user is a site Lecturers
+    * @author Jonathan Abrahams
+    * @since 9 March 2005
+    * @return true|false Return true if this user is a member of the site Guest group.
+    */
+    public function isGuest()
+    {
+        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        return $objContextPermissions->isMember( 'Guest' );
+    }
 
 }
 ?>
