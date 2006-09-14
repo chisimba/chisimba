@@ -1,5 +1,5 @@
 <?php
-/* ----------- data class extends dbTable for tbl_userparamsadmin------------*/
+
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
     {
