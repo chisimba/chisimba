@@ -1,7 +1,7 @@
 <?php
 /* -------------------- LANGUAGE CLASS ----------------*/
 /*Description of file
-  *This is a Language class for kewlNextGen
+  *This is a Language class 
   *@author Prince Mbekwa, Paul Scott
   *@copyright (c) 200-2004 University of the Western Cape
   *@Version 0.1
@@ -10,9 +10,9 @@
 
 /**
 *Description of the class
-* Language class for KEWL.NextGen. Provides language translation methods,
-* the main one being to call the language translation for a particular
-* language code.
+* Language class for Chisimba. Provides language translation methods,
+* the main one being to call the PEAR language translation object for a particular
+* language items which are then converted to any translated language .
 *
 */
 class language extends dbTable {

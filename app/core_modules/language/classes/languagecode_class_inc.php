@@ -1,12 +1,13 @@
 <?
 /**
-*This is a Language class for kewlNextGen
+*This is a Languagecode class 
 *@author Prince Mbekwa and Tohir Solomons 
 *@copyright (c) 200-2004 University of the Western Cape
 *@Version 1
 */
 
 /**
+ *Description of the class
 * This class converts retrieves the name of a language by providing the ISO code and also vice versa
 *
 * The original list of code was taken from a class written by Florian Breit (florian at phpws dot org): 
@@ -157,7 +158,7 @@ class languagecode extends object
 		$this->objselect->attributes['select']['onchange'] = 'this.form.submit()';
 		
 		// set a selected entry
-			$language = strtoupper($this->objConfig->getCountry());
+		$language = strtoupper($this->objConfig->getCountry());
 		$this->objselect->selected["{$$language}"] = true;
 		
 		// print a HTML safe select box

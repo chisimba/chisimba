@@ -1,7 +1,7 @@
 <?PHP
 /* -------------------- LANGUAGE CONFIG CLASS ----------------*/
 /*Description of file
-  *This is a Language config class for kewlNextGen
+  *This is a Language config class 
   *@author Prince Mbekwa
   *@copyright (c) 200-2006 University of the Western Cape
   *@Version 0.1
@@ -12,7 +12,7 @@ require_once 'Translation2.php';
 define('TABLE_PREFIX', 'tbl_');
 
 /**
-*Language Config class for KEWL.NextGen. Provides language setup properties,
+*Language Config class for chisimba. Provides language setup properties,
 * the main one being to call the PEAR Translation2 object and setup
 * all language table layouts.
 * Setup all locales
