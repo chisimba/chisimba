@@ -1,7 +1,7 @@
 <?
 /**
 *This is a Languagecode class 
-*@author Prince Mbekwa and Tohir Solomons 
+*@author Prince Mbekwa
 *@copyright (c) 200-2004 University of the Western Cape
 *@Version 1
 */
@@ -135,7 +135,7 @@ class languagecode extends object
     	    	
     }//end function
     /**
-     *  Function provides decorated classes for country and language lists.
+     *  Function provides country and language lists.
      *
      * @return dropdown of countrues
      */
@@ -150,7 +150,11 @@ class languagecode extends object
 		// print a HTML safe select box
 		return  $this->objselect->getAllCodes();
     }
-    
+    /**
+     *  Function provides decorated classes for country and language lists.
+     *
+     * @return dropdown of countrues
+     */
     public function dec_country()
     {
     	// set some attributes
@@ -159,7 +163,7 @@ class languagecode extends object
 		
 		// set a selected entry
 		$language = strtoupper($this->objConfig->getCountry());
-		$this->objselect->selected["{$$language}"] = true;
+		$this->objselect->selected["{$language}"] = true;
 		
 		// print a HTML safe select box
 		return  $this->objselect->getAllCodes();
