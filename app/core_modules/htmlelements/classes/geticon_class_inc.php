@@ -121,7 +121,7 @@ class getIcon extends object implements ifhtml
             $this->iconfolder = $this->_objSkin->getSkinUrl().$folder;
         } else {
             // else set folder to be the _common skin
-            if (file_exists($this->_objConfig->getskinRoot().'_common/'.$filename)){
+            if (file_exists($this->_objConfig->getsiteRootPath().$this->_objConfig->getskinRoot().'_common/'.$filename)){
             	$this->iconfolder = $this->_objConfig->getskinRoot().'_common/'.$folder;
             } else {
             	$this->iconfolder = $this->_objConfig->getskinRoot().'_common/icons/';
