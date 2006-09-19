@@ -295,3 +295,7 @@ hr {margin: 1em 0;background:#f2f2f2;height:1px;color:#f2f2f2;border:none;clear:
 #footer {clear:both;border-top: 1px solid #E3E8EE;padding: 10px 0 30px;font-size:86%;color:#999}
 	#footer p {margin:0}
 	#footer a:link {color:#999}
+
+#search {
+	display:none;
+}
