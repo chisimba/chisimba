@@ -35,19 +35,6 @@
 			</div>
 		        [-SKIN-]
 		        [-ENDFORM-]
-		    <div class="featurebox">
-		            <h3>Languages</h3>
-		            <table>
-		                    <tr>
-		                            <td>
-		                                    [-LANGUAGECHOOSER-]
-		                            </td>
-		                    </tr>
-		            </table>
-		     </div>
-
-
-
 		</div>
 
 		<div id="content">
@@ -59,31 +46,20 @@
 
 		<div id="leftnav">
 				<div class="featurebox">
-		            <h3>Skinz</h3>
-		            <table>
-		                <tr>
-		                    <td>
-		                        [-SKINCHOOSER-]
-		                    </td>
-		                </tr>
-		            </table>
-				</div>
-				<div class="featurebox">
 		            <h3>Our other sites</h3>
 		                <ul>
-		                    <li><a href="http://avoir.uwc.ac.za">AVOIR development site</a><br /></li>
-		                    <li><a href="http://cvs.uwc.ac.za">CVS &amp; bug tracking</a></li>
-		                    <li><a href="http://elearn.hicte.uwc.ac.za">HictE KEWL</a></li>
-		                    <li><a href="http://www.hicte.uwc.ac.za">HictE Website</a></li>
-		                    <li><a href="http://nisl.uwc.ac.za">NISL KEWL</a></li>
+		                    <li><a href="http://www.merit.unu.edu">UNU-MERIT Home</a></li>
+		                    <li><a href="http://www.unu.edu">UNU Homepage</a></li>
+		                    <li><a href="http://www.merit.unu.edu/a2k">A2K Blog</a></li>
+		                    <li><a href="http://www.merit.unu.edu/phd/">UNU-MERIT PhD</a></li>
 		                </ul>
 				 </div>
 				<div class="featurebox">
-		            <h3>Join this project</h3>
+		            <h3>Contact Us</h3>
 					<table>
 					<tr>
 						<td>
-							Email pscott at uwc dot ac dot za
+							Send email to: schmidt(at)merit.unu.edu
 						</td>
 					</tr>
 				</table>
