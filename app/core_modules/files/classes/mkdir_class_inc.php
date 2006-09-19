@@ -86,7 +86,7 @@ class mkdir extends object
     * Method to Recursively Check for Folders
     * This method takes a path, and checks that each folder in the path exists.
     * @param string $strPath Path to Check
-    * @param string $mode Mode of Path, based on umask - Optional
+    * @param int $mode Mode of Path, based on umask - Optional
     * @author Tohir Solomons
     */
     function mkdirs($strPath, $mode=NULL)
@@ -99,7 +99,7 @@ class mkdir extends object
         if (!$this->mkdirs($pStrPath, $mode)) {
             return false;
         }
-        return mkdir($strPath);
+        return mkdir($strPath, $mode);
     }
     
 } // end of class
