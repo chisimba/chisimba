@@ -125,6 +125,7 @@ class fileicons extends object
             case 'rar' : $imagename = 'rar'; break;
             case 'ra':
             case 'rm' : $imagename = 'real'; break;
+            case 'rpm' : $imagename = 'rpm'; break;
             case 'rss' : $imagename = 'rss'; break;
             case 'rtf' : $imagename = 'rtf'; break;
             case 'shockwave' : $imagename = 'shockwave'; break; // check right extension
