@@ -61,5 +61,21 @@ class wzip extends object{
           }
             
     }
+    
+    /**
+    * Method to get the list of files in an archive
+    * @param string path to zip file
+    * @return array list of files
+    */
+    public function listArchiveFiles($path)
+    {
+        $zip = new PclZip($path);
+        
+        if (($list = $zip->listContent()) == 0) {
+            return FALSE;
+        } else {
+            return $list;
+        }
+    }
 }
 ?>
