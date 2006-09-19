@@ -66,3 +66,7 @@ FCKConfig.FlashBrowserWindowHeight = 300;
 
 FCKConfig.LinkBrowserWindowWidth	= 500;
 FCKConfig.LinkBrowserWindowHeight = 300;
+
+FCKConfig.LinkUpload = false ;
+FCKConfig.ImageUpload = false ;
+FCKConfig.FlashUpload = false ;
