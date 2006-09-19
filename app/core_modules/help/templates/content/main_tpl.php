@@ -36,5 +36,5 @@ $this->helpMain->str =  "<br />".$this->helpDiv->show();
 //Add the output to the container
 echo $this->helpMain->show();
 
-echo $richhelp;
+//echo $richhelp;
 ?>

@@ -1,21 +1,18 @@
 <?php
 /* -------------------- help class extends controller ----------------*/
-// security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
-} 
 
 /**
 * Class for providing a service to other modules that want to 
 * display help
 * 
-* @author Derek Keats 
+* @author Derek Keats
+* @author Megan Watson - updated 13/09/2006 porting to 5ive 
 */
 class helplink extends object  {
 
-    var $rootModule=Null;
+    private $rootModule=Null;
     
-    function init()
+    public function init()
     {
         $this->objHelpIcon = $this->newObject('geticon','htmlelements');
         $this->rootModule = $this->getParam("module", Null);
@@ -26,7 +23,7 @@ class helplink extends object  {
     * return the name of a page body template which will render the module 
     * output (for more details see Modules and templating)
     */
-    function show($helpid)
+    public function show($helpid)
     { 
         $objSkin = & $this->getObject('skin','skin');
         $this->objHelpIcon->setModuleIcon('help');

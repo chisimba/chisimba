@@ -64,9 +64,9 @@ class help extends object  {
 
         // Check if the help for the action exists
         if(!($helpItem === FALSE)){
-            if ($this->objLanguage->valueExists('code', 'help_'.$this->rootModule.'_overview_'.$helpItem)){
+            if ($this->objLanguage->valueExists('code', 'help_'.$this->rootModule.'_overview_'.$helpItem, $module)){
                 $getAction = TRUE;
-            }else if($this->objLanguage->valueExists('code', 'help_'.$this->rootModule.'_about_'.$helpItem)){
+            }else if($this->objLanguage->valueExists('code', 'help_'.$this->rootModule.'_about_'.$helpItem, $module)){
                 $getAction = TRUE;
             }
         }
