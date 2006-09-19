@@ -42,7 +42,7 @@ class userfoldercheck extends object
             
             foreach ($this->subFolders as $folder)
             {
-                $result = $this->objMkdir->mkdirs($path.'/'.$folder);
+                $result = $this->objMkdir->mkdirs($path.'/'.$folder, 0777);
             }
             
             return $result;
