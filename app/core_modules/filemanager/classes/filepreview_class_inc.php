@@ -55,6 +55,7 @@ class filepreview extends object
             case 'flash': $preview = $this->showFlash(); break;
             case 'scripts': $preview = $this->showScript(); break;
             case 'documents': $preview = $this->showDocument(); break;
+            case 'archives': $preview = $this->showArchive(); break;
         }
         return $preview;
     }
@@ -252,6 +253,19 @@ class filepreview extends object
                 return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
         }
         
+    }
+    
+	/**
+	* Method to Preview a Zip File
+	*/
+    function showArchive()
+    {
+        if ($this->file['datatype'] == 'zip') {
+            $objArchive = $this->getObject('archivehandler');
+            return $objArchive->previewZip($this->file['path'], 'zip');
+        } else {
+            return 'No Preview Available';
+        }
     }
 
 }
