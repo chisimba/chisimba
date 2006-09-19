@@ -249,8 +249,12 @@ class filepreview extends object
                     return $content;
                     break;
                 }
+            case 'txt':
+            case 'html':
+            case 'htm':
+            	return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
             default: 
-                return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+                return NULL;
         }
         
     }
