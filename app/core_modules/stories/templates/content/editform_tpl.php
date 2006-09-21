@@ -1,4 +1,7 @@
 <?php
+
+$this->setVar('pageSuppressXML',true);
+
 //Insert a breadcrumb if they came from another module
 $objTl =& $this->getObject('tools', 'toolbar');
 $comeFrom = $this->getParam('comefrom', NULL);
@@ -153,7 +156,7 @@ $objFmTable->endRow();
 //Create a dropdown for the category selector
 $objCat = $this->newObject("dropdown", "htmlelements");
 $objCat->name = 'category_selector';
-$objCat->extra=" onChange=\"Javascript:document.storyinput.category.value=document.storyinput.category_selector.value;\"";
+$objCat->extra=" onchange=\"document.forms['storyinput'].category.value=document.forms['storyinput'].category_selector.value;\"";
 $objCat->addOption("","Clear input");
 $objCat->addFromDB($car, 'title', 'category', $category);
 
@@ -177,11 +180,11 @@ $objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnot
 //Create a dropdown for the language selector
 $objCat = $this->newObject("dropdown", "htmlelements");
 $objCat->name = 'language_selector';
-$objCat->extra=" onChange=\"Javascript:document.storyinput.language.value=document.storyinput.language_selector.value;\"";
+$objCat->extra=" onchange=\"document.forms['storyinput'].language.value=document.forms['storyinput'].language_selector.value;\"";
 $objCat->addOption("","Clear input");
 $objLangList = & $this->newObject('languagecode','language');
 $objCat->selected = $language;
-foreach ($objLangList->iso_639_2_tags as $key => $value) {
+foreach ($objLangList->iso_639_2_tags->codes as $key => $value) {
     $objCat->addOption($key, $value);
 }
 $objFmTable->addCell($objTextInput->show(). " " . $objCat->show(), NULL, "top", "left");
@@ -332,9 +335,10 @@ if ($inputType == 'plaintext') {
     $editor->height = '300px';
     $editor->width = '550px';
     //To set the basic toolbar
-    $editor->setBasicToolBar();
+    //$editor->setBasicToolBar();
     $editor->setContent($mainText);
-    $objFmTable->addCell($editor->show() . $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
+    //$objFmTable->addCell($editor->show(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
+    $objFmTable->addCell($editor->showFCKEditor(). $switchLink, NULL, "top", "center", NULL, "colspan=\"2\"");
     $objFmTable->endRow();
 
 }
