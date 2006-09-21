@@ -27,14 +27,18 @@
 		                        [-NEWPASSWORD-]
 
 			</div>
+			[-SKIN-]
+		    [-ENDFORM-]
 			<div class="featurebox">
-		            <h3>Registration</h3>
+		            <h3>Free Registration</h3>
 
 		                        [-REGISTER-]
 
 			</div>
-		        [-SKIN-]
-		        [-ENDFORM-]
+			<div class="featurebox">
+		            <h3>[-CONTEXT-]</h3>
+                    [-CONTEXTCHOOSER-]
+			</div>
 		</div>
 
 		<div id="content">
