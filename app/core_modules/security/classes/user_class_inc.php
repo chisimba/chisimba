@@ -16,7 +16,7 @@ class user extends dbTable
     private $userLoginHistory;
     //var $userGroups;
     private $_record = NULL;
-    
+
     private $imagePath;
     private $imageUrl;
 
@@ -99,9 +99,9 @@ class user extends dbTable
             tbl_users.logins,
             tbl_users.isactive,
             tbl_users.accesslevel
-        FROM 
-            tbl_users 
-        WHERE 
+        FROM
+            tbl_users
+        WHERE
             (username = '".addslashes($username)."')";
         $array=$this->getArray($sql);
         if (!empty($array))
@@ -147,7 +147,7 @@ class user extends dbTable
         }
         return false;
     }
-   
+
     /**
     * Method to store user information in a session
     * User Information is stored in a session to prevent unnecessary database calls
@@ -158,9 +158,9 @@ class user extends dbTable
         $username = $this->_record['username'];
         $this->setSession('username',$username);
         $this->setSession('userid', $this->_record['userid']);
-        
+
         //$this->setSession('password',$this->getParam('password', ''));
-        
+
         $title = stripcslashes($this->_record['title']);
         $this->setSession('title',$title);
         $firstname = stripcslashes($this->_record['firstname']);
@@ -171,7 +171,7 @@ class user extends dbTable
         $email = stripcslashes($this->_record['emailaddress']);
         $this->setSession('email',$email);
     }
-    
+
     /**
     * Method to Update the Session Details for the Current User
     */
@@ -179,7 +179,7 @@ class user extends dbTable
     {
         if ($this->isLoggedIn()) { // check if logged in
             $record = $this->getRow('userid', $this->userId()); // Get Fresh Details
-            
+
             if ($record != FALSE) { // Check against errors
                 $this->_record = $record; // Update Details
                 $this->storeUserSession();
@@ -193,11 +193,11 @@ class user extends dbTable
     public function storeInSession()
     {
         $this->storeUserSession();
-        
+
         $logins = $this->_record['logins'];
         $logins=$logins + 1;
         $this->setSession('logins',$logins);
-        
+
         $this->setSession('context','lobby');
         // Update the login history table
         $this->userLoginHistory->addHistoryEntry($this->userId());
@@ -487,7 +487,7 @@ class user extends dbTable
     * to the userId of the current user when $numID is NULL.
     */
     public function userName($userId=FALSE) //use FALSE as the default and evaluate
-    { 
+    {
         if (!$userId) {
             $userName=$this->getSession('username');
             if ($userName) {
@@ -521,7 +521,7 @@ class user extends dbTable
     * default.
     */
     public function fullname($userId=NULL) //use NULL as the default and evaluate
-    {  
+    {
         if (!$userId) {
             $fullname=$this->getSession('name');
             if ($fullname) {
@@ -531,10 +531,10 @@ class user extends dbTable
             }
         } else {
             //look up third part numeric ID
-            
-            
+
+
             $line = $this->getRow('userid', $userId);
-            
+
             if ($line)
             {
                 $result=$line['firstname'].' '.$line['surname'];
@@ -557,7 +557,7 @@ class user extends dbTable
     * default.
     */
     public function email($userId=NULL)//use NULL as the default and evaluate
-    {  
+    {
         if (!$userId){
             $email=$this->getSession('email');
             if ($email) {
@@ -665,14 +665,14 @@ class user extends dbTable
     /**
     * Method to check whether the user has a custom image or not.
     * @param string $userId User Id of the user
-    * @return boolean TRUE/FALSE 
+    * @return boolean TRUE/FALSE
     */
     public function hasCustomImage($userId=NULL)
     {
         if (!$userId) {
             $userId=$this->userId();
         }
-        
+
         return file_exists($this->imagePath.$userId.'.jpg');
     }
 
@@ -686,18 +686,41 @@ class user extends dbTable
         if (!$userId) {
             $userId=$this->userId();
         }
-        
+
         if ($forceRefresh) {
             $forceRefresh = '?'.mktime();
         }
-        
+
         if (file_exists($this->imagePath.$userId.'.jpg')){
             return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" />';
         } else {
             return '<img src="'.$this->imageUrl.'default.jpg" />';
         }
     }
-    
+
+    /**
+    * Method to return a path to the user's image
+    * @param string $userId User Id of the user
+    * @return string Image of User
+    */
+    public function getUserImageNoTags($userId=NULL, $forceRefresh=FALSE)
+    {
+        if (!$userId) {
+            $userId=$this->userId();
+        }
+
+        if ($forceRefresh) {
+            $forceRefresh = '?'.mktime();
+        }
+
+        if (file_exists($this->imagePath.$userId.'.jpg')){
+            return $this->imageUrl.$userId.'.jpg'.$forceRefresh;
+        } else {
+            return $this->imageUrl.'default.jpg';
+        }
+    }
+
+
     /**
     * Method to return a path to the small user's image
     * @param string $userId User Id of the user
@@ -708,7 +731,7 @@ class user extends dbTable
         if (!$userId) {
             $userId=$this->userId();
         }
-        
+
         if (file_exists($this->imagePath.$userId.'.jpg')){
             return '<img src="'.$this->imageUrl.$userId.'_small.jpg" />';
         } else {
@@ -728,7 +751,7 @@ class user extends dbTable
         $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->hasContextPermission( 'isAuthor' );
     }
-   
+
     /**
     * Method to check if this user has context Editor access
     * @author Jonathan Abrahams
@@ -740,7 +763,7 @@ class user extends dbTable
         $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->hasContextPermission( 'isEditor' );
     }
-   
+
     /**
     * Method to check if this user has context Reader access
     * @author Jonathan Abrahams
@@ -779,7 +802,7 @@ class user extends dbTable
             return false;
         }
     }
-    
+
     /**
     * Method to check if this user is a context Student
     * @author Jonathan Abrahams
