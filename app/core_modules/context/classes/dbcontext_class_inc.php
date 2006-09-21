@@ -341,12 +341,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     *Method to return a list
-    *of courses
+    *of public courses
     *@return array
     * @access public
     */
     public function getListOfPublicContext(){
-        //return $this->getAll('WHERE ');
+        return $this->getAll("WHERE isclosed='0' AND isactive='1' ORDER BY menutext");
     }
 
     /**
