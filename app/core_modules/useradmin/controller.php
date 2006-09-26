@@ -29,6 +29,7 @@ class useradmin extends controller
         $this->objButtons=&$this->getObject('navbuttons','navigation');
         $this->objUserAdmin=&$this->getObject('useradmin_model','security');
         $this->objUser =& $this->getObject('user', 'security');
+        $this->file =& $this->getObject('mkdir','files');        
         if ($this->objUser->isLoggedIn()){
             //Get the activity logger class
             $this->objLog=$this->newObject('logactivity', 'logger'); 
@@ -294,9 +295,14 @@ class useradmin extends controller
 	        'sex'=>$sex, 
 	        'country'=>$country,
 	        ' accesslevel'=>0,
-	        ' isActive'=>TRUE,
+	        ' isActive'=>1,
 	        );
         $this->objUserAdmin->insert($data);
+        $path = $this->sysconf->getcontentBasePath();
+    	$path .=  "users/";
+    	$path .= $userId.'/';
+    	$result = $this->file->mkdirs($path);
+    		 
         $this->setVar('newdata',$data);
         $this->setVar('newpassword',$password);
         return 'registersuccess_tpl.php';
