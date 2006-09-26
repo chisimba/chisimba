@@ -18,6 +18,8 @@ class userLoginHistory extends dbTable {
     * Method to add a login history entry to the tbl_userloginhistory 
     * table
     * @param string $userId: The Unique userId of the user who is logging in.
+    * @access public
+    * @return 
     */
     public function addHistoryEntry($userId)
     {
@@ -47,6 +49,47 @@ class userLoginHistory extends dbTable {
         $line = $rs->fetchRow();
         return $line['laston'];
     }
-    
+    /**
+    * Property returns the last login date for the user
+    * denoted by $userId
+    * @param string $time: The time of the user being logged in
+    * @access public
+    * @return array
+    */
+    public function getLastLogin($time)
+    {
+    	$sql="SELECT user.username,user.userId,
+			MAX(last.lastLoginDateTime) AS laston 
+		FROM 
+			tbl_userloginhistory as last, tbl_users as user
+		WHERE 
+			 last.lastLoginDateTime <'$time' AND user.userId=last.userId Group by userId
+		";
+        $rs = $this->query($sql);
+       
+        return $rs;
+    }
+    /**
+    * Property returns the last login date for the user
+    * denoted by $userId
+    * @param none
+    * @access public
+    * @return array
+    */
+    public function getnowLogin()
+    {
+    	$now = date('Y-m-d H');
+        $sql="SELECT user.username,user.userId,
+			MAX(last.lastLoginDateTime) AS laston 
+		FROM 
+			tbl_userloginhistory as last, tbl_users as user
+		WHERE 
+			 last.lastLoginDateTime >'$now'  AND user.userId=last.userId Group by userId
+		";
+        $rs = $this->query($sql);
+       
+        return $rs;
+    }
 }
+
 ?>
