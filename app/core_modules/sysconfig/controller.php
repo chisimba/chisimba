@@ -59,7 +59,7 @@ class sysconfig extends controller {
         $this->objUser = & $this->getObject('user', 'security');
         //Get the text abstract object
         //Kevin Cyster
-        //$this -> objAbstract =& $this -> getObject('systext_facet', 'systext');
+        $this -> objAbstract =& $this -> getObject('systext_facet', 'systext');
     }
 
     /**
@@ -125,7 +125,7 @@ class sysconfig extends controller {
                     // update the session variable 'systext' if $pmodule = systext
                     // Kevin Cyster
                     if($pmodule == 'systext'){
-                       // $this->objAbstract->updateSession();
+                        $this->objAbstract->updateSession();
                     }
                     return "step2_tpl.php";
                 } else {
