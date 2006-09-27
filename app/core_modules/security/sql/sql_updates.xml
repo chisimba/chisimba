@@ -3,7 +3,7 @@
 <update>
 <table>tbl_userLoginhistory</table>
 <version>1.7</version>
-<description>Altered date filed to timestamp</description>
+<description>Altered date field to timestamp</description>
 <data>
     <change>
         <lastLoginDateTime>
