@@ -22,9 +22,9 @@ foreach($arrayNav as $category=>$items){
         $objTable->width='100%';
 
         $objTable->startHeaderRow();
-        $objTable->addHeaderCell($this->objLanguage->languageText('word_username'));
-        $objTable->addHeaderCell($this->objLanguage->languageText('word_userid'));
-        $objTable->addHeaderCell($this->objLanguage->languageText('word_laston'));
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_username'),'40%');
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_userid'),'40%');
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_laston'),'40%');
         $objTable->endHeaderRow();
 
         $objTable->startRow();
