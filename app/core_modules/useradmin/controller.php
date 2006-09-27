@@ -298,7 +298,7 @@ class useradmin extends controller
 	        ' isActive'=>1,
 	        );
         $this->objUserAdmin->insert($data);
-        $path = $this->sysconf->getcontentBasePath();
+        $path = $this->objConfig->getcontentBasePath();
     	$path .=  "users/";
     	$path .= $userId.'/';
     	$result = $this->file->mkdirs($path);
