@@ -2,7 +2,7 @@
 <updates>
 <update>
 <table>tbl_userloginhistory</table>
-<version>1.7</version>
+<version>1.9</version>
 <description>Altered date field to timestamp</description>
 <data>
     <change>
