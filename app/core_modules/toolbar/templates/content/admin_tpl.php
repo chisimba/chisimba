@@ -84,15 +84,16 @@ if(!empty($modules)){
                 $objLink->link = $objIcon->show().'<br />'.$name;
                 $objTable->addCell($objLink->show(), '', 'bottom', 'center');
             }
-            $objTable->endRow();
+            
+        }
+        	$objTable->endRow();
 			$tab->tabbedbox();
             $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'));
             $tab->addBoxContent($objTable->show());
-            $str .= $tab->show();
-            $tabpane->addTab(array('name'=>$this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'url'=>'http://localhost','content' => $str),'luna-tab-style-sheet');
-        }
+           
+            $tabpane->addTab(array('name'=>$this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'url'=>'http://localhost','content' => $tab->show()),'luna-tab-style-sheet');
     }
 }
- $str = $tabpane->show();
-echo $str;
+ 
+echo  $tabpane->show();
 ?>
