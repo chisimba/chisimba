@@ -1,8 +1,18 @@
-<UPDATE>
-<MODULE>security</MODULE>
-<TABLE>tbl_userLoginhistory</TABLE>
-<VERSION>1.6</VERSION>
-<SQL>
-ALTER TABLE tbl_userLoginhistory Alter column lastLoginDateTime Type timestamp;
-</SQL>
-</UPDATE>
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+<update>
+<table>tbl_userLoginhistory</table>
+<version>1.7</version>
+<description>Altered date filed to timestamp</description>
+<data>
+    <change>
+        <lastLoginDateTime>
+            <definition>
+                <type>timestamp</type>
+            </definition> 
+        </lastLoginDateTime> 
+    </change>
+
+</data>
+</update>
+</updates>
