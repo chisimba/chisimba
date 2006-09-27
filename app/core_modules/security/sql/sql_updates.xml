@@ -1,0 +1,8 @@
+<UPDATE>
+<MODULE>security</MODULE>
+<TABLE>tbl_userLoginhistory</TABLE>
+<VERSION>1.6</VERSION>
+<SQL>
+ALTER TABLE tbl_userLoginhistory Alter column lastLoginDateTime Type timestamp;
+</SQL>
+</UPDATE>
