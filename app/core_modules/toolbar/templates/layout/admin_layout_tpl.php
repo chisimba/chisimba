@@ -21,11 +21,11 @@ foreach($arrayNav as $category=>$items){
         $objTable->init();
         $objTable->width='100%';
 
-        $objTable->startRow();
-        $objTable->addCell($this->objLanguage->languageText('word_username'), '33%');
-        $objTable->addCell($this->objLanguage->languageText('word_userid'), '33%');
-        $objTable->addCell($this->objLanguage->languageText('word_laston'), '33%');
-        $objTable->endRow();
+        $objTable->startHeaderRow();
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_username'));
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_userid'));
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_laston'));
+        $objTable->endHeaderRow();
 
         $objTable->startRow();
         $i = 0;
