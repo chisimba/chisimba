@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <updates>
 <update>
-<table>tbl_userLoginhistory</table>
+<table>tbl_userloginhistory</table>
 <version>1.7</version>
 <description>Altered date field to timestamp</description>
 <data>
