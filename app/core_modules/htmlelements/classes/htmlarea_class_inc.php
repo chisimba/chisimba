@@ -13,7 +13,6 @@
 * @todo -c HTML Editor that will extend this object
 */
 //require_once("htmlbase_class_inc.php");
-//include("modules/htmlelements/resources/fckeditor/fckeditor.php") ;
 class htmlarea extends object
  {
      /**
@@ -142,7 +141,7 @@ class htmlarea extends object
     */
     function show()
     {
-        return $this->showTinyMCE();
+        return $this->showFCKEditor();
     }
     
     /**
@@ -151,7 +150,7 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-        include('modules/htmlelements/resources/fckeditor_2.3.1/fckeditor.php') ;
+        require_once('modules/htmlelements/resources/fckeditor_2.3.1/fckeditor.php') ;
         
         $objConfig = & $this->newObject('altconfig', 'config');        
         $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.1/';
@@ -175,6 +174,9 @@ class htmlarea extends object
         }
        
         $oFCKeditor->Value = $this->value;
+        
+        $this->setVar('pageSuppressXML', TRUE);
+        
         return $oFCKeditor->CreateHtml() ;
     }
     
