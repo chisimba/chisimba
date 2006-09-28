@@ -141,7 +141,7 @@ class htmlarea extends object
     */
     function show()
     {
-        return $this->showFCKEditor();
+        return $this->showTinyMCE();
     }
     
     /**
@@ -155,11 +155,8 @@ class htmlarea extends object
         $objConfig = & $this->newObject('altconfig', 'config');        
         $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.1/';
       
-        // global $Config;
-        // $Config['UserFilesPath'] = $objConfig->getcontentBasePath();
-        
-        $oFCKeditor = new FCKeditor($this->name) ; //, $objConfig->getsiteRoot(), $this->context?'Yes':'No'
-        $oFCKeditor->BasePath = $sBasePath ;//'/5ive/app/modules/htmlelements/fckeditor_2.3.1/fckeditor/';
+        $oFCKeditor = new FCKeditor($this->name) ;
+        $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
 		$oFCKeditor->Height=$this->height;
         $oFCKeditor->ToolbarSet=$this->toolbarSet;
