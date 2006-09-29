@@ -483,6 +483,7 @@ class user extends dbTable
     * This replaces the lookup capabilities of the PEOPLE object of
     * KEWL 1.2. It can thus be used to lookup the userName of another
     * user.
+    * @modified 29 - 09 - 2006 Megan Watson - removed call to fetchRow()
     * @param string $userId The numeric ID of a user, it defaults
     * to the userId of the current user when $numID is NULL.
     */
@@ -500,8 +501,8 @@ class user extends dbTable
             $sql="SELECT username FROM tbl_users WHERE userid='$userId'";
             $rs = $this->query($sql);
             if ($rs) {
-                $line = $rs->fetchRow();
-                $ret=$line["userName"];
+//                $line = $rs->fetchRow();
+                $ret=$rs[0]["userName"];
             } else {
                 $ret=$this->objLanguage->languageText("error_datanotfound");
             }
