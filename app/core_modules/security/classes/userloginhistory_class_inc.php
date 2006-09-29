@@ -34,6 +34,7 @@ class userLoginHistory extends dbTable {
     /**
     * Property returns the last login date for the user
     * denoted by $userId
+    * @modified by Megan Watson 29-09-2006 Removed call to fetchRow()
     * @param string $userId: The Unique userId of the user being looked up
     */
     public function doGetLastLogin($userId)
@@ -46,8 +47,8 @@ class userLoginHistory extends dbTable {
 			userid='$userId'
 		";
         $rs = $this->query($sql);
-        $line = $rs->fetchRow();
-        return $line['laston'];
+        //$line = $rs->fetchRow();
+        return $rs[0]['laston'];
     }
     /**
     * Property returns the last login date for the user
