@@ -261,9 +261,17 @@ class modulecatalogue extends controller
 					return $this->nextAction(null,null,'splashscreen');
 				case 'update':
 					$modname = $this->getParam('mod');
-                	$this->output = $this->objPatch->applyUpdates($modname);
-                	$this->setVar('module',$modname);
+                	$this->output[] = $this->objPatch->applyUpdates($modname);
                 	$this->setVar('output',$this->output);
+                	$this->setVar('patchArray',$this->objPatch->checkModules());
+                	return 'updates_tpl.php';
+				case 'patchall':
+					$mods = $this->objPatch->checkModules();
+					$this->output = array();
+					foreach ($mods as $mod) {
+						$this->output[] = $this->objPatch->applyUpdates($mod['module_id']);
+					}
+					$this->setVar('output',$this->output);
                 	$this->setVar('patchArray',$this->objPatch->checkModules());
                 	return 'updates_tpl.php';
 				case 'makepatch':
@@ -272,20 +280,6 @@ class modulecatalogue extends controller
 					$str = $this->getParam('srchstr');
 					$type = $this->getParam('srchtype');
 					$result = $this->objCatalogueConfig->searchModuleList($str,$type);
-					//$nameRes = $this->objModule->getAll("WHERE module_id LIKE '%$str%'");
-					//$desRes = $this->objModule->getAll("WHERE module_description LIKE '%$str%'");
-
-					//if ($desRes != null) {
-					//	if ($nameRes != null) {
-					//		$result = array_merge($nameRes,$desRes);
-					//	} else {
-					//		$result = $desRes;
-					//	}
-					//} else {
-					//	if ($nameRes != null) {
-					//		$result = $nameRes;
-					//	}
-					//}
 					$this->setVar('result',$result);
 					return 'front_tpl.php';
 				default:
@@ -398,7 +392,7 @@ class modulecatalogue extends controller
     				}
     				$regResult= $this->objModuleAdmin->installModule($registerdata);
     				if ($regResult){
-    					$this->output = str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_regconfirm','modulecatalogue'));
+    					$this->output[] = str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_regconfirm','modulecatalogue'));
     				}
     				return $regResult;
     			}
@@ -453,7 +447,7 @@ class modulecatalogue extends controller
     				}
     				$regResult= $this->objModuleAdmin->uninstallModule($modname,$registerdata);
     				if ($regResult) {
-    					$this->output .= str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_deregconfirm','modulecatalogue'));
+    					$this->output[] = str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_deregconfirm','modulecatalogue'));
     				}
     				return $regResult;
     			}

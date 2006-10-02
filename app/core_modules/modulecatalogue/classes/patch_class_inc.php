@@ -223,6 +223,7 @@ class patch extends dbtable {
 			$this->objModuleAdmin->installModule($regData,TRUE);
 			$result['current'] = $this->getVersion($modname);
 			$result['old'] = $oldversion;
+			$result['modname'] = $modname;
 			// Now pass along the info to the template.
 			return $result;
 		} catch (Exception $e) {

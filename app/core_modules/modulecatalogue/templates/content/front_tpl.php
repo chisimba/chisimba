@@ -13,9 +13,7 @@ if (!isset($result)) {
 } else {
 	$modules = $result;
 }
-/*var_dump($result);
-echo "<br/><br/><br/>";
-var_dump ($modules);*/
+
 $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
@@ -193,10 +191,25 @@ if ($modules) {
 }
 if (($output=$this->getSession('output'))!=null) {
 	$timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
-	$timeoutMsg->setMessage($output);
+	if (is_array($output)) {
+		$timeOutMsg->message = '';
+		foreach ($output as $line) {
+			$timeoutMsg->message .= $line.'<br/>';
+		}
+	} else {
+		$timeoutMsg->setMessage($output);
+	}
 	$notice = $timeoutMsg->show();
 	$this->unsetSession('output');
 }
+
+$objForm = &new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
+$objForm->displayType = 3;
+$objForm->addToForm($notice);
+$objForm->addToForm($top);
+$objForm->addToForm($objTable->show());
+$objForm->addToForm($bot);
+
 
 $searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
 $searchForm->displayType = 3;
@@ -211,21 +224,14 @@ $srchType->addOption('both',$this->objLanguage->languageText('word_all'));
 $srchType->setSelected($this->getParam('srchtype'));
 $srch = $srchType->show().$srchButton->show();
 
-$objForm = &new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));
-$objForm->displayType = 3;
-$objForm->addToForm($notice);
-$objForm->addToForm($top);
-$objForm->addToForm($objTable->show());
-$objForm->addToForm($bot);
-
 $hTable = $this->newObject('htmltable','htmlelements');
 $hTable->startRow();
 $hTable->addCell($objH->show(),null,null,'left');
-$hTable->addCell($srchStr->show(),null,null,'right');
+$hTable->addCell($srchStr->show(),null,'bottom','right');
 $hTable->endRow();
 $hTable->startRow();
 $hTable->addCell(null,null,null,'left');
-$hTable->addCell($srch,null,null,'right');
+$hTable->addCell($srch,null,'top','right');
 $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 
