@@ -9,7 +9,7 @@ require("mail_class_inc.php");
 
 class kngemail extends object 
 {
-	var $objMailer;
+
 	var $mailer = 'sendmail';
 	var $wordWrap = '75';
 	
@@ -17,6 +17,7 @@ class kngemail extends object
 	function init()
 	{
 		$this->objLanguage = &$this->getObject('language','language');
+		$this->setup();
 	}
 
         // Setup function for init of Mailer

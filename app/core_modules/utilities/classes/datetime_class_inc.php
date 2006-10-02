@@ -429,7 +429,7 @@ class datetime extends object
             $rep=array('kng' => $this->objConfig->getsiteName());
             $subject = $this->objLanguage->code2Txt('mod_datetime_contentexpired', $rep);
             $mailBody = $title . "\n\n\n". $body;
-            $objMail = & $this->getObject('kngmail', 'email');
+            $objMail = & $this->getObject('kngemail', 'utilities');
             $objMail->sendMail('1', $toId, $subject, $mailBody);
             //Add the current date to the expNotifDate field
             $save=array('notificationDate' => date('Y-m-d H:m:s'));
