@@ -3,9 +3,9 @@
 /**
 * HTML control class to create multiple tabbed boxes using the layers class.
 * The style sheet class is >box<.
-* 
-* 
-* @abstract 
+*
+*
+* @abstract
 * @package tabs
 * @category HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
@@ -18,20 +18,20 @@
 * $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form));
 * $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));
 * YOU CAN specify the type of css to go with your tabs.
-* 
+*
 * There are three types of look and feel you can choose from
 * 1.luna-tab-style-sheet
 * 2.winclassic-tab-style-sheet
 * 3.webfx-tab-style-sheet : This one is default
-* 
-* @example 
+*
+* @example
 * $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar),'luna-tab-style-sheet');
 * $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'nested' => true),'luna-tab-style-sheet');
-* 		
+*
 */
-class tabpane extends object 
+class tabpane extends object
 {
-	
+
 	/**
 	 * Holds Tab array
 	 * @var $tabs array :  Array that holds all the tabs
@@ -61,21 +61,21 @@ class tabpane extends object
 	 * @var int
 	 */
 	var $tabpane =0;
-	
-	
+
+
 	var $topTabName=null;
 	/**
 	* Constuctor
 	*/
-	
+
 	function init()
 	{
-		$script = '<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js"></script>';
+		$script = '<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js" type="text/javascript"></script>';
 		$this->appendArrayVar('headerParams',$script);
 		$this->tabpane = 0;
 		$this->tabs = array();
         }
-		
+
 	/**
 	* Method that addes a tab
 	* @param $properties array : Can hold the following values
@@ -86,18 +86,18 @@ class tabpane extends object
 	* webfx-tab-style-sheet
 	* winclassic-tab-style-sheet
 	* luna-tab-style-sheet
-	*/	
+	*/
     function addTab($properties=NULL,$css='webfx-tab-style-sheet'){
 		if (is_array($properties)) {
 			$link =null;
-			if (isset($properties['name'])) {				
+			if (isset($properties['name'])) {
 				$this->tabs[$properties['name']]['name']=$properties['name'];
 				if(isset($properties['content']))
 					$this->tabs[$properties['name']]['content']=$properties['content'];
 				if(isset($properties['url']))
 					$this->tabs[$properties['name']]['url']=$properties['url'];
 				if(isset($properties['width']))
-					$this->tabs[$properties['name']]['width']=$properties['width'];				      
+					$this->tabs[$properties['name']]['width']=$properties['width'];
 				if(isset($properties['height']))
 					$this->tabs[$properties['name']]['heigth']=$properties['height'];
 				if ($css =='luna-tab-style-sheet')
@@ -108,18 +108,18 @@ class tabpane extends object
 					$this->appendArrayVar('headerParams', $link);
 				if ($css =='webfx-tab-style-sheet')
 					$link = '<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="modules/htmlelements/resources/css/tab.webfx.css" />';
-					$this->appendArrayVar('headerParams', $link);				
-			}			
-		}		
+					$this->appendArrayVar('headerParams', $link);
+			}
+		}
 	}
 	/**
 	 * Method that builds for Display of Nested or un-nested tabs
-	 * 
+	 *
 	 */
-	
+
 	function _buildTabs(){
 		//get the javascript
-		$script ='<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js"></script>';
+		$script ='<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js" type="text/javascript"></script>';
 		$this->appendArrayVar('headerParams',$script);
 		$this->constructedTabs=null;
 		$cnt=0;
@@ -141,7 +141,7 @@ class tabpane extends object
 		$this->constructedTabs .="<script type=\"text/javascript\">setupAllTabs();</script>";
 		return $this->constructedTabs;
 	}
-	
+
 	/**
 	* Method to show the tabs
 	* @return $str string
@@ -153,6 +153,6 @@ class tabpane extends object
 		}else{
 			return $this->constructedTabs;
 		}
-	}	
-} 
+	}
+}
 ?>
