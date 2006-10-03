@@ -11,8 +11,8 @@ require_once("ifhtml_class_inc.php");
 
 /**
 * Text Input class controls buttons
-* 
-* @author Wesley Nitsckie 
+*
+* @author Wesley Nitsckie
 * @author Megan Watson
 * @author Tohir Solomons
 * @version $Id$
@@ -25,18 +25,18 @@ class textinput extends abhtmlbase implements ifhtml
     * @var integer $size: The width of the text input
     */
     public $size;
-   
-    
+
+
 
     /**
     * Initialization method to set default values
-    * 
+    *
     * @param string $name optional :sets the name of the text input
     */
     public function textinput($name = null, $value = null, $type=null, $size=null)
     {
         $this->name = $name;
-        $this->value = $value;
+        $this->value = htmlentities($value);
         $this->cssClass = 'text';
         if (!is_null($type)) {
             $this->fldType=$type;
@@ -48,36 +48,36 @@ class textinput extends abhtmlbase implements ifhtml
 			$this->size = $size;
 		}
      	$this->cssId = 'input_'.$name;
-    } 
+    }
     /**
     * Method to set the css class
-    * 
-    * @param string $css 
+    *
+    * @param string $css
     * @deprecated  <----------------------------------------------------------
     */
     public function setCss($css)
     {
         $this->cssClass = $css;
-    } 
+    }
     /*
 	* Method to set the value of the text box
-	* @param string $value 
+	* @param string $value
     * @deprecated <----------------------------------------------------------
 	*/
-	
+
 	/*
-	* Method to set the cssId class 
+	* Method to set the cssId class
 	* @param string $cssId
 	*/
     public function setId($cssId)
     {
         $this->cssId = $cssId;
-    } 
-	
+    }
+
     public function setValue($value)
     {
         $this->value = $value;
-    } 
+    }
 
     /**
     * Method to return the text input for display on the form
@@ -92,7 +92,7 @@ class textinput extends abhtmlbase implements ifhtml
         if ($this->cssClass) {
             $str .= ' class="' . $this->cssClass . '"';
         }
-        
+
         if ($this->size) {
             $str .= ' size="' . $this->size . '"';
         }
@@ -104,7 +104,7 @@ class textinput extends abhtmlbase implements ifhtml
         }
         $str .= ' />';
         return $str;
-    } 
-} 
+    }
+}
 
 ?>
