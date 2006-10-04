@@ -555,7 +555,7 @@ class tools extends object
 
         // Language
 
-        $home = $this->objLanguage->languageText('word_home','groupadmin');
+        $home = $this->objLanguage->languageText('word_home');
 
         $welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');
 

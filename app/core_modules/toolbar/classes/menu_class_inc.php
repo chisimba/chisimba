@@ -216,8 +216,8 @@ class menu extends object
         }
 
         // get logout button
-        $logout='<nobr>'.$iconList.$im.$this->objSkin->putLogout().'&nbsp;'.'</nobr>';
-		return $menu;
+        $logout='';//<nobr>'.$iconList.$im.'&nbsp;'.'</nobr>';
+		//return $menu;
         // Display data in a table
         $this->objTable->width="100%";
         $this->objTable->startRow();
