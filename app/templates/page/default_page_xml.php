@@ -82,6 +82,7 @@ if (!isset($pageSuppressSkin)){
 	else {
     	//echo $objSkin->putSkinCssLinks();
     	echo '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
+    	<link rel="icon" href="skins/'.$objSkin->getSkin().'/icons/csimba.gif" />
         <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/main.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/print.css" media="print" />
 				<!--[if lte IE 6]>
@@ -209,7 +210,7 @@ if (!isset($suppressFooter)) {
 	 </div>
 <?php } ?>
 <?php
-//$this->putMessages();
+ $this->putMessages();
 ?>
 </body>
 </html>
