@@ -39,7 +39,7 @@ class timeoutMessage extends object {
     * @var string: the CSS Method of hiding - either NONE OR HIDDEN
     */
     public $typeHide;
-    
+
     /**
     * Initialization method to set default values
     */
@@ -51,12 +51,12 @@ class timeoutMessage extends object {
         //The default cssId is #confirm
         $this->cssId = 'confirm';
         //The default htmlTag is SPAN
-        $this->htmlTag = 'SPAN';
+        $this->htmlTag = 'span';
         // The default type of hide
         $this->typeHide = 'none';
         //hidden
 	}
- 
+
     /*
 	* Method to set the message
 	* @param string
@@ -64,7 +64,7 @@ class timeoutMessage extends object {
     public function setMessage( $message ) {
         $this->message = $message;
     }
-    
+
     /*
 	* Method to set the timeout.
 	* @param integer unit in miliseconds.
@@ -72,34 +72,34 @@ class timeoutMessage extends object {
     public function setTimeout( $miliSec ) {
         $this->timeout = $miliSec;
     }
-    
+
     /*
 	* Method to set the hide type to Hidden.
 	*/
     public function setHideTypeToHidden( ) {
         $this->typeHide = 'hidden';
     }
-    
+
     /*
 	* Method to set the hide type to Hidden.
 	*/
     public function setHideTypeToNone( ) {
         $this->typeHide = 'none';
     }
-    
+
     /*
 	* Private method to insert the java script function.
 	*/
     public function _jscript() {
         static $count = 0;
-        $jscript = "<script>";
-        
+        $jscript = '<script type="text/javascript">';
+
         if ($this->typeHide == 'hidden') {
             $code = '.visibility = \'hidden\'';
         } else {
             $code = '.display = \'none\'';
         }
-        
+
         $jscript.= "function hidemydiv$count() {
           document.getElementById('$this->cssId').style$code;
         }";
