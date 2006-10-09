@@ -194,7 +194,7 @@ class menu extends object
         // get slide out menus
         $modules = $this->menuBar();
         $menu = $this->buildMenu($modules);
-        
+
         if(!$menu)
             $menu='';
         // get breadcrumbs
@@ -221,8 +221,8 @@ class menu extends object
         // Display data in a table
         $this->objTable->width="100%";
         $this->objTable->startRow();
-        $this->objTable->addCell($menu, '90%', 'center','left','menuhead');
-        $this->objTable->addCell($logout, '10%', 'center','right','menuhead');
+        $this->objTable->addCell($menu, '90%', 'middle','left','menuhead');
+        $this->objTable->addCell($logout, '10%', 'middle','right','menuhead');
         $this->objTable->endRow();
 
         $this->objLayer->str = $crumbs;
