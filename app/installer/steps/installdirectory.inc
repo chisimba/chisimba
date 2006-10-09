@@ -80,7 +80,7 @@ class InstallDirectory extends Step
 
 		$this->help_topic = 'system_root';
 
-		$this->step_help = "Enter the path to where you want Chisimba to be installed";
+		$this->step_help = "Enter the path where you want Chisimba to be installed";
 
 
 
@@ -312,7 +312,7 @@ class InstallDirectoryAction extends StepAction
 
 				$fp = @fopen($check_dir.'/tmpinstallfile', "w");
 
-				if ($fp===false) {
+				if ($fp==false) {
 
 					$this->errors[] = 'Could not open '.$check_dir.' for writing. ';
 
@@ -481,18 +481,16 @@ class InstallDirectoryAction extends StepAction
 
 
 		ob_start();
-        if (PHP_OS=="WIN32"){
+        if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
 			echo '<input type="text" id="sys_root" name="sys_root"
 
 				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
-
-			$box = ob_get_contents();
+				$box = ob_get_contents();
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
 
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
-
-			$box = ob_get_contents();
+				$box = ob_get_contents();
         }
 		ob_end_clean();
 
