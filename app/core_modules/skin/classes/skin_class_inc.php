@@ -13,6 +13,8 @@ class skin extends object
     var $objForm;
     var $objButtons;
     var $objDropdown;
+    
+    var $skinFile = 'main.css';
 
     function init()
     {
@@ -78,7 +80,7 @@ class skin extends object
             $mySkinLocation=$this->objConfig->getsiteRootPath().'skins/'.$_POST['skinlocation'].'/';
 
             //Test if stylesheet exists in the skinlocation
-            if (file_exists($mySkinLocation.'main.css')) {
+            if (file_exists($mySkinLocation.$this->skinFile)) {
                 $this->setSession('skin', $_POST['skinlocation']);
             } else {
                 $this->setSession('skin', $this->objConfig->getdefaultSkin());
@@ -112,7 +114,7 @@ class skin extends object
         $dirList=array();
         while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
-                if (is_dir($file) && file_exists($basedir.$file.'/main.css')) {
+                if (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile)) {
 
                     $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
 
@@ -194,7 +196,7 @@ class skin extends object
     */
     function putSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'main.css">'."</link>" . "\r\n";
+        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().$this->skinFile.'">'."</link>" . "\r\n";
         $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '<style type="text/css">
@@ -210,7 +212,7 @@ class skin extends object
     */
     function putSimpleSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().'main.css">'."</link>" . "\r\n";
+        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().$this->skinFile.'">'."</link>" . "\r\n";
 		/*
         $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
