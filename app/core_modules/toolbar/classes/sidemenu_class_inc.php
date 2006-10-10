@@ -160,15 +160,17 @@ class sidemenu extends object
      */
     function userDetails()
     {
-    	$this->objHead->type = 4;
+    	/*$this->objHead->type = 4;
     	$access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
-        $menus = $this->checkPerm($menus);
+        $menus = $this->checkPerm($menus);*/
 
-        $this->objHead->str = $this->objUser->fullName();
-        $menu =  $this->objHead->show();
+        $menu = '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
+        
+        $objFeature = $this->newObject('featurebox', 'navigation');
+        return $objFeature->show($this->objUser->fullName(), $menu);
 
-        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
+        
 
 
         return $menu;
@@ -335,10 +337,8 @@ class sidemenu extends object
 
         if($objModule->checkIfRegistered('context','context')){
 
-            $this->objHead->type = 4;
-            $this->objHead->str = $joinCourse;
+            $header = $joinCourse;
 
-            $str .= $this->objHead->show();
 
             //The Course that you are currently in
             $this->objIcon->setIcon('leavecourse');
@@ -391,7 +391,11 @@ class sidemenu extends object
                 $objForm->addToForm('<p>'.$objButton->show().'</p>');
 
                 $str .= $objForm->show();
+                
+                
             }
+            $objFeatureBox = $this->newObject('featurebox', 'navigation');
+            $str = $objFeatureBox->show($header, $str);
         }
         return $str;
     }
