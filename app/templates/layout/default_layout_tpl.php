@@ -17,7 +17,7 @@ if(!$this->getParam('query') == '')
 } else {
 	$searchResults = '';
 }
-$output = $this->getContent().$searchResults.$this->footerStr;
+$output = $this->getContent().$searchResults;
 //$tidy->parseString($output, $config, 'utf8');
 //$tidy->cleanRepair();
 
