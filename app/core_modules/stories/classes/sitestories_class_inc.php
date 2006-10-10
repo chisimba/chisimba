@@ -258,11 +258,11 @@ class sitestories extends dbTable {
         $ar = $objCat->getAll();
         //Load the form class that I need
         $this->loadClass('form','htmlelements');
+        $this->loadClass('dropdown','htmlelements');
         //Instantiate the form class
         $objForm = new form('chCat');
         //Instantiate a dropdown
-        $objCatDrd = $this->newObject("dropdown", "htmlelements");
-        $objCatDrd->name = 'category_selector';
+        $objCatDrd = new dropdown ('category_selector');
         $objCatDrd->extra=" onchange=\"document.location=document.forms['chCat'].category_selector.value;\"";
         //Add the categories
         $objCatDrd->addOption("", $this->objLanguage->languageText("mod_stories_anothercat",'stories'));
