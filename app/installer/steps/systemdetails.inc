@@ -52,7 +52,7 @@ class SystemDetails extends Step
 
 {
 
-
+	var $server_name = null;
 
 
 
@@ -118,6 +118,7 @@ class SystemDetails extends Step
 class RootUserAction extends StepAction
 
 {
+	
 
 
 
@@ -298,6 +299,8 @@ class RootUserAction extends StepAction
 	function paintAction()
 
 	{
+		
+		
 
 		$tpl = new Template(INSTALL_DIR.'/templates/rootdetails.tpl');
 

@@ -14,7 +14,7 @@ require_once dirname(__FILE__).'/wizard.inc';
 require_once dirname(__FILE__).'/domtt/domtt_class_inc.php';
 
 
-define('HELP_URL', 'http://cvs.uwc.ac.za');
+define('HELP_URL', 'http://cvs2.uwc.ac.za');
 
 
 
@@ -24,7 +24,7 @@ define('HELP_URL', 'http://cvs.uwc.ac.za');
 
 *
 
-* 5ive specific install wizard. Checks to ensure that the chosen install step doesn't require
+* install specific install wizard. Checks to ensure that the chosen install step doesn't require
 
 * authentication, otherwise authenticates based on information entered by a user at some point.
 
@@ -131,7 +131,7 @@ class InstallWizard extends Wizard
 
 	/**
 
-	* Overridden to account for the sessions not being started for a 5ive installer unless
+	* Overridden to account for the sessions not being started for a install installer unless
 
 	* step 1 has been completed
 
@@ -185,11 +185,11 @@ class InstallWizard extends Wizard
 
 		
 
-		if (($sys_root !== false) && (file_exists($sys_root.'/config/sysconfig_properties.xml'))) {
+		if (($sys_root !== false) && (file_exists($sys_root.'/config/config.xml'))) {
 
 			// check whether the main.xml has been created yet. If so, save the current session
 
-			// details, close the session, and open the 5ive session instead.
+			// details, close the session, and open the install session instead.
 
 			if (file_exists($sys_root.'/conf/config.xml')) {
 
@@ -205,11 +205,11 @@ class InstallWizard extends Wizard
 
 				
 
-				$_SESSION['session_type'] = '5ive';
+				$_SESSION['session_type'] = 'install';
 
 				
 
-				// set up some 5ive specific variables into the session... ?
+				// set up some install specific variables into the session... ?
 
 				if (!isset($_SESSION['dsn'])) $_SESSION['dsn'] = SQ_CONF_DB_DSN;
 
@@ -355,7 +355,7 @@ class InstallWizard extends Wizard
 
 		// If the session being used was the installer session, must kill the normal session too
 
-		if ($session_type == '5ive') {
+		if ($session_type == 'install') {
 
 			if ($session_path !== false) {
 
@@ -407,7 +407,7 @@ class InstallWizard extends Wizard
 
 		// protected install types are 'update', 'repair'
 
-		$protected = Array('5ive');
+		$protected = Array('install');
 
 		
 

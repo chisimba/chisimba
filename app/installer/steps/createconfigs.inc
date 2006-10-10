@@ -425,7 +425,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			// asset types are loaded so this message can be sent.
 
-			if ($_SESSION['session_type'] == '5ive' && !$empty_database) {
+			if ($_SESSION['session_type'] == 'install' && !$empty_database) {
 
 				$am = &$GLOBALS['SQ_SYSTEM']->am;
 

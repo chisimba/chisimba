@@ -9,98 +9,121 @@
 * @package 5ive
 * @subpackage installer
 */
+require_once dirname(__FILE__).'/customexception.inc';
+
 class Step 
 {
 	
 	/**
 	* Was this step successful?
-	* @var boolean
+	* @public boolean
 	*/
-	var $success = false;
+	public $success = false;
 	
 	/**
 	* The errors this object has collected
-	* @var array
+	* @public array
 	*/
-	var $errors = Array();
+	public $errors = Array();
 	
 	/**
 	* Defines how many actions to step forward after completing this step
-	* @var int
+	* @public int
 	*/
-	var $num_steps = 1;
+	public $num_steps = 1;
 	
 	/**
 	* Defines a step to jump to after processing, normally left blank. If there are multiple
 	* actions defined for a step, this can cause problems as two steps may define different actions
-	* @var string
+	* @public string
 	*/
-	var $next_step = '';
+	public $next_step = '';
 	
 	/**
 	* The step actions this step can perform.
-	* @var array
+	* @public array
 	*/
-	var $actions = Array();
+	public $actions = Array();
 
 	/**
 	* Is this step required? ie can the user skip this step? By default
 	* this is false, but by default actions are required so will normally
 	* change this to being true.
-	* @var type
+	* @public type
 	*/
-	var $required = false;
+	public $required = false;
 	
 	/**
-	* Does this step need to be authenticated before occuring? Note that the authentication function
+	* Does this step need to be authenticated before occuring? Note that the authentication public function
 	* will be responsible for checking if it needs to be authed or not.
-	* @var boolean
+	* @public boolean
 	*/
-	var $auth_required = true;
+	public $auth_required = true;
 	
 	/**
 	* Does this step need to be confirmed before proceeding?
-	* @var boolean
+	* @public boolean
 	*/
-	var $conf_required = false;
+	public $conf_required = false;
 	
 	/**
 	* Can this step be cancelled ?
-	* @var boolean
+	* @public boolean
 	*/
-	var $can_cancel = true;
+	public $can_cancel = true;
 	
 	/**
 	* Has this step been confirmed?
-	* @var boolean
+	* @public boolean
 	*/
-	var $confirmed = false;
+	public $confirmed = false;
 	
 	/**
 	* The title of this step
-	* @var string
+	* @public string
 	*/
-	var $step_title = 'Step ';
+	public $step_title = 'Step ';
 	
 	/**
 	* A graphical title for the logo
-	* @var string
+	* @public string
 	*/
-	var $title_logo = '';
+	public $title_logo = '';
 	
 	/**
 	* Logo to display for the step
-	* @var string
+	* @public string
 	*/
-	var $step_logo = 'step_logo.png'; //.png';
+	public $step_logo = 'step_logo.png'; //.png';
 	
 	/**
 	* The name of the help topic for this step
-	* @var string
+	* @public string
 	*/
-	var $help_topic = "";
+	public $help_topic = "";
 	
-	
+	/**
+     * Has an error been generated?
+     *
+     * @access private
+     * @var string
+     */
+    private $_hasError = FALSE;
+
+    /**
+     * Where was the error generated?
+     *
+     * @access private
+     * @var string
+     */
+    private $_errorField = '';
+	/**
+     * The global error message
+     *
+     * @access private
+     * @var string
+     */
+    private $_errorMessage = '';
 	/**
 	* Rolls back the actions this step performed.  
 	* 
@@ -108,7 +131,7 @@ class Step
 	* @return void
 	* @access public
 	*/
-	function rollback()
+	public public function rollback()
 	{
 		$success = true;
 		for ($i=0; $i<count($this->actions); $i++) {
@@ -135,7 +158,7 @@ class Step
 	* (true = process next, false = stay on current step)
 	* @access public
 	*/
-	function process()
+	public function process()
 	{
 		// check if the step needs confirmation. If it does, and it has received that confirmation,
 		// don't process again.
@@ -186,7 +209,7 @@ class Step
 	* @return void
 	* @access private
 	*/
-	function _checkConfirmed()
+	public function _checkConfirmed()
 	{
 		// only check the confirmation if it was the 'next' button that was clicked
 		if (isset($_POST['next']) || isset($_POST['next_x'])) {
@@ -203,9 +226,9 @@ class Step
 	* @return void
 	* @access public
 	*/
-	function paint()
+	public function paint()
 	{
-		// if the step requires confirmation, output a hidden variable for confirming this step
+		// if the step requires confirmation, output a hidden publiciable for confirming this step
 		// then draw the confirm screen.
 		if ($this->success && $this->conf_required) {
 			$out = '<input type="hidden" name="confirm_step" value="'.get_class($this).'" />';
@@ -231,7 +254,7 @@ class Step
 	* @return void
 	* @access protected
 	*/
-	function _paintConfirm()
+	public function _paintConfirm()
 	{
 		// paint all the confirmAction screens.
 		for ($i=0; $i<count($this->actions); $i++) {
@@ -247,7 +270,7 @@ class Step
 	* @return void
 	* @access public
 	*/
-	function isRequired()
+	public function isRequired()
 	{
 		// the loops need to be by reference, otherwise information that is set in self::process()
 		// will not be available in self::paint.
@@ -268,11 +291,85 @@ class Step
 	* @return boolean Has this step completed all it needs to do in process() ?
 	* @access public
 	*/
-	function isProcessed()
+	public function isProcessed()
 	{
 		return false;
 	}
 	
+	/**
+     * Method to instantiate the pear error handler callback
+     *
+     * @access public
+     * @param string $error
+     * @return void (die)
+     */
+    public function _pearErrorCallback($error)
+    {
+        // TODO: note $error->getMessage() returns a shorter and friendlier but
+        //       less informative message, for production should use getMessage
+        //TODO: note 2: Appending the getUserinfo method from the PEAR
+        //      error stack will give you the same detail as toString()
+        //      but it will look decent and not confuse the crap out of users
+        //      that being said, we should still go for just getMessage() in prod
+
+        $msg = $error->getMessage() . ': ' . $error->getUserinfo();
+        $errConfig = $this->_objConfig->geterror_reporting();
+
+        if($errConfig == "developer")
+        {
+            $usermsg = $msg;
+        }
+        else {
+            $usermsg = $error->getMessage();
+        }
+
+        $this->setErrorMessage($usermsg);
+        $this->putMessages();
+        log_debug(__LINE__ . "  " . $msg);
+
+        die($this->diePage());
+    }
+
+    /**
+     * Method to return a nicely formatted error page for DB errors
+     *
+     * @todo fix this function up for multilingual and prettiness
+     * @access public
+     * @param void
+     * @return string
+     */
+    public function diePage()
+    {
+        $uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+        $message = '<style type="text/css" media="screen">
+                    @import url("skins/echo/main.css");
+                 </style>
+
+                <div class="featurebox"><h1> An Error has been encountered</h1>
+                '.$this->_errorMessage;
+        $message .= '<a href='.$uri.'>Back</a></div>';
+        return $message;
+    }
+     /**
+    * Method to set the global error message, and an error field if appropriate
+    *
+    * @access public
+    * @param $errormsg string The error message
+    * @param $field string The name of the field the error applies to (optional)
+    * @return FALSE
+    */
+    public function setErrorMessage($errormsg, $field = NULL)
+    {
+        if (!$this->_hasError) {
+            $this->_errorMessage = $errormsg;
+            $this->_hasError = TRUE;
+        }
+        if ($field) {
+            $this->_errorField = $field;
+        }
+        // error return code if needed by caller
+        return FALSE;
+    }
 	
 }
 

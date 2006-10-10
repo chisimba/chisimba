@@ -1,4 +1,6 @@
+
 <table cellspacing="0" class="install-table" width="50%">
+
 <tr>
 		<td width="60%" align="left" style="border-bottom: 1px solid black;">
 		<?php echo $checking;?>
@@ -28,8 +30,11 @@ foreach($required as $setting_name => $setting_details) {
 		
 		}?>
 		</td>
+		
 	</tr>
 	<?php
 }
 ?>
+
 </table>
+ 

@@ -253,7 +253,7 @@ class SetupTypeAction extends FiveStepAction
 
 		$success = true;
 
-		$main_inc = $_SESSION['sys_root'].'/modules/config/main.xml';
+		$main_inc = $_SESSION['sys_root'].'/modules/config/config.xml';
 
 		// check existence of files. If the main.inc file exists, then this isn't a new install
 

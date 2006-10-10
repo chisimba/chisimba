@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/installwizard.inc';
 if (!defined('PATH_SEPARATOR')) {
 
 	define('PATH_SEPARATOR',(substr(PHP_OS, 0, 3) == 'WIN') ? ';' : ':');
- var_dump('PATH_SEPARATOR');
+
 }
 
 

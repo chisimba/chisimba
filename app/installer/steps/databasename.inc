@@ -271,7 +271,7 @@ $this->step_help = "db name action,";
 
 									'before proceeding with the installation.';
 
-				$this->success = false;
+				//$this->success = false;
 
 			}
 

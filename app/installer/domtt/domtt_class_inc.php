@@ -15,11 +15,12 @@
 
 class domtt
 {
-    public $message;
-
+    
 	/**
      * Constructor
      */
+    public $message;
+    
     public function __construct()
     {
         $this->javaScriptIsSet = False;

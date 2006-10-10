@@ -931,13 +931,9 @@ class PEARCheckAction extends StepAction
 
 		$pear_dir  = isset($_SESSION['pear_path']) ? $_SESSION['pear_path'] : $this->_findPEARPath();
 
-
-
-		$pear_dir =
-
-
-
-		$textbox = '<p>Please enter your PEAR path. The installer has guessed that the directory below is '.
+		$textbox = '<br><p><b>To manually install pear, you can click <a target="content" onclick="sq_redirect(this);"href="pearinstall.php">here.</a </b><p></br>' .
+		
+					'<br><p>Please enter your PEAR path. The installer has guessed that the directory below is </br>'.
 
 					'where PEAR is installed, but it may be in a different directory. '.
 
@@ -1309,8 +1305,8 @@ class PEARDBCheckAction extends StepAction
 		$tpl->set('checking', 'Supported PEAR Database client packages');
 
 		$tpl->set('required', $this->required_db);
-
-
+        
+			
 
 		echo $tpl->fetch();
 

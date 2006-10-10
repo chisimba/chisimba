@@ -322,7 +322,7 @@ class InstallDirectoryAction extends StepAction
 
 					// of a failed directory check
 
-					if ($dir=='usrfiles' || $dir=='user_images') {
+					if ($dir=='modules') {
 
 						$this->errors[] = 'Please change permissions on the '.$check_dir.' directory and all files below it '.
 
