@@ -40,10 +40,11 @@ class postloginmenu extends object
     function show()
     {
     	//split the side menu into the menu items and the context login and user image
-    	$objFeature = $this->newObject('featurebox', 'navigation');
-    	$menu = $this->objSideMenu->getPostLoginMenuItems();
-    	$menu .= '<br />'.$objFeature->show($this->objSideMenu->userDetails());
-		$menu .= $objFeature->show($this->objSideMenu->contextDetails());
+    	$menu = '';
+    	
+    	$menu .= $this->objSideMenu->getPostLoginMenuItems();
+    	$menu .= '<br />'.$this->objSideMenu->userDetails();
+		$menu .= $this->objSideMenu->contextDetails();
     	
         return $menu;
     }
