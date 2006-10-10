@@ -1,0 +1,7 @@
+table.DHTML_Category {
+display: none;
+}
+
+table.DHTML_Category_Expand {
+  cursor: hand;
+}

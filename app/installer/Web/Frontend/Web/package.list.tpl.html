@@ -1,0 +1,229 @@
+<!-- INCLUDE header.inc.tpl.html -->
+<!-- INCLUDE top.inc.tpl.html -->
+    <script language="javascript">
+    <!--
+        function getElem(name)
+        {
+            return document.getElementById(name);
+        };
+
+        function perform(pkg)
+        {
+            url        = getElem(pkg+'_href').href + '&dhtml=1';
+            iframe     = getElem(pkg+'_status');
+            iframe.src = url;
+            
+            return false;
+        };
+        
+        function deletePkg(pkg)
+        {
+            if (!confirm('Do you really want to uninstall "'+pkg+'"?'))
+                return false;
+            
+            return perform(pkg);
+        }
+        
+        function newestVersion(pkg)
+        {
+            getElem(pkg+'_installed').innerHTML = getElem(pkg+'_latest').innerHTML;
+        }
+
+        function deleteVersion(pkg)
+        {
+            getElem(pkg+'_installed').innerHTML = '';
+        }
+        
+        function displayInstall(pkg)
+        {
+            html = '<a href="{InstallerURL}?command=install&pkg='+pkg+'" ';
+            html = html + 'width="13" height="13" ';
+            html = html + 'id="'+pkg+'_href" onClick="return perform(\''+pkg+'\');">';
+            html = html + '<img src="{InstallerURL}?img=install" border="0">';
+            html = html + '</a>';
+
+            getElem(pkg+'_install').innerHTML = html;
+        };
+
+        function hideInstall(pkg)
+        {
+            getElem(pkg+'_install').innerHTML = '';
+        };
+
+        function displayDelete(pkg)
+        {
+            html = '<a href="{InstallerURL}?command=uninstall&pkg='+pkg+'" ';
+            html = html + 'width="18" height="17" ';
+            html = html + 'id="'+pkg+'_href" onClick="return deletePkg(\''+pkg+'\');">';
+            html = html + '<img src="{InstallerURL}?img=uninstall" border="0">';
+            html = html + '</a>';
+
+            getElem(pkg+'_uninstall').innerHTML = html;
+        };
+
+        function hideDelete(pkg)
+        {
+            getElem(pkg+'_uninstall').innerHTML = '';
+        };
+
+    -->
+    </script>
+    <TABLE border="0" width="670">
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD width="175" align="left">
+        <a href="{InstallerURL}?command=list-all{mode1}" class="green">[ {mode1text} ]</a>
+      </TD>
+      <TD width="175" align="center">
+        <a href="{InstallerURL}?command=list-all{mode2}" class="green">[ {mode2text} ]</a>
+      </TD>
+      <TD width="175" align="right">
+        <a href="{InstallerURL}?command=list-all{mode3}" class="green">[ {mode3text} ]</a>
+      </TD>
+      <TD width="175" align="right">
+        <a href="{InstallerURL}?command=list-all{mode4}" class="green">[ {mode4text} ]</a>
+      </TD>
+    </TR>
+    </TABLE>
+    <br>
+    <TABLE border="0">
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD width="100" align="left">
+        {Prev}
+      </TD>
+      <TD width="450" align="center">
+        <span class="green">Displaying <b>{PagerFrom}</b> to <b>{PagerTo}</b> of <b>{PagerCount}</b> Categories</span>
+      </TD>
+      <TD width="100" align="right">
+        {Next}
+      </TD>
+    </TR>
+    </TABLE>
+    <br>
+    <!-- BEGIN Category -->
+    <TABLE border="0" onClick="expandCategory('__{categoryName}');" class="DHTML_Category_Expand" >
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD>
+        <img src="{InstallerURL}?img=category" width="16" height="15" border="0" alt="{categoryName}">
+      </TD>
+      <TD>
+        <b>{categoryName}</b>
+      </TD>
+    </TR>
+    </TABLE>
+    <TABLE border="0" id="__{categoryName}" class="DHTML_Category">
+    <TR>
+      <TD width="50" valign="top" colspan="2">
+      </TD>
+      <TD valign="top">
+        
+      </TD>
+      <TD width="100" valign="top">
+        <b>Channel</b>
+      </TD>
+      <TD width="150" valign="top">
+        <b>PackageName</b>
+      </TD>
+      <TD width="50" valign="top">
+        <b>Local</b>
+      </TD>
+      <TD width="50" valign="top">
+        <b>Stable/(Latest)</b>
+      </TD>
+      <TD valign="top" width="15">
+        
+      </TD>
+      <TD valign="top" width="18">
+        
+      </TD>
+      <TD valign="top">
+        
+      </TD>
+      <TD valign="top">
+        
+      </TD>
+      <TD width="300" valign="top">
+        <b>Description</b>
+      </TD>
+    </TR>
+    <!-- BEGIN Row -->
+    <TR>
+      <TD width="1" valign="top">
+        <a name="{Package}">
+      </TD>
+      <TD width="49" valign="top" align="right">
+        <iframe id="{Package}_status" height="20" 
+            width="20" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+      </TD>
+      <TD valign="top">
+        <img src="{InstallerURL}?img=package" width="12" height="12" border="0">
+      </TD>
+      <TD width="100" valign="top">
+        {Channel}
+      </TD>
+      <TD width="150" valign="top">
+        {Package}
+      </TD>
+      <TD width="50" valign="top">
+        <div id="{Package}_installed">{Installed}</div>
+      </TD>
+      <TD width="50" valign="top">
+        <div id="{Package}_latest">{Latest}</div>
+      </TD>
+      <TD valign="top" width="15">
+        <div id="{Package}_install">{Install}</div>
+      </TD>
+      <TD valign="top" width="18">
+        <div id="{Package}_uninstall">{Delete}</div>
+      </TD>
+      <TD valign="top">
+        {InfoExt}
+      </TD>
+      <TD valign="top">
+        {Info}
+      </TD>
+      <TD width="300" valign="top">
+        {Summary}
+      </TD>
+    </TR>
+    <!-- END Row -->
+    </TABLE>
+    <!-- END Category -->
+    <br>
+    <TABLE border="0">
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD width="100" align="left">
+        {Prev}
+      </TD>
+      <TD width="450" align="center">
+        <span class="green">Displaying <b>{PagerFrom}</b> to <b>{PagerTo}</b> of <b>{PagerCount}</b> Categories</span>
+      </TD>
+      <TD width="100" align="right">
+        {Next}
+      </TD>
+    </TR>
+    </TABLE>
+    <TABLE>
+     <TR>
+      <TD>
+        <span class="green">[Advanced Users] Install a local package or remote non-PEAR package</span>
+      </TD>
+     </TR>
+     <TR>
+      <TD valign="top">
+        <FORM name="nonstandardpackage">
+         <INPUT type="hidden" name="command" value="install">
+         <INPUT type="hidden" name="redirect" value="info">
+         <img src="{InstallerURL}?img=package" width="12" height="12" border="0" alt="non-standard package"><INPUT type="text" size="50" name="pkg"><INPUT type="submit" name="sub" value="Install">
+      </TD>
+     </TR>
+    </TABLE>
+<!-- INCLUDE bottom.inc.tpl.html -->
+<!-- INCLUDE footer.inc.tpl.html -->

@@ -1,0 +1,173 @@
+<!-- INCLUDE header.inc.tpl.html -->
+<!-- INCLUDE top.inc.tpl.html -->
+    <script language="javascript">
+    <!--
+        function getElem(name)
+        {
+            return document.getElementById(name);
+        };
+
+        function perform(pkg)
+        {
+            url        = getElem(pkg+'_href').href + '&dhtml=1';
+            iframe     = getElem(pkg+'_status')
+            document.location = url;
+            
+            return false;
+        };
+        
+        function deleteChan(c)
+        {
+            if (!confirm('Do you really want to delete channel "'+c+'"?'))
+                return false;
+            
+            return perform(c);
+        }
+        
+        function displayUpdate(pkg)
+        {
+            html = '<a href="{InstallerURL}?command=channel-update&pkg='+pkg+'" ';
+            html = html + 'width="13" height="13" ';
+            html = html + 'id="'+pkg+'_href" onClick="return perform(\''+pkg+'\');">';
+            html = html + '<img src="{InstallerURL}?img=install" border="0">';
+            html = html + '</a>';
+
+            getElem(pkg+'_update').innerHTML = html;
+        };
+
+        function displayDelete(pkg)
+        {
+            html = '<a href="{InstallerURL}?command=channel-delete&pkg='+pkg+'" ';
+            html = html + 'width="18" height="17" ';
+            html = html + 'id="'+pkg+'_href" onClick="return deleteChan(\''+pkg+'\');">';
+            html = html + '<img src="{InstallerURL}?img=uninstall" border="0">';
+            html = html + '</a>';
+
+            getElem(pkg+'_delete').innerHTML = html;
+        };
+
+        function hideDelete(pkg)
+        {
+            getElem(pkg+'_delete').innerHTML = '';
+        };
+
+        function doDiscover()
+        {
+            var newchan = getElem('newchannel').value;
+            var url = '{NewChannelURL}' + newchan;
+            iframe = getElem('newchannel_status');
+            iframe.src = url;
+        }
+    -->
+    </script>
+    <TABLE border="0">
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD width="100" align="left">
+        {Prev}
+      </TD>
+      <TD width="450" align="center">
+        <span class="green">Displaying <b>{PagerFrom}</b> to <b>{PagerTo}</b> of <b>{PagerCount}</b> Channels</span>
+      </TD>
+      <TD width="100" align="right">
+        {Next}
+      </TD>
+    </TR>
+    </TABLE>
+    <br>
+    <TABLE border="0">
+    <TR>
+      <TD width="50" valign="top" colspan="2">
+      </TD>
+      <TD valign="top">
+        
+      </TD>
+      <TD width="150" valign="top">
+        <b>Channel Server</b>
+      </TD>
+      <TD valign="top" width="18">
+        
+      </TD>
+      <TD valign="top">
+        
+      </TD>
+      <TD width="300" valign="top">
+        <b>Description</b>
+      </TD>
+    </TR>
+    <!-- BEGIN Row -->
+    <TR>
+      <TD width="1" valign="top">
+        <a name="{Channel}">
+      </TD>
+      <TD width="49" valign="top" align="right">
+        <iframe id="{Channel}_status" height="20" 
+            width="20" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+      </TD>
+      <TD valign="top">
+        <img src="{InstallerURL}?img=package" width="12" height="12" border="0">
+      </TD>
+      <TD width="150" valign="top">
+        {Channel}
+      </TD>
+      <TD valign="top" width="18">
+        <div id="{Channel}_delete">{Delete}</div>
+      </TD>
+      <TD valign="top">
+        {Info}
+      </TD>
+      <TD width="300" valign="top">
+        {Summary}
+      </TD>
+    </TR>
+    <!-- END Row -->
+    </TABLE>
+    <br>
+    <TABLE border="0">
+    <TR>
+      <TD width="20">
+      </TD>
+      <TD width="100" align="left">
+        {Prev}
+      </TD>
+      <TD width="450" align="center">
+        <span class="green">Displaying <b>{PagerFrom}</b> to <b>{PagerTo}</b> of <b>{PagerCount}</b> Categories</span>
+      </TD>
+      <TD width="100" align="right">
+        {Next}
+      </TD>
+    </TR>
+    </TABLE>
+    <TABLE border="0">
+    <TR>
+      <TD>
+       <span class="green"><B>Add a new channel by server name (requires internet connection)</B></span>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+       <FORM name="addchannel" method="GET" action="{NewChannelURL}">
+        <INPUT type="hidden" name="command" value="channel-discover">
+        <INPUT name="chan" type="text" size="35"><INPUT name="foo" type="submit" value="New Channel">
+       </FORM>
+      </TD>
+    </TR>
+    </TABLE>
+    <TABLE border="0">
+    <TR>
+      <TD>
+       <span class="green"><B>Retrieve an updated list of channels from pear.php.net (requires internet connection)</B></span>
+      </TD>
+    </TR>
+    <TR>
+      <TD>
+       <FORM name="updatechannels" method="GET" action="{NewChannelURL}">
+        <INPUT type="hidden" name="command" value="update-channels">
+        <INPUT name="foo" type="submit" value="Update Channels List">
+       </FORM>
+      </TD>
+    </TR>
+    </TABLE>
+<!-- INCLUDE bottom.inc.tpl.html -->
+<!-- INCLUDE footer.inc.tpl.html -->

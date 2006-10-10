@@ -1,0 +1,153 @@
+<!-- INCLUDE header.inc.tpl.html -->
+<!-- INCLUDE top.inc.tpl.html -->
+    <TABLE border="0">
+    <TR>
+      <TD width="10" valign="top" rowspan="9">
+      </TD>
+      <TD width="120" valign="top" class="package_info_title">
+        Package
+      </TD>
+      <TD width="300" valign="top">
+        {Package}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Installed
+      </TD>
+      <TD width="300" valign="top">
+        {Installed}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Latest
+      </TD>
+      <TD width="300" valign="top">
+        {Latest}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        License
+      </TD>
+      <TD width="300" valign="top">
+        {License}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Summary
+      </TD>
+      <TD width="300" valign="top">
+        {Summary}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Description
+      </TD>
+      <TD width="300" valign="top">
+        {Description}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Dependencies
+      </TD>
+      <TD width="300" valign="top">
+        {Dependencies}
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Options
+      </TD>
+      <TD width="300" valign="top">
+        <TABLE border="0" cellspacing="0" cellpadding="0">
+        <TR>
+          <TD align="center">
+            {Opt_Img_1}
+          </TD>
+          <TD width="5">
+          </TD>
+          <TD valign="middle">
+            {Opt_Text_1}
+          </TD>
+        </TR>
+        <TR>
+          <TD height="4"></TD>
+        </TR>
+        <TR>
+          <TD align="center">
+            {Opt_Img_2}
+          </TD>
+          <TD width="5">
+          </TD>
+          <TD valign="middle">
+            {Opt_Text_2}
+          </TD>
+        </TR>
+        </TABLE>  
+      </TD>
+    </TR>
+    <TR>
+      <TD width="120" valign="top" class="package_info_title">
+        Weblinks
+      </TD>
+      <TD width="300" valign="top">
+        <TABLE border="0" cellspacing="0" cellpadding="0">
+        <TR>
+          <TD align="center">
+            <a href="http://pear.php.net/manual/en/" class="green" target="_new">
+              <img src="{InstallerURL}?img=manual" border="0">
+            </a>
+          </TD>
+          <TD width="5">
+          </TD>
+          <TD valign="middle">
+            <a href="http://pear.php.net/manual/en/" class="green" target="_new">
+              Package Manual
+            </a>
+          </TD>
+        </TR>
+        <TR>
+          <TD height="4"></TD>
+        </TR>
+        <TR>
+          <TD align="center">
+            <a href="http://{PreferredMirror}/package/{Package}/download/{Latest}" class="green" target="_new">
+              <img src="{InstallerURL}?img=infoplus" border="0">
+            </a>
+          </TD>
+          <TD width="5">
+          </TD>
+          <TD valign="middle">
+            <a href="http://{PreferredMirror}/package/{Package}/download/{Latest}" class="green" target="_new">
+              Extended Package Information
+            </a>
+          </TD>
+        </TR>
+        <TR>
+          <TD height="4"></TD>
+        </TR>
+        <TR>
+          <TD align="center">
+            <a href="{DownloadURL}" class="green">
+              <img src="{InstallerURL}?img=download" border="0">
+            </a>
+          </TD>
+          <TD width="5">
+          </TD>
+          <TD valign="middle">
+            <a href="{DownloadURL}" class="green">
+              Download latest Release ({Latest})
+            </a>
+          </TD>
+        </TR>
+        </TABLE>  
+      </TD>
+    </TR>
+    </TABLE>
+<!-- INCLUDE bottom.inc.tpl.html -->
+<!-- INCLUDE footer.inc.tpl.html -->
