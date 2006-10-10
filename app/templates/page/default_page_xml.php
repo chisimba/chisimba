@@ -83,13 +83,19 @@ if (!isset($pageSuppressSkin)){
     	//echo $objSkin->putSkinCssLinks();
     	echo '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
     	<link rel="icon" href="skins/'.$objSkin->getSkin().'/icons/csimba.gif" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/main.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/stylesheet.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/print.css" media="print" />
 				<!--[if lte IE 6]>
 					<link rel="stylesheet" type="text/css" href="skins/_common/ie6_or_less.css" />
 				<![endif]-->';
     	if (!isset($pageSuppressToolbar)) {
-				echo '<script type="text/javascript" src="skins/_common/js/common.js"></script>';
+				echo '
+<!--[if lte IE 6]>
+<style type="text/css">
+    body { behavior:url("skins/_common/js/ADxMenu_prof.htc"); }
+</style>
+<![endif]-->
+';
 		}
 	}
 }
@@ -131,14 +137,12 @@ if (isset($bodyOnLoad)) {
 ?>
 </head>
 <?php
-if (!isset($bodyType)) {
-    $bodyType = 'type-c';
-}
+
 
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
-    echo '<body id="'.$bodyType.'">';
+    echo '<body>';
 }
 	// Add instant messaging
 	if (!isset($pageSuppressIM)) {
@@ -156,9 +160,9 @@ if (isSet($bodyParams)) {
  	if (!isset($pageSuppressBanner)) {
 ?>
 
-		<div id="wrap">
+
 			<div id="header">
-				<div id="site-name"><span><?php echo $objConfig->getsiteName();?></span></div>
+				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
@@ -173,7 +177,6 @@ if (isSet($bodyParams)) {
 				 }
 				 ?>
 			</div>
-		</div>
 
 <?  }
 
@@ -184,7 +187,7 @@ if (isSet($bodyParams)) {
 <?php
 if (!isset($suppressFooter)) {
      // Create the bottom template area
-    $this->footerNav = & $this->getObject('layer', 'htmlelements');
+    $this->footerNav = & $this->newObject('layer', 'htmlelements');
     $this->footerNav->id = 'footer';
     $this->footerNav->cssClass='';
     $this->footerNav->position='';
@@ -195,14 +198,12 @@ if (!isset($suppressFooter)) {
         $this->loadClass('link', 'htmlelements');
         $link = new link ($this->URI(array('action'=>'logoff'),'security'));
         $link->link=$objLanguage->languageText("word_logout");
-        $str=$objLanguage->languageText("mod_context_loggedinas").' <strong>'.$this->objUser->fullname().'</strong>  ('.$link->show().')';
+        $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$this->objUser->fullname().'</strong>  ('.$link->show().')';
         $this->footerNav->str = $str;
-    } else {
-        $this->footerNav->str = '&nbsp';
     }
 
 
-    //echo $this->footerNav->show();
+    echo $this->footerNav->show();
 }
 ?>
 

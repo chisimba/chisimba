@@ -1,26 +1,63 @@
-/*
-LEGAL
-=====
-Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
-Community: Mollio http://www.mollio.org $
-License: Released Under the "Common Public License 1.0", 
-http://www.opensource.org/licenses/cpl.php
-License: Released Under the "Creative Commons License", 
-http://creativecommons.org/licenses/by/2.5/
-License: Released Under the "GNU Creative Commons License", 
-http://creativecommons.org/licenses/GPL/2.0/
-*/
 
-#header {width:100%}
-
-#nav-secondary a {width:143px}
-
-#resultslist-wrap li dl {display:inline}
-
+/* Provide a GIF instead for IE*/
+div#header h1#sitename {
+	background-image: url('logo.gif');
+}
 
 /* 
-I've added position:relative to these items below to fix the IE Peakaboo bug. 
-more about it here: http://www.positioniseverything.net/explorer/peekaboo.html 
-*/
-ol.code, .featurebox, #content ul, #leftnav ul {position:relative}
-	
+ *	Horizontal, top-2-bottom
+ *	## Tweaks for IE5, IE6
+ *	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ *	(c) 2004 - Aleksandar Vacic, www.aplus.co.yu
+ * Some rights reserved, http://creativecommons.org/licenses/by-sa/2.0/
+ *	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ */
+
+/*		------	Basic style	------		*/
+
+/* Fix IE6's inability to expand clickable area */
+#menu li:hover a {
+	position: relative;
+}
+
+#menu li {
+	position: static;
+}
+
+#menu li:hover {
+	position: relative;
+	z-index: 10000;
+}
+
+/* IE can't handle display, so fail-over to visibility */
+#menu li ul {
+	display: block;
+	visibility: hidden;
+}
+
+/* because of the specific way of clearing floats */
+#menu {
+	padding-bottom: 2px;
+}
+
+/* simulate child selector for IE */
+div#menu li:hover ul,
+#menu li:hover li:hover ul,
+#menu li:hover li:hover li:hover ul {
+	visibility: visible;
+	z-index: 10000;
+}
+
+div#menu li:hover li ul,
+#menu li:hover li:hover li ul,
+#menu li:hover li:hover li:hover li ul {
+	visibility: hidden;
+}
+
+#menuList {
+	height: 1%;
+}
+
+/*		------   Make-up	--------			*/
+
+

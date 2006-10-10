@@ -122,44 +122,40 @@ class csslayout extends object implements ifhtml
     /**
     * Method to return the JavaScript that fixes a two column css layout using javascript
     *
-    * @access private
+    * @access public
     * @return string $fixLayoutScript: the JavaScript that goes in the header
     */
     public function fixTwoColumnLayoutJavascript()
     {
-        $fixLayoutScript ="
-        <script type=\"text/javascript\">
+        $fixLayoutScript ='
+        <script type="text/javascript">
 
         function adjustLayout()
         {
-             var leftnavHeight = 0;
-             var rightnavHeight = 0;
-             var contentHeight = 0;
-
-             if (document.getElementById('rightnav')) {
-                 leftnavHeight = document.getElementById('rightnav').offsetHeight;
-             }
-
-
-             if (document.getElementById('contentHasLeftMenu')) {
-                 contentHeight = document.getElementById('contentHasLeftMenu').offsetHeight;
-             }
-
-             biggestHeight = Math.max(leftnavHeight, contentHeight);
-
-             if (biggestHeight > contentHeight) {
-                 document.getElementById('contentHasLeftMenu').style.height = biggestHeight+\"px\";
-            }
+             // Get natural heights  
+            var cHeight = xHeight("contentcontent");  
+            var lHeight = xHeight("leftcontent");  
+            var rHeight = xHeight("rightcontent");  
+            
+            // Find the maximum height  
+            var maxHeight =  
+            Math.max(cHeight, Math.max(lHeight, rHeight));  
+            
+            // Assign maximum height to all columns  
+            
+            xHeight("content", maxHeight);  
+            xHeight("left", maxHeight);  
+            xHeight("right", maxHeight);  
         }
 
         window.onload = function()
         {
-          xAddEventListener(window, \"resize\",
+          xAddEventListener(window, "resize",
             adjustLayout, false);
           adjustLayout();
         }
 
-        </script>";
+        </script>';
 
         return $fixLayoutScript;
     }
@@ -172,43 +168,35 @@ class csslayout extends object implements ifhtml
     */
     public function fixThreeColumnLayoutJavascript()
     {
-        $fixLayoutScript = "
-        <script type=\"text/javascript\">
+        $fixLayoutScript = '
+        <script type="text/javascript">
 
         function adjustLayout()
         {
-             var leftnavHeight = 0;
-             var rightnavHeight = 0;
-             var contentHeight = 0;
-
-             if (document.getElementById('leftnav')) {
-                 leftnavHeight = document.getElementById('leftnav').offsetHeight;
-             }
-
-             if (document.getElementById('rightnav')) {
-                 rightnavHeight = document.getElementById('rightnav').offsetHeight;
-             }
-
-             if (document.getElementById('content')) {
-                 contentHeight = document.getElementById('content').offsetHeight;
-             }
-
-             biggestHeight = Math.max(leftnavHeight, rightnavHeight, contentHeight);
-
-
-             if (biggestHeight > contentHeight) {
-                 document.getElementById('content').style.height = biggestHeight+\"px\";
-            }
+             // Get natural heights  
+            var cHeight = xHeight("contentcontent");  
+            var lHeight = xHeight("leftcontent");  
+            var rHeight = xHeight("rightcontent");  
+            
+            // Find the maximum height  
+            var maxHeight =  
+            Math.max(cHeight, Math.max(lHeight, rHeight));  
+            
+            // Assign maximum height to all columns  
+            
+            xHeight("content", maxHeight);  
+            xHeight("left", maxHeight);  
+            xHeight("right", maxHeight);
         }
 
         window.onload = function()
         {
-          xAddEventListener(window, \"resize\",
+          xAddEventListener(window, "resize",
             adjustLayout, false);
           adjustLayout();
         }
 
-        </script>";
+        </script>';
 
         return $fixLayoutScript;
     }
@@ -233,40 +221,51 @@ class csslayout extends object implements ifhtml
         $result = '<div id="rightnav">'.$this->leftColumnContent.'</div>';
 
 
-        if (isset($this->footerStr))
-		{
-			$footer = '<div  id="footer">'.$this->footerStr.'</div>';
-		}
-
-		else {
-			$footer = NULL;
-		}
-		if (!isset($breadcrumbs))
-		{
-			$breadcrumbs = NULL;
-		}
-
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
-            $result .= '<div id="contentHasLeftMenu">'.'<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>'.'</div>';
-            $this->setVar('bodyType', 'type-b');
+            $result = '
+<div id="twocolumn">
+	<div id="wrapper"> 
+		<div id="content"> 
+			<div id="contentcontent">
+                '.$this->middleColumnContent.'
+			</div>
+		</div>
+	</div>';
+            $result .= '
+    <div id="left"> 
+		<div id="leftcontent">
+		  '.$this->leftColumnContent.'
+		</div>
+	</div>
+</div>';
         } else {
             // for a three column layout, first load the right column, then the middle column
-            $result .= '<div id="leftnav">'.$this->rightColumnContent.'</div>';
-            $result .= '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';
+            $result = '
+<div id="threecolumn">
+	<div id="wrapper"> 
+		<div id="content"> 
+			<div id="contentcontent">
+                '.$this->middleColumnContent.'
+			</div>
+		</div>
+	</div>';
+            $result .= '
+    <div id="left"> 
+		<div id="leftcontent">
+		  '.$this->leftColumnContent.'
+		</div>
+	</div>';
+            $result .= '
+    <div id="right"> 
+		<div id="rightcontent">
+            '.$this->rightColumnContent.$footer.'
+		</div>
+	</div>
+</div>';
         }
 
-        //return $result;
-      //  $middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';  //
-        /*if (isset($footerStr))
-		{
-			$footer = '<div  id="footer">'.$footerStr.'</div>';
-		}
-		$side1 = '<div id="sidebar">'.$this->leftColumnContent.'</div>';
-		$side2 = '<div id="utility">'.$this->rightColumnContent.'</div>';
-		$middleContent = '<div id="content">'.$breadcrumbs.$this->middleColumnContent.$footer.'</div>';
-*/
-        $str = '<div id="content-wrap">'.$result.'</div>';
+        $str = $result;
 
         return $str;
     }

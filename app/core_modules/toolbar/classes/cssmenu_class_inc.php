@@ -41,12 +41,14 @@ class cssmenu extends object
     */
     function show()
     {
-    	$str='<ul id="nav" >';
+    	$str='<ul id="menuList" class="adxm">';
     	$str .= '<li class="first"><a href="'.$this->uri(null, '_default').'">Home</a></li>';
 		foreach($this->menu as $key=>$item){
             $this->objLink->link('javascript:;');
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-            $str.='<li >'.$this->objLink->show()."<ul>\n";
+            $str.='<li>'.$this->objLink->show().'<ul>'."\n";
+            $counter = 1;
+            $numitems = count ($item);
             foreach($item as $link=>$val){
                 $this->toolbarIcon->setIcon($link,null,'icons/modules/');
                 $this->toolbarIcon->title=$val;
@@ -55,18 +57,25 @@ class cssmenu extends object
                 $icon=$this->toolbarIcon->show();
 
                 $this->objLink->link($this->uri(array(''),$link));
-                $this->objLink->link=$icon.$val;
+                $this->objLink->link=$icon.'<span>'.$val.'</span>';
 
                 $valLink=$this->objLink->show();
-                $str.="<li>".$valLink."</li>\n";
-
+                
+                if ($counter == 1) {
+                    $cssclass = 'first';
+                } else if ($counter == $numitems) {
+                    $cssclass = 'last';
+                }
+                
+                $str.='<li class="'.$cssclass.'">'.$valLink."</li>\r\n";
+                $counter++;
             }
             $str.="</ul></li>\n";
         }
         $str .= '<li class="last"><a href="javascript: if(confirm(\'Are you sure you want to logout?\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">Logout</a></li>';
         $str .="</ul>";
-        $menu=$str;
-        return $menu;
+        
+        return $str;
 	}
 
     /**

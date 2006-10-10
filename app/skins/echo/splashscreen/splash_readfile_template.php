@@ -1,7 +1,6 @@
-<div id="wrap">
 	<div id="header">
-		<div id="site-name">[-SITENAME-]
-		</div>
+		<h1 id="sitename"><span>[-SITENAME-]</span>
+		</h1>
 		<div id="search">
 			<form action="">
 			<label for="searchsite">Site Search:</label>
@@ -12,52 +11,54 @@
 		</div>
 	</div>
 
-	<div id="content-wrap">
-        <div id="rightnav">
-			[-STARTFORM-]
-			<div class="featurebox">
-		            <h3>Login</h3>
-
-		                        [-USERNAMEBOX-]
-
-		                        [-PASSWORDBOX-]
-		                 <br />
-		                        [-USELDAPCHECK-][-LOGINBUTTON-]
-		                    <br />
-		                        [-NEWPASSWORD-]
-
-			</div>
-			<div class="featurebox">
-		            <h3>Registration</h3>
-
-		                        [-REGISTER-]
-
-			</div>
-		        [-SKIN-]
-		        [-ENDFORM-]
-		    <div class="featurebox">
-		            <h3>Languages</h3>
-		            <table>
-		                    <tr>
-		                            <td>
-		                                    [-LANGUAGECHOOSER-]
-		                            </td>
-		                    </tr>
-		            </table>
-		     </div>
-
-
-
+	<div id="threecolumn">
+	   <div id="wrapper">
+    	   <div id="content">
+    	       <div id="contentcontent">
+        			[-PRELOGINSTORIES-]
+    			</div>
+    		</div>
+		</div>
+        <div id="left">
+            <div id="leftcontent">
+    			[-STARTFORM-]
+    			<div class="featurebox">
+    		            <h3>Login</h3>
+    
+    		                        [-USERNAMEBOX-]
+    
+    		                        [-PASSWORDBOX-]
+    		                 <br />
+    		                        [-USELDAPCHECK-][-LOGINBUTTON-]
+    		                    <br />
+    		                        [-NEWPASSWORD-]
+    
+    			</div>
+    			<div class="featurebox">
+    		            <h3>Registration</h3>
+    
+    		                        [-REGISTER-]
+    
+    			</div>
+    		        [-SKIN-]
+    		        [-ENDFORM-]
+    		    <div class="featurebox">
+    		            <h3>Languages</h3>
+    		            <table>
+    		                    <tr>
+    		                            <td>
+    		                                    [-LANGUAGECHOOSER-]
+    		                            </td>
+    		                    </tr>
+    		            </table>
+    		     </div>
+            </div>
 		</div>
 
-		<div id="content">
-			[-PRELOGINSTORIES-]
-			<div id="footer">
-			[-PRELOGINSTORIESFOOTER-]
-			</div>
-		</div>
+		
 
-		<div id="leftnav">
+		<div id="right">
+            <div id="rightcontent">
 				<div class="featurebox">
 		            <h3>Skinz</h3>
 		            <table>
@@ -94,9 +95,9 @@
         				src="http://www.w3.org/Icons/valid-xhtml10"
         				alt="Valid XHTML 1.0 Transitional" height="31" width="88" /></a>
 				</center>
+            </div>
 		</div>
-
-
-</div>
-
-</div>
+    </div>
+<div id="footer">
+        			 [-PRELOGINSTORIESFOOTER-]
+        			</div>

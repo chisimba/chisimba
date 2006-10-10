@@ -14,7 +14,7 @@ class skin extends object
     var $objButtons;
     var $objDropdown;
     
-    var $skinFile = 'main.css';
+    var $skinFile = 'stylesheet.css';
 
     function init()
     {
