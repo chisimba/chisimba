@@ -20,7 +20,9 @@
   $Id$
 */
 define('PEAR_Frontend_Web',1);
-define('INSTALL_DIR','C:/xamp/xampp/htdocs/5ive/app/installer');
+$path = dirname(__FILE__);
+
+define('INSTALL_DIR',$path);
 $useDHTML         = true;
 @session_start();
 
@@ -37,7 +39,7 @@ require_once 'PEAR/Frontend.php';
 require_once 'PEAR/Registry.php';
 require_once 'PEAR/Config.php';
 require_once 'PEAR/Command.php';
-require_once INSTALL_DIR.'/Web/Frontend/Web.php';
+require_once INSTALL_DIR.'/Frontend/Web.php';
 
 if (!isset($pear_user_config)) {
     if (OS_WINDOWS) {
