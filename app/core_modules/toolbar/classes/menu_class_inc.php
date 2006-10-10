@@ -221,15 +221,14 @@ class menu extends object
         // Display data in a table
         $this->objTable->width="100%";
         $this->objTable->startRow();
-        $this->objTable->addCell($menu, '90%', 'middle','left','menuhead');
-        $this->objTable->addCell($logout, '10%', 'middle','right','menuhead');
+        $this->objTable->addCell($menu, '100%', 'middle','left','menuhead');
         $this->objTable->endRow();
 
         $this->objLayer->str = $crumbs;
         $this->objLayer->cssClass = 'menuhead';
         $this->objLayer->border = ";border-top: 1px solid #555555; padding: 5px; padding-left: 14px;";
 
-        $navbar = $this->objTable->show().$this->objLayer->show();
+        $navbar = '<div id="menu">'.$menu.'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
     }
