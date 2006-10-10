@@ -21,8 +21,8 @@
 
 require_once "PEAR/Frontend.php";
 require_once "PEAR/Remote.php";
-require_once "HTML/Template/IT.php";
-require_once "Net/UserAgent/Detect.php";
+require_once INSTALL_DIR."/Frontend/HTML/Template/IT.php";
+require_once INSTALL_DIR."/Frontend/Net/UserAgent/Detect.php";
 
 /**
 * PEAR_Frontend_Web is a HTML based Webfrontend for the PEAR Installer
