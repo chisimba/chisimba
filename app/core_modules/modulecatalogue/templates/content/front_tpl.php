@@ -30,7 +30,7 @@ $icon->setIcon('run','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue');
 $rnnbl = $icon->show();*/
 
-$head = array(' ',' ',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
+$head = array('&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
@@ -106,6 +106,7 @@ if ($modules) {
 		$icon->setModuleIcon($modName);
 		$icon->alt = $modName;
 		$objCheck->checkbox('arrayList[]');
+		$objCheck->cssId = 'checkbox_'.$modName;
         $objCheck->setValue($modName);
         //if ($this->objModFile->findController($modName)) {
         //	$icon->setIcon('ok','png');
