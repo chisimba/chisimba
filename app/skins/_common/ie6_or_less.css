@@ -1,9 +1,3 @@
-
-/* Provide a GIF instead for IE*/
-div#header h1#sitename {
-	background-image: url('logo.gif');
-}
-
 /* 
  *	Horizontal, top-2-bottom
  *	## Tweaks for IE5, IE6
