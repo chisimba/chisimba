@@ -374,6 +374,9 @@ class htmlTable extends object implements ifhtml
         if ($attrib) {
             $this->heading .= ' '.$attrib;
         }
+        if (trim($str) == '') {
+            $str = '&nbsp;';
+        }
         $this->heading .= ">".$str."</th>\n\n";
     }
 
@@ -511,7 +514,7 @@ class htmlTable extends object implements ifhtml
         }
         // The number of cols in the content array
         $cols = count($content);
-        $this->tr_start = "<tr><thead";
+        $this->tr_start = "<thead";
         if ($trClass) {
             $this->tr_start .= " class=\"" . $trClass . "\"";
         }
@@ -533,7 +536,7 @@ class htmlTable extends object implements ifhtml
             $row .= ">";
             $row .= $content[$idx] . "</th>";
         }
-        $row .= "</thead></tr>\n\n\n";
+        $row .= "</thead>\n\n\n";
         return $row;
     }
 
