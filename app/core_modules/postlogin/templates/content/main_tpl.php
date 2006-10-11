@@ -86,7 +86,7 @@ if($this->objModule->checkIfRegistered('stories','stories')){
 
 // Pass the string to the footer area
 if($this->objModule->checkIfRegistered('stories','stories')){
-    $this->setVar('footerStr', $this->objStories->fetchCategory("footer"));
+    $this->setVar('footerStr', $this->footerStr);
 }
 
 echo $cssLayout->show(); 
