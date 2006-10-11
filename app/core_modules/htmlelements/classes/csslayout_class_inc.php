@@ -259,7 +259,7 @@ class csslayout extends object implements ifhtml
             $result .= '
     <div id="right"> 
 		<div id="rightcontent">
-            '.$this->rightColumnContent.$footer.'
+            '.$this->rightColumnContent.'
 		</div>
 	</div>
 </div>';
