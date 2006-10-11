@@ -390,7 +390,7 @@ fieldset.tabbox ul {
 
 /* SECONDARY NAVIGATION - 2nd TIER */
 	#nav-secondary ul {margin: 0 0 1em 23px;padding:0}
-	#nav-secondary li.active li a, #nav-secondary li.active li a:link, #nav-secondary li.active li a:visited {line-height:1.5;background: #fff url("images/sprites.gif") no-repeat 0 -798px;padding:0 0 0 12px;font-weight:normal;width:auto;color:#000;width:130px;display:block}
+	#nav-secondary li.active li a, #nav-secondary li.active li a:link, #nav-secondary li.active li a:visited {line-height:1.5;background-color: #fff ;padding:0 0 0 12px;font-weight:normal;width:auto;color:#000;width:130px;display:block}
 	#nav-secondary li.active li a:hover, #nav-secondary li.active li a:active {color: #c00}
 	#nav-secondary li.active li {border: none;margin:0}
 	
