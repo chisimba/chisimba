@@ -325,7 +325,7 @@ class htmlTable extends object implements ifhtml
         if ($this->row_attributes) {
             $this->heading .= " " . $this->row_attributes;
         }
-        $this->heading .= ">";
+        $this->heading .= "><tr>";
     }
 
 
@@ -394,7 +394,7 @@ class htmlTable extends object implements ifhtml
     */
     public function endHeaderRow()
     {
-        $this->heading .= "</thead>";
+        $this->heading .= "</tr></thead>";
     }
 
 
@@ -521,7 +521,7 @@ class htmlTable extends object implements ifhtml
         if ($this->row_attributes) {
             $this->tr_start .= " " . $this->row_attributes;
         }
-        $this->tr_start .= ">";
+        $this->tr_start .= "><tr>";
         $row = $this->tr_start . "\n";
         for($idx = 0; $idx < $cols; $idx++) {
             $row .= "<th";
@@ -536,7 +536,7 @@ class htmlTable extends object implements ifhtml
             $row .= ">";
             $row .= $content[$idx] . "</th>";
         }
-        $row .= "</thead>\n\n\n";
+        $row .= "</tr></thead>\n\n\n";
         return $row;
     }
 
