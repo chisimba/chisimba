@@ -428,3 +428,8 @@ fieldset.tabbox ul {
     width: 100%;
     overflow:hidden;
 }
+
+/* Hide the Instant Messenger Iframe */
+#IM {
+    display: none;
+}
