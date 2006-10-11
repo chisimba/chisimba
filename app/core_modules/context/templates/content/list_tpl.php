@@ -190,7 +190,7 @@ if(!$this->getParam('query') == '')
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
        $cssLayout->setNumColumns(3);
        $cssLayout->setLeftColumnContent($objContextUtils->getContextMenu());
-       $cssLayout->setMiddleColumnContent($str.	$this->footerStr);
+       $cssLayout->setMiddleColumnContent($str);
        $cssLayout->setRightColumnContent($contextInfo);
        echo $cssLayout->show(); 
 ?>
