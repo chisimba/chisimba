@@ -414,8 +414,8 @@ class datetime extends object
         //Initialize $chk
         $chk = 0;
         //Get the notification date and convert to unix timestamp
-        if ( $ar['notificationDate'] !== NULL ) {
-            $notificationDate  = strtotime($ar['notificationDate']);
+        if ( $ar['notificationdate'] !== NULL ) {
+            $notificationDate  = strtotime($ar['notificationdate']);
             //Get the unix timestamp now
             $nowDate=time();
             //Calculate the time elapsed since last notification
