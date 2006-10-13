@@ -27,7 +27,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Initialize method
     */
      function init(){
-         $this->objConfig= &$this->newObject('config','config');
+         $this->objConfig= &$this->newObject('altconfig','config');
      }
     
     /**
@@ -45,7 +45,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             
             // Generate Include File
             /*Based in the first number of the IP address ("101" in the example), a PHP file in ip_files/ directory will be included (in the example the file to be included will be "ip_files/101.php"). This file has known country codes for IP addresses starting with the selected first number (p.e: 101.###.###.###, where # is any digit). */
-            $includefile = $this->objConfig->siteRootPath().'/modules/utilities/resources/ip_files/'.$numbers[0].'.php';
+            $includefile = $this->objConfig->getsiteRootPath().'/modules/utilities/resources/ip_files/'.$numbers[0].'.php';
             
             //Include the File
             include($includefile);
