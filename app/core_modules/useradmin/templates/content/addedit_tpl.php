@@ -31,7 +31,7 @@
 
     // Breadcrumbs object
     $objTools=&$this->getObject('tools','toolbar');
-    $link=$objLanguage->languageText('menu_userdetails');
+    $link=$objLanguage->languageText('menu_userdetails', 'useradmin');
     $objTools->addToBreadCrumbs(array($link));
 
     $objButtons=&$this->getObject('navbuttons','navigation');
