@@ -27,7 +27,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Initialize method
     */
      function init(){
-         $this->objConfig= &$this->newObject('altconfig','config');
+     	$this->objConfig= &$this->newObject('altconfig','config');
+     	// Load Countries Table
+     	$this->objCountries=& $this->getObject('countries', 'utilities');
      }
     
     /**
@@ -36,7 +38,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @param string $ip: IP Address to check
     * @return $country string : Country Abbreviation Code or null
     */
-    function getCountry($ip) {   
+    function getCountryByIP($ip) {   
        // IP address will be split into individual numbers and saved to an array($numbers) 
         $numbers = preg_split( "/\./", $ip);
         
@@ -73,6 +75,63 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
         
     } // end of function
+    
+    /**
+    * Method to get the source for country flag by providing country code
+    *
+    * @param string $code: two letter country code
+    * @return $flagsrc string : Flag Image File Url
+    */
+    function getCountryFlag($code)
+    {
+        
+        $flagsrc = 'modules/iptocountry/resources/flags/'.strtolower($code).'.gif';
+        
+        if (!file_exists($this->objConfig->siteRootPath().'/'.$flagsrc)) { 
+           $flagsrc = 'modules/iptocountry/resources/flags/unknown.gif';
+        }
+        return $flagsrc;
+    }
+    
+    /**
+    * Method to get the source for country flag by providing IP Address
+    * Uses functions above to get IP then image src
+    *
+    * @param string $ip: IP code
+    * @return string : Flag Image File Url
+    */
+    function getCountryFlagByIp($ip)
+    {
+        $code = $this->getCountryByIP($ip);
+        
+        return $this->getCountryFlag($code);
+    }
+    
+    /**
+    * Method to get the name of the country  by providing country code
+    * Uses functions in objCountries
+    *
+    * @param string $code: two letter country code
+    * @return string : Name of Country
+    */
+    function getCountryName ($code)
+    {
+        return $this->objCountries->getCountryName($code);
+    }
+    
+    /**
+    * Method to get the name of the country  by providing IP Address
+    * Uses functions in objCountries
+    *
+    * @param string $ip: IP code
+    * @return string : Name of Country
+    */
+    function getCountryNameByIp($ip)
+    {
+        $code = $this->getCountryByIP($ip);
+        
+        return $this->objCountries->getCountryName($code);
+    }
      
  } // end of class
 
