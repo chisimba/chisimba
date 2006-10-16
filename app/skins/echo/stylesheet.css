@@ -121,6 +121,11 @@ background: transparent url('images/featurebox_bg.gif') no-repeat bottom right;
 margin-top: 4px;
 }
 
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
 div#left {
     background: transparent url('images/content_wrap_bg.gif');
     background-position: 10px;
