@@ -183,9 +183,6 @@ class link extends abhtmlbase implements ifhtml
         if ($this->name) {
             $ret .= " name=\"" . $this->name . "\" ";
         } 
-        if ($this->target) {
-            $ret .= " target=\"" . $this->target . "\" ";
-        } 
         if ($this->charset) {
             $ret .= " charset=\"" . $this->charset . "\" ";
         } 
