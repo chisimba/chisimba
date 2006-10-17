@@ -86,8 +86,9 @@
     	.ucwords($this->modname)."</b></a>";
     	$space='&nbsp;<b>/</b>&nbsp;';
     }
+    $link3 ="&nbsp;<b>/</b>&nbsp;<a href='".$this->uri(array('action'=>'reloaddefaultdata','moduleid'=>$this->registerdata['MODULE_ID']))."'>".$this->objLanguage->languageText('mod_modulecatalogue_reloaddefault','modulecatalogue')."</a>";
     $objTblClass->startRow();
-    $objTblClass->addCell($link2.$space.$link1, "", NULL, 'center',NULL, 'colspan="2"');
+    $objTblClass->addCell($link2.$space.$link1.$link3, "", NULL, 'center',NULL, 'colspan="2"');
     $objTblClass->endRow();
 
     echo $objTblClass->show();

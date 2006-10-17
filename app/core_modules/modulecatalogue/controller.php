@@ -7,7 +7,7 @@
  * @category Chisimba
  * @package modulecatalogue
  * @version 1.0
- * @copyright GPL UWC 2006
+ * @copyright GNU/GPL UWC 2006
  */
 
 class modulecatalogue extends controller
@@ -276,6 +276,9 @@ class modulecatalogue extends controller
                 	return 'updates_tpl.php';
 				case 'makepatch':
 					return 'makepatch_tpl.php';
+				case 'reloaddefaultdata':
+					$this->objModuleAdmin->loadData($this->getParam('moduleid'));
+					return $this->nextAction('list',array('cat'=>$activeCat));
 				case 'search':
 					$str = $this->getParam('srchstr');
 					$type = $this->getParam('srchtype');

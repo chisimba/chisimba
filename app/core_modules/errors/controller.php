@@ -37,6 +37,10 @@ class errors extends controller
         	customException::cleanUp();
         }
     }
+    
+    public function requiresLogin() {
+    	return FALSE;
+    }
 
    /**
 	* Method to process actions to be taken

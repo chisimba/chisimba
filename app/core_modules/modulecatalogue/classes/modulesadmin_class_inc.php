@@ -98,6 +98,7 @@ class modulesadmin extends dbTableManager
             $this->objModules = &$this->getObject('modules');
             $this->objModFile = &$this->getObject('modulefile');
             $this->objUser = &$this->getObject('user','security');
+            $this->objModuleBlocks = &$this->getObject('dbmoduleblocks','modulecatalogue');
         } catch (Exception $e) {
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
@@ -145,40 +146,42 @@ class modulesadmin extends dbTableManager
                 $this->_lastError = 1002;
             	return FALSE;
             } else {
-                // check for modules this one is dependant on
-                if (isset($registerdata['DEPENDS'])) {
-                    foreach ($registerdata['DEPENDS'] as $depends) {
-                        if (!$this->checkDependency($depends)) {
-                            $text=$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
-                            $text=str_replace('{MODULE}',$depends,$text);
-                            $this->output.='<b>'.$text.'</b><br />';
-                            $this->_lastError = 1003;
-                            return FALSE;
-                        }
-                    }
-                }
-                // Now we add the tables
-                if (isset($registerdata['TABLE'])) {
-                    foreach ($registerdata['TABLE'] as $table) {
-                    	if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
-                    		if (!$this->makeTable($table)) {
-                    			$text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
-                    			$text=str_replace('{MODULE}',$table,$text);
-                    			$this->output.='<b>'.$text.'</b><br />';
-                    			$this->_lastError = 1004;
-                    			return FALSE;
-                    		} else {
-                    			$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
-                    			$this->objModules->query($sql);
-                    			// Add the table to the records.
-                    			$this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
-                    		}
-                    	}
-                    }
-                }
-                // Here we load data into tables from files of SQL statements
-                $this->loadData($moduleId);
-                }
+            	// check for modules this one is dependant on
+            	if (isset($registerdata['DEPENDS'])) {
+            		foreach ($registerdata['DEPENDS'] as $depends) {
+            			if (!$this->checkDependency($depends)) {
+            				$text=$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
+            				$text=str_replace('{MODULE}',$depends,$text);
+            				$this->output.='<b>'.$text.'</b><br />';
+            				$this->_lastError = 1003;
+            				return FALSE;
+            			}
+            		}
+            	}
+            	// Now we add the tables
+            	if (isset($registerdata['TABLE'])) {
+            		foreach ($registerdata['TABLE'] as $table) {
+            			if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
+            				if (!$this->makeTable($table)) {
+            					$text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
+            					$text=str_replace('{MODULE}',$table,$text);
+            					$this->output.='<b>'.$text.'</b><br />';
+            					$this->_lastError = 1004;
+            					return FALSE;
+            				} else {
+            					$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
+            					$this->objModules->query($sql);
+            					// Add the table to the records.
+            					$this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
+            				}
+            			}
+            		}
+            	}
+            	// Here we load data into tables from files of SQL statements
+            	if (!$update) {
+            		$this->loadData($moduleId);
+            	}
+            }
                 // Create directory
                 if(isset($registerdata['DIRECTORY'])){
                     foreach ($registerdata['DIRECTORY'] as $directory) {
@@ -199,6 +202,16 @@ class modulesadmin extends dbTableManager
                 $permList = array();
                 $groupArray = array();
                 $groupArray2 = array();
+                if(isset($registerdata['BLOCK'])) {
+                	foreach ($registerdata['BLOCK'] as $block) {
+                		$this->objModuleBlocks->addBlock($moduleId,$block,'normal');
+                	}
+                }
+                if(isset($registerdata['WIDEBLOCK'])) {
+                	foreach ($registerdata['WIDEBLOCK'] as $block) {
+                		$this->objModuleBlocks->addBlock($moduleId,$block,'wide');
+                	}
+                }
                 if(isset($registerdata['MODULE_ISADMIN'])){
                     $isAdmin = $registerdata['MODULE_ISADMIN'];
                 }
@@ -624,6 +637,7 @@ class modulesadmin extends dbTableManager
     		if (is_null($moduleId)) {
     			$moduleId=$registerdata['MODULE_ID'];
     		}
+    		$this->objModuleBlocks->deleteModuleBlocks($moduleId);
     		$modTitle="mod_{$moduleId}_name";
     		$modDescription="mod_{$moduleId}_desc";
     		//Check if there are modules that depend on this one

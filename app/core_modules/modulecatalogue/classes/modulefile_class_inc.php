@@ -292,6 +292,8 @@ class modulefile extends object {
 						case 'CLASSES':
 						case 'WARNING'; 			//Warning tag for modules with special requirements or functions
 						case 'MODULE_CATEGORY':
+						case 'BLOCK':				//module owned blocks
+						case 'WIDEBLOCK':			//wide blocks
 						case 'SOAP_CONTROLLER': 	//Boolean flag for SOAP controller
 							$registerdata[$params[0]][]=rtrim($params[1]);
 						break;

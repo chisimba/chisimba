@@ -78,6 +78,9 @@ class blocks extends object
             $title = $objBlock->title;
             $objWrap = & $this->getObject('trimstr', 'strings');
             $title = $objWrap->wrapString($title, 20);
+            if (isset($objBlock->blockType)) {
+            	$blockType = $objBlock->blockType;
+            }
 
             switch ($blockType) {
                 case NULL:
@@ -116,6 +119,9 @@ class blocks extends object
                     $this->Layer2->addToStr($objBlock->show());
                     $this->Layer1->addToStr($this->Layer2->show());
                     return $this->Layer1->show();
+                case "none":
+                	//just display it - for wide blocks
+                	return $objBlock->show();
 
 
             }
