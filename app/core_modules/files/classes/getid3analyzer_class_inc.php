@@ -8,7 +8,7 @@
 *
 * @author Tohir Solomons
 */
-include ('modules/files/resources/getid3/getid3.php');
+require_once('modules/files/resources/getid3/getid3.php');
 class getid3analyzer extends object
 {
     
@@ -23,7 +23,7 @@ class getid3analyzer extends object
     */
     public function init()
     {
-        $this->_objGetID3 = new getid3();
+        
     }
     
     /**
@@ -33,7 +33,13 @@ class getid3analyzer extends object
     */
     public function analyze($file)
     {
-        return $this->_objGetID3->analyze($file);
+        $getID3 = new getID3();
+                
+        $ThisFileInfo = $getID3->analyze($file);
+        
+        getid3_lib::CopyTagsToComments($ThisFileInfo);
+        
+        return $ThisFileInfo;
     }
 }
 
