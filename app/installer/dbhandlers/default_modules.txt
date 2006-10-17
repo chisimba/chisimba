@@ -28,7 +28,8 @@ htmlelements
 #userparams - requires userparamsadmin
 #login - not in cvs
 systext
-splashscreen
 cms
 calendarbase
 errors
+skin
+prelogin
