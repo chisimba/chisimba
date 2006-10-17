@@ -426,8 +426,9 @@ class user extends dbTable
         $rs = $this->query($sql);
         if ($rs)
         {
-            $line = $rs->fetchRow();
-            $ret=$line["userId"];
+        
+        //    $line = $rs->fetchRow();
+         $ret=$rs[0]["userid"];
         }
         else
         {
