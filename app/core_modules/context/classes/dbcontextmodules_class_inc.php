@@ -81,6 +81,45 @@ class dbcontextmodules extends dbTable{
     function deleteModulesForContext($contextCode){
         $this->delete('contextCode',$contextCode);    
     }
+    
+    /**
+     * Method to get a list of context sensitive modules
+     * @return array
+     */
+    public function getInstallableModules()
+    {
+        
+        
+    }
+    
+    /**
+     * Method to add a module to a context
+     * @param $contextCode The Context Code
+     * @return bool
+     * @access public
+     */
+    public function addModule($contextCode, $moduleId)
+    {
+        $fields = array('contextcode' => $contextCode,
+                         'moduleid' => $moduleId);
+        return $this->insert($fields);
+    }
+    
+    /**
+     * 
+     * Method to get a list of modules for a context
+     * @param contextCode The Context Code
+     * @return array
+     * @access public
+     */
+    public function getContextModules($contextCode)
+    {
+        
+        return $this->getAll('WHERE contextcode="'.$contextCode.'"');
+    }
+    
+    
+    
  }
 
 ?>

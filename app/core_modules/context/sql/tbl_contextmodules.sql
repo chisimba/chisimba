@@ -21,12 +21,12 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
-	'contextCode' => array(
+	'contextcode' => array(
 		'type' => 'text',
 		'length' => 32,
         'notnull' => TRUE
 		),
-	'moduleId' => array(
+	'moduleid' => array(
 		'type' => 'text',
 		'length' => 50,
         'notnull' => TRUE
@@ -40,8 +40,8 @@ $name = 'tbl_contextmodules_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'contextCode' => array(), 
-                    'moduleId' => array()
+                	'contextcode' => array(), 
+                    'moduleid' => array()
                 )
         );
 ?>
