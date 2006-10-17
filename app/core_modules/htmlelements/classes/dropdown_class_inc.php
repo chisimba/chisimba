@@ -42,6 +42,12 @@ class dropdown extends abhtmlbase implements ifhtml
   * @var string $selected: The value that selected
   */
   public $selected;
+  
+  /**
+  *
+  * @var string $cssClass: CSS Class for the drop down
+  */
+  public $cssClass = 'WCHhider';
 
 
   /**
