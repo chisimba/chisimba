@@ -502,7 +502,17 @@ class dbfile extends dbTable
         }
         
         if ($file['playtime'] != 0) {
-            $mediaInfoArray['info_playtime'] = $file['playtime'];
+            $seconds = $file['playtime'] % 60;
+            $minutes = ($file['playtime'] - $seconds) / 60;
+            
+            if ($minutes > 59) {
+                $hour = ($minutes - ($minutes % 60)) / 60;
+                $minutes = $minutes % 60;
+                $str = $hour.':'.$minutes.':'.$seconds;
+            } else {
+                $str = $minutes.':'.$seconds;
+            }
+            $mediaInfoArray['info_playtime'] = $str;
         }
         
         if ($file['framerate'] != 0) {
