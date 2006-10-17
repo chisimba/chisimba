@@ -45,7 +45,7 @@ class upload extends object
         $this->objFileFolder =& $this->getObject('filefolder');
         $this->objGetId3 =& $this->getObject('getid3analyzer', 'files');
         $this->objXMLSerializer =& $this->getObject('xmlserial', 'utilities');
-        $this->objSingleArray = $this->getObject('singlearray', 'utilities');
+        $this->objSingleArray = $this->getObject('singlearray');
         $this->objThumbnails =& $this->getObject('thumbnails');
         
         // Check that Upload Folders exist
