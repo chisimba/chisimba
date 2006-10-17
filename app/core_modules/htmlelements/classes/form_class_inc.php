@@ -203,7 +203,7 @@ class form implements ifhtml
     public function show()
     {
 		$str = ($this->hasRules) ? $this->_getValidatorScripts() : '';
-		$submit=($this->hasRules) ? ' onsubmit="return validate_' . $this->name . '_form(this) "' : '';
+		$submit=($this->hasRules) ? ' onsubmit="return validate_'.$this->name.'_form(this) "' : '';
         if(!empty($this->id)){
         	$id = ' id="'.$this->id.'"';
         } else {
@@ -529,7 +529,7 @@ class form implements ifhtml
             <![CDATA[ 
             
 			//the following lines are generated 	
-				function validate_' . $this->name . '_form(frm)
+				function validate_'.$this->name.'_form(frm)
 				{ 
 					var ok = true;	
 				
