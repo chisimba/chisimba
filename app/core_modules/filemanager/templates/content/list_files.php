@@ -51,17 +51,17 @@ if (count($files) == 0) {
         foreach ($files as $file)
         {
             $link = new link ($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'], 'type'=>$file['category'], 'filename'=>$file['filename'])));
-            $link->link = str_replace('_', ' ', $file['filename']);
+            $link->link = htmlentities(str_replace('_', ' ', $file['filename']));
             
             $table->startRow();
             
             $checkbox = new checkbox('files[]');
             $checkbox->value = $file['id'];
-            $checkbox->cssId = 'input_files_'.$file['filename'];
+            $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
             
             $table->addCell($checkbox->show(), 20);
             
-            $label = new label($objFileIcons->getFileIcon($file['filename']), 'input_files_'.$file['filename']);
+            $label = new label($objFileIcons->getFileIcon($file['filename']), htmlentities('input_files_'.$file['filename']));
             $table->addCell($label->show(), 20);
             $table->addCell($link->show());
             
