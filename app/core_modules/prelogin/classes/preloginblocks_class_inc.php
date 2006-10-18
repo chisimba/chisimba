@@ -31,7 +31,7 @@ class preloginBlocks extends dbTable {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';
 			} else {
-				$this->TRUE = 1;
+				$this->TRUE = TRUE;
 				$this->FALSE = 0;
 			}
 		} catch (customException $e) {
