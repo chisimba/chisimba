@@ -98,7 +98,7 @@ class prelogin extends controller {
 						$this->setVar('block',array('module'=> $block['blockmodule'],'name'=>$block['blockname']));
 						$this->setVar('id',$block['id']);
 						$bType = ($block['isblock'] == $this->TRUE)? 'block' : 'nonblock';
-						$this->setVar('blockType',$bType);
+						$this->setVar('bType',$bType);
 						return 'addblock_tpl.php';
 					}
 				case 'addblock':
