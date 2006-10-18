@@ -149,12 +149,15 @@ class prelogin extends controller {
 					if (!$this->objUser->isAdmin()) {
 						return 'notadmin_tpl.php';
 					} else {
+						$vibe = array();
 						$blocks = $this->objPLBlocks->getAll();
 						if (isset($blocks)) {
 							foreach($blocks as $block) {
-								($this->getParam($block['id'].'_vis')=='on')? $vis = 't' : $vis = 'f';
-								if ($block['visible'] != $vis) {
+								($this->getParam($block['id'].'_vis')=='on')? $vis = TRUE : $vis = 0;
+								//var_dump($block);var_dump($vis);
+								if ($block['visible'] !== $vis) {
 									$this->objPLBlocks->updateVisibility($block['id'],$vis);
+									
 								}
 							}
 						}
