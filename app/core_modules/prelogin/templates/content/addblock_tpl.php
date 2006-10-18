@@ -10,6 +10,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 $script = "
 <script language='javascript'>
+
 function updateForm(form) {
 	if (form.type[0].checked) {
 		form.content.style.display = 'none';
@@ -23,6 +24,13 @@ function updateForm(form) {
 		document.getElementById('block_label').style.display = 'none';
 	}
 }
+
+function window_loaded() {
+	updateForm(document.forms['blockform']);
+}
+
+window.onload = window_loaded;
+
 </script>
 ";
 
@@ -85,32 +93,32 @@ $returnUrl = $this->uri(array('action'=>'admin'));
 $cancel->setOnClick("window.location = '$returnUrl'");
 
 $table->startRow();
-$table->addCell($this->objLanguage->languageText('mod_prelogin_blockname','prelogin'));
-$table->addCell($nameInput->show());
+$table->addCell($this->objLanguage->languageText('mod_prelogin_blockname','prelogin'),'50%');
+$table->addCell($nameInput->show(),'50%');
 $table->endRow();
 
 $table->startRow();
-$table->addCell($this->objLanguage->languageText('mod_prelogin_location','prelogin'));
-$table->addCell($radio->show());
+$table->addCell($this->objLanguage->languageText('mod_prelogin_location','prelogin'),'50%');
+$table->addCell($radio->show(),'50%');
 $table->endRow();
 
 $table->startRow();
-$table->addCell($this->objLanguage->languageText('mod_prelogin_selectblocktype','prelogin'));
-$table->addCell($radio2->show());
+$table->addCell($this->objLanguage->languageText('mod_prelogin_selectblocktype','prelogin'),'50%');
+$table->addCell($radio2->show(),'50%');
 $table->endRow();
 
 $table->startRow();
-$table->addCell("<div id='content_label'>".$this->objLanguage->languageText('word_content')."</div>");
-$table->addCell($contInput->show());
+$table->addCell("<div id='content_label'>".$this->objLanguage->languageText('word_content')."</div>",'50%');
+$table->addCell($contInput->show(),'50%');
 $table->endRow();
 
 $table->startRow();
-$table->addCell("<div id='block_label'>".$this->objLanguage->languageText('mod_prelogin_moduleblock','prelogin')."</div>");
-$table->addCell($moduleDrop->show());
+$table->addCell("<div id='block_label'>".$this->objLanguage->languageText('mod_prelogin_moduleblock','prelogin')."</div>",'50%');
+$table->addCell($moduleDrop->show(),'50%');
 $table->endRow();
 
 $table->startRow();
-$table->addCell($submit->show().' '.$cancel->show());
+$table->addCell($submit->show().' '.$cancel->show(),'50%');
 $table->endRow();
 
 $form = &new form('blockform',$this->uri(array('action'=>'submitblock')));
