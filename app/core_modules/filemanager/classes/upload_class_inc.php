@@ -457,6 +457,11 @@ class upload extends object
             $mediaInfo['artist'] = $analysis['artist'];
         }
         
+        // Comment / Description
+        if (array_key_exists('comment', $analysis)) {
+            $mediaInfo['description'] = $analysis['comment'];
+        }
+        
         // Year
         if (array_key_exists('year', $analysis)) {
             $mediaInfo['year'] = $analysis['year'];
