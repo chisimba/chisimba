@@ -1,14 +1,19 @@
-<?
+<?php
+
+
 /**
 * sidemenu extends object
 * @package toolbar
 * @filesource
 */
 
+
 // security check - must be included in all scripts
+
 if (!$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
+
 
 /**
 * Sidemenu class dynamically creates and displays a side navigation menu.
@@ -413,10 +418,14 @@ class sidemenu extends object
         $objForm =& $this->newObject('form','htmlelements');
         $objButton =& $this->newObject('button','htmlelements');
         $objDrop =& $this->newObject('dropdown','htmlelements');
-
-        $notaMember = $this->objLanguage->code2Txt('phrase_notamemberofanyworkgroup','security');
+///////////////////+>       
+        $notaMember = $this->objLanguage->code2Txt('mod_toolbar_notingroup','toolbar');
+///////////////////+>        
         $leaveGroup = $this->objLanguage->code2Txt('mod_workgroup_leavegroup','security');
-        $join = ucwords($this->objLanguage->code2Txt('phrase_joinworkgroup','security'));
+///////////////////+>        
+        $join = ucwords($this->objLanguage->code2Txt('mod_toolbar_joingroup','toolbar'));
+////////////////+>        
+
         $notInGroup = $this->objLanguage->code2Txt('phrase_notinworkgroup','security');
         $inGroup = $this->objLanguage->code2Txt('phrase_currentlyinworkgroup','security');
         $go = $this->objLanguage->languageText('word_go','security');
