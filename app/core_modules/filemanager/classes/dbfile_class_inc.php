@@ -639,7 +639,13 @@ class dbfile extends dbTable
         return $objTable->show();
     }
     
-    
+    /**
+     * Method to delete a file
+     *
+     * @param string $fileId Record Id of the File
+     * @param Boolean $includeArchives Flag on whether to include files extracted from archive if archive
+     * @return boolean
+     */
     public function deleteFile($fileId, $includeArchives=FALSE)
     {
         $file = $this->getFile($fileId);
@@ -659,9 +665,16 @@ class dbfile extends dbTable
             }
         }
         
-        $this->removeFile($file['id'], $file['path']);
+        return $this->removeFile($file['id'], $file['path']);
     }
     
+    /**
+     * Method to remove a file from the filesystem
+     *
+     * @param string $fileId Record Id of the File
+     * @param string $filePath Path to file
+     * @return boolean
+     */
     private function removeFile($fileId, $filePath)
     {
         // Get Path to File
@@ -682,7 +695,8 @@ class dbfile extends dbTable
             unlink($thumbnailPath);
         }
         
-        // Delete file record
+        // Delete file record and Metadata
+        $this->objMediaFileInfo->delete('fileid', $fileId);
         return $this->delete('id', $fileId);
         
         
