@@ -65,19 +65,32 @@ class singlearray extends object
                 // Check if item value is array
                 if (is_array($value)) {
                     if (count($value) == 1 && isset($value[0]) && !is_array($value[0])) {
-                        $this->finalArray[$item] = $value[0];
+                        $this->addItem($item, $value[0]);
                     } else {
                         // If it is, loop through item value array
                         $this->_looparray($value);
                     }
                 } else {
                     // Add Value to Array with Item as Key
-                    $this->finalArray[$item] = $value;
+                    $this->addItem($item, $value);
                 }
             }
         }
         
         return;
+    }
+    
+    /**
+     * Function to add item to main array
+     *
+     * @param string $item Name of the Item
+     * @param string $value Value of the Item
+     */
+    private function addItem ($item, $value)
+    {
+        if ($value != '') { // Check if Item is not Null
+             $this->finalArray[$item] = $value;
+        }
     }
 }
 ?>
