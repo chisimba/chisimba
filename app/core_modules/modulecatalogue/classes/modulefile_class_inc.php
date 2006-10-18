@@ -130,15 +130,13 @@ class modulefile extends object {
     			$fh = fopen($fn,"r");
     			$content = fread($fh,filesize($fn));
     			fclose($fh);
-    			preg_match('/CONTEXT_AWARE:\s*([a-z\-_]*)/i',$content,$match);
-    			if ($match[1] == '1') {
-    				return TRUE;
-    			} else {
-    				return FALSE;
+    			if (preg_match('/CONTEXT_AWARE:\s*([a-z0-9\-_]*)/i',$content,$match)) {
+    				if ($match[1] == '1') {
+    					return TRUE;
+    				}
     			}
-    		} else {
-    			return FALSE;
     		}
+    		return FALSE;
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
