@@ -79,13 +79,13 @@ class userLoginHistory extends dbTable {
     */
     public function getnowLogin()
     {
-    	$now = date('Y-m-d');
+    	$now = date('Y-m-d H:');
         $sql="SELECT users.username,users.userId,
 			MAX(last.lastLoginDateTime) AS laston 
 		FROM 
 			tbl_userloginhistory as last, tbl_users as users
 		WHERE 
-			 last.lastLoginDateTime >'$now'  AND user.userId=last.userId Group by users.username,users.userId
+			 last.lastLoginDateTime >'$now'  AND users.userId=last.userId Group by users.username,users.userId
 		";
         $rs = $this->query($sql);
        
