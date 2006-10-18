@@ -87,7 +87,7 @@ foreach ($leftBlocks as $block) {
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == 't')? $visibile = TRUE : $visibile = FALSE;
+	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
 	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
 	$updated = date('d/m/y',strtotime($block['datelastupdated']));
 	$table->startRow();
@@ -115,7 +115,7 @@ foreach ($middleBlocks as $block) {
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == 't')? $visibile = TRUE : $visibile = FALSE;
+	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
 	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
 	$updated = date('d/m/y',strtotime($block['datelastupdated']));
 	$table->startRow();
@@ -143,7 +143,7 @@ foreach ($rightBlocks as $block) {
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == 't')? $visibile = TRUE : $visibile = FALSE;
+	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
 	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
 	$updated = date('d/m/y',strtotime($block['datelastupdated']));
 	$table->startRow();

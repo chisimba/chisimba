@@ -16,6 +16,8 @@ if (!$GLOBALS['kewl_entry_point_run']){
 class preloginBlocks extends dbTable {
 	
 	public $objUser;
+	public $TRUE;
+	public $FALSE;
 	
 	/**
 	 * Standard chisimba init function
@@ -25,6 +27,13 @@ class preloginBlocks extends dbTable {
 		try {
 			parent::init('tbl_prelogin_blocks');
 			$this->objUser = &$this->getObject('user','security');
+			if ($this->dbType == "pgsql") {
+				$this->TRUE = 't';
+				$this->FALSE = 'f';
+			} else {
+				$this->TRUE = 1;
+				$this->FALSE = 0;
+			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
@@ -98,15 +107,10 @@ class preloginBlocks extends dbTable {
      */
 	public function insertBlock($arrData) {
 		try {
-			$arrData['visible'] = TRUE;
+			$arrData['visible'] = $this->TRUE;
 			$arrData['datelastupdated'] = $this->now();
 			$arrData['updatedby'] = $this->objUser->userId();
 			$arrData['position'] = $this->getNextPos($arrData['side']);
-			if ($arrData['blockmodule']) {
-				$arrData['isblock'] = TRUE;
-			} else {
-				$arrData['isblock'] = FALSE;
-			}
 			//var_dump($arrData);
 			return $this->insert($arrData);
 		} catch (customException $e) {
@@ -123,14 +127,9 @@ class preloginBlocks extends dbTable {
 	 */
 	public function updateBlock($id,$arrData) {
 		try {
-			$arrData['visible'] = TRUE;
+			$arrData['visible'] = $this->TRUE;
 			$arrData['datelastupdated'] = $this->now();
-			$arrData['updatedby'] = $this->objUser->userId();
-			if ($arrData['blockmodule']) {
-				$arrData['isblock'] = TRUE;
-			} else {
-				$arrData['isblock'] = 0;
-			}
+			$arrData['updatedby'] = $this->objUser->userId();	
 			return $this->update('id',$id,$arrData);
 		} catch (customException $e) {
 			customException::cleanUp();

@@ -50,12 +50,23 @@ class prelogin extends controller {
 	 * Standard Chisimba init function
 	 *
 	 */
+	
+	public $TRUE;
+	public $FALSE;
+	
 	public function init() {
 		try {
 			$this->objBlocks = &$this->getObject('blocks','blocks');
 			$this->objPLBlocks = &$this->getObject('preloginblocks');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objLanguage = &$this->getObject('language','language');
+			if($this->objPLBlocks->dbType == "pgsql") {
+				$this->TRUE = 't';
+				$this->FALSE = 'f';
+			} else {
+				$this->TRUE = 1;
+				$this->FALSE = 0;
+			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
@@ -86,6 +97,8 @@ class prelogin extends controller {
 						$this->setVar('location',$block['side']);
 						$this->setVar('block',array('module'=> $block['blockmodule'],'name'=>$block['blockname']));
 						$this->setVar('id',$block['id']);
+						$bType = ($block['isblock'] == $this->TRUE)? 'block' : 'nonblock';
+						$this->setVar('blockType',$bType);
 						return 'addblock_tpl.php';
 					}
 				case 'addblock':
@@ -101,6 +114,7 @@ class prelogin extends controller {
 					} else {
 						$title = $this->getParam('title');
 						$side = $this->getParam('side');
+						$bType = ($this->getParam('type') == 'block')? $this->TRUE : $this->FALSE;
 						$content = htmlentities($this->getParam('content'),ENT_QUOTES);
 						//var_dump($content); die();
 						$block = $this->getParam('moduleblock');
@@ -112,7 +126,7 @@ class prelogin extends controller {
 							$blockModule = '';
 							$blockName = '';
 						}
-						$data = array('title'=>$title,'side'=>$side,'content'=>$content,'blockname'=>$blockName,'blockmodule'=>$blockModule);
+						$data = array('title'=>$title,'side'=>$side,'content'=>$content,'blocktype'=>$bType,'blockname'=>$blockName,'blockmodule'=>$blockModule);
 						if ($id = $this->getParam('id')) {
 							$result = $this->objPLBlocks->updateBlock($id,$data);
 						} else {
@@ -153,7 +167,7 @@ class prelogin extends controller {
 						$blocks = $this->objPLBlocks->getAll();
 						if (isset($blocks)) {
 							foreach($blocks as $block) {
-								($this->getParam($block['id'].'_vis')=='on')? $vis = TRUE : $vis = 0;
+								($this->getParam($block['id'].'_vis')=='on')? $vis = $this->TRUE : $vis = $this->FALSE;
 								//var_dump($block);var_dump($vis);
 								if ($block['visible'] !== $vis) {
 									$this->objPLBlocks->updateVisibility($block['id'],$vis);

@@ -8,6 +8,24 @@ if (!$GLOBALS['kewl_entry_point_run'])
 }
 // end security check
 
+$script = "
+<script language='javascript'>
+function updateForm(form) {
+	if (form.type[0].checked) {
+		form.content.style.display = 'none';
+		form.moduleblock.style.display = '';
+		document.getElementById('content_label').style.display = 'none';
+		document.getElementById('block_label').style.display = '';
+	} else {
+		form.content.style.display = '';
+		form.moduleblock.style.display = 'none';
+		document.getElementById('content_label').style.display = '';
+		document.getElementById('block_label').style.display = 'none';
+	}
+}
+</script>
+";
+
 $objH = &$this->newObject('htmlheading','htmlelements');
 $objH->type = 1;
 $objH->str = $heading;
@@ -30,6 +48,7 @@ if (!isset($blockName)) {
 	$blockName = '';
 	$location = 'left';
 	$blockContent = '';
+	$blockType = 'block';
 }
 $nameInput = &new textinput('title',$blockName,null,40);
 $radio = &new radio('side');
@@ -37,6 +56,13 @@ $radio->addOption('left',$objLanguage->languageText('word_left'));
 $radio->addOption('middle',$objLanguage->languageText('word_middle'));
 $radio->addOption('right',$objLanguage->languageText('word_right'));
 $radio->setSelected($location);
+$radio2 = &new radio('type');
+
+$radio2->addOption('block','Block');
+$radio2->addOption('nonblock','Content');
+$radio2->extra = 'onchange="updateForm(this.form)"';
+$radio2->setSelected($blockType);
+
 $contInput = &new textarea('content',htmlentities(html_entity_decode($blockContent,ENT_QUOTES),ENT_NOQUOTES),6,37);
 
 $objModuleBlocks = &$this->getObject('dbmoduleblocks','modulecatalogue');
@@ -69,12 +95,17 @@ $table->addCell($radio->show());
 $table->endRow();
 
 $table->startRow();
-$table->addCell($this->objLanguage->languageText('word_content'));
+$table->addCell($this->objLanguage->languageText('mod_prelogin_selectblocktype','prelogin'));
+$table->addCell($radio2->show());
+$table->endRow();
+
+$table->startRow();
+$table->addCell("<div id='content_label'>".$this->objLanguage->languageText('word_content')."</div>");
 $table->addCell($contInput->show());
 $table->endRow();
 
 $table->startRow();
-$table->addCell($this->objLanguage->languageText('mod_prelogin_moduleblock','prelogin'));
+$table->addCell("<div id='block_label'>".$this->objLanguage->languageText('mod_prelogin_moduleblock','prelogin')."</div>");
 $table->addCell($moduleDrop->show());
 $table->endRow();
 
@@ -88,7 +119,7 @@ if (isset($id)) {
 	$form->addToForm(new textinput('id',$id,'hidden'));
 }
 
-$content = $objH->show().$form->show();
+$content = $script.$objH->show().$form->show();
 echo $content;
 
 ?>
