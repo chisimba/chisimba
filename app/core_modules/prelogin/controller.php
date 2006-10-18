@@ -126,7 +126,7 @@ class prelogin extends controller {
 							$blockModule = '';
 							$blockName = '';
 						}
-						$data = array('title'=>$title,'side'=>$side,'content'=>$content,'blocktype'=>$bType,'blockname'=>$blockName,'blockmodule'=>$blockModule);
+						$data = array('title'=>$title,'side'=>$side,'content'=>$content,'isblock'=>$bType,'blockname'=>$blockName,'blockmodule'=>$blockModule);
 						if ($id = $this->getParam('id')) {
 							$result = $this->objPLBlocks->updateBlock($id,$data);
 						} else {

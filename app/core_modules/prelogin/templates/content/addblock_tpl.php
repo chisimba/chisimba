@@ -56,7 +56,7 @@ if (!isset($blockName)) {
 	$blockName = '';
 	$location = 'left';
 	$blockContent = '';
-	$blockType = 'block';
+	$bType = 'block';
 }
 $nameInput = &new textinput('title',$blockName,null,40);
 $radio = &new radio('side');
@@ -69,7 +69,7 @@ $radio2 = &new radio('type');
 $radio2->addOption('block','Block');
 $radio2->addOption('nonblock','Content');
 $radio2->extra = 'onchange="updateForm(this.form)"';
-$radio2->setSelected($blockType);
+$radio2->setSelected($bType);
 
 $contInput = &new textarea('content',htmlentities(html_entity_decode($blockContent,ENT_QUOTES),ENT_NOQUOTES),6,37);
 
