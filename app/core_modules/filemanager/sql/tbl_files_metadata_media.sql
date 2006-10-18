@@ -79,6 +79,9 @@ $fields = array(
 		'type' => 'text',
         'length' => 255
 		),
+	'description' => array(
+		'type' => 'text'
+		),
     'year' => array(
 		'type' => 'text',
         'length' => 10

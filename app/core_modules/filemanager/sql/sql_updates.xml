@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_files_metadata_media</table>
+        <version>0.3</version>
+        <description>added column for descriptions</description>
+        <data>
+            <add>
+                <name>description</name>
+                <type>text</type>
+            </add>
+        </data> 
+    </update>
+</updates>
