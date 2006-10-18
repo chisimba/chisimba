@@ -30,9 +30,9 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
         $fileDetails = $this->objFiles->getFile($file);
         
         if ($fileDetails != FALSE) {
-            $checkbox = new checkbox('files[]', $fileDetails['filename'], TRUE);
+            $checkbox = new checkbox('files[]', htmlentities($fileDetails['filename']), TRUE);
             $checkbox->value = $file;
-            $form->addToForm ('<li>'.$checkbox->show().' '.$fileDetails['filename'].'</li>');
+            $form->addToForm ('<li>'.$checkbox->show().' '.htmlentities($fileDetails['filename']).'</li>');
         }
     }
     
