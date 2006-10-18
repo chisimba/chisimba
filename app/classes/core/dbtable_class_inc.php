@@ -68,6 +68,13 @@ class dbTable extends object
      * @var object
      */
     private $_db = null;
+    
+    /**
+     * Static variable that holds the system database type
+     *
+     * @var string
+     */
+    public static $dbType;
 
     /**
      * Are we in a transaction?
@@ -130,6 +137,7 @@ class dbTable extends object
         {
         	$this->debug = TRUE;
         }
+        $this->dbType = $this->_db->phptype;
 
     }
 
