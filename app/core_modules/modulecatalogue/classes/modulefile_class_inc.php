@@ -124,6 +124,38 @@ class modulefile extends object {
 		}
     }
 
+    public function contextAware($moduleId) {
+    	try {
+    		if (($fn = $this->findregisterfile($moduleId)) && (filesize($fn)>0)) {
+    			$fh = fopen($fn,"r");
+    			$content = fread($fh,filesize($fn));
+    			fclose($fh);
+    			preg_match('/CONTEXT_AWARE:\s*([a-z\-_]*)/i',$content,$match);
+    			if ($match[1] == '1') {
+    				return TRUE;
+    			} else {
+    				return FALSE;
+    			}
+    		} else {
+    			return FALSE;
+    		}
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+		}
+    }
+    
+    public function getContextAwareModules() {
+    	$moduleList = $this->getLocalModuleList();
+    	$contextAwareModules = array();
+    	foreach ($moduleList as $module) {
+    		if ($this->contextAware($module)) {
+    			$contextAwareModules[] = $module;
+    		}
+    	}
+    	return $contextAwareModules;
+    }
+    
     /**
     * This method takes one parameter, which it treats as a directory name.
     * It returns an array - listing the files in the specified dir.
