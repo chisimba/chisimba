@@ -13,7 +13,7 @@ $this->objThumbnails = $this->getObject('thumbnails');
 $objFileEmbed =& $this->getObject('fileembed');
 
 if (count($files) == 0) {
-    echo '<p>No files uploaded</p>';
+    echo '<p>No Images uploaded</p>';
 } else {
 
     foreach ($files as $file)
@@ -27,6 +27,7 @@ if (count($files) == 0) {
 
 }
 
+echo '<br clear="left" />';
 
 echo $this->objUpload->show();
 
