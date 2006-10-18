@@ -433,3 +433,43 @@ fieldset.tabbox ul {
 #IM {
     display: none;
 }
+
+
+/******************************************************************************************
+*  MOUSE OVER POPUP                                                                       *
+******************************************************************************************/
+
+
+/* Default DOM Tooltip Style */
+div.domTT {
+    border: none;
+    margin: 0em 0em 2em 0em;
+    padding: 0;
+}
+div.domTTCaption {
+    background: #000;
+    border: 1px solid #000;
+    border-style: solid solid none solid;
+    color: #FFF;
+    padding: 0em 1em 0em 1em;
+    text-transform: none;
+    text-decoration: none;
+    
+    font-size: 1em;
+    height: 1em;
+    cursor:hand;
+}
+div.domTTContent {
+     background: transparent;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    padding: 3px;
+    overflow: auto;
+    background: #FFF;
+}
+
+
+
+/******************************************************************************************
+*  END OF MOUSE OVER POPUP                                                                        *
+******************************************************************************************/
