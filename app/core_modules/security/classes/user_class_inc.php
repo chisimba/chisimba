@@ -123,7 +123,7 @@ class user extends dbTable
     {
         $line=$this->lookupData($username);
         if ($line) {
-            if ($line['isactive']==0){
+            if ($line['isactive']=='0'){
                 DEFINE('STATUS','inactive');
                 return false;
             }
@@ -133,7 +133,7 @@ class user extends dbTable
                 if (is_array($info)){
                     $this->_record = $line;
                     return TRUE;
-                    } else {
+                } else {
                     return FALSE;
                 }
             } else {
@@ -236,6 +236,7 @@ class user extends dbTable
                     $info['sex']='';
                     $info['accessLevel']='guests';
                     $info['howCreated']='LDAP';
+                    $info['isactive']='1';
                     $info['country']=$this->objConfig->getCountry();
                     // Instantiate the sqlusers class and call the adduser() function
                     // To create the new user on the KNG system.
