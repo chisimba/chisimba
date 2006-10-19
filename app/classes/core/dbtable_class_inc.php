@@ -68,7 +68,7 @@ class dbTable extends object
      * @var object
      */
     private $_db = null;
-    
+
     /**
      * Static variable that holds the system database type
      *
@@ -263,14 +263,16 @@ class dbTable extends object
         {
         	log_debug($stmt);
         }
-    	$rs = $this->_db->limitQuery($stmt, $first, $count);
+    	$this->_db->setLimit($first, $count);
+        $rs = $this->_db->exec($stmt);
         if (PEAR::isError($rs)) {
             $ret = false;
         } else {
-            $ret = array();
-            while ($row = $rs->fetchRow()) {
-                $ret[] = $row;
-            }
+        	$ret = $rs;
+            //$ret = array();
+            //while ($row = $rs->fetchRow()) {
+            //    $ret[] = $row;
+            //}
         }
 
         return $ret;
