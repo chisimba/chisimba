@@ -68,7 +68,7 @@ class sidebar extends object
      * @access publc
      * @return string
      */
-    public function show($nodes, $activeId = NULL)
+    public function show($nodes, $activeId = NULL, $uriaction = NULL, $urimodule = '_default')
     {
     	try{
     		$cssClass = ' class="first" ';
@@ -76,7 +76,7 @@ class sidebar extends object
     		$str = '<ul id="nav-secondary">
     										';
     		 $str .='<li class="first">
-    		 			<a href="'.$this->uri(null,'_default').'">Home</a>
+    		 			<a href="'.$this->uri($uriaction,$urimodule).'">Home</a>
     		 		</li>
     		 				';
     		//loop through the nodes
@@ -107,14 +107,14 @@ class sidebar extends object
 					foreach($node['haschildren'] as $child)
 					{
 					    $c++;
-					    
+
 					    if($c == $cnt)
     					{
     						$cssClass2 = ' class="last" ';
     					} else {
     						$cssClass2 = '';
     					}
-    					
+
 						$str .='<li '.$cssClass2.'>
 									<a href="'.$child['uri'].'">'.$child['text'].'</a>
 								</li>
@@ -122,7 +122,7 @@ class sidebar extends object
 					}
 
 					//check for the last item in the arra
-					
+
 
 					$str .= '</ul>
 								';
