@@ -120,7 +120,7 @@ class modulecatalogue extends controller
         	$this->objModFile = &$this->getObject('modulefile');
         	$this->objPatch = &$this->getObject('patch','modulecatalogue');
 			$this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
-			if (!file_exists($this->objConfig->getSiteRootPath().'modules/modulecatalogue/resources/catalogue.xml')) {
+			if (!file_exists($this->objConfig->getSiteRootPath().'config/catalogue.xml')) {
 				$this->objCatalogueConfig->writeCatalogue();
 			}
 			$this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');

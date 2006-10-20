@@ -109,9 +109,9 @@ class catalogueconfig extends object {
     		// read catalogue data and get reference to root
 			$this->_path = $this->objConfig->getsiteRootPath();
     		if (preg_match('/\/$/',$this->_path)) {
-    			$this->_path .= "modules/modulecatalogue/resources/";
+    			$this->_path .= "config/";
     		} else {
-    			$this->_path .= "/modules/modulecatalogue/resources/";
+    			$this->_path .= "/config/";
     		}
     		if (file_exists($this->_path.'catalogue.xml')) {
     			$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}catalogue.xml",$property);
@@ -146,7 +146,7 @@ class catalogueconfig extends object {
     		$objModFile = &$this->getObject('modulefile','modulecatalogue');
     		$xmlStr = "<?xml version='1.0' encoding='ISO-8859-1'?>\n<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='catalogue.xsd'>\n";
     		if(!isset($this->_path)) {
-    			$this->_path = "{$this->objConfig->getsiteRootPath()}/modules/modulecatalogue/resources/";
+    			$this->_path = "{$this->objConfig->getsiteRootPath()}/config/";
     		}
     		$xmlStr .= "	<catalogue>\n";
     		$categories = $objModFile->getCategories();
@@ -227,7 +227,7 @@ class catalogueconfig extends object {
     {
     	try {
 
-				$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
+				$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
 
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){
@@ -259,7 +259,7 @@ class catalogueconfig extends object {
     public function searchModulelist($str,$type)
     {
     	try {
-				$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
+				$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
 				//echo "$str $type<br/>";
 				$xml = simplexml_load_file($this->_path);
 				switch ($type) {
@@ -297,7 +297,7 @@ class catalogueconfig extends object {
      */
     public function getModuleDescription($modname) {
     	try {
-    		$this->_path = $this->objConfig->getsiteRootPath()."modules/modulecatalogue/resources/catalogue.xml";
+    		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
     		$xml = simplexml_load_file($this->_path);
     		$query = "//module[module_id='$modname']/module_description";
     		$entries = $xml->xpath($query);
