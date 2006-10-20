@@ -1,4 +1,4 @@
-#decisiontable
+decisiontable
 redirect
 modulecatalogue
 postlogin
