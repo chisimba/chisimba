@@ -1,4 +1,4 @@
-decisiontable
+#decisiontable
 redirect
 modulecatalogue
 postlogin
@@ -31,5 +31,5 @@ systext
 cms
 calendarbase
 errors
-skin
+#skin No Register.conf
 prelogin
