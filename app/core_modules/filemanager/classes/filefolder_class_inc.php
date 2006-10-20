@@ -52,10 +52,11 @@ class filefolder extends object
         }
         
         // Check Second Part of Mimetype
+        /* // Not Checked at the moment
         switch ($mimeSplit[1])
         {
             default : break;
-        }
+        }*/
         
         // Check by extension
         switch ($extension)
