@@ -70,6 +70,8 @@ class filemanager extends controller
                 return $this->showFCKFlash();
             case 'fcklink':
                 return $this->showFCKEditorInterface();
+            case 'testgetid3':
+                return $this->testGetId3();
             default: 
                 return $this->filesHome();
         }
@@ -507,13 +509,18 @@ function checkWindowOpener()
                 $settingsArray['value'] = $results['fileid'];
             }
             
-            if ($results['overwrite']) {
+            if (isset($results['overwrite']) && $results['overwrite']) {
                 $settingsArray['overwrite'] = $results['overwrite'];
                 $settingsArray['value'] = $results['fileid'];
             }
         }
         
         return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
+    }
+    
+    function testGetId3()
+    {
+        $this->objUpload->analyzeMediaFile('/opt/lampp/htdocs/testing_playground/juliet_interview.mp3');
     }
 }
 
