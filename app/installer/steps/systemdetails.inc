@@ -1040,7 +1040,7 @@ class RootUserAction extends StepAction
 
 			if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
 
-				if (is_dir($file) && file_exists($basedir.$file.'/kewl_css.php')) {
+				if (is_dir($file) && file_exists($basedir.$file.'/stylesheet.css')) {
 
 					array_push($dirskinList, $file);
 
