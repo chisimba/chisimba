@@ -1005,8 +1005,10 @@ class RootUserAction extends StepAction
 				}
 
 			}
+			
+			asort($dirList);
 
-		     closedir($dh);
+		    closedir($dh);
 
 
 
@@ -1049,6 +1051,8 @@ class RootUserAction extends StepAction
 			}
 
 		}
+		
+		asort($dirskinList);
 
 	    closedir($dh);
 
@@ -1205,6 +1209,8 @@ class RootUserAction extends StepAction
 		}
 
 		closedir($dh);
+		
+		asort($dirList);
 
 		foreach ($dirList as $key => $value) {
 
@@ -1253,6 +1259,8 @@ class RootUserAction extends StepAction
 			}
 
 		}
+		
+		asort($dirskinList);
 
 	    closedir($dh);
 
