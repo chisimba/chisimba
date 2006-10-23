@@ -10,50 +10,50 @@ if (!$GLOBALS['kewl_entry_point_run'])
 /**
 * Module to provide default pre-login environment
 * @category Chisimba
-* @package prelogin 
+* @package prelogin
 * @author Nic Appleby
 * @copyright GNU/GPL UWC 2006
 * @version $Id: controller.php,v 1.0 2006/01/29
 */
 
 class prelogin extends controller {
-	
+
 	/**
 	 *  The splashscreen DB blocks object
-	 * 
+	 *
 	 * @var object
 	 */
 	public $objPreloginBlocks;
-	
+
 	/**
 	 * The user security object
 	 *
 	 * @var object
 	 */
 	public $objUser;
-	
+
 	/**
 	 *  The object to display the featurebox blocks
-	 * 
+	 *
 	 * @var object
 	 */
 	public $objBlocks;
-	
+
 	/**
 	 * The language management object
 	 *
 	 * @var object
 	 */
 	public $objLanguage;
-	
+
 	/**
 	 * Standard Chisimba init function
 	 *
 	 */
-	
+
 	public $TRUE;
 	public $FALSE;
-	
+
 	public function init() {
 		try {
 			$this->objBlocks = &$this->getObject('blocks','blocks');
@@ -64,14 +64,14 @@ class prelogin extends controller {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';
 			} else {
-				$this->TRUE = TRUE;
+				$this->TRUE = 1;
 				$this->FALSE = 0;
 			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Standard Chisimba dispatch function
 	 *
@@ -79,7 +79,7 @@ class prelogin extends controller {
 	 */
 	public function dispatch($action) {
 		try {
-			switch ($action) { 
+			switch ($action) {
 				case 'admin':
 					if (!$this->objUser->isAdmin()) {
 						return 'notadmin_tpl.php';
@@ -171,7 +171,7 @@ class prelogin extends controller {
 								//var_dump($block);var_dump($vis);
 								if ($block['visible'] !== $vis) {
 									$this->objPLBlocks->updateVisibility($block['id'],$vis);
-									
+
 								}
 							}
 						}
@@ -186,13 +186,13 @@ class prelogin extends controller {
 					//Set Layout Template To Null
 					$this->setLayoutTemplate(NULL);
 					return 'prelogin_tpl.php';
-				
+
 			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Overridden method to determine whether or not login is required
 	 *

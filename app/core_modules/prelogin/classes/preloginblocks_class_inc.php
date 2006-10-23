@@ -14,11 +14,11 @@ if (!$GLOBALS['kewl_entry_point_run']){
 */
 
 class preloginBlocks extends dbTable {
-	
+
 	public $objUser;
 	public $TRUE;
 	public $FALSE;
-	
+
 	/**
 	 * Standard chisimba init function
 	 *
@@ -31,14 +31,14 @@ class preloginBlocks extends dbTable {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';
 			} else {
-				$this->TRUE = TRUE;
+				$this->TRUE = 1;
 				$this->FALSE = 0;
 			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Method to retrieve the visible blocks on the prelogin page
 	 *
@@ -47,12 +47,12 @@ class preloginBlocks extends dbTable {
 	 */
 	public function getVisibleBlocks($column) {
 		try {
-			return $this->getAll("WHERE side = '$column' AND visible = 'TRUE' ORDER BY position ASC");
+			return $this->getAll("WHERE side = '$column' AND visible = '{$this->TRUE}' ORDER BY position ASC");
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Method to retrieve the blocks on the prelogin page
 	 *
@@ -66,7 +66,7 @@ class preloginBlocks extends dbTable {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Method to change the visibility of a block
 	 *
@@ -81,7 +81,7 @@ class preloginBlocks extends dbTable {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
     * Function to get the next available position on a navbar
     * @param boolean $left left or right navbar
@@ -89,7 +89,7 @@ class preloginBlocks extends dbTable {
     **/
 
     private function getNextPos($column) {
-    	try { 
+    	try {
     		$ret = $this->getArray("SELECT MAX(position) FROM tbl_prelogin_blocks WHERE side = '{$column}'");
     		$r = current($ret);
     		$pos = current($r) + 1;
@@ -98,7 +98,7 @@ class preloginBlocks extends dbTable {
     		customException::cleanUp();
     	}
     }
-    
+
     /**
      * Method to insert a new record into the table
      *
@@ -117,7 +117,7 @@ class preloginBlocks extends dbTable {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
 	 * Method to update a record in the table
 	 *
@@ -129,13 +129,13 @@ class preloginBlocks extends dbTable {
 		try {
 			$arrData['visible'] = $this->TRUE;
 			$arrData['datelastupdated'] = $this->now();
-			$arrData['updatedby'] = $this->objUser->userId();	
+			$arrData['updatedby'] = $this->objUser->userId();
 			return $this->update('id',$id,$arrData);
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
 	}
-	
+
 	/**
     * Fuction to move a record up in the list by swapping the position value with the record above
     * @param string $id the id of the record to move
@@ -157,7 +157,7 @@ class preloginBlocks extends dbTable {
     				$this->update('id',$previous['id'],$previous);
     			}
 
-    		} 
+    		}
     	} catch (customException $e) {
     			customException::cleanUp();
     		}
@@ -169,7 +169,7 @@ class preloginBlocks extends dbTable {
     */
 
     function moveRecDown($id) {
-    	try { 
+    	try {
     		$rec = $this->getRow('id',$id);
     		$pPos = $this->getArray("SELECT min(position) AS below FROM tbl_prelogin_blocks WHERE side = '{$rec['side']}' AND position > '{$rec['position']}'");
     		$pPos = current($pPos);
