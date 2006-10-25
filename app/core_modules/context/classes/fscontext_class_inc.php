@@ -32,7 +32,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      function init()
      {
          $this->objConfig=&$this->newObject('altconfig','config');
-         $this->objZip=&$this->newObject('zip','utilities');
+         $this->objZip=&$this->newObject('depzip','utilities');
      }
  
      /**
@@ -125,8 +125,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @param string $path The Path to the folder
     * @return boolean
     */
-    function folderExists($path){
+    function folderExists($contextCode){
+        $dir = $this->objConfig->getsiteRootPath().'/usrfiles/content/'.$contextCode;
         
+        file_exists($dir);
     }
  }
  ?>
