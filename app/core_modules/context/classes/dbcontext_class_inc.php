@@ -138,12 +138,64 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     }
 
     /**
+     * Method to create the context
+     * @return boolean
+     */
+    public function createContext()
+    {
+        try{
+            
+            
+            $contextCode = $this->getParam("contextcode");
+            $menuText = $this->getParam("menutext");
+            $title = $this->getParam("title");
+            $userId = $this->objUser->userId();
+            
+            if($this->valueExists('contextcode', $contextCode))
+            {
+                //check if there is an entry in the database
+               
+                return FALSE;
+            } else {
+                //check if the folder exist
+                if($this->objFSContext->folderExists($contextCode) == FALSE)
+                { 
+                    //create the folder
+                    $this->objFSContext->createContextFolder($contextCode);
+                    
+                } else {
+                    
+                    return FALSE;
+                }
+            }
+            
+            $contextGroups=&$this->getObject('manageGroups','contextgroups');
+            $contextGroups->createGroups($contextCode, $title);
+            
+            $fields = array(
+                        'contextcode' => $contextCode,
+                        'title' => $title,
+                        'menutext' => $menuText,
+                        'userid' => $userId,
+                        'dateCreated' => $this->getDate()
+                        ); 
+                        
+            return $this->insert($fields);
+        }                        
+        catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+    }
+    
+    /**
     * Method to create a context
     * @param $rootNodeId int : The root node ID
     * @return $contextCode : The contextCode
     * @access public
     */
-    public function createContext()
+    public function OLD_createContext()
     {
         $this->changeTable('tbl_context');
 		$objDBParentNodes = & $this->getObject('dbparentnodes', 'context');

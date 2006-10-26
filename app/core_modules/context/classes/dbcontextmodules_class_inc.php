@@ -20,6 +20,8 @@ class dbcontextmodules extends dbTable{
     */
      function init(){
         parent::init('tbl_contextmodules');
+        
+        $this->_objDBContext = & $this->newObject('dbcontext', 'context');
     }
     
     /**
@@ -30,6 +32,7 @@ class dbcontextmodules extends dbTable{
     * @param $contextCode $string The context Code
     * @return $ret boolean Returns true if an enty was found or false when not found
     * @access public
+    * @deprecated 
     */
     function isVisible($moduleId,$contextCode){
         $rsArr=$this->getAll("WHERE contextCode = '".$contextCode."' AND moduleId='".$moduleId."'");
@@ -54,6 +57,7 @@ class dbcontextmodules extends dbTable{
     * @param $contextCode $string : The context Code
     * @return string : The new Id
     * @access public
+    * @deprecated 
     */
     function setVisible($moduleId,$contextCode){
         return $this->insert(array(
@@ -67,6 +71,7 @@ class dbcontextmodules extends dbTable{
     * @param $moduleId string: The moduleId
     * @param $contextCode $string : The context Code
     * @access public
+    * @deprecated 
     */
     function setHidden($moduleId,$contextCode){
         
@@ -77,6 +82,7 @@ class dbcontextmodules extends dbTable{
     * for the context
     * @param $contextCode string : the context code
     * @access public
+    * @deprecated 
     */
     function deleteModulesForContext($contextCode){
         $this->delete('contextCode',$contextCode);    
@@ -116,6 +122,39 @@ class dbcontextmodules extends dbTable{
     {
         
         return $this->getAll('WHERE contextcode="'.$contextCode.'"');
+    }
+    
+    /**
+     * Method to save the context modules
+     * 
+     */
+    public function save()
+    {
+        $contextCode = $this->_objDBContext->getContextCode();
+        $objModules = & $this->newObject('modules', 'modulecatalogue');
+        $objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
+        $modList = $objModules->getModules(2);
+        //dump all the modules
+        $this->delete('contextcode', $contextCode);
+       
+        foreach ($modList as $module)
+        {
+            
+            if($objModuleFile->contextPlugin($module['module_id']))
+            {//print $module['module_id'];
+                if($this->getParam('mod_'.$module['module_id']) == $module['module_id'])
+                {
+                    
+                    //add to database
+                    $this->addModule($contextCode, $module['module_id']);
+                    
+                    
+                }
+            }
+            
+        }
+        
+        
     }
     
     
