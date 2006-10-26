@@ -38,7 +38,7 @@ class featurebox extends object
     {
     	
   		$sidebar = '<div class="featurebox">';
-		$sidebar .= '	<h3>'.$title.'</h3>';
+		$sidebar .= '	<h5>'.$title.'</h5>';
 		$sidebar .= '<small>'.$content.'</small>';
 			
 				
