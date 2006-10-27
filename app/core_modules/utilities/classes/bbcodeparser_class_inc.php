@@ -9,7 +9,7 @@ class bbcodeparser extends object
 {
 	public function init()
 	{
-		if (!@require_once('HTML/BBCodeParser.php'))
+		if (!@include_once('HTML/BBCodeParser.php'))
 		{
 			throw new customException("Unable to locate PEAR::BBCodeParser, please install it with pear install --alldeps html_bbcodeparser!");
 		}
