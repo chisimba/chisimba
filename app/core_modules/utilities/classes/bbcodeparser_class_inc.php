@@ -13,8 +13,6 @@ class bbcodeparser extends object
 		{
 			throw new customException("Unable to locate PEAR::BBCodeParser, please install it with pear install --alldeps html_bbcodeparser!");
 		}
-
-
 	}
 
 	/**
