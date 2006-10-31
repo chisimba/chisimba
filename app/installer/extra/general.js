@@ -253,21 +253,22 @@ function sq_print_icon(path, width, height, alt) {
 // and a manual click they can click if something goes wrong
 function sq_redirect(url) {
 
-	document.write("<html>");
-	document.write("	<head>");
-	document.write("		<style type=\"text/css\">");
-	document.write("			body {");
-	document.write("				font-size:			12px;");
-	document.write("				font-family:		Arial, Verdana Helvetica, sans-serif;");
-	document.write("				color:				#000000;");
-	document.write("				background-color:	#FFFFFF;");
-	document.write("			}");
-	document.write("		</style>");
-	document.write("	</head>");
-	document.write("	<body>");
-	document.write("		Please wait while you are redirected. If you are not redirected, please click <a href=\"" + url + "\" title=\"Click here to manually redirect\">here</a>");
-	document.write("	</body>");
-	document.write("</html>");
-	window.location = url;
+	window.location.replace('"' + url + '"');
+
+	document.write('<html>');
+	document.write('	<head>');
+	document.write('		<style type="text/css">');
+	document.write('			body {'');
+	document.write('				font-size:			12px;');
+	document.write('				font-family:		Arial, Verdana Helvetica, sans-serif;');
+	document.write('				color:				#000000;');
+	document.write('				background-color:	#FFFFFF;');
+	document.write('			}');
+	document.write('		</style>');
+	document.write('	</head>');
+	document.write('	<body>');
+	document.write('		Please wait while you are redirected. If you are not redirected, please click <a href="' + url + '" title="Click here to manually redirect">here</a>');
+	document.write('	</body>');
+	document.write('</html>');
 
 }//end sq_redirect()
