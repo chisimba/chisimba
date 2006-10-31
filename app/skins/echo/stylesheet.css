@@ -165,3 +165,43 @@ div#twocolumn, div#threecolumn {
 /* Secondary Navigation */
 #nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff url("images/sprites.gif") no-repeat 10px -695px;font: bold 86% arial, sans-serif; color: #000; display:block}
 #nav-secondary a:hover {color:#c00;background: #fee url("images/sprites.gif") no-repeat 10px -695px} 
+
+/* FORMS */
+form {margin: 0 0 1.5em}
+input {font-family: arial,tahoma,verdana,sans-serif;margin: 2px 0}
+fieldset {border: none}
+label {display:inline;padding: 5px 0}
+label br {clear:left}
+
+	/* FORMS - general classes */
+	input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
+	
+/* FORMS - f-wrap-1 - simple form, headings on left, form elements on right */
+	form.f-wrap-1 {width:100%;padding: .5em 0;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;border-top: 1px solid #d7d7d7;position:relative}
+		form.f-wrap-1 fieldset {width:auto;margin: 0 1em}
+		form.f-wrap-1 h3 {margin:0 0 .6em;font: bold 155% arial;color:#c00}
+		form.f-wrap-1 label {clear:left;float:left;width:100%;border-top: 1px solid #fff}
+		
+		/* hide from IE mac \*/
+		form.f-wrap-1 label {float:none}
+		/* end hiding from IE5 mac */
+	
+		form.f-wrap-1 label input, form.f-wrap-1 label textarea, form.f-wrap-1 label select {width:15em;float:left;margin-left:10px}
+		
+		form.f-wrap-1 label b {float:left;width:8em;line-height: 1.7;display:block;position:relative}
+		form.f-wrap-1 label b .req {color:#c00;font-size:150%;font-weight:normal;position:absolute;top:-0.1em;line-height: 1.2;left:-.4em;width:.3em;height:.3em}
+		form.f-wrap-1 div.req {color:#666;font-size:96%;font-weight:normal;position:absolute;top:.4em;right:.4em;left:auto;width:13em;text-align:right}
+		form.f-wrap-1 div.req b {color:#c00;font-size:140%}
+		form.f-wrap-1 label select {width: 15.5em}
+		form.f-wrap-1 label textarea.f-comments {width: 20em}
+		form.f-wrap-1 div.f-submit-wrap {padding: 5px 0 5px 8em}
+		form.f-wrap-1 input.f-submit {margin: 0 0 0 10px}
+		
+		form.f-wrap-1 fieldset.f-checkbox-wrap, form.f-wrap-1 fieldset.f-radio-wrap {clear:left;float:left;width:32em;border:none;margin:0;padding-bottom:.7em}
+		form.f-wrap-1 fieldset.f-checkbox-wrap b, form.f-wrap-1 fieldset.f-radio-wrap b {float:left;width:8em;line-height: 1.7;display:block;position:relative;padding-top:.3em}
+		form.f-wrap-1 fieldset.f-checkbox-wrap fieldset, form.f-wrap-1 fieldset.f-radio-wrap fieldset {float:left;width:13em;margin: 3px 0 0 10px}
+		form.f-wrap-1 fieldset.f-checkbox-wrap label, form.f-wrap-1 fieldset.f-radio-wrap label {float:left;width:13em;border:none;margin:0;padding:2px 0;margin-right:-3px}
+		form.f-wrap-1 label input.f-checkbox, form.f-wrap-1 label input.f-radio {width:auto;float:none;margin:0;padding:0}
+		
+		form.f-wrap-1 label span.errormsg {position:absolute;top:0;right:-10em;left:auto;display:block;width:16em;background: transparent url(images/errormsg_bg.gif) no-repeat 0 0}
+		form.f-wrap-1 label span.errormsg b {padding: 10px 0;margin: 0 10px 0 30px;color:#B30800;font-weight:bold;display:block;width:auto;float:none;line-height:1.3}
