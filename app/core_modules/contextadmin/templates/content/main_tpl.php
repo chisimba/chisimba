@@ -1,138 +1,88 @@
 <?php
 
-//View template for table: tbl_quotes
-//Note that you will probably need to edit this to make it actually work
+$tabBox = & $this->newObject('tabpane', 'htmlelements');
+$featureBox = & $this->newObject('featurebox', 'navigation');
+$objLink =  & $this->newObject('link', 'htmlelements');
+$fieldset = & $this->newObject('fieldset', 'htmlelements');
+$icon =  & $this->newObject('geticon', 'htmlelements');
+$objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
 
 
-//Set up the button class to make the edit, add and delet icons
-$objButtons = & $this->getObject('navbuttons', 'navigation');
-
-// Create an instance of the css layout class
-$cssLayout2 = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
-$cssLayout2->setNumColumns(2);
-
-//Set the content of the left side column
-$leftSideColumn2 = $this->objLanguage->code2Txt('mod_contextadmin_help','contextadmin',array('context'=>'course'));
+$str = '';
+$other = '';
+$lects = '';
+$conf = '';
 
 
-
-// Add Left column
-//$cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
-$this->objH->type=3; //Heading <h3>
-$this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_name','contextadmin',array('context'=>'course')));
-$rightSideColumn2 = "<div align=\"center\">" 
-  . $this->objH->show()  . "</div>";
-
-//Create a table
-$table = $this->newObject('htmltable', 'htmlelements');
-$table->cellspacing="2";
-$table->width="80%";
-$table->attributes="align=\"center\"";
-//Create the array for the table header
-$tableRow=array();
-
-$tableHd[]="Code";
-$tableHd[]=$this->objLanguage->languageText("word_title");
-$tableHd[]="dateCreated";
-$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isActive",'contextadmin');
-$tableHd[]=$this->objLanguage->languageText("mod_contextadmin_isclosed",'contextadmin');
-//$tableHd[]="modifierId";
-$allowAdmin = True; //You need to write your security here
-if ($allowAdmin) {
-    $paramArray = array('action' => 'add');
-    $tableHd[] = $objButtons->linkedButton("add",
-    $this->uri($paramArray));
-    $tableHd[]="&nbsp;";
-    $tableHd[]="&nbsp;";
+//registered courses
+if (isset($contextList))
+{	
+	foreach ($contextList as $context)
+	{
+		
+		$lecturers = $this->_objUtils->getContextLecturers($context['contextcode']);
+		$lects = '';
+		if(is_array($lecturers))
+		{
+			foreach($lecturers as $lecturer)
+			{
+				$lects .= $lecturer['fullname'].', ';
+			}
+		} else {
+			$lects = 'No Instructor for this course';
+		}
+		
+		$userCount = count($objContextGroups->getContextUsers($context['contextcode']));
+		$content = 'Instructors : <span class="highlight">'.$lects.'</span>';
+		$content .= '<p>Status : <span class="highlight">'.$context['status'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access : <span class="highlight">'.$context['access'].'</span>';
+		$content .= '<br/>Last Updated  : <span class="highlight">'.$context['updated'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Update By : <span class="highlight">'.$this->_objUser->fullname($context['lastupdatedby']).'</span>';
+		$content .= '<br/>No. of Registered Users: <span class="highlight">'.$userCount.'</span></p>';
+		$content .= '<p>'.$this->_objUtils->getPlugins($context['contextcode']).'</p>';
+		
+		
+		
+		//enter context
+		$objLink->href = $this->uri(array('action' => 'joincontext', 'contextcode' => $context['contextcode']), 'context');
+		$icon->setIcon('leavecourse');
+		$icon->alt = 'Enter Course';
+		$objLink->link = $icon->show();
+		$conf = $objLink->show();
+		
+		//edit context
+		$conf .= '  '.$icon->getEditIcon($this->uri(array('action' => 'addstep1', 'mode' => 'edit', 'contextcode' =>$context['contextcode'] ), 'contextadmin'));
+				
+		//delete context
+		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
+		
+		//manage context users
+		$objLink->href = $this->uri(array('action' => 'manageusers', 'contextcode' => $context['contextcode']), 'context');
+		$icon->setIcon('student');
+		$icon->alt = 'Manage Course Users';
+		$objLink->link = $icon->show();
+		$conf .= $objLink->show();
+		
+		if($context['contextcode'] == $this->_objDBContext->getContextCode())
+		{
+			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   ', $content.$conf ).'<hr />';
+		} else {
+			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   ', $content.$conf ).'<hr />';
+		}
+	}
 } else {
-    $tableHd[]="&nbsp;";
-    $tableHd[]="&nbsp;";
+	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">No are associated with any courses</div>';
 }
 
-//Get the icon class and create an add, edit and delete instance
-$objAddIcon = & $this->newObject('geticon', 'htmlelements');
-$objEditIcon = & $this->newObject('geticon', 'htmlelements');
-$objDelIcon = & $this->newObject('geticon', 'htmlelements');
-$objRightIcon = & $this->newObject('geticon', 'htmlelements');
-$objWrongIcon = & $this->newObject('geticon', 'htmlelements');
-$objConfIcon = $this->newObject('geticon', 'htmlelements');
-$objLink= &$this->newObject('link','htmlelements');
-
-$objRightIcon->setIcon('ok' , 'png');
-$objRightIcon->alt = '';
-$objWrongIcon->setIcon('failed', 'png');
-$objWrongIcon->alt ='';
-
-//Create the table header for display
-$table->addHeader($tableHd, "heading");
-
-//Loop through and display the records
-$rowcount = 0;
-if (isset($ar)) {
-    if (count($ar) > 0) {
-        foreach ($ar as $line) {
-            $oddOrEven = ($rowcount == 0) ? "odd" : "even";    
-                 
-            $tableRow[]=strtoupper( $line['contextcode'] );
-            $tableRow[]=strtoupper( $line['title'] );
-            $tableRow[]=$line['datecreated'];
-            $tableRow[]= ($line['isactive'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
-            $tableRow[]= ($line['isclosed'] == 1) ? $objRightIcon->show(): $objWrongIcon->show();
-            
-            //The context configuration link
-            $confLink = $this->uri(array('action' => 'courseadmin'));
-       
-               $paramArray = array('action' => 'joincontext','contextCode' => $line['contextcode']);
-                $objConfIcon->setModuleIcon('contextadmin');
-                $objConfIcon->alt=ucwords($this->objLanguage->code2Txt('mod_contextadmin_confcourse','contextadmin',array('context'=>'course')));
-                $objLink->href=$this->uri($paramArray, "contextadmin");                
-                $objLink->link=$objConfIcon->show();
-                $config = $objLink->show().'&nbsp;';
-          
-            //The URL for the edit link
-            $editLink=$this->uri(array('action' => 'edit',
-             'contextCode' => $line['contextcode'],
-             'id' =>$line['id']));
-            $objEditIcon->alt=$this->objLanguage->languageText("mod_quotes_editalt");
-            $ed = $objEditIcon->getEditIcon($editLink);
-
-            // The delete icon with link uses confirm delete utility
-            $objDelIcon->setIcon("delete", "gif");
-            $objDelIcon->alt=$this->objLanguage->code2Txt('mod_contextadmin_deletecontext','contextadmin',array('context'=>'course'));
-            $delLink = $this->uri(array(
-              'action' => 'delete',
-              'confirm' => 'yes',
-              'contextCode' => $line['contextcode'],
-              'id' => $line['id']));
-            $objConfirm = & $this->newObject('confirm','utilities');
-            
-            
-            $rep = array('ITEM', $line['id']);
-            $objConfirm->setConfirm($objDelIcon->show(),
-            $delLink,$this->objLanguage->code2Txt("mod_quotes_confirm", $rep));
-            $conf = $objConfirm->show();
-            $tableRow[]=$config;
-            $tableRow[]=$ed;
-            $tableRow[]=$conf;            //Add the row to the table for output
-           $table->addRow($tableRow, $oddOrEven);
-           $tableRow=array(); // clear it out
-           // Set rowcount for bitwise determination of odd or even
-           $rowcount = ($rowcount == 0) ? 1 : 0;
-
-        }
-    }
+if ($this->_objDBContext->isInContext()) {
+	$other .= $this->_objUtils->getContextAdminToolBox();
+	$tabBox->addTab(array('name'=> $this->_objDBContext->getTitle(). ' Admin','content' => $other));	
 }
+$tabBox->addTab(array('name'=>'My Courses','content' => $str));
+echo $tabBox->show();
 
-//Add the table to the centered layer
-$rightSideColumn2 .= $table->show();
 
-// Add Left column
-$cssLayout2->setLeftColumnContent($leftSideColumn2);
-
-// Add Right Column
-$cssLayout2->setMiddleColumnContent($rightSideColumn2);
-
-//Output the content to the page
-echo $cssLayout2->show();
+/*$fieldset->setLegend('My Courses    '.$icon->getAddIcon($this->uri(array('action' => 'addstep1'),'contextadmin')));
+$fieldset->addContent($str);
+echo $fieldset->show();*/
 ?>

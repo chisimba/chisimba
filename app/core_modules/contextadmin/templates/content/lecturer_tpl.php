@@ -18,7 +18,7 @@ $objHead =& $this->newObject('htmlheading', 'htmlelements');
 $objSkin =& $this->newObject('skin', 'skin');
 
 // language items
-$heading = ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextmanagement'));
+$heading = ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextmanagement','contextadmin'));
 
 $str = '';
 

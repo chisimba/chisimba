@@ -146,10 +146,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         try{
             
             
-            $contextCode = $this->getParam("contextcode");
-            $menuText = $this->getParam("menutext");
-            $title = $this->getParam("title");
+            $contextCode = htmlentities($this->getParam("contextcode"));
+            $menuText = htmlentities($this->getParam("menutext"));
+            $title = htmlentities($this->getParam("title"));
             $userId = $this->objUser->userId();
+            $status = $this->getParam('status');
+            $access = $this->getParam('access');
             
             if($this->valueExists('contextcode', $contextCode))
             {
@@ -177,9 +179,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
                         'title' => $title,
                         'menutext' => $menuText,
                         'userid' => $userId,
+                        'access' => $access,
+                        'status' => $status,
                         'dateCreated' => $this->getDate()
                         ); 
-                        
+
+            $this->setLastUpdated();
+            
             return $this->insert($fields);
         }                        
         catch (customException $e)
@@ -247,7 +253,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @access public
     */
     public function joinContext($contextCode=''){
-        $this->changeTable('tbl_context');
+        //$this->changeTable('tbl_context');
         
         if ($contextCode == '') {
             $contextCode=$this->getParam('contextCode');
@@ -266,8 +272,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             $this->setSession('contextCode',$contextCode);
             $this->setSession('contextTitle',$line['title']);
             $this->setSession('contextmenuText',$line['menutext']);
-            $this->setSession('contextisActive',$line['isactive']);
-            $this->setSession('contextisClosed',$line['isclosed']);
+            $this->setSession('contextstatus',$line['status']);
+            $this->setSession('contextlastupdatedby',$line['lastupdatedby']);
+            $this->setSession('contextaccess',$line['access']);
             $this->setSession('contextdateCreated',$line['datecreated']);
             $this->setSession('contextcreatorId',$line['userid']);
             $this->setSession('contextabout',$line['about']);
@@ -513,6 +520,17 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $this->resetTable();
         return $this->getContextDetails($line['tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode']);
 
+    }
+    
+    /**
+     * Method to set the last updated field
+     * @return bool
+     */
+    public function setLastUpdated()
+    {
+    	$fields = array('updated' => $this->getDate(),
+    					'lastupdatedby' => $this->objUser->userId());
+    	return $this->update('contextcode' ,$this->getContextCode(),$fields);
     }
 
 }

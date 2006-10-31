@@ -102,11 +102,18 @@ class onlineCount extends dbTable
     /**
     *Method to get all members for this context.
     *@return array|false of ids for members in current context, otherwise false.
+    *@param string $contextCode
     */
-    function getContextUsers()
+    function getContextUsers($contextCode)
     {
-        if( $this->_objDBContext->isInContext() ) {
-            $this->_contextCode = $this->_objDBContext->getContextCode();
+        
+    	if( $this->_objDBContext->isInContext() ) {
+    		if($contextCode == '')
+    		{
+            	$this->_contextCode = $this->_objDBContext->getContextCode();
+    		} else {
+    			$this->_contextCode = $contextCode;
+    		}
             $path = array( $this->_contextCode, $this->_contextGroup );
             $groupId = $this->_objGroupAdmin->getLeafId( $path );
             // Get userIds of members

@@ -29,7 +29,7 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
-	'contextCode' => array(
+	'contextcode' => array(
 		'type' => 'text',
 		'length' => 255,
         'notnull' => TRUE
@@ -51,17 +51,22 @@ $fields = array(
 		'length' => 255,
         'notnull' => TRUE
 		),
-    'dateCreated' => array(
+    'datecreated' => array(
 		'type' => 'date'
-		),
-    'isClosed' => array(
-        'type' => 'integer'
+		),    
+    'status' => array(
+        'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
         ),
-    'isActive' => array(
-        'type' => 'integer'
+    'access' => array(
+        'type' => 'text',
+		'length' => 32,
+        'notnull' => TRUE
         ),
-    'isPublic' => array(
-        'type' => 'integer'
+    'lastupdatedby' => array(
+        'type' => 'text',
+		'length' => 32        
         ),
     'updated' => array(
         'type' => 'timestamp'
@@ -69,7 +74,7 @@ $fields = array(
 
     );
 
-$name = 'contextCode';
+$name = 'contextcode';
 
 $indexes = array(
                 'fields' => array(
