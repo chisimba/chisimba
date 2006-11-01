@@ -44,7 +44,7 @@ class postloginmenu extends object
     	
     	$menu .= $this->objSideMenu->getPostLoginMenuItems();
     	$menu .= '<br />'.$this->objSideMenu->userDetails();
-		$menu .= $this->objSideMenu->contextDetails();
+		//$menu .= $this->objSideMenu->contextDetails();
     	
         return $menu;
     }
