@@ -21,7 +21,7 @@ body {
 
 a:link, a:visited {
 	color: #000099;
-	font-weight: none;
+	font-weight: normal;
 }
 
 a:hover {
@@ -215,6 +215,18 @@ div#wrapper{float:left;width:100%}
     padding: 3px;
 }
 
+/* Odd table rows - for the Content*/
+.sudokuOdd {
+    background-color: #a8a8a8;
+    padding: 3px;
+}
+
+/* Even table rows - for the Content*/
+.sudokuEven {
+    background-color: #d0d0d0;
+    padding: 3px;
+}
+
 /* Color of Content in Wrapper*/
 .wrapperLightBkg p {
     color: black;
@@ -381,7 +393,7 @@ fieldset.tabbox ul {
 	#nav-secondary, #nav-secondary li {list-style: none;margin:0;padding:0;background:#fff}
 	#nav-secondary {padding-top:0;border-top: 1px solid #ccc;margin-top: 1px}
 	#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff;font: bold 86% arial;display:block}
-	#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer} 
+	#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer;} 
 	#nav-secondary a:link {color:#000} 
 	#nav-secondary a:visited {color:#000} 
 	#nav-secondary a:hover {color:#c00;background: #fee} 
@@ -457,7 +469,7 @@ div.domTTCaption {
     
     font-size: 1em;
     height: 1em;
-    cursor:hand;
+    cursor: hand;
 }
 div.domTTContent {
      background: transparent;
