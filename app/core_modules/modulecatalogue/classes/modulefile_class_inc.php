@@ -143,6 +143,25 @@ class modulefile extends object {
 		}
     }
     
+    public function contextPlugin($moduleId) {
+    	try {
+    		if (($fn = $this->findregisterfile($moduleId)) && (filesize($fn)>0)) {
+    			$fh = fopen($fn,"r");
+    			$content = fread($fh,filesize($fn));
+    			fclose($fh);
+    			if (preg_match('/ISCONTEXTPLUGIN:\s*([a-z0-9\-_]*)/i',$content,$match)) {
+    				if ($match[1] == '1') {
+    					return TRUE;
+    				}
+    			}
+    		}
+    		return FALSE;
+		} catch (Exception $e) {
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+		}
+    }
+    
     public function getContextAwareModules() {
     	$moduleList = $this->getLocalModuleList();
     	$contextAwareModules = array();
