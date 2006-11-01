@@ -91,7 +91,7 @@ if(!empty($modules)){
             $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'));
             $tab->addBoxContent($objTable->show());
            
-            $tabpane->addTab(array('name'=>$this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'url'=>'http://localhost','content' => $tab->show()),'luna-tab-style-sheet');
+            $tabpane->addTab(array('name'=>$this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'),'url'=>'http://localhost','content' => $tab->show()));
     }
 }
  
