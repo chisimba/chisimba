@@ -13,6 +13,9 @@ CREATE TABLE `tbl_context` (
   `dateCreated` date default NULL,
   `isClosed` int(11) default NULL,
   `isActive` int(11) default NULL,
+  'lastupdatedby' varchar(32) default NULL,
+  'status' varchar(32) default NULL,
+  'access' varchar(32) default NULL,
   updated TIMESTAMP ( 14 ) NOT NULL,
   PRIMARY KEY  (`id`,`contextCode`),
   KEY `contextCode` (`contextCode`)
