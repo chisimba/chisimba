@@ -6,7 +6,12 @@ $objLink =  & $this->newObject('link', 'htmlelements');
 $fieldset = & $this->newObject('fieldset', 'htmlelements');
 $icon =  & $this->newObject('geticon', 'htmlelements');
 $objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
+$objH = & $this->newObject('htmlheading','htmlelements');
 
+$objH->str = 'Course Admin '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
+$objH->type = 3;
+
+echo $objH->show();
 
 $str = '';
 $other = '';
