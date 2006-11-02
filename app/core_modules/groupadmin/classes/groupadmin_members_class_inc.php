@@ -84,7 +84,9 @@ class groupadmin_members extends object {
     */
     private function _sortedTable( $list, $table = 't' ) {
         //JS initialization started
-        $lsbList = '<SCRIPT language=JavaScript>';
+        $lsbList = '<script language="javascript" type="text/javascript">
+             <![CDATA[
+                      ';
         $lsbList.= "var $table = new SortTable('$table');";
 
         // Construct the table columns and header
@@ -105,11 +107,13 @@ class groupadmin_members extends object {
             $lsbList.= "$table.AddLineProperties('class=\"$oddeven\"');";
         }
 
-        $lsbList.= '</SCRIPT>';
+        $lsbList.= '
+        ]]>
+       </script>';
         // JS initialization done!
 
         // HTML Table construction
-        $lsbList.= '<TABLE width=99% border=0>';
+        $lsbList.= '<TABLE width="99%" border="0">';
         $lsbList.= '<THEAD><TR>';
 
         // Active links on each header for sorting.
@@ -120,7 +124,11 @@ class groupadmin_members extends object {
         $lsbList.= '</TR></THEAD><TBODY>';
 
         // JS can now generate the sorted table
-        $lsbList.= "<SCRIPT>$table.WriteRows()</SCRIPT>";
+        $lsbList.= "<script language=\"javascript\" type=\"text/javascript\">
+         <![CDATA[
+         $table.WriteRows()
+         ]]>
+         </script>";
         $lsbList.= '</TBODY></TABLE>';
         // HTML TABLE construction done!
 
