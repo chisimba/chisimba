@@ -65,8 +65,8 @@ class sitestories extends dbTable {
         }
         $ret .= "</p>";
         //Add the author and date
-        $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby",'stories');
-        $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on",'stories');
+        $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
+        $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
         $ret.=" <b>".$dateCreated."</b></p>";
         //Create an instance of the modulesadmin to check if registered
         $this->objModule=&$this->getObject('modules','modulecatalogue');
@@ -205,7 +205,7 @@ class sitestories extends dbTable {
                     $ret .= $objComment->addCommentLink();
                     if ($commentCount>0) {
                         $ccStr = $commentCount . " "
-                        . strtolower($this->objLanguage->languageText("word_comments",'stories'));
+                        . strtolower($this->objLanguage->languageText("word_comments"));
                         //Set the location
                         $ccLocation = $this->uri(array(
                           'action' => 'viewstory',
