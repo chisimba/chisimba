@@ -59,7 +59,7 @@ foreach ($arrModules as $module)
         
         $icon = $this->newObject('geticon', 'htmlelements');
         $icon->setModuleIcon($module['module_id']);
-        print $module['module_id'];
+        
         $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.$module['title'].'</dt>');
         $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
         $objForm->addToForm('</dl></li>');

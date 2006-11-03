@@ -62,7 +62,7 @@ if (isset($contextList))
 		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
 		
 		//manage context users
-		$objLink->href = $this->uri(array('action' => 'manageusers', 'contextcode' => $context['contextcode']), 'context');
+		$objLink->href = $this->uri(array('action' => 'main', 'contextcode' => $context['contextcode']), 'contextgroups');
 		$icon->setIcon('student');
 		$icon->alt = 'Manage Course Users';
 		$objLink->link = $icon->show();

@@ -204,9 +204,13 @@ class utils extends object
 	  		$contextCode = $this->_objDBContext->getContextCode();
 	  	}
 	  	$objForm = & $this->newObject('form','htmlelements');
+	  	$objFormMod = & $this->newObject('form','htmlelements');
 		$objH = & $this->newObject('htmlheading','htmlelements');
 		$inpContextCode =  & $this->newObject('textinput','htmlelements');
 		$inpMenuText = & $this->newObject('textinput','htmlelements');
+		
+		//list of modules for this context
+		$arrContextModules = $this->_objContextModules->getContextModules($contextCode);
 		
 		$inpButton =  $this->newObject('button','htmlelements');
 			  	//setup the form
@@ -214,6 +218,11 @@ class utils extends object
 		$objForm->action = $this->uri(array('action' => 'savestep3'));
 		$objForm->extra = 'class="f-wrap-1"';
 		$objForm->displayType = 3;
+		
+		$objFormMod->name = 'modfrm';
+		$objFormMod->action = $this->uri(array('action' => 'savedefaultmod'));
+		//$objFormMod->extra = 'class="f-wrap-1"';
+		$objFormMod->displayType = 3;
 		
 		$inpAbout->name = 'about';
 		$inpAbout->id = 'about';
@@ -252,19 +261,232 @@ class utils extends object
 		        $checkbox->name = 'mod_'.$module['module_id'];
 		        $checkbox->cssClass = 'f-checkbox';
 		        
+		        foreach ($arrContextModules as $arr)
+		        {
+		        	if($arr['moduleid'] == $module['module_id'] )
+		        	{
+		        		$checkbox->setChecked(TRUE);
+		        		break 1;
+		        	}
+		        }
+		        
 		        $icon = $this->newObject('geticon', 'htmlelements');
 		        $icon->setModuleIcon($module['module_id']);
-		        print $module['module_id'];
+		        //print $module['module_id'];
 		        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.$module['title'].'</dt>');
 		        $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
 		        $objForm->addToForm('</dl></li>');
 		    }
 		
 		}
+		
+		
 		$objForm->addToForm('</ol></div><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
-		return  $objForm->show().'<br/>';
+		
+		$dropDefaultModule = $this->newObject('dropdown', 'htmlelements');
+		
+		$drop = 'Default Module<select id="defaultmodule" name="defaultmodule">';
+		foreach($arrContextModules as $mod)
+		{
+			$modInfo = $objModules->getModuleInfo($mod['moduleid']);
+			
+			$drop .= '<option value="'.$mod['moduleid'].'">'.$modInfo['name'].'</option>';
+		}
+		$drop .= '</select>';
+		$drop ='<div style="width:270px">'.$drop.'</div>';
+		$objFormMod->addToForm($drop);
+		$inpButton->value = 'Set as Default';
+		$objFormMod->addToForm($inpButton->show());
+		
+		return  $objFormMod->show().$objForm->show().'<br/>';
 		
 
+	  }
+	  
+	  /**
+	   * Get context edit form
+	   * @return string
+	   * 
+	   */
+	  public function getEditContextForm($contextCode = null)
+	  {
+	  	if(empty($contextCode))
+	  	{
+	  		$contextCode = $this->_objDBContext->getContextCode();
+	  	}
+	  	
+	  	$context = $this->_objDBContext->getRow('contextcode' , $contextCode);
+		$objH = & $this->newObject('htmlheading','htmlelements');
+			$objForm = & $this->newObject('form','htmlelements');
+			
+			$inpContextCode =  & $this->newObject('textinput','htmlelements');
+			$inpMenuText = & $this->newObject('textinput','htmlelements');
+			$inpTitle = & $this->newObject('textinput','htmlelements');
+			$inpButton =  $this->newObject('button','htmlelements');
+			$dropAccess = $this->newObject('dropdown','htmlelements');
+			$radioStatus = $this->newObject('radio','htmlelements');
+			
+			$objH->str = 'Step 1: Add a Course';
+			$objH->type = 3;
+			
+			//setup the form
+			$objForm->name = 'addfrm';
+			$objForm->action = $this->uri(array('action' => 'saveedit'));
+			$objForm->extra = 'class="f-wrap-1"';
+			$objForm->displayType = 3;
+			
+			$inpContextCode->name = 'contextcode';
+			$inpContextCode->id = 'contextcode';
+			$inpContextCode->value = '';
+			$inpContextCode->cssClass = 'f-name';
+			
+			$inpTitle->name = 'title';
+			$inpTitle->id = 'title';
+			$inpTitle->value = $context['title'];
+			$inpTitle->cssClass = 'f-name';
+			
+			$inpMenuText->value = $context['menutext'];
+			$inpMenuText->name = 'menutext';
+			$inpMenuText->id = 'menutext';
+			$inpMenuText->cssClass = 'f-name';
+			
+			//status
+			$dropAccess->name = 'status';
+			$dropAccess->addOption('Publish', 'Publish');
+			$dropAccess->addOption('Unpublish', 'Unpublish');
+			$dropAccess->setSelected(trim($context['status']));
+			print $context['status'];
+			
+			$radioStatus->addOption('m','Male');
+			$radioStatus->addOption('f','Female');
+			$radioStatus->addOption('n','Seaweed');
+			$radioStatus->setSelected('f');
+			
+			
+			$drop = '<fieldset class="f-radio-wrap">
+		
+						<b>Access:</b>
+			
+						
+							<fieldset>
+							
+							<label for="Public">
+							<input id="Public" type="radio" name="access" value="Public" class="f-radio" tabindex="8" />
+							Public</label>
+							
+							<label for="Open">
+							<input id="Open" type="radio" name="access" value="Open" class="f-radio" tabindex="9" />
+							Open</label>
+							
+							<label for="Private">
+			
+							<input id="Private" type="radio" name="access" value="Private" class="f-radio" tabindex="10" />
+							Private</label>
+				
+							</fieldset>
+						
+						</fieldset>';
+						
+			$inpButton->setToSubmit();
+			$inpButton->cssClass = 'f-submit';
+			$inpButton->value = 'Next';
+			
+			
+			//validation
+			$objForm->addRule('contextcode','[-context-] Code is a required field!', 'required');
+			$objForm->addRule('menutext','Menu Text is a required field', 'required!');
+			$objForm->addRule('title','Title is a required field', 'required!');
+			
+			$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+			$objForm->addToForm('<fieldset>');
+			//if($error)
+			//{
+			//    $objForm->addToForm('<p class="error">'.$error.'</p>');
+			//}
+			//$objForm->addToForm($objH->show());
+			
+			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>[-context-] Code:</b> <span class="highlight">');
+			$objForm->addToForm($this->_objDBContext->getContextCode().'</span><br /></label>');
+			
+			$objForm->addToForm('<label for="title"><b><span class="req">*</span>Title:</b>');
+			$objForm->addToForm($inpTitle->show().'<br /></label>');
+			
+			$objForm->addToForm('<label for="menutext"><b><span class="req">*</span>Menu Text:</b>');
+			$objForm->addToForm($inpMenuText->show().'<br /></label>');
+			
+			//$objForm->addToForm('&nbsp;<br/>');
+			
+			
+			$objForm->addToForm('<label for="access"><b><span class="req">*</span>Status:</b>');
+			$objForm->addToForm($dropAccess->show().'<br /></label>');
+			
+			$objForm->addToForm($drop);
+			
+			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
+			return  $objForm->show().'<br/>';
+	  }
+	  
+	  /**
+	   * Method to get the about form
+	   * @return string
+	   * @param string $contextCode
+	   * @access public
+	   */
+	  public function getAboutForm($contextCode = '')
+	  {
+				
+			if(empty($contextCode))
+		  	{
+		  		$contextCode = $this->_objDBContext->getContextCode();
+		  	}
+			
+			//add step 1 template
+			$objH = & $this->newObject('htmlheading','htmlelements');
+			$objForm = & $this->newObject('form','htmlelements');
+			
+			$inpContextCode =  & $this->newObject('textinput','htmlelements');
+			$inpMenuText = & $this->newObject('textinput','htmlelements');
+			$inpAbout =  $this->newObject('htmlarea','htmlelements');
+			$inpButton =  $this->newObject('button','htmlelements');
+			
+			$objH->str = 'Step 2: Add an Course Introduction';
+			$objH->type = 3;
+			
+			//setup the form
+			$objForm->name = 'addfrm';
+			$objForm->action = $this->uri(array('action' => 'savestep2'));
+			//$objForm->extra = 'class="f-wrap-1"';
+			$objForm->displayType = 3;
+			
+			$inpAbout->name = 'about';
+			$inpAbout->id = 'about';
+			$inpAbout->value = '';
+			$inpAbout->cols = 1;
+			$inpAbout->rows =1;
+			//$inpAbout->cssClass = 'f-comments';
+			
+			$inpButton->setToSubmit();
+			$inpButton->cssClass = 'f-submit';
+			$inpButton->value = 'Next';
+			
+			
+			//validation
+			//$objForm->addRule('about','About is a required field!', 'required');
+			
+			
+			$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+			$objForm->addToForm('<fieldset>');
+			
+			$objForm->addToForm($objH->show());
+			
+			$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
+			$objForm->addToForm($inpAbout->show());
+			
+			
+			$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
+			//return $objForm->show().'<br/>';	
+			//return $inpAbout->show();
+				  	
 	  }
 	  
 	  /**
@@ -321,7 +543,13 @@ class utils extends object
 			
 			<div class="tab-page">
 				<h2 class="tab">Configure</h2>
-				Configuration of the course goes here
+				'.$this->getEditContextForm().'
+				
+			</div>
+			
+			<div class="tab-page">
+				<h2 class="tab">About</h2>
+				'.$this->getAboutForm().'
 				
 			</div>
 
@@ -330,7 +558,7 @@ class utils extends object
 	</div>';
 	  	$objFeatureBox = $this->newObject('featurebox', 'navigation');
 	  	//$objFeatureBox->title = 'Tool Box';
-	  	return $objFeatureBox->show('Tool Box', $str);
+	  	return $objFeatureBox->show($this->_objDBContext->getTitle().' Tool Box', $str);
 	  	return $str;
 	  }
 }	

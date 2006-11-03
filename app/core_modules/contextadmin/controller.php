@@ -30,6 +30,7 @@ class contextadmin extends controller
         $this->objLanguage = & $this->newObject('language', 'language');
         //$this->_objUtilsContent = & $this->newObject('utils', 'contextpostlogin');
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
+        $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
     }
     
     
@@ -44,7 +45,7 @@ class contextadmin extends controller
         {
         	
             case '':
-	          case 'default':
+	        case 'default':
 	            $this->setLayoutTemplate('main_layout_tpl.php');
 	            $this->setVar('contextList', $this->_objUtils->getContextList());
 	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
@@ -80,35 +81,22 @@ class contextadmin extends controller
                 
             case 'savestep3':
                 $this->_objDBContextModules->save();
+                $this->_objDBContext->setLastUpdated();
                 return $this->nextAction('default');
-            
-            
+                
+            case 'saveedit';
+            	$this->_objDBContext->saveEdit();
+            	 return $this->nextAction('default');
+            case 'savedefaultmod':
+            	$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
+            	return $this->nextAction('default');
         }
         
         
         
     }
     
-    /**
-     * Method to get the wizard steps
-     * @return string
-     * @access public
-     */
-    public function wizardSteps()
-    {
-        $action = $this->getParam('action');
-        
-        switch($action)
-        {
-            case 'addstep1';
-                return 'Step 1';
-            case 'addstep2';
-                return 'Step 2';
-            case 'addstep3';
-                return 'Step 3';
-        }
-        
-    }
+    
     
     /**
      * Method to get the left widget
