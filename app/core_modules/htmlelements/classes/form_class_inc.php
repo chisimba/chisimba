@@ -486,7 +486,7 @@ class form implements ifhtml
       				$this->_valEmail($mix,$errormsg);
       				break;
             case 'letteronly':
-      				$this->_valLettersOnly($mix,errormsg);
+      				$this->_valLettersOnly($mix,$errormsg);
       				break;
             case 'alphanumeric':
       				//
@@ -523,6 +523,8 @@ class form implements ifhtml
 
     private function _getValidatorScripts()
     {
+	/*
+			*/
         $jsc = '
 			<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
 			<script language="JavaScript" type="text/javascript">
@@ -539,7 +541,7 @@ class form implements ifhtml
 				}
             ]]>
 			</script>
-	
+
 			';
         return $jsc;
     } 
