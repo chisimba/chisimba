@@ -549,6 +549,57 @@ class user extends dbTable
     }
 
     /**
+    * This method returns the surname of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    * 
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    * @author Megan Watson - added functions from kinky
+    * @returns string $surname
+    */
+    public function getSurname($userId = null)
+    {
+        if (!$userId) {
+            $userId = $this->getSession('userId');
+        } 
+        $sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
+        $rs = $this->query($sql);
+        if ($rs) {
+            return $rs[0]["surname"];
+        } else {
+            return false;
+        } 
+    } 
+
+    /**
+    * This method returns the first name of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    * 
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    * @author Megan Watson - added functions from kinky
+    * @returns string $firstname
+    */
+    public function getFirstname($userId = NULL)
+    {
+        if (!$userId) {
+            $userId = $this->getSession('userId');
+        } 
+        $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
+        $rs = $this->query($sql);
+        
+        if ($rs) {
+            return $rs[0]["firstname"];
+        } else {
+            return false;
+        } 
+    } 
+
+    /**
     * This method returns the email address of a given user. It takes
     * the userId of a user as a parameter but defaults to the
     * userId of the currently logged-in user if none is supplied.
