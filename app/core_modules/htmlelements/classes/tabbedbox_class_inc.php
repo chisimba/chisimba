@@ -30,6 +30,7 @@ class tabbedbox implements ifhtml
     public $tabLabel=array(); // JCA - Allow for many labels
     public $boxContent;
     public $box;
+    public $extra = '';
 
     /**
     * Initialization method to set default values
@@ -80,7 +81,7 @@ class tabbedbox implements ifhtml
     */
     public function makeTabbedBox()
     {
-	$this->box='<fieldset class="tabbox">';
+	$this->box='<fieldset class="tabbox" '.$this->extra.'>';
 	// JCA begin - allows for 0:M tabLabels
 	if (isset($this->tabLabel)) {
     	    foreach($this->tabLabel as $tabLabel){

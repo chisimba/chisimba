@@ -73,6 +73,10 @@ class layer extends object implements ifhtml
     */ 
     public $border;
     /**
+    * @var string $padding: padding for the layer
+    */ 
+    public $padding;
+    /**
     * @var string $overflow: what to do when text overflows the layer 
     *  (VISIBLE | HIDDEN | SCROLL | AUTO)
     */ 
@@ -116,8 +120,10 @@ class layer extends object implements ifhtml
         $this->visibility = null;
         $this->background_image = null;
         $this->border = null;
+        $this->padding = null;
         $this->overflow = null;
         $this->align = null;
+        $this->textalign = null;
         $this->clear = null;
     } 
 
@@ -176,11 +182,11 @@ class layer extends object implements ifhtml
 	        if ($this->background_image) {
 	            $ret .= "background_image: " . $this->background_image . "; ";
 	        }
-	        if ($this->background_image) {
-	            $ret .= "background_image: " . $this->background_image . "; ";
-	        }
 	        if ($this->border) {
 	            $ret .= "border: " . $this->border . "; ";
+	        }
+	        if ($this->padding) {
+	            $ret .= "padding: " . $this->padding . "; ";
 	        }
 	        if ($this->overflow) {
 	            $ret .= "overflow: " . $this->overflow . "; ";
