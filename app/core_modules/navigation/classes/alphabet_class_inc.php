@@ -46,7 +46,7 @@ class alphabet extends object
 		// I've added a variable called listAllName that allows you to change the word for 'List All Records'
 		// Tohir 26 August 2004, 9:00am
 		if ($listAllName == '') {
-			$this->listAllName = $this->objLanguage->languageText("word_list","navigation");
+			$this->listAllName = $this->objLanguage->languageText("word_list");
 		} else {
 			$this->listAllName = $listAllName;
 		}
