@@ -28,7 +28,6 @@ htmlelements
 #userparams - requires userparamsadmin
 #login - not in cvs
 systext
-#cms
 calendarbase
 errors
 #skin No Register.conf
