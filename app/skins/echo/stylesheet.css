@@ -154,6 +154,25 @@ div#twocolumn, div#threecolumn {
     border-top: 5px solid #999;
 }
 
+/* Tables */
+
+/* specify the heading of the text inside the tables */
+thead, th, td.heading, tr.heading {
+	background-color: #B1A7A5; /*#9A415B;*/
+	color: '#FFFFFF';
+	font-weight: bolder;
+}
+
+/* Specify the background of table cells in odd rows */
+td.odd, tr.odd {
+	background-color: #F9F9F9; /*#FFFCF4;*/
+}
+
+/* Specify the background of table cells in even rows */
+td.even, tr.even {
+	background-color: #E8E7E5;
+}
+
 
 /* Feature Box */
 .featurebox {color:#333;padding: 15px 20px 20px;border-top: 1px solid #d7d7d7;margin: 0 0 1.5em;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%}
