@@ -29,14 +29,12 @@
         <description>change pvalue field length</description>
         <data>
             <change>
-                <parentid>
-		    <pvalue>
-		        <definition>
-		            <length>timestamp</length>
-                        </definition> 
-		    </pvalue>
-                </parentid>
-	    </change>
+		    	<pvalue>
+		        	<definition>
+		            	<length>timestamp</length>
+                    </definition> 
+		    	</pvalue>
+	    	</change>
         </data>
     </update>
 </updates>
