@@ -119,9 +119,9 @@ a:hover {
 div#wrapper{float:left;width:100%}
 
 /* Three Column Layout */
-#threecolumn div#wrapper div#content{margin: 0 200px 0 200px}
-#threecolumn div#left{float:left;width:200px;margin-left:-100%}
-#threecolumn div#right{float:left;width:200px;margin-left:-200px}
+#threecolumn div#wrapper div#content{margin: 0 250px 0 250px}
+#threecolumn div#left{float:left;width:250px;margin-left:-100%}
+#threecolumn div#right{float:left;width:250px;margin-left:-250px}
 
 /* Two Column Layout */
 #twocolumn div#wrapper div#content{margin: 0 0 0 200px}
@@ -129,9 +129,9 @@ div#wrapper{float:left;width:100%}
 #twocolumn div#right{display:none}
 
 /* Right Column Column Layout */
-#rightcolumn div#wrapper div#content{margin: 0 200px 0 0}
+#rightcolumn div#wrapper div#content{margin: 0 250px 0 0}
 #rightcolumn div#left{display:none}
-#rightcolumn div#right{float:left;width:200px;margin-left:-200px}
+#rightcolumn div#right{float:left;width:250px;margin-left:-250px}
 
 #footer {
     clear:both;
