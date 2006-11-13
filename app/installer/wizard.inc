@@ -518,7 +518,7 @@ class Wizard
 
 		if (!class_exists($step_class)) {
 
-			include_once(STEP_DIR.'/'.$step_class.'.inc');
+			$this->__autoload((STEP_DIR.'/'.$step_class.'.inc'));
 
 			if (!class_exists($step_class)) {
 
@@ -543,7 +543,11 @@ class Wizard
 	}//_loadStep()
 
 	
-
+	private function __autoload($class)
+	{
+		require_once($class);
+		
+	}
 	
 
 	/**
