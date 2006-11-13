@@ -528,7 +528,7 @@ class form implements ifhtml
         $jsc = '
 			<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
 			<script language="JavaScript" type="text/javascript">
-            <![CDATA[ 
+            //<![CDATA[ 
             
 			//the following lines are generated 	
 				function validate_'.$this->name.'_form(frm)
@@ -539,7 +539,7 @@ class form implements ifhtml
 				
 					return ok;
 				}
-            ]]>
+            //]]>
 			</script>
 
 			';
