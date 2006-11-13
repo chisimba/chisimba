@@ -26,7 +26,7 @@ $fields = array(
 		),
     'pvalue' => array(
 		'type' => 'text',
-        'length' => 128,
+        'length' => 256,
         'notnull' => TRUE,
         'default' => 'unknown'
 		),
