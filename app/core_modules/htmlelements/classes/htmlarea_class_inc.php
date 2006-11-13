@@ -141,7 +141,7 @@ class htmlarea extends object
     */
     function show()
     {
-        return $this->showTinyMCE();
+        return $this->showFCKEditor();
     }
     
     /**
@@ -150,10 +150,10 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-        require_once('modules/htmlelements/resources/fckeditor_2.3.1/fckeditor.php') ;
+        require_once('modules/htmlelements/resources/fckeditor_2.3.2/fckeditor.php') ;
         
         $objConfig = & $this->newObject('altconfig', 'config');        
-        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.1/';
+        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.2/';
       
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
@@ -172,7 +172,7 @@ class htmlarea extends object
        
         $oFCKeditor->Value = $this->value;
         
-        $this->setVar('pageSuppressXML', TRUE);
+        //$this->setVar('pageSuppressXML', TRUE);
         
         return $oFCKeditor->CreateHtml() ;
     }
