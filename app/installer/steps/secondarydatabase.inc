@@ -104,7 +104,7 @@ class SecondaryDatabaseAction extends FiveStepAction
 
 	{
 
-		$this->FiveStepAction($sn);
+		//$this->FiveStepAction($sn);
 
 		$this->skip_steps = 1;
 
