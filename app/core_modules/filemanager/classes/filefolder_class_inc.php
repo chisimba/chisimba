@@ -40,6 +40,7 @@ class filefolder extends object
         switch ($mimetype)
         {
             case 'application/x-shockwave-flash': return 'flash'; break;
+            case 'application/x-shockwave-flash2-preview': return 'flash'; break;
             case 'application/vnd.ms-excel': return 'documents'; break;
             case 'application/msword': return 'documents'; break;
             case 'application/vnd.ms-powerpoint': return 'documents'; break;
