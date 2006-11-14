@@ -11,7 +11,7 @@ $inpMenuText = & $this->newObject('textinput','htmlelements');
 $inpAbout = & $this->newObject('htmlarea','htmlelements');
 $inpButton =  $this->newObject('button','htmlelements');
 
-$objH->str = 'Step 2: Add an Course Introduction';
+$objH->str = 'Step 2: About the Course';
 $objH->type = 3;
 
 //setup the form
