@@ -964,6 +964,26 @@ class datetime extends object
                 break;
         }
     }
+    
+    /**
+     * Function to convert seconds into a time format
+     *
+     * @param int $time Number of Seconds
+     * @return string Format 12:45:23
+     */
+    public function secondsToTime($time)
+    {
+        $seconds = $time % 60;
+        $minutes = ($time - $seconds) / 60;
+        
+        if ($minutes > 59) {
+            $hour = ($minutes - ($minutes % 60)) / 60;
+            $minutes = $minutes % 60;
+            return $hour.':'.$minutes.':'.$seconds;
+        } else {
+            return $minutes.':'.$seconds;
+        }
+    }
 
     /**
     * Calculates the difference for two given dates, and returns the result
