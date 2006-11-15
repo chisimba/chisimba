@@ -205,14 +205,9 @@ class altconfig extends object
     public function getItem($pname)
     {
     	try {
-    			//Read conf
     			if ($this->_root==NULL) {
-    				$read = $this->readConfig(FALSE,'XML');
-    			}
-    			if ($read==FALSE) {
-    				return $read;
-    			}
-
+    				 $this->readConfig(FALSE,'XML');
+    				}   			
                //Lets get the parent node section first
 
         		$Settings =& $this->_root->getItem("section", "Settings");
@@ -243,7 +238,7 @@ class altconfig extends object
     			//Read conf
     			
     			if ($this->_root==NULL) {
-    				$read = $this->readConfig(FALSE,'XML');
+    				 $this->readConfig(FALSE,'XML');
     				}
     			
     			
