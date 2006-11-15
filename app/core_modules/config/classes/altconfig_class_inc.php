@@ -77,7 +77,7 @@ class altconfig extends object
     {
         // instantiate object
         try{
-        	
+
         	$this->_objPearConfig = new Config();
         }catch (Exception $e){
         	$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
@@ -112,6 +112,10 @@ class altconfig extends object
     	try {
     		// read configuration data and get reference to root
     		if(!isset($this->_path)) $this->_path = "config/";
+    		if(isset($this->_root))
+    		{
+    			return $this->_root;
+    		}
 
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}config.xml",$property);
 
@@ -143,9 +147,15 @@ class altconfig extends object
     {
     	// set xml root element
     	try {
+    		$this->_objPearConfig = new Config();
     		$this->_options = array('name' => 'Settings');
-    		$this->_root =& $this->_objPearConfig->parseConfig($values,"PHPArray");
+    		$this->_objPearConfig->parseConfig($values,"PHPArray");
     		if(!isset($this->_path)) $this->_path = "config/";
+    		if(file_exists($this->_path . 'config.xml'))
+    		{
+    			unlink($this->_path . 'config.xml');
+    		}
+
     		$this->_objPearConfig->writeConfig("{$this->_path}config.xml",$property, $this->_options);
 
     		$this->readConfig('','XML');
@@ -156,6 +166,34 @@ class altconfig extends object
     		 exit();
     	}
 
+    }
+
+    /**
+     * Public method to append arbitrary arrays of additional parameters to the config file
+     *
+     * @param array $newsettings
+     * @return boolean
+     */
+    public function appendToConfig($newsettings)
+    {
+    	try {
+    		$this->_objPearConfig = new Config();
+
+    		$configfile = $this->readConfig(FALSE, 'PHPArray');
+			$arr = $configfile->toArray();
+			$a2 = $arr['root']['Settings'];
+
+			$final = array_merge($a2, $newsettings);
+			//write back the file...
+			$this->writeConfig($final,'XML', FALSE);
+
+			return TRUE;
+    	}
+    	catch (Exception $e)
+    	{
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    		exit();
+    	}
     }
     /**
      * Method to read sysconfig Properties options.
@@ -235,13 +273,13 @@ class altconfig extends object
     public function updateParam($pname, $pmodule=False, $pvalue,$isAdminConfigurable=False)
     {
     	try {
-    			   			
+
                //Lets get the parent node section first
 
         		$Settings =& $this->_root->getItem("section", "Settings");
         		//Now onto the directive node
         		//check to see if one of them isset to search by
-        		
+
         		if(isset($pname)){
         		 $SettingsDirective =& $Settings->getItem("directive", "{$pname}");
         		}
@@ -252,10 +290,10 @@ class altconfig extends object
 	       			$SettingsDirective->setContent($pvalue);
 	       			$path = "config/";
 	       			if (($path !== false) && (file_exists($path.'config.xml'))) {
-				  		unlink($path.'config.xml');	
+				  		unlink($path.'config.xml');
 				  		$value = $this->_objPearConfig->writeConfig();
 	   					return $value;
-					}  			  	
+					}
         		}
 
 
@@ -330,6 +368,9 @@ class altconfig extends object
             return NULL;
         }
     } #function getValue
+
+
+
     /**
     * The property get name of the getSiteName
     *@access public
