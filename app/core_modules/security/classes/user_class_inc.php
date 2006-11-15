@@ -225,7 +225,7 @@ class user extends dbTable
         if (is_array($info)) // if LDAP has confirmed login
         {
             $data=$this->lookupData($username);
-            if ($data) // if we already have this user
+            if (is_array($data) || $this->valueExists('userId',$info['userId']))// if we already have this user
             {
                 $this->_record=$data;
             } else { // new user
