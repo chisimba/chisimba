@@ -196,6 +196,76 @@ class altconfig extends object
     	}
     }
     /**
+    * Method to get a system configuration parameter.
+    *
+    * @var string $pvalue The value code of the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @return  string $value The value of the config parameter
+    */
+    public function getItem($pname)
+    {
+    	try {
+    			//Read conf
+    			if ($this->_root==NULL) {
+    				$read = $this->readConfig(FALSE,'XML');
+    			}
+    			if ($read==FALSE) {
+    				return $read;
+    			}
+
+               //Lets get the parent node section first
+
+        		$Settings =& $this->_root->getItem("section", "Settings");
+        		//Now onto the directive node
+        		//check to see if one of them isset to search by
+        		if(isset($pname)){
+        		  $this->SettingsDirective =& $Settings->getItem("directive", "{$pname}");
+        		  $value = $this->SettingsDirective->getContent();
+       			  return $value;
+        		}
+        		  		
+
+    	}catch (Exception $e){
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    		exit();
+    	}
+    } #function getItem
+    /**
+    * Method to get a system configuration parameter.
+    *
+    * @var string $pvalue The value code of the config item
+    * @var string $pname The name of the parameter being set, use UPPER_CASE
+    * @return  string $value The value of the config parameter
+    */
+    public function setItem($pname, $pvalue)
+    {
+    	try {
+    			//Read conf
+    			
+    			if ($this->_root==NULL) {
+    				$read = $this->readConfig(FALSE,'XML');
+    				}
+    			
+    			
+               //Lets get the parent node section first
+				
+        		$Settings =& $this->_root->getItem("section", "Settings");
+        		
+        		//Now onto the directive node
+        		//check to see if one of them isset to search by
+        		  $this->SettingsDirective =& $Settings->getItem("directive", "{$pname}");
+        		  $this->SettingsDirective->setContent($pvalue);
+        		  $result =$this->objConf->writeConfig();
+       			  return $result;
+        		
+        		
+
+    	}catch (Exception $e){
+    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    		exit();
+    	}
+    } #function setItem
+    /**
      * Method to read sysconfig Properties options.
      * For use when reading sysconfig Properties options
      *
