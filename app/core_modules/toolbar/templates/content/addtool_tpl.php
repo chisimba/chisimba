@@ -135,6 +135,7 @@ $objDrop->addOption('user', $user);
 $objDrop->addOption('course', $course);
 $objDrop->addOption('assessment', $assessment);
 $objDrop->addOption('site', $site);
+$objDrop->addOption('sems', 'SEMS');
 
 if($mode == 'edit'){
     $cat = $data['category'];
