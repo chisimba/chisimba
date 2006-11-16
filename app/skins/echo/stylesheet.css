@@ -156,23 +156,129 @@ div#twocolumn, div#threecolumn {
 
 /* Tables */
 
-/* specify the heading of the text inside the tables */
-thead, th, td.heading, tr.heading {
-	background-color: #B1A7A5; /*#9A415B;*/
-	color: '#FFFFFF';
-	font-weight: bolder;
+th.header, thead, td.heading, tr.heading, th {
+	background-color: #DCDCDC;
 }
 
-/* Specify the background of table cells in odd rows */
-td.odd, tr.odd {
-	background-color: #F9F9F9; /*#FFFCF4;*/
+table.highlightrows tr:hover {
+	background-color: lightgrey;
 }
 
-/* Specify the background of table cells in even rows */
-td.even, tr.even {
-	background-color: #E8E7E5;
+.odd, td.odd, tr.odd{
+	background-color: #FFFFFF;
 }
 
+.even, td.even, tr.even{
+	background-color: #FFE4E1;
+}
+
+td.widelink a {
+	display:block;
+}
+
+td.widelink a:link {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:visited {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:active {
+	text-decoration: none;
+	color: #A52A2A;
+}
+td.widelink a:hover {
+	text-decoration: underline; 
+	color: red;
+}
+
+.menulink a:link {
+	text-decoration:none;
+	color: #A52A2A;
+}
+
+.menulink a:visited {
+	text-decoration:none;
+	color: #A52A2A;
+}
+.menulink a:active {
+	text-decoration:none;
+	color: #A52A2A;
+}
+.menulink a:hover {
+	text-decoration:none;
+	color: #00008B;
+}
+
+/* Tabbed box */
+
+.shadetabs{
+    padding: 3px 0;
+    margin-left: 0;
+    margin-top: 1px;
+    margin-bottom: 0;
+    font: bold 12px Verdana;
+    list-style-type: none;
+    text-align: left; /*set to left, center, or right to align the menu as desired*/
+}
+
+.shadetabs li{
+    display: inline;
+    list-style: none;
+    margin: 0;
+}
+
+.shadetabs li a{
+    text-decoration: none;
+    padding: 3px 7px;
+    margin-right: 3px;
+    border: 1px solid #778;
+    color: #2d2b2b;
+    background: white url(shade.gif) top left repeat-x;
+}
+
+.shadetabs li a:visited{
+    color: #2d2b2b;
+}
+
+.shadetabs li a:hover{
+    text-decoration: underline;
+    color: #2d2b2b;
+}
+
+.shadetabs li.selected{
+    position: relative;
+    top: 1px;
+}
+
+/*selected main tab style */
+.shadetabs li.selected a{
+    background-image: url(shadeactive.gif);
+    border-bottom-color: white;
+}
+
+/*selected main tab style */
+.shadetabs li.selected a:hover{
+    text-decoration: none;
+}
+
+/*style of tab content container*/
+.tabcontentstyle{
+    border: 1px solid gray;
+    margin-bottom: 1em;
+    padding: 10px;
+}
+
+.tabcontent{
+    display:none;
+}
+
+@media print {
+    .tabcontent {
+        display:block!important;
+    }
+}
 
 /* Feature Box */
 .featurebox {color:#333;padding: 15px 20px 20px;border-top: 1px solid #d7d7d7;margin: 0 0 1.5em;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%}
