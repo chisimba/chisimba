@@ -621,10 +621,9 @@ class user extends dbTable
             }
         } else {
             $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
-            $rs = $this->query($sql);
-            if ($rs) {
-                $line = $rs->fetchRow();
-                $ret=$line["emailaddress"];
+            $rs = $this->getArray($sql);
+            if (count($rs) > 0) {
+                $ret=$rs[0]["emailaddress"];
             } else {
                 $ret=$this->objLanguage->languageText("error_datanotfound");
             }
