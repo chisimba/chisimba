@@ -485,3 +485,10 @@ div.domTTContent {
 /******************************************************************************************
 *  END OF MOUSE OVER POPUP                                                                        *
 ******************************************************************************************/
+
+
+li.sectionfolder {
+    background: transparent url('icons/folder2.gif') no-repeat 0px 1px; 
+    padding-left: 20px;
+    margin-left: 0px;
+}
