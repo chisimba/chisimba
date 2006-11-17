@@ -492,3 +492,7 @@ li.sectionfolder {
     padding-left: 20px;
     margin-left: 0px;
 }
+
+ul.treefolder ul {
+    margin-bottom: 5px;
+}
