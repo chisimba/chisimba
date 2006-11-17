@@ -579,7 +579,7 @@ class tools extends object
         $replaceCrumbs = $this->getSession('replacebreadcrumbs');
 
          if(isset($replaceCrumbs) && !empty($replaceCrumbs)){
-             $this->unsetSession('replaceBreadcrumbs');
+             $this->unsetSession('replacebreadcrumbs');
              return $replaceCrumbs;
          }
 
@@ -759,6 +759,8 @@ class tools extends object
         $this->unsetSession('crumb');
 
         $this->unsetSession('modlink');
+        
+        $this->unsetSession('replaceBreadcrumbs');
 
         return $nav;
 
