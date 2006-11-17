@@ -754,7 +754,9 @@ class modulesadmin extends dbTableManager
         		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/'.$table.'.sql';
         	}
         	if (!file_exists($sqlfile)){
-        		throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
+        		//for some reason the exception below results in a blank screen. return false instead.
+        		//throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
+        		return FALSE; 
         	}
         	include($sqlfile);
         	$this->createTable($tablename,$fields,$options);

@@ -158,8 +158,16 @@ class modulecatalogue extends controller
 			$this->setLayoutTemplate('cat_layout.php');
 			switch ($action) {		//check action
 				case 'xml':
-					$this->objCatalogueConfig->writeCatalogue();
-					$this->nextAction('list');
+					$ret = $this->objModuleAdmin->alterTable('tbl_sysconfig_properties',
+								array('change' => array(
+                                             'pvalue' => array(
+                                             	 'length'=>32,
+                                                 'definition' => array(
+                                                 	 'type'=>'text',
+                                                     'length' => 128,
+                                                ),
+                                             ))),false);
+                    var_dump($ret);
 					break;
 				case null:
 				case 'list':

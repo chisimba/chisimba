@@ -208,7 +208,9 @@ class patch extends dbtable {
 								}
 
 								//print_r($pData);
-								$this->objModuleAdmin->alterTable($update->table,$pData,false);
+								if (!$this->objModuleAdmin->alterTable($update->table,$pData,false)) {
+									return FALSE;
+								}
 								$patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
 								'patchdata'=>$pData,'applied'=>$this->objModule->now());
 								$this->objModule->insert($patch,'tbl_module_patches');
