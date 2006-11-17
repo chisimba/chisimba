@@ -497,7 +497,31 @@ class tools extends object
 
     }
 
+     /**
 
+     * Method to add a list of links or strings to the breadcrumbs.
+
+     * List replaces the action.
+
+     * @param array $links A list of strings to be added to the   breadcrumbs.
+
+     */
+
+     function replaceBreadCrumbs($links)
+
+     {
+
+         $divider = ' &raquo; ';
+
+         if(!empty($links)){
+
+             $list = implode($divider,$links);
+
+         }
+
+         $this->setSession('replacebreadcrumbs',$list);
+
+     }
 
     /**
 
@@ -552,6 +576,13 @@ class tools extends object
     function navigation()
 
     {
+        $replaceCrumbs = $this->getSession('replacebreadcrumbs');
+
+         if(isset($replaceCrumbs) && !empty($replaceCrumbs)){
+             $this->unsetSession('replaceBreadcrumbs');
+             return $replaceCrumbs;
+         }
+
 
         // Language
 
