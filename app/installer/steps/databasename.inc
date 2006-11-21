@@ -363,10 +363,17 @@ class DbNameAction extends FiveStepAction
 	//	echo $_SESSION['short_dsn'];
 		// create the appropriate db handler and use it for emptying the database
 		$handler = new DbHandler($_SESSION['short_dsn']);
-		$dbs = $handler->listDatabases();
-//		print_r($dbs);
+		
 		//$handler->dropDb($db_name);
+		$dbs_old = $handler->listDatabases();
 		$success = $handler->createDb($db_name);
+		$dbs_new = $handler->listDatabases();
+		//print_r($dbs);
+		if (!$success) {
+			if ((!in_array($db_name,$dbs_old)) && (in_array($db_name,$dbs_new))) {
+				$success = true;
+			}
+		}
 
 		return $success;
 
