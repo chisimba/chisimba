@@ -293,8 +293,11 @@ class modulecatalogue extends controller
 					$result = $this->objCatalogueConfig->searchModuleList($str,$type);
 					$this->setVar('result',$result);
 					return 'front_tpl.php';
+				case 'updatexml':
+					$this->objCatalogueConfig->writeCatalogue();
+					return $this->nextAction(null,array('message' => $this->objLanguage->languageText('mod_modulecatalogue_xmlupdated','modulecatalogue')));
 				default:
-					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatlogue').': '.$action);
+					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
 					break;
 			}
 		} catch (Exception $e) {

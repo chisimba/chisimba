@@ -16,7 +16,7 @@ $updateAll = &$this->getObject('link','htmlelements');
 $updateAll->link($this->uri(array('action'=>'makepatch')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
 $makePatch = $updateAll->show();
-$updateAll->link($this->uri(array('action'=>'xml')));
+$updateAll->link($this->uri(array('action'=>'updatexml')));
 $date = date("d/m/y",filemtime($this->objConfig->getsiteRootPath().'/config/catalogue.xml'));
 $updateAll->link = str_replace('[DATE]',$date,$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
 $updateCat = $updateAll->show();
@@ -55,6 +55,12 @@ if (isset($output)) {
 		$success = str_replace('[NEWVER]',"<b>$ver</b>",$success);
 		$msg->message .= "<b>$module</b> $success<br/>";
 	}
+	$tString = $msg->show();
+}
+$out = $this->getParam('message');
+if (isset($out)) {
+	$msg = &$this->getObject('timeoutmessage','htmlelements');
+	$msg->message = $out;
 	$tString = $msg->show();
 }
 
