@@ -630,7 +630,7 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
+									'MDB2'         	=> Array('version'=>'2.0.2','max_version'=>'2.2.2','available'=>false,'message' => ''),
 
 									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 
@@ -842,6 +842,10 @@ class PEARCheckAction extends StepAction
 
 				} else {
 
+                    if(is_array($package_info['version'])){
+                        $package_info['version']=$package_info['version']['release'];
+                    }
+
 					if(is_array($package_info['version']))
 					{
 						$dk = $package_info['version']['api'];
@@ -852,6 +856,18 @@ class PEARCheckAction extends StepAction
 							$this->required_packages[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 						}
 					}
+
+                    elseif ($package_name=='MDB2' && version_compare($required_version['max_version'], $package_info['version']) < 0)
+                    {
+
+                        $this->errors[] = 'Your version of '.$package_name.' is '.$package_info['version'].', which is greater than the allowable version of '.$required_version['max_version'];
+                        $this->errors[] = 'RUN: pear install --alldeps -f MDB2-2.2.2 MDB2_Driver_mysql-1.2.2 MDB2_Driver_mysqli-1.2.2 MDB2_Driver_pgsql-1.2.2<br />';
+
+                        $this->required_packages[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+                        $this->success = false;
+
+                    }
 
 					elseif (version_compare($required_version['version'], $package_info['version']) < 0) {
 
@@ -932,7 +948,7 @@ class PEARCheckAction extends StepAction
 		$pear_dir  = isset($_SESSION['pear_path']) ? $_SESSION['pear_path'] : $this->_findPEARPath();
 
 		$textbox = '<br><p><b>To manually install pear, you can click <a target="content" href="pearinstall.php">here.</a </b><p></br>' .
-		
+
 					'<br><p>Please enter your PEAR path. The installer has guessed that the directory below is </br>'.
 
 					'where PEAR is installed, but it may be in a different directory. '.
@@ -1121,10 +1137,10 @@ class PEARDBCheckAction extends StepAction
 	*/
 
 	var $required_db = Array(
-									'MDB2_Driver_mysql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
-									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									'MDB2_Driver_mysql' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
+									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
 
-									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
+									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
 
 									//'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									//'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>'')
@@ -1175,7 +1191,6 @@ class PEARDBCheckAction extends StepAction
 			foreach ($this->required_db as $package_name => $required_version) {
 
 				$package_info = $pear_registry->packageInfo($package_name);
-
 				if (empty($package_info)) {
 
 					//$this->errors[] = 'Required PEAR module "'.$package_name.'" is not installed. Please run ';
@@ -1188,7 +1203,23 @@ class PEARDBCheckAction extends StepAction
 
 				} else {
 
-					if (version_compare($required_version['version'], $package_info['version']) < 0) {
+                    if(is_array($package_info['version'])){
+                        $package_info['version']=$package_info['version']['release'];
+                    }
+
+                    if (version_compare($required_version['max_version'], $package_info['version']) < 0)
+                    {
+
+                        $this->errors[] = 'Your version of '.$package_name.' is '.$package_info['version'].', which is greater than the allowable version of '.$required_version['max_version'];
+                        $this->errors[] = 'RUN: pear install --alldeps -f MDB2-2.2.2 MDB2_Driver_mysql-1.2.2 MDB2_Driver_mysqli-1.2.2 MDB2_Driver_pgsql-1.2.2<br />';
+
+                        $this->required_db[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+                        $this->success = false;
+
+                    }
+
+                    elseif (version_compare($required_version['version'], $package_info['version']) < 0) {
 
 						$this->required_db[$package_name]['available'] = true;
 
@@ -1305,8 +1336,8 @@ class PEARDBCheckAction extends StepAction
 		$tpl->set('checking', 'Supported PEAR Database client packages');
 
 		$tpl->set('required', $this->required_db);
-        
-			
+
+
 
 		echo $tpl->fetch();
 
