@@ -18,7 +18,7 @@ class dbcontextmodules extends dbTable{
      /**
     *Initialize by send the table name to be accessed 
     */
-     function init(){
+     public function init(){
         parent::init('tbl_contextmodules');
         
         $this->_objDBContext = & $this->newObject('dbcontext', 'context');
@@ -34,7 +34,7 @@ class dbcontextmodules extends dbTable{
     * @access public
     * @deprecated 
     */
-    function isVisible($moduleId,$contextCode){
+    public function isVisible($moduleId,$contextCode){
         $rsArr=$this->getAll("WHERE contextCode = '".$contextCode."' AND moduleId='".$moduleId."'");
         $ret=true;
         if ($rsArr){
@@ -59,7 +59,7 @@ class dbcontextmodules extends dbTable{
     * @access public
     * @deprecated 
     */
-    function setVisible($moduleId,$contextCode){
+    public function setVisible($moduleId,$contextCode){
         return $this->insert(array(
                 'moduleId' => $moduleId,
                 'contextCode' => $contextCode));    
@@ -73,7 +73,7 @@ class dbcontextmodules extends dbTable{
     * @access public
     * @deprecated 
     */
-    function setHidden($moduleId,$contextCode){
+    public function setHidden($moduleId,$contextCode){
         
     
     }
@@ -84,7 +84,7 @@ class dbcontextmodules extends dbTable{
     * @access public
     * @deprecated 
     */
-    function deleteModulesForContext($contextCode){
+    public function deleteModulesForContext($contextCode){
         $this->delete('contextCode',$contextCode);    
     }
     
@@ -92,7 +92,7 @@ class dbcontextmodules extends dbTable{
      * Method to get a list of context sensitive modules
      * @return array
      */
-    public function getInstallableModules()
+    public public function getInstallableModules()
     {
         
         
@@ -130,31 +130,37 @@ class dbcontextmodules extends dbTable{
      */
     public function save()
     {
-        $contextCode = $this->_objDBContext->getContextCode();
-        $objModules = & $this->newObject('modules', 'modulecatalogue');
-        $objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
-        $modList = $objModules->getModules(2);
-        //dump all the modules
-        $this->delete('contextcode', $contextCode);
-       
-        foreach ($modList as $module)
+    	try{
+	        $contextCode = $this->_objDBContext->getContextCode();
+	        $objModules = & $this->newObject('modules', 'modulecatalogue');
+	        $objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
+	        $modList = $objModules->getModules(2);
+	        //dump all the modules
+	        $this->delete('contextcode', $contextCode);
+	       
+	        foreach ($modList as $module)
+	        {
+	            
+	            if($objModuleFile->contextPlugin($module['module_id']))
+	            {//print $module['module_id'];
+	                if($this->getParam('mod_'.$module['module_id']) == $module['module_id'])
+	                {
+	                    
+	                    //add to database
+	                    $this->addModule($contextCode, $module['module_id']);
+	                    
+	                    
+	                }
+	            }
+	            
+	        }
+        
+         }                        
+        catch (customException $e)
         {
-            
-            if($objModuleFile->contextPlugin($module['module_id']))
-            {//print $module['module_id'];
-                if($this->getParam('mod_'.$module['module_id']) == $module['module_id'])
-                {
-                    
-                    //add to database
-                    $this->addModule($contextCode, $module['module_id']);
-                    
-                    
-                }
-            }
-            
+        	echo customException::cleanUp($e);
+        	die();
         }
-        
-        
     }
     
     

@@ -40,7 +40,8 @@ class utilities extends object
         $this->objLink = & $this->newObject('link', 'htmlelements');        
         $this->objIcon = & $this->newObject('geticon', 'htmlelements');        
         $this->objConfig = &$this->getObject('config', 'config');
-        
+        $this->objDBContextModules = & $this->newObject('dbcontextmodules', 'context');        
+        $this->objDBContextParams = & $this->newObject('dbcontextparams', 'context');        
         $this->contextCode = $this->objDBContext->getContextCode();
         
     }
@@ -150,6 +151,7 @@ class utilities extends object
 			
 			//initiate the objects
 			$objSideBar = $this->newObject('sidebar', 'navigation');
+			$objModules = & $this->newObject('modules', 'modulecatalogue');
 			
 			//get the contextCode
 			$this->objDBContext->getContextCode();	
@@ -161,17 +163,23 @@ class utilities extends object
 			$section = $this->getParam('id');
 			
 			//create the home for the context
-			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' Home ', 'uri' => $this->uri(null,"_default"));
+			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' - Home Page ', 'uri' => $this->uri(null,"_default"));
 						
 			
+			
 			//get the registered modules for this context
-			$arrContextModules = array(
+			/*$arrContextModules = array(
 			                         array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 
 			                         array('moduleid' => 'chat', 'title' =>  'Chat'),
 			                         array('moduleid' => 'contextcmscontent', 'title' => 'Course Content'));
+			                         */
+			$arrContextModules = $this->objDBContextModules->getContextModules($this->contextCode);
+			
 			foreach($arrContextModules as $contextModule)
 			{
-					$nodes[] = array('text' =>$contextModule['title'], 'uri' => $this->uri(null,$contextModule['moduleid']),  'sectionid' => $contextModule['moduleid']);
+				$modInfo = $objModules->getModuleInfo($contextModule['moduleid']);
+				
+				$nodes[] = array('text' => $modInfo['name'], 'uri' => $this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid'])),  'sectionid' => $contextModule['moduleid']);
 			}
 			/*
 			//start looping through the sections

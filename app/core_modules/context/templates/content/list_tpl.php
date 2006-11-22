@@ -168,8 +168,19 @@ $this->contentNav->addToStr($centre);
 // ???
 //echo "[$about]<br/>";
 
-$str = '<h1> Welcome to '. $this->objDBContext->getTitle() .'</h1>';
-$str .= '<p />'.$this->objDBContext->getAbout() .'<p/>';
+$tabs = & $this->newObject('tabpane', 'htmlelements');
+$objModules = & $this->newObject('modules', 'modulecatalogue');
+
+foreach($modules as $module)
+{
+	$modInfo = $objModules->getModuleInfo($module['moduleid']);
+	$tabcontent = '<iframe src="'.$this->uri(array('mode' => 'elearn'), $module['moduleid']).'"  height="500px" width="100%" frameborder="0" scrolling="auto"> </iframe>';
+	$tabs->addTab(array('name'=> $modInfo['name'],'content' => $tabcontent));	
+}
+
+$str = '<h3> Welcome to '. $this->objDBContext->getTitle() .'</h3>';
+//$str .= '<p />'.$this->objDBContext->getAbout() .'<p/>';
+$str .= $tabs->show();
 
 //context info
 
@@ -177,8 +188,8 @@ $contextInfo = 'Instructors: <br />';
 $contextInfo .= 'No. Registered Students: <br/>'; 
 $contextInfo .= 'Last Accessed: '; 
 $contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
-
-
+$objContextPostloginUtils = & $this->newObject('utils', 'contextpostlogin');
+$leftSide = $objContextPostloginUtils->getUserPic();
 
 
 if(!$this->getParam('query') == '')
@@ -189,8 +200,9 @@ if(!$this->getParam('query') == '')
 
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
        $cssLayout->setNumColumns(3);
-       $cssLayout->setLeftColumnContent($objContextUtils->getContextMenu());
+       $cssLayout->setLeftColumnContent($leftSide);
        $cssLayout->setMiddleColumnContent($str);
        $cssLayout->setRightColumnContent($contextInfo);
        echo $cssLayout->show(); 
+      //echo '<div style="width: 80%; margin-left:50px;margin-top:10px" >'.$str.'</div>';
 ?>

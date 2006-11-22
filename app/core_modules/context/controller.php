@@ -150,12 +150,15 @@ class context extends controller
         $this->objSkin = & $this->getObject('skin','skin');
         $this->objLanguage=& $this->getObject('language', 'language');
         $this->objDBContext=& $this->getObject('dbcontext');
+        $this->objUser= & $this->getObject('user','security');
+        $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
+        /*      
         $this->objDBContentNodes=& $this->getObject('dbcontentnodes');
         $this->objIcon=& $this->getObject('geticon','htmlelements');
-        $this->objUser= & $this->getObject('user','security');
+
         $this->objPop=& $this->getObject('windowpop','htmlelements');
         $this->objLink=&$this->newObject('link','htmlelements');
-        $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
+        
         $this->objNote=&$this->newObject('dbnotes','context');
         $this->objModule=&$this->newObject('modules','modulecatalogue');
         $this->objDublinCore=&$this->newObject('dublincore','dublincoremetadata');
@@ -178,7 +181,7 @@ class context extends controller
         if($this->nodeId == ''){
             $this->nodeId = $this->objDBContentNodes->_getFirstContentNodeId();
         }
-
+*/
          //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
@@ -220,6 +223,8 @@ class context extends controller
                 {
                      return $this->nextAction('content',null);
                 }
+                $this->setVar('modules', $this->objDBContextModules->getContextModules($this->objDBContext->getContextCode()));
+                $this->setVar('modulesrc',$this->uri(array('mode' => 'elearn'),$this->getParam('moduleid')));
                 return 'list_tpl.php';
 
                 // Print page content to pdf
@@ -263,7 +268,7 @@ class context extends controller
                 $newNodeId = $this->objDBContentNodes->saveNode('edit');
                 return $this->nextAction('content',array('nodeid' => $newNodeId));
             case 'joincontext';
-                if($this->objDBContext->joinContext())
+                if($this->objDBContext->joinContext($this->getParam('contextcode')))
                     return $this->nextAction(null,null);
                 else
                     die('UNEXPECTED ERROR');

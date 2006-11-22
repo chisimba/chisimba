@@ -104,10 +104,70 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     }
 
     /**
+     * Method to save an context edit
+     * @return bool
+     * @access public
+     */
+    public function saveEdit()
+    {
+    	
+    	try{
+            
+            
+            $contextCode = $this->getContextCode();
+            $menuText = htmlentities($this->getParam("menutext"));
+            $title = htmlentities($this->getParam("title"));
+            $userId = $this->objUser->userId();
+            $status = $this->getParam('status');
+            $access = $this->getParam('access');
+            
+            $fields = array(                       
+                        'title' => $title,
+                        'menutext' => $menuText,
+                        'userid' => $userId,
+                        'access' => $access,
+                        'status' => $status,
+                        'dateCreated' => $this->getDate()
+                        ); 
+
+            $this->setLastUpdated();
+            
+            return $this->update('contextcode', $contextCode, $fields);
+        }                        
+        catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+    }
+    
+    /**
+     * Method to edit the context about
+     * @param 
+     * @return bool
+     * @access public
+     */
+    public function saveAboutEdit()
+    {
+    	try{
+    		
+    		$about = $this->getParam('about');
+    		
+    		return $this->update('contextcode', $this->getContextCode(), array('about' => $about));
+    	}                        
+        catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+    }
+    
+    /**
     * Method to save the context
     * @param $mode string: Either edit or add
     * @return NULL
     * @access public
+    * @deprecated 
     */
     public function saveContext($mode)
     {
@@ -296,6 +356,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $this->setSession('contextCode',NULL);
         $this->setSession('contextTitle',NULL);
         $this->setSession('contextmenuText',NULL);
+        $this->setSession('contextabout', NULL);
         $this->setSession('contextIsActive',NULL);
         $this->setSession('contextIsClosed',NULL);
         $this->setSession('contextDateCreated',NULL);
