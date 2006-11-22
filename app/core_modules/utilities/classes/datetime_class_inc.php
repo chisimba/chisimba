@@ -976,6 +976,14 @@ class datetime extends object
         $seconds = $time % 60;
         $minutes = ($time - $seconds) / 60;
         
+        if ($seconds < 10) {
+            $seconds = '0'.$seconds;
+        }
+        
+        if ($minutes < 10) {
+            $minutes = '0'.$minutes;
+        }
+        
         if ($minutes > 59) {
             $hour = ($minutes - ($minutes % 60)) / 60;
             $minutes = $minutes % 60;
