@@ -330,14 +330,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             $line=$this->getRow('contextCode',$contextCode);
             $this->setSession('contextId',$line['id']);
             $this->setSession('contextCode',$contextCode);
-            $this->setSession('contextTitle',$line['title']);
-            $this->setSession('contextmenuText',$line['menutext']);
+            $this->setSession('contextTitle',stripslashes($line['title']));
+            $this->setSession('contextmenuText',stripslashes($line['menutext']));
             $this->setSession('contextstatus',$line['status']);
             $this->setSession('contextlastupdatedby',$line['lastupdatedby']);
             $this->setSession('contextaccess',$line['access']);
             $this->setSession('contextdateCreated',$line['datecreated']);
             $this->setSession('contextcreatorId',$line['userid']);
-            $this->setSession('contextabout',$line['about']);
+            $this->setSession('contextabout',stripslashes($line['about']));
 
             return TRUE;
         }
