@@ -4,8 +4,6 @@
 
 require_once INSTALL_DIR.'/step.inc';
 
-
-
 require_once INSTALL_DIR.'/5ivestepaction.inc';
 
 require_once INSTALL_DIR.'/html_form/html_form.inc';
@@ -270,7 +268,7 @@ class DbDetailsAction extends FiveStepAction
 
 	{
 
-		// if in install - update mode, cannot change the database details
+        // if in install - update mode, cannot change the database details
 
 		$tpl = new Template(INSTALL_DIR.'/templates/dbdetails.tpl');
 
@@ -288,14 +286,41 @@ class DbDetailsAction extends FiveStepAction
 
 		ob_start();
 
-			combo_box($this->db_prefix.'type',
+            $allowed_db = $_SESSION['allowed_db'];
 
-					 array(	//'mysqli' => 'MySQLi',
+            $db_array = array();
+
+            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
+                $db_array['mysql'] = 'MySQL';
+            }
+
+            if(in_array('MDB2_Driver_mysqli',$allowed_db)) {
+                $db_array['mysqli'] = 'MySQLi';
+            }
+
+            if(in_array('MDB2_Driver_pgsql',$allowed_db)) {
+                $db_array['pgsql'] = 'PostgreSQL';
+            }
+/*
+            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
+                $db_array['sqlite'] = 'SQLite';
+            }
+
+            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
+                $db_array['oracle8i'] = 'Oracle8';
+            }
+*/
+            combo_box($this->db_prefix.'type',
+
+                    $db_array, false,
+/*
+					 array(	'mysqli' => 'MySQLi',
 					 		'mysql'=>'MySQL',
 					 		'pgsql'  => 'PostgreSQL',
     						//'sqlite' => 'SQLite',
     						//'oracle8i'=> 'Oracle8'
     						),false,
+*/
 
 					Array(isset($_SESSION[$this->db_prefix.'type'])?$_SESSION[$this->db_prefix.'type']:''));
 

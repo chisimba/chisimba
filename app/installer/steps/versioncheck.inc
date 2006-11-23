@@ -1176,7 +1176,9 @@ class PEARDBCheckAction extends StepAction
 
 			}
 
-			foreach ($this->required_db as $package_name => $required_version) {
+			$_SESSION['allowed_db']=array();
+
+            foreach ($this->required_db as $package_name => $required_version) {
 
 				$package_info = $pear_registry->packageInfo($package_name);
 				if (empty($package_info)) {
@@ -1203,7 +1205,7 @@ class PEARDBCheckAction extends StepAction
 
 						//$this->errors[] = 'Your version of '.$package_name.' meets the minimum requirements.';
 
-
+                        $_SESSION['allowed_db'][]=$package_name;
 
 					} elseif (version_compare($required_version['version'], $package_info['version']) == 0) {
 
@@ -1211,6 +1213,7 @@ class PEARDBCheckAction extends StepAction
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
+                        $_SESSION['allowed_db'][]=$package_name;
 					} else {
 
 						$this->required_db[$package_name]['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
@@ -1234,9 +1237,12 @@ class PEARDBCheckAction extends StepAction
 				$this->errors[] = 'Please install at least one MDB2 databse driver. ';
 				$this->errors[] = 'Eg: <pre>pear install --alldeps MDB2_Driver_mysql</pre>';
 
+                $this->success = false;
 			}
 
-		}// end if registry was found
+
+
+        }// end if registry was found
 
 
 
