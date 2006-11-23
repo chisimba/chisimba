@@ -16,14 +16,40 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 <?php
 // Page headers and layout template
 $this->setLayoutTemplate('contextgroups_layout_tpl.php');
-$this->appendArrayVar('headerParams',$this->getJavascriptFile('sorttable.js','groupadmin') );
+//$this->appendArrayVar('headerParams',$this->getJavascriptFile('sorttable.js','groupadmin') );
+
+
+$objBox = $this->newObject('featurebox', 'navigation');
+
+           // var_dump($objMembers);
+         //   echo $objMembers2->show('lects');
+            
+
+
+$objMembers2->setGroupId( $lectGroupId );
+$links = ( $this->isValid('manage_lect') ) ? $lnkLect->show() : '';
+echo $objBox->show($ttlLecturers,$objMembers2->show('lects').'<br/>'.$links);
+
+
+ $objMembers2->setGroupId( $studGroupId );
+$links = ( $this->isValid('manage_stud') ) ? $lnkStud->show() : '';
+echo $objBox->show($ttlStudents,$objMembers2->show('studs').'<br/>'.$links);
+
+
+$objMembers2->setGroupId( $guestGroupId );
+$links = ( $this->isValid('manage_guest') ) ? $lnkLect->show() : '';
+echo $objBox->show($ttlGuests,$objMembers2->show('guest').'<br/>'.$links);
+
+
 ?>
-<DIV style='padding:1em;'>
+<!--DIV style='padding:1em;'>
         <DIV id='bltitle'><?php echo $ttlLecturers; ?></DIV>
         <DIV id='blog-content'>
         <?php
-            $objMembers->setGroupId( $lectGroupId );
-            echo $objMembers->show('lects');
+       
+            $objMembers2->setGroupId( $lectGroupId );
+           // var_dump($objMembers);
+            echo $objMembers2->show('lects');
         ?>
         </DIV>
         <?php if ( $this->isValid('manage_lect') ) { ?>
@@ -37,8 +63,8 @@ $this->appendArrayVar('headerParams',$this->getJavascriptFile('sorttable.js','gr
         <DIV id='bltitle'><?php echo $ttlStudents; ?></DIV>
         <DIV id='blog-content'>
         <?php
-            $objMembers->setGroupId( $studGroupId );
-            echo $objMembers->show('studs');
+            $objMembers2->setGroupId( $studGroupId );
+            echo $objMembers2->show('studs');
         ?>
         </DIV>
         <?php if ( $this->isValid('manage_stud') ) { ?>
@@ -52,8 +78,8 @@ $this->appendArrayVar('headerParams',$this->getJavascriptFile('sorttable.js','gr
         <DIV id='bltitle'><?php echo $ttlGuests; ?></DIV>
         <DIV id='blog-content'>
         <?php
-            $objMembers->setGroupId( $guestGroupId );
-            echo $objMembers->show('guest');
+            $objMembers2->setGroupId( $guestGroupId );
+            echo $objMembers2->show('guest');
         ?>
         </DIV>
         <?php if ( $this->isValid('manage_guest') ) { ?>
@@ -61,7 +87,7 @@ $this->appendArrayVar('headerParams',$this->getJavascriptFile('sorttable.js','gr
             <?php echo $lnkGuest->show(); ?>
         </DIV>
         <?php } ?>
-</DIV>
+</DIV-->
 <?php
 echo $linkToContextHome;
 ?>

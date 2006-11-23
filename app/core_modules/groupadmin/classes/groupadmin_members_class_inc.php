@@ -56,7 +56,7 @@ class groupadmin_members extends object {
      * @return void
      */
     public function init(){
-        $this->_objGroupAdmin =& $this->getObject('groupAdminModel', 'groupadmin');
+        $this->_objGroupAdmin =& $this->newObject('groupAdminModel', 'groupadmin');
         $_groupDirectMembers = array();
         $_groupSubMembers = array();
         $_tableHeaders = array();
@@ -83,32 +83,50 @@ class groupadmin_members extends object {
     * @access private
     */
     private function _sortedTable( $list, $table = 't' ) {
-        //JS initialization started
+
+    	$myTable = & $this->newObject('htmltable', 'htmlelements');
+    	$myTable->width='60%';
+        $myTable->border='0';
+        $myTable->cellspacing='1';
+        $myTable->cellpadding='10';
+    	//JS initialization started
         $lsbList = '<script language="javascript" type="text/javascript">
-             <![CDATA[
+           //<![CDATA[
                       ';
         $lsbList.= "var $table = new SortTable('$table');";
 
         // Construct the table columns and header
+        $myTable->startHeaderRow();
+
+  
         foreach( $this->_tableHeaders as $hdr ){
             $lsbList.= "$table.AddColumn('.$hdr.','','','');";
+            $myTable->addHeaderCell($hdr);
         }
-
+ 		$myTable->endHeaderRow();
+ 		
         // Construct the table rows
-        $oddeven = 'even';
+        $rowcount = 0;
         foreach( $list as $item) {
+        	$oddOrEven = ($rowcount == 0) ? "even" : "odd";
             // Row data added
             $firstName = '"'.$item["firstname"].'"';
             $surname   = '"'.$item["surname"].'"';
             $lsbList.= "$table.AddLine($firstName, $surname);";
 
             // Rows should alternate odd/even
-            $oddeven = ($oddeven=='odd') ? 'even' : 'odd';
-            $lsbList.= "$table.AddLineProperties('class=\"$oddeven\"');";
+            
+            //$lsbList.= "$table.AddLineProperties('class=\"$oddeven\"');";
+            $myTable->startRow();
+	        $myTable->addCell($item["firstname"],null,null,null,$oddOrEven);
+	        $myTable->addCell($item["surname"],null,null,null,$oddOrEven);
+	        $myTable->endRow();
+	        
+	        $rowcount = ($rowcount == 0) ? 1 : 0;
         }
 
         $lsbList.= '
-        ]]>
+        //]]>
        </script>';
         // JS initialization done!
 
@@ -125,15 +143,20 @@ class groupadmin_members extends object {
 
         // JS can now generate the sorted table
         $lsbList.= "<script language=\"javascript\" type=\"text/javascript\">
-         <![CDATA[
+       //<![CDATA[
          $table.WriteRows()
-         ]]>
+        //]]>
          </script>";
         $lsbList.= '</TBODY></TABLE>';
         // HTML TABLE construction done!
 
         // Return completed HTML sortable table
-        return $lsbList;
+        //return $lsbList;
+        return $myTable->show();
+        
+    	//$featureBox = & $this->newObject('featurebox', 'navigation');
+    	
+    	return 'SORT TABLE DOES  NOT WORK IN CHISIMBA';
     }
 
     /**
@@ -147,6 +170,7 @@ class groupadmin_members extends object {
         $groupadmin =& $this->groupadmin();
         $this->_groupDirectMembers = $groupadmin->getGroupUsers( $groupId, array('firstName', 'surname') );
         $this->_groupSubMembers = $groupadmin->getSubGroupUsers( $groupId, array('firstName', 'surname') );
+      
     }
 
     /**
