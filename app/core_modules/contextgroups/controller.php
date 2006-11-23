@@ -44,10 +44,10 @@ class contextgroups extends controller
     */
     function init()
     {
-        $this->_objGroupAdmin = &$this->getObject('groupadminmodel','groupadmin');
-        $this->_objDBContext = &$this->getObject('dbcontext','context');
-        $this->_objLanguage = &$this->getObject('language','language');
-        $this->_objContextCondition = &$this->getObject('contextcondition','contextpermissions');
+        $this->_objGroupAdmin = &$this->newObject('groupadminmodel','groupadmin');
+        $this->_objDBContext = &$this->newObject('dbcontext','context');
+        $this->_objLanguage = &$this->newObject('language','language');
+        $this->_objContextCondition = &$this->newObject('contextcondition','contextpermissions');
 
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Lecturers' ) );
         $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Students' ) );
@@ -107,6 +107,9 @@ class contextgroups extends controller
 
             case 'main':
             default : return $this->showMain();
+            
+            case 'tester':
+            var_dump($this->getParam('checktest'));
         }
     }
 
@@ -116,32 +119,34 @@ class contextgroups extends controller
     */
     function showMain( )
     {
-        $objMembers = &$this->getObject('groupadmin_members','groupadmin');
+    	$this->setVar('pagesuppressxml', TRUE);
+        $objMembers = &$this->newObject('groupadmin_members','groupadmin');
         $objMembers->setHeaders( array( 'Firstname', 'Surname') );
-        $this->setVarByRef('objMembers',$objMembers);
-
+        $this->setVarByRef('objMembers2',$objMembers);
+		 //$objMembers->setGroupId( $this->lectGroupId );
+        //echo $objMembers->show('lects');
         $lnkLect = $this->newObject('link', 'htmlelements');
         $lnkLect->href = $this->uri( array( 'action'=>'manage_lect' ) );
-        $lnkLect->link = $this->_objLanguage->code2Txt('mod_contextgroups_managelects',array('authors'=>''));
+        $lnkLect->link = $this->_objLanguage->code2Txt('mod_contextgroups_managelects','contextgroups',array('authors'=>''));
         $this->setVarByRef('lnkLect', $lnkLect );
 
         $lnkStud = $this->newObject('link', 'htmlelements');
         $lnkStud->href = $this->uri( array( 'action'=>'manage_stud' ) );
-        $lnkStud->link = $this->_objLanguage->code2Txt('mod_contextgroups_managestuds',array('readonlys'=>''));
+        $lnkStud->link = $this->_objLanguage->code2Txt('mod_contextgroups_managestuds','contextgroups',array('readonlys'=>''));
         $this->setVarByRef('lnkStud', $lnkStud );
 
         $lnkGuest = $this->newObject('link', 'htmlelements');
         $lnkGuest->href = $this->uri( array( 'action'=>'manage_guest' ) );
-        $lnkGuest->link = $this->_objLanguage->languageText('mod_contextgroups_manageguests');
+        $lnkGuest->link = $this->_objLanguage->languageText('mod_contextgroups_manageguests','contextgroups');
         $this->setVarByRef('lnkGuest', $lnkGuest );
 
         $title = $this->_objLanguage->code2Txt(
-            'mod_contextgroups_ttlManage',
+            'mod_contextgroups_ttlManage','contextgroups',
             array( 'TITLE'=> $this->_objDBContext->getTitle() ) );
 
-        $this->setVar('ttlLecturers', $this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers',array('authors'=>'')) );        $this->setVar('title',$title);
-        $this->setVar('ttlStudents', $this->_objLanguage->code2Txt('mod_contextgroups_ttlStudents') );
-        $this->setVar('ttlGuests', $this->_objLanguage->languageText('mod_contextgroups_ttlGuest') );
+        $this->setVar('ttlLecturers', $this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups',array('authors'=>'')) );        $this->setVar('title',$title);
+        $this->setVar('ttlStudents', $this->_objLanguage->code2Txt('mod_contextgroups_ttlStudents','contextgroups') );
+        $this->setVar('ttlGuests', $this->_objLanguage->languageText('mod_contextgroups_ttlGuest','contextgroups') );
 
         return 'main_tpl.php';
     }
@@ -151,12 +156,19 @@ class contextgroups extends controller
     * @param string the group to be managed.
     */
     function processManage( $groupName )
-    {
+    {//var_dump($_POST);
         $groupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), $groupName ) );
         if ( $this->getParam( 'button' ) == 'save' && $groupId <> '' ) {
             // Get the revised member ids
-            $list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array();
-
+            if(is_array($this->getParam( 'list2' )))
+            {
+            	$list = $this->getParam( 'list2' );
+            } else {
+            	$list = array();
+            }
+            //$list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array();
+  //          var_dump($this->getParam('list2'));
+//die();
             // Get the original member ids
             $fields = array ( 'tbl_users.id' );
             $memberList = &$this->_objGroupAdmin->getGroupUsers( $groupId, $fields );
@@ -202,18 +214,19 @@ class contextgroups extends controller
         // Members list dropdown
         $lstMembers = $this->newObject( 'dropdown', 'htmlelements' );
         $lstMembers->name = 'list2[]';
-        $lstMembers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true)"';
+        $lstMembers->extra = ' multiple="multiple" style="width:100pt" size="10" ondblclick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true); "';
         foreach ( $memberList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+        	
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstMembers->addOption( $userPKId, $fullName );
         }
 
 		$tblLayoutM= &$this->newObject( 'htmltable', 'htmlelements' );
-		$tblLayoutM->row_attributes = 'align=center ';
+		$tblLayoutM->row_attributes = 'align="center" ';
 		$tblLayoutM->width = '100px';
 		$tblLayoutM->startRow();
-			$tblLayoutM->addCell( $this->_objLanguage->code2Txt('mod_contextgroups_ttl'.$groupName),null,null,null,'heading' );
+			//$tblLayoutM->addCell( $this->_objLanguage->code2Txt('mod_contextgroups_ttl'.$groupName),null,null,null,'heading' );
 		$tblLayoutM->endRow();
 		$tblLayoutM->startRow();
 			$tblLayoutM->addCell( $lstMembers->show() );
@@ -223,18 +236,18 @@ class contextgroups extends controller
         // Users list dropdown
         $lstUsers = $this->newObject( 'dropdown', 'htmlelements' );
         $lstUsers->name = 'list1[]';
-        $lstUsers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
+        $lstUsers->extra = ' multiple="multiple" style="width:100pt"  size="10" ondblclick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
         foreach ( $usersList as $user ) {
-            $fullName = $user['firstName'] . " " . $user['surname'];
+            $fullName = $user['firstname'] . " " . $user['surname'];
             $userPKId = $user['id'];
             $lstUsers->addOption( $userPKId, $fullName );
 
         }
 		$tblLayoutU= &$this->newObject( 'htmltable', 'htmlelements' );
-		$tblLayoutU->row_attributes = 'align=center';
+		$tblLayoutU->row_attributes = 'align="center"';
 		$tblLayoutU->width = '100px';
 		$tblLayoutU->startRow();
-			$tblLayoutU->addCell( $this->_objLanguage->code2Txt('mod_contextgroups_ttlUsers'),'10%',null,null,'heading' );
+			$tblLayoutU->addCell( $this->_objLanguage->code2Txt('mod_contextgroups_ttlUsers','contextgroups'),'10%',null,null,'heading' );
 		$tblLayoutU->endRow();
 		$tblLayoutU->startRow();
 			$tblLayoutU->addCell( $lstUsers->show() );
@@ -245,16 +258,16 @@ class contextgroups extends controller
         $lnkSave = $this->newObject('link','htmlelements');
         $lnkSave->href  = '#';
         $lnkSave->extra = 'onclick="javascript:';
-        $lnkSave->extra.= 'selectAllOptions( document.frmManage[\'list2[]\'] ); ';
-        $lnkSave->extra.= 'document.frmManage[\'button\'].value=\'save\'; ';
-        $lnkSave->extra.= 'document.frmManage.submit(); "';
+        $lnkSave->extra.= 'selectAllOptions( document.forms[\'frmManage\'][\'list2[]\'] ); ';
+        $lnkSave->extra.= 'document.forms[\'frmManage\'][\'button\'].value=\'save\'; ';
+        $lnkSave->extra.= 'document.forms[\'frmManage\'].submit(); "';
         $lnkSave->link  = $this->_objLanguage->languageText( 'word_save' );
 
         $lnkCancel = $this->newObject('link','htmlelements');
         $lnkCancel->href  = '#';
         $lnkCancel->extra = 'onclick="javascript:';
-        $lnkCancel->extra.= 'document.frmManage[\'button\'].value=\'cancel\'; ';
-        $lnkCancel->extra.= 'document.frmManage.submit(); "';
+        $lnkCancel->extra.= 'document.forms[\'frmManage\'][\'button\'].value=\'cancel\'; ';
+        $lnkCancel->extra.= 'document.forms[\'frmManage\'].submit(); "';
         $lnkCancel->link  = $this->_objLanguage->languageText( 'word_cancel' );
 
         $ctrlButtons = array();
@@ -263,21 +276,27 @@ class contextgroups extends controller
         $this->setVar('ctrlButtons',$ctrlButtons);
 
         $navButtons = array();
-        $navButtons['lnkRight']    = $this->navLink('>>','Selected',"frmManage['list1[]']", "frmManage['list2[]']");
-        $navButtons['lnkRightAll'] = $this->navLink('All >>','All',"frmManage['list1[]']", "frmManage['list2[]']");
-        $navButtons['lnkLeft']     = $this->navLink('<<','Selected',"frmManage['list2[]']", "frmManage['list1[]']");
-        $navButtons['lnkLeftAll']  = $this->navLink('All <<','All',"frmManage['list2[]']", "frmManage['list1[]']");
+        $navButtons['lnkRight']    = $this->navLink('>>','Selected',"forms['frmManage']['list1[]']", "forms['frmManage']['list2[]']");
+        $navButtons['lnkRightAll'] = $this->navLink('All >>','All',"forms['frmManage']['list1[]']", "forms['frmManage']['list2[]']");
+        $navButtons['lnkLeft']     = $this->navLink('<<','Selected',"forms['frmManage']['list2[]']", "forms['frmManage']['list1[]']");
+        $navButtons['lnkLeftAll']  = $this->navLink('All <<','All',"forms['frmManage']['list2[]']", "forms['frmManage']['list1[]']");
         $this->setVar('navButtons',$navButtons);
 
         $frmManage = &$this->getObject( 'form', 'htmlelements' );
         $frmManage->name = 'frmManage';
         $frmManage->displayType = '3';
         $frmManage->action = $this->uri ( array( 'action' => $groupName.'_form' ) );
-        $frmManage->addToForm("<input type='hidden' name='button' value=''>");
+        $frmManage->addToForm("<input type='hidden' name='button' value='' />");
+        
+        $str = '<select  name="checktest[]" multiple="multiple">
+<option value="flow">flow</option>
+<option value="dow" >dow</option>
+        </select>';
+        $frmManage->addToForm($str);
         $this->setVarByRef('frmManage', $frmManage );
 
         $title = $this->_objLanguage->code2Txt(
-            'mod_contextgroups_ttlManageMembers', array(
+            'mod_contextgroups_ttlManageMembers','contextgroups', array(
                 'GROUPNAME'=>$groupName,
                 'TITLE'=>$this->_objDBContext->getTitle() )
             );
