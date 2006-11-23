@@ -630,7 +630,7 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'2.0.2',/*'max_version'=>'2.2.2',*/'available'=>false,'message' => ''),
+									'MDB2'         	=> Array('version'=>'2.0.2','max_version'=>'2.4.2','available'=>false,'message' => ''),
 
 									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 
