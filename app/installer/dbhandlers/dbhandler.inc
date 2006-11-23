@@ -107,8 +107,8 @@ class DbHandler extends dbHandlermanager
                 //return the db object for use globally
                 return $this->_globalObjDb;
             }
-            //$this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
-            $this->_globalObjDb->setOption('quote_identifiers', true);
+            $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
+           // $this->_globalObjDb->setOption('quote_identifiers', true);
 			MDB2::loadFile('Date');
 			MDB2::loadFile('Iterator');
 			// install the error handler with our custom callback on error
@@ -415,7 +415,14 @@ class DbHandler extends dbHandlermanager
 		$fieldnames = str_replace("(, ","(", $fieldnames);
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
-        $ret = $this->_execute($sql, $params);
+        if($this->_globalObjDb->phptype == 'mysql')
+        {
+        	$ret = $this->_execute($sql, $params);
+        }
+        else {
+        	$ret = $this->_globalObjDb->query($sql);
+        }
+        //$ret = $this->_execute($sql, $params);
         //log_debug("success $ret");
 
         return $ret ? $id : false;
