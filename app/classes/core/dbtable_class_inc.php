@@ -518,8 +518,9 @@ class dbTable extends object
     */
     public function _execute($stmt, $params = array())
     {
-        $sh = $this->_db->prepare($stmt);
-        return ($sh->execute($params));
+        return $this->_db->query($stmt);
+    	//$sh = $this->_db->prepare($stmt);
+        //return ($sh->execute($params));
     }
 
     /**

@@ -415,13 +415,7 @@ class DbHandler extends dbHandlermanager
 		$fieldnames = str_replace("(, ","(", $fieldnames);
         $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
-        if($this->_globalObjDb->phptype == 'mysql')
-        {
-        	$ret = $this->_execute($sql, $params);
-        }
-        else {
-        	$ret = $this->_globalObjDb->query($sql);
-        }
+        $ret = $this->_globalObjDb->query($sql);
         //$ret = $this->_execute($sql, $params);
         //log_debug("success $ret");
 

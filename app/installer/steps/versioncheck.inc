@@ -1137,10 +1137,10 @@ class PEARDBCheckAction extends StepAction
 	*/
 
 	var $required_db = Array(
-									'MDB2_Driver_mysql' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
-									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
+									'MDB2_Driver_mysql' => Array('version'=> '1.0.0','max_version'=>'1.4.2','available'=>false,'message'=>''),
+									'MDB2_Driver_mysqli' => Array('version'=> '1.0.0','max_version'=>'1.4.2','available'=>false,'message'=>''),
 
-									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','max_version'=>'1.2.2','available'=>false,'message'=>''),
+									'MDB2_Driver_pgsql' => Array('version'=> '1.0.0','max_version'=>'1.4.2','available'=>false,'message'=>''),
 
 									//'MDB2_Driver_sqlite' => Array('version'=> '1.0.0','available'=>false,'message'=>''),
 									//'oracle8i' => Array('version'=> '1.0.0','available'=>false,'message'=>'')
