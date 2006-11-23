@@ -20,11 +20,11 @@ $this->appendArrayVar('headerParams',$this->getJavascriptFile('selectbox.js','gr
 ?>
 <?php
     $tblLayout = &$this->newObject( 'htmltable', 'htmlelements' );
-    $tblLayout->row_attributes = 'align=center';
+    $tblLayout->row_attributes = 'align="center"';
     $tblLayout->width = '99%';
     $tblLayout->startRow();
     $tblLayout->addCell( $lstUsers->show() );
-    $tblLayout->addCell( implode('<BR>',$navButtons),NULL,NULL );
+    $tblLayout->addCell( implode('<br />',$navButtons),NULL,NULL );
     $tblLayout->addCell( $lstMembers->show() );
     $tblLayout->endRow();
 
