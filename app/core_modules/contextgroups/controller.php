@@ -108,8 +108,7 @@ class contextgroups extends controller
             case 'main':
             default : return $this->showMain();
             
-            case 'tester':
-            var_dump($this->getParam('checktest'));
+           
         }
     }
 
@@ -166,9 +165,7 @@ class contextgroups extends controller
             } else {
             	$list = array();
             }
-            //$list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array();
-  //          var_dump($this->getParam('list2'));
-//die();
+           
             // Get the original member ids
             $fields = array ( 'tbl_users.id' );
             $memberList = &$this->_objGroupAdmin->getGroupUsers( $groupId, $fields );
@@ -288,11 +285,8 @@ class contextgroups extends controller
         $frmManage->action = $this->uri ( array( 'action' => $groupName.'_form' ) );
         $frmManage->addToForm("<input type='hidden' name='button' value='' />");
         
-        $str = '<select  name="checktest[]" multiple="multiple">
-<option value="flow">flow</option>
-<option value="dow" >dow</option>
-        </select>';
-        $frmManage->addToForm($str);
+        
+        
         $this->setVarByRef('frmManage', $frmManage );
 
         $title = $this->_objLanguage->code2Txt(
