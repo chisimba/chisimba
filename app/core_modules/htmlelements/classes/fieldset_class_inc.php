@@ -9,10 +9,10 @@ require_once("ifhtml_class_inc.php");
 
 /**
 * Class frameset class to group items
-* 
+*
 * Used to create frameset that helps
 * grouped items
-* 
+*
 * @package frameset
 * @category HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
@@ -40,15 +40,15 @@ class fieldset extends object implements ifhtml
 	*/
 	public $width;
     /**
-	*@var $extra Any other extra items that needs to be added 
+	*@var $extra Any other extra items that needs to be added
 	*/
 	public $extra;
-    
+
         /**
         *@var $align how the table is aligned - added 2005 03 31 by James Scoble
         */
-        var $align; 
-	
+        var $align;
+
 	/**
 	*Initialize
 	*/
@@ -56,7 +56,15 @@ class fieldset extends object implements ifhtml
 	{
 		$this->contents="";
 	}
-	
+
+    /**
+    * Alternate constructor for including the file
+    */
+    public function fieldset()
+    {
+        return $this->init();
+    }
+
 	/**
 	*The show Method
     *@return null
@@ -72,17 +80,17 @@ class fieldset extends object implements ifhtml
             }
             if (isset($this->width)) {
                 $str.= "<table $align width=\"" . $this->width . "\"><tr><td>";
-            }   
+            }
 	    $str .= '<fieldset';
-        
+
         if (isset($this->extra)) {
             $str.=$this->extra;
         }
-        
 
-        
+
+
         $str .= '>';
-        
+
         if (isset($this->legend)) {
             $str .= '<legend';
             if (isset($this->legendalign)) {
@@ -98,7 +106,7 @@ class fieldset extends object implements ifhtml
         }
 		return $str;
 	}
-	
+
 	/**
 	*Method to add contents
 	*@param $content string  The contents to be added to the fieldset
@@ -108,7 +116,7 @@ class fieldset extends object implements ifhtml
 	public function addContent($content=null){
 		$this->contents.=$content;
 	}
-	
+
 	/**
 	*Method to reset the fields
     *@return null
@@ -118,7 +126,7 @@ class fieldset extends object implements ifhtml
 		$this->contents=null;
 		$this->legend=null;
 	}
-	
+
 	/**
 	*Method to add the legend
 	*@param $legend string  The legend to be added to the fieldset
@@ -128,7 +136,7 @@ class fieldset extends object implements ifhtml
 	function setLegend($legend){
 		$this->legend=$legend;
 	}
-    
+
     /**
 	*Method to add extra parameters
 	*@param $parameters string  String of parameters that can be added

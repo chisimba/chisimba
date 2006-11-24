@@ -12,16 +12,16 @@ require_once("ifhtml_class_inc.php");
 class layer extends object implements ifhtml
 {
     /**
-    * 
+    *
     * @var string $id: the ID tag from the CSS
     */
     public $id;
     /**
-    * @var string $name: Optional, the name to apply to the object 
+    * @var string $name: Optional, the name to apply to the object
     */
     public $name;
     /**
-    * @var string $css_class: The name of the CSS class to apply 
+    * @var string $css_class: The name of the CSS class to apply
     * to the layer
     * @deprecated use cssClass
     */
@@ -45,13 +45,13 @@ class layer extends object implements ifhtml
     */
     public $position;
     /**
-    * @var int $left: The position of the layer from the left margin 
+    * @var int $left: The position of the layer from the left margin
     *  if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
     public $left;
     /**
-    * @var int $top: The position of the layer from the top margin 
+    * @var int $top: The position of the layer from the top margin
     *  if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
@@ -70,16 +70,16 @@ class layer extends object implements ifhtml
     public $background_image;
     /**
     * @var string $border: border width for the layer
-    */ 
+    */
     public $border;
     /**
     * @var string $padding: padding for the layer
-    */ 
+    */
     public $padding;
     /**
-    * @var string $overflow: what to do when text overflows the layer 
+    * @var string $overflow: what to do when text overflows the layer
     *  (VISIBLE | HIDDEN | SCROLL | AUTO)
-    */ 
+    */
     public $overflow;
     /**
     * @var string $use_style: An additional style tag to use
@@ -95,7 +95,7 @@ class layer extends object implements ifhtml
     */
     public $align;
     /**
-    * @var string $textalign: use to generate text aligned within the layer 
+    * @var string $textalign: use to generate text aligned within the layer
     * center|left|right
     */
     public $textalign;
@@ -125,37 +125,48 @@ class layer extends object implements ifhtml
         $this->align = null;
         $this->textalign = null;
         $this->clear = null;
-    } 
+    }
+
+    /**
+    * Constructor method to call the layer class correctly
+    *
+    * @var string $strn The string to pass to the layer
+    */
+    function layer()
+    {
+        $this->str='';
+        return $this->init();
+    }
 
     /**
      * Method to add a string to a layer and return the resulting
      * string
-     * 
+     *
      * @deprecated Rather use the show method to display the layer
      * This functionality will be moved to show shortly
-     * 
+     *
      */
     public function addToLayer()
     {
-        return $this->show(); 
-    } 
-    
+        return $this->show();
+    }
+
     /**
     * Show method for compatibility with other classes in htmlElements
     */
     public function show()
     {
-        
+
         $ret = "<div";
         if ($this->id) {
             $ret .= " id=\"" . $this->id . "\"";
-        } 
+        }
         if ($this->css_class) {
             $ret .= " class=\"" . $this->css_class . "\" ";
-        } 
+        }
         if ($this->cssClass) {
             $ret .= " class=\"" . $this->cssClass . "\" ";
-        } 
+        }
 		if ($this->checkForStyle()) {
 			$ret .= " style=\"";
 			if ($this->position) {
@@ -163,7 +174,7 @@ class layer extends object implements ifhtml
 			}
 		    if ($this->textalign) {
 	            $ret .= "align: " . $this->align . "; ";
-	        } 
+	        }
 	        if ($this->width) {
 	            $ret .= "width: " . $this->width . "; ";
 	        }
@@ -214,17 +225,17 @@ class layer extends object implements ifhtml
     {
         $classVars = get_class_vars(get_class($this));
         foreach ($classVars as $name => $value) {
-            if ($name != 'id' && $name != 'name' 
-              && $name != 'css_class' 
+            if ($name != 'id' && $name != 'name'
+              && $name != 'css_class'
               && $name != 'cssClass') {
                 if ($this->$name) {
                     return true;
-                } 
-            } 
+                }
+            }
         }
         return False;
-    } 
-	
+    }
+
 	/**
 	* Method to add to the end of the output string
     * @var string $strn: The string to add to the end
@@ -233,8 +244,8 @@ class layer extends object implements ifhtml
 	{
 		$this->str .= $strn;
 	}
-	
-	
+
+
 	/**
 	* Method to add to the top of the output string
     * @var string $strn: The string to add to the top
@@ -243,6 +254,6 @@ class layer extends object implements ifhtml
 	{
 		$this->str = $strn.$this->str;
 	}
-} 
+}
 
 ?>
