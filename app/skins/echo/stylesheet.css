@@ -131,6 +131,11 @@ div#left {
     background-position: 60px;
 }
 
+div#twocolumn div#left {
+    background: transparent url('images/content_wrap_bg.gif');
+    background-position: 10px;
+}
+
 /* background colors
 #content {
 	backgaround-color: #66FF66;
