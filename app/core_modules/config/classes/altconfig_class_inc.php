@@ -207,7 +207,7 @@ class altconfig extends object
     	try {
     			if ($this->_root==NULL) {
     				 $this->readConfig(FALSE,'XML');
-    				}   			
+    				}
                //Lets get the parent node section first
 
         		$Settings =& $this->_root->getItem("section", "Settings");
@@ -215,10 +215,16 @@ class altconfig extends object
         		//check to see if one of them isset to search by
         		if(isset($pname)){
         		  $this->SettingsDirective =& $Settings->getItem("directive", "{$pname}");
-        		  $value = $this->SettingsDirective->getContent();
-       			  return $value;
+        		  if($this->SettingsDirective == false)
+        		  {
+        		  	return FALSE;
+        		  }
+        		  else {
+        		  	$value = $this->SettingsDirective->getContent();
+       			  	return $value;
+        		  }
         		}
-        		  		
+
 
     	}catch (Exception $e){
     		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
@@ -236,24 +242,24 @@ class altconfig extends object
     {
     	try {
     			//Read conf
-    			
+
     			if ($this->_root==NULL) {
     				 $this->readConfig(FALSE,'XML');
     				}
-    			
-    			
+
+
                //Lets get the parent node section first
-				
+
         		$Settings =& $this->_root->getItem("section", "Settings");
-        		
+
         		//Now onto the directive node
         		//check to see if one of them isset to search by
         		  $this->SettingsDirective =& $Settings->getItem("directive", "{$pname}");
         		  $this->SettingsDirective->setContent($pvalue);
         		  $result =$this->objConf->writeConfig();
        			  return $result;
-        		
-        		
+
+
 
     	}catch (Exception $e){
     		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
