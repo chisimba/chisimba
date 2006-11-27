@@ -547,9 +547,9 @@ class modulesadmin extends dbTableManager
                 // Now the main data entry - building up arrays of the essential params
                 isset($registerdata['MODULE_AUTHORS'])? $authors = $registerdata['MODULE_AUTHORS'] : $authors = '';
                 isset($registerdata['MODULE_RELEASEDATE'])? $releasedate = $registerdata['MODULE_RELEASEDATE'] : $releasedate = '';
-                isset($registerdata['MODULE_VERSION'])? $version = $registerdata['MODULE_VERSION'] : $version = '';
+                isset($registerdata['MODULE_VERSION'])? $version = $registerdata['MODULE_VERSION'] : $version = '1.0';
                 isset($registerdata['MODULE_PATH'])? $modPath = $registerdata['MODULE_PATH'] : $modPath = '';
-                isset($registerdata['MODULE_HASADMINPAGE'])? $adminPage = $registerdata['MODULE_HASADMINPAGE'] : $adminPage = '';
+                isset($registerdata['MODULE_HASADMINPAGE'])? $adminPage = $registerdata['MODULE_HASADMINPAGE'] : $adminPage = '0';
                 isset($registerdata['ISADMIN'])? $adm = $registerdata['ISADMIN'] : $adm = 0;
                 isset($registerdata['ISVISIBLE'])? $vis = $registerdata['ISVISIBLE'] : $vis = 1;
                 $sql_arr = array(
