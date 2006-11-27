@@ -504,7 +504,7 @@ class user extends dbTable
             $rs = $this->query($sql);
             if ($rs) {
 //                $line = $rs->fetchRow();
-                $ret=$rs[0]["userName"];
+                $ret=$rs[0]["username"];
             } else {
                 $ret=$this->objLanguage->languageText("error_datanotfound");
             }
