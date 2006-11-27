@@ -22,6 +22,6 @@ if(isset($subhead)){
 }
 
 if(isset($actions)){
-    echo '<p>'.$actions;
+    echo '<p>'.$actions . '</p>';
 }
 ?>
