@@ -117,7 +117,7 @@ background-color: #cc0000;
 }
 
 ul#menuList  li  ul{
-background: transparent url('images/featurebox_bg.gif') no-repeat bottom right;
+background: #f6f6f6 url('images/featurebox_bg.gif') no-repeat bottom right;
 margin-top: 4px;
 }
 
