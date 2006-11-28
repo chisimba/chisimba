@@ -362,7 +362,7 @@ function combo_box($name, $contents, $multiple, $defaults, $height=0, $extras=''
 		}
 		$value = str_replace(' ', '&nbsp;', htmlspecialchars($value));
 		echo	'<option value="', htmlspecialchars($key), '"',
-				((in_array((string) $key, $defaults)) ? ' selected="selected"' : ''),
+				((in_array((string) $value, $defaults)) ? ' selected="selected"' : ''),
 				'>',
 				$value,
 				'</option>';

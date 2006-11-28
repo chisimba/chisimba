@@ -118,7 +118,7 @@ class SystemDetails extends Step
 class RootUserAction extends StepAction
 
 {
-	
+
 
 
 
@@ -299,8 +299,8 @@ class RootUserAction extends StepAction
 	function paintAction()
 
 	{
-		
-		
+
+
 
 		$tpl = new Template(INSTALL_DIR.'/templates/rootdetails.tpl');
 
@@ -1005,7 +1005,7 @@ class RootUserAction extends StepAction
 				}
 
 			}
-			
+
 			asort($dirList);
 
 		    closedir($dh);
@@ -1051,7 +1051,7 @@ class RootUserAction extends StepAction
 			}
 
 		}
-		
+
 		asort($dirskinList);
 
 	    closedir($dh);
@@ -1060,7 +1060,7 @@ class RootUserAction extends StepAction
 
     			  $dirskinList,false,
 
-    			  array(isset($_SESSION['defaultskin'])?$_SESSION['defaultskin']:''),
+    			  array(isset($_SESSION['defaultskin'])?$_SESSION['defaultskin']:'echo'),
 
     			  0,'tabindex="13"');
 
@@ -1209,7 +1209,7 @@ class RootUserAction extends StepAction
 		}
 
 		closedir($dh);
-		
+
 		asort($dirList);
 
 		foreach ($dirList as $key => $value) {
@@ -1259,7 +1259,7 @@ class RootUserAction extends StepAction
 			}
 
 		}
-		
+
 		asort($dirskinList);
 
 	    closedir($dh);
