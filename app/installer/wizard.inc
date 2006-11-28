@@ -8,7 +8,7 @@
 
 * This is the installer Wizard class
 
-* 
+*
 
 */
 
@@ -30,17 +30,17 @@ require_once STEP_DIR.'/complete.inc';
 
 * Wizard
 
-* 
+*
 
 *
 
 * The controller for a wizard application (esp installer type apps)
 
-* 
+*
 
 *
 
-* @author Prince Mbekwa based on the methods of mnyeholt 
+* @author Prince Mbekwa based on the methods of mnyeholt
 
 * @version $version$ - 1.0
 
@@ -62,9 +62,9 @@ class Wizard
 
 	*/
 
-	var $steps = Array(); 
+	var $steps = Array();
 
-	
+
 
 	/**
 
@@ -76,7 +76,7 @@ class Wizard
 
 	var $completed_steps = Array();
 
-	
+
 
 	/**
 
@@ -88,7 +88,7 @@ class Wizard
 
 	var $errors = Array();
 
-	
+
 
 	/**
 
@@ -100,7 +100,7 @@ class Wizard
 
 	var $active_step = null;
 
-	
+
 
 	/**
 
@@ -112,7 +112,7 @@ class Wizard
 
 	var $step_number = 0;
 
-	
+
 
 	/**
 
@@ -124,7 +124,7 @@ class Wizard
 
 	var $template = null;
 
-	
+
 
 	/**
 
@@ -136,7 +136,7 @@ class Wizard
 
 	var $step_success = true;
 
-	
+
 
 	/**
 
@@ -148,21 +148,21 @@ class Wizard
 
 	var $complete = false;
 
-	
+
 	public function __construct()
 	{
 		 if (isset($_REQUEST[session_name()])) {
             $this->_startSession();
         }
-		
+
 	}
-	
+
 
 	/**
 
 	* Create the template object we're going to use
 
-	* 
+	*
 
 	* @return void
 
@@ -178,15 +178,15 @@ class Wizard
 
 	}//end Wizard()
 
-	
 
-	
+
+
 
 	/**
 
 	* Run the wizard.
 
-	* 
+	*
 
 	* @return void
 
@@ -200,23 +200,23 @@ class Wizard
 
 		$this->_startSession();
 
-		
+
 
 		// load the completed steps
 
 		$this->completed_steps = isset($_SESSION['completed_steps'])?$_SESSION['completed_steps']:array();
 
-		
 
-		
+
+
 
 		// find out what step the wizard should start on
 
 		$this->_findStepNumber();
 
-		
 
-		// Try loading the current step. If not, exit 
+
+		// Try loading the current step. If not, exit
 
 		if (!$this->_loadStep()) {
 
@@ -224,9 +224,9 @@ class Wizard
 
 		}
 
-		
 
-		// Process stuff that came through on the POST vars. If there was no POST, 
+
+		// Process stuff that came through on the POST vars. If there was no POST,
 
 		// just process the current step and paint it.
 
@@ -238,23 +238,23 @@ class Wizard
 
 		$_SESSION['completed_steps'] = $this->completed_steps;
 
-		
 
-		
+
+
 
 	}//end run()
 
-	
 
-	
+
+
 
 	/**
 
 	* Start the session
 
-	* 
+	*
 
-	* @param string $name The name of the session to create 
+	* @param string $name The name of the session to create
 
 	* @return void
 
@@ -272,23 +272,23 @@ class Wizard
 
 		}
 
-		
+
 
 		session_start();
 
-		
+
 
 	}//end _startSession()
 
-	
 
-	
+
+
 
 	/**
 
 	* Kill the current session.
 
-	* 
+	*
 
 	* @return void
 
@@ -310,15 +310,15 @@ class Wizard
 
 	}//end _killSession()
 
-	
 
-	
+
+
 
 	/**
 
 	* Kill the current session.
 
-	* 
+	*
 
 	* @return void
 
@@ -332,19 +332,19 @@ class Wizard
 
 		$this->_killSession();
 
-		
+
 
 	}//end killSession()
 
-	
 
-	
+
+
 
 	/**
 
 	* Find what step should be processed
 
-	* 
+	*
 
 	* This method should go through all steps and call the step::isProcessed method. This method
 
@@ -352,7 +352,7 @@ class Wizard
 
 	* step can be loaded. This handles instances of incomplete installations.
 
-	* 
+	*
 
 	* @return void
 
@@ -364,7 +364,7 @@ class Wizard
 
 	{
 
-		// if there is a current_step set in the post data, use that by preference. This 
+		// if there is a current_step set in the post data, use that by preference. This
 
 		// allows people to use the back browser a bit better than before, as the browser
 
@@ -378,7 +378,7 @@ class Wizard
 
 		}
 
-		
+
 
 		// if there is a current_step set in the session, use that as the current step number
 
@@ -392,7 +392,7 @@ class Wizard
 
 		}
 
-		
+
 
 		// otherwise, iterate through all the steps to find which one is the last incomplete step
 
@@ -404,7 +404,7 @@ class Wizard
 
 			$this->_loadStep();
 
-			
+
 
 			if (!$this->active_step->isProcessed()) {
 
@@ -416,25 +416,25 @@ class Wizard
 
 		}
 
-		
+
 
 		// otherwise just return 0
 
 		return 0;
 
-		
+
 
 	}//end _findStepNumber()
 
-	
 
-	
+
+
 
 	/**
 
 	* Get the step number of a named step
 
-	* 
+	*
 
 	* @param string $step_name
 
@@ -456,15 +456,15 @@ class Wizard
 
 	}//end _getStepByName()
 
-	
 
-	
+
+
 
 	/**
 
 	* Load a step as the current step
 
-	* 
+	*
 
 	* @return boolean Whether the step loaded or not.
 
@@ -476,7 +476,7 @@ class Wizard
 
 	{
 
-		
+
 
 		$step_id = $this->step_number;
 
@@ -500,9 +500,9 @@ class Wizard
 
 		}
 
-		
 
-		
+
+
 
 		if (!isset($this->steps[$step_id])) {
 
@@ -514,13 +514,13 @@ class Wizard
 
 		$step_class = $this->steps[$step_id];
 
-		
 
-		if (!class_exists($step_class)) {
+
+		if (!class_exists($step_class, true)) {
 
 			$this->__autoload((STEP_DIR.'/'.$step_class.'.inc'));
 
-			if (!class_exists($step_class)) {
+			if (!class_exists($step_class, true)) {
 
 				$this->errors[] = 'Missing class for step '.$step_class;
 
@@ -530,31 +530,37 @@ class Wizard
 
 		}
 
-		
+
 
 		$this->active_step = new $step_class();
 
-		
+
 
 		return true;
 
-		
+
 
 	}//_loadStep()
 
-	
-	private function __autoload($class)
+
+	public function __autoload($class)
 	{
-		require_once($class);
-		
+		include($class);
+		$cname = basename($class);
+		$cname = explode(".", $cname);
+		$classes = $cname[0];
+		// Check to see if the include declared the class
+		if (!class_exists($classes, false)) {
+			trigger_error("Unable to load class: $classes", E_USER_WARNING);
+		}
 	}
-	
+
 
 	/**
 
-	* Process what was sent through the POST 
+	* Process what was sent through the POST
 
-	* 
+	*
 
 	* @return boolean Whether the post vars existed or not.
 
@@ -568,7 +574,7 @@ class Wizard
 
 		if (!isset($_POST)) {
 
-			return false;	
+			return false;
 
 		}
 
@@ -594,29 +600,29 @@ class Wizard
 
 		} else if (isset($_POST['skip']) || isset($_POST['skip_x'])) {
 
-			// skip to the next step	
+			// skip to the next step
 
 			$this->_skipStep();
 
 		} else if (isset($_POST['cancel']) || isset($_POST['cancel_x'])) {
 
-			// rollback ALL previously performed steps.	
+			// rollback ALL previously performed steps.
 
 			$this->_rollback();
 
 		}
 
-		
+
 
 		return true;
 
-		
+
 
 	}//end _processPost()
 
-	
 
-	
+
+
 
 	/**
 
@@ -626,9 +632,9 @@ class Wizard
 
 	* After processing the current active_step, decides whether or not to change the step to the next
 
-	* step in the definition. 
+	* step in the definition.
 
-	* 
+	*
 
 	* @return void
 
@@ -640,7 +646,7 @@ class Wizard
 
 	{
 
-		
+
 
 		$this->step_success = $this->active_step->process();
 
@@ -654,7 +660,7 @@ class Wizard
 
 			$old_step_number = $this->step_number;
 
-			
+
 
 			// if the step has set a next step, get it and use that for the next step to load
 
@@ -670,7 +676,7 @@ class Wizard
 
 			}
 
-			
+
 
 			// warn about not being able to load the next step, revert to current step for paint
 
@@ -682,7 +688,7 @@ class Wizard
 
 					$this->completed_steps[] = $old_step_number;
 
-				//}				
+				//}
 
 			} else {
 
@@ -692,7 +698,7 @@ class Wizard
 
 				$this->step_success = false;
 
-				
+
 
 				$this->active_step = &$old_step;
 
@@ -700,21 +706,21 @@ class Wizard
 
 			}
 
-		} 
+		}
 
-		
+
 
 	}//end _processStep
 
-	
 
-	
+
+
 
 	/**
 
 	* Skip over the current step without processing it and load the next step.
 
-	* 
+	*
 
 	* @return void
 
@@ -730,15 +736,15 @@ class Wizard
 
 		$old_step_number = $this->step_number;
 
-		
+
 
 		// keep track of the step being skipped.
 
-		
+
 
 		$this->step_number++;
 
-		
+
 
 		if ($this->_loadStep()) {
 
@@ -748,7 +754,7 @@ class Wizard
 
 				$this->completed_steps[] = $old_step_number;
 
-			}				
+			}
 
 		} else {
 
@@ -756,7 +762,7 @@ class Wizard
 
 			$this->step_success = false;
 
-			
+
 
 			$this->active_step = &$old_step;
 
@@ -764,21 +770,21 @@ class Wizard
 
 		}
 
-			
+
 
 	}//end _skipStep()
 
-	
 
-	
+
+
 
 	/**
 
 	* Rollback a step
 
-	* 
+	*
 
-	* To rollback, the previous step must first be loaded, then its rollback method called. 
+	* To rollback, the previous step must first be loaded, then its rollback method called.
 
 	* This is so that when it then goes and gets processed again, it is as though it was
 
@@ -800,7 +806,7 @@ class Wizard
 
 		if (!isset($_POST['confirm_step'])) {
 
-			// need to delete the present step from the completed_steps 
+			// need to delete the present step from the completed_steps
 
 			$prev_step = end($this->completed_steps);
 
@@ -812,11 +818,11 @@ class Wizard
 
 		}
 
-		
+
 
 		$this->_loadStep();
 
-		
+
 
 		// only go to the previous step if rollback was successful
 
@@ -828,15 +834,15 @@ class Wizard
 
 	}//end _rollbackStep()
 
-	
 
-	
+
+
 
 	/**
 
 	* Rollback all steps performed so far and return to the first step
 
-	* 
+	*
 
 	* @return void
 
@@ -854,19 +860,19 @@ class Wizard
 
 		$this->_loadStep();
 
-		
+
 
 	}//end _rollback
 
-	
 
-	
+
+
 
 	/**
 
 	* Paint out the current step.
 
-	* 
+	*
 
 	* Set the appropriate fields in the template file to show the step
 
@@ -888,7 +894,7 @@ class Wizard
 
 		$title = $this->active_step->step_title;
 
-		
+
 
 		$start = false;
 
@@ -896,7 +902,7 @@ class Wizard
 
 		if( $this->step_number <= 0 ) {
 
-			
+
 
 			$start = true;
 
@@ -904,7 +910,7 @@ class Wizard
 
 
 
-		// start buffering and paint the current step.		
+		// start buffering and paint the current step.
 
 		ob_start();
 
@@ -914,7 +920,7 @@ class Wizard
 
 		ob_end_clean();
 
-		
+
 
 		// set all the template variables
 
@@ -930,33 +936,33 @@ class Wizard
 
 		$this->template->set('complete', $this->complete);
 
-		
+
 
 		// initially errors are blank
 
 		$this->template->set('error', '');
 
-		
+
 
 		if (count($this->errors) > 0) {
 
 			$errStr = implode($this->errors, '<br />');
 
-			$this->template->set('error', $errStr);	
+			$this->template->set('error', $errStr);
 
 		}
 
-		
 
-		echo $this->template->fetch();		
 
-		
+		echo $this->template->fetch();
+
+
 
 	}//end _paintStep()
 
-	
 
-	
+
+
 
 }//end class
 
