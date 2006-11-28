@@ -191,7 +191,7 @@ class modulesadmin extends dbTableManager
                             .'/';
                         if (!is_dir($path)) {
                             $objMkdir = $this->getObject('mkdir', 'files');
-                            $objMkdir->mkdirs($path);
+                            $objMkdir->mkdirs($path, 0777);
                         }
                     }
                 }
@@ -756,7 +756,7 @@ class modulesadmin extends dbTableManager
         	if (!file_exists($sqlfile)){
         		//for some reason the exception below results in a blank screen. return false instead.
         		//throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
-        		return FALSE; 
+        		return FALSE;
         	}
         	include($sqlfile);
         	$this->createTable($tablename,$fields,$options);
