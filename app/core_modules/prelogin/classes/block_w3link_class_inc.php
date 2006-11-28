@@ -55,10 +55,10 @@ class block_w3link extends object
     public function show()
     {
     	try {
-    		$link = &$this->getObject('link','htmlelements');
-    		$link->link("http://validator.w3.org/check?uri=referer");
-    		$link->link = '<img	src="http://www.w3.org/Icons/valid-xhtml10"	alt="Valid XHTML 1.0 Transitional" height="31" width="88" />';
-    		return "<center>".$link->show()."</center>";
+    		$icon = &$this->getObject('geticon','htmlelements');
+    		$icon->alt = "Valid XHTML 1.0 Transitional";
+    		$icon->extra = ' height="31" width="88"';
+    		return "<center>".$icon->getLinkedIcon("http://validator.w3.org/check?uri=referer",'valid-xhtml10','png')."</center>";
     	} catch (customException $e) {
     		customException::cleanUp();
     	}
