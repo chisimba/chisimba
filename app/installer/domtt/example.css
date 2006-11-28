@@ -133,6 +133,16 @@ div.niceTitle p
 	-moz-opacity: 1;
 }
 
+div.niceTitle p .highlight
+{
+		color: #FFFFFF;
+}
+
+div.niceTitle .highlight
+{
+		color: #FFFFFF;
+}
+
 /* Context Menu Style */
 div.domTTMenu {
   width: 150px;

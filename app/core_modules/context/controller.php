@@ -152,6 +152,7 @@ class context extends controller
         $this->objDBContext=& $this->getObject('dbcontext');
         $this->objUser= & $this->getObject('user','security');
         $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
+        $this->objUtils =  & $this->newObject('utilities', 'context');
         /*      
         $this->objDBContentNodes=& $this->getObject('dbcontentnodes');
         $this->objIcon=& $this->getObject('geticon','htmlelements');
@@ -186,8 +187,9 @@ class context extends controller
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
         $this->objLog->log();
-
-
+        
+       
+ 		
     }
 
     /** This is a method to determine if the user has to be logged in or not
