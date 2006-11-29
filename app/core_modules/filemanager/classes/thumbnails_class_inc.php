@@ -32,7 +32,8 @@ class thumbnails extends object
     public function checkThumbnailFolder()
     {
         // Set Up Path
-        $path = $this->objConfig->getcontentBasePath().'\filemanager_thumbnails';
+        $path = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails';
+        $this->objCleanUrl->cleanUpUrl($path);
         
         // Check if Folder exists, else create it
         $result = $this->objMkdir->mkdirs($path);
