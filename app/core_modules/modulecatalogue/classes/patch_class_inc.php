@@ -145,7 +145,13 @@ class patch extends dbtable {
 										foreach ($opValue as $rowKey => $rowVal) {
 											if ($rowKey != 'name') {
 												$k = (string)$rowKey;
-												$v = (string)$rowVal;
+												$rowVal = (string)$rowVal;
+												if (($rowKey == 'notnull')||($rowKey =='unsigned')) {
+															if ($this->dbType == 'pgsql') {
+																$rowVal = ($rowVal == 0)? 'f':'t';
+															}
+														}
+												$v = $rowVal;
 												$innerData[$k] = $v;
 											}
 										}
@@ -163,11 +169,23 @@ class patch extends dbtable {
 										foreach ($opValue as $name => $chData) {
 											foreach ($chData as $chKey => $chVal) {
 												$chKey = (string)$chKey;
+												if (($chKey == 'notnull')||($chKey=='unsigned')) {
+													if ($this->dbType == 'pgsql') {
+														$chVal = (string)$chVal;
+														$chVal = ($chVal == 0)? 'f':'t';
+													}
+												}
 												if ($chKey == 'definition') {
 													$def = array();
 													foreach ($chVal as $inKey => $inVal) {
 														$inKey = (string)$inKey;
-														$def[$inKey] = (string)$inVal;
+														$inVal = (string)$inVal;
+														if (($inKey == 'notnull')||($inKey=='unsigned')) {
+															if ($this->dbType == 'pgsql') {
+																$inVal = ($inVal == 0)? 0:'t';
+															}
+														}
+														$def[$inKey] = $inVal;
 													}
 													$chArray[$chKey] = $def;
 												} else {
@@ -207,7 +225,7 @@ class patch extends dbtable {
 										break;
 								}
 
-								//print_r($pData);
+								//var_dump($pData);
 								if (!$this->objModuleAdmin->alterTable($update->table,$pData,false)) {
 									return FALSE;
 								}
