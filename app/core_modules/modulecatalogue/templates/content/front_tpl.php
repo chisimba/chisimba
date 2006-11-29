@@ -11,7 +11,7 @@ $notice = $top = $bot = '';
 if (!isset($result)) {
 	$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
 } else {
-	$modules = $result;
+	$modules = $result; //search results
 }
 
 $icon = &$this->getObject('geticon', 'htmlelements');
@@ -41,6 +41,11 @@ $localModules = $this->objModFile->getLocalModuleList();
 $actiontotake = 'batchinstall';
 $root = $this->objConfig->getsiteRootPath();
 $defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt');
+$registeredModules = $this->objModule->getAll();
+foreach ($registeredModules as $module) {
+	$rMods[]=$module['module_id'];	
+}
+
 if ($modules) {
 	natsort($modules);
 	(($count % 2) == 0)? $oddOrEven = 'even' : $oddOrEven = 'odd';
@@ -127,7 +132,7 @@ if ($modules) {
 				$info = $infoButton->show();
 			//	$icon->setIcon('ok','png');
 			//	$hasRegFile = $icon->show();
-				if (!$this->objModule->checkIfRegistered($modName, $modName)) { //not registered
+				if (!(in_array($modName,$rMods))) { //not registered
 					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 					$instButton->link = $this->objLanguage->languageText('word_install');
 					$instButtonShow = $instButton->show();
