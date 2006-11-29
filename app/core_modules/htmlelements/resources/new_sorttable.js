@@ -137,6 +137,10 @@ function ts_resortTable(sortLink, columnIndex){
         return;
     }
 
+    if(!tableRows[1].cells[column]){
+        return;
+    }
+
     var itm = ts_getInnerText(tableRows[1].cells[column]);
     sortfn = ts_sort_caseinsensitive;
 
