@@ -28,17 +28,17 @@ $objBox = $this->newObject('featurebox', 'navigation');
 
 $objMembers2->setGroupId( $lectGroupId );
 $links = ( $this->isValid('manage_lect') ) ? $lnkLect->show() : '';
-echo $objBox->show($ttlLecturers,$objMembers2->show('lects').'<br/>'.$links);
+echo $objBox->show(strtoupper($ttlLecturers),$objMembers2->show('lects').'<br/>'.$links);
 
 
  $objMembers2->setGroupId( $studGroupId );
 $links = ( $this->isValid('manage_stud') ) ? $lnkStud->show() : '';
-echo $objBox->show($ttlStudents,$objMembers2->show('studs').'<br/>'.$links);
+echo $objBox->show(strtoupper($ttlStudents),$objMembers2->show('studs').'<br/>'.$links);
 
 
 $objMembers2->setGroupId( $guestGroupId );
 $links = ( $this->isValid('manage_guest') ) ? $lnkLect->show() : '';
-echo $objBox->show($ttlGuests,$objMembers2->show('guest').'<br/>'.$links);
+echo $objBox->show(strtoupper($ttlGuests),$objMembers2->show('guest').'<br/>'.$links);
 
 
 ?>

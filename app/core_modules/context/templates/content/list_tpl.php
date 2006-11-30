@@ -180,8 +180,8 @@ foreach($modules as $module)
 
 $str = '<h3> Welcome to '. $this->objDBContext->getTitle() .'</h3>';
 //$str .= '<p />'.$this->objDBContext->getAbout() .'<p/>';
-$str .= $tabs->show();
-
+//$str .= $tabs->show();
+$str .= $this->objDBContext->getAbout();
 //context info
 
 $contextInfo = 'Instructors: <br />'; 
@@ -190,14 +190,14 @@ $contextInfo .= 'Last Accessed: ';
 $contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
 $objContextPostloginUtils = & $this->newObject('utils', 'contextpostlogin');
 $leftSide = $objContextPostloginUtils->getUserPic();
-
+$leftSide .= $this->objUtils->getPluginNavigation();
 
 if(!$this->getParam('query') == '')
 {
 	
 	$searchResults = $objLucene->show($this->getParam('query'));
 }
-
+       
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
        $cssLayout->setNumColumns(3);
        $cssLayout->setLeftColumnContent($leftSide);
@@ -205,4 +205,7 @@ $cssLayout =& $this->newObject('csslayout', 'htmlelements');
        $cssLayout->setRightColumnContent($contextInfo);
        echo $cssLayout->show(); 
       //echo '<div style="width: 80%; margin-left:50px;margin-top:10px" >'.$str.'</div>';
+      
+      
+     
 ?>

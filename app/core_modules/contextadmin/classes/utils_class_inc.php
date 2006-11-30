@@ -98,14 +98,15 @@ class utils extends object
 		//Add loginhistory block
 		$leftSideColumn .= $objBlocks->showBlock('calendar', 'eventscalendar');
 		$leftSideColumn .= $objBlocks->showBlock('loginstats', 'context');
+		//Add the latest in blog as a a block
+		$leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
 		//Add guestbook block
 		$leftSideColumn .= $objBlocks->showBlock('guestinput', 'guestbook');
 		//Add latest search block
 		$leftSideColumn .= $objBlocks->showBlock('lastsearch', 'websearch');
 		//Add the whatsnew block
 		$leftSideColumn .= $objBlocks->showBlock('whatsnew', 'whatsnew');
-		//Add random quote block
-		$leftSideColumn .= $objBlocks->showBlock('rquote', 'quotes');
+		
 		$leftSideColumn .= $objBlocks->showBlock('today_weather','weather');
 	      return $leftSideColumn;
 	  }
@@ -121,9 +122,8 @@ class utils extends object
 	     $rightSideColumn = "";
 	     $objBlocks = & $this->newObject('blocks', 'blocks');
 		//Add the getting help block
-		$rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
-		//Add the latest in blog as a a block
-		$rightSideColumn .= $objBlocks->showBlock('latest', 'blog');
+		
+		
 		//Add the latest in blog as a a block
 		$rightSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
 		//Add a block for chat
@@ -135,6 +135,9 @@ class utils extends object
 		//Put a wikipedia search
 		$rightSideColumn .= $objBlocks->showBlock('wikipedia', 'websearch');
 		//Put a dictionary lookup
+		$rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
+		//Add random quote block
+		$rightSideColumn .= $objBlocks->showBlock('rquote', 'quotes');
 		
 		return $rightSideColumn;
 	  } 
@@ -189,6 +192,8 @@ class utils extends object
 	  	
 	  }
 	  
+	 
+	  
 	  /**
 	   * Method to generate a form with the 
 	   * plugin modules on
@@ -208,6 +213,8 @@ class utils extends object
 		$objH = & $this->newObject('htmlheading','htmlelements');
 		$inpContextCode =  & $this->newObject('textinput','htmlelements');
 		$inpMenuText = & $this->newObject('textinput','htmlelements');
+		$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+		
 		
 		//list of modules for this context
 		$arrContextModules = $this->_objContextModules->getContextModules($contextCode);
@@ -221,7 +228,7 @@ class utils extends object
 		
 		$objFormMod->name = 'modfrm';
 		$objFormMod->action = $this->uri(array('action' => 'savedefaultmod'));
-		//$objFormMod->extra = 'class="f-wrap-1"';
+		// $objFormMod->extra = 'class="f-wrap-1"';
 		$objFormMod->displayType = 3;
 		
 		$inpAbout->name = 'about';
@@ -285,12 +292,19 @@ class utils extends object
 		
 		$dropDefaultModule = $this->newObject('dropdown', 'htmlelements');
 		
+		$defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
+		
 		$drop = 'Default Module<select id="defaultmodule" name="defaultmodule">';
+		
+		$drop .= '<option value="">Select a Default Module</option>';
+		
 		foreach($arrContextModules as $mod)
 		{
 			$modInfo = $objModules->getModuleInfo($mod['moduleid']);
 			
-			$drop .= '<option value="'.$mod['moduleid'].'">'.$modInfo['name'].'</option>';
+			$drop .= '<option value="'.$mod['moduleid'].'"';
+			$drop .= ($defaultmoduleid == $mod['moduleid']) ? ' selected="selected" ' : '';
+			$drop .= '>'.$modInfo['name'].'</option>';
 		}
 		$drop .= '</select>';
 		$drop ='<div style="width:270px">'.$drop.'</div>';
@@ -355,14 +369,14 @@ class utils extends object
 			$dropAccess->addOption('Publish', 'Publish');
 			$dropAccess->addOption('Unpublish', 'Unpublish');
 			$dropAccess->setSelected(trim($context['status']));
-			print $context['status'];
+			
 			
 			$radioStatus->addOption('m','Male');
 			$radioStatus->addOption('f','Female');
 			$radioStatus->addOption('n','Seaweed');
 			$radioStatus->setSelected('f');
 			
-			
+			$checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
 			$drop = '<fieldset class="f-radio-wrap">
 		
 						<b>Access:</b>
@@ -370,17 +384,21 @@ class utils extends object
 						
 							<fieldset>
 							
-							<label for="Public">
-							<input id="Public" type="radio" name="access" value="Public" class="f-radio" tabindex="8" />
-							Public</label>
-							
-							<label for="Open">
-							<input id="Open" type="radio" name="access" value="Open" class="f-radio" tabindex="9" />
-							Open</label>
-							
-							<label for="Private">
 			
-							<input id="Private" type="radio" name="access" value="Private" class="f-radio" tabindex="10" />
+							<label for="Public">
+							<input id="Public" type="radio" name="access" '.$checked.'
+							value="Public" class="f-radio" tabindex="8" />
+							Public</label>';
+			
+			$checked = ($context['access'] == 'Open') ? ' checked = "checked" ' : '';			
+			$drop .= 		'<label for="Open">
+							<input id="Open" type="radio" name="access" '.$checked.' value="Open" class="f-radio" tabindex="9" />
+							Open</label>';
+			
+			$checked = ($context['access'] == 'Private') ? ' checked = "checked" ' : '';										
+			$drop .='		<label for="Private">
+			
+							<input id="Private" type="radio" name="access" '.$checked.' value="Private" class="f-radio" tabindex="10" />
 							Private</label>
 				
 							</fieldset>
@@ -389,7 +407,7 @@ class utils extends object
 						
 			$inpButton->setToSubmit();
 			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = 'Next';
+			$inpButton->value = 'Save';
 			
 			
 			//validation
@@ -424,8 +442,8 @@ class utils extends object
 			
 			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 			return  $objForm->show().'<br/>';
-	  }
 	  
+	  }
 	  /**
 	   * Method to get the about form
 	   * @return string
@@ -449,12 +467,12 @@ class utils extends object
 			$inpAbout =  $this->newObject('htmlarea','htmlelements');
 			$inpButton =  $this->newObject('button','htmlelements');
 			
-			$objH->str = 'Step 2: Add an Course Introduction';
+			$objH->str = 'About the Course';
 			$objH->type = 3;
 			
 			//setup the form
 			$objForm->name = 'addfrm';
-			$objForm->action = $this->uri(array('action' => 'savestep2'));
+			$objForm->action = $this->uri(array('action' => 'saveaboutedit'));
 			//$objForm->extra = 'class="f-wrap-1"';
 			$objForm->displayType = 3;
 			
@@ -463,28 +481,30 @@ class utils extends object
 			$inpAbout->value = '';
 			$inpAbout->cols = 1;
 			$inpAbout->rows =1;
+			
+			$inpAbout->setContent($this->_objDBContext->getField('about'));
 			//$inpAbout->cssClass = 'f-comments';
 			
 			$inpButton->setToSubmit();
 			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = 'Next';
+			$inpButton->value = 'Save';
 			
 			
 			//validation
 			//$objForm->addRule('about','About is a required field!', 'required');
 			
-			
-			$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
-			$objForm->addToForm('<fieldset>');
+		
+			//$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+			//$objForm->addToForm('<fieldset>');
 			
 			$objForm->addToForm($objH->show());
 			
-			$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
+			//$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
 			$objForm->addToForm($inpAbout->show());
 			
 			
 			$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
-			//return $objForm->show().'<br/>';	
+			return $objForm->show().'<br/>';	
 			//return $inpAbout->show();
 				  	
 	  }
@@ -560,6 +580,31 @@ class utils extends object
 	  	//$objFeatureBox->title = 'Tool Box';
 	  	return $objFeatureBox->show($this->_objDBContext->getTitle().' Tool Box', $str);
 	  	return $str;
+	  }
+	  
+	  
+	  
+	   /**
+	   * Method to get a filter list to filter the courses
+	   * @param array $courseList the list of courses
+	   * @return string
+	   * @access public
+	   */
+	  public function getFilterList($courseList)
+	  {
+	  	
+	  	try {
+	  		$objAlphabet=& $this->getObject('alphabet','navigation');
+	  		$linkarray=array('filter'=>'LETTER');
+			$url=$this->uri($linkarray,'contextpostlogin');
+	  		$str = $objAlphabet->putAlpha($url);
+	  		return $str;
+	  		
+	  	}
+	  	catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
 	  }
 }	
 ?>

@@ -43,8 +43,81 @@ class utilities extends object
         $this->objDBContextModules = & $this->newObject('dbcontextmodules', 'context');        
         $this->objDBContextParams = & $this->newObject('dbcontextparams', 'context');        
         $this->contextCode = $this->objDBContext->getContextCode();
+        $this->_objContextModules = & $this->newObject('dbcontextmodules', 'context');
         
     }
+    
+    /**
+     * Method to get the left Navigation
+     * with the context plugins
+     * 
+     * @param string $contextCode
+     * @access public
+     * @return string
+     */
+    public function getPluginNavigation()
+    {
+    	
+    	
+    	$objSideBar = $this->newObject('sidebar' , 'navigation');
+    	$objModule = & $this->newObject('modules', 'modulecatalogue');
+    	
+    	$arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
+    	
+    	//create the nodes array
+		$nodes = array();
+			
+    	if(is_array($arr))
+	  	{
+	  		foreach($arr as $contextModule)
+	  		{
+	  			
+	  			//$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
+	  			
+	  			$modInfo = $objModule->getModuleInfo($contextModule['moduleid']);
+	  			
+				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
+				
+				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid']);
+
+	  		}
+	  		
+	  		return $objSideBar->show($nodes);
+	  	} else {
+	  		return '';
+	  	}
+    }
+    
+    
+    /**
+     * Method to check if a user can join a 
+     * context
+     * @param string $contextCode The context Code
+     * @return boolean
+     * @access public
+     * @author Wesley Nitsckie
+     */
+    public function canJoin($contextCode)
+    {
+    	//TODO
+    	
+    	//check if the user is logged in to access an open context
+    	
+    	//check if the user is registered to the context and he is logged in
+    	
+    	//if the context is public then the user can access the context , but only limited access
+    	
+    	
+    	return true;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
      /**
     * Method to create a link to the course home

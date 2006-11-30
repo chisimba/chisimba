@@ -143,7 +143,8 @@ class contextgroups extends controller
             'mod_contextgroups_ttlManage','contextgroups',
             array( 'TITLE'=> $this->_objDBContext->getTitle() ) );
 
-        $this->setVar('ttlLecturers', $this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups',array('authors'=>'')) );        $this->setVar('title',$title);
+        $this->setVar('ttlLecturers', $this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups',array('authors'=>'')) );
+        $this->setVar('title',$title);
         $this->setVar('ttlStudents', $this->_objLanguage->code2Txt('mod_contextgroups_ttlStudents','contextgroups') );
         $this->setVar('ttlGuests', $this->_objLanguage->languageText('mod_contextgroups_ttlGuest','contextgroups') );
 

@@ -215,7 +215,17 @@ class context extends controller
         switch($action){
             default:
             case NULL:
+            
+            //check if the context has a default module set and then go to that module
+            
             case 'contenthome':
+            	$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+            	$moduleid = $objDBContextParams->getParamValue($this->objDBContext->getContextCode(), 'defaultmodule');
+            	if( $moduleid != '')
+            	{
+            		return $this->nextAction(null,null,$moduleid);
+            	}
+            	
                 $objModule = $this->getObject('modules', 'modulecatalogue');
                 
                 if ($objModule->checkIfRegistered('contextcontent')) {

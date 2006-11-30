@@ -49,6 +49,7 @@ class contextadmin extends controller
 	            $this->setLayoutTemplate('main_layout_tpl.php');
 	            $this->setVar('contextList', $this->_objUtils->getContextList());
 	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
+	            $this->setVar('filter', $this->_objUtils->getFilterList($this->_objUtils->getContextList()));
 	            return 'main_tpl.php';
                 
             //the following cases deals with adding a context
@@ -83,13 +84,25 @@ class contextadmin extends controller
                 $this->_objDBContextModules->save();
                 $this->_objDBContext->setLastUpdated();
                 return $this->nextAction('default');
+           
                 
+            //the next steps deals with actions coming from the 
+            //config page         
             case 'saveedit';
             	$this->_objDBContext->saveEdit();
             	 return $this->nextAction('default');
+           	case 'saveaboutedit';
+            	$this->_objDBContext->saveAboutEdit();
+            	 return $this->nextAction('default');
             case 'savedefaultmod':
-            	$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
+            	//if($this->getParam('defaultmodule') != '')
+            	//{
+            		$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
+            	//}
             	return $this->nextAction('default');
+           	case 'admincontext':
+           		$this->_objDBContext->joinContext($this->getParam('contextcode'));
+           		return $this->nextAction('default');
         }
         
         
