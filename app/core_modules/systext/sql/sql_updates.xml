@@ -9,8 +9,8 @@
 				<dateCreated>
 					<definition>
 						<type>timestamp</type>
-           			</definition> 
-				</dateCreated> 
+           			</definition>
+				</dateCreated>
 			</change>
 		</data>
     </update>
@@ -23,8 +23,8 @@
 				<dateCreated>
 					<definition>
 						<type>timestamp</type>
-           			</definition> 
-				</dateCreated> 
+           			</definition>
+				</dateCreated>
 			</change>
 		</data>
     </update>
@@ -37,9 +37,21 @@
 				<dateCreated>
 					<definition>
 						<type>timestamp</type>
-           			</definition> 
-				</dateCreated> 
+           			</definition>
+				</dateCreated>
 			</change>
 		</data>
     </update>
+    <update>
+        <table>tbl_systext_text</table>
+        <version>1.4</version>
+        <description>Replaced a reserved word field with a legal SQL entity in the table definition</description>
+		<data>
+		    <rename>
+		        <text>
+		            <name>textinfo</name>
+		        </text>
+		    </rename>
+		</data>
+	</update>
 </updates>
