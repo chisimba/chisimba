@@ -94,7 +94,7 @@ class multitabbedbox extends abhtmlbase implements ifhtml
 		foreach($this->tabs as $tab){
 			$cnt=$cnt+1;
 			$str.="<a href=\"javascript:;\" onclick=\"showmenu('box$cnt')\">";
-			$str.="<span id=\"label$cnt\"";
+			$str.="<span id=\"label$cnt\" ";
 			if(isset($tab['isDefault'])){
 				$str.= "class=\"multitabselected\"";
 			}
