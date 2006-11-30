@@ -71,6 +71,12 @@ $fields = array(
     'updated' => array(
         'type' => 'timestamp'
         )
+    'startdate' => array(
+		'type' => 'date'
+		),
+	'finishdate' => array(
+		'type' => 'date'
+		),   
 
     );
 
