@@ -28,7 +28,7 @@ class dbtext extends dbTable
     public function addRecord($text, $creatorId)
     {
         $fields = array();
-        $fields['textinfo'] = $text;
+        $fields['text'] = $text;
         $fields['creatorid'] = $creatorId;
         $fields['datecreated'] = date('Y-m-d H:i:s');
         return $this -> insert($fields);
@@ -69,7 +69,7 @@ class dbtext extends dbTable
     public function listAllRecords()
     {
         $sql = "SELECT * FROM " . $this -> table;
-        $sql .= ' ORDER BY "textinfo" ';
+        $sql .= ' ORDER BY "text" ';
         $data = $this -> getArray($sql);
         if(!empty($data)){
             return $data;
@@ -86,7 +86,7 @@ class dbtext extends dbTable
     public function editRecord($textId, $text)
     {
         $fields = array();
-        $fields['textinfo'] = $text;
+        $fields['text'] = $text;
         $this -> update('id', $textId, $fields);
     }
 }
