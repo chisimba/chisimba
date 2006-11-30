@@ -52,8 +52,6 @@ class engine
      */
     public $version = '1.0.0';
 
-	public $deathmsg;
-
     /**
      * Template variable
      *
@@ -230,7 +228,26 @@ class engine
      */
     private $_enableAccessControl = TRUE;
 
+    /**
+     * Configuration Object
+     *
+     * @var object
+     */
     private $_altconfig = null;
+
+    /**
+     * DSN - Data Source Name for the database connection object
+     *
+     * @var string
+     */
+    protected $dsn;
+
+    /**
+     * DSN - Data Source Name for the database management object
+     *
+     * @var string
+     */
+    protected $mdsn;
 
     /**
      * Constructor.
@@ -353,10 +370,15 @@ class engine
         //let MDB2 take over for the on-demand construction
         if ($this->_objDb == NULL || $_globalObjDb == NULL) {
             $this->_objDbConfig =& $this->getObject('altconfig', 'config');
+            //set up the DSN. Some RDBM's do not operate with the string style DSN (most noticeably Oracle)
+    		//so we parse the DSN to an array and then send that to the object instantiation to be safe
+    		$dsn = $this->_objDbConfig->getDsn();
+        	$this->dsn = $this->parseDSN($dsn);
+
             // Connect to the database
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDb = &MDB2::factory($this->_objDbConfig->getDsn());
+            $_globalObjDb = &MDB2::singleton($this->dsn);
 
 	    	//Check for errors on the factory method
             if (PEAR::isError($_globalObjDb)) {
@@ -364,12 +386,11 @@ class engine
                 //return the db object for use globally
                 return $_globalObjDb;
             }
+			// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+            $_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
+            //set the options for portability!
+            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
 
-            //set the options
-            $_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
-
-			MDB2::loadFile('Date');
-			MDB2::loadFile('Iterator');
             //Check for errors
             if (PEAR::isError($_globalObjDb)) {
                 // manually call the callback function here,
@@ -381,15 +402,26 @@ class engine
             }
             // keep a copy as a field as well
             $this->_objDb =& $_globalObjDb;
+
+            //Load up some of the extra MDB2 modules:
+            MDB2::loadFile('Date');
+			MDB2::loadFile('Iterator');
+
             // install the error handler with our custom callback on error
             $this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
                                             array(&$this, '_pearErrorCallback'));
             // set the default fetch mode for the DB to assoc, as that's
             // a much nicer mode than the default MDB2_FETCHMODE_ORDERED
             $this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
-            $this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
-            $this->_objDb->setOption('portability', MDB2_PORTABILITY_ALL);
-
+            if($this->_objDb->phptype == 'oci8')
+            {
+                $this->_objDb->setOption('field_case', CASE_LOWER);
+                //oracle numRows() hack plus some extras
+                $this->_objDb->setOption('portability',MDB2_PORTABILITY_NUMROWS | MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_ALL);
+            }
+            else {
+                $this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
+            }
             // include the dbtable base class for future use
         }
         //return the local copy
@@ -416,23 +448,24 @@ class engine
         if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
             //load the config object (same as the db Object)
             $this->_objDbConfig =& $this->getObject('altconfig', 'config');
+            $mdsn = $this->_objDbConfig->getDsn();
+        	$this->mdsn = $this->parseDSN($mdsn);
             // Connect to the database
             require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
-            $_globalObjDbManager = &MDB2_Schema::factory($this->_objDbConfig->getDsn());
+            $_globalObjDbManager = &MDB2_Schema::factory($this->mdsn);
 
             //Check for errors
             if (PEAR::isError($_globalObjDbManager)) {
                 // manually call the callback function here,
                 // as we haven't had a chance to install it as
                 // the error handler
-                $this->_pearErrorCallback($_globalObjDb);
+                $this->_pearErrorCallback($_globalObjDbManager);
                 //return the db object for use globally
                 return $_globalObjDbManager;
             }
             // keep a copy as a field as well
             $this->_objDbManager =& $_globalObjDbManager;
-            //$_globalObjDbManager->setOption('quote_identifiers', true);
             // install the error handler with our custom callback on error
             $this->_objDbManager->setErrorHandling(PEAR_ERROR_CALLBACK,
                                             array(&$this, '_pearErrorCallback'));
@@ -442,6 +475,74 @@ class engine
         //var_dump($this->_objDbManager);
         return $this->_objDbManager;
     }//end function
+
+    /**
+     * Method to parse the DSN from a string style DSN to an array for portability reasons
+     *
+     * @access public
+     * @param string $dsn
+     * @return void
+     * @TODO get the port settings too!
+     */
+    public function parseDSN($dsn)
+    {
+    	$parsed = NULL;
+    	$arr = NULL;
+    	if (is_array($dsn)) {
+    		$dsn = array_merge($parsed, $dsn);
+    		return $dsn;
+    	}
+    	//find the protocol
+    	if (($pos = strpos($dsn, '://')) !== false) {
+    		$str = substr($dsn, 0, $pos);
+    		$dsn = substr($dsn, $pos + 3);
+    	} else {
+    		$str = $dsn;
+    		$dsn = null;
+    	}
+    	if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
+    		$parsed['phptype']  = $arr[1];
+    		$parsed['phptype'] = !$arr[2] ? $arr[1] : $arr[2];
+    	} else {
+    		$parsed['phptype']  = $str;
+    		$parsed['phptype'] = $str;
+    	}
+
+    	if (!count($dsn)) {
+    		return $parsed;
+    	}
+    	// Get (if found): username and password
+    	if (($at = strrpos($dsn,'@')) !== false) {
+    		$str = substr($dsn, 0, $at);
+    		$dsn = substr($dsn, $at + 1);
+    		if (($pos = strpos($str, ':')) !== false) {
+    			$parsed['username'] = rawurldecode(substr($str, 0, $pos));
+    			$parsed['password'] = rawurldecode(substr($str, $pos + 1));
+    		} else {
+    			$parsed['username'] = rawurldecode($str);
+    		}
+    	}
+    	//server
+    	if (($col = strrpos($dsn,':')) !== false) {
+    		$strcol = substr($dsn, 0, $col);
+    		$dsn = substr($dsn, $col + 1);
+    		if (($pos = strpos($strcol, '+')) !== false) {
+    			$parsed['hostspec'] = rawurldecode(substr($strcol, 0, $pos));
+    		} else {
+    			$parsed['hostspec'] = rawurldecode($strcol);
+    		}
+    	}
+
+    	//now we are left with the port and databsource so we can just explode the string and clobber the arrays together
+    	$pm = explode("/",$dsn);
+    	$parsed['hostspec'] = $pm[0];
+    	$parsed['database'] = $pm[1];
+    	$dsn = NULL;
+
+    	$parsed['hostspec'] = str_replace("+","/",$parsed['hostspec']);
+
+    	return $parsed;
+    }
 
     /**
      * Method to return current page content. For use within layout templates.
@@ -579,7 +680,7 @@ class engine
     public function &newObject($name, $moduleName)
     {
         $this->loadClass($name, $moduleName);
-        $objNew =& new $name($this, $moduleName);
+        $objNew = new $name($this, $moduleName);
         return $objNew;
     }
 
@@ -609,7 +710,7 @@ class engine
         else
         {
             $this->loadClass($name, $moduleName);
-            $instance =& new $name($this, $moduleName);
+            $instance = new $name($this, $moduleName);
             if (is_null($instance)) {
             	throw new customException("Could not instantiate class $name from module $moduleName" . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
             }
@@ -1122,7 +1223,7 @@ class engine
         $objActiveController = NULL;
         if (file_exists($controllerFile)
                 && include_once $controllerFile) {
-            $this->_objActiveController = &new $moduleName($this, $moduleName);
+            $this->_objActiveController = new $moduleName($this, $moduleName);
         }
         if ($this->_objActiveController) {
             $this->_moduleName = $moduleName;
