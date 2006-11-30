@@ -58,7 +58,6 @@ class calendar implements ifhtml {
 		$this->windowName = "win";
 		$str='<input type="text" value="'.$this->value.'" id="caltext"';
 		$str.=' name="'.$this->name.'"';
-		$str.=' value="'.$this->value.'"';
 		$str.=' class="'.$this->css.'"';
 		$str.=' />';
 		//$str.="<a href=\"#\" onclick=\"window.open('modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"modules/htmlelements/resources/images/schedule_ico.gif\"></a>";
