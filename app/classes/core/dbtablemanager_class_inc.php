@@ -311,7 +311,7 @@ class dbTableManager extends object
      */
     public function createTableIndex($tableName, $keyname, $index)
     {
-        $keyname = $keyname. rand(0,9999);
+        $keyname = $keyname. rand(0,999);
     	$this->_db->mgCreateIndex($tableName,$keyname,$index);
         return TRUE;
     }
@@ -333,7 +333,7 @@ class dbTableManager extends object
         	'primary' => true
 		 );
 
-		$name = 'primary' . rand(0,9999);
+		$name = 'primary' . rand(0,999);
 
 		$this->createTableIndex($tableName, $name, $index);
         return TRUE;
