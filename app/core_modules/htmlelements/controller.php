@@ -29,7 +29,7 @@ class htmlelements extends controller
 		$this->loadClass('tabbedbox', 'htmlelements');
 		$this->loadClass('textinput','htmlelements');
 		$this->loadClass('textarea','htmlelements');
-		$this->loadClass('calendar','htmlelements');
+		//$this->loadClass('calendar','htmlelements');
 		$this->loadClass('layer','htmlelements');
 		$this->loadClass('windowpop','htmlelements');
 		$this->loadClass('form','htmlelements');
@@ -54,6 +54,8 @@ class htmlelements extends controller
 				break;
 			case 'test1':
 				return 'test1_tpl.php';
+			case 'tabcontent':
+			    return 'tabcontent_tpl.php';
 			
 		}
 		    
@@ -72,16 +74,16 @@ class htmlelements extends controller
 		$objElement = new textinput('textbox');
 		$objElement->setValue('Some text');
 		$objElement->label='Textbox\'s label';
-		$text = $objElement->show().'<br>';
-		$objForm->addToForm('<span class="warning">Start of Form</span><br>');
+		$text = $objElement->show().'<br />';
+		$objForm->addToForm('<span class="warning">Start of Form</span><br />');
 		$objForm->addToForm($objElement);
 		
 		
 		//Calendar
-		$objElement = new calendar('cal');
+		/*$objElement = new calendar('cal');
 		$today = getdate(); 		
 		$objElement->setDate($today['mon'],$today['mday'],$today['year']);
-		$calendar = $objElement->show().'<br>';
+		$calendar = $objElement->show().'<br />';*/
 		
 		//Radion button Group
 		$objElement = new radio('sex_radio');
@@ -89,7 +91,7 @@ class htmlelements extends controller
 		$objElement->addOption('f','Female');
 		$objElement->addOption('n','Seaweed');
 		$objElement->setSelected('f');
-		$radio= $objElement->show().'<br>';
+		$radio= $objElement->show().'<br />';
 		
 		//Check boxes
 		$objElement = new checkbox('m','Male',true);
@@ -97,7 +99,7 @@ class htmlelements extends controller
 		$objElement = new checkbox('f','Female');
 		$check .= $objElement->show();
 		$objElement = new checkbox('n','Seawood');
-		$check.= $objElement->show().'<br>';	
+		$check.= $objElement->show().'<br />';	
 		
 		//Dropdown
 		$objElement = new dropdown('sex_dropdown');
@@ -106,33 +108,33 @@ class htmlelements extends controller
 		$objElement->addOption('f','Female');
 		$objElement->addOption('n','Seaweed');
 		$objElement->setSelected('f');		
-		$dropdown= $objElement->show()."<br>";
+		$dropdown= $objElement->show()."<br />";
 		
 		//Dropdown created from array
 		$objElement = new dropdown('user_dropdown');
-		$objElement->addFromDB($this->objDBUser->getAll(),'username','userId',$this->objDBUser->userName());
+		$objElement->addFromDB($this->objDBUser->getAll(),'username','userid',$this->objDBUser->userName());
 		$objElement->label='User list';
-		$dropdown.= $objElement->show()."<br>";
+		$dropdown.= $objElement->show()."<br />";
 		
 		//Textarea
 		$objElement = new textarea('text_area');
 		$objElement->setRows(3);
 		$objElement->setColumns('45');
 		$objElement->setContent('This is some content for the textarea');
-		$ta=$objElement->show().'<br>';
+		$ta=$objElement->show().'<br />';
 		
 		//Button
 		$objElement = new button('mybutton');
 		$objElement->setValue('Normal Button');
 		$objElement->setOnClick('alert(\'An onclick Event\')');
-		$button=$objElement->show().'<br>';
+		$button=$objElement->show().'<br />';
 		
 		//Submit Button
 		$objElement = new button('mybutton');	
 		$objElement->setToSubmit();	
 		$objElement->label='Buttons Label';		
 		$objElement->setValue('Submit Button');
-		$submit=$objElement->show().'<br>';
+		$submit=$objElement->show().'<br />';
 		
 		//add submit button to the form;
 		$objForm->addToForm($objElement);
@@ -144,29 +146,29 @@ class htmlelements extends controller
 		$objElement = new tabbedbox();
 		$objElement->addTabLabel('Tabbed box 1');		
 		$objElement->addBoxContent($mouseoverpopup.$text.$dropdown.$button.$submit);		
-		$tab = '<br>'.$objElement->show().'<br>';
+		$tab = '<br />'.$objElement->show().'<br />';
 		//add the tab to the form
 		$objForm->addToForm($objElement);
 		$objForm->addToForm('<span class="warning">End of Form</span>');
-		$form = $objForm->show().'<br>';
+		$form = $objForm->show().'<br />';
 		
 		//create a multitabbedbox
 		$objElement =new multitabbedbox('100px','500px');
 		$objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'default' => true));
-		$objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
+		$objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio));
 		$objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300px','width' => '600px'));
 		//$objElement->addTab(array('name'=>'Test Validation','url'=>'http://localhost','content' => $this->valFormShow(),'height' => '300','width' => '700'));		
 		//set layers
 
 		
 		$left=$tab;		
-		$content='This is an example using most of the classes in the htmlelements module<br>';
-		$content.='<br>'.$objElement->show();
+		$content='This is an example using most of the classes in the htmlelements module<br />';
+		$content.='<br />'.$objElement->show();
 
 		
 		//this to make the centre layer strech downwards
 		for($i=0;$i<10;$i++){
-			$content.='<br>';
+			$content.='<br />';
 		}
 		$right=$tab;
 		$bottom=$ta;
@@ -272,7 +274,7 @@ class htmlelements extends controller
 		$objElement = new calendar('cal');
 		$today = getdate(); 		
 		$objElement->setDate($today['mon'],$today['mday'],$today['year']);
-		$calendar = $objElement->show().'<br>';
+		$calendar = $objElement->show().'<br />';
 }
 */
 /*
