@@ -496,3 +496,78 @@ li.sectionfolder {
 ul.treefolder ul {
     margin-bottom: 5px;
 }
+
+
+/******************************************
+* Styles for the tabcontent class
+*******************************************/
+ul.shadetabs{
+padding: 3px 0;
+margin-left: 0;
+margin-top: 1px;
+margin-bottom: 0;
+font: bold 12px Verdana;
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+
+}
+
+ul.shadetabs li{
+display: inline;
+margin: 0;
+background-image: none;
+padding-left: 0px;
+}
+
+ul.shadetabs li a{
+text-decoration: none;
+padding: 3px 7px;
+margin-right: 3px;
+border: 1px solid #778;
+color: #2d2b2b;
+background: white url(tabcontent/shade.gif) top left repeat-x;
+}
+
+ul.shadetabs li a:visited{
+color: #2d2b2b;
+}
+
+ul.shadetabs li a:hover{
+text-decoration: underline;
+color: #2d2b2b;
+}
+
+ul.shadetabs li.selected{
+position: relative;
+top: 1px;
+}
+
+ul.shadetabs li.selected a{ /*selected main tab style */
+background-image: url(tabcontent/shadeactive.gif);
+border-bottom-color: white;
+}
+
+ul.shadetabs li.selected a:hover{ /*selected main tab style */
+text-decoration: none;
+}
+
+div.tabcontentstyle{ /*style of tab content container*/
+border: 1px solid gray;
+width: 450px;
+margin-bottom: 1em;
+padding: 10px;
+}
+
+div.tabcontent{
+display:none;
+}
+
+@media print {
+    div.tabcontent {
+        display:block!important;
+    }
+}
+
+/**
+* END -Styles for the tabcontent class
+*/
