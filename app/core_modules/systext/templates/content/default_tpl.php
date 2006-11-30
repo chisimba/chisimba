@@ -180,11 +180,11 @@ if(!$GLOBALS['kewl_entry_point_run']){
         if($mode == 'edittext' and $textId == $textItem['id'] and $canDelete == 'N'){
             // set up input box for editing
             $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id'], 'candelete' => 'N'), 'systext'));
-            $objLink -> link = $textItem['text'];
+            $objLink -> link = $textItem['textinfo'];
             $link = $objLink -> show();
             $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton;
         }elseif($mode == 'edittext' and $textId == $textItem['id'] and $canDelete != 'N'){
-            $objText = new textinput('text', $textItem['text']);
+            $objText = new textinput('text', $textItem['textinfo']);
             $objText -> extra = ' MAXLENGTH="15"';
             $objText -> size = '15';
             $text = $objText -> show();
@@ -196,7 +196,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
             }else{
                 $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id']), 'systext'));
             }
-            $objLink -> link = $textItem['text'];
+            $objLink -> link = $textItem['textinfo'];
             $link = $objLink -> show();
             $str = $link;
         }
