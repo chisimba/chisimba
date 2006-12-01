@@ -42,9 +42,9 @@
 			</change>
 		</data>
     </update>
-<!--    <update>
+    <update>
         <table>tbl_systext_text</table>
-        <version>1.4</version>
+        <version>1.7</version>
         <description>Replaced a reserved word field with a legal SQL entity in the table definition</description>
 		<data>
 		    <rename>
@@ -53,5 +53,5 @@
 		        </text>
 		    </rename>
 		</data>
-	</update> -->
+	</update>
 </updates>
