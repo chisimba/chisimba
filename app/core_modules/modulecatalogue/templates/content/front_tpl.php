@@ -150,7 +150,11 @@ if ($modules) {
 					if (!strchr(strtolower($defaults),strtolower($modName))) {
 						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
 						$instButton->link = $this->objLanguage->languageText('word_uninstall');
-						$instButtonShow = $instButton->show();
+						$objConfirm = &$this->getObject('confirm','utilities');
+						$objConfirm->setConfirm($this->objLanguage->languageText('word_uninstall'),
+									$this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'),
+									str_replace('MODULE',$modName,$this->objLanguage->languageText('mod_modulecatalogue_deregsure','modulecatalogue')));
+						$instButtonShow = $objConfirm->show();
     					if ($batchuninstall) {
 							$checkBox=$objCheck->show();
 						} else {
@@ -215,6 +219,10 @@ $objForm->addToForm($notice);
 $objForm->addToForm($top);
 $objForm->addToForm($objTable->show());
 $objForm->addToForm($bot);
+//if ($actiontotake == 'batchuninstall') {
+//	$objForm->extra = 'onsubmit="javascript: if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_batchconfirm').'\'))
+//	 {document.location=\'\'}"';
+//}
 
 
 $searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
