@@ -34,7 +34,7 @@ class systext_facet extends dbTable
     * @var array $systemTypeList A list of all system types
     */
     var $systemTypeList;
-  
+
 
     /**
     * @var array $abstractList A list of text and abstracts for the current
@@ -46,7 +46,7 @@ class systext_facet extends dbTable
     * @var systemType _SystemTypeDb an object reference.
     */
     var $_objSystemTypeDb;
-	
+
     /**
     * @var textItem _TextItemDb an object reference.
     */
@@ -68,7 +68,7 @@ class systext_facet extends dbTable
     * @access private
     */
     function init()
-    {	
+    {
     	parent::init('tbl_sysconfig_properties');
     	$this -> _objSystemTypeDb =& $this -> getObject('dbsystem', 'systext');
         $this -> _objTextItemDb =& $this -> getObject('dbtext', 'systext');
@@ -320,7 +320,7 @@ class systext_facet extends dbTable
                 $notFound = TRUE;
                 foreach($abstractTextList as $abstractText){
                     if($textItem['id'] == $abstractText['textid']){
-                        $abstractList[$textItem['text']] = $abstractText['abstract'];
+                        $abstractList[$textItem['textinfo']] = $abstractText['abstract'];
                         $notFound = FALSE;
                     }
                 }
@@ -334,7 +334,7 @@ class systext_facet extends dbTable
             }
         }
         ksort($abstractList);
-        
+
         return $abstractList;
     }
 }
