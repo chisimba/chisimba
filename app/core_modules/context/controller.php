@@ -239,7 +239,7 @@ class context extends controller
                 $this->setVar('modulesrc',$this->uri(array('mode' => 'elearn'),$this->getParam('moduleid')));
                 return 'list_tpl.php';
 
-                // Print page content to pdf
+            // Print page content to pdf
             case 'print':
                 $page = $this->showPage();
                 $this->loadClass('html2fpdf','pdf');
