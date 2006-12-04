@@ -15,7 +15,11 @@ class customException extends Exception
 	public $uri;
 	public $_objConfig;
 
-	// constructor
+	/**
+	 * Constructor method
+	 *
+	 * @param call stack $m
+	 */
     function __construct($m)
     {
     	$msg = urlencode($m);
@@ -41,6 +45,12 @@ class customException extends Exception
     	header("Location: $this->uri");
     }
 
+    /**
+     * Database error handler
+     *
+     * @param call stack $msg
+     * @return url
+     */
     public function dbDeath($msg)
     {
     	$usrmsg = urlencode($msg[0]);
@@ -49,12 +59,20 @@ class customException extends Exception
     	header("Location: $this->uri");
     }
 
-    function cleanUp()
+    /**
+     * Generic clean up function
+     *
+     * @param void
+     * @return void
+     */
+    public function cleanUp()
     {
         // generic cleanup code here
         //for now, we can output a message?
 
     }
+
+
 
 }
 ?>
