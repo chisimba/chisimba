@@ -38,6 +38,7 @@ class imageupload extends object
         $type=$_FILES['userFile']['type'];
         $size=$_FILES['userFile']['size'];
         $tmp_name=$_FILES['userFile']['tmp_name'];
+
         if (
 			($type=='image/jpeg')
 			||($type=='image/gif')
@@ -46,11 +47,12 @@ class imageupload extends object
 		){
             $dirObj=$this->getObject('dircreate','utilities');
             $dirObj->makeFolder('user_images');
-            $objResize=$this->getObject('resize');
-            if ($objResize->loadimage($tmp_name,$name)){
-                $objResize->size_auto($redim);
-                $objResize->setOutput('jpg');
-                $objResize->save($this->imagePath.$userId.$extra.'.jpg');
+            $objResize=$this->getObject('imageresize', 'files');
+            $objResize->setImg($tmp_name);
+            
+            if ($objResize->canCreateFromSouce) {
+                $objResize->resize($redim, $redim);
+                $objResize->store($this->imagePath.$userId.$extra.'.jpg');
             }
         }
     }
