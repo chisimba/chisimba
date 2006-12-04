@@ -60,7 +60,8 @@ if ($modules) {
 		$batchChange = $batchButton->show();
 		$batchButton = &new button('formsub');
 		$batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
-		$batchButton->setToSubmit();  //If you want to make the button a submit button
+		$batchButton->extra=' onclick="if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_confirmbatchuninst','modulecatalogue').'\'))
+							{document.getElementById(\'form_batchform\').submit();}"';
 		$batchAction = $batchButton->show();
 	} else {
 		$actiontotake = 'batchinstall';
@@ -219,11 +220,6 @@ $objForm->addToForm($notice);
 $objForm->addToForm($top);
 $objForm->addToForm($objTable->show());
 $objForm->addToForm($bot);
-//if ($actiontotake == 'batchuninstall') {
-//	$objForm->extra = 'onsubmit="javascript: if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_batchconfirm').'\'))
-//	 {document.location=\'\'}"';
-//}
-
 
 $searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
 $searchForm->displayType = 3;
