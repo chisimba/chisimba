@@ -3,84 +3,84 @@
   <!-- Table tbl_systext_text -->
     <tbl_systext_text>
         <id>10@init</id>
-        <text>workgroups</text>
+        <textinfo>workgroups</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>11@init</id>
-        <text>story</text>
+        <textinfo>story</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>12@init</id>
-        <text>stories</text>
+        <textinfo>stories</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>1@init</id>
-        <text>context</text>
+        <textinfo>context</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>2@init</id>
-        <text>contexts</text>
+        <textinfo>contexts</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>3@init</id>
-        <text>author</text>
+        <textinfo>author</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>4@init</id>
-        <text>authors</text>
+        <textinfo>authors</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>5@init</id>
-        <text>organisation</text>
+        <textinfo>organisation</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>6@init</id>
-        <text>organisations</text>
+        <textinfo>organisations</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>7@init</id>
-        <text>readonly</text>
+        <textinfo>readonly</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>8@init</id>
-        <text>readonlys</text>
+        <textinfo>readonlys</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_text>
     <tbl_systext_text>
         <id>9@init</id>
-        <text>workgroup</text>
+        <textinfo>workgroup</textinfo>
         <creatorId>1</creatorId>
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>

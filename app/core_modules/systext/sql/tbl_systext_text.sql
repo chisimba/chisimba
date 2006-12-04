@@ -12,7 +12,7 @@ $fields = array(
 		'length' => 32,
 
 		),
-    'text' => array(
+    'textinfo' => array(
         'type' => 'text',
 		'length' => 50
         ),
