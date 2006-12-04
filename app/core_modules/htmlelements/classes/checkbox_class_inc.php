@@ -24,7 +24,7 @@ require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
 require_once("ifhtml_class_inc.php");
 
-class checkBox  extends abhtmlbase implements ifhtml
+class checkbox  extends abhtmlbase implements ifhtml
 {
 	
   public $ischecked; 
