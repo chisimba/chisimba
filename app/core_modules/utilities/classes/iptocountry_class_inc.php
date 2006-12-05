@@ -86,10 +86,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     {
         
         $flagsrc = 'modules/iptocountry/resources/flags/'.strtolower($code).'.gif';
-        
-        if (!file_exists($this->objConfig->siteRootPath().'/'.$flagsrc)) { 
+
+	if (!file_exists($this->objConfig->getsiteRootPath().'/'.$flagsrc)) { 
            $flagsrc = 'modules/iptocountry/resources/flags/unknown.gif';
         }
+
         return $flagsrc;
     }
     
