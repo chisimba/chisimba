@@ -132,7 +132,7 @@ class layer extends object implements ifhtml
     *
     * @var string $strn The string to pass to the layer
     */
-    function layer()
+    public function layer()
     {
         $this->str='';
         return $this->init();
