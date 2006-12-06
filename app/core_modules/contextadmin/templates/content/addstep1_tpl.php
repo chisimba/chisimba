@@ -36,10 +36,10 @@ $inpMenuText->cssClass = 'f-name';
 
 //status
 $dropAccess->name = 'status';
-$dropAccess->addOption('Publish', 'Publish');
-$dropAccess->addOption('Unpublish', 'Unpublish');
+$dropAccess->addOption('Published', 'Published');
+$dropAccess->addOption('Unpublished', 'Unpublished');
 
-$dropAccess->setSelected('Publish');
+$dropAccess->setSelected('Published');
 
 $drop = '<fieldset class="f-radio-wrap">
 		
