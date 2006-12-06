@@ -16,7 +16,7 @@ contextgroups
 contextpermissions
 storycategoryadmin
 stories
-#email - module has no register.conf
+email
 language
 #contextabstract - module not in cvs
 help
