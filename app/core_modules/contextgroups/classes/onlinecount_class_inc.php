@@ -107,7 +107,8 @@ class onlineCount extends dbTable
     function getContextUsers($contextCode)
     {
         
-    	if( $this->_objDBContext->isInContext() ) {
+    	if( $this->_objDBContext->isInContext() ) 
+	{
     		if($contextCode == '')
     		{
             	$this->_contextCode = $this->_objDBContext->getContextCode();
@@ -124,6 +125,22 @@ class onlineCount extends dbTable
             return FALSE;
         }
     }
+
+	/**
+    * Method to get the user count for a context
+    * @param string $contextCode
+    * @return int
+    */
+    public function getUserCount($contextCode)
+    {
+        $objManageGroups = & $this->newObject('managegroups', 'contextgroups');
+
+        $cnt =  count($objManageGroups->contextUsers('Students', $contextCode));
+
+        return $cnt;
+
+    }
+
     /**
     * Method to show the counted members.
     * return HTML Icon and Language text for the group being counted.
