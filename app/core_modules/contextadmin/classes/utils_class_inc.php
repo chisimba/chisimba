@@ -482,7 +482,9 @@ class utils extends object
 			$inpAbout->cols = 1;
 			$inpAbout->rows =1;
 			
-			$inpAbout->setContent($this->_objDBContext->getField('about'));
+			$contextLine = $this->_objDBContext->getRow('contextcode', $this->_objDBContext->getContextCode());
+
+			$inpAbout->setContent($contextLine['about']);
 			//$inpAbout->cssClass = 'f-comments';
 			
 			$inpButton->setToSubmit();
