@@ -118,7 +118,7 @@ class contextgroups extends controller
     */
     function showMain( )
     {
-    	$this->setVar('pagesuppressxml', TRUE);
+    	//$this->setVar('pagesuppressxml', TRUE);
         $objMembers = &$this->newObject('groupadmin_members','groupadmin');
         $objMembers->setHeaders( array( 'Firstname', 'Surname') );
         $this->setVarByRef('objMembers2',$objMembers);
