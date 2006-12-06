@@ -37,7 +37,7 @@ echo $objBox->show(strtoupper($ttlStudents),$objMembers2->show('studs').'<br/>'.
 
 
 $objMembers2->setGroupId( $guestGroupId );
-$links = ( $this->isValid('manage_guest') ) ? $lnkLect->show() : '';
+$links = ( $this->isValid('manage_guest') ) ? $lnkGuest->show() : '';
 echo $objBox->show(strtoupper($ttlGuests),$objMembers2->show('guest').'<br/>'.$links);
 
 
