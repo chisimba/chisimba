@@ -58,11 +58,18 @@ class utils extends object
 	   */
 	  public function getContextList()
 	  {
-	  	
+		$arr = array();
+
+		//if the user is an administrator of the site then show him all the courses
+	  	if ($this->_objUser->isAdmin())
+		{
+			return  $this->_objDBContext->getAll();
+		}
+
 	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
 	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
 	  	
-	  	$arr = array();
+	  	
 	  	foreach ($contextCodes as $code)
 	  	{
 	  		$arr[] = $this->_objDBContext->getRow('contextcode',$code); 
@@ -71,6 +78,17 @@ class utils extends object
 	  	//print_r($arr);
 	  	return $arr;
 	  }
+
+	/**
+	* Method to get a list of courses that the user is an lecturer in
+	* @return array
+	* @access  public
+	*/
+	public function getContextAdminList()
+	{
+		
+		return null;
+	}
 	  
 	  /**
 	   * Method to get the users context that he
