@@ -332,12 +332,16 @@ class htmlTable extends object implements ifhtml
     /**
     * Method to add a cell
     */
-    public function addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
+    public function addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null,$border = '0')
     {
         $this->content .= '<td';
         if ($width) {
             $this->content .= ' width="'.$width.'"';
         }
+	
+        if ($border) {
+           $this->content .= ' border="'.$border.'"';
+       }
         if ($valign) {
             $this->content .= ' valign="'.$valign.'"';
         }
