@@ -16,7 +16,6 @@ contextgroups
 contextpermissions
 storycategoryadmin
 stories
-email
 language
 #contextabstract - module not in cvs
 help
