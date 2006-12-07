@@ -80,9 +80,9 @@ class imageresize extends object
                     break;
             }
 		} else {
-			$this->errorHandler();
+			return FALSE;
 		}
-		return;
+
 	}
     
     /**
