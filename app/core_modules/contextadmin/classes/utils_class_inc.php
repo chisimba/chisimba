@@ -357,8 +357,11 @@ class utils extends object
 			$inpButton =  $this->newObject('button','htmlelements');
 			$dropAccess = $this->newObject('dropdown','htmlelements');
 			$radioStatus = $this->newObject('radio','htmlelements');
+			$objStartDate =  & $this->newObject('datepicker', 'htmlelements');
+            $objFinishDate =  & $this->newObject('datepicker', 'htmlelements');
 			
-			$objH->str = 'Step 1: Add a Course';
+
+            $objH->str = 'Step 1: Add a Course';
 			$objH->type = 3;
 			
 			//setup the form
@@ -367,16 +370,19 @@ class utils extends object
 			$objForm->extra = 'class="f-wrap-1"';
 			$objForm->displayType = 3;
 			
+            //contextcode
 			$inpContextCode->name = 'contextcode';
 			$inpContextCode->id = 'contextcode';
 			$inpContextCode->value = '';
 			$inpContextCode->cssClass = 'f-name';
 			
+            //title
 			$inpTitle->name = 'title';
 			$inpTitle->id = 'title';
 			$inpTitle->value = $context['title'];
 			$inpTitle->cssClass = 'f-name';
 			
+            //menu text
 			$inpMenuText->value = $context['menutext'];
 			$inpMenuText->name = 'menutext';
 			$inpMenuText->id = 'menutext';
@@ -384,16 +390,12 @@ class utils extends object
 			
 			//status
 			$dropAccess->name = 'status';
-			$dropAccess->addOption('Publish', 'Publish');
-			$dropAccess->addOption('Unpublish', 'Unpublish');
+			$dropAccess->addOption('Published', 'Published');
+			$dropAccess->addOption('Unpublished', 'Unpublished');
 			$dropAccess->setSelected(trim($context['status']));
 			
 			
-			$radioStatus->addOption('m','Male');
-			$radioStatus->addOption('f','Female');
-			$radioStatus->addOption('n','Seaweed');
-			$radioStatus->setSelected('f');
-			
+			//access
 			$checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
 			$drop = '<fieldset class="f-radio-wrap">
 		
@@ -422,7 +424,15 @@ class utils extends object
 							</fieldset>
 						
 						</fieldset>';
-						
+            //start date
+            $objStartDate->name = 'startdate';
+            $objStartDate->value = $context['startdate'];
+
+            //finish date
+            $objFinishDate->name = 'finishdate';
+            $objFinishDate->value = $context['finishdate'];
+
+			//button
 			$inpButton->setToSubmit();
 			$inpButton->cssClass = 'f-submit';
 			$inpButton->value = 'Save';
@@ -454,10 +464,17 @@ class utils extends object
 			
 			
 			$objForm->addToForm('<label for="access"><b><span class="req">*</span>Status:</b>');
-			$objForm->addToForm($dropAccess->show().'<br /></label>');
-			
+            $objForm->addToForm($dropAccess->show().'<br /></label>');
+
 			$objForm->addToForm($drop);
+            $objForm->addToForm('<label>&nbsp;<br/></label>');
 			
+            
+            $objForm->addToForm('<label for="access"><b>Start Date:</b>');
+            $objForm->addToForm($objStartDate->show().'<br /></label>');
+
+            $objForm->addToForm('<label for="access"><b>Finish Date:</b>');
+            $objForm->addToForm($objFinishDate->show().'<br /></label>');
 			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 			return  $objForm->show().'<br/>';
 	  

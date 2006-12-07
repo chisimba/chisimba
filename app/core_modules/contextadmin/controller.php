@@ -103,6 +103,8 @@ class contextadmin extends controller
            	case 'admincontext':
            		$this->_objDBContext->joinContext($this->getParam('contextcode'));
            		return $this->nextAction('default');
+		default:
+			return $this->nextAction(null);
         }
         
         

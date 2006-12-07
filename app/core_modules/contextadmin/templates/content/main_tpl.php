@@ -18,7 +18,7 @@ $other = '';
 $lects = '';
 $conf = '';
 
-
+$currentContextCode = $this->_objDBContext->getContextCode();
 
 //registered courses
 if (isset($contextList))
@@ -37,8 +37,8 @@ if (isset($contextList))
 		} else {
 			$lects = 'No Instructor for this course';
 		}
-		
-		$userCount = count($objContextGroups->getContextUsers($context['contextcode']));
+		//print_r($objContextGroups->getUserCount($context['contextcode']));
+		$userCount = $objContextGroups->getUserCount($context['contextcode']);
 		$content = 'Instructors : <span class="highlight">'.$lects.'</span>';
 		$content .= '<p>Status : <span class="highlight">'.$context['status'].'</span>';
 		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access : <span class="highlight">'.$context['access'].'</span>';
@@ -69,12 +69,15 @@ if (isset($contextList))
 		//delete context
 		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
 		
-		//manage context users
-		$objLink->href = $this->uri(array('action' => 'main', 'contextcode' => $context['contextcode']), 'contextgroups');
-		$icon->setIcon('student');
-		$icon->alt = 'Manage Course Users';
-		$objLink->link = $icon->show();
-		$conf .= $objLink->show();
+		//manage context users for the course that you are in only
+		if ($currentContextCode == $context['contextcode'])
+		{
+			$objLink->href = $this->uri(array('action' => 'main', 'contextcode' => $context['contextcode']), 'contextgroups');
+			$icon->setIcon('student');
+			$icon->alt = 'Manage Course Users';
+			$objLink->link = $icon->show();
+			$conf .= $objLink->show();
+		}
 		
 		if($context['contextcode'] == $this->_objDBContext->getContextCode())
 		{
@@ -178,8 +181,10 @@ if($this->_objUser->isAdmin())
 			$other .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">No Public or Open Courses is available</div>';
 		}
 	
-		$str = 'I AM ADmin';
-		$tabBox->addTab(array('name'=>'All Other Courses','content' => $other));
+	    if($this->_objUser->isAdmin())
+        {
+		    //$tabBox->addTab(array('name'=>'All Other Courses','content' => $other));
+        }
 	
 }
 
