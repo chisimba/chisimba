@@ -27,6 +27,15 @@ class sidebar extends object
      * @var array
     */
     protected $nodes;
+    
+    /**
+     * A flag on whether to show the first home link or not
+     *
+     * @author Tohir Solomons
+     * @access public
+     * @var boolean
+     */
+    public $showHomeLink = TRUE;
 
 
     /**
@@ -75,10 +84,13 @@ class sidebar extends object
     		//var_dump($nodes);
     		$str = '<ul id="nav-secondary">
     										';
-    		 $str .='<li class="first">
-    		 			<a href="'.$this->uri($uriaction,$urimodule).'">Home</a>
-    		 		</li>
-    		 				';
+    		
+    		if ($this->showHomeLink) {
+        		 $str .='<li class="first">
+        		 			<a href="'.$this->uri($uriaction,$urimodule).'">Home</a>
+        		 		</li>
+        		 				';
+    		}
     		//loop through the nodes
     		foreach($nodes as $node)
     		{
