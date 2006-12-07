@@ -449,7 +449,7 @@ class form implements ifhtml
      * @param  $valcmd string : the validation type
      * 
      * * the following rules apply
-     * require
+     * required
      * maxlength
      * minlength
      * rangelength
