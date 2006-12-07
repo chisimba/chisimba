@@ -486,6 +486,11 @@ div.domTTContent {
 *  END OF MOUSE OVER POPUP                                                                        *
 ******************************************************************************************/
 
+ul.sectionfolder li {
+    background: transparent url('icons/folder2.gif') no-repeat 0px 1px; 
+    padding-left: 20px;
+    margin-left: 0px;
+}
 
 li.sectionfolder {
     background: transparent url('icons/folder2.gif') no-repeat 0px 1px; 
@@ -556,6 +561,7 @@ border: 1px solid gray;
 width: 450px;
 margin-bottom: 1em;
 padding: 10px;
+overflow: hidden;
 }
 
 div.tabcontent{
