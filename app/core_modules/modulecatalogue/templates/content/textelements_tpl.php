@@ -28,7 +28,7 @@
     // Now build up the table from the supplied array $moduledata
     foreach ($moduledata as $line)
     {
-        $row=array($line['code'],$line['desc'],$line['content'],$line['isreg']['desc'],$line['isreg']['content']);
+        $row=array($line['code'],$line['desc'],$line['content'],$line['isreg']['desc'],stripslashes($line['isreg']['content']));
         $objTblclass->addRow($row,'odd');
         $count=$count+1;
         if ($line['isreg']['flag']!=11)
