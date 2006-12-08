@@ -1,4 +1,4 @@
-<?
+<?php
     $this->loadclass('form','htmlelements');
     $objNewForm= new form('ResetPassword', $this->uri(array('action'=>'resetpassword'),'useradmin'));
     $objButtons=&$this->getObject('navbuttons','navigation');

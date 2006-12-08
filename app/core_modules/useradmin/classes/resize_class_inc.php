@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Class to resize images

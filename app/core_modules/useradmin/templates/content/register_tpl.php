@@ -157,7 +157,7 @@ function Validator(theForm) {
 }
 //-->
 </script>
-<?
+<?php
     $this->loadclass('textinput','htmlelements');
     $this->loadclass('dropdown','htmlelements');
     $objFeatureBox = $this->newObject('featurebox', 'navigation');

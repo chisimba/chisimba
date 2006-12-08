@@ -1,4 +1,4 @@
-<?
+<?php
     $objImage=$this->getObject('imageupload');
     
     $upload="<form name='fileupload' enctype='multipart/form-data' method='POST' action='".$this->uri(array('action'=>'imageupload'))."'>\n";

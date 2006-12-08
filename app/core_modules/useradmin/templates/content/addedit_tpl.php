@@ -1,4 +1,4 @@
-<?
+<?php
     function textinput($name,$type,$value=NULL)
     {
         $field=new textinput($name,$value);

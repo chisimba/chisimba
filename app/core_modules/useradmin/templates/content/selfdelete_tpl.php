@@ -1,4 +1,4 @@
-<?
+<?php
     $userId=$this->getParam('userId');
     
     $objLanguage=& $this->getObject('language', 'language');

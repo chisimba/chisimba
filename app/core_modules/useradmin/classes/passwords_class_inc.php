@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to generate alphanumeric passwords
 *

@@ -1,4 +1,4 @@
-<?
+<?php
 	echo "<h1>"./*$this->objLanguage->languageText('mod_useradmin_name','useradmin').' - '.*/$title."</h1>";
 	$objAlphabet=& $this->getObject('alphabet','navigation');
 	$linkarray=array('action'=>'ListUsers','how'=>'surname','searchField'=>'LETTER');

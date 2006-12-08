@@ -1,4 +1,4 @@
-<?
+<?php
 $objLanguage=&$this->getObject('language','language');
 
 $objTblclass=$this->newObject('htmltable','htmlelements');
@@ -31,3 +31,4 @@ $objTblclass->endRow();
 print $objTblclass->show();
 
 print "<a href='".$this->uri('','_default')."'>".$objLanguage->languageText('phrase_goto_login')."</a>\n";
+?>

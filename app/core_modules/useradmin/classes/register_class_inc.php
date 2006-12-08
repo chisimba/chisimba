@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * This small class makes the functionality for sending email to
 * a newly-registered user available to other modules

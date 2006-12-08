@@ -1,4 +1,4 @@
-<?
+<?php
     $this->loadclass('form','htmlelements');
     $objNewForm= new form('Change', $this->uri(array('action'=>'adminchangepassword'),'useradmin'));
     $objButtons=&$this->getObject('navbuttons','navigation');
