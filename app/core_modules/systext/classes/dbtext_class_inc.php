@@ -1,4 +1,4 @@
-<?
+<?php
 /* ----------- data class extends dbTable for tbl_systext_text ----------*/
 
 // security check - must be included in all scripts

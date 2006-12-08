@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to provide SysConfig an input for the SYSTEM_TYPE parameter
 * @author Tohir Solomons

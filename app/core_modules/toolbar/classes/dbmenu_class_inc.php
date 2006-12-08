@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class dbmenu extends dbtable.
 * @package toolbar

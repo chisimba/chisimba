@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class cssmenu extends object.
 * @package toolbar

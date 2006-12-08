@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 
 This file contains information on additional css, layout changes, etc to implement for the splashscreen

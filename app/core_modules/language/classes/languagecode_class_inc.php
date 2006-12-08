@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 *This is a Languagecode class 
 *@author Prince Mbekwa

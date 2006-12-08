@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* Class of LDAP-related functions
 * @author James Scoble

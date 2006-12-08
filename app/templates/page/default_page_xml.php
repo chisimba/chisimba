@@ -178,7 +178,7 @@ if (isSet($bodyParams)) {
 				 ?>
 			</div>
 
-<?  }
+<?php  }
 
     // get content
     echo $this->getLayoutContent();

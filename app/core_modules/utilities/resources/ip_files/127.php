@@ -1,1 +1,1 @@
-<? $ranges=array(); ?>
+<?php $ranges=array(); ?>
