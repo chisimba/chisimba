@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class which handles patches to modules
 * @author Nic Appleby

@@ -1,4 +1,4 @@
-<?
+<?php
     // First the language Object
     $this->objLanguage=&$this->getObject('language','language');
 

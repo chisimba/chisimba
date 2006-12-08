@@ -1,4 +1,4 @@
-<?
+<?php
 
     // Table to display the texts
     $objButtons=&$this->getObject('navbuttons','navigation');

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * class to make unique primary keys for NextGen initial setup
 * and module registration
