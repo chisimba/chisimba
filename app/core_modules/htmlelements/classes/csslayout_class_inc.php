@@ -118,6 +118,18 @@ class csslayout extends object implements ifhtml
     {
         $this->middleColumnContent = $content;
     }
+    
+     /**
+    * Method to return the JavaScript that runs when the page loads
+    *
+    * @access public
+    * @return string
+    */
+    public function bodyOnLoadScript()
+    {
+        return 'xAddEventListener(window, "resize", adjustLayout, false);
+          adjustLayout();';
+    }
 
     /**
     * Method to return the JavaScript that fixes a two column css layout using javascript
@@ -146,13 +158,6 @@ class csslayout extends object implements ifhtml
             xHeight("content", maxHeight);  
             xHeight("left", maxHeight);  
             xHeight("right", maxHeight);  
-        }
-
-        window.onload = function()
-        {
-          xAddEventListener(window, "resize",
-            adjustLayout, false);
-          adjustLayout();
         }
 
         </script>';
@@ -187,13 +192,6 @@ class csslayout extends object implements ifhtml
             xHeight("content", maxHeight);  
             xHeight("left", maxHeight);  
             xHeight("right", maxHeight);
-        }
-
-        window.onload = function()
-        {
-          xAddEventListener(window, "resize",
-            adjustLayout, false);
-          adjustLayout();
         }
 
         </script>';
@@ -282,6 +280,7 @@ class csslayout extends object implements ifhtml
         $headerParams=$this->getJavascriptFile('x.js','htmlelements');
         $headerParams .= $this->fixThreeColumnLayoutJavascript();
         $this->appendArrayVar('headerParams',$headerParams);
+        $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
     }
 
     /**
@@ -294,6 +293,7 @@ class csslayout extends object implements ifhtml
         $headerParams=$this->getJavascriptFile('x.js','htmlelements');
         $headerParams .= $this->fixTwoColumnLayoutJavascript();
         $this->appendArrayVar('headerParams',$headerParams);
+        $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
     }
 
 } // End Class
