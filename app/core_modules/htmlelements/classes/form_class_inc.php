@@ -10,17 +10,17 @@ require_once("ifhtml_class_inc.php");
 
 /**
  * Class Form
- * The Form class creates a form object 
- * that has the ability to  contain other 
+ * The Form class creates a form object
+ * that has the ability to  contain other
  * html objects
- * 
- * @author Wesley Nitsckie 
+ *
+ * @author Wesley Nitsckie
  * @version $Id$
  * @copyright 2003
 
- * 
+ *
  * Example using type 4 form.
- * 
+ *
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 4;
 	$objForm->addToFormEx($objLanguage->languageText('informational1'));
@@ -29,9 +29,9 @@ require_once("ifhtml_class_inc.php");
 	$objForm->addToFormEx($objLanguage->languageText('label3'),new textinput('name3'));
 	echo $objForm->show();
 
- * 
+ *
  * Example using type 5 form. -- deprecated; use the fieldset class.
- * 
+ *
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 5;
 	$objForm->beginFieldset('legend');
@@ -42,47 +42,47 @@ require_once("ifhtml_class_inc.php");
 	$objForm->endFieldset();
 	echo $objForm->show();
 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 
 class form implements ifhtml
 {
     /**
-     * 
-     * @var string $name 
+     *
+     * @var string $name
      * The name of the form
      */
     public $name;
 
     /**
-     * 
+     *
      * @var array $elements
      * The array that holds all the objects
      */
     public $elements;
 
     /**
-     * 
+     *
      * @var string $action
      * The action of the form
      */
     public $action;
 
     /**
-     * 
-     * @var int displayType 
+     *
+     * @var int displayType
      * the display of the elements on the form
      */
     public $displayType;
 
     /**
-     * 
+     *
      * @var boolean $autoshow
      * set the form to automatically call the
      * elements 'show' method
@@ -90,32 +90,32 @@ class form implements ifhtml
     var $autoshow = false;
 
     /**
-	* 
+	*
 	* @var string $method
-	* sets the method of the form , 
+	* sets the method of the form ,
 	* either 'post' (default) or 'get'
 	*/
 	public $method = 'post';
-    
-	/**	 
-     * 
+
+	/**
+     *
      * @var string $javascript
      * the javascript that will validate
      * this form when submitted
      */
     public $javascript;
-	
+
 	/**
 	*
 	* @var boolean $hasRules
 	*flag to check if there is any rules set
 	*/
 	public $hasRules=false;
-	
+
 	/**
 	*
 	* @var string $extra
-	*extra 
+	*extra
 	*/
 	public $extra;
 
@@ -127,50 +127,50 @@ class form implements ifhtml
      * Form contructor
      */
     public function form($name = null, $action = null)
-    { 
+    {
         // set the name
-        $this->name = $name; 
+        $this->name = $name;
         // set the action
-        $this->action = $action; 
+        $this->action = $action;
         // instantiate the new array
-        $this->elements = array(); 
+        $this->elements = array();
         // set the default display type
         $this->displayType = 3;
-        
+
         $this->id = 'form_'.$name;
-		
-    } 
+
+    }
 
     /**
      * Method to set the Form action
-     * 
-     * @Param string $action 
+     *
+     * @Param string $action
      */
     public function setAction($action)
     {
         $this->action = $action;
-    } 
-    
+    }
+
     /**
      * Method to set the display type
-     * 
+     *
      * @param int $displayType : the value for the displayType
      */
     public function setDisplayType($displayType)
     {
         $this->displayType = $displayType;
-    } 
-    
+    }
+
     /**
      * Method to add a object of
      * string to the form
-     * 
-     * @param object $objElement 
+     *
+     * @param object $objElement
      */
     public function addToForm($objElement)
     {
         $this->elements[] = $objElement;
-    } 
+    }
 
 	public function addToFormEx($label,$field=NULL)
 	{
@@ -181,23 +181,23 @@ class form implements ifhtml
 			$this->elements[] = array('label'=>$label,'field'=>$field);
 		}
 	}
-	
+
 	public function beginFieldset($legend)
 	{
 		$this->elements[] = array('fieldset'=>'begin', 'legend'=>$legend);
 	}
 
-	public function endFieldset()	
+	public function endFieldset()
 	{
 		$this->elements[] = array('fieldset'=>'end');
 	}
-	
+
     /**
      * *********** SHOW SECTION *************
      */
     /**
      * Method to show the form
-     * 
+     *
      * @return string $str
      */
     public function show()
@@ -209,26 +209,26 @@ class form implements ifhtml
         } else {
             $id = '';
         }
-		$str .= '<form 
+		$str .= '<form
 					'.$id.'
-					name="' . $this->name . '" 
-					action="' . $this->action . '" 
-					method="'.$this->method.'" 
-					'.$submit.' 
+					name="' . $this->name . '"
+					action="' . $this->action . '"
+					method="'.$this->method.'"
+					'.$submit.'
 					'.$this->extra.'
-					>'; 
-        		
+					>';
+
         // call the scripts
         $str .= $this->_getShowElements();
         $str .= '</form>';
 
         return $str;
-    } 
+    }
 
     /**
-     * Method to get all the objects 
+     * Method to get all the objects
      * in the $elements array
-     * 
+     *
      * @return string $str
      */
     private function _getShowElements()
@@ -253,10 +253,10 @@ class form implements ifhtml
 				break;
             default:
                 $str = $this->_formTextLeft();
-        } 
+        }
 
         return $str;
-    } 
+    }
 
     /**
      * Private Method to format the form so that
@@ -270,15 +270,15 @@ class form implements ifhtml
             if (is_object($this->elements[$e])) {
                 if (isset($this->elements[$e]->label)) {
                     $str .= '<tr><td valign="top"><label for="'.$this->elements[$e]->name.'">' . $this->elements[$e]->label . '</label></td></tr>';
-                } 
+                }
                 $str .= '<tr><td>' . $this->elements[$e]->show() . '</td></tr>';
             } else {
                 $str .= '<tr><td>' . $this->elements[$e] . '</td></tr>';
-            } 
-        } 
+            }
+        }
         $str .= '</table>';
         return $str;
-    } 
+    }
     /**
      * Private Method to format the form so that
      * the label will appear on to the left of the input
@@ -292,19 +292,19 @@ class form implements ifhtml
             if (is_object($this->elements[$e])) {
                 if (isset($this->elements[$e]->label)) {
                     $str .= '<td>' . $this->elements[$e]->label . '</td>';
-                } 
+                }
                 $str .= '<td>' . $this->elements[$e]->show() . '</td>';
             } else {
                 $str .= '<td>' . $this->elements[$e] . '</td>';
-            } 
+            }
             $str .= '</tr>';
-        } 
+        }
 
         $str .= '</table>';
         return $str;
-    } 
+    }
     /**
-     * Private Method to format the form 
+     * Private Method to format the form
      * in the free format
      */
     private function _formFreeFormat()
@@ -315,13 +315,13 @@ class form implements ifhtml
                 $str .= $this->elements[$e]->show();
             } else {
                 $str .= $this->elements[$e];
-            } 
-        } 
+            }
+        }
         return $str;
-    } 
+    }
 
     /**
-     * Private Method to format the form 
+     * Private Method to format the form
      * in the formatted format
      */
     private function _formFormatted()
@@ -339,7 +339,7 @@ class form implements ifhtml
 	                $str .= $label->show();
 	            } else {
 	                $str .= $label;
-	            } 
+	            }
 			    $str .= "</td>";
 			}
 			else {
@@ -350,21 +350,21 @@ class form implements ifhtml
 	                $str .= $label->show();
 	            } else {
 	                $str .= $label;
-	            } 
+	            }
 			    $str .= "</td>";
 				$str .= '<td align="left">';
 	            if (is_object($field)) {
 	                $str .= $field->show();
 	            } else {
 	                $str .= $field;
-	            } 
+	            }
 			    $str .= "</td>";
 			}
 			$str .= '</tr>';
-        } 
+        }
 		$str .= '</table>';
         return $str;
-    } 
+    }
 
     /**
      * Private Method to format the form
@@ -380,12 +380,12 @@ class form implements ifhtml
 			if (isset($element['fieldset'])) {
 				$fieldset = $element['fieldset'];
 				switch($fieldset){
-					case 'begin': 
+					case 'begin':
 						$legend = $element['legend'];
 						$str .= "<fieldset><legend>$legend</legend>";
 				        $str .= '<table>';
 						break;
-					case 'end': 
+					case 'end':
 						$str .= '</table>';
 						$str .= '</fieldset>';
 						break;
@@ -402,7 +402,7 @@ class form implements ifhtml
 		                $str .= $label->show();
 		            } else {
 		                $str .= $label;
-		            } 
+		            }
 				    $str .= "</td>";
 				}
 				else {
@@ -413,28 +413,28 @@ class form implements ifhtml
 		                $str .= $label->show();
 		            } else {
 		                $str .= $label;
-		            } 
+		            }
 				    $str .= "</td>";
 					$str .= '<td align="left">';
 		            if (is_object($field)) {
 		                $str .= $field->show();
 		            } else {
 		                $str .= $field;
-		            } 
+		            }
 				    $str .= "</td>";
 				}
 				$str .= '</tr>';
 			}
-        } 
+        }
         return $str;
-    } 
+    }
 
     /**
      * ********* END OF SHOW SECTION ***********
      */
 
-   
- 
+
+
 
     /**
      * ******** VALIDATION SECTION *********
@@ -443,11 +443,11 @@ class form implements ifhtml
     /**
      * Method to add a validation rule
      * to an element
-     * 
+     *
      * @param  $mix mix : This variable can hold anything
      * @param  $errormsg string : The error message
      * @param  $valcmd string : the validation type
-     * 
+     *
      * * the following rules apply
      * required
      * maxlength
@@ -479,9 +479,9 @@ class form implements ifhtml
             case 'minlength':
 							$this->_valMinLength($mix,$errormsg);
 							break;
-            case 'rangelength':				
+            case 'rangelength':
     					$this->_valRangeLength($mix,$errormsg);
-    					break;            
+    					break;
             case 'email':
       				$this->_valEmail($mix,$errormsg);
       				break;
@@ -497,7 +497,7 @@ class form implements ifhtml
 						case 'maxnumber':
       				$this->_valMaxNumber($mix,$errormsg);
       				break;
-      			case 'minnumber':						
+      			case 'minnumber':
       				$this->_valMinNumber($mix,$errormsg);
       				break;
       			case 'select';
@@ -513,65 +513,92 @@ class form implements ifhtml
             case 'maxfilesize';
             case 'filename';
             case 'mimetype';
-            
-        } 
-    } 
+
+        }
+    }
 
     public function addFormRule()
     {
-    } 
+    }
 
     private function _getValidatorScripts()
     {
-	/*
-			*/
-        $jsc = '
-			<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
-			<script language="JavaScript" type="text/javascript">
-            //<![CDATA[ 
-            
-			//the following lines are generated 	
-				function validate_'.$this->name.'_form(frm)
-				{ 
-					var ok = true;	
-				
-					' . $this->_getJavaScripts() . '
-				
-					return ok;
-				}
-            //]]>
-			</script>
-
-			';
+        $jsc = '<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
+        <script language="JavaScript" type="text/javascript">
+        //<![CDATA[
+            //the following lines are generated
+            function validate_'.$this->name.'_form(frm)
+            {
+                var ok = true;
+                '.$this->_getJavaScripts().'
+                return ok;
+            }
+        //]]>
+        </script>';
         return $jsc;
-    } 
+    }
 
     /**
-     * Method the adds a javascript method call 
+     * Method the adds a javascript method call
      * to the javascript string
-     * 
+     *
      * @param  $stript string  : the javascript method that will be called
      * @param  $fieldname string : The name of the field
      * @param  $errormsg string : the erroe message
      */
     private function _addValidationScript($script = null, $errormsg = null, $fieldname = null)
     {//.getElementByName("'.$fieldname.'");';  //document.forms['".$this->name."']
-        $this->javascript .=" 
-            var el = frm.".$fieldname.";" ;
-		if (isset($errormsg)) 
-		    $errormsg='alert("' . $errormsg . '");';      		
+        if(isset($errormsg)){
+            $errormsg = 'alert("'.$errormsg.'");';
+        }
+        $this->javascript .="
+            var formElement = document.getElementById('input_".$fieldname."');
+            if(formElement != null){
+                var el = formElement;
+                ok = ok && ".$script."
+                if(formElement.type == 'hidden'){
+                    ok = true;
+                }
+            }else{
+                var elArray = document.getElementsByName('".$fieldname."');
+                var el = elArray[0];
+                if(el.type == 'radio'){;
+                    var selected = false;
+                    for (var i=0; i<elArray.length; i++){
+                        if (elArray[i].checked){
+                            selected = true;
+                        }
+                    }
+                    ok = ok && selected;
+                }else{
+                    return false;
+                }
+            }
+            if (!ok){
+                ".$errormsg."
+                el.focus();
+                if (el.type != 'select-one'){
+                    el.select();
+                }
+                return false;
+            }";
+/*
+        var el = frm.".$fieldname.";" ;
+		if (isset($errormsg))
+		    $errormsg='alert("' . $errormsg . '");';
 		$errmsg=
         $this->javascript .= '
         					ok = ok && ' . $script . '
 							//alert(ok);
 							if (!ok){
-								' . $errormsg . '      								
+								' . $errormsg . '
 								el.focus();
 								el.select();
 								return false;
 							}
 							';
-    } 
+*/
+    }
 
     /**
      * Method to return the javascript string
@@ -579,16 +606,16 @@ class form implements ifhtml
     private function _getJavaScripts()
     {
         return $this->javascript;
-    } 
+    }
 
-    
+
     /* *********VALIDATION COMMANDS*********/
-     
-	  
-	  
+
+
+
      /**
      * Method to set a required field
-     * 
+     *
      * @param  $fieldname string : The name of the field
      * @param  $errormsg string : the erroe message
      */
@@ -597,11 +624,11 @@ class form implements ifhtml
         //$jmethod = 'valRequired(' . $this->name . '.' . $fieldname . '.value)';
         $jmethod = 'valRequired(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fieldname);
-    } 
+    }
 
     /**
      * Method to compare two fields
-     * 
+     *
      * @param  $fieldname string : The name of the field
      * @param  $errormsg string : the error message
      */
@@ -610,11 +637,11 @@ class form implements ifhtml
         $jmethod = 'valCompare(' . $this->name . '.' . $fields[0] . '.value,' . $this->name . '.' . $fields[1] . '.value)';
        // $jmethod = 'valCompare(el.value,' . $this->name . '.' . $fields[1] . '.value)';
         $this->_addValidationScript($jmethod, $errormsg, $fields[0]);
-    } 
-	
+    }
+
 	/**
      * Method to check for numeric field
-     * 
+     *
      * @param  $fieldname string : The name of the field
      * @param  $errormsg string : the error message
      */
@@ -622,69 +649,69 @@ class form implements ifhtml
 	{
 		$jmethod = 'valNumeric(el.value)';
         $this->_addValidationScript($jmethod, $errormsg, $field);
-	
+
 	}
-	
+
 	/**
 	* Method to check the maximum field size
 	* @param $mix array :Should include a field name and the length
-	* @param  $errormsg string : the error message 
+	* @param  $errormsg string : the error message
 	*/
 	private function _valMaxLength($mix, $errormsg)
 	{
 		$jmethod = 'valMaxLength(el.value,'.$mix['length'].')';
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
-	
+
 	/**
 	* Method to check the maximum field size
 	* @param $mix array :Should include a field name and the length
-	* @param  $errormsg string : the error message 
+	* @param  $errormsg string : the error message
 	*/
 	private function _valMinLength($mix, $errormsg)
 	{
 		$jmethod = 'valMinLength(el.value,'.$mix['length'].')';
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
-	
+
 	/**
 	* Method to check the fields lenght is between a certain length
 	* @param $mix array :Should include a field name, lower and upper variables
-	* @param  $errormsg string : the error message 
+	* @param  $errormsg string : the error message
 	*/
 	private function _valRangeLength($mix,$errormsg)
 	{
 		$jmethod = 'valRangeLength(el.value,'.$mix['lower'].','.$mix['upper'].')';
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
-	
+
 	private function _valEmail($fieldname,$errormsg)
 	{
 		$jmethod='emailCheck(el.value)';
 		$this->_addValidationScript($jmethod, null, $fieldname);
 	}
-	
+
 	private function _valLettersOnly($fieldname,$errormsg)
 	{
 		$jmethod='valLettersOnly(el.value)';
-		$this->_addValidationScript($jmethod, $errormsg, $fieldname);	
+		$this->_addValidationScript($jmethod, $errormsg, $fieldname);
 	}
-	
+
 	private function _valMaxNumber($mix,$errormsg)
 	{
 		$jmethod='valMaxNumber(el.value,'.$mix['maxnumber'].')';
-		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);			
+		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
 	private function _valMinNumber($mix,$errormsg)
 	{
 		$jmethod='valMinNumber(el.value,'.$mix['minnumber'].')';
-		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);			
+		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
-	
+
 	private function _valSelect($fieldname,$errormsg)
-	{		
+	{
 		$jmethod='valSelect(el)';
-		$this->_addValidationScript($jmethod, $errormsg, $fieldname);		
-		
+		$this->_addValidationScript($jmethod, $errormsg, $fieldname);
+
 	}
-} 
+}
