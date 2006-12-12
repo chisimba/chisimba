@@ -102,3 +102,5 @@ class licensechooser extends object
         return $radio->show();
     }
 }
+
+?>
