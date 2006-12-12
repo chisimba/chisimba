@@ -152,8 +152,10 @@ class htmlarea extends object
     {
         require_once('modules/htmlelements/resources/fckeditor_2.3.2/fckeditor.php') ;
         
-        $objConfig = & $this->newObject('altconfig', 'config');        
-        $sBasePath = $objConfig->getsiteRoot().'modules/htmlelements/resources/fckeditor_2.3.2/';
+        $objConfig = & $this->newObject('altconfig', 'config');
+
+        $sitePath = parse_url($objConfig->getsiteRoot());
+        $sBasePath = $sitePath['path'].'modules/htmlelements/resources/fckeditor_2.3.2/';
       
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
