@@ -227,10 +227,12 @@ class modulesadmin extends dbTableManager
                 if(isset($registerdata['ACL'][0])){
                     $objPerm = $this->getObject('permissions_model', 'permissions');
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+                    $perms = array(); $aclId = ''; $aclList = array(); $permList = array(); $groupArray = array();
+                    
                     foreach($registerdata['ACL'] as $regAcl){
                         $perms = explode('|', $regAcl);
                         if(isset($perms[0]) && !empty($perms[0])){
-                            $aclId = $objPerm->newAcl($moduleId.'_'.$perms[0], $moduleId.' '.$perms[0]);
+                            $aclId = $objPerm->newAcl($perms[0], $moduleId.' '.$perms[0]);
                             if(empty($aclList)){
                                 $aclList = $aclId;
                             } else {
@@ -238,38 +240,66 @@ class modulesadmin extends dbTableManager
                             }
                             $permList[] = $perms[0];
 
+                            $groups = array();
                             if(isset($perms[1]) && !empty($perms[1])){
                                 $groups = explode(',', $perms[1]);
                                 foreach($groups as $group){
-                                    $groupId = $objGroups->addGroup($moduleId.'_'.$group, $moduleId
-                                    .' '.$group);
+                                    $groupId = '';
+                                    $groupId = $objGroups->getId($group);
+                                    if(empty($groupId)){
+                                        $description = $moduleId.' '.$group;
+                                        $groupId = $objGroups->addGroup($group, $description);
+                                    }
+                                    
                                     $objPerm->addAclGroup($aclId, $groupId);
                                     $groupArray[] = $group;
                                 }
                             }
                         }else{
+                            $groups = array();
                             if(isset($perms[1]) && !empty($perms[1])){
                                 $groups = explode(',', $perms[1]);
                                 foreach($groups as $group){
+                                    $groupId = '';
                                     $groupId = $objGroups->addGroup($moduleId.'_'.$group, $moduleId
                                     .' '.$group);
+                                    $groupArray[] = $group;
+                                }
+                                foreach($groups as $group){
+                                    $groupId = '';
+                                    $groupId = $objGroups->getId($group);
+                                    if(empty($groupId)){
+                                        $description = $moduleId.' '.$group;
+                                        $objGroups->addGroup($group, $description);
+                                    }
                                     $groupArray[] = $group;
                                 }
                             }
                         }
                     }
                 }
+                          $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
+                $groupList = '';
 
                 // Link existing groups with access to the module.
                 // First check if the group exists and create it if it doesn't.
                 if(isset($registerdata['USE_GROUPS'][0])){
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     $groupList = '';
+                    $group = ''; $grId = ''; $exGroup = array(); $description = '';
 
                     foreach($registerdata['USE_GROUPS'] as $group){
+                        $exGroup = explode('|', $group);
+                        $group = $exGroup[0];
                         $grId = $objGroups->getId($group);
+
                         if(empty($grId)){
-                            $objGroups->addGroup($group, $moduleId.' '.$group);
+                            if(!empty($exGroup[1])){
+                                $description = $exGroup[1];
+                            }else{
+                                $description = $moduleId.' '.$group;
+                            }
+                            $objGroups->addGroup($group, $description);
                         }
                         $groupArray2[] = $group;
                         if(empty($groupList)){
@@ -299,6 +329,7 @@ class modulesadmin extends dbTableManager
                 // Create a condition type
                 if(isset($registerdata['CONDITION_TYPE'][0])){
                     $objType =& $this->getObject('conditiontype','decisiontable');
+                    $array = array(); $class = ''; $types = array();
                     foreach($registerdata['CONDITION_TYPE'] as $val){
                         $array = explode('|', $val);
                         $class = $array[0];
@@ -318,8 +349,12 @@ class modulesadmin extends dbTableManager
                 */
                 $conditions = array();
                 if(isset($registerdata['CONDITION'][0])){
-                    $objCond =& $this->getObject('condition','decisiontable');
+
+                    $array = array(); $list = ''; $paramList = array(); $name = ''; $params = '';
                     foreach($registerdata['CONDITION'] as $condition){
+                        $objCond =& $this->newObject('condition','decisiontable');
+                        $paramList = array(); $array = array(); $list = '';
+                        
                         $array = explode('|', $condition);
                         if(isset($array[2]) && !empty($array[2])){
                                     $list = explode(',', $array[2]);
@@ -332,8 +367,7 @@ class modulesadmin extends dbTableManager
                             foreach($permList as $perm){
                                 foreach($list as $val){
                                     if($perm == $val){
-                                        $val = $moduleId.'_'.$perm;
-                                        $paramList[] = $val;
+                                        $paramList[] = $perm;
                                     }
                                 }
                             }
@@ -341,8 +375,7 @@ class modulesadmin extends dbTableManager
                             foreach($list as $val){
                                 foreach($groupArray as $perm){
                                     if($perm == $val){
-                                        $val = $moduleId.'_'.$perm;
-                                        $paramList[] = $val;
+                                        $paramList[] = $perm;
                                     }
                                 }
                                 foreach($groupArray2 as $perm2){
@@ -355,11 +388,11 @@ class modulesadmin extends dbTableManager
                         }else{
                             $paramList = $list;
                         }
-
+                        
                         $name = $array[0];
                         if(!empty($paramList)){
-                            $paramList = implode(',', $paramList);
-                                    $params = $array[1].$objCond->_delimiterFunc.$paramList;
+                            $paramList2 = implode(',', $paramList);
+                                    $params = $array[1].$objCond->_delimiterFunc.$paramList2;
                             }else{
                             $params = $array[1];
                         }
@@ -370,6 +403,7 @@ class modulesadmin extends dbTableManager
                 // Use existing conditions
                 if(isset($registerdata['USE_CONDITION'][0])){
                     $objCond =& $this->getObject('condition','decisiontable');
+                    $name = ''; $array = array();
                     foreach($registerdata['USE_CONDITION'] as $condition){
                         $array = explode('|', $condition);
                         $name = $array[0];
@@ -391,6 +425,7 @@ class modulesadmin extends dbTableManager
                     $objRule =& $this->getObject('rule','decisiontable');
                     $objRule->connect($objDecisionTable);
                     $i = 1;
+                    $ruleName = ''; $array = array(); $actionList = array(); $conditionList = array();
 
                     // Create the decision table
                     $modTable = $objDecisionTable->create($moduleId);
@@ -414,11 +449,11 @@ class modulesadmin extends dbTableManager
                             // Add the rule to the action
                             $arrActions[$anAction]->add($rule);
                         }
-
                         // Add the condition to the rule
                         foreach( $conditionList as $aCondition ) {
 
                             $rule->add($conditions[$aCondition]);
+
                         }
                     }
                 }
@@ -464,9 +499,9 @@ class modulesadmin extends dbTableManager
                                 // check for module permissions, create if don't exist
                                 else if(!(strpos($val, 'acl_') === FALSE)){
                                     $perm = str_replace('acl_','',$val);
-                                    $permId = $objPerm->getId($moduleId.'_'.$perm);
+                                    $permId = $objPerm->getId($perm);
                                     if(empty($permId)){
-                                        $permId = $objPerm->newAcl($moduleId.'_'.$perm, $moduleId
+                                        $permId = $objPerm->newAcl($perm, $moduleId
                                         .' '.$perm);
                                     }
                                     if(!empty($acls)){
@@ -484,7 +519,7 @@ class modulesadmin extends dbTableManager
                                         $grId = $objGroups->getId($val);
                                         $group = ucwords($val);
                                         if(empty($grId)){
-                                            $group = $moduleId.'_'.ucwords($val);
+                                            $group = ucwords($val);
                                             $grId = $objGroups->getId($group);
                                             if(empty($grId)){
                                                 $objGroups->addGroup($group, $moduleId.' '.$val);
