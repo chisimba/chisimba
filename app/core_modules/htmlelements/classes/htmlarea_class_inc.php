@@ -191,16 +191,20 @@ class htmlarea extends object
     {
         $this->appendArrayVar('headerParams', '
 <script type="text/javascript">
-        function wakeUpFireFoxFckeditor(fckEditorInstance)
-{
-    var oEditor = FCKeditorAPI.GetInstance(fckEditorInstance);
-    try
+    function wakeUpFireFoxFckeditor(fckEditorInstance)
     {
-        oEditor.MakeEditable();
+        try
+        {
+            var oEditor = FCKeditorAPI.GetInstance(fckEditorInstance);
+            try
+            {
+                oEditor.MakeEditable();
+            }
+                catch (e) {}
+            //oEditor.Focus();
+        }
+            catch (e) {}
     }
-        catch (e) {}
-    //oEditor.Focus();
-}
 </script>');
     }
     
