@@ -176,7 +176,32 @@ class htmlarea extends object
         
         //$this->setVar('pageSuppressXML', TRUE);
         
-        return $oFCKeditor->CreateHtml() ;
+        $this->showFCKEditorWakeupJS();
+        
+        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
+    }
+    
+    /**
+     * Method to load JS to fix FCKEditor refusing to focus
+     * @author Tohir Solomons
+     *
+     * Taken from: http://www.tohir.co.za/2006/06/fckeditor-doesnt-want-to-focus-in.html
+     */
+    function showFCKEditorWakeupJS()
+    {
+        $this->appendArrayVar('headerParams', '
+<script type="text/javascript">
+        function wakeUpFireFoxFckeditor(fckEditorInstance)
+{
+    var oEditor = FCKeditorAPI.GetInstance(fckEditorInstance);
+    try
+    {
+        oEditor.MakeEditable();
+    }
+        catch (e) {}
+    //oEditor.Focus();
+}
+</script>');
     }
     
     /**
