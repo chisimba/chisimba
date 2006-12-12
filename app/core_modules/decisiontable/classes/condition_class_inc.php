@@ -72,13 +72,23 @@ class condition extends decisionTableBase
      * @var string
      */
     var $_delimiterParam = ',';
-    
+
+    /**
+     * Property used for storing the dbrulecontion object
+     *
+     * @access private
+     * @var string
+     */
+    public $_objRuleCondition;
     // --- OPERATIONS ---
     function init()
     {
         // Store the class type.
         parent::init('tbl_decisiontable_condition');
         $this->objConditionType = &$this->newObject( 'conditiontype', 'decisiontable' );
+
+        $this->_objRuleCondition = &$this->newObject( 'dbrulecondition', 'decisiontable' );
+
     }
 
     /**
@@ -278,5 +288,25 @@ class condition extends decisionTableBase
        }
        return $value;
     }
+
+     /**
+     * Method to delete the object and all its children objects - modified to take into account no cascading deletes.
+     * Explicitly calls deletes to the bridging tables reliant on the condition table
+     *
+     * @access public
+     * @author Serge Meunier
+     * @param string Delete object by name( optional )
+     * @return true|false Return true if successfull, otherwise false.
+     */
+    function delete( $name = NULL )
+    {
+        // Delete by name
+        $delObject = $name ? $this->create( $name ) : $this;
+
+        $this->_objRuleCondition->delete($delObject->_id, 'conditionId');
+
+        return parent::delete( 'id', $delObject->_id );
+    }
+    
 } /* end of class condition */
 ?>

@@ -94,7 +94,7 @@ class classParser extends object
         // Call the correct the method from its class and in its module
         $arrType = $objConditionType->getType( $function );
         if( !empty( $arrType ) ) {
-            $condition = &$this->newObject( $this->_classPrefix.$arrType['className'], $arrType['moduleName'] );
+            $condition = &$this->newObject( $this->_classPrefix.$arrType['classname'], $arrType['modulename'] );
         } else {
             // Return FALSE if the conditionType not found
             return FALSE;
@@ -111,6 +111,7 @@ class classParser extends object
             $result = FALSE;
        }
         return $result;
+
     }
     
     /**

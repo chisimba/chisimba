@@ -58,5 +58,24 @@ class action extends decisionTableAggregate
         return $result;
     }
 
+     /**
+     * Method to delete the object and all its children objects - modified to take into account no cascading deletes.
+     * Explicitly calls deletes to the bridging tables reliant on the action table
+     *
+     * @access public
+     * @author Serge Meunier
+     * @param string Delete object by name( optional )
+     * @return true|false Return true if successfull, otherwise false.
+     */
+    function delete( $name = NULL )
+    {
+        // Delete by name
+        $delObject = $name ? $this->create( $name ) : $this;
+
+        $this->_objChild->delete($delObject->_id, 'ruleId');
+        $this->_objParts->delete('ruleId', $delObject->_id);
+
+        return parent::delete( 'id', $delObject->_id );
+    }
 }
 ?>

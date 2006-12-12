@@ -62,15 +62,19 @@ class dbActionRule extends dbTable {
 
     /**
      * Method to delete all the action rules
+     * Modified 12/12/2006 to enable delete on any field instead of just action.
+     * Could be done better by just removing function and using parent default but
+     * kept in not to break any code reliant on the function.
      *
      * @access public
      * @author Jonathan Abrahams
+     * @author Serge Meunier
      * @param string actionId
      * @return true|false Return true if successfull, otherwise false.
      */
-    function delete( $actionId )
+    function delete( $value, $deleteKey = 'actionid' )
     {
-        return parent::delete( 'actionid', $actionId );
+        return parent::delete( $deleteKey, $value );
     }
 
     /**

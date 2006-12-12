@@ -62,15 +62,19 @@ class dbRuleCondition extends dbTable {
 
     /**
      * Method to delete all the rule conditions.
+     * Modified 12/12/2006 to enable delete on any field instead of just action.
+     * Could be done better by just removing function and using parent default but
+     * kept in not to break any code reliant on the function.
      *
      * @access public
      * @author Jonathan Abrahams
+     * @author Serge Meunier
      * @param string ruleId
      * @return true|false Return true if successfull, otherwise false.
      */
-    function delete( $ruleId )
+    function delete( $value, $deleteKey = 'ruleid' )
     {
-        return parent::delete( 'ruleid', $ruleId );
+        return parent::delete( $deleteKey, $value );
     }
 
     /**
