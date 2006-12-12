@@ -437,6 +437,7 @@ function checkWindowOpener()
         
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressBanner', TRUE);
+        $this->setVar('suppressFooter', TRUE);
         return 'fckeditor_showfilewindow_tpl.php';
     }
     /**
