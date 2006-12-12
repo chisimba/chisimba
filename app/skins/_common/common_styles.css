@@ -502,6 +502,23 @@ ul.treefolder ul {
     margin-bottom: 5px;
 }
 
+li.orangefolder {
+    background: transparent url('icons/tree/treefolder_orange.gif') no-repeat 0px 1px; 
+    padding-left: 20px;
+    margin-left: 0px;
+}
+
+li.greenfolder {
+    background: transparent url('icons/tree/treefolder_green.gif') no-repeat 0px 1px; 
+    padding-left: 20px;
+    margin-left: 0px;
+}
+
+li.whitefolder {
+    background: transparent url('icons/tree/treefolder_white.gif') no-repeat 0px 1px; 
+    padding-left: 20px;
+    margin-left: 0px;
+}
 
 /******************************************
 * Styles for the tabcontent class
