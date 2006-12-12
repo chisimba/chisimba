@@ -98,7 +98,7 @@ function appendPreviews(id, value)
         
         $fileIdArray .= 'fileId['.$count.'] = "'.$file['id'].'";';
         $filenameArray .= 'fileName['.$count.'] = \''.htmlentities($file['filename']).'\';';
-        $filelinkArray .= 'fileLink['.$count.'] = \''.$this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>$file['datatype']), 'filemanager').'\';';
+        $filelinkArray .= 'fileLink['.$count.'] = \''.$this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>$file['datatype']), 'filemanager', '', TRUE).'\';';
         
         if ($count ==0) {
             $defaultItem['id'] = $file['id'];
