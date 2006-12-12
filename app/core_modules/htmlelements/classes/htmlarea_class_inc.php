@@ -154,8 +154,8 @@ class htmlarea extends object
         
         $objConfig = & $this->newObject('altconfig', 'config');
 
-        $sitePath = parse_url($objConfig->getsiteRoot());
-        $sBasePath = $sitePath['path'].'modules/htmlelements/resources/fckeditor_2.3.2/';
+        $sitePath = pathinfo($_SERVER['PHP_SELF']);
+        $sBasePath = $sitePath['dirname'].'/modules/htmlelements/resources/fckeditor_2.3.2/';
       
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
