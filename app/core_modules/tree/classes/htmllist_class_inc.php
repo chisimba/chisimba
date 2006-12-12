@@ -110,9 +110,13 @@ class htmllist extends presentation
         
         
         // Commence Buildling HTML
-        $html = '<li'.$this->allLiClasses;
         
         
+        if ($node->liClass) {
+			$html = '<li class="'.$node->liClass.'" ';
+		} else {
+			$html = '<li'.$this->allLiClasses;
+		}
         
         $html .=' >';
         
