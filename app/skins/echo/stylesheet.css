@@ -289,7 +289,7 @@ td.widelink a:hover {
 .featurebox {color:#333;padding: 15px 20px 20px;border-top: 1px solid #d7d7d7;margin: 0 0 1.5em;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%}
 .featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {margin: 0 0 .3em;border-bottom: 1px solid #c00;color:#c00; background-color: transparent;}
 .featurebox p {border:none;margin: 0 0 1em;color:#444}
-.featurebox a {font-weight:bold}
+.featurebox a {font-weight:bold; text-decoration:none;}
 .featurebox select {width: 100%; }
 
 /* Secondary Navigation */
