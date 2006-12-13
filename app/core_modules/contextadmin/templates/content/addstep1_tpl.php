@@ -20,18 +20,18 @@ $objForm->extra = 'class="f-wrap-1"';
 $objForm->displayType = 3;
 
 $inpContextCode->name = 'contextcode';
-$inpContextCode->id = 'contextcode';
+$inpContextCode->cssId = 'input_contextcode';
 $inpContextCode->value = '';
 $inpContextCode->cssClass = 'f-name';
 
 $inpTitle->name = 'title';
-$inpTitle->id = 'title';
+$inpTitle->cssId = 'input_title';
 $inpTitle->value = '';
 $inpTitle->cssClass = 'f-name';
 
 $inpMenuText->value = '';
 $inpMenuText->name = 'menutext';
-$inpMenuText->id = 'menutext';
+$inpMenuText->cssId = 'input_menutext';
 $inpMenuText->cssClass = 'f-name';
 
 //status
