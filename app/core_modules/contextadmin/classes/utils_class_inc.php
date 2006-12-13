@@ -112,7 +112,23 @@ class utils extends object
 	  {
 	  	//Put a block to test the blocks module
 		$objBlocks = & $this->newObject('blocks', 'blocks');
-		$leftSideColumn = '';
+       //$userPic  = &$this->newObject('userutils', 'contextpostlogin');
+       $leftSideColumn = $this->_objUser->getUserPic();//$userMenu->show();;
+        //Add loginhistory block
+        
+        
+        
+        $leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
+        
+        $leftSideColumn .= $objBlocks->showBlock('loginstats', 'context');
+        
+        $leftSideColumn .= $objBlocks->showBlock('calendar', 'eventscalendar');
+
+        $leftSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
+
+        $leftSideColumn .= $objBlocks->showBlock('chat', 'chat');
+
+/*
 		//Add loginhistory block
 		$leftSideColumn .= $objBlocks->showBlock('calendar', 'eventscalendar');
 		$leftSideColumn .= $objBlocks->showBlock('loginstats', 'context');
@@ -126,6 +142,7 @@ class utils extends object
 		$leftSideColumn .= $objBlocks->showBlock('whatsnew', 'whatsnew');
 		
 		$leftSideColumn .= $objBlocks->showBlock('today_weather','weather');
+*/
 	      return $leftSideColumn;
 	  }
 	   
@@ -587,7 +604,7 @@ class utils extends object
 				Link to content management goes here. I dont think we can put the content managment in here as it will be too big 
 			</div>
 			
-			<div class="tab-page">
+			<!--div class="tab-page">
 				<h2 class="tab">Assessment Tools</h2>
 				Assessment Tools can go here
 				
@@ -596,7 +613,7 @@ class utils extends object
 				<h2 class="tab">Personal</h2>
 				my personal space can go here
 				
-			</div>
+			</div-->
 			
 			<div class="tab-page">
 				<h2 class="tab">Configure</h2>
