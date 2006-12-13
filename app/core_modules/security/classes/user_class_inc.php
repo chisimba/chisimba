@@ -916,5 +916,13 @@ class user extends dbTable
         return $objContextPermissions->isMember( 'Guest' );
     }
 
+    public function getUserPic()
+      {
+        $objUserPic =& $this->getObject('imageupload', 'useradmin');
+        $objBox = & $this->newObjecT('featurebox', 'navigation');
+        $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
+        return $objBox->show($this->fullName(), $str);
+      }
+
 }
 ?>
