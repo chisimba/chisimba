@@ -147,12 +147,13 @@ class context extends controller
     */
     public function init(){
 
-        $this->objSkin = & $this->getObject('skin','skin');
-        $this->objLanguage=& $this->getObject('language', 'language');
-        $this->objDBContext=& $this->getObject('dbcontext');
-        $this->objUser= & $this->getObject('user','security');
+        $this->objSkin = & $this->newObject('skin','skin');
+        $this->objLanguage=& $this->newObject('language', 'language');
+        $this->objDBContext=& $this->newObject('dbcontext');
+        $this->objUser= & $this->newObject('user','security');
         $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
         $this->objUtils =  & $this->newObject('utilities', 'context');
+        $this->objModule = & $this->newObject('modules', 'modulecatalogue');
         /*      
         $this->objDBContentNodes=& $this->getObject('dbcontentnodes');
         $this->objIcon=& $this->getObject('geticon','htmlelements');
@@ -219,6 +220,8 @@ class context extends controller
             //check if the context has a default module set and then go to that module
             
             case 'contenthome':
+
+                //get the default module for this context
             	$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
             	$moduleid = $objDBContextParams->getParamValue($this->objDBContext->getContextCode(), 'defaultmodule');
             	if( $moduleid != '')
@@ -226,11 +229,11 @@ class context extends controller
             		return $this->nextAction(null,null,$moduleid);
             	}
             	
-                $objModule = $this->getObject('modules', 'modulecatalogue');
                 
-                if ($objModule->checkIfRegistered('contextcontent')) {
-                    return $this->nextAction(NULL, NULL, 'contextcontent');
-                }
+                
+                //if ($objModule->checkIfRegistered('contextcontent')) {
+                //    return $this->nextAction(NULL, NULL, 'contextcontent');
+                //}
                 if(!$this->objUser->isLoggedIn())
                 {
                      return $this->nextAction('content',null);
@@ -238,7 +241,15 @@ class context extends controller
                 $this->setVar('modules', $this->objDBContextModules->getContextModules($this->objDBContext->getContextCode()));
                 $this->setVar('modulesrc',$this->uri(array('mode' => 'elearn'),$this->getParam('moduleid')));
                 return 'list_tpl.php';
-
+            case 'gotomodule':
+                $this->objDBContext->joinContext();
+                if ($this->objModule->checkIfRegistered($this->getParam('moduleid')))
+                {
+                    return $this->nextAction(null,null,$this->getParam('moduleid'));
+                } else {
+                    return $this->nextAction('contenthome');
+                }
+                
             // Print page content to pdf
             case 'print':
                 $page = $this->showPage();
