@@ -163,7 +163,23 @@ class dbcontextmodules extends dbTable{
         }
     }
     
-    
+    /**
+    * Method to check if a module is registered as a plugin
+    * @param string $moduleId
+    * @return boolean
+    * @access public
+    */
+    public function isContextPlugin($contextCode, $moduleId)
+    {
+        $arr = $this->getAll('WHERE contextcode = "'.$contextCode.'" AND moduleid = "'.$moduleId.'"');
+        if(count($arr[0]) > 0)
+        {
+
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
     
  }
 

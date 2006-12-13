@@ -155,25 +155,22 @@ class utils extends object
 	  public function getRightContent()
 	  {
 	     $rightSideColumn = "";
-	     $objBlocks = & $this->newObject('blocks', 'blocks');
-		//Add the getting help block
-		
-		
-		//Add the latest in blog as a a block
-		$rightSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
-		//Add a block for chat
-		$rightSideColumn .= $objBlocks->showBlock('chat', 'chat');
-		//Add a block for the google api search
-		$rightSideColumn .= $objBlocks->showBlock('google', 'websearch');
-		//Put the google scholar google search
-		$rightSideColumn .= $objBlocks->showBlock('scholarg', 'websearch');
-		//Put a wikipedia search
-		$rightSideColumn .= $objBlocks->showBlock('wikipedia', 'websearch');
-		//Put a dictionary lookup
-		$rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
-		//Add random quote block
-		$rightSideColumn .= $objBlocks->showBlock('rquote', 'quotes');
-		
+         $objBlocks = & $this->newObject('blocks', 'blocks');
+        //Add the getting help block
+        $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
+        //Add the latest in blog as a a block
+        //$rightSideColumn .= $objBlocks->showBlock('latest', 'blog');
+        //Add the latest in blog as a a block
+        //$rightSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
+        //Add a block for chat
+        //$rightSideColumn .= $objBlocks->showBlock('chat', 'chat');
+        //Add a block for the google api search
+        $rightSideColumn .= $objBlocks->showBlock('google', 'websearch');
+        //Put the google scholar google search
+        $rightSideColumn .= $objBlocks->showBlock('scholarg', 'websearch');
+        //Put a wikipedia search
+        $rightSideColumn .= $objBlocks->showBlock('wikipedia', 'websearch');
+        //Put a dictionary lookup
 		return $rightSideColumn;
 	  } 
 	  
@@ -207,6 +204,7 @@ class utils extends object
 	  	$str = '';
 	  	$arr = $this->_objContextModules->getContextModules($contextCode);
 	  	$objIcon = & $this->newObject('geticon', 'htmlelements');
+        $objLink = & $this->newObject('link', 'htmlelements');
 	  	$objModule = & $this->newObject('modules', 'modulecatalogue');
 	  	if(is_array($arr))
 	  	{
@@ -217,7 +215,11 @@ class utils extends object
 	  			
 	  			$objIcon->setModuleIcon($plugin['moduleid']);
 	  			$objIcon->alt = $modInfo['name'];
-	  			$str .= $objIcon->show().'   ';
+	  			//$str .= $objIcon->show().'   ';
+                
+                $objLink->href = $this->uri(array ('action' => 'gotomodule', 'moduleid' => $plugin['moduleid'], 'contextcode' => $contextCode), 'context');
+                $objLink->link = $objIcon->show();
+                $str .= $objLink->show().'   ';
 	  		}
 	  		
 	  		return $str;
@@ -562,6 +564,113 @@ class utils extends object
 			//return $inpAbout->show();
 				  	
 	  }
+
+        /**
+        * Method to get the context users
+        * @return string
+        */
+        public function getContextUsers()
+        {
+
+            //manage context users for the course that you are in only
+            $objLink =  & $this->newObject('link', 'htmlelements');
+            $icon =  & $this->newObject('geticon', 'htmlelements');
+            $table = & $this->newObject('htmltable' , 'htmlelements');
+            $objGroups = & $this->newObject('managegroups', 'contextgroups');
+            $box =  & $this->newObject('featurebox', 'navigation');
+            //lecturers
+            $lecturerArr = $objGroups->contextUsers('Lecturers');
+            
+            //table headings
+            $table->width = '60%';
+            $rowcount = 0;
+            if(count($lecturerArr) > 0)
+            {
+                
+                foreach($lecturerArr as $lecture)
+                {
+                    $oddOrEven = ($rowcount == 0) ? "even" : "odd";
+                    $tableRow = array($lecture['fullname']);
+                    $table->addRow($tableRow);
+                    $rowcount = ($rowcount == 0) ? 1 : 0;
+                }
+            } else {
+                
+            }
+            $lnkLect = $this->newObject('link', 'htmlelements');
+            $lnkLect->href = $this->uri( array( 'action'=>'manage_lect' ),'contextgroups' );
+            $lnkLect->link = $this->_objLanguage->code2Txt('mod_contextgroups_managelects','contextgroups',array('authors'=>''));
+
+            $tableRow = array('<hr/>'.$lnkLect->show());
+            $table->addRow($tableRow);
+        
+            $str .= $box->show(ucwords($this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups',array('authors'=>''))),$table->show());
+            
+            //students list
+            $studentArr = $objGroups->contextUsers('Students');
+            $table = & $this->newObject('htmltable' , 'htmlelements');
+            //table headings
+            $table->width = '60%';
+            $rowcount = 0;
+            if(count($studentArr) > 0)
+            {
+                
+                foreach($studentArr as $student)
+                {
+                    $oddOrEven = ($rowcount == 0) ? "even" : "odd";
+                    $tableRow = array($student['fullname']);
+                    $table->addRow($tableRow);
+                    $rowcount = ($rowcount == 0) ? 1 : 0;
+                }
+            } else {
+                
+            }
+           $lnkStud = $this->newObject('link', 'htmlelements');
+            $lnkStud->href = $this->uri( array( 'action'=>'manage_stud' ),'contextgroups' );
+            $lnkStud->link = $this->_objLanguage->code2Txt('mod_contextgroups_managestuds','contextgroups',array('readonlys'=>''));
+          
+
+            $tableRow = array('<hr/>'.$lnkStud->show());
+            $table->addRow($tableRow);
+        
+            $str .= $box->show(ucwords($this->_objLanguage->code2Txt('mod_contextgroups_ttlStudents','contextgroups')),$table->show());
+
+
+
+            $table = & $this->newObject('htmltable' , 'htmlelements');
+            //lecturers
+            $guestArr = $objGroups->contextUsers('Guest');
+            
+            //table headings
+            $table->width = '60%';
+            $rowcount = 0;
+            if(count($guestArr) > 0)
+            {
+                
+                foreach($guestArr as $guest)
+                {
+                    $oddOrEven = ($rowcount == 0) ? "even" : "odd";
+                    $tableRow = array($guest['fullname']);
+                    $table->addRow($tableRow);
+                    $rowcount = ($rowcount == 0) ? 1 : 0;
+                }
+            } else {
+                
+            }
+            $lnkGuest = $this->newObject('link', 'htmlelements');
+            $lnkGuest->href = $this->uri( array( 'action'=>'manage_guest' ),'contextgroups' );
+            $lnkGuest->link = $this->_objLanguage->languageText('mod_contextgroups_manageguests','contextgroups');
+
+            $tableRow = array('<hr/>'.$lnkGuest->show());
+            $table->addRow($tableRow);
+        
+            $str .= $box->show(ucwords($this->_objLanguage->languageText('mod_contextgroups_ttlGuest','contextgroups')),$table->show());
+ 
+
+            //students
+           
+            return $str;
+        }
 	  
 	  /**
 	   * Method to generate the toolbox for the 
@@ -590,7 +699,11 @@ class utils extends object
 				'. $this->getPluginForm().'
 				
 			</div>
-
+            <div class="tab-page">
+                <h2 class="tab">Users</h2>
+                '.$this->getContextUsers().'
+                
+            </div>
 			<div class="tab-page">
 				<h2 class="tab">Communication</h2>
 
@@ -626,6 +739,7 @@ class utils extends object
 				'.$this->getAboutForm().'
 				
 			</div>
+            
 
 		</div>
 		

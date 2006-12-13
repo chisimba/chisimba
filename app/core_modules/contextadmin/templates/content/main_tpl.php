@@ -58,7 +58,7 @@ if (isset($contextList))
 		
 		//enter context
 		$objLink->href = $this->uri(array('action' => 'joincontext', 'contextcode' => $context['contextcode']), 'context');
-		$icon->setIcon('leavecourse');
+		$icon->setIcon('entercourse');
 		$icon->alt = 'Enter Course';
 		$objLink->link = $icon->show();
 		$conf .= $objLink->show();
@@ -69,15 +69,7 @@ if (isset($contextList))
 		//delete context
 		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
 		
-		//manage context users for the course that you are in only
-		if ($currentContextCode == $context['contextcode'])
-		{
-			$objLink->href = $this->uri(array('action' => 'main', 'contextcode' => $context['contextcode']), 'contextgroups');
-			$icon->setIcon('student');
-			$icon->alt = 'Manage Course Users';
-			$objLink->link = $icon->show();
-			$conf .= $objLink->show();
-		}
+		
 		
 		if($context['contextcode'] == $this->_objDBContext->getContextCode())
 		{
