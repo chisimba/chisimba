@@ -30,6 +30,7 @@ $this->href = $this->getObject('href', 'htmlelements');
 
 $devmsg = urldecode($devmsg);
 $objHiddenInput = new hiddeninput('error', htmlentities($devmsg));
+$objHiddenInput2 = new hiddeninput('server', $_SERVER['HTTP_HOST']);
 $usrmsg = urldecode($usrmsg);
 $devmsg = nl2br($devmsg);
 $usrmsg = nl2br($usrmsg);
@@ -47,6 +48,7 @@ $objForm->displayType = 4;
 $objForm->addToFormEx($objLanguage->languageText('mod_errors_submiterrs', 'errors'));
 $objForm->addToFormEx($objTextArea->show());
 $objForm->addToFormEx($objHiddenInput->show());
+$objForm->addToFormEx($objHiddenInput2->show());
 
 $this->objButton=&new button($objLanguage->languageText('word_submit', 'system'));
 $this->objButton->setValue($objLanguage->languageText('word_submit', 'system'));
