@@ -464,8 +464,10 @@ class upload extends object
         //Check against all extensions
         foreach($this->permittedTypes as $type) {
             $type = strtolower($type);
-            if ($type==$ext) {
+            if ($type=='all') {
                 return TRUE;
+            } elseif ($type == $ext){
+
             }
         }
         return FALSE;
