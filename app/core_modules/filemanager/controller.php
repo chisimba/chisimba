@@ -532,9 +532,13 @@ function checkWindowOpener()
 	 * @return bool
 	 * @access public
 	 */
-	public function requiresLogin()
+	public function requiresLogin($action)
 	{
-		return FALSE;
+		if ($action == 'file') {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
 	}
 }
 
