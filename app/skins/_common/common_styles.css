@@ -8,6 +8,11 @@
     padding:0;
 }
 
+/* Adding Padding to the right of a drop down option - otherwise chops off */
+option {
+	padding-right: 10px;
+}
+
 /* Body and HTML */
 html, body {
 	width: 100%;
