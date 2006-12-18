@@ -112,7 +112,7 @@ class htmllist extends presentation
         // Commence Buildling HTML
         
         
-        if ($node->liClass) {
+        if (isset($node->liClass)) {
 			$html = '<li class="'.$node->liClass.'" ';
 		} else {
 			$html = '<li'.$this->allLiClasses;
