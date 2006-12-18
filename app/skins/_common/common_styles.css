@@ -49,7 +49,7 @@ a:hover {
 
 #menu li {
     margin: 0;
-    
+
     border: 0;
     display: block;
     float: left;
@@ -255,11 +255,11 @@ ul.nomarker li {background:none;padding-left:0}
 dl {margin: 0 0 1em 0}
 dt {font-weight:bold;margin-top: 1.3em}
 dl dl {margin: 0 0 1.5em 30px}
-img {border:none} 
+img {border:none}
 hr {margin: 1em 0;background:#f2f2f2;height:1px;color:#f2f2f2;border:none;clear:both}
 small {font-size:11px}
 
-.clear {clear:both;position:relative;font-size:0px;height:0px;line-height:0px} 
+.clear {clear:both;position:relative;font-size:0px;height:0px;line-height:0px}
 .highlight {color:#E17000}
 .subdued {color:#999}
 .error {color:#c00;font-weight:bold}
@@ -317,8 +317,8 @@ table.overflowtable {
 table.overflowtable td.overflowcolumn {
 	overflow:hidden;
 	white-space:nowrap;
- } 
- 
+ }
+
  /***********************************************************************************************
 *  BEGIN: Styles to use for creating tabbed boxes such as the login one                        *
 ***********************************************************************************************/
@@ -393,11 +393,11 @@ fieldset.tabbox ul {
 	#nav-secondary, #nav-secondary li {list-style: none;margin:0;padding:0;background:#fff}
 	#nav-secondary {padding-top:0;border-top: 1px solid #ccc;margin-top: 1px}
 	#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff;font: bold 86% arial;display:block}
-	#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer;} 
-	#nav-secondary a:link {color:#000} 
-	#nav-secondary a:visited {color:#000} 
-	#nav-secondary a:hover {color:#c00;background: #fee} 
-	#nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#c00} 
+	#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer;}
+	#nav-secondary a:link {color:#000}
+	#nav-secondary a:visited {color:#000}
+	#nav-secondary a:hover {color:#c00;background: #fee}
+	#nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#c00}
 	#nav-secondary li {border-top: 1px solid #fff;border-bottom: 1px solid #ccc}
 
 /* SECONDARY NAVIGATION - 2nd TIER */
@@ -405,34 +405,34 @@ fieldset.tabbox ul {
 	#nav-secondary li.active li a, #nav-secondary li.active li a:link, #nav-secondary li.active li a:visited {line-height:1.5;background-color: #fff ;padding:0 0 0 12px;font-weight:normal;width:auto;color:#000;width:130px;display:block}
 	#nav-secondary li.active li a:hover, #nav-secondary li.active li a:active {color: #c00}
 	#nav-secondary li.active li {border: none;margin:0}
-	
-	#nav-secondary li.active li.active a:link, 
-	#nav-secondary li.active li.active a:visited, 
-	#nav-secondary li.active li.active a:hover, 
+
+	#nav-secondary li.active li.active a:link,
+	#nav-secondary li.active li.active a:visited,
+	#nav-secondary li.active li.active a:hover,
 	#nav-secondary li.active li.active a:active {font-weight:bold}
 
 /* SECONDARY NAVIGATION - 3rd TIER */
 	#nav-secondary ul ul {margin: 0 0 1em 13px;padding:0}
 	#nav-secondary li.active li.active li a, #nav-secondary li.active li.active li a:link, #nav-secondary li.active li.active li a:visited {width:117px}
-	#nav-secondary li.active li.active li a:link, 
-	#nav-secondary li.active li.active li a:visited, 
-	#nav-secondary li.active li.active li a:hover, 
+	#nav-secondary li.active li.active li a:link,
+	#nav-secondary li.active li.active li a:visited,
+	#nav-secondary li.active li.active li a:hover,
 	#nav-secondary li.active li.active li a:active {font-weight:normal}
-	#nav-secondary li.active li.active li.active a:link, 
-	#nav-secondary li.active li.active li.active a:visited, 
-	#nav-secondary li.active li.active li.active a:hover, 
+	#nav-secondary li.active li.active li.active a:link,
+	#nav-secondary li.active li.active li.active a:visited,
+	#nav-secondary li.active li.active li.active a:hover,
 	#nav-secondary li.active li.active li.active a:active {font-weight:bold}
 
 /* SECONDARY NAVIGATION - 4th TIER */
 	#nav-secondary ul ul ul {margin: 0 0 1em 13px;padding:0}
 	#nav-secondary li.active li.active li.active li a, #nav-secondary li.active li.active li.active li a:link, #nav-secondary li.active li.active li.active li a:visited {width:104px}
-	#nav-secondary li.active li.active li.active li a:link, 
-	#nav-secondary li.active li.active li.active li a:visited, 
-	#nav-secondary li.active li.active li.active li a:hover, 
+	#nav-secondary li.active li.active li.active li a:link,
+	#nav-secondary li.active li.active li.active li a:visited,
+	#nav-secondary li.active li.active li.active li a:hover,
 	#nav-secondary li.active li.active li.active li a:active {font-weight:normal}
-	#nav-secondary li.active li.active li.active li.active a:link, 
-	#nav-secondary li.active li.active li.active li.active a:visited, 
-	#nav-secondary li.active li.active li.active li.active a:hover, 
+	#nav-secondary li.active li.active li.active li.active a:link,
+	#nav-secondary li.active li.active li.active li.active a:visited,
+	#nav-secondary li.active li.active li.active li.active a:hover,
 	#nav-secondary li.active li.active li.active li.active a:active {font-weight:bold}
 
 
@@ -466,7 +466,7 @@ div.domTTCaption {
     padding: 0em 1em 0em 1em;
     text-transform: none;
     text-decoration: none;
-    
+
     font-size: 1em;
     height: 1em;
     cursor: hand;
@@ -487,13 +487,13 @@ div.domTTContent {
 ******************************************************************************************/
 
 ul.sectionfolder li {
-    background: transparent url('icons/folder2.gif') no-repeat 0px 1px; 
+    background: transparent url('icons/folder2.gif') no-repeat 0px 1px;
     padding-left: 20px;
     margin-left: 0px;
 }
 
 li.sectionfolder {
-    background: transparent url('icons/folder2.gif') no-repeat 0px 1px; 
+    background: transparent url('icons/folder2.gif') no-repeat 0px 1px;
     padding-left: 20px;
     margin-left: 0px;
 }
@@ -503,19 +503,19 @@ ul.treefolder ul {
 }
 
 li.orangefolder {
-    background: transparent url('icons/tree/treefolder_orange.gif') no-repeat 0px 1px; 
+    background: transparent url('icons/tree/treefolder_orange.gif') no-repeat 0px 1px;
     padding-left: 20px;
     margin-left: 0px;
 }
 
 li.greenfolder {
-    background: transparent url('icons/tree/treefolder_green.gif') no-repeat 0px 1px; 
+    background: transparent url('icons/tree/treefolder_green.gif') no-repeat 0px 1px;
     padding-left: 20px;
     margin-left: 0px;
 }
 
 li.whitefolder {
-    background: transparent url('icons/tree/treefolder_white.gif') no-repeat 0px 1px; 
+    background: transparent url('icons/tree/treefolder_white.gif') no-repeat 0px 1px;
     padding-left: 20px;
     margin-left: 0px;
 }
@@ -594,3 +594,34 @@ display:none;
 /**
 * END -Styles for the tabcontent class
 */
+
+/**
+ * Quotes styling
+ */
+
+q {
+#background: transparent;
+#border: 1px solid gray;
+#background-color: yellow;
+#width: 50px;
+}
+
+q:before, q:after {
+color: #69c;
+font-size: 300%;
+#width: 10px;
+}
+
+q:before {
+content: open-quote;
+height: 0;
+#margin-left: -0.55em;
+}
+q:after {
+content: close-quote;
+#height: 50px;
+#margin-top: -70px;
+}
+/**
+ * END QUOTES
+ */
