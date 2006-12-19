@@ -56,6 +56,10 @@ class htmlelements extends controller
 				return 'test1_tpl.php';
 			case 'tabcontent':
 			    return 'tabcontent_tpl.php';
+            case 'submodalexample':
+                return 'submodalexample_tpl.php';
+            case 'submodalexample_content':
+                return 'submodalexamplecontent_tpl.php';
 			
 		}
 		    
