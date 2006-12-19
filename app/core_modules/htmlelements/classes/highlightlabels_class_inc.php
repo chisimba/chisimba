@@ -50,7 +50,7 @@ class highlightlabels extends object implements ifhtml
     }
     
     /**
-    * Method to display the color picker
+    * Method to load the highlight labels functionality in a page.
     */
     public function show()
     {
