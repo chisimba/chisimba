@@ -415,7 +415,7 @@ class contextpermissions extends controller {
                 return $this->nextAction('show_condition',array('id'=>$condId));
             } else {
                 $this->setSession('msg',
-                    $this->objLanguage->language('mod_contextpermissions_NotSaved','[Not saved!]'));
+                    $this->objLanguage->languageText('mod_contextpermissions_NotSaved','contextpermissions','[Not saved!]'));
                 return $this->nextAction('show_condition',array('id'=>$condId));
             }
         } else if ( $this->getParam( 'button' ) == 'cancel' ) {
