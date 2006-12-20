@@ -314,7 +314,6 @@ class dbTable extends object
         	log_debug($sql);
         }
         $rs = $this->query($sql);
-
 	    return $rs[0]['rc'];
     }
 
@@ -458,7 +457,7 @@ class dbTable extends object
         	log_debug($sql);
         }
 
-        if($this->_db->phptype === 'mysql')
+        if($this->_db->phptype == 'mysql')
         {
         	$ret = $this->_execute($sql, $params);
         }
