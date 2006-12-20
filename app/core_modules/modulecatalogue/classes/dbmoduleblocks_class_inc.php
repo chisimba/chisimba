@@ -45,7 +45,7 @@ class dbmoduleblocks extends dbTable
     }
     
     public function addBlock($moduleid,$blockName,$width) {
-    	$exists = $this->getAll("WHERE moduleid = '$moduleid' AND blockname = '$blockName' AND 'blockwidth' = '$width'");
+        $exists = $this->getAll(" WHERE moduleid = '$moduleid' AND blockname = '$blockName' AND blockwidth = '$width'");
     	if (count($exists) < 1) {
     		$arrData = array('moduleid'=>$moduleid,'blockname'=>$blockName,'blockwidth'=>$width);
     		$this->insert($arrData);
