@@ -49,9 +49,13 @@ div#menu li:hover li ul,
 }
 
 #menuList {
-	height: 1%;
+    display: block;
+    border: 2px solid yellow;
 }
 
 /*		------   Make-up	--------			*/
 
-
+#breadcrumbs {
+    display: block;
+    clear: both;
+}
