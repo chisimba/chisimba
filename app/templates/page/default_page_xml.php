@@ -76,28 +76,17 @@ if (!isset($pageTitle)) {
 <?php
 
 if (!isset($pageSuppressSkin)){
-	if (isset($pageSimpleSkin)) {
-	    echo $objSkin->putSimpleSkinCssLinks();
-	}
-	else {
-    	//echo $objSkin->putSkinCssLinks();
-    	echo '<link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
-    	<link rel="icon" href="skins/'.$objSkin->getSkin().'/icons/csimba.gif" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/stylesheet.css" media="screen" />
-				<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/print.css" media="print" />
-				<!--[if lte IE 7]>
-					<link rel="stylesheet" type="text/css" href="skins/_common/ie6_or_less.css" />
-				<![endif]-->';
-    	if (!isset($pageSuppressToolbar)) {
-				echo '
-<!--[if lte IE 6]>
-<style type="text/css">
-    body { behavior:url("skins/_common/js/ADxMenu_prof.htc"); }
-</style>
-<![endif]-->
-';
-		}
-	}
+    echo $objSkin->putSkinCssLinks();
+    
+    if (!isset($pageSuppressToolbar)) {
+        echo '
+        <!--[if lte IE 6]>
+        <style type="text/css">
+            body { behavior:url("skins/_common/js/ADxMenu_prof.htc"); }
+        </style>
+        <![endif]-->
+        ';
+    }
 }
 
 if (isset($jsLoad)) {
