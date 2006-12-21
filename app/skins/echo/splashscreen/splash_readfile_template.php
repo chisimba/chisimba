@@ -26,7 +26,7 @@
     		            <h3>Login</h3>
     
     		                        [-USERNAMEBOX-]
-    
+                            <br />
     		                        [-PASSWORDBOX-]
     		                 <br />
     		                        [-USELDAPCHECK-][-LOGINBUTTON-]
