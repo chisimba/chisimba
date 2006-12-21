@@ -85,7 +85,7 @@ if (!isset($pageSuppressSkin)){
     	<link rel="icon" href="skins/'.$objSkin->getSkin().'/icons/csimba.gif" />
         <link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/stylesheet.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="skins/'.$objSkin->getSkin().'/print.css" media="print" />
-				<!--[if lte IE 6]>
+				<!--[if lte IE 7]>
 					<link rel="stylesheet" type="text/css" href="skins/_common/ie6_or_less.css" />
 				<![endif]-->';
     	if (!isset($pageSuppressToolbar)) {
