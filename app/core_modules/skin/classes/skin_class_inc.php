@@ -10,18 +10,15 @@
 */
 class skin extends object
 {
-    var $objForm;
-    var $objButtons;
-    var $objDropdown;
     
-    var $skinFile = 'stylesheet.css';
+    public $skinFile = 'stylesheet.css';
 
-    function init()
+    public function init()
     {
         $this->objLanguage =& $this->getObject('language', 'language');
         $this->objButtons =& $this->getObject('navbuttons', 'navigation');
-        $this->objForm =& $this->newObject('form','htmlelements');
-        $this->objDropdown =& $this->newObject('dropdown','htmlelements');
+        $this->loadClass('form','htmlelements');
+        $this->loadClass('dropdown','htmlelements');
         $this->objConfig =& $this->newObject('altconfig','config');
         //$this->server =& $this->objConfig->serverName();
 
@@ -33,7 +30,7 @@ class skin extends object
     * Method to get the name of the current skin
     * @return current skin
     */
-    function getSkin()
+    public function getSkin()
     {
         $this->validateSkinSession();
         return $this->getSession('skin');
@@ -43,7 +40,7 @@ class skin extends object
     * Method to return the appropriate skin location
     * @return the path of the skin
     */
-    function getSkinLocation()
+    public function getSkinLocation()
     {
         $this->validateSkinSession();
         return $this->objConfig->getsiteRootPath().'/skins/'.$this->getSession('skin').'/';
@@ -53,7 +50,7 @@ class skin extends object
     * Method to return the appropriate skin location as a URL
     * @return the path of the skin as a URL
     */
-    function getSkinUrl()
+    public function getSkinUrl()
     {
         $this->validateSkinSession();
 
@@ -68,7 +65,7 @@ class skin extends object
     * @param boolean $redirect Variable to dictate whether to redirect after a skin change
     * Though this variable is defaulted to TRUE, it is in an if-statement requiring a $_POST method
     */
-    function validateSkinSession()
+    public function validateSkinSession()
     {
         // Check if skin exists, else set to default
         if ($this->getSession('skin') == '') {
@@ -91,7 +88,7 @@ class skin extends object
     /**
     * Method to include the stylesheet for the current skin
     */
-    function skinStartPage($headerParams=NULL)
+    public function skinStartPage($headerParams=NULL)
     {
     }
 
@@ -100,13 +97,14 @@ class skin extends object
     * Works by building the string $ret into
     * the script needed to produce the HTML
     */
-    function putSkinChooser()
+    public function putSkinChooser()
     {
 
         //replace withthe name of the current script
         $script=$_SERVER['PHP_SELF'];
-        $ret = $objNewForm = new form('ignorecheck',$script);
-        $ret = $objDropdown = new dropdown('skinlocation');
+        $objNewForm = new form('ignorecheck',$script);
+        $objDropdown = new dropdown('skinlocation');
+        
         //loop through the folders and build an array of available skins
         $basedir=$this->objConfig->getsiteRootPath()."skins/";
         chdir($basedir);
@@ -132,26 +130,24 @@ class skin extends object
         closedir($dh);
 
         foreach ($dirList as $element=> $value) {
-           $ret .= $objDropdown->addOption($element,$value);
+           $objDropdown->addOption($element,$value);
         }
-        $ret = $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin').":<br />\n");
+        $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin').":<br />\n");
 
         // Set the current skin as the default selected skin
         $objDropdown->setSelected($this->getSession('skin'));
         $objDropdown->cssClass = 'coursechooser';
 
-        $ret .= $objDropdown->show();
-        $ret .= $button = $this->objButtons->formButton('submit',$this->objLanguage->languageText('word_go'));
-        $ret = $objNewForm->addToForm($ret);
-        $ret = $objNewForm->show();
-        return $ret;
+        $button = $this->objButtons->formButton('submit',$this->objLanguage->languageText('word_go'));
+        $objNewForm->addToForm($objDropdown->show().$button);
+        return $objNewForm->show();
 
     }
 
     /**
     * Method to choose the skin for the current the session
     */
-    function chooseSkin()
+    public function chooseSkin()
     {
         if ($this->getSkinLocation()=='') {
             die('Error loading skin');
@@ -161,7 +157,7 @@ class skin extends object
     /**
     * Method to return the base URL for the banner image
     */
-    function bannerImageBase()
+    public function bannerImageBase()
     {
         return $this->getSkinUrl().'banners/';
     }
@@ -170,7 +166,7 @@ class skin extends object
     * Method to return the skin location of the common icons folder as a URL
     * @return the path of the common skin as a URL
     */
-    function getCommonSkinUrl()
+    public function getCommonSkinUrl()
     {
         return $this->objConfig->getskinRoot().'/_common/';
     }
@@ -178,7 +174,7 @@ class skin extends object
     /**
      * Method to put a logout link on the page
      */
-    function putLogout()
+    public public function putLogout()
     {
         $logout=$this->objLanguage->languageText('word_logout','security','Logout');
         $objConfirm =& $this->getObject('confirm', 'utilities');
@@ -194,15 +190,19 @@ class skin extends object
     /**
     * Method to output CSS to the header based on browser
     */
-    function putSkinCssLinks()
+    public function putSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().$this->skinFile.'">'."</link>" . "\r\n";
-        $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
+        $stylesheet = '
+        <link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
+    	<link rel="icon" href="skins/'.$this->getSkin().'/icons/csimba.gif" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/print.css" media="print" />
+				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
-            $stylesheet .= '<style type="text/css">
-                @import "'.$this->objConfig->getskinRoot().'_common/IE_dd_menu_and_layout_fix.css";
-                body { behavior:url("'.$this->objConfig->getskinRoot().'_common/ADxMenu_prof.htc"); }
-            </style>';
+            $stylesheet .= '
+        <!--[if lte IE 7]>
+            <link rel="stylesheet" type="text/css" href="skins/_common/ie6_or_less.css" />
+        <![endif]-->';
         }
         return $stylesheet;
     }
@@ -210,19 +210,9 @@ class skin extends object
     /**
     * Method to output simple CSS to the header based on browser
     */
-    function putSimpleSkinCssLinks()
+    public function putSimpleSkinCssLinks()
     {
-        $stylesheet = '<link rel="stylesheet" type="text/css" href="'.$this->getSkinUrl().$this->skinFile.'">'."</link>" . "\r\n";
-		/*
-        $stylesheet .= '<style type="text/css" media="screen, tv, projection"> @import "'.$this->getSkinUrl().'dropdown_menu_css.php"; </style>'."\r\n";
-        if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
-            $stylesheet .= '<style type="text/css">
-                @import "'.$this->objConfig->skinRoot().'_common/IE_dd_menu_and_layout_fix.css";
-                body { behavior:url("'.$this->objConfig->skinRoot().'_common/ADxMenu_prof.htc"); }
-            </style>';
-        }
-		*/
-        return $stylesheet;
+        return $this->putSkinCssLinks();
     }
 
 } # End of class
