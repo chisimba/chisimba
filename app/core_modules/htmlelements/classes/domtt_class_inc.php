@@ -19,10 +19,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 class domtt extends object
 {
 
-	
+
 	/**
      * Method to show the domTT Item
-     * 
+     *
      * @return string
      * @access public
      * @author Wesley Nitsckie
@@ -31,27 +31,27 @@ class domtt extends object
     {
     	$this->putScripts();
         $this->url = $url;
-        
+
         $this->linkText = $linkText;
-        
+
         $this->message = $message;
-        
+
         $this->title = $title;
-        
-        $str = "<a  ".$extra."  href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."<p>".$this->message."</p>', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
+
+        $str = "<a  ".$extra."  href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."&lt;p&gt;".$this->message."&lt;/p&gt;', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
         return $str;
     }
-	
+
 	 /**
      * Method to get the javaScript files
-     * 
+     *
      * @access public
      * @author Wesley Nitsckie
      * @return null
      */
     public function putScripts()
     {
-        
+
        $str = '<script type="text/javascript" language="javascript" src="installer/domtt/domLib.js"></script>
         <script type="text/javascript" language="javascript" src="installer/domtt/fadomatic.js"></script>
         <script type="text/javascript" language="javascript" src="installer/domtt/domTT.js"></script>
@@ -60,10 +60,10 @@ class domtt extends object
             var domTT_oneOnly = true;
         </script>
         <link rel="stylesheet" href="installer/domtt/example.css" type="text/css" />';
-        
+
         $this->appendArrayVar('headerParams',$str );
-        
+
         return $str;
-        
+
     }
 }
