@@ -17,47 +17,54 @@ if (!$GLOBALS['kewl_entry_point_run'])
  * @copyright 2004, University of the Western Cape & AVOIR Project
  * @license GNU GPL
  * @version
- * @author Wesley Nitsckie 
+ * @author Wesley Nitsckie
 *
 *
 *
 */
 class confirm extends object{
-	
+
 	/**
 	*@var $message
 	*The message that will be desplayed in the confirm box
 	*/
 	var $message;
-	
+
 	/**
 	*@var $url
-	*The url 
+	*The url
 	*/
 	var $url;
-	
+
 	/**
 	*@var $link
 	*The link .. can be text or image
 	*/
-	var $link;	
+	var $link;
 
 	/**
 	*@var $extra
-	*Any extra subelements go here 
+	*Any extra subelements go here
 	*/
 	var $extra;
-        
+
+    /**
+    *Constructor
+    */
+    function confirm(){
+        $this->init();
+    }
+
 	/**
 	*Initialize
 	*/
 	function init(){
-		
+
 	}
-	
+
 	/**
 	*Method to setup the Confirmation Box
-	*@param string $link: The Link 
+	*@param string $link: The Link
 	*@param string $url :the url
 	*@param $string $message: The message that will be displayed in the box
         * @param string $extra - any extra stuff goes here
@@ -68,11 +75,11 @@ class confirm extends object{
 		$this->message=$message;
                 $this->extra=$extra;
 	}
-	
-	
+
+
 	/**
 	*Method to show the box
-	*/	
+	*/
 	function show(){
 		$str='<a href="javascript: if(confirm(\''.$this->message.'\')) {document.location=\''.$this->url.'\'}" '.$this->extra.'>'.$this->link.'</a>';
 		return $str;
