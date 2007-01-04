@@ -390,7 +390,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'pgsql not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'pgsql not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
@@ -406,7 +406,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['SQLite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'SQLite not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'SQLite not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
@@ -422,7 +422,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['SimpleXML']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'SimpleXML not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'SimpleXML not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
@@ -438,7 +438,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['SOAP']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'SOAP not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'SOAP not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
@@ -454,27 +454,11 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['xml']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'xml not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'xml not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
 			$this->required_settings['xml']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
-
-		}
-
-		// check SOAP
-
-		if (!extension_loaded('SOAP')) {
-
-			$this->required_settings['SOAP']['available'] = false;
-
-			$this->required_settings['SOAP']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'SOAP not found. . You can proceed with the install, however some functionality will not be available to you';
-
-		} else {
-
-			$this->required_settings['SOAP']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 		}
 
@@ -486,7 +470,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['xmlreader']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'xmlreader not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'xmlreader not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
@@ -502,7 +486,7 @@ class PHPCheckAction extends StepAction
 
 			$this->required_settings['xmlwriter']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->errors[] = 'xmlwriter not found. . You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'xmlwriter not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
