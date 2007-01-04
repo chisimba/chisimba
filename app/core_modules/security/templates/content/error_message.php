@@ -10,8 +10,7 @@ $this->loadClass('tabbedbox', 'htmlelements');
 
 
 // --- Login Form ---
-$this->objLogin= &$this->getObject('siteloginurl','security');
-$loginUri=$this->objLogin->loginUrl();
+$form = new form('login', $this->uri(array('action'=>'login'), 'security'));
 
 $form = new form('login', $loginUri);
 
