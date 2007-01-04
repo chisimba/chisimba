@@ -12,8 +12,6 @@ $this->loadClass('tabbedbox', 'htmlelements');
 // --- Login Form ---
 $form = new form('login', $this->uri(array('action'=>'login'), 'security'));
 
-$form = new form('login', $loginUri);
-
 $table =& $this->getObject('htmltable', 'htmlelements');
 $table->cellpadding = 5;
 
@@ -30,7 +28,7 @@ $password->fldType = 'password';
 $table->addRow(array($passwordLabel->show()));
 $table->addRow(array($password->show()));
 
-if ($this->objConfig->useLDAP()) {
+if ($this->objConfig->getuseLDAP()) {
     $ldap = new checkbox('useLdap','yes');
     $ldap->setValue('yes');
     $ldapLabel = new label('Network Id', 'input_useLdap'); ///*********************************************************** Language Text Element
