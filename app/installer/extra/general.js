@@ -258,7 +258,7 @@ function sq_redirect(url) {
 	document.write('<html>');
 	document.write('	<head>');
 	document.write('		<style type="text/css">');
-	document.write('			body {'');
+	document.write('			body {\'');
 	document.write('				font-size:			12px;');
 	document.write('				font-family:		Arial, Verdana Helvetica, sans-serif;');
 	document.write('				color:				#000000;');
