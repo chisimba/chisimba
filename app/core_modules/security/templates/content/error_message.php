@@ -108,7 +108,7 @@ $newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestn
 
 $registerModule=$this->objConfig->getValue('SELFREGISTER_MODULE') or $registerModule='useradmin';
 $registerLink = new link ($this->uri(array('action'=>'register'), $registerModule));
-$registerLink->link = $this->objLanguage->languageText('word_register', 'Register');
+$registerLink->link = $this->objLanguage->languageText('word_register', '');
 
 $backHomeLink = new link ($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
 $backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', '');
