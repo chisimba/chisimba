@@ -76,6 +76,19 @@ class security extends controller
             // Redirect to logged in page so that user can refresh it
             // without being hassled by browser about resubmitting
             // form details
+            // Redirect to logged in page so that user can refresh it
+            // without being hassled by browser about resubmitting
+            // form details
+            $url=$this->getSession('oldurl');
+            $url['passthroughlogin'] = 'true'; // Pass Through Login Flag
+            if ( is_array($url) && (isset($url['module'])) && ($url['module']!='splashscreen') ){
+                if ( isset($url['action']) && ($url['action']!='logoff') ){
+                    $act=$url['action'];
+                } else {
+                    $act=NULL;
+                }
+                return $this->nextAction($act,$url,$url['module']);
+            }
             return $this->nextAction(NULL, NULL, '_default');
         }
         if (defined('STATUS')&& STATUS=='inactive'){
@@ -117,6 +130,11 @@ class security extends controller
     {
         // Validate the skin, checks if it exists or changed
         $this->objSkin->validateSkinSession();
+        $url=$_GET;
+        if ( is_array($url) && isset($url['module']) && !in_array($url['module'],array('security', '_default')) ){
+            $this->setSession('oldurl',$url);
+            return $this->nextAction('error', array('message'=>'needlogin'));
+        }
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
 
