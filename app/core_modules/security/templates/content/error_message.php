@@ -97,8 +97,8 @@ $middleContent = $Header->show()."\n<p>".$smallText."<br />\n";
 // Email link
 $middleContent .=' '.$this->objLanguage->languageText('mod_security_emailsysadmin');
 
-$sysAdminEmail = new link ('mailto:'.$objConfig->siteEmail());
-$sysAdminEmail->link = $objConfig->siteEmail();
+$sysAdminEmail = new link ('mailto:'.$this->objConfig->getsiteEmail());
+$sysAdminEmail->link = $this->objConfig->getsiteEmail();
 
 $middleContent .= ' ('.$sysAdminEmail->show().'). </p>';
 
@@ -115,7 +115,7 @@ $backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', '
 
 if ($this->getParam('message') == 'wrongpassword') {
     $middleContent .= $newPasswordLink->show().' / ';
-} else if ($this->objConfig->allowSelfRegister()) {
+} else if ($this->objConfig->getallowSelfRegister()) {
     $middleContent .= $registerLink->show().' / ';
 }
 
