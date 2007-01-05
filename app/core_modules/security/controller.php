@@ -39,7 +39,8 @@ class security extends controller
         $this->setLayoutTemplate(NULL);
         switch ($action) {
         case 'login':
-            return $this->doLogin();
+        	$module = $this->getParam('mod');
+            return $this->doLogin($module);
         case 'logoff':
             return $this->doLogoff();
         case 'error':
@@ -54,9 +55,9 @@ class security extends controller
     * Login method, handles login logic.
     * @return string Name of template to display
     */
-    function doLogin()
+    function doLogin($module = NULL)
     {
-        $username = $this->getParam('username', '');
+    	$username = $this->getParam('username', '');
         $password = $this->getParam('password', '');
         if ($this->objUser->authenticateUser($username, $password)) {
             // we hold off creating a new session until successful
@@ -81,6 +82,10 @@ class security extends controller
             // form details
             $url=$this->getSession('oldurl');
             $url['passthroughlogin'] = 'true'; // Pass Through Login Flag
+            if($module != NULL)
+            {
+            	$url['module'] = $module;
+            }
             if ( is_array($url) && (isset($url['module'])) && ($url['module']!='splashscreen') ){
                 if ( isset($url['action']) && ($url['action']!='logoff') ){
                     $act=$url['action'];

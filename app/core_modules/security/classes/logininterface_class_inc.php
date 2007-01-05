@@ -1,12 +1,12 @@
 <?php
 
 /**
-* 
+*
 * Class to render login box, register links, and do other
 * pre login duties
 *
 * @version $Id$
-* @copyright 2003 
+* @copyright 2003
 **/
 class loginInterface extends object
 {
@@ -15,7 +15,7 @@ class loginInterface extends object
     * @var object $objLanguage String to hold the language object
     */
     private $objLanguage;
-    
+
     /**
      * Config object to check system config variables
      *
@@ -31,7 +31,7 @@ class loginInterface extends object
     		//initialise config obect
     		$this->objConfig = &$this->getObject('altconfig','config');
     		$this->objHelp=& $this->getObject('help','help');
-        	
+
     	} catch (customException $e) {
     		customException::cleanUp();
     	}
@@ -39,11 +39,17 @@ class loginInterface extends object
     /**
     * Method to render a login box
     */
-    public function renderLoginBox()
+    public function renderLoginBox($module = NULL)
     {
     	try {
     		//set the action for the login form
-    		$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
+    		if($module != NULL)
+    		{
+    			$formAction = $this->objEngine->uri(array('action' => 'login', 'mod' => $module), 'security');
+    		}
+    		else {
+    			$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
+    		}
     		//Load up the various HTML classes
     		$this->loadClass('button', 'htmlelements');
     		$this->loadClass('textinput', 'htmlelements');
@@ -79,7 +85,7 @@ class loginInterface extends object
     		if ($this->objConfig->getuseLDAP()) {
     			$ldap .= $objElement->show(). " " . $objElement->label;
     		}
-    		
+
 
     		//--- Create a submit button
     		$objElement = &new button('submit');
@@ -89,7 +95,7 @@ class loginInterface extends object
     		$objElement->setValue(' '.$this->objLanguage->languageText("word_login").' ');
     		// Add the button to the form
     		$objForm->addToForm($ldap.$objElement->show());
-    		
+
     		$helpText = $this->objLanguage->languageText('mod_useradmin_help','useradmin');
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
         	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'useradmin'));
