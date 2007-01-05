@@ -79,7 +79,7 @@ if (isset($contextList))
 		}
 	}
 } else {
-	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">No are associated with any courses</div>';
+	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">Not are associated with any courses</div>';
 }
 
 
