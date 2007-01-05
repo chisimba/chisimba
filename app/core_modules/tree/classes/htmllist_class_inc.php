@@ -21,6 +21,7 @@ class htmllist extends presentation
     *                           o topMostListId    CSS Id of the first <UL> / <OL>
     *                           o allListClasses   CSS Class that should be applied to all <UL> / <OL>
     *                           o allLiClasses     CSS Class that should be applied to all <LI>
+    *                           o target           target of links
     */
     function htmllist($structure, $options = array())
     {
@@ -31,6 +32,7 @@ class htmllist extends presentation
         $this->topMostListId  = '';
         $this->allListClasses  = '';
         $this->allLiClasses  = '';
+        $this->target  = '_self';
         
         if (is_array($options)) {
             foreach ($options as $option => $value) {
@@ -121,7 +123,13 @@ class htmllist extends presentation
         $html .=' >';
         
         if ($node->link) {
-            $html .= '<a href="'.$node->link.'">';
+            $html .= '<a href="'.$node->link.'"';
+            
+            if ($this->target) {
+                $html .= ' target="'.$this->target.'"';
+            }
+            
+            $html .='>';
         }
         
         if ($node->cssClass) {
