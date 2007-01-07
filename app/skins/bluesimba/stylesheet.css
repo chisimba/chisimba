@@ -4,7 +4,7 @@ body {
 	padding: 0;
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 76%;
-    background-color : #ffffff;
+    background-color: #10123b;
     color : #000000;
 	background-position: top left;
 	line-height: 1.8em;
@@ -20,6 +20,7 @@ div#header {
 	background: #000000 url("images/header_bg.jpg") repeat-x;
 	color: #000099;
 	padding: 0px 5px 10px 5px;
+	border-bottom: 10px solid black;
 }
 #sitename {
     width: 600px;
@@ -47,6 +48,9 @@ div#header div#search {
 	color: #FF0000;
 	text-decoration: none;
 }
+#search {
+	color:#CCCCCC;
+}
 /** BEGIN: Rules related to formatting the banner and its text */
 
 
@@ -72,13 +76,14 @@ a:hover,a:active {
 /** BEGIN: Settings for footer **/
 #footer {
 	clear:both;
-	border-top: 10px solid white;
-	padding: 10px 0 30px;
+	border-top: 18px solid #10123b;
+	padding: 0 0 30px 0;
 	font-size:86%;
 	background-color: #99CCFF;
 	background: #fff url("images/footer_bg.jpg") repeat-x bottom left;
 	color: #000066;
 	margin-top: 20;
+	border-bottom: 10px solid black;
 }
 #footer p {
  	margin:0;
@@ -99,7 +104,7 @@ ul#menuList li {
 	border-bottom: 3px solid #999999;
 	font-weight: bold;
 }
-.test {color: #CCFFFF}
+
 ul#menuList li:hover {
 	background-color: #FFFF99;
 }
@@ -164,10 +169,19 @@ div#twocolumn, div#threecolumn {
 	border: 0;
     background-color: #FFFFFF;
     background-repeat: repeat;
+	border-bottom: 2px solid #0000FF;
+	border-left: 2px solid #0000FF;
+	border-right: 2px solid #0000FF;
 }
-#leftcontent, #rightcontent {
-    border-top: 5px solid #006600;
+#leftcontent, #rightcontent, #contentcontent {
+    border-top: 4px solid #0000FF;
 }
+/*Fix black text on dark blue */
+#left h3 {
+	color: #CCCCCC;
+}
+
+
 /** END: Content stle settings **/
 
 
@@ -225,18 +239,18 @@ div#twocolumn, div#threecolumn {
 .featurebox {
 	color: #333333;
 	padding: 15px 20px 20px;
-	border-top: 1px solid #006600;
+	border-top: 4px solid #FF6633;
 	margin: 0 0 1.5em;
-	background: #E3DBE8 url("images/featurebox_bg.jpg") no-repeat 100% 100%;
+	background: url("images/featurebox_bg.jpg") no-repeat 100% 100%;
 }
 
 .featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
 	margin: 0 0 .3em; 
-	border-bottom: 1px solid #66FF00;
-	color: #000066; 
+	border-bottom: 1px solid #0033FF;
+	color: #003366; 
 	background-color: transparent;
 }
-
+.test {color: #003366}
 .featurebox p {
 	border:none;
 	margin: 0 0 1em;
