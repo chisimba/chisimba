@@ -143,7 +143,7 @@ if (isSet($bodyParams)) {
  	}
 
  	if (!isset($pageSuppressContainer)) {
- 	    echo '<div>';
+ 	    echo '<div id="container">';
  	}
 
  	if (!isset($pageSuppressBanner)) {
