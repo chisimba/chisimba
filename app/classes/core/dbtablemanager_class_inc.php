@@ -114,6 +114,9 @@ class dbTableManager extends object
         $this->objDBConfig=&$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
+        //instantiate the MDB2 Management module
+       // $this->_db = $this->_db->loadModule('Manager');
+
         //call_user_func($var_dump, $this->_dbmanager);
     }
 
@@ -266,9 +269,16 @@ class dbTableManager extends object
      */
     public function createTable($tableName, $fields, $options)
     {
+    	$puid = array(
+            	'puid' => array(
+				'type' => 'integer',
+				'length' => 50,
+				'autoincrement'  => true,
+				));
+		$fields = array_merge($fields, $puid);
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
-            $this->_db->setOption('default_table_type', 'INNODB');
+        	$this->_db->setOption('default_table_type', 'INNODB');
             //do the table create.
             //we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
@@ -309,11 +319,18 @@ class dbTableManager extends object
      * @param array $index
      * @return bool true on success | False on failure
      */
-    public function createTableIndex($tableName, $keyname, $index)
+    public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE)
     {
-        $keyname = substr($keyname,1,3). rand(0,999);
-    	$this->_db->mgCreateIndex($tableName,$keyname,$index);
-        return TRUE;
+    	if($trunc != FALSE)
+    	{
+    		$this->_db->mgCreateIndex($tableName,$keyname,$index);
+        	return TRUE;
+    	}
+    	else {
+        	$keyname = substr($keyname,1,3). rand(0,999);
+    		$this->_db->mgCreateIndex($tableName,$keyname,$index);
+        	return TRUE;
+    	}
     }
 
     /**
@@ -326,16 +343,16 @@ class dbTableManager extends object
      */
     public function createPK($tableName)
     {
-        $index = array(
+        $primindex = array(
         	'fields' => array(
         	'id' => array('sorting' => 'ascending', ),
          	),
         	'primary' => true
 		 );
 
-		$name = 'pk' . rand(0,999);
+		$pname = 'pk' . rand(0,999);
 
-		$this->createTableIndex($tableName, $name, $index);
+		$this->createTableIndex($tableName, $pname, $primindex, TRUE);
         return TRUE;
 
     }
