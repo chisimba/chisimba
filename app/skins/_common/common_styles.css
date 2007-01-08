@@ -18,8 +18,23 @@ blockquote {
     padding: 5px;
 }
 
+input {
+         border : 1px solid #ccc;
+        z-index: -3;
+        font-size: 11px;
+}
 
-
+select
+ {
+         border : 1px solid #ccc;
+        z-index: -3;
+        font-size: 11px;
+}
+textarea {
+         border : 1px solid #ccc;
+        z-index: -3;
+        font-size: 11px;
+}
 /* Body and HTML */
 html, body {
 	width: 100%;
