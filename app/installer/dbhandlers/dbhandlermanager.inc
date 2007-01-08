@@ -215,6 +215,13 @@ class dbHandlermanager
      */
     public function createTable($tableName, $fields, $options)
     {
+    	$puid = array(
+            	'puid' => array(
+				'type' => 'integer',
+				'length' => 50,
+				'autoincrement'  => true,
+				));
+		$fields = array_merge($fields, $puid);
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
             $this->_db->setOption('default_table_type', 'INNODB');
@@ -250,7 +257,7 @@ class dbHandlermanager
         	'primary' => true
 		 );
 
-		$name = 'primary'. rand(0,9999);
+		$name = 'pk'. rand(0,9999);
 
 		$this->createTableIndex($tableName, $name, $index);
         return TRUE;
