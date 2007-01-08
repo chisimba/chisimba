@@ -23,8 +23,12 @@ class helplink extends object  {
     * return the name of a page body template which will render the module 
     * output (for more details see Modules and templating)
     */
-    public function show($helpid)
+    public function show($helpid, $module = NULL)
     { 
+        if(!is_null($module) && !empty($module)){
+            $this->rootModule = $module;
+        }
+        
         $objSkin = & $this->getObject('skin','skin');
         $this->objHelpIcon->setModuleIcon('help');
         //Popup window
