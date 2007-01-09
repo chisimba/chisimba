@@ -9,7 +9,8 @@ $options = array('comment' => 'This table is used to maintain state and enable c
 $fields = array(
 	'id' => array(
 		'type' => 'text',
-		'length' => 32,
+		'length' => 32
+		
 		),
 	'userId' => array(
 		'type' => 'text',

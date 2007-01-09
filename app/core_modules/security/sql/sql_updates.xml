@@ -14,4 +14,22 @@
     </change>
 </data>
 </update>
+<update>
+<table>tbl_loggedinusers</table>
+<version>1.93</version>
+<description>Altered id field to text length 32</description>
+<data>
+    <change>
+        <id>
+            <definition>
+            	 <length>32</length>
+                <type>text</type>
+            </definition> 
+        </id> 
+    </change>
+</data>
+<data>
+    <remove>autoincrement</remove>
+</data>
+</update>
 </updates>
