@@ -114,10 +114,22 @@ class proxyparser extends object
 		else {
 			$pstring = $this->parseProxy($this->proxystring);
 			//set up the properties
-			$this->proxyhost = $pstring['proxy_host'];
-			$this->proxypass = $pstring['proxy_pass'];
-			$this->proxyport = $pstring['proxy_port'];
-			$this->proxyproto = $pstring['proxy_protocol'];
+			if(isset($pstring['proxy_host']))
+			{
+				$this->proxyhost = $pstring['proxy_host'];
+			}
+			if(isset($pstring['proxy_pass']))
+			{
+				$this->proxypass = $pstring['proxy_pass'];
+			}
+			if(isset($pstring['proxy_port']))
+			{
+				$this->proxyport = $pstring['proxy_port'];
+			}
+			if(isset($pstring['proxy_protocol']))
+			{
+				$this->proxyproto = $pstring['proxy_protocol'];
+			}
 
 			return $pstring;
 		}
