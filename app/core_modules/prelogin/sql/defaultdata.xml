@@ -59,7 +59,7 @@
 		<visible>1</visible>
 		<position>1</position>
 		<isBlock>1</isBlock>
-		<blockName>skin</blockName>
+		<blockName>skinchooser</blockName>
 		<blockModule>skin</blockModule>
 		<content></content>
 		<dateLastUpdated>2006-01-01</dateLastUpdated>
