@@ -10,7 +10,7 @@
             $text=$this->objLanguage->languageText($this->message);
         }
     } else {
-        $text=$this->objLanguage->languageText('phrase_confirmchange','Changes Made');
+        $text=$this->objLanguage->languageText('phrase_confirmchange','useradmin', 'Changes Made');
     }
 ?>
 <table align='center'>
@@ -20,7 +20,7 @@
 <tr><td>
 <?php
     $objButtons=&$this->getObject('navbuttons','navigation');
-    print $objButtons->pseudoButton($this->uri(array()),$objLanguage->languagetext('word_ok','OK'));
+    print $objButtons->pseudoButton($this->uri(NULL, '_default'),$objLanguage->languagetext('word_ok'));
 ?>
 </td></tr>
 </table>

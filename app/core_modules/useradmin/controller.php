@@ -131,6 +131,7 @@ class useradmin extends controller
 					)
 				);
             case 'needpassword':
+                $this->setLayoutTemplate(NULL);
                 return 'forgotpassword_tpl.php';
             case 'changepassword':
 				$this->setVar('userId',$this->getParam('userId'));
@@ -139,6 +140,7 @@ class useradmin extends controller
                 return $this->changePassword($this->getParam('userId'));
 						
             case 'resetpassword':
+                $this->setLayoutTemplate(NULL);
                 $this->message=$this->resetPassword($this->getParam('username'),$this->getParam('email'));
                 return 'ok_tpl.php';
             case 'imageupload':
@@ -607,7 +609,7 @@ class useradmin extends controller
                 $objPassword=&$this->getObject('passwords','useradmin'); 
                 $newpassword=$objPassword->createPassword(); 
                 $cryptpassword=sha1($newpassword); 
-                $this->objUserAdmin->update('userid',$userId,array('password'=>$cryptpassword)); 
+                $this->objUserAdmin->update('userid',$userId,array('pass'=>$cryptpassword)); 
                 $this->objUserAdmin->emailPassword($userId,$username,$firstname,$surname,$email,$newpassword);
                 return "mod_useradmin_passwordreset"; 
             } else { 

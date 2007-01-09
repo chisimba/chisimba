@@ -25,7 +25,7 @@
     $objTblclass->cellpadding='2';
 
     $objTblclass->startRow();
-    $objTblclass->addCell($objLanguage->languageText('mod_useradmin_resetpassword','Enter your username and email address, and a new password will be generated and emailed to you.'), "", NULL, 'center', 'heading', 'colspan=2');
+    $objTblclass->addCell($objLanguage->languageText('mod_useradmin_resetpassword', 'useradmin', 'Enter your username and email address, and a new password will be generated and emailed to you.'), "", NULL, 'center', 'heading', 'colspan=2');
     $objTblclass->endRow();
 
     if (isset($change_error))
