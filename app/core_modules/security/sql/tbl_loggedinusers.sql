@@ -8,10 +8,8 @@ $options = array('comment' => 'This table is used to maintain state and enable c
 // Fields
 $fields = array(
 	'id' => array(
-		'type' => 'integer',
-		'length' => 11,
-
-        'autoincrement' => TRUE
+		'type' => 'text',
+		'length' => 32,
 		),
 	'userId' => array(
 		'type' => 'text',
