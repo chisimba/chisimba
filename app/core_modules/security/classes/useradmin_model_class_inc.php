@@ -38,6 +38,8 @@ class useradmin_model extends dbtable
         }
         $sdata['emailAddress']=$info['emailAddress'];
         $sdata['sex']=$info['sex'];
+        $sdata['accesslevel'] =0;
+        $sdata['isActive']=1;
         $sdata['country']=$info['country'];
         $id=$this->insert($sdata);
         return $id;
@@ -70,7 +72,9 @@ class useradmin_model extends dbtable
             'howCreated'=>$howcreated,
             'emailAddress'=>$this->getParam('email'),
             'sex'=>$this->getParam('gender'),
-            'country'=>$this->getParam('country')
+            'country'=>$this->getParam('country'),
+            'accesslevel' =>0,
+       		 'isActive'=>1
             );
         $id=$this->insert($newdata);
         $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailAddress'], $password);
@@ -231,7 +235,7 @@ class useradmin_model extends dbtable
             // here we proceed to actually do the change
             $cryptpassword=sha1($newpassword);
             //$sql="update tbl_users set password='".$cryptpassword."' where userId='".$userId."'";
-            $this->update('userid',$userId,array('pass'=>$cryptpassword));
+            $this->update('userid',$userId,array('password'=>$cryptpassword));
             return TRUE;
         }
         else
@@ -290,7 +294,7 @@ class useradmin_model extends dbtable
     * @param string $email - data to send
     * @param string $password - data to send
     */
-	/*
+	
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
@@ -312,18 +316,18 @@ class useradmin_model extends dbtable
         $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
-	*/
+	
 
     /**
     * Method to determine site URL for email and other purposes
     * @returns array $kngdata an array of the info on the site
     */
-	/*
+	
     function siteURL()
     {
-        $KNGname=$this->objConfig->getParam('KEWL_SITENAME','KEWL.NextGen');
-        $WWWname=$_SERVER['SERVER_NAME'];
-        $KNGpath=$this->objConfig->getParam('KEWL_SITE_ROOT');
+        $KNGname=$this->objConfig->getSitename();
+        $WWWname=$this->objConfig->getSiteName();
+        $KNGpath=$this->objConfig->getsiteRoot();
         if ($KNGpath==''){
             $KNGpath=$_SERVER['PHP_SELF'];
         }
@@ -335,7 +339,7 @@ class useradmin_model extends dbtable
             'server'=>$WWWname
             );
     }
-	*/
+	
 
     /**
     * Is a user an LDAP user.
