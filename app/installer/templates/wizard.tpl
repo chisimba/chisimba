@@ -13,20 +13,18 @@
 <div style="font-family: Tahoma;color: red; font-size: 10px;">
 <?php echo $error ?>
 </div>
-
-<input type="submit" name="cancel" value="Cancel">
-
+<?php if (!$complete) { ?>
+	<input type="submit" name="next" value="Next" tabindex="1">
+<?php } ?>
 <?php if ($enable_skip) {?>
-	<input type="submit" name="skip" value="Skip Step">
+	<input type="submit" name="skip" value="Skip Step" tabindex="3" >
 <?php } ?>
 
 <?php if (!$start) { ?>
-	<input type="submit" name="previous" value="Previous">
+	<input type="submit" name="previous" value="Previous" tabindex="2">
 <?php } ?>
 
-<?php if (!$complete) { ?>
-	<input type="submit" name="next" value="Next" accesskey="s">
-<?php } ?>
+<input type="submit" name="cancel" value="Cancel" tabindex="4">
 
 </form>
 </body>
