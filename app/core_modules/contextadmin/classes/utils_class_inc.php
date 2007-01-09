@@ -686,6 +686,20 @@ class utils extends object
 	  	$tabBox->addTab(array('name'=>'Manage Users','content' => $str, 'luna-tab-style-sheet'));
 	  	return $tabBox->show();
 	  	*/
+	  	$objLink = $this->getObject('link','htmlelements');
+	  	$objIcon = $this->getObject('geticon', 'htmlelements');
+	  	
+	  	if($this->_objContextModules->isContextPlugin($this->_objDBContext->getContextCode(), 'contextcontent'))
+	  	{
+	  	    $objLink->href = $this->uri(null,'contextdesigner');	
+	  	    $objIcon->setModuleIcon('contextdesigner');
+	  	    $objLink->link = $objIcon->show(). '  Content Designer';
+	  	    $contentsection = '<div class="tab-page">
+				<h2 class="tab">Content Managment</h2>'.$objLink->show().
+	  	    '</div>';
+	  	} else {
+	  	    $contentsection = '';
+	  	}
 	  	$str = '<div class="tab-page">
 		
 
@@ -712,10 +726,7 @@ class utils extends object
 				
 			</div>
 			
-			<div class="tab-page">
-				<h2 class="tab">Content Managment</h2>
-				Link to content management goes here. I dont think we can put the content managment in here as it will be too big 
-			</div>
+			'.$contentsection.'
 			
 			<!--div class="tab-page">
 				<h2 class="tab">Assessment Tools</h2>

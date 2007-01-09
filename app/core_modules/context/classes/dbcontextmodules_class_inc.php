@@ -20,7 +20,8 @@ class dbcontextmodules extends dbTable{
     */
      public function init(){
         parent::init('tbl_contextmodules');
-        
+
+        $this->_objModule = & $this->newObject('modules', 'modulecatalogue');
         $this->_objDBContext = & $this->newObject('dbcontext', 'context');
     }
     
@@ -179,6 +180,20 @@ class dbcontextmodules extends dbTable{
         } else {
             return FALSE;
         }
+    }
+    
+    /**
+     * Method to get the module name
+     * @param string $moduleId
+     * @return string
+     * @access public
+     * 
+     */
+    public function getModuleName($moduleId)
+    {
+        
+         $modInfo = $this->_objModule->getModuleInfo($moduleId);
+         return  $modInfo['name'];
     }
     
  }

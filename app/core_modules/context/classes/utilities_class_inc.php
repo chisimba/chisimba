@@ -47,6 +47,31 @@ class utilities extends object
         
     }
     
+    
+    /**
+     * Method to get the sliding context menu
+     * 
+     * @return string
+     */
+    public function getHiddenContextMenu()
+    {
+        $icon = $this->getObject('geticon', 'htmlelements');
+        $icon->setIcon('up');
+        $scripts = '<script src="modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
+                      <script src="modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
+                      <script src="modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
+        $this->appendArrayVar('headerParams',$scripts);
+        $str = "<a href=\"#\" onclick=\"Effect.SlideUp('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";
+        $icon->setIcon('down');
+        $str .="<a href=\"#\" onclick=\"Effect.SlideDown('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";    
+        
+        $str .='<div id="contextmenu"  style="overflow:hidden;display:none;"> ';
+        $str .= $this->getPluginNavigation();
+        $str .= '</div>';
+        
+        return $str;
+    }
+    
     /**
      * Method to get the left Navigation
      * with the context plugins
@@ -61,27 +86,50 @@ class utilities extends object
     	
     	$objSideBar = $this->newObject('sidebar' , 'navigation');
     	$objModule = & $this->newObject('modules', 'modulecatalogue');
+    	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
+    	$objIcon = & $this->getObject('geticon', 'htmlelements');
     	
     	$arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
     	
     	//create the nodes array
 		$nodes = array();
-			
+	    $children = array();
     	if(is_array($arr))
 	  	{
 	  		foreach($arr as $contextModule)
 	  		{
 	  			
 	  			//$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
-	  			
-	  			$modInfo = $objModule->getModuleInfo($contextModule['moduleid']);
-	  			
-				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
-				
-				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid']);
+	  			if($contextModule['moduleid'] == 'contextcontent')
+	  			{
+	  			    $isregistered = true;
+	  			} else {
+    	  			
+    	  			$modInfo = $objModule->getModuleInfo($contextModule['moduleid']);
+    	  			
+    				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
+    				
+    				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid']);
+    				
+	  			}
 
+	  			
 	  		}
 	  		
+	  		if($isregistered)
+	  			{
+	  			    
+	  			    $linksArr = $objContentLinks->getPublishedContextLinks();
+	  			    foreach($linksArr as $link)
+	  			    {
+	  			        $objIcon->setModuleIcon($link['moduleid']);
+	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => '',  'sectionid' => 'contextcontent');
+	  			        
+	  			    }
+	  			    $nodes[] = array('text' => 'Content', 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
+	  			    $isregistered = false;
+	  			}
+	  			
 	  		return $objSideBar->show($nodes);
 	  	} else {
 	  		return '';
