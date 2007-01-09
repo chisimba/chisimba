@@ -26,17 +26,17 @@ class useradmin_model extends dbtable
 	
     function addUser($info)
     {
-        $sdata['userId']=$info['userId'];
+        $sdata['userid']=$info['userId'];
         $sdata['username']=$info['username'];
         $sdata['title']=$info['title'];
         $sdata['firstname']=$info['firstName'];
         $sdata['surname']=$info['surname'];
         $sdata['pass']=sha1($info['password']);
-        $sdata['CreationDate']=date("Y-m-d");
-        if (isset($info['howCreated'])){
-            $sdata['howCreated']=$info['howCreated'];
+        $sdata['creationdate']=date("Y-m-d");
+        if (isset($info['howcreated'])){
+            $sdata['howcreated']=$info['howCreated'];
         }
-        $sdata['emailAddress']=$info['emailAddress'];
+        $sdata['emailaddress']=$info['emailAddress'];
         $sdata['sex']=$info['sex'];
         $sdata['accesslevel'] =0;
         $sdata['isActive']=1;
@@ -62,22 +62,22 @@ class useradmin_model extends dbtable
         $cryptpassword=sha1($password);
         $cdate=date("Y-m-d");
         $newdata=array(
-            'userId'=>$userId,
+            'userid'=>$userId,
             'username'=>$this->getParam('username'),
             'title'=>$this->getParam('title'),
             'firstname'=>$this->getParam('firstname'),
             'surname'=>$this->getParam('surname'),
             'pass'=>$cryptpassword,
-            'CreationDate'=>$cdate,
-            'howCreated'=>$howcreated,
-            'emailAddress'=>$this->getParam('email'),
+            'creationdate'=>$cdate,
+            'howcreated'=>$howcreated,
+            'emailaddress'=>$this->getParam('email'),
             'sex'=>$this->getParam('gender'),
             'country'=>$this->getParam('country'),
             'accesslevel' =>0,
        		 'isActive'=>1
             );
         $id=$this->insert($newdata);
-        $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailAddress'], $password);
+        $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailaddress'], $password);
         return $id;
     }
 	
@@ -328,6 +328,7 @@ class useradmin_model extends dbtable
         $KNGname=$this->objConfig->getSitename();
         $WWWname=$this->objConfig->getSiteName();
         $KNGpath=$this->objConfig->getsiteRoot();
+        
         if ($KNGpath==''){
             $KNGpath=$_SERVER['PHP_SELF'];
         }
