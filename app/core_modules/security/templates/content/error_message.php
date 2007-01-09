@@ -95,7 +95,7 @@ $middleContent = $Header->show()."\n<p>".$smallText."<br />\n";
 
 
 // Email link
-$middleContent .=' '.$this->objLanguage->languageText('mod_security_emailsysadmin');
+$middleContent .=' '.$this->objLanguage->languageText('mod_security_emailsysadmin', 'security');
 
 $sysAdminEmail = new link ('mailto:'.$this->objConfig->getsiteEmail());
 $sysAdminEmail->link = $this->objConfig->getsiteEmail();
@@ -111,7 +111,7 @@ $registerLink = new link ($this->uri(array('action'=>'register'), $registerModul
 $registerLink->link = $this->objLanguage->languageText('word_register', '');
 
 $backHomeLink = new link ($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
-$backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', '');
+$backHomeLink->link = $this->objLanguage->languageText('phrasebacktohomepage', 'security');
 
 if ($this->getParam('message') == 'wrongpassword') {
     $middleContent .= $newPasswordLink->show().' / ';
