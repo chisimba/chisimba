@@ -70,7 +70,8 @@ class translatedatedifference extends object
             }        
             
             if ($difference['h'] == 0 && $difference['m'] == 0) {
-                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'utilities').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
             } else {
                return '<strong>'.$returnString.' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
             }
