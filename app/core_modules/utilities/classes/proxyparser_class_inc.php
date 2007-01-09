@@ -24,6 +24,41 @@ class proxyparser extends object
 	 */
 
 	/**
+	 * Proxy host
+	 *
+	 * @var string
+	 */
+	public $proxyhost;
+
+	/**
+	 * Proxy users
+	 *
+	 * @var string
+	 */
+	public $proxyuser;
+
+	/**
+	 * Proxy password
+	 *
+	 * @var string
+	 */
+	public $proxypass;
+
+	/**
+	 * Proxy protocol
+	 *
+	 * @var string
+	 */
+	public $proxyproto;
+
+	/**
+	 * Proxy port
+	 *
+	 * @var integer
+	 */
+	public $proxyport;
+
+	/**
 	 * Proxy string from the config object
 	 *
 	 * @var string
@@ -77,7 +112,14 @@ class proxyparser extends object
 			return NULL;
 		}
 		else {
-			return $this->parseProxy($this->proxystring);
+			$pstring = $this->parseProxy($this->proxystring);
+			//set up the properties
+			$this->proxyhost = $pstring['proxy_host'];
+			$this->proxypass = $pstring['proxy_pass'];
+			$this->proxyport = $pstring['proxy_port'];
+			$this->proxyproto = $pstring['proxy_protocol'];
+
+			return $pstring;
 		}
 	}
 
