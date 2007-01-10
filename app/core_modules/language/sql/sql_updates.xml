@@ -2,11 +2,12 @@
 <updates>
     <update>
         <table>tbl_languagetext</table>
-        <version>1.55</version>
+        <version>1.56</version>
         <description>Modified description to a clob datatype to handle larger text entries</description>
         <data>
         	<change>
         		<description>
+        		<type>clob</type>
         			<definition>
 		    			<type>clob</type>
     				</definition>
