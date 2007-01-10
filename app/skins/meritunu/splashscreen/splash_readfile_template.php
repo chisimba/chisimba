@@ -42,10 +42,6 @@
 		                        [-REGISTER-]
 
 			</div>
-			<div class="featurebox">
-		            <h3>[-CONTEXT-]</h3>
-                    [-CONTEXTCHOOSER-]
-			</div>
             </div>
 		</div>
 
@@ -53,6 +49,16 @@
 
 		<div id="right">
             <div id="rightcontent">
+				<div class="featurebox">
+		            <h3>Skinz</h3>
+		            <table>
+		                <tr>
+		                    <td>
+		                        [-SKINCHOOSER-]
+		                    </td>
+		                </tr>
+		            </table>
+				</div>
 				<div class="featurebox">
 		            <h3>Our other sites</h3>
 		                <ul>
