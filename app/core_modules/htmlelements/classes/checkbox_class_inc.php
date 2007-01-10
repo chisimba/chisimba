@@ -86,7 +86,7 @@ class checkbox  extends abhtmlbase implements ifhtml
   *  Function to set the value of a checkbox
   *	 @param $value : the new value of the checkbox
   */
-  pulic function setValue($value)
+  public function setValue($value)
   {
   	$this->value=$value;
   }
