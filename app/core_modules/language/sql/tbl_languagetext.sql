@@ -17,8 +17,7 @@ $fields = array(
 
 		),
     'description' => array(
-		'type' => 'text',
-		'length' => 255
+		'type' => 'clob',
 		)
     );
 

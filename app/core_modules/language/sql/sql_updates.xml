@@ -2,18 +2,16 @@
 <updates>
     <update>
         <table>tbl_languagetext</table>
-        <version>1.54</version>
-        <description>changed description from varchar to clob</description>
+        <version>1.55</version>
+        <description>Modified description to a clob datatype to handle larger text entries</description>
         <data>
         	<change>
         		<description>
-        			<type>text</type>
-        			<length>255</length>
         			<definition>
-        				<type>clob</type>
-        			</definition>
-        		</description>
-        	</change>
-        </data> 
-    </update>
+		    			<type>clob</type>
+    				</definition>
+    			</description>
+			</change>
+		</data>
+	</update>
 </updates>
