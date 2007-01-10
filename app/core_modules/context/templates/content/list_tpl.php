@@ -190,7 +190,7 @@ $contextInfo .= 'Last Accessed: ';
 $contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
 $objContextPostloginUtils = & $this->newObject('utils', 'contextpostlogin');
 $leftSide = $objContextPostloginUtils->getUserPic();
-$leftSide .= $this->objUtils->getPluginNavigation();
+$leftSide .= $this->objUtils->getPluginNavigation('context');
 
 if(!$this->getParam('query') == '')
 {

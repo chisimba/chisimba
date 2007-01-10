@@ -53,8 +53,12 @@ class utilities extends object
      * 
      * @return string
      */
-    public function getHiddenContextMenu()
+    public function getHiddenContextMenu($selectedModule, $showOrHide = 'none')
     {
+        //apparently document.write is not xhtml compliant, so
+        // seeing that I dont an other alternative to that I will
+        // suppress the xhtml
+        $this->setVar('pageSuppressXML',true);
         $icon = $this->getObject('geticon', 'htmlelements');
         $icon->setIcon('up');
         $scripts = '<script src="modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
@@ -65,8 +69,8 @@ class utilities extends object
         $icon->setIcon('down');
         $str .="<a href=\"#\" onclick=\"Effect.SlideDown('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";    
         
-        $str .='<div id="contextmenu"  style="overflow:hidden;display:none;"> ';
-        $str .= $this->getPluginNavigation();
+        $str .='<div id="contextmenu"  style="width:170px;overflow: hidden;display:'.$showOrHide.';"> ';
+        $str .= $this->getPluginNavigation($selectedModule);
         $str .= '</div>';
         
         return $str;
@@ -80,7 +84,7 @@ class utilities extends object
      * @access public
      * @return string
      */
-    public function getPluginNavigation()
+    public function getPluginNavigation($selectedModule = null)
     {
     	
     	
@@ -94,6 +98,7 @@ class utilities extends object
     	//create the nodes array
 		$nodes = array();
 	    $children = array();
+	    $nodes[] = array('text' => $this->objDBContext->getMenuText() .' - Home', 'uri' => $this->uri(null,'context'),  'nodeid' => 'context');
     	if(is_array($arr))
 	  	{
 	  		foreach($arr as $contextModule)
@@ -109,7 +114,7 @@ class utilities extends object
     	  			
     				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
     				
-    				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid']);
+    				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'nodeid' => $contextModule['moduleid']);
     				
 	  			}
 
@@ -123,14 +128,30 @@ class utilities extends object
 	  			    foreach($linksArr as $link)
 	  			    {
 	  			        $objIcon->setModuleIcon($link['moduleid']);
-	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => '',  'sectionid' => 'contextcontent');
+	  			        
+	  			        $params = array();
+	  			        $temp = spliti(',',$link['params']);
+	  			       
+	  			        foreach($temp as $value)
+	  			        {
+	  			            if(!$value=='')
+	  			            {
+    	  			            
+    	  			            $fel = spliti('=>', $value);
+    	  			            
+    	  			            $params[$fel[0]] = $fel[1];
+    	  			           
+	  			            }
+	  			        }
+	  			       
+	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
 	  			        
 	  			    }
 	  			    $nodes[] = array('text' => 'Content', 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
 	  			    $isregistered = false;
 	  			}
 	  			
-	  		return $objSideBar->show($nodes);
+	  		return $objSideBar->show($nodes, $selectedModule);
 	  	} else {
 	  		return '';
 	  	}

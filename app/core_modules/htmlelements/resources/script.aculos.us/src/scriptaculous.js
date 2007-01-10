@@ -27,6 +27,7 @@ var Scriptaculous = {
   Version: '1.6.5',
   require: function(libraryName) {
     // inserting via DOM fails in Safari 2.0, so brute force approach
+   // alert(libraryName);
     document.write('<script type="text/javascript" src="'+libraryName+'"></script>');
   },
   load: function() {
