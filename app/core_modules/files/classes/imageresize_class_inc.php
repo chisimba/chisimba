@@ -14,6 +14,7 @@
 * words: "Unable to create a thumbnail from a [ext] file". - Tohir
 */
 include('modules/files/resources/imagecreatefrombmp.php');
+include('modules/files/resources/imagecreatefrompsd.php');
 class imageresize extends object
 {
 	
@@ -69,6 +70,7 @@ class imageresize extends object
                 case 'wbmp': $this->image = imagecreatefromwbmp($sourceFile); break;
                 case 'xbm': $this->image = imagecreatefromxbm($sourceFile); break;
                 case 'bmp': $this->image = ImageCreateFromBMP($sourceFile); break;
+                case 'psd': $this->image = imagecreatefrompsd($sourceFile); break;
                 default : 
                     // Cannot create from source
                     $this->canCreateFromSouce = FALSE;
