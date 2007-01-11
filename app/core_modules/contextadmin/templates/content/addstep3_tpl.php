@@ -11,7 +11,7 @@ $inpMenuText = & $this->newObject('textinput','htmlelements');
 
 $inpButton =  $this->newObject('button','htmlelements');
 
-$objH->str = 'Step 3: Select [-context-] Plugins';
+$objH->str = $this->_objLanguage->languageText("mod_context_step","context").' 3: '.$this->_objLanguage->code2Txt("mod_contextadmin_selectcontextplugins",'context',array('context'=>'Course'));
 $objH->type = 3;
 
 //setup the form
@@ -29,7 +29,7 @@ $inpAbout->rows = 3;
 
 $inpButton->setToSubmit();
 $inpButton->cssClass = 'f-submit';
-$inpButton->value = 'Next';
+$inpButton->value = $this->_objLanguage->languageText("word_next");
 
 
 //validation
@@ -60,7 +60,7 @@ foreach ($arrModules as $module)
         $icon = $this->newObject('geticon', 'htmlelements');
         $icon->setModuleIcon($module['module_id']);
         
-        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.$module['title'].'</dt>');
+        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
         $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
         $objForm->addToForm('</dl></li>');
     }

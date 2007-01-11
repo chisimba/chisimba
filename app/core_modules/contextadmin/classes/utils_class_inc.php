@@ -277,7 +277,7 @@ class utils extends object
 		
 		$inpButton->setToSubmit();
 		$inpButton->cssClass = 'f-submit';
-		$inpButton->value = 'Save';
+		$inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
 		
 		
 		//validation
@@ -317,7 +317,7 @@ class utils extends object
 		        $icon = $this->newObject('geticon', 'htmlelements');
 		        $icon->setModuleIcon($module['module_id']);
 		        //print $module['module_id'];
-		        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.$module['title'].'</dt>');
+		        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
 		        $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
 		        $objForm->addToForm('</dl></li>');
 		    }
@@ -331,9 +331,9 @@ class utils extends object
 		
 		$defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
 		
-		$drop = 'Default Module<select id="defaultmodule" name="defaultmodule">';
+		$drop = $this->_objLanguage->languageText("mod_context_selectdefaultmodule",'context').'<select id="defaultmodule" name="defaultmodule">';
 		
-		$drop .= '<option value="">Select a Default Module</option>';
+		$drop .= '<option value="">'.$this->_objLanguage->languageText("mod_context_setdefaultmodule",'context').'</option>';
 		
 		foreach($arrContextModules as $mod)
 		{
@@ -346,7 +346,7 @@ class utils extends object
 		$drop .= '</select>';
 		$drop ='<div style="width:270px">'.$drop.'</div>';
 		$objFormMod->addToForm($drop);
-		$inpButton->value = 'Set as Default';
+		$inpButton->value = $this->_objLanguage->languageText("mod_context_setasdefaultmodule",'context');
 		$objFormMod->addToForm($inpButton->show());
 		
 		return  $objFormMod->show().$objForm->show().'<br/>';
@@ -370,17 +370,19 @@ class utils extends object
 		$objH = & $this->newObject('htmlheading','htmlelements');
 			$objForm = & $this->newObject('form','htmlelements');
 			
-			$inpContextCode =  & $this->newObject('textinput','htmlelements');
-			$inpMenuText = & $this->newObject('textinput','htmlelements');
-			$inpTitle = & $this->newObject('textinput','htmlelements');
-			$inpButton =  $this->newObject('button','htmlelements');
-			$dropAccess = $this->newObject('dropdown','htmlelements');
-			$radioStatus = $this->newObject('radio','htmlelements');
-			$objStartDate =  & $this->newObject('datepicker', 'htmlelements');
-            $objFinishDate =  & $this->newObject('datepicker', 'htmlelements');
+			$inpContextCode =  & $this->getObject('textinput','htmlelements');
+			$inpMenuText = & $this->getObject('textinput','htmlelements');
+			$inpTitle = & $this->getObject('textinput','htmlelements');
+			$inpButton =  $this->getObject('button','htmlelements');
+			$objIcon =  $this->getObject('geticon','htmlelements');
+			$dropAccess = $this->getObject('dropdown','htmlelements');
+			$radioStatus = $this->getObject('radio','htmlelements');
+			$objStartDate =  & $this->getObject('datepicker', 'htmlelements');
+            $objFinishDate =  & $this->getObject('datepicker', 'htmlelements');
 			
-
-            $objH->str = 'Step 1: Add a Course';
+            $objIcon->setIcon('help');
+            
+            $objH->str = $this->_objLanguage->languageText("mod_context_step",'context').' 1: '.$this->_objLanguage->languageText("mod_context_addcontext",'context');
 			$objH->type = 3;
 			
 			//setup the form
@@ -409,8 +411,8 @@ class utils extends object
 			
 			//status
 			$dropAccess->name = 'status';
-			$dropAccess->addOption('Published', 'Published');
-			$dropAccess->addOption('Unpublished', 'Unpublished');
+			$dropAccess->addOption('Published',$this->_objLanguage->languageText("mod_context_published",'context'));
+			$dropAccess->addOption('Unpublished',$this->_objLanguage->languageText("mod_context_unpublished",'context'));
 			$dropAccess->setSelected(trim($context['status']));
 			
 			
@@ -418,7 +420,7 @@ class utils extends object
 			$checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
 			$drop = '<fieldset class="f-radio-wrap">
 		
-						<b>Access:</b>
+						<b>'.$this->_objLanguage->languageText("mod_context_access",'context').':</b>
 			
 						
 							<fieldset>
@@ -427,18 +429,18 @@ class utils extends object
 							<label for="Public">
 							<input id="Public" type="radio" name="access" '.$checked.'
 							value="Public" class="f-radio" tabindex="8" />
-							Public</label>';
+							'.$this->_objLanguage->languageText("mod_context_public",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_publichelp",'context',array('context'=>'Course')).'</span></label>';
 			
 			$checked = ($context['access'] == 'Open') ? ' checked = "checked" ' : '';			
 			$drop .= 		'<label for="Open">
 							<input id="Open" type="radio" name="access" '.$checked.' value="Open" class="f-radio" tabindex="9" />
-							Open</label>';
+							'.$this->_objLanguage->languageText("mod_context_open",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_openhelp",'context',array('context'=>'Course')).'</span></label>';
 			
 			$checked = ($context['access'] == 'Private') ? ' checked = "checked" ' : '';										
 			$drop .='		<label for="Private">
 			
 							<input id="Private" type="radio" name="access" '.$checked.' value="Private" class="f-radio" tabindex="10" />
-							Private</label>
+							'.$this->_objLanguage->languageText("mod_context_private",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_privatehelp",'context',array('context'=>'course')).'</span></label>
 				
 							</fieldset>
 						
@@ -454,7 +456,7 @@ class utils extends object
 			//button
 			$inpButton->setToSubmit();
 			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = 'Save';
+			$inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
 			
 			
 			//validation
@@ -462,7 +464,7 @@ class utils extends object
 			$objForm->addRule('menutext','Menu Text is a required field', 'required!');
 			$objForm->addRule('title','Title is a required field', 'required!');
 			
-			$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+			$objForm->addToForm('<div class="req"><b>*</b>'.$this->_objLanguage->languageText("mod_context_required",'context').'</div>');
 			$objForm->addToForm('<fieldset>');
 			//if($error)
 			//{
@@ -470,30 +472,30 @@ class utils extends object
 			//}
 			//$objForm->addToForm($objH->show());
 			
-			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>[-context-] Code:</b> <span class="highlight">');
+			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.$this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course')).':</b> <span class="highlight">');
 			$objForm->addToForm($this->_objDBContext->getContextCode().'</span><br /></label>');
 			
-			$objForm->addToForm('<label for="title"><b><span class="req">*</span>Title:</b>');
+			$objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
 			$objForm->addToForm($inpTitle->show().'<br /></label>');
 			
-			$objForm->addToForm('<label for="menutext"><b><span class="req">*</span>Menu Text:</b>');
+			$objForm->addToForm('<label for="menutext"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_menutext",'context').':</b>');
 			$objForm->addToForm($inpMenuText->show().'<br /></label>');
 			
 			//$objForm->addToForm('&nbsp;<br/>');
 			
 			
-			$objForm->addToForm('<label for="access"><b><span class="req">*</span>Status:</b>');
+			$objForm->addToForm('<label for="access"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_status",'context').':</b>');
             $objForm->addToForm($dropAccess->show().'<br /></label>');
 
 			$objForm->addToForm($drop);
             $objForm->addToForm('<label>&nbsp;<br/></label>');
 			
             
-            $objForm->addToForm('<label for="access"><b>Start Date:</b>');
-            $objForm->addToForm($objStartDate->show().'<br /></label>');
+            //$objForm->addToForm('<label for="access"><b>'.$this->_objLanguage->languageText("mod_context_startdate",'context').':</b>');
+            //$objForm->addToForm($objStartDate->show().'<br /></label>');
 
-            $objForm->addToForm('<label for="access"><b>Finish Date:</b>');
-            $objForm->addToForm($objFinishDate->show().'<br /></label>');
+         //   $objForm->addToForm('<label for="access"><b>'.$this->_objLanguage->languageText("mod_context_finishdate",'context').':</b>');
+          //  $objForm->addToForm($objFinishDate->show().'<br /></label>');
 			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 			return  $objForm->show().'<br/>';
 	  
@@ -521,7 +523,7 @@ class utils extends object
 			$inpAbout =  $this->newObject('htmlarea','htmlelements');
 			$inpButton =  $this->newObject('button','htmlelements');
 			
-			$objH->str = 'About the Course';
+			$objH->str = $this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
 			$objH->type = 3;
 			
 			//setup the form
@@ -543,7 +545,7 @@ class utils extends object
 			
 			$inpButton->setToSubmit();
 			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = 'Save';
+			$inpButton->value = $this->_objLanguage->languageText("word_save");
 			
 			
 			//validation
@@ -595,7 +597,10 @@ class utils extends object
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
             } else {
-                
+                $temp = array('<div align="center" style="font-size:small;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.
+                $this->_objLanguage->code2Txt('mod_groupadmin_nolects','groupadmin',array('context'=>'course','authors' => 'lecturers')).
+                '</div>');
+                 $table->addRow($temp);
             }
             $lnkLect = $this->newObject('link', 'htmlelements');
             $lnkLect->href = $this->uri( array( 'action'=>'manage_lect' ),'contextgroups' );
@@ -604,7 +609,7 @@ class utils extends object
             $tableRow = array('<hr/>'.$lnkLect->show());
             $table->addRow($tableRow);
         
-            $str .= $box->show(ucwords($this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups',array('authors'=>''))),$table->show());
+            $str .= $box->show(ucwords(($this->_objLanguage->code2Txt('mod_contextgroups_ttlLecturers','contextgroups'))),$table->show());
             
             //students list
             $studentArr = $objGroups->contextUsers('Students');
@@ -623,7 +628,10 @@ class utils extends object
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
             } else {
-                
+                $temp = array('<div align="center" style="font-size:small;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.
+                $this->_objLanguage->code2Txt('mod_groupadmin_nostuds','groupadmin',array('context'=>'course','readonlys' => 'students')).
+                '</div>');
+                 $table->addRow($temp);
             }
            $lnkStud = $this->newObject('link', 'htmlelements');
             $lnkStud->href = $this->uri( array( 'action'=>'manage_stud' ),'contextgroups' );
@@ -655,7 +663,10 @@ class utils extends object
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
             } else {
-                
+                $temp = array('<div align="center" style="font-size:small;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.
+                $this->_objLanguage->code2Txt('mod_groupadmin_noguest','groupadmin',array('context'=>'course')).
+                '</div>');
+                 $table->addRow($temp);
             }
             $lnkGuest = $this->newObject('link', 'htmlelements');
             $lnkGuest->href = $this->uri( array( 'action'=>'manage_guest' ),'contextgroups' );
@@ -693,9 +704,9 @@ class utils extends object
 	  	{
 	  	    $objLink->href = $this->uri(null,'contextdesigner');	
 	  	    $objIcon->setModuleIcon('contextdesigner');
-	  	    $objLink->link = $objIcon->show(). '  Content Designer';
+	  	    $objLink->link = $objIcon->show(). '  '.$this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course'));
 	  	    $contentsection = '<div class="tab-page">
-				<h2 class="tab">Content Managment</h2>'.$objLink->show().
+				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent').'</h2>'.$objLink->show().
 	  	    '</div>';
 	  	} else {
 	  	    $contentsection = '';
@@ -708,18 +719,18 @@ class utils extends object
 		<div class="tab-pane" id="tabPane3">
 
 			<div class="tab-page">
-				<h2 class="tab">Plugins</h2>
+				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_plugins','contextadmin').'</h2>
 				
 				'. $this->getPluginForm().'
 				
 			</div>
             <div class="tab-page">
-                <h2 class="tab">Users</h2>
+                <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_users','contextadmin').'</h2>
                 '.$this->getContextUsers().'
                 
             </div>
 			<div class="tab-page">
-				<h2 class="tab">Communication</h2>
+				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_communication','contextadmin').'</h2>
 
 				
 				Send Email to class
@@ -740,13 +751,13 @@ class utils extends object
 			</div-->
 			
 			<div class="tab-page">
-				<h2 class="tab">Configure</h2>
+				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_configure','contextadmin').'</h2>
 				'.$this->getEditContextForm().'
 				
 			</div>
 			
 			<div class="tab-page">
-				<h2 class="tab">About</h2>
+				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_about','contextadmin').'</h2>
 				'.$this->getAboutForm().'
 				
 			</div>

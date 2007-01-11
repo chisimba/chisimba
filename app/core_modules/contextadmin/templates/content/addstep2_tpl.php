@@ -11,7 +11,7 @@ $inpMenuText = & $this->newObject('textinput','htmlelements');
 $inpAbout = & $this->newObject('htmlarea','htmlelements');
 $inpButton =  $this->newObject('button','htmlelements');
 
-$objH->str = 'Step 2: About the Course';
+$objH->str = $this->_objLanguage->languageText("mod_context_step","context").' 2: '.$this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
 $objH->type = 3;
 
 //setup the form
@@ -29,7 +29,7 @@ $inpAbout->cssClass = 'f-comments';
 
 $inpButton->setToSubmit();
 $inpButton->cssClass = 'f-submit';
-$inpButton->value = 'Next';
+$inpButton->value = $this->_objLanguage->languageText("word_next");
 
 
 //validation
@@ -41,7 +41,7 @@ $objForm->addToForm('<fieldset>');
 
 $objForm->addToForm($objH->show());
 
-$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
+$objForm->addToForm('</fieldset><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_contextadmin_about","contextadmin").':</b>');
 $objForm->addToForm($inpAbout->show());
 
 

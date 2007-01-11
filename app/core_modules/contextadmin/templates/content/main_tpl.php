@@ -39,12 +39,12 @@ if (isset($contextList))
 		}
 		//print_r($objContextGroups->getUserCount($context['contextcode']));
 		$userCount = $objContextGroups->getUserCount($context['contextcode']);
-		$content = 'Instructors : <span class="highlight">'.$lects.'</span>';
-		$content .= '<p>Status : <span class="highlight">'.$context['status'].'</span>';
-		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Access : <span class="highlight">'.$context['access'].'</span>';
-		$content .= '<br/>Last Updated  : <span class="highlight">'.$context['updated'].'</span>';
-		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Update By : <span class="highlight">'.$this->_objUser->fullname($context['lastupdatedby']).'</span>';
-		$content .= '<br/>No. of Registered Users: <span class="highlight">'.$userCount.'</span></p>';
+		$content = $this->_objLanguage->languageText("mod_context_instructors",'context') .': <span class="highlight">'.$lects.'</span>';
+		$content .= '<p>'.$this->_objLanguage->languageText("mod_context_status",'context') .' : <span class="highlight">'.$context['status'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_access",'context') .' : <span class="highlight">'.$context['access'].'</span>';
+		$content .= '<br/>'.$this->_objLanguage->languageText("mod_context_lastupdated",'context') .'  : <span class="highlight">'.$context['updated'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_lastupdatedby",'context') .' : <span class="highlight">'.$this->_objUser->fullname($context['lastupdatedby']).'</span>';
+		$content .= '<br/>'.$this->_objLanguage->languageText("mod_context_noregusers",'context') .': <span class="highlight">'.$userCount.'</span></p>';
 		$content .= '<p>'.$this->_objUtils->getPlugins($context['contextcode']).'</p>';
 		
 		
@@ -79,7 +79,7 @@ if (isset($contextList))
 		}
 	}
 } else {
-	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">Not are associated with any courses</div>';
+	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.$this->_objLanguage->languageText("mod_context_noasscontext",'context') .'</div>';
 }
 
 
@@ -88,7 +88,7 @@ if ($this->_objDBContext->isInContext()) {
 	$other .= $this->_objUtils->getContextAdminToolBox();
 	$tabBox->addTab(array('name'=> $this->_objDBContext->getTitle(). ' Admin','content' => $other));	
 }
-$tabBox->addTab(array('name'=>'My Courses','content' => $str));
+$tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_mycontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
 
 //if the user is admin then show him all the other courses as well
 if($this->_objUser->isAdmin())
@@ -101,9 +101,9 @@ if($this->_objUser->isAdmin())
 		
 		$table->width = '60%';
 		$table->startHeaderRow();
-		$table->addHeaderCell('Code');
-		$table->addHeaderCell('Title');
-		$table->addHeaderCell('Details');
+		$table->addHeaderCell($this->_objLanguage->languageText("mod_context_noregusers",'context'));
+		$table->addHeaderCell($this->_objLanguage->languageText("word_title"));
+		$table->addHeaderCell($this->_objLanguage->languageText("mod_context_details",'context'));
 		$table->addHeaderCell('&nbsp;');
 		$table->endHeaderRow();
 		

@@ -27,7 +27,7 @@ class contextadmin extends controller
         $this->_objDBContext = & $this->newObject('dbcontext', 'context');
         $this->_objDBContextModules = & $this->newObject('dbcontextmodules', 'context');
         $this->_objUser = & $this->newObject('user', 'security');
-        $this->objLanguage = & $this->newObject('language', 'language');
+        $this->_objLanguage = & $this->newObject('language', 'language');
         //$this->_objUtilsContent = & $this->newObject('utils', 'contextpostlogin');
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
         $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
