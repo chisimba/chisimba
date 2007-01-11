@@ -94,6 +94,10 @@ class sidebar extends object
     		//loop through the nodes
     		foreach($nodes as $node)
     		{
+    			if(!isset($node['nodeid']))
+    			{
+    				$node['nodeid'] = NULL;
+    			}
 				if($node['nodeid'] == $activeId || isset($node['haschildren']))
 				{
 					$cssClass = ' class="active" ';
