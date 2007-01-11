@@ -36,14 +36,15 @@ class utilities extends object
     * Constructor method to define the table
     */
     function init() {
-        $this->objDBContext = & $this->newObject('dbcontext', 'context');        
-        $this->objLink = & $this->newObject('link', 'htmlelements');        
-        $this->objIcon = & $this->newObject('geticon', 'htmlelements');        
+        $this->objDBContext = & $this->getObject('dbcontext', 'context');        
+        $this->objLink = & $this->getObject('link', 'htmlelements');        
+        $this->objIcon = & $this->getObject('geticon', 'htmlelements');        
         $this->objConfig = &$this->getObject('config', 'config');
-        $this->objDBContextModules = & $this->newObject('dbcontextmodules', 'context');        
-        $this->objDBContextParams = & $this->newObject('dbcontextparams', 'context');        
+        $this->objDBContextModules = & $this->getObject('dbcontextmodules', 'context');        
+        $this->objDBContextParams = & $this->getObject('dbcontextparams', 'context');        
+        $this->objLanguage = & $this->getObject('language', 'language');        
         $this->contextCode = $this->objDBContext->getContextCode();
-        $this->_objContextModules = & $this->newObject('dbcontextmodules', 'context');
+        $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
         
     }
     
@@ -147,7 +148,7 @@ class utilities extends object
 	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
 	  			        
 	  			    }
-	  			    $nodes[] = array('text' => 'Content', 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
+	  			    $nodes[] = array('text' => $this->objLanguage->languageText("mod_context_content",'context'), 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
 	  			    $isregistered = false;
 	  			}
 	  			
@@ -305,7 +306,7 @@ class utilities extends object
 			$section = $this->getParam('id');
 			
 			//create the home for the context
-			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' - Home Page ', 'uri' => $this->uri(null,"_default"));
+			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' -  '.$this->objLanguage->languageText("word_home"), 'uri' => $this->uri(null,"_default"));
 						
 			
 			

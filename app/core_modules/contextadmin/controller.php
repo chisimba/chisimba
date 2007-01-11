@@ -68,7 +68,7 @@ class contextadmin extends controller
                      
                      return $this->nextAction('addstep2');
                  } else {
-                     return $this->nextAction('addstep1', array('error' =>  'An error has occured while trying to create the [-context-]'));
+                     return $this->nextAction('addstep1', array('error' => $this->objLanguage->languageText("mod_context_error_createcontext",'context') ));
                  }
             case 'addstep2':
                 $this->setLayoutTemplate('layout_tpl.php');
