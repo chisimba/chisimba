@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_files_metadata_media</table>
+        <version>0.3</version>
+        <description>added column for descriptions</description>
+        <data>
+            <add>
+                <name>description</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_userfilters</table>
+        <version>0.5</version>
+        <description>added columns for filter type - user or context</description>
+        <data>
+            <add>
+                <name>filtertype</name>
+                <type>text</type>
+                <length>10</length>
+                <default>user</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_userfilters</table>
+        <version>0.51</version>
+        <description>added columns for filter color</description>
+        <data>
+            <add>
+                <name>filtercolor</name>
+                <type>text</type>
+                <length>7</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_userfilters</table>
+        <version>0.52</version>
+        <description>added columns for whether filter is shared or not</description>
+        <data>
+            <add>
+                <name>isshared</name>
+                <type>text</type>
+                <length>1</length>
+                <default>N</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_userfilters</table>
+        <version>0.53</version>
+        <description>added columns for parent filter</description>
+        <data>
+            <add>
+                <name>parentfilter</name>
+                <type>text</type>
+                <length>32</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_userfilters</table>
+        <version>0.54</version>
+        <description>added columns for parent level</description>
+        <data>
+            <add>
+                <name>level</name>
+                <type>integer</type>
+                <length>11</length>
+                <default>1</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_usage</table>
+        <version>0.55</version>
+        <description>added column to record type of register</description>
+        <data>
+            <add>
+                <name>typeadd</name>
+                <type>text</type>
+                <length>8</length>
+                <default>register</default>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_files_usage</table>
+        <version>0.56</version>
+        <description>added column to record usage urls</description>
+        <data>
+            <add>
+                <name>urlusage</name>
+                <type>text</type>
+            </add>
+        </data>
+    </update>
+</updates>
