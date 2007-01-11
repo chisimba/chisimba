@@ -695,6 +695,15 @@ class dbfile extends dbTable
             unlink($thumbnailPath);
         }
         
+        // Get html preview path
+        $htmlPreviewPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.htm';
+        $this->objCleanUrl->cleanUpUrl($htmlPreviewPath);
+        
+        // Delete thumbnail if it exists
+        if (file_exists($htmlPreviewPath)) {
+            unlink($htmlPreviewPath);
+        }
+        
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
         return $this->delete('id', $fileId);
