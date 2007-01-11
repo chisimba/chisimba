@@ -70,6 +70,8 @@ class filemanager extends controller
                 return $this->showFCKFlash();
             case 'fcklink':
                 return $this->showFCKEditorInterface();
+            case 'uploadfiles':
+                return 'multipleupload_tpl.php';
             case 'testgetid3':
                 return $this->testGetId3();
             default:
