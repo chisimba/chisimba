@@ -59,6 +59,7 @@ class selectfile extends object
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('windowpop', 'htmlelements');
+        $this->loadClass('button', 'htmlelements');
         
         $this->widthOfInput = '80%';
     }
@@ -74,11 +75,31 @@ class selectfile extends object
     }
     
     /**
+    * Method to return the JavaScript to clear an input
+    * @return string
+    */
+    public function showClearInputJavaScript()
+    {
+        $script = '
+<script type="text/javascript">
+
+function clearFileInputJS(name)
+{
+    document.getElementById(\'selectfile_\'+name).value = \'\';
+    document.getElementById(\'hidden_\'+name).value = \'\';
+}
+</script>';
+
+        return $script;
+    }
+    
+    /**
     * Method to show the file selector input
     * @return string File Selector
     */
     public function show()
     {
+        $this->appendArrayVar('headerParams', $this->showClearInputJavaScript());
         if ($this->defaultFile == '') {
             $defaultId = '';
             $defaultName = '';
@@ -155,7 +176,14 @@ class selectfile extends object
         $textinput->setId('selectfile_'.$this->name);
         $textinput->extra = ' readonly="true" style="width:'.$this->widthOfInput.'" ';
         
-        return $input->show().$textinput->show().' &nbsp; '.$objPop->show();
+        $button = new button('clear', 'Clear', 'clearFileInputJS(\''.$this->name.'\');');
+        
+        // Option for showing via submodal window
+        // $objSubModalWindow = $this->getObject('submodalwindow', 'htmlelements');
+        // $subModal = $objSubModalWindow->show('Select', $location, 'button');
+        // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
+        
+        return $input->show().$textinput->show().' &nbsp; '.$objPop->show().$button->show();
     }
     
     
