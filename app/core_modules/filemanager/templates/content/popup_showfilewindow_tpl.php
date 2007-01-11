@@ -92,6 +92,7 @@ function appendPreviews(id, value)
         $table->startRow();
         $table->addCell($icon, 16);
         $table->addCell($link->show());
+        $table->addCell(' &nbsp;  &nbsp;');
         $table->addCell($selectLink->show(), 40);
         $table->endRow();
         
@@ -136,6 +137,10 @@ function selectFile(file, id)
         window.opener.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
         window.close();
         window.opener.focus();
+    } else {
+        window.parent.document.getElementById("selectfile_'.$inputname.'").value = fileName[id];
+        window.parent.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
+        window.parent.hidePopWin();
     }
 }
 </script>
