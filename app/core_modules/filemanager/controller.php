@@ -62,6 +62,8 @@ class filemanager extends controller
                 return $this->selecttest();
             case 'selectfilewindow':
                 return $this->showFileWindow();
+            case 'selectimagewindow':
+                return $this->showImageWindow();
             case 'selectfileuploads':
                 return $this->selectFileUploads();
             case 'fckimage':
@@ -369,6 +371,54 @@ function checkWindowOpener()
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressBanner', TRUE);
         return 'popup_showfilewindow_tpl.php';
+    }
+    
+    /**
+    *
+    */
+    public function showImageWindow()
+    {
+        $restriction = array('gif', 'jpg', 'jpeg', 'png');
+
+        if ($this->getParam('mode') == 'fileupload') {
+            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
+            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        }
+
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
+
+        $this->setVarByRef('files', $files);
+
+        // Script to Close Window automatically if opener does not exist
+        $checkOpenerScript = '
+<script type="text/javascript">
+function checkWindowOpener()
+{
+    if (!window.opener) {
+        window.close();
+    }
+}
+</script>
+        ';
+
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
+
+        $xajax = new xajax($this->uri(array('action'=>'selectimagewindow')));
+        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
+        $xajax->processRequests(); // XAJAX method to be called
+        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
+
+        $inputname = $this->getParam('name');
+        $this->setVarByRef('inputname', $inputname);
+
+        $defaultValue = $this->getParam('value');
+        $this->setVarByRef('defaultValue', $defaultValue);
+
+        $this->setLayoutTemplate(NULL);
+        $this->setVar('pageSuppressBanner', TRUE);
+        return 'popup_showimagewindow_tpl.php';
     }
 
     /**
