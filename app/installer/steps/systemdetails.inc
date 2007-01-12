@@ -88,7 +88,7 @@ class SystemDetails extends Step
 
 		$this->help_topic = 'system_details';
 
-		$this->step_help = "The Installer will now setup you system details. Please refer to the help for more info on each section,";
+		$this->step_help = "The Installer will now setup your system details. Please refer to the help for more info on each section,";
 
 
 	}//end SystemDetails()
@@ -158,7 +158,7 @@ class RootUserAction extends StepAction
 
 		$_SESSION['serverName'] = (isset($_POST['serverName'])) ? $_POST['serverName'] : '';
 
-		$_SESSION['main_server'] = (isset($_POST['main_server'])) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
+		$_SESSION['main_server'] = (isset($_POST['main_server'])) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
 
 		$_SESSION['serverLocation'] = (isset($_POST['serverLocation'])) ? $_POST['serverLocation'] : '';
 
@@ -470,7 +470,7 @@ class RootUserAction extends StepAction
 
 
 
-			text_box('sys_owner',$def_sysowner,'40','',false,'tabindex="8"');
+			text_box('sys_owner',$def_sysowner,'40','',false,'tabindex="4"');
 
 			$sys_owner = ob_get_contents();
 
@@ -970,7 +970,7 @@ class RootUserAction extends StepAction
 
 					0,
 
-					'tabindex="9"');
+					'tabindex="3"');
 
 			$cmbLocation = ob_get_contents();
 

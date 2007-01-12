@@ -116,7 +116,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	public $min_version = '5.1.2';
+	public $min_version = '5.1.0';
 
 
 
@@ -130,7 +130,7 @@ class PHPCheckAction extends StepAction
 
 	*/
 
-	public $required_settings = Array(	'PHP' => Array('version'=>'5.1.2', 'available'=>true, 'message'=> ''),
+	public $required_settings = Array(	'PHP' => Array('version'=>'5.1.0', 'available'=>true, 'message'=> ''),
 
 										'GD'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -152,7 +152,7 @@ class PHPCheckAction extends StepAction
 
 										//'pgsql'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
-										//'SQLite'=>Array('version'=>'', 'available' => true, 'message'=> ''),
+										'imap'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
 										'SimpleXML'=>Array('version'=>'', 'available' => true, 'message'=> ''),
 
@@ -397,23 +397,23 @@ class PHPCheckAction extends StepAction
 			$this->required_settings['pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 		}
+*/
+		// check IMAP
 
-		// check SQLite
+		if (!extension_loaded('imap')) {
 
-		if (!extension_loaded('SQLite')) {
+			$this->required_settings['imap']['available'] = false;
 
-			$this->required_settings['SQLite']['available'] = false;
+			$this->required_settings['imap']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
-			$this->required_settings['SQLite']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
-
-			$this->errors[] = 'SQLite not found. You can proceed with the install, however some functionality will not be available to you';
+			$this->errors[] = 'imap not found. You can proceed with the install, however some functionality will not be available to you';
 
 		} else {
 
-			$this->required_settings['SQLite']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
+			$this->required_settings['imap']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
 		}
-*/
+
 		// check SimpleXML
 
 		if (!extension_loaded('SimpleXML')) {
