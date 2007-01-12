@@ -111,6 +111,11 @@ class windowPop implements ifhtml
     */
     public $js_iswritten;
     /**
+    * @var string Type of link to use. Can either be 'link' or 'button'
+    */
+    public $linkType = 'link';
+    
+    /**
     * Method to establish the default values
     */
     public function windowPop()
@@ -175,9 +180,17 @@ class windowPop implements ifhtml
         if ($this->left) {
             $this->features .= " left=".$this->left." screenY=".$this->left;
         }
-        return $this->putJs()."<a href=\"javascript:openWindow('"
+        
+        // Either show as button or link (default)
+        if ($this->linkType=='button') {
+            return $this->putJs()."<button onclick=\"javascript:openWindow('"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
+         . $this->linktext . "</button>";
+        } else {
+            return $this->putJs()."<a href=\"javascript:openWindow('"
          . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
          . $this->linktext . "</a>";
+         }
     }
 }
 
