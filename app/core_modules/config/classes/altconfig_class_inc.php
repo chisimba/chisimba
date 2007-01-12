@@ -954,8 +954,6 @@ class altconfig extends object
     {
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
 
-        // Check if Parameter is set
-        if ($this->checkIfSet('KEWL_DEFAULT_PAGE_TEMPLATE')) {
             // Get Value if it is set
             //Lets get the parent node section first
         	$Settings =& $this->_root->getItem("section", "Settings");
@@ -976,15 +974,7 @@ class altconfig extends object
             } else { // return given template
                 return $template;
             }
-        } else {
-            // Insert Parameter if not set
-            $this->setdefaultPageTemplate('default_page_tpl.php');
-            $this->readConfig('','XML');
-            $Settings =& $this->_root->getItem("section", "Settings");
-            //Now onto the directive node
-            $SettingsDirective =& $Settings->getItem("directive", "KEWL_DEFAULT_PAGE_TEMPLATE");
-            return $SettingsDirective->getContent();
-        }
+       
     }
      /**
     *

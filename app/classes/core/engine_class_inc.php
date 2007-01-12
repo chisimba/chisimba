@@ -138,7 +138,7 @@ class engine
      * @access private
      * @var string
      */
-    private $_pageTemplate = 'default_page_xml.php';
+    private $_pageTemplate =null;
 
     /**
      * Has an error been generated?
@@ -299,7 +299,8 @@ class engine
         $this->_templateRefs = array();
         //bust up the cached objects
         $this->_cachedObjects = array();
-
+		//Get default page template
+		$this->_pageTemplate = $this->_objConfig->getdefaultPageTemplate();
         // Get Layout Template from Config files
         $this->_layoutTemplate = $this->_objConfig->getdefaultLayoutTemplate();
     }//end function
