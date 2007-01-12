@@ -18,23 +18,6 @@ blockquote {
     padding: 5px;
 }
 
-input {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
-
-select
- {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
-textarea {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
 /* Body and HTML */
 html, body {
 	width: 100%;
@@ -721,3 +704,18 @@ content: close-quote;
 /**
 * End - Submodal Window
 */
+
+
+/**
+Added styles for float based on language direction. Prevents hardcoding.
+For example, these below are for divs that should be left aligned for English.
+But for Arabic or Hebrew, they will be floated right, if it gets overridden in the skin stylesheet
+*/
+.floatlangdir {
+    float: left;
+}
+
+.clearfloatlangdir {
+    clear: left;
+}
+/* END - styles based on language direction */
