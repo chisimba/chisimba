@@ -174,6 +174,17 @@ class languagecode extends object
 		// print a HTML safe select box
 		return  $this->objselect->getAllCodes();
     }
+    
+    /**
+     * Get the corresponding country name of the supplied two letter country code.
+     *
+     * @param string $code
+     * @return countryname
+     */
+    public function getName ($code){
+    	
+    	return $this->objcountry->getName($code);
+    }
     /**
     * The error callback function, defers to configured error handler
     *
