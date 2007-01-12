@@ -139,12 +139,18 @@ class languagecode extends object
      *
      * @return dropdown of countrues
      */
-    public function country()
+    public function country($country=NULL)
     {
     		
 		// set a selected entry
 		$language = strtoupper($this->objConfig->getCountry());
 		$this->objselect->attributes['select']['name'] = 'country';
+		// set a selected entry
+		if ($country) {
+			$language = $country;
+		}else{
+		$language = strtoupper($this->objConfig->getCountry());
+		}
 		$this->objselect->selected["{$language}"] = true;
 		
 		// print a HTML safe select box
