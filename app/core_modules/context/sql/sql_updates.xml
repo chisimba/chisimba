@@ -21,7 +21,7 @@
         <length>255</length>
     </add>
     <add>
-        <name>param</name>
+        <name>value</name>
         <type>text</type>
         <length>255</length>
     </add>
