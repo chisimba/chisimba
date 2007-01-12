@@ -1,26 +1,30 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <updates>
 <update>
-<table>tbl_context</table>
-<version>1.12</version>
-<description>Added status,access and lastupdatedby fields</description>
+<table>tbl_contextparams</table>
+<version>1.13</version>
+<description>Added contextparams table</description>
 <data>
     <add>
-        <name>lastupdatedby</name>
+        <name>id</name>
         <type>text</type>
         <length>32</length>
     </add> 
     <add>
-        <name>access</name>
+        <name>contextcode</name>
         <type>text</type>
-        <length>32</length>
+        <length>255</length>
     </add>
     <add>
-        <name>status</name>
+        <name>param</name>
         <type>text</type>
-        <length>32</length>
+        <length>255</length>
     </add>
-        
+    <add>
+        <name>param</name>
+        <type>text</type>
+        <length>255</length>
+    </add>
 </data>
 </update>
 </updates>
