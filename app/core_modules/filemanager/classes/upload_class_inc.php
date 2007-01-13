@@ -71,7 +71,10 @@ class upload extends object
         
         for ($i = 1; $i <= $this->numInputs; $i++)
         {
-            $form .= $break.'<input type="file" name="'.$this->name.$i.'" />';
+            $form .= $break . '<input type="file" name="'
+              . $this->name . $i . '" '
+			  . 'id="'. $this->name . $i . '" '
+			  . 'size="40" />';
             $break = '<br />';
         }
         
