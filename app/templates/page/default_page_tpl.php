@@ -1,5 +1,5 @@
 <?php header("Content-type: text/html; charset=utf-8"); ?>
-<?
+<?php
 
 if (!isset($pageLanguage)) {
     $languageClass =& $this->getObject('language', 'language');
