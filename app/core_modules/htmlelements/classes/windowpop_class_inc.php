@@ -183,9 +183,18 @@ class windowPop implements ifhtml
         
         // Either show as button or link (default)
         if ($this->linkType=='button') {
-            return $this->putJs()."<button onclick=\"javascript:openWindow('"
+            
+            if (preg_match('/<.+?>/', $this->linktext)) {
+                return $this->putJs()."<button onclick=\"javascript:openWindow('"
          . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
          . $this->linktext . "</button>";
+            } else {
+                return $this->putJs()."<input type=\"button\" class=\"button\"  onclick=\"javascript:openWindow('"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\" value=\""
+         . $this->linktext . "\" />";
+            }
+
+            
         } else {
             return $this->putJs()."<a href=\"javascript:openWindow('"
          . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
