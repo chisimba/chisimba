@@ -11,55 +11,55 @@ require_once("ifhtml_class_inc.php");
 
 /**
 * HTML control class to create anchor (<A href=>) tags
-* 
-* @author Derek Keats 
-* 
+*
+* @author Derek Keats
+*
 */
 class link extends abhtmlbase implements ifhtml
 {
     /**
-    * 
+    *
     * @var string $linkType The type of link, e.g. http, mailto, etc.
     * If not provided the default http is used.
     */
     public $linkType;
 
     /**
-    * 
+    *
     * @var string $href The url to load, without the http://
     * use lower case "none" if you want to produce <a href="#"
     * Optional
     */
     public $href;
-    
+
     /**
-    * 
+    *
     * @var string $target The target frame
     */
     public $target;
 
     /**
-    * 
-    * @var string $link The text to display in the link. 
+    *
+    * @var string $link The text to display in the link.
     * If it is left out the URL is displayed.
     */
     public $link;
-    
+
     /**
-    * 
+    *
     * @var string $charset Specifies the character encoding of the target URL
     */
     public $charset;
-    
+
     /**
-    * 
+    *
     * @var string $hreflang Specifies the base language of the target URL
     * Optional, rarely used
     */
     public $hreflang;
     /**
-    * 
-    * @var string $rel Specifies the relationship between the current 
+    *
+    * @var string $rel Specifies the relationship between the current
     * document and the target URL
     * Optional, rarely used
     * Values:
@@ -80,50 +80,50 @@ class link extends abhtmlbase implements ifhtml
     *    help
     *    bookmark
     */
-    
+
     public $rel;
-    
+
     /**
-    * 
-    * @var string $rev Specifies the relationship between the target 
+    *
+    * @var string $rev Specifies the relationship between the target
     * URL and the current document.
     * Values:
     * @see $rel
     */
     public $rev;
-    
+
     /**
-    * 
-    * @var string $type Specifies the MIME (Multipurpose Internet Mail Extensions) 
+    *
+    * @var string $type Specifies the MIME (Multipurpose Internet Mail Extensions)
     * type of the target URL
     */
     public $type;
-    
+
     /**
-    * 
+    *
     * @var string $anchor specifies the anchor (#) on a page for the link
     */
     public $anchor;
-    
+
     /**
-    * 
+    *
     * @var string $title specifies the link title
     */
     public $title;
-    
+
     /**
-    * 
-    * @var string $extra Gives the user more flexability 
+    *
+    * @var string $extra Gives the user more flexability
     */
   //  public $extra;
-    
+
     /**
     * Initialization method to set default values
     */
     public function link($href=null)
     {
         $this->href=$href;
-    } 
+    }
 
     /**
     * Show method
@@ -131,7 +131,7 @@ class link extends abhtmlbase implements ifhtml
     public function show()
     {
         return $this->_buildLink();
-    } 
+    }
 
     /*-------------- PRIVATE METHODS BELOW LINE ------------------*/
 
@@ -145,7 +145,7 @@ class link extends abhtmlbase implements ifhtml
             $ret .= $this->linkType."://";
         }
         if ($this->href) {
-            $ret .= $this->href; 
+            $ret .= $this->href;
             if ($this->anchor) {
                 $ret.='#'.$this->anchor;
             }
@@ -155,55 +155,52 @@ class link extends abhtmlbase implements ifhtml
         }
         if ($this->name) {
             $ret .= " name=\"" . $this->name . "\" ";
-        } 
+        }
         if ($this->cssId) {
             $ret .= " id=\"" . $this->cssId . "\" ";
-        } 
+        }
         if ($this->cssClass) {
             $ret .= " class=\"" . $this->cssClass . "\" ";
-        } 
+        }
         if ($this->title) {
             $ret .= " title=\"" . $this->title . "\" ";
-        } 
+        }
         if ($this->style) {
             $ret .= " style=\"" . $this->style . "\" ";
-        } 
+        }
         if ($this->dir) {
             $ret .= " dir=\"" . $this->dir . "\" ";
-        } 
+        }
         if ($this->tabindex) {
             $ret .= " tabindex=\"" . $this->tabindex . "\" ";
-        } 
+        }
         if ($this->accesskey) {
             $ret .= " accesskey=\"" . $this->accesskey . "\" ";
-        } 
+        }
         if ($this->target) {
             $ret .= " target=\"" . $this->target . "\" ";
-        } 
-        if ($this->name) {
-            $ret .= " name=\"" . $this->name . "\" ";
-        } 
+        }
         if ($this->charset) {
             $ret .= " charset=\"" . $this->charset . "\" ";
-        } 
+        }
         if ($this->hreflang) {
             $ret .= " hreflang=\"" . $this->hreflang . "\" ";
-        } 
+        }
         if ($this->rel) {
             $ret .= " rel=\"" . $this->rel . "\" ";
-        } 
+        }
         if ($this->rev) {
             $ret .= " rev=\"" . $this->rev . "\" ";
-        } 
+        }
         if ($this->type) {
             $ret .= " type=\"" . $this->type . "\" ";
-        } 
+        }
         if ($this->extra) {
             $ret .= $this->extra;
-        } 
+        }
         $ret .= ">".$this->link."</a>";
         return $ret;
-    } 
-} 
+    }
+}
 
 ?>
