@@ -19,7 +19,7 @@ class skin extends object
         $this->objButtons =& $this->getObject('navbuttons', 'navigation');
         $this->loadClass('form','htmlelements');
         $this->loadClass('dropdown','htmlelements');
-        $this->objConfig =& $this->newObject('altconfig','config');
+        $this->objConfig =& $this->getObject('altconfig','config');
         //$this->server =& $this->objConfig->serverName();
 
         // Browser Detection Class
@@ -214,6 +214,57 @@ class skin extends object
     public function putSimpleSkinCssLinks()
     {
         return $this->putSkinCssLinks();
+    }
+    
+    /**
+    * Method to get the Path to a Skin Template
+    * @param string $type Type of Template - Either 'page' or 'layout'
+    * @return path to template
+    */
+    public function getTemplate($type)
+    {
+        switch (strtolower($type))
+        {
+            case 'page': $template = $this->getPageTemplate(); break;
+            case 'layout': $template = $this->getLayoutTemplate(); break;
+            default: $template = 'unknown';
+        }
+        return $this->objConfig->getsiteRootPath().$template;
+    }
+    
+    /**
+    * Method to get the Page Template of a Skin
+    *
+    * If the page template does not exist, it returns the _common page template
+    *
+    * @return path to page template to be used
+    */
+    public function getPageTemplate()
+    {
+        if (file_exists($this->objConfig->getsiteRootPath().'skins/'.$this->getSkin().'/templates/page/page_template.php')) {
+            return 'skins/'.$this->getSkin().'/templates/page/page_template.php';
+        } else {
+            return 'skins/_common/templates/page/page_template.php'; 
+        }
+        //$this->objConfig->getdefaultPageTemplate();
+    }
+    
+    /**
+    * Method to get the Layout Template of a Skin
+    *
+    * If the layout template does not exist, it returns the _common layout template
+    *
+    * @return path to layout template to be used
+    */
+    public function getLayoutTemplate()
+    {
+        if (file_exists($this->objConfig->getsiteRootPath().'skins/'.$this->getSkin().'/templates/layout/layout_template.php')) {
+            return 'skins/'.$this->getSkin().'/templates/layout/layout_template.php';
+        } else {
+            return 'skins/_common/templates/layout/layout_template.php'; 
+        }
+        
+        return 'skins/_common/templates/layout/layout_template.php';//$this->objConfig->getdefaultLayoutTemplate();
     }
 
 } # End of class
