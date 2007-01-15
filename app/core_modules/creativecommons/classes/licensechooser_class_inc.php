@@ -96,8 +96,12 @@ class licensechooser extends object
                 $iconList .= $blankIcon;
             }
             
+            $title = $license['title'];
+            if ($title == 'Attribution Non-commercial Share') {
+                $title = 'Attribution Non-commercial Share Alike';
+            }
             // Add to Radio Group
-            $radio->addOption($license['code'], $iconList.$license['title']);
+            $radio->addOption($license['code'], $iconList.$title);
         }
         
         // Set Default Selected Value
