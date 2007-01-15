@@ -299,10 +299,13 @@ class engine
         $this->_templateRefs = array();
         //bust up the cached objects
         $this->_cachedObjects = array();
+        
+        //Load the Skin Object
+        $this->_objSkin = $this->getObject('skin', 'skin');
 		//Get default page template
-		$this->_pageTemplate = $this->_objConfig->getdefaultPageTemplate();
+		$this->_pageTemplate = $this->_objSkin->getPageTemplate();
         // Get Layout Template from Config files
-        $this->_layoutTemplate = $this->_objConfig->getdefaultLayoutTemplate();
+        $this->_layoutTemplate = $this->_objSkin->getLayoutTemplate();
     }//end function
 
     /**
@@ -1086,7 +1089,8 @@ class engine
         }
         if (empty($path) || !file_exists($path)) {
             $firstpath = $path;
-            $path = $this->_objConfig->getsiteRootPath() . "templates/${type}/${tpl}";
+            $path = $this->_objSkin->getTemplate($type);
+            //$path = $this->_objConfig->getsiteRootPath() . "templates/${type}/${tpl}";
             if (!file_exists($path))
             {
                 throw new customException("Template $tpl not found (looked in $firstpath)!");
