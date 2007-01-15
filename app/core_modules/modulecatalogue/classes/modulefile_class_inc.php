@@ -347,13 +347,13 @@ class modulefile extends object {
 							$registerdata[$params[0]][]=rtrim($params[1]);
 						break;
 						case 'CONFIG': 				//configuration params
-							if (isset($params[2])){
-							$registerdata[$params[0]][]=array('pname'=>rtrim($params[1]),'pvalue'=>rtrim($params[2]));
-						} else {
 							$confArray=explode('|',$params[1]);
-							$registerdata[$params[0]][]=array('pname'=>trim($confArray[0]),'pvalue'=>trim($confArray[1]));
-						}
-						break;
+							$pdesc = '';
+							if (isset($confArray[2])) {
+								$pdesc = trim($confArray[2]);
+							}
+							$registerdata[$params[0]][]=array('pname'=>trim($confArray[0]),'pvalue'=>trim($confArray[1]),'pdesc'=>$pdesc);
+							break;
 						case 'TEXT': 				//Languagetext items
 						$registerdata['TEXT'][]=$params[1]; // Need to think this one out some more.
 						break;

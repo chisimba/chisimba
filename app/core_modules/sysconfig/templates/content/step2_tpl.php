@@ -140,6 +140,7 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
     //Add a row
     $objTable->startRow();
     $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig')."</b>", "30%", NULL, "LEFT", "heading");
+    $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramdesc",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
     $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_paramvalue",'sysconfig')."</b>", "60%", NULL, "LEFT", "heading");
     $objTable->addCell("<b>".$this->objLanguage->languageText("mod_sysconfig_action",'sysconfig')."</b>", "10%", NULL, "RIGHT", "heading");
     $objTable->endRow();
@@ -163,8 +164,9 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
               
             $objTable->startRow();
             // addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
-            $objTable->addCell($line['pname'], "30%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($line['pvalue'], "60%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($line['pname'], "20%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($line['pdesc'], "60%", NULL, NULL, $oddOrEven);
+            $objTable->addCell($line['pvalue'], "20%", NULL, NULL, $oddOrEven);
             $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
             $objTable->endRow();
             //Set rowcount for bitwise determination of odd or even

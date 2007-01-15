@@ -30,6 +30,9 @@ $fields = array(
         'notnull' => TRUE,
         'default' => 'unknown'
 		),
+	'pdesc' => array(
+		'type' => 'clob'
+		),
     'creatorId' => array(
 		'type' => 'text',
         'length' => 25

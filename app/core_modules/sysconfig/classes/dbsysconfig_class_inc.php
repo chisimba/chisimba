@@ -62,19 +62,26 @@ class dbsysconfig extends dbTable
     * @var string $value The value of the config parameter
     * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
     */
-    function insertParam($pname, $pmodule, $pvalue)
+    function insertParam($pname, $pmodule, $pvalue, $pdesc)
     {
         // Check if an insert would produce a duplicate
         if (!$this->_checkForDuplicate($pname, $pmodule)) {
             $this->insert(array('pmodule' => $pmodule,
                     'pname' => $pname,
                     'pvalue' => $pvalue,
+                    'pdesc' => $pdesc,
                     'creatorId' => $this->objUser->userId(),
                     'dateCreated' => date("Y/m/d H:i:s")));
             return true;
         } else {
-            //die($this->objLanguage->languageText('mod_sysconfig_err_dupattempt','sysconfig'));
-            return false;
+            $id = $this->_lookUpId($pname, $pmodule);
+            $this->update('id',$id,array('pmodule' => $pmodule,
+                    'pname' => $pname,
+                    'pvalue' => $pvalue,
+                    'pdesc' => $pdesc,
+                    'modifierId' => $this->objUser->userId(),
+                    'dateModified' => date("Y/m/d H:i:s")));
+            return true;
         } #if
     } #function insertParam
 
@@ -230,7 +237,8 @@ class dbsysconfig extends dbTable
         foreach ($ar as $line) {
             $pname = $line['pname'];
             $pvalue = $line['pvalue'];
-            $this->insertParam($pname, $pmodule, $pvalue);
+            $pdesc = $line['pdesc'];
+            $this->insertParam($pname, $pmodule, $pvalue, $pdesc);
         } #foreach
     } #function registerModuleParams
     

@@ -10,7 +10,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 $script = "
 <script language='javascript'>
-
+<!--
 function updateForm(form) {
 	if (form.type[0].checked) {
 		form.content.style.display = 'none';
@@ -30,7 +30,7 @@ function window_loaded() {
 }
 
 window.onload = window_loaded;
-
+//-->
 </script>
 ";
 
