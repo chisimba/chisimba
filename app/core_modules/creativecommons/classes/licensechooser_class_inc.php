@@ -1,4 +1,9 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
 
 /**
  * Class to Generate a Radio Button List of available licenses
