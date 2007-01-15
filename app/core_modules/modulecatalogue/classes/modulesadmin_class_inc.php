@@ -463,13 +463,16 @@ class modulesadmin extends dbTableManager
                 // Site Navigation
 
                 // Menu category
-				if (!$update) {
-                if (isset($registerdata['MENU_CATEGORY'])) {
+				if (isset($registerdata['MENU_CATEGORY'])) {
                     foreach ($registerdata['MENU_CATEGORY'] as $menu_category) {
                         $menu_category=strtolower($menu_category);
-                        $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>$menu_category,'module'=>$moduleId,
-                        		'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
-                        $this->objModules->insert($catArray,'tbl_menu_category');
+                        $catArray = array('category'=>$menu_category,'module'=>$moduleId,
+                        			'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
+                        if ($id = $this->existsInToolbarMenu($moduleId)) {
+                        	$this->objModules->update('id',$id,$catArray,'tbl_menu_category');
+                        } else {
+                        	$this->objModules->insert($catArray,'tbl_menu_category');
+                        }
                     }
                 }// end menu category
 
@@ -538,9 +541,13 @@ class modulesadmin extends dbTableManager
                         else {
                             $groupList = $aclList;
                         }
-                        $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'menu_'.$sidemenu,'module'=>$moduleId,
-                        		'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
-                        $this->objModules->insert($catArray,'tbl_menu_category');
+                        $catArray = array('category'=>'menu_'.$sidemenu,'module'=>$moduleId,
+                        			'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
+                        if ($id = $this->existsInMenu("menu_$sidemenu",$moduleId)) {
+                        	$this->objModules->update('id',$id,$catArray,'tbl_menu_category');
+                        } else {
+                        	$this->objModules->insert($catArray,'tbl_menu_category');
+                        }
                     }
                 }// end side menu
 
@@ -558,12 +565,15 @@ class modulesadmin extends dbTableManager
                                 $admin = 0;
                             }
                         }
-                        $catArray = array('id'=>'init@'.time().rand(1000,9999),'category'=>'page_'.$line,'module'=>$moduleId,
-                        		'adminonly'=>$admin,'permissions'=>$aclList,'dependscontext'=>$isContext);
-                        $this->objModules->insert($catArray,'tbl_menu_category');
+                        $catArray = array('category'=>'page_'.$line,'module'=>$moduleId,
+                        			'adminonly'=>$admin,'permissions'=>$aclList,'dependscontext'=>$isContext);
+                        if ($id = $this->existsInMenu("page_$line",$moduleId)) {
+                        	$this->objModules->update('id',$id,$catArray,'tbl_menu_category');
+                        } else {
+                        	$this->objModules->insert($catArray,'tbl_menu_category');
+                        }
                     }
                 }// end pages
-				}
                 // end Site Navigation
 
                 // Here we pass CONFIG data to the sysconfig module
@@ -1189,6 +1199,49 @@ class modulesadmin extends dbTableManager
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
     	}
+    }
+    
+    /**
+     * Function to check whether a menu item exists in the database already
+     *
+     * @param string $category the menu category to check in
+     * @param string $moduleId the module to look for
+     * @return id of the record|FALSE
+     */
+    function existsInMenu($category,$moduleId) {
+    	$sql = "SELECT id FROM tbl_menu_category WHERE category LIKE '$category' and module = '$moduleId'";
+        if($this->debug == TRUE)
+        {
+        	log_debug("$sql");
+        }
+    	$rs = $this->getArray($sql);
+        if (!$rs) {
+            $ret = false;
+        } else {
+            if (count($rs[0]) > 0) {
+                $ret = $rs[0]['id'];
+            } else {
+                $ret = false;
+            }
+        }
+
+        return $ret;
+    }
+    
+    function existsInToolbarMenu($moduleId) {
+    	$sql = "SELECT id FROM tbl_menu_category WHERE module = '$moduleId' AND NOT (category LIKE 'menu_%') AND NOT (category LIKE 'page_%') ";
+        $rs = $this->objModules->getArray($sql);
+        if (!$rs) {
+            $ret = false;
+        } else {
+            if (count($rs[0]) > 0) {
+                $ret = $rs[0]['id'];
+            } else {
+                $ret = false;
+            }
+        }
+
+        return $ret;
     }
 
     /**
