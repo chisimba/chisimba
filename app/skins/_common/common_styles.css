@@ -719,3 +719,28 @@ But for Arabic or Hebrew, they will be floated right, if it gets overridden in t
     clear: left;
 }
 /* END - styles based on language direction */
+
+
+/***
+* CSS for Round Corners
+*/
+div.rounded {
+  padding: 15px;
+  background: #FDB0BB;
+  margin-bottom: 20px;
+  color: #fff;
+}
+div.rounded2 {
+  background: #FDB0BB url(roundcorners/tr.gif) no-repeat top right;
+  margin-bottom: 20px;
+}
+div.rounded2 div {
+  background: transparent url(roundcorners/tl.gif) no-repeat top left;
+}
+div.rounded2 div div {
+  background: transparent url(roundcorners/br.gif) no-repeat bottom right;
+}
+div.rounded2 div div div {
+  background: transparent url(roundcorners/bl.gif) no-repeat bottom left;
+  padding: 15px;
+}
