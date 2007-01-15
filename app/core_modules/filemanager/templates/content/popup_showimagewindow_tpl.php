@@ -12,13 +12,13 @@ $this->loadClass('link', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 
 echo '
-<div style="position:absolute; bottom: 0px; baackground-color:#999933; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
+<div style="position:absolute; bottom: 0px; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
 echo '<h1>Upload File</h1>';
 
 $this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
 $this->objUpload->numInputs = 1;
 
-$mode = new hiddeninput('mode', 'selectfilewindow');
+$mode = new hiddeninput('mode', 'selectimagewindow');
 $name = new hiddeninput('name', $this->getParam('name'));
 $context = new hiddeninput('context', $this->getParam('context'));
 $workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
@@ -32,7 +32,7 @@ echo $this->objUpload->show();
 
 echo '</div>';
 
-echo '<div style="width: 100%; background-color:#FFFF00; top: 0; left: 0; position: absolute; overflow-y:scroll; overflow-x:hidden; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
+echo '<div style="width: 100%; top: 0; left: 0; position: absolute; overflow-y:scroll; overflow-x:hidden; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
 
 echo '<h1>List of Images</h1>';
 
