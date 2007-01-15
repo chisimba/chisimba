@@ -33,6 +33,15 @@ class tabcontent extends object
     public $width='450px';
     
     /**
+     * Height of the Tab content Object
+     * If no height is specified, it will take the height per tab. Content below will shift
+     * up/down depending on the difference in the heights of tabs
+     *
+     * @var string
+     */
+    public $height = '';
+    
+    /**
      * Private Variable to hold list of tabs submitted
      *
      * @var array
@@ -65,7 +74,7 @@ class tabcontent extends object
      * @param string $link Link. The tab will be a link to a URL instead of having content
      * @param boolean $defaultSelected Flag whether this should be the default tab to be shown
      */
-    public function addTab($label, $content, $link='', $defaultSelected=FALSE)
+    public function addTab($label, $content, $link='', $defaultSelected=FALSE, $height='')
     {
         // Create an array with details
         $tab = array('label'=>$label, 'selected'=>$defaultSelected);
@@ -102,8 +111,14 @@ class tabcontent extends object
             // Commence Rendering Labels
             $tabnavigation = '<ul id="'.$this->name.'" class="shadetabs">';
             
+            if ($this->height == '') {
+                $height = '';
+            } else {
+                $height = 'style="height: '.$this->height.'; overflow-y:auto;"';
+            }
+            
             // Commence Rendering Tab Content
-            $tabcontent = '<div id="tabcontentstyle'.$this->name.'" class="tabcontentstyle">';
+            $tabcontent = '<div id="tabcontentstyle'.$this->name.'" class="tabcontentstyle" '.$height.'>';
             
             // Counter to keep tabs unique
             $counter = 1;
