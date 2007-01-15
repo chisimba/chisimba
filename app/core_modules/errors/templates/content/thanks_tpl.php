@@ -1,6 +1,8 @@
 <?php
 $objFeatureBox = $this->newObject('featurebox', 'navigation');
 $userMenu  = &$this->newObject('usermenu','toolbar');
+$objUser  = $this->getObject('user','security');
+$link = $this->loadClass('href', 'htmlelements');
 
 // Create an instance of the css layout class
 $cssLayout =& $this->newObject('csslayout', 'htmlelements');
@@ -14,7 +16,14 @@ $header->str = $this->objLanguage->languageText('mod_errors_taheader', 'errors')
 
 // Add Post login menu to left column
 $leftSideColumn ='';
-$leftSideColumn = $userMenu->show();
+if($objUser->isLoggedIn())
+{
+	$leftSideColumn = $userMenu->show();
+}
+else {
+	$linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", "system"));
+	$leftSideColumn = $linkhome->show();
+}
 
 $midcol = $header->show();
 

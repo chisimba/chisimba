@@ -3,6 +3,8 @@ $objFeatureBox = $this->newObject('featurebox', 'navigation');
 $userMenu  = &$this->newObject('usermenu','toolbar');
 $objTextArea = $this->loadclass('textarea', 'htmlelements');
 $objHiddenInput = $this->loadclass('hiddeninput', 'htmlelements');
+$objUser  = $this->getObject('user','security');
+$link = $this->loadClass('href', 'htmlelements');
 
 $objForm = new form('errormail',$this->uri(array('action'=>'errormail')));
 $objTextArea = new textarea('comments','');
@@ -19,7 +21,14 @@ $header->str = $this->objLanguage->languageText('mod_errors_heading', 'errors');
 
 // Add Post login menu to left column
 $leftSideColumn ='';
-$leftSideColumn = $userMenu->show();
+if($objUser->isLoggedIn())
+{
+	$leftSideColumn = $userMenu->show();
+}
+else {
+	$linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", "system"));
+	$leftSideColumn = $linkhome->show();
+}
 
 $midcol = $header->show();
 
