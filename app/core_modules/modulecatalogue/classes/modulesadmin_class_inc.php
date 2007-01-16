@@ -1202,7 +1202,7 @@ class modulesadmin extends dbTableManager
     }
     
     /**
-     * Function to check whether a menu item exists in the database already
+     * Method to check whether a menu item exists in the database already
      *
      * @param string $category the menu category to check in
      * @param string $moduleId the module to look for
@@ -1210,11 +1210,7 @@ class modulesadmin extends dbTableManager
      */
     function existsInMenu($category,$moduleId) {
     	$sql = "SELECT id FROM tbl_menu_category WHERE category LIKE '$category' and module = '$moduleId'";
-        if($this->debug == TRUE)
-        {
-        	log_debug("$sql");
-        }
-    	$rs = $this->getArray($sql);
+        $rs = $this->objModules->getArray($sql);
         if (!$rs) {
             $ret = false;
         } else {
@@ -1228,6 +1224,12 @@ class modulesadmin extends dbTableManager
         return $ret;
     }
     
+    /**
+     * Method to check whether a menu item exists in the toolbar menu
+     *
+     * @param string $moduleId module to check for
+     * @return id of the record in the db|FALSE
+     */
     function existsInToolbarMenu($moduleId) {
     	$sql = "SELECT id FROM tbl_menu_category WHERE module = '$moduleId' AND NOT (category LIKE 'menu_%') AND NOT (category LIKE 'page_%') ";
         $rs = $this->objModules->getArray($sql);
