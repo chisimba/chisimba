@@ -663,7 +663,11 @@ class engine
         }
         // add the site root path to make an absolute path if the config object has
         // sbeen loaded
-        if ($this->_objConfig) {
+        if($this->_objConfig && $this->_objConfig->geterror_reporting() == 'cvs')
+        {
+        	$filename = $filename;
+        }
+        elseif ($this->_objConfig && $this->_objConfig->geterror_reporting() != 'cvs') {
             $filename = $this->_objConfig->getsiteRootPath() . $filename;
         }
         if (!file_exists($filename)) {
@@ -1111,7 +1115,7 @@ class engine
         if (!empty($moduleName)) {
         	if($this->_objConfig->geterror_reporting() == 'cvs')
         	{
-        		$path = $this->_objConfig->getsiteRootPath() . $this->_objConfig->getModulePath() . "${moduleName}/templates/${type}/${tpl}";
+        		$path = $this->_objConfig->getModulePath() . "${moduleName}/templates/${type}/${tpl}";
         	}
         	else {
             	$path = $this->_objConfig->getsiteRootPath() . "modules/${moduleName}/templates/${type}/${tpl}";
