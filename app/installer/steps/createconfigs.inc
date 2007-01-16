@@ -348,7 +348,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
 
-			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'splashscreen');
+			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
 
 			$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
 
