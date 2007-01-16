@@ -10,7 +10,6 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 $script = "
 <script language='javascript'>
-<!--
 function updateForm(form) {
 	if (form.type[0].checked) {
 		form.content.style.display = 'none';
@@ -30,9 +29,10 @@ function window_loaded() {
 }
 
 window.onload = window_loaded;
-//-->
 </script>
 ";
+
+$this->appendArrayVar('headerParams',$script);
 
 $objH = &$this->newObject('htmlheading','htmlelements');
 $objH->type = 1;
@@ -127,7 +127,7 @@ if (isset($id)) {
 	$form->addToForm(new textinput('id',$id,'hidden'));
 }
 
-$content = $script.$objH->show().$form->show();
+$content = $objH->show().$form->show();
 echo $content;
 
 ?>
