@@ -12,8 +12,11 @@ body {
     line-height: 1.8em;
 	text-align: center; /**to centre the container*/
 }
-
-
+html {
+    background-color: #e8daae;
+    background-image: url(images/background_tile.gif);
+    background-repeat: repeat;
+}
 /** END: Rules related to formatting the page body **/
 
 
