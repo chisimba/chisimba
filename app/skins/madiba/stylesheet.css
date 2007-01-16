@@ -398,4 +398,31 @@ form#addsection {
 }
 /** END: Rules for the add section of the CMS admin **/
 
+/** BEGIN: Rules for the blog **/
+#input_blogname {
+	max-width: 340px;
+}
+
+#blogprofile___Frame {
+	max-width: 340px;
+}
+#input_posttitle {
+	max-width: 340px;
+}
+#input_postcatful {
+	max-width: 340px;
+}
+#input_cat {
+	max-width: 340px;
+}
+#input_postexcerpt {
+	max-width: 340px;
+}
+#postcontent___Frame {
+	max-width: 394px;
+}
+#input_tags {
+	max-width: 340px;
+}
+/** END: Rules for the blog **/
 
