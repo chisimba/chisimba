@@ -163,6 +163,7 @@ class lucene extends controller
 	        switch ($action){
 	            case null:
 	            case 'index':
+	            
 	            	//set the path to index
 	            	$this->index->indexPath = $this->objConfig->getcontentBasePath();
 	            	$this->indexPath = $this->index->indexPath;

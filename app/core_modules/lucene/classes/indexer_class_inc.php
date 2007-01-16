@@ -80,27 +80,34 @@ class indexer extends Zend_Search_Lucene_Document
         //hook up the document parser
         $this->document = new Zend_Search_Lucene_Document();
 		//change directory to the index path
-        chdir($this->indexPath);
+        chdir($this->indexPath); 
         $files = $this->globr($this->indexPath, "*");
+      
 		foreach ($files /*glob("*")*/ as $filename) {
 			echo "indexing" . "  " . $filename . "<br><br>";
 
 			//set the properties that we want to use in our index
    		    //url
    			$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('url', $doc->generateUrl($filename)));
+
        		//createdBy
    			//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('createdBy', $doc->getProperty('createdBy', $filename)));
        		//document teaser
      		$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('date', $doc->getProperty('date', $filename)));
+     		
         	//doc title
      		$this->document->addField(Zend_Search_Lucene_Field::Text('title', basename($filename))); //$doc->getProperty('title', $filename)));
+     		
         	//doc author
      		//$this->document->addField(Zend_Search_Lucene_Field::Text('author', $doc->getProperty('author', $filename)));
         	//document body
         	//NOTE: this is not actually put into the index, so as to keep the index nice and small
         	//      only a reference is inserted to the index.
-     		$this->document->addField(Zend_Search_Lucene_Field::Unstored('contents', $doc->getProperty('body', $filename)));
-     		//what else do we need here???
+        	if(is_file($filename))
+            {
+     		 $this->document->addField(Zend_Search_Lucene_Field::Unstored('contents', $doc->getProperty('body', $filename)));
+            }
+     		 //what else do we need here???
 
      		//add the document to the index
      		$this->index->addDocument($this->document);
@@ -121,13 +128,14 @@ class indexer extends Zend_Search_Lucene_Document
         private function globr($sDir, $sPattern, $nFlags = NULL)
         {
                 //chdir($sDir);
+        		$sDir = str_replace('\\','/',$sDir);
         		$sDir = escapeshellcmd($sDir);
                 //echo $sDir;
                 // Get the list of all matching files currently in the
                 // directory.
 
-                $aFiles = glob("$sDir/$sPattern", $nFlags);
-
+                $aFiles = glob($sDir.$sPattern, $nFlags);
+               
                 // Then get a list of all directories in this directory, and
                 // run ourselves on the resulting array.  This is the
                 // recursion step, which will not execute if there are no
@@ -135,8 +143,11 @@ class indexer extends Zend_Search_Lucene_Document
 
                 foreach (@glob("$sDir/*", GLOB_ONLYDIR) as $sSubDir)
                 {
+                   // if(is_file($sSubDir))
+                    //{
                         $aSubFiles = $this->globr($sSubDir, $sPattern, $nFlags);
                         $aFiles = array_merge($aFiles, $aSubFiles);
+                    //}
                 }
 
                 // The array we return contains the files we found, and the

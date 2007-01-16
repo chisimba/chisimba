@@ -195,8 +195,8 @@ class results extends object
 
 
 		//the next button
-
-		if(($pageno +1) == $pagesPerSlide){
+print $pagesPerSlide;
+		if(($pageno +1) == $pagesPerSlide || $pagesPerSlide == 0){
 
 			$str .='<span><strong>Next</strong></span></p>';
 		} else {
@@ -236,7 +236,7 @@ class results extends object
 						<li>
 							<dl>
 								<dt>'. ($indx + $i + 1) .' . <a href="'.$arrResults[$indx + $i]->url.'"> '.$arrResults[$indx + $i]->title.'</a></dt>
-								<dd class="desc">Some description of the file must go here</dd>
+								<!--dd class="desc">Some description of the file must go here</dd-->
 								<dd class="filetype">HTML</dd>
 								<dd class="date">'.$arrResults[$indx + $i]->date.'</dd>
 								<dd class="date">Rating : '.$arrResults[$indx + $i]->score.'</dd>
