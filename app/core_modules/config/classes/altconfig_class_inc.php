@@ -974,7 +974,7 @@ class altconfig extends object
             } else { // return given template
                 return $template;
             }
-       
+
     }
      /**
     *
@@ -1250,6 +1250,26 @@ class altconfig extends object
     	return $geterror_reporting;
 
     }
+
+    /**
+     * Method to return the modulepath setting from the config file
+     *
+     * @param void
+     * @return string
+     */
+    public function getModulePath()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "KEWL_MODULE_PATH");
+    	//finally unearth whats inside
+    	$modulePath = $SettingsDirective->getContent();
+
+    	return $modulePath;
+    }
+
     /**
     * Set  error reporting Settings
     * @access public
@@ -1277,10 +1297,20 @@ class altconfig extends object
      */
     public function setDsn($value)
     {
+    	//parse the dsn to an array for Oracle values
+    	$dsnparsed = $this->parseDSN($value);
+
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
        	$Settings =& $this->_root->getItem("section", "Settings");
         //Now onto the directive node
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_DB_DSN");
+
+        $SettingsDirective =& $Settings->getItem("directive", "CHISIMBA_DB_SERVER");
+        $SettingsDirective =& $Settings->getItem("directive", "CHISIMBA_DB_PROTOCOL");
+        $SettingsDirective =& $Settings->getItem("directive", "CHISIMBA_DB_USER");
+        $SettingsDirective =& $Settings->getItem("directive", "CHISIMBA_DB_PASS");
+        $SettingsDirective =& $Settings->getItem("directive", "CHISIMBA_DB_PORT");
+
         //finally save value
         $SettingsDirective->setContent($value);
         $bool = $this->_objPearConfig->writeConfig();
@@ -1401,6 +1431,72 @@ class altconfig extends object
     	echo customException::cleanUp($exception);
     	exit();
     }
+
+    /**
+	 * Method to parse the DSN
+	 *
+	 * @access public
+	 * @param string $dsn
+	 * @return void
+	 */
+	public function parseDSN($dsn)
+	{
+		$parsed = NULL;
+		$arr = NULL;
+		if (is_array($dsn)) {
+			$dsn = array_merge($parsed, $dsn);
+			return $dsn;
+		}
+		//find the protocol
+		if (($pos = strpos($dsn, '://')) !== false) {
+			$str = substr($dsn, 0, $pos);
+			$dsn = substr($dsn, $pos + 3);
+		} else {
+			$str = $dsn;
+			$dsn = null;
+		}
+		if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
+			$parsed['protocol']  = $arr[1];
+			$parsed['protocol'] = !$arr[2] ? $arr[1] : $arr[2];
+		} else {
+			$parsed['protocol']  = $str;
+			$parsed['protocol'] = $str;
+		}
+
+		if (!count($dsn)) {
+			return $parsed;
+		}
+		// Get (if found): username and password
+		if (($at = strrpos($dsn,'@')) !== false) {
+			$str = substr($dsn, 0, $at);
+			$dsn = substr($dsn, $at + 1);
+			if (($pos = strpos($str, ':')) !== false) {
+				$parsed['user'] = rawurldecode(substr($str, 0, $pos));
+				$parsed['pass'] = rawurldecode(substr($str, $pos + 1));
+			} else {
+				$parsed['user'] = rawurldecode($str);
+			}
+		}
+
+		//server
+		if (($col = strrpos($dsn,':')) !== false) {
+			$strcol = substr($dsn, 0, $col);
+			$dsn = substr($dsn, $col + 1);
+			if (($pos = strpos($strcol, '/')) !== false) {
+				$parsed['server'] = rawurldecode(substr($strcol, 0, $pos));
+			} else {
+				$parsed['server'] = rawurldecode($strcol);
+			}
+		}
+
+		//now we are left with the port and mailbox so we can just explode the string and clobber the arrays together
+		$pm = explode("/",$dsn);
+		$parsed['port'] = $pm[0];
+		$parsed['mailbox'] = $pm[1];
+		$dsn = NULL;
+
+		return $parsed;
+	}
 
 
 }

@@ -50,7 +50,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-    public $version = '1.0.0';
+    public $version = '1.0.1';
 
     /**
      * Template variable
@@ -299,7 +299,7 @@ class engine
         $this->_templateRefs = array();
         //bust up the cached objects
         $this->_cachedObjects = array();
-        
+
         //Load the Skin Object
         $this->_objSkin = $this->getObject('skin', 'skin');
 		//Get default page template
@@ -637,10 +637,28 @@ class engine
             // path will fail because the require_once feature matches filenames exactly.
             return;
         }
-
+        if ($name == 'altconfig' && $moduleName == 'config' && $this->_objConfig) {
+            // special case: skip if config and objConfig exists, this means config
+            // class is already loaded using relative path, and an attempt to load with absolute
+            // path will fail because the require_once feature matches filenames exactly.
+            return;
+        }
+        if ($name == 'altconfig' && $moduleName == 'config' && !$this->_objConfig)
+        {
+        	$filename = "modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
+        	$engine =& $this;
+        	require_once($filename);
+        	$this->_objConfig = new altconfig;
+        	return;
+        }
         if ($moduleName == '_core') {
             $filename = "classes/core/".strtolower($name)."_class_inc.php";
-        } else {
+        }
+        elseif($this->_objConfig->geterror_reporting() == 'cvs')
+        {
+        	$filename = $this->_objConfig->getModulePath() . $moduleName."/classes/".strtolower($name)."_class_inc.php";
+        }
+        else {
             $filename = "modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
         }
         // add the site root path to make an absolute path if the config object has
@@ -1022,7 +1040,14 @@ class engine
      */
     public function getResourceUri($resourceFile, $moduleName)
     {
-        return 'modules/' . $moduleName . '/resources/' . $resourceFile;
+    	if($this->_objConfig->geterror_reporting() == 'cvs')
+        {
+        	$resource = $this->_objConfig->getModulePath() . $moduleName."/resources/".$resourceFile;
+        }
+        else {
+        	return 'modules/' . $moduleName . '/resources/' . $resourceFile;
+        }
+
     }
 
     /**
@@ -1084,8 +1109,13 @@ class engine
     {
         $path = '';
         if (!empty($moduleName)) {
-            $path = $this->_objConfig->getsiteRootPath()
-                . "modules/${moduleName}/templates/${type}/${tpl}";
+        	if($this->_objConfig->geterror_reporting() == 'cvs')
+        	{
+        		$path = $this->_objConfig->getsiteRootPath() . $this->_objConfig->getModulePath() . "${moduleName}/templates/${type}/${tpl}";
+        	}
+        	else {
+            	$path = $this->_objConfig->getsiteRootPath() . "modules/${moduleName}/templates/${type}/${tpl}";
+        	}
         }
         if (empty($path) || !file_exists($path)) {
             $firstpath = $path;
@@ -1224,7 +1254,13 @@ class engine
             $moduleName = $this->_objConfig->getdefaultModuleName();
         }
 
-        $controllerFile = "modules/" . $moduleName . "/controller.php";
+        if($this->_objConfig->geterror_reporting() == 'cvs')
+        {
+        	$controllerFile = $this->_objConfig->getModulePath() . $moduleName . "/controller.php";
+        }
+        else {
+        	$controllerFile = "modules/" . $moduleName . "/controller.php";
+        }
         $objActiveController = NULL;
         if (file_exists($controllerFile)
                 && include_once $controllerFile) {
