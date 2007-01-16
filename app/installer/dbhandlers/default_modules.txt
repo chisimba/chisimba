@@ -29,5 +29,5 @@ htmlelements
 systext
 calendarbase
 errors
-#skin No Register.conf
+skin
 prelogin
