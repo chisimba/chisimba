@@ -201,6 +201,8 @@ if ($modules) {
 	$objTable->endRow();
 }
 if (($output=$this->getSession('output'))!=null) {
+	$error = $this->getParam('lastError');
+	if ($error != 1003) {
 	$timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
 	if (is_array($output)) {
 		$timeOutMsg->message = '';
@@ -211,6 +213,9 @@ if (($output=$this->getSession('output'))!=null) {
 		$timeoutMsg->setMessage($output);
 	}
 	$notice = $timeoutMsg->show();
+	} else {
+		$notice = "<span id='error'>$output</span>";
+	}
 	$this->unsetSession('output');
 }
 

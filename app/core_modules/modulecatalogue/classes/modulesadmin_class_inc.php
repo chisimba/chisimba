@@ -130,6 +130,7 @@ class modulesadmin extends dbTableManager
     */
     public function installModule(&$registerdata,$update = FALSE) {
         try {
+        	$this->_lastError = 0;
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
             } else {
@@ -148,14 +149,24 @@ class modulesadmin extends dbTableManager
             } else {
             	// check for modules this one is dependant on
             	if (isset($registerdata['DEPENDS'])) {
+            		$missingModules = '';
             		foreach ($registerdata['DEPENDS'] as $depends) {
             			if (!$this->checkDependency($depends)) {
-            				$text=$this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
-            				$text=str_replace('{MODULE}',$depends,$text);
-            				$this->output.='<b>'.$text.'</b><br />';
+            				$missingModules .= '<b>'.$depends.'</b><br />';
             				$this->_lastError = 1003;
-            				return FALSE;
             			}
+            		}
+            		if ($this->_lastError == 1003) {
+            			$installDepsLink = &$this->getObject('link','htmlelements');
+            			$installDepsLink->link($this->uri(array('action'=>'installwithdeps','mod'=>$registerdata['MODULE_ID'],
+            						'cat'=>$this->getParam('cat')),'modulecatalogue'));
+            			$installDepsLink->link = str_replace('{MODULE}',$registerdata['MODULE_ID'],
+            						$this->objLanguage->languageText('mod_modulecatalogue_installdeps','modulecatalogue'));
+            			$text = $this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
+            			$text = str_replace('{MODULE}',"<b>{$registerdata['MODULE_ID']}</b>",$text);
+            			$this->output = "<span id='confirm'>$text:</span><br />$missingModules";
+            			$this->output .= $installDepsLink->show();
+            			return FALSE;
             		}
             	}
             	// Now we add the tables
@@ -1166,6 +1177,20 @@ class modulesadmin extends dbTableManager
     			$this->moduleText($module['module_id'],'replace');
     		}
     		return TRUE;
+    	} catch (Exception $e) {
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+    
+     /**
+     * Method to get the last error code
+     *
+     * @return int code of last error
+     */
+    public function getLastErrorCode() {
+    	try {
+    		return $this->_lastError;
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();

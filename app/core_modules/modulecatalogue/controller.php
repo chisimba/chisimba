@@ -199,6 +199,18 @@ class modulecatalogue extends controller
 						}
 					}
 					$this->setSession('output',$this->output);
+					return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$this->objModuleAdmin->getLastErrorCode()));
+				case 'installwithdeps':
+					$mod = trim($this->getParam('mod'));
+					$regResult = $this->smartRegister($mod);
+					if ($regResult){
+						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));	//success
+					} else {
+						if ($this->output == '') {
+							$this->output = $this->objModuleAdmin->output;
+						}
+					}
+					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat));
 				case 'info':
 					$filepath = $this->objModFile->findRegisterFile($this->getParm('mod'));
