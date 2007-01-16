@@ -493,7 +493,7 @@ class modulecatalogue extends controller
     			}
     		}
     		// Flag the first time registration as having been run
-    		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE);
+    		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE,'mod_modulecatalogue_firstreg_run_desc');
     		log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
     		// Make certain the user-defined postlogin module is registered.
 
