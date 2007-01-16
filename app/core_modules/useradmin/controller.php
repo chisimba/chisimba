@@ -326,31 +326,31 @@ class useradmin extends controller
     */ 
     function sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,$accesslevel='')
     {
-        $subject=$this->objLanguage->languageText('mod_useradmin_greet6'); 
-        $subject=str_replace('KEWL NextGen',$info['sitename'],$subject);
+        $subject=$this->objLanguage->languageText('mod_useradmin_greet6','useradmin'); 
+        $subject=str_replace('Chisimba',$info['sitename'],$subject);
         $info=$this->objUserAdmin->siteURL();
-		$greet1 = $this->objLanguage->languageText('mod_useradmin_greet1')."\n";
+		$greet1 = $this->objLanguage->languageText('mod_useradmin_greet1','useradmin')."\n";
 		$greet1 = str_replace('FIRSTNAME',$firstname,$greet1);
 		$greet1 = str_replace('SURNAME',$surname,$greet1);
         $content=
 		$greet1
-        .$this->objLanguage->languageText('mod_useradmin_greet2')."\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet3')."\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet4')."\n"
-        .$this->objLanguage->languageText('word_userid').": $userId\n"
-        .$this->objLanguage->languageText('word_surname').": $surname\n"
-        .$this->objLanguage->languageText('phrase_firstname').": $firstname\n"
-        .$this->objLanguage->languageText('word_title').": $title\n"
-        .$this->objLanguage->languageText('word_username').": $username\n"
-        .$this->objLanguage->languageText('word_password').": $password\n"
-        .$this->objLanguage->languageText('phrase_emailaddress').": $email\n"
+        .$this->objLanguage->languageText('mod_useradmin_greet2','useradmin')."\n"
+        .$this->objLanguage->languageText('mod_useradmin_greet3','useradmin')."\n"
+        .$this->objLanguage->languageText('mod_useradmin_greet4','useradmin')."\n"
+        .$this->objLanguage->languageText('word_userid','useradmin').": $userId\n"
+        .$this->objLanguage->languageText('word_surname','useradmin').": $surname\n"
+        .$this->objLanguage->languageText('phrase_firstname','useradmin').": $firstname\n"
+        .$this->objLanguage->languageText('word_title','useradmin').": $title\n"
+        .$this->objLanguage->languageText('word_username','useradmin').": $username\n"
+        .$this->objLanguage->languageText('word_password','useradmin').": $password\n"
+        .$this->objLanguage->languageText('phrase_emailaddress','useradmin').": $email\n"
         //."Group membership: $accesslevel\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet7','To login, go to')." "
+        .$this->objLanguage->languageText('mod_useradmin_greet7','useradmin')." "
         .$info['link']." (".$info['url'].")\n"
-        .$this->objLanguage->languageText('word_sincerely')."\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet5')."\n";
-        $content=str_replace('KEWL NextGen',$info['sitename'],$content);
-        $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5').'<noreply@'.$info['server'].">\r\n";
+        .$this->objLanguage->languageText('word_sincerely','useradmin')."\n"
+        .$this->objLanguage->languageText('mod_useradmin_greet5','useradmin')."\n";
+        $content=str_replace('Chisimba',$info['sitename'],$content);
+        $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5','useradmin').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$content,$header);
     }
 

@@ -24,10 +24,10 @@ class register extends object
     */
     public function sendRegisterInfo($firstname,$surname,$userId,$username,$title,$email,$password,$accesslevel)
     {
-        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLang->languageText('mod_useradmin_greet1')))."\n"
-        .$this->objLang->languageText('mod_useradmin_greet2')."\n"
-        .$this->objLang->languageText('mod_useradmin_greet3')."\n"
-        .$this->objLang->languageText('mod_useradmin_greet4')."\n"
+        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLang->languageText('mod_useradmin_greet1','useradmin')))."\n"
+        .$this->objLang->languageText('mod_useradmin_greet2','useradmin')."\n"
+        .$this->objLang->languageText('mod_useradmin_greet3','useradmin')."\n"
+        .$this->objLang->languageText('mod_useradmin_greet4','useradmin')."\n"
         .$this->objLang->languageText('word_userid').": $userId\n"
         .$this->objLang->languageText('word_surname').": $surname\n"
         .$this->objLang->languageText('phrase_firstname').": $firstname\n"
@@ -36,8 +36,12 @@ class register extends object
         .$this->objLang->languageText('word_password').": $password\n"
         .$this->objLang->languageText('phrase_emailaddress').": $email\n"
         .$this->objLang->languageText('word_sincerely')."\n"
-        .$this->objLang->languageText('mod_useradmin_greet5')."\n";
-        $subject=$this->objLang->languageText('mod_useradmin_greet6');
+        .$this->objLang->languageText('mod_useradmin_greet5','useradmin')."\n";
+        $subject=$this->objLang->languageText('mod_useradmin_greet6','useradmin');
+        $objUserAdmin = &$this->getObject('useradmin_model','security');
+        $info=$this->objUserAdmin->siteURL();
+        $emailtext=str_replace('Chisimba',$info['sitename'],$emailtext);
+                
         @mail($email,$subject,$emailtext);
     }
 
