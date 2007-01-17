@@ -134,12 +134,18 @@ class radio extends abhtmlbase implements ifhtml
             }
             
             // If no CSS Id is given, it takes the default value of input_$opt for accessibility
-            // If CSS Id is given, it takes the default value of input_$opt for accessibility, as well as CSS one
+            // If CSS Id is given, it takes the default value of input_$opt for accessibility, as well as CSS one           
             if ($this->cssId) {
-                $str .= ' id="input_' .$this->name. $opt. ' ' . $this->cssId . '"';
+                $cssId = 'input_' .$this->name. $opt. ' ' . $this->cssId;
             } else {
-                $str .= ' id="input_' .$this->name. $opt. '"';
+                $cssId = 'input_' .$this->name. $opt;
             }
+            
+            // Cleanup to the CSS Id to make it W3C Compliant
+            // At the moment, it checks for \ and /
+            $cssId = preg_replace('/(\/|\\\)/', '_', $cssId);
+            
+            $str .= ' id="' .$cssId. '"';
     
             if($this->selected==$opt){
                 $str.=' checked="checked"';
@@ -149,7 +155,7 @@ class radio extends abhtmlbase implements ifhtml
             }
             $str.=' />' ;
             
-            $label = new label($lbl, 'input_'.$this->name.$opt);
+            $label = new label($lbl, $cssId);
             $str.=$label->show();
             
             $breakSpace = $this->breakSpace;
@@ -184,10 +190,16 @@ class radio extends abhtmlbase implements ifhtml
             // If no CSS Id is given, it takes the default value of input_$opt for accessibility
             // If CSS Id is given, it takes the default value of input_$opt for accessibility, as well as CSS one
             if ($this->cssId) {
-                $str .= ' id="input_' .$this->name. $opt. ' ' . $this->cssId . '"';
+                $cssId = 'input_' .$this->name. $opt. ' ' . $this->cssId;
             } else {
-                $str .= ' id="input_' .$this->name. $opt. '"';
+                $cssId = 'input_' .$this->name. $opt;
             }
+            
+            // Cleanup to the CSS Id to make it W3C Compliant
+            // At the moment, it checks for \ and /
+            $cssId = preg_replace('/(\/|\\\)/', '_', $cssId);
+            
+            $str .= ' id="' .$cssId. '"';
             
             if ($this->selected == $opt){
                 $str.=' checked="checked" ';
@@ -198,7 +210,7 @@ class radio extends abhtmlbase implements ifhtml
             }
             $str.=' />' ;
             
-            $label = new label($lbl, 'input_'.$this->name.$opt);
+            $label = new label($lbl, $cssId);
             $str.=$label->show();
             
             $table->addCell($str, $equalColumns.'%');
