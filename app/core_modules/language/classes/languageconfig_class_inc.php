@@ -84,10 +84,11 @@ class languageConfig extends object
 			//instantiate class
 			$this->_siteConf = $this->getObject('altconfig','config');
 			$dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
-
+//echo KEWL_DB_DSN; die();
 			$this->lang =& Translation2::factory($driver, $dsn, $params);
 			if (PEAR::isError($this->lang)) {
-				throw new Exception('Could not load Translation class');
+echo $this->lang->getMessage(); die();
+			//	throw new Exception('Could not load Translation class');
 			}
 			// set primary language
 			if(!is_object($this->lang)) throw new Exception('Translation class not loaded');
