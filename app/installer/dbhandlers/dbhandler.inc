@@ -99,7 +99,7 @@ class DbHandler extends dbHandlermanager
             require_once 'MDB2.php';
             //MDB2 has a factory method, so lets use it now...
             //echo $_SESSION['dsn'];
-            $this->_globalObjDb = &MDB2::factory($_SESSION['dsn']);
+            $this->_globalObjDb = &MDB2::connect($_SESSION['dsn']);
           //  var_dump($this->_globalObjDb);
 
             if (PEAR::isError($this->_globalObjDb)) {

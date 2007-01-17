@@ -595,7 +595,7 @@ EOD;
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
 		fclose($handle);
-
+		//define('KEWL_DB_DSN', $dsn);
 		//$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 
 
