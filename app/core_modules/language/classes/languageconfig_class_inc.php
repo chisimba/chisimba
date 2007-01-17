@@ -106,7 +106,9 @@ class languageConfig extends object
 			// use a custom fallback text
 			return $this->lang;
 		}catch (Exception $e){
-			$this->errorCallback ('Caught exception: '.$e->getMessage());
+                    // Alterations by jsc on advice from paulscott
+			//$this->errorCallback ('Caught exception: '.$e->getMessage());
+                        echo $e->getMessage();
     		exit();
 
 		}
