@@ -586,11 +586,12 @@ class CreateConfigsAction extends FiveStepAction
 
 		$str = <<<EOD
 <?php
-	define('KEWL_DB_DSN',$dsn);
-	define('KEWL_DB2_DSN',$dsn2);
+	define('KEWL_DB_DSN','{$dsn}');
+	define('KEWL_DB2_DSN','{$dsn2}');
 ?>
 EOD;
 
+		$path =  $_SESSION['sys_root'].'/config/';
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
 		fclose($handle);

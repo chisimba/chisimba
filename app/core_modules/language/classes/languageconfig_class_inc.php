@@ -83,7 +83,7 @@ class languageConfig extends object
 
 			//instantiate class
 			$this->_siteConf = $this->getObject('altconfig','config');
-			$dsn = $this->_parseDSN($this->_siteConf->getDsn());
+			$dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
 
 			$this->lang =& Translation2::factory($driver, $dsn, $params);
 			if (PEAR::isError($this->lang)) {
