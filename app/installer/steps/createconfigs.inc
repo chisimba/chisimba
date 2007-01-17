@@ -591,7 +591,7 @@ class CreateConfigsAction extends FiveStepAction
 ?>
 EOD;
 
-		$handle = fopen('dbdetails_inc.php', 'wb');
+		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
 		fclose($handle);
 
