@@ -322,10 +322,10 @@ class countries extends object
         $flagsrc = 'modules/utilities/resources/flags/'.strtolower($code).'.gif';
 
         if (!file_exists($this->objConfig->getsiterootPath().'/'.$flagsrc)) { 
-           $flagsrc = 'modules/utilities/resources/flags/za.gif';
+           $flagsrc = 'modules/utilities/resources/flags/-.gif';
         }
 
-        return '<img src="'.$flagsrc.'" />';
+        return '<img src="'.$flagsrc.'" alt="'.$this->getCountryName($code).'" title="'.$this->getCountryName($code).'" />';
     }
     
     /**
