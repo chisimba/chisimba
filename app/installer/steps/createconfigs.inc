@@ -554,7 +554,7 @@ class CreateConfigsAction extends FiveStepAction
 
 
 
-		$this->_addConfigVar('KEWL_DB_DSN', $dsn);
+		//$this->_addConfigVar('KEWL_DB_DSN', $dsn);
 
 
 
@@ -581,8 +581,22 @@ class CreateConfigsAction extends FiveStepAction
 		}
 
 
+		//add the two dsn's to a php file, not the config file
+		//create a file to store the info as a heredoc
 
-		$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
+		$str = <<<EOD
+<?php
+	define('KEWL_DB_DSN',$dsn);
+	define('KEWL_DB2_DSN',$dsn2);
+?>
+
+EOD;
+
+		$handle = fopen('dbdetails_inc.php', 'wb');
+		fwrite($handle, $file);
+		fclose($handle);
+
+		//$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 
 
 

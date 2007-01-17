@@ -38,6 +38,8 @@ require_once 'lib/logging.php';
 require_once 'classes/core/errorhandler_class_inc.php';
 //the exception handler
 require_once 'classes/core/customexception_class_inc.php';
+//include the dbdetails file
+include('config/dbdetails_inc.php');
 
 //function to enable the pear error callback method (global)
 function globalPearErrorCallback($error) {
@@ -240,14 +242,14 @@ class engine
      *
      * @var string
      */
-    protected $dsn;
+    protected $dsn = KEWL_DB_DSN;
 
     /**
      * DSN - Data Source Name for the database management object
      *
      * @var string
      */
-    protected $mdsn;
+    protected $mdsn = KEWL_DB_DSN;
 
     /**
      * Constructor.
@@ -376,7 +378,7 @@ class engine
             $this->_objDbConfig =& $this->getObject('altconfig', 'config');
             //set up the DSN. Some RDBM's do not operate with the string style DSN (most noticeably Oracle)
     		//so we parse the DSN to an array and then send that to the object instantiation to be safe
-    		$dsn = $this->_objDbConfig->getDsn();
+    		$dsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
         	$this->dsn = $this->parseDSN($dsn);
 
             // Connect to the database
@@ -452,7 +454,7 @@ class engine
         if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
             //load the config object (same as the db Object)
             $this->_objDbConfig =& $this->getObject('altconfig', 'config');
-            $mdsn = $this->_objDbConfig->getDsn();
+            $mdsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
         	$this->mdsn = $this->parseDSN($mdsn);
             // Connect to the database
             require_once 'MDB2/Schema.php';
