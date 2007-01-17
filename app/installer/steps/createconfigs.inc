@@ -332,7 +332,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_INSTITUTION_NAME',      $_SESSION['sys_owner']);
 
-			$this->_addConfigVar('KEWL_PROXY',     $_SESSION['proxy']);
+			//$this->_addConfigVar('KEWL_PROXY',     $_SESSION['proxy']);
 
 			$this->_addConfigVar('KEWL_SYSTEMTIMEOUT', 60);
 
@@ -588,8 +588,8 @@ class CreateConfigsAction extends FiveStepAction
 <?php
 	define('KEWL_DB_DSN',$dsn);
 	define('KEWL_DB2_DSN',$dsn2);
+	define('KEWL_PROXY', $_SESSION['proxy']);
 ?>
-
 EOD;
 
 		$handle = fopen('dbdetails_inc.php', 'wb');
