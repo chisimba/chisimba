@@ -305,6 +305,7 @@ div#twocolumn, div#threecolumn {
     padding:  5px 5px 5px;
     border-top: 4px solid #534517;
     margin: 0 0 5px 0;
+	background-color: #dcc582;
     background: url("images/featurebox_bg.png") no-repeat 100% 100%;
 }
 
@@ -426,3 +427,25 @@ form#addsection {
 }
 /** END: Rules for the blog **/
 
+
+/** BEGIN: Rules for odd or even formatting **/
+table.unpadded, table#unpadded {
+    border: 0;
+	border-collapse: collapse;
+	padding: 2px;
+	line-height: 120%;
+}
+.odd, #odd {
+	background-color: #F3F1ED;
+    border: 0;
+	border-collapse: collapse;
+	padding: 10px;
+}
+.even, #even {
+	background-color: #EBE3D3;
+    border: 0;
+	border-collapse: collapse;
+	padding: 10px;
+}
+
+/** END: Rules for odd or even formatting **/
