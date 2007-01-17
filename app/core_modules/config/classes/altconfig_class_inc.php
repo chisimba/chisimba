@@ -12,6 +12,7 @@
 // include class
 require_once 'Config.php';
 
+
 class altconfig extends object
 {
 	/**
@@ -1331,7 +1332,7 @@ class altconfig extends object
     	//Now onto the directive node
     	$SettingsDirective =& $Settings->getItem("directive", "KEWL_DB_DSN");
     	//finally unearth whats inside
-    	$Dsn = $SettingsDirective->getContent();
+    	$Dsn = KEWL_DB_DSN; //$SettingsDirective->getContent();
 
     	return $Dsn;
 
