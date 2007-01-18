@@ -450,7 +450,9 @@ class CreateConfigsAction extends FiveStepAction
 			if(!is_file($path . 'config.xml'))
 			{
 				touch($path . 'config.xml');
+				touch($path . 'dbdetails_inc.php');
 				chmod($path . 'config.xml', 0777);
+				chmod($path . 'dbdetails_inc.php', 0777);
 			}
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
 		    $GLOBALS['SQ_INSTALL'] = false;
