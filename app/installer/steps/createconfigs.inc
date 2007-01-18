@@ -447,13 +447,12 @@ class CreateConfigsAction extends FiveStepAction
 			{
 				mkdir($path);
 			}
+				
 			if(!is_file($path . 'config.xml'))
 			{
 				touch($path . 'config.xml');
-				touch($path . 'dbdetails_inc.php');
 				chmod($path . 'config.xml', 0777);
-				chmod($path . 'dbdetails_inc.php', 0777);
-			}
+				}
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
 		    $GLOBALS['SQ_INSTALL'] = false;
 
@@ -594,6 +593,14 @@ class CreateConfigsAction extends FiveStepAction
 EOD;
 
 		$path =  $_SESSION['sys_root'].'/config/';
+		if(!file_exists($path)) {
+				mkdir($path);
+		}
+			
+		if (!is_file($path . 'dbdetails_inc.php')) {
+			touch($path . 'dbdetails_inc.php');
+			chmod($path . 'dbdetails_inc.php', 0777);
+		}
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
 		fclose($handle);
