@@ -1,33 +1,52 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <updates>
-<update>
-<table>tbl_userloginhistory</table>
-<version>1.9</version>
-<description>Altered date field to timestamp</description>
-<data>
-    <change>
-        <lastLoginDateTime>
-            <definition>
-                <type>timestamp</type>
-            </definition> 
-        </lastLoginDateTime> 
-    </change>
-</data>
-</update>
-<update>
-<table>tbl_loggedinusers</table>
-<version>1.93</version>
-<description>Altered id field to text length 32</description>
-<data>
-    <change>
-        <id>
-            <definition>
-            	 <length>32</length>
+    <update>
+        <table>tbl_userloginhistory</table>
+        <version>1.9</version>
+        <description>Altered date field to timestamp</description>
+        <data>
+            <change>
+                <lastLoginDateTime>
+                    <definition>
+                        <type>timestamp</type>
+                    </definition> 
+                </lastLoginDateTime> 
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_loggedinusers</table>
+        <version>1.93</version>
+        <description>Altered id field to text length 32</description>
+        <data>
+            <change>
+                <id>
+                    <definition>
+                    	 <length>32</length>
+                        <type>text</type>
+                        <autoincrement>FALSE</autoincrement>
+                    </definition> 
+                </id> 
+            </change>
+        </data>
+    </update>
+    <update>
+        <table>tbl_users</table>
+        <version>2.0</version>
+        <description>added columns for staffnumber and cellnumber</description>
+        <data>
+            <add>
+                <name>staffnumber</name>
                 <type>text</type>
-                <autoincrement>FALSE</autoincrement>
-            </definition> 
-        </id> 
-    </change>
-</data>
-</update>
+                <length>25</length>
+            </add>
+        </data>
+        <data>
+            <add>
+                <name>cellnumber</name>
+                <type>text</type>
+                <length>13</length>
+            </add>
+        </data>
+    </update>
 </updates>

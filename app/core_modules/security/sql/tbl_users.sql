@@ -66,6 +66,14 @@ $fields = array(
 		'type' => 'text',
         'length' => 2
 		),
+    'staffnumber' => array(
+        'type' => 'text',
+        'length' => 25
+        ),
+    'cellnumber' => array(
+        'type' => 'text',
+        'length' => 13
+        ),
     'accesslevel' => array(
 		'type' => 'text',
         'length' => 10,
