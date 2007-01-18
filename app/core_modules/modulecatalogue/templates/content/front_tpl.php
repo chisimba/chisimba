@@ -19,6 +19,7 @@ $icon = &$this->getObject('geticon', 'htmlelements');
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 $objTable->cellspacing = 3;
+$objTable->id = 'module_list';
 $objTable->width='100%';
 /*$icon->setIcon('installable','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue');
