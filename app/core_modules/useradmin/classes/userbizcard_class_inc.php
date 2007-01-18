@@ -28,12 +28,25 @@ class userbizcard extends object
     public $showResetImage=FALSE;
     
     /**
+    * @var string $resetModule Module to go to reset Image
+    * @access public
+    */
+    public $resetModule = 'useradmin';
+    
+    /**
+    * @var string $resetAction Action in Module to reset Image
+    * @access public
+    */
+    public $resetAction = 'resetimage';
+    
+    /**
     * Constructor
     */
     public function init()
     {
         $this->objUser =& $this->getObject('user', 'security');
         $this->objCountries =& $this->getObject('countries', 'utilities');
+        $this->loadClass('hiddeninput', 'htmlelements');
     }
     
     /**
@@ -64,7 +77,14 @@ class userbizcard extends object
         
         if ($this->showResetImage) {
             if ($this->objUser->hasCustomImage($this->userArray['userid'])) {
-                $resetimageform = new form('updateimage', $this->uri(array('action'=>'resetimage'), 'userdetails'));
+                $resetimageform = new form('updateimage', $this->uri(array('action'=>$this->resetAction), $this->resetModule));
+                
+                $id = new hiddeninput('id', $this->userArray['id']);
+                $resetimageform->addToForm($id->show());
+                
+                $userid = new hiddeninput('userid', $this->userArray['userid']);
+                $resetimageform->addToForm($userid->show());
+                
                 $button = new button ('resetimage', 'Reset Image');
                 $button->setToSubmit();
                 $resetimageform->addToForm(' '.$button->show());
@@ -78,6 +98,8 @@ class userbizcard extends object
         <div style="padding-left: 10px;padding-right: 10px;">
             <h1>'.$this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'].'</h1>
             <p style="line-height: 200%;"><strong>Email:</strong> '.$this->userArray['emailaddress'].'
+            <br /><strong>Cell Number:</strong> '.$this->userArray['cellnumber'].'
+            
             <br /><strong>Country:</strong> '.$this->objCountries->getCountryName($this->userArray['country']).' '.$this->objCountries->getCountryFlag($this->userArray['country']).'
             <br /><strong>Sex:</strong> '.$gender.'</p>
         </div>

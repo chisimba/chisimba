@@ -123,6 +123,8 @@ class userdetails extends controller
         $firstname = $this->getParam('useradmin_firstname');
         $surname = $this->getParam('useradmin_surname');
         $email = $this->getParam('useradmin_email');
+        $cellnumber = $this->getParam('useradmin_cellnumber');
+        $staffnumber = $this->getParam('useradmin_staffnumber');
         $sex = $this->getParam('useradmin_sex');
         $country = $this->getParam('country');
         
@@ -173,13 +175,15 @@ class userdetails extends controller
         }
         
         // Process Update
-        $update = $this->objUserAdmin->updateUserDetails($this->user['id'], $firstname, $surname, $title, $email, $sex, $country, $password);
+        $update = $this->objUserAdmin->updateUserDetails($this->user['id'], $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password);
         
         if (count($results) > 0) {
             $results['change'] = 'details';
         }
         
         $this->setSession('showconfirmation', TRUE);
+        
+        $this->objUser->updateUserSession();
         // Process Update Results
         if ($update) {
             return $this->nextAction(NULL, $results);
@@ -209,8 +213,8 @@ class userdetails extends controller
     function resetImage()
     {
         $this->objUserAdmin->removeUserImage($this->objUser->userId());
-        
-        return $this->nextAction(NULL, array('change'=>'image', 'message'=>'userimagereset'));
+        $this->setSession('showconfirmation', TRUE);
+        return $this->nextAction(NULL, array('change'=>'image', 'message'=>'userimagereset', 'change'=>'image'));
     }
 }
 

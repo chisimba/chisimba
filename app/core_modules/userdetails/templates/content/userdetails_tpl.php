@@ -133,6 +133,7 @@ if ($mode == 'addfixup' && count($messages) > 0) {
 $objBizCard = $this->getObject('userbizcard', 'useradmin');
 $objBizCard->setUserArray($user);
 $objBizCard->showResetImage = TRUE;
+$objBizCard->resetModule = 'userdetails';
 
 echo $objBizCard->show();
 
@@ -145,42 +146,7 @@ echo '<div id="formresults"></div>';
 
 
 
-echo '<div><div style="width:25%;  float: left; padding: 5px;">';
-echo '<h3>'.$this->objLanguage->languageText('phrase_userimage', 'userdetails').':</h3>';
 
-
-
-$objModule = $this->getObject('modules', 'modulecatalogue');
-
-$changeimageform = new form('changeimage', $this->uri(array('action'=>'changeimage')));
-
-
-
-
-
-if ($objModule->checkIfRegistered('filemanager')) {
-
-    
-    
-    
-    $objSelectFile = $this->getObject('selectimage', 'filemanager');
-    $objSelectFile->name = 'imageselect';
-    $objSelectFile->restrictFileList = array('jpg', 'gif', 'png', 'jpeg', 'bmp');
-    $changeimageform->addToForm($objSelectFile->show());
-
-    $button = new button ('changeimage', $this->objLanguage->languageText('phrase_updateimage', 'userdetails'));
-    $button->setToSubmit();
-    
-    $changeimageform->addToForm('<br />'.$button->show());
-
-    
-
-}
-
-echo $changeimageform->show();
-
-echo '</div>';
-echo '</div>';
 
 $form = new form ('updatedetails', $this->uri(array('action'=>'updateuserdetails')));
 
@@ -235,6 +201,16 @@ $table->startRow();
     $table->addCell($surname->show());
 $table->endRow();
 
+// Staff Number
+$table->startRow();
+    $label = new label ('Staff/Student Number', 'input_useradmin_staffnumber');
+
+    $staffNumber = new textinput('useradmin_staffnumber', $user['staffnumber']);
+    $table->addCell($label->show());
+    $table->addCell('&nbsp;');
+    $table->addCell($staffNumber->show());
+$table->endRow();
+
 // Email
 $table->startRow();
     $label = new label ($this->objLanguage->languageText('phrase_emailaddress', 'system'), 'input_useradmin_email');
@@ -244,6 +220,16 @@ $table->startRow();
     $table->addCell($label->show());
     $table->addCell('&nbsp;');
     $table->addCell($email->show());
+$table->endRow();
+
+// Cell Number
+$table->startRow();
+    $label = new label ('Cell Number', 'input_useradmin_cellnumber');
+
+    $cellNumber = new textinput('useradmin_cellnumber', $user['cellnumber']);
+    $table->addCell($label->show());
+    $table->addCell('&nbsp;');
+    $table->addCell($cellNumber->show());
 $table->endRow();
 
 // Sex
@@ -324,6 +310,14 @@ if (strtolower($user['howcreated']) != 'ldap') {
         $table->addCell('&nbsp;');
         $table->addCell($textinput->show());
     $table->endRow();
+} else {
+    // Password
+    $table->startRow();
+        
+        $table->addCell('Password');
+        $table->addCell('&nbsp;');
+        $table->addCell('<em>Using Network ID Password</em>');
+    $table->endRow();
 }
 
 
@@ -348,7 +342,42 @@ echo $form->show();
 echo '</div>';
 
 
+echo '<div><div style="width:25%;  float: left; padding: 5px;">';
+echo '<h3>'.$this->objLanguage->languageText('phrase_userimage', 'userdetails').':</h3>';
 
+
+
+$objModule = $this->getObject('modules', 'modulecatalogue');
+
+$changeimageform = new form('changeimage', $this->uri(array('action'=>'changeimage')));
+
+
+
+
+
+if ($objModule->checkIfRegistered('filemanager')) {
+
+    
+    
+    
+    $objSelectFile = $this->getObject('selectimage', 'filemanager');
+    $objSelectFile->name = 'imageselect';
+    $objSelectFile->restrictFileList = array('jpg', 'gif', 'png', 'jpeg', 'bmp');
+    $changeimageform->addToForm($objSelectFile->show());
+
+    $button = new button ('changeimage', $this->objLanguage->languageText('phrase_updateimage', 'userdetails'));
+    $button->setToSubmit();
+    
+    $changeimageform->addToForm('<br />'.$button->show());
+
+    
+
+}
+
+echo $changeimageform->show();
+
+echo '</div>';
+echo '</div>';
 
 
 

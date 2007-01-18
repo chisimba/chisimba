@@ -47,25 +47,42 @@ class useradmin_model2 extends dbtable
         return;
     }
     
-    function updateUserDetails($id, $firstname, $surname, $title, $email, $sex, $country, $password='')
+    function updateUserDetails($id, $firstname, $surname, $title, $email, $sex, $country, $cellnumber='', $staffnumber='', $password='', $accountType='', $accountstatus='')
     {
+        //echo $accountType;
         $userArray = array(
                 'firstname' => $firstname,
                 'surname' => $surname,
                 'title' => $title,
                 'emailaddress' => $email,
                 'sex' => $sex,
-                'country' => $country
+                'country' => $country,
+                'cellnumber' => $cellnumber,
+                'staffnumber' => $staffnumber
             );
+        
+        if ($accountstatus != '') {
+            $userArray['isactive'] = $accountstatus;
+        }
         
         if ($password != '') {
             $userArray['pass'] = sha1($password);
         }
         
+        if ($accountType != '') {
+            $userArray['howCreated'] = $accountType;
+            
+            if ($accountType=='ldap') {
+                $userArray['pass'] = sha1('--LDAP--'); // System indentifier to use LDAP Password
+                $userArray['howCreated'] = 'LDAP'; // Convert to lowercase
+            }
+        }
+        
         return $this->update('id', $id, $userArray);
     }
     
-    function getUsers($letter, $field, $orderby='', $inactive=TRUE)
+    
+    function getUsers($letter, $field='firstname', $orderby='', $inactive=TRUE)
     {
         $whereArray = array();
         if ($letter != 'listall') {
@@ -95,6 +112,24 @@ class useradmin_model2 extends dbtable
         
         //echo $where.$orderby;
         return $this->getAll($where.$orderby);
+    }
+    
+    function searchUsers($field, $value, $orderby)
+    {
+        $sql = ' WHERE '.$field.' LIKE \'%'.$value.'%\' ORDER BY '.$orderby;
+        
+        return $this->getAll($sql);
+    }
+    
+    function usernameAvailable($username)
+    {
+        $recordCount = $this->getRecordCount('WHERE username=\''.$username.'\'');
+        
+        if (count($recordCount) == 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 } // end of class sqlUsers
 
