@@ -59,16 +59,16 @@ a,a:link,a:link,a:link,a:hover {
  	background:transparent;
 	text-decoration:underline;
 	cursor:pointer
-} 
+}
 a:link {
 	color:#069;
-} 
+}
 a:visited {
 	color:#069;
-} 
+}
 a:hover,a:active {
 	color:#FF6600;
-}  
+}
 /** END: Rules related to formatting links */
 
 
@@ -91,7 +91,7 @@ a:hover,a:active {
 /** END: Settings for footer **/
 
 
-	
+
 /** BEGIN: Rules related to formatting the menu items */
 #menu {
 	padding-bottom: 10px;
@@ -192,7 +192,7 @@ div#twocolumn, div#threecolumn {
     color: #FF0000;
 	font-weight:bold;
 }
-.warning 
+.warning
 {
     color: #FF6600;
     font-weight: bold;
@@ -245,9 +245,9 @@ div#twocolumn, div#threecolumn {
 }
 
 .featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
-	margin: 0 0 .3em; 
+	margin: 0 0 .3em;
 	border-bottom: 1px solid #0033FF;
-	color: #003366; 
+	color: #003366;
 	background-color: transparent;
 }
 .test {color: #003366}
@@ -256,7 +256,7 @@ div#twocolumn, div#threecolumn {
 	margin: 0 0 1em;
 	color: #333333;
 }
-	
+
 .featurebox a {
 	font-weight:bold
 }
@@ -265,6 +265,39 @@ div#twocolumn, div#threecolumn {
 	width: 100%;
 }
 /** END: Feature Box as used for the blocks that appear in page margins **/
+
+/** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
+.contentfeaturebox {
+	color: #333333;
+	padding: 15px 20px 20px;
+	border-top: 4px solid #FF6633;
+	margin: 0 0 1.5em;
+	background: no-repeat 100% 100%;
+}
+
+.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em;
+	border-bottom: 1px solid #0033FF;
+	color: #003366;
+	background-color: transparent;
+}
+.contenttest {color: #003366}
+.contentfeaturebox p {
+	border:none;
+	margin: 0 0 1em;
+	color: #333333;
+}
+
+.contentfeaturebox a {
+	font-weight:bold
+}
+
+.contentfeaturebox select {
+	width: 100%;
+}
+/** END: Content Feature Box as used for the blocks that appear in the page body **/
+
+
 
 /** BEGIN: Rules for including quotes in a curved box **/
 blockquote {
