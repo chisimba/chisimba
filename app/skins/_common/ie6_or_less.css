@@ -59,3 +59,7 @@ div#menu li:hover li ul,
     display: block;
     clear: both;
 }
+
+#leftcontent select, #rightcontent select {
+    width: 160px;
+}
