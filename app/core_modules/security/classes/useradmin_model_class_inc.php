@@ -298,22 +298,22 @@ class useradmin_model extends dbtable
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
-        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLanguage->languageText('mod_useradmin_greet1')))."\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet4')."\n"
+        $emailtext=str_replace('SURNAME',$surname,str_replace('FIRSTNAME',$firstname,$this->objLanguage->languageText('mod_useradmin_greet1','useradmin')))."\n"
+        .$this->objLanguage->languageText('mod_useradmin_greet4','useradmin')."\n"
         .$this->objLanguage->languageText('word_userid').": $userId\n"
         .$this->objLanguage->languageText('phrase_firstname').": $firstname\n"
         .$this->objLanguage->languageText('word_surname').": $surname\n"
         .$this->objLanguage->languageText('word_username').": $username\n"
         .$this->objLanguage->languageText('word_password').": $password\n"
         .$this->objLanguage->languageText('phrase_emailaddress').": $email\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet7','To login, go to')." "
+        .$this->objLanguage->languageText('mod_useradmin_greet7','useradmin')." "
         .$info['link']." (".$info['url'].")\n"
         .$this->objLanguage->languageText('word_sincerely')."\n"
-        .$this->objLanguage->languageText('mod_useradmin_greet5')."\n";
-        $subject=$this->objLanguage->languageText('mod_useradmin_greet6');
-        $emailtext=str_replace('KEWL NextGen',$info['sitename'],$emailtext);
-        $subject=str_replace('KEWL NextGen',$info['sitename'],$subject);
-        $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5').'<noreply@'.$info['server'].">\r\n";
+        .$this->objLanguage->languageText('mod_useradmin_greet5','useradmin')."\n";
+        $subject=$this->objLanguage->languageText('mod_useradmin_greet6','useradmin');
+        $emailtext=str_replace('Chisimba',$info['sitename'],$emailtext);
+        $subject=str_replace('Chisimba',$info['sitename'],$subject);
+        $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5','useradmin').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
 	
@@ -332,7 +332,7 @@ class useradmin_model extends dbtable
         if ($KNGpath==''){
             $KNGpath=$_SERVER['PHP_SELF'];
         }
-        $url='http://'.$WWWname.$KNGpath;
+        $url=$KNGpath;
         return array(
             'url'=>$url,
             'sitename'=>$KNGname,

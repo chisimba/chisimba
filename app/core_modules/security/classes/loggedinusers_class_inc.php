@@ -31,7 +31,7 @@ class loggedInUsers extends dbTable
         $contextCode="lobby";
         $theme="default";
         $myDate=date('Y-m-d H:m:s');
-        $isInvisible=FALSE;
+        $isInvisible='0';
         $sql="
 			INSERT INTO tbl_loggedinusers (
 				userid,
