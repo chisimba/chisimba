@@ -11,6 +11,8 @@
   *
   **/
 
+  /* To enable integration in Chisimba, another variable called private_key can be used to expose the value of the image - Tohir Solomons (tsolomons@uwc.ac.za) */
+  
 /**
   * changes in version 1.1:
   *  - added a new configuration-variable: maxrotation
@@ -303,7 +305,7 @@ class hn_captcha
 			// Test for GD-Library(-Version)
 			$this->gd_version = $this->get_gd_version();
 			if($this->gd_version == 0) die("There is no GD-Library-Support enabled. The Captcha-Class cannot be used!");
-			if($this->debug) echo "\n<br>-Captcha-Debug: The available GD-Library has major version ".$this->gd_version;
+			if($this->debug) echo "\n<br />-Captcha-Debug: The available GD-Library has major version ".$this->gd_version;
 
 
 			// Hackprevention
@@ -317,7 +319,7 @@ class hn_captcha
 				(isset($_POST['captcharefresh']) && isset($_POST['private_key']))
 				)
 			{
-				if($this->debug) echo "\n<br>-Captcha-Debug: Buuh. You are a bad guy!";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Buuh. You are a bad guy!";
 				if(isset($this->badguys_url) && !headers_sent()) header('location: '.$this->badguys_url);
 				else die('Sorry.');
 			}
@@ -328,7 +330,7 @@ class hn_captcha
 			{
 				if($secure && strcmp('4.2.0', phpversion()) < 0)
 				{
-					if($this->debug) echo "\n<br>-Captcha-Debug: Extracts Config-Array in secure-mode!";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Extracts Config-Array in secure-mode!";
 					$valid = get_class_vars(get_class($this));
 					foreach($config as $k=>$v)
 					{
@@ -337,7 +339,7 @@ class hn_captcha
 				}
 				else
 				{
-					if($this->debug) echo "\n<br>-Captcha-Debug: Extracts Config-Array in unsecure-mode!";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Extracts Config-Array in unsecure-mode!";
 					foreach($config as $k=>$v) $this->$k = $v;
 				}
 			}
@@ -351,50 +353,50 @@ class hn_captcha
 				$temp = $this->minsize;
 				$this->minsize = $this->maxsize;
 				$this->maxsize = $temp;
-				if($this->debug) echo "<br>-Captcha-Debug: Arrghh! What do you think I mean with min and max? Switch minsize with maxsize.";
+				if($this->debug) echo "<br />-Captcha-Debug: Arrghh! What do you think I mean with min and max? Switch minsize with maxsize.";
 			}
 
 
 			// check TrueTypeFonts
 			if(is_array($this->TTF_RANGE))
 			{
-				if($this->debug) echo "\n<br>-Captcha-Debug: Check given TrueType-Array! (".count($this->TTF_RANGE).")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Check given TrueType-Array! (".count($this->TTF_RANGE).")";
 				$temp = array();
 				foreach($this->TTF_RANGE as $k=>$v)
 				{
 					if(is_readable($this->TTF_folder.$v)) $temp[] = $v;
 				}
 				$this->TTF_RANGE = $temp;
-				if($this->debug) echo "\n<br>-Captcha-Debug: Valid TrueType-files: (".count($this->TTF_RANGE).")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Valid TrueType-files: (".count($this->TTF_RANGE).")";
 				if(count($this->TTF_RANGE) < 1) die('No Truetypefont available for the CaptchaClass.');
 			}
 			else
 			{
-				if($this->debug) echo "\n<br>-Captcha-Debug: Check given TrueType-File! (".$this->TTF_RANGE.")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Check given TrueType-File! (".$this->TTF_RANGE.")";
 				if(!is_readable($this->TTF_folder.$this->TTF_RANGE)) die('No Truetypefont available for the CaptchaClass.');
 			}
 
 			// select first TrueTypeFont
 			$this->change_TTF();
-			if($this->debug) echo "\n<br>-Captcha-Debug: Set current TrueType-File: (".$this->TTF_file.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Set current TrueType-File: (".$this->TTF_file.")";
 
 
 			// get number of noise-chars for background if is enabled
 			$this->nb_noise = $this->noise ? ($this->chars * $this->noisefactor) : 0;
-			if($this->debug) echo "\n<br>-Captcha-Debug: Set number of noise characters to: (".$this->nb_noise.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Set number of noise characters to: (".$this->nb_noise.")";
 
 
 			// set dimension of image
 			$this->lx = ($this->chars + 1) * (int)(($this->maxsize + $this->minsize) / 1.5);
 			$this->ly = (int)(2.4 * $this->maxsize);
-			if($this->debug) echo "\n<br>-Captcha-Debug: Set image dimension to: (".$this->lx." x ".$this->ly.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Set image dimension to: (".$this->lx." x ".$this->ly.")";
 
 
 			// set all messages
 			// (if you add a new language, you also want to add a line to the function "notvalid_msg()" at the end of the class!)
 			$this->messages = array(
 				'de'=>array(
-							'msg1'=>'Du muﬂt die <b>'.$this->chars.' Zeichen</b> im Bild, (Zahlen&nbsp;von&nbsp;<b>0&nbsp;-&nbsp;9</b> und Buchstaben&nbsp;von&nbsp;<b>A&nbsp;-&nbsp;F</b>),<br>in das Feld eintragen und das Formular abschicken um den Download zu starten.',
+							'msg1'=>'Du muﬂt die <b>'.$this->chars.' Zeichen</b> im Bild, (Zahlen&nbsp;von&nbsp;<b>0&nbsp;-&nbsp;9</b> und Buchstaben&nbsp;von&nbsp;<b>A&nbsp;-&nbsp;F</b>),<br />in das Feld eintragen und das Formular abschicken um den Download zu starten.',
 							'msg2'=>'Ohje, das kann ich nicht lesen. Bitte, generiere mir eine ',
 							'buttontext'=>'abschicken',
 							'refreshbuttontext'=>'neue ID'
@@ -410,14 +412,14 @@ class hn_captcha
 			$this->msg2 = $this->messages[$this->lang]['msg2'];
 			$this->buttontext = $this->messages[$this->lang]['buttontext'];
 			$this->refreshbuttontext = $this->messages[$this->lang]['refreshbuttontext'];
-			if($this->debug) echo "\n<br>-Captcha-Debug: Set messages to language: (".$this->lang.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Set messages to language: (".$this->lang.")";
 
 
 			// keep params from original GET-request
 			// (if you use POST or COOKIES, you have to implement it yourself, sorry.)
 			$this->QUERY_STRING = strlen(trim($_SERVER['QUERY_STRING'])) > 0 ? '?'.strip_tags($_SERVER['QUERY_STRING']) : '';
 			$refresh = $_SERVER['PHP_SELF'].$this->QUERY_STRING;
-			if($this->debug) echo "\n<br>-Captcha-Debug: Keep this params from original GET-request: (".$this->QUERY_STRING.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Keep this params from original GET-request: (".$this->QUERY_STRING.")";
 
 
 			// check Postvars
@@ -425,13 +427,13 @@ class hn_captcha
 			if(isset($_POST['private_key'])) $this->private_K = substr(strip_tags($_POST['private_key']),0,$this->chars);
 			$this->current_try = isset($_POST['hncaptcha']) ? $this->get_try() : 0;
 			if(!isset($_POST['captcharefresh'])) $this->current_try++;
-			if($this->debug) echo "\n<br>-Captcha-Debug: Check POST-vars, current try is: (".$this->current_try.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Check POST-vars, current try is: (".$this->current_try.")";
 
 
 			// generate Keys
 			$this->key = md5($this->secretstring);
 			$this->public_key = substr(md5(uniqid(rand(),true)), 0, $this->chars);
-			if($this->debug) echo "\n<br>-Captcha-Debug: Generate Keys, public key is: (".$this->public_key.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Generate Keys, public key is: (".$this->public_key.")";
 
 		}
 
@@ -453,7 +455,7 @@ class hn_captcha
 		function display_form()
 		{
 			$try = $this->get_try(FALSE);
-			if($this->debug) echo "\n<br>-Captcha-Debug: Generate a string which contains current try: ($try)";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Generate a string which contains current try: ($try)";
 			$s  = '<div id="captcha">';
 			$s .= '<form class="captcha" name="captcha1" action="'.$_SERVER['PHP_SELF'].$this->QUERY_STRING.'" method="POST">'."\n";
 			$s .= '<input type="hidden" name="hncaptcha" value="'.$try.'">'."\n";
@@ -472,7 +474,7 @@ class hn_captcha
 				$s .= '</form>'."\n";
 			}
 			$s .= '</div>';
-			if($this->debug) echo "\n<br>-Captcha-Debug: Output Form with captcha-image.<br><br>";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Output Form with captcha-image.<br /><br />";
 			return $s;
 		}
 
@@ -489,24 +491,24 @@ class hn_captcha
 		{
 			if($this->check_captcha($this->public_K,$this->private_K))
 			{
-				if($this->debug) echo "\n<br>-Captcha-Debug: Validating submitted form returns: (1)";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Validating submitted form returns: (1)";
 				return 1;
 			}
 			else
 			{
 				if($this->current_try > $this->maxtry)
 				{
-					if($this->debug) echo "\n<br>-Captcha-Debug: Validating submitted form returns: (3)";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Validating submitted form returns: (3)";
 					return 3;
 				}
 				elseif($this->current_try > 0)
 				{
-					if($this->debug) echo "\n<br>-Captcha-Debug: Validating submitted form returns: (2)";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Validating submitted form returns: (2)";
 					return 2;
 				}
 				else
 				{
-					if($this->debug) echo "\n<br>-Captcha-Debug: Validating submitted form returns: (0)";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Validating submitted form returns: (0)";
 					return 0;
 				}
 			}
@@ -524,14 +526,14 @@ class hn_captcha
 		{
 			$this->make_captcha();
 			$is = getimagesize($this->get_filename());
-			if($onlyTheImage) return "\n".'<img class="captchapict" src="'.$this->get_filename_url().'" '.$is[3].' alt="This is a captcha-picture. It is used to prevent mass-access by robots. (see: www.captcha.net)" title="">'."\n";
-			else return $this->public_key_input()."\n".'<img class="captchapict" src="'.$this->get_filename_url().'" '.$is[3].' alt="This is a captcha-picture. It is used to prevent mass-access by robots. (see: www.captcha.net)" title="">'."\n";
+			if($onlyTheImage) return "\n".'<img class="captchapict" src="'.$this->get_filename_url().'" '.$is[3].' alt="This is a captcha-picture. It is used to prevent mass-access by robots. (see: www.captcha.net)" title="" />'."\n";
+			else return $this->public_key_input()."\n".'<img class="captchapict" src="'.$this->get_filename_url().'" '.$is[3].' alt="This is a captcha-picture. It is used to prevent mass-access by robots. (see: www.captcha.net)" title="" />'."\n";
 		}
 
 		/** @private **/
 		function public_key_input()
 		{
-			return '<input type="hidden" name="public_key" value="'.$this->public_key.'">';
+			return '<input type="hidden" name="public_key" value="'.$this->public_key.'" />';
 		}
 
 		/** @private **/
@@ -539,7 +541,7 @@ class hn_captcha
 		{
 			$private_key = $this->generate_private();
             $this->private_key = $private_key;
-			if($this->debug) echo "\n<br>-Captcha-Debug: Generate private key: ($private_key)";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Generate private key: ($private_key)";
 
 			// create Image and set the apropriate function depending on GD-Version & websafecolor-value
 			if($this->gd_version >= 2 && !$this->websafecolors)
@@ -553,15 +555,15 @@ class hn_captcha
 				$func2 = 'imagecolorclosest';
 			}
 			$image = $func1($this->lx,$this->ly);
-			if($this->debug) echo "\n<br>-Captcha-Debug: Generate ImageStream with: ($func1())";
-			if($this->debug) echo "\n<br>-Captcha-Debug: For colordefinitions we use: ($func2())";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Generate ImageStream with: ($func1())";
+			if($this->debug) echo "\n<br />-Captcha-Debug: For colordefinitions we use: ($func2())";
 
 
 			// Set Backgroundcolor
 			$this->random_color(224, 255);
 			$back =  @imagecolorallocate($image, $this->r, $this->g, $this->b);
 			@ImageFilledRectangle($image,0,0,$this->lx,$this->ly,$back);
-			if($this->debug) echo "\n<br>-Captcha-Debug: We allocate one color for Background: (".$this->r."-".$this->g."-".$this->b.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: We allocate one color for Background: (".$this->r."-".$this->g."-".$this->b.")";
 
 			// allocates the 216 websafe color palette to the image
 			if($this->gd_version < 2 || $this->websafecolors) $this->makeWebsafeColors($image);
@@ -571,7 +573,7 @@ class hn_captcha
 			if($this->nb_noise > 0)
 			{
 				// random characters in background with random position, angle, color
-				if($this->debug) echo "\n<br>-Captcha-Debug: Fill background with noise: (".$this->nb_noise.")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Fill background with noise: (".$this->nb_noise.")";
 				for($i=0; $i < $this->nb_noise; $i++)
 				{
 					srand((double)microtime()*1000000);
@@ -592,14 +594,14 @@ class hn_captcha
 			else
 			{
 				// generate grid
-				if($this->debug) echo "\n<br>-Captcha-Debug: Fill background with x-gridlines: (".(int)($this->lx / (int)($this->minsize / 1.5)).")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Fill background with x-gridlines: (".(int)($this->lx / (int)($this->minsize / 1.5)).")";
 				for($i=0; $i < $this->lx; $i += (int)($this->minsize / 1.5))
 				{
 					$this->random_color(160, 224);
 					$color	= $func2($image, $this->r, $this->g, $this->b);
 					@imageline($image, $i, 0, $i, $this->ly, $color);
 				}
-				if($this->debug) echo "\n<br>-Captcha-Debug: Fill background with y-gridlines: (".(int)($this->ly / (int)(($this->minsize / 1.8))).")";
+				if($this->debug) echo "\n<br />-Captcha-Debug: Fill background with y-gridlines: (".(int)($this->ly / (int)(($this->minsize / 1.8))).")";
 				for($i=0 ; $i < $this->ly; $i += (int)($this->minsize / 1.8))
 				{
 					$this->random_color(160, 224);
@@ -609,7 +611,7 @@ class hn_captcha
 			}
 
 			// generate Text
-			if($this->debug) echo "\n<br>-Captcha-Debug: Fill forground with chars and shadows: (".$this->chars.")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Fill forground with chars and shadows: (".$this->chars.")";
 			for($i=0, $x = intval(rand($this->minsize,$this->maxsize)); $i < $this->chars; $i++)
 			{
 				$text	= strtoupper(substr($private_key, $i, 1));
@@ -629,9 +631,9 @@ class hn_captcha
 			}
 			@ImageJPEG($image, $this->get_filename(), $this->jpegquality);
 			$res = file_exists($this->get_filename());
-			if($this->debug) echo "\n<br>-Captcha-Debug: Safe Image with quality [".$this->jpegquality."] as (".$this->get_filename().") returns: (".($res ? 'TRUE' : 'FALSE').")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Safe Image with quality [".$this->jpegquality."] as (".$this->get_filename().") returns: (".($res ? 'TRUE' : 'FALSE').")";
 			@ImageDestroy($image);
-			if($this->debug) echo "\n<br>-Captcha-Debug: Destroy Imagestream.";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Destroy Imagestream.";
 			if(!$res) die('Unable to safe captcha-image.');
 		}
 
@@ -650,7 +652,7 @@ class hn_captcha
 					}
 				}
 			}
-			if($this->debug) echo "\n<br>-Captcha-Debug: Allocate 216 websafe colors to image: (".imagecolorstotal($image).")";
+			if($this->debug) echo "\n<br />-Captcha-Debug: Allocate 216 websafe colors to image: (".imagecolorstotal($image).")";
 			//return $a;
 		}
 
@@ -690,9 +692,9 @@ class hn_captcha
 				if(file_exists($this->get_filename($public)))
 				{
 						$res = @unlink($this->get_filename($public)) ? 'TRUE' : 'FALSE';
-						if($this->debug) echo "\n<br>-Captcha-Debug: Delete image (".$this->get_filename($public).") returns: ($res)";
+						if($this->debug) echo "\n<br />-Captcha-Debug: Delete image (".$this->get_filename($public).") returns: ($res)";
 						$res = (strtolower($private)==strtolower($this->generate_private($public))) ? 'TRUE' : 'FALSE';
-						if($this->debug) echo "\n<br>-Captcha-Debug: Comparing public with private key returns: ($res)";
+						if($this->debug) echo "\n<br />-Captcha-Debug: Comparing public with private key returns: ($res)";
 				}
 				return $res == 'TRUE' ? TRUE : FALSE;
 		}
@@ -703,10 +705,10 @@ class hn_captcha
 					if(file_exists($this->get_filename($public)))
 					{
 						$res = @unlink($this->get_filename($public)) ? 'TRUE' : 'FALSE';
-						if($this->debug) echo "\n<br>-Captcha-Debug: Delete image (".$this->get_filename($public).") returns: ($res)";
+						if($this->debug) echo "\n<br />-Captcha-Debug: Delete image (".$this->get_filename($public).") returns: ($res)";
 					}
 					$res = (strtolower($private)==strtolower($this->generate_private($public))) ? 'TRUE' : 'FALSE';
-					if($this->debug) echo "\n<br>-Captcha-Debug: Comparing public with private key returns: ($res)";
+					if($this->debug) echo "\n<br />-Captcha-Debug: Comparing public with private key returns: ($res)";
 					return $res == 'TRUE' ? TRUE : FALSE;
 				}
 			*/
@@ -794,15 +796,15 @@ class hn_captcha
 		function notvalid_msg()
 		{
 			// blank line for all languages
-			if($this->current_try == 1) return '&nbsp;<br>&nbsp;';
+			if($this->current_try == 1) return '&nbsp;<br />&nbsp;';
 
 			// invalid try's: en
-			if($this->lang == "en" && $this->current_try > 2 && $this->refreshlink) return 'No valid entry. Please try again:<br>Tipp: If you cannot identify the chars, you can generate a new image!';
-			if($this->lang == "en" && $this->current_try >= 2) return 'No valid entry. Please try again:<br>&nbsp;';
+			if($this->lang == "en" && $this->current_try > 2 && $this->refreshlink) return 'No valid entry. Please try again:<br />Tipp: If you cannot identify the chars, you can generate a new image!';
+			if($this->lang == "en" && $this->current_try >= 2) return 'No valid entry. Please try again:<br />&nbsp;';
 
 			// invalid try's: de
-			if($this->lang == "de" && $this->current_try > 2 && $this->refreshlink) return 'Die Eingabe war nicht korrekt.<br>Tipp: Wenn Du die Zeichen nicht erkennen kannst, generiere neue mit dem Link unten!';
-			if($this->lang == "de" && $this->current_try >= 2) return 'Die Eingabe war nicht korrekt. Bitte noch einmal versuchen:<br>&nbsp;';
+			if($this->lang == "de" && $this->current_try > 2 && $this->refreshlink) return 'Die Eingabe war nicht korrekt.<br />Tipp: Wenn Du die Zeichen nicht erkennen kannst, generiere neue mit dem Link unten!';
+			if($this->lang == "de" && $this->current_try >= 2) return 'Die Eingabe war nicht korrekt. Bitte noch einmal versuchen:<br />&nbsp;';
 
 		}
 
