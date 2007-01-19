@@ -427,7 +427,7 @@ class user extends dbTable
         $rs = $this->query($sql);
         if ($rs)
         {
-        
+
         //    $line = $rs->fetchRow();
          $ret=$rs[0]["userid"];
         }
@@ -552,7 +552,7 @@ class user extends dbTable
     * This method returns the surname of a given user. It takes
     * the userId of a user as a parameter but defaults to the
     * userId of the currently logged-in user if none is supplied.
-    * 
+    *
     * @param string $userId The numeric ID of a user, it defaults
     * to the userId of the current user by setting it to NULL as
     * default.
@@ -563,21 +563,21 @@ class user extends dbTable
     {
         if (!$userId) {
             $userId = $this->getSession('userId');
-        } 
+        }
         $sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
         $rs = $this->query($sql);
         if ($rs) {
             return $rs[0]["surname"];
         } else {
             return false;
-        } 
-    } 
+        }
+    }
 
     /**
     * This method returns the first name of a given user. It takes
     * the userId of a user as a parameter but defaults to the
     * userId of the currently logged-in user if none is supplied.
-    * 
+    *
     * @param string $userId The numeric ID of a user, it defaults
     * to the userId of the current user by setting it to NULL as
     * default.
@@ -588,16 +588,16 @@ class user extends dbTable
     {
         if (!$userId) {
             $userId = $this->getSession('userId');
-        } 
+        }
         $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
         $rs = $this->query($sql);
-        
+
         if ($rs) {
             return $rs[0]["firstname"];
         } else {
             return false;
-        } 
-    } 
+        }
+    }
 
     /**
     * This method returns the email address of a given user. It takes
@@ -745,9 +745,9 @@ class user extends dbTable
         }
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" />';
+            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" alt="'.$userId.'" />';
         } else {
-            return '<img src="'.$this->imageUrl.'default.jpg" />';
+            return '<img src="'.$this->imageUrl.'default.jpg" alt="'.$userId.'" />';
         }
     }
 
