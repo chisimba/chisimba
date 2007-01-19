@@ -15,7 +15,7 @@
 ?>
 <table align='center'>
 <tr><td>
-<h2><?php echo $text; ?></h2>
+<h2><?php echo stripslashes($text); ?></h2>
 </td></tr>
 <tr><td>
 <?php
