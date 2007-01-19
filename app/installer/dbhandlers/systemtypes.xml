@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='systemtypes.xsd'>
+	<systemtypes>
+		<category>blog</category>
+		<category>workgroups</category>
+		<category>Content Management System</category>
+		<category>communications</category>
+		<category>e-Learning Management System</category>
+	</systemtypes>
+</settings>
