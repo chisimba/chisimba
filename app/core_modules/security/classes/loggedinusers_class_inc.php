@@ -34,6 +34,7 @@ class loggedInUsers extends dbTable
         $isInvisible='0';
         $sql="
 			INSERT INTO tbl_loggedinusers (
+                                id,
 				userid,
 				ipaddress,
 				sessionid,
@@ -44,6 +45,7 @@ class loggedInUsers extends dbTable
 				themeused
 			)
             VALUES (
+                                '".date('YmdHis')."',
 				'$userId', 
 				'$ipAddress', 
 				'$sessionId', 
