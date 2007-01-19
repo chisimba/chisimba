@@ -582,7 +582,7 @@ class utils extends object
             $box =  & $this->newObject('featurebox', 'navigation');
             //lecturers
             $lecturerArr = $objGroups->contextUsers('Lecturers');
-            
+            $str = '';
             //table headings
             $table->width = '60%';
             $rowcount = 0;
