@@ -35,7 +35,12 @@ class block_register extends object
     {
     	try {
     		$this->objLanguage = & $this->getObject('language', 'language');
-    		$this->title = $this->objLanguage->languageText("word_registration");
+			$this->objUser = $this->getObject('user', 'security');
+			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+				$this->blockType="invisible";
+			} else { 
+    			$this->title = $this->objLanguage->languageText("word_registration");
+			}
     	} catch (customException $e) {
     		customException::cleanUp();
     	}
@@ -48,10 +53,14 @@ class block_register extends object
     public function show()
     {
     	try {
-    		$regLink = &$this->newObject('link','htmlelements');
-    		$regLink->link = $this->objLanguage->languageText('word_register');
-    		$regLink->link($this->uri(array('action'=>'register'),'useradmin'));
-    		return $regLink->show();
+    		if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+    			return NULL;
+    		} else {
+	    		$regLink = &$this->newObject('link','htmlelements');
+	    		$regLink->link = $this->objLanguage->languageText('word_register');
+	    		$regLink->link($this->uri(array('action'=>'register'),'useradmin'));
+	    		return $regLink->show();
+    		}
     	} catch (customException $e) {
     		customException::cleanUp();
     	}

@@ -23,9 +23,14 @@ class block_login extends object
     public $title;
     
     /**
-    * @var object $objLanguage String to hold the language object
+    * @var string object $objLanguage String to hold the language object
     */
     private $objLanguage;
+    /**
+    * @var string object $objUser String to hold the language object
+    */
+    private $objUser;
+    public $blockType;
 
     /**
     * Standard init function to instantiate language object
@@ -34,8 +39,13 @@ class block_login extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
-    		$this->title = $this->objLanguage->languageText("word_login");
+			$this->objLanguage = & $this->getObject('language', 'language');
+			$this->objUser = $this->getObject('user', 'security');
+			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+				$this->blockType="invisible";
+			} else {
+			    $this->title = $this->objLanguage->languageText("word_login");
+			}
     	} catch (customException $e) {
     		customException::cleanUp();
     	}
@@ -48,8 +58,12 @@ class block_login extends object
     public function show()
 	{
 		try {
-			$objLogin = & $this->getObject('logininterface', 'security');
-			return $objLogin->renderLoginBox();
+			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+			    return NULL;
+			} else {
+				$objLogin = & $this->getObject('logininterface', 'security');
+				return $objLogin->renderLoginBox();			    
+			}
 		} catch (customException $e) {
 			customException::cleanUp();
 		}
