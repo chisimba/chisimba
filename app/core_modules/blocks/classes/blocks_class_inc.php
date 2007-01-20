@@ -81,12 +81,10 @@ class blocks extends object
             if (isset($objBlock->blockType)) {
             	$blockType = $objBlock->blockType;
             }
-
             switch ($blockType) {
                 case NULL:
                 	$objFeatureBox = & $this->newObject('featurebox', 'navigation');
                 	return $objFeatureBox->show($title, $objBlock->show());
-
                 case "tabbedbox":
                     //Put it all inside a tabbed box
                     $objTab = $this->newObject('tabbedbox', 'htmlelements');
@@ -122,8 +120,9 @@ class blocks extends object
                 case "none":
                 	//just display it - for wide blocks
                 	return $objBlock->show();
-
-
+                case "invisible":
+                	//Render boxes like login invisible when logged in                	
+                	return NULL;
             }
         } else {
             return NULL;
