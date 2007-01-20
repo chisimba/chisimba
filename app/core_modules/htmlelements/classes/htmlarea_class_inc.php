@@ -150,7 +150,7 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-        require_once('modules/htmlelements/resources/fckeditor_2.3.2/fckeditor.php') ;
+		require_once($this->getResourceUri('fckeditor_2.3.2/fckeditor.php', 'htmlelements'));
         
         $objConfig = & $this->newObject('altconfig', 'config');
 
