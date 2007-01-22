@@ -175,7 +175,7 @@ class userdetails extends controller
         }
         
         // Process Update
-        $update = $this->objUserAdmin->updateUserDetails($this->user['id'], '', $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password);
+        $update = $this->objUserAdmin->updateUserDetails($this->user['id'], $this->user['username'], $firstname, $surname, $title, $email, $sex, $country, $cellnumber, $staffnumber, $password);
         
         if (count($results) > 0) {
             $results['change'] = 'details';
