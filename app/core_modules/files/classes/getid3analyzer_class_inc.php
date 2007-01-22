@@ -8,7 +8,7 @@
 *
 * @author Tohir Solomons
 */
-require_once('modules/files/resources/getid3/getid3.php');
+
 class getid3analyzer extends object
 {
     
@@ -23,7 +23,7 @@ class getid3analyzer extends object
     */
     public function init()
     {
-        
+        require_once($this->getResourceUri('getid3/getid3.php'));
     }
     
     /**
