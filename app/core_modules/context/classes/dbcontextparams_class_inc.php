@@ -43,7 +43,7 @@ class dbcontextparams extends dbTable{
 	    	if($this->getParamValue($contextCode, $param))
 	    	{
 	    		//edit the param
-	    		$sql = 'UPDATE tbl_contextparams SET value = "'.$value.'" WHERE contextcode = "'.$contextCode.'" AND param = "'.$param.'"';
+	    		$sql = "UPDATE tbl_contextparams SET value = '".$value."' WHERE contextcode = '".$contextCode."' AND param = '".$param."'";
 	    		return $this->getArray($sql);
 	    	} else {
 	    		return $this->insert($fields);	
@@ -68,7 +68,7 @@ class dbcontextparams extends dbTable{
     public function getParamValue($contextCode, $param)
     {
     	
-    	$line = $this->getAll('WHERE contextcode = "'.$contextCode.'"  AND param = "'.$param.'"');
+    	$line = $this->getAll("WHERE contextcode = '".$contextCode."'  AND param = '".$param."'");
     	if(count($line) > 0)
     	{
     		return $line[0]['value'];

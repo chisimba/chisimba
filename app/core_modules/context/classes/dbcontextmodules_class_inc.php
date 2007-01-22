@@ -122,7 +122,7 @@ class dbcontextmodules extends dbTable{
     public function getContextModules($contextCode)
     {
         
-        return $this->getAll('WHERE contextcode="'.$contextCode.'"');
+        return $this->getAll("WHERE contextcode='".$contextCode."'");
     }
     
     /**
@@ -172,7 +172,7 @@ class dbcontextmodules extends dbTable{
     */
     public function isContextPlugin($contextCode, $moduleId)
     {
-        $arr = $this->getAll('WHERE contextcode = "'.$contextCode.'" AND moduleid = "'.$moduleId.'"');
+        $arr = $this->getAll("WHERE contextcode = '".$contextCode."' AND moduleid = '".$moduleId."'");
         if(count($arr[0]) > 0)
         {
 
