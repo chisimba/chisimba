@@ -129,7 +129,7 @@ class useradmin_model2 extends dbtable
     * @return boolean Result of Update
     *
     */
-    function updateUserDetails($id, $username, $firstname, $surname, $title, $email, $sex, $country, $cellnumber='', $staffnumber='', $password='', $accountType='', $accountstatus='')
+    function updateUserDetails($id, $username='', $firstname, $surname, $title, $email, $sex, $country, $cellnumber='', $staffnumber='', $password='', $accountType='', $accountstatus='')
     {
         //echo $accountType;
         $userArray = array(
@@ -143,6 +143,10 @@ class useradmin_model2 extends dbtable
                 'cellnumber' => $cellnumber,
                 'staffnumber' => $staffnumber
             );
+        
+        if ($username != '') {
+            $userArray['username'] = $username;
+        }
         
         if ($accountstatus != '') {
             $userArray['isactive'] = $accountstatus;
