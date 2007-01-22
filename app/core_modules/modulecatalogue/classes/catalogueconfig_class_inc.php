@@ -170,6 +170,11 @@ class catalogueconfig extends object {
     				if (isset($reg['MODULE_AUTHORS'])){
     					$module_authors = htmlentities($reg['MODULE_AUTHORS']);
     				}
+    				if (isset($reg['MODULE_NAME'])){
+    					$module_name = htmlentities($reg['MODULE_NAME']);
+    				} else {
+    					$module_name = $module_id;
+    				}
     				if (isset($reg['MODULE_RELEASEDATE'])){
     					$module_releasedate = htmlentities($reg['MODULE_RELEASEDATE']);
     				}
@@ -180,6 +185,7 @@ class catalogueconfig extends object {
     					$module_version = htmlentities($reg['MODULE_VERSION']);
     				}
     				$xmlStr .= "		<module_id>$module_id</module_id>
+    	<module_name>$module_name</module_name>
     	<module_authors>$module_authors</module_authors>
         <module_releasedate>$module_releasedate</module_releasedate>
         <module_description>$module_description</module_description>
@@ -300,6 +306,31 @@ class catalogueconfig extends object {
     		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
     		$xml = simplexml_load_file($this->_path);
     		$query = "//module[module_id='$modname']/module_description";
+    		$entries = $xml->xpath($query);
+
+    		if (!$entries) {
+    			return FALSE;
+    		} else {
+    			return $entries;
+    		}
+    	} catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+    
+    /**
+     * Method to get module name from the catalogue
+     *
+     * @author Nic Appleby
+     * @param string $moduleId module id
+     * @return string module name|FALSE if none exists
+     */
+    public function getModuleName($moduleId) {
+    	try {
+    		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+    		$xml = simplexml_load_file($this->_path);
+    		$query = "//module[module_id='$moduleId']/module_name";
     		$entries = $xml->xpath($query);
 
     		if (!$entries) {

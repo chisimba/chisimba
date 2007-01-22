@@ -19,7 +19,7 @@ $icon = &$this->getObject('geticon', 'htmlelements');
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 $objTable->cellspacing = 3;
-$objTable->id = 'module_list';
+$objTable->id = 'unpadded';
 $objTable->width='100%';
 /*$icon->setIcon('installable','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_hasregfile','modulecatalogue');
@@ -85,16 +85,21 @@ if ($modules) {
 	$bottomTable->addCell($batchAction,null,null,'right',null);
 	$bottomTable->endRow();
 	$bot = $bottomTable->show();
-	foreach ($modules as $modName) {
-		if (in_array($modName,$localModules)){//dont display downloadable modules until that functionality is complete
+	foreach ($modules as $moduleId) {
+		if (in_array($moduleId,$localModules)){//dont display downloadable modules until that functionality is complete
 		//$isRegistered = $hasController = $hasRegFile = '';
-		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 		$textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
 		$textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
-		$ucMod = ucwords($modName);
-		$desc = $this->objCatalogueConfig->getModuleDescription($modName);
+		$module_name = $this->objCatalogueConfig->getModuleName($moduleId);
+		if (!$module_name) {
+			$module_name = ucwords($moduleId);
+		} else {
+			$module_name = ucwords((string)$module_name[0]);
+		}
+		$desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
 		if (!$desc) {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
 		} else {
@@ -107,35 +112,35 @@ if ($modules) {
 			//}
 		}
 		$desc = htmlentities($desc);
-		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
-		$link = $ucMod;
-		$icon->setModuleIcon($modName);
-		$icon->alt = $modName;
+		$link = $module_name;
+		$icon->setModuleIcon($moduleId);
+		$icon->alt = $module_name;
 		$objCheck->checkbox('arrayList[]');
-		$objCheck->cssId = 'checkbox_'.$modName;
-        $objCheck->setValue($modName);
-        //if ($this->objModFile->findController($modName)) {
+		$objCheck->cssId = 'checkbox_'.$moduleId;
+        $objCheck->setValue($moduleId);
+        //if ($this->objModFile->findController($moduleId)) {
         //	$icon->setIcon('ok','png');
         //} else {
         //	$icon->setIcon('failed','png');
         //}
         //$hasController = $icon->show();
-		if (!in_array($modName,$localModules)){ //module available on server but not locally
-			$instButton = &new Link($this->uri(array('action'=>'download','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+		if (!in_array($moduleId,$localModules)){ //module available on server but not locally
+			$instButton = &new Link($this->uri(array('action'=>'download','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 			$instButton->link = $this->objLanguage->languageText('word_download');
 			$instButtonShow = $instButton->show();
 			$checkBox='';
 			$texts = '';
 			$info = '';//$infoButton->show(); only add this once back end functionality is complete
 		} else { //local module
-			if ($this->objModFile->findRegisterFile($modName)) {//has regfile
+			if ($this->objModFile->findRegisterFile($moduleId)) {//has regfile
 				$texts = $textButton->show();
 				$info = $infoButton->show();
 			//	$icon->setIcon('ok','png');
 			//	$hasRegFile = $icon->show();
-				if (!(in_array($modName,$rMods))) { //not registered
-					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+				if (!(in_array($moduleId,$rMods))) { //not registered
+					$instButton = &new Link($this->uri(array('action'=>'install','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 					$instButton->link = $this->objLanguage->languageText('word_install');
 					$instButtonShow = $instButton->show();
 					if (!$batchuninstall) {
@@ -146,16 +151,16 @@ if ($modules) {
 					//$icon->setIcon('failed','png');
 					//$isRegistered = $icon->show();
 				} else {//registered
-					if ($this->objModFile->findController($modName)) {
-						$link = "<a href='{$this->uri(null,$modName)}'>$ucMod</a>";
+					if ($this->objModFile->findController($moduleId)) {
+						$link = "<a href='{$this->uri(null,$moduleId)}'>$module_name</a>";
 					}
-					if (!strchr(strtolower($defaults),strtolower($modName))) {
-						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'));
+					if (!strchr(strtolower($defaults),strtolower($moduleId))) {
+						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 						$instButton->link = $this->objLanguage->languageText('word_uninstall');
 						$objConfirm = &$this->getObject('confirm','utilities');
 						$objConfirm->setConfirm($this->objLanguage->languageText('word_uninstall'),
-									$this->uri(array('action'=>'uninstall','mod'=>$modName,'cat'=>$activeCat),'modulecatalogue'),
-									str_replace('MODULE',$modName,$this->objLanguage->languageText('mod_modulecatalogue_deregsure','modulecatalogue')));
+									$this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'),
+									str_replace('MODULE',$moduleId,$this->objLanguage->languageText('mod_modulecatalogue_deregsure','modulecatalogue')));
 						$instButtonShow = $objConfirm->show();
     					if ($batchuninstall) {
 							$checkBox=$objCheck->show();
@@ -180,7 +185,7 @@ if ($modules) {
 
 			}
 		}
-		$icon->setModuleIcon($modName);
+		$icon->setModuleIcon($moduleId);
 		$icon->alt = $desc;
 		$objTable->startRow();
 		$objTable->addCell($checkBox,null,null,'left',$class);

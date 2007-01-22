@@ -271,10 +271,11 @@ class modulecatalogue extends controller
 					return $this->nextAction('list');
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
+					$sysType = $this->getParam('systemtype','Basic System Only');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
 					log_debug('modulecatalogue controller - registering core modules');
 					if (!$check){
-						$this->firstRegister();
+						$this->firstRegister($sysType);
 					}
 					// Show next installation step
 					log_debug('first time registration complete');
@@ -489,13 +490,17 @@ class modulecatalogue extends controller
 
 	/**
     * This is a method to handle first-time registration of the basic modules
+    * 
+    * @param string sysType The type of system to install
     */
-    private function firstRegister() {
+    private function firstRegister($sysType) {
     	try {
     		$root = $this->objConfig->getsiteRootPath();
     		if (!file_exists($root.'config/config.xml')){
     			throw new customException("could not find config.xml! tried {$root}config/config.xml");
     		}
+    		
+    		//read the xml document and install the appropriate modules
     		$mList=file($root.'installer/dbhandlers/default_modules.txt');
     		foreach ($mList as $line) {
     			if ($line[0]!='#') {
