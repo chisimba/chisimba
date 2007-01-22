@@ -24,7 +24,7 @@ $inpAbout->name = 'about';
 $inpAbout->id = 'about';
 $inpAbout->value = '';
 $inpAbout->cols = 4;
-$inpAbout->rows = 3;
+$inpAbout->width = '450px';
 $inpAbout->cssClass = 'f-comments';
 
 $inpButton->setToSubmit();
