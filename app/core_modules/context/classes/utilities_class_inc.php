@@ -95,6 +95,7 @@ class utilities extends object
     	$objIcon = & $this->getObject('geticon', 'htmlelements');
     	
     	$arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
+    	$isregistered = '';
     	
     	//create the nodes array
 		$nodes = array();
