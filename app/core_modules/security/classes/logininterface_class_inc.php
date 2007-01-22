@@ -98,7 +98,7 @@ class loginInterface extends object
 
     		$helpText = $this->objLanguage->languageText('mod_useradmin_help','useradmin');
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
-        	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'useradmin'));
+        	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'security'));
         	$resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
         	// the help link
         	$p = $resetLink->show().'<br /><br />'.$helpIcon;

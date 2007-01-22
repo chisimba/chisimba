@@ -23,6 +23,7 @@ class security extends controller
     function init()
     {
         $this->objUser =& $this->getObject('user');
+        $this->objUserModel =& $this->getObject('useradmin_model2');
         $this->objLanguage =& $this->getObject('language','language');
         //Get an instance of the skin
         $this->objSkin = &$this->getObject('skin', 'skin');
@@ -31,7 +32,13 @@ class security extends controller
 
     function requiresLogin($action)
     {
-        return $action != 'showlogin' && $action != 'login' && $action != 'error';
+        $actions = array('showlogin', 'login', 'error', 'needpassword', 'needpasswordconfirm', 'emailsent', 'generatenewcaptcha');
+        
+        if (in_array($action, $actions)) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
     function dispatch($action)
@@ -45,6 +52,14 @@ class security extends controller
             return $this->doLogoff();
         case 'error':
             return $this->errorMessages();
+        case 'needpassword':
+            return $this->needPassword();
+        case 'generatenewcaptcha':
+            return $this->generateNewCaptcha();
+        case 'needpasswordconfirm':
+            return $this->needPasswordConfirm();
+        case 'emailsent':
+            return $this->emailSent();
         case 'showlogin':
         default:
             return $this->showPreLoginModule();
@@ -142,9 +157,78 @@ class security extends controller
         }
         return $this->nextAction(NULL, NULL, $this->objConfig->getPrelogin('KEWL_PRELOGIN_MODULE'));
     }
+    
+    function needPassword()
+    {
+        if ($this->objUser->isLoggedIn()) {
+            return $this->nextAction(NULL, NULL, '_default');
+        } else {
+            $this->setLayoutTemplate('login_layout_tpl.php');
+            return 'forgotyourpassword_tpl.php';
+        }
+    }
+    
+    function generateNewCaptcha()
+    {
+        $objCaptcha = $this->getObject('captcha', 'utilities');
+        echo $objCaptcha->show();
+        //echo 'asffas';
+    }
+    
+    function needPasswordConfirm()
+    {
+        if ($this->objUser->isLoggedIn()) {
+            return $this->nextAction(NULL, NULL, '_default');
+        }
+        
+        if (md5(strtoupper($this->getParam('request_captcha'))) == $this->getParam('captcha')) {
+            $username = $this->getParam('request_username');
+            $email = $this->getParam('request_email');
+            
+            $userDetails = $this->objUserModel->getUserNeedPassword($username, $email);
+            $usernameAvailable = $this->objUserModel->usernameAvailable($username);
+            
+            if ($userDetails == FALSE) {
+                return $this->nextAction('needpassword', array('error'=>'details'));
+            }
+            
+            if ($userDetails['howcreated'] == 'LDAP') {
+                return $this->nextAction('needpassword', array('error'=>'ldap'));
+            } else {
+                $this->objUserModel->newPasswordRequest($userDetails['id']);
+                $this->setSession('passwordrequest', $userDetails['id']);
+                return $this->nextAction('emailsent');
+            }
+            
+        } else {
+            return $this->nextAction('needpassword', array('error'=>'captcha'));
+        }
+    }
+    
+    function emailSent()
+    {
+        if ($this->getSession('passwordrequest') == '') {
+            return $this->nextAction(NULL, NULL, '_default');
+        }
+        
+        $userDetails = $this->objUserModel->getUserDetails($this->getSession('passwordrequest'));
+        
+        if ($userDetails == FALSE) {
+            return $this->nextAction(NULL, NULL, '_default');
+        } else {
+            $this->setVarByRef('user', $userDetails);
+            $this->setLayoutTemplate('login_layout_tpl.php');
+            return 'emailsent.php';
+        }
+    }
 
     function errorMessages()
     {
+        if ($this->objUser->isLoggedIn()) {
+            return $this->nextAction(NULL, NULL, '_default');
+        }
+        
+        $this->setLayoutTemplate('login_layout_tpl.php');
         $this->setVar('pageSuppressToolbar', TRUE);
         return 'error_message.php';
     }
