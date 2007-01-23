@@ -173,10 +173,16 @@ class dbcontextmodules extends dbTable{
     public function isContextPlugin($contextCode, $moduleId)
     {
         $arr = $this->getAll("WHERE contextcode = '".$contextCode."' AND moduleid = '".$moduleId."'");
-        if(count($arr[0]) > 0)
+       
+        if(array_key_exists(0,$arr))
         {
-
-            return TRUE;
+            if(count($arr[0]) > 0)
+            {
+    
+                return TRUE;
+            } else {
+                return FALSE;
+            }
         } else {
             return FALSE;
         }
