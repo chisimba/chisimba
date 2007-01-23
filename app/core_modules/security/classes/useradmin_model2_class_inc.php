@@ -352,7 +352,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
         
         $objMailer = $this->getObject('email', 'mail');
-        $objMailer->setValue('to', array('newuser@localhost'));
+        $objMailer->setValue('to', array($user['emailaddress']));
         $objMailer->setValue('from', $siteEmail);
         $objMailer->setValue('fromName', $siteName.' Registration System');
         $objMailer->setValue('subject', 'Password Request: '.$siteName);
