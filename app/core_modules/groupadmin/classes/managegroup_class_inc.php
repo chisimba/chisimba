@@ -71,7 +71,7 @@ class manageGroup extends object
     function getUsers($fields=NULL,$filter=NULL)
     {   
         $groupId = $this->groupId;
-        $fields = $fields ? implode(',',$fields) : array("tbl_users.id","tbl_users.userId","CONCAT(firstName,' ',surname) as fullName");
+        $fields = $fields ? implode(',',$fields) : array("tbl_users.id","tbl_users.userId"," 'firstName' || ' ' || 'surname' as fullName");
         $filter = NULL;
         $data = $this->objGroupAdmin->getGroupUsers( $groupId, $fields, $filter );
         return $data;

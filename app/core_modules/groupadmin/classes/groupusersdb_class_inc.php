@@ -201,7 +201,7 @@ class groupusersdb extends dbTable
         $sql = "SELECT ";
         $sql.= $fields
                 ? ( is_array( $fields ) ? implode ( ',', $fields ) : $fields )
-                : "$tblUser.id, CONCAT(firstName,' ',surname) as fullName";
+                : "$tblUser.id, 'firstName' || ' ' || 'surname' as fullName";
         $sql.= " FROM $tblGroupUsers";
 
         $join = " INNER JOIN $tblUser";
@@ -230,7 +230,7 @@ class groupusersdb extends dbTable
         // Get the data from the database.
         $sql = "SELECT ";
         // Select the given fields or all the fields.
-        $sql.= $fields ? implode ( ',', $fields ) : "$tblUser.id, CONCAT( firstName, ' ', surname ) as fullname ";
+        $sql.= $fields ? implode ( ',', $fields ) : "$tblUser.id, 'firstName' || ' ' || 'surname' as fullname ";
         $sql.= " FROM $tblGroupUsers";
         // Get the users who belongs this group
         $join = " RIGHT JOIN $tblUser";
@@ -316,7 +316,7 @@ class groupusersdb extends dbTable
         $lstGroups = "'".implode("', '", $SubGroups )."'";
 
         $sql = "SELECT ";
-        $sql.= $fields ? implode (',', $fields ) : " CONCAT( firstName, ' ', surname ) as fullname ";
+        $sql.= $fields ? implode (',', $fields ) : " 'firstName' || ' ' || 'surname' as fullname ";
         $sql.= " FROM $tblGroupUsers, $tblUser";
         $sql.= " WHERE group_id IN ( $lstGroups )";
         $sql.= " AND $tblUser.id = user_id";

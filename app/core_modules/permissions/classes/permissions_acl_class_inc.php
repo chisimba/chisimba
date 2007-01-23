@@ -118,7 +118,7 @@ class permissions_acl extends dbTable
         $usersDb = 'tbl_users';
 
         $sql = "SELECT ";
-        $sql .= $fields ? implode( ",", $fields ) : " $usersDb.id, CONCAT( firstName, ' ', surname ) as fullName";
+        $sql .= $fields ? implode( ",", $fields ) : " $usersDb.id, 'firstName' || ' ' || 'surname' as fullName";
         $sql .= " FROM $permission_aclDb";
         $join = " INNER JOIN $usersDb";
         $join .= " ON ( user_id = $usersDb.id )";
