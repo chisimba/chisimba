@@ -467,7 +467,7 @@ class upload extends object
             if ($type=='all') {
                 return TRUE;
             } elseif ($type == $ext){
-
+                return TRUE;
             }
         }
         return FALSE;
