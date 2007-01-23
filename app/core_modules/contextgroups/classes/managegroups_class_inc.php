@@ -328,7 +328,7 @@ class manageGroups extends object
         // Get the groupId for the given context.
         $groupId = $this->_objGroupAdmin->getLeafId( $fullPath );
         // Fields to retrieve.
-        $fields = $fields ? $fields : array( "tbl_users.userId", " CONCAT( firstName, ' ', surname ) as fullName " );
+        $fields = $fields ? $fields : array( "tbl_users.userId", "  'firstName' || ' ' || 'surname'  as fullName " );
 
         $arrGroupMembers = $this->_objGroupAdmin->getSubGroupUsers( $groupId, $fields );
         // Array of userId and fullnames
