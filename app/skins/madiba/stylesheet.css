@@ -447,5 +447,15 @@ table.unpadded, table#unpadded {
 	border-collapse: collapse;
 	padding: 10px;
 }
-
 /** END: Rules for odd or even formatting **/
+
+
+/** BEGIN: Rules for wiki **/
+#input_DatabaseSearchNeedle {
+	max-width: 140px;
+	margin-left: 2px; /*stop it touching the left line of the box*/
+}
+#input_submit {
+	margin-left: 2px; /*stop it touching the left line of the box*/
+}
+/** END: Rules for wiki **/
