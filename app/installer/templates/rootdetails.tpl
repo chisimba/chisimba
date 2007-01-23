@@ -116,6 +116,18 @@ $objHelp = new domtt();
 
 </tr>
 <tr valign="top">
+	<td>
+	 <?php echo $objHelp->show('Chisimba System Type:','This will determine the set of modules to be registered');?>
+	</td>
+	<td >
+	Chisimba System Type
+	</td>
+	<td>
+	<?php echo $SysType?>
+	</td>
+
+</tr>
+<tr valign="top">
 
 	<td>
 	<?php echo $objHelp->show('Skin','Choose the default skin');?>	</td>

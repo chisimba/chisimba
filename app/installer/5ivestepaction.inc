@@ -62,7 +62,7 @@ class FiveStepAction extends StepAction
 			$this->errors[] = 'Could not open '.$check_dir.' for writing. ';
 			$this->errors[] = 'Please change permissions on the '.$check_dir.' directory '.
 								'to have write access by the webserver by executing the following ';
-			$this->errors[] = '<pre>chmod 777 '.$check_dir.'</pre>';
+			$this->errors[] = '<pre>chmod 755 '.$check_dir.'</pre>';
 			@fclose($fp);
 		} else {
 			@fclose($fp);

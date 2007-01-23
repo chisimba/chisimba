@@ -153,6 +153,8 @@ class RootUserAction extends StepAction
 		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
 
 		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
+                
+		$_SESSION['SysType'] = (isset($_POST['SysType'])) ? $_POST['SysType'] : '';
 
 		$_SESSION['defaultskin'] = (isset($_POST['defaultskin'])) ? $_POST['defaultskin'] : '';
 
@@ -1022,7 +1024,26 @@ class RootUserAction extends StepAction
 
     	$cmbpostLogin = ob_get_contents();
 
-		ob_clean();
+	ob_clean();
+                
+      // Server Type
+      // First get the PEAR object for XML, then use it to parse the file of types
+      require_once('XML/Unserializer.php');
+      $objUnserializer = &new XML_Unserializer();
+      $objUnserializer->unserialize($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml',TRUE);
+      $data = $objUnserializer->getUnserializedData();
+      $simbaTypes=array();
+      foreach ($data['systemtypes']['category'] as $line){
+        $simbaTypes[$line]=$line;
+      } 
+      
+      // Now display it in a drop-down
+        combo_box('SysType',$simbaTypes,false,
+        array(isset($_SESSION['SysType'])?$_SESSION['SysType']:'SysType'),
+        0, 'tabindex="1"');        
+    	$cmbSysType = ob_get_contents();
+        ob_clean();
+     
 
     	//loop through the folders and build an array of available skins
 
@@ -1112,6 +1133,8 @@ class RootUserAction extends StepAction
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('postLogin',$cmbpostLogin);
+                
+		$tpl->set('SysType',$cmbSysType);
 
 		$tpl->set('defaultskin',$cmbdefaultSkin);
 
@@ -1223,6 +1246,10 @@ class RootUserAction extends StepAction
 			}
 
 		}
+
+
+                // Server Type
+                $SysType = isset($_SESSION['SysType']) ? $_SESSION['SysType'] : '';
 
 
 
@@ -1356,6 +1383,8 @@ class RootUserAction extends StepAction
 
 		$tpl->set('postLogin', $defaultpostlogin);
 
+                $tpl->set('SysType',$SysType);
+
 		$tpl->set('proxy',$proxy);
 
 
@@ -1371,8 +1400,6 @@ class RootUserAction extends StepAction
 
 
 }//end class
-
-
 
 ?>
 
