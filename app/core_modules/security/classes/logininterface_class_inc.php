@@ -94,7 +94,7 @@ class loginInterface extends object
     		// Use the language object to add the word save
     		$objElement->setValue(' '.$this->objLanguage->languageText("word_login").' ');
     		// Add the button to the form
-    		$objForm->addToForm($ldap.$objElement->show());
+    		$objForm->addToForm($ldap.'<br />'.$objElement->show());
 
     		$helpText = $this->objLanguage->languageText('mod_useradmin_help','useradmin');
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
