@@ -48,7 +48,7 @@ foreach ($registeredModules as $module) {
 }
 
 if ($modules) {
-	natsort($modules);
+	asort($modules);
 	(($count % 2) == 0)? $oddOrEven = 'even' : $oddOrEven = 'odd';
 	$objTable->addHeader($head,'heading','align="left"');
 	$objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
@@ -85,7 +85,7 @@ if ($modules) {
 	$bottomTable->addCell($batchAction,null,null,'right',null);
 	$bottomTable->endRow();
 	$bot = $bottomTable->show();
-	foreach ($modules as $moduleId) {
+	foreach ($modules as $moduleId => $moduleName) {
 		if (in_array($moduleId,$localModules)){//dont display downloadable modules until that functionality is complete
 		//$isRegistered = $hasController = $hasRegFile = '';
 		$textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
@@ -93,30 +93,17 @@ if ($modules) {
 		$textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
-		$module_name = $this->objLanguage->abstractText($this->objCatalogueConfig->getModuleName($moduleId));
-		if (!$module_name) {
-			$module_name = ucwords($moduleId);
-		} else {
-			$module_name = ucwords((string)$module_name[0]);
-		}
 		$desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
-		if (!$desc) {
+		$desc = (string)$desc[0];
+		if ($desc == '') {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
-		} else {
-			$desc = (string)$desc[0];
-			//if (strlen($desc)>40) {
-			//	$end = substr($desc,40);
-			//	//echo strchr($end,' ');
-			//	$end = substr($end,0,strlen($end)-strlen(strchr($end,' '))).'...';
-			//	$desc = substr($desc,0,40).$end;
-			//}
-		}
+		} 
 		$desc = $this->objLanguage->abstractText(htmlentities($desc));
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
-		$link = $module_name;
+		$link = $moduleName;
 		$icon->setModuleIcon($moduleId);
-		$icon->alt = $module_name;
+		$icon->alt = $moduleName;
 		$objCheck->checkbox('arrayList[]');
 		$objCheck->cssId = 'checkbox_'.$moduleId;
         $objCheck->setValue($moduleId);
@@ -152,7 +139,7 @@ if ($modules) {
 					//$isRegistered = $icon->show();
 				} else {//registered
 					if ($this->objModFile->findController($moduleId)) {
-						$link = "<a href='{$this->uri(null,$moduleId)}'>$module_name</a>";
+						$link = "<a href='{$this->uri(null,$moduleId)}'>$moduleName</a>";
 					}
 					if (!strchr(strtolower($defaults),strtolower($moduleId))) {
 						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));

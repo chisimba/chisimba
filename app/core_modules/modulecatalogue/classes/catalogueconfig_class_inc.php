@@ -83,6 +83,7 @@ class catalogueconfig extends object {
         try{
         $this->_objPearConfig = new Config();
         $this->objConfig = &$this->getObject('altconfig','config');
+        $this->objLanguage = &$this->getObject('language','language');
         }catch (Exception $e){
         $this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
@@ -237,16 +238,26 @@ class catalogueconfig extends object {
 
 				$xml = simplexml_load_file($this->_path);
 				if($pname !="all"){
-				 $query = "//module[module_category='{$pname}']/module_id";
+					$query = "//module[module_category='{$pname}']";
 				}else{
-				  $query = "//module/module_id";
+				  $query = "//module";
+				  
 				}
 				$entries = $xml->xpath($query);
-
-        		if (!$entries) {
+				
+				
+				foreach ($entries as $module) {
+					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
+					if (empty($moduleName)) { 
+						$result[(string)$module->module_id] = ucwords((string)$module->module_id);
+					} else {
+						$result[(string)$module->module_id] = ucwords($moduleName);
+					}
+				}
+				if (!$result) {
         			return FALSE;
         		}else {
-       				return $entries;
+       				return $result;
         		}
 
     	}catch (Exception $e){
@@ -270,21 +281,29 @@ class catalogueconfig extends object {
 				$xml = simplexml_load_file($this->_path);
 				switch ($type) {
 					case 'name':
-						$query = "//module[contains(module_id,'$str')]/module_id";
+						$query = "//module[contains(module_id,'$str') or contains(module_name,'$str')]";
 						break;
 					case 'description':
-						$query = "//module[contains(module_description,'$str')]/module_id";
+						$query = "//module[contains(module_description,'$str')]";
 						break;
 					default:
-						$query = "//module[contains(module_id,'$str') or contains(module_description,'$str')]/module_id";
+						$query = "//module[contains(module_id,'$str') or contains(module_description,'$str') or contains(module_name,'$str')]";
 						break;
 				}
 				$entries = $xml->xpath($query);
 
-        		if (!$entries) {
+        		foreach ($entries as $module) {
+					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
+					if (empty($moduleName)) { 
+						$result[(string)$module->module_id] = ucwords((string)$module->module_id);
+					} else {
+						$result[(string)$module->module_id] = ucwords($moduleName);
+					}
+				}
+				if (!$result) {
         			return FALSE;
-        		}else{
-       				return $entries;
+        		}else {
+       				return $result;
         		}
 
     	} catch (Exception $e){
