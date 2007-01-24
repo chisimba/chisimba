@@ -1,0 +1,295 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: 76%;
+	color: #CCCCCC;
+	background: #000000;
+	background-position: top left;
+	line-height: 1.8em;
+}
+
+li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
+
+div#header {
+	background: #000000 url("images/sprites.gif") repeat-x 0 100%;
+	color: #FFFFFF;
+	padding: 0px 5px 10px 5px;
+}
+
+#sitename {
+    width: 600px;
+    height: 50px;
+    background-image: url(images/banner.gif);
+    margin:  0 0 0 5px;
+	padding: 0;
+	color:#FFFFFF;
+}
+
+div#header div#search {
+	position: absolute;
+	float: right;
+	 top: 20px;
+	 right: 0;
+	 width: 300px;
+}
+#breadcrumbs {
+	font-size: 80%;
+}
+#breadcrumbs a:link, #breadcrumbs a:visited {
+	color: #00FF00;
+	text-decoration: none;
+}
+#breadcrumbs a:hover {
+	color: #FFFF00;
+	text-decoration: none;
+}
+
+a,a:link,a:link,a:link {
+	text-decoration: underline;
+	font-weight: bold;
+	color: #999999;
+	background:transparent;
+	cursor:pointer
+} 
+
+a:hover,a:active {
+   	color: #00CC00;
+   	text-decoration: underline;
+	background:transparent;
+	cursor:pointer
+}
+
+a:visited {color: #FFFF00;} 
+
+
+
+#footer {
+    background: #fff url("images/body_bg.gif") repeat-x bottom left;
+    color:#999
+}
+
+#footer p {margin:0}
+
+	
+/* Menu */
+
+#menu {
+	padding-bottom: 10px;
+}
+
+ul#menuList li {
+	background-color: #009900;
+	padding: 2px;
+	background-image: none;
+	border-right: 3px solid	#33FF66;
+	border-bottom: 3px solid #33FF66;
+	font-weight: bold;
+}
+
+ul#menuList li:hover {
+	background-color: #00FF66;
+}
+
+/* Top Row of the menu, the button like menu base */
+ul#menuList  li a {
+	color: #000000;
+	text-decoration: none;
+	padding-right: 30px;
+}
+
+/* Items on menu*/
+ul#menuList  li li a {
+	color: #000000;
+	text-decoration: none;
+	padding: 3px;
+}
+
+ul#menuList  li li a img{
+	border-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul#menuList  li li a span{
+    margin-left: 27px;
+    margin-right: 0px;
+    display: block;
+}
+
+ul#menuList  li  li {
+	border-style: none;
+	width: 115%;
+	background-color: #CCCCCC;
+	color: #000000;
+	font-weight: normal;
+	padding: 0;
+}
+
+ul#menuList  li  li:hover{
+	border-style: none;
+	background-color: #66FF99;
+}
+
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
+ul#menuList  li  ul{
+background: transparent url('images/featurebox_bg.jpg') no-repeat bottom right;
+margin-top: 4px;
+}
+
+/** BEGIN: Content stle settings **/
+div#left {
+    background-position: 10px;
+}
+div#twocolumn, div#threecolumn {
+    margin-top: 20px;
+}
+#leftcontent, #rightcontent, #contentcontent {
+    margin: 0 20px 0 10px;
+}
+#contentcontent {
+    padding: 5px 5px 5px 5px;
+	border: 3px solid #333333;
+}
+#leftcontent, #rightcontent {
+    border-top: 5px solid #006600;
+}
+/** END: Content stle settings **/
+
+
+/** BEGIN: Footer settings **/
+#footer {
+	clear:both;
+	border-top: 10px solid black;
+	padding: 10px 0 30px;
+	font-size:86%;
+	background-color:#003300;
+	color: #00FF00;
+	margin-top: 20;
+}
+/** END: Footer settings **/
+
+
+
+/** BEGIN: Override defaults for some text that needs to change colour **/
+.error
+{
+    color: #FFCC99;
+	font-weight:bold;
+}
+.warning 
+{
+    color: #66FFFF;
+    font-weight: bold;
+    padding: 2px;
+}
+.HighLightText
+{
+    background-color: #00CC00;
+    color: #333333;
+}
+.minute
+{
+    font-size: 85%;
+    color: #00FF00;
+}
+.highlight {
+	color: #FFFF00
+}
+.subdued {
+  	color: #999999
+}
+.success {
+	color: #FFFF00;
+	font-weight:bold
+}
+.caption {
+	color: #00CC00;
+	font-size:11px
+}
+.date {
+	font: bold 82% arial;
+	color: #33CCFF;
+	display:block;
+	letter-spacing: 1px
+}
+.dim {
+    color: #006600;
+}
+/** END: Override defaults for some text that needs to change colour **/
+
+
+
+/** BEGIN: Feature Box as used for the blocks that appear in page margins **/
+.featurebox {
+	color: #CCCCCC;
+	padding: 15px 20px 20px;
+	border-top: 1px solid #006600;
+	margin: 0 0 1.5em;
+	background: #E3DBE8 url("images/featurebox_bg.jpg") no-repeat 100% 100%;
+}
+
+.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em; 
+	border-bottom: 1px solid #66FF00;
+	color: #00CC00; 
+	background-color: transparent;
+}
+
+.featurebox p {
+	border:none;
+	margin: 0 0 1em;
+	color: #CCCCCC;
+}
+	
+.featurebox a {
+	font-weight:bold
+}
+
+.featurebox select {
+	width: 100%;
+}
+/** END: Feature Box as used for the blocks that appear in page margins **/
+
+
+
+/** BEGIN: Secondary Navigation as used in the side menu **/
+#nav-secondary {
+	padding-top:0;
+	border-top: 2px solid #00CC00;
+	margin-top: 1px
+}
+#nav-secondary a {
+  line-height:1.8;
+  padding: 5px 0 5px 23px;
+  background-color: #252525;
+  font: bold 86% arial, sans-serif; 
+  color: #00FF00; 
+  display:block;
+}
+#nav-secondary a:link {
+  color: #00FF00;
+}
+#nav-secondary a:visited {
+	color: #00FF00;
+}
+
+#nav-secondary .first {
+	color: #00FF00;
+}
+#nav-secondary a:hover {
+ 	color: #00FF00;
+	background-color: #006600;
+} 
+#nav-secondary li {
+	border-top: 1px solid #999999;
+	border-bottom: 1px solid #669966;
+}
+/** END: Secondary Navigation as used in the side menu **/
+
+.test {color: #006600}
+
