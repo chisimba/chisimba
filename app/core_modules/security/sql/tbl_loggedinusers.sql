@@ -42,7 +42,7 @@ $fields = array(
 		'type' => 'text',
         'length' => 10,
         'notnull' => TRUE,
-        'default' => 0
+        'default' => '0'
 		),
     'coursecode' => array(
 		'type' => 'text',
