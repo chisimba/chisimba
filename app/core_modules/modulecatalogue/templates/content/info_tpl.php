@@ -54,7 +54,7 @@
         $str="<ul>\n";
         foreach ($this->registerdata['DEPENDS'] as $line)
         {
-            $str.="<li><a href='".$this->uri(array('action'=>'info','modname'=>$line))."'>$line</a></li>\n";
+            $str.="<li><a href='".$this->uri(array('action'=>'info','mod'=>$line))."'>$line</a></li>\n";
         }
         $str.="</ul>\n";
         $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_depend1','modulecatalogue').':</b>',$str));
