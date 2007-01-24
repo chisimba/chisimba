@@ -75,6 +75,7 @@ class language extends dbTable {
 	        $this->objDropdown = &$this->newObject('dropdown', 'htmlelements');
 	        $this->objButtons = &$this->getObject('button', 'htmlelements');
 	        $this->objAbstract =& $this -> getObject('systext_facet', 'systext');
+	        $this->abstractList = $this->objAbstract->getSession('systext');
     	}catch (Exception $e){
     		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
     		 exit();
@@ -95,7 +96,7 @@ class language extends dbTable {
 
     {
     	try {
-		    	$abstractList = $this -> objAbstract -> getSession('systext');
+		    	//$abstractList = $this -> objAbstract -> getSession('systext');
 		         $notFound = TRUE;
 		        $arrName = explode("_", $itemName);
 
@@ -103,13 +104,13 @@ class language extends dbTable {
 
 		            if($arrName[1] == "context"){
 
-		                $check = array_key_exists($arrName[2], $abstractList);
+		                $check = array_key_exists($arrName[2], $this->abstractList);
 
 		                if($check){
 
 		                    $notFound = FALSE;
 
-		                    return trim($abstractList[$arrName[2]]);
+		                    return trim($this->abstractList[$arrName[2]]);
 
 		                }
 
@@ -182,8 +183,8 @@ class language extends dbTable {
     {
     	try {
 	        $ret=$this->languageText($str,"{$modulename}");
-	        $abstractList = $this->objAbstract->getSession('systext');
-			foreach($abstractList as $textItem => $abstractText){
+	        //$abstractList = $this->objAbstract->getSession('systext');
+			foreach($this->abstractList as $textItem => $abstractText){
 	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
 	        }
 	        // Process other tags
@@ -199,6 +200,22 @@ class language extends dbTable {
     	}
     }
 
+    /**
+     * Method to replace tagged strings with abstracted text. Similar to code2Txt only this
+     * method works on strings (from the database) rather than language elements.
+     *
+     * @param string $str the string to search for abstraction tags
+     * @return the abstracted string
+     */
+    public function abstractText($str) {
+    	$ret = $str;
+    	//$abstractList = $this->objAbstract->getSession('systext');
+    	foreach($this->abstractList as $textItem => $abstractText){
+	    	$ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
+	    }
+	    return $ret;
+    }
+    
     /**
     * Method to return Language list
     * @access public

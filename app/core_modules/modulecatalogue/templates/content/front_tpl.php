@@ -93,7 +93,7 @@ if ($modules) {
 		$textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
-		$module_name = $this->objCatalogueConfig->getModuleName($moduleId);
+		$module_name = $this->objLanguage->abstractText($this->objCatalogueConfig->getModuleName($moduleId));
 		if (!$module_name) {
 			$module_name = ucwords($moduleId);
 		} else {
@@ -111,7 +111,7 @@ if ($modules) {
 			//	$desc = substr($desc,0,40).$end;
 			//}
 		}
-		$desc = htmlentities($desc);
+		$desc = $this->objLanguage->abstractText(htmlentities($desc));
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
 		$link = $module_name;
