@@ -1,325 +1,684 @@
 /** BEGIN: Rules related to formatting the page body **/
+
 body {
+
 	margin: 0;
+
 	padding: 0;
+
 	font-family: verdana, arial, helvetica, sans-serif;
+
 	font-size: 76%;
+
     background-color: #10123b;
+
     color : #000000;
+
 	background-position: top left;
+
 	line-height: 1.8em;
+
 }
+
 /** END: Rules related to formatting the page body **/
 
+
+
 /*???????*/
+
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
 
 
+
+
+
 /** BEGIN: Rules related to formatting the banner and its text */
+
 div#header {
+
 	background: #000000 url("images/header_bg.jpg") repeat-x;
+
 	color: #000099;
+
 	padding: 0px 5px 10px 5px;
+
 	border-bottom: 10px solid black;
+
 }
+
 #sitename {
+
     width: 600px;
+
     height: 50px;
+
     background-image: url(images/banner.gif);
+
     margin:  0 0 0 5px;
+
 	padding: 0;
+
 	color:#FFFFFF;
+
 }
+
 div#header div#search {
+
 	position: absolute;
+
 	float: right;
+
 	top: 20px;
+
 	right: 0;
+
 	width: 300px;
+
 }
+
 #breadcrumbs {
+
 	font-size: 80%;
+
 }
+
 #breadcrumbs a:link, #breadcrumbs a:visited {
+
 	color: #000099;
+
 	text-decoration: none;
+
 }
+
 #breadcrumbs a:hover {
+
 	color: #FF0000;
+
 	text-decoration: none;
+
 }
+
 #search {
+
 	color:#CCCCCC;
+
 }
+
 /** BEGIN: Rules related to formatting the banner and its text */
+
+
+
 
 
 /** BEGIN: Rules related to formatting links */
+
 a,a:link,a:link,a:link,a:hover {
+
  	background:transparent;
+
 	text-decoration:underline;
+
 	cursor:pointer
+
 }
+
 a:link {
+
 	color:#069;
+
 }
+
 a:visited {
+
 	color:#069;
+
 }
+
 a:hover,a:active {
+
 	color:#FF6600;
+
 }
+
 /** END: Rules related to formatting links */
 
 
 
+
+
+
+
 /** BEGIN: Settings for footer **/
+
 #footer {
+
 	clear:both;
+
 	border-top: 18px solid #10123b;
+
 	padding: 0 0 30px 0;
+
 	font-size:86%;
+
 	background-color: #99CCFF;
+
 	background: #fff url("images/footer_bg.jpg") repeat-x bottom left;
+
 	color: #000066;
+
 	margin-top: 20;
+
 	border-bottom: 10px solid black;
+
 }
+
 #footer p {
+
  	margin:0;
+
 }
+
 /** END: Settings for footer **/
 
 
 
+
+
+
+
 /** BEGIN: Rules related to formatting the menu items */
+
 #menu {
+
 	padding-bottom: 10px;
-}
-ul#menuList li {
-	background-color: #33CCFF;
-	padding: 2px;
-	background-image: none;
-	border-right: 3px solid	#CCCCCC;
-	border-bottom: 3px solid #999999;
-	font-weight: bold;
+
 }
 
-ul#menuList li:hover {
-	background-color: #FFFF99;
-}
-/* Top Row of the menu, the button like menu base */
-ul#menuList  li a {
-	color: #000000;
-	text-decoration: none;
-	padding-right: 30px;
-}
-/* Items on menu*/
-ul#menuList  li li a {
-	color: #000000;
-	text-decoration: none;
-	padding: 3px;
-}
-ul#menuList  li li a img{
-	border-style: none;
-	padding: 0;
-	margin: 0;
-}
-ul#menuList  li li a span{
-    margin-left: 27px;
-    margin-right: 0px;
-    display: block;
-}
-ul#menuList  li  li {
-	border-style: none;
-	width: 115%;
-	background-color: #CCFFFF;
-	color: #000000;
-	font-weight: normal;
-	padding: 0;
-}
-ul#menuList  li  li:hover{
-	border-style: none;
+ul#menuList li {
+
 	background-color: #33CCFF;
+
+	padding: 2px;
+
+	background-image: none;
+
+	border-right: 3px solid	#CCCCCC;
+
+	border-bottom: 3px solid #999999;
+
+	font-weight: bold;
+
 }
+
+
+
+ul#menuList li:hover {
+
+	background-color: #FFFF99;
+
+}
+
+/* Top Row of the menu, the button like menu base */
+
+ul#menuList  li a {
+
+	color: #000000;
+
+	text-decoration: none;
+
+	padding-right: 30px;
+
+}
+
+/* Items on menu*/
+
+ul#menuList  li li a {
+
+	color: #000000;
+
+	text-decoration: none;
+
+	padding: 3px;
+
+}
+
+ul#menuList  li li a img{
+
+	border-style: none;
+
+	padding: 0;
+
+	margin: 0;
+
+}
+
+ul#menuList  li li a span{
+
+    margin-left: 27px;
+
+    margin-right: 0px;
+
+    display: block;
+
+}
+
+ul#menuList  li  li {
+
+	border-style: none;
+
+	width: 115%;
+
+	background-color: #CCFFFF;
+
+	color: #000000;
+
+	font-weight: normal;
+
+	padding: 0;
+
+}
+
+ul#menuList  li  li:hover{
+
+	border-style: none;
+
+	background-color: #33CCFF;
+
+}
+
 /* Increase padding on the last right item*/
+
 ul#menuList  li  li.last a{
+
     padding-right: 8px;
+
 }
+
 ul#menuList  li  ul{
+
 background: transparent url('images/featurebox_bg.jpg') no-repeat bottom right;
+
 margin-top: 4px;
+
 }
+
 /** END: Rules related to formatting the menu items */
 
 
 
+
+
+
+
 /** BEGIN: Content stle settings **/
+
 div#left {
+
     background-position: 10px;
+
 }
+
 div#twocolumn, div#threecolumn {
+
     margin-top: 20px;
+
 }
+
 #leftcontent, #rightcontent, #contentcontent {
+
     margin: 0 20px 0 10px;
+
 }
+
 #contentcontent {
+
     padding: 5px 5px 5px 5px;
+
 	border: 0;
+
     background-color: #FFFFFF;
+
     background-repeat: repeat;
+
 	border-bottom: 2px solid #0000FF;
+
 	border-left: 2px solid #0000FF;
+
 	border-right: 2px solid #0000FF;
+
 }
+
 #leftcontent, #rightcontent, #contentcontent {
+
     border-top: 4px solid #0000FF;
+
 }
+
 /*Fix black text on dark blue */
+
 #left h3 {
+
 	color: #CCCCCC;
+
 }
+
+
+
 
 
 /** END: Content stle settings **/
 
 
 
+
+
+
+
 /** BEGIN: Override defaults for some text that needs to change colour **/
+
 .error
+
 {
+
     color: #FF0000;
+
 	font-weight:bold;
+
 }
+
 .warning
+
 {
+
     color: #FF6600;
+
     font-weight: bold;
+
     padding: 2px;
+
 }
+
 .HighLightText
+
 {
+
     background-color: #FFFF00;
+
     color: #333333;
+
 }
+
 .minute
+
 {
+
     font-size: 85%;
+
     color: #660000;
+
 }
+
 .highlight {
+
 	color: #990000;
+
 }
+
 .subdued {
+
   	color: #666666;
+
 }
+
 .success {
+
 	color: #006600;
+
 	font-weight:bold
+
 }
+
 .caption {
+
 	color: #333333;
+
 	font-size:11px
+
 }
+
 .date {
+
 	font: bold 82% arial;
+
 	color: #666666;
+
 	display:block;
+
 	letter-spacing: 1px
+
 }
+
 .dim {
+
     color: #999999;
+
 }
+
 /** END: Override defaults for some text that needs to change colour **/
 
 
 
+
+
+
+
 /** BEGIN: Feature Box as used for the blocks that appear in page margins **/
+
 .featurebox {
+
 	color: #333333;
+
 	padding: 15px 20px 20px;
+
 	border-top: 4px solid #FF6633;
+
 	margin: 0 0 1.5em;
+
 	background: url("images/featurebox_bg.jpg") no-repeat 100% 100%;
+
 }
+
+
 
 .featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+
 	margin: 0 0 .3em;
+
 	border-bottom: 1px solid #0033FF;
+
 	color: #003366;
+
 	background-color: transparent;
+
 }
+
 .test {color: #003366}
+
 .featurebox p {
+
 	border:none;
+
 	margin: 0 0 1em;
+
 	color: #333333;
+
 }
+
+
 
 .featurebox a {
+
 	font-weight:bold
+
 }
+
+
 
 .featurebox select {
+
 	width: 100%;
+
 }
+
 /** END: Feature Box as used for the blocks that appear in page margins **/
 
+
+
 /** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
+
 .contentfeaturebox {
+
 	color: #333333;
+
 	padding: 15px 20px 20px;
+
 	border-top: 4px solid #FF6633;
+
 	margin: 0 0 1.5em;
+
 	background: no-repeat 100% 100%;
+
 }
+
+
 
 .contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+
 	margin: 0 0 .3em;
+
 	border-bottom: 1px solid #0033FF;
+
 	color: #003366;
+
 	background-color: transparent;
+
 }
+
 .contenttest {color: #003366}
+
 .contentfeaturebox p {
+
 	border:none;
+
 	margin: 0 0 1em;
+
 	color: #333333;
+
 }
+
+
 
 .contentfeaturebox a {
+
 	font-weight:bold
+
 }
 
+
+
 .contentfeaturebox select {
+
 	width: 100%;
+
 }
+
 /** END: Content Feature Box as used for the blocks that appear in the page body **/
 
 
 
+
+
+
+
 /** BEGIN: Rules for including quotes in a curved box **/
+
 blockquote {
+
     max-width: 620px;
+
 	margin: 0;
+
 	padding: 0px 10px 0px 10px;
+
     background: url(images/quote-body.png) center repeat-y ;
+
 }
+
 blockquote::before {
+
     display: block;
+
     line-height: 0;
+
 	margin: 0;
+
     background: url(images/quote-topright.png) top right no-repeat;
+
     content: url(images/quote-topleft.png) }
+
 blockquote::after {
+
     display: block;
+
     line-height: 0;
+
 	margin: 0;
+
     background: url(images/quote-bottomright.png) bottom right no-repeat;
+
     content: url(images/quote-bottomleft.png) }
+
 blockquote p {
+
 	margin-left: 14px;
+
 	margin-right: 26px;
+
 }
+
+
+/* FORMS - general classes */
+	input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
+	input.button {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
+
+/* FORMS - f-wrap-1 - simple form, headings on left, form elements on right */
+	form.f-wrap-1 {width:100%;padding: .5em 0;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;border-top: 1px solid #d7d7d7;position:relative}
+		form.f-wrap-1 fieldset {width:auto;margin: 0 1em}
+		form.f-wrap-1 h3 {margin:0 0 .6em;font: bold 155% arial;color:#c00}
+		form.f-wrap-1 label {clear:left;float:left;width:100%;border-top: 1px solid #fff}
+
+		/* hide from IE mac \*/
+		form.f-wrap-1 label {float:none}
+		/* end hiding from IE5 mac */
+
+		form.f-wrap-1 label input, form.f-wrap-1 label textarea, form.f-wrap-1 label select {width:15em;float:left;margin-left:10px}
+
+		form.f-wrap-1 label b {float:left;width:8em;line-height: 1.7;display:block;position:relative}
+		form.f-wrap-1 label b .req {color:#c00;font-size:150%;font-weight:normal;position:absolute;top:-0.1em;line-height: 1.2;left:-.4em;width:.3em;height:.3em}
+		form.f-wrap-1 div.req {color:#666;font-size:96%;font-weight:normal;position:absolute;top:.4em;right:.4em;left:auto;width:13em;text-align:right}
+		form.f-wrap-1 div.req b {color:#c00;font-size:140%}
+		form.f-wrap-1 label select {width: 15.5em}
+		form.f-wrap-1 label textarea.f-comments {width: 20em}
+		form.f-wrap-1 div.f-submit-wrap {padding: 5px 0 5px 8em}
+		form.f-wrap-1 input.f-submit {margin: 0 0 0 10px}
+
+		form.f-wrap-1 fieldset.f-checkbox-wrap, form.f-wrap-1 fieldset.f-radio-wrap {clear:left;float:left;width:32em;border:none;margin:0;padding-bottom:.7em}
+		form.f-wrap-1 fieldset.f-checkbox-wrap b, form.f-wrap-1 fieldset.f-radio-wrap b {float:left;width:8em;line-height: 1.7;display:block;position:relative;padding-top:.3em}
+		form.f-wrap-1 fieldset.f-checkbox-wrap fieldset, form.f-wrap-1 fieldset.f-radio-wrap fieldset {float:left;width:13em;margin: 3px 0 0 10px}
+		form.f-wrap-1 fieldset.f-checkbox-wrap label, form.f-wrap-1 fieldset.f-radio-wrap label {float:left;width:13em;border:none;margin:0;padding:2px 0;margin-right:-3px}
+		form.f-wrap-1 label input.f-checkbox, form.f-wrap-1 label input.f-radio {width:auto;float:none;margin:0;padding:0}
+
+		form.f-wrap-1 label span.errormsg {position:absolute;top:0;right:-10em;left:auto;display:block;width:16em;background: transparent url(images/errormsg_bg.gif) no-repeat 0 0}
+		form.f-wrap-1 label span.errormsg b {padding: 10px 0;margin: 0 10px 0 30px;color:#B30800;font-weight:bold;display:block;width:auto;float:none;line-height:1.3}
+
 /** END: Rules for including quotes in a curved box **/
