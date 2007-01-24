@@ -745,6 +745,18 @@ div.rounded2 div div div {
   padding: 15px;
 }
 
+/* FORMS */
+form {margin: 0 0 1.5em}
+/*input {font-family: arial,tahoma,verdana,sans-serif;margin: 2px 0}
+*/
+input  {
+         border : 1px solid #ccc;
+        z-index: -3;
+        font-size: 11px;
+}
+fieldset {border: none}
+label {display:inline;padding: 5px 0}
+label br {clear:left}
 
 /* FORMS - general classes */
 	input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
