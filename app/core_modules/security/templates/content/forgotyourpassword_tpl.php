@@ -93,7 +93,7 @@ $table->endRow();
 $table->startRow();
     $redrawButton = new button ('redraw', 'Redraw', 'redraw();');
     $table->addCell($captchaLabel->show());
-    $table->addCell($this->objLanguage->languageText('mod_security_explaincaptcha', 'security', 'To prevent abuse, please enter the code as shown below. If you are unable to view the code, click on "Redraw" for a new one.').'<br /><div id="captchaDiv">'.$objCaptcha->show().'</div>'.$captcha->show().' <a href="javascript:redraw();">'.$this->objLanguage->languageText('word_redraw', 'security', 'Redraw').'</a>');
+    $table->addCell(stripslashes($this->objLanguage->languageText('mod_security_explaincaptcha', 'security', 'To prevent abuse, please enter the code as shown below. If you are unable to view the code, click on "Redraw" for a new one.')).'<br /><div id="captchaDiv">'.$objCaptcha->show().'</div>'.$captcha->show().' <a href="javascript:redraw();">'.$this->objLanguage->languageText('word_redraw', 'security', 'Redraw').'</a>');
 $table->endRow();
 
 $form->addToForm($table->show());
