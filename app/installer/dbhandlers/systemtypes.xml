@@ -8,4 +8,95 @@
 		<category>communications</category>
 		<category>e-Learning Management System</category>
 	</systemtypes>
+
+    <modulelist>
+        <category>
+            <categoryname>Basic System Only</categoryname>
+            <module>tree</module>
+            <module>config</module>
+            <module>context</module>
+            <module>contextadmin</module>
+            <module>contextgroups</module>
+            <module>contextpermissions</module>
+            <module>decisiontable</module>
+            <module>errors</module>
+            <module>files</module>
+            <module>filters</module>
+            <module>groupadmin</module>
+            <module>help</module>
+            <module>htmlelements</module>
+            <module>language</module>
+            <module>logger</module>
+            <module>lucene</module>
+            <module>modulecatalogue</module>
+            <module>navigation</module>
+            <module>permissions</module>
+            <module>postlogin</module>
+            <module>prelogin</module>
+            <module>security</module>
+            <module>skin</module>
+            <module>stories</module>
+            <module>storycategoryadmin</module>
+            <module>strings</module>
+            <module>sysconfig</module>
+            <module>systext</module>
+            <module>toolbar</module>
+            <module>useradmin</module>
+            <module>userdetails</module>
+            <module>utilities</module>
+        </category>
+        
+        <category>
+            <categoryname>blog</categoryname>
+            <module>blog</module>
+            <module>blogcomments</module>
+            <module>creativecommons</module>
+            <module>feed</module>
+            <module>filemanager</module>
+            <module>httpclient</module>
+            <module>webmail</module>
+        </category>
+        
+        <category>
+            <categoryname>workgroups</categoryname>
+            <module>forum</module>
+            <module>workgroup</module>
+            <module>workgroupadmin</module>
+            <module>calendar</module>
+            <module>filemanager</module>
+        </category>
+        
+        <category>
+            <categoryname>Content Management System</categoryname>
+            <module>cms</module>
+            <module>cmsadmin</module>
+        </category>
+        
+        <category>
+            <categoryname>communications</categoryname>
+            <module>chat</module>
+            <module>email</module>
+            <module>wiki</module>
+            <module>instantmessaging</module>
+            <module></module>
+        </category>
+        
+        <category>
+            <categoryname>e-Learning Management System</categoryname>
+            <module>assignment</module>
+            <module>assignmentadmin</module>
+            <module>email</module>
+            <module>essay</module>
+            <module>essayadmin</module>
+            <module>gradebook</module>
+            <module>mcqtests</module>
+            <module>pbl</module>
+            <module>pbladmin</module>
+            <module>popupcalendar</module>
+            <module>worksheet</module>
+            <module>worksheetadmin</module>
+        </category>
+                                                                        
+    </modulelist>
+
 </settings>
