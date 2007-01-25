@@ -81,7 +81,7 @@ class altconfig extends object
 
         	$this->_objPearConfig = new Config();
         }catch (Exception $e){
-        	$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+            throw new customException($e->getMessage());
         	exit();
         }
     }
@@ -91,7 +91,6 @@ class altconfig extends object
      */
     public function init()
     {
-    		$this->Text = &$this->newObject('language','language');
     }
 
 	/**
@@ -109,7 +108,6 @@ class altconfig extends object
      */
     public function readConfig($config=False,$property)
     {
-
     	try {
     		// read configuration data and get reference to root
     		if(!isset($this->_path)) $this->_path = "config/";
@@ -121,12 +119,12 @@ class altconfig extends object
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}config.xml",$property);
 
     		if (PEAR::isError($this->_root)) {
-    			throw new Exception($this->Text('word_read_fail'));
+    			throw new Exception('word_read_fail');
     		}
     		return $this->_root;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		 exit();
     	}
 
@@ -146,6 +144,7 @@ class altconfig extends object
      */
     public function writeConfig($values,$property)
     {
+        
     	// set xml root element
     	try {
     		$this->_objPearConfig = new Config();
@@ -163,7 +162,7 @@ class altconfig extends object
     		return true;
     	}catch (Exception $e)
     	{
-    		 $this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		 exit();
     	}
 
@@ -177,6 +176,7 @@ class altconfig extends object
      */
     public function appendToConfig($newsettings)
     {
+        
     	try {
     		$this->_objPearConfig = new Config();
 
@@ -192,7 +192,7 @@ class altconfig extends object
     	}
     	catch (Exception $e)
     	{
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
     }
@@ -205,6 +205,7 @@ class altconfig extends object
     */
     public function getItem($pname)
     {
+        
     	try {
     			if ($this->_root==NULL) {
     				 $this->readConfig(FALSE,'XML');
@@ -228,7 +229,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
     } #function getItem
@@ -241,6 +242,7 @@ class altconfig extends object
     */
     public function setItem($pname, $pvalue)
     {
+        
     	try {
     			//Read conf
 
@@ -263,7 +265,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
     } #function setItem
@@ -282,6 +284,7 @@ class altconfig extends object
      */
     public function readProperties($path=false,$property)
     {
+        
     	// read configuration data and get reference to root
     	try {
     		if(!isset($path)) $path = "config";
@@ -292,7 +295,7 @@ class altconfig extends object
 				return $this->_property;
 			}
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
 
@@ -317,6 +320,7 @@ class altconfig extends object
      */
     public function writeProperties($propertyValues,$property)
     {
+        
     	try {
 	    	// set xml root element
 			$this->_options = array('name' => 'sysConfigSettings');
@@ -324,12 +328,12 @@ class altconfig extends object
 			$this->_objPearConfig->writeConfig("config/sysconfig_properties.xml",$property, $this->_options);
 
 	    	if ($this->_objPearConfig!=TRUE) {
-				throw new Exception($this->Text('word_read_fail'));
+				throw new Exception('word_read_fail');
 			}else{
 				return true;
 			}
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
 
@@ -344,6 +348,7 @@ class altconfig extends object
     */
     public function updateParam($pname, $pmodule=False, $pvalue,$isAdminConfigurable=False)
     {
+        
     	try {
 
                //Lets get the parent node section first
@@ -370,7 +375,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
     } #function insertParam
@@ -384,6 +389,7 @@ class altconfig extends object
     */
     public function getParam($pname, $pmodule)
     {
+        
     	try {
     			//Read conf
     			if (!isset($this->_property)) {
@@ -411,7 +417,7 @@ class altconfig extends object
 
 
     	}catch (Exception $e){
-    		$this->errorCallback ($this->Text('word_caught_exception').$e->getMessage());
+    	    throw new customException($e->getMessage());
     		exit();
     	}
     } #function insertParam
@@ -1261,12 +1267,21 @@ class altconfig extends object
     public function getModulePath()
     {
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
-    	//Lets get the parent node section first
-    	$Settings =& $this->_root->getItem("section", "Settings");
-    	//Now onto the directive node
-    	$SettingsDirective =& $Settings->getItem("directive", "KEWL_MODULE_PATH");
-    	//finally unearth whats inside
-    	$modulePath = $SettingsDirective->getContent();
+    	
+    	try {
+        	//Lets get the parent node section first
+        	$Settings =& $this->_root->getItem("section", "Settings");
+        	//Now onto the directive node
+        	$SettingsDirective =& $Settings->getItem("directive", "KEWL_MODULE_PATH");
+        	if(!($SettingsDirective)){
+                throw new Exception('Module path is missing');
+        	}
+        	//finally unearth whats inside
+        	$modulePath = $SettingsDirective->getContent();
+    	} catch  (Exception $e){
+    	    throw new customException($e->getMessage());
+    		exit();
+    	}
 
     	return $modulePath;
     }
@@ -1429,7 +1444,7 @@ class altconfig extends object
     */
     public function errorCallback($exception)
     {
-    	echo customException::cleanUp($exception);
+    	throw new customException($exception);
     	exit();
     }
 
