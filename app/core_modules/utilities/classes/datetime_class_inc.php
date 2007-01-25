@@ -14,7 +14,7 @@
 
 class datetime extends object
 {
-    /**
+ /**
  * Date and time class
  * This class will encapsulate all of the date and time functions that
  * are needed in the framework
@@ -996,27 +996,49 @@ class datetime extends object
     /**
     * Calculates the difference for two given dates, and returns the result
     * in specified unit.
+	* Formats supported
+	* 		unitts = unix timestamp
+	*		dbts	= database timestamp (not date format) [YYYY-mm-dd hh:mm:ss]
+	*		default = [dd-mm-YYYY hh:mm:ss]
     *
     * @access public
     * @param string $ Initial date (format: [dd-mm-YYYY hh:mm:ss], hh is in 24hrs format)
     * @param string $ Last date (format: [dd-mm-YYYY hh:mm:ss], hh is in 24hrs format)
     * @param char $ 'd' to obtain results as days, 'h' for hours, 'm' for minutes, 's' for seconds, and 'a' to get an indexed array of days, hours, minutes, and seconds
+	* @param string format for the source dates 
     * @return mixed The result in the unit specified (float for all cases, except when unit='a', in which case an indexed array), or null if it could not be obtained
     */
-    public function getDateDifference($dateFrom, $dateTo, $unit = 'd')
+    public function getDateDifference($dateFrom, $dateTo, $unit = 'd', $format = 'default')
     {
+		$date1 = null;
+		$date2 = null;
         $difference = null;
+		
+		switch($format) {
+			case "unixts":
+				$date1 = $dateFrom;
+				$date2 = $dateTo;
+				break;
 
-        $dateFromElements = split(' ', $dateFrom);
-        $dateToElements = split(' ', $dateTo);
+			case "dbts":
+				$date1 = $this->sqlToUnixTime($dateFrom);
+				$date2 = $this->sqlToUnixTime($dateTo);
+				break;
 
-        $dateFromDateElements = split('-', $dateFromElements[0]);
-        $dateFromTimeElements = split(':', $dateFromElements[1]);
-        $dateToDateElements = split('-', $dateToElements[0]);
-        $dateToTimeElements = split(':', $dateToElements[1]);
-        // Get unix timestamp for both dates
-        $date1 = mktime($dateFromTimeElements[0], $dateFromTimeElements[1], $dateFromTimeElements[2], $dateFromDateElements[1], $dateFromDateElements[0], $dateFromDateElements[2]);
-        $date2 = mktime($dateToTimeElements[0], $dateToTimeElements[1], $dateToTimeElements[2], $dateToDateElements[1], $dateToDateElements[0], $dateToDateElements[2]);
+			default:
+        		$dateFromElements = split(' ', $dateFrom);
+		        $dateToElements = split(' ', $dateTo);
+
+		        $dateFromDateElements = split('-', $dateFromElements[0]);
+       			$dateFromTimeElements = split(':', $dateFromElements[1]);
+		        $dateToDateElements = split('-', $dateToElements[0]);
+   				$dateToTimeElements = split(':', $dateToElements[1]);
+				// Get unix timestamp for both dates
+				$date1 = mktime($dateFromTimeElements[0], $dateFromTimeElements[1], $dateFromTimeElements[2], $dateFromDateElements[1], $dateFromDateElements[0], $dateFromDateElements[2]);
+				$date2 = mktime($dateToTimeElements[0], $dateToTimeElements[1], $dateToTimeElements[2], $dateToDateElements[1], $dateToDateElements[0], $dateToDateElements[2]);
+				break;
+		}
+
 
         if ($date1 > $date2) {
             return null;
@@ -1110,6 +1132,24 @@ class datetime extends object
 
         return $difference;
     }
+
+	/** 
+	* Return MySQL or PostGresSQL timestamps as Unix timestamps
+	* taken from comments in http://www.php.net/manual/en/function.mktime.php
+	* 
+	* @access public
+	* @param string database timestamp
+	* @return string unix timestamp
+	*/
+	public function sqlToUnixTime($timestamp)
+	{
+		$date_time = split(' ', $timestamp);
+
+		$date = split('-', $date_time[0]);
+		$time = split(':', $date_time[1]);
+
+		return mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
+	}
 
     /*------------------------- PRIVATE METHODS BELOW LINE ---------------------*/
 

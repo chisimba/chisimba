@@ -27,7 +27,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * $callback = $b->keepAlive();
  *
  * //This is where you call your long running process
- * sleep(60) //fake a 60 second process
+ * sleep(60); //fake a 60 second process
  *
  * //fork the process and create the child process and call the callback function when done
  * $call2 = $b->setCallBack("jdoe@example.com", "Your long thing is done", "The long running process that you requested is finished");
@@ -145,4 +145,3 @@ class background extends object
 
 }//end class
 ?>
-
