@@ -58,7 +58,7 @@ class block_register extends object
     		} else {
 	    		$regLink = &$this->newObject('link','htmlelements');
 	    		$regLink->link = $this->objLanguage->languageText('word_register');
-	    		$regLink->link($this->uri(array('action'=>'register'),'useradmin'));
+	    		$regLink->link($this->uri(NULL,'userregistration'));
 	    		return $regLink->show();
     		}
     	} catch (customException $e) {
