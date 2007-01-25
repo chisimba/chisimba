@@ -39,7 +39,7 @@ class modulefile extends object {
 	 */
 	public function getLocalModuleList() {
         try {
-        	$lookdir=$this->config->getSiteRootPath()."modules";
+        	$lookdir=$this->config->getModulePath();
         	$modlist=$this->checkdir($lookdir);
         	natsort($modlist);
         	$modulelist = array();
@@ -70,7 +70,7 @@ class modulefile extends object {
 	 */
 	public function getCategories() {
     	try {
-    		$lookdir=$this->config->getSiteRootPath()."modules";
+    		$lookdir=$this->config->getModulePath();
     		$modlist=$this->checkdir($lookdir);
     		$categorylist = array();
     		foreach ($modlist as $line) {
@@ -227,7 +227,7 @@ class modulefile extends object {
     {
         try {
         	$endings=array('php','conf');
-        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/register.";
+        	$path=$this->config->getModulePath().$modname."/register.";
         	foreach ($endings as $line)
         	{
         		if (file_exists($path.$line))
@@ -249,7 +249,7 @@ class modulefile extends object {
     function findController($modname)
     {
         try {
-        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/controller.php";
+        	$path=$this->config->getModulePath().$modname."/controller.php";
         	if (file_exists($path)) {
         			return $path;
         	} else {
@@ -267,7 +267,7 @@ class modulefile extends object {
     */
     public function findSqlXML($modname) {
         try {
-        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/sql/sql_updates.xml";
+        	$path=$this->config->getModulePath().$modname."/sql/sql_updates.xml";
         	if (file_exists($path)) {
         			return $path;
         	} else {

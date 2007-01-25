@@ -109,7 +109,7 @@ class modulecatalogue extends controller
 	public function init() {
 		try {
 			set_time_limit(0);
-					
+
 			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
@@ -161,12 +161,15 @@ class modulecatalogue extends controller
 					$ret = $this->objModuleAdmin->alterTable('tbl_sysconfig_properties',
 								array('change' => array(
                                              'pvalue' => array(
-                                             	 'length'=>32,
+                                             	 'length'=>255,
+                                             	 'type'=>'text',
                                                  'definition' => array(
                                                  	 'type'=>'text',
                                                      'length' => 128,
                                                 ),
                                              ))),false);
+                    if ($ret == MDB2_OK) echo "==<br/>";
+                    if ($ret != MDB2_OK) echo "!=<br/>";
                     var_dump($ret);
 					break;
 				case null:
@@ -271,15 +274,16 @@ class modulecatalogue extends controller
 					return $this->nextAction('list');
 				case 'firsttimeregistration':
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
-					$sysType = $this->getParam('systemtype','Basic System Only');
+					$sysType = $this->getParam('sysType','Basic System Only');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					log_debug('modulecatalogue controller - registering core modules');
 					if (!$check){
+						log_debug('Modulecatalogue controller - performing first time registration');
 						$this->firstRegister($sysType);
+						log_debug('First time registration complete');
+					} else {
+						log_debug('First time registration has already been performed on this system. Aborting');
 					}
-					// Show next installation step
-					log_debug('first time registration complete');
-					return $this->nextAction(null,null,'splashscreen');
+					return $this->nextAction(null,null,$this->objConfig->getPrelogin());
 				case 'update':
 					$modname = $this->getParam('mod');
                 	$this->output[] = $this->objPatch->applyUpdates($modname);
@@ -490,21 +494,34 @@ class modulecatalogue extends controller
 
 	/**
     * This is a method to handle first-time registration of the basic modules
-    * 
+    *
     * @param string sysType The type of system to install
     */
     private function firstRegister($sysType) {
     	try {
+    		log_debug("Installing system, type: $sysType");
     		$root = $this->objConfig->getsiteRootPath();
     		if (!file_exists($root.'config/config.xml')){
     			throw new customException("could not find config.xml! tried {$root}config/config.xml");
     		}
-    		
-    		//read the xml document and install the appropriate modules
-    		$mList=file($root.'installer/dbhandlers/default_modules.txt');
-    		foreach ($mList as $line) {
-    			if ($line[0]!='#') {
-    				if (!$this->installModule(trim($line))) {
+    		if (!file_exists($root.'installer/dbhandlers/systemtypes.xml')){
+    			throw new customException("could not find systemtypes.xml! tried {$root}installer/dbhandlers/default_modules.txt");
+    		}
+    		$objXml = simplexml_load_file($root.'installer/dbhandlers/systemtypes.xml');
+    		log_debug('Installing core modules');
+    		$coreList = $objXml->xpath("//category[categoryname='Basic System Only']");
+    		foreach ($coreList->module as $module) {
+    			if (!$this->installModule(trim($module))) {
+    				log_debug("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
+    				throw new customException("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
+    			}
+    		}
+    		if ($sysType != "Basic System Only") {
+    			log_debug('Installing system specific modules');
+    			$specificList = $objXml->xpath("//category[categoryname='$']");
+    			foreach ($specificList->module as $module) {
+    				if (!$this->installModule(trim($module))) {
+    					log_debug("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
     					throw new customException("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
     				}
     			}
@@ -512,13 +529,7 @@ class modulecatalogue extends controller
     		// Flag the first time registration as having been run
     		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE,'mod_modulecatalogue_firstreg_run_desc');
     		log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
-    		// Make certain the user-defined postlogin module is registered.
 
-    		$postlogin = $this->objSysConfig->getValue('KEWL_POSTLOGIN_MODULE','_site_');
-    		if (($postlogin!='')&&(!($this->objModule->checkIfRegistered($postlogin)))){
-    			$this->installModule($postlogin);
-    			log_debug("Postlogin module $postlogin has been installed!");
-    		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
