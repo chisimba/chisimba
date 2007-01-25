@@ -102,6 +102,19 @@ $objHelp = new domtt();
 	</td>
 
 </tr>
+
+<tr valign="top">
+	<td>
+	<?php echo $objHelp->show('Module Path','Select the path to where you want the non-core modules stored');?>
+	</td>
+	<td >
+	Module Path
+	</td>
+	<td >
+	<?php echo $module_path?>
+	</td>
+
+</tr>
 <tr valign="top">
 
 	<td>

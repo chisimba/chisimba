@@ -347,6 +347,10 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
 
 			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
+                        // Added by jsc
+			$this->_addConfigVar('KEWL_SYSTEM_TYPE',  $_SESSION['SysType']);
+
+			$this->_addConfigVar('KEWL_MODULE_PATH',  $_SESSION['module_path']);
 
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
 
@@ -593,6 +597,7 @@ class CreateConfigsAction extends FiveStepAction
 EOD;
 
 		$path =  $_SESSION['sys_root'].'/config/';
+            try {
 		if(!file_exists($path)) {
 				mkdir($path);
 		}
@@ -604,6 +609,15 @@ EOD;
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
 		fclose($handle);
+                // Error check added by jsc
+                if (!file_exists($path.'dbdetails_inc.php')) {
+                    throw new Exception ('dbdetails file could not be created.');
+                }
+            } catch ( Exception $e) {
+                print "The installer has encountered a fatal error: <b>".$e->getMessage()."</b><br />\n";
+                print "Check that the chisimba folder has the proper write permissions.<br />\n";
+                exit;
+            }
 		//define('KEWL_DB_DSN', $dsn);
 		//$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 

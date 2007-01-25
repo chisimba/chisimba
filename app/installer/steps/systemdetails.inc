@@ -152,6 +152,8 @@ class RootUserAction extends StepAction
 
 		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
 
+		$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
+
 		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
                 
 		$_SESSION['SysType'] = (isset($_POST['SysType'])) ? $_POST['SysType'] : '';
@@ -395,6 +397,8 @@ class RootUserAction extends StepAction
 		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
+                
+		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'modules/';
 
 		ob_start();
 
@@ -483,6 +487,12 @@ class RootUserAction extends StepAction
 			text_box('log_path', $log_path, '40', '', false, 'tabindex="9"');
 
 			$log_path = ob_get_contents();
+
+			ob_clean();
+
+			text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
+
+			$module_path = ob_get_contents();
 
 			ob_clean();
 
@@ -1127,6 +1137,8 @@ class RootUserAction extends StepAction
 		$tpl->set('sys_name', $sys_name);
 
 		$tpl->set('log_path', $log_path);
+                
+		$tpl->set('module_path', $module_path);
 
 		$tpl->set('log_enable',$log_enable);
 
@@ -1346,6 +1358,7 @@ class RootUserAction extends StepAction
 
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'/data/private/logs/error.log';
+		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'/modules/';
 
 
 
@@ -1378,6 +1391,8 @@ class RootUserAction extends StepAction
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('log_path', $log_path);
+                
+		$tpl->set('module_path', $module_path);
 
 		$tpl->set('defaultskin', $defaultskin);
 
