@@ -57,7 +57,7 @@ class modulefile extends object {
         	}
         	return $modulelist;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
 	}
@@ -92,7 +92,7 @@ class modulefile extends object {
     		$categorylist = array_unique($categorylist);
     		return $categorylist;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -119,7 +119,7 @@ class modulefile extends object {
     			return false;
     		}
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -138,7 +138,7 @@ class modulefile extends object {
     		}
     		return FALSE;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -157,7 +157,7 @@ class modulefile extends object {
     		}
     		return FALSE;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -191,7 +191,7 @@ class modulefile extends object {
         	$dirObj->close();
         	return $list;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -213,7 +213,7 @@ class modulefile extends object {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -237,7 +237,9 @@ class modulefile extends object {
         	}
         	return FALSE;
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+		        	throw new customException($e->getMessage());
+
+//			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -256,7 +258,7 @@ class modulefile extends object {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -274,7 +276,7 @@ class modulefile extends object {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->errorCallback('Caught exception: '.$e->getMessage());
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -367,7 +369,7 @@ class modulefile extends object {
 				return FALSE;
 			} // end of if
 		} catch (Exception $e) {
-			echo customException::cleanUp($e->getMessage());
+			throw new customException($e->getMessage());
 			exit(0);
 		}
 	}
