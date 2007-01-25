@@ -216,9 +216,16 @@ class useradmin_model2 extends dbtable
     * @param string $value    Search Query Value
     * @param string $orderby  How to order/sort results
     */
-    function searchUsers($field, $value, $orderby)
+    function searchUsers($field, $value, $position='contains', $orderby)
     {
-        $sql = ' WHERE '.$field.' LIKE \'%'.$value.'%\' ORDER BY '.$orderby;
+        switch ($position)
+        {
+            case 'startswith': $value = $value.'%'; break;
+            case 'endswith': $value = '%'.$value; break;
+            default: $value = '%'.$value.'%'; break;
+        }
+        
+        $sql = ' WHERE '.$field.' LIKE \''.$value.'\' ORDER BY '.$orderby;
         
         return $this->getAll($sql);
     }
@@ -329,7 +336,7 @@ class useradmin_model2 extends dbtable
 '
 Dear [[FIRSTNAME]] [[SURNAME]]<br />
 <br />
-On [[DATE]], you requested a new password for the [[SITENAME]] website. The details are here below:<br />
+On [[DATE]], you requested a new password for the [[SITENAME]] website. Your details are here below:<br />
 <br />
 Username: [[USERNAME]]<br />
 New Password: [[PASSWORD]] <br />
@@ -365,6 +372,100 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
            return FALSE;
         }
     }
+    
+    function sendRegistrationMessage($id, $password)
+    {
+        $user = $this->getUserDetails($id);
+        $siteName = $this->objConfig->getSiteName();
+        $siteEmail = $this->objConfig->getsiteEmail();
+        
+        $message = '
+Dear [[FIRSTNAME]] [[SURNAME]]<br />
+<br />
+On [[DATE]], you registered as a user on the [[SITENAME]] website.<br />
+Your details are here below:<br />
+<br />
+Username: [[USERNAME]]<br />
+New Password: [[PASSWORD]] <br />
+Email Address: [[EMAIL]]<br />
+<br />
+Sincerely,<br />
+[[SITENAME]] Registration System<br />
+[[SITEADDRESS]]
+<br />
+<br />
+IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
+        
+        $message = str_replace('[[FIRSTNAME]]', $user['firstname'], $message);
+        $message = str_replace('[[SURNAME]]', $user['surname'], $message);
+        $message = str_replace('[[USERNAME]]', $user['username'], $message);
+        $message = str_replace('[[EMAIL]]', $user['emailaddress'], $message);
+        $message = str_replace('[[SITENAME]]', $siteName, $message);
+        $message = str_replace('[[PASSWORD]]', $password, $message);
+        $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
+        $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
+        
+        $objMailer = $this->getObject('email', 'mail');//$user['emailaddress'], 
+        $objMailer->setValue('to', array('newuser@localhost'));
+        //$objMailer->setValue('to', array($user['emailaddress']));
+        $objMailer->setValue('from', $siteEmail);
+        $objMailer->setValue('fromName', $siteName.' Registration System');
+        $objMailer->setValue('subject', 'Registration: '.$siteName);
+        $objMailer->setValue('body', strip_tags($message));
+        $objMailer->setValue('AltBody', strip_tags($message));
+        
+        if ($objMailer->send()) {
+           return TRUE;
+        } else {
+           return FALSE;
+        }
+    
+    }
+    
+    
+    function batchProcessOption($users, $option)
+    {
+        if (is_array($users) && count($users) > 0) {
+            switch ($option)
+            {
+                case 'active': $function = 'setUserAsActive'; break;
+                case 'inactive': $function = 'setUserAsInActive'; break;
+                case 'delete': $function = 'setUserDelete'; break;
+                case 'ldap': $function = 'setUserLdap'; break;
+                default: $function = '';
+            }
+            
+            if ($function == '') {
+                return FALSE;
+            } else {
+                foreach ($users as $user)
+                {
+                    $this->$function($user);
+                }
+            }
+        }
+    }
+    
+    private function setUserAsActive($id)
+    {
+        return $this->update('id', $id, array('isactive'=>'1'));
+    }
+    
+    private function setUserAsInActive($id)
+    {
+        return $this->update('id', $id, array('isactive'=>'0'));
+    }
+    
+    private function setUserDelete($id)
+    {
+        return $this->delete('id', $id);
+    }
+    
+    private function setUserLdap($id)
+    {
+        return $this->update('id', $id, array('howcreated'=>'LDAP'));
+    }
+    
 } // end of class sqlUsers
 
 ?>
