@@ -111,7 +111,7 @@ class export extends object
         $this->copyTreeImages($staticFolder,$objSkin->getSkinLocation());
         
         //copy the TreeMenu.js File
-         copy($objConfig->siteRootPath().'modules/tree/resources/TreeMenu.js', $staticFolder.'/TreeMenu.js');
+         copy($objConfig->siteRootPath().'core_modules/tree/resources/TreeMenu.js', $staticFolder.'/TreeMenu.js');
 
          //zip the static folder
          $this->zipFolder();
