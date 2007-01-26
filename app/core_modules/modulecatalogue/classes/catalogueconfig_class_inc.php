@@ -300,7 +300,7 @@ class catalogueconfig extends object {
 						$result[(string)$module->module_id] = ucwords($moduleName);
 					}
 				}
-				if (!$result) {
+				if (!isset($result)) {
         			return FALSE;
         		}else {
        				return $result;
@@ -327,7 +327,7 @@ class catalogueconfig extends object {
     		$query = "//module[module_id='$modname']/module_description";
     		$entries = $xml->xpath($query);
 
-    		if (!$entries) {
+    		if (!isset($entries)) {
     			return FALSE;
     		} else {
     			return $entries;
@@ -352,7 +352,7 @@ class catalogueconfig extends object {
     		$query = "//module[module_id='$moduleId']/module_name";
     		$entries = $xml->xpath($query);
 
-    		if (!$entries) {
+    		if (!isset($entries)) {
     			return FALSE;
     		} else {
     			return $entries;
