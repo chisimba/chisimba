@@ -16,7 +16,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Wesley  Nitsckie
 * @example :
 */
-require_once($this->getResourceUri('safehtml/safehtml.php', 'utilities');
+require_once($this->getResourceUri('safehtml/safehtml.php', 'utilities'));
 class htmlcleaner  extends object
 {
    /**
