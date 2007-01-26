@@ -80,7 +80,7 @@ if ($mode == 'useradmin') {
 }
 
 $linkarray=array('action'=>'viewbyletter', 'letter'=>'LETTER', 'field'=>$field);
-$url=$this->uri($linkarray,'useradmin2');
+$url=$this->uri($linkarray,'useradmin');
 
 $dropdown = new dropdown('field');
 $dropdown->addOption('firstname', 'Firstname');
@@ -106,8 +106,9 @@ $table = $this->newObject('htmltable', 'htmlelements');
 
 $table->startHeaderRow();
     $table->addHeaderCell('&nbsp;');
-    $table->addHeaderCell('Id');
+    $table->addHeaderCell('Staff/Stud No.');
     $table->addHeaderCell('Username');
+    $table->addHeaderCell('Title');
     $table->addHeaderCell('Firstname');
     $table->addHeaderCell('Surname');
     $table->addHeaderCell('Email');
@@ -125,12 +126,15 @@ if (is_array($users) && count($users) > 0) {
             $checkbox->cssId = 'checkbox_'.$user['userid'];
             $table->addCell($checkbox->show());
             
-            $label = new label($user['userid'], 'checkbox_'.$user['userid']);
+            $label = new label($user['staffnumber'], 'checkbox_'.$user['userid']);
             $table->addCell($label->show());
             
             $link = new link ($this->uri(array('action'=>'userdetails', 'id'=>$user['id'])));
             $link->link = $user['username'];
             $table->addCell($link->show());
+            
+            $label = new label($user['title'], 'checkbox_'.$user['userid']);
+            $table->addCell($label->show());
             
             $label = new label($user['firstname'], 'checkbox_'.$user['userid']);
             $table->addCell($label->show());
