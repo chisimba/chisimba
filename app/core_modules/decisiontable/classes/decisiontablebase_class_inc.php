@@ -81,7 +81,7 @@ class decisionTableBase extends dbTable
         }
         elseif (empty ( $arrTableExists )) {
         	$sqldata = array();
-            @include_once './modules/decisiontable/sql/'.$this->_tableName.'.sql';
+            @include_once './core_modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
         }
     	/*

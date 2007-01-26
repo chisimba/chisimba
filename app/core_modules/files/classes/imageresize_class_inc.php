@@ -13,8 +13,8 @@
 * Where a file/image cannot be resized, a small image is created with the
 * words: "Unable to create a thumbnail from a [ext] file". - Tohir
 */
-include('modules/files/resources/imagecreatefrombmp.php');
-include('modules/files/resources/imagecreatefrompsd.php');
+include('core_modules/files/resources/imagecreatefrombmp.php');
+include('core_modules/files/resources/imagecreatefrompsd.php');
 class imageresize extends object
 {
 	

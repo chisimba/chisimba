@@ -94,7 +94,7 @@ class parse4smileys extends object {
         foreach ($smileyIcons as $smiley => $image){
             $test[] = "/".$smiley."/isU";
             $replace[] = "<img alt=\"$image\" width=\"15\" height=\"15\" 
-              src=\"".$objConfig->getsiteRoot()."modules/filters/resources/smileys/$image.gif\" />";
+              src=\"".$objConfig->getsiteRoot()."core_modules/filters/resources/smileys/$image.gif\" />";
         }
         
         return preg_replace($test, $replace, $str);
