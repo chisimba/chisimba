@@ -1,7 +1,7 @@
 <?php
 //include the PHPUnit test code
 require_once 'PHPUnit2/Framework/TestCase.php';
-require_once '../modules/config/classes/altconfig_class_inc.php';
+require_once '../core_modules/config/classes/altconfig_class_inc.php';
 
 //Set up the class to do the tests
 class configTest extends PHPUnit2_Framework_TestCase
