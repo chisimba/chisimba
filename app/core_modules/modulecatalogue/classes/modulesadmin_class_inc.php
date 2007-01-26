@@ -4,7 +4,7 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-// end security check    
+// end security check
 
 /**
 * Class for manipulating modules with administrative functionality.
@@ -130,6 +130,7 @@ class modulesadmin extends dbTableManager
     */
     public function installModule(&$registerdata,$update = FALSE) {
         try {
+        	$allPresent = true;		//used to check if all modules are present on the system
         	$this->_lastError = 0;
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -152,11 +153,17 @@ class modulesadmin extends dbTableManager
             		$missingModules = '';
             		foreach ($registerdata['DEPENDS'] as $depends) {
             			if (!$this->checkDependency($depends)) {
-            				$missingModules .= '<b>'.$depends.'</b><br />';
+            				if (($fn = $this->objModFile->findRegisterFile($depends)) && (filesize($fn)>0)) {
+            					$installed = $this->objLanguage->languageText('mod_modulecatalogue_notinstalled','modulecatalogue');
+            				} else {
+            					$installed = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
+            					$allPresent = false;		//all modules not present
+            				}
+            				$missingModules .= "<b>$depends</b> - $installed<br />";
             				$this->_lastError = 1003;
             			}
             		}
-            		if ($this->_lastError == 1003) {
+	          		if ($this->_lastError == 1003) {
             			$installDepsLink = &$this->getObject('link','htmlelements');
             			$installDepsLink->link($this->uri(array('action'=>'installwithdeps','mod'=>$registerdata['MODULE_ID'],
             						'cat'=>$this->getParam('cat')),'modulecatalogue'));
@@ -165,7 +172,11 @@ class modulesadmin extends dbTableManager
             			$text = $this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
             			$text = str_replace('{MODULE}',"<b>{$registerdata['MODULE_ID']}</b>",$text);
             			$this->output = "<span id='confirm'>$text:</span><br />$missingModules";
-            			$this->output .= $installDepsLink->show();
+            			if ($allPresent) {
+        					$this->output .= $installDepsLink->show();
+            			} else {
+            				$this->output .= $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
+            			}
             			return FALSE;
             		}
             	}
@@ -239,7 +250,7 @@ class modulesadmin extends dbTableManager
                     $objPerm = $this->getObject('permissions_model', 'permissions');
                     $objGroups = $this->getObject('groupAdminModel', 'groupadmin');
                     $perms = array(); $aclId = ''; $aclList = array(); $permList = array(); $groupArray = array();
-                    
+
                     foreach($registerdata['ACL'] as $regAcl){
                         $perms = explode('|', $regAcl);
                         if(isset($perms[0]) && !empty($perms[0])){
@@ -261,7 +272,7 @@ class modulesadmin extends dbTableManager
                                         $description = $moduleId.' '.$group;
                                         $groupId = $objGroups->addGroup($group, $description);
                                     }
-                                    
+
                                     $objPerm->addAclGroup($aclId, $groupId);
                                     $groupArray[] = $group;
                                 }
@@ -365,7 +376,7 @@ class modulesadmin extends dbTableManager
                     foreach($registerdata['CONDITION'] as $condition){
                         $objCond =& $this->newObject('condition','decisiontable');
                         $paramList = array(); $array = array(); $list = '';
-                        
+
                         $array = explode('|', $condition);
                         if(isset($array[2]) && !empty($array[2])){
                                     $list = explode(',', $array[2]);
@@ -399,7 +410,7 @@ class modulesadmin extends dbTableManager
                         }else{
                             $paramList = $list;
                         }
-                        
+
                         $name = $array[0];
                         if(!empty($paramList)){
                             $paramList2 = implode(',', $paramList);
@@ -805,11 +816,7 @@ class modulesadmin extends dbTableManager
         	{
         		return TRUE; // table already exists, don't try to create it over again!
         	}
-        	$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/'.$table.'.sql';
-        	if (!file_exists($sqlfile)){
-        		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/'.$table.'.sql';
-        	}
-        	if (!file_exists($sqlfile)){
+        	if (!$sqlfile = $this->objModFile->findSqlFile($moduleId,$table)){
         		//for some reason the exception below results in a blank screen. return false instead.
         		//throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
         		return FALSE;
@@ -837,9 +844,9 @@ class modulesadmin extends dbTableManager
     		if ($moduleId==null){
     			$moduleId=$this->module_id;
     		}
-    		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/defaultdata.xml';
+    		$sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
     		if (!file_exists($sqlfile)){
-    			$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/defaultdata.xml';
+    			$sqlfile=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/defaultdata.xml";
     			if (!file_exists($sqlfile)){
     				$this->_lastError = 1006;
     				return FALSE;
@@ -870,8 +877,12 @@ class modulesadmin extends dbTableManager
     */
     private function moveIcons($moduleId,$icons) {
         try {
-        	$srcdir=$this->objConfig->siteRootPath().'/modules/'.$moduleId.'/icons/';
-        	$destdir=$this->objConfig->siteRootPath().'skins/'.$this->objConfig->defaultSkin().'/icons/';
+        	if (file_exists($this->objConfig->getModulePath().$moduleId)) {
+        	$srcdir=$this->objConfig->getModulePath().$moduleId.'/icons/';
+        	} else {
+        		$srcdir = $this->objConfig->getSiteRootPath()."core_modules/$moduleId/icons/";
+        	}
+        	$destdir=$this->objConfig->getSkinRoot().$this->objConfig->defaultSkin().'/icons/';
         	foreach ($icons as $icon)
         	{
         		copy($srcdir.$icon,$destdir.$icon);
@@ -1182,7 +1193,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
      /**
      * Method to get the last error code
      *
@@ -1225,7 +1236,7 @@ class modulesadmin extends dbTableManager
     		exit();
     	}
     }
-    
+
     /**
      * Method to check whether a menu item exists in the database already
      *
@@ -1248,7 +1259,7 @@ class modulesadmin extends dbTableManager
 
         return $ret;
     }
-    
+
     /**
      * Method to check whether a menu item exists in the toolbar menu
      *
