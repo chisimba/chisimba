@@ -4,7 +4,7 @@
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-// end security check
+// end security check    
 
 /**
 * Class for manipulating modules with administrative functionality.
