@@ -47,7 +47,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             
             // Generate Include File
             /*Based in the first number of the IP address ("101" in the example), a PHP file in ip_files/ directory will be included (in the example the file to be included will be "ip_files/101.php"). This file has known country codes for IP addresses starting with the selected first number (p.e: 101.###.###.###, where # is any digit). */
-            $includefile = $this->objConfig->getsiteRootPath().'/modules/utilities/resources/ip_files/'.$numbers[0].'.php';
+            $includefile = $this->objConfig->getsiteRootPath().'/core_modules/utilities/resources/ip_files/'.$numbers[0].'.php';
             
             //Include the File
             include($includefile);
@@ -85,10 +85,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     function getCountryFlag($code)
     {
         
-        $flagsrc = 'modules/iptocountry/resources/flags/'.strtolower($code).'.gif';
+        $flagsrc = 'core_modules/utilities/resources/flags/'.strtolower($code).'.gif';
 
 	if (!file_exists($this->objConfig->getsiteRootPath().'/'.$flagsrc)) { 
-           $flagsrc = 'modules/iptocountry/resources/flags/unknown.gif';
+           $flagsrc = 'core_modules/utilities/resources/flags/unknown.gif';
         }
 
         return $flagsrc;

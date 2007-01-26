@@ -10,7 +10,7 @@
 
 ?>
 
-<script src="modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>
+<script src="core_modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 <script language="JavaScript" type="text/javascript">
 <!--
 	a = new Date();
