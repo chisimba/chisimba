@@ -39,7 +39,7 @@ class modulefile extends object {
 	 */
 	public function getLocalModuleList() {
         try {
-        	$lookdir=$this->config->getModulePath();
+        	$lookdir=$this->config->getSiteRootPath()."modules";
         	$modlist=$this->checkdir($lookdir);
         	natsort($modlist);
         	$modulelist = array();
@@ -57,7 +57,7 @@ class modulefile extends object {
         	}
         	return $modulelist;
 		} catch (Exception $e) {
-			$this->config->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
 	}
@@ -70,7 +70,7 @@ class modulefile extends object {
 	 */
 	public function getCategories() {
     	try {
-    		$lookdir=$this->config->getModulePath();
+    		$lookdir=$this->config->getSiteRootPath()."modules";
     		$modlist=$this->checkdir($lookdir);
     		$categorylist = array();
     		foreach ($modlist as $line) {
@@ -92,7 +92,7 @@ class modulefile extends object {
     		$categorylist = array_unique($categorylist);
     		return $categorylist;
 		} catch (Exception $e) {
-			$this->config->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -119,7 +119,7 @@ class modulefile extends object {
     			return false;
     		}
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -138,7 +138,7 @@ class modulefile extends object {
     		}
     		return FALSE;
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -157,7 +157,7 @@ class modulefile extends object {
     		}
     		return FALSE;
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -191,7 +191,7 @@ class modulefile extends object {
         	$dirObj->close();
         	return $list;
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -213,7 +213,7 @@ class modulefile extends object {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -227,7 +227,7 @@ class modulefile extends object {
     {
         try {
         	$endings=array('php','conf');
-        	$path=$this->config->getModulePath().$modname."/register.";
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/register.";
         	foreach ($endings as $line)
         	{
         		if (file_exists($path.$line))
@@ -237,9 +237,7 @@ class modulefile extends object {
         	}
         	return FALSE;
 		} catch (Exception $e) {
-		        	throw new customException($e->getMessage());
-
-//			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -251,14 +249,14 @@ class modulefile extends object {
     function findController($modname)
     {
         try {
-        	$path=$this->config->getModulePath().$modname."/controller.php";
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/controller.php";
         	if (file_exists($path)) {
         			return $path;
         	} else {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -269,14 +267,14 @@ class modulefile extends object {
     */
     public function findSqlXML($modname) {
         try {
-        	$path=$this->config->getModulePath().$modname."/sql/sql_updates.xml";
+        	$path=$this->config->getSiteRootPath()."/modules/".$modname."/sql/sql_updates.xml";
         	if (file_exists($path)) {
         			return $path;
         	} else {
         		return FALSE;
         	}
 		} catch (Exception $e) {
-			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
 		}
     }
@@ -369,7 +367,7 @@ class modulefile extends object {
 				return FALSE;
 			} // end of if
 		} catch (Exception $e) {
-			throw new customException($e->getMessage());
+			echo customException::cleanUp($e->getMessage());
 			exit(0);
 		}
 	}

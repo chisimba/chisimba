@@ -130,7 +130,6 @@ class modulesadmin extends dbTableManager
     */
     public function installModule(&$registerdata,$update = FALSE) {
         try {
-        	$allPresent = true;		//used to check if all modules are present on the system
         	$this->_lastError = 0;
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -153,17 +152,11 @@ class modulesadmin extends dbTableManager
             		$missingModules = '';
             		foreach ($registerdata['DEPENDS'] as $depends) {
             			if (!$this->checkDependency($depends)) {
-            				if (($fn = $this->objModFile->findRegisterFile($depends)) && (filesize($fn)>0)) {
-            					$installed = $this->objLanguage->languageText('mod_modulecatalogue_notinstalled','modulecatalogue');
-            				} else {
-            					$installed = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
-            					$allPresent = false;		//all modules not present
-            				}
-            				$missingModules .= "<b>$depends</b> - $installed<br />";
+            				$missingModules .= '<b>'.$depends.'</b><br />';
             				$this->_lastError = 1003;
             			}
             		}
-	          		if ($this->_lastError == 1003) {
+            		if ($this->_lastError == 1003) {
             			$installDepsLink = &$this->getObject('link','htmlelements');
             			$installDepsLink->link($this->uri(array('action'=>'installwithdeps','mod'=>$registerdata['MODULE_ID'],
             						'cat'=>$this->getParam('cat')),'modulecatalogue'));
@@ -172,11 +165,7 @@ class modulesadmin extends dbTableManager
             			$text = $this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
             			$text = str_replace('{MODULE}',"<b>{$registerdata['MODULE_ID']}</b>",$text);
             			$this->output = "<span id='confirm'>$text:</span><br />$missingModules";
-            			if ($allPresent) { 
-        					$this->output .= $installDepsLink->show();
-            			} else {
-            				$this->output .= $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
-            			}
+            			$this->output .= $installDepsLink->show();
             			return FALSE;
             		}
             	}
@@ -816,9 +805,9 @@ class modulesadmin extends dbTableManager
         	{
         		return TRUE; // table already exists, don't try to create it over again!
         	}
-        	$sqlfile=$this->objConfig->getModulePath().$moduleId.'/'.$table.'.sql';
+        	$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/'.$table.'.sql';
         	if (!file_exists($sqlfile)){
-        		$sqlfile=$this->objConfig->getModulePath().$moduleId.'/sql/'.$table.'.sql';
+        		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/'.$table.'.sql';
         	}
         	if (!file_exists($sqlfile)){
         		//for some reason the exception below results in a blank screen. return false instead.
@@ -848,9 +837,9 @@ class modulesadmin extends dbTableManager
     		if ($moduleId==null){
     			$moduleId=$this->module_id;
     		}
-    		$sqlfile=$this->objConfig->getModulePath().$moduleId.'/sql/defaultdata.xml';
+    		$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/sql/defaultdata.xml';
     		if (!file_exists($sqlfile)){
-    			$sqlfile=$this->objConfig->getModulePath().$moduleId.'/defaultdata.xml';
+    			$sqlfile=$this->objConfig->getsiteRootPath().'/modules/'.$moduleId.'/defaultdata.xml';
     			if (!file_exists($sqlfile)){
     				$this->_lastError = 1006;
     				return FALSE;
@@ -881,8 +870,8 @@ class modulesadmin extends dbTableManager
     */
     private function moveIcons($moduleId,$icons) {
         try {
-        	$srcdir=$this->objConfig->getModulePath().$moduleId.'/icons/';
-        	$destdir=$this->objConfig->getSkinRoot().$this->objConfig->defaultSkin().'/icons/';
+        	$srcdir=$this->objConfig->siteRootPath().'/modules/'.$moduleId.'/icons/';
+        	$destdir=$this->objConfig->siteRootPath().'skins/'.$this->objConfig->defaultSkin().'/icons/';
         	foreach ($icons as $icon)
         	{
         		copy($srcdir.$icon,$destdir.$icon);
