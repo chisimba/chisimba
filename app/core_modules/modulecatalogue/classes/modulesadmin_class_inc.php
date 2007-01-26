@@ -846,7 +846,7 @@ class modulesadmin extends dbTableManager
     		}
     		$sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
     		if (!file_exists($sqlfile)){
-    			$sqlfile=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/defaultdata.xml";
+    			$sqlfile=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
     			if (!file_exists($sqlfile)){
     				$this->_lastError = 1006;
     				return FALSE;
