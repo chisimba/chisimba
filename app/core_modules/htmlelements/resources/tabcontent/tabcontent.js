@@ -1,11 +1,8 @@
 //** Tab Content script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
 //** Last updated: Nov 8th, 06
-
 var enabletabpersistence=1 //enable tab persistence via session only cookies, so selected tab is remembered?
-
 ////NO NEED TO EDIT BELOW////////////////////////
 var tabcontentIDs=new Object()
-
 function expandcontent(linkobj){
 var ulid=linkobj.parentNode.parentNode.id //id of UL element
 var ullist=document.getElementById(ulid).getElementsByTagName("li") //get list of LIs corresponding to the tab contents
@@ -17,25 +14,28 @@ document.getElementById(tabcontentIDs[ulid][i]).style.display="none" //hide all 
 linkobj.parentNode.className="selected"  //highlight currently clicked on tab
 document.getElementById(linkobj.getAttribute("rel")).style.display="block" //expand corresponding tab content
 saveselectedtabcontentid(ulid, linkobj.getAttribute("rel"))
+/* This is an addition that resizes the layouts in Chisimba when a tab is clicked
+It first checks whether the css layout class is being used, and then runs the function to adjust layouts
+It does so by detecting whether the function exists
+*/
+if ('function' == typeof window.adjustLayout) {
+adjustLayout();
 }
-
+}
 function expandtab(tabcontentid, tabnumber){ //interface for selecting a tab (plus expand corresponding content)
 var thetab=document.getElementById(tabcontentid).getElementsByTagName("a")[tabnumber]
 if (thetab.getAttribute("rel"))
 expandcontent(thetab)
 }
-
 function savetabcontentids(ulid, relattribute){// save ids of tab content divs
 if (typeof tabcontentIDs[ulid]=="undefined") //if this array doesn't exist yet
 tabcontentIDs[ulid]=new Array()
 tabcontentIDs[ulid][tabcontentIDs[ulid].length]=relattribute
 }
-
 function saveselectedtabcontentid(ulid, selectedtabid){ //set id of clicked on tab as selected tab id & enter into cookie
 if (enabletabpersistence==1) //if persistence feature turned on
 setCookie(ulid, selectedtabid)
 }
-
 function getullistlinkbyId(ulid, tabcontentid){ //returns a tab link based on the ID of the associated tab content
 var ullist=document.getElementById(ulid).getElementsByTagName("li")
 for (var i=0; i<ullist.length; i++){
@@ -45,7 +45,6 @@ break
 }
 }
 }
-
 function initializetabcontent(){
 for (var i=0; i<arguments.length; i++){ //loop through passed UL ids
 if (enabletabpersistence==0 && getCookie(arguments[i])!="") //clean up cookie if persist=off
@@ -74,15 +73,12 @@ expandcontent(ulist[0].getElementsByTagName("a")[0]) //just auto load first tab 
 }
 } //end outer for loop
 }
-
-
 function getCookie(Name){ 
 var re=new RegExp(Name+"=[^;]+", "i"); //construct RE to search for target name/value pair
 if (document.cookie.match(re)) //if cookie found
 return document.cookie.match(re)[0].split("=")[1] //return its value
 return ""
 }
-
 function setCookie(name, value){
 document.cookie = name+"="+value //cookie value is domain wide (path=/)
 }
