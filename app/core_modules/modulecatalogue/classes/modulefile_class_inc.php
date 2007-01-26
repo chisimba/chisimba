@@ -211,7 +211,7 @@ class modulefile extends object {
     function checkForFile($where,$fname)
     {
         try {
-        	if (file_exists($where."/".$fname))
+        	if (file_exists("$where/$fname"))
         	{
         		return TRUE;
         	} else {
@@ -261,9 +261,9 @@ class modulefile extends object {
     {
         try {
         	if (file_exists($this->config->getModulePath().$modname)) {
-        		$path = $this->config->getModulePath().$modname."/controller.";
+        		$path = $this->config->getModulePath()."$modname/controller.php";
         	} else {
-        		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/controller.";
+        		$path = $this->config->getSiteRootPath()."core_modules/$modname/controller.php";
         	}
         	if (file_exists($path)) {
         			return $path;
