@@ -48,6 +48,7 @@ class modulefile extends object {
             		case '.':
             		case '..':
             		case 'CVS':
+            		case 'CVSROOT':
             			break; // don't bother with system-related dirs
             		default:
             			if (is_dir("$lookdir/$line")||is_dir($this->config->getSiteRootPath()."/core_modules/$line")) {
