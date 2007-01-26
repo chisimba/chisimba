@@ -195,7 +195,6 @@ class skin extends object
         $stylesheet = '
         <link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="skins/_common/print.css" media="print" />
-    	<link rel="icon" href="skins/'.$this->getSkin().'/icons/csimba.gif" />
         <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/print.css" media="print" />
 				';
