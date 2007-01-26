@@ -1,7 +1,7 @@
 <?php
 
 /**
-* index.php
+* index.php ()
 *
 * The entry point into the KEWL application
 *
