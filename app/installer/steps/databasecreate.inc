@@ -165,47 +165,47 @@ class DbCreateAction extends StepAction
 		}
 
 	// Sql tables live in the modules that own them.
-    $this->_installDb32('modules/security/sql/tbl_users.sql');
-    $this->_installDb32('modules/security/sql/tbl_userloginhistory.sql');
-    $this->_installDb32('modules/security/sql/tbl_loggedinusers.sql');
-    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules.sql');
-    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules_dependencies.sql');
-    $this->_installDb32('modules/modulecatalogue/sql/tbl_modules_owned_tables.sql');
-    $this->_installDb32('modules/systext/sql/tbl_systext_system.sql');
-    $this->_installDb32('modules/systext/sql/tbl_systext_text.sql');
-    $this->_installDb32('modules/systext/sql/tbl_systext_abstract.sql');
-    $this->_installDb32('modules/language/sql/tbl_languagetext.sql');
-    $this->_installDb32('modules/language/sql/tbl_langs_avail.sql');
-    $this->_installDb32('modules/language/sql/tbl_languagelist.sql');
-    $this->_installDb32('modules/language/sql/tbl_english.sql');
-    $this->_installDb32('modules/language/sql/tbl_language_modules.sql');
-    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_categories.sql');
-    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_content.sql');
-    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_contentfrontpage.sql');
-    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_layouts.sql');
-    $this->_installDb32('modules/cmsadmin/sql/tbl_cms_sections.sql');
-    $this->_installDb32('modules/toolbar/sql/tbl_menu_category.sql');
-    $this->_installDb32('modules/sysconfig/sql/tbl_sysconfig_properties.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_users.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_userloginhistory.sql');
+    $this->_installDb32('core_modules/security/sql/tbl_loggedinusers.sql');
+    $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules.sql');
+    $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules_dependencies.sql');
+    $this->_installDb32('core_modules/modulecatalogue/sql/tbl_modules_owned_tables.sql');
+    $this->_installDb32('core_modules/systext/sql/tbl_systext_system.sql');
+    $this->_installDb32('core_modules/systext/sql/tbl_systext_text.sql');
+    $this->_installDb32('core_modules/systext/sql/tbl_systext_abstract.sql');
+    $this->_installDb32('core_modules/language/sql/tbl_languagetext.sql');
+    $this->_installDb32('core_modules/language/sql/tbl_langs_avail.sql');
+    $this->_installDb32('core_modules/language/sql/tbl_languagelist.sql');
+    $this->_installDb32('core_modules/language/sql/tbl_english.sql');
+    $this->_installDb32('core_modules/language/sql/tbl_language_modules.sql');
+    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_categories.sql');
+    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_content.sql');
+    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_contentfrontpage.sql');
+    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_layouts.sql');
+    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_sections.sql');
+    $this->_installDb32('core_modules/toolbar/sql/tbl_menu_category.sql');
+    $this->_installDb32('core_modules/sysconfig/sql/tbl_sysconfig_properties.sql');
 
     //we need tbl_groupadmin_groupuser as well.
-    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
-//    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_group_groupfk.sql');
-    $this->_installDb32('modules/groupadmin/sql/tbl_groupadmin_group.sql');
+    $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
+//    $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_group_groupfk.sql');
+    $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_group.sql');
 
     //tbl_permissions_acl
-    $this->_installDb32('modules/permissions/sql/tbl_permissions_acl.sql');
-	$this->_installDb32('modules/permissions/sql/tbl_permissions_acl_description.sql');
+    $this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl.sql');
+	$this->_installDb32('core_modules/permissions/sql/tbl_permissions_acl_description.sql');
 
 	//decision tables
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_action.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_condition.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
-	$this->_installDb32('modules/decisiontable/sql/tbl_decisiontable_rule.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action_rule.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_action.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_condition.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_conditiontype.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_action.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable_rule.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
+	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule.sql');
 
 	//OK now lets dump in the default data from the xml files...
 	//get an array of the directories that we need to look through for the default files...

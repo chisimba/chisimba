@@ -992,7 +992,7 @@ class RootUserAction extends StepAction
 
 			//loop through the folders and build an array of available modules
 
-			$basedir= $_SESSION['sys_root']."/modules/";
+			$basedir= $_SESSION['sys_root']."/core_modules/";
 
 
 
@@ -1217,7 +1217,7 @@ class RootUserAction extends StepAction
 
 		//to match the real value of what was selected for post login
 
-		$basedir= $_SESSION['sys_root']."/modules/";
+		$basedir= $_SESSION['sys_root']."/core_modules/";
 
 
 
