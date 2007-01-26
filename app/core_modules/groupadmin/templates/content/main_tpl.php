@@ -24,8 +24,8 @@ foreach ($this->abstractionArray as $name=>$value)
 
 ?>
 
-<script src="modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>
-<script src="modules/groupadmin/resources/sorttable.js" language="JavaScript" type="text/javascript"></script>
+<script src="core_modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>
+<script src="core_modules/groupadmin/resources/sorttable.js" language="JavaScript" type="text/javascript"></script>
 
 <?
 $objTable =& $this->newObject('htmltable', 'htmlelements');
