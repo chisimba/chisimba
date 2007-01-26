@@ -8,8 +8,9 @@
 * @author Jonathan Abrahams
 * @filesource
 */
+
+echo $this->getJavascriptFile('selectbox.js');
 ?>
-<SCRIPT LANGUAGE="JavaScript" SRC="modules/groupadmin/resources/selectbox.js" type="text/javascript"></SCRIPT>
 <H1><?php echo $ttlEditGroup.":&nbsp;".$fullPath ?></H1>
 
 <TABLE>
