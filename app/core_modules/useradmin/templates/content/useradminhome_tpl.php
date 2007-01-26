@@ -48,7 +48,7 @@ $form->addToForm($module->show());
 $action = new hiddeninput('action', 'searchusers');
 $form->addToForm($action->show());
 $dropdown = new dropdown('searchfield');
-$dropdown->addOption('userid', 'User Id');
+$dropdown->addOption('staffnumber', 'Staff / Student No.');
 $dropdown->addOption('username', 'Username');
 $dropdown->addOption('firstname', 'Firstname');
 $dropdown->addOption('surname', 'Surname');
