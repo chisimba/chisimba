@@ -81,6 +81,7 @@ class modulefile extends object {
     				case '.':
     				case '..':
     				case 'CVS':
+    				case 'CVSROOT':
     					break; // don't bother with system-related dirs
     				default:
     					$cat = $this->moduleCategory($line);
