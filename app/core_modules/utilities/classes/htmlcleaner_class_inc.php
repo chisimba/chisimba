@@ -16,7 +16,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * @author Wesley  Nitsckie
 * @example :
 */
-require_once("modules/utilities/resources/safehtml/safehtml.php");
+require_once("core_modules/utilities/resources/safehtml/safehtml.php");
 class htmlcleaner  extends object
 {
    /**
@@ -24,16 +24,16 @@ class htmlcleaner  extends object
 	 * @access protected
 	 */
     protected $_objSafeHtml;
-    
+
     /**
      * Construtor
      */
     public function init()
     {
-        
+
         $this->_objSafeHtml =& new safehtml();
     }
-    
+
     /**
      * Method to clean the html
      * @param string $html the html
@@ -50,5 +50,5 @@ class htmlcleaner  extends object
             return $this->_objSafeHtml->parse($html);
         }
     }
-    
+
 }
