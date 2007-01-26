@@ -510,10 +510,9 @@ class modulecatalogue extends controller
     		$objXml = simplexml_load_file($root.'installer/dbhandlers/systemtypes.xml');
     		log_debug('Installing core modules');
     		$coreList = $objXml->xpath("//category[categoryname='Basic System Only']");
-    		foreach ($coreList->module as $module) {
+    		foreach ($coreList[0]->module as $module) {
     			if (!$this->installModule(trim($module))) {
-    				log_debug("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
-    				throw new customException("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
+    				throw new customException("Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
     			}
     		}
     		if ($sysType != "Basic System Only") {
@@ -521,13 +520,12 @@ class modulecatalogue extends controller
     			$specificList = $objXml->xpath("//category[categoryname='$']");
     			foreach ($specificList->module as $module) {
     				if (!$this->installModule(trim($module))) {
-    					log_debug("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
-    					throw new customException("Error installing module $line: {$this->objModuleAdmin->output}\n{$this->objModuleAdmin->getLastError()}");
+    					throw new customException("Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
     				}
     			}
     		}
     		// Flag the first time registration as having been run
-    		$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE,'mod_modulecatalogue_firstreg_run_desc');
+    		//$this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE,'mod_modulecatalogue_firstreg_run_desc');
     		log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
 
     	} catch (Exception $e) {

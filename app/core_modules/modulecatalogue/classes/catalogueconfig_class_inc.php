@@ -241,20 +241,20 @@ class catalogueconfig extends object {
 					$query = "//module[module_category='{$pname}']";
 				}else{
 				  $query = "//module";
-				  
+
 				}
 				$entries = $xml->xpath($query);
-				
-				
+
+
 				foreach ($entries as $module) {
 					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
-					if (empty($moduleName)) { 
+					if (empty($moduleName)) {
 						$result[(string)$module->module_id] = ucwords((string)$module->module_id);
 					} else {
 						$result[(string)$module->module_id] = ucwords($moduleName);
 					}
 				}
-				if (!$result) {
+				if (!isset($result)) {
         			return FALSE;
         		}else {
        				return $result;
@@ -294,7 +294,7 @@ class catalogueconfig extends object {
 
         		foreach ($entries as $module) {
 					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
-					if (empty($moduleName)) { 
+					if (empty($moduleName)) {
 						$result[(string)$module->module_id] = ucwords((string)$module->module_id);
 					} else {
 						$result[(string)$module->module_id] = ucwords($moduleName);
@@ -337,7 +337,7 @@ class catalogueconfig extends object {
     		exit();
     	}
     }
-    
+
     /**
      * Method to get module name from the catalogue
      *

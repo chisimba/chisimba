@@ -2,10 +2,10 @@
 <settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='systemtypes.xsd'>
 	<systemtypes>
 		<category>Basic System Only</category>
-		<category>blog</category>
-		<category>workgroups</category>
+		<category>Blog</category>
+		<category>Workgroups</category>
 		<category>Content Management System</category>
-		<category>communications</category>
+		<category>Communications</category>
 		<category>e-Learning Management System</category>
 	</systemtypes>
 
@@ -18,6 +18,8 @@
             <module>systext</module>
             <module>sysconfig</module>
             <module>tree</module>
+            <module>groupadmin</module>
+            <module>permissions</module>
             <module>config</module>
             <module>context</module>
             <module>contextadmin</module>
@@ -26,19 +28,17 @@
             <module>errors</module>
             <module>files</module>
             <module>filters</module>
-            <module>groupadmin</module>
             <module>help</module>
             <module>htmlelements</module>
             <module>language</module>
             <module>logger</module>
             <module>lucene</module>
             <module>navigation</module>
-            <module>permissions</module>
             <module>postlogin</module>
             <module>prelogin</module>
             <module>skin</module>
-            <module>stories</module>
             <module>storycategoryadmin</module>
+            <module>stories</module>
             <module>strings</module>
             <module>toolbar</module>
             <module>useradmin</module>
@@ -47,7 +47,7 @@
         </category>
 
         <category>
-            <categoryname>blog</categoryname>
+            <categoryname>Blog</categoryname>
             <module>blog</module>
             <module>blogcomments</module>
             <module>creativecommons</module>
@@ -58,7 +58,7 @@
         </category>
 
         <category>
-            <categoryname>workgroups</categoryname>
+            <categoryname>Workgroups</categoryname>
             <module>forum</module>
             <module>workgroup</module>
             <module>workgroupadmin</module>
@@ -73,7 +73,7 @@
         </category>
 
         <category>
-            <categoryname>communications</categoryname>
+            <categoryname>Communications</categoryname>
             <module>chat</module>
             <module>email</module>
             <module>wiki</module>

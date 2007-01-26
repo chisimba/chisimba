@@ -40,7 +40,7 @@ class modulefile extends object {
 	public function getLocalModuleList() {
         try {
         	$lookdir=$this->config->getModulePath();
-        	$modlist=$this->checkdir($lookdir) + $this->checkdir($this->config->getSiteRootPath().'/core_modules/');
+        	$modlist=(array)$this->checkdir($lookdir) + (array)$this->checkdir($this->config->getSiteRootPath().'/core_modules/');
         	natsort($modlist);
         	$modulelist = array();
         	foreach ($modlist as $line) {
@@ -50,7 +50,7 @@ class modulefile extends object {
             		case 'CVS':
             			break; // don't bother with system-related dirs
             		default:
-            			if (is_dir($lookdir.'/'.$line)) {
+            			if (is_dir("$lookdir/$line")||is_dir($this->config->getSiteRootPath()."/core_modules/$line")) {
             				$modulelist[] = $line;
             			}
             	}
@@ -71,7 +71,9 @@ class modulefile extends object {
 	public function getCategories() {
     	try {
     		$lookdir=$this->config->getModulePath();
-    		$modlist=$this->checkdir($lookdir) + $this->checkdir($this->config->getSiteRootPath().'/core_modules/');
+    		$mod_list = $this->checkdir($lookdir);
+    		$core_list = $this->checkdir($this->config->getSiteRootPath().'/core_modules/');
+    		$modlist = (array)$core_list + (array)$mod_list;
     		$categorylist = array();
     		foreach ($modlist as $line) {
     			switch ($line) {
@@ -80,13 +82,13 @@ class modulefile extends object {
     				case 'CVS':
     					break; // don't bother with system-related dirs
     				default:
-    					if (is_dir($lookdir.'/'.$line)) {
-    						if ($cat = $this->moduleCategory($line)) {
-    								foreach ($cat as $category) {
-    									($categorylist[] = strtolower($category));
-    								}
-    							}
+    					$cat = $this->moduleCategory($line);
+    					if ($cat) {
+    						foreach ($cat as $category) {
+    							($categorylist[] = strtolower($category));
+    						}
     					}
+    					break;
     			}
     		}
     		$categorylist = array_unique($categorylist);
@@ -183,6 +185,9 @@ class modulefile extends object {
     protected function checkdir($file)
     {
         try {
+        	if (!file_exists($file)) {
+        		return FALSE;
+        	}
         	$dirObj = dir($file);
         	while (false !== ($entry = $dirObj->read()))
         	{

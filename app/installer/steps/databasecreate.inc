@@ -165,6 +165,7 @@ class DbCreateAction extends StepAction
 		}
 
 	// Sql tables live in the modules that own them.
+
     $this->_installDb32('core_modules/security/sql/tbl_users.sql');
     $this->_installDb32('core_modules/security/sql/tbl_userloginhistory.sql');
     $this->_installDb32('core_modules/security/sql/tbl_loggedinusers.sql');
@@ -179,13 +180,9 @@ class DbCreateAction extends StepAction
     $this->_installDb32('core_modules/language/sql/tbl_languagelist.sql');
     $this->_installDb32('core_modules/language/sql/tbl_english.sql');
     $this->_installDb32('core_modules/language/sql/tbl_language_modules.sql');
-    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_categories.sql');
-    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_content.sql');
-    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_contentfrontpage.sql');
-    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_layouts.sql');
-    $this->_installDb32('core_modules/cmsadmin/sql/tbl_cms_sections.sql');
     $this->_installDb32('core_modules/toolbar/sql/tbl_menu_category.sql');
     $this->_installDb32('core_modules/sysconfig/sql/tbl_sysconfig_properties.sql');
+
 
     //we need tbl_groupadmin_groupuser as well.
     $this->_installDb32('core_modules/groupadmin/sql/tbl_groupadmin_groupuser.sql');
@@ -209,20 +206,19 @@ class DbCreateAction extends StepAction
 
 	//OK now lets dump in the default data from the xml files...
 	//get an array of the directories that we need to look through for the default files...
-	$defaults = array('security' => 'modules/security/sql/users.xml',
-					  'modulecatalogue' => 'modules/modulecatalogue/sql/defaultdata.xml',
-					  'languagemodules' => 'modules/language/sql/langmodules.xml',
-					  'cmsadmin' => 'modules/cmsadmin/sql/cms_layouts.xml',
-					  'toolbar' => 'modules/toolbar/sql/defaultdata.xml',
-					  'sysconfig' => 'modules/sysconfig/sql/defaultdata.xml',
-					  'groupadmin' => 'modules/groupadmin/sql/groupadmin.xml',
-					  'groupadmin2' => 'modules/groupadmin/sql/data.xml',
-					  'permissions' => 'modules/permissions/sql/defaultdata.xml',
-					  'decisiontable' => 'modules/decisiontable/sql/defaultdata.xml',
-					  'language' => 'modules/language/sql/langlist.xml',
-					  'systext' => 'modules/systext/sql/systextabstract.xml',
-					  'systexttext' => 'modules/systext/sql/systexttext.xml',
-					  'systextsystem' => 'modules/systext/sql/systextsystem.xml'
+	$defaults = array('security' => 'core_modules/security/sql/users.xml',
+					  'modulecatalogue' => 'core_modules/modulecatalogue/sql/defaultdata.xml',
+					  'languagemodules' => 'core_modules/language/sql/langmodules.xml',
+					  'toolbar' => 'core_modules/toolbar/sql/defaultdata.xml',
+					  'sysconfig' => 'core_modules/sysconfig/sql/defaultdata.xml',
+					  'groupadmin' => 'core_modules/groupadmin/sql/groupadmin.xml',
+					  'groupadmin2' => 'core_modules/groupadmin/sql/data.xml',
+					  'permissions' => 'core_modules/permissions/sql/defaultdata.xml',
+					  'decisiontable' => 'core_modules/decisiontable/sql/defaultdata.xml',
+					  'language' => 'core_modules/language/sql/langlist.xml',
+					  'systext' => 'core_modules/systext/sql/systextabstract.xml',
+					  'systexttext' => 'core_modules/systext/sql/systexttext.xml',
+					  'systextsystem' => 'core_modules/systext/sql/systextsystem.xml'
 					  );
 
 	$handler = new DbHandler();

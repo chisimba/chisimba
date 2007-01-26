@@ -155,7 +155,7 @@ class RootUserAction extends StepAction
 		$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
 
 		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
-                
+
 		$_SESSION['SysType'] = (isset($_POST['SysType'])) ? $_POST['SysType'] : '';
 
 		$_SESSION['defaultskin'] = (isset($_POST['defaultskin'])) ? $_POST['defaultskin'] : '';
@@ -397,7 +397,7 @@ class RootUserAction extends StepAction
 		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
-                
+
 		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'modules/';
 
 		ob_start();
@@ -992,31 +992,51 @@ class RootUserAction extends StepAction
 
 			//loop through the folders and build an array of available modules
 
+
 			$basedir= $_SESSION['sys_root']."/core_modules/";
 
 
+			if (file_exists($basedir)) {
+				chdir($basedir);
 
-			chdir($basedir);
+				$dh=opendir($basedir);
 
-			$dh=opendir($basedir);
+				$dirList=array();
 
-			$dirList=array();
+				while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 
-			$dirList = array("--"=>'None');
 
-			while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
 
-				if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
+						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
 
-					if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
+							array_push($dirList, $file);
 
-						array_push($dirList, $file);
+						}
 
 					}
 
 				}
+			}
+			/*$basedir = //modules path
+			if (file_exists($basedir)) {
+			chdir($basedir);
+
+			$dh=opendir($basedir);
+			while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+
+			if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
+
+			if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
+
+			array_push($dirList, $file);
 
 			}
+
+			}
+
+			}
+			}*/
 
 			asort($dirList);
 
@@ -1035,7 +1055,7 @@ class RootUserAction extends StepAction
     	$cmbpostLogin = ob_get_contents();
 
 	ob_clean();
-                
+
       // Server Type
       // First get the PEAR object for XML, then use it to parse the file of types
       require_once('XML/Unserializer.php');
@@ -1045,15 +1065,15 @@ class RootUserAction extends StepAction
       $simbaTypes=array();
       foreach ($data['systemtypes']['category'] as $line){
         $simbaTypes[$line]=$line;
-      } 
-      
+      }
+
       // Now display it in a drop-down
         combo_box('SysType',$simbaTypes,false,
         array(isset($_SESSION['SysType'])?$_SESSION['SysType']:'SysType'),
-        0, 'tabindex="1"');        
+        0, 'tabindex="1"');
     	$cmbSysType = ob_get_contents();
         ob_clean();
-     
+
 
     	//loop through the folders and build an array of available skins
 
@@ -1066,8 +1086,6 @@ class RootUserAction extends StepAction
 		$dh=opendir($basedir);
 
 		$dirskinList=array();
-
-		$dirskinList = array('--'=>'None');
 
 		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 
@@ -1137,7 +1155,7 @@ class RootUserAction extends StepAction
 		$tpl->set('sys_name', $sys_name);
 
 		$tpl->set('log_path', $log_path);
-                
+
 		$tpl->set('module_path', $module_path);
 
 		$tpl->set('log_enable',$log_enable);
@@ -1145,7 +1163,7 @@ class RootUserAction extends StepAction
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('postLogin',$cmbpostLogin);
-                
+
 		$tpl->set('SysType',$cmbSysType);
 
 		$tpl->set('defaultskin',$cmbdefaultSkin);
@@ -1226,8 +1244,6 @@ class RootUserAction extends StepAction
 		$dh=opendir($basedir);
 
 		$dirList=array();
-
-		$dirList = array("--"=>'None');
 
 		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 
@@ -1391,7 +1407,7 @@ class RootUserAction extends StepAction
 		$tpl->set('debug_enable',$debug_enable);
 
 		$tpl->set('log_path', $log_path);
-                
+
 		$tpl->set('module_path', $module_path);
 
 		$tpl->set('defaultskin', $defaultskin);
