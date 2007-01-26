@@ -62,9 +62,9 @@ class utilities extends object
         $this->setVar('pageSuppressXML',true);
         $icon = $this->getObject('geticon', 'htmlelements');
         $icon->setIcon('up');
-        $scripts = '<script src="modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
-                      <script src="modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
-                      <script src="modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
+        $scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
+                      <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
+                      <script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
         $this->appendArrayVar('headerParams',$scripts);
         $str = "<a href=\"#\" onclick=\"Effect.SlideUp('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";
         $icon->setIcon('down');
