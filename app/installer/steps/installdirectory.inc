@@ -147,19 +147,23 @@ class InstallDirectoryAction extends StepAction
 	{
 
 		$sys_root = isset($_POST['sys_root']) ? trim($_POST['sys_root']) : false;
+		$module_path = isset($_POST['module_path']) ? trim($_POST['module_path']) : false;
 
 		$_SESSION['sys_root'] = $sys_root;
+		$_SESSION['module_path'] = $module_path;
 
 
 
 		if ($sys_root === false || $sys_root == '') {
-
 			$this->errors[] = 'You must set a value for the system root of Chisimba';
-
 			$this->success = false;
-
 			return false;
+		}
 
+		if ($module_path === false || $module_path == '') {
+			$this->errors[] = 'You must set a value for the location of the non-core modules';
+			$this->success = false;
+			return false;
 		}
 
 
@@ -167,17 +171,19 @@ class InstallDirectoryAction extends StepAction
 		// change windows \ characters to / separators
 
 		$sys_root = str_replace('\\', '/',$sys_root);
-
-
 		if (!is_dir($sys_root)) {
-
 			$this->errors[] = 'Could not find the directory specified '.$sys_root;
-
 			$this->success = false;
-
 			return false;
-
 		}
+
+		$module_path = str_replace('\\', '/',$module_path);
+		if (!is_dir($module_path)) {
+			$this->errors[] = 'Could not find the directory specified '.$module_path;
+			$this->success = false;
+			return false;
+		}
+
 
 
 
@@ -264,14 +270,13 @@ class InstallDirectoryAction extends StepAction
 	function isRequired()
 
 	{
-
 		if (isset($_SESSION['sys_root']) && $this->_testSysRoot($_SESSION['sys_root'])) {
-
 			return false;
-
 		}
 
-
+		if (isset($_SESSION['module_path']) && $this->_testSysRoot($_SESSION['module_path'])) {
+			return false;
+		}
 
 		return true;
 
@@ -332,7 +337,7 @@ class InstallDirectoryAction extends StepAction
 
 
 
-						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 777';
+						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 755';
 
 						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 666</i></p>';
 
@@ -483,20 +488,23 @@ class InstallDirectoryAction extends StepAction
 		ob_start();
         if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
 			echo '<input type="text" id="sys_root" name="sys_root"
-
 				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
+                                $box2 = '<input type="text" id="module_path" name="module_path"'
+                                .'value="'.$abspath.'\modules\" size="50"  class="sq-form-field" />';
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
-
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
+                                $box2 = '<input type="text" id="module_path" name="module_path"'
+                                .'value="'.$abspath.'/modules/" size="50"  class="sq-form-field" />';
         }
 		ob_end_clean();
 
 
 
 		$tpl->set('install_box',$box);
+		$tpl->set('module_path',$box2);
 
 
 
@@ -527,6 +535,7 @@ class InstallDirectoryAction extends StepAction
 	{
 
 		echo '<p>System Root has been set to '.$_SESSION['sys_root'].'</p>';
+		echo '<p>Non-core Module path has been set to '.$_SESSION['module_path'].'</p>';
 
 	}//end confirmAction()
 

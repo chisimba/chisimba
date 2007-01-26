@@ -994,30 +994,34 @@ class RootUserAction extends StepAction
 
 
 			$basedir= $_SESSION['sys_root']."/core_modules/";
-
-
 			if (file_exists($basedir)) {
 				chdir($basedir);
-
 				$dh=opendir($basedir);
-
 				$dirList=array();
-
-				while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-
-
+     			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
-
 						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
-
 							array_push($dirList, $file);
-
 						}
-
 					}
-
 				}
 			}
+ 
+			$basedir= $_SESSION['module_path'];
+			if (file_exists($basedir)) {
+				chdir($basedir);
+				$dh=opendir($basedir);
+     			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
+						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
+							array_push($dirList, $file);
+						}
+					}
+				}
+			}
+
+                        
+			/*$basedir = //modules path
 			/*$basedir = //modules path
 			if (file_exists($basedir)) {
 			chdir($basedir);
