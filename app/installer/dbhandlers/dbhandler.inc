@@ -103,9 +103,9 @@ class DbHandler extends dbHandlermanager
           //  var_dump($this->_globalObjDb);
 
             if (PEAR::isError($this->_globalObjDb)) {
-                $this->_pearErrorCallback($this->_globalObjDb);
-                //return the db object for use globally
-                return $this->_globalObjDb;
+                echo $this->_pearErrorCallback($this->_globalObjDb);
+                die();
+               
             }
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE); // ^ MDB2_PORTABILITY_EMPTY_TO_NULL);
            // $this->_globalObjDb->setOption('quote_identifiers', true);
@@ -122,14 +122,25 @@ class DbHandler extends dbHandlermanager
 			$_SESSION['DbObj'] =  $this->_globalObjDb;
 		 	require_once 'MDB2/Schema.php';
             //MDB2 has a factory method, so lets use it now...
-             $this->_globalObjDbManager = &MDB2_Schema::factory($_SESSION['dsn']);
+             $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
+             if (PEAR::isError($this->_globalObjDbManager)) {
+             	echo $this->_globalObjDbManager->getMessage();
+             	die();
+             }
 			//$this->_globalObjDbManager->setOption('quote_identifiers', true);
              $_SESSION['pearDbManager'] = $this->_globalObjDbManager;
              $this->dbmanager = new dbHandlermanager();
              parent::__construct();
 
 	}
-
+	/**
+	 * Disconnect
+	 *
+	 */
+	function disconnect(){
+		$this->_globalObjDb->disconnect();
+		
+	}
 	function _pearErrorCallback($error)
     {
         // TODO: note $error->getMessage() returns a shorter and friendlier but
@@ -139,7 +150,7 @@ class DbHandler extends dbHandlermanager
         //      but it will look decent and not confuse the crap out of users
         //      that being said, we should still go for just getMessage() in prod
 
-        $msg = $error->getMessage() . ': ' . $error->getUserinfo();
+         return $msg = $error->getMessage() . ': ' . $error->getUserinfo();
 
         //echo $msg."<br><br>";
     }
