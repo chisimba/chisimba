@@ -518,7 +518,7 @@ class modulecatalogue extends controller
     		if ($sysType != "Basic System Only") {
     			log_debug('Installing system specific modules');
     			$specificList = $objXml->xpath("//category[categoryname='$']");
-    			foreach ($specificList->module as $module) {
+    			foreach ($specificList[0]->module as $module) {
     				if (!$this->installModule(trim($module))) {
     					throw new customException("Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
     				}
