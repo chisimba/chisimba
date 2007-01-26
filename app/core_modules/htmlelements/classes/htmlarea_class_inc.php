@@ -161,7 +161,7 @@ class htmlarea extends object
 			$sBasePath .= '/';
 		}
 		
-		$sBasePath .= 'modules/htmlelements/resources/fckeditor_2.3.2/';
+		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.3.2/';
       
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
@@ -256,7 +256,7 @@ class htmlarea extends object
     public function getJavaScripts()
     {
     	$str = '
-    			<script language="javascript" type="text/javascript" src="modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+    			<script language="javascript" type="text/javascript" src="core_modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
     			
     			
 				<script language="javascript" type="text/javascript">

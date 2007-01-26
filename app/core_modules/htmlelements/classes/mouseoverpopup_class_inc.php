@@ -56,10 +56,10 @@ require_once("ifhtml_class_inc.php");
 	
 	public function show()
 	{
-		$str='<script language="javascript" src="modules/htmlelements/resources/domLib.js"></script>
-    		  <script language="javascript" src="modules/htmlelements/resources/alphaAPI.js"></script>
-    	      <script language="javascript" src="modules/htmlelements/resources/domTT.js"></script>
-    	      <script language="javascript" src="modules/htmlelements/resources/domTT_drag.js"></script>';
+		$str='<script language="javascript" src="core_modules/htmlelements/resources/domLib.js"></script>
+    		  <script language="javascript" src="core_modules/htmlelements/resources/alphaAPI.js"></script>
+    	      <script language="javascript" src="core_modules/htmlelements/resources/domTT.js"></script>
+    	      <script language="javascript" src="core_modules/htmlelements/resources/domTT_drag.js"></script>';
 		$str.="<div class='mouseoverpopup'><a href=\"";
 		if ($this->url) {
 		    $str.=$this->url;

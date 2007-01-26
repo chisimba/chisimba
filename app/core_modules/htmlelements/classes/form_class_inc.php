@@ -523,7 +523,7 @@ class form implements ifhtml
 
     private function _getValidatorScripts()
     {
-        $jsc = '<script language="JavaScript" type="text/javascript" src="modules/htmlelements/resources/validation.js"></script>
+        $jsc = '<script language="JavaScript" type="text/javascript" src="core_modules/htmlelements/resources/validation.js"></script>
         <script language="JavaScript" type="text/javascript">
         //<![CDATA[
             //the following lines are generated

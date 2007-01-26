@@ -87,7 +87,7 @@ class multitabbedbox extends abhtmlbase implements ifhtml
 	public function show(){
 		$cnt=0;$str='';$width='';
 		//get the javascript
-		$str='<script language="JavaScript" src="modules/htmlelements/resources/tabbedbox.js"></script>';
+		$str='<script language="JavaScript" src="core_modules/htmlelements/resources/tabbedbox.js"></script>';
 		
 		//start the big div box
 		$str.="<div class=\"multibox\">\n";

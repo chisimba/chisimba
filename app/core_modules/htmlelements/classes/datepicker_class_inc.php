@@ -86,7 +86,7 @@ class datepicker extends object
     */
     function show()
     {
-        $script = '<script type="text/javascript" src="modules/htmlelements/resources/datepicker/calendarDateInput.js">
+        $script = '<script type="text/javascript" src="core_modules/htmlelements/resources/datepicker/calendarDateInput.js">
 
 /***********************************************
 * Jason\'s Date Input Calendar- By Jason Moon http://calendar.moonscript.com/dateinput.cfm

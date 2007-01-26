@@ -153,7 +153,7 @@ class tabcontent extends object
             $tabcontent .= '</div>';
             
             // Add JavaScript to Header
-            $this->appendArrayVar('headerParams', '<script type="text/javascript" src="modules/htmlelements/resources/tabcontent/tabcontent.js">
+            $this->appendArrayVar('headerParams', '<script type="text/javascript" src="core_modules/htmlelements/resources/tabcontent/tabcontent.js">
 
 /***********************************************
 * Tab Content script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)

@@ -140,7 +140,7 @@ class submodalwindow extends object implements ifhtml
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('submodal/submodal.js', 'htmlelements'));
         
         // Set Loading Page
-        $this->appendArrayVar('headerParams', '<script type="text/javascript">setPopUpLoadingPage(\'modules/htmlelements/resources/submodal/loading.php\');</script>');
+        $this->appendArrayVar('headerParams', '<script type="text/javascript">setPopUpLoadingPage(\'core_modules/htmlelements/resources/submodal/loading.php\');</script>');
         
         // Show either as link or button
         if ($this->optionType == 'link') {

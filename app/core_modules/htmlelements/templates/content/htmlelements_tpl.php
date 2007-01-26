@@ -1,4 +1,4 @@
-<script language="JavaScript" src="modules/htmlelements/resources/tabbedbox.js"></script>
+<script language="JavaScript" src="core_modules/htmlelements/resources/tabbedbox.js"></script>
 
 <?
 //echo $strElements;

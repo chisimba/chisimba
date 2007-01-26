@@ -70,7 +70,7 @@ class tabpane extends object
     
     function init()
     {
-        $script = '<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js"></script>';
+        $script = '<script language="JavaScript" src="core_modules/htmlelements/resources/tabpane.js"></script>';
         $this->appendArrayVar('headerParams',$script);
         $this->tabpane = 0;
         $this->tabs = array();
@@ -101,13 +101,13 @@ class tabpane extends object
                 if(isset($properties['height']))
                     $this->tabs[$properties['name']]['heigth']=$properties['height'];
                 if ($css =='luna-tab-style-sheet')
-                    $link = '<link id="luna-tab-style-sheet" type="text/css" rel="stylesheet" href="modules/htmlelements/resources/css/luna/tab.css" />';
+                    $link = '<link id="luna-tab-style-sheet" type="text/css" rel="stylesheet" href="core_modules/htmlelements/resources/css/luna/tab.css" />';
                     $this->appendArrayVar('headerParams', $link);
                 if ($css =='winclassic-tab-style-sheet')
-                    $link = '<link id="winclassic-tab-style-sheet" type="text/css" rel="stylesheet" href="modules/htmlelements/resources/css/tab.winclassic.css" />';
+                    $link = '<link id="winclassic-tab-style-sheet" type="text/css" rel="stylesheet" href="core_modules/htmlelements/resources/css/tab.winclassic.css" />';
                     $this->appendArrayVar('headerParams', $link);
                 if ($css =='webfx-tab-style-sheet')
-                    $link = '<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="modules/htmlelements/resources/css/tab.webfx.css" />';
+                    $link = '<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="core_modules/htmlelements/resources/css/tab.webfx.css" />';
                     $this->appendArrayVar('headerParams', $link);                
             }            
         }        
@@ -119,7 +119,7 @@ class tabpane extends object
     
     function _buildTabs(){
         //get the javascript
-        $script ='<script language="JavaScript" src="modules/htmlelements/resources/tabpane.js"></script>';
+        $script ='<script language="JavaScript" src="core_modules/htmlelements/resources/tabpane.js"></script>';
         $this->appendArrayVar('headerParams',$script);
         $this->constructedTabs=null;
         $cnt=0;
