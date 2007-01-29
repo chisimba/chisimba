@@ -44,31 +44,6 @@ echo '<h1>List of Images</h1>';
 if (count($files) == 0) {
     echo ' No files matching criteria found';
 } else {
-    
-    $previewScript = '
-<script type="text/javascript">
-
-previews = new Array('.(count($files)-1).');
-
-function previewFile(file, id)
-{
-    if (previews[id]) {
-        document.getElementById("previewwindow").innerHTML = previews[id];
-    } else {
-        return xajax_generatePreview(file, id);
-    }
-}
-
-
-function appendPreviews(id, value)
-{
-    previews[id] = value;
-}
-
-</script>
-        ';
-        
-        $this->appendArrayVar('headerParams', $previewScript);
         
     $count = 0;
     

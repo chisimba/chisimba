@@ -27,8 +27,6 @@ class filemanager extends controller
         $this->objLanguage =& $this->getObject('language', 'language');
 
         $this->loadClass('link', 'htmlelements');
-        $this->loadClass('xajax', 'ajaxwrapper');
-        $this->loadClass('xajaxresponse', 'ajaxwrapper');
     }
 
     /**
@@ -64,6 +62,8 @@ class filemanager extends controller
                 return $this->showFileWindow();
             case 'selectimagewindow':
                 return $this->showImageWindow();
+            case 'sendpreview':
+                return $this->sendPreview($this->getParam('id'), $this->getParam('jsId'));
             case 'selectfileuploads':
                 return $this->selectFileUploads();
             case 'fckimage':
@@ -357,11 +357,6 @@ function checkWindowOpener()
         $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
         $this->appendArrayVar('bodyOnLoad', 'window.focus();');
 
-        $xajax = new xajax($this->uri(array('action'=>'selectfilewindow')));
-        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
-        $xajax->processRequests(); // XAJAX method to be called
-        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
-
         $inputname = $this->getParam('name');
         $this->setVarByRef('inputname', $inputname);
 
@@ -370,7 +365,37 @@ function checkWindowOpener()
 
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressBanner', TRUE);
+        //$this->setVar('pageSuppressXML', TRUE);
         return 'popup_showfilewindow_tpl.php';
+    }
+    
+    public function sendPreview($fileId, $jsId)
+    {
+        $file = $this->objFiles->getFileInfo($fileId);
+
+        if ($file == FALSE) {
+            echo 'dasdasNo Such File Exists '.$fileId;
+            echo '<pre>';
+            print_r($_GET);
+            echo '</pre>';
+        } else {
+
+            $link = new link("javascript:selectFile('".$fileId."', ".$jsId.");");
+            $link->link = 'Select';
+
+            $content = ' ';
+            $content .= '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
+            $content .= $this->objFilePreview->previewFile($fileId);
+            
+            echo $content;
+            echo '
+            <script type="text/javascript">
+    		// <![CDATA[
+            alert("saffas");
+            // ]]>
+    	</script>
+            ';
+        }
     }
     
     /**
@@ -404,11 +429,6 @@ function checkWindowOpener()
         $this->appendArrayVar('headerParams', $checkOpenerScript);
         $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
         $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $xajax = new xajax($this->uri(array('action'=>'selectimagewindow')));
-        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
-        $xajax->processRequests(); // XAJAX method to be called
-        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
 
         $inputname = $this->getParam('name');
         $this->setVarByRef('inputname', $inputname);
@@ -477,11 +497,6 @@ function checkWindowOpener()
         $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
         $this->appendArrayVar('bodyOnLoad', 'window.focus();');
 
-        $xajax = new xajax($this->uri(array('action'=>'selectfilewindow')));
-        $xajax->registerFunction(array($this, 'generatePreview')); // Register another function in this controller
-        $xajax->processRequests(); // XAJAX method to be called
-        $this->appendArrayVar('headerParams', $xajax->getJavascript()); // Send JS to header
-
         $inputname = $this->getParam('name');
         $this->setVarByRef('inputname', $inputname);
 
@@ -493,38 +508,7 @@ function checkWindowOpener()
         $this->setVar('suppressFooter', TRUE);
         return 'fckeditor_showfilewindow_tpl.php';
     }
-    /**
-    * Ajax Function to generate previews
-    * @param string $fileId Record Id of the File
-    * @param string $jsValue JavaScript Generated Array Index Value
-    */
-    public function generatePreview($fileId, $jsValue)
-    {
-        $objResponse = new xajaxResponse();
 
-        $file = $this->objFiles->getFileInfo($fileId);
-
-        if ($file == FALSE) {
-            $objResponse->addAlert('No Such File Exists');
-        } else {
-
-            $link = new link("javascript:selectFile('".$fileId."', ".$jsValue.");");
-            $link->link = 'Select';
-
-            $content = ' ';
-            $content .= '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
-            $content .= $this->objFilePreview->previewFile($fileId);
-
-
-            //$objResponse->addScript('appendPreviews('.$jsValue.', "'.addslashes($content).'");');
-
-
-            $objResponse->addAssign('previewwindow', 'innerHTML', $content);
-        }
-
-
-        return $objResponse->getXML();
-    }
 
     /**
     * Method to Handle Uploads From the File Selector Popup

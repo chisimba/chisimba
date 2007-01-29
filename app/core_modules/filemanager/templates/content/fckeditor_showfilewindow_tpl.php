@@ -1,8 +1,27 @@
 <?php
+$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
+$this->objScriptaculous->show();
 
-// echo '<pre>';
-// print_r($files);
-// echo '</pre>';
+$script = '
+<script type="text/javascript">
+//<![CDATA[
+
+function previewFile(id, jsId) {
+	var url = \'index.php\';
+	var pars = \'module=filemanager&action=sendpreview&id=\'+id+\'&jsId=\'+jsId;
+	var myAjax = new Ajax.Request( url, {method: \'get\', parameters: pars, onComplete: showResponse} );
+}
+
+function showResponse (originalRequest) {
+	var newData = originalRequest.responseText;
+	$(\'previewwindow\').innerHTML = newData;
+}
+//]]>
+</script>';
+$this->appendArrayVar('headerParams', $script);
+
+$objFreemind = $this->getObject('flashfreemind', 'freemind');
+$this->appendArrayVar('headerParams', $objFreemind->getMindmapScript());
 
 
 $objFileIcon = $this->getObject('fileicons', 'files');
@@ -42,31 +61,6 @@ echo '<h1>List of Files</h1>';
 if (count($files) == 0) {
     echo ' No files matching criteria found';
 } else {
-    
-    $previewScript = '
-<script type="text/javascript">
-
-previews = new Array('.(count($files)-1).');
-
-function previewFile(file, id)
-{
-    if (previews[id]) {
-        document.getElementById("previewwindow").innerHTML = previews[id];
-    } else {
-        return xajax_generatePreview(file, id);
-    }
-}
-
-
-function appendPreviews(id, value)
-{
-    previews[id] = value;
-}
-
-</script>
-        ';
-        
-        $this->appendArrayVar('headerParams', $previewScript);
         
     $count = 0;
     
@@ -98,7 +92,7 @@ function appendPreviews(id, value)
         
         $fileIdArray .= 'fileId['.$count.'] = "'.$file['id'].'";';
         $filenameArray .= 'fileName['.$count.'] = \''.htmlentities($file['filename']).'\';';
-        $filelinkArray .= 'fileLink['.$count.'] = \''.$this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>$file['datatype']), 'filemanager', '', TRUE).'\';';
+        $filelinkArray .= 'fileLink['.$count.'] = \''.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>$file['datatype']), 'filemanager', '', TRUE)).'\';';
         
         if ($count ==0) {
             $defaultItem['id'] = $file['id'];
