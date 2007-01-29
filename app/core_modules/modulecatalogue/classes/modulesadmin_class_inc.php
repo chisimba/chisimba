@@ -846,8 +846,9 @@ class modulesadmin extends dbTableManager
     		}
     		$sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
     		if (!file_exists($sqlfile)){
-    			$sqlfile=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
-    			if (!file_exists($sqlfile)){
+    			$sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
+    			if (!file_exists($sqlfile2)){
+    				log_debug("could not find defaultdata.xml: tried $sqlfile and $sqlfile2");
     				$this->_lastError = 1006;
     				return FALSE;
     			}
@@ -861,7 +862,9 @@ class modulesadmin extends dbTableManager
     			foreach ($dummy as $field=>$value) {
     				$sqlArray[$field]= $value;
     			}
-    			$this->objModules->insert($sqlArray,$table);
+    			if (!$this->objModules->insert($sqlArray,$table)) {
+    				log_debug("Error inserting default data for $table");
+    			}
     		}
     		return TRUE;
     	} catch (Exception $e) {

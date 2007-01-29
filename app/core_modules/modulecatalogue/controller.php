@@ -302,7 +302,8 @@ class modulecatalogue extends controller
 				case 'makepatch':
 					return 'makepatch_tpl.php';
 				case 'reloaddefaultdata':
-					$this->objModuleAdmin->loadData($this->getParam('moduleid'));
+					$moduleId = $this->getParam('moduleid');
+					$this->objModuleAdmin->loadData($moduleId);
 					return $this->nextAction('list',array('cat'=>$activeCat));
 				case 'search':
 					$str = $this->getParam('srchstr');
