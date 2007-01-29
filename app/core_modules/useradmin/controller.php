@@ -33,9 +33,6 @@ class useradmin extends controller
         $this->objFile =& $this->getObject('dbfile', 'filemanager');
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         
-        $this->loadClass('xajax', 'ajaxwrapper');
-        $this->loadClass('xajaxresponse', 'ajaxwrapper');
-        
         $this->objUrl = $this->getObject('url', 'strings');
     }
 
@@ -189,13 +186,6 @@ class useradmin extends controller
     */
     public function addUser()
     {
-        // Instantiate Class - Parameter MUST be the URL with the current action
-        $ajax = new xajax($this->uri(array('action'=>'adduser')));
-        $ajax->registerFunction(array($this, 'validateNewUser')); // Register another function in this controller
-        
-        $ajax->processRequests(); // XAJAX method to be called
-        
-        $this->appendArrayVar('headerParams', $ajax->getJavascript()); // Send JS to header
         
         $this->setVar('mode', 'add');
         
