@@ -1,0 +1,30 @@
+<data>
+    <event 
+        start="1918"
+        title="Nelson Rolihlahla Mandela born"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+        Nelson Rolihlahla Mandela born in the small village of Qunu in the district of Mthatha, the Transkei capital.
+    </event>
+	
+    <event 
+        start="1923"
+        title="Mandela moved to Healdtown"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+       Mandela moved to Healdtown, the Wesleyan college in Fort Beaufort which most Thembu royalty attended
+    </event>
+        
+    <event 
+        start="1945"
+		isDuration="false"
+        title="High school graduation">
+        Derek Keats graduated from Smallwood Academy in Gambo, Newfoundland, Canada.
+    </event>
+        
+    <event 
+        start="1972"
+        title="Enter university"
+		isDuration="false"
+        link="http://www.mun.ca/">
+        Derek Keats entered Memorial University of Newfoundland, in St John's, Newfoundland, Canada
+    </event>
+</data>
