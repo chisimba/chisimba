@@ -183,6 +183,9 @@ class InstallDirectoryAction extends StepAction
 			$this->success = false;
 			return false;
 		}
+                //Add a final '/'
+                $module_path=str_replace('//','/',$module_path.'/');
+                
 
 
 

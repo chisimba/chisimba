@@ -78,7 +78,6 @@
             <module>email</module>
             <module>wiki</module>
             <module>instantmessaging</module>
-            <module></module>
         </category>
 
         <category>

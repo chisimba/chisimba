@@ -152,7 +152,7 @@ class RootUserAction extends StepAction
 
 		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
 
-		$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
+		//$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
 
 		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
 
@@ -490,11 +490,10 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-			text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
-
-			$module_path = ob_get_contents();
-
-			ob_clean();
+                        // Module path has been moved to earlier in the installer.
+			//text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
+			//$module_path = ob_get_contents();
+			//ob_clean();
 
 			combo_box('serverLocation',
 
@@ -1000,7 +999,7 @@ class RootUserAction extends StepAction
 				$dirList=array();
      			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
-						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
+						if (is_dir($file) && (file_exists($basedir.$file.'/controller.php'))||(file_exists($basedir.$file.'/register.conf')) ) {
 							array_push($dirList, $file);
 						}
 					}
@@ -1069,6 +1068,15 @@ class RootUserAction extends StepAction
       $simbaTypes=array();
       foreach ($data['systemtypes']['category'] as $line){
         $simbaTypes[$line]=$line;
+      }
+      // Now remove those with missing modules
+      foreach ($data['modulelist']['category'] as $line){
+        foreach ($line['module'] as $l2){
+            if (!(in_array($l2,$dirList))){
+                unset($simbaTypes[$line['categoryname']]);
+                break;
+            }
+        }
       }
 
       // Now display it in a drop-down
