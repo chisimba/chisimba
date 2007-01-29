@@ -10,6 +10,12 @@
 
 class parse4mindmap extends object
 {
+    
+    function init()
+    {
+        $this->objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
+    }
+    
     /**
     *
     * Method to parse the string
@@ -19,13 +25,19 @@ class parse4mindmap extends object
     */
     function parse($str)
     {
-    	$str = '/var/www/cpgsql/5ive/app/usrfiles/users/1/freemind/ftisa-jan2007.mm';
-    	//echo "parsing mm";
-    	$objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
-        $objFlashFreemind->getMindmapScript();
-    	$objFlashFreemind->setMindMap($str);
-        return $objFlashFreemind->show();
-        //return $str;
+        preg_match_all('/\\[MAP]<a.*?href="(?P<maplink>.*?)".*?>.*?<\/a>\\[\/MAP]/', $str, $results, PREG_PATTERN_ORDER);
+        
+        $counter = 0;
+        
+        foreach ($results[0] as $item)
+        {
+            $this->objFlashFreemind->setMindMap($results['maplink'][$counter]);
+            $replacement = $this->objFlashFreemind->show();
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
+        }
+        
+        return $str;
     }
 
 }
