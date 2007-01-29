@@ -320,7 +320,7 @@ class groupusersdb extends dbTable
         $sql.= " FROM $tblGroupUsers, $tblUser";
         $sql.= " WHERE group_id IN ( $lstGroups )";
         $sql.= " AND $tblUser.id = user_id";
-        $sql.= " GROUP BY $tblUser.id ";
+        //$sql.= " GROUP BY $tblUser.id ";
 
         // Return the users for the given group in an array.
         $result = $this->getArray( $sql.$filter );
