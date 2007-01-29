@@ -445,9 +445,9 @@ class dbTable extends object
         foreach ($fields as $fieldName => $fieldValue) {
             if ($this->USE_PREPARED_STATEMENTS) {
                 $sql .= "{$comma}{$fieldName}=?";
-                $params[] = $fieldValue;
+                $params[] = $this->_db->quote($fieldValue);
             } else {
-                $sql .= "{$comma}{$fieldName}='{$fieldValue}'";
+                $sql .= "{$comma}{$fieldName}=". $this->_db->quote($fieldValue);
             }
             $comma = ',';
         }
@@ -715,9 +715,6 @@ class dbTable extends object
     	$ret = $this->_db->mgListTables();
     	return $ret;
     }
-
-
-
 
 } // end of dbTable class
 ?>
