@@ -96,7 +96,7 @@ class filemanager extends controller
             $category = NULL;
         }
 
-        $listFiles = $this->objFiles->getUserFiles($this->objUser->userId(), $category);
+        $listFiles = $this->objFiles->getUserFiles($this->objUser->userId(), $category, NULL, TRUE);
         $this->setVarByRef('files', $listFiles);
 
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
