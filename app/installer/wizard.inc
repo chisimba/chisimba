@@ -545,7 +545,7 @@ class Wizard
 
 	public function __autoload($class)
 	{
-		include($class);
+		include_once($class);
 		$cname = basename($class);
 		$cname = explode(".", $cname);
 		$classes = $cname[0];
