@@ -2,8 +2,9 @@
 $this->loadClass('link','htmlelements');
 $this->loadClass('textinput','htmlelements');
 $this->loadClass('dropdown','htmlelements');
+$this->loadClass('checkbox','htmlelements');
 
-$objCheck=&$this->newObject('checkbox','htmlelements');
+//$objCheck = new checkbox('instCheck');//&$this->newObject('checkbox','htmlelements');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
@@ -44,7 +45,7 @@ $root = $this->objConfig->getsiteRootPath();
 $defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt');
 $registeredModules = $this->objModule->getAll();
 foreach ($registeredModules as $module) {
-	$rMods[]=$module['module_id'];	
+	$rMods[]=$module['module_id'];
 }
 
 if ($modules) {
@@ -94,17 +95,18 @@ if ($modules) {
 		$class = ($count % 2 == 0)? 'even' : 'odd';
 		$count++;
 		$desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
-		$desc = (string)$desc[0];
-		if ($desc == '') {
+		if (isset($desc[0])) {
+			$desc = (string)$desc[0];
+		} else {
 			$desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
-		} 
+		}
 		$desc = $this->objLanguage->abstractText(htmlentities($desc));
 		$infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 		$infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
 		$link = $moduleName;
 		$icon->setModuleIcon($moduleId);
 		$icon->alt = $moduleName;
-		$objCheck->checkbox('arrayList[]');
+		$objCheck = new checkbox('arrayList[]');
 		$objCheck->cssId = 'checkbox_'.$moduleId;
         $objCheck->setValue($moduleId);
         //if ($this->objModFile->findController($moduleId)) {
@@ -158,7 +160,7 @@ if ($modules) {
 						$checkBox='';
     					$instButtonShow = '';
     				}
-					
+
 					//$icon->setIcon('ok','png');
 					//$isRegistered = $icon->show();
 				}

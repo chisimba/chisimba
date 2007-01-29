@@ -234,8 +234,8 @@ class modulefile extends object {
     {
         try {
         	$endings=array('php','conf');
-        	if (file_exists($this->config->getModulePath().$modname)) {
-        		$path = $this->config->getModulePath().$modname."/register.";
+        	if (file_exists($this->config->getModulePath()."/$modname")) {
+        		$path = $this->config->getModulePath()."/$modname/register.";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/register.";
         	}
@@ -262,8 +262,8 @@ class modulefile extends object {
     function findController($modname)
     {
         try {
-        	if (file_exists($this->config->getModulePath().$modname)) {
-        		$path = $this->config->getModulePath()."$modname/controller.php";
+        	if (file_exists($this->config->getModulePath()."/$modname")) {
+        		$path = $this->config->getModulePath()."/$modname/controller.php";
         	} else {
         		$path = $this->config->getSiteRootPath()."core_modules/$modname/controller.php";
         	}
@@ -284,8 +284,8 @@ class modulefile extends object {
     */
     public function findSqlXML($modname) {
         try {
-        	if (file_exists($this->config->getModulePath().$modname)) {
-        		$path = $this->config->getModulePath().$modname."/sql/sql_updates.xml";
+        	if (file_exists($this->config->getModulePath()."/$modname")) {
+        		$path = $this->config->getModulePath()."/$modname/sql/sql_updates.xml";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/sql_updates.xml";
         	}
@@ -306,8 +306,8 @@ class modulefile extends object {
     */
     public function findSqlFile($modname,$tablename) {
     	try {
-    		if (file_exists($this->config->getModulePath().$modname)) {
-        		$path = $this->config->getModulePath().$modname."/sql/$tablename.sql";
+    		if (file_exists($this->config->getModulePath()."/$modname")) {
+        		$path = $this->config->getModulePath()."/$modname/sql/$tablename.sql";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/$tablename.sql";
         	}
