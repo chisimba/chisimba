@@ -211,7 +211,7 @@ class catalogueconfig extends object {
     			mkdir($this->_path);
     		}
     		touch($this->_path.'catalogue.xml');
-    		chmod($this->_path . 'catalogue.xml',0777);
+    		chmod($this->_path . 'catalogue.xml',0666);
     		$fh = fopen($this->_path.'catalogue.xml','w');
     		fwrite($fh,$xmlStr);
 			fclose($fh);

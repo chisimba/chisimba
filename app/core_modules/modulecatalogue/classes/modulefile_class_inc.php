@@ -40,7 +40,9 @@ class modulefile extends object {
 	public function getLocalModuleList() {
         try {
         	$lookdir=$this->config->getModulePath();
-        	$modlist=(array)$this->checkdir($lookdir) + (array)$this->checkdir($this->config->getSiteRootPath().'/core_modules/');
+        	$optionalmodlist = (array)$this->checkdir($lookdir) ;
+        	$coremodlist = (array)$this->checkdir($this->config->getSiteRootPath().'/core_modules/');
+        	$modlist = array_merge((array)$coremodlist,(array)$optionalmodlist);
         	natsort($modlist);
         	$modulelist = array();
         	foreach ($modlist as $line) {
@@ -74,7 +76,7 @@ class modulefile extends object {
     		$lookdir=$this->config->getModulePath();
     		$mod_list = $this->checkdir($lookdir);
     		$core_list = $this->checkdir($this->config->getSiteRootPath().'/core_modules/');
-    		$modlist = (array)$core_list + (array)$mod_list;
+    		$modlist = array_merge((array)$core_list,(array)$mod_list);
     		$categorylist = array();
     		foreach ($modlist as $line) {
     			switch ($line) {
