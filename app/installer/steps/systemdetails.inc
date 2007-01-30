@@ -1065,6 +1065,10 @@ class RootUserAction extends StepAction
       $objUnserializer = &new XML_Unserializer();
       $objUnserializer->unserialize($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml',TRUE);
       $data = $objUnserializer->getUnserializedData();
+      if (!(is_array($data))){
+        print "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
+        die;
+      }
       $simbaTypes=array();
       foreach ($data['systemtypes']['category'] as $line){
         $simbaTypes[$line]=$line;

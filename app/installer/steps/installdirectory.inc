@@ -178,13 +178,14 @@ class InstallDirectoryAction extends StepAction
 		}
 
 		$module_path = str_replace('\\', '/',$module_path);
+                //Add a final '/'
+                $module_path.='/';
+                $module_path=str_replace('//','/',$module_path);
 		if (!is_dir($module_path)) {
 			$this->errors[] = 'Could not find the directory specified '.$module_path;
 			$this->success = false;
 			return false;
 		}
-                //Add a final '/'
-                $module_path=str_replace('//','/',$module_path.'/');
                 
 
 
@@ -241,6 +242,7 @@ class InstallDirectoryAction extends StepAction
 
 
 		$_SESSION['sys_root'] = $sys_root;
+		$_SESSION['module_path'] = $module_path;
 
 		$this->success = true;
 
@@ -277,7 +279,7 @@ class InstallDirectoryAction extends StepAction
 			return false;
 		}
 
-		if (isset($_SESSION['module_path']) && $this->_testSysRoot($_SESSION['module_path'])) {
+		if (isset($_SESSION['module_path']) && is_dir($_SESSION['module_path'])) {
 			return false;
 		}
 
@@ -487,6 +489,28 @@ class InstallDirectoryAction extends StepAction
 		}
 
 
+                // non-core modules folder
+                // take a smart guess, and check for other options
+                $guess=str_replace('/chisimba_framework/app/installer',"",$path).'/chisimba_modules/';
+
+                
+                if (isset($_SESSION['module_path']) && is_dir($_SESSION['module_path'])){
+                    
+                    $newmodulepath=$_SESSION['module_path'];
+                    
+                } else if (is_dir($abspath.'/modules/')){
+                    
+                    $newmodulepath=$abspath.'/modules/';
+                    
+                } else if (is_dir($guess)){
+                    
+                    $newmodulepath=$guess;
+                    
+                } else {
+                    $newmodulepath='';
+                }
+print $guess;
+
 
 		ob_start();
         if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
@@ -494,13 +518,13 @@ class InstallDirectoryAction extends StepAction
 				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
-                                .'value="'.$abspath.'\modules\" size="50"  class="sq-form-field" />';
+                                .'value="'.$newmodulepath.'\" size="50"  class="sq-form-field" />';
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
-                                .'value="'.$abspath.'/modules/" size="50"  class="sq-form-field" />';
+                                .'value="'.$newmodulepath.'" size="50"  class="sq-form-field" />';
         }
 		ob_end_clean();
 
