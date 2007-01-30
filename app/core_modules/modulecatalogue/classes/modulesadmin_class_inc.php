@@ -852,6 +852,7 @@ class modulesadmin extends dbTableManager
     				$this->_lastError = 1006;
     				return FALSE;
     			}
+    			$sqlfile = $sqlfile2;
     		}
     		ini_set('max_execution_time','600');
     		if (!$objXml = simplexml_load_file($sqlfile)) {
