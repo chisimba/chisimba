@@ -7,14 +7,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 /**
 * 
 * Controller class for Chisimba for the module Timeline	
+* which uses the Simile Timeline Javascript library to 
+* create a simple timeline
 *
-* @author _AUTHORNAME
-* @package _MODULECODE
+* @author Derek Keats
+* @package timeline
 *
 */
 class timeline extends controller
 {
-    
     /**
     * @var $objConfig String object property for holding the 
     * configuration object
@@ -40,12 +41,11 @@ class timeline extends controller
      */
     public function init()
     {
-        $this->objUser = $this->getObject('user', 'security');
+        //$this->objUser = $this->getObject('user', 'security');
+        //Get an instance of the language object
         $this->objLanguage = $this->getObject('language', 'language');
         // Create the configuration object
-        $this->objConfig = $this->getObject('config', 'config');
-        // Create an instance of the database class
-        //$this->objDb{yourmodulename} = & $this->getObject('db{yourmodulename}');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
@@ -64,16 +64,18 @@ class timeline extends controller
      */
     public function dispatch()
     {
-		$this->setVar('pageSuppressXML', TRUE);
-		//Add the onload function to the body
+    	//Get the action parameter from the querystring
+    	$action = $this->getParam('action', 'viewdemo');
+    	//Add the onload function to the body
         $this->_addBodyParams();
+    	//We have to suppress the XML directive in the page otherwise it breaks the JS
+		$this->setVar('pageSuppressXML', TRUE);
 		//add the call to the Timeline JS to the head
         $this->_addScriptToHead();
         //Instantiaate the object for creating timelines
         $objTl = $this->getObject("createtimeline", "timeline");
         //Add the local script to the page header
         $this->appendArrayVar('headerParams',$objTl->getScript());
-    	
     	$str = $objTl->show();
     	$this->setVarByRef("str", $str);
     	return "demo_tpl.php";
@@ -97,7 +99,14 @@ class timeline extends controller
         return $this->$method();*/
     }
     
-    /*------------- BEGIN : Methods for writing to the page header ---------------*/
+    /*------------- BEGIN : Methods for writing to the page body and header ---------------*/
+
+	/**
+	 * 
+	 * Method to add the required body parameters to the body tag of
+	 * the page containing the timeline
+	 * 
+	 */
     private function _addBodyParams()
     {
     	$bodyParams = "onload=\"onLoad();\" onresize=\"onResize();\"";
@@ -107,14 +116,23 @@ class timeline extends controller
 
 	private function _addScriptToHead()
 	{
-	    $scriptTag = "<script src=\"http://simile.mit.edu/timeline/api/timeline-api.js\" type=\"text/javascript\"></script>";
+		//$jsLib = $this->objConfig->getValue('mod_timeline_jslocation', 'timeline');
+		$jsLib = "libraries/timeline/timeline-api.js";
+	    $scriptTag = "<script src=\"" . $jsLib . "\" type=\"text/javascript\"></script>";
         $this->appendArrayVar('headerParams', $scriptTag);
 	}
-	
+    /*------------- END : Methods for writing to the page body and header ---------------*/
 
-	
-    /*------------- END : Methods for writing to the page header ---------------*/
-    
+
+
+
+
+
+
+
+
+
+
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
     /**
@@ -124,11 +142,8 @@ class timeline extends controller
     * @access private
     * 
     */
-    private function __view()
+    private function __viewdemo()
     {
-        $filter = NULL;
-        $ar = $this->objDb{yourmodulename}->fetchAll($filter);
-        $this->setVarByRef('ar', $ar);
         return "main_tpl.php";
     }
     
@@ -273,7 +288,8 @@ class timeline extends controller
         $action=$this->getParam('action','NULL');
         switch ($action)
         {
-            case 'view':
+            case 'viewdemo':
+            case NULL:
                 return FALSE;
                 break;
             default:
