@@ -197,7 +197,7 @@ if (is_array($users) && count($users) > 0) {
 }
 echo $form->show();
 
-$addlink = new link(array($this->uri(array('action'=>'adduser'))));
+$addlink = new link($this->uri(array('action'=>'adduser')));
 $addlink->link = 'Add New User';
 
 echo '<p>'.$addlink->show().'</p>';
