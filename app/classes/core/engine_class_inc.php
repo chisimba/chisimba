@@ -275,6 +275,7 @@ class engine
 	'language',
 	'logger',
 	'lucene',
+	'mail',
 	'modulecatalogue',
 	'navigation',
 	'permissions',
@@ -1100,7 +1101,7 @@ class engine
 		{
 			return "core_modules/" . $moduleName."/resources/".$resourceFile;
 		}
-        
+
         // Convert Back Slashes to forward slashes
         $modulePath = str_replace('\\', '/', $this->_objConfig->getModulePath().'/');
         // Replace multiple instances of the forward slashes with single ones
@@ -1116,7 +1117,7 @@ class engine
 		return '/'.$path.$moduleName.'/resources/'.$resourceFile;
 		//return 'modules/' . $moduleName . '/resources/' . $resourceFile;
 	}
-    
+
     /**
      * Method to generate a path to a static resource stored in a module.
      * The resource should be stored within the 'resources' subdirectory of
