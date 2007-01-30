@@ -54,7 +54,6 @@
             <module>feed</module>
             <module>filemanager</module>
             <module>httpclient</module>
-            <module>webmail</module>
         </category>
 
         <category>
