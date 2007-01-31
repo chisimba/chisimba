@@ -67,15 +67,18 @@ class indexer extends Zend_Search_Lucene_Document
      public function doIndex(&$doc)
      {
         //check if an index exists
-     	if(file_exists($this->indexPath.'/chisimbaIndex'))
+     	if(file_exists($this->indexPath.'chisimbaIndex'))
         {
-        	chmod($this->indexPath.'/chisimbaIndex', 0777);
+        	
+        	chmod($this->indexPath.'chisimbaIndex', 0777);
         	//we build onto the previous index
-        	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex');
+        	$this->index = new Zend_Search_Lucene($this->indexPath.'chisimbaIndex');
+           
         }
         else {
         	//instantiate the lucene engine and create a new index
-        	$this->index = new Zend_Search_Lucene($this->indexPath.'/chisimbaIndex', true);
+        	$this->index = new Zend_Search_Lucene($this->indexPath.'chisimbaIndex', true);
+        	
         }
         //hook up the document parser
         $this->document = new Zend_Search_Lucene_Document();
