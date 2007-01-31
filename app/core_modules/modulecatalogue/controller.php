@@ -276,17 +276,17 @@ class modulecatalogue extends controller
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$sysType = $this->getParam('sysType','Basic System Only');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					//if (!$check){
+					if (!$check){
 						log_debug('Modulecatalogue controller - performing first time registration');
 						$this->firstRegister($sysType);
 						log_debug('First time registration complete');
-					//} else {
+					} else {
 						log_debug('First time registration has already been performed on this system. Aborting');
-					//}
+					}
 					return $this->nextAction(null,null,$this->objConfig->getPrelogin());
 				case 'update':
 					$modname = $this->getParam('mod');
-                	$this->output[] = $this->objPatch->applyUpdates($modname);
+                	$this->output = $this->objPatch->applyUpdates($modname);
                 	$this->setVar('output',$this->output);
                 	$this->setVar('patchArray',$this->objPatch->checkModules());
                 	return 'updates_tpl.php';
