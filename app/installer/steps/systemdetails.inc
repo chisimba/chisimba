@@ -372,6 +372,7 @@ class RootUserAction extends StepAction
 	     	$_SESSION['relContentPath']=$relContentPath;
 
 	     	$absContentPath = $abspath."\\".$relContentRoot."\\";
+                $contentPath=$absContentPath;
 
 	     	$_SESSION['contentPath']= $absContentPath;
 
