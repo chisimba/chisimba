@@ -119,8 +119,28 @@ class patch extends dbtable {
 			$this->objModule = &$this->getObject('modules','modulecatalogue');
 			$this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
 			$this->objModfile = &$this->getObject('modulefile','modulecatalogue');
+			//check that there are no new unmet dependencies
+			$rData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
+			if (isset($rData['DEPENDS'])) {
+				$missing = FALSE;
+				$localModules = $this->objModfile->getLocalModulelist();
+				$unMetDep = $notPresentDep = array();
+				foreach ($rData['DEPENDS'] as $dep) {
+					if (!$this->objModule->checkIfRegistered($dep)) {
+						$missing = TRUE;
+						if (in_array($dep,$localModules)) {
+							$unMetDep[] = $dep;
+						} else {
+							$notPresentDep[] = $dep;
+						}
+					}
+				}
+				if ($missing) {
+					return array('unMetDep'=>$modname,'modules'=>$unMetDep,'missing'=>$notPresentDep);
+				}
+			}
 			$data=array();
-			$file="modules/$modname/sql/sql_updates.xml";
+			$file=$this->objModFile->findSqlXML($modname);
 			// Apply the table changes
 			$oldversion = (float)$this->getVersion($modname);
 			$result = array();

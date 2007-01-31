@@ -32,8 +32,28 @@ $tString = '';
 if (isset($output)) {
 	$msg = &$this->getObject('timeoutmessage','htmlelements');
 	$msg->message = '';
-	foreach($output as $mod) {
-		foreach ($mod as $key => $value) {
+	if (isset($output['unMetDep'])) {
+
+		$msg->message = $this->objLanguage->languageText('mod_modulecatalogue_unmetdependencies','modulecatalogue').":<br />";
+		if (count($output['modules'])>0) {
+			$text = str_replace('{MODULE}',$output['unMetDep'],$this->objLanguage->languageText('mod_modulecatalogue_updatedeps','modulecatalogue'));
+			$link = "<a href='".$this->uri(array('action'=>'updatedeps','modname'=>$output['unMetDep']),'modulecatalogue')."'>".$text."</a>";
+			foreach ($output['modules'] as $dep) {
+				$dep = ucfirst($dep);
+				$msg->message .= "<b>$dep</b><br />";
+			}
+		}
+		if (count($output['missing']) > 0) {
+			$link = $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
+			foreach ($output['missing'] as $dep) {
+				$dep = ucfirst($dep);
+				$notPresent = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
+				$msg->message .= "<b>$dep</b> - $notPresent<br />";
+			}
+		}
+		$tString = "<span class='error'>$msg->message</span>$link";
+	} else {
+		foreach ($output as $key => $value) {
 			switch ($key) {
 				case 'current':
 					$ver = $value;
@@ -53,9 +73,10 @@ if (isset($output)) {
 
 		$success = str_replace('[OLDVER]',"<b>$old</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
 		$success = str_replace('[NEWVER]',"<b>$ver</b>",$success);
-		$msg->message .= "<b>$module</b> $success<br/>";
+		$msg->message .= "<b>$module</b> $success<br />";
+		$tString = $msg->show();
 	}
-	$tString = $msg->show();
+
 }
 $out = $this->getParam('message');
 if (isset($out)) {

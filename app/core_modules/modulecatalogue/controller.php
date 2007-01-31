@@ -172,6 +172,9 @@ class modulecatalogue extends controller
                     if ($ret != MDB2_OK) echo "!=<br/>";
                     var_dump($ret);
 					break;
+				case 'updatedeps':
+					$this->updateDeps($this->getParam('modname'));
+					return $this->nextAction('list',array('cat'=>'Updates','message'=>$this->objLanguage->languageText('mod_modulecatalogue_installeddeps','modulecatalogue')));
 				case null:
 				case 'list':
 					if (strtolower($activeCat) == 'updates') {
@@ -490,6 +493,20 @@ class modulecatalogue extends controller
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
     		exit();
+    	}
+    }
+
+    /**
+     * Method to install newly added depenedencies of a module
+     *
+     * @param string $moduleId the module whose dependencies must be updated
+     */
+    private function updateDeps($moduleId) {
+    	$rData = $this->objModFile->readRegisterFile($this->objModFile->findRegisterFile($moduleId));
+    	foreach ($rData['DEPENDS'] as $dep) {
+    		if (!$this->smartRegister(trim($dep))) {
+    			throw new customException("Error installing dependency $dep: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
+    		}
     	}
     }
 
