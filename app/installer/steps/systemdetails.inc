@@ -25,7 +25,7 @@ require_once INSTALL_DIR.'/webformat_class.inc';
 require_once INSTALL_DIR.'/html_form/html_form.inc';
 
 
-
+require_once 'xml2array_class_inc.php';
 
 
 /**
@@ -1061,24 +1061,36 @@ class RootUserAction extends StepAction
 	ob_clean();
 
       // Server Type
-      // First get the PEAR object for XML, then use it to parse the file of types
-      require_once('XML/Unserializer.php');
-      $objUnserializer = &new XML_Unserializer();
-      $objUnserializer->unserialize($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml',TRUE);
-      $data = $objUnserializer->getUnserializedData();
-      if (!(is_array($data))){
+      // Parse from XML using simpleXML
+      $data=simplexml_load_file($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml');
+      if ($data==FALSE){ //if (!is_array($data)){
         print "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
         die;
       }
       $simbaTypes=array();
-      foreach ($data['systemtypes']['category'] as $line){
-        $simbaTypes[$line]=$line;
+      foreach ($data->systemtypes->category as $line){ 
+        // Force into string
+        $l2=''.$line;  
+        $simbaTypes[$l2]=$l2;
       }
       // Now remove those with missing modules
-      foreach ($data['modulelist']['category'] as $line){
-        foreach ($line['module'] as $l2){
+      foreach ($data->modulelist->category as $line){
+        foreach ($line->module as $l2){
             if (!(in_array($l2,$dirList))){
-                unset($simbaTypes[$line['categoryname']]);
+                print "BEEEP! $l2";
+                unset($simbaTypes[$line->categoryname]);
+                // check for core module problem
+                if ($line->categoryname=='Basic System Only'){
+                    print "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
+                    print "The framework must have all of the following modules, and looks for them in a folder called 'core_modules'<br />\n";
+                    print "<ul>\n";
+                    foreach ($line->module as $coreModule)
+                    {
+                        print "<li>$coreModule</li>\n";
+                    }
+                    print "</ul>\n";
+                    exit;
+                }
                 break;
             }
         }
