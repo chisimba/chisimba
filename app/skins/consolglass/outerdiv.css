@@ -1,0 +1,50 @@
+body {
+    background-color: green;
+    width : 500px;
+}
+
+.dialog {
+ width:100%;
+ margin:0px auto;
+ min-width:20em;
+}
+
+.dialog .hd .c,
+.dialog .ft .c {
+ font-size:1px; /* ensure minimum height */
+ height:29px;
+}
+
+.dialog .ft .c {
+ height:45px;
+}
+
+.dialog .hd {
+ background:transparent url(tl.gif) no-repeat 0px 0px;
+}
+
+.dialog .hd .c {
+ background:transparent url(tr.gif) no-repeat right 0px;
+}
+
+.dialog .bd {
+ background:transparent url(ml.gif) repeat-y 0px 0px;
+}
+
+.dialog .bd .c {
+ background:transparent url(mr.gif) repeat-y right 0px;
+}
+
+.dialog .bd .c .s {
+ margin:0px 0px 0px 4px;
+ background: url(ms.gif) repeat-x top right;
+ padding: 0 1em 1em 1em;
+}
+
+.dialog .ft {
+ background:transparent url(bl.gif) no-repeat 0px 0px;
+}
+
+.dialog .ft .c {
+ background:transparent url(br.gif) no-repeat right 0px;
+}

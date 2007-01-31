@@ -1,0 +1,177 @@
+
+
+/* */
+body {
+    background-color: #000033;
+    margin: 0;
+    font:83%/1.5 verdana,arial,tahoma,verdana,sans-serif
+}
+
+/***********************************************************************************************
+* CSS for Round Corners
+***********************************************************************************************/
+
+.dialog {
+ width:100%;
+ margin:0px auto;
+ min-width:20em;
+}
+
+.dialog .hd .c,
+.dialog .ft .c {
+ font-size:1px; /* ensure minimum height */
+ height:29px;
+}
+
+.dialog .ft .c {
+ height:45px;
+}
+
+.dialog .hd {
+ background:transparent url("images/tl.gif") no-repeat 0px 0px;
+}
+
+.dialog .hd .c {
+ background:transparent url("images/tr.gif") no-repeat right 0px;
+}
+
+.dialog .bd {
+ background:transparent url("images/ml.gif") repeat-y 0px 0px;
+}
+
+.dialog .bd .c {
+ background:transparent url("images/mr.gif") repeat-y right 0px;
+}
+
+.dialog .bd .c .s {
+ margin:0px 0px 0px 4px;
+ background: url("images/ms.gif") repeat-x top right;
+ padding: 0 1em 1em 1em;
+}
+
+.dialog .ft {
+ background:transparent url("images/bl.gif") no-repeat 0px 0px;
+}
+
+.dialog .ft .c {
+ background:transparent url("images/br.gif") no-repeat right 0px;
+}
+
+/***********************************************************************************************
+* End - CSS for Round Corners
+***********************************************************************************************/
+
+
+/* Toolbar */
+/* Menu */
+
+#menu {
+	padding-bottom: 10px;
+}
+
+ul#menuList  li {
+	background-color: #999;
+	padding: 2px;
+	background-image: none;
+
+	border-right: 3px solid	#252525;
+	border-bottom: 3px solid	#666;
+	font-weight: bold;
+}
+
+ul#menuList  li:hover {
+	background-color: #333399;
+}
+
+/* Top Row*/
+ul#menuList  li a {
+	color: #fff;
+	text-decoration: none;
+	padding-right: 30px;
+}
+
+/* Items on menu*/
+ul#menuList  li li a {
+	color: #000;
+	text-decoration: none;
+	padding: 3px;
+}
+
+ul#menuList  li li a img{
+	border-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul#menuList  li li a span{
+    margin-left: 27px;
+    margin-right: 0px;
+    display: block;
+}
+
+ul#menuList  li  li{
+border-style: none;
+width: 100%;
+background: transparent;
+color: #000;
+font-weight: normal;
+padding: 0;
+}
+
+ul#menuList  li  li:hover{
+border-style: none;
+background-color: #A8E7FF;
+}
+
+ul#menuList  li  ul{
+background: #f6f6f6;
+margin-top: 4px;
+}
+
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
+div#twocolumn, div#threecolumn {
+    margin-top: 20px;
+}
+
+
+
+/***********************************************************************************************
+* CSS for Two & Three Column Layouts
+***********************************************************************************************/
+
+div#wrapper{float:left;width:100%}
+
+/* Three Column Layout */
+#threecolumn div#wrapper div#content{margin: 0 200px 0 200px;}
+#threecolumn div#left{float:left;width:198px;margin-left:-100%;}
+#threecolumn div#right{float:left;width:200px;margin-left:-200px;}
+
+#threecolumn,  #twocolumn {
+width: 90%; !important; width: 95%;
+}
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{margin: 0 0 0 200px;}
+#twocolumn div#left{float:left;width:198px;margin-left:-100%;}
+#twocolumn div#right{display:none;}
+
+
+div#content {
+    background-color: #D9F4FF;
+}
+
+div#rightcontent, div#leftcontent, div#contentcontent  {
+    margin: 5px;
+    padding-bottom: 30px;
+}
+
+div#contentcontent {
+    
+}
+
+div#wrapper{
+    background-color: #fff;
+}
