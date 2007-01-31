@@ -276,13 +276,13 @@ class modulecatalogue extends controller
 					$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
 					$sysType = $this->getParam('sysType','Basic System Only');
 					$check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
-					if (!$check){
+					//if (!$check){
 						log_debug('Modulecatalogue controller - performing first time registration');
 						$this->firstRegister($sysType);
 						log_debug('First time registration complete');
-					} else {
+					//} else {
 						log_debug('First time registration has already been performed on this system. Aborting');
-					}
+					//}
 					return $this->nextAction(null,null,$this->objConfig->getPrelogin());
 				case 'update':
 					$modname = $this->getParam('mod');
@@ -512,15 +512,15 @@ class modulecatalogue extends controller
     		log_debug('Installing core modules');
     		$coreList = $objXml->xpath("//category[categoryname='Basic System Only']");
     		foreach ($coreList[0]->module as $module) {
-    			if (!$this->installModule(trim($module))) {
+    			if (!$this->smartRegister(trim($module))) {
     				throw new customException("Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
     			}
     		}
     		if ($sysType != "Basic System Only") {
     			log_debug('Installing system specific modules');
-    			$specificList = $objXml->xpath("//category[categoryname='$']");
+    			$specificList = $objXml->xpath("//category[categoryname='$sysType']");
     			foreach ($specificList[0]->module as $module) {
-    				if (!$this->installModule(trim($module))) {
+    				if (!$this->smartRegister(trim($module))) {
     					throw new customException("Error installing module $module: {$this->objModuleAdmin->output} {$this->objModuleAdmin->getLastError()}");
     				}
     			}

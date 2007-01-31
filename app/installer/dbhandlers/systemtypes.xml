@@ -50,12 +50,12 @@
 
         <category>
             <categoryname>Blog</categoryname>
-            <module>blog</module>
             <module>blogcomments</module>
             <module>creativecommons</module>
             <module>feed</module>
             <module>filemanager</module>
             <module>httpclient</module>
+            <module>blog</module>
         </category>
 
         <category>

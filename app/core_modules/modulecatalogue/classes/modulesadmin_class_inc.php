@@ -146,7 +146,7 @@ class modulesadmin extends dbTableManager
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$update) {
                 $this->_lastError = 1002;
-            	return FALSE;
+            	return TRUE;
             } else {
             	// check for modules this one is dependant on
             	if (isset($registerdata['DEPENDS'])) {
@@ -848,7 +848,7 @@ class modulesadmin extends dbTableManager
     		if (!file_exists($sqlfile)){
     			$sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
     			if (!file_exists($sqlfile2)){
-    				log_debug("could not find defaultdata.xml: tried $sqlfile and $sqlfile2");
+    				log_debug("No defaultdata found for module $moduleId");
     				$this->_lastError = 1006;
     				return FALSE;
     			}
