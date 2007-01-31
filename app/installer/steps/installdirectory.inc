@@ -509,7 +509,6 @@ class InstallDirectoryAction extends StepAction
                 } else {
                     $newmodulepath='';
                 }
-print $guess;
 
 
 		ob_start();
