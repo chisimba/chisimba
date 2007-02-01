@@ -119,7 +119,10 @@ class altconfig extends object
     		$this->_root =& $this->_objPearConfig->parseConfig("{$this->_path}config.xml",$property);
 
     		if (PEAR::isError($this->_root)) {
-    			throw new Exception('word_read_fail');
+    			//throw new Exception('word_read_fail');
+    			log_debug($this->_root->getMessage());
+    			echo $this->_root->getMessage() . "<br />";
+    			die("Error in config.xml!");
     		}
     		return $this->_root;
     	}catch (Exception $e)
@@ -144,7 +147,7 @@ class altconfig extends object
      */
     public function writeConfig($values,$property)
     {
-        
+
     	// set xml root element
     	try {
     		$this->_objPearConfig = new Config();
@@ -176,7 +179,7 @@ class altconfig extends object
      */
     public function appendToConfig($newsettings)
     {
-        
+
     	try {
     		$this->_objPearConfig = new Config();
 
@@ -205,7 +208,7 @@ class altconfig extends object
     */
     public function getItem($pname)
     {
-        
+
     	try {
     			if ($this->_root==NULL) {
     				 $this->readConfig(FALSE,'XML');
@@ -242,7 +245,7 @@ class altconfig extends object
     */
     public function setItem($pname, $pvalue)
     {
-        
+
     	try {
     			//Read conf
 
@@ -284,7 +287,7 @@ class altconfig extends object
      */
     public function readProperties($path=false,$property)
     {
-        
+
     	// read configuration data and get reference to root
     	try {
     		if(!isset($path)) $path = "config";
@@ -320,7 +323,7 @@ class altconfig extends object
      */
     public function writeProperties($propertyValues,$property)
     {
-        
+
     	try {
 	    	// set xml root element
 			$this->_options = array('name' => 'sysConfigSettings');
@@ -348,7 +351,7 @@ class altconfig extends object
     */
     public function updateParam($pname, $pmodule=False, $pvalue,$isAdminConfigurable=False)
     {
-        
+
     	try {
 
                //Lets get the parent node section first
@@ -389,7 +392,7 @@ class altconfig extends object
     */
     public function getParam($pname, $pmodule)
     {
-        
+
     	try {
     			//Read conf
     			if (!isset($this->_property)) {
@@ -1267,7 +1270,7 @@ class altconfig extends object
     public function getModulePath()
     {
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
-    	
+
     	try {
         	//Lets get the parent node section first
         	$Settings =& $this->_root->getItem("section", "Settings");
