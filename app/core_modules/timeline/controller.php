@@ -282,9 +282,8 @@ class timeline extends controller
     * @return boolean TRUE|FALSE
     *
     */
-    public function requiresLogin()
+    public function requiresLogin($action)
     {
-        $action=$this->getParam('action','NULL');
         switch ($action)
         {
             case 'viewdemo':
