@@ -1,25 +1,14 @@
-<img src="skins/consolglass/images/consol_glass_logo.gif" />
-<br />
-<img src="skins/consolglass/images/splash.jpg" />
-
-
-        			
-
-    			[-STARTFORM-]
-
-    
-    		                        [-USERNAMEBOX-]
-                            
-    		                        [-PASSWORDBOX-]
-    		                 
-    		                        [-USELDAPCHECK-][-LOGINBUTTON-]
-    		                    
-    		                        [-NEWPASSWORD-]
-    
-
-    
-    		                        [-REGISTER-]
-    
-
-    		        [-SKIN-]
-    		        [-ENDFORM-]
+<div class="splashscreen">
+    <img src="skins/consolglass/images/splash.jpg" />
+[-STARTFORM-]
+    [-USERNAMEBOX-]
+   &nbsp; 
+    [-PASSWORDBOX-]
+ 
+[-LOGINBUTTON-]<br /><br /><span style="border: 1px dashed red;"><span style="background-color: #FFFF99;">UWC Development - to be removed</span> [-USELDAPCHECK-]</span>
+<br /><br />
+     [-REGISTER-] &nbsp; / &nbsp; [-NEWPASSWORD-]
+[-SKIN-][-ENDFORM-]    
+</div>
+    		        
+    		        

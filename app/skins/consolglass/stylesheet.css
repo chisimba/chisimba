@@ -1,10 +1,13 @@
-
+html {
+    background-color: #000033;
+}
 
 /* */
 body {
     background-color: #000033;
     margin: 0;
-    font:83%/1.5 verdana,arial,tahoma,verdana,sans-serif
+    font:83%/1.5 verdana,arial,tahoma,verdana,sans-serif;
+    padding-top: 15px;
 }
 
 /***********************************************************************************************
@@ -12,7 +15,7 @@ body {
 ***********************************************************************************************/
 
 .dialog {
- width:100%;
+ width:97%;
  margin:0px auto;
  min-width:20em;
 }
@@ -60,6 +63,7 @@ body {
 /***********************************************************************************************
 * End - CSS for Round Corners
 ***********************************************************************************************/
+
 
 
 /* Toolbar */
@@ -174,4 +178,13 @@ div#contentcontent {
 
 div#wrapper{
     background-color: #fff;
+}
+
+.splashscreen {
+    text-align: center;
+    font-size: 20px;
+}
+
+.splashscreen input.text {
+    font-size: 20px;
 }
