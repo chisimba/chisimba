@@ -64,7 +64,7 @@ $middleContent .= ' ('.$sysAdminEmail->show().'). </p>';
 $newPasswordLink = new link ($this->uri(array('action'=>'needpassword')));
 $newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'security');
 
-$registerModule=$this->objConfig->getValue('SELFREGISTER_MODULE') or $registerModule='useradmin';
+$registerModule=$this->objConfig->getValue('SELFREGISTER_MODULE') or $registerModule='userregistration';
 $registerLink = new link ($this->uri(array('action'=>'register'), $registerModule));
 $registerLink->link = $this->objLanguage->languageText('word_register');
 
