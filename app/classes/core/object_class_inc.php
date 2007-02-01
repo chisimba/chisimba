@@ -177,10 +177,8 @@ class object
     */
     public function sessionKey()
     {
-	return "";
-	// Code not executed, since it doesn't work on all platforms for some reason
         if (!isset($this->sessionkey)){
-            $str=md5($_SERVER['SCRIPT_FILENAME']);
+            $str=md5($_SERVER['SCRIPT_NAME']);
             $this->sessionkey=substr($str,0,5).'~';
         }
         return $this->sessionkey;
