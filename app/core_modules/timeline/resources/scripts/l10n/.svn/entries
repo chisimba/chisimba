@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="4672"
+   name=""
+   committed-date="2006-07-25T14:47:05.568480Z"
+   url="http://simile.mit.edu/repository/timeline/tags/1.1/src/main/webapp/api/scripts/l10n"
+   last-author="dfhuynh"
+   kind="dir"
+   uuid="983b779f-54db-0310-a2f8-e46c051b0de2"
+   repos="http://simile.mit.edu/repository"
+   revision="6067"/>
+<entry
+   name="zh"
+   kind="dir"/>
+<entry
+   name="en"
+   kind="dir"/>
+<entry
+   name="ru"
+   kind="dir"/>
+<entry
+   name="es"
+   kind="dir"/>
+<entry
+   name="fr"
+   kind="dir"/>
+<entry
+   name="se"
+   kind="dir"/>
+<entry
+   name="it"
+   kind="dir"/>
+<entry
+   name="vi"
+   kind="dir"/>
+</wc-entries>

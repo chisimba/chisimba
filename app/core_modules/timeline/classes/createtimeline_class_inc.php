@@ -57,10 +57,12 @@ class createtimeline extends object
     */
     public function init()
     {
+    	//die($this->getResourceUri('deadfile.js'));
         //Create the configuration object
-        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('dbsysconfig', 'sysconfig');
+//        echo $this->objConfig->getValue('mod_timeline_jslocation', 'timeline');
         //Set the value of the default demo timeline
-        $this->timeLine = $this->getParam('timeLine', 'experiments/timeline/madibademo.xml');
+        $this->timeLine = $this->getParam('timeLine', 'experiments/timeline/madiba.xml');
         //Set the date that is the default focus
         $this->focusDate= $this->getParam('focusDate', 'Jan 1 1965 00:00:00 GMT');
         //Set the default interval pixels
@@ -84,10 +86,6 @@ class createtimeline extends object
     
     public function getScript()
     {
-    	//Set it to display the demo if no timeline is set
-    	if ($this->timeline=="") {
-    	    $this->timeline = $this->demoTimeline;
-    	}
         return "\n\n<script language=\"javascript\"><!--
 			var tl;
 			var eventSource = new Timeline.DefaultEventSource();
@@ -102,7 +100,7 @@ class createtimeline extends object
 			    })
 			  ];
 			  tl = Timeline.create(document.getElementById(\"my-timeline\"), bandInfos);
-			  Timeline.loadXML(\"" . $this->timeline . "\", function(xml, url) { eventSource.loadXML(xml, url); });
+			  Timeline.loadXML(\"" . $this->timeLine . "\", function(xml, url) { eventSource.loadXML(xml, url); });
 			}
 			
 			var resizeTimerID = null;

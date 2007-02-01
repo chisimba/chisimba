@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="4687"
+   name=""
+   committed-date="2006-07-26T21:08:24.146400Z"
+   url="http://simile.mit.edu/repository/timeline/tags/1.1/src/main/webapp/api/ext"
+   last-author="dfhuynh"
+   kind="dir"
+   uuid="983b779f-54db-0310-a2f8-e46c051b0de2"
+   repos="http://simile.mit.edu/repository"
+   revision="6067"/>
+<entry
+   name="geochrono"
+   kind="dir"/>
+</wc-entries>

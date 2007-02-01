@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="4602"
+   name=""
+   committed-date="2006-07-11T13:08:54.010043Z"
+   url="http://simile.mit.edu/repository/timeline/tags/1.1/src/main/webapp/api/ext/geochrono/scripts/l10n/en"
+   last-author="dfhuynh"
+   kind="dir"
+   uuid="983b779f-54db-0310-a2f8-e46c051b0de2"
+   repos="http://simile.mit.edu/repository"
+   revision="6067"/>
+<entry
+   committed-rev="4602"
+   name="labellers.js"
+   text-time="2007-01-29T11:30:33.000000Z"
+   committed-date="2006-07-11T13:08:54.010043Z"
+   checksum="a7076b6c8c28b4f8f59b2f0c20c532c2"
+   last-author="dfhuynh"
+   kind="file"
+   prop-time="2007-01-29T11:30:33.000000Z"/>
+</wc-entries>

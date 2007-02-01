@@ -116,8 +116,7 @@ class timeline extends controller
 
 	private function _addScriptToHead()
 	{
-		//$jsLib = $this->objConfig->getValue('mod_timeline_jslocation', 'timeline');
-		$jsLib = "libraries/timeline/timeline-api.js";
+		$jsLib =  $this->objConfig->getItem('MODULE_URI') . "timeline/resources/timeline-api.js";
 	    $scriptTag = "<script src=\"" . $jsLib . "\" type=\"text/javascript\"></script>";
         $this->appendArrayVar('headerParams', $scriptTag);
 	}

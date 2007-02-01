@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="4582"
+   name=""
+   committed-date="2006-07-07T15:20:27.835518Z"
+   url="http://simile.mit.edu/repository/timeline/tags/1.1/src/main/webapp/api/ext/geochrono/images"
+   last-author="dfhuynh"
+   kind="dir"
+   uuid="983b779f-54db-0310-a2f8-e46c051b0de2"
+   repos="http://simile.mit.edu/repository"
+   revision="6067"/>
+</wc-entries>
