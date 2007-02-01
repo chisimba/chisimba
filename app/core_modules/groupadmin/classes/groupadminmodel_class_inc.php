@@ -137,7 +137,7 @@ class groupAdminModel extends dbTable
         $newGroup['parent_id']   = $parentId;
 
         $newGroup['last_updated_by'] = $this->_objUsers->userId();
-        $newGroup['last_updated']    = date("Y:m:d H:i:s");
+        $newGroup['last_updated']    = $this->now();//date("Y-m-d");
 
         return parent::insert( $newGroup );
     }
@@ -317,7 +317,7 @@ class groupAdminModel extends dbTable
         $updates['description'] = $newDescription;
 
         $updates['last_updated_by'] = $this->_objUsers->userId();
-        $updates['last_updated']    = date("Y:m:d H:i:s");
+        $updates['last_updated']    = $this->now();//date("Y:m:d H:i:s");
 
         return $this->update( 'id', $groupId, $updates );
     }
@@ -338,7 +338,7 @@ class groupAdminModel extends dbTable
         $updates['name'] = $newName;
 
         $updates['last_updated_by'] = $this->_objUsers->userId();
-        $updates['last_updated']    = date("Y:m:d H:i:s");
+        $updates['last_updated']    = $this->now();//date("Y:m:d H:i:s");
 
         return $this->update( 'id', $groupId, $updates );
     }
