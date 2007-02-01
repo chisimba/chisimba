@@ -36,16 +36,16 @@ $inpButton->value = $this->_objLanguage->languageText("word_next");
 //$objForm->addRule('about','About is a required field!', 'required');
 
 
-$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+//$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
 $objForm->addToForm('<fieldset>');
 
 $objForm->addToForm($objH->show());
 
-$objForm->addToForm('</fieldset><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_contextadmin_about","contextadmin").':</b>');
+$objForm->addToForm('<b><span class="req"></span>'.$this->_objLanguage->languageText("mod_contextadmin_about","contextadmin").':</b>');
 $objForm->addToForm($inpAbout->show());
 
 
-$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
+$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div></fieldset>');
 print $objForm->show().'<br/>';
 
 ?>
