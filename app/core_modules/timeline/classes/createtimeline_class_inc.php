@@ -16,10 +16,11 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *     http://simile.mit.edu/timeline/
 *
 * The following parameters can be passed in the querystring:
-*   timeLine
-*   focusDate
-*   intervalPixels
-*   intervalUnit
+*   timeLine - Fully qualified URI for the timeline XML file
+*   focusDate - THe date to centre the timeline on
+*   intervalPixels - The number of pixels for the width of the interval
+*   intervalUnit - The timelines unit for the interval (e.g. DAY, MONTH, YEAR)
+*   tlHeight - the height in pixels of the timeline
 *
 * @author Derek Keats
 * @category Chisimba
@@ -61,6 +62,12 @@ class createtimeline extends object
     * 
     */
     public $timeline;
+    /**
+    * 
+    * @var string $timeline Holds the value of the timeline to display
+    * 
+    */
+    public $tlHeight;
     
     /**
     *
@@ -85,6 +92,8 @@ class createtimeline extends object
         $this->intervalPixels = $this->getParam('intervalPixels', '80');
         //Get the default interval unit for the divisions
         $this->intervalUnit = $this->getParam('intervalUnit', 'YEAR');
+        //Get the default height for the timeline
+        $this->tlHeight = $this->getParam('tlHeight', '150');
     }
     
     public function show()
@@ -148,7 +157,7 @@ class createtimeline extends object
 	*/
     private function _getDiv()
     {
-        return "\n\n<div id=\"my-timeline\" style=\"height: 150px; border: 1px solid #aaa\"></div>\n\n";
+        return "\n\n<div id=\"my-timeline\" style=\"height: " . $this->tlHeight . "px; border: 1px solid #aaa\"></div>\n\n";
     }
 }
 ?>
