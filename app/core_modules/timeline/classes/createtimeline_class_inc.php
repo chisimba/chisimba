@@ -85,7 +85,7 @@ class createtimeline extends object
         $objSconfig =  $this->getObject('altconfig', 'config');
         $demoData =  $objSconfig->getItem('MODULE_URI') . "timeline/resources/demodata/madiba.xml";
         //Set the value of the default demo timeline
-        $this->timeLine = $this->getParam('timeLine', $demoData); //'experiments/timeline/madiba.xml'
+        $this->timeLine = $this->getParam('timeLine', $demoData);
         //Set the date that is the default focus
         $this->focusDate= $this->getParam('focusDate', 'Jan 1 1965 00:00:00 GMT');
         //Set the default interval pixels
@@ -98,16 +98,21 @@ class createtimeline extends object
     
     public function show()
     {
-
- 
         $ret="";
         $ret .= $this->_getDiv();
         return $ret;
     }
 
-
+	public function setValue($item, $value)
+	{
+	    $this->$item=$value;
+	    return TRUE;
+	}
     
-
+	public function getValue($item)
+	{
+	    return $this->$item;
+	}
     
     public function getScript()
     {
