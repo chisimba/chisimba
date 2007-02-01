@@ -113,16 +113,18 @@ if (count($files) == 0) {
     }
     
     $script = '<script type="text/javascript">
-
+//<![CDATA[
     '.$fileIdArray.'
     '.$filenameArray.'
     '.$filelinkArray.'
+//]]>
 </script>';
 
     $this->appendArrayVar('headerParams', $script);
     
     $checkOpenerScript = '
 <script type="text/javascript">
+//<![CDATA[
 function selectFile(file, id)
 {
     if (window.opener) {
@@ -137,6 +139,7 @@ function selectFile(file, id)
 	window.top.opener.focus() ;
     }
 }
+//]]>
 </script>
         ';
         
