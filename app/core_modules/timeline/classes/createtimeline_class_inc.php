@@ -15,6 +15,12 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * Timeline is from the MIT Simile project at
 *     http://simile.mit.edu/timeline/
 *
+* The following parameters can be passed in the querystring:
+*   timeLine
+*   focusDate
+*   intervalPixels
+*   intervalUnit
+*
 * @author Derek Keats
 * @category Chisimba
 * @package timeline
@@ -33,6 +39,14 @@ class createtimeline extends object
     * 
     */
     public $objConfig;
+    /**
+    * 
+    * @var $objSconfig String object property for holding the 
+    * configuration object for the module uri
+    * @access public
+    * 
+    */
+    public $objSconfig;
     
     /**
     * 
@@ -60,9 +74,11 @@ class createtimeline extends object
     	//die($this->getResourceUri('deadfile.js'));
         //Create the configuration object
         $this->objConfig = $this->getObject('dbsysconfig', 'sysconfig');
-//        echo $this->objConfig->getValue('mod_timeline_jslocation', 'timeline');
+        //Create the config reader and get the location of demo maps
+        $objSconfig =  $this->getObject('altconfig', 'config');
+        $demoData =  $objSconfig->getItem('MODULE_URI') . "timeline/resources/demodata/madiba.xml";
         //Set the value of the default demo timeline
-        $this->timeLine = $this->getParam('timeLine', 'experiments/timeline/madiba.xml');
+        $this->timeLine = $this->getParam('timeLine', $demoData); //'experiments/timeline/madiba.xml'
         //Set the date that is the default focus
         $this->focusDate= $this->getParam('focusDate', 'Jan 1 1965 00:00:00 GMT');
         //Set the default interval pixels
