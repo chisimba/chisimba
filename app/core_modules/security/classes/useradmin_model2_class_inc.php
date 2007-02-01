@@ -12,8 +12,19 @@
 class useradmin_model2 extends dbtable
 {
 
-    public $objConfig;
+    /**
+    * @var object $objConfig Config Object
+    */
+    private $objConfig;
+    
+    /**
+    * @var object $objUser User Object
+    */
     private $objUser;
+    
+    /**
+    * @var object $objLanguage Language Object
+    */
     private $objLanguage;
 
     /**
@@ -78,7 +89,7 @@ class useradmin_model2 extends dbtable
     *
     * @return string User's Primary Key Id
     */
-    function addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType='useradmin', $accountstatus='1')
+    public function addUser($userid, $username, $password, $title, $firstname, $surname, $email, $sex, $country, $cellnumber='', $staffnumber='', $accountType='useradmin', $accountstatus='1')
     {
         //echo $accountType;
         $userArray = array(
@@ -129,7 +140,7 @@ class useradmin_model2 extends dbtable
     * @return boolean Result of Update
     *
     */
-    function updateUserDetails($id, $username='', $firstname, $surname, $title, $email, $sex, $country, $cellnumber='', $staffnumber='', $password='', $accountType='', $accountstatus='')
+    public function updateUserDetails($id, $username='', $firstname, $surname, $title, $email, $sex, $country, $cellnumber='', $staffnumber='', $password='', $accountType='', $accountstatus='')
     {
         //echo $accountType;
         $userArray = array(
@@ -178,7 +189,7 @@ class useradmin_model2 extends dbtable
     *
     * @return array
     */
-    function getUsers($letter, $field='firstname', $orderby='', $inactive=TRUE)
+    public function getUsers($letter, $field='firstname', $orderby='', $inactive=TRUE)
     {
         $whereArray = array();
         if ($letter != 'listall') {
@@ -216,7 +227,7 @@ class useradmin_model2 extends dbtable
     * @param string $value    Search Query Value
     * @param string $orderby  How to order/sort results
     */
-    function searchUsers($field, $value, $position='contains', $orderby)
+    public function searchUsers($field, $value, $position='contains', $orderby)
     {
         switch ($position)
         {
@@ -236,7 +247,7 @@ class useradmin_model2 extends dbtable
     * @param string $username Username to check for availability
     * @return boolean TRUE if available, else FALSE
     */
-    function usernameAvailable($username)
+    public function usernameAvailable($username)
     {
         $recordCount = $this->getRecordCount('WHERE username=\''.$username.'\'');
         // echo $recordCount;
@@ -253,7 +264,7 @@ class useradmin_model2 extends dbtable
     * @param string $userid userId to check for availability
     * @return boolean TRUE if available, else FALSE
     */
-    function useridAvailable($userid)
+    public function useridAvailable($userid)
     {
         $recordCount = $this->getRecordCount('WHERE userid=\''.$userid.'\'');
         
@@ -268,7 +279,7 @@ class useradmin_model2 extends dbtable
     * Method to generate a userid
     * @return string
     */
-    function generateUserId()
+    public function generateUserId()
     {
         $available = FALSE;
         
@@ -289,7 +300,7 @@ class useradmin_model2 extends dbtable
     * @param string $username Username of the User
     * @param string $email Email Address of the User
     */
-    function getUserNeedPassword($username, $email)
+    public function getUserNeedPassword($username, $email)
     {
         $result = $this->getAll(" WHERE username='$username' AND emailaddress='$email' ");
         
@@ -321,7 +332,7 @@ class useradmin_model2 extends dbtable
     *  - Sends the user an email
     *
     */
-    function newPasswordRequest($id)
+    public function newPasswordRequest($id)
     {
         $user = $this->getUserDetails($id);
         $siteName = $this->objConfig->getSiteName();
@@ -373,7 +384,12 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         }
     }
     
-    function sendRegistrationMessage($id, $password)
+    /**
+    * Message to Send the User a Message on Successful Registration
+    * @param string $id Record Id of User
+    * @param string $password Unencrypted Password of User
+    */
+    public function sendRegistrationMessage($id, $password)
     {
         $user = $this->getUserDetails($id);
         $siteName = $this->objConfig->getSiteName();
@@ -422,8 +438,12 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     
     }
     
-    
-    function batchProcessOption($users, $option)
+    /**
+    * Method to Batch Process a Selected Action on a group of users
+    * @param array $users User Accounts to be affected
+    * @param string $option Batch Option to be used
+    */
+    public function batchProcessOption($users, $option)
     {
         if (is_array($users) && count($users) > 0) {
             switch ($option)
@@ -446,24 +466,45 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         }
     }
     
+    /**
+    * Method to Set an Account as Active
+    * @param string $id User Id of the User
+    */
     private function setUserAsActive($id)
     {
         return $this->update('id', $id, array('isactive'=>'1'));
     }
     
+    /**
+    * Method to Set an Account as Inactive
+    * @param string $id User Id of the User
+    */
     private function setUserAsInActive($id)
     {
         return $this->update('id', $id, array('isactive'=>'0'));
     }
     
+    /**
+    * Method to Delete an User Account
+    * @param string $id User Id of the User
+    */
     private function setUserDelete($id)
     {
-        return $this->delete('id', $id);
+        // User cannot delete own account
+        if ($id != $this->objUser->PKid()) {
+            return $this->delete('id', $id);
+        } else {
+            return FALSE;
+        }
     }
     
+    /**
+    * Method to Set an Account to use Network Id
+    * @param string $id User Id of the User
+    */
     private function setUserLdap($id)
     {
-        return $this->update('id', $id, array('howcreated'=>'LDAP'));
+        return $this->update('id', $id, array('howcreated'=>'LDAP', 'pass'=>sha1('--LDAP--')));
     }
     
 } // end of class sqlUsers
