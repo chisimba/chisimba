@@ -82,7 +82,7 @@ $objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
 $objForm->addToForm('<fieldset>');
 if($error)
 {
-    $objForm->addToForm('<p class="error">'.$error.'</p>');
+    $objForm->addToForm('<br/><p class="error">'.$error.'</p>');
 }
 $objForm->addToForm($objH->show());
 
