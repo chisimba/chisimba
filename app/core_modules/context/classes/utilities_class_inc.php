@@ -127,27 +127,30 @@ class utilities extends object
 	  			{
 	  			    
 	  			    $linksArr = $objContentLinks->getPublishedContextLinks();
-	  			    foreach($linksArr as $link)
+	  			    if($linksArr != FALSE)
 	  			    {
-	  			        $objIcon->setModuleIcon($link['moduleid']);
-	  			        
-	  			        $params = array();
-	  			        $temp = spliti(',',$link['params']);
-	  			       
-	  			        foreach($temp as $value)
-	  			        {
-	  			            if(!$value=='')
-	  			            {
-    	  			            
-    	  			            $fel = spliti('=>', $value);
-    	  			            
-    	  			            $params[$fel[0]] = $fel[1];
-    	  			           
-	  			            }
-	  			        }
-	  			       
-	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
-	  			        
+    	  			    foreach($linksArr as $link)
+    	  			    {
+    	  			        $objIcon->setModuleIcon($link['moduleid']);
+    	  			        
+    	  			        $params = array();
+    	  			        $temp = spliti(',',$link['params']);
+    	  			       
+    	  			        foreach($temp as $value)
+    	  			        {
+    	  			            if(!$value=='')
+    	  			            {
+        	  			            
+        	  			            $fel = spliti('=>', $value);
+        	  			            
+        	  			            $params[$fel[0]] = $fel[1];
+        	  			           
+    	  			            }
+    	  			        }
+    	  			       
+    	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
+    	  			        
+    	  			    }
 	  			    }
 	  			    $nodes[] = array('text' => $this->objLanguage->languageText("mod_context_content",'context'), 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
 	  			    $isregistered = false;
