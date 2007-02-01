@@ -15,7 +15,7 @@ class useradmin_model2 extends dbtable
     /**
     * @var object $objConfig Config Object
     */
-    private $objConfig;
+    public $objConfig;
     
     /**
     * @var object $objUser User Object
