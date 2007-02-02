@@ -66,26 +66,29 @@ class indexer extends Zend_Search_Lucene_Document
      */
      public function doIndex(&$doc)
      {
+     	//echo $this->indexPath; die();
         //check if an index exists
      	if(file_exists($this->indexPath.'chisimbaIndex'))
         {
-        	
+
         	chmod($this->indexPath.'chisimbaIndex', 0777);
         	//we build onto the previous index
         	$this->index = new Zend_Search_Lucene($this->indexPath.'chisimbaIndex');
-           
+
         }
         else {
         	//instantiate the lucene engine and create a new index
+        	mkdir($this->indexPath.'chisimbaIndex');
+        	chmod($this->indexPath.'chisimbaIndex', 0777);
         	$this->index = new Zend_Search_Lucene($this->indexPath.'chisimbaIndex', true);
-        	
+
         }
         //hook up the document parser
         $this->document = new Zend_Search_Lucene_Document();
 		//change directory to the index path
-        chdir($this->indexPath); 
+        chdir($this->indexPath);
         $files = $this->globr($this->indexPath, "*");
-      
+
 		foreach ($files /*glob("*")*/ as $filename) {
 			echo "indexing" . "  " . $filename . "<br><br>";
 
@@ -97,10 +100,10 @@ class indexer extends Zend_Search_Lucene_Document
    			//$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('createdBy', $doc->getProperty('createdBy', $filename)));
        		//document teaser
      		$this->document->addField(Zend_Search_Lucene_Field::UnIndexed('date', $doc->getProperty('date', $filename)));
-     		
+
         	//doc title
      		$this->document->addField(Zend_Search_Lucene_Field::Text('title', basename($filename))); //$doc->getProperty('title', $filename)));
-     		
+
         	//doc author
      		//$this->document->addField(Zend_Search_Lucene_Field::Text('author', $doc->getProperty('author', $filename)));
         	//document body
@@ -138,7 +141,7 @@ class indexer extends Zend_Search_Lucene_Document
                 // directory.
 
                 $aFiles = glob($sDir.$sPattern, $nFlags);
-               
+
                 // Then get a list of all directories in this directory, and
                 // run ourselves on the resulting array.  This is the
                 // recursion step, which will not execute if there are no
