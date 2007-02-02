@@ -88,6 +88,10 @@ class indexer extends Zend_Search_Lucene_Document
 		//change directory to the index path
         chdir($this->indexPath);
         $files = $this->globr($this->indexPath, "*");
+        if(empty($files))
+        {
+        	exit;
+        }
 
 		foreach ($files /*glob("*")*/ as $filename) {
 			echo "indexing" . "  " . $filename . "<br><br>";
