@@ -81,9 +81,7 @@ if (!isset($pageSuppressSkin)){
     if (!isset($pageSuppressToolbar)) {
         echo '
         <!--[if lte IE 6]>
-        <style type="text/css">
-            body { behavior:url("skins/_common/js/ADxMenu_prof.htc"); }
-        </style>
+            <script type="text/javascript" src="skins/_common/js/ADxMenu.js"></script>
         <![endif]-->
         ';
     }
