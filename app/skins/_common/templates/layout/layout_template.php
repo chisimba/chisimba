@@ -9,15 +9,17 @@
 // Tidy
 //$tidy = new tidy;
 
-if(!$this->getParam('query') == '')
+if($this->getParam('query') != '')
 {
 	$objLucene = & $this->newObject('results', 'lucene');
 	$searchResults = $objLucene->show($this->getParam('query'));
-	
+	$output = $searchResults;
+
 } else {
 	$searchResults = '';
+	$output = $this->getContent();
 }
-$output = $this->getContent().$searchResults;
+//.$searchResults;
 //$tidy->parseString($output, $config, 'utf8');
 //$tidy->cleanRepair();
 

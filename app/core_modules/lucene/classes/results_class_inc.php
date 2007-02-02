@@ -40,6 +40,7 @@ class results extends object
 	*/
 	public function init()
 	{
+		$this->requiresLogin();
 		// instantiate objects
         try{
 			//the language object
@@ -68,6 +69,7 @@ class results extends object
 
 	public function show($query)
 	{
+		$this->requiresLogin();
 		try{
 			//$query = $this->getParam('query');
 	    	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
@@ -191,6 +193,12 @@ class results extends object
 
 		return $str;
 	}
+
+	public function requiresLogin() // overides that in parent class
+     {
+        return FALSE;
+
+     }
 
 }
 

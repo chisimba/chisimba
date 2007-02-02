@@ -77,7 +77,7 @@ if (!isset($pageTitle)) {
 
 if (!isset($pageSuppressSkin)){
     echo $objSkin->putSkinCssLinks();
-    
+
     if (!isset($pageSuppressToolbar)) {
         echo '
         <!--[if lte IE 6]>

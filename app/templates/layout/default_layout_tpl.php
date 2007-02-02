@@ -8,19 +8,20 @@
 
 // Tidy
 //$tidy = new tidy;
-
-if(!$this->getParam('query') == '')
+if(isset($this->getParam('query')))
 {
-	$objLucene = & $this->newObject('results', 'lucene');
+	$objLucene = $this->newObject('results', 'lucene');
 	$searchResults = $objLucene->show($this->getParam('query'));
-	
+	echo $searchResults;
+
 } else {
-	$searchResults = '';
+	$searchResults = NULL;
+	$output = $this->getContent();
+	echo $output;
 }
-$output = $this->getContent().$searchResults;
+
 //$tidy->parseString($output, $config, 'utf8');
 //$tidy->cleanRepair();
 
-echo $output;
 
 ?>
