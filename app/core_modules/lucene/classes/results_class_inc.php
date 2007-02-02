@@ -69,7 +69,7 @@ class results extends object
 
 	public function show($query)
 	{
-		$this->requiresLogin();
+		$this->requiresLogin = FALSE;
 		try{
 			//$query = $this->getParam('query');
 	    	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
@@ -178,7 +178,7 @@ class results extends object
 						<li>
 							<dl>
 								<dt>'. ($indx + $i + 1) .' . <a href="'.$arrResults[$indx + $i]->url.'"> '.$arrResults[$indx + $i]->title.'</a></dt>
-								<!--dd class="desc">Some description of the file must go here</dd-->
+								<dd class="desc">'.$arrResults[$indx + $i]->teaser.'</dd>
 								<dd class="filetype">HTML</dd>
 								<dd class="date">'.$arrResults[$indx + $i]->date.'</dd>
 								<dd class="date">Rating : '.$arrResults[$indx + $i]->score.'</dd>
