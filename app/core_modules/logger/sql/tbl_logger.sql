@@ -39,17 +39,29 @@ $fields = array(
 		),
     'eventParamValue' => array(
 		'type' => 'text',
-		'length' => 32
+		'length' => 255
 		),
 	'context' => array(
 		'type' => 'text',
 		'length' => '32',
 		),
+    'action' => array (
+        'type' => 'text',
+		'length' => '50',
+        ),
+    'ipaddress' => array (
+        'type' => 'text',
+		'length' => '50',
+        ),
+    'referrer' => array (
+        'type' => 'text',
+		'length' => '255',
+        ),
 	'dateCreated' => array(
-		'type' => 'date',
+		'type' => 'timestamp',
 		),
 	'dateLastUpdated' => array(
-		'type' => 'date'
+		'type' => 'timestamp'
 		),
     'isLanguageCode' => array(
 		'type' => 'text', // tiny int
@@ -57,11 +69,15 @@ $fields = array(
 		)
 	);
 
-$name = 'userId';
+$name = 'tbl_logger_idx';
 
 $indexes = array(
                 'fields' => array(
-                	'userId' => array()
+                	'userId' => array(),
+                	'module' => array(),
+                	'context' => array(),
+                	'action' => array(),
+                	'ipaddress' => array()
                 )
         );
 

@@ -60,6 +60,7 @@ class logactivity extends dbTable
      *
      */
     public $logOncePerSession;
+    
     /**
      * Constructor method
      */
@@ -81,6 +82,8 @@ class logactivity extends dbTable
             exit;
         }
     } //function init
+    
+
 
     /**
      * Method to add the current event. It checks if the property logOncePerSession
@@ -143,19 +146,22 @@ class logactivity extends dbTable
     /********************* PRIVATE METHODS BELOW THIS LINE *****************/
     /**
      * Method to return the querystring with the module=modulecode
-     * part removed. I use preg_replace for case insensitive replacement.
+     * part removed. It builds this using $_GET to work on different servers
      */
     private function _cleanParams()
     {
-        if (defined($_SERVER['QUERY_STRING'])) {
-            $str = $_SERVER['QUERY_STRING'];
-            $str = preg_replace("/module=/i", NULL, $str);
-            $module = $this->getParam('module', NULL);
-            $str = preg_replace("/$module/i", NULL, $str);
-        } else {
-            $str = NULL;
+        $str = '';
+        $amp = '';
+        foreach ($_GET as $item=>$value)
+        {
+            if ($item != 'module') {
+                $str .= $amp.$item.'='.$value;
+                $amp = '&';
+            }
         }
+        
         return $str;
+        
     } //function _cleanParams
 
     /**
@@ -214,7 +220,8 @@ class logactivity extends dbTable
      */
     private function _logData()
     {
-        $this->insert(array(
+        // Create Array
+        $logArray = array(
             'userid' => $this->objUser->userId() ,
             'module' => $this->getParam('module', NULL) ,
             'eventcode' => $this->eventcode,
@@ -223,7 +230,18 @@ class logactivity extends dbTable
             'islanguagecode' => $this->isLanguageCode,
             'context' => $this->_getContext() ,
             'datecreated' => $this->_getDateTime()
-        ));
+        );
+        
+        // If Old Version, Log Current Details
+        if ($this->objMod->getVersion('logger') == '0.5') {
+            $this->insert($logArray);
+        } else {
+            // Else Add Additional Fields
+            $logArray['action'] = $this->getParam('action');
+            $logArray['ipaddress'] = $_SERVER['REMOTE_ADDR'];
+            $logArray['referrer'] = $_SERVER['HTTP_REFERER'];
+            $this->insert($logArray);
+        }
     } //function _logData
 
 } //end of class

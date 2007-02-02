@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+
+    <update>
+
+        <table>tbl_logger</table>
+        <version>0.6</version>
+        <description>changed date fields to timestamp, added some new ones</description>
+
+        <data>
+            <change>
+                <dateCreated>
+                    <definition>
+                        <type>timestamp</type>
+                    </definition> 
+                </dateCreated> 
+            </change>
+        </data>
+        <data>
+            <change>
+                <dateLastUpdated>
+                    <definition>
+                        <type>timestamp</type>
+                    </definition> 
+                </dateLastUpdated> 
+            </change>
+        </data>
+        <data>
+            <change>
+                <eventParamValue>
+                    <definition>
+                        <type>text</type>
+                        <length>255</length>
+                    </definition> 
+                </eventParamValue> 
+            </change>
+        </data>
+        <data>
+            <add>
+                <name>action</name>
+                <type>text</type>
+                <length>50</length>
+            </add>
+        </data>
+        <data>
+            <add>
+                <name>ipaddress</name>
+                <type>text</type>
+                <length>50</length>
+            </add>
+        </data>
+        <data>
+            <add>
+                <name>referrer</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+</updates>
