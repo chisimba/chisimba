@@ -40,6 +40,8 @@ require_once 'classes/core/errorhandler_class_inc.php';
 require_once 'classes/core/customexception_class_inc.php';
 //include the dbdetails file
 include('config/dbdetails_inc.php');
+//set up all the files needed to effectively run lucene
+include('lucene.php');
 
 
 //function to enable the pear error callback method (global)

@@ -15,66 +15,6 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @package lucene
  */
 
-
-//required top level files
-require_once($this->getResourceUri('Exception.php', 'lucene'));
-require_once($this->getResourceUri('Search/Exception.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene.php', 'lucene'));
-
-//lucene specific files
-require_once($this->getResourceUri('Search/Lucene/Document.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Exception.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Field.php', 'lucene'));
-
-//storage files
-require_once($this->getResourceUri('Search/Lucene/Storage/Directory.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Storage/File.php', 'lucene'));
-
-//filesystem adaptors
-require_once($this->getResourceUri('Search/Lucene/Storage/Directory/Filesystem.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Storage/File/Filesystem.php', 'lucene'));
-
-//analysis adaptors
-require_once($this->getResourceUri('Search/Lucene/Analysis/Analyzer.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/Token.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/TokenFilter.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/Analyzer/Common.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/Analyzer/Common/Text.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/Analyzer/Common/Text/CaseInsensitive.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Analysis/TokenFilter/LowerCase.php', 'lucene'));
-
-//index adaptors
-require_once($this->getResourceUri('Search/Lucene/Index/FieldInfo.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Index/SegmentInfo.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Index/SegmentWriter.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Index/Term.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Index/TermInfo.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Index/Writer.php', 'lucene'));
-
-//Search adaptors
-require_once($this->getResourceUri('Search/Lucene/Search/Query.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/QueryHit.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/QueryParser.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/QueryToken.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/QueryTokenizer.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Similarity.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Weight.php', 'lucene'));
-
-
-//Search/Query adaptors
-require_once($this->getResourceUri('Search/Lucene/Search/Query/MultiTerm.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Query/Phrase.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Query/Term.php', 'lucene'));
-
-//Search/Similarity adaptor
-require_once($this->getResourceUri('Search/Lucene/Search/Similarity/Default.php', 'lucene'));
-
-//Search/Weight adaptors
-require_once($this->getResourceUri('Search/Lucene/Search/Weight/MultiTerm.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Weight/Phrase.php', 'lucene'));
-require_once($this->getResourceUri('Search/Lucene/Search/Weight/Term.php', 'lucene'));
-
-
 class results extends object
 {
 
