@@ -71,7 +71,7 @@ class results extends object
 		try{
 			//$query = $this->getParam('query');
 	    	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
-	    	//echo "Searching " . $this->search->count() . " Documents <br><br>";
+	    	//$str = "Searching " . $this->search->count() . " Documents <br /><br />";
 	    	//clean the query
 	    	$query = trim($query);
 
@@ -135,7 +135,7 @@ class results extends object
 
 
 		//the next button
-print $pagesPerSlide;
+//print $pagesPerSlide;
 		if(($pageno +1) == $pagesPerSlide || $pagesPerSlide == 0){
 
 			$str .='<span><strong>Next</strong></span></p>';
