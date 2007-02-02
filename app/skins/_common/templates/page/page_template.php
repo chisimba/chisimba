@@ -152,6 +152,7 @@ if (isSet($bodyParams)) {
 
 			<div id="header">
 				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+				<?php if ($this->objUser->isLoggedIn()) { ?>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
@@ -160,6 +161,7 @@ if (isSet($bodyParams)) {
 					</form>
 				</div>
 				<?php
+ 		}
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
 					echo $menu->show();
