@@ -17,6 +17,19 @@ if (substr(PHP_VERSION,0,1) < '5'){
     die;
 }
 
+if (substr(PHP_VERSION,0,2) > '5.1'){
+    print "We see this computer is currently running PHP".PHP_VERSION."<br />\n";
+    print "Chisimba currently has problems with PHP 5.2 or above.<br />\n";
+    die;
+}
+
+$path=str_replace('\\','/',getcwd())."/../config/";
+if (file_exists($path."installdone.txt") && file_exists($path."config.xml")&&file_exists($path."dbdetails.php")){
+    print "The installation has been done already.";
+    die;
+
+}
+
 require_once dirname(__FILE__).'/installwizard.inc';
 
 

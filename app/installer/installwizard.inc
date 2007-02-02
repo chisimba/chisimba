@@ -79,9 +79,9 @@ class InstallWizard extends Wizard
 
 							 'installdirectory',
 
-							 'versioncheck',
-
 							 'systemdetails',
+
+							 'versioncheck',
 
 							 'setuptype',
 

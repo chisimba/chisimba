@@ -148,9 +148,11 @@ class InstallDirectoryAction extends StepAction
 
 		$sys_root = isset($_POST['sys_root']) ? trim($_POST['sys_root']) : false;
 		$module_path = isset($_POST['module_path']) ? trim($_POST['module_path']) : false;
+		$module_URI = isset($_POST['module_URI']) ? trim($_POST['module_URI']) : false;
 
 		$_SESSION['sys_root'] = $sys_root;
 		$_SESSION['module_path'] = $module_path;
+		$_SESSION['module_URI'] = $module_URI;
 
 
 
@@ -166,6 +168,11 @@ class InstallDirectoryAction extends StepAction
 			return false;
 		}
 
+		if ($module_URI === false || $module_URI == '') {
+			$this->errors[] = 'You must specify the URL for the modules';
+			$this->success = false;
+			return false;
+		}
 
 
 		// change windows \ characters to / separators
@@ -188,6 +195,15 @@ class InstallDirectoryAction extends StepAction
 		}
                 
 
+		$module_URI = str_replace('\\', '/',$module_URI);
+                //Add a final '/'
+                $module_URI.='/';
+                $module_URI=str_replace('//','/',$module_URI);
+		//if (!is_dir($module_URI)) {
+		//	$this->errors[] = 'Could not find the directory specified '.$module_URI;
+		//	$this->success = false;
+		//	return false;
+		//}
 
 
 
@@ -243,6 +259,7 @@ class InstallDirectoryAction extends StepAction
 
 		$_SESSION['sys_root'] = $sys_root;
 		$_SESSION['module_path'] = $module_path;
+		$_SESSION['module_URI'] = $module_URI;
 
 		$this->success = true;
 
@@ -283,6 +300,9 @@ class InstallDirectoryAction extends StepAction
 			return false;
 		}
 
+		if (isset($_SESSION['module_URI'])) {
+			return false;
+		}
 		return true;
 
 
@@ -290,6 +310,46 @@ class InstallDirectoryAction extends StepAction
 	}//end isRequired()
 
 
+
+        /**
+         * Recursive version of glob
+         * Copied over from the Lucene module
+         * @return array containing all pattern-matched files.
+         *
+         * @param string $sDir      Directory to start with.
+         * @param string $sPattern  Pattern to glob for.
+         * @param int $nFlags      Flags sent to glob.
+         */
+        private function globr($sDir, $sPattern, $nFlags = NULL)
+        {
+                //chdir($sDir);
+                        $sDir = str_replace('\\','/',$sDir);
+                        $sDir = escapeshellcmd($sDir);
+                //echo $sDir;
+                // Get the list of all matching files currently in the
+                // directory.
+
+                $aFiles = glob($sDir.$sPattern, $nFlags);
+
+                // Then get a list of all directories in this directory, and
+                // run ourselves on the resulting array.  This is the
+                // recursion step, which will not execute if there are no
+                // directories.
+
+                foreach (@glob("$sDir/*", GLOB_ONLYDIR) as $sSubDir)
+                {
+                   // if(is_file($sSubDir))
+                    //{
+                        $aSubFiles = $this->globr($sSubDir, $sPattern, $nFlags);
+                        $aFiles = array_merge($aFiles, $aSubFiles);
+                    //}
+                }
+
+                // The array we return contains the files we found, and the
+                // files all of our children found.
+
+                return $aFiles;
+        }//end function
 
 
 
@@ -338,13 +398,13 @@ class InstallDirectoryAction extends StepAction
 
 											'to have write access by the webserver by executing the following ';
 
-						$this->errors[] = '<p><i>chmod 777 '.$check_dir;
+						$this->errors[] = '<p><i>chmod 755 '.$check_dir;
 
 
 
 						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 755';
 
-						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 666</i></p>';
+						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 600</i></p>';
 
 					}
 
@@ -394,13 +454,13 @@ class InstallDirectoryAction extends StepAction
 
 											'to have write access by the webserver by executing the following ';
 
-						$this->errors[] = '<p><i>chmod 777 '.$check_dir;
+						$this->errors[] = '<p><i>chmod 700 '.$check_dir;
 
 
 
-						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 777';
+						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 700';
 
-						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 666</i></p>';
+						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 600</i></p>';
 
 					}
 
@@ -426,7 +486,7 @@ class InstallDirectoryAction extends StepAction
 
 			    mkdir($check_dir);
 
-    			chmod($check_dir,0777);
+    			chmod($check_dir,0700);
 
 				$success = true;
 
@@ -498,7 +558,7 @@ class InstallDirectoryAction extends StepAction
                     
                     $newmodulepath=$_SESSION['module_path'];
                     
-                } else if (is_dir($abspath.'/modules/')){
+                } else if (file_exists($abspath.'/modules/chisimba_modules.txt')){
                     
                     $newmodulepath=$abspath.'/modules/';
                     
@@ -509,7 +569,18 @@ class InstallDirectoryAction extends StepAction
                 } else {
                     $newmodulepath='';
                 }
-
+                // module URI
+                if (isset($_SESSION['module_URI']) && is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$_SESSION['module_URI'])){
+                    $module_URI=$_SESSION['module_URI'];
+                } else {                    
+                    $uriSearch=$this->globr($_SERVER['DOCUMENT_ROOT'],'/chisimba_modules.txt',GLOB_NOSORT);
+                    if (count($uriSearch)>0){
+                        $module_URI=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']),-strlen('chisimba_modules.txt'));
+                        if ($newmodulepath==''){
+                            $newmodulepath=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']));
+                        }
+                    }
+                }
 
 		ob_start();
         if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
@@ -518,12 +589,16 @@ class InstallDirectoryAction extends StepAction
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'\" size="50"  class="sq-form-field" />';
+                                $box3 = '<input type="text" id="module_URI" name="module_URI"'
+                                .'value="'.$module_URI.'\" size="50"  class="sq-form-field" />';
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'" size="50"  class="sq-form-field" />';
+                                $box3 = '<input type="text" id="module_URI" name="module_URI"'
+                                .'value="'.$module_URI.'" size="50"  class="sq-form-field" />';
         }
 		ob_end_clean();
 
@@ -531,6 +606,7 @@ class InstallDirectoryAction extends StepAction
 
 		$tpl->set('install_box',$box);
 		$tpl->set('module_path',$box2);
+		$tpl->set('module_URI',$box3);
 
 
 
@@ -561,7 +637,9 @@ class InstallDirectoryAction extends StepAction
 	{
 
 		echo '<p>System Root has been set to '.$_SESSION['sys_root'].'</p>';
-		echo '<p>Non-core Module path has been set to '.$_SESSION['module_path'].'</p>';
+		echo '<p>Module path has been set to '.$_SESSION['module_path'].'</p>';
+		echo '<p>Module URL has been set to '.$_SESSION['module_URI'].'</p>';
+                Print "<b>If any of these are incorrect, the system will not run correctly. Check carefully before proceeding.</b><br />\n";
 
 	}//end confirmAction()
 

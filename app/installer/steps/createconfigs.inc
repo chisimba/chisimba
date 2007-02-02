@@ -352,6 +352,8 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_MODULE_PATH',  $_SESSION['module_path']);
 
+			$this->_addConfigVar('KEWL_MODULE_URI',  $_SESSION['module_URI']);
+
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
 
 			$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
@@ -455,7 +457,7 @@ class CreateConfigsAction extends FiveStepAction
 			if(!is_file($path . 'config.xml'))
 			{
 				touch($path . 'config.xml');
-				chmod($path . 'config.xml', 0777);
+				chmod($path . 'config.xml', 0666);
 				}
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
 		    $GLOBALS['SQ_INSTALL'] = false;
@@ -604,7 +606,7 @@ EOD;
 			
 		if (!is_file($path . 'dbdetails_inc.php')) {
 			touch($path . 'dbdetails_inc.php');
-			chmod($path . 'dbdetails_inc.php', 0777);
+			chmod($path . 'dbdetails_inc.php', 0666);
 		}
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);

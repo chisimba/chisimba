@@ -66,6 +66,10 @@ class CompleteAction extends StepAction
 		$tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
 		echo $tpl->fetch();
 
+                //Now mark the installation as done
+                $path = $_SESSION['sys_root'].'/config/';
+                touch($path . 'installdone.txt');
+
 	}//end paintAction()
 
 
