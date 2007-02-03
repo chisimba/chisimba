@@ -14,6 +14,27 @@
     </event>
     
     <event 
+        start="1941"
+        title="Move to Johannesburg"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_1.jpg">
+    	Nelson Mandela arrives in Johannesburg. Like thousands of black South Africans, he left his rural village in search of a better life. 
+    </event>
+    
+    <event 
+        start="1942"
+        title="Law clerk"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_2.jpg">
+    	Mandela begins working in Johannesburg as a law clerk at the firm Witkin, Sidelsky &amp; Eidelman.
+    </event>
+    
+    <event 
+        start="1944"
+        title="Joins ANC"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_4.jpg">
+    	Nelson Mandela joins the African National Congress (ANC). Nelson Mandela, Walter Sisulu, Oliver Tambo, and others form the ANC Youth League.
+    </event>
+    
+    <event 
         start="1948"
         title="Nationalists win elections"
         image="http://simile.mit.edu/images/csail-logo.gif">
@@ -28,11 +49,33 @@
     </event>
     
     <event 
+        start="1952"
+        title="Opens law firm"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_8.jpg">
+    	Mandela, in partnership with Oliver Tambo, opens a law firm in Johannesburg, which defends blacks prosecuted under the strict new laws of apartheid.
+    </event>
+    
+    <event 
         start="1955"
         title="Congress of the People"
-        image="http://simile.mit.edu/images/csail-logo.gif">
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_10.jpg">
     	The Congress of the People took place in 1955, and adoption of the Freedom Charter provided the fundamental program of the anti-apartheid cause.
     </event>
+    
+    <event 
+        start="1958"
+        title="Verwoerd becomes Prime Minister"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_11.jpg">
+    	H.F. Verwoerd becomes Prime Minister. His proposals to separate Blacks into independent states, or Bantustans, give him the title 'the chief architect of apartheid'.
+    </event>
+    
+    <event 
+        start="1958"
+        title="Marriage to Winnie"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_12.jpg">
+    	Divorced from his first wife, Evelyn, Nelson Mandela marries Nomzamo Winnie Madikizela.
+    </event>
+    
     
     <event 
         start="Mar 21, 1960"
@@ -65,7 +108,7 @@
     <event 
         start="Oct 25, 1962"
         title="Sentence to prison"
-        image="http://simile.mit.edu/images/csail-logo.gif">
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_17.jpg">
     	On 25 October 1962, Mandela was sentenced to five years in prison.
     </event>
     
@@ -89,13 +132,110 @@
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Mandela and all Rivonia trialists except Rusty Bernstein were found guilty, but they escaped the gallows and were sentenced to life imprisonment on 12 June 1964. Charges included involvement in planning armed action, in particular four charges of sabotage, which Mandela admitted to, and a conspiracy to help other countries invade South Africa, which Mandela denied.
     </event>
+    
+    <event 
+        start="June 12, 1964"
+        title="Winnie arrested"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Winnie is arrested with twenty-one others and detained for five months. She is interrogated and tortured. 
+    </event>
+    
+    <event 
+        start="1970"
+        title="Bantu Homelands Act"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	The government passes the Bantu Homelands Citizenship Act, which makes every black a citizen of a homeland, or a rural tribal area, rather than a citizen of South Africa.
+    </event>
+    
+    <event 
+        start="Jun, 1976"
+        title="Soweto uprising"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Soweto students hold a rally to protest mandatory instruction in Afrikaans, the language of the white rulers. Police open fire on the students killing 23 and injuring hundreds more. 
+    </event>
 
+    <event 
+        start="May 19, 1977"
+        title="Winnie banished"
+        image="http://www.radiodiaries.org/mandela/images/timeline/3_3.jpg">
+    	Winnie Mandela is banished to Brandfort, a small, conservative Afrikaner town.
+    </event>
+    
+    <event 
+        start="Sep 12, 1977"
+        title="Biko murdered"
+        image="http://www.radiodiaries.org/mandela/images/timeline/3_4.jpg">
+    	Steve Biko, founder of the Black Consiousness Movement, dies after being beat up by the police in detention.
+    </event>
+    
+    <event 
+        start="1978"
+        title="P.W. Both becomes president"
+        image="http://www.radiodiaries.org/mandela/images/timeline/4_2.jpg">
+    	P.W. Botha succeeds B.J. Vorster as Prime Minister.
+    </event>
+    
+    <event 
+        start="Jan 31, 1985"
+        title="Botha's offer to Mandela"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	President P.W. Botha makes a conditional offer of release to Mandela.
+    </event>
+    
+    <event 
+        start="Feb 10, 1985"
+        title="Mandela replies to Both"
+        image="http://www.radiodiaries.org/mandela/images/timeline/4_3.jpg">
+    	Mandela's youngest daughter, Zindzi, reads her father's reply to Botha's offer at a rally in Soweto. This is the first time in two decades that Mandela's words are heard by the public.
+    </event>
+    
+    <event 
+        start="Jun 12, 1986"
+        title="Secret talks"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Mandela begins secret talks with the government, a decision made without consulting other leaders of the ANC organization.
+    </event>
+    
+    <event 
+        start="September 1989"
+        title="De Klerk is President"
+        image="http://www.radiodiaries.org/mandela/images/timeline/4_6.jpg">
+    	P.W. Botha resigned in July, and is succeeded by F.W. De Klerk as president of the Republic of South Africa.
+    </event>
+    
+    <event 
+        start="May 2, 1990"
+        title="Mandela is free"
+        image="http://www.radiodiaries.org/mandela/images/timeline/4_7.jpg">
+    	After 27 years of imprisonment, Mandela is released. He is free at last.
+    </event>
+    
+    <event 
+        start="1993"
+        title="Nobel peace prize"
+        image="http://simile.mit.edu/images/csail-logo.gif" 
+        link="http://www.anc.org.za/ancdocs/speeches/nobelnrm.html">
+    	Mandela won the Nobel Peace prize together with then President Frederik Willem de Klerk, for their work for the peaceful termination of the apartheid regime, and for laying the foundations for a new democratic South Africa.
+    </event>
+    
+    <event 
+        start="April, 1994"
+        title="Democratic elections"
+        image="http://www.radiodiaries.org/mandela/images/timeline/5_4.jpg">
+    	For the first time in the country's history people of all races vote in democratic elections. Mandela is elected South Africa's first black president.
+    </event>
+    
     <event 
         start="Jul 18, 1998"
         title="Marries Graca Machel"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	On 18 July 1998, Mandela married Graca Machel, the widow of former Mozambique President Samora Machel.
     </event>
-
     
+    <event 
+        start="May 10, 2004"
+        title="Ten years of Democracy"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Along with most of South Africa, Mandela celebrates 10 years of Democracy.
+    </event>
 </data>
