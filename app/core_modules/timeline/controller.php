@@ -78,6 +78,14 @@ class timeline extends controller
         $this->appendArrayVar('headerParams',$objTl->getScript());
     	$str = $objTl->show();
     	$this->setVarByRef("str", $str);
+        $mode=$this->getParam('mode', NULL);
+        if ($mode == "plain") {
+            $this->setVar('pageSuppressContainer',TRUE);
+	        $this->setVar('suppressFooter', TRUE); # suppress default page footer
+	        $this->setVar('pageSuppressIM', TRUE);
+	        $this->setVar('pageSuppressToolbar', TRUE);
+	        $this->setVar('pageSuppressBanner', TRUE);
+        }
     	return "demo_tpl.php";
     	
     	/******* NOT USING THIS YET

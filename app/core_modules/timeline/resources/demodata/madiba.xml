@@ -14,6 +14,14 @@
     </event>
     
     <event 
+        start="1930"
+        title="Father dies"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+        His father died in 1930, after which David Dalindyebo, then acting Paramount Chief of the tribe, became his guardian.
+    </event>
+    
+    
+    <event 
         start="1941"
         title="Move to Johannesburg"
         image="http://www.radiodiaries.org/mandela/images/timeline/1_1.jpg">
@@ -63,6 +71,15 @@
     </event>
     
     <event 
+        start="1956"
+        end="1961"
+        isDuration="true"
+        title="Treason trial"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	1956-61 - Tried for treason, acquitted 1961
+    </event>
+    
+    <event 
         start="1958"
         title="Verwoerd becomes Prime Minister"
         image="http://www.radiodiaries.org/mandela/images/timeline/1_11.jpg">
@@ -89,6 +106,13 @@
         title="UN Security Council sitting"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	On April 1, 1960, the United Nations Security Council sat to "consider seriously the apartheid colonial oppression of the African people in South Africa".
+    </event>
+    
+    <event 
+        start="1961"
+        title="Aquittal on treason"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Mandela was aquitted on the treason charges.
     </event>
     
     <event 
@@ -131,6 +155,15 @@
         title="Mandela gets life sentence"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Mandela and all Rivonia trialists except Rusty Bernstein were found guilty, but they escaped the gallows and were sentenced to life imprisonment on 12 June 1964. Charges included involvement in planning armed action, in particular four charges of sabotage, which Mandela admitted to, and a conspiracy to help other countries invade South Africa, which Mandela denied.
+    </event>
+    
+    <event 
+        start="1964"
+        end="1990"
+        isDuration="true"
+        title="Prison"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Mandela spent 27 years in prison, most of them on Robben Island.
     </event>
     
     <event 
@@ -192,7 +225,7 @@
     <event 
         start="Jun 12, 1986"
         title="Secret talks"
-        image="http://simile.mit.edu/images/csail-logo.gif">
+        image="http://www.polity.org.za/html/people/images/mandela.jpg">
     	Mandela begins secret talks with the government, a decision made without consulting other leaders of the ANC organization.
     </event>
     
@@ -233,9 +266,29 @@
     </event>
     
     <event 
+        start="1998"
+        title="Children's fund announced"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        link="http://www.youtube.com/watch?v=j7u_dL-z-UQ">
+    	President Mandela announces the launch of the Nelson Mandela Children's Fund Canada (NMCF) at Toronto's SkyDome in 1998. <br />
+    </event>
+     
+    
+    <event 
+        start="June, 1999"
+        title="Retirement from public life"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Nelson Mandela retired from Public life in June 1999. He currently resides in his birth place - Qunu, Transkei.
+    </event>
+    
+    <event 
         start="May 10, 2004"
         title="Ten years of Democracy"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Along with most of South Africa, Mandela celebrates 10 years of Democracy.
     </event>
+    
+    
+
+    
 </data>
