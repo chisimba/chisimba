@@ -66,6 +66,11 @@ class timeline extends controller
     {
     	//Get the action parameter from the querystring
     	$action = $this->getParam('action', 'viewdemo');
+        /*
+        * Convert the action into a method (alternative to 
+        * using case selections)
+        */
+        $method = $this->__getMethod($action);
     	//Add the onload function to the body
         $this->_addBodyParams();
     	//We have to suppress the XML directive in the page otherwise it breaks the JS
@@ -86,7 +91,11 @@ class timeline extends controller
 	        $this->setVar('pageSuppressToolbar', TRUE);
 	        $this->setVar('pageSuppressBanner', TRUE);
         }
-    	return "demo_tpl.php";
+        /*
+        * Return the template determined by the method resulting 
+        * from action
+        */
+        return $this->$method();
     	
     	/******* NOT USING THIS YET
         //Get action from query string and set default to view
@@ -131,28 +140,42 @@ class timeline extends controller
     /*------------- END : Methods for writing to the page body and header ---------------*/
 
 
-
-
-
-
-
-
-
-
-
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
     /**
     * 
-    * Method corresponding to the view action. It fetches the stories
-    * into an array and passes it to a main_tpl content template.
+    * Method corresponding to the view action. It hands everything over to the
+    * demo template.
+    * 
     * @access private
     * 
     */
     private function __viewdemo()
     {
-        return "main_tpl.php";
+        return "demo_tpl.php";
     }
+    
+    /**
+    * 
+    * Method corresponding to the testparser action. It catches the URL for the timeline
+    * module and hands it over to the template. This is a unit test of sorts, and it not
+    * really meant to have any end user functionality.
+    * 
+    * @access private
+    * 
+    */
+    private function __testparser()
+    {
+        return "testparser_tpl.php";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
     * 
