@@ -577,7 +577,7 @@ class InstallDirectoryAction extends StepAction
                     if (count($uriSearch)>0){
                         $module_URI=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']),-strlen('chisimba_modules.txt'));
                         if ($newmodulepath==''){
-                            $newmodulepath=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']));
+                            $newmodulepath=substr($uriSearch[0],0,-strlen('chisimba_modules.txt'));
                         }
                     }
                 }
