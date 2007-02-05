@@ -13,7 +13,7 @@ class ldaplogin extends object
     public function init()
     {
         if (defined('KEWL_LDAP_SERVER')){
-            $dbconfig=&$this->getObject('dbconfig','config');
+            $dbconfig=&$this->getObject('altconfig','config');
             $this->ldapserver=$dbconfig->ldapServer();
         }
     }
@@ -39,6 +39,7 @@ class ldaplogin extends object
         $data=ldap_get_entries($ldapconn, $find);
         ldap_close($ldapconn);
         if ($data['count']>0) {
+        	//print_r($data); die();
             return $data[0]['dn'];
         } else {
             return FALSE;
@@ -98,17 +99,24 @@ class ldaplogin extends object
         $results['emailAddress']=$data[0]['mail'][0];
         if (isset($data[0][$this->usernumber]) && is_int($data[0][$this->usernumber]))
         {
-            $results['userId']=$data[0][$this->usernumber];
+            $results['userid']=$data[0][$this->usernumber];
         }
         else
         {
-            $results['userId']=FALSE;
+            $results['userid']=FALSE;
         }
         $results['title']='';
         $results['logins']='0';
         $results['password']='--LDAP--';
 
-        return $results; // send an array of the results
+        if(!empty($results) || !is_bool($results['userid']))
+        {
+
+        	return $results; // send an array of the results
+        }
+        else {
+        	return false;
+        }
     }
 
     /**
