@@ -239,7 +239,10 @@ class logactivity extends dbTable
             // Else Add Additional Fields
             $logArray['action'] = $this->getParam('action');
             $logArray['ipaddress'] = $_SERVER['REMOTE_ADDR'];
-            $logArray['referrer'] = $_SERVER['HTTP_REFERER'];
+            
+            if (isset($_SERVER['HTTP_REFERER'])) {
+                $logArray['referrer'] = $_SERVER['HTTP_REFERER'];
+            }
             $this->insert($logArray);
         }
     } //function _logData
