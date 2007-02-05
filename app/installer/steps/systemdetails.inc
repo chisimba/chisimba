@@ -1077,7 +1077,6 @@ class RootUserAction extends StepAction
       foreach ($data->modulelist->category as $line){
         foreach ($line->module as $l2){
             if (!(in_array($l2,$dirList))){
-                print "BEEEP! $l2";
                 unset($simbaTypes[$line->categoryname]);
                 // check for core module problem
                 if ($line->categoryname=='Basic System Only'){
