@@ -23,9 +23,10 @@ if (substr(PHP_VERSION,0,2) > '5.1'){
     die;
 }
 
-$path=str_replace('\\','/',getcwd())."/../config/";
-if (file_exists($path."installdone.txt") && file_exists($path."config.xml")&&file_exists($path."dbdetails.php")){
-    print "The installation has been done already.";
+$path=substr(str_replace('\\','/',getcwd()),0,-10)."/config/";
+if (file_exists($path."installdone.txt") && file_exists($path."config.xml")&&file_exists($path."dbdetails_inc.php")){
+    print "The installation has been done already.<br />Click <a href='";
+    print "../index.php'>here</a> to enter the site.<br />\n";
     die;
 
 }
