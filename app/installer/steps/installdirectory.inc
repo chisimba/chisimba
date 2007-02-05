@@ -572,14 +572,18 @@ class InstallDirectoryAction extends StepAction
                 // module URI
                 if (isset($_SESSION['module_URI']) && is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$_SESSION['module_URI'])){
                     $module_URI=$_SESSION['module_URI'];
-                } else {                    
-                    $uriSearch=$this->globr($_SERVER['DOCUMENT_ROOT'],'/chisimba_modules.txt',GLOB_NOSORT);
-                    if (count($uriSearch)>0){
-                        $module_URI=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']),-strlen('chisimba_modules.txt'));
-                        if ($newmodulepath==''){
-                            $newmodulepath=substr($uriSearch[0],0,-strlen('chisimba_modules.txt'));
-                        }
-                    }
+                } else if (($newmodulepath=='')||( strlen($newmodulepath) < strlen($abspath)) ){                    
+                    //$uriSearch=$this->globr($_SERVER['DOCUMENT_ROOT'],'/chisimba_modules.txt',GLOB_NOSORT);
+                    //if (count($uriSearch)>0){
+                    //    $module_URI=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']),-strlen('chisimba_modules.txt'));
+                    //    if ($newmodulepath==''){
+                    //        $newmodulepath=substr($uriSearch[0],0,-strlen('chisimba_modules.txt'));
+                    //    }
+                    //} else {
+                        $module_URI='';
+                    //}
+                } else {
+                    $module_URI=substr($newmodulepath,strlen($_SERVER['DOCUMENT_ROOT'])).'/';
                 }
 
 		ob_start();

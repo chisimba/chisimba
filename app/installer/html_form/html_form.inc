@@ -351,7 +351,7 @@ function combo_box($name, $contents, $multiple, $defaults, $height=0, $extras=''
 	echo	'<select name="', htmlspecialchars($name), '" ',
 			(($height > 1)? 'size="'.$height.'" ' : ''),
 			$extras,
-			'>';
+			">\n";
 
 	foreach ($contents as $key => $value) {
 		if ($maxlength) {
@@ -365,9 +365,9 @@ function combo_box($name, $contents, $multiple, $defaults, $height=0, $extras=''
 				((in_array((string) $value, $defaults)) ? ' selected="selected"' : ''),
 				'>',
 				$value,
-				'</option>';
+				"</option>\n";
 	}
-	echo '</select>';
+	echo "</select>\n";
 
 }//end combo_box()
 

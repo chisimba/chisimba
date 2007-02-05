@@ -144,7 +144,7 @@ class RootUserAction extends StepAction
 
 		$_SESSION['root_email'] = (isset($_POST['root_email']) && (strlen($_POST['root_email']) > 0)) ? $_POST['root_email'] : '';
 
-		$_SESSION['tech_email'] = (isset($_POST['tech_email']) && (strlen($_POST['tech_email']) > 0)) ? $_POST['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
+		$_SESSION['tech_email'] = (isset($_POST['tech_email']) && (strlen($_POST['tech_email']) > 0)) ? $_POST['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
 		$_SESSION['sys_name'] = (isset($_POST['sys_name'])) ? $_POST['sys_name'] : '';
 
@@ -268,7 +268,8 @@ class RootUserAction extends StepAction
 
 
 
-		if ($_SESSION['postLogin']=='postlogin') {
+		//if ($_SESSION['postLogin']=='postlogin') {
+		if ($_SESSION['postLogin']=='') {
 
 			$this->errors[] = 'You must select a post login module.';
 
@@ -314,7 +315,7 @@ class RootUserAction extends StepAction
 
 
 
-		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
+		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
 
 
@@ -1001,7 +1002,8 @@ class RootUserAction extends StepAction
      			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
 						if (is_dir($file) && (file_exists($basedir.$file.'/controller.php'))||(file_exists($basedir.$file.'/register.conf')) ) {
-							array_push($dirList, $file);
+							//array_push($dirList, $file);
+							$dirList[$file]= $file;
 						}
 					}
 				}
@@ -1014,7 +1016,8 @@ class RootUserAction extends StepAction
      			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
 					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
 						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
-							array_push($dirList, $file);
+							//array_push($dirList, $file);
+							$dirList[$file]= $file;
 						}
 					}
 				}
@@ -1234,7 +1237,7 @@ class RootUserAction extends StepAction
 
 
 
-		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@cvs.uwc.ac.za';
+		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
 
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : '';
@@ -1266,6 +1269,7 @@ class RootUserAction extends StepAction
 		$basedir= $_SESSION['sys_root']."/core_modules/";
 
 
+/**  // This section is no longer needed - I've changed the module form element to pass a string not a number.
 
 		chdir($basedir);
 
@@ -1301,7 +1305,7 @@ class RootUserAction extends StepAction
 
 			}
 
-		}
+		}**/
 
 
                 // Server Type
