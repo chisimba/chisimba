@@ -1104,20 +1104,13 @@ class engine
 			return "core_modules/" . $moduleName."/resources/".$resourceFile;
 		}
 
-        // Convert Back Slashes to forward slashes
-        $modulePath = str_replace('\\', '/', $this->_objConfig->getModulePath().'/');
-        // Replace multiple instances of the forward slashes with single ones
-        $modulePath = preg_replace('/\/++/', '/', $modulePath);
+            // Convert Back Slashes to forward slashes
+            $moduleURI = str_replace('\\', '/', $this->_objConfig->getModuleURI().'/');
+            // Replace multiple instances of the forward slashes with single ones
+            $moduleURI = preg_replace('/\/++/', '/', $modulePath);
 
-
-        // Convert Back Slashes to forward slashes
-        $serverPath = str_replace('\\', '/',$_SERVER['DOCUMENT_ROOT'].'/');
-        // Replace multiple instances of the forward slashes with single ones
-        $serverPath = preg_replace('/\/++/', '/', $serverPath);
-
-        $path = str_replace($serverPath, "", $modulePath);
-		return '/'.$path.$moduleName.'/resources/'.$resourceFile;
-		//return 'modules/' . $moduleName . '/resources/' . $resourceFile;
+            return '/'.$moduleURI.'/resources/'.$resourceFile;
+	    //return 'modules/' . $moduleName . '/resources/' . $resourceFile;
 	}
 
     /**
