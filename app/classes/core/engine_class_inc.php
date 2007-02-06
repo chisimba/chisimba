@@ -1107,9 +1107,9 @@ class engine
             // Convert Back Slashes to forward slashes
             $moduleURI = str_replace('\\', '/', $this->_objConfig->getModuleURI().'/');
             // Replace multiple instances of the forward slashes with single ones
-            $moduleURI = preg_replace('/\/++/', '/', $modulePath);
+            $moduleURI = preg_replace('/\/++/', '/', $moduleURI);
 
-            return '/'.$moduleURI.'/resources/'.$resourceFile;
+            return str_replace('//','/','/'.$moduleURI.'/resources/'.$resourceFile);
 	    //return 'modules/' . $moduleName . '/resources/' . $resourceFile;
 	}
 
