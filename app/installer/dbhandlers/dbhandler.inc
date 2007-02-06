@@ -104,6 +104,7 @@ class DbHandler extends dbHandlermanager
 
             if (PEAR::isError($this->_globalObjDb)) {
                 echo $this->_pearErrorCallback($this->_globalObjDb);
+                
                 die();
                
             }
@@ -181,8 +182,16 @@ class DbHandler extends dbHandlermanager
 		}
 
 	}//end getDbHandler()
-
-
+    //check for db connections
+    public function checkConnection()
+    {
+    	     $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
+             if (PEAR::isError($this->_globalObjDbManager)) {
+             	return  $this->_globalObjDbManager->getMessage();
+             	
+             }
+             return true;
+    }
 	/**
 
 	* Abstract emptyDatabase method
