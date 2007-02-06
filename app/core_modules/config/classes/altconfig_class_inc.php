@@ -1290,6 +1290,33 @@ class altconfig extends object
     }
 
     /**
+     * Method to return the moduleURI setting from the config file
+     *
+     * @param void
+     * @return string
+     */
+    public function getModuleURI()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+
+    	try {
+        	//Lets get the parent node section first
+        	$Settings =& $this->_root->getItem("section", "Settings");
+        	//Now onto the directive node
+        	$SettingsDirective =& $Settings->getItem("directive", "MODULE_URI");
+        	if(!($SettingsDirective)){
+                throw new Exception('Module URI is missing');
+        	}
+        	//finally unearth whats inside
+        	$moduleURI = $SettingsDirective->getContent();
+    	} catch  (Exception $e){
+    	    throw new customException($e->getMessage());
+    		exit();
+    	}
+
+    	return $moduleURI;
+    }
+    /**
     * Set  error reporting Settings
     * @access public
     * @param value to be changed
