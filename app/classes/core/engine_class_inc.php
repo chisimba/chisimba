@@ -1109,7 +1109,7 @@ class engine
             // Replace multiple instances of the forward slashes with single ones
             $moduleURI = preg_replace('/\/++/', '/', $moduleURI);
 
-            return str_replace('//','/','/'.$moduleURI.'/resources/'.$resourceFile);
+            return str_replace('//','/','/'."$moduleURI/$moduleName/resources/$resourceFile");
 	    //return 'modules/' . $moduleName . '/resources/' . $resourceFile;
 	}
 
