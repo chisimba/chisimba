@@ -60,9 +60,9 @@ foreach ($arrModules as $module)
         $icon = $this->newObject('geticon', 'htmlelements');
         $icon->setModuleIcon($module['module_id']);
         
-        $objForm->addToForm('<li><dl><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
+        $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
         $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
-        $objForm->addToForm('</dl></li>');
+        $objForm->addToForm('</ul>');
     }
 
 }
