@@ -103,8 +103,13 @@ class email extends absendmail implements ifsendmail
     * by the wrapped class
     *
     */
-    public function send()
+    public function send($html = FALSE)
     {
+    	//override the parent for html mail
+    	if($html == TRUE)
+    	{
+    		$this->objBaseMail->IsHTML(TRUE);
+    	}
 		$this->objBaseMail->From =  $this->from;
 		$this->objBaseMail->FromName = $this->fromName;
 		$this->objBaseMail->Subject = $this->subject;
