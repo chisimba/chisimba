@@ -68,7 +68,7 @@ class adminmenu extends object
         // Check if contextadmin is registered
         $module = $this->moduleCheck->getModuleInfo('contextadmin');
         if ($module['isreg']) {
-            $this->addNavigationRow($module['name'], 'contextadmin', 'contextadmin');
+            $this->addNavigationRow(ucwords($module['name']), 'contextadmin', 'contextadmin');
         }
 
         // Check if useradmin is registered
