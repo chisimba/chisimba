@@ -183,9 +183,10 @@ class DbHandler extends dbHandlermanager
 
 	}//end getDbHandler()
     //check for db connections
-    public function checkConnection()
+    public function checkConnection($dbname)
     {
     	     $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
+    	     $this->_globalObjDbManager->setDatabase($dbname);
              if (PEAR::isError($this->_globalObjDbManager)) {
              	return  $this->_globalObjDbManager->getMessage();
              	
