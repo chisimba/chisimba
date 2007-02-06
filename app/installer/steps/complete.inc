@@ -69,6 +69,7 @@ class CompleteAction extends StepAction
                 //Now mark the installation as done
                 $path = $_SESSION['sys_root'].'/config/';
                 touch($path . 'installdone.txt');
+                $wizard->killSession();
 
 	}//end paintAction()
 

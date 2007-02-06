@@ -352,7 +352,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_MODULE_PATH',  $_SESSION['module_path']);
 
-			$this->_addConfigVar('KEWL_MODULE_URI',  $_SESSION['module_URI']);
+			$this->_addConfigVar('MODULE_URI',  $_SESSION['module_URI']);
 
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
 

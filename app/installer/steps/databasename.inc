@@ -234,9 +234,9 @@ class DbNameAction extends FiveStepAction
 
 			$conn = &$handler->getDbHandler($dsn);
 
-				if (PEAR::isError($conn)) {
-
-					$this->errors[] = 'Could not connect to database using the dsn '.$dsn.' This means that the database does not exist. Please create one or check database create';
+                        $result=$conn->checkConnection($_SESSION[$this->db_prefix.'name']);
+				if ($result!=TRUE) {
+					$this->errors[] = 'Could not connect to database using the dsn '.$dsn.' This means that either the database does not exist, or the username and password you supplied are incorrect. Please create the database or check database create';
 					$dsn = $_SESSION['short_dsn'];
 
 					$this->success = false;

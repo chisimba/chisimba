@@ -199,6 +199,8 @@ class InstallDirectoryAction extends StepAction
                 //Add a final '/'
                 $module_URI.='/';
                 $module_URI=str_replace('//','/',$module_URI);
+                // again 
+                $module_URI=str_replace('//','/',$module_URI);
 		//if (!is_dir($module_URI)) {
 		//	$this->errors[] = 'Could not find the directory specified '.$module_URI;
 		//	$this->success = false;
@@ -585,6 +587,7 @@ class InstallDirectoryAction extends StepAction
                 } else {
                     $module_URI=substr($newmodulepath,strlen($_SERVER['DOCUMENT_ROOT'])).'/';
                 }
+                $module_URI=str_replace('//','/',$module_URI);
 
 		ob_start();
         if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
