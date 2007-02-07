@@ -479,7 +479,7 @@ div.domTTCaption {
 
     font-size: 1em;
     height: 1em;
-    cursor: hand;
+    cursor: pointer;
 }
 div.domTTContent {
      background: transparent;
@@ -610,27 +610,29 @@ display:none;
  */
 
 q {
+/*
 #background: transparent;
 #border: 1px solid gray;
 #background-color: yellow;
-#width: 50px;
+#width: 50px;*/
 }
 
 q:before, q:after {
 color: #69c;
 font-size: 300%;
-#width: 10px;
+/*#width: 10px;*/
 }
 
 q:before {
 content: open-quote;
 height: 0;
-#margin-left: -0.55em;
+/*#margin-left: -0.55em;*/
 }
 q:after {
 content: close-quote;
+/*
 #height: 50px;
-#margin-top: -70px;
+#margin-top: -70px;*/
 }
 /**
  * END QUOTES
@@ -691,7 +693,6 @@ content: close-quote;
 #popupControls {
 	float: right;
 	cursor: pointer;
-	cursor: hand;
 }
 #popupControls a span {
 	display: block;
