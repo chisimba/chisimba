@@ -1,20 +1,7 @@
 <?php
 $useragent = $_SERVER['HTTP_USER_AGENT'];
-/*
-function isMSIE($useragent)
-{
-		if(eregi("msie", $useragent) && !eregi("opera",$useragent))
-		{
-			return TRUE;
-		}
-		if(eregi("microsoft internet explorer", $useragent))
-		{
-			return TRUE;
-		}
-}
-*/
-$browser = $this->getObject('browser', 'skin');
 
+$browser = $this->getObject('browser', 'skin');
 if($browser->isMSIE() || $browser->isSafari())
 {
 	$charset = "utf-8";
