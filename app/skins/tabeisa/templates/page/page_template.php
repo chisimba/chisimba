@@ -130,6 +130,12 @@ if (isset($bodyOnLoad)) {
 </head>
 <?php
 
+if ($objUser->isLoggedIn()) {
+    $module = 'postlogin';
+} else {
+    $module = 'prelogin';
+}
+
 
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
@@ -143,13 +149,14 @@ if (isSet($bodyParams)) {
  	}
 
  	if (!isset($pageSuppressBanner)) {
+
 ?>
 
 
 			<div id="header" align="center">
             <table width="736"  border="0" cellspacing="0" cellpadding="0" id="headertable">
   <tr align="center" valign="top">
-    <td height="139" colspan="4"><img src="skins/tabeisa/images/top/lefttop.gif" width="47" height="20" /><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=_default"><img src="skins/tabeisa/images/transparent.gif" name="homeimage" width="60" height="20" border="0" id="homeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=splashscreen"><img src="skins/tabeisa/images/transparent.gif" name="flashhomeimage" width="90" height="20" border="0" id="flashhomeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_about"><img src="skins/tabeisa/images/transparent.gif" name="aboutimage" width="67" height="20" border="0" id="aboutimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_services"><img src="skins/tabeisa/images/transparent.gif" name="servicesimage" width="68" height="20" border="0" id="servicesimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_contact"><img src="skins/tabeisa/images/transparent.gif" name="contactimage" width="58" height="20" border="0" id="contactimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><?php 
+    <td height="139" colspan="4"><img src="skins/tabeisa/images/top/lefttop.gif" width="47" height="20" /><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=<?php echo $module; ?>"><img src="skins/tabeisa/images/transparent.gif" name="homeimage" width="60" height="20" border="0" id="homeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=splashscreen"><img src="skins/tabeisa/images/transparent.gif" name="flashhomeimage" width="90" height="20" border="0" id="flashhomeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_about"><img src="skins/tabeisa/images/transparent.gif" name="aboutimage" width="67" height="20" border="0" id="aboutimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_services"><img src="skins/tabeisa/images/transparent.gif" name="servicesimage" width="68" height="20" border="0" id="servicesimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_contact"><img src="skins/tabeisa/images/transparent.gif" name="contactimage" width="58" height="20" border="0" id="contactimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><?php 
     
     if ($objUser->isAdmin()) {
         echo '<a href="index.php?module=toolbar"><img src="skins/tabeisa/images/transparent.gif" name="adminimage" width="67" height="20" border="0" id="adminimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" />';
