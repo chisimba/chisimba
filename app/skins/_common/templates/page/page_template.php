@@ -1,5 +1,6 @@
 <?php
 $useragent = $_SERVER['HTTP_USER_AGENT'];
+/*
 function isMSIE($useragent)
 {
 		if(eregi("msie", $useragent) && !eregi("opera",$useragent))
@@ -11,8 +12,10 @@ function isMSIE($useragent)
 			return TRUE;
 		}
 }
-$ie = isMSIE($useragent);
-if($ie == TRUE)
+*/
+$browser = $this->getObject('browser', 'skin');
+
+if($browser->isMSIE() || $browser->isSafari())
 {
 	$charset = "utf-8";
 	$mime = "text/html";

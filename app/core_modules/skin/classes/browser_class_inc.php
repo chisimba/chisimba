@@ -1,280 +1,591 @@
 <?php
-/*****************************************************************
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
 
-    File name: browser.php
-    Author: Gary White
-    Last modified: November 10, 2003
-    
-    **************************************************************
+// end security check
 
-    Copyright (C) 2003  Gary White
-    
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-    
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details at:
-    http://www.gnu.org/copyleft/gpl.html
-
-    **************************************************************
-
-    Browser class
-    
-    Identifies the user's Operating system, browser and version
-    by parsing the HTTP_USER_AGENT string sent to the server
-    
-    Typical Usage:
-    
-        require_once($_SERVER['DOCUMENT_ROOT'].'/include/browser.php');
-        $br = new Browser;
-        echo "$br->Platform, $br->Name version $br->Version";
-    
-    For operating systems, it will correctly identify:
-        Microsoft Windows
-        MacIntosh
-        Linux
-
-    Anything not determined to be one of the above is considered to by Unix
-    because most Unix based browsers seem to not report the operating system.
-    The only known problem here is that, if a HTTP_USER_AGENT string does not
-    contain the operating system, it will be identified as Unix. For unknown
-    browsers, this may not be correct.
-    
-    For browsers, it should correctly identify all versions of:
-        Amaya
-        Galeon
-        iCab
-        Internet Explorer
-            For AOL versions it will identify as Internet Explorer (AOL) and the version
-            will be the AOL version instead of the IE version.
-        Konqueror
-        Lynx
-        Mozilla
-        Netscape Navigator/Communicator
-        OmniWeb
-        Opera
-        Pocket Internet Explorer for handhelds
-        Safari
-        WebTV
-*****************************************************************/
-
+/**
+ * Class to detect which browser is currently accessing the page/site
+ * @author Paul Scott, Ryan Whitney
+ * This class is very loosely based on scripts by Gary White
+ * @copyright Paul Scott
+ * @package browser
+ */
 class browser extends object
 {
+	/**
+	 * @private string $version
+	 */
+	private $version = NULL;
+	
+	/**
+	 * @private $useragent
+	 */
+	private $useragent = NULL;
+	
+	/**
+	 * @private string $platform
+	 */
+	private $platform = NULL;
+	
+	/**
+	 * @private string aol
+	 */
+	private $aol = FALSE;
+	
+	/**
+	 * @private string browser
+	 */
+	private $browsertype;
+	
+	/**
+	 * Class constructor
+	 * @param void
+	 * @return void
+	 */
+	public function init()
+	{
+		$agent = $_SERVER['HTTP_USER_AGENT'];
+		//set the useragent property
+		$this->useragent = $agent;
 
-    var $Name = "Unknown";
-    var $Version = "Unknown";
-    var $Platform = "Unknown";
-    var $UserAgent = "Not reported";
-    var $AOL = false;
+		// Set information on the browser
+		//First, the OS
+		$this->_determinePlatform();
 
-    function init()
-    {
-        $agent = $_SERVER['HTTP_USER_AGENT'];
+		//Now to figure out the browsertype and version
+		//We iterate down using the most popular, finally stopping once we've found it
+		// Yeah, its funky but it works
+		if(!$this->isFirefox())
+		if(!$this->isMSIE())
+		if(!$this->isSafari())
+		if(!$this->isAOL())
+		if(!$this->isOpera())
+		if(!$this->isKonqueror())
+		if(!$this->isIEv1())
+		if(!$this->isGaleon())
+		if(!$this->isMSPIE())
+		if(!$this->isIcab())
+		if(!$this->isOmniWeb())
+		if(!$this->isNetPositive())
+		if(!$this->isPhoenix())
+		if(!$this->isFirebird())
+			$this->isLynx(); // The last function, don't need to run as an if
+		//$this->isMozAlphaBeta();
+		//$this->isMozStable();
+		//$this->isNetscape();
+	}
+	
+	/**
+	 * method that determines the platform and sets it
+	 * @param void
+	 * @return void 
+	 */
+	private function _determinePlatform()
+	{
+		$win = eregi("win", $this->useragent);
+		$linux = eregi("linux", $this->useragent);
+		$mac = eregi("mac", $this->useragent);
+		$os2 = eregi("OS/2", $this->useragent);
+		$beos = eregi("BeOS", $this->useragent);
+		
+		//now do the check as to which matches and return it
+		if($win)
+		{
+			$this->platform = "Windows";
+		}
+		elseif ($linux)
+		{
+			$this->platform = "Linux"; 
+		}
+		elseif ($mac)
+		{
+			$this->platform = "Macintosh"; 
+		}
+		elseif ($os2)
+		{
+			$this->platform = "OS/2"; 
+		}
+		elseif ($beos)
+		{
+			$this->platform = "BeOS"; 
+		}
+	}
+	
+	/**
+	 * Method to test for Opera
+	 * @param void
+	 * @return property $broswer
+	 * @return property version
+	 * @return bool false on failure
+	 */
+	public function isOpera()
+	{
+		// test for Opera		
+		if (eregi("opera",$this->useragent))
+		{
+			$val = stristr($this->useragent, "opera");
+			if (eregi("/", $val)){
+				$val = explode("/",$val);
+				$this->browsertype = $val[0];
+				$val = explode(" ",$val[1]);
+				$this->version = $val[0];
+			}else{
+				$val = explode(" ",stristr($val,"opera"));
+				$this->browsertype = $val[0];
+				$this->version = $val[1];
+			}
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for FireFox
+	 * @param void
+	 * @return bool false on failure
+	 */ 
+	public function isFirefox()
+	{
+		if(eregi("Firefox", $this->useragent))
+		{
+			$this->browsertype = "Firefox"; 
+			$val = stristr($this->useragent, "Firefox");
+			$val = explode("/",$val);
+			$this->version = $val[1];
+			return true;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for Konquerer
+	 * @param void
+	 * @return prop $browser
+	 * @return prop $version
+	 * @return bool true on success
+	 */
+	public function isKonqueror()
+	{
+		if(eregi("Konqueror",$this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"Konqueror"));
+			$val = explode("/",$val[0]);
+			$this->browsertype = $val[0];
+			$this->version = str_replace(")","",$val[1]);
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+		
+	}//end func
+	
+	/**
+	 * Method to check for Internet Explorer v1
+	 * @param void
+	 * @return bool true on success
+	 * @return prop $browsertype
+	 * @return prop $version
+	 */
+	public function isIEv1()
+	{
+		if(eregi("microsoft internet explorer", $this->useragent))
+		{
+			$this->browsertype = "MSIE"; 
+			$this->version = "1.0";
+			$public = stristr($this->useragent, "/");
+			if (ereg("308|425|426|474|0b1", $public))
+			{
+				$this->version = "1.5";
+			}
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}//end public function
+	
+	/**
+	 * Method to check for Internet Explorer later than v1
+	 * @param void
+	 * @return bool true on success
+	 * @return prop $browsertype
+	 * @return prop $version
+	 */
+	public function isMSIE()
+	{
+		if(eregi("msie", $this->useragent) && !eregi("opera",$this->useragent))
+		{
+			$this->browsertype = "MSIE"; 
+			$val = explode(" ",stristr($this->useragent,"msie"));
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}//end public function
+	
+	/**
+	 * Method to check for Galeon
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isGaleon()
+	{
+		if(eregi("galeon",$this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"galeon"));
+			$val = explode("/",$val[0]);
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}//end func
+	
+	/**
+	 * Now we do the tests for browsers I can't test...
+	 * If someone finds a bug, please report it ASAP to me please!
+	 */
+	
+	/**
+	 * Method to check for WebTV browser
+	 * @param void
+	 * @return bool true on success
+	 * @return prop $browsertype
+	 * @return prop $version
+	 */
+	public function isWebTV()
+	{
+		if(eregi("webtv",$this->useragent))
+		{
+			$val = explode("/",stristr($this->useragent,"webtv"));
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for BeOS's NetPositive
+	 * @param void
+	 * @return bool true on success
+	 * @return prop $browsertype
+	 * @return prop $version
+	 */
+	public function isNetPositive()
+	{
+		if(eregi("NetPositive", $this->useragent))
+		{
+			$val = explode("/",stristr($this->useragent,"NetPositive"));
+			$this->platform = "BeOS"; 
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for MSPIE (Pocket IE)
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isMSPIE()
+	{
+		if(eregi("mspie",$this->useragent) || eregi("pocket", $this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"mspie"));
+			$this->browsertype = "MSPIE"; 
+			$this->platform = "WindowsCE"; 
+			if (eregi("mspie", $this->useragent))
+				$this->version = $val[1];
+			else {
+				$val = explode("/",$this->useragent);
+				$this->version = $val[1];
+			}
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to test for iCab
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isIcab()
+	{
+		if(eregi("icab",$this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"icab"));
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to test for the OmniWeb Browser
+	 * @param void
+	 * @return bool True on success
+	 */
+	public function isOmniWeb()
+	{
+		if(eregi("omniweb",$this->useragent))
+		{
+			$val = explode("/",stristr($this->useragent,"omniweb"));
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for Phoenix Browser
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isPhoenix()
+	{
+		if(eregi("Phoenix", $this->useragent))
+		{
+			$this->browsertype = "Phoenix"; 
+			$val = explode("/", stristr($this->useragent,"Phoenix/"));
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for Firebird
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isFirebird()
+	{
+		if(eregi("firebird", $this->useragent))
+		{
+			$this->browsertype = "Firebird"; 
+			$val = stristr($this->useragent, "Firebird");
+			$val = explode("/",$val);
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for Mozilla alpha/beta
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isMozAlphaBeta()
+	{
+		if(eregi("mozilla",$this->useragent) && 
+		   eregi("rv:[0-9].[0-9][a-b]",$this->useragent) && 
+		   !eregi("netscape",$this->useragent))
+		
+		{
+			$this->browsertype = "Mozilla"; 
+			$val = explode(" ",stristr($this->useragent,"rv:"));
+			eregi("rv:[0-9].[0-9][a-b]",$this->useragent,$val);
+			$this->version = str_replace("rv:","",$val[0]);
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}//end public function
 
-        // initialize properties
-        $bd['platform'] = "Unknown";
-        $bd['browser'] = "Unknown";
-        $bd['version'] = "Unknown";
-        $this->UserAgent = $agent;
+	/**
+	 * Method to check for Mozilla Stable versions
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isMozStable()
+	{
+		if(eregi("mozilla",$this->useragent) &&
+		   eregi("rv:[0-9]\.[0-9]",$this->useragent) && 
+		   !eregi("netscape",$this->useragent))
+		{
+			$this->browsertype = "Mozilla"; 
+			$val = explode(" ",stristr($this->useragent,"rv:"));
+			eregi("rv:[0-9]\.[0-9]\.[0-9]",$this->useragent,$val);
+			$this->version = str_replace("rv:","",$val[0]);
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to check for Lynx and Amaya
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isLynx()
+	{
+		if(eregi("libwww", $this->useragent))
+		{
+			if (eregi("amaya", $this->useragent))
+			{
+				$val = explode("/",stristr($this->useragent,"amaya"));
+				$this->browsertype = "Amaya"; 
+				$val = explode(" ", $val[1]);
+				$this->version = $val[0];
+			} else {
+				$val = explode("/",$this->useragent);
+				$this->browsertype = "Lynx"; 
+				$this->version = $val[1];
+			}
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * method to check for safari browser
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isSafari()
+	{
+		if(eregi("safari", $this->useragent))
+		{
+			$this->browsertype = "Safari"; 
+			$this->version = "";
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Various tests for Netscrape
+	 * @param void
+	 * @return bool true on success
+	 */
+	public function isNetscape()
+	{
+		if(eregi("netscape",$this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"netscape"));
+			$val = explode("/",$val[0]);
+			$this->browsertype = $val[0];
+			$this->version = $val[1];
+			return TRUE;
+		}
+		elseif(eregi("mozilla",$this->useragent) && 
+				!eregi("rv:[0-9]\.[0-9]\.[0-9]",$this->useragent))
+		{
+			$val = explode(" ",stristr($this->useragent,"mozilla"));
+			$val = explode("/",$val[0]);
+			$this->browsertype = "Netscape"; 
+			$this->version = $val[1];
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
+	}//end func
+	
+	/**
+	 * Method to check for AOL connections
+	 * @param void
+	 * @return bool true on Success
+	 */
+	public function isAOL()
+	{
+		if (eregi("AOL", $this->useragent)){
+			$public = stristr($this->useragent, "AOL");
+			$public = explode(" ", $public);
+			$this->aol = ereg_replace("[^0-9,.,a-z,A-Z]", "", $public[1]);
+			return TRUE;
+		}
+		else { 
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Method to tie them all up and output something useful
+	 * @param void
+	 * @return array
+	 */
+	public function whatBrowser()
+	{
+		return array('browsertype' => $this->browsertype, 
+					 'version' => $this->version, 
+					 'platform' => $this->platform, 
+					 'AOL' => $this->aol); 
+	}
 
-        // find operating system
-        if (eregi("win", $agent))
-            $bd['platform'] = "Windows";
-        elseif (eregi("mac", $agent))
-            $bd['platform'] = "MacIntosh";
-        elseif (eregi("linux", $agent))
-            $bd['platform'] = "Linux";
-        elseif (eregi("OS/2", $agent))
-            $bd['platform'] = "OS/2";
-        elseif (eregi("BeOS", $agent))
-            $bd['platform'] = "BeOS";
-
-        // test for Opera        
-        if (eregi("opera",$agent)){
-            $val = stristr($agent, "opera");
-            if (eregi("/", $val)){
-                $val = explode("/",$val);
-                $bd['browser'] = $val[0];
-                $val = explode(" ",$val[1]);
-                $bd['version'] = $val[0];
-            }else{
-                $val = explode(" ",stristr($val,"opera"));
-                $bd['browser'] = $val[0];
-                $bd['version'] = $val[1];
-            }
-
-        // test for WebTV
-        }elseif(eregi("webtv",$agent)){
-            $val = explode("/",stristr($agent,"webtv"));
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-        
-        // test for MS Internet Explorer version 1
-        }elseif(eregi("microsoft internet explorer", $agent)){
-            $bd['browser'] = "MSIE";
-            $bd['version'] = "1.0";
-            $var = stristr($agent, "/");
-            if (ereg("308|425|426|474|0b1", $var)){
-                $bd['version'] = "1.5";
-            }
-
-        // test for NetPositive
-        }elseif(eregi("NetPositive", $agent)){
-            $val = explode("/",stristr($agent,"NetPositive"));
-            $bd['platform'] = "BeOS";
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-
-        // test for MS Internet Explorer
-        }elseif(eregi("msie",$agent) && !eregi("opera",$agent)){
-            $val = explode(" ",stristr($agent,"msie"));
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-        
-        // test for MS Pocket Internet Explorer
-        }elseif(eregi("mspie",$agent) || eregi('pocket', $agent)){
-            $val = explode(" ",stristr($agent,"mspie"));
-            $bd['browser'] = "MSPIE";
-            $bd['platform'] = "WindowsCE";
-            if (eregi("mspie", $agent))
-                $bd['version'] = $val[1];
-            else {
-                $val = explode("/",$agent);
-                $bd['version'] = $val[1];
-            }
-            
-        // test for Galeon
-        }elseif(eregi("galeon",$agent)){
-            $val = explode(" ",stristr($agent,"galeon"));
-            $val = explode("/",$val[0]);
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-            
-        // test for Konqueror
-        }elseif(eregi("Konqueror",$agent)){
-            $val = explode(" ",stristr($agent,"Konqueror"));
-            $val = explode("/",$val[0]);
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-            
-        // test for iCab
-        }elseif(eregi("icab",$agent)){
-            $val = explode(" ",stristr($agent,"icab"));
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-
-        // test for OmniWeb
-        }elseif(eregi("omniweb",$agent)){
-            $val = explode("/",stristr($agent,"omniweb"));
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-
-        // test for Phoenix
-        }elseif(eregi("Phoenix", $agent)){
-            $bd['browser'] = "Phoenix";
-            $val = explode("/", stristr($agent,"Phoenix/"));
-            $bd['version'] = $val[1];
-        
-        // test for Firebird
-        }elseif(eregi("firebird", $agent)){
-            $bd['browser']="Firebird";
-            $val = stristr($agent, "Firebird");
-            $val = explode("/",$val);
-            $bd['version'] = $val[1];
-            
-        // test for Firefox
-        }elseif(eregi("Firefox", $agent)){
-            $bd['browser']="Firefox";
-            $val = stristr($agent, "Firefox");
-            $val = explode("/",$val);
-            $bd['version'] = $val[1];
-            
-      // test for Mozilla Alpha/Beta Versions
-        }elseif(eregi("mozilla",$agent) && 
-            eregi("rv:[0-9].[0-9][a-b]",$agent) && !eregi("netscape",$agent)){
-            $bd['browser'] = "Mozilla";
-            $val = explode(" ",stristr($agent,"rv:"));
-            eregi("rv:[0-9].[0-9][a-b]",$agent,$val);
-            $bd['version'] = str_replace("rv:","",$val[0]);
-            
-        // test for Mozilla Stable Versions
-        }elseif(eregi("mozilla",$agent) &&
-            eregi("rv:[0-9]\.[0-9]",$agent) && !eregi("netscape",$agent)){
-            $bd['browser'] = "Mozilla";
-            $val = explode(" ",stristr($agent,"rv:"));
-            eregi("rv:[0-9]\.[0-9]\.[0-9]",$agent,$val);
-            $bd['version'] = str_replace("rv:","",$val[0]);
-        
-        // test for Lynx & Amaya
-        }elseif(eregi("libwww", $agent)){
-            if (eregi("amaya", $agent)){
-                $val = explode("/",stristr($agent,"amaya"));
-                $bd['browser'] = "Amaya";
-                $val = explode(" ", $val[1]);
-                $bd['version'] = $val[0];
-            } else {
-                $val = explode("/",$agent);
-                $bd['browser'] = "Lynx";
-                $bd['version'] = $val[1];
-            }
-        
-        // test for Safari
-        }elseif(eregi("safari", $agent)){
-            $bd['browser'] = "Safari";
-            $bd['version'] = "";
-
-        // remaining two tests are for Netscape
-        }elseif(eregi("netscape",$agent)){
-            $val = explode(" ",stristr($agent,"netscape"));
-            $val = explode("/",$val[0]);
-            $bd['browser'] = $val[0];
-            $bd['version'] = $val[1];
-        }elseif(eregi("mozilla",$agent) && !eregi("rv:[0-9]\.[0-9]\.[0-9]",$agent)){
-            $val = explode(" ",stristr($agent,"mozilla"));
-            $val = explode("/",$val[0]);
-            $bd['browser'] = "Netscape";
-            $bd['version'] = $val[1];
-        }
-        
-        // clean up extraneous garbage that may be in the name
-        $bd['browser'] = ereg_replace("[^a-z,A-Z]", "", $bd['browser']);
-        // clean up extraneous garbage that may be in the version        
-        $bd['version'] = ereg_replace("[^0-9,.,a-z,A-Z]", "", $bd['version']);
-        
-        // check for AOL
-        if (eregi("AOL", $agent)){
-            $var = stristr($agent, "AOL");
-            $var = explode(" ", $var);
-            $bd['aol'] = ereg_replace("[^0-9,.,a-z,A-Z]", "", $var[1]);
-        } else {
-            $bd['aol'] = NULL;
-        }
-        
-        // finally assign our properties
-        $this->Name = $bd['browser'];
-        $this->Version = $bd['version'];
-        $this->Platform = $bd['platform'];
-        $this->AOL = $bd['aol'];
-    }
-    
-    /**
+	/**
     * Method to get the Browser Name
+	* @param void
+	* @return string browser type
     */
     function getBrowser()
     {
-        return $this->Name;
+        return $this->browsertype;
     }
     
     /**
     * Method to get the Version of the browser
+	*
+	* @param void
+	* @return string browser version 
     */
     function getVersion()
     {
-        return $this->Version;
+        return $this->version;
     }
-}
+
+	/**
+    * Method to get the Operating system 
+	* @param void
+	* @return string operating system 
+    */
+    function getPlatform()
+    {
+        return $this->platform;
+    }
+
+}//end class
 ?>
