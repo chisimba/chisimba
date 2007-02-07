@@ -317,6 +317,8 @@ class CreateConfigsAction extends FiveStepAction
 			$ksr = str_replace('/installer',"/",$ref);
 			$ksr = str_replace('/index.php','',$ksr);
 			$ksr = str_replace('app//','app/',$ksr);
+                        // remove localhost
+			$ksr = str_replace('http://localhost','',$ksr);
 		}
 		ob_start();
 
