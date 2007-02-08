@@ -151,9 +151,7 @@ h1 {
 #twocolumn div#left{float:left;width:140px;margin-left:-100%}
 #twocolumn div#right{display:none}
 
-#content {
-background-color:#FFF;
-}
+
 
 
 ul.shadetabs li a{
@@ -170,3 +168,5 @@ background-image: url(images/shadeactive.gif);
 .featurebox  small {
     margin-bottom: 10px;
 }
+
+#wrapper { background: #fff url("images/contentbkg.gif") 50% 50% no-repeat; }
