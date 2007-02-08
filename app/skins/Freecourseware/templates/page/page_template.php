@@ -152,7 +152,7 @@ if (isSet($bodyParams)) {
 		<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
 	
 	<input type="submit" value="Home" class="f-submit" onclick="javascript:window.location='index.php?module=cms'" />
-	<input type="submit" value="Blog" class="f-submit" onclick="javascript:window.location='index.php?module=blog'" />
+	<input type="submit" value="Blog" class="f-submit" onclick="javascript:window.location='index.php?module=blog&amp;action=siteblog'" />
 	<input type="submit" value="Wiki" class="f-submit" onclick="javascript:window.location='index.php?module=wiki'"  />
 	
 		
