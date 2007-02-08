@@ -28,7 +28,7 @@ $this->iconModFolder = $this->iconFolder."modules/";
 
 $objHead->type = 1;
 $objHead->str = $head;
-$str = $objHead->show();
+echo $objHead->show().'<br />';
 
 $objIcon->extra=' height="25" width="25" ';
 
