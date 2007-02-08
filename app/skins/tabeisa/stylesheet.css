@@ -161,12 +161,17 @@ ul.shadetabs li.selected a{ /*selected main tab style */
 background-image: url(images/shadeactive.gif);
 }
 
-.featurebox { background: #fff url("images/featureboxbottom.gif") bottom right no-repeat; }
+.featurebox { background: #fff url("images/featureboxbottom.gif") bottom right no-repeat; margin: 2px;}
 
-.featurebox  h3, .featurebox  h5{ background: #FFCC00 url("images/featureboxtop.gif") top left no-repeat; padding-left: 15px; margin-bottom: 10px;}
+.featurebox  h3, .featurebox  h5{ background: #FFCC00 url("images/featureboxtop.gif") top left no-repeat; padding-left: 15px; margin-bottom: 10px; overflow:hidden;}
 
-.featurebox  small {
+.featurebox   {
     margin-bottom: 10px;
 }
 
-#wrapper { background: #fff url("images/contentbkg.gif") 50% 50% no-repeat; }
+#wrapper { background: #fff url("images/contentbkg.gif") 50% 0% repeat-y; }
+
+
+
+#nav-secondary a {padding: 5px 0 5px 10px; }
+#nav-secondary a:hover , #nav-secondary a:visited:hover{color:#000;background: #FFDC51}
