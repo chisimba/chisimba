@@ -1,0 +1,146 @@
+
+/***********************************************************************************************
+*  BEGIN: styles for calendars                                                                 *
+***********************************************************************************************/
+/* specify the table background of the calender */
+.cal-main {
+background-color: #CCCCFF;
+}
+/*Specify the weekend style*/
+.cal-weekend {
+background-color: #ECECEC;
+}
+/*The defaule style*/
+.cal-default 
+{
+	background-color:  #FFFFCC;
+}
+/*The defaule style*/
+.cal-greyday 
+{
+	background-color:  #f1f1f1;
+	
+}
+.cal-greyday2{
+	color: #CCCCCC;
+	text-decoration: none;
+}
+/*The style for when today is identified*/
+.cal-today /* specify today's date of the calender */
+{
+	background-color: #CCFF99;
+	font-weight:bold;
+}
+.cal-todayfont /* specify the font colour of the calender */
+{
+	color: #000066;
+	font-family: Arial, Verdana;
+}
+.cal-defaultfont /* specify the default font of the calender */
+{
+	color: #000066;
+	font-family: Arial, Verdana;
+	}
+
+.cal-month/* specify the colour of the months in the calender. */
+{
+	color: #ffffff;
+	background-color: #808000;
+}
+
+
+.cal-clicked { /* Specify the style for when the cal is clicked */
+	font-family: Verdana;
+	font-size: 8pt;
+	color: #FFFFFF;
+	background-color: #C00000;
+	height: 20;
+	padding-left: 5pt;
+}
+/*Top of calendar*/
+.cal-top { 
+	font-family: Verdana;
+	font-size: 8pt;
+	color: #FFFFFF;
+	background-color: #000066;
+	height: 20;
+	padding-left: 5pt;
+}
+
+/* STyle to use when the cal has an event*/
+.cal-hasEvent {
+	font-family: Verdana;
+	font-size: 8pt;
+	color: #000000;
+	background-color: #C6D1DC;
+	height: 20;
+	padding-left: 5pt;
+}
+/***********************************************************************************************
+*  END: styles for calendars                                                                   *
+***********************************************************************************************/
+
+.calendar {
+width: 99%;
+border-collapse: collapse;
+}
+
+.calendar th {
+	border: 1px solid #AAAAAA;
+	border-bottom: none;
+	padding: 2px 8px 2px 8px;
+}
+
+.smallCalendar th {
+    padding: 0px;
+}
+
+.bigheight td {
+    height: 60px;
+}
+
+.calendar td {
+    vertical-align:top;
+    border: 1px solid #AAAAAA;
+}
+
+.calendar td.normalday {
+	background-color: #FFFFFF;
+}
+
+.calendar td.eventday {
+	background-color: lightyellow;
+    border: 2px solid green;
+}
+
+.calendar td.todaycal {
+	background-color: yellow;
+    border: 2px solid green;
+    color: #000000;
+}
+
+.calendar ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.calendar li {
+    clear: both;
+    float: none;
+}
+
+
+.bigDayNum {
+    font-size: 200%;
+    font-weight: bolder;
+    color: darkblue;
+}
+
+.calendarList {
+    border-collapse: collapse;border: 1px solid #AAAAAA;
+}
+
+.calendarList td,.calendarList th{
+    border: 1px solid #AAAAAA;
+}
