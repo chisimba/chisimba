@@ -8,7 +8,8 @@ body.splashscreen {
     background-color: #0A6F2D;
 }
 h1 {
-    linae-height: 200%;
+    line-height: 120%;
+    margin-bottom: 5px;
 }
 #container {
     background-color: #fff;
@@ -160,4 +161,12 @@ background: white url(images/shade.gif) top left repeat-x;
 }
 ul.shadetabs li.selected a{ /*selected main tab style */
 background-image: url(images/shadeactive.gif);
+}
+
+.featurebox { background: #fff url("images/featureboxbottom.gif") bottom right no-repeat; }
+
+.featurebox  h3, .featurebox  h5{ background: #FFCC00 url("images/featureboxtop.gif") top left no-repeat; padding-left: 15px; margin-bottom: 10px;}
+
+.featurebox  small {
+    margin-bottom: 10px;
 }

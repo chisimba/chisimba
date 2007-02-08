@@ -164,7 +164,15 @@ if (isSet($bodyParams)) {
   </tr>
 </table>
 			</div>
-<?php  }
+<?php  } else {
+
+?>
+<style type="text/css">
+body, html { background-color: #fff;}
+</style>
+<?
+
+}
 
     // get content
     echo $this->getLayoutContent();
