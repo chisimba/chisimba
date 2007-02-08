@@ -153,3 +153,11 @@ h1 {
 #content {
 background-color:#FFF;
 }
+
+
+ul.shadetabs li a{
+background: white url(images/shade.gif) top left repeat-x;
+}
+ul.shadetabs li.selected a{ /*selected main tab style */
+background-image: url(images/shadeactive.gif);
+}

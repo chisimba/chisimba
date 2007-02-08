@@ -2,20 +2,8 @@
 
 $objUser = $this->getObject('user', 'security');
 
-$useragent = $_SERVER['HTTP_USER_AGENT'];
-function isMSIE($useragent)
-{
-		if(eregi("msie", $useragent) && !eregi("opera",$useragent))
-		{
-			return TRUE;
-		}
-		if(eregi("microsoft internet explorer", $useragent))
-		{
-			return TRUE;
-		}
-}
-$ie = isMSIE($useragent);
-if($ie == TRUE)
+$browser = $this->getObject('browser', 'skin');
+if($browser->isMSIE() || $browser->isSafari())
 {
 	$charset = "utf-8";
 	$mime = "text/html";
@@ -154,7 +142,7 @@ if (isSet($bodyParams)) {
 
 
 			<div id="header" align="center">
-            <table width="736"  border="0" cellspacing="0" cellpadding="0" id="headertable">
+            <table width="735"  border="0" cellspacing="0" cellpadding="0" id="headertable">
   <tr align="center" valign="top">
     <td height="139" colspan="4"><img src="skins/tabeisa/images/top/lefttop.gif" width="47" height="20" /><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=<?php echo $module; ?>"><img src="skins/tabeisa/images/transparent.gif" name="homeimage" width="60" height="20" border="0" id="homeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=splashscreen"><img src="skins/tabeisa/images/transparent.gif" name="flashhomeimage" width="90" height="20" border="0" id="flashhomeimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_about"><img src="skins/tabeisa/images/transparent.gif" name="aboutimage" width="67" height="20" border="0" id="aboutimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_services"><img src="skins/tabeisa/images/transparent.gif" name="servicesimage" width="68" height="20" border="0" id="servicesimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><a href="index.php?module=tabeisa_contact"><img src="skins/tabeisa/images/transparent.gif" name="contactimage" width="58" height="20" border="0" id="contactimage" /></a><img src="skins/tabeisa/images/topspacer.gif" width="1" height="20" /><?php 
     
