@@ -8,6 +8,9 @@ body {
 	background-position: top left;
 	line-height: 1.8em;
 }
+html {
+	background: #000000;
+}
 
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
 
