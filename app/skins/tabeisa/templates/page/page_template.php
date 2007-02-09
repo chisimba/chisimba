@@ -122,7 +122,7 @@ if (isset($bodyOnLoad)) {
 <?php
 
 if ($objUser->isLoggedIn()) {
-    $module = 'postlogin';
+    $module = 'tabeisa_postlogin';
 } else {
     $module = 'prelogin';
 }
