@@ -57,6 +57,7 @@
     <exclude name="app/skins/madiba/**"/>
     <exclude name="app/skins/meritunu/**"/>
     <exclude name="app/skins/sems/**"/>
+    <exclude name="app/skins/tabeisa/**"/>
     
     <!-- until these are removed from CVS we exclude them from archives -->
     <exclude name="app/skins/echo/echo_psds/**"/>
