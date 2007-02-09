@@ -23,25 +23,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 */
 class timelineparser extends object
-{
-
-    /**
-    * 
-    * @var $objConfig String object property for holding the 
-    * configuration object
-    * @access public
-    * 
-    */
-    public $objConfig;
-    /**
-    * 
-    * @var $objSconfig String object property for holding the 
-    * configuration object for the module uri
-    * @access public
-    * 
-    */
-    public $objSconfig;
-    
+{  
     /**
     * 
     * @var string $demoTimeline Holds the value of the demo timeline
@@ -51,16 +33,15 @@ class timelineparser extends object
     
     /**
     * 
-    * @var string $timeline Holds the value of the timeline to display
+    * @var string $uri Holds the value of the timeline to display
     * 
     */
-    public $timeline;
-    /**
-    * 
-    * @var string $timeline Holds the value of the timeline to display
-    * 
-    */
-    public $tlHeight;
+    public $uri;
+
+	/*
+	* @var string $timeLineModuleLink Holds the link for the timeline module
+	*/
+    public $timeLineModuleLink;
     
     /**
     *
@@ -71,17 +52,80 @@ class timelineparser extends object
     */
     public function init()
     {
-    	//die($this->getResourceUri('deadfile.js'));
-        //Create the configuration object
-        $this->objConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        //Create the config reader and get the location of demo maps
-        $objSconfig =  $this->getObject('altconfig', 'config');
-        $timeLineModuleLink = $this->Uri(array(), "timeline");
+		//Create the base URL to add to
+        $this->timeLineModuleLink = $this->Uri(array(), "timeline");
     }
     
+    /*
+     * 
+     * Method to set the uri parameter for the timeline to be 
+     * parsed.
+     * 
+     * @access public
+     * @return string The URI for the timeline to be parsed
+     * 
+     */
+	public function setTimelineUri($uri)
+	{
+	    $this->uri = $uri;
+	    return TRUE;
+	}
+	
+	/*
+	 * 
+	 * Method to get the timeline Uri as stored
+	 * 
+	 * @access public
+	 * @return string The URI or Null if not set
+	 * 
+	 */
+	public function getTimelineUri()
+	{
+	    if (isset($this->uri)) {
+	        return $this->uri;
+	    } else {
+	        return NULL;
+	    }
+	}
+	
+	/*
+	 * 
+	 * A method to extract a querystring parameter and value from a URL supplied
+	 * as a string. For example, when supplied with:
+	 *   http://localhost/chsimba/index.php?action=read&text=mytext
+	 *   $this->getParamFromStringUri("action") will return
+	 *   "read". $this->getParamFromStringUri("someparam") will return
+	 *   NULL.
+	 *
+	public function getParamFromStringUri($paramname)
+	{
+	    if (isset($this->uri)) {
+	        if (!instr($$paramname, $this->uri)) {
+	            return NULL;
+	        } else {
+	            //Try to extract it.
+	            $matchPattern = "/" . $paramname . "=.[&\n]/i" ;
+	        }
+	    } else {
+	        return NULL;
+	    }
+	}*/
+    /**
+     * 
+     * Method to render the timelines
+     * @return string The rendered iframe
+     * 
+     */
     public function show()
     {
-        $ret="";
-        return $ret;
+    	$objIframe = $this->getObject('iframe', 'htmlelements');
+    	$objIframe->width = "100%";
+    	$objIframe->height="600";
+        $ret = $this->timeLineModuleLink;
+        $ret .= "&mode=plain&timeline=" . urlencode($this->uri);
+        $objIframe->src=$ret;
+        //$ret = "<iframe height=\"333\" width=\"100%\" src=\"$ret\"></iframe>";
+        return $objIframe->show();
     }
+}
 ?>

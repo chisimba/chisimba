@@ -93,9 +93,17 @@ class createtimeline extends object
         //Get the default interval unit for the divisions
         $this->intervalUnit = $this->getParam('intervalUnit', 'YEAR');
         //Get the default height for the timeline
-        $this->tlHeight = $this->getParam('tlHeight', '150');
+        $this->tlHeight = $this->getParam('tlHeight', '330');
     }
     
+    /**
+    * 
+    * Render the timeline as a string and return it for display
+    * 
+    * @return string The rendered dtimeline
+    * @access public
+    * 
+    */
     public function show()
     {
         $ret="";
@@ -103,17 +111,40 @@ class createtimeline extends object
         return $ret;
     }
 
+	/**
+	* 
+	* Standard setter method
+	* 
+	* @return TRUE
+	* @access public
+	* 
+	*/
 	public function setValue($item, $value)
 	{
 	    $this->$item=$value;
 	    return TRUE;
 	}
     
+    /**
+     * 
+     * Standard getter method
+     * 
+     * @param string $item The name of the property to return
+     * @return the value of the parameter requested
+     * @access public
+     * 
+     */
 	public function getValue($item)
 	{
 	    return $this->$item;
 	}
     
+    /**
+     * 
+     * Method to return the Javascript to create a basic timeline
+     * @return string The javascript for rendering the timeline
+     * 
+     */
     public function getScript()
     {
         return "\n\n<script language=\"javascript\"><!--
@@ -146,11 +177,6 @@ class createtimeline extends object
 			</script>\n\n";
 		//end of script
     }
-
-	/**
-	* 
-	* A method to return the url for the javascrpt library 
-	*/
 
 	/**
 	* 
