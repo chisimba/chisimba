@@ -108,6 +108,7 @@ class createtimeline extends object
     {
         $ret="";
         $ret .= $this->_getDiv();
+        $ret .= $this->_getDisplayFrame();
         return $ret;
     }
 
@@ -189,6 +190,23 @@ class createtimeline extends object
     private function _getDiv()
     {
         return "\n\n<div id=\"my-timeline\" style=\"height: " . $this->tlHeight . "px; border: 1px solid #aaa\"></div>\n\n";
+    }
+    
+    private function _getDisplayFrame()
+    {
+        $showTextDisplay = $this->getParam('showLinkFrame', FALSE);
+        if (!$showTextDisplay==FALSE) {
+            $objFrame = $this->getObject('iframe', 'htmlelements');
+            $objFrame->src="";
+            $objFrame->width="99%";
+            $objFrame->height="600px";
+            $objFrame->align="center";
+            $objFrame->id="TimelineDisplayFrame";
+            $objFrame->name="TimelineDisplayFrame";
+            return "<br />" . $objFrame->show();
+        } else {
+            return NULL;
+        }
     }
 }
 ?>

@@ -7,23 +7,6 @@
     </event>
     
     <event 
-        start="1912"
-        end="1960"
-        title="Anti-pass Campaigns"
-        image="http://simile.mit.edu/images/csail-logo.gif">
-        The campaigns against the pass laws involved protests, demonstrations and the 
-        burning of pass books. &#60;br /&#62;
-        &#60;a href="http://www.anc.org.za/ancdocs/history/women/petition560809.html" 
-        target="TimelineDisplayFrame"&#62;Women's demands&#60;/a&#62;
-        &#60;br /&#62;
-        &#60;a href="http://www.anc.org.za/ancdocs/history/campaigns/passes1.html" 
-        target="TimelineDisplayFrame"&#62;Struggle against passes&#60;/a&#62;
-        &#60;br /&#62;
-        &#60;a href="http://www.anc.org.za/ancdocs/history/women/repeal.html" 
-        target="TimelineDisplayFrame"&#62;Flyer against pass laws&#60;/a&#62;
-    </event>
-    
-    <event 
         start="1925"
         title="Named Nelson"
         image="http://simile.mit.edu/images/csail-logo.gif">
@@ -126,15 +109,6 @@
     </event>
     
     <event 
-        start="Apr 1, 1960"
-        title="Mandela's testimony"
-        image="http://simile.mit.edu/images/csail-logo.gif">
-    	No, my lord. I don't think that the Congress has ever believed that its policy of 
-    	pressure would ultimately fail. 
-    	&#60;a href="http://www.anc.org.za/ancdocs/history/mandela/1960s/treason.html" target="TimelineDisplayFrame"&#62;Read more...&#60;/a&#62;
-    </event>
-    
-    <event 
         start="1961"
         title="Aquittal on treason"
         image="http://simile.mit.edu/images/csail-logo.gif">
@@ -166,8 +140,7 @@
         start="Jul 11, 1963"
         title="ANC leaders arrested"
         image="http://localhost/chisimba/usrfiles/users/293062341/images/rivoniaraid-star.gif">
-    	While Mandela was in prison, police arrested prominent ANC leaders on July 11, 1963, 
-    	at Liliesleaf Farm, Rivonia, north of Johannesburg. &#60;a href="http://www.anc.org.za/ancdocs/history/trials/rivonia.html" target="TimelineDisplayFrame"&#62;Lionel Bernstein recalls&#60;/a&#62;
+    	While Mandela was in prison, police arrested prominent ANC leaders on July 11, 1963, at Liliesleaf Farm, Rivonia, north of Johannesburg. 
     </event>
     
     <event 
@@ -230,7 +203,7 @@
     
     <event 
         start="1978"
-        title="P.W. Botha becomes president"
+        title="P.W. Both becomes president"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_2.jpg">
     	P.W. Botha succeeds B.J. Vorster as Prime Minister.
     </event>
@@ -244,7 +217,7 @@
     
     <event 
         start="Feb 10, 1985"
-        title="Mandela replies to Botha"
+        title="Mandela replies to Both"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_3.jpg">
     	Mandela's youngest daughter, Zindzi, reads her father's reply to Botha's offer at a rally in Soweto. This is the first time in two decades that Mandela's words are heard by the public.
     </event>
