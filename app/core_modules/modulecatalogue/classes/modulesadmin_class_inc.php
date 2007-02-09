@@ -99,7 +99,8 @@ class modulesadmin extends dbTableManager
             $this->objModFile = &$this->getObject('modulefile');
             $this->objUser = &$this->getObject('user','security');
             $this->objModuleBlocks = &$this->getObject('dbmoduleblocks','modulecatalogue');
-        } catch (Exception $e) {
+			$this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
+       } catch (Exception $e) {
         	$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
         }
@@ -847,6 +848,14 @@ class modulesadmin extends dbTableManager
     		$sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
     		if (!file_exists($sqlfile)){
     			$sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
+
+                // ensures that the default data is loaded once only by the installer
+                // default data can be reloaded after the first time registration
+                $param = $this->objSysConfig->getValue('firstreg_run', 'modulecatalogue');
+                if($moduleId == 'systext' && $param != NULL){
+                    $sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/systextdata.xml";
+                }
+                
     			if (!file_exists($sqlfile2)){
     				log_debug("No defaultdata found for module $moduleId");
     				$this->_lastError = 1006;
