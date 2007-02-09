@@ -104,7 +104,7 @@ class ApacheAction extends StepAction
 		} else if ($_SESSION['dir_struct'] == 'symlink') {
 			// check if the user is on windows or not
 			if (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') {
-				$this->errors[] = '5ive cannot be installed with symbolic links on Windows based machines.';
+				$this->errors[] = 'Chisimba cannot be installed with symbolic links on Windows based machines.';
 				$this->success = false;
 				return false;
 			}

@@ -742,7 +742,7 @@ EOD;
 
 							'not complete the install you may corrupt '.
 
-							'the 5ive system. </span>';
+							'the Chisimba system. </span>';
 
 		$tpl->set('warnings', $warning_text);
 
