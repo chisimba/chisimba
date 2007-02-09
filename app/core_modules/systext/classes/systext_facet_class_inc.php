@@ -327,7 +327,7 @@ class systext_facet extends dbTable
                 if($notFound){
                     $abstractItem = $this -> getAbstractText('init_1', $textItem['id']);
                     if(!empty($abstractItem)){
-                        $abstractList[$textItem['text']] = $abstractItem[0]['abstract'];
+                        $abstractList[$textItem['textinfo']] = $abstractItem[0]['abstract'];
                     }
 
                 }
