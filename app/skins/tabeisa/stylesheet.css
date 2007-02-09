@@ -4,6 +4,10 @@ html, body {
 	font-size: 12px;
     line-height: 150%;
 }
+#leftcontent select , #rightcontent select {
+    width: 100px;
+}
+
 body.splashscreen {
     background-color: #0A6F2D;
 }
@@ -175,3 +179,5 @@ background-image: url(images/shadeactive.gif);
 
 #nav-secondary a {padding: 5px 0 5px 10px; }
 #nav-secondary a:hover , #nav-secondary a:visited:hover{color:#000;background: #FFDC51}
+
+
