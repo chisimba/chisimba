@@ -41,9 +41,10 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
       }
 }
 
-if (isset($pageSuppressXML)) {
+//Force the mimetype to be text/html so that the scriptaculous library will work
+//if (isset($pageSuppressXML)) {
 	$mime = "text/html";
-}
+//}
 
 if($mime == "application/xhtml+xml")
 {
@@ -63,6 +64,9 @@ if (!isset($pageTitle)) {
 ?>
 <head>
 <title><?php echo $pageTitle; ?></title>
+<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
+<script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
+<script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>
 <?php
 
 if (!isset($pageSuppressSkin)){
@@ -145,11 +149,20 @@ if (isSet($bodyParams)) {
 	$hideBanner = $this->getParam('suppressBanner', FALSE);
 	if ($hideBanner !== "TRUE") {
  		if (!isset($pageSuppressBanner)) {
+ 			$icon = $this->getObject('geticon', 'htmlelements');
+        	$icon->setIcon('up');
+			$str = "<a href=\"#\" onclick=\"Effect.SlideUp('header',{queue:{scope:'myscope', position:'end',limit: 1}});\">"
+			  . $icon->show()."</a>";
+        	$icon->setIcon('down');
+        	$str .="<a href=\"#\" onclick=\"Effect.SlideDown('header',{queue:{scope:'myscope',position:'end', limit: 1}});\">"
+        	  . $icon->show()."</a>";
 			?>
 	
 
-			<div id="header">
+			<div id="header" style="overflow: hidden; display:<?php echo $showOrHide; ?>;">
+			 
 				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+				
 				<?php if ($this->objUser->isLoggedIn()) { ?>
 				<div id="search">
 					<form action="">
@@ -165,7 +178,7 @@ if (isSet($bodyParams)) {
 				echo $menu->show();
 			 }
 		     ?>
-		 	 </div>
+		 	</div>
 			<?php  
 			}
  		}
@@ -173,7 +186,7 @@ if (isSet($bodyParams)) {
     // get content
     echo $this->getLayoutContent();
 ?>
-
+<div id="scrollme" style="float: left;"><?php echo $str; ?></div>
 <?php
 if (!isset($suppressFooter)) {
      // Create the bottom template area
