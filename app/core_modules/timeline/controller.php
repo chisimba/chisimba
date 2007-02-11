@@ -158,6 +158,18 @@ class timeline extends controller
     }
     
     /**
+     * 
+     * Method to return the form for making a single
+     * timeline entry
+     * 
+     */
+    private function __makesingle()
+    {
+    	$this->appendArrayVar('headerParams', $this->getJsForSimpleCreate());
+        return "makesingle_tpl.php";
+    }
+    
+    /**
     * 
     * Method to return an error when the action is not a valid 
     * action method
@@ -216,7 +228,46 @@ class timeline extends controller
     
     /*------------- END: Set of methods to replace case selection ------------*/
     
-
+	/**
+	 * 
+	 * 
+	 */
+	function getJsForSimpleCreate()
+	{
+	    return "<script language=\"JavaScript\" type=\"text/javascript\">
+			<!--
+			function generateEventXML() {
+				if (document.getElementById(\"estart\").value == '' )
+				{
+					alert('Event start date required!');
+				} else {
+					r = '<event \\nstart=\"' + document.getElementById(\"estart\").value + '\"';
+				
+					if (document.getElementById(\"eend\").value != '' )
+					{
+						r += ' \\nend=\"'+ document.getElementById(\"eend\").value + '\"';
+					}
+					if (document.getElementById(\"elink\").value != '' )
+					{
+						r += ' \\nlink=\"'+ document.getElementById(\"elink\").value + '\"';
+					}
+					if (document.getElementById(\"eimg\").value != '' )
+					{
+						r += ' \\nimage=\"'+ document.getElementById(\"eimg\").value + '\"';
+					}
+					if (document.getElementById(\"etitle\").value != '' )
+					{
+						r += ' \\ntitle=\"'+ document.getElementById(\"etitle\").value + '\"';
+					}
+					r += '>\\n';
+					r += document.getElementById(\"edesc\").value;
+					r += '\\n</event>';
+					document.forms.eventdetails.results.value = r;
+				}
+			}
+			-->
+			</script>";
+	}
 
     /**
     *
