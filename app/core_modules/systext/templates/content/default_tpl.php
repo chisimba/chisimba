@@ -15,12 +15,12 @@ if(!$GLOBALS['kewl_entry_point_run']){
 * */
 
 // set up body parameter
-    if($mode == 'addsystem' or $mode == 'editsystem'){
-        $this -> setVar('bodyParams', " onload = \"{document.form.systemtype.focus();document.form.systemtype.select();}\"");
+    if($mode == 'addsystem' || $mode == 'editsystem'){
+        $this -> setVar('bodyParams', ' onload = "{document.getElementById(\'input_systemtype\').focus();document.getElementById(\'input_systemtype\').select();}"');
     }elseif($mode == 'addtext'){
-        $this -> setVar('bodyParams', " onload = \"{document.form.text.focus();document.form.text.select();}\"");
-    }elseif($mode == 'edittext' and $canDelete != 'N'){
-        $this -> setVar('bodyParams', " onload = \"{document.form.text.focus();document.form.text.select();}\"");
+        $this -> setVar('bodyParams', ' onload = "{document.getElementById(\'input_text\').focus();document.getElementById(\'input_text\').select();}"');
+    }elseif($mode == 'edittext' && $canDelete != 'N'){
+        $this -> setVar('bodyParams', ' onload = "{document.getElementById(\'input_text\').focus();document.getElementById(\'input_text\').select();}"');
     }
 
 // set up html elements
@@ -104,7 +104,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
     $objText -> fldType = 'hidden';
     $deleteHiddenText = $objText -> show();
 
-// set up save, cancel and delete buttons
+// set up save, cancel && delete buttons
     $objButton = new button('save', $saveLabel);
     $objButton -> setToSubmit();
     $saveButton = $objButton -> show();
@@ -149,7 +149,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
         if($systemType['id'] == 'init_1'){
             $str = $systemType['systemtype']; // default system can not be edited
         }else{
-            if($mode == 'editsystem' and $systemId == $systemType['id']){ // set up input box for editing
+            if($mode == 'editsystem' && $systemId == $systemType['id']){ // set up input box for editing
                 $objText = new textinput('systemtype', $systemType['systemtype']);
                 $objText -> extra = ' MAXLENGTH="15"';
                 $objText -> size = '15';
@@ -177,13 +177,17 @@ if(!$GLOBALS['kewl_entry_point_run']){
         if($i == 1){
             $objTable -> addCell($textLabel . " " . $addtextIcon, '', '', '', 'heading', $rowspan);
         }
-        if($mode == 'edittext' and $textId == $textItem['id'] and $canDelete == 'N'){
+        if($mode == 'edittext' && $textId == $textItem['id'] && $canDelete == 'N'){
             // set up input box for editing
             $objLink = new link($this -> uri(array('mode' => 'edittext', 'textId' => $textItem['id'], 'candelete' => 'N'), 'systext'));
             $objLink -> link = $textItem['textinfo'];
             $link = $objLink -> show();
-            $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton;
-        }elseif($mode == 'edittext' and $textId == $textItem['id'] and $canDelete != 'N'){
+            if(strpos($textItem['id'],'@') === FALSE){
+                $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton;
+            }else{
+                $str = $candeleteHiddenText . $textHiddenText . $link . "<br/>" . $saveButton . " " . $cancelButton . " " . $deleteButton . $deleteHiddenText;
+            }
+        }elseif($mode == 'edittext' && $textId == $textItem['id'] && $canDelete != 'N'){
             $objText = new textinput('text', $textItem['textinfo']);
             $objText -> extra = ' MAXLENGTH="15"';
             $objText -> size = '15';
@@ -206,15 +210,15 @@ if(!$GLOBALS['kewl_entry_point_run']){
         foreach($arrSystemTypes as $systemType){
             $arrAbstractItem = $this -> facet -> getAbstractText($systemType['id'], $textItem['id']);
             $abstractId = $arrAbstractItem[0]['id'];
-            if($mode == 'editsystem' and $systemId == $systemType['id']){
+            if($mode == 'editsystem' && $systemId == $systemType['id']){
                 $objText = new textinput('abstract[' . $abstractId . "-" . $systemType['id'] . "-" . $textItem['id'] . ']', $arrAbstractItem[0]['abstract']);
                 $objText -> extra = ' MAXLENGTH="50"';
                 $objText -> size = '15';
                 $abstractText = $objText -> show();
                 $objTable -> addCell($abstractText, '', '', 'center', $class, '');
-            }elseif($mode == 'edittext' and $textId == $textItem['id']){
+            }elseif($mode == 'edittext' && $textId == $textItem['id']){
                 // default can not be edited
-                if($abstractId != 'init_1' and $abstractId != 'init_2' and $abstractId != 'init_3' and $abstractId != 'init_4' and $abstractId != 'init_5' and $abstractId != 'init_6' and $abstractId != 'init_7' and $abstractId != 'init_8' and $abstractId != 'init_9' and $abstractId != 'init_10' and $abstractId != 'init_11' and $abstractId != 'init_12'){
+                if($abstractId != 'init_1' && $abstractId != 'init_2' && $abstractId != 'init_3' && $abstractId != 'init_4' && $abstractId != 'init_5' && $abstractId != 'init_6' && $abstractId != 'init_7' && $abstractId != 'init_8' && $abstractId != 'init_9' && $abstractId != 'init_10' && $abstractId != 'init_11' && $abstractId != 'init_12'){
                     $objText = new textinput('abstract[' . $abstractId . "-" . $systemType['id'] . "-" . $textItem['id'] . ']', $arrAbstractItem[0]['abstract']);
                     $objText -> extra = ' MAXLENGTH="50"';
                     $objText -> size = '15';

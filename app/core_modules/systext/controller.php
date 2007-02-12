@@ -122,7 +122,7 @@ class systext extends controller
                 if($delete == 'Delete'){ // delete button
                     $this -> facet -> deleteSystemType($this -> getParam('systemId'));
                     $check = $this -> facet -> getTextItem($this -> getParam('textId'));
-                    if($check[0]['canDelete'] != 'N'){
+                    if($check[0]['candelete'] != 'N' || strpos($check[0]['id'],'@') !== FALSE){
                         $this -> facet -> deleteTextItem($this -> getParam('textId'));
                     }
                     return $this -> nextAction('');
