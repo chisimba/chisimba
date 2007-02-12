@@ -37,7 +37,7 @@ $cssLayout->setLeftColumnContent($leftSideColumn);
 
 $this->href = $this->getObject('href', 'htmlelements');
 
-$devmsg = urldecode($devmsg);
+$devmsg = htmlentities(stripslashes(urldecode($devmsg)));
 $objHiddenInput = new hiddeninput('error', htmlentities($devmsg));
 $objHiddenInput2 = new hiddeninput('server', $_SERVER['HTTP_HOST']);
 $usrmsg = urldecode($usrmsg);
@@ -69,5 +69,4 @@ $midcol .= $objFeatureBox->show($this->objLanguage->languagetext("mod_errors_mai
 $cssLayout->setMiddleColumnContent($midcol);
 
 echo $cssLayout->show();
-
 ?>
