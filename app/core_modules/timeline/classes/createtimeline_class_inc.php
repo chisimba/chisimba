@@ -93,7 +93,7 @@ class createtimeline extends object
         //Get the default interval unit for the divisions
         $this->intervalUnit = $this->getParam('intervalUnit', 'YEAR');
         //Get the default height for the timeline
-        $this->tlHeight = $this->getParam('tlHeight', '330');
+        $this->tlHeight = $this->getParam('tlHeight', '250');
     }
     
     /**

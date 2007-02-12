@@ -120,11 +120,10 @@ class timelineparser extends object
     {
     	$objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
-    	$objIframe->height="600";
+    	$objIframe->height="330";
         $ret = $this->timeLineModuleLink;
         $ret .= "&mode=plain&timeline=" . urlencode($this->uri);
         $objIframe->src=$ret;
-        //$ret = "<iframe height=\"333\" width=\"100%\" src=\"$ret\"></iframe>";
         return $objIframe->show();
     }
 }
