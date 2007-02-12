@@ -70,9 +70,8 @@ print $prolog_type;
 if (!isset($pageTitle)) {
     $pageTitle = $objConfig->getSiteName();
 }
-?>
-<head>
-<title><?php echo $pageTitle; ?></title>
+?><head>
+<title></title>
 <?php
 
 if (!isset($pageSuppressSkin)){
@@ -135,7 +134,8 @@ if (isSet($bodyParams)) {
 	    $objModules=&$this->getObject('modules','modulecatalogue');
 	    $this->objUser =& $this->getObject('user', 'security');
 	    if ((!isset($_SESSION['disable_im']))&&($objModules->checkIfRegistered('instantmessaging')) && ($this->objUser->isLoggedIn())) { ?>
-			<iframe id="IM" width="0" height="0" src="<?php echo $this->uri(array('action'=>'view'), 'instantmessaging'); ?>"></iframe>
+			
+<iframe id="IM" width="0" height="0" src="<?php echo $this->uri(array('action'=>'view'), 'instantmessaging'); ?>"></iframe>
    		<?php }
  	}
 
@@ -149,7 +149,7 @@ if (isSet($bodyParams)) {
 ?>
 	
 	<div id="header">
-		<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+		<h1 id="sitename"><span></span></h1> 
 		<table border="0" width="99%">
 	<tr><td>
 	<input type="submit" value="Home" class="f-submit" onclick="javascript:window.location='index.php?module=cms'" />
@@ -227,3 +227,4 @@ if (!isset($suppressFooter)) {
 
 </body>
 </html>
+
