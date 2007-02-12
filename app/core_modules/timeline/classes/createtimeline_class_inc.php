@@ -199,7 +199,7 @@ class createtimeline extends object
             $objFrame = $this->getObject('iframe', 'htmlelements');
             $objFrame->src="";
             $objFrame->width="99%";
-            $objFrame->height="600px";
+            $objFrame->height="400px";
             $objFrame->align="center";
             $objFrame->id="TimelineDisplayFrame";
             $objFrame->name="TimelineDisplayFrame";

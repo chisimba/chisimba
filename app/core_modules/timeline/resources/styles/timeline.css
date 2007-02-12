@@ -22,7 +22,7 @@
 .timeline-message {
     font-size:      120%;
     font-weight:    bold;
-    text-align:     center;
+    text-align:     left;
 }
 .timeline-message img {
     vertical-align: middle;
