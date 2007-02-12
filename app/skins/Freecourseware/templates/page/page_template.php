@@ -152,15 +152,24 @@ if (isSet($bodyParams)) {
 		<h1 id="sitename"><span></span></h1> 
 		<table border="0" width="99%">
 	<tr><td>
-	<input type="submit" value="Home" class="f-submit" onclick="javascript:window.location='index.php?module=cms'" />
-	<input type="submit" value="Blog" class="f-submit" onclick="javascript:window.location='index.php?module=blog&amp;action=siteblog'" />
-	<input type="submit" value="Wiki" class="f-submit" onclick="javascript:window.location='index.php?module=wiki'"  />
+	
+
+<ul class="freecoursewarenav">
+<li><a href="index.php?module=cms" class="freebutton">Home</a>
+<a href="index.php?module=blog&amp;action=siteblog'" class="freebutton">Blog</a>
+<a href="index.php?module=wiki" class="freebutton">Wiki</a></li>
+</ul>
+</td>
+
+	
+
 	
 	<?php if ($objUser->isLoggedIn()) {?>
-	
+<ul class="freecoursewarenav">	
 <input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
+</ul>
 		<?php } ?>
-		</td><?php if (!$objUser->isLoggedIn()) {?><td align="right" >	
+		<?php if (!$objUser->isLoggedIn()) {?><td align="right" >	
 			
 			
 				
@@ -171,7 +180,7 @@ if (isSet($bodyParams)) {
 	                    <form class="login" name="login_form" id="form1" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password" type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
 	                    </td><?php } ?></tr></table>
 		
-	
+
 		
 				<div id="search">
 					<form action="">
