@@ -162,13 +162,27 @@ class htmlarea extends object
 		}
 		
 		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.3.2/';
+        
+
+        $sBasePath = str_replace('\\', '/', $sBasePath);
+        $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
       
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
 		$oFCKeditor->Height=$this->height;
         $oFCKeditor->ToolbarSet=$this->toolbarSet;
-        $oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
+        //$oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
+        
+        $siteRootPath= str_replace('\\', '/', $sitePath['dirname']);
+        $siteRootPath = preg_replace('/\/+/', '/', $siteRootPath);
+        
+        if (substr($siteRootPath, -1, 1) != '/') {
+			$siteRootPath .= '/';
+		}
+        
+        $oFCKeditor->SiteRoot = $siteRootPath;
+        
         $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/silver/' ;     
         $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
         
