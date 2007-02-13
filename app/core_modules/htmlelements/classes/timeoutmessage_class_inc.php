@@ -101,7 +101,10 @@ class timeoutMessage extends object {
         }
 
         $jscript.= "function hidemydiv$count() {
-          document.getElementById('$this->cssId').style$code;
+            var el = document.getElementById('$this->cssId');
+            if(el){
+                el.style$code;
+            }
         }";
         $jscript.= " setTimeout('hidemydiv$count()', $this->timeout );";
         $jscript.="</script>";
