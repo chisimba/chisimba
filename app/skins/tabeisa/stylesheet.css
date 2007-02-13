@@ -165,7 +165,7 @@ ul.shadetabs li.selected a{ /*selected main tab style */
 background-image: url(images/shadeactive.gif);
 }
 
-.featurebox { background: #fff url("images/featureboxbottom.gif") bottom right no-repeat; margin: 2px;}
+.featurebox { background: #fff ; margin: 2px;}
 
 .featurebox  h3, .featurebox  h5{ background: #FFCC00 url("images/featureboxtop.gif") top left no-repeat; padding-left: 15px; margin-bottom: 10px; overflow:hidden;}
 
