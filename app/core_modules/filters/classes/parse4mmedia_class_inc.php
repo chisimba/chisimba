@@ -137,9 +137,9 @@ class parse4mmedia extends object {
         $search = '/<a(.*?)href=\"([^<]+)\.avi\"([^>]*)>(.*?)<\/a>/isU';
         /*\\0*/$replace = '<p class="mediaplugin"><object width="240" height="180">';
         $replace .= '<param name="src" value="\\2.avi">';
-        $replace .= '<param name="controller" value="true">';
-        $replace .= '<param name="autoplay" value="false">';
-        $replace .= '<embed src="\\2.avi" width="240" height="180" controller="true" autoplay="false"> </embed>';
+        $replace .= '<param name="controller" value="1">';
+        $replace .= '<param name="autoplay" value="0">';
+        $replace .= '<embed src="\\2.avi" width="240" height="180" controller="1" autoplay="0" pluginspage =" http://www.microsoft.com/Windows/MediaPlayer/" type="video/x-ms-wvx"> </embed>';
         $replace .= '</object></p>';
         return preg_replace($search, $replace, $str);
     } # end of function
