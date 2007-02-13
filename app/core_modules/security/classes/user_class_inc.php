@@ -562,7 +562,7 @@ class user extends dbTable
     public function getSurname($userId = null)
     {
         if (!$userId) {
-            $userId = $this->getSession('userId');
+            $userId = $this->getSession('userid');
         }
         $sql = "SELECT surname FROM tbl_users WHERE userid='" . $userId . "'";
         $rs = $this->query($sql);
@@ -587,7 +587,7 @@ class user extends dbTable
     public function getFirstname($userId = NULL)
     {
         if (!$userId) {
-            $userId = $this->getSession('userId');
+            $userId = $this->getSession('userid');
         }
         $sql = "SELECT firstname FROM tbl_users WHERE userid='" . $userId . "'";
         $rs = $this->query($sql);
