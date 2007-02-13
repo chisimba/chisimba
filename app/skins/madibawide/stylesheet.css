@@ -28,6 +28,7 @@ div#header {
     height: 140px;
 	padding: 0;
 	margin: 0 0 0 0;
+	z-index="1000";
 }
 #sitename {
 	position: absolute;
@@ -119,6 +120,7 @@ a:hover,a:active {
     padding-top: 85px;
 	background-color:#CC0000;
     background-image: url(images/featurebox_bg.png) no-repeat bottom right;
+    z-index="998";
 }
 
 /*This is the menu 'buttons' */
@@ -137,18 +139,21 @@ ul#menuList li {
 /*This is the menu 'bottons' hover */
 ul#menuList li:hover {
     background-color: #FFFF99;
+    z-index="999";
 }
 /*This is the menu 'buttons' anchor text*/
 ul#menuList  li a {
     color: #000000;
     text-decoration: none;
     padding-right: 30px;
+    z-index="999";
 }
 /* Items on menu*/
 ul#menuList li li a {
     color: #000000;
     text-decoration: none;
     padding: 3px;
+    z-index="999";
 }
 /* This applies to the icons*/
 ul#menuList  li li a img{
@@ -179,6 +184,7 @@ ul#menuList  li  li.last a{
 }
 ul#menuList  li  ul{
 	margin-top: 4px;
+	z-index="999";
 }
 /** END: Rules related to formatting the menu items */
 
@@ -192,6 +198,7 @@ div#container {
     border-right: 2px solid #e2cf96;
     border-bottom: 2px solid #e2cf96;
     border-left: 2px solid #e2cf96;
+    z-index="1";
 }
 div#left {
     background-position: 10px;

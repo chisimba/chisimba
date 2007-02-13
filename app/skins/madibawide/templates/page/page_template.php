@@ -42,9 +42,8 @@ if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
 }
 
 //Force the mimetype to be text/html so that the scriptaculous library will work
-//if (isset($pageSuppressXML)) {
-	$mime = "text/html";
-//}
+$mime = "text/html";
+
 
 if($mime == "application/xhtml+xml")
 {
@@ -64,11 +63,14 @@ if (!isset($pageTitle)) {
 ?>
 <head>
 <title><?php echo $pageTitle; ?></title>
+<!-- BEGIN: INSERT THE SCRIPTACULOUS LIBRARY FOR BANNER ROLL UP -->
 <script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
 <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
 <script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>
+<!-- END:  INSERT THE SCRIPTACULOUS LIBRARY FOR BANNER ROLL UP -->
 <?php
 
+//Insert the CSS link if we are not suppressing skins
 if (!isset($pageSuppressSkin)){
     echo $objSkin->putSkinCssLinks();
 
@@ -83,14 +85,16 @@ if (!isset($pageSuppressSkin)){
     }
 }
 
+//Load an array of javascript references if the array is set
 if (isset($jsLoad)) {
     foreach ($jsLoad as $script) {
-?>
-       <script type="text/javascript" src="<?php echo $objConfig->getSiteRoot().$script?>"></script>
-    <?php }
-} ?>
-<?php
+		?>
+        <script type="text/javascript" src="<?php echo $objConfig->getSiteRoot().$script?>"></script>
+    	<?php 
+	}
+}
 
+//Insert the array of header params if set as array or string
 if (isset($headerParams)) {
 
     if (is_array($headerParams)) {
@@ -104,6 +108,7 @@ if (isset($headerParams)) {
 
 }
 
+//Add any body OnLoad events to the body tag if set
 if (isset($bodyOnLoad)) {
     echo '<script type="text/javascript" language="javascript">
     window.onload = function () {'."\n\n";
@@ -115,13 +120,12 @@ if (isset($bodyOnLoad)) {
 
     echo '}</script>';
 }
-
-
 ?>
 </head>
+
 <?php
 
-
+//Add the body params to the body tag
 if (isSet($bodyParams)) {
     echo "<body " . $bodyParams . ">";
 } else {
@@ -139,55 +143,61 @@ if (isSet($bodyParams)) {
  	if (!isset($pageSuppressContainer)) {
  	    echo '<div id="container">';
  	}
- 	
-	/*
-	 * 
-	 * Added in Madiba wide skin, a method to suppress the banner 
-	 * using a parameter
-	 * 
-	 */ 	
-	$hideBanner = $this->getParam('suppressBanner', FALSE);
-	if ($hideBanner !== "TRUE") {
- 		if (!isset($pageSuppressBanner)) {
- 			$icon = $this->getObject('geticon', 'htmlelements');
-        	$icon->setIcon('up');
-			$str = "<a href=\"#\" onclick=\"Effect.SlideUp('header',{queue:{scope:'myscope', position:'end',limit: 1}});\">"
-			  . $icon->show()."</a>";
-        	$icon->setIcon('down');
-        	$str .="<a href=\"#\" onclick=\"Effect.SlideDown('header',{queue:{scope:'myscope',position:'end', limit: 1}});\">"
-        	  . $icon->show()."</a>";
-			?>
-	
 
-			<div id="header" style="overflow: hidden; display:<?php echo $showOrHide; ?>;">
-			 
-				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
-				
-				<?php if ($this->objUser->isLoggedIn()) { ?>
-				<div id="search">
-					<form action="">
-					<label for="searchsite">Site Search:</label>
-					<input id="searchsite" name="query" type="text" />
-					<input type="submit" value="Go" class="f-submit" />
-					</form>
-				</div>
-				<?php
-	 	}
-			 if (!isset($pageSuppressToolbar)) {
-			 	$menu=& $this->getObject('menu','toolbar');
-				echo $menu->show();
-			 }
-		     ?>
-		 	</div>
-			<?php  
-			}
- 		}
+// ***************  SECTION FOR WORKING WITH THE BANNER ******************** //
+/*
+* 
+* Added in Madiba wide skin, a method to suppress the banner 
+* using a parameter
+* 
+*/ 	
+$hideBanner = $this->getParam('suppressBanner', FALSE);
+if ($hideBanner !== "TRUE") {
+	if (!isset($pageSuppressBanner)) {
+		//Create the icons for the banner roll up / down
+		$icon = $this->getObject('geticon', 'htmlelements');
+       	$icon->setIcon('up');
+		$scrollUpLink = "<a href=\"#\" onclick=\"Effect.SlideUp('header',{queue:{scope:'myscope', position:'end',limit: 1}});\">"
+		  . $icon->show()."</a>";
+       	$icon->setIcon('down');
+       	$scrollUpLink .="<a href=\"#\" onclick=\"Effect.SlideDown('header',{queue:{scope:'myscope',position:'end', limit: 1}});\">"
+       	  . $icon->show()."</a>";
+	    ?>
+		<div id="header">
+			<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+			<?php 
+			if ($this->objUser->isLoggedIn()) { ?>
+			    <div id="search">
+				    <form action="">
+	   			        <label for="searchsite">Site Search:</label>
+					    <input id="searchsite" name="query" type="text" />
+					    <input type="submit" value="Go" class="f-submit" />
+				    </form>
+			    </div>
+			    <?php
+ 	        }
+ 	}
+	if (!isset($pageSuppressToolbar)) {
+	    $menu=& $this->getObject('menu','toolbar');
+		echo $menu->show();
+	}
+	?>
+	</div>
+	<?php  
+}
+// *************** END OF BANNER SECTION *****************************//
 
-    // get content
-    echo $this->getLayoutContent();
+
+// get content
+echo $this->getLayoutContent();
+
+//Add the scroll up/down links
 ?>
-<div id="scrollme" style="float: left;"><?php echo $str; ?></div>
+
+<div id="scrollme" style="float: left;"><?php echo $scrollUpLink; ?></div>
+
 <?php
+// ****************** SECTION FOR WORKING WITH THE FOOTER ************//
 if (!isset($suppressFooter)) {
      // Create the bottom template area
     $this->footerNav = & $this->newObject('layer', 'htmlelements');
