@@ -150,14 +150,14 @@ if (isSet($bodyParams)) {
 	
 	<div id="header">
 		<h1 id="sitename"><span></span></h1> 
-		<table border="0" width="99%">
+		<table border="0" width="100%">
 	<tr><td>
 	
 
 <ul class="freecoursewarenav">
-<li><a href="index.php?module=cms" class="freebutton">Home</a>
+<a href="index.php?module=cms" class="freebutton">Home</a>
 <a href="index.php?module=blog&amp;action=siteblog" class="freebutton">Blog</a>
-<a href="index.php?module=wiki" class="freebutton">Wiki</a></li>
+<a href="index.php?module=wiki" class="freebutton">Wiki</a>
 </ul>
 </td>
 
@@ -166,7 +166,7 @@ if (isSet($bodyParams)) {
 	
 	<?php if ($objUser->isLoggedIn()) {?>
 <ul class="freecoursewarenav">	
-<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
+<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" /><td align="right" ></td>
 </ul>
 		<?php } ?>
 		<?php if (!$objUser->isLoggedIn()) {?><td align="right" >	
