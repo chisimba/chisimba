@@ -31,7 +31,6 @@ div#header {
 	z-index="1000";
 }
 #sitename {
-	position: absolute;
 	width: 100%;
     height: 140px;
 	border-top: 0;
