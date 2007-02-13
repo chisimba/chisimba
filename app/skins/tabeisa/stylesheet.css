@@ -173,8 +173,8 @@ background-image: url(images/shadeactive.gif);
     margin-bottom: 10px;
 }
 
-#wrapper { background: #fff url("images/contentbkg.gif") 50% 0% repeat-y; }
-
+#wrapper { background: #fff  }
+/* url("images/contentbkg.gif") 50% 0% repeat-y;*/
 
 
 #nav-secondary a {padding: 5px 0 5px 10px; }
