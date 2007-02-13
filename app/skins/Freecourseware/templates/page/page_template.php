@@ -156,7 +156,7 @@ if (isSet($bodyParams)) {
 
 <ul class="freecoursewarenav">
 <li><a href="index.php?module=cms" class="freebutton">Home</a>
-<a href="index.php?module=blog&amp;action=siteblog'" class="freebutton">Blog</a>
+<a href="index.php?module=blog&amp;action=siteblog" class="freebutton">Blog</a>
 <a href="index.php?module=wiki" class="freebutton">Wiki</a></li>
 </ul>
 </td>
