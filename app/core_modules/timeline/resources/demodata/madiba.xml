@@ -1,8 +1,7 @@
 <data date-time-format="iso8601">
     <event 
         start="1918-07-18"
-        title="Mandela born"
-        image="http://simile.mit.edu/images/csail-logo.gif">
+        title="Mandela born">
         Rolihlahla Mandela born in the small village of Qunu in the district of Mthatha, the Transkei capital on born July 18, 1918.His given name Rolihlahla means one who brings trouble upon himself.
     </event>
     
@@ -54,10 +53,22 @@
     </event>
     
     <event 
-        start="1944"
+        start="1942"
         title="Joins ANC"
         image="http://www.radiodiaries.org/mandela/images/timeline/1_4.jpg">
     	Nelson Mandela joins the African National Congress (ANC). Nelson Mandela, Walter Sisulu, Oliver Tambo, and others form the ANC Youth League.
+    </event>
+    
+    <event 
+        start="1944-09"
+        title="ANC Youth League formed">
+    	A contention of William Nkomo, Walter Sisulu, Oliver R. Tambo, Ashby P. Mda and Nelson Mandela was that the political tactics of the old guard' leadership of the ANC, reared in the tradition of constitutionalism and polite petitioning of the government of the day, were proving inadequate to the tasks of national emancipation. Lembede and his colleagues espoused a radical African Nationalism grounded in the principle of national self-determination. In September 1944 they came together to found the African National Congress Youth League (ANCYL).
+    </event>
+    
+    <event 
+        start="1947"
+        title="Secretary of Youth League">
+    	Mandela soon impressed his peers by his disciplined work and consistent effort and was elected to the Secretaryship of the Youth League in 1947.
     </event>
     
     <event 
@@ -66,6 +77,8 @@
         image="http://simile.mit.edu/images/csail-logo.gif">
     	In 1948, the Afrikaner-dominated National Party won the elections in South African and brought its Apartheid policy of racial segregation into action in South Africa.
     </event>
+    
+    
     
     <event 
         start="1952"
@@ -80,6 +93,14 @@
         image="http://www.radiodiaries.org/mandela/images/timeline/1_8.jpg">
     	Mandela, in partnership with Oliver Tambo, opens a law firm in Johannesburg, which defends blacks prosecuted under the strict new laws of apartheid.
     </event>
+    
+    <event 
+        start="1952"
+        title="The M-Plan"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_8.jpg">
+    	In 1952 Nelson Mandela was given the responsibility to prepare an organisational plan that would enable the leadership of the movement to maintain dynamic contact with its membership without recourse to public meetings. The objective was to prepare for the contingency of proscription by building up powerful local and regional branches to whom power could be devolved. This was the M-Plan, named after him.
+    </event>
+    
     
     <event 
         start="1955"
@@ -222,6 +243,17 @@
     </event>
     
     <event 
+        start="1972-04-17"
+        title="Intercept of letter to Suzman"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Nelson Mandela's letter to Helen Suzman, sent via Nkisikazi Mandela, was intercepted at the prison and not allowed to be sent. 
+    	&#60;br /&#62;
+        &#60;a href="http://localhost/chisimba/index.php?module=filemanager&amp;action=file&amp;id=init_7627_1171214620&amp;filename=letter-2005-stopped.png" 
+        target="TimelineDisplayFrame"&#62;Read prison notice&#60;/a&#62;
+    	
+    </event>
+    
+    <event 
         start="1970"
         title="Bantu Homelands Act"
         image="http://simile.mit.edu/images/csail-logo.gif">
@@ -292,12 +324,30 @@
     </event>
     
     <event 
+        start="1991"
+        title="President of ANC">
+    	At the first national conference of the ANC held inside South Africa after being banned for decades, Nelson Mandela was elected President of the ANC while his lifelong friend and colleague, Oliver Tambo, became the organisation's National Chairperson.
+    </event>
+    
+    <event 
         start="1993"
         title="Nobel peace prize"
-        image="http://simile.mit.edu/images/csail-logo.gif" 
+        image="http://nobelprize.org/nobel_prizes/peace/laureates/1993/mandela_thumb.jpg" 
         link="http://www.anc.org.za/ancdocs/speeches/nobelnrm.html">
     	Mandela won the Nobel Peace prize together with then President Frederik Willem de Klerk, for their work for the peaceful termination of the apartheid regime, and for laying the foundations for a new democratic South Africa.
     </event>
+    
+    <event 
+        start="1994-04"
+        title="Long Walk to Freedom"
+        image="http://upload.wikimedia.org/wikipedia/en/thumb/7/74/Long_Walk_to_Freedom.jpg/180px-Long_Walk_to_Freedom.jpg">
+    	Long Walk to Freedom: The Autobiography of Nelson Mandela was published. Boston &amp; New York: Little Brown, 1994
+    	 &#60;br /&#62;
+        &#60;a href="http://www.amazon.com/Long-Walk-Freedom-Autobiography-International/dp/0316548189" 
+        target="TimelineDisplayFrame"&#62;Get it at Amazon&#60;/a&#62;
+    	
+    </event>
+    
     
     <event 
         start="1994-04"

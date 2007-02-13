@@ -1,9 +1,26 @@
-<data>
+<data date-time-format="iso8601">
     <event 
-        start="Jul 18, 1918"
-        title="Mandela born"
-        image="http://simile.mit.edu/images/csail-logo.gif">
+        start="1918-07-18"
+        title="Mandela born">
         Rolihlahla Mandela born in the small village of Qunu in the district of Mthatha, the Transkei capital on born July 18, 1918.His given name Rolihlahla means one who brings trouble upon himself.
+    </event>
+    
+    <event 
+        start="1912"
+        end="1960"
+        isDuration="true"
+        title="Anti-pass Campaigns"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+        The campaigns against the pass laws involved protests, demonstrations and the 
+        burning of pass books. &#60;br /&#62;
+        &#60;a href="http://www.anc.org.za/ancdocs/history/women/petition560809.html" 
+        target="TimelineDisplayFrame"&#62;Women's demands&#60;/a&#62;
+        &#60;br /&#62;
+        &#60;a href="http://www.anc.org.za/ancdocs/history/campaigns/passes1.html" 
+        target="TimelineDisplayFrame"&#62;Struggle against passes&#60;/a&#62;
+        &#60;br /&#62;
+        &#60;a href="http://www.anc.org.za/ancdocs/history/women/repeal.html" 
+        target="TimelineDisplayFrame"&#62;Flyer against pass laws&#60;/a&#62;
     </event>
     
     <event 
@@ -36,10 +53,22 @@
     </event>
     
     <event 
-        start="1944"
+        start="1942"
         title="Joins ANC"
         image="http://www.radiodiaries.org/mandela/images/timeline/1_4.jpg">
     	Nelson Mandela joins the African National Congress (ANC). Nelson Mandela, Walter Sisulu, Oliver Tambo, and others form the ANC Youth League.
+    </event>
+    
+    <event 
+        start="1944-09"
+        title="ANC Youth League formed">
+    	A contention of William Nkomo, Walter Sisulu, Oliver R. Tambo, Ashby P. Mda and Nelson Mandela was that the political tactics of the old guard' leadership of the ANC, reared in the tradition of constitutionalism and polite petitioning of the government of the day, were proving inadequate to the tasks of national emancipation. Lembede and his colleagues espoused a radical African Nationalism grounded in the principle of national self-determination. In September 1944 they came together to found the African National Congress Youth League (ANCYL).
+    </event>
+    
+    <event 
+        start="1947"
+        title="Secretary of Youth League">
+    	Mandela soon impressed his peers by his disciplined work and consistent effort and was elected to the Secretaryship of the Youth League in 1947.
     </event>
     
     <event 
@@ -48,6 +77,8 @@
         image="http://simile.mit.edu/images/csail-logo.gif">
     	In 1948, the Afrikaner-dominated National Party won the elections in South African and brought its Apartheid policy of racial segregation into action in South Africa.
     </event>
+    
+    
     
     <event 
         start="1952"
@@ -62,6 +93,14 @@
         image="http://www.radiodiaries.org/mandela/images/timeline/1_8.jpg">
     	Mandela, in partnership with Oliver Tambo, opens a law firm in Johannesburg, which defends blacks prosecuted under the strict new laws of apartheid.
     </event>
+    
+    <event 
+        start="1952"
+        title="The M-Plan"
+        image="http://www.radiodiaries.org/mandela/images/timeline/1_8.jpg">
+    	In 1952 Nelson Mandela was given the responsibility to prepare an organisational plan that would enable the leadership of the movement to maintain dynamic contact with its membership without recourse to public meetings. The objective was to prepare for the contingency of proscription by building up powerful local and regional branches to whom power could be devolved. This was the M-Plan, named after him.
+    </event>
+    
     
     <event 
         start="1955"
@@ -95,17 +134,46 @@
     
     
     <event 
-        start="Mar 21, 1960"
+        start="1960-03-21"
         title="Sharpeville Massacre"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	The Sharpeville massacre, also known as the Sharpeville shootings, occurred on March 21, 1960, when South African police opened fire on a crowd of black protesters. The confrontation occurred in the township of Sharpeville, in what is now Gauteng province.
     </event>
     
     <event 
-        start="Apr 1, 1960"
+        start="1960-04-01"
         title="UN Security Council sitting"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	On April 1, 1960, the United Nations Security Council sat to "consider seriously the apartheid colonial oppression of the African people in South Africa".
+    </event>
+    
+    <event 
+        start="1960-04-01"
+        title="Mandela's testimony"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	No, my lord. I don't think that the Congress has ever believed that its policy of 
+    	pressure would ultimately fail. 
+    	&#60;br /&#62;
+    	&#60;a href="http://www.anc.org.za/ancdocs/history/mandela/1960s/treason.html" target="TimelineDisplayFrame"&#62;Read more...&#60;/a&#62;
+    	&#60;br /&#62;
+    	&#60;applet code = "javazoom.jlgui.player.amp.PlayerApplet" 
+    	codebase = "/modules/soundplayer/resources/lib/" 
+    	archive = "jlguiapplet2.3.2.jar,jlgui2.3.2-light.jar,
+    	tritonus_share.jar,basicplayer2.3.jar, mp3spi1.9.2.jar,
+    	jl1.0.jar, vorbisspi1.0.1.jar, jorbis-0.0.13.jar,
+    	jogg-0.0.7.jar, commons-logging-api.jar" 
+    	width = "485" height = "348" name = "player"&#62;
+&#60;param name = "CODE" value = "javazoom.jlgui.player.amp.PlayerApplet" /&#62;
+&#60;param name = "CODEBASE" value = "/modules/soundplayer/resources/lib/" /&#62;
+&#60;param name = "ARCHIVE" value = "jlguiapplet2.3.2.jar, jlgui2.3.2-light.jar, tritonus_share.jar, basicplayer2.3.jar, mp3spi1.9.2.jar, jl1.0.jar,vorbisspi1.0.1.jar, jorbis-0.0.13.jar, jogg-0.0.7.jar, commons-logging-api.jar" /&#62;
+&#60;param name = "NAME" value = "player" /&#62;
+&#60;param name="type" value="application/x-java-applet;version=1.4" /&#62;&#60;param name="scriptable" value="true" /&#62;&#60;param name = "skin" value ="/modules/soundplayer/resources/lib/skins/blizzard2.wsz" /&#62;
+&#60;param name = "start" value ="no" /&#62;
+&#60;param name = "song" value ="http://localhost/chisimba/index.php?module=filemanager&amp;action=file&amp;id=init_6997_1171271826&amp;filename=mandela.105.mp3" /&#62;
+&#60;param name = "init" value ="/home/dkeats/eclipse-workspace/chisimba_modules/soundplayer/resources/jlgui.ini" /&#62;
+&#60;param name = "location" value ="url" /&#62;
+&#60;param name = "useragent" value ="winampMPEG/2.7" /&#62;
+&#60;/applet&#62;
     </event>
     
     <event 
@@ -123,40 +191,34 @@
     </event>
     
     <event 
-        start="Aug 5, 1962"
+        start="1962-08-12"
         title="Mandela Arrested"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	On 5 August 1962, he was arrested after living on the run for seventeen months and was imprisoned in the Johannesburg Fort. 
     </event>
     
     <event 
-        start="Oct 25, 1962"
+        start="1962-10-25"
         title="Sentence to prison"
         image="http://www.radiodiaries.org/mandela/images/timeline/1_17.jpg">
     	On 25 October 1962, Mandela was sentenced to five years in prison.
     </event>
     
     <event 
-        start="Jul 11, 1963"
+        start="1963-07-11"
         title="ANC leaders arrested"
         image="http://localhost/chisimba/usrfiles/users/293062341/images/rivoniaraid-star.gif">
-    	While Mandela was in prison, police arrested prominent ANC leaders on July 11, 1963, at Liliesleaf Farm, Rivonia, north of Johannesburg. 
+    	While Mandela was in prison, police arrested prominent ANC leaders on July 11, 1963, 
+    	at Liliesleaf Farm, Rivonia, north of Johannesburg. &#60;a href="http://www.anc.org.za/ancdocs/history/trials/rivonia.html" target="TimelineDisplayFrame"&#62;Lionel Bernstein recalls&#60;/a&#62;
     </event>
     
     <event 
-        start="Apr 20, 1964"
+        start="1964-04-20"
         title="Rivonia trial defense case opens"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	In his statement from the dock at the opening of the defence case in the trial on 20 April 1964 at Pretoria Supreme Court, Mandela laid out the clarity of reasoning in the ANC's choice to use violence as a tactic.
     </event>
-    
-    <event 
-        start="June 12, 1964"
-        title="Mandela gets life sentence"
-        image="http://simile.mit.edu/images/csail-logo.gif">
-    	Mandela and all Rivonia trialists except Rusty Bernstein were found guilty, but they escaped the gallows and were sentenced to life imprisonment on 12 June 1964. Charges included involvement in planning armed action, in particular four charges of sabotage, which Mandela admitted to, and a conspiracy to help other countries invade South Africa, which Mandela denied.
-    </event>
-    
+
     <event 
         start="1964"
         end="1990"
@@ -167,10 +229,28 @@
     </event>
     
     <event 
-        start="June 12, 1964"
+        start="1964-06-12"
+        title="Mandela gets life sentence"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Mandela and all Rivonia trialists except Rusty Bernstein were found guilty, but they escaped the gallows and were sentenced to life imprisonment on 12 June 1964. Charges included involvement in planning armed action, in particular four charges of sabotage, which Mandela admitted to, and a conspiracy to help other countries invade South Africa, which Mandela denied.
+    </event>
+    
+    <event 
+        start="1964-06-12"
         title="Winnie arrested"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Winnie is arrested with twenty-one others and detained for five months. She is interrogated and tortured. 
+    </event>
+    
+    <event 
+        start="1972-04-17"
+        title="Intercept of letter to Suzman"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	Nelson Mandela's letter to Helen Suzman, sent via Nkisikazi Mandela, was intercepted at the prison and not allowed to be sent. 
+    	&#60;br /&#62;
+        &#60;a href="http://localhost/chisimba/index.php?module=filemanager&amp;action=file&amp;id=init_7627_1171214620&amp;filename=letter-2005-stopped.png" 
+        target="TimelineDisplayFrame"&#62;Read prison notice&#60;/a&#62;
+    	
     </event>
     
     <event 
@@ -181,21 +261,21 @@
     </event>
     
     <event 
-        start="Jun, 1976"
+        start="1976-06"
         title="Soweto uprising"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Soweto students hold a rally to protest mandatory instruction in Afrikaans, the language of the white rulers. Police open fire on the students killing 23 and injuring hundreds more. 
     </event>
 
     <event 
-        start="May 19, 1977"
+        start="1977-05-19"
         title="Winnie banished"
         image="http://www.radiodiaries.org/mandela/images/timeline/3_3.jpg">
     	Winnie Mandela is banished to Brandfort, a small, conservative Afrikaner town.
     </event>
     
     <event 
-        start="Sep 12, 1977"
+        start="1977-09-12"
         title="Biko murdered"
         image="http://www.radiodiaries.org/mandela/images/timeline/3_4.jpg">
     	Steve Biko, founder of the Black Consiousness Movement, dies after being beat up by the police in detention.
@@ -203,63 +283,77 @@
     
     <event 
         start="1978"
-        title="P.W. Both becomes president"
+        title="P.W. Botha becomes president"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_2.jpg">
     	P.W. Botha succeeds B.J. Vorster as Prime Minister.
     </event>
     
     <event 
-        start="Jan 31, 1985"
+        start="1985-01-31"
         title="Botha's offer to Mandela"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	President P.W. Botha makes a conditional offer of release to Mandela.
     </event>
     
     <event 
-        start="Feb 10, 1985"
-        title="Mandela replies to Both"
+        start="1985-02-10"
+        title="Mandela replies to Botha"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_3.jpg">
     	Mandela's youngest daughter, Zindzi, reads her father's reply to Botha's offer at a rally in Soweto. This is the first time in two decades that Mandela's words are heard by the public.
     </event>
     
     <event 
-        start="Jun 12, 1986"
+        start="1986-06-12"
         title="Secret talks"
         image="http://www.polity.org.za/html/people/images/mandela.jpg">
     	Mandela begins secret talks with the government, a decision made without consulting other leaders of the ANC organization.
     </event>
     
     <event 
-        start="September 1989"
+        start="1989-09"
         title="De Klerk is President"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_6.jpg">
     	P.W. Botha resigned in July, and is succeeded by F.W. De Klerk as president of the Republic of South Africa.
     </event>
     
     <event 
-        start="May 2, 1990"
+        start="1990-05-02"
         title="Mandela is free"
         image="http://www.radiodiaries.org/mandela/images/timeline/4_7.jpg">
     	After 27 years of imprisonment, Mandela is released. He is free at last.
     </event>
     
     <event 
+        start="1991"
+        title="President of ANC">
+    	At the first national conference of the ANC held inside South Africa after being banned for decades, Nelson Mandela was elected President of the ANC while his lifelong friend and colleague, Oliver Tambo, became the organisation's National Chairperson.
+    </event>
+    
+    <event 
         start="1993"
         title="Nobel peace prize"
-        image="http://simile.mit.edu/images/csail-logo.gif" 
+        image="http://nobelprize.org/nobel_prizes/peace/laureates/1993/mandela_thumb.jpg" 
         link="http://www.anc.org.za/ancdocs/speeches/nobelnrm.html">
     	Mandela won the Nobel Peace prize together with then President Frederik Willem de Klerk, for their work for the peaceful termination of the apartheid regime, and for laying the foundations for a new democratic South Africa.
     </event>
     
     <event 
-        start="April, 1994"
+        start="1994-04"
+        title="Long Walk to Freedom"
+        image="http://upload.wikimedia.org/wikipedia/en/thumb/7/74/Long_Walk_to_Freedom.jpg/180px-Long_Walk_to_Freedom.jpg">
+    	Long Walk to Freedom: The Autobiography of Nelson Mandela was published. Boston & New York: Little Brown, 1994
+    </event>
+    
+    
+    <event 
+        start="1994-04"
         title="Democratic elections"
         image="http://www.radiodiaries.org/mandela/images/timeline/5_4.jpg">
     	For the first time in the country's history people of all races vote in democratic elections. Mandela is elected South Africa's first black president.
     </event>
     
     <event 
-        start="Jul 18, 1998"
+        start="1998-07-18"
         title="Marries Graca Machel"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	On 18 July 1998, Mandela married Graca Machel, the widow of former Mozambique President Samora Machel.
@@ -275,17 +369,24 @@
      
     
     <event 
-        start="June, 1999"
+        start="1999-06"
         title="Retirement from public life"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Nelson Mandela retired from Public life in June 1999. He currently resides in his birth place - Qunu, Transkei.
     </event>
     
     <event 
-        start="May 10, 2004"
+        start="2004-05-10"
         title="Ten years of Democracy"
         image="http://simile.mit.edu/images/csail-logo.gif">
     	Along with most of South Africa, Mandela celebrates 10 years of Democracy.
+    </event>
+    
+    <event 
+        start="2010"
+        title="Football World Cup"
+        image="http://simile.mit.edu/images/csail-logo.gif">
+    	World Cup Soccer in South Africa.
     </event>
     
     

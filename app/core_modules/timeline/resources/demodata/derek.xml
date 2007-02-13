@@ -1,16 +1,14 @@
-<data>
+<data date-time-format="iso8601">
     <event 
-        start="Aug 12 1955 08:00:00 GMT"
-        end="Aug 12 1955 08:30:00 GMT"
-        isDuration="true"
+        start="1955-08-12"
         title="Derek Keats born"
         image="http://simile.mit.edu/images/csail-logo.gif">
         Derek Keats born at James Payton Memorial Hospital, in Gander, Newfoundland, Canada.
     </event>
 	
     <event 
-        start="Sep 8 1960 08:00:00 GMT"
-        end="June 15 1966 08:30:00 GMT"
+        start="1960-09"
+        end="1966-06"
         isDuration="true"
         title="Derek Keats attends Emmanuel United Church elementary school"
         image="http://simile.mit.edu/images/csail-logo.gif">
@@ -18,17 +16,30 @@
     </event>
         
     <event 
-        start="Jun 16 1972 00:00:00 GMT"
-		isDuration="false"
+        start="1972-06"
         title="High school graduation">
         Derek Keats graduated from Smallwood Academy in Gambo, Newfoundland, Canada.
     </event>
         
     <event 
-        start="Sep 1 1972 00:00:00 GMT"
+        start="1972-09"
         title="Enter university"
-		isDuration="false"
         link="http://www.mun.ca/">
         Derek Keats entered Memorial University of Newfoundland, in St John's, Newfoundland, Canada
     </event>
+    
+    <event 
+        start="1989-01"
+        title="Joins UWC"
+        link="http://www.uwc.ac.za/">
+        Derek Keats joined  the University of the Western Cape in Cape Town, South Africa as a lecturer in the Botany Department.
+    </event>
+    
+    <event 
+        start="2001-10-01"
+        title="Appointed Executive Director ICS"
+        link="http://ics.uwc.ac.za/">
+        Derek Keats was appointed Executive Director if Information and Communication Services at the Western Cape in Cape Town, South Africa as a lecturer in the Botany Department.
+    </event>
+    
 </data>
