@@ -160,25 +160,24 @@ if (isSet($bodyParams)) {
 <a href="index.php?module=wiki" class="freebutton">Wiki</a>
 </ul>
 </td>
-
-	
-
-	
 	<?php if ($objUser->isLoggedIn()) {?>
-<ul class="freecoursewarenav">	
-<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" /><td align="right" ></td>
-</ul>
+<td align="right" >
+	<?php	
+		$this->objUser =& $this->getObject('user', 'security');
+		echo $this->objUser->fullName();
+	?></td>
+<td align="right" >
+		<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
+</td>
+
 		<?php } ?>
 		<?php if (!$objUser->isLoggedIn()) {?><td align="right" >	
-			
-			
-				
-				
-				<?php
-				$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
-				?>		
-	                    <form class="login" name="login_form" id="form1" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password" type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
-	                    </td><?php } ?></tr></table>
+		
+		<?php
+			$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
+		?>		
+<form class="login" name="login_form" id="form1" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password" type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
+</td><?php } ?></tr></table>
 		
 
 		
