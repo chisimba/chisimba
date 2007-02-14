@@ -24,7 +24,7 @@ class washout extends object
 	* @access public
 	*  
 	*/
-	public parsers;
+	public $parsers;
 
 	/**
 	 * Constructor method, builds an array of standard parsers,
@@ -47,7 +47,7 @@ class washout extends object
 				'parse4referece' => 'filters',
 				'parse4smileys' => 'filters',
 				'parse4timeline' => 'filters'
-			)
+			);
 			$this->getListing();
 		}
 		catch (customException $e)
@@ -67,7 +67,7 @@ class washout extends object
 	public function parseText($txt)
 	{
 		//Loop over all parsers and run them on $txt
-		foreach ($this->parsers as $parser=>classlocation) {
+		foreach ($this->parsers as $parser=>$classlocation) {
 			try {
 				$currentParser = $parser->classname;
 				$classLocation = $parser->classlocation;
@@ -92,14 +92,14 @@ class washout extends object
 	{
 	    //Create the config reader and get the location of demo maps
         $objSconfig =  $this->getObject('altconfig', 'config');
-        $dirpath =  $objSconfig->getItem('MODULE_URI') . "outputparsers/classes/";
+        $dirpath =  "core_modules/outputparsers/classes/";
 		try {
 		    $handle = opendir($dirpath);
 		    while (false !== ($file = readdir($handle))) {
 	            if ($file != "." && $file != ".." && $file !="CVS") {
 	                $arTmp = explode("_", $file);
 	                $className = $arTmp[0];
-	                array_push($this->parsers, $className => 'outputparsers');
+	                $this->parsers[][$className]='outputparsers';
 	            }
 		    }
 		    closedir($handle);
