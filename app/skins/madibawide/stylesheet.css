@@ -19,12 +19,13 @@ html {
 }
 /** END: Rules related to formatting the page body **/
 
+
+/*???????*/
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
 
 
 /** BEGIN: Rules related to formatting the banner and its text */
 div#header {
-    width: 100%;
     height: 140px;
 	padding: 0;
 	margin: 0 0 0 0;
@@ -45,18 +46,17 @@ div#header {
 #sitename span {
         display: none;
 }
-
-div#header h1#sitename {
-	background-repeat: no-repeat;
-	margin: 0 0 0 0px;
-	padding: 0;
-}
 div#header div#search {
 	position: absolute;
 	float: right;
 	 top: 5px;
 	 right: 0;
 	 width: 300px;
+}
+/* Set the width of input box */
+#searchsite {
+	width: 120px;
+	height: 17px;
 }
 #breadcrumbs {
     font-size: 80%;
@@ -72,6 +72,11 @@ div#header div#search {
     color: #3300FF;
     text-decoration: none;
 }
+#search {
+    color: #333333;
+}
+/** BEGIN: Rules related to formatting the banner and its text */
+
 
 /** BEGIN: Rules related to formatting links */
 a,a:link,a:link,a:link,a:hover {
@@ -89,6 +94,8 @@ a:hover,a:active {
     color:#FF6600;
 }  
 /** END: Rules related to formatting links */
+
+
 
 /** BEGIN: Settings for footer **/
 #footer {
@@ -113,6 +120,8 @@ a:hover,a:active {
 }
 /** END: Settings for footer **/
 
+
+    
 /** BEGIN: Rules related to formatting the menu items */
 #menu {
     padding-bottom: 4px;
@@ -120,7 +129,6 @@ a:hover,a:active {
 	background-color:#CC0000;
     background-image: url(images/featurebox_bg.png) no-repeat bottom right;
 }
-
 /*This is the menu 'buttons' */
 ul#menuList li {
     background-color: #e2cf96;
@@ -130,10 +138,6 @@ ul#menuList li {
     border-bottom: 3px solid #999999;
     font-weight: bold;
 }
-
-
-
-
 /*This is the menu 'bottons' hover */
 ul#menuList li:hover {
     background-color: #FFFF99;
@@ -143,14 +147,12 @@ ul#menuList  li a {
     color: #000000;
     text-decoration: none;
     padding-right: 30px;
-    z-index="999";
 }
 /* Items on menu*/
-ul#menuList li li a {	position: absolute;
+ul#menuList li li a {
     color: #000000;
     text-decoration: none;
     padding: 3px;
-    z-index="999";
 }
 /* This applies to the icons*/
 ul#menuList  li li a img{
@@ -181,9 +183,9 @@ ul#menuList  li  li.last a{
 }
 ul#menuList  li  ul{
 	margin-top: 4px;
-	z-index="999";
 }
 /** END: Rules related to formatting the menu items */
+
 
 
 /** BEGIN: Content stle settings **/
@@ -195,7 +197,6 @@ div#container {
     border-right: 2px solid #e2cf96;
     border-bottom: 2px solid #e2cf96;
     border-left: 2px solid #e2cf96;
-    z-index="1";
 }
 div#left {
     background-position: 10px;
@@ -232,12 +233,15 @@ div#twocolumn, div#threecolumn {
 #threecolumn div#wrapper div#content{
 	margin: 0 156px 0 156px;
 }
+/*Set the two column layout to 800 px*/
+/* HOW????????????*/
   
 /*Fix black text on dark blue */
 #left h3 {
     color: navy;
 }
 /** END: Content stle settings **/
+
 
 
 /** BEGIN: Override defaults for some text that needs to change colour **/
@@ -287,131 +291,7 @@ div#twocolumn, div#threecolumn {
 }
 /** END: Override defaults for some text that needs to change colour **/
 
-/* Tables */
 
-th.header, thead, td.heading, tr.heading, th {
-	background-color: #DCDCDC;
-}
-
-table.highlightrows tr:hover {
-	background-color: lightgrey;
-}
-
-.odd, td.odd, tr.odd{
-	background-color: #FFFFFF;
-}
-
-.even, td.even, tr.even{
-	background-color: #FFE4E1;
-}
-
-td.widelink a {
-	display:block;
-}
-
-td.widelink a:link {
-	text-decoration: none;
-	color: #A52A2A;
-}
-td.widelink a:visited {
-	text-decoration: none;
-	color: #A52A2A;
-}
-td.widelink a:active {
-	text-decoration: none;
-	color: #A52A2A;
-}
-td.widelink a:hover {
-	text-decoration: underline;
-	color: red;
-}
-
-.menulink a:link {
-	text-decoration:none;
-	color: #A52A2A;
-}
-
-.menulink a:visited {
-	text-decoration:none;
-	color: #A52A2A;
-}
-.menulink a:active {
-	text-decoration:none;
-	color: #A52A2A;
-}
-.menulink a:hover {
-	text-decoration:none;
-	color: #00008B;
-}
-
-/* Tabbed box */
-
-.shadetabs{
-    padding: 3px 0;
-    margin-left: 0;
-    margin-top: 1px;
-    margin-bottom: 0;
-    font: bold 12px Verdana;
-    list-style-type: none;
-    text-align: left; /*set to left, center, or right to align the menu as desired*/
-}
-
-.shadetabs li{
-    display: inline;
-    list-style: none;
-    margin: 0;
-}
-
-.shadetabs li a{
-    text-decoration: none;
-    padding: 3px 7px;
-    margin-right: 3px;
-    border: 1px solid #778;
-    color: #2d2b2b;
-    background: white url(shade.gif) top left repeat-x;
-}
-
-.shadetabs li a:visited{
-    color: #2d2b2b;
-}
-
-.shadetabs li a:hover{
-    text-decoration: underline;
-    color: #2d2b2b;
-}
-
-.shadetabs li.selected{
-    position: relative;
-    top: 1px;
-}
-
-/*selected main tab style */
-.shadetabs li.selected a{
-    background-image: url(shadeactive.gif);
-    border-bottom-color: white;
-}
-
-/*selected main tab style */
-.shadetabs li.selected a:hover{
-    text-decoration: none;
-}
-
-/*style of tab content container*/
-.tabcontentstyle{
-    border: 1px solid gray;
-    margin-bottom: 1em;
-    padding: 10px;
-}
-
-.tabcontent{
-    display:none;
-}
-
-@media print {
-    .tabcontent {
-        display:block!important;
-    }
-}
 
 /** BEGIN: Feature Box as used for the blocks that appear in page margins **/
 .featurebox {
@@ -445,36 +325,33 @@ td.widelink a:hover {
 }
 /** END: Feature Box as used for the blocks that appear in page margins **/
 
-/** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
-.contentfeaturebox {
-	color: #333333;
-	padding: 15px 20px 20px;
-	border-top: 4px solid #FF6633;
-	margin: 0 0 1.5em;
-	background: url("images/featurebox_bg.jpg") no-repeat 100% 100%;
+/** BEGIN: Rules for including quotes in a curved box **/
+blockquote {
+    max-width: 620px;
+    margin: 0;
+    padding: 0px 10px 0px 10px;
+    background: url(images/quote-body.png) center repeat-y ;
 }
+blockquote::before {
+    display: block;
+    line-height: 0;
+    margin: 0;
+    background: url(images/quote-topright.png) top right no-repeat;
+    content: url(images/quote-topleft.png) }
+blockquote::after {
+    display: block;
+    line-height: 0;
+    margin: 0;
+    background: url(images/quote-bottomright.png) bottom right no-repeat;
+    content: url(images/quote-bottomleft.png) 
+}
+blockquote p {
+    margin-left: 14px;
+    margin-right: 26px;
+}
+/** END: Rules for including quotes in a curved box **/
 
-.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
-	margin: 0 0 .3em;
-	border-bottom: 1px solid #0033FF;
-	color: #003366;
-	background-color: transparent;
-}
-.contenttest {color: #003366}
-.contentfeaturebox p {
-	border:none;
-	margin: 0 0 1em;
-	color: #333333;
-}
 
-.contentfeaturebox a {
-	font-weight:bold
-}
-
-.contentfeaturebox select {
-	width: 100%;
-}
-/** END: Content Feature Box as used for the blocks that appear in the page body **/
 
 /** BEGIN: Rules for shortcuts that appear on top of the banner **/
 #shortcuts {
@@ -496,16 +373,6 @@ td.widelink a:hover {
 	text-decoration: underline;
 }
 
-
-
-/* Secondary Navigation */
-#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff url("images/sprites.gif") no-repeat 10px -695px;font: bold 86% arial, sans-serif; color: #000; display:block}
-#nav-secondary a:hover {color:#c00;background: #fee url("images/sprites.gif") no-repeat 10px -695px}
-
-/* FORMS */
-form {margin: 0 0 1.5em}
-input {font-family: arial,tahoma,verdana,sans-serif;margin: 2px 0}
-fieldset {border: none}
 /** BEGIN: Rules for the user search on the personal details page */
 #input_searchField {
 	width: 138px;
@@ -586,60 +453,3 @@ table.unpadded, table#unpadded {
 	margin-left: 2px; /*stop it touching the left line of the box*/
 }
 /** END: Rules for wiki **/
-
-label {display:inline;padding: 5px 0}
-label br {clear:left}
-
-	/* FORMS - general classes */
-	input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
-	input.button {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
-
-/* FORMS - f-wrap-1 - simple form, headings on left, form elements on right */
-	form.f-wrap-1 {width:100%;padding: .5em 0;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;border-top: 1px solid #d7d7d7;position:relative}
-		form.f-wrap-1 fieldset {width:auto;margin: 0 1em}
-		form.f-wrap-1 h3 {margin:0 0 .6em;font: bold 155% arial;color:#c00}
-		form.f-wrap-1 label {clear:left;float:left;width:100%;border-top: 1px solid #fff}
-
-		/* hide from IE mac \*/
-		form.f-wrap-1 label {float:none}
-		/* end hiding from IE5 mac */
-
-		form.f-wrap-1 label input, form.f-wrap-1 label textarea, form.f-wrap-1 label select {width:15em;float:left;margin-left:10px}
-
-		form.f-wrap-1 label b {float:left;width:8em;line-height: 1.7;display:block;position:relative}
-		form.f-wrap-1 label b .req {color:#c00;font-size:150%;font-weight:normal;position:absolute;top:-0.1em;line-height: 1.2;left:-.4em;width:.3em;height:.3em}
-		form.f-wrap-1 div.req {color:#666;font-size:96%;font-weight:normal;position:absolute;top:.4em;right:.4em;left:auto;width:13em;text-align:right}
-		form.f-wrap-1 div.req b {color:#c00;font-size:140%}
-		form.f-wrap-1 label select {width: 15.5em}
-		form.f-wrap-1 label textarea.f-comments {width: 20em}
-		form.f-wrap-1 div.f-submit-wrap {padding: 5px 0 5px 8em}
-		form.f-wrap-1 input.f-submit {margin: 0 0 0 10px}
-
-		form.f-wrap-1 fieldset.f-checkbox-wrap, form.f-wrap-1 fieldset.f-radio-wrap {clear:left;float:left;width:32em;border:none;margin:0;padding-bottom:.7em}
-		form.f-wrap-1 fieldset.f-checkbox-wrap b, form.f-wrap-1 fieldset.f-radio-wrap b {float:left;width:8em;line-height: 1.7;display:block;position:relative;padding-top:.3em}
-		form.f-wrap-1 fieldset.f-checkbox-wrap fieldset, form.f-wrap-1 fieldset.f-radio-wrap fieldset {float:left;width:13em;margin: 3px 0 0 10px}
-		form.f-wrap-1 fieldset.f-checkbox-wrap label, form.f-wrap-1 fieldset.f-radio-wrap label {float:left;width:13em;border:none;margin:0;padding:2px 0;margin-right:-3px}
-		form.f-wrap-1 label input.f-checkbox, form.f-wrap-1 label input.f-radio {width:auto;float:none;margin:0;padding:0}
-
-		form.f-wrap-1 label span.errormsg {position:absolute;top:0;right:-10em;left:auto;display:block;width:16em;background: transparent url(images/errormsg_bg.gif) no-repeat 0 0}
-		form.f-wrap-1 label span.errormsg b {padding: 10px 0;margin: 0 10px 0 30px;color:#B30800;font-weight:bold;display:block;width:auto;float:none;line-height:1.3}
-
-
-input {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
-
-select
- {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
-textarea {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
-}
-

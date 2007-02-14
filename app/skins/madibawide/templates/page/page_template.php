@@ -147,44 +147,41 @@ if (isSet($bodyParams)) {
 // ***************  SECTION FOR WORKING WITH THE BANNER ******************** //
 /*
 * 
-* Added in Madiba wide skin, a method to suppress the banner 
+* Added in Madiba wide skin, a method to scroll up the banner 
 * using a parameter
 * 
 */ 	
-$hideBanner = $this->getParam('suppressBanner', FALSE);
-if ($hideBanner !== "TRUE") {
-	if (!isset($pageSuppressBanner)) {
-		//Create the icons for the banner roll up / down
-		$icon = $this->getObject('geticon', 'htmlelements');
-       	$icon->setIcon('up');
-		$scrollUpLink = "<a href=\"#\" onclick=\"Effect.SlideUp('header',{queue:{scope:'myscope', position:'end',limit: 1}});\">"
-		  . $icon->show()."</a>";
-       	$icon->setIcon('down');
-       	$scrollUpLink .="<a href=\"#\" onclick=\"Effect.SlideDown('header',{queue:{scope:'myscope',position:'end', limit: 1}});\">"
-       	  . $icon->show()."</a>";
-	    ?>
-		<div id="header">
-			<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
-			<?php 
-			if ($this->objUser->isLoggedIn()) { ?>
-			    <div id="search">
-				    <form action="">
-	   			        <label for="searchsite">Site Search:</label>
-					    <input id="searchsite" name="query" type="text" />
-					    <input type="submit" value="Go" class="f-submit" />
-				    </form>
-			    </div>
-			    <?php
- 	        }
- 	}
-	if (!isset($pageSuppressToolbar)) {
-	    $menu=& $this->getObject('menu','toolbar');
-		echo $menu->show();
-	}
-	?>
-	</div>
-	<?php  
+if (!isset($pageSuppressBanner)) {
+	//Create the icons for the banner roll up / down
+	$icon = $this->getObject('geticon', 'htmlelements');
+   	$icon->setIcon('up');
+	$scrollUpLink = "<a href=\"#\" onclick=\"Effect.SlideUp('header',{queue:{scope:'myscope', position:'end',limit: 1}});\">"
+	  . $icon->show()."</a>";
+   	$icon->setIcon('down');
+   	$scrollUpLink .="<a href=\"#\" onclick=\"Effect.SlideDown('header',{queue:{scope:'myscope',position:'end', limit: 1}});\">"
+   	  . $icon->show()."</a>";
+    ?>
+	<div id="header">
+		<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+		<?php 
+		if ($this->objUser->isLoggedIn()) { ?>
+		    <div id="search">
+			    <form action="">
+   			        <label for="searchsite">Site Search:</label>
+				    <input id="searchsite" name="query" type="text" />
+				    <input type="submit" value="Go" class="f-submit" />
+			    </form>
+		    </div>
+		    <?php
+        }
 }
+if (!isset($pageSuppressToolbar)) {
+    $menu=& $this->getObject('menu','toolbar');
+	echo $menu->show();
+}
+?>
+</div>
+<?php
 // *************** END OF BANNER SECTION *****************************//
 
 
@@ -192,10 +189,12 @@ if ($hideBanner !== "TRUE") {
 echo $this->getLayoutContent();
 
 //Add the scroll up/down links
+if (isset($scrollUpLink)) {
+	?>
+	<div id="scrollme" style="float: left;"><?php echo $scrollUpLink; ?></div>
+	<?php
+}
 ?>
-
-<div id="scrollme" style="float: left;"><?php echo $scrollUpLink; ?></div>
-
 <?php
 // ****************** SECTION FOR WORKING WITH THE FOOTER ************//
 if (!isset($suppressFooter)) {
