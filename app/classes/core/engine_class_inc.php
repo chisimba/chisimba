@@ -280,6 +280,7 @@ class engine
 	'mail',
 	'modulecatalogue',
 	'navigation',
+	'outputplugins',
 	'permissions',
 	'postlogin',
 	'prelogin',
