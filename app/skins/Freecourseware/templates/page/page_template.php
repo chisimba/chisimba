@@ -177,11 +177,25 @@ if (isSet($bodyParams)) {
 		<?php
 			$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
 		?>		
-<form class="login" name="login_form" id="form1" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password" type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
-</td><?php } ?></tr></table>
-		
 
-		
+
+
+<form class="login" name="login_form" id="login_form" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password"  type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
+</td><?php } ?></tr></table>
+  <script language='javascript'>
+       
+	   
+            function clearfocus()
+            {
+            document.forms['login_form'].username.focus();
+            document.forms['login_form'].username.value = '';
+        
+            }
+               </script>
+               
+
+
+               
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site search:</label>
@@ -189,13 +203,7 @@ if (isSet($bodyParams)) {
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
 				</div>
-				
-				
-		
-	
-			
-		
-				
+	     
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
