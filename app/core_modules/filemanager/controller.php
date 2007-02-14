@@ -530,10 +530,8 @@ function checkWindowOpener()
         $settingsArray['value'] = $this->getParam('value');
         $settingsArray['restrict'] = $this->getParam('restrict');
 
-
-
         // Check if no files were provided
-        if (array_key_exists('nofileprovided', $results)) {
+        if ($results['reason'] == 'nouploadedfileprovided') {
             $settingsArray['error'] = 'nofilesprovided';
         } else {
             // Put Message into Array
