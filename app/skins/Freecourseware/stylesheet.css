@@ -22,10 +22,10 @@ display:none;
 }
 div#header div#search {
 	position: absolute;
-	float: right;
-	 top: 5px;
+	 float: right;
+	 top: 30px;
 	 right: 0;
-	 width: 300px;
+	 width: 245px;
 }
 #breadcrumbs {
 	font-size: 80%;

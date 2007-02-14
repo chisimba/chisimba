@@ -161,12 +161,13 @@ if (isSet($bodyParams)) {
 </ul>
 </td>
 	<?php if ($objUser->isLoggedIn()) {?>
-<td align="right" >
+<td align="right" ><b>Logged in as:</b>
+
 	<?php	
 		$this->objUser =& $this->getObject('user', 'security');
 		echo $this->objUser->fullName();
-	?></td>
-<td align="right" >
+	?>
+
 		<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
 </td>
 
@@ -185,8 +186,6 @@ if (isSet($bodyParams)) {
 					<form action="">
 					<label for="searchsite">Site search:</label>
 					<input id="searchsite" name="query" type="text" />
-					
-					
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
 				</div>
