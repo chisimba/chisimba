@@ -96,7 +96,13 @@ class htmldropdown extends presentation
             $isSelected = '';
         }
         
-        $html = sprintf('<option value="%s" %s>%s%s</option>', $node->link, $isSelected, $prefix, $node->text);
+        if (isset($node->extra)) {
+            $extra = $node->extra;
+        } else {
+            $extra = '';
+        }
+        
+        $html = sprintf('<option value="%s" %s %s>%s%s</option>', $node->link, $isSelected, $extra, $prefix, $node->text);
         
         /**
         * Loop through subnodes
