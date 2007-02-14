@@ -69,8 +69,8 @@ class washout extends object
 		//Loop over all parsers and run them on $txt
 		foreach ($this->parsers as $parser=>$classlocation) {
 			try {
-				$currentParser = $parser->classname;
-				$classLocation = $parser->classlocation;
+				$currentParser = $parser;
+				$classLocation = $classlocation;
 				$objCurrentParser = $this->getObject($currentParser, $classLocation);
 				$txt = $objCurrentParser->show($txt);
 			}
