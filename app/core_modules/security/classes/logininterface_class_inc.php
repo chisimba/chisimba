@@ -61,7 +61,7 @@ class loginInterface extends object
     		//Set the action for the form to the uri with paramArray
     		$objForm->setAction($formAction);
     		//Set the displayType to 3 for freeform
-    		$objForm->displayType=2;
+    		$objForm->displayType=3;
 
     		//--Create an element for the username
     		$objElement = &new textinput("username",NULL,NULL,15);
@@ -69,13 +69,13 @@ class loginInterface extends object
     		//Add validatoin for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired"),'required');
     		//Add the username box to the form
-    		$objForm->addToForm($objElement->label . ":<br />" . $objElement->show());
+    		$objForm->addToForm($objElement->label . ": " . $objElement->show());
 
     		//--- Create an element for the password
     		$objElement = &new textinput("password",NULL,'password',15);
     		$objElement->label = $this->objLanguage->languageText("word_password");
     		//Add the password box to the form
-    		$objForm->addToForm($objElement->label . ":<br />" . $objElement->show());
+    		$objForm->addToForm('<br/>'.$objElement->label . ":" . $objElement->show());
 
     		//--- Create an element for the network login radio
     		$objElement = &new checkbox("useLdap");
@@ -94,14 +94,14 @@ class loginInterface extends object
     		// Use the language object to add the word save
     		$objElement->setValue(' '.$this->objLanguage->languageText("word_login").' ');
     		// Add the button to the form
-    		$objForm->addToForm($ldap.'<br />'.$objElement->show());
+    		$objForm->addToForm($ldap.'<br/>'.$objElement->show().'<br/>');
 
     		$helpText = $this->objLanguage->languageText('mod_useradmin_help','useradmin');
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
         	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'security'));
         	$resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
         	// the help link
-        	$p = $resetLink->show().'<br /><br />'.$helpIcon;
+        	$p = $resetLink->show().'<br />'.$helpIcon;
         	$objForm->addToForm($p);
 
     		return $objForm->show();
