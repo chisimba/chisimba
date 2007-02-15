@@ -104,5 +104,10 @@ class parse4mathml extends object
     {
         return $this->objMathImg->render($match);
     }
+    
+    public function parse($str)
+    {
+    	return $this->parseAll($str);
+    }
 }
 ?>

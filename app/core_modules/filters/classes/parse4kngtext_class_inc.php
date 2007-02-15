@@ -37,6 +37,11 @@ class parse4kngtext extends object
         return "DEPRECATED-------" . preg_replace($search, "'<div class=\"cdblk\">'.\$this->_nl2br('\\2').'</div>'", $str);
     } # end of function
     
+    public function parse($txt)
+    {
+    	//class deprecated so no return, just here for the interface
+    	return $txt;
+    }
 
 
     

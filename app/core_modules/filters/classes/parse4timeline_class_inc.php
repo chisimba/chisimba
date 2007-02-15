@@ -8,7 +8,7 @@
 *
 */
 
-class parse4mindmap extends object
+class parse4timeline extends object
 {
     
     function init()
@@ -23,19 +23,24 @@ class parse4mindmap extends object
     * @return The parsed string
     *
     */
-    function parse($str)
+    function show($str)
     {
         preg_match_all('/\\[TIMELINE]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $this->objTlParser->etTimelineUri($uri)($results['timelinelink'][$counter]);
+            $this->objTlParser->$results['timelinelink'][$counter];
             $replacement = $this->objTlParser->show();
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
         
         return $str;
+    }
+    
+    public function parse($str)
+    {
+    	return $this->show($str);
     }
 
 }

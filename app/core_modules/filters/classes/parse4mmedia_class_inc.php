@@ -55,7 +55,7 @@ class parse4mmedia extends object {
         $search = '/<a(.*?)href=\"([^<]+)\.wmv\"([^>]*)>(.*?)<\/a>/isU';
         /*\\0*/$replace = '<p class="mediaplugin"><object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
-        $replace .= ' standby="Loading Microsoft® Windows® Media Player components..." ';
+        $replace .= ' standby="Loading Microsoftï¿½ Windowsï¿½ Media Player components..." ';
         $replace .= ' id="msplayer" align="" type="application/x-oleobject">';
         $replace .= "<param name=\"Filename\" value=\"\\2.wmv\">";
         $replace .= '<param name="ShowControls" value=true />';
@@ -190,6 +190,11 @@ class parse4mmedia extends object {
         $str = $this->parseWmm($str);
         return $this->parseWmv($str);
     } # end of function
+    
+    public function parse($str)
+    {
+    	return $this->parseAll($str);
+    }
 } # end of class
 
 ?>

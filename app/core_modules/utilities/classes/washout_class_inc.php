@@ -14,17 +14,18 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * what comes out of the washing machine.
 *
 * @author Derek Keats
+* @author Paul Scott
 * @copyright UWC and AVOIR under the GPL
 */
 class washout extends object
 {
 	/**
 	* 
-	* @var array parsers The parsers loaded from the XML file
+	* @var array parsers 
 	* @access public
 	*  
 	*/
-	public $parsers;
+	public $classes;
 
 	/**
 	 * Constructor method, builds an array of standard parsers,
@@ -38,26 +39,20 @@ class washout extends object
 	 */
 	public function init()
 	{
-		$this->parsers=array();
 		try {
-			$this->getListing();
-			//create an array of all known standard parsers and their location
-			/*$this->parsers=array(
-				'parse4mindmap' => 'filters',
-				'parse4mathml' => 'filters',
-				'parse4mmedia' => 'filters',
-				'parse4referece' => 'filters',
-				'parse4smileys' => 'filters',
-				'parse4timeline' => 'filters'
-			);*/
-			
+			//load up all of the parsers from filters
+			chdir("core_modules/filters/classes/");
+			$parsers = glob("parse4*_class_inc.php");
+			foreach ($parsers as $parser)
+			{
+				$this->classes[] = str_replace("_class_inc.php", "", $parser);
+			}
 		}
 		catch (customException $e)
 		{
 			customException::cleanUp();
 			exit;
 		}
-		
 	}
 
 	/**
@@ -70,13 +65,11 @@ class washout extends object
 	public function parseText($txt)
 	{
 		//Loop over all parsers and run them on $txt
-		foreach ($this->parsers as $item) {
+		foreach ($this->classes as $parser) {
 			try {
-				$currentParser = $item['className'];
-				$classLocation = $item['moduleName'];
-				//echo $currentParser . "=>" . $classLocation . "<br />";
-				$objCurrentParser = $this->getObject($currentParser, $classLocation);
-				$txt = $objCurrentParser->parseAll($txt);
+				$currentParser = $parser;
+				$objCurrentParser = $this->getObject($currentParser, 'filters');
+				$txt = $objCurrentParser->parse($txt);
 			}
 			catch (customException $e)
 			{
@@ -85,43 +78,6 @@ class washout extends object
 			}
 		}
 		return $txt;
-	}
-	
-	/**
-	* 
-    * Get an array of files in a directory and convert to an arry
-    * of outputparsers
-    * 
-    * @return   array of classes and locations
-    * 
-    */ 
-	function getListing()
-	{
-	    //Create the config reader and get the location of demo maps
-        $objSconfig =  $this->getObject('altconfig', 'config');
-        $basePath = $objSconfig->getsiteRootPath();
-        $dirPath =  $basePath . "core_modules/outputplugins/classes/";
-        $classNameAr = "";
-		try {
-		    $handle = opendir($dirPath);
-		    $elem=0;
-		    while (false !== ($file = readdir($handle))) {
-	            if ($file != "." && $file != ".." && $file !="CVS") {
-	                $arTmp = explode("_", $file);
-	                $className = $arTmp[0];
-	                $this->parsers[$elem]['className']= $className;
-	                $this->parsers[$elem]['moduleName']= "outputplugins";
-	                $elem++;
-	            }
-		    }
-		    closedir($handle);
-		} 
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	    return TRUE;
 	}
 }
 ?>

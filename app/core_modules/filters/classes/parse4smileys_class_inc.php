@@ -100,6 +100,11 @@ class parse4smileys extends object {
         return preg_replace($test, $replace, $str);
 
     } # end of function
+    
+    public function parse($str)
+    {
+    	return $this->parseSmiley($str);
+    }
        
 } # end of class
 
