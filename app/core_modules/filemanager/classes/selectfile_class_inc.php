@@ -162,6 +162,8 @@ function clearFileInputJS(name)
         
         //$objPop->set('linktext', 'Select File');
         $objPop->set('linktext', $this->objIcon->show());
+        $objPop->set('linktext', 'Browse');
+        $objPop->set('linkType', 'button');
         $objPop->set('width','600'); 
         $objPop->set('height','400');
         $objPop->set('resizable','yes');
@@ -183,7 +185,7 @@ function clearFileInputJS(name)
         // $subModal = $objSubModalWindow->show('Select', $location, 'button');
         // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
         
-        return $input->show().$textinput->show().' &nbsp; '.$objPop->show().$button->show();
+        return $input->show().$textinput->show().' '.$objPop->show().' '.$button->show();
     }
     
     
