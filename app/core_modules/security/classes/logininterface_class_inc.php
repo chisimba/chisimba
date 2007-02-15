@@ -69,7 +69,7 @@ class loginInterface extends object
     		//Add validatoin for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired"),'required');
     		//Add the username box to the form
-    		$objForm->addToForm($objElement->label . ": " . $objElement->show());
+    		$objForm->addToForm($objElement->label . ":&nbsp;" . $objElement->show());
 
     		//--- Create an element for the password
     		$objElement = &new textinput("password",NULL,'password',15);
@@ -83,7 +83,7 @@ class loginInterface extends object
     		$objElement->label=$this->objLanguage->languageText("phrase_networkid");
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
-    			$ldap .= $objElement->show(). " " . $objElement->label;
+    			$ldap .= $objElement->show(). "&nbsp;" . $objElement->label;
     		}
 
 
@@ -96,7 +96,7 @@ class loginInterface extends object
     		// Add the button to the form
     		$objForm->addToForm($ldap.'<br/>'.$objElement->show().'<br/>');
 
-    		$helpText = $this->objLanguage->languageText('mod_useradmin_help','useradmin');
+    		$helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
         	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'security'));
         	$resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
