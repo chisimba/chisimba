@@ -42,6 +42,7 @@ class washout extends object
 	public function init()
 	{
 		try {
+			$this->objConfig = $this->getObject('altconfig', 'config');
 			//load up all of the parsers from filters
 			chdir("core_modules/filters/classes/");
 			$parsers = glob("parse4*_class_inc.php");
@@ -71,6 +72,16 @@ class washout extends object
 		foreach ($this->classes as $parser) {
 			try {
 				$currentParser = $parser;
+				if($currentParser == 'parse4timeline')
+				{
+					if(file_exists($this->objConfig->getModulePath() . 'timeline/classes/'))
+					{
+						$objCurrentParser = $this->getObject($currentParser, 'filters');
+					}
+					else {
+						continue;
+					}
+				}
 				$objCurrentParser = $this->getObject($currentParser, 'filters');
 				$txt = $objCurrentParser->parse($txt);
 			}
