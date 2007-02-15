@@ -4,7 +4,7 @@
 * Class to parse a string (e.g. page content) that contains a link
 * to a Freemind mind map and render the map in the page
 *
-* @author Derek Keats
+* @author Derek Keats, Tohir Solomons
 *
 */
 
@@ -25,6 +25,7 @@ class parse4mindmap extends object
     */
     function parse($str)
     {
+        $str = stripslashes($str);
         preg_match_all('/\\[MAP]<a.*?href="(?P<maplink>.*?)".*?>.*?<\/a>\\[\/MAP]/', $str, $results, PREG_PATTERN_ORDER);
         
         $counter = 0;
@@ -41,3 +42,4 @@ class parse4mindmap extends object
     }
 
 }
+?>
