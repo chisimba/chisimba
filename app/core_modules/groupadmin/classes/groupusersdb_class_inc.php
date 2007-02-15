@@ -202,7 +202,7 @@ class groupusersdb extends dbTable
         $sql = "SELECT ";
         $sql.= $fields
                 ? ( is_array( $fields ) ? implode ( ',', $fields ) : $fields )
-                : "$tblUser.id, 'firstName' || ' ' || 'surname' as fullName";
+                : "$tblUser.id,userid , firstName, surname";
         $sql.= " FROM $tblGroupUsers";
 
         $join = " INNER JOIN $tblUser";
@@ -317,12 +317,11 @@ print $sql.$join.$filter;
         $lstGroups = "'".implode("', '", $SubGroups )."'";
 
         $sql = "SELECT ";
-        $sql.= $fields ? implode (',', $fields ) : " 'firstName' || ' ' || 'surname' as fullname ";
+        $sql.= $fields ? implode (',', $fields ) : "firstname , surname ";
         $sql.= " FROM $tblGroupUsers, $tblUser";
         $sql.= " WHERE group_id IN ( $lstGroups )";
         $sql.= " AND $tblUser.id = user_id";
         //$sql.= " GROUP BY $tblUser.id ";
-
         // Return the users for the given group in an array.
         $result = $this->getArray( $sql.$filter );
         return $result;
