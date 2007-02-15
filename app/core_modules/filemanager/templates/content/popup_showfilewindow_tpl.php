@@ -44,6 +44,18 @@ $value = new hiddeninput('value', $this->getParam('value'));
 
 $this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
 
+if (count($restrictions) != 0) {
+    $this->objUpload->formExtra .= '<br ><span class="warning minute"> Required File Types: ';
+    $comma = '';
+    foreach ($restrictions as $restriction)
+    {
+        $this->objUpload->formExtra .= $comma.$restriction;
+        $comma = ', ';
+    }
+    
+    $this->objUpload->formExtra .= '</span>';
+}
+
 echo $this->objUpload->show();
 
 echo '</div>';
@@ -58,7 +70,19 @@ echo '<h1>List of Files</h1>';
 //echo '<br /><br />';
 
 if (count($files) == 0) {
-    echo ' No files matching criteria found';
+    if (count($restrictions) == 0) {
+        echo 'You have not uploaded any files';
+    } else {
+        echo 'You have not yet uploaded any ';
+        $comma = '';
+        foreach ($restrictions as $restriction)
+        {
+            echo $comma.strtoupper($restriction);
+            $comma = ', ';
+        }
+        
+        echo ' files yet.';
+    }
 } else {
         
     $count = 0;

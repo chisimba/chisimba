@@ -331,6 +331,8 @@ class filemanager extends controller
         } else {
             $restriction = explode('____', $this->getParam('restrict'));
         }
+        
+        $this->setVarByRef('restrictions', $restriction);
 
         if ($this->getParam('mode') == 'fileupload') {
             $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
