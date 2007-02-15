@@ -26,6 +26,8 @@ class washout extends object
 	*  
 	*/
 	public $classes;
+	
+	public $bbcode;
 
 	/**
 	 * Constructor method, builds an array of standard parsers,
@@ -47,6 +49,7 @@ class washout extends object
 			{
 				$this->classes[] = str_replace("_class_inc.php", "", $parser);
 			}
+			$this->bbcode = $this->getObject('bbcodeparser', 'utilities');
 		}
 		catch (customException $e)
 		{
@@ -77,7 +80,7 @@ class washout extends object
 				exit;
 			}
 		}
-		return $txt;
+		return $this->bbcode->parse4bbcode($txt);
 	}
 }
 ?>
