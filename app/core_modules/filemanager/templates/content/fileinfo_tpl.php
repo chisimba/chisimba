@@ -24,10 +24,12 @@ if (array_key_exists('width', $file)) {
     echo $this->objFiles->getFileMediaInfoTable($file['id']);
 }
 
-
+$fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
+$this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+            
 $objIcon->setIcon('download');
-$link = new link ($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'])));
-$link2 = new link ($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'])));
+$link = new link ($fileDownloadPath);
+$link2 = new link ($fileDownloadPath);
 
 $link->link = $objIcon->show();
 $link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
