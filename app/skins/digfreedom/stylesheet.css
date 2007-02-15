@@ -124,6 +124,7 @@ background-color: #99A777;
 
 ul#menuList  li  ul{
 background-color: #fff;
+border: 1px solid #666666;
 margin-top: 4px;
 }
 
