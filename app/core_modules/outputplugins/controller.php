@@ -55,6 +55,7 @@ class outputplugins extends controller
         		"for plugins to be added and updated dynamically without changes to " .
         		"the main application.";
         $objParseForAll = $this->getObject('washout', 'utilities');
+        $objParseForAll->parseText($str);
         $this->setVarByRef("str", $str);
         return "dump_tpl.php";
     }
