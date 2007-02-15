@@ -43,7 +43,7 @@ if (isset($contextList))
 			$lects = 'No Instructor for this course';
 		}
 		//print_r($objContextGroups->getUserCount($context['contextcode']));
-		$userCount = $objContextGroups->getUserCount($context['contextcode']);
+		$userCount = $objContextGroups->getUserCount($context['contextcode'])+1;
 		$content = $this->_objLanguage->languageText("mod_context_instructors",'context') .': <span class="highlight">'.$lects.'</span>';
 		$content .= '<p>'.$this->_objLanguage->languageText("mod_context_status",'context') .' : <span class="highlight">'.$context['status'].'</span>';
 		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_access",'context') .' : <span class="highlight">'.$context['access'].'</span>';
