@@ -47,6 +47,8 @@ if (count($files) == 0) {
 
     $objIcon->setIcon('download');
     $downloadIcon = $objIcon->show();
+    
+    $userfilespath = $this->objConfig->getcontentPath();
 
         foreach ($files as $file)
         {
@@ -69,7 +71,10 @@ if (count($files) == 0) {
             //$table->addCell($file['description']);
             //$table->addCell($this->objFormatDateTime->formatDateOnly($file['datecreated']).' - '.$this->objFormatDateTime->formatTime($file['timecreated']), NULL, NULL, 'right', 'nowrap');
             
-            $link = new link ($this->uri(array('action'=>'file', 'id'=>$file['id'], 'type'=>$file['category'], 'filename'=>$file['filename'])));
+            $fileDownloadPath = $userfilespath.$file['path'];
+            $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+            
+            $link = new link ($fileDownloadPath);
             $link->link = $downloadIcon;
             
             $table->addCell($link->show(), '30');
