@@ -43,6 +43,7 @@ class filefolder extends object
             case 'application/x-shockwave-flash2-preview': return 'flash'; break;
             case 'application/vnd.ms-excel': return 'documents'; break;
             case 'application/msword': return 'documents'; break;
+            case 'application/powerpoint': return 'documents'; break;
             case 'application/vnd.ms-powerpoint': return 'documents'; break;
             case 'application/pdf': return 'documents'; break;
             case 'application/x-rar-compressed' : return 'archives'; break;
