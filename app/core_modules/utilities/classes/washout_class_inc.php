@@ -38,23 +38,26 @@ class washout extends object
 	 */
 	public function init()
 	{
+		$this->parsers=array();
 		try {
+			$this->getListing();
 			//create an array of all known standard parsers and their location
-			$this->parsers=array(
+			/*$this->parsers=array(
 				'parse4mindmap' => 'filters',
 				'parse4mathml' => 'filters',
 				'parse4mmedia' => 'filters',
 				'parse4referece' => 'filters',
 				'parse4smileys' => 'filters',
 				'parse4timeline' => 'filters'
-			);
-			$this->getListing();
+			);*/
+			
 		}
 		catch (customException $e)
 		{
 			customException::cleanUp();
 			exit;
 		}
+		
 	}
 
 	/**
@@ -67,12 +70,13 @@ class washout extends object
 	public function parseText($txt)
 	{
 		//Loop over all parsers and run them on $txt
-		foreach ($this->parsers as $parser=>$classlocation) {
+		foreach ($this->parsers as $item) {
 			try {
-				$currentParser = $parser;
-				$classLocation = $classlocation;
+				$currentParser = $item['className'];
+				$classLocation = $item['moduleName'];
+				//echo $currentParser . "=>" . $classLocation . "<br />";
 				$objCurrentParser = $this->getObject($currentParser, $classLocation);
-				$txt = $objCurrentParser->show($txt);
+				$txt = $objCurrentParser->parseAll($txt);
 			}
 			catch (customException $e)
 			{
@@ -84,22 +88,30 @@ class washout extends object
 	}
 	
 	/**
+	* 
     * Get an array of files in a directory and convert to an arry
     * of outputparsers
+    * 
     * @return   array of classes and locations
+    * 
     */ 
 	function getListing()
 	{
 	    //Create the config reader and get the location of demo maps
         $objSconfig =  $this->getObject('altconfig', 'config');
-        $dirpath =  "core_modules/outputparsers/classes/";
+        $basePath = $objSconfig->getsiteRootPath();
+        $dirPath =  $basePath . "core_modules/outputplugins/classes/";
+        $classNameAr = "";
 		try {
-		    $handle = opendir($dirpath);
+		    $handle = opendir($dirPath);
+		    $elem=0;
 		    while (false !== ($file = readdir($handle))) {
 	            if ($file != "." && $file != ".." && $file !="CVS") {
 	                $arTmp = explode("_", $file);
 	                $className = $arTmp[0];
-	                $this->parsers[][$className]='outputparsers';
+	                $this->parsers[$elem]['className']= $className;
+	                $this->parsers[$elem]['moduleName']= "outputplugins";
+	                $elem++;
 	            }
 		    }
 		    closedir($handle);
@@ -109,7 +121,7 @@ class washout extends object
 			customException::cleanUp();
 			exit;
 		}
-	    return $classNameAr;
+	    return TRUE;
 	}
 }
 ?>
