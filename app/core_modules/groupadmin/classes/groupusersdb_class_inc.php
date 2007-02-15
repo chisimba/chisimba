@@ -167,6 +167,7 @@ class groupusersdb extends dbTable
     function getUserGroups( $userId ) {
         // Get the objects.
         $groups =& $this->groups();
+       
 
         // Get the direct groups the user is a member of.
         $directGroups = $this->getUserDirectGroups( $userId );
@@ -207,7 +208,7 @@ class groupusersdb extends dbTable
         $join = " INNER JOIN $tblUser";
         $join.= " ON ( ( user_id = $tblUser.id ) AND ( group_id = '$groupId' ) )";
         $filter = $filter ? $filter : ereg('firstName',$sql)? " ORDER BY UPPER(firstName)" : NULL;
-
+print $sql.$join.$filter;
         return $this->getArray( $sql.$join.$filter );
     }
 
@@ -325,6 +326,20 @@ class groupusersdb extends dbTable
         // Return the users for the given group in an array.
         $result = $this->getArray( $sql.$filter );
         return $result;
+    }
+    
+    /**
+     * Method to get the  user's roles in the different groups
+     * @param string $userId
+     * @return array
+     * @access public
+     */
+    public function getUserRoles($userId)
+    {
+        $sql = "WHERE user_id = '".$userId."' ";
+	       $arr = $this->getAll($sql);
+	       
+	       return  $arr;
     }
 }
 ?>
