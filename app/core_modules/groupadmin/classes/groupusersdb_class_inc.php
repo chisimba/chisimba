@@ -208,7 +208,7 @@ class groupusersdb extends dbTable
         $join = " INNER JOIN $tblUser";
         $join.= " ON ( ( user_id = $tblUser.id ) AND ( group_id = '$groupId' ) )";
         $filter = $filter ? $filter : ereg('firstName',$sql)? " ORDER BY UPPER(firstName)" : NULL;
-print $sql.$join.$filter;
+
         return $this->getArray( $sql.$join.$filter );
     }
 
