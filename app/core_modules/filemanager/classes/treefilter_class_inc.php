@@ -36,7 +36,7 @@ class treefilter extends object
 		//Create a new tree
 		$menu  = new treemenu();
         
-        $numFiles = $this->objFile->getNumFiles($userId);
+        $numFiles = $this->objFile->getNumUniqueFiles($userId);
 		
 		$allFilesNode = new treenode(array('text' => 'All Files ('.$numFiles.')', 'link' => $this->uri(NULL)));
         

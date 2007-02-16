@@ -267,6 +267,20 @@ class dbfile extends dbTable
     }
     
     /**
+    * Method to get the total number of unique files for a user, exclude overwrites
+    *
+    * @todo This is not perfect yet. Has to ignore archives files
+    * @param string $userId User ID of the User
+    * @return int Number of Files
+    */
+    public function getNumUniqueFiles($userId)
+    {
+        $sql = 'SELECT DISTINCT filename FROM tbl_files WHERE userid=\''.$userId.'\' AND category != \'temp\'';
+        $result = $this->getArray($sql);
+        return count($result);
+    }
+    
+    /**
     * Method to get the categories of files that have been uploaded
     *
     * @param string $userId User ID of the User
