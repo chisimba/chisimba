@@ -374,7 +374,7 @@ $form->addRule('useradmin_username', "Please enter the username for the user" ,'
 $form->addRule('useradmin_email', $this->objLanguage->languageText('mod_userdetails_entervalidemailaddress', 'userdetails'), 'email');
 
 // Add User Info Side to form
-$form->addToForm('<div style="width:70%; float:left; padding:5px; boorder:1px solid red;">');
+$form->addToForm('<div style="width:60%; float:left; padding:5px;">');
 $form->addToForm('<h3>'.$this->objLanguage->languageText('phrase_userinformation', 'userdetails').':</h3>');
 $form->addToForm($table->show());
 $form->addToForm('</div>');
@@ -420,5 +420,3 @@ $returnlink = new link($this->uri(NULL));
 $returnlink->link = 'Return to User Administration';
 echo '<br clear="left" />'.$returnlink->show();
 ?>
-
-fix personal messages

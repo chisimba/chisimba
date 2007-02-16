@@ -175,7 +175,7 @@ function clearFileInputJS(name)
         // $subModal = $objSubModalWindow->show('Select', $location, 'button');
         // return $input->show().$textinput->show().' &nbsp; '.$subModal.$button->show();
         
-        return $input->show().'<div style="width:100px; height:100px;line-height:100px;vertical-align:center;text-align:center;">'.$previewImg.'</div><br/>'.$objPop->show().' '.$button->show();
+        return $input->show().'<div style="width:100px; height:100px;line-height:100px;vertical-align:center;text-align:center;">'.$previewImg.'</div><br /><div>'.$objPop->show().' '.$button->show().'</div>';
         //$textinput->show()
     }
     
