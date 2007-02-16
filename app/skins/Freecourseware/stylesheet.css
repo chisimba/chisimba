@@ -21,11 +21,16 @@ height: 40px;
 display:none;
 }
 div#header div#search {
-	position: absolute;
+	 position: absolute;
 	 float: right;
-	 top: 20px;
-	 right: 0;
-	 width: 245px;
+	 top: 10px;
+	 right: 5px;
+}
+div#loginfields {
+	 position: absolute;
+	 float: right;
+	 top: 50px;
+	 right: 5px;
 }
 #breadcrumbs {
 	font-size: 80%;
