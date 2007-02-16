@@ -16,8 +16,18 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  **/
 class contextadmin extends controller 
 {
-    
-    
+   /*
+    * @var object objExportContent
+    */
+    public $objExportContent;
+
+    /**
+     * Import object
+     *
+     * @var object
+     */
+    public $objImport;
+ 
     /**
      * The constructor
      */
@@ -31,6 +41,8 @@ class contextadmin extends controller
         //$this->_objUtilsContent = & $this->newObject('utils', 'contextpostlogin');
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
         $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+	$this->objExportContent = & $this->newObject('export','contextadmin');
+	$this->objImport = &$this->getObject('blogimporter',blog);
     }
     
     
@@ -55,7 +67,7 @@ class contextadmin extends controller
             //the following cases deals with adding a context
             
             //use a layout template for this wizard
-            
+
             case 'addstep1':
                 $this->setLayoutTemplate('layout_tpl.php');
                 $this->setVar('error', $this->getParam('error'));
@@ -103,6 +115,26 @@ class contextadmin extends controller
            	case 'admincontext':
            		$this->_objDBContext->joinContext($this->getParam('contextcode'));
            		return $this->nextAction('default');
+		case 'exporttoxml':
+                      $this->objExportContent->doXMLExport();
+                      return $this->nextAction(null);
+		case 'passcourse':
+			echo "asdf";
+			return $this->nextAction(null);
+ 	        case 'importcourse' :
+			$this->setLayoutTemplate('importcoures_tpl.php');
+			$this->setVar('dbData',$this->accessCourseList());
+			return 'importcourse_tpl.php';
+		case 'submitcourse':
+			echo "asdf";
+			echo $this->getParam('contextcode');
+			echo $this->contextcode;
+			echo $this->getParam('cc');
+			echo $this->cc;
+			return $this->nextAction(null);
+		case 'writetonew':
+			$this->objExportContent->doXMLWrite();
+			return $this->nextAction(null);		
 		default:
 			return $this->nextAction(null);
         }
@@ -111,8 +143,40 @@ class contextadmin extends controller
         
     }
     
-    
-    
+    public function accessCourseList($dsn)
+	{
+					                
+                //$dsn = "localhost";
+                $table = "tbl_context";
+                //$filter = "SELECT contextcode from tbl_context";
+		$filter = "SELECT * from tbl_context";
+
+                //set up to connect to the server
+                $dsn1 = $this->objImport->setup($dsn);
+                //connect to the remote db
+                $dbobj = $this->objImport->_dbObject();
+                $datas = $this->objImport->queryTable($table,$filter);
+		return $datas;
+	}
+
+            /**
+     * Method to load an HTML element's class.
+     * @param string $name The name of the element
+     * @return The element object
+     */
+     public function loadHTMLElement($name)
+     {
+         return $this->loadClass($name, 'htmlelements');
+     }
+ 
+	public function arrayKeys()
+	{
+	$arrayC[0] = "1";
+	$arrayC[1] = "2";
+	$arrayC[2] = "3";
+
+	return $arrayC;
+	}
     /**
      * Method to get the left widget
      * @return string
