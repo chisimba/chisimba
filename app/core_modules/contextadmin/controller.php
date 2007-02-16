@@ -42,7 +42,7 @@ class contextadmin extends controller
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
         $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
 	$this->objExportContent = & $this->newObject('export','contextadmin');
-	$this->objImport = &$this->getObject('blogimporter',blog);
+	$this->objImport = &$this->getObject('blogimporter','blog');
     }
     
     
