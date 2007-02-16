@@ -264,7 +264,7 @@ class useradmin extends controller
             }
             
             
-            return $this->nextAction('userdetails', array('id'=>$pkid));
+            return $this->nextAction('userdetails', array('id'=>$pkid, 'message'=>'newusercreated'));
         }
         
     }

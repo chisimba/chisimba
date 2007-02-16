@@ -44,6 +44,10 @@ echo $header->show();
 
 $useridinput = new hiddeninput('id', $user['id']);
 
+if ($this->getParam('message') == 'newusercreated') {
+    echo '<span class="confirm">New User has been created</span><br /><br />';
+}
+
 if (isset($showconfirmation) && $showconfirmation) {
     echo '<div id="confirmationmessage">';
     if ($this->getParam('change') == 'details') {
