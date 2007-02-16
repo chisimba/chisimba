@@ -25,7 +25,7 @@ class filemanager extends controller
         $this->objUploadMessages =& $this->getObject('uploadmessages');
 
         $this->objLanguage =& $this->getObject('language', 'language');
-
+        $this->objMenuTools =& $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
     }
 
@@ -73,6 +73,7 @@ class filemanager extends controller
             case 'fcklink':
                 return $this->showFCKEditorInterface();
             case 'uploadfiles':
+                $this->objMenuTools->addToBreadCrumbs(array('Upload Files'));
                 return 'multipleupload_tpl.php';
             case 'testgetid3':
                 return $this->testGetId3();
@@ -166,7 +167,7 @@ class filemanager extends controller
         }
 
         $this->setVarByRef('file', $file);
-
+        $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
         return 'fileinfo_tpl.php';
     }
 
@@ -203,6 +204,8 @@ class filemanager extends controller
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
         $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
 
+        $this->objMenuTools->addToBreadCrumbs(array('Upload Results'));
+        
         return 'list_uploadresults_tpl.php';
     }
 
@@ -211,6 +214,8 @@ class filemanager extends controller
     */
     public function checkFileOverwrite()
     {
+        $this->objMenuTools->addToBreadCrumbs(array('Overwrite Files?'));
+        
         return 'list_fileoverwrite_tpl.php';
     }
 
@@ -289,6 +294,7 @@ class filemanager extends controller
     */
     public function showMultiDelete()
     {
+        $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
         return 'multidelete_form_tpl.php';
     }
 
