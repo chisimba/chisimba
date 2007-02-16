@@ -150,51 +150,47 @@ if (isSet($bodyParams)) {
 	
 	<div id="header">
 		<h1 id="sitename"><span></span></h1> 
-		<table border="0" width="100%">
-	<tr><td>
 	
+				<ul class="freecoursewarenav">
+				<a href="index.php?module=cms" class="freebutton">Home</a>
+				<a href="index.php?module=blog&amp;action=siteblog" class="freebutton">Blog</a>
+				<a href="index.php?module=wiki" class="freebutton">Wiki</a>
+				</ul>
+	
+			<?php if ($objUser->isLoggedIn()) {?>
+							
+				<div id="loginfields">
+				<b>Logged in as:</b>
+				<?php	
+					$this->objUser =& $this->getObject('user', 'security');
+					echo $this->objUser->fullName();
+				?>
+				<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
+				</div>
 
-<ul class="freecoursewarenav">
-<a href="index.php?module=cms" class="freebutton">Home</a>
-<a href="index.php?module=blog&amp;action=siteblog" class="freebutton">Blog</a>
-<a href="index.php?module=wiki" class="freebutton">Wiki</a>
-</ul>
-</td>
-	<?php if ($objUser->isLoggedIn()) {?>
-<td align="right" ><b>Logged in as:</b>
+			<?php } ?>
 
-	<?php	
-		$this->objUser =& $this->getObject('user', 'security');
-		echo $this->objUser->fullName();
-	?>
 
-		<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
-</td>
-
-		<?php } ?>
-		<?php if (!$objUser->isLoggedIn()) {?><td align="right" >	
+			<?php if (!$objUser->isLoggedIn()) {?>
 		
-		<?php
-			$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
-		?>		
+				<?php
+					$formAction = $this->objEngine->uri(array('action' => 'login'), 'security');
+				?>		
+				<div id="loginfields">
+				<form class="login" name="login_form" id="login_form" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password"  type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
+				</div>
+			<?php } ?>
 
 
-
-<form class="login" name="login_form" id="login_form" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password"  type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
-</td><?php } ?></tr></table>
-  <script language='javascript'>
-       
-	   
+<script language='javascript'>
+       	   
             function clearfocus()
             {
             document.forms['login_form'].username.focus();
-            document.forms['login_form'].username.value = '';
-        
+            document.forms['login_form'].username.value = ''; 
             }
-               </script>
-               
 
-
+</script>
                
 				<div id="search">
 					<form action="">
@@ -207,10 +203,14 @@ if (isSet($bodyParams)) {
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
-				//echo $menu->show();
+					//echo $menu->show();
 				 }
-				 ?><div style="clear:both;"></div>
-			</div>
+				 ?>
+		<div style="clear:both;"></div>
+
+	<?php //This is the header div ?>
+	</div>
+
 <?php
 }
     // get content
