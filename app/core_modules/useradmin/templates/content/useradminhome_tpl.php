@@ -222,7 +222,7 @@ if ($this->getParam('error') != '') {
 }
 ?>
 <script type="text/javascript" language="javascript">
-<![CDATA[
+//<![CDATA[
 function doBatchProcess()
 {
     if (document.getElementById('input_option').value == '-')
@@ -239,5 +239,5 @@ function doBatchProcess()
         document.getElementById('form_batchprocess').submit();
     }
 }
-]]>
+//]]>
 </script>

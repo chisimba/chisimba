@@ -1,5 +1,5 @@
 <script type="text/javascript">
-<![CDATA[
+//<![CDATA[
     
     function checkAccountType(value)
     {
@@ -20,7 +20,7 @@
     {
         document.getElementById('input_useradmin_username').value='<?php echo $user['username']; ?>';
     }
-]]>
+//]]>
 </script>
 <?php
 

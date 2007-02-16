@@ -1,5 +1,5 @@
 <script type="text/javascript">
-<![CDATA[
+//<![CDATA[
     
     function checkAccountType(value)
     {
@@ -16,7 +16,7 @@
         }
     }
     
-]]>
+//]]>
 </script>
 <?php
 
