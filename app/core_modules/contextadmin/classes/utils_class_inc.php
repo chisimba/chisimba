@@ -186,7 +186,7 @@ class utils extends object
 	  		$objLeaf = $this->newObject('groupadminmodel', 'groupadmin');
 	  		$leafId = $objLeaf->getLeafId(array($contextCode,'Lecturers'));
 	  		
-	  		$arr = $objLeaf->getSubGroupUsers($leafId);
+	  		$arr = $objLeaf->getGroupUsers($leafId);
 	  		
 	  		return $arr;
 	  		
@@ -271,8 +271,9 @@ class utils extends object
 		$inpAbout->name = 'about';
 		$inpAbout->id = 'about';
 		$inpAbout->value = '';
-		$inpAbout->cols = 4;
-		$inpAbout->rows = 3;
+		//$inpAbout->cols = 4;
+		//$inpAbout->rows = 3;
+		$inpAbout->width = '20px';
 		
 		
 		$inpButton->setToSubmit();
@@ -592,7 +593,7 @@ class utils extends object
                 foreach($lecturerArr as $lecture)
                 {
                     $oddOrEven = ($rowcount == 0) ? "even" : "odd";
-                    $tableRow = array($lecture['fullname']);
+                    $tableRow = array($this->_objUser->fullname($lecture['userid']));
                     $table->addRow($tableRow);
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
@@ -623,7 +624,7 @@ class utils extends object
                 foreach($studentArr as $student)
                 {
                     $oddOrEven = ($rowcount == 0) ? "even" : "odd";
-                    $tableRow = array($student['fullname']);
+                    $tableRow = array($this->_objUser->fullname($student['userid']));
                     $table->addRow($tableRow);
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
@@ -658,7 +659,7 @@ class utils extends object
                 foreach($guestArr as $guest)
                 {
                     $oddOrEven = ($rowcount == 0) ? "even" : "odd";
-                    $tableRow = array($guest['fullname']);
+                    $tableRow = array($this->_objUser->fullname($guest['userid']));
                     $table->addRow($tableRow);
                     $rowcount = ($rowcount == 0) ? 1 : 0;
                 }
