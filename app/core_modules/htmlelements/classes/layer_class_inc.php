@@ -45,6 +45,11 @@ class layer extends object implements ifhtml
     */
     public $position;
     /**
+    * @var string $floating: The position of the layer (left|right|top|bottom)
+    * @todo -clayer Implement layer: not yet properly implemented
+    */
+    public $floating;
+    /**
     * @var int $left: The position of the layer from the left margin
     *  if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
@@ -171,6 +176,9 @@ class layer extends object implements ifhtml
 			$ret .= " style=\"";
 			if ($this->position) {
 			    $ret .= "position: ".$this->position."; ";
+			}
+			if ($this->floating) {
+			    $ret .= "float: ".$this->floating."; ";
 			}
 		    if ($this->textalign) {
 	            $ret .= "align: " . $this->align . "; ";
