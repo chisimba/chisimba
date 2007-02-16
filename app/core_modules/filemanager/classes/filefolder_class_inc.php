@@ -65,6 +65,11 @@ class filefolder extends object
         {
             case 'wbmp':
                 return 'images'; break;
+            case 'doc': // Microsoft Office
+            case 'xls':
+            case 'xlt':
+            case 'ppt':
+            case 'pps':
             case 'odb': // Open Office 2
             case 'odf':
             case 'odg':
