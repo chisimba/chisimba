@@ -133,7 +133,7 @@ class windowPop implements ifhtml
          . "function openWindow(theURL,winName,features) { \n"
          . "  newwindow=window.open(theURL,winName,features);\n 
               if (window.focus) {newwindow.focus()}\n
-	return false;\n 
+	//return false;\n 
          } \n</script>";
     }
 
