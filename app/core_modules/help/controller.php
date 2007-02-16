@@ -99,10 +99,10 @@ class help extends controller
             $helptitle = 'help_'.$module.'_title_'.$helpItem;
         }
 
-        $filter = ' WHERE (code LIKE "help_'.$module.'_title_%" OR code = "help_'.$module.'_about_title") AND code != "'.$helptitle.'" ORDER BY code';
+        $filter = 'SELECT * FROM tbl_languagetext WHERE (code LIKE "help_'.$module.'_title_%" OR code = "help_'.$module.'_about_title") AND code != "'.$helptitle.'" ORDER BY code';
 
-        $helpTitle = $this->objLanguage->code2Txt($helptitle);
-        $helpText = $this->objLanguage->code2Txt($helptext);
+        $helpTitle = $this->objLanguage->code2Txt($helptitle, $module);
+        $helpText = $this->objLanguage->code2Txt($helptext, $module);
 
         if (strtoupper(substr($helpTitle, 0, 12)) == '[*HELPLINK*]') {
             $array = explode('/', $helpTitle);
@@ -115,7 +115,7 @@ class help extends controller
 
         $this->setVar('helptext', $helpText);
 
-        $this->setVar('moduleHelp', $this->objLanguage->getAll($filter));
+        $this->setVar('moduleHelp', $this->objLanguage->getArray($filter));
 
         $this->setVar('module', $module);
 

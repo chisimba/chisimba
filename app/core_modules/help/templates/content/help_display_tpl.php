@@ -6,7 +6,7 @@ $this->loadClass('link', 'htmlelements');
 
 $heading = new htmlheading();
 $heading->type = 1;
-$heading->str = $helptitle.' '.$viewletHelp;
+$heading->str = $helptitle;//.' '.$viewletHelp;
 
 
 echo $heading->show();
@@ -32,17 +32,17 @@ if (count($moduleHelp) > 0) {
 
         $link->href = $this->uri(array('action'=>'view', 'rootModule'=>$module, 'helpid'=>$helpItem));
 
-        $helpTitle = $objLanguage->code2Txt($text['code']);
+        $helpTitle = $objLanguage->code2Txt($text['code'], $module);
 
         if (strtoupper(substr($helpTitle, 0, 12)) == '[*HELPLINK*]') {
             $array = explode('/', $helpTitle);
 
-            $helpTitle = $objLanguage->code2Txt('help_'.$array[1].'_title_'.$array[2]);
+            $helpTitle = $objLanguage->code2Txt('help_'.$array[1].'_title_'.$array[2], $module);
         }
 
         $link->link = $helpTitle;
 
-        echo ('<li>'.$link->show());
+        echo ('<li>'.$link->show().'</li>');
     }
 
     echo ('</ul>');
@@ -52,4 +52,4 @@ if (count($moduleHelp) > 0) {
 ?>
 </div>
 
-<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php echo $richHelp; ?></div>
+<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php //echo $richHelp; ?></div>
