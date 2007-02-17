@@ -429,6 +429,12 @@ form#addsection {
 
 
 /** BEGIN: Rules for odd or even formatting **/
+.heading {
+	background-color:  #e8daae;
+    border: 0;
+	border-collapse: collapse;
+	padding: 10px;
+}
 table.unpadded, table#unpadded {
     border: 0;
 	border-collapse: collapse;
