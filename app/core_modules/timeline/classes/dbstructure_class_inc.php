@@ -64,6 +64,8 @@ class dbstructure extends dbtable
         $title = $this->getParam('title', NULL);
         //Retrieve the value of $description
         $description = $this->getParam('description', NULL);
+        //Retrieve the value of $url
+        $url = $this->getParam('url', NULL);
         //Retrieve the value of $focusdate
         $focusdate = $this->getParam('focusdate', NULL);
         //Retrieve the value of $intervalpixels
@@ -84,6 +86,7 @@ class dbstructure extends dbtable
             $ar = array(
               'title' => $title,
               'description' => $description,
+              'url' => $url,
               'focusdate' => $focusdate,
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,
@@ -99,6 +102,7 @@ class dbstructure extends dbtable
             $ar = array(
               'title' => $title,
               'description' => $description,
+              'url' => $url,
               'focusdate' => $focusdate,
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,

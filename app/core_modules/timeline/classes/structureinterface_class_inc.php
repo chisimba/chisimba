@@ -117,7 +117,7 @@ class structureinterface extends object {
      */
     private function setFields()
     {
-        $this->fields = array("id", "title", "description", "focusdate", 
+        $this->fields = array("id", "title", "description", "url", "focusdate", 
   		  "intervalpixels", "intervalunit", "tlheight", "theme", "bgcolor",
 		  "created");
     }
