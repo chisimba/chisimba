@@ -1,0 +1,12 @@
+CREATE TABLE `tbl_timeline_timelines` (
+`id` VARCHAR( 32 ) NOT NULL ,
+`timelineid` VARCHAR( 32 ) NOT NULL ,
+`start` VARCHAR( 25 ) NOT NULL ,
+`end` VARCHAR( 25 ) NOT NULL ,
+`isduration` BOOL NOT NULL ,
+`title` TEXT NOT NULL ,
+`timelinetext` TEXT NOT NULL ,
+`created` TIMESTAMP NOT NULL ,
+`modified` TIMESTAMP NOT NULL ,
+`isdeleted` BOOL NOT NULL
+) ENGINE = innodb COMMENT = 'Table to hold timelines as part of the timeline module';

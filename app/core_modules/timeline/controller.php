@@ -119,7 +119,7 @@ class timeline extends controller
 
     /**
     * 
-    * Method corresponding to the view action. It hands everything over to the
+    * Method corresponding to the viewdemo action. It hands everything over to the
     * demo template.
     * 
     * @access private
@@ -167,6 +167,61 @@ class timeline extends controller
     {
     	$this->appendArrayVar('headerParams', $this->getJsForSimpleCreate());
         return "makesingle_tpl.php";
+    }
+    
+    /**
+     * 
+     * Method to view a list of all timelines stored
+     * @access private
+     * @return String Template for viewing list of timelines
+     */
+    private function __viewall()
+    {
+        $objShowData = $this->getObject("structureinterface", "timeline");
+        $str = $objShowData->show();
+        $this->setVarByRef("str", $str);
+        return 'viewall_tpl.php';
+    }
+    
+    /**
+     * 
+     * Method corresponding to the editstructure action parameter
+     * @access private
+     * @return Template for editing or adding a timeline structure
+     * 
+     */
+    private function __editstructure()
+    {
+    	$id = $this->getParam("id", NULL);
+    	$objDb = $this->getObject("dbstructure", "timeline");
+    	$ar = $objDb->getRow("id", $id);
+        $this->setVar("ar", $ar);
+        return "editadd_tpl.php";
+    }
+    
+    private function __addstructure()
+    {
+        return "editadd_tpl.php";
+    }
+    
+    private function __savestructure()
+    {
+    	$objDb = $this->getObject("dbstructure", "timeline");
+    	$mode = $this->getParam("mode", NULL);
+    	$objDb->saveData($mode);
+        $objShowData = $this->getObject("structureinterface", "timeline");
+        $str = $objShowData->show();
+        $this->setVarByRef("str", $str);
+        return 'viewall_tpl.php';
+    }
+    
+    private function __deletestructure()
+    {
+        $id = $this->getParam('id', null);
+        $objDb = $this->getObject("dbstructure", "timeline");
+        // Delete the record from the database
+        $objDb->deleteRecord("id", $id);
+        return $this->nextAction('viewall', array());
     }
     
     /**
