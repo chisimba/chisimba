@@ -144,11 +144,9 @@ class dropdown extends abhtmlbase implements ifhtml
 		{
 			//add an option
 			$this->addOption($line[$valueField],$line[$labelField]);
-			//set the selected value
-			if ($line[$valueField]==$selectedValue)
-            {
-            	$this->setSelected($selectedValue);
-            }
+		}
+		if (!is_null($selectedValue)) {
+           	$this->setSelected($selectedValue);
 		}
 	}
   }
