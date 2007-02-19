@@ -149,12 +149,15 @@ class structureinterface extends object {
         	$n = 0;
         	$tmp="";
         	foreach ($this->fields as $field) {
-        	    $paramArray = array('action' => 'viewall', 
- 				  'order' => $field);
-		        $tmp .= "<td class=\"heading\"><a href=\""
-		         . $this->uri($paramArray, "timeline")
-		         . "\">" . $this->objLanguage->languageText("mod_timeline_fieldname_$field", "timeline")
-		         . "</a></td>\n";
+        		if ($field !== 'id') {
+        		   	$paramArray = array('action' => 'viewall', 
+ 				      'order' => $field);
+		        	$tmp .= "<td class=\"heading\"><a href=\""
+		         	  . $this->uri($paramArray, "timeline")
+		         	  . "\">" . $this->objLanguage->languageText("mod_timeline_fieldname_$field", "timeline")
+		          	  . "</a></td>\n"; 
+        		}
+        	    
         	}
         	//Add the ADD icon to the last column if they can add
 	        $objGetIcon = $this->newObject('geticon', 'htmlelements');
@@ -227,7 +230,14 @@ class structureinterface extends object {
 	        	foreach ($this->dataAr as $row) {
 	        	    $oddOrEven = ($rowcount == 0) ? "odd" : "even";
 	        	    foreach ($this->fields as $field) {
-	        	        $str .= "<td class=\"" . $oddOrEven . "\">" . $row[$field] . "</td>\n";
+	        	    	if ($field !== 'id') {
+	        	    		if ($field !== 'url') {
+	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">" . $row[$field] . "</td>\n";
+	        	    		} else {
+	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">PUT LINK HERE</td>\n";
+	        	    		}
+	        	        	
+	        	    	}
 	        	    }
 	        	    $str .= $this->getAddEditCell($row['id'], $oddOrEven);
 	        		// Set rowcount for bitwise determination of odd or even

@@ -44,6 +44,7 @@ if (isset($ar)) {
     $id = $ar['id'];
     $title = $ar['title'];
     $description = $ar['description'];
+    $url = $ar['url'];
     $focusdate = $ar['focusdate'];
     $intervalpixels = $ar['intervalpixels'];
     $intervalunit = $ar['intervalunit'];
@@ -57,6 +58,7 @@ if (isset($ar)) {
     $id = "";
     $title = "";
     $description = "";
+    $url="";
     $focusdate = "";
     $intervalpixels = "";
     $intervalunit = "";
@@ -71,105 +73,97 @@ if (isset($ar)) {
 //--------------Generated edit form--------------//
 
 //Set the value to the primary key: id
-if (isset($id)) {
-    //Create an element for the hidden text input for the id PK field
-    $objElement = new textinput("id");
-    $objElement->setValue($id);
-    //Set the field type to hidden for the primary key
-    $objElement->fldType="hidden";
-    //Add the hidden PK field to the form
-    $objForm->addToForm($objElement->show());
-}
+//Create an element for the hidden text input for the id PK field
+$objElement = new textinput("id");
+$objElement->setValue($id);
+//Set the field type to hidden for the primary key
+$objElement->fldType="hidden";
+//Add the hidden PK field to the form
+$objForm->addToForm($objElement->show());
+
 
 $objForm->addToForm("<table>");
 
 //Set the value of the element to title
-if (isset($title)) {
-    //Create a text input element for $title
-    $objElement = new textinput("title");
-    $objElement->setValue($title);
-    //Add the $title element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_title", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
+//Create a text input element for $title
+$objElement = new textinput("title");
+$objElement->setValue($title);
+//Add the $title element to the form
+$objForm->addToForm("<tr><td>" 
+. $this->objLanguage->languageText("mod_timeline_fieldname_title", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to description
-if (isset($description)) {
-    //Create a text input element for $description
-    $objElement = new textarea("description");
-    $objElement->setValue($description);
-    //Add the $description element to the form
-    $objForm->addToForm("<tr><td valign=\"top\">" . $this->objLanguage->languageText("mod_timeline_fieldname_description", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
+//Create a text input element for $description
+$objElement = new textarea("description");
+$objElement->setValue($description);
+//Add the $description element to the form
+$objForm->addToForm("<tr><td valign=\"top\">" 
+. $this->objLanguage->languageText("mod_timeline_fieldname_description", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
+
+//Set the value of the element to title
+//Create a text input element for $url
+$objElement = new textinput("url");
+$objElement->setValue($url);
+//Add the $title element to the form
+$objForm->addToForm("<tr><td>" 
+. $this->objLanguage->languageText("mod_timeline_fieldname_url", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to focusdate
-if (isset($focusdate)) {
-    //Create a text input element for $focusdate
-    $objElement = new textinput("focusdate");
-    $objElement->setValue($focusdate);
-    //Add the $focusdate element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_focusdate", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
+//Create a text input element for $focusdate
+$objElement = new textinput("focusdate");
+$objElement->setValue($focusdate);
+//Add the $focusdate element to the form
+$objForm->addToForm("<tr><td>" 
+  . $this->objLanguage->languageText("mod_timeline_fieldname_focusdate", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to intervalpixels
-if (isset($intervalpixels)) {
-    //Create a text input element for $intervalpixels
-    $objElement = new textinput("intervalpixels");
-    $objElement->setValue($intervalpixels);
-    //Add the $intervalpixels element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalpixels", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
+//Create a text input element for $intervalpixels
+$objElement = new textinput("intervalpixels");
+$objElement->setValue($intervalpixels);
+//Add the $intervalpixels element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalpixels", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to intervalunit
-if (isset($intervalunit)) {
-    //Create a text input element for $intervalunit
-    $objElement = new textinput("intervalunit");
-    $objElement->setValue($intervalunit);
-    //Add the $intervalunit element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
-
+//Create a text input element for $intervalunit
+$objElement = new textinput("intervalunit");
+$objElement->setValue($intervalunit);
+//Add the $intervalunit element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to tlheight
-if (isset($tlheight)) {
-    //Create a text input element for $tlheight
-    $objElement = new textinput("tlheight");
-    $objElement->setValue($tlheight);
-    //Add the $tlheight element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
+//Create a text input element for $tlheight
+$objElement = new textinput("tlheight");
+$objElement->setValue($tlheight);
+//Add the $tlheight element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to theme
-if (isset($theme)) {
-    //Create a text input element for $theme
-    $objElement = new textinput("theme");
-    $objElement->setValue($theme);
-    //Add the $theme element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_theme", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-}
-
+//Create a text input element for $theme
+$objElement = new textinput("theme");
+$objElement->setValue($theme);
+//Add the $theme element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_theme", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to bgcolor
-if (isset($bgcolor)) {
-    //Create a text input element for $bgcolor
-    $objElement = new textinput("bgcolor");
-    $objElement->setValue($bgcolor);
-    //Add the $bgcolor element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_bgcolor", 
+//Create a text input element for $bgcolor
+$objElement = new textinput("bgcolor");
+$objElement->setValue($bgcolor);
+//Add the $bgcolor element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_bgcolor", 
       "timeline") . "</td><td>" .  $objElement->show() . "</td></tr>");
-}
-
 
 //Set the value of the element to created
 if (isset($created)) {
