@@ -83,7 +83,7 @@ class loginInterface extends object
     		$objElement->label=$this->objLanguage->languageText("phrase_networkid");
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
-    			$ldap .= $objElement->show(). "&nbsp;" . $objElement->label;
+    			$ldap .= '<br/>'.$objElement->show(). "&nbsp;" . $objElement->label;
     		}
 
 
