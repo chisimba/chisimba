@@ -30,10 +30,10 @@ class label implements ifhtml
 	
 	public function show()
 	{
-		$str='<label ';
+		$str='<label';
 		
 		if ($this->forId != '') {
-			$str.= 'for ="'.$this->forId.'"';
+			$str.= ' for="'.$this->forId.'"';
 		}
 		
 		$str.='>';

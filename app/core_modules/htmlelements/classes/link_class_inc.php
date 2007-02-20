@@ -196,7 +196,7 @@ class link extends abhtmlbase implements ifhtml
             $ret .= " type=\"" . $this->type . "\" ";
         }
         if ($this->extra) {
-            $ret .= $this->extra;
+            $ret .= ' '.$this->extra;
         }
         $ret .= ">".$this->link."</a>";
         return $ret;
