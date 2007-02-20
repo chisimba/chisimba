@@ -194,8 +194,8 @@ class createtimeline extends object
     
     private function _getDisplayFrame()
     {
-        $showTextDisplay = $this->getParam('showLinkFrame', FALSE);
-        if (!$showTextDisplay==FALSE) {
+        $showTextDisplay = $this->getParam('showLinkFrame', 'FALSE');
+        if ($showTextDisplay=='TRUE') {
             $objFrame = $this->getObject('iframe', 'htmlelements');
             $objFrame->src="";
             $objFrame->width="99%";

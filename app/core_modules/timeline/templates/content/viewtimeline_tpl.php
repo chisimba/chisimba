@@ -21,13 +21,20 @@ $rightSideColumn = $objH->show();
 $rightSideColumn .= $str;
 
 $showLinkFrame = $this->getParam('showLinkFrame', FALSE);
+$thisScript = $_SERVER["REQUEST_URI"];
 if ($showLinkFrame == "TRUE") {
-    $showHide = "Hide region to display linked content";
-    $link = "<a href=\"" . $this->uri(array(), "timeline") . "\">"
+    $showHide = $this->objLanguage->languageText("mod_timeline_hidelinked", "timeline");
+    $thisScript = str_replace("showLinkFrame=TRUE", "showLinkFrame=FALSE", $thisScript); 
+    $link = "<a href=\"" . $thisScript . "\">"
       . $showHide . "</a>";
 } else {
-    $showHide = "Show region to display linked content";
-    $link = "<a href=\"" . $this->uri(array('showLinkFrame' => 'TRUE'), "timeline") . "\">"
+    $showHide = $this->objLanguage->languageText("mod_timeline_showlinked", "timeline");
+    if ($showLinkFrame=="FALSE") {
+    	$thisScript = str_replace("showLinkFrame=FALSE", "showLinkFrame=TRUE", $thisScript); 
+    } else {
+    	$thisScript .= "&showLinkFrame=TRUE";
+	}
+    $link = "<a href=\"" . $thisScript . "\">"
       . $showHide . "</a>";
 }
 $rightSideColumn .= "<br />" . $link;
