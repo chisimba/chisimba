@@ -76,7 +76,7 @@ class fieldset extends object implements ifhtml
             //Add the width if it exists !added by derek
             $align='';
             if (isset($this->align)){
-                $align=" align='".$this->align."' ";
+                $align="align='".$this->align."'";
             }
             if (isset($this->width)) {
                 $str.= "<table $align width=\"" . $this->width . "\"><tr><td>";
@@ -84,7 +84,7 @@ class fieldset extends object implements ifhtml
 	    $str .= '<fieldset';
 
         if (isset($this->extra)) {
-            $str.=$this->extra;
+            $str.=' '.$this->extra;
         }
 
 
@@ -94,7 +94,7 @@ class fieldset extends object implements ifhtml
         if (isset($this->legend)) {
             $str .= '<legend';
             if (isset($this->legendalign)) {
-                $str .= '  ALIGN="' . $this->legendalign . '"';
+                $str .= ' align="' . $this->legendalign . '"';
             }
             $str .= '>'.$this->legend.'</legend>';
         }

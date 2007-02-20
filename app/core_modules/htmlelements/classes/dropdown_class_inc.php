@@ -110,7 +110,7 @@ class dropdown extends abhtmlbase implements ifhtml
             $str .= ' id="' . $this->cssId . '" ';
         }
     if ($this->extra) {
-        $str .= $this->extra;
+        $str .= ' '.$this->extra;
     }
 	$str.='>'."\n";
 	foreach ($this->options as $opt => $lbl)
