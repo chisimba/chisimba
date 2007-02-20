@@ -354,6 +354,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     public function leaveContext(){
         $this->setSession('contextCode',NULL);
+        $this->setSession('contextId',NULL);
         $this->setSession('contextTitle',NULL);
         $this->setSession('contextmenuText',NULL);
         $this->setSession('contextabout', NULL);
