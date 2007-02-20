@@ -75,7 +75,7 @@ class loginInterface extends object
     		$objElement = &new textinput("password",NULL,'password',15);
     		$objElement->label = $this->objLanguage->languageText("word_password");
     		//Add the password box to the form
-    		$objForm->addToForm('<br/>'.$objElement->label . ":" . $objElement->show());
+    		$objForm->addToForm('<br/>'.$objElement->label . ":&nbsp;&nbsp;" . $objElement->show().'<br/>');
 
     		//--- Create an element for the network login radio
     		$objElement = &new checkbox("useLdap");
@@ -83,7 +83,7 @@ class loginInterface extends object
     		$objElement->label=$this->objLanguage->languageText("phrase_networkid");
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
-    			$ldap .= '<br/>'.$objElement->show(). "&nbsp;" . $objElement->label;
+    			$ldap .= $objElement->label."&nbsp;".$objElement->show();
     		}
 
 
