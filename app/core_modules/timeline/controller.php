@@ -359,6 +359,8 @@ class timeline extends controller
         switch ($action)
         {
             case 'viewdemo':
+            case 'viewall':
+            case 'viewtimeline':
             case NULL:
                 return FALSE;
                 break;
