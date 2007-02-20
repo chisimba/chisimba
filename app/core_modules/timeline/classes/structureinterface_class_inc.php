@@ -149,7 +149,8 @@ class structureinterface extends object {
         	$n = 0;
         	$tmp="";
         	foreach ($this->fields as $field) {
-        		if ($field !== 'id') {
+        		if ($field !== 'id' && $field !== 'focusdate'
+        		   && $field !== 'tlheight') {
         		   	$paramArray = array('action' => 'viewall', 
  				      'order' => $field);
 		        	$tmp .= "<td class=\"heading\"><a href=\""
@@ -227,14 +228,30 @@ class structureinterface extends object {
         	//
         	
         	if (count($this->dataAr) > 0) {
+        		$viewLink = $this->objLanguage->languageText("mod_timeline_vw", "timeline");
 	        	foreach ($this->dataAr as $row) {
 	        	    $oddOrEven = ($rowcount == 0) ? "odd" : "even";
+	    			$myself = $this->uri(array(
+	    			  "action" => "viewtimeline",
+    				  "viewtype" => "viewLocal",
+	    			  "title" => $row["title"],
+	    			  "timeLine" => $row["url"],
+	    			  "focusDate" => $row["focusdate"],
+	    			  "intervalUnit" => $row["intervalunit"],
+	    			  "tlHeight" => $row["tlheight"],
+	    			  "theme" => $row["theme"],
+	    			  "intervalPixels" => $row["intervalpixels"],
+					  "bgColor" => $row["bgcolor"]
+	    			  ), "timeline");
 	        	    foreach ($this->fields as $field) {
-	        	    	if ($field !== 'id') {
+	        	    	if ($field !== 'id' && $field !== 'focusdate'
+	        	    	  && $field !== 'tlheight') {
 	        	    		if ($field !== 'url') {
 	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">" . $row[$field] . "</td>\n";
 	        	    		} else {
-	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">PUT LINK HERE</td>\n";
+
+	        	    		    $str .= "<td class=\"" . $oddOrEven . "\"><a href=\"" 
+	        	    		      . $myself . "\">" . $viewLink . "</a></td>\n";
 	        	    		}
 	        	        	
 	        	    	}

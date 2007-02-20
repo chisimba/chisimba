@@ -64,7 +64,7 @@ class timeline extends controller
     public function dispatch()
     {
     	//Get the action parameter from the querystring
-    	$action = $this->getParam('action', 'viewdemo');
+    	$action = $this->getParam('action', 'viewall');
         /*
         * Convert the action into a method (alternative to 
         * using case selections)
@@ -133,7 +133,26 @@ class timeline extends controller
         $this->appendArrayVar('headerParams',$objTl->getScript());
     	$str = $objTl->show();
     	$this->setVarByRef("str", $str);
-        return "demo_tpl.php";
+        return "view_tpl.php";
+    }
+    
+    /**
+    * 
+    * Method corresponding to the viewdemo action. It hands everything over to the
+    * demo template.
+    * 
+    * @access private
+    * 
+    */
+    private function __viewtimeline()
+    {
+    	//Instantiaate the object for creating timelines
+        $objTl = $this->getObject("createtimeline", "timeline");
+        //Add the local script to the page header
+        $this->appendArrayVar('headerParams',$objTl->getScript());
+    	$str = $objTl->show();
+    	$this->setVarByRef("str", $str);
+        return "viewtimeline_tpl.php";
     }
     
     /**
@@ -237,7 +256,7 @@ class timeline extends controller
     {
         $this->setVar('str', "<h3>"
           . $this->objLanguage->languageText("phrase_unrecognizedaction")
-          .": " . $action . "</h3>");
+          .": " . $this->getParam("action", NULL) . "</h3>");
         return 'dump_tpl.php';
     }
     
@@ -253,7 +272,7 @@ class timeline extends controller
     * @return boolean TRUE|FALSE
     * 
     */
-    function __validAction(& $action)
+    function __validAction($action)
     {
         if (method_exists($this, "__".$action)) {
             return TRUE;
@@ -272,7 +291,7 @@ class timeline extends controller
     * @return stromg the name of the method
     * 
     */
-    function __getMethod(& $action)
+    function __getMethod($action)
     {
         if ($this->__validAction($action)) {
             return "__" . $action;
