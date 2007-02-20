@@ -13,8 +13,8 @@ div#header {
 }
 #sitename
 {
-background: #666 url("images/banner1.gif") no-repeat top left;
-height: 40px;
+background: #fff url("images/banner1.gif") no-repeat top left;
+height: 60px;
 }
 
 #sitename span{
@@ -44,11 +44,11 @@ div#loginfields {
 	text-decoration: underline;
 }
 a:link, a:visited {
-	color: #E6267A;
+	color: #0100FC;
 }
 
 a:hover {
-	color: #A6CE39;
+	color: #0000FF;
 }
 
 
@@ -160,7 +160,7 @@ div#twocolumn, div#threecolumn {
 }
 
 #leftcontent, #rightcontent {
-    border-top: 5px solid #A3238E;
+  
 }
 
 /* Tables */
@@ -308,7 +308,7 @@ td.widelink a:hover {
 .contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
 	margin: 0 0 .3em;
 	border-bottom: 1px solid #000;
-	color: #A6CE39;
+	color: #FF0000;
 	font-size:16px;
 	background-color: transparent;
 }
@@ -394,17 +394,17 @@ textarea {
 }
 
 a.freebutton {
-  background-color: #A3238E;
+  background-color: #FF0000;
   border: 1px solid white;
   padding: 2px;
-  text-decoration: none;
+  text-decoration:none;
   color: white;
   width: 100px;
   display: block; float:left
 }
 
 a.freebutton:hover,  a.freebutton:visited:hover{
-  background-color: #E6267A;
+  background-color: #00FF00;
   border: 1px solid white;
   padding: 2px;
   text-decoration: none;
@@ -414,7 +414,7 @@ a.freebutton:hover,  a.freebutton:visited:hover{
 
 /* when the user clicks on the link */
 a.freebutton:active{
-  background-color: #A6CE39;
+  background-color: #0000FF;
   border: 1px solid white;
   padding: 2px;
   text-decoration: none;
