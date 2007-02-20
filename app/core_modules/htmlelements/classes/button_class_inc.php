@@ -118,7 +118,7 @@ class button extends abhtmlbase implements ifhtml
             $str .= ' onclick="' . $this->onclick . '"';
         } 
         if ($this->extra) {
-            $str .= $this->extra;
+            $str .= ' '.$this->extra;
         } 
         $str .= ' />';
 
