@@ -370,7 +370,7 @@ class getIcon extends object implements ifhtml
         }
     // additional attributes
     if($this->extra) {
-        $ret .= $this->extra;
+        $ret .= ' '.$this->extra;
     }
         $ret .=" />";
         return $ret;

@@ -65,7 +65,7 @@ class hiddeninput extends abhtmlbase implements ifhtml
         $str .= ' name="' . $this->name . '"';
         
         if ($this->extra) {
-            $str .= $this->extra;
+            $str .= ' '.$this->extra;
         }
         
         $str .= ' />';
