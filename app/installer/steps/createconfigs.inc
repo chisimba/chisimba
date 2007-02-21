@@ -607,8 +607,11 @@ EOD;
 		}
 			
 		if (!is_file($path . 'dbdetails_inc.php')) {
-			touch($path . 'dbdetails_inc.php');
-			chmod($path . 'dbdetails_inc.php', 0666);
+			if (@touch($path . 'dbdetails_inc.php')){
+                            chmod($path . 'dbdetails_inc.php', 0666);
+                        } else {
+                            throw new Exception ('The database details file could not be created.');
+                        }
 		}
 		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
 		fwrite($handle, $str);
@@ -618,9 +621,9 @@ EOD;
                     throw new Exception ('dbdetails file could not be created.');
                 }
             } catch ( Exception $e) {
-                print "The installer has encountered a fatal error: <b>".$e->getMessage()."</b><br />\n";
-                print "Check that the chisimba folder has the proper write permissions.<br />\n";
-                exit;
+                $this->errors[]= "The installer has encountered a fatal error: <b>".$e->getMessage()."</b><br />\n";
+                $this->errors[]="Check that the chisimba 'config' folder has the proper write permissions.<br />\n";
+                return FALSE;
             }
 		//define('KEWL_DB_DSN', $dsn);
 		//$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
