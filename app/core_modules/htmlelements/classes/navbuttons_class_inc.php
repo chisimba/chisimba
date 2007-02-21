@@ -33,7 +33,7 @@ class navbuttons extends object implements ifhtml
 	*/
 	public function button($type, $filename=NULL, $ext="gif",$alt=NULL) 
 	{
-		global $objLanguage, $objConfig;
+		//global $objLanguage, $objConfig;
 		$key='word_'.$type;
 		if (!$filename) {
 			$filename=$type; //.".".$ext;
@@ -41,16 +41,17 @@ class navbuttons extends object implements ifhtml
 		if (!$alt) {
 			$alt=$this->objLanguage->languageText($key);
 		}
-                $icon=$this->newObject('geticon','htmlelements');
-                $icon->setIcon($filename);
-                $icon->alt=$alt;
-                $icon->title=$alt;
-                return $icon->show();
-
+        $icon=$this->newObject('geticon','htmlelements');
+        $icon->setIcon($filename);
+        $icon->alt=$alt;
+        $icon->title=$alt;
+        return $icon->show();
+		/*
 		$ret='<img src="'.$this->objConfig->defaultIconFolder().$filename.'" 
 			alt="'.$alt.'" border="0" 
 			align="absmiddle" valign="middle" />';
 		return $ret;
+		*/
 	}
 	
 	/**
