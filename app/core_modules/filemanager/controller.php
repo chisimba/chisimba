@@ -396,13 +396,6 @@ function checkWindowOpener()
             $content .= $this->objFilePreview->previewFile($fileId);
             
             echo $content;
-            echo '
-            <script type="text/javascript">
-    		// <![CDATA[
-            alert("saffas");
-            // ]]>
-    	</script>
-            ';
         }
     }
     
