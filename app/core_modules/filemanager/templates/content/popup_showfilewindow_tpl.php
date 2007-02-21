@@ -150,12 +150,12 @@ function selectFile(file, id)
     if (window.opener) {
         
         //alert(fileName[id]);
-        window.opener.document.getElementById("selectfile_'.$inputname.'").value = fileName[id];
+        window.opener.document.getElementById("input_selectfile_'.$inputname.'").value = fileName[id];
         window.opener.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
         window.close();
         window.opener.focus();
     } else {
-        window.parent.document.getElementById("selectfile_'.$inputname.'").value = fileName[id];
+        window.parent.document.getElementById("input_selectfile_'.$inputname.'").value = fileName[id];
         window.parent.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
         window.parent.hidePopWin();
     }
