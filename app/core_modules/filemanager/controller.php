@@ -333,7 +333,7 @@ class filemanager extends controller
     public function showFileWindow()
     {
         if ($this->getParam('restrict') == '') {
-            $restriction = '';
+            $restriction = array();
         } else {
             $restriction = explode('____', $this->getParam('restrict'));
         }
