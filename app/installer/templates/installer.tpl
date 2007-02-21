@@ -182,7 +182,7 @@
         						<input type="image" onmouseover="over('skip', this)" onmouseout="off('skip', this)" src="./extra/skip_off.gif" name="skip" value="Skip Step">
         					<?php } ?>
         					
-        					<?php if (!$start) { ?>
+        					<?php if (!$start && !$complete) { ?>
         						<input type="image" onmouseover="over('previous', this)" onmouseout="off('previous', this)" src="./extra/previous_off.gif" name="previous" value="Previous">
         					<?php } ?>
         					<?php if ($can_cancel) {?>
