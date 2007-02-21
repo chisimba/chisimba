@@ -8,7 +8,4 @@ echo file_get_contents(INSTALL_DIR.'/LICENCE');
 
 </div>
 
-
-<p><em>Note that you can use ALT+S as a shortcut for the "Next" button throughout
-the install process</em></p>  
 </div>
