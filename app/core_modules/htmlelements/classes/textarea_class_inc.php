@@ -109,15 +109,15 @@ require_once("ifhtml_class_inc.php");
 		if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
         }
-		if ($this->extra) {
-            $str .= $this->extra;
-        }
 		if($this->rows){
 			$str.=' rows="'.$this->rows.'"';
 		}
 		if($this->cols){
 			$str.=' cols="'.$this->cols.'"';
 		}
+		if ($this->extra) {
+            $str .= ' '.$this->extra;
+        }
 		$str.='>';
 		$str.=$this->value;
 		$str.='</textarea>';

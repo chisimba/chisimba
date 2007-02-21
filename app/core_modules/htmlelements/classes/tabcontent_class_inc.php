@@ -114,7 +114,7 @@ class tabcontent extends object
             if ($this->height == '') {
                 $height = '';
             } else {
-                $height = 'style="height: '.$this->height.'; overflow-y:auto;"';
+                $height = 'style="height: '.$this->height.'; overflow-y: auto;"';
             }
             
             // Commence Rendering Tab Content
