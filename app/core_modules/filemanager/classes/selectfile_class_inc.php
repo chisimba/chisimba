@@ -85,7 +85,7 @@ class selectfile extends object
 
 function clearFileInputJS(name)
 {
-    document.getElementById(\'selectfile_\'+name).value = \'\';
+    document.getElementById(\'input_selectfile_\'+name).value = \'\';
     document.getElementById(\'hidden_\'+name).value = \'\';
 }
 </script>';
@@ -175,7 +175,7 @@ function clearFileInputJS(name)
         $objPop->putJs();
         
         $textinput = new textinput ('selectfile_'.$this->name, $defaultName);
-        $textinput->setId('selectfile_'.$this->name);
+        $textinput->setId('input_selectfile_'.$this->name);
         $textinput->extra = ' readonly="true" style="width:'.$this->widthOfInput.'" ';
         
         $button = new button('clear', 'Clear', 'clearFileInputJS(\''.$this->name.'\');');
