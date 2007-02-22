@@ -191,7 +191,7 @@ if (isSet($bodyParams)) {
             }
 
 </script>
-               
+<?php if(!isset($pageSuppressSearch)){ ?>               
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site search:</label>
@@ -199,7 +199,7 @@ if (isSet($bodyParams)) {
 					<input type="submit" value="Go" class="f-submit" />
 					</form>
 				</div>
-	     
+<?php } ?>	     
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');

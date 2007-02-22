@@ -152,6 +152,7 @@ if (isSet($bodyParams)) {
 			<div id="headerwrapper">
 				<div id="header">
 					<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+<?php if(!isset($pageSuppressSearch)){ ?>
 					<div id="search">
 						<form action="">
 						<label for="searchsite">Site Search:</label>
@@ -159,6 +160,7 @@ if (isSet($bodyParams)) {
 						<input type="submit" value="Go" class="f-submit" />
 						</form>
 					</div>
+<?php } ?>
 					
 				</div>
 			</div><?php

@@ -142,7 +142,7 @@ if (isSet($bodyParams)) {
 
 			<div id="header">
 				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
-				<?php if ($this->objUser->isLoggedIn()) { ?>
+				<?php if ($this->objUser->isLoggedIn() && !isset($pageSuppressSearch)) { ?>
 				<div id="search">
 					<form action="">
 					<label for="searchsite">Site Search:</label>
