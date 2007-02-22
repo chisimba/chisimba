@@ -114,12 +114,17 @@ class windowPop implements ifhtml
     * @var string Type of link to use. Can either be 'link' or 'button'
     */
     public $linkType = 'link';
+    /**
+    * @var string $title The onmouseover title for a link
+    */
+    public $title;
     
     /**
     * Method to establish the default values
     */
     public function windowPop()
     {
+        $this->title = "";
         $this->window_name = "new";
         $this->directories = "";
         $this->width = "640";
@@ -200,7 +205,7 @@ class windowPop implements ifhtml
             
         } else {
             return $this->putJs()."<a href=\"javascript:openWindow('"
-         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\">"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\" title=\"".$this->title."\">"
          . $this->linktext . "</a>";
          }
     }
