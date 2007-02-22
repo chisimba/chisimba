@@ -133,7 +133,7 @@ class timeline extends controller
         $this->appendArrayVar('headerParams',$objTl->getScript());
     	$str = $objTl->show();
     	$this->setVarByRef("str", $str);
-        return "view_tpl.php";
+        return "demo_tpl.php";
     }
     
     /**

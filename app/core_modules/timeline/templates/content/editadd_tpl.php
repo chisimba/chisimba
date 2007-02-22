@@ -59,12 +59,12 @@ if (isset($ar)) {
     $title = "";
     $description = "";
     $url="";
-    $focusdate = "";
-    $intervalpixels = "";
-    $intervalunit = "";
-    $tlheight = "";
-    $theme = "";
-    $bgcolor = "";
+    $focusdate = "1972";
+    $intervalpixels = "70";
+    $intervalunit = "YEAR";
+    $tlheight = "400";
+    $theme = "_default";
+    $bgcolor = "_default";
     $created = "";
     $modified = "";
     $isdeleted = "";
@@ -88,6 +88,8 @@ $objForm->addToForm("<table>");
 //Create a text input element for $title
 $objElement = new textinput("title");
 $objElement->setValue($title);
+$objElement->size=70;
+$objForm->addRule('title',$this->objLanguage->languageText("mod_timeline_valrule_titreq", "timeline"),'required');
 //Add the $title element to the form
 $objForm->addToForm("<tr><td>" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_title", 
@@ -98,6 +100,7 @@ $objForm->addToForm("<tr><td>"
 //Create a text input element for $description
 $objElement = new textarea("description");
 $objElement->setValue($description);
+$objElement->cols=60;
 //Add the $description element to the form
 $objForm->addToForm("<tr><td valign=\"top\">" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_description", 
@@ -108,6 +111,8 @@ $objForm->addToForm("<tr><td valign=\"top\">"
 //Create a text input element for $url
 $objElement = new textinput("url");
 $objElement->setValue($url);
+$objElement->size=70;
+$objForm->addRule('url',$this->objLanguage->languageText("mod_timeline_valrule_urlreq", "timeline"),'required');
 //Add the $title element to the form
 $objForm->addToForm("<tr><td>" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_url", 
@@ -117,6 +122,8 @@ $objForm->addToForm("<tr><td>"
 //Create a text input element for $focusdate
 $objElement = new textinput("focusdate");
 $objElement->setValue($focusdate);
+$objForm->addRule('focusdate',$this->objLanguage->languageText("mod_timeline_valrule_focdatreq", "timeline"),'required');
+$objElement->size=10;
 //Add the $focusdate element to the form
 $objForm->addToForm("<tr><td>" 
   . $this->objLanguage->languageText("mod_timeline_fieldname_focusdate", 
@@ -126,7 +133,9 @@ $objForm->addToForm("<tr><td>"
 //Set the value of the element to intervalpixels
 //Create a text input element for $intervalpixels
 $objElement = new textinput("intervalpixels");
+$objElement->size=10;
 $objElement->setValue($intervalpixels);
+$objForm->addRule('intervalpixels',$this->objLanguage->languageText("mod_timeline_valrule_invpxnum", "timeline"), 'numeric');
 //Add the $intervalpixels element to the form
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalpixels", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
@@ -135,6 +144,7 @@ $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_
 //Set the value of the element to intervalunit
 //Create a text input element for $intervalunit
 $objElement = new textinput("intervalunit");
+$objElement->size=10;
 $objElement->setValue($intervalunit);
 //Add the $intervalunit element to the form
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
@@ -144,6 +154,7 @@ $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_
 //Create a text input element for $tlheight
 $objElement = new textinput("tlheight");
 $objElement->setValue($tlheight);
+$objElement->size=10;
 //Add the $tlheight element to the form
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
