@@ -69,15 +69,17 @@ class blocks extends object
     * @param string $blockType The type of block (e.g. tabbed box)
     *
     */
-    public function showBlock($block, $module, $blockType=NULL, $titleLength=22)
+    public function showBlock($block, $module, $blockType=NULL, $titleLength=20, $wrapStr = TRUE)
     {
         if ($this->objModule->checkIfRegistered($module, $module)){
             //Create an instance of the module's particular block
             $objBlock = & $this->getObject('block_'.$block, $module);
             //Get the title and wrap it
             $title = $objBlock->title;
-            $objWrap = & $this->getObject('trimstr', 'strings');
-            $title = $objWrap->wrapString($title, 20);
+            if($wrapStr){
+                $objWrap = & $this->getObject('trimstr', 'strings');
+                $title = $objWrap->wrapString($title, $titleLength);
+            }
             if (isset($objBlock->blockType)) {
             	$blockType = $objBlock->blockType;
             }
