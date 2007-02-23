@@ -80,12 +80,13 @@ class htmlarea extends object
         $this->css='textarea';
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
-        $objConfig=&$this->newObject('altconfig','config');
+        $objConfig=&$this->getObject('altconfig','config');
         $siteRoot=$objConfig->getsiteRoot();
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
         $this->context = $context;
         $this->toolbarSet = 'advanced';
+
         
     }
 
