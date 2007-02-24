@@ -6,9 +6,13 @@
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 //Set columns to 2
 $cssLayout->setNumColumns(2);
+
 //Initialize NULL content for the left side column
 $leftSideColumn = "";
-
+//Get the menu creator
+$objMenu = $this->getObject("leftmenu", "timeline");
+//Add the left menu
+$leftSideColumn = $objMenu->show();
 
 //Add the templage heading to the main layer
 $objH = $this->getObject('htmlheading', 'htmlelements');

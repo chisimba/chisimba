@@ -4,8 +4,14 @@
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 //Set columns to 2
 $cssLayout->setNumColumns(2);
+
+
 //Initialize NULL content for the left side column
 $leftSideColumn = "";
+//Get the menu creator
+$objMenu = $this->getObject("leftmenu", "timeline");
+//Add the left menu
+$leftSideColumn = $objMenu->show();
 
 //Add the templage heading to the main layer
 $objH = $this->getObject('htmlheading', 'htmlelements');
@@ -49,11 +55,8 @@ if (isset($ar)) {
     $intervalpixels = $ar['intervalpixels'];
     $intervalunit = $ar['intervalunit'];
     $tlheight = $ar['tlheight'];
-    $theme = $ar['theme'];
-    $bgcolor = $ar['bgcolor'];
     $created = $ar['created'];
     $modified = $ar['modified'];
-    $isdeleted = $ar['isdeleted'];
 } else {
     $id = "";
     $title = "";
@@ -63,11 +66,8 @@ if (isset($ar)) {
     $intervalpixels = "70";
     $intervalunit = "YEAR";
     $tlheight = "400";
-    $theme = "_default";
-    $bgcolor = "_default";
     $created = "";
     $modified = "";
-    $isdeleted = "";
 }
 
 //--------------Generated edit form--------------//
@@ -159,38 +159,13 @@ $objElement->size=10;
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
-
-//Set the value of the element to theme
-//Create a text input element for $theme
-$objElement = new textinput("theme");
-$objElement->setValue($theme);
-//Add the $theme element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_theme", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-
-//Set the value of the element to bgcolor
-//Create a text input element for $bgcolor
-$objElement = new textinput("bgcolor");
-$objElement->setValue($bgcolor);
-//Add the $bgcolor element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_bgcolor", 
-      "timeline") . "</td><td>" .  $objElement->show() . "</td></tr>");
-
 //Set the value of the element to created
-if (isset($created)) {
-    //Add the $created element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_created", 
-      "timeline") . "</td><td>" . $created . "</td></tr>");
-}
-
-//Set the value of the element to isdeleted
-if (isset($isdeleted)) {
-    //Create a text input element for $isdeleted
-    $objElement = new textinput("isdeleted");
-    $objElement->setValue($isdeleted);
-    //Add the $isdeleted element to the form
-    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_isdeleted", 
-      "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+if ($mode == "edit") {
+	if (isset($created)) {
+	    //Add the $created element to the form
+	    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_created", 
+	      "timeline") . "</td><td>" . $created . "</td></tr>");
+	}
 }
 
 //Create a submit button

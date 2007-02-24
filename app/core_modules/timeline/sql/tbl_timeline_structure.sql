@@ -56,16 +56,6 @@ $fields = array(
 		'length' => 25,
 		'notnull' => 1,
 		),
-	'theme' => array(
-		'type' => 'text',
-		'length' => 25,
-		'notnull' => 1
-		),
-	'bgcolor' => array(
-		'type' => 'text',
-		'length' => 25,
-		'notnull' => 1
-		),
 	'created' => array(
 		'type' => 'timestamp',
 		'notnull' => 1,
@@ -81,10 +71,6 @@ $fields = array(
 	'modifierid' => array(
 		'type' => 'text',
 		'length' => 32
-		), 
-	'isdeleted' => array(
-		'type' => 'text',
-		'length' => 1
 		)
 );
 ?>

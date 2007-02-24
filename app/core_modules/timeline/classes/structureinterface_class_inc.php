@@ -118,8 +118,7 @@ class structureinterface extends object {
     private function setFields()
     {
         $this->fields = array("id", "title", "description", "url", "focusdate", 
-  		  "intervalpixels", "intervalunit", "tlheight", "theme", "bgcolor",
-		  "created");
+  		  "intervalpixels", "intervalunit", "tlheight", "created");
     }
     
     /**
@@ -202,7 +201,7 @@ class structureinterface extends object {
             }
             $ix++;
         }
-        $sql = "SELECT " . $flStr . " FROM tbl_timeline_structure WHERE isdeleted != 1";
+        $sql = "SELECT " . $flStr . " FROM tbl_timeline_structure";
         $filter=NULL;
         $order = $this->getParam("order", NULL);
         if ($order) {
@@ -239,9 +238,7 @@ class structureinterface extends object {
 	    			  "focusDate" => $row["focusdate"],
 	    			  "intervalUnit" => $row["intervalunit"],
 	    			  "tlHeight" => $row["tlheight"],
-	    			  "theme" => $row["theme"],
-	    			  "intervalPixels" => $row["intervalpixels"],
-					  "bgColor" => $row["bgcolor"]
+	    			  "intervalPixels" => $row["intervalpixels"]
 	    			  ), "timeline");
 	        	    foreach ($this->fields as $field) {
 	        	    	if ($field !== 'id' && $field !== 'focusdate'

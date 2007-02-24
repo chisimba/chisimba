@@ -74,12 +74,6 @@ class dbstructure extends dbtable
         $intervalunit = $this->getParam('intervalunit', NULL);
         //Retrieve the value of $tlheight
         $tlheight = $this->getParam('tlheight', NULL);
-        //Retrieve the value of $theme
-        $theme = $this->getParam('theme', NULL);
-        //Retrieve the value of $bgcolor
-        $bgcolor = $this->getParam('bgcolor', NULL);
-        //Retrieve the value of $isdeleted
-        $isdeleted = $this->getParam('isdeleted', NULL);
 
         //If coming from edit use the update code
         if ($mode=="edit") {
@@ -91,11 +85,8 @@ class dbstructure extends dbtable
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,
               'tlheight' => $tlheight,
-              'theme' => $theme,
-              'bgcolor' => $bgcolor,
               'modified' => $this->now(),
-              'modifierid' => $this->objUser->userId(),
-              'isdeleted' => $isdeleted
+              'modifierid' => $this->objUser->userId()
             );
             $this->update('id', $id, $ar);
         } else {
@@ -107,13 +98,8 @@ class dbstructure extends dbtable
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,
               'tlheight' => $tlheight,
-              'theme' => $theme,
-              'bgcolor' => $bgcolor,
               'created' => $this->now(),
-
-              'creatorid' => $this->objUser->userId(),
-
-              'isdeleted' => $isdeleted
+              'creatorid' => $this->objUser->userId()
             );
             $this->insert($ar);
         }
