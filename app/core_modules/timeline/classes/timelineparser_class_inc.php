@@ -37,12 +37,7 @@ class timelineparser extends object
     * 
     */
     public $uri;
-
-	/*
-	* @var string $timeLineModuleLink Holds the link for the timeline module
-	*/
-    public $timeLineModuleLink;
-    
+   
     /**
     *
     * Standard init method
@@ -52,8 +47,7 @@ class timelineparser extends object
     */
     public function init()
     {
-		//Create the base URL to add to
-        $this->timeLineModuleLink = $this->Uri(array(), "timeline");
+
     }
     
     /*
@@ -88,28 +82,6 @@ class timelineparser extends object
 	    }
 	}
 	
-	/*
-	 * 
-	 * A method to extract a querystring parameter and value from a URL supplied
-	 * as a string. For example, when supplied with:
-	 *   http://localhost/chsimba/index.php?action=read&text=mytext
-	 *   $this->getParamFromStringUri("action") will return
-	 *   "read". $this->getParamFromStringUri("someparam") will return
-	 *   NULL.
-	 *
-	public function getParamFromStringUri($paramname)
-	{
-	    if (isset($this->uri)) {
-	        if (!instr($$paramname, $this->uri)) {
-	            return NULL;
-	        } else {
-	            //Try to extract it.
-	            $matchPattern = "/" . $paramname . "=.[&\n]/i" ;
-	        }
-	    } else {
-	        return NULL;
-	    }
-	}*/
     /**
      * 
      * Method to render the timelines
@@ -118,13 +90,71 @@ class timelineparser extends object
      */
     public function show()
     {
+    	$method = $this->getParam("method", "remote");
+    	if ($method == "local") {
+    		$tlId = $this->getParam("id", NULL);
+    		if ($tlId == NULL) {
+    		    return "Replace this with language text for id missing";
+    		} else {
+				return $this->__getLocal($tlId);	    
+    		}    	    
+    	} else {
+			return $this->__getRemote();    	    
+    	}
+        
+    }
+    
+    /**
+     * 
+     * Method to return a local timeline by passing it the id field
+     * from the database
+     * 
+     * @param string $id The id for the record to get
+     * @access private
+     * @return string An iframe containing the formatted timeline
+     * 
+     */
+    private function __getLocal($id) {
     	$objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
-    	$objIframe->height="330";
-        $ret = $this->timeLineModuleLink;
-        $ret .= "&mode=plain&timeline=" . urlencode($this->uri);
+    	$objDb = $this->getObject("dbstructure", "timeline");
+    	$ar = $objDb->getRow("id", $id);
+		if (isset($ar)) {
+		    $id = $ar['id'];
+		    $title = $ar['title'];
+		    $description = $ar['description'];
+		    $url = $ar['url'];
+		    $this->uri = $url;
+		    $focusdate = $ar['focusdate'];
+		    $intervalpixels = $ar['intervalpixels'];
+		    $intervalunit = $ar['intervalunit'];
+		    $tlheight = $ar['tlheight'];
+		}
+		$objIframe->height=$tlheight + 5;
+        $ret = $this->uri(array(
+		  "mode" => "plain",
+          "action" => "viewtimeline",
+          "focusDate" => $focusdate,
+          "intervalPixels" => $intervalpixels,
+          "intervalUnit" => $intervalunit,
+          "tlHeight" => $tlheight,
+		  "timeLine" => $url), "timeline");
         $objIframe->src=$ret;
         return $objIframe->show();
+    }
+    
+    
+    private function __getRemote() {
+        $objIframe = $this->getObject('iframe', 'htmlelements');
+    	$objIframe->width = "100%";
+    	$objIframe->height="330";
+        $uri = $this->uri;
+        $ret = $this->uri(array("mode" => "plain",
+          "action" => "viewtimeline", 
+		  "timeLine" => $uri), "timeline");
+        $objIframe->src=$ret;
+        return $objIframe->show();
+        
     }
 }
 ?>

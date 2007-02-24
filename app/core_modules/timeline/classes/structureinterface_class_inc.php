@@ -148,8 +148,9 @@ class structureinterface extends object {
         	$n = 0;
         	$tmp="";
         	foreach ($this->fields as $field) {
-        		if ($field !== 'id' && $field !== 'focusdate'
-        		   && $field !== 'tlheight') {
+        		if ($field !== 'focusdate' //$field !== 'id' && 
+        		   && $field !== 'tlheight' 
+        		   && $field !== "creatorid") {
         		   	$paramArray = array('action' => 'viewall', 
  				      'order' => $field);
 		        	$tmp .= "<td class=\"heading\"><a href=\""
@@ -243,8 +244,8 @@ class structureinterface extends object {
 	    			  "intervalPixels" => $row["intervalpixels"]
 	    			  ), "timeline");
 	        	    foreach ($this->fields as $field) {
-	        	    	if ($field !== 'id' && $field !== 'focusdate'
-	        	    	  && $field !== 'tlheight') {
+	        	    	if ($field !== 'focusdate'
+	        	    	  && $field !== 'tlheight'  && $field !== "creatorid" ) {
 	        	    		if ($field !== 'url') {
 	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">" . $row[$field] . "</td>\n";
 	        	    		} else {

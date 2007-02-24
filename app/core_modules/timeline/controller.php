@@ -170,7 +170,10 @@ class timeline extends controller
         //Create the config reader and get the location of demo maps
         $objSconfig =  $this->getObject('altconfig', 'config');
         $demoData =  $objSconfig->getItem('MODULE_URI') . "timeline/resources/demodata/madiba.xml";
-    	$objParser->setTimelineUri($demoData);
+        $loc = $this->getParam("method", NULL);
+        if ($loc !== "local") {
+            $objParser->setTimelineUri($demoData);
+        }
     	$str = $objParser->show();
     	$this->setVarByRef("str", $str);
         return "testparser_tpl.php";
