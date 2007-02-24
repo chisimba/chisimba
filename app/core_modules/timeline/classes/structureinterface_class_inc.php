@@ -118,7 +118,7 @@ class structureinterface extends object {
     private function setFields()
     {
         $this->fields = array("id", "title", "description", "url", "focusdate", 
-  		  "intervalpixels", "intervalunit", "tlheight", "created");
+  		  "intervalpixels", "intervalunit", "tlheight", "created", "creatorid");
     }
     
     /**
@@ -201,7 +201,9 @@ class structureinterface extends object {
             }
             $ix++;
         }
-        $sql = "SELECT " . $flStr . " FROM tbl_timeline_structure";
+        $sql = "SELECT " . $flStr 
+          . " FROM tbl_timeline_structure WHERE creatorid = '"
+          . $this->objUser->userId() . "'";
         $filter=NULL;
         $order = $this->getParam("order", NULL);
         if ($order) {
