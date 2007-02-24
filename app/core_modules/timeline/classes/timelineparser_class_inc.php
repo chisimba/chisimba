@@ -96,10 +96,10 @@ class timelineparser extends object
     		if ($tlId == NULL) {
     		    return "Replace this with language text for id missing";
     		} else {
-				return $this->__getLocal($tlId);	    
+				return $this->getLocal($tlId);	    
     		}    	    
     	} else {
-			return $this->__getRemote();    	    
+			return $this->getRemote();    	    
     	}
         
     }
@@ -110,11 +110,11 @@ class timelineparser extends object
      * from the database
      * 
      * @param string $id The id for the record to get
-     * @access private
+     * @access public
      * @return string An iframe containing the formatted timeline
      * 
      */
-    private function __getLocal($id) {
+    public function getLocal($id) {
     	$objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
     	$objDb = $this->getObject("dbstructure", "timeline");
@@ -143,8 +143,14 @@ class timelineparser extends object
         return $objIframe->show();
     }
     
-    
-    private function __getRemote() {
+    /**
+     * 
+     * Method to get a remote timeline and show it with default settings
+     * @return string the formatted IFRAME
+     * @access public
+     * 
+     */
+    public function getRemote() {
         $objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
     	$objIframe->height="330";
@@ -154,7 +160,6 @@ class timelineparser extends object
 		  "timeLine" => $uri), "timeline");
         $objIframe->src=$ret;
         return $objIframe->show();
-        
     }
 }
 ?>
