@@ -421,14 +421,14 @@ class sidemenu extends object
 ///////////////////+>       
         $notaMember = $this->objLanguage->code2Txt('mod_toolbar_notingroup','toolbar');
 ///////////////////+>        
-        $leaveGroup = $this->objLanguage->code2Txt('mod_workgroup_leavegroup','security');
+        $leaveGroup = $this->objLanguage->code2Txt('mod_workgroup_leavegroup','workgroup');
 ///////////////////+>        
         $join = ucwords($this->objLanguage->code2Txt('mod_toolbar_joingroup','toolbar'));
 ////////////////+>        
 
-        $notInGroup = $this->objLanguage->code2Txt('phrase_notinworkgroup','security');
-        $inGroup = $this->objLanguage->code2Txt('phrase_currentlyinworkgroup','security');
-        $go = $this->objLanguage->languageText('word_go','security');
+        $notInGroup = $this->objLanguage->code2Txt('phrase_notinworkgroup');
+        $inGroup = $this->objLanguage->code2Txt('mod_workgroup_currentlyinworkgroup', 'workgroup');
+        $go = $this->objLanguage->languageText('word_go');
 
         $str = '';
         if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
