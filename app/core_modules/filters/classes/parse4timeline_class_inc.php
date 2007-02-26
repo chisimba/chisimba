@@ -30,7 +30,29 @@ class parse4timeline extends object
         foreach ($results[0] as $item)
         {
             $this->objTlParser->$results['timelinelink'][$counter];
-            $replacement = $this->objTlParser->show();
+            $replacement = $this->objTlParser->getRemote();
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
+        }
+        
+        return $str;
+    }
+    
+    /**
+    *
+    * Method to parse the string
+    * @param String $str The string to parse
+    * @return The parsed string
+    *
+    */
+    function showLocal($str)
+    {
+        preg_match_all('/\\[TIMELINE_LOCAL]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
+        $counter = 0;
+        foreach ($results[0] as $item)
+        {
+            $this->objTlParser->$results['timelinelink'][$counter];
+            $replacement = $this->objTlParser->getLocal();
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -40,7 +62,27 @@ class parse4timeline extends object
     
     public function parse($str)
     {
-    	return $this->show($str);
+    	//check for type
+    	preg_match_all('/\\[TIMELINE]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE]/', $str, $remoteresults, PREG_PATTERN_ORDER);
+    	preg_match_all('/\\[TIMELINE_LOCAL]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE_LOCAL]/', $str, $localresults, PREG_PATTERN_ORDER);
+    	if(!empty($remoteresults['timelinelink']))
+    	{
+    		$type = 'remote';
+    	}
+    	else {
+    		$type = 'local';
+    	}
+    	switch($type)
+    	{
+    		case 'remote':
+    			return $this->show($str);
+    			break;
+    		case 'local':
+    			return $this->show($str);
+    			break;
+    			
+    	}
+    	
     }
 
 }
