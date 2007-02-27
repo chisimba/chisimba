@@ -54,7 +54,7 @@ switch ($action) {
         $id = $ar['id'];
         $category = $ar['category'];
         $language = $ar['language'];
-        $parentId = $ar['parentId'];
+        $parentId = $ar['parentid'];
         $creatorId = $ar['creatorid'];
         $isActive = $ar['isactive'];
         $title = htmlentities(stripslashes($ar['title']));

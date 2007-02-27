@@ -25,7 +25,7 @@ $rightSideColumn = "<div align=\"center\">" . $this->objH->show() . "</div>";
 //Create a table
 $this->Table = $this->newObject('htmltable', 'htmlelements');
 $this->Table->cellspacing="2";
-$this->Table->width="80%";
+$this->Table->width="99%";
 $this->Table->attributes="align=\"center\"";
 //Create the array for the table header
 $tableRow=array();

@@ -107,8 +107,8 @@ class storyinterface extends object {
             $category = $line['category'];
             $language = $line['language'];
             $title = $line['title'];
-            $expirydate = $line['expirationDate'];
-            $isActive = $line['expirationDate'];
+            $expirydate = $line['expirationdate'];
+            $isActive = $line['expirationdate'];
 
             //$str .= "<td class=\"" . $oddOrEven . "\">" . $id . "</td>\n";
             $str .= "<td class=\"" . $oddOrEven . "\">" . $category . "</td>\n"
@@ -131,7 +131,7 @@ class storyinterface extends object {
 
             // Active / InActive?
             $objGetIcon = $this->newObject('geticon', 'htmlelements');
-            if ($line['isActive'] == 1) {
+            if ($line['isactive'] == 1) {
                 $objGetIcon->setIcon('online');
             } else {
                 $objGetIcon->setIcon('offline');
