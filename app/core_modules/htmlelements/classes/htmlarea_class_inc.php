@@ -70,8 +70,8 @@ class htmlarea extends object
     */
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false)
      {
-        $this->height = '400px';
-        $this->width = '600px';
+        $this->height = '400';
+        $this->width = '100%';
         $this->toolbarSet='Default';
         $this->name=$name;
         $this->value=$value;
