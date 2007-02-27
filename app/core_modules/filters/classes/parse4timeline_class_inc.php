@@ -78,7 +78,7 @@ class parse4timeline extends object
     			return $this->show($str);
     			break;
     		case 'local':
-    			return $this->show($str);
+    			return $this->showLocal($str);
     			break;
     			
     	}
