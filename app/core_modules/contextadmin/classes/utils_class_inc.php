@@ -705,9 +705,9 @@ class utils extends object
 	  	{
 	  	    $objLink->href = $this->uri(null,'contextdesigner');	
 	  	    $objIcon->setModuleIcon('contextdesigner');
-	  	    $objLink->link = $objIcon->show(). '  '.$this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course'));
+	  	    $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
 	  	    $contentsection = '<div class="tab-page">
-				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent').'</h2>'.$objLink->show().
+				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.$objLink->show().
 	  	    '</div>';
 	  	} else {
 	  	    $contentsection = '';

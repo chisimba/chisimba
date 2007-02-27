@@ -55,6 +55,7 @@ if (isset($contextList))
 		
 		//administor context
 		//enter context
+		$icon = $this->newObject('geticon', 'htmlelements');
 		$objLink->href = $this->uri(array('action' => 'admincontext', 'contextcode' => $context['contextcode']), 'contextadmin');
 		$icon->setModuleIcon('contextadmin');
 		$icon->alt = 'Administor Course';
@@ -78,10 +79,12 @@ if (isset($contextList))
 		
 		if($context['contextcode'] == $this->_objDBContext->getContextCode())
 		{
-			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   ', $content.$conf ).'<hr />';
+			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   '.$conf, $content ).'<hr />';
 		} else {
-			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   ', $content.$conf ).'<hr />';
+			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   '.$conf, $content ).'<hr />';
 		}
+		
+		$icon = null;
 	}
 } else {
 	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.$this->_objLanguage->languageText("mod_context_noasscontext",'context') .'</div>';
