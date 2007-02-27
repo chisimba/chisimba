@@ -367,13 +367,14 @@ class utils extends object
 	  		$contextCode = $this->_objDBContext->getContextCode();
 	  	}
 	  	
-	  	$context = $this->_objDBContext->getRow('contextcode' , $contextCode);
-		$objH = & $this->newObject('htmlheading','htmlelements');
+	  	    $context = $this->_objDBContext->getRow('contextcode' , $contextCode);
+	  	   
+		    $objH = & $this->newObject('htmlheading','htmlelements');
 			$objForm = & $this->newObject('form','htmlelements');
 			
-			$inpContextCode =  & $this->getObject('textinput','htmlelements');
-			$inpMenuText = & $this->getObject('textinput','htmlelements');
-			$inpTitle = & $this->getObject('textinput','htmlelements');
+			$inpContextCode =  & $this->newObject('textinput','htmlelements');
+			$inpMenuText = & $this->newObject('textinput','htmlelements');
+			$inpTitle = & $this->newObject('textinput','htmlelements');
 			$inpButton =  $this->getObject('button','htmlelements');
 			$objIcon =  $this->getObject('geticon','htmlelements');
 			$dropAccess = $this->getObject('dropdown','htmlelements');
@@ -415,7 +416,7 @@ class utils extends object
 			$dropAccess->addOption('Published',$this->_objLanguage->languageText("mod_context_published",'context'));
 			$dropAccess->addOption('Unpublished',$this->_objLanguage->languageText("mod_context_unpublished",'context'));
 			$dropAccess->setSelected(trim($context['status']));
-			
+		
 			
 			//access
 			$checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
@@ -559,7 +560,7 @@ class utils extends object
 			$objForm->addToForm($objH->show());
 			
 			//$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
-			$objForm->addToForm($inpAbout->show());
+			$objForm->addToForm($inpAbout->showTinyMCE());
 			
 			
 			$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
