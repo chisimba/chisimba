@@ -70,7 +70,7 @@ class htmlarea extends object
     */
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false)
      {
-        $this->height = '400';
+        $this->height = '400px';
         $this->width = '100%';
         $this->toolbarSet='Default';
         $this->name=$name;
@@ -199,7 +199,14 @@ class htmlarea extends object
         
         $this->showFCKEditorWakeupJS();
         
-        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
+        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>
+<script type="text/javascript">
+//<![CDATA[
+    setInterval(\'copyFCKData("'.$this->name.'")\', 2000);
+//]]>
+</script>';
+        // Addition for Testing Purposes
+        // <div id="content_'.$this->name.'"></div>
     }
     
     /**
@@ -226,6 +233,25 @@ class htmlarea extends object
         }
             catch (e) {}
     }
+    
+    function copyFCKData(fckEditorInstance)
+    {
+        try
+        {
+            var oEditor = FCKeditorAPI.GetInstance(fckEditorInstance);
+            try
+            {
+                oEditor.UpdateLinkedField();
+                // For Testing Purposes
+                //document.getElementById(\'content_\'+fckEditorInstance).innerHTML = document.getElementById(fckEditorInstance).value;
+            }
+                catch (e) {}
+            //oEditor.Focus();
+        }
+            catch (e) {}
+            
+    }
+    
 </script>');
     }
     
