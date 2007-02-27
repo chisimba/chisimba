@@ -383,7 +383,7 @@ class datetime extends object
      {
         $objClock = $this->newObject("geticon", "htmlelements");
         $objClock->setIcon("clock");
-        $objClock->alt = $this->objLanguage->code2Txt("mod_stories_expired");
+        $objClock->alt = $this->objLanguage->code2Txt("mod_stories_expired", 'stories');
         return $objClock->show();
      }
 
