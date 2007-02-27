@@ -342,7 +342,7 @@ class utils extends object
 			
 			$drop .= '<option value="'.$mod['moduleid'].'"';
 			$drop .= ($defaultmoduleid == $mod['moduleid']) ? ' selected="selected" ' : '';
-			$drop .= '>'.$modInfo['name'].'</option>';
+			$drop .= '>'.ucwords($modInfo['name']).'</option>';
 		}
 		$drop .= '</select>';
 		$drop ='<div style="width:270px">'.$drop.'</div>';
