@@ -48,11 +48,11 @@ class parse4timeline extends object
     function showLocal($str)
     {
         preg_match_all('/\\[TIMELINE_LOCAL]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
+        /*preg_match_all('/\\[TIMELINE_LOCAL](<timelinelink>)\\[\/TIMELINE_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);*/
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $this->objTlParser->$results['timelinelink'][$counter];
-            $replacement = $this->objTlParser->getLocal();
+            $replacement = $this->objTlParser->getLocal($results['timelinelink'][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
