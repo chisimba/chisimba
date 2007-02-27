@@ -10,8 +10,9 @@ dark:	rgb(0,66,174);
 
 
 .dynamic-tab-pane-control.tab-pane {
-	position:	relative;
+	position: static;
 	width:		100%;
+	height: 200;
 }
 
 .dynamic-tab-pane-control .tab-row .tab {
@@ -32,8 +33,8 @@ dark:	rgb(0,66,174);
 	cursor:			hand;
 	cursor:			pointer;
 	
-	z-index:		1;
-	position:		relative;
+	z-index:		3;
+	position:		static;
 	top:			0;
 }
 
@@ -45,6 +46,7 @@ dark:	rgb(0,66,174);
 	margin:			1px -6px -2px 0px;
 	top:			-2px;
 	background:		white;
+	position:	static;
 }
 
 .dynamic-tab-pane-control .tab-row .tab a {
@@ -54,6 +56,7 @@ dark:	rgb(0,66,174);
 	text-decoration:	none;
 	cursor:			hand;
 	cursor:			pointer;	
+	
 }
 
 .dynamic-tab-pane-control .tab-row .hover a {
@@ -75,6 +78,7 @@ dark:	rgb(0,66,174);
 	font-family:	Verdana, Helvetica, Arial;
 	font-size:		13px;
 	padding:		10px;
+	position: static;
 }
 
 .dynamic-tab-pane-control .tab-row {
@@ -84,3 +88,5 @@ dark:	rgb(0,66,174);
 	height:			1.85em;
 	width:			100%;
 }
+
+
