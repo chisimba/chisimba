@@ -375,12 +375,12 @@ class utils extends object
 			$inpContextCode =  & $this->newObject('textinput','htmlelements');
 			$inpMenuText = & $this->newObject('textinput','htmlelements');
 			$inpTitle = & $this->newObject('textinput','htmlelements');
-			$inpButton =  $this->getObject('button','htmlelements');
-			$objIcon =  $this->getObject('geticon','htmlelements');
-			$dropAccess = $this->getObject('dropdown','htmlelements');
-			$radioStatus = $this->getObject('radio','htmlelements');
-			$objStartDate =  & $this->getObject('datepicker', 'htmlelements');
-            $objFinishDate =  & $this->getObject('datepicker', 'htmlelements');
+			$inpButton =  $this->newObject('button','htmlelements');
+			$objIcon =  $this->newObject('geticon','htmlelements');
+			$dropAccess = $this->newObject('dropdown','htmlelements');
+			$radioStatus = $this->newObject('radio','htmlelements');
+			$objStartDate =  & $this->newObject('datepicker', 'htmlelements');
+            $objFinishDate =  & $this->newObject('datepicker', 'htmlelements');
 			
             $objIcon->setIcon('help');
             
@@ -537,8 +537,7 @@ class utils extends object
 			$inpAbout->name = 'about';
 			$inpAbout->id = 'about';
 			$inpAbout->value = '';
-			$inpAbout->cols = 1;
-			$inpAbout->rows =1;
+			
 			
 			$contextLine = $this->_objDBContext->getRow('contextcode', $this->_objDBContext->getContextCode());
 
@@ -560,7 +559,7 @@ class utils extends object
 			$objForm->addToForm($objH->show());
 			
 			//$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
-			$objForm->addToForm($inpAbout->showTinyMCE());
+			$objForm->addToForm($inpAbout->show());
 			
 			
 			$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
