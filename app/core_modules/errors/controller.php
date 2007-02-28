@@ -96,7 +96,7 @@ class errors extends controller
 					$objMailer->setValue('from', $this->objUser->email());
 					$objMailer->setValue('fromName', $this->objUser->fullname());
 					$objMailer->setValue('subject', $this->objLanguage->languageText("mod_errors_errsubject", "errors"));
-					$objMailer->setValue('body', $text . "  " . $hidmsg);
+					$objMailer->setValue('body', $text . "  " . $hidmsg . " " . $this->objConfig->getSiteName() . " " . $this->objConfig->getSiteRoot());
 					$objMailer->send();
 					return 'thanks_tpl.php';
 					break;
