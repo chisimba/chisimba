@@ -76,7 +76,7 @@ class contextadmin extends controller
             case 'savestep1':
                  if($this->_objDBContext->createContext() != FALSE)
                  {
-                     $this->_objDBContext->joinContext($this->getParam('contextcode'));
+                    // $this->_objDBContext->joinContext($this->getParam('contextcode'));
                      
                      return $this->nextAction('addstep2');
                  } else {
@@ -97,10 +97,15 @@ class contextadmin extends controller
                 $this->_objDBContext->setLastUpdated();
                 return $this->nextAction('default');
            
+            case 'delete':
+                $this->_objDBContext->deleteContext($this->getParam('contextcode'));
+                return $this->nextAction(null);
+                
                 
             //the next steps deals with actions coming from the 
             //config page         
             case 'saveedit';
+            
             	$this->_objDBContext->saveEdit();
             	 return $this->nextAction('default');
            	case 'saveaboutedit';
@@ -109,6 +114,7 @@ class contextadmin extends controller
             case 'savedefaultmod':
             	//if($this->getParam('defaultmodule') != '')
             	//{
+            	
             		$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
             	//}
             	return $this->nextAction('default');
