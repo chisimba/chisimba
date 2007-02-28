@@ -115,12 +115,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             
             
             $contextCode = $this->getContextCode();
-            $menuText = htmlentities($this->getParam("menutext"));
-            $title = htmlentities($this->getParam("title"));
+            $menuText = htmlentities($this->getParam('menutext'));
+            $title = htmlentities($this->getParam('title'));
             $userId = $this->objUser->userId();
             $status = $this->getParam('status');
             $access = $this->getParam('access');
-            
+           
             $fields = array(                       
                         'title' => $title,
                         'menutext' => $menuText,
@@ -206,9 +206,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         try{
             
             
-            $contextCode = htmlentities($this->getParam("contextcode"));
-            $menuText = htmlentities($this->getParam("menutext"));
-            $title = htmlentities($this->getParam("title"));
+            $contextCode = htmlentities($this->getParam('contextcode'));
+            $contextCode = strtolower(str_replace(' ','_',$contextCode));
+            $menuText = htmlentities($this->getParam('menutext'));
+            $title = htmlentities($this->getParam('title'));
             $userId = $this->objUser->userId();
             $status = $this->getParam('status');
             $access = $this->getParam('access');
@@ -246,7 +247,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
             $this->setLastUpdated();
             
-            return $this->insert($fields);
+            
+            
+            $ret = $this->insert($fields);
+            
+            $this->joinContext($contextCode);
+            
+            return $ret;
         }                        
         catch (customException $e)
         {
@@ -328,6 +335,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         {
             $this->leaveContext();
             $line=$this->getRow('contextCode',$contextCode);
+           
             $this->setSession('contextId',$line['id']);
             $this->setSession('contextCode',$contextCode);
             $this->setSession('contextTitle',stripslashes($line['title']));
