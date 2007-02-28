@@ -76,12 +76,13 @@ if (isset($contextList))
 		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
 		
 		
-		
+		$title = ($context['title'] == '') ? $context['menutext'] : $context['title'];
 		if($context['contextcode'] == $this->_objDBContext->getContextCode())
 		{
-			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   '.$conf, $content ).'<hr />';
+		      
+			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
 		} else {
-			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$context['title'].'   '.$conf, $content ).'<hr />';
+			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
 		}
 		
 		$icon = null;

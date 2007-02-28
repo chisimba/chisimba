@@ -49,7 +49,7 @@ $drop = '<fieldset class="f-radio-wrap">
 				<fieldset>
 				
 				<label for="Public">
-				<input id="Public" type="radio" name="access" value="Public" class="f-radio" tabindex="8" />
+				<input id="Public" type="radio" checked="checked" name="access" value="Public" class="f-radio" tabindex="8" />
 				
 							'.$this->_objLanguage->languageText("mod_context_public",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_publichelp",'context',array('context'=>'Course')).'</span></label>
 				
