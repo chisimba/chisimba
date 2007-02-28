@@ -123,23 +123,23 @@ if (is_array($users) && count($users) > 0) {
         $table->startRow();
             $checkbox = new checkbox('users[]');
             $checkbox->value = $user['id'];
-            $checkbox->cssId = 'checkbox_'.$user['userid'];
+            $checkbox->cssId = 'checkbox_'.sha1($user['userid']);
             $table->addCell($checkbox->show());
             
-            $label = new label($user['staffnumber'], 'checkbox_'.$user['userid']);
+            $label = new label($user['staffnumber'], 'checkbox_'.sha1($user['userid']));
             $table->addCell($label->show());
             
             $link = new link ($this->uri(array('action'=>'userdetails', 'id'=>$user['id'])));
             $link->link = $user['username'];
             $table->addCell($link->show());
             
-            $label = new label($user['title'], 'checkbox_'.$user['userid']);
+            $label = new label($user['title'], 'checkbox_'.sha1($user['userid']));
             $table->addCell($label->show());
             
-            $label = new label($user['firstname'], 'checkbox_'.$user['userid']);
+            $label = new label($user['firstname'], 'checkbox_'.sha1($user['userid']));
             $table->addCell($label->show());
             
-            $label = new label($user['surname'], 'checkbox_'.$user['userid']);
+            $label = new label($user['surname'], 'checkbox_'.sha1($user['userid']));
             $table->addCell($label->show());
             
             $emailLink = new link('mailto:'.$user['emailaddress']);
