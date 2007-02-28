@@ -39,6 +39,18 @@ class dropdown extends abhtmlbase implements ifhtml
 
   /**
   *
+  * @var boolean $multiple: When set allows multiple entries to be selected
+  */
+  public $multiple = FALSE;
+  
+  /**
+  *
+  * @var string $size: Defines the number of visible items in the dropdown list
+  */
+  public $size = 1;
+  
+  /**
+  *
   * @var string $selected: The value that selected
   */
   public $selected;
@@ -102,13 +114,22 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function show()
   {
-  	$str = '<select name="'.$this->name.'"';
+  	if($this->multiple){
+        $this->name = $this->name."[]";    
+    }
+    $str = '<select name="'.$this->name.'"';
 	if($this->cssClass){
 		$str.=' class="'.$this->cssClass.'" ';
 	}
 	if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '" ';
-        }
+    }
+    if($this->multiple){
+        $str .= ' multiple="multiple"';
+    }
+    if($this->size > 1){
+        $str .= ' size="'.$this->size.'"';
+    }
     if ($this->extra) {
         $str .= ' '.$this->extra;
     }
