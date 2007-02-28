@@ -1,4 +1,5 @@
 <?php
+$this->setVar('pageSuppressXML', TRUE);
 
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('htmlheading', 'htmlelements');
