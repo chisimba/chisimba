@@ -39,8 +39,7 @@ class dbcontextparams extends dbTable{
 	    				'param' => $param,
 	    				'value' => $value,
 	    				'contextcode' => $contextCode);
-	    	var_dump($fields);
-	    	die;
+	    	
 	    	if($this->getParamValue($contextCode, $param))
 	    	{
 	    		//edit the param
