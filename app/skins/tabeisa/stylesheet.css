@@ -30,7 +30,6 @@ h1 {
 }
 
 #headertable, body.standard #headertable {
-	background-image: url(images/banner.jpg);
 	background-repeat: no-repeat;
 	background-position: left top;
     background-color: #000000;
