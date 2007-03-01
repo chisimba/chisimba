@@ -9,5 +9,7 @@ All functions, such as creating objects, using setVar, setVarByRef, etc. works
 
 
 $this->setVar('pageSuppressContainer', TRUE);
+$this->setVar('enableTopLinks', TRUE);
 $this->setVar('bodyParams', 'class="splashscreen"');
+
 ?>
