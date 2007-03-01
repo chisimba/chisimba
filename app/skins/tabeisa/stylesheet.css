@@ -9,7 +9,7 @@ html, body {
 }
 
 body.splashscreen {
-    background-color: #0A6F2D;
+    background-color: #000000;
 }
 h1 {
     line-height: 120%;
@@ -26,13 +26,17 @@ h1 {
 #introflash {
     margin-left: auto; margin-right: auto;
     text-align: center;
-    background-color: #0A6F2D;
+    background-color: #000000;
 }
-#headertable {
+
+#headertable, body.standard #headertable {
 	background-image: url(images/banner.jpg);
 	background-repeat: no-repeat;
 	background-position: left top;
+    background-color: #000000;
 }
+
+
 #homeimage {
 	background-image: url(images/top/home.gif);
 	background-repeat: no-repeat;
