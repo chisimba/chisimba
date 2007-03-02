@@ -43,5 +43,26 @@ class cleanurl extends object
         
         return $fileName;
     }
+    
+    /**
+    * Method to clean up a filename. It removes all punctuation marks,
+    * besides letters, numbers, round brackers, full stops
+    *
+    * Forward slashes are ignored and is considered part of the directory,
+    * so it is possible to provide the path to a file as a parameter
+    * 
+    * @param string $filename Filename or Path to File
+    * @return string $filename Cleaned up Filename or Path to File
+    */
+    public function cleanFilename($filename)
+    {
+        // Clean slashes
+        $this->cleanUpUrl($filename);
+        
+        $filename = preg_replace('/[^-\\w\\s.()\/]/', '', $filename);
+        $filename = preg_replace('/\\s/', '_', $filename);
+        
+        return $filename;
+    }
 }
 ?>
