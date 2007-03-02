@@ -1,48 +1,59 @@
 <?php
 
 /**
-* Class to use with viewsource to print linked files
+* Class to Scan for Files for Indexing Purposes
+*
+* This class scans for all files and folders in a directory
+* on the filesystem and returns them as an array
+*
+* @author Tohir Solomons
 */
 $this->loadClass('folderbot', 'files');
 class indexfiles extends folderbot 
 {
 
     /**
-    * @var string $retStr The string to return
+    * @var array $fileIndex Array holding all matched files
     */
-    var $fileIndex;
-    var $folderIndex;
-
-
-
-    /**
-    * Method to trigger a file event and add the file to the output
-    * string.  Triggered by the parent class, it is called every 
-    * time a file matching the filter has been found.
-    */
-    function file_event()
-    {
-        $this->fileIndex[] = $this->curfile;
-    } 
+    protected $fileIndex;
     
     /**
-    *  Called every time a folder is found. It just prints its name
+    * @var array $folderIndex Array holding all matched folders
     */
-    function folder_event()
-    {           
-        $this->folderIndex[] = $this->curfile;
-    }
+    protected $folderIndex;
     
     /**
-    *
-    *
+    * Method to scan a directory
+    * @param string $directory Directory to Scan
+    * @return array An array containing list of files and folders
     */
-    function getIndex($directory)
+    public function scanDirectory($directory)
     {
         $this->set_recurse(true); // set to false to only list the folder without subfolder.
         $this->scan($directory);
         
         return array($this->fileIndex, $this->folderIndex);
     }
+
+    /**
+    * Method to trigger a file event and add the file to the output
+    * array.  Triggered by the parent class, it is called every 
+    * time a file has been found.
+    */
+    public function file_event()
+    {
+        $this->fileIndex[] = $this->curfile;
+    } 
+    
+    /**
+    * Method to trigger a folder event and add thefolder to the output
+    * array.  Triggered by the parent class, it is called every 
+    * time a folder has been found.
+    */
+    public function folder_event()
+    {           
+        $this->folderIndex[] = $this->curfile;
+    }
+    
 } // end class
 ?>
