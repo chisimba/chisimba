@@ -4,6 +4,7 @@
 * Class to index files not yet stored in the database
 *
 * This class scans the filesystem for files
+* @author Tohir Solomons
 */
 class indexfileprocessor extends object 
 {

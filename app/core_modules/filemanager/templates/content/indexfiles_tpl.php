@@ -22,7 +22,7 @@ if (count($list) > 0) {
     }
     echo '</ul>';
 } else {
-    echo '<div class="noRecordsMessage">All files in your directory have been added to index.</div>';
+    echo '<div class="noRecordsMessage">All files in your directory are in the index.</div>';
 }
 
 

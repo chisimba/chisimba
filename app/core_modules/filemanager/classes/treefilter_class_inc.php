@@ -55,6 +55,10 @@ class treefilter extends object
         
         $menu->addItem($uploadItem);
         
+        $indexItem = new treenode(array('text' => 'File Indexer', 'link' => $this->uri(array('action'=>'indexfiles'))));
+        
+        $menu->addItem($indexItem);
+        
         $treeMenu = &new htmllist($menu);
         
         //$this->appendArrayVar('headerParams', '<script src="modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>');
