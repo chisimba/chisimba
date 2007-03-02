@@ -317,7 +317,7 @@ class getIcon extends object implements ifhtml
         $this->loadClass('link', 'htmlelements');
         
         $this->setIcon($name, $type, $iconfolder);
-        $this->extra = $extra;        
+        $this->extra = $extra." height='48px' width='48px'";        
         $this->title = $linkText;
         $icon = "<p align='center' style='margin:0px; margin-left:-5px; padding:0px;'>".$this->show().$linkText.'</p>';
         
@@ -336,6 +336,38 @@ class getIcon extends object implements ifhtml
         return $objLayer->show();//$objLink->show();
     }
 
+    /**
+    * Method to return an icon / text combination link - an icon with text below encapsulated in a div
+    *
+    * @author Megan Watson
+    * @param string $url The uri generated path for the task to be performed
+    * @param string $name The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
+    * @param string $linkText The text to display below the icon.
+    * @param string $type The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
+    */
+    public function getBlockIcon($url, $name, $linkText, $type = 'gif', $iconfolder='icons/', $extra = NULL)
+    {
+        $objLayer = $this->newObject('layer', 'htmlelements');
+        $this->loadClass('link', 'htmlelements');
+        
+        $this->setIcon($name, $type, $iconfolder);
+        $this->extra = $extra." height='48px' width='48px'";
+        $this->title = $linkText;
+        $icStr = $this->show();
+        
+        $icStr .= '<span>'.$linkText.'</span>';
+        
+        $objLink = new link($url);
+        $objLink->link = $icStr;
+        $linkStr = $objLink->show();
+        
+        $objLayer->str = $linkStr;
+        $objLayer->cssClass = 'icon';
+        
+        return $objLayer->show();
+    }
+    
     /**
     * Method to show the icon
     * @return the icon URL as a string
