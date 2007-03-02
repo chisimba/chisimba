@@ -77,6 +77,8 @@ class filemanager extends controller
                 return 'multipleupload_tpl.php';
             case 'testgetid3':
                 return $this->testGetId3();
+            case 'indexfiles':
+                return 'indexfiles_tpl.php';
             default:
                 return $this->filesHome();
         }
