@@ -59,6 +59,16 @@ class parse4timeline extends object
         return $str;
     }
     
+    /**
+     * 
+     * A parse method as required by the washout filter parser that washes all the output for 
+     * parseable filters
+     * 
+     * @access Public
+     * @param string $str The text to parse
+     * @return string The parsed text 
+     * 
+     */
     public function parse($str)
     {
     	//check for type
