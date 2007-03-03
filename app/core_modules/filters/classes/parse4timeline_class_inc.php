@@ -29,8 +29,7 @@ class parse4timeline extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $this->objTlParser->$results['timelinelink'][$counter];
-            $replacement = $this->objTlParser->getRemote();
+            $replacement = $this->objTlParser->getRemote($results['timelinelink'][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }

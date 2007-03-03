@@ -150,14 +150,14 @@ class timelineparser extends object
      * @access public
      * 
      */
-    public function getRemote() {
+    public function getRemote($timeline) {
         $objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
     	$objIframe->height="330";
-        $uri = $this->uri;
+        //$uri = $this->uri;
         $ret = $this->uri(array("mode" => "plain",
           "action" => "viewtimeline", 
-		  "timeLine" => $uri), "timeline");
+		  "timeLine" => $timeline), "timeline");
         $objIframe->src=$ret;
         return $objIframe->show();
     }
