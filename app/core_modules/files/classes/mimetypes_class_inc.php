@@ -224,7 +224,7 @@ class mimetypes extends object
             'msh'  => array ('type'=>'model/mesh', 'icon'=>'unknown.gif'),
             'nc'   => array ('type'=>'application/x-netcdf', 'icon'=>'unknown.gif'),
             'oda'  => array ('type'=>'application/oda', 'icon'=>'unknown.gif'),
-            'ogg'  => array ('type'=>'application/ogg', 'icon'=>'unknown.gif'),
+            'ogg'  => array ('type'=>'audio/x-vorbis', 'icon'=>'unknown.gif'),
             'pac'  => array ('type'=>'application/x-ns-proxy-autoconfig', 'icon'=>'unknown.gif'),
             'pbm'  => array ('type'=>'image/x-portable-bitmap', 'icon'=>'unknown.gif'),
             'pdb'  => array ('type'=>'chemical/x-pdb', 'icon'=>'unknown.gif'),
@@ -273,6 +273,23 @@ class mimetypes extends object
             'xyz'  => array ('type'=>'chemical/x-pdb', 'icon'=>'unknown.gif'),
             'z'    => array ('type'=>'application/x-compress', 'icon'=>'unknown.gif'),
         );
+    }
+    
+    /**
+    * Method to determine whether a mimetype is valid
+    *
+    * It determines this by the following rules.
+    * 1) First part has to be from the list of recognized
+    * 2) Has to be followed by a /
+    * 3) Any letter, number, dash or fullstop. Length of two or longer
+    */
+    public function isValidMimeType($mimetype)
+    {
+        if (preg_match('/\\A(?:(application|audio|bws-internal|chemical|example|image|message|model|multipart|text|video|x-conference)\/([-.\\w]){2,}+)\\z/', $mimetype)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     
