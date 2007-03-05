@@ -63,6 +63,7 @@ class filefolder extends object
         // Check by extension
         switch ($extension)
         {
+            case 'psd':
             case 'wbmp':
                 return 'images'; break;
             case 'doc': // Microsoft Office
@@ -103,12 +104,14 @@ class filefolder extends object
                 return 'audio'; break;
             case 'rm';
             case '3gp':
+            case 'flv':
                 return 'video'; break;
             case 'wrl': // VRML
             case 'vrml':
             case 'obj':
                 return 'obj3d'; break;
             case 'php': // Programming Scripts
+            case 'phps': // Programming Scripts
             case 'css':
             case 'js':
             case 'sql':
@@ -122,6 +125,8 @@ class filefolder extends object
             case 'cfm':
             case 'xml':
                 return 'scripts'; break;
+            case 'ttf':
+                return 'fonts'; break;
             default:
                 break;
         }

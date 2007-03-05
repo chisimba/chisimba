@@ -384,7 +384,7 @@ function checkWindowOpener()
         $file = $this->objFiles->getFileInfo($fileId);
 
         if ($file == FALSE) {
-            echo 'dasdasNo Such File Exists '.$fileId;
+            echo 'No Such File Exists '.$fileId;
             echo '<pre>';
             print_r($_GET);
             echo '</pre>';
@@ -393,11 +393,8 @@ function checkWindowOpener()
             $link = new link("javascript:selectFile('".$fileId."', ".$jsId.");");
             $link->link = 'Select';
 
-            $content = ' ';
-            $content .= '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
-            $content .= $this->objFilePreview->previewFile($fileId);
-            
-            echo $content;
+            echo '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
+            echo $this->objFilePreview->previewFile($fileId);
         }
     }
     

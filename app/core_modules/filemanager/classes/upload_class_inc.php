@@ -25,6 +25,16 @@ class upload extends object
     public $bannedExtensions = array ('exe', 'cgi', 'dll');
     
     /**
+    * @var string $uploadFolder Folder to place uploads in 
+    */
+    private $uploadFolder = '';
+    
+    /**
+    * @var boolean $useFileSubFolder Flag to set whether uploaded files should be placed in the Upload Folder +  a subfolder matching file type
+    */
+    private $useFileSubFolder = TRUE;
+    
+    /**
     * Constructor
     */
     public function init()
@@ -35,7 +45,7 @@ class upload extends object
         $this->numInputs = 2;
         $this->formExtra = '';
         
-        
+        // Load All Necessary Objects
         $this->objUser =& $this->getObject('user', 'security');
         $this->objFileParts =& $this->getObject('fileparts', 'files');
         $this->objConfig =& $this->getObject('altconfig', 'config');
@@ -47,12 +57,32 @@ class upload extends object
         $this->objXMLSerializer =& $this->getObject('xmlserial', 'utilities');
         $this->objSingleArray = $this->getObject('singlearray');
         $this->objThumbnails =& $this->getObject('thumbnails');
+        $this->objCleanUrl =& $this->getObject('cleanurl');
+        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        
+        // Load the Language Object
+        $this->objLanguage =& $this->getObject('language', 'language');
         
         // Check that Upload Folders exist
         $objFolderCheck = $this->getObject('userfoldercheck');
         $objFolderCheck->checkUserFolder($this->objUser->userId());
         
-        $this->objLanguage =& $this->getObject('language', 'language');
+        
+        // Default Upload Folder is usrfiles/users/{userid}
+        $this->uploadFolder = 'users/'.$this->objUser->userId().'/';
+    }
+    
+    /**
+    * Method to set the upload folder
+    *
+    * This folder will be created in the usrfiles directory
+    *
+    * @param string $folder Name of the folder
+    */
+    public function setUploadFolder($folder)
+    {
+        $this->uploadFolder = $folder.'/';
+        $this->objCleanUrl->cleanUpUrl($this->uploadFolder); // Clean Up Folder
     }
     
     /**
@@ -200,11 +230,33 @@ class upload extends object
                 // Implement Security Measures on Filename
                 $filename = $this->secureFileName($file['name']);
                 
-                // Create Full Server Path to Uploaded File
-                $savepath = $this->objConfig->getcontentBasePath().'users/'.$this->objUser->userId().'/'.$subfolder.'/'.$filename;
+                // Determine whether to include subfolders
+                if ($this->useFileSubFolder) {
+                    // Create Full Server Path to Uploaded File
+                    $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.$subfolder.'/';
+                    
+                    // Create Path to File withour usrfiles prefix
+                    $path = $this->uploadFolder.$subfolder.'/';
                 
-                // Create Path to File withour usrfiles prefix
-                $path = 'users/'.$this->objUser->userId().'/'.$subfolder.'/'.$filename;
+                } else {
+                                        // Create Full Server Path to Uploaded File
+                    $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
+                    
+                    // Create Path to File withour usrfiles prefix
+                    $path = $this->uploadFolder.'/'; 
+                }
+                
+                // Clean Up Paths
+                $this->objCleanUrl->cleanUpUrl($savepath);
+                $this->objCleanUrl->cleanUpUrl($path);
+                
+                // Create Directory
+                $this->objMkdir->mkdirs($savepath, 0777);
+                
+                // Add File Name
+                $savepath .= $filename;
+                $path .= $filename;
+                
                 
                 // Check if File Exists
                 if (file_exists($savepath)) {
@@ -409,12 +461,20 @@ class upload extends object
         $mediaInfo = array('width'=>'', 'height'=>'', 'playtime'=>'', 'format'=>'', 'framerate'=>'', 'bitrate'=>'', 'samplerate'=>'', 'title'=>'', 'artist'=>'', 'year'=>'', 'url'=>'');
         
         // Width
-        if (array_key_exists('resolution_x', $analysis)) {
+        if (isset($analysis['resolution_x'])) {
             $mediaInfo['width'] = $analysis['resolution_x'];
         }
         
+        if (isset($analysis['frame_width'])) {
+            $mediaInfo['width'] = $analysis['frame_width'];
+        }
+        
         // Height
-        if (array_key_exists('resolution_y', $analysis)) {
+        if (isset($analysis['resolution_y'])) {
+            $mediaInfo['height'] = $analysis['resolution_y'];
+        }
+        
+        if (isset($analysis['resolution_y'])) {
             $mediaInfo['height'] = $analysis['resolution_y'];
         }
         
@@ -428,11 +488,11 @@ class upload extends object
             $mediaInfo['format'] = $analysis['dataformat'];
             
             // If JPEG, attempt to get width and height via Exif
-            if ($format = 'jpg') {
-                $info = getimagesize($filepath);
-                $mediaInfo['width'] = $info[0]; // Width
-                $mediaInfo['height'] = $info[1]; // Height
-            }
+            // if ($format == 'jpg') {
+                // $info = getimagesize($filepath);
+                // $mediaInfo['width'] = $info[0]; // Width
+                // $mediaInfo['height'] = $info[1]; // Height
+            // }
         }
         
         // Frame Rate
@@ -482,7 +542,6 @@ class upload extends object
         return $mediaInfo;
     }
     
-
     
     
     

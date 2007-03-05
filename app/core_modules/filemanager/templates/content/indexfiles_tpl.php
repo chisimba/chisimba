@@ -1,5 +1,7 @@
 <?php
 
+$this->setVar('pageSuppressXML', TRUE);
+
 echo '<h1>File Indexer</h1>';
 
 $this->loadClass('link', 'htmlelements');
