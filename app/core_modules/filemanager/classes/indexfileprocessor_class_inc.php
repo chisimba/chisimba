@@ -23,6 +23,7 @@ class indexfileprocessor extends object
         $this->objUpload =& $this->getObject('upload');
         $this->objThumbnails =& $this->getObject('thumbnails');
         $this->objIndexFiles = $this->getObject('indexfiles');
+        $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
     }
     
     /**
@@ -110,10 +111,15 @@ class indexfileprocessor extends object
         // 2) Start Analysis of File
         if ($category == 'images' || $category == 'audio' || $category == 'video' || $category == 'flash') {
             // Get Media Info
-            $fileInfo = $this->objUpload->analyzeMediaFile($savePath);
+            $fileInfo = $this->objAnalyzeMediaFile->analyzeFile($savePath);
             
             // Add Information to Databse
-            $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo);
+            $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo[0]);
+            
+            // Check if alternative mimetype is provided
+            if ($fileInfo[1] != '') {
+                $this->objFile->updateMimeType($fileId, $fileInfo[1]);
+            }
             
             // Create Thumbnail if Image
             // Thumbnails are not created for temporary files

@@ -53,9 +53,9 @@ class upload extends object
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
         $this->objMetadataScripts =& $this->getObject('dbmetadatascripts');
         $this->objFileFolder =& $this->getObject('filefolder');
-        $this->objGetId3 =& $this->getObject('getid3analyzer', 'files');
-        $this->objXMLSerializer =& $this->getObject('xmlserial', 'utilities');
-        $this->objSingleArray = $this->getObject('singlearray');
+        
+        $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
+        
         $this->objThumbnails =& $this->getObject('thumbnails');
         $this->objCleanUrl =& $this->getObject('cleanurl');
         $this->objMkdir =& $this->getObject('mkdir', 'files');
@@ -289,11 +289,17 @@ class upload extends object
                     
                     // 2) Start Analysis of File
                     if ($subfolder == 'images' || $subfolder == 'audio' || $subfolder == 'video' || $subfolder == 'flash' || $originalsubfolder == 'images') {
+                        
                         // Get Media Info
-                        $fileInfo = $this->analyzeMediaFile($savepath);
+                        $fileInfo = $this->objAnalyzeMediaFile->analyzeFile($savepath);
                         
                         // Add Information to Databse
-                        $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo);
+                        $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo[0]);
+                        
+                        // Check whether mimetype needs to be updated
+                        if ($fileInfo[1] != '') {
+                            $this->objFile->updateMimeType($fileId, $fileInfo[1]);
+                        };
                         
                         // Create Thumbnail if Image
                         // Thumbnails are not created for temporary files
@@ -302,36 +308,6 @@ class upload extends object
                         }
                     }
                     
-                    /*
-                    if ($subfolder == 'scripts' || $originalsubfolder == 'scripts') {
-                        // Get Extension
-                        $filetype = $this->objFileParts->getExtension($this->file['filename']);
-                        
-                        // Convert Extension to Language
-                        switch ($filetype)
-                        {
-                            case 'phps': $filetype = 'php'; break;
-                            case 'pl': $filetype = 'perl'; break;
-                            case 'js': $filetype = 'javascript'; break;
-                            case 'py': $filetype = 'python'; break;
-                        }
-                        
-                        // Open File, Read Contents, Close
-                        $handle = fopen ($savepath, "r"); 
-                        $contents = fread ($handle, filesize ($savepath)); 
-                        fclose ($handle);
-                        
-                        $objGeshi = $this->getObject('geshiwrapper', 'wrapgeshi');
-                        $objGeshi->source = $contents;
-                        $objGeshi->language = $filetype;
-                        
-                        $objGeshi->startGeshi();
-                        $objGeshi->enableLineNumbers(2);
-                        
-                        $script = addSlashes($objGeshi->show());
-                        
-                        $this->objMetadataScripts->addScriptHighlight($fileId, $script);
-                    }*/
                     
                     // Update Return Array Details
                     $fileInfoArray['success'] = TRUE;
@@ -413,134 +389,7 @@ class upload extends object
         return $bannedType;
     }
     
-    /**
-    * Method to get media information about a file using getId3
-    * This function takes the information and converts it into a single array
-    * instead of going through it as a multi-dimensional array
-    *
-    * @param string $filePath Path to File
-    * @return array Details of the File
-    */
-    public function getId3Info($filepath)
-    {
-        // Get Details and Convert to SingleArray
-        return $this->objSingleArray->convertArray($this->objGetId3->analyze($filepath));
-    }
     
-    /**
-    * Function to analyze getId3 Media Info
-    * 
-    * This function takes a file, and requests getID3 to analyze the file.
-    * It then processes the analysis, focussing on information it requires.
-    * This information is stored in an array and returned.
-    *
-    * @param string $filepath Path to File
-    * @return array Processed Information of the File
-    */
-    public function analyzeMediaFile($filepath)
-    {
-        // Get Details and Convert to SingleArray
-        $analysis = $this->getId3Info($filepath);
-        
-        // Remove Useless Information
-        foreach ($analysis as $item=>$value)
-        {
-            // Remove if Key is a number
-            if (is_int($item)) {
-                unset($analysis[$item]);
-            }
-            
-            // Remove if Item has no Value
-            if (trim($value) == '' || trim($value) == '?=') {
-                unset($analysis[$item]);
-            }
-            
-        }
-        
-        // Create Array of Details
-        $mediaInfo = array('width'=>'', 'height'=>'', 'playtime'=>'', 'format'=>'', 'framerate'=>'', 'bitrate'=>'', 'samplerate'=>'', 'title'=>'', 'artist'=>'', 'year'=>'', 'url'=>'');
-        
-        // Width
-        if (isset($analysis['resolution_x'])) {
-            $mediaInfo['width'] = $analysis['resolution_x'];
-        }
-        
-        if (isset($analysis['frame_width'])) {
-            $mediaInfo['width'] = $analysis['frame_width'];
-        }
-        
-        // Height
-        if (isset($analysis['resolution_y'])) {
-            $mediaInfo['height'] = $analysis['resolution_y'];
-        }
-        
-        if (isset($analysis['resolution_y'])) {
-            $mediaInfo['height'] = $analysis['resolution_y'];
-        }
-        
-        // Play Time
-        if (array_key_exists('playtime_seconds', $analysis)) {
-            $mediaInfo['playtime'] = floor($analysis['playtime_seconds']);
-        }
-        
-        // Format
-        if (array_key_exists('dataformat', $analysis)) {
-            $mediaInfo['format'] = $analysis['dataformat'];
-            
-            // If JPEG, attempt to get width and height via Exif
-            // if ($format == 'jpg') {
-                // $info = getimagesize($filepath);
-                // $mediaInfo['width'] = $info[0]; // Width
-                // $mediaInfo['height'] = $info[1]; // Height
-            // }
-        }
-        
-        // Frame Rate
-        if (array_key_exists('framerate', $analysis)) {
-            $mediaInfo['framerate'] = $analysis['framerate'];
-        }
-        
-        // Bit Rate
-        if (array_key_exists('bitrate', $analysis)) {
-            $mediaInfo['bitrate'] = $analysis['bitrate'];
-        }
-        
-        // Sample Rate
-        if (array_key_exists('sample_rate', $analysis)) {
-            $mediaInfo['samplerate'] = $analysis['sample_rate'];
-        }
-        
-        // Title
-        if (array_key_exists('title', $analysis)) {
-            $mediaInfo['title'] = $analysis['title'];
-        }
-        
-        // Artist
-        if (array_key_exists('artist', $analysis)) {
-            $mediaInfo['artist'] = $analysis['artist'];
-        }
-        
-        // Comment / Description
-        if (array_key_exists('comment', $analysis)) {
-            $mediaInfo['description'] = $analysis['comment'];
-        }
-        
-        // Year
-        if (array_key_exists('year', $analysis)) {
-            $mediaInfo['year'] = $analysis['year'];
-        }
-        
-        // URL
-        if (array_key_exists('url', $analysis)) {
-            $mediaInfo['url'] = $analysis['url'];
-        }
-        
-        // Convert rest of the data to XML for storage
-        // NOTE: this xml may not be well formed, but keep so long
-        $mediaInfo['getid3info'] = $this->objXMLSerializer->writeXML($analysis);
-        
-        return $mediaInfo;
-    }
     
     
     
