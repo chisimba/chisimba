@@ -33,9 +33,7 @@ class filepreview extends object
     function previewFile($fileId)
     {
         $preview = 'No Preview Available';
-        
-        $this->file = $this->objFiles->getFileInfo($fileId);
-        
+        $this->file = $this->objFiles->getFileInfo($fileId);  
         $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
         $this->file['fullpath'] = $this->objConfig->getsiteRoot().$this->file['path'];
         // Fix Up - Try to get file using controller, instead of hard linking to file
@@ -58,7 +56,6 @@ class filepreview extends object
             case 'scripts': $preview = $this->showScript(); break;
             case 'documents': $preview = $this->showDocument(); break;
             case 'archives': $preview = $this->showArchive(); break;
-            
             case 'fonts': $preview = $this->showFont(); break;
         }
         return $preview;
@@ -211,8 +208,6 @@ class filepreview extends object
             fwrite($handle, $content);
             fclose($handle);
             
-            
-            
             return $content;
         }
     }
@@ -232,7 +227,7 @@ class filepreview extends object
                     $handle = fopen ($this->file['path'], "r"); 
                     $contents = fread ($handle, filesize ($this->file['path'])); 
                     fclose ($handle);
-                    
+                   
                     $this->objFeed = $this->getObject('feeds', 'feed');
                     $feed = $this->objFeed->importString($contents);
                     
