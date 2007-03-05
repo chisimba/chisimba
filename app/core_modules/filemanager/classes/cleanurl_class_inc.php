@@ -62,6 +62,9 @@ class cleanurl extends object
         $filename = preg_replace('/[^-\\w\\s.()\/]/', '', $filename);
         $filename = preg_replace('/\\s/', '_', $filename);
         
+        // Rename .php files to .phps
+        $filename = preg_replace('/(\\.php)\\Z/', '.phps', $filename);
+        
         return $filename;
     }
 }
