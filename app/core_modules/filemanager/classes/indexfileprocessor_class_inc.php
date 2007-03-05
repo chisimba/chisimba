@@ -38,17 +38,19 @@ class indexfileprocessor extends object
         
         $indexedFiles = array();
 
-        foreach ($files as $file)
-        {
-                preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
-            	$path = $regs[0];
-                $this->objCleanUrl->cleanUpUrl($path);
-                
-                $record = $this->objFile->getFileDetailsFromPath($path);
-                
-                if ($record == FALSE) {
-                    $indexedFiles[] = $this->processIndexedFile($path, $userId);
-                }
+        if (count($files) > 0) {
+            foreach ($files as $file)
+            {
+                    preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
+                	$path = $regs[0];
+                    $this->objCleanUrl->cleanUpUrl($path);
+                    
+                    $record = $this->objFile->getFileDetailsFromPath($path);
+                    
+                    if ($record == FALSE) {
+                        $indexedFiles[] = $this->processIndexedFile($path, $userId);
+                    }
+            }
         }
         
         return $indexedFiles;
