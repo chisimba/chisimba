@@ -29,6 +29,8 @@ class dbfile extends dbTable
         
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
         $this->objUserFolder =& $this->getObject('userfoldercheck');
+        $this->objFileFolder =& $this->getObject('filefolder');
+        $this->objMimetypes =& $this->getObject('mimetypes', 'files');
         
         $this->objLanguage =& $this->getObject('language', 'language');
         
@@ -723,6 +725,37 @@ class dbfile extends dbTable
         return $this->delete('id', $fileId);
         
         
+    }
+    
+    /**
+    * Method to Change the Mimetype of a File
+    * @param string $fileId, Record Id of the File
+    * @param string $mimetype New mimetype of the File
+    * @return boolean Result of Update
+    */
+    public function updateMimeType($fileId, $mimetype)
+    {
+        // First Check that mimetype is valid and not empty
+        if ($mimetype != '' && $this->objMimetypes->isValidMimeType($mimetype)) {
+            
+            // Next Get the filename
+            $filename = $this->getFileName($fileId);
+            
+            // If file exists, continue
+            if ($filename != FALSE) {
+            
+                // Get new category based on new mimetype
+                $category = $this->objFileFolder->getFileFolder($filename, $mimetype);
+                
+                // Update Database
+                return $this->update('id', $fileId, array('mimetype'=>$mimetype, 'category'=>$category));
+                
+            } else { // Return False
+                return FALSE;
+            }
+        } else { // Return False
+            return FALSE;
+        }
     }
 
     
