@@ -110,6 +110,7 @@ class mimetypes extends object
             'js'   => array ('type'=>'application/x-javascript', 'icon'=>'text.gif'),
             'latex'=> array ('type'=>'application/x-latex', 'icon'=>'text.gif'),
             'm'    => array ('type'=>'text/plain', 'icon'=>'text.gif'),
+            'mm'    => array ('type'=>'application/octet-stream', 'icon'=>'text.gif'),
             'mov'  => array ('type'=>'video/quicktime', 'icon'=>'video.gif'),
             'movie'=> array ('type'=>'video/x-sgi-movie', 'icon'=>'video.gif'),
             'm3u'  => array ('type'=>'audio/x-mpegurl', 'icon'=>'audio.gif'),
