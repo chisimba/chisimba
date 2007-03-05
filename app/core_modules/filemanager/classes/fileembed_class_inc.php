@@ -60,6 +60,10 @@ class fileembed extends object
                 return $this->showQuicktime($file, $width, $height);
             case 'wmv':
                 return $this->showWMV($file, $width, $height);
+            case 'avi':
+                return $this->showAVI($file, $width, $height);
+            case 'flv':
+                return $this->showFLV($file, $width, $height);
         }
     }
     
@@ -209,6 +213,42 @@ class fileembed extends object
         $replace .= '</object>';
         
         return $replace;
+    }
+    
+    
+    /**
+    * Method to show a AVI video
+    * @param string $file Path to the File
+    */
+    function showAVI($file, $width='100%', $height='400')
+    {
+        $width = $width=='' ? '100%' : $width; 
+        $height = $height=='' ? '400' : $height; 
+        
+        $replace = '<object width="'.$width.'" height="'.$height.'">';
+        $replace .= '<param name="src" value="'.$file.'" />';
+        $replace .= '<param name="controller" value="1" />';
+        $replace .= '<param name="autoplay" value="0" />';
+        $replace .= '<embed src="'.$file.'" width="'.$width.'" height="'.$height.'" controller="1" autoplay="0" pluginspage ="http://www.microsoft.com/Windows/MediaPlayer/" type="video/x-ms-wvx" > </embed>';
+        $replace .= '</object>';
+        
+        return $replace;
+    }
+    
+    /**
+    * Method to show a FLV video
+    * @param string $file Path to the File
+    */
+    function showFLV($file, $width='100%', $height='400')
+    {
+        $width = $width=='' ? '100%' : $width; 
+        $height = $height=='' ? '400' : $height; 
+        
+        $objBuildPlayer = $this->getObject('buildflowplayer', 'flowplayer');
+        $objBuildPlayer->setMovieFile($file);
+        $objBuildPlayer->width = $width;
+        $objBuildPlayer->height = $height;
+        return $objBuildPlayer->show();
     }
 
 }
