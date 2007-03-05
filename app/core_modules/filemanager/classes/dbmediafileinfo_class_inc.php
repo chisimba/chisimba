@@ -34,6 +34,18 @@ class dbmediafileinfo extends dbTable
         
         return $this->insert($infoArray);
     }
+    
+    function cleanUpMismatchedMediaFiles()
+    {
+        $sql = 'SELECT tbl_files_metadata_media.id, tbl_files.id as files_id FROM tbl_files_metadata_media  LEFT JOIN tbl_files ON (tbl_files_metadata_media.fileid = tbl_files.id) WHERE tbl_files.id IS NULL';
+        
+        $results = $this->getArray($sql);
+        
+        foreach ($results as $result)
+        {
+            $this->delete('id', $result['id']);
+        }
+    }
 
 
 }
