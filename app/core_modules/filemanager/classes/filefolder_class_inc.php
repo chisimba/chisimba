@@ -50,6 +50,18 @@ class filefolder extends object
             case 'application/x-javascript' : return 'scripts'; break;
             case 'text/x-sql' : return 'scripts'; break;
             case 'text/css' : return 'scripts'; break;
+            case 'video/x-theora' : return 'video'; break;
+            case 'audio/x-vorbis' : return 'audio'; break;
+            default : break;
+        }
+        
+        // Check First Part of Mimetype
+        switch ($mimeSplit[0])
+        {
+            case 'image': return 'images'; break;
+            case 'audio': return 'audio'; break;
+            case 'video': return 'video'; break;
+            // text is excluded as it may be a script
             default : break;
         }
         
