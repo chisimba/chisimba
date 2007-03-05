@@ -142,7 +142,11 @@ class link extends abhtmlbase implements ifhtml
     {
         $ret = "<a href=\"";
         if ($this->linkType!="none" && $this->linkType!=Null) {
-            $ret .= $this->linkType."://";
+            if ($this->linkType=='mailto') {
+                $ret .= $this->linkType.":";
+            }else{
+                $ret .= $this->linkType."://";
+            }
         }
         if ($this->href) {
             $ret .= $this->href;
