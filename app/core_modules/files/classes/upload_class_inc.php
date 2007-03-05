@@ -159,7 +159,8 @@ class upload extends object
                     } else {
                         if ($giveResults) {
                             if (isset($storedName) && !empty($storedName)) {
-                                $this->moveUploadedFile($storedName);
+                                $ext = $this->getFileExtension();
+                                $this->moveUploadedFile($storedName.'.'.$ext);
                             } else {
                                 $this->moveUploadedFile();
                             }
