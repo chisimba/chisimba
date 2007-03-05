@@ -194,10 +194,10 @@ function ts_resortTable(sortLink,columnIndex){
     // Delete any other arrows there may be showing
     var allspans = document.getElementsByTagName("span");
     for(var spanIndex = 0; spanIndex < allspans.length; spanIndex++){
-        if(allspans[nodeIndex].className == 'sortarrow'){
+        if(allspans[spanIndex].className == 'sortarrow'){
             if(getParent(allspans[spanIndex],"table") == getParent(sortLink,"table")){
             // in the same table as us?
-                allspans[nodeIndex].innerHTML = '';
+                allspans[spanIndex].innerHTML = '';
             }
         }
     }
@@ -305,13 +305,13 @@ function addEvent(elm, evType, fn, useCapture)
 // cross-browser event handling for IE5+,  NS6 and Mozilla
 // By Scott Andrew
 {
-  if (elm.addEventListener){
-    elm.addEventListener(evType, fn, useCapture);
-    return true;
-  } else if (elm.attachEvent){
-    var r = elm.attachEvent("on"+evType, fn);
-    return r;
-  } else {
-    alert("Handler could not be removed");
-  }
+    if (elm.addEventListener){
+        elm.addEventListener(evType, fn, useCapture);
+        return true;
+    }else if(elm.attachEvent){
+        var r = elm.attachEvent("on"+evType, fn);
+        return r;
+    }else{
+        alert("Handler could not be removed");
+    }
 }
