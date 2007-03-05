@@ -832,13 +832,22 @@ class user extends dbTable
     /**
     * Method to check if this user is a context Lecturer
     * @author Jonathan Abrahams
-    * @since 9 March 2005
+    * @param string $userId: The id of the user to check | current user if not given
+    * @param string $contextCode: The context to check | current context if not given
     * @return true|false Return true if this user is a member of the context lecturers group.
     */
-    public function isContextLecturer()
+    public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
-       $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
-       return $objContextPermissions->isContextMember( 'Lecturers' );
+        if($userId == NULL && $contextCode == NULL){
+            $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+            return $objContextPermissions->isContextMember( 'Lecturers' );
+        }else{
+            $userId = isset($userId) ? $userId : $this->userId();
+            $contextCode = isset($contextCode) ? $contextCode : $this->getSession('contextCode');
+            $objGroupAdmin = $this->getObject('groupadminmodel', 'groupadmin');
+            $groupId = $objGroupAdmin->getLeafId(array($contextCode, 'Lecturers'));
+            return $objGroupAdmin->isGroupMember($this->PKId($userId), $groupId);            
+        }
     }
 
     /**
