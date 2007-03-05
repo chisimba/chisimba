@@ -72,7 +72,7 @@ $messages = array();
     
     $email = new textinput ('useradmin_email');
     $email->size = 30;
-    $email->extra = ' maxlength="25"';
+    $email->extra = ' maxlength="100"';
     
     if ($mode == 'addfixup') {
         $email->value = $this->getParam('useradmin_email');
@@ -310,7 +310,7 @@ $table->startRow();
     $textinput = new textinput ('useradmin_password');
     $textinput->fldType = 'password';
     $textinput->size = 15;
-    $textinput->extra = ' autocomplete="off" maxlength="10"';
+    $textinput->extra = ' autocomplete="off"';
     
     if ($mode == 'addfixup') {
         $howcreated = strtoupper($this->getParam('accounttype'));
@@ -350,7 +350,7 @@ $table->startRow();
     $textinput = new textinput ('useradmin_repeatpassword');
     $textinput->fldType = 'password';
     $textinput->size = 15;
-    $textinput->extra = ' autocomplete="off" maxlength="10"';
+    $textinput->extra = ' autocomplete="off"';
     
     if ($howcreated == 'LDAP') {
         $textinput->extra .= ' disabled="disabled"';
