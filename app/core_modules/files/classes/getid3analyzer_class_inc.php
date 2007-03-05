@@ -33,11 +33,18 @@ class getid3analyzer extends object
     */
     public function analyze($file)
     {
+        // Turn Off Errors
+        $displayErrors = ini_get('display_errors');
+        error_reporting(0);
+        
         $getID3 = new getID3();
                 
         $ThisFileInfo = $getID3->analyze($file);
         
         getid3_lib::CopyTagsToComments($ThisFileInfo);
+        
+        // Turn Errors back On
+        error_reporting($displayErrors);
         
         return $ThisFileInfo;
     }
