@@ -84,6 +84,7 @@ class fileicons extends object
             case 'eml' : $imagename = 'eml'; break;
             case 'eps' : $imagename = 'eps'; break;
             case 'exe' : $imagename = 'exe'; break;
+            case 'flv' : $imagename = 'flv'; break;
             case 'gif' : $imagename = 'gif'; break;
             case 'gz' : $imagename = 'tgz'; break; // Tar.gz
             case 'hlp' : $imagename = 'hlp'; break;
