@@ -84,7 +84,7 @@ class washout extends object
 					}
 				}
 				//The simplemap parser needs the simplemap module's class
-				if($currentParser == 'parse4simplemap')
+/*				if($currentParser == 'parse4simplemap')
 				{
 					if(file_exists($this->objConfig->getModulePath() . 'simplemap/classes/'))
 					{
@@ -93,7 +93,7 @@ class washout extends object
 					else {
 						continue;
 					}
-				}
+				}*/
 				$objCurrentParser = $this->getObject($currentParser, 'filters');
 				$txt = $objCurrentParser->parse($txt);
 			}
