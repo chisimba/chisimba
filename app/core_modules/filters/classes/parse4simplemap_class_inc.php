@@ -13,7 +13,7 @@ class parse4simplemap extends object
     
     function init()
     {
-        $this->objTlParser = $this->getObject('smapparser', 'simplemap');
+        $this->objSMParser = $this->getObject('smapparser', 'simplemap');
     }
     
     /**
@@ -29,7 +29,7 @@ class parse4simplemap extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $replacement = $this->objTlParser->getRemote($results['simplemaplink'][$counter]);
+            $replacement = $this->objSMParser->getRemote($results['simplemaplink'][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -49,7 +49,7 @@ class parse4simplemap extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $replacement = $this->objTlParser->getLocal($results['simplemaplink'][$counter]);
+            $replacement = $this->objSMParser->getLocal($results['simplemaplink'][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
