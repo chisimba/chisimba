@@ -45,7 +45,7 @@ class dropdown extends abhtmlbase implements ifhtml
 
    /**
   *
-  * @var boolean $multiple: When set allows multiple entries to be selected
+  * @var array $multipleselected: When set allows multiple entries marked as selected
   */
   public $multipleselected = array();
   
@@ -106,7 +106,7 @@ class dropdown extends abhtmlbase implements ifhtml
 
   /**
   * Method to set multiple selected values
-  * @param $valueArr Array : The value that you want selected
+  * @param $valueArr Array : An Array of values that you want selected
   */
   public function setMultiSelected($valueArr)
   {
