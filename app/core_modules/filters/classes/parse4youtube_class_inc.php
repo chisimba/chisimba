@@ -23,7 +23,7 @@ class parse4youtube extends object
     * @return The parsed string
     *
     */
-    function parse($str)
+    public function parse($str)
     {
         preg_match_all('/\\[YOUTUBE]<a.*?href="(?P<youtubelink>.*?)".*?>.*?<\/a>\\[\/YOUTUBE]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
@@ -39,7 +39,17 @@ class parse4youtube extends object
         return $str;
     }
     
-    function getVideoCode($link)
+    /**
+     * 
+     * Method to extract the video code from a youtube video link
+     * The video link is after ?v=CODE, so we can extract the params
+     * by splitting on ? and then the link by splitting on =
+     * @param string $link The youtube video link
+     * @return string The video code on Youtube
+     * @access private 
+     * 
+     */
+    private function getVideoCode($link)
     {
         $vCode = explode("?", $link);
         $vTxt = $vCode[1];
@@ -48,7 +58,15 @@ class parse4youtube extends object
         return $vTxt;
     }
     
-    function getVideoObject($videoId)
+    /**
+     * 
+     * Method to build the youtube video object code
+     * @param string $videoId The id of the Youtube video
+     * @return String The object code
+     * @access private
+     * 
+     */
+    private function getVideoObject($videoId)
     {
         return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/" 
           .  $videoId . "\"></param><param name=\"wmode\" value=\"transparent\"></param>"
