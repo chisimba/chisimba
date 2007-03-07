@@ -306,6 +306,17 @@ class upload extends object
                         if ($subfolder == 'images' || $originalsubfolder == 'images') {
                             $this->objThumbnails->createThumbailFromFile($savepath, $fileId);
                         }
+                    } else if ($subfolder == 'scripts' && ($file['type'] == 'application/xml' || $file['type'] == 'text/xml')) {
+            
+                        // Load Timeline Parser
+                        $objTimeline = $this->getObject('timelineparser', 'timeline');
+                        
+                        // Check if Valid
+                        if ($objTimeline->isValidTimeline($savepath)) {
+                            // If yes, change category to timeline
+                            $this->objFile->updateFileCategory($fileId, 'timeline');
+                        }
+                    
                     }
                     
                     

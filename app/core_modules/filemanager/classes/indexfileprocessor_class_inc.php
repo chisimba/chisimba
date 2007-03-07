@@ -54,6 +54,9 @@ class indexfileprocessor extends object
             }
         }
         
+        // Clean up any broken records
+        $this->objMediaFileInfo->cleanUpMismatchedMediaFiles();
+        
         return $indexedFiles;
     }
 
@@ -126,6 +129,18 @@ class indexfileprocessor extends object
             if ($category == 'images') {
                 $this->objThumbnails->createThumbailFromFile($savePath, $fileId);
             }
+            // Check if Timeline
+        } else if ($category == 'scripts' && $mimetype == 'application/xml') {
+            
+            // Load Timeline Parser
+            $objTimeline = $this->getObject('timelineparser', 'timeline');
+            
+            // Check if Valid
+            if ($objTimeline->isValidTimeline($savePath)) {
+                // If yes, change category to timeline
+                $this->objFile->updateFileCategory($fileId, 'timeline');
+            }
+        
         }
         
         return $fileId;
