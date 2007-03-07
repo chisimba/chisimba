@@ -57,6 +57,7 @@ class filepreview extends object
             case 'documents': $preview = $this->showDocument(); break;
             case 'archives': $preview = $this->showArchive(); break;
             case 'fonts': $preview = $this->showFont(); break;
+            case 'timeline': $preview = $this->showTimeline(); break;
         }
         return $preview;
     }
@@ -140,6 +141,7 @@ class filepreview extends object
             case 'wmv': return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
             case 'avi': return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
             case 'flv': return $this->objFileEmbed->embed($this->file['fullpath'], 'flv', $width, $height+26);
+            case 'ogg': return $this->objFileEmbed->embed($this->file['fullpath'], 'ogg', $width, $height+12);
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
@@ -292,6 +294,13 @@ class filepreview extends object
     function showFont()
     {
         return 'saffas';
+    }
+    
+    function showTimeline()
+    {
+        $objTimeline =& $this->getObject('timelineparser', 'timeline');
+        $objTimeline->setTimelineUri($this->file['path']);
+        return $objTimeline->show();
     }
 }
 ?>
