@@ -99,7 +99,7 @@ class timelineparser extends object
 				return $this->getLocal($tlId);	    
     		}    	    
     	} else {
-			return $this->getRemote();    	    
+			return $this->getRemote($this->uri);    	    
     	}
         
     }
@@ -160,6 +160,53 @@ class timelineparser extends object
 		  "timeLine" => $timeline), "timeline");
         $objIframe->src=$ret;
         return $objIframe->show();
+    }
+    
+    /**
+    * Method to test whether an XML file is a Valid Timeline
+    * @param string $timelinePath Path to Timeline
+    * @return boolean
+    */
+    public function isValidTimeline($timelinePath)
+    {
+        $xml = simplexml_load_file($timelinePath);
+        return $this->testTimeline($xml);
+    }
+
+    /**
+    * Method to test whether XML content of a file is Valid Timeline
+    * @param string $xml XML contents of a file
+    * @return boolean
+    * @access private
+    */
+    private function testTimeLine($xml)
+    {
+        $isTimeline = FALSE;
+        
+        // Test Root Element
+        if ($xml->getName() == 'data') {
+            $isTimeline = TRUE;
+        } else {
+            return FALSE;
+        }
+        
+        // Check Children
+        foreach ($xml->children() as $second_gen) 
+        {
+            if ($second_gen->getName() == 'event') {
+                $isTimeline = TRUE;
+                
+                if (count($second_gen->children()) == 0) {
+                    $isTimeline = TRUE;
+                } else {
+                    return FALSE;
+                }
+            } else {
+                return FALSE;
+            }
+        }
+        
+        return $isTimeline;
     }
 }
 ?>
