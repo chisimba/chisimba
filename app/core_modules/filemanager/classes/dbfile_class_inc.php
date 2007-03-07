@@ -238,22 +238,22 @@ class dbfile extends dbTable
         $results = $this->getAll($where);
         
         
-        if (!$latestVersionOnly) {
-            $finalResults =& $results;
-        } else {
+        // if (!$latestVersionOnly) {
+            // $finalResults =& $results;
+        // } else {
             // Need to do some processing to get only the latest results
             
-            $finalResults = array();
+            // $finalResults = array();
             
-            foreach ($results as $item)
-            {
-                if (!array_key_exists($item['filename'], $finalResults)) { 
-                    $finalResults[$item['filename']] = $item;
-                } 
-            }
-        }
+            // foreach ($results as $item)
+            // {
+                // if (!array_key_exists($item['filename'], $finalResults)) { 
+                    // $finalResults[$item['filename']] = $item;
+                // } 
+            // }
+        // }
         
-        return ($finalResults);
+        return ($results);
     }
     
     /**
@@ -277,7 +277,7 @@ class dbfile extends dbTable
     */
     public function getNumUniqueFiles($userId)
     {
-        $sql = 'SELECT DISTINCT filename FROM tbl_files WHERE userid=\''.$userId.'\' AND category != \'temp\'';
+        $sql = 'SELECT filename FROM tbl_files WHERE userid=\''.$userId.'\' AND category != \'temp\'';
         $result = $this->getArray($sql);
         return count($result);
     }
@@ -756,6 +756,17 @@ class dbfile extends dbTable
         } else { // Return False
             return FALSE;
         }
+    }
+    
+    /**
+    * Added function to move a file to another category
+    * @param string $fileId Record Id of the File
+    * @param string $category Name of New Category
+    * @return boolean Result of the Move
+    */
+    function updateFileCategory($fileId, $category)
+    {
+        return $this->update('id', $fileId, array('category'=>$category));
     }
 
     
