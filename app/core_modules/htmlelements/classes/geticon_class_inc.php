@@ -311,33 +311,31 @@ class getIcon extends object implements ifhtml
     * @param string $type The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
     */
-    public function getTextIcon($url, $name, $linkText, $float = TRUE, $type = 'gif', $iconfolder='icons/', $extra = NULL)
+    public function getTextIcon($url, $name, $linkText, $type = 'gif', $iconfolder='icons/', $extra = NULL)
     {
         $objLayer = $this->newObject('layer', 'htmlelements');
         $this->loadClass('link', 'htmlelements');
         
         $this->setIcon($name, $type, $iconfolder);
-        $this->extra = $extra." height='48px' width='48px'";        
+        $this->extra = $extra." height='40px' width='40px'";
         $this->title = $linkText;
-        $icon = "<p align='center' style='margin:0px; margin-left:-5px; padding:0px;'>".$this->show().$linkText.'</p>';
+        $icStr = $this->show();
+        
+        $icStr .= '<span>'.$linkText.'</span>';
         
         $objLink = new link($url);
-        $objLink->link = $icon;//$objLayer->show();
+        $objLink->link = $icStr;
+        $linkStr = $objLink->show();
         
-        $objLayer->str = $objLink->show();//$icon;
-        $objLayer->border = 'solid 1px #000; align:center; padding:0px; padding-left: 10px; padding-right:10px; padding-bottom:10px; margin-left:5px; margin-right:0px; width:45px; height:55px; ';
-        if(!($float === FALSE)){
-            $objLayer->border .= ' float:left';
-        }else{
-            $objLayer->border .= ' clear:both';
-        }
-       
+        $objLayer->str = $linkStr;
+        $objLayer->id = 'smallicon';
         
-        return $objLayer->show();//$objLink->show();
+        return $objLayer->show();
     }
-
+    
     /**
     * Method to return an icon / text combination link - an icon with text below encapsulated in a div
+    * The icons must be encapsulated in a div with id='cpanel'
     *
     * @author Megan Watson
     * @param string $url The uri generated path for the task to be performed
@@ -367,7 +365,7 @@ class getIcon extends object implements ifhtml
         
         return $objLayer->show();
     }
-    
+
     /**
     * Method to show the icon
     * @return the icon URL as a string
