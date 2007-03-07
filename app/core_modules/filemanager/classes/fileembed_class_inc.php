@@ -64,6 +64,8 @@ class fileembed extends object
                 return $this->showAVI($file, $width, $height);
             case 'flv':
                 return $this->showFLV($file, $width, $height);
+            case 'ogg':
+                return $this->showOggVideo($file, $width, $height);
         }
     }
     
@@ -250,6 +252,28 @@ class fileembed extends object
         $objBuildPlayer->height = $height;
         return $objBuildPlayer->show();
     }
+    
+    /**
+    * Method to show a FLV video
+    * @param string $file Path to the File
+    */
+    function showOggVideo($file, $width='100%', $height='400')
+    {
+        return '
+<applet code="com.fluendo.player.Cortado.class" 
+           archive="cortado-ovt-0.1.2.jar" codebase="core_modules/files/resources/cortado_ogg_player/" 
+	   width="'.$width.'" height="'.$height.'">
+     <param name="url" value="'.$file.'"/>
+     <param name="local" value="false"/>
+     <param name="duration" value="232"/>
+     <param name="keepAspect" value="true"/>
+     <param name="video" value="true"/>
+     <param name="audio" value="true"/>
+     <param name="bufferSize" value="200"/>
+     <param name="showStatus" value="show"/>
+   </applet>';
+    }
+    
 
 }
 
