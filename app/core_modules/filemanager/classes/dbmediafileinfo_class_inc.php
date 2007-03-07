@@ -35,6 +35,9 @@ class dbmediafileinfo extends dbTable
         return $this->insert($infoArray);
     }
     
+    /**
+    * Method to clean up records that have no matching data in tbl_files
+    */
     function cleanUpMismatchedMediaFiles()
     {
         $sql = 'SELECT tbl_files_metadata_media.id, tbl_files.id as files_id FROM tbl_files_metadata_media  LEFT JOIN tbl_files ON (tbl_files_metadata_media.fileid = tbl_files.id) WHERE tbl_files.id IS NULL';
