@@ -42,6 +42,12 @@ class dropdown extends abhtmlbase implements ifhtml
   * @var boolean $multiple: When set allows multiple entries to be selected
   */
   public $multiple = FALSE;
+
+   /**
+  *
+  * @var boolean $multiple: When set allows multiple entries to be selected
+  */
+  public $multipleselected = array();
   
   /**
   *
@@ -98,6 +104,15 @@ class dropdown extends abhtmlbase implements ifhtml
 	}
   }
 
+  /**
+  * Method to set multiple selected values
+  * @param $valueArr Array : The value that you want selected
+  */
+  public function setMultiSelected($valueArr)
+  {
+		$this->multipleselected=$valueArr;
+  }
+
 
   /*
 	* Method to set the cssId class
@@ -137,8 +152,22 @@ class dropdown extends abhtmlbase implements ifhtml
 	foreach ($this->options as $opt => $lbl)
 	{
 		$str.='<option value="'.$opt.'"';
-		if($this->selected==$opt){
-			$str.=' selected="selected"';
+		
+		if($this->multipleselected)
+		{
+			foreach($this->multipleselected as $mselect)
+			{
+				if($mselect==$opt)
+				{
+					$str.=' selected="selected"';
+				}
+			}
+		}
+		else
+		{
+			if($this->selected==$opt){
+				$str.=' selected="selected"';
+			}
 		}
 		$str.='>';
 		$str.=$lbl;
