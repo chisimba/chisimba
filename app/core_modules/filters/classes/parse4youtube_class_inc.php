@@ -13,7 +13,7 @@ class parse4youtube extends object
     
     function init()
     {
-        $this->objTlParser = $this->getObject('timelineparser', 'timeline');
+        
     }
     
     /**
