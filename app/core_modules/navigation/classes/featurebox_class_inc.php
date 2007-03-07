@@ -20,11 +20,18 @@ if (!$GLOBALS['kewl_entry_point_run']){
 class featurebox extends object
 {
     /**
+    *
+    * @var string $id: the ID tag from the CSS
+    * @access public
+    */
+    public $id;
+
+    /**
     * Method to construct the class.
     **/
     public function init()
     {
-
+        $this->id = '';
     }
 
     /**
@@ -37,7 +44,12 @@ class featurebox extends object
     public function show($title = null, $content = null)
     {
 
-  		$sidebar = '<div class="featurebox">';
+  		$sidebar = '<div class="featurebox"';
+  		if($this->id != NULL){
+            $sidebar .= ' id="'.$this->id.'">';
+        }else{
+            $sidebar .= '>';
+        }
 		$sidebar .= '	<h5>'.$title.'</h5>';
 		$sidebar .= '<small>'.$content.'</small>';
 
