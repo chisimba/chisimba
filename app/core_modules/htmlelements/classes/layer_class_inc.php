@@ -106,6 +106,12 @@ class layer extends object implements ifhtml
     public $textalign;
 
     /**
+    * @var string $display: use to determine if the layer takes up space
+    * block|none
+    */
+    public $display;
+
+    /**
      * Initialization method to set default values
      * @todo -clayer Implement layer. Which ones should be  Null?
      */
@@ -130,6 +136,7 @@ class layer extends object implements ifhtml
         $this->align = null;
         $this->textalign = null;
         $this->clear = null;
+        $this->display = 'block';
     }
 
     /**
@@ -212,6 +219,9 @@ class layer extends object implements ifhtml
 	        }
             if ($this->visibility) {
 	            $ret .= "visibility : " . $this->visibility . "; ";
+	        }
+            if ($this->display) {
+	            $ret .= "display : " . $this->display . "; ";
 	        }
             if ($this->zIndex) {
 	            $ret .= "zIndex : " . $this->zIndex . "; ";
