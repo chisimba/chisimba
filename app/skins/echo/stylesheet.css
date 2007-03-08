@@ -166,7 +166,7 @@ th.header, thead, td.heading, tr.heading, th {
 }
 
 table.highlightrows tr:hover {
-	background-color: lightgrey;
+	background-color: #D3D3D3;
 }
 
 .odd, td.odd, tr.odd{
