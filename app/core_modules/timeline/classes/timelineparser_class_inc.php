@@ -99,7 +99,7 @@ class timelineparser extends object
 				return $this->getLocal($tlId);	    
     		}    	    
     	} else {
-			return $this->getRemote($this->uri);    	    
+			return $this->getRemote($this->uri);
     	}
         
     }
@@ -129,16 +129,19 @@ class timelineparser extends object
 		    $intervalpixels = $ar['intervalpixels'];
 		    $intervalunit = $ar['intervalunit'];
 		    $tlheight = $ar['tlheight'];
+        	$ret = $this->uri(array(
+			  "mode" => "plain",
+	          "action" => "viewtimeline",
+	          "focusDate" => $focusdate,
+	          "intervalPixels" => $intervalpixels,
+	          "intervalUnit" => $intervalunit,
+	          "tlHeight" => $tlheight,
+			  "timeLine" => $url), "timeline");
+			$objIframe->height=$tlheight + 5;
+		} else {
+			$objIframe->height=200;
+			$ret = $this->uri(array("action" => "sendnotfounderror"), "timeline");
 		}
-		$objIframe->height=$tlheight + 5;
-        $ret = $this->uri(array(
-		  "mode" => "plain",
-          "action" => "viewtimeline",
-          "focusDate" => $focusdate,
-          "intervalPixels" => $intervalpixels,
-          "intervalUnit" => $intervalunit,
-          "tlHeight" => $tlheight,
-		  "timeLine" => $url), "timeline");
         $objIframe->src=$ret;
         return $objIframe->show();
     }
@@ -154,11 +157,15 @@ class timelineparser extends object
         $objIframe = $this->getObject('iframe', 'htmlelements');
     	$objIframe->width = "100%";
     	$objIframe->height="330";
-        //$uri = $this->uri;
-        $ret = $this->uri(array("mode" => "plain",
-          "action" => "viewtimeline", 
-		  "timeLine" => $timeline), "timeline");
-        $objIframe->src=$ret;
+     	//if ($this->urlExists($timeline)) {
+	        $ret = $this->uri(array("mode" => "plain",
+	          "action" => "viewtimeline", 
+			  "timeLine" => $timeline), "timeline");
+    	//} else {
+		//	$objIframe->height=200;
+		//	$ret = $this->uri(array("action" => "sendnotfounderror"), "timeline"); 
+    	//}
+		$objIframe->src=$ret;
         return $objIframe->show();
     }
     
@@ -207,6 +214,24 @@ class timelineparser extends object
         }
         
         return $isTimeline;
+    }
+    
+    //WORKING HERE --Derek
+    function urlExists($url) {
+    	die($url);
+	    $resURL = curl_init();
+	    curl_setopt($resURL, CURLOPT_URL, $url);
+	    curl_setopt($resURL, CURLOPT_BINARYTRANSFER, 1);
+	    curl_setopt($resURL, CURLOPT_HEADERFUNCTION, 'curlHeaderCallback');
+	    curl_setopt($resURL, CURLOPT_FAILONERROR, 1);
+	    curl_exec ($resURL);
+	    $intReturnCode = curl_getinfo($resURL, CURLINFO_HTTP_CODE);
+	    curl_close ($resURL);
+	    if ($intReturnCode != 200 && $intReturnCode != 302 && $intReturnCode != 304) {
+	       return FALSE;
+	    } else {
+	        return TRUE;
+	    }
     }
 }
 ?>

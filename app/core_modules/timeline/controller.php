@@ -157,6 +157,38 @@ class timeline extends controller
     
     /**
     * 
+    * Method corresponding to the teststream action. It hands everything over to the
+    * demo template.
+    * 
+    * @access private
+    * 
+    */
+    private function __teststream()
+    {
+    	//Instantiaate the object for creating timelines
+        $objTl = $this->getObject("createtimeline", "timeline");
+    	$str = $objTl->teststream();
+        //Add the local script to the page header
+        $this->appendArrayVar('headerParams',$objTl->getScript());
+    	$this->setVarByRef("str", $str);
+        return "viewtimeline_tpl.php";
+    }
+    
+    private function __sendnotfounderror() {
+            $this->setVar('pageSuppressContainer',TRUE);
+	        $this->setVar('suppressFooter', TRUE); # suppress default page footer
+	        $this->setVar('pageSuppressIM', TRUE);
+	        $this->setVar('pageSuppressToolbar', TRUE);
+	        $this->setVar('pageSuppressBanner', TRUE);
+	        $this->setVarByRef("str", $str);
+	        $str = "<h1><div class=\"error\">" 
+	          . $this->objLanguage->languageTExt("mod_timeline_error_localnotfound", "timeline")
+	          . "</div></h1>";
+        	return "dump_tpl.php";
+    }
+    
+    /**
+    * 
     * Method corresponding to the testparser action. It catches the URL for the timeline
     * module and hands it over to the template. This is a unit test of sorts, and it not
     * really meant to have any end user functionality.
@@ -221,22 +253,45 @@ class timeline extends controller
         return "editadd_tpl.php";
     }
     
+    /**
+    * 
+    * Method to add a new timeline structure or 
+    * configuration. It provides the edit/add template
+    * for creating a new entry.
+    * 
+    * @access private
+    * @return string The rendered edit/add template
+    * 
+    */
     private function __addstructure()
     {
         return "editadd_tpl.php";
     }
     
+    /**
+    * 
+    * Method to save a timeline structure or 
+    * configuration
+    * @access private
+    * @return The next action to view all
+    * 
+    */
     private function __savestructure()
     {
     	$objDb = $this->getObject("dbstructure", "timeline");
     	$mode = $this->getParam("mode", NULL);
     	$objDb->saveData($mode);
-        $objShowData = $this->getObject("structureinterface", "timeline");
-        $str = $objShowData->show();
-        $this->setVarByRef("str", $str);
-        return 'viewall_tpl.php';
+        return $this->nextAction("viewall");
     }
     
+    /**
+    * 
+    * Method to delete a saved timeline structure or 
+    * configuration
+    * @access private
+    * @return The next action to view all
+    * 
+    */
     private function __deletestructure()
     {
         $id = $this->getParam('id', null);
@@ -244,6 +299,27 @@ class timeline extends controller
         // Delete the record from the database
         $objDb->deleteRecord("id", $id);
         return $this->nextAction('viewall', array());
+    }
+    
+    //THIS IS WORK IN PROGRESS
+    private function __edittimeline()
+    {
+        $str="Working here";
+        $this->setVarByRef("str", $str);
+        return 'editaddtimeline_tpl.php';
+    }
+    
+    /**
+    * 
+    * Method for adding a timeline 
+    * //THIS IS WORK IN PROGRESS
+    * 
+    */
+    private function __addtimeline()
+    {
+        $str="Working here for adding";
+        $this->setVarByRef("str", $str);
+        return 'editaddtimeline_tpl.php';
     }
     
     /**

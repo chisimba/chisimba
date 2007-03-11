@@ -54,6 +54,10 @@ if (isset($ar)) {
     $focusdate = $ar['focusdate'];
     $intervalpixels = $ar['intervalpixels'];
     $intervalunit = $ar['intervalunit'];
+    $showbottomband = $ar['showbottomband'];
+    $btmbandwidth = $ar['btmbandwidth'];
+    $btminterval = $ar['btminterval'];
+    $btmintervalpixels = $ar['btmintervalpixels'];
     $tlheight = $ar['tlheight'];
     $created = $ar['created'];
     $modified = $ar['modified'];
@@ -66,6 +70,10 @@ if (isset($ar)) {
     $intervalpixels = "70";
     $intervalunit = "YEAR";
     $tlheight = "400";
+    $showbottomband = "FALSE";
+    $btmbandwidth = "";
+    $btminterval = "";
+    $btmintervalpixels = "";
     $created = "";
     $modified = "";
 }
@@ -150,13 +158,44 @@ $objElement->setValue($intervalunit);
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
-//Set the value of the element to tlheight
 //Create a text input element for $tlheight
 $objElement = new textinput("tlheight");
 $objElement->setValue($tlheight);
 $objElement->size=10;
 //Add the $tlheight element to the form
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+
+//Create a text input element for $tlheight
+$objElement = new textinput("showbottomband");
+$objElement->setValue($showbottomband);
+$objElement->size=10;
+//Add the $tlheight element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_showbottomband", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  
+//Create a text input element for $btmbandwidth
+$objElement = new textinput("btmbandwidth");
+$objElement->setValue($btmbandwidth);
+$objElement->size=10;
+//Add the $tlheight element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btmbandwidth", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+
+//Create a text input element for $btminterval
+$objElement = new textinput("btminterval");
+$objElement->setValue($btminterval);
+$objElement->size=10;
+//Add the $tlheight element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btminterval", 
+  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  
+//Create a text input element for $btmintervalpixels
+$objElement = new textinput("btmintervalpixels");
+$objElement->setValue($btmintervalpixels);
+$objElement->size=10;
+//Add the $tlheight element to the form
+$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btmintervalpixels", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to created

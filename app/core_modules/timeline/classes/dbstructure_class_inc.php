@@ -74,6 +74,14 @@ class dbstructure extends dbtable
         $intervalunit = $this->getParam('intervalunit', NULL);
         //Retrieve the value of $tlheight
         $tlheight = $this->getParam('tlheight', NULL);
+        //Retrieve the value of $showbottomband
+        $showbottomband = $this->getParam('showbottomband', NULL);
+        //Retrieve the value of $btmbandwidth
+        $btmbandwidth = $this->getParam('btmbandwidth', NULL);
+        //Retrieve the value of $btminterval
+        $btminterval = $this->getParam('btminterval', NULL);
+        //Retrieve the value of $btmintervalpixels
+        $btmintervalpixels = $this->getParam('btmintervalpixels', NULL);
 
         //If coming from edit use the update code
         if ($mode=="edit") {
@@ -85,6 +93,10 @@ class dbstructure extends dbtable
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,
               'tlheight' => $tlheight,
+              'showbottomband' => $showbottomband,
+              'btmbandwidth' => $btmbandwidth,
+              'btminterval' => $btminterval,
+              'btmintervalpixels' => $btmintervalpixels,
               'modified' => $this->now(),
               'modifierid' => $this->objUser->userId()
             );
@@ -97,6 +109,10 @@ class dbstructure extends dbtable
               'focusdate' => $focusdate,
               'intervalpixels' => $intervalpixels,
               'intervalunit' => $intervalunit,
+              'showbottomband' => $showbottomband,
+              'btmbandwidth' => $btmbandwidth,
+              'btminterval' => $btminterval,
+              'btmintervalpixels' => $btmintervalpixels,
               'tlheight' => $tlheight,
               'created' => $this->now(),
               'creatorid' => $this->objUser->userId()

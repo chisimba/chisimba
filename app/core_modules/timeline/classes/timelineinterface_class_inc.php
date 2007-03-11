@@ -3,7 +3,7 @@
 
 /**
 *
-* Class for providing interface elements to the stories module
+* Class for providing interface elements to the timeline module
 *
 * @author Derek Keats
 *
@@ -103,7 +103,6 @@ class structureinterface extends object {
     {
     	$this->setFields();
     	$this->makeViewTable();
-
     	$this->addHeaderRowToTable();
     	$this->getData();
     	$this->addDataRowsToTable();
@@ -119,7 +118,9 @@ class structureinterface extends object {
     private function setFields()
     {
         $this->fields = array("id", "start", "end", "isduration", 
-  		  "title", "timelinetext", "created", "modified", "isdeleted");
+  		  "title", "timelinetext", "showbottomband", "btmbandwidth", 
+          "btminterval", "btmintervalpixels", "created", "modified", 
+          "isdeleted");
     }
     
     /**
@@ -128,7 +129,7 @@ class structureinterface extends object {
      * @access Private
      * 
      */
-    private function makeViewTable()
+    private function makeViewTable() 
     {
         $this->viewTable = "<table width=\"100%\" class=\"viewsimple\" id=\"viewdatasimple\">{TABLECONTENTS}</table>";
     }
@@ -202,6 +203,7 @@ class structureinterface extends object {
      */
     private function getData()
     {
+    	die("THIS IS USED");
         //Create list of fields for select
         $ix = 1; 
         $flStr = "";

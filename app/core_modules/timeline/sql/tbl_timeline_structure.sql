@@ -56,6 +56,22 @@ $fields = array(
 		'length' => 25,
 		'notnull' => 1,
 		),
+	'showbottomband' => array(
+		'type' => 'text',
+		'length' => 5,
+		),
+	'btmbandwidth' => array(
+		'type' => 'text',
+		'length' => 5,
+		),
+ 	'btminterval' => array(
+		'type' => 'text',
+		'length' => 32
+		),
+	'btmintervalpixels' => array(
+		'type' => 'text',
+		'length' => 25
+		),
 	'created' => array(
 		'type' => 'timestamp',
 		'notnull' => 1,

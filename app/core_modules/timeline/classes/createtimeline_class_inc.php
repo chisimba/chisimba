@@ -78,7 +78,6 @@ class createtimeline extends object
     */
     public function init()
     {
-    	//die($this->getResourceUri('deadfile.js'));
         //Create the configuration object
         $this->objConfig = $this->getObject('dbsysconfig', 'sysconfig');
         //Create the config reader and get the location of demo maps
@@ -109,6 +108,12 @@ class createtimeline extends object
         $ret="";
         $ret .= $this->_getDiv();
         $ret .= $this->_getDisplayFrame();
+        return $ret;
+    }
+    
+    public function teststream()
+    {
+    	die("Working here");
         return $ret;
     }
 
@@ -148,7 +153,16 @@ class createtimeline extends object
      */
     public function getScript()
     {
-        return "\n\n<script language=\"javascript\"><!--
+		$showBottomBand = $this->getParam("showbottomband", FALSE);
+		if ($showBottomBand=="TRUE") {
+		    $btmBandWidth = $this->getParam("btmbandwidth", "0");
+		    $tlBandWidth = 100-$btmBandWidth;
+		    $tlBandWidth = $tlBandWidth . "%";
+		    $btmBandWidth = $btmBandWidth . "%";
+		} else {
+		    $tlBandWidth = "100%";
+		}
+        $ret = "\n\n<script language=\"javascript\"><!--
 			var tl;
 			var eventSource = new Timeline.DefaultEventSource();
 			function onLoad() {
@@ -156,15 +170,15 @@ class createtimeline extends object
 			    Timeline.createBandInfo({
 			        eventSource:    eventSource,
 			        date:           \"" . $this->focusDate . "\",
-			        width:          \"100%\", 
+			        width:          \"$tlBandWidth\", 
 			        intervalUnit:   Timeline.DateTime." . $this->intervalUnit . ", 
 			        intervalPixels: " . $this->intervalPixels . "
-			    })
-			  ];
+			    }){BOTTOMBAND}
+			  ];{LOCKTOGETHER}
 			  tl = Timeline.create(document.getElementById(\"my-timeline\"), bandInfos);
 			  Timeline.loadXML(\"" . $this->timeLine . "\", function(xml, url) { eventSource.loadXML(xml, url); });
 			}
-			
+
 			var resizeTimerID = null;
 			function onResize() {
 			    if (resizeTimerID == null) {
@@ -176,6 +190,16 @@ class createtimeline extends object
 			}
 			-->
 			</script>\n\n";
+		
+		if ($showBottomBand=="TRUE") {
+		    $ret = str_replace("{BOTTOMBAND}", ",\n " . $this->getBottomBand($btmBandWidth), $ret); 
+			$lockT = "\n  			  bandInfos[1].syncWith = 0;\n  			  bandInfos[1].highlight = true;";
+			$ret = str_replace("{LOCKTOGETHER}", $lockT, $ret);
+		} else {
+		    $ret = str_replace("{BOTTOMBAND}", "", $ret);
+		    $ret = str_replace("{LOCKTOGETHER}", "", $ret);
+		}
+		return $ret;
 		//end of script
     }
 
@@ -198,7 +222,7 @@ class createtimeline extends object
         if ($showTextDisplay=='TRUE') {
             $objFrame = $this->getObject('iframe', 'htmlelements');
             $objFrame->src="";
-            $objFrame->width="99%";
+            $objFrame->width="100%";
             $objFrame->height="400px";
             $objFrame->align="center";
             $objFrame->id="TimelineDisplayFrame";
@@ -207,6 +231,20 @@ class createtimeline extends object
         } else {
             return NULL;
         }
+    }
+    
+    function getBottomBand($btmbandwidth) {
+        $btmInterval = $this->getParam("btminterval", "YEAR");
+        $btmIntervalPx = $this->getParam("btmintervalpixels", "100");
+        return "                           Timeline.createBandInfo({
+			        showEventText:  false,
+			        trackHeight:    0.5,
+			        trackGap:       0.2,
+					date:           \"$this->focusDate\",
+					width:          \"$btmbandwidth\", 
+					intervalUnit:   Timeline.DateTime.$btmInterval, 
+					intervalPixels: $btmIntervalPx
+				}),";
     }
 }
 ?>

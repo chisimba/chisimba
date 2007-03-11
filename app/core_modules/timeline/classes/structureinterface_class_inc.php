@@ -118,7 +118,9 @@ class structureinterface extends object {
     private function setFields()
     {
         $this->fields = array("id", "title", "description", "url", "focusdate", 
-  		  "intervalpixels", "intervalunit", "tlheight", "created", "creatorid");
+  		  "intervalpixels", "intervalunit", "tlheight", "showbottomband", 
+	      "btmbandwidth", "btminterval", "btmintervalpixels", "created", 
+          "creatorid");
     }
     
     /**
@@ -148,9 +150,11 @@ class structureinterface extends object {
         	$n = 0;
         	$tmp="";
         	foreach ($this->fields as $field) {
-        		if ($field !== 'focusdate' //$field !== 'id' && 
-        		   && $field !== 'tlheight' 
-        		   && $field !== "creatorid") {
+    	    	if ($field !== 'focusdate' && $field !== 'tlheight' 
+    	    	  && $field !== 'intervalpixels' && $field !== 'intervalunit'
+    	    	  && $field !== 'creatorid' && $field !== 'showbottomband'
+    	    	  && $field !== 'btmbandwidth' && $field !== 'btminterval'
+    	    	  && $field !== 'btmintervalpixels') {
         		   	$paramArray = array('action' => 'viewall', 
  				      'order' => $field);
 		        	$tmp .= "<td class=\"heading\"><a href=\""
@@ -233,6 +237,22 @@ class structureinterface extends object {
         		$viewLink = $this->objLanguage->languageText("mod_timeline_vw", "timeline");
 	        	foreach ($this->dataAr as $row) {
 	        	    $oddOrEven = ($rowcount == 0) ? "odd" : "even";
+	        	    if ($row["showbottomband"]=="TRUE") {
+		    			$myself = $this->uri(array(
+		    			  "action" => "viewtimeline",
+	    				  "viewtype" => "viewLocal",
+		    			  "title" => $row["title"],
+		    			  "focusDate" => $row["focusdate"],
+		    			  "intervalUnit" => $row["intervalunit"],
+		    			  "tlHeight" => $row["tlheight"],
+		    			  "showbottomband" => $row["showbottomband"],
+		      			  "btmbandwidth" => $row["btmbandwidth"],
+						  "btminterval" => $row["btminterval"],
+						  "btmintervalpixels" => $row["btmintervalpixels"],
+		    			  "intervalPixels" => $row["intervalpixels"],
+		    			  "timeLine" => $row["url"]
+		    			  ), "timeline");
+	        	    } else {
 	    			$myself = $this->uri(array(
 	    			  "action" => "viewtimeline",
     				  "viewtype" => "viewLocal",
@@ -243,9 +263,14 @@ class structureinterface extends object {
 	    			  "tlHeight" => $row["tlheight"],
 	    			  "intervalPixels" => $row["intervalpixels"]
 	    			  ), "timeline");
+	        	    }
+
 	        	    foreach ($this->fields as $field) {
-	        	    	if ($field !== 'focusdate'
-	        	    	  && $field !== 'tlheight'  && $field !== "creatorid" ) {
+	        	    	if ($field !== 'focusdate' && $field !== 'tlheight'  
+	        	    	  && $field !== 'intervalpixels' && $field !== 'intervalunit'
+	        	    	  && $field !== 'creatorid' && $field !== 'showbottomband'
+	        	    	  && $field !== 'btmbandwidth' && $field !== 'btminterval'
+	        	    	  && $field !== 'btmintervalpixels' && $field !== 'btminterval') {
 	        	    		if ($field !== 'url') {
 	        	    		    $str .= "<td class=\"" . $oddOrEven . "\">" . $row[$field] . "</td>\n";
 	        	    		} else {
