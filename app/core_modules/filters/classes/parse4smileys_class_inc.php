@@ -36,68 +36,70 @@ class parse4smileys extends object {
     function parseSmiley($str)
     {
         static $smileyIcons = array(
-        '\:\-\)'  => 'smiley',
-        '\:\)'   => 'smiley',
-        '\[smile\]'   => 'smiley',
-        '\:\-D'  => 'biggrin',
-        '\[biggrin\]'  => 'biggrin',
-        ';\)'  => 'wink',
-        ';\-\)'  => 'wink',
-        '\[wink\]'  => 'wink',
-        '\:\-\/'  => 'mixed',
-        '\[mixed\]'  => 'mixed',
-        'V\-\.'  => 'thoughtful',
-        '\[thoughtful\]'  => 'thoughtful',
-        '\[thinking\]'  => 'thoughtful',
-        '\[think\]'  => 'thoughtful',
-        '\:\-P'  => 'tongueout',
-        '\[tongueout\]'  => 'tongueout',
-        '\[tongue\]'  => 'tongueout',
-        'B\-\)'  => 'cool',
-        '\[cool\]'  => 'cool',
-        '\^\-\)'  => 'approve',
-        '\[approve\]'  => 'approve',
-        '\[ok\]'  => 'approve',
-        '8\-\)'  => 'wideeyes',
-        '\[wideeyes\]'  => 'wideeyes',
-        '\:o\)'  => 'clown',
-        '\[clown\]'  => 'clown',
-        '\:\-\('  => 'sad',
-        '\:\('   => 'sad',
-        '\[sad\]'  => 'sad',
-        '8\-.'  => 'shy',
-        '\[shy\]'  => 'shy',
-        '\:\-I'  => 'blush',
-        '\[blush\]'  => 'blush',
-        '\:\-X'  => 'kiss',
-        '\[kiss\]'  => 'kiss',
-        '8\-o'  => 'surprise',
-        '\[surprise\]'  => 'surprise',
-        'P\-\|'  => 'blackeye',
-        '\[blackeye\]'  => 'blackeye',
-        '8\-\['  => 'angry',
-        '\[angry\]'  => 'angry',
-        'xx\-P' => 'dead',
-        '\[dead\]'  => 'dead',
-        '\|\-\.'  => 'sleepy',
-        '\[sleepy\]'  => 'sleepy',
-        '\}\-\]'  => 'evil',
-        '\[evil\]'  => 'evil'
+        '>-)' => 'alien',
+        '0:)' => 'angel', 'O:)' => 'angel', 'o:)' => 'angel',
+        'X-(' => 'angry', 'x-(' => 'angry',
+        '=D>' => 'applause',
+        'b-(' => 'black_eye', 'P-(' => 'black_eye', 'p-(' => 'black_eye',
+        ':"(' => 'bye',
+        ':p' => 'cheeky', ':P' => 'cheeky', ':-p' => 'cheeky', ':-P' => 'cheeky',
+        '~:>' => 'chicken',
+        ':o)' => 'clown', ':O)' => 'clown', ':0)' => 'clown',
+        ':-/' => 'confused',
+        'B-)' => 'cool',
+        '<):)' => 'cowboy',
+        '8-}' => 'crazy',
+        ':((' => 'cry',
+        '/:D/' => 'dance_of_joy',
+        '#-o' => 'doh',
+        '=P~' => 'drool', '=p~' => 'drool', '=b~' => 'drool',
+        ':">' => 'embarrassed',
+        '>:)' => 'evil',
+        ':-L' => 'frustrated',
+        '>:D<' => 'hug',
+        ':D' => 'grin', ':-D' => 'grin', '[grin]' => 'grin',
+        '@-)' => 'hypnotised',
+        '*-:)' => 'idea',
+        ':*' => 'kiss',
+        ':))' => 'laugh',
+        ':x' => 'love', ':X' => 'love',
+        ':-B' => 'nerd',    
+        '[-(' => 'not_talking',
+        '[-o<' => 'praying', '[-O<' => 'praying', '[-0<' => 'praying',
+        '/:)' => 'raise_eyebrow',
+        '8-|' => 'roll_eyes',
+        '@};-' => 'rose',
+        ':(' => 'sad', ':-(' => 'sad',
+        '[-X' => 'shame_on_you', '[-x' => 'shame_on_you',
+        ':O' => 'shocked', ':o' => 'shocked', ':0' => 'shocked',
+        ';;)' => 'shy',
+        ':-&' => 'sick',
+        '8-X' => 'skull', 'xx-P' => 'skull', '8-x' => 'skull', 'XX-P' => 'skull', 
+        'I-)' => 'sleeping',
+        ':)>-' => 'victory',
+        ':)' => 'smile', ':-)' => 'smile', '[smile]' => 'smile',
+        '(:|' => 'tired',
+        ':|' => 'straight_face',
+        ':-?' => 'thinking',
+        ':-"' => 'whistle',
+        ';)' => 'wink', ';-)' => 'wink', '[wink]' => 'wink',
+        ':-s' => 'worried', ':-S' => 'worried',
+
         );
-        //Get an instance of the config object
-        $objConfig = & $this->getObject('altconfig', 'config');
+        $objIcon = &$this->getObject('geticon', 'htmlelements');
         /* 
         *  Loop through the array and make the arrays for 
         *  $test and $replace for the regex. This is done because
         *  it is otherwise hard to keep track of the smileys 
         */ 
         foreach ($smileyIcons as $smiley => $image){
-            $test[] = "/".$smiley."/isU";
-            $replace[] = "<img alt=\"$image\" width=\"15\" height=\"15\" 
-              src=\"core_modules/filters/resources/smileys/$image.gif\" />";
+            $test[] = $smiley;
+            $objIcon->setIcon($image, 'gif', 'icons/smileys/');
+            $icon = $objIcon->show();
+            $replace[] = $icon;
         }
         
-        return preg_replace($test, $replace, $str);
+        return str_replace($test, $replace, $str);
 
     } # end of function
     
