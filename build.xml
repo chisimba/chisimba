@@ -54,10 +54,13 @@
     <exclude name="app/skins/consolglass/**"/>
     <exclude name="app/skins/digfreedom/**"/>
     <exclude name="app/skins/freecourseware/**"/>
+    <exclude name="app/skins/Freecourseware/**"/>
     <exclude name="app/skins/madiba/**"/>
+    <exclude name="app/skins/madibawide/**"/>
     <exclude name="app/skins/meritunu/**"/>
     <exclude name="app/skins/sems/**"/>
     <exclude name="app/skins/tabeisa/**"/>
+    <exclude name="app/skins/uonbi/**"/>
     
     <!-- until these are removed from CVS we exclude them from archives -->
     <exclude name="app/skins/echo/echo_psds/**"/>
