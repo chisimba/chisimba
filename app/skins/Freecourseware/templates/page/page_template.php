@@ -149,16 +149,22 @@ if (isSet($bodyParams)) {
 ?>
 	
 	<div id="header">
-		<h1 id="sitename"><span></span></h1> 
-	
-				<ul class="freecoursewarenav">
+		<div id="sitename"> </div>
+		<div id="freecoursewarenav">
+			<ul class="freecoursewarenav">
 				<a href="index.php?module=cms" class="freebutton">Home</a>
 				<a href="index.php?module=blog&amp;action=siteblog" class="freebutton">Blog</a>
 				<a href="index.php?module=wiki" class="freebutton">Wiki</a>
-				</ul>
-	
-			<?php if ($objUser->isLoggedIn()) {?>
-							
+			</ul>
+		</div>
+
+		<div id="ocwc_logo">UWC is a member of the <a href='http://www.ocwconsortium.org/'><img src='/chisimba_framework/app/skins/Freecourseware/images/ocwcsquarelogo.gif' border='0' height='25'></img></a>
+		</div>
+
+<?php
+// For now we don't need login / logout
+/*	
+			<?php if ($objUser->isLoggedIn()) {?>		
 				<div id="loginfields">
 				<b>Logged in as:</b>
 				<?php	
@@ -167,7 +173,6 @@ if (isSet($bodyParams)) {
 				?>
 				<input type="submit" value="Logout" class="f-submit" onclick="javascript:window.location='index.php?module=security&amp;action=logoff'" />
 				</div>
-
 			<?php } ?>
 
 
@@ -180,7 +185,6 @@ if (isSet($bodyParams)) {
 				<form class="login" name="login_form" id="login_form" method="post" action='<?php echo $formAction ?>'><p><input name="username" value="Username" type="text" id="username" class="text prelogin" onclick="clearfocus();" />&nbsp;<input name="password"  type="password" id="password" class="text prelogin" />&nbsp;<input type="checkbox" name="useLdap" value="yes" class="transparentbgnb" title="Network Id" />&nbsp;<input name="Submit" type="submit" class="button" onclick="KEWL_validateForm('username','','R','password','','R');return document.KEWL_returnValue" value="Login"/></p></form>
 				</div>
 			<?php } ?>
-
 
 <script language='javascript'>
        	   
@@ -200,6 +204,9 @@ if (isSet($bodyParams)) {
 					</form>
 				</div>
 <?php } ?>	     
+
+*/
+?>
 				<?php
 				 if (!isset($pageSuppressToolbar)) {
 				 	$menu=& $this->getObject('menu','toolbar');
@@ -230,15 +237,21 @@ if (!isset($suppressFooter)) {
     
     //$this->footerNav->str = $copyRight . "<br />" . $privacyPolicy;
     echo $this->footerNav->show();
+    
 }
 ?>
+
 
 <?php if (!isset($pageSuppressContainer)) { ?>
 	 </div>
 <?php } ?>
+
+
 <?php
  $this->putMessages();
 ?>
+
+
 
 </body>
 </html>

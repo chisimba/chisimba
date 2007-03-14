@@ -6,43 +6,63 @@ body {
 
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
 
+/*** Main containe for all content on the page ***/
+div#container {
+	border-right: 15px solid	#FFFFFF;
+	border-left: 15px solid	#FFFFFF;
+	border-bottom: 15px solid	#FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	width:850px;
+}
+	
 div#header {
-
 	color: #000;
-	padding: 5px 5px 10px 5px;
-}
-#sitename
-{
-background: #fff url("images/banner1.gif") no-repeat top left;
-height: 60px;
 }
 
-#sitename span{
-display:none;
+div#ocwc_logo {
+	position: absolute;
+	top: 10px;
+	left: 655px;
+	
 }
+
+div#sitename {
+	background: #fff url("images/free_courseware_logo.png") no-repeat top left;
+	height: 80px;
+}
+
+div#sitename span{
+	display:none;
+}
+
 div#header div#search {
 	 position: absolute;
 	 float: right;
-	 top: 10px;
+	 top: 40px;
 	 right: 5px;
 }
+
 div#loginfields {
 	 position: absolute;
 	 float: right;
-	 top: 50px;
+	 top: 70px;
 	 right: 5px;
 }
+
 #breadcrumbs {
 	font-size: 80%;
 }
+
 #breadcrumbs a:link, #breadcrumbs a:visited {
 	color: #fff;
 	text-decoration: none;
 }
+
 #breadcrumbs a:hover {
 	color: #CC0000;
 	text-decoration: underline;
 }
+
 a:link, a:visited {
 	color: #0100FC;
 }
@@ -53,11 +73,11 @@ a:hover {
 
 
 #footer {
-
-    color:#999
+    color:#999;
 }
 
 #footer p {margin:0}
+
 #footer a:link {color:#999}
 
 /* Menu */
@@ -72,7 +92,7 @@ ul#menuList  li {
 	background-image: none;
 
 	border-right: 3px solid	#252525;
-	border-bottom: 3px solid	#666;
+	border-bottom: 3px solid #666;
 	font-weight: bold;
 }
 
@@ -107,22 +127,22 @@ ul#menuList  li li a span{
 }
 
 ul#menuList  li  li{
-border-style: none;
-width: 100%;
-background: transparent;
-color: #000;
-font-weight: normal;
-padding: 0;
+	border-style: none;
+	width: 100%;
+	background: transparent;
+	color: #000;
+	font-weight: normal;
+	padding: 0;
 }
 
 ul#menuList  li  li:hover{
-border-style: none;
-background-color: #cc0000;
+	border-style: none;
+	background-color: #000000;
 }
 
 ul#menuList  li  ul{
-background: #f6f6f6 url('images/featurebox_bg.gif') no-repeat bottom right;
-margin-top: 4px;
+	background: #f6f6f6 url('images/featurebox_bg.gif') no-repeat bottom right;
+	margin-top: 4px;
 }
 
 /* Increase padding on the last right item*/
@@ -130,38 +150,50 @@ ul#menuList  li  li.last a{
     padding-right: 8px;
 }
 
-div#left {
-    background: transparent url('images/content_wrap_bg.gif');
-    background-position: 60px;
-}
 
-div#twocolumn div#left {
-    background: transparent url('images/content_wrap_bg.gif');
-    background-position: 10px;
-}
+/*** Main content blocks ***/
+/*** NOTE: width of columns is redefined here ***/
 
-/* background colors
-#content {
-	backgaround-color: #66FF66;
-}
-#left, #right {
-	background-color: #FF9999;
-}*/
+div#wrapper{float:left;width:100%}
 
 div#twocolumn, div#threecolumn {
     margin-top: 20px;
 }
 
+/* Three Column Layout */
+#threecolumn div#wrapper div#content{margin: 0 200px 0 200px}
+#threecolumn div#left{float:left;width:180px;margin-left:-100%}
+#threecolumn div#right{float:left;width:200px;margin-left:-200px}
+
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{margin: 0 0 0 200px}
+#twocolumn div#left{float:left;width:200px;margin-left:-100%}
+#twocolumn div#right{display:none}
 
 
-#leftcontent, #rightcontent, #contentcontent {
-    margin: 0 20px 0 10px;
+/*div#twocolumn div#left {
+    background: transparent url('images/content_wrap_bg.gif');
+    background-position: 10px;
+        border: 1px solid black;
+}*/
 
+#leftcontent{
+    margin: 0 0px 0 0px;
 }
 
-#leftcontent, #rightcontent {
-  
+#rightcontent{
+    margin: 0 0px 0 0px;
 }
+
+div#contentcontent{
+}
+
+div#contentcontent h1 em{
+	text-decoration: none;
+	font-style: normal;
+	font-size: 14px;
+}
+
 
 /* Tables */
 
@@ -289,30 +321,49 @@ td.widelink a:hover {
     }
 }
 
-/* Feature Box */
-.featurebox {color:#333;padding: 15px 20px 20px;border-top: 1px solid #d7d7d7;margin: 0 0 1.5em;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%}
-.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {margin: 0 0 .3em;border-bottom: 1px solid #c00;color:#c00; background-color: transparent;}
-.featurebox p {border:none;margin: 0 0 1em;color:#444}
-.featurebox a {font-weight:bold; text-decoration:none;}
-.featurebox select {width: 100%; }
+/** BEGIN: Feature Box as used for the blocks that appear in the page body  **/
 
-/** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
+.featurebox {
+	color:#333;
+	padding: 1px 1px 1px;
+	margin: 0 0 1.5em;
+	}
+
+.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em;
+	border-bottom: 1px solid #000000;
+	color:#000000; 
+	font-size:12px;
+	background-color: transparent;
+	}
+
+.featurebox a {
+	font-weight:normal; 
+	text-decoration:none;
+	}
+
+.featurebox select {
+	width: 100%; 
+	}
+
+/** BEGIN: THIS MIGHT BE DEPRECEATED / SEE FEATUREBOX ABOVE
+*** Content Feature Box as used for the blocks that appear in the page body  **/
 .contentfeaturebox {
 	color: #333333;
 	padding: 15px 20px 20px;
-	border-top: 4px solid #FF6633;
 	margin: 0 0 1.5em;
 	background: url("images/featurebox_bg.jpg") no-repeat 100% 100%;
 }
 
-.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+.contentfeaturebox p, {
 	margin: 0 0 .3em;
-	border-bottom: 1px solid #000;
-	color: #FF0000;
-	font-size:16px;
+	border-bottom: 1px solid #000000;
+	color: #000000;
+	font-size:12px;
 	background-color: transparent;
 }
 .contenttest {color: #003366}
+
 .contentfeaturebox p {
 	border:none;
 	margin: 0 0 1em;
@@ -320,7 +371,8 @@ td.widelink a:hover {
 }
 
 .contentfeaturebox a {
-	font-weight:bold
+	font-weight: normal;
+	text-decoration: none;
 }
 
 .contentfeaturebox select {
@@ -376,37 +428,56 @@ label br {clear:left}
 
 
 input {
-         border : 1px solid #ccc;
-        z-index: -3;
-        font-size: 11px;
+		border : 1px solid #ccc;
+		z-index: -3;
+		font-size: 11px;
 }
 
 select
  {
-         border : 1px solid #ccc;
+        border : 1px solid #ccc;
         z-index: -3;
         font-size: 11px;
 }
+
 textarea {
          border : 1px solid #ccc;
         z-index: -3;
         font-size: 11px;
 }
 
-a.freebutton {
-  background-color: #FF0000;
-  border: 1px solid white;
-  padding: 2px;
-  text-decoration:none;
-  color: white;
-  width: 100px;
-  display: block; float:left
+/**** horizontal navigation bar at top****/
+
+#freecoursewarenav{
+	position: absolute;
+	float: right;
+	left: 550px;
+	top: 48px;
 }
 
-a.freebutton:hover,  a.freebutton:visited:hover{
-  background-color: #00FF00;
+ul.freecoursewarenav li {
+   list-style: none;
+   text-align: center;
+}
+
+/* default menu field look */
+a.freebutton {
+  background-color: #000000;
   border: 1px solid white;
-  padding: 2px;
+  padding: 1px;
+  text-decoration:none;
+  text-align: center;
+  color: white;
+  width: 101px;
+  display: block; 
+  float: left;
+}
+
+/* mouse pointer hovers over the link */
+a.freebutton:hover,  a.freebutton:visited:hover{
+  background-color: #555;
+  border: 1px solid white;
+  padding: 1px;
   text-decoration: none;
   color: white;
 
@@ -414,18 +485,21 @@ a.freebutton:hover,  a.freebutton:visited:hover{
 
 /* when the user clicks on the link */
 a.freebutton:active{
-  background-color: #0000FF;
+  background-color: #111111;
   border: 1px solid white;
-  padding: 2px;
+  padding: 1px;
   text-decoration: none;
   color: white;
 
 }
-ul.freecoursewarenav li {
-   list-style: none;
-   text-align: center;
+
+/*** Redefining styles from common_styles.css or default styles ***/
+
+.date {
+	color:#bbb;
+	display:block;
+	font-size:7px;
+	font-weight: normal;
 }
-
-
 
 
