@@ -166,14 +166,24 @@ $objElement->size=10;
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
-//Create a text input element for $tlheight
-$objElement = new textinput("showbottomband");
-$objElement->setValue($showbottomband);
-$objElement->size=10;
-//Add the $tlheight element to the form
+
+// Create the checkbox object for $showbottomband
+$objRdBtn = $this->loadClass('radio','htmlelements');
+//Radio button Group
+$objElement = new radio('showbottomband');
+$wYes = $this->objLanguage->languageText("word_yes") . '&nbsp;&nbsp;';
+$wNo = $this->objLanguage->languageText("word_no"); 
+$objElement->addOption('TRUE', $wYes);
+$objElement->addOption('FALSE',$wNo);
+if ($showbottomband == "TRUE") {
+    $objElement->setSelected('TRUE');
+} else {
+    $objElement->setSelected('FALSE');
+}
 $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_showbottomband", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
-  
+
+ 
 //Create a text input element for $btmbandwidth
 $objElement = new textinput("btmbandwidth");
 $objElement->setValue($btmbandwidth);

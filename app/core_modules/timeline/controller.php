@@ -112,6 +112,22 @@ class timeline extends controller
 	    $scriptTag = "<script src=\"" . $jsLib . "\" type=\"text/javascript\"></script>";
         $this->appendArrayVar('headerParams', $scriptTag);
 	}
+	
+    /**
+     * 
+     * Method to add the scriptaculous library to the page head
+     * @access private
+     * @return TRUE
+     * 
+     */
+     private function addScriptaculousToPage()
+     {
+     	$scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
+          <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
+          <script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
+        $this->appendArrayVar('headerParams',$scripts);
+        return TRUE;
+     }
     /*------------- END : Methods for writing to the page body and header ---------------*/
 
 
@@ -250,6 +266,7 @@ class timeline extends controller
     	$objDb = $this->getObject("dbstructure", "timeline");
     	$ar = $objDb->getRow("id", $id);
         $this->setVar("ar", $ar);
+        $this->addScriptaculousToPage();
         return "editadd_tpl.php";
     }
     
@@ -265,6 +282,7 @@ class timeline extends controller
     */
     private function __addstructure()
     {
+    	$this->addScriptaculousToPage();
         return "editadd_tpl.php";
     }
     

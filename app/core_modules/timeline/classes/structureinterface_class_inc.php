@@ -336,6 +336,5 @@ class structureinterface extends object {
 		    return $ret;
 		}
     }
-    
 }  #end of class
 ?>
