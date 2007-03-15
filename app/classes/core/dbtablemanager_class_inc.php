@@ -755,6 +755,10 @@ class dbTableManager extends object
     function alterTable($name, $changes, $check)
     {
     	$ret = $this->_db->mgAlterTable($name, $changes, $check);
+    	if(PEAR::isError($ret))
+    	{
+    		return $ret->getMessage();
+    	}
     	//var_dump($ret);
     	return $ret;
     }
