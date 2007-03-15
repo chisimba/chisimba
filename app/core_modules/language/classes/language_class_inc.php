@@ -130,7 +130,7 @@ class language extends dbTable {
 		        	$found = false;
 		        }
                 if (($line!=null)&&($line!=$itemName)) {
-                    return $line;
+                    return stripslashes($line);
                 } else {
                     if ($default != false) {
                         return $default;
