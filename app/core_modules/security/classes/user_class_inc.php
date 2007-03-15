@@ -598,6 +598,32 @@ class user extends dbTable
             return false;
         }
     }
+    
+    /**
+    * This method returns the staff name of a given user. It takes
+    * the userId of a user as a parameter but defaults to the
+    * userId of the currently logged-in user if none is supplied.
+    *
+    * @param string $userId The numeric ID of a user, it defaults
+    * to the userId of the current user by setting it to NULL as
+    * default.
+    * @author Megan Watson - added functions from kinky
+    * @returns string $firstname
+    */
+    public function getStaffNumber($userId = NULL)
+    {
+        if (!$userId) {
+            $userId = $this->getSession('userid');
+        }
+        $sql = "SELECT staffnumber FROM tbl_users WHERE userid='" . $userId . "'";
+        $rs = $this->query($sql);
+
+        if ($rs) {
+            return $rs[0]["staffnumber"];
+        } else {
+            return false;
+        }
+    }
 
     /**
     * This method returns the email address of a given user. It takes
