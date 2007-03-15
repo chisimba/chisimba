@@ -759,8 +759,10 @@ class dbTableManager extends object
     	{
     		return $ret->getMessage();
     	}
-    	//var_dump($ret);
-    	return $ret;
+    	else {
+    		//var_dump($ret);
+    		return $ret;
+    	}
     }
 
 }
