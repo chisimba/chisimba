@@ -58,7 +58,7 @@ class Zend_Search_Lucene_Field
              * @todo Correct UTF-8 string should be required in future
              * Until full UTF-8 support is not completed, string should be normalized to ANSII encoding
              */
-            $this->stringValue = iconv('', 'ASCII//TRANSLIT', $stringValue);
+            $this->stringValue = iconv('UTF-8', 'ASCII//TRANSLIT', $stringValue);
         } else {
             $this->stringValue = $stringValue;
         }
