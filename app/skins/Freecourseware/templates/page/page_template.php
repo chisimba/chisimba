@@ -158,7 +158,7 @@ if (isSet($bodyParams)) {
 			</ul>
 		</div>
 
-		<div id="ocwc_logo">UWC is a member of the <a href='http://www.ocwconsortium.org/'><img src='/chisimba_framework/app/skins/Freecourseware/images/ocwcsquarelogo.gif' border='0' height='25'></img></a>
+		<div id="ocwc_logo">UWC is a member of the <a href='http://www.ocwconsortium.org/'><img src='skins/Freecourseware/images/ocwcsquarelogo.gif' border='0' height='25'></img></a>
 		</div>
 
 <?php
