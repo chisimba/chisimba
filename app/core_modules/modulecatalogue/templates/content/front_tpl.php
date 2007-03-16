@@ -19,7 +19,7 @@ $icon = &$this->getObject('geticon', 'htmlelements');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
-$objTable->cellspacing = 3;
+//$objTable->cellspacing = 3;
 $objTable->id = 'unpadded';
 $objTable->width='100%';
 /*$icon->setIcon('installable','jpg');
@@ -33,7 +33,7 @@ $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_runnable','mo
 $rnnbl = $icon->show();*/
 
 $head = array('&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),
+			/*$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),*/
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
 			,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
@@ -177,16 +177,22 @@ if ($modules) {
 		$icon->setModuleIcon($moduleId);
 		$icon->alt = $desc;
 		$objTable->startRow();
+		//$objTable->addCell(,null,null,'left',$class);
 		$objTable->addCell($checkBox,null,null,'left',$class);
 		$objTable->addCell($icon->show(),null,null,'left',$class);
-		$objTable->addCell($link,null,null,'left',$class);
-		$objTable->addCell($desc,null,null,'left',$class);
-		//$objTable->addCell($hasRegFile,null,null,'left',$class);
-		//$objTable->addCell($hasController,null,null,'left',$class);
-		//$objTable->addCell($isRegistered,null,null,'left',$class);
+		$objTable->addCell('<strong>'.$link.'</strong>',null,null,'left',$class);
 		$objTable->addCell($instButtonShow,null,null,'left',$class);
 		$objTable->addCell($texts,null,null,'left',$class);
 		$objTable->addCell($info,null,null,'left',$class);
+		$objTable->endRow();
+		$objTable->startRow();
+		$objTable->addCell('&nbsp;',20,null,'left',$class);
+		$objTable->addCell('&nbsp;',30,null,'left',$class);
+		$objTable->addCell($desc.'<br />&nbsp;',null,null,'left',$class, 'colspan="4"');
+		//$objTable->addCell($hasRegFile,null,null,'left',$class);
+		//$objTable->addCell($hasController,null,null,'left',$class);
+		//$objTable->addCell($isRegistered,null,null,'left',$class);
+		
 		$objTable->endRow();
 		}//temporary if
 	}
