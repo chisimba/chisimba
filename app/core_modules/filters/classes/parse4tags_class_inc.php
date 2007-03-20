@@ -37,7 +37,6 @@ class parse4tags extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	//die("FOUND 1" . $results[1][$counter]);
         	$replacement = $this->getTagJs($results[1][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
