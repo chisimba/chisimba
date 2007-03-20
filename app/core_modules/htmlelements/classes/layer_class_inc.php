@@ -112,6 +112,17 @@ class layer extends object implements ifhtml
     public $display;
 
     /**
+    * @var string $cursor: The type of cursor to display
+    * auto|crosshair|default|pointer|move|text|wait|help
+    */
+    public $cursor;
+
+    /**
+    * @var string $onclick: The actio to perform on the onclick event
+    */
+    public $onclick;
+
+    /**
      * Initialization method to set default values
      * @todo -clayer Implement layer. Which ones should be  Null?
      */
@@ -120,6 +131,7 @@ class layer extends object implements ifhtml
         $this->id = null;
         $this->name = null;
         $this->cssClass = null;
+        $this->onclick = null;
         $this->width = null;
         $this->height = null;
         $this->position = null;
@@ -136,6 +148,7 @@ class layer extends object implements ifhtml
         $this->align = null;
         $this->textalign = null;
         $this->clear = null;
+        $this->cursor = 'default';
         $this->display = 'block';
     }
 
@@ -226,11 +239,17 @@ class layer extends object implements ifhtml
             if ($this->zIndex) {
 	            $ret .= "zIndex : " . $this->zIndex . "; ";
 	        }
+            if ($this->cursor) {
+	            $ret .= "cursor : " . $this->cursor . "; ";
+	        }
 			$ret.="\"";
-		 }
-         if ($this->align) {
-             $ret .= " align=\"" . $this->align . "\"";
-         }
+		}
+        if ($this->align) {
+            $ret .= " align=\"" . $this->align . "\"";
+        }
+        if ($this->onclick) {
+            $ret .= " onclick=\"" . $this->onclick . "\"";
+        }
         $ret .= ">" . $this->str . "</div>\n\n";
         return $ret;
     }
@@ -245,7 +264,8 @@ class layer extends object implements ifhtml
         foreach ($classVars as $name => $value) {
             if ($name != 'id' && $name != 'name'
               && $name != 'css_class'
-              && $name != 'cssClass') {
+              && $name != 'cssClass'
+              && $name != 'onclick') {
                 if ($this->$name) {
                     return true;
                 }
