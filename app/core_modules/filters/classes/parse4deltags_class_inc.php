@@ -17,7 +17,7 @@ class parse4deltags extends object
      * to use
      * 
      */
-    function init()
+    public function init()
     {
 
     }
