@@ -1,6 +1,7 @@
 <?
 
 $this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
 
 $header = new htmlheading();
 $header->type = 1;
@@ -14,9 +15,24 @@ echo $errorMessage;
 $objCheckOverwrite = $this->getObject('checkoverwrite');
 
 if  ($objCheckOverwrite->checkUserOverwrite() == 0) {
-    echo '<p><a href="'.$this->uri(NULL).'">'.$this->objLanguage->languageText('mod_filemanager_returntofilemanager', 'filemanager', 'Return to File Manager').'</a></p>';
+    echo '<p><a href="'.$this->uri(NULL).'">'.$this->objLanguage->languageText('mod_filemanager_returntofilemanager', 'filemanager', 'Return to File Manager').'</a>';
     
-    echo $this->objUpload->show();
+    if ($this->getParam('folder') != '') {
+        $folder = $this->objFolders->getFolder($this->getParam('folder'));
+        
+        if ($folder != FALSE) {
+            $folderLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])));
+            $folderLink->link = 'Return to <strong>'.basename($folder['folderpath']).'</strong> Folder';
+            
+            echo ' / '.$folderLink->show();
+            
+            $this->setVar('folderId', $folder['id']);
+        }
+    }
+    
+    echo '</p>';
+    
+    //echo $this->objUpload->show();
 } else {
 
     $header->str = $this->objLanguage->languageText('phrase_overwritefiles', 'filemanager', 'Overwrite Files?');

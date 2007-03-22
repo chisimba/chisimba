@@ -50,6 +50,11 @@ $fields = array(
         'length' => 255,
         'notnull' => TRUE
 		),
+    'filefolder' => array(
+		'type' => 'text',
+        'notnull' => TRUE,
+        'default' => '*nofolder*'
+		),
     'description' => array(
 		'type' => 'text',
         'length' => 255

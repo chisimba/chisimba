@@ -81,7 +81,7 @@ class analyzemediafile extends object
             $mediaInfo['width'] = $analysis['resolution_x'];
         }
         
-        if (isset($analysis['frame_width'])) {
+        if (isset($analysis['frame_width']) && !isset($mediaInfo['width'])) {
             $mediaInfo['width'] = $analysis['frame_width'];
         }
         
@@ -90,8 +90,8 @@ class analyzemediafile extends object
             $mediaInfo['height'] = $analysis['resolution_y'];
         }
         
-        if (isset($analysis['resolution_y'])) {
-            $mediaInfo['height'] = $analysis['resolution_y'];
+        if (isset($analysis['frame_height']) && !isset($mediaInfo['height'])) {
+            $mediaInfo['height'] = $analysis['frame_height'];
         }
         
         // Play Time

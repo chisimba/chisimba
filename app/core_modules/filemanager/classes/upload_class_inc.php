@@ -32,7 +32,7 @@ class upload extends object
     /**
     * @var boolean $useFileSubFolder Flag to set whether uploaded files should be placed in the Upload Folder +  a subfolder matching file type
     */
-    private $useFileSubFolder = TRUE;
+    private $useFileSubFolder = FALSE;
     
     /**
     * Constructor
@@ -89,7 +89,7 @@ class upload extends object
     * Method to show an upload form
     * @todo: use htmlelements
     */
-    public function show()
+    public function show($folderId='')
     {
         $form = '<form name="form1" id="form1" enctype="multipart/form-data" method="post" action="'.$this->formaction.'">';
         
@@ -112,6 +112,10 @@ class upload extends object
             $form .= ' <input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfile', 'filemanager', 'Upload File').'" />';
         } else {
             $form .= ' <input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />';
+        }
+        
+        if ($folderId != '') {
+            $form .= ' <input type="hidden" name="folder" value="'.$folderId.'" />';
         }
         
         $form .= $this->formExtra;

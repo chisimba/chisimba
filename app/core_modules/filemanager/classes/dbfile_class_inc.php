@@ -187,6 +187,7 @@ class dbfile extends dbTable
                 'filename' => $filename,
                 'datatype' => $datatype,
                 'path' => $path,
+                'filefolder'=>dirname($path),
                 'description' => $description,
                 'version' => $version,
                 'filesize' => $filesize,
@@ -410,6 +411,7 @@ class dbfile extends dbTable
         return $this->update('id', $fileId, array(
                 'version' => $version,
                 'path' => $path,
+                'filefolder'=>dirname($path),
                 'category' => $category,
                 'modifierid' => $this->objUser->userId(),
                 'datemodified' => strftime('%Y-%m-%d %H:%M:%S', mktime())
@@ -770,7 +772,26 @@ class dbfile extends dbTable
     }
 
     
+    /**
+    *
+    *
+    */
+    function updateFilePath()
+    {
+        $files = $this->getAll(' WHERE filefolder IS NULL');
+        
+        if (count($files) > 0) {
+            foreach ($files as $file) {
+                $this->update('id', $file['id'], array('filefolder'=>dirname($file['path'])));
+            }
+        }
+    }
     
+    
+    function getFolderFiles($folder)
+    {
+        return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
+    }
 
 
 }

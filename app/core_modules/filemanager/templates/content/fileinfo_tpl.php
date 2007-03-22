@@ -2,6 +2,14 @@
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
 
+echo $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $file['path']);
+
+// Get Folder Id of Item
+$folderId = $this->objFolders->getFolderId(dirname($file['path']));
+
+// Set for Layout Template
+$this->setVar('folderId', $folderId);
+
 $objIcon = $this->newObject('geticon', 'htmlelements');
 
 $objFilePreview =& $this->getObject('filepreview');

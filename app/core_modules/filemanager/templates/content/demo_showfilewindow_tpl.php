@@ -20,7 +20,7 @@ echo $geshi->show();
 
 $objSelectFile = $this->getObject('selectfile', 'filemanager');
 $objSelectFile->name = 'nameofforminput';
-//$objSelectFile->restrictFileList = array('htm', 'jpg');
+//$objSelectFile->restrictFileList = array('htm', 'jpg', 'flv');
 
 if ($this->getParam('nameofforminput') != '') {
     $objSelectFile->setDefaultFile($this->getParam('nameofforminput'));

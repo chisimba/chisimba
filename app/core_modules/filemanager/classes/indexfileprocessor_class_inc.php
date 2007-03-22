@@ -17,6 +17,7 @@ class indexfileprocessor extends object
         $this->objConfig =& $this->getObject('altconfig', 'config');
         $this->objMimetype = $this->getObject('mimetypes', 'files');
         $this->objFile =& $this->getObject('dbfile');
+        $this->objFolders =& $this->getObject('dbfolder');
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
         $this->objFileFolder =& $this->getObject('filefolder');
         $this->objCleanUrl =& $this->getObject('cleanurl');
@@ -26,6 +27,11 @@ class indexfileprocessor extends object
         $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
     }
     
+    function indexFolder($folder)
+    {
+        return $this->objIndexFiles->scanDirectory($this->objConfig->getcontentBasePath().$folder);
+    }
+    
     /**
     * Method to Scan and index the files of a user
     * @param string $userId User Id whose folder should be scanned
@@ -33,12 +39,40 @@ class indexfileprocessor extends object
     */
     function indexUserFiles($userId='1')
     {
-        $results = $this->objIndexFiles->scanDirectory($this->objConfig->getcontentBasePath().'users/'.$userId.'/');
-
-        $files = $results[0];
+        $results = $this->indexFolder('users/'.$userId.'/');
         
+        // Split Folders from Results
+        $folders = $results[1];
+        // Add User Folder
+        $folders[] = $this->objConfig->getcontentBasePath().'users/'.$userId.'/';
+        // Process Files
+        $this->processFolderResults($folders);
+        
+        // Split files from results
+        $files = $results[0];
+        // Process Files
+        $indexedFiles = $this->processFileResults($files, $userId);
+        
+        // Clean up any broken records
+        $this->objMediaFileInfo->cleanUpMismatchedMediaFiles();
+        
+        return $indexedFiles;
+    }
+    
+    function processFolderResults($folders)
+    {
+        if (count($folders) > 0) {
+            foreach ($folders as $folder)
+            {
+                $this->objFolders->indexFolder($folder);
+            }
+        }
+    }
+    
+    function processFileResults($files, $userId)
+    {
         $indexedFiles = array();
-
+        
         if (count($files) > 0) {
             foreach ($files as $file)
             {
@@ -50,12 +84,11 @@ class indexfileprocessor extends object
                     
                     if ($record == FALSE) {
                         $indexedFiles[] = $this->processIndexedFile($path, $userId);
+                    } else {
+                    
                     }
             }
         }
-        
-        // Clean up any broken records
-        $this->objMediaFileInfo->cleanUpMismatchedMediaFiles();
         
         return $indexedFiles;
     }

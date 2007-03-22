@@ -15,6 +15,7 @@ class filemanager extends controller
     public function init()
     {
         $this->objFiles =& $this->getObject('dbfile');
+        $this->objFolders =& $this->getObject('dbfolder');
         $this->objFileOverwrite =& $this->getObject('checkoverwrite');
         $this->objCleanUrl =& $this->getObject('cleanurl');
         $this->objUpload =& $this->getObject('upload');
@@ -37,6 +38,8 @@ class filemanager extends controller
     public function dispatch($action)
     {
         $this->setLayoutTemplate('filemanager_layout_tpl.php');
+        
+        $this->objFiles->updateFilePath();
 
         switch ($action)
         {
@@ -79,44 +82,45 @@ class filemanager extends controller
                 return $this->testGetId3();
             case 'indexfiles':
                 return 'indexfiles_tpl.php';
+            case 'indexfolders':
+                return 'indexfolders_tpl.php';
+            case 'viewfolder':
+                return $this->showFolder($this->getParam('folder'));
+            case 'createfolder':
+                return $this->createFolder();
             default:
                 return $this->filesHome();
         }
     }
-
-    /**
-    * Method to Show the File Manager Home Page
-    */
+    
     public function filesHome()
     {
-        $category = $this->getParam('category', NULL);
-        $filter = $this->getParam('filter', NULL);
+        // Get Folder Details
+        $folderpath = 'users/'.$this->objUser->userId();
+        
+        $folderId = $this->objFolders->getFolderId($folderpath);
+        
+        if ($folderId == FALSE) {
+            $objIndexFileProcessor = $this->getObject('indexfileprocessor');
 
-        $categories = array('images', 'audio', 'video', 'documents', 'flash', 'freemind', 'archives', 'other', 'obj3d', 'scripts');
-
-
-        if (!in_array($category, $categories)) {
-            $category = NULL;
+            $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
+        
         }
-
-        $listFiles = $this->objFiles->getUserFiles($this->objUser->userId(), $category, NULL, TRUE);
-        $this->setVarByRef('files', $listFiles);
-
-        $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-        $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-
-        if ($category == '') {
-            $category = 'files';
-        }
-        $this->setVar('category', $category);
-
-        switch ($category)
-        {
-            case 'images':
-                return 'list_images.php';
-            default:
-                return 'list_files.php';
-        }
+        
+        $this->setVar('breadcrumbs', 'My Files');
+        $this->setVar('folderpath', 'My Files');
+        $this->setVar('folderId', $folderId);
+        
+        $subfolders = $this->objFolders->getSubFoldersFromPath($folderpath);
+        $this->setVarByRef('subfolders', $subfolders);
+        
+        $files = $this->objFiles->getFolderFiles($folderpath);
+        $this->setVarByRef('files', $files);
+        
+        $objPreviewFolder =& $this->getObject('previewfolder');
+        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
+                
+        return 'showfolder.php';
     }
 
     /**
@@ -178,6 +182,13 @@ class filemanager extends controller
     */
     public function handleUploads()
     {
+        
+        $folder = $this->objFolders->getFolder($this->getParam('folder'));
+        
+        if ($folder != FALSE) {
+            $this->objUpload->setUploadFolder($folder['folderpath']);
+        }
+        
         // Upload Files
         $results = $this->objUpload->uploadFiles();
 
@@ -193,8 +204,10 @@ class filemanager extends controller
 
         // Put Message into Array
         $messages = $this->objUploadMessages->processMessageUrl($results);
+        $messages['folder'] = $this->getParam('folder');
 
         return $this->nextAction('uploadresults', $messages);
+        
     }
 
     /**
@@ -575,6 +588,83 @@ function checkWindowOpener()
 			return TRUE;
 		}
 	}
+    
+    function showFolder($id)
+    {
+        // TODO: Check permission to enter folder
+        
+        // Get Folder Details
+        $folder = $this->objFolders->getFolder($id);
+        
+        if ($folder == FALSE) {
+            return $this->nextAction(NULL);
+        }
+        
+        $this->setVarByRef('folderpath', basename($folder['folderpath']));
+        
+        $this->setVar('folderId', $id);
+        
+        $subfolders = $this->objFolders->getSubFolders($id);
+        $this->setVarByRef('subfolders', $subfolders);
+        
+        $files = $this->objFiles->getFolderFiles($folder['folderpath']);
+        $this->setVarByRef('files', $files);
+        
+        $objPreviewFolder =& $this->getObject('previewfolder');
+        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
+        
+        $breadcrumbs = $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $folder['folderpath']);
+        $this->setVarByRef('breadcrumbs', $breadcrumbs);
+        
+        return 'showfolder.php';
+    }
+    
+    /**
+    * Method to create a folder
+    *
+    */
+    function createFolder()
+    {
+        // echo '<pre>';
+        // print_r($_POST);
+        
+        $parentId = $this->getParam('parentfolder', 'ROOT');
+        $foldername = $this->getParam('foldername');
+        
+        // If no folder name is given, res
+        if (trim($foldername) == '') {
+            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'nofoldernameprovided'));
+        }
+        
+        if (preg_match('/\\\|\/|\\||:|\\*|\\?|"|<|>/', $foldername)) {
+        	return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'illegalcharacters'));
+        }
+        
+        if ($parentId == 'ROOT') {
+            $folderpath = 'users/'.$this->objUser->userId();
+        } else {
+            $folder = $this->objFolders->getFolder($parentId);
+            
+            if ($folder == FALSE) {
+                return $this->nextAction(NULL, array('error'=>'couldnotfindparentfolder'));
+            }
+            $folderpath = $folder['folderpath'];
+        }
+        
+        
+        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        
+        $path = $this->objConfig->getcontentBasePath().'/'.$folderpath.'/'.$foldername;
+            
+        $result = $this->objMkdir->mkdirs($path);
+        
+        if ($result) {
+            $folderId = $this->objFolders->indexFolder($path);
+            return $this->nextAction('viewfolder', array('folder'=>$folderId, 'message'=>'foldercreated'));
+        } else {
+            return $this->nextAction(NULL, array('error'=>'couldnotcreatefolder'));
+        }
+    }
 }
 
 ?>
