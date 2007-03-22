@@ -64,7 +64,9 @@ class filemanager extends controller
             case 'selectfilewindow':
                 return $this->showFileWindow();
             case 'selectimagewindow':
-                return $this->showImageWindow();
+                return $this->showImageWindow(FALSE);
+            case 'selectrealtimeimagewindow':
+                return $this->showImageWindow(TRUE);
             case 'sendpreview':
                 return $this->sendPreview($this->getParam('id'), $this->getParam('jsId'));
             case 'selectfileuploads':
@@ -414,7 +416,7 @@ function checkWindowOpener()
     /**
     *
     */
-    public function showImageWindow()
+    public function showImageWindow($showFullLinks=FALSE)
     {
         $restriction = array('gif', 'jpg', 'jpeg', 'png');
 
@@ -451,7 +453,13 @@ function checkWindowOpener()
 
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressBanner', TRUE);
-        return 'popup_showimagewindow_tpl.php';
+        
+        
+        if ($showFullLinks) {
+            return 'popup_showrealtimeimagewindow_tpl.php';
+        } else {
+            return 'popup_showimagewindow_tpl.php';
+        }
     }
 
     /**

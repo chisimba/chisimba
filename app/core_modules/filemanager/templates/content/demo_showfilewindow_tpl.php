@@ -46,4 +46,18 @@ if ($this->getParam('nameofforminput') != '') {
         echo 'This is actually a file by the filename of '.$thisFile['filename'];
     }
 }
+
+
+$objSelectFile = $this->getObject('selectrealtimeimage', 'filemanager');
+$objSelectFile->name = 'selectimage';
+
+echo $objSelectFile->show();
 ?>
+<script type="text/javascript">
+
+function callFunctionFromParent()
+{
+    alert('fsaafs');
+    alert(document.getElementById('hidden_selectimage').value);
+}
+</script>
