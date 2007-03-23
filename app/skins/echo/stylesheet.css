@@ -28,6 +28,12 @@ div#header div#search {
 	 right: 0;
 	 width: 300px;
 }
+div#header div#msg {
+    position: absolute;
+    float: right;
+    right: 0px;
+    width: 80px;
+}
 #breadcrumbs {
 	font-size: 80%;
 }
