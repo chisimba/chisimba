@@ -52,8 +52,7 @@ $fields = array(
 		),
     'filefolder' => array(
 		'type' => 'text',
-        'notnull' => TRUE,
-        'default' => '*nofolder*'
+        'notnull' => TRUE
 		),
     'description' => array(
 		'type' => 'text',
