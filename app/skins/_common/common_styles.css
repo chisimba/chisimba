@@ -831,7 +831,7 @@ label br {clear:left}
 #cpanel img  { padding: 8px 0; margin: 0 auto; }
 #cpanel span { display: block; text-align: center; }
 
-#smallicon {
+.smallicon {
 	height: 70px;
 	width: 85px;
 	text-align: center;
@@ -842,7 +842,7 @@ label br {clear:left}
 	margin: 2px;
 }
 
-#smallicon a {
+.smallicon a {
 	display: block;
 	float: left;
 	border: 1px solid #f0f0f0;
@@ -855,7 +855,7 @@ label br {clear:left}
 	background: #fffef3;
 }
 
-#smallicon a:hover {
+.smallicon a:hover {
 	border-left: 1px solid #eee;
 	border-top: 1px solid #eee;
 	border-right: 1px solid #ccc;
@@ -863,5 +863,5 @@ label br {clear:left}
 	background: #f9f9f9;
 }
 
-#smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto; }
-#smallicon span { display: block; text-align: center; }
+.smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto; }
+.smallicon span { display: block; text-align: center; }
