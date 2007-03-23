@@ -22,7 +22,12 @@ if  ($objCheckOverwrite->checkUserOverwrite() == 0) {
         
         if ($folder != FALSE) {
             $folderLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])));
-            $folderLink->link = 'Return to <strong>'.basename($folder['folderpath']).'</strong> Folder';
+            
+            if ($folder['folderlevel'] == 2) {
+                $folderLink->link = 'Return to <strong>My Files</strong> Folder';
+            } else {
+                $folderLink->link = 'Return to <strong>'.basename($folder['folderpath']).'</strong> Folder';
+            }
             
             echo ' / '.$folderLink->show();
             
