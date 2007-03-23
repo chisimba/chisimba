@@ -317,7 +317,7 @@ class getIcon extends object implements ifhtml
         $this->loadClass('link', 'htmlelements');
         
         $this->setIcon($name, $type, $iconfolder);
-        $this->extra = $extra." height='40px' width='40px'";
+        $this->extra = " height='40px' width='40px'";
         $this->title = $linkText;
         $icStr = $this->show();
         
@@ -325,10 +325,11 @@ class getIcon extends object implements ifhtml
         
         $objLink = new link($url);
         $objLink->link = $icStr;
+        $objLink->extra = $extra;
         $linkStr = $objLink->show();
         
         $objLayer->str = $linkStr;
-        $objLayer->id = 'smallicon';
+        $objLayer->cssClass = 'smallicon';
         
         return $objLayer->show();
     }
