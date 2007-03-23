@@ -1,9 +1,21 @@
 <?php
 
-
-
-//----- BEGIN section to cater for MS Internet Explorer mime problems
 $useragent = $_SERVER['HTTP_USER_AGENT'];
+
+$browser = $this->getObject('browser', 'skin');
+
+//----- BEGIN section to cater for Safari problems
+if ($browser->isMSIE() || $browser->isSafari()) {
+	$charset = "utf-8";
+	$mime = "text/html";
+} else {
+	$charset = "utf-8";
+	$mime = "application/xhtml+xml";
+}
+//----- END section to cater for Safari problems
+
+/*
+//----- BEGIN section to cater for MS Internet Explorer mime problems
 function isMSIE($useragent)
 {
 		if(eregi("msie", $useragent) && !eregi("opera",$useragent))
@@ -24,7 +36,7 @@ if($ie == TRUE) {
 	$mime = "application/xhtml+xml";
 }
 //----- END section to cater for MS Internet Explorer mime problems
-
+*/
 
 
 if (!isset($pageLanguage)) {
