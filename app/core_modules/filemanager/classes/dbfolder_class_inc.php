@@ -109,7 +109,7 @@ class dbfolder extends dbTable
         $this->setVar('pageSuppressXML', TRUE);
         
         $objSkin =& $this->getObject('skin', 'skin');
-        $treeMenu = &new dhtml($menu, array('images' => $objSkin->getSkinURL().'treeimages/imagesAlt2', 'defaultClass' => 'treeMenuDefault'));
+        $treeMenu = &new dhtml($menu, array('images' => 'skins/_common/icons/tree', 'defaultClass' => 'treeMenuDefault'));
         return $treeMenu->getMenu();
     }
     
