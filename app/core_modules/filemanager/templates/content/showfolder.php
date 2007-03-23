@@ -21,7 +21,20 @@ switch ($this->getParam('error'))
 
 echo '<h1>'.$folderpath.'</h1>';
 
-echo $table;
+$form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
+$form->addToForm($table);
+
+$button = new button ('submitform', 'Delete Selected Items');
+$button->setToSubmit();
+
+$selectallbutton = new button ('selectall', 'Select All');
+$selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
+
+$deselectallbutton = new button ('deselectall', 'Deselect All');
+$deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
+
+$form->addToForm($button->show().' &nbsp; &nbsp; '.$selectallbutton->show().' '.$deselectallbutton->show());
+echo $form->show();
 
 echo $this->objFolders->showCreateFolderForm($folderId);
 echo $this->objUpload->show($folderId);

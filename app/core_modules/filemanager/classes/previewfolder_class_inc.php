@@ -15,6 +15,7 @@ class previewfolder extends object
     {
         $this->objFileIcons =& $this->getObject('fileicons', 'files');
         $this->loadClass('link', 'htmlelements');
+        $this->loadClass('checkbox', 'htmlelements');
         $this->loadClass('formatfilesize', 'files');
     }
     
@@ -66,7 +67,11 @@ class previewfolder extends object
                 foreach ($files as $file)
                 {
                     $objTable->startRow();
-                    $objTable->addCell('&nbsp;');
+                    $checkbox = new checkbox('files[]');
+                    $checkbox->value = $file['id'];
+                    $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
+                    
+                    $objTable->addCell($checkbox->show(), 20);
                     
                     $fileIcon = $this->objFileIcons->getFileIcon($file['filename']);
                     $objTable->addCell($fileIcon);
