@@ -27,6 +27,7 @@ class cssmenu extends object
     */
     function init()
     {
+        $this->objLanguage=& $this->getObject('language','language');
         $this->objSkin=& $this->getObject('skin','skin');
         $this->objLink=& $this->getObject('link','htmlelements');
         $this->toolbarIcon=& $this->getObject('geticon','htmlelements');
@@ -41,8 +42,12 @@ class cssmenu extends object
     */
     function show()
     {
-    	$str='<ul id="menuList" class="adxm">';
-    	$str .= '<li class="first"><a href="'.$this->uri(null, '_default').'">Home</a></li>';
+    	$homeLabel = $this->objLanguage->languageText('word_home');
+    	$logoutLabel = $this->objLanguage->languageText('word_logout');
+    	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
+        
+        $str='<ul id="menuList" class="adxm">';
+    	$str .= '<li class="first"><a href="'.$this->uri(null, '_default').'">'.$homeLabel.'</a></li>';
 		foreach($this->menu as $key=>$item){
             $this->objLink->link('javascript:;');
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -72,7 +77,7 @@ class cssmenu extends object
             }
             $str.="</ul></li>\n";
         }
-        $str .= '<li class="last"><a href="javascript: if(confirm(\'Are you sure you want to logout?\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">Logout</a></li>';
+        $str .= '<li class="last"><a href="javascript: if(confirm(\''.$confirmLabel.'\')) {document.location= \''.$this->uri(array('action' => 'logoff'), 'security').'\'};">'.$logoutLabel.'</a></li>';
         $str .="</ul>";
         
         return $str;
