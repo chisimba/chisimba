@@ -8,12 +8,10 @@ $objTreeFilter =& $this->getObject('dbfolder');
 
 $leftColumn = '<h3>File Manager</h3>';
 
-// $objFieldset =& $this->getObject('fieldset', 'htmlelements');
-// $objFieldset->legend = 'Options';
-// $leftColumn .= $objFieldset->show();
+$indexLink = new link ($this->uri(array('action'=>'indexfiles')));
+$indexLink->link = 'Index Files';
 
-
-$leftColumn .= '<ul><li>Options</li></ul>';
+$leftColumn .= '<ul><li>Search</li><li>'.$indexLink->show().'</li></ul>';
 
 if (!isset($folderId)) {
     $folderId = '';

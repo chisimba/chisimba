@@ -25,7 +25,7 @@ class userfoldercheck extends object
         $this->objMkdir =& $this->getObject('mkdir', 'files');
         
         // List of Subfolders to be created in Path
-        $this->subFolders = array('images', 'audio', 'video', 'documents', 'flash', 'freemind', 'archives', 'temp', 'other', 'obj3d', 'scripts');
+        // $this->subFolders = array('images', 'audio', 'video', 'documents', 'flash', 'freemind', 'archives', 'temp', 'other', 'obj3d', 'scripts');
     }
     
     /**
@@ -40,10 +40,10 @@ class userfoldercheck extends object
             // Set Up Path
             $path = $this->objConfig->getcontentBasePath().'/users/'.$userId;
             
-            foreach ($this->subFolders as $folder)
-            {
-                $result = $this->objMkdir->mkdirs($path.'/'.$folder, 0777);
-            }
+            //foreach ($this->subFolders as $folder)
+            //{
+                $result = $this->objMkdir->mkdirs($path, 0777);
+            //}
             
             return $result;
         }
