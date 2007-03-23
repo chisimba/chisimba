@@ -3,6 +3,7 @@ $this->loadClass('form', 'htmlelements');
 $this->loadClass('checkbox', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
+$this->loadClass('hiddeninput', 'htmlelements');
 
 // echo '<pre>';
 // print_r($_POST);
@@ -42,6 +43,11 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
     $button->setToSubmit();
     
     $form->addToForm ($button->show());
+    
+    $folderInput = new hiddeninput('folder', $this->getParam('folder'));
+    $this->setVar('folderId', $this->getParam('folder'));
+    
+    $form->addToForm($folderInput->show());
     
     echo $form->show();
 }

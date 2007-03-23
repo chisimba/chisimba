@@ -1,4 +1,9 @@
 <?php
+
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('hiddeninput', 'htmlelements');
+
 echo '<p>'.$breadcrumbs.'</p>';
 
 switch ($this->getParam('message'))
@@ -7,6 +12,8 @@ switch ($this->getParam('message'))
         break;
     case 'foldercreated':
         echo '<span class="confirm">Folder has been created </span>'; break;
+    case 'filesdeleted':
+        echo '<span class="confirm">File(s) have been deleted </span>'; break;
 }
 
 switch ($this->getParam('error'))
@@ -21,23 +28,33 @@ switch ($this->getParam('error'))
 
 echo '<h1>'.$folderpath.'</h1>';
 
-$form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
-$form->addToForm($table);
+if (count($files) > 0) {
+    $form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
+    $form->addToForm($table);
 
-$button = new button ('submitform', 'Delete Selected Items');
-$button->setToSubmit();
+    $button = new button ('submitform', 'Delete Selected Items');
+    $button->setToSubmit();
 
-$selectallbutton = new button ('selectall', 'Select All');
-$selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
+    $selectallbutton = new button ('selectall', 'Select All');
+    $selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
 
-$deselectallbutton = new button ('deselectall', 'Deselect All');
-$deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
+    $deselectallbutton = new button ('deselectall', 'Deselect All');
+    $deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
 
-$form->addToForm($button->show().' &nbsp; &nbsp; '.$selectallbutton->show().' '.$deselectallbutton->show());
-echo $form->show();
+    $form->addToForm($button->show().' &nbsp; &nbsp; '.$selectallbutton->show().' '.$deselectallbutton->show());
+    
+    $folderInput = new hiddeninput('folder', $folderId);
+    $form->addToForm($folderInput->show());
+    
+    echo $form->show();
+} else {
+    echo $table;
+}
+
+echo $this->objUpload->show($folderId);
 
 echo $this->objFolders->showCreateFolderForm($folderId);
-echo $this->objUpload->show($folderId);
+
  ?>
 
 

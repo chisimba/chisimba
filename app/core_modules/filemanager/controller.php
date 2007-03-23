@@ -334,7 +334,11 @@ class filemanager extends controller
                 }
             }
 
-            return $this->nextAction(NULL, array('message'=>'filesdeleted'));
+            if ($this->getParam('folder') != '') {
+                return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted'));
+            } else {
+                return $this->nextAction(NULL, array('message'=>'filesdeleted'));
+            }
         }
     }
 
