@@ -121,7 +121,7 @@ if (!isset($pageTitle)) {
             <div id="msg">
 <?php
             $objModules=&$this->getObject('modules','modulecatalogue');
-            $objUser =& $this->getObject('user', 'security');
+            $this->objUser =& $this->getObject('user', 'security');
             $objPopup =& $this->getObject('windowpop', 'htmlelements');
             $objIcon = $this->getObject('geticon', 'htmlelements');
             if ($objModules->checkIfRegistered('messaging')) {
