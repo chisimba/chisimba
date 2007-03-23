@@ -109,6 +109,8 @@ class filemanager extends controller
         
         }
         
+        $this->objFiles->updateFilePath();
+        
         $this->setVar('breadcrumbs', 'My Files');
         $this->setVar('folderpath', 'My Files');
         $this->setVar('folderId', $folderId);

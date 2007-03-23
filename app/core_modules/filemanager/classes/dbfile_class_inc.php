@@ -766,19 +766,19 @@ class dbfile extends dbTable
     * @param string $category Name of New Category
     * @return boolean Result of the Move
     */
-    function updateFileCategory($fileId, $category)
+    public function updateFileCategory($fileId, $category)
     {
         return $this->update('id', $fileId, array('category'=>$category));
     }
 
     
     /**
-    *
-    *
+    * Method to update the paths of files that do not have the filefolder item set
+    * This is due to a patch added
     */
-    function updateFilePath()
+    public function updateFilePath()
     {
-        $files = $this->getAll(' WHERE filefolder IS NULL');
+        $files = $this->getAll(' WHERE filefolder IS NULL OR filefolder=\'\'');
         
         if (count($files) > 0) {
             foreach ($files as $file) {
@@ -787,8 +787,12 @@ class dbfile extends dbTable
         }
     }
     
-    
-    function getFolderFiles($folder)
+    /**
+    * Method to get all files in a particular folder
+    * @param string $folder folderpath
+    * @return array
+    */
+    public function getFolderFiles($folder)
     {
         return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
     }
