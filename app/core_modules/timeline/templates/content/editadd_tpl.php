@@ -99,9 +99,9 @@ $objElement->setValue($title);
 $objElement->size=70;
 $objForm->addRule('title',$this->objLanguage->languageText("mod_timeline_valrule_titreq", "timeline"),'required');
 //Add the $title element to the form
-$objForm->addToForm("<tr><td>" 
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_title", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  "timeline") . "</td><td class=\"even\">" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to description
@@ -110,9 +110,9 @@ $objElement = new textarea("description");
 $objElement->setValue($description);
 $objElement->cols=60;
 //Add the $description element to the form
-$objForm->addToForm("<tr><td valign=\"top\">" 
+$objForm->addToForm("<tr><td valign=\"top\"  width=\"300\" class=\"odd\">" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_description", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  "timeline") . "</td><td class=\"odd\">" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to title
@@ -122,9 +122,9 @@ $objElement->setValue($url);
 $objElement->size=70;
 $objForm->addRule('url',$this->objLanguage->languageText("mod_timeline_valrule_urlreq", "timeline"),'required');
 //Add the $title element to the form
-$objForm->addToForm("<tr><td>" 
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" 
 . $this->objLanguage->languageText("mod_timeline_fieldname_url", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  "timeline") . "</td><td class=\"even\">" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to focusdate
 //Create a text input element for $focusdate
@@ -133,9 +133,9 @@ $objElement->setValue($focusdate);
 $objForm->addRule('focusdate',$this->objLanguage->languageText("mod_timeline_valrule_focdatreq", "timeline"),'required');
 $objElement->size=10;
 //Add the $focusdate element to the form
-$objForm->addToForm("<tr><td>" 
+$objForm->addToForm("<tr><td width=\"300\" class=\"odd\">" 
   . $this->objLanguage->languageText("mod_timeline_fieldname_focusdate", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+  "timeline") . "</td><td class=\"odd\">" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to intervalpixels
@@ -145,8 +145,8 @@ $objElement->size=10;
 $objElement->setValue($intervalpixels);
 $objForm->addRule('intervalpixels',$this->objLanguage->languageText("mod_timeline_valrule_invpxnum", "timeline"), 'numeric');
 //Add the $intervalpixels element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalpixels", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalpixels", 
+  "timeline") . "</td><td class=\"even\">" . $objElement->show() . "</td></tr>");
 
 
 //Set the value of the element to intervalunit
@@ -154,17 +154,20 @@ $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_
 $objElement = new textinput("intervalunit");
 $objElement->size=10;
 $objElement->setValue($intervalunit);
+$objForm->addRule('intervalunit',$this->objLanguage->languageText("mod_timeline_valrule_intvaluntreq", "timeline"),'required');
 //Add the $intervalunit element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"odd\">" . $this->objLanguage->languageText("mod_timeline_fieldname_intervalunit", 
+  "timeline") . "</td><td class=\"odd\">" . $objElement->show() . "</td></tr>");
 
 //Create a text input element for $tlheight
 $objElement = new textinput("tlheight");
 $objElement->setValue($tlheight);
 $objElement->size=10;
+$objForm->addRule('tlheight',$this->objLanguage->languageText("mod_timeline_valrule_tlhtreq", "timeline"),'required');
+$objForm->addRule('tlheight',$this->objLanguage->languageText("mod_timeline_valrule_tlhtnum", "timeline"), 'numeric');
 //Add the $tlheight element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" . $this->objLanguage->languageText("mod_timeline_fieldname_tlheight", 
+  "timeline") . "</td><td class=\"even\">" . $objElement->show() . "</td></tr>");
 
 
 // Create the checkbox object for $showbottomband
@@ -180,8 +183,8 @@ if ($showbottomband == "TRUE") {
 } else {
     $objElement->setSelected('FALSE');
 }
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_showbottomband", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"odd\">" . $this->objLanguage->languageText("mod_timeline_fieldname_showbottomband", 
+  "timeline") . "</td><td class=\"odd\">" . $objElement->show() . "</td></tr>");
 
  
 //Create a text input element for $btmbandwidth
@@ -189,7 +192,7 @@ $objElement = new textinput("btmbandwidth");
 $objElement->setValue($btmbandwidth);
 $objElement->size=10;
 //Add the $tlheight element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btmbandwidth", 
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" . $this->objLanguage->languageText("mod_timeline_fieldname_btmbandwidth", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Create a text input element for $btminterval
@@ -197,23 +200,23 @@ $objElement = new textinput("btminterval");
 $objElement->setValue($btminterval);
 $objElement->size=10;
 //Add the $tlheight element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btminterval", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"odd\">" . $this->objLanguage->languageText("mod_timeline_fieldname_btminterval", 
+  "timeline") . "</td><td class=\"odd\">" . $objElement->show() . "</td></tr>");
   
 //Create a text input element for $btmintervalpixels
 $objElement = new textinput("btmintervalpixels");
 $objElement->setValue($btmintervalpixels);
 $objElement->size=10;
 //Add the $tlheight element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_btmintervalpixels", 
-  "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\" class=\"even\">" . $this->objLanguage->languageText("mod_timeline_fieldname_btmintervalpixels", 
+  "timeline") . "</td><td class=\"even\">" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to created
 if ($mode == "edit") {
 	if (isset($created)) {
 	    //Add the $created element to the form
-	    $objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_created", 
-	      "timeline") . "</td><td>" . $created . "</td></tr>");
+	    $objForm->addToForm("<tr><td width=\"300\" class=\"odd\">" . $this->objLanguage->languageText("mod_timeline_fieldname_created", 
+	      "timeline") . "</td><td class=\"odd\">" . $created . "</td></tr>");
 	}
 }
 
@@ -224,7 +227,7 @@ $objElement->setToSubmit();
 // Use the language object to add the word save
 $objElement->setValue(' '.$this->objLanguage->languageText("word_save").' ');
 // Add the button to the form
-$objForm->addToForm("<tr><td></td><td>" . ''.$objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"300\"></td><td>" . ''.$objElement->show() . "</td></tr>");
 
 $objForm->addToForm("</table>"); 
 

@@ -90,7 +90,7 @@ $objElement = new textinput("timelineid");
 $objElement->setValue($timelineid);
 $objElement->size=70;
 //Add the $timelineid element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_timelineid", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_timelineid", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
@@ -100,7 +100,7 @@ $objElement = new textinput("start");
 $objElement->setValue($start);
 $objElement->size=70;
 //Add the $start element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_start", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_start", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
@@ -111,7 +111,7 @@ $objElement = new textinput("image");
 $objElement->setValue($image);
 $objElement->size=70;
 //Add the $image element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_image", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_image", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to url
@@ -120,7 +120,7 @@ $objElement = new textinput("url");
 $objElement->size=70;
 $objElement->setValue($url);
 //Add the $url element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_url", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_url", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Set the value of the element to end
@@ -129,7 +129,7 @@ $objElement = new textinput("end");
 $objElement->size=70;
 $objElement->setValue($end);
 //Add the $end element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_end", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_end", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
@@ -139,7 +139,7 @@ $objElement = new textinput("title");
 $objElement->setValue($title);
 $objElement->size=70;
 //Add the $title element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_title", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_title", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 
@@ -149,7 +149,7 @@ $objElement = new textarea("timelinetext");
 $objElement->setContent($timelinetext);
 $objElement->cols=60;
 //Add the $timelinetext element to the form
-$objForm->addToForm("<tr><td>" . $this->objLanguage->languageText("mod_timeline_fieldname_timelinetext", 
+$objForm->addToForm("<tr><td width=\"200\">" . $this->objLanguage->languageText("mod_timeline_fieldname_timelinetext", 
   "timeline") . "</td><td>" . $objElement->show() . "</td></tr>");
 
 //Create a submit button
@@ -159,7 +159,7 @@ $objElement->setToSubmit();
 // Use the language object to add the word save
 $objElement->setValue(' '.$this->objLanguage->languageText("word_save").' ');
 // Add the button to the form
-$objForm->addToForm("<tr><td></td><td>" . ''.$objElement->show() . "</td></tr>");
+$objForm->addToForm("<tr><td width=\"200\">&nbsp;</td><td>" . ''.$objElement->show() . "</td></tr>");
 
 $objForm->addToForm("</table>"); 
 
