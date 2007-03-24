@@ -40,7 +40,7 @@
 	    </change>
         </data>
     </update>
-    <update>
+    <!-- update>
         <table>tbl_sysconfig_properties</table>
         <version>1.4</version>
         <description>added description field for parameters</description>
@@ -50,5 +50,5 @@
             	<type>clob</type>
 	    	</add>
         </data>
-    </update>
+    </update -->
 </updates>
