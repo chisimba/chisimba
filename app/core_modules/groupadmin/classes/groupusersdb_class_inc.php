@@ -100,7 +100,7 @@ class groupusersdb extends dbTable
         $newGroupUser['group_id'] = $groupId;
 
         $newGroupUser['last_updated_by'] = $this->_objUsers->userId();
-        $newGroupUser['last_updated']    = date("Y:m:d H:i:s");
+        $newGroupUser['last_updated']    = date("Y-m-d H:i:s");
 
         return $this->insert( $newGroupUser );
     }
