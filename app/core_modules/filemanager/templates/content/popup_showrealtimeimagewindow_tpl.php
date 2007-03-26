@@ -70,6 +70,8 @@ if (count($files) == 0) {
         $path = $this->objConfig->getsiteRoot().'/'.$this->objConfig->getcontentPath().$file['path'];
         $this->objCleanUrl->cleanUpUrl($path);
         
+        $path = str_replace('http:/', 'http://', $path);
+        
         $fileIdArray .= 'fileId['.$count.'] = "'.htmlentities($path).'";';
         $filenameArray .= 'fileName['.$count.'] = \''.$thumbImg.'\';';
         
