@@ -54,12 +54,12 @@ if (isset($contextList))
 		$content .= '<p>'.$this->_objUtils->getPlugins($context['contextcode']).'</p>';
 		
 		
-		//administor context
+		//administer context
 		//enter context
 		$icon = $this->newObject('geticon', 'htmlelements');
 		$objLink->href = $this->uri(array('action' => 'admincontext', 'contextcode' => $context['contextcode']), 'contextadmin');
 		$icon->setModuleIcon('contextadmin');
-		$icon->alt = 'Administor Course';
+		$icon->alt = 'Administer Course';
 		$objLink->link = $icon->show();
 		$conf = $objLink->show();
 		
