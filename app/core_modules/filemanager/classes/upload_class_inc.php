@@ -109,9 +109,9 @@ class upload extends object
         }
         
         if ($this->numInputs == 1) {
-            $form .= ' <input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfile', 'filemanager', 'Upload File').'" />';
+            $form .= ' <input type="submit" name="submitform" class="button" value="'.$this->objLanguage->languageText('phrase_uploadfile', 'filemanager', 'Upload File').'" />';
         } else {
-            $form .= ' <input type="submit" name="submitform" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />';
+            $form .= ' <input type="submit" name="submitform" class="button" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />';
         }
         
         if ($folderId != '') {
