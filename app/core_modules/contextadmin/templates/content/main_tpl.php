@@ -7,11 +7,12 @@ $fieldset = & $this->newObject('fieldset', 'htmlelements');
 $icon =  & $this->newObject('geticon', 'htmlelements');
 $objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
 $objH = & $this->newObject('htmlheading','htmlelements');
-
 $objH->str = 'Course Admin '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
 $objH->type = 3;
+$impButton =new button("submit", $objLanguage->languageText("mod_contextadmin_import","contextadmin"));
+$impButton->setOnClick("window.location='".$this->uri(array('action'=>'importcourse'))."';");
 
-echo $objH->show();
+echo $objH->show().$impButton->show();
 
 $str = '';
 $other = '';

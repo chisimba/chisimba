@@ -13,6 +13,8 @@ $dropAccess = $this->newObject('dropdown','htmlelements');
 $objH->str = 'Step 1: Add a Course';
 $objH->type = 3;
 
+$inpTitle->fldType="hidden";
+
 //setup the form
 $objForm->name = 'addfrm';
 $objForm->action = $this->uri(array('action' => 'savestep1'));
@@ -103,7 +105,7 @@ $objForm->addToForm($dropAccess->show().'<br /></label>');
 
 $objForm->addToForm($drop);
 
-$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
+
 print $objForm->show().'<br/>';
 
 ?>
