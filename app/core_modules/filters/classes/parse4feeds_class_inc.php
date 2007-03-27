@@ -40,7 +40,7 @@ class parse4feeds extends object
         foreach ($results[0] as $item) {
         	$link = $results['feedlink'][$counter];
         	$replacement = $this->fetchFeed($link);
-        	//die($link);
+			//$replacement = "FOUND: " . $link;
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -59,16 +59,54 @@ class parse4feeds extends object
     	$url =  $this->cleanUrl($url);
         $objRss = $this->newObject('rssreader', 'feed');
         $objRss->parseRss($url);
-        $ret = "<ul>\n";
-		foreach ($objRss->getRssItems() as $item) {
+        $ar = $objRss->getRssItems();
+        $total = count($ar);
+        //Do some layout of flickr images
+        $url = strtolower($url); //Make sure its lower case
+        $pos = strpos($url, "flickr.com");
+        if (!$pos === FALSE) {
+            $isFlickr = TRUE;
+            $ret = "<table>\n";
+            if ($this->isOdd($total)) {
+                $closingCell = "<td>&nbsp;</td></tr>";
+            } else {
+                $closingCell = "";
+            }
+        } else {
+            $isFlickr = FALSE;
+            $ret = "<ul>\n";
+        }
+        //Loop and build the output string
+        $counter=0;
+		foreach ($ar as $item) {
+			$counter++;
+			//var_dump($item);
         	if(!isset($item['link'])) {
         		$item['link'] = NULL;
         	}
-    		@$ret .= "<li><a href=\"" . htmlentities($item['link']) 
-    		  . "\">" . htmlentities($item['title']) . "</a></li>\n"
-    		  . $item['description'] . "<br /><br />";
+        	if ($isFlickr == TRUE) {
+        		if ($this->isOdd($counter)==TRUE) {
+        		    @$ret .= "<tr><td><a href=\"" . htmlentities($item['link']) 
+		    		  . "\">" . htmlentities($item['title']) . "</a><br />\n"
+		    		  . $item['description'] . "</td>";  
+        		} else  {
+        		    @$ret .= "<td><a href=\"" . htmlentities($item['link']) 
+		    		  . "\">" . htmlentities($item['title']) . "</a><br />\n"
+		    		  . $item['description'] . "</td></tr>";  
+        		}
+        	} else {
+	    		@$ret .= "<li><a href=\"" . htmlentities($item['link']) 
+	    		  . "\">" . htmlentities($item['title']) . "</a></li>\n"
+	    		  . $item['description'] . "<br /><br />";  
+	        }
+
 		}
-		$ret .=  "</ul>\n";
+		//End the table or UL depending on if we are parsing a Flickr image feed or not
+		if ($isFlickr) {
+		    $ret .= $closingCell . "</table>\n";
+		} else {
+		    $ret .=  "</ul>\n";
+		}
 		return $ret;
     }
     
@@ -86,6 +124,26 @@ class parse4feeds extends object
     {
        return str_replace("&amp;", "&", $url);
     }
- 
+    
+    /**
+    * 
+    * Method to determine if a number is odd
+    * 
+    * @access public
+    * @param int $num The number to test
+    * @return boolean TRUE|FALSE depending on odd or even status of $num
+    * 
+    */
+    function isOdd( $num )
+	{
+		if( $num%2 == 1 ) {
+    		// $odd == 1; the remainder of 25/2
+    		return TRUE;
+		} else {
+		    // $odd == 0; nothing remains 
+    		return FALSE;
+		}
+	}
+	
 }
 ?>
