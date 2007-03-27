@@ -42,7 +42,7 @@ class parse4smileys extends object {
         '=D>' => 'applause',
         'b-(' => 'black_eye', 'P-(' => 'black_eye', 'p-(' => 'black_eye',
         ':"(' => 'bye',
-        ':p' => 'cheeky', ':P' => 'cheeky', ':-p' => 'cheeky', ':-P' => 'cheeky',
+        ':P' => 'cheeky', ':-p' => 'cheeky', ':-P' => 'cheeky',
         '~:>' => 'chicken',
         ':o)' => 'clown', ':O)' => 'clown',
         ':-/' => 'confused',
