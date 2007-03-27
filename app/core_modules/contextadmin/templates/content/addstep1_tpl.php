@@ -105,6 +105,7 @@ $objForm->addToForm($dropAccess->show().'<br /></label>');
 
 $objForm->addToForm($drop);
 $objForm->addToForm('</fieldset>');
+$objForm->addToForm($inpButton->show());
 
 
 print $objForm->show().'<br/>';
