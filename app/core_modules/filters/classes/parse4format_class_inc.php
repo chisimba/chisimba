@@ -37,7 +37,12 @@ class parse4format extends object {
         '[S4]' => '<font size="5">',
         '[S5]' => '<font size="6">',
         '[S6]' => '<font size="7">',
-        '[/S]' => '</font>',
+        '[/S1]' => '</font>',
+        '[/S2]' => '</font>',
+        '[/S3]' => '</font>',
+        '[/S4]' => '</font>',
+        '[/S5]' => '</font>',
+        '[/S6]' => '</font>',
         );
  
         $objIcon = &$this->getObject('geticon', 'htmlelements');
