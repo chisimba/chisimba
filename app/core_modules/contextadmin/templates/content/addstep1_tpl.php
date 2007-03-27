@@ -104,6 +104,7 @@ $objForm->addToForm('<label for="access"><b><span class="req">*</span>'.$this->_
 $objForm->addToForm($dropAccess->show().'<br /></label>');
 
 $objForm->addToForm($drop);
+$objForm->addToForm('</fieldset>');
 
 
 print $objForm->show().'<br/>';
