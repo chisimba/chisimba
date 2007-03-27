@@ -8,7 +8,7 @@ class ldaplogin extends object
 
     //var $ldapserver="services-ds.uwc.ac.za"; // hard-coded for now - will be changed later
     private $ldapserver="192.102.9.68"; // hard-coded for now - will be changed later
-    private $usernumber='generationalqualifier';
+    private $usernumber='generationqualifier';
 
     public function init()
     {
@@ -97,9 +97,9 @@ class ldaplogin extends object
         $results['surname']=$data[0]['surname'][0];
         $results['firstName']=$data[0]['givenname'][0];
         $results['emailAddress']=$data[0]['mail'][0];
-        if (isset($data[0][$this->usernumber]) && is_int($data[0][$this->usernumber]))
+        if (isset($data[0][$this->usernumber][0]) && is_numeric($data[0][$this->usernumber][0]))
         {
-            $results['userid']=$data[0][$this->usernumber];
+            $results['userid']=$data[0][$this->usernumber][0];
         }
         else
         {
