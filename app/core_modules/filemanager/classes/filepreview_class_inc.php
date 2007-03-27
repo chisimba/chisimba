@@ -81,6 +81,8 @@ class filepreview extends object
                 
                 return $this->objFileEmbed->embed($this->objConfig->getcontentPath().'filemanager_thumbnails/standard_'.$this->file['id'].'.jpg', 'image');
             }
+        } else if ($this->file['datatype'] == 'svg') {
+            return $this->objFileEmbed->embed($this->file['linkname'], 'svg', '100%', 400);
         } else {
             return $this->objFileEmbed->embed($this->file['linkname'], 'image');
         }

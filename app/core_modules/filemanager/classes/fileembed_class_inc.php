@@ -66,6 +66,8 @@ class fileembed extends object
                 return $this->showFLV($file, $width, $height);
             case 'ogg':
                 return $this->showOggVideo($file, $width, $height);
+            case 'svg':
+                return $this->showSVG($file, $width, $height);
         }
     }
     
@@ -146,6 +148,8 @@ class fileembed extends object
     /**
     * Method to embed a flash object
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showFlash($file, $width='100%', $height='400')
     {
@@ -159,6 +163,8 @@ class fileembed extends object
     /**
     * Method to embed a Quicktime Object
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showQuicktime($file, $width='100%', $height='400')
     {
@@ -187,6 +193,8 @@ class fileembed extends object
     /**
     * Method to show a WMV video
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showWMV($file, $width='100%', $height='400')
     {
@@ -221,6 +229,8 @@ class fileembed extends object
     /**
     * Method to show a AVI video
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showAVI($file, $width='100%', $height='400')
     {
@@ -240,6 +250,8 @@ class fileembed extends object
     /**
     * Method to show a FLV video
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showFLV($file, $width='100%', $height='400')
     {
@@ -256,6 +268,8 @@ class fileembed extends object
     /**
     * Method to show a FLV video
     * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
     */
     function showOggVideo($file, $width='100%', $height='400')
     {
@@ -272,6 +286,19 @@ class fileembed extends object
      <param name="bufferSize" value="200"/>
      <param name="showStatus" value="show"/>
    </applet>';
+    }
+    
+    /**
+    * Method to show a Scalable Vector Graphics (SVG) Image
+    * @param string $file Path to the File
+    * @param string $width Width of Object
+    * @param string $height Height of Object
+    */
+    function showSVG($file, $width='100%', $height='400')
+    {
+        return '<object data="'.$file.'" width="'.$width.'" height="'.$height.'" 
+type="image/svg+xml"
+codebase="http://www.adobe.com/svg/viewer/install/" />';
     }
     
 
