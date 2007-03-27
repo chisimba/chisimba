@@ -762,7 +762,22 @@ class engine
 	public function &newObject($name, $moduleName)
 	{
 		$this->loadClass($name, $moduleName);
-		$objNew = new $name($this, $moduleName);
+		// Fix to allow developers to load htmlelements which do not inherit from class 'object'
+		$parents = class_parents($name);
+		if (in_array('object',$parents)) {
+			// Class inherits from class 'object', so pass it the expected parameters
+			$objNew = new $name($this, $moduleName);
+		}
+		else {
+			// Class does not inherit from class 'object', so don't pass it any parameters
+			$objNew = new $name();
+		}
+		//$objNew = new $name($this, $moduleName);
+		/*
+		if (is_null($objNew)) {
+			throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
+		}
+		*/
 		return $objNew;
 	}
 
@@ -792,9 +807,19 @@ class engine
 		else
 		{
 			$this->loadClass($name, $moduleName);
-			$instance = new $name($this, $moduleName);
+			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
+			$parents = class_parents($name);
+			if (in_array('object',$parents)) {
+				// Class inherits from class 'object', so pass it the expected parameters
+				$instance = new $name($this, $moduleName);
+			}
+			else {
+				// Class does not inherit from class 'object', so don't pass it any parameters
+				$instance = new $name();
+			}
+			//$instance = new $name($this, $moduleName);
 			if (is_null($instance)) {
-				throw new customException("Could not instantiate class $name from module $moduleName" . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
+				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
 			// first check that the map for the given module exists
 			if (!isset($this->_cachedObjects[$moduleName]))
