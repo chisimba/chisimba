@@ -361,8 +361,8 @@ class dbfolder extends dbTable
                 
                 // If there is no record of the file, simply delete them from file system
                 if ($fileInfo == FALSE) {
-                    //@unlink($file);
-                    echo $path.' - '.$file.'<br />';
+                    @unlink($file);
+                    //echo $path.' - '.$file.'<br />';
                 } else {
                     // Otherwise, follow process, delete them from the database, then filesystem
                     $this->objFiles->deleteFile($fileInfo['id']);

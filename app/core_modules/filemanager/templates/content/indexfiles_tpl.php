@@ -6,9 +6,7 @@ echo '<h1>File Indexer</h1>';
 
 $this->loadClass('link', 'htmlelements');
 
-$objIndexFileProcessor = $this->getObject('indexfileprocessor');
 
-$list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
 
 if (count($list) > 0) {
     echo '<ul>';

@@ -83,9 +83,7 @@ class filemanager extends controller
             case 'testgetid3':
                 return $this->testGetId3();
             case 'indexfiles':
-                return 'indexfiles_tpl.php';
-            case 'indexfolders':
-                return 'indexfolders_tpl.php';
+                return $this->indexFiles();
             case 'viewfolder':
                 return $this->showFolder($this->getParam('folder'));
             case 'createfolder':
@@ -744,14 +742,47 @@ function checkWindowOpener()
             
             //echo $folder;
             
+            $objBackground = $this->newObject('background', 'utilities');
+            
+            //check the users connection status,
+            //only needs to be done once, then it becomes internal 
+            $status = $objBackground->isUserConn();
+
+            //keep the user connection alive, even if browser is closed!
+            $callback = $objBackground->keepAlive(); 
+
             $objZip = $this->newObject('wzip', 'utilities');
             $objZip->unzip($file, $folder);
             
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
             $objIndexFileProcessor->indexFolder($folder, $this->objUser->userId());
             
+            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!"); 
+            
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId)); 
         }
+    }
+    
+    function indexFiles()
+    {
+        $objBackground = $this->newObject('background', 'utilities');
+            
+        //check the users connection status,
+        //only needs to be done once, then it becomes internal 
+        $status = $objBackground->isUserConn();
+
+        //keep the user connection alive, even if browser is closed!
+        $callback = $objBackground->keepAlive(); 
+        
+        $objIndexFileProcessor = $this->getObject('indexfileprocessor');
+
+        $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
+        
+        $this->setVarByRef('list', $list);
+        
+        $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+        
+        return 'indexfiles_tpl.php';
     }
 }
 
