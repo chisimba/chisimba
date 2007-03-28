@@ -155,6 +155,7 @@ class patch extends dbtable {
 						foreach ($update->data as $data) {
 							foreach ($data as $opKey => $opValue) {
 								$pData = array();
+								$change = '';
 								switch ($opKey) {
 									case 'name':
 										$pData[$opKey] = (string)$opValue;
@@ -240,6 +241,16 @@ class patch extends dbtable {
 											$pData[$op] = $change;
 										}
 										break;
+								    case 'insert':
+								        $op = (string)$opKey;
+								        $change = array();
+								        
+								        foreach($opValue as $rowKey => $rowVal){
+								            $change[(string)$rowKey] = (string)$rowVal;
+								        }
+								        $pData[$op] = $change;
+    		                            break;
+										
 									default:
 										throw new customException('error in patch data');
 										break;
@@ -251,9 +262,9 @@ class patch extends dbtable {
 									//if ($this->objModuleAdmin->alterTable($update->table,$pData,false)!=MDB2_OK) {
 									//	return FALSE;
 									//}
-								$patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
-								'patchdata'=>$pData,'applied'=>$this->objModule->now());
-								$this->objModule->insert($patch,'tbl_module_patches');
+    								$patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
+    								'patchdata'=>$pData,'applied'=>$this->objModule->now());
+    								$this->objModule->insert($patch,'tbl_module_patches');
 								} else {
 									return FALSE;
 								}

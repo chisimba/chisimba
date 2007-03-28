@@ -85,6 +85,13 @@ class modulesadmin extends dbTableManager
 	 */
 	public $objConfig;
 
+	/**
+	 * Property to handle the error reporting
+	 *
+	 * @var object $debug
+	 */
+	public $debug;
+	
     /**
      * Standard initilisation method
      *
