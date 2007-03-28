@@ -90,6 +90,10 @@ class filemanager extends controller
                 return $this->showFolder($this->getParam('folder'));
             case 'createfolder':
                 return $this->createFolder();
+            case 'deletefolder':
+                return $this->deleteFolder($this->getParam('id'));
+            case 'extractarchive':
+                return $this->extractArchive();
             default:
                 return $this->filesHome();
         }
@@ -101,6 +105,10 @@ class filemanager extends controller
         $folderpath = 'users/'.$this->objUser->userId();
         
         $folderId = $this->objFolders->getFolderId($folderpath);
+        
+        // Get Folder Details
+        $folder = $this->objFolders->getFolder($folderId);
+        $this->setVarByRef('folder', $folder);
         
         if ($folderId == FALSE) {
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
@@ -322,20 +330,36 @@ class filemanager extends controller
     */
     public function multiDeleteConfirm()
     {
+        // echo '<pre>';
+        // print_r($_POST);
+        
         if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
             return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete'));
         } else {
             $files = $this->getParam('files');
+            
+            $numFiles = 0;
+            $numFolders = 0;
+            
             foreach ($files as $file)
             {
-                $fileDetails = $this->objFiles->getFile($file);
-                if ($fileDetails['userid'] = $this->objUser->userId()) {
-                    $this->objFiles->deleteFile($file, TRUE);
+                if (substr($file, 0, 8) == 'folder__') {
+                    $folder = substr($file, 8);
+                    $this->objFolders->deleteFolder($folder);
+                    $numFolders++;
+                } else {
+                    $fileDetails = $this->objFiles->getFile($file);
+                    
+                    // Check if User, and so be able to delete files
+                    if ($fileDetails['userid'] = $this->objUser->userId()) {
+                        $this->objFiles->deleteFile($file, TRUE);
+                        $numFiles++;
+                    }
                 }
             }
 
             if ($this->getParam('folder') != '') {
-                return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted'));
+                return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted', 'numfiles'=>$numFiles, 'numfolders'=>$numFolders));
             } else {
                 return $this->nextAction(NULL, array('message'=>'filesdeleted'));
             }
@@ -614,6 +638,8 @@ function checkWindowOpener()
             return $this->nextAction(NULL);
         }
         
+        $this->setVarByRef('folder', $folder);
+        
         $this->setVarByRef('folderpath', basename($folder['folderpath']));
         
         $this->setVar('folderId', $id);
@@ -677,6 +703,54 @@ function checkWindowOpener()
             return $this->nextAction('viewfolder', array('folder'=>$folderId, 'message'=>'foldercreated'));
         } else {
             return $this->nextAction(NULL, array('error'=>'couldnotcreatefolder'));
+        }
+    }
+    
+    private function deleteFolder($id)
+    {
+        // Get the Folder Path
+        $folder = $this->objFolders->getFolderPath($id);
+        
+        // Delete the Folder
+        $this->objFolders->deleteFolder($id);
+        
+        // Get Parent Id based on the Folder Path
+        $parentId = $this->objFolders->getFolderId(dirname($folder));
+        
+        // Redirect to Parent Folder
+        return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'folderdeleted', 'ref'=>basename($folder)));
+    }
+    
+    function extractArchive()
+    {
+        // echo '<pre>';
+        // print_r($_POST);
+        
+        $archiveFileId = $this->getParam('file');
+        
+        $file = $this->objFiles->getFullFilePath($archiveFileId);
+        
+        if ($file == FALSE) {
+            return $this->nextAction('viewfolder', array('folder'=>$this->getParam('parentfolder'), 'error'=>'couldnotfindarchive')); 
+        } else {
+        
+            $parentId = $this->getParam('parentfolder');
+            
+            if ($parentId == 'ROOT') {
+                $parentId = $this->objFolders->getFolderId('users/'.$this->objUser->userId());
+            }
+            
+            $folder = $this->objFolders->getFullFolderPath($parentId);
+            
+            //echo $folder;
+            
+            $objZip = $this->newObject('wzip', 'utilities');
+            $objZip->unzip($file, $folder);
+            
+            $objIndexFileProcessor = $this->getObject('indexfileprocessor');
+            $objIndexFileProcessor->indexFolder($folder, $this->objUser->userId());
+            
+            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId)); 
         }
     }
 }

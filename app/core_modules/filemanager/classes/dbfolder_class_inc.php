@@ -16,8 +16,10 @@ class dbfolder extends dbTable
     {
         parent::init('tbl_files_folders');
         
+        $this->objFiles =& $this->getObject('dbfile');
         $this->objUser =& $this->getObject('user', 'security');
         $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objCleanUrl =& $this->getObject('cleanurl');
         
 		$this->loadClass('treemenu', 'tree');
 		$this->loadClass('treenode', 'tree');
@@ -32,12 +34,20 @@ class dbfolder extends dbTable
     }
     
     
+    /**
+    * Method to check whether a folder is in the database record or not.
+    * If it is not, add it to the database
+    * @param string $folder Path to Folder
+    * @param boolean $isFullPath Is it the full path of the folder, or just the part of usrfiles/
+    * @return string Record Id
+    */
     public function indexFolder($folder, $isFullPath=TRUE)
     {
         // Convert all backslashes to forward slashes
         // Convert multiple forward slashes to single
         $folder = preg_replace('/(\/|\\\)+/', '/', $folder);
         
+        // If it is the full path to the file
         if ($isFullPath) {
             // Remove the path upto userfiles
             // Eg. removes /htdocs/chisima_framework/app/usrfiles/
@@ -54,11 +64,22 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+    * Method to add a folder to the database records
+    * @param string $folder Path to the folder
+    * @return string Record Id
+    */
     private function addFolder($folder)
     {
         return $this->insert(array('folderpath'=> $folder, 'folderlevel'=>count(explode('/', $folder))));
     }
     
+    
+    /**
+    * Method to show the folders of the current user as a DHTML Tree
+    * @param string $default Record Id of the Current Folder to highlight
+    * @return string
+    */
     function showUserFolders($default='')
     {
         //Create a new tree
@@ -113,6 +134,7 @@ class dbfolder extends dbTable
         return $treeMenu->getMenu();
     }
     
+    
     function getUserFolders($userId)
     {
         return $this->getAll(' WHERE folderpath LIKE \'users/'.$userId.'/%\' ORDER BY folderlevel, folderpath');
@@ -128,12 +150,47 @@ class dbfolder extends dbTable
     {
         $folder = $this->getRow('folderpath', $path);
         
-        // print_r($folder);
-        // echo '<br /><br /><br />';
         if ($folder == FALSE) {
             return FALSE;
         } else {
             return $folder['id'];
+        }
+    }
+    
+    function getFolderName($id)
+    {
+        $folder = $this->getRow('id', $id);
+        
+        if ($folder == FALSE) {
+            return FALSE;
+        } else {
+            return basename($folder['folderpath']);
+        }
+    }
+    
+    function getFolderPath($id)
+    {
+        $folder = $this->getRow('id', $id);
+        
+        if ($folder == FALSE) {
+            return FALSE;
+        } else {
+            return $folder['folderpath'];
+        }
+    }
+    
+    function getFullFolderPath($id)
+    {
+        $folder = $this->getRow('id', $id);
+        
+        if ($folder == FALSE) {
+            return FALSE;
+        } else {
+            $path = $this->objConfig->getcontentBasePath().$folder['folderpath'];
+        
+            $this->objCleanUrl->cleanUpUrl($path);
+            
+            return $path;
         }
     }
     
@@ -205,6 +262,11 @@ class dbfolder extends dbTable
         return $breadcrumbs;
     }
     
+    /**
+    * Method to show the folders of the current user as a tree drop down
+    * @param string $default Record Id of the Current Folder to highlight
+    * @return string
+    */
     function getTreedropdown($selected = '')
     {
         //Create a new tree
@@ -269,6 +331,91 @@ class dbfolder extends dbTable
         $form->addToForm(' '.$button->show());
         
         return $form->show();
+    }
+    
+    function deleteFolder($id)
+    {
+        
+        $folder = $this->getFullFolderPath($id);
+        
+        $objIndexFiles = $this->getObject('indexfiles');
+        
+        $results = $objIndexFiles->scanDirectory($folder);
+        
+        // echo '<pre>';
+        // print_r($results);
+        
+        // If there are files in the directory, delete them one by one
+        if (count($results[0]) > 0) {
+            foreach ($results[0] as $file)
+            {
+                // Remove the usrfiles portion from the file
+                preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
+                $path = $regs[0];
+                
+                // Clean up portion - esp convert backslash to forward slash
+                $this->objCleanUrl->cleanUpUrl($path);
+                
+                // Check if there is a record of the file
+                $fileInfo = $this->objFiles->getFileDetailsFromPath($path);
+                
+                // If there is no record of the file, simply delete them from file system
+                if ($fileInfo == FALSE) {
+                    //@unlink($file);
+                    echo $path.' - '.$file.'<br />';
+                } else {
+                    // Otherwise, follow process, delete them from the database, then filesystem
+                    $this->objFiles->deleteFile($fileInfo['id']);
+                }
+            }
+        }
+        
+        // Now delete sub folders
+        if (count($results[1]) > 0) {
+        
+            $folders = array_reverse($results[1]);
+            
+            foreach ($folders as $subfolder)
+            {
+                // Remove the usrfiles portion from the file
+                preg_match('/(?<=usrfiles(\\\|\/)).*/', $subfolder, $regs);
+                $path = $regs[0];
+                
+                // Clean up portion - esp convert backslash to forward slash
+                $this->objCleanUrl->cleanUpUrl($path);
+                
+                if (rmdir($subfolder)) {
+                    $this->delete('folderpath', $path);
+                }
+            }
+        }
+        
+        // Now delete the folder itself
+        if (rmdir($folder)) {
+            $this->delete('id', $id);
+        } else {
+            return FALSE;
+        }
+    }
+    
+    private function remove_directory($dir)
+    {
+        if ($handle = opendir("$dir")) {
+            while (false !== ($item = readdir($handle))) {
+                if ($item != "." && $item != "..") {
+                    if (is_dir("$dir/$item")) {
+                        //remove_directory("$dir/$item");
+                        echo "$dir/$item";
+                    } else {
+                        unlink("$dir/$item");
+                        echo " removing $dir/$item\n";
+                    }
+                }
+            }
+            closedir($handle);
+            rmdir($dir);
+            //echo "removing $dir\n";
+        }
     }
 
     

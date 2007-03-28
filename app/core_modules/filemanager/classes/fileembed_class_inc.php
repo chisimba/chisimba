@@ -105,7 +105,7 @@ class fileembed extends object
         
         $this->objCleanUrl->cleanUpUrl($file);
         
-        return '<applet CODE="ObjLoad.class"  CODEBASE="modules/files/resources/obj3d" width="100%" height="400">
+        return '<applet CODE="ObjLoad.class"  CODEBASE="core_modules/files/resources/obj3d" width="100%" height="400">
    <param name="type" value="application/x-java-applet;version=1.4" />
    <param name="filename" value="'.$file.'" />
    </applet>';

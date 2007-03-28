@@ -4,6 +4,18 @@ $this->loadClass('form', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 
+$objIcon = $this->newObject('geticon', 'htmlelements');
+
+$this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', 'htmlelements'));
+
+if ($folder['folderlevel'] == 2) {
+    $icon = '';
+    $folderpath = 'My Files';
+    $breadcrumbs = 'My Files';
+} else {
+    $icon = $objIcon->getDeleteIconWithConfirm($folderId, array('action'=>'deletefolder', 'id'=>$folderId), 'filemanager', 'Are you sure wou want to remove this folder');
+}
+
 echo '<p>'.$breadcrumbs.'</p>';
 
 switch ($this->getParam('message'))
@@ -14,6 +26,8 @@ switch ($this->getParam('message'))
         echo '<span class="confirm">Folder has been created </span>'; break;
     case 'filesdeleted':
         echo '<span class="confirm">File(s) have been deleted </span>'; break;
+    case 'folderdeleted':
+        echo '<span class="confirm"><strong>'.$this->getParam('ref').'</strong> folder has been deleted </span>'; break;
 }
 
 switch ($this->getParam('error'))
@@ -26,9 +40,9 @@ switch ($this->getParam('error'))
         echo '<span class="error">Folder was not created. Folders cannot contain any of the following characters: \ / : * ? &quot; &lt; &gt; |</span>'; break;
 }
 
-echo '<h1>'.$folderpath.'</h1>';
+echo '<h1>'.$folderpath.' '.$icon.'</h1>';
 
-if (count($files) > 0) {
+if (count($files) > 0 || count($subfolders) > 0) {
     $form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
     $form->addToForm($table);
 

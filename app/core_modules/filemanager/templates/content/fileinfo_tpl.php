@@ -1,5 +1,8 @@
 <?php
 $this->loadClass('link', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
 
 echo $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $file['path']);
@@ -44,8 +47,23 @@ $link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemana
 
 echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
-echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filehistory', 'filemanager', 'File History').'</h3>';
-echo $this->objFiles->getFileHistory($file['id']);
+
+if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
+    $form = new form ('extractarchive', $this->uri(array('action'=>'extractarchive')));
+    $form->addToForm('Extract Archive to: '.$this->objFolders->getTreedropdown($folderId));
+    
+    $button = new button ('submitform', 'Extract Files');
+    $button->setToSubmit();
+    
+    $form->addToForm($button->show());
+    
+    $hiddeninput = new hiddeninput ('file', $file['id']);
+    $form->addToForm($hiddeninput->show());
+    echo $form->show();
+}
+
+// echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filehistory', 'filemanager', 'File History').'</h3>';
+// echo $this->objFiles->getFileHistory($file['id']);
 
 echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h3>';
 echo $objFilePreview->previewFile($file['id']);

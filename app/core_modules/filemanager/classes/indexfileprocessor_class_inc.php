@@ -27,9 +27,11 @@ class indexfileprocessor extends object
         $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
     }
     
-    function indexFolder($folder)
+    function indexFolder($folder, $userId)
     {
-        return $this->objIndexFiles->scanDirectory($this->objConfig->getcontentBasePath().$folder);
+        $results = $this->objIndexFiles->scanDirectory($folder);
+        
+        return $this->processResults($results, $userId);
     }
     
     /**
@@ -39,8 +41,11 @@ class indexfileprocessor extends object
     */
     function indexUserFiles($userId='1')
     {
-        $results = $this->indexFolder('users/'.$userId.'/');
-        
+        return $this->indexFolder($this->objConfig->getcontentBasePath().'users/'.$userId.'/', $userId);
+    }
+    
+    function processResults($results, $userId)
+    {
         // Split Folders from Results
         $folders = $results[1];
         // Add User Folder
@@ -59,7 +64,7 @@ class indexfileprocessor extends object
         return $indexedFiles;
     }
     
-    function processFolderResults($folders)
+    private function processFolderResults($folders)
     {
         if (count($folders) > 0) {
             foreach ($folders as $folder)
@@ -69,7 +74,7 @@ class indexfileprocessor extends object
         }
     }
     
-    function processFileResults($files, $userId)
+    private function processFileResults($files, $userId)
     {
         $indexedFiles = array();
         
@@ -101,7 +106,7 @@ class indexfileprocessor extends object
     * @param string $mimetype Mimetype of the File (Optional)
     * @return string File Id
     */
-    function processIndexedFile($filePath, $userId, $mimetype='')
+    private function processIndexedFile($filePath, $userId, $mimetype='')
     {
         // Clean Up the File Path
         $this->objCleanUrl->cleanUpUrl($filePath);
