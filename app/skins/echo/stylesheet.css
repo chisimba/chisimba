@@ -183,6 +183,10 @@ table.highlightrows tr:hover {
 	background-color: #FFE4E1;
 }
 
+.tbl_ruler{
+    background-color: #D3D3D3;
+}
+
 td.widelink a {
 	display:block;
 }
@@ -296,7 +300,7 @@ td.widelink a:hover {
 .featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {margin: 0 0 .3em;border-bottom: 1px solid #c00;color:#c00; background-color: transparent;}
 .featurebox p {border:none;margin: 0 0 1em;color:#444}
 .featurebox a {font-weight:bold; text-decoration:none;}
-.featurebox select {width: 100%; }
+/*.featurebox select {width: 100%; }*/
 
 /** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
 .contentfeaturebox {
@@ -394,3 +398,67 @@ textarea {
         font-size: 11px;
 }
 
+.menuBtnOn {
+    color: #FFF;
+	font-size: 90%;
+    margin: 2px;
+    background: #f6f6f6 url("images/menubtnbg_on.gif") repeat 100% 100%;
+}
+
+.menuBtnOn a {
+    font-family: arial-bold,arial,tahoma,verdana,sans-serif;
+    font-weight: bold;
+    color: #FFF;
+    display: block;
+    padding: 10px 15px 10px;
+    text-decoration: none;
+}
+
+.menuBtn {
+    font-family: arial,tahoma,verdana,sans-serif;
+    color: red;
+	font-size: 90%; 
+    margin: 2px;
+    background: transparent url("images/menubtnbg.gif") repeat 100% 100%;
+}
+
+.menuBtn a {
+    display: block;
+    padding: 10px 15px 10px;
+    text-decoration: none;
+}
+
+.menuBtn a:hover {
+}
+
+.smallicon {
+	height: 70px;
+	width: 85px;
+	text-align: center;
+	font-size: 70%;
+	line-height: 100%;
+	float: left; 
+	padding: 0px;
+	margin: 2px;
+}
+
+.smallicon a {
+	display: block;
+	float: left;
+	border: 1px solid #f0f0f0;
+	height: 70px;
+	width: 85px;
+	vertical-align: middle;
+	text-decoration: none;
+	padding: 0px;
+	margin: 0px;
+	background: #fffef3;
+}
+
+.smallicon a:hover {
+	border-left: 1px solid #eee;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: #f9f9f9;
+}
