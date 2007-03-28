@@ -163,7 +163,7 @@ class windowPop implements ifhtml
             $this->js_iswritten=TRUE;
             return $this->js;
         } else {
-            return $this->js;
+            return '';
         }
     }
 
