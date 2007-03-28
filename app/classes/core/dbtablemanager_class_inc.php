@@ -754,7 +754,7 @@ class dbTableManager extends object
      */
     function alterTable($name, $changes, $check)
     {
-        /* If the change is an insert - insert the data, otherwise alter the table
+        // If the change is an insert - insert the data, otherwise alter the table
         if(isset($changes['insert'])){
             // insert data through db table
             $fields = $changes['insert'];
@@ -764,9 +764,9 @@ class dbTableManager extends object
                 dbtable::init($name, $this->_db);
                 $ret = dbtable::insert($fields, $name);
             }
-        }else{*/
+        }else{
             $ret = $this->_db->mgAlterTable($name, $changes, $check);
-        //}
+        }
     	if(PEAR::isError($ret))
     	{
     		return $ret->getMessage();
