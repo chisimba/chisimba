@@ -797,7 +797,40 @@ label br {clear:left}
 * CMS Styles
 ************************************************/
 
-/** cpanel settings **/
+.menuBtnOn {
+    color: #FFF;
+	font-size: 90%;
+    margin: 2px;
+    background: #f6f6f6 url("images/menubtnbg_on.gif") repeat 100% 100%;
+}
+
+.menuBtnOn a {
+    font-family: arial-bold,arial,tahoma,verdana,sans-serif;
+    font-weight: bold;
+    color: #FFF;
+    display: block;
+    padding: 10px 15px 10px;
+    text-decoration: none;
+}
+
+.menuBtn {
+    font-family: arial,tahoma,verdana,sans-serif;
+    color: red;
+	font-size: 90%; 
+    margin: 2px;
+    background: transparent url("images/menubtnbg.gif") repeat 100% 100%;
+}
+
+.menuBtn a {
+    display: block;
+    padding: 10px 15px 10px;
+    text-decoration: none;
+}
+
+.menuBtn a:hover {
+}
+
+/** control panel settings **/
 
 #cpanel div.icon {
 	border: 1px solid #A0A0A0;
@@ -830,6 +863,8 @@ label br {clear:left}
 
 #cpanel img  { padding: 8px 0; margin: 0 auto; }
 #cpanel span { display: block; text-align: center; }
+
+/** Icon + text div links **/
 
 .smallicon {
 	height: 70px;
