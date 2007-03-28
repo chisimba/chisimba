@@ -241,7 +241,7 @@ class patch extends dbtable {
 											$pData[$op] = $change;
 										}
 										break;
-								    case 'insert':
+								   /* case 'insert':
 								        $op = (string)$opKey;
 								        $change = array();
 								        
@@ -250,7 +250,7 @@ class patch extends dbtable {
 								        }
 								        $pData[$op] = $change;
     		                            break;
-										
+									*/	
 									default:
 										throw new customException('error in patch data');
 										break;
