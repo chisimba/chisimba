@@ -115,7 +115,7 @@ class background extends object
 	 */
 	public function callBackFunc()
 	{
-		mail($this->address, $this->subject ,$this->message);
+		@mail($this->address, $this->subject ,$this->message);
 
 	}
 
@@ -136,7 +136,7 @@ class background extends object
 
 		//pop a mail off to the user when his operation completes
 		//create the __Lambda Function
-		$callback = create_function('$address, $subject, $message','mail($address, $subject ,$message);');
+		$callback = create_function('$address, $subject, $message','@mail($address, $subject ,$message);');
 		//execute the __Lambda function
 		$callback($address, $subject, $message);
 		//register the callback method
