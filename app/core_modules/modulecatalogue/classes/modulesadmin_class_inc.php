@@ -1313,5 +1313,10 @@ class modulesadmin extends dbTableManager
     public function errorCallback($exception) {
     	echo customException::cleanUp($exception);
     }
+    
+    public function _execute($stmt, $params = array())
+    {
+        dbtable::_execute($stmt, $params);
+    }
 }
 ?>
