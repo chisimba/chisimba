@@ -177,7 +177,13 @@ class timelineparser extends object
     public function isValidTimeline($timelinePath)
     {
         $xml = simplexml_load_file($timelinePath);
-        return $this->testTimeline($xml);
+        
+        // Check for errors
+        if ($xml == FALSE) {
+            return FALSE;
+        } else {
+            return $this->testTimeline($xml);
+        }
     }
 
     /**
