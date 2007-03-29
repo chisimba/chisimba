@@ -178,6 +178,8 @@ class InstallDirectoryAction extends StepAction
 		// change windows \ characters to / separators
 
 		$sys_root = str_replace('\\', '/',$sys_root);
+                $sys_root.='/';
+                $sys_root=str_replace('//','/',$sys_root);
 		if (!is_dir($sys_root)) {
 			$this->errors[] = 'Could not find the directory specified '.$sys_root;
 			$this->success = false;
@@ -400,11 +402,11 @@ class InstallDirectoryAction extends StepAction
 
 											'to have write access by the webserver by executing the following ';
 
-						$this->errors[] = '<p><i>chmod 755 '.$check_dir;
+						$this->errors[] = '<p><i>chmod 700 '.$check_dir;
 
 
 
-						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 755';
+						$this->errors[] = 'find '.$check_dir.' -type d | xargs chmod 700';
 
 						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 600</i></p>';
 
@@ -537,16 +539,15 @@ class InstallDirectoryAction extends StepAction
 		$source_dir = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'] : INSTALL_DIR;
 
 
-
-		$path = getcwd();
+		$path = $_SERVER['SCRIPT_FILENAME'];
 
 		if (preg_match("/\/installer/i", "$path")) {
 
-			$abspath = str_replace('/installer',"",$path);
+			$abspath = str_replace('/installer/index.php',"",$path);
 
 		} else {
 
-			$abspath = str_replace('\installer',"",$path);
+			$abspath = str_replace('\installer\index.php',"",$path);
 
 		}
 
@@ -569,7 +570,8 @@ class InstallDirectoryAction extends StepAction
                     $newmodulepath=$guess;
                     
                 } else {
-                    $newmodulepath='';
+                    $newmodulepath=$abspath.'/modules/';
+                    $this->errors[]="The default value for the module path is supplied, be sure to check that this is accurate!";
                 }
                 // module URI
                 if (isset($_SESSION['module_URI']) && is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$_SESSION['module_URI'])){
