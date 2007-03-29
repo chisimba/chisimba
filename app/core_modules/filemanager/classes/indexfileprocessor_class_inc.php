@@ -74,9 +74,28 @@ class indexfileprocessor extends object
         }
     }
     
+    private function generateUserFilesArray($userId)
+    {
+        $files = $this->objFile->getUserFiles($userId);
+        
+        $list = array();
+        
+        if (count($files) > 0) {
+            foreach ($files as $file)
+            {
+                $list[] = $file['path'];
+            }
+        }
+        
+        return $list;
+        
+    }
+    
     private function processFileResults($files, $userId)
     {
         $indexedFiles = array();
+        
+        $userFiles = $this->generateUserFilesArray($userId);
         
         if (count($files) > 0) {
             foreach ($files as $file)
@@ -85,13 +104,17 @@ class indexfileprocessor extends object
                 	$path = $regs[0];
                     $this->objCleanUrl->cleanUpUrl($path);
                     
-                    $record = $this->objFile->getFileDetailsFromPath($path);
-                    
-                    if ($record == FALSE) {
+                    if (!in_array($path, $userFiles)) {
                         $indexedFiles[] = $this->processIndexedFile($path, $userId);
-                    } else {
-                    
+                        //echo $path.' - ';
                     }
+                    // $record = $this->objFile->getFileDetailsFromPath($path);
+                    
+                    // if ($record == FALSE) {
+                        // $indexedFiles[] = $this->processIndexedFile($path, $userId);
+                    // } else {
+                    
+                    // }
             }
         }
         
