@@ -134,7 +134,7 @@ class windowPop implements ifhtml
         $this->scrollbars = "no";
         $this->status = "no";
         $this->toolbar = "no";
-        $this->js = "<script language=\"javascript\" type=\"text/javascript\">\n"
+        $this->js = "<script type=\"text/javascript\">\n"
          . "function openWindow(theURL,winName,features) { \n"
          . "  newwindow=window.open(theURL,winName,features);\n 
               if (window.focus) {newwindow.focus()}\n
