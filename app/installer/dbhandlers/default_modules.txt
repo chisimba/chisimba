@@ -31,3 +31,4 @@ calendarbase
 errors
 skin
 prelogin
+userdetails
