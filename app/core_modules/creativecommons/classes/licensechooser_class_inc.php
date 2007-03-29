@@ -40,6 +40,9 @@ class licensechooser extends object
         // Load the Creative Commons Object
         $this->objCC =& $this->getObject('dbcreativecommons');
         
+        // Load the Sysconfig Object
+        $this->objSysConfig =& $this->getObject('dbsysconfig', 'sysconfig');
+        
         // Load the Radio Button Class
         $this->loadClass('radio', 'htmlelements');
         
@@ -77,31 +80,34 @@ class licensechooser extends object
         // Loop through Licenses
         foreach ($licenses as $license)
         {
-            // Get List of Icons
-            $icons = explode(',', $license['images']);
-    
-            $iconList = '';
-            
-            // Generate Icons
-            foreach ($icons as $icon)
-            {
-                $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
-                $iconList .= $this->objIcon->show();
+            // Check if License is Enabled
+            if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
+                // Get List of Icons
+                $icons = explode(',', $license['images']);
         
-            }
+                $iconList = '';
+                
+                // Generate Icons
+                foreach ($icons as $icon)
+                {
+                    $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
+                    $iconList .= $this->objIcon->show();
             
-            // Add Blank Spaces
-            $times = 4-count($icons);
-            for ($i=1; $i<=$times; $i++) {
-                $iconList .= $blankIcon;
+                }
+                
+                // Add Blank Spaces
+                $times = 4-count($icons);
+                for ($i=1; $i<=$times; $i++) {
+                    $iconList .= $blankIcon;
+                }
+                
+                $title = $license['title'];
+                if ($title == 'Attribution Non-commercial Share') {
+                    $title = 'Attribution Non-commercial Share Alike';
+                }
+                // Add to Radio Group
+                $radio->addOption($license['code'], $iconList.$title);
             }
-            
-            $title = $license['title'];
-            if ($title == 'Attribution Non-commercial Share') {
-                $title = 'Attribution Non-commercial Share Alike';
-            }
-            // Add to Radio Group
-            $radio->addOption($license['code'], $iconList.$title);
         }
         
         // Set Default Selected Value
