@@ -288,7 +288,7 @@ if (strtolower($user['howcreated']) != 'ldap') {
         $textinput = new textinput ('useradmin_password');
         $textinput->fldType = 'password';
         $textinput->size = 15;
-        $textinput->extra = ' autocomplete="off" maxlength="10"';
+        $textinput->extra = ' autocomplete="off"';
         
         $table->addCell($label->show());
         $table->addCell('&nbsp;');
@@ -302,7 +302,7 @@ if (strtolower($user['howcreated']) != 'ldap') {
         $textinput = new textinput ('useradmin_repeatpassword');
         $textinput->fldType = 'password';
         $textinput->size = 15;
-        $textinput->extra = ' autocomplete="off" maxlength="10"';
+        $textinput->extra = ' autocomplete="off"';
         
 
         
