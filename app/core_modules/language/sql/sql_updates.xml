@@ -21,12 +21,12 @@
         	<description>Increased size for code field</description>
         	<data>
         		<change>
-        		<code>
-		    		<length>100</length>
+        			<code>
+		    		<type>clob</type>
 		    			<definition>
-		    				<length>100</length>
+		    				<type>clob</type>
     					</definition>
-    			</code>
+    				</code>
 				</change>
 			</data>
 	</update>
