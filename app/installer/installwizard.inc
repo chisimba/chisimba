@@ -332,8 +332,10 @@ class InstallWizard extends Wizard
 	{
 
 		// save some variables out of the session first
+		//we suppress the session in case of cancellation, 
+		//so as not to produce a notice
 
-		$session_type = $_SESSION['session_type'];
+		$session_type = @$_SESSION['session_type'];
 
 		$sys_root = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'] : false;
 
