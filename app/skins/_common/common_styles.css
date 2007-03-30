@@ -903,3 +903,17 @@ label br {clear:left}
 
 .smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto; }
 .smallicon span { display: block; text-align: center; }
+
+
+
+/**
+* Styles for the Creative Commons Drop down
+*/
+option.copyright {padding-left:90px;background-image: url(icons/creativecommons_v3/copyright_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by {padding-left:90px;background-image: url(icons/creativecommons_v3/by_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by-sa {padding-left:90px;background-image: url(icons/creativecommons_v3/by-sa_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by-nd {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nd_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by-nc {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nc_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by-nc-sa {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nc-sa_big.gif);background-repeat: no-repeat;height: 31px;}
+option.by-nc-nd {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nc-nd_big.gif);background-repeat: no-repeat;height: 31px;}
+option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3/gnu-fdl_big.gif);background-repeat: no-repeat;height: 31px;}
