@@ -163,13 +163,13 @@ class InstallDirectoryAction extends StepAction
 		}
 
 		if ($module_path === false || $module_path == '') {
-			$this->errors[] = 'You must set a value for the location of the non-core modules';
+			$this->errors[] = 'You must set a value for the location of the modules';
 			$this->success = false;
 			return false;
 		}
 
 		if ($module_URI === false || $module_URI == '') {
-			$this->errors[] = 'You must specify the URL for the modules';
+			$this->errors[] = 'You must specify the URI for the modules';
 			$this->success = false;
 			return false;
 		}
@@ -181,7 +181,9 @@ class InstallDirectoryAction extends StepAction
                 $sys_root.='/';
                 $sys_root=str_replace('//','/',$sys_root);
 		if (!is_dir($sys_root)) {
-			$this->errors[] = 'Could not find the directory specified '.$sys_root;
+			mkdir($sys_root);
+			chmod($sys_root,0700);
+			$this->errors[] = 'Could not find the directory specified '.$sys_root.' but created it for you';
 			$this->success = false;
 			return false;
 		}
@@ -191,7 +193,16 @@ class InstallDirectoryAction extends StepAction
                 $module_path.='/';
                 $module_path=str_replace('//','/',$module_path);
 		if (!is_dir($module_path)) {
-			$this->errors[] = 'Could not find the directory specified '.$module_path;
+			if(is_writeable($module_path))
+			{
+				mkdir($module_path);
+				chmod($module_path, 0700);
+				$this->errors[] = 'Could not find the directory specified '.$module_path.' but created it for you';
+			}
+			else {
+				$this->errors[] = 'Could not find the directory specified '.$module_path.'. The installer is unable to create this directory, as it does not have sufficient permissions. Please create it manually.';
+			}
+				
 			$this->success = false;
 			return false;
 		}
@@ -388,7 +399,7 @@ class InstallDirectoryAction extends StepAction
 
 				if ($fp==false) {
 
-					$this->errors[] = 'Could not open '.$check_dir.' for writing. ';
+					$this->errors[] = 'Could not open '.$check_dir.' for writing. Please consult the help guides for your operating system to make this directory writeable. On GNU/Linux systems, this is normally achieved by: chmod -R 0700 '.$sys_root.' and ensuring that the directory is owned by the webserver user (usually apache or www-data)';
 
 
 

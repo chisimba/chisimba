@@ -9,7 +9,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	Enter the path to where you want the non-core modules stored
+	Enter the path to where you want the modules stored
 	</td>
 	<td >
 	<?php echo $module_path?>
@@ -17,7 +17,7 @@
 </tr>
 <tr valign="top">
 	<td>
-	Enter the URL for the modules on the site
+	Enter the URI for the modules on the site
 	</td>
 	<td >
 	<?php echo $module_URI?>
