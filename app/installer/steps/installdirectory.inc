@@ -396,7 +396,7 @@ class InstallDirectoryAction extends StepAction
 
 					// of a failed directory check
 
-					if ($dir=='modules') {
+					if ($check_dir=='modules') {
 
 						$this->errors[] = 'Please change permissions on the '.$check_dir.' directory and all files below it '.
 
