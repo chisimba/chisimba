@@ -259,6 +259,23 @@ class useradmin_model2 extends dbtable
     }
     
     /**
+    * Method to check whether a user email address is available or not
+    * 
+    * @param string $email email to check for availability
+    * @return boolean TRUE if available, else FALSE
+    */
+    public function emailAvailable($email)
+    {
+        $recordCount = $this->getRecordCount('WHERE emailaddress=\''.$email.'\'');
+        // echo $recordCount;
+        if ($recordCount == 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
     * Method to check whether a userId is available or not
     * 
     * @param string $userid userId to check for availability
