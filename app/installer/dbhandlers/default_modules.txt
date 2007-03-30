@@ -32,3 +32,4 @@ errors
 skin
 prelogin
 userdetails
+userregistration

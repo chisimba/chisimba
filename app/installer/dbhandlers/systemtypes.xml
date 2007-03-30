@@ -43,6 +43,7 @@
             <module>toolbar</module>
             <module>useradmin</module>
             <module>userdetails</module>
+            <module>userregistration</module>
             <module>blocks</module>
             <module>mail</module>
             <module>utilities</module>
