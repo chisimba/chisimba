@@ -45,38 +45,45 @@ class licensechooserdropdown extends object
      */
     public function show()
     {
-        // Get All Licenses
-        $licenses = $this->objCC->getAll();
+        $objModules = $this->getObject('modules', 'modulecatalogue');
         
-        $options = '';
+        if (!$objModules->checkIfRegistered('creativecommons')) {
+            return '';
+        } else {
         
-        // Loop through Licenses
-        foreach ($licenses as $license)
-        {
+            // Get All Licenses
+            $licenses = $this->objCC->getAll();
             
-            if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
+            $options = '';
+            
+            // Loop through Licenses
+            foreach ($licenses as $license)
+            {
                 
-                $title = $license['title'];
-                if ($title == 'Attribution Non-commercial Share') {
-                    $title = 'Attribution Non-commercial Share Alike';
+                if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
+                    
+                    $title = $license['title'];
+                    if ($title == 'Attribution Non-commercial Share') {
+                        $title = 'Attribution Non-commercial Share Alike';
+                    }
+                    
+                    $selected = ($license['code'] == $this->defaultValue) ? ' selected="selected"' : '';
+                    
+                    // Add to Radio Group
+                    $options .= '<option value="'.$license['code'].'" class="'.$license['code'].'" '.$selected.'>'.$title.'</option>';
                 }
-                
-                $selected = ($license['code'] == $this->defaultValue) ? ' selected="selected"' : '';
-                
-                // Add to Radio Group
-                $options .= '<option value="'.$license['code'].'" class="'.$license['code'].'" '.$selected.'>'.$title.'</option>';
             }
+            
+            $select = '<select name="'.$this->inputName.'" id="input_'.$this->inputName.'">';
+            
+            $select .= $options;
+            
+            $select .= '</select>';
+            
+            
+            // Return Radio Button
+            return $select;
         }
-        
-        $select = '<select name="'.$this->inputName.'" id="input_'.$this->inputName.'">';
-        
-        $select .= $options;
-        
-        $select .= '</select>';
-        
-        
-        // Return Radio Button
-        return $select;
     }
 }
 

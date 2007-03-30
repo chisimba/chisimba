@@ -57,64 +57,71 @@ class licensechooser extends object
      */
     public function show()
     {
-        // Get All Licenses
-        $licenses = $this->objCC->getAll();
+        $objModules = $this->getObject('modules', 'modulecatalogue');
         
-        // Create Radio Button
-        $radio = new radio($this->inputName);
-        
-        // Set Breakspace
-        $radio->setBreakSpace('<br />');
-        
-        // Determine Size of Icon
-        if ($this->icontype == 'big') {
-            $iconsFolder = 'icons/creativecommons';
+        if (!$objModules->checkIfRegistered('creativecommons')) {
+            return '';
         } else {
-            $iconsFolder = 'icons/creativecommons_small';
-        }
         
-        // Generate Blank Icon
-        $this->objIcon->setIcon ('blank', NULL, $iconsFolder);
-        $blankIcon = $this->objIcon->show();
-        
-        // Loop through Licenses
-        foreach ($licenses as $license)
-        {
-            // Check if License is Enabled
-            if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
-                // Get List of Icons
-                $icons = explode(',', $license['images']);
-        
-                $iconList = '';
-                
-                // Generate Icons
-                foreach ($icons as $icon)
-                {
-                    $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
-                    $iconList .= $this->objIcon->show();
+            // Get All Licenses
+            $licenses = $this->objCC->getAll();
             
-                }
-                
-                // Add Blank Spaces
-                $times = 4-count($icons);
-                for ($i=1; $i<=$times; $i++) {
-                    $iconList .= $blankIcon;
-                }
-                
-                $title = $license['title'];
-                if ($title == 'Attribution Non-commercial Share') {
-                    $title = 'Attribution Non-commercial Share Alike';
-                }
-                // Add to Radio Group
-                $radio->addOption($license['code'], $iconList.$title);
+            // Create Radio Button
+            $radio = new radio($this->inputName);
+            
+            // Set Breakspace
+            $radio->setBreakSpace('<br />');
+            
+            // Determine Size of Icon
+            if ($this->icontype == 'big') {
+                $iconsFolder = 'icons/creativecommons';
+            } else {
+                $iconsFolder = 'icons/creativecommons_small';
             }
+            
+            // Generate Blank Icon
+            $this->objIcon->setIcon ('blank', NULL, $iconsFolder);
+            $blankIcon = $this->objIcon->show();
+            
+            // Loop through Licenses
+            foreach ($licenses as $license)
+            {
+                // Check if License is Enabled
+                if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
+                    // Get List of Icons
+                    $icons = explode(',', $license['images']);
+            
+                    $iconList = '';
+                    
+                    // Generate Icons
+                    foreach ($icons as $icon)
+                    {
+                        $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
+                        $iconList .= $this->objIcon->show();
+                
+                    }
+                    
+                    // Add Blank Spaces
+                    $times = 4-count($icons);
+                    for ($i=1; $i<=$times; $i++) {
+                        $iconList .= $blankIcon;
+                    }
+                    
+                    $title = $license['title'];
+                    if ($title == 'Attribution Non-commercial Share') {
+                        $title = 'Attribution Non-commercial Share Alike';
+                    }
+                    // Add to Radio Group
+                    $radio->addOption($license['code'], $iconList.$title);
+                }
+            }
+            
+            // Set Default Selected Value
+            $radio->setSelected($this->defaultValue);
+            
+            // Return Radio Button
+            return $radio->show();
         }
-        
-        // Set Default Selected Value
-        $radio->setSelected($this->defaultValue);
-        
-        // Return Radio Button
-        return $radio->show();
     }
 }
 
