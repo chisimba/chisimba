@@ -33,6 +33,14 @@ class creativecommons extends controller
         }
         
     }
+    
+    /**
+    * Method to turn off login requirement for this module
+    */
+    public function requiresLogin()
+    {
+        return FALSE;
+    }
 }
 
 ?>
