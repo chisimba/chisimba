@@ -295,6 +295,7 @@ class engine
 	'tree',
 	'useradmin',
 	'userdetails',
+	'userregistration',
 	'utilities',
 	);
 
