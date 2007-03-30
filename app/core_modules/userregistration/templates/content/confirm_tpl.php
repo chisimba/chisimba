@@ -11,7 +11,7 @@ echo '<p>'.$this->objLanguage->languageText('mod_userregistration_emailsent', 'u
 
 echo '<ul>';
 echo '<li><strong>'.$this->objLanguage->languageText('word_username', 'system').'</strong>: '.$user['username'].'</li>';
-echo '<li><strong>'.$this->objLanguage->languageText('word_password', 'system').'</strong>: ***** </li>';
+//echo '<li><strong>'.$this->objLanguage->languageText('word_password', 'system').'</strong>: ***** </li>';
 echo '</ul>';
 
 echo '<br /><br />';

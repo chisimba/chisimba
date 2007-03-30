@@ -129,6 +129,10 @@ class userregistration extends controller
         if ($this->objUserAdmin->userNameAvailable($username) == FALSE) {
             $problems[] = 'usernametaken';
         }
+        //check that the email address is unique
+        if($this->objUserAdmin->emailAvailable($email) == FALSE) {
+        	$problems[] = 'emailtaken';
+        }
         
         
         // Check for any problems with password
@@ -186,7 +190,8 @@ class userregistration extends controller
         switch ($problem)
         {
             case 'usernametaken': return 'The username you have chosen has been taken already.';
-            case 'passwordsdontmatch': return 'The passwords you have entered does not match.';
+            case 'emailtaken': return 'The supplied email address has been taken already.';
+            case 'passwordsdontmatch': return 'The passwords you have entered do not match.';
             //case 'missingfields': return 'Some of the required fields are missing.';
             case 'emailnotvalid': return 'The email address you enter is not a valid format.';
             case 'captchadoesntmatch': return 'The image code you entered was incorrect';
