@@ -60,10 +60,10 @@ if (isset($ar)) {
             $oddOrEven = ($rowcount == 0) ? "odd" : "even";
             $tableRow[]=$line['category'];
             $tableRow[]=$line['title'];
-            $tableRow[]=$line['dateCreated'];
-            $tableRow[]=$this->objUser->fullName($line['creatorId']);
-            $tableRow[]=$line['dateModified'];
-            $modifierId = $line['modifierId'];
+            $tableRow[]=$line['datecreated'];
+            $tableRow[]=$this->objUser->fullName($line['creatorid']);
+            $tableRow[]=$line['datemodified'];
+            $modifierId = $line['modifierid'];
             if ($modifierId != "") {
                 $tableRow[]= $this->objUser->fullName($modifierId);
             } else {
