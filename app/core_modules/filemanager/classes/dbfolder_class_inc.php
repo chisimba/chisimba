@@ -335,66 +335,73 @@ class dbfolder extends dbTable
     
     function deleteFolder($id)
     {
-        
+        // Get Full Path of Folder
         $folder = $this->getFullFolderPath($id);
         
-        $objIndexFiles = $this->getObject('indexfiles');
-        
-        $results = $objIndexFiles->scanDirectory($folder);
-        
-        // echo '<pre>';
-        // print_r($results);
-        
-        // If there are files in the directory, delete them one by one
-        if (count($results[0]) > 0) {
-            foreach ($results[0] as $file)
-            {
-                // Remove the usrfiles portion from the file
-                preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
-                $path = $regs[0];
-                
-                // Clean up portion - esp convert backslash to forward slash
-                $this->objCleanUrl->cleanUpUrl($path);
-                
-                // Check if there is a record of the file
-                $fileInfo = $this->objFiles->getFileDetailsFromPath($path);
-                
-                // If there is no record of the file, simply delete them from file system
-                if ($fileInfo == FALSE) {
-                    @unlink($file);
-                    //echo $path.' - '.$file.'<br />';
-                } else {
-                    // Otherwise, follow process, delete them from the database, then filesystem
-                    $this->objFiles->deleteFile($fileInfo['id']);
-                }
-            }
-        }
-        
-        // Now delete sub folders
-        if (count($results[1]) > 0) {
-        
-            $folders = array_reverse($results[1]);
-            
-            foreach ($folders as $subfolder)
-            {
-                // Remove the usrfiles portion from the file
-                preg_match('/(?<=usrfiles(\\\|\/)).*/', $subfolder, $regs);
-                $path = $regs[0];
-                
-                // Clean up portion - esp convert backslash to forward slash
-                $this->objCleanUrl->cleanUpUrl($path);
-                
-                if (rmdir($subfolder)) {
-                    $this->delete('folderpath', $path);
-                }
-            }
-        }
-        
-        // Now delete the folder itself
-        if (rmdir($folder)) {
-            $this->delete('id', $id);
+        // If no record of folder, do nothing
+        if ($folder == FALSE) {
+            return 'norecordoffolder';
         } else {
-            return FALSE;
+            
+            // Load the Indexer
+            $objIndexFiles = $this->getObject('indexfiles');
+            
+            // Scan Directory
+            $results = $objIndexFiles->scanDirectory($folder);
+            
+            // File Results
+            // If there are files in the directory, delete them one by one
+            if (count($results[0]) > 0) {
+                foreach ($results[0] as $file)
+                {
+                    // Remove the usrfiles portion from the file
+                    preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
+                    
+                    // Clean up portion - esp convert backslash to forward slash
+                    $this->objCleanUrl->cleanUpUrl($path);
+                    
+                    // Check if there is a record of the file
+                    $fileInfo = $this->objFiles->getFileDetailsFromPath($path);
+                    
+                    // If there is no record of the file, simply delete them from file system
+                    if ($fileInfo == FALSE) {
+                        @unlink($file);
+                    } else {
+                        // Otherwise, follow process, delete them from the database, then filesystem
+                        $this->objFiles->deleteFile($fileInfo['id']);
+                    }
+                }
+            }
+            
+            // Now delete sub folders
+            if (count($results[1]) > 0) {
+            
+                // Reverse Results so that we start with the bottom most folders
+                $folders = array_reverse($results[1]);
+                
+                // Go through each folder
+                foreach ($folders as $subfolder)
+                {
+                    // Remove the usrfiles portion from the file
+                    preg_match('/(?<=usrfiles(\\\|\/)).*/', $subfolder, $regs);
+                    
+                    // Clean up portion - esp convert backslash to forward slash
+                    $this->objCleanUrl->cleanUpUrl($path);
+                    
+                    // Remove Directory
+                    if (rmdir($subfolder.'/')) {
+                        // Clear Record
+                        $this->delete('folderpath', $path);
+                    }
+                }
+            }
+            
+            // Now delete the folder itself
+            if (rmdir($folder)) {
+                $this->delete('id', $id);
+            } else {
+                return FALSE;
+            }
         }
     }
     

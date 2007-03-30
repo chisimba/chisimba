@@ -339,6 +339,15 @@ class filemanager extends controller
             $numFiles = 0;
             $numFolders = 0;
             
+            $objBackground = $this->newObject('background', 'utilities');
+            
+            //check the users connection status,
+            //only needs to be done once, then it becomes internal 
+            $status = $objBackground->isUserConn();
+
+            //keep the user connection alive, even if browser is closed!
+            $callback = $objBackground->keepAlive(); 
+            
             foreach ($files as $file)
             {
                 if (substr($file, 0, 8) == 'folder__') {
@@ -355,6 +364,8 @@ class filemanager extends controller
                     }
                 }
             }
+            
+            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
 
             if ($this->getParam('folder') != '') {
                 return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted', 'numfiles'=>$numFiles, 'numfolders'=>$numFolders));
@@ -709,14 +720,33 @@ function checkWindowOpener()
         // Get the Folder Path
         $folder = $this->objFolders->getFolderPath($id);
         
+        $objBackground = $this->newObject('background', 'utilities');
+            
+        //check the users connection status,
+        //only needs to be done once, then it becomes internal 
+        $status = $objBackground->isUserConn();
+
+        //keep the user connection alive, even if browser is closed!
+        $callback = $objBackground->keepAlive(); 
+        
         // Delete the Folder
-        $this->objFolders->deleteFolder($id);
+        $result = $this->objFolders->deleteFolder($id);
+        
+        //
+        $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+        
+        
+        if ($result == 'norecordoffolder') {
+            return $this->nextAction(NULL, array('error'=>'norecordoffolder'));
+        }
+        
+        $resultmessage = $result ? 'folderdeleted' : 'couldnotdeletefolder';
         
         // Get Parent Id based on the Folder Path
         $parentId = $this->objFolders->getFolderId(dirname($folder));
         
         // Redirect to Parent Folder
-        return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'folderdeleted', 'ref'=>basename($folder)));
+        return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
     
     function extractArchive()

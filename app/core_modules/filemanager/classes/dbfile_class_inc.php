@@ -696,7 +696,7 @@ class dbfile extends dbTable
     private function removeFile($fileId, $filePath)
     {
         // Get Path to File
-        $fullFilePath = $this->objConfig->getcontentBasePath().$filePath;
+        $fullFilePath = $this->objConfig->getcontentPath().$filePath;
         $this->objCleanUrl->cleanUpUrl($filePath);
         
         // Delete File if it exists
