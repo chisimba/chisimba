@@ -12,9 +12,7 @@ $fields = array(
 		'length' => 32
 		),
 	'code' => array(
-		'type' => 'text',
-		'length' => 50,
-
+		'type' => 'clob',
 		),
     'description' => array(
 		'type' => 'clob',

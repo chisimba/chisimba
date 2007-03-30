@@ -15,4 +15,19 @@
 			</change>
 		</data>
 	</update>
+	<update>
+		<table>tbl_languagetext</table>
+        	<version>1.57</version>
+        	<description>Increased size for code field</description>
+        	<data>
+        		<change>
+        		<code>
+		    		<length>100</length>
+		    			<definition>
+		    				<length>100</length>
+    					</definition>
+    			</code>
+				</change>
+			</data>
+	</update>
 </updates>
