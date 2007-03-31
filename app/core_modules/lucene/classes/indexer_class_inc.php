@@ -99,7 +99,7 @@ class indexer extends Zend_Search_Lucene_Document
         }
 
 		foreach ($files /*glob("*")*/ as $filename) {
-			echo "indexing" . "  " . $filename . "<br><br>";
+			//echo "indexing" . "  " . $filename . "<br><br>";
 
 			//set the properties that we want to use in our index
    		    //url
