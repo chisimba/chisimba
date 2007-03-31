@@ -77,6 +77,12 @@ class indexer extends Zend_Search_Lucene_Document
         }
         else {
         	//instantiate the lucene engine and create a new index
+		if(file_exists($this->indexPath.'chisimbaIndex'))
+		{
+			rmdir($this->indexPath.'chisimbaIndex');
+			//mkdir($this->indexPath.'chisimbaIndex');
+			//chmod($this->indexPath.'chisimbaIndex', 0777);
+		}
         	mkdir($this->indexPath.'chisimbaIndex');
         	chmod($this->indexPath.'chisimbaIndex', 0777);
         	$this->index = new Zend_Search_Lucene($this->indexPath.'chisimbaIndex', true);
