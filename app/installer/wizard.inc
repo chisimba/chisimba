@@ -364,6 +364,16 @@ class Wizard
 
 	{
 
+              // Prevent re-install 
+               $path=substr(str_replace('\\','/',$_SERVER['SCRIPT_FILENAME']),0,-20)."/config/";
+               if (!isset($_SESSION['current_step']) && file_exists($path."installdone.txt") && file_exists($path."config.xml")&&file_exists($path."dbdetails_inc.php")){
+                   $this->step_number=1;
+                   $this->errors[]= "The installation has been done already.<br />\nClick <a href='../index.php?module=modulecatalogue&action=firsttimeregistration'>here</a> to enter the site.<br />\n";               
+                   return;
+
+               }
+
+
 		// if there is a current_step set in the post data, use that by preference. This
 
 		// allows people to use the back browser a bit better than before, as the browser
@@ -392,8 +402,7 @@ class Wizard
 
 		}
 
-
-
+ 
 		// otherwise, iterate through all the steps to find which one is the last incomplete step
 
 		// This will only ever be called at the start of a session
@@ -427,7 +436,47 @@ class Wizard
 	}//end _findStepNumber()
 
 
-
+    function loadXMLtoSession()
+    {
+    
+                   // Load up the data from the config file into the session
+                   $data=simplexml_load_file($path."config.xml");
+                   if ($data!=FALSE){
+                       foreach ($data as $dkey=>$dvalue){
+                           $_SESSION[$dkey]=(string) $dvalue;
+                       }
+                        $values=array (
+                            'KEWL_SITEROOT_PATH'=>'sys_root',
+                            'KEWL_SITE_ROOT'=>'site_url', 
+                            'KEWL_INSTITUTION_SHORTNAME'=>'sys_owner', 
+                            'KEWL_INSTITUTION_NAME'=>'sys_owner', 
+                            'KEWL_PROXY'=>'proxy', 
+                            'KEWL_DEFAULT_SKIN'=>'defaultskin', 
+                            'KEWL_POSTLOGIN_MODULE'=>'postLogin', 
+                            'KEWL_SYSTEM_TYPE'=>'SysType', 
+                            'KEWL_MODULE_PATH'=>'module_path', 
+                            'MODULE_URI'=>'module_URI', 
+                            'KEWL_TEMPLATE_PATH'=>'sys_root', 
+                            'KEWL_CONTENT_BASEPATH'=>'contentPath', 
+                            'KEWL_CONTENT_PATH'=>'relContentPath', 
+                            'KEWL_SITENAME'=>'sys_name', 
+                            'KEWL_SERVERNAME'=>'serverName', 
+                            'KEWL_MAINSERVERNAME'=>'main_server', 
+                            'KEWL_SERVERLOCATION'=>'serverLocation', 
+                            'KEWL_ENABLE_LOGGING'=>'log_enable', 
+                            'KEWL_SYSTEM_OWNER'=>'sys_owner', 
+                            'KEWL_SITEEMAIL'=>'root_email', 
+                            'KEWL_TECH_EMAIL'=>'tech_email', 
+                            'KEWL_LOG_FILE'=>'log_path'
+                            ); 
+                       foreach ($values as $dkey=>$dvalue){
+                           if (isset($_SESSION[$dkey])){
+                               $_SESSION[$dvalue]=$_SESSION[$dkey];
+                           }
+                       }
+                   }
+                   return;
+    }
 
 
 	/**
