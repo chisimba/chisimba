@@ -1067,8 +1067,8 @@ class RootUserAction extends StepAction
       // Parse from XML using simpleXML
       $data=simplexml_load_file($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml');
       if ($data==FALSE){ //if (!is_array($data)){
-        print "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
-        die;
+        $this->errors[]= "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
+        return FALSE;
       }
       $simbaTypes=array();
       foreach ($data->systemtypes->category as $line){ 
@@ -1083,15 +1083,16 @@ class RootUserAction extends StepAction
                 unset($simbaTypes[$line->categoryname]);
                 // check for core module problem
                 if ($line->categoryname=='Basic System Only'){
-                    print "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
-                    print "The framework must have all of the following modules, and looks for them in a folder called 'core_modules'<br />\n";
-                    print "<ul>\n";
+                    $error= "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
+                    $error.= "The framework must have all of the following modules, and looks for them in a folder called 'core_modules'<br />\n";
+                    $error.= "<ul>\n";
                     foreach ($line->module as $coreModule)
                     {
-                        print "<li>$coreModule</li>\n";
+                        $error.= "<li>$coreModule</li>\n";
                     }
-                    print "</ul>\n";
-                    exit;
+                    $error.= "</ul>\n";
+                    $this->errors[]=$error;
+                    return FALSE;
                 }
                 break;
             }
