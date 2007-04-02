@@ -32,11 +32,12 @@ body {
 a:link, a:visited {
 	color: #000099;
 	font-weight: normal;
+	text-decoration:none; 
 }
 
 a:hover {
 	color: #CC0000;
-	/*text-decoration:none;*/ 
+	text-decoration:none; 
 	font-weight:bold; background-color:yellow;
 }
 
