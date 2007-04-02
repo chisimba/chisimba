@@ -13,6 +13,7 @@ require_once INSTALL_DIR.'/step.inc';
 require_once INSTALL_DIR.'/5ivestepaction.inc';
 
 require_once INSTALL_DIR.'/html_form/html_form.inc';
+require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
 
 
 /**
@@ -253,17 +254,16 @@ class SetupTypeAction extends FiveStepAction
 
 		$success = true;
 
-		$main_inc = $_SESSION['sys_root'].'/modules/config/config.xml';
+		$main_inc = $_SESSION['sys_root'].'/config/config.xml';
+                $dbinc=$_SESSION['sys_root'].'/config/dbdetails_inc.php';
 
 		// check existence of files. If the main.inc file exists, then this isn't a new install
 
-		if (!file_exists($main_inc)) {
+		if (!file_exists($main_inc) || !file_exists($dbinc)) {
 
-			$this->errors[] = 'The selected system root ('.$_SESSION['sys_root'].') does not have a '.
-
-								'main configuration file. Please do a fresh install before proceeding, '.
-
-								'or select Modify to attempt to reset an existing installation.';
+			$this->errors[] = 'The selected system root ('.$_SESSION['sys_root'].') is missing one or more of '
+                        .'its configuration files. Please do a fresh install before proceeding, '.
+                        'or select Modify to attempt to reset an existing installation.';
 
 			$success =  false;
 
@@ -273,49 +273,67 @@ class SetupTypeAction extends FiveStepAction
 
 			// include the main.inc to get all the defines.
 
-			require_once($main_inc);
+			require_once($dbinc);
 
-			if (defined('SQ_CONF_DB_DSN') && defined('SQ_CONF_DB2_DSN')) {
+			if (defined('KEWL_DB_DSN') && defined('KEWL_DB2_DSN')) {
+                            $_SESSION['KEWL_DB_DSN']=KEWL_DB_DSN;
+                            $_SESSION['KEWL_DB2_DSN']=KEWL_DB2_DSN;
+
+
+                            $data=simplexml_load_file($main_inc);
+                            if ($data==FALSE){ 
+                                $this->errors[]= "Fatal Error! Something is wrong with the XML file that stores the information about the site.. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
+                                return FALSE;
+                            }
+                                                
 
 				// test the two dsns
 
-				if (!$this->_testDSN(SQ_CONF_DB_DSN)) {
+				if (!$this->_testDSN(KEWL_DB_DSN)) {
 
 					$success = false;
 
 				}
 
-				if (!$this->_testDSN(SQ_CONF_DB2_DSN)) {
+				if (!$this->_testDSN(KEWL_DB2_DSN)) {
 
 					$success = false;
 
 				}
 
-				$conn = DB::connect(SQ_CONF_DB_DSN);
+				
+                                $handler = new DbHandler();
+                                print KEWL_DB_DSN;
+                                $conn = &$handler->getDbHandler($_SESSION['KEWL_DB_DSN']); 
 
 				// check whether database tables exist. Just select stuff from sq_asset which should have
 
 				// a few results.
 
-				$sql = 'SELECT count(*) FROM sq_ast WHERE created_userid = 0';
+				//$sql = 'SELECT count(*) FROM sq_ast WHERE created_userid = 0';
 
-				$result = $conn->query($sql);
+				//$result = $conn->query($sql);
+                                $result=$conn->listDbTables();
 
-				if (DB::isError($result)) {
+				//if (DB::isError($result)) {
+				if (!is_array($result)) {
 
+					//$this->errors[] = $result->getMessage();
 					$this->errors[] = $result->getMessage();
 
 					$success = false;
 
 				} else {
 
-					$row = $result->fetchRow();
+					//$row = $result->fetchRow();
 
 					// ie there weren't any assets that were created by the system user
 
-					if (!($row[0] > 0)) {
+					//if (!($row[0] > 0)) {
+					if (count($result)<40) {
 
-						$this->errors[] = 'Could not find any assets. Please try running the Repair option.';
+						//$this->errors[] = 'Could not find any assets. Please try running the Repair option.';
+						$this->errors[] = 'Some tables are missing. Please try running the Repair Option.';
 
 						$success = false;
 
@@ -373,7 +391,7 @@ class SetupTypeAction extends FiveStepAction
 
 		$success = true;
 
-		$main_inc = $_SESSION['sys_root'].'/modules/config/config.xml';
+		$main_inc = $_SESSION['sys_root'].'/config/config.xml';
 
 		// check existence of files. If the main.inc file exists, then this isn't a new install
 

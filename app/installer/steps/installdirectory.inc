@@ -478,6 +478,8 @@ class InstallDirectoryAction extends StepAction
 
 						$this->errors[] = 'find '.$check_dir.' -type f | xargs chmod 600</i></p>';
 
+                                                $this->errors[]=" Also, make sure to change the ownership of the directory to the account used by the webserver. (For example, on Linux Apache typically runs as either 'nobody' or 'www-data')<br />";
+
 					}
 
 					$success = false;
