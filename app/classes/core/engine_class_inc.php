@@ -55,7 +55,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '1.0.0';
+	public $version = '1.0.1';
 
 	/**
      * Template variable
@@ -924,6 +924,14 @@ class engine
     */
 	public function getParam($name, $default = NULL)
 	{
+		$data = explode("/", $_SERVER['REQUEST_URI']);
+		//log_debug($data);
+		/*
+		$precursor = explode('?', $data[3]);
+		//log_debug($precursor);
+		$index = $precursor[0];
+		$datastring = explode('&', $precursor[1]);
+		log_debug($datastring); */
 		return isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])

@@ -74,7 +74,7 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function dropdown($name){
   	$this->name=$name;
-	$this->cssId = 'input_'.$name;
+	//$this->cssId = 'input_'.$name;
   }
 
   /*

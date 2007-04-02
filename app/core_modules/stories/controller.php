@@ -38,7 +38,7 @@ class stories extends controller
         $this->objDbStories = & $this->getObject('dbstories');
         // Create an instance of the interface supporting class
         $this->objInterface = & $this->getObject('storyinterface');
-        $this->objDate =& $this->getObject('datetime','utilities');
+        $this->objDate =& $this->getObject('dateandtime','utilities');
         //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
