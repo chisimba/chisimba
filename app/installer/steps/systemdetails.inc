@@ -1080,7 +1080,7 @@ class RootUserAction extends StepAction
       foreach ($data->modulelist->category as $line){
         foreach ($line->module as $l2){
             if (!(in_array($l2,$dirList))){
-                unset($simbaTypes[$line->categoryname]);
+                unset($simbaTypes[''.$line->categoryname]);
                 // check for core module problem
                 if ($line->categoryname=='Basic System Only'){
                     $error= "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
