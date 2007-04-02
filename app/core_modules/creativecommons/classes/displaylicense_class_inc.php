@@ -83,6 +83,9 @@ class displaylicense extends object
         foreach ($icons as $icon)
         {
             $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
+            $this->objIcon->alt = $licenseInfo['title'];
+            $this->objIcon->title = $licenseInfo['title'];
+            
             $iconList .= $this->objIcon->show();
     
         }
