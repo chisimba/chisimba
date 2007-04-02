@@ -23,7 +23,7 @@ class checkoverwrite extends object
         $this->objThumbnails = $this->getObject('thumbnails');
         $this->objFileEmbed =& $this->getObject('fileembed');
         $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objFormatDateTime =& $this->getObject('datetime', 'utilities');
+        $this->objFormatDateTime =& $this->getObject('dateandtime', 'utilities');
         
         
         // HTML Elements
