@@ -55,7 +55,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '1.0.1';
+	public $version = '1.0.0';
 
 	/**
      * Template variable
