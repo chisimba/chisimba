@@ -25,6 +25,12 @@ if (!$GLOBALS['kewl_entry_point_run']){
 class menu extends object
 {
     /**
+    * @var $contextCode The current context code
+    * @access private
+    */
+    private $contextCode = '';
+    
+    /**
     * Method to construct the class.
     **/
     function init()
@@ -42,7 +48,12 @@ class menu extends object
 
         $this->objContext =& $this->getObject('dbcontext','context');
         $this->objDbConMod =& $this->getObject('dbcontextmodules','context');
+        $this->contextCode = $this->objContext->getContextCode();
         $this->context = FALSE; $this->im = FALSE;
+        // First check if the user is in a context
+        if(!empty($this->contextCode)){
+            $this->context = TRUE;
+        }
     }
 
     /**
@@ -55,11 +66,8 @@ class menu extends object
     */
     function menuBar()
     {
-        $access = 2; $this->context = FALSE;
-        // First check if the user is in a context
-        if($this->objContext->isInContext()){
-            $this->context = TRUE;
-        }
+        $access = 2;
+        
         if($this->objUser->isAdmin()){
             $access = 1;
         }
@@ -102,19 +110,32 @@ class menu extends object
     */
     function isVisible($data)
     {
-        $i=0; $menu=array();
-        //var_dump($data);
+        $i=0; $menu=array(); $visModules = array();
+        
+        if($this->context){
+            $visibleMod = $this->objDbConMod->getContextModules($this->contextCode);
+            foreach($visibleMod as $vis){
+                $visModules[] = $vis['moduleid'];
+            }
+        }
+        
         foreach($data as $item){
             if($this->tools->checkPermissions($item, $this->context)){
                 if(!empty($item['category'])){
-                    switch($item['module']){
-                        default:
-                            /* Check if module is visible in context
+                    switch($item['dependscontext']){
+                        case '1':
+                            // Check if module is visible in context
                             if($this->context){
-                                if($this->objDbConMod->isVisible($item['module'],$this->contextCode)){
-                                    $menu[$item['category']][]=$item['module'];
+                                //if($this->objDbConMod->isVisible($item['module'],$this->contextCode)){
+                                if(!empty($visModules) && in_array(strtolower($item['module']), $visModules)){
+                                    $menu[$item['category']][] = $item['module'];
                                 }
-                            }else{*/
+                            }else{
+                                $menu[$item['category']][]=$item['module'];
+                            }
+                            break;
+                        
+                        default:
                             $menu[$item['category']][]=$item['module'];
                     }
                     $i++;

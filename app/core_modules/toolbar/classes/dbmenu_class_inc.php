@@ -52,11 +52,11 @@ class dbmenu extends dbtable
         $sqlFilter = "category NOT LIKE 'menu_%' AND category NOT LIKE 'page_%'";
         //$sql = 'show tables like \''.$this->table."'";
         if($access == 2){     // non-admin users
-            $sqlFilter .= ' AND adminOnly != 1';
+            $sqlFilter .= ' AND adminonly != 1';
         }
 
         if(!$context){
-            $sqlFilter .= ' AND dependsContext != 1';
+            $sqlFilter .= ' AND dependscontext != 1';
         }
 
         $ret = $this->listDbTables(); //$this->getArray($sql);
@@ -68,7 +68,7 @@ class dbmenu extends dbtable
         	unset($rows);
         }
         if($rows){
-            $sql = 'SELECT category, module, permissions FROM '.$this->table;
+            $sql = 'SELECT category, module, permissions, dependscontext FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
             $sql .= 'ORDER BY category, module';
             $modules = $this->getArray($sql);
@@ -92,11 +92,11 @@ class dbmenu extends dbtable
         $sqlFilter = "category LIKE 'menu_$menu%'";
         //$sql = 'show tables like \''.$this->table."'";
         if($access == 2){     // lecturer
-            $sqlFilter .= ' AND adminOnly != 1';
+            $sqlFilter .= ' AND adminonly != 1';
         }
 
         if(!$context){
-            $sqlFilter .= ' AND dependsContext != 1';
+            $sqlFilter .= ' AND dependscontext != 1';
         }
 
         $ret = $this->listDbTables(); //$this->getArray($sql);
@@ -110,7 +110,7 @@ class dbmenu extends dbtable
 
         //$rows = $this->getArray($sql);
         if($rows){
-            $sql = 'SELECT category,module,permissions FROM '.$this->table;
+            $sql = 'SELECT category,module,permissions, dependscontext FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
             $sql .= 'ORDER BY category, module';
             $modules = $this->getArray($sql);
@@ -132,12 +132,12 @@ class dbmenu extends dbtable
         $page = strtolower($page);
 
         if(!$context){
-            $sqlFilter .= ' AND dependsContext != 1';
+            $sqlFilter .= ' AND dependscontext != 1';
         }
 
         //$rows = $this->getArray($sql);
         //if($rows){
-            $sql = 'SELECT category, module, permissions FROM '.$this->table;
+            $sql = 'SELECT category, module, permissions, dependscontext FROM '.$this->table;
             $sql .= " WHERE $sqlFilter ";
             $sql .= 'ORDER BY category, module';
             $modules = $this->getArray($sql);

@@ -3,7 +3,7 @@
 $tablename = 'tbl_menu_category';
 
 //Options line for comments, encoding and character set
-$options = array('comment' => 'toolbar','collate' => 'utf8_general_ci', 'character_set' => 'utf8');
+$options = array('comment' => 'Table containing the items for the top toolbar / menu.', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 // Fields
 $fields = array(
@@ -20,7 +20,7 @@ $fields = array(
 		'type' => 'text',
         'length' => 60
 		),
-    'adminOnly' => array(
+    'adminonly' => array(
 		'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
@@ -30,7 +30,13 @@ $fields = array(
 		'type' => 'text',
         'length' => 120
 		),
-    'dependsContext' => array(
+    'dependscontext' => array(
+		'type' => 'integer',
+        'length' => 1,
+        'notnull' => TRUE,
+        'default' => '0'
+		),
+    'contextplugin' => array(
 		'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
