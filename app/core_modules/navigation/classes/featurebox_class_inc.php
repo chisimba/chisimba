@@ -70,7 +70,7 @@ class featurebox extends object
     {
 
   		$contentbox = '<div class="contentfeaturebox">';
-		$contentbox .= '	<h5>'.$title.'</h5>';
+		$contentbox .= '	<h3>'.$title.'</h3>';
 		$contentbox .= '<small>'.$content.'</small>';
 		$contentbox .= '</div>';
 
