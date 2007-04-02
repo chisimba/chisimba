@@ -435,13 +435,17 @@ class dbfile extends dbTable
             return FALSE;
         }
         
+        $description = $file['description'];
+        
         $mediaInfo = $this->objMediaFileInfo->getRow('fileId', $fileId);
         
         if ($mediaInfo == FALSE) {
+            $file['filedescription'] = $description;
             return $file;
         } else {
             $result = array_merge($file, $mediaInfo);
             $result['id'] = $file['id'];
+            $result['filedescription'] = $description;
             return $result;
         } 
     }
@@ -472,8 +476,14 @@ class dbfile extends dbTable
         $objTable->endRow();
         
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_fileversion', 'filemanager', 'File Version').'</strong>', '25%');
-        $objTable->addCell($file['version'], '25%');
+        // $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_fileversion', 'filemanager', 'File Version').'</strong>', '25%');
+        // $objTable->addCell($file['version'], '25%');
+        
+        $objTable->addCell('<strong>License:</strong>', '25%');
+        
+        $licenseDisplay = $this->getObject('displaylicense', 'creativecommons');
+        $objTable->addCell($licenseDisplay->show($file['license']), '25%');
+        
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'filemanager', 'File Category').'</strong>', '25%');
         $objTable->addCell(ucwords($file['category']), '25%');
         $objTable->endRow();
@@ -795,6 +805,11 @@ class dbfile extends dbTable
     public function getFolderFiles($folder)
     {
         return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
+    }
+    
+    public function updateDescriptionLicense($id, $description, $license)
+    {
+        return $this->update('id', $id, array('description'=>$description, 'license'=>$license));
     }
 
 
