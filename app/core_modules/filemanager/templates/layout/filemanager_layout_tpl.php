@@ -11,7 +11,10 @@ $leftColumn = '<h3>File Manager</h3>';
 $indexLink = new link ($this->uri(array('action'=>'indexfiles')));
 $indexLink->link = 'Index Files';
 
-$leftColumn .= '<ul><li>Search</li><li>'.$indexLink->show().'</li></ul>';
+$tagCloudLink = new link ($this->uri(array('action'=>'tagcloud')));
+$tagCloudLink->link = 'Tag Cloud';
+
+$leftColumn .= '<ul><li>Search</li><li>'.$tagCloudLink->show().'</li><li>'.$indexLink->show().'</li></ul>';
 
 if (!isset($folderId)) {
     $folderId = '';

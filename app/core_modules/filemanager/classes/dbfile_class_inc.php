@@ -732,6 +732,9 @@ class dbfile extends dbTable
             unlink($htmlPreviewPath);
         }
         
+        $objFileTags = $this->getObject('dbfiletags');
+        
+        
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
         return $this->delete('id', $fileId);

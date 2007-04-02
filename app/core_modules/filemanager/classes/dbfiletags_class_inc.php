@@ -55,7 +55,7 @@ class dbfiletags extends dbTable
     public function addFileTags($fileId, $tagString)
     {
         // Delete existing tags
-        $this->delete('fileid', $fileId);
+        $this->removeFileTags($fileId);
         
         // Convert string to array
         $tags = explode(',', $tagString);
@@ -84,6 +84,15 @@ class dbfiletags extends dbTable
     }
     
     /**
+    * Method to delete the tags of a file 
+    * @param string $fileId Record ID of the File
+    */
+    public function removeFileTags($fileId)
+    {
+        return $this->delete('fileid', $fileId);
+    }
+    
+    /**
     * Private Method to store file tag to database
     * @param string $fileId Record Id of the File
     * @param string $tag Tag
@@ -93,12 +102,32 @@ class dbfiletags extends dbTable
         return $this->insert(array('fileid'=>$fileId, 'tag'=>$tag));
     }
     
-    function getTagCloudResults($user)
+    /**
+    * Method to get the list of tags, and their weight for generating a tag cloud
+    * for files of a user
+    *
+    * @param string $user User Id
+    * @return array
+    */
+    public function getTagCloudResults($user)
     {
         $sql = 'SELECT tag, count(tag) AS weight FROM tbl_files_filetags INNER JOIN tbl_files ON ( tbl_files.id = tbl_files_filetags.fileid AND tbl_files.userid = \''.$user.'\' ) GROUP BY tag ORDER BY tag';
         return $this->getArray($sql);
     }
     
+    /**
+    * Method to get the list of files of a user that has a particular tag
+    *
+    * @param string $user User Id
+    * @param string $tag Tag file should have
+    * @return array
+    */
+    public function getFilesWithTag($user, $tag)
+    {
+        $sql = 'SELECT tbl_files.* FROM tbl_files INNER JOIN tbl_files_filetags ON (tbl_files.id = tbl_files_filetags.fileid AND tbl_files_filetags.tag=\''.$tag.'\') WHERE tbl_files.userid = \''.$user.'\' GROUP BY tbl_files.id ORDER BY filename';
+        
+        return $this->getArray($sql);
+    }
 
 }
 

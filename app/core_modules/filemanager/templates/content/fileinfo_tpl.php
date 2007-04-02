@@ -20,10 +20,32 @@ $objFilePreview =& $this->getObject('filepreview');
 $objFileIcons =& $this->getObject('fileicons', 'files');
 $objFileIcons->size = 'large';
 
-echo '<h1>'.$objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename'])).'</h1>';
+$objIcon->setIcon('edit');
 
+$editLink = new link ($this->uri(array('action'=>'editfiledetails', 'id'=>$file['id'])));
+$editLink->link = $objIcon->show();
 
-echo '<p><em>'.$file['description'].'</em></p>';
+echo '<h1>'.$objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename'])).$editLink->show().'</h1>';
+
+echo '<p><strong>Description:</strong> <em>'.$file['filedescription'].'</em></p>';
+
+echo '<p><strong>Tags:</strong> ';
+
+if (count($tags) == 0) {
+    echo '<em>no tags</em>';
+} else {
+    $comma = '';
+    foreach ($tags as $tag)
+    {
+        $tagLink = new link ($this->uri(array('action'=>'viewbytag', 'tag'=>$tag)));
+        $tagLink->link = $tag;
+        
+        echo $comma.$tagLink->show();
+        $comma = ', ';
+    }
+}
+
+echo '</p>';
 
 echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information').'</h3>';
 

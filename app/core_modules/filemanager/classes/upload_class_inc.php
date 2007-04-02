@@ -101,10 +101,16 @@ class upload extends object
         
         for ($i = 1; $i <= $this->numInputs; $i++)
         {
+            
+            $objLicense = $this->newObject('licensechooserdropdown', 'creativecommons');
+            
+            $objLicense->inputName = 'creativecommons_'.$this->name.$i;
+            
+            
             $form .= $break . '<input type="file" name="'
               . $this->name . $i . '" '
 			  . 'id="'. $this->name . $i . '" '
-			  . 'size="40" />';
+			  . 'size="40" /> '.$objLicense->show();
             $break = '<br />';
         }
         
@@ -289,7 +295,7 @@ class upload extends object
                 if (move_uploaded_file($file['tmp_name'], $savepath)) {
                     
                     // 1) Add to Database
-                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version);
+                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, NULL));
                     
                     // 2) Start Analysis of File
                     if ($subfolder == 'images' || $subfolder == 'audio' || $subfolder == 'video' || $subfolder == 'flash' || $originalsubfolder == 'images') {

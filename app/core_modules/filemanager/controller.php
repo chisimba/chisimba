@@ -16,6 +16,7 @@ class filemanager extends controller
     {
         $this->objFiles =& $this->getObject('dbfile');
         $this->objFolders =& $this->getObject('dbfolder');
+        $this->objFileTags = $this->getObject('dbfiletags');
         $this->objFileOverwrite =& $this->getObject('checkoverwrite');
         $this->objCleanUrl =& $this->getObject('cleanurl');
         $this->objUpload =& $this->getObject('upload');
@@ -80,8 +81,6 @@ class filemanager extends controller
             case 'uploadfiles':
                 $this->objMenuTools->addToBreadCrumbs(array('Upload Files'));
                 return 'multipleupload_tpl.php';
-            case 'testgetid3':
-                return $this->testGetId3();
             case 'indexfiles':
                 return $this->indexFiles();
             case 'viewfolder':
@@ -92,6 +91,14 @@ class filemanager extends controller
                 return $this->deleteFolder($this->getParam('id'));
             case 'extractarchive':
                 return $this->extractArchive();
+            case 'editfiledetails':
+                return $this->editFileDetails($this->getParam('id'));
+            case 'updatefiledetails':
+                return $this->updateFileDetails();
+            case 'tagcloud':
+                return $this->showTagCloud();
+            case 'viewbytag':
+                return $this->viewByTag($this->getParam('tag'));
             default:
                 return $this->filesHome();
         }
@@ -183,6 +190,10 @@ class filemanager extends controller
         }
 
         $this->setVarByRef('file', $file);
+        
+        $tags = $this->objFileTags->getFileTags($id);
+        $this->setVarByRef('tags', $tags);
+        
         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
         return 'fileinfo_tpl.php';
     }
@@ -813,6 +824,73 @@ function checkWindowOpener()
         $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
         
         return 'indexfiles_tpl.php';
+    }
+    
+    function editFileDetails($id)
+    {
+        $file = $this->objFiles->getFile($id);
+        
+        if ($file == FALSE) {
+            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+        } else {
+            $this->setVarByRef('file', $file);
+            $tags = $this->objFileTags->getFileTags($id);
+            $this->setVarByRef('tags', $tags);
+            return 'editfiledetails_tpl.php';
+        }
+    }
+    
+    function updateFileDetails()
+    {
+        $id = $this->getParam('id');
+        $description = $this->getParam('description');
+        $license = $this->getParam('creativecommons');
+        $keywords = $this->getParam('keywords');
+        
+        if ($id == '') {
+            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+        } else {
+            $result = $this->objFiles->updateDescriptionLicense($id, $description, $license);
+            
+            if ($result) {
+                $this->objFileTags->addFileTags($id, $keywords);
+            }
+            
+            return $this->nextAction('fileinfo', array('id'=>$id, 'message'=>'filedetailsupdated'));
+        }
+        
+    }
+    
+    function showTagCloud()
+    {
+        $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
+        $this->setVarByRef('tagCloudItems', $tagCloudItems);
+        
+        return 'tagcloud_tpl.php';  
+    }
+    
+    function viewByTag($tag)
+    {
+        if (trim($tag) == '') {
+            return $this->nextAction('tagcloud', array('error'=>'notag'));
+        }
+        
+        $this->setVarByRef('tag', $tag);
+        
+        $files = $this->objFileTags->getFilesWithTag($this->objUser->userId(), $tag);
+        $this->setVarByRef('files', $files);
+        
+        if (count($files) == 0) {
+            return $this->nextAction('tagcloud', array('error'=>'nofileswithtag', 'tag'=>$tag));
+        }
+        
+        $this->setVarByRef('files', $files);
+        
+        $objPreviewFolder =& $this->getObject('previewfolder');
+        $table = $objPreviewFolder->previewContent(array(), $files);
+        $this->setVarByRef('table', $table);
+        
+        return 'showfileswithtags_tpl.php';
     }
 }
 

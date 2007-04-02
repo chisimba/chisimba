@@ -65,6 +65,7 @@ if (count($files) > 0 || count($subfolders) > 0) {
     echo $table;
 }
 
+echo '<h3>Upload Files</h3>';
 echo $this->objUpload->show($folderId);
 
 echo $this->objFolders->showCreateFolderForm($folderId);
