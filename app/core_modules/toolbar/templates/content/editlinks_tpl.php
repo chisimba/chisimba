@@ -14,14 +14,14 @@
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // Set up html elements
-$objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objIcon =& $this->newObject('geticon', 'htmlelements');
-$objLink =& $this->newObject('link', 'htmlelements');
-$objForm =& $this->newObject('form', 'htmlelements');
-$objInput =& $this->newObject('textinput', 'htmlelements');
-$objDrop =& $this->newObject('dropdown', 'htmlelements');
-$objLabel =& $this->newObject('label', 'htmlelements');
+$this->loadClass('htmltable', 'htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
+$objIcon = $this->newObject('geticon', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('label', 'htmlelements');
 
 // Set up language items
 $objLanguage =& $this->getObject('language', 'language');
@@ -97,7 +97,7 @@ $objHead->type = 3;
 
 $str .= $objHead->show();
 
-$objTable->init();
+$objTable = new htmltable();
 $objTable->width = '99%';
 $objTable->cellspacing = 2;
 $objTable->cellpadding = 5;
