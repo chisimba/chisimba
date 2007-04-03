@@ -30,6 +30,7 @@ class tree extends controller
     {
         $this->objSkin = & $this->getObject('skin','skin');
         $this->objConfig= & $this->getObject('config','config');
+        $this->objAltConfig= & $this->getObject('altconfig','config');
 		$this->loadClass('folderbot', 'files');
 		$this->loadClass('layer','htmlelements');
 		$this->loadClass('treemenu','tree');
@@ -114,7 +115,7 @@ class tree extends controller
 		$contentlink='';
 		$basenode = new treenode(array('text' => '\\...', 'link' => $contentlink, 'icon' => 'base.gif', 'expandedIcon' => 'base.gif'));
 		//create other nodes and add them to the base node
-		$nodes =& $basenode->addItem($this->_setDirNodes($basenode,$this->objConfig->siteRootPath())) ;
+		$nodes =& $basenode->addItem($this->_setDirNodes($basenode,$this->objAltConfig->getsiteRootPath())) ;
 		//add base node to the menu
 		$menu->addItem($basenode);
 		
