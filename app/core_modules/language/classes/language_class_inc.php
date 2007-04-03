@@ -248,6 +248,7 @@ class language extends dbTable {
         $script = $_SERVER['PHP_SELF'];
         $objNewForm = new form('languageCheck', $script);
         $objDropdown = new dropdown('Languages');
+        $objDropdown->extra = "onchange =\"document.forms['languageCheck'].submit();\"";
         $results = $this->languagelist();
         foreach ($results as $list) {
             foreach($list as $key) {
@@ -256,9 +257,6 @@ class language extends dbTable {
         }
         $objNewForm->addToForm($this->languageText("phrase_languagelist") . ":<br />\n");
         $objNewForm->addToForm($objDropdown->show());
-        $objButtons = new button('go', $this->languageText("word_go"), 'submit');
-        $objButtons->setToSubmit();
-        $objNewForm->addToForm($objButtons->show());
         $ret = $objNewForm->show();
         return $ret;
     	}catch (Exception $e){
