@@ -123,10 +123,10 @@ class timeline extends controller
 
      private function addScriptaculousToPage()
      {
-     	$scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
-          <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
-          <script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
-        $this->appendArrayVar('headerParams',$scripts);
+     	//$scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
+          //<script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
+          //<script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
+        //$this->appendArrayVar('headerParams',$scripts);
         return TRUE;
      }
     /*------------- END : Methods for writing to the page body and header ---------------*/
