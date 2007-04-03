@@ -9,7 +9,7 @@ FCKConfig.ToolbarSets["Basic"] = [
 FCKConfig.ToolbarSets["simple"] = FCKConfig.ToolbarSets["Basic"];
 
 FCKConfig.ToolbarSets["advanced"] = [
-	['Source','DocProps','-','Save','NewPage','Preview'],
+	['Source','-','Save','NewPage','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
@@ -28,7 +28,7 @@ FCKConfig.ToolbarSets["advanced"] = [
 FCKConfig.ToolbarSets["Default"] = FCKConfig.ToolbarSets["advanced"];
 
 FCKConfig.ToolbarSets["DefaultWithoutSave"] = [
-	['Source','DocProps','-','NewPage','Preview'],
+	['Source','-','NewPage','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
