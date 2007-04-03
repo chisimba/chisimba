@@ -17,11 +17,11 @@ if (substr(PHP_VERSION,0,1) < '5'){
     die;
 }
 
-if (substr(PHP_VERSION,0,2) > '5.1'){
-    print "We see this computer is currently running PHP".PHP_VERSION."<br />\n";
-    print "Chisimba currently has problems with PHP 5.2 or above.<br />\n";
-    die;
-}
+//if (substr(PHP_VERSION,0,2) > '5.1'){
+//    print "We see this computer is currently running PHP".PHP_VERSION."<br />\n";
+//    print "Chisimba currently has problems with PHP 5.2 or above.<br />\n";
+//    die;
+//}
 
 /*
 $path=substr(str_replace('\\','/',$_SERVER['SCRIPT_FILENAME']),0,-20)."/config/";
