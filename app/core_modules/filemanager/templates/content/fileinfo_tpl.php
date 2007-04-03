@@ -27,7 +27,7 @@ $editLink->link = $objIcon->show();
 
 echo '<h1>'.$objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename'])).$editLink->show().'</h1>';
 
-echo '<p><strong>Description:</strong> <em>'.$file['filedescription'].'</em></p>';
+echo '<br /><p><strong>Description:</strong> <em>'.$file['filedescription'].'</em></p>';
 
 echo '<p><strong>Tags:</strong> ';
 
