@@ -28,7 +28,6 @@ class dbfile extends dbTable
         $this->objCleanUrl =& $this->getObject('cleanurl');
         
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objUserFolder =& $this->getObject('userfoldercheck');
         $this->objFileFolder =& $this->getObject('filefolder');
         $this->objMimetypes =& $this->getObject('mimetypes', 'files');
         
