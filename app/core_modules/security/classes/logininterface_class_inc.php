@@ -80,7 +80,7 @@ class loginInterface extends object
     		//--- Create an element for the network login radio
     		$objElement = new checkbox("useLdap");
     		$objElement->setCSS("transparentbgnb");
-    		$objElement->label=$this->objLanguage->languageText("phrase_networkid");
+    		$objElement->label=$this->objLanguage->languageText("phrase_networkid")."&nbsp;";
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
     			$ldap .= $objElement->label."&nbsp;".$objElement->show();
