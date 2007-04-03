@@ -54,8 +54,9 @@ class inputmasks extends object implements ifhtml
     */
     public function show()
     {
-        $objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
-        $objScriptaculous->loadPrototype();
+        //scriptaculous and prototype loaded in the default page template
+        //$objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
+        //$objScriptaculous->loadPrototype();
         
         // Send the JavaScript to the header
         $this->appendArrayVar('headerParams', $this->getJavascriptFile('inputmasks/html-form-input-mask.js', 'htmlelements'));
