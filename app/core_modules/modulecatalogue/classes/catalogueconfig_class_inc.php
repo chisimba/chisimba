@@ -165,26 +165,43 @@ class catalogueconfig extends object {
     	<id>$id</id>\n";
     				$reg = $objModFile->readRegisterFile($objModFile->findregisterfile($mod));
     				if (is_array($reg)) {
+    				$from = $this->objLanguage->languageText('phrase_frommodule');
     				if (isset($reg['MODULE_ID'])){
     					$module_id = htmlentities($reg['MODULE_ID']);
-    				}
-    				if (isset($reg['MODULE_AUTHORS'])){
-    					$module_authors = htmlentities($reg['MODULE_AUTHORS']);
+    				} else {
+    					$module_id = 'unknown';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_ID");
     				}
     				if (isset($reg['MODULE_NAME'])){
     					$module_name = htmlentities($reg['MODULE_NAME']);
     				} else {
     					$module_name = $module_id;
     				}
+    				if (isset($reg['MODULE_AUTHORS'])){
+    					$module_authors = htmlentities($reg['MODULE_AUTHORS']);
+    				} else {
+    					$module_authors = '';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_AUTHORS $from $module_name");
+    				}
     				if (isset($reg['MODULE_RELEASEDATE'])){
     					$module_releasedate = htmlentities($reg['MODULE_RELEASEDATE']);
+    				} else {
+    					$module_releasedate = '';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_RELEASEDATE $from $module_name");
     				}
     				if (isset($reg['MODULE_DESCRIPTION'])){
     					$module_description = htmlentities($reg['MODULE_DESCRIPTION']);
+    				} else {
+    					$module_description = '';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_DESCRIPTION $from $module_name");
     				}
     				if (isset($reg['MODULE_VERSION'])){
     					$module_version = htmlentities($reg['MODULE_VERSION']);
+    				} else {
+    					$module_version = '';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_VERSION $from $module_name");
     				}
+
     				$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_name>$module_name</module_name>
     	<module_authors>$module_authors</module_authors>
