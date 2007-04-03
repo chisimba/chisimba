@@ -114,12 +114,13 @@ class timeline extends controller
 	}
 	
     /**
-     * 
+     * @deprecated
      * Method to add the scriptaculous library to the page head
      * @access private
      * @return TRUE
      * 
-     */
+    /* scriptaculous moved to default page template / no need to suppress XML        
+
      private function addScriptaculousToPage()
      {
      	$scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
@@ -266,7 +267,7 @@ class timeline extends controller
     	$objDb = $this->getObject("dbstructure", "timeline");
     	$ar = $objDb->getRow("id", $id);
         $this->setVar("ar", $ar);
-        $this->addScriptaculousToPage();
+        //$this->addScriptaculousToPage();
         return "editadd_tpl.php";
     }
     
@@ -282,7 +283,7 @@ class timeline extends controller
     */
     private function __addstructure()
     {
-    	$this->addScriptaculousToPage();
+    	//$this->addScriptaculousToPage();
         return "editadd_tpl.php";
     }
     
