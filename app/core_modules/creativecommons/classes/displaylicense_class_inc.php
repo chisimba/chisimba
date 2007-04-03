@@ -55,6 +55,13 @@ class displaylicense extends object
      */
     public function show($license='')
     {
+        $objModules = $this->getObject('modules', 'modulecatalogue');
+        
+        if (!$objModules->checkIfRegistered('creativecommons')) {
+            return '';
+        }
+        
+        
         if ($license != '') {
             $this->license = $license;
         }
