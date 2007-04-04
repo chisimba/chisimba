@@ -129,7 +129,7 @@ class fileembed extends object
     */
     function showFreemind($file)
     {
-        $objFlashFreemind = $this->newObject('flashfreemind', 'files');
+        $objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
         $objFlashFreemind->setMindMap($file);
         return $objFlashFreemind->show();
     }
@@ -140,7 +140,7 @@ class fileembed extends object
     */
     function showSoundPlayer($file)
     {
-        $objSoundPlayerBuilder = $this->newObject('buildsoundplayer', 'files');
+        $objSoundPlayerBuilder = $this->newObject('buildplayer', 'soundplayer');
         $objSoundPlayerBuilder->setSoundFile($file);
         return $objSoundPlayerBuilder->show();
     }
@@ -258,7 +258,7 @@ class fileembed extends object
         $width = $width=='' ? '100%' : $width; 
         $height = $height=='' ? '400' : $height; 
         
-        $objBuildPlayer = $this->getObject('buildflowplayer', 'files');
+        $objBuildPlayer = $this->getObject('buildflowplayer', 'flowplayer');
         $objBuildPlayer->setMovieFile($file);
         $objBuildPlayer->width = $width;
         $objBuildPlayer->height = $height;
