@@ -16,7 +16,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * $Id$
 *
 */
-class block_register extends object
+class block_registercontext extends object
 {
     /**
     * @var string $title The title of the block
@@ -37,11 +37,8 @@ class block_register extends object
     	try {
     		$this->objLanguage = & $this->getObject('language', 'language');
 			$this->objUser = $this->getObject('user', 'security');
-			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-				$this->blockType="invisible";
-			} else { 
-    			$this->title = $this->objLanguage->languageText("word_registration");
-			}
+  			$this->title = $this->objLanguage->languageText("word_registration");
+
     	} catch (customException $e) {
     	customException::cleanUp();
     	}
@@ -54,15 +51,11 @@ class block_register extends object
     public function show()
     {
     	try {
-    		if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-    			return NULL;
-    		} else {
 	    		$regLink = &$this->newObject('link','htmlelements');
 	    		$regLink->link = $this->objLanguage->languageText('word_register');
 	    		$regLink->link($this->uri(NULL,'userregistration'));
 	    		return $regLink->show();
-    		}
-    	} catch (customException $e) {
+   	} catch (customException $e) {
     		customException::cleanUp();
     	}
     }
