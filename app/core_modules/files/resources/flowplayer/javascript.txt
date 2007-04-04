@@ -1,0 +1,129 @@
+FlowPlayer's JavaScript API supports a subset of the JavaScript API
+available in mplayer browser plug-in (http://mplayerplug-in.sourceforge.net/).
+Additionally it defines some methods that are not available in mplayer 
+plug-in. mplayer plug-in's API is documented in javascript.txt that can be found 
+in the plugin's source distribution package.
+
+FlowPlayer supports the following JavaScript methods
+
+
+methods (same as in mplayer plug-in):
+
+	DoPlay():Void;
+	DoStop():Void;
+	Reset()Void;
+	Pause()Void;
+	Seek(seconds:Number)Void;
+	getTime()Void;
+	getDuration()Void;
+
+FlowPlayer specific, not in mplayer plug-in API:
+
+	setConfig(flowPlayerConfig:Object):Void
+	StartBuffering()Void;
+	ToggleLoop()Void;
+	getPercentLoaded():Number;
+	getIsPlaying():Boolean;
+	getIsPaused():Boolean;
+	getIsLooping():Boolean;
+
+PlayList control (FlowPlayer specific, not in mplayer plug-in API):
+
+	hasNext():Boolean;
+	NextClip():Void;
+	PrevClip():Void;
+	getPlayListSize():Number;
+	getCurrentClip():Number;
+	ToClip(index:Number):Void;
+	
+Detail:
+
+methods (same as in mplayer plug-in):
+
+	DoPlay():Void;
+	
+		Plays the current clip.
+	
+	DoStop():Void;
+	
+		Stops playback and returns to the first clip in the playlist.
+	
+	Reset()Void;
+	
+		Resets the player to the initial state.
+	
+	Pause()Void;
+	
+		Pauses playback.
+	
+	Seek(seconds:Number)Void;
+	
+		Seeks to the specified time during the clip's timeline.
+	
+	getTime()Void;
+	
+		Get's the current time (seconds advanced).
+	
+	getDuration()Void;
+	
+		Get's the clip's duration.
+
+FlowPlayer specific, not in mplayer plug-in API:
+
+	setConfig(flowPlayerConfig:Object):Void;
+
+		Configure the player using a FlowPlayer configuration object.
+		This is a JavaScript object that is documented in flowPlayer.js
+		(http://flowplayer.sourceforge.net/flowPlayer.js).
+
+	StartBuffering()Void;
+	
+		Starts loading the clip into the buffer memory. Does not start
+		playback.
+	
+	ToggleLoop()Void;
+	
+		Toggless looping on/off.
+	
+	getPercentLoaded():Number;
+	
+		Gets the percentage of buffer memory currently filled with data.
+	
+	getIsPlaying():Boolean;
+	
+		Is the player currently playing?
+	
+	getIsPaused():Boolean;
+	
+		Is the player currently paused?
+	
+	getIsLooping():Boolean;
+	
+		Is the player looping?
+	
+PlayList control (FlowPlayer specific, not in mplayer plug-in API):
+
+	hasNext():Boolean;
+	
+		Does the playlist have more clips after the current clipP?
+	
+	NextClip():Void;
+	
+		Moves to next clip.
+	
+	PrevClip():Void;
+	
+		Moves to previous clip.
+	
+	getPlayListSize():Number;
+	
+		Gets the number of clips in the playlist.
+	
+	getCurrentClip():Number;
+	
+		Gets the index of the current clip. First clip is at index zero.
+	
+	ToClip(index:Number):Void;
+
+		Moves to clip at the specified index.
+
