@@ -51,7 +51,7 @@ class button extends abhtmlbase implements ifhtml
         $this->value = $value;
         $this->onclick = $onclick;
         $this->cssClass = 'button';
-		//$this->cssId = 'input_'.$name;
+		$this->cssId = 'input_'.$name;
     } 
 
     /*

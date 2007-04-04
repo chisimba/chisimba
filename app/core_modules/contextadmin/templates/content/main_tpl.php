@@ -7,17 +7,12 @@ $fieldset = & $this->newObject('fieldset', 'htmlelements');
 $icon =  & $this->newObject('geticon', 'htmlelements');
 $objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
 $objH = & $this->newObject('htmlheading','htmlelements');
-$objH->str = ucwords($objLanguage->code2Txt('mod_contextadmin_contextadmin', 'contextadmin')).' '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
+$objH->str = 'Course Admin '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
 $objH->type = 3;
+$impButton =new button("submit", $objLanguage->languageText("mod_contextadmin_import","contextadmin"));
+$impButton->setOnClick("window.location='".$this->uri(array('action'=>'importcourse'))."';");
 
-$btnImport = '';
-if($this->isBlog){
-    $impButton =new button("submit", $objLanguage->languageText("word_import"));
-    $impButton->setOnClick("window.location='".$this->uri(array('action'=>'importcourse'))."';");
-    $btnImport = $impButton->show();
-}
-
-echo $objH->show().$btnImport;
+echo $objH->show().$impButton->show();
 
 $str = '';
 $other = '';

@@ -60,20 +60,12 @@ class prelogin extends controller {
 			$this->objPLBlocks = &$this->getObject('preloginblocks');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objLanguage = &$this->getObject('language','language');
-			$this->objSysconfig = &$this->getObject('dbsysconfig','sysconfig');
 			if($this->objPLBlocks->dbType == "pgsql") {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';
 			} else {
 				$this->TRUE = 1;
 				$this->FALSE = 0;
-			}
-			$sysType = $this->objSysconfig->getValue('SYSTEM_TYPE','systext');
-			$contextBlock = $this->objPLBlocks->getRow('id','init_3');
-			if ((!isset($contextBlock['content'])) && ($sysType == 'elearn')) {
-				$contextBlock['content'] = 'done';
-				$contextBlock['visible'] = $this->TRUE;
-				$this->objPLBlocks->update('id','init_3',$contextBlock);
 			}
 		} catch (customException $e) {
 			customException::cleanUp();

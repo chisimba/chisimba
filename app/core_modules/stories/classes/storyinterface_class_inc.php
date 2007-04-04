@@ -118,7 +118,7 @@ class storyinterface extends object {
 
 
             //Instantiate the classe for checking expiration
-            $objExp = & $this->getObject('dateandtime', 'utilities');
+            $objExp = & $this->getObject('datetime', 'utilities');
 
             if ( $objExp->hasExpired($expirydate) ) {
                 $str .= '<td class="' . $oddOrEven

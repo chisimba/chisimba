@@ -77,7 +77,7 @@ $objTrLink = $this->newObject('link', 'htmlelements');
 //Create the table header for display
 $this->Table->addHeader($tableHd, "heading");
 //Instantiate the classe for checking expiration
-$objExp = & $this->getObject('dateandtime', 'utilities');
+$objExp = & $this->getObject('datetime', 'utilities');
 //Loop through and display the records
 $rowcount = 0;
 if (isset($ar)) {

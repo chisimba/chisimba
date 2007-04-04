@@ -16,9 +16,9 @@ class skin extends object
     public function init()
     {
         $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objButtons =& $this->getObject('navbuttons', 'navigation');
         $this->loadClass('form','htmlelements');
         $this->loadClass('dropdown','htmlelements');
-        $this->loadClass('button','htmlelements');
         $this->objConfig =& $this->getObject('altconfig','config');
         //$this->server =& $this->objConfig->serverName();
 
@@ -104,7 +104,7 @@ class skin extends object
         $script=$_SERVER['PHP_SELF'];
         $objNewForm = new form('ignorecheck',$script);
         $objDropdown = new dropdown('skinlocation');
-        $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
+        
         //loop through the folders and build an array of available skins
         $basedir=$this->objConfig->getsiteRootPath()."skins/";
         chdir($basedir);
@@ -132,12 +132,14 @@ class skin extends object
         foreach ($dirList as $element=> $value) {
            $objDropdown->addOption($element,$value);
         }
-        $objNewForm->addToForm($this->objLanguage->languageText('phrase_selectskin').":<br />\n");
+        $objNewForm->addToForm($ret=$this->objLanguage->languageText('phrase_selectskin').":<br />\n");
 
         // Set the current skin as the default selected skin
         $objDropdown->setSelected($this->getSession('skin'));
         $objDropdown->cssClass = 'coursechooser';
-		$objNewForm->addToForm($objDropdown->show());
+
+        $button = $this->objButtons->formButton('submit',$this->objLanguage->languageText('word_go'));
+        $objNewForm->addToForm($objDropdown->show().$button);
         return $objNewForm->show();
 
     }

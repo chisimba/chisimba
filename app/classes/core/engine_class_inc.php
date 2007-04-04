@@ -270,7 +270,6 @@ class engine
 	'decisiontable',
 	'errors',
 	'files',
-        'filemanager',
 	'filters',
 	'groupadmin',
 	'help',
@@ -925,14 +924,6 @@ class engine
     */
 	public function getParam($name, $default = NULL)
 	{
-		$data = explode("/", $_SERVER['REQUEST_URI']);
-		//log_debug($data);
-		/*
-		$precursor = explode('?', $data[3]);
-		//log_debug($precursor);
-		$index = $precursor[0];
-		$datastring = explode('&', $precursor[1]);
-		log_debug($datastring); */
 		return isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])

@@ -13,7 +13,7 @@ class parse4mindmap extends object
     
     function init()
     {
-        $this->objFlashFreemind = $this->newObject('flashfreemind', 'files');
+        $this->objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
     }
     
     /**

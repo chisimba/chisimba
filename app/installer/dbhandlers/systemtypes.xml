@@ -21,6 +21,10 @@
             <module>groupadmin</module>
             <module>permissions</module>
             <module>config</module>
+            <module>context</module>
+            <module>contextadmin</module>
+            <module>contextgroups</module>
+            <module>contextpermissions</module>
             <module>errors</module>
             <module>files</module>
             <module>filters</module>
@@ -82,10 +86,6 @@
             <categoryname>e-Learning Management System</categoryname>
             <module>assignment</module>
             <module>assignmentadmin</module>
-            <module>context</module>
-            <module>contextadmin</module>
-            <module>contextgroups</module>
-            <module>contextpermissions</module>
             <module>email</module>
             <module>essay</module>
             <module>essayadmin</module>

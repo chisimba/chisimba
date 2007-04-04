@@ -30,7 +30,7 @@
 		<id>init_3</id>
 		<title>Context</title>
 		<side>left</side>
-		<visible>0</visible>
+		<visible>1</visible>
 		<position>3</position>
 		<isBlock>1</isBlock>
 		<blockName>context</blockName>

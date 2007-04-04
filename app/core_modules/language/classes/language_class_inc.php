@@ -68,13 +68,12 @@ class language extends dbTable {
     {
     	try {
 	    	parent::init('tbl_languagelist');
-	        $this->objConfig = $this->getObject('altconfig','config');
-	        $this->lang = $this->newObject('languageConfig','language');
+	        $this->objConfig = &$this->getObject('altconfig','config');
+	        $this->lang = &$this->newObject('languageConfig','language');
 	        $this->lang = &$this->lang->setup();
-	        $this->loadClass('form', 'htmlelements');
-	        $this->loadClass('dropdown', 'htmlelements');
-	        $this->loadClass('button', 'htmlelements');
-	          
+	        $this->objNewForm = &$this->newObject('form', 'htmlelements');
+	        $this->objDropdown = &$this->newObject('dropdown', 'htmlelements');
+	        $this->objButtons = &$this->getObject('button', 'htmlelements');
 	        $this->objAbstract =& $this -> getObject('systext_facet', 'systext');
 	        $this->abstractList = $this->objAbstract->getSession('systext');
     	}catch (Exception $e){
@@ -246,17 +245,19 @@ class language extends dbTable {
     	try {
         //$ret = $this->languageText("phrase_languagelist",'language') . ":<br />\n";
         $script = $_SERVER['PHP_SELF'];
-        $objNewForm = new form('languageCheck', $script);
-        $objDropdown = new dropdown('Languages');
-        $objDropdown->extra = "onchange =\"document.forms['languageCheck'].submit();\"";
+        $ret = $objNewForm = new form('languageCheck', $script);
+        $ret = $objDropdown = new dropdown('Languages');
         $results = $this->languagelist();
         foreach ($results as $list) {
             foreach($list as $key) {
                 $objDropdown->addOption($key, $key);
             }
         }
-        $objNewForm->addToForm($this->languageText("phrase_languagelist") . ":<br />\n");
-        $objNewForm->addToForm($objDropdown->show());
+        $ret = $objNewForm->addToForm($ret = $this->languageText("phrase_languagelist") . ":<br />\n");
+        $ret .= $objDropdown->show();
+        $ret .= $button = $this->objButtons->button('go', $this->languageText("word_go"), 'submit');
+        $ret .= $button = $this->objButtons->setToSubmit();
+        $ret = $objNewForm->addToForm($ret .= $button = $this->objButtons->show());
         $ret = $objNewForm->show();
         return $ret;
     	}catch (Exception $e){

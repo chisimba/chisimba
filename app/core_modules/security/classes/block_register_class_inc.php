@@ -1,5 +1,4 @@
-<?php
-
+<?
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
@@ -43,7 +42,7 @@ class block_register extends object
     			$this->title = $this->objLanguage->languageText("word_registration");
 			}
     	} catch (customException $e) {
-    	customException::cleanUp();
+    		customException::cleanUp();
     	}
     }
     

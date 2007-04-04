@@ -13,7 +13,7 @@ $dropAccess = $this->newObject('dropdown','htmlelements');
 $objH->str = 'Step 1: Add a Course';
 $objH->type = 3;
 
-//$inpTitle->fldType="hidden";
+$inpTitle->fldType="hidden";
 
 //setup the form
 $objForm->name = 'addfrm';

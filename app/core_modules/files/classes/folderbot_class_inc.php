@@ -44,7 +44,7 @@ class folderbot extends object
     * Standard framework init method for the KEWL.NextGen framework
     * Sets the default recursion to true
     */
-    function init()
+    function inti()
     {
         $this->recurse = true;
     } 
@@ -70,8 +70,6 @@ class folderbot extends object
         $stack = array();
         array_push($stack, realpath($path)); // save current path onto stack
         
-        $currentDir = getcwd();
-        
         while ($path = array_pop($stack)) { // as long as there are paths on stack
             chdir($path); // make it current path
             $handle = opendir($path); // open current folder
@@ -94,8 +92,6 @@ class folderbot extends object
             } //while files in folder
             closedir($handle); // tidy up :)
         } // while stack not empty
-        
-        chdir($currentDir);
     } 
     
     /**

@@ -1,3 +1,7 @@
+<?php
+$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
+$this->objScriptaculous->show();
+?>
 <script type="text/javascript">
 //<![CDATA[
 function init () {
