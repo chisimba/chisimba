@@ -20,7 +20,7 @@ function showResponse (originalRequest) {
 </script>';
 $this->appendArrayVar('headerParams', $script);
 
-$objFreemind = $this->getObject('flashfreemind', 'freemind');
+$objFreemind = $this->getObject('flashfreemind', 'files');
 $this->appendArrayVar('headerParams', $objFreemind->getMindmapScript());
 
 $objFileIcon = $this->getObject('fileicons', 'files');
