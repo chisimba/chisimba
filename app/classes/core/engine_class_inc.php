@@ -270,6 +270,7 @@ class engine
 	'decisiontable',
 	'errors',
 	'files',
+        'filemanager',
 	'filters',
 	'groupadmin',
 	'help',
