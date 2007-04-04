@@ -129,7 +129,7 @@ class fileembed extends object
     */
     function showFreemind($file)
     {
-        $objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
+        $objFlashFreemind = $this->newObject('flashfreemind', 'files');
         $objFlashFreemind->setMindMap($file);
         return $objFlashFreemind->show();
     }
@@ -140,7 +140,7 @@ class fileembed extends object
     */
     function showSoundPlayer($file)
     {
-        $objSoundPlayerBuilder = $this->newObject('buildplayer', 'soundplayer');
+        $objSoundPlayerBuilder = $this->newObject('buildsoundplayer', 'files');
         $objSoundPlayerBuilder->setSoundFile($file);
         return $objSoundPlayerBuilder->show();
     }
@@ -203,7 +203,7 @@ class fileembed extends object
         
         $replace = '<object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
-        $replace .= ' standby="Loading Microsoft® Windows® Media Player components..." ';
+        $replace .= ' standby="Loading Microsoftï¿½ Windowsï¿½ Media Player components..." ';
         $replace .= ' id="msplayer" align="" type="application/x-oleobject">';
         $replace .= "<param name=\"Filename\" value=\"{$file}\" />";
         $replace .= '<param name="ShowControls" value="true" />';
@@ -258,7 +258,7 @@ class fileembed extends object
         $width = $width=='' ? '100%' : $width; 
         $height = $height=='' ? '400' : $height; 
         
-        $objBuildPlayer = $this->getObject('buildflowplayer', 'flowplayer');
+        $objBuildPlayer = $this->getObject('buildflowplayer', 'files');
         $objBuildPlayer->setMovieFile($file);
         $objBuildPlayer->width = $width;
         $objBuildPlayer->height = $height;
