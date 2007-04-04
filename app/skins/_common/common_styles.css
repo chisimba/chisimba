@@ -873,10 +873,10 @@ label br {clear:left}
 /** Icon + text div links **/
 
 .smallicon {
-	height: 70px;
+	height: 75px;
 	width: 85px;
 	text-align: center;
-	font-size: 70%;
+	font-size: 80%;
 	line-height: 100%;
 	float: left; 
 	padding: 0px;
@@ -887,9 +887,10 @@ label br {clear:left}
 	display: block;
 	float: left;
 	border: 1px solid #f0f0f0;
-	height: 70px;
+	height: 75px;
 	width: 85px;
 	vertical-align: middle;
+	font-size: 70%;
 	line-height: 100%;
 	text-decoration: none;
 	padding: 0px;
@@ -905,7 +906,7 @@ label br {clear:left}
 	background: #f9f9f9;
 }
 
-.smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto; }
+.smallicon img  { padding: 2px 0; padding-bottom: 3px; margin: 0 auto;  }
 .smallicon span { display: block; text-align: center; }
 
 
