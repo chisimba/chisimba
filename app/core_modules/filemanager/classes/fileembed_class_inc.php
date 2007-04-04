@@ -129,7 +129,7 @@ class fileembed extends object
     */
     function showFreemind($file)
     {
-        $objFlashFreemind = $this->newObject('flashfreemind', 'freemind');
+        $objFlashFreemind = $this->newObject('flashfreemind', 'files');
         $objFlashFreemind->setMindMap($file);
         return $objFlashFreemind->show();
     }
@@ -258,7 +258,7 @@ class fileembed extends object
         $width = $width=='' ? '100%' : $width; 
         $height = $height=='' ? '400' : $height; 
         
-        $objBuildPlayer = $this->getObject('buildflowplayer', 'flowplayer');
+        $objBuildPlayer = $this->getObject('buildflowplayer', 'files');
         $objBuildPlayer->setMovieFile($file);
         $objBuildPlayer->width = $width;
         $objBuildPlayer->height = $height;
