@@ -194,7 +194,7 @@ class filepreview extends object
             $contents = fread ($handle, filesize ($this->file['path'])); 
             fclose ($handle);
             
-            $objGeshi = $this->getObject('geshiwrapper', 'wrapgeshi');
+            $objGeshi = $this->getObject('geshiwrapper', 'utilities');
             $objGeshi->source = $contents;
             $objGeshi->language = $filetype;
             
