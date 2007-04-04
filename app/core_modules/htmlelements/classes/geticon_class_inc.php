@@ -317,7 +317,7 @@ class getIcon extends object implements ifhtml
         $this->loadClass('link', 'htmlelements');
         
         $this->setIcon($name, $type, $iconfolder);
-        $this->extra = " height='40px' width='40px'";
+        //$this->extra = " height='40px' width='40px'";
         $this->title = $linkText;
         $icStr = $this->show();
         
