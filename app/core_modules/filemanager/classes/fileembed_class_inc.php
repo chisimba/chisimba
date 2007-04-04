@@ -140,7 +140,7 @@ class fileembed extends object
     */
     function showSoundPlayer($file)
     {
-        $objSoundPlayerBuilder = $this->newObject('buildplayer', 'soundplayer');
+        $objSoundPlayerBuilder = $this->newObject('buildsoundplayer', 'files');
         $objSoundPlayerBuilder->setSoundFile($file);
         return $objSoundPlayerBuilder->show();
     }
