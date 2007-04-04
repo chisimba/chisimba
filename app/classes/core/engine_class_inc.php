@@ -267,6 +267,7 @@ class engine
 	'contextadmin',
 	'contextgroups',
 	'contextpermissions',
+        'creativecommons',
 	'decisiontable',
 	'errors',
 	'files',
@@ -292,6 +293,7 @@ class engine
 	'strings',
 	'sysconfig',
 	'systext',
+        'timeline'
 	'toolbar',
 	'tree',
 	'useradmin',
