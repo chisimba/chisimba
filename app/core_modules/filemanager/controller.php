@@ -50,6 +50,8 @@ class filemanager extends controller
                 return $this->checkFileOverwrite();
             case 'fixtempfiles':
                 return $this->fixTempFiles();
+            case 'overwriteresults':
+                return $this->showOverwriteResults();
             case 'file':
                 return $this->showFile($this->getParam('id'), $this->getParam('filename'));
             case 'fileinfo':
@@ -212,7 +214,7 @@ class filemanager extends controller
         
         // Upload Files
         $results = $this->objUpload->uploadFiles();
-
+        
         // Check if User entered page by typing in URL
         if ($results == FALSE) {
             return $this->nextAction(NULL);
@@ -239,6 +241,8 @@ class filemanager extends controller
 
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
         $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        
+        $this->setVar('overwriteMessage', $this->objUploadMessages->processOverwriteMessages());
 
         $this->objMenuTools->addToBreadCrumbs(array('Upload Results'));
         
@@ -279,50 +283,99 @@ class filemanager extends controller
     */
     public function fixTempFiles()
     {
-        $listItem = explode('|', $this->getParam('listitems'));
-
-        $resultInfo = '';
-        $divider = '';
-
-
-
+        // Create Array of Files that are affected
+        $listItem = explode('__', $this->getParam('listitems'));
+        
+        // Create Array for Results
+        $resultInfo = array();
+        
+        // Loop through each files
         foreach ($listItem as $item)
         {
-            // Fix for HTTP headers. Input with dot in name gets converted to underscore.
-            // if (substr_count($item, '.') > 0) {
-                // $option = str_replace('.', '_', $_POST[$item]);
-                // $rename = str_replace('.', '_', $_POST['rename__'.$item]);
-                // $ext = str_replace('.', '_', $_POST['extension__'.$item]);
-            // } else {
-                $option = $_POST[$item];
-                // $rename = $_POST['rename__'.$item];
-                // $ext = $_POST['extension__'.$item];
-            //}
-
-            $fileInfo = $this->objFiles->getFileInfo($item);
-
-            $resultInfo .= $divider.$fileInfo['filename'].'----'.trim($option);
-
-            switch (trim($option))
-            {
-                case 'deletetemp':
-                    $this->objFiles->deleteTemporaryFile($item);
-                    break;
-                case 'overwrite':
-                    $this->objFileOverwrite->overWriteFile($item);
-                    break;
-                case 'rename':
-                    $resultInfo .= '----'.$rename;
-                    break;
-                default:
-                    break;
+            // Get the option user has decided - either delete temp or overwrite
+            $option = $this->getParam($item);
+            
+            // Check that Option is Valid
+            if ($item != '') {
+                // Take Action based on option
+                switch (trim($option))
+                {
+                    // Delete Temp File
+                    case 'delete':
+                        $this->objFiles->deleteTemporaryFile($item);
+                        $resultInfo[$item] = 'delete';
+                        break;
+                    // Overwrite File
+                    case 'overwrite':
+                        // Create Path to Temp File
+                        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$item;
+                        
+                        // Get File Record
+                        $fileInfo = $this->objFiles->getFileInfo($item);
+                        
+                        // If Temp File exists and Record Exists
+                        // Perform Overwrite
+                        if ($fileInfo != FALSE && file_exists($tempFilePath)) {
+                        
+                            // Generate Path to Existing File
+                            $filePath = $this->objConfig->getcontentBasePath().$fileInfo['path'];
+                            
+                            // Delete Existing File if it exists
+                            if (file_exists($filePath)) {
+                                unlink($filePath);
+                            }
+                            
+                            // Move Overwrite File
+                            rename($tempFilePath, $filePath);
+                            
+                            // Todo: Reindex Metadata
+                            
+                            $resultInfo[$item] = 'overwrite';
+                        } else {
+                            $this->objFiles->deleteTemporaryFile($item);
+                            
+                            $resultInfo[$item] = 'cannotoverwrite';
+                        }
+                        break;
+                    default:
+                        $resultInfo[$item] = 'unknownaction';
+                        break;
+                }
             }
-
-            $divider = '--------';
         }
+        
+        // Generate Flag For Results
+        $result = '';
+        $divider = '';
+        
+        if (count($resultInfo) > 0) {
+            foreach ($resultInfo as $item=>$action)
+            {
+                $result .= $divider.$item.'__'.$action;
+                $divider = '____';
+            }
+        }
+        
+        $nextAction = $this->getParam('nextaction');
+        $nextParams = $this->getParam('nextparams');
 
-
-        return $this->nextAction('checkoverwrite', array('result'=>$resultInfo));
+        return $this->nextAction('overwriteresults', array('result'=>$result, 'nextaction'=>$nextAction, 'nextparams'=>$nextParams));
+    }
+    
+    /**
+    * Method to show the Results of the Upload
+    *
+    */
+    public function showOverwriteResults()
+    {
+        $results = $this->getParam('result');
+        
+        if ($results == '') {
+            return $this->nextAction(NULL, 'overwriteresultproblematic');
+        } else {
+            $this->setVarByRef('results', $results);
+            return 'overwriteresults_tpl.php';
+        }
     }
 
     /**

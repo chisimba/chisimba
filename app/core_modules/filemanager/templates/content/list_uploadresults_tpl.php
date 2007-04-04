@@ -12,9 +12,7 @@ echo $header->show();
 echo $successMessage;
 echo $errorMessage;
 
-$objCheckOverwrite = $this->getObject('checkoverwrite');
-
-if  ($objCheckOverwrite->checkUserOverwrite() == 0) {
+if  ($overwriteMessage == '') {
     echo '<p><a href="'.$this->uri(NULL).'">'.$this->objLanguage->languageText('mod_filemanager_returntofilemanager', 'filemanager', 'Return to File Manager').'</a>';
     
     if ($this->getParam('folder') != '') {
@@ -41,12 +39,14 @@ if  ($objCheckOverwrite->checkUserOverwrite() == 0) {
 } else {
 
     $header->str = $this->objLanguage->languageText('phrase_overwritefiles', 'filemanager', 'Overwrite Files?');
+    
+    $header->type = 2;
 
     echo $header->show();
 
-    echo $this->objLanguage->languageText('mod_filemanager_explainoverwrite', 'filemanager', 'Recently you tried to upload some files that already exist on the server. Instead of automatically overwriting them, the uploaded file has been stored in a temporary folder pending your action. Please indicate how what you would like them to do with them.');
+    echo '<p>'.$this->objLanguage->languageText('mod_filemanager_explainoverwrite', 'filemanager', 'Recently you tried to upload some files that already exist on the server. Instead of automatically overwriting them, the uploaded file has been stored in a temporary folder pending your action. Please indicate how what you would like them to do with them.').'</p>';
 
-    echo $objCheckOverwrite->showUserOverwiteInterface();
+    echo $overwriteMessage;
 
 }
 ?>

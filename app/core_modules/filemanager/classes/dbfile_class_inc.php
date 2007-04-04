@@ -308,33 +308,16 @@ class dbfile extends dbTable
     
     /**
     * Method to delete a temporary file
-    * THis function deletes the record as well as the file
-    * @param string $id Record Id of the Temporary File
+    * @param string $id Record Id of the Original File
     */
     public function deleteTemporaryFile($id)
     {
-        $file = $this->getRow('id', $id);
+        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$id;
         
-        if ($file == FALSE || $file['category'] != 'temp')
-        {
-            return FALSE;
-        } else {
-            $filePath = $this->objConfig->getcontentBasePath().$file['path'];
-            
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
-            
-            $thumbnail = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$file['id'].'.jpg';
-            
-            if (file_exists($thumbnail)) {
-                unlink($thumbnail);
-            }
-            
-            $this->delete('id', $file['id']);
-            // Delete Temp Media File Info
-            $this->objMediaFileInfo->delete('fileid', $file['id']);
+        if (file_exists($tempFilePath)) {
+            unlink($tempFilePath);
         }
+        
     }
     
     /**
