@@ -49,8 +49,14 @@ class contextadmin extends controller
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
         $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
 	     $this->objExportContent = & $this->newObject('export','contextadmin');
-        $this->objImport = &$this->getObject('blogimporter','blog');
         $this->objConf = &$this->getObject('altconfig','config');
+        
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
+        $this->isBlog = FALSE;
+        if($this->objModules->checkIfRegistered('blog')){
+            $this->objImport = $this->getObject('blogimporter','blog');
+            $this->isBlog = TRUE;
+        }
     }
     
     
@@ -134,9 +140,12 @@ class contextadmin extends controller
       Only courses are displayed
       Need to make provisions for courses which already exist
       */
-			$this->setLayoutTemplate('importcoures_tpl.php');
-			$this->setVar('dbData',$this->accessCourseList("SELECT * from tbl_context"));
-			return 'importcourse_tpl.php';
+          if($this->isBlog){
+    			$this->setLayoutTemplate('importcoures_tpl.php');
+    			$this->setVar('dbData',$this->accessCourseList("SELECT * from tbl_context"));
+    			return 'importcourse_tpl.php';
+          }
+          return $this->nextAction('');
 		case 'submitcourse':
 		/**
 		Reads course data specific to choice from dropdown
@@ -145,10 +154,14 @@ class contextadmin extends controller
 		Need to make provision for editing
 		Need to extract information without another database access 
 		*/
+		if($this->isBlog){
 			$this->setLayoutTemplate('viewcoures_tpl.php');		
 			$choice = $this->getParam('blah');
 		   $this->setVar('dbData',$this->accessCourseList("SELECT * from tbl_context where contextcode = '$choice'"));
 			return 'viewcourse_tpl.php';
+		}
+		return $this->nextAction('');
+		
 		case 'passcourse':
 		/**
 		All data is retrieved from view template and passed to the new database
