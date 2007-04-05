@@ -286,6 +286,7 @@ class engine
 	'permissions',
 	'postlogin',
 	'prelogin',
+        'redirect',
 	'security',
 	'skin',
 	'stories',
