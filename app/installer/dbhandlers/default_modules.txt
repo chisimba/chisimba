@@ -9,10 +9,10 @@ permissions
 sysconfig
 toolbar
 dublincoremetadata
-#context
+context
 #contextadmin
 #contextview - module not in cvs
-contextgroups
+#contextgroups
 contextpermissions
 storycategoryadmin
 stories
