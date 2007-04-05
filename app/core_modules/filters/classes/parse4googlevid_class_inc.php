@@ -75,7 +75,7 @@ class parse4googlevid extends object
     private function getVideoObject($videoId) {
     	$ret = "<embed style=\"width:400px; height:326px;\" 
 		  id=\"VideoPlayback\" type=\"application/x-shockwave-flash\" 
-		  src=\"http://video.google.com/googleplayer.swf?docId=$videoId&hl=en\" 
+		  src=\"http://video.google.com/googleplayer.swf?docId=$videoId&amp;hl=en\" 
 		  flashvars=\"playerMode=embedded\"> </embed>";
 	return $ret;   
     }
