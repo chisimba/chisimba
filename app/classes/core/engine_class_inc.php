@@ -293,7 +293,7 @@ class engine
 	'strings',
 	'sysconfig',
 	'systext',
-        'timeline'
+        'timeline',
 	'toolbar',
 	'tree',
 	'useradmin',
