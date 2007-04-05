@@ -55,7 +55,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '1.1.0';
+	public $version = '1.0.0';
 
 	/**
      * Template variable
@@ -270,6 +270,7 @@ class engine
 	'decisiontable',
 	'errors',
 	'files',
+        'filemanager',
 	'filters',
 	'groupadmin',
 	'help',

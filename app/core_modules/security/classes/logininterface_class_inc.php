@@ -57,14 +57,14 @@ class loginInterface extends object
     		$this->loadClass('link','htmlelements');
 
     		// Create a Form object
-    		$objForm = &new form('loginform');
+    		$objForm = new form('loginform');
     		//Set the action for the form to the uri with paramArray
     		$objForm->setAction($formAction);
     		//Set the displayType to 3 for freeform
     		$objForm->displayType=3;
 
     		//--Create an element for the username
-    		$objElement = &new textinput("username",NULL,NULL,15);
+    		$objElement = new textinput("username",NULL,NULL,15);
     		$objElement->label = $this->objLanguage->languageText("word_username");
     		//Add validatoin for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired"),'required');
@@ -72,15 +72,15 @@ class loginInterface extends object
     		$objForm->addToForm($objElement->label . ":&nbsp;" . $objElement->show());
 
     		//--- Create an element for the password
-    		$objElement = &new textinput("password",NULL,'password',15);
+    		$objElement = new textinput("password",NULL,'password',15);
     		$objElement->label = $this->objLanguage->languageText("word_password");
     		//Add the password box to the form
     		$objForm->addToForm('<br/>'.$objElement->label . ":&nbsp;&nbsp;" . $objElement->show().'<br/>');
 
     		//--- Create an element for the network login radio
-    		$objElement = &new checkbox("useLdap");
+    		$objElement = new checkbox("useLdap");
     		$objElement->setCSS("transparentbgnb");
-    		$objElement->label=$this->objLanguage->languageText("phrase_networkid");
+    		$objElement->label=$this->objLanguage->languageText("phrase_networkid")."&nbsp;";
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
     			$ldap .= $objElement->label."&nbsp;".$objElement->show();
@@ -88,17 +88,15 @@ class loginInterface extends object
 
 
     		//--- Create a submit button
-    		$objElement = &new button('submit');
+    		$objButton = new button('submit',$this->objLanguage->languageText("word_login"));
     		// Set the button type to submit
-    		$objElement->setToSubmit();
-    		// Use the language object to add the word save
-    		$objElement->setValue(' '.$this->objLanguage->languageText("word_login").' ');
+    		$objButton->setToSubmit();
     		// Add the button to the form
-    		$objForm->addToForm($ldap.'<br/>'.$objElement->show().'<br/>');
+    		$objForm->addToForm($ldap.'<br/>'.$objButton->show().'<br/>');
 
     		$helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
-        	$resetLink = &new Link($this->uri(array('action'=>'needpassword'),'security'));
+        	$resetLink = new Link($this->uri(array('action'=>'needpassword'),'security'));
         	$resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
         	// the help link
         	$p = $resetLink->show().'<br />'.$helpIcon;

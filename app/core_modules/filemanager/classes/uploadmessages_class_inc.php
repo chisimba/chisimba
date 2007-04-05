@@ -21,6 +21,13 @@ class uploadmessages extends object
         $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
         $this->objUser =& $this->getObject('user', 'security');
         $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objConfig =& $this->getObject('altconfig', 'config');
+        
+        $this->loadClass('radio', 'htmlelements');
+        $this->loadClass('form', 'htmlelements');
+        $this->loadClass('hiddeninput', 'htmlelements');
+        $this->loadClass('button', 'htmlelements');
+        $this->loadClass('formatfilesize', 'files');
     }
     
     /**
@@ -42,7 +49,7 @@ class uploadmessages extends object
         // Prepare Success / Error Messages
         $success = array();
         $errors = array();
-        $categories = array();
+        $overwrite = array();
         
         // Do files need to be overwritten
         $overwrite = FALSE;
@@ -51,14 +58,9 @@ class uploadmessages extends object
         foreach ($results as $file)
         {
             if (array_key_exists('overwrite', $file) && $file['overwrite']) {
-                $overwrite = TRUE;
-            } else {
-                $overwrite = FALSE;
-            }
-            
-            if ($file['success'] == TRUE) {
+                $overwrite[] = $file['fileid'];
+            } else if ($file['success'] == TRUE) {
                 $success[] = $file['fileid'];
-                $categories[] = $file['originalfolder'];
             } else {
                 $errors[$file['name']] = $file['reason'];
             }
@@ -68,33 +70,40 @@ class uploadmessages extends object
         $successList = '';
         $divider = '';
         
-        foreach ($success as $file)
-        {
-            $successList .= $divider.$file;
-            $divider .= '__';
+        if (count($success) > 0) {
+            foreach ($success as $file)
+            {
+                $successList .= $divider.$file;
+                $divider .= '__';
+            }
+        }
+        
+        // Convert Overwrite List into a single string
+        $overwriteList = '';
+        $divider = '';
+        
+        if (count($overwrite) > 0) {
+            foreach ($overwrite as $file)
+            {
+                $overwriteList .= $divider.$file;
+                $divider .= '__';
+            }
         }
         
         // Convert Error List into a single string
         $errorList = '';
         $divider = '';
         
-        foreach ($errors as $file=>$reason)
-        {
-            $errorList .= $divider.$file.'__'.$reason;
-            $divider .= '___';
-        }
-        
-        // Determine amount of varying categories
-        // If number of categories is 1, redirect to that category
-        $categories = array_unique($categories);
-        if (count($categories) == 1) {
-            $category = $categories[0];
-        } else {
-            $category = '';
+        if (count($errors) > 0) {
+            foreach ($errors as $file=>$reason)
+            {
+                $errorList .= $divider.$file.'__'.$reason;
+                $divider .= '___';
+            }
         }
         
         // Put Message into Array
-        $messages = array('successuploaded'=>$successList, 'erroruploads'=>$errorList, 'category'=>$category, 'overwriteboolean'=>$overwrite);
+        $messages = array('successuploaded'=>$successList, 'erroruploads'=>$errorList, 'overwrite'=>$overwriteList);
         
         // Return Array
         return $messages;
@@ -138,7 +147,7 @@ class uploadmessages extends object
     }
     
     /**
-    * Method to process Errpr Upload Messages
+    * Method to process Error Upload Messages
     * @return string Confirmation message of error uploads
     */
     public function processErrorMessages()
@@ -170,6 +179,102 @@ class uploadmessages extends object
         }
         
         return $errorMessage;
+    }
+    
+        /**
+    * Method to process Error Upload Messages
+    * @return string Confirmation message of error uploads
+    */
+    public function processOverwriteMessages()
+    {
+        if ($this->getParam('overwrite') == '') {
+            $overwriteMessage = '';
+        } else {
+            $items = explode('__', $this->getParam('overwrite'));
+            
+            $overwriteMessage = '';
+            
+            $table = $this->newObject('htmltable', 'htmlelements');
+            
+            $table->startHeaderRow();
+            $table->addHeaderCell('Filename');
+            $table->addHeaderCell('File Size of Existing File', NULL, NULL, 'center');
+            $table->addHeaderCell('File Size of New File', NULL, NULL, 'center');
+            $table->addHeaderCell('Overwrite File?', NULL, NULL, 'center');
+            $table->endHeaderRow();
+            
+            $actualItems = array();
+            
+            $formatsize = new formatfilesize();
+            
+            foreach ($items as $item)
+            {
+                // Get File Details
+                $file = $this->objFiles->getFile($item);
+                
+                // Generate Path to File
+                $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$item;
+                
+                // Create Boolean Variable - does file exist
+                if (file_exists($tempFilePath)) {
+                    $tempFileExists = TRUE;
+                } else {
+                    $tempFileExists = FALSE;
+                }
+                
+                // If no record
+                if ($file == FALSE) {
+                    // Delete temp file if it exists
+                    if ($tempFileExists && is_file($tempFilePath)) {
+                        unlink($tempFilePath);
+                    }
+                } else if ($file && $tempFileExists) { // If Record and Temp File exists
+                    // Add to Form for User to choose option
+                    $actualItems[] = $item;
+                    
+                    $table->startRow();
+                    $table->addCell('<strong>'.$file['filename'].'</strong>');
+                    
+                    $table->addCell($formatsize->formatsize($file['filesize']), NULL, NULL, 'center');
+                    $table->addCell($formatsize->formatsize(filesize($tempFilePath)), NULL, NULL, 'center');
+                    
+                    $radio = new radio ($item);
+                    $radio->addOption('delete', ' No');
+                    $radio->addOption('overwrite', ' Yes');
+                    $radio->setSelected('delete');
+                    $radio->setBreakSpace(' &nbsp; ');
+                    
+                    $table->addCell($radio->show(), NULL, NULL, 'center');
+                    $table->endRow();
+                }
+            }
+            
+            if (count($actualItems) > 0) {
+                $form = new form('overwriteoptions', $this->uri(array('action'=>'fixtempfiles')));
+                
+                $form->addToForm($table->show());
+                
+                $list = '';
+                $separator = '';
+                
+                foreach ($actualItems as $itemId)
+                {
+                    $list .= $separator.$itemId;
+                    $separator = '__';
+                }
+                
+                $hiddenInput = new hiddeninput('listitems', $list);
+                $form->addToForm($hiddenInput->show());
+                
+                $button = new button ('submitform', 'Confirm Overwrite');
+                $button->setToSubmit();
+                $form->addToForm($button->show());
+                
+                $overwriteMessage = $form->show();
+            }
+        }
+        
+        return $overwriteMessage;
     }
 
 }

@@ -124,7 +124,7 @@ class dbfiletags extends dbTable
     */
     public function getFilesWithTag($user, $tag)
     {
-        $sql = 'SELECT tbl_files.* FROM tbl_files INNER JOIN tbl_files_filetags ON (tbl_files.id = tbl_files_filetags.fileid AND tbl_files_filetags.tag=\''.$tag.'\') WHERE tbl_files.userid = \''.$user.'\' GROUP BY tbl_files.id ORDER BY filename';
+        $sql = 'SELECT DISTINCT tbl_files.id, tbl_files.* FROM tbl_files INNER JOIN tbl_files_filetags ON (tbl_files.id = tbl_files_filetags.fileid AND tbl_files_filetags.tag=\''.$tag.'\' AND tbl_files.userid = \''.$user.'\') ORDER BY filename';
         
         return $this->getArray($sql);
     }

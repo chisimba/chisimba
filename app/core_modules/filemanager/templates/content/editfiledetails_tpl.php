@@ -44,12 +44,16 @@ $keywords->value = $keywordsList;
 $table->addCell($keywords->show());
 $table->endRow();
 
-$table->startRow();
-$table->addCell('File License:');
-$licensechooser = $this->newObject('licensechooser', 'creativecommons');
-$licensechooser->defaultValue = $file['license'];
-$table->addCell($licensechooser->show());
-$table->endRow();
+$objModules = $this->getObject('modules', 'modulecatalogue');
+        
+if ($objModules->checkIfRegistered('creativecommons')) {
+    $table->startRow();
+    $table->addCell('File License:');
+    $licensechooser = $this->newObject('licensechooser', 'creativecommons');
+    $licensechooser->defaultValue = $file['license'];
+    $table->addCell($licensechooser->show());
+    $table->endRow();
+}
 
 $form->addToForm($table->show());
 

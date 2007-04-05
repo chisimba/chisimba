@@ -42,7 +42,7 @@ class upload extends object
         $this->name = 'fileupload';
         $this->formaction = $this->uri(array('action'=>'upload'));
         
-        $this->numInputs = 2;
+        $this->numInputs = 3;
         $this->formExtra = '';
         
         // Load All Necessary Objects
@@ -67,6 +67,9 @@ class upload extends object
         $objFolderCheck = $this->getObject('userfoldercheck');
         $objFolderCheck->checkUserFolder($this->objUser->userId());
         
+        // Path for temp files
+        $path = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles';
+        $this->objMkdir->mkdirs($path, 0777);
         
         // Default Upload Folder is usrfiles/users/{userid}
         $this->uploadFolder = 'users/'.$this->objUser->userId().'/';
@@ -267,7 +270,11 @@ class upload extends object
                 $savepath .= $filename;
                 $path .= $filename;
                 
-                
+////////////////////////////////////////////////////////////////////
+
+                // Create a Flag whether file has been save to database
+                $addToDatabaseAndIndex = FALSE;
+
                 // Check if File Exists
                 if (file_exists($savepath)) {
                     
@@ -276,23 +283,34 @@ class upload extends object
                     
                     // If file details are recorded, move file to temp file so long
                     if (is_array($originalFile)) {
-                        // Subfolder now becomes temp
-                        $subfolder = 'temp';
                         
-                        // Reset paths to temp subfolder
-                        $savepath = $this->objConfig->getcontentBasePath().'users/'.$this->objUser->userId().'/temp/'.$filename;
-                        $path = 'users/'.$this->objUser->userId().'/temp/'.$filename;
+                        $savePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$originalFile['id'];
+                     
+                        // Move to Save Path
+                        if (move_uploaded_file($file['tmp_name'], $savePath)) {
+                            $fileInfoArray['overwrite'] = TRUE;
+                            $fileInfoArray['success'] = FALSE;
+                            $fileInfoArray['fileid'] = $originalFile['id'];
+                            $fileInfoArray['reason'] = 'needsoverwrite';
+                        }
                         
-                        // Delete Information on Previous Temporary Version
-                        $this->objFile->deleteTemporaryFileInfo($path);
                         
-                        // Note: Version is not increased here. Only when user requests to overwrite
-                        $fileInfoArray['overwrite'] = TRUE;
+                    } else { // Overwrite and Index
+                        if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                            $addToDatabaseAndIndex = TRUE;
+                        }
                     }
+                    
+                // Check If File was successfully uploaded
+                } else if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                    $addToDatabaseAndIndex = TRUE;
+                } else {// Else Failed to Upload
+                    $fileInfoArray['success'] = FALSE;
+                    $fileInfoArray['reason'] = 'filecouldnotbesaved';
                 }
                 
-                // Check If File was successfully uploaded
-                if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                
+                if ($addToDatabaseAndIndex) {
                     
                     // 1) Add to Database
                     $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, NULL));
@@ -337,10 +355,6 @@ class upload extends object
                     $fileInfoArray['fullpath'] = $savepath;
                     $fileInfoArray['subfolder'] = $subfolder;
                     $fileInfoArray['originalfolder'] = $originalsubfolder;
-                    
-                } else { // Else Failed to Upload
-                    $fileInfoArray['success'] = FALSE;
-                    $fileInfoArray['reason'] = 'filecouldnotbesaved';
                     
                 }
                 

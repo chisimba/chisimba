@@ -1,6 +1,6 @@
 <?php
-$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
-$this->objScriptaculous->show();
+//$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
+//$this->objScriptaculous->show();
 
 $script = '
 <script type="text/javascript">
