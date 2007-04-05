@@ -55,7 +55,7 @@ class parse4deltags extends object
     */
     public function getTagJs($deliciousUser)
     {
-    	$ret = "<script type=\"text/javascript\"" 
+    	$ret = "<script type=\"text/javascript\" " 
 		  . "src=\"http://del.icio.us/feeds/js/tags/$deliciousUser?icon;size=12-35;"
 		  . "color=87ceeb-0000ff;title=my%20del.icio.us%20tags;name;showadd\"></script>";
         return $ret;
