@@ -51,7 +51,7 @@ class featurebox extends object
             $sidebar .= '>';
         }
 		$sidebar .= '	<h5 class="featureboxheader">'.$title.'</h5>';
-		$sidebar .= '<div class="featureboxcontent"><small>'.$content.'</small></div>'
+		$sidebar .= '<div class="featureboxcontent"><small>'.$content.'</small></div>';
 
 
 		$sidebar .= '</div>';
