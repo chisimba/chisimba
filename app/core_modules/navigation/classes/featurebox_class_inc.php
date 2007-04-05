@@ -77,5 +77,24 @@ class featurebox extends object
   		return $contentbox;
 
     }
+    
+    /**
+     * Method to show a comment featurebox
+     *
+     * @param string $title
+     * @param string $content
+     * @return string
+     */
+    public function showComment($title = null, $content = null)
+    {
+
+  		$contentbox = '<div class="contentfeaturebox">';
+		$contentbox .= '	<h3>'.$title.'</h3>';
+		$contentbox .= $content;
+		$contentbox .= '</div>';
+
+  		return $contentbox;
+
+    }
 }
 ?>
