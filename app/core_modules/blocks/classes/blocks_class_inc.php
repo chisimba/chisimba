@@ -89,6 +89,7 @@ class blocks extends object
                 	return $objFeatureBox->show($title, $objBlock->show());
                 case "tabbedbox":
                     //Put it all inside a tabbed box
+                    //$this->loadClass('tabbedbox', 'htmlelements');
                     $objTab = $this->newObject('tabbedbox', 'htmlelements');
                     $objTab->addTabLabel($title);
                     $objTab->addBoxContent($objBlock->show());
