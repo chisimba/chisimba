@@ -13,7 +13,7 @@ class parse4timeline extends object
     
     public function init()
     {
-        $this->objTlParser = $this->getObject('timelineparser', 'timeline');
+        //Nothing to do here
     }
     
     /**
@@ -25,11 +25,26 @@ class parse4timeline extends object
     */
     public function parse($str)
     {
+    	//Instantiate the modules class to check if simplemap is registered
+    	$objModule = $this->getObject('modules','modulecatalogue');
+    	//See if the simple map module is registered and set a param
+    	$isRegistered = $objModule->checkIfRegistered('timeline', 'timeline');
+    	if ($isRegistered){
+	    	//Instantiate the timeline parser
+	    	$objTlParser = $this->getObject('timelineparser', 'timeline');
+    	}
         preg_match_all('/\\[TIMELINE]<a.*?href="(?P<timelinelink>.*?)".*?>.*?<\/a>\\[\/TIMELINE]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            $replacement = $this->objTlParser->getRemote($results['timelinelink'][$counter]);
+        	if ($isRegistered) {
+            	$replacement = $objTlParser->getRemote($results['timelinelink'][$counter]);
+        	} else {
+    			$objLanguage = $this->getObject('language', 'language');
+    	    	$replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
+    	      	  . $objLanguage->languageText("mod_filters_error_timelinenotinst", "filters")
+    	      	  . "</h3></div>";
+        	}
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
