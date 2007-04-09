@@ -922,3 +922,15 @@ option.by-nc {padding-left:90px;background-image: url(icons/creativecommons_v3/b
 option.by-nc-sa {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nc-sa_big.gif);background-repeat: no-repeat;height: 31px;}
 option.by-nc-nd {padding-left:90px;background-image: url(icons/creativecommons_v3/by-nc-nd_big.gif);background-repeat: no-repeat;height: 31px;}
 option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3/gnu-fdl_big.gif);background-repeat: no-repeat;height: 31px;}
+
+
+/**
+* BEGIN: Styles for the FEED parser
+*/
+.feedhopper {
+	height: 400px;
+	overflow: scroll;
+}
+/**
+* END: Styles for the FEED parser
+*/
