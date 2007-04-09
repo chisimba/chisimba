@@ -39,7 +39,7 @@ class parse4feeds extends object
         $counter = 0;
         foreach ($results[0] as $item) {
         	$link = $results['feedlink'][$counter];
-        	$replacement = $this->fetchFeed($link);
+        	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link) . "</div>";
 			//$replacement = "FOUND: " . $link;
             $str = str_replace($item, $replacement, $str);
             $counter++;
