@@ -81,7 +81,7 @@ class captcha extends object
     
 	function init()
     {
-        require_once($this->getResourceUri('captcha/hn_captcha.class.php'));
+        require_once($this->getResourcePath('captcha/hn_captcha.class.php'));
         $this->objConfig =& $this->getObject('altconfig', 'config');
         $this->objMkdir =& $this->getObject('mkdir', 'files');
         $this->objCleanUrl =& $this->getObject('cleanurl', 'filemanager');
@@ -90,7 +90,7 @@ class captcha extends object
         $path = $this->objConfig->getcontentBasePath().'/captcha/';
         $this->objMkdir->mkdirs($path, 0755);
         
-        $this->tempFolder = $this->objConfig->getcontentPath().'/captcha/';
+        $this->tempFolder = $this->objConfig->getcontentBasePath().'/captcha/';
         $this->objCleanUrl->cleanUpUrl($this->tempFolder);
         
         $this->loadClass('hiddeninput', 'htmlelements');
@@ -103,7 +103,7 @@ class captcha extends object
         // Creat an array
         $CAPTCHA_INIT = array(
             'tempfolder'     => $this->tempFolder,      // string: absolute path (with trailing slash!) to a writeable tempfolder which is also accessible via HTTP!
-			'TTF_folder'     => $this->getResourceUri('captcha/'), // string: absolute path (with trailing slash!) to folder which contains your TrueType-Fontfiles.
+			'TTF_folder'     => $this->getResourcePath('captcha/'), // string: absolute path (with trailing slash!) to folder which contains your TrueType-Fontfiles.
                                 // mixed (array or string): basename(s) of TrueType-Fontfiles
 			'TTF_RANGE'      => $this->fonts,
 		//	'TTF_RANGE'      => 'COMIC.TTF',
