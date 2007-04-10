@@ -85,7 +85,7 @@ class flatmenu extends object
             $str .= '<li style="background-image: none;">'.$link.'</li>';
         }
 
-        $str .= '</ul>';
+        $str .= '</ul><br />';
         
         return $str;
 	}
