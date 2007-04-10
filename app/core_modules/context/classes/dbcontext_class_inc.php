@@ -361,15 +361,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @access public
     */
     public function leaveContext(){
-        $this->setSession('contextCode',NULL);
-        $this->setSession('contextId',NULL);
-        $this->setSession('contextTitle',NULL);
-        $this->setSession('contextmenuText',NULL);
-        $this->setSession('contextabout', NULL);
-        $this->setSession('contextIsActive',NULL);
-        $this->setSession('contextIsClosed',NULL);
-        $this->setSession('contextDateCreated',NULL);
-        $this->setSession('contextCreatorId',NULL);
+        $this->unsetSession('contextCode');
+        $this->unsetSession('contextId');
+        $this->unsetSession('contextTitle');
+        $this->unsetSession('contextmenuText');
+        $this->unsetSession('contextabout');
+        $this->unsetSession('contextIsActive');
+        $this->unsetSession('contextIsClosed');
+        $this->unsetSession('contextDateCreated');
+        $this->unsetSession('contextCreatorId');
         $objModule =& $this->getObject('modules','modulecatalogue');
        	if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
             $objDbWorkgroup =& $this->getObject('dbWorkgroup', 'workgroup');
