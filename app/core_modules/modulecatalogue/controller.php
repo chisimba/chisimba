@@ -110,7 +110,6 @@ class modulecatalogue extends controller
 		try {
 			set_time_limit(0);
 
-			$this->objLog = &$this->getObject('logactivity','logger');
 			$this->objUser = &$this->getObject('user','security');
 			$this->objConfig = &$this->getObject('altconfig','config');
 			$this->objLanguage = &$this->getObject('language','language');
@@ -131,7 +130,9 @@ class modulecatalogue extends controller
 			natcasesort($catArray);
 			$this->objSideMenu->addNodes($catArray);
 
-
+			$this->objLog = $this->getObject('logactivity','logger');
+			$this->objLog->log();
+			
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
