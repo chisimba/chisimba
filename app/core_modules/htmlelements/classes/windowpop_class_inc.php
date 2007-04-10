@@ -186,7 +186,7 @@ class windowPop implements ifhtml
             $this->features .= " top=".$this->top." screenY=".$this->top;
         }
         if ($this->left) {
-            $this->features .= " left=".$this->left." screenY=".$this->left;
+            $this->features .= " left=".$this->left." screenX=".$this->left;
         }
         
         // Either show as button or link (default)
