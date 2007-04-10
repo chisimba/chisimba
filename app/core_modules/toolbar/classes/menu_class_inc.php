@@ -36,12 +36,14 @@ class menu extends object
     function init()
     {
         $this->cssMenu =& $this->getObject('cssmenu');
+        $this->flatMenu = $this->getObject('flatmenu');
         $this->dbmenu =& $this->getObject('dbmenu');
         $this->tools =& $this->getObject('tools');
 
         $this->objLanguage =& $this->getObject('language','language');
         $this->objSkin =& $this->newObject('skin','skin');
         $this->objUser =& $this->getObject('user','security');
+        $this->objSysConfig =& $this->getObject('dbsysconfig','sysconfig');
         $this->objModule =& $this->getObject('modules', 'modulecatalogue');
         $this->objTable =& $this->newObject('htmltable','htmlelements');
         $this->objLayer =& $this->getObject('layer','htmlelements');
@@ -170,6 +172,24 @@ class menu extends object
     }
 
     /**
+    * Method to build up the menu from the list of categories and modules.
+    * @param array $items Array of categories and modules.
+    * @return string $menu The menu for display.
+    */
+    function buildFlatMenu($modules)
+    {
+        // build menu
+        if(!empty($modules)){
+            foreach($modules as $key=>$item){
+                $category = strtolower($item['module']);
+                $text = $this->objLanguage->code2Txt('mod_'.$category.'_name', $category);
+                $this->flatMenu->addItem($category, $text);
+            }
+        }
+        return $this->flatMenu->show();
+    }
+
+    /**
     * Method to display the toolbar.
     * @return string $navbar The toolbar.
     */
@@ -183,7 +203,14 @@ class menu extends object
                 $objToolMod = $this->getObject('newtoolbar', $toolBar);
                 return $objToolMod->createToolbar();
             }
-            return $this->createToolbar();
+            
+            $toolbarType = $this->objSysConfig->getValue('TOOLBAR_TYPE', 'toolbar');
+            switch(strtolower($toolbarType)){
+                case 'flat':
+                    return $this->createFlatToolbar();
+                default:
+                    return $this->createToolbar();
+            }
         }
         return '';
     }
@@ -204,7 +231,28 @@ class menu extends object
             $this->unsetSession('toolbar');
         }
     }
-
+    
+    /**
+    * Method to create a flat toolbar
+    * 
+    * @access private
+    */
+    private function createFlatToolbar()
+    {
+        $access = 2;
+        
+        if($this->objUser->isAdmin()){
+            $access = 1;
+        }
+        
+        $modules = $this->dbmenu->getFlatModules($access, $this->context);
+        
+        $menu = $this->buildFlatMenu($modules);
+        
+        $navbar = '<div id="menu">'.$menu.'</div>';
+        return $navbar;
+    }
+    
     /**
     * Method to create the standard toolbar
     */

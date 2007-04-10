@@ -85,6 +85,7 @@ class tools extends object
         $this->objLanguage =& $this->getObject('language','language');
 
         $this->objConfig =& $this->getObject('altconfig','config');
+        $this->objSysConfig =& $this->getObject('dbsysconfig','sysconfig');
 
         $this->objUser =& $this->getObject('user', 'security');
 
@@ -137,6 +138,10 @@ class tools extends object
     function check()
 
     {
+        $requiresLogin = $this->objSysConfig->getValue('TOOLBAR_REQUIRES_LOGIN', 'toolbar');
+        if($requiresLogin == 'FALSE'){
+            return TRUE;
+        }
 
         $mod = $this->getParam('module');
 

@@ -78,6 +78,32 @@ class dbmenu extends dbtable
     }
 
     /**
+    * Method to get all modules in the table if the table exists.
+    * The method finds categories beginning with 'flat_'
+    *
+    * @access public
+    * @param string $access The access level of the user. Default=2, all users.
+    * @param bool $context TRUE if in a context, FALSE if not. Default=TRUE.
+    * @return array $rows The modules and their categories.
+    */
+    public function getFlatModules($access=2, $context=TRUE)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE category LIKE 'flat_%' ";
+        
+        if($access == 2){     // non-admin users
+            $sql .= ' AND adminonly != 1 ';
+        }
+
+        if(!$context){
+            $sql .= ' AND dependscontext != 1 ';
+        }
+
+        $sql .= 'ORDER BY category, module';
+        $modules = $this->getArray($sql);
+        return $modules;
+    }
+
+    /**
     * Method to get a list of modules to build the side menus.
     * The side menus consist of postlogin, user and context. The numbers after
     * the menu name indicate the position of the module in the menu: 1 = top,
