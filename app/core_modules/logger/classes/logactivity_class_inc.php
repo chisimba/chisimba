@@ -293,8 +293,15 @@ class logactivity extends dbTable
         // If Old Version, Log Current Details
         $objMod = $this->getObject('modules', 'modulecatalogue');
         $version = $objMod->getVersion('logger');
-        if ($version == '0.5') {
+        
+        if($version == '0.7'){
+            // Else Add Additional Fields
+            $logArray['previous_id'] = $previousId;
+            $logArray['action'] = $action;
+            $logArray['ipaddress'] = $ip;
+            
             $this->insert($logArray);
+            
         } else if ($version == '0.6'){
             
             $logArray['action'] = $action;
@@ -303,12 +310,6 @@ class logactivity extends dbTable
             $this->insert($logArray);
         
         }else{
-            
-            // Else Add Additional Fields
-            $logArray['previous_id'] = $previousId;
-            $logArray['action'] = $action;
-            $logArray['ipaddress'] = $ip;
-            
             $this->insert($logArray);
         }
         
