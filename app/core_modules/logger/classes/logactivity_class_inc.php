@@ -274,7 +274,6 @@ class logactivity extends dbTable
         
         // Create Array
         $logArray = array(
-            'previous_id' => $previousId,
             'userid' => $this->userId,
             'module' => $module,
             'eventcode' => $this->eventcode,
@@ -282,8 +281,6 @@ class logactivity extends dbTable
             'eventparamvalue' => $this->eventParamValue,
             'context' => $this->_getContext() ,
             'datecreated' => $this->now(),
-            'action' => $action,
-            'ipaddress' => $ip,
             'referrer' => $referrer
         );
         
