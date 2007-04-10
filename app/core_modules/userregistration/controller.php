@@ -72,8 +72,16 @@ class userregistration extends controller
         $this->setLayoutTemplate('login_layout_tpl.php');
         switch ($action)
         {
+            case 'showregister':
             default:
                 return $this->registrationHome();
+            case 'confirm':
+                $id = $this->getParam('newId');
+                if(!empty($id)){
+                    $this->setSession('id', $id);
+                    return $this->nextAction('detailssent');
+                }
+                return $this->nextAction('');
             case 'register':
                 return $this->saveNewUser();
             case 'detailssent':
