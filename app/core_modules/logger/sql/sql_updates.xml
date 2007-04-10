@@ -4,6 +4,21 @@
     <update>
 
         <table>tbl_logger</table>
+        <version>0.7</version>
+        <description>Added a new column previous_id to save the id of the previous insert to the log</description>
+
+        <data>
+            <add>
+                <name>previous_id</name>
+                <type>text</type>
+                <length>32</length> 
+            </add>
+        </data>
+    </update>
+
+    <update>
+
+        <table>tbl_logger</table>
         <version>0.6</version>
         <description>changed date fields to timestamp, added some new ones</description>
 

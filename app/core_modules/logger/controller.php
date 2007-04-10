@@ -22,16 +22,22 @@ class logger extends controller
      */
     function init()
     {
-        //Instantiate the show log class
-        $this->showLog = &$this->getObject('logshow');
-        //Instantiate the language object
-        $this->objlanguage = &$this->getObject('language', 'language');
-        //Get the activity logger class
-        $this->objLog = $this->newObject('logactivity', 'logger');
-        //Set it to log once per session
-        //$this->objLog->logOncePerSession = TRUE;
-        //Log this module call
-        $this->objLog->log();
+        try{
+            $this->logDisplay = $this->getObject('logdisplay', 'logger');
+            //Instantiate the show log class
+            $this->showLog = $this->getObject('logshow');
+            //Instantiate the language object
+            $this->objlanguage = $this->getObject('language', 'language');
+            //Get the activity logger class
+            $this->objLog = $this->newObject('logactivity', 'logger');
+            //Set it to log once per session
+            //$this->objLog->logOncePerSession = TRUE;
+            //Log this module call
+            $this->objLog->log();
+        } catch(Exception $e) {
+            throw customException($e->getMessage());
+            exit();
+        }
     }
     /**
      * Dispatch method for logger class
@@ -40,10 +46,6 @@ class logger extends controller
     {
         $action = $this->getParam("action", NULL);
         switch ($action) {
-            case NULL:
-                return "menu_tpl.php";
-                break;
-
             case 'sortbydate':
                 $ar = $this->showLog->showForUser(NULL, " ORDER BY datecreated DESC");
                 $this->setVarByRef('ar', $ar);
@@ -84,8 +86,7 @@ class logger extends controller
                     case 'today':
                     case NULL:
                         //Return the datetime for now
-                        $now = time();
-                        $timeframe = date("Y/m/d", $now);
+                        $timeframe = date("Y-m-d");
                         break;
 
                     case 'thisweek':
@@ -109,8 +110,24 @@ class logger extends controller
                 return "main_tpl.php";
                 break;
 
+            case 'userstats':
+                $display = $this->logDisplay->statsByUser();
+                $this->setVarByRef('display', $display);
+                return 'index_tpl.php';
+                break;
+
+            case 'showmoduleinfo':
+                $module = $this->getParam('mod');
+                $display = $this->logDisplay->moduleInfo($module);
+                $this->setVarByRef('display', $display);
+                return 'popup_tpl.php';
+                break;
+                
+
             default:
-                die($this->objLanguage->languageText("phrase_actionunknown") .": ".$action);
+                $display = $this->logDisplay->show();
+                $this->setVarByRef('display', $display);
+                return 'index_tpl.php';
                 break;
         } //switch
 

@@ -27,10 +27,9 @@ class logshow extends dbTable
         try {
             parent::init('tbl_logger');
             $this->objUser = &$this->getObject('user', 'security');
-        }
-        catch(customException $e) {
-            customException::cleanUp();
-            exit;
+        }catch(Exception $e) {
+            throw customException($e->getMessage());
+            exit();
         }
     }
     /**
@@ -101,12 +100,13 @@ class logshow extends dbTable
      */
     public function showStatsByModule($userId = NULL)
     {
-        $sql = "SELECT module, COUNT(id) AS Calls, COUNT(DISTINCT userId) AS Users FROM tbl_logger GROUP BY module";
+        $sql = "SELECT module, COUNT(id) AS calls, COUNT(DISTINCT userid) AS users FROM tbl_logger GROUP BY module";
         return $this->getArray($sql);
     } // function showStatsByModule
+    
     public function showStatsByDate($timeframe = NULL)
     {
-        $where = " WHERE dateCreated >= '".$timeframe."' ";
+        $where = " WHERE datecreated >= '".$timeframe."' ";
         return $this->getAll($where);
     }
 } //end of class

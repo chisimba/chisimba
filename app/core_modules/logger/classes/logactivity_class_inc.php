@@ -4,13 +4,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
- * An activity logging class. It logs the userId, module, and
- * additional parameters.
+ * An activity logging class. The class is called within each module to log the action performed by the user.
+ * In addition to the action, the user id and the ip address from which the user is accessing the site is stored.
  *
- * @author Derek Keats
+ * @author Derek Keats, Megan Watson
  * @copyright GPL
  * @package logger
- * @version 0.1
+ * @version 0.2
  */
 class logactivity extends dbTable
 {
@@ -72,14 +72,12 @@ class logactivity extends dbTable
             //  Set default to log each time the page is loaded
             $this->logOncePerSession = FALSE;
             //  Get an instance of the user object
-            $this->objUser = &$this->getObject('user', 'security');
-            //  Get an instance of hte modulesadmin class to check if
-            //  the logging module is registered
-            $this->objMod = &$this->getObject('modules', 'modulecatalogue');
-        }
-        catch(customException $e) {
-            customException::cleanUp();
-            exit;
+            $this->objUser = $this->getObject('user', 'security');
+            $this->userId = $this->objUser->userId();
+            
+        } catch(Exception $e) {
+            throw customException($e->getMessage());
+            exit();
         }
     } //function init
     
@@ -91,65 +89,82 @@ class logactivity extends dbTable
      */
     public function log()
     {
-        // Only try to do it if Logger is registered
-        if ($this->objMod->checkIfRegistered('logger', 'logger')) {
-            //Set the default value for eventcode
+        // Check if logger is registered - save in session to prevent additional DB hits.
+        if($this->checkIfReg()){
+            
+            // Set the default value for eventcode - not been implemented yet
             $this->eventcode = "pagelog";
             $this->eventParamName = "parameters";
             $this->eventParamValue = $this->_cleanParams();
-            $this->isLanguageCode = FALSE;
-            $module = $this->getParam('module', NULL);
+            
+            $module = $this->getParam('module');
+            
             //Check if its set to log once per session
             if ($this->logOncePerSession == TRUE) {
                 if (!$this->_isLoggedThisSession($module)) {
                     $this->_setSessionFlag($module);
-                    if ($this->objUser->isLoggedIn()) {
-                        $this->_logData();
-                        return TRUE;
-                    } else {
-                        return FALSE;
-                    }
-                }
-            } else {
-                if ($this->objUser->isLoggedIn()) {
                     $this->_logData();
                     return TRUE;
-                } else {
-                    return FALSE;
                 }
+                return FALSE;
+            } else {
+                $this->_logData();
+                return TRUE;
             }
-        } else {
-            return FALSE;
-        } // if
-
+        }
+        return FALSE;
     } // function log()
 
     /**
-     * Method to log an event other than a page event
-     */
-    public function logEvent($eventcode)
+    * Method to log an event other than a page event
+    */
+    public function logEvent($eventcode = 'pagelog')
     {
+        $this->eventcode = $eventcode;
         $this->_logData();
     }
-    /**
-     * Method to set a param
-     *
-     * @param string $param The parameter to set
-     * @param string $value The value to set it to
-     *
-     */
-    public function setParam($param, $value)
-    {
-        $this->$param = $value;
-        return TRUE;
-    }
+    
     /********************* PRIVATE METHODS BELOW THIS LINE *****************/
+    
+    
+    /**
+    * Method to check if the module has been registered.
+    * After the first check, the result is stored in session for additional checks
+    * If the current module is the modulecatalogue - reset the session - for if logger gets installed.
+    *
+    * @author Megan Watson
+    * @access private
+    * @return bool
+    */
+    private function checkIfReg()
+    {
+        $isReg = $this->getSession('logIsReg');
+        $module = $this->getParam('module');
+        
+        if(isset($isReg) && !empty($isReg) && $module != 'modulecatalogue'){
+            if($isReg == 'true'){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
+        
+        $objMod = $this->getObject('modules', 'modulecatalogue');
+        if ($objMod->checkIfRegistered('logger', 'logger')) {
+            $this->setSession('logIsReg', 'true');
+            return TRUE;
+        }else{
+            $this->setSession('logIsReg', 'false');
+            return FALSE;
+        }
+    }
+    
     /**
      * Method to return the querystring with the module=modulecode
      * part removed. It builds this using $_GET to work on different servers
      */
     private function _cleanParams()
-    {
+    {   
         $str = '';
         $amp = '';
         foreach ($_GET as $item=>$value)
@@ -165,19 +180,11 @@ class logactivity extends dbTable
     } //function _cleanParams
 
     /**
-     * Method to get the datetiem for now
-     */
-    private function _getDateTime()
-    {
-        return date("Y/m/d H:i:s");
-    } //function _getDateTime
-
-    /**
      * Method to return the context for Logging
      */
     private function _getContext()
     {
-        $this->objDBContext = &$this->getObject('dbcontext', 'context');
+        $this->objDBContext = $this->getObject('dbcontext', 'context');
         return $this->objDBContext->getContextCode();
     } //function _getContext
 
@@ -208,6 +215,31 @@ class logactivity extends dbTable
     } //function _setSessionFlag
 
     /**
+    * Method to get the id of the previously logged call for the current user - saved in session
+    *
+    * @author Megan Watson
+    * @access private
+    * @return string $id
+    */
+    private function getPreviousId()
+    {
+        $id = $this->getSession('previous_log_id');
+        return $id;
+    }
+
+    /**
+    * Method to set the id of the current log in session.
+    *
+    * @author Megan Watson
+    * @access private
+    * @return void
+    */
+    private function setPreviousId($id)
+    {
+        $this->setSession('previous_log_id', $id);
+    }
+
+    /**
      * Method to log the data to the database
      *  id - The framework generated primary key
      *  userId - The userId of the currently logged in user
@@ -220,31 +252,57 @@ class logactivity extends dbTable
      */
     private function _logData()
     {
+        $action = $this->getParam('action');
+        $previousId = $this->getPreviousId();
+        $ip = $_SERVER['REMOTE_ADDR'];
+     
+        $module = $this->getParam('module');
+        if($module == '_default'){
+            $objConfig = $this->getObject('altconfig', 'config');
+            $module = $objConfig->getdefaultModuleName();
+        }
+            
+        $referrer = '';
+        if(isset($_SERVER['HTTP_REFERER'])) {
+            $referrer = $_SERVER['HTTP_REFERER'];
+            $check = strpos($referrer, 'module=errors');
+            
+            if(!($check === FALSE)){
+                $referrer = substr($referrer, 0, $check+13);
+            }
+        }
+        
         // Create Array
         $logArray = array(
-            'userid' => $this->objUser->userId() ,
-            'module' => $this->getParam('module', NULL) ,
+            'previous_id' => $previousId,
+            'userid' => $this->userId,
+            'module' => $module,
             'eventcode' => $this->eventcode,
             'eventparamname' => $this->eventParamName,
             'eventparamvalue' => $this->eventParamValue,
-            'islanguagecode' => $this->isLanguageCode,
             'context' => $this->_getContext() ,
-            'datecreated' => $this->_getDateTime()
+            'datecreated' => $this->now(),
+            'action' => $action,
+            'ipaddress' => $ip,
+            'referrer' => $referrer
         );
         
-        // If Old Version, Log Current Details
+        $id = $this->insert($logArray);
+        $this->setPreviousId($id);
+        
+        /* If Old Version, Log Current Details
         if ($this->objMod->getVersion('logger') == '0.5') {
             $this->insert($logArray);
         } else {
+            
             // Else Add Additional Fields
             $logArray['action'] = $this->getParam('action');
             $logArray['ipaddress'] = $_SERVER['REMOTE_ADDR'];
             
-            if (isset($_SERVER['HTTP_REFERER'])) {
-                $logArray['referrer'] = $_SERVER['HTTP_REFERER'];
-            }
             $this->insert($logArray);
         }
+        */
+
     } //function _logData
 
 } //end of class

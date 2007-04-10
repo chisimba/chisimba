@@ -21,9 +21,13 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
-	'userId' => array(
+    'previous_id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+	'userid' => array(
 		'type' => 'text',
-		'length' => 25
+		'length' => 32
 		),
 	'module' => array(
 		'type' => 'text',
@@ -33,11 +37,11 @@ $fields = array(
 		'type' => 'text',
 		'length' => 32
 		),
-    'eventParamName' => array(
+    'eventparamname' => array(
 		'type' => 'text',
 		'length' => 32
 		),
-    'eventParamValue' => array(
+    'eventparamvalue' => array(
 		'type' => 'text',
 		'length' => 255
 		),
@@ -57,15 +61,8 @@ $fields = array(
         'type' => 'text',
 		'length' => '255',
         ),
-	'dateCreated' => array(
+	'datecreated' => array(
 		'type' => 'timestamp',
-		),
-	'dateLastUpdated' => array(
-		'type' => 'timestamp'
-		),
-    'isLanguageCode' => array(
-		'type' => 'text', // tiny int
-		'length' => 10
 		)
 	);
 
@@ -73,13 +70,12 @@ $name = 'tbl_logger_idx';
 
 $indexes = array(
                 'fields' => array(
-                	'userId' => array(),
+                	'userid' => array(),
+                	'previous_id' => array(),
                 	'module' => array(),
                 	'context' => array(),
                 	'action' => array(),
                 	'ipaddress' => array()
                 )
         );
-
-
 ?>
