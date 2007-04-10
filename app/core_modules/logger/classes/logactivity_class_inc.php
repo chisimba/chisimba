@@ -290,18 +290,28 @@ class logactivity extends dbTable
         $id = $this->insert($logArray);
         $this->setPreviousId($id);
         
-        /* If Old Version, Log Current Details
-        if ($this->objMod->getVersion('logger') == '0.5') {
+        // If Old Version, Log Current Details
+        $objMod = $this->getObject('modules', 'modulecatalogue');
+        $version = $objMod->getVersion('logger');
+        if ($version == '0.5') {
             $this->insert($logArray);
-        } else {
+        } else if ($version == '0.6'){
+            
+            $logArray['action'] = $action;
+            $logArray['ipaddress'] = $ip;
+            
+            $this->insert($logArray);
+        
+        }else{
             
             // Else Add Additional Fields
-            $logArray['action'] = $this->getParam('action');
-            $logArray['ipaddress'] = $_SERVER['REMOTE_ADDR'];
+            $logArray['previous_id'] = $previousId;
+            $logArray['action'] = $action;
+            $logArray['ipaddress'] = $ip;
             
             $this->insert($logArray);
         }
-        */
+        
 
     } //function _logData
 
