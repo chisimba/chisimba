@@ -64,7 +64,7 @@ if (count($files) == 0) {
         $selectLink->link = 'Insert Image';
         
         
-        $thumbImg = $objThumbnail->getThumbnail($file['id'], $file['filename']);
+        $thumbImg = $this->uri(array('action'=>'thumbnail', 'id'=>$file['id']));
         
         echo '
 <div style="width: 120px; margin-bottom:20px;" class="floatlangdir">

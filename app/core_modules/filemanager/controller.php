@@ -101,11 +101,16 @@ class filemanager extends controller
                 return $this->showTagCloud();
             case 'viewbytag':
                 return $this->viewByTag($this->getParam('tag'));
+            case 'thumbnail':
+                return $this->getThumbnail($this->getParam('id'));
             default:
                 return $this->filesHome();
         }
     }
     
+    /**
+    * Method to show the File Manager Home Page
+    */
     public function filesHome()
     {
         // Get Folder Details
@@ -124,6 +129,8 @@ class filemanager extends controller
         
         }
         
+        // update the paths of files that do not have the filefolder item set
+        // This is due to a patch added
         $this->objFiles->updateFilePath();
         
         $this->setVar('breadcrumbs', 'My Files');
@@ -497,6 +504,11 @@ function checkWindowOpener()
         return 'popup_showfilewindow_tpl.php';
     }
     
+    /**
+    * Ajax function to send preview of files
+    * @param string $fileId Record Id of the File
+    * @param string $jsId JavaScript Id of the File
+    */
     public function sendPreview($fileId, $jsId)
     {
         $file = $this->objFiles->getFileInfo($fileId);
@@ -517,7 +529,8 @@ function checkWindowOpener()
     }
     
     /**
-    *
+    * Method to show the a window with previews to select an image
+    * @param boolean $showFullLinks Flag whether to show full link to file or not
     */
     public function showImageWindow($showFullLinks=FALSE)
     {
@@ -679,11 +692,6 @@ function checkWindowOpener()
         return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
     }
 
-    function testGetId3()
-    {
-        $this->objUpload->analyzeMediaFile('/opt/lampp/htdocs/testing_playground/juliet_interview.mp3');
-    }
-
     /**
 	 * Ovveride the login object in the parent class
 	 *
@@ -700,6 +708,10 @@ function checkWindowOpener()
 		}
 	}
     
+    /**
+    * Method to show a folder, and list of files in the folder.
+    * @param string $id Record Id of the folder
+    */
     function showFolder($id)
     {
         // TODO: Check permission to enter folder
@@ -734,12 +746,9 @@ function checkWindowOpener()
     
     /**
     * Method to create a folder
-    *
     */
     function createFolder()
     {
-        // echo '<pre>';
-        // print_r($_POST);
         
         $parentId = $this->getParam('parentfolder', 'ROOT');
         $foldername = $this->getParam('foldername');
@@ -779,6 +788,10 @@ function checkWindowOpener()
         }
     }
     
+    /**
+    * Method to delete a folder
+    * @param string $id Record Id of the Folder
+    */
     private function deleteFolder($id)
     {
         // Get the Folder Path
@@ -813,10 +826,11 @@ function checkWindowOpener()
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
     
+    /**
+    * Method to extract the contents of an archive
+    */
     function extractArchive()
     {
-        // echo '<pre>';
-        // print_r($_POST);
         
         $archiveFileId = $this->getParam('file');
         
@@ -857,7 +871,10 @@ function checkWindowOpener()
         }
     }
     
-    function indexFiles()
+    /**
+    * Method to Scan the File System and Index files that are not in the database
+    */
+    protected function indexFiles()
     {
         $objBackground = $this->newObject('background', 'utilities');
             
@@ -879,7 +896,11 @@ function checkWindowOpener()
         return 'indexfiles_tpl.php';
     }
     
-    function editFileDetails($id)
+    /**
+    * Method to edit the details of a file
+    * @param string $id Record Id of the File
+    */
+    protected function editFileDetails($id)
     {
         $file = $this->objFiles->getFile($id);
         
@@ -893,7 +914,10 @@ function checkWindowOpener()
         }
     }
     
-    function updateFileDetails()
+    /**
+    * Method to update the details of a file
+    */
+    protected function updateFileDetails()
     {
         $id = $this->getParam('id');
         $description = $this->getParam('description');
@@ -914,7 +938,10 @@ function checkWindowOpener()
         
     }
     
-    function showTagCloud()
+    /**
+    * Method to show a tag cloud for a user's files
+    */
+    protected function showTagCloud()
     {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
         $this->setVarByRef('tagCloudItems', $tagCloudItems);
@@ -922,7 +949,11 @@ function checkWindowOpener()
         return 'tagcloud_tpl.php';  
     }
     
-    function viewByTag($tag)
+    /**
+    * Method to view user's files for a tag
+    * @param string $tag
+    */
+    protected function viewByTag($tag)
     {
         if (trim($tag) == '') {
             return $this->nextAction('tagcloud', array('error'=>'notag'));
@@ -944,6 +975,39 @@ function checkWindowOpener()
         $this->setVarByRef('table', $table);
         
         return 'showfileswithtags_tpl.php';
+    }
+    
+    /**
+    * Method to get the thumbnail path of a file
+    * @param string $id Record Id of the File
+    */
+    protected function getThumbnail($id)
+    {
+        // Get the File Details of the File
+        $file = $this->objFiles->getFile($id);
+        
+        // Check that File Exists
+        if ($file == FALSE) {
+            return FALSE;
+        } else {
+            // Load Thumbnails Class
+            $objThumbnail = $this->getObject('thumbnails', 'filemanager');
+            
+            // Get Thumbnail
+            $thumb = $objThumbnail->getThumbnail($id, $file['filename']);
+            
+            // If thumbnail does not exist
+            if ($thumb == FALSE) {
+                // Re/create it
+                $objThumbnail->createThumbailFromFile($this->objConfig->getcontentBasePath().'/'.$file['path'], $id);
+                
+                // Get Thumbnail
+                $thumb = $objThumbnail->getThumbnail($id, $file['filename']);
+            }
+            
+            // Redirect to thumnail
+            header('Location:'.$thumb);
+        }
     }
 }
 
