@@ -17,7 +17,7 @@ if($this->isBlog){
     $btnImport = $impButton->show();
 }
 
-echo $objH->show().$btnImport;
+echo $objH->show();
 
 $str = '';
 $other = '';
