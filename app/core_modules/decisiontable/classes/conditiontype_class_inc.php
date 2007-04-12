@@ -52,7 +52,7 @@ class conditionType extends decisionTableBase
     {
         parent::init('tbl_decisiontable_conditiontype');
 
-        $this->create( 'setValue', 'condition','decisiontable' ); $this->insert();
+        //$this->create( 'setValue', 'condition','decisiontable' ); $this->insert();
     }
 
     /**
