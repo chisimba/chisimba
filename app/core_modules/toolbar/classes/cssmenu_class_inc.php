@@ -27,11 +27,14 @@ class cssmenu extends object
     */
     function init()
     {
-        $this->objLanguage=& $this->getObject('language','language');
-        $this->objSkin=& $this->getObject('skin','skin');
-        $this->objLink=& $this->getObject('link','htmlelements');
-        $this->toolbarIcon=& $this->getObject('geticon','htmlelements');
-        $this->objLayer=& $this->getObject('layer','htmlelements');
+        $this->objLanguage = $this->getObject('language','language');
+        $this->objSkin = $this->getObject('skin','skin');
+        $this->objConfig = $this->getObject('altconfig','config');
+        //$this->objUser = $this->getObject('user','security');
+        
+        $this->objLink = $this->getObject('link','htmlelements');
+        $this->toolbarIcon = $this->getObject('geticon','htmlelements');
+        $this->objLayer = $this->getObject('layer','htmlelements');
     }
 
     /**
@@ -45,9 +48,19 @@ class cssmenu extends object
     	$homeLabel = $this->objLanguage->languageText('word_home');
     	$logoutLabel = $this->objLanguage->languageText('word_logout');
     	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
+    	
+    	$home = $this->objConfig->getdefaultModuleName();
+        /*$showLogout = FALSE;
+        
+        // Check if the user is logged in
+        if(!$this->objUser->isLoggedIn()){
+            $home = $this->objConfig->getPrelogin();
+            $showLogout = TRUE;
+        }
+        */
         
         $str='<ul id="menuList" class="adxm">';
-    	$str .= '<li class="first"><a href="'.$this->uri(null, '_default').'">'.$homeLabel.'</a></li>';
+    	$str .= '<li class="first"><a href="'.$this->uri(null, $home).'">'.$homeLabel.'</a></li>';
 		foreach($this->menu as $key=>$item){
             $this->objLink->link('javascript:;');
             $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
