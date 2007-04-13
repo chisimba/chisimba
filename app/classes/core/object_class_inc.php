@@ -304,6 +304,24 @@ class object
         return $this->objEngine->getResourcePath($resourcePath, $moduleName);
     }
 
+    /**
+     * Method to generate the path to a static resource stored in a module.
+     * The resource should be stored within the 'resources' subdirectory of
+     * the module directory.
+     *
+     * @access public
+     * @param string $ The path to the file within the resources subdirectory of the module
+     * @param string $ The name of the module the resource belongs to (optional)
+     * @return mixed The path of the resource asked for.
+     */
+    public function getPearResource($resourcePath, $moduleName = '')
+    {
+        if (empty($moduleName)) {
+            $moduleName = $this->moduleName;
+        }
+        return $this->objEngine->getPearResource($resourcePath, $moduleName);
+    }
+    
 	/**
 	 * Method that generates a URI to a static javascrict
 	 * file that is stored in the resources folder in the subdirectory
