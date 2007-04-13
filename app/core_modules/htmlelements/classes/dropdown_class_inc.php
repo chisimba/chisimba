@@ -20,7 +20,7 @@
 *   $objElement = new dropdown('user_dropdown');
 *	$objElement->addFromDB($this->objDBUser->getAll(),'username','userId',$this->objDBUser->userName());
 *	$objElement->label='User list';
-*	$objElement->show()."<br>";
+*	$objElement->show();
 */
 
 // Include the HTML base class
