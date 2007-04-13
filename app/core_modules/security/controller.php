@@ -109,7 +109,8 @@ class security extends controller
                 }
                 return $this->nextAction($act,$url,$url['module']);
             }
-            return $this->nextAction(NULL, NULL, '_default');
+            $postlogin = $this->objConfig->getdefaultModuleName();
+            return $this->nextAction(NULL, NULL, $postlogin);
         }
         if (defined('STATUS')&& STATUS=='inactive'){
             //user account is inactive. Contact the SysAdmin if you need it re-enabled.
@@ -161,7 +162,8 @@ class security extends controller
     function needPassword()
     {
         if ($this->objUser->isLoggedIn()) {
-            return $this->nextAction(NULL, NULL, '_default');
+            $postlogin = $this->objConfig->getdefaultModuleName();
+            return $this->nextAction(NULL, NULL, $postlogin);
         } else {
             $this->setLayoutTemplate('login_layout_tpl.php');
             return 'forgotyourpassword_tpl.php';
@@ -178,7 +180,8 @@ class security extends controller
     function needPasswordConfirm()
     {
         if ($this->objUser->isLoggedIn()) {
-            return $this->nextAction(NULL, NULL, '_default');
+            $postlogin = $this->objConfig->getdefaultModuleName();
+            return $this->nextAction(NULL, NULL, $postlogin);
         }
         
         if (md5(strtoupper($this->getParam('request_captcha'))) == $this->getParam('captcha')) {
@@ -225,7 +228,8 @@ class security extends controller
     function errorMessages()
     {
         if ($this->objUser->isLoggedIn()) {
-            return $this->nextAction(NULL, NULL, '_default');
+            $postlogin = $this->objConfig->getdefaultModuleName();
+            return $this->nextAction(NULL, NULL, $postlogin);
         }
         
         $this->setLayoutTemplate('login_layout_tpl.php');
