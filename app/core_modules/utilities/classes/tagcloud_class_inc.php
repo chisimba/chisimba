@@ -99,7 +99,8 @@ class tagcloud extends object
 		{
 			$this->tags->addElement($tags['name'], $tags['url'], $tags['weight'], $tags['time']);
 		}
-		return $this->tags->buildAll();
+		//$this->appendArrayVar('headerParams', '<style>'.$this->tags->buildCSS())."</style>";
+		return $this->tags->buildHTML();
 	}
 
 }
