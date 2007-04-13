@@ -39,6 +39,12 @@ class dropdown extends abhtmlbase implements ifhtml
 
   /**
   *
+  * @var array $extras: holds the extra attributes for the combo box
+  */
+  public $extras=array();
+  
+  /**
+  *
   * @var boolean $multiple: When set allows multiple entries to be selected
   */
   public $multiple = FALSE;
@@ -72,7 +78,7 @@ class dropdown extends abhtmlbase implements ifhtml
   * Class Constructor
   * @param string $name : The name of the dropdown
   */
-  public function dropdown($name){
+  public function dropdown($name=NULL){
   	$this->name=$name;
 	//$this->cssId = 'input_'.$name;
   }
@@ -84,12 +90,13 @@ class dropdown extends abhtmlbase implements ifhtml
   * @param string $value : The value for a give option
 
   */
-  public function addOption($value=null,$label=null)
+  public function addOption($value=null,$label=null,$extra='')
   {
     if ($label==null) {
         $label = $value;
     }
   	$this->options[$value] = $label;
+	$this->extras[$value] = $extra;
   }
 
   /**
@@ -129,6 +136,16 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function show()
   {
+	/*
+	ob_start();
+	echo '<pre>';
+	print_r($this->extras);
+	echo '</pre>';
+  	$str = ob_get_contents();
+	ob_end_clean();
+	return $str;
+	*/
+	//
   	if($this->multiple){
         $this->name = $this->name."[]";    
     }
@@ -169,6 +186,9 @@ class dropdown extends abhtmlbase implements ifhtml
 				$str.=' selected="selected"';
 			}
 		}
+	    if ($this->extras[$opt] != '') {
+	        $str .= ' '.$this->extras[$opt];
+	    }
 		$str.='>';
 		$str.=$lbl;
 		$str.='</option>'."\n";
