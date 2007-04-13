@@ -1171,6 +1171,26 @@ class engine
 		}
 		return $this->_objConfig->getModulePath() . $moduleName."/resources/".$resourceFile;
     }
+    
+    /**
+     * Method to generate a path to a static resource stored in a module.
+     * The resource should be stored within the 'resources' subdirectory of
+     * the module directory.
+     *
+     * @access public
+     * @param string $resourceFile The path to the file within the resources
+     *                 subdirectory of the module
+     * @param string $moduleName The name of the module the resource belongs to
+     * @return string Path to the Resource in a module
+     */
+    public function getPearResource($resourceFile, $moduleName)
+    {
+        if(in_array($moduleName, $this->coremods))
+		{
+			return $this->_objConfig->getsiteRootPath()."core_modules/" . $moduleName."/resources/pear/".$resourceFile;
+		}
+		return $this->_objConfig->getModulePath() . $moduleName."/resources/pear/".$resourceFile;
+    }
 
 	/**
      * Method that generates a URI to a static javascript
