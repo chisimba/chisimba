@@ -311,15 +311,11 @@ class object
      *
      * @access public
      * @param string $ The path to the file within the resources subdirectory of the module
-     * @param string $ The name of the module the resource belongs to (optional)
      * @return mixed The path of the resource asked for.
      */
-    public function getPearResource($resourcePath, $moduleName = '')
+    public function getPearResource($resourcePath)
     {
-        if (empty($moduleName)) {
-            $moduleName = $this->moduleName;
-        }
-        return $this->objEngine->getPearResource($resourcePath, $moduleName);
+        return $this->objEngine->getPearResource($resourcePath);
     }
     
 	/**

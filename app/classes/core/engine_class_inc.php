@@ -1180,16 +1180,11 @@ class engine
      * @access public
      * @param string $resourceFile The path to the file within the resources
      *                 subdirectory of the module
-     * @param string $moduleName The name of the module the resource belongs to
      * @return string Path to the Resource in a module
      */
-    public function getPearResource($resourceFile, $moduleName)
+    public function getPearResource($resourceFile)
     {
-        if(in_array($moduleName, $this->coremods))
-		{
-			return $this->_objConfig->getsiteRootPath()."core_modules/" . $moduleName."/resources/pear/".$resourceFile;
-		}
-		return $this->_objConfig->getModulePath() . $moduleName."/resources/pear/".$resourceFile;
+       	return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
     }
 
 	/**
