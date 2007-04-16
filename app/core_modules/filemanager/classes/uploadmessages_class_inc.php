@@ -51,9 +51,6 @@ class uploadmessages extends object
         $errors = array();
         $overwrite = array();
         
-        // Do files need to be overwritten
-        $overwrite = FALSE;
-        
         // Check each file for result
         foreach ($results as $file)
         {
