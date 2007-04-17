@@ -77,12 +77,19 @@ if (!isset($pageTitle)) {
 <?php 
         }
     }
-    echo $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/builder.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/effects.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/dragdrop.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/controls.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/slider.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('scriptaculous/1.6.5/builder.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('scriptaculous/1.6.5/effects.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('scriptaculous/1.6.5/dragdrop.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('scriptaculous/1.6.5/controls.js','htmlelements')."\n";
+//    echo $this->getJavascriptFile('scriptaculous/1.6.5/slider.js','htmlelements')."\n";
+//    
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/prototype.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/builder.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/effects.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/dragdrop.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/controls.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/slider.js','htmlelements')."\n";
 
     if (isset($headerParams)) {
         if (is_array($headerParams)) {
