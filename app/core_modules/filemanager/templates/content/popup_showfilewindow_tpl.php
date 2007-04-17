@@ -45,7 +45,7 @@ $value = new hiddeninput('value', $this->getParam('value'));
 $this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
 
 if (count($restrictions) != 0) {
-    $this->objUpload->formExtra .= '<br ><span class="warning minute"> Required File Types: ';
+    $this->objUpload->formExtra .= '<br /><span class="warning minute"> Required File Types: ';
     $comma = '';
     foreach ($restrictions as $restriction)
     {
