@@ -14,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 * @author Wesley Nitsckie
 * @copyright (c)2004 UWC
 * @package featurebox
-* @version 0.1
+* @verson 0.1
 */
 
 class featurebox extends object
@@ -41,17 +41,29 @@ class featurebox extends object
      * @access publc
      * @return string
      */
-    public function show($title = null, $content = null)
+    public function show($title = null, $content = null, $id = null)
     {
 
-  		$sidebar = '<div class="featurebox"';
-  		if($this->id != NULL){
-            $sidebar .= ' id="'.$this->id.'">';
+  		$sidebar = '<div class="featurebox">';
+  		$toggle = '';
+  		
+        if($id != '')
+        {
+            $objIcon =&$this->getObject('geticon', 'htmlelements');
+  		    $objIcon->setIcon('toggle');
+            $toggle = "<a href=\"#\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
+        }
+        
+		$sidebar .= '	<h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
+		$sidebar .= '<div class="featureboxcontent"';
+		if($id != NULL){
+            $sidebar .= ' id="'.$id.'">';
         }else{
             $sidebar .= '>';
         }
-		$sidebar .= '	<h5 class="featureboxheader">'.$title.'</h5>';
-		$sidebar .= '<div class="featureboxcontent">'.$content.'</div>';
+	
+		
+		$sidebar .='<small>'.$content.'</small></div>';
 
 
 		$sidebar .= '</div>';
