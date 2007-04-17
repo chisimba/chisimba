@@ -24,10 +24,11 @@ class utils extends object
     public function init()
     {
         
-          $this->_objContextModules = & $this->newObject('dbcontextmodules', 'context');
-	      $this->_objLanguage = & $this->newObject('language', 'language');
-	      $this->_objUser = & $this->newObject('user', 'security');
-	      $this->_objDBContext = & $this->newObject('dbcontext', 'context');
+          $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
+	      $this->_objLanguage = & $this->getObject('language', 'language');
+	      $this->_objUser = & $this->getObject('user', 'security');
+	      $this->_objDBContext = & $this->getObject('dbcontext', 'context');
+	      
     }
     
     /**
@@ -116,7 +117,7 @@ class utils extends object
        $leftSideColumn = $this->_objUser->getUserPic();//$userMenu->show();;
         //Add loginhistory block
         
-        
+       
         
         $leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
         
@@ -708,6 +709,7 @@ class utils extends object
 	  	    $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
 	  	    $contentsection = '<div class="tab-page">
 				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.$objLink->show().
+				'cms'.
 	  	    '</div>';
 	  	} else {
 	  	    $contentsection = '';

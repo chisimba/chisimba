@@ -86,7 +86,7 @@ class blocks extends object
             switch ($blockType) {
                 case NULL:
                 	$objFeatureBox = & $this->newObject('featurebox', 'navigation');
-                	return $objFeatureBox->show($title, $objBlock->show());
+                	return $objFeatureBox->show($title, $objBlock->show(),$block);
                 case "tabbedbox":
                     //Put it all inside a tabbed box
                     //$this->loadClass('tabbedbox', 'htmlelements');
