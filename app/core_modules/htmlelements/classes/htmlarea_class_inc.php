@@ -151,7 +151,7 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-		require_once($this->getResourcePath('fckeditor_2.3.2/fckeditor.php', 'htmlelements'));
+		require_once($this->getResourcePath('fckeditor_2.4.2/fckeditor.php', 'htmlelements'));
         
         $objConfig = & $this->newObject('altconfig', 'config');
 
@@ -165,7 +165,7 @@ class htmlarea extends object
 			$sBasePath .= '/';
 		}
 		
-		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.3.2/';
+		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.4.2/';
         
 
         $oFCKeditor = new FCKeditor($this->name) ;
@@ -177,6 +177,7 @@ class htmlarea extends object
         
         $siteRootPath= str_replace('\\', '/', $sitePath['dirname']);
         $siteRootPath = preg_replace('/\/+/', '/', $siteRootPath);
+        
         
         if (substr($siteRootPath, -1, 1) != '/') {
 			$siteRootPath .= '/';
@@ -197,14 +198,17 @@ class htmlarea extends object
         
         //$this->setVar('pageSuppressXML', TRUE);
         
-        $this->showFCKEditorWakeupJS();
+        //$this->showFCKEditorWakeupJS();
         
+        return $oFCKeditor->CreateHtml();
+        
+        /*
         return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>
 <script type="text/javascript">
 //<![CDATA[
     setInterval(\'copyFCKData("'.$this->name.'")\', 2000);
 //]]>
-</script>';
+</script>';*/
         // Addition for Testing Purposes
         // <div id="content_'.$this->name.'"></div>
     }
