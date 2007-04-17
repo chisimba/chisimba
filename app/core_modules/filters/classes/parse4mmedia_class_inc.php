@@ -161,17 +161,15 @@ class parse4mmedia extends object {
         $player = $objConfig->getsiteRoot() . "core_modules/filters/resources/mp3player.swf?src=";
         $search = '/<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*?)<\/a>/isU';
         /*\\0&nbsp;\n\n*/$replace = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"";
-        $replace .= ' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" ';
-        $replace .= " width=\"35\" height=\"18\" id=\"mp3player\" align=\"\">\n";
-        $replace .= " <param name=movie value=\"" . $player . "\\2.mp3\">\n";
-        $replace .= ' <param name=quality value=high>';
-        $replace .= ' <param name=bgcolor value="#333333">';
-        $replace .= " <embed src=\"" . $player . "\\2.mp3\" ";
-        $replace .= "  quality=high bgcolor=\"#333333\" width=\"35\" height=\"18\" name=\"mp3player\" ";
-        $replace .= ' type="application/x-shockwave-flash" ';
-        $replace .= ' pluginspage="http://www.macromedia.com/go/getflashplayer">';
-        $replace .= '</embed>';
-        $replace .= "</object>&nbsp;\n\n";
+        
+        $replace = ' <applet code="javazoom.jlGui.TinyPlayer" archive="tinyplayer.jar,jl020.jar"
+width="59" height="32" name="playerid" codebase="core_modules/files/resources/tinyplayer/" align="middle">
+<param name="skin" value="skins/Digitalized" />
+<param name="bgcolor" value="638182" />
+<param name="autoplay" value="no" />
+<param name="audioURL" value="'."\\2.mp3".'" />
+<param name="scriptable" value="true" />
+</applet> ';
         return preg_replace($search, $replace, $str);
     } # end of function
     
