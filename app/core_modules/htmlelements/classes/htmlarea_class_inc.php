@@ -158,6 +158,9 @@ class htmlarea extends object
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
         $sBasePath = $sitePath['dirname'];
 		
+        $sBasePath = str_replace('\\', '/', $sBasePath);
+        $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
+      
 		if (substr($sBasePath, -1, 1) != '/') {
 			$sBasePath .= '/';
 		}
@@ -165,9 +168,6 @@ class htmlarea extends object
 		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.3.2/';
         
 
-        $sBasePath = str_replace('\\', '/', $sBasePath);
-        $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
-      
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
