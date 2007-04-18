@@ -90,7 +90,7 @@ class captcha extends object
         $path = $this->objConfig->getcontentBasePath().'/captcha/';
         $this->objMkdir->mkdirs($path, 0755);
         
-        $this->tempFolder = $this->objConfig->getcontentBasePath().'/captcha/';
+        $this->tempFolder = $this->objConfig->getcontentPath().'/captcha/';
         $this->objCleanUrl->cleanUpUrl($this->tempFolder);
         
         $this->loadClass('hiddeninput', 'htmlelements');
