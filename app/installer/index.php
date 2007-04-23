@@ -13,7 +13,7 @@
 // Check for older PHP versions - added 15 Dec 2006 by jsc
 if (substr(PHP_VERSION,0,1) < '5'){
     print "Chisimba requires PHP 5 or better. We see this computer is currently running PHP".PHP_VERSION."<br />\n";
-    print "To run Chisimba, you wil need to run PHP5.<br />\n";
+    print "To run Chisimba, you will need to run PHP5.<br />\n";
     die;
 }
 
