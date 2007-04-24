@@ -42,7 +42,7 @@ $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
 $actiontotake = 'batchinstall';
 $root = $this->objConfig->getsiteRootPath();
-$defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt');
+//$defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt'); TODO: replace this with the xml list of core modules
 $registeredModules = $this->objModule->getAll();
 foreach ($registeredModules as $module) {
 	$rMods[]=$module['module_id'];
@@ -143,7 +143,7 @@ if ($modules) {
 					if ($this->objModFile->findController($moduleId)) {
 						$link = "<a href='{$this->uri(null,$moduleId)}'>$moduleName</a>";
 					}
-					if (!strchr(strtolower($defaults),strtolower($moduleId))) {
+					//if (!strchr(strtolower($defaults),strtolower($moduleId))) { //check if the module can be uninstalled - removed as it was still using default_modules.txt
 						$instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
 						$instButton->link = $this->objLanguage->languageText('word_uninstall');
 						$objConfirm = &$this->getObject('confirm','utilities');
@@ -156,10 +156,10 @@ if ($modules) {
 						} else {
 							$checkBox='';
 						}
-					} else {
-						$checkBox='';
-    					$instButtonShow = '';
-    				}
+					//} else {
+					//	$checkBox='';
+    				//	$instButtonShow = '';
+    				//}
 
 					//$icon->setIcon('ok','png');
 					//$isRegistered = $icon->show();
@@ -192,7 +192,7 @@ if ($modules) {
 		//$objTable->addCell($hasRegFile,null,null,'left',$class);
 		//$objTable->addCell($hasController,null,null,'left',$class);
 		//$objTable->addCell($isRegistered,null,null,'left',$class);
-		
+
 		$objTable->endRow();
 		}//temporary if
 	}
