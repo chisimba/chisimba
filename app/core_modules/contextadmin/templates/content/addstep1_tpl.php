@@ -1,14 +1,21 @@
 <?php
 
-//add step 1 template
-$objH = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
 
-$inpContextCode =  & $this->newObject('textinput','htmlelements');
-$inpMenuText = & $this->newObject('textinput','htmlelements');
-$inpTitle = & $this->newObject('textinput','htmlelements');
-$inpButton =  $this->newObject('button','htmlelements');
-$dropAccess = $this->newObject('dropdown','htmlelements');
+
+//add step 1 template
+$objH = new htmlheading();
+$objForm = new form();
+
+$inpContextCode =  new textinput();
+$inpMenuText = new textinput();
+$inpTitle = new textinput();
+$inpButton =  new button();
+$dropAccess = new dropdown();
 
 $objH->str = 'Step 1: Add a Course';
 $objH->type = 3;

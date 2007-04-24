@@ -1,15 +1,21 @@
 <?php
 
-//step 2 add<?php
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+
+//step 2 add
 
 //add step 1 template
-$objH = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
+$objH = new htmlheading();
+$objForm = new form();
 
-$inpContextCode =  & $this->newObject('textinput','htmlelements');
-$inpMenuText = & $this->newObject('textinput','htmlelements');
+$inpContextCode =  new textinput();
+$inpMenuText = new textinput();
 $inpAbout = & $this->newObject('htmlarea','htmlelements');
-$inpButton =  $this->newObject('button','htmlelements');
+$inpButton =  new button();
 
 $objH->str = $this->_objLanguage->languageText("mod_context_step","context").' 2: '.$this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
 $objH->type = 3;

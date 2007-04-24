@@ -1,12 +1,20 @@
 <?php
 
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('checkbox', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
+
 $tabBox = & $this->newObject('tabpane', 'htmlelements');
 $featureBox = & $this->newObject('featurebox', 'navigation');
-$objLink =  & $this->newObject('link', 'htmlelements');
+$objLink =  new link();
 $fieldset = & $this->newObject('fieldset', 'htmlelements');
 $icon =  & $this->newObject('geticon', 'htmlelements');
 $objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
-$objH = & $this->newObject('htmlheading','htmlelements');
+$objH = new htmlheading();
 $objH->str = ucwords($objLanguage->code2Txt('mod_contextadmin_contextadmin', 'contextadmin')).' '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
 $objH->type = 3;
 

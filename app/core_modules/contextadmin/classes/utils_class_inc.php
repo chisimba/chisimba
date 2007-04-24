@@ -28,6 +28,16 @@ class utils extends object
 	      $this->_objLanguage = & $this->getObject('language', 'language');
 	      $this->_objUser = & $this->getObject('user', 'security');
 	      $this->_objDBContext = & $this->getObject('dbcontext', 'context');
+		
+		// Load HTML Elements
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('dropdown', 'htmlelements');
+		$this->loadClass('htmlheading', 'htmlelements');
+		$this->loadClass('checkbox', 'htmlelements');
+		$this->loadClass('link', 'htmlelements');
+		$this->loadClass('radio', 'htmlelements');
 
     }
 
@@ -205,7 +215,7 @@ class utils extends object
 	  	$str = '';
 	  	$arr = $this->_objContextModules->getContextModules($contextCode);
 	  	$objIcon = & $this->newObject('geticon', 'htmlelements');
-        $objLink = & $this->newObject('link', 'htmlelements');
+        $objLink = new link();
 	  	$objModule = & $this->newObject('modules', 'modulecatalogue');
 	  	if(is_array($arr))
 	  	{
@@ -246,18 +256,18 @@ class utils extends object
 	  	{
 	  		$contextCode = $this->_objDBContext->getContextCode();
 	  	}
-	  	$objForm = & $this->newObject('form','htmlelements');
-	  	$objFormMod = & $this->newObject('form','htmlelements');
-		$objH = & $this->newObject('htmlheading','htmlelements');
-		$inpContextCode =  & $this->newObject('textinput','htmlelements');
-		$inpMenuText = & $this->newObject('textinput','htmlelements');
+	  	$objForm = new form();
+	  	$objFormMod = new form();
+		$objH = new htmlheading();
+		$inpContextCode =  new textinput();
+		$inpMenuText = new textinput();
 		$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
 
 
 		//list of modules for this context
 		$arrContextModules = $this->_objContextModules->getContextModules($contextCode);
 
-		$inpButton =  $this->newObject('button','htmlelements');
+		$inpButton =  new button();
 			  	//setup the form
 		$objForm->name = 'addfrm';
 		$objForm->action = $this->uri(array('action' => 'savestep3'));
@@ -301,7 +311,7 @@ class utils extends object
 		{
 		    if($objModuleFile->contextPlugin($module['module_id']))
 		    {
-		        $checkbox = $this->newObject('checkbox', 'htmlelements');
+		        $checkbox = new checkbox('mod_'.$module['module_id']);
 		        $checkbox->value=$module['module_id'];
 		        $checkbox->cssId = 'mod_'.$module['module_id'];
 		        $checkbox->name = 'mod_'.$module['module_id'];
@@ -329,7 +339,7 @@ class utils extends object
 
 		$objForm->addToForm('</ol></div><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 
-		$dropDefaultModule = $this->newObject('dropdown', 'htmlelements');
+		$dropDefaultModule = new dropdown();
 
 		$defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
 
@@ -370,16 +380,16 @@ class utils extends object
 
 	  	    $context = $this->_objDBContext->getRow('contextcode' , $contextCode);
 
-		    $objH = & $this->newObject('htmlheading','htmlelements');
-			$objForm = & $this->newObject('form','htmlelements');
+		    $objH = new htmlheading();
+			$objForm = new form();
 
-			$inpContextCode =  & $this->newObject('textinput','htmlelements');
-			$inpMenuText = & $this->newObject('textinput','htmlelements');
-			$inpTitle = & $this->newObject('textinput','htmlelements');
-			$inpButton =  $this->newObject('button','htmlelements');
+			$inpContextCode =  new textinput();
+			$inpMenuText = new textinput();
+			$inpTitle = new textinput();
+			$inpButton =  new button();
 			$objIcon =  $this->newObject('geticon','htmlelements');
-			$dropAccess = $this->newObject('dropdown','htmlelements');
-			$radioStatus = $this->newObject('radio','htmlelements');
+			$dropAccess = new dropdown();
+			//$radioStatus = new radio();
 			$objStartDate =  & $this->newObject('datepicker', 'htmlelements');
             $objFinishDate =  & $this->newObject('datepicker', 'htmlelements');
 
@@ -518,13 +528,13 @@ class utils extends object
 		  	}
 
 			//add step 1 template
-			$objH = & $this->newObject('htmlheading','htmlelements');
-			$objForm = & $this->newObject('form','htmlelements');
+			$objH = new htmlheading();
+			$objForm = new form();
 
-			$inpContextCode =  & $this->newObject('textinput','htmlelements');
-			$inpMenuText = & $this->newObject('textinput','htmlelements');
+			$inpContextCode =  new textinput();
+			$inpMenuText = new textinput();
 			$inpAbout =  $this->newObject('htmlarea','htmlelements');
-			$inpButton =  $this->newObject('button','htmlelements');
+			$inpButton =  new button();
 
 			$objH->str = $this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
 			$objH->type = 3;
@@ -577,7 +587,7 @@ class utils extends object
         {
 
             //manage context users for the course that you are in only
-            $objLink =  & $this->newObject('link', 'htmlelements');
+            $objLink =  new link();
             $icon =  & $this->newObject('geticon', 'htmlelements');
             $table = & $this->newObject('htmltable' , 'htmlelements');
             $objGroups = & $this->newObject('managegroups', 'contextgroups');
@@ -635,7 +645,7 @@ class utils extends object
                 '</div>');
                  $table->addRow($temp);
             }
-           $lnkStud = $this->newObject('link', 'htmlelements');
+           $lnkStud = new link();
             $lnkStud->href = $this->uri( array( 'action'=>'manage_stud' ),'contextgroups' );
             $lnkStud->link = $this->_objLanguage->code2Txt('mod_contextgroups_managestuds','contextgroups',array('readonlys'=>''));
 

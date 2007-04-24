@@ -1,15 +1,22 @@
 <?php
 
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('checkbox', 'htmlelements');
+
 //add step 3
 
 //add step 1 template
-$objH = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
+$objH = new htmlheading();
+$objForm = new form();
 
-$inpContextCode =  & $this->newObject('textinput','htmlelements');
-$inpMenuText = & $this->newObject('textinput','htmlelements');
+$inpContextCode =  new textinput();
+$inpMenuText = new textinput();
 
-$inpButton =  $this->newObject('button','htmlelements');
+$inpButton =  new button();
 
 $objH->str = $this->_objLanguage->languageText("mod_context_step","context").' 3: '.$this->_objLanguage->code2Txt("mod_contextadmin_selectcontextplugins",'contextadmin',array('context'=>'Course'));
 $objH->type = 3;
@@ -51,7 +58,7 @@ foreach ($arrModules as $module)
 {
     if($objModuleFile->contextPlugin($module['module_id']))
     {
-        $checkbox = $this->newObject('checkbox', 'htmlelements');
+        $checkbox = new checkbox('mod_'.$module['module_id']);
         $checkbox->value=$module['module_id'];
         $checkbox->cssId = 'mod_'.$module['module_id'];
         $checkbox->name = 'mod_'.$module['module_id'];
