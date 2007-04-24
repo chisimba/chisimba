@@ -242,7 +242,7 @@ class context extends controller
                 $this->setVar('modulesrc',$this->uri(array('mode' => 'elearn'),$this->getParam('moduleid')));
                 return 'list_tpl.php';
             case 'gotomodule':
-                $this->objDBContext->joinContext();
+                $this->objDBContext->joinContext($this->getParam('contextcode'));
                 if ($this->objModule->checkIfRegistered($this->getParam('moduleid')))
                 {
                     return $this->nextAction(null,null,$this->getParam('moduleid'));
