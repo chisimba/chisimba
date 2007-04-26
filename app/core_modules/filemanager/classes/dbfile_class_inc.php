@@ -792,10 +792,85 @@ class dbfile extends dbTable
         return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
     }
     
+	/**
+	* Method to update the license and description of a file
+	* @param string $id Record Id of the File
+	* @param string $description Description of the File
+	* @param string $license License of the File
+	*/
     public function updateDescriptionLicense($id, $description, $license)
     {
         return $this->update('id', $id, array('description'=>$description, 'license'=>$license));
     }
+	
+	/**
+	* Method to get the list of Open Files for a Site
+	*
+	* At the moment, it treats open files as those that are not copyrighted.
+	* @param string/array $category List of Category(s) files should come from. Either array or string
+	* @param string/array $fileTypes List of Filetype(s) files should come from. Either array or string
+	* @return array;
+	*/
+	public function getAllOpenFiles($category=NULL, $fileTypes=NULL)
+	{
+		$categoryWhere = '';
+		
+		if ($category != NULL) {
+			if (is_array($category)) {
+				$categoryWhere = ' AND ( ';
+				$divider = '';
+				
+				foreach ($category as $item)
+				{
+					$categoryWhere .= $divider.' category=\''.$item.'\' ';
+					$divider = ' OR ';
+				}
+				
+				$categoryWhere .= ' ) ';
+			} else {
+				$categoryWhere = ' AND category=\''.$category.'\'';
+			}
+		}
+		
+		$fileTypesWhere = '';
+		
+		if ($fileTypes != NULL) {
+			if (is_array($fileTypes)) {
+				$fileTypesWhere = ' AND ( ';
+				$divider = '';
+				
+				foreach ($fileTypes as $item)
+				{
+					$fileTypesWhere .= $divider.' datatype=\''.$item.'\' ';
+					$divider = ' OR ';
+				}
+				
+				$fileTypesWhere .= ' ) ';
+			} else {
+				$fileTypesWhere = ' AND datatype=\''.$category.'\'';
+			}
+		}
+		
+		return $this->getAll('WHERE license != \'copyright\' '.$categoryWhere.' '.$fileTypesWhere);
+	}
+	
+	/**
+	* Method to get all the open site images
+	* @return array
+	*/
+	public function getAllOpenImages()
+	{
+		return $this->getAllOpenFiles('images');
+	}
+	
+	/**
+	* Method to get all the open site images that can display in a web browser
+	* @return array
+	*/
+	public function getAllOpenWebImages()
+	{
+		return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
+	}
 
 
 }
