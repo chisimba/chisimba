@@ -192,15 +192,19 @@ class indexfileprocessor extends object
             }
             // Check if Timeline
         } else if ($category == 'scripts' && $mimetype == 'application/xml') {
-            
-            // Load Timeline Parser
-            $objTimeline = $this->getObject('timelineparser', 'timeline');
-            
-            // Check if Valid
-            if ($objTimeline->isValidTimeline($savePath)) {
-                // If yes, change category to timeline
-                $this->objFile->updateFileCategory($fileId, 'timeline');
-            }
+				/*
+				$objCatalogueConfig = $this->getObject('catalogueconfig', 'modulecatalogue');
+				
+				if ($objCatalogueConfig->getModuleName('timeline') != FALSE) {
+					// Load Timeline Parser
+					$objTimeline = $this->getObject('timelineparser', 'timeline');
+					
+					// Check if Valid
+					if ($objTimeline->isValidTimeline($savepath)) {
+						// If yes, change category to timeline
+						$this->objFile->updateFileCategory($fileId, 'timeline');
+					}
+				}*/
         
         }
         

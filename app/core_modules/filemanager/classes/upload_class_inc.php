@@ -335,15 +335,20 @@ class upload extends object
                             $this->objThumbnails->createThumbailFromFile($savepath, $fileId);
                         }
                     } else if ($subfolder == 'scripts' && ($file['type'] == 'application/xml' || $file['type'] == 'text/xml')) {
-            
-                        // Load Timeline Parser
-                        $objTimeline = $this->getObject('timelineparser', 'timeline');
-                        
-                        // Check if Valid
-                        if ($objTimeline->isValidTimeline($savepath)) {
-                            // If yes, change category to timeline
-                            $this->objFile->updateFileCategory($fileId, 'timeline');
-                        }
+						
+						/*
+						$objCatalogueConfig = $this->getObject('catalogueconfig', 'modulecatalogue');
+						echo $objCatalogueConfig->getModuleName('timeline');
+						if ($objCatalogueConfig->getModuleName('timeline') != FALSE) {
+							// Load Timeline Parser
+							$objTimeline = $this->getObject('timelineparser', 'timeline');
+							
+							// Check if Valid
+							if ($objTimeline->isValidTimeline($savepath)) {
+								// If yes, change category to timeline
+								$this->objFile->updateFileCategory($fileId, 'timeline');
+							}
+						}*/
                     
                     }
                     
