@@ -24,12 +24,20 @@ if(!$GLOBALS['kewl_entry_point_run']){
     }
 
 // set up html elements
-    $objHeader =& $this -> newObject('htmlheading', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('link', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+
+
+
+    $objHeader = new htmlheading();
     $objTable =& $this -> newObject('htmltable', 'htmlelements');
-    $objText =& $this -> newObject('textinput', 'htmlelements');
-    $objLink =& $this -> newObject('link', 'htmlelements');
-    $objButton =& $this -> newObject('button', 'htmlelements');
-    $objForm =& $this -> newObject('form', 'htmlelements');
+    $objText = new textinput();
+    $objLink = new link();
+    $objButton = new button();
+    $objForm = new form();
     $objIcon =& $this -> newObject('geticon', 'htmlelements');
 
 // set up language items
