@@ -1,10 +1,14 @@
 <DIV><?php
+
+$this->loadClass('label', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+
 // Get all modules
 $objModAdmin = &$this->getObject('modules','modulecatalogue');
 $modules = $objModAdmin->getAll('ORDER BY module_id');
-$ddbModules = $this->newObject( 'dropdown', 'htmlelements' );
-$ddbModules->dropdown('module_name');
-$ddbModules->extra = ' onChange="document.frmMod.submit();"';
+$ddbModules = new dropdown('module_name');
+$ddbModules->extra = ' onchange="document.frmMod.submit();"';
 foreach ( $modules as $aModule ) {
     $ddbModules->addOption( $aModule['module_id'], $aModule['module_id'] );
 }
@@ -12,10 +16,9 @@ $ddbModules->setSelected( $this->getSession('module_name') );
 
 // Select a module:
 $lblSelectModule = &$this->objLanguage->languageText("mod_contextpermissions_lblSelectModule",'contextpermissions',"[Select a module: ]");
-$objLabel = &$this->getObject( 'label', 'htmlelements' );
-$objLabel->label( $lblSelectModule, 'input_module_name' );
+$objLabel = new label( $lblSelectModule, 'input_module_name' );
 
-$frmMod = $this->newObject( 'form', 'htmlelements' );
+$frmMod = new form();
 $frmMod->action = $this->uri( array('action'=>'show_main') );
 $frmMod->name ='frmMod';
 $frmMod->addToForm( '<H1>'.$title.' </H1>' );

@@ -1,6 +1,8 @@
 <H1><?php echo $title.$this->lnkIcnCreate('create_condition'); ?></H1>
 <DIV><?php
 
+$this->loadClass('label', 'htmlelements');
+
 $viewCondition = $this->getObject('viewcondition','decisiontable');
 $viewCondition->connect( $condition );
 extract($viewCondition->elements());
@@ -23,8 +25,7 @@ $lnkBack->link = $this->objLanguage->languageText("word_back");
 $arrControls = array( $lnkSave->show(), $lnkBack->show() );
 
 $lblConditionType = $this->objLanguage->code2Txt('mod_contextpermissions_lblConditionType','contextpermissions');
-$objLabel = &$this->getObject('label', 'htmlelements');
-$objLabel->label( $lblConditionType, 'input_type' );
+$objLabel = new label( $lblConditionType, 'input_type' );
 $lblType = $objLabel->show();
 
 $frmCond = $this->newObject('form','htmlelements');

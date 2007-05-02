@@ -101,6 +101,7 @@ class viewContextCondition extends viewCondition
      function isContextMember($relPath=NULL)
      {
         $this->loadClass('dropdown','htmlelements');
+        $this->loadClass('label','htmlelements');
         $objDropDown = new dropdown('ddbContext');
         $objDropDown->dropdown('value');
         $options = array('Lecturers','Students','Guest');
@@ -113,8 +114,7 @@ class viewContextCondition extends viewCondition
         $objDropDown->setSelected( 'isContextMember | '.$relPath );
        
         $lblRelativeContextPath = $this->objLanguage->code2Txt('mod_contextpermissions_lblRelativeContextPath','contextpermissions');
-        $objLabel = &$this->getObject('label', 'htmlelements');
-        $objLabel->label( $lblRelativeContextPath, 'input_value' );
+        $objLabel = new label( $lblRelativeContextPath, 'input_value' );
         $lblName = $objLabel->show();        
         
         return array('lblName'=>$lblName,'element'=>$objDropDown->show());

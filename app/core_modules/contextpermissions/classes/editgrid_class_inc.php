@@ -40,9 +40,9 @@ class editgrid extends viewgrid {
     }
     function show()
     {
+        
         $show = parent::show();
-        $objForm = $this->newObject('form','htmlelements');
-        $objForm->name = 'form1';
+        $objForm = new form('form1');
         $objForm->action = $this->uri( array('action'=>'edit_main') );
         $objForm->displayType = 3;
         $objForm->addToForm( $show );
@@ -66,8 +66,7 @@ class editgrid extends viewgrid {
             $bodyParams = "onload=\"document.form1['objName'].focus();document.form1['objName'].select();\"";
             $this->objEngine->setVar( 'bodyParams', $bodyParams );
 
-            $tinName = $this->newObject( 'textinput', 'htmlelements' );
-            $tinName->textinput( 'objName', $objLink->_name );
+            $tinName = new textinput( 'objName', $objLink->_name );
             $tinName->extra = "onDblClick =\"javascript: document.form1['objName'].value='';\"";
             $tinName->extra.= 'onKeyPress ="javascript: if( event.keyCode==13){ ';
             $tinName->extra.= "document.form1['button'].value='save';";
@@ -147,8 +146,7 @@ class editgrid extends viewgrid {
         $act  = $this->class == 'action' && $objLookup->_name == $this->name;
         
         if( $cond || $act || $actRule || $condRule )  {
-            $checkbox = $this->newObject( 'checkbox', 'htmlelements' );
-            $checkbox->checkbox( "List[".get_class($objLookup)."][$objLookup->_name][$id]" );
+            $checkbox = new checkbox( "List[".get_class($objLookup)."][$objLookup->_name][$id]" );
             $checkbox->setChecked( $X );
             $X = $checkbox->show();
         } else {

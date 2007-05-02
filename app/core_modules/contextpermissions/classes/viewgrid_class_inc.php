@@ -97,6 +97,10 @@ class viewGrid extends object
         $this->_arrRules = array();
         $this->_arrConditions = array();
         $this->objDecisionTable = null;
+		
+        $this->loadClass('form','htmlelements');
+        $this->loadClass('textinput','htmlelements');
+        $this->loadClass('checkbox','htmlelements');
 
     }
 
