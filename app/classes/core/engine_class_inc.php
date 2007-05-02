@@ -737,6 +737,7 @@ class engine
 				if(extension_loaded("xdebug"))
 				{
 					var_dump(xdebug_get_function_stack());
+					throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 				}
 				else {
 					throw new Exception("Could not load class $name from module $moduleName: filename $filename ");
@@ -1389,7 +1390,11 @@ class engine
 	private function _loadModule($moduleName)
 	{
 		if ($moduleName == '_default') {
-			$moduleName = $this->_objConfig->getdefaultModuleName();
+            if ($this->_objUser->isLoggedIn()) {
+                $moduleName = $this->_objConfig->getdefaultModuleName();
+            } else {
+                $moduleName = $this->_objConfig->getPrelogin();
+            }
 		}
 
 		if(in_array($moduleName, $this->coremods))
