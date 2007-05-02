@@ -51,29 +51,29 @@ class translatedatedifference extends object
         
         // If more than one days difference
         if ($difference['d'] > 1) {
-            return $difference['d'].' '.$this->objLanguage->languageText('mod_datetime_days', 'utilities', 'days').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
+            return $difference['d'].' '.$this->objLanguage->languageText('mod_datetime_days', 'system', 'days').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
         } else if ($difference['d'] > 0){ // If previous day
-            return 24+$difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'utilities', 'hours').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
+            return 24+$difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'system', 'hours').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
         } else { // If today
             if ($difference['h'] > 1) { // If more than one hour
-                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'utilities', 'hours').', ';
+                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'system', 'hours').', ';
             } else if ($difference['h'] > 0) {
-                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hour', 'utilities', 'hour').', ';
+                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hour', 'system', 'hour').', ';
             } else {
                 $returnString = '';
             }
             
             if ($difference['m'] > 1) { // if more than one minute
-                $returnString .= $difference['m'].' '.$this->objLanguage->languageText('mod_datetime_minutes', 'utilities', 'minutes').' ';
+                $returnString .= $difference['m'].' '.$this->objLanguage->languageText('mod_datetime_minutes', 'system', 'minutes').' ';
             } else if ($difference['m'] > 0) {
-                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_minute', 'utilities', 'minute').' ';
+                $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_minute', 'system', 'minute').' ';
             }        
             
             if ($difference['h'] == 0 && $difference['m'] == 0) {
-                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system', 'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
-                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system',  'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system', 'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'system', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system',  'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'system', 'ago').'</strong>';
             } else {
-               return '<strong>'.$returnString.' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+               return '<strong>'.$returnString.' '.$this->objLanguage->languageText('mod_datetime_ago', 'system', 'ago').'</strong>';
             }
             
             return $returnString;
