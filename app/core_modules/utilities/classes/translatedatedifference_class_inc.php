@@ -53,7 +53,7 @@ class translatedatedifference extends object
         if ($difference['d'] > 1) {
             return $difference['d'].' '.$this->objLanguage->languageText('mod_datetime_days', 'utilities', 'days').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
         } else if ($difference['d'] > 0){ // If previous day
-            return 24+$difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'utilities').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
+            return 24+$difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'utilities', 'hours').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago');
         } else { // If today
             if ($difference['h'] > 1) { // If more than one hour
                 $returnString = $difference['h'].' '.$this->objLanguage->languageText('mod_datetime_hours', 'utilities', 'hours').', ';
@@ -70,8 +70,8 @@ class translatedatedifference extends object
             }        
             
             if ($difference['h'] == 0 && $difference['m'] == 0) {
-                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
-                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system', 'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
+                return '<strong>'.$difference['s'].' '.$this->objLanguage->languageText('mod_datetime_seconds', 'system',  'seconds').' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
             } else {
                return '<strong>'.$returnString.' '.$this->objLanguage->languageText('mod_datetime_ago', 'utilities', 'ago').'</strong>';
             }
@@ -81,3 +81,5 @@ class translatedatedifference extends object
     }
     
 } // class
+
+?>
