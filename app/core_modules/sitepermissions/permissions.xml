@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<permissions>
+    <actions>
+        <name>add</name>
+        <name>edit</name>
+        <name>save</name>
+        <name>update</name>
+        <name>generate</name>
+        <name>delete</name>
+    </actions>
+    <targets>
+        <group>site admin</group>
+    </targets>
+    <conditions>
+        <condition>
+          <name>isadmin</name>
+          <type>ismember</type>
+          <target>site admin</target>
+        </condition>
+    </conditions>
+    <rules>
+        <rule name='contextpermissions_rule_100'>
+            <condition>isadmin</condition>
+            <action>add</action>
+            <action>edit</action>
+            <action>save</action>
+            <action>update</action>
+            <action>generate</action>
+            <action>delete</action>
+        </rule>
+    </rules>
+</permissions>

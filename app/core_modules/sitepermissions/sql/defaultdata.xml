@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<defaultdata>
+    <tbl_sitepermissions_conditiontype>
+        <id>init_1</id>
+        <name>ismember</name>
+    </tbl_sitepermissions_conditiontype>
+    <tbl_sitepermissions_conditiontype>
+        <id>init_2</id>
+        <name>iscontextmember</name>
+    </tbl_sitepermissions_conditiontype>
+    <tbl_sitepermissions_conditiontype>
+        <id>init_3</id>
+        <name>haspermission</name>
+    </tbl_sitepermissions_conditiontype>
+    <tbl_sitepermissions_conditiontype>
+        <id>init_4</id>
+        <name>hascontextpermission</name>
+    </tbl_sitepermissions_conditiontype>
+</defaultdata>
