@@ -41,7 +41,7 @@ class featurebox extends object
      * @access publc
      * @return string
      */
-    public function show($title = null, $content = null, $id = null)
+    public function show($title = null, $content = null, $id = null, $hidden = 'default')
     {
 
   		$sidebar = '<div class="featurebox">';
@@ -57,7 +57,7 @@ class featurebox extends object
 		$sidebar .= '	<h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
 		$sidebar .= '<div class="featureboxcontent"';
 		if($id != NULL){
-            $sidebar .= ' id="'.$id.'">';
+            $sidebar .= ' id="'.$id.'" style="overflow: hidden;display:'.$hidden.';" >';
         }else{
             $sidebar .= '>';
         }
