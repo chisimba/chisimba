@@ -100,7 +100,7 @@ class condition extends decisionTableBase
      * @return condition Returns this condition object.
      * @version V0.1
      */
-    function create($name, $params='setValue')
+    function create($name, $params='isAdmin')
     {   
         // Disable insert / Retrieve
         $tmp = $this->enableAutoInsertRetrieveId;
