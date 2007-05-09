@@ -571,6 +571,7 @@ class form implements ifhtml
                     }
                     ok = ok && selected;
                 }else{
+					alert('Error in form validation. ID=\'input_{$fieldname}\'.');
                     return false;
                 }
             }
