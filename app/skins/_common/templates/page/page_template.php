@@ -90,6 +90,8 @@ if (!isset($pageTitle)) {
     echo $this->getJavascriptFile('scriptaculous/1.7.0/dragdrop.js','htmlelements')."\n";
     echo $this->getJavascriptFile('scriptaculous/1.7.0/controls.js','htmlelements')."\n";
     echo $this->getJavascriptFile('scriptaculous/1.7.0/slider.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/scriptaculous.js','htmlelements')."\n";
+    echo $this->getJavascriptFile('scriptaculous/1.7.0/unittest.js','htmlelements')."\n";
 
     if (isset($headerParams)) {
         if (is_array($headerParams)) {
