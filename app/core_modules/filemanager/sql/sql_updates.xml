@@ -13,7 +13,7 @@
     </update>
     <update>
         <table>tbl_files</table>
-        <version>0.50</version>
+        <version>0.53</version>
         <description>added new column for folder</description>
         <data>
             <add>
