@@ -610,6 +610,7 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['CONFIG']))
                 {
                     $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
+                    $this->objSysConfig->updateFlag=TRUE;
                     $this->objSysConfig->registerModuleParams($moduleId,$registerdata['CONFIG']);
                 }
 
