@@ -106,7 +106,7 @@ class modulesadmin extends dbTableManager
             $this->objModFile = &$this->getObject('modulefile');
             $this->objUser = &$this->getObject('user','security');
             $this->objModuleBlocks = &$this->getObject('dbmoduleblocks','modulecatalogue');
-    		$this->objSystext = &$this->getObject('systext_facet','systext');
+            $this->objSystext = &$this->getObject('systext_facet','systext');
        } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -121,7 +121,7 @@ class modulesadmin extends dbTableManager
      */
     public function checkDependency($moduleId) {
         try {
-        	return $this->objModules->checkIfRegistered($moduleId);
+            return $this->objModules->checkIfRegistered($moduleId);
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -138,7 +138,7 @@ class modulesadmin extends dbTableManager
     */
     public function installModule(&$registerdata,$update = FALSE) {
         try {
-            $allPresent = true;		//used to check if all modules are present on the system
+            $allPresent = true;        //used to check if all modules are present on the system
             $this->_lastError = 0;
             if (isset($registerdata['MODULE_ID'])) {
                 $moduleId=$registerdata['MODULE_ID'];
@@ -149,7 +149,7 @@ class modulesadmin extends dbTableManager
             $this->module_id=$registerdata['MODULE_ID'];
             $this->module_name=$registerdata['MODULE_NAME'];
             $this->module_description=$registerdata['MODULE_DESCRIPTION'];
-        	//$this->objModules->beginTransaction();
+            //$this->objModules->beginTransaction();
 
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$update) {
@@ -158,58 +158,58 @@ class modulesadmin extends dbTableManager
             } else {
                 // check for modules this one is dependant on
                 if (isset($registerdata['DEPENDS'])) {
-                	$missingModules = '';
-                	foreach ($registerdata['DEPENDS'] as $depends) {
-                		if (!$this->checkDependency($depends)) {
-                			if (($fn = $this->objModFile->findRegisterFile($depends)) && (filesize($fn)>0)) {
-                				$installed = $this->objLanguage->languageText('mod_modulecatalogue_notinstalled','modulecatalogue');
-                			} else {
-                				$installed = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
-                				$allPresent = false;		//all modules not present
-                			}
-                			$missingModules .= "<b>$depends</b> - $installed<br />";
-                			$this->_lastError = 1003;
-                		}
-                	}
-              		if ($this->_lastError == 1003) {
-                		$installDepsLink = &$this->getObject('link','htmlelements');
-                		$installDepsLink->link($this->uri(array('action'=>'installwithdeps','mod'=>$registerdata['MODULE_ID'],
-                					'cat'=>$this->getParam('cat')),'modulecatalogue'));
-                		$installDepsLink->link = str_replace('{MODULE}',$registerdata['MODULE_ID'],
-                					$this->objLanguage->languageText('mod_modulecatalogue_installdeps','modulecatalogue'));
-                		$text = $this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
-                		$text = str_replace('{MODULE}',"<b>{$registerdata['MODULE_ID']}</b>",$text);
-                		$this->output = "<span id='confirm'>$text:</span><br />$missingModules";
-                		if ($allPresent) {
-            				$this->output .= $installDepsLink->show();
-                		} else {
-                			$this->output .= $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
-                		}
-                		return FALSE;
-                	}
+                    $missingModules = '';
+                    foreach ($registerdata['DEPENDS'] as $depends) {
+                        if (!$this->checkDependency($depends)) {
+                            if (($fn = $this->objModFile->findRegisterFile($depends)) && (filesize($fn)>0)) {
+                                $installed = $this->objLanguage->languageText('mod_modulecatalogue_notinstalled','modulecatalogue');
+                            } else {
+                                $installed = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
+                                $allPresent = false;        //all modules not present
+                            }
+                            $missingModules .= "<b>$depends</b> - $installed<br />";
+                            $this->_lastError = 1003;
+                        }
+                    }
+                      if ($this->_lastError == 1003) {
+                        $installDepsLink = &$this->getObject('link','htmlelements');
+                        $installDepsLink->link($this->uri(array('action'=>'installwithdeps','mod'=>$registerdata['MODULE_ID'],
+                                    'cat'=>$this->getParam('cat')),'modulecatalogue'));
+                        $installDepsLink->link = str_replace('{MODULE}',$registerdata['MODULE_ID'],
+                                    $this->objLanguage->languageText('mod_modulecatalogue_installdeps','modulecatalogue'));
+                        $text = $this->objLanguage->languageText('mod_modulecatalogue_needmodule','modulecatalogue');
+                        $text = str_replace('{MODULE}',"<b>{$registerdata['MODULE_ID']}</b>",$text);
+                        $this->output = "<span id='confirm'>$text:</span><br />$missingModules";
+                        if ($allPresent) {
+                            $this->output .= $installDepsLink->show();
+                        } else {
+                            $this->output .= $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
+                        }
+                        return FALSE;
+                    }
                 }
                 // Now we add the tables
                 if (isset($registerdata['TABLE'])) {
-                	foreach ($registerdata['TABLE'] as $table) {
-                		if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
-                			if (!$this->makeTable($table)) {
-                				$text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
-                				$text=str_replace('{MODULE}',$table,$text);
-                				$this->output.='<b>'.$text.'</b><br />';
-                				$this->_lastError = 1004;
-                				return FALSE;
-                			} else {
-                				$sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
-                				$this->objModules->query($sql);
-                				// Add the table to the records.
-                				$this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
-                			}
-                		}
-                	}
+                    foreach ($registerdata['TABLE'] as $table) {
+                        if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
+                            if (!$this->makeTable($table)) {
+                                $text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
+                                $text=str_replace('{MODULE}',$table,$text);
+                                $this->output.='<b>'.$text.'</b><br />';
+                                $this->_lastError = 1004;
+                                return FALSE;
+                            } else {
+                                $sql="DELETE FROM tbl_modules_owned_tables WHERE kng_module='".$moduleId."' and tablename='".$table."'";
+                                $this->objModules->query($sql);
+                                // Add the table to the records.
+                                $this->objModules->insert(array('kng_module' => $moduleId,'tablename' => $table),'tbl_modules_owned_tables');
+                            }
+                        }
+                    }
                 }
                 // Here we load data into tables from files of SQL statements
                 if (!$update) {
-                	$this->loadData($moduleId);
+                    $this->loadData($moduleId);
                 }
             }
                 // Create directory
@@ -234,12 +234,12 @@ class modulesadmin extends dbTableManager
                 $groupArray2 = array();
                 if(isset($registerdata['BLOCK'])) {
                     foreach ($registerdata['BLOCK'] as $block) {
-                    	$this->objModuleBlocks->addBlock($moduleId,$block,'normal');
+                        $this->objModuleBlocks->addBlock($moduleId,$block,'normal');
                     }
                 }
                 if(isset($registerdata['WIDEBLOCK'])) {
                     foreach ($registerdata['WIDEBLOCK'] as $block) {
-                    	$this->objModuleBlocks->addBlock($moduleId,$block,'wide');
+                        $this->objModuleBlocks->addBlock($moduleId,$block,'wide');
                     }
                 }
                 if(isset($registerdata['MODULE_ISADMIN'])){
@@ -493,11 +493,11 @@ class modulesadmin extends dbTableManager
                 // Site Navigation
 
                 // Menu category
-    			if (isset($registerdata['MENU_CATEGORY'])) {
+                if (isset($registerdata['MENU_CATEGORY'])) {
                     foreach ($registerdata['MENU_CATEGORY'] as $menu_category) {
                         $menu_category=strtolower($menu_category);
                         $catArray = array('category'=>$menu_category,'module'=>$moduleId,
-                            		'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
+                                    'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
                         if ($id = $this->existsInToolbarMenu($moduleId)) {
                             $this->objModules->update('id',$id,$catArray,'tbl_menu_category');
                         } else {
@@ -572,7 +572,7 @@ class modulesadmin extends dbTableManager
                             $groupList = $aclList;
                         }
                         $catArray = array('category'=>'menu_'.$sidemenu,'module'=>$moduleId,
-                            		'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
+                                    'adminonly'=>$admin,'permissions'=>$groupList,'dependscontext'=>$isContext);
                         if ($id = $this->existsInMenu("menu_$sidemenu",$moduleId)) {
                             $this->objModules->update('id',$id,$catArray,'tbl_menu_category');
                         } else {
@@ -596,7 +596,7 @@ class modulesadmin extends dbTableManager
                             }
                         }
                         $catArray = array('category'=>'page_'.$line,'module'=>$moduleId,
-                            		'adminonly'=>$admin,'permissions'=>$aclList,'dependscontext'=>$isContext);
+                                    'adminonly'=>$admin,'permissions'=>$aclList,'dependscontext'=>$isContext);
                         if ($id = $this->existsInMenu("page_$line",$moduleId)) {
                             $this->objModules->update('id',$id,$catArray,'tbl_menu_category');
                         } else {
@@ -647,8 +647,8 @@ class modulesadmin extends dbTableManager
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
                 } else {
                     if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
-                       	$this->_lastError = 1005;
-                    	return FALSE;
+                           $this->_lastError = 1005;
+                        return FALSE;
                     }
                 }
 
@@ -709,99 +709,99 @@ class modulesadmin extends dbTableManager
     public function uninstallModule($moduleId,&$registerdata)
     {
         try {
-        	if (is_null($moduleId)) {
-        		$moduleId=$registerdata['MODULE_ID'];
-        	}
-        	$this->objModuleBlocks->deleteModuleBlocks($moduleId);
-        	$modTitle="mod_{$moduleId}_name";
-        	$modDescription="mod_{$moduleId}_desc";
-        	//Check if there are modules that depend on this one
-        	$dependantModules=$this->objModules->getDependencies($moduleId);
-        	if (!empty($dependantModules)) {
-        		$str="<b>".$this->objLanguage->languageText('mod_modulecatalogue_hasdependants','modulecatalogue')."</b><br/>";
-        		foreach ($dependantModules as $dependantModule) {
-        			$str.=$dependantModule."<br />";
-        		}
-        		$this->output = $str;
-        		$this->_lastError = 1003;
-        		return FALSE;
-        	} else {
-        		//$this->objModules->beginTransaction(); //Start a transaction;
-        		$this->objModules->delete('id',$modTitle,'tbl_en');
-        		$this->objModules->delete('code',$modTitle,'tbl_languagetext');
-        		$this->objModules->delete('id',$modDescription,'tbl_en');
-        		$this->objModules->delete('code',$modDescription,'tbl_languagetext');
+            if (is_null($moduleId)) {
+                $moduleId=$registerdata['MODULE_ID'];
+            }
+            $this->objModuleBlocks->deleteModuleBlocks($moduleId);
+            $modTitle="mod_{$moduleId}_name";
+            $modDescription="mod_{$moduleId}_desc";
+            //Check if there are modules that depend on this one
+            $dependantModules=$this->objModules->getDependencies($moduleId);
+            if (!empty($dependantModules)) {
+                $str="<b>".$this->objLanguage->languageText('mod_modulecatalogue_hasdependants','modulecatalogue')."</b><br/>";
+                foreach ($dependantModules as $dependantModule) {
+                    $str.=$dependantModule."<br />";
+                }
+                $this->output = $str;
+                $this->_lastError = 1003;
+                return FALSE;
+            } else {
+                //$this->objModules->beginTransaction(); //Start a transaction;
+                $this->objModules->delete('id',$modTitle,'tbl_en');
+                $this->objModules->delete('code',$modTitle,'tbl_languagetext');
+                $this->objModules->delete('id',$modDescription,'tbl_en');
+                $this->objModules->delete('code',$modDescription,'tbl_languagetext');
 
-        		$texts=$this->listTexts($registerdata); // remove all specified texts
-        		if ($texts!==FALSE) {
-        			foreach ($texts as $key=>$value) {
-        				$this->removeText($key);
-        			}
-        		}
+                $texts=$this->listTexts($registerdata); // remove all specified texts
+                if ($texts!==FALSE) {
+                    foreach ($texts as $key=>$value) {
+                        $this->removeText($key);
+                    }
+                }
 
-        		// Remove groups and acls for the module
-        		if(isset($registerdata['ACL'][0])){
-        			$objPerms = $this->getObject('permissions_model','permissions');
-        			$objGroups = $this->getObject('groupadminmodel','groupadmin');
-        			foreach($registerdata['ACL'] as $perm){
-        				$perms = explode('|', $perm);
-        				$aclId = $objPerms->getId($moduleId.'_'.$perms[0]);
-        				$objPerms->deleteAcl($aclId);
-        				if(isset($perms[1]) && !empty($perms[1])){
-        					$groups = explode(',', $perms[1]);
-        					foreach($groups as $group){
-        						$groupId = $objGroups->getId($moduleId.'_'.$group);
-        						$objGroups->deleteGroup($groupId);
-        					}
-        				}
-        			}
-        		}
+                // Remove groups and acls for the module
+                if(isset($registerdata['ACL'][0])){
+                    $objPerms = $this->getObject('permissions_model','permissions');
+                    $objGroups = $this->getObject('groupadminmodel','groupadmin');
+                    foreach($registerdata['ACL'] as $perm){
+                        $perms = explode('|', $perm);
+                        $aclId = $objPerms->getId($moduleId.'_'.$perms[0]);
+                        $objPerms->deleteAcl($aclId);
+                        if(isset($perms[1]) && !empty($perms[1])){
+                            $groups = explode(',', $perms[1]);
+                            foreach($groups as $group){
+                                $groupId = $objGroups->getId($moduleId.'_'.$group);
+                                $objGroups->deleteGroup($groupId);
+                            }
+                        }
+                    }
+                }
 
-        		// Remove decisiontable rules and actions
-        		$objDecisionTable =& $this->getObject('decisiontable','decisiontable');
-        		$objDecisionTable->create($moduleId);
-        		$objDecisionTable->retrieve();
-        		$objDecisionTable->delete();
+                // Remove decisiontable rules and actions
+                $objDecisionTable =& $this->getObject('decisiontable','decisiontable');
+                $objDecisionTable->create($moduleId);
+                $objDecisionTable->retrieve();
+                $objDecisionTable->delete();
 
-        		// Remove module specific conditions
-        		if(isset($registerdata['CONDITION'])){
-        			$objCond =& $this->getObject('condition','decisiontable');
-        			foreach($registerdata['CONDITION'] as $condition){
-        				$array = explode('|', $condition);
-        				$name = $array[0];
-        				if(isset($array[2]) && !empty($array[2])){
-        					$params = $array[1].'|'.$array[2];
-        				} else {
-        					$params = $array[1];
-        				}
-        				$conditions[$name] = $objCond->create($name, $params);
-        				$conditions[$name]->retrieveId();
-        				$conditions[$name]->delete();
-        			}
-        		}
+                // Remove module specific conditions
+                if(isset($registerdata['CONDITION'])){
+                    $objCond =& $this->getObject('condition','decisiontable');
+                    foreach($registerdata['CONDITION'] as $condition){
+                        $array = explode('|', $condition);
+                        $name = $array[0];
+                        if(isset($array[2]) && !empty($array[2])){
+                            $params = $array[1].'|'.$array[2];
+                        } else {
+                            $params = $array[1];
+                        }
+                        $conditions[$name] = $objCond->create($name, $params);
+                        $conditions[$name]->retrieveId();
+                        $conditions[$name]->delete();
+                    }
+                }
 
-        		// Remove navigation links
-        		$this->objModules->delete('module',$moduleId,'tbl_menu_category');
+                // Remove navigation links
+                $this->objModules->delete('module',$moduleId,'tbl_menu_category');
 
-        		// Here we remove CONFIG data from the sysconfig module
-        		$this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
-        		$this->objSysConfig->deleteModuleValues($moduleId);
+                // Here we remove CONFIG data from the sysconfig module
+                $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
+                $this->objSysConfig->deleteModuleValues($moduleId);
 
-        		// Drop tables
-        		$droppedTables=$this->dropTables($moduleId);
+                // Drop tables
+                $droppedTables=$this->dropTables($moduleId);
 
-        		$this->objModules->delete('kng_module',$moduleId,'tbl_modules_owned_tables');
-        		$this->objModules->delete('module_id',$moduleId,'tbl_language_modules');
-        		$this->objModules->delete('module_id',$moduleId,'tbl_modules_dependencies');
-        		$this->objModules->delete('module_id',$moduleId,'tbl_modules');
-        		//$this->objModules->commitTransaction();//End the transaction;
+                $this->objModules->delete('kng_module',$moduleId,'tbl_modules_owned_tables');
+                $this->objModules->delete('module_id',$moduleId,'tbl_language_modules');
+                $this->objModules->delete('module_id',$moduleId,'tbl_modules_dependencies');
+                $this->objModules->delete('module_id',$moduleId,'tbl_modules');
+                //$this->objModules->commitTransaction();//End the transaction;
 
-        		return TRUE;
-        	}
+                return TRUE;
+            }
         } catch (Exception $e) {
-        	//$this->objModules->rollbackTransaction();
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            //$this->objModules->rollbackTransaction();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -817,22 +817,22 @@ class modulesadmin extends dbTableManager
             $this->objKeyMaker=&$this->newObject('primarykey','modulecatalogue');
             $this->objTableInfo=&$this->newObject('tableinfo','modulecatalogue');
             if ($moduleId=='NONE'){
-            	$moduleId=$this->module_id;
+                $moduleId=$this->module_id;
             }
             $this->objTableInfo->tablelist();
             if ($this->objTableInfo->checktable($table))
             {
-            	return TRUE; // table already exists, don't try to create it over again!
+                return TRUE; // table already exists, don't try to create it over again!
             }
             if (!$sqlfile = $this->objModFile->findSqlFile($moduleId,$table)){
-            	//for some reason the exception below results in a blank screen. return false instead.
-            	//throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
-            	return FALSE;
+                //for some reason the exception below results in a blank screen. return false instead.
+                //throw new Exception($sqlfile.' '.$this->objLanguage->languageText('mod_modulecatalogue_sqlnotfound','modulecatalogue'));
+                return FALSE;
             }
             include($sqlfile);
             $this->createTable($tablename,$fields,$options);
             if (isset($indexes)) {
-            	$this->createTableIndex($tablename,$name,$indexes);
+                $this->createTableIndex($tablename,$name,$indexes);
             }
             return TRUE;
         } catch (Exception $e) {
@@ -848,13 +848,13 @@ class modulesadmin extends dbTableManager
     */
     public function loadData($moduleId) {
         try {
-        	$this->objLanguage = $this->getObject('language','language');
-        	if ($moduleId==null){
-        		$moduleId=$this->module_id;
-        	}
-        	$sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
-        	if (!file_exists($sqlfile)){
-        		$sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
+            $this->objLanguage = $this->getObject('language','language');
+            if ($moduleId==null){
+                $moduleId=$this->module_id;
+            }
+            $sqlfile=$this->objConfig->getModulePath()."$moduleId/sql/defaultdata.xml";
+            if (!file_exists($sqlfile)){
+                $sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/defaultdata.xml";
 
                 // ensures that the default data is loaded once only by the installer
                 // correct default data can only be loaded once
@@ -865,30 +865,30 @@ class modulesadmin extends dbTableManager
                     }
                 }
                 
-        		if (!file_exists($sqlfile2)){
-        			log_debug("No defaultdata found for module $moduleId");
-        			$this->_lastError = 1006;
-        			return FALSE;
-        		}
-        		$sqlfile = $sqlfile2;
-        	}
-        	ini_set('max_execution_time','600');
-        	if (!$objXml = simplexml_load_file($sqlfile)) {
-        		throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$sqlfile);
-        	}
-        	foreach ($objXml as $table=>$dummy) {
-        		$sqlArray = array();
-        		foreach ($dummy as $field=>$value) {
-        			$sqlArray[$field]= $value;
-        		}
-        		if (!$this->objModules->insert($sqlArray,$table)) {
-        			log_debug("Error inserting default data for $table");
-        		}
-        	}
-        	return TRUE;
+                if (!file_exists($sqlfile2)){
+                    log_debug("No defaultdata found for module $moduleId");
+                    $this->_lastError = 1006;
+                    return FALSE;
+                }
+                $sqlfile = $sqlfile2;
+            }
+            ini_set('max_execution_time','600');
+            if (!$objXml = simplexml_load_file($sqlfile)) {
+                throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$sqlfile);
+            }
+            foreach ($objXml as $table=>$dummy) {
+                $sqlArray = array();
+                foreach ($dummy as $field=>$value) {
+                    $sqlArray[$field]= $value;
+                }
+                if (!$this->objModules->insert($sqlArray,$table)) {
+                    log_debug("Error inserting default data for $table");
+                }
+            }
+            return TRUE;
         } catch (Exception $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -902,12 +902,12 @@ class modulesadmin extends dbTableManager
             if (file_exists($this->objConfig->getModulePath().$moduleId)) {
             $srcdir=$this->objConfig->getModulePath().$moduleId.'/icons/';
             } else {
-            	$srcdir = $this->objConfig->getSiteRootPath()."core_modules/$moduleId/icons/";
+                $srcdir = $this->objConfig->getSiteRootPath()."core_modules/$moduleId/icons/";
             }
             $destdir=$this->objConfig->getSkinRoot().$this->objConfig->defaultSkin().'/icons/';
             foreach ($icons as $icon)
             {
-            	copy($srcdir.$icon,$destdir.$icon);
+                copy($srcdir.$icon,$destdir.$icon);
             }
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
@@ -923,28 +923,28 @@ class modulesadmin extends dbTableManager
     */
     private function registerModuleLanguageElements() {
         try {
-        	$modTitle="mod_".$this->module_id."_name";
-        	$modDescription="mod_".$this->module_id."_desc";
-        	$this->objModules->delete('id',$modTitle,'tbl_en');
-        	$this->objModules->delete('id',$modDescription,'tbl_en');
-        	$this->objModules->delete('code',$modTitle,'tbl_languagetext');
-        	$this->objModules->delete('code',$modDescription,'tbl_languagetext');
-        	$userId = $this->objUser->userId();
-        	if($userId == '')
-        	{
-        		$userId = 0;
-        	}
-        	$time = $this->objModules->now();
-        	$titleArray = array('id'=>$modTitle,'en'=>addslashes($this->module_name),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
-        			'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
-        	$descArray = array('id'=>$modDescription,'en'=>addslashes($this->module_description),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
-        			'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
-        	$this->objModules->insert($titleArray,'tbl_en');
-        	$this->objModules->insert($descArray,'tbl_en');
-        	$this->objModules->insert(array('code'=>$modTitle,'description'=>$this->module_name),'tbl_languagetext');
-        	$this->objModules->insert(array('code'=>$modDescription,'description'=>$this->module_description),'tbl_languagetext');
+            $modTitle="mod_".$this->module_id."_name";
+            $modDescription="mod_".$this->module_id."_desc";
+            $this->objModules->delete('id',$modTitle,'tbl_en');
+            $this->objModules->delete('id',$modDescription,'tbl_en');
+            $this->objModules->delete('code',$modTitle,'tbl_languagetext');
+            $this->objModules->delete('code',$modDescription,'tbl_languagetext');
+            $userId = $this->objUser->userId();
+            if($userId == '')
+            {
+                $userId = 0;
+            }
+            $time = $this->objModules->now();
+            $titleArray = array('id'=>$modTitle,'en'=>addslashes($this->module_name),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
+                    'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
+            $descArray = array('id'=>$modDescription,'en'=>addslashes($this->module_description),'pageid'=>addslashes($this->module_id),'isinnextgen'=>true,
+                    'datecreated'=>$time,'creatoruserid'=>$userId,'datelastmodified'=>$time,'modifiedbyuserid'=>$userId);
+            $this->objModules->insert($titleArray,'tbl_en');
+            $this->objModules->insert($descArray,'tbl_en');
+            $this->objModules->insert(array('code'=>$modTitle,'description'=>$this->module_name),'tbl_languagetext');
+            $this->objModules->insert(array('code'=>$modDescription,'description'=>$this->module_description),'tbl_languagetext');
         } catch (customException $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
+            $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
     }
@@ -959,7 +959,7 @@ class modulesadmin extends dbTableManager
             $terms_arr=explode(',', $terms);
             //$this->objModules->beginTransaction();
             foreach ($terms_arr as $term) {
-            	$this->objModules->insert(array('module_id$'=>$this->module_id,'code'=>$term),'tbl_language_modules');
+                $this->objModules->insert(array('module_id$'=>$this->module_id,'code'=>$term),'tbl_language_modules');
             }
             //$this->objModules->commitTransaction();
         } catch (Exception $e) {
@@ -978,7 +978,7 @@ class modulesadmin extends dbTableManager
         try {
             //$this->objModules->beginTransaction();
             foreach ($modulesNeeded as $moduleNeeded) {
-            	$this->objModules->insert(array('module_id'=>$moduleId,'dependency'=>$moduleNeeded),'tbl_modules_dependencies');
+                $this->objModules->insert(array('module_id'=>$moduleId,'dependency'=>$moduleNeeded),'tbl_modules_dependencies');
             }
             //$this->objModules->commitTransaction();
         } catch (Exception $e) {
@@ -1004,9 +1004,9 @@ class modulesadmin extends dbTableManager
             $droppedTables=array();
             foreach ($rs_reversed as $rec)
             {
-            	$table=$rec['tablename'];
-            	$droppedTables[]=$table;
-            	$this->dropTable($table);
+                $table=$rec['tablename'];
+                $droppedTables[]=$table;
+                $this->dropTable($table);
             }
             return $droppedTables;
         } catch (Exception $e) {
@@ -1028,16 +1028,16 @@ class modulesadmin extends dbTableManager
             $flag1=0;
             $content='';
             foreach($arr as $el) {
-            	$flag1=1;
-            	$content=$el['en'];
+                $flag1=1;
+                $content=$el['en'];
             }
             $sql="SELECT * FROM tbl_languagetext WHERE code='".$code."'";
             $arr=$this->objModules->getArray($sql);
             $flag2=0;
             $description='';
             foreach($arr as $el) {
-            	$flag2=10;
-            	$description=$el['description'];
+                $flag2=10;
+                $description=$el['description'];
             }
             $flag['flag']=$flag1+$flag2;
             $flag['content']=$content;
@@ -1057,33 +1057,33 @@ class modulesadmin extends dbTableManager
     */
     public function listTexts($rdata,$index='TEXT') {
         try {
-        	$texts=array();
-        	if (is_array($rdata) && array_key_exists($index,$rdata) && is_array($rdata[$index])) {
-        		foreach ($rdata[$index] as $line) {
-        			//list($code,$description,$content) = explode('|',$line);
-        			$cdc = explode('|',$line);
-        			if (count($cdc) != 3) {
-        				throw new customException("Error in register.conf file of module {$rdata['MODULE_ID']} on element {$cdc[0]}");
-        			}
-        			//echo "{$cdc[2]}<br/>";
-        			if ($cdc[2]){
-        				$texts[$cdc[0]]['content']=$cdc[2];
-        				$texts[$cdc[0]]['desc']=$cdc[1];
-        			} else {
-        				$module=$rdata['MODULE_ID'];
-        				$errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalgoue');
-        				$errorText = str_replace("{MODULE}",$module,$errorText);
-        				$errorText = str_replace("{CODE}",$cdc[0],$errorText);
-        				$this->errorText .= $errorText;
-        			}
-        		}
-        		return $texts;
-        	} else {
-        		return FALSE;
-        	}
+            $texts=array();
+            if (is_array($rdata) && array_key_exists($index,$rdata) && is_array($rdata[$index])) {
+                foreach ($rdata[$index] as $line) {
+                    //list($code,$description,$content) = explode('|',$line);
+                    $cdc = explode('|',$line);
+                    if (count($cdc) != 3) {
+                        throw new customException("Error in register.conf file of module {$rdata['MODULE_ID']} on element {$cdc[0]}");
+                    }
+                    //echo "{$cdc[2]}<br/>";
+                    if ($cdc[2]){
+                        $texts[$cdc[0]]['content']=$cdc[2];
+                        $texts[$cdc[0]]['desc']=$cdc[1];
+                    } else {
+                        $module=$rdata['MODULE_ID'];
+                        $errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalgoue');
+                        $errorText = str_replace("{MODULE}",$module,$errorText);
+                        $errorText = str_replace("{CODE}",$cdc[0],$errorText);
+                        $this->errorText .= $errorText;
+                    }
+                }
+                return $texts;
+            } else {
+                return FALSE;
+            }
         } catch (Exception $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1094,30 +1094,30 @@ class modulesadmin extends dbTableManager
     */
     private function addText($code,$description,$content,$modname = 'system') {
         try {
-        	if ($modname == null) {
-        		$modname = $this->module_id;
-        	}
-        	if ($modname == null) {
-        		throw new customException("Null value for module name in addText for item $code|$description|$content");
-        	}
-        	//$this->objModules->beginTransaction();
-        	$this->removeText($code);
-        	if (!$this->objModules->valueExists('id',$code,'tbl_en')) {
-        		$code=addslashes($code);
-        		$description=addslashes($description);
-        		$content=addslashes($content);
-        		$this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
-        		$uid = $this->objUser->userId();
-        		$now = $this->objModules->now();
-        		$enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
-        		'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
-        		$this->objModules->insert($enArray,'tbl_en');
-        	}
-        	//$this->objModules->commitTransaction();
+            if ($modname == null) {
+                $modname = $this->module_id;
+            }
+            if ($modname == null) {
+                throw new customException("Null value for module name in addText for item $code|$description|$content");
+            }
+            //$this->objModules->beginTransaction();
+            $this->removeText($code);
+            if (!$this->objModules->valueExists('id',$code,'tbl_en')) {
+                $code=addslashes($code);
+                $description=addslashes($description);
+                $content=addslashes($content);
+                $this->objModules->insert(array('code'=>$code,'description'=>$description),'tbl_languagetext');
+                $uid = $this->objUser->userId();
+                $now = $this->objModules->now();
+                $enArray = array('id'=>$code,'en'=>$content,'pageId'=>$modname,'isInNextgen'=>true,
+                'dateCreated'=>$now,'creatorUserId'=>$uid,'dateLastModified'=>$now,'modifiedByUserId'=>$uid);
+                $this->objModules->insert($enArray,'tbl_en');
+            }
+            //$this->objModules->commitTransaction();
         } catch (Exception $e) {
-        	//$this->rollbackTransaction();
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            //$this->rollbackTransaction();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1127,15 +1127,15 @@ class modulesadmin extends dbTableManager
     */
     private function removeText($code) {
         try {
-        	$code=addslashes($code);
-        	//$this->objModules->beginTransaction();
-        	$this->objModules->delete('id',$code,'tbl_en');
-        	$this->objModules->delete('code',$code,'tbl_languagetext');
-        	//$this->objModules->commitTransaction();
+            $code=addslashes($code);
+            //$this->objModules->beginTransaction();
+            $this->objModules->delete('id',$code,'tbl_en');
+            $this->objModules->delete('code',$code,'tbl_languagetext');
+            //$this->objModules->commitTransaction();
         } catch (Exception $e) {
-        	//$this->rollbackTransaction();
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            //$this->rollbackTransaction();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1150,53 +1150,53 @@ class modulesadmin extends dbTableManager
     */
     public function moduleText($modname,$action='readonly') {
         try {
-        	$mtexts = array();
-        	$filepath = $this->objModFile->findRegisterFile($modname);
-        	$rdata = $this->objModFile->readRegisterFile($filepath,FALSE);
-        	$text = $this->listTexts($rdata,'TEXT');
-        	$uses = $this->listTexts($rdata,'USES');
-        	if ($uses) {
-        		//$text = array_merge($texts,$uses);
-        		foreach ($uses as $code=>$data) {
-        			$isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
-        			$text_desc=$data['desc'];
-        			$text_val=$data['content'];
-        			if (($action=='fix')&&($isreg['flag']==0)) {
-        				$this->addText($code,$text_desc,$text_val,'system');
-        			}
-        			if ($action=='replace') {
-        				//if ($this->objModules->valueExists('id',$code,'tbl_en')) {
-        				//	$this->removeText($code);
-        				//}
-        				$this->addText($code,$text_desc,$text_val,'system');
-        			}
-        			$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
-        		}
-        	}
-        	//$this->objModule->beginTransaction(); //Start a transaction;
-        	if (is_array($text)) {
-        		foreach ($text as $code=>$data) {
-        			$isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
-        			$text_desc=$data['desc'];
-        			$text_val=$data['content'];
-        			if (($action=='fix')&&($isreg['flag']==0)) {
-        				$this->addText($code,$text_desc,$text_val,$modname);
-        			}
-        			if ($action=='replace') {
-        				//if ($this->objModules->valueExists('id',$code,'tbl_en')) {
-        				//	$this->removeText($code);
-        				//}
-        				$this->addText($code,$text_desc,$text_val,$modname);
-        			}
-        			$mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
-        		}
-        	}
-        	//$this->objModule->commitTransaction(); //End the transaction;
-        	return $mtexts;
+            $mtexts = array();
+            $filepath = $this->objModFile->findRegisterFile($modname);
+            $rdata = $this->objModFile->readRegisterFile($filepath,FALSE);
+            $text = $this->listTexts($rdata,'TEXT');
+            $uses = $this->listTexts($rdata,'USES');
+            if ($uses) {
+                //$text = array_merge($texts,$uses);
+                foreach ($uses as $code=>$data) {
+                    $isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
+                    $text_desc=$data['desc'];
+                    $text_val=$data['content'];
+                    if (($action=='fix')&&($isreg['flag']==0)) {
+                        $this->addText($code,$text_desc,$text_val,'system');
+                    }
+                    if ($action=='replace') {
+                        //if ($this->objModules->valueExists('id',$code,'tbl_en')) {
+                        //    $this->removeText($code);
+                        //}
+                        $this->addText($code,$text_desc,$text_val,'system');
+                    }
+                    $mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
+                }
+            }
+            //$this->objModule->beginTransaction(); //Start a transaction;
+            if (is_array($text)) {
+                foreach ($text as $code=>$data) {
+                    $isreg=$this->checkText($code); // this gets an array with 3 elements - flag, content, and desc
+                    $text_desc=$data['desc'];
+                    $text_val=$data['content'];
+                    if (($action=='fix')&&($isreg['flag']==0)) {
+                        $this->addText($code,$text_desc,$text_val,$modname);
+                    }
+                    if ($action=='replace') {
+                        //if ($this->objModules->valueExists('id',$code,'tbl_en')) {
+                        //    $this->removeText($code);
+                        //}
+                        $this->addText($code,$text_desc,$text_val,$modname);
+                    }
+                    $mtexts[]=array('code'=>$code,'desc'=>$text_desc,'content'=>$text_val,'isreg'=>$isreg,'type'=>'TEXT');
+                }
+            }
+            //$this->objModule->commitTransaction(); //End the transaction;
+            return $mtexts;
         } catch (Exception $e) {
-        	//$this->objModule->rollbackTransaction();
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            //$this->objModule->rollbackTransaction();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1205,14 +1205,14 @@ class modulesadmin extends dbTableManager
     */
     public function updateAllText() {
         try {
-        	$modulesArray = $this->objModules->getAll();
-        	foreach ($modulesArray as $module) {
-        		$this->moduleText($module['module_id'],'replace');
-        	}
-        	return TRUE;
+            $modulesArray = $this->objModules->getAll();
+            foreach ($modulesArray as $module) {
+                $this->moduleText($module['module_id'],'replace');
+            }
+            return TRUE;
         } catch (Exception $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1223,10 +1223,10 @@ class modulesadmin extends dbTableManager
      */
     public function getLastErrorCode() {
         try {
-        	return $this->_lastError;
+            return $this->_lastError;
         } catch (Exception $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
@@ -1237,25 +1237,25 @@ class modulesadmin extends dbTableManager
      */
     public function getLastError() {
         try {
-        	switch ($this->_lastError) {
-        		case 1001:
-        			return 'cannot find moduleid in register.conf';
-        		case 1002:
-        			return 'module already registered';
-        		case 1003:
-        			return 'module dependency check failed';
-        		case 1004:
-        			return 'could not get info to create table';
-        		case 1005:
-        			return 'could not write to table tbl_modules';
-        		case 1006:
-        			return 'could not read table sql file';
-        		default:
-        			return 'uknown error: what did you do?';
-        	}
+            switch ($this->_lastError) {
+                case 1001:
+                    return 'cannot find moduleid in register.conf';
+                case 1002:
+                    return 'module already registered';
+                case 1003:
+                    return 'module dependency check failed';
+                case 1004:
+                    return 'could not get info to create table';
+                case 1005:
+                    return 'could not write to table tbl_modules';
+                case 1006:
+                    return 'could not read table sql file';
+                default:
+                    return 'uknown error: what did you do?';
+            }
         } catch (Exception $e) {
-        	$this->errorCallback('Caught exception: '.$e->getMessage());
-        	exit();
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
         }
     }
 
