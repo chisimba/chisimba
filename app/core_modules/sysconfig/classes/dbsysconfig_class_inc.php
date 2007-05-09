@@ -75,11 +75,18 @@ class dbsysconfig extends dbTable
             return true;
         } else {
             $id = $this->_lookUpId($pname, $pmodule);
+            // Bail out if this is an update, and the field was edited
+            if (isset($this->updateFlag)){
+                $line=$this->getRow('id',$id);
+                if (($line['datemodified']!=NULL) || ($line['pvalue']==$pvalue) || ($line['modifierid']!=NULL) ){
+                    return true;
+                }
+            }
             $this->update('id',$id,array('pmodule' => $pmodule,
                     'pname' => $pname,
                     'pvalue' => $pvalue,
                     'pdesc' => $pdesc,
-                    'modifierId' => $this->objUser->userId(),
+                    //'modifierId' => $this->objUser->userId(),
                     'dateModified' => date("Y/m/d H:i:s")));
             return true;
         } #if
