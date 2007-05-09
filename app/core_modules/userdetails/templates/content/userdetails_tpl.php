@@ -106,7 +106,7 @@ $messages = array();
     
     $email = new textinput ('useradmin_email');
     $email->size = 30;
-    $email->extra = ' maxlength="25"';
+    $email->extra = ' maxlength="100"';
     $email->value = $user['emailaddress'];
     
     if ($mode == 'addfixup') {
