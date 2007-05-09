@@ -19,7 +19,6 @@
             <add>
                 <name>filefolder</name>
                 <type>clob</type>
-                <default>*nofolder*</default>
             </add>
         </data>
     </update>

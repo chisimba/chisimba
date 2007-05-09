@@ -51,7 +51,7 @@ $fields = array(
         'notnull' => TRUE
 		),
     'filefolder' => array(
-		'type' => 'text',
+		'type' => 'clob',
         'notnull' => TRUE
 		),
     'description' => array(
