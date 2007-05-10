@@ -11,15 +11,4 @@
             </add>
         </data>
     </update>
-    <update>
-        <table>tbl_files</table>
-        <version>0.53</version>
-        <description>added new column for folder</description>
-        <data>
-            <add>
-                <name>filefolder</name>
-                <type>clob</type>
-            </add>
-        </data>
-    </update>
 </updates>
