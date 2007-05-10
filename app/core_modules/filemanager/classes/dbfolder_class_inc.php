@@ -276,7 +276,7 @@ class dbfolder extends dbTable
         
         $refArray = array();
 
-        $refArray['/users/1'] =& $allFilesNode;
+        $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
         
         $folders = $this->getUserFolders($this->objUser->userId());
         
