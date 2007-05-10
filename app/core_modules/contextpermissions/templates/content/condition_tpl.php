@@ -2,13 +2,13 @@
 <DIV><?php
 
 $this->loadClass('label', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
 
 $viewCondition = $this->getObject('viewcondition','decisiontable');
 $viewCondition->connect( $condition );
 extract($viewCondition->elements());
 
-$ddbType = $this->newObject( 'dropdown', 'htmlelements' );
-$ddbType->dropdown('type');
+$ddbType = new dropdown('type');
 foreach( $condition->objConditionType->getAll() as $option ) {
     $ddbType->addOption( $option['name'], $option['name'] );
 }
