@@ -17,7 +17,9 @@ $inpTitle = new textinput();
 $inpButton =  new button();
 $dropAccess = new dropdown();
 
-$objH->str = 'Step 1: Add a Course';
+//CHANGE THIS
+$objH->str = $this->_objLanguage->languageText('word_step').' 1: '.$this->_objLanguage->code2Txt("mod_contextadmin_addcontext",'contextadmin');
+
 $objH->type = 3;
 
 //$inpTitle->fldType="hidden";

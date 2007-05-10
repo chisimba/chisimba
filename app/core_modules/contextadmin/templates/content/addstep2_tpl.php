@@ -17,7 +17,7 @@ $inpMenuText = new textinput();
 $inpAbout = & $this->newObject('htmlarea','htmlelements');
 $inpButton =  new button();
 
-$objH->str = $this->_objLanguage->languageText("mod_context_step","context").' 2: '.$this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
+$objH->str = $this->_objLanguage->languageText('word_step').' 2: '.$this->_objLanguage->code2Txt("mod_contextadmin_aboutthecontext",'contextadmin');
 $objH->type = 3;
 
 //setup the form
