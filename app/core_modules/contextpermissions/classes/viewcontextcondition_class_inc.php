@@ -46,6 +46,10 @@ class viewContextCondition extends viewCondition
         $this->_methods[] = 'hasPermission';
         $this->_methods[] = 'hasContextPermission';
         $this->objLanguage = $this->getObject( 'language', 'language');
+        
+        $this->loadClass('label', 'htmlelements');
+        $this->loadClass('radio', 'htmlelements');
+        $this->loadClass('dropdown', 'htmlelements');
 
     }
     /**
@@ -74,17 +78,15 @@ class viewContextCondition extends viewCondition
      */
      function dependsOnContext($dependOn='TRUE')
      {
-        $objRadio = $this->newObject('radio','htmlelements');
         $function = 'dependsOnContext | ';
-        $objRadio->radio('value');
+        $objRadio = new radio('value');
         $objRadio->addOption($function.'TRUE','TRUE');
         $objRadio->addOption($function.'FALSE','FALSE');
         $selected = $function.$dependOn;
         $objRadio->setSelected( $selected );
 
         $lblDependsOnContext = $this->objLanguage->code2Txt('mod_contextpermissions_lblDependsOnContext','contextpermissions');
-        $objLabel = &$this->getObject('label', 'htmlelements');
-        $objLabel->label( $lblDependsOnContext, 'input_value' );
+        $objLabel = new label( $lblDependsOnContext, 'input_value' );
         $lblName = $objLabel->show();
 
         return array('lblName'=>$lblName,'element'=>$objRadio->show());
@@ -100,10 +102,7 @@ class viewContextCondition extends viewCondition
      */
      function isContextMember($relPath=NULL)
      {
-        $this->loadClass('dropdown','htmlelements');
-        $this->loadClass('label','htmlelements');
-        $objDropDown = new dropdown('ddbContext');
-        $objDropDown->dropdown('value');
+        $objDropDown = new dropdown('value');
         $options = array('Lecturers','Students','Guest');
         $lblSelectContextGroup = $this->objLanguage->code2Txt('mod_contextpermissions_lblSelectContextGroup','contextpermissions');
         $objDropDown->addOption( 'isContextMember', $lblSelectContextGroup );
@@ -134,8 +133,7 @@ class viewContextCondition extends viewCondition
         $function = 'isMember | ';
         // Groups dropdown selection
         $objGroups = &$this->getObject('groupadminmodel','groupadmin');
-        $objDropDown =  &$this->getObject( 'dropdown','htmlelements');
-        $objDropDown->dropdown('value');
+        $objDropDown =  new dropdown('value');
 
         $lblSelectGroup = $this->objLanguage->languageText('mod_contextpermissions_lblSelectGroup','contextpermissions',"[-- Select a group --]");
         $objDropDown->addOption( 'isMember', $lblSelectGroup );
@@ -146,8 +144,7 @@ class viewContextCondition extends viewCondition
         $objDropDown->setSelected( $function.$absPath );
 
         $lblAbsolutePath = $this->objLanguage->languageText('mod_contextpermissions_lblAbsolutePath','contextpermissions',"[Absolute group path: ]");
-        $objLabel = &$this->getObject('label', 'htmlelements');
-        $objLabel->label( $lblAbsolutePath, 'input_value' );
+        $objLabel = new label( $lblAbsolutePath, 'input_value' );
         $lblName = $objLabel->show();
 
         return array('lblName'=>$lblName,'element'=>$objDropDown->show() );
@@ -167,8 +164,7 @@ class viewContextCondition extends viewCondition
         $function = 'hasPermission | ';
         // Permissions dropdown selection
         $objPerms = &$this->getObject('permissions_model','permissions');
-        $objDropDown =  $this->newObject( 'dropdown','htmlelements');
-        $objDropDown->dropdown('value');
+        $objDropDown =  new dropdown('value');
 
         $lblSelectACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectACL','contextpermissions',"[-- Select an access control list --]");
         $objDropDown->addOption( 'hasPermission', $lblSelectACL );
@@ -180,8 +176,7 @@ class viewContextCondition extends viewCondition
         $objDropDown->setSelected( $function.$aclName );
 
         $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL','contextpermissions',"[Access control list: ]");
-        $objLabel = &$this->getObject('label', 'htmlelements');
-        $objLabel->label( $lblACL, 'input_value' );
+        $objLabel = new label( $lblACL, 'input_value' );
         $lblName = $objLabel->show();
         
         return array('lblName'=>$lblName,'element'=>$objDropDown->show());
@@ -199,8 +194,7 @@ class viewContextCondition extends viewCondition
     function hasContextPermission($aclName=NULL)
     {
         $function = 'hasContextPermission | ';
-        $objDropDown =  $this->newObject( 'dropdown','htmlelements');
-        $objDropDown->dropdown('value');
+        $objDropDown =  new dropdown('value');
         
         $lblSelectContextACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectContextACL','contextpermissions',"[-- Select an access control list for the context--]");
         $objDropDown->addOption( 'hasContextPermission', $lblSelectContextACL );
@@ -212,8 +206,7 @@ class viewContextCondition extends viewCondition
         $objDropDown->setSelected( $function.$aclName );
 
         $lblACL = $this->objLanguage->languageText('mod_contextpermissions_lblACL','contextpermissions',"[Access control list: ]");
-        $objLabel = &$this->getObject('label', 'htmlelements');
-        $objLabel->label( $lblACL, 'input_value' );
+        $objLabel = new label( $lblACL, 'input_value' );
         $lblName = $objLabel->show();
         
         return array('lblName'=>$lblName,'element'=>$objDropDown->show());
