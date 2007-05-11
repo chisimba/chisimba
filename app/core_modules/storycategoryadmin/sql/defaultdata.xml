@@ -22,15 +22,15 @@
     <tbl_storycategory>
         <id>init_3</id>
         <category>preloginfooter</category>
-        <title>Story for prelogin footer</title>
+        <title>Story for the prelogin footer</title>
         <dateCreated>2005-03-15 09:35:41</dateCreated>
         <creatorId>1</creatorId>
         <modified>2005-03-15 09:35:41</modified>
     </tbl_storycategory>
     <tbl_storycategory>
         <id>init_4</id>
-        <category>preloginfooter</category>
-        <title>Story for prelogin footer</title>
+        <category>postloginfooter</category>
+        <title>Story for the postlogin footer</title>
         <dateCreated>2005-03-15 09:37:12</dateCreated>
         <creatorId>1</creatorId>
         <modified>2005-03-15 09:37:12</modified>
