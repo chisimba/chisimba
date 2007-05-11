@@ -23,10 +23,11 @@ class userLoginHistory extends dbTable {
     */
     public function addHistoryEntry($userId)
     {
+        $now = $this->now();
         $this->insert(
 			array(
 				'userid' => $userId,
-                'lastLoginDateTime' => date('Y-m-d H:m:s')
+                'lastLoginDateTime' => $now
 			)
 		);
     }

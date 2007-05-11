@@ -20,9 +20,7 @@ $fields = array(
 
 		),
     'lastLoginDateTime' => array(
-		'type' => 'date',
-
-
+		'type' => 'timestamp'
 		)
     );
 
