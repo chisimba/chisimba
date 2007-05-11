@@ -140,7 +140,7 @@ if (!isset($pageTitle)) {
             $this->objUser =& $this->getObject('user', 'security');
             $objPopup =& $this->getObject('windowpop', 'htmlelements');
             $objIcon = $this->getObject('geticon', 'htmlelements');
-            if ($objModules->checkIfRegistered('messaging')) {
+            if ($objModules->checkIfRegistered('messaging') && $this->objUser->isLoggedIn()) {
                 $imLabel = $languageClass->languageText('mod_messaging_im', 'messaging');
                 
                 $objIcon->setIcon('instantmessaging', 'gif', 'icons/modules/');
