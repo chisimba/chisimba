@@ -30,7 +30,7 @@ switch ($this->getParam('message')){
         break;
     case 'inactive':
         $Header->str=$this->objLanguage->languageText('mod_security_inactive', 'security');
-        $smallText = $this->objLanguage->languageText('mod_security_inactivepasswordmessage','security');
+        $smallText = $this->objLanguage->languageText('mod_security_inactivemessage','security');
         break;
     case 'no_ldap':
         $Header->str=$this->objLanguage->languageText('mod_security_no_ldap', 'security');
