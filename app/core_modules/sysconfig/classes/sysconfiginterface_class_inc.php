@@ -128,9 +128,9 @@ class sysconfiginterface extends object
         // Load object that checks if class exists
         $checkobject = $this->getObject('checkobject', 'utilities');
         // Check if class 'sysconfig_{pname}' exists in module.
-        if ($checkobject->objectFileExists('sysconfig_'.$pname, $moduleToCheck)) {
+        if ($checkobject->objectFileExists('sysconfig_'.str_replace('-', '_', $pname), $moduleToCheck)) {
             // If yes, instantiate the object
-            $objParamValue = $this->getObject(strtolower('sysconfig_'.$pname), $moduleToCheck);
+            $objParamValue = $this->getObject(strtolower('sysconfig_'.str_replace('-', '_', $pname)), $moduleToCheck);
             // send it the current default value
             $objParamValue->setDefaultValue($pvalue);
         } else {
