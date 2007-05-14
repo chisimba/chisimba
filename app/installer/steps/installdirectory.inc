@@ -507,6 +507,8 @@ class InstallDirectoryAction extends StepAction
     			chmod($check_dir,0700);
 
 				$success = true;
+				
+				$dir = str_replace('//', '/', $dir);
 
 				$this->errors[] = 'Could not find required directory '.$check_dir.',but the system created it anyway';
 

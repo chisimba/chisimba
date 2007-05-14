@@ -98,7 +98,7 @@
 	   <div id="wrap">
     	
             <div id="header">
-                <a href="http://Kngforge.uwc.ac.za/">
+                <a href="http://avoir.uwc.ac.za/">
     			<!--img id="kng_logo" src="<?php echo $extras;?>/largebanner.jpg" alt="KNG logo" title="KNG" width="550" height="80" border="0" /-->
     			<!--img id="kng_logo_rotate" style="display: none" src="<?php echo $extras;?>/smallbanner.jpg" alt="FSIU logo" title="FSIU" width="416" height="45" border="0" /-->
     			     <div id="site-name">Chisimba</div>
