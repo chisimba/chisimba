@@ -505,8 +505,9 @@ class groupadmin extends controller {
             $this->setLayoutTemplate( "context_layout_tpl.php" );
         } 
         // Members list dropdown
-        $lstMembers = $this->newObject( 'dropdown', 'htmlelements' );
-        $lstMembers->name = 'list2[]';
+        $this->loadClass('dropdown', 'htmlelements');
+        $lstMembers = new dropdown('list2[]');
+        //$lstMembers->name = 'list2[]';
         $lstMembers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true)"';
         foreach ( $memberList as $user ) {
             $fullName = $user['firstname'] . " " . $user['surname'];
@@ -514,8 +515,7 @@ class groupadmin extends controller {
             $lstMembers->addOption( $userPKId, $fullName );
         } 
         // Users list dropdown
-        $lstUsers = $this->newObject( 'dropdown', 'htmlelements' );
-        $lstUsers->name = 'list1[]';
+        $lstUsers = new dropdown('list1[]');
         $lstUsers->extra = ' style="width:100pt" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
         foreach ( $usersList as $user ) {
             $fullName = $user['firstname'] . " " . $user['surname'];
