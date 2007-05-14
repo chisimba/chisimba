@@ -338,7 +338,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_SYSTEMTIMEOUT', 60);
 
-			$this->_addConfigVar('KEWL_DEFAULTICONFOLDER', '/icons/');
+			//$this->_addConfigVar('KEWL_DEFAULTICONFOLDER', '/icons/');
 
 			$this->_addConfigVar('KEWL_DEFAULT_SKIN', $_SESSION['defaultskin']);
 
@@ -346,7 +346,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN');
 
-			$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
+			//$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
 
 			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
                         // Added by jsc
@@ -358,13 +358,13 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
 
-			$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
+			//$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
 
-			$this->_addConfigVar('KEWL_LOGIN_TEMPLATE', 'login_tpl.php');
+			//$this->_addConfigVar('KEWL_LOGIN_TEMPLATE', 'login_tpl.php');
 
-			$this->_addConfigVar('KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php');
+			//$this->_addConfigVar('KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php');
 
-			$this->_addConfigVar('KEWL_TEMPLATE_PATH', $_SESSION['sys_root'].'/templates/');
+			//$this->_addConfigVar('KEWL_TEMPLATE_PATH', $_SESSION['sys_root'].'/templates/');
 
 			$this->_addConfigVar('KEWL_CONTENT_BASEPATH', $_SESSION['contentPath']);
 
@@ -401,7 +401,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
 
-			$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
+			//$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
 
 			// if this is an install, then none of the config vars are going to be defined, so
 
