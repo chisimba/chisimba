@@ -294,7 +294,6 @@ class engine
 	'strings',
 	'sysconfig',
 	'systext',
-        'timeline',
 	'toolbar',
 	'tree',
 	'useradmin',
