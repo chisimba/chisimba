@@ -11,12 +11,8 @@
 //grab the pear::Config properties
 // include class
 
-ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
-if(!class_exists('Config'))
-{
-	//ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
-	require_once 'Config.php';
-}
+//ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
+require_once 'Config.php';
 
 class altconfig extends object
 {
@@ -94,9 +90,9 @@ class altconfig extends object
      * Start initializing objects
      *
      */
-    public function init()
-    {
-    }
+    //public function init()
+    //{
+    //}
 
 	/**
      * Method to parse config options.

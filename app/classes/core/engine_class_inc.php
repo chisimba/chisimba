@@ -43,6 +43,8 @@ require_once 'classes/core/customexception_class_inc.php';
 include('config/dbdetails_inc.php');
 //set up all the files needed to effectively run lucene
 include('lucene.php');
+//config object
+require_once('Config.php');
 
 
 //function to enable the pear error callback method (global)
@@ -326,6 +328,7 @@ class engine
 		// must be created on every request
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
+		
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		//and we need a general system config too
 		$this->_objConfig = $this->_objDbConfig;

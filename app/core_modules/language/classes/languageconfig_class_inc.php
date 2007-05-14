@@ -2,7 +2,6 @@
 /* -------------------- LANGUAGE CONFIG CLASS ----------------*/
 
 
-require_once 'Translation2.php';
 define('TABLE_PREFIX', 'tbl_');
 
 /**
@@ -46,7 +45,16 @@ class languageConfig extends object
      *
      */
 
-	public function init(){}
+	public function init(){
+		try {
+			require_once $this->getPearResource('Translation2.php');
+		}
+		catch (customException $e)
+		{
+			customException::cleanUp();
+			die();
+		}
+	}
 
 	/**
      * Setup for the languageConf class.

@@ -67,14 +67,29 @@ class languagecode extends object
     */
     function init()
     { 
-    	 $this->objConfig = &$this->getObject('altconfig','config');
-    	 $this->lan = $this->objConfig->getdefaultLanguage();
-    	 $neg = &new I18Nv2_Negotiator;
-    	 $this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
-		 $this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
-		 $this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
-		 $this->iso_639_2_tags = $neg->singleI18NLanguage();
-		}
+    	try {
+    	 	$this->objConfig = &$this->getObject('altconfig','config');
+    	 	if(!class_exists('I18Nv2_Country'))
+    	 	{
+    	 		//echo "no country class yet...";
+//    	 		require_once $this->getPearResource('I18Nv2/Country.php');
+	//	 		require_once $this->getPearResource('I18Nv2/Negotiator.php');
+		//		require_once $this->getPearResource('I18Nv2/DecoratedList/HtmlSelect.php');
+			//	require_once $this->getPearResource('I18Nv2/DecoratedList/HtmlEntities.php');
+    	 	}
+    	 	$this->lan = $this->objConfig->getdefaultLanguage();
+    	 	$neg = &new I18Nv2_Negotiator;
+    	 	$this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
+		 	$this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
+		 	$this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
+		 	$this->iso_639_2_tags = $neg->singleI18NLanguage();
+    	}
+    	catch(customException $e)
+    	{
+    		customException::cleanUp();
+    		die();
+    	}
+	}
     
     /**
     * Method to get the name of a language by providing the ISO Code
@@ -156,6 +171,29 @@ class languagecode extends object
 		// print a HTML safe select box
 		return  $this->objselect->getAllCodes();
     }
+    
+     /**
+     *  Function provides country and language lists.
+     *
+     * @return array of countrues
+     */
+    public function countryListArr($country=NULL)
+    {
+		// set a selected entry
+		$language = strtoupper($this->objConfig->getCountry());
+		$this->objselect->attributes['select']['name'] = 'country';
+		// set a selected entry
+		if ($country) {
+			$language = $country;
+		}else{
+		$language = strtoupper($this->objConfig->getCountry());
+		}
+		$this->objselect->selected["{$language}"] = true;
+		
+		// print a HTML safe select box
+		return  $this->objentity->getAllCodes();
+    }
+    
     /**
      *  Function provides decorated classes for country and language lists.
      *
