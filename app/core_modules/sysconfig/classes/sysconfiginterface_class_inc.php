@@ -126,7 +126,7 @@ class sysconfiginterface extends object
         }
 
         // Load object that checks if class exists
-        $checkobject = $this->getObject('checkobject');
+        $checkobject = $this->getObject('checkobject', 'utilities');
         // Check if class 'sysconfig_{pname}' exists in module.
         if ($checkobject->objectFileExists('sysconfig_'.$pname, $moduleToCheck)) {
             // If yes, instantiate the object
