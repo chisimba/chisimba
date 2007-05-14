@@ -29,12 +29,12 @@ $fields = array(
 
 		),
     'whenLoggedIn' => array(
-		'type' => 'date',
+		'type' => 'timestamp',
 
 
 		),
     'whenlastactive' => array(
-		'type' => 'date',
+		'type' => 'timestamp',
 
 
 		),
