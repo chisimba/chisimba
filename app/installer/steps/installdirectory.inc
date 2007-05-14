@@ -510,7 +510,7 @@ class InstallDirectoryAction extends StepAction
 				
 				$check_dir = str_replace('//', '/', $check_dir);
 
-				$this->errors[] = 'Could not find required directory '.$check_dir.',but the system created it anyway';
+				$this->errors[] = '<div style="font-family: Tahoma;color: green; font-size: 10px;">Could not find required directory '.$check_dir.',but the system created it anyway</div>';
 
 
 
