@@ -3,7 +3,7 @@ $abspath = getcwd();
 $path = preg_replace("/\/installer/i",'',$abspath);
 $pear_path = $path . "/lib/pear/";
 ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$pear_path);
-
+define('PEAR_DIR', $pear_path);
 //echo ini_get('include_path');
 
 /**

@@ -657,7 +657,7 @@ class PEARCheckAction extends StepAction
 
 	{
 		
-		$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_SESSION['sys_root']."lib/pear/" : '';
+		$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_SESSION['sys_root']."lib/pear/" : PEAR_DIR;
 //echo $_SESSION['pear_path']; die();
 		// check if the pear classes exist
 
@@ -997,7 +997,7 @@ class PEARCheckAction extends StepAction
 
 	{
 
-		$locations = Array('/usr/lib/php/PEAR',
+		$locations = Array(PEAR_DIR, '/usr/lib/php/PEAR',
 
 									'/usr/lib/php',
 
