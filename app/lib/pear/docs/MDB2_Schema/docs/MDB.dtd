@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- MAIN ELEMENTS -->
+
+<!ELEMENT database (name | create? | overwrite? | description? | comments? | table+ | sequence?)*>
+<!ELEMENT table (#PCDATA | name | was | description | comments | declaration | initialization)*>
+<!ELEMENT initialization (insert | update | delete)*>
+<!ELEMENT insert (field+)>
+<!ELEMENT update (field+, where?)>
+<!ELEMENT delete (where)>
+
+<!-- CHILD ELEMENTS -->
+
+<!ELEMENT sequence (name | was? | start? | on+ | description? | comments?)*>
+<!ELEMENT on (table, field)+>
+
+<!ELEMENT declaration (field+, index*)>
+<!ELEMENT index (name | was? | unique? | primary? | field+)*>
+
+<!ELEMENT where (expression)>
+<!ELEMENT expression (expression?, ((value | column | function)?, operator, (value | column | function | expression))?)>
+<!ELEMENT field (#PCDATA | name | was | type | default | notnull | autoincrement | unsigned | description | comments | length | sorting | column | value | function | expression)*>
+<!ELEMENT function (name, parameter*)>
+<!ELEMENT parameter (value | column | function | expression)>
+
+<!-- BASIC ELEMENTS -->
+
+<!ELEMENT comments (#PCDATA | variable)*>
+<!ELEMENT create (#PCDATA | variable)*>
+<!ELEMENT default (#PCDATA | variable)*>
+<!ELEMENT description (#PCDATA | variable)*>
+<!ELEMENT length (#PCDATA | variable)*>
+<!ELEMENT name (#PCDATA | variable)*>
+<!ELEMENT notnull (#PCDATA | variable)*>
+<!ELEMENT overwrite (#PCDATA | variable)*>
+<!ELEMENT sorting (#PCDATA | variable)*>
+<!ELEMENT start (#PCDATA | variable)*>
+<!ELEMENT type (#PCDATA | variable)*>
+<!ELEMENT unique (#PCDATA | variable)*>
+<!ELEMENT primary (#PCDATA | variable)*>
+<!ELEMENT autoincrement (#PCDATA | variable)*>
+<!ELEMENT unsigned (#PCDATA | variable)*>
+<!ELEMENT value (#PCDATA | variable)*>
+<!ELEMENT column (#PCDATA | variable)*>
+<!ELEMENT operator (#PCDATA | variable)*>
+<!ELEMENT was (#PCDATA | variable)*>
+<!ELEMENT variable (#PCDATA)>

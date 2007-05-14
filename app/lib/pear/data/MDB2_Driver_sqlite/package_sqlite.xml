@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>MDB2_Driver_sqlite</name>
+ <channel>pear.php.net</channel>
+ <summary>sqlite MDB2 driver</summary>
+ <description>This is the SQLite MDB2 driver.</description>
+ <lead>
+  <name>Lukas Kahwe Smith</name>
+  <user>lsmith</user>
+  <email>smith@pooteeweet.org</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Lorenzo Alberton</name>
+  <user>quipo</user>
+  <email>l.alberton@quipo.it</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-03-13</date>
+ <time>22:57:01</time>
+ <version>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>BSD License</license>
+ <notes>- propagate errors in getTableFieldDefinition() in the Reverse module
+- fixed bug #9895: Error mapping broken since 5.2.0
+- implemented a fallback mechanism within getTableIndexDefinition() and
+  getTableConstraintDefinition() in the Reverse module to ignore the &apos;idxname_format&apos;
+  option and use the index name as provided in case of failure before returning
+  an error
+- added a &apos;nativetype_map_callback&apos; option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- fixed bug #9693: execute statement again in case of a SQLITE_SCHEMA error
+- fixed bug #10027: PHP4 compatibility in createConstraint() and dropConstraint()
+- implemented listViews() in the Manager module
+- implemented listTableViews() in the Manager module
+- implemented listTableTriggers() in the Manager module
+- implemented getTriggerDefinition() in the Reverse module [experimental]
+- fixed bug #9828: propagate errors in getConnection()
+- phpdoc fixes
+
+note:
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE</notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="MDB2">
+    <dir name="Driver">
+     <dir name="Datatype">
+      <file name="sqlite.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /MDB2/Driver/Datatype -->
+     <dir name="Function">
+      <file name="sqlite.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /MDB2/Driver/Function -->
+     <dir name="Manager">
+      <file name="sqlite.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /MDB2/Driver/Manager -->
+     <dir name="Native">
+      <file name="sqlite.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /MDB2/Driver/Native -->
+     <dir name="Reverse">
+      <file name="sqlite.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
+     </dir> <!-- /MDB2/Driver/Reverse -->
+     <file name="sqlite.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /MDB2/Driver -->
+   </dir> <!-- /MDB2 -->
+   <dir name="tests">
+    <file name="MDB2_nonstandard_sqlite.php" role="test" />
+   </dir> <!-- /tests -->
+   <file name="package_sqlite.xml" role="data" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+    <min>2.4.0</min>
+   </package>
+   <extension>
+    <name>sqlite</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-13</date>
+   <license>BSD License</license>
+   <notes>- propagate errors in getTableFieldDefinition() in the Reverse module
+- fixed bug #9895: Error mapping broken since 5.2.0
+- implemented a fallback mechanism within getTableIndexDefinition() and
+  getTableConstraintDefinition() in the Reverse module to ignore the &apos;idxname_format&apos;
+  option and use the index name as provided in case of failure before returning
+  an error
+- added a &apos;nativetype_map_callback&apos; option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- fixed bug #9693: execute statement again in case of a SQLITE_SCHEMA error
+- fixed bug #10027: PHP4 compatibility in createConstraint() and dropConstraint()
+- implemented listViews() in the Manager module
+- implemented listTableViews() in the Manager module
+- implemented listTableTriggers() in the Manager module
+- implemented getTriggerDefinition() in the Reverse module [experimental]
+- fixed bug #9828: propagate errors in getConnection()
+- phpdoc fixes
+
+note:
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-11-03</date>
+   <license>BSD License</license>
+   <notes>note:
+- this driver only supports SQLite version 2.x databases
+- the replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the multi_query test failes because this is not supported by ext/sqlite
+- the savepoint test failes because this is not supported by sqlite
+- the case sensitive search test fails because this is not supported by SQLite
+- the pattern escaping test fails because this is not supported by SQLite
+- do not skip id generation in nextId() when creating a sequence on demand
+  becazse this prevents lastInsertID() from working
+- migrated to package.xml version 2
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-08-21</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed issue in tableInfo() that originates in getTableFieldDefinition() which
+  led to returning incorrect type values (Bug #8291)
+- added support for NULL columns in getTableFieldDefinition()
+- added full support for alterTable() via emulation
+- added support for primary key creation and dropping
+- do not list empty contraints and indexes
+- use information_schema in listTableFields() instead of selecting from the
+  table since that does not work if the table is empty
+- fixed handling of contraints in _getTableColumns()
+- fixed primary key handling in alterTable(), createConstraint() and dropConstraint()
+- do not set a default if type is a LOB (Request #8074)
+- fixed handling return values when disable_query is set in _doQuery() and _execute()
+- increased MDB2 dependency too 2.2.1
+
+note:
+- this driver only supports SQLite version 2.x databases
+- the replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the multi_query test failes because this is not supported by ext/sqlite
+- the savepoint test failes because this is not supported by sqlite
+- the case sensitive search test fails because this is not supported by SQLite
+- the pattern escaping test fails because this is not supported by SQLite
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-07-23</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- added setTransactionIsolation()
+- MDB2_PORTABILITY_RTRIM ignored by driver (Bug #8239)
+- added ability to escape wildcard characters in escape() and quote()
+- added setTransactionIsolation()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added context array parameter to debug() and make use of it whereever sensible
+- added optional method name parameter to raiseError() and use whereever possible
+- added ability to escape wildcard characters in escape() and quote()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added &apos;nativetype&apos; output to tableInfo() and getTableFieldDefinition()
+- added &apos;mdb2type&apos; output to getTableFieldDefinition()
+- reworked tableInfo() to use a common implementation based on getTableFieldDefinition()
+  when a table name is passed (Bug #8124)
+- fixed incorrect regex in mapNativeDatatype() (Bug #8256) (thx ioz at ionosfera dot com)
+- use old dsn when rolling back open transactions in disconnect()
+
+note: this driver only supports SQLite version 2.x databases
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-15</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed unsigned handling in mapNativeDatatype()
+- use setCharset() in connect()/_doConnect()
+- generalized quoteIdentifier() with a property
+- fixed warning in replace() if type is not set (Bug #7740)
+- cosmetic performance tweak in getTableFieldDefinition()
+- switched most array_key_exists() calls to !empty() to improve readability and performance
+- fixed a few edge cases and potential warnings
+- added ability to rewrite queries for query(), exec() and prepare() using a debug handler callback
+- revert change that would prefer &apos;clob&apos; over &apos;text&apos; for TEXT fields
+  (this was breaking runtime instrospection)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-05-14</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- explicitly set is_manip parameter to false for transaction debug calls
+- added ability to hint that a constraint is a primary key in dropConstraint()
+- typo fixes in phpdoc (thx Stoyan)
+- added support for fixed and variable types for &apos;text&apos; in declarations,
+  as well as in reverse engineering (Request #1523)
+- made _doQuery() return a reference
+- added userinfo&apos;s to all raiseError calls that previously had none
+- added &apos;prepared_statements&apos; supported meta data setting
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-04-16</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- aligned _modifyQuery() signature and phpdoc
+- fix bug sqlite:///:memory: trys to open file (bug #6599)
+- added &apos;result_introspection&apos; supported metadata support
+- properly quote table names in tableInfo() (related to bug #6573)
+- use connected_server_info in getServerVersion() as a cache cache
+- use parent::disconnect() in disconnect()
+- added server_version option
+- set error code in all raiseError() calls
+- added support for length in integer reverse engineering
+- some fixes regarding boolean reverse engineering
+- protect against sql injection in the reverse and manager module
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-02-09</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- use PRAGMA short_column_names = 1/0 for MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES handling
+- handle null as resource when disable_query option is enabled in result object
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.4</release>
+    <api>0.2.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-02-05</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- datatype &apos;clob&apos; missing in mapNativeDatatype() (bug #6490)
+- removed bogus result-&gt;free() (bug #6491)
+- added support for length in integer and decimal columns
+- improved regexp for column reverse engineering
+- removed ugly hack for quote parameter in quote() since it was insufficient
+  (escaping also needs to be prevented)
+- Now integer fields are created and mapped as INTEGER instead of INT, this
+  kick started the auto increment feature properly
+- improved parsing in getServerInfo() (bug #6550)
+- fix case when reading from sqlite information schema (bug #6491)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.2.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-01-13</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- explicitly pass if the module is phptype specific in all loadModule calls (bug #6226)
+- fixed handling of autoincrement and unsigned in Reverse and Datatype module
+- tweaked handling of the native error message
+- typo fixes in error handling of nextResult() and numRows() calls
+- _fixIndexName() now just attempts to remove possible formatting
+- renamed _isSequenceName() to _fixSequenceName()
+- _fixSequenceName() now just attempts to remove possible formatting, and only
+  returns a boolean if no formatting was applied when the new &quot;check&quot; parameter is set to true
+- use MDB2_ERROR_ALREADY_EXISTS if the database to create already exists (bug #6481)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.2.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-30</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed handling of autoincrement in the datatype module
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-28</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed now() and substring()
+- disabled &quot;add&quot; and &quot;rename&quot; in alterTable() sqlite 2.x as they are not supported
+- fixed bug in regexp inside _getTableColumns()
+- added mapping for boolean into mapNativeDatatype()
+- proper quote new table name in alterTable()
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-21</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- do not fix case in listUsers()
+- unified case fixing in the list*() methods
+- support sorting order in createIndex()
+- tweaked lob and text handling in mapNativeDatatype()
+- fixed getTableFieldDefinition()
+- use getConnection() to access connection property
+- split index and constraint handling
+- quote identifiers where possible inside the manager methods depending on
+  the new &apos;quote_identifier&apos; option (defaults to off)
+- refactored get*Declaration() methods to use getTypeDeclaration()
+- setting in_transaction to false on disconnect
+- added new Function modules to handle difference in SQL functions
+- force rollback() with open transactions on disconnect
+- added alterTable() (only does table name change and column adding)
+- escape floats to make sure they do not contain evil characters (bug #5608)
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- only if result_types is set to false in prepare() method the query will be
+  handled as a DML statement *BC BREAK*
+- use a proper default value if a field is set to not null in _getDeclaration*() (bug #5930)
+- added ability to determine unsigned in mapNativeDatatype()
+  (only really implemented in the mysql(i) drivers) (bug #6054)
+- use lastInsertID() method in nextID()
+- added getServerVersion()
+- unified array structure in mapNativeDatatype() *BC BREAK*
+- added &apos;mdbtype&apos; to tableInfo() output that is generated from mapNativeDatatype()
+- changed &apos;len&apos; to &apos;length&apos; in tableInfo() output *BC BREAK*
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the testnow and testsubstring tests fail</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-06-10</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- increased php dependency to 4.3.0 due to the usage of the streams API since beta5</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-29</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>first unbundled release from MDB2 core
+
+- cosmetic fixes to _getDatabaseFile()
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+- check if database_name is empty to determine if to connect in connect()
+- Warning: there are some serious issues on php5 HEAD on windows</notes>
+  </release>
+ </changelog>
+</package>

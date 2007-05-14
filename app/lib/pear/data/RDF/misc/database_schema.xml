@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<database>
+
+ <name><variable>database</variable></name>
+ <create>0</create>
+
+ <table>
+
+  <name>models</name>
+
+  <declaration>
+
+   <field>
+    <name>modelid</name>
+    <type>integer</type>
+    <notnull>1</notnull>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>modeluri</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>1</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>baseuri</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <index>
+    <name>modelid</name>
+    <unique>1</unique>
+    <field>
+     <name>modelid</name>
+    </field>
+   </index>
+
+   <index>
+    <name>m_moduri_idx</name>
+    <unique>1</unique>
+    <field>
+     <name>modeluri</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name>statements</name>
+
+  <declaration>
+
+   <field>
+    <name>modelid</name>
+    <type>integer</type>
+    <notnull>1</notnull>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>subject</name>
+    <type>text</type>
+    <length>200</length>
+    <notnull>1</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>predicate</name>
+    <type>text</type>
+    <length>200</length>
+    <notnull>1</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>object</name>
+    <type>text</type>
+    <notnull>1</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>l_language</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>l_datatype</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>subject_is</name>
+    <type>boolean</type>
+    <notnull>1</notnull>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>object_is</name>
+    <type>boolean</type>
+    <notnull>1</notnull>
+    <default>0</default>
+   </field>
+
+  </declaration>
+
+ </table>
+
+</database>

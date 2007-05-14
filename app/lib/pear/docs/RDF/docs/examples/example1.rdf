@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<rdf:RDF 
+	xml:base="http://www.w3.org/Home/Lassila.rdf#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:ex="http://example.org/stuff/1.0/"
+	xmlns:s="http://description.org/schema/">
+	<rdf:Description rdf:about="http://www.w3.org/Home/Lassila">
+		<s:Creator>
+			<rdf:Description rdf:nodeID="b85740">
+				<rdf:type rdf:resource="http://description.org/schema/Person"/>
+				<ex:Name rdf:datatype="http://www.w3.org/TR/xmlschema-2#string">Ora Lassila</ex:Name>
+				<ex:Email>lassila@w3.org</ex:Email>
+			</rdf:Description>
+		</s:Creator>
+	</rdf:Description>
+</rdf:RDF>

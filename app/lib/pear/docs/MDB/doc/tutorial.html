@@ -1,0 +1,660 @@
+
+<html>
+<head>
+<title>MDB tutorial</title>
+</head>
+<body>
+<center><h1>MDB tutorial</h1></center>
+<hr />
+<ul>
+<p><b>Authors:</b><br />
+Manuel Lemos (<a href="mailto:mlemos@acm.org">mlemos@acm.org</a>)<br />
+Lukas Smith (<a href="mailto:smith@backendmedia.com">smith@backendmedia.com</a>)</p>
+<p><b>Version control:</b> <tt>@(#) $Id$</tt></p>
+<h2>Contents</h2>
+<li><a href="#1.0">MDB tutorial</a></li>
+<ul>
+<li><a href="#2.1.1">MDB requirements</a></li>
+<ul>
+<li><a href="#3.2.1">PHP program</a></li>
+<li><a href="#3.2.2">PHP options</a></li>
+<li><a href="#3.2.3">Include files</a></li>
+</ul>
+<li><a href="#4.1.2">Designing a database</a></li>
+<li><a href="#24.1.3">Installing the database</a></li>
+<li><a href="#35.1.4">Accessing to the data in the database</a></li>
+<ul>
+<li><a href="#37.2.1">Setup database access</a></li>
+<li><a href="#46.2.3">Executing database queries</a></li>
+<ul>
+<li><a href="#47.3.1">Direct queries</a></li>
+<li><a href="#48.3.2">Prepared queries</a></li>
+</ul>
+<li><a href="#50.2.4">Retrieving query results</a></li>
+<ul>
+<li><a href="#51.3.1">Fetching result set data</a></li>
+<li><a href="#53.3.2">Data type conversion</a></li>
+<li><a href="#70.3.5">Freeing the result set resources</a></li>
+</ul>
+<li><a href="#70.2.5">Handling large object fields</a></li>
+<ul>
+<li><a href="#71.3.1">Creating large object table fields</a></li>
+<li><a href="#74.3.2">Storing data in large object fields</a></li>
+<li><a href="#98.3.3">Retrieving data from large object fields</a></li>
+</ul>
+</ul>
+<li><a href="#140.1.5">Updating the database schema</a></li>
+</ul>
+</ul>
+<hr />
+<h1><a name="1.0">MDB tutorial</a></h1>
+<ul>
+<p><b>MDB</b> is a package that allows the developers to write database applications in <i>PHP</i> that are independent of the <i>DBMS</i> (<i>DataBase Management System</i>).</p>
+<p>The steps that developers have to take to write <b>MDB</b> based applications are identical to those that are taken while using the set of native commands that are used to talk to each <i>DBMS</i> directly.  The main advantage of <b>MDB</b> is that developers only need to learn and use one set of commands to implement applications that may run with many different <i>DBMS</i>.</p>
+<p>The goal of this tutorial is to introduce the basic steps that beginners have to take to start developing database applications with <b>MDB</b>.  For more in depth information, please refer to the <b>MDB</b> documentation manual.</p>
+<h2><li><a name="2.1.1">MDB requirements</a></li></h2>
+<p>Before start using <b>MDB</b> there are a few installation requirements that developers need to know and understand.</p>
+<ul>
+<h3><li><a name="3.2.1">PHP program</a></li></h3>
+<p><i>PHP</i> is usually run from a Web server, mostly as a server module, but it can also run as <i>CGI</i> program.  When <i>PHP</i> is built as <i>CGI</i> program a standalone executable program file is generated.  This <i>CGI</i> program can also be used to execute <i>PHP</i> scripts from a command line interface shell.</p>
+<p>Although it is possible do the same using <i>PHP</i> as Web server module, it is recommended that you use the <i>CGI</i> program to run the <i>PHP</i> scripts to install or setup databases using <b>MDB</b>.</p>
+<p>The required version of PHP is 4.0.4pl1</p>
+<h3><li><a name="3.2.2">PHP options</a></li></h3>
+<p><i>PHP</i> has several runtime options that are meant to ease the developers' work.  The option named <tt>magic_quotes_runtime</tt> is meant to automatically escape special characters in text literal values before executing <i>SQL</i> queries.</p>
+<p><b>MDB</b> is already able to escape special characters of query text values using the methods <tt>getTextValue()</tt> and <tt>setParamText()</tt>.  If either any of these methods is used and the <tt>magic_quotes_runtime</tt> option is <tt>On</tt>, then some characters may end up being escaped twice.</p>
+<p>To avoid duplicated character escaping, please disable the option <tt>magic_quotes_runtime</tt> and also <tt>magic_quotes_sybase</tt> by setting them to the value <tt>Off</tt> in your <i>PHP</i> configuration by for instance having these lines in your <tt>php.ini</tt> file:</p>
+<p><tt>magic_quotes_runtime = Off<br />
+ magic_quotes_sybase = Off</tt></p>
+<h3><li><a name="3.2.3">Include files</a></li></h3>
+<p><b>MDB</b> is made of several <i>PHP</i> files that need to be included from your scripts, depending on what you need to do with <b>MDB</b>.  Here follows the list of the most important files and when they should be included in your scripts.</p>
+Most other files are included on demand by MDB.
+<ul>
+<p><li><tt>MDB.php</tt></li></p>
+<p>This is the main API file.  It should be included every time you need to interface with a database using <b>MDB</b>.</p>
+<p><li><tt>manager.php</tt></li></p>
+<p>This is the database definition management class file.  It should be included every time you need to read or change the definition of a database.
+It will automatically include the MDB.php file you.</p>
+</ul>
+</ul>
+<h2><li><a name="4.1.2">Designing a database</a></li></h2>
+<p>Before anything else, you need to design and install a database schema that will hold the information that is needed by the application being developed.</p>
+<p><b>MDB</b> simplifies this step greatly because it lets the developers design their database schemas in a <i>DBMS</i> independent manner.  All you need to do is to write a text file in a custom XML format that describes the tables and fields that you want your database to have.</p>
+<p>The database schema description XML format is fully described in the <b>MDB</b> manual, but an example often explains more than an exhaustive manual.  Therefore, lets look into the following commented example:</p>
+<p><tt>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot; ?&gt;</tt></p>
+<p>This is a typical header line that all sorts of XML files must have.</p>
+<p><tt>&lt;database&gt;</tt></p>
+<p>This is the <b>MDB</b> start tag.  All <b>MDB</b> XML files must start with this tag.</p>
+<ul>
+<p><tt>&lt;name&gt;test&lt;/name&gt;<br />
+&lt;create&gt;1&lt;/create&gt;</tt></p>
+</ul>
+<p>These are the database main properties.  The <tt>name</tt> property is required.  The <tt>create</tt> property is not required but since we want <b>MDB</b> to create the database for us when it is installed for the first time, this property has to be set to <tt>1</tt>.</p>
+<ul>
+<p><tt>&lt;table&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;users&lt;/name&gt;</tt></p>
+</ul>
+</ul>
+<p>Table definitions may have two sections beside its properties: <tt>declaration</tt> and <tt>initialization</tt>.  The <tt>declaration</tt> section is required because it must contain the declaration of all the table fields and any indexes you need. The <tt>initialization</tt> section is not required but it may be used if you need that the table be created and have already added some initial entries.</p>
+<ul>
+<ul>
+<p><tt>&lt;declaration&gt;</tt></p>
+<ul>
+<p><tt>&lt;field&gt; &lt;name&gt;user_id&lt;/name&gt;   &lt;type&gt;integer&lt;/type&gt; &lt;default&gt;0&lt;/default&gt; &lt;notnull&gt;1&lt;/notnull&gt; &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;user_name&lt;/name&gt; &lt;type&gt;text&lt;/type&gt;                                              &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;password&lt;/name&gt;  &lt;type&gt;text&lt;/type&gt;                                              &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;reminder&lt;/name&gt;  &lt;type&gt;text&lt;/type&gt;                                              &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;name&lt;/name&gt;      &lt;type&gt;text&lt;/type&gt;                                              &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;email&lt;/name&gt;     &lt;type&gt;text&lt;/type&gt;                                              &lt;/field&gt;</tt></p>
+</ul>
+</ul>
+</ul>
+<p>The table declaration section must describe one or more fields. The definition of each field must contain at least the <tt>name</tt> and the <tt>type</tt> properties.  Most common field types are <tt>integer</tt> and <tt>text</tt>, but others like <tt>date</tt> and <tt>timestamp</tt> are also frequently used.</p>
+<ul>
+<ul>
+<ul>
+<p><tt>&lt;index&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;users_id_index&lt;/name&gt;<br />
+&lt;unique&gt;1&lt;/unique&gt;<br />
+&lt;field&gt; &lt;name&gt;user_id&lt;/name&gt; &lt;/field&gt;</tt></p>
+</ul>
+<p><tt>&lt;/index&gt;</tt></p>
+</ul>
+</ul>
+</ul>
+<p>The use of indexes is not required but applications always use them to speed up database access.  Indexes are usually created on fields that make part of the search clauses of the most important queries that a database application runs.</p>
+<p>The criteria that should be used to determine on which fields the indexes should be added is highly dependent on what the database application is meant for.  So, orienting index creation decisions is beyond the scope of this tutorial.</p>
+<p>Anyway, usually there are fields that are declared as primary or foreign keys for the table.  <b>MDB</b> does not provide support for declaring table keys because not all <i>DBMS</i> support them.  However, there is support for creating unique indexes on individual fields which in practice may work as if such fields were declared as primary keys.</p>
+<p>Fields on which is created an index may not have <tt>NULL</tt> entries.  Therefore, <b>MDB</b> schema description parser requires that such field should be declared with the <tt>notnull</tt> constraint property.  It also requires that the <tt>default</tt> property be defined with a non-<tt>NULL</tt> value like in the case of the <tt>user_id</tt> field in the example above.</p>
+<ul>
+<ul>
+<p><tt>&lt;/declaration&gt;</tt></p>
+</ul>
+<p><tt>&lt;/table&gt;</tt></p>
+</ul>
+<ul>
+<p><tt>&lt;sequence&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;user_id&lt;/name&gt;<br />
+&lt;start&gt;1&lt;/start&gt;<br />
+&lt;on&gt; &lt;table&gt;users&lt;/table&gt; &lt;field&gt;user_id&lt;/field&gt; &lt;/on&gt;</tt></p>
+</ul>
+<p><tt>&lt;/sequence&gt;</tt></p>
+</ul>
+<p>Sequence objects are very useful when you need to generate integer values that are guaranteed to be unique every time you need a new identifier number to insert a new entry table.</p>
+<p>With some <i>DBMS</i> developers often use fields declared with the <tt>auto_increment</tt> property to achieve a similar effect. <b>MDB</b> does not provide support for that property because not all <i>DBMS</i> support them.</p>
+<p>Database application developers are recommended to use <b>MDB</b> sequences in the place of <tt>auto_increment</tt> fields.  An advantage of using sequences is that you may use the sequence values to insert in other tables that you may need to also add related entries.</p>
+<p>Sequences are standalone database schema objects.  However, you should hint the database manager by specifying on which table field the sequence values are meant to be used.  This may help to determine an appropriate sequence start value if you add the sequence to the database later than you have added the table field with which it should be synchronized.</p>
+<ul>
+<p><tt>&lt;table&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;groups&lt;/name&gt;<br />
+&lt;declaration&gt;</tt></p>
+<ul>
+<p><tt>&lt;field&gt; &lt;name&gt;name&lt;/name&gt;        &lt;type&gt;text&lt;/type&gt; &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;owner_id&lt;/name&gt;    &lt;type&gt;text&lt;/type&gt; &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;description&lt;/name&gt; &lt;type&gt;text&lt;/type&gt; &lt;/field&gt;</tt></p>
+</ul>
+<p><tt>&lt;/declaration&gt;</tt></p>
+</ul>
+<p><tt>&lt;/table&gt;</tt></p>
+</ul>
+<ul>
+<p><tt>&lt;table&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;group_users&lt;/name&gt;<br />
+&lt;declaration&gt;</tt></p>
+<ul>
+<p><tt>&lt;field&gt; &lt;name&gt;group_id&lt;/name&gt; &lt;type&gt;text&lt;/type&gt; &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;user_id&lt;/name&gt;  &lt;type&gt;text&lt;/type&gt; &lt;/field&gt;</tt></p>
+</ul>
+<p><tt>&lt;/declaration&gt;</tt></p>
+</ul>
+<p><tt>&lt;/table&gt;</tt></p>
+</ul>
+<p>Other tables and sequences may be declared as much as your database application may need.</p>
+<p><tt>&lt;/database&gt;</tt></p>
+<p><b>MDB</b> XML files must end with a tag that matches the start tag.</p>
+<h2><li><a name="24.1.3">Installing the database</a></li></h2>
+<p>Once you have defined your database schema description file, it is time to install it your <i>DBMS</i> server.  Using the <b>MDB</b> manager class, this procedure becomes very simple.</p>
+<p>Lets suppose you have written and saved your database schema to a file named <tt>MyDatabase.schema</tt>.  To install the database for the first time, for instance in a <i>MySQL</i> server, all you need to do is to write a script that creates <b>MDB</b> manager class object and call its <tt>updateDatabase</tt> method. Then use PHP as standalone executable program to execute the script that should look like this:</p>
+<p><tt>&lt;?php<br />
+</tt></p>
+<ul>
+<p><tt>require_once('MDB.php');<br>MDB::loadFile(&quot;Manager&quot;);</tt></p>
+</ul>
+<p>Include the necessary files.</p>
+<ul>
+<p><tt>$schema_file=&quot;MyDatabase.schema&quot;;</tt></p>
+</ul>
+<p>This is the definition of the name of your database schema file.</p>
+<ul>
+<p><tt>$variables=array();</tt></p>
+</ul>
+<p>If your database schema definition needs any install time variable values, you need to define them here.  In the example schema above we have not used any variables.  So, we actually do not need to define an array for the variables.</p>
+<ul>
+<p><tt>$manager=new MDB_manager;</tt></p>
+</ul>
+<p>Create the <b>MDB</b> manager class object.</p>
+<p><tt>$dbinfo = array(</tt></p>
+<ul>
+<p><tt>&quot;phptype&quot;=&gt;&quot;mysql&quot;,</tt><br />
+<tt>&quot;username&quot;=&gt;&quot;mysql_user_name&quot;,</tt><br />
+<tt>&quot;password&quot;=&gt;&quot;mysql_user_password&quot;</tt></p>
+</ul>
+<p><tt>);</tt></p>
+</ul>
+<ul>
+<p><tt>$manager->connect($dsn, $options);</tt></p>
+<ul>
+<p>To setup a connection to the database server you need to pass atleast a DSN in the same format as for MDB with some <i>DBMS</i> specific arguments that are passed to the <b>MDB</b> manager class <tt>connect</tt> method. The <tt>phptype</tt> argument will make the database interface class automatically include the respective database driver class that must be located in the current directory or else its path must be spceified with the <tt>IncludePath</tt> argument.</p>
+<ul>
+<p><tt>$success = $manager-&gt;updateDatabase($schema_file, $schema_file.&quot;.before&quot;);</tt></p>
+</ul>
+<p>Call the <b>MDB</b> manager class object <tt>updateDatabase</tt> passing the schema file name and if any the schema variables array.</p>
+<p>The second parameter is of special importance.  It defines the name of the file to which the schema file currently being installed will be copied after a successful installation procedure.</p>
+<p>The copied file will be used later when you want to update the schema of your database.  Do not delete this file or else the database manager will not be able to determine what is the schema that was installed.</p>
+<ul>
+<p><tt>if(MDB::isError($success))</tt></p>
+<ul>
+<p><tt>echo &quot;Error: &quot;.$success-&gt;getMessage().&quot;\n&quot;;</tt></p>
+</ul>
+</ul>
+<p>If the install procedure failed, display the error to figure what went wrong.</p>
+<ul>
+<p><tt>if(count($manager-&gt;warnings)&gt;0)</tt></p>
+<ul>
+<p><tt>echo &quot;WARNING:\n&quot;,implode($manager-&gt;getWarnings(),&quot;!\n&quot;),&quot;\n&quot;;</tt></p>
+</ul>
+</ul>
+<p><tt>?&gt;</tt></p>
+<p>Even when the install procedure was successfully completed there might have been some issues that you should be warned.</p>
+<h2><li><a name="35.1.4">Accessing to the data in the database</a></li></h2>
+<p><b>MDB</b> is meant for interfacing with <i>DBMS</i> using <i>SQL</i>.  The database application developers are free to construct and execute the <i>SQL</i> queries that their applications may need to send and retrieve information from the database server.</p>
+<ul>
+<h3><li><a name="37.2.1">Setup database access</a></li></h3>
+<p>The first thing you need to do to access to a database is to setup a connection with the <i>DBMS</i> server within your application scripts.</p>
+<p>A database connection is set by calling the factory <tt>&amp;MDB::connect()</tt>.  This factory does not start a database connection right away.  It just sets a few parameters that the <i>DBMS</i> driver needs to know how to communicate with the database server you want.  Usually the database connection is only effectively established later when you execute the first query of each of your scripts.</p>
+<p>The <tt>&amp;MDB::connect()</tt> factory takes as argument an associative array with connection options.  The array entry <tt>phptype</tt> is required and must contain the designation of the driver that will handle the calls to interface with the type of <i>DBMS</i> that you talk to.  For instance, if you want to connect to a <i>MySQL</i> <i>DBMS</i> server, set the <tt>phptype</tt> entry to <tt>mysql</tt>.</p>
+<p>Other arguments array entry may also have to be specified depending on the driver type that you have chosen.  Check the <b>MDB</b> manual to know the designation of the types of other supported <i>DBMS</i> and the respective additional arguments.</p>
+<p>The second argument of the <tt>&amp;MDB::connect()</tt> factory takes a reference of a variable that will be used to store a database access handle value.  This handle value is important because it has to be passed to all <b>MDB</b> methods that are needed to access the database.</p>
+<p>The <tt>&amp;MDB::connect()</tt> factory may fail for inconsistency of the argument values that you may have specified. In case of failure it will return a non-empty string that describes the error that made it fail.  Make sure you always verify this return value at least when you are debugging your database applications.</p>
+<p>Here follows an example of usage of the &amp;MDB::connect()</tt> factory:</p>
+<p><tt>&lt;?php<br />
+</tt></p>
+<ul>
+<p><tt>require_once(&quot;MDB.php&quot;);</tt></p>
+</ul>
+<p>Include the necessary files.</p>
+<ul>
+<p><tt>$mdb=&amp;MDB::connect((array(</tt></p>
+<ul>
+<p><tt>&quot;phptype&quot;=&gt;&quot;mysql&quot;,</tt><br />
+<tt>&quot;username&quot;=&gt;&quot;mysql_user_name&quot;,</tt><br />
+<tt>&quot;password&quot;=&gt;&quot;mysql_user_password&quot;</tt></p>
+</ul>
+<p><tt>));</tt><br />
+<tt>if (MDB::isError($mdb)) {</tt><br />
+<ul>
+<p><tt>die ($mdb->getMessage());</tt><br /></p>
+</ul>
+<p><tt>}</tt></p>
+</ul>
+<p>The <tt>MDB::connect()</tt> creates an object of the driver class to access the database and initializes some variables.</p>
+<ul>
+<p><tt>$mdb->setDatabase(&quot;test&quot;);</tt></p>
+</ul>
+<p><tt>?&gt;</tt></p>
+<p>Before you can access to a database server you usually need to specify the name of the database you want to access using the <tt>setDatabase</tt> method.</p>
+<h3><li><a name="46.2.3">Executing database queries</a></li></h3>
+<p><b>MDB</b> provides two ways of constructing and executing database queries: direct queries and prepared queries.</p>
+<ul>
+<h4><li><a name="47.3.1">Direct queries</a></li></h4>
+<p>Direct queries are those that are executed simply by passing the <i>SQL</i> statement to the <i>DBMS</i>.  To execute a direct query use the method <tt>query()</tt>.  This method takes a database access handle and the <tt>SQL</tt> query statement as arguments.  Here follows an example:</p>
+<p><tt>$query=&quot;SELECT name,password FROM users&quot;;</tt><br />
+<tt>$result=$mdb->query($query);</tt></p>
+<p>The return value is either a result set or an MDB error object.  If <tt>MDB::isError($result)</tt> is <tt>TRUE</tt> then the query failed.  For <tt>SELECT</tt> queries the return value is a result handle.  It should be used to retrieve the query results.</p>
+<p>Query statements often contain constant values like in following example:</p>
+<p><tt>$query=&quot;SELECT name,password FROM users WHERE user_name='admin'&quot;;</tt><br />
+<tt>$result=$mdb->query($query);</tt></p>
+<p>You may build queries like this by manually inserting constant values in the query statement text string.  However, different <i>DBMS</i> may require that constant values be represented in different manners.</p>
+<p>For instance, text constant values may need to escape special characters like <tt>'</tt>.  Date constant values may be represented as integers rather than date text strings because the underlying <i>DBMS</i> does not support date data types natively.</p>
+<p>Fortunately, <b>MDB</b> provides a set of conversion methods that avoid having you to pass constant values in a format that is suitable for the type of <i>DBMS</i> you are talking too.  These methods call the respective driver methods to do any representation conversion that may be needed.</p>
+<p>This way you may develop highly portable database applications without having to worry with the different types of constant value conversions that have to be performed when interfacing with different <i>DBMS</i>.</p>
+<p>For each data type supported by <b>MDB</b> there is a constant value conversion method, except for integer constants because these are not likely to be represented differently between <i>DBMS</i>.  Here is a complete list of constant values conversion methods:</p>
+<ul>
+<p><li><tt>getTextValue($value)</tt></li></p>
+<p><li><tt>getBooleanValue($value)</tt></li></p>
+<p><li><tt>getDateValue($value)</tt></li></p>
+<p><li><tt>getTimestampValue($value)</tt></li></p>
+<p><li><tt>getTimeValue($value)</tt></li></p>
+<p><li><tt>getIntegerValue($value)</tt></li></p>
+<p><li><tt>getFloatValue($value)</tt></li></p>
+<p><li><tt>getDecimalValue($value)</tt></li></p>
+</ul>
+<p>Using the constant value conversion methods for the execution of the query mentioned above, it would be rewritten like this:</p>
+<p><tt>$query=&quot;SELECT name,password FROM users WHERE user_name=&quot;.$mdb->getTextValue(&quot;admin&quot;);</tt><br />
+<tt>$result=$mdb->query($query);</tt></p>
+<p>Converting constant values before executing queries requires a little extra effort, but considering the flexibility that is gained from the extra portability of your application code, it is an effort that it is worthy and it is thoroughly recommended to you make it.</p>
+<h4><li><a name="48.3.2">Prepared queries</a></li></h4>
+<p>Prepared queries are <i>SQL</i> statements that have to be prepared before being executed.  Executing a prepared query takes less time than executing a non-prepared query because prepared queries have already been parsed by the time they are executed.</p>
+<p>Using prepared queries to execute them only once in a script does not take less time than just using direct queries. Prepared queries are recommended when you need to execute a query more than once in the same script.</p>
+<p>Prepared queries may take arguments.  When a prepared query is executed argument values are inserted in special spots in the query statement marked as with <tt>?</tt>.  Consider for instance this example that uses a direct query:</p>
+<p><tt>$query=&quot;SELECT name,password FROM users WHERE user_name=&quot;.$mdb->getTextValue(&quot;admin&quot;);</tt><br />
+<tt>$result=$mdb->query($query);</tt></p>
+<p>It may be rewritten using a prepared query like this:</p>
+<p><tt>$query=&quot;SELECT name,password FROM users WHERE user_name=?&quot;;</tt><br />
+<tt>$prepared_query=$mdb->prepareQuery($query);</tt></p>
+<p>Get a prepared query handle.</p>
+<p><tt>if(!MDB::isError($prepared_query))</tt></p>
+<p>Make sure the query was prepared without error.</p>
+<p><tt>{</tt></p>
+<ul>
+<p><tt>$mdb->setParamText($prepared_query,1,&quot;admin&quot;);</tt></p>
+</ul>
+<p>Set the first query argument with the text constant value <tt>admin</tt>.</p>
+<ul>
+<p><tt>$result=$mdb->executeQuery($prepared_query);</tt></p>
+</ul>
+<p><tt>}</tt></p>
+<p>Execute the query.  From here on handling query results is the same as for direct queries.</p>
+<p>Prepared queries may have many arguments, all identified by the <tt>?</tt> mark.  Each one has an order number starting from <tt>1</tt>.</p>
+<p>There is one method to set prepared query arguments for each data type supported by <b>MDB</b>.  In the example <tt>setParamText()</tt> was used to set a text argument. <tt>setParamInteger()</tt> would have to be used if the argument was an integer, and so on.  If the argument is meant to be set to <tt>NULL</tt>, use the method <tt>setParamNull()</tt>.</p>
+<p>Prepared queries may be executed multiple times in the same script and you may change all or part of the argument values before executing them each time.</p>
+<p>After you have executed all the times you need a prepared query in a script, you have to free the resources that it implicitly allocates by calling the method <tt>freePreparedQuery()</tt>.</p>
+<p>Despite the use of prepared queries is mostly meant for scripts where you need to execute the same query more than once, you may find it cleaner to also use them even when they are only executed once, as you only start with constant query strings and constant data value conversion is transparently handled for you by the <tt>setParam()</tt> like methods.</p>
+</ul>
+<h3><li><a name="50.2.4">Retrieving query results</a></li></h3>
+<ul>
+<h4><li><a name="51.3.1">Fetching result set data</a></li></h4>
+<p>A successfully executed <tt>SELECT</tt> returns a value that should be used as result handle.  This value must be passed to every <b>MDB</b> method that you may need to call to access the results return by the queries that your database applications execute.</p>
+<p>A result handle is just a number that serves as a reference to a result set returned by the <i>DBMS</i> to the application as response to the query that was executed.</p>
+<p>A result set is a sort of table with columns and rows filled with result data.  You can retrieve the results using the <tt>fetch*()</tt> the family of methods (like <tt>fetchRow()</tt>).</p>
+<p>Despite the rows of a result set are not always made available to the database application all at once, <b>MDB</b> lets you request result data by specify the number of the respective result set row.  Result set row numbers start from <tt>0</tt>.</p>
+<p>Here is simple example of a retrieving the results of a row of a query:</p>
+<p><tt>$result=$mdb->query(&quot;SELECT name,email FROM users&quot;);</tt><br />
+<tt>if(!MDB::isError($result))</tt><br />
+<tt>{</tt></p>
+<ul>
+<p><tt>$data=$mdb->fetchRow($result);</tt><br />
+<tt>$name=$data[0];</tt><br />
+<tt>$email=$data[1];</tt></p>
+</ul>
+<p><tt>}</tt><br />
+<tt>else</tt></p>
+<ul>
+<p><tt>$echo=$result->getMessage();</tt></p>
+</ul>
+<h4><li><a name="53.3.2">Data type conversion</a></li></h4>
+<p>The <tt>fetch*()</tt> method retrieves data just as it is returned by the <i>DBMS</i>.  The data representation format for each type of field may vary from <i>DBMS</i> to <i>DBMS</i>.</p>
+<p>To avoid the problem of having to handle data representation format differences in your database application, <b>MDB</b> provides a set of methods that fetch the result data and already convert it to a single representation format defined for each supported data type.</p>
+<p>This simplifies database application development a lot and promotes code portability when using different <i>DBMS</i>.</p>
+<p>Not all types of result data need to be converted.  For instance, text and integer result data do not need to be converted. You can either use <tt>convertResult($value, $type)</tt> to convert result data. Optionally you can pass an array to <tt>query()</tt> and <tt>prepareQuery()</tt> that contains the types in the result set. Then the type conversion is handled automatically for you.</p>
+<h4><li><a name="70.3.5">Freeing the result set resources</a></li></h4>
+<p>When you are done with the result set of a query, you should make sure that any resources implicitly allocated for it are freed.  Freeing allocated resources is important because it reduces the use of memory that a script needs to run by allowing that memory may be reused.</p>
+<p>Even if your script exits right after you are done with the result of a query, you should always explicitly free query results because the end of a script may not imply that the resources are freed automatically then.  This is particularly true if you are using persistent database connections when running PHP as Web server module.</p>
+<p>With <b>MDB</b> you should use the <tt>freeResult()</tt> method and it may be as simple as follows:</p>
+<p><tt>$mdb->freeResult($result);</tt></p>
+</ul>
+<h3><li><a name="70.2.5">Handling large object fields</a></li></h3>
+<ul>
+<p>Large object fields, also known as <i>LOBs</i> (<i>BLOBs/CLOBs</i>), need to have a special treatment. The amount of data stored in this type of fields may be so large that it would require too much memory to be stored and retrieved all at once with single method calls like with other types of fields.</p>
+<p><b>MDB</b> provides a separate set of API methods to deal with large object fields. These methods let applications deal with the values of this type of fields by splitting them in smaller chunks of data.</p>
+<h4><li><a name="71.3.1">Creating large object table fields</a></li></h4>
+<p>Large object fields may be created like any other type of field, that is declaring them in schema description files as large object fields.</p>
+<p>There are two types of large object fields: character fields and binary fields. Character fields could be used when you only intend to store <i>ASCII</i> text on them. If you intend to store other types of data, use binary fields instead.</p>
+<p>Character large object fields should declared of being of the type <tt>clob</tt>. Binary large object fields should declared of being of the type <tt>blob</tt>. Here follows an example of declaration of a table with a character and a binary large object fields:</p>
+<ul>
+<p><tt>&lt;table&gt;</tt></p>
+<ul>
+<p><tt>&lt;name&gt;files&lt;/name&gt;</tt></p>
+<p><tt>&lt;declaration&gt;</tt></p>
+<ul>
+<p><tt>&lt;field&gt; &lt;name&gt;id&lt;/name&gt;       &lt;type&gt;integer&lt;/type&gt; &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;document&lt;/name&gt; &lt;type&gt;clob&lt;/type&gt;    &lt;/field&gt;<br />
+&lt;field&gt; &lt;name&gt;picture&lt;/name&gt;  &lt;type&gt;blob&lt;/type&gt;    &lt;/field&gt;</tt></p>
+</ul>
+<p><tt>&lt;/declaration&gt;</tt></p>
+</ul>
+<p><tt>&lt;/table&gt;</tt></p>
+</ul>
+<h4><li><a name="74.3.2">Storing data in large object fields</a></li></h4>
+<p>With <b>MDB</b>, storing data in large object fields can only be done by executing <tt>INSERT</tt> or <tt>UPDATE</tt> prepared queries. The large object values are passed to the database as parameters of the prepared queries. The methods <tt>setParamClob</tt> and <tt>setParamBlob</tt> should be used to specify large object values as parameters of the prepared query.</p>
+<p>Instead of specifying the large object parameters explicitly by their data values, you need to pass references to objects of special handler classes that know how to retrieve the data to store in the large object fields.</p>
+<p>The handler classes may be able to retrieve data from strings of defined programmatically like any other type of field, but may also retrieve data from files.</p>
+<p>Here follows an example of how to execute a query that inserts data defined programmatically into a large object character field:</p>
+<ul>
+<p><li>Prepare a query to insert a row with character large object field (<tt>document</tt>). You may insert rows with as many large object fields as you want, but in this example only one is inserted.</li></p>
+<p><tt>if(($prepared_query=$mdb->prepareQuery(&quot;INSERT INTO files (id,document,picture) VALUES (1,?,NULL)&quot;)))<br />
+{</tt></p>
+<p><li>Create a large object handler class to supply data defined in the program to insert in the table field.</li></p>
+<ul>
+<p><tt>$character_lob=array(</tt></p>
+<ul>
+<p><tt>&quot;Error&quot;=&gt;&quot;&quot;,<br />
+&quot;Data&quot;=&gt;&quot;a lot of character data&quot;</tt></p>
+</ul>
+<p><tt>);<br />
+if(!MDB::isError($clob=$mdb->createLob($character_lob)))<br />
+{</tt></p>
+</ul>
+<p><li>Define the character large object field query parameter value. Notice that you need to specify the name of the table field into which will be inserted the large object data value.</li></p>
+<ul>
+<ul>
+<p><tt>$mdb->setParamClob($prepared_query,1,$clob,&quot;document&quot;);</tt></p>
+</ul>
+</ul>
+<p><li>Execute the prepared query.</li></p>
+<ul>
+<ul>
+<p><tt>if(!MDB::isError($error = $mdb->executeQuery($prepared_query))</tt></p>
+<ul>
+<p><tt>echo $error->getMessage();</tt></p>
+</ul>
+</ul>
+</ul>
+<p><li>Free the resources allocated by the handler class object.</li></p>
+<ul>
+<ul>
+<p><tt>$mdb->destroyLob($clob);</tt></p>
+</ul>
+<p><tt>}</tt></p>
+</ul>
+<p><li>If the creation of the handler object failed, retrieve the error message.</li></p>
+<ul>
+<p><tt>else</tt></p>
+<ul>
+<p><tt>echo $clob->getMessage();</tt></p>
+</ul>
+</ul>
+<p><li>Free the prepared query resources.</li></p>
+<ul>
+<p><tt>$mdb->freePreparedQuery($prepared_query);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+<ul>
+<p><tt>echo $prepared_query->getMessage();</tt></p>
+</ul>
+</ul>
+<p>Here follows an example of how to execute a query that updates a large object binary field with data retrieved from a file. Make sure that only one row is affected by the query because some <i>DBMS</i> are not able to update values of large object fields in more than one row per query.</p>
+<ul>
+<p><li>Prepare a query to update a row with binary large object field (<tt>picture</tt>).</li></p>
+<p><tt>if(!MDB::isError($prepared_query=$mdb->prepareQuery(,&quot;UPDATE files SET picture=? WHERE id=1&quot;)))<br />
+{</tt></p>
+<p><li>Create a large object handler class to supply data from a specified file.</li></p>
+<ul>
+<p><tt>$binary_lob=array(</tt></p>
+<ul>
+<p><tt>&quot;Error&quot;=&gt;&quot;&quot;,<br />
+&quot;FileName&quot;=&gt;&quot;my_image.gif&quot;</tt></p>
+</ul>
+<p><tt>);<br />
+if(!MDB::isError($blob=$mdb->createLob($binary_lob)))<br />
+{</tt></p>
+</ul>
+<p><li>Define the binary large object field query parameter value. Specifying the name of the field to update is also necessary for <tt>UPDATE</tt> queries.</li></p>
+<ul>
+<ul>
+<p><tt>$mdb->setParamBlob($prepared_query,1,$blob,&quot;picture&quot;);</tt></p>
+</ul>
+</ul>
+<p><li>Execute the prepared query.</li></p>
+<ul>
+<ul>
+<p><tt>if(MDB::isError($error = $mdb->executeQuery($prepared_query)))</tt></p>
+<ul>
+<p><tt>$mdb->destroyLOB($blob);</tt></p>
+</ul>
+<p><tt>echo $error->getMessage();</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+<ul>
+<p><tt>echo $blob->getMessage();</tt></p>
+</ul>
+<p><tt>$mdb->freePreparedQuery($prepared_query);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+<ul>
+<p><tt>echo $prepared_query->getMessage();</tt></p>
+</ul>
+</ul>
+<h4><li><a name="98.3.3">Retrieving data from large object fields</a></li></h4>
+<p>Retriving data from large object fields is done by executing normal <tt>SELECT</tt> queries.</p>
+<p>The methods <tt>fetchClob</tt> and <tt>fetchBlobt</tt> return a value that identifies a large object handler class object. The data may be retrieved using the method <tt>readLob</tt>. Alternatively, the handler object identifier may be passed to another handler class object that will read the large object result value and process it in a useful way, like for instance storing the data in a file.</p>
+<p>Here follows an example of how to select a character large object field to output its data:</p>
+<ul>
+<p><li>Execute the <tt>SELECT</tt> query. More than one large object field could be selected in the same query.</li></p>
+<p><tt>if(($result=$mdb->query(&quot;SELECT document FROM files WHERE id=1&quot;)))<br />
+{</tt></p>
+<p><li>Check whether there are any result rows by verifying if it has reached the end of the result set.</li></p>
+<ul>
+<p><tt>if($mdb->endOfResult($result))</tt></p>
+<ul>
+<p><tt>echo &quot;No rows where returned.\n&quot;;</tt></p>
+</ul>
+<p><tt>else<br />
+{</tt></p>
+</ul>
+<p><li>Retrieve the large object identifier for a given result row column. Usually this always succeed, but if there is an unexpected error, it will return an error object to denote an error. If you are not sure if the selected column is <tt>NULL</tt>, use the method <tt>resultIsNull</tt> here to verify that.</li></p>
+<ul>
+<ul>
+<p><tt>$clob=$mdb->fetchClob($result,0,&quot;document&quot;);<br />
+if(!MDB::isError($clob))<br />
+{</tt></p>
+</ul>
+</ul>
+<p><li>Read the data from the selected large object field until it reaches the end of data.</li></p>
+<ul>
+<ul>
+<ul>
+<p><tt>while(!$mdb->endOfLOB($clob))<br />
+{</tt></p>
+</ul>
+</ul>
+</ul>
+<p><li>If it is returned a negative length of data read, that is because an error has occurred.</li></p>
+<ul>
+<ul>
+<ul>
+<ul>
+<p><tt>if(MDB::isError($error = $mdb->readLob($clob,$data,8000)&lt;0))<br />
+{</tt></p>
+<ul>
+<p><tt>echo $error->getMessage();<br />
+break;</tt></p>
+</ul>
+<p><tt>}</tt></p>
+</ul>
+</ul>
+</ul>
+</ul>
+<p><li>If otherwise the data was read ok, keep outputting it.</li></p>
+<ul>
+<ul>
+<ul>
+<ul>
+<p><tt>echo $data;</tt></p>
+</ul>
+<p><tt>}</tt></p>
+</ul>
+</ul>
+</ul>
+<p><li>Free the resources allocated by the result large object handler class.</li></p>
+<ul>
+<ul>
+<ul>
+<p><tt>$mdb->destroyLob($clob);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+</ul>
+</ul>
+<p><li>If it was not possible to retrieve the large object field value, figure why retrieving the error message.</li></p>
+<ul>
+<ul>
+<ul>
+<p><tt>echo $clob->getMessage();</tt></p>
+</ul>
+</ul>
+<p><tt>}</tt></p>
+</ul>
+<p><li>Free the query result.</li></p>
+<ul>
+<p><tt>$mdb->freeResult($result);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+<ul>
+<p><tt>echo $result->getMessage();</tt></p>
+</ul>
+</ul>
+<p>Here follows an example of how to select a binary large object field and output its data to a file.</p>
+<ul>
+<p><li>Execute the <tt>SELECT</tt> query.</li></p>
+<p><tt>if(($result=$mdb->query(&quot;SELECT picture FROM files WHERE id=1&quot;)))<br />
+{</tt></p>
+<ul>
+<p><tt>if($mdb->endOfResult($result))</tt></p>
+<ul>
+<p><tt>echo &quot;No rows where returned.\n&quot;;</tt></p>
+</ul>
+<p><tt>else<br />
+{</tt></p>
+</ul>
+<p><li>Create a output file handler class object.</li></p>
+<ul>
+<ul>
+<p><tt>$binary_lob=array(</tt></p>
+<ul>
+<p><tt>&quot;Type&quot;=&gt;&quot;outputfile&quot;,<br />
+&quot;Result&quot;=&gt;$result,<br />
+&quot;Row&quot;=&gt;0,<br />
+&quot;Field&quot;=&gt;&quot;picture&quot;,<br />
+&quot;Binary&quot;=&gt;1,<br />
+&quot;Error&quot;=&gt;&quot;&quot;,<br />
+&quot;FileName&quot;=&gt;&quot;my_image.gif&quot;</tt></p>
+</ul>
+<p><tt>);<br />
+if(!MDB::isError($blob=$mdb->createLOB($binary_lob)))<br />
+{</tt></p>
+</ul>
+</ul>
+<p><li>Read the whole large object field data and write it to the specified file by specifying a read length of <tt>0</tt> bytes. No data is returned in the <tt>$data</tt> argument.</li></p>
+<ul>
+<ul>
+<ul>
+<p><tt>if(MDB::isError($error = $mdb->readLob($blob,$data,0)&lt;0))<br />
+{</tt></p>
+</ul>
+</ul>
+</ul>
+<p><li>If it is returned a negative length of data read, that is because an error has occurred.</li></p>
+<ul>
+<ul>
+<ul>
+<ul>
+<p><tt>echo $error->getMessage();</tt></p>
+</ul>
+<p><tt>}<br />
+$mdb->destroyLob($blob);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+</ul>
+</ul>
+<p><li>If it was not possible to create the output file handler class object, figure why retrieving the error message.</li></p>
+<ul>
+<ul>
+<ul>
+<p><tt>echo $blob->getMessage();</tt></p>
+</ul>
+</ul>
+<p><tt>}<br />
+$mdb->freeResult($result);</tt></p>
+</ul>
+<p><tt>}<br />
+else</tt></p>
+<ul>
+<p><tt>echo $result->getMessage();</tt></p>
+</ul>
+</ul>
+</ul>
+</ul>
+<h2><li><a name="140.1.5">Updating the database schema</a></li></h2>
+<p>If for some reason you decide that you need to update the schema of your database, the procedure to install your schema changes is as simple as install a database schema for the first time.</p>
+<p>In fact all you need to do after you edit and change your schema file is to execute the same script like that you used to initially install the database.</p>
+<p>The database manager class will look for the copy of the previously installed schema file.  Both the newer and the previous installed schema descriptions are parsed and compared to build the list of changes.</p>
+<p>Then it will attempt to install the requested changes without affecting the data that was stored in the database after the database was installed for the first time.</p>
+<p>Some <i>DBMS</i> <b>MDB</b> drivers are not able to implement all sorts of changes.  If you asked for any changes that the are not possible to install at once, the <tt>updateDatabase</tt> method will fail without affecting the database.</p>
+<p>The attempt to change the database is safe at this level but it is always safer to make a backup of your database data before installing any changes as for some unexpected reason the <i>DBMS</i> server might fail.</p>
+</ul>
+
+<hr />
+<address>Manuel Lemos (<a href="mailto:mlemos@acm.org">mlemos@acm.org</a>)</address>
+<address>Lukas Smith (<a href="mailto:smith@backendmedia.com">smith@backendmedia.com</a>)</address>
+</body>
+</html>

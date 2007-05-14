@@ -1,0 +1,288 @@
+BODY {
+	background-color : #FFFFFF;
+	color : #000000;
+	font-family : Verdana, Arial, sans-serif;
+	font-size : smaller;
+	margin-left : 1em;
+	margin-right : 1em;
+}
+
+td { 
+	font-size: smaller
+}
+
+A {
+	
+}
+
+A:LINK, A:VISITED {
+	color : #000099;
+	text-decoration : none;
+}
+
+A:HOVER {
+	background-color : #FFFFFF;
+	color : #00009F;
+	text-decoration : underline;
+}
+
+H2 {
+	color : Black;
+	font-size : 13pt;
+	font-weight: 400;
+	letter-spacing: .2em;
+	background-color: #CCCCCC;
+	padding: .4em;
+}
+
+H3 {
+	color : Navy;
+	font-size : 12pt;
+	margin-top :1em;
+}
+
+H4 {
+	color : Navy;
+	font-size : 10pt;
+	background-color : #E6E6FA;
+	padding-bottom : .5em;
+	padding-top : .5em;
+	padding-left : .5em;
+	
+}
+
+H5 {
+	color : Navy;
+	font-size : 10pt;
+	font-weight : 900;
+	margin-bottom : -1em;
+}
+
+BLOCKQUOTE {
+	margin-left : 0;
+}
+
+CAPTION {
+	font-weight : 800;
+}
+
+TH {
+	background-color : #CCCCCC;
+}
+
+CODE {
+	font-size: 9pt;
+}
+
+.MODULE_NAME {
+	color : Black;
+	background-color: #D9ECFF;
+	font-size : 16pt;
+	margin-bottom : .1em;
+	padding-top : 5px;
+	padding-left : 5px;
+}
+
+ .PACKAGE_NAME {
+	padding: .2em;
+	padding-left: .2em;
+	color : #000000;
+	background-color: #D9FBFF;
+	font-size : 9pt;
+	font-weight : 800;	
+	margin-bottom : -2em;
+}
+
+ .PACKAGE_IN_NAV {
+	color : #000000;
+	font-size : 9pt;
+<!--	font-weight : 800; -->	
+}
+
+
+
+.COPYRIGHT {
+	font-size: 8pt;
+}
+
+.COPYRIGHT, .CLASS_FIELD_CONTENT {
+	margin-right: 1.5in;
+	margin-left: 1em;
+}
+
+.FIELD_LABEL {
+	background-color: #FFCCCC;
+	padding: .15em;
+
+}
+
+.public_CLASS_FUNCTION_TABLE .public_METHOD_FUNCTION_TABLE {
+	background-color: #DABD89;
+}
+
+<!--
+.private_CLASS_FUNCTION_TABLE, .private_METHOD_FUNCTION_TABLE {
+	background-color: #CBCEA6;
+} -->
+
+.private_CLASS_FUNCTION_TABLE, .private_METHOD_FUNCTION_TABLE {
+	background-color: #FFFFFF;
+}
+
+
+.public_FUNCTION_DETAIL_NAME {
+	font-weight: bold;
+	font-size: 11pt;
+	color: black;
+	background-color: #9999FF;
+	padding: .2em;
+}
+
+.private_FUNCTION_DETAIL_NAME {
+	font-weight: bold;
+	font-size: 11pt;
+	color: black;
+	background-color: #CCCCCC;
+	padding: .2em;
+}
+
+.public_FUNCTION_DETAIL_SPAN, .private_FUNCTION_DETAIL_SPAN {
+	color: #333333;
+	margin-left: .5em;
+	margin-right: .75em;
+	font-style: bold;
+}
+
+.FUNCTION_DIVIDER, .ELEMENT_LIST_DIVIDER {
+	width: 20em;
+	height: .2em;
+	color: black;
+}
+
+.VARIABLE_DIVIDER {
+	width: 20em;
+	height: .2em;
+	color: red;
+}
+
+.CONSTANTS_DIVIDER {
+	width: 20em;
+	height: .2em;
+	color: blue;
+}
+
+.FUNCTION_DETAILS_LABEL {
+	Abackground-color: #AACCFF;
+}
+
+.FUNCTION_DETAILS_CONTENT {
+	Abackground-color: #CCFF99;
+}
+
+.FUNCTION_DETAILS_AUTHOR {
+	font-size: 11 pt;
+}
+
+.FUNCTION_DETAILS_NAME_CELL {
+	Abackground-color: green;
+}
+
+.FUNCTION_DETAILS_PARAMETER_CELL {
+	background-color: #FFFFCC;
+	padding-left: .5em;
+	padding-right: .5em;
+	padding-top: 0em;
+	padding-bottom: 0em;
+}
+
+.FUNCTION_DETAILS_PARAMETER_TOP_CELL {
+	background-color: #DDDDDD;
+	padding-left: .5em;
+	padding-right: .5em;
+	padding-top: 0em;
+	padding-bottom: 0em;
+}
+
+.FUNCTION_DETAILS_NAME_CELL {
+	background-color: purple;
+	
+}
+
+.TOP_NAV_LINK {
+	text-align: left;
+}
+
+.TOP_NAV_LINK A:LINK {
+	color: black;
+}
+
+.TOP_NAV_LINK A:VISTED {
+	color: black;
+	background-color: white;
+}
+
+.TOP_NAV_LINK A:HOVER {
+	color: black;
+	background-color: orange;
+	text-decoration: underline;
+}
+
+.TOP_NAV_BAR {
+	background-color: #99CCFF;
+	padding: .2em;
+}
+
+.MAIN_TITLE {
+	font-size: 13pt;
+	font-weight: bold;
+	margin-bottom: -1.5em;
+	margin-top: 0em;
+}
+
+.SUB_TITLE {
+	font-size: 11pt;
+	font-weight: bold;
+	background-color: #E7E8E3;
+	padding-left: .3em;
+	margin-bottom: -1em;
+	margin-top: 2em;
+}
+
+.SECTION_TITLE, .SECTION_TITLE_SPAN {
+	font-size: 10pt;
+	margin-left: 0em;
+	margin-bottom: -1.4em;
+}
+
+.SECTION_TITLE_SPAN {
+	text-decoration: underline;
+	background-color: #CFDDEB;
+	padding-right: 5em;
+}
+.ELEMENT_NAME {
+	font-size: 8pt;
+	margin-bottom: -1.6em;
+	margin-left: 1.5em;
+}
+
+.APP_NAME {
+	font-size: 20pt;
+	font-weight: 600;
+}
+
+.CLASSES_DIV, .MODULES_DIV {
+	background-color: #CFDDEB;
+	margin-left: 1em;
+	padding-left: 1em;
+}
+
+.PACKAGE_DIV {
+	background-color: BLACK;
+	margin-left: -.5em;
+	padding-left: .5em;
+}
+
+.MAJOR_SECTION {
+	background-color: #FFFFCC;
+	padding: 1em;
+}

@@ -1,0 +1,92 @@
+/**
+ * MDB2_Schema : Presentation style sheet for the schema2html.xsl doc utility
+ *
+ * CSS2 StyleSheet
+ *
+ * @category   DB
+ * @package    MDB2_Schema
+ * @author     Bertrand Gugger <bertrand@toggg.com>
+ * @copyright  2006 bertrand Gugger
+ * @license    http://www.opensource.org/licenses/bsd-license.php BSD license
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/MDB2_Schema
+ */
+.foo {
+}
+body {
+     font-family: Arial, Helvetica, sans-serif;
+     background: #FFDACF;
+}
+span {
+    margin: 0 2px;
+}
+.database {
+    background: #eee;
+    margin: 2px;
+    border: solid 1px black;
+}
+.database .comments {
+    font-size: x-small;
+}
+.menu {
+    word-spacing: 5px;
+}
+.name {
+    font-size: large;
+    font-weight: bold;
+}
+.description {
+    font-size: normal;
+    font-weight: normal;
+}
+.label {
+    font-size: x-small;
+    font-weight: lighter;
+    color: #888;
+}
+.comments {
+    font-size: x-small;
+    font-weight: lighter;
+    color: #888;
+}
+td.comments {
+    border-left: solid 2px #eee;
+    border-right: solid 2px #eee;
+}
+.tablemain table {
+    margin: 0 auto;
+}
+.tableheader {
+    padding: 3px;
+    border: solid 0px;
+    margin: 0px;
+    background-color: #eee; //rgb(235, 235, 235);
+    color: #888; //rgb(133, 133, 133);
+    text-decoration: none; 
+}
+.tableheader td {
+    padding: 0 3px;
+}
+.tablebody td {
+    padding: 3px;
+    border: solid 1px #eee;
+    // border-left: solid 1px; border-bottom: solid 1px; border-right: solid 1px;
+    // border-color: rgb(210, 210, 210);
+    margin: solid 0px;
+    font-size: 11px;
+    color: rgb(133, 133, 133);
+    text-decoration: none;
+}
+.tablebody .name {
+    font-size: small;
+}
+.indexfield {
+    font-weight: bold;
+}
+.indexes {
+    font-weight: bold;
+    font-family: monospace;
+}
+.attributes {
+    font-weight: bold;
+}

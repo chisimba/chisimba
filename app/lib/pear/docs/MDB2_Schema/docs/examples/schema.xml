@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<database>
+
+ <name>MDB2Example</name>
+ <create>true</create>
+ <overwrite>true</overwrite>
+
+ <table>
+
+  <name>People</name>
+
+  <declaration>
+
+   <field>
+    <name>id</name>
+    <type>integer</type>
+    <unsigned>true</unsigned>
+    <notnull>true</notnull>
+    <default>0</default>
+    <autoincrement>1</autoincrement>
+   </field>
+
+   <field>
+    <name>name</name>
+    <type>text</type>
+    <length>128</length>
+    <notnull>true</notnull>
+    <default>unknown</default>
+   </field>
+
+   <field>
+    <name>age</name>
+    <type>integer</type>
+    <unsigned>true</unsigned>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>birthdate</name>
+    <type>date</type>
+    <notnull>false</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>occupation</name>
+    <type>text</type>
+    <length>128</length>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>updated</name>
+    <type>timestamp</type>
+    <notnull>false</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>aux</name>
+    <type>float</type>
+    <unsigned>true</unsigned>
+    <notnull>false</notnull>
+   </field>
+
+   <index>
+    <name>PRIMARY</name>
+    <primary>true</primary>
+    <field>
+     <name>id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+  <initialization>
+
+   <insert>
+    <field>
+     <name>name</name>
+     <value>Igor</value>
+    </field>
+    <field>
+     <name>birthdate</name>
+     <value>1984-05-23</value>
+    </field>
+    <field>
+     <name>occupation</name>
+     <value>engineer</value>
+    </field>
+    <field>
+     <name>updated</name>
+     <function>
+      <name>now</name>
+     </function>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>name</name>
+     <value>Heloisa</value>
+    </field>
+    <field>
+     <name>birthdate</name>
+     <value>1984-04-07</value>
+    </field>
+    <field>
+     <name>occupation</name>
+     <value>lawyer</value>
+    </field>
+    <field>
+     <name>updated</name>
+     <function>
+      <name>now</name>
+     </function>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>name</name>
+     <value>Anne Sophie</value>
+    </field>
+    <field>
+     <name>birthdate</name>
+     <value>2004-01-16</value>
+    </field>
+    <field>
+     <name>occupation</name>
+     <value>engineer</value>
+    </field>
+    <field>
+     <name>updated</name>
+     <function>
+      <name>now</name>
+     </function>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>name</name>
+     <value>John</value>
+    </field>
+    <field>
+     <name>birthdate</name>
+     <value>2005-01-16</value>
+    </field>
+    <field>
+     <name>occupation</name>
+     <value>philosopher</value>
+    </field>
+    <field>
+     <name>updated</name>
+     <function>
+      <name>now</name>
+     </function>
+    </field>
+   </insert>
+
+   <update>
+    <field>
+     <name>aux</name>
+     <expression>
+      <function>
+       <name>DATEDIFF</name>
+       <column>updated</column>
+       <column>birthdate</column>
+      </function>
+      <operator>DIVIDED</operator>
+      <value>365</value>
+     </expression>
+    </field>
+
+    <field>
+     <name>age</name>
+     <function>
+      <name>floor</name>
+      <column>aux</column>
+     </function>
+    </field>
+   </update>
+
+   <update>
+    <field>
+     <name>aux</name>
+     <null></null>
+    </field>
+   </update>
+
+  </initialization>
+
+ </table>
+
+ <table>
+
+  <name>Packages</name>
+
+  <declaration>
+
+   <field>
+    <name>id</name>
+    <type>integer</type>
+    <unsigned>true</unsigned>
+    <length>4</length>
+    <notnull>true</notnull>
+    <default>0</default>
+    <autoincrement>1</autoincrement>
+   </field>
+
+   <field>
+    <name>name</name>
+    <type>text</type>
+    <length>128</length>
+    <notnull>true</notnull>
+    <default></default>
+   </field>
+
+   <field>
+    <name>summary</name>
+    <type>clob</type>
+    <notnull>true</notnull>
+   </field>
+
+   <field>
+    <name>creation</name>
+    <type>date</type>
+    <notnull>false</notnull>
+    <default></default>
+   </field>
+
+   <index>
+    <name>PRIMARY</name>
+    <primary>true</primary>
+    <field>
+     <name>id</name>
+     <sorting>ascending</sorting>
+    </field>
+   </index>
+
+  </declaration>
+
+  <initialization>
+
+   <insert>
+    <field>
+     <name>id</name>
+     <value>11</value>
+    </field>
+    <field>
+     <name>name</name>
+     <value>PEAR</value>
+    </field>
+    <field>
+     <name>summary</name>
+     <value>PEAR Base System</value>
+    </field>
+    <field>
+     <name>creation</name>
+     <value>2006-08-16</value>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>id</name>
+     <value>12</value>
+    </field>
+    <field>
+     <name>name</name>
+     <value>MDB2</value>
+    </field>
+    <field>
+     <name>summary</name>
+     <value>Database Abstraction Layer</value>
+    </field>
+    <field>
+     <name>creation</name>
+     <value>2006-09-03</value>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>id</name>
+     <value>13</value>
+    </field>
+    <field>
+     <name>name</name>
+     <value>MDB2_Schema</value>
+    </field>
+    <field>
+     <name>summary</name>
+     <value>XML Based Database Schema Manager</value>
+    </field>
+    <field>
+     <name>creation</name>
+     <function>
+      <name>now</name>
+     </function>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>id</name>
+     <value>14</value>
+    </field>
+    <field>
+     <name>name</name>
+     <value>XML_Parser</value>
+    </field>
+    <field>
+     <name>summary</name>
+     <value>XML parsing class based on PHP's bundled expat</value>
+    </field>
+    <field>
+     <name>creation</name>
+     <value>2005-09-24</value>
+    </field>
+   </insert>
+
+   <insert>
+    <field>
+     <name>id</name>
+     <value>77</value>
+    </field>
+    <field>
+     <name>name</name>
+     <value>I am supposed to be deleted</value>
+    </field>
+   </insert>
+
+   <update>
+    <field>
+     <name>id</name>
+     <expression>
+      <column>id</column>
+      <operator>MINUS</operator>
+      <value>10</value>
+     </expression>
+    </field>
+   </update>
+
+   <delete>
+    <where>
+     <expression>
+      <column>id</column>
+      <operator>EQUAL</operator>
+      <value>67</value>
+     </expression>
+    </where>
+   </delete>
+
+  </initialization>
+
+ </table>
+
+</database>
