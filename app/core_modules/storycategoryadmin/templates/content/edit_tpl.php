@@ -40,14 +40,14 @@ if (isset($ar)) {
     $dateCreated = $ar['datecreated'];
     $creatorId = $ar['creatorid'];
     $dateModified = $ar['datemodified'];
-    $modifierId = $ar['modifierId'];
+    $modifierId = $ar['modifierid'];
     $modified = $ar['modified'];
 }
 
 //Set up the label for the fieldset
 if ($mode=="edit") {
     $rep = array('category' => $category);
-    $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', $rep);
+    $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', "storycategoryadmin", $rep);
 } else {
     $fieldsetLabel = $this->objLanguage->languageText("mod_storycategory_addlabel", "storycategoryadmin");
 }
