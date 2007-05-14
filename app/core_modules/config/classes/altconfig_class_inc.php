@@ -12,7 +12,11 @@
 // include class
 
 ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
-require_once 'lib/pear/Config.php';
+if(!class_exists('Config'))
+{
+	//ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
+	require_once 'Config.php';
+}
 
 class altconfig extends object
 {

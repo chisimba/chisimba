@@ -433,9 +433,9 @@ class engine
 			//so we parse the DSN to an array and then send that to the object instantiation to be safe
 			$dsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
 			$this->dsn = $this->parseDSN($dsn);
-
+			
 			// Connect to the database
-			require_once $this->getPearResource('MDB2.php');
+			require_once ('MDB2.php');
 			//MDB2 has a factory method, so lets use it now...
 			$_globalObjDb = &MDB2::singleton($this->dsn);
 
