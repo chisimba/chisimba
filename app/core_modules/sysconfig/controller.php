@@ -142,7 +142,7 @@ class sysconfig extends controller {
                 }
                 $this->objSysConfig->updateSingle();
 
-                $checkobject = $this->getObject('checkobject');
+                $checkobject = $this->getObject('checkobject', 'utilities');
 
                 $record = $this->objSysConfig->getRow('id', $_POST['id']);
 
