@@ -6,8 +6,8 @@
  * @author Paul Scott
  * @copyright
  */
-require_once('PEAR.php');
 
+require_once('lib/pear/PEAR.php');
 class errorhandler extends PEAR
 {
     public $error;

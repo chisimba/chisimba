@@ -10,8 +10,9 @@
  */
 //grab the pear::Config properties
 // include class
-require_once 'Config.php';
 
+ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.'lib/pear/');
+require_once 'lib/pear/Config.php';
 
 class altconfig extends object
 {
@@ -78,7 +79,7 @@ class altconfig extends object
     {
         // instantiate object
         try{
-
+			//require_once($this->getPearResource('Config.php'));
         	$this->_objPearConfig = new Config();
         }catch (Exception $e){
             throw new customException($e->getMessage());

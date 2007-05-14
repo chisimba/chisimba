@@ -4,7 +4,7 @@ $enable_debug_logging = TRUE;
 
 if ($enable_debug_logging == TRUE)
 {
-    require_once 'Log.php';
+    require_once 'pear/Log.php';
 
     $conf = array('mode' => 0644, 'timeFormat' => '%Y-%m-%d %H:%M:%S');
     $log = &Log::singleton('file', 'error_log/system_errors.log', 'framework', $conf);

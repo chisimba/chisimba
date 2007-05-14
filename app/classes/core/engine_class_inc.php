@@ -1,6 +1,7 @@
 <?php
 //increase memory_limit - added 28.07.06 by nappleby
 ini_set('memory_limit','500M');
+
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
@@ -328,6 +329,7 @@ class engine
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		//and we need a general system config too
 		$this->_objConfig = $this->_objDbConfig;
+		ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
 		//initialise the db factory method of MDB2
 		$this->getDbObj();
 		//initialise the db factory method of MDB2_Schema
@@ -433,7 +435,7 @@ class engine
 			$this->dsn = $this->parseDSN($dsn);
 
 			// Connect to the database
-			require_once 'MDB2.php';
+			require_once $this->getPearResource('MDB2.php');
 			//MDB2 has a factory method, so lets use it now...
 			$_globalObjDb = &MDB2::singleton($this->dsn);
 
@@ -508,7 +510,7 @@ class engine
 			$mdsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
 			$this->mdsn = $this->parseDSN($mdsn);
 			// Connect to the database
-			require_once 'MDB2/Schema.php';
+			require_once $this->getPearResource('MDB2/Schema.php');
 			//MDB2 has a factory method, so lets use it now...
 			$_globalObjDbManager = &MDB2_Schema::factory($this->mdsn);
 
