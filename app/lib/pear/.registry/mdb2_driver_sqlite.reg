@@ -1,0 +1,264 @@
+a:22:{s:7:"attribs";a:6:{s:15:"packagerversion";s:5:"1.5.0";s:7:"version";s:3:"2.0";s:5:"xmlns";s:35:"http://pear.php.net/dtd/package-2.0";s:11:"xmlns:tasks";s:33:"http://pear.php.net/dtd/tasks-1.0";s:9:"xmlns:xsi";s:41:"http://www.w3.org/2001/XMLSchema-instance";s:18:"xsi:schemaLocation";s:147:"http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd";}s:4:"name";s:18:"MDB2_Driver_sqlite";s:7:"channel";s:12:"pear.php.net";s:7:"summary";s:18:"sqlite MDB2 driver";s:11:"description";s:31:"This is the SQLite MDB2 driver.";s:4:"lead";a:2:{i:0;a:4:{s:4:"name";s:17:"Lukas Kahwe Smith";s:4:"user";s:6:"lsmith";s:5:"email";s:20:"smith@pooteeweet.org";s:6:"active";s:2:"no";}i:1;a:4:{s:4:"name";s:16:"Lorenzo Alberton";s:4:"user";s:5:"quipo";s:5:"email";s:19:"l.alberton@quipo.it";s:6:"active";s:3:"yes";}}s:4:"date";s:10:"2007-03-13";s:4:"time";s:8:"23:12:52";s:7:"version";a:2:{s:7:"release";s:5:"1.4.0";s:3:"api";s:5:"1.4.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:7:"license";s:11:"BSD License";s:5:"notes";s:1080:"- propagate errors in getTableFieldDefinition() in the Reverse module
+- fixed bug #9895: Error mapping broken since 5.2.0
+- implemented a fallback mechanism within getTableIndexDefinition() and
+  getTableConstraintDefinition() in the Reverse module to ignore the 'idxname_format'
+  option and use the index name as provided in case of failure before returning
+  an error
+- added a 'nativetype_map_callback' option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- fixed bug #9693: execute statement again in case of a SQLITE_SCHEMA error
+- fixed bug #10027: PHP4 compatibility in createConstraint() and dropConstraint()
+- implemented listViews() in the Manager module
+- implemented listTableViews() in the Manager module
+- implemented listTableTriggers() in the Manager module
+- implemented getTriggerDefinition() in the Reverse module [experimental]
+- fixed bug #9828: propagate errors in getConnection()
+- phpdoc fixes
+
+note:
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE";s:8:"contents";a:1:{s:3:"dir";a:2:{s:7:"attribs";a:2:{s:14:"baseinstalldir";s:1:"/";s:4:"name";s:1:"/";}s:4:"file";a:8:{i:0;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"c50200b08030e5d080da03c1409490f3";s:4:"name";s:31:"MDB2/Driver/Datatype/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:1;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"41878668066f9ab2c566482ff0276bc1";s:4:"name";s:31:"MDB2/Driver/Function/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:2;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"d92c8579ef69757128f09a420f8e936e";s:4:"name";s:30:"MDB2/Driver/Manager/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:3;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"007750becdbfb26e54c8e1bebc41dbc0";s:4:"name";s:29:"MDB2/Driver/Native/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:4;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"018661bca2fd609f73371f7954bf800a";s:4:"name";s:30:"MDB2/Driver/Reverse/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:5;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"1297131438c31b5a4bb87cf5b6d0d416";s:4:"name";s:22:"MDB2/Driver/sqlite.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:6;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"54882586bf87e9f3b5d5ab9a20e3e5f7";s:4:"name";s:33:"tests/MDB2_nonstandard_sqlite.php";s:4:"role";s:4:"test";}}i:7;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"5c722152603d9057fa58ec7ca97cb6dd";s:4:"name";s:18:"package_sqlite.xml";s:4:"role";s:4:"data";}}}}}s:12:"dependencies";a:1:{s:8:"required";a:4:{s:3:"php";a:1:{s:3:"min";s:5:"4.3.0";}s:13:"pearinstaller";a:1:{s:3:"min";s:7:"1.4.0b1";}s:7:"package";a:3:{s:4:"name";s:4:"MDB2";s:7:"channel";s:12:"pear.php.net";s:3:"min";s:5:"2.4.0";}s:9:"extension";a:1:{s:4:"name";s:6:"sqlite";}}}s:10:"phprelease";s:0:"";s:9:"changelog";a:1:{s:7:"release";a:15:{i:0;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.4.0";s:3:"api";s:5:"1.4.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2007-03-13";s:7:"license";s:11:"BSD License";s:5:"notes";s:1080:"- propagate errors in getTableFieldDefinition() in the Reverse module
+- fixed bug #9895: Error mapping broken since 5.2.0
+- implemented a fallback mechanism within getTableIndexDefinition() and
+  getTableConstraintDefinition() in the Reverse module to ignore the 'idxname_format'
+  option and use the index name as provided in case of failure before returning
+  an error
+- added a 'nativetype_map_callback' option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- fixed bug #9693: execute statement again in case of a SQLITE_SCHEMA error
+- fixed bug #10027: PHP4 compatibility in createConstraint() and dropConstraint()
+- implemented listViews() in the Manager module
+- implemented listTableViews() in the Manager module
+- implemented listTableTriggers() in the Manager module
+- implemented getTriggerDefinition() in the Reverse module [experimental]
+- fixed bug #9828: propagate errors in getConnection()
+- phpdoc fixes
+
+note:
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE";}i:1;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.3.0";s:3:"api";s:5:"2.3.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-11-03";s:7:"license";s:11:"BSD License";s:5:"notes";s:755:"note:
+- this driver only supports SQLite version 2.x databases
+- the replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the multi_query test failes because this is not supported by ext/sqlite
+- the savepoint test failes because this is not supported by sqlite
+- the case sensitive search test fails because this is not supported by SQLite
+- the pattern escaping test fails because this is not supported by SQLite
+- do not skip id generation in nextId() when creating a sequence on demand
+  becazse this prevents lastInsertID() from working
+- migrated to package.xml version 2
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE";}i:2;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.1";s:3:"api";s:5:"1.2.1";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-08-21";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:1387:"- fixed issue in tableInfo() that originates in getTableFieldDefinition() which
+  led to returning incorrect type values (Bug #8291)
+- added support for NULL columns in getTableFieldDefinition()
+- added full support for alterTable() via emulation
+- added support for primary key creation and dropping
+- do not list empty contraints and indexes
+- use information_schema in listTableFields() instead of selecting from the
+  table since that does not work if the table is empty
+- fixed handling of contraints in _getTableColumns()
+- fixed primary key handling in alterTable(), createConstraint() and dropConstraint()
+- do not set a default if type is a LOB (Request #8074)
+- fixed handling return values when disable_query is set in _doQuery() and _execute()
+- increased MDB2 dependency too 2.2.1
+
+note:
+- this driver only supports SQLite version 2.x databases
+- the replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the multi_query test failes because this is not supported by ext/sqlite
+- the savepoint test failes because this is not supported by sqlite
+- the case sensitive search test fails because this is not supported by SQLite
+- the pattern escaping test fails because this is not supported by SQLite
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE";}i:3;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.0";s:3:"api";s:5:"1.2.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-07-23";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:1492:"- added setTransactionIsolation()
+- MDB2_PORTABILITY_RTRIM ignored by driver (Bug #8239)
+- added ability to escape wildcard characters in escape() and quote()
+- added setTransactionIsolation()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added context array parameter to debug() and make use of it whereever sensible
+- added optional method name parameter to raiseError() and use whereever possible
+- added ability to escape wildcard characters in escape() and quote()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added 'nativetype' output to tableInfo() and getTableFieldDefinition()
+- added 'mdb2type' output to getTableFieldDefinition()
+- reworked tableInfo() to use a common implementation based on getTableFieldDefinition()
+  when a table name is passed (Bug #8124)
+- fixed incorrect regex in mapNativeDatatype() (Bug #8256) (thx ioz at ionosfera dot com)
+- use old dsn when rolling back open transactions in disconnect()
+
+note: this driver only supports SQLite version 2.x databases
+
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:4;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.1.0";s:3:"api";s:5:"1.1.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-06-15";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:938:"- fixed unsigned handling in mapNativeDatatype()
+- use setCharset() in connect()/_doConnect()
+- generalized quoteIdentifier() with a property
+- fixed warning in replace() if type is not set (Bug #7740)
+- cosmetic performance tweak in getTableFieldDefinition()
+- switched most array_key_exists() calls to !empty() to improve readability and performance
+- fixed a few edge cases and potential warnings
+- added ability to rewrite queries for query(), exec() and prepare() using a debug handler callback
+- revert change that would prefer 'clob' over 'text' for TEXT fields
+  (this was breaking runtime instrospection)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:5;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.0.2";s:3:"api";s:5:"1.0.2";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-05-14";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:800:"- explicitly set is_manip parameter to false for transaction debug calls
+- added ability to hint that a constraint is a primary key in dropConstraint()
+- typo fixes in phpdoc (thx Stoyan)
+- added support for fixed and variable types for 'text' in declarations,
+  as well as in reverse engineering (Request #1523)
+- made _doQuery() return a reference
+- added userinfo's to all raiseError calls that previously had none
+- added 'prepared_statements' supported meta data setting
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:6;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.0.1";s:3:"api";s:5:"1.0.1";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-04-16";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:912:"- aligned _modifyQuery() signature and phpdoc
+- fix bug sqlite:///:memory: trys to open file (bug #6599)
+- added 'result_introspection' supported metadata support
+- properly quote table names in tableInfo() (related to bug #6573)
+- use connected_server_info in getServerVersion() as a cache cache
+- use parent::disconnect() in disconnect()
+- added server_version option
+- set error code in all raiseError() calls
+- added support for length in integer reverse engineering
+- some fixes regarding boolean reverse engineering
+- protect against sql injection in the reverse and manager module
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:7;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.0.0";s:3:"api";s:5:"1.0.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2006-02-09";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:494:"- use PRAGMA short_column_names = 1/0 for MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES handling
+- handle null as resource when disable_query option is enabled in result object
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:8;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.2.4";s:3:"api";s:5:"0.2.4";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2006-02-05";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:896:"- datatype 'clob' missing in mapNativeDatatype() (bug #6490)
+- removed bogus result->free() (bug #6491)
+- added support for length in integer and decimal columns
+- improved regexp for column reverse engineering
+- removed ugly hack for quote parameter in quote() since it was insufficient
+  (escaping also needs to be prevented)
+- Now integer fields are created and mapped as INTEGER instead of INT, this
+  kick started the auto increment feature properly
+- improved parsing in getServerInfo() (bug #6550)
+- fix case when reading from sqlite information schema (bug #6491)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table tests fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:9;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.2.3";s:3:"api";s:5:"0.2.3";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2006-01-13";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:978:"- explicitly pass if the module is phptype specific in all loadModule calls (bug #6226)
+- fixed handling of autoincrement and unsigned in Reverse and Datatype module
+- tweaked handling of the native error message
+- typo fixes in error handling of nextResult() and numRows() calls
+- _fixIndexName() now just attempts to remove possible formatting
+- renamed _isSequenceName() to _fixSequenceName()
+- _fixSequenceName() now just attempts to remove possible formatting, and only
+  returns a boolean if no formatting was applied when the new "check" parameter is set to true
+- use MDB2_ERROR_ALREADY_EXISTS if the database to create already exists (bug #6481)
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:10;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.2.2";s:3:"api";s:5:"0.2.2";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2005-12-30";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:380:"- fixed handling of autoincrement in the datatype module
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:11;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.2.1";s:3:"api";s:5:"0.2.1";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2005-12-28";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:583:"- fixed now() and substring()
+- disabled "add" and "rename" in alterTable() sqlite 2.x as they are not supported
+- fixed bug in regexp inside _getTableColumns()
+- added mapping for boolean into mapNativeDatatype()
+- proper quote new table name in alterTable()
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced";}i:12;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.2.0";s:3:"api";s:5:"0.2.0";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2005-12-21";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:1870:"- do not fix case in listUsers()
+- unified case fixing in the list*() methods
+- support sorting order in createIndex()
+- tweaked lob and text handling in mapNativeDatatype()
+- fixed getTableFieldDefinition()
+- use getConnection() to access connection property
+- split index and constraint handling
+- quote identifiers where possible inside the manager methods depending on
+  the new 'quote_identifier' option (defaults to off)
+- refactored get*Declaration() methods to use getTypeDeclaration()
+- setting in_transaction to false on disconnect
+- added new Function modules to handle difference in SQL functions
+- force rollback() with open transactions on disconnect
+- added alterTable() (only does table name change and column adding)
+- escape floats to make sure they do not contain evil characters (bug #5608)
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- only if result_types is set to false in prepare() method the query will be
+  handled as a DML statement *BC BREAK*
+- use a proper default value if a field is set to not null in _getDeclaration*() (bug #5930)
+- added ability to determine unsigned in mapNativeDatatype()
+  (only really implemented in the mysql(i) drivers) (bug #6054)
+- use lastInsertID() method in nextID()
+- added getServerVersion()
+- unified array structure in mapNativeDatatype() *BC BREAK*
+- added 'mdbtype' to tableInfo() output that is generated from mapNativeDatatype()
+- changed 'len' to 'length' in tableInfo() output *BC BREAK*
+
+open todo items:
+- a number of the manager test cases fail because sqlite does not support adding
+  primary keys to existing tables
+- the alter table test fails because this is unsupported in sqlite2
+- the test replace test fails because sqlite reports an incorrect affected rows
+  value when no existing data was replaced
+- the testnow and testsubstring tests fail";}i:13;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.1.1";s:3:"api";s:5:"0.1.1";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2005-06-10";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:83:"- increased php dependency to 4.3.0 due to the usage of the streams API since beta5";}i:14;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"0.1.0";s:3:"api";s:5:"0.1.0";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2005-04-29";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:22:"http://www.example.com";}s:8:"_content";s:11:"BSD License";}s:5:"notes";s:466:"first unbundled release from MDB2 core
+
+- cosmetic fixes to _getDatabaseFile()
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+- check if database_name is empty to determine if to connect in connect()
+- Warning: there are some serious issues on php5 HEAD on windows";}}}s:8:"filelist";a:8:{s:31:"MDB2/Driver/Datatype/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"c50200b08030e5d080da03c1409490f3";s:4:"name";s:31:"MDB2/Driver/Datatype/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:46:"/usr/share/php/MDB2/Driver/Datatype/sqlite.php";}s:31:"MDB2/Driver/Function/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"41878668066f9ab2c566482ff0276bc1";s:4:"name";s:31:"MDB2/Driver/Function/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:46:"/usr/share/php/MDB2/Driver/Function/sqlite.php";}s:30:"MDB2/Driver/Manager/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"d92c8579ef69757128f09a420f8e936e";s:4:"name";s:30:"MDB2/Driver/Manager/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:45:"/usr/share/php/MDB2/Driver/Manager/sqlite.php";}s:29:"MDB2/Driver/Native/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"007750becdbfb26e54c8e1bebc41dbc0";s:4:"name";s:29:"MDB2/Driver/Native/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/share/php/MDB2/Driver/Native/sqlite.php";}s:30:"MDB2/Driver/Reverse/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"018661bca2fd609f73371f7954bf800a";s:4:"name";s:30:"MDB2/Driver/Reverse/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:45:"/usr/share/php/MDB2/Driver/Reverse/sqlite.php";}s:22:"MDB2/Driver/sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"1297131438c31b5a4bb87cf5b6d0d416";s:4:"name";s:22:"MDB2/Driver/sqlite.php";s:4:"role";s:3:"php";s:12:"installed_as";s:37:"/usr/share/php/MDB2/Driver/sqlite.php";}s:33:"tests/MDB2_nonstandard_sqlite.php";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"54882586bf87e9f3b5d5ab9a20e3e5f7";s:4:"name";s:33:"tests/MDB2_nonstandard_sqlite.php";s:4:"role";s:4:"test";s:12:"installed_as";s:73:"/usr/share/php/tests/MDB2_Driver_sqlite/tests/MDB2_nonstandard_sqlite.php";}s:18:"package_sqlite.xml";a:5:{s:14:"baseinstalldir";s:1:"/";s:6:"md5sum";s:32:"5c722152603d9057fa58ec7ca97cb6dd";s:4:"name";s:18:"package_sqlite.xml";s:4:"role";s:4:"data";s:12:"installed_as";s:57:"/usr/share/php/data/MDB2_Driver_sqlite/package_sqlite.xml";}}s:12:"_lastversion";N;s:7:"dirtree";a:9:{s:35:"/usr/share/php/MDB2/Driver/Datatype";b:1;s:26:"/usr/share/php/MDB2/Driver";b:1;s:19:"/usr/share/php/MDB2";b:1;s:35:"/usr/share/php/MDB2/Driver/Function";b:1;s:34:"/usr/share/php/MDB2/Driver/Manager";b:1;s:33:"/usr/share/php/MDB2/Driver/Native";b:1;s:34:"/usr/share/php/MDB2/Driver/Reverse";b:1;s:45:"/usr/share/php/tests/MDB2_Driver_sqlite/tests";b:1;s:38:"/usr/share/php/data/MDB2_Driver_sqlite";b:1;}s:3:"old";a:7:{s:7:"version";s:5:"1.4.0";s:12:"release_date";s:10:"2007-03-13";s:13:"release_state";s:6:"stable";s:15:"release_license";s:11:"BSD License";s:13:"release_notes";s:1080:"- propagate errors in getTableFieldDefinition() in the Reverse module
+- fixed bug #9895: Error mapping broken since 5.2.0
+- implemented a fallback mechanism within getTableIndexDefinition() and
+  getTableConstraintDefinition() in the Reverse module to ignore the 'idxname_format'
+  option and use the index name as provided in case of failure before returning
+  an error
+- added a 'nativetype_map_callback' option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- fixed bug #9693: execute statement again in case of a SQLITE_SCHEMA error
+- fixed bug #10027: PHP4 compatibility in createConstraint() and dropConstraint()
+- implemented listViews() in the Manager module
+- implemented listTableViews() in the Manager module
+- implemented listTableTriggers() in the Manager module
+- implemented getTriggerDefinition() in the Reverse module [experimental]
+- fixed bug #9828: propagate errors in getConnection()
+- phpdoc fixes
+
+note:
+open todo items:
+- fix pattern escaping using GLOB instead of LIKE or create an register own implementation of LIKE";s:12:"release_deps";a:4:{i:0;a:4:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:5:"4.3.0";s:8:"optional";s:2:"no";}i:1;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:4:"PEAR";s:3:"rel";s:2:"ge";s:7:"version";s:7:"1.4.0b1";s:8:"optional";s:2:"no";}i:2;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:4:"MDB2";s:3:"rel";s:2:"ge";s:7:"version";s:5:"2.4.0";s:8:"optional";s:2:"no";}i:3;a:4:{s:4:"type";s:3:"ext";s:4:"name";s:6:"sqlite";s:3:"rel";s:3:"has";s:8:"optional";s:2:"no";}}s:11:"maintainers";a:2:{i:0;a:5:{s:4:"name";s:17:"Lukas Kahwe Smith";s:5:"email";s:20:"smith@pooteeweet.org";s:6:"active";s:2:"no";s:6:"handle";s:6:"lsmith";s:4:"role";s:4:"lead";}i:1;a:5:{s:4:"name";s:16:"Lorenzo Alberton";s:5:"email";s:19:"l.alberton@quipo.it";s:6:"active";s:3:"yes";s:6:"handle";s:5:"quipo";s:4:"role";s:4:"lead";}}}s:10:"xsdversion";s:3:"2.0";s:13:"_lastmodified";i:1176272859;}

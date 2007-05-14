@@ -1,0 +1,604 @@
+a:18:{s:8:"provides";a:359:{s:20:"class;HTML_QuickForm";a:4:{s:4:"type";s:5:"class";s:4:"name";s:14:"HTML_QuickForm";s:7:"extends";s:11:"HTML_Common";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_Error";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_Error";s:7:"extends";s:10:"PEAR_Error";s:8:"explicit";b:1;}s:35:"function;HTML_QuickForm::apiVersion";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"HTML_QuickForm::apiVersion";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm::registerElementType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm::registerElementType";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm::registerRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm::registerRule";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm::elementExists";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm::elementExists";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm::setDatasource";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm::setDatasource";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm::setDefaults";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm::setDefaults";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm::setConstants";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm::setConstants";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm::setMaxFileSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm::setMaxFileSize";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm::getMaxFileSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm::getMaxFileSize";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm::createElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm::createElement";s:8:"explicit";b:1;}s:35:"function;HTML_QuickForm::addElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"HTML_QuickForm::addElement";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm::insertElementBefore";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm::insertElementBefore";s:8:"explicit";b:1;}s:33:"function;HTML_QuickForm::addGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"HTML_QuickForm::addGroup";s:8:"explicit";b:1;}s:35:"function;HTML_QuickForm::getElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"HTML_QuickForm::getElement";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::getElementValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::getElementValue";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm::getSubmitValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm::getSubmitValue";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::getElementError";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::getElementError";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::setElementError";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::setElementError";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm::getElementType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm::getElementType";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm::updateElementAttr";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm::updateElementAttr";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm::removeElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm::removeElement";s:8:"explicit";b:1;}s:32:"function;HTML_QuickForm::addRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:23:"HTML_QuickForm::addRule";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm::addGroupRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm::addGroupRule";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm::addFormRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm::addFormRule";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm::applyFilter";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm::applyFilter";s:8:"explicit";b:1;}s:35:"function;HTML_QuickForm::arrayMerge";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"HTML_QuickForm::arrayMerge";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm::isTypeRegistered";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm::isTypeRegistered";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm::getRegisteredTypes";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm::getRegisteredTypes";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm::isRuleRegistered";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm::isRuleRegistered";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm::getRegisteredRules";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm::getRegisteredRules";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm::isElementRequired";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm::isElementRequired";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::isElementFrozen";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::isElementFrozen";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm::setJsWarnings";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm::setJsWarnings";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::setRequiredNote";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::setRequiredNote";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::getRequiredNote";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::getRequiredNote";s:8:"explicit";b:1;}s:33:"function;HTML_QuickForm::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"HTML_QuickForm::validate";s:8:"explicit";b:1;}s:31:"function;HTML_QuickForm::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"HTML_QuickForm::freeze";s:8:"explicit";b:1;}s:33:"function;HTML_QuickForm::isFrozen";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"HTML_QuickForm::isFrozen";s:8:"explicit";b:1;}s:32:"function;HTML_QuickForm::process";a:3:{s:4:"type";s:8:"function";s:4:"name";s:23:"HTML_QuickForm::process";s:8:"explicit";b:1;}s:31:"function;HTML_QuickForm::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"HTML_QuickForm::accept";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::defaultRenderer";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::defaultRenderer";s:8:"explicit";b:1;}s:31:"function;HTML_QuickForm::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:22:"HTML_QuickForm::toHtml";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm::getValidationScript";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm::getSubmitValues";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm::getSubmitValues";s:8:"explicit";b:1;}s:32:"function;HTML_QuickForm::toArray";a:3:{s:4:"type";s:8:"function";s:4:"name";s:23:"HTML_QuickForm::toArray";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm::exportValue";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm::exportValues";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm::exportValues";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm::isSubmitted";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm::isSubmitted";s:8:"explicit";b:1;}s:32:"function;HTML_QuickForm::isError";a:3:{s:4:"type";s:8:"function";s:4:"name";s:23:"HTML_QuickForm::isError";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm::errorMessage";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm::errorMessage";s:8:"explicit";b:1;}s:32:"class;HTML_QuickForm_advcheckbox";a:4:{s:4:"type";s:5:"class";s:4:"name";s:26:"HTML_QuickForm_advcheckbox";s:7:"extends";s:23:"HTML_QuickForm_checkbox";s:8:"explicit";b:1;}s:51:"function;HTML_QuickForm_advcheckbox::getPrivateName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:42:"HTML_QuickForm_advcheckbox::getPrivateName";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_advcheckbox::getOnclickJs";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_advcheckbox::getOnclickJs";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_advcheckbox::setValues";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_advcheckbox::setValues";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_advcheckbox::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_advcheckbox::setValue";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_advcheckbox::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_advcheckbox::getValue";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_advcheckbox::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_advcheckbox::toHtml";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_advcheckbox::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_advcheckbox::getFrozenHtml";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_advcheckbox::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_advcheckbox::onQuickFormEvent";s:8:"explicit";b:1;}s:48:"function;HTML_QuickForm_advcheckbox::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:39:"HTML_QuickForm_advcheckbox::exportValue";s:8:"explicit";b:1;}s:33:"class;HTML_QuickForm_autocomplete";a:4:{s:4:"type";s:5:"class";s:4:"name";s:27:"HTML_QuickForm_autocomplete";s:7:"extends";s:19:"HTML_QuickForm_text";s:8:"explicit";b:1;}s:48:"function;HTML_QuickForm_autocomplete::setOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:39:"HTML_QuickForm_autocomplete::setOptions";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_autocomplete::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_autocomplete::toHtml";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_button";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_button";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_button::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_button::freeze";s:8:"explicit";b:1;}s:29:"class;HTML_QuickForm_checkbox";a:4:{s:4:"type";s:5:"class";s:4:"name";s:23:"HTML_QuickForm_checkbox";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_checkbox::setChecked";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_checkbox::setChecked";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_checkbox::getChecked";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_checkbox::getChecked";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_checkbox::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_checkbox::toHtml";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_checkbox::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_checkbox::getFrozenHtml";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_checkbox::setText";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_checkbox::setText";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_checkbox::getText";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_checkbox::getText";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_checkbox::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_checkbox::setValue";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_checkbox::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_checkbox::getValue";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_checkbox::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_checkbox::onQuickFormEvent";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_checkbox::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_checkbox::exportValue";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_date";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_date";s:7:"extends";s:20:"HTML_QuickForm_group";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_date::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_date::setValue";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_date::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_date::toHtml";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_date::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_date::accept";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_date::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_date::onQuickFormEvent";s:8:"explicit";b:1;}s:28:"class;HTML_QuickForm_element";a:4:{s:4:"type";s:5:"class";s:4:"name";s:22:"HTML_QuickForm_element";s:7:"extends";s:11:"HTML_Common";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_element::apiVersion";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_element::apiVersion";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_element::getType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_element::getType";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_element::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_element::setName";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_element::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_element::getName";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::setValue";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::getValue";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_element::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_element::freeze";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::unfreeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::unfreeze";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_element::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_element::getFrozenHtml";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::isFrozen";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::isFrozen";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_element::setPersistantFreeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_element::setPersistantFreeze";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::setLabel";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::setLabel";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_element::getLabel";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_element::getLabel";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_element::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_element::onQuickFormEvent";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_element::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_element::accept";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_element::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_element::exportValue";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_file";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_file";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_file::setSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_file::setSize";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_file::getSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_file::getSize";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_file::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_file::freeze";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_file::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_file::setValue";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_file::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_file::getValue";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_file::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_file::onQuickFormEvent";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_file::moveUploadedFile";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_file::moveUploadedFile";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_file::isUploadedFile";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_file::isUploadedFile";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_group";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_group";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_group::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_group::setName";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_group::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_group::getName";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_group::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_group::setValue";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_group::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_group::getValue";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_group::setElements";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_group::setElements";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_group::getElements";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_group::getElements";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_group::getGroupType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_group::getGroupType";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_group::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_group::toHtml";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_group::getElementName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_group::getElementName";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_group::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_group::getFrozenHtml";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_group::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_group::onQuickFormEvent";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_group::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_group::accept";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_group::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_group::exportValue";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_group::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_group::freeze";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_group::unfreeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_group::unfreeze";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_group::setPersistantFreeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_group::setPersistantFreeze";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_header";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_header";s:7:"extends";s:21:"HTML_QuickForm_static";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_header::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_header::accept";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_hidden";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_hidden";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_hidden::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_hidden::freeze";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_hidden::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_hidden::accept";s:8:"explicit";b:1;}s:33:"class;HTML_QuickForm_hiddenselect";a:4:{s:4:"type";s:5:"class";s:4:"name";s:27:"HTML_QuickForm_hiddenselect";s:7:"extends";s:21:"HTML_QuickForm_select";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_hiddenselect::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_hiddenselect::toHtml";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_hiddenselect::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_hiddenselect::accept";s:8:"explicit";b:1;}s:31:"class;HTML_QuickForm_hierselect";a:4:{s:4:"type";s:5:"class";s:4:"name";s:25:"HTML_QuickForm_hierselect";s:7:"extends";s:20:"HTML_QuickForm_group";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_hierselect::setOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_hierselect::setOptions";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_hierselect::setMainOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_hierselect::setMainOptions";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_hierselect::setSecOptions";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_hierselect::setSecOptions";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_hierselect::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_hierselect::setValue";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_hierselect::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_hierselect::toHtml";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_hierselect::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_hierselect::accept";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_hierselect::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_hierselect::onQuickFormEvent";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_html";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_html";s:7:"extends";s:21:"HTML_QuickForm_static";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_html::accept";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_html::accept";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_image";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_image";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_image::setSource";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_image::setSource";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_image::setBorder";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_image::setBorder";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_image::setAlign";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_image::setAlign";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_image::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_image::freeze";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_input";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_input";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_input::setType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_input::setType";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_input::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_input::setName";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_input::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_input::getName";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_input::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_input::setValue";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_input::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_input::getValue";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_input::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_input::toHtml";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_input::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_input::onQuickFormEvent";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_input::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_input::exportValue";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_link";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_link";s:7:"extends";s:21:"HTML_QuickForm_static";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_link::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_link::setName";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_link::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_link::getName";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_link::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_link::setValue";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_link::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_link::getValue";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_link::setHref";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_link::setHref";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_link::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_link::toHtml";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_link::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_link::getFrozenHtml";s:8:"explicit";b:1;}s:29:"class;HTML_QuickForm_password";a:4:{s:4:"type";s:5:"class";s:4:"name";s:23:"HTML_QuickForm_password";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_password::setSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_password::setSize";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_password::setMaxlength";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_password::setMaxlength";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_password::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_password::getFrozenHtml";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_radio";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_radio";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_radio::setChecked";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_radio::setChecked";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_radio::getChecked";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_radio::getChecked";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_radio::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_radio::toHtml";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_radio::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_radio::getFrozenHtml";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_radio::setText";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_radio::setText";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_radio::getText";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_radio::getText";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_radio::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_radio::onQuickFormEvent";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_radio::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_radio::exportValue";s:8:"explicit";b:1;}s:26:"class;HTML_QuickForm_reset";a:4:{s:4:"type";s:5:"class";s:4:"name";s:20:"HTML_QuickForm_reset";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_reset::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_reset::freeze";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_select";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_select";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_select::apiVersion";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_select::apiVersion";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_select::setSelected";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_select::setSelected";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_select::getSelected";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_select::getSelected";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_select::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_select::setName";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_select::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_select::getName";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_select::getPrivateName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_select::getPrivateName";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_select::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_select::setValue";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_select::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_select::getValue";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_select::setSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_select::setSize";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_select::getSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_select::getSize";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_select::setMultiple";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_select::setMultiple";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_select::getMultiple";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_select::getMultiple";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_select::addOption";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_select::addOption";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_select::loadArray";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_select::loadArray";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_select::loadDbResult";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_select::loadDbResult";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_select::loadQuery";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_select::loadQuery";s:8:"explicit";b:1;}s:36:"function;HTML_QuickForm_select::load";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"HTML_QuickForm_select::load";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_select::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_select::toHtml";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_select::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_select::getFrozenHtml";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_select::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_select::exportValue";s:8:"explicit";b:1;}s:48:"function;HTML_QuickForm_select::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:39:"HTML_QuickForm_select::onQuickFormEvent";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_static";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_static";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_static::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_static::setName";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_static::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_static::getName";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_static::setText";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_static::setText";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_static::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_static::setValue";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_static::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_static::toHtml";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_static::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_static::getFrozenHtml";s:8:"explicit";b:1;}s:48:"function;HTML_QuickForm_static::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:39:"HTML_QuickForm_static::onQuickFormEvent";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_static::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_static::exportValue";s:8:"explicit";b:1;}s:27:"class;HTML_QuickForm_submit";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"HTML_QuickForm_submit";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_submit::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_submit::freeze";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_submit::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_submit::exportValue";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_text";a:4:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_text";s:7:"extends";s:20:"HTML_QuickForm_input";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_text::setSize";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_text::setSize";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_text::setMaxlength";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_text::setMaxlength";s:8:"explicit";b:1;}s:29:"class;HTML_QuickForm_textarea";a:4:{s:4:"type";s:5:"class";s:4:"name";s:23:"HTML_QuickForm_textarea";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_textarea::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_textarea::setName";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_textarea::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_textarea::getName";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_textarea::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_textarea::setValue";s:8:"explicit";b:1;}s:42:"function;HTML_QuickForm_textarea::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:33:"HTML_QuickForm_textarea::getValue";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_textarea::setWrap";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_textarea::setWrap";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_textarea::setRows";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_textarea::setRows";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_textarea::setCols";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_textarea::setCols";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_textarea::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_textarea::toHtml";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_textarea::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_textarea::getFrozenHtml";s:8:"explicit";b:1;}s:28:"class;HTML_QuickForm_xbutton";a:4:{s:4:"type";s:5:"class";s:4:"name";s:22:"HTML_QuickForm_xbutton";s:7:"extends";s:22:"HTML_QuickForm_element";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_xbutton::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_xbutton::toHtml";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_xbutton::getFrozenHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_xbutton::getFrozenHtml";s:8:"explicit";b:1;}s:39:"function;HTML_QuickForm_xbutton::freeze";a:3:{s:4:"type";s:8:"function";s:4:"name";s:30:"HTML_QuickForm_xbutton::freeze";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_xbutton::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_xbutton::setName";s:8:"explicit";b:1;}s:40:"function;HTML_QuickForm_xbutton::getName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"HTML_QuickForm_xbutton::getName";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_xbutton::setValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_xbutton::setValue";s:8:"explicit";b:1;}s:41:"function;HTML_QuickForm_xbutton::getValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:32:"HTML_QuickForm_xbutton::getValue";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_xbutton::setContent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_xbutton::setContent";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_xbutton::onQuickFormEvent";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_xbutton::onQuickFormEvent";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_xbutton::exportValue";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_xbutton::exportValue";s:8:"explicit";b:1;}s:29:"class;HTML_QuickForm_Renderer";a:3:{s:4:"type";s:5:"class";s:4:"name";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_Renderer::startForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_Renderer::startForm";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Renderer::finishForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Renderer::finishForm";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_Renderer::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_Renderer::renderHeader";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_Renderer::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_Renderer::renderElement";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_Renderer::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_Renderer::renderHidden";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Renderer::renderHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Renderer::renderHtml";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Renderer::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Renderer::startGroup";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_Renderer::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_Renderer::finishGroup";s:8:"explicit";b:1;}s:25:"class;HTML_QuickForm_Rule";a:3:{s:4:"type";s:5:"class";s:4:"name";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:38:"function;HTML_QuickForm_Rule::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"HTML_QuickForm_Rule::validate";s:8:"explicit";b:1;}s:37:"function;HTML_QuickForm_Rule::setName";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"HTML_QuickForm_Rule::setName";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_Rule::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_Rule::getValidationScript";s:8:"explicit";b:1;}s:33:"class;HTML_QuickForm_RuleRegistry";a:3:{s:4:"type";s:5:"class";s:4:"name";s:27:"HTML_QuickForm_RuleRegistry";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_RuleRegistry::singleton";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_RuleRegistry::singleton";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_RuleRegistry::registerRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_RuleRegistry::registerRule";s:8:"explicit";b:1;}s:45:"function;HTML_QuickForm_RuleRegistry::getRule";a:3:{s:4:"type";s:8:"function";s:4:"name";s:36:"HTML_QuickForm_RuleRegistry::getRule";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_RuleRegistry::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_RuleRegistry::validate";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_RuleRegistry::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_RuleRegistry::getValidationScript";s:8:"explicit";b:1;}s:35:"class;HTML_QuickForm_Renderer_Array";a:4:{s:4:"type";s:5:"class";s:4:"name";s:29:"HTML_QuickForm_Renderer_Array";s:7:"extends";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_Renderer_Array::toArray";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_Renderer_Array::toArray";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_Renderer_Array::startForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_Renderer_Array::startForm";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Array::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Array::renderHeader";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_Array::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_Array::renderElement";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Array::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Array::renderHidden";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_Renderer_Array::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_Renderer_Array::startGroup";s:8:"explicit";b:1;}s:51:"function;HTML_QuickForm_Renderer_Array::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:42:"HTML_QuickForm_Renderer_Array::finishGroup";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_Array::setElementStyle";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_Array::setElementStyle";s:8:"explicit";b:1;}s:41:"class;HTML_QuickForm_Renderer_ArraySmarty";a:4:{s:4:"type";s:5:"class";s:4:"name";s:35:"HTML_QuickForm_Renderer_ArraySmarty";s:7:"extends";s:29:"HTML_QuickForm_Renderer_Array";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Renderer_ArraySmarty::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Renderer_ArraySmarty::renderHeader";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_ArraySmarty::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_ArraySmarty::startGroup";s:8:"explicit";b:1;}s:65:"function;HTML_QuickForm_Renderer_ArraySmarty::setRequiredTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:56:"HTML_QuickForm_Renderer_ArraySmarty::setRequiredTemplate";s:8:"explicit";b:1;}s:62:"function;HTML_QuickForm_Renderer_ArraySmarty::setErrorTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:53:"HTML_QuickForm_Renderer_ArraySmarty::setErrorTemplate";s:8:"explicit";b:1;}s:37:"class;HTML_QuickForm_Renderer_Default";a:4:{s:4:"type";s:5:"class";s:4:"name";s:31:"HTML_QuickForm_Renderer_Default";s:7:"extends";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:48:"function;HTML_QuickForm_Renderer_Default::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:39:"HTML_QuickForm_Renderer_Default::toHtml";s:8:"explicit";b:1;}s:51:"function;HTML_QuickForm_Renderer_Default::startForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:42:"HTML_QuickForm_Renderer_Default::startForm";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Default::finishForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Default::finishForm";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_Default::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_Default::renderHeader";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_Default::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_Default::renderElement";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_Default::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_Default::renderHidden";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Default::renderHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Default::renderHtml";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Default::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Default::startGroup";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_Default::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_Default::finishGroup";s:8:"explicit";b:1;}s:60:"function;HTML_QuickForm_Renderer_Default::setElementTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:51:"HTML_QuickForm_Renderer_Default::setElementTemplate";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Renderer_Default::setGroupTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Renderer_Default::setGroupTemplate";s:8:"explicit";b:1;}s:65:"function;HTML_QuickForm_Renderer_Default::setGroupElementTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:56:"HTML_QuickForm_Renderer_Default::setGroupElementTemplate";s:8:"explicit";b:1;}s:59:"function;HTML_QuickForm_Renderer_Default::setHeaderTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:50:"HTML_QuickForm_Renderer_Default::setHeaderTemplate";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_Renderer_Default::setFormTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_Renderer_Default::setFormTemplate";s:8:"explicit";b:1;}s:65:"function;HTML_QuickForm_Renderer_Default::setRequiredNoteTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:56:"HTML_QuickForm_Renderer_Default::setRequiredNoteTemplate";s:8:"explicit";b:1;}s:59:"function;HTML_QuickForm_Renderer_Default::clearAllTemplates";a:3:{s:4:"type";s:8:"function";s:4:"name";s:50:"HTML_QuickForm_Renderer_Default::clearAllTemplates";s:8:"explicit";b:1;}s:39:"class;HTML_QuickForm_Renderer_ITDynamic";a:4:{s:4:"type";s:5:"class";s:4:"name";s:33:"HTML_QuickForm_Renderer_ITDynamic";s:7:"extends";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_ITDynamic::finishForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_ITDynamic::finishForm";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_ITDynamic::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_ITDynamic::renderHeader";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_Renderer_ITDynamic::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_Renderer_ITDynamic::renderElement";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_ITDynamic::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_ITDynamic::renderHidden";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_ITDynamic::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_ITDynamic::startGroup";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_ITDynamic::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_ITDynamic::finishGroup";s:8:"explicit";b:1;}s:59:"function;HTML_QuickForm_Renderer_ITDynamic::setElementBlock";a:3:{s:4:"type";s:8:"function";s:4:"name";s:50:"HTML_QuickForm_Renderer_ITDynamic::setElementBlock";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Renderer_ITDynamic::setHeaderBlock";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Renderer_ITDynamic::setHeaderBlock";s:8:"explicit";b:1;}s:38:"class;HTML_QuickForm_Renderer_ITStatic";a:4:{s:4:"type";s:5:"class";s:4:"name";s:32:"HTML_QuickForm_Renderer_ITStatic";s:7:"extends";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_ITStatic::startForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_ITStatic::startForm";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_ITStatic::finishForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_ITStatic::finishForm";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_ITStatic::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_ITStatic::renderHeader";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_ITStatic::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_ITStatic::renderElement";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_ITStatic::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_ITStatic::renderHidden";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_ITStatic::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_ITStatic::startGroup";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_ITStatic::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_ITStatic::finishGroup";s:8:"explicit";b:1;}s:62:"function;HTML_QuickForm_Renderer_ITStatic::setRequiredTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:53:"HTML_QuickForm_Renderer_ITStatic::setRequiredTemplate";s:8:"explicit";b:1;}s:59:"function;HTML_QuickForm_Renderer_ITStatic::setErrorTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:50:"HTML_QuickForm_Renderer_ITStatic::setErrorTemplate";s:8:"explicit";b:1;}s:36:"class;HTML_QuickForm_Renderer_Object";a:4:{s:4:"type";s:5:"class";s:4:"name";s:30:"HTML_QuickForm_Renderer_Object";s:7:"extends";s:23:"HTML_QuickForm_Renderer";s:8:"explicit";b:1;}s:19:"class;QuickformForm";a:3:{s:4:"type";s:5:"class";s:4:"name";s:13:"QuickformForm";s:8:"explicit";b:1;}s:22:"class;QuickformElement";a:3:{s:4:"type";s:5:"class";s:4:"name";s:16:"QuickformElement";s:8:"explicit";b:1;}s:49:"function;HTML_QuickForm_Renderer_Object::toObject";a:3:{s:4:"type";s:8:"function";s:4:"name";s:40:"HTML_QuickForm_Renderer_Object::toObject";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_Object::setElementType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_Object::setElementType";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_Renderer_Object::startForm";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_Renderer_Object::startForm";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_Object::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_Object::renderHeader";s:8:"explicit";b:1;}s:54:"function;HTML_QuickForm_Renderer_Object::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:45:"HTML_QuickForm_Renderer_Object::renderElement";s:8:"explicit";b:1;}s:53:"function;HTML_QuickForm_Renderer_Object::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:44:"HTML_QuickForm_Renderer_Object::renderHidden";s:8:"explicit";b:1;}s:51:"function;HTML_QuickForm_Renderer_Object::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:42:"HTML_QuickForm_Renderer_Object::startGroup";s:8:"explicit";b:1;}s:52:"function;HTML_QuickForm_Renderer_Object::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:43:"HTML_QuickForm_Renderer_Object::finishGroup";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_Object::setElementStyle";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_Object::setElementStyle";s:8:"explicit";b:1;}s:36:"function;QuickformForm::outputHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"QuickformForm::outputHeader";s:8:"explicit";b:1;}s:40:"function;QuickformForm::outputJavaScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"QuickformForm::outputJavaScript";s:8:"explicit";b:1;}s:33:"function;QuickformElement::isType";a:3:{s:4:"type";s:8:"function";s:4:"name";s:24:"QuickformElement::isType";s:8:"explicit";b:1;}s:36:"function;QuickformElement::notFrozen";a:3:{s:4:"type";s:8:"function";s:4:"name";s:27:"QuickformElement::notFrozen";s:8:"explicit";b:1;}s:35:"function;QuickformElement::isButton";a:3:{s:4:"type";s:8:"function";s:4:"name";s:26:"QuickformElement::isButton";s:8:"explicit";b:1;}s:38:"function;QuickformElement::outputStyle";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"QuickformElement::outputStyle";s:8:"explicit";b:1;}s:41:"class;HTML_QuickForm_Renderer_ObjectFlexy";a:4:{s:4:"type";s:5:"class";s:4:"name";s:35:"HTML_QuickForm_Renderer_ObjectFlexy";s:7:"extends";s:30:"HTML_QuickForm_Renderer_Object";s:8:"explicit";b:1;}s:24:"class;QuickformFlexyForm";a:4:{s:4:"type";s:5:"class";s:4:"name";s:18:"QuickformFlexyForm";s:7:"extends";s:13:"QuickformForm";s:8:"explicit";b:1;}s:27:"class;QuickformFlexyElement";a:4:{s:4:"type";s:5:"class";s:4:"name";s:21:"QuickformFlexyElement";s:7:"extends";s:16:"QuickformElement";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Renderer_ObjectFlexy::renderHeader";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Renderer_ObjectFlexy::renderHeader";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_ObjectFlexy::startGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_ObjectFlexy::startGroup";s:8:"explicit";b:1;}s:61:"function;HTML_QuickForm_Renderer_ObjectFlexy::setHtmlTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:52:"HTML_QuickForm_Renderer_ObjectFlexy::setHtmlTemplate";s:8:"explicit";b:1;}s:62:"function;HTML_QuickForm_Renderer_ObjectFlexy::setLabelTemplate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:53:"HTML_QuickForm_Renderer_ObjectFlexy::setLabelTemplate";s:8:"explicit";b:1;}s:39:"class;HTML_QuickForm_Renderer_QuickHtml";a:4:{s:4:"type";s:5:"class";s:4:"name";s:33:"HTML_QuickForm_Renderer_QuickHtml";s:7:"extends";s:31:"HTML_QuickForm_Renderer_Default";s:8:"explicit";b:1;}s:50:"function;HTML_QuickForm_Renderer_QuickHtml::toHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:41:"HTML_QuickForm_Renderer_QuickHtml::toHtml";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_Renderer_QuickHtml::elementToHtml";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_Renderer_QuickHtml::elementToHtml";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_Renderer_QuickHtml::renderElement";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_Renderer_QuickHtml::renderElement";s:8:"explicit";b:1;}s:56:"function;HTML_QuickForm_Renderer_QuickHtml::renderHidden";a:3:{s:4:"type";s:8:"function";s:4:"name";s:47:"HTML_QuickForm_Renderer_QuickHtml::renderHidden";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Renderer_QuickHtml::finishGroup";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Renderer_QuickHtml::finishGroup";s:8:"explicit";b:1;}s:34:"class;HTML_QuickForm_Rule_Callback";a:4:{s:4:"type";s:5:"class";s:4:"name";s:28:"HTML_QuickForm_Rule_Callback";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_Rule_Callback::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_Rule_Callback::validate";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_Rule_Callback::addData";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_Rule_Callback::addData";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Rule_Callback::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Rule_Callback::getValidationScript";s:8:"explicit";b:1;}s:33:"class;HTML_QuickForm_Rule_Compare";a:4:{s:4:"type";s:5:"class";s:4:"name";s:27:"HTML_QuickForm_Rule_Compare";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:46:"function;HTML_QuickForm_Rule_Compare::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:37:"HTML_QuickForm_Rule_Compare::validate";s:8:"explicit";b:1;}s:57:"function;HTML_QuickForm_Rule_Compare::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:48:"HTML_QuickForm_Rule_Compare::getValidationScript";s:8:"explicit";b:1;}s:31:"class;HTML_QuickForm_Rule_Email";a:4:{s:4:"type";s:5:"class";s:4:"name";s:25:"HTML_QuickForm_Rule_Email";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Rule_Email::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Rule_Email::validate";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Rule_Email::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Rule_Email::getValidationScript";s:8:"explicit";b:1;}s:31:"class;HTML_QuickForm_Rule_Range";a:4:{s:4:"type";s:5:"class";s:4:"name";s:25:"HTML_QuickForm_Rule_Range";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Rule_Range::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Rule_Range::validate";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Rule_Range::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Rule_Range::getValidationScript";s:8:"explicit";b:1;}s:31:"class;HTML_QuickForm_Rule_Regex";a:4:{s:4:"type";s:5:"class";s:4:"name";s:25:"HTML_QuickForm_Rule_Regex";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:44:"function;HTML_QuickForm_Rule_Regex::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:35:"HTML_QuickForm_Rule_Regex::validate";s:8:"explicit";b:1;}s:43:"function;HTML_QuickForm_Rule_Regex::addData";a:3:{s:4:"type";s:8:"function";s:4:"name";s:34:"HTML_QuickForm_Rule_Regex::addData";s:8:"explicit";b:1;}s:55:"function;HTML_QuickForm_Rule_Regex::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:46:"HTML_QuickForm_Rule_Regex::getValidationScript";s:8:"explicit";b:1;}s:34:"class;HTML_QuickForm_Rule_Required";a:4:{s:4:"type";s:5:"class";s:4:"name";s:28:"HTML_QuickForm_Rule_Required";s:7:"extends";s:19:"HTML_QuickForm_Rule";s:8:"explicit";b:1;}s:47:"function;HTML_QuickForm_Rule_Required::validate";a:3:{s:4:"type";s:8:"function";s:4:"name";s:38:"HTML_QuickForm_Rule_Required::validate";s:8:"explicit";b:1;}s:58:"function;HTML_QuickForm_Rule_Required::getValidationScript";a:3:{s:4:"type";s:8:"function";s:4:"name";s:49:"HTML_QuickForm_Rule_Required::getValidationScript";s:8:"explicit";b:1;}}s:8:"filelist";a:71:{s:13:"QuickForm.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"4cd195cd206986bea7ff86848f349cbf";s:12:"installed_as";s:33:"/usr/share/php/HTML/QuickForm.php";}s:25:"QuickForm/advcheckbox.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"b75862aa5d55bc9f68c76533b6a416a6";s:12:"installed_as";s:45:"/usr/share/php/HTML/QuickForm/advcheckbox.php";}s:26:"QuickForm/autocomplete.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"ae4209635ce40303faa3ef0fee559b8f";s:12:"installed_as";s:46:"/usr/share/php/HTML/QuickForm/autocomplete.php";}s:20:"QuickForm/button.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"aea30c476a3ca5bf7d76374c2ec237f0";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/button.php";}s:22:"QuickForm/checkbox.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"fba29afb066c3cf8da8ddaecd98f312f";s:12:"installed_as";s:42:"/usr/share/php/HTML/QuickForm/checkbox.php";}s:18:"QuickForm/date.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"fa44d9f75b4b9e71a333db92fd210d8a";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/date.php";}s:21:"QuickForm/element.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"38d34aefe5316788de6a7f15d58e6b3b";s:12:"installed_as";s:41:"/usr/share/php/HTML/QuickForm/element.php";}s:18:"QuickForm/file.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5ef2f172db649beab0e4cea5e41a7150";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/file.php";}s:19:"QuickForm/group.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5cded2b4bf92649e5788d016d0c9e0ed";s:12:"installed_as";s:39:"/usr/share/php/HTML/QuickForm/group.php";}s:20:"QuickForm/header.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"dee78b16f6a56434ab2a7b8cf8eb73af";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/header.php";}s:20:"QuickForm/hidden.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"b9488f5aca65d92af9de21798877a9f2";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/hidden.php";}s:26:"QuickForm/hiddenselect.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"fc6eb28388032886b2575a3d1b1b09a9";s:12:"installed_as";s:46:"/usr/share/php/HTML/QuickForm/hiddenselect.php";}s:24:"QuickForm/hierselect.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"8c66b7a862612ad67b6ebe2d56738034";s:12:"installed_as";s:44:"/usr/share/php/HTML/QuickForm/hierselect.php";}s:18:"QuickForm/html.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"b9d114a2887aa86f1d3f392e3554fa00";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/html.php";}s:19:"QuickForm/image.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"53f22cdfdcc0d946fb68f971f72c4935";s:12:"installed_as";s:39:"/usr/share/php/HTML/QuickForm/image.php";}s:19:"QuickForm/input.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"38b57781cb7401e49ceb61057b63a85f";s:12:"installed_as";s:39:"/usr/share/php/HTML/QuickForm/input.php";}s:18:"QuickForm/link.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"0e464a9bc11a2fff5fcdf6dfcb89b5ce";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/link.php";}s:22:"QuickForm/password.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"3ae140f4b5128fc85aba97b9a9cc62ce";s:12:"installed_as";s:42:"/usr/share/php/HTML/QuickForm/password.php";}s:19:"QuickForm/radio.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"a381d0826b33415c381981b15ba1571a";s:12:"installed_as";s:39:"/usr/share/php/HTML/QuickForm/radio.php";}s:19:"QuickForm/reset.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f4ccdd9dbd4b89ab7da77de6d8d2e6fb";s:12:"installed_as";s:39:"/usr/share/php/HTML/QuickForm/reset.php";}s:20:"QuickForm/select.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2e357c2e4e71fef971ff4ceef71f0454";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/select.php";}s:20:"QuickForm/static.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f097b21bab9c7f7ebdb340774a0f84d2";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/static.php";}s:20:"QuickForm/submit.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"6c24a6dada4a435c7829143bd53c333c";s:12:"installed_as";s:40:"/usr/share/php/HTML/QuickForm/submit.php";}s:18:"QuickForm/text.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"366444afe9d303cc2a5111efe7198975";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/text.php";}s:22:"QuickForm/textarea.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"06ad1567c45fd8ada87a6e67602b935a";s:12:"installed_as";s:42:"/usr/share/php/HTML/QuickForm/textarea.php";}s:21:"QuickForm/xbutton.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2e0298150ec1008c28f3957b935f1a5e";s:12:"installed_as";s:41:"/usr/share/php/HTML/QuickForm/xbutton.php";}s:22:"QuickForm/Renderer.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"054ff5702bb76dff0fbc8f61c2dc03a8";s:12:"installed_as";s:42:"/usr/share/php/HTML/QuickForm/Renderer.php";}s:18:"QuickForm/Rule.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"78a985bf1e9b06685e234d8358bfc3ee";s:12:"installed_as";s:38:"/usr/share/php/HTML/QuickForm/Rule.php";}s:26:"QuickForm/RuleRegistry.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"b17803b2c40d841d60de8c68fc683a69";s:12:"installed_as";s:46:"/usr/share/php/HTML/QuickForm/RuleRegistry.php";}s:28:"QuickForm/Renderer/Array.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2c54f0da6add230752cc392d42b33288";s:12:"installed_as";s:48:"/usr/share/php/HTML/QuickForm/Renderer/Array.php";}s:34:"QuickForm/Renderer/ArraySmarty.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"a349d183f2fc21f76231742209802c10";s:12:"installed_as";s:54:"/usr/share/php/HTML/QuickForm/Renderer/ArraySmarty.php";}s:30:"QuickForm/Renderer/Default.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"acc28ffdf7bf75cbfb0291e5ebfd18c8";s:12:"installed_as";s:50:"/usr/share/php/HTML/QuickForm/Renderer/Default.php";}s:32:"QuickForm/Renderer/ITDynamic.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"28bacd51b7b88cf1b21b91f18f5faa33";s:12:"installed_as";s:52:"/usr/share/php/HTML/QuickForm/Renderer/ITDynamic.php";}s:31:"QuickForm/Renderer/ITStatic.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"ddff541b2e1eb53a1a71d6030a5a161b";s:12:"installed_as";s:51:"/usr/share/php/HTML/QuickForm/Renderer/ITStatic.php";}s:29:"QuickForm/Renderer/Object.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"1fae6652399cc0ebbcc9994724a19514";s:12:"installed_as";s:49:"/usr/share/php/HTML/QuickForm/Renderer/Object.php";}s:34:"QuickForm/Renderer/ObjectFlexy.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"db0002853539cff99404488a0a9ae482";s:12:"installed_as";s:54:"/usr/share/php/HTML/QuickForm/Renderer/ObjectFlexy.php";}s:32:"QuickForm/Renderer/QuickHtml.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"048407bf40e2f1a1c1e740b705ad93e3";s:12:"installed_as";s:52:"/usr/share/php/HTML/QuickForm/Renderer/QuickHtml.php";}s:27:"QuickForm/Rule/Callback.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"4b35dd103cc27d0474caedea3030602b";s:12:"installed_as";s:47:"/usr/share/php/HTML/QuickForm/Rule/Callback.php";}s:26:"QuickForm/Rule/Compare.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"ed85b8f4aeb6f4560e3a759533f0c07a";s:12:"installed_as";s:46:"/usr/share/php/HTML/QuickForm/Rule/Compare.php";}s:24:"QuickForm/Rule/Email.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"e0f9e662065c5b464fa1a8f14e413a17";s:12:"installed_as";s:44:"/usr/share/php/HTML/QuickForm/Rule/Email.php";}s:24:"QuickForm/Rule/Range.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"c7c270779999ab1792c093f3fd58e6fb";s:12:"installed_as";s:44:"/usr/share/php/HTML/QuickForm/Rule/Range.php";}s:24:"QuickForm/Rule/Regex.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"3e6b90063e558f14e5b429a624aeaa7a";s:12:"installed_as";s:44:"/usr/share/php/HTML/QuickForm/Rule/Regex.php";}s:27:"QuickForm/Rule/Required.php";a:4:{s:4:"role";s:3:"php";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"c6567476e9cffb1012baeacada479ef2";s:12:"installed_as";s:47:"/usr/share/php/HTML/QuickForm/Rule/Required.php";}s:17:"docs/elements.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2d35edaffa1cfcc66b6d8aa864987326";s:12:"installed_as";s:52:"/usr/share/php/docs/HTML_QuickForm/docs/elements.php";}s:16:"docs/filters.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"e924691a5865505f1f259aab76e6e9fd";s:12:"installed_as";s:51:"/usr/share/php/docs/HTML_QuickForm/docs/filters.php";}s:17:"docs/formrule.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"98bbed2e845d762871a603e85857f543";s:12:"installed_as";s:52:"/usr/share/php/docs/HTML_QuickForm/docs/formrule.php";}s:15:"docs/groups.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"02d525e194839cb5598baefa12bb00e6";s:12:"installed_as";s:50:"/usr/share/php/docs/HTML_QuickForm/docs/groups.php";}s:22:"docs/rules-builtin.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"44905624cac949133bb05a1716f3878f";s:12:"installed_as";s:57:"/usr/share/php/docs/HTML_QuickForm/docs/rules-builtin.php";}s:21:"docs/rules-custom.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"7eb8501e8804f3383136528ef9ad8a5b";s:12:"installed_as";s:56:"/usr/share/php/docs/HTML_QuickForm/docs/rules-custom.php";}s:39:"docs/renderers/FlexyDynamic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"70502177460f4ca7216ce06b21a9baad";s:12:"installed_as";s:74:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/FlexyDynamic_example.php";}s:38:"docs/renderers/FlexyStatic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"53bfd1f93f62c8808d77c1401b2e0fd4";s:12:"installed_as";s:73:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/FlexyStatic_example.php";}s:36:"docs/renderers/ITDynamic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"01d2750e2417550974a90b7f2d7844a1";s:12:"installed_as";s:71:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/ITDynamic_example.php";}s:37:"docs/renderers/ITDynamic_example2.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5c84987d837c79403e651034f9233f74";s:12:"installed_as";s:72:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/ITDynamic_example2.php";}s:35:"docs/renderers/ITStatic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f67c945b73de42615e66617204091e43";s:12:"installed_as";s:70:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/ITStatic_example.php";}s:36:"docs/renderers/QuickHtml_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"78dabc6714a9cae5347f64b2dfd71037";s:12:"installed_as";s:71:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/QuickHtml_example.php";}s:40:"docs/renderers/SmartyDynamic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"b97467a0fe3ff0f7bb5e6406e46e30ac";s:12:"installed_as";s:75:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/SmartyDynamic_example.php";}s:39:"docs/renderers/SmartyStatic_example.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"ffa142e0e7c4fcf324358b8ed8e4348a";s:12:"installed_as";s:74:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/SmartyStatic_example.php";}s:34:"docs/renderers/multiple-labels.php";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"20cc59951d9cf8b8bf09c85fa3a62faa";s:12:"installed_as";s:69:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/multiple-labels.php";}s:42:"docs/renderers/templates/it-dynamic-2.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"adb2114b903797dc018598720118002b";s:12:"installed_as";s:77:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/it-dynamic-2.html";}s:40:"docs/renderers/templates/it-dynamic.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"7b55130f4373582f809249dfb2a6ade1";s:12:"installed_as";s:75:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/it-dynamic.html";}s:39:"docs/renderers/templates/it-static.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"97a14259f587ce8cb8610454363dd9c9";s:12:"installed_as";s:74:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/it-static.html";}s:54:"docs/renderers/templates/smarty-dynamic-fancygroup.tpl";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f244bbda425ac50a4fa32b866e520ca3";s:12:"installed_as";s:89:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/smarty-dynamic-fancygroup.tpl";}s:49:"docs/renderers/templates/smarty-dynamic-green.tpl";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"1539fc8ffe3f73085f7768340567a669";s:12:"installed_as";s:84:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/smarty-dynamic-green.tpl";}s:43:"docs/renderers/templates/smarty-dynamic.tpl";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"3e8ac08269a67c7fcc02699e399ede2a";s:12:"installed_as";s:78:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/smarty-dynamic.tpl";}s:42:"docs/renderers/templates/smarty-static.tpl";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"335f3c44998ef3da7dfd65e1bf35d835";s:12:"installed_as";s:77:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/smarty-static.tpl";}s:43:"docs/renderers/templates/flexy-dynamic.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"251e4c71e62e099133dbd85b1115fab2";s:12:"installed_as";s:78:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/flexy-dynamic.html";}s:42:"docs/renderers/templates/flexy-static.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"1b62fd01ebfcc11490c3710758a45735";s:12:"installed_as";s:77:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/flexy-static.html";}s:34:"docs/renderers/templates/html.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"39352fad71f0a136f812945029702f58";s:12:"installed_as";s:69:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/html.html";}s:35:"docs/renderers/templates/label.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"4aa8fefbf185d93a9103be43c6ba97f8";s:12:"installed_as";s:70:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/label.html";}s:42:"docs/renderers/templates/styles/green.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"0ca7e709447e7430b3efef9b3aa6d1d0";s:12:"installed_as";s:77:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/styles/green.html";}s:47:"docs/renderers/templates/styles/fancygroup.html";a:4:{s:4:"role";s:3:"doc";s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"13326a53fef4851343eca6e21900d68d";s:12:"installed_as";s:82:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/styles/fancygroup.html";}}s:10:"xsdversion";s:3:"1.0";s:15:"packagerversion";s:6:"1.4.11";s:7:"package";s:14:"HTML_QuickForm";s:7:"summary";s:98:"The PEAR::HTML_QuickForm package provides methods for creating, validating, processing HTML forms.";s:11:"description";s:667:"NOTICE: development of HTML_QuickForm version 3 is frozen. Please submit
+feature requests for HTML_QuickForm2 package.
+
+The HTML_QuickForm package provides methods to dynamically create, validate
+and render HTML forms.
+
+Features:
+* More than 20 ready-to-use form elements.
+* XHTML compliant generated code.
+* Numerous mixable and extendable validation rules.
+* Automatic server-side validation and filtering.
+* On request javascript code generation for client-side validation.
+* File uploads support.
+* Total customization of form rendering.
+* Support for external template engines (ITX, Sigma, Flexy, Smarty).
+* Pluggable elements, rules and renderers extensions.
+ 
+";s:11:"maintainers";a:5:{i:0;a:4:{s:6:"handle";s:7:"mansion";s:4:"name";s:16:"Bertrand Mansion";s:5:"email";s:20:"bmansion@mamasam.com";s:4:"role";s:4:"lead";}i:1;a:4:{s:6:"handle";s:7:"adaniel";s:4:"name";s:11:"Adam Daniel";s:5:"email";s:22:"adaniel1@eesus.jnj.com";s:4:"role";s:4:"lead";}i:2;a:4:{s:6:"handle";s:3:"avb";s:4:"name";s:13:"Alexey Borzov";s:5:"email";s:18:"borz_off@cs.msu.su";s:4:"role";s:4:"lead";}i:3;a:4:{s:6:"handle";s:5:"jrust";s:4:"name";s:10:"Jason Rust";s:5:"email";s:20:"jason@rustyparts.com";s:4:"role";s:9:"developer";}i:4;a:4:{s:6:"handle";s:3:"ths";s:4:"name";s:13:"Thomas Schulz";s:5:"email";s:16:"ths@4bconsult.de";s:4:"role";s:9:"developer";}}s:7:"version";s:5:"3.2.7";s:12:"release_date";s:10:"2006-10-10";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:700:"Development of QuickForm version 3 is now frozen. Only bug fixing will be
+done. All feature requests should be submitted for HTML_QuickForm2 package.
+
+Bugfixes:
+* Radio button with value attribute of '0' was incorrectly set checked
+  after setDefaults() call (bug #8057)
+* Fixed errors in eval()'d code when element's name contains single quotes
+  and/or backslashes (bug #8123, bug #8414 has a more realistic example)
+* Fixed PHP warning on outputting hiddenselect element when its values
+  were never set (bug #8305)
+* Removed unnecessary if-else from HTML_QuickForm_file::moveUploadedFile()
+  (bug #8329)
+* Fixed Javascript error in hierselect element if option text was a number
+  (bug #8497)
+  
+";s:12:"release_deps";a:2:{i:1;a:3:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:3:"4.2";}i:2;a:4:{s:4:"type";s:3:"pkg";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.2.1";s:4:"name";s:11:"HTML_Common";}}s:9:"changelog";a:27:{i:0;a:5:{s:7:"version";s:5:"3.2.6";s:12:"release_date";s:10:"2006-06-22";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1916:"Development of QuickForm version 3 is now frozen. Only bug fixing will be
+done. All feature requests should be submitted for HTML_QuickForm2 package.
+
+Bugfixes:
+* Typo in javascript generated for form validation (bug #5205)
+* Default values for single-selects were ignored if form was considered
+  submitted (bug #5269)
+* Fixed array-based options for HTML_QuickForm_date (bug #5364)
+* Javascript validation of single radiobutton failed (bug #5644)
+* Incorrect fetch mode used in HTML_QuickForm_select::loadDbResult()
+  (bug #5705)
+* Removed unused variables found by code analysis (bug #5920)
+* hierselect now works correctly with HTML entities in option texts,
+  fix idea borrowed from Prototype JS library (bug #5974)
+* advcheckbox failed to submit properly if its id attribute was set equal 
+  to its name, due to javascript problems (bug #6134)
+* HTML_QuickForm_hierselect::setValue() should not decrease the number of
+  select elements in hierselect (bug #6766)
+* HTML_QuickForm::isTypeRegistered() is now case-insensitive (bug #7342)
+* Form is considered not valid after explicitly adding error via
+  HTML_QuickForm::setElementError() (bug #7470)
+* Regexps for 'error' and 'required' blocks in Default renderer now match
+  ungreedy, this allows having several such blocks in a template (bug #7820)
+* Document the return value of HTML_QuickForm_file::moveUploadedFile()
+  (bug #7832)
+
+Additions and changes:
+* Traditional Chinese translation for date element (request #5165)
+* Brazilian Portuguese translation for date element (request #5541)
+* An error message for element is now removed if removing the element via
+  HTML_QuickForm::removeElement(..., true) or passing an empty argument to
+  HTML_QuickForm::setElementError().
+* advcheckbox element no longer uses any javascript, therefore its JS-related
+  methods getOnclickJS() and getPrivateName() are no longer used internally
+  and are deprecated.
+    
+";}i:1;a:5:{s:7:"version";s:5:"3.2.5";s:12:"release_date";s:10:"2005-08-05";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:3395:"This release addresses poorly documented backwards compatibility breaks
+in PHP versions 4.4 and 5.1 (see bugs #4725 and #4799).
+
+* Changes to hierselect element
+  Javascript for hierselect element was (once again) completely rewritten,
+  which fixed a significant number of bugs.
+- Fixed #2970 (hierselect did not handle form reset properly)
+- Fixed #3176 (hierselect did not handle page reload properly)
+- Fixed #3988 (javascript errors if element name contained brackets)
+- Fixed #4432 (javascript errors if strings used as option values)
+- Implemented #3367 (onchange attribute is not overwritten, but appended to)
+
+* Changes to date element
+- Added Romanian translation (request #2884)
+- Added Hebrew translation (request #3366)
+- Added Swedish translation (request #4821)
+- Added Portuguese translation (request #4963)
+- Removed extra copy of French translation
+- Fixed typos in French (bug #3947) and Spanish (bug #4531) translations
+- Implemented #3733 ('g' format support)
+- Implemented #3379 ('W' format support)
+- Implemented #3325 (display empty options on a per-field basis)
+- Implemented #3575 (different empty option texts for different fields)
+- Fixed #3049 (getElements() could return null)
+- Fixed #4781 (toHtml() could return incorrect result)
+
+* Form validation fixes
+- Fixed #3865 (Required rule should consider field containing '0' valid)
+- Fixed #3023 (a Fatal error was possible when having a compare rule after 
+  a frozen element)
+- Fixed #3501 (File elements should not be validated if not required and no 
+  file uploaded)
+- Fixed #2709 (radiobutton group not validated if no radiobutton selected)
+- Fixed #3035 (error in javascript validation function in case of select 
+  with size > 1)
+- Fixed #3150 (incorrect check for select elements in javascript 
+  validation function)
+- Fixed broken javascript validation for groups with brackets in name
+- Fixed #4470 (incorrect value for advcheckbox elements in javascript 
+  validation)
+- Fixed #4832 (Prevent javascript errors if form is frozen)
+
+* Other additions and fixes
+- Added HTML_QuickForm::isSubmitted() method
+- Implemented #4930 (value of upload_max_filesize php.ini directive is
+  used as default value for MAX_FILE_SIZE form element)
+- Fixed #2806 (Typo in rules-builtin.php example)
+- Fixed #4219 (ArraySmarty renderer should only render required and error 
+  template if the element has errors or is required, this gives significant
+  performance improvement).
+- Fixed #2681 (Identical classes declared alongside Object and ObjectFlexy
+  renderers)
+- Fixed #3511 (HTML_QuickForm_group::toHtml() ignored hidden elements)
+- Use HTML_Common::_getAttrString() when generating hidden elements in
+  various places (bug #4463, invalid HTML generated by hiddenselect)
+- Fixed #2726 (grouped elements failed to freeze if freeze() was called 
+  before _createElements())
+- Fixed #4645 (grouped elements having '0' as name handled incorrectly)
+- Make getSubmitValue() more robust when dealing with groups having brackets
+  in names (see bug #2587)
+- Fixed #4262 (Constructor for HTML_QuickForm ignored explicitly given 
+  $target = '_self' argument)
+- Fixed #4465 (Default values incorrectly used for select multiple elements
+  if all options were unselected)
+- Fixed #3193 (frozen select elements could display incorrect value)
+- Fixed #4611 (javascript for grouped autocomplete elements not output
+  properly)
+    
+";}i:2;a:5:{s:7:"version";s:8:"3.2.4pl1";s:12:"release_date";s:10:"2004-10-20";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:437:"- Fixed #2576: calling HTML_QuickForm::getSubmitValue() on a group 
+  of radio elements caused an infinite loop with PHP eventually 
+  dying of memory exhaustion. This was introduced in 3.2.4 in a 
+  fix for bug #2517, those upgrading from earlier releases should 
+  skip 3.2.4, those running 3.2.4 should upgrade ASAP.
+
+- Fixed #2571: selects after the second were not correctly 
+  populated in hierselect with 3 or more elements.
+    
+";}i:3;a:5:{s:7:"version";s:5:"3.2.4";s:12:"release_date";s:10:"2004-10-18";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1619:"* Additions and changes
+- Implemented HTML_QuickForm::insertElementBefore() method which 
+  allows adding elements into arbitrary places and reordering the 
+  existing form elements (thanks to Justin Patrin for initial
+  implementation and helpful comments, see request #1587)
+- Implemented HTML_QuickForm_element::unfreeze() method
+- HTML_QuickForm::removeElement() now returns reference to element
+  being removed
+- Array renderer outputs header name into the resultant array
+  (request #2276)
+- Added $staticLabels option to Array renderer's constructor, this
+  makes the renderer "flatten" the array of labels
+- Added Ukrainian translation for 'date' element (Andrey Kornilov)
+- Removed newline after <script> tags in 'autocomplete' and
+  'hierselect' elements (request #2373)
+
+* Bugfixes
+- HTML_QuickForm::getSubmitValue() now properly returns null for
+  groups if form was not yet submitted (bug #2517)
+- stripslashes() is used only on 'name' element of file upload
+  data (bug #1843)
+- HTML_QuickForm::addGroupRule() now works better with <select 
+  multiple> elements (bug #1810)
+- Fixed notice if empty string was passed to date::setValue() 
+  (bug #2530)
+- Calling HTML_QuickForm_group::getFrozenHtml() no longer freezes 
+  the group (bug #1836)
+- Groups now correctly handle setPersistantFreeze() call (bug #1836)
+- ITDynamic renderer does not replace empty separator with &nbsp;
+  anymore (bug #2354)
+- 'maxfilesize' rule returns false in case of file upload errors
+  (bug #2203)
+- Fixed Javascript generation for 'hierselect' elements (bug #1984)
+- Fixed examples using 'rangelength' rule (bug #2421)
+    
+";}i:4;a:5:{s:7:"version";s:5:"3.2.3";s:12:"release_date";s:10:"2004-06-28";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1510:"* Additions and changes
+- Implemented a new 'xbutton' element for HTML 4.0 <button> tag
+  (see also #1227)
+- HTML_QuickForm::toArray() method accepts a boolean value that is 
+  passed to the constructor of HTML_QuickForm_Renderer_Array (see #1392)
+- ITDynamic renderer is now able to select a block for rendering based
+  on the element's name (see #1506)
+- Default template of Default Renderer now allows XHTML-compliant output
+  of hidden elements (see #1124)
+- Added Esperanto translation and French accents for date element 
+  (Sebastien Montagne)
+- Implemented #553: ITStatic renderer can use special blocks for required
+  elements and errors, if present in the template
+- Implemented #1576: Enclose js code between //<![CDATA[ and //]]>
+  to make it xhtml compliant
+
+* Bugfixes
+- Fixed #1235 (setChecked() and setValue() did not work on advcheckbox)
+- Fixed #1389 (Invalid comments in autocomplete element's Javascript)
+- Fixed #1143 (Client validation should be turned off for frozen elements)
+- Fixed #1252 (File upload names were not cleaned when magic_quotes_gpc = On)
+- Fixed notices raised by hierselect element (reported by Herim Vasquez)
+- Fixed #1248 (Errors in hierselect's Javascript when element's name
+  begins with a number)
+- Fixed #1577 (hierselect's Javascript works with multiselects)
+- Fixed #1516 (Default Renderer should use separators even when 
+  setGroupTemplate() is used)
+- Fixed #1694 (ITStatic renders hidden element with brackets correctly,
+  patch provided by milamamu)
+    
+";}i:5;a:5:{s:7:"version";s:5:"3.2.2";s:12:"release_date";s:10:"2004-03-22";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:2381:"* On XHTML compliance:
+As of 3.2.2 QuickForm does not rely on presence of 'name' attribute
+in form tag (which is invalid in Strict XHTML), although it does
+set this attribute. If you desire Strict XHTML compliance, you can
+remove the attribute via removeAttribute() method.
+
+* On Flexy renderers:
+The Flexy renderers currently lack a maintainer. If one is not
+found, they will be marked as unsupported and may later be removed
+from the package. If you wish to look after these renderers, please
+contact the package maintainers.
+
+* Additions and changes
+- Added arrayMerge() method to HTML_QuickForm, this behaves like
+  builtin array_merge_recursive() but does not renumber numeric
+  array keys. The new method is now used throughout the QuickForm
+  instead of array_merge_recursive()
+- Added setDatasource() method
+- Implemented #552 (ITStatic renderer can group hidden fields in
+  output)
+- Added Estonian translation for date element (Ants Aasma)
+- Added Turkish translation for date element (Suat Imam-Oglu)
+- Added Norwegian translation for date element (Espen Carlsen)
+- All non-ASCII symbols in date translations are now encoded as 
+  HTML Unicode entities to prevent encoding problems
+- Renamed labels-default.php example to multiple-labels.php
+  (suggested by Ignatius Reilly)
+- Date element accepts non numeric default values compatible with
+  function strtotime() (Kellan Elliot-Mccrea)
+- Added possibility to have more than just two selects in
+  the hierselect element (Herim Vasquez)
+
+
+* Bugfixes
+- Fixed #735 (applyFilter() failed for elements with "complex" names and
+  grouped elements)
+- Fixed #872 (possible get_class()-related issues in PHP5)
+- Fixed #925 (XHTML compliance, see the note)
+- Fixed #741 (frozen elements lost 'id' attribute)
+- Final fix for #202 (ArraySmarty renderer broke on elements with
+  brackets in names)
+- Fixed #645 (ArraySmarty renderer had problems with anonymous elements)
+- Fixed #734 (ArraySmarty renderer did not honour the change of Smarty
+  delimiters)
+- Fixed #745 (wrong removal of group name from elements)
+- Fixed #212 (ObjectFlexy renderer broke on elements with brackets in names)
+- Fixed #1032 (ITStatic used wrong placeholders for groups with 
+  $appendName = false)
+- updateElementAttr() works correctly if passed an array of actual element 
+  objects, also handles the case of multiple elements with the same name.
+    
+";}i:6;a:5:{s:7:"version";s:5:"3.2.1";s:12:"release_date";s:10:"2004-01-03";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1165:"* Additions and changes
+- The usage examples were significantly redone to better reflect current
+  package functionality.
+- Added Armenian translation for date element (Vahe Khachikyan)
+- Added Dutch translation for date element (Michiel Rook)
+- validate() throws a PEAR error if rule added via addFormRule() returns junk
+  (see also bugs #243 and #338)
+
+* Bugfixes
+- Fixed bug #351 (incorrect values set for groups with weird names)
+- Required elements in groups are once again marked correctly
+- Fixed setValue() method of date element (thanks to Orya and Mike Carter, 
+  see also bug #388)
+- Fixed bug #403 (typo in Rule_Callback::getValidationScript())
+- Fixed bug #356 (javascript generation for groups with $appendName = false)
+- Fixed bug #328 (js values in hierselect not escaped properly)
+- Fixed bug #302 (better support for RFC 2821 and RFC 2822 in Rule_Email)
+- Fixed bug #253 (ArraySmarty renderer broken with radiobuttons)
+- Partial fix for bug #202 (ArraySmarty renderer broke on elements with
+  brackets in names)
+- Fixed bug #493 (non-existant method in setConstants())
+- Fixed bug #209 (Flexy renderer broken with groups having '_' in names)
+    
+";}i:7;a:5:{s:7:"version";s:3:"3.2";s:12:"release_date";s:10:"2003-11-05";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1972:"* Major changes in this release
+Refactored form validation using Strategy/Factory/Singleton patterns. Rules are now
+processed by subclasses of HTML_QuickForm_Rule class, HTML_QuickForm_RuleRegistry manages
+registering the rules and instantiating the rule classes. Backwards compatibility was
+completely preserved. (Bertrand Mansion)
+- Added ability to set a rule on several elements. Added 'compare' rule that compares the 
+  values of two form elements  to take advantage of this. (Alexey Borzov)
+- New 'callback' rule and an improved 'email' rule.
+- Function-based rules can now be used without registering.
+- Added 2 new examples for built-in and custom rules. (Alexey Borzov)
+- Javascript validation opportunities were enhanced, validation of groups, radios, checkboxes, 
+  selects now works correctly (see also PEAR bug #184) (Alexey Borzov, Hodicska Gergely)
+
+* Other additions and changes
+- Added 'autocomplete' element. (Matteo Di Giovinazzo)
+- Added possibility to check whether form was actually submitted (see also bug #185). (Alexey Borzov)
+- QuickForm now correctly handles 'file' elements with [] in name, 'file' elements inside groups. (Alexey Borzov)
+- 'date' element will display year select in reverse order if 'minYear' > 'maxYear'. (Alexey Borzov)
+- Added possibility to set increment value for some 'date' element selects. (Alexey Borzov)
+- Added 'y' format to 'date' element. (Bertrand Mansion)
+
+* Migration to 3.2
+- Features that were marked deprecated in previous releases are REMOVED
+- 'emailorblank' rule was REMOVED, use 'email' rule (see also PEAR bug #34)
+
+* Bugfixes
+- Fixed PEAR bug #140 (empty label tags for checkboxes and radios)
+- Fixed PEAR bug #175 (error in 'date' element's German translation)
+- Fixed PEAR bug #70 (Flexy renderer didn't handle multiple labels for element)
+- Fixed PEAR bug #152 (JS function for 'hierselect' element not printed)
+- ArraySmarty renderer correctly processes groups with '_' in names (Ian Duggan)
+    
+";}i:8;a:5:{s:7:"version";s:5:"3.1.1";s:12:"release_date";s:10:"2003-09-09";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:731:"* New additions
+- Added Flexy renderer with examples (Ron McClain)
+- Added QuickHtml renderer with example (Jason Rust)
+- Added possibility to add customized empty options on top of date element selects (Jason Rust)
+- Added Czech translation for date element (Tomas Zavodny)
+
+* Bugfixes
+- Fixed a bug in select element found by Pascal Thuet (Bertrand Mansion)
+- Fixed setting hierselect's values, reported by Keith Edmunds (Bertrand Mansion)
+- Fixed validate() not checking for presence of _formRules, reported by Justin Hendrickson (Alexey Borzov)
+- Fixed javascript for advcheckbox element (Jason Rust)
+
+Deprecated methods will be kept for 3.1.x releases, but will be removed in the next
+major one. Please update your code!
+    
+";}i:9;a:5:{s:7:"version";s:3:"3.1";s:12:"release_date";s:10:"2003-07-19";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:2200:"* New additions
+- Added a new hierselect element, a group of two selects where the first select changes the options of the second select using javascript (Bertrand Mansion)
+- Added exportValue() and exportValues() methods, these should now be the preferred way to get form values (Alexey Borzov)
+- Added addFormRule() method, this adds the rule that validates the whole form (Alexey Borzov)
+- Added Italian date/dategroup names (Marco Piarulli)
+- Added Slovak date/dategroup names (Peter Sablica)
+- Added Icelandic date/dategroup names (Birgir Stefansson)
+
+* Changes
+- Rule-registering functions can now be called statically (Alexey Borzov)
+- File-related rules and methods are moved to HTML_QuickForm_file (Alexey Borzov)
+- Moved 'magic quotes' handling to QuickForm's constructor (Alexey Borzov)
+- Use strtr() instead of rawurlencode() for javascript messages (Bertrand Mansion)
+- Changed the nonzero rule to every numbers (negative or positive) except zero (David Sklar)
+- Date element has been entirely reworked and optimised (Alexey Borzov)
+- Updated the examples to use the latest changes (Alexey Borzov, Bertrand Mansion)
+
+* Bugfixes
+- Fixed a bug in HTML_QuickForm_group::getFrozenHtml() (Alexey Borzov, Wolfram Kriesing)
+- Fixed a problem in HTML_QuickForm_group::getValue(): value was not changed to array (Alexey Borzov)
+- Correctly set element's index in addElement() if some of the elements were previously removed (Alexey Borzov, Wolfram Kriesing)
+- Fixed notice in _findElementValue() for files (Bertrand Mansion)
+- Fixed passing a 'selected' attribute to addOption() (Alexey Borzov, Wolfram Kriesing)
+
+* Deprecated
+- setFormat(), setMinYear() and other accessors in date element are now deprecated. Set options and attributes in the constructor instead (Alexey Borzov)
+- Method getAttributesString() is deprecated (Alexey Borzov)
+- HTML_QuickForm's isUploadedFile(), moveUploadedFile(), getUploadeFile() are now deprecated (Alexey Borzov)
+
+Deprecated methods will be removed from QuickForm in the next release.
+In this release, they throw PEAR errors but still finish the job.
+Use this to catch them with an error handler function, the global error code is QUICKFORM_DEPRECATED.
+    
+";}i:10;a:5:{s:7:"version";s:3:"3.0";s:12:"release_date";s:10:"2003-06-04";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:232:"* Fixes
+
+- do not use submit values for 'submit' elements also (reported by Thomas Schulz, Mike Carter)
+- assorted small fixes to HTML_QuickForm's methods and PHPDoc documentation
+- HTML_QuickForm::apiVersion() returns 3.0 now
+    
+";}i:11;a:5:{s:7:"version";s:6:"3.0RC1";s:12:"release_date";s:10:"2003-05-28";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:663:"* Bugfixes
+
+- setMaxfileSize() does not throw pear error anymore (Alexey Borzov)
+- onQuickFormEvent 'updateValue' fixes, elements that cannot actually have a submit value do not try to use one (Alexey Borzov)
+- _loadElement() now returns a reference (Alexey Borzov)
+- Several fixes to usage examples (Alexey Borzov, Thomas Schulz, Joerg Bruckmann)
+
+* Changes
+
+- Added time to the date element (Jason Rust)
+- Required groups now show the asterisk (Bertrand Mansion)
+- Optimizations in HTML_QuickForm_group's methods (Alexey Borzov)
+- ArraySmarty renderer now requires a Smarty object and uses Smarty templates for 'required' and errors output (Thomas Schulz)
+    
+";}i:12;a:5:{s:7:"version";s:8:"3.0Beta2";s:12:"release_date";s:10:"2003-05-13";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:1265:"- PHP 4.2+ is now required for file uploads
+
+* Bugfixes
+
+- Fixed bug with selected values in select element
+- Fixed bug when form method was changed from get to post by adding a file element
+- addRule() and addGroupRule() now return a PEAR error when the rule is not registered
+- <label> tags are no more generated for frozen checkboxes and radios
+
+* Changes
+
+- Added new Array-based renderer for Smarty, with examples (Thomas Schulz)
+- Array renderer generates more info on the form, possibility to set styles for elements (Thomas Schulz)
+- Example of usage for Array renderer with Smarty (Thomas Schulz)
+- Better XHTML compliance for Default renderer output (Klaus Guenther, Alexey Borzov)
+- Added possibility to have multiple labels for one element (Jon Wood)
+- Added support for multiple labels in ITStatic and ITDynamic renderers (Jon Wood, Alexey, Bertrand)
+
+- Added client-side validation parameter to addGroupRule() (Bertrand Mansion)
+
+- getSubmitValues() can now return uploaded files (Markus Wolff, Alexey Borzov)
+- Added new methods set/getMaxFileSize (Tommy Ipsen)
+
+- Removed unwanted linefeeds in frozen checkboxes (Thomas Schulz)
+- Added Spanish translation for date element (The PhP_KiD)
+- Added a setValue() method to static element (Jon Wood)
+    
+";}i:13;a:5:{s:7:"version";s:8:"3.0Beta1";s:12:"release_date";s:10:"2003-04-17";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:4:"beta";s:13:"release_notes";s:3973:"* Major changes in this release
+
+- Renderers
+   QuickForm now uses external renderers to output the form. Currently 
+   available renderers are: Default - based on old toHtml() code, 
+   Array - based on old toArray() code, ITStatic and ITDynamic - these work
+   through an ITX/Sigma template engine. More renderers are expected to follow. 
+- Validation
+   Validation rules are tested in the order they are set. Groups can 
+   now be validated with custom functions. File validation only happens 
+   if a file is required. It is also tested if the file has been uploaded.
+- Static elements
+   Headers and Data (html) elements are treated like other form elements. 
+   Headers can have a name, this makes it possible to use different templates
+   for different headers.
+- XHTML
+   HTML_Common and QuickForm have been reworked to be more XHTML compliant.
+
+* Migration to 3.0
+
+Incompatibilities:
+
+- Filters registration is not used anymore. Just give applyFilter() the function name as a parameter.
+- toArray() now returns a different structure and calls an external renderer: elements in groups are rendered as seperate elements, every element has a numeric index for key.
+- Validation rules are validated in the order they were set.
+- File validation happens only when the file is required.
+- Direct calls to onQuickFormEvent() with 'setDefault' and 'setConstant' events won't work anymore, these events have been replaced by an 'updateValue' event.
+- Grouped elements index is now a numeric key only. This can break some group rules if you used their associative key in addGroupRule().
+- Groups must have a name. If you don't want the name to be appended to the elements names, set the appendName parameter to false.
+
+Deprecated features:
+- addHeader() and addData(), while still there, are deprecated. Use addElement('header') and addElement('html').
+- If you want to customize form output, do so by using a renderer object. setElementTemplate() and the like are now deprecated.
+
+* Changes
+
+- Added support for external renderers, added a default and an array renderer based on old QuickForm code (Alexey Borzov)
+- Added a dynamic ITX/Sigma renderer with examples (Alexey Borzov)
+- Added a static ITX/Sigma renderer with examples (Bertrand Mansion)
+
+- Added possibility to validate a group with a function using addRule() (Bertrand Mansion)
+- Added possibility to validate groups when appendName is false (Bertrand Mansion)
+- Rules are validated in the order they are set (Bertrand Mansion)
+- Fixed problems when validating a file not uploaded (Frederic Poeydomenge, Bertrand Mansion)
+
+- addHeader() and addData() now call addElement(), added new 'header' and 'html' elements (Alexey Borzov)
+- Got rid of registering filters, now only function existence is checked. First parameter to applyFilter can be an array (Alexey Borzov)
+- Automatically generate a name for group element when no name given. Added possibility to append the group name or not to grouped elements (Alexey Borzov)
+- process() now accepts a callback function to process the form (Bertrand Mansion)
+
+- Added XHTML compliant labels in radio and checkboxes (Alexey Borzov, Alexander Radivanovich)
+- XHTML for form tag (Bertrand Mansion)
+
+- Elements values are now set through a uniform 'updateValue' event (Alexey Borzov)
+- Elements with value 0 are not considered empty when validating (Bertrand Mansion)
+- Fix warning with uploaded files (Frederic Poeydomenge)
+- Changed _findElementValue to work with appendName (Bertrand Mansion)
+
+- Added Polish date names in date element (Robert Janeczek)
+- Added Hungarian date names in date element (Kovacs Gergely)
+- Added Russian date names in date element (Alexey Borzov)
+
+- Optimized select element addOption() and toHtml() methods (Alexey Borzov)
+- Added method getElementName() in group element (Bertrand Mansion)
+- Fix bug when setting attributes in date element (Bertrand Mansion)
+- Removed method display(), exists in parent class (Bertrand Mansion)
+    
+";}i:14;a:5:{s:7:"version";s:4:"2.10";s:12:"release_date";s:10:"2003-03-07";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:959:"* Email validation regex accepts lower and uppercases (Derick Rethans).
+* Added getUploadedFile() and isUploadedFile() methods (Wotjek Gdela).
+* XHTML compliant for the form tags (Jules Szemere).
+* Fixed Javascript validation when empty elements are not required (Joern Barthel).
+* Added possibility to call setDefaults() and setConstants() anytime.
+* Fix problem with duplicate element names (ex: radio).
+* Added method updateElementAttr() to update the attributes of multiple elements (Dan Wilson).
+* Slovanian translation of date in date element (Matej Dakol).
+* Fix bug in date element preventing submitted values to be used.
+* Removed nbsp; replace in frozen textarea (Carsten Bleek, Dan Wilson).
+
+This is probably the last release of QuickForm without template support.
+The next release will have two BC breaks:
+- Use of filters will be easier, no registration needed.
+- Groups with no name will not be supported anymore, even if name is not used.
+    
+";}i:15;a:5:{s:7:"version";s:3:"2.9";s:12:"release_date";s:10:"2003-02-20";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:443:"* Added htmlspecialchars() to frozen elements output in every case.
+* Elements are not validated against a function if they are empty and not required.
+  It is easier this way for QuickForm to work with external validators.
+  This is already the way it is done when using regex validation.
+* Added javascript validation for select multiple and checkboxes.
+* Added simple javascript validation for groups: values are imploded in a string.
+    
+";}i:16;a:5:{s:7:"version";s:3:"2.8";s:12:"release_date";s:10:"2003-02-18";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:348:"* IMPORTANT: favour the use of addGroup() instead of addElementGroup().
+* Fix bug when validating grouped elements.
+* Removed useless call to toHtml() in toArray(), was disturbing the date element.
+* Fix bug with select multiple for display and validation.
+* Textarea element now uses nl2br() instead of pre tags so it won't mess your layout.
+    
+";}i:17;a:5:{s:7:"version";s:3:"2.7";s:12:"release_date";s:10:"2003-02-12";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:981:"* Use moveUploadedFile() (PHP 4.1) for file uploads instead of copy() and unlink(). (Matthias Englert)
+* Added support for element names with brackets ie. element[name][firstname].
+* Added static element to add static text in form. (Wojciech Gdela)
+* Removed extra tabs created when wrapping form elements (Tim Glen)
+* Added validation for whole group with addRule('group') in complement to validation for group elements with addGroupRule('group').
+* Added ability to use a method from a class or from an object for validation using registerRule().
+* Fixed bug with radio button validation. (Jack Kline)
+* Fixed bug when validating checkboxes named with backets ie. checkbox[A]
+* Fixed a problem with stripslashes() in element.php
+* Fixed a bug in hidden.php preventing its value to be set under some conditions. (Arne Gellhaus)
+* In progress : fix bug with toArray() for the date element, use a layout object (templates), implement function validation for elements in group.
+    
+";}i:18;a:5:{s:7:"version";s:3:"2.6";s:12:"release_date";s:10:"2003-01-29";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:397:"* IMPORTANT: addElement now returns a reference to the added element.
+* Added new date element to create formatted date selects.
+* Added example for the new date element in QuickForm_Example.php
+* Fixed a warning in checkbox element
+* Default values are always overidden by submitted values.
+* Email validation rules accept 4 chars extensions (.info, .name, ...)
+* Fixed bug in applyFilter()
+    
+";}i:19;a:5:{s:7:"version";s:3:"2.5";s:12:"release_date";s:10:"2002-11-20";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:687:"* Refine the use of setDefaults and setContants.
+setDefaults is used to fill the form with defaults values that will be overriden by submitted values once the form is submitted.
+setConstants is used to overide default and submitted values for example if form is not valid when submitted. In this case, constant values will be shown again in the field.
+In all cases, values won't be overriden by the other method anymore.
+* Added grouped elements validation on the server-side.
+* Added grouped elements customization through templates.
+* Fixes in rules for file uploads on maxsize, mime... when element is not required.
+* Added a new example for groups customization and validation.
+    
+";}i:20;a:5:{s:7:"version";s:3:"2.4";s:12:"release_date";s:10:"2002-10-21";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1046:"* Use $_POST, $_GET and $_FILES instead of $HTTP_.
+* Better error checking in renderElement().
+* Fixed freeze() for removed elements.
+* Added new element 'hiddenselect'.
+* Added optional $in_data parameter to method toHtml so that data can be added to the form right before it is rendered.  Useful when using with a template system.
+* Changed the way the key is obtained for _elementIndex in addElement() to accomodate with removeElement().
+* Some changes to _buildRules(): Made some of the javascript variables private which did not need have a global scope (such as frm).
+* Added new rule: emailorblank.
+* Fixes in HTML_QuickForm_Element.
+* Fixes in QuickForm_example2.php.
+* Added getElements() in HTML_QuickForm_Group which returns an array of all elements in group by reference.
+* Added getGroupType() in HTML_QuickForm_Group which returns the type of group as string or 'mixed' if group is composed of different element types.
+* Fixes in file upload validation rules.
+* Added a few new examples for filters, rules, file uploads usage.
+    
+";}i:21;a:5:{s:7:"version";s:3:"2.3";s:12:"release_date";s:10:"2002-06-19";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:701:"* Important API change in the way select elements load arrays.
+* Added the possibility to set a template for an element only.
+* Fixes in the creation of select elements with multiple attribute.
+* Added consistency in the magic_quotes handling.
+* Added recursive filters on setDefaults an setConstants values.
+* Added getSubmitValue (same as getSubmitValues but for one value only).
+* Removed HTML_QuickForm_date element: it needs more work.
+* Added the HTML_QuickForm_advcheckbox element in package and in registered elements.
+* Added one example for the HTML_QuickForm_advcheckbox element.
+* Added setPersistantFreeze accessor method in element.php.
+* Fixed problems with password field values.
+    
+";}i:22;a:5:{s:7:"version";s:3:"2.2";s:12:"release_date";s:10:"2002-05-29";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:68:"* Some fixes for file uploads.
+* Some fixes for hidden fields.
+    
+";}i:23;a:5:{s:7:"version";s:3:"2.0";s:12:"release_date";s:10:"2002-04-15";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:1936:"New API for new version 2.0 !
+Here is a list of what's new in this version:
+* Moved all the elements from HTML/QuickForm/Elements/ to HTML/QuickForm/
+* Added $_elementIndex to keep track of the elements
+* Changed $_elementValues to $_defaultValues
+* Removed $_hidden and $_frozen
+* Added Filter support
+* Added templates for the _wrap functions
+* Changed loadDefault() to setDefaults()
+* Moved most of the logic to the element classes
+* Created an abstraction between the form class and the elements
+* Added getElement() and getElementValue()
+* Added toArray()
+* Cleaned up a lot of the code
+* Added the // {{{ markers to all files to make it for easier reading in vim
+* Added the error handlers and codes to make errors more descriptive
+* Added new method setConstants() which is like setDefaults() except that it overrides the POST or GET variables.
+* Added methods setElementTemplate(), setFormTemplate(), setHeaderTemplate() and setRequiredNotTemplate().  They are pretty self-explanatory.
+* Added method addData().  Same as before.
+* Added new method clearAllTemplates() which basically strips out all HTML.  This is useful if you want to create a completely custom looking form using addData()
+* Fixed the toHtml() method so that it is a while statement so that freeze() works.
+* Fixed a bug in the hidden type, where it was setting the value when you created the element, thus not allowing the value to be set by POST or GET variables.
+* Took out the is_int test in select.php.
+* Made the caller a global variable in element.php, so that it can be accessed, if need be, in other element classes.
+* Changed it so that if an element is frozen and has no value it outputs '&nbsp;' instead of nothing which messes up old browsers like NS4.
+* Added renderElement() method which will return the html for one element.
+* Added removeElement() method which removes the element from the elements list. Both methods accept parameters.
+    
+";}i:24;a:5:{s:7:"version";s:3:"2.1";s:12:"release_date";s:10:"2002-05-24";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:160:"* Fixes for many if not all E_ALL warnings.
+* Filter function is now recursive.
+* Better handling of registered rules.
+* New regex for numeric validation.
+    
+";}i:25;a:5:{s:7:"version";s:4:"1.12";s:12:"release_date";s:10:"2002-03-22";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:59:"Changed directory structure for package installation.
+    
+";}i:26;a:5:{s:7:"version";s:3:"1.0";s:12:"release_date";s:10:"2001-09-06";s:15:"release_license";s:11:"PHP License";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:64:"This is the initial release of the HTML_QuickForm package.
+    
+";}}s:12:"_lastversion";N;s:7:"dirtree";a:8:{s:19:"/usr/share/php/HTML";b:1;s:29:"/usr/share/php/HTML/QuickForm";b:1;s:38:"/usr/share/php/HTML/QuickForm/Renderer";b:1;s:34:"/usr/share/php/HTML/QuickForm/Rule";b:1;s:39:"/usr/share/php/docs/HTML_QuickForm/docs";b:1;s:49:"/usr/share/php/docs/HTML_QuickForm/docs/renderers";b:1;s:59:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates";b:1;s:66:"/usr/share/php/docs/HTML_QuickForm/docs/renderers/templates/styles";b:1;}s:13:"_lastmodified";i:1178558833;}

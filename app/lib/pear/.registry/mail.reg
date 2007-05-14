@@ -1,0 +1,57 @@
+a:18:{s:8:"provides";a:19:{s:10:"class;Mail";a:3:{s:4:"type";s:5:"class";s:4:"name";s:4:"Mail";s:8:"explicit";b:1;}s:22:"function;Mail::factory";a:3:{s:4:"type";s:8:"function";s:4:"name";s:13:"Mail::factory";s:8:"explicit";b:1;}s:19:"function;Mail::send";a:3:{s:4:"type";s:8:"function";s:4:"name";s:10:"Mail::send";s:8:"explicit";b:1;}s:29:"function;Mail::prepareHeaders";a:3:{s:4:"type";s:8:"function";s:4:"name";s:20:"Mail::prepareHeaders";s:8:"explicit";b:1;}s:30:"function;Mail::parseRecipients";a:3:{s:4:"type";s:8:"function";s:4:"name";s:21:"Mail::parseRecipients";s:8:"explicit";b:1;}s:15:"class;Mail_mail";a:4:{s:4:"type";s:5:"class";s:4:"name";s:9:"Mail_mail";s:7:"extends";s:4:"Mail";s:8:"explicit";b:1;}s:24:"function;Mail_mail::send";a:3:{s:4:"type";s:8:"function";s:4:"name";s:15:"Mail_mail::send";s:8:"explicit";b:1;}s:15:"class;Mail_null";a:4:{s:4:"type";s:5:"class";s:4:"name";s:9:"Mail_null";s:7:"extends";s:4:"Mail";s:8:"explicit";b:1;}s:24:"function;Mail_null::send";a:3:{s:4:"type";s:8:"function";s:4:"name";s:15:"Mail_null::send";s:8:"explicit";b:1;}s:19:"class;Mail_sendmail";a:4:{s:4:"type";s:5:"class";s:4:"name";s:13:"Mail_sendmail";s:7:"extends";s:4:"Mail";s:8:"explicit";b:1;}s:28:"function;Mail_sendmail::send";a:3:{s:4:"type";s:8:"function";s:4:"name";s:19:"Mail_sendmail::send";s:8:"explicit";b:1;}s:15:"class;Mail_smtp";a:4:{s:4:"type";s:5:"class";s:4:"name";s:9:"Mail_smtp";s:7:"extends";s:4:"Mail";s:8:"explicit";b:1;}s:24:"function;Mail_smtp::send";a:3:{s:4:"type";s:8:"function";s:4:"name";s:15:"Mail_smtp::send";s:8:"explicit";b:1;}s:30:"function;Mail_smtp::disconnect";a:3:{s:4:"type";s:8:"function";s:4:"name";s:21:"Mail_smtp::disconnect";s:8:"explicit";b:1;}s:17:"class;Mail_RFC822";a:3:{s:4:"type";s:5:"class";s:4:"name";s:11:"Mail_RFC822";s:8:"explicit";b:1;}s:38:"function;Mail_RFC822::parseAddressList";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"Mail_RFC822::parseAddressList";s:8:"explicit";b:1;}s:37:"function;Mail_RFC822::validateMailbox";a:3:{s:4:"type";s:8:"function";s:4:"name";s:28:"Mail_RFC822::validateMailbox";s:8:"explicit";b:1;}s:38:"function;Mail_RFC822::approximateCount";a:3:{s:4:"type";s:8:"function";s:4:"name";s:29:"Mail_RFC822::approximateCount";s:8:"explicit";b:1;}s:40:"function;Mail_RFC822::isValidInetAddress";a:3:{s:4:"type";s:8:"function";s:4:"name";s:31:"Mail_RFC822::isValidInetAddress";s:8:"explicit";b:1;}}s:8:"filelist";a:8:{s:8:"Mail.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"e90b498ce97ee926aab71180aa1f68bd";s:12:"installed_as";s:23:"/usr/share/php/Mail.php";}s:13:"Mail/mail.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"c3433e6b7b54a362c6acbffffddcb2f1";s:12:"installed_as";s:28:"/usr/share/php/Mail/mail.php";}s:13:"Mail/null.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"4a1ed7ae8036862b24fa0ea84f8bbe0e";s:12:"installed_as";s:28:"/usr/share/php/Mail/null.php";}s:17:"Mail/sendmail.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"8d567715b062fd05ae0d0c195ec3ba1b";s:12:"installed_as";s:32:"/usr/share/php/Mail/sendmail.php";}s:13:"Mail/smtp.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"ed539e37c764c38205cb70597e0e84e4";s:12:"installed_as";s:28:"/usr/share/php/Mail/smtp.php";}s:15:"Mail/RFC822.php";a:3:{s:4:"role";s:3:"php";s:6:"md5sum";s:32:"3a513a76e6222b50e7e1186a11cb7b2b";s:12:"installed_as";s:30:"/usr/share/php/Mail/RFC822.php";}s:17:"tests/rfc822.phpt";a:3:{s:4:"role";s:4:"test";s:6:"md5sum";s:32:"4117acf13586a15da2a5cdd368aa3931";s:12:"installed_as";s:43:"/usr/share/php/tests/Mail/tests/rfc822.phpt";}s:21:"tests/smtp_error.phpt";a:3:{s:4:"role";s:4:"test";s:6:"md5sum";s:32:"f293d173326d7167fd975a4db3293103";s:12:"installed_as";s:47:"/usr/share/php/tests/Mail/tests/smtp_error.phpt";}}s:10:"xsdversion";s:3:"1.0";s:15:"packagerversion";s:6:"1.4.11";s:7:"package";s:4:"Mail";s:7:"summary";s:58:"Class that provides multiple interfaces for sending emails";s:11:"description";s:340:"PEAR's Mail package defines an interface for implementing mailers under the PEAR hierarchy.  It also provides supporting functions useful to multiple mailer backends.  Currently supported backends include: PHP's native mail() function, sendmail, and SMTP.  This package also provides a RFC822 email address list validation utility class.
+ 
+";s:11:"maintainers";a:2:{i:0;a:4:{s:6:"handle";s:8:"chagenbu";s:4:"name";s:15:"Chuck Hagenbuch";s:5:"email";s:15:"chuck@horde.org";s:4:"role";s:4:"lead";}i:1;a:4:{s:6:"handle";s:7:"richard";s:4:"name";s:13:"Richard Heyes";s:5:"email";s:19:"richard@phpguru.org";s:4:"role";s:9:"developer";}}s:7:"version";s:6:"1.1.14";s:12:"release_date";s:10:"2006-10-11";s:15:"release_license";s:7:"PHP/BSD";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:85:"- Fix missing seperation between headers and body in the SMTP driver (Bug #8723).
+  
+";s:12:"release_deps";a:1:{i:1;a:5:{s:4:"type";s:3:"pkg";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.1.0";s:8:"optional";s:3:"yes";s:4:"name";s:8:"Net_SMTP";}}s:9:"changelog";a:17:{i:0;a:4:{s:7:"version";s:6:"1.1.13";s:12:"release_date";s:10:"2006-09-14";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:196:"- Fix _sanitizeHeaders() so that it doesn't eat multiline headers. (Bug 8688, Bug 8699)
+- The sendmail backend now correctly writes a blank line between the headers and body text. (Bug 8543)
+    
+";}i:1;a:4:{s:7:"version";s:6:"1.1.12";s:12:"release_date";s:10:"2006-09-13";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:79:"- Fix typo in _sanitizeHeaders() that blanked out all headers. (Bug 8685)
+    
+";}i:2;a:4:{s:7:"version";s:6:"1.1.11";s:12:"release_date";s:10:"2006-09-12";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:522:"- Mail::prepareHeaders() no longer appends a trailing newline. (Bug 7492)
+- Mail::parseRecipients() now returns a PEAR_Error object on error. (Bug 7491)
+- Mail_RFC822::isValidInetAddress() now permits domain parts longer than four characters.  The two character minimum remains in effect. (Bug 7562)
+- Fixed the tests for the existence of the PHP_EOL constant. (Bug 7682)
+- Changed the default 'sendmail_args' value to include the '-i' argument. (Bug 7785)
+- We now guard against email injection exploits. (Bug 6229)
+    
+";}i:3;a:4:{s:7:"version";s:6:"1.1.10";s:12:"release_date";s:10:"2006-04-25";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:88:"- The SMTP driver now includes an error code in its PEAR_Error objects. (Bug 6983)
+    
+";}i:4;a:4:{s:7:"version";s:5:"1.1.9";s:12:"release_date";s:10:"2005-09-13";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:186:"- SMTP connections are now reset (RSET) when an error occurs. (Bug 5212)
+- The SMTP driver now exposes a disconnect() method which forcibly destroys the SMTP connection. (Bug 5372)
+    
+";}i:5;a:4:{s:7:"version";s:5:"1.1.8";s:12:"release_date";s:10:"2005-08-23";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:85:"- Removing a stray debugging line that snuck into the 1.1.7 release. (Bug 5190)
+    
+";}i:6;a:4:{s:7:"version";s:5:"1.1.7";s:12:"release_date";s:10:"2005-08-21";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:495:"- Mail_RFC822::isValidInetAddress() now accepts the '+' character in strict local-parts. (Bug 4943)
+- The SMTP backend now returns standardized error messages which now include additional error details from the Net_SMTP package. (Bug 4241)
+- Mail::factory() now returns object references without generating PHP warnings.
+- The SMTP backend now supports a 'persist' parameter which allows the internal SMTP connection object to be reused over multiple calls to the send() method. (Bug 4122)
+    
+";}i:7;a:4:{s:7:"version";s:5:"1.1.6";s:12:"release_date";s:10:"2005-07-12";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:45:"- Don't emit warnings with PHP 4.4/5.1.
+    
+";}i:8;a:4:{s:7:"version";s:5:"1.1.5";s:12:"release_date";s:10:"2005-06-26";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:197:"- Unfold long lines before parsing addresses in Mail_RFC822.
+- The SMTP driver now supports a 'timeout' value. (Request #3776)
+- An array of Received: headers can now be provided. (Bug #4636)
+    
+";}i:9;a:4:{s:7:"version";s:5:"1.1.4";s:12:"release_date";s:10:"2004-09-08";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:537:"- Header key comparisons are now case-insensitive. (Colin Viebrock)
+- Header fields (e.g., 'Cc', 'Bcc') may now be specified as arrays of addresses. (Colin Viebrock)
+- PHP5 compatibility fix (Bug #1563).
+- PHP4 / Win32 compatibility fix for the 'sendmail' driver (Bug 1881).
+- Stricter "local part" parsing for Mail_RFC822 (in accordance with Section 6.2.4 of RFC 822) (Bug 1869).
+- The various send() implementations now properly escalate the PEAR_Error object returned by Mail::prepareHeaders() in the event of an invalid header.
+    
+";}i:10;a:4:{s:7:"version";s:5:"1.1.3";s:12:"release_date";s:10:"2004-04-08";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:244:"- The 'mail' driver now returns a PEAR_Error object on failure.
+- The individual drivers no longer include the 'Mail.php' file.  If you want to instantiate a driver directly, you'll need to explicitly include the 'Mail.php' file yourself.
+    
+";}i:11;a:4:{s:7:"version";s:5:"1.1.2";s:12:"release_date";s:10:"2003-09-04";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:62:"The 'localhost' value can now be set in the SMTP driver.
+    
+";}i:12;a:4:{s:7:"version";s:5:"1.1.1";s:12:"release_date";s:10:"2003-06-26";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:43:"Minor fixes with newlines in headers.
+    
+";}i:13;a:4:{s:7:"version";s:5:"1.1.0";s:12:"release_date";s:10:"2003-06-21";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:105:"The Mail package now depends on Net_SMTP 1.1.0 or greater for its SMTP authentication capabilities.
+    
+";}i:14;a:4:{s:7:"version";s:5:"1.0.2";s:12:"release_date";s:10:"2002-07-27";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:185:"Minor additions and changes to RFC822.php. Fixed line terminator issue for smtp.php and set smtp.php to use Return-Path header in place of From header for MAIL FROM: (if supplied)
+    
+";}i:15;a:4:{s:7:"version";s:5:"1.0.1";s:12:"release_date";s:10:"2002-07-27";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:35:"License change for RFC822.php
+    
+";}i:16;a:4:{s:7:"version";s:3:"1.0";s:12:"release_date";s:10:"2002-06-06";s:13:"release_state";s:6:"stable";s:13:"release_notes";s:37:"Initial release as PEAR package
+    
+";}}s:12:"_lastversion";N;s:7:"dirtree";a:3:{s:14:"/usr/share/php";b:1;s:19:"/usr/share/php/Mail";b:1;s:31:"/usr/share/php/tests/Mail/tests";b:1;}s:13:"_lastmodified";i:1174302673;}

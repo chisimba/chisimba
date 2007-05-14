@@ -1,0 +1,101 @@
+a:22:{s:7:"attribs";a:6:{s:15:"packagerversion";s:6:"1.4.11";s:7:"version";s:3:"2.0";s:5:"xmlns";s:35:"http://pear.php.net/dtd/package-2.0";s:11:"xmlns:tasks";s:33:"http://pear.php.net/dtd/tasks-1.0";s:9:"xmlns:xsi";s:41:"http://www.w3.org/2001/XMLSchema-instance";s:18:"xsi:schemaLocation";s:147:"http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd";}s:4:"name";s:12:"HTTP_Request";s:7:"channel";s:12:"pear.php.net";s:7:"summary";s:45:"Provides an easy way to perform HTTP requests";s:11:"description";s:114:"Supports GET/POST/HEAD/TRACE/PUT/DELETE, Basic authentication, Proxy,
+Proxy Authentication, SSL, file uploads etc.";s:4:"lead";a:2:{i:0;a:4:{s:4:"name";s:13:"Richard Heyes";s:4:"user";s:7:"richard";s:5:"email";s:15:"richard@php.net";s:6:"active";s:2:"no";}i:1;a:4:{s:4:"name";s:13:"Alexey Borzov";s:4:"user";s:3:"avb";s:5:"email";s:11:"avb@php.net";s:6:"active";s:3:"yes";}}s:4:"date";s:10:"2006-10-25";s:4:"time";s:8:"20:24:35";s:7:"version";a:2:{s:7:"release";s:5:"1.4.0";s:3:"api";s:5:"1.4.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:1202:"* Added Keep-Alive support (request #4806), thanks to Justin Patrin for the
+  initial patch. Please note that "Connection: close" header is still added
+  by default, you need to explicitly add "Connection: Keep-Alive" header or
+  remove "Connection" header if using HTTP 1.1
+* A new disconnect() method was added which forces disconnection from the 
+  server if Keep-Alive is used. Also two new events are sent to the Listeners:
+  "connect" and "disconnect"
+* Added getUrl() method (request #6589)
+* Added method to properly parse header of gzip-encoded data (see RFC 1952).
+  This takes care of situations when the server adds some additional data
+  to the header (bug #8245) or sends data that is not gzip-encoded when
+  "Content-Encoding: gzip" header is present (bug #8213)
+* "Proxy-Authorization" header is now properly set by constructor
+  (bug #5913)
+* Fixed doc comments mentioning addBody() method instead of proper setBody()
+  (bug #5969)
+* Fixed erroneous removal of "Content-Type" header from request
+  (bug #7922)
+* Bogus HTTP headers are now ignored (bug #8214)
+* Path is set to "/" if an URL without path (http://www.example.com)
+  is given (bug #8662)
+* Moved to package.xml version 2.0";s:8:"contents";a:1:{s:3:"dir";a:2:{s:7:"attribs";a:1:{s:4:"name";s:1:"/";}s:4:"file";a:4:{i:0;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"fa4fe152462ca7ca25cbd5a3bd20da2a";s:4:"name";s:26:"docs/download-progress.php";s:4:"role";s:3:"doc";}}i:1;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"448d374abf5f4e7567e36ea4f5a5d9ec";s:4:"name";s:16:"docs/example.php";s:4:"role";s:3:"doc";}}i:2;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"cd0bd9a53a6b94a56f87f2fca0a5961e";s:4:"name";s:20:"Request/Listener.php";s:4:"role";s:3:"php";}}i:3;a:1:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"60e079f8fe775dc1f6eb0feb577b7499";s:4:"name";s:11:"Request.php";s:4:"role";s:3:"php";}}}}}s:12:"dependencies";a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"4.0.0";}s:13:"pearinstaller";a:1:{s:3:"min";s:7:"1.4.0b1";}s:7:"package";a:2:{i:0;a:3:{s:4:"name";s:7:"Net_URL";s:7:"channel";s:12:"pear.php.net";s:3:"min";s:6:"1.0.12";}i:1;a:3:{s:4:"name";s:10:"Net_Socket";s:7:"channel";s:12:"pear.php.net";s:3:"min";s:5:"1.0.2";}}}}s:10:"phprelease";s:0:"";s:9:"changelog";a:1:{s:7:"release";a:11:{i:0;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.3.0";s:3:"api";s:5:"1.3.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2005-11-06";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:881:"* All request and response headers are now treated case-insensitively,
+  per RFC 2616 (bug #1045, bug #4367).
+* Values of multiple response headers with the same name are combined
+  into a comma-separated string per RFC 2616 (bug #1045)
+* Generate proper closing boundary for multipart/form-data requests,
+  per RFC 1521 (bug #4397)
+* magic_quotes_runtime directive is switched off when performing the
+  request since it may break file uploads and chunked responses (bug #4543)
+* Response::_readChunked() will finish on zero-length chunk rather than 
+  socket eof (patch from bug #3037)
+* Added HTTP_Request::setBody() method, deprecated addRawPostData() due to
+  misleading name. The request body will be sent with all request methods
+  except those that explicitly forbid this (e.g. TRACE). Data set via
+  addPostData() / addFile() will only be sent with POST (see request #4716)";}i:1;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.4";s:3:"api";s:5:"1.2.4";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2004-12-30";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:265:"* Notice was raised when processing a response containing secure 
+  cookies (bug #2741)
+* Warning was raised when processing a response with empty body and
+  chunked Transfer-encoding (bug #2792)
+* Improved inline documentation on constructor parameters (bug #2751)";}i:2;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.3";s:3:"api";s:5:"1.2.3";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2004-10-01";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:453:"* Auth information is properly extracted from URLs of the form http://user:pass@host/
+  (bug #1507)
+* Connection to server is closed after performing request (bug #1692)
+* Use correct argument separator for generated query stings (bug #1857, see
+  also bug #704 for Net_URL)
+* Do not use gzip encoding if certain string functions are overloaded by
+  mbstring extension (bug #1781)
+* addPostData() now properly handles multidimensional arrays (bug #2233)";}i:3;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.2";s:3:"api";s:5:"1.2.2";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2004-05-19";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:295:"Bug fixes:
+* Fixed #1037 (unable to connect to port 80 through HTTPS). This relies
+  on fix for Net_URL bug #1036, thus Net_URL 1.0.12 is now required.
+* Fixed #1333 (sending POST data on non-POST requests).
+* Fixed #1433 (overwriting the variable name when adding multiple files 
+  for upload).";}i:4;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.2.1";s:3:"api";s:5:"1.2.1";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2004-04-29";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:623:"Additions and changes:
+ * Applied patch from #851 (First parameter of constructor is now optional)
+ * Implemented #526 (It is now possible to set timeout on socket, via
+   parameter readTimeout)
+ * Implemented #1141 (It is now possible to pass options to socket via 
+   parameter socketOptions, Net_Socket 1.0.2 is needed for this functionality)
+ 
+Fixes:
+ * Fixed #842 (Doc comments incorrectly described the possible return values)
+ * Fixed #1152 (Incorrect handling of cookies with '=' in value)
+ * Fixed #1158 (Cookie parameters are not necessarily lowercase)
+ * Fixed #1080 (Cookies should not be urlencoded/urldecoded)";}i:5;a:5:{s:7:"version";a:2:{s:7:"release";s:3:"1.2";s:3:"api";s:3:"1.2";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2003-10-27";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:937:"Feature additions:
+ * Support for multipart/form-data POST requests and file uploads (partly based on Christian Stocker's work)
+ * Brackets [] after array variables are optional (on by default, controlled by useBrackets parameter)
+ * HTTP_Request now implements a Subject-Observer design pattern. It is possible to add Listeners
+   to the Request object to e.g. draw a progress bar when downloading a large file. This is partly
+   based on Stefan Walk's work. A usage example for this is available.
+
+Migration to 1.2:
+ * Redirect support is now OFF by default
+ * Redirect support is DEPRECATED
+ * Methods clearCookies(), clearPostData(), reset() are DEPRECATED
+
+Fixes:
+ * Fixed PEAR bug #18 (Lowercased headers, fix by Dave Mertens)
+ * Fixed PEAR bug #131 (Domain without trailing slash)
+ * Fixed PHP bug #25486 (100 Continue handling)
+ * Fixed PEAR bug #150 (Notices being generated)
+ * Fixed problems with HTTP responses without bodies";}i:6;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.1.1";s:3:"api";s:5:"1.1.1";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2003-01-30";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:54:"Added redirect support. Net_URL 1.0.7 is now required.";}i:7;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.1.0";s:3:"api";s:5:"1.1.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2003-01-20";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:106:"Added SSL support as long as you have PHP 4.3.0+ and the OpenSSL extension. Net_URL 1.0.6 is now required.";}i:8;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.0.2";s:3:"api";s:5:"1.0.2";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2002-09-16";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:20:"Added cookie support";}i:9;a:5:{s:7:"version";a:2:{s:7:"release";s:5:"1.0.1";s:3:"api";s:5:"1.0.1";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2002-07-27";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:50:"http://www.opensource.org/licenses/bsd-license.php";}s:8:"_content";s:3:"BSD";}s:5:"notes";s:14:"License change";}i:10;a:5:{s:7:"version";a:2:{s:7:"release";s:3:"1.0";s:3:"api";s:3:"1.0";}s:9:"stability";a:2:{s:7:"release";s:6:"stable";s:3:"api";s:6:"stable";}s:4:"date";s:10:"2002-02-17";s:7:"license";a:2:{s:7:"attribs";a:1:{s:3:"uri";s:26:"http://www.php.net/license";}s:8:"_content";s:11:"PHP License";}s:5:"notes";s:44:"Initial release of the HTTP_Request package.";}}}s:8:"filelist";a:4:{s:26:"docs/download-progress.php";a:5:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"fa4fe152462ca7ca25cbd5a3bd20da2a";s:4:"name";s:26:"docs/download-progress.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:59:"/usr/share/php/docs/HTTP_Request/docs/download-progress.php";}s:16:"docs/example.php";a:5:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"448d374abf5f4e7567e36ea4f5a5d9ec";s:4:"name";s:16:"docs/example.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:49:"/usr/share/php/docs/HTTP_Request/docs/example.php";}s:20:"Request/Listener.php";a:5:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"cd0bd9a53a6b94a56f87f2fca0a5961e";s:4:"name";s:20:"Request/Listener.php";s:4:"role";s:3:"php";s:12:"installed_as";s:40:"/usr/share/php/HTTP/Request/Listener.php";}s:11:"Request.php";a:5:{s:14:"baseinstalldir";s:4:"HTTP";s:6:"md5sum";s:32:"60e079f8fe775dc1f6eb0feb577b7499";s:4:"name";s:11:"Request.php";s:4:"role";s:3:"php";s:12:"installed_as";s:31:"/usr/share/php/HTTP/Request.php";}}s:12:"_lastversion";N;s:7:"dirtree";a:3:{s:37:"/usr/share/php/docs/HTTP_Request/docs";b:1;s:27:"/usr/share/php/HTTP/Request";b:1;s:19:"/usr/share/php/HTTP";b:1;}s:3:"old";a:7:{s:7:"version";s:5:"1.4.0";s:12:"release_date";s:10:"2006-10-25";s:13:"release_state";s:6:"stable";s:15:"release_license";s:3:"BSD";s:13:"release_notes";s:1202:"* Added Keep-Alive support (request #4806), thanks to Justin Patrin for the
+  initial patch. Please note that "Connection: close" header is still added
+  by default, you need to explicitly add "Connection: Keep-Alive" header or
+  remove "Connection" header if using HTTP 1.1
+* A new disconnect() method was added which forces disconnection from the 
+  server if Keep-Alive is used. Also two new events are sent to the Listeners:
+  "connect" and "disconnect"
+* Added getUrl() method (request #6589)
+* Added method to properly parse header of gzip-encoded data (see RFC 1952).
+  This takes care of situations when the server adds some additional data
+  to the header (bug #8245) or sends data that is not gzip-encoded when
+  "Content-Encoding: gzip" header is present (bug #8213)
+* "Proxy-Authorization" header is now properly set by constructor
+  (bug #5913)
+* Fixed doc comments mentioning addBody() method instead of proper setBody()
+  (bug #5969)
+* Fixed erroneous removal of "Content-Type" header from request
+  (bug #7922)
+* Bogus HTTP headers are now ignored (bug #8214)
+* Path is set to "/" if an URL without path (http://www.example.com)
+  is given (bug #8662)
+* Moved to package.xml version 2.0";s:12:"release_deps";a:4:{i:0;a:4:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:5:"4.0.0";s:8:"optional";s:2:"no";}i:1;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:4:"PEAR";s:3:"rel";s:2:"ge";s:7:"version";s:7:"1.4.0b1";s:8:"optional";s:2:"no";}i:2;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:7:"Net_URL";s:3:"rel";s:2:"ge";s:7:"version";s:6:"1.0.12";s:8:"optional";s:2:"no";}i:3;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:10:"Net_Socket";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.0.2";s:8:"optional";s:2:"no";}}s:11:"maintainers";a:2:{i:0;a:5:{s:4:"name";s:13:"Richard Heyes";s:5:"email";s:15:"richard@php.net";s:6:"active";s:2:"no";s:6:"handle";s:7:"richard";s:4:"role";s:4:"lead";}i:1;a:5:{s:4:"name";s:13:"Alexey Borzov";s:5:"email";s:11:"avb@php.net";s:6:"active";s:3:"yes";s:6:"handle";s:3:"avb";s:4:"role";s:4:"lead";}}}s:10:"xsdversion";s:3:"2.0";s:13:"_lastmodified";i:1174304224;}
