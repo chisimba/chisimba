@@ -615,27 +615,28 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
+								//	'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
+//
+	//								'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 
-									'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
+		//							'I18Nv2' 		=> Array('version'=> '0.11.4','available'=>false,'message'=>''),
 
-									'I18Nv2' 		=> Array('version'=> '0.11.4','available'=>false,'message'=>''),
+			//						'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
 
-									'Archive_Tar' 	=> Array('version'=>'1.1','available'=>false,'message' => ''),
-
-									'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
+				//					'Mail'        	=> Array('version'=>'1.1.3','available'=>false,'message' => ''),
 
 									//'Mail_Mime'   	=> Array('version'=>'1.2.1','available'=>false,'message' => ''),
+//
+					//				'XML_Parser'  	=> Array('version'=>'1.0.1','available'=>false,'message' => ''),
+//
+	//								'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
 
-									'XML_Parser'  	=> Array('version'=>'1.0.1','available'=>false,'message' => ''),
+		//							'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
-									'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
+			//						'Log'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
-									'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
-
-									'Log'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
-
-									'Translation2'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
+				//					'Translation2'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
+									'PEAR'              => array('version' => '1.4.0', 'available' => false,'message' => '')
 
 								  );
 
@@ -663,15 +664,15 @@ class PEARCheckAction extends StepAction
 
 		if ($_SESSION['pear_path'] == '') {
 
-			$this->errors[] = 'Could not find the PEAR registry. You can still proceed with install, '.
+			//$this->errors[] = 'Could not find the PEAR registry. You can still proceed with install, '.
 
-								'but you may encounter some errors.';
+				//				'but you may encounter some errors.';
 
 
 
 			// go through and manually try and instantiate PEAR classes.
 
-			@include_once 'MDB2.php';
+			include_once($_SESSION['pear_path'].'MDB2.php');
 
 			if (!class_exists('MDB2')) {
 
@@ -875,7 +876,7 @@ class PEARCheckAction extends StepAction
 
 
 
-
+		unset($pear_registry);
 
 		return $this->success;
 
