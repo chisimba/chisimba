@@ -141,6 +141,38 @@ class skin extends object
         return $objNewForm->show();
 
     }
+    
+    /**
+    * Method to get the list of skins available
+    * @return array List of available skins
+    */
+    public function getListofSkins()
+    {
+        $currentDir = getcwd();
+        //loop through the folders and build an array of available skins
+        $basedir=$this->objConfig->getsiteRootPath()."skins/";
+        chdir($basedir);
+        $dh=opendir($basedir);
+        $dirList=array();
+        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+            if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
+                if (is_dir($file) && file_exists($basedir.$file.'/stylesheet.css')) {
+                    $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
+                    if (file_exists($skinnameFile)) {
+                        $ts=fopen($skinnameFile,'r');
+                        $ts_content=fread($ts, filesize($skinnameFile));
+                        $dirList[$file] = $ts_content;
+                    } else {
+                        $dirList[$file] = $file;
+                    }
+                }
+            }
+        }
+        closedir($dh);
+        chdir($currentDir);
+        
+        return $dirList;
+    }
 
     /**
     * Method to choose the skin for the current the session
