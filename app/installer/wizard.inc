@@ -12,7 +12,6 @@
 
 */
 
-define('PEAR_DIR', dirname($_SESSION['sys_root']).'/lib/pear/');
 define('INSTALL_DIR', dirname(__FILE__));
 
 define('STEP_DIR', dirname(__FILE__).'/steps');
