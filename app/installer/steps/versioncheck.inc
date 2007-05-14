@@ -1,5 +1,6 @@
 <?php
-
+//var_dump($_SESSION);
+//echo PEAR_DIR; die();
 require_once INSTALL_DIR.'/step.inc';
 
 require_once INSTALL_DIR.'/stepaction.inc';
@@ -655,9 +656,9 @@ class PEARCheckAction extends StepAction
 	function processAction()
 
 	{
-
-		$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
-
+		
+		$_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_SESSION['sys_root']."lib/pear/" : '';
+//echo $_SESSION['pear_path']; die();
 		// check if the pear classes exist
 
 		if ($_SESSION['pear_path'] == '') {
@@ -795,9 +796,8 @@ class PEARCheckAction extends StepAction
 		} else { //end if registry not found
 
 			include_once 'PEAR/Registry.php';
-
 			$pear_registry = new PEAR_Registry($_SESSION['pear_path']);
-
+			//chmod($pear_registry, 0777);
 
 
 			if ($pear_registry == null) {
