@@ -49,7 +49,7 @@ class dbstorycategory extends dbTable
         // if add use insert
         if ($mode=="add") {
             if ($this->checkIfExists($category)) {
-                $this->errCode=$this->objLanguage->languageText("mod_storycategory_exists")
+                $this->errCode=$this->objLanguage->code2Txt("mod_storycategory_exists", 'storycategoryadmin')
                   . ": " . $category;
                 return FALSE;
             } else {

@@ -28,7 +28,7 @@ $cssLayout = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 //Set the content of the left side column
-$leftSideColumn = $this->objLanguage->languageText("mod_storycategoryadmin_lefteditist", "storycategoryadmin");
+$leftSideColumn = $this->objLanguage->code2Txt("mod_storycategoryadmin_lefteditist", "storycategoryadmin");
 
 // Add Left column
 $cssLayout->setLeftColumnContent($leftSideColumn);
@@ -49,7 +49,7 @@ if ($mode=="edit") {
     $rep = array('category' => $category);
     $fieldsetLabel = $this->objLanguage->code2txt('mod_storycategory_editlabel', "storycategoryadmin", $rep);
 } else {
-    $fieldsetLabel = $this->objLanguage->languageText("mod_storycategory_addlabel", "storycategoryadmin");
+    $fieldsetLabel = $this->objLanguage->code2Txt("mod_storycategory_addlabel", "storycategoryadmin");
 }
 
 
