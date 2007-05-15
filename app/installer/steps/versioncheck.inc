@@ -1,9 +1,5 @@
 <?php
-<<<<<<< versioncheck.inc
-=======
-//var_dump($_SESSION);
-//echo PEAR_DIR; die();
->>>>>>> 1.41
+
 require_once INSTALL_DIR.'/step.inc';
 
 require_once INSTALL_DIR.'/stepaction.inc';
