@@ -11,7 +11,7 @@ class bbcodeparser extends object
 	{
 		if(!class_exists('HTML_BBCodeParser'))
 		{
-			include_once('HTML/BBCodeParser.php');
+			@include_once('HTML/BBCodeParser.php');
 		}
 		//	throw new customException("Unable to locate PEAR::BBCodeParser, please install it with pear install --alldeps html_bbcodeparser!");
 		
@@ -26,11 +26,15 @@ class bbcodeparser extends object
 	public function parse4bbcode($text)
 	{
 		
-		$parser = new HTML_BBCodeParser(parse_ini_file('BBCodeParser.ini'));
-		log_debug("set the parser");
-		$parser->setText($text);
-		$parser->parse();
-		return $parser->getParsed();
+        if(class_exists('HTML_BBCodeParser')) {
+            $parser = new HTML_BBCodeParser(parse_ini_file('BBCodeParser.ini'));
+            //log_debug("set the parser");
+            $parser->setText($text);
+            $parser->parse();
+            return $parser->getParsed();
+        } else {
+            return $text;
+        }
 	}
 }
 ?>
