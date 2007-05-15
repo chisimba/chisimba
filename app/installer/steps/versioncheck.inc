@@ -618,7 +618,7 @@ class PEARCheckAction extends StepAction
 
 	var $required_packages = Array(
 
-									'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
+//									'MDB2'         	=> Array('version'=>'2.0.2','available'=>false,'message' => ''),
 //
 	//								'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
 
@@ -634,7 +634,7 @@ class PEARCheckAction extends StepAction
 //
 	//								'XML_Util'  	=> Array('version'=>'1.1.1','available'=>false,'message' => ''),
 
-									'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
+	//								'Config'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
 			//						'Log'     	=> Array('version'=>'1.0.0','available'=>false,'message' => ''),
 
