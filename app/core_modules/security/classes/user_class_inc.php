@@ -496,7 +496,7 @@ class user extends dbTable
             if ($userName) {
                 $ret = $userName;
             } else {
-                $ret =  $this->objLanguage->languageText("error_notloggedin");
+                $ret =  $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             //look up third part numeric ID
@@ -506,7 +506,7 @@ class user extends dbTable
 //                $line = $rs->fetchRow();
                 $ret=$rs[0]["username"];
             } else {
-                $ret=$this->objLanguage->languageText("error_datanotfound");
+                $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
             }
         }
         return $ret;
@@ -530,7 +530,7 @@ class user extends dbTable
             if ($fullname) {
                 $result = $fullname;
             } else {
-                $result = $this->objLanguage->languageText("error_notloggedin");
+                $result = $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             //look up third part numeric ID
@@ -542,7 +542,7 @@ class user extends dbTable
             {
                 $result=$line['firstname'].' '.$line['surname'];
             } else {
-                $result=$this->objLanguage->languageText("error_datanotfound");
+                $result=$this->objLanguage->languageText("error_datanotfound", 'security');
             }
         }
         return $result;
@@ -643,7 +643,7 @@ class user extends dbTable
             if ($email) {
                 $ret = $email;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin");
+                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
@@ -651,7 +651,7 @@ class user extends dbTable
             if (count($rs) > 0) {
                 $ret=$rs[0]["emailaddress"];
             } else {
-                $ret=$this->objLanguage->languageText("error_datanotfound");
+                $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
             }
         }
         return $ret;
@@ -714,7 +714,7 @@ class user extends dbTable
             if ($logins){
                 $ret=$logins;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin");
+                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             $sql="SELECT logins FROM tbl_users WHERE userid='$userId'";
@@ -723,7 +723,7 @@ class user extends dbTable
                 $line = $rs->fetchRow();
                 $ret=$line["logins"];
             } else {
-                   $ret=$this->objLanguage->languageText("error_datanotfound");
+                   $ret=$this->objLanguage->languageText("error_datanotfound", 'security');
             }
        }
        return $ret;
