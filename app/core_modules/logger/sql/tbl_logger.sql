@@ -57,8 +57,8 @@ $fields = array(
 		'length' => '50',
         ),
     'referrer' => array (
-        'type' => 'text',
-		'length' => '255',
+        'type' => 'clob',
+		
         ),
 	'datecreated' => array(
 		'type' => 'timestamp',

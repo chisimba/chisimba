@@ -86,5 +86,15 @@
     			</eventparamvalue>
 			</change>
 		</data>
+		<data>
+        	<change>
+        		<referrer>
+        		<type>clob</type>
+        			<definition>
+		    			<type>clob</type>
+    				</definition>
+    			</referrer>
+			</change>
+		</data>
 	</update>
 </updates>
