@@ -33,9 +33,9 @@ class xmlperm extends dbTable
     */
     public function init()
     {
-        $this->objConfig = &$this->getObject('altconfig','config');
-        $this->objConfig = &$this->getObject('altconfig','config');
-        $this->objDbperm = $this->newObject('dbpermissions', 'sitepermissions');        
+        $this->objConfig = $this->getObject('altconfig','config');
+        $this->objDbperm = $this->getObject('dbpermissions', 'sitepermissions');        
+        $this->objGroupadmin = $this->getObject('groupadminmodel', 'groupadmin');        
     }
 
     /**
@@ -86,9 +86,35 @@ class xmlperm extends dbTable
         $this->objDbperm->deleteModule($moduleName);
         $moduleId = $this->objDbperm->addModule($moduleName);
         $this->readXmlFile();
+        
+        // check for group and create if nonexistant
+        $targets = $this->objXML->targets;
+        foreach($targets->group as $group){
+            $leafId = $this->objGroupadmin->getLeafId(array($group->name));
+            if($leafId == NULL){
+                $this->objGroupadmin->addGroup($group->name, $group->description);
+            }
+        }
+        
+        // add conditions
+        $conditions = $this->objXML->conditions;
+        foreach($conditions->condition as $condition){
+            $this->objDbperm->addCondition($condition->name, $condition->type, $condition->target);
+        }
+        
+        // add actions
         $actions = $this->objXML->actions;
-        foreach($actions as $action){
-            $this->objDbperm->addRule($action, $moduleId);
+        foreach($actions->name as $action){
+            $this->objDbperm->addAction($action, $moduleId);
+        }
+        
+        // add rules
+        $rules = $this->objXML->rules;
+        foreach($rules->rule as $rule){
+            $ruleId = $this->objDbperm->addRule($rule['name'], $moduleId);
+            $this->objDbperm->addRuleCondition($ruleId, '', $moduleId, $rule->condition, '');
+            foreach($rule->action as $action)
+                $this->objDbperm->addActionRule($ruleId, '', $moduleId, $action, '');
         }
     }
 }

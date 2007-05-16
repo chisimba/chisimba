@@ -152,6 +152,7 @@ class sitepermissions extends controller {
             
             case 'update':
                 $this->objXmlperm->updatePermissions();
+                return $this->nextAction('');
                 break;
 
             default:

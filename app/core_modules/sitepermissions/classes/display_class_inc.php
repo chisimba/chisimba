@@ -511,8 +511,7 @@ class display extends object
         // langauge items
         $addLabel = $this->objLanguage->languageText('mod_sitepermissions_lblCreateRule', 'sitepermissions');
         $updateLabel = $this->objLanguage->languageText('mod_sitepermissions_lblUpdatePerms', 'sitepermissions');
-        $generateLabel = $this->objLanguage->languageText('mod_sitepermissions_lblGenerateConfig', 'sitepermissions');
-        
+
         //get data
         $arrRules = $this->objDbperm->listRules($this->getSession('module_name'));
         $count = $arrRules ? count($arrRules) + 1 : 1;
@@ -533,13 +532,6 @@ class display extends object
         $updateLink = $objLink->show();
         $string .= '&nbsp;|&nbsp;'.$updateLink;
 
-        $objLink = new link($this->uri(array(
-            'action' => 'generate',
-        )));
-        $objLink->link = $generateLabel;
-        $generateLink = $objLink->show();
-        $string .= '&nbsp;|&nbsp;'.$generateLink;
-        
         $objLayer = new layer();
         $objLayer->id = 'linkLayer';
         $objLayer->padding = '10px';

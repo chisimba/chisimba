@@ -20,7 +20,7 @@ $fields = array(
 		'length' => 50,
 		'notnull' => TRUE,
     ),
-    'params' => array(
+    'target' => array(
 		'type' => 'text',
 		'length' => 255,
     ),

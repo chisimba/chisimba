@@ -171,25 +171,24 @@ class dbpermissions extends dbTable
     *
     * @access public
     * @param string $name: The condition name
-    * @param string $params: The condition parameters
+    * @param string $type: The condition type
+    * @param string $target: The condition target
     * @return string|bool $conditionId: The condition id |False on failure
     **/
-    public function addCondition($name, $params)
+    public function addCondition($name, $type, $target)
     {
-        $condition = $this->getCondition($name);
+        $condition = $this->getConditionByName($name);
         if($condition){
             $conditionId = $condition['id'];
             return $conditionId;
         }else{
-            $array = explode('|', $params);
-            $conditionType = $this->getConditionTypeByName($array[0]);
+            $conditionType = $this->getConditionTypeByName($type);
             if($conditionType){
-                $param = isset($array[1]) ? $array[1] : NULL;
                 $typeId = $conditionType['id'];
                 $this->_setCondition();        
                 $fields['typeid'] = $typeId;
                 $fields['name'] = strtolower($name);
-                $fields['params'] = strtolower($param);
+                $fields['target'] = strtolower($target);
                 $conditionId = $this->insert($fields);
                 return $conditionId;
             }
@@ -659,10 +658,11 @@ class dbpermissions extends dbTable
     * @param string $ruleId: The rule id
     * @param string $actionId: The action id
     * @param string $moduleId: The module id
+    * @param string $actionName: The action name
     * @param string $moduleName: The module name
     * @return string|bool $actionRuleId: The action rule id | False on failure
     **/
-    public function addActionRule($ruleId, $actionId, $moduleId, $moduleName = '')
+    public function addActionRule($ruleId, $actionId, $moduleId, $actionName = '', $moduleName = '')
     {
         if($ruleId == '' && $actionId == '' && $moduleId == ''){
             return FALSE;    
@@ -674,6 +674,17 @@ class dbpermissions extends dbTable
             $module = $this->getModuleByName($moduleName);
             if($module){
                 $moduleId = $module['id'];
+            }else{
+                return FALSE;
+            }
+        }
+        if($actionId == '' && $actionName == ''){
+            return FALSE;    
+        }
+        if($actionName != ''){
+            $action = $this->getAction($actionName, $moduleId);
+            if($action){
+                $actionId = $action['id'];
             }else{
                 return FALSE;
             }
