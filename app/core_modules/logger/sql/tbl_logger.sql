@@ -42,8 +42,7 @@ $fields = array(
 		'length' => 32
 		),
     'eventparamvalue' => array(
-		'type' => 'text',
-		'length' => 255
+		'type' => 'clob',
 		),
 	'context' => array(
 		'type' => 'text',

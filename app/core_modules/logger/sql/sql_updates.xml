@@ -72,4 +72,19 @@
             </add>
         </data>
     </update>
+    <update>
+        <table>tbl_logger</table>
+        <version>0.8</version>
+        <description>lengthen fields</description>
+        <data>
+        	<change>
+        		<eventparamvalue>
+        		<type>clob</type>
+        			<definition>
+		    			<type>clob</type>
+    				</definition>
+    			</eventparamvalue>
+			</change>
+		</data>
+	</update>
 </updates>
