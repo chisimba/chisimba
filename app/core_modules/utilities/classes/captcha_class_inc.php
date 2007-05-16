@@ -87,7 +87,7 @@ class captcha extends object
         $this->objCleanUrl =& $this->getObject('cleanurl', 'filemanager');
         
         // Check whether directory exists
-        $path = $this->objConfig->getcontentPath().'/captcha/';
+        $path = $this->objConfig->getcontentBasePath().'/captcha/';
         $this->objMkdir->mkdirs($path, 0755);
         
         $this->tempFolder = $this->objConfig->getcontentPath().'/captcha/';
