@@ -305,12 +305,12 @@ Draggable.prototype = {
     if(Event.isLeftClick(event)) {    
       // abort on form elements, fixes a Firefox issue
       var src = Event.element(event);
-      if((tag_name = src.tagName.toUpperCase()) && (
-        tag_name=='INPUT' ||
-        tag_name=='SELECT' ||
-        tag_name=='OPTION' ||
-        tag_name=='BUTTON' ||
-        tag_name=='TEXTAREA')) return;
+      if((tag_name = src.tagName.toLowerCase()) && (
+        tag_name=='input' ||
+        tag_name=='select' ||
+        tag_name=='option' ||
+        tag_name=='button' ||
+        tag_name=='textarea')) return;
         
       var pointer = [Event.pointerX(event), Event.pointerY(event)];
       var pos     = Position.cumulativeOffset(this.element);
@@ -574,7 +574,7 @@ var Sortable = {
   sortables: {},
   
   _findRootElement: function(element) {
-    while (element.tagName.toUpperCase() != "BODY") {  
+    while (element.tagName.toLowerCase() != "body") {  
       if(element.id && Sortable.sortables[element.id]) return element;
       element = element.parentNode;
     }
@@ -792,7 +792,7 @@ var Sortable = {
 
     if(!Sortable._marker) {
       Sortable._marker = 
-        ($('dropmarker') || Element.extend(document.createElement('DIV'))).
+        ($('dropmarker') || Element.extend(document.createElement('div'))).
           hide().addClassName('dropmarker').setStyle({position:'absolute'});
       document.getElementsByTagName("body").item(0).appendChild(Sortable._marker);
     }    
@@ -923,11 +923,11 @@ Element.isParent = function(child, element) {
 
 Element.findChildren = function(element, only, recursive, tagName) {    
   if(!element.hasChildNodes()) return null;
-  tagName = tagName.toUpperCase();
+  tagName = tagName.toLowerCase();
   if(only) only = [only].flatten();
   var elements = [];
   $A(element.childNodes).each( function(e) {
-    if(e.tagName && e.tagName.toUpperCase()==tagName &&
+    if(e.tagName && e.tagName.toLowerCase()==tagName &&
       (!only || (Element.classNames(e).detect(function(v) { return only.include(v) }))))
         elements.push(e);
     if(recursive) {
