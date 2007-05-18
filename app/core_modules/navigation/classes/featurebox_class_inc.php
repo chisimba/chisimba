@@ -41,13 +41,13 @@ class featurebox extends object
      * @access publc
      * @return string
      */
-    public function show($title = null, $content = null, $id = null, $hidden = 'default')
+    public function show($title = null, $content = null, $id = null, $hidden = 'default', $showToggle = TRUE)
     {
 
   		$sidebar = '<div class="featurebox">';
   		$toggle = '';
   		
-        if($id != '')
+        if(!empty($id) && $showToggle)
         {
             $objIcon =&$this->getObject('geticon', 'htmlelements');
   		    $objIcon->setIcon('toggle');
