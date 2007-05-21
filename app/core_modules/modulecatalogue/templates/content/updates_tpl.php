@@ -53,30 +53,22 @@ if (isset($output)) {
 		}
 		$tString = "<span class='error'>$msg->message</span>$link";
 	} else {
-		foreach ($output as $key => $value) {
-			switch ($key) {
-				case 'current':
-					$ver = $value;
-					break;
-				case 'old':
-					$old = $value;
-					break;
-				case 'modname':
-					$module = $value;
-					break;
-					//default:
-					//$tempver = (float)str_replace('_','.',$key);
-					//$str .= "<b>{$this->objLanguage->languageText('mod_modulecatalogue_version','modulecatalogue')} $tempver</b><br/>$value<br/>";
+		if (array_key_exists('current',$output)) {
+				$success = str_replace('[OLDVER]',"<b>{$output['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
+				$success = str_replace('[NEWVER]',"<b>{$output['current']}</b>",$success);
+				$msg->message .= "<b>{$output['modname']}</b> $success<br />";
+		} else {
+			foreach ($output as $value) {
+				if (is_array($value)) {
+					$success = str_replace('[OLDVER]',"<b>{$value['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
+					$success = str_replace('[NEWVER]',"<b>{$value['current']}</b>",$success);
+					$msg->message .= "<b>{$value['modname']}</b> $success<br />";
+
+				}
 			}
-
 		}
-
-		$success = str_replace('[OLDVER]',"<b>$old</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
-		$success = str_replace('[NEWVER]',"<b>$ver</b>",$success);
-		$msg->message .= "<b>$module</b> $success<br />";
 		$tString = $msg->show();
 	}
-
 }
 $out = $this->getParam('message');
 if (isset($out)) {
