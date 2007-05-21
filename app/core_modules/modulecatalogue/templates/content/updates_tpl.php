@@ -3,6 +3,7 @@ $this->loadClass('link','htmlelements');
 $this->loadClass('textinput','htmlelements');
 $this->loadClass('dropdown','htmlelements');
 
+
 $objH = $this->newObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_updates','modulecatalogue');

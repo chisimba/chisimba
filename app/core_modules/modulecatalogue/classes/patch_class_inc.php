@@ -244,13 +244,13 @@ class patch extends dbtable {
                                     case 'insert':
                                         $op = (string)$opKey;
                                         $change = array();
-                                        
+
                                         foreach($opValue as $rowKey => $rowVal){
                                             $change[(string)$rowKey] = (string)$rowVal;
                                         }
                                         $pData[$op] = $change;
                                         break;
-                                        
+
                                     default:
                                         throw new customException('error in patch data');
                                         break;

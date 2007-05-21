@@ -31,8 +31,10 @@ $instld = $icon->show();
 $icon->setIcon('run','jpg');
 $icon->alt = $this->objLanguage->languageText('mod_modulecatalogue_runnable','modulecatalogue');
 $rnnbl = $icon->show();*/
+$masterCheck = new checkbox('arrayList[]');
+$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-$head = array('&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
+$head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			/*$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),*/
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
@@ -109,6 +111,7 @@ if ($modules) {
 		$objCheck = new checkbox('arrayList[]');
 		$objCheck->cssId = 'checkbox_'.$moduleId;
         $objCheck->setValue($moduleId);
+        $objCheck->extra = 'onclick="javascript:toggleChecked(this);"';
         //if ($this->objModFile->findController($moduleId)) {
         //	$icon->setIcon('ok','png');
         //} else {
@@ -251,7 +254,47 @@ $hTable->addCell($srch,null,'top','right');
 $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 
+$script = "
+<script type='text/javascript'>
 
+function toggleChecked(oElement)
+{
+  oForm = oElement.form;
+  oElement = oForm.elements[oElement.name];
+  if(oElement.length)
+  {
+    bChecked = true;
+    nChecked = 0;
+    for(i = 1; i &lt; oElement.length; i++)
+      if(oElement[i].checked)
+        nChecked++;
+    if(nChecked &lt; oElement.length - 1)
+    {
+      bChecked = false;
+    }
+    else
+    {
+      bChecked = true;
+    }
+    oElement[0].checked = bChecked;
+  }
+}
+
+function baseChecked(oElement)
+{
+  oForm = oElement.form;
+  oElement = oForm.elements[oElement.name];
+  if(oElement.length)
+  {
+    bChecked = oElement[0].checked;
+    for(i = 1; i &lt; oElement.length; i++)
+      oElement[i].checked = bChecked;
+  }
+}
+
+</script>
+";
+$this->appendArrayVar('headerParams',$script);
 echo $searchForm->show().$objForm->show();
 //$content = $objH->show().$notice.$topTable->show().$objTable->show().$bottomTable->show();
 //echo $content;

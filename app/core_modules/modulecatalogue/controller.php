@@ -132,7 +132,7 @@ class modulecatalogue extends controller
 
 			$this->objLog = $this->getObject('logactivity','logger');
 			$this->objLog->log();
-			
+
 		} catch (Exception $e) {
 			$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
@@ -407,7 +407,9 @@ class modulecatalogue extends controller
     private function batchRegister($modArray) {
     	try {
     		foreach ($modArray as $line) {
-    			$this->smartRegister($line);
+    			if ($line != 'on') {
+    				$this->smartRegister($line);
+    			}
     		}
     	} catch (Exception $e) {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
