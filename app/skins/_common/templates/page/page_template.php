@@ -122,7 +122,7 @@ if (!isset($pageTitle)) {
             <h1 id="sitename">
                 <span>
 <?php 
-        echo $objConfig->getsiteName();
+        echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
 ?>
                 </span>
             </h1>
