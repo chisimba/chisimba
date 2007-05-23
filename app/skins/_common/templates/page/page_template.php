@@ -127,40 +127,6 @@ if (!isset($pageTitle)) {
                 </span>
             </h1>
 <?php
-        if (!isset($pageSuppressIM)) {
-?> 
-            <div id="msg">
-<?php
-            $objModules=&$this->getObject('modules','modulecatalogue');
-            $this->objUser =& $this->getObject('user', 'security');
-            $objPopup =& $this->getObject('windowpop', 'htmlelements');
-            $objIcon = $this->getObject('geticon', 'htmlelements');
-            if ($objModules->checkIfRegistered('messaging') && $this->objUser->isLoggedIn()) {
-                $imLabel = $languageClass->languageText('mod_messaging_im', 'messaging');
-                
-                $objIcon->setIcon('instantmessaging', 'gif', 'icons/modules/');
-                $objIcon->title = $imLabel;
-                $imIcon = $objIcon->show();
-
-                $objPopup = new windowpop();
-                $objPopup->title = $imLabel;
-                $objPopup->set('location', $this->uri(array(
-                    'action' => 'im',
-                ), 'messaging'));
-                $objPopup->set('linktext', $imIcon);
-                $objPopup->set('width', '400');
-                $objPopup->set('height', '400');
-                $objPopup->set('left', '100');
-                $objPopup->set('top', '100');
-                $objPopup->set('scrollbars', 'no'); 
-                $imLink = $objPopup->show();
-                
-                echo $imLink;
-            }
-            
-?>
-            </div>
-<?php
         }
         if ($this->objUser->isLoggedIn() && !isset($pageSuppressSearch)) { 
 ?>
