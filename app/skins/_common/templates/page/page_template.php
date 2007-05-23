@@ -126,8 +126,7 @@ if (!isset($pageTitle)) {
 ?>
                 </span>
             </h1>
-<?php
-        }
+<?php 	 
         if ($this->objUser->isLoggedIn() && !isset($pageSuppressSearch)) { 
 ?>
             <div id="search">
