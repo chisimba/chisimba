@@ -127,7 +127,7 @@ if (!isset($pageTitle)) {
                 </span>
             </h1>
 <?php 	 
-        if ($this->objUser->isLoggedIn() && !isset($pageSuppressSearch)) { 
+        if ($objUser->isLoggedIn() && !isset($pageSuppressSearch)) { 
 ?>
             <div id="search">
     	   		<form action="">
@@ -157,11 +157,11 @@ if (!isset($pageTitle)) {
         $this->footerNav->position='';
         if (isset($footerStr)) {
             $this->footerNav->str = $footerStr;
-        } else if ($this->objUser->isLoggedIn()) {
+        } else if ($objUser->isLoggedIn()) {
             $this->loadClass('link', 'htmlelements');
             $link = new link ($this->URI(array('action'=>'logoff'),'security'));
             $link->link=$objLanguage->languageText("word_logout");
-            $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$this->objUser->fullname().'</strong>  ('.$link->show().')';
+            $str=$objLanguage->languageText("mod_context_loggedinas", 'context').' <strong>'.$objUser->fullname().'</strong>  ('.$link->show().')';
             $this->footerNav->str = $str;
         }
         echo $this->footerNav->show();
