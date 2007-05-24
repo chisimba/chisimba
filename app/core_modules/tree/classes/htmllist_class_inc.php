@@ -122,7 +122,7 @@ class htmllist extends presentation
         
         $html .=' >';
         
-        if ($node->link) {
+        if (isset($node->link)) {
             $html .= '<a href="'.$node->link.'"';
             
             if ($this->target) {
@@ -132,17 +132,19 @@ class htmllist extends presentation
             $html .='>';
         }
         
-        if ($node->cssClass) {
+        if (isset($node->cssClass) && trim($node->cssClass)) {
             $html .= '<span class="'.$node->cssClass.'">';
         }
         
-        $html .= $node->text;
+		if (isset($node->text)) {
+			$html .= $node->text;
+		}
         
-        if ($node->cssClass) {
+        if (isset($node->cssClass) && trim($node->cssClass)) {
             $html .= '</span>';
         }
         
-        if ($node->link) {
+        if (isset($node->link)) {
             $html .= '</a>';
         }
 
