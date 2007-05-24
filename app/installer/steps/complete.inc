@@ -16,22 +16,22 @@ require_once INSTALL_DIR.'/stepaction.inc';
 class Complete extends Step
 {
 
-	/**
-	* The step shown when install is completed.
-	*
-	* @param
-	* @return void
-	* @access public
-	*/
-	function Complete()
-	{
-		$this->actions[] =& new CompleteAction(get_class($this));
-		$this->step_title = 'Complete';
-		$this->title_logo = 'complete.gif';
-		$this->can_cancel = false;
-		$this->step_help = "Congratulations! Your Chisimba installation has been a success. Please follow the link below to view your site";
+    /**
+    * The step shown when install is completed.
+    *
+    * @param
+    * @return void
+    * @access public
+    */
+    function Complete()
+    {
+        $this->actions[] =& new CompleteAction(get_class($this));
+        $this->step_title = 'Complete';
+        $this->title_logo = 'complete.gif';
+        $this->can_cancel = false;
+        $this->step_help = "Congratulations! Your Chisimba installation has been a success. Please follow the link below to view your site";
 
-	}//end CompleteStep()
+    }//end CompleteStep()
 
 
 }//end class
@@ -51,28 +51,28 @@ class CompleteAction extends StepAction
 {
 
 
-	/**
-	* Show the complete text
-	*
-	* @return void
-	* @access public
-	*/
-	function paintAction()
-	{
-		$tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');
+    /**
+    * Show the complete text
+    *
+    * @return void
+    * @access public
+    */
+    function paintAction()
+    {
+        $tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');
 
-		//require_once $_SESSION['sys_root'].'/data/private/conf/main.inc';
-		//$tpl->set('login_url', 'http://'.SQ_CONF_SYSTEM_ROOT_URLS.'/'.SQ_CONF_BACKEND_SUFFIX.'/');
-		$tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
-		echo $tpl->fetch();
+        //require_once $_SESSION['sys_root'].'/data/private/conf/main.inc';
+        //$tpl->set('login_url', 'http://'.SQ_CONF_SYSTEM_ROOT_URLS.'/'.SQ_CONF_BACKEND_SUFFIX.'/');
+        $tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
+        echo $tpl->fetch();
 
-$fp=fopen('http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType'],'r');
+$fp=fopen('http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.str_replace(' ','%20',$_SESSION['SysType']),'r');
                 //Now mark the installation as done
                 $path = $_SESSION['sys_root'].'/config/';
                 touch($path . 'installdone.txt');
                // $wizard->killSession();
 
-	}//end paintAction()
+    }//end paintAction()
 
 
 }//end class
