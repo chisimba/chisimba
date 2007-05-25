@@ -124,7 +124,7 @@ class menu extends object
         foreach($data as $item){
             if($this->tools->checkPermissions($item, $this->context)){
                 if(!empty($item['category'])){
-                    switch($item['dependscontext']){
+                    switch($item['contextplugin']){
                         case '1':
                             // Check if module is visible in context
                             if($this->context){
@@ -271,7 +271,7 @@ class menu extends object
 
         $im = $this->tools->addIM();
         if($im){
-            $im .= '&nbsp;&nbsp;';
+            //$im .= '&nbsp;&nbsp;';
         }
 
         $helpBtn = $this->tools->getHelp();
@@ -290,14 +290,16 @@ class menu extends object
         // Display data in a table
         $this->objTable->width="100%";
         $this->objTable->startRow();
-        $this->objTable->addCell($menu, '100%', 'middle','left','menuhead');
+        $this->objTable->addCell($menu, '90%', 'middle','left','menuhead');
+        $this->objTable->addCell($im, '10%', 'middle','right','menuhead');
         $this->objTable->endRow();
 
         $this->objLayer->str = $crumbs;
         $this->objLayer->cssClass = 'menuhead';
         $this->objLayer->border = ";border-top: 1px solid #555555; padding: 5px; padding-left: 14px;";
 
-        $navbar = '<div id="menu">'.$menu.'</div><div id="breadcrumbs">'.$crumbs.'</div>';
+        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right">'.$im.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
+//        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
     }
