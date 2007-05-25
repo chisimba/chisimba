@@ -124,7 +124,7 @@ class menu extends object
         foreach($data as $item){
             if($this->tools->checkPermissions($item, $this->context)){
                 if(!empty($item['category'])){
-                    switch($item['contextplugin']){
+                    /*switch($item['contextplugin']){
                         case '1':
                             // Check if module is visible in context
                             if($this->context){
@@ -140,7 +140,7 @@ class menu extends object
                         default:
                             $menu[$item['category']][]=$item['module'];
                     }
-                    $i++;
+                    $i++;*/
                 }
             }
         }
