@@ -98,6 +98,8 @@ class datepicker extends object
         
         $this->appendArrayVar('headerParams', $script);
         
+		$this->setVar('pageSuppressXML', TRUE);
+		
         return "<script type=\"text/javascript\">
 //<![CDATA[
 DateInput('".$this->name."', true, '".$this->dateFormat."', '".$this->defaultDate."')
