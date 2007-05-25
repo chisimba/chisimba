@@ -214,11 +214,7 @@ class csslayout extends object implements ifhtml
             // else, load the three column javascript fix
             $this->putThreeColumnFixInHeader();
         }
-
-        // Start layout result with the left column
-        $result = '<div id="rightnav">'.$this->leftColumnContent.'</div>';
-
-
+		
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
             $result = '
