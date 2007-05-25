@@ -297,33 +297,15 @@ class tools extends object
     */
 
     function addIM()
-
     {
-
-        if($this->moduleCheck->checkIfRegistered('instantmessaging')){
+        if($this->moduleCheck->checkIfRegistered('messaging')){
 
             $imLabel = $this->objLanguage->languageText("mod_toolbar_instantmessaging",'toolbar');
-
-            $this->objIcon->setIcon('im');
-
-            $this->objIcon->alt = $imLabel;
-
-            $this->objIcon->title = $imLabel;
-
-
-
-            $this->objLink->extra = " onclick=\"javascript:window.open('" .$this->uri(array('action'=>'showUsers', 'loadwindow'=>'yes'),'instantmessaging')."', 'IM', 'width=300, height=400, scrollbars=1')\" ";
-
-            $this->objLink->link('javascript:;');
-
-            $this->objLink->link=$this->objIcon->show();
-
-            return $this->objLink->show();
-
+            
+            $objIm = $this->getObject('display', 'messaging');
+            return $objIm->divShowIM();
         }
-
         return FALSE;
-
     }
 
 
