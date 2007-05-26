@@ -141,6 +141,7 @@ class menu extends object
                             $menu[$item['category']][]=$item['module'];
                     }
                     $i++;*/
+                    $menu[$item['category']][]=$item['module'];
                 }
             }
         }
