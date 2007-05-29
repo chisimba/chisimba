@@ -1,4 +1,14 @@
 <?php
+if (!isset($pageSuppressToolbar)) {
+   // get toolbar object
+   $menu = $this->getObject('menu','toolbar');
+   $toolbar = $menu->show();
+   
+   // get any header params or body onload parameters for objects on the toolbar
+   $menu->getParams(&$headerParams, &$bodyOnLoad);
+}
+
+
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 
 $browser = $this->getObject('browser', 'skin');
@@ -139,8 +149,8 @@ if (!isset($pageTitle)) {
 <?php
         }
         if (!isset($pageSuppressToolbar)) {
-            $menu=& $this->getObject('menu','toolbar');
-		  echo $menu->show();
+            //$menu= $this->getObject('menu','toolbar');
+		  echo $toolbar; //$menu->show();
         }
 ?>
         </div>
