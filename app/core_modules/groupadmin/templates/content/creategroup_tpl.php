@@ -9,25 +9,25 @@
 * @filesource
 */
 ?>
-<H1><?php echo $pageTitle; ?></H1>
-<TABLE id ='confirmTimeout'>
+<h1><?php echo $pageTitle; ?></h1>
+<table id ='confirmTimeout'>
 <?php if( $confirm ) { ?>
-<TR>
-    <TD class='confirm'><?php echo $confirmMsg; ?></TD>
-</TR>
+<tr>
+    <td class='confirm'><?php echo $confirmMsg; ?></td>
+</tr>
 <?php } ?>
 
 <?php if( isset( $invalidName ) && $invalidName ) { ?>
-<TR>
-    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblName'") ); ?></TD>
-</TR>
+<tr>
+    <td class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblName'") ); ?></td>
+</tr>
 <?php } ?>
 
 <?php if( isset( $invalidDescription ) && $invalidDescription ) { ?>
-<TR id='warning2'>
-    <TD class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblDesc'") ); ?></TD>
-</TR>
+<tr id='warning2'>
+    <td class='warning'><?php echo $objLanguage->code2Txt( 'mod_groupadmin_msgInvalidField','groupadmin',array('FIELDNAME'=>"'$lblDesc'") ); ?></td>
+</tr>
 <?php } ?>
-</TABLE>
+</table>
 <?php echo $lnkBack->show(); ?>
 <?php echo $form->show(); ?>

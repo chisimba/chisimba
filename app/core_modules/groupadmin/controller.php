@@ -66,11 +66,12 @@ class groupadmin extends controller {
     */
     function init()
     {
-        $this->objGroupAdminModel = &$this->getObject( 'groupAdminModel', 'groupadmin' );
-        $this->objLanguage = &$this->getObject( 'language', 'language' );
-        $this->objStrValidate = &$this->getObject( 'strvalidate', 'strings' );
-        $this->objTree = &$this->getObject( 'groupadmin_tree', 'groupadmin' );
-        $this->objMembers = &$this->getObject( 'groupadmin_members', 'groupadmin' );
+        $this->loadClass('textinput', 'htmlelements');
+        $this->objGroupAdminModel = $this->getObject( 'groupAdminModel', 'groupadmin' );
+        $this->objLanguage = $this->getObject( 'language', 'language' );
+        $this->objStrValidate = $this->getObject( 'strvalidate', 'strings' );
+        $this->objTree = $this->getObject( 'groupadmin_tree', 'groupadmin' );
+        $this->objMembers = $this->getObject( 'groupadmin_members', 'groupadmin' );
 
         $this->setVarByRef( 'objGroupAdminModel', $this->objGroupAdminModel );
         $this->setVarByRef( 'objLanguage', $this->objLangauge ); 
@@ -143,8 +144,8 @@ class groupadmin extends controller {
     function showMain()
     {
         $groupId = $this->groupId();
-        $objLanguage = &$this->objLanguage;
-        $objGroupAdminModel = &$this->objGroupAdminModel; 
+        $objLanguage = $this->objLanguage;
+        $objGroupAdminModel = $this->objGroupAdminModel; 
         // On first entry set groupId to first root node | null.
         if ( !$groupId ) {
             $groupRoot = $this->objGroupAdminModel->getRoot();
@@ -159,10 +160,10 @@ class groupadmin extends controller {
         $treeNav = $this->objTree->showDHTML();
 
         // Create the link buttons
-        $lnkEdit = &$this->lnkEdit( $groupId );
-        $lnkDelete = &$this->lnkDelete( $groupId );
-        $lnkCreate = &$this->lnkCreate();
-        $lnkIcnCreate = &$this->lnkIcnCreate();
+        $lnkEdit = $this->lnkEdit( $groupId );
+        $lnkDelete = $this->lnkDelete( $groupId );
+        $lnkCreate = $this->lnkCreate();
+        $lnkIcnCreate = $this->lnkIcnCreate();
         
         // Initialise variables
         $info = $this->infoGroup( $groupId );
@@ -174,7 +175,7 @@ class groupadmin extends controller {
         $hdrSurname = $objLanguage->languageText( 'mod_groupadmin_hdrSurName' ,'groupadmin');
         $pageTitle = $objLanguage->languageText( 'mod_groupadmin_ttlGroupAdmin','groupadmin' );
         $nodeTitle = $objLanguage->languageText( 'mod_groupadmin_hdrMemberList','groupadmin' ) . ": " . $fullPath;
-        $nodeControls = implode( "&nbsp;/&nbsp;", array( $lnkEdit->show(), $lnkDelete->show() ) );
+        $nodeControls = implode( "&#160;/&#160;", array( $lnkEdit->show(), $lnkDelete->show() ) );
         $treeControls = $lnkCreate->show();
 
         // Group selected?
@@ -185,7 +186,7 @@ class groupadmin extends controller {
             // Folder statistics : Count members in all subfolders.
             $totalCount = $this->objMembers->getTotalCount();
             // Members : Show the members in all subfolders
-            $nodeList = ( $totalCount > 0 ) ? $this->objMembers->show() : "&nbsp;";
+            $nodeList = ( $totalCount > 0 ) ? $this->objMembers->show() : "&#160;";
         }
         
         
@@ -218,12 +219,12 @@ class groupadmin extends controller {
     function getLegend()
     {
         // HTML ELEMENTS
-        $tblInfo = &$this->newObject( 'htmltable','htmlelements' );
-        $objIcon = &$this->newObject( 'geticon', 'htmlelements' );
-        $rightInfo = &$this->newObject('tabbedbox','htmlelements');
+        $tblInfo = $this->newObject( 'htmltable','htmlelements' );
+        $objIcon = $this->newObject( 'geticon', 'htmlelements' );
+        $rightInfo = $this->newObject('tabbedbox','htmlelements');
 
         // LANGUAGE TEXT
-        $lng = &$this->objLanguage;
+        $lng = $this->objLanguage;
         $lblLegend = ucfirst($lng->code2Txt("mod_groupadmin_lblLegend",'groupadmin'));
         $lblWhite = ucfirst($lng->code2Txt("mod_groupadmin_lblWhite",'groupadmin'));
         $lblGreen = ucfirst($lng->code2Txt("mod_groupadmin_lblGreen",'groupadmin'));
@@ -232,7 +233,7 @@ class groupadmin extends controller {
         // INITIALISE
         $tblInfo->cellspacing = 5;
         $tblInfo->cellpadding = 2;
-        $objTree = &$this->getObject('groupadmin_tree');
+        $objTree = $this->getObject('groupadmin_tree');
 
         // Get icon info.
         $imageFolder = $objTree->_treeIcons;
@@ -298,7 +299,7 @@ class groupadmin extends controller {
     */
     function showCreate()
     {
-        $objLanguage = &$this->objLanguage;
+        $objLanguage = $this->objLanguage;
 
         $oldName = $this->getParam( 'oldName', NULL );
         $this->setVar( 'oldName', $oldName );
@@ -313,12 +314,12 @@ class groupadmin extends controller {
 
         if( empty($oldDescription )&&!$valid) {
             $focusObject = 'tinDescription';
-            $errDesc = ' <SPAN class="error">Only letters and numbers allowed.</SPAN>';
+            $errDesc = ' <span class="error">Only letters and numbers allowed.</span>';
         }
 
         if( empty($oldName)&&!$valid ){
             $focusObject = 'tinName';
-            $errName = ' <SPAN class="error">Only letters and numbers allowed.</SPAN>';
+            $errName = ' <span class="error">Only letters and numbers allowed.</span>';
         }
 
         if( $valid ) {
@@ -343,7 +344,7 @@ class groupadmin extends controller {
         // Page Title
         $pageTitle = $objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup' ,'groupadmin' ); 
         // Form Object
-        $form = &$this->getObject( 'form', 'htmlelements' );
+        $form = $this->newObject( 'form', 'htmlelements' );
         $form->name = 'frmCreate';
         $form->displayType = '3';
         $form->action = $this->uri ( array( 'action' => 'create_form' ) ); 
@@ -352,16 +353,12 @@ class groupadmin extends controller {
         // Form Content: Group name label
         $lblName = $objLanguage->languageText( 'mod_groupadmin_lblName','groupadmin'); 
         // Form Content: Group name text input element
-        $tinName = &$this->newObject( 'textinput', 'htmlelements' );
-        $tinName->name = 'tinName';
-        $tinName->value = $oldName;
+        $tinName = new textinput( 'tinName', $oldName );
 
         // Form Content: Group description label
         $lblDesc = $objLanguage->languageText( 'mod_groupadmin_lblDescription','groupadmin' ); 
         // Form Content: Group description text input element
-        $tinDesc = &$this->newObject( 'textinput', 'htmlelements' );
-        $tinDesc->name = 'tinDescription';
-        $tinDesc->value = $oldDescription;
+        $tinDesc = new textinput('tinDescription', $oldDescription);
         // Form Content: Parent/Home group label
         $lblParent = $lblGroupName = $objLanguage->languageText( 'mod_groupadmin_lblParent','groupadmin' ); 
         // Form Content: Parent/Home group drop down list element
@@ -370,55 +367,55 @@ class groupadmin extends controller {
         $ddbParent->selected = $this->getParam('oldGroupId');
         
         // Form Controls: Save button
-        $btnSave = &$this->newObject( 'button', 'htmlelements' );
+        $btnSave = $this->newObject( 'button', 'htmlelements' );
         $btnSave->name = 'btnSave';
         $btnSave->value = $objLanguage->languageText( 'word_save');
         $btnSave->setToSubmit(); 
         // Link method
-        $lnkSave = "<A href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='saved'; document.frmCreate.submit()\">";
-        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>"; 
+        $lnkSave = "<a href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='saved'; document.frmCreate.submit()\">";
+        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</a>"; 
         // Form Controls: Cancel button
-        $btnCancel = &$this->newObject( 'button', 'htmlelements' );
+        $btnCancel = $this->newObject( 'button', 'htmlelements' );
         $btnCancel->name = 'btnCancel';
         $btnCancel->value = $objLanguage->languageText( 'word_cancel');
         $btnCancel->setToSubmit(); 
         // Link method
-        $lnkCancel = "<A href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='cancel'; document.frmCreate.submit()\">";
-        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>"; 
+        $lnkCancel = "<a href=\"#\" onclick=\"javascript:document.frmCreate['button'].value='cancel'; document.frmCreate.submit()\">";
+        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</a>"; 
         // FORM CONTENT
-        $formContent = '<DIV id=blog-content>'; 
+        $formContent = '<div id=blog-content>'; 
         // GROUP NAME
-        $formContent .= '<DIV id=formline>';
-        $formContent .= '<DIV id=formlabel>' . $lblName . ':</DIV>';
-        $formContent .= '<DIV id=formelement>' . $tinName->show() . $errName . '</DIV>';
-        $formContent .= '</DIV>'; 
+        $formContent .= '<div id=formline>';
+        $formContent .= '<div id=formlabel>' . $lblName . ':</div>';
+        $formContent .= '<div id=formelement>' . $tinName->show() . $errName . '</div>';
+        $formContent .= '</div>'; 
         // GROUP DESCRIPTION
-        $formContent .= '<DIV id=formline>';
-        $formContent .= '<DIV id=formlabel>' . $lblDesc . ':</DIV>';
-        $formContent .= '<DIV id=formelement>' . $tinDesc->show() . $errDesc . '</DIV>';
-        $formContent .= '</DIV>'; 
+        $formContent .= '<div id=formline>';
+        $formContent .= '<div id=formlabel>' . $lblDesc . ':</div>';
+        $formContent .= '<div id=formelement>' . $tinDesc->show() . $errDesc . '</div>';
+        $formContent .= '</div>'; 
         // PARENT/HOME GROUP
-        $formContent .= '<DIV id=formline>';
-        $formContent .= '<DIV id=formlabel>' . $lblParent . ':</DIV>';
-        $formContent .= '<DIV id=formelement>' . $ddbParent->show() . '</DIV>';
-        $formContent .= '</DIV>';
-        $formContent .= '</DIV>';
+        $formContent .= '<div id=formline>';
+        $formContent .= '<div id=formlabel>' . $lblParent . ':</div>';
+        $formContent .= '<div id=formelement>' . $ddbParent->show() . '</div>';
+        $formContent .= '</div>';
+        $formContent .= '</div>';
         $form->addToForm( $formContent ); 
         // FORM CONTROLS
-        $formControls = '<DIV id=blog-footer>';
-        $formControls .= $lnkSave . "&nbsp;/&nbsp;";
+        $formControls = '<div id=blog-footer>';
+        $formControls .= $lnkSave . "&#160;/&#160;";
         $formControls .= $lnkCancel;
-        $formControls .= '</DIV>';
+        $formControls .= '</div>';
         $form->addToForm( $formControls );
         $form->addToForm( "<input type='hidden' name='button' value='saved'>" );
         $form->addToForm( "<input type='hidden' name='confirm' value='TRUE'>" ); 
         // Back link button
-        $lnkBack = &$this->newObject( 'link', 'htmlelements' );
+        $lnkBack = $this->newObject( 'link', 'htmlelements' );
         $lnkBack->href = $this->uri ( array() );
         $lnkBack->link = $objLanguage->languageText( 'mod_groupadmin_back','groupadmin' );
 
         $confirm = $this->getParam( 'confirm' ) ? TRUE : FALSE;
-        $objTimeoutMessage1 = &$this->getObject( 'timeoutmessage', 'htmlelements' );
+        $objTimeoutMessage1 = $this->getObject( 'timeoutmessage', 'htmlelements' );
         $objTimeoutMessage1->cssId = 'confirmTimeout';
         $objTimeoutMessage1->showJScript();
 
@@ -482,8 +479,8 @@ class groupadmin extends controller {
     */
     function showEdit()
     {
-        $objLanguage = &$this->objLanguage;
-        $objGroupAdminModel = &$this->objGroupAdminModel;
+        $objLanguage = $this->objLanguage;
+        $objGroupAdminModel = $this->objGroupAdminModel;
 
         $groupId = $this->groupId();
         $memberList = $this->memberList();
@@ -543,16 +540,16 @@ class groupadmin extends controller {
         $btnSave->onclick = "selectAllOptions(this.form['list2[]'])";
         $btnSave->setToSubmit(); 
         // Link method
-        $lnkSave = "<A href=\"#\" onclick=\"javascript:selectAllOptions(document.frmEdit['list2[]']); document.frmEdit['button'].value='save'; document.frmEdit.submit()\">";
-        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</A>"; 
+        $lnkSave = "<a href=\"#\" onclick=\"javascript:selectAllOptions(document.frmEdit['list2[]']); document.frmEdit['button'].value='save'; document.frmEdit.submit()\">";
+        $lnkSave .= $objLanguage->languageText( 'word_save' ) . "</a>"; 
         // The cancel button
         $btnCancel = $this->newObject( 'button', 'htmlelements' );
         $btnCancel->name = 'btnCancel';
         $btnCancel->value = $objLanguage->languageText( 'word_Cancel' );
         $btnCancel->setToSubmit(); 
         // Link method
-        $lnkCancel = "<A href=\"#\" onclick=\"javascript:document.frmEdit['button'].value='cancel'; document.frmEdit.submit()\">";
-        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</A>"; 
+        $lnkCancel = "<a href=\"#\" onclick=\"javascript:document.frmEdit['button'].value='cancel'; document.frmEdit.submit()\">";
+        $lnkCancel .= $objLanguage->languageText( 'word_cancel' ) . "</a>"; 
         // Form control buttons
         $buttons = array( $lnkSave, $lnkCancel ); 
         // The move selected items right button
@@ -561,37 +558,37 @@ class groupadmin extends controller {
         $btnRight->value = htmlspecialchars( '>>' );
         $btnRight->onclick = "moveSelectedOptions(this.form['list1[]'],this.form['list2[]'],true)"; 
         // Link method
-        $lnkRight = "<A href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
-        $lnkRight .= htmlspecialchars( '>>' ) . "</A>"; 
+        $lnkRight = "<a href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
+        $lnkRight .= htmlspecialchars( '>>' ) . "</a>"; 
         // The move all items right button
         $btnRightAll = $this->newObject( 'button', 'htmlelements' );
         $btnRightAll->name = 'right';
         $btnRightAll->value = htmlspecialchars( 'All >>' );
         $btnRightAll->onclick = "moveAllOptions(this.form['list1[]'],this.form['list2[]'],true)"; 
         // Link method
-        $lnkRightAll = "<A href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
-        $lnkRightAll .= htmlspecialchars( 'All >>' ) . "</A>"; 
+        $lnkRightAll = "<a href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list1[]'],document.frmEdit['list2[]'],true)\">";
+        $lnkRightAll .= htmlspecialchars( 'All >>' ) . "</a>"; 
         // The move selected items left button
         $btnLeft = $this->newObject( 'button', 'htmlelements' );
         $btnLeft->name = 'left';
         $btnLeft->value = htmlspecialchars( '<<' );
         $btnLeft->onclick = "moveSelectedOptions(this.form['list2[]'],this.form['list1[]'],true)"; 
         // Link method
-        $lnkLeft = "<A href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
-        $lnkLeft .= htmlspecialchars( '<<' ) . "</A>"; 
+        $lnkLeft = "<a href=\"#\" onclick=\"javascript:moveSelectedOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
+        $lnkLeft .= htmlspecialchars( '<<' ) . "</a>"; 
         // The move all items left button
         $btnLeftAll = $this->newObject( 'button', 'htmlelements' );
         $btnLeftAll->name = 'left';
         $btnLeftAll->value = htmlspecialchars( 'All <<' );
         $btnLeftAll->onclick = "moveAllOptions(this.form['list2[]'],this.form['list1[]'],true)"; 
         // Link method
-        $lnkLeftAll = "<A href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
-        $lnkLeftAll .= htmlspecialchars( 'All <<' ) . "</A>"; 
+        $lnkLeftAll = "<a href=\"#\" onclick=\"javascript:moveAllOptions(document.frmEdit['list2[]'],document.frmEdit['list1[]'],true)\">";
+        $lnkLeftAll .= htmlspecialchars( 'All <<' ) . "</a>"; 
         // The move items (Insert and Remove) buttons
         $btns = array( $lnkRight, $lnkRightAll, $lnkLeft, $lnkLeftAll );
-        $tblInsertRemove = '<div>' . implode( '<BR><BR>', $btns ) . '</div>'; 
+        $tblInsertRemove = '<div>' . implode( '<br /><br />', $btns ) . '</div>'; 
         // Form Layout Elements
-        $tblLayout = &$this->newObject( 'htmltable', 'htmlelements' );
+        $tblLayout = $this->newObject( 'htmltable', 'htmlelements' );
         $tblLayout->row_attributes = 'align=center';
         $tblLayout->width = '99%';
         $tblLayout->startRow();
@@ -611,29 +608,29 @@ class groupadmin extends controller {
         } 
         // Context Home Icon
         $lblContextHome = $this->objLanguage->languageText( "word_course" ) . ' ' . $this->objLanguage->languageText( "word_home" );
-        $icnContextHome = &$this->newObject( 'geticon', 'htmlelements' );
+        $icnContextHome = $this->newObject( 'geticon', 'htmlelements' );
         $icnContextHome->setIcon( 'home' );
         $icnContextHome->alt = $lblContextHome;
 
-        $lnkContextHome = &$this->newObject( 'link', 'htmlelements' );
+        $lnkContextHome = $this->newObject( 'link', 'htmlelements' );
         $lnkContextHome->href = $this->uri( array(), 'context' );
         $lnkContextHome->link = $icnContextHome->show() . $lblContextHome;
 
         $return = $this->getParam( 'return' ) == 'context' ? 'context' : 'main';
         $confirm = $this->getParam( 'confirm' ) ? TRUE : FALSE; 
         // Form Elements
-        $frmEdit = &$this->getObject( 'form', 'htmlelements' );
+        $frmEdit = $this->newObject( 'form', 'htmlelements' );
         $frmEdit->name = 'frmEdit';
         $frmEdit->displayType = '3';
         $frmEdit->action = $this->uri ( array( 'action' => 'edit_form' ) );
         $frmEdit->addToForm( "<div id='blog-content'>" . $tblLayout->show() . "</div>" );
-        $frmEdit->addToForm( "<div id='blog-footer'>" . implode( '&nbsp;', $buttons ) . "</DIV>" );
+        $frmEdit->addToForm( "<div id='blog-footer'>" . implode( '&#160;', $buttons ) . "</div>" );
         $frmEdit->addToForm( "<input type='hidden' name='groupId' value='$groupId'>" );
         $frmEdit->addToForm( "<input type='hidden' name='return' value='$return'>" );
         $frmEdit->addToForm( "<input type='hidden' name='confirm' value='TRUE'>" );
         $frmEdit->addToForm( "<input type='hidden' name='button' value='saved'>" ); 
         // Back link button
-        $lnkBack = &$this->newObject( 'link', 'htmlelements' );
+        $lnkBack = $this->newObject( 'link', 'htmlelements' );
         $lnkBack->href = $this->uri ( array() );
         $lnkBack->link = $objLanguage->languageText( 'mod_groupadmin_back' ,'groupadmin'); 
         // $lnkBack->cssClass = 'pseudobutton';
@@ -696,7 +693,7 @@ class groupadmin extends controller {
             $list = $this->getParam( 'list2' ) ? $this->getParam( 'list2' ): array(); 
             // Get the original member ids
             $fields = array ( 'tbl_users.id' );
-            $memberList = &$this->objGroupAdminModel->getGroupUsers( $groupId, $fields );
+            $memberList = $this->objGroupAdminModel->getGroupUsers( $groupId, $fields );
             $oldList = $this->objGroupAdminModel->getField( $memberList, 'id' ); 
             // Get the added member ids
             $addList = array_diff( $list, $oldList ); 
@@ -744,26 +741,26 @@ class groupadmin extends controller {
         $lblYes = $objLanguage->languageText( 'word_yes' );
         $lblNo = $objLanguage->languageText( 'word_no' );
         // Back link button
-        $lnkBack = &$this->newObject( 'link', 'htmlelements' );
+        $lnkBack = $this->newObject( 'link', 'htmlelements' );
         $lnkBack->href = $this->uri ( array() );
         $lnkBack->link = $objLanguage->languageText( 'mod_groupadmin_back','groupadmin' );
 
         $btnYes = "<input type='submit' class='button' name='btnDelete' value='$lblYes'>";
         $btnNo = "<input type='submit' class='button' name='btnCancel' value='$lblNo'>";
 
-        $lnkYes = "<A href=\"#\" onclick=\"javascript:document.frmDelete['button'].value='yes'; document.frmDelete.submit()\">";
-        $lnkYes .= $objLanguage->languageText( 'word_yes' ) . "</A>";
+        $lnkYes = "<a href=\"#\" onclick=\"javascript:document.frmDelete['button'].value='yes'; document.frmDelete.submit()\">";
+        $lnkYes .= $objLanguage->languageText( 'word_yes' ) . "</a>";
 
-        $lnkNo = "<A href=\"#\" onclick=\"javascript:document.frmDelete['button'].value='no'; document.frmDelete.submit()\">";
-        $lnkNo .= $objLanguage->languageText( 'word_no' ) . "</A>";
+        $lnkNo = "<a href=\"#\" onclick=\"javascript:document.frmDelete['button'].value='no'; document.frmDelete.submit()\">";
+        $lnkNo .= $objLanguage->languageText( 'word_no' ) . "</a>";
 
         $buttons = array ( $lnkYes, $lnkNo );
         // Create the form
-        $frmDeleteForm = &$this->getObject( 'form', 'htmlelements' );
+        $frmDeleteForm = $this->newObject( 'form', 'htmlelements' );
         $frmDeleteForm->name = 'frmDelete';
         $frmDeleteForm->displayType = '3';
         $frmDeleteForm->action = $this->uri ( array( 'action' => 'delete_form' ) );
-        $frmDeleteForm->addToForm ( implode ( '&nbsp;', $buttons ) );
+        $frmDeleteForm->addToForm ( implode ( '&#160;', $buttons ) );
         $frmDeleteForm->addToForm ( "<input type='hidden' name='action' value='delete_form'>" );
         $frmDeleteForm->addToForm ( "<input type='hidden' name='groupId' value='$groupId'>" );
         $frmDeleteForm->addToForm ( "<input type='hidden' name='button' value=''>" );
@@ -829,9 +826,9 @@ class groupadmin extends controller {
     * @access private 
     * @return array containing the members.
     */
-    function &memberList()
+    function memberList()
     {
-        $objGAM = &$this->objGroupAdminModel; 
+        $objGAM = $this->objGroupAdminModel; 
         // The member list of this group
         $fields = array ( 'firstName', 'surname', 'tbl_users.id' );
         $this->memberList = $objGAM->getGroupUsers( $this->groupId, $fields ); 
@@ -846,14 +843,14 @@ class groupadmin extends controller {
     * @access private 
     * @return array of all non members.
     */
-    function &usersList()
+    function usersList()
     {
-        $objGAM = &$this->objGroupAdminModel; 
+        $objGAM = $this->objGroupAdminModel; 
         // Users list need the firstname, surname, and userId fields.
         $fields = array ( 'firstName', 'surname', 'id' );
         $memberIds = $objGAM->getField( $this->memberList, 'id' );
         $filter = "'" . implode( "', '", $memberIds ) . "'";
-        $this->usersList = &$objGAM->getUsers( $fields, " WHERE id NOT IN($filter) ORDER BY UPPER(firstName)" );
+        $this->usersList = $objGAM->getUsers( $fields, " WHERE id NOT IN($filter) ORDER BY UPPER(firstName)" );
 
         //sort( $this->usersList );
 
@@ -866,10 +863,10 @@ class groupadmin extends controller {
     * @param string $groupId The group to edit.
     * @return link a link object reference
     */
-    function &lnkEdit( $groupId )
+    function lnkEdit( $groupId )
     {
         // Edit members link button
-        $lnkEdit = &$this->newObject( 'link', 'htmlelements' );
+        $lnkEdit = $this->newObject( 'link', 'htmlelements' );
         $lnkEdit->href = $this->uri ( array( 'action'=>'edit', 'groupId'=>$groupId ) );
         $lnkEdit->link = $this->objLanguage->languageText( 'mod_groupadmin_edit' ,'groupadmin');
         return $lnkEdit;
@@ -881,10 +878,10 @@ class groupadmin extends controller {
     * @param string $groupId The group to delete.
     * @return link a link object reference
     */
-    function &lnkDelete( $groupId )
+    function lnkDelete( $groupId )
     {
         // Delete group and members link button
-        $lnkDelete = &$this->newObject( 'link', 'htmlelements' );
+        $lnkDelete = $this->newObject( 'link', 'htmlelements' );
         $lnkDelete->href = $this->uri ( array( 'action'=>'delete', 'groupId'=>$groupId ) );
         $lnkDelete->link = $this->objLanguage->languageText( 'mod_groupadmin_delete','groupadmin' );
 
@@ -896,10 +893,10 @@ class groupadmin extends controller {
     * @access private
     * @return link a link object reference
     */
-    function &lnkCreate()
+    function lnkCreate()
     {
         // Create a new group link button
-        $lnkCreate = &$this->newObject( 'link', 'htmlelements' );
+        $lnkCreate = $this->newObject( 'link', 'htmlelements' );
         $lnkCreate->href = $this->uri ( array( 'action' => 'create' ) );
         $lnkCreate->link = $this->objLanguage->languageText( 'mod_groupadmin_ttlCreateGroup','groupadmin' );
 
@@ -911,9 +908,9 @@ class groupadmin extends controller {
     * @access private
     * @return link a link object reference
     */
-    function &lnkIcnCreate()
+    function lnkIcnCreate()
     {
-        $icn = &$this->newObject( 'geticon', 'htmlelements' );
+        $icn = $this->newObject( 'geticon', 'htmlelements' );
         $href = $this->uri ( array( 'action' => 'create' ) );
         $lnkIcnCreate = $icn->getAddIcon( $href );
         return $lnkIcnCreate;
