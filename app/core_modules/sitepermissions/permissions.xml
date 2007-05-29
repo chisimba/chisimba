@@ -5,6 +5,15 @@
             <name>Site Admin</name>
             <description>Site wide admin users</description>
         </group>
+        <group>
+            <lineage>Main Group|Sub group 1|Sub group 2</lineage>
+            <name>Sub Group 3</name>
+            <description>Sub Group 3 Sub Group 3</description>
+        </group>
+        <group>
+            <name>Test</name>
+            <description>Test group</description>
+        </group>
     </targets>
     <conditions>
         <condition>
@@ -22,7 +31,8 @@
         <name>delete</name>
     </actions>
     <rules>
-        <rule name='contextpermissions_rule_1'>
+        <rule>
+            <name>contextpermissions_rule_1</name>
             <condition>isadmin</condition>
             <action>add</action>
             <action>edit</action>

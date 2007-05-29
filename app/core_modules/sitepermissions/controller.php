@@ -104,7 +104,7 @@ class sitepermissions extends controller {
                         $arrActions = $this->getParam('actionrule');
                         if(!empty($arrActions)){
                             foreach($arrActions as $actionId){
-                                $actionRuleId = $this->objDbperm->addActionRule($ruleId, $actionId, '', $this->getSession('module_name'));
+                                $actionRuleId = $this->objDbperm->addActionRule($ruleId, $actionId, '', '', $this->getSession('module_name'));
                             }
                         }
                         break;

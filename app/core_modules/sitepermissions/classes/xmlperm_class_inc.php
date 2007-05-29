@@ -88,11 +88,40 @@ class xmlperm extends dbTable
         $this->readXmlFile();
         
         // check for group and create if nonexistant
+
         $targets = $this->objXML->targets;
         foreach($targets->group as $group){
-            $leafId = $this->objGroupadmin->getLeafId(array($group->name));
-            if($leafId == NULL){
-                $this->objGroupadmin->addGroup($group->name, $group->description);
+            if(empty($group->lineage)){
+                $leafId = $this->objGroupadmin->getLeafId(array($group->name));
+                if(empty($leafId)){
+                    $this->objGroupadmin->addGroup($group->name, $group->description);
+                }
+            }else{
+                $array = explode('|', $group->lineage);                
+                $lineage = array();
+                for($i = 0; $i <= count($array) - 1; $i++){
+                    $lineage[] = $array[$i];
+                    if($i == 0){
+                        $parent = array();
+                    }else{
+                        $parent[] = $array[$i - 1];
+                    }
+                    $leafId = $this->objGroupadmin->getLeafId($lineage);
+                    if(empty($leafId)){
+                        if(empty($parent)){                    
+                            $this->objGroupadmin->addGroup($array[$i], $array[$i]);
+                        }else{
+                            $parentId = $this->objGroupadmin->getLeafId($parent);
+                            $this->objGroupadmin->addGroup($array[$i], $array[$i], $parentId);
+                        }
+                    }
+                }
+                $parentId = $this->objGroupadmin->getLeafId($array);
+                $array[] = $group->name;
+                $leafId = $this->objGroupadmin->getLeafId($array);
+                if(empty($leafId)){
+                    $this->objGroupadmin->addGroup($group->name, $group->description, $parentId);
+                }
             }
         }
         
@@ -111,7 +140,7 @@ class xmlperm extends dbTable
         // add rules
         $rules = $this->objXML->rules;
         foreach($rules->rule as $rule){
-            $ruleId = $this->objDbperm->addRule($rule['name'], $moduleId);
+            $ruleId = $this->objDbperm->addRule($rule->name, $moduleId);
             $this->objDbperm->addRuleCondition($ruleId, '', $moduleId, $rule->condition, '');
             foreach($rule->action as $action)
                 $this->objDbperm->addActionRule($ruleId, '', $moduleId, $action, '');
