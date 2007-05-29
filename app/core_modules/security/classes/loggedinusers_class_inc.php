@@ -9,22 +9,22 @@ class loggedInUsers extends dbTable
 
     public function init()
     {
-		parent::init('tbl_loggedinusers');
+        parent::init('tbl_loggedinusers');
         $this->objConfig=&$this->getObject('altconfig','config');
         $this->systemTimeOut=$this->objConfig->getsystemTimeout();
     }
 
     /**
-	* Insert a record.
+    * Insert a record.
     * @param string $userId The userId of the user logging in
     */
     public function insertLogin($userId) {
         // Delete old logins
         $sql="DELETE FROM tbl_loggedinusers
-			WHERE
-				(userid = '$userId')
-				AND (('{$this->now()}'-whenlastactive)>'{$this->systemTimeOut}')";
-		$this->query($sql);
+            WHERE
+                (userid = '$userId')
+                AND ((CURRENT_TIMESTAMP-whenlastactive)>'{$this->systemTimeOut}')";
+        $this->query($sql);
         // Update the tbl_loggedinusers table
         $ipAddress=$_SERVER['REMOTE_ADDR'];
         $sessionId=session_id();
@@ -33,29 +33,29 @@ class loggedInUsers extends dbTable
         $myDate=date('Y-m-d H:m:s');
         $isInvisible='0';
         $sql="
-			INSERT INTO tbl_loggedinusers (
+            INSERT INTO tbl_loggedinusers (
                                 id,
-				userid,
-				ipaddress,
-				sessionid,
-				whenloggedin,
-             	whenlastactive,
-				isinvisible,
-				coursecode,
-				themeused
-			)
+                userid,
+                ipaddress,
+                sessionid,
+                whenloggedin,
+                 whenlastactive,
+                isinvisible,
+                coursecode,
+                themeused
+            )
             VALUES (
                                 '".date('YmdHis')."',
-				'$userId', 
-				'$ipAddress', 
-				'$sessionId', 
-				'".$this->now()."', 
-				'".$this->now()."', 
-				'$isInvisible', 
-				'$contextCode', 
-				'$theme'
-			)";
-		$this->query($sql);
+                '$userId', 
+                '$ipAddress', 
+                '$sessionId', 
+                CURRENT_TIMESTAMP, 
+                    CURRENT_TIMESTAMP, 
+                '$isInvisible', 
+                '$contextCode', 
+                '$theme'
+            )";
+        $this->query($sql);
     }
 
    /**
@@ -67,11 +67,11 @@ class loggedInUsers extends dbTable
    */
    public function doLogout($userId) {
         $sql="DELETE FROM tbl_loggedinusers
-		WHERE
-			userid='$userId'
-			AND sessionid ='".session_id()."'
-		";
-		$this->query($sql);
+        WHERE
+            userid='$userId'
+            AND sessionid ='".session_id()."'
+        ";
+        $this->query($sql);
    }
 
     /**
@@ -79,15 +79,15 @@ class loggedInUsers extends dbTable
     */
     public function doUpdateLogin($userId,$contextCode='lobby')
     {
-       	$sql="UPDATE tbl_loggedinusers
+           $sql="UPDATE tbl_loggedinusers
         SET 
-		  	whenlastactive = '".$this->now()."', 
-			coursecode='$contextCode'  
-		WHERE
-          	userid='$userId'
-			AND sessionid ='".session_id()."'
-		";
-		$this->query($sql);
+              whenlastactive = CURRENT_TIMESTAMP, 
+            coursecode='$contextCode'  
+        WHERE
+              userid='$userId'
+            AND sessionid ='".session_id()."'
+        ";
+        $this->query($sql);
    }
 
     /**
@@ -95,19 +95,19 @@ class loggedInUsers extends dbTable
      */
     public function getMyTimeOn($userId)
     {
-		$sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
-		WHERE
-			userid='$userId'
-			AND sessionid='".session_id()."'
-		";
-		$results = $this->getArray($sql);
-		if (!empty($results)) {
-			$timeActive=intval($results[0]['activetime']);
-		}
-		else {
-			$timeActive=0;
-		}
-       	return $timeActive;
+        $sql="SELECT (whenlastactive - whenloggedin)/100 AS activetime FROM tbl_loggedinusers
+        WHERE
+            userid='$userId'
+            AND sessionid='".session_id()."'
+        ";
+        $results = $this->getArray($sql);
+        if (!empty($results)) {
+            $timeActive=intval($results[0]['activetime']);
+        }
+        else {
+            $timeActive=0;
+        }
+           return $timeActive;
    }
 
     /**
@@ -116,13 +116,13 @@ class loggedInUsers extends dbTable
     public function getActiveUserCount()
     {
         $sql="SELECT COUNT(id) AS usercount FROM tbl_loggedinusers";
-		$results = $this->getArray($sql);
-		if (!empty($results)) {
-			$activeUserCount=intval($results[0]['usercount']);
-		}
-		else {
-			$activeUserCount=0;
-		}
+        $results = $this->getArray($sql);
+        if (!empty($results)) {
+            $activeUserCount=intval($results[0]['usercount']);
+        }
+        else {
+            $activeUserCount=0;
+        }
         return $activeUserCount;
     }
 
@@ -133,20 +133,20 @@ class loggedInUsers extends dbTable
     public function getInactiveTime($userId)
     {
         $sql="SELECT
-			(('".$this->now()."'-whenlastactive)/100) AS inactivetime
-		FROM
-			tbl_loggedinusers
-		WHERE
-			userid='$userId'
-			AND sessionid='".session_id()."'
-		";
-		$results = $this->getArray($sql);
-		if (!empty($results)) {
-			$inactiveTime=intval($results[0]['inactivetime']);
-		}
-		else {
-			$inactiveTime=10+$this->systemTimeOut;
-		}
+            ((CURRENT_TIMESTAMP-whenlastactive)/100) AS inactivetime
+        FROM
+            tbl_loggedinusers
+        WHERE
+            userid='$userId'
+            AND sessionid='".session_id()."'
+        ";
+        $results = $this->getArray($sql);
+        if (!empty($results)) {
+            $inactiveTime=intval($results[0]['inactivetime']);
+        }
+        else {
+            $inactiveTime=10+$this->systemTimeOut;
+        }
         return $inactiveTime;
     }
 
@@ -154,12 +154,12 @@ class loggedInUsers extends dbTable
     * Method to clear inactive users
     */
     public function clearInactive()
-    {		
+    {        
         $sql="DELETE FROM tbl_loggedinusers 
-		WHERE 
-			(('".$this->now()."'-whenlastactive)/100) > '{$this->systemTimeOut}'
-		";
-		$this->query($sql);
+        WHERE 
+            ((CURRENT_TIMESTAMP-whenlastactive)/100) > '{$this->systemTimeOut}'
+        ";
+        $this->query($sql);
     }
 
     /**
@@ -170,15 +170,16 @@ class loggedInUsers extends dbTable
     public function isUserOnline($userId)
     {
         $sql="SELECT COUNT(userid) AS count FROM tbl_loggedinusers WHERE userid='$userid'";
-  		$results = $this->getArray($sql);
-		if (!empty($results)) {
-			if ($results[0]['count']>0) {
-			    return true;
-			}
-		}
-		else {
-			return false;
-		}
+          $results = $this->getArray($sql);
+        if (!empty($results)) {
+            if ($results[0]['count']>0) {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
     }
+
 }
 ?>
