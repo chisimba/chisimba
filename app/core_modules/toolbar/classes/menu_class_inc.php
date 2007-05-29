@@ -284,7 +284,7 @@ class menu extends object
         if($pause){
             $iconList .= $pause.'&nbsp;&nbsp;';
         }
-
+        
         // get logout button
         $logout='';//<nobr>'.$iconList.$im.'&nbsp;'.'</nobr>';
 		//return $menu;
@@ -303,6 +303,40 @@ class menu extends object
 //        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
+    }
+    
+    /**
+    * Method to get extra parameters
+    *
+    * @access public
+    * @param array $headerParams The array of parameters added to the header
+    * @param array $bodyOnload The array of parameters for body onload
+    * @return
+    */
+    public function getParams($headerParams = array(), $bodyOnLoad = array())
+    {
+        // get from the tools class
+        $params = $this->tools->params;
+        
+        if(!empty($params)){
+            foreach($params as $key => $item){
+                // append new parameter
+                switch($key){
+                    case 'headerParams':
+                        if (!in_array($item, $headerParams)){
+                            $headerParams[] = $item;
+                        }
+                        break;
+                        
+                    case 'bodyOnLoad':
+                        if (!in_array($item, $bodyOnLoad)){
+                            $bodyOnLoad[] = $item;
+                        }
+                        break;
+                }
+            }
+        }
+        return '';
     }
 
     /**

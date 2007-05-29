@@ -73,6 +73,13 @@ class tools extends object
 {
 
     /**
+    * @var $params Holds additional parameters for the header / body onload of the page template
+    * @access public
+    */
+    public $params = array();
+    
+
+    /**
 
     * Method to construct the class
 
@@ -303,6 +310,8 @@ class tools extends object
             $imLabel = $this->objLanguage->languageText("mod_toolbar_instantmessaging",'toolbar');
             
             $objIm = $this->getObject('display', 'messaging');
+            // Get the additional parameters (headerparams and bodyonload), save in a global variable
+            $this->params = $objIm->imParams();
             return $objIm->divShowIM();
         }
         return FALSE;
