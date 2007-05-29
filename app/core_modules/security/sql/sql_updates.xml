@@ -49,4 +49,32 @@
             </add>
         </data>
     </update>
+    <update> 
+        <table> tbl_loggedinusers </table>
+        <version> 2.12 </version>
+        <description> changed whenlastactive field to timestamp </description>
+        <data> 
+            <change> 
+                <whenlastactive> 
+                    <definition> 
+                        <type>timestamp</type>
+                    </definition>
+                </whenlastactive> 
+            </change> 
+        </data> 
+    </update> 
+    <update> 
+        <table> tbl_loggedinusers </table>
+        <version> 2.12 </version>
+        <description> changed whenLoggedIn field to timestamp </description>
+        <data> 
+            <change> 
+                <whenLoggedIn> 
+                    <definition> 
+                        <type>timestamp</type>
+                    </definition>
+                </whenLoggedIn> 
+            </change> 
+        </data> 
+    </update> 
 </updates>
