@@ -299,7 +299,7 @@ class menu extends object
         $this->objLayer->cssClass = 'menuhead';
         $this->objLayer->border = ";border-top: 1px solid #555555; padding: 5px; padding-left: 14px;";
 
-        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right">'.$im.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
+        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$im.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
 //        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
@@ -323,12 +323,18 @@ class menu extends object
                 // append new parameter
                 switch($key){
                     case 'headerParams':
+                        if(!is_array($headerParams) || empty($headerParams)){
+                            break;
+                        }
                         if (!in_array($item, $headerParams)){
                             $headerParams[] = $item;
                         }
                         break;
                         
                     case 'bodyOnLoad':
+                        if(!is_array($bodyOnLoad) || empty($bodyOnLoad)){
+                            break;
+                        }
                         if (!in_array($item, $bodyOnLoad)){
                             $bodyOnLoad[] = $item;
                         }
