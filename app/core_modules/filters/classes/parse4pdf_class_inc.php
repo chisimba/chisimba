@@ -30,11 +30,10 @@ class parse4pdf extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-    			//$objLanguage = $this->getObject('language', 'language');
-    	    	$replacement = "<EMBED src=\"" . $results[1][$counter] 
-    	    	  . "\" href=\"" . $results[1][$counter] ."\" width=\"100%\" height=\"500\"></EMBED>";
-        	   $str = str_replace($item, $replacement, $str);
-            $counter++;
+   	    	$replacement = "<EMBED src=\"" . $results[1][$counter] 
+   	    	  . "\" href=\"" . $results[1][$counter] ."\" width=\"100%\" height=\"500\"></EMBED>";
+       	   $str = str_replace($item, $replacement, $str);
+           $counter++;
         }
         return $str;
     }
