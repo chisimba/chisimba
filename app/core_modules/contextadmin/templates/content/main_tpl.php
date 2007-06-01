@@ -17,15 +17,13 @@ $objContextGroups = & $this->newObject('onlinecount', 'contextgroups');
 $objH = new htmlheading();
 $objH->str = ucwords($objLanguage->code2Txt('mod_contextadmin_contextadmin', 'contextadmin')).' '.$icon->getAddIcon($this->uri(array('action' => 'addstep1')));
 $objH->type = 3;
-
-$btnImport = '';
-if($this->isBlog){
-    $impButton =new button("submit", $objLanguage->languageText("word_import"));
-    $impButton->setOnClick("window.location='".$this->uri(array('action'=>'importcourse'))."';");
-    $btnImport = $impButton->show();
-}
-
 echo $objH->show();
+
+ 	$form = $this->objIEUtils->uploadTemplate();
+	//$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+ 	$form = $this->objIEUtils->downloadTemplate();
+	//$tabBox->addTab(array('name'=> "Export",'content' => $form->show()));
+
 
 $str = '';
 $other = '';
