@@ -143,16 +143,20 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
      * Method to edit the context about
+     * Modified by Jarrett L. Jordaan
+     * Date : 21 May 2007
      * @param 
      * @return bool
      * @access public
      */
-    public function saveAboutEdit()
+    public function saveAboutEdit($newCourse = NULL)
     {
     	try{
     		
     		$about = $this->getParam('about');
-    		
+    		if(!(strlen($about)>0))
+			$about = $newCourse['about'];
+
     		return $this->update('contextcode', $this->getContextCode(), array('about' => $about));
     	}                        
         catch (customException $e)
@@ -199,25 +203,39 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
      * Method to create the context
+     * Modified by Jarrett L. Jordaan
+     * Date : 21 May 2007
      * @return boolean
      */
-    public function createContext()
+    public function createContext($newCourse = NULL)
     {
         try{
-            
-            
             $contextCode = htmlentities($this->getParam('contextcode'));
+		if(!(strlen($contextCode)>0))
+	    		$contextCode = $newCourse['contextcode'];
             $contextCode = strtolower(str_replace(' ','_',$contextCode));
+		$contextCode = strtolower(str_replace('$','_',$contextCode));
             $menuText = htmlentities($this->getParam('menutext'));
+		if(!(strlen($menuText)>0))
+			$menuText = $newCourse['menutext'];
             $title = htmlentities($this->getParam('title'));
+		if(!(strlen($title)>0))
+ 			$title = $newCourse['title'];
             $userId = $this->objUser->userId();
+		if(!(strlen($userId)>0))
+ 			$userId = $newCourse['userid'];
             $status = $this->getParam('status');
+		if(!(strlen($status)>0))
+ 			$status = $newCourse['isclosed'];
             $access = $this->getParam('access');
-            
+		if(!(strlen($access)>0))
+ 			$access = $newCourse['isactive'];
+            $contextCode = $contextCode;
+
             if($this->valueExists('contextcode', $contextCode))
             {
                 //check if there is an entry in the database
-               
+
                 return FALSE;
             } else {
                 //check if the folder exist
@@ -246,8 +264,6 @@ if (!$GLOBALS['kewl_entry_point_run']) {
                         ); 
 
             $this->setLastUpdated();
-            
-            
             
             $ret = $this->insert($fields);
             
