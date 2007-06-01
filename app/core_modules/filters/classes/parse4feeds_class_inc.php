@@ -34,13 +34,23 @@ class parse4feeds extends object
     public function parse($str)
     {
         $str = stripslashes($str);
-        //Get all the tags into an array
+        //Get all the tags that are in links into an array
         preg_match_all('/\\[FEED]<a.*?href="(?P<feedlink>.*?)".*?>.*?<\/a>\\[\/FEED]/', $str, $results, PREG_PATTERN_ORDER);
+        //Get the ones that are just in URLs
+        preg_match_all('/\\[FEED](.*?)\\[\/FEED]/', $str, $results2, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item) {
         	$link = $results['feedlink'][$counter];
         	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link) . "</div>";
-			//$replacement = "FOUND: " . $link;
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
+        }
+        //Get the ones that are straight URL links
+        $counter = 0;
+        foreach ($results2[0] as $item)
+        {
+            $link = $results2[1][$counter];
+        	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link) . "</div>";
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
