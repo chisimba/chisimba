@@ -555,6 +555,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				$contentsOfFile = file_get_contents($pathToImagesInKNG[$i]);
 				$newImageLocation = $folder."/".$imageNamesInKNG[$i];
 				$fp = fopen($newImageLocation, 'w');
+				chmod($newImageLocation, 0777);
 				fwrite($fp,$contentsOfFile);
 				fclose($fp);
 			}

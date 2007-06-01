@@ -91,8 +91,8 @@ class importKNGPackage extends object
 		$basePath = $this->objConf->getcontentBasePath();
 		$basePathNew = $basePath."content/".$contextcodeInChisimba;
 		$basePathToImages = $basePathNew."/images";
-		//echo $basePathToImages;
-		$uploadImages = $this->uploadKNGImages($basePathToImages);
+		$uploadKNGImages = $this->uploadKNGImages($basePathToImages);
+		//
 		//Write Htmls to Chisimba
 		$writeKNGHtmls = $this->writeKNGHtmls($contextcode);
 		if(!isset($writeKNGHtmls))
@@ -143,15 +143,15 @@ class importKNGPackage extends object
 	 * Writes all images used by old course to new database
 	 * Makes query to tbl_context_file
 	 * 
-	 * @param $contextcode selected course
-	 * @return TRUE - Successful execution
+	 * @param string $contextcode - selected course
+	 * @return array $indexFolder - list of id fields belonging to images
 	*/
 	function uploadKNGImages($folder)
 	{
 		//Course Images
+		$indexFolder = $this->objIndex->indexFolder($folder, $this->objUser->userId());
 
-
-		return TRUE;
+		return $indexFolder;
 	}
 
 	/**
@@ -178,8 +178,8 @@ class importKNGPackage extends object
 	*/
 	function uploadHtmls($contextcode)
 	{
-
-
+		
+	
 		
 		return TRUE;
 	}
