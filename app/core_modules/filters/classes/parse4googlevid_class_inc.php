@@ -10,6 +10,12 @@
 
 class parse4googlevid extends object
 {
+	/**
+	* 
+	* String to hold an error message
+	* @accesss private 
+	*/
+	private $errorMessage;
     
     /**
      * 
@@ -32,16 +38,40 @@ class parse4googlevid extends object
     function parse($str)
     {
         $str = stripslashes($str);
-        //Get all the tags into an array
+        //Get all the tags into an array for ones that are in links
         preg_match_all('/\\[GVID]<a.*?href="(?P<gvlink>.*?)".*?>.*?<\/a>\\[\/GVID]/', $str, $results, PREG_PATTERN_ORDER);
+        //Match straight URLs
+        preg_match_all('/\\[GVID](.*?)\\[\/GVID]/', $str, $results2, PREG_PATTERN_ORDER);
+        //Get all the ones in links
         $counter = 0;
         foreach ($results[0] as $item) {
         	$link = $results['gvlink'][$counter];
-        	$videoId = $this->getVideoCode($link);
-        	$replacement = $this->getVideoObject($videoId);
+        	//Check if it is a valid link, if not return an error message
+            if ($this->isGoogleVideo($link)) {
+        		$videoId = $this->getVideoCode($link);
+        		$replacement = $this->getVideoObject($videoId);
+            } else {
+            	$replacement = $this->errorMessage;
+            }
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+        //Get the ones that are straight URL links
+        $counter = 0;
+        foreach ($results2[0] as $item)
+        {
+            $link = $results2[1][$counter];
+            //Check if it is a valid link, if not return an error message
+            if ($this->isGoogleVideo($link)) {
+            	$videoId = $this->getVideoCode($link);
+            	$replacement = $this->getVideoObject($videoId);
+            } else {
+            	$replacement = $this->errorMessage;
+            }
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
+        }
+        
         return $str;
     }
 
@@ -80,5 +110,29 @@ class parse4googlevid extends object
 	return $ret;   
     }
 
-}
+    /**
+    *
+    *  A method to validate a link as a valid Google video link. It should start with http, 
+    *  and have v= in it. It sets the value of the errorMessage property to be the appropriate
+    *  error.
+    * 
+    * @param string $link The link to check
+    * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
+    *  
+    */
+    private function isGoogleVideo($link)
+    {
+    	$link=strtolower($link);
+    	if (strstr($link,"http://") && strstr($link, "docid=")) {
+    		return TRUE;
+    	} else {
+   			$objLanguage = $this->getObject('language', 'language');
+    		$this->errorMessage = "[GVID] <span class=\"error\">" 
+    	  	  . $objLanguage->languageText("mod_filters_error_notgvid", "filters")
+    	  	  . "</span> [/GVID]";
+    		return FALSE;
+    	}
+ 
+    }
+}    
 ?>
