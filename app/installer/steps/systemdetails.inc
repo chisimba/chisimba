@@ -394,6 +394,7 @@ class RootUserAction extends StepAction
 			$ksr = str_replace('/installer',"/",$ref);
 			$ksr = str_replace('/index.php','', $ksr);
 			$ksr = str_replace('http://','',$ksr);
+			$ksr = str_replace('localhost','',$ksr);
 		}
 		$this_url = $ksr;
 		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
