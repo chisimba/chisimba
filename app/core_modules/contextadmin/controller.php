@@ -158,6 +158,7 @@ class contextadmin extends controller
 		//Instantiate the Import of IMS package
 		$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES);
 		$this->setVar('uploadStatus',$uploadStatus);
+		$this->setSession('uploadStatus', $uploadStatus);
 
 		return 'uploadstatus_tpl.php';
 
@@ -199,9 +200,17 @@ class contextadmin extends controller
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
 		$uploadStatus = $this->objExportIMSContent->exportKNGContent($choice);
-		$this->setVar('uploadStatus',$uploadStatus);
+		//$this->setVar('uploadStatus',$uploadStatus);
 
 		return 'uploadstatus_tpl.php';
+
+	/**
+	 * 
+	*/
+        case 'debug':
+		$this->setLayoutTemplate('debug_tpl.php');
+
+		return 'debug_tpl.php';
 
 	default:
 		return $this->nextAction(null);
