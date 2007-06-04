@@ -428,7 +428,10 @@ class dbTable extends object
         }
         if($this->adm == TRUE)
         {
-			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	if($tablename != 'tbl_logger')
+        	{
+				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	}
         }
         return $ret ? $id : false;
     }
@@ -475,7 +478,10 @@ class dbTable extends object
         }
 		if($this->adm == TRUE)
         {
-			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	if($tablename != 'tbl_logger')
+        	{
+				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	}
         }
 
         return $ret;
@@ -512,7 +518,10 @@ class dbTable extends object
         }
         if($this->adm == TRUE)
         {
-			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	if($tablename != 'tbl_logger')
+        	{
+				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        	}
         }
         return $ret;
     }
