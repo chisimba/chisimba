@@ -50,16 +50,37 @@ class exportimspackage extends object
 	*/
 	function exportChisimbaContent($contextcode)
 	{
+		$type = "new";
+		//Retrieve data within context
+		$courseData = $this->objIEUtils->getCourse($contextcode, $type);
+		//Course id
+		$courseId = $courseData['0']['id'];
+		//Course context code
+		$contextcode = $courseData['0']['contextcode'];
 		//Create a temporary folder
-		$createTempDirectory = $this->createTempDirectory($contextcode);
-		
+		$tempDirectory = $this->createTempDirectory($contextcode);
 		//Write Schema files
-		$writeSchemaFiles = $this->writeSchemaFiles($createTempDirectory);
-		
-		//Read images from database
+		$writeSchemaFiles = $this->writeSchemaFiles($tempDirectory);
+		//Create resources folder
+		$resourceFolder = $tempDirectory."/".$contextcode;
+		//Write Images to specified directory (resources folder)
+		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
 
-		//Write images to temp folder
-
+/*
+		//Retrieve html page data within context
+		//Write Htmls to specified directory  (resources folder)
+		$writeKNGHtmls = $this->writeKNGHtmls($courseData, $courseContent, $tempDirectory, $resourceFolder);
+		//Merge filenames
+		$filelist = array_merge($writeKNGHtmls, $writeKNGImages);
+		//Instantiate imsmanifest.xml creation
+		$fp = $this->createIMSManifestFile($tempDirectory);
+		//Get the xml data 
+		$contents = $this->createIMSManifestContent($courseData, $filelist, $tempDirectory);
+		//Write to imsmanifest.xml
+		fwrite($fp,$contents);
+		//close the file
+		fclose($fp);
+*/
 		return TRUE;
 	}
 
@@ -205,7 +226,7 @@ class exportimspackage extends object
 	function exportKNGContent($contextcode)
 	{
 		//Retrieve data within context
-		$courseData = $this->objIEUtils->getKNGCourse($contextcode);
+		$courseData = $this->objIEUtils->getCourse($contextcode);
 		//Course id
 		$courseId = $courseData['0']['id'];
 		//Course context code
@@ -217,9 +238,9 @@ class exportimspackage extends object
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Write Images to specified directory (resources folder)
-		$writeKNGImages = $this->objIEUtils->writeKNGImages($contextcode, $resourceFolder);
+		$writeKNGImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder);
 		//Retrieve html page data within context
-		$courseContent = $this->objIEUtils->getKNGCourseContent($courseId);
+		$courseContent = $this->objIEUtils->getCourseContent($courseId);
 		//Write Htmls to specified directory  (resources folder)
 		$writeKNGHtmls = $this->writeKNGHtmls($courseData, $courseContent, $tempDirectory, $resourceFolder);
 		//Merge filenames
@@ -232,6 +253,17 @@ class exportimspackage extends object
 		fwrite($fp,$contents);
 		//close the file
 		fclose($fp);
+
+/*
+		//Create xml file to store subpage information to be used by Chisimba
+		$xml = $this->objIEUtils->createKNGXML($courseData);
+		//Specify xml file location
+		$subpages = $tempDirectory."/subpages.xml";
+		//Open file for writing
+		$fp = fopen($subpages,'w');
+		fwrite($fp, $xml);
+		fclose($fp);
+*/
 		//Zip temporary folder
 		//$this->zipAndDownload($contextcode, $tempDirectory);
 
@@ -271,7 +303,7 @@ class exportimspackage extends object
 			fwrite($fp,$contentsOfFile);
 			fclose($fp);
 		}
-		
+
 		return $htmlfilenames;
 	}
 

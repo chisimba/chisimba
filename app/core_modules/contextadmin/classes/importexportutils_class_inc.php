@@ -311,72 +311,119 @@ class importexportutils extends dbTable
 
 	/**
 	 * Retrieves all course data specific to chosen context from old database.
-	 * Makes query to tbl_context in old database
+	 * Retrieves all course data specific to chosen context from new database (Chisimba)
+	 * Makes query to tbl_context in old database (Nextgen)
+	 * Makes query to tbl_context in new database (Chisimba)
 	 * 
 	 * @param $contextcode selected course
+	 * @param string $type - 
 	 * @return TRUE - Successful execution
 	*/
-	function getKNGCourse($contextcode)
+	function getCourse($contextcode, $type = NULL)
 	{
-		//Access old database
-		//Set database
-		$dsn = "localhost";
-		//Set table
-		$table = "tbl_context";
-		//Set query
-		$query = "SELECT * from tbl_context where contextcode = '$contextcode'";
-		//Execute query on specified database and table
-		$courseData = $this->importDBData($dsn, $table, $query);
-		if(!isset($courseData))
+		if($type == "new")
 		{
-			return  "courseReadError";
-		}
-		$this->switchDatabase();
-		
-		return $courseData;
-	}
+			//Access new database
+			parent::init('tbl_context');
+			$filter = "WHERE contextcode = '$contextcode'";
+			$courseData = $this->getAll($filter);
 
-	/**
-	 * Retrieves all sub-page data specific to chosen context from old database.
-	 * Makes query to tbl_context_nodes in old database
-	 * 
-	 * @param string $courseId - selected course id
-	 * @return array $subPages - list of all subpages in context
-	*/
-	function getKNGCourseContent($courseId)
-	{
-		//Access old database
-		//Set database
-		$dsn = "localhost";
-		//Set table
-		$table = "tbl_context_nodes";
-		//Set query
-		$query = "SELECT * from tbl_context_nodes where tbl_context_parentnodes_id = '$courseId'";
-		//Execute query on specified database and table
-		$courseContent = $this->importDBData($dsn, $table, $query);
-		$subPages = array();
-		$i = 0;
-		foreach($courseContent as $aNode)
+			return $courseData;
+		}
+		else
 		{
-			$pageId = $aNode['id'];
-			//Retrieve each sub-page
+			//Access old database
 			//Set database
 			$dsn = "localhost";
 			//Set table
-			$table = "tbl_context_page_content";
+			$table = "tbl_context";
 			//Set query
-			$query = "SELECT * from tbl_context_page_content where id = '$pageId'";
+			$query = "SELECT * from tbl_context where contextcode = '$contextcode'";
 			//Execute query on specified database and table
-			$subPages[$i] = $this->importDBData($dsn, $table, $query);
-			$i++;
+			$courseData = $this->importDBData($dsn, $table, $query);
+			if(!isset($courseData))
+			{
+				return  "courseReadError";
+			}
+			$this->switchDatabase();
+		
+			return $courseData;
 		}
-		if(!isset($courseContent))
-		{
-			return  "courseReadError";
-		}
-		$this->switchDatabase();
 
-		return $subPages;
+		return FALSE;
+	}
+
+	/**
+	 * Retrieves all sub-page data specific to chosen context from old database (nextgen)
+	 * Retrieves all sub-page data specific to chosen context from new database (chisimba)
+	 * Makes query to tbl_context_nodes in old database
+	 * Makes query to tbl_context_page_content in old database
+	 * 
+	 * @param string $courseId - selected course id
+	 * @param string $type - 
+	 * @return array $subPages - list of all subpages in context
+	*/
+	function getCourseContent($courseId, $type = NULL)
+	{
+		if($type == "new")
+		{
+			//Access new database
+			parent::init('tbl_context_nodes');
+			$filter = "WHERE tbl_context_parentnodes_id = '$courseId'";
+			$courseContent = $this->getAll($filter);
+			$subPages = array();
+			$i = 0;
+			parent::init('tbl_context_page_content');
+			foreach($courseContent as $aNode)
+			{
+				$pageId = $aNode['id'];
+				$filter = "WHERE id = '$pageId'";
+				$subPages[$i] = $this->getAll($filter);
+				$i++;
+			}
+			if(!isset($courseContent))
+			{
+				return  "courseReadError";
+			}
+			return $subPages;
+		}
+		else
+		{
+			//Access old database
+			//Set database
+			$dsn = "localhost";
+			//Set table
+			$table = "tbl_context_nodes";
+			//Set query
+			$query = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId'";
+			//Execute query on specified database and table
+			$courseContent = $this->importDBData($dsn, $table, $query);
+			$subPages = array();
+			$i = 0;
+			foreach($courseContent as $aNode)
+			{
+				$pageId = $aNode['id'];
+				//Retrieve each sub-page
+				//Set database
+				$dsn = "localhost";
+				//Set table
+				$table = "tbl_context_page_content";
+				//Set query
+				$query = "SELECT * from tbl_context_page_content where id = '$pageId'";
+				//Execute query on specified database and table
+				$subPages[$i] = $this->importDBData($dsn, $table, $query);
+				$i++;
+			}
+			if(!isset($courseContent))
+			{
+				return  "courseReadError";
+			}
+			$this->switchDatabase();
+
+			return $subPages;
+		}
+
+		return FALSE;
 	}
 
 	/**
@@ -522,7 +569,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	 * @param string $folder - specified folder
 	 * @return $imageNamesInKNG - File names of images
 	*/
-	function writeKNGImages($contextcode, $folder = NULL)
+	function writeImages($contextcode, $folder = NULL, $type = NULL)
 	{
 		$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
 		$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
@@ -535,25 +582,28 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/$contextcode/images
 		$basePathToImages = $basePathNew."/images";
 		//Path = opt/lampp/htdocs/nextgen/usrfiles/context
-		$basePathKNG = "/opt/lampp/htdocs/nextgen/usrfiles/content/".$contextcode;
+		$basePathInContext = "/opt/lampp/htdocs/nextgen/usrfiles/content/".$contextcode;
+		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/context
+		if($type == "new")
+			$basePathInContext = "/opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/".$contextcode;
 		//Get all directories in old system context
-		$dirsInKNG = $this->list_dir($basePathKNG, 0);
+		$dirsInContext = $this->list_dir($basePathInContext, 0);
 		//Get all files starting in old system context
-		$filesInKNG = $this->list_dir_files($basePathKNG, 0);
+		$filesInContext = $this->list_dir_files($basePathInContext, 0);
 		//Get all files starting in root directory
-		$pathToFilesInKNG = $this->list_dir_files($basePathKNG, 1);
+		$pathToFilesInContext = $this->list_dir_files($basePathInContext, 1);
 		//Get Image Relative Locations
-		$pathToImagesInKNG = $this->list_dir_files($basePathKNG."/".$dirsInKNG['images'], 1);
+		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
 		//Get Image names
-		$imageNamesInKNG = $this->list_dir_files($basePathKNG."/".$dirsInKNG['images'], 0);
+		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
 		//Exporting KNG package to IMS specification Package
 		if(isset($folder))
 		{
 			//Write Images to specified folder
-			for($i=0;$i<count($pathToImagesInKNG);$i++)
+			for($i=0;$i<count($pathToImagesInContext);$i++)
 			{
-				$contentsOfFile = file_get_contents($pathToImagesInKNG[$i]);
-				$newImageLocation = $folder."/".$imageNamesInKNG[$i];
+				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
+				$newImageLocation = $folder."/".$imageNamesInContext[$i];
 				$fp = fopen($newImageLocation, 'w');
 				chmod($newImageLocation, 0777);
 				fwrite($fp,$contentsOfFile);
@@ -564,17 +614,17 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		else
 		{
 			//Write Images to usrfiles folder in Chisimba
-			for($i=0;$i<count($pathToImagesInKNG);$i++)
+			for($i=0;$i<count($pathToImagesInContext);$i++)
 			{
-				$contentsOfFile = file_get_contents($pathToImagesInKNG[$i]);
-				$newImageLocation = $basePathToImages."/".$imageNamesInKNG[$i];
+				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
+				$newImageLocation = $basePathToImages."/".$imageNamesInContext[$i];
 				$fp = fopen($newImageLocation, 'w');
 				fwrite($fp,$contentsOfFile);
 				fclose($fp);
 			}
 		}
 
-		return $imageNamesInKNG;
+		return $imageNamesInContext;
 	}
 
 	/**
@@ -614,6 +664,144 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$this->switchDatabase();
 
 		return $dbData;
+	}
+
+	/**
+	 * Controls the process of creating an xml document to store all subpage information
+	 *
+	 * @param array $courseData - 2d array containing all course data
+	 * @return array $courseData - 1d array containing all course data
+	*/
+	function convertArray($courseData)
+	{
+		//var_dump($courseData);
+		//Convert 2-d array into 1-d array
+		$newCourse['id'] = $courseData['0']['id'];
+		$newCourse['contextcode'] = $courseData['0']['contextcode'];
+		$newCourse['title'] = $courseData['0']['title'];
+		$newCourse['menutext'] = $courseData['0']['menutext'];
+		$newCourse['userid'] = $courseData['0']['userid'];
+		$newCourse['about'] = $courseData['0']['about'];
+		if($courseData['isactive'] == 0)
+			$newCourse['isactive'] = "Public";
+		else if($courseData['isactive'] == 1)
+			$newCourse['isactive'] = "Open";
+		else
+			$newCourse['isactive'] = "Private";
+		if($courseData['isclosed'] == 1)
+			$newCourse['isclosed'] = "Published";
+		else
+			$newCourse['isclosed'] = "UnPublished";
+
+		return $newCourse;
+	}
+
+	/**
+	 * Controls the process of creating an xml document to store all subpage information
+	 *
+	 * @param array $newCourse - 1d array containing all course data
+	 * @return string $xmlData - xml contents to be written to a file
+	*/
+	function createKNGXML($newCourse)
+	{
+		//Create XML document
+		$newCourse = $this->convertArray($newCourse);
+    		$imsDoc = new DomDocument('1.0');
+    		$imsDoc->formatOutput = true;
+		$courses = $imsDoc->createElement("Pages");
+		$manifest = $imsDoc->appendChild($courses);
+		$values = array('title' => $newCourse['title'], 
+				'content' => "Course",
+				'id' => $newCourse['id'],
+				'parentid' => "ROOT");
+		//Creates Root page
+		$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
+		//Runs through each level append data to xml file
+		while(TRUE)
+		{
+			static $i=1;
+			//Retrieve pages at first level
+			$pagesAtLevel = $this->getAllPages($newCourse['id'], $i);
+			//Add information to xml file
+			$this->addPagesAtLevel($imsDoc, $manifest, $pagesAtLevel);
+			//Check if there are any results for subpage query
+			if(empty($pagesAtLevel))
+				break;
+			$i++;
+		}
+		//Convert DomDocument to text
+		$xmlData = $imsDoc->saveXML();
+		
+		return $xmlData;
+	}
+
+	/**
+	 * Adds an entire level of subpages information to the subpages.xml file
+	 *
+	 * @param DomDocument $imsDoc
+	 * @param DomDocument Element $manifest
+	 * @param array $allPages
+	 * @return TRUE - Successful execution
+	*/
+	function addPagesAtLevel($imsDoc, $manifest, $allPages)
+	{
+		foreach($allPages as $aPage)
+		{
+			$values = array('title' => $aPage['title'],
+					'content' => "Page",
+					'id' => $aPage['metadata_id'],
+					'parentid' => $aPage['tbl_context_parentnodes_id']);
+			$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
+		}
+		return TRUE;
+	}
+
+	/**
+	 * Creates a single node holding information about a single subpage
+	 * 
+	 * @param DomDocument Object $imsDoc
+	 * @param DomDocument Element $manifest
+	 * @param array $values
+	 * @return DomDocument Element $course
+	*/
+	function getPageNode($imsDoc, $manifest, $values)
+	{
+		//Create Page
+    		$course = $imsDoc->createElement('Page');
+    		$course = $manifest->appendChild($course);
+		//Course Attributes
+		//Title
+    		$title = $imsDoc->createElement('Title');
+    		$title = $course->appendChild($title);
+		$title->appendChild($this->getTextNode($imsDoc, $values['title']));
+		//Content
+    		$content = $imsDoc->createElement('Content');
+    		$content = $course->appendChild($content);
+		$content->appendChild($this->getTextNode($imsDoc, $values['content']));
+		//ID
+    		$id = $imsDoc->createElement('Id');
+    		$id = $course->appendChild($id);
+		$id->appendChild($this->getTextNode($imsDoc, $values['id']));
+		//ParentId
+    		$parentId = $imsDoc->createElement('ParentId');
+    		$parentId = $course->appendChild($parentId);
+		$parentId->appendChild($this->getTextNode($imsDoc, $values['parentid']));
+		
+		return $course;
+	}
+
+	/**
+	 * Simplifies creating a DOM document text node
+	 * 
+	 * @param DomDocument $imsDoc
+	 * @param string $value
+	 * @return DomDocument TextNode $textNode
+	*/
+	function getTextNode($imsDoc, $value)
+	{
+		$textNode = $imsDoc->createTextNode($value);
+
+		return $textNode;
 	}
 
 	/**
