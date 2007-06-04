@@ -1241,6 +1241,7 @@ class altconfig extends object
         return $bool;
         // KEWL_CONTENT_PATH;
     }
+    
     /**
      * Gets error reporting Setting
      *
@@ -1259,6 +1260,27 @@ class altconfig extends object
     	$geterror_reporting = $SettingsDirective->getContent();
 
     	return $geterror_reporting;
+
+    }
+    
+    /**
+     * Gets enable adm Setting
+     *
+     * @access public
+     * @return getenable adm setting
+     */
+
+    public function getenable_adm()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "ENABLE_ADM");
+    	//finally unearth whats inside
+    	$getenable_adm = $SettingsDirective->getContent();
+
+    	return $getenable_adm;
 
     }
 

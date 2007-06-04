@@ -107,6 +107,8 @@ class dbTable extends object
      * @var string
      */
     private $debug = FALSE;
+    
+    public $adm = FALSE;
 
 
     /**
@@ -136,6 +138,10 @@ class dbTable extends object
         if($this->objDBConfig->geterror_reporting() == "developer")
         {
         	$this->debug = TRUE;
+        }
+        if($this->objDBConfig->getenable_adm() == "TRUE")
+        {
+        	$this->adm = TRUE;
         }
         $this->dbType = $this->_db->phptype;
 
@@ -420,7 +426,10 @@ class dbTable extends object
         else {
         	$ret = $this->_db->query($sql);
         }
-
+        if($this->adm == TRUE)
+        {
+			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        }
         return $ret ? $id : false;
     }
 
@@ -464,7 +473,10 @@ class dbTable extends object
         else {
         	$ret = $this->_db->query($sql);
         }
-
+		if($this->adm == TRUE)
+        {
+			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
+        }
 
         return $ret;
     }
@@ -497,6 +509,10 @@ class dbTable extends object
         }
         else {
         	$ret = $this->_db->query($sql);
+        }
+        if($this->adm == TRUE)
+        {
+			sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         }
         return $ret;
     }
