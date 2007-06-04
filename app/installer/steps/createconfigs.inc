@@ -400,6 +400,8 @@ class CreateConfigsAction extends FiveStepAction
 			$this->_addConfigVar('KEWL_TECH_EMAIL',    $_SESSION['tech_email']);
 
 			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
+                        
+			$this->_addConfigVar('ENABLE_ADM','FALSE');
 
 			//$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
 
