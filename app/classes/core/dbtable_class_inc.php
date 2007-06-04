@@ -385,7 +385,7 @@ class dbTable extends object
         $params = '';
 
         if (empty($fields['id'])) {
-            $id = "init" . "_" . rand(1000,9999) . "_" . time();
+            $id = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
