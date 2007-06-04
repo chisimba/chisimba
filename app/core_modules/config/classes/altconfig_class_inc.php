@@ -1277,6 +1277,13 @@ class altconfig extends object
     	$Settings =& $this->_root->getItem("section", "Settings");
     	//Now onto the directive node
     	$SettingsDirective =& $Settings->getItem("directive", "ENABLE_ADM");
+    	//var_dump($SettingsDirective);
+    	if($SettingsDirective == FALSE)
+    	{
+    		$newsettings = array("ENABLE_ADM" => "FALSE");
+    		$this->appendToConfig($newsettings);
+    		return FALSE;
+    	}
     	//finally unearth whats inside
     	$getenable_adm = $SettingsDirective->getContent();
 
