@@ -58,7 +58,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '1.0.0';
+	public $version = '1.0.2';
 
 	/**
      * Template variable
@@ -941,6 +941,11 @@ class engine
 		$index = $precursor[0];
 		$datastring = explode('&', $precursor[1]);
 		log_debug($datastring); */
+		//return isset($this->uritest[$name])
+		//? is_string($this->uritest[$name])
+		//? trim($this->uritest[$name])
+		//: $this->uritest[$name]
+		//: $default;
 		return isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])
@@ -1097,6 +1102,7 @@ class engine
 				$excluded[] = '_pushed_module';
 			}
 			foreach ($_GET as $key => $value) {
+				//echo "using GET";
 				if (!isset($params[$key]) && !in_array($key, $excluded)) {
 					// TODO: prefix on pushed values to protect them
 					$params[$key] = $value;
@@ -1126,7 +1132,6 @@ class engine
 			$uri .= '?'.implode('&amp;', $output);
 			// TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
 		}
-
 		return $uri;
 	}
 
