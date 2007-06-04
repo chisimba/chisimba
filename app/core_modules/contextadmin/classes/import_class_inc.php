@@ -291,7 +291,7 @@ class import extends dbTable
 	*/	
 	function addImages($path,$rootId)
 	{
-            print "<h1>$path</h1>\n";
+            //print "<h1>$path</h1>\n";
 		$hndl=opendir($path);
 		while($SrcPathFile=readdir($hndl))
 		{	

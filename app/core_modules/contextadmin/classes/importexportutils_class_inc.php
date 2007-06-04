@@ -578,6 +578,45 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	}
 
 	/**
+	 * NEED TO CHANGE DATABASE
+	 * Dummy call to reset database to Chisimba
+	 * Dont know of another way todo it
+	*/
+	function switchDatabase()
+	{
+		//Access old database
+		//Set database
+		$dsn = "localhost";
+		//Set table
+		$table = "tbl_context";
+		//Set query
+		$query = "SELECT * from tbl_context";
+		//Execute query on specified database and table
+		$dummyData = $this->importDBData("chisimba", $table, $query);
+	}
+
+	/**
+	 * Gets all subpages of a course according to the level the pages are on
+	 *
+	 * @param string $courseId - selected course id
+	 * @param string $level - depth of pages
+	 * 
+	*/
+	function getAllPages($courseId, $level)
+	{
+		$server = "localhost";
+		$course = $this->getParam('course');
+        	//set the table
+        	$tableName = "tbl_context_nodes";
+        	//set up the query
+        	$sql = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId' AND pagelevel = '$level'";
+		$dbData = $this->importDBData($server, $tableName, $sql);
+		$this->switchDatabase();
+
+		return $dbData;
+	}
+
+	/**
 	 * Main template file for the import module
 	 * Displays data and forms
 	 * Written by James Scoble using code written by Wesley Nitsckie
@@ -815,24 +854,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form3->addToForm($form2);
 
 		return $form3;
-	}
-
-	/*
-	 * NEED TO CHANGE DATABASE
-	 * Dummy call to reset database to Chisimba
-	 * Dont know of another way todo it
-	*/
-	function switchDatabase()
-	{
-		//Access old database
-		//Set database
-		$dsn = "localhost";
-		//Set table
-		$table = "tbl_context";
-		//Set query
-		$query = "SELECT * from tbl_context";
-		//Execute query on specified database and table
-		$dummyData = $this->importDBData("chisimba", $table, $query);
 	}
 
 }

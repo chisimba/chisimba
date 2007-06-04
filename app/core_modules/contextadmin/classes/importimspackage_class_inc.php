@@ -62,7 +62,6 @@ class importIMSPackage extends object
 	*/
 	function importIMScontent($FILES)
 	{
-		var_dump($FILES);
 		if(!isset($FILES))
 		{
 			return  "fileError";
