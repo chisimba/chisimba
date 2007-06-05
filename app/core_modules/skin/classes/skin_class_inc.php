@@ -223,10 +223,10 @@ class skin extends object
     public function putSkinCssLinks()
     {
         $stylesheet = '
-        <link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/_common/print.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/_common/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/'.$this->getSkin().'/print.css" media="print" />
 				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '
