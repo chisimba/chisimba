@@ -257,7 +257,7 @@ class logactivity extends dbTable
         $ip = $_SERVER['REMOTE_ADDR'];
      
         $module = $this->getParam('module');
-        if($module == '_default'){
+        if($module == '_default' || $module == ''){
             $objConfig = $this->getObject('altconfig', 'config');
             $module = $objConfig->getdefaultModuleName();
         }
