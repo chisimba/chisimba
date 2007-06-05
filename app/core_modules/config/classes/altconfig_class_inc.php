@@ -1091,6 +1091,10 @@ class altconfig extends object
 	        $SettingsDirective =& $Settings->getItem("directive", "LDAP_USED");
 	        //finally unearth whats inside
 	        $getuseLDAP = $SettingsDirective->getContent();
+                if ($getuseLDAP=="FALSE")
+                {
+                    $getuseLDAP=FALSE;
+                }
 	        return $getuseLDAP;
         } else {
             return FALSE;
