@@ -64,7 +64,8 @@ class exportimspackage extends object
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Write Images to specified directory (resources folder)
-		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
+		
+		//$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
 
 /*
 		//Retrieve html page data within context

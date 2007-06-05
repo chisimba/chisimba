@@ -596,7 +596,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
 		//Get Image names
 		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
-		//Exporting KNG package to IMS specification Package
+		//Exporting KNG package images to IMS specification Package
 		if(isset($folder))
 		{
 			//Write Images to specified folder
@@ -610,7 +610,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				fclose($fp);
 			}
 		}
-		//Importing KNG package into Chisimba
+		//Importing KNG package images into Chisimba
 		else
 		{
 			//Write Images to usrfiles folder in Chisimba

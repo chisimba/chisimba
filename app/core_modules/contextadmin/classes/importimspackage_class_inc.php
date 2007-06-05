@@ -40,6 +40,10 @@ class importIMSPackage extends object
 	*/
 	public $objDBContext;
 
+	/**
+	 * @var object $objDBContext
+	*/
+	public $objDebug;
 
 	/**
 	 * The constructor
@@ -51,6 +55,7 @@ class importIMSPackage extends object
         	$this->objLanguage = & $this->newObject('language', 'language');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
+		$this->objDebug = TRUE;
 	}
 
 	/**
@@ -115,8 +120,8 @@ class importIMSPackage extends object
 		{
 			return  "courseCreateError";
 		}
-		//Write Resources 
-		$writeData = $this->writeResources($simpleXmlObj, $folder);
+		//Write Resources
+		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 		{
 			return  "writeResourcesError";
@@ -366,37 +371,60 @@ class importIMSPackage extends object
 	 * @param array $resources
 	 * @return TRUE - Successful execution
 	*/
-	function writeResources($xml, $folder)
+	function writeResources($xml, $folder, $newCourse)
 	{
+		if(!isset($xml))
+		{
+			return  "precheckError";
+		}
+		if(!isset($folder))
+		{
+			return  "precheckError";
+		}
+		if(!isset($newCourse))
+		{
+			return  "precheckError";
+		}
 		//Static Chisimba file locations
 		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$contentBasePath = $this->objConfig->getcontentBasePath();
 		$courseContentBasePath = $contentBasePath."content/";
-		$contextCode = strtolower(str_replace(' ','_',$newCourse['courseId']));
+		$contextCode = strtolower(str_replace(' ','_',$newCourse['contextcode']));
 		$courseContentPath = $courseContentBasePath.$contextCode;
 		$imagesLocation = $courseContentPath."/images";
 		$docsLocation = $courseContentPath."/documents";
+		$resourceFileLocations = array();
+		if($this->objDebug)
+		{
+			echo $contentBasePath."<br />";
+			echo $courseContentBasePath."<br />";
+			echo $contextCode."<br />";
+			echo $courseContentPath."<br />";
+			echo $imagesLocation."<br />";
+			echo $docsLocation."<br />";
+		}
 		foreach($xml->resources->resource as $resource)
 		{
+			static $i = 0;
 			//Retrieve file type
 			$objectType = $resource->metadata->eduCommons->objectType;
 			//Cast to string
 			$objectType = (string)$objectType;
 			//Remove whitespaces for comparison
 			$objectType = trim($objectType);
+			//echo $objectType."<br />";
 			//Check file type
 			//Course
 			if(strcmp($objectType,"Course")==0)
 			{
-				//echo "Course"."<br />";
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-				//echo $filename."<br />";
+				$filename = (string)$filename;
+				$filename = trim($filename);
+				//Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
-				//echo $file."<br />";
 				$fileLocation = $folder."/".$file;
-				//echo $fileLocation."<br />";
 				//Write file contents to "about" in course
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
@@ -406,6 +434,8 @@ class importIMSPackage extends object
 				//Write course contents to documents folder
 				//New location for Courses
 				$newLocation = $docsLocation."/".$filename;
+				//Store resource locations
+				$resourceFileLocations[$i] = $newLocation;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -415,24 +445,33 @@ class importIMSPackage extends object
 				}
 				//Close the directory
 				fclose($fp);
+				//Check debug flag
+				if($this->objDebug)
+				{
+					echo "Course"."<br />";
+					echo $filename."<br />";
+					echo $file."<br />";
+					echo $fileLocation."<br />";
+				}
 			}
 			//Document
 			if(strcmp($objectType,"Document")==0)
 			{
-				//echo "Document"."<br />";
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-				//echo $filename."<br />";
+				$filename = (string)$filename;
+				$filename = trim($filename);
+				//Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
-				//echo $file."<br />";
 				$fileLocation = $folder."/".$file;
-				//echo $fileLocation."<br />";
 				//Write file contents to documents folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//New location for Documents
 				$newLocation = $docsLocation."/".$filename;
+				//Store resource locations
+				$resourceFileLocations[$i] = $newLocation;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -442,24 +481,33 @@ class importIMSPackage extends object
 				}
 				//Close the directory
 				fclose($fp);
+				//Check debug flag
+				if($this->objDebug)
+				{
+					echo "Document"."<br />";
+					echo $filename."<br />";
+					echo $file."<br />";
+					echo $fileLocation."<br />";
+				}
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
 			{
-				//echo "File"."<br />";
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-				//echo $filename."<br />";
+				$filename = (string)$filename;
+				$filename = trim($filename);
+				//Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
-				//echo $file."<br />";
 				$fileLocation = $folder."/".$file;
-				//echo $fileLocation."<br />";
 				//Write file contents to documents folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//New location for Files
 				$newLocation = $docsLocation."/".$filename;
+				//Store resource locations
+				$resourceFileLocations[$i] = $newLocation;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -469,27 +517,35 @@ class importIMSPackage extends object
 				}
 				//Close the directory
 				fclose($fp);
+				//Check debug flag
+				if($this->objDebug)
+				{
+					echo "File"."<br />";
+					echo $filename."<br />";
+					echo $file."<br />";
+					echo $fileLocation."<br />";
+				}
 			}
 			//Image
 			if(strcmp($objectType,"Image")==0)
 			{
-				//echo "Image"."<br />";
 				//Retrieve filename
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-				//echo $filename."<br />";
+				$filename = (string)$filename;
+				$filename = trim($filename);
 				//Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
-				//echo $file."<br />";
 				//Retrieve absolute file location
 				$fileLocation = $folder."/".$file;
-				//echo $fileLocation."<br />";
 				//Write file contents to images folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//New location for Images
 				$newLocation = $imagesLocation."/".$filename;
+				//Store resource locations
+				$resourceFileLocations[$i] = $newLocation;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -499,15 +555,40 @@ class importIMSPackage extends object
 				}
 				//Close the directory
 				fclose($fp);
-				//$filesInFolder = $this->objIndexing->scanDirectory($imagesLocation);
-				//var_dump($filesInFolder);
-				$files = $this->objUpload->indexFolder($imagesLocation, $this->objUser->userId());
-				var_dump($files);
+				//Check debug flag
+				if($this->objDebug)
+				{
+					echo "Image"."<br />";
+					echo $filename."<br />";
+					echo $file."<br />";
+					echo $fileLocation."<br />";
+				}
 			}
-
+		$i++;
 		}
+		if($this->objDebug)
+		{
+			var_dump($resourceFileLocations);
+		}
+		return $resourceFileLocations;
+	}
 
-		return TRUE;
+	/**
+	 * Sets debugging on
+	 *
+	*/
+	function debugOn()
+	{
+		$this->objDebug = TRUE;
+	}
+
+	/**
+	 * Sets debugging off
+	 *
+	*/
+	function debugOff()
+	{
+		$this->objDebug = FALSE;
 	}
 
 	/**

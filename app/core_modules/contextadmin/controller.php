@@ -117,7 +117,7 @@ class contextadmin extends controller
                 return 'addstep3_tpl.php';
                 
             case 'savestep3':
-                $this->__objDBContextModules->save();
+                $this->_objDBContextModules->save();
                 $this->_objDBContext->setLastUpdated();
                 return $this->nextAction('default');
            
