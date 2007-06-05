@@ -19,11 +19,12 @@ $objH->str = ucwords($objLanguage->code2Txt('mod_contextadmin_contextadmin', 'co
 $objH->type = 3;
 echo $objH->show();
 
+/*
  	$form = $this->objIEUtils->uploadTemplate();
-	//$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+	$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
  	$form = $this->objIEUtils->downloadTemplate();
-	//$tabBox->addTab(array('name'=> "Export",'content' => $form->show()));
-
+	$tabBox->addTab(array('name'=> "Export",'content' => $form->show()));
+*/
 
 $str = '';
 $other = '';
