@@ -41,9 +41,14 @@ class importIMSPackage extends object
 	public $objDBContext;
 
 	/**
-	 * @var object $objDBContext
+	 * @var object $objDebug
 	*/
 	public $objDebug;
+
+	/**
+	 * @var object $objContextContent
+	*/
+	public $objContextContent;
 
 	/**
 	 * The constructor
@@ -55,7 +60,8 @@ class importIMSPackage extends object
         	$this->objLanguage = & $this->newObject('language', 'language');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
-		$this->objDebug = TRUE;
+		$this->objDebug = FALSE;
+		$this->objContextContent = & $this->newObject('db_contextcontent_pages', 'contextcontent');
 	}
 
 	/**
@@ -121,11 +127,14 @@ class importIMSPackage extends object
 			return  "courseCreateError";
 		}
 		//Write Resources
+		//
 		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 		{
 			return  "writeResourcesError";
 		}
+		//Write Resource to
+		//$loadData = $this->loadResources($writeData);
 
 		return TRUE;
 	}
@@ -360,7 +369,6 @@ class importIMSPackage extends object
 			}
 		}
 
-
 		return $newCourse;
 	}
 
@@ -368,7 +376,9 @@ class importIMSPackage extends object
 	 * Move the resources to appropriate locations on the file system
 	 * and to the proper databases
 	 *
-	 * @param array $resources
+	 * @param $xml
+	 * @param $folder
+	 * @param $newCourse
 	 * @return TRUE - Successful execution
 	*/
 	function writeResources($xml, $folder, $newCourse)
@@ -489,6 +499,21 @@ class importIMSPackage extends object
 					echo $file."<br />";
 					echo $fileLocation."<br />";
 				}
+				//Write to Chisimba database
+				//Retrieve page data
+				$titleid = $resource->metadata->lom->general->title->langstring;
+				$menutitle = $resource->metadata->lom->general->description->langstring;
+				$content = $fileContents;
+				$language = $resource->metadata->lom->general->language;
+				$headerscript = "";
+				//Load to values
+				$values = array('titleid' => (string)$titleid,
+						'menutitle' => (string)$menutitle,
+						'content' => (string)$content,
+						'language' => (string)$language,
+						'headerscript' => (string)$headerscript);
+				//Insert into database
+				$this->writePage($values);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -571,6 +596,22 @@ class importIMSPackage extends object
 			var_dump($resourceFileLocations);
 		}
 		return $resourceFileLocations;
+	}
+
+	/**
+	 * $titleId, $menutitle, $content, $language, $headerScript
+	 *
+	*/
+	function writePage($values)
+	{/*
+		$writePage = $this->objContextContent->addPage($values['titleid'],
+							$values['menutitle'],
+							$values['content'],
+							$values['language'],
+							$values['headerscript']);
+*/
+		
+		return TRUE;
 	}
 
 	/**
