@@ -50,6 +50,7 @@ class selectimage extends object
         $this->objIcon = $this->newObject('geticon', 'htmlelements');
         
         $this->objFile = $this->getObject('dbfile');
+        $this->objThumbnails = $this->getObject('thumbnails');
         
         $this->loadClass('hiddeninput', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
@@ -158,11 +159,17 @@ function clearFileInputJS(name)
         //leave the rest at default values
         $objPop->putJs();
         
-        $this->objIcon->setIcon('imagepreview');
-        $this->objIcon->alt = 'Image Preview';
-        $this->objIcon->title = 'Image Preview';
-        $this->objIcon->extra = ' id="imagepreview_'.$this->name.'"';
-        $previewImg = $this->objIcon->show();
+        if ($defaultId == '') {
+            $this->objIcon->setIcon('imagepreview');
+            $this->objIcon->alt = 'Image Preview';
+            $this->objIcon->title = 'Image Preview';
+            $this->objIcon->extra = ' id="imagepreview_'.$this->name.'"';
+            $previewImg = $this->objIcon->show();
+        } else {
+            $img = $this->objThumbnails->getThumbnail($defaultId, $file['filename']);
+            
+            $previewImg = '<img src="'.$img.'" id="imagepreview_'.$this->name.'" />';
+        }
         
         $textinput = new textinput ('selectfile_'.$this->name, $defaultName);
         $textinput->setId('selectfile_'.$this->name);
