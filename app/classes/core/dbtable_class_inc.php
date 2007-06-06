@@ -139,10 +139,10 @@ class dbTable extends object
         {
         	$this->debug = TRUE;
         }
-        //if($this->objDBConfig->getenable_adm() == "TRUE")
-        //{
+        if($this->objDBConfig->getenable_adm() == "TRUE")
+        {
         	$this->adm = TRUE;
-        //}
+        }
         $this->dbType = $this->_db->phptype;
 
     }
