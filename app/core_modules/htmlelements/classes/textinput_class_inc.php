@@ -47,7 +47,7 @@ class textinput extends abhtmlbase implements ifhtml
    		if (!is_null($size)) {
 			$this->size = $size;
 		}
-     	$this->cssId =$name;
+     	$this->cssId = 'input_'.$name;
     }
     /**
     * Method to set the css class
