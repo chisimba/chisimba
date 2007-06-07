@@ -71,7 +71,7 @@ class userbizcard extends object
             default : $gender = 'Unknown'; break;
         }
 
-        $result = '<div style="width: 400px; border: 1px solid black;">
+        $result = '<div style="width: 500px; border: 1px solid black;">
     <div class="floatlangdir" style="width:120px; background-color:white; display:inline;">
         <div style="padding: 10px; text-align:center;">'.$this->objUser->getUserImage($this->userArray['userid'], TRUE);
         
@@ -94,7 +94,7 @@ class userbizcard extends object
         
         $result .= '</div>
     </div>
-    <div class="floatlangdir" style="width: 280px; background-color:'.$this->backgroundColor.'">
+    <div class="floatlangdir" style="width: 380px; background-color:'.$this->backgroundColor.'">
         <div style="padding-left: 10px;padding-right: 10px;">
             <h1>'.$this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'].'</h1>
             <p style="line-height: 200%;"><strong>Email:</strong> '.$this->userArray['emailaddress'].'
