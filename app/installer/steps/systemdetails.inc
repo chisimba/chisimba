@@ -185,6 +185,7 @@ class RootUserAction extends StepAction
 		// make sure the URL is lower case so that it matches the 5ive convention.
 
 		$_SESSION['site_url'] = isset($_POST['site_url']) ? strtolower($_POST['site_url']) : '';
+		$_SESSION['site_server_url'] = isset($_POST['site_server_url']) ? strtolower($_POST['site_server_url']) : '';
 
 
 
@@ -388,15 +389,17 @@ class RootUserAction extends StepAction
 
 		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : True;
 
-		$ref = getenv('HTTP_REFERER');
+		$urlarray=parse_url(getenv('HTTP_REFERER'));
+		$ref = $urlarray['path'];
 		if (preg_match("/\/installer/i", $ref)) {
 
 			$ksr = str_replace('/installer',"/",$ref);
 			$ksr = str_replace('/index.php','', $ksr);
 			$ksr = str_replace('http://','',$ksr);
-			$ksr = str_replace('localhost','',$ksr);
+			//$ksr = str_replace('localhost','',$ksr);
 		}
 		$this_url = $ksr;
+                $this_server=$urlarray['host'];
 		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
@@ -1151,6 +1154,9 @@ class RootUserAction extends StepAction
 		ob_clean();
 
 
+        text_box('site_server_url', isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$this_server, '40', '', false, 'tabindex="11"');
+        $serverbox = ob_get_contents();
+        ob_clean();
 
 		text_box('site_url', isset($_SESSION['site_url'])?$_SESSION['site_url']:$this_url, '40', '', false, 'tabindex="11"');
 
@@ -1163,6 +1169,7 @@ class RootUserAction extends StepAction
 		$tpl->set('topic',$this->parent_step);
 
 		$tpl->set('site_url',$box);
+		$tpl->set('site_server_url',$serverbox);
 
 		$tpl->set('root_email', $email);
 
@@ -1404,6 +1411,7 @@ class RootUserAction extends StepAction
 		}
 
 		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
+		$this_server = isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$_SERVER['SERVER_NAME'];
 
 
 
@@ -1415,6 +1423,7 @@ class RootUserAction extends StepAction
 		$tpl->set('topic',$this->parent_step);
 
 		$tpl->set('site_url',$this_url. '<br/> (Please note that Chisimba treats all URLS as lower case)');
+		$tpl->set('site_server_url',$this_server);
 
 		$tpl->set('root_email', $def_email);
 

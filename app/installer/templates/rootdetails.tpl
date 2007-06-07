@@ -16,10 +16,10 @@ $objHelp = new domtt();
 </tr>
 <tr valign="top">
 	<td>
-	<?php echo $objHelp->show('Select a Server Name','This name will be a unique name when your application comes into contact with other Chisimba Systems when taking part in a Chisimba Active Dynamic Mirroring Peer to Peer Network');?>
+	<?php echo $objHelp->show('Select a Server ID','This name will be a unique name when your application comes into contact with other Chisimba Systems when taking part in a Chisimba Active Dynamic Mirroring Peer to Peer Network');?>
 	</td>
 	<td width="50%">
-	Server Name.
+	Server ID.
 	</td>
 	<td width="50%" >
 	<?php echo $serverName?>
@@ -141,10 +141,22 @@ $objHelp = new domtt();
 </tr>
 <tr>
 	<td>
+	<?php echo $objHelp->show('Server Name','The name or IP address of the server your installation will be running on .');?>
+	</td>
+	<td >
+        Server Name.
+	</td>
+	<td >
+	<?php echo $site_server_url ?>
+	</td>
+
+</tr>
+<tr>
+	<td>
 	<?php echo $objHelp->show('Site root URL','The Site root URL is the url (FQDN) of your installation.');?>
 	</td>
 	<td >
-	Site root URL.
+	Site root URL path.
 	</td>
 	<td >
 	<?php echo $site_url ?>

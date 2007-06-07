@@ -194,6 +194,7 @@ class CreateConfigsAction extends FiveStepAction
 			return false;
 
 		}
+                $root_url=(isset($_SESSION['site_server_url']) ? $_SESSION['site_server_url']:'') .'/'.$root_url;
 
 
 
@@ -221,7 +222,20 @@ class CreateConfigsAction extends FiveStepAction
 
 		$_SESSION['end_url'] = $root_url;
 
-		$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
+                // Filter out unwanted double or triple slashes
+                $finalurl=str_replace('///','//','http://'.str_replace('//','/',$root_url.'/') );
+
+                // Last minute sanity-check 
+                // If it says "localhost" it becomes a relative URL
+                // Same if there's no server-name 
+                $urlarray=parse_url($finalurl);
+                if (substr_count($urlarray['host'],'.')==0){
+                    $finalurl=str_replace('http://localhost','',$finalurl);
+                    $finalurl=str_replace('http://','',$finalurl);
+                }
+
+		//$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
+		$this->_addConfigVar('KEWL_SITE_ROOT', $finalurl);
 
 
 

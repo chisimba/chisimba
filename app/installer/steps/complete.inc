@@ -63,10 +63,10 @@ class CompleteAction extends StepAction
 
         //require_once $_SESSION['sys_root'].'/data/private/conf/main.inc';
         //$tpl->set('login_url', 'http://'.SQ_CONF_SYSTEM_ROOT_URLS.'/'.SQ_CONF_BACKEND_SUFFIX.'/');
-        $tpl->set('login_url', 'http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
+        $tpl->set('login_url', 'http://'.$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
         echo $tpl->fetch();
 
-$fp=fopen('http://'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.str_replace(' ','%20',$_SESSION['SysType']),'r');
+$fp=fopen('http://'.$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.str_replace(' ','%20',$_SESSION['SysType']),'r');
                 //Now mark the installation as done
                 $path = $_SESSION['sys_root'].'/config/';
                 touch($path . 'installdone.txt');
