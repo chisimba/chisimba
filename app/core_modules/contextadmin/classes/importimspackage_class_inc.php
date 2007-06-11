@@ -18,7 +18,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * 
  */
 
-class importIMSPackage extends object 
+class importIMSPackage extends dbTable
 {
 	/**
 	 * @var object $objConfig
@@ -61,7 +61,7 @@ class importIMSPackage extends object
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
 		$this->objDebug = FALSE;
-		$this->objContextContent = & $this->newObject('db_contextcontent_pages', 'contextcontent');
+		//$this->objDebug = TRUE;
 	}
 
 	/**
@@ -133,8 +133,10 @@ class importIMSPackage extends object
 		{
 			return  "writeResourcesError";
 		}
-		//Write Resource to
-		//$loadData = $this->loadResources($writeData);
+		//
+		$loadData = $this->loadToChisimba($writeData);
+		//
+		$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData);
 
 		return TRUE;
 	}
@@ -403,7 +405,11 @@ class importIMSPackage extends object
 		$courseContentPath = $courseContentBasePath.$contextCode;
 		$imagesLocation = $courseContentPath."/images";
 		$docsLocation = $courseContentPath."/documents";
+		$allData = array();
 		$resourceFileLocations = array();
+		$resourceFileNames = array();
+		//Enter context
+		$enterContext = $this->objDBContext->joinContext($contextCode);
 		if($this->objDebug)
 		{
 			echo $contentBasePath."<br />";
@@ -413,6 +419,7 @@ class importIMSPackage extends object
 			echo $imagesLocation."<br />";
 			echo $docsLocation."<br />";
 		}
+		//First add course to Chisimba database
 		foreach($xml->resources->resource as $resource)
 		{
 			static $i = 0;
@@ -422,7 +429,38 @@ class importIMSPackage extends object
 			$objectType = (string)$objectType;
 			//Remove whitespaces for comparison
 			$objectType = trim($objectType);
-			//echo $objectType."<br />";
+			//Check file type
+			//Course
+			if(strcmp($objectType,"Course")==0)
+			{
+				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
+				$filename = (string)$filename;
+				$filename = trim($filename);
+				//Retrieve relative file location
+				$file = $resource->file['href'];
+				$file = (string)$file;
+				$file = trim($file);
+				$fileLocation = $folder."/".$file;
+				//Write file contents to "about" in course
+				//Retrieve contents of file
+				$fileContents = file_get_contents($fileLocation);
+				//Save all data
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents,
+							'contextCode' => $contextCode,
+							'file' => $file);
+			}
+		}
+		//Add all other resources to Chisimba database
+		foreach($xml->resources->resource as $resource)
+		{
+			static $i = 1;
+			//Retrieve file type
+			$objectType = $resource->metadata->eduCommons->objectType;
+			//Cast to string
+			$objectType = (string)$objectType;
+			//Remove whitespaces for comparison
+			$objectType = trim($objectType);
 			//Check file type
 			//Course
 			if(strcmp($objectType,"Course")==0)
@@ -446,6 +484,8 @@ class importIMSPackage extends object
 				$newLocation = $docsLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
+				//Store filesname
+				$resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -482,6 +522,8 @@ class importIMSPackage extends object
 				$newLocation = $docsLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
+				//Store filesname
+				$resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -499,21 +541,8 @@ class importIMSPackage extends object
 					echo $file."<br />";
 					echo $fileLocation."<br />";
 				}
-				//Write to Chisimba database
-				//Retrieve page data
-				$titleid = $resource->metadata->lom->general->title->langstring;
-				$menutitle = $resource->metadata->lom->general->description->langstring;
-				$content = $fileContents;
-				$language = $resource->metadata->lom->general->language;
-				$headerscript = "";
-				//Load to values
-				$values = array('titleid' => (string)$titleid,
-						'menutitle' => (string)$menutitle,
-						'content' => (string)$content,
-						'language' => (string)$language,
-						'headerscript' => (string)$headerscript);
-				//Insert into database
-				$this->writePage($values);
+				//Save all data
+				$allData[$i] = array('resource' => $resource,'fileContents' => $fileContents, 'contextCode' => $contextCode, 'file' => $file);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -533,6 +562,8 @@ class importIMSPackage extends object
 				$newLocation = $docsLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
+				//Store filesname
+				$resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -571,6 +602,8 @@ class importIMSPackage extends object
 				$newLocation = $imagesLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
+				//Store filesname
+				$resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -594,25 +627,236 @@ class importIMSPackage extends object
 		if($this->objDebug)
 		{
 			var_dump($resourceFileLocations);
+			var_dump($resourceFileNames);
 		}
-		return $resourceFileLocations;
+
+		return $allData;
 	}
 
 	/**
-	 * $titleId, $menutitle, $content, $language, $headerScript
+	 * Control loading resources into Chisimba
+	 * and file manipulation functions
 	 *
+	 * @param array $writeData - all data needed
+	 * @return 
 	*/
-	function writePage($values)
-	{/*
-		$writePage = $this->objContextContent->addPage($values['titleid'],
-							$values['menutitle'],
-							$values['content'],
-							$values['language'],
-							$values['headerscript']);
-*/
+	function loadToChisimba($writeData)
+	{
+		foreach($writeData as $resource)
+		{
+			//Unpack data
+			$xml = $resource['resource'];
+			$fileContents = $resource['fileContents'];
+			$contextCode = $resource['contextCode'];
+			$file = $resource['file'];
+			//Write Course to Chisimba database
+			$passPage = $this->passPage($xml, $fileContents, $contextCode);
+		}
+		return TRUE;
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	*/
+	function rebuildHtml($xml, $loadData)
+	{
+		//switch tables
+		parent::init('tbl_contextcontent_pages');
+		//Retrieve resources
+		foreach($xml->resources->resource as $resource)
+		{
+			//Retrieve page data
+			$titleid = $resource->metadata->lom->general->title->langstring;
+			$menutitle = $resource->metadata->lom->general->description->langstring;
+			if(!strlen($menutitle) > 0)
+			{
+				$menutitle = $titleid;
+			}
+
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				//Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+				//Rewrite images source in html
+				$fileContents = $this->changeImageSRC($fileContents, $contextCode, $file);
+				//Rewrite links source in html
+				$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $file);
+				//Reinsert into database
+				//$this->update('id', $id, array('pagecontent' => $fileContents));
+			}
+
+		}
+
+	}
+
+	/**
+	 * Retrieve page details and pass data 
+	 * database insertion functions
+	 *
+	 * @param array $resource - 
+	 * @param string $fileContents - 
+	 * @param string $contextCode - course contextcode
+	 * @return boolean 
+	*/
+	function passPage($resource, $fileContents, $contextCode)
+	{
+		//Retrieve page data
+		$titleid = $resource->metadata->lom->general->title->langstring;
+		$menutitle = $resource->metadata->lom->general->description->langstring;
+		$content = $fileContents;
+		$language = $resource->metadata->lom->general->language;
+		$headerscript = "";
+		//Load to $values
+		if(!strlen($menutitle) > 0)
+		{
+			$menutitle = $titleid;
+		}
+		$values = array('titleid' => (string)$titleid,
+				'menutitle' => (string)$menutitle,
+				'content' => (string)$content,
+				'language' => (string)$language,
+				'headerscript' => (string)$headerscript);
+		//Insert into database
+		$writePage = $this->writePage($values, $contextCode);
 		
 		return TRUE;
 	}
+
+	/**
+	 * Write content to Chisimba database
+	 *
+	 * @param array $values - page details
+	 * @param string $contextCode - course contextcode
+	 * @return boolean 
+	*/
+	function writePage($values, $contextCode)
+	{
+		//Load context classes
+        	$this->objContentPages =& $this->getObject('db_contextcontent_pages','contextcontent');
+	        $this->objContentOrder =& $this->getObject('db_contextcontent_order','contextcontent');
+        	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
+	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
+		//No idea!!!
+		$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
+		//Add page
+        	$titleId = $this->objContentTitles->addTitle('', 
+								$values['menutitle'], 
+								$values['content'], 
+								$values['language'],
+								$values['headerscript']);
+        	$pageId = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode);
+
+		return TRUE;
+	}
+
+    	/**
+    	 * Method to replace html source links with links to the blob system
+	 *
+    	 * @author James Scoble
+	 * Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course contextcode
+    	 * @param string $file - 
+    	 * @return string $page - the finished text
+	*/
+	function changeLinkUrl($str, $contextCode, $file)
+	{
+		//Retrieve all links in html by splitting tags(<A)
+        	$fragment=spliti('<A',$str);
+        	unset($str);
+        	$first=array_shift($fragment); 
+        	$page=$first;
+        	foreach ($fragment as $line)
+        	{
+			$segment=spliti('href="',$line);
+			$alt = $segment[0];
+            		$src=spliti("\"",$segment[1]);
+            		$src=$src[0];
+            		$segment[1]=stristr($segment[1]," ");
+			//$segment[1]=strstr($segment[1],"\"");
+            		$check=count($segment);
+            		$text='';
+            		if ($check>2)
+			{
+                		for($ic=1;$ic!=$check;$ic++)
+                		{
+                    			$text.=$segment($ic);
+                		}
+            		}
+			else 
+			{
+                		$text=$segment[1];
+            		}
+			$storeSrc = $src;
+            		$src=str_replace("\\","/",$src);
+            		$src=strrchr($src,"/"); 
+            		$src=trim(substr($src,1));
+            		$id='test';
+			if(strlen($src) > 0)
+				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/documents/".$src;
+			else
+				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/documents/".$storeSrc;
+			$page.= "<a$alt href=\"$link\" $text";
+		}
+		return $page;
+	}
+
+    	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author James Scoble
+	 * Modified by Jarrett L Jordaan
+    	 * @param strong $str - the text of the page to operate on.
+    	 * @param string $contextCode - course contextcode
+    	 * @param string $file - 
+    	 * @return string $page - the finished text
+	*/
+    	function changeImageSRC($str, $contextCode, $file)
+    	{
+        	$rootId=$this->rootId;
+        	$fragment=spliti('<IMG',$str);
+        	unset($str); 
+        	$first=array_shift($fragment); 
+        	$page=$first;
+        	foreach ($fragment as $line)
+        	{
+            		$segment=spliti('src="',$line);
+            		$alt=$segment[0];
+            		$src=spliti("\"",$segment[1]);
+            		$src=$src[0];
+            		$segment[1]=stristr($segment[1]," ");
+			//$segment[1]=strstr($segment[1],"\"");
+            		$check=count($segment);
+            		$text='';
+            		if ($check>2)
+			{
+                		for($ic=1;$ic!=$check;$ic++)
+                		{
+                    			$text.=$segment($ic);
+                		}
+            		}
+			else 
+			{
+                		$text=$segment[1];
+            		}
+			$storeSrc = $src;
+            		$src=str_replace("\\","/",$src);
+            		$src=strrchr($src,"/"); 
+            		$src=trim(substr($src,1));
+            		$id='test';
+			if(strlen($src) > 0)
+				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$src;
+			else
+				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$storeSrc;
+			$page.= "<IMG$alt src=\"$link\" $text";
+		}
+        	return $page;
+    	}
 
 	/**
 	 * Sets debugging on
@@ -631,19 +875,6 @@ class importIMSPackage extends object
 	{
 		$this->objDebug = FALSE;
 	}
-
-	/**
-	 * Layout of html pages and resources
-	 *
-	 * @param array $organizations
-	 * @return TRUE - Successful execution
-	*/
-	function applyOrganizations($metadata)
-	{
-
-		return TRUE;
-	}
-
 
 }
 ?>
