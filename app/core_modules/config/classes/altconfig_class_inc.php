@@ -1296,6 +1296,34 @@ class altconfig extends object
     }
 
     /**
+     * Gets enable adm Setting
+     *
+     * @access public
+     * @return getenable adm setting
+     */
+
+    public function getProxy()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "KEWL_PROXY");
+    	//var_dump($SettingsDirective);
+    	if($SettingsDirective == FALSE)
+    	{
+    		$newsettings = array("KEWL_PROXY" => "NULL");
+    		$this->appendToConfig($newsettings);
+    		return NULL;
+    	}
+    	//finally unearth whats inside
+    	$getProxy = $SettingsDirective->getContent();
+
+    	return $getProxy;
+
+    }
+    
+    /**
      * Method to return the modulepath setting from the config file
      *
      * @param void

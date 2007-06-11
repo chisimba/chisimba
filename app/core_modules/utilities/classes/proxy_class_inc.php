@@ -45,8 +45,8 @@ class proxy extends object
 	{
         // Get the proxy string from the config object.
         if( is_null($proxy) ) {
-            $objConfig = &$this->getObject( 'dbsysconfig', 'sysconfig' );
-            $proxy = $objConfig->proxyName() ;
+            $objConfig = $this->getObject( 'altconfig', 'config' );
+            $proxy = $objConfig->getProxy();
         }
         
         // Initialise
