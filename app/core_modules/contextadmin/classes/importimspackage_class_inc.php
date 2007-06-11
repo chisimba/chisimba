@@ -136,7 +136,8 @@ class importIMSPackage extends dbTable
 		//
 		$loadData = $this->loadToChisimba($writeData);
 		//
-		$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData);
+		$contextCode = strtolower(str_replace(' ','_',$courseData['contextcode']));
+		$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData, $contextCode);
 
 		return TRUE;
 	}
@@ -542,7 +543,7 @@ class importIMSPackage extends dbTable
 					echo $fileLocation."<br />";
 				}
 				//Save all data
-				$allData[$i] = array('resource' => $resource,'fileContents' => $fileContents, 'contextCode' => $contextCode, 'file' => $file);
+				//$allData[$i] = array('resource' => $resource,'fileContents' => $fileContents, 'contextCode' => $contextCode, 'file' => $file);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -660,7 +661,7 @@ class importIMSPackage extends dbTable
 	 * 
 	 * 
 	*/
-	function rebuildHtml($xml, $loadData)
+	function rebuildHtml($xml, $loadData, $contextCode)
 	{
 		//switch tables
 		parent::init('tbl_contextcontent_pages');
@@ -674,7 +675,6 @@ class importIMSPackage extends dbTable
 			{
 				$menutitle = $titleid;
 			}
-
 			$filter = "WHERE menutitle = '$menutitle'";
 			$result = $this->getAll($filter);
 			if(count($result) > 0)
@@ -686,12 +686,15 @@ class importIMSPackage extends dbTable
 				$fileContents = $this->changeImageSRC($fileContents, $contextCode, $file);
 				//Rewrite links source in html
 				$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $file);
+				//echo $fileContents;
 				//Reinsert into database
-				//$this->update('id', $id, array('pagecontent' => $fileContents));
+				$update = $this->update('id', $id, array('pagecontent' => $fileContents));
+				if(!$update)
+					return FALSE;
 			}
 
 		}
-
+		return TRUE;
 	}
 
 	/**
@@ -777,8 +780,8 @@ class importIMSPackage extends dbTable
 			$alt = $segment[0];
             		$src=spliti("\"",$segment[1]);
             		$src=$src[0];
-            		$segment[1]=stristr($segment[1]," ");
-			//$segment[1]=strstr($segment[1],"\"");
+            		//$segment[1]=stristr($segment[1]," ");
+			$segment[1]=strstr($segment[1],"\"");
             		$check=count($segment);
             		$text='';
             		if ($check>2)
@@ -820,17 +823,19 @@ class importIMSPackage extends dbTable
     	{
         	$rootId=$this->rootId;
         	$fragment=spliti('<IMG',$str);
+		//var_dump($fragment);
         	unset($str); 
         	$first=array_shift($fragment); 
         	$page=$first;
         	foreach ($fragment as $line)
         	{
             		$segment=spliti('src="',$line);
+			var_dump($segment);
             		$alt=$segment[0];
             		$src=spliti("\"",$segment[1]);
             		$src=$src[0];
-            		$segment[1]=stristr($segment[1]," ");
-			//$segment[1]=strstr($segment[1],"\"");
+            		//$segment[1]=stristr($segment[1]," ");
+			$segment[1]=strstr($segment[1],"\"");
             		$check=count($segment);
             		$text='';
             		if ($check>2)
@@ -853,6 +858,7 @@ class importIMSPackage extends dbTable
 				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$src;
 			else
 				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$storeSrc;
+			//echo $link."<br />";
 			$page.= "<IMG$alt src=\"$link\" $text";
 		}
         	return $page;
