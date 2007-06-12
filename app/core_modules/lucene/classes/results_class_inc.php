@@ -75,7 +75,7 @@ class results extends object
 	    	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
 	    	//$str = "Searching " . $this->search->count() . " Documents <br /><br />";
 	    	//clean the query
-	    	$query = trim($query);
+	    	$query = trim(strtolower($query));
 
 	    	if (strlen($query) > 0) {
 				$hits = $this->search->find($query);
