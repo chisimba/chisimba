@@ -109,8 +109,16 @@ class results extends object
 	*/
 	private function _displayResults($arrResults=null)
 	{
+		if(count($arrResults) == 0)
+		{
+			$str ='<h1>Search Results</h1>
+						<h5>'.count($arrResults).' Hits found</h5>
+					<div id="resultslist-wrap"></div>
+						';
+			return $str;
+		}
 		$str = '<hr />';
-		$hitsPerPage = 5;
+		$hitsPerPage = 10;
 		$pagesPerSlide = ceil(count($arrResults)/5);
 
 		//get the page number
@@ -119,7 +127,7 @@ class results extends object
 		//setup prvious link
 		if($pageno == 1)
 		{
-			$str .=	'<div class="pagination"><p><span><strong>Previous</strong></span>';
+			$str .=	'<div class="pagination"><p>'; //<div class="pagination"><p><span><strong>Previous</strong></span>';
 		} else {
 			$str .=	'<div class="pagination"><p><a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $pageno - 1), '_default').'"><strong>Previous</strong></a>';
 		}
@@ -131,19 +139,20 @@ class results extends object
 			{
 				$str .= $i;
 			} else {
-				$str .=	'  <a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $i),'_default').' ">'.$i.'</a>';
+				$str .=	'  <a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $i)).' ">'.$i.'</a>';
 			}
 		}
 
 
 		//the next button
 //print $pagesPerSlide;
-		if(($pageno +1) == $pagesPerSlide || $pagesPerSlide == 0){
+$pno = $pageno+1;
+		if($pno = $pagesPerSlide || $pagesPerSlide == 0){
 
-			$str .='<span><strong>Next</strong></span></p>';
+			$str .= '</p>';
 		} else {
 
-			$str .='<a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $pageno + 1), '_default').'"><strong>Next</strong></a></p>';
+			$str .='<a href="'.$this->uri(array('query' => $this->getParam('query'), 'pageno' => $pageno + 1)).'"><strong>Next</strong></a></p>';
 		}
 
 		//other info
@@ -201,5 +210,4 @@ class results extends object
      }
 
 }
-
 ?>

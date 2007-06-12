@@ -178,7 +178,7 @@ if (!isset($pageTitle)) {
     }
     if (!isset($pageSuppressContainer)) {
 	   echo '</div>';
-    }   
+    }  
     $this->putMessages();
 ?>
     </body>
