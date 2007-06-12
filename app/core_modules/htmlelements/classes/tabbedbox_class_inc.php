@@ -69,8 +69,8 @@ class tabbedbox implements ifhtml
     */
     public function buildTabbedBox($tablabel, $boxcontent)
     {
-        $this->tabLabel=$tablabel;
-        $this->boxcontent=$boxcontent;
+        $this->tabLabel[]=$tablabel;
+        $this->boxContent=$boxcontent;
         $this->makeTabbedBox();
         return $this->box;
     }
