@@ -223,10 +223,10 @@ class skin extends object
     public function putSkinCssLinks()
     {
         $stylesheet = '
-        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/_common/print.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="'. $this->objConfig->getSiteRoot().'skins/'.$this->getSkin().'/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/_common/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/print.css" media="print" />
 				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '
@@ -294,6 +294,23 @@ class skin extends object
         }
         
         return 'skins/_common/templates/layout/layout_template.php';//$this->objConfig->getdefaultLayoutTemplate();
+    }
+    
+    public function siteSearchBox()
+    {
+    	$this->loadClass('textinput', 'htmlelements');
+        $sform = new form('query', $this->uri(array(),'_default'));
+        //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
+        $query = new textinput('query');
+        $query->size = 15;
+        $sform->addToForm($query->show());
+        $this->objSButton = &new button($this->objLanguage->languageText('word_go', 'system'));
+        $this->objSButton->setValue($this->objLanguage->languageText('word_go', 'system'));
+        $this->objSButton->setToSubmit();
+        $sform->addToForm($this->objSButton->show());
+        $sform = $sform->show();
+        
+        return $sform;
     }
 
 } # End of class
