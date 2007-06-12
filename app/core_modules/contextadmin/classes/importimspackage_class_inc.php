@@ -137,8 +137,9 @@ class importIMSPackage extends dbTable
 		$loadData = $this->loadToChisimba($writeData);
 		//
 		$contextCode = strtolower(str_replace(' ','_',$courseData['contextcode']));
-		$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData, $contextCode);
-
+		$this->getImageNames($folder);
+		//$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData, $contextCode);
+		
 		return TRUE;
 	}
 
@@ -221,7 +222,7 @@ class importIMSPackage extends dbTable
 	/**
 	 * Scans a specified array of strings for a specified string
 	 *
-	 * @param array $files - list of filenames
+	 * @param array $files - list of file locations
 	 * @param string $regex - filename to scan in regular expression form
 	 * @return $imsmanifestLocation
 	*/
@@ -650,10 +651,11 @@ class importIMSPackage extends dbTable
 			$fileContents = $resource['fileContents'];
 			$contextCode = $resource['contextCode'];
 			$file = $resource['file'];
+			
 			//Write Course to Chisimba database
 			$passPage = $this->passPage($xml, $fileContents, $contextCode);
 		}
-		return TRUE;
+		return $writeData;
 	}
 
 	/**
@@ -683,9 +685,9 @@ class importIMSPackage extends dbTable
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
 				//Rewrite images source in html
-				$fileContents = $this->changeImageSRC($fileContents, $contextCode, $file);
+				$fileContents = $this->changeImageSRC($fileContents, $contextCode, $loadData);
 				//Rewrite links source in html
-				$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $file);
+				$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $loadData);
 				//echo $fileContents;
 				//Reinsert into database
 				$update = $this->update('id', $id, array('pagecontent' => $fileContents));
@@ -725,7 +727,7 @@ class importIMSPackage extends dbTable
 				'language' => (string)$language,
 				'headerscript' => (string)$headerscript);
 		//Insert into database
-		$writePage = $this->writePage($values, $contextCode);
+		//$writePage = $this->writePage($values, $contextCode);
 		
 		return TRUE;
 	}
@@ -757,6 +759,54 @@ class importIMSPackage extends dbTable
 		return TRUE;
 	}
 
+  	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * Modified by Jarrett L Jordaan
+    	 * @param strong $str - the text of the page to operate on.
+    	 * @param string $contextCode - course contextcode
+    	 * @param string $file - 
+    	 * @return string $page - the finished text
+	*/
+    	function changeImageSRC($str, $contextCode, $loadData)
+    	{
+		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
+		$imageLocation = $imageLocation.$contextCode.'/images/';
+		
+		foreach($loadData as $resource)
+		{
+			//Unpack data
+			$xml = $resource['resource'];
+			$fileContents = $resource['fileContents'];
+			$contextCode = $resource['contextCode'];
+			$file = $resource['file'];
+			
+			//$newLink = 'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/'.$contextCode.'/images/'.$file.'"';
+			echo $newLink;
+		}
+		//echo $newLink."<br />";
+		//$page = preg_replace('/(src=".*?")/i', $newLink, $str);
+
+        	return $page;
+    	}
+/*
+find /home -name .lastlogin -mtime +60 > /tmp/lastlogin.rpt {} \;
+cat /tmp/lastlogin.rpt awk -F: '{ print $1, $4 }' >> /tmp/lastlogin.info
+*/
+	function getImageNames($folder)
+	{
+		var_dump($folder);
+		$filenames = $this->objIEUtils->list_dir_files($folder, '0');
+
+		foreach($filenames as $filename)
+		{
+			echo $filename."<br />";
+
+		}
+		
+		return TRUE;
+	}
     	/**
     	 * Method to replace html source links with links to the blob system
 	 *
@@ -809,62 +859,7 @@ class importIMSPackage extends dbTable
 		return $page;
 	}
 
-    	/**
-    	 * Method to replace image source links with links to the blob system
-	 *
-    	 * @author James Scoble
-	 * Modified by Jarrett L Jordaan
-    	 * @param strong $str - the text of the page to operate on.
-    	 * @param string $contextCode - course contextcode
-    	 * @param string $file - 
-    	 * @return string $page - the finished text
-	*/
-    	function changeImageSRC($str, $contextCode, $file)
-    	{
-        	$rootId=$this->rootId;
-        	$fragment=spliti('<IMG',$str);
-		//var_dump($fragment);
-        	unset($str); 
-        	$first=array_shift($fragment); 
-        	$page=$first;
-        	foreach ($fragment as $line)
-        	{
-            		$segment=spliti('src="',$line);
-			var_dump($segment);
-            		$alt=$segment[0];
-            		$src=spliti("\"",$segment[1]);
-            		$src=$src[0];
-            		//$segment[1]=stristr($segment[1]," ");
-			$segment[1]=strstr($segment[1],"\"");
-            		$check=count($segment);
-            		$text='';
-            		if ($check>2)
-			{
-                		for($ic=1;$ic!=$check;$ic++)
-                		{
-                    			$text.=$segment($ic);
-                		}
-            		}
-			else 
-			{
-                		$text=$segment[1];
-            		}
-			$storeSrc = $src;
-            		$src=str_replace("\\","/",$src);
-            		$src=strrchr($src,"/"); 
-            		$src=trim(substr($src,1));
-            		$id='test';
-			if(strlen($src) > 0)
-				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$src;
-			else
-				$link = "http://localhost/chisimba_framework/app/usrfiles/content/".$contextCode."/images/".$storeSrc;
-			//echo $link."<br />";
-			$page.= "<IMG$alt src=\"$link\" $text";
-		}
-        	return $page;
-    	}
-
-	/**
+  	/**
 	 * Sets debugging on
 	 *
 	*/
