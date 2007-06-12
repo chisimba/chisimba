@@ -44,7 +44,8 @@ class washout extends object
 		try {
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			//load up all of the parsers from filters
-			chdir("core_modules/filters/classes/");
+			$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
+			chdir($filterDir);
 			$parsers = glob("parse4*_class_inc.php");
 			foreach ($parsers as $parser)
 			{
