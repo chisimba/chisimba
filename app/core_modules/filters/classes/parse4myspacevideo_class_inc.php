@@ -26,6 +26,10 @@ class parse4myspacevideo extends object
     public function parse($str)
     {
         preg_match_all('/\\[MYSPACEVID]<a.*?href="(?P<youtubelink>.*?)".*?>.*?<\/a>\\[\/MYSPACEVID]/', $str, $results, PREG_PATTERN_ORDER);
+        //Match straight URLs
+        preg_match_all('/\\[MYSPACEVID](.*?)\\[\/MYSPACEVID]/', $str, $results2, PREG_PATTERN_ORDER);
+        
+        //Get all the ones in links
         $counter = 0;
         foreach ($results[0] as $item)
         {
@@ -35,6 +39,16 @@ class parse4myspacevideo extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+        
+        //Get the ones that are straight URL links
+        $counter = 0;
+        foreach ($results2[0] as $item) {
+        	$link = $results2[1][$counter];
+            $videoId = $this->getVideoCode($link);
+            $replacement = $this->getVideoObject($videoId);
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
+    	}
         
         return $str;
     }
