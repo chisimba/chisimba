@@ -120,7 +120,7 @@ WebFXTabPane.prototype.setSelectedIndex = function ( n ) {
 			this.pages[ this.selectedIndex ].hide();
 		this.selectedIndex = n;
 		this.pages[ this.selectedIndex ].show();
-		
+		adjustLayout();
 		if ( this.useCookie )
 			WebFXTabPane.setCookie( "webfxtab_" + this.element.id, n );	// session cookie
 	}
