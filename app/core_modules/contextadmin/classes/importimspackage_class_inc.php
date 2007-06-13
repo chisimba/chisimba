@@ -60,6 +60,11 @@ class importIMSPackage extends dbTable
         	$this->objLanguage = & $this->newObject('language', 'language');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
+		//Load context classes
+        	$this->objContentPages =& $this->getObject('db_contextcontent_pages','contextcontent');
+	        $this->objContentOrder =& $this->getObject('db_contextcontent_order','contextcontent');
+        	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
+	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
 		$this->objDebug = FALSE;
 		//$this->objDebug = TRUE;
 	}
@@ -137,8 +142,7 @@ class importIMSPackage extends dbTable
 		$loadData = $this->loadToChisimba($writeData);
 		//
 		$contextCode = strtolower(str_replace(' ','_',$courseData['contextcode']));
-		$this->getImageNames($folder);
-		//$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData, $contextCode);
+ 		$rebuildHtml = $this->rebuildHtml($simpleXmlObj, $loadData, $contextCode, $folder);
 		
 		return TRUE;
 	}
@@ -450,7 +454,8 @@ class importIMSPackage extends dbTable
 				$allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
-							'file' => $file);
+							'file' => $file,
+							'objectType' => $objectType);
 			}
 		}
 		//Add all other resources to Chisimba database
@@ -544,7 +549,11 @@ class importIMSPackage extends dbTable
 					echo $fileLocation."<br />";
 				}
 				//Save all data
-				//$allData[$i] = array('resource' => $resource,'fileContents' => $fileContents, 'contextCode' => $contextCode, 'file' => $file);
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents, 
+							'contextCode' => $contextCode, 
+							'file' => $file,
+							'objectType' => $objectType);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -623,6 +632,12 @@ class importIMSPackage extends dbTable
 					echo $file."<br />";
 					echo $fileLocation."<br />";
 				}
+				//Save all data
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents,
+							'contextCode' => $contextCode,
+							'file' => $file,
+							'objectType' => $objectType);
 			}
 		$i++;
 		}
@@ -651,52 +666,16 @@ class importIMSPackage extends dbTable
 			$fileContents = $resource['fileContents'];
 			$contextCode = $resource['contextCode'];
 			$file = $resource['file'];
-			
+			$objectType = $resource['objectType'];
+			int $i = 0;
 			//Write Course to Chisimba database
-			$passPage = $this->passPage($xml, $fileContents, $contextCode);
+			if(strcmp($objectType,"Image")!=0)
+			{
+				$menutitle[$i] = $this->passPage($xml, $fileContents, $contextCode);
+				$i++;
+			}
 		}
 		return $writeData;
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
-	*/
-	function rebuildHtml($xml, $loadData, $contextCode)
-	{
-		//switch tables
-		parent::init('tbl_contextcontent_pages');
-		//Retrieve resources
-		foreach($xml->resources->resource as $resource)
-		{
-			//Retrieve page data
-			$titleid = $resource->metadata->lom->general->title->langstring;
-			$menutitle = $resource->metadata->lom->general->description->langstring;
-			if(!strlen($menutitle) > 0)
-			{
-				$menutitle = $titleid;
-			}
-			$filter = "WHERE menutitle = '$menutitle'";
-			$result = $this->getAll($filter);
-			if(count($result) > 0)
-			{
-				//Retrieve page contents
-				$fileContents = $result['0']['pagecontent'];
-				$id = $result['0']['id'];
-				//Rewrite images source in html
-				$fileContents = $this->changeImageSRC($fileContents, $contextCode, $loadData);
-				//Rewrite links source in html
-				$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $loadData);
-				//echo $fileContents;
-				//Reinsert into database
-				$update = $this->update('id', $id, array('pagecontent' => $fileContents));
-				if(!$update)
-					return FALSE;
-			}
-
-		}
-		return TRUE;
 	}
 
 	/**
@@ -727,9 +706,9 @@ class importIMSPackage extends dbTable
 				'language' => (string)$language,
 				'headerscript' => (string)$headerscript);
 		//Insert into database
-		//$writePage = $this->writePage($values, $contextCode);
+		$writePage = $this->writePage($values, $contextCode);
 		
-		return TRUE;
+		return $menutitle;
 	}
 
 	/**
@@ -741,21 +720,74 @@ class importIMSPackage extends dbTable
 	*/
 	function writePage($values, $contextCode)
 	{
-		//Load context classes
-        	$this->objContentPages =& $this->getObject('db_contextcontent_pages','contextcontent');
-	        $this->objContentOrder =& $this->getObject('db_contextcontent_order','contextcontent');
-        	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
-	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
-		//No idea!!!
-		$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
-		//Add page
-        	$titleId = $this->objContentTitles->addTitle('', 
-								$values['menutitle'], 
-								$values['content'], 
+		//duplication error needs to be fixed by Tohir
+		parent::init('tbl_contextcontent_pages');
+		$menutitle = $values['menutitle'];
+		$filter = "WHERE menutitle = '$menutitle'";
+		$result = $this->getAll($filter);
+		if(!count($result) > 0)
+		{
+			//No idea!!!
+			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
+			//Add page
+        		$titleId = $this->objContentTitles->addTitle('', 
+								$values['menutitle'],
+								$values['content'],
 								$values['language'],
 								$values['headerscript']);
-        	$pageId = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode);
+        		$pageId = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode);
+		}
 
+		return TRUE;
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	*/
+	function rebuildHtml($xml, $loadData, $contextCode, $folder)
+	{//var_dump($xml);
+		//switch tables
+		parent::init('tbl_contextcontent_pages');
+		//Retrieve resources
+		foreach($xml->resources->resource as $resource)
+		{
+			//Retrieve page data
+			$titleid = $resource->metadata->lom->general->title->langstring;
+			$menutitle = $resource->metadata->lom->general->description->langstring;
+//var_dump($resource->metadata->lom->general);
+//echo "<br />";
+//echo (string)$resource->metadata->lom->general->description->langstring."<br />";
+//echo (string)$resource->metadata->lom->general->language."<br />";
+//			if(!strlen($menutitle) > 0)
+//			{
+//				$menutitle = $titleid;
+//			}
+//echo (string)$menutitle."<br />";
+//echo (string)$titleid."<br />";
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				//Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+//echo $fileContents."<br />";
+				$id = $result['0']['id'];
+				//Rewrite images source in html
+				$page = $this->changeImageSRC($fileContents, $contextCode, $loadData, $folder);
+				//Rewrite links source in html
+				//$fileContents = $this->changeLinkUrl($fileContents, $contextCode, $loadData, $folder);
+				//echo $fileContents;
+				//Reinsert into database
+				if(strlen($page) > 1){//echo $page;
+					//$update = $this->update('id', $id, array('pagecontent' => $page));die();
+}
+				else
+					return FALSE;
+			}
+
+		}
 		return TRUE;
 	}
 
@@ -763,50 +795,62 @@ class importIMSPackage extends dbTable
     	 * Method to replace image source links with links to the blob system
 	 *
     	 * @author Kevin Cyster
-	 * Modified by Jarrett L Jordaan
+	 * @Modified by Jarrett L Jordaan
     	 * @param strong $str - the text of the page to operate on.
     	 * @param string $contextCode - course contextcode
     	 * @param string $file - 
     	 * @return string $page - the finished text
 	*/
-    	function changeImageSRC($str, $contextCode, $loadData)
-    	{
+    	function changeImageSRC($str, $contextCode, $loadData, $folder)
+    	{//echo $str."<br />";
+		//Image location on disc
 		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
-		
+		//Retrieve filenames of all resources
+		$allFiles = $this->objIEUtils->list_dir_files($folder,0);
+		//Iterate through each resource
 		foreach($loadData as $resource)
 		{
 			//Unpack data
 			$xml = $resource['resource'];
-			$fileContents = $resource['fileContents'];
+			$fileContents = $str;
 			$contextCode = $resource['contextCode'];
 			$file = $resource['file'];
-			
-			//$newLink = 'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/'.$contextCode.'/images/'.$file.'"';
-			echo $newLink;
-		}
-		//echo $newLink."<br />";
-		//$page = preg_replace('/(src=".*?")/i', $newLink, $str);
+//echo $file."<br />";
+//echo $str."<br />";
+			$objectType = $resource['objectType'];
+			foreach($allFiles as $aFile)
+			{
+				//Convert filename into regular expression
+				$regex = '/'.$aFile.'/';
 
-        	return $page;
+				//Find filename in html page if it exists
+				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+				//Check if it exists
+				if($matches)
+				{
+					//store filename
+					$fileName =  $matches['0']['0'];
+					//Check if its an image
+					if(preg_match("/.jpg|.gif|.png/",$fileName))
+					{
+						//echo $file."<br />";
+						//echo $fileName."<br />";
+						//Create new link
+						$newLink = $imageLocation.$fileName.'"';
+						//Replace old link
+						//echo $newLink."<br />";
+						$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
+
+						return $page;
+					}
+				}
+			}
+		}
+
+        	return TRUE;
     	}
-/*
-find /home -name .lastlogin -mtime +60 > /tmp/lastlogin.rpt {} \;
-cat /tmp/lastlogin.rpt awk -F: '{ print $1, $4 }' >> /tmp/lastlogin.info
-*/
-	function getImageNames($folder)
-	{
-		var_dump($folder);
-		$filenames = $this->objIEUtils->list_dir_files($folder, '0');
 
-		foreach($filenames as $filename)
-		{
-			echo $filename."<br />";
-
-		}
-		
-		return TRUE;
-	}
     	/**
     	 * Method to replace html source links with links to the blob system
 	 *
