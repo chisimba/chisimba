@@ -292,11 +292,14 @@ class DbDetailsAction extends FiveStepAction
 
             if($allowed_db['MDB2_Driver_mysql']==TRUE) {
                 $db_array['mysql'] = 'MySQL';
-            }elseif ($allowed_db['MDB2_Driver_mysqli']==TRUE) {
+            }
+            if ($allowed_db['MDB2_Driver_mysqli']==TRUE) {
                 $db_array['mysqli'] = 'MySQLi';
-            }elseif($allowed_db['MDB2_Driver_pgsql']==TRUE) {
+            }
+            if($allowed_db['MDB2_Driver_pgsql']==TRUE) {
                 $db_array['pgsql'] = 'PostgreSQL';
-            }else{
+            }
+            if(empty($db_array)){
                 $db_array[''] = 'No available DB extensions';
               
             }

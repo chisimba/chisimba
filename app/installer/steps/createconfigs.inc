@@ -223,6 +223,7 @@ class CreateConfigsAction extends FiveStepAction
                 // Filter out unwanted double or triple slashes
                 $finalurl=str_replace('///','//','http://'.str_replace('//','/',$root_url.'/') );
 
+                /*
                 // Last minute sanity-check 
                 // If it says "localhost" it becomes a relative URL
                 // Same if there's no server-name 
@@ -231,6 +232,7 @@ class CreateConfigsAction extends FiveStepAction
                     $finalurl=str_replace('http://localhost','',$finalurl);
                     $finalurl=str_replace('http://','',$finalurl);
                 }
+                */
 
 		//$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
 		$this->_addConfigVar('KEWL_SITE_ROOT', $finalurl);
@@ -330,7 +332,7 @@ class CreateConfigsAction extends FiveStepAction
 			$ksr = str_replace('/index.php','',$ksr);
 			$ksr = str_replace('app//','app/',$ksr);
                         // remove localhost
-			$ksr = str_replace('http://localhost','',$ksr);
+			//$ksr = str_replace('http://localhost','',$ksr);
 		}
 		ob_start();
 

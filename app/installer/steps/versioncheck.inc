@@ -405,7 +405,10 @@ class PHPCheckAction extends StepAction
         
         // check mysqlclient
 
-
+        $_SESSION['allowed_db'] = Array(
+                                    'MDB2_Driver_mysql' => FALSE,
+                                    'MDB2_Driver_pgsql' => FALSE,
+                                    'MDB2_Driver_mysqli' => FALSE);
 
         if (!function_exists('mysql_get_client_info')) {
 
@@ -415,10 +418,8 @@ class PHPCheckAction extends StepAction
 
             $this->errors[] = '<span class="errors">mysqlclient not found.You can proceed with the install, however some functionality will not be available to you</span>';
 
-			 $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_mysql' => FALSE,
-                                    'MDB2_Driver_pgsql' => FALSE,
-                                    'MDB2_Driver_mysqli' => FALSE);
+			 $_SESSION['allowed_db']['MDB2_Driver_mysql'] = FALSE;
+			 $_SESSION['allowed_db']['MDB2_Driver_mysqli'] = FALSE;
 
         } else {
 
@@ -431,16 +432,12 @@ class PHPCheckAction extends StepAction
                 $this->required_settings['mysqlclient']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
                 $this->errors[] = '<span class="errors">mysqlclient is not meeting System requirements. You need to upgrade this extension</span>';
-                 $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_mysql' => FALSE,
-                                    'MDB2_Driver_pgsql' => FALSE,
-                                    'MDB2_Driver_mysqli' => FALSE);
+                $_SESSION['allowed_db']['MDB2_Driver_mysql'] = FALSE;
+                $_SESSION['allowed_db']['MDB2_Driver_mysqli'] = FALSE;
 
             }
-			 $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_mysql' => TRUE,
-                                    'MDB2_Driver_pgsql' => FALSE,
-                                    'MDB2_Driver_mysqli' => TRUE);
+            $_SESSION['allowed_db']['MDB2_Driver_mysql'] = TRUE;
+            $_SESSION['allowed_db']['MDB2_Driver_mysqli'] = TRUE;
                                     	
             $this->required_settings['mysqlclient']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
@@ -455,18 +452,14 @@ class PHPCheckAction extends StepAction
             $this->required_settings['pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
 
             $this->errors[] = '<span class="errors">pgsql not found. You can proceed with the install, however some functionality will not be available to you</span>';
-             $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_pgsql' => FALSE,
-                                    );
 
         } else {
-        	
-        	 $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_pgsql' => TRUE,
-                                    );
+        	$_SESSION['allowed_db']['MDB2_Driver_pgsql'] = TRUE;
             $this->required_settings['pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
         }
+        
+        
     //setup the chisimba PEAR PATH
     $_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path']: $_SESSION['sys_root']."lib/pear/";
 	

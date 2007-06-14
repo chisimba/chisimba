@@ -396,13 +396,17 @@ class RootUserAction extends StepAction
 			$ksr = str_replace('http://','',$ksr);
 			//$ksr = str_replace('localhost','',$ksr);
 		}
+		
+		
 		$this_url = $ksr;
-                $this_server=$urlarray['host'];
-		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
+        $this_server = $_SERVER['HTTP_HOST']; //$urlarray['host'];
+		
+		// $this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
 
-		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'modules/';
+		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'core_modules/';
+
 
 		ob_start();
 
