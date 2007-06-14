@@ -69,7 +69,7 @@ class blocks extends object
     * @param string $blockType The type of block (e.g. tabbed box)
     *
     */
-    public function showBlock($block, $module, $blockType=NULL, $titleLength=20, $wrapStr = TRUE, $showToggle = TRUE)
+    public function showBlock($block, $module, $blockType=NULL, $titleLength=20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default')
     {
         if ($this->objModule->checkIfRegistered($module, $module)){
             //Create an instance of the module's particular block
@@ -87,9 +87,9 @@ class blocks extends object
                 case NULL:
                 	$objFeatureBox = & $this->newObject('featurebox', 'navigation');
                 	if($showToggle){
-                	   return $objFeatureBox->show($title, $objBlock->show(),$block, 'default', TRUE);
+                	   return $objFeatureBox->show($title, $objBlock->show(),$block, $hidden, TRUE);
                 	}else{
-                	   return $objFeatureBox->show($title, $objBlock->show(),$block, 'default', FALSE);
+                	   return $objFeatureBox->show($title, $objBlock->show(),$block, $hidden, FALSE);
                     }
                 case "tabbedbox":
                     //Put it all inside a tabbed box
