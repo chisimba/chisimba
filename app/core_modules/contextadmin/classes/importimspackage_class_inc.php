@@ -667,7 +667,7 @@ class importIMSPackage extends dbTable
 			$contextCode = $resource['contextCode'];
 			$file = $resource['file'];
 			$objectType = $resource['objectType'];
-			int $i = 0;
+			int ($i = 0);
 			//Write Course to Chisimba database
 			if(strcmp($objectType,"Image")!=0)
 			{
