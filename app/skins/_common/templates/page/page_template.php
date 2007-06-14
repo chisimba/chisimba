@@ -137,7 +137,7 @@ if (!isset($pageTitle)) {
                 </span>
             </h1>
 <?php 	 
-        if ($objUser->isLoggedIn() && !isset($pageSuppressSearch)) {
+        if (!isset($pageSuppressSearch)) {
         	
         	echo $objSkin->siteSearchBox();
 

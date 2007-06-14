@@ -182,11 +182,13 @@ $pno = $pageno+1;
 		{
 			if ( @is_object($arrResults[$indx + $i]))
 			{
+				$url = $arrResults[$indx + $i]->url;
+				$url = str_replace('&amp;', '&', $url);
 				$str .='
 
 						<li>
 							<dl>
-								<dt>'. ($indx + $i + 1) .' . <a href="'.$arrResults[$indx + $i]->url.'"> '.$arrResults[$indx + $i]->title.'</a></dt>
+								<dt>'. ($indx + $i + 1) .' . <a href="'.$url.'"> '.$arrResults[$indx + $i]->title.'</a></dt>
 								<!--<dd class="desc">/*.$arrResults[$indx + $i]->teaser.*/</dd-->
 								<dd class="filetype">HTML</dd>
 								<dd class="date">'.$arrResults[$indx + $i]->date.'</dd>
