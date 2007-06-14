@@ -12,9 +12,9 @@ if($this->getParam('query') != '')
 {
 	$objLucene = & $this->newObject('results', 'lucene');
 	$searchResults = $objLucene->show($this->getParam('query'));
-	//echo $searchResults; die();
+	// echo $searchResults; die();
 	$searchResults = str_replace('&','&amp;', $searchResults);
-	$this->setVarByRef('searchresults', $searchResults);
+	$this->setVarByRef('searchResults', $searchResults);
 	$output = $searchResults;
 	
 	

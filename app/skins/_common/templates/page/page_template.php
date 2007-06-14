@@ -137,16 +137,10 @@ if (!isset($pageTitle)) {
                 </span>
             </h1>
 <?php 	 
-        if ($objUser->isLoggedIn() && !isset($pageSuppressSearch)) { 
-?>
-            <div id="search">
-    	   		<form action="">
-	       			<label for="searchsite">Site Search:</label>
-		  	       	<input id="searchsite" name="query" type="text" />
-		      		<input type="submit" value="Go" class="f-submit" />
-                </form>
-            </div>
-<?php
+        if ($objUser->isLoggedIn() && !isset($pageSuppressSearch)) {
+        	
+        	echo $objSkin->siteSearchBox();
+
         }
         if (!isset($pageSuppressToolbar)) {
             //$menu= $this->getObject('menu','toolbar');
@@ -159,6 +153,7 @@ if (!isset($pageTitle)) {
     }
     // get content
     echo $this->getLayoutContent();
+    
     if (!isset($suppressFooter)) {
          // Create the bottom template area
         $this->footerNav = & $this->newObject('layer', 'htmlelements');
