@@ -141,7 +141,7 @@ class lucene extends controller
 					// echo $searchResults; die();
 					$searchResults = str_replace('&','&amp;', $searchResults);
 					$this->setVarByRef('searchResults', $searchResults);
-					echo $searchResults; die();
+					return 'searchresults_tpl.php';
 	        }
 		}
 		catch (customException $e){
