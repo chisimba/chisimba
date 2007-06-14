@@ -456,16 +456,14 @@ class PHPCheckAction extends StepAction
 
             $this->errors[] = '<span class="errors">pgsql not found. You can proceed with the install, however some functionality will not be available to you</span>';
              $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_mysql' => FALSE,
                                     'MDB2_Driver_pgsql' => FALSE,
-                                    'MDB2_Driver_mysqli' => FALSE);
+                                    );
 
         } else {
         	
         	 $_SESSION['allowed_db'] = Array(
-                                    'MDB2_Driver_mysql' => FALSE,
                                     'MDB2_Driver_pgsql' => TRUE,
-                                    'MDB2_Driver_mysqli' => FALSE);
+                                    );
             $this->required_settings['pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
         }
