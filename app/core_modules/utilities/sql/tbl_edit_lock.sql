@@ -14,6 +14,11 @@ $fields = array(
 		'length' => 32,
 		'notnull' => 1
 		),
+	'table_name' => array(
+		'type' => 'text',
+		'length' => 100,
+		'notnull' => 1
+		),
 	'rowid' => array(
 		'type' => 'text',
 		'length' => 32,
