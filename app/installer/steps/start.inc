@@ -57,8 +57,8 @@ class Start extends Step
 		$this->step_logo = 'licence_logo.png';
 
 		$this->title_logo = '';
-
-		$this->actions[] =& new StartAction(get_class($this));
+		$this->help_topic = 'toc1';
+		$this->actions[] = new StartAction(get_class($this));
 
 		$this->step_help = "Welcome to the Chisimba installer. This installer is designed to help you configure a fresh download of Chisimba, and install necessary data into the system. If at any time during installation you require help with an item, click the nearest help  icon. This will direct you to the Chisimba website with the latest information about the selected topic.";
 

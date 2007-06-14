@@ -58,11 +58,11 @@ class DatabasePopulate extends Step
 
 	{
 
-		$this->actions[] =& new DbPopulateAction(get_class($this));
+		$this->actions[] = new DbPopulateAction(get_class($this));
 
 		$this->step_title = 'Populate Database Tables';
 
-		$this->conf_required = true;
+		$this->conf_required = false;
 
 		$this->title_logo = 'populate_database_tables.gif';
 

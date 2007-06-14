@@ -57,15 +57,15 @@ class DatabaseCreate extends Step
 
 	{
 
-		$this->actions[] =& new DbCreateAction(get_class($this));
+		$this->actions[] = new DbCreateAction(get_class($this));
 
 		$this->step_title = 'Create Database Tables';
 
-		$this->conf_required = true;
+		$this->conf_required = false;
 
 		$this->title_logo = 'create_database_tables.gif';
 
-		$this->help_topic = 'create_database_tables';
+		$this->help_topic = 'toc11';
 
 		$this->can_cancel = false;
 
@@ -226,7 +226,7 @@ class DbCreateAction extends StepAction
 	$output = '';
 	foreach($defaults as $default)
 	{
-		ob_start();
+		
 		$xmlfile = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].$default : false;
 		//echo $xmlfile;
 		if(is_file($xmlfile))
@@ -259,7 +259,7 @@ class DbCreateAction extends StepAction
 		}
 
 	}
-		ob_end_clean();
+		
 		return true;
 	}//end processAction()
 
@@ -301,12 +301,12 @@ class DbCreateAction extends StepAction
 
 	     		if (is_file($sqlfile)) {
 	     			$handler = new DbHandler();
-					$conn = &$handler->getDbHandler($_SESSION['dsn']);
-
+	     			$conn = &$handler->getDbHandler($_SESSION['dsn']);
+					
 					include_once($sqlfile);
 					$tablecreatereturn = $conn->createTables($tablename,$fields,$options);
 					//echo $tablecreatereturn;
-        			if (!$tablecreatereturn) {
+        			if ($tablecreatereturn ==false) {
         				$this->errors[] = 'Could not create table'.$tablename;
         			}
 					if(!isset($indexes))

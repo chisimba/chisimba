@@ -49,9 +49,7 @@ class CreateConfigs extends Step
 
 
 
-		$this->actions[] =& new CreateConfigsAction(get_class($this));
-
-
+		$this->actions[] = new CreateConfigsAction(get_class($this));
 
 		$this->step_title = 'Create System Configuration ';
 
@@ -59,7 +57,7 @@ class CreateConfigs extends Step
 
 		$this->title_logo = 'create_system_config.gif';
 
-		$this->help_topic = 'create_system_config';
+		$this->help_topic = 'toc10';
 
 		$this->can_cancel = false;
 
@@ -378,7 +376,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			//$this->_addConfigVar('KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php');
 
-			//$this->_addConfigVar('KEWL_TEMPLATE_PATH', $_SESSION['sys_root'].'/templates/');
+			$this->_addConfigVar('KEWL_PEAR_PATH',  $_SESSION['pear_path']);
 
 			$this->_addConfigVar('KEWL_CONTENT_BASEPATH', $_SESSION['contentPath']);
 
@@ -578,41 +576,12 @@ class CreateConfigsAction extends FiveStepAction
 		}
 
 
-
-		//$this->_addConfigVar('KEWL_DB_DSN', $dsn);
-
-
-
-		// check the secondary database connector.
-
-		$dsn2 = isset($_SESSION['dsn2']) ? $_SESSION['dsn2'] : false;
-
-
-
-		if ($dsn2 === false) {
-
-			$this->errors[] = 'Secondary DSN was not set correctly';
-
-			return false;
-
-		}
-
-
-
-		if (!$this->_testDSN($dsn2)) {
-
-			return false;
-
-		}
-
-
 		//add the two dsn's to a php file, not the config file
 		//create a file to store the info as a heredoc
 
 		$str = <<<EOD
 <?php
 	define('KEWL_DB_DSN','{$dsn}');
-	define('KEWL_DB2_DSN','{$dsn2}');
 ?>
 EOD;
 

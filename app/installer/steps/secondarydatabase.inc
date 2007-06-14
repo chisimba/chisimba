@@ -42,7 +42,7 @@ class SecondaryDatabase extends Step
 
 	{
 
-		$this->actions[] =& new SecondaryDatabaseAction(get_class($this));
+		$this->actions[] = new SecondaryDatabaseAction(get_class($this));
 
 		$this->step_title = 'Secondary User';
 

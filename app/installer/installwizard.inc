@@ -14,7 +14,7 @@ require_once dirname(__FILE__).'/wizard.inc';
 require_once dirname(__FILE__).'/domtt/domtt_class_inc.php';
 
 
-define('HELP_URL', 'http://cvs2.uwc.ac.za');
+define('HELP_URL', 'http://avoir.uwc.ac.za/avoir/index.php?module=wiki&action=wikilink&pagename=ChisimbaInstallWalkthrough');
 
 
 
@@ -82,16 +82,10 @@ class InstallWizard extends Wizard
 							 'systemdetails',
 
 							 'versioncheck',
-
-							 'setuptype',
-
+						
 							 'databasedetails',
 
 							 'databasename',
-
-							 'secondarydatabase',
-
-							 'secondarydetails',
 
 							 'createconfigs',
 
@@ -106,10 +100,6 @@ class InstallWizard extends Wizard
 		$this->protected_steps = Array('databasedetails',
 
 										'databasename',
-
-										'secondarydatabase',
-
-										'secondarydetails',
 
 										'systemsetup',
 
@@ -143,7 +133,7 @@ class InstallWizard extends Wizard
 
 	*/
 
-	public function _startSession()
+	protected function _startSession()
 
 	{
 
@@ -475,7 +465,7 @@ class InstallWizard extends Wizard
 
 		$this->template->set('current_step', $this->step_number);
 
-		$this->template->set('help_url', 'http://cvs.uwc.ac.za/'.$this->active_step->help_topic);
+		$this->template->set('help_url', 'http://avoir.uwc.ac.za/avoir/index.php?module=wiki&action=wikilink&pagename=ChisimbaInstallWalkthrough#'.$this->active_step->help_topic);
 
 		$this->template->set('title_logo', $this->active_step->title_logo);
 

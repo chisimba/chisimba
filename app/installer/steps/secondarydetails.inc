@@ -60,7 +60,7 @@ class SecondaryDetails extends Step
 
 	{
 
-		$this->actions[] =& new DbSecondUser(get_class($this), 'db2_');
+		$this->actions[] = new DbSecondUser(get_class($this), 'db2_');
 
 		
 

@@ -2,7 +2,7 @@ body {
 	background-color:	#FFFFFF;
 	font-weight:		normal;
 	color:			#666666;
-	font-size:		11px;
+	font-size:		15px;
 	font-family:		Arial, Verdana, Helvetica, san-serif;
 
 }
@@ -29,6 +29,13 @@ h3, .heading {
 	font-family:		Arial, Verdana, Helvetica, san-serif;
 }
 
+h4, .topheader {
+    font-weight:		bold;
+	color:			#49ACD7;
+	font-size:		14px;
+	font-family:		Arial, Verdana, Helvetica, san-serif;
+
+}
 a {
 	color:			#666666;
 	font-size:		11px;
@@ -69,6 +76,20 @@ a:hover {
 	color: red; 
 	font-size: 10px;
 	margin-top: 10px;
+}
+
+.errors {
+	font-family: Tahoma;
+	color: red; 
+	font-size: 14px;
+	margin-top: 14px;
+}
+
+.success {
+	font-family: Tahoma;
+	color: green; 
+	font-size: 13px;
+	margin-top: 13px;
 }
 
 #step_title {

@@ -51,7 +51,7 @@ class DatabaseDetails extends Step
 
 	{
 
-		$this->actions[] =& new DbDetailsAction(get_class($this));
+		$this->actions[] = new DbDetailsAction(get_class($this));
 
 
 
@@ -59,7 +59,7 @@ class DatabaseDetails extends Step
 
 		$this->title_logo = 'database_details.gif';
 
-		$this->help_topic = 'database_details';
+		$this->help_topic = 'toc6';
 
 		$this->step_help = "Select the type of database you want to use<p/> The default username is normally \'root\'";
 
@@ -286,42 +286,24 @@ class DbDetailsAction extends FiveStepAction
 
 		ob_start();
 
-            $allowed_db = $_SESSION['allowed_db'];
-
+            $allowed_db = isset($_SESSION['allowed_db'])? $_SESSION['allowed_db']:NULL;
+		
             $db_array = array();
 
-            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
+            if($allowed_db['MDB2_Driver_mysql']==TRUE) {
                 $db_array['mysql'] = 'MySQL';
-            }
-
-            if(in_array('MDB2_Driver_mysqli',$allowed_db)) {
+            }elseif ($allowed_db['MDB2_Driver_mysqli']==TRUE) {
                 $db_array['mysqli'] = 'MySQLi';
-            }
-
-            if(in_array('MDB2_Driver_pgsql',$allowed_db)) {
+            }elseif($allowed_db['MDB2_Driver_pgsql']==TRUE) {
                 $db_array['pgsql'] = 'PostgreSQL';
-            }
-/*
-            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
-                $db_array['sqlite'] = 'SQLite';
+            }else{
+                $db_array[''] = 'No available DB extensions';
+              
             }
 
-            if(in_array('MDB2_Driver_mysql',$allowed_db)) {
-                $db_array['oracle8i'] = 'Oracle8';
-            }
-*/
             combo_box($this->db_prefix.'type',
 
                     $db_array, false,
-/*
-					 array(	'mysqli' => 'MySQLi',
-					 		'mysql'=>'MySQL',
-					 		'pgsql'  => 'PostgreSQL',
-    						//'sqlite' => 'SQLite',
-    						//'oracle8i'=> 'Oracle8'
-    						),false,
-*/
-
 					Array(isset($_SESSION[$this->db_prefix.'type'])?$_SESSION[$this->db_prefix.'type']:''));
 
 			$cmb = ob_get_contents();

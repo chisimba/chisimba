@@ -1,7 +1,5 @@
 <?php
 
-require_once 'MDB2.php';
-
 require_once INSTALL_DIR.'/dbhandlers/dbhandlermanager.inc';
 
 
@@ -96,11 +94,16 @@ class DbHandler extends dbHandlermanager
 
 			$this->_objDbConfig = $_SESSION['dsn'];
 			// Connect to the database
-            require_once 'MDB2.php';
+			if (!class_exists('MDB2.php', true)) {
+			
+			  require_once 'MDB2.php';
+
+			}
+          
             //MDB2 has a factory method, so lets use it now...
             //echo $_SESSION['dsn'];
             $this->_globalObjDb = &MDB2::connect($_SESSION['dsn']);
-          //  var_dump($this->_globalObjDb);
+            //var_dump($this->_globalObjDb);
 
             if (PEAR::isError($this->_globalObjDb)) {
                 echo $this->_pearErrorCallback($this->_globalObjDb);
@@ -121,8 +124,12 @@ class DbHandler extends dbHandlermanager
             $this->_globalObjDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE);
             $this->_globalObjDb->setOption('portability', MDB2_PORTABILITY_ALL);
 			$_SESSION['DbObj'] =  $this->_globalObjDb;
-		 	require_once 'MDB2/Schema.php';
-            //MDB2 has a factory method, so lets use it now...
+			if (!class_exists('MDB2/Schema.php', true)) {
+			
+			  require_once'MDB2/Schema.php';
+
+			}
+		    //MDB2 has a factory method, so lets use it now...
              $this->_globalObjDbManager = &MDB2_Schema::connect($_SESSION['dsn']);
              if (PEAR::isError($this->_globalObjDbManager)) {
              	echo $this->_globalObjDbManager->getMessage();
@@ -236,7 +243,8 @@ class DbHandler extends dbHandlermanager
 		try {
 
 			$ret = $this->dbmanager->createTable($tablename, $fields, $options);
-			if (!$ret) {
+		
+			if ($ret==FALSE) {
 
 	        		throw new Exception('Error while creating table');
 	   		}

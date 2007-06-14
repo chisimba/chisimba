@@ -6,7 +6,7 @@
 
 require_once INSTALL_DIR.'/step.inc';
 
-
+define('PEAR_DIR',  INSTALL_DIR.'/lib/pear');
 
 require_once INSTALL_DIR.'/5ivestepaction.inc';
 
@@ -52,13 +52,13 @@ class DatabaseName extends Step
 
 	{
 
-		$this->actions[] =& new DbNameAction(get_class($this));
+		$this->actions[] = new DbNameAction(get_class($this));
 
 		$this->step_title = 'Database Name';
 
 		$this->title_logo = 'database_name.gif';
 
-		$this->help_topic = 'database_name';
+		$this->help_topic = 'toc7';
 
 		$this->step_help = "Select a name for your new database";
 
@@ -165,7 +165,7 @@ class DbNameAction extends FiveStepAction
 		$_SESSION[$this->db_prefix.'name'] = isset($_POST[$this->db_prefix.'name']) ? trim($_POST[$this->db_prefix.'name']) : '';
 
 		$_SESSION['create_db'] = isset($_POST['create_db']) ? true : false;
-
+		$_SESSION['install_type'] = 'install';
 
 
 		if ($_SESSION[$this->db_prefix.'name'] == '') {
@@ -213,18 +213,7 @@ class DbNameAction extends FiveStepAction
 
 					}
 
-				$conn = &$handler->getDbHandler($dsn);
-
-				if (PEAR::isError($conn)) {
-
-					$this->errors[] = 'Could not get database handler for dsn '.$dsn;
-
-					$this->success = false;
-
-					return false;
-
-				}
-
+				
 
 		} else {
 
@@ -234,7 +223,8 @@ class DbNameAction extends FiveStepAction
 
 			$conn = &$handler->getDbHandler($dsn);
 
-                        $result=$conn->checkConnection($_SESSION[$this->db_prefix.'name']);
+             $result=$conn->checkConnection($_SESSION[$this->db_prefix.'name']);
+             
 				if ($result!=TRUE) {
 					$this->errors[] = 'Could not connect to database using the dsn '.$dsn.' This means that either the database does not exist, or the username and password you supplied are incorrect. Please create the database or check database create';
 					$dsn = $_SESSION['short_dsn'];
@@ -249,7 +239,7 @@ class DbNameAction extends FiveStepAction
 			// should the tables be created
 
 			$num_tables = $handler->getNumberOfTables();
-
+			
 			if ($conn->success==FALSE) {
 
 				$this->errors[] = 'The installer was unable to check if your system currently has db tables created. '.
@@ -278,7 +268,7 @@ class DbNameAction extends FiveStepAction
 		}
 
 		// so if after all this success is true, can set the dsn to being short_dsn.db_name
-
+		
 		if ($this->success) {
 
 			$_SESSION['dsn'] = $_SESSION['short_dsn'].$_SESSION[$this->db_prefix.'name'];
@@ -368,13 +358,13 @@ class DbNameAction extends FiveStepAction
 		$dbs_old = $handler->listDatabases();
 		$success = $handler->createDb($db_name);
 		$dbs_new = $handler->listDatabases();
-		//print_r($dbs);
+		
 		if (!$success) {
 			if ((!in_array($db_name,$dbs_old)) && (in_array($db_name,$dbs_new))) {
 				$success = true;
 			}
 		}
-
+       
 		return $success;
 
 	}//end _emptyDatabase()

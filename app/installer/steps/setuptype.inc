@@ -62,7 +62,7 @@ class SetupType extends Step
 
 	{
 
-		$this->actions[] =& new SetupTypeAction(get_class($this));
+		$this->actions[] = new SetupTypeAction(get_class($this));
 
 		$this->step_title = 'Setup Type';
 

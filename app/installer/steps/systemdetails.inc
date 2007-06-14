@@ -72,7 +72,7 @@ class SystemDetails extends Step
 
 	{
 
-		$this->actions[] =& new RootUserAction(get_class($this));
+		$this->actions[] = new RootUserAction(get_class($this));
 
 
 
@@ -80,13 +80,11 @@ class SystemDetails extends Step
 
 		$this->conf_required = true;
 
-
-
 		$this->step_title = 'System Details';
 
 		$this->title_logo = 'system_details.gif';
 
-		$this->help_topic = 'system_details';
+		$this->help_topic = 'toc3';
 
 		$this->step_help = "The Installer will now setup your system details. Please refer to the help for more info on each section,";
 

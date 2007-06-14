@@ -27,12 +27,12 @@ class Licence extends Step
 	function Licence() 
 	{
 		
-		$this->actions[] =& new LicenceAction(get_class($this));
+		$this->actions[] = new LicenceAction(get_class($this));
 		
 		$this->step_title = 'Licence Agreement';
 		$this->auth_required = false;
 		$this->title_logo = 'licence_agreement.gif';
-		$this->help_topic = 'licence_agreement';
+		$this->help_topic = 'toc2';
 		$this->step_help = "Please read the licence agreement and click the next button";
 		
 	}//end Licence()

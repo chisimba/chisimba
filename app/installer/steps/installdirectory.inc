@@ -66,7 +66,7 @@ class InstallDirectory extends Step
 
 	{
 
-		$this->actions[] =& new InstallDirectoryAction(get_class($this));
+		$this->actions[] = new InstallDirectoryAction(get_class($this));
 
 
 
@@ -78,10 +78,10 @@ class InstallDirectory extends Step
 
 		$this->title_logo = 'system_root.gif';
 
-		$this->help_topic = 'system_root';
+		$this->help_topic = 'toc3';
 
-		$this->step_help = "Enter the path where you want Chisimba to be installed";
-
+		$this->step_help = "Enter the path for your Chisimba home directory.";
+		$this->step_help .= "This is usually detected for you by the system, however you can now change it to point elsewhere. ";
 
 
 	}//end InstallDirectory()
@@ -161,19 +161,6 @@ class InstallDirectoryAction extends StepAction
 			$this->success = false;
 			return false;
 		}
-
-		if ($module_path === false || $module_path == '') {
-			$this->errors[] = 'You must set a value for the location of the modules';
-			$this->success = false;
-			return false;
-		}
-
-		if ($module_URI === false || $module_URI == '') {
-			$this->errors[] = 'You must specify the URI for the modules';
-			$this->success = false;
-			return false;
-		}
-
 
 		// change windows \ characters to / separators
 
@@ -311,13 +298,6 @@ class InstallDirectoryAction extends StepAction
 			return false;
 		}
 
-		if (isset($_SESSION['module_path']) && is_dir($_SESSION['module_path'])) {
-			return false;
-		}
-
-		if (isset($_SESSION['module_URI'])) {
-			return false;
-		}
 		return true;
 
 
@@ -576,16 +556,16 @@ class InstallDirectoryAction extends StepAction
                     
                     $newmodulepath=$_SESSION['module_path'];
                     
-                } else if (file_exists($abspath.'/modules/chisimba_modules.txt')){
+                } else if (file_exists($abspath.'/core_modules/chisimba_modules.txt')){
                     
-                    $newmodulepath=$abspath.'/modules/';
+                    $newmodulepath=$abspath.'/core_modules/';
                     
                 } else if (is_dir($guess)){
                     
                     $newmodulepath=$guess;
                     
                 } else {
-                    $newmodulepath=$abspath.'/modules/';
+                    $newmodulepath=$abspath.'/core_modules/';
                     $this->errors[]="The default value for the module path is supplied, be sure to check that this is accurate!";
                 }
                 // module URI
@@ -609,31 +589,25 @@ class InstallDirectoryAction extends StepAction
 		ob_start();
         if (PHP_OS=="WIN32" || PHP_OS=='WINNT'){
 			echo '<input type="text" id="sys_root" name="sys_root"
-				value="'.$abspath.'\" size="50"  class="sq-form-field" />';
+				value="'.$abspath.'\" size="60"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'\" size="50"  class="sq-form-field" />';
-                                $box3 = '<input type="text" id="module_URI" name="module_URI"'
-                                .'value="'.$module_URI.'\" size="50"  class="sq-form-field" />';
+           
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'" size="50"  class="sq-form-field" />';
-                                $box3 = '<input type="text" id="module_URI" name="module_URI"'
-                                .'value="'.$module_URI.'" size="50"  class="sq-form-field" />';
+                         
         }
 		ob_end_clean();
 
 
 
 		$tpl->set('install_box',$box);
-		$tpl->set('module_path',$box2);
-		$tpl->set('module_URI',$box3);
-
-
-
+	
 		echo $tpl->fetch();
 
 
@@ -661,10 +635,7 @@ class InstallDirectoryAction extends StepAction
 	{
 
 		echo '<p>System Root has been set to '.$_SESSION['sys_root'].'</p>';
-		echo '<p>Module path has been set to '.$_SESSION['module_path'].'</p>';
-		echo '<p>Module URL has been set to '.$_SESSION['module_URI'].'</p>';
-                Print "<b>If any of these are incorrect, the system will not run correctly. Check carefully before proceeding.</b><br />\n";
-
+		
 	}//end confirmAction()
 
 

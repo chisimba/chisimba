@@ -7,7 +7,16 @@
 
         <title>Chisimba | Install : <?php echo $title; ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <link rel="stylesheet" type="text/css" href="../skins/echo/main.css" media="screen" />
+        <style type="text/css" media="screen">
+            <!-- @import url("<?php echo $extras;?>/screen.css"); -->
+
+            <!-- Override the complete steps styles -->
+            <?php
+            	
+            ?>
+           
+        </style>
+      
         <link rel="stylesheet" type="text/css" href="./domtt/example.css" />
         <link rel="stylesheet" type="text/css" href="../skins/echo/print.css" media="print" />
          <link rel="stylesheet" type="text/css" href="<?php echo $extras;?>/secondary.css" media="screen" />
@@ -16,7 +25,7 @@
 		<script type="text/javascript" language="javascript" src="domtt/domLib.js"></script>
         <script type="text/javascript" language="javascript" src="domtt/fadomatic.js"></script>
         <script type="text/javascript" language="javascript" src="domtt/domTT.js"></script>
-        <script type="text/javascript" src="../skins/echo/js/common.js"></script>
+      
         <script>
             var domTT_styleClass = 'domTTOverlib';
             var domTT_oneOnly = true;
@@ -93,33 +102,41 @@
         </script>
     </head>
 
-    <body id="type-a">
+    <body>
 	
-	   <div id="wrap">
-    	
-            <div id="header">
-                <a href="http://avoir.uwc.ac.za/">
-    			<!--img id="kng_logo" src="<?php echo $extras;?>/largebanner.jpg" alt="KNG logo" title="KNG" width="550" height="80" border="0" /-->
-    			<!--img id="kng_logo_rotate" style="display: none" src="<?php echo $extras;?>/smallbanner.jpg" alt="FSIU logo" title="FSIU" width="416" height="45" border="0" /-->
-    			     <div id="site-name">Chisimba</div>
-    			</a>
-            </div> <!-- header div -->
-            
-            <div id="content-wrap">
-	
-		          <div id="content">
-                    <div class="featurebox">
-                    <h2> <?php echo $title;?></h2>
-                                     
-               
+	  <center>
+	<div id="install_container">
+        <div id="logo">
+            <a href="http://avoir.uwc.ac.za/" target="_blank">
+			<img id="kng_logo" src="<?php echo $extras;?>/largebanner.jpg" alt="KNG logo" title="KNG" width="550" height="80" border="0" />
+			<img id="kng_logo_rotate" style="display: none" src="<?php echo $extras;?>/smallbanner.jpg" alt="FSIU logo" title="FSIU" width="416" height="45" border="0" />
+			
+			</a>
+        </div>
+        
+        <div id="topnav">
+        <br>
+		 <img id="5ive" src="<?php echo $extras;?>/5ive.gif" alt="5ive Installer" />
+       <br> 
+	   </div>
+        
+              
+        <div id="quicklinks">
+            <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; background: url(<?php echo $extras;?>/2ndbar_back.gif) repeat-x;">
+                 <tr>
+                    <td style="background: url(<?php echo $extras;?>/2ndbar_left.gif) no-repeat" width="10%"></td>
+                    <td style="width: 100%; text-align: right;"><img src="<?php echo $extras;?>/2ndbar_back.gif" title="" alt="" border="0" width="249" height="24" /></td>
+					<td style="width: 2px; text-align: right;"><img src="<?php echo $extras;?>/2ndbar_right.gif" border="0" /></td>
+                </tr>
+            </table>
+        </div>
         		<div id="install_status">
         			<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
                          <tr>
                            <td>
                            </td>           
                             <td style="width: 100%; text-align: right;">
-        						<!--a href="<?php echo $help_url;?>" target="_blank">wes<img src="<?php echo $extras;?>/yellow_help_off.png" border="0" alt="Help" title="Help"  /></a-->
-        						<?php echo $help; ?> 
+        						<a href="<?php echo $help_url;?>" target="_blank"><img src="<?php echo $extras;?>/yellow_help_off.png" border="0" alt="Help" title="Help"  /></a>
         						
         						</td>
                         </tr>
@@ -160,12 +177,12 @@
         			<form name="wizardform" onsubmit="return do_working();" action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
         			<input type="hidden" name="current_step" value="<?php echo $current_step;?>" />
         				
-        				<p class="subdued">
-        					<?php echo $step_details ?>
-        					</p>
-        				
-        				
-        				
+        			<div id="step_title">
+					<img src="<?php echo $extras;?>/<?php echo $title_logo;?>" border="0"  alt="" />
+				   </div>
+				   <div id="install_details">
+					<?php echo $step_details ?>
+				</div>
         				<div class="error">
         					<?php echo $error ?>
         				</div>
@@ -193,11 +210,18 @@
         			</form>
         		</div>
 		
-             </div>
-         </div> <!-- content div -->
-        </div> <!-- content-wrap div -->
-	</div> <!-- wrap div -->
-	
-    </body>
+           <div id="footer">
+            <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; background: url(<?php echo $extras;?>/2ndbar_back.gif) repeat-x;">
+                 <tr>
+                    <td style="background: url(<?php echo $extras;?>/2ndbar_left.gif) no-repeat" width="10%"></td>
+                    <td style="width: 100%; text-align: right;"><img src="<?php echo $extras;?>/2ndbar_back.gif" title="" alt="" border="0" width="249" height="24" /></td>
+					<td style="width: 2px; text-align: right;"><img src="<?php echo $extras;?>/2ndbar_right.gif" border="0" /></td>
+                </tr>
+            </table>
+        </div>
+	</div>
+	</center>
+</body>
 </html>
+
 

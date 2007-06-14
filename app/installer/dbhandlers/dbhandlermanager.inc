@@ -19,7 +19,7 @@
 
 //lets check to see if the Var_Dump PEAR object exists for debugging,
 //else we just use plain 'ol var_dump
-@include_once 'Var_Dump.php';
+//@include_once 'Var_Dump.php';
 
 class dbHandlermanager
 {
