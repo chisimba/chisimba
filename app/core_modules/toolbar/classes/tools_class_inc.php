@@ -309,7 +309,7 @@ class tools extends object
 
             $imLabel = $this->objLanguage->languageText("mod_toolbar_instantmessaging",'toolbar');
             
-            $objIm = $this->getObject('display', 'messaging');
+            $objIm = $this->getObject('chatdisplay', 'messaging');
             // Get the additional parameters (headerparams and bodyonload), save in a global variable
             $this->params = $objIm->imParams();
             return $objIm->divShowIM();
