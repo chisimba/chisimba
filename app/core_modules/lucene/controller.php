@@ -107,7 +107,7 @@ class lucene extends controller
 	        switch ($action){
 	            case null:
 	            case 'index':
-
+					$this->requiresLogin(FALSE);
 	            	//set the path to index
 	            	$this->index->indexPath = $this->objConfig->getcontentBasePath();
 	            	$this->indexPath = $this->index->indexPath;
@@ -116,6 +116,7 @@ class lucene extends controller
 	            	break;
 
 	            case 'search':
+	            	$this->requiresLogin(FALSE);
 	            	//move this to a new module. This is only for testing now...
 	            	$query = $this->getParam('query');
 	            	$this->search = new Zend_Search_Lucene($this->objConfig->getcontentBasePath().'/chisimbaIndex');
@@ -135,6 +136,7 @@ class lucene extends controller
     				}
     				
 	            case 'searchresults':
+	            	$this->requiresLogin(FALSE);
 	            	$query = $this->getParam('query');
 	            	$objLucene = & $this->newObject('results');
 	            	$searchResults = $objLucene->show($query);
