@@ -66,6 +66,21 @@ class media extends object
 		
 	}
 	
+	public function convertAvi2Flv($file, $savepath)
+	{
+		$rfile = basename($file, ".avi");
+		$newfile = $rfile.time().".flv";
+		system("$this->ffmpeg -i $file -ac 1 -ab 8 -ar 8000 -f amr -acodec amr_nb $newfile", $results);
+		if($results == 0)
+		{
+			return $savepath.$newfile;
+		}
+		else {
+			return FALSE;
+		}
+		
+	}
+	
 	public function convertMp42flv($file, $savepath)
 	{
 		$rfile = basename($file, ".mp4");
