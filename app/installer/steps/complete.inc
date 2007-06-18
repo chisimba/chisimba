@@ -62,13 +62,17 @@ class CompleteAction extends StepAction
         $tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');
 
          
+$registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType=').str_replace(' ','%20',$_SESSION['SysType']);
 
-$fp=fopen('http://'.$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.str_replace(' ','%20',$_SESSION['SysType']),'r');
+print "<pre>".$registerLink."</pre>\n";
+
+$fp=fopen($registerLink,'r');
+
                 //Now mark the installation as done
                 $path = $_SESSION['sys_root'].'/config/';
                 touch($path . 'installdone.txt');
                // $wizard->killSession();
-               $tpl->set('login_url', 'http://'.$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType='.$_SESSION['SysType']);
+               $tpl->set('login_url', $registerLink);
        
                 echo $tpl->fetch();
 
