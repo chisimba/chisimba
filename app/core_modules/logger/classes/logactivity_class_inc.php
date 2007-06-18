@@ -252,6 +252,12 @@ class logactivity extends dbTable
      */
     private function _logData()
     {
+    	if(date('d') == '01')
+    	{
+    		$this->_execute('TRUNCATE TABLE tbl_logger');
+    		// put in an event handler to do something with the log file
+    		$this->_monthlyCleanup();
+    	}
         $action = $this->getParam('action');
         $previousId = $this->getPreviousId();
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -313,6 +319,20 @@ class logactivity extends dbTable
         
 
     } //function _logData
+    
+    public function _monthlyCleanup()
+    {
+    	$ts = time();
+    	$this->objConfig = $this->getObject('altconfig', 'config');
+    	// rename the current log file to <date>_logger.log
+    	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
+    	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
+    	copy($curLog, $arkLog);
+    	unlink($curLog);
+    	// mail it to the sys admin?
+    	
+    	return TRUE;
+    }
 
 } //end of class
 
