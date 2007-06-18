@@ -295,7 +295,7 @@ class logactivity extends dbTable
             $logArray['ipaddress'] = $ip;
             
             logger_log($logArray);
-            //$this->insert($logArray);
+            $this->insert($logArray);
             
         } else if ($version == '0.6'){
             
@@ -303,9 +303,11 @@ class logactivity extends dbTable
             $logArray['ipaddress'] = $ip;
             
             logger_log($logArray);
-            //$this->insert($logArray);
+            $this->insert($logArray);
         
         }else{
+        	$id = $this->insert($logArray); 	 
+         	$this->setPreviousId($id);
         	logger_log($logArray);
         }
         
