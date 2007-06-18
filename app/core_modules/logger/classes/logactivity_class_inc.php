@@ -284,9 +284,6 @@ class logactivity extends dbTable
             'referrer' => $referrer
         );
         
-        $id = $this->insert($logArray);
-        $this->setPreviousId($id);
-        
         // If Old Version, Log Current Details
         $objMod = $this->getObject('modules', 'modulecatalogue');
         $version = $objMod->getVersion('logger');
@@ -297,17 +294,19 @@ class logactivity extends dbTable
             $logArray['action'] = $action;
             $logArray['ipaddress'] = $ip;
             
-            $this->insert($logArray);
+            logger_log($logArray);
+            //$this->insert($logArray);
             
         } else if ($version == '0.6'){
             
             $logArray['action'] = $action;
             $logArray['ipaddress'] = $ip;
             
-            $this->insert($logArray);
+            logger_log($logArray);
+            //$this->insert($logArray);
         
         }else{
-            $this->insert($logArray);
+        	logger_log($logArray);
         }
         
 
