@@ -1867,3 +1867,18 @@ option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3
 * END: Styles for the FEED parser
 
 */
+
+
+/**
+* BEGIN: Styles for the wiki diff
+*/
+
+.diff_add {
+    background-color:#AAFFAA;
+    font-weight:bold}
+.diff_remove {
+    background-color:#FFAAAA;
+    font-weight:bold}
+/**
+* END: Styles for the wiki diff
+*/
