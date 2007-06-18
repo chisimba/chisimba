@@ -672,6 +672,25 @@ class altconfig extends object
         return $bool;
 
     }
+    
+    /**
+    * The URL path of the site
+    * @access public
+    * @return the the site path, normally / as string
+    */
+    public function getSitePath()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+        $Settings =& $this->_root->getItem("section", "Settings");
+        //Now onto the directive node
+        $SettingsDirective =& $Settings->getItem("directive", "KEWL_SITEROOT");
+        //finally unearth whats inside
+        $getsitePath = $SettingsDirective->getContent();
+        return $getsitePath;
+        // KEWL_SITEROOT;
+    }
+    
     /**
     * The URL root of the site
     * @access public
@@ -689,6 +708,7 @@ class altconfig extends object
         return $getsiteRoot;
         // KEWL_SITE_ROOT;
     }
+    
     /**
     * The URL root of the site
    	*@access public
