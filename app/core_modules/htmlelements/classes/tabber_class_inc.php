@@ -93,13 +93,10 @@ class tabber extends object
             $i = 0;
             foreach($this->tabs as $tab){
                 if($this->setSelected == $i++){
-                    $str .= '<div class="tabbertab tabbertabdefault">';
+                    $str .= '<div class="tabbertab tabbertabdefault" title="'.$tab['name'].'">';
                 }else{
-                    $str .= '<div class="tabbertab">';
+                    $str .= '<div class="tabbertab" title="'.$tab['name'].'">';
                 }
-                $str .= '<h2>';
-                $str .= $tab['name'];
-                $str .= '</h2>';
                 $str .= $tab['content'];
                 $str .= '</div>';
             }
