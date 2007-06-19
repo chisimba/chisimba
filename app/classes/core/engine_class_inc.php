@@ -411,7 +411,7 @@ class engine
 				echo $this->_layoutContent;
 			}
 		}
-		echo '<div class="warning"><center>'.$mqmsg.'</center></div>';
+		//echo '<div class="warning"><center>'.$mqmsg.'</center></div>';
 		$this->_finish();
 	}//end function
 
