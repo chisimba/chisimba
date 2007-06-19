@@ -1872,13 +1872,46 @@ option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3
 /**
 * BEGIN: Styles for the wiki diff
 */
-
 .diff_add {
     background-color:#AAFFAA;
-    font-weight:bold}
+    font-weight:bold
+}
 .diff_remove {
     background-color:#FFAAAA;
-    font-weight:bold}
+    font-weight:bold
+}
 /**
 * END: Styles for the wiki diff
+*/
+
+/**
+* BEGIN: Styles for wiki tables
+*/
+
+.wiki_table {
+	border-collapse: collapse;
+    border: 2px ridge black;
+}
+.wiki_td {
+    border: 2px ridge black; padding: 2px;
+}
+.wiki_th {
+    border: 2px ridge black; padding: 2px;
+}
+/**
+* END: Styles for the wiki tables
+*/
+
+/**
+* BEGIN: Styles for wiki lists
+*/
+
+.wiki_ul {
+	list-style: disc inside none;
+}
+.wiki_ol {
+    list-style:decimal inside none;
+}
+/**
+* END: Styles for the wiki lists
 */
