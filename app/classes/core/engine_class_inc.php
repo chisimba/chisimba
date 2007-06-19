@@ -378,6 +378,10 @@ class engine
     */
 	public function run($presetModuleName = NULL, $presetAction = NULL)
 	{
+		$mqmsg = NULL;
+		if (get_magic_quotes_gpc()) {
+			$mqmsg = "Please disable Magic Quotes in your PHP.ini, or by creating an .htaccess file containing the following line: php_flag magic_quotes_gpc Off";
+		}
 		if (empty($presetModuleName)) {
 			$requestedModule = strtolower($this->getParam('module', '_default'));
 		} else {
@@ -407,6 +411,7 @@ class engine
 				echo $this->_layoutContent;
 			}
 		}
+		echo '<div class="warning"><center>'.$mqmsg.'</center></div>';
 		$this->_finish();
 	}//end function
 
@@ -932,20 +937,7 @@ class engine
     * @return mixed The value of the parameter, or $default if unset
     */
 	public function getParam($name, $default = NULL)
-	{
-		$data = explode("/", $_SERVER['REQUEST_URI']);
-		//log_debug($data);
-		/*
-		$precursor = explode('?', $data[3]);
-		//log_debug($precursor);
-		$index = $precursor[0];
-		$datastring = explode('&', $precursor[1]);
-		log_debug($datastring); */
-		//return isset($this->uritest[$name])
-		//? is_string($this->uritest[$name])
-		//? trim($this->uritest[$name])
-		//: $this->uritest[$name]
-		//: $default;
+	{		
 		return isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])
@@ -1470,6 +1462,7 @@ class engine
 	{
 		return $this->_objActiveController->callTemplate($tpl, $type, $buffer);
 	}
+	
 
 	/**
     * Method to clean up at end of page rendering.
