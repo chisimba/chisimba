@@ -236,8 +236,9 @@ class modulefile extends object {
     {
         try {
         	$endings=array('php','conf');
-        	if (file_exists($this->config->getModulePath()."/$modname")) {
-        		$path = $this->config->getModulePath()."/$modname/register.";
+                $modulePath=$this->config->getModulePath(); // we need only call this once
+        	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
+        		$path = $modulePath."/$modname/register.";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/register.";
         	}
@@ -257,15 +258,16 @@ class modulefile extends object {
 		}
     }
 
-    /** This is a method to check for existance of registration file
+    /** This is a method to check for existance of controller file
     * @param string modname
     * @return FALSE on error, string filepatch on success
     */
     function findController($modname)
     {
         try {
-        	if (file_exists($this->config->getModulePath()."/$modname")) {
-        		$path = $this->config->getModulePath()."/$modname/controller.php";
+                $modulePath=$this->config->getModulePath(); // we need only call this once
+        	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
+        		$path = $modulePath."/$modname/controller.php";
         	} else {
         		$path = $this->config->getSiteRootPath()."core_modules/$modname/controller.php";
         	}
@@ -286,8 +288,9 @@ class modulefile extends object {
     */
     public function findSqlXML($modname) {
         try {
-        	if (file_exists($this->config->getModulePath()."/$modname")) {
-        		$path = $this->config->getModulePath()."/$modname/sql/sql_updates.xml";
+                $modulePath=$this->config->getModulePath(); // we need only call this once
+        	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
+        		$path = $modulePath()."/$modname/sql/sql_updates.xml";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/sql_updates.xml";
         	}
@@ -308,10 +311,11 @@ class modulefile extends object {
     */
     public function findSqlFile($modname,$tablename) {
     	try {
-    		if (file_exists($this->config->getModulePath()."/$modname")) {
-        		$path = $this->config->getModulePath()."/$modname/sql/$tablename.sql";
+                $modulePath=$this->config->getModulePath(); // we need only call this once
+        	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
+                    $path = $modulePath()."/$modname/sql/$tablename.sql";
         	} else {
-        		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/$tablename.sql";
+                    $path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/$tablename.sql";
         	}
         	if (file_exists($path)) {
         			return $path;
