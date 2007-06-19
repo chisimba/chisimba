@@ -64,7 +64,6 @@ class CompleteAction extends StepAction
          
 $registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType=').str_replace(' ','%20',$_SESSION['SysType']);
 
-print "<pre>".$registerLink."</pre>\n";
 
 $fp=fopen($registerLink,'r');
 
