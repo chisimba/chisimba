@@ -324,6 +324,8 @@ class menu extends object
                 switch($key){
                     case 'headerParams':
                         if(!is_array($headerParams) || empty($headerParams)){
+                            $headerParams = array();
+                            $headerParams[] = $item;
                             break;
                         }
                         if (!in_array($item, $headerParams)){
@@ -333,6 +335,8 @@ class menu extends object
                         
                     case 'bodyOnLoad':
                         if(!is_array($bodyOnLoad) || empty($bodyOnLoad)){
+                            $bodyOnLoad = array();
+                            $bodyOnLoad[] = $item;
                             break;
                         }
                         if (!in_array($item, $bodyOnLoad)){
