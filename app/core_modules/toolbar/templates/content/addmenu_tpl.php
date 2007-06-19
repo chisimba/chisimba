@@ -14,15 +14,15 @@
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
-$objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objForm =& $this->newObject('form', 'htmlelements');
-$objInput =& $this->newObject('textinput', 'htmlelements');
-$objLabel =& $this->newObject('label', 'htmlelements');
-$objDrop =& $this->newObject('dropdown', 'htmlelements');
-$objCheck =& $this->newObject('checkbox', 'htmlelements');
-$objLink =& $this->newObject('link', 'htmlelements');
-$objButton =& $this->newObject('button', 'htmlelements');
+$objTable =& $this->loadClass('htmltable', 'htmlelements');
+$objHead =& $this->loadClass('htmlheading', 'htmlelements');
+$objForm =& $this->loadClass('form', 'htmlelements');
+$objInput =& $this->loadClass('textinput', 'htmlelements');
+$objLabel =& $this->loadClass('label', 'htmlelements');
+$objDrop =& $this->loadClass('dropdown', 'htmlelements');
+$objCheck =& $this->loadClass('checkbox', 'htmlelements');
+$objLink =& $this->loadClass('link', 'htmlelements');
+$objButton =& $this->loadClass('button', 'htmlelements');
 
 // set up language items
 $objLanguage =& $this->getObject('language', 'language');
@@ -170,6 +170,7 @@ if($mode == 'edit'){
         }
     }
 }
+$objHead = new htmlHeading();
 
 $objHead->str = $addHeading;
 if($mode == 'edit'){
@@ -181,7 +182,7 @@ $str = $objHead->show();
 
 $str .= '<p><b>'.$moduleLabel.':</b>&nbsp;&nbsp;'.$moduleName.'</p>';
 
-$objTable->init();
+$objTable = new htmlTable();
 $objTable->width = '99%';
 $objTable->cellpadding = 5;
 
