@@ -115,6 +115,7 @@ $this->loadClass('form','htmlelements');
 $this->loadClass('textinput','htmlelements');
 $this->loadClass('textarea','htmlelements');
 $this->loadClass('radio','htmlelements');
+$this->loadClass("dropdown", "htmlelements");
 
 //Create the form class
 $objForm = new form('storyinput');
@@ -154,8 +155,7 @@ if ($action=='edit') {
 $objFmTable->endRow();
 
 //Create a dropdown for the category selector
-$objCat = $this->newObject("dropdown", "htmlelements");
-$objCat->name = 'category_selector';
+$objCat = new dropdown('category_selector');
 $objCat->extra=" onchange=\"document.forms['storyinput'].category.value=document.forms['storyinput'].category_selector.value;\"";
 $objCat->addOption("","Clear input");
 $objCat->addFromDB($car, 'title', 'category', $category);
@@ -178,8 +178,7 @@ $objForm->addRule(array('name'=>'language', 'length'=>2), $objLanguage->language
 $objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnotnull", "stories"),'required');
 
 //Create a dropdown for the language selector
-$objCat = $this->newObject("dropdown", "htmlelements");
-$objCat->name = 'language_selector';
+$objCat = new dropdown('language_selector');
 $objCat->extra=" onchange=\"document.forms['storyinput'].language.value=document.forms['storyinput'].language_selector.value;\"";
 $objCat->addOption("","Clear input");
 $objLangList = & $this->newObject('languagecode','language');
