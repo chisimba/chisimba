@@ -102,5 +102,27 @@ class tagcloud extends object
 		//$this->appendArrayVar('headerParams', '<style>'.$this->tags->buildCSS())."</style>";
 		return $this->tags->buildHTML();
 	}
+	
+	/**
+	* Method to add an element 
+	* @param string $tag
+	* @param string $uri
+	* @param string $weight
+	* @param string $time
+	*/
+	public function addElement($tag, $uri, $weight, $time )
+	{
+		$this->tags->addElement($tag     ,$uri, $weight ,$time);
+	}
+	
+	/**
+	* Abstracted method to call build all from tag object
+	* @return string
+	*/
+	public function biuldAll()
+	{
+		
+			return $this->tags->buildALL();
+	}
 
 }
