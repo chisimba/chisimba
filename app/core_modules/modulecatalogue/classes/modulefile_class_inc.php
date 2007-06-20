@@ -290,7 +290,7 @@ class modulefile extends object {
         try {
                 $modulePath=$this->config->getModulePath(); // we need only call this once
         	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
-        		$path = $modulePath()."/$modname/sql/sql_updates.xml";
+        		$path = $modulePath."/$modname/sql/sql_updates.xml";
         	} else {
         		$path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/sql_updates.xml";
         	}
