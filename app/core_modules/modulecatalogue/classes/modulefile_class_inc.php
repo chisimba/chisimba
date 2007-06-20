@@ -313,7 +313,7 @@ class modulefile extends object {
     	try {
                 $modulePath=$this->config->getModulePath(); // we need only call this once
         	if ((strlen($modulePath)>1) && file_exists($modulePath."/$modname")) { // added chech for undefined path
-                    $path = $modulePath()."/$modname/sql/$tablename.sql";
+                    $path = $modulePath."/$modname/sql/$tablename.sql";
         	} else {
                     $path = $this->config->getSiteRootPath().'core_modules/'.$modname."/sql/$tablename.sql";
         	}
