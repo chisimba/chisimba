@@ -290,6 +290,7 @@ class engine
 	'postlogin',
 	'prelogin',
         'redirect',
+     'packages',
 	'security',
 	'skin',
 	'stories',
@@ -938,11 +939,13 @@ class engine
     */
 	public function getParam($name, $default = NULL)
 	{		
-		return isset($_REQUEST[$name])
+		$result = isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])
 		: $_REQUEST[$name]
 		: $default;
+		
+		return $this->install_gpc_stripslashes($result);
 	}
 
 	/**
@@ -962,6 +965,103 @@ class engine
 			return $default;
 		}
 	}
+	
+	
+	/**
+
+	* Strips the slashes from a variable if magic quotes is set for GPC
+
+	* Handle normal variables and arrays
+
+	*
+
+	* @param mixed $var	the var to cleanup
+
+	*
+
+	* @return mixed
+
+	* @access public
+
+	*/
+
+	public function install_gpc_stripslashes($var)
+
+	{
+		if (get_magic_quotes_gpc()) {
+			if (is_array($var)) $this->install_stripslashes_array($var, true);
+			else $var = stripslashes($var);
+		}
+	
+		return $var;
+
+
+
+	}//end install_gpc_stripslashes()
+
+	/**
+
+	* Strips the slashes from an entire associative array
+
+	*
+
+	* @param array		$array			the array to stripslash
+
+	* @param boolean	$strip_keys		whether or not to stripslash the keys as well
+
+	*
+
+	* @return array
+
+	* @access public
+
+	*/
+
+	public function install_stripslashes_array(&$array, $strip_keys=false)
+
+	{
+
+		if(is_string($array)) return stripslashes($array);
+
+		$keys_to_replace = Array();
+
+		foreach($array as $key => $value) {
+
+			if (is_string($value)) {
+
+				$array[$key] = stripslashes($value);
+
+			} elseif (is_array($value)) {
+
+				install_stripslashes_array($array[$key], $strip_keys);
+
+			}
+
+
+
+			if ($strip_keys && $key != ($stripped_key = stripslashes($key))) {
+
+				$keys_to_replace[$key] = $stripped_key;
+
+			}
+
+		}
+
+		// now replace any of the keys that needed strip slashing
+
+		foreach($keys_to_replace as $from => $to) {
+
+			$array[$to]   = &$array[$from];
+
+			unset($array[$from]);
+
+		}
+
+		return $array;
+
+
+
+	}//end install_stripslashes_array()
 
 	/**
     * Method to return a session value.
