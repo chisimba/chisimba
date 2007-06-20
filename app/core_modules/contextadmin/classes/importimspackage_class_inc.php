@@ -54,7 +54,12 @@ class importIMSPackage extends dbTable
 	 * @var object $contextCode
 	*/
 	public $contextCode;
-public $pageIds;
+
+	/**
+	 * @var object $pageIds
+	*/
+	public $pageIds;
+
 	/**
 	 * The constructor
 	*/
@@ -788,16 +793,38 @@ public $pageIds;
 				$id = $result['0']['id'];
 				//Rewrite images source in html
 				$page = $this->changeImageSRC($fileContents, $this->contextCode, $fileNames);
-				//Rewrite links source in html
-				$updatedPage = $this->changeLinkUrl($page, $this->contextCode, $fileNames);
-				//Reinsert into database
-				if(strlen($page) > 1)
+				//Reinsert into database with updated images
+				if(strlen($page) > 1 )
 				{
-					$update = $this->update('id', $id, array('pagecontent' => $updatedPage));
+					$update = $this->update('id', $id, array('pagecontent' => $page));
 				}
-
+				//Rewrite links source in html
+//				$page = $this->changeLinkUrl($page, $this->contextCode, $fileNames);
+				//Reinsert into database with updated links
+//				if(strlen($page) > 1 )
+//				{//echo $page;
+//					$update = $this->update('id', $id, array('pagecontent' => $page));
+//				}
 			}
-
+		}
+		foreach($menutitles as $menutitle)
+		{
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				//Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+				//Rewrite links source in html
+				$page = $this->changeLinkUrl($fileContents, $this->contextCode, $fileNames);
+				//Reinsert into database with updated links
+				if(strlen($page) > 1 )
+				{
+					$update = $this->update('id', $id, array('pagecontent' => $page));
+				}
+				
+			}
 		}
 
 		return TRUE;
@@ -869,6 +896,8 @@ public $pageIds;
 			//Check if its an Html
 			if(preg_match("/.html|.htm/",$aFile))
 			{
+//echo $fileContents;
+//echo $aFile."<br />";
 				//Create new file source location
 				$newLink = $docLocation.$aFile.'"';
 				//Convert filename into regular expression
@@ -877,8 +906,17 @@ public $pageIds;
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
-					$page = preg_replace('/(a href=".*?")/i', $newLink, $fileContents);
-
+//echo "match";echo $fileContents;
+//var_dump($matches);die();
+					//Kev's expression
+					//'/(a href=".*?")/i'
+//		foreach($matches as $aMatch)
+//		{			
+//					echo $aMatch."<br />";
+//					var_dump($aMatch);
+					$regReplace = '/(a href=".*'.$aFile.'.*?")/i';
+					$page = preg_replace($regReplace, $newLink, $fileContents);
+//		}
 					return $page;
 				}
 			}
