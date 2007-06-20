@@ -61,6 +61,11 @@ class importIMSPackage extends dbTable
 	public $pageIds;
 
 	/**
+	 * @var object $resourceFileNames
+	*/
+	public $resourceFileNames;
+
+	/**
 	 * The constructor
 	*/
 	function init()
@@ -77,6 +82,7 @@ class importIMSPackage extends dbTable
 	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
 		$this->contextCode = "";
 		$this->pageIds = array();
+		$this->resourceFileNames = array();
 		$this->objDebug = FALSE;
 		//$this->objDebug = TRUE;
 	}
@@ -155,6 +161,7 @@ class importIMSPackage extends dbTable
 		{
 			return  "writeResourcesError";
 		}
+
 		//Load data into Chisimba
 		$loadData = $this->loadToChisimba($writeData);
 		if(!isset($loadData))
@@ -370,6 +377,8 @@ class importIMSPackage extends dbTable
 				$courseDescription = (string)$courseDescription;
 				$courseDescription = trim($courseDescription);
 				$newCourse['about'] = $courseDescription;
+				if(!(strlen($courseDescription) > 1))
+					$newCourse['about'] = "Description Not Available";
 #course status (status)
 				$courseStatus = "Public";
 				$newCourse['isactive'] = $courseStatus;
@@ -434,7 +443,6 @@ class importIMSPackage extends dbTable
 		$docsLocation = $courseContentPath."/documents";
 		$allData = array();
 		$resourceFileLocations = array();
-		$resourceFileNames = array();
 		//Enter context
 		$enterContext = $this->objDBContext->joinContext($contextCode);
 		if($this->objDebug)
@@ -469,6 +477,20 @@ class importIMSPackage extends dbTable
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
 				//Write file contents to "about" in course
+				//Chech if file exists on local system
+				if(!file_exists($fileLocation))
+				{
+					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
+					foreach($folders as $aFolder)
+					{
+						$testerLocation = $folder."/".$aFolder."/".$file;
+
+						if(file_exists($testerLocation))
+						{
+							$fileLocation = $testerLocation;
+						}
+					}
+				}
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//Save all data
@@ -477,6 +499,14 @@ class importIMSPackage extends dbTable
 							'contextCode' => $contextCode,
 							'file' => $file,
 							'objectType' => $objectType);
+				//Check debug flag
+				if($this->objDebug)
+				{
+					echo "Course"."<br />";
+					echo $filename."<br />";
+					echo $file."<br />";
+					echo $fileLocation."<br />";
+				}
 			}
 		}
 		//Add all other resources to Chisimba database
@@ -490,6 +520,7 @@ class importIMSPackage extends dbTable
 			//Remove whitespaces for comparison
 			$objectType = trim($objectType);
 			//Check file type
+/*
 			//Course
 			if(strcmp($objectType,"Course")==0)
 			{
@@ -513,7 +544,7 @@ class importIMSPackage extends dbTable
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
 				//Store filesname
-				$resourceFileNames[$i] = $filename;
+				$this->resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -532,6 +563,7 @@ class importIMSPackage extends dbTable
 					echo $fileLocation."<br />";
 				}
 			}
+*/
 			//Document
 			if(strcmp($objectType,"Document")==0)
 			{
@@ -543,15 +575,35 @@ class importIMSPackage extends dbTable
 				$file = (string)$file;
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
+				//Chech if file exists on local system
+				if(!file_exists($fileLocation))
+				{
+					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
+					foreach($folders as $aFolder)
+					{
+						$testerLocation = $folder."/".$aFolder."/".$file;
+
+						if(file_exists($testerLocation))
+						{
+							$fileLocation = $testerLocation;
+						}
+					}
+				}
 				//Write file contents to documents folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
+				//Check filename
+				if(!preg_match("/.html|.htm/",$filename))
+				{
+					//Correct filename
+					$filename = $filename.".html";
+				}
 				//New location for Documents
 				$newLocation = $docsLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
 				//Store filesname
-				$resourceFileNames[$i] = $filename;
+				$this->resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -587,6 +639,20 @@ class importIMSPackage extends dbTable
 				$file = (string)$file;
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
+				//Chech if file exists on local system
+				if(!file_exists($fileLocation))
+				{
+					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
+					foreach($folders as $aFolder)
+					{
+						$testerLocation = $folder."/".$aFolder."/".$file;
+
+						if(file_exists($testerLocation))
+						{
+							$fileLocation = $testerLocation;
+						}
+					}
+				}
 				//Write file contents to documents folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
@@ -595,7 +661,7 @@ class importIMSPackage extends dbTable
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
 				//Store filesname
-				$resourceFileNames[$i] = $filename;
+				$this->resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -627,15 +693,35 @@ class importIMSPackage extends dbTable
 				$file = trim($file);
 				//Retrieve absolute file location
 				$fileLocation = $folder."/".$file;
+				//Chech if file exists on local system
+				if(!file_exists($fileLocation))
+				{
+					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
+					foreach($folders as $aFolder)
+					{
+						$testerLocation = $folder."/".$aFolder."/".$file;
+
+						if(file_exists($testerLocation))
+						{
+							$fileLocation = $testerLocation;
+						}
+					}
+				}
 				//Write file contents to images folder
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
+				//Check filename
+				if(!preg_match("/.jpg|.gif|.png/",$filename))
+				{
+					//Correct filename
+					$filename = $filename.".jpg";
+				}
 				//New location for Images
 				$newLocation = $imagesLocation."/".$filename;
 				//Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
 				//Store filesname
-				$resourceFileNames[$i] = $filename;
+				$this->resourceFileNames[$i] = $filename;
 				//Open images directory
 				$fp = fopen($newLocation,'w');
 				//Write the file to images directory
@@ -665,7 +751,7 @@ class importIMSPackage extends dbTable
 		if($this->objDebug)
 		{
 			var_dump($resourceFileLocations);
-			var_dump($resourceFileNames);
+			var_dump($this->resourceFileNames);
 		}
 
 		return $allData;
@@ -779,9 +865,11 @@ class importIMSPackage extends dbTable
 	*/
 	function rebuildHtml($menutitles, $fileNames)
 	{
+//var_dump($menutitles);
 		//switch tables
 		parent::init('tbl_contextcontent_pages');
 		//Retrieve resources
+		//Manipulate images
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
@@ -798,15 +886,9 @@ class importIMSPackage extends dbTable
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
 				}
-				//Rewrite links source in html
-//				$page = $this->changeLinkUrl($page, $this->contextCode, $fileNames);
-				//Reinsert into database with updated links
-//				if(strlen($page) > 1 )
-//				{//echo $page;
-//					$update = $this->update('id', $id, array('pagecontent' => $page));
-//				}
 			}
 		}
+		//Manipulate links 
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
@@ -817,13 +899,13 @@ class importIMSPackage extends dbTable
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
 				//Rewrite links source in html
+//var_dump($fileNames);die();
 				$page = $this->changeLinkUrl($fileContents, $this->contextCode, $fileNames);
 				//Reinsert into database with updated links
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
 				}
-				
 			}
 		}
 
@@ -848,7 +930,7 @@ class importIMSPackage extends dbTable
 		$imageLocation = $imageLocation.$contextCode.'/images/';
 
 		//Only run through html's contained in package
-		foreach($fileNames as $aFile)
+		foreach($this->resourceFileNames as $aFile)
 		{
 			//Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
@@ -864,6 +946,19 @@ class importIMSPackage extends dbTable
 					$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
 
 					return $page;
+				}
+				//If the image was renamed
+				else
+				{
+					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
+					$regex = '/'.$aFile.'/';
+					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+					if($matches)
+					{
+						$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
+
+						return $page;
+					}
 				}
 			}
 		}
@@ -884,20 +979,49 @@ class importIMSPackage extends dbTable
 	*/
     	function changeLinkUrl($fileContents, $contextCode, $fileNames, $static='')
     	{
+		echo $fileContents;
+		foreach($this->resourceFileNames as $aFile)
+		{
+			if(preg_match("/.html|.htm/",$aFile))
+			{
+				//echo $aFile."<br />";
+				$regex = '/'.$aFile.'/';
+				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+//var_dump($matches);
+				if($matches)
+				{
+
+				}
+				else
+				{
+					$aFile = preg_replace("/.html|.htm/","",$aFile);
+					//echo $aFile."<br />";
+					$regex = '/'.$aFile.'/';
+					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+//var_dump($matches);
+					if($matches)
+					{
+						echo "a";
+					}
+				}
+			}
+
+		}
+
+		die();
+/*
 		//Html location on disc
 		$docLocation = 'a href="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$docLocation = $docLocation.$contextCode.'/documents/';
-
+//var_dump($this->resourceFileNames);die();
 		//Html location on localhost
-		$action ='a href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&action=viewpage&id=';
+		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module"';
 		//Only run through html's contained in package
-		foreach($fileNames as $aFile)
-		{
-			//Check if its an Html
+		foreach($this->resourceFileNames as $aFile)
+		{echo $aFile."<br />";
+			//Check if its an html page
 			if(preg_match("/.html|.htm/",$aFile))
-			{
-//echo $fileContents;
-//echo $aFile."<br />";
+			{//echo "a";
 				//Create new file source location
 				$newLink = $docLocation.$aFile.'"';
 				//Convert filename into regular expression
@@ -906,22 +1030,36 @@ class importIMSPackage extends dbTable
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
-//echo "match";echo $fileContents;
-//var_dump($matches);die();
-					//Kev's expression
-					//'/(a href=".*?")/i'
-//		foreach($matches as $aMatch)
-//		{			
-//					echo $aMatch."<br />";
-//					var_dump($aMatch);
 					$regReplace = '/(a href=".*'.$aFile.'.*?")/i';
-					$page = preg_replace($regReplace, $newLink, $fileContents);
-//		}
+					$page = preg_replace($regReplace, $action, $fileContents);
+
 					return $page;
+				}
+				//If the html was renamed
+				else
+				{//echo "a";
+					$aFile = preg_replace("/.html|.htm/","",$aFile);
+					$regex = '/'.$aFile.'/';
+//echo $regex."<br />";
+					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+					if($matches)
+					{
+echo $fileContents;
+						$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+//echo $regReplace."<br />";
+						//$page = preg_replace($regReplace, $action, $fileContents);
+//echo $aFile."<br />";
+//$page = preg_replace('/(href=".*?")/', $action, $fileContents);
+//echo $page;
+
+
+						return $page;
+					}
 				}
 			}
 		}
-
+die();
+*/
 		return TRUE;
     	}
 
