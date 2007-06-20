@@ -67,9 +67,7 @@ $registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_
 
 $fp=fopen($registerLink,'r');
 
-                //Now mark the installation as done
-                $path = $_SESSION['sys_root'].'/config/';
-                touch($path . 'installdone.txt');
+                
                // $wizard->killSession();
                $tpl->set('login_url', $registerLink);
        

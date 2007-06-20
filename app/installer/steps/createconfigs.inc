@@ -479,6 +479,9 @@ class CreateConfigsAction extends FiveStepAction
 				}
 			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
 		    $GLOBALS['SQ_INSTALL'] = false;
+		    //Now mark the installation as done
+                $path = $_SESSION['sys_root'].'/config/';
+                touch($path . 'installdone.txt');
 
 			$result = ob_get_contents();
 
