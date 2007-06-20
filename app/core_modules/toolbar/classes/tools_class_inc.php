@@ -168,141 +168,75 @@ class tools extends object
 
     }
 
-
-
     /**
-
     * Method to check whether the user has permission to access the module.
-
     * @param array $module The module to be displayed.
-
     * @param bool $context True when in a context, false if not.
-
     */
-
     function checkPermissions($module, $context)
-
     {
-
         if(empty($module['permissions'])){
-
             return TRUE;
-
         }
-
-
 
         $check = str_replace('_con_','',$module['permissions']);
-
         $check = str_replace('|','',$check);
-
         if(empty($check)){
-
             return TRUE;
-
         }
 
-
-
         $array = explode('|', $module['permissions']);
-
         // permission list
-
         if(isset($array[0]) && !empty($array[0])){
-
             $groups = explode(',', $array[0]);
-
             foreach($groups as $group){
-
                 if($this->objPerm->checkAcl($group)){
-
                     return TRUE;
-
                 }
-
             }
-
         }
 
         // group list for the site.
-
         // if group = site, then give sitewide access.
-
         if(isset($array[1]) && !empty($array[1])){
-
             //var_dump($module); var_dump($array); //die;
 			if(strtolower($array[1]) == 'site'){
-
                 return TRUE;
-
             }
-
             if(!(strpos($array[1], '_con_') === FALSE)){
-
                 $array[2] = $array[1];
-
             }else{
-
                 $groups = explode(',', $array[1]);
-
                 foreach($groups as $group){
-
                     if($this->objCond->isMember($group)){
-
                         return TRUE;
-
                     }
-
                 }
-
             }
-
         }
 
         // group list for a context
-
         if(isset($array[2]) && !empty($array[2])){
-
             $list = str_replace('_con_','',$array[2]);
-
             if(!empty($list)){
-
                 if($context){
-
                     $groups = explode(',', $list);
-
                     foreach($groups as $group){
-
                         if($this->objCond->isContextMember($group)){
-
                             return TRUE;
-
                         }
-
                     }
-
                 }
-
             }
-
         }
-
         return FALSE;
-
     }
 
-
-
     /**
-
     * Method to add the instant messaging icon.
-
     * The onclick method for the icon opens a new window containing the instant messaging page.
-
     * @return string $objLink The linked icon
-
     */
-
     function addIM()
     {
         if($this->moduleCheck->checkIfRegistered('messaging')){

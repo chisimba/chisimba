@@ -182,9 +182,14 @@ class menu extends object
         // build menu
         if(!empty($modules)){
             foreach($modules as $key=>$item){
-                $category = strtolower($item['module']);
-                $text = $this->objLanguage->code2Txt('mod_'.$category.'_name', $category);
-                $this->flatMenu->addItem($category, $text);
+                $module = $item['module'];
+                $catArr = explode('|', $item['category']);
+                $action = isset($catArr[1]) ? $catArr[1] : '';
+                $catArr2 = explode('_', $catArr[0]);
+                $category = isset($catArr2[1]) ? strtolower($catArr2[1]) : strtolower($item['module']);
+                
+                $text = $this->objLanguage->code2Txt('mod_'.$module.'_'.$category, $module);
+                $this->flatMenu->addItem($module, $text, $action);
             }
         }
         return $this->flatMenu->show();
@@ -246,8 +251,17 @@ class menu extends object
             $access = 1;
         }
         
-        $modules = $this->dbmenu->getFlatModules($access, $this->context);
+        $modList = $this->dbmenu->getFlatModules($access, $this->context);
+        $modules = array();
         
+        // Check permissions
+        if(!empty($modList)){
+            foreach($modList as $item){
+                if($this->tools->checkPermissions($item, $this->context)){
+                    $modules[] = $item;
+                }
+            }
+        }
         $menu = $this->buildFlatMenu($modules);
         
         $navbar = '<div id="menu">'.$menu.'</div>';

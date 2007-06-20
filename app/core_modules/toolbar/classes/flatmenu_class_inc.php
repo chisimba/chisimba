@@ -68,7 +68,8 @@ class flatmenu extends object
 
         if(!empty($this->menu)){
             foreach($this->menu as $item){
-                $objLink = new link($this->uri('', $item['module']));
+                $actArr = !empty($item['action']) ? array('action' => $item['action']) : '';
+                $objLink = new link($this->uri($actArr, $item['module']));
                 $objLink->link = $item['text'];
                 $link = $objLink->show();
                 
@@ -94,12 +95,14 @@ class flatmenu extends object
     * Method to add a menu item.
     *
     * @access public
-    * @param string $str Name of the menu header
+    * @param string $module The module name
+    * @param string $text The link text
+    * @param string $action The action to take
     * @return
     */
-    public function addItem($module, $text)
+    public function addItem($module, $text, $action = '')
     {
-        $this->menu[] = array('module' => $module, 'text' => $text);
+        $this->menu[] = array('module' => $module, 'text' => $text, 'action' => $action);
     }
 }
 ?>
