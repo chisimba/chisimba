@@ -66,6 +66,11 @@ class importIMSPackage extends dbTable
 	public $resourceFileNames;
 
 	/**
+	 * @var object $fileMod
+	*/
+	public $fileMod;
+
+	/**
 	 * The constructor
 	*/
 	function init()
@@ -83,6 +88,7 @@ class importIMSPackage extends dbTable
 		$this->contextCode = "";
 		$this->pageIds = array();
 		$this->resourceFileNames = array();
+		$this->fileMod = FALSE;
 		$this->objDebug = FALSE;
 		//$this->objDebug = TRUE;
 	}
@@ -96,6 +102,7 @@ class importIMSPackage extends dbTable
 	*/
 	function importIMScontent($FILES)
 	{
+		$this->fileMod = FALSE;
 		if(!isset($FILES))
 		{
 			return  "fileError";
@@ -498,7 +505,8 @@ class importIMSPackage extends dbTable
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
-							'objectType' => $objectType);
+							'objectType' => $objectType,
+							'filename' => $filename);
 				//Check debug flag
 				if($this->objDebug)
 				{
@@ -520,50 +528,6 @@ class importIMSPackage extends dbTable
 			//Remove whitespaces for comparison
 			$objectType = trim($objectType);
 			//Check file type
-/*
-			//Course
-			if(strcmp($objectType,"Course")==0)
-			{
-				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-				$filename = (string)$filename;
-				$filename = trim($filename);
-				//Retrieve relative file location
-				$file = $resource->file['href'];
-				$file = (string)$file;
-				$file = trim($file);
-				$fileLocation = $folder."/".$file;
-				//Write file contents to "about" in course
-				//Retrieve contents of file
-				$fileContents = file_get_contents($fileLocation);
-				//echo $fileContents;
-				$newCourse['courseDescription'] = $fileContents;
-				$this->objDBContext->saveAboutEdit($newCourse);
-				//Write course contents to documents folder
-				//New location for Courses
-				$newLocation = $docsLocation."/".$filename;
-				//Store resource locations
-				$resourceFileLocations[$i] = $newLocation;
-				//Store filesname
-				$this->resourceFileNames[$i] = $filename;
-				//Open images directory
-				$fp = fopen($newLocation,'w');
-				//Write the file to images directory
-				if((fwrite($fp, $fileContents) === FALSE))
-				{
-					return  "writeResourcesError";
-				}
-				//Close the directory
-				fclose($fp);
-				//Check debug flag
-				if($this->objDebug)
-				{
-					echo "Course"."<br />";
-					echo $filename."<br />";
-					echo $file."<br />";
-					echo $fileLocation."<br />";
-				}
-			}
-*/
 			//Document
 			if(strcmp($objectType,"Document")==0)
 			{
@@ -597,6 +561,7 @@ class importIMSPackage extends dbTable
 				{
 					//Correct filename
 					$filename = $filename.".html";
+					$this->fileMod = TRUE;
 				}
 				//New location for Documents
 				$newLocation = $docsLocation."/".$filename;
@@ -626,7 +591,8 @@ class importIMSPackage extends dbTable
 							'fileContents' => $fileContents, 
 							'contextCode' => $contextCode, 
 							'file' => $file,
-							'objectType' => $objectType);
+							'objectType' => $objectType,
+							'filename' => $filename);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -715,6 +681,7 @@ class importIMSPackage extends dbTable
 				{
 					//Correct filename
 					$filename = $filename.".jpg";
+					$this->fileMod = TRUE;
 				}
 				//New location for Images
 				$newLocation = $imagesLocation."/".$filename;
@@ -744,7 +711,8 @@ class importIMSPackage extends dbTable
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
-							'objectType' => $objectType);
+							'objectType' => $objectType,
+							'filename' => $filename);
 			}
 		$i++;
 		}
@@ -770,7 +738,6 @@ class importIMSPackage extends dbTable
 		$menutitles = array();
 		foreach($writeData as $resource)
 		{
-			//echo $i;
 			//Unpack data
 			$xml = $resource['resource'];
 			$fileContents = $resource['fileContents'];
@@ -799,8 +766,8 @@ class importIMSPackage extends dbTable
 	 * Retrieve page details and pass data 
 	 * database insertion functions
 	 *
-	 * @param array $resource - 
-	 * @param string $fileContents - 
+	 * @param simpleXml $resource - simple xml object
+	 * @param string $fileContents - html page
 	 * @param string $contextCode - course contextcode
 	 * @return boolean 
 	*/
@@ -812,6 +779,7 @@ class importIMSPackage extends dbTable
 		$content = $fileContents;
 		$language = $resource->metadata->lom->general->language;
 		$headerscript = "";
+		$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
 		//Load to $values
 		if(!strlen($menutitle) > 0)
 		{
@@ -821,7 +789,8 @@ class importIMSPackage extends dbTable
 				'menutitle' => (string)$menutitle,
 				'content' => (string)$content,
 				'language' => (string)$language,
-				'headerscript' => (string)$headerscript);
+				'headerscript' => (string)$headerscript,
+				'filename' => trim((string)$filename));
 		//Insert into database
 		$writePage = $this->writePage($values, $contextCode);
 
@@ -852,20 +821,22 @@ class importIMSPackage extends dbTable
 								$values['content'],
 								$values['language'],
 								$values['headerscript']);
-        		$pageId = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode);
+        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode);
 		}
 
-		return $pageId;
+		return TRUE;
 	}
 
 	/**
+	 * Control function to manipulate html pages and resources
+	 * and re-insert into database
 	 * 
-	 * 
-	 * 
+	 * @param array $menutitles - each menu title of html page
+	 * @param array $fileNames - the file name of resource
+	 * @return TRUE - on successful execution
 	*/
 	function rebuildHtml($menutitles, $fileNames)
 	{
-//var_dump($menutitles);
 		//switch tables
 		parent::init('tbl_contextcontent_pages');
 		//Retrieve resources
@@ -899,7 +870,6 @@ class importIMSPackage extends dbTable
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
 				//Rewrite links source in html
-//var_dump($fileNames);die();
 				$page = $this->changeLinkUrl($fileContents, $this->contextCode, $fileNames);
 				//Reinsert into database with updated links
 				if(strlen($page) > 1 )
@@ -979,93 +949,27 @@ class importIMSPackage extends dbTable
 	*/
     	function changeLinkUrl($fileContents, $contextCode, $fileNames, $static='')
     	{
-		echo $fileContents;
+		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		//Run through each resource
+		$page = $fileContents;
 		foreach($this->resourceFileNames as $aFile)
 		{
-			if(preg_match("/.html|.htm/",$aFile))
+			if($this->fileMod)
 			{
-				//echo $aFile."<br />";
-				$regex = '/'.$aFile.'/';
-				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-//var_dump($matches);
-				if($matches)
-				{
-
-				}
-				else
-				{
-					$aFile = preg_replace("/.html|.htm/","",$aFile);
-					//echo $aFile."<br />";
-					$regex = '/'.$aFile.'/';
-					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-//var_dump($matches);
-					if($matches)
-					{
-						echo "a";
-					}
-				}
+				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
 			}
-
+			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+			$modAction = $action.$this->pageIds[$aFile].'"';
+			$page = preg_replace($regReplace, $modAction, $page);
 		}
-
-		die();
-/*
-		//Html location on disc
-		$docLocation = 'a href="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
-		$docLocation = $docLocation.$contextCode.'/documents/';
-//var_dump($this->resourceFileNames);die();
-		//Html location on localhost
-		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module"';
-		//Only run through html's contained in package
-		foreach($this->resourceFileNames as $aFile)
-		{echo $aFile."<br />";
-			//Check if its an html page
-			if(preg_match("/.html|.htm/",$aFile))
-			{//echo "a";
-				//Create new file source location
-				$newLink = $docLocation.$aFile.'"';
-				//Convert filename into regular expression
-				$regex = '/'.$aFile.'/';
-				//Find filename in html page if it exists
-				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-				if($matches)
-				{
-					$regReplace = '/(a href=".*'.$aFile.'.*?")/i';
-					$page = preg_replace($regReplace, $action, $fileContents);
-
-					return $page;
-				}
-				//If the html was renamed
-				else
-				{//echo "a";
-					$aFile = preg_replace("/.html|.htm/","",$aFile);
-					$regex = '/'.$aFile.'/';
-//echo $regex."<br />";
-					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-					if($matches)
-					{
-echo $fileContents;
-						$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-//echo $regReplace."<br />";
-						//$page = preg_replace($regReplace, $action, $fileContents);
-//echo $aFile."<br />";
-//$page = preg_replace('/(href=".*?")/', $action, $fileContents);
-//echo $page;
-
-
-						return $page;
-					}
-				}
-			}
-		}
-die();
-*/
-		return TRUE;
+echo $page;
+		return $page;
     	}
 
   	/**
 	 * Sets debugging on
 	 *
+    	 * @param NULL
 	*/
 	function debugOn()
 	{
@@ -1075,6 +979,7 @@ die();
 	/**
 	 * Sets debugging off
 	 *
+    	 * @param NULL
 	*/
 	function debugOff()
 	{
