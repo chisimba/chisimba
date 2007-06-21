@@ -20,7 +20,7 @@ To use within CHISIMBA
     $objTable->css_class="sorttable";
 //    $objTable->cellspacing='2';   NB. It is imperative that this line is not used
     $objTable->cellpadding='2';
-    $objTable->row_attributes='row_'.$objTable.id;
+    $objTable->row_attributes = 'name="row_'.$objTable->id.'"';
 
     $objTable->startRow();
     $objTable->addCell('Heading 1','','','','heading','');
