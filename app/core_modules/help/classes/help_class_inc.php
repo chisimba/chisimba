@@ -50,7 +50,7 @@ class help extends object  {
         if(!($helpText === FALSE)){
             $helpLink = $helpText;
         }else{
-            $this->objHelpIcon->setModuleIcon('help');
+            $this->objHelpIcon->setIcon('help', 'gif', 'icons/modules');
             $helpLink = $this->objHelpIcon->show();
         }
 
