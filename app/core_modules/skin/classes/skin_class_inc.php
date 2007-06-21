@@ -275,7 +275,6 @@ class skin extends object
         } else {
             return 'skins/_common/templates/page/page_template.php'; 
         }
-        //$this->objConfig->getdefaultPageTemplate();
     }
     
     /**
@@ -293,7 +292,7 @@ class skin extends object
             return 'skins/_common/templates/layout/layout_template.php'; 
         }
         
-        return 'skins/_common/templates/layout/layout_template.php';//$this->objConfig->getdefaultLayoutTemplate();
+        return 'skins/_common/templates/layout/layout_template.php';
     }
     
     public function siteSearchBox()
