@@ -30,7 +30,7 @@ class licensechooser extends object
      *
      * @var string
      */
-    public $icontype = 'small'; // or big
+    public $icontype = 'big'; // or small
     
     /**
      * Constructor
@@ -72,12 +72,7 @@ class licensechooser extends object
             // Set Breakspace
             $radio->setBreakSpace('<br />');
             
-            // Determine Size of Icon
-            if ($this->icontype == 'big') {
-                $iconsFolder = 'icons/creativecommons';
-            } else {
-                $iconsFolder = 'icons/creativecommons_small';
-            }
+            $iconsFolder = 'icons/creativecommons_v3';
             
             // Generate Blank Icon
             $this->objIcon->setIcon ('blank', NULL, $iconsFolder);
@@ -88,31 +83,24 @@ class licensechooser extends object
             {
                 // Check if License is Enabled
                 if ($this->objSysConfig->getValue($license['code'], 'creativecommons') == 'Y') {
-                    // Get List of Icons
-                    $icons = explode(',', $license['images']);
-            
-                    $iconList = '';
                     
-                    // Generate Icons
-                    foreach ($icons as $icon)
-                    {
-                        $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
-                        $iconList .= $this->objIcon->show();
-                
+                    if ($this->icontype == 'big') {
+                        $filename = $license['code'].'_big';
+                    } else {
+                        $filename = $license['code'];
                     }
                     
-                    // Add Blank Spaces
-                    $times = 4-count($icons);
-                    for ($i=1; $i<=$times; $i++) {
-                        $iconList .= $blankIcon;
-                    }
+                    $filename = str_replace('/', '_', $filename);
+                    
+                    $this->objIcon->setIcon ($filename, NULL, $iconsFolder);
+                    $iconList = $this->objIcon->show();
                     
                     $title = $license['title'];
                     if ($title == 'Attribution Non-commercial Share') {
                         $title = 'Attribution Non-commercial Share Alike';
                     }
                     // Add to Radio Group
-                    $radio->addOption($license['code'], $iconList.$title);
+                    $radio->addOption($license['code'], $iconList.' '.$title);
                 }
             }
             

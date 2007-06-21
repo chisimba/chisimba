@@ -18,7 +18,7 @@ class displaylicense extends object
      *
      * @var string
      */
-    public $icontype = 'small'; // or big
+    public $icontype = 'big'; // or big
     
     /**
     * @var string $license
@@ -73,12 +73,7 @@ class displaylicense extends object
             return NULL;
         }
         
-        // Determine Size of Icon
-        if ($this->icontype == 'big') {
-            $iconsFolder = 'icons/creativecommons';
-        } else {
-            $iconsFolder = 'icons/creativecommons_small';
-        }
+        $iconsFolder = 'icons/creativecommons_v3';
         
         // Get List of Icons
         $icons = explode(',', $licenseInfo['images']);
@@ -86,16 +81,19 @@ class displaylicense extends object
         // Add nowrap class to prevent overflow
         $iconList = '<span class="nowrap">';
         
-        // Generate Icons
-        foreach ($icons as $icon)
-        {
-            $this->objIcon->setIcon ($icon, NULL, $iconsFolder);
-            $this->objIcon->alt = $licenseInfo['title'];
-            $this->objIcon->title = $licenseInfo['title'];
-            
-            $iconList .= $this->objIcon->show();
-    
+        if ($this->icontype == 'big') {
+            $filename = $licenseInfo['code'].'_big';
+        } else {
+            $filename = $licenseInfo['code'];
         }
+        
+        $filename = str_replace('/', '_', $filename);
+        
+        $this->objIcon->setIcon ($filename, NULL, $iconsFolder);
+        $this->objIcon->alt = $licenseInfo['title'];
+        $this->objIcon->title = $licenseInfo['title'];
+        
+        $iconList .= $this->objIcon->show();
         
         // End Span
         $iconList .= '</span>';
