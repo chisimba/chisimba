@@ -286,7 +286,7 @@ class menu extends object
 
         $im = $this->tools->addIM();
         if($im){
-            //$im .= '&nbsp;&nbsp;';
+            $iconList .= $im.'&nbsp;&nbsp;';
         }
 
         $helpBtn = $this->tools->getHelp();
@@ -299,21 +299,7 @@ class menu extends object
             $iconList .= $pause.'&nbsp;&nbsp;';
         }
         
-        // get logout button
-        $logout='';//<nobr>'.$iconList.$im.'&nbsp;'.'</nobr>';
-		//return $menu;
-        // Display data in a table
-        $this->objTable->width="100%";
-        $this->objTable->startRow();
-        $this->objTable->addCell($menu, '90%', 'middle','left','menuhead');
-        $this->objTable->addCell($im, '10%', 'middle','right','menuhead');
-        $this->objTable->endRow();
-
-        $this->objLayer->str = $crumbs;
-        $this->objLayer->cssClass = 'menuhead';
-        $this->objLayer->border = ";border-top: 1px solid #555555; padding: 5px; padding-left: 14px;";
-
-        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$im.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
+        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$iconList.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
 //        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
