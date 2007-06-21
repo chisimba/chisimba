@@ -90,7 +90,7 @@ class importIMSPackage extends dbTable
 		$this->resourceFileNames = array();
 		$this->fileMod = FALSE;
 		$this->objDebug = FALSE;
-		//$this->objDebug = TRUE;
+//		$this->objDebug = TRUE;
 	}
 
 	/**
@@ -392,7 +392,6 @@ class importIMSPackage extends dbTable
 #course access (access)
 				$courseAccess = "UnPublished";
 				$newCourse['isclosed'] = $courseAccess;
-
 			//echo "Course";
 			}
 			//Document
@@ -464,7 +463,6 @@ class importIMSPackage extends dbTable
 		//First add course to Chisimba database
 		foreach($xml->resources->resource as $resource)
 		{
-			static $i = 0;
 			//Retrieve file type
 			$objectType = $resource->metadata->eduCommons->objectType;
 			//Cast to string
@@ -501,7 +499,7 @@ class importIMSPackage extends dbTable
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//Save all data
-				$allData[$i] = array('resource' => $resource,
+				$allData['0'] = array('resource' => $resource,
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
@@ -578,6 +576,13 @@ class importIMSPackage extends dbTable
 				}
 				//Close the directory
 				fclose($fp);
+				//Save all data
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents, 
+							'contextCode' => $contextCode, 
+							'file' => $file,
+							'objectType' => $objectType,
+							'filename' => $filename);
 				//Check debug flag
 				if($this->objDebug)
 				{
@@ -586,13 +591,6 @@ class importIMSPackage extends dbTable
 					echo $file."<br />";
 					echo $fileLocation."<br />";
 				}
-				//Save all data
-				$allData[$i] = array('resource' => $resource,
-							'fileContents' => $fileContents, 
-							'contextCode' => $contextCode, 
-							'file' => $file,
-							'objectType' => $objectType,
-							'filename' => $filename);
 			}
 			//File
 			if(strcmp($objectType,"File")==0)
@@ -637,10 +635,17 @@ class importIMSPackage extends dbTable
 				}
 				//Close the directory
 				fclose($fp);
+				//Save all data
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents,
+							'contextCode' => $contextCode,
+							'file' => $file,
+							'objectType' => $objectType,
+							'filename' => $filename);
 				//Check debug flag
 				if($this->objDebug)
 				{
-					echo "File"."<br />";
+					echo "Course"."<br />";
 					echo $filename."<br />";
 					echo $file."<br />";
 					echo $fileLocation."<br />";
@@ -698,6 +703,13 @@ class importIMSPackage extends dbTable
 				}
 				//Close the directory
 				fclose($fp);
+				//Save all data
+				$allData[$i] = array('resource' => $resource,
+							'fileContents' => $fileContents,
+							'contextCode' => $contextCode,
+							'file' => $file,
+							'objectType' => $objectType,
+							'filename' => $filename);
 				//Check debug flag
 				if($this->objDebug)
 				{
@@ -706,13 +718,6 @@ class importIMSPackage extends dbTable
 					echo $file."<br />";
 					echo $fileLocation."<br />";
 				}
-				//Save all data
-				$allData[$i] = array('resource' => $resource,
-							'fileContents' => $fileContents,
-							'contextCode' => $contextCode,
-							'file' => $file,
-							'objectType' => $objectType,
-							'filename' => $filename);
 			}
 		$i++;
 		}
@@ -796,6 +801,7 @@ class importIMSPackage extends dbTable
 
 		return $menutitle;
 	}
+
 
 	/**
 	 * Write content to Chisimba database
@@ -962,7 +968,7 @@ class importIMSPackage extends dbTable
 			$modAction = $action.$this->pageIds[$aFile].'"';
 			$page = preg_replace($regReplace, $modAction, $page);
 		}
-echo $page;
+//echo $page;
 		return $page;
     	}
 
