@@ -152,7 +152,7 @@ class RootUserAction extends StepAction
 
 		//$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
 
-		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : '';
+		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : 'postlogin';
 
 		$_SESSION['SysType'] = (isset($_POST['SysType'])) ? $_POST['SysType'] : '';
 
@@ -385,7 +385,7 @@ class RootUserAction extends StepAction
 
 		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : True;
 
-		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : True;
+		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : FALSE;
 
 		$urlarray=parse_url(getenv('HTTP_REFERER'));
 		$ref = $urlarray['path'];
@@ -1057,15 +1057,7 @@ class RootUserAction extends StepAction
 
 
 
-    	combo_box('postLogin',
-
-    			  $dirList,false,
-
-    			  array(isset($_SESSION['postLogin'])?$_SESSION['postLogin']:'postlogin'),
-
-    			  0,'tabindex="12"');
-
-    	$cmbpostLogin = ob_get_contents();
+    	  	$cmbpostLogin = ob_get_contents();
 
 	ob_clean();
 

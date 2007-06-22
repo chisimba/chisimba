@@ -62,7 +62,7 @@ class CreateConfigs extends Step
 		$this->can_cancel = false;
 
 
-		$this->step_help = "Plase allow Chisimba to create database and the configuration files";
+		$this->step_help = "Please allow Chisimba to create database and the configuration files";
 
 
 	}//end CreateConfigs()
@@ -723,7 +723,7 @@ EOD;
 
 		$message = '';
 
-		$message = 	'Chisimba will now try and create the initial setup files. If '.
+		$message = 	'Chisimba will now create the initial setup files. If '.
 
 					'you are running an update, this will save a backup of your '.
 
@@ -731,13 +731,13 @@ EOD;
 
 
 
-		$warning_text = '<span style="color: #BB2222">Note that from this point on, if you do '.
+		$warning_text = 'Note that from this point on, if you do '.
 
 							'not complete the install you may corrupt '.
 
-							'the Chisimba system. </span>';
+							'the Chisimba system. ';
 
-		$tpl->set('warnings', $warning_text);
+		$tpl->set('warnings', '<span style="color: #BB2222">'.$warning_text.'</span>');
 
 		$tpl->set('message', $message);
 
