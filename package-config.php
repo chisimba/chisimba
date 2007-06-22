@@ -97,11 +97,12 @@ $license    =   array(
 
 $roles          =   array();
 $roles[]        =   array('role' => 'inc', 'type' => 'web');
+$roles[]        =   array('role' => 'html', 'type' => 'web');
 $roles[]        =   array('role' => 'tpl', 'type' => 'web');
 $roles[]        =   array('role' => 'sql', 'type' => 'web');
-//$roles[]		=	array('role' => 'png', 'type' => 'web');
-//$roles[] 		=   array('role' => 'gif', 'type' => 'web');
-//$roles[] 		=   array('role' => 'jpg', 'type' => 'web');
+$roles[]		=	array('role' => 'png', 'type' => 'web');
+$roles[] 		=   array('role' => 'gif', 'type' => 'web');
+$roles[] 		=   array('role' => 'jpg', 'type' => 'web');
 $roles[]        =   array('role' => 'css', 'type' => 'web');
 $roles[]        =   array('role' => 'js',  'type' => 'web');
 $roles[]        =   array('role' => 'ini', 'type' => 'web');
@@ -109,7 +110,29 @@ $roles[]        =   array('role' => 'inc', 'type' => 'web');
 $roles[]        =   array('role' => 'pl',  'type' => 'web');
 $roles[]        =   array('role' => 'txt', 'type' => 'web');
 $roles[]        =   array('role' => 'php', 'type' => 'web');
-//$roles[]        =   array('role' => 'jar', 'type' => 'web');
+$roles[]        =   array('role' => 'jar', 'type' => 'web');
+$roles[]        =   array('role' => 'swf', 'type' => 'web');
+$roles[]        =   array('role' => 'zip', 'type' => 'web');
+$roles[]        =   array('role' => 'conf','type' => 'web');
+$roles[]        =   array('role' => 'xml', 'type' => 'web');
+$roles[]        =   array('role' => 'htc', 'type' => 'web');
+$roles[]        =   array('role' => 'cfm', 'type' => 'web');
+$roles[]        =   array('role' => 'xsd', 'type' => 'web');
+$roles[]        =   array('role' => 'pgp', 'type' => 'web');
+$roles[]        =   array('role' => 'htm', 'type' => 'web');
+$roles[]        =   array('role' => 'class','type' => 'web');
+$roles[]        =   array('role' => 'java', 'type' => 'web');
+$roles[]        =   array('role' => 'wsz',  'type' => 'web');
+$roles[]        =   array('role' => 'ttf', 'type' => 'web');
+$roles[]        =   array('role' => 'dtd', 'type' => 'web');
+$roles[]        =   array('role' => 'xsl', 'type' => 'web');
+$roles[]        =   array('role' => 'odt', 'type' => 'web');
+$roles[]        =   array('role' => 'rdf', 'type' => 'web');
+$roles[]        =   array('role' => 'n3', 'type' => 'web');
+$roles[]        =   array('role' => 'pkg', 'type' => 'web');
+$roles[]        =   array('role' => 'sh', 'type' => 'web');
+$roles[]        =   array('role' => 'psd', 'type' => 'web');
+$roles[]        =   array('role' => 'GIF', 'type' => 'web');
 		
 $maintainer     =   array();
 $maintainer[]   =   array(
