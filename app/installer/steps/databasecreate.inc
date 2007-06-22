@@ -537,7 +537,7 @@ class DbCreateAction extends StepAction
 
 		if (($_SESSION['install_type'] == 'install') || (isset($_SESSION['create_db']) && $_SESSION['create_db'])) {
 
-			$message = 	'Chisimba will now try to create the database tables needed by the system. Note
+			$message = 	'Chisimba will now create the database tables needed by the system. Note
 
 					 that this step may take some time, so do not interrupt the processing of this step after
 
