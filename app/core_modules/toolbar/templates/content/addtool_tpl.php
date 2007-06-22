@@ -7,17 +7,20 @@
 * Template to add or edit a module link on the toolbar
 */
 
+
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('label', 'htmlelements');
+$this->loadClass('dropdown', 'htmlelements');
+$this->loadClass('checkbox', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
 $objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objForm =& $this->newObject('form', 'htmlelements');
-$objInput =& $this->newObject('textinput', 'htmlelements');
-$objLabel =& $this->newObject('label', 'htmlelements');
-$objDrop =& $this->newObject('dropdown', 'htmlelements');
-$objCheck =& $this->newObject('checkbox', 'htmlelements');
-$objButton =& $this->newObject('button', 'htmlelements');
+
 
 // set up language items
 $objLanguage =& $this->getObject('language', 'language');
@@ -94,6 +97,7 @@ if($mode == 'edit'){
     }
 }
 
+$objHead = new htmlheading();
 $objHead->str = $addHeading;
 if($mode == 'edit'){
     $objHead->str = $editHeading;
