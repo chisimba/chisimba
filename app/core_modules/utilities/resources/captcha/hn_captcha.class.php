@@ -113,6 +113,14 @@ class hn_captcha
           *
           **/
 		var $tempfolder;
+        
+        /**
+		  * @shortdesc Relative path to a Tempfolder (with trailing slash!). This must be writeable for PHP and also accessible via HTTP, because the image will be stored there.
+          * @type string
+		  * @public
+          *
+          **/
+		var $localfolder;
 
 		/**
           * @shortdesc Absolute path to folder with TrueTypeFonts (with trailing slash!). This must be readable by PHP.
@@ -724,7 +732,7 @@ class hn_captcha
 		function get_filename_url($public="")
 		{
 			if($public=="") $public = $this->public_key;
-			return str_replace($_SERVER['DOCUMENT_ROOT'],'',$this->tempfolder).$public.".jpg";
+			return $this->localfolder.$public.".jpg";
 		}
 
 		/** @private **/
