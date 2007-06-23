@@ -30,10 +30,20 @@ class parse4pdf extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-   	    	$replacement = "<EMBED src=\"" . $results[1][$counter] 
-   	    	  . "\" href=\"" . $results[1][$counter] ."\" width=\"100%\" height=\"500\"></EMBED>";
-       	   $str = str_replace($item, $replacement, $str);
-           $counter++;
+        	if (strstr($results[1][$counter], "|") !== 0) {
+        		$arParams = explode("|", $results[1][$counter]);
+        		$repl = $arParams['0'];
+        		$width = $arParams['1'];
+        		$height = $arParams['2'];
+        	} else {
+        		$height = "500";
+        		$width = "100%";
+        		$repl = $results[1][$counter];
+        	}
+    		$replacement = "<EMBED src=\"" . $repl . "\" href=\"" 
+    		  . $repl ."\" width=\"$width\" height=\"$height\"></EMBED>";
+   	   		$str = str_replace($item, $replacement, $str);
+       		$counter++;
         }
         return $str;
     }
