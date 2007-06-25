@@ -71,6 +71,11 @@ class importIMSPackage extends dbTable
 	public $fileMod;
 
 	/**
+	 * @var object $simpleXmlObj
+	*/
+	public $simpleXmlObj;
+
+	/**
 	 * The constructor
 	*/
 	function init()
@@ -86,6 +91,7 @@ class importIMSPackage extends dbTable
         	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
 	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
 		$this->contextCode = "";
+		$this->simpleXmlObj = array();
 		$this->pageIds = array();
 		$this->resourceFileNames = array();
 		$this->fileMod = FALSE;
@@ -133,8 +139,8 @@ class importIMSPackage extends dbTable
 		}
 		//Read imsmanifest.xml file
 		//Create simplexml object to access xml file
-		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
-		if(!isset($simpleXmlObj))
+		$this->simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
+		if(!isset($this->simpleXmlObj))
 		{
 			return  "simpleXmlError";
 		}
@@ -151,7 +157,7 @@ class importIMSPackage extends dbTable
 			return  "xpathError";
 		}
 		//Extract course data
-		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj);
+		$courseData = $this->extractCourseData($this->simpleXmlObj, $domDocumentObj, $xpathObj);
 		if(!isset($courseData))
 		{
 			return  "courseReadError";
@@ -163,14 +169,20 @@ class importIMSPackage extends dbTable
 			return  "courseCreateError";
 		}
 		//Write Resources
-		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
+		$writeData = $this->writeResources($this->simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 		{
 			return  "writeResourcesError";
 		}
-
+		//Get organizations
+		$structure = $this->getStructure($this->simpleXmlObj);
+		//var_dump($structure);die();
+		if(!isset($structure))
+		{
+			return  "noStructureError";
+		}
 		//Load data into Chisimba
-		$loadData = $this->loadToChisimba($writeData);
+		$loadData = $this->loadToChisimba($writeData, $structure);
 		if(!isset($loadData))
 		{
 			return  "loadDataError";
@@ -731,23 +743,48 @@ class importIMSPackage extends dbTable
 	}
 
 	/**
+	 * Function to return the order in which pages should be added
+	 * 
+	 * @param simpleXML object 
+	 * @return array $titles 
+	 * 
+	*/
+	function getStructure($xml)
+	{
+		$titles = array();
+		$i = 0;
+		foreach($xml->organizations->organization->item as $item)
+		{
+			$aTitle = (string)$item->title;
+			$aTitle = trim($aTitle);
+			$titles[$i] = $aTitle;
+			$i++;
+		}
+
+		return $titles;
+	}
+
+	/**
 	 * Control loading resources into Chisimba
 	 * and file manipulation functions
 	 *
 	 * @param array $writeData - all data needed
+	 * @param array $structure - the order in which pages should be added
 	 * @return array $menutitles - all menutitles of pages
 	*/
-	function loadToChisimba($writeData)
+	function loadToChisimba($writeData, $structure)
 	{
-		static $i = 0;
+		//static $i = 0;
+		static $j = 0;
+		static $k = 0;
 		$menutitles = array();
+		$orderedData = array();
+		$numItems = count($structure);
+		//Change Structure of data
 		foreach($writeData as $resource)
 		{
 			//Unpack data
-			$xml = $resource['resource'];
-			$fileContents = $resource['fileContents'];
-			$contextCode = $resource['contextCode'];
-			$file = $resource['file'];
+			$xmlResource = $resource['resource'];
 			$objectType = $resource['objectType'];
 			//Cast to string
 			$objectType = (string)$objectType;
@@ -756,12 +793,40 @@ class importIMSPackage extends dbTable
 			//Check file type
 			if(strcmp($objectType,"Image")!=0)
 			{
-				//Write Course to Chisimba database
-				$menutitle = $this->passPage($xml, $fileContents, $contextCode);
-				$menutitle = (string)$menutitle;
-				$menutitles[$i] = $menutitle;
-				$i++;
+				//Retrieve title
+				$title = $xmlResource->metadata->lom->general->title->langstring;
+				$title = (string)$title;
+				$title = trim($title);
+				$index = array_search($title, $structure);
+				if($index === FALSE)
+				{
+					$orderedData[$j+$numItems] = $resource;
+					$j++;
+				}	
+				else
+				{
+					$orderedData[$index] = $resource;
+				}
 			}
+		}
+		//Add ordered data
+		for($i=0;$i<count($orderedData);$i++)
+		{
+			//Unpack data
+			$xmlResource = $orderedData[$i]['resource'];
+			$fileContents = $orderedData[$i]['fileContents'];
+			$contextCode = $orderedData[$i]['contextCode'];
+			$file = $orderedData[$i]['file'];
+			$objectType = $orderedData[$i]['objectType'];
+			//Cast to string
+			$objectType = (string)$objectType;
+			//Remove whitespaces for comparison
+			$objectType = trim($objectType);
+			//Check file type
+			//Write Course to Chisimba database
+			$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode);
+			$menutitle = (string)$menutitle;
+			$menutitles[$i] = $menutitle;
 		}
 
 		return $menutitles;
@@ -778,9 +843,24 @@ class importIMSPackage extends dbTable
 	*/
 	function passPage($resource, $fileContents, $contextCode)
 	{
+		//Check if menutitle exists
+		$resId = (string)$resource['identifier'];
+		$resId = trim($resId);
+		foreach($this->simpleXmlObj->organizations->organization->item as $item)
+		{
+			$orgId = (string)$item['identifierref'];
+			$orgId = trim($orgId);
+			if(strcmp($resId, $orgId)==0)
+			{
+				$aTitle = (string)$item->title;
+				$aTitle = trim($aTitle);
+				$menutitle = $aTitle;
+			}
+		}
 		//Retrieve page data
 		$titleid = $resource->metadata->lom->general->title->langstring;
-		$menutitle = $resource->metadata->lom->general->description->langstring;
+		if(!(strlen($menutitle) > 0))
+			$menutitle = $resource->metadata->lom->general->description->langstring;
 		$content = $fileContents;
 		$language = $resource->metadata->lom->general->language;
 		$headerscript = "";
