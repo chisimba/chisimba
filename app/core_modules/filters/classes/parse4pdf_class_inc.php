@@ -34,12 +34,8 @@ class parse4pdf extends object
         	if (strstr($extracted, "|")) {
         		$arParams = explode("|", $results[1][$counter]);
         		$repl = $arParams['0'];
-        		$width = $arParams['1'];
-	        	if (count($arParams) >= 2) {
-        			$height = $arParams['2'];
-	        	} else {
-	        		$height = "500";
-	        	}
+        		$width = isset($arParams['1']) ? $arParams['1'] : '100%';
+        	    $height = isset($arParams['2']) ? $arParams['2'] : '500';
         	} else {
         		$height = "500";
         		$width = "100%";
