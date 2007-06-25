@@ -107,16 +107,16 @@ class packages extends controller
     }
     
     /**
-         * Ovveride the login object in the parent class
-         *
-         * @param void
-         * @return bool
-         * @access public
-         */
-        public function requiresLogin() 
-        {
-            return FALSE;
-        }
+     * Ovveride the login object in the parent class
+     *
+     * @param void
+     * @return bool
+     * @access public
+     */
+     public function requiresLogin() 
+     {
+        return FALSE;
+     }
 
 }
 ?>
