@@ -30,7 +30,8 @@ class parse4pdf extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	if (strstr($results[1][$counter], "|") !== 0) {
+            $extracted = $results[1][$counter];
+        	if (strstr($extracted, "|")) {
         		$arParams = explode("|", $results[1][$counter]);
         		$repl = $arParams['0'];
         		$width = $arParams['1'];
