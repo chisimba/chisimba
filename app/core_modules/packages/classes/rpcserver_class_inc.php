@@ -22,8 +22,8 @@ class rpcserver extends object
 	{
 		// map web services to methods
 		$server = new XML_RPC_Server(
-   			array('getPhoto' => array('function' => 'getImage'),
-      			  'getMsg' => array('function' => 'getMessage'),
+   			array('getPhoto' => array('function' => array($this, 'getImage')),
+      			  'getMsg' => array('function' => array($this, 'getMessage')),
    			)
 		);
 		
