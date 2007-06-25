@@ -37,10 +37,21 @@ class parse4iframe extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	$arParams = explode("|", $results[1][$counter]);
-        	$url = $arParams[0];
-        	$width = $arParams[1];
-        	$height = $arParams[2];
+        	if (strstr($results[1][$counter], "|") !== 0) {
+	        	$arParams = explode("|", $results[1][$counter]);
+	        	$url = $arParams[0];
+	        	$width = $arParams[1];
+	        	if (count($arParams) >= 2) {
+        			$height = $arParams['2'];
+	        	} else {
+	        		$height = "500";
+	        	}
+        	} else {
+        		$url = $results[1][$counter];
+        		$height = "600";
+        		$width = "800";
+        	}
+
         	$replacement = $this-> getIframe($url, $width, $height);
             $str = str_replace($item, $replacement, $str);
             $counter++;
