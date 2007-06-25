@@ -88,6 +88,7 @@ class packages extends controller
     		 $action = $this->getParam('action');
     		 switch ($action){
     		 	case NULL:
+    		 		$this->requiresLogin(FALSE);
     		 		$this->setVar('pageSuppressXML', TRUE);
     		 		$this->objRpcServer->server();
     		 		
@@ -104,6 +105,18 @@ class packages extends controller
     		echo customException::cleanUp();
     	}
     }
+    
+    /**
+         * Ovveride the login object in the parent class
+         *
+         * @param void
+         * @return bool
+         * @access public
+         */
+        public function requiresLogin() 
+        {
+            return FALSE;
+        }
 
 }
 ?>
