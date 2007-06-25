@@ -206,19 +206,20 @@ if ($modules) {
 }
 if (($output=$this->getSession('output'))!=null) {
 	$error = $this->getParam('lastError');
-	if ($error != 1003) {
-	$timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
-	if (is_array($output)) {
-		$timeOutMsg->message = '';
-		foreach ($output as $line) {
-			$timeoutMsg->message .= $line.'<br/>';
-		}
+	if (!isset($error)) {
+	    $timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
+	    if (is_array($output)) {
+	        $timeoutMsg->setMessage(implode('<br />',$output));
+	    } else {
+	        $timeoutMsg->setMessage($output);
+	    }
+	    $notice = $timeoutMsg->show();
 	} else {
-		$timeoutMsg->setMessage($output);
-	}
-	$notice = $timeoutMsg->show();
-	} else {
-		$notice = "<span id='error'>$output</span>";
+	    //var_dump($output);
+	    if (is_array($output)) {
+	        $output = implode('<br />',$output);
+	    }
+	    $notice = "<span class='error'>$output</span>";
 	}
 	$this->unsetSession('output');
 }

@@ -154,7 +154,7 @@ class modulesadmin extends dbTableManager
             //If the module already exists, do not register it, else register it
             if ($this->objModules->checkIfRegistered($moduleId) && !$update) {
                 $this->_lastError = 1002;
-                return TRUE;
+                return FALSE;
             } else {
                 // check for modules this one is dependant on
                 if (isset($registerdata['DEPENDS'])) {
@@ -209,7 +209,7 @@ class modulesadmin extends dbTableManager
                 }
                 // Here we load data into tables from files of SQL statements
                 if (!$update) {
-                    $this->loadData($moduleId);
+                    if (!$this->loadData($moduleId)) return FALSE;
                 }
             }
                 // Create directory
@@ -684,6 +684,7 @@ class modulesadmin extends dbTableManager
     public function uninstallModule($moduleId,&$registerdata)
     {
         try {
+            $this->_lastError = 0;
             if (is_null($moduleId)) {
                 $moduleId=$registerdata['MODULE_ID'];
             }
@@ -842,8 +843,8 @@ class modulesadmin extends dbTableManager
 
                 if (!file_exists($sqlfile2)){
                     log_debug("No defaultdata found for module $moduleId");
-                    $this->_lastError = 1006;
-                    return FALSE;
+                    //$this->_lastError = 1006;
+                    return TRUE;
                 }
                 $sqlfile = $sqlfile2;
             }
@@ -1198,7 +1199,7 @@ class modulesadmin extends dbTableManager
      */
     public function getLastErrorCode() {
         try {
-            return $this->_lastError;
+            return isset($this->_lastError)? $this->_lastError : FALSE;
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -1214,19 +1215,19 @@ class modulesadmin extends dbTableManager
         try {
             switch ($this->_lastError) {
                 case 1001:
-                    return 'cannot find moduleid in register.conf';
+                    return 'Cannot find moduleid in register.conf';
                 case 1002:
-                    return 'module already registered';
+                    return 'Module already registered';
                 case 1003:
-                    return 'module dependency check failed';
+                    return 'Module dependency check failed';
                 case 1004:
-                    return 'could not get info to create table';
+                    return 'Could not get info to create table';
                 case 1005:
-                    return 'could not write to table tbl_modules';
+                    return 'Could not write to table tbl_modules';
                 case 1006:
-                    return 'could not read table sql file';
+                    return 'No default data found for module';
                 default:
-                    return 'uknown error: what did you do?';
+                    return "Unknown error code: '$this->_lastError'.";
             }
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());

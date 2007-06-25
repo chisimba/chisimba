@@ -185,6 +185,7 @@ class modulecatalogue extends controller
                         return 'front_tpl.php';
                     }
                 case 'uninstall':
+                    $error = false;
                     $mod = $this->getParm('mod');
                     if ($this->uninstallModule($mod)) {
                         $this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_uninstallsuccess','modulecatalogue'));
@@ -192,22 +193,28 @@ class modulecatalogue extends controller
                         if ($this->output == '') {
                             $this->output = $this->objModuleAdmin->output;
                         }
+                        $error = $this->objModuleAdmin->getLastErrorCode();
+                        if (!$error) $error = -1;
                     }
                     $this->setSession('output',$this->output);
-                    return $this->nextAction(null,array('cat'=>$activeCat));
+                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
                 case 'install':
+                    $error = false;
                     $mod = $this->getParm('mod');
                     $regResult = $this->installModule(trim($mod));
                     if ($regResult){
                         $this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));    //success
                     } else {
+                        $error = $this->objModuleAdmin->getLastErrorCode();
+                        if (!$error) $error = -1;
                         if ($this->output == '') {
-                            $this->output = $this->objModuleAdmin->output;
+                            $this->output = isset($this->objModuleAdmin->output)?$this->objModuleAdmin->output:$this->objModuleAdmin->getLastError();
                         }
                     }
                     $this->setSession('output',$this->output);
-                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$this->objModuleAdmin->getLastErrorCode()));
+                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
                 case 'installwithdeps':
+                    $error = false;
                     $mod = trim($this->getParam('mod'));
                     $regResult = $this->smartRegister($mod);
                     if ($regResult){
@@ -216,9 +223,11 @@ class modulecatalogue extends controller
                         if ($this->output == '') {
                             $this->output = $this->objModuleAdmin->output;
                         }
+                        $error = $this->objModuleAdmin->getLastErrorCode();
+                        if (!$error) $error = -1;
                     }
                     $this->setSession('output',$this->output);
-                    return $this->nextAction(null,array('cat'=>$activeCat));
+                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
                 case 'info':
                     $filepath = $this->objModFile->findRegisterFile($this->getParm('mod'));
                     if ($filepath) { // if there were no file it would be FALSE
@@ -254,23 +263,33 @@ class modulecatalogue extends controller
                     $this->setVar('modname',$modname);
                     return 'textelements_tpl.php';
                 case 'batchinstall':
+                    $error = false;
                     $selectedModules=$this->getArrayParam('arrayList');
                     if (count($selectedModules)>0) {
-                        $this->batchRegister($selectedModules);
+                        if (!$this->batchRegister($selectedModules)) {
+                            $error = -1;
+                            if (!$this->output) $this->output = $this->objModuleAdmin->output;
+                        }
                     } else {
+                        $error = -2;
                         $this->output ='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_noselect','modulecatalogue').'</b>';
                     }
                     $this->setSession('output',$this->output);
-                    return $this->nextAction(null,array('cat'=>$activeCat));
+                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
                 case 'batchuninstall':
+                    $error = false;
                     $selectedModules=$this->getArrayParam('arrayList');
                     if (count($selectedModules)>0) {
-                        $this->batchDeregister($selectedModules);
+                        if (!$this->batchDeregister($selectedModules)) {
+                            $error = -1;
+                            if (!$this->output) $this->output = $this->objModuleAdmin->output;
+                        }
                     } else {
+                        $error = -2;
                         $this->output ='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_noselect','modulecatalogue').'</b>';
                     }
                     $this->setSession('output',$this->output);
-                    return $this->nextAction(null,array('cat'=>$activeCat));
+                    return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
                 case 'updateall':
                     ini_set('max_execution_time','6000');
                     set_time_limit(0);
@@ -307,7 +326,11 @@ class modulecatalogue extends controller
                     return $this->nextAction('login',$url,'security');
                 case 'update':
                     $modname = $this->getParam('mod');
-                    $this->output = $this->objPatch->applyUpdates($modname);
+                    if (($this->output = $this->objPatch->applyUpdates($modname))===FALSE) {
+                        $this->output = array();
+                        $this->setVar('error',str_replace('[MODULE]',$mod['module_id'],$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
+                    }
+
                     $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());
                     return 'updates_tpl.php';
@@ -315,7 +338,9 @@ class modulecatalogue extends controller
                     $mods = $this->objPatch->checkModules();
                     $this->output = array();
                     foreach ($mods as $mod) {
-                        $this->output[] = $this->objPatch->applyUpdates($mod['module_id']);
+                        if (($this->output[] = $this->objPatch->applyUpdates($mod['module_id'])) === FALSE) {
+                            $this->setVar('error',str_replace('[MODULE]',$mod['module_id'],$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
+                        }
                     }
                     $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());
@@ -412,9 +437,13 @@ class modulecatalogue extends controller
         try {
             foreach ($modArray as $line) {
                 if ($line != 'on') {
-                    $this->smartRegister($line);
+                    if (!$this->smartRegister($line)) {
+                        //$this->output = str_replace('[MODULE]',$line,$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue'));
+                        return FALSE;
+                    }
                 }
             }
+            return TRUE;
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -468,8 +497,11 @@ class modulecatalogue extends controller
     private function batchDeregister($modArray) {
         try {
             foreach ($modArray as $line) {
-                $this->smartDeregister($line);
+                if (!$this->smartDeregister($line)) {
+                    return false;
+                }
             }
+            return TRUE;
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();

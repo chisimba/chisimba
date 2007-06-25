@@ -345,12 +345,10 @@ class modulefile extends object {
 				$lines=file($filepath);
 				$cats = array();
 				foreach ($lines as $line) {
-					$params=explode(':',$line);
-					$len = count($params);
-					for ($i=0; $i<$len; $i++) {
-						$params[$i] = trim($params[$i]);
-					}
-					switch ($params[0]) {
+				    preg_match('/([^:]+):(.*)/',$line,$params);
+				    $params[0] =isset($params[1])? trim($params[1]) : '';
+				    $params[1] =isset($params[2])? trim($params[2]) : '';
+				    switch ($params[0]) {
 						case 'MODULE_ID':
 						case 'MODULE_NAME':
 						case 'MODULE_DESCRIPTION':

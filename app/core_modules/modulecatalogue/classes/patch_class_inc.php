@@ -111,7 +111,7 @@ class patch extends dbtable {
     * This method calls a function to read the XML file
     * and walks through it, processing each update
     * @param string $modname the name of the module
-    * @param string $file optional 2nd param for non-standard location of file
+    *
     */
     function applyUpdates($modname) {
         try {

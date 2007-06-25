@@ -77,6 +77,9 @@ if (isset($out)) {
 	$msg->message = $out;
 	$tString = $msg->show();
 }
+if (isset($error)) {
+    $tString .= "<br /><span class='error'>$error</span>";
+}
 
 $updateAll->link($this->uri(array('action'=>'patchall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_patchall','modulecatalogue');
