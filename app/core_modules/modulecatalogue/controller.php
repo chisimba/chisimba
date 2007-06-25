@@ -297,10 +297,14 @@ class modulecatalogue extends controller
                                     //do the indexing - note this indexes an ENTIRE tree, not a single doc
                                             $this->index->doIndex($this->doc);
                         log_debug('done creating Lucene index');
+                        
+                        
                     } else {
                         log_debug('First time registration has already been performed on this system. Aborting');
                     }
-                    return $this->nextAction(null,null,$this->objConfig->getPrelogin());
+                    // $param = 'username=admin&password=a&mod=modulecatalogue';
+                     $url = array('username'=>'admin','password'=>'a','mod'=>'modulecatalogue'); 
+                    return $this->nextAction('login',$url,'security');
                 case 'update':
                     $modname = $this->getParam('mod');
                     $this->output = $this->objPatch->applyUpdates($modname);
