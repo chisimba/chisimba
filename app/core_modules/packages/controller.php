@@ -45,6 +45,8 @@ class packages extends controller
      * @var object $objLanguage
      */
     public $objLanguage;
+    
+    public $objRpcServer;
 
 
     /**
@@ -59,9 +61,10 @@ class packages extends controller
         try {
            $this->objConfig = $this->getObject('altconfig','config');
            $this->objLanguage = $this->getObject('language','language');
-           $this->objModule = &$this->getObject('modules');
+           $this->objModule = &$this->getObject('modules', 'modulecatalogue');
             //the class for reading register.conf files
-           $this->objModFile = &$this->getObject('modulefile');
+           $this->objModFile = &$this->getObject('modulefile', 'modulecatalogue');
+           $this->objRpcServer = $this->getObject('rpcserver'); 
 
         }
         catch(customException $e) {
@@ -82,9 +85,14 @@ class packages extends controller
     	
     	try{
     		
-    		 $action = $this->getParm('action');
+    		 $action = $this->getParam('action');
     		 switch ($action){
     		 	case NULL:
+    		 		$this->setVar('pageSuppressXML', TRUE);
+    		 		$this->objRpcServer->server();
+    		 		
+    		 		die();
+    		 		
     		 	case 'list':
     		 	return 'front_tpl.php';
     		 	default:
