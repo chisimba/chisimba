@@ -32,7 +32,7 @@ class tabber extends object
     * @var string $tabId: The tab id
     * @access public
     */
-    public $tabId = 'tabPane1';
+    public $tabId;
 
     /**
     * @var boolean $isNested: TRUE if the tab is in another FALSE if main tab
@@ -52,6 +52,7 @@ class tabber extends object
         $this->appendArrayVar('headerParams', $headerParams);
         $link = '<link id="tabber" type="text/css" rel="stylesheet" href="core_modules/htmlelements/resources/css/tabber.css" />';
         $this->appendArrayVar('headerParams', $link);
+        $this->tabId = 'tabPane_'.rand(1,10);
         $this->tabs = array();
         $this->isNested = FALSE;
     }
