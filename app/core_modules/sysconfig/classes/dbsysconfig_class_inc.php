@@ -15,7 +15,7 @@ class dbsysconfig extends dbTable
     * @var object $objUser The user object
     */
     var $objUser;
-    
+
     /**
     * Property to hold the config properties object
     *
@@ -37,7 +37,7 @@ class dbsysconfig extends dbTable
         // Get an instance of the language object
         $this->objConfig = &$this->getObject('altconfig','config');
     }
-    
+
     /**
     * Method to get the list of modules that have configuration parameters
     * as well the number of parameters they have
@@ -78,16 +78,19 @@ class dbsysconfig extends dbTable
             // Bail out if this is an update, and the field was edited
             if (isset($this->updateFlag)){
                 $line=$this->getRow('id',$id);
-                if (($line['datemodified']!=NULL) || ($line['pvalue']==$pvalue) || ($line['modifierid']!=NULL) ){
-                    return true;
+                if (($line['datemodified']!=NULL) || (($line['pvalue'] == $pvalue) && ($line['pdesc'] == $pdesc)) || ($line['modifierid']!=NULL) ){
+                  //return true;
+                  $pvalue = $line['pvalue'];
                 }
             }
+
             $this->update('id',$id,array('pmodule' => $pmodule,
                     'pname' => $pname,
                     'pvalue' => $pvalue,
                     'pdesc' => $pdesc,
                     //'modifierId' => $this->objUser->userId(),
-                    'dateModified' => date("Y/m/d H:i:s")));
+                    //'dateModified' => date("Y/m/d H:i:s")
+                    ));
             return true;
         } #if
     } #function insertParam
@@ -248,7 +251,7 @@ class dbsysconfig extends dbTable
             $this->insertParam($pname, $pmodule, $pvalue, $pdesc);
         } #foreach
     } #function registerModuleParams
-    
+
     /**
     * Save method to update the results of a single record
     */
@@ -260,8 +263,8 @@ class dbsysconfig extends dbTable
         $dateModified = date("Y/m/d H:i:s");
         $this->update("id", $id, array('pvalue' => $pvalue, 'modifierId' => $modifierId, 'dateModified' => $dateModified));
     } #function updateSingle
-    
-    
+
+
     /*------------------ PRIVATE METHODS BELOW LINE ------------------------*/
 
     /**
@@ -279,7 +282,7 @@ class dbsysconfig extends dbTable
             return false;
         } #if
     } #function _checkForDuplicate
-    
+
     /**
     * Method to get the id field for a module/name combination
     *
@@ -297,7 +300,7 @@ class dbsysconfig extends dbTable
             return false;
         }
     } #function _lookUpId
-    
+
     /*------------------ SUBSTITUTION FOR OLD METHODS BELOW LINE -----------------------------*/
 
     /**

@@ -91,7 +91,7 @@ class modulesadmin extends dbTableManager
      * @var object $debug
      */
     public $debug;
-    
+
     /**
      * Standard initilisation method
      *
@@ -652,34 +652,8 @@ class modulesadmin extends dbTableManager
                         return FALSE;
                     }
                 }
-
-                //indicate success
                 //put the language information for name and description
                 $this->registerModuleLanguageElements();
-                // insert the list of language codes used by the module if any
-               /* $texts=$this->listTexts($registerdata); // get list of all specified texts
-                if ($texts !== false) {
-                    foreach ($texts as $key=>$value)
-                    {
-                        $test=$this->checkText($key);
-                        if ($test['flag']!=11)
-                        {
-                            $this->addText($key,$value['desc'],$value['content']);
-                        }
-                    }
-                }
-                $texts=$this->listTexts($registerdata,'USES');
-                if ($texts !== false)
-                {
-                    foreach ($texts as $key=>$value)
-                    {
-                        $test=$this->checkText($key);
-                        if ($test['flag']!=11)
-                        {
-                            $this->addText($key,$value['desc'],$value['content']);
-                        }
-                    }
-                }*/
                 $this->moduleText($registerdata['MODULE_ID'],'replace');
                 if (isset($registerdata['DEPENDS'][0]))
                 {
@@ -865,7 +839,7 @@ class modulesadmin extends dbTableManager
                         $sqlfile2=$this->objConfig->getSiteRootPath()."core_modules/$moduleId/sql/systextdata.xml";
                     }
                 }
-                
+
                 if (!file_exists($sqlfile2)){
                     log_debug("No defaultdata found for module $moduleId");
                     $this->_lastError = 1006;
@@ -1314,7 +1288,7 @@ class modulesadmin extends dbTableManager
     public function errorCallback($exception) {
         echo customException::cleanUp($exception);
     }
-    
+
     public function _execute($stmt, $params = array())
     {
         dbtable::_execute($stmt, $params);
