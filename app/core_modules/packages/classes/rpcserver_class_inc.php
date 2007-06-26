@@ -75,7 +75,7 @@ class rpcserver extends object
 	
 	public function getModuleList()
 	{
-		$dataDir = '/var/www/'; //$this->objConfig->getModulePath();
+		$dataDir = $this->objConfig->getModulePath();
 		try {
       		$dir  = new DirectoryIterator($dataDir);
 	        foreach ($dir as $file)
