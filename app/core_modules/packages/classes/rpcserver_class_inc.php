@@ -29,12 +29,14 @@ class rpcserver extends object
    											      'signature' => 
                      									array(
                          									array('string', 'string'),
-                         									//array('boolean', 'string', 'boolean'),
                      									),
                 								  'docstring' => 'Grab a module'),
                 								  
                 		  'getModuleList' => array('function' => array($this, 'getModuleList'),
-   											      
+   											       'signature' => 
+                     									array(
+                         									array(NULL, 'string'),
+                     									),
                 								  'docstring' => 'Grab the module list'),
                 								  
                 								  
@@ -53,10 +55,16 @@ class rpcserver extends object
 	public function getModuleZip($module)
 	{
 		//grab the module name
-		$module = $module->getParam(0);
+		$mod = $module->getParam(0);
 		
-		$path = $this->objConfig->getSiteRootPath().'/chisimba_modules/blog/register.conf';
-		if($filetosend = @file_get_contents($path))
+		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
+		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
+		//zip up the module
+		$objZip = $this->getObject('wzip', 'utilities');
+		$zipfile = $objZip->addArchive($path, $filepath);
+		//echo $zipfile; die();
+		//echo $path; die();
+		if($filetosend = @file_get_contents($zipfile))
 		{
 			$val = new XML_RPC_Value($filetosend, 'base64');
 			return new XML_RPC_Response($val);

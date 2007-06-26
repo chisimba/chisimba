@@ -59,6 +59,8 @@ class wzip extends object{
           if ($v_list == 0) {
             die("Error : ".$archive->errorInfo(true));
           }
+          
+          return $filename;
             
     }
     
