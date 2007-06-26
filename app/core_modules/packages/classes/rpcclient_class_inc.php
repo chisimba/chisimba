@@ -24,7 +24,7 @@ class rpcclient extends object
 	{
 		$msg = new XML_RPC_Message('getModuleList');
 		$cli = new XML_RPC_Client('/chisimba_framework/app/index.php?module=packages', '127.0.0.1');
-		$cli->setDebug(1);
+		$cli->setDebug(0);
 
 		// send the request message
 		$resp = $cli->send($msg);
@@ -36,7 +36,7 @@ class rpcclient extends object
 		if (!$resp->faultCode())
 		{
 			$val = $resp->value();
-			return $val;
+			return $val->serialize($val);
 		}
 		else
 		{

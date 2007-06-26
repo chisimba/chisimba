@@ -33,10 +33,6 @@ class rpcserver extends object
                 								  'docstring' => 'Grab a module'),
                 								  
                 		  'getModuleList' => array('function' => array($this, 'getModuleList'),
-   											       'signature' => 
-                     									array(
-                         									array(NULL, 'string'),
-                     									),
                 								  'docstring' => 'Grab the module list'),
                 								  
                 								  

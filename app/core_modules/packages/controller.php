@@ -47,6 +47,7 @@ class packages extends controller
     public $objLanguage;
     
     public $objRpcServer;
+    public $objRpcClient;
 
 
     /**
@@ -65,6 +66,7 @@ class packages extends controller
             //the class for reading register.conf files
            $this->objModFile = &$this->getObject('modulefile', 'modulecatalogue');
            $this->objRpcServer = $this->getObject('rpcserver'); 
+           $this->objRpcClient = $this->getObject('rpcclient'); 
 
         }
         catch(customException $e) {
@@ -91,11 +93,16 @@ class packages extends controller
     		 		$this->requiresLogin(FALSE);
     		 		$this->setVar('pageSuppressXML', TRUE);
     		 		$this->objRpcServer->serve();
-    		 		
     		 		die();
     		 		
     		 	case 'list':
-    		 	return 'front_tpl.php';
+    		 		$list = $this->objRpcClient->getModuleList();
+    		 		//echo $list;
+    		 		$contents = simplexml_load_string($list);
+    		 		//var_dump($contents);
+    		 		die();
+    		 		
+    		 	//return 'front_tpl.php';
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                  break;
