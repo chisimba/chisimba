@@ -90,7 +90,7 @@ class packages extends controller
     		 	case NULL:
     		 		$this->requiresLogin(FALSE);
     		 		$this->setVar('pageSuppressXML', TRUE);
-    		 		$this->objRpcServer->server();
+    		 		$this->objRpcServer->serve();
     		 		
     		 		die();
     		 		
