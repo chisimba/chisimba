@@ -321,7 +321,7 @@ class modulecatalogue extends controller
                     } else {
                         log_debug('First time registration has already been performed on this system. Aborting');
                     }
-                    // $param = 'username=admin&password=a&mod=modulecatalogue';
+                 
                      $url = array('username'=>'admin','password'=>'a','mod'=>'modulecatalogue'); 
                     return $this->nextAction('login',$url,'security');
                 case 'update':
