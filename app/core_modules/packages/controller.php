@@ -97,7 +97,7 @@ class packages extends controller
     		 		
     		 	case 'list':
     		 		$list = $this->objRpcClient->getModuleList();
-    		 		//echo $list;
+    		 		echo $list;
     		 		$contents = simplexml_load_string($list);
     		 		//var_dump($contents);
     		 		die();

@@ -18,12 +18,15 @@ class rpcclient extends object
 		//require_once($this->getPearResource('XML/RPC.php'));
 		$this->objConfig = $this->getObject('altconfig', 'config');
 		$this->objLanguage = $this->getObject('language', 'language');
+		$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 	}
 
 	public function getModuleList()
 	{
 		$msg = new XML_RPC_Message('getModuleList');
-		$cli = new XML_RPC_Client('/chisimba_framework/app/index.php?module=packages', '127.0.0.1');
+		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
 		$cli->setDebug(0);
 
 		// send the request message
