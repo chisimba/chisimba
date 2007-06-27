@@ -109,9 +109,7 @@ class packages extends controller
     		 				if($modobj->string == 'CVSROOT' || $modobj->string == 'CVS' || $modobj->string == '.' || $modobj->string == '..' 
     		 				   || $modobj->string == 'build.xml' || $modobj->string == 'COPYING' || $modobj->string == 'chisimba_modules.txt')
     		 				{
-    		 					//echo "Bum module";
     		 					unset($modobj->string);
-    		 					//continue;
     		 				}
     		 				else {
     		 					$modulesarray[] = $modobj->string[0];
@@ -119,13 +117,11 @@ class packages extends controller
     		 			}
     		 			$i++;
     		 		}
-    		 		//print_r($modulesarray);
     		 		foreach ($modulesarray as $string)
     		 		{
     		 			echo $string."<br />";
     		 		}
     		 		die();
-    		 	//return 'front_tpl.php';
     		 	
     		 	case 'getmodule':
     		 		try {

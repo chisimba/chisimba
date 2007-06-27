@@ -89,7 +89,7 @@ class rpcserver extends object
       		$dir  = new DirectoryIterator($dataDir);
 	        foreach ($dir as $file)
       		{
-        		$fileName[] = new XML_RPC_Value($file->getFilename(), 'string'); //$file->getFilename();
+        		$fileName[] = new XML_RPC_Value($file->getFilename(), 'string');
       		}
 		}
 		catch (customException $e)
