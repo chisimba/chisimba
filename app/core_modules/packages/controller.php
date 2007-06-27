@@ -97,22 +97,32 @@ class packages extends controller
     		 		
     		 	case 'list':
     		 		$mlist = $this->objRpcClient->getModuleList();
-    		 		// echo $list;
     		 		$doc = simplexml_load_string($mlist);
-    		 		//print_r($doc);
     		 		$count = count($doc->array->data->value);
     		 		$i = 0;
     		 		while($i <= $count)
     		 		{
-    		 			//echo $count;
     		 			$modobj = $doc->array->data->value[$i];
     		 			if(is_object($modobj))
     		 			{
-    		 				echo $modobj->string."<br />";
+    		 				if($modobj->string == 'CVSROOT' || $modobj->string == 'CVS' || $modobj->string == '.' || $modobj->string == '..' 
+    		 				   || $modobj->string == 'build.xml' || $modobj->string == 'COPYING' || $modobj->string == 'chisimba_modules.txt')
+    		 				{
+    		 					//echo "Bum module";
+    		 					unset($modobj->string);
+    		 					//continue;
+    		 				}
+    		 				else {
+    		 					$modulesarray[] = $modobj->string[0];
+    		 				}
     		 			}
     		 			$i++;
     		 		}
-    		 		
+    		 		//print_r($modulesarray);
+    		 		foreach ($modulesarray as $string)
+    		 		{
+    		 			echo $string."<br />";
+    		 		}
     		 		die();
     		 	//return 'front_tpl.php';
     		 	default:
