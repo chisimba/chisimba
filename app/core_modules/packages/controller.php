@@ -125,6 +125,36 @@ class packages extends controller
     		 		}
     		 		die();
     		 	//return 'front_tpl.php';
+    		 	
+    		 	case 'getmodule':
+    		 		$module = $this->getParam('zipmod');
+    		 		if($module == '')
+    		 		{
+    		 			die("module cannot be empty");
+    		 		}
+    		 		$modzip = $this->objRpcClient->getModuleZip($module);
+    		 		// returned as a base64 encoded string
+    		 		$moduleark = base64_decode($modzip);
+    		 		
+    		 		$filename = $this->objConfig->getModulePath().$module.".zip";
+					if (is_writable($filename)) {
+					    if (!$handle = fopen($filename, 'a')) {
+         					echo "Cannot open file ($filename)";
+         					exit;
+    					}
+					    if (fwrite($handle, $moduleark) === FALSE) {
+        					echo "Cannot write to file ($filename)";
+        					exit;
+    					}
+
+    					echo "Success, wrote data to file ($filename)";
+    					fclose($handle);
+					} else {
+    					echo "The file $filename is not writable";
+					}
+    		 		
+    		 		
+    		 		break;
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                  break;
