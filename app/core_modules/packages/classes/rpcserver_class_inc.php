@@ -13,12 +13,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  */
 class rpcserver extends object
 {
+	public $objConfig;
+	public $objLanguage;
+	
 	public function init()
 	{
 		require_once($this->getPearResource('XML/RPC/Server.php'));
 		require_once($this->getPearResource('XML/RPC/Dump.php'));
-		
 		$this->objConfig = $this->getObject('altconfig', 'config');
+		$this->objLanguage = $this->getObject('language', 'language');
 	}
 	
 	public function serve()
@@ -50,10 +53,8 @@ class rpcserver extends object
 	
 	public function getModuleZip($module)
 	{
-		//ini_set('max_execution_time', -1);
 		//grab the module name
 		$mod = $module->getParam(0);
-		
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		//zip up the module
@@ -63,11 +64,8 @@ class rpcserver extends object
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		return new XML_RPC_Response($val);
-		
-		
 		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, // user error 1
-		'There was an error opening the file.');
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
 	
 	public function deleteModZip()
@@ -98,7 +96,6 @@ class rpcserver extends object
 		{
 			customException::cleanUp();
 		}	
-		//$fileName = array('some shit');
 		$val = new XML_RPC_Value($fileName, 'array');
 		return new XML_RPC_Response($val);
 		

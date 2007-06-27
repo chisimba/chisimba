@@ -13,6 +13,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  */
 class rpcclient extends object
 {
+	public $objLanguage;
+	public $objConfig;
+	public $sysConfig;
+	
 	public function init()
 	{
 		//require_once($this->getPearResource('XML/RPC.php'));
@@ -33,7 +37,7 @@ class rpcclient extends object
 		$resp = $cli->send($msg);
 		if (!$resp)
 		{
-			echo 'Communication error: ' . $cli->errstr;
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
 			exit;
 		}
 		if (!$resp->faultCode())
@@ -47,8 +51,7 @@ class rpcclient extends object
 			* Display problems that have been gracefully caught and
 			* reported by the xmlrpc server class.
 			*/
-			echo 'Fault Code: ' . $resp->faultCode() . "n";
-			echo 'Fault Reason: ' . $resp->faultString() . "n";
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
 		}
 	}
 	
@@ -64,7 +67,7 @@ class rpcclient extends object
 		$resp = $cli->send($msg);
 		if (!$resp)
 		{
-			echo 'Communication error: ' . $cli->errstr;
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
 			exit;
 		}
 		if (!$resp->faultCode())
@@ -78,8 +81,7 @@ class rpcclient extends object
 			* Display problems that have been gracefully caught and
 			* reported by the xmlrpc server class.
 			*/
-			echo 'Fault Code: ' . $resp->faultCode() . "n";
-			echo 'Fault Reason: ' . $resp->faultString() . "n";
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
 		}
 	}
 }
