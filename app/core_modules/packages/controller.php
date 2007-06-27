@@ -138,7 +138,7 @@ class packages extends controller
     		 		
     		 		$filename = $this->objConfig->getModulePath().$module.".zip";
 					if (is_writable($filename)) {
-					    if (!$handle = fopen($filename, 'a')) {
+					    if (!$handle = fopen($filename, 'wb')) {
          					echo "Cannot open file ($filename)";
          					exit;
     					}
