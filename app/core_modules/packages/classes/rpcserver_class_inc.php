@@ -70,6 +70,14 @@ class rpcserver extends object
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, // user error 1
 		'There was an error opening the file.');
 	}
+	
+	public function deleteModZip()
+	{
+		foreach(glob('*.zip') as $files)
+		{
+			unlink($files);
+		}
+	}
 
 	public function getMessage($message)
 	{
