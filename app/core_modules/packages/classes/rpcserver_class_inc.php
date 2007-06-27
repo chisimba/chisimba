@@ -58,13 +58,12 @@ class rpcserver extends object
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
-		//echo $path, $filepath; die();
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
-		if($filetosend = file_get_contents($zipfile))
-		{
-			$val = new XML_RPC_Value($filetosend, 'base64');
-			return new XML_RPC_Response($val);
-		}
+		$filetosend = file_get_contents($zipfile);
+		$filetosend = base64_encode($filetosend);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		return new XML_RPC_Response($val);
+		
 		
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, // user error 1

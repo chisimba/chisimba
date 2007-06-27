@@ -133,28 +133,22 @@ class packages extends controller
     		 			die("module cannot be empty");
     		 		}
     		 		$modzip = $this->objRpcClient->getModuleZip($module);
+    		 		$modzip = strip_tags($modzip);
     		 		// returned as a base64 encoded string
     		 		$moduleark = base64_decode($modzip);
-    		 		
-    		 		$filename = $this->objConfig->getModulePath().$module.".zip";
-    		 		touch($filename);
-    		 		chmod($filename, 0777);
-					if (is_writable($filename)) {
-					    if (!$handle = fopen($filename, 'a')) {
-         					echo "Cannot open file ($filename)";
-         					exit;
-    					}
-					    if (fwrite($handle, $moduleark) === FALSE) {
-        					echo "Cannot write to file ($filename)";
-        					exit;
-    					}
+    		 		$filename = $this->objConfig->getModulePath().$module.time().".zip";
+    		 		if (!$handle = fopen($filename, 'wb')) 
+    		 		{
+         				echo "Cannot open file ($filename)";
+         				exit;
+    				}
+					if (fwrite($handle, $moduleark) === FALSE) {
+        				echo "Cannot write to file ($filename)";
+        				exit;
+    				}
 
-    					echo "Success, wrote data to file ($filename)";
-    					fclose($handle);
-					} else {
-    					echo "The file $filename is not writable";
-					}
-    		 		
+    				echo "Success, wrote data to file ($filename)";
+    				fclose($handle);
     		 		
     		 		break;
     		 	default:
