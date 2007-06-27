@@ -58,8 +58,6 @@ class rpcserver extends object
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
-		//echo $zipfile; die();
-		//echo $path; die();
 		if($filetosend = @file_get_contents($zipfile))
 		{
 			$val = new XML_RPC_Value($filetosend, 'base64');
