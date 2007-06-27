@@ -96,12 +96,24 @@ class packages extends controller
     		 		die();
     		 		
     		 	case 'list':
-    		 		$list = $this->objRpcClient->getModuleList();
-    		 		echo $list;
-    		 		$contents = simplexml_load_string($list);
-    		 		//var_dump($contents);
-    		 		die();
+    		 		$mlist = $this->objRpcClient->getModuleList();
+    		 		// echo $list;
+    		 		$doc = simplexml_load_string($mlist);
+    		 		//print_r($doc);
+    		 		$count = count($doc->array->data->value);
+    		 		$i = 0;
+    		 		while($i <= $count)
+    		 		{
+    		 			//echo $count;
+    		 			$modobj = $doc->array->data->value[$i];
+    		 			if(is_object($modobj))
+    		 			{
+    		 				echo $modobj->string."<br />";
+    		 			}
+    		 			$i++;
+    		 		}
     		 		
+    		 		die();
     		 	//return 'front_tpl.php';
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
