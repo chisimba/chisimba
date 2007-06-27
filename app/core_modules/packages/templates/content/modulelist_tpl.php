@@ -1,5 +1,7 @@
 <?php
-
-print_r($modulesarray);
+foreach($modulesarray as $module)
+{
+	echo $module."<br />";
+}
 
 ?>
