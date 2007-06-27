@@ -6,7 +6,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 /**
  * XML-RPC Server class
  *
- * @author Paul Scott
+ * @author Paul Scott <pscott@uwc.ac.za>
  * @copyright GPL
  * @package packages
  * @version 0.1
