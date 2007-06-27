@@ -158,7 +158,7 @@ class packages extends controller
 					unlink($filename);
 					
 					// return a template saying that all this was a success...
-					//return 'success_tpl.php';
+					return 'success_tpl.php';
     		 		break;
     		 		
     		 	default:
