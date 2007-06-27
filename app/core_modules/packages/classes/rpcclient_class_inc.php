@@ -58,7 +58,7 @@ class rpcclient extends object
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
 		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
-		$cli->setDebug(0);
+		$cli->setDebug(1);
 
 		// send the request message
 		$resp = $cli->send($msg);
