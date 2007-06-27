@@ -137,8 +137,10 @@ class packages extends controller
     		 		$moduleark = base64_decode($modzip);
     		 		
     		 		$filename = $this->objConfig->getModulePath().$module.".zip";
+    		 		touch($filename);
+    		 		chmod($filename, 0777);
 					if (is_writable($filename)) {
-					    if (!$handle = fopen($filename, 'wb')) {
+					    if (!$handle = fopen($filename, 'a')) {
          					echo "Cannot open file ($filename)";
          					exit;
     					}
