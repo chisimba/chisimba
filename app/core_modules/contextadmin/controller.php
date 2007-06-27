@@ -76,6 +76,12 @@ class contextadmin extends controller
     public function dispatch()
     {
         $action = $this->getParam('action');
+        
+        if(!$this->hasPerms())
+        {
+         	$this->setLayoutTemplate('layout_tpl.php');
+			return 'error_tpl.php';	
+		}
 
         switch ($action)
         {
@@ -255,5 +261,25 @@ class contextadmin extends controller
     	
     	return $str;
     }
+    
+    /**
+    * Method to check the permissions
+    * for a user. Only Lecturers and Administrators
+    * are allowed here
+    * @access public
+    */
+    public function hasPerms()
+    {
+     	
+		if($this->_objUser->isAdmin() || $this->_objUser->isLecturer())
+		{
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+			
+		
+	}
+    
 
 }
