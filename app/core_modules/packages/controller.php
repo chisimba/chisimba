@@ -117,11 +117,10 @@ class packages extends controller
     		 			}
     		 			$i++;
     		 		}
-    		 		foreach ($modulesarray as $string)
-    		 		{
-    		 			echo $string."<br />";
-    		 		}
-    		 		die();
+    		 		
+    		 		$this->setVarByRef('modulesarray', $modulesarray);
+    		 		return 'modulelist_tpl.php';
+    		 		break;
     		 	
     		 	case 'getmodule':
     		 		try {
@@ -161,6 +160,7 @@ class packages extends controller
 					// return a template saying that all this was a success...
 					//return 'success_tpl.php';
     		 		break;
+    		 		
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                  break;
