@@ -54,8 +54,7 @@ class wzip extends object{
     {
         
         $archive = new PclZip($filename);
-        $v_list = $archive->create($path,
-                PCLZIP_OPT_REMOVE_PATH, $removePath);
+        $v_list = $archive->create($path, PCLZIP_OPT_REMOVE_PATH, $removePath);
           if ($v_list == 0) {
             die("Error : ".$archive->errorInfo(true));
           }

@@ -57,7 +57,7 @@ class rpcserver extends object
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
-		$zipfile = $objZip->addArchive($path, $filepath);
+		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
 		//echo $zipfile; die();
 		//echo $path; die();
 		if($filetosend = @file_get_contents($zipfile))
