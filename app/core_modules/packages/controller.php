@@ -154,7 +154,12 @@ class packages extends controller
     		 		}
 					
     		 		// unzip the file to the module path...
-    		 		
+    		 		$objZip = $this->getObject('wzip', 'utilities');
+					$objZip->unzip($filename, $this->objConfig->getModulePath());
+					unlink($filename);
+					
+					// return a template saying that all this was a success...
+					//return 'success_tpl.php';
     		 		break;
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
