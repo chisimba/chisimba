@@ -11,6 +11,7 @@ class packages extends controller
 	/**
      * Controller class for the packages module that extends the base controller
      *
+     * @author Paul Scott <pscott@uwc.ac.za>
      * @author Prince Mbekwa <pmbekwa@uwc.ac.za>
      * @copyright 2007 AVOIR
      * @package packages
@@ -127,28 +128,36 @@ class packages extends controller
     		 	//return 'front_tpl.php';
     		 	
     		 	case 'getmodule':
-    		 		$module = $this->getParam('zipmod');
-    		 		if($module == '')
+    		 		try {
+    		 			$module = $this->getParam('zipmod');
+    		 			if($module == '')
+    		 			{
+    		 				throw new customException($this->objLanguage->languageText("mod_packages_modempty", "packages"));
+    		 			}
+    		 			$modzip = $this->objRpcClient->getModuleZip($module);
+    		 			$modzip = strip_tags($modzip);
+    		 			// returned as a base64 encoded string
+    		 			$moduleark = base64_decode($modzip);
+    		 			$filename = $this->objConfig->getModulePath().$module.time().".zip";
+    		 			if (!$handle = fopen($filename, 'wb')) 
+    		 			{
+         					throw new customException($this->objLanguage->languageText("mod_packages_nowritefile", "packages"));
+         					exit;
+    					}
+						if (fwrite($handle, $moduleark) === FALSE) {
+        					throw new customException($this->objLanguage->languageText("mod_packages_nowritefile", "packages"));
+        					exit;
+    					}
+    					log_debug($this->objLanguage->languageText("mod_packages_successfulewrite", "packages")." ($filename)");
+    					fclose($handle);
+   					}
+    		 		catch (customException $e)
     		 		{
-    		 			die("module cannot be empty");
+    		 			customException::cleanUp();
+    		 			exit;
     		 		}
-    		 		$modzip = $this->objRpcClient->getModuleZip($module);
-    		 		$modzip = strip_tags($modzip);
-    		 		// returned as a base64 encoded string
-    		 		$moduleark = base64_decode($modzip);
-    		 		$filename = $this->objConfig->getModulePath().$module.time().".zip";
-    		 		if (!$handle = fopen($filename, 'wb')) 
-    		 		{
-         				echo "Cannot open file ($filename)";
-         				exit;
-    				}
-					if (fwrite($handle, $moduleark) === FALSE) {
-        				echo "Cannot write to file ($filename)";
-        				exit;
-    				}
-
-    				echo "Success, wrote data to file ($filename)";
-    				fclose($handle);
+					
+    		 		// unzip the file to the module path...
     		 		
     		 		break;
     		 	default:
