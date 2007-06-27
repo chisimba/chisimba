@@ -50,7 +50,7 @@ class rpcserver extends object
 	
 	public function getModuleZip($module)
 	{
-		ini_set('max_execution_time', -1);
+		//ini_set('max_execution_time', -1);
 		//grab the module name
 		$mod = $module->getParam(0);
 		
