@@ -22,13 +22,13 @@ if (substr(PHP_VERSION,0,1) < '5'){
 //    die;
 //}
 
-/*
+
 $path=substr(str_replace('\\','/',$_SERVER['SCRIPT_FILENAME']),0,-20)."/config/";
 if (file_exists($path."installdone.txt") && file_exists($path."config.xml")&&file_exists($path."dbdetails_inc.php")){
     print "The installation has been done already.<br />Click <a href='";
     print "../index.php'>here</a> to enter the site.<br />\n";
     die;
-}*/
+}
 
 require_once dirname(__FILE__).'/installwizard.inc';
 
