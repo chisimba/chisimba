@@ -47,7 +47,18 @@ class packages extends controller
      */
     public $objLanguage;
     
+    /**
+     * RPC Server object
+     *
+     * @var object
+     */
     public $objRpcServer;
+    
+    /**
+     * RPC Client object
+     *
+     * @var object
+     */
     public $objRpcClient;
 
 
@@ -55,6 +66,7 @@ class packages extends controller
      * Constructor method to instantiate objects and get variables
      * 
      * @since  1.0.0
+     * @param void
      * @return string
      * @access public
      */

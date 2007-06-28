@@ -13,10 +13,33 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  */
 class rpcclient extends object
 {
+	/**
+	 * Language Object
+	 *
+	 * @var object
+	 */
 	public $objLanguage;
+	
+	/**
+	 * Config object
+	 *
+	 * @var object
+	 */
 	public $objConfig;
+	
+	/**
+	 * Sysconfig object
+	 *
+	 * @var object
+	 */
 	public $sysConfig;
 	
+	/**
+	 * Standard init function
+	 * 
+	 * @param void
+	 * @return void
+	 */
 	public function init()
 	{
 		//require_once($this->getPearResource('XML/RPC.php'));
@@ -25,6 +48,12 @@ class rpcclient extends object
 		$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 	}
 
+	/**
+	 * Method to get a list of available modules from the rpc server
+	 *
+	 * @param void
+	 * @return string
+	 */
 	public function getModuleList()
 	{
 		$msg = new XML_RPC_Message('getModuleList');
@@ -55,6 +84,12 @@ class rpcclient extends object
 		}
 	}
 	
+	/**
+	 * Grab a zip file of a module from the RPC Server
+	 *
+	 * @param string $modulename
+	 * @return serialized base64 encoded string
+	 */
 	public function getModuleZip($modulename)
 	{
 		$msg = new XML_RPC_Message('getModuleZip', array(new XML_RPC_Value($modulename, "string")));

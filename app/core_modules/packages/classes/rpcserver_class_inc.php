@@ -13,9 +13,26 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  */
 class rpcserver extends object
 {
+	/**
+	 * Config object
+	 *
+	 * @var object
+	 */
 	public $objConfig;
+	
+	/**
+	 * Language object
+	 *
+	 * @var object
+	 */
 	public $objLanguage;
 	
+	/**
+	 * Standard init function (constructor)
+	 *
+	 * @param void
+	 * @return void
+	 */
 	public function init()
 	{
 		require_once($this->getPearResource('XML/RPC/Server.php'));
@@ -24,6 +41,12 @@ class rpcserver extends object
 		$this->objLanguage = $this->getObject('language', 'language');
 	}
 	
+	/**
+	 * Method to start the RPC server
+	 *
+	 * @param void
+	 * @return string - xml service
+	 */
 	public function serve()
 	{
 		// map web services to methods
@@ -51,6 +74,12 @@ class rpcserver extends object
 		return $server;
 	}
 	
+	/**
+	 * Method to grab a specified module as a zipfile
+	 *
+	 * @param string $module
+	 * @return string - base64 encoded string of the zipfile
+	 */
 	public function getModuleZip($module)
 	{
 		//grab the module name
@@ -68,6 +97,12 @@ class rpcserver extends object
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
 	
+	/**
+	 * Method to delete a module zipfile from the server
+	 *
+	 * @param void
+	 * @return void
+	 */
 	public function deleteModZip()
 	{
 		foreach(glob('*.zip') as $files)
@@ -76,12 +111,24 @@ class rpcserver extends object
 		}
 	}
 
+	/**
+	 * Method to return an XML-RPC message
+	 *
+	 * @param string $message
+	 * @return XML-RPC response object
+	 */
 	public function getMessage($message)
 	{
 		$message = $message->getParam(0);
 		return new XML_RPC_Response($message);
 	}
 	
+	/**
+	 * Method to return a list of available modules on the RPC server
+	 *
+	 * @param void
+	 * @return XML-RPC Response object (string)
+	 */
 	public function getModuleList()
 	{
 		$dataDir = $this->objConfig->getModulePath();
@@ -98,6 +145,16 @@ class rpcserver extends object
 		}	
 		$val = new XML_RPC_Value($fileName, 'array');
 		return new XML_RPC_Response($val);
+		
+	}
+	
+	/**
+	 * Method to grab a specific system type (blog, elearn, cms etc)
+	 *
+	 * @param string $systemType
+	 */
+	public function getSystemType($systemType)
+	{
 		
 	}
 }
