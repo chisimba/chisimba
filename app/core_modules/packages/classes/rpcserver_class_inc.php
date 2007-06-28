@@ -105,8 +105,10 @@ class rpcserver extends object
 	 */
 	public function deleteModZip()
 	{
+		chdir($this->objConfig->getModulePath());
 		foreach(glob('*.zip') as $files)
 		{
+			echo $files;
 			unlink($files);
 		}
 	}
@@ -164,6 +166,11 @@ class rpcserver extends object
 	 * @param string $skinName
 	 */
 	public function getSkin($skinName)
+	{
+		
+	}
+	
+	public function checkVersion($modulename)
 	{
 		
 	}

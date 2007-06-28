@@ -173,9 +173,56 @@ class packages extends controller
 					return 'success_tpl.php';
     		 		break;
     		 		
+    		 	case 'upgrademodule':
+    		 		try {
+    		 			$module = $this->getParam('upmod');
+    		 			if($module == '')
+    		 			{
+    		 				throw new customException($this->objLanguage->languageText("mod_packages_modempty", "packages"));
+    		 			}
+    		 			$modzip = $this->objRpcClient->getModuleZip($module);
+    		 			$modzip = strip_tags($modzip);
+    		 			// returned as a base64 encoded string
+    		 			$moduleark = base64_decode($modzip);
+    		 			$filename = $this->objConfig->getModulePath().$module.time().".zip";
+    		 			if (!$handle = fopen($filename, 'wb')) 
+    		 			{
+         					throw new customException($this->objLanguage->languageText("mod_packages_nowritefile", "packages"));
+         					exit;
+    					}
+						if (fwrite($handle, $moduleark) === FALSE) {
+        					throw new customException($this->objLanguage->languageText("mod_packages_nowritefile", "packages"));
+        					exit;
+    					}
+    					log_debug($this->objLanguage->languageText("mod_packages_successfulewrite", "packages")." ($filename)");
+    					fclose($handle);
+    					
+    					// OK, we now have the updated module code, so lets delete the old mod dir and replace it...
+    					if(is_dir($this->objConfig->getModulePath().$module))
+    					{
+    						$this->fullrmdir($this->objConfig->getModulePath().$module);
+    						// unpack the new code...
+    						$objZip = $this->getObject('wzip', 'utilities');
+							$objZip->unzip($filename, $this->objConfig->getModulePath());
+							// finally clean up the zip file
+							unlink($filename);
+    					}
+    		 		}
+    		 		catch (customException $e)
+    		 		{
+    		 			customException::cleanUp();
+    		 			exit;
+    		 		}
+    		 		log_debug("module $module upgrade complete");
+    		 		$this->nextAction('',array(),'modulecatalogue');
+    		 		break;
     		 	default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                  break;
+                 
+    		 	case 'cleanupzips':
+    		 		$this->objRpcServer->deleteModZip();
+    		 		break;
     		 }
     	}
     	catch (customException $e){
@@ -194,6 +241,47 @@ class packages extends controller
      {
         return FALSE;
      }
+     
+     public function fullrmdir($dirname)
+     {
+        if ($dirHandle = opendir($dirname)) 
+        {
+            $old_cwd = getcwd();
+            chdir($dirname);
+            while ($file = readdir($dirHandle))
+            {
+                if ($file == '.' || $file == '..')
+                {
+                	continue;
+                }
+                if (is_dir($file)) 
+                {
+                    if (!$this->fullrmdir($file))
+                    {
+                    	return false;
+                    }
+                } 
+                else
+                {
+                    if(!unlink($file))
+                    {
+                    	return false;
+                    }
+                }
+            }
+            closedir($dirHandle);
+            chdir($old_cwd);
+            if (!rmdir($dirname))
+            {
+            	return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }
 ?>
