@@ -163,7 +163,7 @@ class rpcserver extends object
 	 *
 	 * @param string $skinName
 	 */
-	public function grabSkin($skinName)
+	public function getSkin($skinName)
 	{
 		
 	}
