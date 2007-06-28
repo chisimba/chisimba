@@ -1033,7 +1033,7 @@ class engine
 
 			} elseif (is_array($value)) {
 
-				install_stripslashes_array($array[$key], $strip_keys);
+				$this->install_stripslashes_array($array[$key], $strip_keys);
 
 			}
 
