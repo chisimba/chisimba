@@ -551,17 +551,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 }
 
 	/**
-	 *
-	*/
-	function writeKNGHtmls($contextcode, $folder = NULL)
-	{
-		
-		
-		// return success
-		return TRUE;
-	}
-
-	/**
 	 * Writes all images specific to context to usrfiles directory of new system (Chisimba)
 	 * or to a specified folder
 	 *
@@ -626,6 +615,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 
 		return $imageNamesInContext;
 	}
+
 
 	/**
 	 * NEED TO CHANGE DATABASE
@@ -1042,6 +1032,47 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form3->addToForm($form2);
 
 		return $form3;
+	}
+
+	/**
+	 * Write htmls to IMS resource folder
+	 *
+	 * @param array $courseData
+	 * @param array $courseContent 
+	 * @param string $tempDirectory
+	 *
+	 * @return array $htmlfilenames - 
+	 *
+	*/
+	function writeKNGHtmls($courseData, $courseContent, $tempDirectory, $type = '')
+	{
+		$homepage = $courseData['0']['about'];
+		$filepath = $tempDirectory."/".$courseData['0']['contextcode'].".html";
+		//Write home page to IMS folder
+		//Open file to write
+		$fp = fopen($filepath,'w');
+		//Write contents of file
+		fwrite($fp,$homepage);
+		fclose($fp);
+		for($i=0;$i<count($courseContent);$i++)
+		{
+			//Rename resource
+			if($type == "kng")
+			$filepath = $tempDirectory."/"."/resource".$i.".html";
+			else
+			$filepath = $tempDirectory."/".$courseData['0']['contextcode']."/resource".$i.".html";
+			//Store html filenames
+			$htmlfilenames[$i] = $courseContent[$i]['0']['fullname']; 
+			//Retrieve resource contents
+			$contentsOfFile = $courseContent[$i]['0']['body'];
+			//Open file to write
+			$fp = fopen($filepath,'w');
+			//Write contents of file
+			fwrite($fp,$contentsOfFile);
+			fclose($fp);
+		}
+
+		return $htmlfilenames;
 	}
 
 }

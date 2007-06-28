@@ -156,7 +156,6 @@ class importIMSPackage extends dbTable
 		}
 		//Get organizations
 		$structure = $this->getStructure($simpleXmlObj);
-		//var_dump($structure);die();
 		if(!isset($structure))
 		{
 			return  "noStructureError";
@@ -805,8 +804,8 @@ class importIMSPackage extends dbTable
 		return $titles;
 	}
 
-public $resourceIds;
-public $chapterIds;
+	public $resourceIds;
+	public $chapterIds;
 	/**
 	 * Control loading resources into Chisimba
 	 * and file manipulation functions
@@ -890,29 +889,7 @@ public $chapterIds;
 			$this->resourceIds[$i] = $resourceId;
 			$i++;
 		}
-//var_dump($this->chapterIds);
-//die;
-/*
-		foreach($writeData as $resource)
-		{
-			//Unpack data
-			$fileContents = $resource['fileContents'];
-		foreach($this->resourceFileNames as $aFile)
-		{
-			if($this->fileMod)
-			{
-				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
-			}
-			$regex = '/(href=".*'.$aFile.'.*?")/i';
-			preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-			if($matches)
-			{
-				echo match;
-			}
-		}
-		}
-*/
-$this->addChapters();
+		$this->addChapters();
 		//Add ordered data
 		for($i=0;$i<count($orderedData);$i++)
 		{
@@ -1017,7 +994,7 @@ $this->addChapters();
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
 		if(!count($result) > 0)
-		{
+		{echo "a";die();
 			//No idea!!!
 			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
 			//Add page
@@ -1099,6 +1076,7 @@ $this->addChapters();
     	 * @param string $fileNames - names of all files in package
     	 * 
     	 * @return string $page - the finished modified text page
+    	 * @return TRUE - if page is un-modified
 	 *
 	*/
     	function changeImageSRC($fileContents, $contextCode, $fileNames, $static='')

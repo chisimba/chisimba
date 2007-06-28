@@ -23,7 +23,7 @@ class exportimspackage extends object
 	/**
 	 * @var object $objConfig
 	*/
-	var $objConfig;
+	public $objConfig;
 
 	/**
 	 * @var object $objIEUtils
@@ -243,7 +243,7 @@ class exportimspackage extends object
 		//Retrieve html page data within context
 		$courseContent = $this->objIEUtils->getCourseContent($courseId);
 		//Write Htmls to specified directory  (resources folder)
-		$writeKNGHtmls = $this->writeKNGHtmls($courseData, $courseContent, $tempDirectory, $resourceFolder);
+		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $courseContent, $tempDirectory);
 		//Merge filenames
 		$filelist = array_merge($writeKNGHtmls, $writeKNGImages);
 		//Instantiate imsmanifest.xml creation
@@ -269,43 +269,6 @@ class exportimspackage extends object
 		//$this->zipAndDownload($contextcode, $tempDirectory);
 
 		return TRUE;
-	}
-
-	/**
-	 * Write htmls to IMS resource folder
-	 *
-	 * @param array $courseData
-	 * @param array $courseContent 
-	 * @param string $tempDirectory
-	 * @param string $resourceFolder
-	 * @return TRUE - Successful execution
-	*/
-	function writeKNGHtmls($courseData, $courseContent, $tempDirectory, $resourceFolder)
-	{
-		$homepage = $courseData['0']['about'];
-		$filepath = $tempDirectory."/".$courseData['0']['contextcode'].".html";
-		//Write home page to IMS folder
-		//Open file to write
-		$fp = fopen($filepath,'w');
-		//Write contents of file
-		fwrite($fp,$homepage);
-		fclose($fp);
-		for($i=0;$i<count($courseContent);$i++)
-		{
-			//Rename resource
-			$filepath = $tempDirectory."/".$courseData['0']['contextcode']."/resource".$i.".html";
-			//Store html filenames
-			$htmlfilenames[$i] = $courseContent[$i]['0']['fullname']; 
-			//Retrieve resource contents
-			$contentsOfFile = $courseContent[$i]['0']['body'];
-			//Open file to write
-			$fp = fopen($filepath,'w');
-			//Write contents of file
-			fwrite($fp,$contentsOfFile);
-			fclose($fp);
-		}
-
-		return $htmlfilenames;
 	}
 
 	/**
