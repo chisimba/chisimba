@@ -108,7 +108,7 @@ class rpcserver extends object
 		chdir($this->objConfig->getModulePath());
 		foreach(glob('*.zip') as $files)
 		{
-			echo $files;
+			log_debug("cleaning up: ".$files);
 			unlink($files);
 		}
 	}
