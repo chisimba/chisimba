@@ -210,7 +210,8 @@ class contextgroups extends controller
         sort( $usersList );
 
         // Members list dropdown
-        $lstMembers = $this->newObject( 'dropdown', 'htmlelements' );
+        $this->loadClass('dropdown', 'htmlelements');
+        $lstMembers = new dropdown(); //$this->newObject( 'dropdown', 'htmlelements' );
         $lstMembers->name = 'list2[]';
         $lstMembers->extra = ' multiple="multiple" style="width:100pt" size="10" ondblclick="moveSelectedOptions(this.form[\'list2[]\'],this.form[\'list1[]\'],true); "';
         foreach ( $memberList as $user ) {
@@ -220,7 +221,8 @@ class contextgroups extends controller
             $lstMembers->addOption( $userPKId, $fullName );
         }
 
-		$tblLayoutM= &$this->newObject( 'htmltable', 'htmlelements' );
+        $this->loadClass('htmltable', 'htmlelements' );
+		$tblLayoutM= new htmlTable(); //&$this->newObject( 'htmltable', 'htmlelements' );
 		$tblLayoutM->row_attributes = 'align="center" ';
 		$tblLayoutM->width = '100px';
 		$tblLayoutM->startRow();
@@ -232,7 +234,8 @@ class contextgroups extends controller
         $this->setVarByRef('lstMembers', $tblLayoutM);
 
         // Users list dropdown
-        $lstUsers = $this->newObject( 'dropdown', 'htmlelements' );
+        $this->loadClass('dropdown', 'htmlelements');
+        $lstUsers = new dropdown(); //( 'dropdown', 'htmlelements' );
         $lstUsers->name = 'list1[]';
         $lstUsers->extra = ' multiple="multiple" style="width:100pt"  size="10" ondblclick="moveSelectedOptions(this.form[\'list1[]\'],this.form[\'list2[]\'],true)"';
         foreach ( $usersList as $user ) {
@@ -253,7 +256,8 @@ class contextgroups extends controller
         $this->setVarByRef('lstUsers', $tblLayoutU );
 
         // Link method
-        $lnkSave = $this->newObject('link','htmlelements');
+        $this->loadClass('link', 'htmlelements');
+        $lnkSave = new link(); //$this->newObject('link','htmlelements');
         $lnkSave->href  = '#';
         $lnkSave->extra = 'onclick="javascript:';
         $lnkSave->extra.= 'selectAllOptions( document.forms[\'frmManage\'][\'list2[]\'] ); ';
@@ -261,7 +265,7 @@ class contextgroups extends controller
         $lnkSave->extra.= 'document.forms[\'frmManage\'].submit(); "';
         $lnkSave->link  = $this->_objLanguage->languageText( 'word_save' );
 
-        $lnkCancel = $this->newObject('link','htmlelements');
+        $lnkCancel = new link(); //$this->newObject('link','htmlelements');
         $lnkCancel->href  = '#';
         $lnkCancel->extra = 'onclick="javascript:';
         $lnkCancel->extra.= 'document.forms[\'frmManage\'][\'button\'].value=\'cancel\'; ';
@@ -280,7 +284,8 @@ class contextgroups extends controller
         $navButtons['lnkLeftAll']  = $this->navLink('All <<','All',"forms['frmManage']['list2[]']", "forms['frmManage']['list1[]']");
         $this->setVar('navButtons',$navButtons);
 
-        $frmManage = &$this->getObject( 'form', 'htmlelements' );
+        $this->loadClass('form', 'htmlelements');
+        $frmManage = new form(); //&$this->getObject( 'form', 'htmlelements' );
         $frmManage->name = 'frmManage';
         $frmManage->displayType = '3';
         $frmManage->action = $this->uri ( array( 'action' => $groupName.'_form' ) );
