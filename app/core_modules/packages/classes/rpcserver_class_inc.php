@@ -109,7 +109,7 @@ class rpcserver extends object
 		foreach(glob('*.zip') as $files)
 		{
 			echo $files;
-			//unlink($files);
+			unlink($files);
 		}
 	}
 
