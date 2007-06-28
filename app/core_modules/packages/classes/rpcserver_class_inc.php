@@ -157,5 +157,15 @@ class rpcserver extends object
 	{
 		
 	}
+	
+	/**
+	 * Method to grab a specified skin from the RPC Server
+	 *
+	 * @param string $skinName
+	 */
+	public function grabSkin($skinName)
+	{
+		
+	}
 }
 ?>
