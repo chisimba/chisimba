@@ -12,7 +12,7 @@
 // URL Re-writing
 // by Jeremy O'Connor
 
-$uri = $_SERVER["REQUEST_URI"];
+/*$uri = $_SERVER["REQUEST_URI"];
 //echo "[$uri]";
 //exit();
 
@@ -36,9 +36,8 @@ if (preg_match('/^(.*)\/index.php\/(.+?)\/(.+?)\/$/i', $uri, $matches)) {
 if (preg_match('/^(.*)\/index.php\/(.+?)\/(.+?)\/(.+?)\/$/i', $uri, $matches)) {
 	header( 'Location: '.$matches[1].'/index.php?module='.$matches[2].'&action='.$matches[3].'&id='.$matches[4] );
 }
-
 // End of URL Re-writing
-
+*/
 // checks for configuration file, if none found loads installation page
 if ( !file_exists( 'config/config.xml' ) ) {
 	header( 'Location: installer/index.php' );
