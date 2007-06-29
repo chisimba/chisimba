@@ -30,6 +30,7 @@ if (file_exists($path."installdone.txt") && file_exists($path."config.xml")&&fil
     die;
 }
 
+
 require_once dirname(__FILE__).'/installwizard.inc';
 
 

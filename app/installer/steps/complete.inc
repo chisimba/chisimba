@@ -42,7 +42,7 @@ class Complete extends Step
 *
 * This action is fired when the user has completed the installation process.
 *
-* @author prince mbekwa
+* @author prince mbekwai, James Scoble
 * @version $Id
 * @package Installer
 */
@@ -59,19 +59,19 @@ class CompleteAction extends StepAction
     */
     function paintAction()
     {
-        $tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');
+        //Now mark the installation as done
+        $path = $_SESSION['sys_root'].'/config/';
+        touch($path . 'installdone.txt');
+        
+        $tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');     
+        $registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType=').str_replace(' ','%20',$_SESSION['SysType']);
 
-         
-$registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType=').str_replace(' ','%20',$_SESSION['SysType']);
+        $fp=fopen($registerLink,'r');
 
-
-$fp=fopen($registerLink,'r');
-
-                
-               // $wizard->killSession();
-               $tpl->set('login_url', $registerLink);
+        // $wizard->killSession();
+         $tpl->set('login_url', $registerLink);
        
-                echo $tpl->fetch();
+         echo $tpl->fetch();
 
     }//end paintAction()
 
