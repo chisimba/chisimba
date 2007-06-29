@@ -865,7 +865,6 @@ class importIMSPackage extends dbTable
 			$fileContents = $resource['fileContents'];
 			$resourceId = (string)$xmlResource['identifier'];
 			$resourceId = trim($resourceId);
-//echo $resourceId."<br />";
 			foreach($this->resourceFileNames as $aFile)
 			{
 				if($this->fileMod)
@@ -874,14 +873,12 @@ class importIMSPackage extends dbTable
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
-//echo $resourceId."<br />";
 					$index = array_search($resourceId, $this->chapterIds);
-//					echo $index."<br />";
 					if($index === FALSE){
-					//	echo A;
+
 					}
 					else{
-					//	echo m;
+
 					}
 				}
 			}
@@ -994,7 +991,7 @@ class importIMSPackage extends dbTable
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
 		if(!count($result) > 0)
-		{echo "a";die();
+		{
 			//No idea!!!
 			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
 			//Add page
