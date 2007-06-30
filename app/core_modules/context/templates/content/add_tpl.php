@@ -197,5 +197,3 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
     echo $this->contentNav->show();
 
 ?>
-
-
