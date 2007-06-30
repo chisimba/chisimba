@@ -1,13 +1,12 @@
 <?php
-
 /**
  * Class that extends the SPL to handle exceptions in a custom way
  *
- * @author Paul Scott
- * @category Chisimba
- * @package core
- * @copyright AVOIR
- * @licence GNU/GPL
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @category  Chisimba
+ * @package   Core
+ * @copyright 2007  AVOIR
+ * @license   http://gnu.org GPL 
  */
 
 class customException extends Exception

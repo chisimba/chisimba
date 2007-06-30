@@ -23,6 +23,3 @@ Alias "<?php echo $web_root ?>"               "<?php echo $system_root ?>/core/w
 	when you click next, however install can proceed without the check being
 	done.
 </p>
-
-
-

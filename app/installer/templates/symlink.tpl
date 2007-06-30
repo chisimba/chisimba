@@ -49,5 +49,3 @@ function chroot_check()
 		<td><?php echo $shared_host; ?></td>
 	</tr>
 </table>
-
-

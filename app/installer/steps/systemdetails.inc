@@ -1470,4 +1470,3 @@ class RootUserAction extends StepAction
 }//end class
 
 ?>
-

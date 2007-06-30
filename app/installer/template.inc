@@ -78,3 +78,4 @@ class Template
     }//end fetch()
 	
 }//end class
+?>

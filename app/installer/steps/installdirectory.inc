@@ -646,4 +646,3 @@ class InstallDirectoryAction extends StepAction
 }//end class
 
 ?>
-

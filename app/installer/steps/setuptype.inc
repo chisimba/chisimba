@@ -511,4 +511,3 @@ class SetupTypeAction extends FiveStepAction
 }//end class
 
 ?>
-

@@ -374,4 +374,3 @@ class DbDetailsAction extends FiveStepAction
 }//end class
 
 ?>
-

@@ -13,5 +13,3 @@
 	<?php echo $symlinks; ?> Create Symbolic Links
 	<br />
 </p>
-
-

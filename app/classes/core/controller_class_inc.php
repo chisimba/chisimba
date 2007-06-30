@@ -75,10 +75,6 @@ class controller extends access
      */
     public function getLayoutContent()
     {
-    	if(isset($searchresults))
-    	{
-    		return $searchresults;
-    	}
         return $this->objEngine->getLayoutContent();
     }
 
