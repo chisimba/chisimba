@@ -166,9 +166,4 @@ function install_stripslashes_array(&$array, $strip_keys=false)
 
 
 }//end install_stripslashes_array()
-
-
-
-
-
 ?>
