@@ -36,4 +36,4 @@ $button = & $this->newObject('button', 'htmlelements');
     $form->addToForm($table);
     
     echo $form->show();
-    ?>
+?>

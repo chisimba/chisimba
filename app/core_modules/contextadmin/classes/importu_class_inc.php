@@ -271,8 +271,8 @@ class importu extends dbTable
     */
     function insertContent($nodeId,$body,$title){
         $this->changeTable('tbl_context_page_content');
-        $body = str_replace(' ','',$body);
-        $body = str_replace('’','\'',$body);
+        $body = str_replace('ï¿½','',$body);
+        $body = str_replace('ï¿½','\'',$body);
         $contentId=$this->insert(array(
                             'tbl_context_nodes_id' => $nodeId,
                             'body' => $body,

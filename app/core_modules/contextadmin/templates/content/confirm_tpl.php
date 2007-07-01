@@ -43,4 +43,3 @@ $this->form->addToForm($this->table->show()."<br>".$this->button->show()."&nbsp;
           
 echo $this->form->show();
 ?>
-    
