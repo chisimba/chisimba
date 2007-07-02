@@ -65,11 +65,19 @@ class getIcon extends object implements ifhtml
     */
     public function init()
     {
-        $this->_objConfig = & $this->getObject('altconfig','config');
-        $this->_objLanguage = & $this->getObject('language', 'language');
-        $this->_objSkin = & $this->getObject('skin','skin');
+        $this->_objConfig = $this->getObject('altconfig','config');
+        $this->_objLanguage = $this->getObject('language', 'language');
+        $this->_objSkin = $this->getObject('skin','skin');
 
+        // initialise variables
         $this->align="middle";
+        $this->type = '';
+        $this->name = '';
+        $this->iconfolder = '';
+        $this->align = '';
+        $this->alt = '';
+        $this->title = '';
+        $this->extra = '';
     }
 
 
@@ -317,7 +325,7 @@ class getIcon extends object implements ifhtml
         $this->loadClass('link', 'htmlelements');
         
         $this->setIcon($name, $type, $iconfolder);
-        //$this->extra = " height='40px' width='40px'";
+        $this->extra = " height='40px' width='40px'";
         $this->title = $linkText;
         $icStr = $this->show();
         
