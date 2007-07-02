@@ -328,12 +328,17 @@ class sidemenu extends object
     */
     function joinContext()
     {
-        $objModule =& $this->getObject('modules','modulecatalogue');
-        $contextAdminUtils =& $this->getObject('contextadminutils','contextadmin');
-        $objForm =& $this->newObject('form','htmlelements');
-        $objButton =& $this->newObject('button','htmlelements');
-        $objDrop =& $this->newObject('dropdown','htmlelements');
-
+    	$this->loadClass('form', 'htmlelements');
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('textarea', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('dropdown', 'htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('link', 'htmlelements');
+    	
+        $objModule = $this->getObject('modules','modulecatalogue');
+        $contextAdminUtils = $this->getObject('contextadminutils','contextadmin');
+        
         $joinCourse = ucwords($this->objLanguage->code2Txt('mod_context_joincontext','context',array('context'=>'course')));
         $leaveCourse = ucwords($this->objLanguage->code2Txt('mod_toolbar_leavecontext','toolbar'));
         $go = $this->objLanguage->languageText('word_go','system');
