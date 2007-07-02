@@ -31,4 +31,8 @@
 	<?php echo $pass ?>
 	</td>
 </tr>
+<tr>
+<td colspan=2>
+Note: On some database installations, the server you are installing on will need to be granted permission to connect, create tables, etc. This can be done with the GRANT option, or with database admin applications such as PHPMyAdmin.
+</td>
 </table>
