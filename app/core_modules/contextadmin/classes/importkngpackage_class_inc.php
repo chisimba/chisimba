@@ -57,10 +57,10 @@ class importKNGPackage extends dbTable
 		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
 		//Load Filemanager class
 		$this->objIndex =& $this->getObject('indexfileprocessor', 'filemanager');
-		$this->objUpload =& $this->getObject('upload', 'filemanager');
+		//Load System classes
 		$this->objConf = &$this->getObject('altconfig','config');
-        	$this->objUser =& $this->getObject('user', 'security');
-		//Load Chapter Classes
+		$this->objUser =& $this->getObject('user', 'security');
+		//Load Chapter classes
 		$this->objChapters =& $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters =& $this->getObject('db_contextcontent_contextchapter','contextcontent');
 		//Load context classes
@@ -132,6 +132,7 @@ class importKNGPackage extends dbTable
 		{
 			return  "loadDataError";
 		}
+		$this->uploadImagesToChisimba($imagesLocation);
 
 		return TRUE;
 	}
@@ -169,7 +170,7 @@ class importKNGPackage extends dbTable
 		return TRUE;
 	}
 
-public $chapterIds;
+	public $chapterIds;
 	function addChapters($title = '', $intro = '')
 	{
 		//Add Chapters
@@ -195,7 +196,6 @@ public $chapterIds;
 	*/
 	function writePage($values, $contextCode='')
 	{
-//echo $this->chapterIds;die();
 		//duplication error needs to be fixed by Tohir
 		parent::init('tbl_contextcontent_pages');
 		$menutitle = $values['menutitle'];
@@ -244,7 +244,6 @@ public $chapterIds;
 			$newCourse['isclosed'] = "Published";
 		else
 			$newCourse['isclosed'] = "UnPublished";
-
 		//Create course
 		$courseCreated= $this->objIEUtils->createCourseInChisimba($newCourse);
 		if(!isset($courseCreated) && $courseCreated)
@@ -255,6 +254,28 @@ public $chapterIds;
 		return $newCourse;
 	}
 
+	/**
+	 * Writes all images used by KNG course to new database (Chisimba)
+	 * Makes query to tbl_context_file
+	 * 
+	 * @param string $contextcode - selected course
+	 * @return array $indexFolder - list of id fields belonging to images
+	*/	
+	function uploadImagesToChisimba($folder)
+	{
+		//duplication error needs to be fixed by Tohir
+		parent::init('tbl_files');
+
+		//Course Images
+		//$indexFolder = $this->objIndex->indexFolder($folder, $this->objUser->userId());
+		//$rootId = $this->objUser->userId();
+		//$addImages = $this->objIEUtils->addImagesToChisimba($folder,$rootId);
+		//var_dump($indexFolder);
+//var_dump($folder);
+		//echo $this->objIndex->processIndexedFile($folder."/"."0001.jpg",'1');
+
+		return TRUE;
+	}
 
 /*
 	/**
@@ -263,7 +284,7 @@ public $chapterIds;
 	 * 
 	 * @param string $contextcode - selected course
 	 * @return array $indexFolder - list of id fields belonging to images
-
+	
 	function uploadImagesToChisimba($folder)
 	{
 		//Course Images

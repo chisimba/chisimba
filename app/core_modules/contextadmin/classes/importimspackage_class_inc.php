@@ -57,11 +57,16 @@ class importIMSPackage extends dbTable
 	*/
 	function init()
 	{
+		//Load Filemanager class
+		$this->objIndex =& $this->getObject('indexfileprocessor', 'filemanager');
+		$this->objUpload =& $this->getObject('upload', 'filemanager');
+		//Load System classes
 		$this->objConfig = & $this->newObject('altconfig','config');
-		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
         	$this->objLanguage = & $this->newObject('language', 'language');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
+		//Load Inner classes
+		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
 		//Load Chapter Classes
 		$this->objChapters =& $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters =& $this->getObject('db_contextcontent_contextchapter','contextcontent');
@@ -142,6 +147,12 @@ class importIMSPackage extends dbTable
 		{
 			return  "courseReadError";
 		}
+		//Initialize all locations
+		$init = $this->initLocations($courseData['contextcode']);
+		if(!isset($init))
+		{
+			return  "initializeError";
+		}
 		//Create course
 		$courseCreated= $this->objIEUtils->createCourseInChisimba($courseData);
 		if(!isset($courseCreated))
@@ -160,16 +171,79 @@ class importIMSPackage extends dbTable
 		{
 			return  "noStructureError";
 		}
-		//Load data into Chisimba
+		//Load html data into Chisimba
 		$loadData = $this->loadToChisimba($writeData, $structure);
 		if(!isset($loadData))
 		{
 			return  "loadDataError";
 		}
+		//Load image data into Chisimba
+		$uploadImagesToChisimba = $this->uploadImagesToChisimba($folder);
+		if(!isset($uploadImagesToChisimba))
+		{
+			return  "uploadError";
+		}
 		//Rebuild html images and url links
 		$rebuildHtml = $this->rebuildHtml($loadData,$fileNames);
+		if(!isset($rebuildHtml))
+		{
+			return  "rebuildHtmlError";
+		}
 
 		return TRUE;
+	}
+
+	public $contentBasePath;
+	public $courseContentBasePath;
+	public $contextCode;
+	public $courseContentPath;
+	public $imagesLocation;
+	public $docsLocation;
+	/**
+	 * 
+	 * 
+	 * 
+	*/
+	function initLocations($contextcode)
+	{
+		//Pre-check parameters
+		if(!isset($contextcode))
+		{
+			return  "precheckError";
+		}
+		//Pre-Initialize global variables
+		$this->contentBasePath = '';
+		$this->courseContentBasePath = '';
+		$this->contextCode = '';
+		$this->courseContentPath = '';
+		$this->imagesLocation = '';
+		$this->docsLocation = '';
+		//Static Chisimba file locations
+		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		$this->contentBasePath = $this->objConfig->getcontentBasePath();
+		$this->courseContentBasePath = $this->contentBasePath."content/";
+		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
+		$this->courseContentPath = $this->courseContentBasePath.$this->contextCode;
+		$this->imagesLocation = $this->courseContentPath."/images";
+		$this->docsLocation = $this->courseContentPath."/documents";
+		$locations = array('contentBasePath' => $this->contentBasePath,
+					'courseContentBasePath' => $this->courseContentBasePath,
+					'contextCode' => $this->contextCode,
+					'courseContentPath' => $this->courseContentPath,
+					'imagesLocation' => $this->imagesLocation,
+					'docsLocation' => $this->docsLocation
+					);
+		if($this->objDebug)
+		{
+			echo $contentBasePath."<br />";
+			echo $courseContentBasePath."<br />";
+			echo $contextCode."<br />";
+			echo $courseContentPath."<br />";
+			echo $imagesLocation."<br />";
+			echo $docsLocation."<br />";
+		}
+
+		return $locations;
 	}
 
 	/**
@@ -449,10 +523,6 @@ class importIMSPackage extends dbTable
 	}
 
 	/**
-	 * @var object $contextCode - the course context code
-	*/
-	public $contextCode;
-	/**
 	 * @var object $resourceFileNames - the filenames of resources, including type
 	*/
 	public $resourceFileNames;
@@ -473,9 +543,12 @@ class importIMSPackage extends dbTable
 	*/
 	function writeResources($xml, $folder, $newCourse)
 	{
-		$this->contextCode = "";
+		//Pre-initialize globals
 		$this->resourceFileNames = array();
 		$this->allData = array();
+		//Pre-initialize variables
+		$resourceFileLocations = array();
+		//Pre-check parameters
 		if(!isset($xml))
 		{
 			return  "precheckError";
@@ -491,6 +564,7 @@ class importIMSPackage extends dbTable
 		//Static Chisimba file locations
 		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$contentBasePath = $this->objConfig->getcontentBasePath();
+		$userBasePath = $this->objConfig->getsiteRootPath();
 		$courseContentBasePath = $contentBasePath."content/";
 		$contextCode = strtolower(str_replace(' ','_',$newCourse['contextcode']));
 		//Store context code globally
@@ -498,7 +572,7 @@ class importIMSPackage extends dbTable
 		$courseContentPath = $courseContentBasePath.$contextCode;
 		$imagesLocation = $courseContentPath."/images";
 		$docsLocation = $courseContentPath."/documents";
-		$resourceFileLocations = array();
+		$userFilePath = $userBasePath.$this->objUser->userId();
 		//Enter context
 		$enterContext = $this->objDBContext->joinContext($contextCode);
 		if($this->objDebug)
@@ -780,6 +854,75 @@ class importIMSPackage extends dbTable
 		return $this->allData;
 	}
 
+	public $imageIds;
+	/**
+	 * Writes all images used by course to new database (Chisimba)
+	 * Makes query to tbl_files
+	 * 
+	 * @param string $folder - selected course
+	 * @return array $indexFolder - list of id fields belonging to images
+	*/
+	function uploadImagesToChisimba($folder = '')
+	{
+		//Pre-Initialize global variables
+		$this->imageIds = array();
+		//Initialize Inner variables
+		parent::init('tbl_files');
+		//Add Images to database
+		$indexFolder = $this->objIndex->indexFolder($this->imagesLocation, $this->objUser->userId());
+		//Match image Id's to image names
+		foreach($indexFolder as $pageId)
+		{
+			$filter = "WHERE id = '$pageId'";
+			$result = $this->getAll($filter);
+			$aFile = $result['0']['filename'];
+			$this->imageIds[$aFile] = $pageId;
+		}
+var_dump($this->imageIds);
+/*
+		//duplication error needs to be fixed by Tohir
+		parent::init('tbl_files');
+		foreach($this->resourceFileNames as $aFile)
+		{
+			//Check if its an Image
+			if(preg_match("/.jpg|.gif|.png/",$aFile))
+			{
+				$fileLocation = $this->imagesLocation."/".$aFile;
+				//Chech if file exists on local system
+				if(!file_exists($fileLocation))
+				{
+					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
+					foreach($folders as $aFolder)
+					{
+						$testerLocation = $folder."/".$aFolder."/".$aFile;
+						if(file_exists($testerLocation))
+							$fileLocation = $testerLocation;
+						else
+							return "uploadError";
+					}
+				}
+				$this->imageIds[$aFile] = $indexFolder[$i];
+				$i++;
+			}
+		}
+
+/*
+				$fileInfo["name"] = $aFile;
+				$fileInfo["type"] = "image/jpeg";
+				$fileInfo["tmp_name"] = $fileLocation;
+				$fileInfo["error"] = '';
+				$fileInfo["size"] = filesize($fileLocation);
+//echo filesize($fileLocation);
+//echo $fileLocation."<br />";
+//						$fileInfo = finfo_file($fileLocation);
+//						var_dump($fileInfo);
+//$this->imageIds[$aFile] =  $this->objIndex->processIndexedFile($fileLocation, $this->objUser->userId());
+				//$this->objUpload->uploadFile('a', '', '', $fileInfo);
+				//var_dump($fileInfo);
+*/
+
+		return TRUE;
+	}
 
 	/**
 	 * Function to return the order in which pages should be added
@@ -868,7 +1011,7 @@ class importIMSPackage extends dbTable
 			foreach($this->resourceFileNames as $aFile)
 			{
 				if($this->fileMod)
-					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);
 				$regex = '/(href=".*'.$aFile.'.*?")/i';
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
@@ -1081,7 +1224,8 @@ class importIMSPackage extends dbTable
 		//Image location on disc
 		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
-
+		//Image location on localhost
+		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
 		//Only run through html's contained in package
 		foreach($this->resourceFileNames as $aFile)
 		{
@@ -1089,7 +1233,13 @@ class importIMSPackage extends dbTable
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
 			{
 				//Create new file source location
-				$newLink = $imageLocation.$aFile.'"';
+				//Check if its a static package
+				if(!($static == ''))
+					$newLink = $imageLocation.$aFile.'"';
+				else
+				{
+					$newLink = $action.$this->imageIds[$aFile].'&amp;filename='.$aFile;'&amp;type=.jpg';
+				}
 				//Convert filename into regular expression
 				$regex = '/'.$aFile.'/';
 				//Find filename in html page if it exists

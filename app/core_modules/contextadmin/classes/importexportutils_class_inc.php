@@ -802,63 +802,52 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	 */
 	public function uploadTemplate()
 	{
-		//print "<div align='center'>";
-
 		//Load needed display classes
 		$this->loadClass('textinput', 'htmlelements');
 		$this->loadClass('dropdown','htmlelements');
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('button', 'htmlelements');
-
 		//Creating the form
 		$form=&$this->newObject('form','htmlelements');
     		$form->extra=' enctype="multipart/form-data" ';
     		$form->name='uploadziplocal';
     		$paramArray = array('action' => 'uploadIMS');
     		$form->setAction($this->uri($paramArray,'contextadmin'));
-
 		//Creating the form
 		$form2=&$this->newObject('form','htmlelements');
     		$form2->extra=' enctype="multipart/form-data" ';
     		$form2->name='uploadzipserver';
     		$paramArray1 = array('action' => 'uploadKNG');
     		$form2->setAction($this->uri($paramArray1,'contextadmin'));
-
 		//Creating the form
 		$form3=&$this->newObject('form','htmlelements');
     		$form3->extra=' enctype="multipart/form-data" ';
     		$form3->name='dudd';
     		$paramArray = array('action' => 'dudd');
     		$form3->setAction($this->uri($paramArray,'dudd'));
-
     		//File input
     		$fileInput=&$this->newObject('textinput','htmlelements');
     		$fileInput->fldType='file';
     		$fileInput->label="Upload only .zip files";
     		$fileInput->name='upload';
     		$fileInput->size=60;
-
     		//Submit button
     		$objElement = new button('CSV');
     		$objElement->setToSubmit();
     		$objElement->setValue($this->objLanguage->languageText("word_upload"));
-
 		//Button
 		$inpButton = $this->newObject('button','htmlelements');
 		$inpButton->cssClass = 'f-submit';
 		$inpButton->setValue('Import');
 		$inpButton->setToSubmit();
-
     		//Heading
     		$objHeading1=&$this->newObject('htmlheading','htmlelements');
     		$objHeading1->str=$this->objLanguage->languageText("mod_ims_uploadheading","contextadmin");
     		$objHeading1->type=3;
-
     		//Heading
     		$objHeading2=&$this->newObject('htmlheading','htmlelements');
     		$objHeading2->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
     		$objHeading2->type=3;
-
 		//Label - username
 		$usernameLabel = new label("Username","username");
 		//Text input - username
@@ -917,10 +906,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form2->addToForm($courseLabel);
 		$form2->addToForm($courseDropDown);
 		$form2->addToForm($inpButton);
-		//print $form2->show()."\n"; 
 		$this->switchDatabase();
-    		//print"</div>\n";
-
 		$form3->addToForm($form);
 		$form3->addToForm($form2);
 
@@ -936,45 +922,37 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	{
 		//course data table
 		parent::init('tbl_context');
-		//print "<div align='center'>";
-
 		//Load needed display classes
 		$this->loadClass('textinput', 'htmlelements');
 		$this->loadClass('dropdown','htmlelements');
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('button', 'htmlelements');
-
 		//Creating the form
 		$form=&$this->newObject('form','htmlelements');
     		$form->extra=' enctype="multipart/form-data" ';
     		$form->name='exportziplocal';
     		$paramArray = array('action' => 'downloadChisimbaIMS');
     		$form->setAction($this->uri($paramArray,'contextadmin'));
-
 		//Creating the form
 		$form2=&$this->newObject('form','htmlelements');
     		$form2->extra=' enctype="multipart/form-data" ';
     		$form2->name='exportziplocal';
     		$paramArray = array('action' => 'downloadKNGIMS');
     		$form2->setAction($this->uri($paramArray,'contextadmin'));
-
 		//Creating the form
 		$form3=&$this->newObject('form','htmlelements');
     		$form3->extra=' enctype="multipart/form-data" ';
     		$form3->name='dudd';
     		$paramArray = array('action' => 'dudd');
     		$form3->setAction($this->uri($paramArray,'dudd'));
-
     		//Heading	
     		$objHeading1=&$this->newObject('htmlheading','htmlelements');
     		$objHeading1->str=$this->objLanguage->languageText("mod_new_downloadheading","contextadmin");
     		$objHeading1->type=3;
-
     		//Heading	
     		$objHeading2=&$this->newObject('htmlheading','htmlelements');
     		$objHeading2->str=$this->objLanguage->languageText("mod_kng_downloadheading","contextadmin");
     		$objHeading2->type=3;
-
 		//Label - server
 		$courseLabel = new label("Select Course","");
 		//Dropdown - course selection
@@ -991,7 +969,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$inpButton->cssClass = 'f-submit';
 		$inpButton->setValue('Export');
 		$inpButton->setToSubmit();
-
 		//Label - server
 		$courseLabel2 = new label("Select Course","");
 		//Dropdown - course selection
