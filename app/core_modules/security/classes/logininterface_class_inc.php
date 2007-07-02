@@ -32,7 +32,7 @@ class loginInterface extends object
     		$this->objConfig = &$this->getObject('altconfig','config');
     		$this->objHelp=& $this->getObject('help','help');
 
-    	} catch (customException $e) {
+    	} catch (Exception $e) {
     		customException::cleanUp();
     	}
     }
@@ -55,35 +55,34 @@ class loginInterface extends object
     		$this->loadClass('textinput', 'htmlelements');
     		$this->loadClass('checkbox', 'htmlelements');
     		$this->loadClass('link','htmlelements');
+    		$this->loadClass('label','htmlelements');
 
     		// Create a Form object
-    		$objForm = new form('loginform');
-    		//Set the action for the form to the uri with paramArray
-    		$objForm->setAction($formAction);
+    		$objForm = new form('loginform', $formAction);
     		//Set the displayType to 3 for freeform
     		$objForm->displayType=3;
 
     		//--Create an element for the username
-    		$objElement = new textinput("username",NULL,NULL,15);
-    		$objElement->label = $this->objLanguage->languageText("word_username");
-    		//Add validatoin for username
+    		$objInput = new textinput('username', '', '','15');
+    		$objLabel = new label($this->objLanguage->languageText('word_username'), 'input_username');
+    		//Add validation for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'login'),'required');
     		//Add the username box to the form
-    		$objForm->addToForm($objElement->label . ":&nbsp;" . $objElement->show());
+    		$objForm->addToForm($objLabel->show().': '.$objInput->show());
 
     		//--- Create an element for the password
-    		$objElement = new textinput("password",NULL,'password',15);
-    		$objElement->label = $this->objLanguage->languageText("word_password");
+    		$objInput = new textinput('password', '', 'password', '15');
+    		$objLabel = new label($this->objLanguage->languageText('word_password'), 'input_password');
     		//Add the password box to the form
-    		$objForm->addToForm('<br/>'.$objElement->label . ":&nbsp;&nbsp;" . $objElement->show().'<br/>');
+    		$objForm->addToForm('<br/>'.$objLabel->show() . ': ' . $objInput->show().'<br/>');
 
     		//--- Create an element for the network login radio
     		$objElement = new checkbox("useLdap");
     		$objElement->setCSS("transparentbgnb");
-    		$objElement->label=$this->objLanguage->languageText("phrase_networkid")."&nbsp;";
+    		$objElement->label=$this->objLanguage->languageText("phrase_networkid").' ';
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
-    			$ldap .= $objElement->label."&nbsp;".$objElement->show();
+    			$ldap .= $objElement->label.' '.$objElement->show();
     		}
 
 
@@ -103,7 +102,7 @@ class loginInterface extends object
         	$objForm->addToForm($p);
 
     		return $objForm->show();
-    	} catch (customException $e) {
+    	} catch (Exception $e) {
     		customException::cleanUp();
     	}
     }
