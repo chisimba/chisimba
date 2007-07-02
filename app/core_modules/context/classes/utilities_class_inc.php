@@ -63,7 +63,7 @@ class utilities extends object
         /* scriptaculous moved to default page template / no need to suppress XML*/        
         
 //        $this->setVar('pageSuppressXML',true);
-        $icon = $this->getObject('geticon', 'htmlelements');
+        $icon = $this->newObject('geticon', 'htmlelements');
 //        $icon->setIcon('up');
 //        $scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
 //                      <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
@@ -75,6 +75,7 @@ class utilities extends object
         $toolsIcon = $icon->show();
         $icon->setModuleIcon('context');
         $contentIcon = $icon->show();
+        
         //$str .="<a href=\"#\" onclick=\"Effect.SlideDown('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";    
         
         $str .= "<a href=\"#\" onclick=\"Effect.toggle('contextmenu','slide', adjustLayout());\">".$toolsIcon." Tools</a>";
