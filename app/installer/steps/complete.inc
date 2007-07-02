@@ -59,9 +59,9 @@ class CompleteAction extends StepAction
     */
     function paintAction()
     {
-        //Now mark the installation as done
-    //    $path = $_SESSION['sys_root'].'/config/';
-    //    touch($path . 'installdone.txt');
+        //Now mark the installation as done -- commented out for now.
+        //$path = $_SESSION['sys_root'].'/config/';
+        //touch($path . 'installdone.txt');
         
         $tpl = new Template(INSTALL_DIR.'/templates/complete.tpl');     
         $registerLink='http://'.str_replace('//','/',$_SESSION['site_server_url'].'/'.$_SESSION['site_url'].'/index.php?module=modulecatalogue&action=firsttimeregistration&sysType=').str_replace(' ','%20',$_SESSION['SysType']);
