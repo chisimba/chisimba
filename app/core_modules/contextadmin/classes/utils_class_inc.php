@@ -127,7 +127,16 @@ class utils extends object
        $leftSideColumn = $this->_objUser->getUserPic();//$userMenu->show();;
         //Add loginhistory block
 
-
+		if($this->_objDBContext->isInContext())
+        {
+            $objContextUtils = & $this->getObject('utilities','context');
+            $cm = $objContextUtils->getHiddenContextMenu('home','none');
+        } else {
+			$cm = '';
+		}    
+		$leftSideColumn .= $cm;
+		
+		//$leftSideColumn .= $objBlocks->showBlock('context', 'context');
 
         $leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
 
@@ -137,7 +146,7 @@ class utils extends object
 
         $leftSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
 
-        $leftSideColumn .= $objBlocks->showBlock('chat', 'chat');
+        $leftSideColumn .= $objBlocks->showBlock('contextchat', 'messaging');
 
 /*
 		//Add loginhistory block
