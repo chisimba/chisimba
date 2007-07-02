@@ -43,13 +43,13 @@ class featurebox extends object
      */
     public function show($title = null, $content = null, $id = null, $hidden = 'default', $showToggle = TRUE)
     {
+        $objIcon = $this->newObject('geticon', 'htmlelements');
 
   		$sidebar = '<div class="featurebox">';
   		$toggle = '';
   		
         if(!empty($id) && $showToggle)
         {
-            $objIcon =&$this->getObject('geticon', 'htmlelements');
   		    $objIcon->setIcon('toggle');
             $toggle = "<a href=\"#\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
         }
