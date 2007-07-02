@@ -373,6 +373,13 @@ class Wizard
                }
 
 
+        //Create the installdone.txt file if this is the final step
+        // We check if step 8 has been done - have to change this if we change the number of steps.
+        if (in_array(8,$_SESSION['completed_steps'])){
+            $path = $_SESSION['sys_root'].'/config/';
+            touch($path . 'installdone.txt');
+        }
+
 		// if there is a current_step set in the post data, use that by preference. This
 
 		// allows people to use the back browser a bit better than before, as the browser
