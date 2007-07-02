@@ -81,7 +81,8 @@ class importIMSPackage extends dbTable
 		$this->objDebug = FALSE;
 //		$this->objDebug = TRUE;
 	}
-
+	
+	public $courseId;
 	/**
 	 * Controls the process for import IMS specification content
 	 * Calls all necessary functions an does error checking
@@ -94,6 +95,7 @@ class importIMSPackage extends dbTable
 	function importIMScontent($FILES)
 	{
 		$this->fileMod = FALSE;
+		$this->courseId = '';
 		if(!isset($FILES))
 		{
 			return  "fileError";
@@ -155,6 +157,7 @@ class importIMSPackage extends dbTable
 		}
 		//Create course
 		$courseCreated= $this->objIEUtils->createCourseInChisimba($courseData);
+		$this->courseId = $courseCreated;
 		if(!isset($courseCreated))
 		{
 			return  "courseCreateError";
@@ -619,7 +622,6 @@ class importIMSPackage extends dbTable
 						}
 					}
 				}
-				//Write file contents to "about" in course
 				//Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
 				//Save all data
@@ -878,48 +880,6 @@ class importIMSPackage extends dbTable
 			$aFile = $result['0']['filename'];
 			$this->imageIds[$aFile] = $pageId;
 		}
-var_dump($this->imageIds);
-/*
-		//duplication error needs to be fixed by Tohir
-		parent::init('tbl_files');
-		foreach($this->resourceFileNames as $aFile)
-		{
-			//Check if its an Image
-			if(preg_match("/.jpg|.gif|.png/",$aFile))
-			{
-				$fileLocation = $this->imagesLocation."/".$aFile;
-				//Chech if file exists on local system
-				if(!file_exists($fileLocation))
-				{
-					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
-					foreach($folders as $aFolder)
-					{
-						$testerLocation = $folder."/".$aFolder."/".$aFile;
-						if(file_exists($testerLocation))
-							$fileLocation = $testerLocation;
-						else
-							return "uploadError";
-					}
-				}
-				$this->imageIds[$aFile] = $indexFolder[$i];
-				$i++;
-			}
-		}
-
-/*
-				$fileInfo["name"] = $aFile;
-				$fileInfo["type"] = "image/jpeg";
-				$fileInfo["tmp_name"] = $fileLocation;
-				$fileInfo["error"] = '';
-				$fileInfo["size"] = filesize($fileLocation);
-//echo filesize($fileLocation);
-//echo $fileLocation."<br />";
-//						$fileInfo = finfo_file($fileLocation);
-//						var_dump($fileInfo);
-//$this->imageIds[$aFile] =  $this->objIndex->processIndexedFile($fileLocation, $this->objUser->userId());
-				//$this->objUpload->uploadFile('a', '', '', $fileInfo);
-				//var_dump($fileInfo);
-*/
 
 		return TRUE;
 	}
@@ -961,15 +921,18 @@ var_dump($this->imageIds);
 	*/
 	function loadToChisimba($writeData, $structure)
 	{
+		//Pre-Initialize global variables
 		$this->resourceIds = array();
 		$this->chapterIds = array();
-		static $k = 0;
-		static $j = 0;
+		//Pre-initialize variables
 		static $i = 0;
+		static $j = 0;
+		static $k = 0;
 		$menutitles = array();
 		$orderedData = array();
 		$numItems = count($structure);
 		//Change Structure of data
+		//Add all pages
 		foreach($writeData as $resource)
 		{
 			//Unpack data
@@ -997,9 +960,21 @@ var_dump($this->imageIds);
 					$orderedData[$index] = $resource;
 					$this->chapterIds[$k] = $resourceId;
 					$k++;
+					if(strcmp($objectType,"Course")==0)
+					{
+						$indexOfCourse = $index;
+					}
 				}
 			}
 		}
+		//Move course info to the start
+		$start = 0;
+		$before = $indexOfCourse;
+		$after = count($orderedData);
+		$fromStart = array_slice($orderedData, $start, $before);
+		$toEnd = array_slice($orderedData, $before+1, $after);
+		$course = array_slice($orderedData, $before, $before);
+		$orderedData = array_merge($course, $fromStart, $toEnd);
 		//Retrieve resource Id's
 		foreach($orderedData as $resource)
 		{
@@ -1017,11 +992,11 @@ var_dump($this->imageIds);
 				if($matches)
 				{
 					$index = array_search($resourceId, $this->chapterIds);
-					if($index === FALSE){
-
+					if($index === FALSE)
+					{
 					}
-					else{
-
+					else
+					{
 					}
 				}
 			}
@@ -1047,6 +1022,8 @@ var_dump($this->imageIds);
 			$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode);
 			$menutitle = (string)$menutitle;
 			$menutitles[$i] = $menutitle;
+//var_dump($orderedData[0]);
+//echo $objectType."<br />";die;
 		}
 
 		return $menutitles;
@@ -1133,6 +1110,8 @@ var_dump($this->imageIds);
 		$menutitle = $values['menutitle'];
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
+		//force a write
+		//$result = '';
 		if(!count($result) > 0)
 		{
 			//No idea!!!
@@ -1238,7 +1217,7 @@ var_dump($this->imageIds);
 					$newLink = $imageLocation.$aFile.'"';
 				else
 				{
-					$newLink = $action.$this->imageIds[$aFile].'&amp;filename='.$aFile;'&amp;type=.jpg';
+					$newLink = $action.$this->imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
 				}
 				//Convert filename into regular expression
 				$regex = '/'.$aFile.'/';
