@@ -46,6 +46,14 @@ class sidemenu extends object
     */
     function init()
     {
+    	$this->loadClass('form', 'htmlelements');
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('textarea', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('dropdown', 'htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('link', 'htmlelements');
+		
         $this->dbMenu =& $this->newObject('dbmenu', 'toolbar');
         $this->objTools =& $this->newObject('tools', 'toolbar');
 
@@ -328,13 +336,7 @@ class sidemenu extends object
     */
     function joinContext()
     {
-    	$this->loadClass('form', 'htmlelements');
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('textarea', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('dropdown', 'htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('link', 'htmlelements');
+    	
     	
         $objModule = $this->getObject('modules','modulecatalogue');
         $contextAdminUtils = $this->getObject('contextadminutils','contextadmin');
@@ -420,9 +422,7 @@ class sidemenu extends object
         // Check if workgroup is registered and active for the context
         $objModule =& $this->getObject('modules','modulecatalogue');
         $objCondition =& $this->getObject('contextcondition','contextpermissions');
-        $objForm =& $this->newObject('form','htmlelements');
-        $objButton =& $this->newObject('button','htmlelements');
-        $objDrop =& $this->newObject('dropdown','htmlelements');
+       
 ///////////////////+>       
         $notaMember = $this->objLanguage->code2Txt('mod_toolbar_notingroup','toolbar');
 ///////////////////+>        
