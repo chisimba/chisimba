@@ -1600,7 +1600,75 @@ label br {clear:left}
 
 ************************************************/
 
+// add/remove blocks
+#selectblocks {
+}
 
+#selectblocks div.dropleft {
+    border: 1px dashed black; 
+    background-color: lightyellow; 
+    z-index: 1; 
+    float: left;
+    position: relative; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 4px;
+}
+
+#selectblocks div.leftblocks {
+    border: 1px solid lightgray; 
+    padding: 5px; 
+    width:150px;
+    /*float: left;*/
+    z-index:1000;
+    margin: 0;
+}
+
+#selectblocks div.dropblock {
+    border: 1px dashed black; 
+    background-color: lightyellow; 
+    z-index: 1; 
+    float: left;
+    position: relative; 
+    padding: 4px; 
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#selectblocks div.usedblock {
+    border: 1px solid lightgray; 
+    padding: 5px; 
+    width:150px; 
+   /* float: left; */
+    z-index:1000;
+    margin: 0;
+}
+
+#selectblocks div.deleteblock {
+    border: 1px dashed black; 
+    background-color: lightyellow; 
+    position: relative; 
+    padding: 4px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+#selectblocks div.addblocks {
+    border: 1px solid lightgray; 
+    padding: 5px; 
+    width:150px; 
+   /* float: left; */
+    z-index:1000;
+    margin: 0;
+}
+
+#selectblocks div.addblocks div.featurebox, #selectblocks div.usedblock div.featurebox, #selectblocks div.leftblocks div.featurebox {
+    margin: 0;
+}
+
+
+// menu icons / buttons
 
 .menuBtnOn {
 
@@ -1766,7 +1834,7 @@ label br {clear:left}
 
 
 
-.smallicon a {
+.smallicon a, .smallicon a:visited {
 
 	display: block;
 
