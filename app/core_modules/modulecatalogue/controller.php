@@ -415,8 +415,8 @@ class modulecatalogue extends controller
                     break;
 
                 case 'ajaxunzip':
+                    $modName = $this->getParam('moduleId');
                     if (!is_dir($this->objConfig->getModulePath().$modName)) {
-                        $modName = $this->getParam('moduleId');
                         $objZip = $this->getObject('wzip', 'utilities');
                         if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
                             header('HTTP/1.0 500 Internal Server Error');
