@@ -45,6 +45,10 @@ class importIMSPackage extends dbTable
 	*/
 	public $objDebug;
 	/**
+	 * @var object $objError - error flag to return errors
+	*/
+	public $objError;
+	/**
 	 * @var object $fileMod - file modification flag to modify file types
 	*/
 	public $fileMod;
@@ -81,6 +85,9 @@ class importIMSPackage extends dbTable
 		$this->objDebug = FALSE;
 		#Un-comment to view debug information
 		#$this->objDebug = TRUE;
+		$this->objError = FALSE;
+		#Un-comment to catch errors
+		#$this->objError = TRUE;
 	}
 	
 	public $courseId;
@@ -99,100 +106,117 @@ class importIMSPackage extends dbTable
 		$this->courseId = '';
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 		{
-			return  "zipFileError";
+			if($this->objError)
+				return  "zipFileError";
 		}
 		#Retrieve temp folder
 		$folder = $this->unzipIMSFile($FILES);
 		if(!isset($folder) || $folder == 'unzipError')
 		{
-			return  "unzipError";
+			if($this->objError)
+				return  "unzipError";
 		}
 		#Retrieve file names
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 		{
-			return  "fileReadError";
+			if($this->objError)
+				return  "fileReadError";
 		}
 		#Retrieve file locations
 		$filesLocation = $this->locateAllFiles($folder);
 		if(!isset($filesLocation))
 		{
-			return  "fileReadError";
+			if($this->objError)
+				return  "fileReadError";
 		}
 		#Locate imsmanifest.xml file
 		$imsFileLocation = $this->locateIMSfile($filesLocation, "/imsmanifest/");
 		if(!isset($imsFileLocation))
 		{
-			return  "imsReadError";
+			if($this->objError)
+				return  "imsReadError";
 		}
 		#Read imsmanifest.xml file
 		#Create simplexml object to access xml file
 		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
 		if(!isset($simpleXmlObj) || $simpleXmlObj == 'simpleXmlError')
 		{
-			return  "simpleXmlError";
+			if($this->objError)
+				return  "simpleXmlError";
 		}
 		#Create domdocument object to access xml file	
 		$domDocumentObj = $this->loadDOMDocument($imsFileLocation);
 		if(!isset($domDocumentObj) || $domDocumentObj == 'domReadError')
 		{
-			return  "domReadError";
+			if($this->objError)
+				return  "domReadError";
 		}
 		#Create xpath object to access xml file
 		$xpathObj = $this->loadXPath($domDocumentObj);
 		if(!isset($xpathObj))
 		{
-			return  "xpathSetError";
+			if($this->objError)
+				return  "xpathSetError";
 		}
 		#Extract course data
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj);
 		if(!isset($courseData) || $courseData == 'courseReadError')
 		{
-			return  "courseReadError";
+			if($this->objError)
+				return  "courseReadError";
 		}
 		#Initialize all locations
 		$init = $this->initLocations($courseData['contextcode']);
 		if(!isset($init))
 		{
-			return  "initializeError";
+			if($this->objError)
+				return  "initializeError";
 		}
 		#Create course
 		$courseCreated = $this->objIEUtils->createCourseInChisimba($courseData);
 		$this->courseId = $courseCreated;
 		if(!isset($courseCreated) || $courseCreated == 'courseWriteError')
 		{
-			return  "courseWriteError";
+			if($this->objError)
+				return  "courseWriteError";
 		}
 		#Write Resources
 		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 		{
-			return  "writeResourcesError";
+			if($this->objError)
+				return  "writeResourcesError";
 		}
 		#Get organizations
 		$structure = $this->getStructure($simpleXmlObj);
 		if(!isset($structure))
 		{
-			return  "noStructureError";
+			if($this->objError)
+				return  "noStructureError";
 		}
 		#Load html data into Chisimba
 		$loadData = $this->loadToChisimba($writeData, $structure);
 		if(!isset($loadData))
 		{
-			return  "loadDataError";
+			if($this->objError)
+				return  "loadDataError";
 		}
 		#Load image data into Chisimba
 		$uploadImagesToChisimba = $this->uploadImagesToChisimba($folder);
 		if(!isset($uploadImagesToChisimba))
 		{
-			return  "uploadError";
+			if($this->objError)
+				return  "uploadError";
 		}
 		#Rebuild html images and url links
 		$rebuildHtml = $this->rebuildHtml($loadData,$fileNames);
 		if(!isset($rebuildHtml))
 		{
-			return  "rebuildHtmlError";
+			if($this->objError)
+				return  "rebuildHtmlError";
 		}
+		$this->objIEUtils->eduCommonsData($imsFileLocation);
 
 		return TRUE;
 	}
