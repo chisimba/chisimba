@@ -133,7 +133,6 @@ class modulecatalogue extends controller
 
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
-
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -389,36 +388,39 @@ class modulecatalogue extends controller
                 case 'ajaxdownload':
                     $start = microtime(true);
                     $modName = $this->getParam('moduleId');
-                    if (!$encodedZip = $this->objRPCClient->getModuleZip($modName)) {
-                        header('HTTP/1.0 500 Internal Server Error');
-                        echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
-                        break;
+                    if (!file_exists("$modName.zip")) {
+                        if (!$encodedZip = $this->objRPCClient->getModuleZip($modName)) {
+                            header('HTTP/1.0 500 Internal Server Error');
+                            echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+                            break;
+                        }
+                        if (!$zipContents = base64_decode(strip_tags($encodedZip))) {
+                            header('HTTP/1.0 500 Internal Server Error');
+                            echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+                            break;
+                        }
+                        if (!$fh = fopen("$modName.zip",'wb')) {
+                            header('HTTP/1.0 500 Internal Server Error');
+                            echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+                            break;
+                        }
+                        if (!fwrite($fh,$zipContents)) {
+                            header('HTTP/1.0 500 Internal Server Error');
+                            echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+                            break;
+                        }
+                        fclose($fh);
                     }
-                    if (!$zipContents = base64_decode(strip_tags($encodedZip))) {
-                        header('HTTP/1.0 500 Internal Server Error');
-                        echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
-                        break;
-                    }
-                    if (!$fh = fopen("$modName.zip",'wb')) {
-                        header('HTTP/1.0 500 Internal Server Error');
-                        echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
-                        break;
-                    }
-                    if (!fwrite($fh,$zipContents)) {
-                        header('HTTP/1.0 500 Internal Server Error');
-                        echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
-                        break;
-                    }
-                    fclose($fh);
                     echo $this->objLanguage->languageText('phrase_unzipping');
                     break;
 
                 case 'ajaxunzip':
                     $modName = $this->getParam('moduleId');
                     $objZip = $this->getObject('wzip', 'utilities');
-					if (!$objZip->unzip("$modName.zip", $this->objConfig->getModulePath())) {
+					if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
 					    header('HTTP/1.0 500 Internal Server Error');
                         echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                        echo "<br /> $objZip->error";
                         break;
 					}
 					unlink("$modName.zip");
