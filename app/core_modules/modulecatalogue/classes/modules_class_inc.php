@@ -160,6 +160,26 @@ class modules extends dbTable
     }
 
     /**
+     * Method to return a list of names of all locall installed modules
+     *
+     * @return array
+     */
+    public function getModuleNames() {
+        try {
+            $ret = array();
+            $sql = "SELECT module_id FROM tbl_modules";
+            $rs = $this->getArray($sql);
+            foreach ($rs as $result) {
+                $ret[] = $result['module_id'];
+            }
+            return $ret;
+        } catch (Exception $e) {
+    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
+    		exit();
+    	}
+    }
+
+    /**
     * This is a method to check if a module is registered and turn the result as an array
     * @param string $moduleId
     * @returns array $result

@@ -19,24 +19,24 @@ class rpcclient extends object
 	 * @var object
 	 */
 	public $objLanguage;
-	
+
 	/**
 	 * Config object
 	 *
 	 * @var object
 	 */
 	public $objConfig;
-	
+
 	/**
 	 * Sysconfig object
 	 *
 	 * @var object
 	 */
 	public $sysConfig;
-	
+
 	/**
 	 * Standard init function
-	 * 
+	 *
 	 * @param void
 	 * @return void
 	 */
@@ -83,7 +83,42 @@ class rpcclient extends object
 			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
 		}
 	}
-	
+
+	/**
+	 * Method to get the desription of a particular module off the server
+	 *
+	 * @param string $moduleName
+	 * @return string
+	 */
+	public function getModuleDescription($moduleName) {
+	    $msg = new XML_RPC_Message('getModuleDescription', array(new XML_RPC_Value($moduleName, "string")));
+		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli->setDebug(0);
+
+		// send the request message
+		$resp = $cli->send($msg);
+		if (!$resp)
+		{
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+			exit;
+		}
+		if (!$resp->faultCode())
+		{
+			$val = $resp->value();
+			return $val->serialize($val);
+		}
+		else
+		{
+			/*
+			* Display problems that have been gracefully caught and
+			* reported by the xmlrpc server class.
+			*/
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		}
+	}
+
 	/**
 	 * Grab a zip file of a module from the RPC Server
 	 *

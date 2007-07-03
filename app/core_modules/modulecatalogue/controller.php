@@ -109,7 +109,8 @@ class modulecatalogue extends controller
     public function init() {
         try {
             set_time_limit(0);
-
+            $this->objRPCServer = &$this->getObject('rpcserver','packages');
+            $this->objRPCClient = &$this->getObject('rpcclient','packages');
             $this->objUser = &$this->getObject('user','security');
             $this->objConfig = &$this->getObject('altconfig','config');
             $this->objLanguage = &$this->getObject('language','language');
@@ -316,13 +317,13 @@ class modulecatalogue extends controller
                                     //do the indexing - note this indexes an ENTIRE tree, not a single doc
                                             $this->index->doIndex($this->doc);
                         log_debug('done creating Lucene index');
-                        
-                        
+
+
                     } else {
                         log_debug('First time registration has already been performed on this system. Aborting');
                     }
-                 
-                     $url = array('username'=>'admin','password'=>'a','mod'=>'modulecatalogue'); 
+
+                     $url = array('username'=>'admin','password'=>'a','mod'=>'modulecatalogue');
                     return $this->nextAction('login',$url,'security');
                 case 'update':
                     $modname = $this->getParam('mod');
@@ -360,6 +361,80 @@ class modulecatalogue extends controller
                 case 'updatexml':
                     $this->objCatalogueConfig->writeCatalogue();
                     return $this->nextAction(null,array('message' => $this->objLanguage->languageText('mod_modulecatalogue_xmlupdated','modulecatalogue')));
+
+                case 'remote':
+                    $modules = $this->objRPCClient->getModuleList();
+                    $doc = simplexml_load_string($modules);
+    		 		$count = count($doc->array->data->value);
+    		 		$i = 0;
+    		 		while($i <= $count)
+    		 		{
+    		 			$modobj = $doc->array->data->value[$i];
+    		 			if(is_object($modobj))
+    		 			{
+    		 				if($modobj->string == 'CVSROOT' || $modobj->string == 'CVS' || $modobj->string == '.' || $modobj->string == '..'
+    		 				   || $modobj->string == 'build.xml' || $modobj->string == 'COPYING' || $modobj->string == 'chisimba_modules.txt')
+    		 				{
+    		 					unset($modobj->string);
+    		 				}
+    		 				else {
+    		 					$modulesarray[] = (string)$modobj->string[0];
+    		 				}
+    		 			}
+    		 			$i++;
+    		 		}
+    		 		$this->setVarByRef('modules',$modulesarray);
+    		 		return 'remote_tpl.php';
+
+                case 'ajaxdownload':
+                    $start = microtime(true);
+                    $modName = $this->getParam('moduleId');
+                    if (!$encodedZip = $this->objRPCClient->getModuleZip($modName)) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+                        break;
+                    }
+                    if (!$zipContents = base64_decode(strip_tags($encodedZip))) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+                        break;
+                    }
+                    if (!$fh = fopen("$modName.zip",'wb')) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+                        break;
+                    }
+                    if (!fwrite($fh,$zipContents)) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+                        break;
+                    }
+                    fclose($fh);
+                    echo $this->objLanguage->languageText('phrase_unzipping');
+                    break;
+
+                case 'ajaxunzip':
+                    $modName = $this->getParam('moduleId');
+                    $objZip = $this->getObject('wzip', 'utilities');
+					if (!$objZip->unzip("$modName.zip", $this->objConfig->getModulePath())) {
+					    header('HTTP/1.0 500 Internal Server Error');
+                        echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                        break;
+					}
+					unlink("$modName.zip");
+                    echo $this->objLanguage->languageText('phrase_installing');
+                    break;
+
+                case 'ajaxinstall':
+                    $modName = $this->getParam('moduleId');
+                    if (!$this->installModule($modName)) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        echo "$this->output<br />{$this->objModuleAdmin->output}";
+                        break;
+                    }
+                    echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
+                    break;
+
                 default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                     break;
@@ -369,6 +444,27 @@ class modulecatalogue extends controller
             exit();
         }
     }
+
+    /**
+     * Method to check if the icon for a module exists in the local
+     * tree and download it from the RPC server if it does not
+     * In either case it returns a reference to a 'getIcon' object
+     * initialised with the module's icon.
+     * In the case that no icon exists it will be initialised to the
+     * default
+     *
+     * @param string $moduleId
+     * @return &object reference to a getIcon (htmlelements) object
+     */
+   /* private function &getObjIcon($moduleId) {
+        $iconPath = "icons/modules/$moduleId.gif";
+        if (!file_exists($iconPath)) {
+            $this->objRPCClient->getModuleIcon($moduleId);
+        }
+        $icon = $this->getObject('geticon','htmlelements');
+        $icon->setModuleIcon($moduleId);
+        return $icon;
+    }*/
 
     /**
     * This method is a 'wrapper' function - it takes info from the

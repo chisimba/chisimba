@@ -19,14 +19,14 @@ class rpcserver extends object
 	 * @var object
 	 */
 	public $objConfig;
-	
+
 	/**
 	 * Language object
 	 *
 	 * @var object
 	 */
 	public $objLanguage;
-	
+
 	/**
 	 * Standard init function (constructor)
 	 *
@@ -40,7 +40,7 @@ class rpcserver extends object
 		$this->objConfig = $this->getObject('altconfig', 'config');
 		$this->objLanguage = $this->getObject('language', 'language');
 	}
-	
+
 	/**
 	 * Method to start the RPC server
 	 *
@@ -52,28 +52,34 @@ class rpcserver extends object
 		// map web services to methods
 		$server = new XML_RPC_Server(
    					array('getModuleZip' => array('function' => array($this, 'getModuleZip'),
-   											      'signature' => 
+   											      'signature' =>
                      									array(
                          									array('string', 'string'),
                      									),
                 								  'docstring' => 'Grab a module'),
-                								  
+                		  'getModuleDescription' => array('function' => array($this, 'getModuleDescription'),
+   											      'signature' =>
+                     									array(
+                         									array('string', 'string'),
+                     									),
+                								  'docstring' => 'Grab a module description'),
+
                 		  'getModuleList' => array('function' => array($this, 'getModuleList'),
                 								  'docstring' => 'Grab the module list'),
-                								  
-                								  
+
+
       			  		  'getMsg' => array('function' => array($this, 'getMessage'),
-      			  		  					'signature' => 
+      			  		  					'signature' =>
                      							array(
                          							array('string', 'string'),
                          							//array('boolean', 'string', 'boolean'),
                      							),
                 								'docstring' => 'What would you like to see?')
    					), 1);
-   					
+
 		return $server;
 	}
-	
+
 	/**
 	 * Method to grab a specified module as a zipfile
 	 *
@@ -96,7 +102,31 @@ class rpcserver extends object
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
-	
+
+	/**
+	 * Method to grab a specified module's description
+	 *
+	 * @param string $module
+	 * @return string
+	 */
+	public function getModuleDescription($module)
+	{
+		//grab the module name
+		$mod = $module->getParam(0);
+		$objModFile = $this->getObject('modulefile','modulecatalogue');
+		//log_debug ("NIC: ".(string)$module." - ".$mod." - ".$mod->scalarval());
+		if ($regData = $objModFile->readRegisterFile($objModFile->findregisterfile($mod->scalarval()))) {
+			$data[0] = new XML_RPC_Value($regData['MODULE_NAME'], 'string');
+		    $data[1] = new XML_RPC_Value($regData['MODULE_DESCRIPTION'], 'string');
+	    } else {
+	        $data[0] = $data[1] = new XML_RPC_Value($mod->scalarval(), 'string');
+	    }
+	    $val = new XML_RPC_Value($data, 'array');
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+	}
+
 	/**
 	 * Method to delete a module zipfile from the server
 	 *
@@ -124,7 +154,7 @@ class rpcserver extends object
 		$message = $message->getParam(0);
 		return new XML_RPC_Response($message);
 	}
-	
+
 	/**
 	 * Method to return a list of available modules on the RPC server
 	 *
@@ -138,21 +168,21 @@ class rpcserver extends object
       		$dir  = new DirectoryIterator($dataDir);
 	        foreach ($dir as $file)
       		{
-      			//if(is_dir($file))
-      			//{
+      			if($file->isDir())
+      			{
         			$fileName[] = new XML_RPC_Value($file->getFilename(), 'string');
-      			//}
+      			}
       		}
 		}
 		catch (customException $e)
 		{
 			customException::cleanUp();
-		}	
+		}
 		$val = new XML_RPC_Value($fileName, 'array');
 		return new XML_RPC_Response($val);
-		
+
 	}
-	
+
 	/**
 	 * Method to grab a specific system type (blog, elearn, cms etc)
 	 *
@@ -160,9 +190,9 @@ class rpcserver extends object
 	 */
 	public function getSystemType($systemType)
 	{
-		
+
 	}
-	
+
 	/**
 	 * Method to grab a specified skin from the RPC Server
 	 *
@@ -170,12 +200,12 @@ class rpcserver extends object
 	 */
 	public function getSkin($skinName)
 	{
-		
+
 	}
-	
+
 	public function checkVersion($modulename)
 	{
-		
+
 	}
 }
 ?>
