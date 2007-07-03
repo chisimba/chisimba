@@ -196,6 +196,8 @@ class importIMSPackage extends dbTable
 		return TRUE;
 	}
 
+//http://localhost/chisimba_framework/app/index.php?module=filemanager&action=file&id=gen9Srv20Nme41_8745_1183361785&filename=contentimage.jpg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3EManaging%20Human%20Resources%20for%20Health%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C/h3%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%3Cstrong%3EDr.%20Uta%20Lehmann%3C/strong%3E%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESchool%20of%20Public%20Health%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20University%20of%20the%20Western%20Cape%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%3Cstrong%3ECourse%20Structure:%3C/strong%3E%20distance%20education%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C!--%20For%20Course%20Structure:%20Follow%20Editorial%20Guidelines,%20(UPDATE)%20such%20as
+
 	public $contentBasePath;
 	public $courseContentBasePath;
 	public $contextCode;
@@ -952,6 +954,7 @@ class importIMSPackage extends dbTable
 				$index = array_search($title, $structure);
 				if($index === FALSE)
 				{
+//echo $j+$numItems."<br />";
 					$orderedData[$j+$numItems] = $resource;
 					$j++;
 				}	
@@ -960,6 +963,7 @@ class importIMSPackage extends dbTable
 					$orderedData[$index] = $resource;
 					$this->chapterIds[$k] = $resourceId;
 					$k++;
+//echo $index."<br />";
 					if(strcmp($objectType,"Course")==0)
 					{
 						$indexOfCourse = $index;
@@ -967,14 +971,27 @@ class importIMSPackage extends dbTable
 				}
 			}
 		}
+		//Fix indexing
+		for($i=0;$i<count($orderedData);$i++)
+		{
+			$indexedData[$i] = $orderedData[$i];
+		}
 		//Move course info to the start
+//		$orderedData = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
 		$start = 0;
 		$before = $indexOfCourse;
 		$after = count($orderedData);
-		$fromStart = array_slice($orderedData, $start, $before);
-		$toEnd = array_slice($orderedData, $before+1, $after);
-		$course = array_slice($orderedData, $before, $before);
+//		$fromStart = array_slice($orderedData, $start, $before);
+		$fromStart = array_slice($indexedData, $start, $before);
+//var_dump($fromStart);
+//		$toEnd = array_slice($orderedData, $before+1, $after);
+		$toEnd = array_slice($indexedData, $before+1, $after);
+//var_dump($toEnd);
+//		$course = array_slice($orderedData, $before, $before);
+		$course = array_slice($indexedData, $before, $before);
+//var_dump($course);
 		$orderedData = array_merge($course, $fromStart, $toEnd);
+//var_dump($orderedData);
 		//Retrieve resource Id's
 		foreach($orderedData as $resource)
 		{
