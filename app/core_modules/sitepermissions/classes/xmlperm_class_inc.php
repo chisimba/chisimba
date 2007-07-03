@@ -26,6 +26,20 @@ class xmlperm extends dbTable
     public $objXML;
     
     /**
+    * @var array $arrConditions: The array of preset conditions
+    * @access public
+    */
+    public $arrConditions = array(
+        'isadmin',
+        'islecturer',
+        'isstudent',
+        'isguest',
+        'iscontextlecturer',
+        'iscontextstudent',
+        'iscontextguest',
+    );
+    
+    /**
     * Method to construct the class
     *
     * @access public
@@ -88,47 +102,26 @@ class xmlperm extends dbTable
         $this->readXmlFile();
         
         // check for group and create if nonexistant
-
         $targets = $this->objXML->targets;
         foreach($targets->group as $group){
-            if(empty($group->lineage)){
-                $leafId = $this->objGroupadmin->getLeafId(array($group->name));
-                if(empty($leafId)){
-                    $this->objGroupadmin->addGroup($group->name, $group->description);
-                }
-            }else{
-                $array = explode('|', $group->lineage);                
-                $lineage = array();
-                for($i = 0; $i <= count($array) - 1; $i++){
-                    $lineage[] = $array[$i];
-                    if($i == 0){
-                        $parent = array();
-                    }else{
-                        $parent[] = $array[$i - 1];
-                    }
-                    $leafId = $this->objGroupadmin->getLeafId($lineage);
-                    if(empty($leafId)){
-                        if(empty($parent)){                    
-                            $this->objGroupadmin->addGroup($array[$i], $array[$i]);
-                        }else{
-                            $parentId = $this->objGroupadmin->getLeafId($parent);
-                            $this->objGroupadmin->addGroup($array[$i], $array[$i], $parentId);
-                        }
-                    }
-                }
-                $parentId = $this->objGroupadmin->getLeafId($array);
-                $array[] = $group->name;
-                $leafId = $this->objGroupadmin->getLeafId($array);
-                if(empty($leafId)){
-                    $this->objGroupadmin->addGroup($group->name, $group->description, $parentId);
-                }
-            }
+            $this->checkGroups($group->name);
         }
         
+        // check for acl and create if nonexistant
+        foreach($targets->acl as $acl){
+            $aclId = $this->objDbperm->addAcl($acl->name, $acl->description);
+            foreach($acl->users->group as $group){
+                $groupId = $this->checkGroups($group);
+                $this->objDbperm->addAclUser($aclId, '1', $group);
+            }            
+        }
+    
         // add conditions
         $conditions = $this->objXML->conditions;
         foreach($conditions->condition as $condition){
-            $this->objDbperm->addCondition($condition->name, $condition->type, $condition->target);
+            if(!in_array(strtolower($condition->name), $this->arrConditions)){
+                $this->objDbperm->addCondition($condition->name, $condition->type, $condition->target);
+            }
         }
         
         // add actions
@@ -145,6 +138,37 @@ class xmlperm extends dbTable
             foreach($rule->action as $action)
                 $this->objDbperm->addActionRule($ruleId, '', $moduleId, $action, '');
         }
+    }
+    
+    /**
+    * Method to check and create groups
+    *
+    * @access public
+    * @param string $groups: The pipe delimited string for the group
+    * @return string $leafId: The id of the last group in the string
+    */
+    public function checkGroups($groups)
+    {
+        $array = explode('|', $groups);                
+        $lineage = array();
+        for($i = 0; $i <= count($array) - 1; $i++){
+            $lineage[] = $array[$i];
+            if($i == 0){
+                $parent = array();
+            }else{
+                $parent[] = $array[$i - 1];
+            }
+            $leafId = $this->objGroupadmin->getLeafId($lineage);
+            if(empty($leafId)){
+                if(empty($parent)){                    
+                    $leafId = $this->objGroupadmin->addGroup($array[$i], $array[$i]);
+                }else{
+                    $parentId = $this->objGroupadmin->getLeafId($parent);
+                    $leafId = $this->objGroupadmin->addGroup($array[$i], $array[$i], $parentId);
+                }
+            }
+        }
+        return $leafId;
     }
 }
 ?>

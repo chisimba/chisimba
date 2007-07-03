@@ -99,7 +99,7 @@ class dbpermissions extends dbTable
     }
 
 	/**
-	* Method to set the rule condition
+	* Method to set the rule condition table
 	*
 	* @access private
 	* @return boolean: TRUE on success FALSE on failure
@@ -110,7 +110,7 @@ class dbpermissions extends dbTable
     }
 
 	/**
-	* Method to set the action rule
+	* Method to set the action rule table
 	*
 	* @access private
 	* @return boolean: TRUE on success FALSE on failure
@@ -118,6 +118,28 @@ class dbpermissions extends dbTable
 	private function _setActionRule()
 	{
         return $this->_changeTable('tbl_sitepermissions_action_rule');
+    }
+
+	/**
+	* Method to set the acl table
+	*
+	* @access private
+	* @return boolean: TRUE on success FALSE on failure
+	*/
+	private function _setAcl()
+	{
+        return $this->_changeTable('tbl_sitepermissions_acl');
+    }
+
+	/**
+	* Method to set the acl users table
+	*
+	* @access private
+	* @return boolean: TRUE on success FALSE on failure
+	*/
+	private function _setAclUsers()
+	{
+        return $this->_changeTable('tbl_sitepermissions_acl_users');
     }
 
 /* ----- Functions for tbl_sitepermissions_conditiontype ----- */
@@ -164,6 +186,22 @@ class dbpermissions extends dbTable
         return FALSE;
     }    
 
+    /**
+    * Method to get all condition types
+    *
+    * @access public
+    * @return array|bool $data: Conditiontype data on success | False on failure
+    */
+    public function listConditionTypes()
+    {
+        $this->_setConditiontype();        
+        $data = $this->getAll();
+        if(!empty($data)){
+            return $data;
+        }
+        return FALSE;
+    }    
+
 /* ----- Functions for tbl_sitepermissions_condition ----- */
 
     /**
@@ -197,9 +235,29 @@ class dbpermissions extends dbTable
     }
     
     /**
+    * Method to update a condition
+    *
+    * @access public
+    * @param string $id: The id of the condition to update
+    * @param string $name: The condition name
+    * @param string $typeId: The id of the condition type
+    * @param string $target: The condition target
+    * @return void
+    **/
+    public function updateCondition($id, $name, $typeId, $target)
+    {
+        $this->_setCondition();        
+        $fields['typeid'] = $typeId;
+        $fields['name'] = strtolower($name);
+        $fields['target'] = strtolower($target);
+        $conditionId = $this->update('id', $id, $fields);
+    }
+    
+    /**
     * Method to get a condition
     *
     * @access public
+    * @param string moduleId: The id of the module the condition is for
     * @param string $name: The condition name
     * @return array|Bool $data: Condition data on success | False on failure
     */
@@ -266,7 +324,7 @@ class dbpermissions extends dbTable
     public function listConditions()
     {
         $this->_setCondition();
-        $sql = " ORDER BY name";        
+        $sql = "ORDER BY name";        
         $data = $this->getAll($sql);
         if(!empty($data)){
             return $data;
@@ -787,6 +845,136 @@ class dbpermissions extends dbTable
             return $data;
         }
         return FALSE;
+    }
+
+/* ----- Functions for tbl_sitepermissions_acl ----- */
+
+    /**
+    * Method to add an access control lists
+    *
+    * @access public
+    * @param string $name: The acl name
+    * @param string $desc: The acl description
+    * @return string|bool $aclId: The acl id | False on failure
+    **/
+    public function addAcl($name, $desc)
+    {
+        $acl = $this->getAclByName($name);
+        if($acl){
+            $aclId = $acl['id'];
+            return $aclId;
+        }else{
+            $this->_setAcl();
+            $fields['name'] = $name;
+            $fields['description'] = $desc;
+            $aclId = $this->insert($fields);
+            return $aclId;
+        }
+        return FALSE;
+    }
+
+    /**
+    * Method to update an access control list
+    *
+    * @access public
+    * @param string $id: The ACL id
+    * @param string $name: The acl name
+    * @param string $desc: The acl description
+    * @return void
+    **/
+    public function updateAcl($id, $name, $desc)
+    {
+        $this->_setAcl();
+        $fields['name'] = $name;
+        $fields['description'] = $desc;
+        $this->update('id', $id, $fields);
+    }
+
+    /**
+    * Method to get an access control list
+    *
+    * @access public
+    * @param string $name: The acl name
+    * @return array|bool $data: Acl data on success | False on failure
+    */
+    public function getAclByName($name)
+    {
+        $this->_setAcl();        
+        $sql = "WHERE name = '".strtolower($name)."'";
+        $data = $this->getAll($sql);
+        if(!empty($data)){
+            return $data[0];
+        }
+        return FALSE;
+    }
+        
+    /**
+    * Method to get an access control list
+    *
+    * @access public
+    * @param string $id: The acl id
+    * @return array|bool $data: Acl data on success | False on failure
+    */
+    public function getAclById($id)
+    {
+        $this->_setAcl();        
+        $sql = "WHERE id = '".strtolower($id)."'";
+        $data = $this->getAll($sql);
+        if(!empty($data)){
+            return $data[0];
+        }
+        return FALSE;
+    }
+        
+    /**
+    * Method to list access control lists
+    *
+    * @access public
+    * @return array|bool $data: Acl data on success | False on failure
+    */
+    public function listAcls()
+    {
+        $this->_setAcl();        
+        $data = $this->getAll();
+        if(!empty($data)){
+            return $data;
+        }
+        return FALSE;
+    }
+        
+    /**
+    * Method to delete an access control list
+    *
+    * @access public
+    * @param string $id: The acl id
+    * @return void
+    */
+    public function deleteAcl($id)
+    {
+        $this->_setAcl();
+        $this->delete('id', $id);
+    }
+
+/* ----- Functions for tbl_sitepermissions_acl_users ----- */
+
+    /**
+    * Method to add users to an access control list
+    *
+    * @access public
+    * @param string $aclid: The id of the acl
+    * @param string $type: The type of user
+    * @param string $typeId: The user id
+    * @return string|bool $aclId: The acl id | False on failure
+    **/
+    public function addAclUser($aclId, $type, $typeId)
+    {
+        $this->_setAclUsers();
+        $fields = array();
+        $fields['aclid'] = $aclId;
+        $fields['type'] = $type;
+        $fields['typeid'] = $typeId;
+        $aclId = $this->insert($fields);
+        return $aclId;
     }
 }
 ?>

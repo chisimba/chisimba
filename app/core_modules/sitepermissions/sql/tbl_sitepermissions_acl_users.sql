@@ -15,7 +15,7 @@ $fields = array(
         'type' => 'text',
         'length' => 32,
     ),
-	'type' => array( // user, group, acl,
+	'type' => array( // group, user
 		'type' => 'integer',
 		'length' => 1,
 	),

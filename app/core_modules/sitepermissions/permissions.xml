@@ -2,24 +2,43 @@
 <permissions>
     <targets>
         <group>
+            <!--NAME - Pipe delimited starting with the parent down to the child-->  
             <name>Site Admin</name>
             <description>Site wide admin users</description>
         </group>
         <group>
-            <lineage>Main Group|Sub group 1|Sub group 2</lineage>
-            <name>Sub Group 3</name>
-            <description>Sub Group 3 Sub Group 3</description>
-        </group>
-        <group>
-            <name>Test</name>
+            <name>Main Group|Sub Group 1|Sub Group 2</name>
             <description>Test group</description>
         </group>
+        <acl>
+            <name>ACL test</name>
+            <description>test if acls work</description>
+            <users>
+                <group>Group one</group>
+                <group>Main Group|Sub Group 1|Sub Group 2</group>
+            </users>
+        </acl>
+        <acl>
+            <name>ACL two</name>
+            <description>Double check</description>
+        </acl>
     </targets>
     <conditions>
         <condition>
-          <name>isadmin</name>
-          <type>ismember</type>
-          <target>Site Admin</target>
+            <name>islecturer</name>
+            <type>ismember</type>
+            <!--TARGET(group) - Pipe delimited starting with the parent down to the child-->  
+            <target>Group one</target>
+        </condition>
+        <condition>
+            <name>ingroup</name>
+            <type>ismember</type>
+            <target>Main Group|Sub Group 1|Sub Group 2</target>
+        </condition>
+        <condition>
+            <name>isaclmember</name>
+            <type>haspermission</type>
+            <target>ACL test</target>
         </condition>
     </conditions>
     <actions>
@@ -32,7 +51,7 @@
     </actions>
     <rules>
         <rule>
-            <name>contextpermissions_rule_1</name>
+            <name>sitepermissions_rule_1</name>
             <condition>isadmin</condition>
             <action>add</action>
             <action>edit</action>
@@ -40,6 +59,12 @@
             <action>update</action>
             <action>generate</action>
             <action>delete</action>
+        </rule>
+        <rule>
+            <name>sitepermissions_rule_2</name>
+            <condition>ingroup</condition>
+            <action>add</action>
+            <action>edit</action>
         </rule>
     </rules>
 </permissions>
