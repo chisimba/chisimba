@@ -1,9 +1,9 @@
 <?php
-// security check - must be included in all scripts
+# security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
-// end security check
+# end security check
 /**
  * The class importIMSPackage that manages 
  * the import of IMS specification content into Chisimba
@@ -57,29 +57,30 @@ class importIMSPackage extends dbTable
 	*/
 	function init()
 	{
-		//Load Filemanager class
+		#Load Filemanager class
 		$this->objIndex =& $this->getObject('indexfileprocessor', 'filemanager');
 		$this->objUpload =& $this->getObject('upload', 'filemanager');
-		//Load System classes
+		#Load System classes
 		$this->objConfig = & $this->newObject('altconfig','config');
         	$this->objLanguage = & $this->newObject('language', 'language');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
         	$this->objUser =& $this->getObject('user', 'security');
-		//Load Inner classes
+		#Load Inner classes
 		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
-		//Load Chapter Classes
+		#Load Chapter Classes
 		$this->objChapters =& $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters =& $this->getObject('db_contextcontent_contextchapter','contextcontent');
-		//Load context classes
+		#Load context classes
         	$this->objContentPages =& $this->getObject('db_contextcontent_pages','contextcontent');
 	        $this->objContentOrder =& $this->getObject('db_contextcontent_order','contextcontent');
         	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
 	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
 		$this->pageIds = array();
-		//Initialize Flags
+		#Initialize Flags
 		$this->fileMod = FALSE;
 		$this->objDebug = FALSE;
-//		$this->objDebug = TRUE;
+		#Un-comment to view debug information
+		#$this->objDebug = TRUE;
 	}
 	
 	public $courseId;
@@ -96,97 +97,97 @@ class importIMSPackage extends dbTable
 	{
 		$this->fileMod = FALSE;
 		$this->courseId = '';
-		if(!isset($FILES))
+		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 		{
-			return  "fileError";
+			return  "zipFileError";
 		}
-		//Retrieve temp folder
+		#Retrieve temp folder
 		$folder = $this->unzipIMSFile($FILES);
-		if(!isset($folder))
+		if(!isset($folder) || $folder == 'unzipError')
 		{
-			return  "folderError";
+			return  "unzipError";
 		}
-		//Retrieve file names
+		#Retrieve file names
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 		{
-			return  "fileError";
+			return  "fileReadError";
 		}
-		//Retrieve file locations
+		#Retrieve file locations
 		$filesLocation = $this->locateAllFiles($folder);
 		if(!isset($filesLocation))
 		{
-			return  "fileError";
+			return  "fileReadError";
 		}
-		//Locate imsmanifest.xml file
+		#Locate imsmanifest.xml file
 		$imsFileLocation = $this->locateIMSfile($filesLocation, "/imsmanifest/");
 		if(!isset($imsFileLocation))
 		{
 			return  "imsReadError";
 		}
-		//Read imsmanifest.xml file
-		//Create simplexml object to access xml file
+		#Read imsmanifest.xml file
+		#Create simplexml object to access xml file
 		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
-		if(!isset($simpleXmlObj))
+		if(!isset($simpleXmlObj) || $simpleXmlObj == 'simpleXmlError')
 		{
 			return  "simpleXmlError";
 		}
-		//Create domdocument object to access xml file	
+		#Create domdocument object to access xml file	
 		$domDocumentObj = $this->loadDOMDocument($imsFileLocation);
-		if(!isset($domDocumentObj))
+		if(!isset($domDocumentObj) || $domDocumentObj == 'domReadError')
 		{
-			return  "domError";
+			return  "domReadError";
 		}
-		//Create xpath object to access xml file
+		#Create xpath object to access xml file
 		$xpathObj = $this->loadXPath($domDocumentObj);
 		if(!isset($xpathObj))
 		{
-			return  "xpathError";
+			return  "xpathSetError";
 		}
-		//Extract course data
+		#Extract course data
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj);
-		if(!isset($courseData))
+		if(!isset($courseData) || $courseData == 'courseReadError')
 		{
 			return  "courseReadError";
 		}
-		//Initialize all locations
+		#Initialize all locations
 		$init = $this->initLocations($courseData['contextcode']);
 		if(!isset($init))
 		{
 			return  "initializeError";
 		}
-		//Create course
-		$courseCreated= $this->objIEUtils->createCourseInChisimba($courseData);
+		#Create course
+		$courseCreated = $this->objIEUtils->createCourseInChisimba($courseData);
 		$this->courseId = $courseCreated;
-		if(!isset($courseCreated))
+		if(!isset($courseCreated) || $courseCreated == 'courseWriteError')
 		{
-			return  "courseCreateError";
+			return  "courseWriteError";
 		}
-		//Write Resources
+		#Write Resources
 		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 		{
 			return  "writeResourcesError";
 		}
-		//Get organizations
+		#Get organizations
 		$structure = $this->getStructure($simpleXmlObj);
 		if(!isset($structure))
 		{
 			return  "noStructureError";
 		}
-		//Load html data into Chisimba
+		#Load html data into Chisimba
 		$loadData = $this->loadToChisimba($writeData, $structure);
 		if(!isset($loadData))
 		{
 			return  "loadDataError";
 		}
-		//Load image data into Chisimba
+		#Load image data into Chisimba
 		$uploadImagesToChisimba = $this->uploadImagesToChisimba($folder);
 		if(!isset($uploadImagesToChisimba))
 		{
 			return  "uploadError";
 		}
-		//Rebuild html images and url links
+		#Rebuild html images and url links
 		$rebuildHtml = $this->rebuildHtml($loadData,$fileNames);
 		if(!isset($rebuildHtml))
 		{
@@ -195,8 +196,6 @@ class importIMSPackage extends dbTable
 
 		return TRUE;
 	}
-
-//http://localhost/chisimba_framework/app/index.php?module=filemanager&action=file&id=gen9Srv20Nme41_8745_1183361785&filename=contentimage.jpg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3EManaging%20Human%20Resources%20for%20Health%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C/h3%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%3Cstrong%3EDr.%20Uta%20Lehmann%3C/strong%3E%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESchool%20of%20Public%20Health%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20University%20of%20the%20Western%20Cape%3Cbr%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%3Cstrong%3ECourse%20Structure:%3C/strong%3E%20distance%20education%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C!--%20For%20Course%20Structure:%20Follow%20Editorial%20Guidelines,%20(UPDATE)%20such%20as
 
 	public $contentBasePath;
 	public $courseContentBasePath;
@@ -211,20 +210,8 @@ class importIMSPackage extends dbTable
 	*/
 	function initLocations($contextcode)
 	{
-		//Pre-check parameters
-		if(!isset($contextcode))
-		{
-			return  "precheckError";
-		}
-		//Pre-Initialize global variables
-		$this->contentBasePath = '';
-		$this->courseContentBasePath = '';
-		$this->contextCode = '';
-		$this->courseContentPath = '';
-		$this->imagesLocation = '';
-		$this->docsLocation = '';
-		//Static Chisimba file locations
-		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		#Static Chisimba file locations
+		#opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$this->contentBasePath = $this->objConfig->getcontentBasePath();
 		$this->courseContentBasePath = $this->contentBasePath."content/";
 		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
@@ -238,6 +225,8 @@ class importIMSPackage extends dbTable
 					'imagesLocation' => $this->imagesLocation,
 					'docsLocation' => $this->docsLocation
 					);
+		#Enter context
+		$enterContext = $this->objDBContext->joinContext($contextCode);
 		if($this->objDebug)
 		{
 			echo $contentBasePath."<br />";
@@ -265,56 +254,46 @@ class importIMSPackage extends dbTable
 	*/
 	function unzipIMSFile($FILES)
 	{
-		$this->folder = '';
-		if (isset($FILES['upload']))
+		if(!is_uploaded_file($FILES['upload']['tmp_name']))
+			return "unzipError";
+		else if ($FILES['upload']['error'] != UPLOAD_ERR_OK)
+			return "unzipError";
+		else
 		{
-			if(!is_uploaded_file($FILES['upload']['tmp_name']))
+			$type = $FILES['upload']['type'];
+			$name = $FILES['upload']['name'];
+			$name = preg_replace('/^(.*)\.php$/i', '\\1.phps', $name);
+			for ($i=0;$i<strlen($name);$i++) 
 			{
-				return "error";
+				if ($name{$i} == ' ') 
+					$name{$i} = '_';
 			}
-			else if ($FILES['upload']['error'] != UPLOAD_ERR_OK)
+			$extension = "";
+			$len = strlen($name);
+			$i = $len-1;
+			while($i >= 0 && $name[$i]!='.')
 			{
-				return "error";
+				$extension = $name[$i].$extension;
+				$i--;
 			}
-			else
+			$j = 0;
+			$newname = "";
+			while($len > $j && $name[$j]!='.')
 			{
-				$type = $FILES['upload']['type'];
-				$name = $FILES['upload']['name'];
-				$name = preg_replace('/^(.*)\.php$/i', '\\1.phps', $name);
-                    		for ($i=0;$i<strlen($name);$i++) 
-				{
-                        		if ($name{$i} == ' ') 
-					{
-                            			$name{$i} = '_';
-                        		}
-                    		}
-				$extension = "";
-                    		$len = strlen($name);
-                    		$i = $len-1;
-                    		while($i >= 0 && $name[$i]!='.')
-				{
-                        		$extension = $name[$i].$extension;
-                        		$i--;
-                    		}
-				$j = 0;
-				$newname = "";
-				while($len > $j && $name[$j]!='.')
-				{
-					$newname .= $name[$j];
-					$j++;
-				}
-				$name = $newname;
-				if ($extension == 'zip')
-				{
-					$tempfile=$FILES['upload']['tmp_name'];
-					$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
-					$objDir=&$this->getObject('dircreate','utilities');
-					$objDir->makeFolder("$name.unzip",$tempdir);
-					$this->folder="$tempdir/$name";
-					$objWZip=&$this->getObject('wzip','utilities');
-					$objWZip->unzip($tempfile,$this->folder);
-				}
-
+				$newname .= $name[$j];
+				$j++;
+			}
+			$name = $newname;
+			if ($extension == 'zip')
+			{
+#!!!Need to find a way to test if directory is created
+				$tempfile=$FILES['upload']['tmp_name'];
+				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
+				$objDir=&$this->getObject('dircreate','utilities');
+				$objDir->makeFolder("$name.unzip",$tempdir);
+				$this->folder="$tempdir/$name";
+				$objWZip=&$this->getObject('wzip','utilities');
+				$objWZip->unzip($tempfile,$this->folder);
 			}
 		}
 
@@ -335,7 +314,6 @@ class importIMSPackage extends dbTable
 	*/
 	function locateAllFiles($folder)
 	{
-		$this->fileLocations = array();
 		$this->fileLocations = $this->objIEUtils->list_dir_files($folder,1);
 	
 		return $this->fileLocations;
@@ -356,7 +334,6 @@ class importIMSPackage extends dbTable
 	*/
 	public function locateIMSFile($files, $regex)
 	{
-		$this->imsmanifestLocation = "";
 		foreach($files as $aFile)
 		{
 			if(preg_match($regex, $aFile))
@@ -364,6 +341,7 @@ class importIMSPackage extends dbTable
 				$this->imsmanifestLocation = $aFile;
 			}
 		}
+
 		return $this->imsmanifestLocation;
 	}
 
@@ -381,8 +359,7 @@ class importIMSPackage extends dbTable
 	*/
 	function loadSimpleXml($imsFileLocation)
 	{
-		$this->simpleXmlObj = array();
-		//Load imsmanifest.xml file
+		#Load imsmanifest.xml file
 		if(file_exists($imsFileLocation)) 
 		{
     			$this->simpleXmlObj = simplexml_load_file($imsFileLocation);
@@ -410,13 +387,13 @@ class importIMSPackage extends dbTable
 	function loadDOMDocument($imsFileLocation)
 	{
 		$this->domDocumentObj = new DOMDocument();
-		//Create domdocument object to access xml file
+		#Create domdocument object to access xml file
 		if($this->domDocumentObj->load($imsFileLocation))
 		{
 		}
 		else 
 		{
-    			return  "domError";
+    			return  "domReadError";
 		}
 
 		return $this->domDocumentObj;
@@ -436,7 +413,7 @@ class importIMSPackage extends dbTable
 	*/
 	function loadXPath($domDocumentObj)
 	{
-		//Create xpath object to access xml file
+		#Create xpath object to access xml file
 		$this->xpathObj = new DOMXPath($domDocumentObj);
 
 		return $this->xpathObj;
@@ -454,35 +431,38 @@ class importIMSPackage extends dbTable
 	*/
 	function extractCourseData($xml, $doc, $xpath)
 	{
-		$this->newCourse = array();
-		//Set eduCommons namespaces
+		#Set eduCommons namespaces
 		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
-		//Set imsmd namespaces
+		#Set imsmd namespaces
 		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-		//Create course
-		//Establish which resource is a course
+		#Create course
+		#Establish which resource is a course
 		foreach($xml->resources->resource as $resource)
 		{
-			//Retrieve file type
+			#Retrieve file type
 			$objectType = $resource->metadata->eduCommons->objectType;
-			//Cast to string
+			#Cast to string
 			$objectType = (string)$objectType;
-			//Remove whitespaces for comparison
+			#Remove whitespaces for comparison
 			$objectType = trim($objectType);
-			//Check file type
-			//Course
+			#Check file type
+			#Course
 			if(strcmp($objectType,"Course")==0)
 			{
 #course id (contextcode)
 				$courseId = $resource->metadata->eduCommons->courseId;
 				$courseId = (string)$courseId;
 				$courseId = trim($courseId);
+				if(!(strlen($courseId) > 1))
+					return 'courseReadError';
 				$this->newCourse['contextcode'] = $courseId;
 #course title (title)
 				$courseTitle = $resource->metadata->lom->general->title->langstring;
 				$courseTitle = (string)$courseTitle;
 				$courseTitle = trim($courseTitle);
 				$this->newCourse['title'] = $courseTitle;
+				if(!(strlen($courseTitle) > 1))
+					return 'courseReadError';
 #course title (menu text)
 				$this->newCourse['menutext'] = $courseTitle;
 #course title (userId)
@@ -492,6 +472,8 @@ class importIMSPackage extends dbTable
 				$courseIdentifier = (string)$courseIdentifier;
 				$courseIdentifier = trim($courseIdentifier);
 				$this->newCourse['courseIdentifier'] = $courseIdentifier;
+				if(!(strlen($courseIdentifier) > 1))
+					return 'courseReadError';
 #course description (about)
 				$courseDescription = $resource->metadata->lom->general->description->langstring;
 				$courseDescription = (string)$courseDescription;
@@ -505,22 +487,6 @@ class importIMSPackage extends dbTable
 #course access (access)
 				$courseAccess = "UnPublished";
 				$this->newCourse['isclosed'] = $courseAccess;
-			//echo "Course";
-			}
-			//Document
-			if(strcmp($objectType,"Document")==0)
-			{
-				//echo "Document";
-			}
-			//File
-			if(strcmp($objectType,"File")==0)
-			{
-				//echo "File";
-			}
-			//Image
-			if(strcmp($objectType,"Image")==0)
-			{
-				//echo "Image";
 			}
 		}
 
@@ -548,69 +514,30 @@ class importIMSPackage extends dbTable
 	*/
 	function writeResources($xml, $folder, $newCourse)
 	{
-		//Pre-initialize globals
-		$this->resourceFileNames = array();
-		$this->allData = array();
-		//Pre-initialize variables
+		#Pre-initialize variables
 		$resourceFileLocations = array();
-		//Pre-check parameters
-		if(!isset($xml))
-		{
-			return  "precheckError";
-		}
-		if(!isset($folder))
-		{
-			return  "precheckError";
-		}
-		if(!isset($newCourse))
-		{
-			return  "precheckError";
-		}
-		//Static Chisimba file locations
-		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
-		$contentBasePath = $this->objConfig->getcontentBasePath();
-		$userBasePath = $this->objConfig->getsiteRootPath();
-		$courseContentBasePath = $contentBasePath."content/";
-		$contextCode = strtolower(str_replace(' ','_',$newCourse['contextcode']));
-		//Store context code globally
-		$this->contextCode = $contextCode;
-		$courseContentPath = $courseContentBasePath.$contextCode;
-		$imagesLocation = $courseContentPath."/images";
-		$docsLocation = $courseContentPath."/documents";
-		$userFilePath = $userBasePath.$this->objUser->userId();
-		//Enter context
-		$enterContext = $this->objDBContext->joinContext($contextCode);
-		if($this->objDebug)
-		{
-			echo $contentBasePath."<br />";
-			echo $courseContentBasePath."<br />";
-			echo $contextCode."<br />";
-			echo $courseContentPath."<br />";
-			echo $imagesLocation."<br />";
-			echo $docsLocation."<br />";
-		}
-		//First add course to Chisimba database
+		#First add course to Chisimba database
 		foreach($xml->resources->resource as $resource)
 		{
-			//Retrieve file type
+			#Retrieve file type
 			$objectType = $resource->metadata->eduCommons->objectType;
-			//Cast to string
+			#Cast to string
 			$objectType = (string)$objectType;
-			//Remove whitespaces for comparison
+			#Remove whitespaces for comparison
 			$objectType = trim($objectType);
-			//Check file type
-			//Course
+			#Check file type
+			#Course
 			if(strcmp($objectType,"Course")==0)
 			{
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
 				$filename = (string)$filename;
 				$filename = trim($filename);
-				//Retrieve relative file location
+				#Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
-				//Chech if file exists on local system
+				#Chech if file exists on local system
 				if(!file_exists($fileLocation))
 				{
 					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
@@ -624,16 +551,16 @@ class importIMSPackage extends dbTable
 						}
 					}
 				}
-				//Retrieve contents of file
+				#Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
-				//Save all data
+				#Save all data
 				$this->allData['0'] = array('resource' => $resource,
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
-				//Check debug flag
+				#Check debug flag
 				if($this->objDebug)
 				{
 					echo "Course"."<br />";
@@ -643,29 +570,29 @@ class importIMSPackage extends dbTable
 				}
 			}
 		}
-		//Add all other resources to Chisimba database
+		#Add all other resources to Chisimba database
 		foreach($xml->resources->resource as $resource)
 		{
 			static $i = 1;
-			//Retrieve file type
+			#Retrieve file type
 			$objectType = $resource->metadata->eduCommons->objectType;
-			//Cast to string
+			#Cast to string
 			$objectType = (string)$objectType;
-			//Remove whitespaces for comparison
+			#Remove whitespaces for comparison
 			$objectType = trim($objectType);
-			//Check file type
-			//Document
+			#Check file type
+			#Document
 			if(strcmp($objectType,"Document")==0)
 			{
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
 				$filename = (string)$filename;
 				$filename = trim($filename);
-				//Retrieve relative file location
+				#Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
-				//Chech if file exists on local system
+				#Chech if file exists on local system
 				if(!file_exists($fileLocation))
 				{
 					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
@@ -679,39 +606,39 @@ class importIMSPackage extends dbTable
 						}
 					}
 				}
-				//Write file contents to documents folder
-				//Retrieve contents of file
+				#Write file contents to documents folder
+				#Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
-				//Check filename
+				#Check filename
 				if(!preg_match("/.html|.htm/",$filename))
 				{
-					//Correct filename
+					#Correct filename
 					$filename = $filename.".html";
 					$this->fileMod = TRUE;
 				}
-				//New location for Documents
-				$newLocation = $docsLocation."/".$filename;
-				//Store resource locations
+				#New location for Documents
+				$newLocation = $this->docsLocation."/".$filename;
+				#Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
-				//Store filesname
+				#Store filesname
 				$this->resourceFileNames[$i] = $filename;
-				//Open images directory
+				#Open images directory
 				$fp = fopen($newLocation,'w');
-				//Write the file to images directory
+				#Write the file to images directory
 				if((fwrite($fp, $fileContents) === FALSE))
 				{
 					return  "writeResourcesError";
 				}
-				//Close the directory
+				#Close the directory
 				fclose($fp);
-				//Save all data
+				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents, 
 							'contextCode' => $contextCode, 
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
-				//Check debug flag
+				#Check debug flag
 				if($this->objDebug)
 				{
 					echo "Document"."<br />";
@@ -720,18 +647,18 @@ class importIMSPackage extends dbTable
 					echo $fileLocation."<br />";
 				}
 			}
-			//File
+			#File
 			if(strcmp($objectType,"File")==0)
 			{
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
 				$filename = (string)$filename;
 				$filename = trim($filename);
-				//Retrieve relative file location
+				#Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
 				$fileLocation = $folder."/".$file;
-				//Chech if file exists on local system
+				#Chech if file exists on local system
 				if(!file_exists($fileLocation))
 				{
 					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
@@ -745,32 +672,32 @@ class importIMSPackage extends dbTable
 						}
 					}
 				}
-				//Write file contents to documents folder
-				//Retrieve contents of file
+				#Write file contents to documents folder
+				#Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
-				//New location for Files
-				$newLocation = $docsLocation."/".$filename;
-				//Store resource locations
+				#New location for Files
+				$newLocation = $this->docsLocation."/".$filename;
+				#Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
-				//Store filesname
+				#Store filesname
 				$this->resourceFileNames[$i] = $filename;
-				//Open images directory
+				#Open images directory
 				$fp = fopen($newLocation,'w');
-				//Write the file to images directory
+				#Write the file to images directory
 				if((fwrite($fp, $fileContents) === FALSE))
 				{
 					return  "writeResourcesError";
 				}
-				//Close the directory
+				#Close the directory
 				fclose($fp);
-				//Save all data
+				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
-				//Check debug flag
+				#Check debug flag
 				if($this->objDebug)
 				{
 					echo "Course"."<br />";
@@ -779,20 +706,20 @@ class importIMSPackage extends dbTable
 					echo $fileLocation."<br />";
 				}
 			}
-			//Image
+			#Image
 			if(strcmp($objectType,"Image")==0)
 			{
-				//Retrieve filename
+				#Retrieve filename
 				$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
 				$filename = (string)$filename;
 				$filename = trim($filename);
-				//Retrieve relative file location
+				#Retrieve relative file location
 				$file = $resource->file['href'];
 				$file = (string)$file;
 				$file = trim($file);
-				//Retrieve absolute file location
+				#Retrieve absolute file location
 				$fileLocation = $folder."/".$file;
-				//Chech if file exists on local system
+				#Chech if file exists on local system
 				if(!file_exists($fileLocation))
 				{
 					$folders = $this->objIEUtils->list_dir($folder, '0', '0');
@@ -806,39 +733,39 @@ class importIMSPackage extends dbTable
 						}
 					}
 				}
-				//Write file contents to images folder
-				//Retrieve contents of file
+				#Write file contents to images folder
+				#Retrieve contents of file
 				$fileContents = file_get_contents($fileLocation);
-				//Check filename
+				#Check filename
 				if(!preg_match("/.jpg|.gif|.png/",$filename))
 				{
-					//Correct filename
+					#Correct filename
 					$filename = $filename.".jpg";
 					$this->fileMod = TRUE;
 				}
-				//New location for Images
-				$newLocation = $imagesLocation."/".$filename;
-				//Store resource locations
+				#New location for Images
+				$newLocation = $this->imagesLocation."/".$filename;
+				#Store resource locations
 				$resourceFileLocations[$i] = $newLocation;
-				//Store filesname
+				#Store filesname
 				$this->resourceFileNames[$i] = $filename;
-				//Open images directory
+				#Open images directory
 				$fp = fopen($newLocation,'w');
-				//Write the file to images directory
+				#Write the file to images directory
 				if((fwrite($fp, $fileContents) === FALSE))
 				{
 					return  "writeResourcesError";
 				}
-				//Close the directory
+				#Close the directory
 				fclose($fp);
-				//Save all data
+				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents,
 							'contextCode' => $contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
-				//Check debug flag
+				#Check debug flag
 				if($this->objDebug)
 				{
 					echo "Image"."<br />";
@@ -868,13 +795,11 @@ class importIMSPackage extends dbTable
 	*/
 	function uploadImagesToChisimba($folder = '')
 	{
-		//Pre-Initialize global variables
-		$this->imageIds = array();
-		//Initialize Inner variables
+		#Initialize Inner variables
 		parent::init('tbl_files');
-		//Add Images to database
+		#Add Images to database
 		$indexFolder = $this->objIndex->indexFolder($this->imagesLocation, $this->objUser->userId());
-		//Match image Id's to image names
+		#Match image Id's to image names
 		foreach($indexFolder as $pageId)
 		{
 			$filter = "WHERE id = '$pageId'";
@@ -923,38 +848,35 @@ class importIMSPackage extends dbTable
 	*/
 	function loadToChisimba($writeData, $structure)
 	{
-		//Pre-Initialize global variables
-		$this->resourceIds = array();
-		$this->chapterIds = array();
-		//Pre-initialize variables
+		#Pre-initialize variables
 		static $i = 0;
 		static $j = 0;
 		static $k = 0;
 		$menutitles = array();
 		$orderedData = array();
 		$numItems = count($structure);
-		//Change Structure of data
-		//Add all pages
+		$numVisibleItems = 0;
+		#Change Structure of data
+		#Add all pages
 		foreach($writeData as $resource)
 		{
-			//Unpack data
+			#Unpack data
 			$xmlResource = $resource['resource'];
 			$objectType = $resource['objectType'];
 			$objectType = (string)$objectType;
 			$objectType = trim($objectType);
 			$resourceId = (string)$xmlResource['identifier'];
 			$resourceId = trim($resourceId);
-			//Check file type
+			#Check file type
 			if(strcmp($objectType,"Image")!=0)
 			{
-				//Retrieve title
+				#Retrieve title
 				$title = $xmlResource->metadata->lom->general->title->langstring;
 				$title = (string)$title;
 				$title = trim($title);
 				$index = array_search($title, $structure);
 				if($index === FALSE)
 				{
-//echo $j+$numItems."<br />";
 					$orderedData[$j+$numItems] = $resource;
 					$j++;
 				}	
@@ -963,7 +885,7 @@ class importIMSPackage extends dbTable
 					$orderedData[$index] = $resource;
 					$this->chapterIds[$k] = $resourceId;
 					$k++;
-//echo $index."<br />";
+					$numVisibleItems++;
 					if(strcmp($objectType,"Course")==0)
 					{
 						$indexOfCourse = $index;
@@ -971,31 +893,22 @@ class importIMSPackage extends dbTable
 				}
 			}
 		}
-		//Fix indexing
+		#Fix indexing
 		for($i=0;$i<count($orderedData);$i++)
 		{
 			$indexedData[$i] = $orderedData[$i];
 		}
-		//Move course info to the start
-//		$orderedData = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
 		$start = 0;
 		$before = $indexOfCourse;
 		$after = count($orderedData);
-//		$fromStart = array_slice($orderedData, $start, $before);
 		$fromStart = array_slice($indexedData, $start, $before);
-//var_dump($fromStart);
-//		$toEnd = array_slice($orderedData, $before+1, $after);
 		$toEnd = array_slice($indexedData, $before+1, $after);
-//var_dump($toEnd);
-//		$course = array_slice($orderedData, $before, $before);
 		$course = array_slice($indexedData, $before, $before);
-//var_dump($course);
 		$orderedData = array_merge($course, $fromStart, $toEnd);
-//var_dump($orderedData);
-		//Retrieve resource Id's
+		#Retrieve resource Id's
 		foreach($orderedData as $resource)
 		{
-			//Unpack data
+			#Unpack data
 			$xmlResource = $resource['resource'];
 			$fileContents = $resource['fileContents'];
 			$resourceId = (string)$xmlResource['identifier'];
@@ -1022,25 +935,26 @@ class importIMSPackage extends dbTable
 			$i++;
 		}
 		$this->addChapters();
-		//Add ordered data
+		#Add ordered data
 		for($i=0;$i<count($orderedData);$i++)
 		{
-			//Unpack data
+			#Unpack data
 			$xmlResource = $orderedData[$i]['resource'];
 			$fileContents = $orderedData[$i]['fileContents'];
 			$contextCode = $orderedData[$i]['contextCode'];
 			$file = $orderedData[$i]['file'];
 			$objectType = $orderedData[$i]['objectType'];
-			//Cast to string
+			#Cast to string
 			$objectType = (string)$objectType;
-			//Remove whitespaces for comparison
+			#Remove whitespaces for comparison
 			$objectType = trim($objectType);
-			//Write Course to Chisimba database
-			$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode);
+			#Write Course to Chisimba database
+			if($i > $numVisibleItems)
+				$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode,$i,'N');
+			else
+				$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode,$i,'Y');
 			$menutitle = (string)$menutitle;
 			$menutitles[$i] = $menutitle;
-//var_dump($orderedData[0]);
-//echo $objectType."<br />";die;
 		}
 
 		return $menutitles;
@@ -1048,19 +962,19 @@ class importIMSPackage extends dbTable
 
 	function addChapters()
 	{
-		//Add Chapters
-		//Course
+		#Add Chapters
+		#Course
 		$title = $this->contextCode;
 		$intro = $this->newCourse['about'];
 		$visibility = 'Y';
 		$this->chapterIds = $this->objChapters->addChapter('', $title, $intro);
 		$result = $this->objContextChapters->addChapterToContext($this->chapterIds, $title, $visibility);
-		//Add additional Chapters
+		#Add additional Chapters
 		
 	}
 
 	/**
-	 * Retrieve page details and pass data 
+	 * Retrieve page details and pass data
 	 * database insertion functions
 	 *
 	 * @param simpleXml $resource - simple xml object
@@ -1070,9 +984,9 @@ class importIMSPackage extends dbTable
 	 * @return boolean 
 	 *
 	*/
-	function passPage($resource, $fileContents, $contextCode)
+	function passPage($resource, $fileContents, $contextCode, $bookmark='', $isBookmark='')
 	{
-		//Check if menutitle exists
+		#Check if menutitle exists
 		$resId = (string)$resource['identifier'];
 		$resId = trim($resId);
 		foreach($this->simpleXmlObj->organizations->organization->item as $item)
@@ -1086,7 +1000,7 @@ class importIMSPackage extends dbTable
 				$menutitle = $aTitle;
 			}
 		}
-		//Retrieve page data
+		#Retrieve page data
 		$titleid = $resource->metadata->lom->general->title->langstring;
 		if(!(strlen($menutitle) > 0))
 			$menutitle = $resource->metadata->lom->general->description->langstring;
@@ -1094,7 +1008,7 @@ class importIMSPackage extends dbTable
 		$language = $resource->metadata->lom->general->language;
 		$headerscript = "";
 		$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-		//Load to $values
+		#Load to $values
 		if(!strlen($menutitle) > 0)
 		{
 			$menutitle = $titleid;
@@ -1104,8 +1018,10 @@ class importIMSPackage extends dbTable
 				'content' => (string)$content,
 				'language' => (string)$language,
 				'headerscript' => (string)$headerscript,
-				'filename' => trim((string)$filename));
-		//Insert into database
+				'filename' => trim((string)$filename),
+				'bookmark' => $bookmark,
+				'isbookmark' => $isBookmark);
+		#Insert into database
 		$writePage = $this->writePage($values, $contextCode);
 
 		return $menutitle;
@@ -1122,24 +1038,24 @@ class importIMSPackage extends dbTable
 	*/
 	function writePage($values, $contextCode)
 	{
-		//duplication error needs to be fixed by Tohir
+		#duplication error needs to be fixed by Tohir
 		parent::init('tbl_contextcontent_pages');
 		$menutitle = $values['menutitle'];
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
-		//force a write
-		//$result = '';
+		#un-comment to force a write
+		#$result = '';
 		if(!count($result) > 0)
 		{
-			//No idea!!!
+			#No idea!!!
 			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
-			//Add page
+			#Add page
         		$titleId = $this->objContentTitles->addTitle('', 
 								$values['menutitle'],
 								$values['content'],
 								$values['language'],
 								$values['headerscript']);
-        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterIds);
+        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterIds, $values['bookmark'], $values['isbookmark']);
 		}
 
 		return TRUE;
@@ -1157,41 +1073,41 @@ class importIMSPackage extends dbTable
 	*/
 	function rebuildHtml($menutitles, $fileNames)
 	{
-		//switch tables
+		#switch tables
 		parent::init('tbl_contextcontent_pages');
-		//Retrieve resources
-		//Manipulate images
+		#Retrieve resources
+		#Manipulate images
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
 			$result = $this->getAll($filter);
 			if(count($result) > 0)
 			{
-				//Retrieve page contents
+				#Retrieve page contents
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
-				//Rewrite images source in html
+				#Rewrite images source in html
 				$page = $this->changeImageSRC($fileContents, $this->contextCode, $fileNames);
-				//Reinsert into database with updated images
+				#Reinsert into database with updated images
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
 				}
 			}
 		}
-		//Manipulate links 
+		#Manipulate links 
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
 			$result = $this->getAll($filter);
 			if(count($result) > 0)
 			{
-				//Retrieve page contents
+				#Retrieve page contents
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
-				//Rewrite links source in html
+				#Rewrite links source in html
 				$page = $this->changeLinkUrl($fileContents, $this->contextCode, $fileNames);
-				//Reinsert into database with updated links
+				#Reinsert into database with updated links
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
@@ -1217,28 +1133,28 @@ class importIMSPackage extends dbTable
 	*/
     	function changeImageSRC($fileContents, $contextCode, $fileNames, $static='')
     	{
-		//Image location on disc
+		#Image location on disc
 		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
-		//Image location on localhost
+		#Image location on localhost
 		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
-		//Only run through html's contained in package
+		#Only run through html's contained in package
 		foreach($this->resourceFileNames as $aFile)
 		{
-			//Check if its an Image
+			#Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
 			{
-				//Create new file source location
-				//Check if its a static package
+				#Create new file source location
+				#Check if its a static package
 				if(!($static == ''))
 					$newLink = $imageLocation.$aFile.'"';
 				else
 				{
 					$newLink = $action.$this->imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
 				}
-				//Convert filename into regular expression
+				#Convert filename into regular expression
 				$regex = '/'.$aFile.'/';
-				//Find filename in html page if it exists
+				#Find filename in html page if it exists
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
@@ -1246,7 +1162,7 @@ class importIMSPackage extends dbTable
 
 					return $page;
 				}
-				//If the image was renamed
+				#If the image was renamed
 				else
 				{
 					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
@@ -1280,7 +1196,7 @@ class importIMSPackage extends dbTable
     	function changeLinkUrl($fileContents, $contextCode, $fileNames, $static='')
     	{
 		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
-		//Run through each resource
+		#Run through each resource
 		$page = $fileContents;
 		foreach($this->resourceFileNames as $aFile)
 		{
@@ -1317,6 +1233,5 @@ class importIMSPackage extends dbTable
 	{
 		$this->objDebug = FALSE;
 	}
-
 }
 ?>
