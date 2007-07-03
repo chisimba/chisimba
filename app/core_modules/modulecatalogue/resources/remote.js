@@ -3,7 +3,7 @@
 * Ajax method to retrieve module zip
 * @param string module the module to retrieve
 */
-function downloadModule(module) {
+function downloadModule(module,name) {
     var target = "download_"+module;
     $(target).innerHTML='Downloading...';
     var pars = "module=modulecatalogue&action=ajaxdownload&moduleId="+module;
@@ -13,7 +13,7 @@ function downloadModule(module) {
             onSuccess: function(transport){
                 var response = transport.responseText || "no response text";
                 $(target).innerHTML = response;
-                unzipModule(module);
+                unzipModule(module,name);
             },
             onFailure: function(transport){
                 var response = transport.responseText || "no response text";
@@ -23,7 +23,7 @@ function downloadModule(module) {
     });
 }
 
-function unzipModule(module) {
+function unzipModule(module,name) {
     var target = "download_"+module;
     var pars = "module=modulecatalogue&action=ajaxunzip&moduleId="+module;
     new Ajax.Request('index.php',{
@@ -32,7 +32,7 @@ function unzipModule(module) {
             onSuccess: function(transport){
                 var response = transport.responseText || "no response text";
                 $(target).innerHTML = response;
-                installModule(module);
+                installModule(module,name);
             },
             onFailure: function(transport){
                 var response = transport.responseText || "no response text";
@@ -42,8 +42,9 @@ function unzipModule(module) {
     });
 }
 
-function installModule(module) {
+function installModule(module,name) {
     var target = "download_"+module;
+    var link = "link_"+module;
     var pars = "module=modulecatalogue&action=ajaxinstall&moduleId="+module;
     new Ajax.Request('index.php',{
             method:'post',
@@ -51,6 +52,7 @@ function installModule(module) {
             onSuccess: function(transport){
                 var response = transport.responseText || "no response text";
                 $(target).innerHTML = response;
+                $(link).innerHTML = "<a href='index.php?module="+module+"'><b>"+name+"</b></a>";
             },
             onFailure: function(transport){
                 var response = transport.responseText || "no response text";

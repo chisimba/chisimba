@@ -37,7 +37,7 @@ $objTable->id = 'unpadded';
 $objTable->width='100%';
 
 $masterCheck = new checkbox('arrayList[]');
-$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
+//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
 $head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
@@ -51,25 +51,26 @@ $link->link = $this->objLanguage->languageText('word_download');
 $icon = $this->newObject('getIcon','htmlelements');
 foreach ($modules as $module) {
     if (!in_array($module,$lMods) || $module{0} == 'a') {
+        $info = $this->objRPCClient->getModuleDescription($module);
+        $doc = simplexml_load_string($info);
+        $modName = (string)$doc->array->data->value[0]->string;
+        $modDesc = (string)$doc->array->data->value[1]->string;
+
         $link->link('javascript:;');
-        $link->extra = "onclick = 'javascript:downloadModule(\"$module\");'";
+        $link->extra = "onclick = 'javascript:downloadModule(\"$module\",\"$modName\");'";
         $class = ($class == 'even')? 'odd' : 'even';
         $newMods[] = $module;
         $icon->setModuleIcon($module);
         $modCheck = new checkbox('arrayList[]');
 		$modCheck->cssId = 'checkbox_'.$module;
         $modCheck->setValue($module);
-        $modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
+        //$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
-        $info = $this->objRPCClient->getModuleDescription($module);
-        $doc = simplexml_load_string($info);
-        $modName = (string)$doc->array->data->value[0]->string;
-        $modDesc = (string)$doc->array->data->value[1]->string;
         $objTable->startRow();
         $objTable->addCell($modCheck->show(),null,null,null,$class);
         $objTable->addCell($icon->show(),null,null,null,$class);
-        $objTable->addCell("<b>$modName</b>",'50%',null,null,$class);
-        $objTable->addCell("<div id='download_$module'>".$link->show()."</div>",null,null,null,$class);
+        $objTable->addCell("<div id='link_$module'><b>$modName</b></div>",'50%',null,null,$class);
+        $objTable->addCell("<div id='download_$module'>".$link->show()."</div>",'20%',null,null,$class);
         $objTable->addCell('&nbsp;',null,null,'left',$class);
 		$objTable->endRow();
 		$objTable->startRow();

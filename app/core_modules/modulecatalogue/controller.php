@@ -415,15 +415,16 @@ class modulecatalogue extends controller
                     break;
 
                 case 'ajaxunzip':
-                    $modName = $this->getParam('moduleId');
-                    $objZip = $this->getObject('wzip', 'utilities');
-					if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
-					    header('HTTP/1.0 500 Internal Server Error');
-                        echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
-                        echo "<br /> $objZip->error";
-                        break;
-					}
-					unlink("$modName.zip");
+                    if (!is_dir($this->objConfig->getModulePath().$modName)) {
+                        $modName = $this->getParam('moduleId');
+                        $objZip = $this->getObject('wzip', 'utilities');
+                        if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
+                            header('HTTP/1.0 500 Internal Server Error');
+                            echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                            echo "<br /> $objZip->error";
+                            break;
+                        }
+                    }
                     echo $this->objLanguage->languageText('phrase_installing');
                     break;
 
@@ -434,6 +435,7 @@ class modulecatalogue extends controller
                         echo "$this->output<br />{$this->objModuleAdmin->output}";
                         break;
                     }
+                    unlink("$modName.zip");
                     echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
                     break;
 
