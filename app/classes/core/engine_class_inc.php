@@ -1217,7 +1217,7 @@ class engine
 			$output = array();
 
 			foreach ($params as $key => $item) {
-				if ($item != NULL) {
+				if (!is_null($item)) {
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
