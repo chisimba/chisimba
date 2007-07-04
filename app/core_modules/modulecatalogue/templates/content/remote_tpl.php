@@ -49,40 +49,30 @@ $class = 'odd';
 $link = new link();
 $link->link = $this->objLanguage->languageText('word_download');
 $icon = $this->newObject('getIcon','htmlelements');
-$sum = $count= $sum2 = 0;
 foreach ($modules as $module) {
-    if (!in_array($module,$lMods) || $module{0} == 'a') {
-        $start = microtime(true);
-        $info = $this->objRPCClient->getModuleDescription($module);
-        $sum2 = $sum2 + microtime(true) - $start;
-        $doc = simplexml_load_string($info);
-        $modName = (string)$doc->array->data->value[0]->string;
-        $modDesc = (string)$doc->array->data->value[1]->string;
-
+    if (!in_array($module['id'],$lMods)) {
         $link->link('javascript:;');
-        $link->extra = "onclick = 'javascript:downloadModule(\"$module\",\"$modName\");'";
+        $link->extra = "onclick = 'javascript:downloadModule(\"{$module['id']}\",\"{$module['name']}\");'";
         $class = ($class == 'even')? 'odd' : 'even';
-        $newMods[] = $module;
-        $icon->setModuleIcon($module);
+        $newMods[] = $module['id'];
+        $icon->setModuleIcon($module['id']);
         $modCheck = new checkbox('arrayList[]');
-		$modCheck->cssId = 'checkbox_'.$module;
-        $modCheck->setValue($module);
+		$modCheck->cssId = 'checkbox_'.$module['id'];
+        $modCheck->setValue($module['id']);
         //$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
         $objTable->startRow();
         $objTable->addCell($modCheck->show(),null,null,null,$class);
         $objTable->addCell($icon->show(),null,null,null,$class);
-        $objTable->addCell("<div id='link_$module'><b>$modName</b></div>",'50%',null,null,$class);
-        $objTable->addCell("<div id='download_$module'>".$link->show()."</div>",'20%',null,null,$class);
+        $objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",'50%',null,null,$class);
+        $objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'20%',null,null,$class);
         $objTable->addCell('&nbsp;',null,null,'left',$class);
 		$objTable->endRow();
 		$objTable->startRow();
 		$objTable->addCell('&nbsp;',30,null,'left',$class);
 		$objTable->addCell('&nbsp;',30,null,'left',$class);
-		$objTable->addCell($modDesc.'<br />&nbsp;',null,null,'left',$class, 'colspan="3"');
+		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="3"');
 		$objTable->endRow();
-		$sum = $sum + microtime(true) - $start;
-		$count++;
     }
 }
 if (empty($newMods)) {
@@ -91,9 +81,5 @@ if (empty($newMods)) {
     $objTable->endRow();
 }
 echo $hTable->show().$objTable->show();
-
-$ave = $sum/$count;
-$ave2 = $sum2/$count;
-echo "{$sum}s to load $count modules. Ave time per module = $ave. $ave2 of which is the RPC call";
 
 ?>

@@ -159,19 +159,8 @@ class modulecatalogue extends controller
             $this->setLayoutTemplate('cat_layout.php');
             switch ($action) {        //check action
                 case 'xml':
-                    $ret = $this->objModuleAdmin->alterTable('tbl_sysconfig_properties',
-                                array('change' => array(
-                                             'pvalue' => array(
-                                                  'length'=>255,
-                                                  'type'=>'text',
-                                                 'definition' => array(
-                                                      'type'=>'text',
-                                                     'length' => 128,
-                                                ),
-                                             ))),false);
-                    if ($ret == MDB2_OK) echo "==<br/>";
-                    if ($ret != MDB2_OK) echo "!=<br/>";
-                    var_dump($ret);
+                    $ret = $this->objRPCServer->getModuleDetails();
+                    var_dump($ret); die;
                     break;
                 case 'updatedeps':
                     $this->updateDeps($this->getParam('modname'));

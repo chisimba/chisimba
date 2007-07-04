@@ -310,9 +310,9 @@ class catalogueconfig extends object {
 					$moduleDesc = $this->objLanguage->abstractText((string)$module->module_description);
 					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
 					if (empty($moduleName)) {
-						$result[(string)$module->module_id] = array(ucwords((string)$module->module_id),ucwords((string)$module->module_id));
+						$result[] = array((string)$module->module_id,ucwords((string)$module->module_id),ucwords((string)$module->module_id));
 					} else {
-						$result[(string)$module->module_id] = array(ucwords($moduleName),ucwords($moduleDesc));
+						$result[] = array((string)$module->module_id,ucwords($moduleName),ucwords($moduleDesc));
 					}
 				}
 				if (!isset($result)) {

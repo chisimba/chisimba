@@ -39,6 +39,7 @@ class rpcserver extends object
 		require_once($this->getPearResource('XML/RPC/Dump.php'));
 		$this->objConfig = $this->getObject('altconfig', 'config');
 		$this->objLanguage = $this->getObject('language', 'language');
+		$this->objCatalogueConfig = $this->getObject('catalogueconfig','modulecatalogue');
 	}
 
 	/**
@@ -189,7 +190,14 @@ class rpcserver extends object
 
 	public function getModuleDetails() {
 	    $mArray = $this->objCatalogueConfig->getModuleDetails();
-	    $val = new XML_RPC_Value($mArray,'array');
+	    $data = array();
+	    foreach ($mArray as $mod) {
+	       $det[0] = new XML_RPC_Value($mod[0], 'string');
+	       $det[1] = new XML_RPC_Value($mod[1], 'string');
+	       $det[2] = new XML_RPC_Value($mod[2], 'string');
+	       $data[] = new XML_RPC_Value($det, 'array');
+	    }
+	    $val = new XML_RPC_Value($data,'array');
 	    return new XML_RPC_Response($val);
 	}
 
