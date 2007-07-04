@@ -263,7 +263,7 @@ class tools extends object
         if($this->moduleCheck->getRow('module_id', 'keepsessionalive')){
             $this->objIcon->setIcon('keep_alive');
             $this->objIcon->alt='mod_pause_stayonline';
-            $this->objIcon->title = $this->objLanguage->languageText('mod_pause_stayonline','toolbar');
+            $this->objIcon->title = $this->objLanguage->languageText('mod_keepsessionalive_stayonline','keepsessionalive');
 
             $this->objLink = new link('#');
             $this->objLink->link = $this->objIcon->show();
