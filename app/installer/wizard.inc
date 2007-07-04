@@ -13,7 +13,6 @@
 */
 
 define('INSTALL_DIR', dirname(__FILE__));
-define('PEAR_DIR', dirname(__FILE__).'../lib/pear/');
 
 define('STEP_DIR', dirname(__FILE__).'/steps');
 

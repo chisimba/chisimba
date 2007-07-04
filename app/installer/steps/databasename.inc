@@ -6,8 +6,6 @@
 
 require_once INSTALL_DIR.'/step.inc';
 
-define('PEAR_DIR',  INSTALL_DIR.'/lib/pear');
-
 require_once INSTALL_DIR.'/5ivestepaction.inc';
 
 require_once INSTALL_DIR.'/html_form/html_form.inc';
