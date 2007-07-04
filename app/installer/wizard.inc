@@ -375,10 +375,12 @@ class Wizard
 
         //Create the installdone.txt file if this is the final step
         // We check if step 8 has been done - have to change this if we change the number of steps.
-        $steps=$_SESSION['completed_steps'];
-        if (is_array($steps) && (in_array(8,$steps)) ){
-            $path = $_SESSION['sys_root'].'/config/';
-            touch($path . 'installdone.txt');
+        if (isset($_SESSION['completed_steps'])){
+            $steps=$_SESSION['completed_steps'];
+            if (is_array($steps) && (in_array(8,$steps)) ){
+                $path = $_SESSION['sys_root'].'/config/';
+                touch($path . 'installdone.txt');
+            }
         }
 
 		// if there is a current_step set in the post data, use that by preference. This
