@@ -98,6 +98,8 @@ class selectbox extends object implements ifhtml
         // Insert the javascript into the header
         $this->appendArrayVar( 'headerParams', $this->getJavascriptFile('selectbox.js','htmlelements') );
         $this->objLanguage = $this->getObject('language', 'language');
+
+        $this->loadClass('dropdown','htmlelements');
     }
     
     /**
@@ -118,13 +120,11 @@ class selectbox extends object implements ifhtml
         $this->objForm = &$objForm;
         
         // Create the left dropdown selectbox.
-        $this->objLeftList = $this->newObject('dropdown','htmlelements');
-        $this->objLeftList->name = $ddbLeftName;
+        $this->objLeftList = new dropdown($ddbLeftName);
         $this->arrHeaders['hdrLeft']= $tblLeftHeader;
         
         // Create the right dropdown selectbox.
-        $this->objRightList = $this->newObject('dropdown','htmlelements');
-        $this->objRightList->name = $ddbRightName;
+        $this->objRightList = new dropdown($ddbRightName);
         $this->arrHeaders['hdrRight']= $tblRightHeader;
         
         // initialise the hidden form fields.
