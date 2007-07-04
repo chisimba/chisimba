@@ -491,7 +491,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @access public
     */
     public function getListOfPublicContext(){
-        return $this->getAll("WHERE access='Open' ORDER BY menutext");
+        return $this->getAll("WHERE access='Open' OR access='Public' ORDER BY menutext");
     }
 
     /**
