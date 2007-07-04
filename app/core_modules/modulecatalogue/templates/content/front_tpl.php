@@ -11,6 +11,7 @@ $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','mod
 $notice = $top = $bot = '';
 if (!isset($result)) {
 	$modules = $this->objCatalogueConfig->getModuleList($activeCat);//,$letter);
+	var_dump($modules);
 } else {
 	$modules = $result; //search results
 }

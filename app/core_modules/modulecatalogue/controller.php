@@ -450,27 +450,6 @@ class modulecatalogue extends controller
     }
 
     /**
-     * Method to check if the icon for a module exists in the local
-     * tree and download it from the RPC server if it does not
-     * In either case it returns a reference to a 'getIcon' object
-     * initialised with the module's icon.
-     * In the case that no icon exists it will be initialised to the
-     * default
-     *
-     * @param string $moduleId
-     * @return &object reference to a getIcon (htmlelements) object
-     */
-   /* private function &getObjIcon($moduleId) {
-        $iconPath = "icons/modules/$moduleId.gif";
-        if (!file_exists($iconPath)) {
-            $this->objRPCClient->getModuleIcon($moduleId);
-        }
-        $icon = $this->getObject('geticon','htmlelements');
-        $icon->setModuleIcon($moduleId);
-        return $icon;
-    }*/
-
-    /**
     * This method is a 'wrapper' function - it takes info from the
     * 'register.conf' file provided by the module to be registered,
     * and passes it to its namesake function in the modulesadmin

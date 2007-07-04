@@ -290,7 +290,43 @@ class catalogueconfig extends object {
     		$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
     	}
-    } #function insertParam
+    }
+
+     /**
+    * Method to get basic module data for all modules.
+    *
+    * @return  array of key module_id with values being the module name and description
+    */
+    public function getModuleDetails()
+    {
+    	try {
+
+				$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+
+				$xml = simplexml_load_file($this->_path);
+				$entries = $xml->xpath("//module");
+
+				foreach ($entries as $module) {
+					$moduleDesc = $this->objLanguage->abstractText((string)$module->module_description);
+					$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
+					if (empty($moduleName)) {
+						$result[(string)$module->module_id] = array(ucwords((string)$module->module_id),ucwords((string)$module->module_id));
+					} else {
+						$result[(string)$module->module_id] = array(ucwords($moduleName),ucwords($moduleDesc));
+					}
+				}
+				if (!isset($result)) {
+        			return FALSE;
+        		}else {
+       				return $result;
+        		}
+
+    	}catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+    	}
+    }
+
 
      /**
     * Method to get modulelist for catalogue categories.

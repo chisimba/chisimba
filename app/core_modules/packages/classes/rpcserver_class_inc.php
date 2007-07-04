@@ -68,6 +68,10 @@ class rpcserver extends object
                 								  'docstring' => 'Grab the module list'),
 
 
+      			  		  'getModuleDetails' => array('function' => array($this, 'getModuleDetails'),
+                								  'docstring' => 'Grab the module list'),
+
+
       			  		  'getMsg' => array('function' => array($this, 'getMessage'),
       			  		  					'signature' =>
                      							array(
@@ -181,6 +185,12 @@ class rpcserver extends object
 		$val = new XML_RPC_Value($fileName, 'array');
 		return new XML_RPC_Response($val);
 
+	}
+
+	public function getModuleDetails() {
+	    $mArray = $this->objCatalogueConfig->getModuleDetails();
+	    $val = new XML_RPC_Value($mArray,'array');
+	    return new XML_RPC_Response($val);
 	}
 
 	/**
