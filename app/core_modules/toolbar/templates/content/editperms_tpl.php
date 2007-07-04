@@ -18,13 +18,13 @@ $this->setVar('pageSuppressToolbar', FALSE);
 $this->setVar('suppressFooter', FALSE);
 
 // set up html elements
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objForm =& $this->newObject('form', 'htmlelements');
-$objInput =& $this->newObject('textinput', 'htmlelements');
-$objLink =& $this->newObject('link', 'htmlelements');
-$objButton =& $this->newObject('button', 'htmlelements');
-$objLayer =& $this->newObject('layer', 'htmlelements');
-$objSelectBox =& $this->newObject('selectbox','htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
+$objForm = $this->newObject('form', 'htmlelements');
+$objInput = $this->loadClass('textinput', 'htmlelements');
+$objLink = $this->loadClass('link', 'htmlelements');
+$objButton = $this->loadClass('button', 'htmlelements');
+$this->loadClass('layer', 'htmlelements');
+$objSelectBox = $this->newObject('selectbox','htmlelements');
 
 // set up language items
 $objLanguage =& $this->getObject('language', 'language');
@@ -53,7 +53,7 @@ if(!isset($defaultList)){
 $javascript = "<script language='javascript'>
 
     function setDefault()
-    {
+    {   
         var str = '".$defaultList."';
         window.opener.document.menulink.permissions.value=str;
         getPerms();
@@ -98,9 +98,9 @@ $javascript = "<script language='javascript'>
 
     function buildLists(listArray, left, right)
     {
-        for(var i = 0; i &lt; listArray.length; i++){
+        for(var i = 0; i< listArray.length; i++){
             var label = 'null';
-            for(var j = 0; j &lt; document.acl[left].options.length; j++){
+            for(var j = 0; j < document.acl[left].options.length; j++){
                 if(document.acl[left].options[j].value == listArray[i]){
                     label = document.acl[left].options[j].text;
                     document.acl[left].options[j] = null;
@@ -114,7 +114,7 @@ $javascript = "<script language='javascript'>
     function submitPerms()
     {
         var acls = '';
-        for (var i=0; i &lt; document.acl['rightList[]'].options.length; i++) {
+        for (var i=0; i < document.acl['rightList[]'].options.length; i++) {
             if(acls != ''){
                 acls += ',';
             }
@@ -122,7 +122,7 @@ $javascript = "<script language='javascript'>
         }
 
         var group = '';
-        for (var i=0; i &lt; document.acl['rightGroup[]'].options.length; i++) {
+        for (var i=0; i < document.acl['rightGroup[]'].options.length; i++) {
             if(group != ''){
                 group += ',';
             }
@@ -130,21 +130,24 @@ $javascript = "<script language='javascript'>
         }
 
         var con = '';
-        for (var i=0; i &lt; document.acl['rightConGroup[]'].options.length; i++) {
+        for (var i=0; i < document.acl['rightConGroup[]'].options.length; i++) {
             if(con != ''){
                 con += ',';
             }
             con += document.acl['rightConGroup[]'].options[i].value;
+            
         }
-
+        
         var str = '';
         str = acls+'|'+group+'|'+'_con_'+con;
         window.opener.document.menulink.permissions.value=str;
+        document.write('finished');
         window.close();
     }
 
     </script>";
 echo $javascript;
+
 
 if($setDefault){
     $bodyParams = "onload = 'javascript:setDefault()'";
@@ -164,6 +167,7 @@ $str = $objHead->show();
 $objForm = new form('acl');
 $objForm->action = $this->uri(array('action' => 'processform'));
 
+//$objSelectBox = new selectbox();
 // Initialise the selectbox.
 $objSelectBox->create( $objForm, 'leftList[]', $availACLs, 'rightList[]', $selectACLs);
 
@@ -224,7 +228,9 @@ $objForm->addToForm('<p>'.$objHead->show().'</p><p>'.$objSelectBox->show().'</p>
 
 /* *********** Save and close buttons ************* */
 $objButton = new button('save', $saveLabel);
-$objButton->setOnClick('javascript:submitPerms()');
+
+$objButton->setOnClick('submitPerms()');
+
 $btns = '<p><br/>'.$objButton->show();
 
 $objButton = new button('save', $closeLabel);
@@ -251,6 +257,7 @@ $objForm->addToForm($objLink->show());
 
 $str .= '<p><br/>'.$objForm->show().'</p>';
 
+$objLayer = new layer();
 $objLayer->str = $str;
 $objLayer->align = 'center';
 echo $objLayer->show().'<p>&nbsp;</p>';
