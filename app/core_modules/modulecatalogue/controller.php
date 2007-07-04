@@ -351,28 +351,28 @@ class modulecatalogue extends controller
                     return $this->nextAction(null,array('message' => $this->objLanguage->languageText('mod_modulecatalogue_xmlupdated','modulecatalogue')));
 
                 case 'remote':
-                    $modules = $this->objRPCClient->getModuleList();
+                    //$modules = $this->objRPCClient->getModuleList();
+                    $s = microtime(true);
+                    $modules = $this->objRPCClient->getModuleDetails();
                     $doc = simplexml_load_string($modules);
-    		 		$count = count($doc->array->data->value);
+                    $count = count($doc->array->data->value);
     		 		$i = 0;
     		 		while($i <= $count)
     		 		{
     		 			$modobj = $doc->array->data->value[$i];
     		 			if(is_object($modobj))
     		 			{
-    		 				if($modobj->string == 'CVSROOT' || $modobj->string == 'CVS' || $modobj->string == '.' || $modobj->string == '..'
-    		 				   || $modobj->string == 'build.xml' || $modobj->string == 'COPYING' || $modobj->string == 'chisimba_modules.txt')
-    		 				{
-    		 					unset($modobj->string);
-    		 				}
-    		 				else {
-    		 					$modulesarray[] = (string)$modobj->string[0];
-    		 				}
+    		 				$modulesarray[$i]['id'] = (string)$modobj->array->data->value[0]->string;
+    		 				$modulesarray[$i]['name'] = (string)$modobj->array->data->value[1]->string;
+    		 				$modulesarray[$i]['desc'] = (string)$modobj->array->data->value[2]->string;
     		 			}
     		 			$i++;
     		 		}
     		 		$this->setVarByRef('modules',$modulesarray);
-    		 		return 'remote_tpl.php';
+    		 		$t = microtime(true) - $s;
+    		 		log_debug ("Web service discovered $count modules in $t seconds");
+    		 		//echo $t."<br />";
+                    return 'remote_tpl.php';
 
                 case 'ajaxdownload':
                     $start = microtime(true);
