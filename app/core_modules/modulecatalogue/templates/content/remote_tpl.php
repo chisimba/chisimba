@@ -49,8 +49,10 @@ $class = 'odd';
 $link = new link();
 $link->link = $this->objLanguage->languageText('word_download');
 $icon = $this->newObject('getIcon','htmlelements');
+$sum = $count = 0;
 foreach ($modules as $module) {
     if (!in_array($module,$lMods) || $module{0} == 'a') {
+        $start = strftime(true);
         $info = $this->objRPCClient->getModuleDescription($module);
         $doc = simplexml_load_string($info);
         $modName = (string)$doc->array->data->value[0]->string;
@@ -78,6 +80,8 @@ foreach ($modules as $module) {
 		$objTable->addCell('&nbsp;',30,null,'left',$class);
 		$objTable->addCell($modDesc.'<br />&nbsp;',null,null,'left',$class, 'colspan="3"');
 		$objTable->endRow();
+		$sum += strftime(true) - $start;
+		$count++;
     }
 }
 if (empty($newMods)) {
@@ -86,5 +90,8 @@ if (empty($newMods)) {
     $objTable->endRow();
 }
 echo $hTable->show().$objTable->show();
+
+$ave = $sum/$count;
+echo "$count modules. Ave time per module = $ave ";
 
 ?>
