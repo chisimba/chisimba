@@ -252,48 +252,27 @@ class tools extends object
     }
 
 
-
     /**
-
     * Method to add the keep session alive icon.
-
     * The onclick method for the icon opens a new window containing the page that keeps the
-
     * session alive.
-
     * @return string $objLink The linked icon
-
     */
-
     function addPause()
-
     {
-
         if($this->moduleCheck->getRow('module_id', 'keepsessionalive')){
-
             $this->objIcon->setIcon('keep_alive');
-
             $this->objIcon->alt='mod_pause_stayonline';
-
             $this->objIcon->title = $this->objLanguage->languageText('mod_pause_stayonline','toolbar');
 
-
-
-            $this->objLink->extra = " onclick=\"javascript:window.open('" .$this->uri(array('action'=>'stayonline', 'loadwindow'=>'yes'),'keepsessionalive')."','stayon','scrollbars=yes,width=340,height=130')\" ";
-
-            $this->objLink->link('javascript:;');
-
-            $this->objLink->link=$this->objIcon->show();
-
+            $this->objLink = new link('#');
+            $this->objLink->link = $this->objIcon->show();
+            $url = $this->uri(array('action'=>'stayonline'),'keepsessionalive');
+            $this->objLink->extra = " onclick=\"javascript:openWindow('{$url}','stayon','scrollbars=yes,width=340,height=130')\" ";
             return $this->objLink->show();
-
         }
-
         return FALSE;
-
     }
-
-
 
     /**
 

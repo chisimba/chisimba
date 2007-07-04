@@ -35,21 +35,21 @@ class menu extends object
     **/
     function init()
     {
-        $this->cssMenu =& $this->getObject('cssmenu');
+        $this->cssMenu = $this->getObject('cssmenu');
         $this->flatMenu = $this->getObject('flatmenu');
-        $this->dbmenu =& $this->getObject('dbmenu');
-        $this->tools =& $this->getObject('tools');
+        $this->dbmenu = $this->getObject('dbmenu');
+        $this->tools = $this->getObject('tools');
 
-        $this->objLanguage =& $this->getObject('language','language');
-        $this->objSkin =& $this->newObject('skin','skin');
-        $this->objUser =& $this->getObject('user','security');
-        $this->objSysConfig =& $this->getObject('dbsysconfig','sysconfig');
-        $this->objModule =& $this->getObject('modules', 'modulecatalogue');
-        $this->objTable =& $this->newObject('htmltable','htmlelements');
-        $this->objLayer =& $this->getObject('layer','htmlelements');
+        $this->objLanguage = $this->getObject('language','language');
+        $this->objSkin = $this->newObject('skin','skin');
+        $this->objUser = $this->getObject('user','security');
+        $this->objSysConfig = $this->getObject('dbsysconfig','sysconfig');
+        $this->objModule = $this->getObject('modules', 'modulecatalogue');
+        $this->objTable = $this->newObject('htmltable','htmlelements');
+        $this->objLayer = $this->getObject('layer','htmlelements');
 
-        $this->objContext =& $this->getObject('dbcontext','context');
-        $this->objDbConMod =& $this->getObject('dbcontextmodules','context');
+        $this->objContext = $this->getObject('dbcontext','context');
+        $this->objDbConMod = $this->getObject('dbcontextmodules','context');
         $this->contextCode = $this->objContext->getContextCode();
         $this->context = FALSE; $this->im = FALSE;
         // First check if the user is in a context
@@ -289,15 +289,16 @@ class menu extends object
             $iconList .= $im.'&nbsp;&nbsp;';
         }
 
+        $pause = $this->tools->addPause();
+        if($pause){
+            $iconList .= $pause.'&nbsp;&nbsp;';
+        }
+        
         $helpBtn = $this->tools->getHelp();
         if($helpBtn){
             $iconList .= $helpBtn.'&nbsp;&nbsp;';
         }
 
-        $pause = $this->tools->addPause();
-        if($pause){
-            $iconList .= $pause.'&nbsp;&nbsp;';
-        }
         
         $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$iconList.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
 //        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
