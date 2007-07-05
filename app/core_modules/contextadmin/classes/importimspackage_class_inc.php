@@ -85,9 +85,9 @@ class importIMSPackage extends dbTable
 		$this->objDebug = FALSE;
 		#Un-comment to view debug information
 		#$this->objDebug = TRUE;
-		$this->objError = FALSE;
+		//$this->objError = FALSE;
 		#Un-comment to catch errors
-		#$this->objError = TRUE;
+		$this->objError = TRUE;
 	}
 	
 	public $courseId;
@@ -167,7 +167,7 @@ class importIMSPackage extends dbTable
 				return  "courseReadError";
 		}
 		#Initialize all locations
-		$init = $this->initLocations($courseData['contextcode']);
+		$init = $this->initLocations($courseData['contextcode'], $courseData['title']);
 		if(!isset($init))
 		{
 			if($this->objError)
@@ -216,7 +216,9 @@ class importIMSPackage extends dbTable
 			if($this->objError)
 				return  "rebuildHtmlError";
 		}
-		$this->objIEUtils->eduCommonsData($imsFileLocation);
+
+		#!!!Under going testing
+		//$this->objIEUtils->eduCommonsData($imsFileLocation);
 
 		return TRUE;
 	}
@@ -224,6 +226,7 @@ class importIMSPackage extends dbTable
 	public $contentBasePath;
 	public $courseContentBasePath;
 	public $contextCode;
+	public $courseTitle;
 	public $courseContentPath;
 	public $imagesLocation;
 	public $docsLocation;
@@ -232,13 +235,14 @@ class importIMSPackage extends dbTable
 	 * 
 	 * 
 	*/
-	function initLocations($contextcode)
+	function initLocations($contextcode, $courseTitle)
 	{
 		#Static Chisimba file locations
 		#opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$this->contentBasePath = $this->objConfig->getcontentBasePath();
 		$this->courseContentBasePath = $this->contentBasePath."content/";
 		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
+		$this->courseTitle = strtolower(str_replace(' ','_',$courseTitle));
 		$this->courseContentPath = $this->courseContentBasePath.$this->contextCode;
 		$this->imagesLocation = $this->courseContentPath."/images";
 		$this->docsLocation = $this->courseContentPath."/documents";
@@ -310,7 +314,7 @@ class importIMSPackage extends dbTable
 			$name = $newname;
 			if ($extension == 'zip')
 			{
-#!!!Need to find a way to test if directory is created
+				#!!!Need to find a way to test if directory is created
 				$tempfile=$FILES['upload']['tmp_name'];
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
 				$objDir=&$this->getObject('dircreate','utilities');
@@ -580,7 +584,7 @@ class importIMSPackage extends dbTable
 				#Save all data
 				$this->allData['0'] = array('resource' => $resource,
 							'fileContents' => $fileContents,
-							'contextCode' => $contextCode,
+							'contextCode' => $this->contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
@@ -658,7 +662,7 @@ class importIMSPackage extends dbTable
 				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents, 
-							'contextCode' => $contextCode, 
+							'contextCode' => $this->contextCode, 
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
@@ -717,7 +721,7 @@ class importIMSPackage extends dbTable
 				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents,
-							'contextCode' => $contextCode,
+							'contextCode' => $this->contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
@@ -785,7 +789,7 @@ class importIMSPackage extends dbTable
 				#Save all data
 				$this->allData[$i] = array('resource' => $resource,
 							'fileContents' => $fileContents,
-							'contextCode' => $contextCode,
+							'contextCode' => $this->contextCode,
 							'file' => $file,
 							'objectType' => $objectType,
 							'filename' => $filename);
@@ -984,6 +988,7 @@ class importIMSPackage extends dbTable
 		return $menutitles;
 	}
 
+	public $chapterId;
 	function addChapters()
 	{
 		#Add Chapters
@@ -991,8 +996,8 @@ class importIMSPackage extends dbTable
 		$title = $this->contextCode;
 		$intro = $this->newCourse['about'];
 		$visibility = 'Y';
-		$this->chapterIds = $this->objChapters->addChapter('', $title, $intro);
-		$result = $this->objContextChapters->addChapterToContext($this->chapterIds, $title, $visibility);
+		$this->chapterId = $this->objChapters->addChapter('', $title, $intro);
+		$result = $this->objContextChapters->addChapterToContext($this->chapterId, $title, $visibility);
 		#Add additional Chapters
 		
 	}
@@ -1068,8 +1073,8 @@ class importIMSPackage extends dbTable
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
 		#un-comment to force a write
-		#$result = '';
-		if(!count($result) > 0)
+		$result = '';
+		if(!count($result) > 1)
 		{
 			#No idea!!!
 			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
@@ -1079,7 +1084,7 @@ class importIMSPackage extends dbTable
 								$values['content'],
 								$values['language'],
 								$values['headerscript']);
-        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterIds, $values['bookmark'], $values['isbookmark']);
+        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterId, $values['bookmark'], $values['isbookmark']);
 		}
 
 		return TRUE;
@@ -1101,6 +1106,8 @@ class importIMSPackage extends dbTable
 		parent::init('tbl_contextcontent_pages');
 		#Retrieve resources
 		#Manipulate images
+		static $i = 0;
+		static $j = 0;
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
@@ -1116,6 +1123,15 @@ class importIMSPackage extends dbTable
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($i==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$i++;
+					}
 				}
 			}
 		}
@@ -1135,6 +1151,15 @@ class importIMSPackage extends dbTable
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($j==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$j++;
+					}
 				}
 			}
 		}
