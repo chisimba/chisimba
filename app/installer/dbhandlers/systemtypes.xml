@@ -71,6 +71,11 @@
             <categoryname>Content Management System</categoryname>
             <module>cms</module>
             <module>cmsadmin</module>
+            <module>creativecommons</module>
+            <module>feed</module>
+            <module>filemanager</module>
+            <module>blocks</module>
+            <module>blockalicious</module>
         </category>
 
         <category>
