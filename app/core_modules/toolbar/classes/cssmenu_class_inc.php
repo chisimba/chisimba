@@ -32,9 +32,9 @@ class cssmenu extends object
         $this->objConfig = $this->getObject('altconfig','config');
         //$this->objUser = $this->getObject('user','security');
         
-        $this->objLink = $this->getObject('link','htmlelements');
-        $this->toolbarIcon = $this->getObject('geticon','htmlelements');
-        $this->objLayer = $this->getObject('layer','htmlelements');
+        $this->loadClass('link','htmlelements');
+        $this->toolbarIcon = $this->newObject('geticon','htmlelements');
+        //$this->objLayer = $this->loadClass('layer','htmlelements');
     }
 
     /**
@@ -60,11 +60,11 @@ class cssmenu extends object
         */
         
         $str='<ul id="menuList" class="adxm">';
-    	$str .= '<li class="first"><a href="'.$this->uri(null, $home).'">'.$homeLabel.'</a></li>';
+    	$str .= '<li class="first"><a href="'.$this->uri('', $home).'">'.$homeLabel.'</a></li>';
 		foreach($this->menu as $key=>$item){
-            $this->objLink->link('javascript:;');
-            $this->objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-            $str.='<li>'.$this->objLink->show().'<ul>'."\n";
+            $objLink = new link('#');
+            $objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $str.='<li>'.$objLink->show().'<ul>'."\n";
             $counter = 1;
             $numitems = count ($item);
             foreach($item as $link=>$val){
@@ -74,10 +74,10 @@ class cssmenu extends object
                 $this->toolbarIcon->extra=' vspace="3" hspace="5" width="17" height="17"';
                 $icon=$this->toolbarIcon->show();
 
-                $this->objLink->link($this->uri(array(''),$link));
-                $this->objLink->link=$icon.'<span>'.$val.'</span>';
+                $objLink = new link($this->uri('',$link));
+                $objLink->link = $icon.'<span>'.$val.'</span>';
 
-                $valLink=$this->objLink->show();
+                $valLink=$objLink->show();
                 
                 if ($counter == 1) {
                     $cssclass = 'first';
@@ -117,7 +117,7 @@ class cssmenu extends object
     * @param string $str The menu item.
     * @return
     */
-    function addMenuItem($menuhead,$str,$link='javascript:;')
+    function addMenuItem($menuhead,$str,$link='#')
     {
         if(!empty($str)){
             if(array_key_exists($menuhead, $this->menu)){
