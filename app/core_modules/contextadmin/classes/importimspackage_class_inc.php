@@ -216,7 +216,6 @@ class importIMSPackage extends dbTable
 			if($this->objError)
 				return  "rebuildHtmlError";
 		}
-
 		#!!!Under going testing
 		//$this->objIEUtils->eduCommonsData($imsFileLocation);
 
@@ -317,9 +316,8 @@ class importIMSPackage extends dbTable
 				#!!!Need to find a way to test if directory is created
 				$tempfile=$FILES['upload']['tmp_name'];
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
-				$objDir=&$this->getObject('dircreate','utilities');
-				$objDir->makeFolder("$name.unzip",$tempdir);
-				$this->folder="$tempdir/$name";
+				$tempdir .= '/'.$name.'_'.$this->generateUniqueId();
+				$this->folder=$tempdir;
 				$objWZip=&$this->getObject('wzip','utilities');
 				$objWZip->unzip($tempfile,$this->folder);
 			}
@@ -483,7 +481,7 @@ class importIMSPackage extends dbTable
 				$courseId = trim($courseId);
 				if(!(strlen($courseId) > 1))
 					return 'courseReadError';
-				$this->newCourse['contextcode'] = $courseId;
+				$this->newCourse['contextcode'] = $courseId.'_'.$this->generateUniqueId();
 #course title (title)
 				$courseTitle = $resource->metadata->lom->general->title->langstring;
 				$courseTitle = (string)$courseTitle;
@@ -1072,10 +1070,9 @@ class importIMSPackage extends dbTable
 		$menutitle = $values['menutitle'];
 		$filter = "WHERE menutitle = '$menutitle'";
 		$result = $this->getAll($filter);
-		#un-comment to force a write
-		$result = '';
-		if(!count($result) > 1)
-		{
+		#un-comment to force no duplication
+		#if(!count($result) > 1)
+		#{
 			#No idea!!!
 			$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
 			#Add page
@@ -1085,7 +1082,7 @@ class importIMSPackage extends dbTable
 								$values['language'],
 								$values['headerscript']);
         		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterId, $values['bookmark'], $values['isbookmark']);
-		}
+		#}
 
 		return TRUE;
 	}
@@ -1260,6 +1257,11 @@ class importIMSPackage extends dbTable
 
 		return $page;
     	}
+
+	function generateUniqueId()
+	{
+		return md5(uniqid(time(),true));
+	}
 
   	/**
 	 * Sets debugging on
