@@ -198,6 +198,11 @@ class importexportutils extends dbTable
 
 		            	return $this->dsn;
 			break;
+			default:
+                		$this->dsn = 'mysql://root:@localhost/'.$server;
+
+                		return $this->dsn;
+			break;
 
         	}
     	}
@@ -294,19 +299,17 @@ class importexportutils extends dbTable
 	public function createCourseInChisimba($newCourse)
 	{
 		$createContext = $this->objDBContext->createContext($newCourse);
-		//var_dump($createContext);
 		if(!isset($createContext) || $createContext === FALSE)
 		{
 			return "courseWriteError";
 		}
 		$saveAboutEdit = $this->objDBContext->saveAboutEdit($newCourse);
-		//var_dump($saveAboutEdit);
 		if(!isset($saveAboutEdit) || $saveAboutEdit === FALSE)
 		{
 			return "courseWriteError";
 		}
 
-		return TRUE;
+		return $createContext;
 	}
 
 	/**
@@ -608,6 +611,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
 				$newImageLocation = $basePathToImages."/".$imageNamesInContext[$i];
 				$fp = fopen($newImageLocation, 'w');
+				chmod($newImageLocation, 0777);
 				fwrite($fp,$contentsOfFile);
 				fclose($fp);
 			}
@@ -793,6 +797,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 
 		return $textNode;
 	}
+
 
 	/**
 	 * Main template file for the import module
@@ -1050,6 +1055,293 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		}
 
 		return $htmlfilenames;
+	}
+
+	function generateUniqueId()
+	{
+		return md5(uniqid(time(),true));
+	}
+
+  	/**
+    	 * Method to replace image source links with links to the filemanager
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+    	 * @return TRUE - if page is un-modified
+	 *
+	*/
+    	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
+    	{echo $fileContents;
+		#Image location on disc
+		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
+		$imageLocation = $imageLocation.$contextCode.'/images/';
+		#Image location on localhost
+		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
+		#Only run through html's contained in package
+		foreach($fileNames as $aFile)
+		{
+			#Check if its an Image
+			if(preg_match("/.jpg|.gif|.png/",$aFile))
+			{//echo a;echo $fileContents;
+				#Create new file source location
+				#Check if its a static package
+				if(!($static == ''))
+					$newLink = $imageLocation.$aFile.'"';
+				else
+				{
+					$newLink = $action.$imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
+				}
+				#Convert filename into regular expression
+				$regex = '/'.$aFile.'/';
+				#Find filename in html page if it exists
+				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+				if($matches)
+				{
+
+					$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
+
+					return $page;
+				}
+				#If the image was renamed
+				else
+				{
+					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
+					$regex = '/'.$aFile.'/';
+					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+					if($matches)
+					{
+						$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
+
+						return $page;
+					}
+				}
+			}
+		}
+
+		return TRUE;
+    	}
+
+	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+	 *
+	*/
+    	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+    	{
+		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		#Run through each resource
+		$page = $fileContents;
+		foreach($fileNames as $aFile)
+		{
+			if($this->fileMod)
+			{
+				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+			}
+			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+			$modAction = $action.$pageIds[$aFile].'"';
+			$page = preg_replace($regReplace, $modAction, $page);
+		}
+
+		return $page;
+    	}
+
+	public $fileMod;
+	/**
+	 * Sets debugging on
+	 *
+    	 * @param NULL
+	 *
+	*/
+	function fileModOn()
+	{
+		$this->fileMod = TRUE;
+	}
+
+	/**
+	 * Sets debugging off
+	 *
+    	 * @param NULL
+	 *
+	*/
+	function fileModOff()
+	{
+		$this->fileMod = FALSE;
+	}
+
+	/**
+	 * 
+	 * 
+	*/
+	function eduCommonsData($imsFileLocation)
+	{
+		$doc = new DOMDocument('1.0');
+		$doc->load($imsFileLocation);
+		$xpath = new DOMXPath($doc);
+		//$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
+		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
+		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
+#course title
+		echo "<b>course title</b>"."<br />";
+		$query = '//imsmd:title/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+		//var_dump($results->item(0)->nodeValue);
+		//var_dump($results(0));
+#course id
+		echo "<b>course id</b>"."<br />";
+		$query = '//imsmd:identifier/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+		//var_dump($results->item(0)->nodeValue);
+#course description
+		echo "<b>course description</b>"."<br />";
+		$query = '//imsmd:description/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+		//var_dump($results->item(0)->nodeValue);
+#course html?
+		echo "<b>course html</b>"."<br />";
+		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+#clearedcopyright
+		echo "<b>clearedcopyright</b>"."<br />";
+		$query = '//manifest/metadata/imsmd:lom/imsmd:general';//educommons:clearedcopyright';
+		//$query = '//imsmd:general/educommons:clearedcopyright';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+/*
+	$xml ='<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<bookstore>
+
+<book category="COOKING">
+  <title lang="en">Everyday Italian</title>
+  <author>Giada De Laurentiis</author>
+  <year>2005</year>
+  <price>30.00</price>
+</book>
+
+<book category="CHILDREN">
+  <title lang="en">Harry Potter</title>
+  <author>J K. Rowling</author>
+  <year>2005</year>
+  <price>29.99</price>
+</book>
+
+<book category="WEB">
+  <title lang="en">XQuery Kick Start</title>
+  <author>James McGovern</author>
+  <author>Per Bothner</author>
+  <author>Kurt Cagle</author>
+  <author>James Linn</author>
+  <author>Vaidyanathan Nagarajan</author>
+  <year>2003</year>
+  <price>49.99</price>
+</book>
+
+<book category="WEB">
+  <title lang="en">Learning XML</title>
+  <author>Erik T. Ray</author>
+  <year>2003</year>
+  <price>39.95</price>
+</book>
+
+</bookstore>';
+
+		$doc = new DOMDocument();
+		$doc->load("/opt/lampp/htdocs/example.xml");
+		//echo $doc->saveXML();
+		$xpath = new DOMXPath($doc);
+		$query = '/bookstore/book/price';
+		$results = $xpath->evaluate($query);
+		//var_dump($results);
+		foreach($results as $result)
+		{
+			//var_dump($result);
+			//echo (string)$result;
+			//echo $result->title->price;
+			//echo $doc->saveXML($result);
+		}
+		//echo count($results);
+
+		$doc->load($imsFileLocation);
+		$xpath = new DOMXPath($doc);
+		#Set eduCommons namespaces
+		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
+		#Set imsmd namespaces
+		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
+#course title
+		$query = '//imsmd:title/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		foreach($results as $result)
+		{
+			echo $doc->saveXML($result);
+		}
+
+
+		//echo $imsFileLocation;
+		$doc = new DOMDocument();
+		$doc->load($imsFileLocation);
+		//echo $doc->saveXML();
+		$xpath = new DOMXPath($doc);
+		//echo $xpath;
+		//var_dump($xpath);
+		#Set eduCommons namespaces
+		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
+		#Set imsmd namespaces
+		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
+#course title
+//e = xml.xpath.Compile("//imsmd:title/imsmd:langstring")
+//nodes = e.evaluate(c)
+		$query = '//imsmd:title/imsmd:langstring';
+		$results = $xpath->query($query);
+//		var_dump($results);
+//		echo count($results);
+		foreach($results as $result)
+		{
+//			var_dump($result);
+		}
+
+		$results = $xpath->evaluate($query);
+		var_dump($results);
+		echo count($results);
+		foreach($results as $result)
+		{
+			var_dump($result);
+		}
+
+
+		$query = '//imsmd:identifier/imsmd:langstring';
+		$results = $xpath->query($query);
+		foreach($results as $result)
+		{
+//			var_dump($result);
+		}
+		$query = '//imsmd:identifier/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		foreach($results as $result)
+		{
+			var_dump($result);
+		}
+*/
 	}
 
 }

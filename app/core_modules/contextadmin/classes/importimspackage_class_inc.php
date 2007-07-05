@@ -103,6 +103,7 @@ class importIMSPackage extends dbTable
 	function importIMScontent($FILES)
 	{
 		$this->fileMod = FALSE;
+		$this->objIEUtils->fileModOff();
 		$this->courseId = '';
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 		{
@@ -229,6 +230,7 @@ class importIMSPackage extends dbTable
 	public $courseContentPath;
 	public $imagesLocation;
 	public $docsLocation;
+	public $filesLocation;
 	/**
 	 * 
 	 * 
@@ -244,7 +246,8 @@ class importIMSPackage extends dbTable
 		$this->courseTitle = strtolower(str_replace(' ','_',$courseTitle));
 		$this->courseContentPath = $this->courseContentBasePath.$this->contextCode;
 		$this->imagesLocation = $this->courseContentPath."/images";
-		$this->docsLocation = $this->courseContentPath."/documents";
+		$this->docsLocation = $this->courseContentPath."/staticcontent";
+		$this->filesLocation = $this->courseContentPath."/documents";
 		$locations = array('contentBasePath' => $this->contentBasePath,
 					'courseContentBasePath' => $this->courseContentBasePath,
 					'contextCode' => $this->contextCode,
@@ -253,15 +256,15 @@ class importIMSPackage extends dbTable
 					'docsLocation' => $this->docsLocation
 					);
 		#Enter context
-		$enterContext = $this->objDBContext->joinContext($contextCode);
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		if($this->objDebug)
 		{
-			echo $contentBasePath."<br />";
-			echo $courseContentBasePath."<br />";
-			echo $contextCode."<br />";
-			echo $courseContentPath."<br />";
-			echo $imagesLocation."<br />";
-			echo $docsLocation."<br />";
+			echo $this->contentBasePath."<br />";
+			echo $this->courseContentBasePath."<br />";
+			echo $this->contextCode."<br />";
+			echo $this->courseContentPath."<br />";
+			echo $this->imagesLocation."<br />";
+			echo $this->docsLocation."<br />";
 		}
 
 		return $locations;
@@ -316,7 +319,7 @@ class importIMSPackage extends dbTable
 				#!!!Need to find a way to test if directory is created
 				$tempfile=$FILES['upload']['tmp_name'];
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
-				$tempdir .= '/'.$name.'_'.$this->generateUniqueId();
+				$tempdir .= '/'.$name.'_'.$this->objIEUtils->generateUniqueId();
 				$this->folder=$tempdir;
 				$objWZip=&$this->getObject('wzip','utilities');
 				$objWZip->unzip($tempfile,$this->folder);
@@ -481,7 +484,7 @@ class importIMSPackage extends dbTable
 				$courseId = trim($courseId);
 				if(!(strlen($courseId) > 1))
 					return 'courseReadError';
-				$this->newCourse['contextcode'] = $courseId.'_'.$this->generateUniqueId();
+				$this->newCourse['contextcode'] = $courseId.'_'.$this->objIEUtils->generateUniqueId();
 #course title (title)
 				$courseTitle = $resource->metadata->lom->general->title->langstring;
 				$courseTitle = (string)$courseTitle;
@@ -641,6 +644,7 @@ class importIMSPackage extends dbTable
 					#Correct filename
 					$filename = $filename.".html";
 					$this->fileMod = TRUE;
+					$this->objIEUtils->fileModOn();
 				}
 				#New location for Documents
 				$newLocation = $this->docsLocation."/".$filename;
@@ -768,6 +772,7 @@ class importIMSPackage extends dbTable
 					#Correct filename
 					$filename = $filename.".jpg";
 					$this->fileMod = TRUE;
+					$this->objIEUtils->fileModOn();
 				}
 				#New location for Images
 				$newLocation = $this->imagesLocation."/".$filename;
@@ -834,7 +839,7 @@ class importIMSPackage extends dbTable
 			$this->imageIds[$aFile] = $pageId;
 		}
 
-		return TRUE;
+		return $this->imageIds;
 	}
 
 	/**
@@ -1115,7 +1120,7 @@ class importIMSPackage extends dbTable
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
 				#Rewrite images source in html
-				$page = $this->changeImageSRC($fileContents, $this->contextCode, $fileNames);
+				$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $this->resourceFileNames, $this->imageIds);
 				#Reinsert into database with updated images
 				if(strlen($page) > 1 )
 				{
@@ -1143,7 +1148,7 @@ class importIMSPackage extends dbTable
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
 				#Rewrite links source in html
-				$page = $this->changeLinkUrl($fileContents, $this->contextCode, $fileNames);
+				$page = $this->objIEUtils->changeLinkUrl($fileContents, $this->contextCode, $this->resourceFileNames, $this->pageIds);
 				#Reinsert into database with updated links
 				if(strlen($page) > 1 )
 				{
@@ -1162,105 +1167,6 @@ class importIMSPackage extends dbTable
 		}
 
 		return TRUE;
-	}
-
-  	/**
-    	 * Method to replace image source links with links to the blob system
-	 *
-    	 * @author Kevin Cyster
-	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
-    	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
-    	 * 
-    	 * @return string $page - the finished modified text page
-    	 * @return TRUE - if page is un-modified
-	 *
-	*/
-    	function changeImageSRC($fileContents, $contextCode, $fileNames, $static='')
-    	{
-		#Image location on disc
-		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
-		$imageLocation = $imageLocation.$contextCode.'/images/';
-		#Image location on localhost
-		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
-		#Only run through html's contained in package
-		foreach($this->resourceFileNames as $aFile)
-		{
-			#Check if its an Image
-			if(preg_match("/.jpg|.gif|.png/",$aFile))
-			{
-				#Create new file source location
-				#Check if its a static package
-				if(!($static == ''))
-					$newLink = $imageLocation.$aFile.'"';
-				else
-				{
-					$newLink = $action.$this->imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
-				}
-				#Convert filename into regular expression
-				$regex = '/'.$aFile.'/';
-				#Find filename in html page if it exists
-				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-				if($matches)
-				{
-					$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
-
-					return $page;
-				}
-				#If the image was renamed
-				else
-				{
-					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
-					$regex = '/'.$aFile.'/';
-					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-					if($matches)
-					{
-						$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
-
-						return $page;
-					}
-				}
-			}
-		}
-
-		return TRUE;
-    	}
-
-	/**
-    	 * Method to replace image source links with links to the blob system
-	 *
-    	 * @author Kevin Cyster
-	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
-    	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
-    	 * 
-    	 * @return string $page - the finished modified text page
-	 *
-	*/
-    	function changeLinkUrl($fileContents, $contextCode, $fileNames, $static='')
-    	{
-		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
-		#Run through each resource
-		$page = $fileContents;
-		foreach($this->resourceFileNames as $aFile)
-		{
-			if($this->fileMod)
-			{
-				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
-			}
-			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-			$modAction = $action.$this->pageIds[$aFile].'"';
-			$page = preg_replace($regReplace, $modAction, $page);
-		}
-
-		return $page;
-    	}
-
-	function generateUniqueId()
-	{
-		return md5(uniqid(time(),true));
 	}
 
   	/**

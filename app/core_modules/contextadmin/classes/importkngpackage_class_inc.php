@@ -44,10 +44,9 @@ class importKNGPackage extends dbTable
 	 * @var object $objDebug - debugging flag to display information
 	*/
 	/**
-	 * @var object $contextCode - the course context code
+	 * @var object $objDebug - debugging flag to display information
 	*/
-	public $contextCode;
-
+	public $objDebug;
 	/**
 	 * The constructor
 	*/
@@ -58,7 +57,7 @@ class importKNGPackage extends dbTable
 		//Load Filemanager class
 		$this->objIndex =& $this->getObject('indexfileprocessor', 'filemanager');
 		//Load System classes
-		$this->objConf = &$this->getObject('altconfig','config');
+		$this->objConfig = &$this->getObject('altconfig','config');
 		$this->objUser =& $this->getObject('user', 'security');
 		//Load Chapter classes
 		$this->objChapters =& $this->getObject('db_contextcontent_chapters','contextcontent');
@@ -69,9 +68,14 @@ class importKNGPackage extends dbTable
         	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
 	        $this->objContentInvolvement =& $this->getObject('db_contextcontent_involvement','contextcontent');
         	$this->objDBContext = & $this->newObject('dbcontext', 'context');
-
+		$this->objDebug = FALSE;
+		#Un-comment to view debug information
+		//$this->objDebug = TRUE;
 	}
-
+	public $fileNames;
+	public $imageIds;
+	public $pageIds;
+	public $fileIds;
 	/**
 	 * Controls the process for import KNG content
 	 * Calls all necessary functions an does error checking
@@ -81,27 +85,14 @@ class importKNGPackage extends dbTable
 	*/
 	function importKNGcontent($contextcode)
 	{
-		$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
-		$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
-		$basePath = $this->objConf->getcontentBasePath();
-		$basePathNew = $basePath."content/".$contextcodeInChisimba;
-		//Static Chisimba file locations
-		//opt/lampp/htdocs/chisimba_framework/app/usrfiles/
-		$contentBasePath = $this->objConf->getcontentBasePath();
-		$courseContentBasePath = $contentBasePath."content/";
-		$courseContentPath = $courseContentBasePath.$contextcodeInChisimba;
-		$imagesLocation = $courseContentPath."/images";
-		$docsLocation = $courseContentPath."/documents";
-		$this->contextCode = $contextcode;
-		//Enter context
-		$enterContext = $this->objDBContext->joinContext($this->contextCode);
-
+		$this->objIEUtils->fileModOff();
 		if(!isset($contextcode))
 		{
 			return  "choiceError";
 		}
 		//Retrieve data within context
 		$courseData = $this->objIEUtils->getCourse($contextcode);
+		$oldContextCode = $courseData['0']['contextcode'];
 		if(!isset($courseData))
 		{
 			return  "courseReadError";
@@ -112,111 +103,86 @@ class importKNGPackage extends dbTable
 		{
 			return  "courseWriteError";
 		}
+		#Initialize all locations
+		$init = $this->initLocations($writeCourse['contextcode'], $writeCourse['title']);
 		//Write Resources
 		//Write Images to Chisimba usrfiles directory
-		$writeKNGImages = $this->objIEUtils->writeImages($contextcode);
+		$writeKNGImages = $this->objIEUtils->writeImages($oldContextCode, $this->imagesLocation);
 		if(!isset($writeKNGImages))
 		{
 			return  "imageWriteError";
 		}
+		//Load Images into Chisimba
+		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
 		//Write Htmls to Chisimba usrfiles directory
 		//Course id
 		$courseId = $courseData['0']['id'];
 		//Retrieve html page data within context
 		$courseContent = $this->objIEUtils->getCourseContent($courseId);
-		//Write Htmls to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $courseContent, $docsLocation, "kng");
-		//Load data into Chisimba
-		$loadData = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
-		if(!isset($loadData))
+		//Write Html's to specified directory  (resources folder)
+		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $courseContent, $this->docsLocation, "kng");
+		//Load Html's into Chisimba
+		$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
+		$this->fileNames = $this->objIEUtils->list_dir_files($this->courseContentPath,0);
+		#Rebuild html images and url links
+		$rebuildHtml = $this->rebuildHtml($menutitles, $this->fileNames);
+		if(!isset($rebuildHtml))
 		{
-			return  "loadDataError";
-		}
-		$this->uploadImagesToChisimba($imagesLocation);
+			if($this->objError)
+				return  "rebuildHtmlError";
+		}		
 
 		return TRUE;
 	}
 
+	public $contentBasePath;
+	public $courseContentBasePath;
+	public $contextCode;
+	public $courseTitle;
+	public $courseContentPath;
+	public $imagesLocation;
+	public $docsLocation;
+	public $filesLocation;
 	/**
-	 * Control loading resources into Chisimba
-	 * and file manipulation functions
-	 *
-	 * @param 
-	 * @param 
-	 *
-	 * @return 
-	 *
+	 * 
+	 * 
+	 * 
 	*/
-	function loadToChisimba($courseContent, $courseData, $contextCode ='')
+	function initLocations($contextcode, $courseTitle)
 	{
-		$values = array('',
-				'menutitle' => $courseData['0']['menutext'],
-				'content' => $courseData['0']['about'],
-				'language' => "en",
-				'headerscript' => "");
-		$this->addChapters("", $courseData['0']['about']);
-		$writePage = $this->writePage($values, $contextCode);
-		foreach($courseContent as $content)
+		#Static Chisimba file locations
+		#opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		$this->contentBasePath = $this->objConfig->getcontentBasePath();
+		$this->courseContentBasePath = $this->contentBasePath."content/";
+		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
+		$this->courseTitle = strtolower(str_replace(' ','_',$courseTitle));
+		$this->courseContentPath = $this->courseContentBasePath.$this->contextCode;
+		$this->imagesLocation = $this->courseContentPath."/images";
+		$this->docsLocation = $this->courseContentPath."/staticcontent";
+		$this->filesLocation = $this->courseContentPath."/documents";
+		$locations = array('contentBasePath' => $this->contentBasePath,
+					'courseContentBasePath' => $this->courseContentBasePath,
+					'contextCode' => $this->contextCode,
+					'courseContentPath' => $this->courseContentPath,
+					'imagesLocation' => $this->imagesLocation,
+					'docsLocation' => $this->docsLocation
+					);
+		#Enter context
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
+		if($this->objDebug)
 		{
-			$values = array('',
-					'menutitle' => $content['0']['menu_text'],
-					'content' => $content['0']['body'],
-					'language' => "en",
-					'headerscript' => "");
-			//Insert into database
-			$writePage = $this->writePage($values, $contextCode);
+			echo $this->contentBasePath."<br />";
+			echo $this->courseContentBasePath."<br />";
+			echo $this->contextCode."<br />";
+			echo $this->courseContentPath."<br />";
+			echo $this->imagesLocation."<br />";
+			echo $this->docsLocation."<br />";
 		}
 
-		return TRUE;
+		return $locations;
 	}
 
-	public $chapterIds;
-	function addChapters($title = '', $intro = '')
-	{
-		//Add Chapters
-		//Course
-		if(!(strlen($title) > 1))
-			$title = $this->contextCode;
-		if(!(strlen($intro) > 1))
-			$intro = "Not Available";
-		$visibility = 'Y';
-		$this->chapterIds = $this->objChapters->addChapter('', $title, $intro);
-		$result = $this->objContextChapters->addChapterToContext($this->chapterIds, $title, $visibility);
-
-	}
-
-	/**
-	 * Write content to Chisimba database
-	 *
-	 * @param 
-	 * @param 
-	 *
-	 * @return 
-	 *
-	*/
-	function writePage($values, $contextCode='')
-	{
-		//duplication error needs to be fixed by Tohir
-		parent::init('tbl_contextcontent_pages');
-		$menutitle = $values['menutitle'];
-		$filter = "WHERE menutitle = '$menutitle'";
-		$result = $this->getAll($filter);
-		if(!count($result) > 0)
-		{
-			//No idea!!!
-			$tree = $this->objContentOrder->getTree($this->contextCode, 'dropdown', $parent);
-			//Add page
-        		$titleId = $this->objContentTitles->addTitle('', 
-									$values['menutitle'],
-									$values['content'],
-									$values['language'],
-									$values['headerscript']);
-        		$this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterIds);
-		}
-
-		return TRUE;
-	}
-
+	public $courseId;
 	/**
 	 * Writes course data from KNG to the new database (Chisimba)
 	 * Converts 2d array to 1d array before passing it
@@ -229,7 +195,8 @@ class importKNGPackage extends dbTable
 	{
 		//Convert 2-d array into 1-d array
 		$newCourse['id'] = $courseData['0']['id'];
-		$newCourse['contextcode'] = $courseData['0']['contextcode'];
+		$contextcode = $courseData['0']['contextcode'];
+		$newCourse['contextcode'] = $contextcode.'_'.$this->objIEUtils->generateUniqueId();
 		$newCourse['title'] = $courseData['0']['title'];
 		$newCourse['menutext'] = $courseData['0']['menutext'];
 		$newCourse['userid'] = $courseData['0']['userid'];
@@ -246,6 +213,7 @@ class importKNGPackage extends dbTable
 			$newCourse['isclosed'] = "UnPublished";
 		//Create course
 		$courseCreated= $this->objIEUtils->createCourseInChisimba($newCourse);
+		$this->courseId = $courseCreated;
 		if(!isset($courseCreated) && $courseCreated)
 		{
 			return  "courseCreateError";
@@ -255,74 +223,187 @@ class importKNGPackage extends dbTable
 	}
 
 	/**
-	 * Writes all images used by KNG course to new database (Chisimba)
-	 * Makes query to tbl_context_file
+	 * Writes all images used by course to new database (Chisimba)
+	 * Makes query to tbl_files
 	 * 
-	 * @param string $contextcode - selected course
+	 * @param string $folder - selected course
 	 * @return array $indexFolder - list of id fields belonging to images
-	*/	
-	function uploadImagesToChisimba($folder)
+	*/
+	function uploadImagesToChisimba($folder = '')
 	{
-		//duplication error needs to be fixed by Tohir
+		#Initialize Inner variables
 		parent::init('tbl_files');
+		#Add Images to database
+		$indexFolder = $this->objIndex->indexFolder($this->imagesLocation, $this->objUser->userId());
+		#Match image Id's to image names
+		foreach($indexFolder as $pageId)
+		{
+			$filter = "WHERE id = '$pageId'";
+			$result = $this->getAll($filter);
+			$aFile = $result['0']['filename'];
+			$imageIds[$aFile] = $pageId;
+		}
 
-		//Course Images
-		//$indexFolder = $this->objIndex->indexFolder($folder, $this->objUser->userId());
-		//$rootId = $this->objUser->userId();
-		//$addImages = $this->objIEUtils->addImagesToChisimba($folder,$rootId);
-		//var_dump($indexFolder);
-//var_dump($folder);
-		//echo $this->objIndex->processIndexedFile($folder."/"."0001.jpg",'1');
-
-		return TRUE;
-	}
-
-/*
-	/**
-	 * Writes all images used by KNG course to new database (Chisimba)
-	 * Makes query to tbl_context_file
-	 * 
-	 * @param string $contextcode - selected course
-	 * @return array $indexFolder - list of id fields belonging to images
-	
-	function uploadImagesToChisimba($folder)
-	{
-		//Course Images
-		$indexFolder = $this->objIndex->indexFolder($folder, $this->objUser->userId());
-		//$rootId = $this->objUser->userId();
-		//$addImages = $this->objIEUtils->addImagesToChisimba($folder,$rootId);
-
-		return TRUE;
+		return $imageIds;
 	}
 
 	/**
-	 * Writes all htmls specific to context to usrfiles directory of new system (Chisimba)
-	 * For modification before insertion into new database
+	 * Control loading resources into Chisimba
+	 * and file manipulation functions
 	 *
-	 * @param $contextcode selected course
-	 * @return TRUE - Successful execution
-
-	function writeKNGHtmls($contextcode)
+	 * @param 
+	 * @param 
+	 *
+	 * @return 
+	 *
+	*/
+	function loadToChisimba($courseContent, $courseData, $contextCode ='')
 	{
-		//Course htmls
+		#Pre-initialize variables
+		static $i = 0;
+		static $j = 0;
+		static $k = 0;
+		$menutitles = array();
+		$values = array('',
+				'menutitle' => $courseData['0']['menutext'],
+				'content' => $courseData['0']['about'],
+				'language' => "en",
+				'headerscript' => "");
+		$this->addChapters("", $courseData['0']['about']);
+		$writePage = $this->writePage($values, $contextCode);
+		static $i = 0;
+		foreach($courseContent as $content)
+		{
+			$values = array('',
+					'menutitle' => $content['0']['menu_text'],
+					'content' => $content['0']['body'],
+					'language' => "en",
+					'headerscript' => "",
+					'bookmark' => $i,
+					'isbookmark' => 'Y');
+			//Insert into database
+			$menutitle = $this->writePage($values, $contextCode);
+			$menutitles[$i] = $menutitle;
+			$i++;
+		}
 
-		
-		return TRUE;
+		return $menutitles;
+	}
+
+	public $chapterId;
+	function addChapters($title = '', $intro = '')
+	{
+		//Add Chapters
+		//Course
+		if(!(strlen($title) > 1))
+			$title = $this->contextCode;
+		if(!(strlen($intro) > 1))
+			$intro = "Not Available";
+		$visibility = 'Y';
+		$this->chapterId = $this->objChapters->addChapter('', $title, $intro);
+		$result = $this->objContextChapters->addChapterToContext($this->chapterId, $title, $visibility);
+
 	}
 
 	/**
-	 *  Writes all pages created in old course to new database
-	 *  Makes query to tbl_context_page_content
-	 * 
-	 * @param $contextcode selected course
-	 * @return TRUE - Successful execution
-
-	function uploadHtmls($contextcode)
+	 * Write content to Chisimba database
+	 *
+	 * @param array $values - page details
+	 * @param string $contextCode - course contextcode
+	 *
+	 * @return boolean 
+	 *
+	*/
+	function writePage($values, $contextCode='')
 	{
-		
-	
-		
+		$tree = $this->objContentOrder->getTree($this->contextCode, 'dropdown', $parent);
+		//Add page
+       		$titleId = $this->objContentTitles->addTitle('', 
+								$values['menutitle'],
+								$values['content'],
+								$values['language'],
+								$values['headerscript']);
+       		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterId, $values['bookmark'], $values['isbookmark']);
+		//}
+
+		return $values['menutitle'];
+	}
+
+	/**
+	 * Control function to manipulate html pages and resources
+	 * and re-insert into database
+	 * 
+	 * @param array $menutitles - each menu title of html page
+	 * @param array $fileNames - the file name of resource
+	 *
+	 * @return TRUE - on successful execution
+	 *
+	*/
+	function rebuildHtml($menutitles, $fileNames)
+	{
+		#switch tables
+		parent::init('tbl_contextcontent_pages');
+		#Retrieve resources
+		#Manipulate images
+		static $i = 0;
+		static $j = 0;
+		foreach($menutitles as $menutitle)
+		{
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				#Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+				#Rewrite images source in html
+				$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
+				#Reinsert into database with updated images
+				if(strlen($page) > 1 )
+				{
+					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($i==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$i++;
+					}
+				}
+			}
+		}
+		#Manipulate links 
+		foreach($menutitles as $menutitle)
+		{
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				#Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+				#Rewrite links source in html
+				$page = $this->objIEUtils->changeLinkUrl($fileContents, $this->contextCode, $fileNames, $this->imageIds);
+				#Reinsert into database with updated links
+				if(strlen($page) > 1 )
+				{
+					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($j==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$j++;
+					}
+				}
+			}
+		}
+
 		return TRUE;
 	}
-*/
+
 }
