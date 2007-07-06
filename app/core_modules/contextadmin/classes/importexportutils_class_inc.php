@@ -588,7 +588,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
 		//Get Image names
 		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
-		//Exporting KNG package images to IMS specification Package
+		//Exporting package images to IMS specification Package
 		if(isset($folder))
 		{
 			//Write Images to specified folder
@@ -890,29 +890,33 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		{
 			$courseDropDown->addOption($dataOld['contextcode']);
 		}
+		//Button
+		$loginButton = $this->newObject('button','htmlelements');
+		$loginButton->cssClass = 'f-submit';
+		$loginButton->setValue('Login');
+		$loginButton->setToSubmit();
 	    	//add the objects to the form
     		$form->setDisplayType(1);
 		$form->addToForm($objHeading1);
     		$form->addToForm($fileInput);
     		$form->addToForm($objElement);
-		//print $form->show()."\n"; 
     		//add the objects to the form2
     		$form2->setDisplayType(1);
 		$form2->addToForm($objHeading2);
 		$form2->addToForm($explainLabel);
-		//$form2->addToForm("<br />");
 		$form2->addToForm($usernameLabel);
 		$form2->addToForm($usernameTinput);
-		//$form2->addToForm("<br />");
 		$form2->addToForm($passwordLabel);
 		$form2->addToForm($passwordTinput);
 		$form2->addToForm($serverLabel);
 		$form2->addToForm($serverDropDown);
+		$form2->addToForm($loginButton);
 		$form2->addToForm($courseLabel);
 		$form2->addToForm($courseDropDown);
 		$form2->addToForm($inpButton);
 		$this->switchDatabase();
 		$form3->addToForm($form);
+		$form3->addToForm('<hr />');
 		$form3->addToForm($form2);
 
 		return $form3;
@@ -936,13 +940,13 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form=&$this->newObject('form','htmlelements');
     		$form->extra=' enctype="multipart/form-data" ';
     		$form->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadChisimbaIMS');
+    		$paramArray = array('action' => 'downloadChisimba');
     		$form->setAction($this->uri($paramArray,'contextadmin'));
 		//Creating the form
 		$form2=&$this->newObject('form','htmlelements');
     		$form2->extra=' enctype="multipart/form-data" ';
     		$form2->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadKNGIMS');
+    		$paramArray = array('action' => 'downloadKNG');
     		$form2->setAction($this->uri($paramArray,'contextadmin'));
 		//Creating the form
 		$form3=&$this->newObject('form','htmlelements');
@@ -995,22 +999,29 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$inpButton2->cssClass = 'f-submit';
 		$inpButton2->setValue('Export');
 		$inpButton2->setToSubmit();
-		
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('static','Download Package');
+		$pakRadio->addOption('ims','IMS Package');
+		$pakRadio->setSelected('static');
 		$form->addToForm($objHeading1);
 		$form->addToForm($courseLabel);
 		$form->addToForm($courseDropDown);
 		$form->addToForm("<br />");
+		$form->addToForm("<br />");
+		$form->addToForm($pakRadio);
+		$form->addToForm("<br />");
 		$form->addToForm($inpButton);
-		//print $form->show()."\n"; 
 		$form2->addToForm($objHeading2);
 		$form2->addToForm($courseLabel2);
 		$form2->addToForm($courseDropDown2);
 		$form2->addToForm("<br />");
+		$form2->addToForm("<br />");
+		$form2->addToForm($pakRadio);
+		$form2->addToForm("<br />");
 		$form2->addToForm($inpButton2);
-		//print $form2->show()."\n"; 
 		$this->switchDatabase();
-    		//print"</div>\n";
 		$form3->addToForm($form);
+		$form3->addToForm('<hr />');
 		$form3->addToForm($form2);
 
 		return $form3;
@@ -1020,7 +1031,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	 * Write htmls to IMS resource folder
 	 *
 	 * @param array $courseData
-	 * @param array $courseContent 
+	 * @param array $courseContent or context code
 	 * @param string $tempDirectory
 	 *
 	 * @return array $htmlfilenames - 
@@ -1028,6 +1039,40 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	*/
 	function writeKNGHtmls($courseData, $courseContent, $tempDirectory, $type = '')
 	{
+		if($type == 'new')
+		{
+			parent::init('tbl_contextcontent_order');
+			$filter = "WHERE contextcode = '$courseContent'";
+			$orders = $this->getAll($filter);
+			foreach($orders as $titleId)
+			{
+				$titleId = $titleId['titleid'];
+				parent::init('tbl_contextcontent_pages');
+				$filter = "WHERE titleid = '$titleId'";
+				$pages = $this->getAll($filter);
+				static $i = 0;
+				foreach($pages as $aPage)
+				{
+					$filename = "resource".$i.".html";
+					$filepath = $tempDirectory."/".$filename;
+					$htmlfilenames[$i] = $filename;
+					$fileContents = $aPage['pagecontent'];
+					#Open resources directory
+					$fp = fopen($filepath,'w');
+					#Write the file to images directory
+					if((fwrite($fp, $fileContents) === FALSE))
+					{
+						return  "writeResourcesError";
+					}
+					#Close the directory
+					fclose($fp);
+					chmod($filepath, 0777);
+					$i++;
+				}
+			}
+		}
+		else
+		{
 		$homepage = $courseData['0']['about'];
 		$filepath = $tempDirectory."/".$courseData['0']['contextcode'].".html";
 		//Write home page to IMS folder
@@ -1044,7 +1089,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 			else
 			$filepath = $tempDirectory."/".$courseData['0']['contextcode']."/resource".$i.".html";
 			//Store html filenames
-			$htmlfilenames[$i] = $courseContent[$i]['0']['fullname']; 
+			$htmlfilenames[$i] = $courseContent[$i]['0']['fullname'];
 			//Retrieve resource contents
 			$contentsOfFile = $courseContent[$i]['0']['body'];
 			//Open file to write
@@ -1053,7 +1098,8 @@ function recursive_remove_directory($directory, $empty=FALSE)
 			fwrite($fp,$contentsOfFile);
 			fclose($fp);
 		}
-
+		}
+		
 		return $htmlfilenames;
 	}
 
@@ -1076,7 +1122,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	 *
 	*/
     	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
-    	{echo $fileContents;
+    	{
 		#Image location on disc
 		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
@@ -1087,7 +1133,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		{
 			#Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
-			{//echo a;echo $fileContents;
+			{
 				#Create new file source location
 				#Check if its a static package
 				if(!($static == ''))
@@ -1102,10 +1148,8 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
-
-					$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
-
-					return $page;
+					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+					$page = preg_replace($regReplace, $newLink, $fileContents);
 				}
 				#If the image was renamed
 				else
@@ -1115,15 +1159,14 @@ function recursive_remove_directory($directory, $empty=FALSE)
 					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 					if($matches)
 					{
-						$page = preg_replace('/(src=".*?")/i', $newLink, $fileContents);
-
-						return $page;
+						$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+						$page = preg_replace($regReplace, $newLink, $fileContents);
 					}
 				}
 			}
 		}
 
-		return TRUE;
+		return $page;
     	}
 
 	/**

@@ -87,31 +87,27 @@ class importKNGPackage extends dbTable
 	{
 		$this->objIEUtils->fileModOff();
 		if(!isset($contextcode))
-		{
-			return  "choiceError";
-		}
+			if($this->objError)
+				return  "choiceError";
 		//Retrieve data within context
 		$courseData = $this->objIEUtils->getCourse($contextcode);
 		$oldContextCode = $courseData['0']['contextcode'];
 		if(!isset($courseData))
-		{
-			return  "courseReadError";
-		}
+			if($this->objError)
+				return  "courseReadError";
 		//Write course data to Chisimba
 		$writeCourse = $this->writeKNGCourseToChisimba($courseData);
 		if(!isset($writeCourse))
-		{
-			return  "courseWriteError";
-		}
+			if($this->objError)
+				return  "courseWriteError";
 		#Initialize all locations
 		$init = $this->initLocations($writeCourse['contextcode'], $writeCourse['title']);
 		//Write Resources
 		//Write Images to Chisimba usrfiles directory
 		$writeKNGImages = $this->objIEUtils->writeImages($oldContextCode, $this->imagesLocation);
 		if(!isset($writeKNGImages))
-		{
-			return  "imageWriteError";
-		}
+			if($this->objError)
+				return  "imageWriteError";
 		//Load Images into Chisimba
 		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
 		//Write Htmls to Chisimba usrfiles directory
@@ -127,10 +123,8 @@ class importKNGPackage extends dbTable
 		#Rebuild html images and url links
 		$rebuildHtml = $this->rebuildHtml($menutitles, $this->fileNames);
 		if(!isset($rebuildHtml))
-		{
 			if($this->objError)
 				return  "rebuildHtmlError";
-		}		
 
 		return TRUE;
 	}

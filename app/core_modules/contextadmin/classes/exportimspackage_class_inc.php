@@ -50,13 +50,14 @@ class exportimspackage extends object
 	*/
 	function exportChisimbaContent($contextcode)
 	{
+//var_dump($contextcode);die;
 		$type = "new";
 		//Retrieve data within context
 		$courseData = $this->objIEUtils->getCourse($contextcode, $type);
 		//Course id
+//var_dump($courseData);die;
 		$courseId = $courseData['0']['id'];
-		//Course context code
-		$contextcode = $courseData['0']['contextcode'];
+//var_dump($courseId);die;
 		//Create a temporary folder
 		$tempDirectory = $this->createTempDirectory($contextcode);
 		//Write Schema files
@@ -64,13 +65,14 @@ class exportimspackage extends object
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Write Images to specified directory (resources folder)
-		
-		//$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
+		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
+//var_dump($writeImages);die;
+//var_dump($resourceFolder);die;
+		//Write Htmls to specified directory  (resources folder)
+		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $contextcode, $resourceFolder, 'new');
+//var_dump($writeKNGHtmls);die;
 
 /*
-		//Retrieve html page data within context
-		//Write Htmls to specified directory  (resources folder)
-		$writeKNGHtmls = $this->writeKNGHtmls($courseData, $courseContent, $tempDirectory, $resourceFolder);
 		//Merge filenames
 		$filelist = array_merge($writeKNGHtmls, $writeKNGImages);
 		//Instantiate imsmanifest.xml creation
