@@ -165,8 +165,10 @@ class contextadmin extends controller
 		$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES);
 		$this->setVar('uploadStatus',$uploadStatus);
 		$this->setSession('uploadStatus', $uploadStatus);
-
-		return 'uploadstatus_tpl.php';
+		if(!(strcmp($uploadStatus, '/error/')))
+			return 'uploadstatus_tpl.php';
+		else
+			return 'errorreport_tpl.php';
 
 	/**
 	 * Executes the Uploading of KNG package into Chisimba
@@ -189,7 +191,7 @@ class contextadmin extends controller
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
 	*/
-        case 'downloadChisimbaIMS':
+        case 'downloadChisimba':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
@@ -201,7 +203,7 @@ class contextadmin extends controller
 	/**
 	 * Executes the Downloading of IMS package from KNG
 	*/
-        case 'downloadKNGIMS':
+        case 'downloadKNG':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
