@@ -120,9 +120,11 @@ class rpcserver extends object
 	{
 		//grab the module name
 		$mod = $module->getParam(0);
-		$data[0] = $objCatalogueConfig->getModuleName($mod->scalarval());
-		$data[1] = $objCatalogueConfig->getModuleDescription($mod->scalarval());
-	    $val = new XML_RPC_Value($data, 'array');
+		$name = $this->objCatalogueConfig->getModuleName($mod->scalarval());
+		$desc = $this->objCatalogueConfig->getModuleDescription($mod->scalarval());
+		$data[0] = new XML_RPC_Value((string)$name[0],'string');
+		$data[1] = new XML_RPC_Value((string)$desc[0],'string');
+		$val = new XML_RPC_Value($data, 'array');
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
