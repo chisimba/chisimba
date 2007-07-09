@@ -376,7 +376,7 @@ class Wizard
         // We check if step 8 has been done - have to change this if we change the number of steps.
         if (isset($_SESSION['completed_steps'])){
             $steps=$_SESSION['completed_steps'];
-            if (is_array($steps) && (in_array(8,$steps)) ){
+            if (is_array($steps) && (in_array(7,$steps)) ){
                 $path = $_SESSION['sys_root'].'/config/';
                 touch($path . 'installdone.txt');
             }
