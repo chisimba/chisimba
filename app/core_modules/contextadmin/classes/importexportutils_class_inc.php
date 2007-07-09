@@ -563,8 +563,11 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	*/
 	function writeImages($contextcode, $folder = NULL, $type = NULL)
 	{
-		$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
-		$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
+		//if(!(isset($folder)))
+		//{
+			$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
+			$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
+		//}
 		//Course images
 		//Get basepath
 		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/
@@ -890,15 +893,29 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		{
 			$courseDropDown->addOption($dataOld['contextcode']);
 		}
+
 		//Button
 		$loginButton = $this->newObject('button','htmlelements');
 		$loginButton->cssClass = 'f-submit';
 		$loginButton->setValue('Login');
 		$loginButton->setToSubmit();
+		//Package type
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('default','Default');
+		$pakRadio->addOption('mit','MIT');
+		$pakRadio->setSelected('default');
+
+		//Button
+		$loginButton = $this->newObject('button','htmlelements');
+		$loginButton->cssClass = 'f-submit';
+		$loginButton->setValue('Login');
+		$loginButton->setToSubmit();
+
 	    	//add the objects to the form
     		$form->setDisplayType(1);
 		$form->addToForm($objHeading1);
     		$form->addToForm($fileInput);
+    		$form->addToForm($pakRadio);
     		$form->addToForm($objElement);
     		//add the objects to the form2
     		$form2->setDisplayType(1);
@@ -999,10 +1016,18 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$inpButton2->cssClass = 'f-submit';
 		$inpButton2->setValue('Export');
 		$inpButton2->setToSubmit();
+
+		//Package type
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('static','Download Package');
 		$pakRadio->addOption('ims','IMS Package');
 		$pakRadio->setSelected('static');
+
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('static','Download Package');
+		$pakRadio->addOption('ims','IMS Package');
+		$pakRadio->setSelected('static');
+
 		$form->addToForm($objHeading1);
 		$form->addToForm($courseLabel);
 		$form->addToForm($courseDropDown);
@@ -1199,6 +1224,107 @@ function recursive_remove_directory($directory, $empty=FALSE)
 
 		return $page;
     	}
+
+	/**
+	 * Create a temporary folder
+	 * 
+	 * @param string $contextcode - context code of course
+	 * @return string $tempFolder - location of temporary folder
+	*/
+	function createTempDirectory($contextcode)
+	{
+		//Temp folder location
+		$tempFolder = "/tmp/".$contextcode;
+		$resourceFolder = $tempFolder."/".$contextcode;
+		//Check if folder exists and remove it
+		$this->recursive_remove_directory($tempFolder);
+		$this->recursive_remove_directory($resourceFolder);
+		//Create directory
+		if(!mkdir($tempFolder))
+		{
+			return "writeError";
+		}
+		//Create directory
+		if(!mkdir($resourceFolder))
+		{
+			return "writeError";
+		}
+		//Change directory permissions
+		if(!chmod($tempFolder,0777))
+		{
+			return "permissionError";
+		}
+		//Change directory permissions
+		if(!chmod($resourceFolder,0777))
+		{
+			return "permissionError";
+		}
+
+		return $tempFolder;
+	}
+
+	/**
+	 * Write Schema files
+	 *
+	 * @param string $tempDirectory - location of temporary folder
+	 * @return TRUE - Successful execution
+	*/
+	function writeSchemaFiles($tempDirectory)
+	{
+		//Additional site root path locations
+		//Schema filenames
+		$fileEdu = "eduCommonsv1.1.xsd";
+		$fileImscp = "imscp_v1p2.xsd";
+		$fileImsmd = "imsmd_v1p2p4.xsd";
+		//Schama files locations
+		$schamas = $siterootpath."core_modules/contextadmin/ims/";
+		$schamaspath1 = $schamas."eduCommonsv1.1.xsd";
+		$schamaspath2 = $schamas."imscp_v1p2.xsd";
+		$schamaspath3 = $schamas."imsmd_v1p2p4.xsd";
+		//Write files to new directory
+		//Write Schema files
+		$fp = fopen($tempDirectory."/".$fileEdu,'w');
+		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
+		{
+			return "writeError";
+		}
+		$fp = fopen($tempDirectory."/".$fileImscp,'w');
+		if(fwrite($fp, file_get_contents($schamaspath2)) === FALSE)
+		{
+			return "writeError";
+		}
+		$fp = fopen($tempDirectory."/".$fileImsmd,'w');
+		if(fwrite($fp, file_get_contents($schamaspath3)) === FALSE)
+		{
+			return "writeError";
+		}
+		fclose($fp);
+		if(!chmod($tempDirectory,0777))
+		{
+			return "permissionError";
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Create imsmanifest.xml
+	 *
+	 * @param string $tempDirectory - path to /tmp directory
+	 * @return filehandler $fp - file handler to write contents
+	 */
+	function createIMSManifestFile($tempDirectory)
+	{
+		$filePath = $tempDirectory."/imsmanifest.xml";
+		//check if the xml file exist
+		if(file_exists($filePath))
+			//delete the xml file
+			unlink($filePath);
+       		//create the xml file
+		$fp = fopen($filePath,'w');
+
+		return $fp;
+	}
 
 	public $fileMod;
 	/**

@@ -59,18 +59,23 @@ class exportimspackage extends object
 		$courseId = $courseData['0']['id'];
 //var_dump($courseId);die;
 		//Create a temporary folder
-		$tempDirectory = $this->createTempDirectory($contextcode);
+		$tempDirectory = $this->objIEUtils->createTempDirectory($contextcode);
 		//Write Schema files
-		$writeSchemaFiles = $this->writeSchemaFiles($tempDirectory);
+		$writeSchemaFiles = $this->objIEUtils->writeSchemaFiles($tempDirectory);
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Write Images to specified directory (resources folder)
+		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
+		//Write Htmls to specified directory  (resources folder)
+		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $contextcode, $resourceFolder, 'new');
+
 		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
 //var_dump($writeImages);die;
 //var_dump($resourceFolder);die;
 		//Write Htmls to specified directory  (resources folder)
 		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $contextcode, $resourceFolder, 'new');
 //var_dump($writeKNGHtmls);die;
+
 
 /*
 		//Merge filenames
@@ -86,137 +91,6 @@ class exportimspackage extends object
 */
 		return TRUE;
 	}
-
-	/**
-	 * Create a temporary folder
-	 * 
-	 * @param string $contextcode - context code of course
-	 * @return string $tempFolder - location of temporary folder
-	*/
-	function createTempDirectory($contextcode)
-	{
-		//Temp folder location
-		$tempFolder = "/tmp/".$contextcode;
-		$resourceFolder = $tempFolder."/".$contextcode;
-		//Check if folder exists and remove it
-		$this->objIEUtils->recursive_remove_directory($tempFolder);
-		$this->objIEUtils->recursive_remove_directory($resourceFolder);
-		//Create directory
-		if(!mkdir($tempFolder))
-		{
-			return "writeError";
-		}
-		//Create directory
-		if(!mkdir($resourceFolder))
-		{
-			return "writeError";
-		}
-		//Change directory permissions
-		if(!chmod($tempFolder,0777))
-		{
-			return "permissionError";
-		}
-		//Change directory permissions
-		if(!chmod($resourceFolder,0777))
-		{
-			return "permissionError";
-		}
-
-		return $tempFolder;
-	}
-
-	/**
-	 * Write Schema files
-	 *
-	 * @param string $tempDirectory - location of temporary folder
-	 * @return TRUE - Successful execution
-	*/
-	function writeSchemaFiles($tempDirectory)
-	{
-		//Additional site root path locations
-		//Schema filenames
-		$fileEdu = "eduCommonsv1.1.xsd";
-		$fileImscp = "imscp_v1p2.xsd";
-		$fileImsmd = "imsmd_v1p2p4.xsd";
-		//Schama files locations
-		$schamas = $siterootpath."core_modules/contextadmin/ims/";
-		$schamaspath1 = $schamas."eduCommonsv1.1.xsd";
-		$schamaspath2 = $schamas."imscp_v1p2.xsd";
-		$schamaspath3 = $schamas."imsmd_v1p2p4.xsd";
-		//Write files to new directory
-		//Write Schema files
-		$fp = fopen($tempDirectory."/".$fileEdu,'w');
-		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
-		{
-			return "writeError";
-		}
-		$fp = fopen($tempDirectory."/".$fileImscp,'w');
-		if(fwrite($fp, file_get_contents($schamaspath2)) === FALSE)
-		{
-			return "writeError";
-		}
-		$fp = fopen($tempDirectory."/".$fileImsmd,'w');
-		if(fwrite($fp, file_get_contents($schamaspath3)) === FALSE)
-		{
-			return "writeError";
-		}
-		fclose($fp);
-		if(!chmod($tempDirectory,0777))
-		{
-			return "permissionError";
-		}
-
-		return TRUE;
-	}
-
-	/**
-	 * Read images from Chisimba database
-	 *
-	 * @param
-	 * @return TRUE - Successful execution
-	*/
-	function readChisimbaImages()
-	{
-	
-		return TRUE;
-	}
-
-	/**
-	 * Write images to IMS resource folder
-	 *
-	 * @param
-	 * @return TRUE - Successful execution
-	*/
-	function writeChisimbaImages()
-	{
-	
-		return TRUE;
-	}
-
-	/**
-	 * Read htmls from Chisimba database
-	 *
-	 * @param
-	 * @return TRUE - Successful execution
-	*/
-	function readChisimbaHtmls()
-	{
-	
-		return TRUE;
-	}
-
-	/**
-	 * Write htmls to IMS resource folder
-	 *
-	 * @param
-	 * @return TRUE - Successful execution
-	*/
-	function writeChisimbaHtmls()
-	{
-	
-		return TRUE;
-	}
-
 
 	/**
 	 * Controls the process for exporting KNG package
@@ -235,9 +109,9 @@ class exportimspackage extends object
 		//Course context code
 		$contextcode = $courseData['0']['contextcode'];
 		//Create a temporary folder
-		$tempDirectory = $this->createTempDirectory($contextcode);
+		$tempDirectory = $this->objIEUtils->createTempDirectory($contextcode);
 		//Write Schema files
-		$writeSchemaFiles = $this->writeSchemaFiles($tempDirectory);
+		$writeSchemaFiles = $this->objIEUtils->writeSchemaFiles($tempDirectory);
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Write Images to specified directory (resources folder)
@@ -249,7 +123,7 @@ class exportimspackage extends object
 		//Merge filenames
 		$filelist = array_merge($writeKNGHtmls, $writeKNGImages);
 		//Instantiate imsmanifest.xml creation
-		$fp = $this->createIMSManifestFile($tempDirectory);
+		$fp = $this->objIEUtils->createIMSManifestFile($tempDirectory);
 		//Get the xml data 
 		$contents = $this->createIMSManifestContent($courseData, $filelist, $tempDirectory);
 		//Write to imsmanifest.xml
@@ -273,24 +147,7 @@ class exportimspackage extends object
 		return TRUE;
 	}
 
-	/**
-	 * Create imsmanifest.xml
-	 *
-	 * @param string $tempDirectory - path to /tmp directory
-	 * @return filehandler $fp - file handler to write contents
-	 */
-	function createIMSManifestFile($tempDirectory)
-	{
-		$filePath = $tempDirectory."/imsmanifest.xml";
-		//check if the xml file exist
-		if(file_exists($filePath))
-			//delete the xml file
-			unlink($filePath);
-       		//create the xml file
-		$fp = fopen($filePath,'w');
 
-		return $fp;
-	}
 
 	/**
 	 * Retrieve imsmanifest.xml contents
