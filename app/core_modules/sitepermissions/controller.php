@@ -158,8 +158,7 @@ class sitepermissions extends controller {
             case 'manage_conditions':
                 $id = $this->getParam('id', NULL);
                 $mode = $this->getParam('mode', NULL);
-                $templateContent = $this->objDisplay->showModuleForm();
-                $templateContent .= $this->objDisplay->createActionLinks('conditions');
+                $templateContent = $this->objDisplay->createActionLinks('conditions');
                 $templateContent .= $this->objDisplay->showCondition($mode, $id);
                 $templateContent .= $this->objDisplay->createExitLinks();
                 $this->setVarByRef('templateContent', $templateContent);
@@ -184,8 +183,7 @@ class sitepermissions extends controller {
             case 'manage_acls':
                 $id = $this->getParam('id', NULL);
                 $mode = $this->getParam('mode', NULL);
-                $templateContent = $this->objDisplay->showModuleForm();
-                $templateContent .= $this->objDisplay->createActionLinks('acls');
+                $templateContent = $this->objDisplay->createActionLinks('acls');
                 $templateContent .= $this->objDisplay->showAcls($mode, $id);
                 $templateContent .= $this->objDisplay->createExitLinks();
                 $this->setVarByRef('templateContent', $templateContent);
@@ -206,14 +204,57 @@ class sitepermissions extends controller {
                 
             case 'manage_acl_users':
                 $aclId = $this->getParam('aclId');
-                $templateContent = $this->objDisplay->showModuleForm();
-                $templateContent .= $this->objDisplay->createActionLinks('users');
-                $templateContent .= $this->objDisplay->showUsers($aclId);
+                $mode = $this->getParam('mode', NULL);
+                $id = $this->getParam('id', NULL);
+                $templateContent = $this->objDisplay->createActionLinks('users');
+                $templateContent .= $this->objDisplay->showUsers($aclId, $mode, $id);
                 $templateContent .= $this->objDisplay->createExitLinks();
                 $this->setVarByRef('templateContent', $templateContent);
                 return 'template_tpl.php';
                 break;
-
+                
+            case 'save_acl_users':
+                $aclId = $this->getParam('aclId');
+                $id = $this->getParam('id');
+                $type = $this->getParam('type');
+                if($type == 1){
+                    $typeId = $this->getParam('group');
+                    if(!isset($id)){
+                        $this->objDbperm->addAclUser($aclId, $type, $typeId);
+                    }else{
+                        $this->objDbperm->updateAclGroup($id, $typeId);
+                    }
+                    $this->objXmlperm->checkGroups($typeId);
+                }else{
+                    $typeId = $this->getParam('userid');
+                    $this->objDbperm->addAclUser($aclId, $type, $typeId);
+                }
+                return $this->nextAction('manage_acl_users', array(
+                    'aclId' => $aclId,
+                ));
+                break;
+            
+            case 'delete_acl_user':
+                $aclId = $this->getParam('aclId');
+                $id = $this->getParam('id');
+                $this->objDbperm->deleteAclUser($id);
+                return $this->nextAction('manage_acl_users', array(
+                    'aclId' => $aclId,
+                ));
+                break;
+                
+            case 'listusers':
+                $search = $this->getParam('search');
+                if($search == 'name'){
+                    $search = 'firstName';
+                    $criteria = $this->getParam('name');
+                }else{
+                    $search = 'surname';
+                    $criteria = $this->getParam('surname');
+                }
+                return $this->objDisplay->searchList($search, $criteria);
+                break;
+                
             default:
                 $templateContent = $this->objDisplay->showModuleForm();
                 $templateContent .= $this->objDisplay->createActionLinks('permissions');

@@ -142,6 +142,17 @@ class dbpermissions extends dbTable
         return $this->_changeTable('tbl_sitepermissions_acl_users');
     }
 
+	/**
+	* Method to set the users table
+	*
+	* @access private
+	* @return boolean: TRUE on success FALSE on failure
+	*/
+	private function _setUsers()
+	{
+        return $this->_changeTable('tbl_users');
+    }
+
 /* ----- Functions for tbl_sitepermissions_conditiontype ----- */
 
     /**
@@ -975,6 +986,100 @@ class dbpermissions extends dbTable
         $fields['typeid'] = $typeId;
         $aclId = $this->insert($fields);
         return $aclId;
+    }
+    
+    /**
+    * Method to return acl groups
+    *
+    * @access public
+    * @param string $aclId: The id of the acl to return groups for
+    * @return array|bool $data: The acl user data on success | False on failure
+    **/
+    public function getAclGroups($aclId)
+    {
+        $this->_setAclUsers();
+        $sql = "WHERE aclid = '".$aclId."'";
+        $sql .= " AND type = '1'";
+        $data = $this->getAll($sql);
+        if(!empty($data)){
+            return $data;
+        }
+        return FALSE;
+    }
+
+    /**
+    * Method to return acl users
+    *
+    * @access public
+    * @param string $aclId: The id of the acl to return groups for
+    * @return array|bool $data: The acl user data on success | False on failure
+    **/
+    public function getAclUsers($aclId)
+    {
+        $this->_setAclUsers();
+        $sql = "WHERE aclid = '".$aclId."'";
+        $sql .= " AND type = '2'";
+        $data = $this->getAll($sql);
+        if(!empty($data)){
+            return $data;
+        }
+        return FALSE;
+    }
+    
+    /**
+    * Method to update the acl group user
+    *
+    * @access public
+    * @param string $id: The id of the acl group user
+    * @param string $typeId: The new acl group user
+    * @return void
+    */
+    public function updateAclGroup($id, $typeId)
+    {
+        $this->_setAclUsers();
+        $this->update('id', $id, array(
+            'typeid' => $typeId,
+        ));
+    }    
+
+    /**
+    * Method to delete an access control list user
+    *
+    * @access public
+    * @param string $id: The acl user id
+    * @return void
+    */
+    public function deleteAclUser($id)
+    {
+        $this->_setAclUsers();
+        $this->delete('id', $id);
+    }
+    
+/* ----- Functions for tbl_users ----- */
+
+    /**
+    * Method for geting users from the database.
+    *
+    * @access public
+    * @param string $search: The field to search
+    * @param string $criteria: The search criteria
+    * @return array|bool $data: The data array on success | FALSE on failure
+    */
+    public function getUsers($search, $criteria = NULL)
+    {
+        $this->_setUsers();
+        $sql = " SELECT * FROM tbl_users";
+        if ($criteria != NULL) {
+            $sql.= " WHERE ".$search." LIKE '".$criteria."%'";
+        }
+        $sql.= " ORDER BY ".$search;
+        $sql.= " LIMIT 0, 10";
+        
+        $data = $this->getArray($sql);
+        if (!empty($data)) {
+            return $data;
+        }
+        return FALSE;
     }
 }
 ?>

@@ -15,6 +15,22 @@ if(!$GLOBALS['kewl_entry_point_run']){
 * Template for the sitepermissions module
 * Author Kevin Cyster
 * */
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('layer', 'htmlelements');
 
+$heading = $this->objLanguage->code2Txt('mod_sitepermissions_name', 'sitepermissions');
+
+// headings
+$objHeader = new htmlheading();
+$objHeader->str = ucfirst($heading);
+$objHeader->type = 1;
+$header = $objHeader->show();        
+
+$objLayer = new layer();
+$objLayer->addToStr($header);
+$objLayer->padding = '10px';
+$layer = $objLayer->show();
+echo $layer;
+        
 echo $templateContent;
 ?>
