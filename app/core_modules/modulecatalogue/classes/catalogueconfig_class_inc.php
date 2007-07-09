@@ -465,7 +465,7 @@ class catalogueconfig extends object {
 
     public function getCategories() {
         try {
-            $sysTypes = $this->objConfig->getsiteRoot()."installer/dbhandlers/systemtypes.xml";
+            $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
             $doc = simplexml_load_file($sysTypes);
             $types = array();
             for ($i=1;$i<count($doc->systemtypes->category);$i++) {
