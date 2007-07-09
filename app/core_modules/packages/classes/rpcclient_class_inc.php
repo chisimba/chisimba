@@ -152,7 +152,7 @@ class rpcclient extends object
 			* Display problems that have been gracefully caught and
 			* reported by the xmlrpc server class.
 			*/
-			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+			//throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
 		}
 	}
 

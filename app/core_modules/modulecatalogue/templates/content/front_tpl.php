@@ -189,10 +189,17 @@ if ($modules) {
                 $doc = simplexml_load_string($this->objRPCClient->getModuleDescription($moduleId));
                 $moduleName = (string)$doc->array->data->value[0]->string;
                 $desc = (string)$doc->array->data->value[1]->string;
+
                 $alink->link('javascript:;');
                 $alink->extra = "onclick = 'javascript:downloadModule(\"$moduleId\",\"$moduleName\");'";
                 $alink->link = $this->objLanguage->languageText('mod_modulecatalogue_dlandinstall','modulecatalogue');
                 $actions = $alink->show();
+
+                if ($moduleName == '') {
+                    $moduleName = $moduleId;
+                    $desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
+                    $actions = false;
+                }
             }
 
             $rClass = ($rClass == 'odd')? 'even' : 'odd';
