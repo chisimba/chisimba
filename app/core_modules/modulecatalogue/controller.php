@@ -124,13 +124,14 @@ class modulecatalogue extends controller
                 $this->objCatalogueConfig->writeCatalogue();
             }
             $this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
-            $this->objSideMenu->addNodes(array('updates','all'));
-            $xmlCat = $this->objCatalogueConfig->getNavParam('category');
+            $this->objSideMenu->addNodes(array('updates','remote','all'));
+            $sysTypes = $this->objCatalogueConfig->getCategories();
+            //$xmlCat = $this->objCatalogueConfig->getNavParam('category');
             //get list of categories
-            $catArray = $xmlCat['catalogue']['category'];
-            natcasesort($catArray);
-            $this->objSideMenu->addNodes($catArray);
-
+            //$catArray = $xmlCat['catalogue']['category'];
+            //natcasesort($catArray);
+            //$this->objSideMenu->addNodes($catArray);
+            $this->objSideMenu->addNodes($sysTypes);
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
         } catch (Exception $e) {
@@ -155,8 +156,13 @@ class modulecatalogue extends controller
                 $activeCat = $this->getParm('cat','Updates');
             }
             $this->setVar('activeCat',$activeCat);
+            if ($activeCat == 'remote') {
+                $action = 'remote';
+            }
             //$this->setVar('letter',$this->getParam('letter','none'));
             $this->setLayoutTemplate('cat_layout.php');
+            $connected = $this->objRPCClient->checkConnection();
+            $this->setVar('connected',$connected);
             switch ($action) {        //check action
                 case 'xml':
                     $ret = $this->objRPCServer->getModuleDetails();
@@ -279,11 +285,13 @@ class modulecatalogue extends controller
                     }
                     $this->setSession('output',$this->output);
                     return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
+
                 case 'updateall':
                     ini_set('max_execution_time','6000');
                     set_time_limit(0);
                     $this->objModuleAdmin->updateAllText();
                     return $this->nextAction('list');
+
                 case 'firsttimeregistration':
                     $this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
                     $sysType = $this->getParam('sysType','Basic System Only');
@@ -313,6 +321,7 @@ class modulecatalogue extends controller
 
                      $url = array('username'=>'admin','password'=>'a','mod'=>'modulecatalogue');
                     return $this->nextAction('login',$url,'security');
+
                 case 'update':
                     $modname = $this->getParam('mod');
                     if (($this->output = $this->objPatch->applyUpdates($modname))===FALSE) {
@@ -323,6 +332,7 @@ class modulecatalogue extends controller
                     $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());
                     return 'updates_tpl.php';
+
                 case 'patchall':
                     $mods = $this->objPatch->checkModules();
                     $this->output = array();
@@ -334,18 +344,22 @@ class modulecatalogue extends controller
                     $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());
                     return 'updates_tpl.php';
+
                 case 'makepatch':
                     return 'makepatch_tpl.php';
+
                 case 'reloaddefaultdata':
                     $moduleId = $this->getParam('moduleid');
                     $this->objModuleAdmin->loadData($moduleId);
                     return $this->nextAction('list',array('cat'=>$activeCat));
+
                 case 'search':
                     $str = $this->getParam('srchstr');
                     $type = $this->getParam('srchtype');
                     $result = $this->objCatalogueConfig->searchModuleList($str,$type);
                     $this->setVar('result',$result);
                     return 'front_tpl.php';
+
                 case 'updatexml':
                     $this->objCatalogueConfig->writeCatalogue();
                     return $this->nextAction(null,array('message' => $this->objLanguage->languageText('mod_modulecatalogue_xmlupdated','modulecatalogue')));
@@ -421,12 +435,50 @@ class modulecatalogue extends controller
                     $modName = $this->getParam('moduleId');
                     if (!$this->installModule($modName)) {
                         header('HTTP/1.0 500 Internal Server Error');
-                        echo "$this->output<br />{$this->objModuleAdmin->output}";
+                        echo "$this->output\n{$this->objModuleAdmin->output}";
                         break;
                     }
                     unlink("$modName.zip");
                     echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
                     break;
+
+                case 'uploadarchive':
+                    $file = $_FILES['archive']['name'];
+                    $module = substr($file,0,strpos($file,'.'));
+                    $tmpFile = $_FILES['archive']['tmp_name'];
+                    var_dump($_FILES);
+                    if ($_FILES['archive']['size'] == 0) {
+                        $this->setSession("output",$this->objLanguage->languageText('mod_modulecatalogue_notfound','modulecatalogue'));
+                        $this->setVar('error',1);
+                        return 'front_tpl.php';
+                    }
+                    if (is_dir($this->objConfig->getModulePath().$module)) {
+                        $this->setSession('output',$this->objLanguage->languageText('mod_modulecatalogue_directoryexists','modulecatalogue'));
+                        $this->setVar('error',1);
+                        return 'front_tpl.php';
+                    }
+                    if (!file_exists($file)) {
+                        $this->setSession("output",$this->objLanguage->languageText('mod_modulecatalogue_transferfailed','modulecatalogue'));
+                        $this->setVar('error',1);
+                        return 'front_tpl.php';
+                    }
+                    if (strtolower(substr($file,strlen($file)-4,4)) == '.zip') {
+                        $objZip = $this->getObject('wzip', 'utilities');
+                        if (!$objZip->unZipArchive($tmpFile, $this->objConfig->getModulePath())) {
+                            $this->setSession("output",$this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue')."<br /> $objZip->error");
+                            $this->setVar('error',1);
+                        return 'front_tpl.php';
+                        }
+                    } else {
+                        require_once($this->getPearResource('Archive/Tar.php'));
+                        $objArchive = new Archive_Tar($tmpFile);
+                        if (!$objArchive->extract($this->objConfig->getModulePath())) {
+                            $this->setSession("output",$this->objLanguage->languageText('mod_modulecatalogue_untarerror','modulecatalogue'));
+                            $this->setVar('error',1);
+                        return 'front_tpl.php';
+                        }
+                    }
+                    return $this->nextAction('install',array('cat'=>$activeCat,'mod'=>$module));
 
                 default:
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);

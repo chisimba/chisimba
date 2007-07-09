@@ -7,6 +7,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * XML-RPC Server class
  *
  * @author Paul Scott <pscott@uwc.ac.za>
+ * @author Nic Appleby
  * @copyright GPL
  * @package packages
  * @version 0.1
@@ -103,6 +104,7 @@ class rpcserver extends object
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
+		unlink($filepath);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -118,14 +120,8 @@ class rpcserver extends object
 	{
 		//grab the module name
 		$mod = $module->getParam(0);
-		$objModFile = $this->getObject('modulefile','modulecatalogue');
-		//log_debug ("NIC: ".(string)$module." - ".$mod." - ".$mod->scalarval());
-		if ($regData = $objModFile->readRegisterFile($objModFile->findregisterfile($mod->scalarval()))) {
-			$data[0] = new XML_RPC_Value($regData['MODULE_NAME'], 'string');
-		    $data[1] = new XML_RPC_Value($regData['MODULE_DESCRIPTION'], 'string');
-	    } else {
-	        $data[0] = $data[1] = new XML_RPC_Value($mod->scalarval(), 'string');
-	    }
+		$data[0] = $objCatalogueConfig->getModuleName($mod->scalarval());
+		$data[1] = $objCatalogueConfig->getModuleDescription($mod->scalarval());
 	    $val = new XML_RPC_Value($data, 'array');
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.

@@ -146,17 +146,16 @@ class catalogueconfig extends object {
     	try {
     		$objModFile = &$this->getObject('modulefile','modulecatalogue');
     		$xmlStr = "<?xml version='1.0' encoding='ISO-8859-1'?>\n<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='catalogue.xsd'>\n";
-    		if(!isset($this->_path)) {
-    			$this->_path = "{$this->objConfig->getsiteRootPath()}/config/";
-    		}
-    		$xmlStr .= "	<catalogue>\n";
-    		$categories = $objModFile->getCategories();
-    		if (is_array($categories)) {
-    				foreach ($categories as $cat) {
-    					$xmlStr .= "		<category>$cat</category>\n";
-    				}
-    		}
-    		$xmlStr .= "	</catalogue>\n";
+    		$this->_path = "{$this->objConfig->getsiteRootPath()}/config/";
+
+    		//$xmlStr .= "	<catalogue>\n";
+    		//$categories = $objModFile->getCategories();
+    		//if (is_array($categories)) {
+    		//		foreach ($categories as $cat) {
+    		//			$xmlStr .= "		<category>$cat</category>\n";
+    		//		}
+    		//}
+    		//$xmlStr .= "	</catalogue>\n";
     		$modules = $objModFile->getLocalModuleList();
     		$id = 001;
     		foreach ($modules as $mod) {
@@ -458,11 +457,59 @@ class catalogueconfig extends object {
         		}
 
 
-    	}catch (Exception $e){
+    	} catch (Exception $e){
     		$this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
     	}
-    } #function insertParam
+    }
+
+    public function getCategories() {
+        try {
+            $sysTypes = $this->objConfig->getsiteRoot()."installer/dbhandlers/systemtypes.xml";
+            $doc = simplexml_load_file($sysTypes);
+            $types = array();
+            for ($i=1;$i<count($doc->systemtypes->category);$i++) {
+                $types[] = (string)$doc->systemtypes->category[$i];
+            }
+            return $types;
+        } catch (Exception $e){
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
+        }
+    }
+
+    public function getCategoryList($category) {
+        try {
+            $path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+			$cat = simplexml_load_file($path);
+			$types = array();
+            if ($category == 'all') {
+                $modules = $cat->xpath("//module");
+                foreach($modules as $mod) {
+                    $types[(string)$mod->module_id] = $this->objLanguage->abstractText((string)$mod->module_name);
+                }
+            } else {
+                $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
+                $doc = simplexml_load_file($sysTypes);
+                $modules = $doc->xpath("//category[categoryname='$category']");
+                foreach ($modules[0]->module as $mod) {
+    		        $moduleId = (string)$mod;
+    		        $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
+    		        if (!$mn && (file_exists($this->objConfig->getModulePath().$moduleId) || file_exists($this->objConfig->getsiteRootPath()."core_modules/$moduleId"))) {
+    		            log_debug("Could not find $moduleId in the catalogue. Rewriting catalogue.");
+    		            $this->writeCatalogue();
+    		            $cat = simplexml_load_file($path);
+    		            $mn = $cat->xpath("//module[module_id='$moduleId']/module_name");
+    		        }
+    		        $types[$moduleId] = ucwords($this->objLanguage->abstractText((string)$mn[0]));
+                }
+            }
+            return $types;
+        } catch (Exception $e){
+            $this->errorCallback('Caught exception: '.$e->getMessage());
+            exit();
+        }
+    }
 
     /**
      * The error callback function, defers to configured error handler

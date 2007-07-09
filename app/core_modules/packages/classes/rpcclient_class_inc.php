@@ -7,6 +7,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * XML-RPC Client class
  *
  * @author Paul Scott
+ * @author Nic Appleby
  * @copyright GPL
  * @package packages
  * @version 0.1
@@ -152,6 +153,31 @@ class rpcclient extends object
 			* reported by the xmlrpc server class.
 			*/
 			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		}
+	}
+
+	public function checkConnection() {
+	    $msg = new XML_RPC_Message('getMsg',array(new XML_RPC_Value('connected?','string')));
+	    $mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli->setDebug(0);
+
+		// send the request message
+		$resp = $cli->send($msg);
+		if (!$resp)
+		{
+		    log_debug($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+			return FALSE;
+		}
+		if (!$resp->faultCode())
+		{
+			return TRUE;
+		}
+		else
+		{
+		    log_debug($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		    return FALSE;
 		}
 	}
 

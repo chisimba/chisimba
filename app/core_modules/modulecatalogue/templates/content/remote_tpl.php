@@ -40,14 +40,13 @@ $masterCheck = new checkbox('arrayList[]');
 //$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
 $head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
+			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 $objTable->addHeader($head,'heading','align="left"');
 $newMods = array();
 $class = 'odd';
 
 $link = new link();
-$link->link = $this->objLanguage->languageText('word_download');
+$link->link = $this->objLanguage->languageText('mod_modulecatalogue_dlandinstall','modulecatalogue');
 $icon = $this->newObject('getIcon','htmlelements');
 foreach ($modules as $module) {
     if (!in_array($module['id'],$lMods)) {
@@ -62,16 +61,15 @@ foreach ($modules as $module) {
         //$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
         $objTable->startRow();
-        $objTable->addCell($modCheck->show(),null,null,null,$class);
-        $objTable->addCell($icon->show(),null,null,null,$class);
-        $objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",'50%',null,null,$class);
-        $objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'20%',null,null,$class);
-        $objTable->addCell('&nbsp;',null,null,'left',$class);
-		$objTable->endRow();
+        $objTable->addCell($modCheck->show(),20,null,null,$class);
+        $objTable->addCell($icon->show(),30,null,null,$class);
+        $objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",null,null,null,$class);
+        $objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'40%',null,null,$class);
+        $objTable->endRow();
 		$objTable->startRow();
+		$objTable->addCell('&nbsp;',20,null,'left',$class);
 		$objTable->addCell('&nbsp;',30,null,'left',$class);
-		$objTable->addCell('&nbsp;',30,null,'left',$class);
-		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="3"');
+		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
 		$objTable->endRow();
     }
 }
