@@ -350,7 +350,7 @@ class RootUserAction extends StepAction
 
 		//Get content path
 
-		$absContentPath = getcwd();
+		$absContentPath = $_SERVER['SCRIPT_FILENAME'];
 
 		$relContentRoot = "usrfiles";
 		if (preg_match("/\/installer/i", "$absContentPath")) {
