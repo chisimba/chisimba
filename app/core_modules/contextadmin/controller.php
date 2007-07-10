@@ -12,7 +12,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @copyright 2004, University of the Western Cape & AVOIR Project
  * @license GNU GPL
  * @author Wesley  Nitsckie
+<<<<<<< controller.php
  * @version $Id$ 
+=======
+ * @version $Id$ 
+>>>>>>> 1.23
  **/
 class contextadmin extends controller 
 {
@@ -150,25 +154,28 @@ class contextadmin extends controller
 	Update : Import and Export of IMS Content
 	*/
 
-	//Display Import Template
-	case 'eduCommonsToChisimba':
-		$this->setLayoutTemplate('eduCommonsToChisimba_tpl.php');
-			
-		return 'eduCommonsToChisimba_tpl.php';
-
 	/**
 	 * Executes the Uploading of IMS package into Chisimba
 	*/
         case 'uploadIMS':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
+		$package = $this->getParam('packageType');
 		//Instantiate the Import of IMS package
-		$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES);
+		$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package);
 		$this->setVar('uploadStatus',$uploadStatus);
 		$this->setSession('uploadStatus', $uploadStatus);
+
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
+	break;
+
+		if(!(strcmp($uploadStatus, '/error/')))
+			return 'uploadstatus_tpl.php';
+		else
+			return 'errorreport_tpl.php';
+
 
 	/**
 	 * Executes the Uploading of KNG package into Chisimba
@@ -179,15 +186,17 @@ class contextadmin extends controller
 		//Instantiate the Import of KNG package
 		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
-
-		return 'uploadstatus_tpl.php';
-
+		if(!(strcmp($uploadStatus, '/error/')))
+			return 'uploadstatus_tpl.php';
+		else
+			return 'errorreport_tpl.php';
+	break;
 	//Display Export Template
 	case 'chisimbaToIMS':
 		$this->setLayoutTemplate('chisimbaToIMS_tpl.php');
 			
 		return 'chisimbaToIMS_tpl.php';
-
+	break;
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
 	*/
@@ -197,9 +206,11 @@ class contextadmin extends controller
 		//Instantiate the Import of KNG package
 		$uploadStatus = $this->objExportIMSContent->exportChisimbaContent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
-
-		return 'uploadstatus_tpl.php';
-
+		if(!(strcmp($uploadStatus, '/error/')))
+			return 'uploadstatus_tpl.php';
+		else
+			return 'errorreport_tpl.php';
+	break;
 	/**
 	 * Executes the Downloading of IMS package from KNG
 	*/
@@ -208,10 +219,12 @@ class contextadmin extends controller
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
 		$uploadStatus = $this->objExportIMSContent->exportKNGContent($choice);
-		//$this->setVar('uploadStatus',$uploadStatus);
-
-		return 'uploadstatus_tpl.php';
-
+		$this->setVar('uploadStatus',$uploadStatus);
+		if(!(strcmp($uploadStatus, '/error/')))
+			return 'uploadstatus_tpl.php';
+		else
+			return 'errorreport_tpl.php';
+	break;
 	/**
 	 * 
 	*/
