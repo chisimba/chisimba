@@ -138,6 +138,7 @@ class importIMSPackage extends dbTable
 		//echo 's2';
 		#Retrieve file names
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
+//var_dump($fileNames);
 		if(!isset($fileNames))
 		{
 			if($this->objError)
@@ -185,10 +186,15 @@ class importIMSPackage extends dbTable
 				return  "xpathSetError";
 		}
 		//echo 's8';
-		#Retrieve all .xml files
+		#Retrieve all resource files in package
 		$allFilesLocation = $this->locateAllMITFiles($simpleXmlObj);
 		#Retrieve all .xml files
 		$xmlFilesLocation = $this->locateAllXmlFiles($xpathObj);
+		#Retrieve all files
+		$allLocations = $this->objIEUtils->list_dir_files($folder, 1);
+//var_dump($folder);die;
+//var_dump($allLocations);die;
+//var_dump($allFilesLocation);die;
 		#Load all .xml files
 		$newFolder = $folder.'/'.preg_replace("/.zip/","",$FILES['upload']['name']);
 		$allXmlPackageData = $this->loadAllXmlFiles($newFolder, $xmlFilesLocation);
@@ -222,7 +228,12 @@ class importIMSPackage extends dbTable
 		$mitHtmlsPath = $this->getMITHtmls($newFolder, $allXmlPackageData);
 		//echo 's12';
 		//Write Images to Chisimba usrfiles directory
-		$writeImages = $this->writeMITImages($newFolder, $allFilesLocation);
+//		$writeImages = $this->writeMITImages($newFolder, $allFilesLocation, $fileNames);
+		$writeImages = $this->writeMITImages('', $allLocations, $fileNames);
+//var_dump($writeImages);
+		//Write Files to Chisimba usrfiles directory
+		$writeFiles = $this->writeMITFiles('', $allLocations, $fileNames);
+//var_dump($writeFiles);
 		//echo 's13';
 		#Load html data into Chisimba
 		$loadData = $this->loadToChisimba($mitHtmlsPath, $allXmlPackageData, 'Y');
@@ -233,10 +244,8 @@ class importIMSPackage extends dbTable
 		//}
 		//echo 's14';
 		#Load image data into Chisimba
-		#Retrieve file names
-		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
-		//var_dump($fileNames);die;
-		$uploadImagesToChisimba = $this->uploadImagesToChisimba($folder, $fileNames);
+		$uploadImagesToChisimba = $this->uploadImagesToChisimba($folder);
+//var_dump($uploadImagesToChisimba);
 		if(!isset($uploadImagesToChisimba))
 		{
 			if($this->objError)
@@ -244,84 +253,98 @@ class importIMSPackage extends dbTable
 		}
 		//echo 's15';
 		#Rebuild html images and url links
-		//$this->modMITHtml();
-		//$this->display($mitHtmlsPath);
+		//$rebuildHtml = $this->rebuildMITHtml($loadData, $fileNames);
+		$allFileNames = $this->objIEUtils->list_dir_files($folder,0);
+		$rebuildHtml = $this->rebuildMITHtml($loadData, $allFileNames);
+		if(!isset($rebuildHtml))
+		{
+			if($this->objError)
+				return  "rebuildHtmlError";
+		}
+
 		return TRUE;
 	}
 
-	function removeMITLayouts($fileContents)
+	/**
+	 * Control function to manipulate html pages and resources
+	 * and re-insert into database
+	 * 
+	 * @param array $menutitles - each menu title of html page
+	 * @param array $fileNames - the file name of resource
+	 *
+	 * @return TRUE - on successful execution
+	 *
+	*/
+	function rebuildMITHtml($menutitles, $fileNames)
 	{
-
-		//Strip skip to content div (working)
-		$fileContents = preg_replace('/skip to content/','',$fileContents);
-		//Strip Header div
-		$fileContents = preg_replace('%<div class="header-redline(.|\\n)+?<!-- end header-redline -->%','',$fileContents);
-		//Strip site tools div (working)
-		$fileContents = preg_replace('%<div class="sitetools(.|\\n)+?</div>%','',$fileContents);
-		//Strip left navigation div (working)
-		$fileContents = preg_replace('/<!-- LeftNav(.|\\n)+?<!-- End LeftNav -->/','',$fileContents);
-		//Strip search-form div (working)
-		$fileContents = preg_replace('/<!-- begin search(.|\\n)+?<!-- end search area -->/','',$fileContents);
-		//Strip main content div (not working)
-		$fileContents = preg_replace('%<div class="bread-crumb(.|\\n)+?</div>%','',$fileContents);
-
-		return $fileContents;
-	}
-
-	function display($mitHtmlsPath)
-	{
-		//echo $mitHtmlsPath['CourseHome'];
-		//$loc = $this->courseContentBasePath.$this->contextCode.'/staticcontent/CourseHome.html';
-		//echo $loc;
-		$loc = '/home/jarrett/Desktop/index.htm';
-		$fileContents = file_get_contents($loc);
-		echo $fileContents;
-	}
-
-	function modMITHtml()
-	{
-		$fileContents = file_get_contents('/home/jarrett/Desktop/index.htm');
-		$regex = '%<div.*?</div>%';
-		$modContents = preg_replace($regex, '', $fileContents);
-		$tags['0'] = 'OCW home';
-		$tags['1'] = 'Course List';
-		$tags['2'] = 'about OCW';
-		$tags['3'] = 'Help';
-		$tags['4'] = 'Feedback';
-		$tags['5'] = 'Support MIT OCW';
-		foreach($tags as $tag)
+//var_dump($fileNames);die;
+		#switch tables
+		parent::init('tbl_contextcontent_pages');
+		#Retrieve resources
+		#Manipulate images
+		static $i = 0;
+		static $j = 0;
+		foreach($menutitles as $menutitle)
 		{
-			$regex = '/(href=".*'.$tag.'.*?")/i';
-			$modContents = preg_replace($regex, '', $modContents);
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				#Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+				#Rewrite images source in html
+				//var_dump($this->imageIds);die;
+				//var_dump($id);die;
+				$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
+				#Reinsert into database with updated images
+				if(strlen($page) > 1 )
+				{
+					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($i==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$i++;
+					}
+				}
+			}
 		}
-		$tags['6'] = 'Course Home';
-		$tags['7'] = 'Syllabus';
-		$tags['8'] = 'Calendar';
-		$tags['9'] = 'Readings';
-		$tags['10'] = 'Labs';
-		$tags['11'] = 'Assignments';
-		$tags['12'] = 'Projects';
-		$tags['13'] = 'Related Resources';
-		$tags['14'] = 'Download this Course';
-/*
-		$regex = '%<div.*?</div>%';
-		preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-		if($matches)
+		#Manipulate links 
+		foreach($menutitles as $menutitle)
 		{
-			//var_dump($matches);
-
-			$modContents = preg_replace('%<div.*?</div>%', '', $fileContents);
+			$filter = "WHERE menutitle = '$menutitle'";
+			$result = $this->getAll($filter);
+			if(count($result) > 0)
+			{
+				#Retrieve page contents
+				$fileContents = $result['0']['pagecontent'];
+				$id = $result['0']['id'];
+//var_dump($this->pageIds);die;
+				#Rewrite links source in html
+				$page = $this->objIEUtils->changeMITLinkUrl($fileContents, $this->contextCode, $fileNames, $this->pageIds);
+				#Reinsert into database with updated links
+				if(strlen($page) > 1 )
+				{
+					$update = $this->update('id', $id, array('pagecontent' => $page));
+					if($j==0)
+					{
+						#Modify about in tbl_context
+						parent::init('tbl_context');
+						$this->update('id', $this->courseId, array('about' => $page));
+						#switch tables
+						parent::init('tbl_contextcontent_pages');
+						$j++;
+					}
+				}
+			}
 		}
-		//echo $modContents;
-*/		
-		$fp = fopen('/home/jarrett/Desktop/output.html','w');
-		if((fwrite($fp, $modContents) === FALSE))
-			return  "writeResourcesError";
-		fclose($fp);
-		//echo $fileContents;
+
+		return TRUE;
 	}
-
-
 
 	public $courseId;
 	/**
@@ -353,6 +376,7 @@ class importIMSPackage extends dbTable
 		//echo 's2';
 		#Retrieve file names
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
+//var_dump($fileNames);
 		if(!isset($fileNames))
 		{
 			if($this->objError)
@@ -1153,7 +1177,7 @@ class importIMSPackage extends dbTable
 	function loadToChisimba($writeData, $structure, $filePaths = '')
 	{
 		if($filePaths == 'Y')
-			$this->loadToChisimbaFromPaths($writeData, $structure);
+			return $this->loadToChisimbaFromPaths($writeData, $structure);
 		else
 		{
 		#Pre-initialize variables
@@ -1425,6 +1449,7 @@ class importIMSPackage extends dbTable
 				#Retrieve page contents
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
+//var_dump($this->pageIds);die;
 				#Rewrite links source in html
 				$page = $this->objIEUtils->changeLinkUrl($fileContents, $this->contextCode, $this->resourceFileNames, $this->pageIds);
 				#Reinsert into database with updated links
@@ -1448,9 +1473,13 @@ class importIMSPackage extends dbTable
 	}
 
 	/**
-	 *
-	 *
-	 *
+	 * 
+	 * Locates all secondary xml files holding information,
+	 * besides imsmanifest.xml
+	 * @param $xpath - 
+	 * 
+	 * @return array $xmlFilesLocation
+	 * 
 	*/
 	function locateAllXmlFiles($xpath)
 	{
@@ -1869,6 +1898,7 @@ class importIMSPackage extends dbTable
 	*/
 	function loadToChisimbaFromPaths($mitHtmlsPath, $allXmlPackageData)
 	{
+		$menutitles = array();
 		$this->addChapters();
 		static $i = 0;
 		foreach($mitHtmlsPath as $htmlPath)
@@ -1877,27 +1907,55 @@ class importIMSPackage extends dbTable
 			#Strip navigational tags
 			$fileContents = $this->removeMITLayouts($fileContents);
 			if(preg_match('/CourseHome/', $htmlPath))
+			{
 				$menutitle = 'Course Home';
+				$filename = 'CourseHome.html';
+			}
 			else if(preg_match('/Syllabus/', $htmlPath))
+			{
 				$menutitle = 'Syllabus';
+				$filename = 'Syllabus.html';
+			}
 			else if(preg_match('/Calendar/', $htmlPath))
+			{
 				$menutitle = 'Calendar';
+				$filename = 'Calendar.html';
+			}
 			else if(preg_match('/Readings/', $htmlPath))
+			{
 				$menutitle = 'Readings';
+				$filename = 'Readings.html';
+			}
 			else if(preg_match('/Labs/', $htmlPath))
+			{
 				$menutitle = 'Labs';
+				$filename = 'Labs.html';
+			}
 			else if(preg_match('/Assignments/', $htmlPath))
+			{
 				$menutitle = 'Assignments';
+				$filename = 'Assignments.html';
+			}
 			else if(preg_match('/Projects/', $htmlPath))
+			{
 				$menutitle = 'Projects';
+				$filename = 'Projects.html';
+			}
 			else if(preg_match('/Resources/', $htmlPath))
+			{
 				$menutitle = 'Resources';
-			else if(preg_match('/Labs/', $htmlPath))
-				$menutitle = 'Labs';
+				$filename = 'Resources.html';
+			}
 			else if(preg_match('/DownloadthisCourse/', $htmlPath))
+			{
 				$menutitle = 'Download this Course';
+				$filename = 'DownloadthisCourse.html';
+			}
 			else
+			{
 				$menutitle = 'None';
+				$filename = 'None.html';
+			}
 			#No idea!!!
 			$tree = $this->objContentOrder->getTree($this->contextCode, 'dropdown', $parent);
 			#Add page
@@ -1906,39 +1964,114 @@ class importIMSPackage extends dbTable
 								$fileContents,
 								'en',
 								'');
-        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $this->contextCode, $this->chapterId, $i, 'Y');
+        		$this->pageIds[$filename] = $this->objContentOrder->addPageToContext($titleId, $parent, $this->contextCode, $this->chapterId, $i, 'Y');
+			$menutitles[$i] = $menutitle;
 			$i++;
 		}
 
-		return TRUE;
+		return $menutitles;
 	}
 
 	/**
-	 *
-	 *
-	 *
+	 * 
+	 * 
+	 * @param string $newFolder
+	 * @param array $allFilesLocation
+	 * @param array $fileNames
+	 * 
 	*/
-	function writeMITImages($newFolder, $allFilesLocation)
+	function writeMITImages($newFolder='', $allFilesLocation, $fileNames='')
 	{
 		static $i = 0;
 		foreach($allFilesLocation as $fileLocation)
 		{
-			if(preg_match("/.jpg|.gif|.png/",$fileLocation))
+			foreach($fileNames as $fileName)
 			{
-				$filename = 'resource'.$i.'.jpg';
-				$imagePaths[$fileLocation] = $filename;
-				$fileLocation = $newFolder.'/'.$fileLocation;
-				$fileContents = file_get_contents($fileLocation);
-				$newLocation = $this->imagesLocation."/".$filename;
-				$fp = fopen($newLocation,'w');
-				if((fwrite($fp, $fileContents) === FALSE))
-					return  "writeResourcesError";
-				fclose($fp);
-				$i++;
+				if(preg_match("/$fileName/",$fileLocation))
+				{
+					if(preg_match("/.jpg|.gif|.png/",$fileLocation))
+					{
+						$filename = $fileName;
+						$imagePaths[$fileLocation] = $filename;
+						if((strlen($newFolder) > 1))
+							$fileLocation = $newFolder.'/'.$fileLocation;
+						$fileContents = file_get_contents($fileLocation);
+						$newLocation = $this->imagesLocation."/".$filename;
+						$fp = fopen($newLocation,'w');
+						if((fwrite($fp, $fileContents) === FALSE))
+							return  "writeResourcesError";
+						fclose($fp);
+						$i++;
+					}
+				}
 			}
 		}
 
 		return $imagePaths;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param string $newFolder
+	 * @param array $allFilesLocation
+	 * @param array $fileNames
+	 * 
+	*/
+	function writeMITFiles($newFolder='', $allFilesLocation, $fileNames='')
+	{
+		static $i = 0;
+		foreach($allFilesLocation as $fileLocation)
+		{
+			foreach($fileNames as $fileName)
+			{
+				if(preg_match("/$fileName/",$fileLocation))
+				{
+					if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$fileLocation)))
+					{
+						$filename = $fileName;
+						$filePaths[$fileLocation] = $filename;
+						if((strlen($newFolder) > 1))
+							$fileLocation = $newFolder.'/'.$fileLocation;
+						$fileContents = file_get_contents($fileLocation);
+						$newLocation = $this->filesLocation."/".$filename;
+						$fp = fopen($newLocation,'w');
+						if((fwrite($fp, $fileContents) === FALSE))
+							return  "writeResourcesError";
+						fclose($fp);
+						$i++;
+					}
+				}
+			}
+		}
+
+		return $filePaths;
+	}
+
+	/**
+	 * Removes all navigational tags from MIT htmls
+	 * 
+	 * @param string $fileContents
+	 *
+	 * @return string $fileContents
+	*/
+	function removeMITLayouts($fileContents)
+	{
+
+		//Strip skip to content div (working)
+		$fileContents = preg_replace('/skip to content/','',$fileContents);
+		//Strip Header div
+		$fileContents = preg_replace('%<div class="header-redline(.|\\n)+?<!-- end header-redline -->%','',$fileContents);
+		//Strip site tools div (working)
+		$fileContents = preg_replace('%<div class="sitetools(.|\\n)+?</div>%','',$fileContents);
+		//Strip left navigation div (working)
+		$fileContents = preg_replace('/<!-- LeftNav(.|\\n)+?<!-- End LeftNav -->/','',$fileContents);
+		//Strip search-form div (working)
+		$fileContents = preg_replace('/<!-- begin search(.|\\n)+?<!-- end search area -->/','',$fileContents);
+		//Strip main content div (not working)
+		$fileContents = preg_replace('%<div class="bread-crumb(.|\\n)+?</div>%','',$fileContents);
+
+		return $fileContents;
 	}
 
 

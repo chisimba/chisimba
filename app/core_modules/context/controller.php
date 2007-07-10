@@ -154,6 +154,7 @@ class context extends controller
         $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
         $this->objUtils =  & $this->newObject('utilities', 'context');
         $this->objModule = & $this->newObject('modules', 'modulecatalogue');
+		$this->setVar('pageSuppressXML',TRUE);
         /*      
         $this->objDBContentNodes=& $this->getObject('dbcontentnodes');
         $this->objIcon=& $this->getObject('geticon','htmlelements');

@@ -1147,15 +1147,19 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	 *
 	*/
     	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
-    	{
+	{
 		#Image location on disc
 		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
 		#Image location on localhost
 		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
 		#Only run through html's contained in package
+//echo a;die;
+//var_dump($fileNames);die;
+//var_dump($imageIds);die;
 		foreach($fileNames as $aFile)
 		{
+//echo $aFile.'<br />';die;
 			#Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
 			{
@@ -1174,7 +1178,10 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				if($matches)
 				{
 					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+//echo $regReplace.'<br />';
+//echo $newLink.'<br />';
 					$page = preg_replace($regReplace, $newLink, $fileContents);
+//echo $page;die;
 				}
 				#If the image was renamed
 				else
@@ -1189,6 +1196,38 @@ function recursive_remove_directory($directory, $empty=FALSE)
 					}
 				}
 			}
+		}
+
+//echo $page;die;
+		return $page;
+    	}
+
+	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+	 *
+	*/
+	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+    	{
+		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		#Run through each resource
+		$page = $fileContents;
+		foreach($fileNames as $aFile)
+		{
+			if($this->fileMod)
+			{
+				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+			}
+			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+			$modAction = $action.$pageIds[$aFile].'"';
+			$page = preg_replace($regReplace, $modAction, $page);
 		}
 
 		return $page;
@@ -1206,20 +1245,22 @@ function recursive_remove_directory($directory, $empty=FALSE)
     	 * @return string $page - the finished modified text page
 	 *
 	*/
-    	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+	function changeMITLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
     	{
 		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
 		#Run through each resource
 		$page = $fileContents;
 		foreach($fileNames as $aFile)
 		{
-			if($this->fileMod)
+			if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$aFile)))
 			{
-				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+				$modAction = $action.$pageIds[$aFile].'"';
+				$page = preg_replace($regReplace, $modAction, $page);
+echo $aFile.'<br />';
+echo $regReplace.'<br />';
+echo $modAction.'<br />';die;
 			}
-			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-			$modAction = $action.$pageIds[$aFile].'"';
-			$page = preg_replace($regReplace, $modAction, $page);
 		}
 
 		return $page;
