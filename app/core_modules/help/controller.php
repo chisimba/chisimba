@@ -98,8 +98,11 @@ class help extends controller
             $helptext = 'help_'.$module.'_overview_'.$helpItem;
             $helptitle = 'help_'.$module.'_title_'.$helpItem;
         }
+        
+        $first = 'help_'.$module.'_title_%';
+        $second = 'help_'.$module.'_about_title';
 
-        $filter = 'SELECT * FROM tbl_languagetext WHERE (code LIKE "help_'.$module.'_title_%" OR code = "help_'.$module.'_about_title") AND code != "'.$helptitle.'" ORDER BY code';
+        $filter = "SELECT * FROM tbl_languagetext WHERE code LIKE '$first' OR code = '$second' AND code != '$helptitle' ORDER BY code";
 
         $helpTitle = $this->objLanguage->code2Txt($helptitle, $module);
         $helpText = $this->objLanguage->code2Txt($helptext, $module);
