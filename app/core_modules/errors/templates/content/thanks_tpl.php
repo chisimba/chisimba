@@ -35,3 +35,4 @@ $midcol .= $objFeatureBox->show($this->objLanguage->languageText("mod_errors_mai
 $cssLayout->setMiddleColumnContent($midcol);
 
 echo $cssLayout->show();
+?>
