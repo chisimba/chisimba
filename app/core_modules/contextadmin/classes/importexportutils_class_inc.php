@@ -1154,12 +1154,9 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		#Image location on localhost
 		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
 		#Only run through html's contained in package
-//echo a;die;
-//var_dump($fileNames);die;
-//var_dump($imageIds);die;
+		$page = $fileContents;
 		foreach($fileNames as $aFile)
 		{
-//echo $aFile.'<br />';die;
 			#Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
 			{
@@ -1178,10 +1175,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				if($matches)
 				{
 					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
-//echo $regReplace.'<br />';
-//echo $newLink.'<br />';
-					$page = preg_replace($regReplace, $newLink, $fileContents);
-//echo $page;die;
+					$page = preg_replace($regReplace, $newLink, $page);
 				}
 				#If the image was renamed
 				else
@@ -1198,7 +1192,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 			}
 		}
 
-//echo $page;die;
 		return $page;
     	}
 
@@ -1214,20 +1207,37 @@ function recursive_remove_directory($directory, $empty=FALSE)
     	 * @return string $page - the finished modified text page
 	 *
 	*/
-	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='')
     	{
 		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
 		#Run through each resource
 		$page = $fileContents;
-		foreach($fileNames as $aFile)
+		if($packageType == 'mit')
 		{
-			if($this->fileMod)
+/*
+			$page = preg_replace('%<a href=".*?CourseHome/index.*?">%', $action.$pageIds['CourseHome.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Assignments/index.*?">%', $action.$pageIds['Assignments.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Calendar/index.*?">%', $action.$pageIds['Calendar.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?DownloadThisCourse/index.*?">%', $action.$pageIds['DownloadThisCourse.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Labs/index.*?">%', $action.$pageIds['Labs.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Projects/index.*?">%', $action.$pageIds['Projects.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Readings/index.*?">%', $action.$pageIds['Readings.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?RelatedResources/index.*?">%', $action.$pageIds['Related.html'].'"', $page);
+			$page = preg_replace('%<a href=".*?Syllabus/index.*?">%', $action.$pageIds['Syllabus.html'].'"', $page);
+*/
+		}
+		else
+		{
+			foreach($fileNames as $aFile)
 			{
-				$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+				if($this->fileMod)
+				{
+					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+				}
+				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+				$modAction = $action.$pageIds[$aFile].'"';
+				$page = preg_replace($regReplace, $modAction, $page);
 			}
-			$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-			$modAction = $action.$pageIds[$aFile].'"';
-			$page = preg_replace($regReplace, $modAction, $page);
 		}
 
 		return $page;
@@ -1247,7 +1257,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	*/
 	function changeMITLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
     	{
-		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		$action = 'href="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&action=fileinfo&amp;id=';
 		#Run through each resource
 		$page = $fileContents;
 		foreach($fileNames as $aFile)
@@ -1257,9 +1267,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
 				$modAction = $action.$pageIds[$aFile].'"';
 				$page = preg_replace($regReplace, $modAction, $page);
-echo $aFile.'<br />';
-echo $regReplace.'<br />';
-echo $modAction.'<br />';die;
 			}
 		}
 
