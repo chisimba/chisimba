@@ -306,11 +306,11 @@ Draggable.prototype = {
       // abort on form elements, fixes a Firefox issue
       var src = Event.element(event);
       if(src.tagName && (
-        src.tagName=='INPUT' ||
-        src.tagName=='SELECT' ||
-        src.tagName=='OPTION' ||
-        src.tagName=='BUTTON' ||
-        src.tagName=='TEXTAREA')) return;
+        src.tagName=='input' ||
+        src.tagName=='select' ||
+        src.tagName=='option' ||
+        src.tagName=='button' ||
+        src.tagName=='textarea')) return;
         
       var pointer = [Event.pointerX(event), Event.pointerY(event)];
       var pos     = Position.cumulativeOffset(this.element);
@@ -574,7 +574,7 @@ var Sortable = {
   sortables: {},
   
   _findRootElement: function(element) {
-    while (element.tagName != "BODY") {  
+    while (element.tagName != "body") {  
       if(element.id && Sortable.sortables[element.id]) return element;
       element = element.parentNode;
     }
@@ -923,11 +923,11 @@ Element.isParent = function(child, element) {
 
 Element.findChildren = function(element, only, recursive, tagName) {    
   if(!element.hasChildNodes()) return null;
-  tagName = tagName.toUpperCase();
+  tagName = tagName.toLowerCase();
   if(only) only = [only].flatten();
   var elements = [];
   $A(element.childNodes).each( function(e) {
-    if(e.tagName && e.tagName.toUpperCase()==tagName &&
+    if(e.tagName && e.tagName.toLowerCase()==tagName &&
       (!only || (Element.classNames(e).detect(function(v) { return only.include(v) }))))
         elements.push(e);
     if(recursive) {
