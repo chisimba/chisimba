@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /**
  * Class to handle errors within the framework
