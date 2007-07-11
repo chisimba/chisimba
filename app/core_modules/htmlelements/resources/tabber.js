@@ -348,7 +348,7 @@ tabberObj.prototype.navClick = function(event)
   }
 
   self.tabShow(tabberIndex);
-  adjustLayout();
+  fixLayout();
 
   return false;
 };
@@ -524,4 +524,21 @@ if (typeof tabberOptions == 'undefined') {
     tabberAutomaticOnLoad(tabberOptions);
   }
 
+}
+
+// for chisimba only
+function fixLayout()
+{
+    // Get natural heights  
+    var cHeight = xHeight("contentcontent");  
+    var lHeight = xHeight("leftcontent");  
+    var rHeight = xHeight("rightcontent");  
+            
+    // Find the maximum height  
+    var maxHeight = Math.max(cHeight, Math.max(lHeight, rHeight));  
+            
+    // Assign maximum height to all columns              
+    xHeight("content", maxHeight);  
+    xHeight("left", maxHeight);  
+    xHeight("right", maxHeight);  
 }

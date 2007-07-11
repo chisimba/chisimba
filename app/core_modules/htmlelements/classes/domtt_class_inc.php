@@ -67,3 +67,4 @@ class domtt extends object
 
     }
 }
+?>

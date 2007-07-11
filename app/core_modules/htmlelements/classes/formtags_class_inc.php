@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Simple class to output start and end tags for form elements

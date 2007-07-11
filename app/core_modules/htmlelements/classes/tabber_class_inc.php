@@ -48,6 +48,8 @@ class tabber extends object
     */    
     public function init()
     {
+        $headerParams = $this->getJavascriptFile('x.js', 'htmlelements');
+        $this->appendArrayVar('headerParams', $headerParams);
         $headerParams = $this->getJavascriptFile('tabber.js', 'htmlelements');
         $this->appendArrayVar('headerParams', $headerParams);
         $link = '<link id="tabber" type="text/css" rel="stylesheet" href="core_modules/htmlelements/resources/css/tabber.css" />';

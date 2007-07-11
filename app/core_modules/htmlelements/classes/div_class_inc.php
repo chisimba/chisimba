@@ -31,4 +31,4 @@ class div {
 		$str.='>';
 		return $str;
 	}
-<?
+?>

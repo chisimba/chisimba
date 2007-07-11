@@ -1,6 +1,6 @@
 <script language="JavaScript" src="core_modules/htmlelements/resources/tabbedbox.js"></script>
 
-<?
+<?php
 //echo $strElements;
 		$this->leftNav = $this->getObject('layer','htmlelements');
 		$this->leftNav->id = "leftnav";
@@ -27,4 +27,3 @@ echo $this->contentNav->addToLayer();
 
 	
 ?>
-
