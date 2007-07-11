@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Class to provide SysConfig an input for the KEWL_DEFAULT_SKIN parameter

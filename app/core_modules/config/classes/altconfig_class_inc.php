@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Adaptor Pattern around the PEAR::Config Object
  * This class will provide the kng configuration to Engine

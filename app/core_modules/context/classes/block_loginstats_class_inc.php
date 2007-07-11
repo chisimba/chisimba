@@ -1,4 +1,4 @@
-<?
+<?php
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
@@ -85,3 +85,4 @@ class block_loginstats extends object
         return $this->rTable->show();
     }
 }
+?>
