@@ -18,7 +18,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * Example:
 *
-* $switchmenu = $this->newObject('switchmenu', 'blocks');
+* $switchmenu = $this->newObject('switchmenu', 'htmlelements');
 * $switchmenu->addBlock('Title 1', 'Block Text 1 <br /> Block Text 1 <br /> Block Text 1');
 * $switchmenu->addBlock('Title 2', 'Block Text 2 <br /> Block Text 2 <br /> Block Text 2', 'confirm'); // Adds a CSS Style
 * $switchmenu->addBlock('Title 3', 'Block Text 3 <br /> Block Text 3 <br /> Block Text 3');
@@ -75,6 +75,8 @@ class switchmenu extends object
     */
     public function show()
     {
+        $this->setVar('pageSuppressXML', TRUE);
+        
         return $this->_beginSwitchMenu().$this->_generateBlocks().$this->_endSwitchMenu();
     }
 
