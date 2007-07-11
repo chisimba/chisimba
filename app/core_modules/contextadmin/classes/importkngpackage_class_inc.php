@@ -401,3 +401,4 @@ class importKNGPackage extends dbTable
 	}
 
 }
+?>

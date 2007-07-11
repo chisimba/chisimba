@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   $sqldata[]="CREATE TABLE tbl_context_parentnodes_has_tbl_context (
   tbl_context_contextCode VARCHAR(255) NOT NULL,

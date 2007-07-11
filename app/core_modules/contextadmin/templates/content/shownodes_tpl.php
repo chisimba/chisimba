@@ -1,4 +1,4 @@
-<?
+<?php
 echo $this->getJavascriptFile('TreeMenu.js','tree');
 $tree = & $this->newObject('sharednodes', 'contextcontent');
 $objHeading = & $this->newObject('htmlheading','htmlelements');

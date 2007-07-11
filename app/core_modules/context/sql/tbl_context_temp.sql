@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   $sqldata[]="CREATE TABLE `tbl_context_temp` (
   `id` int(11) NOT NULL auto_increment,

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to provide SysConfig an input for enabling/disabling the BY/NC-ND license
 * @author Tohir Solomons

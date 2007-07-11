@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   $sqldata[]="CREATE TABLE tbl_contextmodules (
   id varchar(32) NOT NULL default '',

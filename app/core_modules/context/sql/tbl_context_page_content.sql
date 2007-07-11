@@ -1,4 +1,4 @@
-<?
+<?php
   $sqldata[]="CREATE TABLE tbl_context_page_content (
   id VARCHAR(32) NOT NULL,
   tbl_context_nodes_id VARCHAR(32) NOT NULL,

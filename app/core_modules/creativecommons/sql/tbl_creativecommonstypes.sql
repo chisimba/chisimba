@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Table Name
 $tablename = 'tbl_creativecommonstypes';

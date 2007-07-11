@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 $sqldata[]="CREATE TABLE `tbl_chat_users` (
   `id` varchar(32) NOT NULL default '',

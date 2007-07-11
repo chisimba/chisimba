@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   $sqldata[]="CREATE TABLE tbl_context (
   id VARCHAR(32) NOT NULL,

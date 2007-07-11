@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * class to read an XML file and turn it into an assoc array
 * makes no assumptions about what the xml contains

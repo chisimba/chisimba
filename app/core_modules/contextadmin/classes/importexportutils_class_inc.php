@@ -1562,3 +1562,4 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	}
 
 }
+?>
