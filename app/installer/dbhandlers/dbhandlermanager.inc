@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 /**
 * Class to encapsulate management operations on [a] database(s).
