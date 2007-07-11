@@ -161,3 +161,4 @@ class sysconfiginterface extends object
         return $objForm->show();
     } #function showAddForm
 } #class
+?>

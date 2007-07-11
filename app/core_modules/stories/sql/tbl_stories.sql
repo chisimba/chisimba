@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 $sqldata[]="CREATE TABLE `tbl_stories` (

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * User Admin Functionality Class
 *

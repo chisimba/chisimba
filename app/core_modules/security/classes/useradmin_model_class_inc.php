@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * This class is used by the useradmin module
 * @author James Scoble

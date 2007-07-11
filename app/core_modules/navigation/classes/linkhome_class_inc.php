@@ -1,4 +1,4 @@
-<?
+<?php
 
 /***
 * A simple classs that puts up links back to the module main page, and to the site main page.
