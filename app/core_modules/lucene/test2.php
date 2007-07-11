@@ -30,3 +30,4 @@ foreach (glob("*.html") as $filename) {
 //write the index to disc
 $index->commit();
 print_r($index->getFieldNames());
+?>
