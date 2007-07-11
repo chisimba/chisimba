@@ -61,3 +61,4 @@ class outputplugins extends controller
     }
     
 }
+?>
