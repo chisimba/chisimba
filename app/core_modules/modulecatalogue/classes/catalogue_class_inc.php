@@ -103,3 +103,4 @@ class catalogue extends object {
 		}
     }
 }
+?>
