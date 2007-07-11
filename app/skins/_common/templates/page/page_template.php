@@ -87,16 +87,9 @@ if (!isset($pageTitle)) {
 <?php 
         }
     }
-    echo $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/builder.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/effects.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/dragdrop.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/controls.js','htmlelements')."\n";
-    echo $this->getJavascriptFile('scriptaculous/1.6.5/slider.js','htmlelements')."\n";
-//  Do not include the scriptaculous.js file
-//  It tries to write directly to the DOM which is illegal in XHTML
-//  echo $this->getJavascriptFile('scriptaculous/1.7.0/scriptaculous.js','htmlelements')."\n";
-//    echo $this->getJavascriptFile('scriptaculous/1.7.0/unittest.js','htmlelements')."\n";
+    
+    $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+    echo $scriptaculous->show($mime);
 
     if (isset($headerParams)) {
         if (is_array($headerParams)) {
