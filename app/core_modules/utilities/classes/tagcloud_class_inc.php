@@ -126,3 +126,4 @@ class tagcloud extends object
 	}
 
 }
+?>

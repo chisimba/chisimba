@@ -32,3 +32,4 @@ class yaml extends object
 		return $this->objYaml->dump($array, $indent, $wordwrap);
 	}
 }
+?>

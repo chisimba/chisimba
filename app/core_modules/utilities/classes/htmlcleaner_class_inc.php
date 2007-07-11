@@ -52,3 +52,4 @@ class htmlcleaner  extends object
     }
 
 }
+?>

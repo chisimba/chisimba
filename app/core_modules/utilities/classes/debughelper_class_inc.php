@@ -62,3 +62,4 @@ class debughelper extends object
         return $output;
     }
 }
+?>

@@ -1,4 +1,4 @@
-<?
+<?php
  /**
  * Class for reading and writing arrays in XML
  * The Serialize and Unserialize classes extend PEAR
