@@ -23,9 +23,7 @@ class yaml extends object
 			return $this->objYaml->load($file);
 		}
 		else {
-			// create the file
-			touch($file);
-			return $this->objYaml->load($file);
+			return FALSE;
 		}
 	}
 	
