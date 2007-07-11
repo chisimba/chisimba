@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to present a preview of files
 *

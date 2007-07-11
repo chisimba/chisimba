@@ -27,7 +27,7 @@ foreach ($this->abstractionArray as $name=>$value)
 <script src="core_modules/tree/resources/TreeMenu.js" language="JavaScript" type="text/javascript"></script>
 <script src="core_modules/groupadmin/resources/sorttable.js" language="JavaScript" type="text/javascript"></script>
 
-<?
+<?php
 $objTable =& $this->newObject('htmltable', 'htmlelements');
 $objHead =& $this->newObject('htmlheading', 'htmlelements');
 $objLayer =& $this->newObject('layer', 'htmlelements');
@@ -74,3 +74,4 @@ if(!is_null($rightCol)){
 }
 $objTable->endRow();
 echo $objTable->show();
+?>

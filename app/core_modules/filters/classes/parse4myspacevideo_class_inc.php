@@ -87,3 +87,4 @@ class parse4myspacevideo extends object
     }
     
 }
+?>

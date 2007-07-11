@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Class to process Success and Error Message for Uploads

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to handle interaction with table tbl_files_metadata_media
 * This table relates to metadata about media files such as images, audio, video and flash

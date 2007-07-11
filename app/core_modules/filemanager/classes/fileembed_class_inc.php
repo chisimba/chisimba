@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to Generate the Code to <embed> a Media Object in a Webpage
 *

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Class to Clean up a URL

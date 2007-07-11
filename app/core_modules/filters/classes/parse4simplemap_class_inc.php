@@ -55,3 +55,4 @@ class parse4simplemap extends object
     }
 
 }
+?>

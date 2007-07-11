@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 CREATE TABLE `tbl_file_usage` (
 `id` VARCHAR( 32 ) NOT NULL ,

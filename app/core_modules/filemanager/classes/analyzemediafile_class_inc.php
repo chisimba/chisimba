@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to Analyse Media Files
 *

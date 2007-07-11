@@ -49,3 +49,4 @@ class parse4pdf extends object
         return $str;
     }
 }
+?>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $tablename = 'tbl_files_userfilters_file';
 

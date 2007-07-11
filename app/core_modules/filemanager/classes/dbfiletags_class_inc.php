@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to handle interaction with table tbl_files_filetags
 * This table relates to story tags and keywords of files

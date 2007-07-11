@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class to Show a File Selector Input
  *

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 CREATE TABLE `tbl_files_metadata_media` (
   `id` varchar(32) NOT NULL,

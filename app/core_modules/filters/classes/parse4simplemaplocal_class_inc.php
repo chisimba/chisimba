@@ -58,3 +58,4 @@ class parse4simplemaplocal extends object
     }
 
 }
+?>

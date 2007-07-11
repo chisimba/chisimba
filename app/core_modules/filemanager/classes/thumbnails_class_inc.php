@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to Generate Thumbnails for the File Manager
 *

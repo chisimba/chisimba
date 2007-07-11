@@ -52,4 +52,5 @@ if (count($moduleHelp) > 0) {
 ?>
 </div>
 
-<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php //echo $richHelp; ?></div>
+<div style="position: fixed; height: 40px; bottom: 0; left: 0; width:100%; right: 0; padding: 5px;" id="footer"><?php //echo $richHelp; 
+?></div>

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class to Show an Image Selector Input
  *

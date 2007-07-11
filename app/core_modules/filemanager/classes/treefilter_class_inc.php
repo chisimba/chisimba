@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to show the File Manager Navigation as a tree
 * @author Tohir Solomons

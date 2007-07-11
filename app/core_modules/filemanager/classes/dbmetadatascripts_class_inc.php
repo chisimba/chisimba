@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to handle interaction with table tbl_files_metadata_scripts
 * This table relates to metadata about scripts

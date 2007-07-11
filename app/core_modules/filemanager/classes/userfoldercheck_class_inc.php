@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Check whether User Folder for Upload Exists
 *

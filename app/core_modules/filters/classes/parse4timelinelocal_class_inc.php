@@ -52,3 +52,4 @@ class parse4timelinelocal extends object
         return $str;
     }
 }
+?>

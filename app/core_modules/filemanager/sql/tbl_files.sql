@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 CREATE TABLE `tbl_files` (
   `id` varchar(32)  NOT NULL,

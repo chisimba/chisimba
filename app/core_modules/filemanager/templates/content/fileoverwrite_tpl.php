@@ -1,4 +1,4 @@
-<?
+<?php
 $this->loadClass('htmlheading', 'htmlelements');
 
 $objCheckOverwrite = $this->getObject('checkoverwrite');

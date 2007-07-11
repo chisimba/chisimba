@@ -89,3 +89,4 @@ class del extends object
     } //function
     
 } // end of class
+?>

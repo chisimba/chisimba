@@ -139,3 +139,4 @@ class flashfreemind extends object
     }
  
 } 
+?>

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to Convert a Multidimensional array into a single array
 *

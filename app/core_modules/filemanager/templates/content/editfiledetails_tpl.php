@@ -1,4 +1,4 @@
-<?
+<?php
 
 $this->objFileIcons =& $this->getObject('fileicons', 'files');
 $this->loadClass('form', 'htmlelements');

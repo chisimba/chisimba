@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to handle interaction with table tbl_files_folders
 * This table lists all folders that are created on the system

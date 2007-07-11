@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to detemine which subfolder a file should be placed in
 *

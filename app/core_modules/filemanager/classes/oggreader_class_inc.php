@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Class to Get Metadata from OGG Files whether audio or video
  *

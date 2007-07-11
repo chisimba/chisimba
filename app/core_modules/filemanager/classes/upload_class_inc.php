@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
 * Class to Handle Uploads for User Files

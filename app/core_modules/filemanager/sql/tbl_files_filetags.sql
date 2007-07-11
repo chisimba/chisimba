@@ -1,4 +1,4 @@
-<?
+<?php
 $tablename = 'tbl_files_filetags';
 
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * Class to handle interaction with table tbl_files
 * This table lists all files that were uploaded to the system

@@ -70,6 +70,4 @@ echo $this->objUpload->show($folderId);
 
 echo $this->objFolders->showCreateFolderForm($folderId);
 
- ?>
-
-
+?>
