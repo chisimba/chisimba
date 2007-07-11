@@ -29,6 +29,14 @@ function SwitchMenu(obj, mainDiv){
             el.style.display = "none";
         }
     }
+    
+    /* This is an addition that resizes the layouts in Chisimba when a tab is clicked
+    It first checks whether the css layout class is being used, and then runs the function to adjust layouts
+    It does so by detecting whether the function exists
+    */
+    if ('function' == typeof window.adjustLayout) {
+        adjustLayout();
+    }
 }
 
 function get_cookie(Name) {
