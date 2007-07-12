@@ -103,7 +103,6 @@ if ($modules) {
         //echo $moduleId;
         $icon->setModuleIcon($moduleId);
         $icon->alt = $moduleId;
-
         if (in_array($moduleId,$localModules)){ //dont display downloadable modules until that functionality is complete
             $textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');

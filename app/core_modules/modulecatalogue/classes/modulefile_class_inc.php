@@ -53,7 +53,8 @@ class modulefile extends object {
             		case 'CVSROOT':
             			break; // don't bother with system-related dirs
             		default:
-            			if (is_dir("$lookdir/$line")||is_dir($this->config->getSiteRootPath()."/core_modules/$line")) {
+                        if (filesize($this->findregisterfile($line)) > 0) {
+            		    //if (is_dir("$lookdir/$line")||is_dir($this->config->getSiteRootPath()."/core_modules/$line")) {
             				$modulelist[] = $line;
             			}
             	}
