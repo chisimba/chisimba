@@ -16,49 +16,52 @@ switch ($uploadStatus)
 		$message = 'Incorrect zipfile';
 	break;
 	case 'unzipError':
-		$message = 'Permissions Error';
+		$message = 'Permissions denied or directory doesn\'t exist';
 	break;
 	case 'fileReadError':
-		$message = 'Cant read zipfile';
+		$message = 'Can\'t read zipfile';
 	break;
 	case 'imsReadError':
-		$message = 'Cant read ims manifest file';
+		$message = 'Can\'t read IMS manifest file';
 	break;
 	case 'simpleXmlError':
-		$message = '';
+		$message = 'Can\'t load IMS manifest file';
 	break;
 	case 'domReadError':
-		$message = '';
+		$message = 'Can\'t load IMS manifest file';
 	break;
 	case 'xpathSetError':
-		$message = '';
+		$message = 'Can\'t load IMS manifest file';
 	break;
 	case 'courseReadError':
-		$message = '';
+		$message = 'Can\'t access Course information from database';
 	break;
 	case 'initializeError':
-		$message = '';
+		$message = 'Cant\'t initialize directory locations';
 	break;
 	case 'courseWriteError':
-		$message = 'Course duplication';
+		$message = 'Course duplication exists or database can\'t be accessed';
 	break;
 	case 'writeResourcesError':
-		$message = '';
+		$message = 'Permissions denied or directory doesn\'t';
 	break;
 	case 'noStructureError':
-		$message = '';
+		$message = 'Can\'t read IMS manifest file';
 	break;
 	case 'loadDataError':
-		$message = '';
+		$message = 'Can\'t access database or duplication in database';
 	break;
 	case 'uploadError':
-		$message = '';
+		$message = 'Can\'t access database or duplication in database';
 	break;
 	case 'rebuildHtmlError':
-		$message = '';
+		$message = 'Cant\'t modify pages or permissions denied';
 	break;
 	case 'success':
 		$message = 'Successful Upload';
+	break;
+	case 'unknownPackage':
+		$message = 'Unknown Package type';
 	break;
 	default:
 		$message = 'Unexpected Error';
