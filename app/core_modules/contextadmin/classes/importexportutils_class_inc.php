@@ -902,7 +902,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$loginButton->extra = 'onclick="javascript:getLoginInfo();"';
 		//Package type
 		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('default','Default');
+		$pakRadio->addOption('default','eduCommons');
 		$pakRadio->addOption('mit','MIT');
 		$pakRadio->setSelected('default');
 
@@ -935,7 +935,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$this->switchDatabase();
 		$form3->addToForm($form);
 		$form3->addToForm('<hr />');
-		$form3->addToForm($form2);
+		//$form3->addToForm($form2);
 
 		return $form3;
 	}
