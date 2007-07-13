@@ -94,6 +94,8 @@
             <module>contextadmin</module>
             <module>contextgroups</module>
             <module>contextpermissions</module>
+            <module>contextprelogin</module>
+            <module>contextpostlogin</module>
             <module>email</module>
             <module>essay</module>
             <module>essayadmin</module>
