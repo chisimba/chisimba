@@ -226,6 +226,12 @@ class contextadmin extends controller
 			return 'errorreport_tpl.php';
 	break;
 	/**
+	 *
+	*/
+	case 'connectToServer':
+		$this->connekt();
+	break;
+	/**
 	 * 
 	*/
         case 'debug':
@@ -238,6 +244,10 @@ class contextadmin extends controller
         }
     }
     
+	function connekt()
+	{
+		echo a;
+	}
 
     /**
      * Method to load an HTML element's class.
