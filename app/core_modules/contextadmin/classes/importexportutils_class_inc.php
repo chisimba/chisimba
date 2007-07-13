@@ -267,9 +267,9 @@ class importexportutils extends dbTable
         	$this->_tableName = $table;
         	$res = $this->objDb->query($filter);
         	//set the return mode to return an associative array
-
+	
         	return $res->fetchAll(MDB2_FETCHMODE_ASSOC);
-    	}
+	}
 
 	/**
 	 *
@@ -671,7 +671,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	*/
 	function convertArray($courseData)
 	{
-		//var_dump($courseData);
 		//Convert 2-d array into 1-d array
 		$newCourse['id'] = $courseData['0']['id'];
 		$newCourse['contextcode'] = $courseData['0']['contextcode'];
@@ -880,6 +879,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$courseLabel = new label("Select Course","");
 		//Dropdown - course selection
 		$courseDropDown = new dropdown('dropdownchoice');
+/*
 		$server = $this->getParam('server');
 		$server = "localhost";
 		$course = $this->getParam('course');
@@ -893,12 +893,13 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		{
 			$courseDropDown->addOption($dataOld['contextcode']);
 		}
-
+*/
 		//Button
 		$loginButton = $this->newObject('button','htmlelements');
 		$loginButton->cssClass = 'f-submit';
 		$loginButton->setValue('Login');
-		$loginButton->setToSubmit();
+		//$loginButton->setToSubmit();
+		$loginButton->extra = 'onclick="javascript:getLoginInfo();"';
 		//Package type
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('default','Default');
@@ -1406,159 +1407,34 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$doc = new DOMDocument('1.0');
 		$doc->load($imsFileLocation);
 		$xpath = new DOMXPath($doc);
-		//$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
 		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
 		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
 #course title
-		echo "<b>course title</b>"."<br />";
 		$query = '//imsmd:title/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-		//var_dump($results->item(0)->nodeValue);
-		//var_dump($results(0));
 #course id
-		echo "<b>course id</b>"."<br />";
 		$query = '//imsmd:identifier/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-		//var_dump($results->item(0)->nodeValue);
 #course description
-		echo "<b>course description</b>"."<br />";
 		$query = '//imsmd:description/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-		//var_dump($results->item(0)->nodeValue);
 #course html?
-		echo "<b>course html</b>"."<br />";
 		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
 #clearedcopyright
-		echo "<b>clearedcopyright</b>"."<br />";
-		$query = '//manifest/metadata/imsmd:lom/imsmd:general';//educommons:clearedcopyright';
+		$query = '//manifest/metadata/imsmd:lom/imsmd:general';
 		//$query = '//imsmd:general/educommons:clearedcopyright';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-/*
-	$xml ='<?xml version="1.0" encoding="ISO-8859-1"?>
-
-<bookstore>
-
-<book category="COOKING">
-  <title lang="en">Everyday Italian</title>
-  <author>Giada De Laurentiis</author>
-  <year>2005</year>
-  <price>30.00</price>
-</book>
-
-<book category="CHILDREN">
-  <title lang="en">Harry Potter</title>
-  <author>J K. Rowling</author>
-  <year>2005</year>
-  <price>29.99</price>
-</book>
-
-<book category="WEB">
-  <title lang="en">XQuery Kick Start</title>
-  <author>James McGovern</author>
-  <author>Per Bothner</author>
-  <author>Kurt Cagle</author>
-  <author>James Linn</author>
-  <author>Vaidyanathan Nagarajan</author>
-  <year>2003</year>
-  <price>49.99</price>
-</book>
-
-<book category="WEB">
-  <title lang="en">Learning XML</title>
-  <author>Erik T. Ray</author>
-  <year>2003</year>
-  <price>39.95</price>
-</book>
-
-</bookstore>';
-
-		$doc = new DOMDocument();
-		$doc->load("/opt/lampp/htdocs/example.xml");
-		//echo $doc->saveXML();
-		$xpath = new DOMXPath($doc);
-		$query = '/bookstore/book/price';
-		$results = $xpath->evaluate($query);
-		//var_dump($results);
-		foreach($results as $result)
-		{
-			//var_dump($result);
-			//echo (string)$result;
-			//echo $result->title->price;
-			//echo $doc->saveXML($result);
-		}
-		//echo count($results);
-
-		$doc->load($imsFileLocation);
-		$xpath = new DOMXPath($doc);
-		#Set eduCommons namespaces
-		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
-		#Set imsmd namespaces
-		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-#course title
-		$query = '//imsmd:title/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		foreach($results as $result)
-		{
-			echo $doc->saveXML($result);
-		}
-
-
-		//echo $imsFileLocation;
-		$doc = new DOMDocument();
-		$doc->load($imsFileLocation);
-		//echo $doc->saveXML();
-		$xpath = new DOMXPath($doc);
-		//echo $xpath;
-		//var_dump($xpath);
-		#Set eduCommons namespaces
-		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
-		#Set imsmd namespaces
-		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-#course title
-//e = xml.xpath.Compile("//imsmd:title/imsmd:langstring")
-//nodes = e.evaluate(c)
-		$query = '//imsmd:title/imsmd:langstring';
-		$results = $xpath->query($query);
-//		var_dump($results);
-//		echo count($results);
-		foreach($results as $result)
-		{
-//			var_dump($result);
-		}
-
-		$results = $xpath->evaluate($query);
-		var_dump($results);
-		echo count($results);
-		foreach($results as $result)
-		{
-			var_dump($result);
-		}
-
-
-		$query = '//imsmd:identifier/imsmd:langstring';
-		$results = $xpath->query($query);
-		foreach($results as $result)
-		{
-//			var_dump($result);
-		}
-		$query = '//imsmd:identifier/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		foreach($results as $result)
-		{
-			var_dump($result);
-		}
-*/
 	}
 
 }
