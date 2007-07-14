@@ -21,7 +21,10 @@ echo $objH->show();
 
 
  	$form = $this->objIEUtils->uploadTemplate();
+    /////----this is the line where the object string conversion error happens////////////////////////////
 	$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+    
+    
 // 	$form = $this->objIEUtils->downloadTemplate();
 //	$tabBox->addTab(array('name'=> "Export",'content' => $form->show()));
 
@@ -64,7 +67,7 @@ if (isset($contextList))
 		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_lastupdatedby",'context') .' : <span class="highlight">'.$this->_objUser->fullname($context['lastupdatedby']).'</span>';
 		$content .= '<br/>'.$this->_objLanguage->languageText("mod_context_noregusers",'context') .': <span class="highlight">'.$userCount.'</span></p>';
 		$content .= '<p>'.$this->_objUtils->getPlugins($context['contextcode']).'</p>';
-		
+
 		
 		//administer context
 		//enter context
