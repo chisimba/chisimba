@@ -57,17 +57,17 @@ class contextadmin extends controller
         $this->_objLanguage = & $this->newObject('language', 'language');
         $this->_objUtils = & $this->newObject('utils', 'contextadmin');
         $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
-	//Load Export class
-	$this->objExportContent = & $this->newObject('export','contextadmin');
-
-	//Load Import IMS class
-	$this->objImportIMSContent = & $this->newObject('importimspackage','contextadmin');
-	//Load Import KNG class
-	$this->objImportKNGContent = & $this->newObject('importkngpackage','contextadmin');
-	//Load Export IMS class
-	$this->objExportIMSContent = & $this->newObject('exportimspackage','contextadmin');
-	//Load Import Export Utilities class
-	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
+    	//Load Export class
+    	$this->objExportContent = & $this->newObject('export','contextadmin');
+    
+    	//Load Import IMS class
+    	$this->objImportIMSContent = & $this->newObject('importimspackage','contextadmin');
+    	//Load Import KNG class
+    	$this->objImportKNGContent = & $this->newObject('importkngpackage','contextadmin');
+    	//Load Export IMS class
+    	$this->objExportIMSContent = & $this->newObject('exportimspackage','contextadmin');
+    	//Load Import Export Utilities class
+    	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
         $this->objConf = &$this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
 
