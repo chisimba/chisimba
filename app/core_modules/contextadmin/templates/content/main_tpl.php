@@ -19,10 +19,11 @@ $objH->str = ucwords($objLanguage->code2Txt('mod_contextadmin_contextadmin', 'co
 $objH->type = 3;
 echo $objH->show();
 
+/////----this is the line where the object string conversion error happens////////////////////////////
+$form = $this->objIEUtils->uploadTemplate();
+///*************************************
 
- 	$form = $this->objIEUtils->uploadTemplate();
-    /////----this is the line where the object string conversion error happens////////////////////////////
-	$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
     
     
 // 	$form = $this->objIEUtils->downloadTemplate();
