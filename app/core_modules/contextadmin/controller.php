@@ -60,13 +60,14 @@ class contextadmin extends controller
     	//Load Import IMS class
     	$this->objImportIMSContent = & $this->newObject('importimspackage','contextadmin');
     	//Load Import KNG class
-    	$this->objImportKNGContent = & $this->newObject('importkngpackage','contextadmin');
+    	//$this->objImportKNGContent = & $this->newObject('importkngpackage','contextadmin');
     	//Load Export IMS class
-    	$this->objExportIMSContent = & $this->newObject('exportimspackage','contextadmin');
+    	//$this->objExportIMSContent = & $this->newObject('exportimspackage','contextadmin');
     	//Load Import Export Utilities class
     	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
         $this->objConf = $this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
+	$this->setVar('pageSuppressXML',TRUE);
 
     }
     
@@ -157,19 +158,11 @@ class contextadmin extends controller
 		//Instantiate the Import of IMS package
 		$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package);
 		$this->setVar('uploadStatus',$uploadStatus);
-		$this->setSession('uploadStatus', $uploadStatus);
-
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
 	break;
-
-		if(!(strcmp($uploadStatus, '/error/')))
-			return 'uploadstatus_tpl.php';
-		else
-			return 'errorreport_tpl.php';
-
 
 	/**
 	 * Executes the Uploading of KNG package into Chisimba
@@ -178,7 +171,7 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
-		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
+		//$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
@@ -198,7 +191,7 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
-		$uploadStatus = $this->objExportIMSContent->exportChisimbaContent($choice);
+		//$uploadStatus = $this->objExportIMSContent->exportChisimbaContent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
@@ -212,22 +205,13 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
-		$uploadStatus = $this->objExportIMSContent->exportKNGContent($choice);
+		//$uploadStatus = $this->objExportIMSContent->exportKNGContent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
 	break;
-	/**
-	 *
-	*/
-	case 'connectToServer':
-		$this->connekt();
-	break;
-	/**
-	 * 
-	*/
         case 'debug':
 		$this->setLayoutTemplate('debug_tpl.php');
 
@@ -238,11 +222,6 @@ class contextadmin extends controller
         }
     }
     
-	function connekt()
-	{
-		echo a;
-	}
-
     /**
      * Method to load an HTML element's class.
      * @param string $name The name of the element
