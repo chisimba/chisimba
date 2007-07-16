@@ -48,7 +48,7 @@ class browser extends object
 	 */
 	public function init()
 	{
-		$agent = $_SERVER['HTTP_USER_AGENT'];
+		$agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 		//set the useragent property
 		$this->useragent = $agent;
 
