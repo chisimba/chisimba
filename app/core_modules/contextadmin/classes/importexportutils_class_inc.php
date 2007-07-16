@@ -814,46 +814,57 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$this->loadClass('dropdown','htmlelements');
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('htmlheading', 'htmlelements');
 		//Creating the form
-		$form=&$this->newObject('form','htmlelements');
+		$paramArray = array('action' => 'uploadIMS');
+		$form = new form('uploadziplocal', $this->uri($paramArray,'contextadmin'));
     		$form->extra=' enctype="multipart/form-data" ';
-    		$form->name='uploadziplocal';
-    		$paramArray = array('action' => 'uploadIMS');
-    		$form->setAction($this->uri($paramArray,'contextadmin'));
+		//$form=&$this->newObject('form','htmlelements');
+    		//$form->name='uploadziplocal';
+    		//$paramArray = array('action' => 'uploadIMS');
+    		//$form->setAction($this->uri($paramArray,'contextadmin'));
 		//Creating the form
-		$form2=&$this->newObject('form','htmlelements');
+		$paramArray1 = array('action' => 'uploadKNG');
+		$form2 = new form('uploadzipserver', $this->uri($paramArray1,'contextadmin'));
     		$form2->extra=' enctype="multipart/form-data" ';
-    		$form2->name='uploadzipserver';
-    		$paramArray1 = array('action' => 'uploadKNG');
-    		$form2->setAction($this->uri($paramArray1,'contextadmin'));
+		//$form2=&$this->newObject('form','htmlelements');
+    		//$form2->extra=' enctype="multipart/form-data" ';
+    		//$form2->name='uploadzipserver';
+    		//$paramArray1 = array('action' => 'uploadKNG');
+    		//$form2->setAction($this->uri($paramArray1,'contextadmin'));
 		//Creating the form
-		$form3=&$this->newObject('form','htmlelements');
+		$paramArray2 = array('action' => 'dudd');
+		$form3 = new form('dudd', $this->uri($paramArray2,'contextadmin'));
     		$form3->extra=' enctype="multipart/form-data" ';
-    		$form3->name='dudd';
-    		$paramArray = array('action' => 'dudd');
-    		$form3->setAction($this->uri($paramArray,'dudd'));
+		//$form3=&$this->newObject('form','htmlelements');
+    		//$form3->extra=' enctype="multipart/form-data" ';
+    		//$form3->name='dudd';
+    		//$paramArray = array('action' => 'dudd');
+    		//$form3->setAction($this->uri($paramArray,'dudd'));
     		//File input
-    		$fileInput=new textinput('upload');
+    		$fileInput = new textinput('upload');
     		$fileInput->fldType='file';
     		$fileInput->label="Upload only .zip files";
     		//$fileInput->name='upload';
-    		$fileInput->size=60;
+    		$fileInput->size=50;
     		//Submit button
     		$objElement = new button('CSV');
     		$objElement->setToSubmit();
     		$objElement->setValue($this->objLanguage->languageText("word_upload"));
-    	
 		//Button
-		$inpButton = $this->newObject('button','htmlelements');
+		//$inpButton = $this->newObject('button','htmlelements');
+		$inpButton = new button('import','Import');
 		$inpButton->cssClass = 'f-submit';
-		$inpButton->setValue('Import');
+		//$inpButton->setValue('Import');
 		$inpButton->setToSubmit();
     		//Heading
-    		$objHeading1=&$this->newObject('htmlheading','htmlelements');
+    		//$objHeading1=&$this->newObject('htmlheading','htmlelements');
+		$objHeading1 = new htmlheading();
     		$objHeading1->str=$this->objLanguage->languageText("mod_ims_uploadheading","contextadmin");
     		$objHeading1->type=3;
     		//Heading
-    		$objHeading2=&$this->newObject('htmlheading','htmlelements');
+    		$objHeading2 = new htmlheading();
     		$objHeading2->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
     		$objHeading2->type=3;
 		//Label - username
@@ -870,18 +881,18 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$serverLabel = new label("Select Server","");
 		//Dropdown - server selection
 		$serverDropDown = new dropdown('server');
+/*
 		//Populate Dropdown - server
-		/*$dbData = $this->getServers();
+		$dbData = $this->getServers();
 		foreach($dbData as $dataOld)
 		{
 			$serverDropDown->addOption($dataOld);
 		}
-		*/
+
 		//Label - server
 		$courseLabel = new label("Select Course","");
 		//Dropdown - course selection
 		$courseDropDown = new dropdown('dropdownchoice');
-/*
 		$server = $this->getParam('server');
 		$server = "localhost";
 		$course = $this->getParam('course');
@@ -897,26 +908,19 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		}
 */
 		//Button
-		$loginButton = $this->newObject('button','htmlelements');
+		$loginButton = new button('login','Login');
 		$loginButton->cssClass = 'f-submit';
-		$loginButton->setValue('Login');
+		//$loginButton->setValue('Login');
 		//$loginButton->setToSubmit();
-		$loginButton->extra = 'onclick="javascript:getLoginInfo();"';
+		//$loginButton->extra = 'onclick="javascript:getLoginInfo();"';
 		//Package type
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('default','eduCommons');
 		$pakRadio->addOption('mit','MIT');
 		$pakRadio->setSelected('default');
-
-		//Button
-		$loginButton = $this->newObject('button','htmlelements');
-		$loginButton->cssClass = 'f-submit';
-		$loginButton->setValue('Login');
-		$loginButton->setToSubmit();
-
 	    	//add the objects to the form
     		$form->setDisplayType(1);
-		$form->addToForm($objHeading1);
+		//$form->addToForm($objHeading1);
     		$form->addToForm($fileInput);
     		$form->addToForm($pakRadio);
     		$form->addToForm($objElement);
@@ -1174,11 +1178,14 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				#Convert filename into regular expression
 				$regex = '/'.$aFile.'/';
 				#Find filename in html page if it exists
-				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+				preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
 					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+					//echo $regReplace.'<br />';
+					//echo $newLink.'<br />';
 					$page = preg_replace($regReplace, $newLink, $page);
+					//echo $page;echo 'here';
 				}
 				#If the image was renamed
 				else
@@ -1189,11 +1196,13 @@ function recursive_remove_directory($directory, $empty=FALSE)
 					if($matches)
 					{
 						$regReplace = '/(src=".*'.$aFile.'.*?")/i';
-						$page = preg_replace($regReplace, $newLink, $fileContents);
+						$page = preg_replace($regReplace, $newLink, $page);
 					}
 				}
 			}
 		}
+
+		//echo $page;die;
 
 		return $page;
     	}
@@ -1269,10 +1278,15 @@ function recursive_remove_directory($directory, $empty=FALSE)
 			{
 				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
 				$modAction = $action.$pageIds[$aFile].'"';
+				//echo $regReplace.'<br />';
+				//echo $modAction.'<br />';
 				$page = preg_replace($regReplace, $modAction, $page);
 			}
 		}
-
+		//var_dump($contextCode);die;
+		//var_dump($fileNames);die;
+		//var_dump($pageIds);die;
+//echo $page;die;
 		return $page;
     	}
 
