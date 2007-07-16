@@ -833,15 +833,16 @@ function recursive_remove_directory($directory, $empty=FALSE)
     		$paramArray = array('action' => 'dudd');
     		$form3->setAction($this->uri($paramArray,'dudd'));
     		//File input
-    		$fileInput=&$this->newObject('textinput','htmlelements');
+    		$fileInput=new textinput('upload');
     		$fileInput->fldType='file';
     		$fileInput->label="Upload only .zip files";
-    		$fileInput->name='upload';
+    		//$fileInput->name='upload';
     		$fileInput->size=60;
     		//Submit button
     		$objElement = new button('CSV');
     		$objElement->setToSubmit();
     		$objElement->setValue($this->objLanguage->languageText("word_upload"));
+    	
 		//Button
 		$inpButton = $this->newObject('button','htmlelements');
 		$inpButton->cssClass = 'f-submit';
@@ -870,11 +871,12 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		//Dropdown - server selection
 		$serverDropDown = new dropdown('server');
 		//Populate Dropdown - server
-		$dbData = $this->getServers();
+		/*$dbData = $this->getServers();
 		foreach($dbData as $dataOld)
 		{
 			$serverDropDown->addOption($dataOld);
 		}
+		*/
 		//Label - server
 		$courseLabel = new label("Select Course","");
 		//Dropdown - course selection
@@ -920,7 +922,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
     		$form->addToForm($objElement);
     		//add the objects to the form2
     		$form2->setDisplayType(1);
-		$form2->addToForm($objHeading2);
+		//$form2->addToForm($objHeading2);
 		$form2->addToForm($explainLabel);
 		$form2->addToForm($usernameLabel);
 		$form2->addToForm($usernameTinput);
@@ -932,7 +934,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form2->addToForm($courseLabel);
 		$form2->addToForm($courseDropDown);
 		$form2->addToForm($inpButton);
-		$this->switchDatabase();
+		//$this->switchDatabase();
 		$form3->addToForm($form);
 		$form3->addToForm('<hr />');
 		//$form3->addToForm($form2);

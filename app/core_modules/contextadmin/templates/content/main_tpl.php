@@ -21,11 +21,11 @@ echo $objH->show();
 
 
 
- 	$form = $this->getObject('form','htmlelements');//$this->objIEUtils->uploadTemplate();
-	$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+ 	$form =$this->objIEUtils->uploadTemplate();
+	
 
 
-$tabBox->addTab(array('name'=> "Import",'content' => $form->show()));
+
     
     
 
@@ -199,20 +199,14 @@ if($this->_objUser->isAdmin())
 			$other .='<hr />'.$featureBox->show('Courses', $table->show() );
 		}else {
 			
-			$other .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">No Public or Open Courses is available</div>';
+			$other .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">No Public or Open Courses are available</div>';
 		}
 	
-	    if($this->_objUser->isAdmin())
-        {
-		    //$tabBox->addTab(array('name'=>'All Other Courses','content' => $other));
-        }
-	
+	   
 }
 
+$tabBox->addTab(array('name'=> "Import",'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$form->show())));
 echo $tabBox->show();
 
 
-/*$fieldset->setLegend('My Courses    '.$icon->getAddIcon($this->uri(array('action' => 'addstep1'),'contextadmin')));
-$fieldset->addContent($str);
-echo $fieldset->show();*/
 ?>
