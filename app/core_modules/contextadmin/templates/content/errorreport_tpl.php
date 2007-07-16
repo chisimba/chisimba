@@ -1,13 +1,18 @@
 <?php
-
-$objH = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
-$inpButton =  $this->newObject('button','htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('label', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
 
 //Button
+$inpButton = new button('save', 'Course Admin');
 $inpButton->cssClass = 'f-submit';
-$inpButton->setValue('Course Admin');
 $inpButton->setToSubmit();
+//setup the form
+$objForm = new form('impfrm', $this->uri(array('action' => '')));
+$objForm->addToForm($inpButton->show());
+
 if($uploadStatus == '1')
 	$uploadStatus = 'success';
 switch ($uploadStatus) 
@@ -70,12 +75,6 @@ switch ($uploadStatus)
 
 echo "Message = ".$message."<br />";
 echo "Debug Message = ".$uploadStatus."<br />";
-
-//setup the form
-$objForm->name = 'impfrm';
-$objForm->action = $this->uri(array('action' => ''));
-
-$objForm->addToForm($inpButton->show());
 
 print $objForm->show().'<br/>';
 
