@@ -485,19 +485,15 @@ class utils extends object
 
 
 			//validation
-			$objForm->addRule('contextcode','[-context-] Code is a required field!', 'required');
-			$objForm->addRule('menutext','Menu Text is a required field', 'required!');
-			$objForm->addRule('title','Title is a required field', 'required!');
+			
+			$objForm->addRule('menutext',$this->_objLanguage->languageText("mod_contextadmin_err_requiremenutext",'contextadmin'), 'required!');
+			$objForm->addRule('title',$this->_objLanguage->languageText("mod_contextadmin_err_requiretitle",'contextadmin'), 'required!');
 
 			$objForm->addToForm('<div class="req"><b>*</b>'.$this->_objLanguage->languageText("mod_context_required",'context').'</div>');
 			$objForm->addToForm('<fieldset>');
-			//if($error)
-			//{
-			//    $objForm->addToForm('<p class="error">'.$error.'</p>');
-			//}
-			//$objForm->addToForm($objH->show());
+			
 
-			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.$this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course')).':</b> <span class="highlight">');
+			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b> <span class="highlight">');
 			$objForm->addToForm($this->_objDBContext->getContextCode().'</span><br /></label>');
 
 			$objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
@@ -506,21 +502,12 @@ class utils extends object
 			$objForm->addToForm('<label for="menutext"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_menutext",'context').':</b>');
 			$objForm->addToForm($inpMenuText->show().'<br /></label>');
 
-			//$objForm->addToForm('&nbsp;<br/>');
-
-
+		
 			$objForm->addToForm('<label for="access"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_status",'context').':</b>');
             $objForm->addToForm($dropAccess->show().'<br /></label>');
 
 			$objForm->addToForm($drop);
             $objForm->addToForm('<label>&nbsp;<br/></label>');
-
-
-            //$objForm->addToForm('<label for="access"><b>'.$this->_objLanguage->languageText("mod_context_startdate",'context').':</b>');
-            //$objForm->addToForm($objStartDate->show().'<br /></label>');
-
-         //   $objForm->addToForm('<label for="access"><b>'.$this->_objLanguage->languageText("mod_context_finishdate",'context').':</b>');
-          //  $objForm->addToForm($objFinishDate->show().'<br /></label>');
 			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 			return  $objForm->show().'<br/>';
 
@@ -735,11 +722,11 @@ class utils extends object
 	  	    $objIcon->setModuleIcon('contextdesigner');
 
 	  	    $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
-	  	    $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->languageText("mod_contextcontent_about_title",'contextcontent'));
+	  	    $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextcontent_about_title",'contextcontent',array('context'=>'Course')));
 
 	  	    $contentsection = '<div class="tab-page">
 				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.
-	  	            $objLink->show().
+	  	            /*$objLink->show().*/
 				'<br/>'.$objLink2->show().
 	  	    '</div>';
 	  	} else {
@@ -763,13 +750,13 @@ class utils extends object
                 '.$this->getContextUsers().'
 
             </div>
-			<div class="tab-page">
+			<!--div class="tab-page">
 				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_communication','contextadmin').'</h2>
 
 
 				Send Email to class
 
-			</div>
+			</div-->
 
 			'.$contentsection.'
 
