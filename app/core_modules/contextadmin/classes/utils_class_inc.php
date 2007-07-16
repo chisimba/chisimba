@@ -271,7 +271,7 @@ class utils extends object
 		$inpContextCode =  new textinput();
 		$inpMenuText = new textinput();
 		$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
-
+		$featureBox = $this->getObject('featurebox', 'navigation');
 
 		//list of modules for this context
 		$arrContextModules = $this->_objContextModules->getContextModules($contextCode);
@@ -279,14 +279,12 @@ class utils extends object
 		$inpButton =  new button();
 			  	//setup the form
 		$objForm->name = 'addfrm';
-		$objForm->action = $this->uri(array('action' => 'savestep3'));
-		$objForm->extra = 'class="f-wrap-1"';
+		$objForm->action = $this->uri(array('action' => 'savestep3'));		
 		$objForm->displayType = 3;
 
 		$objFormMod->name = 'modfrm';
 		$objFormMod->action = $this->uri(array('action' => 'savedefaultmod'));
-		// $objFormMod->extra = 'class="f-wrap-1"';
-		$objFormMod->displayType = 3;
+		$objFormMod->displayType = 1;
 
 		$inpAbout->name = 'about';
 		$inpAbout->id = 'about';
@@ -339,7 +337,7 @@ class utils extends object
 		        $icon->setModuleIcon($module['module_id']);
 		        //print $module['module_id'];
 		        $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
-		        $objForm->addToForm('<dd  class="desc">'.$module['description'].'</dd>');
+		        $objForm->addToForm('<dd  class="subdued">'.$module['description'].'</dd>');
 		        $objForm->addToForm('</ul>');
 		    }
 
@@ -352,10 +350,12 @@ class utils extends object
 
 		$defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
 
-		$drop = $this->_objLanguage->languageText("mod_context_selectdefaultmodule",'context').'<select id="defaultmodule" name="defaultmodule">';
+		$drop = '<select id="defaultmodule" name="defaultmodule">';
 
 		$drop .= '<option value="">'.$this->_objLanguage->languageText("mod_context_setdefaultmodule",'context').'</option>';
-
+		
+		//$inpButton->value = $this->_objLanguage->languageText("mod_context_setasdefaultmodule",'context');
+	
 		foreach($arrContextModules as $mod)
 		{
 			$modInfo = $objModules->getModuleInfo($mod['moduleid']);
@@ -365,12 +365,15 @@ class utils extends object
 			$drop .= '>'.ucwords($modInfo['name']).'</option>';
 		}
 		$drop .= '</select>';
-		$drop ='<div style="width:270px">'.$drop.'</div>';
+		$drop ='<div style="width:270px">'.$drop.$inpButton->show().'</div>';
+	
+	
+		
 		$objFormMod->addToForm($drop);
-		$inpButton->value = $this->_objLanguage->languageText("mod_context_setasdefaultmodule",'context');
-		$objFormMod->addToForm($inpButton->show());
+		$objFormMod->addToForm('<span class="subdued">'.$this->_objLanguage->code2Txt("mod_contextadmin_defaultmodhelp",'context',array('context'=>'Course')).'</span>');
 
-		return  $objFormMod->show().$objForm->show().'<br/>';
+		return  $featureBox->show($this->_objLanguage->languageText("mod_context_setdefaultmodule",'context'), $objFormMod->show()).
+				$featureBox->show('Plugin List',$objForm->show()).'<br/>';
 
 
 	  }
@@ -726,13 +729,13 @@ class utils extends object
 	  	if($this->_objContextModules->isContextPlugin($this->_objDBContext->getContextCode(), 'contextcontent'))
 	  	{
 	  	    $objLink->href = $this->uri(null,'contextdesigner');
-	  	    $objLink2->href = $this->uri(null,'cmsadmin');
+	  	    $objLink2->href = $this->uri(null,'contextcontent');
 
-	  	    $objIcon2->setModuleIcon('cmsadmin');
+	  	    $objIcon2->setModuleIcon('contextcontent');
 	  	    $objIcon->setModuleIcon('contextdesigner');
 
 	  	    $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
-	  	    $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->languageText("mod_cms_cmsadmin",'cms'));
+	  	    $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->languageText("mod_contextcontent_about_title",'contextcontent'));
 
 	  	    $contentsection = '<div class="tab-page">
 				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.
