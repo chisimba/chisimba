@@ -85,9 +85,9 @@ $inpButton->value = $this->_objLanguage->languageText("word_next");
 
 
 //validation
-$objForm->addRule('contextcode','[-context-] Code is a required field!', 'required');
-$objForm->addRule('menutext','Menu Text is a required field', 'required!');
-$objForm->addRule('title','Title is a required field', 'required!');
+$objForm->addRule('contextcode',$this->_objLanguage->code2Txt("mod_contextadmin_err_requrecontextcode",'contexadmin',array('context'=>'Course')), 'required');
+$objForm->addRule('menutext',$this->_objLanguage->languageText("mod_contextadmin_err_requiremenutext",'contextadmin'), 'required!');
+$objForm->addRule('title',$this->_objLanguage->languageText("mod_contextadmin_err_requiretitle",'contextadmin'), 'required!');
 
 $objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
 $objForm->addToForm('<fieldset>');
@@ -97,7 +97,7 @@ if($error)
 }
 $objForm->addToForm($objH->show());
 
-$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.$this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course')).':</b>');
+$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b>');
 $objForm->addToForm($inpContextCode->show().'<br /></label>');
 
 $objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');

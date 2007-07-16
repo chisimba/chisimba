@@ -12,11 +12,6 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @copyright 2004, University of the Western Cape & AVOIR Project
  * @license GNU GPL
  * @author Wesley  Nitsckie
-<<<<<<< controller.php
- * @version $Id$ 
-=======
- * @version $Id$ 
->>>>>>> 1.23
  **/
 class contextadmin extends controller 
 {
@@ -51,12 +46,14 @@ class contextadmin extends controller
      */
     public function init()
     {
-        $this->_objDBContext = & $this->newObject('dbcontext', 'context');
-        $this->_objDBContextModules = & $this->newObject('dbcontextmodules', 'context');
-        $this->_objUser = & $this->newObject('user', 'security');
-        $this->_objLanguage = & $this->newObject('language', 'language');
-        $this->_objUtils = & $this->newObject('utils', 'contextadmin');
-        $this->_objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+        $this->_objDBContext = $this->getObject('dbcontext', 'context');
+        $this->_objDBContextModules = $this->getObject('dbcontextmodules', 'context');
+        $this->_objUser = $this->getObject('user', 'security');
+        $this->_objLanguage = $this->getObject('language', 'language');
+        $this->_objUtils = $this->getObject('utils', 'contextadmin');
+        $this->_objDBContextParams = $this->getObject('dbcontextparams', 'context');
+        
+        
     	//Load Export class
     	$this->objExportContent = & $this->newObject('export','contextadmin');
     
@@ -68,7 +65,7 @@ class contextadmin extends controller
     	$this->objExportIMSContent = & $this->newObject('exportimspackage','contextadmin');
     	//Load Import Export Utilities class
     	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
-        $this->objConf = &$this->getObject('altconfig','config');
+        $this->objConf = $this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
 
     }
@@ -141,11 +138,8 @@ class contextadmin extends controller
             	$this->_objDBContext->saveAboutEdit();
             	 return $this->nextAction('default');
             case 'savedefaultmod':
-            	//if($this->getParam('defaultmodule') != '')
-            	//{
-            		$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
-            	//}
-            	return $this->nextAction('default');
+            	$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
+             	return $this->nextAction('default');
            	case 'admincontext':
            		$this->_objDBContext->joinContext($this->getParam('contextcode'));
            		return $this->nextAction('default');
