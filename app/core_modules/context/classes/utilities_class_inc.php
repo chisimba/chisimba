@@ -131,7 +131,7 @@ class utilities extends object
     	  			
     				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
     				
-    				$nodes[] = array('text' => $modInfo['name'], 'uri' => $moduleLink,  'nodeid' => $contextModule['moduleid']);
+    				$nodes[] = array('text' => ucwords($modInfo['name']), 'uri' => $moduleLink,  'nodeid' => $contextModule['moduleid']);
     				
 	  			}
 
