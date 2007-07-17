@@ -46,6 +46,7 @@
             <module>blocks</module>
             <module>mail</module>
             <module>utilities</module>
+            <module>packages</module>
         </category>
 
         <category>
