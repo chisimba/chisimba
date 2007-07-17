@@ -1190,7 +1190,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 					//echo $regReplace.'<br />';
 					//echo $newLink.'<br />';
 					$page = preg_replace($regReplace, $newLink, $page);
-					//echo $page;echo 'here';
 				}
 				#If the image was renamed
 				else
@@ -1207,8 +1206,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 			}
 		}
 
-		//echo $page;die;
-
 		return $page;
     	}
 
@@ -1224,24 +1221,46 @@ function recursive_remove_directory($directory, $empty=FALSE)
     	 * @return string $page - the finished modified text page
 	 *
 	*/
-	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='')
+	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='', $allFilesLocation = '')
     	{
-		$action ='href="'.'http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		//$action ='<a href="http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		$action ='http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
 		#Run through each resource
 		$page = $fileContents;
+		//var_dump($pageIds);//die;
 		if($packageType == 'mit')
 		{
-/*
-			$page = preg_replace('%<a href=".*?CourseHome/index.*?">%', $action.$pageIds['CourseHome.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Assignments/index.*?">%', $action.$pageIds['Assignments.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Calendar/index.*?">%', $action.$pageIds['Calendar.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?DownloadThisCourse/index.*?">%', $action.$pageIds['DownloadThisCourse.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Labs/index.*?">%', $action.$pageIds['Labs.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Projects/index.*?">%', $action.$pageIds['Projects.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Readings/index.*?">%', $action.$pageIds['Readings.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?RelatedResources/index.*?">%', $action.$pageIds['Related.html'].'"', $page);
-			$page = preg_replace('%<a href=".*?Syllabus/index.*?">%', $action.$pageIds['Syllabus.html'].'"', $page);
-*/
+			foreach($allFilesLocation as $aFilepath)
+			{
+				$aFilepath = '../../../../'.$aFilepath;
+//echo $aFilepath."<br />";
+				if(preg_match('/CourseHome/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['CourseHome.html'], $page);
+				else if(preg_match('/Syllabus/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Syllabus.html'], $page);
+				else if(preg_match('/Calendar/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Calendar.html'], $page);
+				else if(preg_match('/Readings/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Readings.html'], $page);
+				else if(preg_match('/Labs/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Labs.html'], $page);
+				else if(preg_match('/LectureNotes/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['LectureNotes.html'], $page);
+				else if(preg_match('/Assignments/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Assignments.html'], $page);
+				else if(preg_match('/Exams/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Exams.html'], $page);
+				else if(preg_match('/Projects/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Projects.html'], $page);
+				else if(preg_match('/Tools/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Tools.html'], $page);
+				else if(preg_match('/RelatedResources/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['RelatedResources.html'], $page);
+				else if(preg_match('/DiscussionGroup/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DiscussionGroup.html'], $page);
+				else if(preg_match('/DownloadthisCourse/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DownloadthisCourse.html'], $page);
+			}
 		}
 		else
 		{
@@ -1288,10 +1307,7 @@ function recursive_remove_directory($directory, $empty=FALSE)
 				$page = preg_replace($regReplace, $modAction, $page);
 			}
 		}
-		//var_dump($contextCode);die;
-		//var_dump($fileNames);die;
-		//var_dump($pageIds);die;
-//echo $page;die;
+
 		return $page;
     	}
 

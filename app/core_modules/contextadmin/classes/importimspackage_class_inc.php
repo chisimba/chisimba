@@ -236,7 +236,7 @@ class importIMSPackage extends dbTable
 		#Rebuild html images and url links
 		$allFileNames = $this->objIEUtils->list_dir_files($folder,0);
 //echo 22;
-		$rebuildHtml = $this->rebuildMITHtml($loadData, $allFileNames);
+		$rebuildHtml = $this->rebuildMITHtml($loadData, $allFileNames, $allFilesLocation);
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
@@ -1393,8 +1393,8 @@ class importIMSPackage extends dbTable
 				$xmlFilesLocation['Calendar'] = $location;
 			else if(preg_match('/Readings/', $location))
 				$xmlFilesLocation['Readings'] = $location;
-			else if(preg_match('/Readings/', $location))
-				$xmlFilesLocation['Readings'] = $location;
+			else if(preg_match('/Labs/', $location))
+				$xmlFilesLocation['Labs'] = $location;
 			else if(preg_match('/LectureNotes/', $location))
 				$xmlFilesLocation['LectureNotes'] = $location;
 			else if(preg_match('/Assignments/', $location))
@@ -1962,8 +1962,8 @@ class importIMSPackage extends dbTable
 			}
 			else if(preg_match('/Resources/', $htmlPath))
 			{
-				$menutitle = 'Resources';
-				$filename = 'Resources.html';
+				$menutitle = 'Related Resources';
+				$filename = 'RelatedResources.html';
 			}
 			else if(preg_match('/DownloadthisCourse/', $htmlPath))
 			{
@@ -2106,7 +2106,7 @@ class importIMSPackage extends dbTable
 	 * @return TRUE - on successful execution
 	 *
 	*/
-	function rebuildMITHtml($menutitles, $fileNames)
+	function rebuildMITHtml($menutitles, $fileNames, $allFilesLocation)
 	{
 		#switch tables
 		parent::init('tbl_contextcontent_pages');
@@ -2114,7 +2114,6 @@ class importIMSPackage extends dbTable
 		#Manipulate images
 		static $i = 0;
 		static $j = 0;
-		//var_dump($this->pageIds);die;
 		foreach($this->pageIds as $pageOrderId)
 		{
 			parent::init('tbl_contextcontent_order');
@@ -2135,7 +2134,7 @@ class importIMSPackage extends dbTable
 					$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
 					#Rewrite links source in html
 					$page = $this->objIEUtils->changeMITLinkUrl($page, $this->contextCode, $fileNames, $this->fileIds);
-					$page = $this->objIEUtils->changeLinkUrl($page, $this->contextCode, $fileNames, $this->pageIds);
+					$page = $this->objIEUtils->changeLinkUrl($page, $this->contextCode, $fileNames, $this->pageIds, 'mit', $allFilesLocation);
 					#Reinsert into database with updated images
 					if(strlen($page) > 1 )
 					{
