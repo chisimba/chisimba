@@ -355,7 +355,7 @@ class RootUserAction extends StepAction
 		$relContentRoot = "usrfiles";
 		if (preg_match("/\/installer/i", "$absContentPath")) {
 
-			$abspath = str_replace('/installer',"",$absContentPath);
+			$abspath = str_replace('/installer/index.php',"",$absContentPath);
 			$relContentPath = "usrfiles/";
 
 	        $_SESSION['relContentPath']=$relContentPath;
