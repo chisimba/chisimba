@@ -212,11 +212,6 @@ class contextadmin extends controller
 		else
 			return 'errorreport_tpl.php';
 	break;
-        case 'debug':
-		$this->setLayoutTemplate('debug_tpl.php');
-
-		return 'debug_tpl.php';
-
 	default:
 		return $this->nextAction(null);
         }

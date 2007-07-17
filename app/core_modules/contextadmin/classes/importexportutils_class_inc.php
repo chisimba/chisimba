@@ -811,15 +811,41 @@ function recursive_remove_directory($directory, $empty=FALSE)
 	{
 		//Load needed display classes
 		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('dropdown','htmlelements');
+		$this->loadClass('radio','htmlelements');
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('button', 'htmlelements');
 		$this->loadClass('form', 'htmlelements');
-		$this->loadClass('htmlheading', 'htmlelements');
+		//$this->loadClass('htmlheading', 'htmlelements');
 		//Creating the form
 		$paramArray = array('action' => 'uploadIMS');
 		$form = new form('uploadziplocal', $this->uri($paramArray,'contextadmin'));
     		$form->extra=' enctype="multipart/form-data" ';
+    		//File input
+    		$fileInput = new textinput('upload');
+    		$fileInput->fldType='file';
+    		$fileInput->label="Upload only .zip files";
+    		//$fileInput->name='upload';
+    		$fileInput->size=50;
+    		//Submit button
+    		$objElement = new button('submit');
+    		$objElement->setToSubmit();
+    		$objElement->setValue($this->objLanguage->languageText("word_upload"));
+		//Package type
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('default','eduCommons');
+		$pakRadio->addOption('mit','MIT');
+		$pakRadio->setSelected('default');
+	    	//add the objects to the form
+    		$form->setDisplayType(1);
+		//$form->addToForm($objHeading1);
+    		$form->addToForm($fileInput);
+    		$form->addToForm($pakRadio);
+    		$form->addToForm($objElement);
+/*
+		//Creating the form
+		$paramArray2 = array('action' => 'dudd');
+		$form3 = new form('dudd', $this->uri(array('action' => 'uploadIMS'),'contextadmin'));
+    		$form3->extra=' enctype="multipart/form-data" ';
 		//$form=&$this->newObject('form','htmlelements');
     		//$form->name='uploadziplocal';
     		//$paramArray = array('action' => 'uploadIMS');
@@ -833,25 +859,11 @@ function recursive_remove_directory($directory, $empty=FALSE)
     		//$form2->name='uploadzipserver';
     		//$paramArray1 = array('action' => 'uploadKNG');
     		//$form2->setAction($this->uri($paramArray1,'contextadmin'));
-		//Creating the form
-		$paramArray2 = array('action' => 'dudd');
-		$form3 = new form('dudd', $this->uri($paramArray2,'contextadmin'));
-    		$form3->extra=' enctype="multipart/form-data" ';
 		//$form3=&$this->newObject('form','htmlelements');
     		//$form3->extra=' enctype="multipart/form-data" ';
     		//$form3->name='dudd';
     		//$paramArray = array('action' => 'dudd');
     		//$form3->setAction($this->uri($paramArray,'dudd'));
-    		//File input
-    		$fileInput = new textinput('upload');
-    		$fileInput->fldType='file';
-    		$fileInput->label="Upload only .zip files";
-    		//$fileInput->name='upload';
-    		$fileInput->size=50;
-    		//Submit button
-    		$objElement = new button('CSV');
-    		$objElement->setToSubmit();
-    		$objElement->setValue($this->objLanguage->languageText("word_upload"));
 		//Button
 		//$inpButton = $this->newObject('button','htmlelements');
 		$inpButton = new button('import','Import');
@@ -881,7 +893,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$serverLabel = new label("Select Server","");
 		//Dropdown - server selection
 		$serverDropDown = new dropdown('server');
-/*
 		//Populate Dropdown - server
 		$dbData = $this->getServers();
 		foreach($dbData as $dataOld)
@@ -906,7 +917,6 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		{
 			$courseDropDown->addOption($dataOld['contextcode']);
 		}
-*/
 		//Button
 		$loginButton = new button('login','Login');
 		$loginButton->cssClass = 'f-submit';
@@ -918,14 +928,8 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$pakRadio->addOption('default','eduCommons');
 		$pakRadio->addOption('mit','MIT');
 		$pakRadio->setSelected('default');
-	    	//add the objects to the form
-    		$form->setDisplayType(1);
-		//$form->addToForm($objHeading1);
-    		$form->addToForm($fileInput);
-    		$form->addToForm($pakRadio);
-    		$form->addToForm($objElement);
-    		//add the objects to the form2
-    		$form2->setDisplayType(1);
+		//add the objects to the form2
+		$form2->setDisplayType(1);
 		//$form2->addToForm($objHeading2);
 		$form2->addToForm($explainLabel);
 		$form2->addToForm($usernameLabel);
@@ -939,11 +943,12 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		$form2->addToForm($courseDropDown);
 		$form2->addToForm($inpButton);
 		//$this->switchDatabase();
+
 		$form3->addToForm($form);
 		$form3->addToForm('<hr />');
 		//$form3->addToForm($form2);
-
-		return $form3;
+*/
+		return $form;
 	}
 
 	/**
