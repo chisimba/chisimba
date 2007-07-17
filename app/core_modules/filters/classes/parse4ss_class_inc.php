@@ -44,7 +44,7 @@ class parse4ss extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-            if (strstr($item, "&")) {
+            if ($this->isSlideShare($item)) {
                 $exPat = $results[1][$counter];
                 //Get an array containing the param=value data
                 $arPat = explode("&", $exPat);
@@ -57,7 +57,10 @@ class parse4ss extends object
                 $this->width=$w;
                 $replacement = $this->getSlideObject($id,$doc);
             } else {
-                $replacement = NULL;
+              $objLanguage = $this->getObject('language', 'language');
+                $replacement = "<span class=\"error\">" 
+              . $objLanguage->languageText("mod_filters_error_notss", "filters")
+              . ":<br />$item</span>";
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
@@ -81,9 +84,30 @@ class parse4ss extends object
             . "id=$id&doc=$doc\" width=\"" . $this->width . "\" height=\"" 
             . $this->height ."\"><param name=\"movie\" value=\""
             . "https://s3.amazonaws.com:443/slideshare/ssplayer.swf?id=$id&doc=$doc\" /></object>";
-          
     }
     
+    private function extractParams($str)
+    {
+        $arPat = explode("&", $str);
+    }
+    
+    /**
+     * 
+     * Simple method to validate if the contents is a valid slideshare 
+     * wordpress link
+     * 
+     * @param string $item The string to evaluate
+     * @return TRUE|FALSE  
+     * 
+     */
+    private function isSlideShare($item)
+    {
+        if (!strstr($item, "&") || !strstr($item, "id=") || !strstr($item, "doc=")) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
  
     
 }
