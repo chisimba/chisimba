@@ -329,7 +329,7 @@ class engine
 		// must be created on every request
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
-		
+
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		//and we need a general system config too
 		$this->_objConfig = $this->_objDbConfig;
@@ -442,7 +442,7 @@ class engine
 			//so we parse the DSN to an array and then send that to the object instantiation to be safe
 			$dsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
 			$this->dsn = $this->parseDSN($dsn);
-			
+
 			// Connect to the database
 			require_once ('MDB2.php');
 			//MDB2 has a factory method, so lets use it now...
@@ -779,8 +779,9 @@ class engine
 	{
 		$this->loadClass($name, $moduleName);
 		// Fix to allow developers to load htmlelements which do not inherit from class 'object'
-		$parents = class_parents($name);
-		if (in_array('object',$parents)) {
+		//$parents = class_parents($name);
+		//if (in_array('object',$parents)) {
+		if (is_subclass_of($name, 'object')) {
 			// Class inherits from class 'object', so pass it the expected parameters
 			$objNew = new $name($this, $moduleName);
 		}
@@ -824,8 +825,9 @@ class engine
 		{
 			$this->loadClass($name, $moduleName);
 			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
-			$parents = class_parents($name);
-			if (in_array('object',$parents)) {
+			//$parents = class_parents($name);
+			//if (in_array('object',$parents)) {
+			if (is_subclass_of($name, 'object')) {
 				// Class inherits from class 'object', so pass it the expected parameters
 				$instance = new $name($this, $moduleName);
 			}
@@ -938,13 +940,13 @@ class engine
     * @return mixed The value of the parameter, or $default if unset
     */
 	public function getParam($name, $default = NULL)
-	{		
+	{
 		$result = isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])
 		: $_REQUEST[$name]
 		: $default;
-		
+
 		return $this->install_gpc_stripslashes($result);
 	}
 
@@ -965,8 +967,8 @@ class engine
 			return $default;
 		}
 	}
-	
-	
+
+
 	/**
 
 	* Strips the slashes from a variable if magic quotes is set for GPC
@@ -992,7 +994,7 @@ class engine
 			if (is_array($var)) $this->install_stripslashes_array($var, true);
 			else $var = stripslashes($var);
 		}
-	
+
 		return $var;
 
 
@@ -1273,7 +1275,7 @@ class engine
 		}
 		return $this->_objConfig->getModulePath() . $moduleName."/resources/".$resourceFile;
     }
-    
+
     /**
      * Method to generate a path to a static resource stored in a module.
      * The resource should be stored within the 'resources' subdirectory of
@@ -1562,7 +1564,7 @@ class engine
 	{
 		return $this->_objActiveController->callTemplate($tpl, $type, $buffer);
 	}
-	
+
 
 	/**
     * Method to clean up at end of page rendering.
