@@ -81,9 +81,9 @@ class parse4ss extends object
     {
           return "<object type=\"application/x-shockwave-flash\" "
             ."data=\"https://s3.amazonaws.com:443/slideshare/ssplayer.swf?"
-            . "id=$id&doc=$doc\" width=\"" . $this->width . "\" height=\"" 
+            . "id=$id"&amp;doc=$doc\" width=\"" . $this->width . "\" height=\"" 
             . $this->height ."\"><param name=\"movie\" value=\""
-            . "https://s3.amazonaws.com:443/slideshare/ssplayer.swf?id=$id&doc=$doc\" /></object>";
+            . "https://s3.amazonaws.com:443/slideshare/ssplayer.swf?id=$id"&amp;doc=$doc\" /></object>";
     }
     
     private function extractParams($str)
