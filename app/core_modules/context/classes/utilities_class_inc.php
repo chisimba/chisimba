@@ -57,39 +57,30 @@ class utilities extends object
     public function getHiddenContextMenu($selectedModule, $showOrHide = 'none',$showOrHideContent = 'none')
     {
         $str = '';
-        //apparently document.write is not xhtml compliant, so
-        // seeing that I dont an other alternative to that I will
-        // suppress the xhtml
-        /* scriptaculous moved to default page template / no need to suppress XML*/        
-        
-//        $this->setVar('pageSuppressXML',true);
         $icon = $this->newObject('geticon', 'htmlelements');
-//        $icon->setIcon('up');
-//        $scripts = '<script src="core_modules/htmlelements/resources/script.aculos.us/lib/prototype.js" type="text/javascript"></script>
-//                      <script src="core_modules/htmlelements/resources/script.aculos.us/src/scriptaculous.js" type="text/javascript"></script>
-//                      <script src="core_modules/htmlelements/resources/script.aculos.us/src/unittest.js" type="text/javascript"></script>';
-//        $this->appendArrayVar('headerParams',$scripts);
-        //$str = "<a href=\"#\" onclick=\"Effect.SlideUp('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";
-      //  $str = "<a href=\"#\" onclick=\"Effects.BlindRight('contextmenu');\">".$icon->show()."</a>";
         $icon->setModuleIcon('toolbar');
         $toolsIcon = $icon->show();
         $icon->setModuleIcon('context');
         $contentIcon = $icon->show();
-        
-        //$str .="<a href=\"#\" onclick=\"Effect.SlideDown('contextmenu',{queue:{scope:'myscope', position:'end', limit: 1}});\">".$icon->show()."</a>";    
-        
+ 
         $str .= "<a href=\"#\" onclick=\"Effect.toggle('contextmenu','slide', adjustLayout());\">".$toolsIcon." Tools</a>";
         $str .='<div id="contextmenu"  style="width:150px;overflow: hidden;display:'.$showOrHide.';"> ';
         $str .= $this->getPluginNavigation($selectedModule);
         $str .= '</div>';
-        $str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide', adjustLayout());\">".$contentIcon." Content</a>";
+        
+        $content = $this->getContextContentNavigation();
+        if($content != '')
+        {
+			$str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide', adjustLayout());\">".$contentIcon." Content</a>";
         $str .='<div id="contextmenucontent"  style="width:150px;overflow: hidden;display:'.$showOrHideContent.';"> ';
-        $str .= $this->getContextContentNavigation();
+        $str .= $content;
         $str .= '</div>';
+		}
+        
         
         $objFeatureBox = & $this->getObject('featurebox', 'navigation');
         return $objFeatureBox->show('Toolbox', $str,'contexttoolbox');
-       // return $str;
+      
     }
     
     /**
@@ -192,8 +183,8 @@ class utilities extends object
     	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
         //create the nodes array
 		$nodes = array();
-		if($objModule->isContextPlugin($this->objDBContext->getContextCode(),'cms'))
-	  			{
+		if($objModule->isContextPlugin($this->objDBContext->getContextCode(),'contextcontent'))
+	  	{
 	  			    
 	  			    $linksArr = $objContentLinks->getPublishedContextLinks();
 	  			    if($linksArr != FALSE)
@@ -220,10 +211,14 @@ class utilities extends object
     	  			        $nodes[] = array('text' => /*$objIcon->show().' '.*/$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
     	  			        
     	  			    }
-	  			    }
-	  			    //$nodes[] = array('text' => $this->objLanguage->languageText("mod_context_content",'context'), 'uri' => 'cms',  'sectionid' => '', 'haschildren' => $children);
+	  			    } else {
+						return '';
+					}
+	  			   
 	  			    $isregistered = false;
-	  			}
+	  	} else {
+			return '';
+		}
 	  	$objSideBar->showHomeLink = FALSE;
 		return $objSideBar->show($nodes, $selectedLink);
         
