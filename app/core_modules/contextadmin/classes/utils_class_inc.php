@@ -24,43 +24,24 @@ class utils extends object
     public function init()
     {
 
-          $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
-	      $this->_objLanguage = & $this->getObject('language', 'language');
-	      $this->_objUser = & $this->getObject('user', 'security');
-	      $this->_objDBContext = & $this->getObject('dbcontext', 'context');
+            $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
+	        $this->_objLanguage = & $this->getObject('language', 'language');
+	        $this->_objUser = & $this->getObject('user', 'security');
+	        $this->_objDBContext = & $this->getObject('dbcontext', 'context');
 		
-		// Load HTML Elements
-		$this->loadClass('form', 'htmlelements');
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('dropdown', 'htmlelements');
-		$this->loadClass('htmlheading', 'htmlelements');
-		$this->loadClass('checkbox', 'htmlelements');
-		$this->loadClass('link', 'htmlelements');
-		$this->loadClass('radio', 'htmlelements');
+			// Load HTML Elements
+			$this->loadClass('form', 'htmlelements');
+			$this->loadClass('textinput', 'htmlelements');
+			$this->loadClass('button', 'htmlelements');
+			$this->loadClass('dropdown', 'htmlelements');
+			$this->loadClass('htmlheading', 'htmlelements');
+			$this->loadClass('checkbox', 'htmlelements');
+			$this->loadClass('link', 'htmlelements');
+			$this->loadClass('radio', 'htmlelements');
 
     }
 
-    /**
-     * Method to get the widgets
-     *
-     */
-    public function getWidgets()
-    {
-
-
-    }
-
-    /**
-     * Method to get the context for this user
-     *
-     */
-    public function getContexts($userId)
-    {
-
-
-    }
-
+    
     /**
 	   * Method to get the users context that he
 	   * is registered to
@@ -129,14 +110,13 @@ class utils extends object
 
 		if($this->_objDBContext->isInContext())
         {
-            $objContextUtils = & $this->getObject('utilities','context');
-            $cm = $objContextUtils->getHiddenContextMenu('home','none');
+            //$objContextUtils =  $this->getObject('utilities','context');
+            $cm =''; //$objContextUtils->getHiddenContextMenu('home','none');
         } else {
 			$cm = '';
 		}    
 		$leftSideColumn .= $cm;
-		
-		//$leftSideColumn .= $objBlocks->showBlock('context', 'context');
+	
 
         $leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
 
@@ -148,21 +128,7 @@ class utils extends object
 
         $leftSideColumn .= $objBlocks->showBlock('contextchat', 'messaging');
 
-/*
-		//Add loginhistory block
-		$leftSideColumn .= $objBlocks->showBlock('calendar', 'eventscalendar');
-		$leftSideColumn .= $objBlocks->showBlock('loginstats', 'context');
-		//Add the latest in blog as a a block
-		$leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
-		//Add guestbook block
-		$leftSideColumn .= $objBlocks->showBlock('guestinput', 'guestbook');
-		//Add latest search block
-		$leftSideColumn .= $objBlocks->showBlock('lastsearch', 'websearch');
-		//Add the whatsnew block
-		$leftSideColumn .= $objBlocks->showBlock('whatsnew', 'whatsnew');
 
-		$leftSideColumn .= $objBlocks->showBlock('today_weather','weather');
-*/
 	      return $leftSideColumn;
 	  }
 
@@ -178,12 +144,6 @@ class utils extends object
          $objBlocks = & $this->newObject('blocks', 'blocks');
         //Add the getting help block
         $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
-        //Add the latest in blog as a a block
-        //$rightSideColumn .= $objBlocks->showBlock('latest', 'blog');
-        //Add the latest in blog as a a block
-        //$rightSideColumn .= $objBlocks->showBlock('latestpodcast', 'podcast');
-        //Add a block for chat
-        //$rightSideColumn .= $objBlocks->showBlock('chat', 'chat');
         //Add a block for the google api search
         $rightSideColumn .= $objBlocks->showBlock('google', 'websearch');
         //Put the google scholar google search
@@ -289,8 +249,7 @@ class utils extends object
 		$inpAbout->name = 'about';
 		$inpAbout->id = 'about';
 		$inpAbout->value = '';
-		//$inpAbout->cols = 4;
-		//$inpAbout->rows = 3;
+		
 		$inpAbout->width = '20px';
 
 
@@ -335,7 +294,7 @@ class utils extends object
 
 		        $icon = $this->newObject('geticon', 'htmlelements');
 		        $icon->setModuleIcon($module['module_id']);
-		        //print $module['module_id'];
+		        
 		        $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
 		        $objForm->addToForm('<dd  class="subdued">'.$module['description'].'</dd>');
 		        $objForm->addToForm('</ul>');
@@ -700,14 +659,7 @@ class utils extends object
 	   */
 	  public function getContextAdminToolBox()
 	  {
-	  	/*$str = 'asdfasdfasdfasdfdsafadsf';
-
-	  	$tabBox = & $this->newObject('tabpane', 'htmlelements');
-	  	$tabBox->name = 'toolbox';
-	  	$tabBox->addTab(array('name'=>'Configure Course','content' => $str, 'luna-tab-style-sheet'));
-	  	$tabBox->addTab(array('name'=>'Manage Users','content' => $str, 'luna-tab-style-sheet'));
-	  	return $tabBox->show();
-	  	*/
+	  
 	  	$objLink = $this->newObject('link','htmlelements');
 	  	$objLink2 = $this->newObject('link','htmlelements');
 	  	$objIcon = $this->newObject('geticon', 'htmlelements');
@@ -726,7 +678,7 @@ class utils extends object
 
 	  	    $contentsection = '<div class="tab-page">
 				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.
-	  	            /*$objLink->show().*/
+	  	            $objLink->show().
 				'<br/>'.$objLink2->show().
 	  	    '</div>';
 	  	} else {
