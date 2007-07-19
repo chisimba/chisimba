@@ -45,7 +45,8 @@ foreach ($registeredModules as $module) {
 $alink = new link();
 
 if ($modules) {
-    asort($modules);
+    //asort($modules);
+    natcasesort($modules);
     (($count % 2) == 0)? $oddOrEven = 'even' : $oddOrEven = 'odd';
     $objTable->addHeader($head,'heading','align="left"');
     $objTable->row_attributes=" onmouseover=\"this.className='tbl_ruler';\" onmouseout=\"this.className='".$oddOrEven."'; \"";
@@ -103,7 +104,7 @@ if ($modules) {
         //echo $moduleId;
         $icon->setModuleIcon($moduleId);
         $icon->alt = $moduleId;
-        if (in_array($moduleId,$localModules)){ //dont display downloadable modules until that functionality is complete
+        if (in_array($moduleId,$localModules)) { //dont display downloadable modules until that functionality is complete
             $textButton = &new Link($this->uri(array('action'=>'textelements','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $textButton->link = $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue');
             $textButton->extra = $instButton->extra = "class=\"pseudobutton\"";
@@ -119,7 +120,7 @@ if ($modules) {
             $desc = $this->objLanguage->abstractText(htmlentities($desc));
             $infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
-            $link = $moduleName;
+            $link = $moduleName = ucfirst($moduleName);
             $objCheck = new checkbox('arrayList[]');
             $objCheck->cssId = 'checkbox_'.$moduleId;
             $objCheck->setValue($moduleId);
@@ -181,12 +182,12 @@ if ($modules) {
         } else {
             $missingModules = true;
             if (!$connected) {
-                $moduleName = $moduleId;
+                $moduleName = ucfirst($moduleId);
                 $desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
                 $actions = false;
             } else {
                 $doc = simplexml_load_string($this->objRPCClient->getModuleDescription($moduleId));
-                $moduleName = (string)$doc->array->data->value[0]->string;
+                $moduleName = ucfirst((string)$doc->array->data->value[0]->string);
                 $desc = (string)$doc->array->data->value[1]->string;
 
                 $alink->link('javascript:;');
@@ -195,7 +196,7 @@ if ($modules) {
                 $actions = $alink->show();
 
                 if ($moduleName == '') {
-                    $moduleName = $moduleId;
+                    $moduleName = ucfirst($moduleId);
                     $desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
                     $actions = false;
                 }

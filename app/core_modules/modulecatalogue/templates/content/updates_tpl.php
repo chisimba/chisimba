@@ -18,13 +18,17 @@ $updateAll->link($this->uri(array('action'=>'makepatch')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
 $makePatch = $updateAll->show();
 
+$updateAll->link($this->uri(array('action'=>'updatexml')));
+$updateAll->link = str_replace('[DATE]',date('Y/m/d',filectime($this->objConfig->getsiteRootPath()."config/catalogue.xml")),$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
+$updateXML = $updateAll->show();
+
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
 $objTable = &$this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell($updateAll->show(),null,null,'right');//<br/>$makePatch
+$objTable->addCell($updateAll->show()."<br />$updateXML",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if (isset($output)) {
