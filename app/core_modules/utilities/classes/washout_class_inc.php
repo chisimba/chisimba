@@ -29,6 +29,12 @@ class washout extends object
 	
 	public $bbcode;
 
+    /*
+    * @var object $objModules: The modules class in the modulecatalogue module
+    * @access private
+    */
+    private $objModules;
+
 	/**
 	 * Constructor method, builds an array of standard parsers,
 	 * ones that for legacy reasons do not live in the outputparsers
@@ -43,13 +49,22 @@ class washout extends object
 	{
 		try {
 			$this->objConfig = $this->getObject('altconfig', 'config');
+			$this->objModules = $this->getObject('modules', 'modulecatalogue');
 			//load up all of the parsers from filters
 			$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
 			chdir($filterDir);
 			$parsers = glob("parse4*_class_inc.php");
+			$mathMlLoaded = $this->objModules->checkIfRegistered('mathml');
+ 
 			foreach ($parsers as $parser)
 			{
-				$this->classes[] = str_replace("_class_inc.php", "", $parser);
+				if($parser == 'parse4mathml_class_inc.php'){
+				    if($mathMlLoaded != FALSE){
+                        $this->classes[] = str_replace("_class_inc.php", "", $parser);
+                    }
+                }else{
+                    $this->classes[] = str_replace("_class_inc.php", "", $parser);
+                }
 			}
 			$this->bbcode = $this->getObject('bbcodeparser', 'utilities');
 		}
