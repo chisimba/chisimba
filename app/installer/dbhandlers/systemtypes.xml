@@ -82,10 +82,9 @@
 
         <category>
             <categoryname>Communications</categoryname>
-            <module>chat</module>
+            <module>messaging</module>
             <module>email</module>
             <module>wiki</module>
-            <module>instantmessaging</module>
         </category>
 
         <category>
