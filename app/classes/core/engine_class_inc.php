@@ -1247,12 +1247,12 @@ class engine
 			return "core_modules/" . $moduleName."/resources/".$resourceFile;
 		}
 
-            // Convert Back Slashes to forward slashes
-            $moduleURI = str_replace('\\', '/', $this->_objConfig->getModuleURI().'/');
-            // Replace multiple instances of the forward slashes with single ones
-            $moduleURI = preg_replace('/\/++/', '/', $moduleURI);
+        // Convert Back Slashes to forward slashes
+        $moduleURI = str_replace('\\', '/', $this->_objConfig->getModuleURI().'/');
+        // Replace multiple instances of the forward slashes with single ones
+        $moduleURI = preg_replace('/\/++/', '/', $moduleURI);
 
-            return str_replace('//','/','/'."$moduleURI/$moduleName/resources/$resourceFile");
+        return str_replace('//','/',"$moduleURI/$moduleName/resources/$resourceFile");
 	    //return 'modules/' . $moduleName . '/resources/' . $resourceFile;
 	}
 
