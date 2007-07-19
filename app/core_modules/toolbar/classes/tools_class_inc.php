@@ -239,8 +239,8 @@ class tools extends object
     */
     function addIM()
     {
-        if($this->moduleCheck->checkIfRegistered('messaging')){
-
+        $showIM = $this->objSysConfig->getValue('DISPLAY_IM', 'messaging');
+        if($this->moduleCheck->checkIfRegistered('messaging') && $showIM == 'TRUE'){         
             $imLabel = $this->objLanguage->languageText("mod_toolbar_instantmessaging",'toolbar');
             
             $objIm = $this->getObject('chatdisplay', 'messaging');
