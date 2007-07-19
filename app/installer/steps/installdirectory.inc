@@ -148,7 +148,7 @@ class InstallDirectoryAction extends StepAction
 
 		$sys_root = isset($_POST['sys_root']) ? trim($_POST['sys_root']) : false;
 		$module_path = isset($_POST['module_path']) ? trim($_POST['module_path']) : $sys_root."/packages/";
-		$module_URI = isset($_POST['module_URI']) ? trim($_POST['module_URI']) : "/packages/";
+		$module_URI = isset($_POST['module_URI']) ? trim($_POST['module_URI']) : "packages/";
 
 		$_SESSION['sys_root'] = $sys_root;
 		$_SESSION['module_path'] = $module_path;
