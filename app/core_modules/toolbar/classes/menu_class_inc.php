@@ -264,7 +264,7 @@ class menu extends object
         }
         $menu = $this->buildFlatMenu($modules);
         
-        $navbar = '<div id="menu">'.$menu.'</div>';
+        $navbar = '<div id="menu3">'.$menu.'</div>';
         return $navbar;
     }
     
@@ -299,8 +299,8 @@ class menu extends object
             $iconList .= $helpBtn.'&nbsp;&nbsp;';
         }
 
-        
-        $navbar = '<div id="menu" style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$iconList.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
+        //removed id="menu" from the div because it looks crap
+        $navbar = '<div  style="float:left;">'.$menu.'</div><div style="float:right; padding-right: 10px;">'.$iconList.'</div><div id="breadcrumbs" style="clear:both">'.$crumbs.'</div>';
 //        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
