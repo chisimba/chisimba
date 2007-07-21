@@ -59,7 +59,7 @@ class cssmenu extends object
         }
         */
         
-        $str='<ul id="menuList" class="adxm">'; this is not using this javascript menu. its using the css one
+        $str='<ul id="menuList" class="adxm">'; //this is not using this javascript menu. its using the css one
        // $str='<ul id="nav">';
     	$str .= '<li class="first"><a href="'.$this->uri('', $home).'">'.$homeLabel.'</a></li>';
 		foreach($this->menu as $key=>$item){
