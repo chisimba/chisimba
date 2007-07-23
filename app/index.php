@@ -3,7 +3,7 @@
 /**
 * index.php 
 *
-* The entry point into the KEWL application
+* The entry point into the Chisimba application
 *
 * @author Paul Scott based on methods by Sean Legassick
 *
