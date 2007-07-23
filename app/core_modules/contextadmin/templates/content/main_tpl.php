@@ -21,8 +21,8 @@ echo $objH->show();
 
 
 
- 	$form =$this->objIEUtils->uploadTemplate();
-	
+	$uploadTemplate = $this->objIEUtils->uploadTemplate('1');
+//	$downloadTemplate = $this->objIEUtils->downloadTemplate();
 
 
 
@@ -205,7 +205,9 @@ if($this->_objUser->isAdmin())
 	   
 }
 
-$tabBox->addTab(array('name'=> "Import",'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$form->show())));
+//$tabBox->addTab(array('name'=> "Import",'content' => //$featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$uploadTemplate)));
+$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$uploadTemplate)));
+//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_downloadheading","contextadmin"),$downloadTemplate)));
 echo $tabBox->show();
 
 
