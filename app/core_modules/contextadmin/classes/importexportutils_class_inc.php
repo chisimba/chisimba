@@ -6,7 +6,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 /**
  * The class importexportutils that manages 
- * the function regularly used in the IMS import export module
+ * the functions regularly used in the IMS import export module
  * @package importexportutils
  * @category context
  * @copyright 2007, University of the Western Cape & AVOIR Project
@@ -61,12 +61,13 @@ class importexportutils extends dbTable
 		$this->objDBContext = & $this->newObject('dbcontext', 'context');
 	}
 
-
 	/**
 	 * Scans a specified folder and returns all file Locations
 	 * @param string $dir - Location of folder to scan
 	 * @param int $bool - 0 to return filenames and 1 to return file Locations
+	 *
 	 * @return array $file_list
+	 *
 	*/
 	public function list_dir_files($dir, $bool) 
 	{
@@ -104,7 +105,9 @@ class importexportutils extends dbTable
 	 * Scans a specified folder and returns all folder Locations
 	 * @param string $dir - Location of folder to scan
 	 * @param int $bool - 0 to return folder names and 1 to return folder Locations
+	 *
 	 * @return array $file_list
+	 *
 	*/
 	public function list_dir($dir, $bool) 
 	{
@@ -138,72 +141,48 @@ class importexportutils extends dbTable
 	 * function here, or extended dbTable, as we are not really
 	 * interested in connecting to the local db with this object.
  	 * @param The name of the server to connect to (predefined) $server
+	 *
 	 * @return string, set DSN
 	 * @access public
+	 *
 	 */
     	public function setup($server) 
     	{
         	switch ($server) 
 		{
-            		case 'localhost':
-                		$this->dsn = 'mysql://root:@localhost/nextgen';
-
-                		return $this->dsn;
-                	break;
-
-            		case 'chisimba':
-                		$this->dsn = 'mysql://root:@localhost/chisimba';
-
-                		return $this->dsn;
-                	break;
-
 			case 'fsiu':
                 		$this->dsn = 'mysql://reader:reader@172.16.203.173/fsiu';
-
 		                return $this->dsn;
                 	break;
-
             		case 'elearn':
                 		$this->dsn = 'mysql://reader:reader@172.16.203.210/nextgen';
-
 		                return $this->dsn;
                 	break;
-                
             		case 'santec':
                 		$this->dsn = 'mysql://reader:reader@172.16.203.173/santec';
-                		
 				return $this->dsn;
                 	break;
-                
             		case 'freecourseware':
             			$this->dsn = 'mysql://next:n3xt@172.16.203.178/ocw';
-
 		            	return $this->dsn;
             		break;
-
 			case '5ive':
             			$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/chisimba';
-
 		            	return $this->dsn;
             		break;
-
 			case 'pear':
 		            	$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/chisimbademo';
-	
 	            		return $this->dsn;
             		break;
-
 			case 'dfx':
             			$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/dfx';
-
 		            	return $this->dsn;
 			break;
 			default:
-                		$this->dsn = 'mysql://root:@localhost/'.$server;
-
+                		//$this->dsn = 'mysql://root:@localhost/'.$server;
+				$this->dsn = $server;
                 		return $this->dsn;
 			break;
-
         	}
     	}
 
@@ -212,14 +191,13 @@ class importexportutils extends dbTable
 	 */
 	public function getServers()
 	{
-		$serverlist[0] = "localhost/nextgen";
-		$serverlist[1] = "reader@172.16.203.173/fsiu";
-		$serverlist[2] = "reader@172.16.203.210/nextgen";
-		$serverlist[3] = "reader@172.16.203.173/santec";
-		$serverlist[4] = "n3xt@172.16.203.178/ocw";
-		$serverlist[5] = "pear@196.21.45.41/chisimba";
-		$serverlist[6] = "pear@196.21.45.41/chisimbademo";
-		$serverlist[7] = "pear@196.21.45.41/dfx";
+		$serverlist[0] = "fsiu";
+		$serverlist[1] = "elearn";
+		$serverlist[2] = "santec";
+		$serverlist[3] = "freecourseware";
+		$serverlist[4] = "5ive";
+		$serverlist[5] = "pear";
+		$serverlist[6] = "dfx";
 
 		return $serverlist;
 	}
@@ -228,8 +206,10 @@ class importexportutils extends dbTable
      	 * Build and instantiate the database object for the remote
 	 *
 	 * @param void
+	 *
 	 * @return object
 	 * @access private
+	 *
 	 */
     	public function _dbObject() 
     	{
@@ -259,8 +239,10 @@ class importexportutils extends dbTable
      	 * Method to query an arbitrarary remote table
      	 * @param string $table
      	 * @param string $filter can be full SQL Query
+	 *
      	 * @return resultset
      	 * @access public
+	 *
      	 */
 	public function queryTable($table, $filter) 
 	{
@@ -294,7 +276,9 @@ class importexportutils extends dbTable
 	 * Use information to create the course
 	 *
 	 * @param array $newCourse - 1 dimensional array storing course data
+	 *
 	 * @return TRUE
+	 *
 	*/
 	public function createCourseInChisimba($newCourse)
 	{
@@ -319,8 +303,10 @@ class importexportutils extends dbTable
 	 * Makes query to tbl_context in new database (Chisimba)
 	 * 
 	 * @param $contextcode selected course
-	 * @param string $type - 
+	 * @param string $type
+	 * 
 	 * @return TRUE - Successful execution
+	 *
 	*/
 	function getCourse($contextcode, $type = NULL)
 	{
@@ -335,9 +321,8 @@ class importexportutils extends dbTable
 		}
 		else
 		{
-			//Access old database
 			//Set database
-			$dsn = "localhost";
+			$dsn = $this->getSession('server');
 			//Set table
 			$table = "tbl_context";
 			//Set query
@@ -363,8 +348,10 @@ class importexportutils extends dbTable
 	 * Makes query to tbl_context_page_content in old database
 	 * 
 	 * @param string $courseId - selected course id
-	 * @param string $type - 
+	 * @param string $type 
+	 *
 	 * @return array $subPages - list of all subpages in context
+	 *
 	*/
 	function getCourseContent($courseId, $type = NULL)
 	{
@@ -385,16 +372,14 @@ class importexportutils extends dbTable
 				$i++;
 			}
 			if(!isset($courseContent))
-			{
 				return  "courseReadError";
-			}
+
 			return $subPages;
 		}
 		else
 		{
-			//Access old database
 			//Set database
-			$dsn = "localhost";
+			$dsn = $this->getSession('server');
 			//Set table
 			$table = "tbl_context_nodes";
 			//Set query
@@ -408,7 +393,7 @@ class importexportutils extends dbTable
 				$pageId = $aNode['id'];
 				//Retrieve each sub-page
 				//Set database
-				$dsn = "localhost";
+				$dsn = $this->getSession('server');
 				//Set table
 				$table = "tbl_context_page_content";
 				//Set query
@@ -418,9 +403,7 @@ class importexportutils extends dbTable
 				$i++;
 			}
 			if(!isset($courseContent))
-			{
 				return  "courseReadError";
-			}
 			$this->switchDatabase();
 
 			return $subPages;
@@ -433,13 +416,14 @@ class importexportutils extends dbTable
 	 * Retrieve chisimba images from database
 	 *
 	 * @param array $contextcode
+	 *
 	 * @return TRUE
+	 *
 	*/
 	public function getChisimbaImages($contextcode)
 	{
 		//course images data table
 		parent::init('tbl_files');
-
 
 		return TRUE;
 	}
@@ -448,13 +432,14 @@ class importexportutils extends dbTable
 	 * Retrieve chisimba html pages from database
 	 *
 	 * @param array $contextcode
+	 *
 	 * @return TRUE
+	 *
 	*/
 	public function getChisimbaHtmls($contextcode)
 	{
 		//course images data table
 		parent::init('tbl_context_page_content');
-
 
 		return TRUE;
 	}
@@ -463,13 +448,1099 @@ class importexportutils extends dbTable
 	 * Retrieve KNG html pages from database
 	 *
 	 * @param array $contextcode
+	 *
 	 * @return TRUE
+	 *
 	*/
 	public function getKNGHtmls($id)
 	{
 
+		return TRUE;
+	}
+
+	/**
+	 * Writes all images specific to context to usrfiles directory of new system (Chisimba)
+	 * or to a specified folder
+	 *
+	 * @param string $contextcode - selected course
+	 * @param string $folder - specified folder
+	 *
+	 * @return $imageNamesInKNG - File names of images
+	 *
+	*/
+	function writeImages($imageNames, $resourceFolder)
+	{
+		//files data table
+		parent::init('tbl_files');
+		foreach($imageNames as $image)
+		{
+			$filter = "WHERE filename = '$image'";
+			$results = $this->getAll($filter);
+			foreach($results as $result)
+			{
+				$path = $result['path'];
+				$filepath = $this->objConf->getcontentBasePath().$path;
+				$fileContents = file_get_contents($filepath);
+				$filepath = $resourceFolder.'/'.$image;
+				$fp = fopen($filepath,'w');
+				if((fwrite($fp, $fileContents) === FALSE))
+					return  "writeResourcesError";
+				fclose($fp);
+				$imageIds[$i] = $result['id'];
+				$i++;
+			}
+		}
+		return $imageIds;
+	}
+
+	function writeResources($resourceIds, $resourceFolder)
+	{
+		//files data table
+		parent::init('tbl_files');
+		foreach($resourceIds as $resourceId)
+		{
+			$filter = "WHERE id = '$resourceId'";
+			$results = $this->getAll($filter);
+			foreach($results as $result)
+			{
+				$path = $result['path'];
+				$resourceName = $result['filename'];
+				$filepath = $this->objConf->getcontentBasePath().$path;
+				$fileContents = file_get_contents($filepath);
+				$filepath = $resourceFolder.'/'.$resourceName;
+				$fp = fopen($filepath,'w');
+				if((fwrite($fp, $fileContents) === FALSE))
+					return  "writeResourcesError";
+				fclose($fp);
+				$resourceNames[$i] = $resourceName;
+				$i++;
+			}
+		}
+		return $resourceNames;
+	}
+
+/*
+	function writeImages($contextcode, $folder = NULL, $type = NULL)
+	{
+		$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
+		$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
+		//Course images
+		//Get basepath
+		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		$basePath = $this->objConf->getcontentBasePath();
+		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/$contextcode
+		$basePathNew = $basePath."content/".$contextcodeInChisimba;
+		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/$contextcode/images
+		$basePathToImages = $basePathNew."/images";
+		//Path = opt/lampp/htdocs/nextgen/usrfiles/context
+		$basePathInContext = "/opt/lampp/htdocs/nextgen/usrfiles/content/".$contextcode;
+		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/context
+		if($type == "new")
+			$basePathInContext = "/opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/".$contextcode;
+		//Get all directories in old system context
+		$dirsInContext = $this->list_dir($basePathInContext, 0);
+		//Get all files starting in old system context
+		$filesInContext = $this->list_dir_files($basePathInContext, 0);
+		//Get all files starting in root directory
+		$pathToFilesInContext = $this->list_dir_files($basePathInContext, 1);
+		//Get Image Relative Locations
+		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
+		//Get Image names
+		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
+		//Exporting package images to IMS specification Package
+		if(isset($folder))
+		{
+			//Write Images to specified folder
+			for($i=0;$i<count($pathToImagesInContext);$i++)
+			{
+				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
+				$newImageLocation = $folder."/".$imageNamesInContext[$i];
+				$fp = fopen($newImageLocation, 'w');
+				chmod($newImageLocation, 0777);
+				fwrite($fp,$contentsOfFile);
+				fclose($fp);
+			}
+		}
+		//Importing KNG package images into Chisimba
+		else
+		{
+			//Write Images to usrfiles folder in Chisimba
+			for($i=0;$i<count($pathToImagesInContext);$i++)
+			{
+				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
+				$newImageLocation = $basePathToImages."/".$imageNamesInContext[$i];
+				$fp = fopen($newImageLocation, 'w');
+				chmod($newImageLocation, 0777);
+				fwrite($fp,$contentsOfFile);
+				fclose($fp);
+			}
+		}
+
+		return $imageNamesInContext;
+	}
+*/
+
+	/**
+	 * NEED TO CHANGE DATABASE
+	 * Dummy call to reset database to Chisimba
+	 * Dont know of another way todo it
+	*/
+	function switchDatabase()
+	{
+		//Access old database
+		//Set database
+		$dsn = $this->objConf->getDsn();
+		//Set table
+		$table = "tbl_context";
+		//Set query
+		$query = "SELECT * from tbl_context";
+		//Execute query on specified database and table
+		$dummyData = $this->importDBData($dsn, $table, $query);
+	}
+
+	/**
+	 * Gets all subpages of a course according to the level the pages are on
+	 *
+	 * @param string $courseId - selected course id
+	 * @param string $level - depth of pages
+	 * 
+	*/
+	function getAllPages($courseId, $level)
+	{
+		$server = $this->getSession('server');
+		$course = $this->getParam('course');
+        	//set the table
+        	$tableName = "tbl_context_nodes";
+        	//set up the query
+        	$sql = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId' AND pagelevel = '$level'";
+		$dbData = $this->importDBData($server, $tableName, $sql);
+		$this->switchDatabase();
+
+		return $dbData;
+	}
+
+	/**
+	 * Controls the process of creating an xml document to store all subpage information
+	 *
+	 * @param array $courseData - 2d array containing all course data
+	 *
+	 * @return array $courseData - 1d array containing all course data
+	 *
+	*/
+	function convertArray($courseData)
+	{
+		//Convert 2-d array into 1-d array
+		$newCourse['id'] = $courseData['0']['id'];
+		$newCourse['contextcode'] = $courseData['0']['contextcode'];
+		$newCourse['title'] = $courseData['0']['title'];
+		$newCourse['menutext'] = $courseData['0']['menutext'];
+		$newCourse['userid'] = $courseData['0']['userid'];
+		$newCourse['about'] = $courseData['0']['about'];
+		if($courseData['isactive'] == 0)
+			$newCourse['isactive'] = "Public";
+		else if($courseData['isactive'] == 1)
+			$newCourse['isactive'] = "Open";
+		else
+			$newCourse['isactive'] = "Private";
+		if($courseData['isclosed'] == 1)
+			$newCourse['isclosed'] = "Published";
+		else
+			$newCourse['isclosed'] = "UnPublished";
+
+		return $newCourse;
+	}
+
+	/**
+	 * Controls the process of creating an xml document to store all subpage information
+	 *
+	 * @param array $newCourse - 1d array containing all course data
+	 *
+	 * @return string $xmlData - xml contents to be written to a file
+	 *
+	*/
+	function createKNGXML($newCourse)
+	{
+		//Create XML document
+		$newCourse = $this->convertArray($newCourse);
+    		$imsDoc = new DomDocument('1.0');
+    		$imsDoc->formatOutput = true;
+		$courses = $imsDoc->createElement("Pages");
+		$manifest = $imsDoc->appendChild($courses);
+		$values = array('title' => $newCourse['title'], 
+				'content' => "Course",
+				'id' => $newCourse['id'],
+				'parentid' => "ROOT");
+		//Creates Root page
+		$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
+		//Runs through each level append data to xml file
+		while(TRUE)
+		{
+			static $i=1;
+			//Retrieve pages at first level
+			$pagesAtLevel = $this->getAllPages($newCourse['id'], $i);
+			//Add information to xml file
+			$this->addPagesAtLevel($imsDoc, $manifest, $pagesAtLevel);
+			//Check if there are any results for subpage query
+			if(empty($pagesAtLevel))
+				break;
+			$i++;
+		}
+		//Convert DomDocument to text
+		$xmlData = $imsDoc->saveXML();
+		
+		return $xmlData;
+	}
+
+	/**
+	 * Adds an entire level of subpages information to the subpages.xml file
+	 *
+	 * @param DomDocument $imsDoc
+	 * @param DomDocument Element $manifest
+	 * @param array $allPages
+	 *
+	 * @return TRUE - Successful execution
+	 *
+	*/
+	function addPagesAtLevel($imsDoc, $manifest, $allPages)
+	{
+		foreach($allPages as $aPage)
+		{
+			$values = array('title' => $aPage['title'],
+					'content' => "Page",
+					'id' => $aPage['metadata_id'],
+					'parentid' => $aPage['tbl_context_parentnodes_id']);
+			$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
+		}
+		return TRUE;
+	}
+
+	/**
+	 * Creates a single node holding information about a single subpage
+	 * 
+	 * @param DomDocument Object $imsDoc
+	 * @param DomDocument Element $manifest
+	 * @param array $values
+	 *
+	 * @return DomDocument Element $course
+	 *
+	*/
+	function getPageNode($imsDoc, $manifest, $values)
+	{
+		//Create Page
+    		$course = $imsDoc->createElement('Page');
+    		$course = $manifest->appendChild($course);
+		//Course Attributes
+		//Title
+    		$title = $imsDoc->createElement('Title');
+    		$title = $course->appendChild($title);
+		$title->appendChild($this->getTextNode($imsDoc, $values['title']));
+		//Content
+    		$content = $imsDoc->createElement('Content');
+    		$content = $course->appendChild($content);
+		$content->appendChild($this->getTextNode($imsDoc, $values['content']));
+		//ID
+    		$id = $imsDoc->createElement('Id');
+    		$id = $course->appendChild($id);
+		$id->appendChild($this->getTextNode($imsDoc, $values['id']));
+		//ParentId
+    		$parentId = $imsDoc->createElement('ParentId');
+    		$parentId = $course->appendChild($parentId);
+		$parentId->appendChild($this->getTextNode($imsDoc, $values['parentid']));
+		
+		return $course;
+	}
+
+	/**
+	 * Simplifies creating a DOM document text node
+	 * 
+	 * @param DomDocument $imsDoc
+	 * @param string $value
+	 *
+	 * @return DomDocument TextNode $textNode
+	 *
+	*/
+	function getTextNode($imsDoc, $value)
+	{
+		$textNode = $imsDoc->createTextNode($value);
+
+		return $textNode;
+	}
+
+
+	/**
+	 * Main template file for the import module
+	 * Displays data and forms
+	 * Written by James Scoble using code written by Wesley Nitsckie
+	 * Modified by Jarrett L. Jordaan
+	 */
+	public function importTemplate($dbData, $packageType)
+	{
+		$this->switchDatabase();
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('htmlheading','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('dropdown','htmlelements');
+		$objH = new htmlheading();
+		if($packageType == 'mit' || $packageType == 'default')
+			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadIMSIntoExisting')));
+		else
+			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadKNG')));
+		//Label
+		$label = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"select");
+		//Button
+		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
+		$inpButton->setToSubmit();
+		$objElement = new dropdown('dropdownchoice');
+		//Dropdown 
+		foreach($dbData as $dataOld)
+			$objElement->addOption($dataOld['contextcode']);
+		$objForm->addToForm($label->show());
+		$objForm->addToForm($objElement->show());
+		$objForm->addToForm('<br/>');
+		$objForm->addToForm($inpButton->show());
+
+		return $objForm->show();
+	}
+
+	/**
+	 * Main template file for the import module
+	 * Displays data and forms
+	 * Written by James Scoble using code written by Wesley Nitsckie
+	 * Modified by Jarrett L. Jordaan
+	 */
+	public function uploadTemplate($section = '')
+	{
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('radio','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('hiddeninput', 'htmlelements');
+		$this->loadClass('checkbox', 'htmlelements');
+		//$this->loadClass('htmlheading', 'htmlelements');
+		//Creating the form for IMS package upload
+		$paramArray1 = array('action' => 'uploadIMS');
+		$form1 = new form('uploadziplocal', $this->uri($paramArray1,'contextadmin'));
+    		$form1->extra=' enctype="multipart/form-data" ';
+    		//File input
+    		$fileInput = new textinput('upload');
+    		$fileInput->fldType='file';
+    		$fileInput->label=$this->objLanguage->languageText("mod_ims_uploadNotice","contextadmin");
+    		//$fileInput->name='upload';
+    		$fileInput->size=50;
+    		//Submit button
+    		$submitButton = new button('submit');
+    		$submitButton->setToSubmit();
+    		$submitButton->setValue($this->objLanguage->languageText("word_upload"));
+		//Package type
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('default','eduCommons');
+		$pakRadio->addOption('mit','MIT');
+		//$pakRadio->addOption('exe','eXe');
+		$pakRadio->setSelected('default');
+		$checkLabel = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
+		//Checkbox
+		$createCheckbox = new checkbox('createCourse','',true);
+	    	//add the objects to the form
+    		$form1->addToForm($fileInput);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($pakRadio);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($checkLabel);
+    		$form1->addToForm(' ');
+    		$form1->addToForm($createCheckbox);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($submitButton);
+		//Creating the form for KNG package upload
+		$paramArray2 = array('action' => 'uploadFromServer');
+		$form2 = new form('uploadziplocal', $this->uri($paramArray2,'contextadmin'));
+    		$form2->extra=' enctype="multipart/form-data" ';
+    		//Heading
+		$heading1 = new htmlheading();
+    		$heading1->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
+    		$heading1->type=2;
+		//Button
+		$loginButton = new button('login');
+		$loginButton->setValue('Login');
+		$loginButton->setToSubmit();
+		//Label - server
+		$serverLabel = new label($this->objLanguage->languageText("mod_ims_selectServer","contextadmin"),"");
+		//Dropdown - server selection
+		$serverDropDown = new dropdown('server');
+		//Populate Dropdown - server
+		$servers = $this->getServers();
+		foreach($servers as $server)
+		{
+			$serverDropDown->addOption($server);
+		}
+		//Label - local server
+		$localLabel = new label($this->objLanguage->languageText("mod_ims_localServer","contextadmin"),"");
+    		//Server input
+    		$serverInput = new textinput($this->objLanguage->languageText("mod_ims_localhost","contextadmin"), $this->objLanguage->languageText("mod_ims_uploadInfo","contextadmin"),'','45');
+		//Label - Create Course
+		$checkLabel2 = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
+		//Checkbox
+		$createCheckbox2 = new checkbox('createCourse2','',true);
+		$form2->addToForm('<hr>');
+		$form2->addToForm($heading1);
+		$form2->addToForm('<br />');
+		$form2->addToForm($serverLabel);
+		$form2->addToForm($serverDropDown);
+		$form2->addToForm('<br />');
+		$form2->addToForm($localLabel);
+		$form2->addToForm($serverInput);
+		$form2->addToForm('<br />');
+		$form2->addToForm($checkLabel2);
+		$form2->addToForm(' ');
+		$form2->addToForm($createCheckbox2);
+		$form2->addToForm('<br />');
+		$form2->addToForm($loginButton);
+		if($section == '1')
+			return $form1->show();
+		else if($section == '2')
+			return $form2->show();
+		else
+			return $str = $form1->show().$form2->show();
+	}
+
+	/**
+	 * Main template file for the export module
+	 * Displays data and forms
+	 *
+	 */
+	public function downloadTemplate()
+	{
+		//course data table
+		parent::init('tbl_context');
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('dropdown','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('hiddeninput', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		//Creating the form
+		$paramArray1 = array('action' => 'downloadChisimba');
+		$form1 = new form('exportziplocal', $this->uri($paramArray1,'contextadmin'));
+    		$form1->extra=' enctype="multipart/form-data" ';
+		//Label - server
+		$courseLabel = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"");
+		//Dropdown - course selection
+		$courseDropDown = new dropdown('dropdownchoice');
+		//Retrieve all courses in Chisimba
+		$courses = $this->getAll();
+		//Populate Dropdown course
+		foreach($courses as $course)
+		{
+			$courseDropDown->addOption($course['contextcode']);
+		}
+		//Button
+		$exportButton = new button('export');
+		$exportButton->setValue($this->objLanguage->languageText("word_export"));
+		$exportButton->setToSubmit();
+		$form1->addToForm($courseLabel);
+		$form1->addToForm($courseDropDown);
+		$form1->addToForm("<br />");
+		$form1->addToForm($exportButton);
+		//Creating the form
+		$paramArray2 = array('action' => 'downloadRemote');
+		$form2 = new form('exportziplocal', $this->uri($paramArray2,'contextadmin'));
+    		$form2->extra=' enctype="multipart/form-data" ';
+    		//Heading
+		$heading1 = new htmlheading();
+    		$heading1->str=$this->objLanguage->languageText("mod_ims_downloadremoteheading","contextadmin");
+    		$heading1->type=2;
+		$form2->addToForm($heading1);
+		$form2->addToForm("<br />");
+
+		return $form1->show();
+/*
+		$form=&$this->newObject('form','htmlelements');
+    		$form->extra=' enctype="multipart/form-data" ';
+    		$form->name='exportziplocal';
+    		$paramArray = array('action' => 'downloadChisimba');
+    		$form->setAction($this->uri($paramArray,'contextadmin'));
+		//Creating the form
+		$form2=&$this->newObject('form','htmlelements');
+    		$form2->extra=' enctype="multipart/form-data" ';
+    		$form2->name='exportziplocal';
+    		$paramArray = array('action' => 'downloadKNG');
+    		$form2->setAction($this->uri($paramArray,'contextadmin'));
+		//Creating the form
+		$form3=&$this->newObject('form','htmlelements');
+    		$form3->extra=' enctype="multipart/form-data" ';
+    		$form3->name='dudd';
+    		$paramArray = array('action' => 'dudd');
+    		$form3->setAction($this->uri($paramArray,'dudd'));
+    		//Heading	
+    		$objHeading1=&$this->newObject('htmlheading','htmlelements');
+    		$objHeading1->str=$this->objLanguage->languageText("mod_new_downloadheading","contextadmin");
+    		$objHeading1->type=3;
+*/
+    		//Heading	
+    		$objHeading2=&$this->newObject('htmlheading','htmlelements');
+    		$objHeading2->str=$this->objLanguage->languageText("mod_kng_downloadheading","contextadmin");
+    		$objHeading2->type=3;
+		//Label - server
+		$courseLabel = new label("Select Course","");
+		//Dropdown - course selection
+		$courseDropDown = new dropdown('dropdownchoice');
+		//Retrieve all courses in Chisimba
+		$courses = $this->getAll();
+		//Populate Dropdown course
+		foreach($courses as $course)
+		{
+			$courseDropDown->addOption($course['contextcode']);
+		}
+		//Button
+		$inpButton = $this->newObject('button','htmlelements');
+		$inpButton->cssClass = 'f-submit';
+		$inpButton->setValue('Export');
+		$inpButton->setToSubmit();
+		//Label - server
+		$courseLabel2 = new label("Select Course","");
+		//Dropdown - course selection
+		$courseDropDown2 = new dropdown('dropdownchoice');
+		//Server selection
+		$server = "localhost";
+        	//set the table
+        	$tableName = "tbl_context";
+        	//set up the query
+        	$sql = "SELECT * from tbl_context";
+		$courses = $this->importDBData($server, $tableName, $sql);
+		//Populate Dropdown course
+		foreach($courses as $course)
+		{
+			$courseDropDown2->addOption($course['contextcode']);
+		}
+		//Button
+		$inpButton2 = $this->newObject('button','htmlelements');
+		$inpButton2->cssClass = 'f-submit';
+		$inpButton2->setValue('Export');
+		$inpButton2->setToSubmit();
+		//Package type
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('static','Download Package');
+		$pakRadio->addOption('ims','IMS Package');
+		$pakRadio->setSelected('static');
+		//hidden input
+		$zipFile = new hiddeninput('file', 'file');
+		//Add elements to form
+		$form->addToForm($objHeading1);
+		$form->addToForm($courseLabel);
+		$form->addToForm($courseDropDown);
+		$form->addToForm("<br />");
+		$form->addToForm("<br />");
+		$form->addToForm($pakRadio);
+		$form->addToForm("<br />");
+		$form->addToForm($inpButton);
+		$form2->addToForm($objHeading2);
+		$form2->addToForm($courseLabel2);
+		$form2->addToForm($courseDropDown2);
+		$form2->addToForm("<br />");
+		$form2->addToForm("<br />");
+		$form2->addToForm($pakRadio);
+		$form2->addToForm("<br />");
+		$form2->addToForm($inpButton2);
+		$form2->addToForm($zipFile);
+		$this->switchDatabase();
+		$form3->addToForm($form);
+		$form3->addToForm('<hr />');
+		$form3->addToForm($form2);
+
+		return $form3;
+	}
+
+	/**
+	 * Write htmls to IMS resource folder
+	 *
+	 * @param array $courseData
+	 * @param array $courseContent or context code
+	 * @param string $tempDirectory
+	 *
+	 * @return array $htmlfilenames - 
+	 *
+	*/
+	function writeHtmls($htmlPages, $resourceFolder, $courseTitle = '')
+	{
+		if(count($htmlPages) == 1)
+		{
+			$filename = $courseTitle;
+			$filepath = $resourceFolder."/".$filename.'.html';
+			$fp = fopen($filepath,'w');
+			$htmlFilenames[$i] = $filename;
+			if((fwrite($fp, $htmlPages) === FALSE))
+				return  "writeResourcesError";
+			fclose($fp);
+		}
+		else
+		{
+			foreach($htmlPages as $page)
+			{
+				$filename = "resource".$i.".html";
+				$filepath = $resourceFolder."/".$filename;
+				$fp = fopen($filepath,'w');
+				$htmlFilenames[$i] = $filename;
+				if((fwrite($fp, $page) === FALSE))
+					return  "writeResourcesError";
+				fclose($fp);
+				$i++;
+			}
+		}
+
+		return $htmlFilenames;
+	}
+
+	function getCourseHtml($contextcode)
+	{
+		parent::init('tbl_context');
+		$filter = "WHERE contextcode = '$contextcode'";
+		$courses = $this->getAll($filter);
+		foreach($courses as $course)
+		{
+			$pageContents = $course['about'];
+		}
+		
+		return $pageContents;
+	}
+
+	function getHtmlPages($contextcode)
+	{
+		parent::init('tbl_contextcontent_order');
+		$filter = "WHERE contextcode = '$contextcode'";
+		$orders = $this->getAll($filter);
+		foreach($orders as $titleId)
+		{
+			$titleId = $titleId['titleid'];
+			parent::init('tbl_contextcontent_pages');
+			$filter = "WHERE titleid = '$titleId'";
+			$pages = $this->getAll($filter);
+			static $i = 0;
+			foreach($pages as $aPage)
+			{
+				$pageContents[$i] = $aPage['pagecontent'];
+				$i++;
+			}
+		}		
+		
+		return $pageContents;
+	}
+
+	function getImageNames($htmlPages)
+	{
+		if(count($htmlPages) == 1)
+		{
+			preg_match_all('/filename=.*type/', $htmlPages, $matches, PREG_SET_ORDER);
+			if($matches)
+			{
+				static $i= 0;
+				foreach($matches as $match)
+				{
+					$match[0] = preg_replace('/filename=/','',$match[0]);
+					$match[0] = preg_replace('/&amp;type/','',$match[0]);
+					$resourcePaths[$i] = $match[0];
+					$i++;
+				}
+			}
+		}
+		else
+		{
+			foreach($htmlPages as $page)
+			{
+				static $i=0;
+				preg_match_all('/filename=.*type/', $page, $matches, PREG_SET_ORDER);
+				if($matches)
+				{
+					static $i= 0;
+					foreach($matches as $match)
+					{
+						$match[0] = preg_replace('/filename=/','',$match[0]);
+						$match[0] = preg_replace('/&amp;type/','',$match[0]);
+						$resourcePaths[$i] = $match[0];
+						$i++;
+					}
+				}
+			}
+		}
+
+		return $resourcePaths;
+	}
+
+	function getResourceIds($htmlPages)
+	{
+		if(count($htmlPages) == 1)
+		{
+			preg_match_all('/fileinfo.*"/', $htmlPages, $matches, PREG_SET_ORDER);
+			if($matches)
+			{
+				foreach($matches as $match)
+				{
+					$match = preg_replace('/fileinfo&amp;id=/','',$match);
+					$resourceIds[$i] = $match;
+					$i++;
+				}
+			}
+		}
+		else
+		{
+			foreach($htmlPages as $page)
+			{
+				preg_match_all('/fileinfo.*"/', $page, $matches, PREG_SET_ORDER);
+				if($matches)
+				{
+					foreach($matches as $match)
+					{
+						$match = preg_replace('/fileinfo&amp;id=/','',$match);
+						$resourceIds[$i] = $match;
+						$i++;
+					}
+				}
+			}
+		}
+
+		return $resourceIds;
+	}
+
+	function getImageIds($courseImageNames)
+	{
+
+	}
+
+	function generateUniqueId()
+	{
+		return md5(uniqid(time(),true));
+	}
+
+  	/**
+    	 * Method to replace image source links with links to the filemanager
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+    	 * @return TRUE - if page is un-modified
+	 *
+	*/
+    	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
+	{
+		#Image location on disc
+		$imageLocation =  'src="'.$this->objConf->getcontentBasePath().'content/';
+		$imageLocation = $imageLocation.$contextCode.'/images/';
+		#Image location on localhost
+		$action = 'src="'.$this->objConf->getsiteRoot().'index.php?module=filemanager&amp;action=file&amp;id=';
+		#Only run through html's contained in package
+		$page = $fileContents;
+		foreach($fileNames as $aFile)
+		{
+			#Check if its an Image
+			if(preg_match("/.jpg|.gif|.png/",$aFile))
+			{
+				#Create new file source location
+				#Check if its a static package
+				if(!($static == ''))
+					$newLink = $imageLocation.$aFile.'"';
+				else
+				{
+					$newLink = $action.$imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
+				}
+				#Convert filename into regular expression
+				$regex = '/'.$aFile.'/';
+				#Find filename in html page if it exists
+				preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
+				if($matches)
+				{
+					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+					$page = preg_replace($regReplace, $newLink, $page);
+				}
+				#If the image was renamed
+				else
+				{
+					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
+					$regex = '/'.$aFile.'/';
+					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+					if($matches)
+					{
+						$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+						$page = preg_replace($regReplace, $newLink, $page);
+					}
+				}
+			}
+		}
+
+		return $page;
+    	}
+
+	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+	 *
+	*/
+	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='', $allFilesLocation = '')
+    	{
+		$action =$this->objConf->getsiteRoot().'index.php?module=contextcontent&amp;action=viewpage&amp;id=';
+		#Run through each resource
+		$page = $fileContents;
+		if($packageType == 'mit')
+		{
+			foreach($allFilesLocation as $aFilepath)
+			{
+				$aFilepath = '../../../../'.$aFilepath;
+				if(preg_match('/CourseHome/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['CourseHome.html'], $page);
+				else if(preg_match('/Syllabus/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Syllabus.html'], $page);
+				else if(preg_match('/Calendar/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Calendar.html'], $page);
+				else if(preg_match('/Readings/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Readings.html'], $page);
+				else if(preg_match('/Labs/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Labs.html'], $page);
+				else if(preg_match('/LectureNotes/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['LectureNotes.html'], $page);
+				else if(preg_match('/Assignments/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Assignments.html'], $page);
+				else if(preg_match('/Exams/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Exams.html'], $page);
+				else if(preg_match('/Projects/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Projects.html'], $page);
+				else if(preg_match('/Tools/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Tools.html'], $page);
+				else if(preg_match('/RelatedResources/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['RelatedResources.html'], $page);
+				else if(preg_match('/DiscussionGroup/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DiscussionGroup.html'], $page);
+				else if(preg_match('/DownloadthisCourse/', $aFilepath))
+					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DownloadthisCourse.html'], $page);
+			}
+		}
+		else
+		{
+			foreach($fileNames as $aFile)
+			{
+				if($this->fileMod)
+				{
+					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
+				}
+				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+				$modAction = $action.$pageIds[$aFile].'"';
+				$page = preg_replace($regReplace, $modAction, $page);
+			}
+		}
+
+		return $page;
+    	}
+
+	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+	 *
+	*/
+	function changeMITLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+    	{
+		$action = 'href="'.$this->objConf->getsiteRoot().'/index.php?module=filemanager&action=fileinfo&amp;id=';
+		#Run through each resource
+		$page = $fileContents;
+		foreach($fileNames as $aFile)
+		{
+			if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$aFile)))
+			{
+				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
+				$modAction = $action.$pageIds[$aFile].'"';
+				$page = preg_replace($regReplace, $modAction, $page);
+			}
+		}
+
+		return $page;
+    	}
+
+	/**
+	 * Create a temporary folder
+	 * 
+	 * @param string $contextcode - context code of course
+	 * 
+	 * @return string $tempFolder - location of temporary folder
+	 * 
+	*/
+	function createTempDirectory($contextcode)
+	{
+		//Temp folder location
+		$tempFolder = "/tmp/".$contextcode;
+		$resourceFolder = $tempFolder."/".$contextcode;
+		//Check if folder exists and remove it
+		$this->recursive_remove_directory($tempFolder);
+		$this->recursive_remove_directory($resourceFolder);
+		//Create directory
+		if(!mkdir($tempFolder))
+		{
+			return "writeError";
+		}
+		//Create directory
+		if(!mkdir($resourceFolder))
+		{
+			return "writeError";
+		}
+		//Change directory permissions
+		if(!chmod($tempFolder,0777))
+		{
+			return "permissionError";
+		}
+		//Change directory permissions
+		if(!chmod($resourceFolder,0777))
+		{
+			return "permissionError";
+		}
+
+		return $tempFolder;
+	}
+
+	/**
+	 * Write Schema files
+	 *
+	 * @param string $tempDirectory - location of temporary folder
+	 * 
+	 * @return TRUE - Successful execution
+	 * 
+	*/
+	function writeSchemaFiles($tempDirectory)
+	{
+		//Additional site root path locations
+		//Schema filenames
+		$fileEdu = "eduCommonsv1.1.xsd";
+		$fileImscp = "imscp_v1p2.xsd";
+		$fileImsmd = "imsmd_v1p2p4.xsd";
+		//Schama files locations
+		$schamas = $siterootpath."core_modules/contextadmin/ims/";
+		$schamaspath1 = $schamas."eduCommonsv1.1.xsd";
+		$schamaspath2 = $schamas."imscp_v1p2.xsd";
+		$schamaspath3 = $schamas."imsmd_v1p2p4.xsd";
+		//Write files to new directory
+		//Write Schema files
+		$fp = fopen($tempDirectory."/".$fileEdu,'w');
+		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
+		{
+			return "writeError";
+		}
+		$fp = fopen($tempDirectory."/".$fileImscp,'w');
+		if(fwrite($fp, file_get_contents($schamaspath2)) === FALSE)
+		{
+			return "writeError";
+		}
+		$fp = fopen($tempDirectory."/".$fileImsmd,'w');
+		if(fwrite($fp, file_get_contents($schamaspath3)) === FALSE)
+		{
+			return "writeError";
+		}
+		fclose($fp);
+		if(!chmod($tempDirectory,0777))
+		{
+			return "permissionError";
+		}
 
 		return TRUE;
+	}
+
+	/**
+	 * Create imsmanifest.xml
+	 *
+	 * @param string $tempDirectory - path to /tmp directory
+	 * 
+	 * @return filehandler $fp - file handler to write contents
+	 * 
+	 */
+	function createIMSManifestFile($tempDirectory)
+	{
+		$filePath = $tempDirectory."/imsmanifest.xml";
+		//check if the xml file exist
+		if(file_exists($filePath))
+			//delete the xml file
+			unlink($filePath);
+       		//create the xml file
+		$fp = fopen($filePath,'w');
+
+		return $fp;
+	}
+
+	public $fileMod;
+	/**
+	 * Sets debugging on
+	 *
+    	 * @param NULL
+	 *
+	*/
+	function fileModOn()
+	{
+		$this->fileMod = TRUE;
+	}
+
+	/**
+	 * Sets debugging off
+	 *
+    	 * @param NULL
+	 *
+	*/
+	function fileModOff()
+	{
+		$this->fileMod = FALSE;
+	}
+
+	/**
+	 * 
+	 * 
+	*/
+	function eduCommonsData($imsFileLocation)
+	{
+		$doc = new DOMDocument('1.0');
+		$doc->load($imsFileLocation);
+		$xpath = new DOMXPath($doc);
+		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
+		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
+#course title
+		$query = '//imsmd:title/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+#course id
+		$query = '//imsmd:identifier/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+#course description
+		$query = '//imsmd:description/imsmd:langstring';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+#course html?
+		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
+#clearedcopyright
+		$query = '//manifest/metadata/imsmd:lom/imsmd:general';
+		//$query = '//imsmd:general/educommons:clearedcopyright';
+		$results = $xpath->evaluate($query);
+		for($i=0;$i<$results->length;$i++)
+			echo $results->item($i)->nodeValue."<br />";
 	}
 
 /*
@@ -552,927 +1623,5 @@ function recursive_remove_directory($directory, $empty=FALSE)
 		return TRUE;
 	}
 }
-
-	/**
-	 * Writes all images specific to context to usrfiles directory of new system (Chisimba)
-	 * or to a specified folder
-	 *
-	 * @param string $contextcode - selected course
-	 * @param string $folder - specified folder
-	 * @return $imageNamesInKNG - File names of images
-	*/
-	function writeImages($contextcode, $folder = NULL, $type = NULL)
-	{
-		//if(!(isset($folder)))
-		//{
-			$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
-			$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
-		//}
-		//Course images
-		//Get basepath
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/
-		$basePath = $this->objConf->getcontentBasePath();
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/$contextcode
-		$basePathNew = $basePath."content/".$contextcodeInChisimba;
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/$contextcode/images
-		$basePathToImages = $basePathNew."/images";
-		//Path = opt/lampp/htdocs/nextgen/usrfiles/context
-		$basePathInContext = "/opt/lampp/htdocs/nextgen/usrfiles/content/".$contextcode;
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/context
-		if($type == "new")
-			$basePathInContext = "/opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/".$contextcode;
-		//Get all directories in old system context
-		$dirsInContext = $this->list_dir($basePathInContext, 0);
-		//Get all files starting in old system context
-		$filesInContext = $this->list_dir_files($basePathInContext, 0);
-		//Get all files starting in root directory
-		$pathToFilesInContext = $this->list_dir_files($basePathInContext, 1);
-		//Get Image Relative Locations
-		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
-		//Get Image names
-		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
-		//Exporting package images to IMS specification Package
-		if(isset($folder))
-		{
-			//Write Images to specified folder
-			for($i=0;$i<count($pathToImagesInContext);$i++)
-			{
-				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
-				$newImageLocation = $folder."/".$imageNamesInContext[$i];
-				$fp = fopen($newImageLocation, 'w');
-				chmod($newImageLocation, 0777);
-				fwrite($fp,$contentsOfFile);
-				fclose($fp);
-			}
-		}
-		//Importing KNG package images into Chisimba
-		else
-		{
-			//Write Images to usrfiles folder in Chisimba
-			for($i=0;$i<count($pathToImagesInContext);$i++)
-			{
-				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
-				$newImageLocation = $basePathToImages."/".$imageNamesInContext[$i];
-				$fp = fopen($newImageLocation, 'w');
-				chmod($newImageLocation, 0777);
-				fwrite($fp,$contentsOfFile);
-				fclose($fp);
-			}
-		}
-
-		return $imageNamesInContext;
-	}
-
-
-	/**
-	 * NEED TO CHANGE DATABASE
-	 * Dummy call to reset database to Chisimba
-	 * Dont know of another way todo it
-	*/
-	function switchDatabase()
-	{
-		//Access old database
-		//Set database
-		$dsn = "localhost";
-		//Set table
-		$table = "tbl_context";
-		//Set query
-		$query = "SELECT * from tbl_context";
-		//Execute query on specified database and table
-		$dummyData = $this->importDBData("chisimba", $table, $query);
-	}
-
-	/**
-	 * Gets all subpages of a course according to the level the pages are on
-	 *
-	 * @param string $courseId - selected course id
-	 * @param string $level - depth of pages
-	 * 
-	*/
-	function getAllPages($courseId, $level)
-	{
-		$server = "localhost";
-		$course = $this->getParam('course');
-        	//set the table
-        	$tableName = "tbl_context_nodes";
-        	//set up the query
-        	$sql = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId' AND pagelevel = '$level'";
-		$dbData = $this->importDBData($server, $tableName, $sql);
-		$this->switchDatabase();
-
-		return $dbData;
-	}
-
-	/**
-	 * Controls the process of creating an xml document to store all subpage information
-	 *
-	 * @param array $courseData - 2d array containing all course data
-	 * @return array $courseData - 1d array containing all course data
-	*/
-	function convertArray($courseData)
-	{
-		//Convert 2-d array into 1-d array
-		$newCourse['id'] = $courseData['0']['id'];
-		$newCourse['contextcode'] = $courseData['0']['contextcode'];
-		$newCourse['title'] = $courseData['0']['title'];
-		$newCourse['menutext'] = $courseData['0']['menutext'];
-		$newCourse['userid'] = $courseData['0']['userid'];
-		$newCourse['about'] = $courseData['0']['about'];
-		if($courseData['isactive'] == 0)
-			$newCourse['isactive'] = "Public";
-		else if($courseData['isactive'] == 1)
-			$newCourse['isactive'] = "Open";
-		else
-			$newCourse['isactive'] = "Private";
-		if($courseData['isclosed'] == 1)
-			$newCourse['isclosed'] = "Published";
-		else
-			$newCourse['isclosed'] = "UnPublished";
-
-		return $newCourse;
-	}
-
-	/**
-	 * Controls the process of creating an xml document to store all subpage information
-	 *
-	 * @param array $newCourse - 1d array containing all course data
-	 * @return string $xmlData - xml contents to be written to a file
-	*/
-	function createKNGXML($newCourse)
-	{
-		//Create XML document
-		$newCourse = $this->convertArray($newCourse);
-    		$imsDoc = new DomDocument('1.0');
-    		$imsDoc->formatOutput = true;
-		$courses = $imsDoc->createElement("Pages");
-		$manifest = $imsDoc->appendChild($courses);
-		$values = array('title' => $newCourse['title'], 
-				'content' => "Course",
-				'id' => $newCourse['id'],
-				'parentid' => "ROOT");
-		//Creates Root page
-		$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
-		//Runs through each level append data to xml file
-		while(TRUE)
-		{
-			static $i=1;
-			//Retrieve pages at first level
-			$pagesAtLevel = $this->getAllPages($newCourse['id'], $i);
-			//Add information to xml file
-			$this->addPagesAtLevel($imsDoc, $manifest, $pagesAtLevel);
-			//Check if there are any results for subpage query
-			if(empty($pagesAtLevel))
-				break;
-			$i++;
-		}
-		//Convert DomDocument to text
-		$xmlData = $imsDoc->saveXML();
-		
-		return $xmlData;
-	}
-
-	/**
-	 * Adds an entire level of subpages information to the subpages.xml file
-	 *
-	 * @param DomDocument $imsDoc
-	 * @param DomDocument Element $manifest
-	 * @param array $allPages
-	 * @return TRUE - Successful execution
-	*/
-	function addPagesAtLevel($imsDoc, $manifest, $allPages)
-	{
-		foreach($allPages as $aPage)
-		{
-			$values = array('title' => $aPage['title'],
-					'content' => "Page",
-					'id' => $aPage['metadata_id'],
-					'parentid' => $aPage['tbl_context_parentnodes_id']);
-			$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
-		}
-		return TRUE;
-	}
-
-	/**
-	 * Creates a single node holding information about a single subpage
-	 * 
-	 * @param DomDocument Object $imsDoc
-	 * @param DomDocument Element $manifest
-	 * @param array $values
-	 * @return DomDocument Element $course
-	*/
-	function getPageNode($imsDoc, $manifest, $values)
-	{
-		//Create Page
-    		$course = $imsDoc->createElement('Page');
-    		$course = $manifest->appendChild($course);
-		//Course Attributes
-		//Title
-    		$title = $imsDoc->createElement('Title');
-    		$title = $course->appendChild($title);
-		$title->appendChild($this->getTextNode($imsDoc, $values['title']));
-		//Content
-    		$content = $imsDoc->createElement('Content');
-    		$content = $course->appendChild($content);
-		$content->appendChild($this->getTextNode($imsDoc, $values['content']));
-		//ID
-    		$id = $imsDoc->createElement('Id');
-    		$id = $course->appendChild($id);
-		$id->appendChild($this->getTextNode($imsDoc, $values['id']));
-		//ParentId
-    		$parentId = $imsDoc->createElement('ParentId');
-    		$parentId = $course->appendChild($parentId);
-		$parentId->appendChild($this->getTextNode($imsDoc, $values['parentid']));
-		
-		return $course;
-	}
-
-	/**
-	 * Simplifies creating a DOM document text node
-	 * 
-	 * @param DomDocument $imsDoc
-	 * @param string $value
-	 * @return DomDocument TextNode $textNode
-	*/
-	function getTextNode($imsDoc, $value)
-	{
-		$textNode = $imsDoc->createTextNode($value);
-
-		return $textNode;
-	}
-
-
-	/**
-	 * Main template file for the import module
-	 * Displays data and forms
-	 * Written by James Scoble using code written by Wesley Nitsckie
-	 * Modified by Jarrett L. Jordaan
-	 */
-	public function uploadTemplate()
-	{
-		//Load needed display classes
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('radio','htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('form', 'htmlelements');
-		//$this->loadClass('htmlheading', 'htmlelements');
-		//Creating the form
-		$paramArray = array('action' => 'uploadIMS');
-		$form = new form('uploadziplocal', $this->uri($paramArray,'contextadmin'));
-    		$form->extra=' enctype="multipart/form-data" ';
-    		//File input
-    		$fileInput = new textinput('upload');
-    		$fileInput->fldType='file';
-    		$fileInput->label="Upload only .zip files";
-    		//$fileInput->name='upload';
-    		$fileInput->size=50;
-    		//Submit button
-    		$objElement = new button('submit');
-    		$objElement->setToSubmit();
-    		$objElement->setValue($this->objLanguage->languageText("word_upload"));
-		//Package type
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('default','eduCommons');
-		$pakRadio->addOption('mit','MIT');
-		$pakRadio->setSelected('default');
-	    	//add the objects to the form
-    		$form->setDisplayType(1);
-		//$form->addToForm($objHeading1);
-    		$form->addToForm($fileInput);
-    		$form->addToForm($pakRadio);
-    		$form->addToForm($objElement);
-/*
-		//Creating the form
-		$paramArray2 = array('action' => 'dudd');
-		$form3 = new form('dudd', $this->uri(array('action' => 'uploadIMS'),'contextadmin'));
-    		$form3->extra=' enctype="multipart/form-data" ';
-		//$form=&$this->newObject('form','htmlelements');
-    		//$form->name='uploadziplocal';
-    		//$paramArray = array('action' => 'uploadIMS');
-    		//$form->setAction($this->uri($paramArray,'contextadmin'));
-		//Creating the form
-		$paramArray1 = array('action' => 'uploadKNG');
-		$form2 = new form('uploadzipserver', $this->uri($paramArray1,'contextadmin'));
-    		$form2->extra=' enctype="multipart/form-data" ';
-		//$form2=&$this->newObject('form','htmlelements');
-    		//$form2->extra=' enctype="multipart/form-data" ';
-    		//$form2->name='uploadzipserver';
-    		//$paramArray1 = array('action' => 'uploadKNG');
-    		//$form2->setAction($this->uri($paramArray1,'contextadmin'));
-		//$form3=&$this->newObject('form','htmlelements');
-    		//$form3->extra=' enctype="multipart/form-data" ';
-    		//$form3->name='dudd';
-    		//$paramArray = array('action' => 'dudd');
-    		//$form3->setAction($this->uri($paramArray,'dudd'));
-		//Button
-		//$inpButton = $this->newObject('button','htmlelements');
-		$inpButton = new button('import','Import');
-		$inpButton->cssClass = 'f-submit';
-		//$inpButton->setValue('Import');
-		$inpButton->setToSubmit();
-    		//Heading
-    		//$objHeading1=&$this->newObject('htmlheading','htmlelements');
-		$objHeading1 = new htmlheading();
-    		$objHeading1->str=$this->objLanguage->languageText("mod_ims_uploadheading","contextadmin");
-    		$objHeading1->type=3;
-    		//Heading
-    		$objHeading2 = new htmlheading();
-    		$objHeading2->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
-    		$objHeading2->type=3;
-		//Label - username
-		$usernameLabel = new label("Username","username");
-		//Text input - username
-		$usernameTinput = new textinput("username","");
-		//Label - password
-		$passwordLabel = new label("Password","password");
-		//Text input - password
-		$passwordTinput = new textinput("password","");
-		//Label - server
-		$explainLabel = new label("Upload Course From Remote Server","");
-		//Label - server
-		$serverLabel = new label("Select Server","");
-		//Dropdown - server selection
-		$serverDropDown = new dropdown('server');
-		//Populate Dropdown - server
-		$dbData = $this->getServers();
-		foreach($dbData as $dataOld)
-		{
-			$serverDropDown->addOption($dataOld);
-		}
-
-		//Label - server
-		$courseLabel = new label("Select Course","");
-		//Dropdown - course selection
-		$courseDropDown = new dropdown('dropdownchoice');
-		$server = $this->getParam('server');
-		$server = "localhost";
-		$course = $this->getParam('course');
-        	//set the table
-        	$tableName = "tbl_context";
-        	//set up the query
-        	$sql = "SELECT * from tbl_context";
-		$dbData = $this->importDBData($server, $tableName, $sql);
-		//Populate Dropdown course
-		foreach($dbData as $dataOld)
-		{
-			$courseDropDown->addOption($dataOld['contextcode']);
-		}
-		//Button
-		$loginButton = new button('login','Login');
-		$loginButton->cssClass = 'f-submit';
-		//$loginButton->setValue('Login');
-		//$loginButton->setToSubmit();
-		//$loginButton->extra = 'onclick="javascript:getLoginInfo();"';
-		//Package type
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('default','eduCommons');
-		$pakRadio->addOption('mit','MIT');
-		$pakRadio->setSelected('default');
-		//add the objects to the form2
-		$form2->setDisplayType(1);
-		//$form2->addToForm($objHeading2);
-		$form2->addToForm($explainLabel);
-		$form2->addToForm($usernameLabel);
-		$form2->addToForm($usernameTinput);
-		$form2->addToForm($passwordLabel);
-		$form2->addToForm($passwordTinput);
-		$form2->addToForm($serverLabel);
-		$form2->addToForm($serverDropDown);
-		$form2->addToForm($loginButton);
-		$form2->addToForm($courseLabel);
-		$form2->addToForm($courseDropDown);
-		$form2->addToForm($inpButton);
-		//$this->switchDatabase();
-
-		$form3->addToForm($form);
-		$form3->addToForm('<hr />');
-		//$form3->addToForm($form2);
-*/
-		return $form;
-	}
-
-	/**
-	 * Main template file for the export module
-	 * Displays data and forms
-	 *
-	 */
-	public function downloadTemplate()
-	{
-		//course data table
-		parent::init('tbl_context');
-		//Load needed display classes
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('dropdown','htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		//Creating the form
-		$form=&$this->newObject('form','htmlelements');
-    		$form->extra=' enctype="multipart/form-data" ';
-    		$form->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadChisimba');
-    		$form->setAction($this->uri($paramArray,'contextadmin'));
-		//Creating the form
-		$form2=&$this->newObject('form','htmlelements');
-    		$form2->extra=' enctype="multipart/form-data" ';
-    		$form2->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadKNG');
-    		$form2->setAction($this->uri($paramArray,'contextadmin'));
-		//Creating the form
-		$form3=&$this->newObject('form','htmlelements');
-    		$form3->extra=' enctype="multipart/form-data" ';
-    		$form3->name='dudd';
-    		$paramArray = array('action' => 'dudd');
-    		$form3->setAction($this->uri($paramArray,'dudd'));
-    		//Heading	
-    		$objHeading1=&$this->newObject('htmlheading','htmlelements');
-    		$objHeading1->str=$this->objLanguage->languageText("mod_new_downloadheading","contextadmin");
-    		$objHeading1->type=3;
-    		//Heading	
-    		$objHeading2=&$this->newObject('htmlheading','htmlelements');
-    		$objHeading2->str=$this->objLanguage->languageText("mod_kng_downloadheading","contextadmin");
-    		$objHeading2->type=3;
-		//Label - server
-		$courseLabel = new label("Select Course","");
-		//Dropdown - course selection
-		$courseDropDown = new dropdown('dropdownchoice');
-		//Retrieve all courses in Chisimba
-		$courses = $this->getAll();
-		//Populate Dropdown course
-		foreach($courses as $course)
-		{
-			$courseDropDown->addOption($course['contextcode']);
-		}
-		//Button
-		$inpButton = $this->newObject('button','htmlelements');
-		$inpButton->cssClass = 'f-submit';
-		$inpButton->setValue('Export');
-		$inpButton->setToSubmit();
-		//Label - server
-		$courseLabel2 = new label("Select Course","");
-		//Dropdown - course selection
-		$courseDropDown2 = new dropdown('dropdownchoice');
-		//Server selection
-		$server = "localhost";
-        	//set the table
-        	$tableName = "tbl_context";
-        	//set up the query
-        	$sql = "SELECT * from tbl_context";
-		$courses = $this->importDBData($server, $tableName, $sql);
-		//Populate Dropdown course
-		foreach($courses as $course)
-		{
-			$courseDropDown2->addOption($course['contextcode']);
-		}
-		//Button
-		$inpButton2 = $this->newObject('button','htmlelements');
-		$inpButton2->cssClass = 'f-submit';
-		$inpButton2->setValue('Export');
-		$inpButton2->setToSubmit();
-
-		//Package type
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('static','Download Package');
-		$pakRadio->addOption('ims','IMS Package');
-		$pakRadio->setSelected('static');
-
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('static','Download Package');
-		$pakRadio->addOption('ims','IMS Package');
-		$pakRadio->setSelected('static');
-
-		$form->addToForm($objHeading1);
-		$form->addToForm($courseLabel);
-		$form->addToForm($courseDropDown);
-		$form->addToForm("<br />");
-		$form->addToForm("<br />");
-		$form->addToForm($pakRadio);
-		$form->addToForm("<br />");
-		$form->addToForm($inpButton);
-		$form2->addToForm($objHeading2);
-		$form2->addToForm($courseLabel2);
-		$form2->addToForm($courseDropDown2);
-		$form2->addToForm("<br />");
-		$form2->addToForm("<br />");
-		$form2->addToForm($pakRadio);
-		$form2->addToForm("<br />");
-		$form2->addToForm($inpButton2);
-		$this->switchDatabase();
-		$form3->addToForm($form);
-		$form3->addToForm('<hr />');
-		$form3->addToForm($form2);
-
-		return $form3;
-	}
-
-	/**
-	 * Write htmls to IMS resource folder
-	 *
-	 * @param array $courseData
-	 * @param array $courseContent or context code
-	 * @param string $tempDirectory
-	 *
-	 * @return array $htmlfilenames - 
-	 *
-	*/
-	function writeKNGHtmls($courseData, $courseContent, $tempDirectory, $type = '')
-	{
-		if($type == 'new')
-		{
-			parent::init('tbl_contextcontent_order');
-			$filter = "WHERE contextcode = '$courseContent'";
-			$orders = $this->getAll($filter);
-			foreach($orders as $titleId)
-			{
-				$titleId = $titleId['titleid'];
-				parent::init('tbl_contextcontent_pages');
-				$filter = "WHERE titleid = '$titleId'";
-				$pages = $this->getAll($filter);
-				static $i = 0;
-				foreach($pages as $aPage)
-				{
-					$filename = "resource".$i.".html";
-					$filepath = $tempDirectory."/".$filename;
-					$htmlfilenames[$i] = $filename;
-					$fileContents = $aPage['pagecontent'];
-					#Open resources directory
-					$fp = fopen($filepath,'w');
-					#Write the file to images directory
-					if((fwrite($fp, $fileContents) === FALSE))
-					{
-						return  "writeResourcesError";
-					}
-					#Close the directory
-					fclose($fp);
-					chmod($filepath, 0777);
-					$i++;
-				}
-			}
-		}
-		else
-		{
-		$homepage = $courseData['0']['about'];
-		$filepath = $tempDirectory."/".$courseData['0']['contextcode'].".html";
-		//Write home page to IMS folder
-		//Open file to write
-		$fp = fopen($filepath,'w');
-		//Write contents of file
-		fwrite($fp,$homepage);
-		fclose($fp);
-		for($i=0;$i<count($courseContent);$i++)
-		{
-			//Rename resource
-			if($type == "kng")
-			$filepath = $tempDirectory."/"."/resource".$i.".html";
-			else
-			$filepath = $tempDirectory."/".$courseData['0']['contextcode']."/resource".$i.".html";
-			//Store html filenames
-			$htmlfilenames[$i] = $courseContent[$i]['0']['fullname'];
-			//Retrieve resource contents
-			$contentsOfFile = $courseContent[$i]['0']['body'];
-			//Open file to write
-			$fp = fopen($filepath,'w');
-			//Write contents of file
-			fwrite($fp,$contentsOfFile);
-			fclose($fp);
-		}
-		}
-		
-		return $htmlfilenames;
-	}
-
-	function generateUniqueId()
-	{
-		return md5(uniqid(time(),true));
-	}
-
-  	/**
-    	 * Method to replace image source links with links to the filemanager
-	 *
-    	 * @author Kevin Cyster
-	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
-    	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
-    	 * 
-    	 * @return string $page - the finished modified text page
-    	 * @return TRUE - if page is un-modified
-	 *
-	*/
-    	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
-	{
-		#Image location on disc
-		$imageLocation =  'src="'.'http://localhost/chisimba_framework/app/usrfiles/content/';
-		$imageLocation = $imageLocation.$contextCode.'/images/';
-		#Image location on localhost
-		$action = 'src="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&amp;action=file&amp;id=';
-		#Only run through html's contained in package
-		$page = $fileContents;
-		foreach($fileNames as $aFile)
-		{
-			#Check if its an Image
-			if(preg_match("/.jpg|.gif|.png/",$aFile))
-			{
-				#Create new file source location
-				#Check if its a static package
-				if(!($static == ''))
-					$newLink = $imageLocation.$aFile.'"';
-				else
-				{
-					$newLink = $action.$imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
-				}
-				#Convert filename into regular expression
-				$regex = '/'.$aFile.'/';
-				#Find filename in html page if it exists
-				preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
-				if($matches)
-				{
-					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
-					//echo $regReplace.'<br />';
-					//echo $newLink.'<br />';
-					$page = preg_replace($regReplace, $newLink, $page);
-				}
-				#If the image was renamed
-				else
-				{
-					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
-					$regex = '/'.$aFile.'/';
-					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
-					if($matches)
-					{
-						$regReplace = '/(src=".*'.$aFile.'.*?")/i';
-						$page = preg_replace($regReplace, $newLink, $page);
-					}
-				}
-			}
-		}
-
-		return $page;
-    	}
-
-	/**
-    	 * Method to replace image source links with links to the blob system
-	 *
-    	 * @author Kevin Cyster
-	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
-    	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
-    	 * 
-    	 * @return string $page - the finished modified text page
-	 *
-	*/
-	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='', $allFilesLocation = '')
-    	{
-		//$action ='<a href="http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
-		$action ='http://localhost/chisimba_framework/app/index.php?module=contextcontent&amp;action=viewpage&amp;id=';
-		#Run through each resource
-		$page = $fileContents;
-		//var_dump($pageIds);//die;
-		if($packageType == 'mit')
-		{
-			foreach($allFilesLocation as $aFilepath)
-			{
-				$aFilepath = '../../../../'.$aFilepath;
-//echo $aFilepath."<br />";
-				if(preg_match('/CourseHome/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['CourseHome.html'], $page);
-				else if(preg_match('/Syllabus/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Syllabus.html'], $page);
-				else if(preg_match('/Calendar/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Calendar.html'], $page);
-				else if(preg_match('/Readings/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Readings.html'], $page);
-				else if(preg_match('/Labs/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Labs.html'], $page);
-				else if(preg_match('/LectureNotes/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['LectureNotes.html'], $page);
-				else if(preg_match('/Assignments/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Assignments.html'], $page);
-				else if(preg_match('/Exams/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Exams.html'], $page);
-				else if(preg_match('/Projects/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Projects.html'], $page);
-				else if(preg_match('/Tools/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['Tools.html'], $page);
-				else if(preg_match('/RelatedResources/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['RelatedResources.html'], $page);
-				else if(preg_match('/DiscussionGroup/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DiscussionGroup.html'], $page);
-				else if(preg_match('/DownloadthisCourse/', $aFilepath))
-					$page = preg_replace('%'.$aFilepath.'%', $action.$pageIds['DownloadthisCourse.html'], $page);
-			}
-		}
-		else
-		{
-			foreach($fileNames as $aFile)
-			{
-				if($this->fileMod)
-				{
-					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
-				}
-				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-				$modAction = $action.$pageIds[$aFile].'"';
-				$page = preg_replace($regReplace, $modAction, $page);
-			}
-		}
-
-		return $page;
-    	}
-
-	/**
-    	 * Method to replace image source links with links to the blob system
-	 *
-    	 * @author Kevin Cyster
-	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
-    	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
-    	 * 
-    	 * @return string $page - the finished modified text page
-	 *
-	*/
-	function changeMITLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
-    	{
-		$action = 'href="'.'http://localhost/chisimba_framework/app/index.php?module=filemanager&action=fileinfo&amp;id=';
-		#Run through each resource
-		$page = $fileContents;
-		foreach($fileNames as $aFile)
-		{
-			if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$aFile)))
-			{
-				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-				$modAction = $action.$pageIds[$aFile].'"';
-				//echo $regReplace.'<br />';
-				//echo $modAction.'<br />';
-				$page = preg_replace($regReplace, $modAction, $page);
-			}
-		}
-
-		return $page;
-    	}
-
-	/**
-	 * Create a temporary folder
-	 * 
-	 * @param string $contextcode - context code of course
-	 * @return string $tempFolder - location of temporary folder
-	*/
-	function createTempDirectory($contextcode)
-	{
-		//Temp folder location
-		$tempFolder = "/tmp/".$contextcode;
-		$resourceFolder = $tempFolder."/".$contextcode;
-		//Check if folder exists and remove it
-		$this->recursive_remove_directory($tempFolder);
-		$this->recursive_remove_directory($resourceFolder);
-		//Create directory
-		if(!mkdir($tempFolder))
-		{
-			return "writeError";
-		}
-		//Create directory
-		if(!mkdir($resourceFolder))
-		{
-			return "writeError";
-		}
-		//Change directory permissions
-		if(!chmod($tempFolder,0777))
-		{
-			return "permissionError";
-		}
-		//Change directory permissions
-		if(!chmod($resourceFolder,0777))
-		{
-			return "permissionError";
-		}
-
-		return $tempFolder;
-	}
-
-	/**
-	 * Write Schema files
-	 *
-	 * @param string $tempDirectory - location of temporary folder
-	 * @return TRUE - Successful execution
-	*/
-	function writeSchemaFiles($tempDirectory)
-	{
-		//Additional site root path locations
-		//Schema filenames
-		$fileEdu = "eduCommonsv1.1.xsd";
-		$fileImscp = "imscp_v1p2.xsd";
-		$fileImsmd = "imsmd_v1p2p4.xsd";
-		//Schama files locations
-		$schamas = $siterootpath."core_modules/contextadmin/ims/";
-		$schamaspath1 = $schamas."eduCommonsv1.1.xsd";
-		$schamaspath2 = $schamas."imscp_v1p2.xsd";
-		$schamaspath3 = $schamas."imsmd_v1p2p4.xsd";
-		//Write files to new directory
-		//Write Schema files
-		$fp = fopen($tempDirectory."/".$fileEdu,'w');
-		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
-		{
-			return "writeError";
-		}
-		$fp = fopen($tempDirectory."/".$fileImscp,'w');
-		if(fwrite($fp, file_get_contents($schamaspath2)) === FALSE)
-		{
-			return "writeError";
-		}
-		$fp = fopen($tempDirectory."/".$fileImsmd,'w');
-		if(fwrite($fp, file_get_contents($schamaspath3)) === FALSE)
-		{
-			return "writeError";
-		}
-		fclose($fp);
-		if(!chmod($tempDirectory,0777))
-		{
-			return "permissionError";
-		}
-
-		return TRUE;
-	}
-
-	/**
-	 * Create imsmanifest.xml
-	 *
-	 * @param string $tempDirectory - path to /tmp directory
-	 * @return filehandler $fp - file handler to write contents
-	 */
-	function createIMSManifestFile($tempDirectory)
-	{
-		$filePath = $tempDirectory."/imsmanifest.xml";
-		//check if the xml file exist
-		if(file_exists($filePath))
-			//delete the xml file
-			unlink($filePath);
-       		//create the xml file
-		$fp = fopen($filePath,'w');
-
-		return $fp;
-	}
-
-	public $fileMod;
-	/**
-	 * Sets debugging on
-	 *
-    	 * @param NULL
-	 *
-	*/
-	function fileModOn()
-	{
-		$this->fileMod = TRUE;
-	}
-
-	/**
-	 * Sets debugging off
-	 *
-    	 * @param NULL
-	 *
-	*/
-	function fileModOff()
-	{
-		$this->fileMod = FALSE;
-	}
-
-	/**
-	 * 
-	 * 
-	*/
-	function eduCommonsData($imsFileLocation)
-	{
-		$doc = new DOMDocument('1.0');
-		$doc->load($imsFileLocation);
-		$xpath = new DOMXPath($doc);
-		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
-		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-#course title
-		$query = '//imsmd:title/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-#course id
-		$query = '//imsmd:identifier/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-#course description
-		$query = '//imsmd:description/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-#course html?
-		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-#clearedcopyright
-		$query = '//manifest/metadata/imsmd:lom/imsmd:general';
-		//$query = '//imsmd:general/educommons:clearedcopyright';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-	}
-
 }
 ?>

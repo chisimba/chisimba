@@ -18,7 +18,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * 
  */
 
-class exportimspackage extends object 
+class exportimspackage extends dbTable
 {
 	/**
 	 * @var object $objConfig
@@ -35,7 +35,7 @@ class exportimspackage extends object
 	*/
 	function init()
 	{
-		$this->objConfig = & $this->newObject('altconfig','config');
+		$this->objConf = & $this->newObject('altconfig','config');
 		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
 		$this->objIMSTools = & $this->newObject('imstools','contextadmin');
 	}
@@ -48,35 +48,158 @@ class exportimspackage extends object
 	 * @param string $contextcode - context code of course
 	 * @return TRUE - Successful execution
 	*/
-	function exportChisimbaContent($contextcode)
+	function exportContent($contextcode)
 	{
-//var_dump($contextcode);die;
-		$type = "new";
 		//Retrieve data within context
-		$courseData = $this->objIEUtils->getCourse($contextcode, $type);
+		$courseData = $this->objIEUtils->getCourse($contextcode, 'new');
 		//Course id
-//var_dump($courseData);die;
 		$courseId = $courseData['0']['id'];
-//var_dump($courseId);die;
+		//Course title
+		$courseTitle = $courseData['0']['title'];
 		//Create a temporary folder
 		$tempDirectory = $this->objIEUtils->createTempDirectory($contextcode);
 		//Write Schema files
 		$writeSchemaFiles = $this->objIEUtils->writeSchemaFiles($tempDirectory);
 		//Create resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
+		//Retrieve Course Html
+		$courseHtml = $this->objIEUtils->getCourseHtml($contextcode);
+		//Retrieve Course Html images
+		$courseImageNames = $this->objIEUtils->getImageNames($courseHtml);
+//var_dump($courseImageNames);die;
+		//Retrieve Course Html file links
+		$courseResourceIds = $this->objIEUtils->getResourceIds($courseHtml);
+//var_dump($courseResourceIds);die;
+		//Re-write Course Html
+		$courseHtml = $this->rebuildHtml($contextcode, $courseHtml, $courseImageNames, $courseResourceIds);
 		//Write Images to specified directory (resources folder)
-		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
-		//Write Htmls to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $contextcode, $resourceFolder, 'new');
+		if(count($courseImageNames) > 0)
+			$imageNames = $this->objIEUtils->writeImages($courseImageNames, $resourceFolder);
+		//Write Resources to specified directory (resources folder)
+		if(count($courseResourceIds) > 0)
+			$resourceNames = $this->objIEUtils->writeResources($courseResourceIds, $resourceFolder);
+		//Write Course Html to specified directory (resources folder)
+		$courseFilenames = $this->objIEUtils->writeHtmls($courseHtml, $tempDirectory, $courseTitle);
+//var_dump($courseFilenames);die;
+//var_dump($courseHtml);die;
+		//Retrieve Html pages
+		$htmlPages = $this->objIEUtils->getHtmlPages($contextcode);
+		//Retrieve Html images
+		$imageNames = $this->objIEUtils->getImageNames($htmlPages);
+		//Retrieve Html file links
+		$resourceIds = $this->objIEUtils->getResourceIds($htmlPages);
+		//Re-write Htmls
+		$htmlPages = $this->rebuildHtml($contextcode, $htmlPages, $imageNames, $resourceIds);
+//var_dump($htmlPages);die;
 
-		$writeImages = $this->objIEUtils->writeImages($contextcode, $resourceFolder, $type);
-//var_dump($writeImages);die;
-//var_dump($resourceFolder);die;
-		//Write Htmls to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $contextcode, $resourceFolder, 'new');
-//var_dump($writeKNGHtmls);die;
+		//Write Htmls to specified directory (resources folder)
+		$htmlFilenames = $this->objIEUtils->writeHtmls($htmlPages, $resourceFolder);
+		//Write Images to specified directory (resources folder)
+		if(count($imageNames) > 0)
+			$imageNames = $this->objIEUtils->writeImages($imageNames, $resourceFolder);
+		//Write Resources to specified directory (resources folder)
+		if(count($resourceIds) > 0)
+			$resourceNames = $this->objIEUtils->writeResources($resourceIds, $resourceFolder);
 
+		return TRUE;
+	}
 
+	function rebuildHtml($contextcode, $htmlPages, $courseImageNames, $courseResourceIds)
+	{
+		if(count($htmlPages) == 1)
+		{
+			$htmlPages = $this->changeImageSRC($contextcode, $htmlPages, $courseImageNames);
+			//$htmlPages = $this->changeLinkUrl($contextcode, $htmlPages, $courseResourceIds);
+			$htmlsModified = $htmlPages;
+		}
+		else
+		{
+			static $i = 0;
+			foreach($htmlPages as $htmlPage)
+			{
+				$htmlPage = $this->changeImageSRC($contextcode, $htmlPage, $courseImageNames);
+				//$htmlPage = $this->changeLinkUrl($htmlPage, $courseResourceIds);
+				$htmlsModified[$i] = $htmlPage;
+			}
+		}
+
+		return $htmlsModified;
+	}
+
+	function changeImageSRC($contextcode, $htmlPages, $courseImageNames)
+	{
+		$newLink = '"'.$contextcode;
+		if(count($htmlPages) == 1)
+		{
+			foreach($courseImageNames as $courseImageName)
+			{
+				#Convert filename into regular expression
+				$regex = '/'.$courseImageName.'/';
+				#Find filename in html page if it exists
+				preg_match_all($regex, $htmlPages, $matches, PREG_SET_ORDER);
+				if($matches)
+				{
+					$newLink .= '/'.$courseImageName.'"';
+					$regReplace = '/(".*'.$courseImageName.'.*?")/i';
+					$htmlPages = preg_replace($regReplace, $newLink, $htmlPages);
+					$htmlsModified = $htmlPages;
+				}
+			}
+		}
+		else
+		{
+			foreach($htmlPages as $htmlPage)
+			{
+				static $i = 0;
+				foreach($courseImageNames as $courseImageName)
+				{
+					$regex = '/'.$courseImageName.'/';
+					preg_match_all($regex, $htmlPage, $matches, PREG_SET_ORDER);
+					if($matches)
+					{
+						$newLink .= '/'.$courseImageName.'"';
+						$regReplace = '/(".*'.$courseImageName.'.*?")/i';
+						$htmlPage = preg_replace($regReplace, $newLink, $htmlPage);
+						$htmlsModified[$i] = $htmlPage;
+					}
+
+				}
+			}
+		}
+
+		return $htmlsModified;
+	}
+
+	function changeLinkUrl($htmlPages, $courseResourceIds)
+	{
+		if(count($htmlPages) == 1)
+		{
+
+		}
+		else
+		{
+
+		}
+
+		return $htmlPages;
+	}
+/*	
+	function rebuildHtml($htmlPages)
+	{
+		if(count($htmlPages) == 1)
+		{
+			#Rewrite images source in html
+			$htmlPages = $this->changeImageSRC($htmlPages);
+			#Rewrite links source in html
+			$htmlPages = $this->changeLinkUrl($htmlPages);
+		}
+//		else
+//		{
+			
+//		}
+		
+		return $htmlPages
+	}
 /*
 		//Merge filenames
 		$filelist = array_merge($writeKNGHtmls, $writeKNGImages);
@@ -89,8 +212,6 @@ class exportimspackage extends object
 		//close the file
 		fclose($fp);
 */
-		return TRUE;
-	}
 
 	/**
 	 * Controls the process for exporting KNG package
