@@ -79,11 +79,10 @@ class userbizcard extends object
         $genderLabel = $this->objLanguage->languageText('word_gender');
         $mobileLabel = $this->objLanguage->languageText('phrase_mobilenumber');
         $countryLabel = $this->objLanguage->languageText('word_country');
-
-        $result = '<div style="width: 500px; border: 1px solid black;">
-    <div class="floatlangdir" style="width:120px; background-color:white; display:inline;">
-        <div style="padding: 10px; text-align:center;">'.$this->objUser->getUserImage($this->userArray['userid'], TRUE);
         
+
+        $image = $this->objUser->getUserImage($this->userArray['userid'], TRUE);
+                
         if ($this->showResetImage) {
             if ($this->objUser->hasCustomImage($this->userArray['userid'])) {
                 $resetimageform = new form('updateimage', $this->uri(array('action'=>$this->resetAction), $this->resetModule));
@@ -101,53 +100,58 @@ class userbizcard extends object
             }
         }
         
-        $result .= '</div></div>';
-    
         $objHeading = new htmlheading();
-        $objHeading->str = $this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'];
+        $objHeading->str = '&#160;'.$this->userArray['title'].' '.$this->userArray['firstname'].' '.$this->userArray['surname'];
         $objHeading->type = 1;
-        $string = $objHeading->show();
+        $heading = $objHeading->show();
         
-        $objTable = new htmltable();
-        $objTable->cellspacing = '2';
-        $objTable->cellpadding = '10';
+        $objTable = new htmltable();        
+        $objTable->width = '500px';
         $objTable->startRow();
-        $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '30%');
-        $objTable->addCell($this->userArray['emailaddress']);
+        $objTable->addCell($image, '20%', 'center', 'center', '', 'rowspan="7"');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$mobileLabel.':</strong>');
-        $objTable->addCell($this->userArray['cellnumber']);
+        $objTable->addCell($heading, '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$countryLabel.':</strong>');
-        $objTable->addCell($this->objCountries->getCountryName($this->userArray['country']).' '.$this->objCountries->getCountryFlag($this->userArray['country']));
+        $objTable->addCell('&#160;&#160;<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '25%', '', '', 'heading', '');
+        $objTable->addCell($this->userArray['emailaddress'], '', '', '', 'heading', '');
         $objTable->endRow();
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$genderLabel.':</strong>');
-        $objTable->addCell($gender);
+        $objTable->addCell('&#160;&#160;<strong>'.$mobileLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell($this->userArray['cellnumber'], '', '', '', 'heading', '');
+        $objTable->endRow();
+        $objTable->startRow();
+        $objTable->addCell('&#160;&#160;<strong>'.$countryLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell($this->objCountries->getCountryName($this->userArray['country']).' '.$this->objCountries->getCountryFlag($this->userArray['country']), '', '', '', 'heading', '');
+        $objTable->endRow();
+        $objTable->startRow();
+        $objTable->addCell('&#160;&#160;<strong>'.$genderLabel.':</strong>', '', '', '', 'heading', '');
+        $objTable->addCell($gender, '', '', '', 'heading', '');
+        $objTable->endRow();
+        $objTable->startRow();
+        $objTable->addCell('&#160;', '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $string = $objTable->show();
         
-//        $string .= '<p style="line-height: 200%;">..'<br /> '..'<br />..'<br />..'</p>';
-    
         $objLayer = new layer();
-        $objLayer->padding = '0px 10px 0px 10px';
-        $objLayer->addToStr('<p style="line-height: 200%;">'.$string.'</p>');
+        $objLayer->addToStr($string);
         $content = $objLayer->show();    
     
         $objLayer = new layer();
         $objLayer->cssClass = 'floatlangdir';
         $objLayer->width = '380px';
-        $objLayer->height = '145px';
-        $objLayer->background_color = $this->backgroundColor;
         $objLayer->addToStr($content);
-    
-        $result .= $objLayer->show();
-    
-        $result .= '<div style="clear:both;"></div>
-</div><br class="clearfloatlangdir" />';
+        $content = $objLayer ->show();
+            
+        $objLayer = new layer();
+        $objLayer->width = '500px';
+        $objLayer->border = '1px solid black';
+        $objLayer->addToStr($content.'<div style="clear:both;"></div>');
         
+        $result = $objLayer->show();
+    
+        $result .= '<br class="clearfloatlangdir" />';        
         return $result;
     }
 
