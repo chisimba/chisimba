@@ -457,7 +457,7 @@ $table->endRow();
 
 $form->addToForm($table->show());
 
-$button = new button ('submitform', $this->objLanguage->languageText('mod_useradmin_updatedetails'));
+$button = new button ('submitform', $this->objLanguage->languageText('mod_useradmin_updatedetails', 'useradmin'));
 $button->setToSubmit();
 // $button->setOnClick('validateForm()');
 

@@ -112,7 +112,7 @@ class userbizcard extends object
         $objTable->cellspacing = '2';
         $objTable->cellpadding = '10';
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$emailLabel.':</strong>');
+        $objTable->addCell('<strong>'.ucfirst(strtolower($emailLabel)).':</strong>', '30%');
         $objTable->addCell($this->userArray['emailaddress']);
         $objTable->endRow();
         $objTable->startRow();
