@@ -76,9 +76,9 @@ require_once("ifhtml_class_inc.php");
 		
 		if ($this->iframeCaption && $this->iframeUrl && $this->iframeWidth && $this->iframeHeight) {
 			$str.= " onclick=\"return makeFalse(domTT_activate(this, event, 'caption', '".$this->iframeCaption."',";
-			$str.= "'content', '<iframe src=&quot;".$this->iframeUrl."&quot; ";
+			$str.= "'content', '&lt;iframe src=&quot;".$this->iframeUrl."&quot; ";
 			$str.= "style=&quot;width: ".$this->iframeWidth."px; height:".$this->iframeHeight."px;";
-			$str.= "&quot;></iframe>', 'type', 'sticky', 'closeLink'));\"";
+			$str.= "&quot;&gt;&lt;/iframe&gt;', 'type', 'sticky', 'closeLink'));\"";
 		}			
 		
 		$str.= ">";
