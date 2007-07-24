@@ -139,6 +139,7 @@ class userbizcard extends object
         $objLayer = new layer();
         $objLayer->cssClass = 'floatlangdir';
         $objLayer->width = '380px';
+        $objLayer->height = '145px';
         $objLayer->background_color = $this->backgroundColor;
         $objLayer->addToStr($content);
     
