@@ -398,38 +398,7 @@ textarea {
         font-size: 11px;
 }
 
-.menuBtnOn {
-    color: #FFF;
-	font-size: 90%;
-    margin: 2px;
-    background: #f6f6f6 url("images/menubtnbg_on.gif") repeat 100% 100%;
-}
 
-.menuBtnOn a {
-    font-family: arial-bold,arial,tahoma,verdana,sans-serif;
-    font-weight: bold;
-    color: #FFF;
-    display: block;
-    padding: 10px 15px 10px;
-    text-decoration: none;
-}
-
-.menuBtn {
-    font-family: arial,tahoma,verdana,sans-serif;
-    color: red;
-	font-size: 90%; 
-    margin: 2px;
-    background: transparent url("images/menubtnbg.gif") repeat 100% 100%;
-}
-
-.menuBtn a {
-    display: block;
-    padding: 10px 15px 10px;
-    text-decoration: none;
-}
-
-.menuBtn a:hover {
-}
 
 .smallicon {
 	height: 70px;
