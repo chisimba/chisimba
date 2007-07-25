@@ -96,7 +96,7 @@ class userbizcard extends object
                 $button = new button ('resetimage', 'Reset Image');
                 $button->setToSubmit();
                 $resetimageform->addToForm(' '.$button->show());
-                $result .= $resetimageform->show();
+                $image .= $resetimageform->show();
             }
         }
         
