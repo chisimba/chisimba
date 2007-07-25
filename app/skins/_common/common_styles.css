@@ -1668,7 +1668,7 @@ label br {clear:left}
 }
 
 
-// menu icons / buttons
+/* menu icons / buttons*/
 
 .menuBtnOn {
 
@@ -1678,13 +1678,13 @@ label br {clear:left}
 
     margin: 2px;
 
-    background: #f6f6f6 url("images/menubtnbg_on.gif") repeat 100% 100%;
+    background: #5F7D9C;
 
 }
 
 
 
-.menuBtnOn a {
+.menuBtnOn a, .menuBtnOn a:link, .menuBtnOn a:visited {
 
     font-family: arial-bold,arial,tahoma,verdana,sans-serif;
 
@@ -1700,19 +1700,20 @@ label br {clear:left}
 
 }
 
+.menuBtnOn:hover, .menuBtnOn a:hover, .menuBtnOn a:link:hover, .menuBtnOn a:visited:hover {
+	background:#3E19FF;
+}
 
 
 .menuBtn {
 
     font-family: arial,tahoma,verdana,sans-serif;
 
-    color: red;
-
 	font-size: 90%; 
 
     margin: 2px;
 
-    background: transparent url("images/menubtnbg.gif") repeat 100% 100%;
+    background: #f6f6f6;
 
 }
 
@@ -1729,10 +1730,6 @@ label br {clear:left}
 }
 
 
-
-.menuBtn a:hover {
-
-}
 
 
 
