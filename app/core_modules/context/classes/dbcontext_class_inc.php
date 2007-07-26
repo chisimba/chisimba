@@ -618,6 +618,30 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     					'lastupdatedby' => $this->objUser->userId());
     	return $this->update('contextcode' ,$this->getContextCode(),$fields);
     }
+    
+    
+    /**
+    * Method to archive a context
+    * @param string $contextCode
+    * @return boolean
+    */
+    public function archiveContext($contextCode)
+    {
+     	$this->leaveContext($contextCode);
+		return $this->update('contextcode' ,$contextCode,array('archive' => 1));
+	}
+	
+	 /**
+    * Method to archive a context
+    * @param string $contextCode
+    * @return boolean
+    */
+    public function undeleteContext($contextCode)
+    {
+     	$this->update('contextcode' ,$contextCode,array('archive' => 0));
+     	return TRUE; 
+	}
+    
 
 }
 ?>
