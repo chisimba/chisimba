@@ -108,7 +108,7 @@ class userbizcard extends object
         $objTable = new htmltable();        
         $objTable->width = '500px';
         $objTable->startRow();
-        $objTable->addCell($image, '25%', 'center', 'center', '', 'rowspan="7"');
+        $objTable->addCell($image, '25%', 'center', 'center', '', 'rowspan="8"');
         $objTable->endRow();
         $objTable->startRow();
         $objTable->addCell($heading, '', '', '', 'heading', 'colspan="2"');
@@ -128,6 +128,9 @@ class userbizcard extends object
         $objTable->startRow();
         $objTable->addCell('&#160;&#160;<strong>'.$genderLabel.':</strong>', '', '', '', 'heading', '');
         $objTable->addCell($gender, '', '', '', 'heading', '');
+        $objTable->endRow();
+        $objTable->startRow();
+        $objTable->addCell('&#160;', '', '', '', 'heading', 'colspan="2"');
         $objTable->endRow();
         $objTable->startRow();
         $objTable->addCell('&#160;', '', '', '', 'heading', 'colspan="2"');
