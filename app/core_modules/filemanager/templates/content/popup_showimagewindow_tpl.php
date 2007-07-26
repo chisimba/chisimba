@@ -1,48 +1,37 @@
 <?php
-
-// echo '<pre>';
-// print_r($_GET);
-// echo '</pre>';
-
+$this->setVar('suppressFooter', TRUE);
 
 $objFileIcon = $this->getObject('fileicons', 'files');
 $objThumbnail = $this->getObject('thumbnails', 'filemanager');
 
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
+$this->loadClass('layer', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+$this->loadClass('htmltable', 'htmlelements');
+$this->loadClass('image', 'htmlelements');
 
-echo '
-<div style="position:absolute; bottom: 0px; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
-echo '<h1>Upload File</h1>';
+$listImages = $this->objLanguage->languageText('mod_filemanager_listofimages', 'filemanager');
+$noMatch = $this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager');
+$previewFile = $this->objLanguage->languageText('mod_filemanager_previewfile', 'filemanager');
+$insertImage = $this->objLanguage->languageText('mod_filemanager_insertimage', 'filemanager');
+$uploadFile = $this->objLanguage->languageText('phrase_uploadfile');
 
-$this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
-$this->objUpload->numInputs = 1;
+$objHeading = new htmlheading();
+$objHeading->str = $listImages;
+$objHeading->type = 1;
+$heading = $objHeading->show();
 
-$mode = new hiddeninput('mode', 'selectimagewindow');
-$name = new hiddeninput('name', $this->getParam('name'));
-$context = new hiddeninput('context', $this->getParam('context'));
-$workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
-$restrict = new hiddeninput('restrict', $this->getParam('restrict'));
-$value = new hiddeninput('value', $this->getParam('value'));
+$objLayer = new layer();
+$objLayer->position = 'absolute; top: 10px; right: 10px; left: 10px';
+$objLayer->height = '50px';
+$objLayer->zIndex = '1';
+$objLayer->addToStr($heading);
+$str = $objLayer->show();
 
-
-$this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
-
-echo $this->objUpload->show();
-
-echo '</div>';
-
-echo '<div style="width: 100%; top: 0; left: 0; position: absolute; overflow-y:scroll; overflow-x:hidden; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
-
-echo '<h1>List of Images</h1>';
-
-// $objTreeFilter =& $this->getObject('treefilter');
-// echo $objTreeFilter->showDropDown();
-
-//echo '<br /><br />';
-
+$string = '';
 if (count($files) == 0) {
-    echo ' No files matching criteria found';
+    $string = '<ul><li><b>'.$noMatch.'</b></li></ul>';
 } else {
         
     $count = 0;
@@ -58,15 +47,15 @@ if (count($files) == 0) {
     {
         $link = new link ("javascript:previewFile('".$file['id']."', '".$count."');");
         $link->link = htmlentities($file['filename']);
-        $link->title = 'Preview File';
+        $link->title = $previewFile;
         
         $selectLink = new link ("javascript:selectImage('".$file['id']."', '".$count."');");
-        $selectLink->link = 'Insert Image';
+        $selectLink->link = $insertImage;
         
         
         $thumbImg = $this->uri(array('action'=>'thumbnail', 'id'=>$file['id']));
-        
-        echo '
+/*        
+        $string = '
 <div style="width: 120px; margin-bottom:20px;" class="floatlangdir">
     <div style="line-height:120px; vertical-align:center; text-align:center;">
     <img src="'.$thumbImg.'" style="vertical-align:middle;" />
@@ -76,7 +65,28 @@ if (count($files) == 0) {
     </div>
 </div>
 ';
+*/
+        $objImage = new image();
+        $objImage->src = $thumbImg;
+        $objImage->align = 'middle';
+        $image = $objImage->show();
         
+        $objLayer = new layer();
+        $objLayer->cssClass = 'imageDiv';
+        $objLayer->addToStr($image);
+        $image = $objLayer->show();
+
+        $objLayer = new layer();
+        $objLayer->cssClass = 'linkDiv';
+        $objLayer->addToStr($selectLink->show());
+        $link = $objLayer->show();
+
+        $objLayer = new layer();
+        $objLayer->cssClass = 'floatlangdir';
+        $objLayer->width = '120px; margin-bottom: 20px;';
+        $objLayer->addToStr($image.$link);
+        $string .= $objLayer->show();
+
         $fileIdArray .= 'fileId['.$count.'] = "'.$file['id'].'";';
         $filenameArray .= 'fileName['.$count.'] = \''.$thumbImg.'\';';
         
@@ -92,11 +102,10 @@ if (count($files) == 0) {
         
         $count++;
     }
-    //echo $table->show();
-    
-    if (count($defaultItem) > 0) {
+
+//    if (count($defaultItem) > 0) {
         //$this->appendArrayVar('bodyOnLoad', "previewFile('".$defaultItem['id']."', '".$defaultItem['count']."');");
-    }
+//    }
     
     $script = '<script type="text/javascript">
 
@@ -126,6 +135,15 @@ function selectImage(file, id)
     }
 }
 </script>
+<style type="text/css">
+    div.imageDiv{
+        line-height:120px;
+        text-align:center;        
+    }
+    div.linkDiv{
+        text-align:center;
+    }
+</style>
         ';
         
         $this->appendArrayVar('headerParams', $checkOpenerScript);
@@ -133,7 +151,42 @@ function selectImage(file, id)
         
 }
 
+$objLayer = new layer();
+$objLayer->position = 'absolute; top: 60px; right: 10px; bottom: 110px; left: 10px';
+$objLayer->zIndex = '2; overflow-y:scroll; overflow-x:hidden';
+$objLayer->addToStr($string);
+$str .= $objLayer->show();
 
-$this->setVar('suppressFooter', TRUE);
+$objHeading = new htmlheading();
+$objHeading->str = $uploadFile;
+$objHeading->type = 1;
+$string = $objHeading->show();
+
+$this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
+$this->objUpload->numInputs = 1;
+
+$mode = new hiddeninput('mode', 'selectimagewindow');
+$name = new hiddeninput('name', $this->getParam('name'));
+$context = new hiddeninput('context', $this->getParam('context'));
+$workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
+$restrict = new hiddeninput('restrict', $this->getParam('restrict'));
+$value = new hiddeninput('value', $this->getParam('value'));
+
+$this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
+
+$string .= $this->objUpload->show();
+
+$objLayer = new layer();
+$objLayer->position = 'absolute; left: 10px; right: 10px; bottom: 10px';
+$objLayer->height = '105px';
+$objLayer->zIndex = '3';
+$objLayer->addToStr($string);
+$str .= $objLayer->show();
+
+$objLayer = new layer();
+$objLayer->cssClass = "featurebox";
+$objLayer->position = 'absolute; top: 0px; right: 0px; bottom: 0px; left: 0px';
+$objLayer->zIndex = '100';
+$objLayer->addToStr($str);
+echo  $objLayer->show();
 ?>
-</div>
