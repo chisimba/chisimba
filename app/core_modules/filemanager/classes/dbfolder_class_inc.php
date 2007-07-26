@@ -397,7 +397,9 @@ class dbfolder extends dbTable
             }
             
             // Now delete the folder itself
-            if (rmdir($folder)) {
+            if (!file_exists($folder)) { // If folder does not exist, delete record.
+                $this->delete('id', $id);
+            } else if (rmdir($folder)) { // Else delete folder, then record
                 $this->delete('id', $id);
             } else {
                 return FALSE;
