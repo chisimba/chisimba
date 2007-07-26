@@ -112,7 +112,7 @@ class tagcloud extends object
 	*/
 	public function addElement($tag, $uri, $weight, $time )
 	{
-		$this->tags->addElement($tag     ,$uri, $weight ,$time);
+		$this->tags->addElement($tag ,$uri, intval($weight) ,$time);
 	}
 	
 	/**
@@ -121,7 +121,7 @@ class tagcloud extends object
 	*/
 	public function biuldAll()
 	{
-		
+	
 			return $this->tags->buildALL();
 	}
 
