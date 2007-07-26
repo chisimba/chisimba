@@ -59,6 +59,7 @@ class importexportutils extends dbTable
         	//language object
         	$this->objLanguage = $this->getObject('language', 'language');
 		$this->objDBContext = & $this->newObject('dbcontext', 'context');
+		$this->objFiles =& $this->getObject('dbfile','filemanager');
 	}
 
 	/**
@@ -179,7 +180,6 @@ class importexportutils extends dbTable
 		            	return $this->dsn;
 			break;
 			default:
-                		//$this->dsn = 'mysql://root:@localhost/'.$server;
 				$this->dsn = $server;
                 		return $this->dsn;
 			break;
@@ -793,6 +793,9 @@ class importexportutils extends dbTable
 		//Button
 		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
 		$inpButton->setToSubmit();
+		//Button
+		$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
+		$submitAll->setToSubmit();
 		$objElement = new dropdown('dropdownchoice');
 		//Dropdown 
 		foreach($dbData as $dataOld)
@@ -801,6 +804,7 @@ class importexportutils extends dbTable
 		$objForm->addToForm($objElement->show());
 		$objForm->addToForm('<br/>');
 		$objForm->addToForm($inpButton->show());
+		$objForm->addToForm($submitAll->show());
 
 		return $objForm->show();
 	}
@@ -833,9 +837,9 @@ class importexportutils extends dbTable
     		//$fileInput->name='upload';
     		$fileInput->size=50;
     		//Submit button
-    		$submitButton = new button('submit');
-    		$submitButton->setToSubmit();
-    		$submitButton->setValue($this->objLanguage->languageText("word_upload"));
+    		$selectCourse = new button('submit');
+    		$selectCourse->setToSubmit();
+    		$selectCourse->setValue($this->objLanguage->languageText("word_upload"));
 		//Package type
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('default','eduCommons');
@@ -854,8 +858,8 @@ class importexportutils extends dbTable
     		$form1->addToForm(' ');
     		$form1->addToForm($createCheckbox);
     		$form1->addToForm('<br />');
-    		$form1->addToForm($submitButton);
-		//Creating the form for KNG package upload
+    		$form1->addToForm($selectCourse);
+		//Creating the form for package upload
 		$paramArray2 = array('action' => 'uploadFromServer');
 		$form2 = new form('uploadziplocal', $this->uri($paramArray2,'contextadmin'));
     		$form2->extra=' enctype="multipart/form-data" ';
@@ -891,9 +895,9 @@ class importexportutils extends dbTable
 		$form2->addToForm($serverLabel);
 		$form2->addToForm($serverDropDown);
 		$form2->addToForm('<br />');
-		$form2->addToForm($localLabel);
-		$form2->addToForm($serverInput);
-		$form2->addToForm('<br />');
+		//$form2->addToForm($localLabel);
+		//$form2->addToForm($serverInput);
+		//$form2->addToForm('<br />');
 		$form2->addToForm($checkLabel2);
 		$form2->addToForm(' ');
 		$form2->addToForm($createCheckbox2);
@@ -1108,51 +1112,71 @@ class importexportutils extends dbTable
 		return $pageContents;
 	}
 
-	function getHtmlPages($contextcode)
+	function getHtmlPages($contextcode = '', $allFilesLocation = '', $folder = '', $resourceFolder = '')
 	{
-		parent::init('tbl_contextcontent_order');
-		$filter = "WHERE contextcode = '$contextcode'";
-		$orders = $this->getAll($filter);
-		foreach($orders as $titleId)
+		static $i = 0;
+		if($contextcode)
 		{
-			$titleId = $titleId['titleid'];
-			parent::init('tbl_contextcontent_pages');
-			$filter = "WHERE titleid = '$titleId'";
-			$pages = $this->getAll($filter);
-			static $i = 0;
-			foreach($pages as $aPage)
+			parent::init('tbl_contextcontent_order');
+			$filter = "WHERE contextcode = '$contextcode'";
+			$orders = $this->getAll($filter);
+			foreach($orders as $titleId)
 			{
-				$pageContents[$i] = $aPage['pagecontent'];
+				$titleId = $titleId['titleid'];
+				parent::init('tbl_contextcontent_pages');
+				$filter = "WHERE titleid = '$titleId'";
+				$pages = $this->getAll($filter);
+				foreach($pages as $aPage)
+				{
+					$pageContents[$i] = $aPage['pagecontent'];
+					$i++;
+				}
+			}		
+		}
+		else if($allFilesLocation)
+		{
+			foreach($allFilesLocation as $fileLocation)
+			{
+				$file = $folder.'/'.$fileLocation;
+				$pageContents[$i] = file_get_contents($file);
 				$i++;
 			}
-		}		
-		
+		}
+		else
+		{
+			return 'error';
+		}
+
 		return $pageContents;
 	}
 
-	function getImageNames($htmlPages)
+	function getImageNames($htmlPages, $packageType)
 	{
-		if(count($htmlPages) == 1)
+		if($packageType == 'exe')
 		{
-			preg_match_all('/filename=.*type/', $htmlPages, $matches, PREG_SET_ORDER);
-			if($matches)
+			foreach($htmlPages as $page)
 			{
-				static $i= 0;
-				foreach($matches as $match)
+				static $i=0;
+				$regex = '';
+				preg_match_all($regex, $page, $matches,	PREG_SET_ORDER);
+				if($matches)
 				{
-					$match[0] = preg_replace('/filename=/','',$match[0]);
-					$match[0] = preg_replace('/&amp;type/','',$match[0]);
-					$resourcePaths[$i] = $match[0];
-					$i++;
+					static $i= 0;
+					foreach($matches as $match)
+					{
+
+						$resourcePaths[$i] = $match[0];
+						$i++;
+					}
 				}
 			}
 		}
 		else
 		{
-			foreach($htmlPages as $page)
+			if(count($htmlPages) == 1)
 			{
-				static $i=0;
-				preg_match_all('/filename=.*type/', $page, $matches, PREG_SET_ORDER);
+				$regex = '/filename=.*type/';
+				preg_match_all($regex, $htmlPages, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
 					static $i= 0;
@@ -1162,6 +1186,26 @@ class importexportutils extends dbTable
 						$match[0] = preg_replace('/&amp;type/','',$match[0]);
 						$resourcePaths[$i] = $match[0];
 						$i++;
+					}
+				}
+			}
+			else
+			{
+				foreach($htmlPages as $page)
+				{
+					$regex = '/filename=.*type/';
+					static $i=0;
+					preg_match_all($regex, $page, $matches,	PREG_SET_ORDER);
+					if($matches)
+					{
+						static $i= 0;
+						foreach($matches as $match)
+						{
+							$match[0] = preg_replace('/filename=/','',$match[0]);
+							$match[0] = preg_replace('/&amp;type/','',$match[0]);
+							$resourcePaths[$i] = $match[0];
+							$i++;
+						}
 					}
 				}
 			}
@@ -1242,6 +1286,7 @@ class importexportutils extends dbTable
 			#Check if its an Image
 			if(preg_match("/.jpg|.gif|.png/",$aFile))
 			{
+//echo $aFile;die;
 				#Create new file source location
 				#Check if its a static package
 				if(!($static == ''))
@@ -1256,8 +1301,16 @@ class importexportutils extends dbTable
 				preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
+//echo $page;
+//echo '<hr>';
+//echo $aFile;
+//echo '<hr>';
 					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
 					$page = preg_replace($regReplace, $newLink, $page);
+//echo $regReplace;
+//echo '<hr>';
+//echo $page;
+//die;
 				}
 				#If the image was renamed
 				else
@@ -1368,6 +1421,40 @@ class importexportutils extends dbTable
 				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
 				$modAction = $action.$pageIds[$aFile].'"';
 				$page = preg_replace($regReplace, $modAction, $page);
+			}
+		}
+
+		return $page;
+    	}
+
+	/**
+    	 * Method to replace image source links with links to the blob system
+	 *
+    	 * @author Kevin Cyster
+	 * @Modified by Jarrett L Jordaan
+    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $contextCode - course context code
+    	 * @param string $fileNames - names of all files in package
+    	 * 
+    	 * @return string $page - the finished modified text page
+	 *
+	*/
+	function changeDataLink($fileContents, $contextCode, $fileNames, $pageIds, $static='')
+    	{
+		#Run through each resource
+		$page = $fileContents;
+		foreach($fileNames as $aFile)
+		{
+			if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$aFile)))
+			{
+				$file = $this->objFiles->getFileInfo($pageIds[$aFile]);
+				$filepath = $file['path'];
+				$action = 'value"'.$this->objConf->getsiteRoot().$filepath;
+				$regReplace = '/(value=".*'.$aFile.'.*?")/i';
+				$modAction = $action.$pageIds[$aFile].'"';
+				$page = preg_replace($regReplace, $modAction, $page);
+				
+				
 			}
 		}
 

@@ -118,8 +118,7 @@ class importIMSPackage extends dbTable
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		#Retrieve temp folder
-		#Check upload needs to forced
+		#Check if upload needs to forced
 		if($createCourse == TRUE)
 			$folder = $this->unzipIMSFile($FILES);
 		else
@@ -159,9 +158,20 @@ class importIMSPackage extends dbTable
 			if($this->objError)
 				return  "xpathSetError";
 		#Retrieve all resource files in package
-		$allFilesLocation = $this->locateAllMITFiles($simpleXmlObj);
-		#Retrieve all files
+		$allPageLocation = $this->locateAllMITFiles($simpleXmlObj);
+		if(!isset($allPageLocation))
+			if($this->objError)
+				return  "dataRetrievalError";
+		#Retrieve all relative file paths
 		$allLocations = $this->objIEUtils->list_dir_files($folder, 1);
+		if(!isset($allLocations))
+			if($this->objError)
+				return  "dataRetrievalError";
+		#Retrieve file names
+		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
+		if(!isset($fileNames))
+			if($this->objError)
+				return  "dataRetrievalError";
 		#Extract course data
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj,'exe');
 		if(!isset($courseData) || $courseData == 'courseReadError')
@@ -185,46 +195,58 @@ class importIMSPackage extends dbTable
 					return  "courseWriteError";
 		}
 		else
+		{
 			$this->contextCode = $choice;
-die;
-
-/*
-
-		#Retrieve all .xml files
-		$xmlFilesLocation = $this->locateAllXmlFiles($xpathObj);
-
-		#Load all .xml files
-		$newFolder = $folder.'/'.preg_replace("/.zip/","",$FILES['upload']['name']);
-		$allXmlPackageData = $this->loadAllXmlFiles($newFolder, $xmlFilesLocation);
-
-
-		#Write Resources
-		#Retrieve Html locations and move to usrfiles
-		$mitHtmlsPath = $this->getMITHtmls($newFolder, $allXmlPackageData);
-		//Write Images to Chisimba usrfiles directory
+		}
+		//Retrieve Html pages
+		$htmlPages = $this->objIEUtils->getHtmlPages('', $allPageLocation, $folder, $this->docsLocation);
+		if(!isset($htmlPages))
+			if($this->objError)
+				return  "dataRetrievalError";
+		#Retrieve organizations
+		$structure = $this->getStructure($simpleXmlObj);
+		if(!isset($structure))
+			if($this->objError)
+				return  "noStructureError";
+		#Retrieve menu titles for content within html pages
+		$menuTitles = $this->getMenuTitles($htmlPages);
+		if(!isset($menuTitles))
+			if($this->objError)
+				return  "dataRetrievalError";
+		#Write Html data into Chisimba usrfiles directory
+		$htmlFilenames = $this->objIEUtils->writeHtmls($htmlPages, $this->docsLocation);
+		if(!isset($htmlFilenames))
+			if($this->objError)
+				return  "writeResourcesError";
+		#Write Image data into Chisimba usrfiles directory
 		$writeImages = $this->writeMITImages('', $allLocations, $fileNames);
+		if(!isset($writeImages))
+			if($this->objError)
+				return  "writeResourcesError";
 		//Write Files to Chisimba usrfiles directory
 		$writeFiles = $this->writeMITFiles('', $allLocations, $fileNames);
-
-		#Load html data into Chisimba
-		$loadData = $this->loadToChisimba($mitHtmlsPath, $allXmlPackageData, 'Y');
-		if(!isset($loadData))
+		if(!isset($writeFiles))
 			if($this->objError)
-				return  "loadDataError";
-		#Load image data into Chisimba
-		$uploadImagesToChisimba = $this->uploadImagesToChisimba();
-		#Load image data into Chisimba
-		$uploadFilesToChisimba = $this->uploadImagesToChisimba($this->filesLocation);
-		if(!isset($uploadImagesToChisimba))
+				return  "writeResourcesError";
+		#Load html data into Chisimba
+		$pageIds = $this->loadToChisimbaFromContent($htmlPages, $allPageLocation, $structure, $menuTitles);
+		if(!isset($pageIds))
 			if($this->objError)
 				return  "uploadError";
-		#Rebuild html images and url links
-		$allFileNames = $this->objIEUtils->list_dir_files($folder,0);
-		$rebuildHtml = $this->rebuildMITHtml($loadData, $allFileNames, $allFilesLocation);
+		#Load image data into Chisimba
+		$uploadToChisimba = $this->uploadToChisimba();
+		if(!isset($uploadToChisimba))
+			if($this->objError)
+				return  "uploadError";
+		#Load file data into Chisimba
+		$uploadFilesToChisimba = $this->uploadToChisimba($this->filesLocation);
+		if(!isset($uploadFilesToChisimba))
+			if($this->objError)
+				return  "uploadError";
+		$rebuildHtml = $this->rebuildMITHtml($menuTitles, $fileNames, $allPageLocation);
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
-*/
 
 		return TRUE;
 	}
@@ -246,8 +268,7 @@ die;
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		#Retrieve temp folder
-		#Check upload needs to forced
+		#Check if upload needs to forced
 		if($createCourse == TRUE)
 			$folder = $this->unzipIMSFile($FILES);
 		else
@@ -326,17 +347,19 @@ die;
 		$writeImages = $this->writeMITImages('', $allLocations, $fileNames);
 		//Write Files to Chisimba usrfiles directory
 		$writeFiles = $this->writeMITFiles('', $allLocations, $fileNames);
-
 		#Load html data into Chisimba
 		$loadData = $this->loadToChisimba($mitHtmlsPath, $allXmlPackageData, 'Y');
 		if(!isset($loadData))
 			if($this->objError)
 				return  "loadDataError";
 		#Load image data into Chisimba
-		$uploadImagesToChisimba = $this->uploadImagesToChisimba();
-		#Load image data into Chisimba
-		$uploadFilesToChisimba = $this->uploadImagesToChisimba($this->filesLocation);
-		if(!isset($uploadImagesToChisimba))
+		$uploadToChisimba = $this->uploadToChisimba();
+		if(!isset($uploadToChisimba))
+			if($this->objError)
+				return  "uploadError";
+		#Load file data into Chisimba
+		$uploadFilesToChisimba = $this->uploadToChisimba($this->filesLocation);
+		if(!isset($uploadFilesToChisimba))
 			if($this->objError)
 				return  "uploadError";
 		#Rebuild html images and url links
@@ -367,8 +390,7 @@ die;
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		#Retrieve temp folder
-		#Check upload needs to forced
+		#Check if upload needs to forced
 		if($createCourse == TRUE)
 			#Retrieve temp folder
 			$folder = $this->unzipIMSFile($FILES);
@@ -448,8 +470,8 @@ die;
 			if($this->objError)
 				return  "loadDataError";
 		#Load image data into Chisimba
-		$uploadImagesToChisimba = $this->uploadImagesToChisimba();
-		if(!isset($uploadImagesToChisimba))
+		$uploadToChisimba = $this->uploadToChisimba();
+		if(!isset($uploadToChisimba))
 			if($this->objError)
 				return  "uploadError";
 		#Rebuild html images and url links
@@ -709,10 +731,11 @@ die;
 		else if($packageType == 'exe')
 		{
 			$courseId = trim($xml->organizations->organization->title);
+			$courseId .= '_'.$this->objIEUtils->generateUniqueId();
 			$this->newCourse['contextcode'] = $courseId;
-			$courseTitle = 'None';
+			$courseTitle = $courseId;//'None';
 			$this->newCourse['title'] = $courseTitle;
-			$menutext = 'None';
+			$menutext = $courseId;//'None';
 			$this->newCourse['menutext'] = $menutext;#course title (menu text)
 			$this->newCourse['userid'] = "1";#course title (userId)
 			$this->newCourse['courseIdentifier'] = '';#course identifier (not in use)
@@ -1023,8 +1046,9 @@ die;
 	*/
 	public $imageIds;
 	public $fileIds;
-	function uploadImagesToChisimba($folder = '', $fileNames = '')
+	function uploadToChisimba($folder = '', $fileNames = '')
 	{
+		$noFilesWritten = 0;
 		#Initialize Inner variables
 		parent::init('tbl_files');
 		#Add Images to database
@@ -1042,11 +1066,22 @@ die;
 				$this->imageIds[$aFile] = $pageId;
 			else
 				$this->fileIds[$aFile] = $pageId;
+			$noFilesWritten = 1;
 		}
 		if(!(strlen($folder) > 1))
-			return $this->imageIds;
+		{
+			if($noFilesWritten == 1)
+				return $this->imageIds;
+			else
+				return TRUE;
+		}
 		else
-			return $this->fileIds;
+		{
+			if($noFilesWritten == 1)
+				return $this->fileIds;
+			else
+				return TRUE;
+		}
 	}
 
 	/**
@@ -1060,13 +1095,22 @@ die;
 	function getStructure($xml)
 	{
 		$titles = array();
-		$i = 0;
+		static $i = 0;
 		foreach($xml->organizations->organization->item as $item)
 		{
 			$aTitle = (string)$item->title;
 			$aTitle = trim($aTitle);
 			$titles[$i] = $aTitle;
 			$i++;
+			foreach($item as $sublevel)
+			{
+				$aTitle = $this->subLevelItem($sublevel);
+				if($aTitle)
+				{
+					$titles[$i] = $aTitle;
+					$i++;
+				}
+			}
 		}
 
 		return $titles;
@@ -1902,9 +1946,7 @@ die;
 				$menutitle = 'None';
 				$filename = 'None.html';
 			}
-			#No idea!!!
 			$tree = $this->objContentOrder->getTree($this->contextCode, 'dropdown', $parent);
-			#Add page
         		$titleId = $this->objContentTitles->addTitle('',
 								$menutitle,
 								$fileContents,
@@ -1973,13 +2015,14 @@ die;
 	function writeMITFiles($newFolder='', $allFilesLocation, $fileNames='')
 	{
 		static $i = 0;
+		$noFilesWritten = 0;
 		foreach($allFilesLocation as $fileLocation)
 		{
 			foreach($fileNames as $fileName)
 			{
 				if(preg_match("/$fileName/",$fileLocation))
 				{
-					if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png/",$fileLocation)))
+					if(!(preg_match("/.txt|.htm|.html|.xml|.css|.js|.jpg|.gif|.png|.xsd/",$fileLocation)))
 					{
 						$filename = $fileName;
 						$filePaths[$fileLocation] = $filename;
@@ -1992,12 +2035,16 @@ die;
 							return  "writeResourcesError";
 						fclose($fp);
 						$i++;
+						$noFilesWritten = 1;
 					}
 				}
 			}
 		}
 
-		return $filePaths;
+		if($noFilesWritten == 1)
+			return $filePaths;
+		else
+			return TRUE;
 	}
 
 	/**
@@ -2059,7 +2106,10 @@ die;
 					$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
 					#Rewrite links source in html
 					$page = $this->objIEUtils->changeMITLinkUrl($page, $this->contextCode, $fileNames, $this->fileIds);
+					#Rewrite internal links source in html
 					$page = $this->objIEUtils->changeLinkUrl($page, $this->contextCode, $fileNames, $this->pageIds, 'mit', $allFilesLocation);
+					#Rewrite data links source in html
+					$page = $this->objIEUtils->changeDataLink($page, $this->contextCode, $fileNames, $this->fileIds, 'mit', $allFilesLocation);
 					#Reinsert into database with updated images
 					if(strlen($page) > 1 )
 					{
@@ -2081,6 +2131,62 @@ die;
 		}
 
 		return TRUE;
+	}
+
+	function loadToChisimbaFromContent($htmlPages, $filenames, $structure, $menuTitles)
+	{
+		$menutitles = array();
+		$this->addChapters();
+		static $i = 0;
+		$numItems = count($structure);
+		foreach($htmlPages as $htmlPage)
+		{
+			$tree = $this->objContentOrder->getTree($this->contextCode, 'dropdown', $parent);
+        		$titleId = $this->objContentTitles->addTitle('',
+								$menuTitles[$i],
+								$htmlPage,
+								'en',
+								'');
+			if(array_search($menuTitles[$i], $structure))
+			{
+			$this->pageIds[$filenames[$i]] = $this->objContentOrder->addPageToContext($titleId, $parent, $this->contextCode, $this->chapterId, $i, 'Y');
+			}
+			else
+			{
+			$this->pageIds[$filenames[$i]] = $this->objContentOrder->addPageToContext($titleId, $parent, $this->contextCode, $this->chapterId, $i, 'N');
+			}
+			$i++;
+		}
+
+		return $this->pageIds;
+	}
+
+	function subLevelItem($sublevel)
+	{
+		$aTitle = (string)$sublevel->title;
+		
+		return $aTitle;
+	}
+
+	function getMenuTitles($htmlPages)
+	{
+		foreach($htmlPages as $htmlPage)
+		{
+			static $i = 0;
+			$regex = '%<p id="nodeTitle">.*?</p>%s';
+			preg_match_all($regex, $htmlPage, $result, PREG_PATTERN_ORDER);
+			if($result)
+			{
+				$menutitle = $result[0][0];
+				$menutitle = preg_replace('/<p id="nodeTitle">/s', '', $result[0][0]);
+				$menutitle = preg_replace('%</p>%s', '', $menutitle);
+				$menutitle = trim($menutitle);
+				$menuTitles[$i] = $menutitle;
+				$i++;
+			}
+		}
+
+		return $menuTitles;
 	}
 
 	/**

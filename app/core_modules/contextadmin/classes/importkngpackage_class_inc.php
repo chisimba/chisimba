@@ -105,7 +105,7 @@ class importKNGPackage extends dbTable
 		//Retrieve html page data within context
 		$courseContent = $this->objIEUtils->getCourseContent($courseId);
 		//Write Html's to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeKNGHtmls($courseData, $courseContent, $this->docsLocation, "kng");
+		$writeKNGHtmls = $this->objIEUtils->writeHtmls($courseContent, $this->docsLocation);
 		//Load Html's into Chisimba
 		$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
 		$filesPath = $this->filesUsed($menutitles, $this->courseId);
@@ -128,8 +128,8 @@ class importKNGPackage extends dbTable
 	{
 		//var_dump($menutitles);
 		//var_dump($courseId);
-		var_dump($this->pageIds);
-		die;
+		//var_dump($this->pageIds);
+		//die;
 	}
 
 	/**

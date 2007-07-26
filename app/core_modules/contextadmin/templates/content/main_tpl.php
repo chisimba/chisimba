@@ -21,7 +21,7 @@ echo $objH->show();
 
 
 
-	$uploadTemplate = $this->objIEUtils->uploadTemplate('1');
+	$uploadTemplate = $this->objIEUtils->uploadTemplate();
 //	$downloadTemplate = $this->objIEUtils->downloadTemplate();
 
 

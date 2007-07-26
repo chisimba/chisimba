@@ -48,7 +48,7 @@ switch ($uploadStatus)
 		$message = 'Course duplication exists or database can\'t be accessed';
 	break;
 	case 'writeResourcesError':
-		$message = 'Permissions denied or directory doesn\'t';
+		$message = 'Permissions denied or directory doesn\'t exist';
 	break;
 	case 'noStructureError':
 		$message = 'Can\'t read IMS manifest file';
@@ -64,6 +64,12 @@ switch ($uploadStatus)
 	break;
 	case 'success':
 		$message = 'Successful Upload';
+	break;
+	case 'dataRetrievalError':
+		$message = 'Data could not be loaded from location, or permissions denied or directory doesn\'t exist';
+	break;
+	case 'iniError':
+		$message = 'Can\'t change configuration of system';
 	break;
 	case 'unknownPackage':
 		$message = 'Unknown Package type';

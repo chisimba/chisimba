@@ -209,12 +209,35 @@ class contextadmin extends controller
 	case 'uploadKNG':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
-		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
+		$importAll = $this->getParam('ImportAll');
+		$dbData = $this->getSession('dbData');
+		$changeConfig = ini_set('max_execution_time','-1');
+		if($changeConfig)
+		{
+			#Import all courses from remote site
+			if($importAll)
+			{
+				foreach($dbData as $aCourse)
+				{
+					$uploadStatus = $this->objImportKNGContent->importKNGcontent($aCourse['contextcode']);
+				}
+			}
+			#Import a single course from remote site
+			else
+			{
+				$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
+			}
+		}
+		else
+		{
+			$uploadStatus = 'iniError';
+		}
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
+
 	break;
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
@@ -256,6 +279,7 @@ class contextadmin extends controller
 		$sql = "SELECT * from tbl_context";
 		$dbData = $this->objIEUtils->importDBData($server, $tableName, $sql);
 		$this->setVarByRef('dbData',$dbData);
+		$this->setSession('dbData',$dbData);
 		$this->setSession('server', $server);
 
 		return 'importcourse_tpl.php';
