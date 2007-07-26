@@ -93,7 +93,7 @@ if (isset($contextList))
 		//$conf .= '  '.$icon->getEditIcon($this->uri(array('action' => 'addstep1', 'mode' => 'edit', 'contextcode' =>$context['contextcode'] ), 'contextadmin'));
 				
 		//delete context
-		$conf .= '  '.$icon->getDeleteIcon($this->uri(array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin'));
+		$conf .= '  '.$icon->getDeleteIconWithConfirm($context['contextcode'], array('action' => 'delete', 'contextcode' =>$context['contextcode']), 'contextadmin');
 		
 		
 		$title = ($context['title'] == '') ? $context['menutext'] : $context['title'];
@@ -105,7 +105,7 @@ if (isset($contextList))
 			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
 		}
 		
-		$icon = null;
+		//$icon = null;
 	}
 } else {
 	$str .= '<div align="center" style="font-size:large;font-weight:bold;color:#CCCCCC;font-family: Helvetica, sans-serif;">'.$this->_objLanguage->languageText("mod_context_noasscontext",'context') .'</div>';
@@ -205,9 +205,76 @@ if($this->_objUser->isAdmin())
 	   
 }
 
+//Archived context
+
+if(count($archivedCourses) > 0)
+{
+ 	$str = '';
+ 	
+	foreach ($archivedCourses as $context)
+	{
+		//$icon = $this->newObject('geticon', 'htmlelements');
+		$lecturers = $this->_objUtils->getContextLecturers($context['contextcode']);
+		$lects = '';
+		if(is_array($lecturers))
+		{
+		    $c = 0;
+			foreach($lecturers as $lecturer)
+			{
+			    $c++;
+				$lects .= $this->_objUser->fullname($lecturer['userid']);
+				$lects .= ($c < count($lecturers)) ? ', ' : '';
+				
+				
+			}
+		} else {
+			$lects = 'No Instructor for this course';
+		}
+		//print_r($objContextGroups->getUserCount($context['contextcode']));
+		$userCount = $objContextGroups->getUserCount($context['contextcode'])+1;
+		$content = $this->_objLanguage->languageText("mod_context_instructors",'context') .': <span class="highlight">'.$lects.'</span>';
+		$content .= '<p>'.$this->_objLanguage->languageText("mod_context_status",'context') .' : <span class="highlight">'.$context['status'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_access",'context') .' : <span class="highlight">'.$context['access'].'</span>';
+		$content .= '<br/>'.$this->_objLanguage->languageText("mod_context_lastupdated",'context') .'  : <span class="highlight">'.$context['updated'].'</span>';
+		$content .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$this->_objLanguage->languageText("mod_context_lastupdatedby",'context') .' : <span class="highlight">'.$this->_objUser->fullname($context['lastupdatedby']).'</span>';
+		$content .= '<br/>'.$this->_objLanguage->languageText("mod_context_noregusers",'context') .': <span class="highlight">'.$userCount.'</span></p>';
+	//	$content .= '<p>'.$this->_objUtils->getPlugins($context['contextcode']).'</p>';
+
+		
+		//administer context
+	
+		
+		//undelete context
+		$objLink->href = $this->uri(array('action' => 'undeletecontext', 'contextcode' => $context['contextcode']));
+		$icon->setIcon('empty_trash');
+		$icon->alt = 'Undelete Course';
+		$objLink->link = $icon->show();
+		$conf = $objLink->show();
+		
+		
+		
+		
+		$title = ($context['title'] == '') ? $context['menutext'] : $context['title'];
+		if($context['contextcode'] == $this->_objDBContext->getContextCode())
+		{
+		      
+			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
+		} else {
+			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
+		}
+		
+		//$icon = null;
+	}
+	
+	$tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_myacrivedcontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
+}
+
+//$tabBox->addTab(array('name'=> "Import",'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$form->show())));
+
 //$tabBox->addTab(array('name'=> "Import",'content' => //$featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$uploadTemplate)));
 $tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$uploadTemplate)));
 //$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_downloadheading","contextadmin"),$downloadTemplate)));
+
 echo $tabBox->show();
 
 

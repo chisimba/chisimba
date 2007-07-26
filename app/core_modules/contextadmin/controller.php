@@ -91,6 +91,7 @@ class contextadmin extends controller
 	            $this->setVar('contextList', $this->_objUtils->getContextList());
 	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
 	            $this->setVar('filter', $this->_objUtils->getFilterList($this->_objUtils->getContextList()));
+	            $this->setVar('archivedCourses', $this->_objUtils->geteArchivedContext());
 	            return 'main_tpl.php';
                 
             //the following cases deals with adding a context
@@ -140,6 +141,13 @@ class contextadmin extends controller
              	return $this->nextAction('default');
            	case 'admincontext':
            		$this->_objDBContext->joinContext($this->getParam('contextcode'));
+           		return $this->nextAction('default');
+           		
+           	case 'delete':
+           		$this->_objUtils->deleteContext($this->getParam('contextcode'));
+           		return $this->nextAction('default');
+           	case 'undeletecontext':
+           		$this->_objUtils->undeleteContext($this->getParam('contextcode'));
            		return $this->nextAction('default');
 	/**
 	Author : Jarrett Jordaan

@@ -53,9 +53,11 @@ class utils extends object
 		$arr = array();
 
 		//if the user is an administrator of the site then show him all the courses
+		
+		$contexts = $this->_objDBContext->getAll("WHERE isNull(archive) or archive=0");
 	  	if ($this->_objUser->isAdmin())
 		{
-			return  $this->_objDBContext->getAll();
+			return  $contexts;
 		}
 
 	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
@@ -64,10 +66,48 @@ class utils extends object
 
 	  	foreach ($contextCodes as $code)
 	  	{
+	  	 	
 	  		$arr[] = $this->_objDBContext->getRow('contextcode',$code);
 
 	  	}
-	  	//print_r($arr);
+	  	var_dump($arr);
+	  	return $arr;
+	  }
+	  
+	  /**
+	  * Method to get the list of archived context
+	  * 
+	  * @return array
+	  */
+	  public function geteArchivedContext()
+	  {
+		$arr = array();
+
+		//if the user is an administrator of the site then show him all the courses
+		
+		$arch = $this->_objDBContext->getAll("WHERE archive=1");
+	  	if ($this->_objUser->isAdmin())
+		{
+			return  $arch;
+		} 
+
+	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
+	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
+
+		//if the user is lecturer in the archived context then show it
+			
+	  	foreach ($contextCodes as $code)
+	  	{
+	  	 	foreach($arch as $a)
+	  	 	{
+				if($a['contextcode'] == $code['contextcode'])
+				{print $a['contextcode'];
+					$arr[] = $this->_objDBContext->getRow('contextcode',$code);		
+				}
+			}
+	  	 
+	  	}
+	  var_dump($contextCodes);
 	  	return $arr;
 	  }
 
@@ -768,6 +808,53 @@ class utils extends object
     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
     		exit();
     	}
+	  }
+	  
+	  /**
+	  * Method to delete a context
+	  * 
+	  * @param string $contextCode
+	  * @return boolean
+	  */
+	  public function deleteContext($contextCode)
+	  {
+		try{
+					
+			//achive the context
+			$this->_objDBContext->archiveContext($contextCode);
+			
+		}
+		catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+		
+			
+	  }
+	  
+	  
+	  /**
+	  * Method to delete a context
+	  * 
+	  * @param string $contextCode
+	  * @return boolean
+	  */
+	  public function undeleteContext($contextCode)
+	  {
+		try{
+					
+			//undelete the context
+			$this->_objDBContext->undeleteContext($contextCode);
+			
+		}
+		catch (customException $e)
+        {
+        	echo customException::cleanUp($e);
+        	die();
+        }
+		
+			
 	  }
 }
 ?>
