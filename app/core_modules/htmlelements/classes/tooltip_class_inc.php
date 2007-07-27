@@ -70,9 +70,7 @@ class tooltip extends object
 
 	/**
 	* Method display a tooltip.
-	*
-	* @param string $mimetype Mime Type of Page
-    * @return string Scriptaculous JavaScript
+    * @return string Tooltip
 	*/
 	public function show()
 	{
