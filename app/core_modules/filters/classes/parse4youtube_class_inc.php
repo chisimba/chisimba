@@ -19,7 +19,7 @@ class parse4youtube extends object
     
     function init()
     {
-        
+
     }
     
     /**
@@ -35,6 +35,8 @@ class parse4youtube extends object
         preg_match_all('/\\[YOUTUBE]<a.*?href="(?P<youtubelink>.*?)".*?>.*?<\/a>\\[\/YOUTUBE]/', $str, $results, PREG_PATTERN_ORDER);
         //Match straight URLs
         preg_match_all('/\\[YOUTUBE](.*?)\\[\/YOUTUBE]/', $str, $results2, PREG_PATTERN_ORDER);
+        //Match filters based on the youtube module
+        preg_match_all('/\\[YOUTUBE:(.*?)\\]/', $str, $results3, PREG_PATTERN_ORDER);
         //Get all the ones in links
         $counter = 0;
         foreach ($results[0] as $item)
@@ -65,20 +67,55 @@ class parse4youtube extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
-        
+        //Instantiate the modules class to check if youtube is registered
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the youtube API module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('youtube', 'youtube');
+        if ($isRegistered){
+            //Parse the youtube page tags
+            $counter = 0;
+            //Instantiate the youtubeapi class
+            $objYouTube = $this->getObject('youtubeapi', 'youtube');
+            //Get the view class for youtubeapi
+            $vw = $this->getObject('youtubetpl','youtube');
+            foreach ($results3[0] as $item) {
+                $exPat = $results3[1][$counter];
+                //Get an array containing the param=value data
+                //The format is [YOUTUBE: by_tag,tag,2,1,24]
+                $arCodes = $this->extractYoutubeCodes(&$exPat);
+                $ytmethod = $arCodes['ytmethod'];
+                $identifier = $arCodes['ytidentifier'];
+                $cols = $arCodes['cols'];
+                $page = $arCodes['ytpage'];
+                $hitsperpage = $arCodes['hitsperpage'];
+                $vw->set('hitsPerPage', $hitsperpage);
+                $objYouTube->set('ytMethod', $ytmethod);
+                $objYouTube->set('ytIdentifier', $identifier);
+                $vw->set('ytIdentifier', $identifier);
+                $objYouTube->set('ytpage', $page);
+                $objYouTube->set('hitsPerPage', $hitsperpage);
+                $vw->set('cols', $cols);
+                //$objYouTube->ytIdentifier = $identifier;
+                $apiXml = $objYouTube->show($objYouTube->setupCall());
+                $replacement = $vw->showVideos($apiXml);
+                //$replacement = $identifier . " " . $objYouTube->setupCall();
+                $str = str_replace($item, $replacement, $str);
+                $counter++;
+            }
+        }
         return $str;
     }
     
     /**
-     * 
-     * Method to extract the video code from a youtube video link
-     * The video link is after ?v=CODE, so we can extract the params
-     * by splitting on ? and then the link by splitting on =
-     * @param string $link The youtube video link
-     * @return string The video code on Youtube
-     * @access public 
-     * 
-     */
+    * 
+    * Method to extract the video code from a youtube video link
+    * The video link is after ?v=CODE, so we can extract the params
+    * by splitting on ? and then the link by splitting on =
+    * @param string $link The youtube video link
+    * @return string The video code on Youtube
+    * @access public 
+    * 
+    */
     public function getVideoCode($link)
     {
         $vCode = explode("?", $link);
@@ -89,13 +126,13 @@ class parse4youtube extends object
     }
     
     /**
-     * 
-     * Method to build the youtube video object code
-     * @param string $videoId The id of the Youtube video
-     * @return String The object code
-     * @access public
-     * 
-     */
+    * 
+    * Method to build the youtube video object code
+    * @param string $videoId The id of the Youtube video
+    * @return String The object code
+    * @access public
+    * 
+    */
     public function getVideoObject($videoId)
     {
         return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/" 
@@ -127,6 +164,32 @@ class parse4youtube extends object
     		return FALSE;
     	}
  
+    }
+    
+    /**
+    * 
+    * Method to build an array of keys and values to build the call to 
+    * the youtube API
+    * 
+    * The tag format is [YOUTUBE: ytmethod, identifier, page, hitsperpage]
+    * Example: [YOUTUBE: by_tag, digitalfreedom, cols, 1, 12]
+    * 
+    * @param string $exPat The extracted pattern containing a comma delimited
+    * string in the form: ytmethod, identifier, page, hitsperpag
+    * 
+    * @return string array An arrray of keys and values
+    * 
+    */
+    public function extractYoutubeCodes(&$exPat)
+    {
+        $arCodes = explode(",", $exPat);
+        $arRet = array(
+          'ytmethod' => $arCodes[0],
+          'ytidentifier' => $arCodes[1],
+          'cols' => $arCodes[2],
+          'ytpage' => $arCodes[3],
+          'hitsperpage' => $arCodes[4]);
+        return $arRet;
     }
     
 }
