@@ -48,23 +48,47 @@ class importIMSPackage extends dbTable
 	 * @var object $pageIds - holds the page id's corresponding to a file name
 	*/
 	public $pageIds;
+	public $courseId;
+	public $contentBasePath;
+	public $courseContentBasePath;
+	public $contextCode;
+	public $courseTitle;
+	public $courseContentPath;
+	public $imagesLocation;
+	public $docsLocation;
+	public $filesLocation;
+	public $folder;//relative path of temporary folder
+	public $fileLocations;//relative paths to all files
+	public $imsmanifestLocation;//relative paths to IMS manifest file
+	public $simpleXmlObj;//simplexml object to access xml file
+	public $domDocumentObj;//dom document object to access xml file
+	public $xpathObj;//xpath object to access xml file
+	public $newCourse;//all course data needed to create course
+	public $resourceFileNames;//the filenames of resources, including type
+	public $alldata;//all data needed to add file to database
+	public $imageIds;
+	public $fileIds;
+	public $resourceIds;
+	public $chapterIds;
+	public $chapterId;
+
 	/**
 	 * The constructor
 	*/
 	function init()
 	{
-		#Load Filemanager class
+		// Load Filemanager class.
 		$this->objIndex = $this->getObject('indexfileprocessor', 'filemanager');
-		#Load System classes
+		// Load System classes.
 		$this->objConfig = $this->newObject('altconfig','config');
         	$this->objDBContext = $this->newObject('dbcontext', 'context');
         	$this->objUser = $this->getObject('user', 'security');
-		#Load Inner classes
+		// Load Inner classes.
 		$this->objIEUtils = $this->newObject('importexportutils','contextadmin');
-		#Load Chapter Classes
+		// Load Chapter Classes
 		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
-		#Load context classes
+		// Load context classes
         	$this->objContentPages = $this->getObject('db_contextcontent_pages','contextcontent');
 	        $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
         	$this->objContentTitles = $this->getObject('db_contextcontent_titles','contextcontent');
@@ -383,7 +407,6 @@ class importIMSPackage extends dbTable
 	 * @return TRUE - Successful execution
 	 * 
 	*/
-	public $courseId;
 	function defaultPackage($FILES, $choice = '', $createCourse = '')
 	{
 		#Check archive type
@@ -492,22 +515,14 @@ class importIMSPackage extends dbTable
 	 * @return array $locations - Array of all locations used
 	 * 
 	*/
-	public $contentBasePath;
-	public $courseContentBasePath;
-	public $contextCode;
-	public $courseTitle;
-	public $courseContentPath;
-	public $imagesLocation;
-	public $docsLocation;
-	public $filesLocation;
 	function initLocations($contextcode, $courseTitle)
 	{
 		#Static Chisimba file locations
 		#opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$this->contentBasePath = $this->objConfig->getcontentBasePath();
 		$this->courseContentBasePath = $this->contentBasePath."content/";
-		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
-		$this->courseTitle = strtolower(str_replace(' ','_',$courseTitle));
+		$this->contextCode = trim(strtolower(str_replace(' ','_',$contextcode)));
+		$this->courseTitle = trim(str_replace(' ','_',$courseTitle));
 		$this->courseContentPath = $this->courseContentBasePath.$this->contextCode;
 		$this->imagesLocation = $this->courseContentPath."/images";
 		$this->docsLocation = $this->courseContentPath."/staticcontent";
@@ -543,7 +558,6 @@ class importIMSPackage extends dbTable
 	 * @return string $folder - Temp extraction folder location
 	 * 
 	*/
-	public $folder;//relative path of temporary folder
 	function unzipIMSFile($FILES, $forceUpload = '')
 	{
 		if(!is_uploaded_file($FILES['upload']['tmp_name']) && $forceUpload == FALSE)
@@ -599,7 +613,6 @@ class importIMSPackage extends dbTable
 	 * @return array $fileLocations - Locations of all files within folder
 	 * 
 	*/
-	public $fileLocations;//relative paths to all files
 	function locateAllFiles($folder)
 	{
 		$this->fileLocations = $this->objIEUtils->list_dir_files($folder,1);
@@ -616,8 +629,7 @@ class importIMSPackage extends dbTable
 	 * @return string $imsmanifestLocation - path to ims file in package
 	 *
 	*/
-	public $imsmanifestLocation;//relative paths to IMS manifest file
-	public function locateIMSFile($files, $regex)
+	function locateIMSFile($files, $regex)
 	{
 		foreach($files as $aFile)
 			if(preg_match($regex, $aFile))
@@ -634,7 +646,6 @@ class importIMSPackage extends dbTable
 	 * @return simpleXml $simpleXmlObj - simplexml access to imsmanifest
 	 *
 	*/
-	public $simpleXmlObj;//simplexml object to access xml file
 	function loadSimpleXml($imsFileLocation)
 	{
 		#Load imsmanifest.xml file
@@ -654,7 +665,6 @@ class importIMSPackage extends dbTable
 	 * @return DOMDocument $domDocumentObj
 	 *
 	*/
-	public $domDocumentObj;//dom document object to access xml file
 	function loadDOMDocument($imsFileLocation)
 	{
 		$this->domDocumentObj = new DOMDocument();
@@ -676,7 +686,6 @@ class importIMSPackage extends dbTable
 	 * @return DOMXPath $domDocumentObj
 	 *
 	*/
-	public $xpathObj;//xpath object to access xml file
 	function loadXPath($domDocumentObj)
 	{
 		#Create xpath object to access xml file
@@ -696,7 +705,6 @@ class importIMSPackage extends dbTable
 	 * @return TRUE - Successful execution
 	 *
 	*/
-	public $newCourse;//all course data needed to create course
 	function extractCourseData($xml, $doc, $xpath, $packageType = '')
 	{
 		#Set eduCommons namespaces
@@ -807,8 +815,6 @@ class importIMSPackage extends dbTable
 	 * @return TRUE - Successful execution
 	 *
 	*/
-	public $resourceFileNames;//the filenames of resources, including type
-	public $alldata;//all data needed to add file to database
 	function writeResources($xml, $folder, $newCourse)
 	{
 		#Pre-initialize variables
@@ -1044,8 +1050,6 @@ class importIMSPackage extends dbTable
 	 * @return array $indexFolder - list of id fields belonging to images
 	 * 
 	*/
-	public $imageIds;
-	public $fileIds;
 	function uploadToChisimba($folder = '', $fileNames = '')
 	{
 		$noFilesWritten = 0;
@@ -1127,8 +1131,6 @@ class importIMSPackage extends dbTable
 	 * @return array $menutitles - all menutitles of pages
 	 *
 	*/
-	public $resourceIds;
-	public $chapterIds;
 	function loadToChisimba($writeData, $structure, $filePaths = '')
 	{
 		if($filePaths == 'Y')
@@ -1212,7 +1214,7 @@ class importIMSPackage extends dbTable
 				$this->resourceIds[$i] = $resourceId;
 				$i++;
 			}
-			$this->addChapters();
+			$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->newCourse['about']);
 			#Add ordered data
 			for($i=0;$i<count($orderedData);$i++)
 			{
@@ -1237,23 +1239,6 @@ class importIMSPackage extends dbTable
 		}
 
 		return $menutitles;
-	}
-
-	/**
-	 * Adds a chapter
-	 *
-	 *
-	*/
-	public $chapterId;
-	function addChapters()
-	{
-		#Add Chapters
-		#Course
-		$title = $this->contextCode;
-		$intro = $this->newCourse['about'];
-		$visibility = 'Y';
-		$this->chapterId = $this->objChapters->addChapter('', $title, $intro);
-		$result = $this->objContextChapters->addChapterToContext($this->chapterId, $title, $visibility);
 	}
 
 	/**
@@ -1879,7 +1864,7 @@ class importIMSPackage extends dbTable
 	function loadToChisimbaFromPaths($mitHtmlsPath, $allXmlPackageData)
 	{
 		$menutitles = array();
-		$this->addChapters();
+		$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->newCourse['about']);
 		static $i = 0;
 		foreach($mitHtmlsPath as $htmlPath)
 		{
@@ -2116,8 +2101,6 @@ class importIMSPackage extends dbTable
 						$update = $this->update('id', $id, array('pagecontent' => $page));
 						if($i==0)
 						{
-							#For some strange reason we have to enter context here
-							$enterContext = $this->objDBContext->joinContext($this->contextCode);
 							#Modify about in tbl_context
 							parent::init('tbl_context');
 							$this->update('id', $this->courseId, array('about' => $page));
@@ -2136,7 +2119,7 @@ class importIMSPackage extends dbTable
 	function loadToChisimbaFromContent($htmlPages, $filenames, $structure, $menuTitles)
 	{
 		$menutitles = array();
-		$this->addChapters();
+		$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->newCourse['about']);
 		static $i = 0;
 		$numItems = count($structure);
 		foreach($htmlPages as $htmlPage)

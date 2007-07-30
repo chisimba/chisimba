@@ -48,6 +48,7 @@ class importexportutils extends dbTable
 	 * @var object
 	 */
 	public $objLanguage;
+	public $fileMod;
 
 	/**
 	 * The constructor
@@ -60,6 +61,9 @@ class importexportutils extends dbTable
         	$this->objLanguage = $this->getObject('language', 'language');
 		$this->objDBContext = & $this->newObject('dbcontext', 'context');
 		$this->objFiles =& $this->getObject('dbfile','filemanager');
+		// Load Chapter Classes
+		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
+		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
 	}
 
 	/**
@@ -773,7 +777,7 @@ class importexportutils extends dbTable
 	 * Written by James Scoble using code written by Wesley Nitsckie
 	 * Modified by Jarrett L. Jordaan
 	 */
-	public function importTemplate($dbData, $packageType)
+	public function importTemplate($dbData, $packageType, $newCourse)
 	{
 		$this->switchDatabase();
 		//Load needed display classes
@@ -784,6 +788,11 @@ class importexportutils extends dbTable
 		$this->loadClass('form', 'htmlelements');
 		$this->loadClass('dropdown','htmlelements');
 		$objH = new htmlheading();
+		if($newCourse)
+			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourse","contextadmin");
+		else
+			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourseHeading","contextadmin");
+		$objH->type=2;
 		if($packageType == 'mit' || $packageType == 'default')
 			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadIMSIntoExisting')));
 		else
@@ -794,17 +803,18 @@ class importexportutils extends dbTable
 		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
 		$inpButton->setToSubmit();
 		//Button
-		$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
-		$submitAll->setToSubmit();
+		//$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
+		//$submitAll->setToSubmit();
 		$objElement = new dropdown('dropdownchoice');
 		//Dropdown 
 		foreach($dbData as $dataOld)
 			$objElement->addOption($dataOld['contextcode']);
+		$objForm->addToForm($objH);
 		$objForm->addToForm($label->show());
 		$objForm->addToForm($objElement->show());
 		$objForm->addToForm('<br/>');
 		$objForm->addToForm($inpButton->show());
-		$objForm->addToForm($submitAll->show());
+		//$objForm->addToForm($submitAll->show());
 
 		return $objForm->show();
 	}
@@ -825,7 +835,7 @@ class importexportutils extends dbTable
 		$this->loadClass('form', 'htmlelements');
 		$this->loadClass('hiddeninput', 'htmlelements');
 		$this->loadClass('checkbox', 'htmlelements');
-		//$this->loadClass('htmlheading', 'htmlelements');
+		$this->loadClass('htmlheading', 'htmlelements');
 		//Creating the form for IMS package upload
 		$paramArray1 = array('action' => 'uploadIMS');
 		$form1 = new form('uploadziplocal', $this->uri($paramArray1,'contextadmin'));
@@ -887,20 +897,11 @@ class importexportutils extends dbTable
     		$serverInput = new textinput($this->objLanguage->languageText("mod_ims_localhost","contextadmin"), $this->objLanguage->languageText("mod_ims_uploadInfo","contextadmin"),'','45');
 		//Label - Create Course
 		$checkLabel2 = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
-		//Checkbox
-		$createCheckbox2 = new checkbox('createCourse2','',true);
 		$form2->addToForm('<hr>');
 		$form2->addToForm($heading1);
 		$form2->addToForm('<br />');
 		$form2->addToForm($serverLabel);
 		$form2->addToForm($serverDropDown);
-		$form2->addToForm('<br />');
-		//$form2->addToForm($localLabel);
-		//$form2->addToForm($serverInput);
-		//$form2->addToForm('<br />');
-		$form2->addToForm($checkLabel2);
-		$form2->addToForm(' ');
-		$form2->addToForm($createCheckbox2);
 		$form2->addToForm('<br />');
 		$form2->addToForm($loginButton);
 		if($section == '1')
@@ -1568,7 +1569,21 @@ class importexportutils extends dbTable
 		return $fp;
 	}
 
-	public $fileMod;
+	/**
+	 * Adds a chapter to the course content
+	 *
+	 *
+	*/
+	function addChapters($contextCode, $chapterName, $intro)
+	{
+		$title = str_replace('_',' ',$chapterName);
+		$visibility = 'Y';
+		$chapterId = $this->objChapters->addChapter('', $title, $intro);
+		$result = $this->objContextChapters->addChapterToContext($chapterId, $contextCode, $visibility);
+
+		return $chapterId;
+	}
+
 	/**
 	 * Sets debugging on
 	 *

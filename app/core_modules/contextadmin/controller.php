@@ -75,7 +75,8 @@ class contextadmin extends controller
     public function dispatch()
     {
         $action = $this->getParam('action');
-        
+
+
         if(!$this->hasPerms())
         {
          	$this->setLayoutTemplate('layout_tpl.php');
@@ -84,7 +85,7 @@ class contextadmin extends controller
 
         switch ($action)
         {
-        	
+
             case '':
 	        case 'default':
 	            $this->setLayoutTemplate('main_layout_tpl.php');
@@ -92,6 +93,7 @@ class contextadmin extends controller
 	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
 	            $this->setVar('filter', $this->_objUtils->getFilterList($this->_objUtils->getContextList()));
 	            $this->setVar('archivedCourses', $this->_objUtils->geteArchivedContext());
+
 	            return 'main_tpl.php';
                 
             //the following cases deals with adding a context
@@ -155,7 +157,7 @@ class contextadmin extends controller
 	*/
 
 	/**
-	 * Executes the Uploading of IMS package into Chisimba
+	 * Executes the Uploading of IMS package into Chisimba.
 	*/
         case 'uploadIMS':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
@@ -189,12 +191,13 @@ class contextadmin extends controller
 			$dsn = $this->objConf->getDsn();
 			$dbData = $this->objIEUtils->importDBData($dsn, $tableName, $sql);
 			$this->setVarByRef('dbData',$dbData);
+			$this->setVar('newCourse',FALSE);
 
 			return 'importcourse_tpl.php';
 		}	
 	break;
 	/**
-	 * Executes the Uploading of KNG package into Chisimba
+	 * Executes the Uploading of IMS package into existing Chisimba course.
 	*/
 	case 'uploadIMSIntoExisting':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
@@ -212,40 +215,40 @@ class contextadmin extends controller
 			return 'errorreport_tpl.php';
 	break;
 	/**
-	 * Executes the Uploading of KNG package into Chisimba
+	 * Retrieves a list of courses from a remote server
+	*/
+	case 'uploadFromServer':
+		$this->setLayoutTemplate('importcourse_tpl.php');
+		$server = $this->getParam('server');
+		$localhost = $this->getParam('Localhost');
+		$exception = 'mysql://username:password@localhost/Database Name';
+		if(strlen($localhost) > 1 && $localhost != $exception)
+			$server = $localhost;
+		if(strlen($server) < 1)
+			$server = $this->getSession('choice');
+		$tableName = "tbl_context";
+		//set up the query
+		$sql = "SELECT * from tbl_context";
+		$dbData = $this->objIEUtils->importDBData($server, $tableName, $sql);
+		$this->setVarByRef('dbData',$dbData);
+		$this->setSession('dbData',$dbData);
+		$this->setSession('server', $server);
+		$this->setVar('newCourse',TRUE);
+
+		return 'importcourse_tpl.php';
+	break;
+	/**
+	 * Executes the Uploading of KNG package into Chisimba from server
 	*/
 	case 'uploadKNG':
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
-		$importAll = $this->getParam('ImportAll');
-		$dbData = $this->getSession('dbData');
-		$changeConfig = ini_set('max_execution_time','-1');
-		if($changeConfig)
-		{
-			#Import all courses from remote site
-			if($importAll)
-			{
-				foreach($dbData as $aCourse)
-				{
-					$uploadStatus = $this->objImportKNGContent->importKNGcontent($aCourse['contextcode']);
-				}
-			}
-			#Import a single course from remote site
-			else
-			{
-				$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
-			}
-		}
-		else
-		{
-			$uploadStatus = 'iniError';
-		}
+		$this->setLayoutTemplate('uploadstatus_tpl.php');
+		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
-
 	break;
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
@@ -274,23 +277,6 @@ class contextadmin extends controller
 			return 'uploadstatus_tpl.php';
 		else
 			return 'errorreport_tpl.php';
-	break;
-	case 'uploadFromServer':
-		$this->setLayoutTemplate('importcourse_tpl.php');
-		$server = $this->getParam('server');
-		$localhost = $this->getParam('Localhost');
-		$exception = 'mysql://username:password@localhost/Database Name';
-		if(strlen($localhost) > 1 && $localhost != $exception)
-			$server = $localhost;
-		$tableName = "tbl_context";
-		//set up the query
-		$sql = "SELECT * from tbl_context";
-		$dbData = $this->objIEUtils->importDBData($server, $tableName, $sql);
-		$this->setVarByRef('dbData',$dbData);
-		$this->setSession('dbData',$dbData);
-		$this->setSession('server', $server);
-
-		return 'importcourse_tpl.php';
 	break;
 	default:
 		return $this->nextAction(null);

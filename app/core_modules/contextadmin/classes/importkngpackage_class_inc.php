@@ -37,6 +37,21 @@ class importKNGPackage extends dbTable
 	/**
 	 * The constructor
 	*/
+	public $fileNames;
+	public $imageIds;
+	public $pageIds;
+	public $fileIds;
+	public $contentBasePath;
+	public $courseContentBasePath;
+	public $contextCode;
+	public $courseTitle;
+	public $courseContentPath;
+	public $imagesLocation;
+	public $docsLocation;
+	public $filesLocation;
+	public $courseId;
+	public $chapterId;
+
 	function init()
 	{
 		//Load Import Export Utilities class
@@ -65,10 +80,6 @@ class importKNGPackage extends dbTable
 	 * @return TRUE - Successful execution
 	 *
 	*/
-	public $fileNames;
-	public $imageIds;
-	public $pageIds;
-	public $fileIds;
 	function importKNGcontent($contextcode)
 	{
 		$this->objIEUtils->fileModOff();
@@ -88,17 +99,6 @@ class importKNGPackage extends dbTable
 				return  "courseWriteError";
 		#Initialize all locations
 		$init = $this->initLocations($writeCourse['contextcode'], $writeCourse['title']);
-/*
-		//Write Resources
-		//Write Images to Chisimba usrfiles directory
-		$writeKNGImages = $this->objIEUtils->writeImages($oldContextCode, $this->imagesLocation);
-		if(!isset($writeKNGImages))
-			if($this->objError)
-				return  "imageWriteError";
-		//Load Images into Chisimba
-		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
-*/
-
 		//Write Htmls to Chisimba usrfiles directory
 		//Course id
 		$courseId = $courseData['0']['id'];
@@ -108,11 +108,16 @@ class importKNGPackage extends dbTable
 		$writeKNGHtmls = $this->objIEUtils->writeHtmls($courseContent, $this->docsLocation);
 		//Load Html's into Chisimba
 		$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
-		$filesPath = $this->filesUsed($menutitles, $this->courseId);
-	
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 /*
-
-
+		//Write Resources
+		//Write Images to Chisimba usrfiles directory
+		$writeKNGImages = $this->objIEUtils->writeImages($oldContextCode, $this->imagesLocation);
+		if(!isset($writeKNGImages))
+			if($this->objError)
+				return  "imageWriteError";
+		//Load Images into Chisimba
+		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
 		$this->fileNames = $this->objIEUtils->list_dir_files($this->courseContentPath,0);
 		#Rebuild html images and url links
 		$rebuildHtml = $this->rebuildHtml($menutitles, $this->fileNames);
@@ -120,16 +125,13 @@ class importKNGPackage extends dbTable
 			if($this->objError)
 				return  "rebuildHtmlError";
 */
-		$enterContext = $this->objDBContext->joinContext($this->contextCode);
+
 		return TRUE;
 	}
 
 	function filesUsed($menutitles, $courseId)
 	{
-		//var_dump($menutitles);
-		//var_dump($courseId);
-		//var_dump($this->pageIds);
-		//die;
+
 	}
 
 	/**
@@ -141,14 +143,6 @@ class importKNGPackage extends dbTable
 	 * @return array $locations - Array of all locations used
 	 * 
 	*/
-	public $contentBasePath;
-	public $courseContentBasePath;
-	public $contextCode;
-	public $courseTitle;
-	public $courseContentPath;
-	public $imagesLocation;
-	public $docsLocation;
-	public $filesLocation;
 	function initLocations($contextcode, $courseTitle)
 	{
 		#Static Chisimba file locations
@@ -193,7 +187,6 @@ class importKNGPackage extends dbTable
 	 * @return array $newCourse - 1d array containing course data
 	 * 
 	*/
-	public $courseId;
 	function writeKNGCourseToChisimba($courseData)
 	{
 		//Convert 2-d array into 1-d array
@@ -265,7 +258,6 @@ class importKNGPackage extends dbTable
 	*/
 	function loadToChisimba($courseContent, $courseData, $contextCode ='')
 	{
-		#Pre-initialize variables
 		static $i = 0;
 		static $j = 0;
 		static $k = 0;
@@ -275,17 +267,20 @@ class importKNGPackage extends dbTable
 				'content' => $courseData['0']['about'],
 				'language' => "en",
 				'headerscript' => "");
-		$this->addChapters("", $courseData['0']['about']);
+		$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->courseData['0']['about']);
 		$writePage = $this->writePage($values, $contextCode);
 		static $i = 0;
 		foreach($courseContent as $content)
 		{
 			$menutitle = $content['0']['menu_text'];
-			if($menutitle == '')
+			$content = $content['0']['body'];
+			if($menutitle == NULL)
 				$menutitle = 'None';
+			if($content == NULL)
+				$content = 'None';
 			$values = array('',
 					'menutitle' => $menutitle,
-					'content' => $content['0']['body'],
+					'content' => $content,
 					'language' => "en",
 					'headerscript' => "",
 					'bookmark' => $i,
@@ -297,21 +292,6 @@ class importKNGPackage extends dbTable
 		}
 
 		return $menutitles;
-	}
-
-	public $chapterId;
-	function addChapters($title = '', $intro = '')
-	{
-		//Add Chapters
-		//Course
-		if(!(strlen($title) > 1))
-			$title = $this->contextCode;
-		if(!(strlen($intro) > 1))
-			$intro = "Not Available";
-		$visibility = 'Y';
-		$this->chapterId = $this->objChapters->addChapter('', $title, $intro);
-		$result = $this->objContextChapters->addChapterToContext($this->chapterId, $title, $visibility);
-
 	}
 
 	/**
@@ -333,7 +313,6 @@ class importKNGPackage extends dbTable
 								$values['language'],
 								$values['headerscript']);
        		$this->pageIds[$values['filename']] = $this->objContentOrder->addPageToContext($titleId, $parent, $contextCode, $this->chapterId, $values['bookmark'], $values['isbookmark']);
-		//}
 
 		return $values['menutitle'];
 	}
@@ -414,6 +393,5 @@ class importKNGPackage extends dbTable
 
 		return TRUE;
 	}
-
 }
 ?>
