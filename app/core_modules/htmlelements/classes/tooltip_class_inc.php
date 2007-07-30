@@ -20,13 +20,19 @@
 */
 class tooltip extends object
 {
-	 // Incremented each time the show function is called...
-	 private $id = 0;
-
+	 /**
+	 * @var $caption string The caption
+	 */
 	 private $caption;
+
+	 /**
+	 * @var $text string The text
+	 */
 	 private $text;
 
-	 // The cursor for the caption
+	 /**
+	 * @var $cursor string The cursor for the caption
+	 */
 	 private $cursor = 'default';
 
     /**
@@ -34,8 +40,13 @@ class tooltip extends object
 	*/
 	public function init()
     {
-		// Include the JS tooltip lib.
-		$this->appendArrayVar('headerParams',$this->getJavascriptFile('tooltip.js','htmlelements'));
+		// Include the JS tooltip lib if not already included
+		if (!defined('CHISIMBA_TOOLTIP_JS_INCLUDED')) {
+		  	define('CHISIMBA_TOOLTIP_JS_INCLUDED', TRUE);
+			$this->appendArrayVar('headerParams',$this->getJavascriptFile('tooltip.js','htmlelements'));
+			// Incremented each time the show function is called...
+			$GLOBALS['CHISIMBA_TOOLTIP_ID'] = 0;
+		}
 	}
 
 	/**
@@ -74,7 +85,7 @@ class tooltip extends object
 	*/
 	public function show()
 	{
-		$id = $this->id++;
+		$id = $GLOBALS['CHISIMBA_TOOLTIP_ID']++;;
 		$_text = nl2br($this->text);
 		return <<<EOB
 <div id="tooltip_div_{$id}" style="display:none; margin: 5px; background-color: yellow;">{$_text}</div>
