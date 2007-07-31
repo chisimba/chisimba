@@ -264,7 +264,9 @@ class engine
      *
      * @var array
      */
-	protected $coremods = array('blocks',
+	protected $coremods = array(
+	'api',
+	'blocks',
 	'config',
 	'context',
 	'contextadmin',
