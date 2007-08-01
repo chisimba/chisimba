@@ -523,71 +523,10 @@ class importexportutils extends dbTable
 		return $resourceNames;
 	}
 
-/*
-	function writeImages($contextcode, $folder = NULL, $type = NULL)
-	{
-		$contextcodeInChisimba = strtolower(str_replace(' ','_',$contextcode));
-		$contextcodeInChisimba = strtolower(str_replace('$','_',$contextcode));
-		//Course images
-		//Get basepath
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/
-		$basePath = $this->objConf->getcontentBasePath();
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/$contextcode
-		$basePathNew = $basePath."content/".$contextcodeInChisimba;
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/$contextcode/images
-		$basePathToImages = $basePathNew."/images";
-		//Path = opt/lampp/htdocs/nextgen/usrfiles/context
-		$basePathInContext = "/opt/lampp/htdocs/nextgen/usrfiles/content/".$contextcode;
-		//Path = opt/lampp/htdocs/chisimba_framework/app/usrfiles/context
-		if($type == "new")
-			$basePathInContext = "/opt/lampp/htdocs/chisimba_framework/app/usrfiles/content/".$contextcode;
-		//Get all directories in old system context
-		$dirsInContext = $this->list_dir($basePathInContext, 0);
-		//Get all files starting in old system context
-		$filesInContext = $this->list_dir_files($basePathInContext, 0);
-		//Get all files starting in root directory
-		$pathToFilesInContext = $this->list_dir_files($basePathInContext, 1);
-		//Get Image Relative Locations
-		$pathToImagesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 1);
-		//Get Image names
-		$imageNamesInContext = $this->list_dir_files($basePathInContext."/".$dirsInContext['images'], 0);
-		//Exporting package images to IMS specification Package
-		if(isset($folder))
-		{
-			//Write Images to specified folder
-			for($i=0;$i<count($pathToImagesInContext);$i++)
-			{
-				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
-				$newImageLocation = $folder."/".$imageNamesInContext[$i];
-				$fp = fopen($newImageLocation, 'w');
-				chmod($newImageLocation, 0777);
-				fwrite($fp,$contentsOfFile);
-				fclose($fp);
-			}
-		}
-		//Importing KNG package images into Chisimba
-		else
-		{
-			//Write Images to usrfiles folder in Chisimba
-			for($i=0;$i<count($pathToImagesInContext);$i++)
-			{
-				$contentsOfFile = file_get_contents($pathToImagesInContext[$i]);
-				$newImageLocation = $basePathToImages."/".$imageNamesInContext[$i];
-				$fp = fopen($newImageLocation, 'w');
-				chmod($newImageLocation, 0777);
-				fwrite($fp,$contentsOfFile);
-				fclose($fp);
-			}
-		}
-
-		return $imageNamesInContext;
-	}
-*/
-
 	/**
-	 * NEED TO CHANGE DATABASE
-	 * Dummy call to reset database to Chisimba
-	 * Dont know of another way todo it
+	 * 
+	 * 
+	 * 
 	*/
 	function switchDatabase()
 	{
@@ -941,7 +880,7 @@ class importexportutils extends dbTable
 		//Populate Dropdown course
 		foreach($courses as $course)
 		{
-			$courseDropDown->addOption($course['contextcode']);
+			$courseDropDown->addOption($course['contextcode'], $course['title']);
 		}
 		//Button
 		$exportButton = new button('export');
@@ -951,113 +890,8 @@ class importexportutils extends dbTable
 		$form1->addToForm($courseDropDown);
 		$form1->addToForm("<br />");
 		$form1->addToForm($exportButton);
-		//Creating the form
-		$paramArray2 = array('action' => 'downloadRemote');
-		$form2 = new form('exportziplocal', $this->uri($paramArray2,'contextadmin'));
-    		$form2->extra=' enctype="multipart/form-data" ';
-    		//Heading
-		$heading1 = new htmlheading();
-    		$heading1->str=$this->objLanguage->languageText("mod_ims_downloadremoteheading","contextadmin");
-    		$heading1->type=2;
-		$form2->addToForm($heading1);
-		$form2->addToForm("<br />");
 
 		return $form1->show();
-/*
-		$form=&$this->newObject('form','htmlelements');
-    		$form->extra=' enctype="multipart/form-data" ';
-    		$form->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadChisimba');
-    		$form->setAction($this->uri($paramArray,'contextadmin'));
-		//Creating the form
-		$form2=&$this->newObject('form','htmlelements');
-    		$form2->extra=' enctype="multipart/form-data" ';
-    		$form2->name='exportziplocal';
-    		$paramArray = array('action' => 'downloadKNG');
-    		$form2->setAction($this->uri($paramArray,'contextadmin'));
-		//Creating the form
-		$form3=&$this->newObject('form','htmlelements');
-    		$form3->extra=' enctype="multipart/form-data" ';
-    		$form3->name='dudd';
-    		$paramArray = array('action' => 'dudd');
-    		$form3->setAction($this->uri($paramArray,'dudd'));
-    		//Heading	
-    		$objHeading1=&$this->newObject('htmlheading','htmlelements');
-    		$objHeading1->str=$this->objLanguage->languageText("mod_new_downloadheading","contextadmin");
-    		$objHeading1->type=3;
-*/
-    		//Heading	
-    		$objHeading2=&$this->newObject('htmlheading','htmlelements');
-    		$objHeading2->str=$this->objLanguage->languageText("mod_kng_downloadheading","contextadmin");
-    		$objHeading2->type=3;
-		//Label - server
-		$courseLabel = new label("Select Course","");
-		//Dropdown - course selection
-		$courseDropDown = new dropdown('dropdownchoice');
-		//Retrieve all courses in Chisimba
-		$courses = $this->getAll();
-		//Populate Dropdown course
-		foreach($courses as $course)
-		{
-			$courseDropDown->addOption($course['contextcode']);
-		}
-		//Button
-		$inpButton = $this->newObject('button','htmlelements');
-		$inpButton->cssClass = 'f-submit';
-		$inpButton->setValue('Export');
-		$inpButton->setToSubmit();
-		//Label - server
-		$courseLabel2 = new label("Select Course","");
-		//Dropdown - course selection
-		$courseDropDown2 = new dropdown('dropdownchoice');
-		//Server selection
-		$server = "localhost";
-        	//set the table
-        	$tableName = "tbl_context";
-        	//set up the query
-        	$sql = "SELECT * from tbl_context";
-		$courses = $this->importDBData($server, $tableName, $sql);
-		//Populate Dropdown course
-		foreach($courses as $course)
-		{
-			$courseDropDown2->addOption($course['contextcode']);
-		}
-		//Button
-		$inpButton2 = $this->newObject('button','htmlelements');
-		$inpButton2->cssClass = 'f-submit';
-		$inpButton2->setValue('Export');
-		$inpButton2->setToSubmit();
-		//Package type
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('static','Download Package');
-		$pakRadio->addOption('ims','IMS Package');
-		$pakRadio->setSelected('static');
-		//hidden input
-		$zipFile = new hiddeninput('file', 'file');
-		//Add elements to form
-		$form->addToForm($objHeading1);
-		$form->addToForm($courseLabel);
-		$form->addToForm($courseDropDown);
-		$form->addToForm("<br />");
-		$form->addToForm("<br />");
-		$form->addToForm($pakRadio);
-		$form->addToForm("<br />");
-		$form->addToForm($inpButton);
-		$form2->addToForm($objHeading2);
-		$form2->addToForm($courseLabel2);
-		$form2->addToForm($courseDropDown2);
-		$form2->addToForm("<br />");
-		$form2->addToForm("<br />");
-		$form2->addToForm($pakRadio);
-		$form2->addToForm("<br />");
-		$form2->addToForm($inpButton2);
-		$form2->addToForm($zipFile);
-		$this->switchDatabase();
-		$form3->addToForm($form);
-		$form3->addToForm('<hr />');
-		$form3->addToForm($form2);
-
-		return $form3;
 	}
 
 	/**
@@ -1070,12 +904,15 @@ class importexportutils extends dbTable
 	 * @return array $htmlfilenames - 
 	 *
 	*/
-	function writeHtmls($htmlPages, $resourceFolder, $courseTitle = '')
+	function writeFiles($htmlPages, $resourceFolder, $courseTitle = '', $type = '')
 	{
+		if(!(preg_match('/\./',$type)))
+			$type = '.'.$type;
+		$i = 0;
 		if(count($htmlPages) == 1)
 		{
 			$filename = $courseTitle;
-			$filepath = $resourceFolder."/".$filename.'.html';
+			$filepath = $resourceFolder."/".$filename.$type;
 			$fp = fopen($filepath,'w');
 			$htmlFilenames[$i] = $filename;
 			if((fwrite($fp, $htmlPages) === FALSE))
@@ -1086,7 +923,7 @@ class importexportutils extends dbTable
 		{
 			foreach($htmlPages as $page)
 			{
-				$filename = "resource".$i.".html";
+				$filename = "resource".$i.$type;
 				$filepath = $resourceFolder."/".$filename;
 				$fp = fopen($filepath,'w');
 				$htmlFilenames[$i] = $filename;
@@ -1113,13 +950,13 @@ class importexportutils extends dbTable
 		return $pageContents;
 	}
 
-	function getHtmlPages($contextcode = '', $allFilesLocation = '', $folder = '', $resourceFolder = '')
+	function getHtmlPages($contextcode = '', $allFilesLocation = '', $folder = '', $resourceFolder = '', $field = '')
 	{
-		static $i = 0;
+		$i = 0;
 		if($contextcode)
 		{
 			parent::init('tbl_contextcontent_order');
-			$filter = "WHERE contextcode = '$contextcode'";
+			$filter = "WHERE contextcode = '$contextcode' ORDER BY bookmark";
 			$orders = $this->getAll($filter);
 			foreach($orders as $titleId)
 			{
@@ -1129,7 +966,7 @@ class importexportutils extends dbTable
 				$pages = $this->getAll($filter);
 				foreach($pages as $aPage)
 				{
-					$pageContents[$i] = $aPage['pagecontent'];
+					$pageContents[$i] = $aPage[$field];
 					$i++;
 				}
 			}		
@@ -1151,7 +988,7 @@ class importexportutils extends dbTable
 		return $pageContents;
 	}
 
-	function getImageNames($htmlPages, $packageType)
+	function getImageNames($htmlPages, $packageType = '')
 	{
 		if($packageType == 'exe')
 		{
@@ -1255,9 +1092,13 @@ class importexportutils extends dbTable
 
 	}
 
-	function generateUniqueId()
+	function generateUniqueId($len = '')
 	{
-		return md5(uniqid(time(),true));
+		$genkey = md5(uniqid(time(),true));
+		if($len)
+			$genkey = substr($genkey, 0, $len);
+
+		return $genkey;
 	}
 
   	/**
@@ -1273,56 +1114,70 @@ class importexportutils extends dbTable
     	 * @return TRUE - if page is un-modified
 	 *
 	*/
-    	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds, $static='')
+    	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds='', $staticPackage='')
 	{
-		#Image location on disc
+		// Image location on disc.
 		$imageLocation =  'src="'.$this->objConf->getcontentBasePath().'content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
-		#Image location on localhost
+		// Image location on localhost.
 		$action = 'src="'.$this->objConf->getsiteRoot().'index.php?module=filemanager&amp;action=file&amp;id=';
-		#Only run through html's contained in package
-		$page = $fileContents;
-		foreach($fileNames as $aFile)
+		//Image location in static package
+		$newLink = '"../'.$contextCode;
+		if($staticPackage)
 		{
-			#Check if its an Image
-			if(preg_match("/.jpg|.gif|.png/",$aFile))
+			foreach($fileNames as $fileName)
 			{
-//echo $aFile;die;
-				#Create new file source location
-				#Check if its a static package
-				if(!($static == ''))
-					$newLink = $imageLocation.$aFile.'"';
-				else
-				{
-					$newLink = $action.$imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
-				}
-				#Convert filename into regular expression
-				$regex = '/'.$aFile.'/';
-				#Find filename in html page if it exists
-				preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
+				$regex = '/'.$fileName.'/';
+				preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
 				if($matches)
 				{
-//echo $page;
-//echo '<hr>';
-//echo $aFile;
-//echo '<hr>';
-					$regReplace = '/(src=".*'.$aFile.'.*?")/i';
-					$page = preg_replace($regReplace, $newLink, $page);
-//echo $regReplace;
-//echo '<hr>';
-//echo $page;
-//die;
+					$newLink .= '/'.$fileName.'"';
+					$regReplace = '/(".*'.$fileName.'.*?")/i';
+					$page = preg_replace($regReplace, $newLink, $fileContents);
 				}
-				#If the image was renamed
 				else
 				{
-					$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
+					$page = $fileContents;
+				}
+			}
+		}
+		else
+		{
+			$page = $fileContents;
+			// Only run through html's contained in package.
+			foreach($fileNames as $aFile)
+			{
+				// Check if its an Image.
+				if(preg_match("/.jpg|.gif|.png/",$aFile))
+				{
+					// Create new file source location.
+					// Check if its a static package.
+					if(!($static == ''))
+						$newLink = $imageLocation.$aFile.'"';
+					else
+					{
+						$newLink = $action.$imageIds[$aFile].'&amp;filename='.$aFile.'&amp;type=.jpg"';
+					}
+					// Convert filename into regular expression.
 					$regex = '/'.$aFile.'/';
-					preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+					// Find filename in html page if it exists.
+					preg_match_all($regex, $page, $matches, PREG_SET_ORDER);
 					if($matches)
 					{
 						$regReplace = '/(src=".*'.$aFile.'.*?")/i';
 						$page = preg_replace($regReplace, $newLink, $page);
+					}
+					// If the image was renamed.
+					else
+					{
+						$aFile = preg_replace("/.jpg|.gif|.png/","",$aFile);
+						$regex = '/'.$aFile.'/';
+						preg_match_all($regex, $fileContents, $matches, PREG_SET_ORDER);
+						if($matches)
+						{
+							$regReplace = '/(src=".*'.$aFile.'.*?")/i';
+							$page = preg_replace($regReplace, $newLink, $page);
+						}
 					}
 				}
 			}
@@ -1332,7 +1187,7 @@ class importexportutils extends dbTable
     	}
 
 	/**
-    	 * Method to replace image source links with links to the blob system
+    	 * Method to replace source links with links to the blob system
 	 *
     	 * @author Kevin Cyster
 	 * @Modified by Jarrett L Jordaan
@@ -1346,7 +1201,7 @@ class importexportutils extends dbTable
 	function changeLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $packageType='', $allFilesLocation = '')
     	{
 		$action =$this->objConf->getsiteRoot().'index.php?module=contextcontent&amp;action=viewpage&amp;id=';
-		#Run through each resource
+		// Run through each resource.
 		$page = $fileContents;
 		if($packageType == 'mit')
 		{
@@ -1413,7 +1268,7 @@ class importexportutils extends dbTable
 	function changeMITLinkUrl($fileContents, $contextCode, $fileNames, $pageIds, $static='')
     	{
 		$action = 'href="'.$this->objConf->getsiteRoot().'/index.php?module=filemanager&action=fileinfo&amp;id=';
-		#Run through each resource
+		// Run through each resource.
 		$page = $fileContents;
 		foreach($fileNames as $aFile)
 		{
@@ -1442,7 +1297,7 @@ class importexportutils extends dbTable
 	*/
 	function changeDataLink($fileContents, $contextCode, $fileNames, $pageIds, $static='')
     	{
-		#Run through each resource
+		// Run through each resource.
 		$page = $fileContents;
 		foreach($fileNames as $aFile)
 		{
@@ -1584,6 +1439,63 @@ class importexportutils extends dbTable
 		return $chapterId;
 	}
 
+	function chapterOrder($contextcode)
+	{
+		parent::init('tbl_contextcontent_chaptercontext');
+		$filter = "WHERE contextcode = '$contextcode' ORDER by chapterorder";
+		$chapterOrders = $this->getAll($filter);
+		$i = 0;
+		foreach($chapterOrders as $chapterOrder)
+		{
+			$indexdOrders[$i] = $chapterOrder;
+			$i++;
+		}
+
+		return $indexdOrders;
+	}
+	function chapterContent($chapterid)
+	{
+		parent::init('tbl_contextcontent_chaptercontent');
+		$filter = "WHERE chapterid = '$chapterid'";
+		$chapterContents = $this->getAll($filter);
+		$i = 0;
+		foreach($chapterContents as $chapterContent)
+		{
+			$indexdOrders[$i] = $chapterContent;
+			$i++;
+		}
+
+		return $indexdOrders;
+	}
+	function pageOrder($contextcode)
+	{
+		parent::init('tbl_contextcontent_order');
+		$filter = "WHERE contextcode = '$contextcode' ORDER by bookmark";
+		$pageOrders = $this->getAll($filter);
+		$i = 0;
+		foreach($pageOrders as $pageOrder)
+		{
+			$indexdOrders[$i] = $pageOrder;
+			$i++;
+		}
+
+		return $indexdOrders;
+	}
+	function pageContent($titleId)
+	{
+		parent::init('tbl_contextcontent_pages');
+		$filter = "WHERE titleid = '$titleId'";
+		$pageContents = $this->getAll($filter);
+		$i = 0;
+		foreach($pageContents as $pageContent)
+		{
+			$indexdOrders[$i] = $pageContent;
+			$i++;
+		}
+
+		return $indexdOrders;
+	}
+
 	/**
 	 * Sets debugging on
 	 *
@@ -1617,27 +1529,27 @@ class importexportutils extends dbTable
 		$xpath = new DOMXPath($doc);
 		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
 		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-#course title
+// course title.
 		$query = '//imsmd:title/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-#course id
+// course id.
 		$query = '//imsmd:identifier/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-#course description
+// course description.
 		$query = '//imsmd:description/imsmd:langstring';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-#course html?
+// course html?.
 		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
-#clearedcopyright
+// clearedcopyright.
 		$query = '//manifest/metadata/imsmd:lom/imsmd:general';
 		//$query = '//imsmd:general/educommons:clearedcopyright';
 		$results = $xpath->evaluate($query);

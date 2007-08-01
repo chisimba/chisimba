@@ -31,10 +31,190 @@ class imstools extends object
 		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
 	}
 
+	function getManifest()
+	{
+		//Start of xml file
+		$imsmanifest = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+		//manifest
+		$imsmanifest .= "<manifest ";
+		$imsmanifest .= "identifier=\"MAN".$this->objIEUtils->generateUniqueId()."\" ";
+		$imsmanifest .= "xmlns=\"http://www.imsglobal.org/xsd/imscp_v1p1\" xmlns:eduCommons=\"http://cosl.usu.edu/xsd/eduCommonsv1.1\" xmlns:imsmd=\"http://www.imsglobal.org/xsd/imsmd_v1p2\" xmlns:version=\"".date('Y-m-j G:i:s')."\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd http://cosl.usu.edu/xsd/eduCommonsv1.1 eduCommonsv1.1.xsd\">\n";	
+
+		return $imsmanifest;
+	}
+
+	function getMetadata()
+	{
+		//metadata
+		$metadata = "<metadata>\n";
+		$metadata .= "<schema>\n";
+		$metadata .= "IMS CONTENT";
+		$metadata .= "</schema>\n";
+		$metadata .= "<schemaversion>\n";
+		$metadata .= "1.2\n";
+		$metadata .= "</schemaversion>\n";
+		$metadata .= "</metadata>\n";
+
+		return $metadata;
+	}
+// Structure
+	public $orgsId;
+	public $itemIds;
+	public $resIds;
+
+	function getIMS($contextcode)
+	{
+		$imsmanifest = $this->getManifest();
+		$imsmanifest .= $this->getMetadata();
+		$this->orgsId = 'ORG'.$this->objIEUtils->generateUniqueId();
+		$imsmanifest .= "<organizations ";
+		$imsmanifest .= "default= \"".$this->orgsId."\">\n";
+		$chapterOrders = $this->objIEUtils->chapterOrder($contextcode);
+		foreach($chapterOrders as $chapter)
+		{
+//var_dump($chapterOrders);die;
+			$imsmanifest .= "<organization ";
+			$imsmanifest .= "default= \"".$this->orgsId."\">\n";
+			$chapterContent = $this->objIEUtils->chapterContent($chapter['chapterid']);
+			$pageOrders = $this->objIEUtils->pageOrder($contextcode);
+//var_dump($pageOrders);die;
+			foreach($pageOrders as $pageOrder)
+			{
+				$pageContents = $this->objIEUtils->pageContent($pageOrder['titleid']);
+				$i = 0;
+//var_dump($pageContents);die;
+				foreach($pageContents as $pageContent)
+				{	
+//var_dump($pageContent);die;
+					$imsmanifest .= $this->getItem($pageContent['menutitle'],$i);
+					$i++;
+				}
+			}
+
+			foreach($chapterContent as $content)
+			{
+				
+			}
+			$imsmanifest .= "</organization>\n";
+		}
+		$imsmanifest .= "</organizations>\n";
+
+//var_dump($chapterOrder);die;
+		//$chapterContent = $this->objIEUtils->chapterContent();
+		//$pageOrder = $this->objIEUtils->pageOrder($contextcode);
+//var_dump($pageOrder);die;
+		//$pageContent = $this->objIEUtils->pageContent();
+		$imsmanifest .= "</manifest>";
+
+		return $imsmanifest;
+	}
+
+	function getOrganizations($menutitles)
+	{
+		//organizations
+		$this->orgsId = 'ORG'.$this->objIEUtils->generateUniqueId();
+		//organization
+		$organizations .= "<organizations ";
+		$organizations .= "default= \"".$this->orgsId."\">\n";
+		$organizations .= $this->getOrganization($menutitles);
+		$organizations .= "</organizations>\n";
+
+		return $organizations;
+	}
+// Chapters
+	function getOrganization($menutitles)
+	{
+		//organization
+		$organization .= "<organization ";
+		$organization .= "default= \"".$this->orgsId."\">\n";
+		$i = 0;
+		foreach($menutitles as $menutitle)
+		{
+			$organization .= $this->getItem($menutitle, $i);
+			$i++;
+		}
+		$organization .= "</organization>\n";
+
+		return $organization;
+	}
+// Pages
+	function getItem($menutitle, $i)
+	{
+		$this->itemIds[$i] = 'ITM'.$this->objIEUtils->generateUniqueId();
+		$this->resIds[$i] = 'RES'.$this->objIEUtils->generateUniqueId();
+		$this->menutitles[$i] = $menutitle;
+		$item = "<item ";
+		$item .= "identifier=\"".$itemId."\"";
+		$item .= "identifierref=\"".$resId."\"";
+		$item .= "isVisible=\"".'true'."\">\n";
+		$item .= "<title>";
+		$item .= $menutitle."\n";
+		$item .= "</title>";
+		$item .= "</item>\n";
+
+		return $item;
+	}
+//Resources
+	function getResources($contextcode)
+	{
+		$resources = "<resources>\n";
+		foreach($this->menutitles as $menutitle)
+		{
+			$resources .= $this->getResource($contextcode);
+		}
+		$resources .= "</resources>\n";
+
+		return $resources;
+	}
+
+	function getResource($contextcode)
+	{
+		$resource = "<resource>\n";
+		$resource .= "<file ";
+		$resource .= "href=\"".$contextcode.'/'.$filename."\">\n";
+		$resource .= "</resource>\n";
+
+		return $resource;
+	}
+
+	function getCourseResource($contextcode)
+	{
+		$resource = "<resource>\n";
+		$resource .= "<metadata>\n";
+
+		$resource .= "</metadata>\n";
+		$resource .= "<file>\n";
+
+		$resource .= "href=\"".$contextcode.'/'.$filename."\">\n";
+
+		$resource .= "</resource>\n";
+
+		return $resource;
+	}
+
+	function getImageResource($contextcode, $filename)
+	{
+		$resource = "<resource>\n";
+		$resource .= "<metadata>\n";
+		$resource .= "<lom>\n";
+		$resource .= "<general>\n";
+		$resource .= "<identifier>\n";
+		$resource .= $filename;
+		$resource .= "</identifier>\n";
+		$resource .= "</general>\n";
+		$resource .= "</lom>\n";
+		$resource .= "</metadata>\n";
+		$resource .= "<file\n";
+		$resource .= "href=\"".$contextcode.'/'.$filename."\">\n";
+		$resource .= "</resource>\n";
+
+		return $resource;
+	}
+
 //===========================================================================
 //eduCommons IMS Skeleton
 function moodle($courseData, $filelist, $tempDirectory)
-	{
+{
 	//Retrieve all directories
 	$dirlist = $this->objIEUtils->list_dir($tempDirectory,0);
 	//start of xml document
@@ -282,40 +462,5 @@ function createRes($resValues)
 	
 	return $res;
 }
-//===========================================================================
-function genORG()
-{
-	$orgCode = "ORG";
-	$random = mt_rand();
-	$orgCode = $orgCode.$random;
- 
-	return $orgCode;
-}	
-//===========================================================================
-function genITM()
-{
-	$itmCode = "ITM";
-	$random = mt_rand();
-	$itmCode = $itmCode.$random;
- 
-	return $itmCode;
-}	
-//===========================================================================
-function genRES()
-{
-	$resCode = "RES";
-	$random = mt_rand();
-	$resCode = $resCode.$random;
- 
-	return $resCode;
-}	
-//===========================================================================
-public function generateUniqueId()
-{
-$random = rand(2, 6);
-
-return $random;
-}
-//===========================================================================
 }
 ?>

@@ -52,20 +52,17 @@ class contextadmin extends controller
         $this->_objLanguage = $this->getObject('language', 'language');
         $this->_objUtils = $this->getObject('utils', 'contextadmin');
         $this->_objDBContextParams = $this->getObject('dbcontextparams', 'context');
-    	//Load Export class
-    	//$this->objExportContent = $this->newObject('export','contextadmin');
     	//Load Import IMS class
     	$this->objImportIMSContent = $this->newObject('importimspackage','contextadmin');
     	//Load Import KNG class
     	$this->objImportKNGContent = $this->newObject('importkngpackage','contextadmin');
+    	//Load Export IMS class
+    	$this->objExportIMSContent = $this->newObject('exportimspackage','contextadmin');
     	//Load Import Export Utilities class
     	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
-    	//Load Export IMS class
-    	//$this->objExportIMSContent = $this->newObject('exportimspackage','contextadmin');
         $this->objConf = $this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
 	$this->setVar('pageSuppressXML',TRUE);
-	$this->isForm1 = FALSE;
     }
     
 
@@ -238,7 +235,7 @@ class contextadmin extends controller
 		return 'importcourse_tpl.php';
 	break;
 	/**
-	 * Executes the Uploading of KNG package into Chisimba from server
+	 * Executes the Uploading of KNG package into Chisimba from remote server
 	*/
 	case 'uploadKNG':
 		$choice = $this->getParam('dropdownchoice');
@@ -257,21 +254,7 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		//Instantiate the Import of KNG package
-		//$uploadStatus = $this->objExportIMSContent->exportContent($choice);
-		$this->setVar('uploadStatus',$uploadStatus);
-		if(!(strcmp($uploadStatus, '/error/')))
-			return 'uploadstatus_tpl.php';
-		else
-			return 'errorreport_tpl.php';
-	break;
-	/**
-	 * Executes the Downloading of IMS package from KNG
-	*/
-        case 'downloadKNG':
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$choice = $this->getParam('dropdownchoice');
-		//Instantiate the Import of KNG package
-		//$uploadStatus = $this->objExportIMSContent->exportKNGContent($choice);
+		$uploadStatus = $this->objExportIMSContent->exportContent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
 		if(!(strcmp($uploadStatus, '/error/')))
 			return 'uploadstatus_tpl.php';

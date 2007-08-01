@@ -97,7 +97,7 @@ class importKNGPackage extends dbTable
 		if(!isset($writeCourse))
 			if($this->objError)
 				return  "courseWriteError";
-		#Initialize all locations
+		// Initialize all locations.
 		$init = $this->initLocations($writeCourse['contextcode'], $writeCourse['title']);
 		//Write Htmls to Chisimba usrfiles directory
 		//Course id
@@ -105,7 +105,7 @@ class importKNGPackage extends dbTable
 		//Retrieve html page data within context
 		$courseContent = $this->objIEUtils->getCourseContent($courseId);
 		//Write Html's to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeHtmls($courseContent, $this->docsLocation);
+		$writeKNGHtmls = $this->objIEUtils->writeFiles($courseContent, $this->docsLocation, '', 'html');
 		//Load Html's into Chisimba
 		$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
@@ -119,7 +119,7 @@ class importKNGPackage extends dbTable
 		//Load Images into Chisimba
 		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
 		$this->fileNames = $this->objIEUtils->list_dir_files($this->courseContentPath,0);
-		#Rebuild html images and url links
+		// Rebuild html images and url links.
 		$rebuildHtml = $this->rebuildHtml($menutitles, $this->fileNames);
 		if(!isset($rebuildHtml))
 			if($this->objError)
@@ -145,8 +145,8 @@ class importKNGPackage extends dbTable
 	*/
 	function initLocations($contextcode, $courseTitle)
 	{
-		#Static Chisimba file locations
-		#opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		// Static Chisimba file locations.
+		// opt/lampp/htdocs/chisimba_framework/app/usrfiles/
 		$this->contentBasePath = $this->objConfig->getcontentBasePath();
 		$this->courseContentBasePath = $this->contentBasePath."content/";
 		$this->contextCode = strtolower(str_replace(' ','_',$contextcode));
@@ -162,7 +162,7 @@ class importKNGPackage extends dbTable
 					'imagesLocation' => $this->imagesLocation,
 					'docsLocation' => $this->docsLocation
 					);
-		#Enter context
+		// Enter context
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		if($this->objDebug)
 		{
@@ -229,11 +229,11 @@ class importKNGPackage extends dbTable
 	*/
 	function uploadImagesToChisimba($folder = '')
 	{
-		#Initialize Inner variables
+		// Initialize Inner variables.
 		parent::init('tbl_files');
-		#Add Images to database
+		// Add Images to database.
 		$indexFolder = $this->objIndex->indexFolder($this->imagesLocation, $this->objUser->userId());
-		#Match image Id's to image names
+		// Match image Id's to image names.
 		foreach($indexFolder as $pageId)
 		{
 			$filter = "WHERE id = '$pageId'";
@@ -329,10 +329,10 @@ class importKNGPackage extends dbTable
 	*/
 	function rebuildHtml($menutitles, $fileNames)
 	{
-		#switch tables
+		// switch tables.
 		parent::init('tbl_contextcontent_pages');
-		#Retrieve resources
-		#Manipulate images
+		// Retrieve resources.
+		// Manipulate images.
 		static $i = 0;
 		static $j = 0;
 		foreach($menutitles as $menutitle)
@@ -341,49 +341,49 @@ class importKNGPackage extends dbTable
 			$result = $this->getAll($filter);
 			if(count($result) > 0)
 			{
-				#Retrieve page contents
+				// Retrieve page contents.
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
-				#Rewrite images source in html
+				// Rewrite images source in html.
 				$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
-				#Reinsert into database with updated images
+				// Reinsert into database with updated images.
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
 					if($i==0)
 					{
-						#Modify about in tbl_context
+						// Modify about in tbl_context.
 						parent::init('tbl_context');
 						$this->update('id', $this->courseId, array('about' => $page));
-						#switch tables
+						// switch tables.
 						parent::init('tbl_contextcontent_pages');
 						$i++;
 					}
 				}
 			}
 		}
-		#Manipulate links 
+		// Manipulate links.
 		foreach($menutitles as $menutitle)
 		{
 			$filter = "WHERE menutitle = '$menutitle'";
 			$result = $this->getAll($filter);
 			if(count($result) > 0)
 			{
-				#Retrieve page contents
+				// Retrieve page contents.
 				$fileContents = $result['0']['pagecontent'];
 				$id = $result['0']['id'];
-				#Rewrite links source in html
+				// Rewrite links source in html.
 				$page = $this->objIEUtils->changeLinkUrl($fileContents, $this->contextCode, $fileNames, $this->imageIds);
-				#Reinsert into database with updated links
+				// Reinsert into database with updated links.
 				if(strlen($page) > 1 )
 				{
 					$update = $this->update('id', $id, array('pagecontent' => $page));
 					if($j==0)
 					{
-						#Modify about in tbl_context
+						// Modify about in tbl_context.
 						parent::init('tbl_context');
 						$this->update('id', $this->courseId, array('about' => $page));
-						#switch tables
+						// switch tables.
 						parent::init('tbl_contextcontent_pages');
 						$j++;
 					}
