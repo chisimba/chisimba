@@ -321,7 +321,7 @@ class importexportutils extends dbTable
 			$filter = "WHERE contextcode = '$contextcode'";
 			$courseData = $this->getAll($filter);
 
-			return $courseData;
+			return $courseData['0'];
 		}
 		else
 		{
@@ -339,7 +339,7 @@ class importexportutils extends dbTable
 			}
 			$this->switchDatabase();
 		
-			return $courseData;
+			return $courseData['0'];
 		}
 
 		return FALSE;
@@ -904,15 +904,15 @@ class importexportutils extends dbTable
 	 * @return array $htmlfilenames - 
 	 *
 	*/
-	function writeFiles($htmlPages, $resourceFolder, $courseTitle = '', $type = '')
+	function writeFiles($htmlPages, $resourceFolder, $courseTitle = '', $fileType = '', $packageType = '')
 	{
-		if(!(preg_match('/\./',$type)))
-			$type = '.'.$type;
+		if(!(preg_match('/\./',$fileType)))
+			$fileType = '.'.$fileType;
 		$i = 0;
 		if(count($htmlPages) == 1)
 		{
 			$filename = $courseTitle;
-			$filepath = $resourceFolder."/".$filename.$type;
+			$filepath = $resourceFolder."/".$filename.$fileType;
 			$fp = fopen($filepath,'w');
 			$htmlFilenames[$i] = $filename;
 			if((fwrite($fp, $htmlPages) === FALSE))
@@ -921,16 +921,34 @@ class importexportutils extends dbTable
 		}
 		else
 		{
-			foreach($htmlPages as $page)
+			if($packageType == 'kng')
 			{
-				$filename = "resource".$i.$type;
-				$filepath = $resourceFolder."/".$filename;
-				$fp = fopen($filepath,'w');
-				$htmlFilenames[$i] = $filename;
-				if((fwrite($fp, $page) === FALSE))
-					return  "writeResourcesError";
-				fclose($fp);
-				$i++;
+				foreach($htmlPages as $page)
+				{
+					$pageContent = $page['0']['body'];
+					$filename = "resource".$i.$fileType;
+					$filepath = $resourceFolder."/".$filename;
+					$fp = fopen($filepath,'w');
+					$htmlFilenames[$i] = $filename;
+					if((fwrite($fp, $pageContent) === FALSE))
+						return  "writeResourcesError";
+					fclose($fp);
+					$i++;
+				}
+			}
+			else
+			{
+				foreach($htmlPages as $page)
+				{
+					$filename = "resource".$i.$fileType;
+					$filepath = $resourceFolder."/".$filename;
+					$fp = fopen($filepath,'w');
+					$htmlFilenames[$i] = $filename;
+					if((fwrite($fp, $page) === FALSE))
+						return  "writeResourcesError";
+					fclose($fp);
+					$i++;
+				}
 			}
 		}
 

@@ -271,6 +271,8 @@ class importIMSPackage extends dbTable
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
+		// Enter context
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 
 		return TRUE;
 	}
@@ -392,6 +394,8 @@ class importIMSPackage extends dbTable
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
+		// Enter context
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 
 		return TRUE;
 	}
@@ -502,6 +506,8 @@ class importIMSPackage extends dbTable
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
+		// Enter context
+		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 
 		return TRUE;
 	}
@@ -534,8 +540,6 @@ class importIMSPackage extends dbTable
 					'imagesLocation' => $this->imagesLocation,
 					'docsLocation' => $this->docsLocation
 					);
-		// Enter context
-		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		if($this->objDebug)
 		{
 			echo $this->contentBasePath."<br />";

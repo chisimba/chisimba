@@ -88,50 +88,35 @@ class importKNGPackage extends dbTable
 				return  "choiceError";
 		//Retrieve data within context
 		$courseData = $this->objIEUtils->getCourse($contextcode);
-		$oldContextCode = $courseData['0']['contextcode'];
+		$oldContextCode = $courseData['contextcode'];
 		if(!isset($courseData))
 			if($this->objError)
 				return  "courseReadError";
 		//Write course data to Chisimba
-		$writeCourse = $this->writeKNGCourseToChisimba($courseData);
+		$courseData['userid'] = $this->objUser->userId();
+		$courseData['isclosed'] = 'Public';
+		$courseData['isactive'] = 'UnPublished';
+		$courseData['contextcode'] = $contextcode.$this->objIEUtils->generateUniqueId('8');
+		$writeCourse = $this->objIEUtils->createCourseInChisimba($courseData);
 		if(!isset($writeCourse))
 			if($this->objError)
 				return  "courseWriteError";
 		// Initialize all locations.
-		$init = $this->initLocations($writeCourse['contextcode'], $writeCourse['title']);
+		$init = $this->initLocations($courseData['contextcode'], $courseData['title']);
 		//Write Htmls to Chisimba usrfiles directory
 		//Course id
-		$courseId = $courseData['0']['id'];
+		$courseId = $courseData['id'];
 		//Retrieve html page data within context
 		$courseContent = $this->objIEUtils->getCourseContent($courseId);
 		//Write Html's to specified directory  (resources folder)
-		$writeKNGHtmls = $this->objIEUtils->writeFiles($courseContent, $this->docsLocation, '', 'html');
+		if(count($courseContent) > 0)
+			$writeKNGHtmls = $this->objIEUtils->writeFiles($courseContent, $this->docsLocation, '', 'html', 'kng');
 		//Load Html's into Chisimba
-		$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
+		if(count($courseContent) > 0)
+			$menutitles = $this->loadToChisimba($courseContent, $courseData, $this->contextCode);
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
-/*
-		//Write Resources
-		//Write Images to Chisimba usrfiles directory
-		$writeKNGImages = $this->objIEUtils->writeImages($oldContextCode, $this->imagesLocation);
-		if(!isset($writeKNGImages))
-			if($this->objError)
-				return  "imageWriteError";
-		//Load Images into Chisimba
-		$this->imageIds = $this->uploadImagesToChisimba($imagesLocation);
-		$this->fileNames = $this->objIEUtils->list_dir_files($this->courseContentPath,0);
-		// Rebuild html images and url links.
-		$rebuildHtml = $this->rebuildHtml($menutitles, $this->fileNames);
-		if(!isset($rebuildHtml))
-			if($this->objError)
-				return  "rebuildHtmlError";
-*/
 
 		return TRUE;
-	}
-
-	function filesUsed($menutitles, $courseId)
-	{
-
 	}
 
 	/**
@@ -162,8 +147,6 @@ class importKNGPackage extends dbTable
 					'imagesLocation' => $this->imagesLocation,
 					'docsLocation' => $this->docsLocation
 					);
-		// Enter context
-		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		if($this->objDebug)
 		{
 			echo $this->contentBasePath."<br />";
@@ -175,47 +158,6 @@ class importKNGPackage extends dbTable
 		}
 
 		return $locations;
-	}
-
-	/**
-	 * Writes course data from KNG to the new database (Chisimba)
-	 * Converts 2d array to 1d array before passing it
-	 * Makes query to tbl_context in new database
-	 * 
-	 * @param array $courseData - 2d array containing course data
-	 * 
-	 * @return array $newCourse - 1d array containing course data
-	 * 
-	*/
-	function writeKNGCourseToChisimba($courseData)
-	{
-		//Convert 2-d array into 1-d array
-		$newCourse['id'] = $courseData['0']['id'];
-		$contextcode = $courseData['0']['contextcode'];
-		$newCourse['contextcode'] = $contextcode.'_'.$this->objIEUtils->generateUniqueId();
-		$newCourse['title'] = $courseData['0']['title'];
-		$newCourse['menutext'] = $courseData['0']['menutext'];
-		$newCourse['userid'] = $courseData['0']['userid'];
-		$newCourse['about'] = $courseData['0']['about'];
-		if($courseData['isactive'] == 0)
-			$newCourse['isactive'] = "Public";
-		else if($courseData['isactive'] == 1)
-			$newCourse['isactive'] = "Open";
-		else
-			$newCourse['isactive'] = "Private";
-		if($courseData['isclosed'] == 1)
-			$newCourse['isclosed'] = "Published";
-		else
-			$newCourse['isclosed'] = "UnPublished";
-		//Create course
-		$courseCreated = $this->objIEUtils->createCourseInChisimba($newCourse);
-		$this->courseId = $courseCreated;
-		if(!isset($courseCreated) && $courseCreated)
-		{
-			return  "courseCreateError";
-		}
-
-		return $newCourse;
 	}
 
 	/**
@@ -263,11 +205,11 @@ class importKNGPackage extends dbTable
 		static $k = 0;
 		$menutitles = array();
 		$values = array('',
-				'menutitle' => $courseData['0']['menutext'],
-				'content' => $courseData['0']['about'],
+				'menutitle' => $courseData['menutext'],
+				'content' => $courseData['about'],
 				'language' => "en",
 				'headerscript' => "");
-		$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->courseData['0']['about']);
+		$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->courseData['about']);
 		$writePage = $this->writePage($values, $contextCode);
 		static $i = 0;
 		foreach($courseContent as $content)
