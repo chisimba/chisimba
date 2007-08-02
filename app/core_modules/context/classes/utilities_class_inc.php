@@ -1,19 +1,61 @@
 <?php
+
+/**
+ * Utilities
+ * 
+ * Context Utilities
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* ----------- data class extends dbTable for tbl_context_usernotes------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
 
- /**
- * Utilities class for context
- * @package context
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @author Wesley  Nitsckie
- * @version $Id$ 
- **/
+/**
+ * Utilities
+ * 
+ * Context Utilities
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class utilities extends object
 {
     
@@ -87,7 +129,7 @@ class utilities extends object
      * Method to get the left Navigation
      * with the context plugins
      * 
-     * @param string $contextCode
+     * @param  string $contextCode
      * @access public
      * @return string
      */
@@ -173,7 +215,7 @@ class utilities extends object
      * for the content section of the context
      * 
      * @access public
-     * @param string $selectedLink The link that you are currently on
+     * @param  string $selectedLink The link that you are currently on
      * @return string
      */
     public function getContextContentNavigation($selectedLink = Null)
@@ -227,9 +269,9 @@ class utilities extends object
     /**
      * Method to check if a user can join a 
      * context
-     * @param string $contextCode The context Code
+     * @param  string  $contextCode The context Code
      * @return boolean
-     * @access public
+     * @access public 
      * @author Wesley Nitsckie
      */
     public function canJoin($contextCode)
@@ -256,7 +298,7 @@ class utilities extends object
     
      /**
     * Method to create a link to the course home
-    *@return string
+    * @return string
     */
     function getContextLinks()
     {
@@ -274,7 +316,7 @@ class utilities extends object
      /**
     * Method to create links to the contents
     * and to the course
-    *@return string
+    * @return string
     */
     function getContentLinks()
     {
@@ -293,7 +335,7 @@ class utilities extends object
    /**
     * Method to create links to the course admin
     * 
-    *@return string
+    * @return string
     */
     function getCourseAdminLink()
     {
@@ -311,8 +353,8 @@ class utilities extends object
     
     /**
     * Method used to get the path to the course folder
-    * @param string $contextCode The context code
-    * @return string 
+    * @param  string $contextCode The context code
+    * @return string
     */
     function getContextFolder($contextCode=NULL){
         if($contextCode==NULL){
@@ -327,8 +369,8 @@ class utilities extends object
     /**
     * Method used to get the path to the images  folder
     * for a given course code
-    * @param string $contextCode The context code
-    * @return string 
+    * @param  string $contextCode The context code
+    * @return string
     */
     function getImagesFolder($contextCode=NULL){
         return $this->getContextFolder($contextCode).'images/';
@@ -337,8 +379,8 @@ class utilities extends object
     /**
     * Method used to get the path to the maps  folder
     * for a given course code
-    * @param string $contextCode The context code
-    * @return string 
+    * @param  string $contextCode The context code
+    * @return string
     */
     function getMapsFolder($contextCode=NULL){
         return $this->getContextFolder($contextCode).'maps/';
@@ -347,7 +389,7 @@ class utilities extends object
     /**
     * Method to get the context menu
     * @return string
-    * @param void
+    * @param  void  
     * @access public
     */
     public function getContextMenu()

@@ -1,19 +1,62 @@
 <?php
+
+/**
+ * Context modules
+ * 
+ * Class to control and manipulate context module plugins
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check
 
- /**
- * Class to access the ContextModules Tables 
- * @package context
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @author Wesley  Nitsckie
- * @version $Id$ 
- **/
+
+/**
+ * Context modules
+ * 
+ * Class to control and manipulate context module plugins
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class dbcontextmodules extends dbTable{
      /**
     *Initialize by send the table name to be accessed 
@@ -29,11 +72,11 @@ class dbcontextmodules extends dbTable{
     * Method to lookup if
     * a module is visible to
     * the current context
-    * @param $moduleId string The moduleId
-    * @param $contextCode $string The context Code
-    * @return $ret boolean Returns true if an enty was found or false when not found
-    * @access public
-    * @deprecated 
+    * @param      $moduleId    string  The moduleId
+    * @param      $contextCode $string The context Code
+    * @return     $ret         boolean Returns true if an enty was found or false when not found
+    * @access     public      
+    * @deprecated
     */
     public function isVisible($moduleId,$contextCode){
         $rsArr=$this->getAll("WHERE contextCode = '".$contextCode."' AND moduleId='".$moduleId."'");
@@ -54,11 +97,11 @@ class dbcontextmodules extends dbTable{
     /**
     * Method to make a
     * module available to a context 
-    * @param $moduleId string: The moduleId
-    * @param $contextCode $string : The context Code
-    * @return string : The new Id
-    * @access public
-    * @deprecated 
+    * @param      $moduleId    string: The moduleId
+    * @param      $contextCode $string : The context Code
+    * @return     string       : The new Id
+    * @access     public      
+    * @deprecated
     */
     public function setVisible($moduleId,$contextCode){
         return $this->insert(array(
@@ -69,10 +112,10 @@ class dbcontextmodules extends dbTable{
     /**
     * Method to make a module
     * unavailable to a context
-    * @param $moduleId string: The moduleId
-    * @param $contextCode $string : The context Code
-    * @access public
-    * @deprecated 
+    * @param      $moduleId    string: The moduleId
+    * @param      $contextCode $string : The context Code
+    * @access     public      
+    * @deprecated
     */
     public function setHidden($moduleId,$contextCode){
         
@@ -81,9 +124,9 @@ class dbcontextmodules extends dbTable{
      /**
     * Method to delete all the modules
     * for the context
-    * @param $contextCode string : the context code
-    * @access public
-    * @deprecated 
+    * @param      $contextCode string : the context code
+    * @access     public      
+    * @deprecated
     */
     public function deleteModulesForContext($contextCode){
         $this->delete('contextCode',$contextCode);    
@@ -101,9 +144,9 @@ class dbcontextmodules extends dbTable{
     
     /**
      * Method to add a module to a context
-     * @param $contextCode The Context Code
-     * @return bool
-     * @access public
+     * @param  $contextCode The Context Code
+     * @return bool        
+     * @access public      
      */
     public function addModule($contextCode, $moduleId)
     {
@@ -115,9 +158,9 @@ class dbcontextmodules extends dbTable{
     /**
      * 
      * Method to get a list of modules for a context
-     * @param contextCode The Context Code
-     * @return array
-     * @access public
+     * @param  contextCode The Context Code
+     * @return array      
+     * @access public     
      */
     public function getContextModules($contextCode)
     {
@@ -166,9 +209,9 @@ class dbcontextmodules extends dbTable{
     
     /**
     * Method to check if a module is registered as a plugin
-    * @param string $moduleId
+    * @param  string  $moduleId
     * @return boolean
-    * @access public
+    * @access public 
     */
     public function isContextPlugin($contextCode, $moduleId)
     {
@@ -190,10 +233,10 @@ class dbcontextmodules extends dbTable{
     
     /**
      * Method to get the module name
-     * @param string $moduleId
+     * @param  string $moduleId
      * @return string
      * @access public
-     * 
+     *                
      */
     public function getModuleName($moduleId)
     {

@@ -1,29 +1,70 @@
 <?php
+
+/**
+ * context db file
+ * 
+ * Context database abstraction class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-/**
-* Class to access the Context Tables
-* @package context
-* @category context
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version
-* @author Wesley  Nitsckie
-* @example :
-*/
 
+
+/**
+ * context db file
+ * 
+ * Context database abstraction class
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
  class dbcontext extends dbTable{
      /**
-     *@var object $objUser : The user Object
+     * @var object $objUser : The user Object
      */
      public $objUser;
 
 	 /**
-     *@var object $objFSContext : The File System Object for the context
+     * @var object $objFSContext : The File System Object for the context
      */
      public $objFSContext;
 
@@ -39,8 +80,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to get the details for a given
     * context
-    * @param int $contextId
-    * @return array
+    * @param  int    $contextId
+    * @return array 
     * @access public
     */
     public function getContextDetails($contextCode){
@@ -50,9 +91,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method that gets the root
     * node for a given context
-    * @Param int $contextId
-    * @return string
-    *@deprecated
+    * @Param      int $contextId
+    * @return     string
+    * @deprecated
     */
      public function getRootNode($contextCode){
         $line=$this->getRow('contextcode',$contextCode);
@@ -61,7 +102,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     *Method to get the root Node Id
-    *@param string $contextId : The Context Id
+    * @param  string $contextId : The Context Id
     * @return string
     * @access public
     */
@@ -78,10 +119,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to get a field from the
     * current table
-    * @param $fiedname string : the name of the field
-    * @param $contextCode int : the context Code
-    * @return string | bool : The field value or FALSE when not found
-    * @access public
+    * @param  $fiedname    string : the name of the field
+    * @param  $contextCode int    : the context Code
+    * @return string       | bool : The field value or FALSE when not found
+    * @access public      
     */
     public function getField($fiedname,$contextCode=NULL){
         //if a $contextCode is set then lookup inthe database
@@ -105,7 +146,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
      * Method to save an context edit
-     * @return bool
+     * @return bool  
      * @access public
      */
     public function saveEdit()
@@ -146,7 +187,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Modified by Jarrett L. Jordaan
      * Date : 21 May 2007
      * @param 
-     * @return bool
+     * @return bool  
      * @access public
      */
     public function saveAboutEdit($newCourse = NULL)
@@ -168,10 +209,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to save the context
-    * @param $mode string: Either edit or add
-    * @return NULL
-    * @access public
-    * @deprecated 
+    * @param      $mode  string: Either edit or add
+    * @return     NULL  
+    * @access     public
+    * @deprecated
     */
     public function saveContext($mode)
     {
@@ -280,9 +321,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to create a context
-    * @param $rootNodeId int : The root node ID
+    * @param  $rootNodeId  int : The root node ID
     * @return $contextCode : The contextCode
-    * @access public
+    * @access public      
     */
     public function OLD_createContext()
     {
@@ -332,7 +373,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method that allows users
     * to enter a context
-    * @return bool
+    * @return bool  
     * @access public
     */
     public function joinContext($contextCode=''){
@@ -373,7 +414,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * Method that allows one
     * to leave a context that you
     * are currently in
-    * @return array
+    * @return array 
     * @access public
     */
     public function leaveContext(){
@@ -397,7 +438,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * Method to retrieve the
     * contextCode from the Session Variable
     * @return contextCode
-    * @access public
+    * @access public     
     */
     public function getContextCode()
     {
@@ -407,7 +448,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to get the Title of
     * course that you are currenly logged into
-    * @access public
+    * @access public 
     * @return context Title
     */
     public function getTitle($contextCode=NULL)
@@ -424,8 +465,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     * Method to get the MenuText
-    * @param string $contextCode : The contextCode
-    * @return array
+    * @param  string $contextCode : The contextCode
+    * @return array 
     * @access public
     */
     public function getMenuText($contextCode=NULL)
@@ -442,8 +483,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get the MenuText
-    * @param string $contextCode : The contextCode
-    * @return array
+    * @param  string $contextCode : The contextCode
+    * @return array 
     * @access public
     */
     public function getAbout($contextCode=NULL)
@@ -462,7 +503,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Methods to check if one
     *is in a context
     * @access public
-    *return boolean $ret
+    *                return boolean $ret
     */
 
     public function isInContext(){
@@ -477,7 +518,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     *Method to return a list
     *of courses
-    *@return array
+    * @return array 
     * @access public
     */
     public function getListOfContext(){
@@ -487,7 +528,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     *Method to return a list
     *of public courses
-    *@return array
+    * @return array 
     * @access public
     */
     public function getListOfPublicContext(){
@@ -497,9 +538,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     *Method to return a
     *formatted xml for a sql
-    *@param string $contextCode: The contextCode
-    *@param string $sql : The optional sql
-    *@return string $smlstring : The result returned as xml
+    * @param  string $contextCode: The contextCode
+    * @param  string $sql          : The optional sql
+    * @return string $smlstring : The result returned as xml
     * @access public
     */
     public function getContextXML($contextCode=NULL,$sql=NULL){
@@ -524,8 +565,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     * Method to delete a course
-    *@param string $contextCode: The Context Code
-    * @return array
+    * @param  string $contextCode: The Context Code
+    * @return array 
     * @access public
     */
 
@@ -540,8 +581,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     *Method to get the parent nodes
-    *@param string $contextId : The Context Id
-    *@return the parent Node Id
+    * @param  string $contextId : The Context Id
+    * @return the    parent Node Id
     * @access public
     */
     public function getParentNodes($contextId=NULL){
@@ -568,7 +609,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     *Method to change the working table
-    * @return NULL
+    * @return NULL  
     * @access public
     */
     public function changeTable($tableName){
@@ -577,7 +618,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 
     /**
     *Method to reset the working table
-    * @return NULL
+    * @return NULL  
     * @access public
     */
     public function resetTable(){
@@ -596,8 +637,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to get the course details for a given
     * root node Id
-    * @param string $rootNodeId  The root nodeId
-    * @return array
+    * @param  string $rootNodeId The root nodeId
+    * @return array 
     */
     public function rootToContext($rootNodeId){
         $this->changeTable('tbl_context_parentnodes');
@@ -622,7 +663,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to archive a context
-    * @param string $contextCode
+    * @param  string  $contextCode
     * @return boolean
     */
     public function archiveContext($contextCode)
@@ -633,7 +674,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 	
 	 /**
     * Method to archive a context
-    * @param string $contextCode
+    * @param  string  $contextCode
     * @return boolean
     */
     public function undeleteContext($contextCode)

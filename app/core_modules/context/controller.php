@@ -1,18 +1,61 @@
 <?php
+
+/**
+ * Context controller
+ * 
+ * Controller class for the context in Chisimba
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-/**
- * The context controller manages the context module
- * @author Wesley Nitsckie
- * @version $Id$
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @package context
- **/
 
+
+/**
+ * Context controller
+ * 
+ * Controller class for the context in Chisimba
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class context extends controller
 {
     /**
@@ -21,7 +64,7 @@ class context extends controller
     public $objSkin;
 
     /**
-    * @var  object $objLanguage
+    * @var object $objLanguage
     */
     public $objLanguage;
 
@@ -51,7 +94,7 @@ class context extends controller
     public $objIcon;
 
     /**
-    * @var string  $contextId
+    * @var string $contextId
     */
     public $contextId;
 
@@ -66,7 +109,7 @@ class context extends controller
 
     /**
     * @var string $contentId
-    *
+    *             
     */
     public $contentId;
 
@@ -106,37 +149,37 @@ class context extends controller
     public $objDBContextModules;
 
     /**
-    *@var object $objLoggendId;
+    * @var object $objLoggendId;
     */
     public $objLoggedIn;
 
     /**
-    *@var bool $isRootNode
+    * @var bool $isRootNode
     */
     public $isRootNode;
 
    /**
-    *@var object $objPopup
+    * @var object $objPopup
     */
     public $objPopup;
 
     /**
-    *@var object objNote
+    * @var object objNote
     */
     public $objNote;
 
     /**
-    *@var object $objWebcal
+    * @var object $objWebcal
     */
     public $objWebcal;
 
     /**
-    *@var object $objModule
+    * @var object $objModule
     */
     public $objModule;
 
     /**
-    *@var object $objDublinCore
+    * @var object $objDublinCore
     */
     public $objDublinCore;
 
@@ -415,7 +458,7 @@ class context extends controller
     * Method to show the mini
     * Navigation bar
     * @access: public
-    * @param string the Footer with navigation bar
+    * @param   string the Footer with navigation bar
     */
     public function showFooter()
     {
@@ -473,7 +516,7 @@ class context extends controller
     /**
     * Method get the details of of a note
     * @access private
-    * @return null
+    * @return null   
     */
     private function getNoteDetails(){
         $arr=$this->objNote->getNote($this->nodeId,$this->objUser->userId());
@@ -494,9 +537,9 @@ class context extends controller
 
     /**
     * Method that saves a node
-    * @param string $mode: Either edit or add mode
+    * @param  string  $mode: Either edit or add mode
     * @access private
-    * @return null
+    * @return null   
     */
     private function saveNote($mode=null){
         $this->objNote->saveRecord( $this->objUser->userId(),$mode);
@@ -506,7 +549,7 @@ class context extends controller
     /**
     * Method that biulds the edit , add and delete buttons
     * @access private
-    * @return string $str : The buttons for the navbar
+    * @return string  $str : The buttons for the navbar
     */
     private function _showContentManager()
     {
@@ -588,7 +631,7 @@ class context extends controller
     /**
     * Method that shows the Mini Nav Bar
     * like go next to node,previous node, first node
-    * @return null
+    * @return null   
     * @access private
     */
     private function _showMiniNavBar()
@@ -688,7 +731,7 @@ class context extends controller
     /**
     * Method to save a new node
     * @access public
-    * @return null
+    * @return null  
     */
     public function createNode()
     {
@@ -699,7 +742,7 @@ class context extends controller
     * Method to delete the current
     * node together with its chilren
     * @access public
-    * @return null
+    * @return null  
     */
     public function deleteNode()
     {
@@ -730,7 +773,7 @@ class context extends controller
 
     /**
     * Method to create a link to the course home
-    *@return null
+    * @return null
     */
     public function getContextLinks()
     {
@@ -748,7 +791,7 @@ class context extends controller
      /**
     * Method to create links to the contents
     * and to the course
-    *@return null
+    * @return null
     */
     public function getContentLinks()
     {

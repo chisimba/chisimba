@@ -1,21 +1,61 @@
 <?php
+
+/**
+ * File system content
+ * 
+ * File system content class for Chisimba context
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check
-/**
- * This object manages the File Sysmtem for the context
- * Class fscontext
- * This object handles the contentnodes table and all the
- * operations that takes place with the content nodes
- * @author Wesley Nitsckie
- * @version $Id$ 
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @package context
- **/
 
+
+/**
+ * File system content
+ * 
+ * File system content class for Chisimba context
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
  class fscontext extends object
  {
      
@@ -29,6 +69,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     var $objZip;
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
      function init()
      {
          $this->objConfig=&$this->newObject('altconfig','config');
@@ -59,7 +107,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      
      /**
      * Method to delete a context Folder
-     *@param string $contextId The Context Id
+     * @param string $contextId The Context Id
      */
      function deleletContextFolder($contextCode)
      {
@@ -70,8 +118,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      /**
      * Method copy images
      * @param string $contextCode The Context Code
-     * @param string $path the path of the file
-     * @param string $file The image file
+     * @param string $path        the path of the file
+     * @param string $file        The image file
      */
     function copyImage($contextCode,$path,$file)
     {
@@ -91,7 +139,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      /**
     * method to create specified folder
     * @access public
-    * @param string $folder The folder that needs to be created
+    * @param  string $folder The folder that needs to be created
     */
     function makeFolder($folder,$contextCode=NULL)
     {   
@@ -125,6 +173,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @param string $path The Path to the folder
     * @return boolean
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $contextCode Parameter description (if any) ...
+     * @return void  
+     * @access public
+     */
     function folderExists($contextCode){
         $dir = $this->objConfig->getsiteRootPath().'/usrfiles/content/'.$contextCode;
         
