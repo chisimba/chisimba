@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Short description for file
+ * Custom Exception Handler
  * 
- * Long description (if any) ...
+ * CustomException extends the built in SPL Exception Class
  * 
  * PHP version 5
  * 
