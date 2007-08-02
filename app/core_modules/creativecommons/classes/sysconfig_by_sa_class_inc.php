@@ -1,4 +1,23 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   creativecommons
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /**
 * Class to provide SysConfig an input for enabling/disabling the BY/SA license
 * @author Tohir Solomons
