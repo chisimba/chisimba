@@ -1,28 +1,60 @@
 <?php
+
+/**
+ * View condition
+ * 
+ * View Condition Class
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-/**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisionTable
-* @subpackage view
-* @version 0.1
-* @since 04 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
+
 $this->loadClass('classparser', 'decisiontable');
+
 /**
- * Class used for viewing a list of conditions of type context.
- *
- * @package decisiontable
- * @category view
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- *
- * @access public
- * @author Jonathan Abrahams
+ * View condition
+ * 
+ * View Condition Class
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class viewCondition extends classParser
 {
@@ -30,7 +62,7 @@ class viewCondition extends classParser
      * Object reference to the condition object.
      *
      * @access private
-     * @var object
+     * @var    object 
      */
     var $_objCondition = NULL;
 
@@ -38,14 +70,14 @@ class viewCondition extends classParser
      * Property used for storing the list of callback method available.
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     var $_methods = array();
 
     /**
      * The object initialisation method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -57,7 +89,7 @@ class viewCondition extends classParser
     /**
      * The object initialisation method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -71,7 +103,7 @@ class viewCondition extends classParser
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array htmlelements
+     * @return array  htmlelements
      */
     function elements()
     {
@@ -84,7 +116,7 @@ class viewCondition extends classParser
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array
+     * @return array 
      */
     function setValue($value='TRUE')
     {

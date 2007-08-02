@@ -1,27 +1,68 @@
 <?php
+
+/**
+ * Decision Table Aggregate class
+ * 
+ * Decision Table aggregate Class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-/**
- * Abstract class used to manage conditions, rules, actions, and decisiontables.
- * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
- * @package decisiontable
- * @subpackage access
- * @version 0.1
- * @since 03 Febuary 2005
- * @author Paul Scott based on methods by Jonathan Abrahams
- * @filesource
- */
+
 $this->loadClass( 'decisiontablebase', 'decisiontable' );
 
+/**
+ * Decision Table Aggregate class
+ * 
+ * Decision Table aggregate Class
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class decisionTableAggregate extends decisionTableBase
 {
     /**
      * Object reference to the 'Whole' object.
      *
      * @access public
-     * @var object
+     * @var    object
      */
     public $_objParent = NULL;
 
@@ -29,7 +70,7 @@ class decisionTableAggregate extends decisionTableBase
      * Reference to the 'Parts' object.
      *
      * @access public
-     * @var object
+     * @var    object
      */
     public $_objParts = NULL;
 
@@ -37,7 +78,7 @@ class decisionTableAggregate extends decisionTableBase
      * Object reference to its child object.
      *
      * @access public
-     * @var object
+     * @var    object
      */
     public $_objChild = NULL;
 
@@ -45,15 +86,15 @@ class decisionTableAggregate extends decisionTableBase
      * Property used to store all aggregated objects
      *
      * @access public
-     * @var array
+     * @var    array 
      */
     public $_arrChildren = array();
 
     /**
      * The object initialization method.
      *
-     * @access public
-     * @param string
+     * @access public 
+     * @param  string 
      * @return nothing
      */
     public function init($tableName)
@@ -67,8 +108,8 @@ class decisionTableAggregate extends decisionTableBase
      * Abstract method to connect to other objects.
      *
      * @access public
-     * @param object Reference name for the object
-     * @return void
+     * @param  object Reference name for the object
+     * @return void  
      */
     public function connect( &$object )
     {
@@ -80,7 +121,7 @@ class decisionTableAggregate extends decisionTableBase
      * Method to create a new object.
      *
      * @access public
-     * @param string Reference name for the object
+     * @param  string Reference name for the object
      * @return action Returns this object.
      */
     public function create( $name )
@@ -92,8 +133,8 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Method to get the Id for the child of a parent.
      *
-     * @access public
-     * @param void
+     * @access public  
+     * @param  void    
      * @return property
      */
     public function retrieveId( )
@@ -105,8 +146,8 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Method to allow duplicate rule names
      *
-     * @access public
-     * @param void
+     * @access public  
+     * @param  void    
      * @return property
      */
     function checkDuplicate( )
@@ -119,8 +160,8 @@ class decisionTableAggregate extends decisionTableBase
      * and initialize the newly created object.
      *
      * @access public
-     * @param void
-     * @return array Returns an array of condition objects for this rule
+     * @param  void  
+     * @return array  Returns an array of condition objects for this rule
      */
     public function retrieve( )
     {
@@ -135,8 +176,8 @@ class decisionTableAggregate extends decisionTableBase
      * Method used to create child objects for the rule.
      *
      * @access public
-     * @param array List of children found in database.
-     * @return void
+     * @param  array  List of children found in database.
+     * @return void  
      */
     public function createChild($dbChild)
     {
@@ -157,8 +198,8 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Method to add a child to the object.
      *
-     * @access public
-     * @param object
+     * @access public        
+     * @param  object        
      * @return uniqueID|false the unique id new row, or false if it exists already.
      */
     public function add($objChild)
@@ -172,8 +213,8 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Method to delete the rule conditions.
      *
-     * @access public
-     * @param string condId
+     * @access public    
+     * @param  string     condId
      * @return true|false Return true if successfull, otherwise false.
      */
     public function deleteChild( $objCond )
@@ -187,8 +228,8 @@ class decisionTableAggregate extends decisionTableBase
      * Method to set the properties using given parameters.
      *
      * @access public
-     * @param object
-     * @return void
+     * @param  object
+     * @return void  
      */
     public function setProperties( $objChild )
     {
@@ -200,8 +241,8 @@ class decisionTableAggregate extends decisionTableBase
      * Method to get all the condition IDs.
      *
      * @access public
-     * @param void
-     * @return array
+     * @param  void  
+     * @return array 
      */
     public function getIDs()
     {
@@ -212,7 +253,7 @@ class decisionTableAggregate extends decisionTableBase
      * Method to get the condition object for the id.
      *
      * @access public
-     * @param string $id
+     * @param  string $id
      * @return object
      */
     public function getID( $id )
@@ -223,8 +264,8 @@ class decisionTableAggregate extends decisionTableBase
     /**
      * Method to test if a condition is found in this rule.
      *
-     * @access public
-     * @param string id
+     * @access public    
+     * @param  string     id
      * @return true|false
      */
     public function hasID( $id )

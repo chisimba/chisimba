@@ -1,29 +1,67 @@
 <?php
+
+/**
+ * Rule Class (DB)
+ * 
+ * Database abstraction for the Decision Table Rule Class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
-/**
- * Class used to access the decision table rule bridge table.
- *
- * @access public
- * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
- * @package decisiontable
- * @subpackage access
- * @version 0.1
- * @since 21 February 2005
- * @author Paul Scott based on methods by Jonathan Abrahams
- * @filesource
- */
 
+/**
+ * Rule Class (DB)
+ * 
+ * Database abstraction for the Decision Table Rule Class
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class dbDecisionTableRule extends dbTable {
 
     /**
      * Property used to store the unique id.
      *
      * @access public
-     * @var $_id
+     * @var    $_id  
      */
     public $_id = NULL;
 
@@ -31,8 +69,8 @@ class dbDecisionTableRule extends dbTable {
      * The object initialisation method.
      *
      * @access public
-     * @param void
-     * @return void
+     * @param  void  
+     * @return void  
      */
     public function init()
     {
@@ -43,8 +81,8 @@ class dbDecisionTableRule extends dbTable {
      * Method to upgrade tables
      *
      * @access public
-     * @param void
-     * @return void
+     * @param  void  
+     * @return void  
      */
     public function upgradeTable()
     {
@@ -63,9 +101,9 @@ class dbDecisionTableRule extends dbTable {
     /**
      * Method to add a rule to the decisionTable.
      *
-     * @access public
-     * @param object Rule object.
-     * @param object DecisionTable object.
+     * @access public        
+     * @param  object         Rule          object.
+     * @param  object         DecisionTable object.
      * @return uniqueId|false Return the unique Id or false if already exists.
      */
     public function add( $rule, $decisionTable )
@@ -90,9 +128,9 @@ class dbDecisionTableRule extends dbTable {
      * Method to check for duplicates
      *
      * @access public
-     * @param string $rule
-     * @param string $decisionTable
-     * @return bool
+     * @param  string $rule         
+     * @param  string $decisionTable
+     * @return bool  
      */
     public function checkDuplicate($rule, $decisionTable )
      {
@@ -103,8 +141,8 @@ class dbDecisionTableRule extends dbTable {
      * Method to retrieve all rules for the decisionTable.
      *
      * @access public
-     * @param object The decisionTable object.
-     * @return array of all actions for this decisionTable
+     * @param  object The decisionTable object.
+     * @return array  of all actions for this decisionTable
      */
      public function retrieve( $objDecisionTable )
      {
@@ -123,9 +161,9 @@ class dbDecisionTableRule extends dbTable {
      * Method to retrieve a rule for the decisionTable.
      *
      * @access public
-     * @param object The rule object.
-     * @param object The decisionTable object.
-     * @return id of rule for this decisionTable
+     * @param  object The rule object.
+     * @param  object The decisionTable object.
+     * @return id     of rule for this decisionTable
      */
      public function retrieveId( &$objRule, &$objDecisionTable )
      {

@@ -1,27 +1,68 @@
 <?php
+
+/**
+ * Decision Table
+ * 
+ * Decision Table Class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
-/**
-* Class to manage access with a decision table.
-* @package decisiontable
-* @category access
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version 2.0
-* @author Paul Scott based on methods by Jonathan Abrahams
-*/
 
+/**
+ * Decision Table
+ * 
+ * Decision Table Class
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
  class decisionTable extends dbTable
  {
     /**
      * Property used to store the unique id.
      *
      * @access public
-     * @var string unique id
+     * @var    string unique id
      */
     public $_id = '';
 
@@ -29,15 +70,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Property used for storing the decision tables reference name.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     public $_name = '';
 
     /**
      * Object reference to the dbDecisionTableAction object.
      *
-     * @access private
-     * @var dbDecisionTableAction
+     * @access private              
+     * @var    dbDecisionTableAction
      */
     public $_objDBDecisionTableAction = NULL;
 
@@ -45,7 +86,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * List of actions set for this module.
      *
      * @access public
-     * @var array $arrActions
+     * @var    array  $arrActions
      */
     public $_arrActions;
 
@@ -53,8 +94,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      *Initialize the decision table structure.
      *
      * @access public
-     * @param void
-     * @return void
+     * @param  void  
+     * @return void  
      */
     public function init( )
     {
@@ -68,8 +109,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
      * Method to test if the action existists.
      *
-     * @access public
-     * @param string the action.
+     * @access public    
+     * @param  string     the action.
      * @return true|false True if action found, otherwise False.
      */
     public function hasAction( $action )
@@ -80,9 +121,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to test if the action is valid.
     *
-    * @access public
-    * @param string the action.
-    * @param string the default to be used if action does not exist.
+    * @access public    
+    * @param  string     the action.
+    * @param  string     the default to be used if action does not exist.
     * @return true|false True if action valid, otherwise False.
     */
     public function isValid( $action, $default = TRUE )
@@ -97,8 +138,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to test if the view element should shown.
     *
-    * @access public
-    * @param object the view element object.
+    * @access public   
+    * @param  object    the view element object.
     * @return HTML|NULL shows the view element if required otherwise returns null.
     */
     public function showElement( &$objElement )
@@ -111,7 +152,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to create a new decisionTable.
      *
      * @access public
-     * @param string Reference name for the decisionTable
+     * @param  string Reference name for the decisionTable
      * @return action Returns this object.
      */
     public function create($name, $action = NULL )
@@ -143,8 +184,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to delete all dependents of this decisiontable.
      *
      * @access public
-     * @param void
-     * @return bool
+     * @param  void  
+     * @return bool  
      */
     public function delete()
     {
@@ -168,8 +209,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to delete all dependents of this decisiontable.
      *
      * @access public
-     * @param void
-     * @return NULL
+     * @param  void  
+     * @return NULL  
      */
     public function retrieveId()
     {
@@ -182,8 +223,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * A copy of the action is stored.
      *
      * @access public
-     * @param action
-     * @return void
+     * @param  action
+     * @return void  
      */
     public function add($action)
     {
@@ -207,8 +248,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * A copy of the action is stored.
      *
      * @access public
-     * @param action
-     * @return void
+     * @param  action
+     * @return void  
      */
     public function addRule($rule)
     {
@@ -220,8 +261,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to set the properties.
      *
      * @access public
-     * @param object A action objects stored for this decisionTable
-     * @return void sets the object properties.
+     * @param  object A action objects stored for this decisionTable
+     * @return void   sets the object properties.
      */
     public function setProperties( $objAction )
     {
@@ -233,8 +274,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Method to retrieve the rules from the database
      *
      * @access public
-     * @param void
-     * @return array Returns an array of rules for this decisionTable
+     * @param  void  
+     * @return array  Returns an array of rules for this decisionTable
      */
     public function retrieveRules( )
     {
@@ -244,9 +285,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
      * Method to retrieve the rules from the database,
      *
-     * @access public
-     * @param $objRule
-     * @return array
+     * @access public  
+     * @param  $objRule
+     * @return array   
      */
     public function retrieveRuleId( &$objRule )
     {
@@ -259,8 +300,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * and initialize the newly created object.
      *
      * @access public
-     * @param string The name of the
-     * @return array Returns an array of action objects for this decisionTable
+     * @param  string The name of the
+     * @return array  Returns an array of action objects for this decisionTable
      */
     public function retrieve( $name = NULL )
     {

@@ -1,28 +1,25 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-/**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisionTable
-* @subpackage view
-* @version 0.1
-* @since 04 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
 
 /**
  * Class used for viewing a list of conditions of type context.
  *
- * @package decisiontable
- * @category view
+ * @package   decisiontable
+ * @category  view
  * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- *
- * @access public
- * @author Jonathan Abrahams
+ * @license   GNU GPL
+ *            
+ * @access    public
+ * @author    Jonathan Abrahams
  */
 class classParser extends object
 {
@@ -31,7 +28,7 @@ class classParser extends object
      * function and its parameters.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_delimiterFunc = ' | ';
     /**
@@ -40,7 +37,7 @@ class classParser extends object
      * Prefix: none for the class used to perform the logic.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_classPrefix = '';
 
@@ -49,7 +46,7 @@ class classParser extends object
      * parameters of the function.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_delimiterParam = ',';
    // --- OPERATIONS ---
@@ -58,8 +55,8 @@ class classParser extends object
      *
      * @access public
      * @author Jonathan Abrahams
-     * @param string Function and its Parameter list found in this class.
-     * @return array Result of parsing the Function call string.
+     * @param  string Function and its Parameter list found in this class.
+     * @return array  Result of parsing the Function call string.
      */
     function parser($strCallBack)
     {
@@ -80,9 +77,9 @@ class classParser extends object
     /**
      * Method to make safe callbacks.
      *
-     * @access public
+     * @access public     
      * @author Jonathan Abrahams
-     * @param array Function name, Parameter list for the function.
+     * @param  array       Function name, Parameter list for the function.
      * @return mixed|false returns the evaluated function.
      */
     function callBack($callFunction)
@@ -117,7 +114,7 @@ class classParser extends object
     /**
      * The object initialisation method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */

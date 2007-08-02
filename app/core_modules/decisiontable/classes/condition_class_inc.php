@@ -1,32 +1,29 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check
 
-/**
-* Class used for maintaining a list of conditions.
-*
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @author Jonathan Abrahams
-* @filesource
-*/
+
 $this->loadClass( 'decisiontablebase', 'decisiontable' );
 /**
  * Class used for maintaining a list of conditions of type boolean.
  *
- * @package decisiontable
- * @category access
+ * @package   decisiontable
+ * @category  access
  * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- *
- * @access public
- * @author Jonathan Abrahams
- * @version V0.1
+ * @license   GNU GPL
+ *            
+ * @access    public
+ * @author    Jonathan Abrahams
+ * @version   V0.1
  */
 class condition extends decisionTableBase
 {
@@ -35,7 +32,7 @@ class condition extends decisionTableBase
      * Property used for storing the function used for the condition.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_arrFunction = array();
 
@@ -43,7 +40,7 @@ class condition extends decisionTableBase
      * Property used for stores the callback function name to be evaluated.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_function = '';
     
@@ -51,7 +48,7 @@ class condition extends decisionTableBase
      * Property used for storing the parameters that are to be evaluated.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_params = '';
 
@@ -60,7 +57,7 @@ class condition extends decisionTableBase
      * function and its parameters.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_delimiterFunc = ' | ';
 
@@ -69,7 +66,7 @@ class condition extends decisionTableBase
      * parameters of the function.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_delimiterParam = ',';
 
@@ -77,10 +74,20 @@ class condition extends decisionTableBase
      * Property used for storing the dbrulecontion object
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     public $_objRuleCondition;
     // --- OPERATIONS ---
+
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     function init()
     {
         // Store the class type.
@@ -94,10 +101,10 @@ class condition extends decisionTableBase
     /**
      * Method to create a new instance.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string Reference name for the condition
-     * @return condition Returns this condition object.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @param   string    Reference name for the condition
+     * @return  condition Returns this condition object.
      * @version V0.1
      */
     function create($name, $params='isAdmin')
@@ -121,9 +128,9 @@ class condition extends decisionTableBase
     /**
      * Method to set the properties
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string 
+     * @access  public
+     * @author  Jonathan Abrahams
+     * @param   string
      * @version V0.1
      */
     function setProperties($params)
@@ -138,9 +145,9 @@ class condition extends decisionTableBase
     /**
      * Method to retrieve the parameters from the database,
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return condition Returns this condition object, and retrieves the parameters from the database.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @return  condition Returns this condition object, and retrieves the parameters from the database.
      * @version V0.1
      */
     function retrieveId()
@@ -153,9 +160,9 @@ class condition extends decisionTableBase
     /**
      * Method to retrieve the parameters from the database,
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return condition Returns this condition object, and retrieves the parameters from the database.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @return  condition Returns this condition object, and retrieves the parameters from the database.
      * @version V0.1
      */
     function retrieve()
@@ -170,9 +177,9 @@ class condition extends decisionTableBase
     /**
      * Method to update the parameters in the database, and re-initialize the object.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return condition Returns this condition object, and retrieves the parameters from the database.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @return  condition Returns this condition object, and retrieves the parameters from the database.
      * @version V0.1
      */
     function update( $params )
@@ -187,9 +194,9 @@ class condition extends decisionTableBase
     /**
      * Method to evaluate the value parameter.
      *
-     * @access public
+     * @access public    
      * @author Jonathan Abrahams
-     * @param string Function and its Parameter list found in this class.
+     * @param  string     Function and its Parameter list found in this class.
      * @return true|false
      */
     function evaluate($value)
@@ -204,8 +211,8 @@ class condition extends decisionTableBase
      *
      * @access public
      * @author Jonathan Abrahams
-     * @param string Function and its Parameter list found in this class.
-     * @return array Result of parsing the Function call string.
+     * @param  string Function and its Parameter list found in this class.
+     * @return array  Result of parsing the Function call string.
      */
     function parser($strCallBack)
     {
@@ -226,9 +233,9 @@ class condition extends decisionTableBase
     /**
      * Method to make safe callbacks.
      *
-     * @access public
+     * @access public     
      * @author Jonathan Abrahams
-     * @param array Function name, Parameter list for the function.
+     * @param  array       Function name, Parameter list for the function.
      * @return mixed|false returns the evaluated function.
      */
     function callBack($callFunction)
@@ -261,9 +268,9 @@ class condition extends decisionTableBase
     /**
      * Method used to evaluate the value and returns either TRUE or FALSE.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return true|false
+     * @access  public    
+     * @author  Jonathan Abrahams
+     * @return  true|false
      * @version V0.1
      */
     function isValid()
@@ -274,10 +281,10 @@ class condition extends decisionTableBase
     /**
      * Method used to set the value.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param true|false new value.
-     * @return true|false
+     * @access  public    
+     * @author  Jonathan Abrahams
+     * @param   true|false new value.
+     * @return  true|false
      * @version V0.1
      */
     function setValue($value='TRUE')
@@ -293,9 +300,9 @@ class condition extends decisionTableBase
      * Method to delete the object and all its children objects - modified to take into account no cascading deletes.
      * Explicitly calls deletes to the bridging tables reliant on the condition table
      *
-     * @access public
+     * @access public    
      * @author Serge Meunier
-     * @param string Delete object by name( optional )
+     * @param  string     Delete object by name( optional )
      * @return true|false Return true if successfull, otherwise false.
      */
     function delete( $name = NULL )

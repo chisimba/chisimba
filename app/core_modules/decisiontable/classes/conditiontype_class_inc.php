@@ -1,32 +1,29 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
-/**
-* Class used for maintaining a list of conditions.
-*
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package decisiontable
-* @subpackage access
-* @version 0.1
-* @author Jonathan Abrahams
-* @filesource
-*/
+
 $this->loadClass( 'decisiontablebase', 'decisiontable' );
 /**
  * Class used for maintaining a list of condition types.
  *
- * @package decisiontable
- * @category access
+ * @package   decisiontable
+ * @category  access
  * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- *
- * @access public
- * @author Jonathan Abrahams
- * @version V0.1
+ * @license   GNU GPL
+ *            
+ * @access    public
+ * @author    Jonathan Abrahams
+ * @version   V0.1
  */
 class conditionType extends decisionTableBase
 {
@@ -35,7 +32,7 @@ class conditionType extends decisionTableBase
      * Property used for storing the class or type of condition.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_conditionTypeClassName = '';
 
@@ -43,11 +40,21 @@ class conditionType extends decisionTableBase
      * Property used for storing the module name of condition.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_conditionTypeModuleName = '';
 
     // --- OPERATIONS ---
+
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     function init()
     {
         parent::init('tbl_decisiontable_conditiontype');
@@ -58,12 +65,12 @@ class conditionType extends decisionTableBase
     /**
      * Method to create a new condition type.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string Reference name for the condition
+     * @access  public
+     * @author  Jonathan Abrahams
+     * @param   string Reference name for the condition
      * @version V0.1
-     * @see condition::test()
-     * @see condition::evaluate()
+     * @see     condition::test()
+     * @see     condition::evaluate()
      */
     function create($name, $className, $moduleName )
     {
@@ -92,9 +99,9 @@ class conditionType extends decisionTableBase
      * Method to retrieve the parameters from the database,
      * and initialize the newly created object.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return condition Returns this condition object, and retrieves the parameters from the database.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @return  condition Returns this condition object, and retrieves the parameters from the database.
      * @version V0.1
      */
     function retrieve($name)
@@ -111,8 +118,8 @@ class conditionType extends decisionTableBase
 
     /**
      * Method to get the type information.
-     * @param string The name of the function( condition Type )
-     * @return array The array containing the class name and the module containing the function.
+     * @param  string The name of the function( condition Type )
+     * @return array  The array containing the class name and the module containing the function.
      */
     function getType( $function )
     {
@@ -125,9 +132,9 @@ class conditionType extends decisionTableBase
     /**
      * Method to update the parameters in the database, and re-initialize the object.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @return condition Returns this condition object, and retrieves the parameters from the database.
+     * @access  public   
+     * @author  Jonathan Abrahams
+     * @return  condition Returns this condition object, and retrieves the parameters from the database.
      * @version V0.1
      */
     function update( )

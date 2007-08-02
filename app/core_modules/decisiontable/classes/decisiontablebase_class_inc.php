@@ -1,21 +1,59 @@
 <?php
+
+/**
+ * Decision Table Base class
+ * 
+ * Decision Table Base Class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-/**
- * Abstract class used to manage conditions, rules, actions, and decisiontables.
- *
- * @access public
- * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
- * @package decisiontable
- * @subpackage access
- * @version 0.1
- * @since 03 Febuary 2005
- * @author Paul Scott based on methods by Jonathan Abrahams
- * @filesource
- */
 
+/**
+ * Decision Table Base class
+ * 
+ * Decision Table Base Class
+ * 
+ * @category  Chisimba
+ * @package   decisiontable
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class decisionTableBase extends dbTable
 {
     /**
@@ -28,7 +66,7 @@ class decisionTableBase extends dbTable
      * Property used for storing the objects reference name.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $_name = '';
 
@@ -36,7 +74,7 @@ class decisionTableBase extends dbTable
      * Property used to enable automatic inserts and  retrieves of the object Id.
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     var $enableAutoInsertRetrieveId = TRUE;
 
@@ -44,7 +82,7 @@ class decisionTableBase extends dbTable
      * Property used to store all database data.
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     var $_dbData = array();
 
@@ -53,7 +91,7 @@ class decisionTableBase extends dbTable
     /**
      * The object initialization method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -69,7 +107,7 @@ class decisionTableBase extends dbTable
     /**
      * The object initialization method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -97,9 +135,9 @@ class decisionTableBase extends dbTable
     /**
      * Abstract method to connect to other objects.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
-     * @param object Reference name for the object
+     * @param  object  Reference name for the object
      * @return nothing
      */
     function connect( &$object )
@@ -111,7 +149,7 @@ class decisionTableBase extends dbTable
      *
      * @access public
      * @author Jonathan Abrahams
-     * @param string Reference name for the object
+     * @param  string Reference name for the object
      * @return action Returns this object.
      */
     function create( $name )
@@ -131,7 +169,7 @@ class decisionTableBase extends dbTable
     /**
      * Method to insert or retrieve the object.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing Updates the id property
      */
@@ -178,9 +216,9 @@ class decisionTableBase extends dbTable
     /**
      * Method to delete the object and all its children objects.
      *
-     * @access public
+     * @access public    
      * @author Jonathan Abrahams
-     * @param string Delete object by name( optional )
+     * @param  string     Delete object by name( optional )
      * @return true|false Return true if successfull, otherwise false.
      */
     function delete( $name = NULL )
@@ -193,9 +231,9 @@ class decisionTableBase extends dbTable
     /**
      * Method to update the name of the object.
      *
-     * @access public
+     * @access public    
      * @author Jonathan Abrahams
-     * @param string objects new name
+     * @param  string     objects new name
      * @return true|false Return true if successfull, otherwise false.
      */
     function updateName( $newName )
