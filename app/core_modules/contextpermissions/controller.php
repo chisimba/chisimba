@@ -1,21 +1,68 @@
 <?php
+
+/**
+ * context permissions controller
+ * 
+ * Class used for maintaining a list of conditions of type context.
+ * 
+ * PHP versions 4 and 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if ( !$GLOBALS['kewl_entry_point_run'] ) {
+if ( !
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'] ) {
     die( "You cannot view this page directly" );
 } 
 // end security check
-/**
- * The context permissions controller manages
- * the permissions the context module
- * 
- * @author Jonathan Abrahams 
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @package context
- */
 
+
+/**
+ * context permissions controller
+ * 
+ * Class used for maintaining a list of conditions of type context.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class contextpermissions extends controller {
 
+    /**
+     * Description for var
+     * @var    object
+     * @access public
+     */
     var $objDecisionTable;
 
     /**
@@ -106,8 +153,8 @@ class contextpermissions extends controller {
     }
     /**
     * Overload the method to test if the action is valid.
-    * @param string the action.
-    * @param string the default to be used if action does not exist.
+    * @param  string     the action.
+    * @param  string     the default to be used if action does not exist.
     * @return true|false True if action valid, otherwise False.
     */    
     function isValid( $action, $default = TRUE )
@@ -474,10 +521,10 @@ class contextpermissions extends controller {
 
     /**
     * Method to create a rule link.
-    * @param object Object type: action, rule, condition expected.
-    * @param string The action to perform.
-    * @param string The reference id for the object.
-    * @return link Object reference for HTML link element.
+    * @param  object Object type: action, rule, condition expected.
+    * @param  string The    action to perform.
+    * @param  string The    reference id for the object.
+    * @return link   Object reference for HTML link element.
     */
     function lnkText($link, $action, $id )
     {
@@ -489,7 +536,7 @@ class contextpermissions extends controller {
 
     /**
     * Method to create a Create Rule icon link.
-    * @param string The action to perform for the create icon link.
+    * @param  string The action to perform for the create icon link.
     * @return string The result of geticon, it returns the icon as HTML.
     */
     function &lnkIcnCreate($action)

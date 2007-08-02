@@ -1,36 +1,67 @@
 <?php
+
+/**
+ * condition view
+ * 
+ * View context conditions
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-/**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package contextpermissions
-* @subpackage access
-* @version 0.1
-* @since 04 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-// Inheret methods from Conditions
+
 $this->loadClass( 'viewcondition', 'decisiontable');
+
 /**
- * Class used for viewing a list of conditions of type context.
- *
- * @package contextpermissions
- * @category access
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- *
- * @access public
- * @author Jonathan Abrahams
+ * condition view
+ * 
+ * View context conditions
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class viewContextCondition extends viewCondition
 {
     /**
      * The object initialisation method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -57,7 +88,7 @@ class viewContextCondition extends viewCondition
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array
+     * @return array 
      */
     function isAdmin()
     {
@@ -74,7 +105,7 @@ class viewContextCondition extends viewCondition
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return array
+     * @return array 
      */
      function dependsOnContext($dependOn='TRUE')
      {
@@ -95,8 +126,8 @@ class viewContextCondition extends viewCondition
     /**
      * CallBack method used by the evaluate method.
      *
-     * @access public
-     * @param string Group name relative to the context.
+     * @access public    
+     * @param  string     Group name relative to the context.
      * @author Jonathan Abrahams
      * @return true|false
      */
@@ -122,10 +153,10 @@ class viewContextCondition extends viewCondition
     /**
      * CallBack method to evaluate the value parameter for groups.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string Full path to the group seperated by a delimiter.
-     * @return true|false Returns result of the evaluation.
+     * @access  public    
+     * @author  Jonathan Abrahams
+     * @param   string     Full path to the group seperated by a delimiter.
+     * @return  true|false Returns result of the evaluation.
      * @version V0.1
      */
     function isMember($absPath=NULL)
@@ -153,10 +184,10 @@ class viewContextCondition extends viewCondition
     /**
      * Callback method to evaluate the value parameter for permissions.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string Access control list reference name.
-     * @return true|false Returns result of the evaluation.
+     * @access  public    
+     * @author  Jonathan Abrahams
+     * @param   string     Access control list reference name.
+     * @return  true|false Returns result of the evaluation.
      * @version V0.1
      */
     function hasPermission($aclName=NULL)
@@ -185,10 +216,10 @@ class viewContextCondition extends viewCondition
     /**
      * Callback method to evaluate the value parameter for permissions.
      *
-     * @access public
-     * @author Jonathan Abrahams
-     * @param string Access control list reference name.
-     * @return true|false Returns result of the evaluation.
+     * @access  public    
+     * @author  Jonathan Abrahams
+     * @param   string     Access control list reference name.
+     * @return  true|false Returns result of the evaluation.
      * @version V0.1
      */
     function hasContextPermission($aclName=NULL)

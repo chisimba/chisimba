@@ -1,17 +1,4 @@
 <?php
-// security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
-}
-/**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package contextpermissions
-* @subpackage view
-* @version 0.1
-* @since 09 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
 
 /**
  * Class to view the decision table module as a grid, listing all in the form
@@ -29,12 +16,68 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  *
  * A rule is valid when all its conditions are valid.
  * An action is valid when any one of its rules are valid.
+ * 
+ * PHP versions 4 and 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+
+/**
+ * Class to view the decision table module as a grid, listing all in the form
  *
- * @package contextpermissions
- * @subpackage view
- * @version 0.1
- * @access private
- * @author Jonathan Abrahams
+ * <PRE>
+ *              RULE1   RULE2   RULE3
+ * CONDITION1     X               X
+ * CONDITION2            X
+ * CONDITION3            X        X
+ *              RULE1   RULE2   RULE3
+ * ACTION1        X
+ * ACTION2               X
+ * ACTION3                        X
+ * </PRE>
+ *
+ * A rule is valid when all its conditions are valid.
+ * An action is valid when any one of its rules are valid.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class viewGrid extends object
 {
@@ -59,8 +102,8 @@ class viewGrid extends object
     /**
      * Object reference to the table object.
      *
-     * @access public
-     * @var htmltable
+     * @access public   
+     * @var    htmltable
      */
     var $objGrid = null;
 
@@ -68,18 +111,35 @@ class viewGrid extends object
      * Properties for the table.
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     var $_properties = array();
 
+    /**
+     * Description for var
+     * @var    string
+     * @access public
+     */
     var $actionCondition = 'show_condition';
+
+    /**
+     * Description for var
+     * @var    string
+     * @access public
+     */
     var $actionRule = 'edit_rule';
+
+    /**
+     * Description for var
+     * @var    string
+     * @access public
+     */
     var $actionAction = 'show_action';
 
     /**
      * The object initialisation method.
      *
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -108,7 +168,7 @@ class viewGrid extends object
      * Method to show the grid.
      * @access public
      * @author Jonathan Abrahams
-     * @return show the grid.
+     * @return show   the grid.
      */
     function show()
     {
@@ -144,9 +204,9 @@ class viewGrid extends object
      * CONDITION              X       X
      * </PRE>
      *
-     * @param string The action link for Condition.
-     *
-     * @access public
+     * @param  string  The action link for Condition.
+     *                     
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing Inserts new rows into the table.
      */
@@ -182,9 +242,9 @@ class viewGrid extends object
      * ACTION       X   X
      * </PRE>
      *
-     * @param string The action link for Action.
-     *
-     * @access public
+     * @param  string  The action link for Action.
+     *                     
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing Inserts new rows into the table.
      */
@@ -218,11 +278,11 @@ class viewGrid extends object
      * ACTION/CONDITION
      * </PRE>
      *
-     * @param object The object action or condition.
-     * @param string The action for the link
-     * @param string The id for the link.
-     *
-     * @access public
+     * @param  object  The object action or condition.
+     * @param  string  The action for the link
+     * @param  string  The id for the link.
+     *                     
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing Inserts new rows into the table.
      */
@@ -237,11 +297,11 @@ class viewGrid extends object
     /**
      * Method to add a grid cell.
      *
-     * @param object The object action or rule used as the lookup.
-     * @param string The id of the rule or condition to be found.
-     * @param string The class for the row.
-     *
-     * @access public
+     * @param  object  The object action or rule used as the lookup.
+     * @param  string  The id of the rule or condition to be found.
+     * @param  string  The class for the row.
+     *                     
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing Inserts new cell into the table.
      */
@@ -256,11 +316,11 @@ class viewGrid extends object
     /**
      * Method to show the X on the grid.
      *
-     * @param object The object action or rule used as the lookup.
-     * @param string The id of the rule or condition to be found.
+     * @param  object The object action or rule used as the lookup.
+     * @param  string The id of the rule or condition to be found.
      * @access public
      * @author Jonathan Abrahams
-     * @return Show 'X' if TRUE , otherwise '-'
+     * @return Show   'X' if TRUE , otherwise '-'
      */
     function showX( &$objLookup, $id )
     {
@@ -281,7 +341,7 @@ class viewGrid extends object
      * <PRE>
      * LEFT TITLE     RULE1   RULE2   RULE3
      * </PRE>
-     * @access public
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -312,9 +372,9 @@ class viewGrid extends object
     /**
      * Method to connect to the decision table object.
      *
-     * @param object Reference to the decision table object.
-     * @param array all required properties to view the object.
-     * @access public
+     * @param  object  Reference to the decision table object.
+     * @param  array   all       required properties to view the object.
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -350,9 +410,9 @@ class viewGrid extends object
 
     /**
     * Method to create a link.
-    * @param string The action, rule, or condition name.
-    * @param string The action to perform.
-    * @param string The reference id for the object.
+    * @param  string The action, rule, or condition name.
+    * @param  string The action to perform.
+    * @param  string The reference id for the object.
     * @return string The HTML link element.
     */
     function lnkText($objLink, $action, $id ){

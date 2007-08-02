@@ -1,37 +1,70 @@
 <?php
-// security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
-}
-/**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package contextpermissions
-* @subpackage view
-* @version 0.1
-* @since 09 Febuary 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
 
 /**
  * Class to view the decision table module as a table, listing all in the form
+ * 
  * <PRE>
  * actions -> rules -> conditions.
  * </PRE>
- *
- * @package contextpermissions
- * @subpackage view
- * @version 0.1
- * @access private
- * @author Jonathan Abrahams
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+/**
+ * Class to view the decision table module as a table, listing all in the form
+ * 
+ * <PRE>
+ * actions -> rules -> conditions.
+ * </PRE>
+ * 
+ * @category  Chisimba
+ * @package   contextpermissions
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class viewTable extends object
 {
     /**
      * Object reference to the decision table object.
      *
-     * @access private
-     * @var decisionTable
+     * @access private      
+     * @var    decisionTable
      */
     var $_objDecisionTable = null;
 
@@ -39,7 +72,7 @@ class viewTable extends object
      * Properties for the table.
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     var $_properties = array();
 
@@ -48,7 +81,7 @@ class viewTable extends object
      *
      * @access public
      * @author Jonathan Abrahams
-     * @return show the table
+     * @return show   the table
      */
     function show()
     {
@@ -107,9 +140,9 @@ class viewTable extends object
     /**
      * Method to connect to the decision table object.
      *
-     * @param object Reference to the decision table object.
-     * @param array all required properties to view the object.
-     * @access public
+     * @param  object  Reference to the decision table object.
+     * @param  array   all       required properties to view the object.
+     * @access public 
      * @author Jonathan Abrahams
      * @return nothing
      */
@@ -121,10 +154,10 @@ class viewTable extends object
 
     /**
     * Method to create a rule link.
-    * @param object Object type: action, rule, condition expected.
-    * @param string The action to perform.
-    * @param string The reference id for the object.
-    * @return link Object reference for HTML link element.
+    * @param  object Object type: action, rule, condition expected.
+    * @param  string The    action to perform.
+    * @param  string The    reference id for the object.
+    * @return link   Object reference for HTML link element.
     */
     function lnkText($link, $action, $id )
     {
