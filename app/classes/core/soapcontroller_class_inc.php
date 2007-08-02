@@ -28,7 +28,7 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
+ * @see       core
  */
 // security check - must be included in all scripts
 if (!
