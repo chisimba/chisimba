@@ -1,24 +1,69 @@
 <?php
+
+/**
+ * Access Class
+ * 
+ * The Access class handles some of the user authentication and permissions system access.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* -------------------- accesscontrol class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
+
 /**
- * Baseclass for a module's access control class
- *
- * @author Paul Scott based on methods by Jonathan Abrahams
- * @package core
+ * Access class to control access
+ * 
+ * Access class to control user access and the user ACL and permissions system
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class access extends object
 {
     /**
      * Constructor for the access class.
      *
-     * @param object $objEngine the engine object reference
-     * @param string $moduleName The module name
+     * @param  object    $objEngine  the engine object reference
+     * @param  string    $moduleName The module name
      * @return construct for access
      */
     public function __construct(&$objEngine, $moduleName)
@@ -27,12 +72,12 @@ class access extends object
     }
 
     /**
-     * Method to controll access to the module.
+     * Method to control access to the module.
      * Called by engine before the dispatch method.
      *
-     * @param object The module controller.
-     * @param string The action param passed to the dispatch method
-     * @return array The next action to be done
+     * @param  object The module controller.
+     * @param  string The action param passed to the dispatch method
+     * @return array  The next action to be done
      */
     public function dispatchControl( &$module, $action )
     {
@@ -63,9 +108,9 @@ class access extends object
     /**
     * Method to test if the action is valid.
     *
-    * @param string the action.
-    * @param string the default to be used if action does not exist.
-    * @return bool true|false True if action valid, otherwise False.
+    * @param  string the action.
+    * @param  string the default to be used if action does not exist.
+    * @return bool   true|false True if action valid, otherwise False.
     */
     public function isValid( $action, $default = TRUE )
     {
@@ -75,7 +120,7 @@ class access extends object
     /**
      * Method to gather information about the given module.
      *
-     * @param string The module name.
+     * @param  string The module name.
      * @return string $info
      */
     public function getModuleInformation($moduleName)
@@ -92,8 +137,8 @@ class access extends object
     /**
      * Method to control access to the module based on the modules configuration parameters.
      *
-     * @param string The module name.
-     * @return array the next action to be completed.
+     * @param  string The module name.
+     * @return array  the next action to be completed.
      */
     public function getPermissions($moduleName)
     {

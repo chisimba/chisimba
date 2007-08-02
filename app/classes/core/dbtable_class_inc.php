@@ -1,28 +1,66 @@
 <?php
+
+/**
+ * dbTable Class
+ * 
+ * Database abstraction layer.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
+
+
+/**
+ * Logging layer
+ */
 require_once "lib/logging.php";
 
 /**
-* Class to encapsulate operations on a database table.
-* It is highly recommended that you create a derived version
-* of this class for each table, rather than using it directly.
-*
-* @author Paul Scott based on methods by Sean Legassick
-* @example ./examples/dbtable.eg.php The example
-* @filesource
-* @copyright (c) 2000-2006, GNU/GPL AVOIR UWC
-* @package core
-* @subpackage dbtable
-* @version 0.1
-* @since 03 March 2006
-*
-* $Id$
-*/
-
+ * dbTable class
+ * 
+ * This class encapsulates all database functions and methods. All modules that require database access should extend this base class.
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class dbTable extends object
 {
     /**
@@ -33,7 +71,7 @@ class dbTable extends object
      * Whether or not to use prepared statements
      *
      * @access public
-     * @var string
+     * @var    string
      */
     public $USE_PREPARED_STATEMENTS = FALSE;
 
@@ -41,7 +79,7 @@ class dbTable extends object
      * The current table name that we are working with
      *
      * @access public
-     * @var string - default null
+     * @var    string - default null
      */
     public $_tableName = null;
 
@@ -49,7 +87,7 @@ class dbTable extends object
      * The global error callback for dbTable errors
      *
      * @access public
-     * @var string
+     * @var    string
      */
     public $_errorCallback;
 
@@ -57,7 +95,7 @@ class dbTable extends object
      * The database config object
      *
      * @access public
-     * @var object
+     * @var    object
      */
     public $objDBConfig;
 
@@ -65,7 +103,7 @@ class dbTable extends object
      * The db object
      *
      * @access private
-     * @var object
+     * @var    object 
      */
     private $_db = null;
 
@@ -80,7 +118,7 @@ class dbTable extends object
      * Are we in a transaction?
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     private $_inTransaction = false;
 
@@ -88,7 +126,7 @@ class dbTable extends object
      * property to hold the last id inserted into the db
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     private $_lastId = null;
 
@@ -96,7 +134,7 @@ class dbTable extends object
      * Property to hold the portability object for queries against multiple RDBM's
      *
      * @access private
-     * @var object
+     * @var    object 
      */
     private $_portability;
 
@@ -104,22 +142,27 @@ class dbTable extends object
      * Property to handle the error reporting
      *
      * @access private
-     * @var string
+     * @var    string 
      */
     private $debug = FALSE;
     
+    /**
+     * Description for public
+     * @var    boolean
+     * @access public 
+     */
     public $adm = FALSE;
 
 
     /**
     * Method to initialise the dbTable object.
     *
-    * @access public
-    * @param string $tableName The name of the table this object encapsulates
-    * @param boolean $mirror Whether to mirror these operations (defaults to TRUE)
-    * @param PEAR $ ::MDB2 $pearDb The PEAR::MDB2 object to use (defaults to use the global connection)
-    * @param callback $errorCallback The name of a custom error callback function (defaults to the global)
-    * @return void
+    * @access public  
+    * @param  string   $tableName     The name of the table this object encapsulates
+    * @param  boolean  $mirror        Whether to mirror these operations (defaults to TRUE)
+    * @param  PEAR     $              ::MDB2 $pearDb The PEAR::MDB2 object to use (defaults to use the global connection)
+    * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
+    * @return void    
     */
     public function init($tableName, $pearDb = null,
         $errorCallback = "globalPearErrorCallback")
@@ -151,9 +194,9 @@ class dbTable extends object
     * Method to evaluate if a particular value of a particular field exists in the database
     *
     * @access public
-    * @param string $field the name of the field to search
-    * @param mixed $value the value to search for
-    * @return bool TRUE |FALSE if exists return TRUE, otherwise FALSE.
+    * @param  string $field the name of the field to search
+    * @param  mixed  $value the value to search for
+    * @return bool   TRUE |FALSE if exists return TRUE, otherwise FALSE.
     */
     public function valueExists($field, $value, $table=null)
     {
@@ -184,8 +227,8 @@ class dbTable extends object
     * Override in derived classes to implement access restrictions
     *
     * @access public
-    * @param string $filter a SQL WHERE clause (optional)
-    * @return array |FALSE Rows as an array of associative arrays, or FALSE on failure
+    * @param  string $filter a SQL WHERE clause (optional)
+    * @return array  |FALSE Rows as an array of associative arrays, or FALSE on failure
     */
     public function getAll($filter = null)
     {
@@ -217,9 +260,9 @@ class dbTable extends object
     * Override in derived classes if necessary
     *
     * @access public
-    * @return array |FALSE A row as an associative array, or FALSE on failure
-    * @param string $pkfield the name of the primary key field
-    * @param mixed $pkvalue the value of the primary key field for the record
+    * @return array  |FALSE A row as an associative array, or FALSE on failure
+    * @param  string $pkfield the name of the primary key field
+    * @param  mixed  $pkvalue the value of the primary key field for the record
     */
     public function getRow($pk_field, $pk_value)
     {
@@ -236,8 +279,8 @@ class dbTable extends object
     * Method to execute a query against the database and return an array.
     *
     * @access public
-    * @param string $stmt the SQL query string
-    * @return array |FALSE Rows as an array of associate arrays, or FALSE on failure
+    * @param  string $stmt the SQL query string
+    * @return array  |FALSE Rows as an array of associate arrays, or FALSE on failure
     */
     public function getArray($stmt)
     {
@@ -258,10 +301,10 @@ class dbTable extends object
     * Method to execute a query against the database and return an array.
     *
     * @access public
-    * @param string $stmt the SQL query string
-    * @param int $first The first record to return
-    * @param int $count The number of records to return
-    * @return array |FALSE Rows as an array of associate arrays, or FALSE on failure
+    * @param  string $stmt  the SQL query string
+    * @param  int    $first The first record to return
+    * @param  int    $count The number of records to return
+    * @return array  |FALSE Rows as an array of associate arrays, or FALSE on failure
     */
     public function getArrayWithLimit($stmt, $first, $count)
     {
@@ -288,11 +331,11 @@ class dbTable extends object
     * Method to fetch all items from the table.
     * Override in derived classes to implement access restrictions
     *
-    * @access public
-    * @return db _result|FALSE a PEAR::DB_Result object, or FALSE
-    * @param string $filter a SQL WHERE clause (optional)
+    * @access     public
+    * @return     db     _result|FALSE a PEAR::DB_Result object, or FALSE
+    * @param      string $filter a SQL WHERE clause (optional)
     * @deprecated See getAll
-    * @see getAll
+    * @see        getAll
     */
     public function fetchAll($filter = null)
     {
@@ -309,8 +352,8 @@ class dbTable extends object
     * Mainly to use in recordset paging
     *
     * @access public
-    * @param string $filter a SQL WHERE clause (optional)
-    * @return int number of records that matched
+    * @param  string $filter a SQL WHERE clause (optional)
+    * @return int    number of records that matched
     */
     public function getRecordCount($filter = null)
     {
@@ -329,8 +372,8 @@ class dbTable extends object
     * of a single conceptual operation.
     *
     * @access public
-    * @param void
-    * @return void
+    * @param  void  
+    * @return void  
     */
     public function beginTransaction()
     {
@@ -343,8 +386,8 @@ class dbTable extends object
     /**
     * Method to commit a transaction.
     *
-    * @param void
-    * @return set property _inTransaction
+    * @param  void  
+    * @return set    property _inTransaction
     * @access public
     */
     public function commitTransaction()
@@ -360,8 +403,8 @@ class dbTable extends object
     /**
     * Method to rollback a transaction.
     *
-    * @param void
-    * @return void
+    * @param  void  
+    * @return void  
     * @access public
     */
     public function rollbackTransaction()
@@ -373,9 +416,9 @@ class dbTable extends object
     /**
     * Method to insert a new record into the table.
     *
-    * @param array $fields The new record as an associative array containing field names as keys,
-    *      field values as values. All non-NULL fields must be present
-    * @param string $tablename The table to insert into, if not the default (optional)
+    * @param  array  $fields    The new record as an associative array containing field names as keys,
+    *                           field values as values. All non-NULL fields must be present
+    * @param  string $tablename The table to insert into, if not the default (optional)
     * @return string |FALSE Generated PK ID on success, FALSE on failure
     * @access public
     */
@@ -439,11 +482,11 @@ class dbTable extends object
     /**
     * Method to update an existing record in the table.
     *
-    * @param string $pkfield the name of the primary key field
-    * @param mixed $pkvalue the value of the primary key field for the record to update
-    * @param array $fields The record as an associative array containing field names as keys and field values as values.
-    * @param string $tablename The name of the table to update, if not the default (optional)
-    * @return TRUE |FALSE TRUE on success, FALSE on failure
+    * @param  string $pkfield   the name of the primary key field
+    * @param  mixed  $pkvalue   the value of the primary key field for the record to update
+    * @param  array  $fields    The record as an associative array containing field names as keys and field values as values.
+    * @param  string $tablename The name of the table to update, if not the default (optional)
+    * @return TRUE   |FALSE TRUE on success, FALSE on failure
     * @access public
     */
     public function update($pkfield, $pkvalue, $fields, $tablename = '')
@@ -490,9 +533,9 @@ class dbTable extends object
     /**
     * Method to delete a record from the table.
     *
-    * @param string $pkfield the name of the primary key field
-    * @param mixed $pkvalue the value of the primary key field for the record to delete
-    * @return TRUE |FALSE TRUE on success, FALSE on failure
+    * @param  string $pkfield the name of the primary key field
+    * @param  mixed  $pkvalue the value of the primary key field for the record to delete
+    * @return TRUE   |FALSE TRUE on success, FALSE on failure
     * @access public
     */
     public function delete($pkfield, $pkvalue, $tablename = '')
@@ -534,11 +577,11 @@ class dbTable extends object
     *      will depend on all database modifications being channeled
     *      through this class or its derived classes.
     *
-    * @param string $stmt The SQL statement
-    * @param array $params The parameters to the execute, defaults to empty
-    * @return TRUE |FALSE TRUE on success, FALSE on failure
+    * @param  string $stmt   The SQL statement
+    * @param  array  $params The parameters to the execute, defaults to empty
+    * @return TRUE   |FALSE TRUE on success, FALSE on failure
     * @access public
-    * @todo create an alias for this for public use and mark it as private
+    * @todo   create an alias for this for public use and mark it as private
     */
     public function _execute($stmt, $params = array())
     {
@@ -552,9 +595,9 @@ class dbTable extends object
     *      Should not be used outside of methods of this class for
     *      the same reasons as _execute.
     *
-    * @param string $stmt The SQL statement
-    * @param array $data The array of records (each arrays themselves)
-    * @return TRUE |FALSE TRUE on success, FALSE on failure
+    * @param  string  $stmt The SQL statement
+    * @param  array   $data The array of records (each arrays themselves)
+    * @return TRUE    |FALSE TRUE on success, FALSE on failure
     * @access private
     */
     private function _executeMultiple($stmt, $data = array())
@@ -571,8 +614,8 @@ class dbTable extends object
     /**
     * Method to fetch the primary key value of the last insert operation
     *
-    * @return mixed Primary key value of last insert.
-    * @param void
+    * @return mixed  Primary key value of last insert.
+    * @param  void  
     * @access public
     */
     public function getLastInsertId()
@@ -583,8 +626,8 @@ class dbTable extends object
     /**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($error)
@@ -595,10 +638,10 @@ class dbTable extends object
     /**
     * Method to execute a query against the database
     *
-    * @param string $stmt the SQL query string
-    * @return db _result|FALSE a PEAR::DB_Result object, or FALSE on failure
+    * @param      string $stmt the SQL query string
+    * @return     db     _result|FALSE a PEAR::DB_Result object, or FALSE on failure
     * @deprecated see execute()
-    * @access public
+    * @access     public
     */
     public function query($stmt)
     {
@@ -621,10 +664,10 @@ class dbTable extends object
     * An example: The join condition is (tblFrom.fk1 = tblTo.pk1)
     * <code>join('INNER JOIN', 'tblTo', array('fk1'=>'pk1')</code>
     *
-    * @param string $sqlJoinType the sql JOIN statement. (eg. 'INNER JOIN'|'LEFT JOIN')
-    * @param string $tblJoinTo name of the table to join to.
-    * @param array $join the foriegn and primary keys of the two tables. (eg. array('fkfield' => 'pkfield') )
-    * @param string $tblJoinFrom name of the table being joined to.(optional)
+    * @param  string $sqlJoinType the sql JOIN statement. (eg. 'INNER JOIN'|'LEFT JOIN')
+    * @param  string $tblJoinTo   name of the table to join to.
+    * @param  array  $join        the foriegn and primary keys of the two tables. (eg. array('fkfield' => 'pkfield') )
+    * @param  string $tblJoinFrom name of the table being joined to.(optional)
     * @return string the sql JOIN statement.
     * @access public
     */
@@ -653,7 +696,7 @@ class dbTable extends object
     * appended.
     *
     * @return string The generated ID
-    * @param void
+    * @param  void  
     * @access public
     */
     public function generateId()
@@ -668,10 +711,10 @@ class dbTable extends object
     * Method to return the last entry in a table or
     * last entry that matches $filter
     *
-    * @param string $filter A SQL where clause
+    * @param string $filter     A SQL where clause
     * @param string $orderField The field to use as the
-    * order field to mark the last entry, defaults to the
-    * id field
+    *                           order field to mark the last entry, defaults to the
+    *                           id field
     */
     public function getLastEntry($filter=NULL, $orderField="id")
     {
@@ -687,7 +730,7 @@ class dbTable extends object
     /**
      * Select a different database
      *
-     * @param string $name name of the database that should be selected
+     * @param  string $name name of the database that should be selected
      * @return string name of the database previously connected to
      * @access public
      */
@@ -700,13 +743,13 @@ class dbTable extends object
     /**
      * Execute a stored procedure and return any results
      *
-     * @param string $name string that identifies the function to execute
-     * @param mixed  $params  array that contains the paramaters to pass the stored proc
-     * @param mixed   $types  array that contains the types of the columns in
-     *                        the result set
-     * @param mixed $result_class string which specifies which result class to use
-     * @param mixed $result_wrap_class string which specifies which class to wrap results in
-     * @return mixed a result handle or MDB2_OK on success, a MDB2 error on failure
+     * @param  string $name              string that identifies the function to execute
+     * @param  mixed  $params            array that contains the paramaters to pass the stored proc
+     * @param  mixed  $types             array that contains the types of the columns in
+     *                                   the result set
+     * @param  mixed  $result_class      string which specifies which result class to use
+     * @param  mixed  $result_wrap_class string which specifies which class to wrap results in
+     * @return mixed  a result handle or MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function &executeStoredProc($name, $params = null, $types = null, $result_class = true, $result_wrap_class = false)
@@ -732,7 +775,7 @@ class dbTable extends object
     /**
      * list all tables in the current database
      *
-     * @return mixed data array on success, a MDB2 error on failure
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listDbTables()
