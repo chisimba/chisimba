@@ -1,39 +1,80 @@
 <?php
+
+/**
+ * Database management object
+ * 
+ * The dbTableManager class is the main (core) database management object. It can be used to create/drop tables
+ * as well as index and manage tables and databases in a variety of RDBM's
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-require_once "lib/logging.php";
+
 
 /**
-* Class to encapsulate management operations on [a] database(s).
-* It is highly recommended that you create a derived version
-* of this class for each table, rather than using it directly.
-*
-* @author Paul Scott
-* @filesource
-* @copyright (c) 2000-2006, GNU/GPL AVOIR UWC
-* @package core
-* @subpackage dbtable
-* @version 0.1
-* @since 03 March 2006
-* @example dbdumpexample.php
-*
-* $Id$
-*/
+ * Logging object
+ */
+require_once "lib/logging.php";
+@
+/**
+ * Alternative to var_dump()
+ */
+include_once 'Var_Dump.php';
 
-//lets check to see if the Var_Dump PEAR object exists for debugging,
-//else we just use plain 'ol var_dump
-@include_once 'Var_Dump.php';
-
+/**
+ * database table manager
+ * 
+ * The database manager object can be used to create, drop and manipulate table and database structure,
+ * as well as manipulate db schema as a whole
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class dbTableManager extends object
 {
     /**
      * The current table name that we are working with
      *
      * @access public
-     * @var string - default null
+     * @var    string - default null
      */
     public $_tableName = null;
 
@@ -41,7 +82,7 @@ class dbTableManager extends object
      * The current database that we are working with
      *
      * @access public
-     * @var string - default null
+     * @var    string - default null
      */
     public $_dbName = null;
 
@@ -49,7 +90,7 @@ class dbTableManager extends object
      * The global error callback for dbTable errors
      *
      * @access public
-     * @var string
+     * @var    string
      */
     public $_errorCallback;
 
@@ -57,7 +98,7 @@ class dbTableManager extends object
      * The database config object
      *
      * @access public
-     * @var object
+     * @var    object
      */
     public $objDBConfig;
 
@@ -65,7 +106,7 @@ class dbTableManager extends object
      * The db object
      *
      * @access private
-     * @var object
+     * @var    object 
      */
     private $_dbmanager = null;
 
@@ -75,20 +116,20 @@ class dbTableManager extends object
      * This way, we can create the tables through the magic __call method
      * and get away with it
      *
-     *@access private
-     * @var object
+     * @access private
+     * @var    object 
      */
     private $_db = NULL;
 
    /**
     * Method to initialise the dbTableManager object.
     *
-    * @access public
-    * @param string $tableName The name of the table this object encapsulates
-    * @param string $dbName The database name
-    * @param PEAR $ ::MDB2_Schema $pearDb The PEAR::MDB2_Schema object to use (defaults to use the global connection)
-    * @param callback $errorCallback The name of a custom error callback function (defaults to the global)
-    * @return void
+    * @access public  
+    * @param  string   $tableName     The name of the table this object encapsulates
+    * @param  string   $dbName        The database name
+    * @param  PEAR     $              ::MDB2_Schema $pearDb The PEAR::MDB2_Schema object to use (defaults to use the global connection)
+    * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
+    * @return void    
     */
     public function init($dbName = NULL, $pearDbManager = null,
         $errorCallback = "globalPearErrorCallback")
@@ -124,13 +165,13 @@ class dbTableManager extends object
      * Method to parse a database definition file by creating a Metabase schema format
      * parser object and passing the file contents as parser input data stream.
      *
-     * @param string $input_file the path of the database schema file.
-     * @param array $variables an associative array that the defines the text
-     * string values that are meant to be used to replace the variables that are
-     * used in the schema description.
-     * @param bool $fail_on_invalid_names (optional) make function fail on invalid
-     * names
-     * @return mixed true on success, or a MDB2 error object
+     * @param  string $input_file            the path of the database schema file.
+     * @param  array  $variables             an associative array that the defines the text
+     *                                       string values that are meant to be used to replace the variables that are
+     *                                       used in the schema description.
+     * @param  bool   $fail_on_invalid_names (optional) make function fail on invalid
+     *                                       names
+     * @return mixed  true on success, or a MDB2 error object
      * @access public
      */
     public function parseDbDefFile($input_file, $variables = array(), $fail_on_invalid_names = TRUE)
@@ -145,7 +186,7 @@ class dbTableManager extends object
      * This method can be used if no xml schema file exists yet.
      * The resulting xml schema file may need some manual adjustments.
      *
-     * @return mixed MDB2_OK or array with all ambiguities on success, or a MDB2 error object
+     * @return mixed  MDB2_OK or array with all ambiguities on success, or a MDB2 error object
      * @access public
      */
     public function getDefFromDb()
@@ -161,10 +202,10 @@ class dbTableManager extends object
      * 3. All - both Structure and content
      *
      * @access public
-     * @param string $option
-     * @param string $dumptype
-     * @param string $dumpfile
-     * @return bool
+     * @param  string $option  
+     * @param  string $dumptype
+     * @param  string $dumpfile
+     * @return bool  
      */
     public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile)
     {
@@ -206,8 +247,8 @@ class dbTableManager extends object
     /**
      * Method to get the schema definition of a single table
      *
-     * @param string $table
-     * @return array
+     * @param  string $table
+     * @return array 
      */
     public function getTableSchema($table)
     {
@@ -224,11 +265,11 @@ class dbTableManager extends object
     /**
      * Method to get the debug strings from queries if neccessary
      *
-     * @access private
-     * @param reference to the management object $db
-     * @param string $scope
-     * @param string $message
-     * @return string message
+     * @access private  
+     * @param  reference to       the management object $db
+     * @param  string    $scope  
+     * @param  string    $message
+     * @return string    message
      */
     private function printQueries(&$db, $scope, $message)
     {
@@ -265,7 +306,7 @@ class dbTableManager extends object
      * - redirect the method call to the manager module: $_db->manager->createTable('sometable', $fields);
      *
      * @param string $tableName
-     * @param array $fields
+     * @param array  $fields   
      */
     public function createTable($tableName, $fields, $options)
     {
@@ -299,8 +340,8 @@ class dbTableManager extends object
      /**
      * drop an existing table
      *
-     * @param string $name name of the table that should be dropped
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $name name of the table that should be dropped
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function dropTable($name)
@@ -314,10 +355,10 @@ class dbTableManager extends object
      * Method to create an index on the table
      *
      * @access public
-     * @param string $tableName
-     * @param string $keyname
-     * @param array $index
-     * @return bool true on success | False on failure
+     * @param  string $tableName
+     * @param  string $keyname  
+     * @param  array  $index    
+     * @return bool   true on success | False on failure
      */
     public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE)
     {
@@ -338,8 +379,8 @@ class dbTableManager extends object
      * Most RDBMS's besides MySQL do not have support for PK's so we fake it.
      *
      * @access public
-     * @param mixed $tableName
-     * @return bool true
+     * @param  mixed  $tableName
+     * @return bool   true
      */
     public function createPK($tableName)
     {
@@ -360,8 +401,8 @@ class dbTableManager extends object
     /**
      * create a new database
      *
-     * @param string $db name of the database that should be created
-     * @return bool true on success
+     * @param  string $db name of the database that should be created
+     * @return bool   true on success
      * @access public
      */
     public function createDb($db)
@@ -373,8 +414,8 @@ class dbTableManager extends object
     /**
      * drop an existing database
      *
-     * @param string $db of the database that should be dropped
-     * @return bool True on success
+     * @param  string $db of the database that should be dropped
+     * @return bool   True on success
      * @access public
      */
     public function dropDb($db)
@@ -386,7 +427,7 @@ class dbTableManager extends object
      /**
      * list all databases
      *
-     * @return mixed data array on success
+     * @return mixed  data array on success
      * @access public
      */
     public function listDatabases()
@@ -398,7 +439,7 @@ class dbTableManager extends object
     /**
      * list all db users
      *
-     * @return mixed data array on success
+     * @return mixed  data array on success
      * @access public
      */
     public function listDbUsers()
@@ -410,7 +451,7 @@ class dbTableManager extends object
      /**
      * list all views in the current database
      *
-     * @return mixed data array on success
+     * @return mixed  data array on success
      * @access public
      */
     public function listDbViews()
@@ -422,7 +463,7 @@ class dbTableManager extends object
     /**
      * list all functions in the current database
      *
-     * @return mixed data array on success, a MDB2 error on failure
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listDbFunctions()
@@ -434,7 +475,7 @@ class dbTableManager extends object
     /**
      * list all tables in the current database
      *
-     * @return mixed data array on success, a MDB2 error on failure
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listDbTables()
@@ -446,8 +487,8 @@ class dbTableManager extends object
     /**
      * list all fields in a tables in the current database
      *
-     * @param string $table name of table that should be used in method
-     * @return mixed data array on success, a MDB2 error on failure
+     * @param  string $table name of table that should be used in method
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listTableFields($table)
@@ -459,33 +500,33 @@ class dbTableManager extends object
      /**
      * get the stucture of a field into an array
      *
-     * @param string    $table         name of the table on which the index is to be created
-     * @param string    $name         name of the index to be created
-     * @param array     $definition        associative array that defines properties of the index to be created.
-     *                                 Currently, only one property named FIELDS is supported. This property
-     *                                 is also an associative with the names of the index fields as array
-     *                                 indexes. Each entry of this array is set to another type of associative
-     *                                 array that specifies properties of the index that are specific to
-     *                                 each field.
-     *
-     *                                Currently, only the sorting property is supported. It should be used
-     *                                 to define the sorting direction of the index. It may be set to either
-     *                                 ascending or descending.
-     *
-     *                                Not all DBMS support index sorting direction configuration. The DBMS
-     *                                 drivers of those that do not support it ignore this property. Use the
-     *                                 function supports() to determine whether the DBMS driver can manage indexes.
-     *
-     *                                 Example
-     *                                    array(
-     *                                        'fields' => array(
-     *                                            'user_name' => array(
-     *                                                'sorting' => 'ascending'
-     *                                            ),
-     *                                            'last_login' => array()
-     *                                        )
-     *                                    )
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $table      name of the table on which the index is to be created
+     * @param  string $name       name of the index to be created
+     * @param  array  $definition associative array that defines properties of the index to be created.
+     *                            Currently, only one property named FIELDS is supported. This property
+     *                            is also an associative with the names of the index fields as array
+     *                            indexes. Each entry of this array is set to another type of associative
+     *                            array that specifies properties of the index that are specific to
+     *                            each field.
+     *                            
+     *                            Currently, only the sorting property is supported. It should be used
+     *                            to define the sorting direction of the index. It may be set to either
+     *                            ascending or descending.
+     *                            
+     *                            Not all DBMS support index sorting direction configuration. The DBMS
+     *                            drivers of those that do not support it ignore this property. Use the
+     *                            function supports() to determine whether the DBMS driver can manage indexes.
+     *                            
+     *                            Example
+     *                            array(
+     *                            'fields' => array(
+     *                            'user_name' => array(
+     *                            'sorting' => 'ascending'
+     *                            ),
+     *                            'last_login' => array()
+     *                            )
+     *                            )
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function createIndex($table, $name, $definition)
@@ -497,9 +538,9 @@ class dbTableManager extends object
     /**
      * drop existing index
      *
-     * @param string    $table         name of table that should be used in method
-     * @param string    $name         name of the index to be dropped
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $table name of table that should be used in method
+     * @param  string $name  name of the index to be dropped
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function dropIndex($table, $name)
@@ -511,8 +552,8 @@ class dbTableManager extends object
     /**
      * list all indexes in a table
      *
-     * @param string    $table      name of table that should be used in method
-     * @return mixed data array on success, a MDB2 error on failure
+     * @param  string $table name of table that should be used in method
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listTableIndexes($table)
@@ -524,23 +565,23 @@ class dbTableManager extends object
     /**
      * create a constraint on a table
      *
-     * @param string    $table         name of the table on which the constraint is to be created
-     * @param string    $name         name of the constraint to be created
-     * @param array     $definition        associative array that defines properties of the constraint to be created.
-     *                                 Currently, only one property named FIELDS is supported. This property
-     *                                 is also an associative with the names of the constraint fields as array
-     *                                 constraints. Each entry of this array is set to another type of associative
-     *                                 array that specifies properties of the constraint that are specific to
-     *                                 each field.
-     *
-     *                                 Example
-     *                                    array(
-     *                                        'fields' => array(
-     *                                            'user_name' => array(),
-     *                                            'last_login' => array()
-     *                                        )
-     *                                    )
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $table      name of the table on which the constraint is to be created
+     * @param  string $name       name of the constraint to be created
+     * @param  array  $definition associative array that defines properties of the constraint to be created.
+     *                            Currently, only one property named FIELDS is supported. This property
+     *                            is also an associative with the names of the constraint fields as array
+     *                            constraints. Each entry of this array is set to another type of associative
+     *                            array that specifies properties of the constraint that are specific to
+     *                            each field.
+     *                            
+     *                            Example
+     *                            array(
+     *                            'fields' => array(
+     *                            'user_name' => array(),
+     *                            'last_login' => array()
+     *                            )
+     *                            )
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function createConstraint($table, $name, $definition)
@@ -552,9 +593,9 @@ class dbTableManager extends object
      /**
      * drop existing constraint
      *
-     * @param string    $table         name of table that should be used in method
-     * @param string    $name         name of the constraint to be dropped
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $table name of table that should be used in method
+     * @param  string $name  name of the constraint to be dropped
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function dropConstraint($table, $name)
@@ -566,8 +607,8 @@ class dbTableManager extends object
      /**
      * list all constraints in a table
      *
-     * @param string    $table      name of table that should be used in method
-     * @return mixed data array on success, a MDB2 error on failure
+     * @param  string $table name of table that should be used in method
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listTableConstraints($table)
@@ -579,9 +620,9 @@ class dbTableManager extends object
     /**
      * create sequence
      *
-     * @param string    $seq_name     name of the sequence to be created
-     * @param string    $start         start value of the sequence; default is 1
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $seq_name name of the sequence to be created
+     * @param  string $start    start value of the sequence; default is 1
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function createSequence($seq_name, $start = 1)
@@ -593,8 +634,8 @@ class dbTableManager extends object
     /**
      * drop existing sequence
      *
-     * @param string    $seq_name     name of the sequence to be dropped
-     * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string $seq_name name of the sequence to be dropped
+     * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
     public function dropSequence($name)
@@ -606,7 +647,7 @@ class dbTableManager extends object
     /**
      * list all sequences in the current database
      *
-     * @return mixed data array on success, a MDB2 error on failure
+     * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
     public function listSequences()
@@ -618,7 +659,7 @@ class dbTableManager extends object
     /**
      * Log out and disconnect from the database.
      *
-     * @return mixed true on success, false if not connected and error
+     * @return mixed  true on success, false if not connected and error
      *                object on error
      * @access public
      */
@@ -630,7 +671,7 @@ class dbTableManager extends object
     /**
      * Select a different database
      *
-     * @param string $name name of the database that should be selected
+     * @param  string $name name of the database that should be selected
      * @return string name of the database previously connected to
      * @access public
      */
@@ -653,8 +694,8 @@ class dbTableManager extends object
     /**
      * return version information about the server
      *
-     * @param string     $native  determines if the raw version string should be returned
-     * @return mixed array with versoin information or row string
+     * @param  string $native determines if the raw version string should be returned
+     * @return mixed  array with versoin information or row string
      * @access public
      */
     public function getServerVersion($native = false)
@@ -665,92 +706,92 @@ class dbTableManager extends object
     /**
      * alter an existing table
      *
-     * @param string $name         name of the table that is intended to be changed.
-     * @param array $changes     associative array that contains the details of each type
-     *                             of change that is intended to be performed. The types of
-     *                             changes that are currently supported are defined as follows:
-     *
-     *                             name
-     *
-     *                                New name for the table.
-     *
-     *                            add
-     *
-     *                                Associative array with the names of fields to be added as
-     *                                 indexes of the array. The value of each entry of the array
-     *                                 should be set to another associative array with the properties
-     *                                 of the fields to be added. The properties of the fields should
-     *                                 be the same as defined by the Metabase parser.
-     *
-     *
-     *                            remove
-     *
-     *                                Associative array with the names of fields to be removed as indexes
-     *                                 of the array. Currently the values assigned to each entry are ignored.
-     *                                 An empty array should be used for future compatibility.
-     *
-     *                            rename
-     *
-     *                                Associative array with the names of fields to be renamed as indexes
-     *                                 of the array. The value of each entry of the array should be set to
-     *                                 another associative array with the entry named name with the new
-     *                                 field name and the entry named Declaration that is expected to contain
-     *                                 the portion of the field declaration already in DBMS specific SQL code
-     *                                 as it is used in the CREATE TABLE statement.
-     *
-     *                            change
-     *
-     *                                Associative array with the names of the fields to be changed as indexes
-     *                                 of the array. Keep in mind that if it is intended to change either the
-     *                                 name of a field and any other properties, the change array entries
-     *                                 should have the new names of the fields as array indexes.
-     *
-     *                                The value of each entry of the array should be set to another associative
-     *                                 array with the properties of the fields to that are meant to be changed as
-     *                                 array entries. These entries should be assigned to the new values of the
-     *                                 respective properties. The properties of the fields should be the same
-     *                                 as defined by the Metabase parser.
-     *
-     *                            Example
-     *                                array(
-     *                                    'name' => 'userlist',
-     *                                    'add' => array(
-     *                                        'quota' => array(
-     *                                            'type' => 'integer',
-     *                                            'unsigned' => 1
-     *                                        )
-     *                                    ),
-     *                                    'remove' => array(
-     *                                        'file_limit' => array(),
-     *                                        'time_limit' => array()
-     *                                    ),
-     *                                    'change' => array(
-     *                                        'name' => array(
-     *                                            'length' => '20',
-     *                                            'definition' => array(
-     *                                                'type' => 'text',
-     *                                                'length' => 20,
-     *                                            ),
-     *                                        )
-     *                                    ),
-     *                                    'rename' => array(
-     *                                        'sex' => array(
-     *                                            'name' => 'gender',
-     *                                            'definition' => array(
-     *                                                'type' => 'text',
-     *                                                'length' => 1,
-     *                                                'default' => 'M',
-     *                                            ),
-     *                                        )
-     *                                    )
-     *                                )
-     *
-     * @param boolean $check     indicates whether the function should just check if the DBMS driver
-     *                             can perform the requested table alterations if the value is true or
-     *                             actually perform them otherwise.
-     * @access public
-     *
-      * @return mixed MDB2_OK on success, a MDB2 error on failure
+     * @param  string  $name    name of the table that is intended to be changed.
+     * @param  array   $changes associative array that contains the details of each type
+     *                          of change that is intended to be performed. The types of
+     *                          changes that are currently supported are defined as follows:
+     *                          
+     *                          name
+     *                          
+     *                          New name for the table.
+     *                          
+     *                          add
+     *                          
+     *                          Associative array with the names of fields to be added as
+     *                          indexes of the array. The value of each entry of the array
+     *                          should be set to another associative array with the properties
+     *                          of the fields to be added. The properties of the fields should
+     *                          be the same as defined by the Metabase parser.
+     *                          
+     *                          
+     *                          remove
+     *                          
+     *                          Associative array with the names of fields to be removed as indexes
+     *                          of the array. Currently the values assigned to each entry are ignored.
+     *                          An empty array should be used for future compatibility.
+     *                          
+     *                          rename
+     *                          
+     *                          Associative array with the names of fields to be renamed as indexes
+     *                          of the array. The value of each entry of the array should be set to
+     *                          another associative array with the entry named name with the new
+     *                          field name and the entry named Declaration that is expected to contain
+     *                          the portion of the field declaration already in DBMS specific SQL code
+     *                          as it is used in the CREATE TABLE statement.
+     *                          
+     *                          change
+     *                          
+     *                          Associative array with the names of the fields to be changed as indexes
+     *                          of the array. Keep in mind that if it is intended to change either the
+     *                          name of a field and any other properties, the change array entries
+     *                          should have the new names of the fields as array indexes.
+     *                          
+     *                          The value of each entry of the array should be set to another associative
+     *                          array with the properties of the fields to that are meant to be changed as
+     *                          array entries. These entries should be assigned to the new values of the
+     *                          respective properties. The properties of the fields should be the same
+     *                          as defined by the Metabase parser.
+     *                          
+     *                          Example
+     *                          array(
+     *                          'name' => 'userlist',
+     *                          'add' => array(
+     *                          'quota' => array(
+     *                          'type' => 'integer',
+     *                          'unsigned' => 1
+     *                          )
+     *                          ),
+     *                          'remove' => array(
+     *                          'file_limit' => array(),
+     *                          'time_limit' => array()
+     *                          ),
+     *                          'change' => array(
+     *                          'name' => array(
+     *                          'length' => '20',
+     *                          'definition' => array(
+     *                          'type' => 'text',
+     *                          'length' => 20,
+     *                          ),
+     *                          )
+     *                          ),
+     *                          'rename' => array(
+     *                          'sex' => array(
+     *                          'name' => 'gender',
+     *                          'definition' => array(
+     *                          'type' => 'text',
+     *                          'length' => 1,
+     *                          'default' => 'M',
+     *                          ),
+     *                          )
+     *                          )
+     *                          )
+     *                          
+     * @param  boolean $check   indicates whether the function should just check if the DBMS driver
+     *                          can perform the requested table alterations if the value is true or
+     *                          actually perform them otherwise.
+     * @access public 
+     *                 
+      * @return mixed   MDB2_OK on success, a MDB2 error on failure
      */
     function alterTable($name, $changes, $check)
     {
