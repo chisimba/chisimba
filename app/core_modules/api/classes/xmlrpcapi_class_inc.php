@@ -1,14 +1,79 @@
 <?php
+
+/**
+ * XML-RPC interface class
+ * 
+ * XML-RPC (Remote Procedure call) class
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   api
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
+
+/**
+ * XML-RPC Class
+ * 
+ * Class to provide XML-RPC functionality to Chisimba
+ * 
+ * @category  Chisimba
+ * @package   api
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class xmlrpcapi extends object
 {
+
+    /**
+     * Blog DB object
+     * @var    object
+     * @access public
+     */
 	public $objDbBlog;
 	
+    /**
+     * init method
+     * 
+     * Standard Chisimba init method
+     * 
+     * @return void  
+     * @access public
+     */
 	public function init()
 	{
 		try {
@@ -29,6 +94,14 @@ class xmlrpcapi extends object
 		}
 	}
 	
+    /**
+     * server method
+     * 
+     * Create and deploy the XML-RPC server for use on an URL
+     * 
+     * @return object server object
+     * @access public
+     */
 	public function serve()
 	{
 		// map web services to methods
@@ -131,6 +204,15 @@ class xmlrpcapi extends object
 		return $server;
 	}
 	
+    /**
+     * blogger new post
+     * 
+     * Create a new post
+     * 
+     * @param  object $params parameters
+     * @return object Return 
+     * @access public
+     */
 	public function bloggerNewPost($params)
 	{
 		$param = $params->getParam(0);
@@ -201,6 +283,15 @@ class xmlrpcapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     * blogger edit post
+     * 
+     * Edit a post
+     * 
+     * @param  object $params Parameters
+     * @return object Return
+     * @access public
+     */
 	public function bloggerEditPost($params)
 	{
 		$param = $params->getParam(0);
@@ -269,6 +360,15 @@ class xmlrpcapi extends object
    		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     * blogger get post
+     * 
+     * Get a post by its ID
+     * 
+     * @param  object $params Parameters
+     * @return object Return 
+     * @access public
+     */
 	public function bloggerGetPost($params)
 	{
 		$param = $params->getParam(0);
@@ -307,6 +407,15 @@ class xmlrpcapi extends object
     	return new XML_RPC_Response($postStruct);
 	}
 	
+    /**
+     * Recent posts
+     * 
+     * Get recent posts
+     * 
+     * @param  object $params Parameters
+     * @return object Return
+     * @access public
+     */
 	public function bloggerGetRecentPosts($params)
 	{
 		$param = $params->getParam(0);
@@ -355,6 +464,15 @@ class xmlrpcapi extends object
     	return new XML_RPC_Response($ret);
 	}
 	
+    /**
+     * get user info
+     * 
+     * gets the user info - email address, url, etc
+     * 
+     * @param  object $params Parameters
+     * @return object Return 
+     * @access public
+     */
 	public function bloggerGetUserInfo($params)
 	{
 		$param = $params->getParam(0);
@@ -395,12 +513,29 @@ class xmlrpcapi extends object
         
 	}
 
+    /**
+     * get Categories
+     * 
+     * Gets a list of blog categories for a user
+     * 
+     * @return object 
+     * @access public
+     */
 	public function bloggerGetCategories()
 	{
 		$val = new XML_RPC_Value('a returned string', 'string');
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     * get users blogs
+     * 
+     * Gets a list of the users blogs
+     * 
+     * @param  object $params Parameters
+     * @return object Return
+     * @access public
+     */
 	public function bloggerGetUsersBlogs($params)
 	{
 		$param = $params->getParam(0);
@@ -441,6 +576,15 @@ class xmlrpcapi extends object
     	return new XML_RPC_Response($arrofStructs);
 	}
 	
+    /**
+     * delete post
+     * 
+     * Deletes a post
+     * 
+     * @param  object $params Parameters 
+     * @return object Return
+     * @access public
+     */
 	public function bloggerDeletePost($params)
 	{
 		$param = $params->getParam(0);
@@ -568,12 +712,30 @@ class xmlrpcapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     * delete a post
+     * 
+     * Delete a post from the users blog
+     * 
+     * @param  unknown $params Parameters 
+     * @return object  Return
+     * @access public 
+     */
 	public function metaWeblogDeletePost($params)
 	{
 		$val = new XML_RPC_Value(TRUE, 'boolean');
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     * get categories
+     * 
+     * Gets a list of categories for a user
+     * 
+     * @param  unknown $params Parameters
+     * @return object  Return
+     * @access public 
+     */
 	public function metaWeblogGetCategories($params)
 	{
 		log_debug("getting metaweblog categories!");
