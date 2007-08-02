@@ -1,15 +1,50 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @copyright 2007 Paul Scott
+ * @license   gpl
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* -------------------- controller class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
+
+
 /**
- * Baseclass for a module's controller class
- *
- * @author Paul Scott based on methods by Sean Legassick
- * @package core
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @copyright 2007 Paul Scott
+ * @license   gpl
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
  */
 class controller extends access
 {
@@ -20,12 +55,17 @@ class controller extends access
      */
     public $controllerName;
 
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $footerStr = NULL;
 
     /**
      * Constructor for the controller class.
      *
-     * @param object $objEngine by reference from Engine
+     * @param object $objEngine  by reference from Engine
      * @param string $moduleName
      */
     public function __construct(&$objEngine, $moduleName)
@@ -48,7 +88,7 @@ class controller extends access
      * Method to initialise the controller object.
      * Override in subclasses.
      *
-     * @param void
+     * @param  void
      * @return void
      */
     public function init()
@@ -59,7 +99,7 @@ class controller extends access
      * Method to return current page content.
      * For use within layout templates.
      *
-     * @param void
+     * @param  void  
      * @return string Content of rendered content script.
      */
     public function getContent()
@@ -70,7 +110,7 @@ class controller extends access
     /**
      * Method to return the content of the rendered layout template.
      *
-     * @param void
+     * @param  void  
      * @return string Content of rendered layout script.
      */
     public function getLayoutContent()
@@ -81,8 +121,8 @@ class controller extends access
     /**
      * Method to be overridden if the controller doesn't require a user login for this request.
      *
-     * @param string $action The action for this request
-     * @return bool TRUE|FALSE Does this controller require login.
+     * @param  string $action The action for this request
+     * @return bool   TRUE|FALSE Does this controller require login.
      */
     public function requiresLogin($action)
     {
@@ -92,8 +132,8 @@ class controller extends access
     /**
      * Method to be overridden if the controller doesn't require no-cache headers to be sent.
      *
-     * @param string $action The action for this request.
-     * @return bool TRUE|FALSE Does this controller want no-cache headers to be sent
+     * @param  string $action The action for this request.
+     * @return bool   TRUE|FALSE Does this controller want no-cache headers to be sent
      */
     public function sendNoCacheHeaders($action)
     {
@@ -104,9 +144,9 @@ class controller extends access
      * Method to return a template variable.
      * These are used to pass information from module to template.
      *
-     * @param string $name The name of the variable.
-     * @param mixed $default The value to return if the variable is unset (optional).
-     * @return mixed The value of the variable, or $default if unset.
+     * @param  string $name    The name of the variable.
+     * @param  mixed  $default The value to return if the variable is unset (optional).
+     * @return mixed  The value of the variable, or $default if unset.
      */
     public function getVar($name, $default = NULL)
     {
@@ -117,9 +157,9 @@ class controller extends access
      * Method to set a template variable.
      * These are used to pass information from module to template.
      *
-     * @param string $name The name of the variable.
-     * @param mixed $val The value to set the variable to.
-     * @return void
+     * @param  string $name The name of the variable.
+     * @param  mixed  $val  The value to set the variable to.
+     * @return void  
      */
     public function setVar($name, $val)
     {
@@ -130,8 +170,8 @@ class controller extends access
      * Method to return a template reference variable.
      * These are used to pass objects from module to template.
      *
-     * @param string $name The name of the reference variable.
-     * @return mixed The value of the reference variable, or NULL if unset.
+     * @param  string $name The name of the reference variable.
+     * @return mixed  The value of the reference variable, or NULL if unset.
      */
     public function &getVarByRef($name)
     {
@@ -142,9 +182,9 @@ class controller extends access
      * Method to set a template reference variable.
      * These are used to pass objects from module to template.
      *
-     * @param string $name The name of the reference variable.
-     * @param mixed $ref A reference to the object to set the reference variable to.
-     * @return void
+     * @param  string $name The name of the reference variable.
+     * @param  mixed  $ref  A reference to the object to set the reference variable to.
+     * @return void  
      */
     public function setVarByRef($name, &$ref)
     {
@@ -155,9 +195,9 @@ class controller extends access
      * Method to append a value to a template variable holding an array.
      *   If the array does not exist, it is created.
      *
-     * @param string $name The name of the variable holding an array.
-     * @param mixed $value The value to append to the array.
-     * @return void
+     * @param  string $name  The name of the variable holding an array.
+     * @param  mixed  $value The value to append to the array.
+     * @return void  
      */
     public function appendArrayVar($name, $value)
     {
@@ -167,8 +207,8 @@ class controller extends access
     /**
      * Method to set the name of the layout template to use.
      *
-     * @param string $templateName The name of the layout template to use.
-     * @return void
+     * @param  string $templateName The name of the layout template to use.
+     * @return void  
      */
     public function setLayoutTemplate($templateName)
     {
@@ -178,8 +218,8 @@ class controller extends access
     /**
      * Method to set the name of the page template to use.
      *
-     * @param string $templateName The name of the page template to use.
-     * @return void
+     * @param  string $templateName The name of the page template to use.
+     * @return void  
      */
     public function setPageTemplate($templateName)
     {
@@ -189,9 +229,9 @@ class controller extends access
     /**
      * Method to call a further action within a module.
      *
-     * @param string $action Action to perform next.
-     * @param array $params Parameters to pass to action.
-     * @return NULL
+     * @param  string $action Action to perform next.
+     * @param  array  $params Parameters to pass to action.
+     * @return NULL  
      */
     public function nextAction($action, $params = array(), $module=NULL)
     {
@@ -204,7 +244,7 @@ class controller extends access
     /**
      * Method to add a global system message.
      *
-     * @param string $msg The message.
+     * @param  string $msg The message.
      * @return Global error message to engine
      */
     public function addMessage($msg)
@@ -215,9 +255,9 @@ class controller extends access
     /**
      * Method to set the global error message, and an error field if appropriate.
      *
-     * @param string $errormsg The error message.
-     * @param string $field The name of the field the error applies to (optional).
-     * @return bool TRUE |FALSE
+     * @param  string $errormsg The error message.
+     * @param  string $field    The name of the field the error applies to (optional).
+     * @return bool   TRUE |FALSE
      */
     public function setErrorMessage($msg, $field = '')
     {
@@ -229,7 +269,7 @@ class controller extends access
      *   It will display system error message and/or system messages
      *   as set by setErrorMessage and addMessage.
      *
-     * @param void
+     * @param  void
      * @return void
      */
     public function putMessages()
@@ -242,10 +282,10 @@ class controller extends access
      * It looks first at the given modules templates and then at the core templates (uses _findTemplate).
      * Output is either buffered ($buffer = TRUE) and returned as a string, or send directly to browser.
      *
-     * @param string $tpl Name of template to call, including file extension but excluding path.
-     * @param string $moduleName The name of the module to search for the template (if empty, search core).
-     * @param string $type The type of template to call: 'content' or 'layout'.
-     * @param TRUE $ |FALSE $buffer If TRUE buffer output and return as string, else send to browser.
+     * @param  string $tpl        Name of template to call, including file extension but excluding path.
+     * @param  string $moduleName The name of the module to search for the template (if empty, search core).
+     * @param  string $type       The type of template to call: 'content' or 'layout'.
+     * @param  TRUE   $           |FALSE $buffer If TRUE buffer output and return as string, else send to browser.
      * @return string |NULL If buffering returns output, else returns NULL.
      */
     public function callTemplate($tpl, $type, $buffer = FALSE)

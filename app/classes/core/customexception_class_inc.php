@@ -1,17 +1,53 @@
 <?php
+
 /**
- * Class that extends the SPL to handle exceptions in a custom way
- *
- * @author    Paul Scott <pscott@uwc.ac.za>
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
  * @category  Chisimba
- * @package   Core
- * @copyright 2007  AVOIR
- * @license   http://gnu.org GPL 
+ * @package   core
+ * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @copyright 2007 Paul Scott
+ * @license   gpl
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
  */
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @copyright 2007 Paul Scott
+ * @license   gpl
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class customException extends Exception
 {
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $uri;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
 	public $_objConfig;
 
 	/**
@@ -33,9 +69,9 @@ class customException extends Exception
     /**
      * Method to return a nicely formatted error page for DB errors
      *
-     * @todo fix this function up for multilingual and prettiness
+     * @todo   fix this function up for multilingual and prettiness
      * @access public
-     * @param void
+     * @param  void  
      * @return string
      */
     public function diePage($msg)
@@ -47,8 +83,8 @@ class customException extends Exception
     /**
      * Database error handler
      *
-     * @param call stack $msg
-     * @return url
+     * @param  call stack $msg
+     * @return url 
      */
     public function dbDeath($msg)
     {
@@ -61,7 +97,7 @@ class customException extends Exception
     /**
      * Generic clean up function
      *
-     * @param void
+     * @param  void
      * @return void
      */
     public function cleanUp()

@@ -2,12 +2,16 @@
 
 /**
  * Portability example
- * @example
- * @since 27 Feb 2006
+ * @example  
+ * @since     27 Feb 2006
  * @copyright GNU GPL/UWC AVOIR 2006
- * @author Paul Scott
+ * @author    Paul Scott
  */
 require_once('portability_class_inc.php');
+
+/**
+ * Description for require_once
+ */
 require_once 'MDB2.php';
 
 //Which db do we wanna connect to?

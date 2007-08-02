@@ -3,20 +3,20 @@
 /**
  * Methods to improve database portability
  *
- * @package    core
- * @author     Daniel Convissor <danielc@analysisandsolutions.com>
- * @author     Paul Scott - Modifications to allow use within the 5ive (KINKY2) Framework
- * @copyright  2004-2005 The Analysis and Solutions Company
- * @license    http://www.analysisandsolutions.com/software/license.txt  Simple Public License
- * @link       http://www.analysisandsolutions.com/presentations/portability/
+ * @package   core
+ * @author    Daniel Convissor <danielc@analysisandsolutions.com>
+ * @author    Paul Scott - Modifications to allow use within the 5ive (KINKY2) Framework
+ * @copyright 2004-2005 The Analysis and Solutions Company
+ * @license   http://www.analysisandsolutions.com/software/license.txt Simple Public License
+ * @link      http://www.analysisandsolutions.com/presentations/portability/
  */
 class portability {
 
     /**
      * Establishes the settings the Portability class needs
      *
-     * @param   object   $db  the PEAR DB object you're using
-     * @return  void
+     * @param  object $db the PEAR DB object you're using
+     * @return void  
      */
     function portability($db) {
         $this->phptype  = $db->dsn['phptype'];
@@ -44,9 +44,9 @@ class portability {
     /**
      * Converts boolean-like input into true boolean values
      *
-     * @param   mixed    $in   the boolean-like input to be converted
-     * @return  boolean  true or false, depending upon the input.
-     *                    Returns NULL if the input isn't boolean-like.
+     * @param  mixed   $in the boolean-like input to be converted
+     * @return boolean true or false, depending upon the input.
+     *                 Returns NULL if the input isn't boolean-like.
      */
     function castToBoolean($in) {
         if (empty($bool_cast_types)) {
@@ -72,9 +72,9 @@ class portability {
      * Executes the SQL query needed to modify this DBMS's timestamp format
      * setting
      *
-     * @param   object   $db   the PEAR DB object you're using
-     * @return  bool     true if no problems happen or a query doesn't
-     *                    need execution
+     * @param  object $db the PEAR DB object you're using
+     * @return bool   true if no problems happen or a query doesn't
+     *                need execution
      */
     function executeTimestampSettingQuery($db) {
         if (!$this->TimestampSettingQuery) {
@@ -94,8 +94,8 @@ class portability {
     /**
      * Turns the items you submit into a concatenate phrase
      *
-     * @param   array|string  $in   the items you want to concatenate
-     * @return  string        the query fragment your DBMS needs
+     * @param  array|string $in the items you want to concatenate
+     * @return string       the query fragment your DBMS needs
      */
     function formatConcatenationQuery($in) {
         $in = (array) $in;
@@ -110,8 +110,8 @@ class portability {
      * Returns the query string fragment needed for the current DBMS to
      * produce an ISO formatted date from a date column
      *
-     * @param   string   $col  the database column to get the data from
-     * @return  string   the query fragment your DBMS needs
+     * @param  string $col the database column to get the data from
+     * @return string the query fragment your DBMS needs
      */
     function formatDateQuery($col) {
         return sprintf($this->DateQueryFormat, $col);
@@ -121,8 +121,8 @@ class portability {
      * Returns the query string fragment needed for the current DBMS to
      * produce an ISO formatted timestamp from a timestamp column
      *
-     * @param   string   $col  the database column to get the data from
-     * @return  string   the query fragment your DBMS needs
+     * @param  string $col the database column to get the data from
+     * @return string the query fragment your DBMS needs
      */
     function formatTimestampQuery($col) {
         return sprintf($this->TimestampQueryFormat, $col);
@@ -131,7 +131,7 @@ class portability {
     /**
      * Returns the SQL keyword signifying identifier aliases
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getAsKeyword() {
         return $this->AsKeyword;
@@ -141,7 +141,7 @@ class portability {
      * Returns the SQL keyword for BOOLEAN data types in CREATE TABLE
      * statements
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getBooleanType() {
         return $this->BooleanType;
@@ -151,7 +151,7 @@ class portability {
      * Returns the SQL keyword for CLOB data types in CREATE TABLE
      * statements
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getClobType() {
         return $this->ClobType;
@@ -160,7 +160,7 @@ class portability {
     /**
      * Returns the SQL keyword indicating the literal following it is a date
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getDateLiteralType() {
         return $this->DateLiteralType;
@@ -169,7 +169,7 @@ class portability {
     /**
      * Returns the SQL keyword for DATE data types in CREATE TABLE statements
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getDateType() {
         return $this->DateType;
@@ -178,7 +178,7 @@ class portability {
     /**
      * Returns the regular expression needed for DECIMAL data types
      *
-     * @return  string   the regular expression needed
+     * @return string the regular expression needed
      */
     function getDecimalType() {
         return $this->DecimalType;
@@ -187,7 +187,7 @@ class portability {
      * Returns the SQL fragment needed for creating DECIMAL data types
      * in CREATE TABLE statements
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function formatDecimalType($precision, $scale) {
         return preg_replace('/(\(\d+, *\d+\))/',
@@ -199,7 +199,7 @@ class portability {
      * Returns the SQL keyword indicating a DROP TABLE statement should
      * CASCADE to related tables
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getDropCascade() {
         return $this->DropCascade;
@@ -209,7 +209,7 @@ class portability {
      * Returns the SQL keyword indicating a DROP TABLE statement should
      * RESTRICT itself to the present table
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getDropRestrict() {
         return $this->DropRestrict;
@@ -219,7 +219,7 @@ class portability {
      * Returns the SQL keyword used in CREATE TABLE statements to indicate
      * a column should allow NULL values
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getNullKeyword() {
         return $this->NullKeyword;
@@ -229,7 +229,7 @@ class portability {
      * the sprintf() format string needed to modify a SELECT query statement
      * so it returns a DATE column in YYYY-MM-DD HH:MM:SS format
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getTimestampLiteralType() {
         return $this->TimestampLiteralType;
@@ -239,7 +239,7 @@ class portability {
      * Returns the SQL keyword for TIMESTAMP data types in CREATE TABLE
      * statements
      *
-     * @return  string   the query fragment your DBMS needs
+     * @return string the query fragment your DBMS needs
      */
     function getTimestampType() {
         return $this->TimestampType;
@@ -248,7 +248,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setAsKeyword() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -277,7 +277,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setBooleanType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -310,7 +310,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setClobType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -341,7 +341,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setConcatenationQueryOperator() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -372,7 +372,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDateLiteralType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -401,7 +401,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDateQueryFormat() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -437,7 +437,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDateType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -466,7 +466,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDecimalType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -495,7 +495,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDropCascade() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -524,7 +524,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setDropRestrict() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -553,7 +553,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setNullKeyword() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -582,7 +582,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setTimestampLiteralType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -611,7 +611,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setTimestampQueryFormat() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -646,7 +646,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setTimestampSettingQuery() {
         switch ($this->phptype . ':' . $this->dbsyntax) {
@@ -680,7 +680,7 @@ class portability {
     /**
      * Sets the named property according to which DBMS is in use
      *
-     * @return boolean  true if successful.  Does die() if the DBMS is unkown.
+     * @return boolean true if successful.  Does die() if the DBMS is unkown.
      */
     function setTimestampType() {
         switch ($this->phptype . ':' . $this->dbsyntax) {

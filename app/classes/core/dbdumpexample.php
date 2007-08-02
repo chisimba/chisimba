@@ -52,9 +52,9 @@
  * However the idea was to keep the magic and dependencies low, to just
  * illustrate the MDB2_Schema API a bit.
  *
- * @package MDB2
+ * @package  MDB2
  * @category Database
- * @author  Lukas Smith <smith@pooteeweet.org>
+ * @author   Lukas Smith <smith@pooteeweet.org>
  */
 
 ?>
@@ -72,6 +72,16 @@ if (class_exists('Var_Dump')) {
     $var_dump = 'var_dump';
 }
 
+/**
+ * Short description for function
+ * 
+ * Long description (if any) ...
+ * 
+ * @param  mixed  &$db     Parameter description (if any) ...
+ * @param  string $scope   Parameter description (if any) ...
+ * @param  string $message Parameter description (if any) ...
+ * @return void  
+ */
 function printQueries(&$db, $scope, $message)
 {
     if ($scope == 'query') {
@@ -88,6 +98,10 @@ $databases = array(
 );
 
 if (isset($_REQUEST['submit']) && $_REQUEST['file'] != '') {
+
+/**
+ * Description for require_once
+ */
     require_once 'MDB2/Schema.php';
     $dsn = $_REQUEST['type'].'://'.$_REQUEST['user'].':'.$_REQUEST['pass'].'@'.$_REQUEST['host'].'/'.$_REQUEST['name'];
 

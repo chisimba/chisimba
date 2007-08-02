@@ -1,16 +1,61 @@
 <?php
+
+/**
+ * Object Top level file
+ * 
+ * Object class that is extended throughout the framework
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* -------------------- object class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
 
+
 /**
- * * Baseclass for all data and helper module classes in the KNG framework
- *
- * @author Paul Scott based on methods by Sean Legassick
- * @package core
+ * Object class
+ * 
+ * Object class that is extended throughout the framework
+ * 
+ * @category  Chisimba
+ * @package   core
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
 class object
 {
@@ -39,8 +84,8 @@ class object
      * Constructor for the object class
      *
      * @access public
-     * @param mixed $ &$objEngine The reference to the engine object
-     * @param mixed $moduleName The name of the module
+     * @param  mixed  &$objEngine The reference to the engine object
+     * @param  mixed  $moduleName The name of the module
      * @return object instantiation against the engine object
      */
     public function __construct(&$objEngine, $moduleName)
@@ -53,10 +98,10 @@ class object
     /**
      * * Method to initialise the object.
      *
-     * @access public
+     * @access   public
      * @abstract Override in subclasses.
-     * @param void
-     * @return void
+     * @param    void  
+     * @return   void  
      */
     public function init()
     {
@@ -68,9 +113,9 @@ class object
      * parameters, all form data, and all cookies
      *
      * @access public
-     * @param string $name The name of the parameter.
-     * @param mixed $default The value to return if the parameter is unset. (optional)
-     * @return mixed The value of the parameter, or $default if unset
+     * @param  string $name    The name of the parameter.
+     * @param  mixed  $default The value to return if the parameter is unset. (optional)
+     * @return mixed  The value of the parameter, or $default if unset
      */
     public function getParam($name, $default = NULL)
     {
@@ -82,9 +127,9 @@ class object
     * Similar to getParam above, but for arrays.
     *
     * @access public
-    * @param string $name The name of the parameter.
-    * @param mixed $default The value to return if the parameter is unset. (optional)
-    * @return mixed The value of the parameter, or $default if unset
+    * @param  string $name    The name of the parameter.
+    * @param  mixed  $default The value to return if the parameter is unset. (optional)
+    * @return mixed  The value of the parameter, or $default if unset
     */
     public function getArrayParam($name,$default=NULL)
     {
@@ -98,10 +143,10 @@ class object
      * module author.
      *
      * @access public
-     * @param string $name Name of session parameter to retrieve
-     * @param mixed $default Default value to return if session parameter unset
-     * @param string $module default to _MODULE_ if unset
-     * @return mixed The value of the named session parameter or $default if unset
+     * @param  string $name    Name of session parameter to retrieve
+     * @param  mixed  $default Default value to return if session parameter unset
+     * @param  string $module  default to _MODULE_ if unset
+     * @return mixed  The value of the named session parameter or $default if unset
      */
     public function getSession($name, $default = NULL,$module='_MODULE_')
     {
@@ -124,10 +169,10 @@ class object
      * module author.
      *
      * @access public
-     * @param string $name Name of session parameter to store
-     * @param mixed $value Value to store in session parameter
-     * @param string $module default to _MODULE_ if unset
-     * @return set engine session property
+     * @param  string $name   Name of session parameter to store
+     * @param  mixed  $value  Value to store in session parameter
+     * @param  string $module default to _MODULE_ if unset
+     * @return set    engine session property
      */
     public function setSession($name, $value,$module='_MODULE_')
     {
@@ -149,9 +194,9 @@ class object
      * modules. As long as setSession is used to store values, this will be invisible to the
      * module author.
      *
-     * @access public
-     * @param string $name Name of session parameter to unset
-     * @param string $module default to _MODULE_ if unset
+     * @access public 
+     * @param  string  $name   Name of session parameter to unset
+     * @param  string  $module default to _MODULE_ if unset
      * @return session set to NULL in engine object
      */
     public function unsetSession($name,$module='_MODULE_')
@@ -172,7 +217,7 @@ class object
     * Method to create installation-specific key for Session variables
     *
     * @access public
-    * @param void
+    * @param  void  
     * @return string $key
     */
     public function sessionKey()
@@ -195,11 +240,11 @@ class object
      * and documentation **
      *
      * @access public
-     * @param array $params Associative array of parameter values
-     * @param string $moduleName Name of module to point to (blank for core actions)
-     * @param string $uriMode string The URI mode to use, must be one of 'push', 'pop', or 'preserve'
-     * @param string $omitServerName flag to produce relative URLs
-     * @return mixed Returns the application URI
+     * @param  array  $params         Associative array of parameter values
+     * @param  string $moduleName     Name of module to point to (blank for core actions)
+     * @param  string $uriMode        string The URI mode to use, must be one of 'push', 'pop', or 'preserve'
+     * @param  string $omitServerName flag to produce relative URLs
+     * @return mixed  Returns the application URI
      */
     public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE)
     {
@@ -215,9 +260,9 @@ class object
      * If module isn't given the class is loaded from the current module
      *
      * @access public
-     * @param string $name The name of the class to load
-     * @param string $moduleName The name of the module to load the class from (optional)
-     * @return The class reference in the engine parent
+     * @param  string $name       The name of the class to load
+     * @param  string $moduleName The name of the module to load the class from (optional)
+     * @return The    class reference in the engine parent
      */
     public function loadClass($name, $moduleName = '')
     {
@@ -236,9 +281,9 @@ class object
      * when creating a new object although it need not be used.
      *
      * @access public
-     * @param string $name The name of the class to load
-     * @param string $moduleName The name of the module to load the class from
-     * @return mixed The reference to the new object asked for
+     * @param  string $name       The name of the class to load
+     * @param  string $moduleName The name of the module to load the class from
+     * @return mixed  The reference to the new object asked for
      */
     public function &newObject($name, $moduleName='')
     {
@@ -256,9 +301,9 @@ class object
      * is loaded from the current module
      *
      * @access public
-     * @param string $name The name of the class to load
-     * @param string $moduleName The name of the module to load the class from (optional)
-     * @return mixed The object asked for
+     * @param  string $name       The name of the class to load
+     * @param  string $moduleName The name of the module to load the class from (optional)
+     * @return mixed  The object asked for
      */
     public function &getObject($name, $moduleName = '')
     {
@@ -274,9 +319,9 @@ class object
      * the module directory.
      *
      * @access public
-     * @param string $ The path to the file within the resources subdirectory of the module
-     * @param string $ The name of the module the resource belongs to (optional)
-     * @return mixed The URI of the resource asked for.
+     * @param  string $ The path to the file within the resources subdirectory of the module
+     * @param  string $ The name of the module the resource belongs to (optional)
+     * @return mixed  The URI of the resource asked for.
      */
     public function getResourceUri($resourcePath, $moduleName = '')
     {
@@ -292,9 +337,9 @@ class object
      * the module directory.
      *
      * @access public
-     * @param string $ The path to the file within the resources subdirectory of the module
-     * @param string $ The name of the module the resource belongs to (optional)
-     * @return mixed The path of the resource asked for.
+     * @param  string $ The path to the file within the resources subdirectory of the module
+     * @param  string $ The name of the module the resource belongs to (optional)
+     * @return mixed  The path of the resource asked for.
      */
     public function getResourcePath($resourcePath, $moduleName = '')
     {
@@ -310,8 +355,8 @@ class object
      * the module directory.
      *
      * @access public
-     * @param string $ The path to the file within the resources subdirectory of the module
-     * @return mixed The path of the resource asked for.
+     * @param  string $ The path to the file within the resources subdirectory of the module
+     * @return mixed  The path of the resource asked for.
      */
     public function getPearResource($resourcePath)
     {
@@ -341,9 +386,9 @@ class object
     * Method to append a value to a template variable holding an array. If the
     * array does not exist, it is created
     *
-    * @access public
-    * @param string $name The name of the variable holding an array
-    * @param mixed $value The value to append to the array
+    * @access public                
+    * @param  string                 $name  The name of the variable holding an array
+    * @param  mixed                  $value The value to append to the array
     * @return Engine::AppendarrayVar
     */
     public function appendArrayVar($name, $value)
@@ -356,8 +401,8 @@ class object
     * information from module to template.
     *
     * @access public
-    * @param $name string The name of the variable
-    * @param $val mixed The value to set the variable to
+    * @param  $name  string The name of the variable
+    * @param  $val   mixed  The value to set the variable to
     * @return string as associative array of template name
     */
     public function setVar($name, $value)
