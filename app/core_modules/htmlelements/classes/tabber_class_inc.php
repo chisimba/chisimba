@@ -84,6 +84,70 @@ class tabber extends object
     }
     
     /**
+    * Method that prepends data to a tab
+    * 
+    * @access public
+    * @param array $tab : Can hold the following values
+    * name string
+    * content string
+    * onclick string
+    * @return void
+    */    
+    function prependToTab($tab = NULL){
+        if(is_array($tab)){
+            if(isset($tab['name'])){                
+                $this->tabs[$tab['name']]['name'] = $tab['name'];
+                if(isset($tab['content'])){
+                    $content = $tab['content'];
+                    $content .= $this->tabs[$tab['name']]['content'];
+                    $this->tabs[$tab['name']]['content'] = $content;
+                }
+                if(isset($tab['onclick'])){
+                    $this->tabs[$tab['name']]['onclick'] = $tab['onclick'];
+                }
+            }            
+        }        
+    }
+    
+    /**
+    * Method that appends data to a tab
+    * 
+    * @access public
+    * @param array $tab : Can hold the following values
+    * name string
+    * content string
+    * onclick string
+    * @return void
+    */    
+    function appendToTab($tab = NULL){
+        if(is_array($tab)){
+            if(isset($tab['name'])){                
+                $this->tabs[$tab['name']]['name'] = $tab['name'];
+                if(isset($tab['content'])){
+                    $content = $this->tabs[$tab['name']]['content'];
+                    $content .= $tab['content'];
+                    $this->tabs[$tab['name']]['content'] = $content;
+                }
+                if(isset($tab['onclick'])){
+                    $this->tabs[$tab['name']]['onclick'] = $tab['onclick'];
+                }
+            }            
+        }        
+    }
+    
+    /**
+    * Method to get a list of current tabs
+    *
+    * @access public
+    * @return array $tabArray: The tabs for an instance of the tabber object
+    */
+    public function getTabs()
+    {
+        $tabArray = $this->tabs;
+        return $tabArray;
+    }
+
+    /**
     * Method to show the tabs
     * 
     * @access public
