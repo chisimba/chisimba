@@ -1,20 +1,61 @@
 <?php
+
+/**
+ * Blocks class
+ * 
+ * Class to handle block generation for Chisimba
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   blocks
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 /* ----------- data class extends dbTable for tbl_blog------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
 
-
 /**
-*
-* This module provides a means to load and display
-* KEWL.NextGen blocks that are provided as strings.
-*
-* @author Derek Keats
-*
-*/
+ * Blocks class
+ * 
+ * Class to handle block generation in Chisimba
+ * 
+ * @category  Chisimba
+ * @package   blocks
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class blocks extends object
 {
 
@@ -24,7 +65,7 @@ class blocks extends object
     public $objUser;
 
     /**
-    * @var object $objLanguage  Propoerty to hold the language object
+    * @var object $objLanguage Propoerty to hold the language object
     */
     public $objLanguage;
 
@@ -60,14 +101,14 @@ class blocks extends object
     * generally should rather use methods of other classes to achieve
     * their results.
     *
-    * @param string $block The name of the block after the block_ and
-    * before the _class in the filename. The class and name of the block
-    * must be the same.
-    *
-    * @param string $module The module to look in for the block
-    *
+    * @param string $block     The name of the block after the block_ and
+    *                          before the _class in the filename. The class and name of the block
+    *                          must be the same.
+    *                          
+    * @param string $module    The module to look in for the block
+    *                          
     * @param string $blockType The type of block (e.g. tabbed box)
-    *
+    *                          
     */
     public function showBlock($block, $module, $blockType=NULL, $titleLength=20, $wrapStr = TRUE, $showToggle = TRUE, $hidden = 'default')
     {
