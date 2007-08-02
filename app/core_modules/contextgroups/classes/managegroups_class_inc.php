@@ -1,20 +1,59 @@
 <?php
+
+/**
+ * Manage groups
+ * 
+ * Class to manage Context groups
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextgroups
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
+
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package contextgroups
-* @subpackage access
-* @version 0.1
-* @since 15 February 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-/**
-* Class used to manage the groups for the context.
-*/
+ * Manage groups
+ * 
+ * Class to manage Context groups
+ * 
+ * @category  Chisimba
+ * @package   contextgroups
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class manageGroups extends object
 {
     /**
@@ -132,9 +171,9 @@ class manageGroups extends object
     * $members['Lecturers'] = array(... PKId of members ... );
     * $members['Students'] = array(... PKId of members ... );
     * </PRE>
-    * @param string|NULL the context code or NULL if it should be site wide.
-    * @param array the list of users with pkids.
-    * @return nothing.
+    * @param  string|NULL the context code or NULL if it should be site wide.
+    * @param  array       the list of users with pkids.
+    * @return nothing.   
     */
     function importGroupMembers( $contextcode, $members )
     {
@@ -213,8 +252,8 @@ class manageGroups extends object
 
     /**
     * Method to return all the contexts the user is a member of.
-    * @param string UserId
-    * @return array List of all context codes the user is a member of.
+    * @param  string UserId
+    * @return array  List of all context codes the user is a member of.
     */
     function usercontextcodes($userId=NULL)
     {
@@ -241,9 +280,9 @@ class manageGroups extends object
 
     /**
     * Method to return all the contexts the user is a member of.
-    * @param string UserId
-    * @param array (Optional) The list of fields to get.
-    * @return array List of all context codes the user is a member of.
+    * @param  string UserId    
+    * @param  array  (Optional) The list of fields to get.
+    * @return array  List of all context codes the user is a member of.
     */
     function userContexts($userId=NULL, $fields=array() )
     {
@@ -286,9 +325,9 @@ class manageGroups extends object
 
    /**
     * Method to return all the contexts the user has a role membership of.
-    * @param string UserId
-    * @param string The role of the user Lecturer, Student, Guest
-    * @return array List of all context codes the user is a member of.
+    * @param  string UserId
+    * @param  string The    role of the user Lecturer, Student, Guest
+    * @return array  List of all context codes the user is a member of.
     */
     function rolecontextcodes($userId,$role)
     {
@@ -314,10 +353,10 @@ class manageGroups extends object
 
     /**
     * Method to return all the contexts the user has a role membership of.
-    * @param string (Optional)The role of the user in the context( Lecturers, Students, Guests )
-    * @param string (Optional)The context code.
-    * @param array (Optional)Select the fields from the tbl_groupadmin_groupuser and tbl_user tables.
-    * @return array List of all the users in the given role for this context.
+    * @param  string (Optional)The    role of the user in the context( Lecturers, Students, Guests )
+    * @param  string (Optional)The    context code.
+    * @param  array  (Optional)Select the fields from the tbl_groupadmin_groupuser and tbl_user tables.
+    * @return array  List of all the users in the given role for this context.
     */
     function contextUsers( $role=NULL, $contextcode=NULL, $fields=NULL )
     {
@@ -337,10 +376,10 @@ class manageGroups extends object
 
     /**
     * Method to return all the public contexts the user IS/NOT a membership of.
-    * @param string (Optional)The userId
-    * @param true|false (Optional) The TRUE is member, FALSE is not a member of the public contexts.
-    * @param array (Optional) The list of fields to get.
-    * @return array List of all the public contexts the user is/not a member of.
+    * @param  string     (Optional)The userId
+    * @param  true|false (Optional)    The TRUE is member, FALSE is not a member of the public contexts.
+    * @param  array      (Optional)    The list of fields to get.
+    * @return array      List of all the public contexts the user is/not a member of.
     */
     function publicContexts( $userId=NULL, $isMember=FALSE, $fields=array() )
     {

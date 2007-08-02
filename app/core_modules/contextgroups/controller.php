@@ -1,25 +1,67 @@
 <?php
+
+/**
+ * Controller class for the context groups module.
+ * 
+ * Purpose of this module is to allow for context member management.
+ * It should hide the group information from the user.
+ * Target user: Lecturers.
+ * Precondition : User must be in a context.
+ * Tasks: Add/remove Lecturers, students, or guests.
+ * 
+ * PHP versions 4 and 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   contextgroups
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
+
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package contextgroups
-* @subpackage controller
-* @version 0.1
-* @since 15 February 2005
-* @author Jonathan Abrahams
-* @filesource
-*/
-/**
-* Controller class for the context groups module.
-* Purpose of this module is to allow for context member management.
-* It should hide the group information from the user.
-* Target user: Lecturers.
-* Precondition : User must be in a context.
-* Tasks: Add/remove Lecturers, students, or guests.
-*/
+ * Controller class for the context groups module.
+ * 
+ * Purpose of this module is to allow for context member management.
+ * It should hide the group information from the user.
+ * Target user: Lecturers.
+ * Precondition : User must be in a context.
+ * Tasks: Add/remove Lecturers, students, or guests.
+ * 
+ * @category  Chisimba
+ * @package   contextgroups
+ * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
+ * @copyright 2007 Jonathan Abrahams
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class contextgroups extends controller
 {
     /**
@@ -322,7 +364,7 @@ class contextgroups extends controller
     }
     /**
     * Method to show the error message.
-    * @param string The error code.
+    * @param  string The error code.
     * @return string template name.
     */
     function showError( $errCode )
@@ -342,9 +384,9 @@ class contextgroups extends controller
 
     /**
     * Method to redirect to another module
-    * @param string The link text.
-    * @param string The module to be redirected to.
-    * @param array The parameters that are needed.
+    * @param  string The link text.
+    * @param  string The module to be redirected to.
+    * @param  array  The parameters that are needed.
     * @return string HTML link element.
     */
     function linkToModule( $linkName, $moduleName, $params = array() )
@@ -357,7 +399,7 @@ class contextgroups extends controller
 
     /**
     * Method to redirect to previous page
-    * @param string The link text.
+    * @param  string The link text.
     * @return string HTML link element.
     */
     function linkBack( $linkName )
