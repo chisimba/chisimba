@@ -1,25 +1,58 @@
 <?php
+
 /**
- * Adaptor Pattern around the PEAR::Config Object
- * This class will provide the kng configuration to Engine
- *
- * @author Prince Mbekwa
- * @todo sysconfig properties' set and get
- * @todo module config (especially from module admin)
- * @package config
+ * System configuration
+ * 
+ * System configuration for Chisimba
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   config
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
  */
-//grab the pear::Config properties
-// include class
 
 
-
+/**
+ * Class to manipulate system configs
+ * 
+ * The altconfig class manipulates system configurations stored in the config.xml file in the config directory of the root
+ * of the application.
+ * 
+ * @category  Chisimba
+ * @package   config
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class altconfig extends object
 {
 	/**
      * The pear config object
      *
      * @access public
-     * @var string
+     * @var    string
     */
 
     protected $_objPearConfig;
@@ -27,28 +60,28 @@ class altconfig extends object
     /**
      * The path of the files to be read or written
      * @access public
-     * @var string
+     * @var    string
      */
     public $_path = null;
     /**
      * The root object for configs read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_root;
     /**
      * The root object for properties read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_property;
     /**
      * The options value for altconfig read / write
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_options;
 
@@ -56,7 +89,7 @@ class altconfig extends object
      * The sysconfig object for sysconfig storage
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     protected $_sysconfigVars;
     /**
@@ -70,10 +103,19 @@ class altconfig extends object
      * The global error callback for altconfig errors
      *
      * @access public
-     * @var string
+     * @var    string
     */
     public $_errorCallback;
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void           
+     * @access public         
+     * @throws customException Exception description (if any) ...
+     */
     public function __construct()
     {
         // instantiate object
@@ -104,13 +146,13 @@ class altconfig extends object
      * For use when reading configuration options
      *
      * @access protected
-     * @param string $config xml file or PHPArray to parse
-     * @param string $property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean True/False result.
-     *
+     * @param  string    $config   xml file or PHPArray to parse
+     * @param  string    $property used to set property value of incoming config string
+     *                             $property can either be:
+     *                             1. PHPArray
+     *                             2. XML
+     * @return boolean   True/False result.
+     *                   
      */
     public function readConfig($config=False,$property)
     {
@@ -142,14 +184,14 @@ class altconfig extends object
      * Method to wirte config options.
      * For use when writing configuration options
      *
-     * @access public
-     * @param string values to be saved
-     * @param string property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean  TRUE for success / FALSE fail .
-     *
+     * @access public 
+     * @param  string  values   to be saved
+     * @param  string  property used to set property value of incoming config string
+     *                          $property can either be:
+     *                          1. PHPArray
+     *                          2. XML
+     * @return boolean TRUE for success / FALSE fail .
+     *                 
      */
     public function writeConfig($values,$property)
     {
@@ -180,7 +222,7 @@ class altconfig extends object
     /**
      * Public method to append arbitrary arrays of additional parameters to the config file
      *
-     * @param array $newsettings
+     * @param  array   $newsettings
      * @return boolean
      */
     public function appendToConfig($newsettings)
@@ -208,9 +250,9 @@ class altconfig extends object
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pvalue The value code of the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pvalue The value code of the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function getItem($pname)
     {
@@ -245,9 +287,9 @@ class altconfig extends object
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pvalue The value code of the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pvalue The value code of the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function setItem($pname, $pvalue)
     {
@@ -282,14 +324,14 @@ class altconfig extends object
      * Method to read sysconfig Properties options.
      * For use when reading sysconfig Properties options
      *
-     * @access public
-     * @param string path to the properties config
-     * @param string property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean  TRUE for success / FALSE fail .
-     *
+     * @access public 
+     * @param  string  path     to the properties config
+     * @param  string  property used to set property value of incoming config string
+     *                          $property can either be:
+     *                          1. PHPArray
+     *                          2. XML
+     * @return boolean TRUE for success / FALSE fail .
+     *                 
      */
     public function readProperties($path=false,$property)
     {
@@ -313,19 +355,19 @@ class altconfig extends object
      * Method to write sysconfig Properties options.
      * For use when writing sysconfig Properties options
      *
-     * @access public
-     * @param PHParray $propertyValues which consists of :
-     * @var string $pmodule The module code of the module owning the config item
+     * @access public  
+     * @param  PHParray $propertyValues which consists of :
+     * @var    string   $pmodule The module code of the module owning the config item
 	 * @var string $pname The name of the parameter being set, use UPPER_CASE
 	 * @var string $plabel A label for the config parameter, usually a language string
 	 * @var string $value The value of the config parameter
 	 * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
-     * @param string property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
+     * @param  string   property        used to set property value of incoming config string
+     *                                  $property can either be:
+     *                                  1. PHPArray
+     *                                  2. XML
      * @return boolean  TRUE for success / FALSE fail .
-     *
+     *                  
      */
     public function writeProperties($propertyValues,$property)
     {
@@ -350,9 +392,9 @@ class altconfig extends object
     /**
     * Method to update a configuration parameter.
     *
-    * @var string $pmodule The module code of the module owning the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @var string $pvalue The value of the config parameter
+    * @var string  $pmodule The module code of the module owning the config item
+    * @var string  $pname The name of the parameter being set, use UPPER_CASE
+    * @var string  $pvalue The value of the config parameter
     * @var boolean $isAdminConfigurable TRUE | FALSE Whether the parameter is admin configurable or not
     */
     public function updateParam($pname, $pmodule=False, $pvalue,$isAdminConfigurable=False)
@@ -392,9 +434,9 @@ class altconfig extends object
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pmodule The module code of the module owning the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pmodule The module code of the module owning the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function getParam($pname, $pmodule)
     {
@@ -460,8 +502,8 @@ class altconfig extends object
 
     /**
     * The property get name of the getSiteName
-    *@access public
-    *@return the name of the site as string
+    * @access public
+    * @return the    name of the site as string
     */
     public function getSiteName()
     {
@@ -477,9 +519,9 @@ class altconfig extends object
     }
     /**
     * The property set name of the getSiteName
-    *@access public
-    *@param value of the change to be made
-    *@return bool true / false
+    * @access public
+    * @param  value  of the change to be made
+    * @return bool   true / false
     */
     public function setSiteName($value)
     {
@@ -497,7 +539,7 @@ class altconfig extends object
     /**
     * Get short name of the institutionShortName
     * @access public
-    * @return the short name of the site as string
+    * @return the    short name of the site as string
     */
     public function getinstitutionShortName()
     {
@@ -513,9 +555,9 @@ class altconfig extends object
     }
     /**
     * Set short name of the institutionShortName
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setinstitutionShortName($value)
     {
@@ -533,7 +575,7 @@ class altconfig extends object
     /**
     * Get name of the institution
     * @access public
-    * @return the short name of the institution as string
+    * @return the    short name of the institution as string
     */
     public function getinstitutionName()
     {
@@ -549,9 +591,9 @@ class altconfig extends object
     }
     /**
     * Set name of the institution
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setinstitutionName($value)
     {
@@ -568,8 +610,8 @@ class altconfig extends object
 
     /**
     * The email address of the website
-    *@access public
-    * @return the email address for the site as string
+    * @access public
+    * @return the    email address for the site as string
     */
     public function getsiteEmail()
     {
@@ -585,9 +627,9 @@ class altconfig extends object
     }
     /**
     * The email address of the website
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setsiteEmail($value)
     {
@@ -605,7 +647,7 @@ class altconfig extends object
     /**
     * The script timeout
     * @access public
-    * @return the script timout in seconds
+    * @return the    script timout in seconds
     */
     public function getsystemTimeout()
     {
@@ -622,9 +664,9 @@ class altconfig extends object
 
     /**
     * The script timeout
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setsystemTimeout($value)
     {
@@ -641,7 +683,7 @@ class altconfig extends object
     /**
      * Get prelogin module
      * @access public
-     * @return the system prelogin module settings
+     * @return the    system prelogin module settings
      */
     public function getPrelogin()
     {
@@ -658,7 +700,7 @@ class altconfig extends object
     /**
      * Set prelogin module
      * @access public
-     * @return the system prelogin module settings
+     * @return the    system prelogin module settings
      */
     public function setPrelogin()
     {
@@ -676,7 +718,7 @@ class altconfig extends object
     /**
     * The URL path of the site
     * @access public
-    * @return the the site path, normally / as string
+    * @return the    the site path, normally / as string
     */
     public function getSitePath()
     {
@@ -694,7 +736,7 @@ class altconfig extends object
     /**
     * The URL root of the site
     * @access public
-    * @return the the site root, normally / as string
+    * @return the    the site root, normally / as string
     */
     public function getsiteRoot()
     {
@@ -713,7 +755,7 @@ class altconfig extends object
     * The URL root of the site
    	*@access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool true / false
     */
     public function setsiteRoot($value)
     {
@@ -731,8 +773,8 @@ class altconfig extends object
     /**
     * The folder name of the default skin
     * @access public
-    * @return the default skin name (normally default)
-    * leading and trailing forward slash (/)  as string
+    * @return the    default skin name (normally default)
+    *                leading and trailing forward slash (/)  as string
     */
     public function getdefaultSkin()
     {
@@ -748,9 +790,9 @@ class altconfig extends object
     }
     /**
     * The folder name of the default skin
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setdefaultSkin($value)
     {
@@ -767,8 +809,8 @@ class altconfig extends object
     /**
     * The skin root
     * @access public
-    * @return the skin root (normally /skin/)
-    * leading and trailing forward slash (/)  as string
+    * @return the    skin root (normally /skin/)
+    *                leading and trailing forward slash (/)  as string
     */
     public function getskinRoot()
     {
@@ -785,8 +827,8 @@ class altconfig extends object
     }
     /**
     * Set skin root
-    * @param $value -string
-    * @access public
+    * @param  $value     -string
+    * @access public    
     * @return TRUE/FALSE
     */
     public function setskinRoot($value)
@@ -805,7 +847,7 @@ class altconfig extends object
     /**
     * The name of the default language (normally english)
     * @access public
-    * @return the name of the default language as string
+    * @return the    name of the default language as string
     */
     public function getdefaultLanguage()
     {
@@ -821,9 +863,9 @@ class altconfig extends object
     }
     /**
     * The name of the default language (normally english)
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setdefaultLanguage($value)
     {
@@ -840,7 +882,7 @@ class altconfig extends object
     /**
     * The abbreviation of the default language (normally EN)
     * @access public
-    * @return the abbreviation of the default language as string
+    * @return the    abbreviation of the default language as string
     */
     public function getdefaultLanguageAbbrev()
     {
@@ -856,9 +898,9 @@ class altconfig extends object
     }
     /**
     * The abbreviation of the default language (normally EN)
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setdefaultLanguageAbbrev($value)
     {
@@ -874,7 +916,7 @@ class altconfig extends object
     }
     /**
     * The default extension for banners (jpg, gif, png)
-    * @access public
+    * @access public 
     * @return default extension for banners (jpg, gif, png) as string
     */
     public function getbannerExtension()
@@ -891,9 +933,9 @@ class altconfig extends object
     }
     /**
     * The default extension for banners (jpg, gif, png)
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setbannerExtension($value)
     {
@@ -910,7 +952,7 @@ class altconfig extends object
     }
     /**
     * The default site root path as string
-    * @access public
+    * @access public 
     * @return default site root path as string
     */
     public function getsiteRootPath()
@@ -928,9 +970,9 @@ class altconfig extends object
     }
     /**
     * The default site root path as string
-    *@access public
+    * @access public
    	*@param value of the change to be made
-    *@return bool true / false
+    * @return bool   true / false
     */
     public function setsiteRootPath($value)
     {
@@ -948,8 +990,8 @@ class altconfig extends object
     /**
     * Whether to allow users to register themselves
     * @access public
-    * @param value to be changed
-    * @return TRUE or FALSE
+    * @param  value  to be changed
+    * @return TRUE   or FALSE
     */
     public function setallowSelfRegister($value)
     {
@@ -983,7 +1025,7 @@ class altconfig extends object
     /**
     * Returns name of post-login module
     * @access public
-    * @return name of post-login module
+    * @return name   of post-login module
     */
     public function getdefaultModuleName()
     {
@@ -999,8 +1041,8 @@ class altconfig extends object
     }
     /**
      * @access public
-     * @param value to be changed
-     * @return TRUE or FALSE
+     * @param  value  to be changed
+     * @return TRUE   or FALSE
     */
 
     public function setdefaultModuleName($value)
@@ -1017,7 +1059,7 @@ class altconfig extends object
 
     /**
      * Method to get Value of LDAP
-     * @access PUBLIC
+     * @access  PUBLIC
      * @Returns whether LDAP functionality should be used
     */
     public function getuseLDAP()
@@ -1042,8 +1084,8 @@ class altconfig extends object
     /**
      * Method to set LDAP as used
      * @access public
-     * @param value to be changed
-     * @return TRUE or FALSE
+     * @param  value  to be changed
+     * @return TRUE   or FALSE
     */
     public function setuseLDAP($value)
     {
@@ -1058,6 +1100,14 @@ class altconfig extends object
 
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return boolean Return description (if any) ...
+     * @access public 
+     */
     public function isAlumni()
     {
     	//I dont know what this does, so am just setting it to false now
@@ -1067,7 +1117,7 @@ class altconfig extends object
     /**
     * Returns the country 2-letter code
     * Defaults to 'ZA'
-    * @access public
+    * @access  public
     * @returns string $code
     */
     public function getCountry()
@@ -1095,7 +1145,7 @@ class altconfig extends object
     /**
     * Returns the base path for all user files
     * @access public
-    * @return base path for user files
+    * @return base   path for user files
     */
 
     public function getcontentBasePath()
@@ -1131,8 +1181,8 @@ class altconfig extends object
     /**
      * Set the path for content files
      * @access public
-     * @param value to be changed
-     * @return TRUE or FALSE
+     * @param  value  to be changed
+     * @return TRUE   or FALSE
     */
 
     public function setcontentPath($value)
@@ -1150,7 +1200,7 @@ class altconfig extends object
 
     /**
     * Returns the root path for content files
-    * @access public
+    * @access public 
     * @return content root path
     */
     public function getcontentRoot()
@@ -1169,8 +1219,8 @@ class altconfig extends object
     /**
     * Set the root path for content files
     * @access public
-    * @param value to be changed
-    * @return TRUE or FALSE
+    * @param  value  to be changed
+    * @return TRUE   or FALSE
     */
     public function setcontentRoot($value)
     {
@@ -1188,7 +1238,7 @@ class altconfig extends object
     /**
      * Gets error reporting Setting
      *
-     * @access public
+     * @access public            
      * @return geterror_reporting setting
      */
 
@@ -1209,7 +1259,7 @@ class altconfig extends object
     /**
      * Gets enable adm Setting
      *
-     * @access public
+     * @access public   
      * @return getenable adm setting
      */
 
@@ -1237,7 +1287,7 @@ class altconfig extends object
     /**
      * Gets enable adm Setting
      *
-     * @access public
+     * @access public   
      * @return getenable adm setting
      */
 
@@ -1265,7 +1315,7 @@ class altconfig extends object
     /**
      * Method to return the modulepath setting from the config file
      *
-     * @param void
+     * @param  void  
      * @return string
      */
     public function getModulePath()
@@ -1293,7 +1343,7 @@ class altconfig extends object
     /**
      * Method to return the moduleURI setting from the config file
      *
-     * @param void
+     * @param  void  
      * @return string
      */
     public function getModuleURI()
@@ -1320,8 +1370,8 @@ class altconfig extends object
     /**
     * Set  error reporting Settings
     * @access public
-    * @param value to be changed
-    * @return TRUE or FALSE
+    * @param  value  to be changed
+    * @return TRUE   or FALSE
     */
 
     public function seterror_reporting($value)
@@ -1339,8 +1389,8 @@ class altconfig extends object
     /**
      * Set dsn settings
      * @access public
-     * @param $value -this is the value we want to inset
-     * @return $bool -  TRUE /FALSE
+     * @param  $value -this is the value we want to inset
+     * @return $bool  - TRUE /FALSE
      */
     public function setDsn($value)
     {
@@ -1368,7 +1418,7 @@ class altconfig extends object
     /**
      * Get dsn settings
      * @access public
-     * @return $Dsn
+     * @return $Dsn  
      */
     public function getDsn()
     {
@@ -1387,7 +1437,7 @@ class altconfig extends object
     /**
      * Get Second dsn settings
      * @access public
-     * @return $Dsn2
+     * @return $Dsn2 
      */
     public function getDsn2()
     {
@@ -1406,8 +1456,8 @@ class altconfig extends object
     /**
      * Set dsn2 settings
      * @access public
-     * @param $value -this is the value we want to inset
-     * @return $bool -  TRUE /FALSE
+     * @param  $value -this is the value we want to inset
+     * @return $bool  - TRUE /FALSE
      */
     public function setDsn2($value)
     {
@@ -1469,8 +1519,8 @@ class altconfig extends object
     /**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($exception)

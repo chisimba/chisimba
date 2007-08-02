@@ -1,27 +1,66 @@
 <?php
 
+/**
+ * INI File manipulation class
+ * 
+ * File to work with generated ini files in Chisimba
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   config
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
+
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
 
+/**
+ * Config Object
+ */
+require_once('Config.php');
 
 /**
-* 
-* Model class for writing INIFiles.The class provides data access features for administering the list
-* of system ini parameters 
-* @example
-* 	   $config_container ="MAIL"/"Settings"	 
-*     $settings = array("name"=>"Bruce Banner","email"=> "hulk@angry.green.guy")
-* 	   $iniPath = "/config/"
-* 	   $iniName ="my.ini"	.
-* @author Prince Mbekwa
-* @todo userconfig properties' set and get
-* @todo module config (especially from module admin)
-* @package iniconfig
-*/
-require_once('Config.php');
+ * INI File manipulation class
+ * 
+ * File to work with generated ini files in Chisimba
+ * 
+ * @category  Chisimba
+ * @package   config
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class ini extends object 
 {
 
@@ -33,14 +72,14 @@ class ini extends object
      * The root object for properties read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_property;
     /**
      * The options value for altconfig read / write
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_options;
 
@@ -48,7 +87,7 @@ class ini extends object
      * The sysconfig object for sysconfig storage
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     protected $_sysconfigVars;
 
@@ -56,7 +95,7 @@ class ini extends object
      * The global error callback for altconfig errors
      *
      * @access public
-     * @var string
+     * @var    string
     */
     public $_errorCallback;
     
@@ -91,7 +130,7 @@ class ini extends object
      * The root object for configs read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_root = false;
     /**
@@ -102,6 +141,16 @@ class ini extends object
     public $Text;
     
     //Initialize class
+
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     function init() {
     	    //pull in our objects
     		$this->objConf = new Config();
@@ -114,14 +163,14 @@ class ini extends object
      * Method to create initial IniFile config elements. This method will create 
      * blank ini params.
      * @example
-     * 	   $config_container ="MAIL"/"Settings"	 
-     *     $settings = array("name"=>"Bruce Banner","email"=> "hulk@angry.green.guy")
-     * 	   $iniPath = "/config/"
-     * 	   $iniName ="my.ini"	
-     * @param string $config_container. This describes the main header section of the iniFile 
-     * @param array $settings. The values that need initializing
-     * @param string $iniPath. File path
-     * @param string $iniName. File name
+     *          	   $config_container ="MAIL"/"Settings"	 
+     *          $settings = array("name"=>"Bruce Banner","email"=> "hulk@angry.green.guy")
+     *          	   $iniPath = "/config/"
+     *          	   $iniName ="my.ini"	
+     * @param   string $config_container. This describes the main header section of the iniFile 
+     * @param   array  $settings.         The values that need initializing
+     * @param   string $iniPath.          File path
+     * @param   string $iniName.          File name
      */
     public function createConfig($config_container=false,$settings,$iniPath=false,$iniName)
     {
@@ -160,13 +209,13 @@ class ini extends object
      * For use when reading configuration options
      *
      * @access protected
-     * @param string $config xml file or PHPArray to parse
-     * @param string $property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean True/False result.
-     *
+     * @param  string    $config   xml file or PHPArray to parse
+     * @param  string    $property used to set property value of incoming config string
+     *                             $property can either be:
+     *                             1. PHPArray
+     *                             2. XML
+     * @return boolean   True/False result.
+     *                   
      */
     public function readConfig($config=false,$property='PHPArray',$Path,$FileName)
     {
@@ -205,8 +254,8 @@ class ini extends object
     /**
      * Delete an item in the iniFile
      *
-     * @param string $values
-     * @param string $index
+     * @param  string  $values
+     * @param  string  $index 
      * @return Boolean
      */
     public function delete($values,$index)
@@ -226,14 +275,14 @@ class ini extends object
      * Method to wirte config options.
      * For use when writing configuration options
      *
-     * @access public
-     * @param string values to be saved
-     * @param string property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean  TRUE for success / FALSE fail .
-     *
+     * @access public 
+     * @param  string  values   to be saved
+     * @param  string  property used to set property value of incoming config string
+     *                          $property can either be:
+     *                          1. PHPArray
+     *                          2. XML
+     * @return boolean TRUE for success / FALSE fail .
+     *                 
      */
     public function writeConfig($config_container=false,$values,$property='IniFile',$Path=false,$FileName)
     {
@@ -268,9 +317,9 @@ class ini extends object
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pvalue The value code of the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pvalue The value code of the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function getItem($pname, $pvalue,$Directive)
     {
@@ -308,9 +357,9 @@ class ini extends object
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pvalue The value code of the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pvalue The value code of the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function setItem($pname, $pvalue,$Directive)
     {
@@ -341,8 +390,8 @@ class ini extends object
     /**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($exception)
