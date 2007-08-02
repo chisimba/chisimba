@@ -162,22 +162,78 @@ class filemanager extends controller
         if ($file == FALSE || $file['filename'] != $filename) {
             die('No Record of Such a File Exists.');
         }
-
+        
         $filePath = $this->objConfig->getcontentPath().$file['path'];
-
         $this->objCleanUrl->cleanUpUrl($filePath);
-
+        
+        if ($file['category'] == 'images') {
+            
+            $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            
+            if ($objSysConfig->getValue('FORCEMAXMODE', 'filemanager') == 'Y') {
+                
+                
+                
+                $forceMaxFilePath = $this->objConfig->getcontentPath().'/filemanager_forcemax/'.$id.'.jpg';
+                $forceMaxFileBasePath = $this->objConfig->getcontentBasePath().'/filemanager_forcemax/'.$id.'.jpg';
+                $originalImage = $this->objConfig->getcontentBasePath().$file['path'];
+                $this->objCleanUrl->cleanUpUrl($originalImage);
+                
+                $this->objCleanUrl->cleanUpUrl($filePath);
+                $this->objCleanUrl->cleanUpUrl($fileBasePath);
+                
+                
+                
+                // To do: Build in Security on whether user can view file
+                if (file_exists($forceMaxFileBasePath)) {
+                    $filePath = $forceMaxFilePath;
+                } else {
+                    $width = $objSysConfig->getValue('FORCEMAXWIDTH', 'filemanager');
+                    $height = $objSysConfig->getValue('FORCEMAXHEIGHT', 'filemanager');
+                    
+                    if ($file['width'] == '' || $file['height'] == '') {
+                        $fileInfo = getimagesize($originalImage);
+                        
+                        if ($fileInfo != FALSE) {
+                            $file['width'] = $fileInfo[0];
+                            $file['height'] = $fileInfo[1];
+                            
+                            $objMediaFileInfo = $this->getObject('dbmediafileinfo');
+                            $objMediaFileInfo->updateWidthHeight($id, $fileInfo[0], $fileInfo[1]);
+                        }
+                    }
+                    
+                    if ($file['width'] > $width || $file['height'] > $height) {
+                        $imageResize = $this->getObject('imageresize', 'files');
+                        $imageResize->setImg($originalImage);
+                        $imageResize->resize($width, $height);
+                        
+                        $objMkDir = $this->newObject('mkdir', 'files');
+                        $objMkDir->mkdirs(dirname($forceMaxFileBasePath));
+                        
+                        $imageResize->store($forceMaxFileBasePath);
+                        
+                        $filePath = $forceMaxFilePath;
+                        
+                    } else {
+                        $filePath = $this->objConfig->getcontentPath().$file['path'];
+                        $this->objCleanUrl->cleanUpUrl($filePath);
+                    }
+                }
+            } 
+        }
+        
+        
+        
+        
         // To do: Build in Security on whether user can view file
         if (file_exists($filePath)) {
+            //echo $filePath;
             header("Location:{$filePath}");
-
-            // header('Content-type: '.$file['mimetype']);
-            // header('Content-Disposition: inline; filename='.$file['filename']);
-            // readfile($filePath);
-
         } else {
             die ('File does not exist');
         }
+    
     }
 
 
