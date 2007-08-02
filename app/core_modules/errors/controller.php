@@ -33,7 +33,7 @@
 if (!
 /**
  * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @global string $GLOBALS['kewl_entry_point_run']
  * @name   $kewl_entry_point_run
  */
 $GLOBALS['kewl_entry_point_run'])
