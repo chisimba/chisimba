@@ -52,9 +52,10 @@
  * However the idea was to keep the magic and dependencies low, to just
  * illustrate the MDB2_Schema API a bit.
  *
- * @package  MDB2
- * @category Database
+ * @category  Chisimba
+ * @package   core
  * @author   Lukas Smith <smith@pooteeweet.org>
+ * @author   Paul Scott <pscott@uwc.ac.za>
  */
 
 ?>

@@ -3,6 +3,7 @@
 /**
  * Methods to improve database portability
  *
+ * @category  Chisimba
  * @package   core
  * @author    Daniel Convissor <danielc@analysisandsolutions.com>
  * @author    Paul Scott - Modifications to allow use within the 5ive (KINKY2) Framework

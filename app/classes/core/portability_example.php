@@ -2,6 +2,9 @@
 
 /**
  * Portability example
+ * 
+ * @category  Chisimba
+ * @package   core
  * @example  
  * @since     27 Feb 2006
  * @copyright GNU GPL/UWC AVOIR 2006
