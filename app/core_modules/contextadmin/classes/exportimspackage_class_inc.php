@@ -37,6 +37,7 @@ class exportimspackage extends dbTable
 	{
         	$this->objUser =& $this->getObject('user', 'security');
 		$this->objConf = & $this->newObject('altconfig','config');
+		$this->objDir = & $this->newObject('dircreate','utilities');
 		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
 		$this->objIMSTools = & $this->newObject('imstools','contextadmin');
 	}
@@ -51,30 +52,38 @@ class exportimspackage extends dbTable
 	*/
 	function exportContent($contextcode)
 	{
+		// Start of DOM
 		$dom = new DOMDocument('1.0', 'utf-8');
 		$manifest = $dom->appendChild($dom->createElement('manifest'));
-		$manifest->setAttribute('xmlns','http://www.imsglobal.org/xsd/imscp_v1p1');
-		$manifest->setAttribute('xmlns:eduCommons','http://cosl.usu.edu/xsd/eduCommonsv1.1');
-		$manifest->setAttribute('xmlns:imsmd','http://www.imsglobal.org/xsd/imsmd_v1p2');
-		$manifest->setAttribute('xmlns:version',date('Y-m-j G:i:s'));
-		$manifest->setAttribute('xmlns:xsi','http://www.w3.org/2001/XMLSchema-instance');
-		$manifest->setAttribute('xsi:schemaLocation','http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd http://cosl.usu.edu/xsd/eduCommonsv1.1 eduCommonsv1.1.xsd');
+		$manifest->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imscp_v1p1');
+		$manifest->setAttribute('xmlns:eduCommons', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
+		$manifest->setAttribute('xmlns:imsmd', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
+		$manifest->setAttribute('xmlns:version', date('Y-m-j G:i:s'));
+		$manifest->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+		$manifest->setAttribute('xsi:schemaLocation', 'http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd http://cosl.usu.edu/xsd/eduCommonsv1.1 eduCommonsv1.1.xsd');
 		$metadata = $manifest->appendChild($dom->createElement('metadata'));
 		$organizations = $manifest->appendChild($dom->createElement('organizations'));
+		$orgValue = 'ORG'.$this->objIEUtils->generateUniqueId();
+		$organizations->setAttribute('default', $orgValue);
 		$resources = $manifest->appendChild($dom->createElement('resources'));
 		//Retrieve data within context
 		$courseData = $this->objIEUtils->getCourse($contextcode, 'new');
 		//Course id
-		$courseId = $courseData['0']['id'];
+		$courseId = $courseData['id'];
 		//Course title
-		$courseTitle = $courseData['0']['title'];
+		$courseTitle = $courseData['title'];
 		//Course Context code
-		$contextcode = $courseData['0']['contextcode'];
+		$contextcode = $courseData['contextcode'];
 		//Create a temporary folder
-		$tempDirectory = $this->objIEUtils->createTempDirectory($contextcode);
+		$temp = '/tmp';
+		$this->objDir->makeFolder($contextcode, $temp);
+		//Store temporary folder
+		$tempDirectory = $temp.'/'.$contextcode;
 		//Write Schema files
 		$writeSchemaFiles = $this->objIEUtils->writeSchemaFiles($tempDirectory);
 		//Create resources folder
+		$this->objDir->makeFolder($contextcode, $tempDirectory);
+		//Store resources folder
 		$resourceFolder = $tempDirectory."/".$contextcode;
 		//Retrieve Course Html
 		$courseHtml = $this->objIEUtils->getCourseHtml($contextcode);
@@ -99,7 +108,27 @@ class exportimspackage extends dbTable
 		//Write Course Html to specified directory (resources folder)
 		$courseFilenames = $this->objIEUtils->writeFiles($courseHtml, $tempDirectory, $courseTitle,'html');
 		$fileLocation = $tempDirectory.'/'.$courseFilenames[0].'.html';
-		$resources->appendChild($this->createCourse($dom, $courseTitle, $contextcode, $fileLocation, 'Course'));
+		$resources->appendChild($this->createCourseResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course'));
+		//Retrieve Course Chapters
+		$chapterOrder = $this->objIEUtils->chapterOrder($contextcode);
+		foreach($chapterOrder as $chapter)
+		{
+			$organization = $organizations->appendChild($this->createOrganization($dom, $orgValue));
+			$pageOrder = $this->pageOrder($contextcode, $chapter['chapterid']);
+			foreach($pageOrder as $page)
+			{
+				if($page["isbookmarked"] == 'Y')
+				{
+					$pageDetails = $this->pageContent($page['titleid']);
+					$organization->appendChild($this->createItem($dom, $pageDetails['menutitle']));
+				}
+				else
+				{
+					
+				}
+			}
+
+		}
 		//Retrieve Html pages
 		$htmlPages = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'pagecontent');
 		//Remove course page
@@ -127,18 +156,30 @@ class exportimspackage extends dbTable
 		if(count($resourceIds) > 0)
 			$resourceNames = $this->objIEUtils->writeResources($resourceIds, $resourceFolder);
 		$ims = $this->objIEUtils->writeFiles($dom->saveXML(), $tempDirectory, 'imsmanifest', 'xml');
-		$this->zipAndDownload($contextcode, $tempDirectory);
+//		$this->zipAndDownload($contextcode, $tempDirectory);
 
 		return TRUE;
 	}
 
-	function createResource($dom, $name)
+	function createOrganization($dom, $orgValue)
 	{
+		$organization = $dom->createElement('organization');
+		$organization->setAttribute('identifier', $orgValue);
 
+		return $organization;
 	}
 
-	function createCourse($dom, $name, $contextcode, $fileLocation, $type)
+	function createItem($dom, $menutitle)
 	{
+		$item = $dom->createElement('item');
+		$title = $item->appendChild($dom->createElement('title', $menutitle));
+
+		return $item;
+	}
+
+	function createCourseResource($dom, $name, $contextcode, $fileLocation, $type)
+	{
+		// Retrieve all data
 		$fileName = preg_replace('/\..*/','',$name);
 		$fileSize = filesize($fileLocation);
 		$location = $this->objConf->getsiteRoot().$this->objConf->getcontentPath().'content/'.$contextcode.'/resource1.html';
@@ -156,6 +197,7 @@ class exportimspackage extends dbTable
 		$licenseName = 'Not Specified';
 		$licenseUrl = 'Not Specified';
 		$licenseIconUrl = 'Not Specified';
+		// Create resource
 		$resource = $dom->createElement('resource');
 		$resource->setAttribute('identifier','http://www.imsglobal.org/xsd/imscp_v1p1');
 		$resource->setAttribute('type','webcontent');
@@ -227,10 +269,11 @@ class exportimspackage extends dbTable
 	function rebuildHtml($contextcode, $htmlPages, $courseImageNames, $courseResourceIds)
 	{
 		$i = 0;
+		// Check if its Course Home Page
 		if(count($htmlPages) == 1)
 		{
 			if(count($courseImageNames) > 0)
-				$htmlPages = $this->objIEUtils->changeImageSRC($htmlPages, $contextcode, $courseImageNames,'',TRUE);
+				$htmlPages = $this->objIEUtils->changeImageSRC($htmlPages, $contextcode, $courseImageNames,'','2');
 			if(count($courseResourceIds) > 0)
 				$htmlPages = $this->changeLinkUrl($contextcode, $htmlPages, $courseResourceIds);
 			$htmlsModified = $htmlPages;

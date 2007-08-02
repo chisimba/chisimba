@@ -82,6 +82,7 @@ class importIMSPackage extends dbTable
 		// Load System classes.
 		$this->objConf = $this->newObject('altconfig','config');
         	$this->objDBContext = $this->newObject('dbcontext', 'context');
+		$this->objContextModules = & $this->getObject('dbcontextmodules', 'context');
         	$this->objUser = $this->getObject('user', 'security');
 		// Load Inner classes.
 		$this->objIEUtils = $this->newObject('importexportutils','contextadmin');
@@ -116,7 +117,7 @@ class importIMSPackage extends dbTable
 		$this->objIEUtils->fileModOff();
 		$this->courseId = '';
 		if($package == 'default')
-			return $this->defaultPackage($FILES, $choice, $createCourse);
+			return $this->eduPackage($FILES, $choice, $createCourse);
 		else if($package == 'mit')
 			return $this->mitPackage($FILES, $choice, $createCourse);
 		else if($package == 'exe')
@@ -273,6 +274,7 @@ class importIMSPackage extends dbTable
 				return  "rebuildHtmlError";
 		// Enter context
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
+		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
 		return TRUE;
 	}
@@ -396,6 +398,7 @@ class importIMSPackage extends dbTable
 				return  "rebuildHtmlError";
 		// Enter context
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
+		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
 		return TRUE;
 	}
@@ -411,7 +414,7 @@ class importIMSPackage extends dbTable
 	 * @return TRUE - Successful execution
 	 * 
 	*/
-	function defaultPackage($FILES, $choice = '', $createCourse = '')
+	function eduPackage($FILES, $choice = '', $createCourse = '')
 	{
 		// Check archive type
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
@@ -492,8 +495,8 @@ class importIMSPackage extends dbTable
 			if($this->objError)
 				return  "noStructureError";
 		// Load html data into Chisimba
-		$loadData = $this->loadToChisimba($writeData, $structure);
-		if(!isset($loadData))
+		$menutitles = $this->loadToChisimba($writeData, $structure);
+		if(!isset($menutitles))
 			if($this->objError)
 				return  "loadDataError";
 		// Load image data into Chisimba
@@ -502,12 +505,13 @@ class importIMSPackage extends dbTable
 			if($this->objError)
 				return  "uploadError";
 		// Rebuild html images and url links
-		$rebuildHtml = $this->rebuildHtml($loadData,$fileNames);
+		$rebuildHtml = $this->rebuildHtml($menutitles, $fileNames);
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
 		// Enter context
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
+		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
 		return TRUE;
 	}

@@ -417,59 +417,13 @@ class importexportutils extends dbTable
 	}
 
 	/**
-	 * Retrieve chisimba images from database
-	 *
-	 * @param array $contextcode
-	 *
-	 * @return TRUE
-	 *
-	*/
-	public function getChisimbaImages($contextcode)
-	{
-		//course images data table
-		parent::init('tbl_files');
-
-		return TRUE;
-	}
-
-	/**
-	 * Retrieve chisimba html pages from database
-	 *
-	 * @param array $contextcode
-	 *
-	 * @return TRUE
-	 *
-	*/
-	public function getChisimbaHtmls($contextcode)
-	{
-		//course images data table
-		parent::init('tbl_context_page_content');
-
-		return TRUE;
-	}
-
-	/**
-	 * Retrieve KNG html pages from database
-	 *
-	 * @param array $contextcode
-	 *
-	 * @return TRUE
-	 *
-	*/
-	public function getKNGHtmls($id)
-	{
-
-		return TRUE;
-	}
-
-	/**
 	 * Writes all images specific to context to usrfiles directory of new system (Chisimba)
 	 * or to a specified folder
 	 *
-	 * @param string $contextcode - selected course
-	 * @param string $folder - specified folder
+	 * @param string $resourceFolder - 
+	 * @param string $folder - 
 	 *
-	 * @return $imageNamesInKNG - File names of images
+	 * @return $imageIds - File names of images
 	 *
 	*/
 	function writeImages($imageNames, $resourceFolder)
@@ -520,6 +474,7 @@ class importexportutils extends dbTable
 				$i++;
 			}
 		}
+
 		return $resourceNames;
 	}
 
@@ -560,338 +515,6 @@ class importexportutils extends dbTable
 		$this->switchDatabase();
 
 		return $dbData;
-	}
-
-	/**
-	 * Controls the process of creating an xml document to store all subpage information
-	 *
-	 * @param array $courseData - 2d array containing all course data
-	 *
-	 * @return array $courseData - 1d array containing all course data
-	 *
-	*/
-	function convertArray($courseData)
-	{
-		//Convert 2-d array into 1-d array
-		$newCourse['id'] = $courseData['0']['id'];
-		$newCourse['contextcode'] = $courseData['0']['contextcode'];
-		$newCourse['title'] = $courseData['0']['title'];
-		$newCourse['menutext'] = $courseData['0']['menutext'];
-		$newCourse['userid'] = $courseData['0']['userid'];
-		$newCourse['about'] = $courseData['0']['about'];
-		if($courseData['isactive'] == 0)
-			$newCourse['isactive'] = "Public";
-		else if($courseData['isactive'] == 1)
-			$newCourse['isactive'] = "Open";
-		else
-			$newCourse['isactive'] = "Private";
-		if($courseData['isclosed'] == 1)
-			$newCourse['isclosed'] = "Published";
-		else
-			$newCourse['isclosed'] = "UnPublished";
-
-		return $newCourse;
-	}
-
-	/**
-	 * Controls the process of creating an xml document to store all subpage information
-	 *
-	 * @param array $newCourse - 1d array containing all course data
-	 *
-	 * @return string $xmlData - xml contents to be written to a file
-	 *
-	*/
-	function createKNGXML($newCourse)
-	{
-		//Create XML document
-		$newCourse = $this->convertArray($newCourse);
-    		$imsDoc = new DomDocument('1.0');
-    		$imsDoc->formatOutput = true;
-		$courses = $imsDoc->createElement("Pages");
-		$manifest = $imsDoc->appendChild($courses);
-		$values = array('title' => $newCourse['title'], 
-				'content' => "Course",
-				'id' => $newCourse['id'],
-				'parentid' => "ROOT");
-		//Creates Root page
-		$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
-		//Runs through each level append data to xml file
-		while(TRUE)
-		{
-			static $i=1;
-			//Retrieve pages at first level
-			$pagesAtLevel = $this->getAllPages($newCourse['id'], $i);
-			//Add information to xml file
-			$this->addPagesAtLevel($imsDoc, $manifest, $pagesAtLevel);
-			//Check if there are any results for subpage query
-			if(empty($pagesAtLevel))
-				break;
-			$i++;
-		}
-		//Convert DomDocument to text
-		$xmlData = $imsDoc->saveXML();
-		
-		return $xmlData;
-	}
-
-	/**
-	 * Adds an entire level of subpages information to the subpages.xml file
-	 *
-	 * @param DomDocument $imsDoc
-	 * @param DomDocument Element $manifest
-	 * @param array $allPages
-	 *
-	 * @return TRUE - Successful execution
-	 *
-	*/
-	function addPagesAtLevel($imsDoc, $manifest, $allPages)
-	{
-		foreach($allPages as $aPage)
-		{
-			$values = array('title' => $aPage['title'],
-					'content' => "Page",
-					'id' => $aPage['metadata_id'],
-					'parentid' => $aPage['tbl_context_parentnodes_id']);
-			$pageNode = $this->getPageNode($imsDoc, $manifest, $values);
-		}
-		return TRUE;
-	}
-
-	/**
-	 * Creates a single node holding information about a single subpage
-	 * 
-	 * @param DomDocument Object $imsDoc
-	 * @param DomDocument Element $manifest
-	 * @param array $values
-	 *
-	 * @return DomDocument Element $course
-	 *
-	*/
-	function getPageNode($imsDoc, $manifest, $values)
-	{
-		//Create Page
-    		$course = $imsDoc->createElement('Page');
-    		$course = $manifest->appendChild($course);
-		//Course Attributes
-		//Title
-    		$title = $imsDoc->createElement('Title');
-    		$title = $course->appendChild($title);
-		$title->appendChild($this->getTextNode($imsDoc, $values['title']));
-		//Content
-    		$content = $imsDoc->createElement('Content');
-    		$content = $course->appendChild($content);
-		$content->appendChild($this->getTextNode($imsDoc, $values['content']));
-		//ID
-    		$id = $imsDoc->createElement('Id');
-    		$id = $course->appendChild($id);
-		$id->appendChild($this->getTextNode($imsDoc, $values['id']));
-		//ParentId
-    		$parentId = $imsDoc->createElement('ParentId');
-    		$parentId = $course->appendChild($parentId);
-		$parentId->appendChild($this->getTextNode($imsDoc, $values['parentid']));
-		
-		return $course;
-	}
-
-	/**
-	 * Simplifies creating a DOM document text node
-	 * 
-	 * @param DomDocument $imsDoc
-	 * @param string $value
-	 *
-	 * @return DomDocument TextNode $textNode
-	 *
-	*/
-	function getTextNode($imsDoc, $value)
-	{
-		$textNode = $imsDoc->createTextNode($value);
-
-		return $textNode;
-	}
-
-
-	/**
-	 * Main template file for the import module
-	 * Displays data and forms
-	 * Written by James Scoble using code written by Wesley Nitsckie
-	 * Modified by Jarrett L. Jordaan
-	 */
-	public function importTemplate($dbData, $packageType, $newCourse)
-	{
-		$this->switchDatabase();
-		//Load needed display classes
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('htmlheading','htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('form', 'htmlelements');
-		$this->loadClass('dropdown','htmlelements');
-		$objH = new htmlheading();
-		if($newCourse)
-			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourse","contextadmin");
-		else
-			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourseHeading","contextadmin");
-		$objH->type=2;
-		if($packageType == 'mit' || $packageType == 'default')
-			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadIMSIntoExisting')));
-		else
-			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadKNG')));
-		//Label
-		$label = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"select");
-		//Button
-		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
-		$inpButton->setToSubmit();
-		//Button
-		//$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
-		//$submitAll->setToSubmit();
-		$objElement = new dropdown('dropdownchoice');
-		//Dropdown 
-		foreach($dbData as $dataOld)
-			$objElement->addOption($dataOld['contextcode']);
-		$objForm->addToForm($objH);
-		$objForm->addToForm($label->show());
-		$objForm->addToForm($objElement->show());
-		$objForm->addToForm('<br/>');
-		$objForm->addToForm($inpButton->show());
-		//$objForm->addToForm($submitAll->show());
-
-		return $objForm->show();
-	}
-
-	/**
-	 * Main template file for the import module
-	 * Displays data and forms
-	 * Written by James Scoble using code written by Wesley Nitsckie
-	 * Modified by Jarrett L. Jordaan
-	 */
-	public function uploadTemplate($section = '')
-	{
-		//Load needed display classes
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('radio','htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('form', 'htmlelements');
-		$this->loadClass('hiddeninput', 'htmlelements');
-		$this->loadClass('checkbox', 'htmlelements');
-		$this->loadClass('htmlheading', 'htmlelements');
-		//Creating the form for IMS package upload
-		$paramArray1 = array('action' => 'uploadIMS');
-		$form1 = new form('uploadziplocal', $this->uri($paramArray1,'contextadmin'));
-    		$form1->extra=' enctype="multipart/form-data" ';
-    		//File input
-    		$fileInput = new textinput('upload');
-    		$fileInput->fldType='file';
-    		$fileInput->label=$this->objLanguage->languageText("mod_ims_uploadNotice","contextadmin");
-    		//$fileInput->name='upload';
-    		$fileInput->size=50;
-    		//Submit button
-    		$selectCourse = new button('submit');
-    		$selectCourse->setToSubmit();
-    		$selectCourse->setValue($this->objLanguage->languageText("word_upload"));
-		//Package type
-		$pakRadio = new radio('packageType');
-		$pakRadio->addOption('default','eduCommons');
-		$pakRadio->addOption('mit','MIT');
-		//$pakRadio->addOption('exe','eXe');
-		$pakRadio->setSelected('default');
-		$checkLabel = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
-		//Checkbox
-		$createCheckbox = new checkbox('createCourse','',true);
-	    	//add the objects to the form
-    		$form1->addToForm($fileInput);
-    		$form1->addToForm('<br />');
-    		$form1->addToForm($pakRadio);
-    		$form1->addToForm('<br />');
-    		$form1->addToForm($checkLabel);
-    		$form1->addToForm(' ');
-    		$form1->addToForm($createCheckbox);
-    		$form1->addToForm('<br />');
-    		$form1->addToForm($selectCourse);
-		//Creating the form for package upload
-		$paramArray2 = array('action' => 'uploadFromServer');
-		$form2 = new form('uploadziplocal', $this->uri($paramArray2,'contextadmin'));
-    		$form2->extra=' enctype="multipart/form-data" ';
-    		//Heading
-		$heading1 = new htmlheading();
-    		$heading1->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
-    		$heading1->type=2;
-		//Button
-		$loginButton = new button('login');
-		$loginButton->setValue('Login');
-		$loginButton->setToSubmit();
-		//Label - server
-		$serverLabel = new label($this->objLanguage->languageText("mod_ims_selectServer","contextadmin"),"");
-		//Dropdown - server selection
-		$serverDropDown = new dropdown('server');
-		//Populate Dropdown - server
-		$servers = $this->getServers();
-		foreach($servers as $server)
-		{
-			$serverDropDown->addOption($server);
-		}
-		//Label - local server
-		$localLabel = new label($this->objLanguage->languageText("mod_ims_localServer","contextadmin"),"");
-    		//Server input
-    		$serverInput = new textinput($this->objLanguage->languageText("mod_ims_localhost","contextadmin"), $this->objLanguage->languageText("mod_ims_uploadInfo","contextadmin"),'','45');
-		//Label - Create Course
-		$checkLabel2 = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
-		$form2->addToForm('<hr>');
-		$form2->addToForm($heading1);
-		$form2->addToForm('<br />');
-		$form2->addToForm($serverLabel);
-		$form2->addToForm($serverDropDown);
-		$form2->addToForm('<br />');
-		$form2->addToForm($loginButton);
-		if($section == '1')
-			return $form1->show();
-		else if($section == '2')
-			return $form2->show();
-		else
-			return $str = $form1->show().$form2->show();
-	}
-
-	/**
-	 * Main template file for the export module
-	 * Displays data and forms
-	 *
-	 */
-	public function downloadTemplate()
-	{
-		//course data table
-		parent::init('tbl_context');
-		//Load needed display classes
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('dropdown','htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('hiddeninput', 'htmlelements');
-		$this->loadClass('form', 'htmlelements');
-		//Creating the form
-		$paramArray1 = array('action' => 'downloadChisimba');
-		$form1 = new form('exportziplocal', $this->uri($paramArray1,'contextadmin'));
-    		$form1->extra=' enctype="multipart/form-data" ';
-		//Label - server
-		$courseLabel = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"");
-		//Dropdown - course selection
-		$courseDropDown = new dropdown('dropdownchoice');
-		//Retrieve all courses in Chisimba
-		$courses = $this->getAll();
-		//Populate Dropdown course
-		foreach($courses as $course)
-		{
-			$courseDropDown->addOption($course['contextcode'], $course['title']);
-		}
-		//Button
-		$exportButton = new button('export');
-		$exportButton->setValue($this->objLanguage->languageText("word_export"));
-		$exportButton->setToSubmit();
-		$form1->addToForm($courseLabel);
-		$form1->addToForm($courseDropDown);
-		$form1->addToForm("<br />");
-		$form1->addToForm($exportButton);
-
-		return $form1->show();
 	}
 
 	/**
@@ -1105,11 +728,6 @@ class importexportutils extends dbTable
 		return $resourceIds;
 	}
 
-	function getImageIds($courseImageNames)
-	{
-
-	}
-
 	function generateUniqueId($len = '')
 	{
 		$genkey = md5(uniqid(time(),true));
@@ -1124,9 +742,11 @@ class importexportutils extends dbTable
 	 *
     	 * @author Kevin Cyster
 	 * @Modified by Jarrett L Jordaan
-    	 * @param string $str - the text of the page to operate on.
+    	 * @param string $fileContents - the text of the page to operate on.
     	 * @param string $contextCode - course context code
-    	 * @param string $fileNames - names of all files in package
+    	 * @param array $fileNames - names of all files in package
+    	 * @param array $imageIds - 
+    	 * @param boolean/string $staticPackage - 
     	 * 
     	 * @return string $page - the finished modified text page
     	 * @return TRUE - if page is un-modified
@@ -1143,6 +763,9 @@ class importexportutils extends dbTable
 		$newLink = '"../'.$contextCode;
 		if($staticPackage)
 		{
+			// Check if its Course Home Page
+			if($staticPackage == '2')
+				$newLink = '"../'.$contextCode.'/'.$contextCode;
 			foreach($fileNames as $fileName)
 			{
 				$regex = '/'.$fileName.'/';
@@ -1154,9 +777,7 @@ class importexportutils extends dbTable
 					$page = preg_replace($regReplace, $newLink, $fileContents);
 				}
 				else
-				{
 					$page = $fileContents;
-				}
 			}
 		}
 		else
@@ -1263,7 +884,7 @@ class importexportutils extends dbTable
 					$aFile = preg_replace("/.html|.htm|.jpg|.gif|.png/","",$aFile);;
 				}
 				$regReplace = '/(href=".*'.$aFile.'.*?")/i';
-				$modAction = $action.$pageIds[$aFile].'"';
+				$modAction = 'href="'.$action.$pageIds[$aFile].'"';
 				$page = preg_replace($regReplace, $modAction, $page);
 			}
 		}
@@ -1336,46 +957,6 @@ class importexportutils extends dbTable
     	}
 
 	/**
-	 * Create a temporary folder
-	 * 
-	 * @param string $contextcode - context code of course
-	 * 
-	 * @return string $tempFolder - location of temporary folder
-	 * 
-	*/
-	function createTempDirectory($contextcode)
-	{
-		//Temp folder location
-		$tempFolder = "/tmp/".$contextcode;
-		$resourceFolder = $tempFolder."/".$contextcode;
-		//Check if folder exists and remove it
-		$this->recursive_remove_directory($tempFolder);
-		$this->recursive_remove_directory($resourceFolder);
-		//Create directory
-		if(!mkdir($tempFolder))
-		{
-			return "writeError";
-		}
-		//Create directory
-		if(!mkdir($resourceFolder))
-		{
-			return "writeError";
-		}
-		//Change directory permissions
-		if(!chmod($tempFolder,0777))
-		{
-			return "permissionError";
-		}
-		//Change directory permissions
-		if(!chmod($resourceFolder,0777))
-		{
-			return "permissionError";
-		}
-
-		return $tempFolder;
-	}
-
-	/**
 	 * Write Schema files
 	 *
 	 * @param string $tempDirectory - location of temporary folder
@@ -1399,47 +980,18 @@ class importexportutils extends dbTable
 		//Write Schema files
 		$fp = fopen($tempDirectory."/".$fileEdu,'w');
 		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
-		{
 			return "writeError";
-		}
 		$fp = fopen($tempDirectory."/".$fileImscp,'w');
 		if(fwrite($fp, file_get_contents($schamaspath2)) === FALSE)
-		{
 			return "writeError";
-		}
 		$fp = fopen($tempDirectory."/".$fileImsmd,'w');
 		if(fwrite($fp, file_get_contents($schamaspath3)) === FALSE)
-		{
 			return "writeError";
-		}
 		fclose($fp);
 		if(!chmod($tempDirectory,0777))
-		{
 			return "permissionError";
-		}
 
 		return TRUE;
-	}
-
-	/**
-	 * Create imsmanifest.xml
-	 *
-	 * @param string $tempDirectory - path to /tmp directory
-	 * 
-	 * @return filehandler $fp - file handler to write contents
-	 * 
-	 */
-	function createIMSManifestFile($tempDirectory)
-	{
-		$filePath = $tempDirectory."/imsmanifest.xml";
-		//check if the xml file exist
-		if(file_exists($filePath))
-			//delete the xml file
-			unlink($filePath);
-       		//create the xml file
-		$fp = fopen($filePath,'w');
-
-		return $fp;
 	}
 
 	/**
@@ -1485,10 +1037,10 @@ class importexportutils extends dbTable
 
 		return $indexdOrders;
 	}
-	function pageOrder($contextcode)
+	function pageOrder($contextcode, $chapterId)
 	{
 		parent::init('tbl_contextcontent_order');
-		$filter = "WHERE contextcode = '$contextcode' ORDER by bookmark";
+		$filter = "WHERE contextcode = '$contextcode' AND chapterid = '$chapterId' ORDER by bookmark";
 		$pageOrders = $this->getAll($filter);
 		$i = 0;
 		foreach($pageOrders as $pageOrder)
@@ -1499,6 +1051,7 @@ class importexportutils extends dbTable
 
 		return $indexdOrders;
 	}
+
 	function pageContent($titleId)
 	{
 		parent::init('tbl_contextcontent_pages');
@@ -1511,8 +1064,9 @@ class importexportutils extends dbTable
 			$i++;
 		}
 
-		return $indexdOrders;
+		return $indexdOrders['0'];
 	}
+
 
 	/**
 	 * Sets debugging on
@@ -1573,6 +1127,190 @@ class importexportutils extends dbTable
 		$results = $xpath->evaluate($query);
 		for($i=0;$i<$results->length;$i++)
 			echo $results->item($i)->nodeValue."<br />";
+	}
+
+	/**
+	 * Main template file for the import module
+	 * Displays data and forms
+	 * Written by James Scoble using code written by Wesley Nitsckie
+	 * Modified by Jarrett L. Jordaan
+	 */
+	public function importTemplate($dbData, $packageType, $newCourse)
+	{
+		$this->switchDatabase();
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('htmlheading','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('dropdown','htmlelements');
+		$objH = new htmlheading();
+		if($newCourse)
+			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourse","contextadmin");
+		else
+			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourseHeading","contextadmin");
+		$objH->type=2;
+		if($packageType == 'mit' || $packageType == 'default')
+			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadIMSIntoExisting')));
+		else
+			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadKNG')));
+		//Label
+		$label = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"select");
+		//Button
+		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
+		$inpButton->setToSubmit();
+		//Button
+		//$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
+		//$submitAll->setToSubmit();
+		$objElement = new dropdown('dropdownchoice');
+		//Dropdown 
+		foreach($dbData as $dataOld)
+			$objElement->addOption($dataOld['contextcode']);
+		$objForm->addToForm($objH);
+		$objForm->addToForm($label->show());
+		$objForm->addToForm($objElement->show());
+		$objForm->addToForm('<br/>');
+		$objForm->addToForm($inpButton->show());
+		//$objForm->addToForm($submitAll->show());
+
+		return $objForm->show();
+	}
+
+	/**
+	 * Main template file for the import module
+	 * Displays data and forms
+	 * Written by James Scoble using code written by Wesley Nitsckie
+	 * Modified by Jarrett L. Jordaan
+	 */
+	public function uploadTemplate($section = '')
+	{
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('radio','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		$this->loadClass('hiddeninput', 'htmlelements');
+		$this->loadClass('checkbox', 'htmlelements');
+		$this->loadClass('htmlheading', 'htmlelements');
+		//Creating the form for IMS package upload
+		$paramArray1 = array('action' => 'uploadIMS');
+		$form1 = new form('uploadziplocal', $this->uri($paramArray1,'contextadmin'));
+    		$form1->extra=' enctype="multipart/form-data" ';
+    		//File input
+    		$fileInput = new textinput('upload');
+    		$fileInput->fldType='file';
+    		$fileInput->label=$this->objLanguage->languageText("mod_ims_uploadNotice","contextadmin");
+    		//$fileInput->name='upload';
+    		$fileInput->size=50;
+    		//Submit button
+    		$selectCourse = new button('submit');
+    		$selectCourse->setToSubmit();
+    		$selectCourse->setValue($this->objLanguage->languageText("word_upload"));
+		//Package type
+		$pakRadio = new radio('packageType');
+		$pakRadio->addOption('default','eduCommons');
+		$pakRadio->addOption('mit','MIT');
+		//$pakRadio->addOption('exe','eXe');
+		$pakRadio->setSelected('default');
+		$checkLabel = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
+		//Checkbox
+		$createCheckbox = new checkbox('createCourse','',true);
+	    	//add the objects to the form
+    		$form1->addToForm($fileInput);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($pakRadio);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($checkLabel);
+    		$form1->addToForm(' ');
+    		$form1->addToForm($createCheckbox);
+    		$form1->addToForm('<br />');
+    		$form1->addToForm($selectCourse);
+		//Creating the form for package upload
+		$paramArray2 = array('action' => 'uploadFromServer');
+		$form2 = new form('uploadziplocal', $this->uri($paramArray2,'contextadmin'));
+    		$form2->extra=' enctype="multipart/form-data" ';
+    		//Heading
+		$heading1 = new htmlheading();
+    		$heading1->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
+    		$heading1->type=2;
+		//Button
+		$loginButton = new button('login');
+		$loginButton->setValue('Login');
+		$loginButton->setToSubmit();
+		//Label - server
+		$serverLabel = new label($this->objLanguage->languageText("mod_ims_selectServer","contextadmin"),"");
+		//Dropdown - server selection
+		$serverDropDown = new dropdown('server');
+		//Populate Dropdown - server
+		$servers = $this->getServers();
+		foreach($servers as $server)
+		{
+			$serverDropDown->addOption($server);
+		}
+		//Label - local server
+		$localLabel = new label($this->objLanguage->languageText("mod_ims_localServer","contextadmin"),"");
+    		//Server input
+    		$serverInput = new textinput($this->objLanguage->languageText("mod_ims_localhost","contextadmin"), $this->objLanguage->languageText("mod_ims_uploadInfo","contextadmin"),'','45');
+		//Label - Create Course
+		$checkLabel2 = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
+		$form2->addToForm('<hr>');
+		$form2->addToForm($heading1);
+		$form2->addToForm('<br />');
+		$form2->addToForm($serverLabel);
+		$form2->addToForm($serverDropDown);
+		$form2->addToForm('<br />');
+		$form2->addToForm($loginButton);
+		if($section == '1')
+			return $form1->show();
+		else if($section == '2')
+			return $form2->show();
+		else
+			return $str = $form1->show().$form2->show();
+	}
+
+	/**
+	 * Main template file for the export module
+	 * Displays data and forms
+	 *
+	 */
+	public function downloadTemplate()
+	{
+		//course data table
+		parent::init('tbl_context');
+		//Load needed display classes
+		$this->loadClass('textinput', 'htmlelements');
+		$this->loadClass('dropdown','htmlelements');
+		$this->loadClass('label', 'htmlelements');
+		$this->loadClass('button', 'htmlelements');
+		$this->loadClass('hiddeninput', 'htmlelements');
+		$this->loadClass('form', 'htmlelements');
+		//Creating the form
+		$paramArray1 = array('action' => 'downloadChisimba');
+		$form1 = new form('exportziplocal', $this->uri($paramArray1,'contextadmin'));
+    		$form1->extra=' enctype="multipart/form-data" ';
+		//Label - server
+		$courseLabel = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"");
+		//Dropdown - course selection
+		$courseDropDown = new dropdown('dropdownchoice');
+		//Retrieve all courses in Chisimba
+		$courses = $this->getAll();
+		//Populate Dropdown course
+		foreach($courses as $course)
+		{
+			$courseDropDown->addOption($course['contextcode'], $course['title']);
+		}
+		//Button
+		$exportButton = new button('export');
+		$exportButton->setValue($this->objLanguage->languageText("word_export"));
+		$exportButton->setToSubmit();
+		$form1->addToForm($courseLabel);
+		$form1->addToForm($courseDropDown);
+		$form1->addToForm("<br />");
+		$form1->addToForm($exportButton);
+
+		return $form1->show();
 	}
 
 /*
