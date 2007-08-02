@@ -49,6 +49,17 @@ class dbmediafileinfo extends dbTable
             $this->delete('id', $result['id']);
         }
     }
+    
+    /**
+    * Method to update the width and height info of a file
+    * @param string $fileId Record Id of the File
+    * @param int $width Width of the File
+    * @param int $height Height of the File
+    */
+    function updateWidthHeight($fileId, $width, $height)
+    {
+        return $this->update('fileid', $fileId, array('width'=>$width, 'height'=>$height));
+    }
 
 
 }
