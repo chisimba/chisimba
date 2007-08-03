@@ -1,23 +1,20 @@
 <?php
+/**
+ * The class importIMSPackage that manages the import of IMS specification content into Chisimba
+ * 
+ * @category  Chisimba
+ * @package   contextadmin
+ * @author    Jarrett Jordaan
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   1.0
+ * @link      http://avoir.uwc.ac.za
+ */
 // security check - must be included in all scripts.
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check.
-/**
- * The class importIMSPackage that manages 
- * the import of IMS specification content into Chisimba
- * @package importimspackage
- * @category context
- * @copyright 2007, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @version
- * @author Jarrett Jordaan
- * The process for import IMS specification content is:
- * 
- * 
- */
-
 class importIMSPackage extends dbTable
 {
 	/**

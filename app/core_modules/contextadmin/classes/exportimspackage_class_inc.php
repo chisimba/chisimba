@@ -1,23 +1,20 @@
 <?php
+/**
+ * The class exportIMSPackage that manages the export of IMS specification content
+ * 
+ * @category  Chisimba
+ * @package   contextadmin
+ * @author    Jarrett Jordaan
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   1.0
+ * @link      http://avoir.uwc.ac.za
+ */
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check
-/**
- * The class exportIMSPackage that manages 
- * the export of IMS specification content
- * @package exportimspackage
- * @category context
- * @copyright 2007, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @version
- * @author Jarrett Jordaan
- * The process for export IMS specification content is:
- * 
- * 
- */
-
 class exportimspackage extends dbTable
 {
 	/**
@@ -96,23 +93,10 @@ class exportimspackage extends dbTable
 		$courseResourceIds = $this->objIEUtils->getResourceIds($courseHtml);
 		// Re-write Course Html.
 		$courseHtml = $this->rebuildHtml($contextcode, $courseHtml, $courseImageNames, $courseResourceIds);
-		// Write Images to specified directory (resources folder).
-		if(count($courseImageNames) > 0)
-		{
-			$imageNames = $this->objIEUtils->writeImages($courseImageNames, $resourceFolder);
-			foreach($courseImageNames as $courseImageName)
-			{
-
-			}
-		}
-		//.Write Resources to specified directory (resources folder).
-		if(count($courseResourceIds) > 0)
-			$resourceNames = $this->objIEUtils->writeResources($courseResourceIds, $resourceFolder);
 		// Write Course Html to specified directory (resources folder).
 		$courseFilenames = $this->objIEUtils->writeFiles($courseHtml, $tempDirectory, $courseTitle,'html');
-var_dump($courseFilenames);
+		// File location in package.
 		$fileLocation = $tempDirectory.'/'.$courseFilenames[0].'.html';
-var_dump($fileLocation);
 		// Add Course Organization (Chapter).
 		$organization = $organizations->appendChild($this->createOrganization($dom, $orgId));
 		// Can only create one course resource
@@ -122,30 +106,22 @@ var_dump($fileLocation);
 		$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
 		// Add Course Resource.
 		$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course', $courseResId));
-		$chapterOrder = $this->objIEUtils->chapterOrder($contextcode);
-		foreach($chapterOrder as $chapter)
+		// Write Images to specified directory (resources folder).
+		if(count($courseImageNames) > 0)
 		{
-			$pageOrder = $this->objIEUtils->pageOrder($contextcode, $chapter['chapterid']);
-			array_shift($pageOrder);
-			foreach($pageOrder as $page)
+			$imageNames = $this->objIEUtils->writeImages($courseImageNames, $resourceFolder);
+			foreach($courseImageNames as $courseImageName)
 			{
-				if($page["isbookmarked"] == 'Y')
-				{
-					$itemId = 'ITM'.$this->objIEUtils->generateUniqueId();
-					$resId = 'RES'.$this->objIEUtils->generateUniqueId();
-					$pageDetails = $this->objIEUtils->pageContent($page['titleid']);
-					$courseTitle = $pageDetails['menutitle'];
-					// Add Items to Organization.
-					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
-					// Add Course Resource.
-					//$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course', $courseResId));
-				}
-				else
-				{
-					
-				}
+				$resId = 'RES'.$this->objIEUtils->generateUniqueId();
+				// File location in package.
+				$fileLocation = $resourceFolder.'/'.$courseImageName;
+				// Add Course Resource.
+				$resources->appendChild($this->createResource($dom, $courseImageName, $contextcode, $fileLocation, 'Image', $resId));
 			}
 		}
+		//.Write Resources to specified directory (resources folder).
+		if(count($courseResourceIds) > 0)
+			$resourceNames = $this->objIEUtils->writeResources($courseResourceIds, $resourceFolder);
 		// Retrieve Html pages.
 		$htmlPages = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'pagecontent');
 		// Remove course page.
@@ -166,16 +142,172 @@ var_dump($fileLocation);
 			$imageIds = $this->objIEUtils->writeImages($imageNames, $resourceFolder);
 			foreach($imageNames as $imageName)
 			{
-
+				$resId = 'RES'.$this->objIEUtils->generateUniqueId();
+				// File location in package.
+				$fileLocation = $resourceFolder.'/'.$imageName;
+				// Add Course Resource.
+				$resources->appendChild($this->createResource($dom, $imageName, $contextcode, $fileLocation, 'Image', $resId));
 			}
 		}
 		// Write Resources to specified directory (resources folder).
 		if(count($resourceIds) > 0)
 			$resourceNames = $this->objIEUtils->writeResources($resourceIds, $resourceFolder);
+		$chapterOrder = $this->objIEUtils->chapterOrder($contextcode);
+		$i = 1;
+		foreach($chapterOrder as $chapter)
+		{
+			$pageOrder = $this->objIEUtils->pageOrder($contextcode, $chapter['chapterid']);
+			array_shift($pageOrder);
+			foreach($pageOrder as $page)
+			{
+				if($page["isbookmarked"] == 'Y')
+				{
+					$itemId = 'ITM'.$this->objIEUtils->generateUniqueId();
+					$resId = 'RES'.$this->objIEUtils->generateUniqueId();
+					$pageDetails = $this->objIEUtils->pageContent($page['titleid']);
+					$courseTitle = $pageDetails['menutitle'];
+					// Add Items to Organization.
+					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
+					// File location in package.
+					$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
+					// Add Course Resource.
+					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
+					$i++;
+				}
+				else
+				{
+					// File location in package.
+					$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
+					// Add Course Resource.
+					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
+					$i++;
+				}
+			}
+		}
 		$ims = $this->objIEUtils->writeFiles($dom->saveXML(), $tempDirectory, 'imsmanifest', 'xml');
 		//$this->zipAndDownload($contextcode, $tempDirectory);
 
 		return TRUE;
+	}
+
+	function createResource($dom, $name, $contextcode, $fileLocation, $type, $resId)
+	{
+		// Retrieve all data
+		$fileName = preg_replace('/\..*/','',$name);
+		$fileSize = filesize($fileLocation);
+		$location = $this->objConf->getsiteRoot().$this->objConf->getcontentPath().'content/'.$contextcode.'/'.$name;
+		$username = $this->objUser->userName($this->objUser->userId());
+		$userDetails = $this->objUser->lookupData($username);
+		$userEmail = $userDetails['emailaddress'];
+		$copyright = 'Copyright '.date('Y');
+		$copyrightCleared = 'false';
+		$lang = 'en';
+		$pageDescription = 'Course Home Page';
+		$courseKeywords = 'HomePage';
+		$dateCreated = date('Y-m-j G:i:s');
+		$courseTerm = 'Not Specified';
+		$displayEmail = 'false';
+		$licenseName = 'Not Specified';
+		$licenseUrl = 'Not Specified';
+		$licenseIconUrl = 'Not Specified';
+		// Create resource
+		$resource = $dom->createElement('resource');
+		$resource->setAttribute('identifier', $resId);
+		$resource->setAttribute('type', 'webcontent');
+		$resource->setAttribute('href', $location);
+		$metadata = $resource->appendChild($dom->createElement('metadata'));
+		$lom = $metadata->appendChild($dom->createElement('lom'));
+		$lom->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
+		$general = $lom->appendChild($dom->createElement('general'));
+		$identifier = $general->appendChild($dom->createElement('identifier', $name));
+		$title = $general->appendChild($dom->createElement('title'));
+		$titleLangstring = $title->appendChild($dom->createElement('langstring', $fileName));
+		$language = $general->appendChild($dom->createElement('language', $lang));
+		if($type == 'Course')
+		{
+			$description = $general->appendChild($dom->createElement('description', $pageDescription));
+			$keyword = $general->appendChild($dom->createElement('keyword', $courseKeywords));
+			$keyword->setAttribute('xml:lang', 'en');
+		}
+		$lifecycle = $lom->appendChild($dom->createElement('lifecycle'));
+		$contribute = $lifecycle->appendChild($dom->createElement('contribute'));
+		$role = $contribute->appendChild($dom->createElement('role'));
+		$source = $role->appendChild($dom->createElement('source'));
+		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
+		$sourceLangstring->setAttribute('xml:lang', 'x-none');
+		$value = $role->appendChild($dom->createElement('value'));
+		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'author'));
+		$valueLangstring->setAttribute('xml:lang', 'x-none');
+		if($type == 'Course')
+		{
+		$centity = $contribute->appendChild($dom->createElement('centity'));
+		$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:'.$username.' EMAIL;INTERNET:'.$userEmail.' END:VCARD'));
+		$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
+		$metametadata = $lom->appendChild($dom->createElement('metametadata'));
+		$catalogentry = $metametadata->appendChild($dom->createElement('catalogentry'));
+		$catalog = $catalogentry->appendChild($dom->createElement('catalog', $userEmail));
+		$entry = $catalogentry->appendChild($dom->createElement('entry'));
+		$entryLangstring = $entry->appendChild($dom->createElement('langstring', $name));
+		}
+		else
+		{
+		$centity = $contribute->appendChild($dom->createElement('centity'));
+		$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:(site default) END:VCARD'));
+		$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
+		$metametadata = $lom->appendChild($dom->createElement('metametadata'));
+		$catalogentry = $metametadata->appendChild($dom->createElement('catalogentry'));
+		$catalog = $catalogentry->appendChild($dom->createElement('catalog', $userEmail));
+		$entry = $catalogentry->appendChild($dom->createElement('entry'));
+		$entryLangstring = $entry->appendChild($dom->createElement('langstring', $name));
+		}
+		if($type == 'Course')
+		{
+			$contribute = $metametadata->appendChild($dom->createElement('contribute'));
+			$role = $contribute->appendChild($dom->createElement('role'));
+			$source = $role->appendChild($dom->createElement('source'));
+			$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
+			$value = $role->appendChild($dom->createElement('value'));
+			$valueLangstring = $value->appendChild($dom->createElement('langstring', 'creator'));
+			$centity = $contribute->appendChild($dom->createElement('centity'));
+			$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:'.$username.' EMAIL;INTERNET:'.$userEmail.' END:VCARD'));
+			$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
+		}
+		$metadatascheme = $metametadata->appendChild($dom->createElement('metadatascheme', 'LOMv1.0'));
+		$language = $metametadata->appendChild($dom->createElement('language', $lang));
+		$technical = $lom->appendChild($dom->createElement('technical'));
+		$format = $technical->appendChild($dom->createElement('format','text/html'));
+		$size = $technical->appendChild($dom->createElement('size', $fileSize));
+		$location = $technical->appendChild($dom->createElement('location', $location));
+		$rights = $lom->appendChild($dom->createElement('rights'));
+		$copyrightandotherrestrictions = $rights->appendChild($dom->createElement('copyrightandotherrestrictions'));
+		$source = $copyrightandotherrestrictions->appendChild($dom->createElement('source'));
+		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
+		$sourceLangstring->setAttribute('xml:lang', 'x-none');
+		$value = $copyrightandotherrestrictions->appendChild($dom->createElement('value'));
+		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'yes'));
+		$valueLangstring->setAttribute('xml:lang', 'x-none');
+		$description = $rights->appendChild($dom->createElement('description'));
+		$descriptionLangstring = $description->appendChild($dom->createElement('langstring', $copyright));
+		$eduCommons = $metadata->appendChild($dom->createElement('eduCommons'));
+		$eduCommons->setAttribute('xmlns', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
+		$objectType = $eduCommons->appendChild($dom->createElement('objectType', $type));
+		if($type == 'Course')
+			$copyright = $eduCommons->appendChild($dom->createElement('copyright', $copyright));
+		$license = $eduCommons->appendChild($dom->createElement('license'));
+		$licenseName = $license->appendChild($dom->createElement('licenseName', $licenseName));
+		$licenseUrl = $license->appendChild($dom->createElement('licenseUrl', $licenseUrl));
+		$licenseIconUrl = $license->appendChild($dom->createElement('licenseIconUrl', $licenseIconUrl));
+		$clearedCopyright = $eduCommons->appendChild($dom->createElement('clearedCopyright', $copyrightCleared));
+		if($type == 'Course')
+		{
+			$courseId = $eduCommons->appendChild($dom->createElement('courseId', $contextcode));
+			$term = $eduCommons->appendChild($dom->createElement('term', $courseTerm));
+			$displayInstructorEmail = $eduCommons->appendChild($dom->createElement('displayInstructorEmail', $displayEmail));
+		}
+		$file = $resource->appendChild($dom->createElement('file'));
+		$file->setAttribute('href', $name);
+
+		return $resource;
 	}
 
 	function getMetadata($dom, $metadata)
@@ -203,107 +335,6 @@ var_dump($fileLocation);
 		$title = $item->appendChild($dom->createElement('title', $menutitle));
 
 		return $item;
-	}
-
-	function createResource($dom, $name, $contextcode, $fileLocation, $type, $resId)
-	{
-		// Retrieve all data
-		$fileName = preg_replace('/\..*/','',$name);
-		$fileSize = filesize($fileLocation);
-		$location = $this->objConf->getsiteRoot().$this->objConf->getcontentPath().'content/'.$contextcode.'/'.$name;
-		$username = $this->objUser->userName($this->objUser->userId());
-		$userDetails = $this->objUser->lookupData($username);
-		$userEmail = $userDetails['emailaddress'];
-		$copyright = 'Copyright '.date('Y');
-		$copyrightCleared = 'false';
-		$lang = 'en';
-		$pageDescription = 'Course Home Page';
-		$courseKeywords = 'HomePage';
-		$dateCreated = date('Y-m-j G:i:s');
-		$courseTerm = 'Not Specified';
-		$displayEmail = 'false';
-		$licenseName = 'Not Specified';
-		$licenseUrl = 'Not Specified';
-		$licenseIconUrl = 'Not Specified';
-		// Create resource
-		$resource = $dom->createElement('resource');
-		$resource->setAttribute('identifier', $resId);
-		$resource->setAttribute('type', 'webcontent');
-		$resource->setAttribute('href', 'http://localhost/'.$contextcode);
-		$metadata = $resource->appendChild($dom->createElement('metadata'));
-		$lom = $metadata->appendChild($dom->createElement('lom'));
-		$lom->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
-		$general = $lom->appendChild($dom->createElement('general'));
-		$identifier = $general->appendChild($dom->createElement('identifier', $name));
-		$title = $general->appendChild($dom->createElement('title'));
-		$titleLangstring = $title->appendChild($dom->createElement('langstring', $fileName));
-		$language = $general->appendChild($dom->createElement('language', $lang));
-		$description = $general->appendChild($dom->createElement('description', $pageDescription));
-		$keyword = $general->appendChild($dom->createElement('keyword', $courseKeywords));
-		$keyword->setAttribute('xml:lang', 'en');
-		$lifecycle = $lom->appendChild($dom->createElement('lifecycle'));
-		$contribute = $lifecycle->appendChild($dom->createElement('contribute'));
-		$role = $contribute->appendChild($dom->createElement('role'));
-		$source = $role->appendChild($dom->createElement('source'));
-		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
-		$sourceLangstring->setAttribute('xml:lang', 'x-none');
-		$value = $role->appendChild($dom->createElement('value'));
-		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'author'));
-		$valueLangstring->setAttribute('xml:lang', 'x-none');
-		$centity = $contribute->appendChild($dom->createElement('centity'));
-		$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:'.$username.' EMAIL;INTERNET:'.$userEmail.' END:VCARD'));
-		$vcard = $centity->appendChild($dom->createElement('vcard', 'begin:vcard fn:'.$username.' email;internet:'.$userEmail.' end:vcard'));
-		$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
-		$metametadata = $lom->appendChild($dom->createElement('metametadata'));
-		$catalogentry = $metametadata->appendChild($dom->createElement('catalogentry'));
-		$catalog = $catalogentry->appendChild($dom->createElement('catalog', $userEmail));
-		$entry = $catalogentry->appendChild($dom->createElement('entry'));
-		$entryLangstring = $entry->appendChild($dom->createElement('langstring', $name));
-		$contribute = $metametadata->appendChild($dom->createElement('contribute'));
-		$role = $contribute->appendChild($dom->createElement('role'));
-		$source = $role->appendChild($dom->createElement('source'));
-		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
-		$value = $role->appendChild($dom->createElement('value'));
-		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'creator'));
-		$centity = $contribute->appendChild($dom->createElement('centity'));
-		$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:'.$username.' EMAIL;INTERNET:'.$userEmail.' END:VCARD'));
-		$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
-		$metadatascheme = $metametadata->appendChild($dom->createElement('metadatascheme', 'LOMv1.0'));
-		$language = $metametadata->appendChild($dom->createElement('language', $lang));
-		$technical = $lom->appendChild($dom->createElement('technical'));
-		$format = $technical->appendChild($dom->createElement('format','text/html'));
-		$size = $technical->appendChild($dom->createElement('size', $fileSize));
-		$location = $technical->appendChild($dom->createElement('location', $location));
-		$rights = $lom->appendChild($dom->createElement('rights'));
-		$copyrightandotherrestrictions = $rights->appendChild($dom->createElement('copyrightandotherrestrictions'));
-		$source = $copyrightandotherrestrictions->appendChild($dom->createElement('source'));
-		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
-		$sourceLangstring->setAttribute('xml:lang', 'x-none');
-		$value = $copyrightandotherrestrictions->appendChild($dom->createElement('value'));
-		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'yes'));
-		$valueLangstring->setAttribute('xml:lang', 'x-none');
-		$description = $rights->appendChild($dom->createElement('description'));
-		$descriptionLangstring = $description->appendChild($dom->createElement('langstring', $copyright));
-		$eduCommons = $metadata->appendChild($dom->createElement('eduCommons'));
-		$eduCommons->setAttribute('xmlns', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
-		$objectType = $eduCommons->appendChild($dom->createElement('objectType', $type));
-		if($type = 'Course')
-			$copyright = $eduCommons->appendChild($dom->createElement('copyright', $copyright));
-		$license = $eduCommons->appendChild($dom->createElement('license'));
-		$licenseName = $license->appendChild($dom->createElement('licenseName', $licenseName));
-		$licenseUrl = $license->appendChild($dom->createElement('licenseUrl', $licenseUrl));
-		$licenseIconUrl = $license->appendChild($dom->createElement('licenseIconUrl', $licenseIconUrl));
-		$clearedCopyright = $eduCommons->appendChild($dom->createElement('clearedCopyright', $copyrightCleared));
-		if($type = 'Course')
-		{
-			$courseId = $eduCommons->appendChild($dom->createElement('courseId', $contextcode));
-			$term = $eduCommons->appendChild($dom->createElement('term', $courseTerm));
-			$displayInstructorEmail = $eduCommons->appendChild($dom->createElement('displayInstructorEmail', $displayEmail));
-		}
-		$file = $resource->appendChild($dom->createElement('file'));
-		$file->setAttribute('href', $name);
-
-		return $resource;
 	}
 
 	function rebuildHtml($contextcode, $htmlPages, $courseImageNames, $courseResourceIds)
