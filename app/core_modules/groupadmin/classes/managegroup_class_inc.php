@@ -1,15 +1,21 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    groupadmin
 * @subpackage service
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      22 November 2004
+* @author     Jonathan Abrahams
 * @filesource
 */
 
@@ -64,9 +70,9 @@ class manageGroup extends object
     /**
     * Method to get the users of the group.
     *
-    * @param string The list of fields
-    * @param string The SQL Filter.
-    * @return array Associative array of users of the group.
+    * @param  string The list of fields
+    * @param  string The SQL Filter.
+    * @return array  Associative array of users of the group.
     */
     function getUsers($fields=NULL,$filter=NULL)
     {   

@@ -1,25 +1,31 @@
 <?php 
 // security check - must be included in all scripts
-if ( !$GLOBALS['kewl_entry_point_run'] ) {
+if ( !
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'] ) {
     die( "You cannot view this page directly" );
 } 
 /**
 * 
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    groupadmin
 * @subpackage controller
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams 
-* @filesource 
+* @version    0.1
+* @since      22 November 2004
+* @author     Jonathan Abrahams
+* @filesource
 */
 /**
 * Class to manage groups.
 * 
-* @package groupadmin
+* @package    groupadmin
 * @subpackage controller
-* @access public 
-* @author Jonathan Abrahams 
+* @access     public
+* @author     Jonathan Abrahams
 */
 class groupadmin extends controller {
     /**
@@ -61,8 +67,8 @@ class groupadmin extends controller {
     /**
     * Method that initializes the objects
     * 
-    * @access private 
-    * @return nothing 
+    * @access private
+    * @return nothing
     */
     function init()
     {
@@ -92,9 +98,9 @@ class groupadmin extends controller {
     /**
     * Method to handel the messages.
     * 
-    * @param string $action the message.
-    * @access private 
-    * @return string the template file name.
+    * @param  string  $action the message.
+    * @access private
+    * @return string  the template file name.
     */
     function dispatch( $action )
     {
@@ -138,8 +144,8 @@ class groupadmin extends controller {
     /**
     * Method to show the main view
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function showMain()
     {
@@ -265,8 +271,8 @@ class groupadmin extends controller {
     /**
     * Method to process the main form post/get elements
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function processMainForm()
     {
@@ -294,8 +300,8 @@ class groupadmin extends controller {
     /**
     * Method to show the create group view
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function showCreate()
     {
@@ -432,8 +438,8 @@ class groupadmin extends controller {
     /**
     * Method to process the create form post/get elements
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function processCreateForm()
     {
@@ -474,8 +480,8 @@ class groupadmin extends controller {
     /**
     * Method to show the edit group members view
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function showEdit()
     {
@@ -648,8 +654,8 @@ class groupadmin extends controller {
     /**
     * Method to show the context
     * 
-    * @access private 
-    * @return nothing 
+    * @access private
+    * @return nothing
     */
     function showContext()
     {
@@ -659,8 +665,8 @@ class groupadmin extends controller {
     /**
     * Method to redirect to correct template.
     * 
-    * @access private 
-    * @return the template file name.
+    * @access private
+    * @return the     template file name.
     */
     function redirect( $redirect )
     {
@@ -680,8 +686,8 @@ class groupadmin extends controller {
     /**
     * Method to process the edit form post/get elements
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function processEditForm()
     {
@@ -721,8 +727,8 @@ class groupadmin extends controller {
     /**
     * Method to show the delete group view
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function showDelete()
     {
@@ -788,8 +794,8 @@ class groupadmin extends controller {
     /**
     * Method to process the delete form post/get elements
     * 
-    * @access private 
-    * @return string the template file name.
+    * @access private
+    * @return string  the template file name.
     */
     function processDeleteForm()
     {
@@ -810,8 +816,8 @@ class groupadmin extends controller {
     /**
     * Method to get the group id
     * 
-    * @access private 
-    * @return string groupId param returned from the template.
+    * @access private
+    * @return string  groupId param returned from the template.
     */
     function groupId()
     {
@@ -823,8 +829,8 @@ class groupadmin extends controller {
     /**
     * Method to get all members of the current group.
     * 
-    * @access private 
-    * @return array containing the members.
+    * @access private
+    * @return array   containing the members.
     */
     function memberList()
     {
@@ -840,8 +846,8 @@ class groupadmin extends controller {
     /**
     * Method to get all users not in the selected group.
     * 
-    * @access private 
-    * @return array of all non members.
+    * @access private
+    * @return array   of all non members.
     */
     function usersList()
     {
@@ -860,8 +866,8 @@ class groupadmin extends controller {
     /**
     * Method to create the edit link button.
     * @access private
-    * @param string $groupId The group to edit.
-    * @return link a link object reference
+    * @param  string  $groupId The group to edit.
+    * @return link    a link object reference
     */
     function lnkEdit( $groupId )
     {
@@ -875,8 +881,8 @@ class groupadmin extends controller {
     /**
     * Method to create the delete link button.
     * @access private
-    * @param string $groupId The group to delete.
-    * @return link a link object reference
+    * @param  string  $groupId The group to delete.
+    * @return link    a link object reference
     */
     function lnkDelete( $groupId )
     {
@@ -891,7 +897,7 @@ class groupadmin extends controller {
     /**
     * Method to create the create link button.
     * @access private
-    * @return link a link object reference
+    * @return link    a link object reference
     */
     function lnkCreate()
     {
@@ -906,7 +912,7 @@ class groupadmin extends controller {
     /**
     * Method to create the create link button.
     * @access private
-    * @return link a link object reference
+    * @return link    a link object reference
     */
     function lnkIcnCreate()
     {
@@ -918,7 +924,7 @@ class groupadmin extends controller {
     /**
     * Method to gather group information.
     * @access private
-    * @return array list of usefull group information.
+    * @return array   list of usefull group information.
     */
     function infoGroup( $groupId )
     {

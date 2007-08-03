@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -37,12 +43,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  *   getUsers          - To get all the users.
  *</PRE>
  *
- * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
- * @package groupadmin
+ * @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package    groupadmin
  * @subpackage service
- * @version 0.1
- * @since 22 November 2004
- * @author Paul Scott based on methods by Jonathan Abrahams
+ * @version    0.1
+ * @since      22 November 2004
+ * @author     Paul Scott based on methods by Jonathan Abrahams
  * @filesource
  */
 
@@ -53,15 +59,15 @@ class groupAdminModel extends dbTable
      * $_objUsers an association to the userDb object.
      *
      * @access public
-     * @var userDb
+     * @var    userDb
      */
     public $_objUsers;
 
     /**
      * an association to the groupuserDb object.
      *
-     * @access public
-     * @var groupuserDb $_objGroupUsers
+     * @access public     
+     * @var    groupuserDb $_objGroupUsers
      */
     public $_objGroupUsers;
 
@@ -69,8 +75,8 @@ class groupAdminModel extends dbTable
      * Method to initialize the group admin model object.
      *
      * @access public
-     * @param void
-     * @return void
+     * @param  void  
+     * @return void  
      */
     public function init()
     {
@@ -89,8 +95,8 @@ class groupAdminModel extends dbTable
     /**
      * Method to get the groupusers object
      *
-     * @access public
-     * @param void
+     * @access public  
+     * @param  void    
      * @return property
      */
     public function & groupusers()
@@ -101,8 +107,8 @@ class groupAdminModel extends dbTable
     /**
     * Method to get to the users object
     *
-    * @access public
-    * @param void
+    * @access public  
+    * @param  void    
     * @return property
     */
     public function & users()
@@ -116,10 +122,10 @@ class groupAdminModel extends dbTable
     * The group description should suggest who the group members are,
     * and the parent group creates the group hierarchy.
     *
-    * @access public
-    * @param string $name the group name.
-    * @param string $description a short description of the group, suggesting the member list.
-    * @param string $parentId the unique id of this groups immediate ancestor.( optional default is null=root )
+    * @access public      
+    * @param  string       $name        the group name.
+    * @param  string       $description a short description of the group, suggesting the member list.
+    * @param  string       $parentId    the unique id of this groups immediate ancestor.( optional default is null=root )
     * @return string|false the newly generated unique id for this group if successful, otherwise false.
     */
     public function addGroup( $name,  $description, $parentId = null )
@@ -146,8 +152,8 @@ class groupAdminModel extends dbTable
      * Method to remove a group from the group hierarchy.
      * It cascade deletes the subgroups as well.
      *
-     * @access public
-     * @param string $groupId The unique ID of an existing group.
+     * @access public    
+     * @param  string     $groupId The unique ID of an existing group.
      * @return true|false true if successful, otherwise false.
      */
     public function deleteGroup( $groupId )
@@ -161,9 +167,9 @@ class groupAdminModel extends dbTable
     /**
      * Method to get all the groups( no hierarchy ).
      *
-     * @access public
-     * @param array $fields ( optional ) Default fields are unique ID and group name.
-     * @param string $filter ( optional ) a SQL WHERE clause.
+     * @access public     
+     * @param  array       $fields ( optional ) Default fields are unique ID and group name.
+     * @param  string      $filter ( optional ) a SQL WHERE clause.
      * @return array|false Group rows as an array of associate arrays, or FALSE on failure
      */
     public function getGroups( $fields = array( "id", "name" ), $filter = null )
@@ -181,8 +187,8 @@ class groupAdminModel extends dbTable
      * Method to get the ancestors from this group up the hierarchy.
      *
      * @access public
-     * @param string The unique ID of an existing group.
-     * @return array the list of all groups to root excluding the given group.
+     * @param  string The unique ID of an existing group.
+     * @return array  the list of all groups to root excluding the given group.
      */
     public function getGroupsToRoot( $groupId )
     {
@@ -197,7 +203,7 @@ class groupAdminModel extends dbTable
      * The unique id is used to identify the group.
      *
      * @access public
-     * @param string The unique ID of an existing group.
+     * @param  string The unique ID of an existing group.
      * @return string the group description.
      */
     public function getDescription( $groupId )
@@ -218,8 +224,8 @@ class groupAdminModel extends dbTable
      *</PRE>
      * to identify the row.
      *
-     * @access public
-     * @param array $arrPath an array with the path to the leaf group.
+     * @access public     
+     * @param  array       $arrPath an array with the path to the leaf group.
      * @return string|null returns the groupId if successful, otherwise null.
      */
     public function getLeafId( $arrPath )
@@ -236,8 +242,8 @@ class groupAdminModel extends dbTable
      * to identify the row.
      *
      * @access public
-     * @param string $pkValue any value that identifies the group based on the pkField
-     * @param string $pkField the field to find the value( optional default is group name ).
+     * @param  string $pkValue any value that identifies the group based on the pkField
+     * @param  string $pkField the field to find the value( optional default is group name ).
      * @return string the unique id
      */
     public function getId( $pkValue, $pkField = 'name' )
@@ -252,7 +258,7 @@ class groupAdminModel extends dbTable
      * The unique id is used to identify the group.
      *
      * @access public
-     * @param string The unique ID of an existing group.
+     * @param  string The unique ID of an existing group.
      * @return string the groups full path.
      */
     public function getFullPath( $groupId )
@@ -274,7 +280,7 @@ class groupAdminModel extends dbTable
      * The unique id is used to identify the group.
      *
      * @access public
-     * @param string The unique ID of an existing group.
+     * @param  string The unique ID of an existing group.
      * @return string the group name
      */
     public function getName( $groupId )
@@ -289,8 +295,8 @@ class groupAdminModel extends dbTable
      * The given group is the starting point, and is included in the list.
      *
      * @access public
-     * @param string The unique ID of an existing group.
-     * @return array the list of all subgroups inclusive of given group.
+     * @param  string The unique ID of an existing group.
+     * @return array  the list of all subgroups inclusive of given group.
      */
     public function getSubgroups( $groupId )
     {
@@ -306,9 +312,9 @@ class groupAdminModel extends dbTable
      *
      * The unique id will not change, only the description field value.
      *
-     * @access public
-     * @param string The unique ID of an existing group.
-     * @param string $newDescription the updated description for this group.
+     * @access public    
+     * @param  string     The             unique ID of an existing group.
+     * @param  string     $newDescription the updated description for this group.
      * @return true|false true if successful, otherwise false.
      */
     public function setDescription( $groupId, $newDescription )
@@ -327,9 +333,9 @@ class groupAdminModel extends dbTable
      *
      * The unique id will not change, only the name field value.
      *
-     * @access public
-     * @param string The unique ID of an existing group.
-     * @param string $newName the updated name for this group.
+     * @access public    
+     * @param  string     The      unique ID of an existing group.
+     * @param  string     $newName the updated name for this group.
      * @return true|false true if successful, otherwise false.
      */
     public function setName( $groupId, $newName )
@@ -346,11 +352,11 @@ class groupAdminModel extends dbTable
     /**
      * Method to insert a user into a group in the group hierarchy.
      *
-     * @see groupusersdb::addGroupUser()
-     *
+     * @see    groupusersdb::addGroupUser()
+     *         
      * @access public
-     * @param string The unique ID of an existing group.
-     * @param string The unique ID of an existing user. NB use PKid( userId ) method in user class
+     * @param  string The unique ID of an existing group.
+     * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
      * @return object
      */
     public function addGroupUser( $groupId, $userId )
@@ -362,12 +368,12 @@ class groupAdminModel extends dbTable
     /**
      * Method to delete a user from a group in the group hierarchy.
      *
-     * @see groupusersdb::deleteGroupUser()
-     *
+     * @see    groupusersdb::deleteGroupUser()
+     *         
      * @access public
-     * @param string The unique ID of an existing group.
-     * @param string The unique ID of an existing user. NB use PKid( userId ) method in user class
-     * @return true |false TRUE on success, FALSE on failure
+     * @param  string The unique ID of an existing group.
+     * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
+     * @return true   |false TRUE on success, FALSE on failure
      */
     public function deleteGroupUser( $groupId, $userId )
     {
@@ -378,12 +384,12 @@ class groupAdminModel extends dbTable
     /**
      * Method to get all the direct users for this group.
      *
-     * @see groupusersdb::getGroupUsers()
-     *
-     * @access public
-     * @param string The unique ID of an existing group.
-     * @param string ( optional ) Default is unique ID of the user.
-     * @param string ( optional ) a SQL WHERE clause.
+     * @see    groupusersdb::getGroupUsers()
+     *         
+     * @access public     
+     * @param  string      The unique ID of an existing group.
+     * @param  string      (   optional ) Default is unique ID of the user.
+     * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
     public function getGroupUsers( $groupId, $fields = null, $filter = null )
@@ -395,12 +401,12 @@ class groupAdminModel extends dbTable
     /**
      * Method to get all the users not directly in this group.
      *
-     * @see groupusersdb::getNotGroupUsers()
-     *
-     * @access public
-     * @param string The unique ID of an existing group.
-     * @param string ( optional ) Default is unique ID of the user.
-     * @param string ( optional ) a SQL WHERE clause.
+     * @see    groupusersdb::getNotGroupUsers()
+     *         
+     * @access public     
+     * @param  string      The unique ID of an existing group.
+     * @param  string      (   optional ) Default is unique ID of the user.
+     * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
     public function getNotGroupUsers( $groupId, $fields = null, $filter = null )
@@ -412,12 +418,12 @@ class groupAdminModel extends dbTable
     /**
      * Method to get all direct and subgroups for this user.
      *
-     * @see groupusersdb::getSubGroupUsers()
-     *
-     * @access public
-     * @param string The unique ID of the group.
-     * @param string ( optional ) Default is unique ID of the user.
-     * @param string ( optional ) a SQL WHERE clause.
+     * @see    groupusersdb::getSubGroupUsers()
+     *         
+     * @access public     
+     * @param  string      The unique ID of the group.
+     * @param  string      (   optional ) Default is unique ID of the user.
+     * @param  string      (   optional ) a SQL WHERE clause.
      * @return array|false The user rows as an array of associate arrays, or FALSE on failure
      */
     public function getSubGroupUsers( $groupId, $fields = null, $filter = null )
@@ -440,10 +446,10 @@ class groupAdminModel extends dbTable
      * UserA has membership to Group1(direct)
      * </PRE>
      *
-     * @see groupusersdb::getUserDirectGroups()
+     * @see    groupusersdb::getUserDirectGroups()
      * @access public
-     * @param string The unique ID of an existing user. NB use PKid( userId ) method in user class
-     * @return array The list of unique IDs for groups as an array.
+     * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
+     * @return array  The list of unique IDs for groups as an array.
      */
     public function getUserDirectGroups( $userId )
     {
@@ -464,10 +470,10 @@ class groupAdminModel extends dbTable
      *
      * UserA has membership to Group1(direct), Group2, Group3
      * </PRE>
-     * @see groupusersdb::getUserGroups()
+     * @see    groupusersdb::getUserGroups()
      * @access public
-     * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-     * @return array The list of unique ID for groups as an array.
+     * @param  string The unique ID of the user. NB use PKid( userId ) method in user class
+     * @return array  The list of unique ID for groups as an array.
      */
     public function getUserGroups( $userId )
     {
@@ -478,10 +484,10 @@ class groupAdminModel extends dbTable
     /**
      * Method to test if the user is a member of this group directly.
      *
-     * @see groupusersdb::isGroupMember()
-     * @access public
-     * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-     * @param string The unique ID of the group.
+     * @see    groupusersdb::isGroupMember()
+     * @access public    
+     * @param  string     The unique ID of the user. NB use PKid( userId ) method in user class
+     * @param  string     The unique ID of the group.
      * @return true|false returns TRUE if user is a member, otherwise FALSE
      */
     public function isGroupMember( $userId, $groupId )
@@ -493,10 +499,10 @@ class groupAdminModel extends dbTable
     /**
      * Method to test if the user is a member of this group or its subgroups.
      *
-     * @see groupusersdb::isSubGroupMember()
-     * @access public
-     * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-     * @param string The unique ID of the group.
+     * @see    groupusersdb::isSubGroupMember()
+     * @access public    
+     * @param  string     The unique ID of the user. NB use PKid( userId ) method in user class
+     * @param  string     The unique ID of the group.
      * @return true|false returns TRUE if user is a member, otherwise FALSE
      */
     public function isSubGroupMember( $userId, $groupId )
@@ -511,9 +517,9 @@ class groupAdminModel extends dbTable
     *
     * The filter is applied to the user data.
     *
-    * @access public
-    * @param string ( optional ) Default is unique ID for user.
-    * @param string ( optional ) a SQL WHERE clause.
+    * @access public     
+    * @param  string      ( optional ) Default is unique ID for user.
+    * @param  string      ( optional ) a SQL WHERE clause.
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
     */
     public function getUsers( $fields = null, $filter = null )
@@ -527,9 +533,9 @@ class groupAdminModel extends dbTable
      *
      * The result of a dbTable::getArray() is usually passed as rows.
      *
-     * @access public
-     * @param array is associated array
-     * @param string the field to get
+     * @access public     
+     * @param  array       is  associated array
+     * @param  string      the field to get
      * @return array|false the only the required field as an array, otherwise FALSE
      */
     public function getField( $rows, $field )
@@ -551,8 +557,8 @@ class groupAdminModel extends dbTable
      *
      * It returns zero to many nodes.
      * @access public
-     * @param string the reference node.
-     * @return array array|false The child group rows as an array of associate arrays, or FALSE on failure
+     * @param  string the reference node.
+     * @return array  array|false The child group rows as an array of associate arrays, or FALSE on failure
      */
     public function getChildren ( $node )
     {
@@ -564,8 +570,8 @@ class groupAdminModel extends dbTable
      *
      * It returns zero or one node.
      *
-     * @access public
-     * @param string the current node ( groupId ).
+     * @access public     
+     * @param  string      the current node ( groupId ).
      * @return array|false The parent group rows as an array of associate arrays, or FALSE on failure
      */
     public function getParent ( $node )
@@ -578,8 +584,8 @@ class groupAdminModel extends dbTable
      * It returns one to many nodes.
      *
      * @access public
-     * @param void
-     * @return array array|false The root group rows as an array of associate arrays, or FALSE on failure
+     * @param  void  
+     * @return array  array|false The root group rows as an array of associate arrays, or FALSE on failure
      */
     public function getRoot ( )
     {
@@ -593,9 +599,9 @@ class groupAdminModel extends dbTable
      * Returns the node Id of the last node name in the path.
      *
      * @access private
-     * @param string the current node ( groupId ).
-     * @param array the names of the nodes to follow down the tree.
-     * @param string the unique ID of the group leaf node.
+     * @param  string  the current node ( groupId ).
+     * @param  array   the names of the nodes to follow down the tree.
+     * @param  string  the unique ID of the group leaf node.
      */
     private function _getGroupPath( $curNode, &$path, &$leaf )
     {
@@ -638,8 +644,8 @@ class groupAdminModel extends dbTable
      * Method to recursivly search up the tree.
      *
      * @access private
-     * @param string the current node ( groupId ).
-     * @param array the array containing all the nodes found.
+     * @param  string  the current node ( groupId ).
+     * @param  array   the array containing all the nodes found.
      */
     private function _getGroupsToRoot( $curNode, &$toRoot )
     {
@@ -662,8 +668,8 @@ class groupAdminModel extends dbTable
      * Method to recursivly search down the tree.
      *
      * @access private
-     * @param string the current node.
-     * @param array the array containing all the nodes found.
+     * @param  string  the current node.
+     * @param  array   the array containing all the nodes found.
      */
     private function _getSubgroups( $curNode, &$subgroups )
     {

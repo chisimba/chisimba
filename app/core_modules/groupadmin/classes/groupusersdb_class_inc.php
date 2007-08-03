@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
@@ -18,12 +24,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  *   isGroupMember     - To test if the user is a member of the direct group.
  *   isSubGroupMember  - To test if the user is a member of the direct and subgroups.
  *</PRE>
- * @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
- * @package groupadmin
+ * @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+ * @package    groupadmin
  * @subpackage access
- * @version 0.1
- * @since 22 November 2004
- * @author Paul Scott based on methods by Jonathan Abrahams
+ * @version    0.1
+ * @since      22 November 2004
+ * @author     Paul Scott based on methods by Jonathan Abrahams
  * @filesource
  */
 
@@ -110,9 +116,9 @@ class groupusersdb extends dbTable
     *
     * The user is a member of the group.
     *
-    * @param string The unique ID of an existing group.
-    * @param string The unique ID of an existing user. NB use PKid( userId ) method in user class
-    * @return true |false TRUE on success, FALSE on failure
+    * @param  string The unique ID of an existing group.
+    * @param  string The unique ID of an existing user. NB use PKid( userId ) method in user class
+    * @return true   |false TRUE on success, FALSE on failure
     */
     function deleteGroupUser( $groupId, $userId  ) {
         return parent::delete( 'user_id', "$userId' AND group_id = '$groupId" );
@@ -131,10 +137,10 @@ class groupusersdb extends dbTable
     *
     * UserA has membership to Group1(direct)
     * </PRE>
-    * @param string $usersId
-    *       the id of an existing users.
-    * @return array
-    *       the list of groupId's of the groups this user is a member of.
+    * @param  string $usersId
+    *                         the id of an existing users.
+    * @return array 
+    *                the list of groupId's of the groups this user is a member of.
     */
     function getUserDirectGroups( $userId ) {
         // Get the table names.
@@ -161,8 +167,8 @@ class groupusersdb extends dbTable
     * UserA has membership to Group1(direct), Group2, Group3
     * </PRE>
     *
-    * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-    * @return array The list of unique ID for groups as an array.
+    * @param  string The unique ID of the user. NB use PKid( userId ) method in user class
+    * @return array  The list of unique ID for groups as an array.
     */
     function getUserGroups( $userId ) {
         // Get the objects.
@@ -187,9 +193,9 @@ class groupusersdb extends dbTable
     /**
     * Method to get all the direct members for this group.
     *
-    * @param string The unique ID of an existing group.
-    * @param string ( optional ) Default is unique ID of the user.
-    * @param string ( optional ) a SQL WHERE clause.
+    * @param  string      The unique ID of an existing group.
+    * @param  string      (   optional ) Default is unique ID of the user.
+    * @param  string      (   optional ) a SQL WHERE clause.
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
     */
     function getGroupUsers( $groupId, $fields = null , $filter = null ) {
@@ -215,9 +221,9 @@ class groupusersdb extends dbTable
     /**
     * Method to get all the users not directly in this group.
     *
-    * @param string The unique ID of an existing group.
-    * @param string ( optional ) Default is unique ID of the user.
-    * @param string ( optional ) a SQL WHERE clause.
+    * @param  string      The unique ID of an existing group.
+    * @param  string      (   optional ) Default is unique ID of the user.
+    * @param  string      (   optional ) a SQL WHERE clause.
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
     */
     function getNotGroupUsers( $groupId, $fields = null, $filter =  null ) {
@@ -246,8 +252,8 @@ class groupusersdb extends dbTable
     /**
     * Method to test if the user is a member of this group directly.
     *
-    * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-    * @param string The unique ID of the group.
+    * @param  string     The unique ID of the user. NB use PKid( userId ) method in user class
+    * @param  string     The unique ID of the group.
     * @return true|false returns TRUE if user is a member, otherwise FALSE
     */
     function isGroupMember( $userId, $groupId ) {
@@ -270,8 +276,8 @@ class groupusersdb extends dbTable
     /**
     * Method to test if the user is a member of this group or its subgroups.
     *
-    * @param string The unique ID of the user. NB use PKid( userId ) method in user class
-    * @param string The unique ID of the group.
+    * @param  string     The unique ID of the user. NB use PKid( userId ) method in user class
+    * @param  string     The unique ID of the group.
     * @return true|false returns TRUE if user is a member, otherwise FALSE
     */
     function isSubGroupMember( $userId, $groupId ) {
@@ -298,9 +304,9 @@ class groupusersdb extends dbTable
     /**
     * Method to get all direct and subgroups for this user.
     *
-    * @param string The unique ID of the group.
-    * @param string ( optional ) Default is unique ID of the user.
-    * @param string ( optional ) a SQL WHERE clause.
+    * @param  string      The unique ID of the group.
+    * @param  string      (   optional ) Default is unique ID of the user.
+    * @param  string      (   optional ) a SQL WHERE clause.
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
     */
     function getSubGroupUsers($groupId, $fields=null, $filter = null) {
@@ -329,8 +335,8 @@ class groupusersdb extends dbTable
     
     /**
      * Method to get the  user's roles in the different groups
-     * @param string $userId
-     * @return array
+     * @param  string $userId
+     * @return array 
      * @access public
      */
     public function getUserRoles($userId)

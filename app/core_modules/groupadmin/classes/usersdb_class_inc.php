@@ -1,15 +1,21 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    groupadmin
 * @subpackage access
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      22 November 2004
+* @author     Jonathan Abrahams
 * @filesource
 */
   /**
@@ -45,8 +51,8 @@ class usersdb extends dbTable
     *
     * The filter is applied to the user data.
     *
-    * @param string ( optional ) Default is unique ID for user.
-    * @param string ( optional ) a SQL WHERE clause.
+    * @param  string      ( optional ) Default is unique ID for user.
+    * @param  string      ( optional ) a SQL WHERE clause.
     * @return array|false The user rows as an array of associate arrays, or FALSE on failure
     */
     function getUsers( $fields = null, $filter = null ) {

@@ -1,11 +1,11 @@
 <?php
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    groupadmin
 * @subpackage view
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      22 November 2004
+* @author     Jonathan Abrahams
 * @filesource
 */
 /**
@@ -48,14 +48,14 @@ class tree_dropdown extends presentation
     * @param object $structure The menu structure
     * @param array  $options   Options whic affect the display of the listbox.
     *                          These can consist of:
-    *                           o promoText  The text that appears at the the top of the listbox
-    *                                        Defaults to "Select..."
-    *                           o indentChar The character to use for indenting the nodes
-    *                                        Defaults to "&nbsp;"
-    *                           o indentNum  How many of the indentChars to use per indentation level
-    *                                        Defaults to 2
-    *                           o linkTarget Target for the links. Defaults to "_self"
-    *                           o submitText Text for the submit button. Defaults to "Go"
+    *                          o promoText  The text that appears at the the top of the listbox
+    *                          Defaults to "Select..."
+    *                          o indentChar The character to use for indenting the nodes
+    *                          Defaults to "&nbsp;"
+    *                          o indentNum  How many of the indentChars to use per indentation level
+    *                          Defaults to 2
+    *                          o linkTarget Target for the links. Defaults to "_self"
+    *                          o submitText Text for the submit button. Defaults to "Go"
     */
     function tree_dropdown($structure, $options = array())
     {

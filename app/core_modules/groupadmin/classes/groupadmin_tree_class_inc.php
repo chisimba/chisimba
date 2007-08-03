@@ -1,23 +1,29 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package groupadmin
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    groupadmin
 * @subpackage view
-* @version 0.1
-* @since 22 November 2004
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      22 November 2004
+* @author     Jonathan Abrahams
 * @filesource
 */
 /**
 * Uses classes for the groupadmin tree class.
 * @package groupadmin
-* @author Jonathan Abrahams
+* @author  Jonathan Abrahams
 */
 class groupadmin_tree extends object {
     /**
@@ -129,7 +135,7 @@ class groupadmin_tree extends object {
     /**
     * Method to get the array of extra options
     * @access public
-    * @return array reference
+    * @return array  reference
     */
     function &getExtra()
     {
@@ -139,7 +145,7 @@ class groupadmin_tree extends object {
     /**
     * Method to create a root node.
     * @access private
-    * @return object reference
+    * @return object  reference
     */
     function &createRootNode()
     {
@@ -180,9 +186,9 @@ class groupadmin_tree extends object {
     
     /**
     * Method to create a tree node.
-    * @param array contains the current group row.
+    * @param  array   contains the current group row.
     * @access private
-    * @return object reference
+    * @return object  reference
     */
     function &createTreeNode( &$row )
     {
@@ -318,7 +324,7 @@ class groupadmin_tree extends object {
     
     /**
     * Method to test if the group row is visible.
-    * @access private
+    * @access private   
     * @return TRUE|FALSE
     */
     function isVisible( $row )
