@@ -877,11 +877,9 @@ class engine
 			$objNew = new $name();
 		}
 		//$objNew = new $name($this, $moduleName);
-		/*
 		if (is_null($objNew)) {
 			throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 		}
-		*/
 		return $objNew;
 	}
 
