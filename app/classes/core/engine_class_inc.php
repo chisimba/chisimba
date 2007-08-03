@@ -2,25 +2,25 @@
 
 /**
  * Engine object
- * 
- * The engine object is the main class of the Chisimba framework. It kicks off all other operations in the 
+ *
+ * The engine object is the main class of the Chisimba framework. It kicks off all other operations in the
  * framework and controls all of the other classes
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -113,11 +113,11 @@ require_once('Config.php');
 
 /**
  * Error callback
- * 
+ *
  * function to enable the pear error callback method (global)
- * 
+ *
  * @param  string $error The error messages
- * @return void   
+ * @return void
  */
 function globalPearErrorCallback($error) {
 	log_debug($error);
@@ -125,9 +125,9 @@ function globalPearErrorCallback($error) {
 
 /**
  * Engine class
- * 
+ *
  * Engine class to handle and kick off the Chisimba framework. All transactions go through this class at some stage
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -157,14 +157,14 @@ class engine
      * Template reference variable
      *
      * @var    unknown_type
-     * @access public      
+     * @access public
      */
 	public $_templateRefs = NULL;
 
 	/**
      * database object (global)
      *
-     * @var    object 
+     * @var    object
      * @access private
      */
 	private $_objDb;
@@ -172,7 +172,7 @@ class engine
 	/**
      * database manager object (global)
      *
-     * @var    object 
+     * @var    object
      * @access private
      */
 	private $_objDbManager;
@@ -197,7 +197,7 @@ class engine
      * The config object (config/* and /modules/config)
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_objConfig;
 
@@ -205,7 +205,7 @@ class engine
      * The language object(s)
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_objLanguage;
 
@@ -213,7 +213,7 @@ class engine
      * The DB config object
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_objDbConfig; //possibly deprecated (Prince check this out pls!)
 
@@ -221,7 +221,7 @@ class engine
      * The layout template default
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_layoutTemplate;
 
@@ -229,7 +229,7 @@ class engine
      * The default page template
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_pageTemplate =null;
 
@@ -237,7 +237,7 @@ class engine
      * Has an error been generated?
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_hasError = FALSE;
 
@@ -245,7 +245,7 @@ class engine
      * Where was the error generated?
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_errorField = '';
 
@@ -253,7 +253,7 @@ class engine
      * The page content
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_content = '';
 
@@ -261,7 +261,7 @@ class engine
      * The layout content string
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_layoutContent = '';
 
@@ -269,7 +269,7 @@ class engine
      * The module name currently in use
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_moduleName = NULL;
 
@@ -277,7 +277,7 @@ class engine
      * The currently active controller
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_objActiveController = NULL;
 
@@ -285,7 +285,7 @@ class engine
      * The global error message
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_errorMessage = '';
 
@@ -293,7 +293,7 @@ class engine
      * The messages generated by the classes
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
 	private $_messages = NULL;
 
@@ -301,7 +301,7 @@ class engine
      * Has the session started?
      *
      * @access private
-     * @var    bool   
+     * @var    bool
      */
 	private $_sessionStarted = FALSE;
 
@@ -309,7 +309,7 @@ class engine
      * Property for cached objects
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_cachedObjects = NULL;
 
@@ -317,7 +317,7 @@ class engine
      * Whether to enable access control
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
 	private $_enableAccessControl = TRUE;
 
@@ -397,8 +397,8 @@ class engine
      * Constructor.
      * For use by application entry point script (usually /index.php)
      *
-     * @param  void  
-     * @return void  
+     * @param  void
+     * @return void
      * @access public
      */
 	public function __construct()
@@ -462,14 +462,14 @@ class engine
     * @param  string $presetModuleName default NULL
     * @param  string $presetAction     default NULL
     * @access public
-    * @return void  
+    * @return void
     */
 	public function run($presetModuleName = NULL, $presetAction = NULL)
 	{
-		$mqmsg = NULL;
-		if (get_magic_quotes_gpc()) {
-			$mqmsg = "Please disable Magic Quotes in your PHP.ini, or by creating an .htaccess file containing the following line: php_flag magic_quotes_gpc Off";
-		}
+		//$mqmsg = NULL;
+		//if (get_magic_quotes_gpc()) {
+			//$mqmsg = "Please disable Magic Quotes in your PHP.ini, or by creating an .htaccess file containing the following line: php_flag magic_quotes_gpc Off";
+		//}
 		if (empty($presetModuleName)) {
 			$requestedModule = strtolower($this->getParam('module', '_default'));
 		} else {
@@ -508,8 +508,8 @@ class engine
     * so class file is not included nor object instantiated
     * until needed.
     *
-    * @param  void     
-    * @access public   
+    * @param  void
+    * @access public
     * @return kngConfig The config object
     */
 	public function &getDbObj()
@@ -589,8 +589,8 @@ class engine
     * so class file is not included nor object instantiated
     * until needed.
     *
-    * @param  void     
-    * @access public   
+    * @param  void
+    * @access public
     * @return kngConfig The config object
     */
 	public function &getDbManagementObj()
@@ -636,7 +636,7 @@ class engine
      *
      * @access public
      * @param  string $dsn
-     * @return void  
+     * @return void
      * @TODO   get the port settings too!
      */
 	public function parseDSN($dsn)
@@ -703,7 +703,7 @@ class engine
      * Method to return current page content. For use within layout templates.
      *
      * @access public
-     * @param  void  
+     * @param  void
      * @return string Content of rendered content script
      */
 	public function getContent()
@@ -715,7 +715,7 @@ class engine
     * Method to return the currently selected layout template name.
     *
     * @access public
-    * @param  void  
+    * @param  void
     * @return string Name of layout template
     */
 	public function getLayoutTemplate()
@@ -739,7 +739,7 @@ class engine
      * Method to return the content of the rendered layout template.
      *
      * @access public
-     * @param  void  
+     * @param  void
      * @return string Content of rendered layout script
      */
 	public function getLayoutContent()
@@ -751,7 +751,7 @@ class engine
     * Method to return the currently selected layout template name.
     *
     * @access public
-    * @param  void  
+    * @param  void
     * @return string Name of layout template
     */
 	public function getPageTemplate()
@@ -775,7 +775,7 @@ class engine
      * Method to load a class definition from the given module.
      * Used when you wish to instantiate objects of the class yourself.
      *
-     * @access public     
+     * @access public
      * @param  $name       string The name of the class to load
      * @param  $moduleName string The name of the module to load the class from (optional)
      * @return a           reference to the loaded object in engine ($this)
@@ -856,7 +856,7 @@ class engine
      * This engine object is offered to the constructor as a parameter
      * when creating a new object although it need not be used.
      *
-     * @access public     
+     * @access public
      * @see    loadclass
      * @param  $name       string The name of the class to load
      * @param  $moduleName string The name of the module to load the class from
@@ -895,7 +895,7 @@ class engine
      * This engine object is offered to the constructor as a parameter
      * when creating a new object although it need not be used.
      *
-     * @access public     
+     * @access public
      * @see    loadclass
      * @param  $name       string The name of the class to load
      * @param  $moduleName string The name of the module to load the class from
@@ -941,7 +941,7 @@ class engine
     * Method to return a template variable. These are used to pass
     * information from module to template.
     *
-    * @access public  
+    * @access public
     * @param  $name    string The name of the variable
     * @param  $default mixed  The value to return if the variable is unset (optional)
     * @return mixed    The value of the variable, or $default if unset
@@ -1021,7 +1021,7 @@ class engine
     * Method to return a request parameter (i.e. a URL query parameter,
     * a form field value or a cookie value).
     *
-    * @access public  
+    * @access public
     * @param  $name    string The name of the parameter
     * @param  $default mixed  The value to return if the parameter is unset (optional)
     * @return mixed    The value of the parameter, or $default if unset
@@ -1041,7 +1041,7 @@ class engine
     * Method to return a request parameter (i.e. a URL query parameter,
     * a form field value or a cookie value).
     *
-    * @access public  
+    * @access public
     * @param  $name    string The name of the parameter
     * @param  $default mixed  The value to return if the parameter is unset (optional)
     * @return mixed    The value of the parameter, or $default if unset
@@ -1106,7 +1106,7 @@ class engine
 	/**
     * Method to return a session value.
     *
-    * @access public  
+    * @access public
     * @param  $name    string The name of the session value
     * @param  $default mixed  The value to return if the session value is unset (optional)
     * @return mixed    the value of the parameter, or $default if unset
@@ -1126,7 +1126,7 @@ class engine
     * @access public
     * @param  $name  string The name of the session value
     * @param  $val   mixed  The value to set the session value to
-    * @return void  
+    * @return void
     */
 	public function setSession($name, $val)
 	{
@@ -1141,7 +1141,7 @@ class engine
     *
     * @access public
     * @param  $name  string The name of the session parameter
-    * @return void  
+    * @return void
     */
 	public function unsetSession($name)
 	{
@@ -1151,10 +1151,10 @@ class engine
 	/**
     * Method to set the global error message, and an error field if appropriate
     *
-    * @access public   
+    * @access public
     * @param  $errormsg string The error message
     * @param  $field    string The name of the field the error applies to (optional)
-    * @return FALSE    
+    * @return FALSE
     */
 	public function setErrorMessage($errormsg, $field = NULL)
 	{
@@ -1351,7 +1351,7 @@ class engine
     * system messages as set by setErrorMessage and addMessage
     *
     * @access public
-    * @param  void  
+    * @param  void
     * @return string
     */
 	public function putMessages()
@@ -1377,7 +1377,7 @@ class engine
     * subdir (if a module is specified) or in the core templates subdir.
     * Type must be 'content' or 'layout'
     *
-    * @access public     
+    * @access public
     * @param  $tpl        string The name of the template to find,
     *                            including file extension but excluding path
     * @param  $moduleName string The name of the module to search (can be empty to search only core)
@@ -1413,7 +1413,7 @@ class engine
      * Method to start the session
      *
      * @access public
-     * @param  void  
+     * @param  void
      * @return set    property to true
      */
 	public function sessionStart()
@@ -1478,8 +1478,8 @@ class engine
     * to the appropriate module, as specified by the 'module'
     * request parameter.
     *
-    * @access private     
-    * @param  string       $action         
+    * @access private
+    * @param  string       $action
     * @param  string       $requestedModule
     * @return list(string, string) Template name and module name
     */
@@ -1524,7 +1524,7 @@ class engine
      * TODO: make main module an actual module, and if no module requested,
      * load that module (should be a configurable name)
      *
-     * @access private            
+     * @access private
      * @param  $moduleName         string The name of the module to load
      * @return controller-subclass The new module controller object
     */
@@ -1564,7 +1564,7 @@ class engine
     * TODO: eliminate main handling here when main becomes a module.
     *       Can probably eliminate this method altogether at that point.
     *
-    * @access private             
+    * @access private
     * @param  $objActiveController controller-subclass The module controller to
     *                                                  dispatch to (or NULL for main)
     * @param  $action              string              The action parameter
@@ -1590,7 +1590,7 @@ class engine
     * Output is either buffered ($buffer = TRUE) and returned as a string, or send directly
     * to browser.
     *
-    * @access private    
+    * @access private
     * @param  $tpl        string     Name of template to call, including file extension but excluding path
     * @param  $moduleName string     The name of the module to search for the template
     *                                (if empty, search core)
@@ -1607,8 +1607,8 @@ class engine
 	/**
     * Method to clean up at end of page rendering.
     *
-    * @access private   
-    * @param  void      
+    * @access private
+    * @param  void
     * @return __destruct object db
     */
 	private function _finish()
