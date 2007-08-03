@@ -1,5 +1,5 @@
 <?php
-
+// Load Inner classes.
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -22,16 +22,7 @@ echo $objH->show();
 
 
 	$uploadTemplate = $this->objIEUtils->uploadTemplate();
-//	$downloadTemplate = $this->objIEUtils->downloadTemplate();
-
-
-
-    
-    
-
-// 	$form = $this->objIEUtils->downloadTemplate();
-//	$tabBox->addTab(array('name'=> "Export",'content' => $form->show()));
-
+	//$downloadTemplate = $this->objIEUtils->downloadTemplate();
 
 $str = '';
 $other = '';
@@ -99,10 +90,10 @@ if (isset($contextList))
 		$title = ($context['title'] == '') ? $context['menutext'] : $context['title'];
 		if($context['contextcode'] == $this->_objDBContext->getContextCode())
 		{
-		      
-			$other .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
+		      $heading = preg_replace('/_.*/', '', $context['contextcode']);
+			$other .= '&nbsp;'.$featureBox->show($heading .' - '.$title.'   '.$conf, $content ).'<hr />';
 		} else {
-			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
+			$str .= '&nbsp;'.$featureBox->show($heading .' - '.$title.'   '.$conf, $content ).'<hr />';
 		}
 		
 		//$icon = null;
@@ -119,7 +110,7 @@ if ($this->_objDBContext->isInContext()) {
 }
 $tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_mycontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
 
-//if the user is admin then show him all the other courses as well
+// if the user is admin then show him all the other courses as well.
 if($this->_objUser->isAdmin())
 {
 	
@@ -269,8 +260,8 @@ if(count($archivedCourses) > 0)
 	$tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_myacrivedcontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
 }
 
-$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_uploadheading","contextadmin"),$uploadTemplate)));
-//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_ims_downloadheading","contextadmin"),$downloadTemplate)));
+$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_uploadheading","contextadmin"),$uploadTemplate)));
+//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
 
 echo $tabBox->show();
 

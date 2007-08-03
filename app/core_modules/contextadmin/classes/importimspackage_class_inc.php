@@ -1,9 +1,9 @@
 <?php
-# security check - must be included in all scripts
+// security check - must be included in all scripts.
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
-//  end security check
+// end security check.
 /**
  * The class importIMSPackage that manages 
  * the import of IMS specification content into Chisimba
@@ -57,15 +57,42 @@ class importIMSPackage extends dbTable
 	public $imagesLocation;
 	public $docsLocation;
 	public $filesLocation;
-	public $folder;//relative path of temporary folder
-	public $fileLocations;//relative paths to all files
-	public $imsmanifestLocation;//relative paths to IMS manifest file
-	public $simpleXmlObj;//simplexml object to access xml file
-	public $domDocumentObj;//dom document object to access xml file
-	public $xpathObj;//xpath object to access xml file
-	public $newCourse;//all course data needed to create course
-	public $resourceFileNames;//the filenames of resources, including type
-	public $alldata;//all data needed to add file to database
+	/**
+	 * @var object $folder - relative path of temporary folder
+	*/
+	public $folder;
+	/**
+	 * @var object $fileLocations - relative paths to all files
+	*/
+	public $fileLocations;
+	/**
+	 * @var object $imsmanifestLocation - relative paths to IMS manifest file
+	*/
+	public $imsmanifestLocation;
+	/**
+	 * @var object $simpleXmlObj - simplexml object to access xml file
+	*/
+	public $simpleXmlObj;
+	/**
+	 * @var object $domDocumentObj - dom document object to access xml file
+	*/
+	public $domDocumentObj;
+	/**
+	 * @var object $xpathObj - xpath object to access xml file
+	*/
+	public $xpathObj;
+	/**
+	 * @var object $newCourse - all course data needed to create course
+	*/
+	public $newCourse;
+	/**
+	 * @var object $resourceFileNames - the filenames of resources, including type
+	*/
+	public $resourceFileNames;
+	/**
+	 * @var object $alldata - all data needed to add file to database
+	*/
+	public $alldata;
 	public $imageIds;
 	public $fileIds;
 	public $resourceIds;
@@ -86,14 +113,14 @@ class importIMSPackage extends dbTable
         	$this->objUser = $this->getObject('user', 'security');
 		// Load Inner classes.
 		$this->objIEUtils = $this->newObject('importexportutils','contextadmin');
-		// Load Chapter Classes
+		// Load Chapter Classes.
 		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
-		// Load context classes
+		// Load context classes.
         	$this->objContentPages = $this->getObject('db_contextcontent_pages','contextcontent');
 	        $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
         	$this->objContentTitles = $this->getObject('db_contextcontent_titles','contextcontent');
-		// Initialize Flags
+		// Initialize Flags.
 		$this->fileMod = FALSE;
 		$this->objDebug = FALSE;
 		$this->objError = TRUE;
@@ -104,11 +131,11 @@ class importIMSPackage extends dbTable
 	 * either as eduCommons or MIT packages
 	 * 
 	 * @param $_FILES global - uploaded file
-	 * @param string $package
+	 * @param string $package - package type
 	 * @param string $choice - the selected course (when importing into existing course)
 	 * @param boolean $createdCourse - whether or not to create a course
 	 * 
-	 * @return none
+	 * @return TRUE - Successful execution OR Custom error
 	 * 
 	*/
 	function importIMScontent($FILES, $package, $choice = '', $createCourse = '')
@@ -134,16 +161,16 @@ class importIMSPackage extends dbTable
 	 * @param string $choice - the selected course (when importing into existing course)
 	 * @param boolean $createdCourse - whether or not to create a course
 	 * 
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 * 
 	*/
 	function exePackage($FILES, $choice = '', $createCourse = '')
 	{
-		// Check archive type
+		// Check archive type.
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		// Check if upload needs to forced
+		// Check if upload needs to forced.
 		if($createCourse == TRUE)
 			$folder = $this->unzipIMSFile($FILES);
 		else
@@ -151,66 +178,66 @@ class importIMSPackage extends dbTable
 		if(!isset($folder) || $folder == 'unzipError')
 			if($this->objError)
 				return  "unzipError";
-		// Retrieve file names
+		// Retrieve file names.
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 			if($this->objError)
 				return  "fileReadError";
-		// Retrieve file locations
+		// Retrieve file locations.
 		$filesLocation = $this->locateAllFiles($folder);
 		if(!isset($filesLocation))
 			if($this->objError)
 				return  "fileReadError";
-		// Locate imsmanifest.xml file
+		// Locate imsmanifest.xml file.
 		$imsFileLocation = $this->locateIMSfile($filesLocation, "/imsmanifest/");
 		if(!isset($imsFileLocation))
 			if($this->objError)
 				return  "imsReadError";
-		// Read imsmanifest.xml file
-		// Create simplexml object to access xml file
+		// Read imsmanifest.xml file.
+		// Create simplexml object to access xml file.
 		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
 		if(!isset($simpleXmlObj) || $simpleXmlObj == 'simpleXmlError')
 			if($this->objError)
 				return  "simpleXmlError";
-		// Create domdocument object to access xml file	
+		// Create domdocument object to access xml file.
 		$domDocumentObj = $this->loadDOMDocument($imsFileLocation);
 		if(!isset($domDocumentObj) || $domDocumentObj == 'domReadError')
 			if($this->objError)
 				return  "domReadError";
-		// Create xpath object to access xml file
+		// Create xpath object to access xml file.
 		$xpathObj = $this->loadXPath($domDocumentObj);
 		if(!isset($xpathObj))
 			if($this->objError)
 				return  "xpathSetError";
-		// Retrieve all resource files in package
+		// Retrieve all resource files in package.
 		$allPageLocation = $this->locateAllMITFiles($simpleXmlObj);
 		if(!isset($allPageLocation))
 			if($this->objError)
 				return  "dataRetrievalError";
-		// Retrieve all relative file paths
+		// Retrieve all relative file paths.
 		$allLocations = $this->objIEUtils->list_dir_files($folder, 1);
 		if(!isset($allLocations))
 			if($this->objError)
 				return  "dataRetrievalError";
-		// Retrieve file names
+		// Retrieve file names.
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 			if($this->objError)
 				return  "dataRetrievalError";
-		// Extract course data
+		// Extract course data.
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj,'exe');
 		if(!isset($courseData) || $courseData == 'courseReadError')
 			if($this->objError)
 				return  "courseReadError";
-		// Change context
+		// Change context.
 		if($createCourse == FALSE)
 			$courseData['contextcode'] = $choice;
-		// Initialize all locations
+		// Initialize all locations.
 		$init = $this->initLocations($courseData['contextcode'], $courseData['title']);
 		if(!isset($init))
 			if($this->objError)
 				return  "initializeError";
-		// Check to see if course needs to be created
+		// Check to see if course needs to be created.
 		if($createCourse == TRUE)
 		{
 			$courseCreated = $this->objIEUtils->createCourseInChisimba($courseData);
@@ -220,50 +247,48 @@ class importIMSPackage extends dbTable
 					return  "courseWriteError";
 		}
 		else
-		{
 			$this->contextCode = $choice;
-		}
-		//Retrieve Html pages
+		//Retrieve Html pages.
 		$htmlPages = $this->objIEUtils->getHtmlPages('', $allPageLocation, $folder, $this->docsLocation);
 		if(!isset($htmlPages))
 			if($this->objError)
 				return  "dataRetrievalError";
-		// Retrieve organizations
+		// Retrieve organizations.
 		$structure = $this->getStructure($simpleXmlObj);
 		if(!isset($structure))
 			if($this->objError)
 				return  "noStructureError";
-		// Retrieve menu titles for content within html pages
+		// Retrieve menu titles for content within html pages.
 		$menuTitles = $this->getMenuTitles($htmlPages);
 		if(!isset($menuTitles))
 			if($this->objError)
 				return  "dataRetrievalError";
-		// Write Html data into Chisimba usrfiles directory
+		// Write Html data into Chisimba usrfiles directory.
 		$htmlFilenames = $this->objIEUtils->writeFiles($htmlPages, $this->docsLocation, '', 'html');
 		if(!isset($htmlFilenames))
 			if($this->objError)
 				return  "writeResourcesError";
-		// Write Image data into Chisimba usrfiles directory
+		// Write Image data into Chisimba usrfiles directory.
 		$writeImages = $this->writeMITImages('', $allLocations, $fileNames);
 		if(!isset($writeImages))
 			if($this->objError)
 				return  "writeResourcesError";
-		//Write Files to Chisimba usrfiles directory
+		// Write Files to Chisimba usrfiles directory.
 		$writeFiles = $this->writeMITFiles('', $allLocations, $fileNames);
 		if(!isset($writeFiles))
 			if($this->objError)
 				return  "writeResourcesError";
-		// Load html data into Chisimba
+		// Load html data into Chisimba.
 		$pageIds = $this->loadToChisimbaFromContent($htmlPages, $allPageLocation, $structure, $menuTitles);
 		if(!isset($pageIds))
 			if($this->objError)
 				return  "uploadError";
-		// Load image data into Chisimba
+		// Load image data into Chisimba.
 		$uploadToChisimba = $this->uploadToChisimba();
 		if(!isset($uploadToChisimba))
 			if($this->objError)
 				return  "uploadError";
-		// Load file data into Chisimba
+		// Load file data into Chisimba.
 		$uploadFilesToChisimba = $this->uploadToChisimba($this->filesLocation);
 		if(!isset($uploadFilesToChisimba))
 			if($this->objError)
@@ -272,7 +297,7 @@ class importIMSPackage extends dbTable
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
-		// Enter context
+		// Enter context.
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
@@ -287,16 +312,16 @@ class importIMSPackage extends dbTable
 	 * @param string $choice - the selected course (when importing into existing course)
 	 * @param boolean $createdCourse - whether or not to create a course
 	 * 
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 * 
 	*/
 	function mitPackage($FILES, $choice = '', $createCourse = '')
 	{
-		// Check archive type
+		// Check archive type.
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		// Check if upload needs to forced
+		// Check if upload needs to forced.
 		if($createCourse == TRUE)
 			$folder = $this->unzipIMSFile($FILES);
 		else
@@ -304,60 +329,60 @@ class importIMSPackage extends dbTable
 		if(!isset($folder) || $folder == 'unzipError')
 			if($this->objError)
 				return  "unzipError";
-		// Retrieve file names
+		// Retrieve file names.
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 			if($this->objError)
 				return  "fileReadError";
-		// Retrieve file locations
+		// Retrieve file locations.
 		$filesLocation = $this->locateAllFiles($folder);
 		if(!isset($filesLocation))
 			if($this->objError)
 				return  "fileReadError";
-		// Locate imsmanifest.xml file
+		// Locate imsmanifest.xml file.
 		$imsFileLocation = $this->locateIMSfile($filesLocation, "/imsmanifest/");
 		if(!isset($imsFileLocation))
 			if($this->objError)
 				return  "imsReadError";
-		// Read imsmanifest.xml file
-		// Create simplexml object to access xml file
+		// Read imsmanifest.xml file.
+		// Create simplexml object to access xml file.
 		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
 		if(!isset($simpleXmlObj) || $simpleXmlObj == 'simpleXmlError')
 			if($this->objError)
 				return  "simpleXmlError";
-		// Create domdocument object to access xml file	
+		// Create domdocument object to access xml file.
 		$domDocumentObj = $this->loadDOMDocument($imsFileLocation);
 		if(!isset($domDocumentObj) || $domDocumentObj == 'domReadError')
 			if($this->objError)
 				return  "domReadError";
-		// Create xpath object to access xml file
+		// Create xpath object to access xml file.
 		$xpathObj = $this->loadXPath($domDocumentObj);
 		if(!isset($xpathObj))
 			if($this->objError)
 				return  "xpathSetError";
-		// Retrieve all resource files in package
+		// Retrieve all resource files in package.
 		$allFilesLocation = $this->locateAllMITFiles($simpleXmlObj);
-		// Retrieve all .xml files
+		// Retrieve all .xml files.
 		$xmlFilesLocation = $this->locateAllXmlFiles($xpathObj);
-		// Retrieve all files
+		// Retrieve all files.
 		$allLocations = $this->objIEUtils->list_dir_files($folder, 1);
-		// Load all .xml files
+		// Load all .xml files.
 		$newFolder = $folder.'/'.preg_replace("/.zip/","",$FILES['upload']['name']);
 		$allXmlPackageData = $this->loadAllXmlFiles($newFolder, $xmlFilesLocation);
-		// Extract course data
+		// Extract course data.
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj,'mit');
 		if(!isset($courseData) || $courseData == 'courseReadError')
 			if($this->objError)
 				return  "courseReadError";
-		// Change context
+		// Change context.
 		if($createCourse == FALSE)
 			$courseData['contextcode'] = $choice;
-		// Initialize all locations
+		// Initialize all locations.
 		$init = $this->initLocations($courseData['contextcode'], $courseData['title']);
 		if(!isset($init))
 			if($this->objError)
 				return  "initializeError";
-		// Check to see if course needs to be created
+		// Check to see if course needs to be created.
 		if($createCourse == TRUE)
 		{
 			$courseCreated = $this->objIEUtils->createCourseInChisimba($courseData);
@@ -368,35 +393,35 @@ class importIMSPackage extends dbTable
 		}
 		else
 			$this->contextCode = $choice;
-		// Write Resources
-		// Retrieve Html locations and move to usrfiles
+		// Write Resources.
+		// Retrieve Html locations and move to usrfiles.
 		$mitHtmlsPath = $this->getMITHtmls($newFolder, $allXmlPackageData);
-		//Write Images to Chisimba usrfiles directory
+		// Write Images to Chisimba usrfiles directory.
 		$writeImages = $this->writeMITImages('', $allLocations, $fileNames);
-		//Write Files to Chisimba usrfiles directory
+		// Write Files to Chisimba usrfiles directory.
 		$writeFiles = $this->writeMITFiles('', $allLocations, $fileNames);
-		// Load html data into Chisimba
+		// Load html data into Chisimba.
 		$loadData = $this->loadToChisimba($mitHtmlsPath, $allXmlPackageData, 'Y');
 		if(!isset($loadData))
 			if($this->objError)
 				return  "loadDataError";
-		// Load image data into Chisimba
+		// Load image data into Chisimba.
 		$uploadToChisimba = $this->uploadToChisimba();
 		if(!isset($uploadToChisimba))
 			if($this->objError)
 				return  "uploadError";
-		// Load file data into Chisimba
+		// Load file data into Chisimba.
 		$uploadFilesToChisimba = $this->uploadToChisimba($this->filesLocation);
 		if(!isset($uploadFilesToChisimba))
 			if($this->objError)
 				return  "uploadError";
-		// Rebuild html images and url links
+		// Rebuild html images and url links.
 		$allFileNames = $this->objIEUtils->list_dir_files($folder,0);
 		$rebuildHtml = $this->rebuildMITHtml($loadData, $allFileNames, $allFilesLocation);
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
-		// Enter context
+		// Enter context.
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
@@ -411,69 +436,69 @@ class importIMSPackage extends dbTable
 	 * @param string $choice - the selected course (when importing into existing course)
 	 * @param boolean $createdCourse - whether or not to create a course
 	 * 
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 * 
 	*/
 	function eduPackage($FILES, $choice = '', $createCourse = '')
 	{
-		// Check archive type
+		// Check archive type.
 		if(!isset($FILES) || $FILES['upload']['type'] != 'application/zip')
 			if($this->objError)
 				return  "zipFileError";
-		// Check if upload needs to forced
+		// Check if upload needs to forced.
 		if($createCourse == TRUE)
-			// Retrieve temp folder
+			// Retrieve temp folder.
 			$folder = $this->unzipIMSFile($FILES);
 		else
 			$folder = $this->unzipIMSFile($FILES, TRUE);
 		if(!isset($folder) || $folder == 'unzipError')
 			if($this->objError)
 				return  "unzipError";
-		// Retrieve file names
+		// Retrieve file names.
 		$fileNames = $this->objIEUtils->list_dir_files($folder,0);
 		if(!isset($fileNames))
 			if($this->objError)
 				return  "fileReadError";
-		// Retrieve file locations
+		// Retrieve file locations.
 		$filesLocation = $this->locateAllFiles($folder);
 		if(!isset($filesLocation))
 			if($this->objError)
 				return  "fileReadError";
-		// Locate imsmanifest.xml file
+		// Locate imsmanifest.xml file.
 		$imsFileLocation = $this->locateIMSfile($filesLocation, "/imsmanifest/");
 		if(!isset($imsFileLocation))
 			if($this->objError)
 				return  "imsReadError";
-		// Read imsmanifest.xml file
-		// Create simplexml object to access xml file
+		// Read imsmanifest.xml file.
+		// Create simplexml object to access xml file.
 		$simpleXmlObj = $this->loadSimpleXML($imsFileLocation);
 		if(!isset($simpleXmlObj) || $simpleXmlObj == 'simpleXmlError')
 			if($this->objError)
 				return  "simpleXmlError";
-		// Create domdocument object to access xml file	
+		// Create domdocument object to access xml file.
 		$domDocumentObj = $this->loadDOMDocument($imsFileLocation);
 		if(!isset($domDocumentObj) || $domDocumentObj == 'domReadError')
 			if($this->objError)
 				return  "domReadError";
-		// Create xpath object to access xml file
+		// Create xpath object to access xml file.
 		$xpathObj = $this->loadXPath($domDocumentObj);
 		if(!isset($xpathObj))
 			if($this->objError)
 				return  "xpathSetError";
-		// Extract course data
+		// Extract course data.
 		$courseData = $this->extractCourseData($simpleXmlObj, $domDocumentObj, $xpathObj);
 		if(!isset($courseData) || $courseData == 'courseReadError')
 			if($this->objError)
 				return  "courseReadError";
-		// Change context
+		// Change context.
 		if($createCourse == FALSE)
 			$courseData['contextcode'] = $choice;
-		// Initialize all locations
+		// Initialize all locations.
 		$init = $this->initLocations($courseData['contextcode'], $courseData['title']);
 		if(!isset($init))
 			if($this->objError)
 				return  "initializeError";
-		// Create course
+		// Create course.
 		if($createCourse == TRUE)
 		{
 			$courseCreated = $this->objIEUtils->createCourseInChisimba($courseData);
@@ -484,32 +509,32 @@ class importIMSPackage extends dbTable
 		}
 		else
 			$this->contextCode = $choice;
-		// Write Resources
+		// Write Resources.
 		$writeData = $this->writeResources($simpleXmlObj, $folder, $courseData);
 		if(!isset($writeData))
 			if($this->objError)
 				return  "writeResourcesError";
-		// Get organizations
+		// Get organizations.
 		$structure = $this->getStructure($simpleXmlObj);
 		if(!isset($structure))
 			if($this->objError)
 				return  "noStructureError";
-		// Load html data into Chisimba
+		// Load html data into Chisimba.
 		$menutitles = $this->loadToChisimba($writeData, $structure);
 		if(!isset($menutitles))
 			if($this->objError)
 				return  "loadDataError";
-		// Load image data into Chisimba
+		// Load image data into Chisimba.
 		$uploadToChisimba = $this->uploadToChisimba();
 		if(!isset($uploadToChisimba))
 			if($this->objError)
 				return  "uploadError";
-		// Rebuild html images and url links
+		// Rebuild html images and url links.
 		$rebuildHtml = $this->rebuildHtml($menutitles, $fileNames);
 		if(!isset($rebuildHtml))
 			if($this->objError)
 				return  "rebuildHtmlError";
-		// Enter context
+		// Enter context.
 		$enterContext = $this->objDBContext->joinContext($this->contextCode);
 		$this->objContextModules->addModule($this->contextCode, 'contextcontent');
 
@@ -519,16 +544,16 @@ class importIMSPackage extends dbTable
 	/**
 	 * Sets the global variables and directory paths
 	 * 
-	 * @param string $contextcode 
-	 * @param string $courseTitle
+	 * @param string $contextcode - context code of course
+	 * @param string $courseTitle - course title
 	 * 
 	 * @return array $locations - Array of all locations used
 	 * 
 	*/
 	function initLocations($contextcode, $courseTitle)
 	{
-		// Static Chisimba file locations
-		// opt/lampp/htdocs/chisimba_framework/app/usrfiles/
+		// Static Chisimba file locations.
+		// opt/lampp/htdocs/chisimba_framework/app/usrfiles/.
 		$this->contentBasePath = $this->objConf->getcontentBasePath();
 		$this->courseContentBasePath = $this->contentBasePath."content/";
 		$this->contextCode = trim(strtolower(str_replace(' ','_',$contextcode)));
@@ -600,7 +625,6 @@ class importIMSPackage extends dbTable
 			$name = $newname;
 			if ($extension == 'zip')
 			{
-				// !!!Need to find a way to test if directory is created
 				$tempfile=$FILES['upload']['tmp_name'];
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
 				$tempdir .= '/'.$name.'_'.$this->objIEUtils->generateUniqueId();
@@ -656,7 +680,7 @@ class importIMSPackage extends dbTable
 	*/
 	function loadSimpleXml($imsFileLocation)
 	{
-		// Load imsmanifest.xml file
+		// Load imsmanifest.xml file.
 		if(file_exists($imsFileLocation)) 
     			$this->simpleXmlObj = simplexml_load_file($imsFileLocation);
 		else 
@@ -676,11 +700,8 @@ class importIMSPackage extends dbTable
 	function loadDOMDocument($imsFileLocation)
 	{
 		$this->domDocumentObj = new DOMDocument();
-		// Create domdocument object to access xml file
-		if($this->domDocumentObj->load($imsFileLocation))
-		{
-		}
-		else 
+		// Create domdocument object to access xml file.
+		if(!($this->domDocumentObj->load($imsFileLocation)))
     			return  "domReadError";
 
 		return $this->domDocumentObj;
@@ -696,7 +717,7 @@ class importIMSPackage extends dbTable
 	*/
 	function loadXPath($domDocumentObj)
 	{
-		// Create xpath object to access xml file
+		// Create xpath object to access xml file.
 		$this->xpathObj = new DOMXPath($domDocumentObj);
 
 		return $this->xpathObj;
@@ -710,38 +731,46 @@ class importIMSPackage extends dbTable
 	 * @param DOMXPath $xpath - DOMXPath access to imsmanifest
 	 * @param $packageType - type of package being imported
 	 *
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 *
 	*/
 	function extractCourseData($xml, $doc, $xpath, $packageType = '')
 	{
-		// Set eduCommons namespaces
+		// Set eduCommons namespaces.
 		$xpath->registerNamespace("educommons", "http://albatross.ed.usu.edu/xsd/educommons_v1");
-		// Set imsmd namespaces
+		// Set imsmd namespaces.
 		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
 		$xpath->registerNamespace('adlcp','http://www.adlnet.org/xsd/adlcp_rootv1p2');
 		$xpath->registerNamespace('cwspace','http://www.dspace.org/xmlns/cwspace_imscp'); 
 		$xpath->registerNamespace('ocw','http://ocw.mit.edu/xmlns/ocw_imscp');
-		// Create course
-		// Establish which resource is a course
+		// Create course.
+		// Establish which resource is a course.
 		if($packageType == 'mit')
 		{
-			$query = '//lom:identifier/lom:entry';// course id (contextcode)
+			// course id (contextcode).
+			$query = '//lom:identifier/lom:entry';
 			$results = $xpath->evaluate($query);
 			$courseId = trim((string)$results->item($i)->nodeValue);
 			$courseId .= '_'.$this->objIEUtils->generateUniqueId('8');
 			$this->newCourse['contextcode'] = $courseId;
-			$query = '//lom:title';// course title (title)
+			// course title (title).
+			$query = '//lom:title';
 			$results = $xpath->evaluate($query);
 			$courseTitle = trim((string)$results->item(0)->nodeValue);
 			$this->newCourse['title'] = $courseTitle;
-			$this->newCourse['menutext'] = $courseTitle;// course title (menu text)
-			$this->newCourse['userid'] = $this->objUser->userId();// course title (userId)
-			$this->newCourse['courseIdentifier'] = '';// course identifier (not in use)
-			$this->newCourse['about'] = '';// course description (about)
-			$courseStatus = "Public";// course status (status)
+			// course title (menu text).
+			$this->newCourse['menutext'] = $courseTitle;
+			// course title (userId).
+			$this->newCourse['userid'] = $this->objUser->userId();
+			// course identifier (not in use).
+			$this->newCourse['courseIdentifier'] = '';
+			// course description (about).
+			$this->newCourse['about'] = '';
+			// course status (status).
+			$courseStatus = "Public";
 			$this->newCourse['isactive'] = $courseStatus;
-			$courseAccess = "UnPublished";// course access (access)
+			// course access (access).
+			$courseAccess = "UnPublished";
 			$this->newCourse['isclosed'] = $courseAccess;
 		}
 		else if($packageType == 'exe')
@@ -765,14 +794,14 @@ class importIMSPackage extends dbTable
 		{
 			foreach($xml->resources->resource as $resource)
 			{
-				// Retrieve file type
+				// Retrieve file type.
 				$objectType = $resource->metadata->eduCommons->objectType;
-				// Cast to string
+				// Cast to string.
 				$objectType = (string)$objectType;
-				// Remove whitespaces for comparison
+				// Remove whitespaces for comparison.
 				$objectType = trim($objectType);
-				// Check file type
-				// Course
+				// Check file type.
+				// Course.
 				if(strcmp($objectType,"Course")==0)
 				{
 					$courseId = $resource->metadata->eduCommons->courseId;
@@ -820,12 +849,12 @@ class importIMSPackage extends dbTable
 	 * @param string $folder - content folder in usrfiles directory
 	 * @param array $newCourse - all created course data
 	 *
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 *
 	*/
 	function writeResources($xml, $folder, $newCourse)
 	{
-		// Pre-initialize variables.
+		// Pre-initialize variables..
 		$resourceFileLocations = array();
 		// First add course to Chisimba database.
 		foreach($xml->resources->resource as $resource)
@@ -1061,14 +1090,14 @@ class importIMSPackage extends dbTable
 	function uploadToChisimba($folder = '', $fileNames = '')
 	{
 		$noFilesWritten = 0;
-		// Initialize Inner variables
+		// Initialize Inner variables.
 		parent::init('tbl_files');
-		// Add Images to database
+		// Add Images to database.
 		if(!(strlen($folder) > 1))
 			$indexFolder = $this->objIndex->indexFolder($this->imagesLocation, $this->objUser->userId());
 		else
 			$indexFolder = $this->objIndex->indexFolder($folder, $this->objUser->userId());
-		// Match image Id's to image names
+		// Match image Id's to image names.
 		foreach($indexFolder as $pageId)
 		{
 			$filter = "WHERE id = '$pageId'";
@@ -1145,7 +1174,7 @@ class importIMSPackage extends dbTable
 			return $this->loadToChisimbaFromPaths($writeData, $structure);
 		else
 		{
-			// Pre-initialize variables
+			// Pre-initialize variables.
 			static $i = 0;
 			static $j = 0;
 			static $k = 0;
@@ -1153,21 +1182,21 @@ class importIMSPackage extends dbTable
 			$orderedData = array();
 			$numItems = count($structure);
 			$numVisibleItems = 0;
-			// Change Structure of data
-			// Add all pages
+			// Change Structure of data.
+			// Add all pages.
 			foreach($writeData as $resource)
 			{
-				// Unpack data
+				// Unpack data.
 				$xmlResource = $resource['resource'];
 				$objectType = $resource['objectType'];
 				$objectType = (string)$objectType;
 				$objectType = trim($objectType);
 				$resourceId = (string)$xmlResource['identifier'];
 				$resourceId = trim($resourceId);
-				// Check file type
+				// Check file type.
 				if(strcmp($objectType,"Image")!=0)
 				{
-					// Retrieve title
+					// Retrieve title.
 					$title = $xmlResource->metadata->lom->general->title->langstring;
 					$title = (string)$title;
 					$title = trim($title);
@@ -1188,7 +1217,7 @@ class importIMSPackage extends dbTable
 					}
 				}
 			}
-			// Fix indexing
+			// Fix indexing.
 			for($i=0;$i<count($orderedData);$i++)
 				$indexedData[$i] = $orderedData[$i];
 			$start = 0;
@@ -1198,10 +1227,10 @@ class importIMSPackage extends dbTable
 			$toEnd = array_slice($indexedData, $before+1, $after);
 			$course = array_slice($indexedData, $before, $before);
 			$orderedData = array_merge($course, $fromStart, $toEnd);
-			// Retrieve resource Id's
+			// Retrieve resource Id's.
 			foreach($orderedData as $resource)
 			{
-				// Unpack data
+				// Unpack data.
 				$xmlResource = $resource['resource'];
 				$fileContents = $resource['fileContents'];
 				$resourceId = (string)$xmlResource['identifier'];
@@ -1223,20 +1252,20 @@ class importIMSPackage extends dbTable
 				$i++;
 			}
 			$this->chapterId = $this->objIEUtils->addChapters($this->contextCode, $this->courseTitle, $this->newCourse['about']);
-			// Add ordered data
+			// Add ordered data.
 			for($i=0;$i<count($orderedData);$i++)
 			{
-				// Unpack data
+				// Unpack data.
 				$xmlResource = $orderedData[$i]['resource'];
 				$fileContents = $orderedData[$i]['fileContents'];
 				$contextCode = $orderedData[$i]['contextCode'];
 				$file = $orderedData[$i]['file'];
 				$objectType = $orderedData[$i]['objectType'];
-				// Cast to string
+				// Cast to string.
 				$objectType = (string)$objectType;
-				// Remove whitespaces for comparison
+				// Remove whitespaces for comparison.
 				$objectType = trim($objectType);
-				// Write Course to Chisimba database
+				// Write Course to Chisimba database.
 				if($i > $numVisibleItems)
 					$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode,$i,'N');
 				else
@@ -1264,7 +1293,7 @@ class importIMSPackage extends dbTable
 	*/
 	function passPage($resource, $fileContents, $contextCode, $bookmark='', $isBookmark='')
 	{
-		// Check if menutitle exists
+		// Check if menutitle exists.
 		$resId = (string)$resource['identifier'];
 		$resId = trim($resId);
 		foreach($this->simpleXmlObj->organizations->organization->item as $item)
@@ -1278,7 +1307,7 @@ class importIMSPackage extends dbTable
 				$menutitle = $aTitle;
 			}
 		}
-		// Retrieve page data
+		// Retrieve page data.
 		$titleid = $resource->metadata->lom->general->title->langstring;
 		if(!(strlen($menutitle) > 0))
 			$menutitle = $resource->metadata->lom->general->description->langstring;
@@ -1286,7 +1315,7 @@ class importIMSPackage extends dbTable
 		$language = $resource->metadata->lom->general->language;
 		$headerscript = "";
 		$filename = $resource->metadata->lom->metametadata->catalogentry->entry->langstring;
-		// Load to $values
+		// Load to $values.
 		if(!strlen($menutitle) > 0)
 			$menutitle = $titleid;
 		$values = array('titleid' => (string)$titleid,
@@ -1297,7 +1326,7 @@ class importIMSPackage extends dbTable
 				'filename' => trim((string)$filename),
 				'bookmark' => $bookmark,
 				'isbookmark' => $isBookmark);
-		// Insert into database
+		// Insert into database.
 		$writePage = $this->writePage($values, $contextCode);
 
 		return $menutitle;
@@ -1309,13 +1338,13 @@ class importIMSPackage extends dbTable
 	 * @param array $values - page details
 	 * @param string $contextCode - course contextcode
 	 *
-	 * @return TRUE - Successful execution
+	 * @return TRUE - Successful execution OR Custom error
 	 *
 	*/
 	function writePage($values, $contextCode)
 	{
 		$tree = $this->objContentOrder->getTree($contextCode, 'dropdown', $parent);
-		// Add page
+		// Add page.
 		$titleId = $this->objContentTitles->addTitle('', 
 								$values['menutitle'],
 								$values['content'],
@@ -1338,10 +1367,10 @@ class importIMSPackage extends dbTable
 	*/
 	function rebuildHtml($menutitles, $fileNames)
 	{
-		// switch tables
+		// switch tables.
 		parent::init('tbl_contextcontent_pages');
-		// Retrieve resources
-		// Manipulate images
+		// Retrieve resources.
+		// Manipulate images.
 		static $i = 0;
 		static $j = 0;
 		foreach($this->pageIds as $pageOrderId)
@@ -1357,23 +1386,23 @@ class importIMSPackage extends dbTable
 				$result = $this->getAll($filter);
 				if(count($result) > 0)
 				{
-					// Retrieve page contents
+					// Retrieve page contents.
 					$fileContents = $result['0']['pagecontent'];
 					$id = $result['0']['id'];
-					// Rewrite images source in html
+					// Rewrite images source in html.
 					$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $this->resourceFileNames, $this->imageIds);
-					// Rewrite links source in html
+					// Rewrite links source in html.
 					$page = $this->objIEUtils->changeLinkUrl($page, $this->contextCode, $this->resourceFileNames, $this->pageIds);
-					// Reinsert into database with updated images
+					// Reinsert into database with updated images.
 					if(strlen($page) > 1 )
 					{
 						$update = $this->update('id', $id, array('pagecontent' => $page));
 						if($i==0)
 						{
-							// Modify about in tbl_context
+							// Modify about in tbl_context.
 							parent::init('tbl_context');
 							$this->update('id', $this->courseId, array('about' => $page));
-							// switch tables
+							// switch tables.
 							parent::init('tbl_contextcontent_pages');
 							$i++;
 						}
@@ -1467,13 +1496,13 @@ class importIMSPackage extends dbTable
 	{
 		if(strlen($xmlFilesLocation['CourseHome'])>1)
 		{
-			// Read Course Home
-			// Create simplexml object to access xml file
+			// Read Course Home.
+			// Create simplexml object to access xml file.
 			$location = $folder.'/'.$xmlFilesLocation['CourseHome'];
 			$courseSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$courseDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$courseXpath = $this->loadXPath($courseDomDocument);
 			$allXmlPackageData['CourseHome']['simple'] = $courseSimpleXml;
 			$allXmlPackageData['CourseHome']['dom'] = $courseDomDocument;
@@ -1481,12 +1510,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Syllabus'])>1)
 		{
-			// Read Syllabus
+			// Read Syllabus.
 			$location = $folder.'/'.$xmlFilesLocation['Syllabus'];
 			$syllabusSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$syllabusDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$syllabusXpath = $this->loadXPath($syllabusDomDocument);
 			$allXmlPackageData['Syllabus']['simple'] = $syllabusSimpleXml;
 			$allXmlPackageData['Syllabus']['dom'] = $syllabusDomDocument;
@@ -1494,12 +1523,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Calendar'])>1)
 		{
-			// Read Calendar
+			// Read Calendar.
 			$location = $folder.'/'.$xmlFilesLocation['Calendar'];
 			$calendarSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$calendarDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$calendarXpath = $this->loadXPath($calendarDomDocument);
 			$allXmlPackageData['Calendar']['simple'] = $calendarSimpleXml;
 			$allXmlPackageData['Calendar']['dom'] = $calendarDomDocument;
@@ -1507,12 +1536,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Readings'])>1)
 		{
-			// Read Readings
+			// Read Readings.
 			$location = $folder.'/'.$xmlFilesLocation['Readings'];
 			$readingsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$readingsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml files
+			// Create xpath object to access xml files.
 			$readingsXpath = $this->loadXPath($readingsDomDocument);
 			$allXmlPackageData['Readings']['simple'] = $readingsSimpleXml;
 			$allXmlPackageData['Readings']['dom'] = $readingsDomDocument;
@@ -1520,13 +1549,13 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['LectureNotes'])>1)
 		{
-			// Read Lecture Notes
-			// Create simplexml object to access xml file
+			// Read Lecture Notes.
+			// Create simplexml object to access xml file.
 			$location = $folder.'/'.$xmlFilesLocation['LectureNotes'];
 			$lectureSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$lectureDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$lectureXpath = $this->loadXPath($lectureDomDocument);
 			$allXmlPackageData['LectureNotes']['simple'] = $lectureSimpleXml;
 			$allXmlPackageData['LectureNotes']['dom'] = $lectureDomDocument;
@@ -1534,12 +1563,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Labs'])>1)
 		{
-			// Read Labs
+			// Read Labs.
 			$location = $folder.'/'.$xmlFilesLocation['Labs'];
 			$labsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file	.
 			$labsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$labsXpath = $this->loadXPath($labsDomDocument);
 			$allXmlPackageData['Labs']['simple'] = $labsSimpleXml;
 			$allXmlPackageData['Labs']['dom'] = $labsDomDocument;
@@ -1547,12 +1576,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Assignments'])>1)
 		{
-			// Read Assignments
+			// Read Assignments.
 			$location = $folder.'/'.$xmlFilesLocation['Assignments'];
 			$assignmentsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$assignmentsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$assignmentsXpath = $this->loadXPath($assignmentsDomDocument);
 			$allXmlPackageData['Assignments']['simple'] = $assignmentsSimpleXml;
 			$allXmlPackageData['Assignments']['dom'] = $assignmentsDomDocument;
@@ -1560,13 +1589,13 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Exams'])>1)
 		{
-			// Read Exams
-			// Create simplexml object to access xml file
+			// Read Exams.
+			// Create simplexml object to access xml file.
 			$location = $folder.'/'.$xmlFilesLocation['Exams'];
 			$examsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$examsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$examsXpath = $this->loadXPath($examsDomDocument);
 			$allXmlPackageData['Exams']['simple'] = $examsSimpleXml;
 			$allXmlPackageData['Exams']['dom'] = $examsDomDocument;
@@ -1574,12 +1603,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['Projects'])>1)
 		{
-			// Read Projects
+			// Read Projects.
 			$location = $folder.'/'.$xmlFilesLocation['Projects'];
 			$projectsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$projectsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$projectsXpath = $this->loadXPath($projectsDomDocument);
 			$allXmlPackageData['Projects']['simple'] = $projectsSimpleXml;
 			$allXmlPackageData['Projects']['dom'] = $projectsDomDocument;
@@ -1588,12 +1617,12 @@ class importIMSPackage extends dbTable
 		if(strlen($xmlFilesLocation['Tools'])>1)
 		{
 			// Read Tools
-			// Create simplexml object to access xml file
+			// Create simplexml object to access xml file.
 			$location = $folder.'/'.$xmlFilesLocation['Tools'];
 			$toolsSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.	
 			$toolsDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$toolsXpath = $this->loadXPath($toolsDomDocument);
 			$allXmlPackageData['Tools']['simple'] = $toolsSimpleXml;
 			$allXmlPackageData['Tools']['dom'] = $toolsDomDocument;
@@ -1601,12 +1630,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['RelatedResources'])>1)
 		{
-			// Read Related Resources
+			// Read Related Resources.
 			$location = $folder.'/'.$xmlFilesLocation['RelatedResources'];
 			$relatedSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$relatedDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$relatedXpath = $this->loadXPath($relatedDomDocument);
 			$allXmlPackageData['RelatedResources']['simple'] = $relatedSimpleXml;
 			$allXmlPackageData['RelatedResources']['dom'] = $relatedDomDocument;
@@ -1614,12 +1643,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['DiscussionGroup'])>1)
 		{
-			// Read Discussion Group
+			// Read Discussion Group.
 			$location = $folder.'/'.$xmlFilesLocation['DiscussionGroup'];
 			$discussionSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$discussionDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$discussionXpath = $this->loadXPath($discussionDomDocument);
 			$allXmlPackageData['DiscussionGroup']['simple'] = $discussionSimpleXml;
 			$allXmlPackageData['DiscussionGroup']['dom'] = $discussionDomDocument;
@@ -1627,12 +1656,12 @@ class importIMSPackage extends dbTable
 		}
 		if(strlen($xmlFilesLocation['DownloadthisCourse'])>1)
 		{
-			// Read Download this Course
+			// Read Download this Course.
 			$location = $folder.'/'.$xmlFilesLocation['DownloadthisCourse'];
 			$downloadSimpleXml = $this->loadSimpleXML($location);
-			// Create domdocument object to access xml file	
+			// Create domdocument object to access xml file.
 			$downloadDomDocument = $this->loadDOMDocument($location);
-			// Create xpath object to access xml file
+			// Create xpath object to access xml file.
 			$downloadXpath = $this->loadXPath($downloadDomDocument);
 			$allXmlPackageData['DownloadthisCourse']['simple'] = $downloadSimpleXml;
 			$allXmlPackageData['DownloadthisCourse']['dom'] = $downloadDomDocument;
@@ -1654,7 +1683,7 @@ class importIMSPackage extends dbTable
 	*/
 	function getMITHtmls($newFolder, $allXmlPackageData)
 	{
-		// Read Course Home
+		// Read Course Home.
 		$courseXpath = $allXmlPackageData['CourseHome']['xpath'];
 		if(isset($courseXpath))
 		{
@@ -1662,19 +1691,19 @@ class importIMSPackage extends dbTable
 			$results = $courseXpath->evaluate($query);
 			$coursePath = trim((string)$results->item(0)->nodeValue);
 			$mitHtmlsPath['CourseHome'] = $newFolder.$coursePath;
-			// Retrieve contents of file
+			// Retrieve contents of file.
 			$fileContents = file_get_contents($mitHtmlsPath['CourseHome']);
-			// New location for Files
+			// New location for Files.
 			$newLocation = $this->docsLocation."/".'CourseHome.html';
-			// Open html directory
+			// Open html directory.
 			$fp = fopen($newLocation,'w');
-			// Write the file to static directory
+			// Write the file to static directory.
 			if((fwrite($fp, $fileContents) === FALSE))
 				return  "writeResourcesError";
-			// Close the directory
+			// Close the directory.
 			fclose($fp);
 		}
-		// Read Syllabus
+		// Read Syllabus.
 		$syllabusXpath = $allXmlPackageData['Syllabus']['xpath'];
 		if(isset($syllabusXpath))
 		{
@@ -1689,7 +1718,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Calendar
+		// Read Calendar.
 		$calendarXpath = $allXmlPackageData['Calendar']['xpath'];
 		if(isset($calendarXpath))
 		{
@@ -1704,7 +1733,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Readings
+		// Read Readings.
 		$readingsXpath = $allXmlPackageData['Readings']['xpath'];
 		if(isset($readingsXpath))
 		{
@@ -1719,7 +1748,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Lecture Notes
+		// Read Lecture Notes.
 		$lectureXpath = $allXmlPackageData['LectureNotes']['xpath'];
 		if(isset($lectureXpath))
 		{
@@ -1734,7 +1763,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Labs
+		// Read Labs.
 		$labsXpath = $allXmlPackageData['Labs']['xpath'];
 		if(isset($labsXpath))
 		{
@@ -1749,7 +1778,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Assignments
+		// Read Assignments.
 		$assignmentsXpath = $allXmlPackageData['Assignments']['xpath'];
 		if(isset($assignmentsXpath))
 		{
@@ -1766,7 +1795,7 @@ class importIMSPackage extends dbTable
 			}
 			fclose($fp);
 		}
-		// Read Exams
+		// Read Exams.
 		$examsXpath = $allXmlPackageData['Exams']['xpath'];
 		if(isset($examsXpath))
 		{
@@ -1781,7 +1810,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Projects
+		// Read Projects.
 		$projectsXpath = $allXmlPackageData['Projects']['xpath'];
 		if(isset($projectsXpath))
 		{
@@ -1796,7 +1825,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Tools
+		// Read Tools.
 		$toolsXpath = $allXmlPackageData['Tools']['xpath'];
 		if(isset($toolsXpath))
 		{
@@ -1811,7 +1840,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Resources
+		// Read Resources.
 		$resourcesXpath = $allXmlPackageData['RelatedResources']['xpath'];
 		if(isset($resourcesXpath))
 		{
@@ -1826,7 +1855,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Discussion Group
+		// Read Discussion Group.
 		$discussionXpath = $allXmlPackageData['DiscussionGroup']['xpath'];
 		if(isset($discussionXpath))
 		{
@@ -1841,7 +1870,7 @@ class importIMSPackage extends dbTable
 				return  "writeResourcesError";
 			fclose($fp);
 		}
-		// Read Download this Course
+		// Read Download this Course.
 		$downloadXpath = $allXmlPackageData['DownloadthisCourse']['xpath'];
 		if(isset($downloadXpath))
 		{
@@ -1877,7 +1906,7 @@ class importIMSPackage extends dbTable
 		foreach($mitHtmlsPath as $htmlPath)
 		{
 			$fileContents = file_get_contents($htmlPath);
-			// Strip navigational tags
+			// Strip navigational tags.
 			$fileContents = $this->removeMITLayouts($fileContents);
 			if(preg_match('/CourseHome/', $htmlPath))
 			{
@@ -2073,10 +2102,10 @@ class importIMSPackage extends dbTable
 	*/
 	function rebuildMITHtml($menutitles, $fileNames, $allFilesLocation)
 	{
-		// switch tables
+		// switch tables.
 		parent::init('tbl_contextcontent_pages');
-		// Retrieve resources
-		// Manipulate images
+		// Retrieve resources.
+		// Manipulate images.
 		static $i = 0;
 		static $j = 0;
 		foreach($this->pageIds as $pageOrderId)
@@ -2092,27 +2121,27 @@ class importIMSPackage extends dbTable
 				$result = $this->getAll($filter);
 				if(count($result) > 0)
 				{
-					// Retrieve page contents
+					// Retrieve page contents.
 					$fileContents = $result['0']['pagecontent'];
 					$id = $result['0']['id'];
-					// Rewrite images source in html
+					// Rewrite images source in html.
 					$page = $this->objIEUtils->changeImageSRC($fileContents, $this->contextCode, $fileNames, $this->imageIds);
-					// Rewrite links source in html
+					// Rewrite links source in html.
 					$page = $this->objIEUtils->changeMITLinkUrl($page, $this->contextCode, $fileNames, $this->fileIds);
-					// Rewrite internal links source in html
+					// Rewrite internal links source in html.
 					$page = $this->objIEUtils->changeLinkUrl($page, $this->contextCode, $fileNames, $this->pageIds, 'mit', $allFilesLocation);
-					// Rewrite data links source in html
+					// Rewrite data links source in html.
 					$page = $this->objIEUtils->changeDataLink($page, $this->contextCode, $fileNames, $this->fileIds, 'mit', $allFilesLocation);
-					// Reinsert into database with updated images
+					// Reinsert into database with updated images.
 					if(strlen($page) > 1 )
 					{
 						$update = $this->update('id', $id, array('pagecontent' => $page));
 						if($i==0)
 						{
-							// Modify about in tbl_context
+							// Modify about in tbl_context.
 							parent::init('tbl_context');
 							$this->update('id', $this->courseId, array('about' => $page));
-							// switch tables
+							// switch tables.
 							parent::init('tbl_contextcontent_pages');
 							$i++;
 						}

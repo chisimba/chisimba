@@ -52,9 +52,11 @@ class exportimspackage extends dbTable
 	*/
 	function exportContent($contextcode)
 	{
-		// Start of DOM
+		// Start of DOM.
 		$dom = new DOMDocument('1.0', 'utf-8');
 		$manifest = $dom->appendChild($dom->createElement('manifest'));
+		$manId = 'MAN'.$this->objIEUtils->generateUniqueId();
+		$manifest->setAttribute('identifier', $manId);
 		$manifest->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imscp_v1p1');
 		$manifest->setAttribute('xmlns:eduCommons', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
 		$manifest->setAttribute('xmlns:imsmd', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
@@ -62,38 +64,39 @@ class exportimspackage extends dbTable
 		$manifest->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 		$manifest->setAttribute('xsi:schemaLocation', 'http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd http://cosl.usu.edu/xsd/eduCommonsv1.1 eduCommonsv1.1.xsd');
 		$metadata = $manifest->appendChild($dom->createElement('metadata'));
+		$metadata = $this->getMetadata($dom, $metadata);
 		$organizations = $manifest->appendChild($dom->createElement('organizations'));
-		$orgValue = 'ORG'.$this->objIEUtils->generateUniqueId();
-		$organizations->setAttribute('default', $orgValue);
+		$orgId = 'ORG'.$this->objIEUtils->generateUniqueId();
+		$organizations->setAttribute('default', $orgId);
 		$resources = $manifest->appendChild($dom->createElement('resources'));
-		//Retrieve data within context
+		// Retrieve data within context.
 		$courseData = $this->objIEUtils->getCourse($contextcode, 'new');
-		//Course id
+		// Course id.
 		$courseId = $courseData['id'];
-		//Course title
+		// Course title.
 		$courseTitle = $courseData['title'];
-		//Course Context code
+		// Course Context code.
 		$contextcode = $courseData['contextcode'];
-		//Create a temporary folder
+		// Create a temporary folder.
 		$temp = '/tmp';
 		$this->objDir->makeFolder($contextcode, $temp);
-		//Store temporary folder
+		// Store temporary folder.
 		$tempDirectory = $temp.'/'.$contextcode;
-		//Write Schema files
+		// Write Schema files.
 		$writeSchemaFiles = $this->objIEUtils->writeSchemaFiles($tempDirectory);
-		//Create resources folder
+		// Create resources folder.
 		$this->objDir->makeFolder($contextcode, $tempDirectory);
-		//Store resources folder
+		// Store resources folder.
 		$resourceFolder = $tempDirectory."/".$contextcode;
-		//Retrieve Course Html
+		// Retrieve Course Html.
 		$courseHtml = $this->objIEUtils->getCourseHtml($contextcode);
-		//Retrieve Course Html images
+		// Retrieve Course Html images.
 		$courseImageNames = $this->objIEUtils->getImageNames($courseHtml);
-		//Retrieve Course Html file links
+		// Retrieve Course Html file links.
 		$courseResourceIds = $this->objIEUtils->getResourceIds($courseHtml);
-		//Re-write Course Html
+		// Re-write Course Html.
 		$courseHtml = $this->rebuildHtml($contextcode, $courseHtml, $courseImageNames, $courseResourceIds);
-		//Write Images to specified directory (resources folder)
+		// Write Images to specified directory (resources folder).
 		if(count($courseImageNames) > 0)
 		{
 			$imageNames = $this->objIEUtils->writeImages($courseImageNames, $resourceFolder);
@@ -102,48 +105,62 @@ class exportimspackage extends dbTable
 
 			}
 		}
-		//Write Resources to specified directory (resources folder)
+		//.Write Resources to specified directory (resources folder).
 		if(count($courseResourceIds) > 0)
 			$resourceNames = $this->objIEUtils->writeResources($courseResourceIds, $resourceFolder);
-		//Write Course Html to specified directory (resources folder)
+		// Write Course Html to specified directory (resources folder).
 		$courseFilenames = $this->objIEUtils->writeFiles($courseHtml, $tempDirectory, $courseTitle,'html');
+var_dump($courseFilenames);
 		$fileLocation = $tempDirectory.'/'.$courseFilenames[0].'.html';
-		$resources->appendChild($this->createCourseResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course'));
-		//Retrieve Course Chapters
+var_dump($fileLocation);
+		// Add Course Organization (Chapter).
+		$organization = $organizations->appendChild($this->createOrganization($dom, $orgId));
+		// Can only create one course resource
+		$courseItemId = 'ITM'.$this->objIEUtils->generateUniqueId();
+		$courseResId = 'RES'.$this->objIEUtils->generateUniqueId();
+		// Add Items to Organization.
+		$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
+		// Add Course Resource.
+		$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course', $courseResId));
 		$chapterOrder = $this->objIEUtils->chapterOrder($contextcode);
 		foreach($chapterOrder as $chapter)
 		{
-			$organization = $organizations->appendChild($this->createOrganization($dom, $orgValue));
-			$pageOrder = $this->pageOrder($contextcode, $chapter['chapterid']);
+			$pageOrder = $this->objIEUtils->pageOrder($contextcode, $chapter['chapterid']);
+			array_shift($pageOrder);
 			foreach($pageOrder as $page)
 			{
 				if($page["isbookmarked"] == 'Y')
 				{
-					$pageDetails = $this->pageContent($page['titleid']);
-					$organization->appendChild($this->createItem($dom, $pageDetails['menutitle']));
+					$itemId = 'ITM'.$this->objIEUtils->generateUniqueId();
+					$resId = 'RES'.$this->objIEUtils->generateUniqueId();
+					$pageDetails = $this->objIEUtils->pageContent($page['titleid']);
+					$courseTitle = $pageDetails['menutitle'];
+					// Add Items to Organization.
+					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
+					// Add Course Resource.
+					//$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course', $courseResId));
 				}
 				else
 				{
 					
 				}
 			}
-
 		}
-		//Retrieve Html pages
+		// Retrieve Html pages.
 		$htmlPages = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'pagecontent');
-		//Remove course page
+		// Remove course page.
 		array_shift($htmlPages);
-		//Retrieve Html page menutitles
+		// Retrieve Html page menutitles.
 		$menutitles = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'menutitle');
-		//Retrieve Html images
+		// Retrieve Html images.
 		$imageNames = $this->objIEUtils->getImageNames($htmlPages);
-		//Retrieve Html file links
+		// Retrieve Html file links.
 		$resourceIds = $this->objIEUtils->getResourceIds($htmlPages);
-		//Re-write Htmls
+		// Re-write Htmls.
 		$htmlPages = $this->rebuildHtml($contextcode, $htmlPages, $imageNames, $resourceIds);
-		//Write Htmls to specified directory (resources folder)
+		// Write Htmls to specified directory (resources folder).
 		$htmlFilenames = $this->objIEUtils->writeFiles($htmlPages, $resourceFolder,'','html');
-		//Write Images to specified directory (resources folder)
+		// Write Images to specified directory (resources folder).
 		if(count($imageNames) > 0)
 		{
 			$imageIds = $this->objIEUtils->writeImages($imageNames, $resourceFolder);
@@ -152,37 +169,48 @@ class exportimspackage extends dbTable
 
 			}
 		}
-		//Write Resources to specified directory (resources folder)
+		// Write Resources to specified directory (resources folder).
 		if(count($resourceIds) > 0)
 			$resourceNames = $this->objIEUtils->writeResources($resourceIds, $resourceFolder);
 		$ims = $this->objIEUtils->writeFiles($dom->saveXML(), $tempDirectory, 'imsmanifest', 'xml');
-//		$this->zipAndDownload($contextcode, $tempDirectory);
+		//$this->zipAndDownload($contextcode, $tempDirectory);
 
 		return TRUE;
 	}
 
-	function createOrganization($dom, $orgValue)
+	function getMetadata($dom, $metadata)
+	{
+		$schema = $metadata->appendChild($dom->createElement('schema', 'IMS CONTENT'));
+		$schemaversion = $metadata->appendChild($dom->createElement('schemaversion', '1.2'));
+
+		return $metadata;
+	}
+
+	function createOrganization($dom, $orgId)
 	{
 		$organization = $dom->createElement('organization');
-		$organization->setAttribute('identifier', $orgValue);
+		$organization->setAttribute('identifier', $orgId);
 
 		return $organization;
 	}
 
-	function createItem($dom, $menutitle)
+	function createItem($dom, $menutitle, $bookmark, $itemId, $resId)
 	{
 		$item = $dom->createElement('item');
+		$item->setAttribute('isvisible', $bookmark);
+		$item->setAttribute('identifier', $itemId);
+		$item->setAttribute('identifierref', $resId);
 		$title = $item->appendChild($dom->createElement('title', $menutitle));
 
 		return $item;
 	}
 
-	function createCourseResource($dom, $name, $contextcode, $fileLocation, $type)
+	function createResource($dom, $name, $contextcode, $fileLocation, $type, $resId)
 	{
 		// Retrieve all data
 		$fileName = preg_replace('/\..*/','',$name);
 		$fileSize = filesize($fileLocation);
-		$location = $this->objConf->getsiteRoot().$this->objConf->getcontentPath().'content/'.$contextcode.'/resource1.html';
+		$location = $this->objConf->getsiteRoot().$this->objConf->getcontentPath().'content/'.$contextcode.'/'.$name;
 		$username = $this->objUser->userName($this->objUser->userId());
 		$userDetails = $this->objUser->lookupData($username);
 		$userEmail = $userDetails['emailaddress'];
@@ -199,11 +227,12 @@ class exportimspackage extends dbTable
 		$licenseIconUrl = 'Not Specified';
 		// Create resource
 		$resource = $dom->createElement('resource');
-		$resource->setAttribute('identifier','http://www.imsglobal.org/xsd/imscp_v1p1');
-		$resource->setAttribute('type','webcontent');
-		$resource->setAttribute('href','http://localhost/'.$contextcode);
+		$resource->setAttribute('identifier', $resId);
+		$resource->setAttribute('type', 'webcontent');
+		$resource->setAttribute('href', 'http://localhost/'.$contextcode);
 		$metadata = $resource->appendChild($dom->createElement('metadata'));
 		$lom = $metadata->appendChild($dom->createElement('lom'));
+		$lom->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
 		$general = $lom->appendChild($dom->createElement('general'));
 		$identifier = $general->appendChild($dom->createElement('identifier', $name));
 		$title = $general->appendChild($dom->createElement('title'));
@@ -211,15 +240,19 @@ class exportimspackage extends dbTable
 		$language = $general->appendChild($dom->createElement('language', $lang));
 		$description = $general->appendChild($dom->createElement('description', $pageDescription));
 		$keyword = $general->appendChild($dom->createElement('keyword', $courseKeywords));
+		$keyword->setAttribute('xml:lang', 'en');
 		$lifecycle = $lom->appendChild($dom->createElement('lifecycle'));
 		$contribute = $lifecycle->appendChild($dom->createElement('contribute'));
 		$role = $contribute->appendChild($dom->createElement('role'));
 		$source = $role->appendChild($dom->createElement('source'));
 		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
+		$sourceLangstring->setAttribute('xml:lang', 'x-none');
 		$value = $role->appendChild($dom->createElement('value'));
 		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'author'));
+		$valueLangstring->setAttribute('xml:lang', 'x-none');
 		$centity = $contribute->appendChild($dom->createElement('centity'));
 		$vcard = $centity->appendChild($dom->createElement('vcard', 'BEGIN:VCARD FN:'.$username.' EMAIL;INTERNET:'.$userEmail.' END:VCARD'));
+		$vcard = $centity->appendChild($dom->createElement('vcard', 'begin:vcard fn:'.$username.' email;internet:'.$userEmail.' end:vcard'));
 		$date = $contribute->appendChild($dom->createElement('date', $dateCreated));
 		$metametadata = $lom->appendChild($dom->createElement('metametadata'));
 		$catalogentry = $metametadata->appendChild($dom->createElement('catalogentry'));
@@ -245,21 +278,28 @@ class exportimspackage extends dbTable
 		$copyrightandotherrestrictions = $rights->appendChild($dom->createElement('copyrightandotherrestrictions'));
 		$source = $copyrightandotherrestrictions->appendChild($dom->createElement('source'));
 		$sourceLangstring = $source->appendChild($dom->createElement('langstring', 'LOMv1.0'));
+		$sourceLangstring->setAttribute('xml:lang', 'x-none');
 		$value = $copyrightandotherrestrictions->appendChild($dom->createElement('value'));
 		$valueLangstring = $value->appendChild($dom->createElement('langstring', 'yes'));
+		$valueLangstring->setAttribute('xml:lang', 'x-none');
 		$description = $rights->appendChild($dom->createElement('description'));
 		$descriptionLangstring = $description->appendChild($dom->createElement('langstring', $copyright));
 		$eduCommons = $metadata->appendChild($dom->createElement('eduCommons'));
+		$eduCommons->setAttribute('xmlns', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
 		$objectType = $eduCommons->appendChild($dom->createElement('objectType', $type));
-		$copyright = $eduCommons->appendChild($dom->createElement('copyright', $copyright));
+		if($type = 'Course')
+			$copyright = $eduCommons->appendChild($dom->createElement('copyright', $copyright));
 		$license = $eduCommons->appendChild($dom->createElement('license'));
 		$licenseName = $license->appendChild($dom->createElement('licenseName', $licenseName));
 		$licenseUrl = $license->appendChild($dom->createElement('licenseUrl', $licenseUrl));
 		$licenseIconUrl = $license->appendChild($dom->createElement('licenseIconUrl', $licenseIconUrl));
 		$clearedCopyright = $eduCommons->appendChild($dom->createElement('clearedCopyright', $copyrightCleared));
-		$courseId = $eduCommons->appendChild($dom->createElement('courseId', $contextcode));
-		$term = $eduCommons->appendChild($dom->createElement('term', $courseTerm));
-		$displayInstructorEmail = $eduCommons->appendChild($dom->createElement('displayInstructorEmail', $displayEmail));
+		if($type = 'Course')
+		{
+			$courseId = $eduCommons->appendChild($dom->createElement('courseId', $contextcode));
+			$term = $eduCommons->appendChild($dom->createElement('term', $courseTerm));
+			$displayInstructorEmail = $eduCommons->appendChild($dom->createElement('displayInstructorEmail', $displayEmail));
+		}
 		$file = $resource->appendChild($dom->createElement('file'));
 		$file->setAttribute('href', $name);
 

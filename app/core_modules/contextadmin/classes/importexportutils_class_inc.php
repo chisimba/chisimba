@@ -1,9 +1,9 @@
 <?php
-// security check - must be included in all scripts
+// security check - must be included in all scripts.
 if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
-// end security check
+// end security check.
 /**
  * The class importexportutils that manages 
  * the functions regularly used in the IMS import export module
@@ -55,13 +55,13 @@ class importexportutils extends dbTable
 	 */
 	public function init()
 	{
-		//Load Configuration class
+		// Load Configuration class.
 		$this->objConf = &$this->getObject('altconfig','config');
-        	//language object
+        	// language object.
         	$this->objLanguage = $this->getObject('language', 'language');
 		$this->objDBContext = & $this->newObject('dbcontext', 'context');
 		$this->objFiles =& $this->getObject('dbfile','filemanager');
-		// Load Chapter Classes
+		// Load Chapter Classes.
 		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
 	}
@@ -156,31 +156,31 @@ class importexportutils extends dbTable
         	switch ($server) 
 		{
 			case 'fsiu':
-                		$this->dsn = 'mysql://reader:reader@172.16.203.173/fsiu';
+                		$this->dsn = 'mysql:// reader:reader@172.16.203.173/fsiu';
 		                return $this->dsn;
                 	break;
             		case 'elearn':
-                		$this->dsn = 'mysql://reader:reader@172.16.203.210/nextgen';
+                		$this->dsn = 'mysql:// reader:reader@172.16.203.210/nextgen';
 		                return $this->dsn;
                 	break;
             		case 'santec':
-                		$this->dsn = 'mysql://reader:reader@172.16.203.173/santec';
+                		$this->dsn = 'mysql:// reader:reader@172.16.203.173/santec';
 				return $this->dsn;
                 	break;
             		case 'freecourseware':
-            			$this->dsn = 'mysql://next:n3xt@172.16.203.178/ocw';
+            			$this->dsn = 'mysql:// next:n3xt@172.16.203.178/ocw';
 		            	return $this->dsn;
             		break;
 			case '5ive':
-            			$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/chisimba';
+            			$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimba';
 		            	return $this->dsn;
             		break;
 			case 'pear':
-		            	$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/chisimbademo';
+		            	$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimbademo';
 	            		return $this->dsn;
             		break;
 			case 'dfx':
-            			$this->dsn = 'mysql://root:0h5h1t.pear@196.21.45.41/dfx';
+            			$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/dfx';
 		            	return $this->dsn;
 			break;
 			default:
@@ -218,22 +218,22 @@ class importexportutils extends dbTable
     	public function _dbObject() 
     	{
         	require_once 'MDB2.php';
-        	//MDB2 has a factory method, so lets use it now...
+        	// MDB2 has a factory method, so lets use it now.
         	$this->objDb = &MDB2::factory($this->dsn);
-        	//Check for errors on the factory method
+        	// Check for errors on the factory method.
         	if (PEAR::isError($this->objDb)) 
 		{
-            		throw new customException($this->objLanguage->languageText("mod_ims_import_noconn", "contextadmin"));
+            		throw new customException($this->objLanguage->languageText("mod_contextadmin_import_noconn", "contextadmin"));
         	}
-        	//set the options
+        	// set the options.
         	$this->objDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE);
-        	//load the date and iterator MDB2 Modules.
+        	// load the date and iterator MDB2 Modules..
         	MDB2::loadFile('Date');
         	MDB2::loadFile('Iterator');
-        	//Check for errors
+        	// Check for errors.
         	if (PEAR::isError($this->objDb)) 
 		{
-            		throw new customException($this->objLanguage->languageText("mod_ims_import_noconn", "contextadmin"));
+            		throw new customException($this->objLanguage->languageText("mod_contextadmin_import_noconn", "contextadmin"));
         	}
 
         return $this->objDb;
@@ -252,7 +252,7 @@ class importexportutils extends dbTable
 	{
         	$this->_tableName = $table;
         	$res = $this->objDb->query($filter);
-        	//set the return mode to return an associative array
+        	// set the return mode to return an associative array.
 	
         	return $res->fetchAll(MDB2_FETCHMODE_ASSOC);
 	}
@@ -316,7 +316,7 @@ class importexportutils extends dbTable
 	{
 		if($type == "new")
 		{
-			//Access new database
+			// Access new database.
 			parent::init('tbl_context');
 			$filter = "WHERE contextcode = '$contextcode'";
 			$courseData = $this->getAll($filter);
@@ -325,13 +325,13 @@ class importexportutils extends dbTable
 		}
 		else
 		{
-			//Set database
+			// Set database.
 			$dsn = $this->getSession('server');
-			//Set table
+			// Set table.
 			$table = "tbl_context";
-			//Set query
+			// Set query.
 			$query = "SELECT * from tbl_context where contextcode = '$contextcode'";
-			//Execute query on specified database and table
+			// Execute query on specified database and table.
 			$courseData = $this->importDBData($dsn, $table, $query);
 			if(!isset($courseData))
 			{
@@ -361,7 +361,7 @@ class importexportutils extends dbTable
 	{
 		if($type == "new")
 		{
-			//Access new database
+			// Access new database.
 			parent::init('tbl_context_nodes');
 			$filter = "WHERE tbl_context_parentnodes_id = '$courseId'";
 			$courseContent = $this->getAll($filter);
@@ -382,27 +382,27 @@ class importexportutils extends dbTable
 		}
 		else
 		{
-			//Set database
+			// Set database.
 			$dsn = $this->getSession('server');
-			//Set table
+			// Set table.
 			$table = "tbl_context_nodes";
-			//Set query
+			// Set query.
 			$query = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId'";
-			//Execute query on specified database and table
+			// Execute query on specified database and table.
 			$courseContent = $this->importDBData($dsn, $table, $query);
 			$subPages = array();
 			$i = 0;
 			foreach($courseContent as $aNode)
 			{
 				$pageId = $aNode['id'];
-				//Retrieve each sub-page
-				//Set database
+				// Retrieve each sub-page.
+				// Set database.
 				$dsn = $this->getSession('server');
-				//Set table
+				// Set table.
 				$table = "tbl_context_page_content";
-				//Set query
+				// Set query.
 				$query = "SELECT * from tbl_context_page_content where id = '$pageId'";
-				//Execute query on specified database and table
+				// Execute query on specified database and table.
 				$subPages[$i] = $this->importDBData($dsn, $table, $query);
 				$i++;
 			}
@@ -428,7 +428,7 @@ class importexportutils extends dbTable
 	*/
 	function writeImages($imageNames, $resourceFolder)
 	{
-		//files data table
+		// files data table
 		parent::init('tbl_files');
 		foreach($imageNames as $image)
 		{
@@ -453,7 +453,7 @@ class importexportutils extends dbTable
 
 	function writeResources($resourceIds, $resourceFolder)
 	{
-		//files data table
+		// files data table.
 		parent::init('tbl_files');
 		foreach($resourceIds as $resourceId)
 		{
@@ -485,14 +485,14 @@ class importexportutils extends dbTable
 	*/
 	function switchDatabase()
 	{
-		//Access old database
-		//Set database
+		// Access old database.
+		// Set database.
 		$dsn = $this->objConf->getDsn();
-		//Set table
+		// Set table.
 		$table = "tbl_context";
-		//Set query
+		// Set query.
 		$query = "SELECT * from tbl_context";
-		//Execute query on specified database and table
+		// Execute query on specified database and table.
 		$dummyData = $this->importDBData($dsn, $table, $query);
 	}
 
@@ -507,9 +507,9 @@ class importexportutils extends dbTable
 	{
 		$server = $this->getSession('server');
 		$course = $this->getParam('course');
-        	//set the table
+        	// set the table.
         	$tableName = "tbl_context_nodes";
-        	//set up the query
+        	// set up the query.
         	$sql = "SELECT * from tbl_context_nodes WHERE tbl_context_parentnodes_id = '$courseId' AND pagelevel = '$level'";
 		$dbData = $this->importDBData($server, $tableName, $sql);
 		$this->switchDatabase();
@@ -754,16 +754,16 @@ class importexportutils extends dbTable
 	*/
     	function changeImageSRC($fileContents, $contextCode, $fileNames, $imageIds='', $staticPackage='')
 	{
-		// Image location on disc.
+		// Image location on disc..
 		$imageLocation =  'src="'.$this->objConf->getcontentBasePath().'content/';
 		$imageLocation = $imageLocation.$contextCode.'/images/';
-		// Image location on localhost.
+		// Image location on localhost..
 		$action = 'src="'.$this->objConf->getsiteRoot().'index.php?module=filemanager&amp;action=file&amp;id=';
-		//Image location in static package
+		// Image location in static package.
 		$newLink = '"../'.$contextCode;
 		if($staticPackage)
 		{
-			// Check if its Course Home Page
+			// Check if its Course Home Page.
 			if($staticPackage == '2')
 				$newLink = '"../'.$contextCode.'/'.$contextCode;
 			foreach($fileNames as $fileName)
@@ -966,18 +966,18 @@ class importexportutils extends dbTable
 	*/
 	function writeSchemaFiles($tempDirectory)
 	{
-		//Additional site root path locations
-		//Schema filenames
+		// Additional site root path locations
+		// Schema filenames
 		$fileEdu = "eduCommonsv1.1.xsd";
 		$fileImscp = "imscp_v1p2.xsd";
 		$fileImsmd = "imsmd_v1p2p4.xsd";
-		//Schama files locations
+		// Schama files locations
 		$schamas = $siterootpath."core_modules/contextadmin/ims/";
 		$schamaspath1 = $schamas."eduCommonsv1.1.xsd";
 		$schamaspath2 = $schamas."imscp_v1p2.xsd";
 		$schamaspath3 = $schamas."imsmd_v1p2p4.xsd";
-		//Write files to new directory
-		//Write Schema files
+		// Write files to new directory
+		// Write Schema files
 		$fp = fopen($tempDirectory."/".$fileEdu,'w');
 		if(fwrite($fp, file_get_contents($schamaspath1)) === FALSE)
 			return "writeError";
@@ -1091,45 +1091,6 @@ class importexportutils extends dbTable
 	}
 
 	/**
-	 * 
-	 * 
-	*/
-	function eduCommonsData($imsFileLocation)
-	{
-		$doc = new DOMDocument('1.0');
-		$doc->load($imsFileLocation);
-		$xpath = new DOMXPath($doc);
-		$xpath->registerNamespace("educommons", "http://cosl.usu.edu/xsd/eduCommonsv1.1");
-		$xpath->registerNamespace("imsmd", "http://www.imsglobal.org/xsd/imsmd_v1p2");
-// course title.
-		$query = '//imsmd:title/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-// course id.
-		$query = '//imsmd:identifier/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-// course description.
-		$query = '//imsmd:description/imsmd:langstring';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-// course html?.
-		$query = '//metadata/imsmd:lom/imsmd:general/educommons:displayresourceid';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-// clearedcopyright.
-		$query = '//manifest/metadata/imsmd:lom/imsmd:general';
-		//$query = '//imsmd:general/educommons:clearedcopyright';
-		$results = $xpath->evaluate($query);
-		for($i=0;$i<$results->length;$i++)
-			echo $results->item($i)->nodeValue."<br />";
-	}
-
-	/**
 	 * Main template file for the import module
 	 * Displays data and forms
 	 * Written by James Scoble using code written by Wesley Nitsckie
@@ -1138,7 +1099,7 @@ class importexportutils extends dbTable
 	public function importTemplate($dbData, $packageType, $newCourse)
 	{
 		$this->switchDatabase();
-		//Load needed display classes
+		// Load needed display classes.
 		$this->loadClass('textinput', 'htmlelements');
 		$this->loadClass('htmlheading','htmlelements');
 		$this->loadClass('label', 'htmlelements');
@@ -1147,24 +1108,21 @@ class importexportutils extends dbTable
 		$this->loadClass('dropdown','htmlelements');
 		$objH = new htmlheading();
 		if($newCourse)
-			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourse","contextadmin");
+			$objH->str = $this->objLanguage->languageText("mod_contextadmin_selectCourse","contextadmin");
 		else
-			$objH->str = $this->objLanguage->languageText("mod_ims_selectCourseHeading","contextadmin");
+			$objH->str = $this->objLanguage->languageText("mod_contextadmin_selectCourseHeading","contextadmin");
 		$objH->type=2;
 		if($packageType == 'mit' || $packageType == 'default')
 			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadIMSIntoExisting')));
 		else
 			$objForm = new form('impfrm', $this->uri(array('action' => 'uploadKNG')));
-		//Label
-		$label = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"select");
-		//Button
+		// Label.
+		$label = new label($this->objLanguage->languageText("mod_contextadmin_selectCourse","contextadmin"),"select");
+		// Button.
 		$inpButton =  new button('Import', $this->objLanguage->languageText("word_import"));
 		$inpButton->setToSubmit();
-		//Button
-		//$submitAll =  new button('ImportAll', $this->objLanguage->languageText("mod_ims_importall","contextadmin"));
-		//$submitAll->setToSubmit();
 		$objElement = new dropdown('dropdownchoice');
-		//Dropdown 
+		// Dropdown .
 		foreach($dbData as $dataOld)
 			$objElement->addOption($dataOld['contextcode']);
 		$objForm->addToForm($objH);
@@ -1172,7 +1130,6 @@ class importexportutils extends dbTable
 		$objForm->addToForm($objElement->show());
 		$objForm->addToForm('<br/>');
 		$objForm->addToForm($inpButton->show());
-		//$objForm->addToForm($submitAll->show());
 
 		return $objForm->show();
 	}
@@ -1185,7 +1142,7 @@ class importexportutils extends dbTable
 	 */
 	public function uploadTemplate($section = '')
 	{
-		//Load needed display classes
+		// Load needed display classes.
 		$this->loadClass('textinput', 'htmlelements');
 		$this->loadClass('radio','htmlelements');
 		$this->loadClass('label', 'htmlelements');
@@ -1194,30 +1151,29 @@ class importexportutils extends dbTable
 		$this->loadClass('hiddeninput', 'htmlelements');
 		$this->loadClass('checkbox', 'htmlelements');
 		$this->loadClass('htmlheading', 'htmlelements');
-		//Creating the form for IMS package upload
+		// Creating the form for IMS package upload.
 		$paramArray1 = array('action' => 'uploadIMS');
 		$form1 = new form('uploadziplocal', $this->uri($paramArray1,'contextadmin'));
     		$form1->extra=' enctype="multipart/form-data" ';
-    		//File input
+    		// File input.
     		$fileInput = new textinput('upload');
     		$fileInput->fldType='file';
-    		$fileInput->label=$this->objLanguage->languageText("mod_ims_uploadNotice","contextadmin");
-    		//$fileInput->name='upload';
+    		$fileInput->label=$this->objLanguage->languageText("mod_contextadmin_uploadNotice","contextadmin");
     		$fileInput->size=50;
-    		//Submit button
+    		// Submit button.
     		$selectCourse = new button('submit');
     		$selectCourse->setToSubmit();
     		$selectCourse->setValue($this->objLanguage->languageText("word_upload"));
-		//Package type
+		// Package type.
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('default','eduCommons');
 		$pakRadio->addOption('mit','MIT');
-		//$pakRadio->addOption('exe','eXe');
+		// $pakRadio->addOption('exe','eXe');
 		$pakRadio->setSelected('default');
-		$checkLabel = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
-		//Checkbox
+		$checkLabel = new label($this->objLanguage->languageText("mod_contextadmin_createCourse","contextadmin"),"");
+		// Checkbox.
 		$createCheckbox = new checkbox('createCourse','',true);
-	    	//add the objects to the form
+	    	// add the objects to the form
     		$form1->addToForm($fileInput);
     		$form1->addToForm('<br />');
     		$form1->addToForm($pakRadio);
@@ -1227,34 +1183,34 @@ class importexportutils extends dbTable
     		$form1->addToForm($createCheckbox);
     		$form1->addToForm('<br />');
     		$form1->addToForm($selectCourse);
-		//Creating the form for package upload
+		// Creating the form for package upload.
 		$paramArray2 = array('action' => 'uploadFromServer');
 		$form2 = new form('uploadziplocal', $this->uri($paramArray2,'contextadmin'));
     		$form2->extra=' enctype="multipart/form-data" ';
-    		//Heading
+    		// Heading.
 		$heading1 = new htmlheading();
-    		$heading1->str=$this->objLanguage->languageText("mod_ims_uploadserver","contextadmin");
+    		$heading1->str=$this->objLanguage->languageText("mod_contextadmin_uploadserver","contextadmin");
     		$heading1->type=2;
-		//Button
+		// Button.
 		$loginButton = new button('login');
 		$loginButton->setValue('Login');
 		$loginButton->setToSubmit();
-		//Label - server
-		$serverLabel = new label($this->objLanguage->languageText("mod_ims_selectServer","contextadmin"),"");
-		//Dropdown - server selection
+		// Label - server.
+		$serverLabel = new label($this->objLanguage->languageText("mod_contextadmin_selectServer","contextadmin"),"");
+		// Dropdown - server selection.
 		$serverDropDown = new dropdown('server');
-		//Populate Dropdown - server
+		// Populate Dropdown - server.
 		$servers = $this->getServers();
 		foreach($servers as $server)
 		{
 			$serverDropDown->addOption($server);
 		}
-		//Label - local server
-		$localLabel = new label($this->objLanguage->languageText("mod_ims_localServer","contextadmin"),"");
-    		//Server input
-    		$serverInput = new textinput($this->objLanguage->languageText("mod_ims_localhost","contextadmin"), $this->objLanguage->languageText("mod_ims_uploadInfo","contextadmin"),'','45');
-		//Label - Create Course
-		$checkLabel2 = new label($this->objLanguage->languageText("mod_ims_createCourse","contextadmin"),"");
+		// Label - local server.
+		$localLabel = new label($this->objLanguage->languageText("mod_contextadmin_localServer","contextadmin"),"");
+    		// Server input.
+    		$serverInput = new textinput($this->objLanguage->languageText("mod_contextadmin_localhost","contextadmin"), $this->objLanguage->languageText("mod_contextadmin_uploadInfo","contextadmin"),'','45');
+		// Label - Create Course.
+		$checkLabel2 = new label($this->objLanguage->languageText("mod_contextadmin_createCourse","contextadmin"),"");
 		$form2->addToForm('<hr>');
 		$form2->addToForm($heading1);
 		$form2->addToForm('<br />');
@@ -1277,31 +1233,31 @@ class importexportutils extends dbTable
 	 */
 	public function downloadTemplate()
 	{
-		//course data table
+		// course data table.
 		parent::init('tbl_context');
-		//Load needed display classes
+		// Load needed display classes.
 		$this->loadClass('textinput', 'htmlelements');
 		$this->loadClass('dropdown','htmlelements');
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('button', 'htmlelements');
 		$this->loadClass('hiddeninput', 'htmlelements');
 		$this->loadClass('form', 'htmlelements');
-		//Creating the form
+		// Creating the form.
 		$paramArray1 = array('action' => 'downloadChisimba');
 		$form1 = new form('exportziplocal', $this->uri($paramArray1,'contextadmin'));
     		$form1->extra=' enctype="multipart/form-data" ';
-		//Label - server
-		$courseLabel = new label($this->objLanguage->languageText("mod_ims_selectCourse","contextadmin"),"");
-		//Dropdown - course selection
+		// Label - server.
+		$courseLabel = new label($this->objLanguage->languageText("mod_contextadmin_selectCourse","contextadmin"),"");
+		// Dropdown - course selection.
 		$courseDropDown = new dropdown('dropdownchoice');
-		//Retrieve all courses in Chisimba
+		// Retrieve all courses in Chisimba.
 		$courses = $this->getAll();
-		//Populate Dropdown course
+		// Populate Dropdown course.
 		foreach($courses as $course)
 		{
 			$courseDropDown->addOption($course['contextcode'], $course['title']);
 		}
-		//Button
+		// Button.
 		$exportButton = new button('export');
 		$exportButton->setValue($this->objLanguage->languageText("word_export"));
 		$exportButton->setToSubmit();
@@ -1329,67 +1285,67 @@ class importexportutils extends dbTable
 */
 function recursive_remove_directory($directory, $empty=FALSE)
 {
-	// if the path has a slash at the end we remove it here
+	// if the path has a slash at the end we remove it here.
 	if(substr($directory,-1) == '/')
 	{
 		$directory = substr($directory,0,-1);
 	}
 
-	// if the path is not valid or is not a directory ...
+	// if the path is not valid or is not a directory.
 	if(!file_exists($directory) || !is_dir($directory))
 	{
-		// ... we return false and exit the function
+		// we return false and exit the function.
 		return FALSE;
 
-	// ... if the path is not readable
+	// if the path is not readable.
 	}elseif(!is_readable($directory))
 	{
-		// ... we return false and exit the function
+		// we return false and exit the function.
 		return FALSE;
 
-	// ... else if the path is readable
+	// else if the path is readable.
 	}else{
 
-		// we open the directory
+		// we open the directory.
 		$handle = opendir($directory);
 
-		// and scan through the items inside
+		// and scan through the items inside.
 		while (FALSE !== ($item = readdir($handle)))
 		{
-			// if the filepointer is not the current directory
-			// or the parent directory
+			// if the filepointer is not the current directory.
+			// or the parent directory.
 			if($item != '.' && $item != '..')
 			{
-				// we build the new path to delete
+				// we build the new path to delete.
 				$path = $directory.'/'.$item;
 
-				// if the new path is a directory
+				// if the new path is a directory.
 				if(is_dir($path)) 
 				{
-					// we call this function with the new path
+					// we call this function with the new path.
 					$this->recursive_remove_directory($path);
 
-				// if the new path is a file
+				// if the new path is a file.
 				}else{
-					// we remove the file
+					// we remove the file.
 					unlink($path);
 				}
 			}
 		}
-		// close the directory
+		// close the directory.
 		closedir($handle);
 
-		// if the option to empty is not set to true
+		// if the option to empty is not set to true.
 		if($empty == FALSE)
 		{
-			// try to delete the now empty directory
+			// try to delete the now empty directory.
 			if(!rmdir($directory))
 			{
-				// return false if not possible
+				// return false if not possible.
 				return FALSE;
 			}
 		}
-		// return success
+		// return success.
 		return TRUE;
 	}
 }
