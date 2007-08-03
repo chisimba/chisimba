@@ -1,11 +1,40 @@
 <?php
+
+/**
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a yout tube video and render the video in the page
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filters
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 /**
 *
 * Class to parse a string (e.g. page content) that contains a link
 * to a yout tube video and render the video in the page
 *
 * @author Derek Keats
-*
+*         
 */
 
 class parse4youtube extends object
@@ -17,6 +46,14 @@ class parse4youtube extends object
 	*/
 	private $errorMessage;
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     function init()
     {
 
@@ -25,9 +62,9 @@ class parse4youtube extends object
     /**
     *
     * Method to parse the string
-    * @param String $str The string to parse
-    * @return The parsed string
-    *
+    * @param  String $str The string to parse
+    * @return The    parsed string
+    *                
     */
     public function parse($str)
     {
@@ -111,10 +148,10 @@ class parse4youtube extends object
     * Method to extract the video code from a youtube video link
     * The video link is after ?v=CODE, so we can extract the params
     * by splitting on ? and then the link by splitting on =
-    * @param string $link The youtube video link
+    * @param  string $link The youtube video link
     * @return string The video code on Youtube
-    * @access public 
-    * 
+    * @access public
+    *                
     */
     public function getVideoCode($link)
     {
@@ -128,10 +165,10 @@ class parse4youtube extends object
     /**
     * 
     * Method to build the youtube video object code
-    * @param string $videoId The id of the Youtube video
+    * @param  string $videoId The id of the Youtube video
     * @return String The object code
     * @access public
-    * 
+    *                
     */
     public function getVideoObject($videoId)
     {
@@ -147,9 +184,9 @@ class parse4youtube extends object
     *  and have v= in it. It sets the value of the errorMessage property to be the appropriate
     *  error.
     * 
-    * @param string $link The link to check
+    * @param  string  $link The link to check
     * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
-    *  
+    *                 
     */
     private function isYoutube($link)
     {
@@ -174,11 +211,11 @@ class parse4youtube extends object
     * The tag format is [YOUTUBE: ytmethod, identifier, page, hitsperpage]
     * Example: [YOUTUBE: by_tag, digitalfreedom, cols, 1, 12]
     * 
-    * @param string $exPat The extracted pattern containing a comma delimited
-    * string in the form: ytmethod, identifier, page, hitsperpag
-    * 
+    * @param  string $exPat The extracted pattern containing a comma delimited
+    *                       string in the form: ytmethod, identifier, page, hitsperpag
+    *                       
     * @return string array An arrray of keys and values
-    * 
+    *                
     */
     public function extractYoutubeCodes(&$exPat)
     {
