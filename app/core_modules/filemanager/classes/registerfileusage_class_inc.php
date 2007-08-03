@@ -1,9 +1,46 @@
 <?php
+
 /**
-* Class to Register File Usage as part of file tracking purposes
-*
-* @author Tohir Solomons
-*/ 
+ * Class to Register File Usage as part of file tracking purposes
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to Register File Usage as part of file tracking purposes
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class registerfileusage extends dbTable
 {
 
@@ -22,15 +59,15 @@ class registerfileusage extends dbTable
     * This is a private function that is called by the other functions for registering file usage
     *
     * @access private
-    * @param string $fileId Record Id of File to be tracked
-    * @param string $module Module the file will be used in
-    * @param string $table Name of the Table holding the file
-    * @param string $recordId Record Id of Record Using the File
-    * @param string $column Column of Record Using the File
-    * @param string $context Context File will be used in
-    * @param string $workgroup Workgroup the File will be used in
-    * @param boolean $fileLock Flag whether to apply a lock on the file - prevents file from being deleted
-    * @return string Color in Hexadecimal format
+    * @param  string  $fileId    Record Id of File to be tracked
+    * @param  string  $module    Module the file will be used in
+    * @param  string  $table     Name of the Table holding the file
+    * @param  string  $recordId  Record Id of Record Using the File
+    * @param  string  $column    Column of Record Using the File
+    * @param  string  $context   Context File will be used in
+    * @param  string  $workgroup Workgroup the File will be used in
+    * @param  boolean $fileLock  Flag whether to apply a lock on the file - prevents file from being deleted
+    * @return string  Color in Hexadecimal format
     */
     private function addItem ($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE)
     {
@@ -67,15 +104,15 @@ class registerfileusage extends dbTable
     *
     * It first deregisters the usage, and then re-adds them to prevent duplication
     *
-    * @param string $fileId Record Id of File to be tracked
-    * @param string $module Module the file will be used in
-    * @param string $table Name of the Table holding the file
-    * @param string $recordId Record Id of Record Using the File
-    * @param string $column Column of Record Using the File
-    * @param string $context Context File will be used in
-    * @param string $workgroup Workgroup the File will be used in
-    * @param boolean $fileLock Flag whether to apply a lock on the file - prevents file from being deleted
-    * @return string Color in Hexadecimal format
+    * @param  string  $fileId    Record Id of File to be tracked
+    * @param  string  $module    Module the file will be used in
+    * @param  string  $table     Name of the Table holding the file
+    * @param  string  $recordId  Record Id of Record Using the File
+    * @param  string  $column    Column of Record Using the File
+    * @param  string  $context   Context File will be used in
+    * @param  string  $workgroup Workgroup the File will be used in
+    * @param  boolean $fileLock  Flag whether to apply a lock on the file - prevents file from being deleted
+    * @return string  Color in Hexadecimal format
     */
     public function registerUse($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE)
     {
@@ -89,15 +126,15 @@ class registerfileusage extends dbTable
     * This function is better suited to checks of text that may or may not contain links to
     * files in the file manager.
     *
-    * @param string $text Record Id of File to be tracked
-    * @param string $module Module the file will be used in
-    * @param string $table Name of the Table holding the file
-    * @param string $recordId Record Id of Record Using the File
-    * @param string $column Column of Record Using the File
-    * @param string $context Context File will be used in
-    * @param string $workgroup Workgroup the File will be used in
-    * @param boolean $fileLock Flag whether to apply a lock on the file - prevents file from being deleted
-    * @return string Color in Hexadecimal format
+    * @param  string  $text      Record Id of File to be tracked
+    * @param  string  $module    Module the file will be used in
+    * @param  string  $table     Name of the Table holding the file
+    * @param  string  $recordId  Record Id of Record Using the File
+    * @param  string  $column    Column of Record Using the File
+    * @param  string  $context   Context File will be used in
+    * @param  string  $workgroup Workgroup the File will be used in
+    * @param  boolean $fileLock  Flag whether to apply a lock on the file - prevents file from being deleted
+    * @return string  Color in Hexadecimal format
     */
     public function parseFilesUse($text, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE)
     {
@@ -117,9 +154,9 @@ class registerfileusage extends dbTable
     
     /**
     * Method to deregister File Usage
-    * @param string $module Name of the Module using file
-    * @param string $table Name of the Table holding the file
-    * @param string $recordId Record Id of the Record in the table
+    * @param string $module     Name of the Module using file
+    * @param string $table      Name of the Table holding the file
+    * @param string $recordId   Record Id of the Record in the table
     * @param string $columnName Name of the Column in which the file is stored
     */
     public function deregisterUse($module, $table, $recordId, $columnName)

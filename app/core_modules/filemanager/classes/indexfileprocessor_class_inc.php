@@ -1,11 +1,46 @@
 <?php
 
 /**
-* Class to index files not yet stored in the database
-*
-* This class scans the filesystem for files
-* @author Tohir Solomons
-*/
+ * Class to index files not yet stored in the database
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to index files not yet stored in the database
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class indexfileprocessor extends object 
 {
 
@@ -27,6 +62,16 @@ class indexfileprocessor extends object
         $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $folder Parameter description (if any) ...
+     * @param  unknown $userId Parameter description (if any) ...
+     * @return unknown Return description (if any) ...
+     * @access public 
+     */
     function indexFolder($folder, $userId)
     {
         $results = $this->objIndexFiles->scanDirectory($folder);
@@ -36,14 +81,24 @@ class indexfileprocessor extends object
     
     /**
     * Method to Scan and index the files of a user
-    * @param string $userId User Id whose folder should be scanned
-    * @return array List of Files that were indexed
+    * @param  string $userId User Id whose folder should be scanned
+    * @return array  List of Files that were indexed
     */
     function indexUserFiles($userId='1')
     {
         return $this->indexFolder($this->objConfig->getcontentBasePath().'users/'.$userId.'/', $userId);
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  array   $results Parameter description (if any) ...
+     * @param  string  $userId  Parameter description (if any) ...
+     * @return unknown Return description (if any) ...
+     * @access public 
+     */
     function processResults($results, $userId)
     {
         // Split Folders from Results
@@ -64,6 +119,15 @@ class indexfileprocessor extends object
         return $indexedFiles;
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  array   $folders Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
     private function processFolderResults($folders)
     {
         if (count($folders) > 0) {
@@ -74,6 +138,15 @@ class indexfileprocessor extends object
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $userId Parameter description (if any) ...
+     * @return array   Return description (if any) ...
+     * @access private
+     */
     private function generateUserFilesArray($userId)
     {
         $files = $this->objFile->getUserFiles($userId);
@@ -91,6 +164,16 @@ class indexfileprocessor extends object
         
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  array   $files  Parameter description (if any) ...
+     * @param  unknown $userId Parameter description (if any) ...
+     * @return array   Return description (if any) ...
+     * @access private
+     */
     private function processFileResults($files, $userId)
     {
         $indexedFiles = array();
@@ -124,9 +207,9 @@ class indexfileprocessor extends object
     /**
     * Method to take a file that is not in the index, process its data
     * and add it to the database
-    * @param string $filePath Path to File
-    * @param string $userId UserId of the Person to whom the file should belong to
-    * @param string $mimetype Mimetype of the File (Optional)
+    * @param  string $filePath Path to File
+    * @param  string $userId   UserId of the Person to whom the file should belong to
+    * @param  string $mimetype Mimetype of the File (Optional)
     * @return string File Id
     */
     private function processIndexedFile($filePath, $userId, $mimetype='')

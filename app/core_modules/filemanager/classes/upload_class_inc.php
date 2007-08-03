@@ -1,16 +1,55 @@
 <?php
 
 /**
-* Class to Handle Uploads for User Files
-*
-* This class can be called by any module, and will handle the upload process for that module.
-* Apart from the upload, this class also places the file in a suitable subfolder, updates the
-* database, parses files for metadata, and creates thumbnails for images.
-*
-* @todo: Improve Code to Handle Large Files
-*
-* @author Tohir Solomons
-*/
+ * Class to Handle Uploads for User Files
+ *
+ * This class can be called by any module, and will handle the upload process for that module.
+ * Apart from the upload, this class also places the file in a suitable subfolder, updates the
+ * database, parses files for metadata, and creates thumbnails for images.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ * @todo      Improve Code to Handle Large Files
+ */
+
+
+/**
+ * Class to Handle Uploads for User Files
+ *
+ * This class can be called by any module, and will handle the upload process for that module.
+ * Apart from the upload, this class also places the file in a suitable subfolder, updates the
+ * database, parses files for metadata, and creates thumbnails for images.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class upload extends object
 {
 
@@ -141,8 +180,8 @@ class upload extends object
     *
     * It returns an array with details of files uploaded, as well as errors.
     * @access Public
-    * @param array $ext Extensions to restrict to
-    * @return array Results of Upload
+    * @param  array  $ext Extensions to restrict to
+    * @return array  Results of Upload
     */
     public function uploadFiles($ext=NULL)
     {
@@ -168,13 +207,13 @@ class upload extends object
     
     /**
     * Method to Upload a Single File
-    * @param string $fileInputName Name of the File Input. Eg. To upload $_FILES['file1'], simply give 'file1'
-    * @param array $ext Extension to restrict file type to
-    * @param array $fileUploadResultsArray File Upload Array to check against for multiple file uploads
-    * This is neccessary for multi file uploads. It serves two purposes:
-    * 1) It checks that the same file is not uploaded twice.
-    * 2) It adds the result of the file upload to that array.
-    * @return array Result of the File Upload
+    * @param  string $fileInputName          Name of the File Input. Eg. To upload $_FILES['file1'], simply give 'file1'
+    * @param  array  $ext                    Extension to restrict file type to
+    * @param  array  $fileUploadResultsArray File Upload Array to check against for multiple file uploads
+    *                                        This is neccessary for multi file uploads. It serves two purposes:
+    *                                        1) It checks that the same file is not uploaded twice.
+    *                                        2) It adds the result of the file upload to that array.
+    * @return array  Result of the File Upload
     */
     public function uploadFile($fileInputName, $ext=NULL, &$fileUploadResultsArray=NULL)
     {
@@ -388,7 +427,7 @@ class upload extends object
     *      Filenames with spaces are converted to underscores (_)
     * Further 'security' can be added here
     * 
-    * @param string $filename Filename to secure
+    * @param  string $filename Filename to secure
     * @return string Secured Filename
     */
     public function secureFileName($filename)
@@ -408,10 +447,10 @@ class upload extends object
     /**
     * Method to check whether file is banned or not
     *
-    * @todo Build in functionality to check banned files via mimetype
-    *
-    * @param string $filename Name of the File
-    * @param string $mimetype Mimetype of the File
+    * @todo   Build in functionality to check banned files via mimetype
+    *         
+    * @param  string  $filename Name of the File
+    * @param  string  $mimetype Mimetype of the File
     * @return boolean True if banned, False if not
     */
     public function isBannedFile($filename, $mimetype)

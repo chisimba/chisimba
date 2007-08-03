@@ -1,17 +1,62 @@
 <?php
+
 /**
-* Class to Generate the Code to <embed> a Media Object in a Webpage
-*
-* At present, it caters for various types of media such as:
-* - audio
-* - video
-* - flash
-* - images
-* - 3d obj
-* - vrml
-*
-* @author Tohir Solomons
-*/
+ * Class to Generate the Code to <embed> a Media Object in a Webpage
+ *
+ * At present, it caters for various types of media such as:
+ * - audio
+ * - video
+ * - flash
+ * - images
+ * - 3d obj
+ * - vrml
+ * 
+ * PHP version 3
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to Generate the Code to <embed> a Media Object in a Webpage
+ *
+ * At present, it caters for various types of media such as:
+ * - audio
+ * - video
+ * - flash
+ * - images
+ * - 3d obj
+ * - vrml
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class fileembed extends object
 {
 
@@ -27,10 +72,10 @@ class fileembed extends object
     
     /**
     * Method to generate the embed code for a media object
-    * @param string $file Full Path to the File
-    * @param string $type Type of Embed
-    * @param int $width Width of the Media File
-    * @param int $height Height of the Media File
+    * @param  string $file   Full Path to the File
+    * @param  string $type   Type of Embed
+    * @param  int    $width  Width of the Media File
+    * @param  int    $height Height of the Media File
     * @return string The media file embed code
     */
     function embed($file, $type, $width=NULL, $height=NULL)
@@ -147,8 +192,8 @@ class fileembed extends object
     
     /**
     * Method to embed a flash object
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showFlash($file, $width='100%', $height='400')
@@ -162,8 +207,8 @@ class fileembed extends object
     
     /**
     * Method to embed a Quicktime Object
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showQuicktime($file, $width='100%', $height='400')
@@ -192,8 +237,8 @@ class fileembed extends object
     
     /**
     * Method to show a WMV video
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showWMV($file, $width='100%', $height='400')
@@ -203,7 +248,7 @@ class fileembed extends object
         
         $replace = '<object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
-        $replace .= ' standby="Loading Microsoft® Windows® Media Player components..." ';
+        $replace .= ' standby="Loading Microsoftï¿½ Windowsï¿½ Media Player components..." ';
         $replace .= ' id="msplayer" align="" type="application/x-oleobject">';
         $replace .= "<param name=\"Filename\" value=\"{$file}\" />";
         $replace .= '<param name="ShowControls" value="true" />';
@@ -228,8 +273,8 @@ class fileembed extends object
     
     /**
     * Method to show a AVI video
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showAVI($file, $width='100%', $height='400')
@@ -249,8 +294,8 @@ class fileembed extends object
     
     /**
     * Method to show a FLV video
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showFLV($file, $width='100%', $height='400')
@@ -267,8 +312,8 @@ class fileembed extends object
     
     /**
     * Method to show a FLV video
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showOggVideo($file, $width='100%', $height='400')
@@ -290,8 +335,8 @@ class fileembed extends object
     
     /**
     * Method to show a Scalable Vector Graphics (SVG) Image
-    * @param string $file Path to the File
-    * @param string $width Width of Object
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
     * @param string $height Height of Object
     */
     function showSVG($file, $width='100%', $height='400')

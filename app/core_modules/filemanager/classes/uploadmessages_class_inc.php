@@ -1,13 +1,52 @@
 <?php
 
 /**
-* Class to process Success and Error Message for Uploads
-*
-* It has two parts: The first part analyzes results from the upload class and creates an array that can be passed via URL
-* The second part takes the URL any converts them into confirmation messages
-*
-* @author Tohir Solomons
-*/
+ * Class to process Success and Error Message for Uploads
+ *
+ * It has two parts: The first part analyzes results from the upload class and creates an array that can be passed via URL
+ * The second part takes the URL any converts them into confirmation messages
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to process Success and Error Message for Uploads
+ *
+ * It has two parts: The first part analyzes results from the upload class and creates an array that can be passed via URL
+ * The second part takes the URL any converts them into confirmation messages
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see      
+ */
 class uploadmessages extends object
 {
     
@@ -36,7 +75,7 @@ class uploadmessages extends object
     * This function analyzes file uploads, and puts the results in an array so that it can be passed via URL
     * After uploads, the controller will nextAction with this array to flag the next page on the upload results
     *
-    * @param array $results Results as given from the upload class
+    * @param  array $results Results as given from the upload class
     * @return array Analyzed Results
     */
     public function processMessageUrl($results)

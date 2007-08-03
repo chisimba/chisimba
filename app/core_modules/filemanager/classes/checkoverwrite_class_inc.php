@@ -1,14 +1,53 @@
 <?php
 
 /**
-* Class to check whether temporary file uploads exists, and provide an interface to overwriting them
-*
-* Background: When a user uploads a file with a filename that already exists, that file is stored in a 
-* temporary folder, and is not available for usage. The user then has an option to either delete the
-* temp file, use it to overwrite the current one or rename it.
-*
-* @author Tohir Solomons
-*/
+ * Class to check whether temporary file uploads exists, and provide an interface to overwriting them
+ *
+ * Background: When a user uploads a file with a filename that already exists, that file is stored in a 
+ * temporary folder, and is not available for usage. The user then has an option to either delete the
+ * temp file, use it to overwrite the current one or rename it.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+/**
+ * Class to check whether temporary file uploads exists, and provide an interface to overwriting them
+ *
+ * Background: When a user uploads a file with a filename that already exists, that file is stored in a 
+ * temporary folder, and is not available for usage. The user then has an option to either delete the
+ * temp file, use it to overwrite the current one or rename it.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class checkoverwrite extends object
 {
     /**
@@ -41,8 +80,8 @@ class checkoverwrite extends object
     
     /**
     * Method to get the amount of temporary files that needs to be overwritten
-    * @param string $userId User Id of the User
-    * @return int Number of temporary files
+    * @param  string $userId User Id of the User
+    * @return int    Number of temporary files
     */
     public function checkUserOverwrite($userId=NULL)
     {

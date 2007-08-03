@@ -1,15 +1,55 @@
 <?php
+
 /**
-* Class to handle interaction with table tbl_files
-* This table lists all files that were uploaded to the system
-*
-* @author Tohir Solomons
-*/
+ * Class to handle interaction with table tbl_files
+ * 
+ * This table lists all files that were uploaded to the system
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to handle interaction with table tbl_files
+ * 
+ * This table lists all files that were uploaded to the system
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class dbfile extends dbTable
 {
     
     /**
-    * @var array $currentFile Record of Current File working on
+    * @var    array   $currentFile Record of Current File working on
     * @access private
     */
     private $currentFile;
@@ -40,8 +80,8 @@ class dbfile extends dbTable
     /**
     * Method to get the record containing file details
     * @access Public
-    * @param string $fileId
-    * @return array Details of the File
+    * @param  string $fileId
+    * @return array  Details of the File
     */
     public function getFile($fileId)
     {
@@ -63,9 +103,9 @@ class dbfile extends dbTable
     /**
     * Method to get a single piece of information from a file
     * @access private
-    * @param string $part Piece to get
-    * @param string $fileId Record Id of the File
-    * @return mixed
+    * @param  string  $part   Piece to get
+    * @param  string  $fileId Record Id of the File
+    * @return mixed  
     */
     private function getPart($part, $fileId)
     {
@@ -87,7 +127,7 @@ class dbfile extends dbTable
     /**
     * Method to get the filename of a file
     * @access public
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string File Name
     */
     public function getFileName($fileId)
@@ -98,8 +138,8 @@ class dbfile extends dbTable
     /**
     * Method to get the size of a file
     * @access public
-    * @param string $fileId Record Id of the File
-    * @return int File Size
+    * @param  string $fileId Record Id of the File
+    * @return int    File Size
     */
     public function getFileSize($fileId)
     {
@@ -109,8 +149,8 @@ class dbfile extends dbTable
     /**
     * Method to get the version number of a file
     * @access public
-    * @param string $fileId Record Id of the File
-    * @return int File Version
+    * @param  string $fileId Record Id of the File
+    * @return int    File Version
     */
     public function getFileVersion($fileId)
     {
@@ -120,7 +160,7 @@ class dbfile extends dbTable
     /**
     * Method to get the mimetype of a file
     * @access public
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Mime Type
     */
     public function getFileMimetype($fileId)
@@ -131,7 +171,7 @@ class dbfile extends dbTable
     /**
     * Method to get the local path to a file
     * @access public
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Local Path to File
     */
     public function getFilePath($fileId)
@@ -146,7 +186,7 @@ class dbfile extends dbTable
     /**
     * Method to get the absolute path to a file
     * @access public
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Path to File
     */
     public function getFullFilePath($fileId)
@@ -160,15 +200,15 @@ class dbfile extends dbTable
     
     /**
     * Method to add a file
-    * @param string $filename Name of the File
-    * @param string $path Path of the File
-    * @param int $filesize Size of the File
-    * @param string $mimetype Mimetype of the File
-    * @param string $category Subfolder/Category file is stored in
-    * @param string $version Version of the file
-    * @param string $userId User to whom the file belongs to
-    * @param string $description Description of the file
-    * @param string $license License of the file
+    * @param  string $filename    Name of the File
+    * @param  string $path        Path of the File
+    * @param  int    $filesize    Size of the File
+    * @param  string $mimetype    Mimetype of the File
+    * @param  string $category    Subfolder/Category file is stored in
+    * @param  string $version     Version of the file
+    * @param  string $userId      User to whom the file belongs to
+    * @param  string $description Description of the file
+    * @param  string $license     License of the file
     * @return string Record Id of the File
     */
     public function addFile($filename, $path, $filesize, $mimetype, $category, $version=1, $userId=NULL, $description=NULL, $license=NULL)
@@ -204,11 +244,11 @@ class dbfile extends dbTable
     
     /**
     * Method to get All the Files of a User
-    * @param string $userId User Id of the User
-    * @param string $category Optional Category Filter
-    * @param array $restrictfiletype Optional File Type Restriction
-    * @param boolean $latestVersionOnly List Latest Version Only or All Version
-    * @return array List of Files
+    * @param  string  $userId            User Id of the User
+    * @param  string  $category          Optional Category Filter
+    * @param  array   $restrictfiletype  Optional File Type Restriction
+    * @param  boolean $latestVersionOnly List Latest Version Only or All Version
+    * @return array   List of Files
     */
     public function getUserFiles($userId, $category=NULL, $restrictfiletype=NULL, $latestVersionOnly=FALSE)
     {
@@ -259,9 +299,9 @@ class dbfile extends dbTable
     /**
     * Method to get the total number of files for a user
     *
-    * @todo This is not perfect yet. Has to ignore archives files
-    * @param string $userId User ID of the User
-    * @return int Number of Files
+    * @todo   This is not perfect yet. Has to ignore archives files
+    * @param  string $userId User ID of the User
+    * @return int    Number of Files
     */
     public function getNumFiles($userId)
     {
@@ -271,9 +311,9 @@ class dbfile extends dbTable
     /**
     * Method to get the total number of unique files for a user, exclude overwrites
     *
-    * @todo This is not perfect yet. Has to ignore archives files
-    * @param string $userId User ID of the User
-    * @return int Number of Files
+    * @todo   This is not perfect yet. Has to ignore archives files
+    * @param  string $userId User ID of the User
+    * @return int    Number of Files
     */
     public function getNumUniqueFiles($userId)
     {
@@ -285,8 +325,8 @@ class dbfile extends dbTable
     /**
     * Method to get the categories of files that have been uploaded
     *
-    * @param string $userId User ID of the User
-    * @return array List of Categories
+    * @param  string $userId User ID of the User
+    * @return array  List of Categories
     */
     public function getUserCategories($userId)
     {
@@ -298,8 +338,8 @@ class dbfile extends dbTable
     /**
     * An alternative way to get information about a file by providing the path
     *
-    * @param string $path Path of the File
-    * @return array Details of the File
+    * @param  string $path Path of the File
+    * @return array  Details of the File
     */
     public function getFileDetailsFromPath($path)
     {
@@ -355,8 +395,8 @@ class dbfile extends dbTable
     
     /**
     * Method to get a list of temporary files for a user
-    * @param string $userId Record Id of the User
-    * @return array List of Files
+    * @param  string $userId Record Id of the User
+    * @return array  List of Files
     */
     public function getTemporaryFiles($userId)
     {
@@ -366,9 +406,9 @@ class dbfile extends dbTable
     /**
     * Method to get the latest version of a file
     * It ignores previous versions, as well as temporary files
-    * @param string $filename Name of the File
-    * @param string $userId User to whom the file belongs
-    * @return array details of the file
+    * @param  string $filename Name of the File
+    * @param  string $userId   User to whom the file belongs
+    * @return array  details of the file
     */
     public function getOriginalFile($filename, $userId)
     {
@@ -382,10 +422,10 @@ class dbfile extends dbTable
     
     /**
     * Method to update the details of a file
-    * @param string $fileId Record Id of the File
-    * @param int $version Version of the File
-    * @param string $path Path to File
-    * @param string $category Category of the File
+    * @param  string  $fileId   Record Id of the File
+    * @param  int     $version  Version of the File
+    * @param  string  $path     Path to File
+    * @param  string  $category Category of the File
     * @return boolean Result of Update
     */
     public function updateOverwriteDetails($fileId, $version, $path, $category)
@@ -406,8 +446,8 @@ class dbfile extends dbTable
     * This function not only gets information about a file,
     * but also looks for details in the metadata tables
     * The results are merged into one.
-    * @param string $fileId Record Id of the File
-    * @return array Details of the File
+    * @param  string $fileId Record Id of the File
+    * @return array  Details of the File
     */
     public function getFileInfo($fileId)
     {
@@ -435,7 +475,7 @@ class dbfile extends dbTable
     /**
     * Method to get information about a file
     * and return the result in table display format
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
     public function getFileInfoTable($fileId)
@@ -484,7 +524,7 @@ class dbfile extends dbTable
     /**
     * Method to get media information about a file
     * and return the result in table display format
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
     public function getFileMediaInfoTable($fileId)
@@ -594,8 +634,8 @@ class dbfile extends dbTable
     
     /**
     * Method to get the versios of a file.
-    * @param string $fileId Record Id of the File
-    * @return array list of Versions for a file
+    * @param  string $fileId Record Id of the File
+    * @return array  list of Versions for a file
     */
     public function getFileHistorySQL($fileId)
     {
@@ -610,7 +650,7 @@ class dbfile extends dbTable
     /**
     * Method to get information about the version history of a file
     * and return the result in table display format
-    * @param string $fileId Record Id of the File
+    * @param  string $fileId Record Id of the File
     * @return string Information about the file in a table format
     */
     public function getFileHistory($fileId)
@@ -652,8 +692,8 @@ class dbfile extends dbTable
     /**
      * Method to delete a file
      *
-     * @param string $fileId Record Id of the File
-     * @param Boolean $includeArchives Flag on whether to include files extracted from archive if archive
+     * @param  string  $fileId          Record Id of the File
+     * @param  Boolean $includeArchives Flag on whether to include files extracted from archive if archive
      * @return boolean
      */
     public function deleteFile($fileId, $includeArchives=FALSE)
@@ -681,8 +721,8 @@ class dbfile extends dbTable
     /**
      * Method to remove a file from the filesystem
      *
-     * @param string $fileId Record Id of the File
-     * @param string $filePath Path to file
+     * @param  string  $fileId   Record Id of the File
+     * @param  string  $filePath Path to file
      * @return boolean
      */
     private function removeFile($fileId, $filePath)
@@ -726,8 +766,8 @@ class dbfile extends dbTable
     
     /**
     * Method to Change the Mimetype of a File
-    * @param string $fileId, Record Id of the File
-    * @param string $mimetype New mimetype of the File
+    * @param  string  $fileId,  Record Id of the File
+    * @param  string  $mimetype New mimetype of the File
     * @return boolean Result of Update
     */
     public function updateMimeType($fileId, $mimetype)
@@ -757,8 +797,8 @@ class dbfile extends dbTable
     
     /**
     * Added function to move a file to another category
-    * @param string $fileId Record Id of the File
-    * @param string $category Name of New Category
+    * @param  string  $fileId   Record Id of the File
+    * @param  string  $category Name of New Category
     * @return boolean Result of the Move
     */
     public function updateFileCategory($fileId, $category)
@@ -784,8 +824,8 @@ class dbfile extends dbTable
     
     /**
     * Method to get all files in a particular folder
-    * @param string $folder folderpath
-    * @return array
+    * @param  string $folder folderpath
+    * @return array 
     */
     public function getFolderFiles($folder)
     {

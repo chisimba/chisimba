@@ -1,14 +1,53 @@
 <?php
+
 /**
-* Class to Analyse Media Files
-*
-* This class analyses media files for metadata information from MP3s & 
-* other multimedia file formats using GetID3. Where branching needs to take place
-* for specific formats, these are also catered for in the system.
-*
-* @author Tohir Solomons
-* @package filemanager
-*/
+ * Class to Analyse Media Files
+ *
+ * This class analyses media files for metadata information from MP3s & 
+ * other multimedia file formats using GetID3. Where branching needs to take place
+ * for specific formats, these are also catered for in the system.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
+
+/**
+ * Class to Analyse Media Files
+ *
+ * This class analyses media files for metadata information from MP3s & 
+ * other multimedia file formats using GetID3. Where branching needs to take place
+ * for specific formats, these are also catered for in the system.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 class analyzemediafile extends object
 {
     
@@ -29,10 +68,10 @@ class analyzemediafile extends object
     * This function takes the information and converts it into a single array
     * instead of going through it as a multi-dimensional array
     *
-    * @param string $filePath Path to File
-    * @return array The array consists of two parts. 
-    *                   - The first is metadata in an array
-    *                   - The second is a recommended alternative mimetype for this file
+    * @param  string $filePath Path to File
+    * @return array  The array consists of two parts. 
+    *                - The first is metadata in an array
+    *                - The second is a recommended alternative mimetype for this file
     */
     public function getId3Info($filepath)
     {
@@ -47,8 +86,8 @@ class analyzemediafile extends object
     * It then processes the analysis, focussing on information it requires.
     * This information is stored in an array and returned.
     *
-    * @param string $filepath Path to File
-    * @return array Processed Information of the File
+    * @param  string $filepath Path to File
+    * @return array  Processed Information of the File
     */
     public function analyzeFile($filepath)
     {

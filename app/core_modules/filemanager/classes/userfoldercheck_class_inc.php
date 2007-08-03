@@ -1,14 +1,54 @@
 <?php
+
 /**
-* Check whether User Folder for Upload Exists
-*
-* This class checks whether a user folder exists for file uploads
-* It also creates a number of subfolders to store files in 
-* dependent on file category.
-*
-* @author Tohir Solomons
-* @package filemanager
-*/
+ * Check whether User Folder for Upload Exists
+ * 
+ * This class checks whether a user folder exists for file uploads
+ * It also creates a number of subfolders to store files in 
+ * dependent on file category.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Check whether User Folder for Upload Exists
+ * 
+ * This class checks whether a user folder exists for file uploads
+ * It also creates a number of subfolders to store files in 
+ * dependent on file category.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class userfoldercheck extends object
 {
     /**
@@ -53,9 +93,9 @@ class userfoldercheck extends object
     * Method to check whether a version subfolder exists
     * This will usually be something like images/1, etc.
     *
-    * @param string $userId UserId of the User
-    * @param string $folder Name of the Folder
-    * @param int $version Version of the Subfolder
+    * @param string $userId  UserId of the User
+    * @param string $folder  Name of the Folder
+    * @param int    $version Version of the Subfolder
     */
     public function checkUserFolderVersionExists($userId, $folder, $version)
     {

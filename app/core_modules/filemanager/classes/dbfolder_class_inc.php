@@ -1,10 +1,50 @@
 <?php
+
 /**
-* Class to handle interaction with table tbl_files_folders
-* This table lists all folders that are created on the system
-*
-* @author Tohir Solomons
-*/
+ * Class to handle interaction with table tbl_files_folders
+ * 
+ * This table lists all folders that are created on the system
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+
+/**
+ * Class to handle interaction with table tbl_files_folders
+ * 
+ * This table lists all folders that are created on the system
+ * 
+ * @category  Chisimba
+ * @package   filemanager
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 class dbfolder extends dbTable
 {
     
@@ -37,9 +77,9 @@ class dbfolder extends dbTable
     /**
     * Method to check whether a folder is in the database record or not.
     * If it is not, add it to the database
-    * @param string $folder Path to Folder
-    * @param boolean $isFullPath Is it the full path of the folder, or just the part of usrfiles/
-    * @return string Record Id
+    * @param  string  $folder     Path to Folder
+    * @param  boolean $isFullPath Is it the full path of the folder, or just the part of usrfiles/
+    * @return string  Record Id
     */
     public function indexFolder($folder, $isFullPath=TRUE)
     {
@@ -66,7 +106,7 @@ class dbfolder extends dbTable
     
     /**
     * Method to add a folder to the database records
-    * @param string $folder Path to the folder
+    * @param  string $folder Path to the folder
     * @return string Record Id
     */
     private function addFolder($folder)
@@ -77,7 +117,7 @@ class dbfolder extends dbTable
     
     /**
     * Method to show the folders of the current user as a DHTML Tree
-    * @param string $default Record Id of the Current Folder to highlight
+    * @param  string $default Record Id of the Current Folder to highlight
     * @return string
     */
     function showUserFolders($default='')
@@ -135,17 +175,44 @@ class dbfolder extends dbTable
     }
     
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $userId Parameter description (if any) ...
+     * @return string Return description (if any) ...
+     * @access public
+     */
     function getUserFolders($userId)
     {
         return $this->getAll(' WHERE folderpath LIKE \'users/'.$userId.'/%\' ORDER BY folderlevel, folderpath');
     }
     
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return string  Return description (if any) ...
+     * @access public 
+     */
     function getFolder($id)
     {
         return $this->getRow('id', $id);
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $path Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function getFolderId($path)
     {
         $folder = $this->getRow('folderpath', $path);
@@ -157,6 +224,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function getFolderName($id)
     {
         $folder = $this->getRow('id', $id);
@@ -168,6 +244,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function getFolderPath($id)
     {
         $folder = $this->getRow('id', $id);
@@ -179,6 +264,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return boolean Return description (if any) ...
+     * @access public 
+     */
     function getFullFolderPath($id)
     {
         $folder = $this->getRow('id', $id);
@@ -194,6 +288,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     public function getSubFolders($id)
     {
         $folder = $this->getFolder($id);
@@ -205,6 +308,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $folderPath Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     public function getSubFoldersFromPath($folderPath)
     {
         $folder = $this->getFolder($this->getFolderId($folderPath));
@@ -215,11 +327,31 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string  $path  Parameter description (if any) ...
+     * @param  unknown $level Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access private
+     */
     private function _getSubFolders($path, $level)
     {
         return $this->getAll(' WHERE folderpath LIKE \''.$path.'/%\' AND folderlevel = '.($level+1).' ORDER BY folderpath');
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string  $userId Parameter description (if any) ...
+     * @param  unknown $path   Parameter description (if any) ...
+     * @return string  Return description (if any) ...
+     * @access public 
+     */
     public function generateBreadcrumbsFromUserPath($userId, $path)
     {
         // users/1/archives/error_log/error_log
@@ -264,7 +396,7 @@ class dbfolder extends dbTable
     
     /**
     * Method to show the folders of the current user as a tree drop down
-    * @param string $default Record Id of the Current Folder to highlight
+    * @param  string $default Record Id of the Current Folder to highlight
     * @return string
     */
     function getTreedropdown($selected = '')
@@ -306,6 +438,15 @@ class dbfolder extends dbTable
         return $treeMenu->getMenu();
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $folderId Parameter description (if any) ...
+     * @return object  Return description (if any) ...
+     * @access public 
+     */
     function showCreateFolderForm($folderId)
     {
         $form = new form ('createfolder', $this->uri(array('action'=>'createfolder')));
@@ -333,6 +474,15 @@ class dbfolder extends dbTable
         return $form->show();
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $id Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function deleteFolder($id)
     {
         // Get Full Path of Folder
@@ -407,6 +557,15 @@ class dbfolder extends dbTable
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $dir Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
     private function remove_directory($dir)
     {
         if ($handle = opendir("$dir")) {
