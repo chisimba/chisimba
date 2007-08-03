@@ -1,28 +1,25 @@
 <?php
 
 /**
- * Short description for file
+ * File containing the class for creating the link to the help
  * 
- * Long description (if any) ...
+ * The class creates an icon which links to the help for the module and opens in a pop-up window.
  * 
  * PHP version 5
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   help
- * @author    Megan Watson <mwatson@uwc.ac.za>
- * @copyright 2007 Megan Watson
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 University of the Western Cape
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
-/* -------------------- help class extends controller ----------------*/
 
 /**
-* Class for providing a service to other modules that want to 
-* display help
+* Class for displaying a help icon for a module. The icon opens the help in a pop up window.
 * 
 * @author Derek Keats
 * @author Megan Watson - updated 13/09/2006 porting to 5ive 
@@ -30,16 +27,14 @@
 class helplink extends object  {
 
     /**
-     * Description for private
+     * Variable containing the calling module - the module for which the help file is generated.
      * @var    unknown
      * @access private
      */
     private $rootModule=Null;
     
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * Constructor function for the class. Function sets up global variables and objects used within the class.
      * 
      * @return void  
      * @access public
@@ -47,13 +42,16 @@ class helplink extends object  {
     public function init()
     {
         $this->objHelpIcon = $this->newObject('geticon','htmlelements');
-        $this->rootModule = $this->getParam("module", Null);
+        $this->rootModule = $this->getParam('module', Null);
     }
 
     /**
-    * *The standard dispatch method for the module. The dispatch() method must 
-    * return the name of a page body template which will render the module 
-    * output (for more details see Modules and templating)
+    * Method to display the help icon.
+    *
+    * @access public
+    * @param string $helpid 
+    * @param string $module The name of the module for which the help file is generated.
+    * @return string html The html to display the icon.
     */
     public function show($helpid, $module = NULL)
     { 

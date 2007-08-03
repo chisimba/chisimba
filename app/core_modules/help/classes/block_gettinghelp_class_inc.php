@@ -1,23 +1,20 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * Class block_gettinghelp extends object. The class creates a block about how to use the help.
  * 
  * PHP version 3
  * 
- * The license text...
- * 
  * @category  Chisimba
  * @package   help
- * @author    Megan Watson <mwatson@uwc.ac.za>
- * @copyright 2007 Megan Watson
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 University of the Western Cape
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
+ 
 // security check - must be included in all scripts
 if (!
 /**
@@ -32,28 +29,29 @@ $GLOBALS['kewl_entry_point_run'])
 // end security check
 
 /**
-* The class that demonstrates how to use blocks
+* Class for displaying a block about how to use the help for a module
 *
 * @author Derek Keats
-
 *         
-*         $Id$
-*         
+* $Id$
 */
 class block_gettinghelp extends object
 {
 
     /**
-     * Description for var
-     * @var    unknown
+     * Variable containing the title of the block
+     * @var    string
      * @access public 
      */
-    var $title;
+    public $title;
     
     /**
     * Constructor for the class
+    *
+    * @access public
+    * @return void
     */
-    function init()
+    public function init()
     {
         //Create an instance of the help object
         $this->objHelp=& $this->getObject('helplink','help');
@@ -64,9 +62,12 @@ class block_gettinghelp extends object
     }
     
     /**
-    * Method to output a block with information on how help works
+    * Method to output a block with information on how the help works.
+    *
+    * @access public
+    * @return string html The html content of the block
     */
-    function show()
+    public function show()
 	{
         //Add the text tot he output
         $ret = $this->objLanguage->languageText("mod_postlogin_helphowto",'postlogin');

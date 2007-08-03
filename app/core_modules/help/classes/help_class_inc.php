@@ -1,24 +1,22 @@
 <?php
 
 /**
- * Short description for file
+ * File containing the class for creating the link to the help
  * 
- * Long description (if any) ...
+ * The class creates an icon which links to the help for the module and opens in a pop-up window.
  * 
  * PHP version 3
  * 
- * The license text...
- * 
  * @category  Chisimba
  * @package   help
- * @author    Megan Watson <mwatson@uwc.ac.za>
- * @copyright 2007 Megan Watson
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 University of the Western Cape
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
-/* -------------------- help class extends controller ----------------*/
+ 
 // security check - must be included in all scripts
 if (!
 /**
@@ -31,31 +29,33 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 
 /**
-* Class for providing a service to other modules that want to
-* display help
+* Class for displaying a help icon for a module. The icon opens the help in a pop up window.
 *
 * @author Tohir Solomons
 */
 class help extends object  {
 
     /**
-     * Description for var
+     * Variable containing the calling module - the module for which the help file is generated.
      * @var    string
      * @access public
      */
-    var $rootModule=NULL;
+    public $rootModule=NULL;
 
     /**
-     * Description for var
-     * @var    unknown
+     * Variable containing the action or current page for which help is required.
+     * @var string
      * @access public 
      */
-    var $helpItem;
+    public $helpItem;
 
     /**
-    * Constructor Method for the class
+    * Constructor function for the class. Function sets up global variables and objects used within the class.
+    *
+    * @access public
+    * @return void
     */
-    function init()
+    public function init()
     {
         $this->objHelpIcon = $this->newObject('geticon','htmlelements');
         $this->rootModule = $this->getParam('module', NULL);
@@ -73,12 +73,13 @@ class help extends object  {
     * If it does, show the icon and link,
     * Else return NULL
     *
+    * @access public
     * @param  string $helpItem The help item action to show
-    * @param  string $module   The module where the help/action exits
+    * @param  string $module   The module for which the help is being generated
     * @param  strin  $helpText An alternate display to the help icon
-    * @return string Icon and Popup Link | Null if now help exists for that element
+    * @return string Icon and Popup Link | Null if no help exists for that element
     */
-    function show($helpItem = FALSE, $module = FALSE, $helpText = FALSE)
+    public function show($helpItem = FALSE, $module = FALSE, $helpText = FALSE)
     {
         $objSkin = & $this->getObject('skin','skin');
         $getAction = FALSE;
