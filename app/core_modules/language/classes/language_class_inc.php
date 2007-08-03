@@ -1,4 +1,36 @@
 <?php
+
+/**
+ * Language class
+ * 
+ * Language class for Chisimba. Provides language translation methods,
+ * the main one being to call the PEAR language translation object for a particular
+ * language items which are then converted to any translated language .
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   language
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 Prince Mbekwa
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 /* -------------------- LANGUAGE CLASS ----------------*/
 /*Description of file
   *This is a Language class 
@@ -50,13 +82,13 @@ class language extends dbTable {
      * The global error callback for altconfig errors
      *
      * @access public
-     * @var string
+     * @var    string
     */
     public $_errorCallback;
     /**
     * abstractList array of text items and their abstracts
     * @access public
-    * @var object
+    * @var    object
     */
 
     public $abstractList;
@@ -88,9 +120,9 @@ class language extends dbTable {
     * text code. It looks up the language text for the current
     * language in the database.
     * @access public
-    * @param string $itemName : The language code for the item to be
-    * looked up
-    * @param string $modulename : The module name that owns the string
+    * @param  string $itemName   : The language code for the item to be
+    *                            looked up
+    * @param  string $modulename : The module name that owns the string
     */
 
     public function languageText($itemName,$modulename='system',$default = false)
@@ -158,27 +190,27 @@ class language extends dbTable {
     * with pseudotags, as we had in KEWL.
     *
     * @example TEXT: mod_mymodule_greet|Time and user sensitive greeting
-    * |Hello [-FULLNAME-], Good [-GREETINGTIME-], I hope you are fine this great [-DAYOFTHEWEEK-].
-    *
-    * This allows this to appear in text as Hello Derek Keats,
-    * Good evening, I hope you are fine this great Friday.
-    *
-    * Call it as follows:
-    *    $str="mod_mymodule_greet";
-    *    $arrOfRep= array(
-    *       'FULLNAME'=> $userFullname,
-    *       'GREETINGTIME'=> $time,
-    *       'DAYOFTHEWEEK'=> $DOW );
-    *    $formTitle=$this->objLanguage->code2Txt($str, $arrOfRep );
-    *
-    * Note that it is not case sensitive, and you can add as many elements as you like.
-    *
-    * @param string $str the language text code.
-    * @param string modulename
-    * @param array $arrOfRep An associative array of [-TAG-], replacement pairs
-    * @return string $ret The array parsed
-    * @access public
-    * @author Jonathan Abrahams, Derek Keats
+    *          |Hello [-FULLNAME-], Good [-GREETINGTIME-], I hope you are fine this great [-DAYOFTHEWEEK-].
+    *          
+    *          This allows this to appear in text as Hello Derek Keats,
+    *          Good evening, I hope you are fine this great Friday.
+    *          
+    *          Call it as follows:
+    *          $str="mod_mymodule_greet";
+    *          $arrOfRep= array(
+    *          'FULLNAME'=> $userFullname,
+    *          'GREETINGTIME'=> $time,
+    *          'DAYOFTHEWEEK'=> $DOW );
+    *          $formTitle=$this->objLanguage->code2Txt($str, $arrOfRep );
+    *          
+    *          Note that it is not case sensitive, and you can add as many elements as you like.
+    *          
+    * @param   string $str       the language text code.
+    * @param   string modulename
+    * @param   array  $arrOfRep  An associative array of [-TAG-], replacement pairs
+    * @return  string $ret The array parsed
+    * @access  public
+    * @author  Jonathan Abrahams, Derek Keats
     */
     public function code2Txt($str,$modulename = "system",$arrOfRep=NULL)
     {
@@ -205,8 +237,8 @@ class language extends dbTable {
      * Method to replace tagged strings with abstracted text. Similar to code2Txt only this
      * method works on strings (from the database) rather than language elements.
      *
-     * @param string $str the string to search for abstraction tags
-     * @return the abstracted string
+     * @param  string $str the string to search for abstraction tags
+     * @return the    abstracted string
      */
     public function abstractText($str) {
     	$ret = $str;
@@ -220,7 +252,7 @@ class language extends dbTable {
     /**
     * Method to return Language list
     * @access public
-    * @return array
+    * @return array 
     */
     public function languagelist()
     {
@@ -239,7 +271,7 @@ class language extends dbTable {
     * Construct a form and populate it with all available
     * language translations for selection
     * @access public
-    * @return form
+    * @return form  
     */
     public function putlanguageChooser()
     {
@@ -267,7 +299,7 @@ class language extends dbTable {
 
     /**
     * Method to return the default language
-    * @access public
+    * @access public 
     * @return default site language
     */
     public function currentLanguage()
@@ -297,8 +329,8 @@ class language extends dbTable {
     /**
     * Method to create code2Txt match expression.
     * @access private
-    * @param String The tag
-    * @return String The regular expression with tag
+    * @param  String  The tag
+    * @return String  The regular expression with tag
     */
     private function _match( $tag )
     {
@@ -308,8 +340,8 @@ class language extends dbTable {
     /**
      * Check for system properties
      *
-     * @param string $code
-     * @param string $itemName
+     * @param  string     $code    
+     * @param  string     $itemName
      * @return TRUE/FALSE
      */
 
@@ -327,8 +359,8 @@ class language extends dbTable {
     /**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($exception)

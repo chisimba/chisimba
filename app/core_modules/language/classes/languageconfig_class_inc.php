@@ -1,7 +1,44 @@
 <?php
+
+/**
+ * Language Config class for chisimba. 
+ * 
+ * Provides language setup properties,
+ * the main one being to call the PEAR Translation2 object and setup
+ * all language table layouts.
+ * Setup all locales
+ * Allow MDB2 to take over language Item maintainance
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   language
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 Prince Mbekwa
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 /* -------------------- LANGUAGE CONFIG CLASS ----------------*/
 
 
+/**
+ * Description for define
+ */
 define('TABLE_PREFIX', 'tbl_');
 
 /**
@@ -12,23 +49,23 @@ define('TABLE_PREFIX', 'tbl_');
  * Allow MDB2 to take over language Item maintainance
  *
  * @copyright (c) 2006 University of the Western Cape AVOIR
- * @Version 0.1
- * @author  Prince Mbekwa <pmbekwa@uwc.ac.za>
- *
+ * @Version   0.1
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ *            
  */
 class languageConfig extends object
 {
 	/**
      * Public variable to hold the new language config object
      * @access public
-     * @var string
+     * @var    string
      */
     public $lang;
 
     /**
      * Public variable to hold the site config object
      * @access private
-     * @var string
+     * @var    string 
      */
     private $_siteConf;
 
@@ -36,7 +73,7 @@ class languageConfig extends object
      * The global error callback for altconfig errors
      *
      * @access public
-     * @var string
+     * @var    string
      */
     public $_errorCallback;
 
@@ -128,8 +165,8 @@ echo $this->lang->getMessage(); die();
 	/**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($exception)
@@ -142,9 +179,9 @@ echo $this->lang->getMessage(); die();
      * Method to parse the DSN from a string style DSN to an array for portability reasons
      *
      * @access private
-     * @param string $dsn
-     * @return void
-     * @TODO get the port settings too!
+     * @param  string  $dsn
+     * @return void   
+     * @TODO   get the port settings too!
      */
     private function _parseDSN($dsn)
     {

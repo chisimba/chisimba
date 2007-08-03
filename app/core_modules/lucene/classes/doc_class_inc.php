@@ -1,7 +1,13 @@
 <?php
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -11,9 +17,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * This class gets and creates document properties that are used in the index.
  * It is used for the filesystem stored documents not dbTable derived actions
  *
- * @author Paul Scott
+ * @author    Paul Scott
  * @copyright AVOIR UWC
- * @package lucene
+ * @package   lucene
  */
 
 class doc extends object
@@ -29,8 +35,8 @@ class doc extends object
      * Init function
      * Standard initialisation method for the Chisimba framework
      *
-     * @param void
-     * @return void
+     * @param  void  
+     * @return void  
      * @access public
      */
 	public function init()
@@ -43,8 +49,8 @@ class doc extends object
       * Method to generate a URL
       *
       * @access public
-      * @param void
-      * @return url
+      * @param  void  
+      * @return url   
       */
      public function generateUrl($filename)
      {
@@ -65,8 +71,8 @@ class doc extends object
       * Will this be stored in a db? In metadata? in DC tbl?
       *
       * @access public
-      * @param $prop
-      * @return mixed $docproperties
+      * @param  $prop 
+      * @return mixed  $docproperties
       */
      public function getProperty($prop, $filename)
      {

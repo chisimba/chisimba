@@ -1,15 +1,21 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
  * An module to format the logged data in a user friendly manner.
  *
- * @author Megan Watson
+ * @author    Megan Watson
  * @copyright (c) 2007 University of the Western Cape
- * @package logger
- * @version 0.1
+ * @package   logger
+ * @version   0.1
  */
 class logdisplay extends object
 {

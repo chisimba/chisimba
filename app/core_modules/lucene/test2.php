@@ -1,5 +1,28 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP versions 4 and 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   lucene
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 ini_set("max_execution_time", 3600);
+
+/**
+ * Description for require_once
+ */
 require_once 'resources/Search/Lucene.php';
 
 $indexPath = '/var/www/phpman';

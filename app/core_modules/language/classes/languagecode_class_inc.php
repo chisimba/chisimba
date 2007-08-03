@@ -1,9 +1,40 @@
 <?php
+
+/**
+ * This class converts retrieves the name of a language by providing the ISO code and also vice versa
+ *
+ * The original list of code was taken from a class written by Florian Breit (florian at phpws dot org): 
+ *  http://www.phpclasses.org/browse/file/8143.html
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   language
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 Prince Mbekwa
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       http://www.phpclasses.org/browse/file/8143.html
+ */
 /**
 *This is a Languagecode class 
-*@author Prince Mbekwa
-*@copyright (c) 200-2004 University of the Western Cape
-*@Version 1
+* @author    Prince Mbekwa
+* @copyright (c) 200-2004 University of the Western Cape
+* @Version   1
 */
 
 /**
@@ -14,10 +45,36 @@
 *  http://www.phpclasses.org/browse/file/8143.html
 */
 require_once 'I18Nv2/Country.php';
+
+/**
+ * Description for require_once
+ */
 require_once 'I18Nv2/Negotiator.php';
+
+/**
+ * Description for require_once
+ */
 require_once 'I18Nv2/DecoratedList/HtmlSelect.php';
+
+/**
+ * Description for require_once
+ */
 require_once 'I18Nv2/DecoratedList/HtmlEntities.php';
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   language
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 Prince Mbekwa
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class languagecode extends object 
 {
 	/**
@@ -58,7 +115,7 @@ class languagecode extends object
      * The global error callback for altconfig errors
      *
      * @access public
-     * @var string
+     * @var    string
     */
     private $_errorCallback;
     
@@ -96,7 +153,7 @@ class languagecode extends object
     *
     * This method first lowercases the code (to match the array) and then checks if it exists in the array.
     * If it does, return the language, else NULL
-    * @param string $isoKey The two letter ISO code
+    * @param  string $isoKey The two letter ISO code
     * @return string |NULL The Name of the Language
     */
     public function getLanguage($isoKey)
@@ -111,7 +168,7 @@ class languagecode extends object
     /**
     * Method to get the name of a ISO Code of a language by providing the ISO Code
     *
-    * @param string $language The language to check
+    * @param  string $language The language to check
     * @return string |NULL The ISO code of the Language
     */
     public function getISO($language)
@@ -135,8 +192,8 @@ class languagecode extends object
      *  This method utilizes ob_iconv_handler(), so you should call it at the beginning of your script (prior to any output).
      * Automatically transform output between character sets
      * 
-     * @param string $ocs   desired output character set
-     * @param string $ics   current intput character set 
+     * @param string $ocs desired output character set
+     * @param string $ics current intput character set 
 	 * @return Returns TRUE on success, PEAR_Error on failure. 
      */
     public function autoConv($ocs,$ics)
@@ -216,7 +273,7 @@ class languagecode extends object
     /**
      * Get the corresponding country name of the supplied two letter country code.
      *
-     * @param string $code
+     * @param  string      $code
      * @return countryname
      */
     public function getName ($code){
@@ -226,8 +283,8 @@ class languagecode extends object
     /**
     * The error callback function, defers to configured error handler
     *
-    * @param string $error
-    * @return void
+    * @param  string $error
+    * @return void  
     * @access public
     */
     public function errorCallback($exception)

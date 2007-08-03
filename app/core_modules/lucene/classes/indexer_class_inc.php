@@ -5,7 +5,13 @@ ini_set("max_execution_time", 3600);
 ini_set("memory_limit", -1);
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -15,8 +21,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * The indexer object deals with filesystem based document trees
  * It will take a document stored on disc and add it to the index
  *
- * @author Paul Scott
- * @package lucene
+ * @author    Paul Scott
+ * @package   lucene
  * @copyright AVOIR UWC
  */
 class indexer extends Zend_Search_Lucene_Document
@@ -61,7 +67,7 @@ class indexer extends Zend_Search_Lucene_Document
      * This method will index an entire tree, recursively globbing through all documents
      * NOTE: This method should be used very sparingly!!!
      *
-     * @param $doc - object of the document class passed by reference
+     * @param  $doc - object of the document class passed by reference
      * @return void
      */
      public function doIndex(&$doc)
@@ -134,11 +140,11 @@ class indexer extends Zend_Search_Lucene_Document
     	/**
          * Recursive version of glob
          *
-         * @return array containing all pattern-matched files.
-         *
-         * @param string $sDir      Directory to start with.
-         * @param string $sPattern  Pattern to glob for.
-         * @param int $nFlags      Flags sent to glob.
+         * @return array  containing all pattern-matched files.
+         *                
+         * @param  string $sDir     Directory to start with.
+         * @param  string $sPattern Pattern to glob for.
+         * @param  int    $nFlags   Flags sent to glob.
          */
         private function globr($sDir, $sPattern, $nFlags = NULL)
         {

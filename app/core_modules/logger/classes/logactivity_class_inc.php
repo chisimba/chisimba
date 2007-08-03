@@ -1,16 +1,22 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
  * An activity logging class. The class is called within each module to log the action performed by the user.
  * In addition to the action, the user id and the ip address from which the user is accessing the site is stored.
  *
- * @author Derek Keats, Megan Watson
+ * @author    Derek Keats, Megan Watson
  * @copyright GPL
- * @package logger
- * @version 0.2
+ * @package   logger
+ * @version   0.2
  */
 class logactivity extends dbTable
 {
@@ -57,7 +63,7 @@ class logactivity extends dbTable
      * chat refresh.
      *
      * @var BOOLEAN $logOncePerSession @values TRUE|FALSE
-     *
+     *              
      */
     public $logOncePerSession;
     
@@ -134,7 +140,7 @@ class logactivity extends dbTable
     *
     * @author Megan Watson
     * @access private
-    * @return bool
+    * @return bool   
     */
     private function checkIfReg()
     {
@@ -193,8 +199,8 @@ class logactivity extends dbTable
      * the module that is passed to it
      *
      * @param string $module The module to look up, usually the
-     * current module
-     *
+     *                       current module
+     *                       
      */
     private function _isLoggedThisSession($module)
     {
@@ -206,8 +212,8 @@ class logactivity extends dbTable
      * the module that is passed to it
      *
      * @param string $module The module to set, usually the
-     * current module
-     *
+     *                       current module
+     *                       
      */
     private function _setSessionFlag($module)
     {
@@ -219,7 +225,7 @@ class logactivity extends dbTable
     *
     * @author Megan Watson
     * @access private
-    * @return string $id
+    * @return string  $id
     */
     private function getPreviousId()
     {
@@ -232,7 +238,7 @@ class logactivity extends dbTable
     *
     * @author Megan Watson
     * @access private
-    * @return void
+    * @return void   
     */
     private function setPreviousId($id)
     {
@@ -320,6 +326,15 @@ class logactivity extends dbTable
 
     } //function _logData
     
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return boolean Return description (if any) ...
+     * @access public 
+     */
     public function _monthlyCleanup()
     {
     	$ts = time();

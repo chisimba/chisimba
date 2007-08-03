@@ -1,15 +1,21 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
  * An module to show data saved by activity logging class.
  *
- * @author Derek Keats
+ * @author    Derek Keats
  * @copyright GPL
- * @package logger
- * @version 0.1
+ * @package   logger
+ * @version   0.1
  */
 class logshow extends dbTable
 {
@@ -37,10 +43,10 @@ class logshow extends dbTable
      * Method to add the current event
      *
      * @param string $userId The userId of the user to look up, defaults
-     * to the current user
-     * @param string $order An ORDER BY SQL clause to generate
-     * a particular order
-     *
+     *                       to the current user
+     * @param string $order  An ORDER BY SQL clause to generate
+     *                       a particular order
+     *                       
      */
     public function showForUser($userId = NULL, $order = Null)
     {
@@ -63,8 +69,8 @@ class logshow extends dbTable
      * Method to provide a simple list of modules logged
      *
      * @param string $userId The userId of the user to look up, defaults
-     * to the current user
-     *
+     *                       to the current user
+     *                       
      */
     public function showModulesLogged($userId = NULL)
     {
@@ -80,8 +86,8 @@ class logshow extends dbTable
      * Method to show stats grouped by user
      *
      * @param string $userId The userId of the user to look up, defaults
-     * to the current user
-     *
+     *                       to the current user
+     *                       
      */
     public function showStatsByUser($userId = NULL)
     {
@@ -104,6 +110,16 @@ class logshow extends dbTable
         return $this->getArray($sql);
     } // function showStatsByModule
     
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $timeframe Parameter description (if any) ...
+     * @return string Return description (if any) ...
+     * @access public
+     */
     public function showStatsByDate($timeframe = NULL)
     {
         $where = " WHERE datecreated >= '".$timeframe."' ";

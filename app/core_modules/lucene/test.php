@@ -1,6 +1,6 @@
 <?php
 /**
- * @package ZSearch
+ * @package    ZSearch
  * @subpackage demo
  */
 
@@ -9,13 +9,27 @@ require_once 'resources/Search/Lucene.php';
 
 
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   lucene
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class FileDocument extends Zend_Search_Lucene_Document
 {
     /**
      * Object constructor
      *
-     * @param string $fileName
-     * @param boolean $storeContent
+     * @param  string                       $fileName    
+     * @param  boolean                      $storeContent
      * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($fileName, $storeContent = false)

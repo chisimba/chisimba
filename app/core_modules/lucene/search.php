@@ -1,4 +1,9 @@
 <?php
+
+
+/**
+ * Description for require_once
+ */
     require_once('resources/Search/Lucene.php');
 
     $query = isset($_GET['query']) ? $_GET['query'] : '';
@@ -38,4 +43,23 @@
             <a href="<?//= //$hit->url ?>">Read more...</a>
         </p>
     <?php } ?>
-<?php } ?>
+<?php 
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   lucene
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+} ?>
