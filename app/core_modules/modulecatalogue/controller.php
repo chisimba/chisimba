@@ -3,10 +3,10 @@
  * Module administration with catalogue interface. Allows installation and Un-installation of modules
  * via a cagtalogue interface which groups similar modules. Also incorporates module patching.
  *
- * @author Nic Appleby
- * @category Chisimba
- * @package modulecatalogue
- * @version 1.0
+ * @author    Nic Appleby
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @version   1.0
  * @copyright GNU/GPL UWC 2006
  */
 
@@ -496,7 +496,7 @@ class modulecatalogue extends controller
     * and passes it to its namesake function in the modulesadmin
     * class - which is where the SQL entries actually happen.
     * @author James Scoble
-    * @param string $modname the module_id of the module to be used
+    * @param  string $modname the module_id of the module to be used
     * @return string $regResult
     */
     private function installModule($modname) {
@@ -529,8 +529,8 @@ class modulecatalogue extends controller
     * happen. It uses file() to load the register.php file into an array, then
     * chew through it line by line, looking for keywords.
     *
-    * @author James Scoble
-    * @param string $modname the module_id of the module to be used
+    * @author  James Scoble
+    * @param   string $modname the module_id of the module to be used
     * @returns boolean TRUE or FALSE
     */
     private function uninstallModule($modname) {
@@ -727,8 +727,8 @@ class modulecatalogue extends controller
     /**
      * The error callback function, defers to configured error handler
      *
-     * @param string $exception
-     * @return void
+     * @param  string $exception
+     * @return void  
      */
     public function errorCallback($exception) {
         echo customException::cleanUp($exception);
@@ -755,8 +755,8 @@ class modulecatalogue extends controller
     /**
      * kind of a hack wrapper method to get the messed up params from the header via getParam in the engine
      *
-     * @param string $name parameter name
-     * @param string $def default param value
+     * @param  string $name parameter name
+     * @param  string $def  default param value
      * @return string Parameter value or default if it doesnt exist
      */
     public function getParm($name,$def=null) {

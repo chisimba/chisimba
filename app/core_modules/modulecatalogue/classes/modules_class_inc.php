@@ -1,7 +1,13 @@
 <?php
 /* ------------------- modules class extends dbTable ------------- */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -9,14 +15,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 /**
 * The class representing the modules table, handling all non-administrative
 * operations on the table.
-* @see modulesadmin class for administrative operations
-* @author Nic Appleby
-* @author Derek Keats
-* @author Sean Legassick
-* @author Jeremy O'Connor
+* @see      modulesadmin class for administrative operations
+* @author   Nic Appleby
+* @author   Derek Keats
+* @author   Sean Legassick
+* @author   Jeremy O'Connor
 * @category Chisimba
-* @package Modulecatalogue
-* @version $Id$
+* @package  Modulecatalogue
+* @version  $Id$
 */
 
 // Constants for $getType parameter of getModules
@@ -28,11 +34,38 @@ class modules extends dbTable
     //const GET_VISIBLE = 2;
     //const GET_USERVISIBLE = 3;
 
+
+    /**
+     * Description for private
+     * @var    object 
+     * @access private
+     */
     private $objLanguage;
     //private $objConfig;
+
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
     public $objConfig;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
     public $output;
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     public function init() {
     	try {
     		parent::init('tbl_modules');
@@ -55,7 +88,7 @@ class modules extends dbTable
     * to have a user interface. Modules that do not need to be visible
     * are thus not exposed to the user.
     * @param  $gettype int Type of request
-    * @return array List of modules
+    * @return array    List of modules
     */
     public function getModules($getType) {
     	try {
@@ -92,7 +125,7 @@ class modules extends dbTable
 
     /**
     * Method to check if a module is Admin-only or not.
-    * @param string $moduleId
+    * @param  string  $moduleId
     * @return Boolean TRUE|FALSE
     */
     public function isAdminModule($moduleId) {
@@ -109,7 +142,7 @@ class modules extends dbTable
     * This is a method to check if the module is registered already.
     * Returns TRUE if the module is registered and FALSE if
     * it is not registered.
-    * @param string $moduleId The identifier of the module.
+    * @param  string $moduleId The identifier of the module.
     * @return boolen TRUE|FALSE
     */
      public function checkIfRegistered($moduleId) {
@@ -125,7 +158,7 @@ class modules extends dbTable
     /**
     * This method returns the version of a module in the database
     * ie: The version level of the emodule at the time it was registered.
-    * @param string $module the module to lookup
+    * @param  string $module the module to lookup
     * @return string $version the version in the database | FALSE
     */
     public function getVersion($moduleId)
@@ -141,8 +174,8 @@ class modules extends dbTable
 
     /**
      * Method to return the dependents of a module
-     * @param string $moduleId the module to check
-     * @return mixed the modules dependents
+     * @param  string $moduleId the module to check
+     * @return mixed  the modules dependents
      */
     public function getDependencies($moduleId) {
     	try {
@@ -181,7 +214,7 @@ class modules extends dbTable
 
     /**
     * This is a method to check if a module is registered and turn the result as an array
-    * @param string $moduleId
+    * @param   string $moduleId
     * @returns array $result
     */
     public function getModuleInfo($moduleId) {

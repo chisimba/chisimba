@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']){
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 
@@ -9,10 +15,10 @@ if (!$GLOBALS['kewl_entry_point_run']){
 *
 * The class builds a css style navigation menu
 *
-* @author Nic Appleby
+* @author    Nic Appleby
 * @copyright (c)2006 UWC
-* @version $Id
-* @package modulecatalogue
+* @version   $Id
+* @package   modulecatalogue
 */
 
 class catalogue extends object {
@@ -73,7 +79,7 @@ class catalogue extends object {
     /**
      * Method to display the navigation menu
      *
-     * @param string $activeNode
+     * @param  string $activeNode
      * @return string
      */
     public function show($activeNode = null) {

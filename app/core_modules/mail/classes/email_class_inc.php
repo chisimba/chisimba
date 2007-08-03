@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
 	die("You cannot view this page directly");
 }
@@ -8,10 +14,22 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 //Load the library class
 
+
+/**
+ * phpMailer class
+ */
 require_once($this->getResourcePath('class.phpmailer.php', 'mail'));
 
 //Get the abstract and interface classes
+
+/**
+ * sendmail abstract 
+ */
 require_once("absendmail_class_inc.php");
+
+/**
+ * sendmail interface
+ */
 require_once("ifsendmail_class_inc.php");
 
 /**
@@ -35,12 +53,12 @@ require_once("ifsendmail_class_inc.php");
 * See documentation in the lib directory of this module for more information
 * and credits for the library
 *
-* @author Derek Keats
-* @category Chisimba
-* @package mail
+* @author    Derek Keats
+* @category  Chisimba
+* @package   mail
 * @copyright AVOIR
-* @licence GNU/GPL
-*
+* @licence   GNU/GPL
+*            
 */
 class email extends absendmail implements ifsendmail
 {
@@ -171,8 +189,8 @@ class email extends absendmail implements ifsendmail
      * mailer class.
      *
      * @param string $bmProperty The property to set
-     * @param string $value THe value to be set
-     *
+     * @param string $value      THe value to be set
+     *                           
      */
     public function setBaseMailerProperty($bmProperty, $value)
     {

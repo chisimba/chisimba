@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']){
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 
@@ -9,22 +15,36 @@ if (!$GLOBALS['kewl_entry_point_run']){
  * This class will provide the catalogue configuration for module registration
  *
  *
- * @author Prince Mbekwa
- * @todo sysconfig properties' set and get
- * @todo module config (especially from module admin)
+ * @author  Prince Mbekwa
+ * @todo    sysconfig properties' set and get
+ * @todo    module config (especially from module admin)
  * @package catalogue
  */
 //grab the pear::Config properties
 // include class
 require_once 'Config.php';
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 Nic Appleby
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class catalogueconfig extends object {
 
 	/**
      * The pear config object
      *
      * @access public
-     * @var string
+     * @var    string
     */
 
     protected $_objPearConfig;
@@ -32,28 +52,28 @@ class catalogueconfig extends object {
     /**
      * The path of the files to be read or written
      * @access public
-     * @var string
+     * @var    string
      */
     public $_path = null;
     /**
      * The root object for configs read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_root;
     /**
      * The root object for properties read
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_property;
     /**
      * The options value for altconfig read / write
      *
      * @access private
-     * @var string
+     * @var    string 
     */
     protected $_options;
 
@@ -61,7 +81,7 @@ class catalogueconfig extends object {
      * The catalogueconfig object for catalogueconfig storage
      *
      * @access private
-     * @var array
+     * @var    array  
      */
     protected $_catalogueconfigVars;
 
@@ -95,13 +115,13 @@ class catalogueconfig extends object {
      * For use when reading configuration options
      *
      * @access protected
-     * @param string $config xml file or PHPArray to parse
-     * @param string $property used to set property value of incoming config string
-     * $property can either be:
-     * 1. PHPArray
-     * 2. XML
-     * @return boolean True/False result.
-     *
+     * @param  string    $config   xml file or PHPArray to parse
+     * @param  string    $property used to set property value of incoming config string
+     *                             $property can either be:
+     *                             1. PHPArray
+     *                             2. XML
+     * @return boolean   True/False result.
+     *                   
      */
     protected function readCatalogue($property)
     {
@@ -134,11 +154,11 @@ class catalogueconfig extends object {
      * Method to wirte catalogue options.
      * For use when writing catalogue options
      *
-     * @access public
-     * @param string values to be saved
-     * @param string property used to set property value of incoming catalogue string
-     * @return boolean  TRUE for success / FALSE fail .
-     *
+     * @access public 
+     * @param  string  values   to be saved
+     * @param  string  property used to set property value of incoming catalogue string
+     * @return boolean TRUE for success / FALSE fail .
+     *                 
      */
     public function writeCatalogue()
     {
@@ -252,8 +272,8 @@ class catalogueconfig extends object {
     /**
     * Method to get modulelist for catalogue categories.
     *
-    * @var string $pname The name of the parameter being set
-    * @return  $value
+    * @var    string $pname The name of the parameter being set
+    * @return $value
     */
     public function getModulelist($pname)
     {
@@ -294,7 +314,7 @@ class catalogueconfig extends object {
      /**
     * Method to get basic module data for all modules.
     *
-    * @return  array of key module_id with values being the module name and description
+    * @return array of key module_id with values being the module name and description
     */
     public function getModuleDetails()
     {
@@ -330,9 +350,9 @@ class catalogueconfig extends object {
      /**
     * Method to get modulelist for catalogue categories.
     *
-    * @var string $pname The name of the parameter being set
-    * @var string $type either search module_id,description or both
-    * @return  $value
+    * @var    string $pname The name of the parameter being set
+    * @var    string $type either search module_id,description or both
+    * @return $value
     */
     public function searchModulelist($str,$type)
     {
@@ -378,7 +398,7 @@ class catalogueconfig extends object {
      * Method to get module description from the catalogue
      *
      * @author Nic Appleby
-     * @param string $modname module name
+     * @param  string $modname module name
      * @return string module description|FALSE if none exists
      */
     public function getModuleDescription($modname) {
@@ -403,7 +423,7 @@ class catalogueconfig extends object {
      * Method to get module name from the catalogue
      *
      * @author Nic Appleby
-     * @param string $moduleId module id
+     * @param  string $moduleId module id
      * @return string module name|FALSE if none exists
      */
     public function getModuleName($moduleId) {
@@ -427,9 +447,9 @@ class catalogueconfig extends object {
     /**
     * Method to get a system configuration parameter.
     *
-    * @var string $pmodule The module code of the module owning the config item
-    * @var string $pname The name of the parameter being set, use UPPER_CASE
-    * @return  string $value The value of the config parameter
+    * @var    string $pmodule The module code of the module owning the config item
+    * @var    string $pname The name of the parameter being set, use UPPER_CASE
+    * @return string $value The value of the config parameter
     */
     public function getNavParam($pmodule)
     {
@@ -463,6 +483,14 @@ class catalogueconfig extends object {
     	}
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return array  Return description (if any) ...
+     * @access public
+     */
     public function getCategories() {
         try {
             $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
@@ -478,6 +506,15 @@ class catalogueconfig extends object {
         }
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $category Parameter description (if any) ...
+     * @return array  Return description (if any) ...
+     * @access public
+     */
     public function getCategoryList($category) {
         try {
             $path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
@@ -514,8 +551,8 @@ class catalogueconfig extends object {
     /**
      * The error callback function, defers to configured error handler
      *
-     * @param string $error
-     * @return void
+     * @param  string $error
+     * @return void  
      */
     public function errorCallback($exception)
     {

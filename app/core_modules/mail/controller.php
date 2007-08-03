@@ -1,6 +1,12 @@
 <?php
 /* security check - must be included in all scripts */
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
 	die("You cannot view this page directly");
 }
@@ -8,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 
 /**
 * Simple demonstration module
-* @author yourname here
+* @author  yourname here
 * @package yourpackage here
 */
 class mail extends controller

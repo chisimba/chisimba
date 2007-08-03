@@ -1,18 +1,24 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']){
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 
 /**
 * Class for manipulating modules on the filesystem
 *
-* @author Nic Appleby
-* @category Chisimba
-* @package Modulecatalogue
+* @author    Nic Appleby
+* @category  Chisimba
+* @package   Modulecatalogue
 * @copyright AVOIR
-* @license GNU/GPL
-* @version $Id$
+* @license   GNU/GPL
+* @version   $Id$
 */
 
 class modulefile extends object {
@@ -107,7 +113,7 @@ class modulefile extends object {
     /**
      * Function to extract the module catalogue from the register file
      *
-     * @param string $module the name of the module to check
+     * @param  string       $module the name of the module to check
      * @return string|false the category name if it exists or false
      */
     public function moduleCategory($module) {
@@ -131,6 +137,15 @@ class modulefile extends object {
 		}
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $moduleId Parameter description (if any) ...
+     * @return boolean Return description (if any) ...
+     * @access public 
+     */
     public function contextAware($moduleId) {
     	try {
     		if (($fn = $this->findregisterfile($moduleId)) && (filesize($fn)>0)) {
@@ -150,6 +165,15 @@ class modulefile extends object {
 		}
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $moduleId Parameter description (if any) ...
+     * @return boolean Return description (if any) ...
+     * @access public 
+     */
     public function contextPlugin($moduleId) {
     	try {
     		if (($fn = $this->findregisterfile($moduleId)) && (filesize($fn)>0)) {
@@ -169,6 +193,14 @@ class modulefile extends object {
 		}
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return array  Return description (if any) ...
+     * @access public
+     */
     public function getContextAwareModules() {
     	$moduleList = $this->getLocalModuleList();
     	$contextAwareModules = array();
@@ -184,8 +216,8 @@ class modulefile extends object {
     * This method takes one parameter, which it treats as a directory name.
     * It returns an array - listing the files in the specified dir.
     * @author James Scoble
-    * @param string $file - directory/folder
-    * @return array $list
+    * @param  string $file - directory/folder
+    * @return array  $list
     */
     protected function checkdir($file)
     {
@@ -209,8 +241,8 @@ class modulefile extends object {
      /**
     * Boolean test for the existance of file $fname, in directory $where
     * @author James Scoble
-    * @param string $where file path
-    * @param string $fname file name
+    * @param  string  $where file path
+    * @param  string  $fname file name
     * @return boolean TRUE or FALSE
     */
     function checkForFile($where,$fname)
@@ -229,8 +261,8 @@ class modulefile extends object {
     }
 
     /** This is a method to check for existance of registration file
-    * @author James Scoble
-    * @param string modname
+    * @author  James Scoble
+    * @param   string modname
     * @returns FALSE on error, string filepatch on success
     */
     function findregisterfile($modname)
@@ -260,8 +292,8 @@ class modulefile extends object {
     }
 
     /** This is a method to check for existance of controller file
-    * @param string modname
-    * @return FALSE on error, string filepatch on success
+    * @param  string modname
+    * @return FALSE  on error, string filepatch on success
     */
     function findController($modname)
     {
@@ -284,8 +316,8 @@ class modulefile extends object {
     }
 
      /** This is a method to check for existance of sql_updates.xml
-    * @param string modname
-    * @return FALSE on error, string filepath on success
+    * @param  string modname
+    * @return FALSE  on error, string filepath on success
     */
     public function findSqlXML($modname) {
         try {
@@ -307,8 +339,8 @@ class modulefile extends object {
     }
 
  	/** This is a method to check for existance of table definition sql file
-    * @param string modname
-    * @return FALSE on error, string filepath on success
+    * @param  string modname
+    * @return FALSE  on error, string filepath on success
     */
     public function findSqlFile($modname,$tablename) {
     	try {
@@ -335,9 +367,9 @@ class modulefile extends object {
     * line by line, looking for keywords.
     * These are then returned as an associative array.
     * @author James Scoble
-    * @param string $filepath  path and filename of file.
-    * @param boolean $useDefine determine use of defined constants
-    * @return array $registerdata all the info from the register.conf file
+    * @param  string  $filepath  path and filename of file.
+    * @param  boolean $useDefine determine use of defined constants
+    * @return array   $registerdata all the info from the register.conf file
     */
 	public function readRegisterFile($filepath,$useDefine=FALSE) {
 		try {

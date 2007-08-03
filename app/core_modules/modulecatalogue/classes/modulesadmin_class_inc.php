@@ -1,7 +1,13 @@
 <?php
 /* -------------------- dbTable class for dbmanagerdb ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -10,12 +16,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * Class for manipulating modules with administrative functionality.
 * Dividing the class in two like this avoids loading this
 * file when only the basic user functionality is needed.
-* @author Nic Appleby
+* @author    Nic Appleby
 * @copyright AVOIR
-* @license GNU/GPL
-* @category Chisimba
-* @package modulecatalogue
-* @version $Id$
+* @license   GNU/GPL
+* @category  Chisimba
+* @package   modulecatalogue
+* @version   $Id$
 */
 
 class modulesadmin extends dbTableManager
@@ -62,6 +68,11 @@ class modulesadmin extends dbTableManager
      */
     private $objKeyMaker;
 
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $output;
 
     /**
@@ -116,7 +127,7 @@ class modulesadmin extends dbTableManager
     /**
      * Method to check whether a module dependency is registered
      *
-     * @param string $moduleId the id of the dpendency
+     * @param  string     $moduleId the id of the dpendency
      * @return TRUE|FALSE
      */
     public function checkDependency($moduleId) {
@@ -133,7 +144,7 @@ class modulesadmin extends dbTableManager
     * the database table tbl_modules, creates any needed SQL tables,
     * adds languagetext elements, moves icons, etc. All based on info from
     * the module's 'register.conf' file.
-    * @param array $registerdata - all the info from the register.conf file.
+    * @param   array $registerdata - all the info from the register.conf file.
     * @returns mixed OK | FALSE
     */
     public function installModule(&$registerdata,$update = FALSE) {
@@ -677,8 +688,8 @@ class modulesadmin extends dbTableManager
     * and refuse to uninstall where there are dependencies. Instead of uninstalling
     * a module that has dependencies, it should give the option to remove the user
     * interface files and set the module isVisible flag to 0
-    * @param string $moduleId the id of the module
-    * @param string $registerdata - array of info from the registration file
+    * @param   string $moduleId     the id of the module
+    * @param   string $registerdata - array of info from the registration file
     * @returns boolean TRUE or FALSE
     */
     public function uninstallModule($moduleId,&$registerdata)
@@ -783,8 +794,8 @@ class modulesadmin extends dbTableManager
 
     /**
     * This method looks at the registration data and tries to create any tables specified
-    * @param string $table The name of the table to be created
-    * @param string $moduleId The id of the module
+    * @param   string $table    The name of the table to be created
+    * @param   string $moduleId The id of the module
     * @returns boolean TRUE|FALSE
     */
     private function makeTable($table,$moduleId='NONE')
@@ -819,7 +830,7 @@ class modulesadmin extends dbTableManager
 
     /**
     * This is a method to read data from a file and use it to populate (not create) a table.
-    * @param string $moduleId the id of the module to be used
+    * @param  string  $moduleId the id of the module to be used
     * @return boolean TRUE or FALSE
     */
     public function loadData($moduleId) {
@@ -871,7 +882,7 @@ class modulesadmin extends dbTableManager
     /**
     * This is a method to move icons when registering
     * @param string $moduleId the module
-    * @param array $icons the list of icons
+    * @param array  $icons    the list of icons
     */
     private function moveIcons($moduleId,$icons) {
         try {
@@ -928,7 +939,7 @@ class modulesadmin extends dbTableManager
     /**
     * This is a method to add language terms to the database
     * @param string $terms A comma delimited string of
-    * terms that are used in the language database
+    *                      terms that are used in the language database
     */
     private function registerModuleLanguageTerms($terms) {
         try {
@@ -947,8 +958,8 @@ class modulesadmin extends dbTableManager
 
     /**
     * Registers modules that this module depends on
-    * @param string $moduleId The module ID
-    * @param $modulesNeeded array The modules this module depends on
+    * @param string         $moduleId The module ID
+    * @param $modulesNeeded array     The modules this module depends on
     */
     private function registerDependentModules($moduleId,$modulesNeeded) {
         try {
@@ -968,7 +979,7 @@ class modulesadmin extends dbTableManager
     * This is a method to drop tables for the current module. This method
     * gets the list of owned tables from tbl_modules_owned_tables
     * and removes them one at a time
-    * @param string $moduleId
+    * @param   string $moduleId
     * @returns array $droppedTables list of the dropped tables
     */
     private function dropTables($moduleId)
@@ -993,7 +1004,7 @@ class modulesadmin extends dbTableManager
 
     /**
     * This is a method to check for specified text entries from both tbl_languagetext and tbl_english
-    * @param $code
+    * @param   $code
     * @returns array with elements flag = 0, 1, 10, or 11, content and desc
     */
     public function checkText($code) {
@@ -1027,8 +1038,8 @@ class modulesadmin extends dbTableManager
 
     /**
     * This is a method to build an array based on another one.
-    * @param array $rdata
-    * @param string $index type of text to be added
+    * @param   array  $rdata
+    * @param   string $index type of text to be added
     * @returns FALSE or array $texts
     */
     public function listTexts($rdata,$index='TEXT') {
@@ -1066,7 +1077,7 @@ class modulesadmin extends dbTableManager
     /**
     * This is a method to add specified text entries from both tbl_languagetext and tbl_english
     * @author James Scoble
-    * @param $code,$description,$content
+    * @param  $code,$description,$content
     */
     private function addText($code,$description,$content,$modname = 'system') {
         try {
@@ -1119,10 +1130,10 @@ class modulesadmin extends dbTableManager
     * This is a method to look through list of texts specified for module,
     * and see if they are registered or not.
     * @author James Scoble
-    * @param string $modname
-    * @param string $action - optional, if its 'fix' then the function tries
-    * to add any texts that are missing.
-    * returns array $mtexts
+    * @param  string $modname
+    * @param  string $action  - optional, if its 'fix' then the function tries
+    *                         to add any texts that are missing.
+    *                         returns array $mtexts
     */
     public function moduleText($modname,$action='readonly') {
         try {
@@ -1238,9 +1249,9 @@ class modulesadmin extends dbTableManager
     /**
      * Method to check whether a menu item exists in the database already
      *
-     * @param string $category the menu category to check in
-     * @param string $moduleId the module to look for
-     * @return id of the record|FALSE
+     * @param  string $category the menu category to check in
+     * @param  string $moduleId the module to look for
+     * @return id     of the record|FALSE
      */
     function existsInMenu($category,$moduleId) {
         $sql = "SELECT id FROM tbl_menu_category WHERE category LIKE '$category' and module = '$moduleId'";
@@ -1261,8 +1272,8 @@ class modulesadmin extends dbTableManager
     /**
      * Method to check whether a menu item exists in the toolbar menu
      *
-     * @param string $moduleId module to check for
-     * @return id of the record in the db|FALSE
+     * @param  string $moduleId module to check for
+     * @return id     of the record in the db|FALSE
      */
     function existsInToolbarMenu($moduleId) {
         $sql = "SELECT id FROM tbl_menu_category WHERE module = '$moduleId' AND NOT (category LIKE 'menu_%') AND NOT (category LIKE 'page_%') ";
@@ -1283,13 +1294,23 @@ class modulesadmin extends dbTableManager
     /**
      * The error callback function, defers to configured error handler
      *
-     * @param string $exception
-     * @return void
+     * @param  string $exception
+     * @return void  
      */
     public function errorCallback($exception) {
         echo customException::cleanUp($exception);
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $stmt   Parameter description (if any) ...
+     * @param  array   $params Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function _execute($stmt, $params = array())
     {
         dbtable::_execute($stmt, $params);

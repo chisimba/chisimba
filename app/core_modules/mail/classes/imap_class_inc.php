@@ -1,7 +1,13 @@
 <?php
 /* -------------------- imap class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
@@ -26,11 +32,11 @@ if(!extension_loaded("imap"))
  *
  * The class incorporates functionality that can be used to easily create a webmail application
  *
- * @author Paul Scott
- * @package webmail
+ * @author    Paul Scott
+ * @package   webmail
  * @copyright AVOIR
- * @category Chisimba
- *
+ * @category  Chisimba
+ *            
  */
 class imap //extends object
 {

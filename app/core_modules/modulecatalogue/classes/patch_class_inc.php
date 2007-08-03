@@ -1,12 +1,12 @@
 <?php
 /**
 * Class which handles patches to modules
-* @author Nic Appleby
+* @author    Nic Appleby
 * @copyright AVOIR
-* @license GNU/GPL
-* @category Chisimba
-* @package modulecatalogue
-* @version $Id$
+* @license   GNU/GPL
+* @category  Chisimba
+* @package   modulecatalogue
+* @version   $Id$
 */
 
 class patch extends dbtable {
@@ -91,7 +91,7 @@ class patch extends dbtable {
     /**
     * This method returns the version of a module in the database
     * ie: The version level of the emodule at the time it was registered.
-    * @param string $module the module to lookup
+    * @param  string $module the module to lookup
     * @return string $version the version in the database
     */
     function getVersion($module) {
@@ -111,7 +111,7 @@ class patch extends dbtable {
     * This method calls a function to read the XML file
     * and walks through it, processing each update
     * @param string $modname the name of the module
-    *
+    *                        
     */
     function applyUpdates($modname) {
         try {
@@ -292,7 +292,7 @@ class patch extends dbtable {
     * This method reads a register.conf file
     * And returns the module version number
     * @param string $module the module id
-    * $returns string $version
+    *                       $returns string $version
     */
     private function readVersion($module) {
         try {
