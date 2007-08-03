@@ -1,6 +1,31 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   help
+ * @author    Megan Watson <mwatson@uwc.ac.za>
+ * @copyright 2007 Megan Watson
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
 	die("You cannot view this page directly");
 }
@@ -11,12 +36,18 @@ if (!$GLOBALS['kewl_entry_point_run'])
 *
 * @author Derek Keats
 
-* 
-* $Id$
-*
+*         
+*         $Id$
+*         
 */
 class block_gettinghelp extends object
 {
+
+    /**
+     * Description for var
+     * @var    unknown
+     * @access public 
+     */
     var $title;
     
     /**

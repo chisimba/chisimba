@@ -4,8 +4,8 @@
 * Class for providing a service to other modules that want to
 * display help
 *
-* @author Derek Keats, Tohir Solomons
-* @author Megan Watson - porting to 5ive
+* @author  Derek Keats, Tohir Solomons
+* @author  Megan Watson - porting to 5ive
 * @version 1.1
 */
 class help extends controller 
@@ -86,7 +86,7 @@ class help extends controller
     * Method to display a help item
     *
     * @param string $helpItem The language text element of the help item
-    * @param string $module The module of the help item
+    * @param string $module   The module of the help item
     */
     public function showHelp($helpItem, $module)
     {
@@ -139,10 +139,10 @@ class help extends controller
     /**
     * Method to check whether a viewlet exists for a help
     *
-    * @param string $module The module of the help item
-    * @param string $action The action of the help item
+    * @param  string $module The module of the help item
+    * @param  string $action The action of the help item
     * @return string Link to viewlet | Null if file does not exist
-    *
+    *                
     public function checkForViewlet($module, $action)
     {
         $file = 'help_'.$module.'_viewlet_'.$action;
@@ -160,15 +160,15 @@ class help extends controller
 
 
     /**
-    * Method to check for a rich help
-    *
-    * It takes a language text element, and then checks for a file {languagetextelemnt}.html
-    * file in the /modules/modulename/help/{currentlanguage}/ folder. Folder is the two letter code.
-    * If one exists, return a colour icon, else return a grayed out version.
-    *
-    * @param string $helpId The name of the help language text
+    *                Method to check for a rich help
+    *                
+    *                It takes a language text element, and then checks for a file {languagetextelemnt}.html
+    *                file in the /modules/modulename/help/{currentlanguage}/ folder. Folder is the two letter code.
+    *                If one exists, return a colour icon, else return a grayed out version.
+    *                
+    * @param  string $helpId The name of the help language text
     * @return string $ex The icon to display - either colour or grayed out
-    *
+    *                
     public function checkForRichHelp($helpId, $extension = '.html')
     {
         $rootModule = $this->getParam("rootModule", Null);
@@ -230,16 +230,16 @@ class help extends controller
     } //function
 
     /**
-    * Method to check whether an extended help file exists
-    *
-    * This method first checks whether an extended help file exists in the current language.
-    * If it doesn't exist, check whether it exists in the English (en) subfolder.
-    * If the file exists, return the browser path to the file, else return NULL
-    *
-    * @param string $file The name of the file (minus the .html) to check for existence
-    * @param string $module The module folder to check for the file
+    *                Method to check whether an extended help file exists
+    *                
+    *                This method first checks whether an extended help file exists in the current language.
+    *                If it doesn't exist, check whether it exists in the English (en) subfolder.
+    *                If the file exists, return the browser path to the file, else return NULL
+    *                
+    * @param  string $file   The name of the file (minus the .html) to check for existence
+    * @param  string $module The module folder to check for the file
     * @return string |NULL The browser side path to the file
-    *
+    *                
     public function checkForFile($file, $module, $extension='.html')
     {
         // Get Current Language

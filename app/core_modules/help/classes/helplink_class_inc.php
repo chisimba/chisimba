@@ -1,4 +1,23 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   help
+ * @author    Megan Watson <mwatson@uwc.ac.za>
+ * @copyright 2007 Megan Watson
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* -------------------- help class extends controller ----------------*/
 
 /**
@@ -10,8 +29,21 @@
 */
 class helplink extends object  {
 
+    /**
+     * Description for private
+     * @var    unknown
+     * @access private
+     */
     private $rootModule=Null;
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     public function init()
     {
         $this->objHelpIcon = $this->newObject('geticon','htmlelements');

@@ -1,7 +1,32 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   help
+ * @author    Megan Watson <mwatson@uwc.ac.za>
+ * @copyright 2007 Megan Watson
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* -------------------- help class extends controller ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -13,7 +38,18 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 */
 class help extends object  {
 
+    /**
+     * Description for var
+     * @var    string
+     * @access public
+     */
     var $rootModule=NULL;
+
+    /**
+     * Description for var
+     * @var    unknown
+     * @access public 
+     */
     var $helpItem;
 
     /**
@@ -37,9 +73,9 @@ class help extends object  {
     * If it does, show the icon and link,
     * Else return NULL
     *
-    * @param string $helpItem The help item action to show
-    * @param string $module The module where the help/action exits
-    * @param strin $helpText An alternate display to the help icon
+    * @param  string $helpItem The help item action to show
+    * @param  string $module   The module where the help/action exits
+    * @param  strin  $helpText An alternate display to the help icon
     * @return string Icon and Popup Link | Null if now help exists for that element
     */
     function show($helpItem = FALSE, $module = FALSE, $helpText = FALSE)
