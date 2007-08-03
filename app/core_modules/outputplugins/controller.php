@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
@@ -9,9 +15,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * Controller class for Chisimba for testing output plugins.
 * There is no end user functionality here
 *
-* @author Derek Keats
+* @author  Derek Keats
 * @package outputplugins
-*
+*          
 */
 class outputplugins extends controller
 {
