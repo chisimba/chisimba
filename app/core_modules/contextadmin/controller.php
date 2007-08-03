@@ -52,13 +52,13 @@ class contextadmin extends controller
         $this->_objLanguage = $this->getObject('language', 'language');
         $this->_objUtils = $this->getObject('utils', 'contextadmin');
         $this->_objDBContextParams = $this->getObject('dbcontextparams', 'context');
-    	//Load Import IMS class
+    	// Load Import IMS class.
     	$this->objImportIMSContent = $this->newObject('importimspackage','contextadmin');
-    	//Load Import KNG class
+    	// Load Import KNG class.
     	$this->objImportKNGContent = $this->newObject('importkngpackage','contextadmin');
-    	//Load Export IMS class
+    	// Load Export IMS class.
     	$this->objExportIMSContent = $this->newObject('exportimspackage','contextadmin');
-    	//Load Import Export Utilities class
+    	// Load Import Export Utilities class.
     	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
         $this->objConf = $this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
@@ -93,9 +93,9 @@ class contextadmin extends controller
 
 	            return 'main_tpl.php';
                 
-            //the following cases deals with adding a context
+            //the following cases deals with adding a context.
             
-            //use a layout template for this wizard
+            //use a layout template for this wizard.
 
             case 'addstep1':
                 $this->setLayoutTemplate('layout_tpl.php');
@@ -127,8 +127,8 @@ class contextadmin extends controller
                 return $this->nextAction('default');
            
                 
-            //the next steps deals with actions coming from the 
-            //config page         
+            // the next steps deals with actions coming from the.
+            // config page.
             case 'saveedit';
             	$this->_objDBContext->saveEdit();
             	 return $this->nextAction('default');
@@ -165,17 +165,15 @@ class contextadmin extends controller
 		$this->setSession('mod_contextcontent','contextcontent');
 		if($create == 'on')
 		{
-			//Instantiate the Import of IMS package
+			// Instantiate the Import of IMS package.
 			$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
 			$this->setVar('uploadStatus',$uploadStatus);
-			if(!(strcmp($uploadStatus, '/error/')))
-				return 'uploadstatus_tpl.php';
-			else
-				return 'errorreport_tpl.php';
+
+			return 'uploadstatus_tpl.php';
 		}
 		else
 		{
-			//Skip course creation
+			// Skip course creation.
 			$zipfile = file_get_contents($_FILES['upload']['tmp_name']);
 			$tmpLocation = '/tmp/'.$_FILES['upload']['name'];
 			$fp = fopen($tmpLocation, 'w');
@@ -202,14 +200,12 @@ class contextadmin extends controller
 		$package = $this->getSession('packageType');
 		$fileDetails = $this->getSession('fileDetails');
 		$fileDetails['upload']['tmp_name'] = $this->getSession('tmpLocation');
-		//Instantiate the Import of IMS package
+		// Instantiate the Import of IMS package.
 		$uploadStatus = $this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
 		$this->setVar('uploadStatus',$uploadStatus);
 		$this->setVar('choice',$choice);
-		if(!(strcmp($uploadStatus, '/error/')))
-			return 'uploadstatus_tpl.php';
-		else
-			return 'errorreport_tpl.php';
+
+		return 'uploadstatus_tpl.php';
 	break;
 	/**
 	 * Retrieves a list of courses from a remote server
@@ -224,7 +220,7 @@ class contextadmin extends controller
 		if(strlen($server) < 1)
 			$server = $this->getSession('choice');
 		$tableName = "tbl_context";
-		//set up the query
+		// set up the query.
 		$sql = "SELECT * from tbl_context";
 		$dbData = $this->objIEUtils->importDBData($server, $tableName, $sql);
 		$this->setVarByRef('dbData',$dbData);
@@ -242,10 +238,8 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
-		if(!(strcmp($uploadStatus, '/error/')))
-			return 'uploadstatus_tpl.php';
-		else
-			return 'errorreport_tpl.php';
+
+		return 'uploadstatus_tpl.php';
 	break;
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
@@ -253,13 +247,11 @@ class contextadmin extends controller
         case 'downloadChisimba':
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
-		//Instantiate the Import of KNG package
+		// Instantiate the Import of KNG package.
 		$uploadStatus = $this->objExportIMSContent->exportContent($choice);
 		$this->setVar('uploadStatus',$uploadStatus);
-		if(!(strcmp($uploadStatus, '/error/')))
-			return 'uploadstatus_tpl.php';
-		else
-			return 'errorreport_tpl.php';
+
+		return 'uploadstatus_tpl.php';
 	break;
 	default:
 		return $this->nextAction(null);
