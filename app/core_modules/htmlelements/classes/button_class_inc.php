@@ -1,28 +1,42 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
 * Button class controls the rendering of buttons on webpage or forms
-* @package button
-* @category HTML Controls
-* @version $Id$
+* @package   button
+* @category  HTML Controls
+* @version   $Id$
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Wesley Nitsckie 
-* @author Tohir Solomons
+* @license   GNU GPL
+* @author    Wesley Nitsckie
+* @author    Tohir Solomons
 * @example: 
-*  $this->objButton=&new button('buttonname');
-*  $this->objButton->setValue('Button Value');
-*  $this->objButton->setOnClick('alert(\'An onclick Event\')');
-*  $this->objButton->setToSubmit();  //If you want to make the button a submit button 
+*            $this->objButton=&new button('buttonname');
+*            $this->objButton->setValue('Button Value');
+*            $this->objButton->setOnClick('alert(\'An onclick Event\')');
+*            $this->objButton->setToSubmit();  //If you want to make the button a submit button 
 */
 class button extends abhtmlbase implements ifhtml
 {
@@ -34,15 +48,15 @@ class button extends abhtmlbase implements ifhtml
 
     /**
     * @var bool $issubmitbutton: True | False whether the button is a submit
-    * button or not.
+    *           button or not.
     */
     public $issubmitbutton;
     
     /**
     * Initialization method to set default values
     * 
-    * @param string $name : name of the button
-    * @param string $value optional :value of the button
+    * @param string $name    : name of the button
+    * @param string $value   optional :value of the button
     * @param string $onclick optional :javascript function that will be called
     */
     public function button($name=null, $value = null, $onclick = null)
@@ -59,6 +73,16 @@ class button extends abhtmlbase implements ifhtml
 	* event for the button
 	* @param string $onclick
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $onclick Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function setOnClick($onclick)
     {
         $this->onclick = $onclick;
@@ -68,6 +92,16 @@ class button extends abhtmlbase implements ifhtml
 	* Method to set the cssClass class 
 	* @param string $cssClass
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $cssClass Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     function setCSS($cssClass)
     {
         $this->cssClass = $cssClass;
@@ -77,6 +111,16 @@ class button extends abhtmlbase implements ifhtml
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $cssId Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function setId($cssId)
     {
         $this->cssId = $cssId;
@@ -86,6 +130,15 @@ class button extends abhtmlbase implements ifhtml
 	* function to set the button to
 	* a submit button
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     public function setToSubmit()
     {
         $this->issubmitbutton = true;

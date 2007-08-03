@@ -1,22 +1,97 @@
 <?php
 
 /**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+/**
  * Text Input class controls buttons 
- * @author Wesley Nitsckie
- * @version $Id$
- * @copyright 2003 
- **/
+ * @author    Wesley Nitsckie
+ * @version   $Id$
+ * @copyright 2003
+ *            */
  
 // Include the HTML interface class
 require_once("ifhtml_class_inc.php");
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class calendar implements ifhtml {
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $name;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $css;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $value;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $windowName;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
 	public $location;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
 	public $width;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
 	public $height;
     
     /**
@@ -43,6 +118,18 @@ class calendar implements ifhtml {
 	* @param int $day :the day
 	* @param int $year :the year
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $mth  Parameter description (if any) ...
+     * @param  string $day  Parameter description (if any) ...
+     * @param  string $year Parameter description (if any) ...
+     * @return void  
+     * @access public
+     */
 	public function setDate($mth,$day,$year)
 	{
 		if(checkdate($mth,$day,$year))

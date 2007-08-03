@@ -1,6 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']){
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 
@@ -9,22 +15,44 @@ if (!$GLOBALS['kewl_entry_point_run']){
 *
 * The class builds a css style div rounded corners box 
 *
-* @author Prince Mbekwa
+* @author    Prince Mbekwa
 * @copyright (c)2004 UWC
-* @package div class
-* @version 0.1
+* @package   div class
+* @version   0.1
 */
 
 class roundcorners extends object 
 {
 
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $content;
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
 	function init(){
 		
 	}
 	
 	
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $content Parameter description (if any) ...
+     * @return string Return description (if any) ...
+     * @access public
+     */
 	function show($content='')
     {
 		if ($content != '') {

@@ -1,10 +1,39 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 
@@ -14,13 +43,13 @@ require_once("ifhtml_class_inc.php");
  * that has the ability to  contain other
  * html objects
  *
- * @author Wesley Nitsckie
- * @version $Id$
+ * @author    Wesley Nitsckie
+ * @version   $Id$
  * @copyright 2003
 
- *
- * Example using type 4 form.
- *
+ *            
+ *            Example using type 4 form.
+ *            
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 4;
 	$objForm->addToFormEx($objLanguage->languageText('informational1'));
@@ -29,9 +58,9 @@ require_once("ifhtml_class_inc.php");
 	$objForm->addToFormEx($objLanguage->languageText('label3'),new textinput('name3'));
 	echo $objForm->show();
 
- *
- * Example using type 5 form. -- deprecated; use the fieldset class.
- *
+ *            
+ *            Example using type 5 form. -- deprecated; use the fieldset class.
+ *            
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 5;
 	$objForm->beginFieldset('legend');
@@ -42,13 +71,13 @@ require_once("ifhtml_class_inc.php");
 	$objForm->endFieldset();
 	echo $objForm->show();
 
- *
- *
- *
- *
- *
- *
- *
+ *            
+ *            
+ *            
+ *            
+ *            
+ *            
+ *            
  */
 
 class form implements ifhtml
@@ -56,36 +85,36 @@ class form implements ifhtml
     /**
      *
      * @var string $name
-     * The name of the form
+     *             The name of the form
      */
     public $name;
 
     /**
      *
      * @var array $elements
-     * The array that holds all the objects
+     *            The array that holds all the objects
      */
     public $elements;
 
     /**
      *
      * @var string $action
-     * The action of the form
+     *             The action of the form
      */
     public $action;
 
     /**
      *
      * @var int displayType
-     * the display of the elements on the form
+     *          the display of the elements on the form
      */
     public $displayType;
 
     /**
      *
      * @var boolean $autoshow
-     * set the form to automatically call the
-     * elements 'show' method
+     *              set the form to automatically call the
+     *              elements 'show' method
      */
     var $autoshow = false;
 
@@ -100,8 +129,8 @@ class form implements ifhtml
 	/**
      *
      * @var string $javascript
-     * the javascript that will validate
-     * this form when submitted
+     *             the javascript that will validate
+     *             this form when submitted
      */
     public $javascript;
 
@@ -172,6 +201,16 @@ class form implements ifhtml
         $this->elements[] = $objElement;
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $label Parameter description (if any) ...
+     * @param  unknown $field Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
 	public function addToFormEx($label,$field=NULL)
 	{
 		if (is_null($field)) {
@@ -182,11 +221,28 @@ class form implements ifhtml
 		}
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $legend Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
 	public function beginFieldset($legend)
 	{
 		$this->elements[] = array('fieldset'=>'begin', 'legend'=>$legend);
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
 	public function endFieldset()
 	{
 		$this->elements[] = array('fieldset'=>'end');
@@ -444,27 +500,27 @@ class form implements ifhtml
      * Method to add a validation rule
      * to an element
      *
-     * @param  $mix mix : This variable can hold anything
-     * @param  $errormsg string : The error message
-     * @param  $valcmd string : the validation type
-     *
-     * * the following rules apply
-     * required
-     * maxlength
-     * minlength
-     * rangelength
-     * regex
-     * email
-     * lettersonly
-     * alphanumeric
-     * numeric
-     * nopunctuation
-     * nonzero
-     * uploadedfile
-     * maxfilesize
-     * filename
-     * mimetype
-     * compare
+     * @param $mix      mix    : This variable can hold anything
+     * @param $errormsg string : The error message
+     * @param $valcmd   string : the validation type
+     *                         
+     *                         * the following rules apply
+     *                         required
+     *                         maxlength
+     *                         minlength
+     *                         rangelength
+     *                         regex
+     *                         email
+     *                         lettersonly
+     *                         alphanumeric
+     *                         numeric
+     *                         nopunctuation
+     *                         nonzero
+     *                         uploadedfile
+     *                         maxfilesize
+     *                         filename
+     *                         mimetype
+     *                         compare
      */
     public function addRule($mix, $errormsg, $valCmd)
     {
@@ -517,10 +573,26 @@ class form implements ifhtml
         }
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return void  
+     * @access public
+     */
     public function addFormRule()
     {
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return string  Return description (if any) ...
+     * @access private
+     */
     private function _getValidatorScripts()
     {
         $jsc = '<script language="JavaScript" type="text/javascript" src="core_modules/htmlelements/resources/validation.js"></script>
@@ -542,9 +614,9 @@ class form implements ifhtml
      * Method the adds a javascript method call
      * to the javascript string
      *
-     * @param  $stript string  : the javascript method that will be called
-     * @param  $fieldname string : The name of the field
-     * @param  $errormsg string : the erroe message
+     * @param $stript    string : the javascript method that will be called
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the erroe message
      */
     private function _addValidationScript($script = null, $errormsg = null, $fieldname = null)
     {//.getElementByName("'.$fieldname.'");';  //document.forms['".$this->name."']
@@ -617,8 +689,8 @@ class form implements ifhtml
      /**
      * Method to set a required field
      *
-     * @param  $fieldname string : The name of the field
-     * @param  $errormsg string : the erroe message
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the erroe message
      */
     private function _valRequire($fieldname, $errormsg)
     {
@@ -630,8 +702,8 @@ class form implements ifhtml
     /**
      * Method to compare two fields
      *
-     * @param  $fieldname string : The name of the field
-     * @param  $errormsg string : the error message
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the error message
      */
     private function _valCompare($fields, $errormsg)
     {
@@ -643,8 +715,8 @@ class form implements ifhtml
 	/**
      * Method to check for numeric field
      *
-     * @param  $fieldname string : The name of the field
-     * @param  $errormsg string : the error message
+     * @param $fieldname string : The name of the field
+     * @param $errormsg  string : the error message
      */
 	private function _valNumeric($field, $errormsg)
 	{
@@ -686,29 +758,80 @@ class form implements ifhtml
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $fieldname Parameter description (if any) ...
+     * @param  unknown $errormsg  Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
 	private function _valEmail($fieldname,$errormsg)
 	{
 		$jmethod='emailCheck(el.value)';
 		$this->_addValidationScript($jmethod, null, $fieldname);
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $fieldname Parameter description (if any) ...
+     * @param  unknown $errormsg  Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
 	private function _valLettersOnly($fieldname,$errormsg)
 	{
 		$jmethod='valLettersOnly(el.value)';
 		$this->_addValidationScript($jmethod, $errormsg, $fieldname);
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  array   $mix      Parameter description (if any) ...
+     * @param  unknown $errormsg Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
 	private function _valMaxNumber($mix,$errormsg)
 	{
 		$jmethod='valMaxNumber(el.value,'.$mix['maxnumber'].')';
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  array   $mix      Parameter description (if any) ...
+     * @param  unknown $errormsg Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
 	private function _valMinNumber($mix,$errormsg)
 	{
 		$jmethod='valMinNumber(el.value,'.$mix['minnumber'].')';
 		$this->_addValidationScript($jmethod, $errormsg, $mix['name']);
 	}
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $fieldname Parameter description (if any) ...
+     * @param  unknown $errormsg  Parameter description (if any) ...
+     * @return void   
+     * @access private
+     */
 	private function _valSelect($fieldname,$errormsg)
 	{
 		$jmethod='valSelect(el)';

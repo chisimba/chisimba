@@ -3,14 +3,14 @@
 /**
 * textare class to use to make textarea inputs.
 * 
-* @package htmlTextarea
-* @category HTML Controls
+* @package   htmlTextarea
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version $Id: 
-* @author Wesley Nitsckie 
-* @example 
-* @todo -c HTML Editor that will extend this object
+* @license   GNU GPL
+* @version   $Id:
+* @author    Wesley Nitsckie
+* @example  
+* @todo      -c HTML Editor that will extend this object
 */
 //require_once("htmlbase_class_inc.php");
 class htmlarea extends object
@@ -112,7 +112,7 @@ class htmlarea extends object
     /**
     * function to set the amount of rows 
     * @var string $Rows: The number of rows of the textare
-    * 
+    *             
     */
     function setRows($rows)
     {
@@ -121,7 +121,7 @@ class htmlarea extends object
     /**
     * function to set the amount of cols 
     * @var string $cols: The number of cols of the textare
-    * 
+    *             
     */
     function setColumns($cols)
     {
@@ -216,8 +216,8 @@ class htmlarea extends object
     /**
      * Method to load JS to fix FCKEditor refusing to focus
      * @author Tohir Solomons
-     *
-     * Taken from: http://www.tohir.co.za/2006/06/fckeditor-doesnt-want-to-focus-in.html
+     *         
+     *         Taken from: http://www.tohir.co.za/2006/06/fckeditor-doesnt-want-to-focus-in.html
      */
     function showFCKEditorWakeupJS()
     {

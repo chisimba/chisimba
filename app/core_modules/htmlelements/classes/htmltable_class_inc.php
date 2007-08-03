@@ -1,10 +1,20 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -17,33 +27,33 @@ require_once("ifhtml_class_inc.php");
 *   stylesheet that makes up the skin. Avoid putting styles
 *   in the table or any other HTML object.
 *
-* @package htmlelements
-* @category HTML Controls
+* @package   htmlelements
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version $Id$;
-* @author Derek Keats
-* @example
-*        $myTable=$this->newObject('htmltable','htmlelements');
-*        $myTable->width='60%';
-*        $myTable->border='1';
-*        $myTable->cellspacing='1';
-*        $myTable->cellpadding='10';
-*
-*        $myTable->startHeaderRow();
-*        $myTable->addHeaderCell('header1');
-*        $myTable->addHeaderCell('header2');
-*        $myTable->endHeaderRow();
-*
-*        $myTable->startRow();
-*        $myTable->addCell('cell1');
-*        $myTable->addCell('cell2');
-*        $myTable->endRow();
-*
-*        echo $myTable->show();
-*
-* @todo Implement --> Shulam..you should add the method you ddeveloped to this class,
-*    but it needs to use some of the capabilities of this class.
+* @license   GNU GPL
+* @version   $Id$;
+* @author    Derek Keats
+* @example  
+*            $myTable=$this->newObject('htmltable','htmlelements');
+*            $myTable->width='60%';
+*            $myTable->border='1';
+*            $myTable->cellspacing='1';
+*            $myTable->cellpadding='10';
+*            
+*            $myTable->startHeaderRow();
+*            $myTable->addHeaderCell('header1');
+*            $myTable->addHeaderCell('header2');
+*            $myTable->endHeaderRow();
+*            
+*            $myTable->startRow();
+*            $myTable->addCell('cell1');
+*            $myTable->addCell('cell2');
+*            $myTable->endRow();
+*            
+*            echo $myTable->show();
+*            
+* @todo      Implement --> Shulam..you should add the method you ddeveloped to this class,
+*            but it needs to use some of the capabilities of this class.
 */
 class htmlTable extends object implements ifhtml
 {
@@ -55,18 +65,18 @@ class htmlTable extends object implements ifhtml
     /**
     *
     * @var stiong $caption: The table caption, uses styles
-    * defined for caption in the CSS
+    *             defined for caption in the CSS
     */
     public $caption;
     /**
     *
-    * @var sting $heading: The table heading
+    * @var  sting $heading: The table heading
     * @todo -c"htmlTable" Implement htmlTable heading and footing in building the output
     */
     public $heading;
     /**
     *
-    * @var sting $footing: The table footing if used
+    * @var  sting $footing: The table footing if used
     * @todo -c"htmlTable" Implement htmlTable heading and footing in building the output
     */
     public $footing;
@@ -77,9 +87,9 @@ class htmlTable extends object implements ifhtml
     public $width;
     /**
     *
-    * @var int $border: The width of the table border. Use NULL to override.
+    * @var  int $border: The width of the table border. Use NULL to override.
     * @todo -c"htmlTable" Implement htmlTable change border to override if NULL
-    * and use the values from the CSS class
+    *       and use the values from the CSS class
     */
     public $border=0;
     /**
@@ -94,12 +104,18 @@ class htmlTable extends object implements ifhtml
     public $cellspacing=0;
     /**
     *
-    * @var string $css_class: the class from the style sheet to use
-    * Note: Do not confuse with internal variables with the same name
+    * @var  string $css_class: the class from the style sheet to use
+    *              Note: Do not confuse with internal variables with the same name
     * @todo -c"htmlTable" Implement htmlTable Change internal css_class
-    * to another variable and remove this note.
+    *       to another variable and remove this note.
     */
     public $css_class;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $cssClass;
     /**
     *
@@ -114,34 +130,34 @@ class htmlTable extends object implements ifhtml
     /**
     *
     * @var sring $row_tag: the row tag for the table. Used in add row or add header
-    * to inplement TH for header cell and TD for normal cell
+    *            to inplement TH for header cell and TD for normal cell
     */
     public $row_tag;
     /**
     *
-    * @var string $primary_key: The primary key of a table being
-    * passed to arrayToTable so that the edit links can be inserted
-    * @see arrayToTable
+    * @var  string $primary_key: The primary key of a table being
+    *              passed to arrayToTable so that the edit links can be inserted
+    * @see  arrayToTable
     * @todo -c"htmlTable" Implement htmlTable Add add|edit|delete to arrayToTable
     */
     public $primary_key;
     /**
     *
     * @var string $cell_attributes: Allows the passing of cell attributes
-    * to the table Cells in a row
+    *             to the table Cells in a row
     */
     public $cell_attributes=Null;
     /**
     *
     * @var string $row_attributes: Allows the passing of row attributes
-    * to be used in the TR tag
+    *             to be used in the TR tag
     */
     public $row_attributes;
     /**
     *
     * @var boolean $alternate_row_colors: TRUE | FALSE whether to implement
-    * alternating row colors in the table. Note the US spelling of colour as
-    * color as is the case in HTML.
+    *              alternating row colors in the table. Note the US spelling of colour as
+    *              color as is the case in HTML.
     */
     public $alternate_row_colors;
     /**
@@ -152,7 +168,7 @@ class htmlTable extends object implements ifhtml
     /**
     *
     * @var string $content: The content of the table to be rendered
-    * on execution of the show method
+    *             on execution of the show method
     */
     public $content;
     /**
@@ -224,8 +240,8 @@ class htmlTable extends object implements ifhtml
     /**
     * Method to add a row to the table (uses corresponding internal method)
     *
-    * @param array $content : The array of cell entries for the table
-    * @param string $cssClass : optional CSS class from the skin (normally odd, even, heading)
+    * @param array  $content        : The array of cell entries for the table
+    * @param string $cssClass       : optional CSS class from the skin (normally odd, even, heading)
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
     */
     public function addRow($content, $tdClass = null, $row_attributes = null)
@@ -238,7 +254,7 @@ class htmlTable extends object implements ifhtml
     /**
     * Method to add a header row to a table
     *
-    * @param array $content : The array of cell entries for the table
+    * @param array  $content        : The array of cell entries for the table
     * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
     */
     public function addHeader($content, $tdClass=null, $row_attributes = null, $trClass = null)
@@ -450,14 +466,14 @@ class htmlTable extends object implements ifhtml
     * Internal method to add a row to the table
     *
     * @access private
-    * @param array $content : The array of cell entries for the table
-    * @param string $trClass : optional CSS class from the skin (normally odd, even, heading)
-    * @param string $tdClass : optional CSS class from the skin (normally odd, even, heading)
-    * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
-    * @return string $row: the formatted table body with the new row added
-    *
-    * ......PLEASE DO NOT MUCK ABOUT IN HERE...CONTACT DEREK FIRST
-    *
+    * @param  array   $content        : The array of cell entries for the table
+    * @param  string  $trClass        : optional CSS class from the skin (normally odd, even, heading)
+    * @param  string  $tdClass        : optional CSS class from the skin (normally odd, even, heading)
+    * @param  string  $row_attributes : any additional attributes that you want to pass to the TD tag
+    * @return string  $row: the formatted table body with the new row added
+    *                 
+    *                 ......PLEASE DO NOT MUCK ABOUT IN HERE...CONTACT DEREK FIRST
+    *                 
     */
     private function _addRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
     {
@@ -505,11 +521,11 @@ class htmlTable extends object implements ifhtml
     * Internal method to add a Header row to the table
     *
     * @access private
-    * @param array $content : The array of cell entries for the table
-    * @param string $trClass : optional CSS class from the skin (normally odd, even, heading)
-    * @param string $tdClass : optional CSS class from the skin (normally odd, even, heading)
-    * @param string $row_attributes : any additional attributes that you want to pass to the TD tag
-    * @return string $row: the formatted table body with the new row added
+    * @param  array   $content        : The array of cell entries for the table
+    * @param  string  $trClass        : optional CSS class from the skin (normally odd, even, heading)
+    * @param  string  $tdClass        : optional CSS class from the skin (normally odd, even, heading)
+    * @param  string  $row_attributes : any additional attributes that you want to pass to the TD tag
+    * @return string  $row: the formatted table body with the new row added
     */
     private function _addHeaderRow($content, $trClass = null, $tdClass=NULL, $row_attributes = null)
     {
@@ -548,8 +564,8 @@ class htmlTable extends object implements ifhtml
     * Method to validate content and die if there is no content
     *
     * @access private
-    * @param string $content : The content that you wish to validate
-    * @return true | false
+    * @param  string  $content : The content that you wish to validate
+    * @return true    | false
     */
     private function _validateContent($ct)
     {
@@ -564,8 +580,8 @@ class htmlTable extends object implements ifhtml
     * Method to return the keys of an indexed array
     *
     * @access private
-    * @param array $ar : the array to parse
-    * @return array return: a simple array of keys for use to build table header
+    * @param  array   $ar : the array to parse
+    * @return array   return: a simple array of keys for use to build table header
     */
     private function _getArrayKeys($ar)
     {

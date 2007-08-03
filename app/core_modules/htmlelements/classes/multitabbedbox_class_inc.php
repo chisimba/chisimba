@@ -1,12 +1,26 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -15,16 +29,16 @@ require_once("ifhtml_class_inc.php");
 * 
 * 
 * @abstract 
-* @package multitabbed Box
-* @category HTML Controls
+* @package   multitabbed Box
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Wesley ?Nitsckie
-* @example
-* $objElement =new multitabbedbox(100,500);
-* $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'default' => true));
-* $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
-* $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));		
+* @license   GNU GPL
+* @author    Wesley ?Nitsckie
+* @example  
+*            $objElement =new multitabbedbox(100,500);
+*            $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'default' => true));
+*            $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
+*            $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));		
 */
 class multitabbedbox extends abhtmlbase implements ifhtml
 {

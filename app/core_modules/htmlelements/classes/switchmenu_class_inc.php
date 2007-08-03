@@ -1,7 +1,32 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* ----------- data class extends dbTable for tbl_blog------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
@@ -26,7 +51,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * echo $switchmenu->show();
 *
 * @author Tohir Solomons
-*
+*         
 */
 class switchmenu extends object
 {
@@ -36,7 +61,7 @@ class switchmenu extends object
     private $switchMenuArray;
     /**
     * @var string $mainId Div ID that surrounds the switch menu
-    * This needs to be unique per switch menu instance on a single page
+    *             This needs to be unique per switch menu instance on a single page
     */
     public $mainId;
     /**
@@ -59,9 +84,9 @@ class switchmenu extends object
     /**
     * Method to add a block to the switch menu.
     * @access public
-    * @param string $title Title of the Block
-    * @param string $text Text of the Block
-    * @param string $cssClass CSS Class to override default style
+    * @param  string $title    Title of the Block
+    * @param  string $text     Text of the Block
+    * @param  string $cssClass CSS Class to override default style
     */
     public function addBlock($title, $text, $cssClass='')
     {

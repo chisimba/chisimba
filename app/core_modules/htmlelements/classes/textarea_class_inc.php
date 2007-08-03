@@ -1,27 +1,41 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
 * textare class to use to make textarea inputs.
 * 
-* @package htmlTextarea
-* @category HTML Controls
+* @package   htmlTextarea
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version $Id: 
-* @author Wesley Nitsckie 
-* @author Megan Watson
-* @author Tohir Solomons
-* @example 
-* @todo -c HTML Editor that will extend this object
+* @license   GNU GPL
+* @version   $Id:
+* @author    Wesley Nitsckie
+* @author    Megan Watson
+* @author    Tohir Solomons
+* @example  
+* @todo      -c HTML Editor that will extend this object
 */
  class textarea extends abhtmlbase implements ifhtml
  {
@@ -64,6 +78,16 @@ require_once("ifhtml_class_inc.php");
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $cssId Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function setId($cssId)
     {
         $this->cssId = $cssId;
@@ -72,7 +96,7 @@ require_once("ifhtml_class_inc.php");
 	/**
     * function to set the amount of rows 
     * @var string $Rows: The number of rows of the textare
-    * 
+    *             
     */
 	public function setRows($rows)
 	{
@@ -81,7 +105,7 @@ require_once("ifhtml_class_inc.php");
 	/**
     * function to set the amount of cols 
     * @var string $cols: The number of cols of the textare
-    * 
+    *             
     */
 	public function setColumns($cols)
 	{

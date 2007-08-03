@@ -1,9 +1,38 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -21,11 +50,17 @@ class layer extends object implements ifhtml
     */
     public $name;
     /**
-    * @var string $css_class: The name of the CSS class to apply
-    * to the layer
+    * @var        string $css_class: The name of the CSS class to apply
+    *                    to the layer
     * @deprecated use cssClass
     */
     public $css_class;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $cssClass;
     /**
     * @var int $width: The width of the layer
@@ -40,24 +75,24 @@ class layer extends object implements ifhtml
     */
     public $zIndex;
     /**
-    * @var string $position: The position of the layer (absolute|
+    * @var  string $position: The position of the layer (absolute|
     * @todo -clayer Implement layer: not yet properly implemented
     */
     public $position;
     /**
-    * @var string $floating: The position of the layer (left|right|top|bottom)
+    * @var  string $floating: The position of the layer (left|right|top|bottom)
     * @todo -clayer Implement layer: not yet properly implemented
     */
     public $floating;
     /**
-    * @var int $left: The position of the layer from the left margin
-    *  if position:absolute is used
+    * @var  int $left: The position of the layer from the left margin
+    *           if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
     public $left;
     /**
-    * @var int $top: The position of the layer from the top margin
-    *  if position:absolute is used
+    * @var  int $top: The position of the layer from the top margin
+    *           if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
 	public $top;
@@ -83,11 +118,11 @@ class layer extends object implements ifhtml
     public $padding;
     /**
     * @var string $overflow: what to do when text overflows the layer
-    *  (VISIBLE | HIDDEN | SCROLL | AUTO)
+    *             (VISIBLE | HIDDEN | SCROLL | AUTO)
     */
     public $overflow;
     /**
-    * @var string $use_style: An additional style tag to use
+    * @var  string $use_style: An additional style tag to use
     * @todo -clayer Implement layer THis is not yet implemented
     */
     public $use_style;
@@ -101,19 +136,19 @@ class layer extends object implements ifhtml
     public $align;
     /**
     * @var string $textalign: use to generate text aligned within the layer
-    * center|left|right
+    *             center|left|right
     */
     public $textalign;
 
     /**
     * @var string $display: use to determine if the layer takes up space
-    * block|none
+    *             block|none
     */
     public $display;
 
     /**
     * @var string $cursor: The type of cursor to display
-    * auto|crosshair|default|pointer|move|text|wait|help
+    *             auto|crosshair|default|pointer|move|text|wait|help
     */
     public $cursor;
 
@@ -168,8 +203,8 @@ class layer extends object implements ifhtml
      * string
      *
      * @deprecated Rather use the show method to display the layer
-     * This functionality will be moved to show shortly
-     *
+     *             This functionality will be moved to show shortly
+     *             
      */
     public function addToLayer()
     {

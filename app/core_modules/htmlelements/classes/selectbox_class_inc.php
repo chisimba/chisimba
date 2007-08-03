@@ -1,19 +1,29 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package htmlelements
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    htmlelements
 * @subpackage view
-* @version 0.1
-* @since 28 February 2005
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      28 February 2005
+* @author     Jonathan Abrahams
 * @filesource
 */
 /**
@@ -107,12 +117,12 @@ class selectbox extends object implements ifhtml
     *
     * The form and dropdown objects are initialised.
     *
-    * @param form The form object to connect to.
-    * @param dropdown The Left selectbox dropdown name.
-    * @param string The Left selectbox header.
-    * @param dropdown The Right selectbox to connect to.
-    * @param string The Right selectbox dropdown name.
-    * @return nothing Connect this object to the required objects.
+    * @param  form     The form object to connect to.
+    * @param  dropdown The Left selectbox dropdown name.
+    * @param  string   The Left selectbox header.
+    * @param  dropdown The Right selectbox to connect to.
+    * @param  string   The Right selectbox dropdown name.
+    * @return nothing  Connect this object to the required objects.
     */
     public function create( &$objForm, $ddbLeftName, $tblLeftHeader, $ddbRightName, $tblRightHeader )
     {
@@ -173,9 +183,9 @@ class selectbox extends object implements ifhtml
     /**
     * Method to insert the options into the left select box.
     *
-    * @param array The list of options in an associated array.
-    * @param string The value field name in the associated array.
-    * @param string The label field name in the associated array.
+    * @param  array   The list of options in an associated array.
+    * @param  string  The value field name in the associated array.
+    * @param  string  The label field name in the associated array.
     * @return nothing AddOptions into the Left selectbox.
     */
     public function insertLeftOptions( $arrList=array(), $valueField='', $labelField='' )
@@ -188,9 +198,9 @@ class selectbox extends object implements ifhtml
     /**
     * Method to insert the options into the right select box.
     *
-    * @param array The list of options in an associated array.
-    * @param string The value field name in the associated array.
-    * @param string The label field name in the associated array.
+    * @param  array   The list of options in an associated array.
+    * @param  string  The value field name in the associated array.
+    * @param  string  The label field name in the associated array.
     * @return nothing AddOptions into the Right selectbox.
     */
     public function insertRightOptions( $arrList=array(), $valueField='', $labelField='' )
@@ -203,9 +213,9 @@ class selectbox extends object implements ifhtml
     /**
     * Method to wrap the javascript function to move selected options.
     *
-    * @param dropdown The from dropdown object.
-    * @param dropdown The to dropdown object.
-    * @return string Parsed javascript moveSelectedOptions function.
+    * @param  dropdown The from dropdown object.
+    * @param  dropdown The to dropdown object.
+    * @return string   Parsed javascript moveSelectedOptions function.
     */
     public function moveSelectedOptions( &$from, &$to )
     {
@@ -216,9 +226,9 @@ class selectbox extends object implements ifhtml
     /**
     * Method to wrap the javascript function to move all options.
     *
-    * @param dropdown The from dropdown object.
-    * @param dropdown The to dropdown object.
-    * @return string Parsed javascript moveAllOptions function.
+    * @param  dropdown The from dropdown object.
+    * @param  dropdown The to dropdown object.
+    * @return string   Parsed javascript moveAllOptions function.
     */
     public function moveAllOptions( &$from, &$to )
     {
@@ -229,8 +239,8 @@ class selectbox extends object implements ifhtml
     /**
     * Method to wrap the javascript function to select all options.
     *
-    * @param dropdown The dropdown object to select from.
-    * @return string Parsed javascript selectAllOptions function.
+    * @param  dropdown The dropdown object to select from.
+    * @return string   Parsed javascript selectAllOptions function.
     */
     public function selectAllOptions( &$object )
     {
@@ -242,7 +252,7 @@ class selectbox extends object implements ifhtml
     /**
     * Method to set the forms hidden button value field.
     *
-    * @param string The value field new value.
+    * @param  string The value field new value.
     * @return string Parsed javascript to set the forms button value.
     */
     public function setFormButton( $value )
@@ -264,8 +274,8 @@ class selectbox extends object implements ifhtml
     /**
     * Method to parse a htmlelement extra field with onDblClick.
     *
-    * @param object The htmlelement object with extra param to set on double click
-    * @param string The javascript to run on double click.
+    * @param  object  The htmlelement object with extra param to set on double click
+    * @param  string  The javascript to run on double click.
     * @return nothing Parse the extra params for the htmlelement with onDblClick.
     */
     public function onDblClickParam( &$object, $onDblClick )
@@ -277,10 +287,10 @@ class selectbox extends object implements ifhtml
     * Method to insert a selectbox into a table.
     * The individual selectbox table layout.
     *
-    * @param htmltable The table to insert the selectbox into.
-    * @param dropdown The selectbox to be inserted.
-    * @param string The header of the table.
-    * @return nothing Insert selectbox into a table.
+    * @param  htmltable The table to insert the selectbox into.
+    * @param  dropdown  The selectbox to be inserted.
+    * @param  string    The header of the table.
+    * @return nothing   Insert selectbox into a table.
     */
     public function selectBoxTable( &$table, &$selectBox, $header=NULL )
     {
@@ -299,11 +309,11 @@ class selectbox extends object implements ifhtml
     /**
     * Method to layout the selectboxes into a table.
     *
-    * @param htmltable The table to layout the selectboxes.
-    * @param htmltable The left selectbox to be inserted.
-    * @param array The header of the table.
-    * @param htmltable The right selectbox to be inserted.
-    * @return nothing Layout selectboxes into a table.
+    * @param  htmltable The table to layout the selectboxes.
+    * @param  htmltable The left selectbox to be inserted.
+    * @param  array     The header of the table.
+    * @param  htmltable The right selectbox to be inserted.
+    * @return nothing   Layout selectboxes into a table.
     */
     public function layoutTable( &$table, &$tblLeft, $arrButtons, &$tblRight )
     {
@@ -319,9 +329,9 @@ class selectbox extends object implements ifhtml
     /**
     * Method to set the onClick param of the button objects.
     *
-    * @param string The button name as an index into the array of button objects.
-    * @param string The parsed javascript for the onClick action.
-    * @param string The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
+    * @param  string  The button name as an index into the array of button objects.
+    * @param  string  The parsed javascript for the onClick action.
+    * @param  string  The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
     * @return nothing Set the extra parameter for the given button.
     */
     public function setBtnOnClick( $button, $onClick, $arrBtnObject='arrBtnObject' )
@@ -332,10 +342,10 @@ class selectbox extends object implements ifhtml
     /**
     * Method to set the label param of the button objects.
     *
-    * @param string The button name as an index into the array of button objects.
-    * @param object A new instance of the button/link htmlelement object.
-    * @param array  The array of htmlement object parameters.
-    * @param string The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
+    * @param  string  The button name as an index into the array of button objects.
+    * @param  object  A   new instance of the button/link htmlelement object.
+    * @param  array   The array of htmlement object parameters.
+    * @param  string  The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
     * @return nothing Set the label parameter for the buttons.
     */
     function setBtnObject( $button, &$objButton,  $params = array(), $arrBtnObject='arrBtnObject' )
@@ -349,10 +359,10 @@ class selectbox extends object implements ifhtml
     /**
     * Method to set the label param of the button objects.
     *
-    * @param string The button name as an index into the array of button objects.
-    * @param string The label used for the htmlelement object.
-    * @param string The label fieldname for the htmlelement object.
-    * @param string The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
+    * @param  string  The button name as an index into the array of button objects.
+    * @param  string  The label used for the htmlelement object.
+    * @param  string  The label fieldname for the htmlelement object.
+    * @param  string  The name of the array of object buttons ( either arrBtnObject or arrBtnCntrlObject )
     * @return nothing Set the label parameter for the buttons.
     */
     public function setBtnLabel( $button, $label, $field, $arrBtnObject='arrBtnObject' )

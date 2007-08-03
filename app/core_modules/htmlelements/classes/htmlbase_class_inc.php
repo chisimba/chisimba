@@ -6,39 +6,39 @@
  * common functionality and variables needed for 
  * a html object
  *
- * @version $Id$
- * @package htmlbase
- * @category HTML Controls
+ * @version   $Id$
+ * @package   htmlbase
+ * @category  HTML Controls
  * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @author Wesley Nitsckie
- **/
+ * @license   GNU GPL
+ * @author    Wesley Nitsckie
+ *            */
 class htmlbase extends object
 {
 
     /**
     * @var string $cssId: A unique id for the element, often corresponding to a 
-    * #id tag in a stylesheet. In KEWL.NextGen it is the CSS ID used from 
-    * the skin stylesheet
-    * 
-    * Not valid in base, head, html, meta, param, script, style, and title elements.
-    * 
+    *             #id tag in a stylesheet. In KEWL.NextGen it is the CSS ID used from 
+    *             the skin stylesheet
+    *             
+    *             Not valid in base, head, html, meta, param, script, style, and title elements.
+    *             
     */
     var $cssId;
     /**
     * 
     * @var string $cssClass: The class of the element, in KEWL.NextGen it is the CSS 
-    * Class from the skin stylesheet
-    * 
-    * Not valid in base, head, html, meta, param, script, style, and title elements.
-    * 
+    *             Class from the skin stylesheet
+    *             
+    *             Not valid in base, head, html, meta, param, script, style, and title elements.
+    *             
     */
     var $cssClass;
     /**
     * 
     * @var string $title: The title of the anchor. 
-    * Note: Not allowed if DTD is strict, only in transitional and frameset DTDs 
-    * Optional
+    *             Note: Not allowed if DTD is strict, only in transitional and frameset DTDs 
+    *             Optional
     */
     var $title;
     /**
@@ -69,7 +69,7 @@ class htmlbase extends object
     /**
     * 
     * @var string $extra: anything extra that you want to add, such
-    * as an additional style
+    *             as an additional style
     */
     var $extra;  
 	

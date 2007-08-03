@@ -1,10 +1,20 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -13,12 +23,12 @@ require_once("ifhtml_class_inc.php");
 * Used to create frameset that helps
 * grouped items
 *
-* @package frameset
-* @category HTML Controls
+* @package   frameset
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Wesley Nitsckie updated by Derek Keats 2004 03 16
-* @example :
+* @license   GNU GPL
+* @author    Wesley Nitsckie updated by Derek Keats 2004 03 16
+* @example   :
 */
 class fieldset extends object implements ifhtml
 {
@@ -45,7 +55,7 @@ class fieldset extends object implements ifhtml
 	public $extra;
 
         /**
-        *@var $align how the table is aligned - added 2005 03 31 by James Scoble
+        * @var $align how the table is aligned - added 2005 03 31 by James Scoble
         */
         var $align;
 
@@ -67,8 +77,8 @@ class fieldset extends object implements ifhtml
 
 	/**
 	*The show Method
-    *@return null
-    *@access public
+    * @return null  
+    * @access public
 	*/
 	public function show()
 	{
@@ -110,8 +120,8 @@ class fieldset extends object implements ifhtml
 	/**
 	*Method to add contents
 	*@param $content string  The contents to be added to the fieldset
-    *@return null
-    *@access public
+    * @return null  
+    * @access public
 	*/
 	public function addContent($content=null){
 		$this->contents.=$content;
@@ -119,8 +129,8 @@ class fieldset extends object implements ifhtml
 
 	/**
 	*Method to reset the fields
-    *@return null
-    *@access public
+    * @return null  
+    * @access public
 	*/
 	public function reset(){
 		$this->contents=null;
@@ -130,8 +140,8 @@ class fieldset extends object implements ifhtml
 	/**
 	*Method to add the legend
 	*@param $legend string  The legend to be added to the fieldset
-    *@return null
-    *@access public
+    * @return null  
+    * @access public
 	*/
 	function setLegend($legend){
 		$this->legend=$legend;
@@ -140,8 +150,8 @@ class fieldset extends object implements ifhtml
     /**
 	*Method to add extra parameters
 	*@param $parameters string  String of parameters that can be added
-    *@return null
-    *@access public
+    * @return null  
+    * @access public
 	*/
 	public function setExtra($parameters){
 		$this->extra=$parameters;

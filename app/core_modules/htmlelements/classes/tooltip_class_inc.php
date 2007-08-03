@@ -15,7 +15,7 @@
 * $tooltipHelp->setCursor('help');
 * echo $tooltipHelp->show();
 *
-* @author Jeremy O'Connor
+* @author  Jeremy O'Connor
 * @package htmlelements
 */
 class tooltip extends object
@@ -42,6 +42,10 @@ class tooltip extends object
     {
 		// Include the JS tooltip lib if not already included
 		if (!defined('CHISIMBA_TOOLTIP_JS_INCLUDED')) {
+
+    /**
+     * Description for define
+     */
 		  	define('CHISIMBA_TOOLTIP_JS_INCLUDED', TRUE);
 			$this->appendArrayVar('headerParams',$this->getJavascriptFile('tooltip.js','htmlelements'));
 			// Incremented each time the show function is called...

@@ -1,10 +1,39 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -32,11 +61,11 @@ require_once("ifhtml_class_inc.php");
 *
 *
 * @author Tohir Solomons
-*
-* Example:
-*       $objSubModalWindow = $this->getObject('submodalwindow');
-*       echo $objSubModalWindow->show('Click this Button', $this->uri(array('action'=>'submodalexample_content')), 'button');
-*       echo $objSubModalWindow->show('Click this Link', $this->uri(array('action'=>'submodalexample_content')), 'link');
+*         
+*         Example:
+*         $objSubModalWindow = $this->getObject('submodalwindow');
+*         echo $objSubModalWindow->show('Click this Button', $this->uri(array('action'=>'submodalexample_content')), 'button');
+*         echo $objSubModalWindow->show('Click this Link', $this->uri(array('action'=>'submodalexample_content')), 'link');
 */
 class submodalwindow extends object implements ifhtml
 {
@@ -113,11 +142,11 @@ class submodalwindow extends object implements ifhtml
     
     /**
     * Method to Display the Sub Modal Window Opener - either button or link
-    * @param string $text Text of Link or Button
-    * @param string $url URL of Sub Modal Window
-    * @param string $type Type of Opener - Either button or link
-    * @param int $width Width of Sub Modal Window
-    * @param int $height Height of Sub Modal Window
+    * @param string $text   Text of Link or Button
+    * @param string $url    URL of Sub Modal Window
+    * @param string $type   Type of Opener - Either button or link
+    * @param int    $width  Width of Sub Modal Window
+    * @param int    $height Height of Sub Modal Window
     */
     public function show($text=NULL, $url=NULL, $type='button', $width=NULL, $height=NULL)
     {

@@ -1,15 +1,21 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package htmlelements
+* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* @package    htmlelements
 * @subpackage view
-* @version 0.1
-* @since 28 February 2005
-* @author Jonathan Abrahams
+* @version    0.1
+* @since      28 February 2005
+* @author     Jonathan Abrahams
 * @filesource
 */
 
@@ -67,7 +73,7 @@ class sortTable extends object
 
     /**
     * @var string $row_attributes: Allows the passing of row attributes
-    * to be used in the TR tag
+    *             to be used in the TR tag
     */
     public $row_attributes;
     /**
@@ -122,12 +128,12 @@ class sortTable extends object
     /**
     * Method to add a cell
     *
-    * @param string Cell string
-    * @param string Width cell attribute
-    * @param string Vertical align cell attribute
-    * @param string Align cell attribute
-    * @param string CSS class cell attribute
-    * @param string Extra cell attributes
+    * @param  string  Cell     string
+    * @param  string  Width    cell attribute
+    * @param  string  Vertical align cell attribute
+    * @param  string  Align    cell attribute
+    * @param  string  CSS      class cell attribute
+    * @param  string  Extra    cell attributes
     * @return nothing
     */
     public function addCell($str, $width=NULL, $valign="top", $align=NULL, $class=NULL, $attrib=NULL)
@@ -141,12 +147,12 @@ class sortTable extends object
     /**
     * Method to add a header cell
     *
-    * @param string Header cell string
-    * @param string Width header cell attribute
-    * @param string Vertical align header cell attribute
-    * @param string Align header cell attribute
-    * @param string CSS class header cell attribute
-    * @param string Extra header cell attributes
+    * @param  string  Header   cell string
+    * @param  string  Width    header cell attribute
+    * @param  string  Vertical align header cell attribute
+    * @param  string  Align    header cell attribute
+    * @param  string  CSS      class header cell attribute
+    * @param  string  Extra    header cell attributes
     * @return nothing
     */
     public function addHeaderCell($str, $width=NULL, $valign="top", $align='left', $class=NULL, $attrib=NULL)
@@ -230,7 +236,7 @@ class sortTable extends object
     /**
     * Private method used to get the element attributes.
     *
-    * @param array The attributes in an associative array
+    * @param  array  The attributes in an associative array
     * @return string The element attributes as a string.
     */
     private function _getAttributes($array)
@@ -247,7 +253,7 @@ class sortTable extends object
     /**
     * Private method used to get the table attributes.
     *
-    * @param array The attributes in an associative array
+    * @param  array  The attributes in an associative array
     * @return string The table attributes as a string.
     */
     private function _getTableAttributes()

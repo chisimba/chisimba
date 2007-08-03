@@ -1,34 +1,67 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
 * HTML control class to create anchor (<A href=>) tags
 *
 * @author Derek Keats
-*
+*         
 */
 class link extends abhtmlbase implements ifhtml
 {
     /**
     *
     * @var string $linkType The type of link, e.g. http, mailto, etc.
-    * If not provided the default http is used.
+    *             If not provided the default http is used.
     */
     public $linkType;
 
     /**
     *
     * @var string $href The url to load, without the http://
-    * use lower case "none" if you want to produce <a href="#"
-    * Optional
+    *             use lower case "none" if you want to produce <a href="#"
+    *             Optional
     */
     public $href;
 
@@ -41,7 +74,7 @@ class link extends abhtmlbase implements ifhtml
     /**
     *
     * @var string $link The text to display in the link.
-    * If it is left out the URL is displayed.
+    *             If it is left out the URL is displayed.
     */
     public $link;
 
@@ -54,31 +87,31 @@ class link extends abhtmlbase implements ifhtml
     /**
     *
     * @var string $hreflang Specifies the base language of the target URL
-    * Optional, rarely used
+    *             Optional, rarely used
     */
     public $hreflang;
     /**
     *
     * @var string $rel Specifies the relationship between the current
-    * document and the target URL
-    * Optional, rarely used
-    * Values:
-    *    alternate
-    *    designates
-    *    stylesheet
-    *    start
-    *    next
-    *    prev
-    *    contents
-    *    index
-    *    glossary
-    *    copyright
-    *    chapter
-    *    section
-    *    subsection
-    *    appendix
-    *    help
-    *    bookmark
+    *             document and the target URL
+    *             Optional, rarely used
+    *             Values:
+    *             alternate
+    *             designates
+    *             stylesheet
+    *             start
+    *             next
+    *             prev
+    *             contents
+    *             index
+    *             glossary
+    *             copyright
+    *             chapter
+    *             section
+    *             subsection
+    *             appendix
+    *             help
+    *             bookmark
     */
 
     public $rel;
@@ -86,8 +119,8 @@ class link extends abhtmlbase implements ifhtml
     /**
     *
     * @var string $rev Specifies the relationship between the target
-    * URL and the current document.
-    * Values:
+    *             URL and the current document.
+    *             Values:
     * @see $rel
     */
     public $rev;
@@ -95,7 +128,7 @@ class link extends abhtmlbase implements ifhtml
     /**
     *
     * @var string $type Specifies the MIME (Multipurpose Internet Mail Extensions)
-    * type of the target URL
+    *             type of the target URL
     */
     public $type;
 

@@ -1,24 +1,38 @@
 <?php
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
  * HTML control class to create layers (<DIV>) tags
- * @package iframe
- * @category HTML Controls
+ * @package   iframe
+ * @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version 1
-* @author Wesley Nitsckie
-* @example
+* @license   GNU GPL
+* @version   1
+* @author    Wesley Nitsckie
+* @example  
 */
 class frameset extends abhtmlbase implements ifhtml
 {

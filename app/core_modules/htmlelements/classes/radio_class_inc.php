@@ -1,15 +1,37 @@
 <?php
 /* -------------------- security class extends module ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
 	die("You cannot view this page directly");
 }
 // // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
+
+/**
+ * Description for require_once
+ */
 require_once("label_class_inc.php");
+
+/**
+ * Description for require_once
+ */
 require_once('htmltable_class_inc.php');
 
 /**
@@ -17,28 +39,51 @@ require_once('htmltable_class_inc.php');
 * 
 * 
 * @abstract 
-* @package multitabbed Box
-* @category HTML Controls
+* @package   multitabbed Box
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Wesley Nitsckie
-* @author Tohir Solomons
-* @example 
-* //Radio button Group
-*	$objElement = new radio('sex_radio');
-*	$objElement->addOption('m','Male');
-*	$objElement->addOption('f','Female');
-*	$objElement->addOption('n','Seaweed');
-*	$objElement->setSelected('f');
-*	echo $objElement->show().'<br>';
-*
+* @license   GNU GPL
+* @author    Wesley Nitsckie
+* @author    Tohir Solomons
+* @example  
+*            //Radio button Group
+*            	$objElement = new radio('sex_radio');
+*            	$objElement->addOption('m','Male');
+*            	$objElement->addOption('f','Female');
+*            	$objElement->addOption('n','Seaweed');
+*            	$objElement->setSelected('f');
+*            	echo $objElement->show().'<br>';
+*            
 */
 class radio extends abhtmlbase implements ifhtml
 {
   
+    /**
+     * Description for public
+     * @var    array 
+     * @access public
+     */
     public $options = array();
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
     public $selected;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $breakSpace = '';
+
+    /**
+     * Description for public
+     * @var    number
+     * @access public
+     */
     public $tableColumns = 3;
     
     /**
@@ -84,6 +129,17 @@ class radio extends abhtmlbase implements ifhtml
     * @param string $value : The value for a give option
     
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $value Parameter description (if any) ...
+     * @param  unknown $label Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function addOption($value,$label)
     {
         $this->options[$value] = $label;
@@ -93,6 +149,16 @@ class radio extends abhtmlbase implements ifhtml
     * option to be selected
     * @param string $value : Sets the option to 'checked'
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $value Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
     public function setSelected($value)
     {
         if(isset($this->options[$value]))
@@ -104,6 +170,15 @@ class radio extends abhtmlbase implements ifhtml
     /*
     * Method to show the option group
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return unknown Return description (if any) ...
+     * @access public 
+     */
     public function show()
     {
         if (strtolower($this->breakSpace) == 'table') {
@@ -116,6 +191,15 @@ class radio extends abhtmlbase implements ifhtml
     /*
     * Method to show the option group with the given breakspace (not table)
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return string Return description (if any) ...
+     * @access public
+     */
     public function showNormal()
     {
         $str='';

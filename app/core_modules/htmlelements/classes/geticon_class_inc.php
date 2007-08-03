@@ -1,9 +1,19 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -13,15 +23,15 @@ require_once("ifhtml_class_inc.php");
 * Files are in the /kngicon/ folder as specified in the configuration
 * Icons are named file.type (e.g. home.gif)
 *
-* @package getIcon
-* @category HTML Controls
+* @package   getIcon
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version $Id$;
-* @author Derek Keats
-* @author Megan Watson
-* @author Wesley Nitsckie
-* @example :
+* @license   GNU GPL
+* @version   $Id$;
+* @author    Derek Keats
+* @author    Megan Watson
+* @author    Wesley Nitsckie
+* @example   :
 */
 class getIcon extends object implements ifhtml
 {
@@ -36,7 +46,7 @@ class getIcon extends object implements ifhtml
     public $name;
     /**
     * @var string $iconfolder: The icon folder for the icons (used so that
-    *   it can be set to other than the default
+    *             it can be set to other than the default
     */
     public $iconfolder;
     /**
@@ -83,14 +93,14 @@ class getIcon extends object implements ifhtml
 
     /**
     * Method to set the icon parameters
-    * @param string $name The name of the icon file before the 'extension',
-    *   but not including the extension. For
-    *   example, for the icon "help.gif", $name would be set to "help".
-    * @param string $type The file type / extension (usually gif or png). For
-    *   example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param string $name       The name of the icon file before the 'extension',
+    *                           but not including the extension. For
+    *                           example, for the icon "help.gif", $name would be set to "help".
+    * @param string $type       The file type / extension (usually gif or png). For
+    *                           example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the
-    *  one specified in the config file for KNG
-    *
+    *                           one specified in the config file for KNG
+    *                           
     */
     public function setIcon($name, $type = 'gif', $iconfolder='icons/')
     {
@@ -111,7 +121,7 @@ class getIcon extends object implements ifhtml
     * Method to set the icon folder, depending on whether the file exists in a skin
     * It sets the folder for the icon
     *
-    * @param string $folder Folder to check for file
+    * @param  string  $folder Folder to check for file
     * @access private
     */
     private function _checkIconInSkin ($folder)
@@ -142,8 +152,8 @@ class getIcon extends object implements ifhtml
     /**
     * Method to set the module icon parameters
     * @param string $name The name of the icon file before the 'extension',
-    *   but not including the extension. For
-    *   example, for the icon "help.gif", $name would be set to "help".
+    *                     but not including the extension. For
+    *                     example, for the icon "help.gif", $name would be set to "help".
     */
     public function setModuleIcon($name)
     {
@@ -197,10 +207,10 @@ class getIcon extends object implements ifhtml
    *
    * Method to return a delete icon linked to confirm
    *
-   * @param string $id The id of the item to be deleted
-   * @param string $deleteArray The array of parameters for the querystring
+   * @param string $id            The id of the item to be deleted
+   * @param string $deleteArray   The array of parameters for the querystring
    * @param string $callingModule THe module which is calling it.
-   *
+   *                              
    */
     public function getDeleteIconWithConfirm($id, $deleteArray=NULL, $callingModule=NULL, $deletephrase='phrase_confirmdelete')
     {
@@ -290,15 +300,15 @@ class getIcon extends object implements ifhtml
     *
     * Method to return an icon with a link
     *
-    * @param string $url The uri generated path for the task to be performed
-    * @param string $name The name of the icon file before the 'extension',
-    *   but not including the extension. For
-    *   example, for the icon "help.gif", $name would be set to "help".
-    * @param string $type The file type / extension (usually gif or png). For
+    * @param string $url        The uri generated path for the task to be performed
+    * @param string $name       The name of the icon file before the 'extension',
+    *                           but not including the extension. For
+    *                           example, for the icon "help.gif", $name would be set to "help".
+    * @param string $type       The file type / extension (usually gif or png). For
         example, for the icon "help.gif", $type would be set to "gif" or left out.
     * @param string $iconfolder The iconfolder to use, defaults to the
-    *  one specified in the config file for KNG
-    *
+    *                           one specified in the config file for KNG
+    *                           
     */
     public function getLinkedIcon($url, $name, $type = 'gif', $iconfolder='icons/')
     {
@@ -313,11 +323,11 @@ class getIcon extends object implements ifhtml
     * Method to return an icon / text combination link - an icon with text below encapsulated in a div
     *
     * @author Megan Watson
-    * @param string $url The uri generated path for the task to be performed
-    * @param string $name The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
-    * @param string $linkText The text to display below the icon.
-    * @param string $type The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
-    * @param string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
+    * @param  string $url        The uri generated path for the task to be performed
+    * @param  string $name       The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
+    * @param  string $linkText   The text to display below the icon.
+    * @param  string $type       The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param  string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
     */
     public function getTextIcon($url, $name, $linkText, $type = 'gif', $iconfolder='icons/', $extra = NULL)
     {
@@ -347,11 +357,11 @@ class getIcon extends object implements ifhtml
     * The icons must be encapsulated in a div with id='cpanel'
     *
     * @author Megan Watson
-    * @param string $url The uri generated path for the task to be performed
-    * @param string $name The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
-    * @param string $linkText The text to display below the icon.
-    * @param string $type The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
-    * @param string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
+    * @param  string $url        The uri generated path for the task to be performed
+    * @param  string $name       The name of the icon file before the 'extension', but not including the extension. For example, for the icon "help.gif", $name would be set to "help".
+    * @param  string $linkText   The text to display below the icon.
+    * @param  string $type       The file type / extension (usually gif or png). For example, for the icon "help.gif", $type would be set to "gif" or left out.
+    * @param  string $iconfolder The iconfolder to use, defaults to the one specified in the config file for KNG
     */
     public function getBlockIcon($url, $name, $linkText, $type = 'gif', $iconfolder='icons/', $extra = NULL)
     {

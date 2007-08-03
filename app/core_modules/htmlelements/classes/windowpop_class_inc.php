@@ -1,32 +1,42 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
 * windowPop class to use to make popup windows.
 *
-* @package windowPop
-* @category HTML Controls
+* @package   windowPop
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version $Id$;
-* @author Derek Keats
-* @example:
-*   //Popup window
-*   $this->objPop=&new windowpop;
-*   $this->objPop->set('location','/modules/htmltabledemo/popup.htm');
-*   $this->objPop->set('linktext','Click me baby');
-*   $this->objPop->set('width','200');
-*   $this->objPop->set('height','200');
-*   $this->objPop->set('left','300');
-*   $this->objPop->set('top','400');
-*   //leave the rest at default values
-*   $this->objPop->putJs(); // you only need to do this once per page
-*   echo $this->objPop->show();
+* @license   GNU GPL
+* @version   $Id$;
+* @author    Derek Keats
+* @example: 
+*            //Popup window
+*            $this->objPop=&new windowpop;
+*            $this->objPop->set('location','/modules/htmltabledemo/popup.htm');
+*            $this->objPop->set('linktext','Click me baby');
+*            $this->objPop->set('width','200');
+*            $this->objPop->set('height','200');
+*            $this->objPop->set('left','300');
+*            $this->objPop->set('top','400');
+*            //leave the rest at default values
+*            $this->objPop->putJs(); // you only need to do this once per page
+*            echo $this->objPop->show();
 */
 class windowPop implements ifhtml
 {
@@ -107,7 +117,7 @@ class windowPop implements ifhtml
     public $js;
     /**
     * @var bool $js_iswritten: True if the javascript has already been written
-    * to the page, else false TRUE | FALSE
+    *           to the page, else false TRUE | FALSE
     */
     public $js_iswritten;
     /**
@@ -146,7 +156,7 @@ class windowPop implements ifhtml
     * function to set the value of one of the properties of this class
     *
     * @var string $property: The name of the property to set
-    * @var mixed $value: The value to set the property to be
+    * @var mixed  $value: The value to set the property to be
     */
     public function set($property, $value)
     {

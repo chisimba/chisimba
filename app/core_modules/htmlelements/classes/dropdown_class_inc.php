@@ -4,30 +4,48 @@
 * Dropdown class for outputting dropdown menu.
 *
 *
-* @package dropdown
-* @category HTML Controls
+* @package   dropdown
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Wesley Nitsckie and Sholum
-* @author Tohir Solomons
-* @example $dd=&new dropdown('mydropdown');
-* $dd->addOption()    will add a blank option
-* $dd->addOption('1','Male')
-* $dd->addOption('2','Female')
-* $dd->show();
-*
-* OR use from a result array
-*   $objElement = new dropdown('user_dropdown');
-*	$objElement->addFromDB($this->objDBUser->getAll(),'username','userId',$this->objDBUser->userName());
-*	$objElement->label='User list';
-*	$objElement->show();
+* @license   GNU GPL
+* @author    Wesley Nitsckie and Sholum
+* @author    Tohir Solomons
+* @example   $dd=&new dropdown('mydropdown');
+*            $dd->addOption()    will add a blank option
+*            $dd->addOption('1','Male')
+*            $dd->addOption('2','Female')
+*            $dd->show();
+*            
+*            OR use from a result array
+*            $objElement = new dropdown('user_dropdown');
+*            	$objElement->addFromDB($this->objDBUser->getAll(),'username','userId',$this->objDBUser->userName());
+*            	$objElement->label='User list';
+*            	$objElement->show();
 */
 
 // Include the HTML base class
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class dropdown extends abhtmlbase implements ifhtml
 {
 
@@ -90,6 +108,18 @@ class dropdown extends abhtmlbase implements ifhtml
   * @param string $value : The value for a give option
 
   */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $value Parameter description (if any) ...
+     * @param  unknown $label Parameter description (if any) ...
+     * @param  string  $extra Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
   public function addOption($value=null,$label=null,$extra='')
   {
     if ($label==null) {
@@ -125,6 +155,16 @@ class dropdown extends abhtmlbase implements ifhtml
 	* Method to set the cssId class
 	* @param string $cssId
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $cssId Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
 	public function setId($cssId)
 	{
 		$this->cssId = $cssId;
@@ -200,9 +240,9 @@ class dropdown extends abhtmlbase implements ifhtml
   /**
   * Method used to populate
   * the dropdown with a array
-  * @param $resultset array : the result set
-  * @param $labelField string : the value that will be displayed in the dropdown
-  * @param $valueField string : the value the will go in the 'value' of the dropdown
+  * @param $resultset     array  : the result set
+  * @param $labelField    string : the value that will be displayed in the dropdown
+  * @param $valueField    string : the value the will go in the 'value' of the dropdown
   * @param @selectedValue string : the value that you want to have selected
   */
   public function addFromDB($array, $labelField=null, $valueField=null, $selectedValue=null)

@@ -6,28 +6,28 @@
 * 
 * 
 * @abstract 
-* @package tabs
-* @category HTML Controls
+* @package   tabs
+* @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @author Prince Mbekwa
-* @example
-* $objElement =new tabpane(100,500);
+* @license   GNU GPL
+* @author    Prince Mbekwa
+* @example  
+*            $objElement =new tabpane(100,500);
 
-* $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
-* $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form));
-* $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));
-* YOU CAN specify the type of css to go with your tabs.
-* 
-* There are three types of look and feel you can choose from
-* 1.luna-tab-style-sheet
-* 2.winclassic-tab-style-sheet
-* 3.webfx-tab-style-sheet : This one is default
-* 
-* @example 
-* $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar),'luna-tab-style-sheet');
-* $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'nested' => true),'luna-tab-style-sheet');
-*         
+*            $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
+*            $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form));
+*            $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));
+*            YOU CAN specify the type of css to go with your tabs.
+*            
+*            There are three types of look and feel you can choose from
+*            1.luna-tab-style-sheet
+*            2.winclassic-tab-style-sheet
+*            3.webfx-tab-style-sheet : This one is default
+*            
+* @example  
+*            $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar),'luna-tab-style-sheet');
+*            $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'nested' => true),'luna-tab-style-sheet');
+*            
 */
 class tabpane extends object 
 {
@@ -63,6 +63,11 @@ class tabpane extends object
     var $tabpane =0;
     
     
+    /**
+     * Description for var
+     * @var    unknown
+     * @access public 
+     */
     var $topTabName=null;
     /**
     * Constuctor
@@ -78,14 +83,14 @@ class tabpane extends object
         
     /**
     * Method that addes a tab
-    * @param $properties array : Can hold the following values
-    * name string
-    * content string
-    * url string
-    * @param $css string :holds the css type to use and these are
-    * webfx-tab-style-sheet
-    * winclassic-tab-style-sheet
-    * luna-tab-style-sheet
+    * @param $properties array  : Can hold the following values
+    *                           name string
+    *                           content string
+    *                           url string
+    * @param $css        string :holds the css type to use and these are
+    *                           webfx-tab-style-sheet
+    *                           winclassic-tab-style-sheet
+    *                           luna-tab-style-sheet
     */    
     function addTab($properties=NULL,$css='webfx-tab-style-sheet'){
         if (is_array($properties)) {

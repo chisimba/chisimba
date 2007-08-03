@@ -1,12 +1,26 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML base class
+
+/**
+ * Description for require_once
+ */
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -14,30 +28,76 @@ require_once("ifhtml_class_inc.php");
  * Used to create links with a Tooltip 
  * This object mis need to display the glossary items
  * 
- * @author Wesley Nitsckie
- *
- * @version $Id$
- * @copyright 2003 
- * @package mouseoverpopup
- * @category HTML Controls
+ * @author    Wesley Nitsckie
+ *            
+ * @version   $Id$
+ * @copyright 2003
+ * @package   mouseoverpopup
+ * @category  HTML Controls
  * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @example 
- * $mop = new mouseoverpopup('url with caption','Content with caption , this tooltip uses a nice fade in ','asdfdsaf');
- * $mop->caption='this is a caption';
- * $mop->show();
- **/
+ * @license   GNU GPL
+ * @example  
+ *            $mop = new mouseoverpopup('url with caption','Content with caption , this tooltip uses a nice fade in ','asdfdsaf');
+ *            $mop->caption='this is a caption';
+ *            $mop->show();
+ *            */
  class mouseoverpopup extends abhtmlbase implements ifhtml
  {
  	
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $urltext;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $caption;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $url;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $content;
 	
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $iframeUrl='';
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $iframeCaption;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $iframeWidth;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $iframeHeight;
 	
 	/**
@@ -54,6 +114,14 @@ require_once("ifhtml_class_inc.php");
 		$this->url=$url;
 	}
 	
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @return string Return description (if any) ...
+     * @access public
+     */
 	public function show()
 	{
 		$str='<script language="javascript" src="core_modules/htmlelements/resources/domLib.js"></script>

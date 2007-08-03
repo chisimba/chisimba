@@ -1,9 +1,38 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -15,15 +44,76 @@ class iframe implements ifhtml
 	* Define all vars, these are obvious so not individually labelled
 	*/
     public $width;
+
+    /**
+     * Description for public
+     * @var    mixed 
+     * @access public
+     */
     public $height;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $src;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $align;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $frameborder; //must be 0 or 1
+
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $marginheight;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $marginwidth;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $name;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
 	public $id;
+
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
     public $scrolling;
+
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
     public $theFrame;
     
 

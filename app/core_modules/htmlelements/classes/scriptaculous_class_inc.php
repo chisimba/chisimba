@@ -6,7 +6,7 @@
 * This class merely loads the JavaScript for Prototype and Scriptaculous effects
 * It is not a wrapper. Developers still need to code their own JS functions
 *
-* @author Tohir Solomons
+* @author  Tohir Solomons
 * @package htmlelements
 */
 class scriptaculous extends object

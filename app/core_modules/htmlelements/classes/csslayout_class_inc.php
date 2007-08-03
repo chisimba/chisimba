@@ -1,10 +1,20 @@
 <?php
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 
@@ -25,18 +35,18 @@ require_once("ifhtml_class_inc.php");
 * middle column and a right side column
 *
 *
-* @package cssLayout
+* @package   cssLayout
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version 1
-* @author Tohir Solomons
-* @example
-*       $cssLayout =& $this->newObject('csslayout', 'htmlelements');
-*       $cssLayout->setNumColumns(3);
-*       $cssLayout->setLeftColumnContent('Content in Left Column');
-*       $cssLayout->setMiddleColumnContent('Content in Middle Column');
-*       $cssLayout->setRightColumnContent('Content in Right Column');
-*       echo $cssLayout->show();
+* @license   GNU GPL
+* @version   1
+* @author    Tohir Solomons
+* @example  
+*            $cssLayout =& $this->newObject('csslayout', 'htmlelements');
+*            $cssLayout->setNumColumns(3);
+*            $cssLayout->setLeftColumnContent('Content in Left Column');
+*            $cssLayout->setMiddleColumnContent('Content in Middle Column');
+*            $cssLayout->setRightColumnContent('Content in Right Column');
+*            echo $cssLayout->show();
 */
 class csslayout extends object implements ifhtml
 {
@@ -169,7 +179,7 @@ class csslayout extends object implements ifhtml
     * Method to return the JavaScript that fixes a three column css layout using javascript
     *
     * @access private
-    * @return string $fixLayoutScript: the JavaScript that goes in the header
+    * @return string  $fixLayoutScript: the JavaScript that goes in the header
     */
     public function fixThreeColumnLayoutJavascript()
     {

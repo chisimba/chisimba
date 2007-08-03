@@ -1,18 +1,37 @@
 <?php
 
 /**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+/**
  * Class to generate a multi tab panel
  * @author Tohir Solomons
- * 
- * This class wraps the tabcontent script available from Dynamic Drive
- * http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm
- * 
- * This class is similar to the tabpane and multitabbedbox classes,
- * though in the following respects:
- * 
- * a) It is unobtrusive, will work when JavaScript is disabled, so allow for better accessibility
- * b) It is easier to style using CSS
- * 
+ *         
+ *         This class wraps the tabcontent script available from Dynamic Drive
+ *         http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm
+ *         
+ *         This class is similar to the tabpane and multitabbedbox classes,
+ *         though in the following respects:
+ *         
+ *         a) It is unobtrusive, will work when JavaScript is disabled, so allow for better accessibility
+ *         b) It is easier to style using CSS
+ *         
  */
 class tabcontent extends object
 {
@@ -69,9 +88,9 @@ class tabcontent extends object
     /**
      * Method to add a tab panel
      *
-     * @param string $label Label of the Tab
-     * @param string $content Content of the Tab
-     * @param string $link Link. The tab will be a link to a URL instead of having content
+     * @param string  $label           Label of the Tab
+     * @param string  $content         Content of the Tab
+     * @param string  $link            Link. The tab will be a link to a URL instead of having content
      * @param boolean $defaultSelected Flag whether this should be the default tab to be shown
      */
     public function addTab($label, $content, $link='', $defaultSelected=FALSE, $height='')

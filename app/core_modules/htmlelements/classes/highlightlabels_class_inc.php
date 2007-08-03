@@ -1,10 +1,39 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
 /**
@@ -23,10 +52,10 @@ require_once("ifhtml_class_inc.php");
 * http://www.xlab.co.uk/weblog/623
 *
 * @author Tohir Solomons
-*
-* Example:
-*       $objHighlightLabels = $this->getObject('highlightlabels', 'htmlelements');
-*       echo $objHighlightLabels->show();
+*         
+*         Example:
+*         $objHighlightLabels = $this->getObject('highlightlabels', 'htmlelements');
+*         echo $objHighlightLabels->show();
 */
 class highlightlabels extends object implements ifhtml
 {

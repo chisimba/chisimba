@@ -3,33 +3,61 @@
 /**
 * CheckBox class for outputting dropdown menu. 
 * 
-* @package button
-* @category HTML Controls
-* @version $Id$
+* @package   button
+* @category  HTML Controls
+* @version   $Id$
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @example 
-*		$objElement = new checkbox('m','Male',true);  // this will checked
-*		$check= $objElement->show();
-*		$objElement = new checkbox('f','Female'); //this will not be checked
-*		$check .= $objElement->show();
-*	
-* @author Smtegha
-* @author Tohir Solomons
-* @author Kariuki wa Njenga
+* @license   GNU GPL
+* @example  
+*            		$objElement = new checkbox('m','Male',true);  // this will checked
+*            		$check= $objElement->show();
+*            		$objElement = new checkbox('f','Female'); //this will not be checked
+*            		$check .= $objElement->show();
+*            	
+* @author    Smtegha
+* @author    Tohir Solomons
+* @author    Kariuki wa Njenga
 */
 
 // Include the HTML base class
 require_once("abhtmlbase_class_inc.php");
 // Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
 require_once("ifhtml_class_inc.php");
 
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class checkbox  extends abhtmlbase implements ifhtml
 {
 	
+    /**
+     * Description for public
+     * @var    unknown
+     * @access public 
+     */
   public $ischecked; 
   
   
+    /**
+     * Description for public
+     * @var    string
+     * @access public
+     */
   public $value; //Kariuki added
 
   
@@ -48,6 +76,16 @@ class checkbox  extends abhtmlbase implements ifhtml
   *Method to set the label 
   *@param string $label :value to be displayed
   */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $label Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
   public function setLabel($label)
   {
   	$this->label=$label;
@@ -67,6 +105,16 @@ class checkbox  extends abhtmlbase implements ifhtml
 	* Method to set the cssId class 
 	* @param string $cssId
 	*/
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $cssId Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     */
    public function setId($cssId)
     {
         $this->cssId = $cssId;
@@ -74,7 +122,7 @@ class checkbox  extends abhtmlbase implements ifhtml
   
   /**
   * Method to set the checkbox to checked or unchecked
-  * @param $isChecked  boolean : toggles between checked and unchecked stated
+  * @param $isChecked boolean : toggles between checked and unchecked stated
   */
   public function setChecked($isChecked)
   {
