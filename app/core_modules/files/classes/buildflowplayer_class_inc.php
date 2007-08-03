@@ -1,74 +1,93 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* ----------- wrapper for ogg vorbis / theora player applet ------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
 
-
 /**
-*
-* This is a wrapper for the Flowplayer player for FLV files.
-*
-* FlowPlayer is a video player for Flash Video in FLV format. The UI is
-* clean and simple. The player is easy to configure and embed into
-* your home page, site, or blog. The player supports progressive
-* download with HTTP and also streaming with Flash Media Server
-* and Red5.
-*
-* The player itself uses the Apache License 2.0, which is not compatible
-* with the GNU GPL. However, it is a recognized Free Software licence, and
-* we are not contributing code to the Flowplayer project under the GPL, or
-* mixing Flowplayer code with our GPL licensed code, so we believe that its
-* use in this wrapper is OK.
-*
-* @author Derek Keats
-*
-*/
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class buildflowplayer extends object
 {
 
     /**
     *
-    * @var string $__width The width for the Flash player
+    * @var    string $__width The width for the Flash player
     * @access public
-    *
+    *                
     */
     public $width;
     /**
     *
-    * @var string $__height The height for the Flash player
+    * @var    string  $__height The height for the Flash player
     * @access private
-    *
+    *                 
     */
     public $height;
     /**
     *
-    * @var string $baseUrl The movie file baseUrl for the location of the file
+    * @var    string $baseUrl The movie file baseUrl for the location of the file
     * @access public
-    *
+    *                
     */
     public $baseUrl;
     /**
     *
-    * @var string $movie The movie file (in FLV format) to play
+    * @var    string $movie The movie file (in FLV format) to play
     * @access public
-    *
+    *                
     */
     public $movie;
     /**
     *
-    * @var string $movie The quality to play at
+    * @var    string $movie The quality to play at
     * @access public
-    *
+    *                
     */
     public $quality;
       /**
     *
-    * @var string object $objConfig A string to hold the config object
+    * @var    string object $objConfig A string to hold the config object
     * @access public
-    *
+    *                
     */
     public $objConfig;
 
@@ -79,7 +98,7 @@ class buildflowplayer extends object
     * the FLV player applet.
     * 
     * @access public
-    *
+    *                
     */
     public function init()
     {
@@ -105,7 +124,7 @@ class buildflowplayer extends object
     *
     * @access Public
     * @return string The player applet code
-    *
+    *                
     */
     public function show()
     {
@@ -131,7 +150,7 @@ class buildflowplayer extends object
     * a form submission.
     *
     * @return True It always returns true
-    *
+    *              
     */
     public function loadMovie()
     {
@@ -186,10 +205,10 @@ class buildflowplayer extends object
     *
     * Method to return the OBJECT tag with all its options set
     *
-    * @return The <OBJECT ... > part of the tag
-    *
+    * @return The     <OBJECT ... > part of the tag
+    *                 
     * @access Private
-    *
+    *                 
     */
     private function __startApplet()
     {
@@ -205,9 +224,9 @@ class buildflowplayer extends object
     *
     * Method to set one of the OBJECT parameters
     *
-    * @return The <PARAM tag for the parameter
+    * @return The     <PARAM tag for the parameter
     * @access Private
-    *
+    *                 
     */
     private function __getParam($paramName=NULL)
     {
@@ -260,9 +279,9 @@ class buildflowplayer extends object
     *
     * Method to return the /OBJECT closing tag
     *
-    * @return The /OBJECT part of the tag
+    * @return The     /OBJECT part of the tag
     * @access Private
-    *
+    *                 
     */
     private function __endApplet()
     {
@@ -273,12 +292,12 @@ class buildflowplayer extends object
     *
     * Method to validate the file
     *
-    * @param string $theFile The file to be evaluated
+    * @param  string     $theFile The file to be evaluated
     * @return True|False depending on whether the file is valid or not
-    * @access Private
-    *
-    * @todo -c Implement .make it actually work. Currently it just returns true.
-    *
+    * @access Private   
+    *                    
+    * @todo   -c Implement .make it actually work. Currently it just returns true.
+    *         
     */
     private function __isValidFile($theFile)
     {
@@ -296,10 +315,10 @@ class buildflowplayer extends object
     *
     * Method to test if the file is a valid URL
     *
-    * @param string $theFile The file to be evaluated
+    * @param  string     $theFile The file to be evaluated
     * @return True|False depending on whether the file is a valid Url or not
-    * @access Private
-    *
+    * @access Private   
+    *                    
     */
     private function __isUrl($url) {
     	$objUrl = $this->getObject('url', 'strings');
@@ -314,9 +333,9 @@ class buildflowplayer extends object
     *
     * Method to reverse htmlentities for validating URL
     *
-    * @param string $str The string to reverse htmlentities for
+    * @param  string $str The string to reverse htmlentities for
     * @return string The reversed string
-    *
+    *                
     */
     function __unhtmlentities($str)
     {

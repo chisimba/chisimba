@@ -1,20 +1,58 @@
 <?php
 
 /**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP versions 4 and 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+/**
 * Class to resize images
 *
 * @author Martin Konicek
 * @author Tohir Solomons
-*
-* Note: The original class was written by Martin Konicek and can be found at http://www.air4web.com/files/upload/
-* I added support for other image types besides jpeg, and added a handler
-* to make the background white, as well as commenting the class.
-*
-* Where a file/image cannot be resized, a small image is created with the
-* words: "Unable to create a thumbnail from a [ext] file". - Tohir
+*         
+*         Note: The original class was written by Martin Konicek and can be found at http://www.air4web.com/files/upload/
+*         I added support for other image types besides jpeg, and added a handler
+*         to make the background white, as well as commenting the class.
+*         
+*         Where a file/image cannot be resized, a small image is created with the
+*         words: "Unable to create a thumbnail from a [ext] file". - Tohir
 */
 include($this->getResourcePath('imagecreatefrombmp.php', 'files'));
+
+/**
+ * Description for include
+ */
 include($this->getResourcePath('imagecreatefrompsd.php', 'files'));
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class imageresize extends object
 {
 	
@@ -93,7 +131,7 @@ class imageresize extends object
     * Although PHP can only create thumbnails from GIF, JPG, PNG, WBMP and XBM formats,
     * the other formats are listed here in case a developer wants to use it to pickup the type of image
     *
-    * @param string $sourceFile Path to File
+    * @param  string $sourceFile Path to File
     * @return string Type of file
     */
     function getImageType($sourceFile)
@@ -134,8 +172,8 @@ class imageresize extends object
 	
     /**
     * Method to resize an image
-    * @param int $width Width of Thumbnail
-    * @param int $height Height of Thumbnail
+    * @param int     $width       Width of Thumbnail
+    * @param int     $height      Height of Thumbnail
     * @param boolean $aspectratio Flag to indicate whether to main aspect ratio of image
     */
 	function resize($width = 100, $height = 100, $aspectratio = TRUE)

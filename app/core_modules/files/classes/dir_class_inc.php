@@ -1,10 +1,39 @@
 <?php
-/**
-* Class to help kbook by reading the folders and files
-* 
-* @author Derek Keats 
-*/
 
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class dir extends object 
 {
     /**
@@ -15,7 +44,7 @@ class dir extends object
     
     /**
     * @var string $returnWhat what to return, directories or files or both
-    * Valid values are folders | files | both
+    *             Valid values are folders | files | both
     */
     var $returnWhat="folders";
     
@@ -98,7 +127,7 @@ class dir extends object
     * 
     * Method to sort the folders default ascending
     * @param string $sortorder THe sort order, either asc or desc
-    * 
+    *                          
     */
     function sortFolderArray($sortorder="asc")
     {

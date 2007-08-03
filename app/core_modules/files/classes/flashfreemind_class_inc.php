@@ -1,4 +1,23 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /**
 * Class to Display a Freemind File as a Flash Object
 * 

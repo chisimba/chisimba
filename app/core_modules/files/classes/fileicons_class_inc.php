@@ -1,18 +1,51 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
 die("You cannot view this page directly");
 } 
 // end security check
-/**
-* Display an icon for a file
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version 1
-* @author Tohir Solomons
-*/
 
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class fileicons extends object
 {
     /**
@@ -30,7 +63,7 @@ class fileicons extends object
 
     /**
     * Method to get a file icon by providing the filename
-    * @param string $filename Name of the File
+    * @param  string $filename Name of the File
     * @return string Icon Image or NULL if an icon does not exist.
     */
     public function getFileIcon($filename)
@@ -40,7 +73,7 @@ class fileicons extends object
     
     /**
     * Method to get the extension of a file by providing the filename
-    * @param string $filename Name of the File
+    * @param  string $filename Name of the File
     * @return string $extension Extension of the File
     */
     public function getExtension($filename)
@@ -59,7 +92,7 @@ class fileicons extends object
     
     /**
     * Method to get a file icon by providing the extension of the file
-    * @param string $extension Extension of the File
+    * @param  string $extension Extension of the File
     * @return string Icon Image or NULL if an icon does not exist.
     */
     public function getExtensionIcon($extension)

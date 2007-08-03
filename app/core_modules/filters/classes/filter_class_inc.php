@@ -1,7 +1,66 @@
 <?php
 
+/**
+ * Class to filter strings in use with the HTTPClient and URI classes (modules)
+ * 
+ * Input class that makes use of the filter class to sanitize user inputs
+ * provides simple facilities that promote a structured and rigid approach to input filtering.
+ * Its purpose is multifaceted, because it caters to the needs of three different groups of people:
+ *
+ * Developers:
+ * Although filtering input can never be as easy as doing nothing,
+ * developers need to ensure the integrity of their data without adding unnecessary complexity to their code.
+ * Filter Input offers simple methods for the most common use cases,
+ * extensibility for edge cases, and a strict naming convention that promotes code clarity.
+ *
+ * Managers
+ * Managers of all types who need to maintain control over a large group of developers can enforce a structured approach to input filtering
+ * by restricting or eliminating access to raw input.
+ *
+ * Auditors
+ * Those who audit an application's code need to quickly and reliably identify when and where raw input is used by a developer.
+ * The characteristics that promote code clarity also aid auditors by providing a clear distinction among the different approaches to input filtering.
+ * There are a variety of approaches to input filtering,
+ * and there are also a variety of facilities that PHP developers can use.
+ * Whitelist filtering, blacklist filtering, regular expressions, conditional statements, and native PHP functions
+ * are just a few examples of the input filtering potpourri.
+ * Filter Input combines all of these facilities into a single API with consistent behavior and strict naming conventions.
+ * All of the methods abide by a simple rule - if the data is valid, it is returned, otherwise FALSE is returned.
+ * Extreme simplicity.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filters
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
     die("You cannot view this page directly");
 }
@@ -36,9 +95,9 @@ if (!$GLOBALS['kewl_entry_point_run'])
  * All of the methods abide by a simple rule - if the data is valid, it is returned, otherwise FALSE is returned.
  * Extreme simplicity.
  *
- * @access public
- * @author Paul Scott based on the Zend Framework methods
- * @copyright AVOIR
+ * @access     public
+ * @author     Paul Scott based on the Zend Framework methods
+ * @copyright  AVOIR
  * @filesource
  */
 
@@ -56,8 +115,20 @@ class filter extends object
      * HOST_ALLOW_ALL:   Allows all of the above types of hostnames.
      */
     const HOST_ALLOW_DNS   = 1;
+
+    /**
+     * Description for const
+     */
     const HOST_ALLOW_IP    = 2;
+
+    /**
+     * Description for const
+     */
     const HOST_ALLOW_LOCAL = 4;
+
+    /**
+     * Description for const
+     */
     const HOST_ALLOW_ALL   = 7;
 
     /**
@@ -72,7 +143,7 @@ class filter extends object
     /**
      * Returns only the alphabetic characters in value.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function getAlpha($value)
@@ -83,7 +154,7 @@ class filter extends object
     /**
      * Returns only the alphabetic characters and digits in value.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function getAlnum($value)
@@ -94,7 +165,7 @@ class filter extends object
     /**
      * Returns only the digits in value. This differs from getInt().
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function getDigits($value)
@@ -105,7 +176,7 @@ class filter extends object
     /**
      * Returns dirname(value).
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function getDir($value)
@@ -116,8 +187,8 @@ class filter extends object
     /**
      * Returns (int) value.
      *
-     * @param mixed $value
-     * @return int
+     * @param  mixed $value
+     * @return int  
      */
     public static function getInt($value)
     {
@@ -127,7 +198,7 @@ class filter extends object
     /**
      * Returns realpath(value).
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function getPath($value)
@@ -139,7 +210,7 @@ class filter extends object
      * Returns value if every character is alphabetic or a digit,
      * FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isAlnum($value)
@@ -151,7 +222,7 @@ class filter extends object
      * Returns value if every character is alphabetic, FALSE
      * otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isAlpha($value)
@@ -165,11 +236,11 @@ class filter extends object
      * FALSE, then the value must be strictly greater than $min and
      * strictly less than $max.
      *
-     * @param mixed $key
-     * @param mixed $min
-     * @param mixed $max
-     * @param boolean $inclusive
-     * @return mixed
+     * @param  mixed   $key      
+     * @param  mixed   $min      
+     * @param  mixed   $max      
+     * @param  boolean $inclusive
+     * @return mixed  
      */
     public static function isBetween($value, $min, $max, $inc = TRUE)
     {
@@ -192,8 +263,8 @@ class filter extends object
      * optional second argument allows developers to indicate the
      * type.
      *
-     * @param mixed $value
-     * @param mixed $type
+     * @param  mixed $value
+     * @param  mixed $type 
      * @return mixed
      */
     public static function isCcnum($value, $type = NULL)
@@ -226,7 +297,7 @@ class filter extends object
      * Returns $value if it is a valid date, FALSE otherwise. The
      * date is required to be in ISO 8601 format.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isDate($value)
@@ -240,7 +311,7 @@ class filter extends object
      * Returns value if every character is a digit, FALSE otherwise.
      * This is just like isInt(), except there is no upper limit.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isDigits($value)
@@ -251,7 +322,7 @@ class filter extends object
     /**
      * Returns value if it is a valid email format, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isEmail($value)
@@ -264,7 +335,7 @@ class filter extends object
     /**
      * Returns value if it is a valid float value, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isFloat($value)
@@ -280,8 +351,8 @@ class filter extends object
     /**
      * Returns value if it is greater than $min, FALSE otherwise.
      *
-     * @param mixed $value
-     * @param mixed $min
+     * @param  mixed $value
+     * @param  mixed $min  
      * @return mixed
      */
     public static function isGreaterThan($value, $min)
@@ -293,7 +364,7 @@ class filter extends object
      * Returns value if it is a valid hexadecimal format, FALSE
      * otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isHex($value)
@@ -308,10 +379,10 @@ class filter extends object
      * The default is HOST_ALLOW_ALL, which considers all of the
      * above to be valid.
      *
-     * @param mixed $value
-     * @param integer $allow bitfield for HOST_ALLOW_DNS, HOST_ALLOW_IP, HOST_ALLOW_LOCAL
+     * @param  mixed                 $value
+     * @param  integer               $allow bitfield for HOST_ALLOW_DNS, HOST_ALLOW_IP, HOST_ALLOW_LOCAL
      * @throws Zend_Filter_Exception
-     * @return mixed
+     * @return mixed                
      */
     public static function isHostname($value, $allow = self::HOST_ALLOW_ALL)
     {
@@ -372,7 +443,7 @@ class filter extends object
     /**
      * Returns value if it is a valid integer value, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isInt($value)
@@ -388,7 +459,7 @@ class filter extends object
     /**
      * Returns value if it is a valid IP format, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isIp($value)
@@ -399,8 +470,8 @@ class filter extends object
     /**
      * Returns value if it is less than $max, FALSE otherwise.
      *
-     * @param mixed $value
-     * @param mixed $max
+     * @param  mixed $value
+     * @param  mixed $max  
      * @return mixed
      */
     public static function isLessThan($value, $max)
@@ -412,7 +483,7 @@ class filter extends object
      * Returns value if it is a valid format for a person's name,
      * FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isName($value)
@@ -423,15 +494,15 @@ class filter extends object
     /**
      * Returns value if it is one of $allowed, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isOneOf($value, $allowed = NULL)
     {
         /**
          * @todo: Consider allowing a string for $allowed, where each
-         * character in the string is an allowed character in the
-         * value.
+         *        character in the string is an allowed character in the
+         *        value.
          */
 
         return in_array($value, $allowed);
@@ -442,7 +513,7 @@ class filter extends object
      * otherwise. The optional second argument indicates the country.
      * This method requires that the value consist of only digits.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isPhone($value, $country = 'US')
@@ -517,8 +588,8 @@ class filter extends object
      * Returns value if it matches $pattern, FALSE otherwise. Uses
      * preg_match() for the matching.
      *
-     * @param mixed $value
-     * @param mixed $pattern
+     * @param  mixed $value  
+     * @param  mixed $pattern
      * @return mixed
      */
     public static function isRegex($value, $pattern = NULL)
@@ -526,6 +597,16 @@ class filter extends object
         return (bool) preg_match($pattern, $value);
     }
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $value Parameter description (if any) ...
+     * @return void   
+     * @access public 
+     * @static
+     */
     public static function isUri($value)
     {
         /**
@@ -536,7 +617,7 @@ class filter extends object
     /**
      * Returns value if it is a valid US ZIP, FALSE otherwise.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function isZip($value)
@@ -547,7 +628,7 @@ class filter extends object
     /**
      * Returns value with all tags removed.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function noTags($value)
@@ -558,7 +639,7 @@ class filter extends object
     /**
      * Returns basename(value).
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public static function noPath($value)

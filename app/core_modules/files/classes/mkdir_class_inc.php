@@ -1,10 +1,29 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /**
 * 
 * Class to make a directory & manage errors 
 * in doing so
 * 
-* @author Derek Keats 
+* @author Derek Keats
 */
 
 class mkdir extends object 
@@ -13,29 +32,29 @@ class mkdir extends object
     /**
     * 
     * @var string $fullFilePath The file including its path, 
-    *  or the folder if deleting a folder.
-    * 
+    *             or the folder if deleting a folder.
+    *             
     */
     var $fullFilePath;
     
     /**
     * 
     * @var boolean $err TRUE|FALSE; TRUE if error, else false
-    * 
+    *              
     */
     var $err;
     
     /**
     * 
     * @var string $errMst The error message
-    * 
+    *             
     */
     var $errMsg;
     
     /**
     * 
     * @var object $objLanguage String to hold the language object
-    * 
+    *             
     */
     var $objLanguage;
     
@@ -60,7 +79,7 @@ class mkdir extends object
     * to a valid directory before hand
     * 
     * @access Public
-    * 
+    *                
 	*/
     function makedir()
     {
@@ -85,7 +104,7 @@ class mkdir extends object
     /**
     * Method to Recursively Check for Folders
     * This method takes a path, and checks that each folder in the path exists.
-    * @param string $strPath Path to Check
+    * @param  string $strPath Path to Check
     * @author Tohir Solomons
     */
     function mkdirs($strPath)

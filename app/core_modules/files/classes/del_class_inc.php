@@ -1,39 +1,68 @@
 <?php
-/**
-* Class to delete files and folders
-* 
-* @author Derek Keats 
-*/
 
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class del extends object 
 {
 
     /**
     * 
     * @var string $fullFilePath The file including its path, 
-    *  or the folder if deleting a folder.
-    * 
+    *             or the folder if deleting a folder.
+    *             
     */
     var $fullFilePath;
     
     /**
     * 
     * @var boolean $err TRUE|FALSE; TRUE if error, else false
-    * 
+    *              
     */
     var $err;
     
     /**
     * 
     * @var string $errMst The error message
-    * 
+    *             
     */
     var $errMsg;
     
     /**
     * 
     * @var object $objLanguage String to hold the language object
-    * 
+    *             
     */
     var $objLanguage;
     
@@ -57,9 +86,9 @@ class del extends object
     * Delete the file specified in $fullFilePath
     * inline {@internal checks the OS php is running on, and execute appropriate command}}
     * @access Public
-    * @param string $type file | folder if its a file or a folder
-    * @return bool TRUE | FALSE, sets error if error occurs
-    * 
+    * @param  string $type file | folder if its a file or a folder
+    * @return bool   TRUE | FALSE, sets error if error occurs
+    *                
 	*/
     function delete()
     {

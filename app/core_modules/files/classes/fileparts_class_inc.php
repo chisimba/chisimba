@@ -1,9 +1,39 @@
 <?php
+
 /**
-* Class to return parts from a file name
-* @author Derek Keats
-*
-*/
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 3
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+
+/**
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class fileparts extends object
 {
 
@@ -21,7 +51,7 @@ class fileparts extends object
     * characters after the last . in the filename.
     *
     * @param string $fName The file name from which to extract the extension
-    *
+    *                      
     */
     function getExtension($fName)
     {

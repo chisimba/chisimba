@@ -1,38 +1,57 @@
 <?php
 
 /**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+/**
  * File Upload Class
  *
  * This class is aimed at developers who need file uploading capability, but one that is not
  * integrated with file manager. It provides similar functionality, with further control options
  * 
  * @author Tohir Solomons
- * 
- * Usage:
- * 
- * $fileUploader = $this->getObject('fileuploader', 'files');
- * 
- * $fileUploader->allowedCategories = array('documents', 'images');
- * // OR
- * $fileUploader->allowedExtensions = array('pdf', 'gif', 'png');
- * 
- * $fileUploader->savePath = '/uploader/'; // This will then be saved in usrfiles/uploader
- * $fileUploader->overwriteExistingFile = TRUE;
- * 
- * $results = $fileUploader->uploadFile('fileupload1');
- * 
- * Sample Result From Successful Upload:
- * 
- * Array
- * (
- *     [result] => 1
- *     [filename] => kbook.pdf
- *     [mime] => application/pdf
- *     [size] => 4352885
- *     [path] => usrfiles/uploader/kbook.pdf
- *     [absolutepath] => /opt/lampp/htdocs/5ive_november/app/usrfiles/uploader/kbook.pdf
- * )
- * 
+ *         
+ *         Usage:
+ *         
+ *         $fileUploader = $this->getObject('fileuploader', 'files');
+ *         
+ *         $fileUploader->allowedCategories = array('documents', 'images');
+ *         // OR
+ *         $fileUploader->allowedExtensions = array('pdf', 'gif', 'png');
+ *         
+ *         $fileUploader->savePath = '/uploader/'; // This will then be saved in usrfiles/uploader
+ *         $fileUploader->overwriteExistingFile = TRUE;
+ *         
+ *         $results = $fileUploader->uploadFile('fileupload1');
+ *         
+ *         Sample Result From Successful Upload:
+ *         
+ *         Array
+ *         (
+ *         [result] => 1
+ *         [filename] => kbook.pdf
+ *         [mime] => application/pdf
+ *         [size] => 4352885
+ *         [path] => usrfiles/uploader/kbook.pdf
+ *         [absolutepath] => /opt/lampp/htdocs/5ive_november/app/usrfiles/uploader/kbook.pdf
+ *         )
+ *         
  */
 class fileuploader extends object 
 {
@@ -94,8 +113,8 @@ class fileuploader extends object
     /**
      * Method to upload a file
      *
-     * @param string $fileInputName Name of the File Input
-     * @return array Result of the Upload
+     * @param  string $fileInputName Name of the File Input
+     * @return array  Result of the Upload
      */
     public function uploadFile($fileInputName)
     {

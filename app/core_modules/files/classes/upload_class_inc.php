@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP versions 4 and 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
+
+/**
 *
 * A file upload class to use with the KEWL.NextGen modules
 * requiring upload capability. It provides methods as abstractions
@@ -8,20 +27,20 @@
 *
 * Useage:
 *
-* @version $Id$
-* @author Derek Keats
+* @version   $Id$
+* @author    Derek Keats
 * @copyright 2003 GNU GPL
-**/
+*            */
 
 class upload extends object
 {
 
     /**
     * @var string $uploadFolder The folder to upload into. This
-    * can be set before doing the upload to upload to any folder.
-    * This is an absolute filesystem path
-    * (e.g. /var/www/html/nextgen/mypath or
-    *  E:\Inetpub\cvsCheckouts\nextgen\mypath\)
+    *             can be set before doing the upload to upload to any folder.
+    *             This is an absolute filesystem path
+    *             (e.g. /var/www/html/nextgen/mypath or
+    *             E:\Inetpub\cvsCheckouts\nextgen\mypath\)
     */
     var $uploadFolder;
 
@@ -32,7 +51,7 @@ class upload extends object
 
     /**
     * @var string $createFolder Whether or not to create the uploadFolder if
-    * it does not exist.
+    *             it does not exist.
     */
     var $createFolder;
 
@@ -68,8 +87,8 @@ class upload extends object
 
     /**
     * @var string $uploadType Upload type can be used to check for
-    * new upload or a replacement and then if using a database you
-    * can either update or insert accordingly
+    *             new upload or a replacement and then if using a database you
+    *             can either update or insert accordingly
     */
     var $uploadType;
 
@@ -123,8 +142,8 @@ class upload extends object
     *
     * Use: $results = $this->doUpload();
     *
-    * @param bool $giveResults TRUE|FALSE Whether to give extended results
-    * @param string $storedName The name to store the file as (if not the original name)
+    * @param bool   $giveResults TRUE|FALSE Whether to give extended results
+    * @param string $storedName  The name to store the file as (if not the original name)
     */
     function doUpload($giveResults = FALSE, $storedName = NULL)
     {
@@ -216,7 +235,7 @@ class upload extends object
     * Method to set the upload folder
     *
     * @param string $uploadFolder The folder to upload into
-    *
+    *                             
     */
     function setUploadFolder($uploadFolder)
     {
@@ -233,7 +252,7 @@ class upload extends object
     * Usage: $fName = $this->getFileName();
     *
     * @return The name of the file as string
-    *
+    *             
     */
     function getFileName()
     {
@@ -255,8 +274,8 @@ class upload extends object
     * Usage: $fType = $this->getFileType();
     *
     * @return The file mime type as string, for example
-    *   "image/gif"
-    *
+    *             "image/gif"
+    *             
     */
     function getFileType()
     {
@@ -277,7 +296,7 @@ class upload extends object
     * Usage: $fSize = $this->getFileSize();
     *
     * @return The file size in bytes
-    *
+    *             
     */
     function getFileSize()
     {
@@ -294,8 +313,8 @@ class upload extends object
     * Method to check the file size against the maxSize
     *
     * @return TRUE|FALSE True if its OK, false if its
-    * too big
-    *
+    *                    too big
+    *                    
     */
     function sizeOk($size) {
         if ($size > $this->maxSize) {
@@ -315,7 +334,7 @@ class upload extends object
     * Usage: $fSize = $this->getFileTmpName();
     *
     * @return The file size in bytes
-    *
+    *             
     */
     function getFileTmpName()
     {
@@ -335,7 +354,7 @@ class upload extends object
     * Usage: $fSize = $this->getFileError();
     *
     * @return The file size in bytes
-    *
+    *             
     */
     function getFileError()
     {
@@ -368,7 +387,7 @@ class upload extends object
     * Use: $errTxt = $this->getErrorCodeMeaning($this->getFileError());
     *
     * @param string $errCode THe error code to translate
-    *
+    *                        
     */
     function getErrorCodeMeaning($errCode)
     {
@@ -410,7 +429,7 @@ class upload extends object
     * on files upon which it should not be working, such as /etc/passwd.
     *
     * @return TRUE|FALSE
-    *
+    *                    
     */
     function checkFileUploaded()
     {
@@ -456,8 +475,8 @@ class upload extends object
     * see if it is a permitted extension.
     *
     * @return TRUE|FALSE, TRUE if it is a permitted extension
-    * and FALSE if not.
-    *
+    *                     and FALSE if not.
+    *                     
     */
     function checkExtension()
     {
@@ -480,7 +499,7 @@ class upload extends object
     * in the destination folder
     *
     * @return boolean TRUE|FALSE True if file exists, false if not.
-    *
+    *                 
     */
     function checkExists()
     {
@@ -497,7 +516,7 @@ class upload extends object
     * and if not create it
     *
     * @return boolean TRUE|FALSE True if file exists, false if not.
-    *
+    *                 
     */
     function checkExistsFolder()
     {

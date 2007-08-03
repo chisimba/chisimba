@@ -1,13 +1,32 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP version 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /**
 * 
 * Class to get the mimetype of a file based on its extension.
 * Useful if mime magic is enabled.
 *
 * @author Tohir Solomons
-*
-* Adapted from: 
-* http://pccepa3.if.usp.br/trac/demi/browser/trunk/elgg/lib/filelib.php
+*         
+*         Adapted from: 
+*         http://pccepa3.if.usp.br/trac/demi/browser/trunk/elgg/lib/filelib.php
 */
 class mimetypes extends object 
 {
@@ -27,7 +46,7 @@ class mimetypes extends object
     
     /**
     * Method to get the mimetype of a file
-    * @param string $filename File Name
+    * @param  string $filename File Name
     * @return string $mimetype
     */
     public function getMimeType($fileName)
@@ -38,7 +57,7 @@ class mimetypes extends object
     /**
     * Method to get either the mimetype or icon from the array of mimetypes
     * @param string $filename Name of the File
-    * @param string $element either type or icon
+    * @param string $element  either type or icon
     */
     public function mimeinfo($filename, $element='type') {
         

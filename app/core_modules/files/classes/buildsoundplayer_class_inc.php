@@ -1,39 +1,71 @@
 <?php
+
+/**
+ * Short description for file
+ * 
+ * Long description (if any) ...
+ * 
+ * PHP versions 4 and 5
+ * 
+ * The license text...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 /* ----------- wrapper for ogg vorbis / theora player applet ------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
     {
         die("You cannot view this page directly");
     }
 
-
 /**
-* 
-* 
-* @author Derek Keats
-* 
-*/
+ * Short description for class
+ * 
+ * Long description (if any) ...
+ * 
+ * @category  Chisimba
+ * @package   files
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       References to other sections (if any)...
+ */
 class buildsoundplayer extends object
 {
 
     /**
     * 
     * @var string $codeBase The codebase for the Java applet
-    * 
+    *             
     */
     var $codeBase;
 
     /**
     * 
     * @var string $soundFile A fully qualified URL to the sound file
-    * 
+    *             
     */
     var $soundFile;
     
     /**
     * 
     * @var string object $objConfig A string to hold the config object
-    * 
+    *             
     */
     var $objConfig;
  
@@ -58,8 +90,8 @@ class buildsoundplayer extends object
     * 
     * Method to render the music player
     * @access Public
-    * @return The player applet code
-    * 
+    * @return The    player applet code
+    *                
     */
     function show()
     {
@@ -90,7 +122,7 @@ class buildsoundplayer extends object
     * a form submission.
     * 
     * @return True It always returns true
-    * 
+    *              
     */
     function loadSound()
     {
@@ -128,9 +160,9 @@ class buildsoundplayer extends object
     * 
     * Method to return the APPLET tag with all its content
     * 
-    * @return The APPLET part of the tag
+    * @return The     APPLET part of the tag
     * @access Private
-    * 
+    *                 
     */
     function __startApplet()
     {
@@ -147,9 +179,9 @@ class buildsoundplayer extends object
     * 
     * Method to return the /APPLET closing tag
     * 
-    * @return The /APPLET part of the tag
+    * @return The     /APPLET part of the tag
     * @access Private
-    * 
+    *                 
     */
     function __endApplet()
     {
@@ -160,9 +192,9 @@ class buildsoundplayer extends object
     * 
     * Method to set one of the APPLET parameters
     * 
-    * @return The <PARAM tag for the parameter
+    * @return The     <PARAM tag for the parameter
     * @access Private
-    * 
+    *                 
     */
     function __getParam($paramName)
     {
@@ -228,12 +260,12 @@ class buildsoundplayer extends object
     * 
     * Method to validate the file
     * 
-    * @param string $theFile The file to be evaluated
+    * @param  string     $theFile The file to be evaluated
     * @return True|False depending on whether the file is valid or not
-    * @access Private
-    * 
-    * @todo -c Implement .make it actually work. Currently it just returns true.
-    * 
+    * @access Private   
+    *                    
+    * @todo   -c Implement .make it actually work. Currently it just returns true.
+    *         
     */
     function __isValidFile($theFile)
     {
@@ -252,10 +284,10 @@ class buildsoundplayer extends object
     * 
     * Method to test if the file is a valid URL
     * 
-    * @param string $theFile The file to be evaluated
+    * @param  string     $theFile The file to be evaluated
     * @return True|False depending on whether the file is a valid Url or not
-    * @access Private
-    * 
+    * @access Private   
+    *                    
     */
     function __isUrl($url) {
         if (!preg_match('#^http\\:\\/\\/[a-z0-9\-]+\.([a-z0-9\-]+\.)?[a-z]+#i', $url)) {
@@ -269,9 +301,9 @@ class buildsoundplayer extends object
     * 
     * Method to reverse htmlentities for validating URL
     * 
-    * @param string $str The string to reverse htmlentities for
+    * @param  string $str The string to reverse htmlentities for
     * @return string The reversed string
-    * 
+    *                
     */
     function __unhtmlentities($str)
     {
