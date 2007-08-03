@@ -1,6 +1,65 @@
 <?php
+
+/**
+ * Input class that makes use of the filter class to sanitize user inputs
+ * 
+ * Input class that makes use of the filter class to sanitize user inputs
+ * provides simple facilities that promote a structured and rigid approach to input filtering.
+ * Its purpose is multifaceted, because it caters to the needs of three different groups of people:
+ *
+ * Developers:
+ * Although filtering input can never be as easy as doing nothing,
+ * developers need to ensure the integrity of their data without adding unnecessary complexity to their code.
+ * Filter Input offers simple methods for the most common use cases,
+ * extensibility for edge cases, and a strict naming convention that promotes code clarity.
+ *
+ * Managers
+ * Managers of all types who need to maintain control over a large group of developers can enforce a structured approach to input filtering
+ * by restricting or eliminating access to raw input.
+ *
+ * Auditors
+ * Those who audit an application's code need to quickly and reliably identify when and where raw input is used by a developer.
+ * The characteristics that promote code clarity also aid auditors by providing a clear distinction among the different approaches to input filtering.
+ * There are a variety of approaches to input filtering,
+ * and there are also a variety of facilities that PHP developers can use.
+ * Whitelist filtering, blacklist filtering, regular expressions, conditional statements, and native PHP functions
+ * are just a few examples of the input filtering potpourri.
+ * Filter Input combines all of these facilities into a single API with consistent behavior and strict naming conventions.
+ * All of the methods abide by a simple rule - if the data is valid, it is returned, otherwise FALSE is returned.
+ * Extreme simplicity.
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filters
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 Paul Scott
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
 {
     die("You cannot view this page directly");
 }
@@ -32,9 +91,9 @@ if (!$GLOBALS['kewl_entry_point_run'])
  * All of the methods abide by a simple rule - if the data is valid, it is returned, otherwise FALSE is returned.
  * Extreme simplicity.
  *
- * @access public
- * @author Paul Scott based on the Zend Framework methods
- * @copyright AVOIR
+ * @access     public
+ * @author     Paul Scott based on the Zend Framework methods
+ * @copyright  AVOIR
  * @filesource
  */
 class input //extends object
@@ -56,7 +115,7 @@ class input //extends object
     /**
      * Constructor
      *
-     * @param mixed $source
+     * @param mixed   $source
      * @param boolean $strict
      */
     public function __construct(&$source = NULL, $strict = TRUE)
@@ -72,7 +131,7 @@ class input //extends object
     /**
      * Returns only the alphabetic characters in value.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function getAlpha($key)
@@ -83,7 +142,7 @@ class input //extends object
     /**
      * Returns only the alphabetic characters and digits in value.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function getAlnum($key)
@@ -95,7 +154,7 @@ class input //extends object
     /**
      * Returns only the digits in value. This differs from getInt().
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function getDigits($key)
@@ -107,7 +166,7 @@ class input //extends object
     /**
      * Returns dirname(value).
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function getDir($key)
@@ -119,8 +178,8 @@ class input //extends object
     /**
      * Returns (int) value.
      *
-     * @param mixed $key
-     * @return int
+     * @param  mixed $key
+     * @return int  
      */
     public function getInt($key)
     {
@@ -131,7 +190,7 @@ class input //extends object
     /**
      * Returns realpath(value).
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function getPath($key)
@@ -143,8 +202,8 @@ class input //extends object
     /**
      * Returns value.
      *
-     * @param string $key
-     * @return mixed
+     * @param  string $key
+     * @return mixed 
      */
     public function getRaw($key)
     {
@@ -156,7 +215,7 @@ class input //extends object
      * Returns value if every character is alphabetic or a digit,
      * FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testAlnum($key)
@@ -173,7 +232,7 @@ class input //extends object
      * Returns value if every character is alphabetic, FALSE
      * otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testAlpha($key)
@@ -192,11 +251,11 @@ class input //extends object
      * FALSE, then the value must be strictly greater than $min and
      * strictly less than $max.
      *
-     * @param mixed $key
-     * @param mixed $min
-     * @param mixed $max
-     * @param boolean $inclusive
-     * @return mixed
+     * @param  mixed   $key      
+     * @param  mixed   $min      
+     * @param  mixed   $max      
+     * @param  boolean $inclusive
+     * @return mixed  
      */
     public function testBetween($key, $min, $max, $inc = TRUE)
     {
@@ -213,8 +272,8 @@ class input //extends object
      * optional second argument allows developers to indicate the
      * type.
      *
-     * @param mixed $key
-     * @param mixed $type
+     * @param  mixed $key 
+     * @param  mixed $type
      * @return mixed
      */
     public function testCcnum($key, $type = NULL)
@@ -231,7 +290,7 @@ class input //extends object
      * Returns $value if it is a valid date, FALSE otherwise. The
      * date is required to be in ISO 8601 format.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testDate($key)
@@ -248,7 +307,7 @@ class input //extends object
      * Returns value if every character is a digit, FALSE otherwise.
      * This is just like isInt(), except there is no upper limit.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testDigits($key)
@@ -264,7 +323,7 @@ class input //extends object
     /**
      * Returns value if it is a valid email format, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testEmail($key)
@@ -280,7 +339,7 @@ class input //extends object
     /**
      * Returns value if it is a valid float value, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testFloat($key)
@@ -296,8 +355,8 @@ class input //extends object
     /**
      * Returns value if it is greater than $min, FALSE otherwise.
      *
-     * @param mixed $key
-     * @param mixed $min
+     * @param  mixed $key
+     * @param  mixed $min
      * @return mixed
      */
     public function testGreaterThan($key, $min = NULL)
@@ -314,7 +373,7 @@ class input //extends object
      * Returns value if it is a valid hexadecimal format, FALSE
      * otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testHex($key)
@@ -334,9 +393,9 @@ class input //extends object
      * The default is HOST_ALLOW_ALL, which considers all of the
      * above to be valid.
      *
-     * @param mixed $key
-     * @param integer $allow bitfield for HOST_ALLOW_DNS, HOST_ALLOW_IP, HOST_ALLOW_LOCAL
-     * @return mixed
+     * @param  mixed   $key  
+     * @param  integer $allow bitfield for HOST_ALLOW_DNS, HOST_ALLOW_IP, HOST_ALLOW_LOCAL
+     * @return mixed  
      */
     public function testHostname($key, $allow="HOST_ALLOW_ALL")
     {
@@ -351,7 +410,7 @@ class input //extends object
     /**
      * Returns value if it is a valid integer value, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testInt($key)
@@ -367,7 +426,7 @@ class input //extends object
     /**
      * Returns value if it is a valid IP format, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testIp($key)
@@ -383,8 +442,8 @@ class input //extends object
     /**
      * Returns value if it is less than $max, FALSE otherwise.
      *
-     * @param mixed $key
-     * @param mixed $max
+     * @param  mixed $key
+     * @param  mixed $max
      * @return mixed
      */
     public function testLessThan($key, $max = NULL)
@@ -401,7 +460,7 @@ class input //extends object
      * Returns value if it is a valid format for a person's name,
      * FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testName($key)
@@ -417,7 +476,7 @@ class input //extends object
     /**
      * Returns value if it is one of $allowed, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testOneOf($key, $allowed = NULL)
@@ -434,7 +493,7 @@ class input //extends object
      * Returns value if it is a valid phone number format, FALSE
      * otherwise. The optional second argument indicates the country.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testPhone($key, $country = 'US')
@@ -451,8 +510,8 @@ class input //extends object
      * Returns value if it matches $pattern, FALSE otherwise. Uses
      * preg_match() for the matching.
      *
-     * @param mixed $key
-     * @param mixed $pattern
+     * @param  mixed $key    
+     * @param  mixed $pattern
      * @return mixed
      */
     public function testRegex($key, $pattern = NULL)
@@ -465,6 +524,15 @@ class input //extends object
     }
 
 
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $key Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     public function testUri($key)
     {
         if ($this->_filter->isUri($this->_source[$key])) {
@@ -478,7 +546,7 @@ class input //extends object
     /**
      * Returns value if it is a valid US ZIP, FALSE otherwise.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function testZip($key)
@@ -494,7 +562,7 @@ class input //extends object
     /**
      * Returns value with all tags removed.
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function noTags($key)
@@ -506,7 +574,7 @@ class input //extends object
     /**
      * Returns basename(value).
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return mixed
      */
     public function noPath($key)

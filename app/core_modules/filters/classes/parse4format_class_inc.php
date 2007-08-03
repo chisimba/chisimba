@@ -1,18 +1,46 @@
 <?php
+
 /**
  * Class for parsing smilies in a text string
- * @author Kevin Cyster
- * @version $Id: parse4format_class_inc.php,v 1.0 2007/03/01
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filters
+ * @author    Kevin Cyster <kcyster@uwc.ac.za>
+ * @copyright 2007 Kevin Cyster
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+/**
+ * Class for parsing smilies in a text string
+ * @author    Kevin Cyster
+ * @version   $Id: parse4format_class_inc.php,v 1.0 2007/03/01
  * @copyright 2003 GPL
  */
 class parse4format extends object {
     /**
      * Method to take a string and return it with font formating
-     * @param string $str The string to be parsed
-     * @return the parsed string
-     * 
-     * @todo -cparse4smileys Implement do not parse if inside a HTML tag.
-     * 
+     * @param  string $str The string to be parsed
+     * @return the    parsed string
+     *                
+     * @todo   -cparse4smileys Implement do not parse if inside a HTML tag.
+     *         
      */
     function parseSmiley($str)
     {
@@ -59,6 +87,16 @@ class parse4format extends object {
 
     } # end of function
     
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $str Parameter description (if any) ...
+     * @return unknown Return description (if any) ...
+     * @access public 
+     */
     public function parse($str)
     {
     	return $this->parseSmiley($str);

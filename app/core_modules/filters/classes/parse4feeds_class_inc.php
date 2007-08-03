@@ -1,11 +1,40 @@
 <?php
+
+/**
+ * Class to parse a string (e.g. page content) that contains a request
+ * to load a RSS feed in the form [FEED]username[/FEED]
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   filters
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
 /**
 *
 * Class to parse a string (e.g. page content) that contains a request
 * to load a RSS feed in the form [FEED]username[/FEED]
 *
 * @author Derek Keats
-*
+*         
 */
 
 class parse4feeds extends object
@@ -17,7 +46,7 @@ class parse4feeds extends object
      * to use
      * 
      * @access public
-     * 
+     *                
      */
     public function init()
     {
@@ -27,9 +56,9 @@ class parse4feeds extends object
     /**
     *
     * Method to parse the string
-    * @param String $str The string to parse
-    * @return The parsed string
-    *
+    * @param  String $str The string to parse
+    * @return The    parsed string
+    *                
     */
     public function parse($str)
     {
@@ -60,9 +89,9 @@ class parse4feeds extends object
     /**
      * 
      * Method to use the feed module to get the feed
-     * @param string $url The URL for the feed to process
+     * @param  string $url The URL for the feed to process
      * @return string The full feed with title, link, and description
-     * 
+     *                
      */
     public function fetchFeed($url)
     {
@@ -125,10 +154,10 @@ class parse4feeds extends object
      * The stupid WYSWYG editor in Chisimba replaces & with &amp; in URLs
      * so this needs to be reversed for the feed to work
      * 
-     * @param string $url The Url to be cleaned
+     * @param  string $url The Url to be cleaned
      * @return string The Url with &amp; replaced by &
-     * 
-     * 
+     *                
+     *                
      */
     public function cleanUrl($url) 
     {
@@ -139,10 +168,10 @@ class parse4feeds extends object
     * 
     * Method to determine if a number is odd
     * 
-    * @access public
-    * @param int $num The number to test
+    * @access public 
+    * @param  int     $num The number to test
     * @return boolean TRUE|FALSE depending on odd or even status of $num
-    * 
+    *                 
     */
     function isOdd( $num )
 	{
