@@ -887,6 +887,7 @@ class engine
 		if (is_null($objNew)) {
 			throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 		}
+		/*
 		// Now cache the object in case getObject needs it.
 		// first check that the map for the given module exists
 		if (!isset($this->_cachedObjects[$moduleName]))
@@ -895,6 +896,7 @@ class engine
 		}
 		// now store the instance in the map
 		$this->_cachedObjects[$moduleName][$name] = $objNew;
+		*/
 		return $objNew;
 	}
 
