@@ -28,9 +28,9 @@ class systext extends controller
      */
     public function init()
     {
-        $this -> facet =& $this -> getObject('systext_facet');
-        $this -> objUser =& $this -> getObject('user', 'security');
-        $this -> objLanguage =& $this -> getObject('language', 'language');
+        $this -> facet = $this -> getObject('systext_facet');
+        $this -> objUser = $this -> getObject('user', 'security');
+        $this -> objLanguage = $this -> getObject('language', 'language');
 
         //Get the activity logger class
         $this -> objLog = $this -> newObject('logactivity', 'logger');

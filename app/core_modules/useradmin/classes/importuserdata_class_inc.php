@@ -18,9 +18,9 @@ class importuserdata extends object
         $this->userfields=array('userId','username','firstname','surname','title','sex','emailAddress');
         $this->fieldcount=count($this->userfields);
 
-        $this->objUser=&$this->getObject('user','security');
-        $this->objUserAdmin=&$this->getObject('sqlusers','security');
-        $this->objPassword=&$this->getObject('passwords','useradmin');
+        $this->objUser=$this->getObject('user','security');
+        $this->objUserAdmin=$this->getObject('sqlusers','security');
+        $this->objPassword=$this->getObject('passwords','useradmin');
     }
 
     /**

@@ -3,7 +3,7 @@
 $this->setVar('pageSuppressXML',true);
 
 //Insert a breadcrumb if they came from another module
-$objTl =& $this->getObject('tools', 'toolbar');
+$objTl = $this->getObject('tools', 'toolbar');
 $comeFrom = $this->getParam('comefrom', NULL);
 if ( $comeFrom != NULL ) {
     //Make the aback link
@@ -26,7 +26,7 @@ $formAction=$this->uri($paramArray);
 $expirationDate = date("Y-m-d H:i", mktime(0,0,0,date("m"),date("d")+1,date("Y")));
 
 //Get the categories
-$objCat = & $this->getObject('dbstorycategory', 'storycategoryadmin');
+$objCat =  $this->getObject('dbstorycategory', 'storycategoryadmin');
 $filter = NULL;
 $car = $objCat->getAll($filter);
 
@@ -127,7 +127,7 @@ $objForm->addToForm('<div align="center">');
 $objForm->addToForm('<h3 align="center">'.$formTitle.'</h3>');
 
 //Create an instance of the fieldset object
-$objFieldset = & $this->getObject('fieldset', 'htmlelements');
+$objFieldset =  $this->getObject('fieldset', 'htmlelements');
 $objFieldset->legend=$fieldsetLabel;
 $objFieldset->legendalign='CENTER';
 $objFieldset->width="77%";
@@ -181,7 +181,7 @@ $objForm->addRule('language',$objLanguage->languageText("mod_stories_val_langnot
 $objCat = new dropdown('language_selector');
 $objCat->extra=" onchange=\"document.forms['storyinput'].language.value=document.forms['storyinput'].language_selector.value;\"";
 $objCat->addOption("","Clear input");
-$objLangList = & $this->newObject('languagecode','language');
+$objLangList =  $this->newObject('languagecode','language');
 $objCat->selected = $language;
 foreach ($objLangList->iso_639_2_tags->codes as $key => $value) {
     $objCat->addOption($key, $value);

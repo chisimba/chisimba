@@ -29,16 +29,16 @@ class stories extends controller
      */
     function init()
     {
-        $this->objButtons = & $this->getObject('navbuttons', 'navigation');
-        $this->objUser = & $this->getObject('user', 'security');
-        $this->objLanguage = & $this->getObject('language', 'language');
+        $this->objButtons =  $this->getObject('navbuttons', 'navigation');
+        $this->objUser =  $this->getObject('user', 'security');
+        $this->objLanguage =  $this->getObject('language', 'language');
         // Create the configuration object
-        $this->objConfig = & $this->getObject('altconfig', 'config');
+        $this->objConfig =  $this->getObject('altconfig', 'config');
         // Create an instance of the database language class
-        $this->objDbStories = & $this->getObject('dbstories');
+        $this->objDbStories =  $this->getObject('dbstories');
         // Create an instance of the interface supporting class
-        $this->objInterface = & $this->getObject('storyinterface');
-        $this->objDate =& $this->getObject('dateandtime','utilities');
+        $this->objInterface =  $this->getObject('storyinterface');
+        $this->objDate = $this->getObject('dateandtime','utilities');
         //Get the activity logger class
         $this->objLog=$this->newObject('logactivity', 'logger');
         //Log this module call
@@ -92,7 +92,7 @@ class stories extends controller
                 break;
             case "viewstory":
                 $id = $this->getParam('id', NULL);
-                $objStories = & $this->getObject('sitestories');
+                $objStories =  $this->getObject('sitestories');
                 $this->setVar('str', $objStories->fetchStory($id));
                 return 'dump_tpl.php';
             default:

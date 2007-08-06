@@ -14,18 +14,18 @@
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
-$objTable =& $this->loadClass('htmltable', 'htmlelements');
-$objHead =& $this->loadClass('htmlheading', 'htmlelements');
-$objForm =& $this->loadClass('form', 'htmlelements');
-$objInput =& $this->loadClass('textinput', 'htmlelements');
-$objLabel =& $this->loadClass('label', 'htmlelements');
-$objDrop =& $this->loadClass('dropdown', 'htmlelements');
-$objCheck =& $this->loadClass('checkbox', 'htmlelements');
-$objLink =& $this->loadClass('link', 'htmlelements');
-$objButton =& $this->loadClass('button', 'htmlelements');
+$objTable = $this->loadClass('htmltable', 'htmlelements');
+$objHead = $this->loadClass('htmlheading', 'htmlelements');
+$objForm = $this->loadClass('form', 'htmlelements');
+$objInput = $this->loadClass('textinput', 'htmlelements');
+$objLabel = $this->loadClass('label', 'htmlelements');
+$objDrop = $this->loadClass('dropdown', 'htmlelements');
+$objCheck = $this->loadClass('checkbox', 'htmlelements');
+$objLink = $this->loadClass('link', 'htmlelements');
+$objButton = $this->loadClass('button', 'htmlelements');
 
 // set up language items
-$objLanguage =& $this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 $addHeading = $objLanguage->languageText('mod_toolbar_addnewlink','toolbar','Add New Link');
 $editHeading = $objLanguage->languageText('mod_toolbar_editlink','toolbar', 'Edit Link');
 $moduleLabel = $objLanguage->languageText('mod_toolbar_module','toolbar', 'Module');

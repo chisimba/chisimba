@@ -24,13 +24,13 @@ class useradmin extends controller
     */
     public function init()
     {
-        $this->objConfig =& $this->getObject('altconfig','config');
-        $this->objLanguage =& $this->getObject('language','language');
-        $this->objButtons=&$this->getObject('navbuttons','navigation');
-        $this->objUserAdmin=&$this->getObject('useradmin_model2','security');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objConfig = $this->getObject('altconfig','config');
+        $this->objLanguage = $this->getObject('language','language');
+        $this->objButtons=$this->getObject('navbuttons','navigation');
+        $this->objUserAdmin=$this->getObject('useradmin_model2','security');
+        $this->objUser = $this->getObject('user', 'security');
         
-        $this->objFile =& $this->getObject('dbfile', 'filemanager');
+        $this->objFile = $this->getObject('dbfile', 'filemanager');
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         
         $this->objUrl = $this->getObject('url', 'strings');

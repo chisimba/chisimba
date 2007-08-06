@@ -22,8 +22,8 @@ class dbstorycategory extends dbTable
     */
     function init() {
         parent::init('tbl_storycategory');
-        $this->objUser = & $this->getObject("user", "security");
-        $this->objLanguage = & $this->getObject("language", "language");
+        $this->objUser =  $this->getObject("user", "security");
+        $this->objLanguage =  $this->getObject("language", "language");
     }
 
     /**

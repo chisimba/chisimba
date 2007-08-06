@@ -54,16 +54,16 @@ class sidemenu extends object
 		$this->loadClass('label', 'htmlelements');
 		$this->loadClass('link', 'htmlelements');
 		
-        $this->dbMenu =& $this->newObject('dbmenu', 'toolbar');
-        $this->objTools =& $this->newObject('tools', 'toolbar');
+        $this->dbMenu = $this->newObject('dbmenu', 'toolbar');
+        $this->objTools = $this->newObject('tools', 'toolbar');
 
         $this->objLanguage= $this->getObject('language','language');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objUserPic =& $this->getObject('imageupload', 'useradmin');
-        $this->objIcon =& $this->newObject('geticon', 'htmlelements');
-        $this->objLink =& $this->getObject('link','htmlelements');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objUserPic = $this->getObject('imageupload', 'useradmin');
+        $this->objIcon = $this->newObject('geticon', 'htmlelements');
+        $this->objLink = $this->getObject('link','htmlelements');
 
-        $this->objHead =& $this->newObject('htmlheading','htmlelements');
+        $this->objHead = $this->newObject('htmlheading','htmlelements');
         $this->objHead->type=3;
 
         // Create a global table - Other methods are allowed to add to this table
@@ -72,12 +72,12 @@ class sidemenu extends object
         $this->globalTable->width='99%';
 
         // get images from icons/modules folder
-        $objSkin = & $this->getObject('skin','skin');
+        $objSkin =  $this->getObject('skin','skin');
         $this->iconModFolder = $objSkin->getSkinLocation()."icons/modules/";
         $this->iconFolder = $objSkin->getSkinLocation()."icons/";
 
         // Get Context Code & Title
-        $this->objContext =& $this->getObject('dbcontext', 'context');
+        $this->objContext = $this->getObject('dbcontext', 'context');
         if($this->objContext->isInContext()){
             $this->contextTitle = $this->objContext->getTitle();
             $this->contextcode = $this->objContext->getcontextcode();
@@ -362,7 +362,7 @@ class sidemenu extends object
             $objLink->link = $objLeaveButton;
             $objLeaveLink = $objLink->show();
 
-            $contextObject =& $this->getObject('dbcontext', 'context');
+            $contextObject = $this->getObject('dbcontext', 'context');
             $contextcode = $contextObject->getcontextcode();
 
             $objLink = new link($this->uri(null, 'context'));
@@ -420,8 +420,8 @@ class sidemenu extends object
     function joinInterestGroup($filter = 'context')
     {
         // Check if workgroup is registered and active for the context
-        $objModule =& $this->getObject('modules','modulecatalogue');
-        $objCondition =& $this->getObject('contextcondition','contextpermissions');
+        $objModule = $this->getObject('modules','modulecatalogue');
+        $objCondition = $this->getObject('contextcondition','contextpermissions');
        
 ///////////////////+>       
         $notaMember = $this->objLanguage->code2Txt('mod_toolbar_notingroup','toolbar');
@@ -437,8 +437,8 @@ class sidemenu extends object
 
         $str = '';
         if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
-            $objDBWorkgroup =& $this->getObject('dbworkgroup', 'workgroup');
-            $this->objHeading = &$this->newObject('htmlheading', 'htmlelements');
+            $objDBWorkgroup = $this->getObject('dbworkgroup', 'workgroup');
+            $this->objHeading = $this->newObject('htmlheading', 'htmlelements');
             $this->objHeading->str = $join;
             $this->objHeading->type = 4;
             $str = $this->objHeading->show();

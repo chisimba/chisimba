@@ -35,14 +35,14 @@ class sysconfiginterface extends object
     {
 
         //Get an instance of the sysconfig object
-        $this->objDbSysconfig = & $this->getObject('dbsysconfig');
+        $this->objDbSysconfig =  $this->getObject('dbsysconfig');
         //Get an instance of the user object
-        $this->objUser = & $this->getObject('user', 'security');
+        $this->objUser =  $this->getObject('user', 'security');
         //Get an instance of the language object
-        $this->objLanguage = & $this->getObject('language', 'language');
+        $this->objLanguage =  $this->getObject('language', 'language');
         //Get the text abstract object
         //Kevin Cyster
-        //$this -> objAbstract =& $this -> getObject('systext_facet', 'systext');
+        //$this -> objAbstract = $this -> getObject('systext_facet', 'systext');
     }
 
     /**

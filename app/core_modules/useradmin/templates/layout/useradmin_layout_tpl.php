@@ -1,9 +1,9 @@
 <?php
 
 // Create an Instance of the CSS Layout
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 
-$adminMenu =& $this->getObject('adminmenu', 'toolbar');
+$adminMenu = $this->getObject('adminmenu', 'toolbar');
 
 $cssLayout->setLeftColumnContent($adminMenu->show());
 

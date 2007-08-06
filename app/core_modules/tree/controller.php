@@ -28,9 +28,9 @@ class tree extends controller
      */
     function init()
     {
-        $this->objSkin = & $this->getObject('skin','skin');
-        $this->objConfig= & $this->getObject('config','config');
-        $this->objAltConfig= & $this->getObject('altconfig','config');
+        $this->objSkin =  $this->getObject('skin','skin');
+        $this->objConfig=  $this->getObject('config','config');
+        $this->objAltConfig=  $this->getObject('altconfig','config');
 		$this->loadClass('folderbot', 'files');
 		$this->loadClass('layer','htmlelements');
 		$this->loadClass('treemenu','tree');

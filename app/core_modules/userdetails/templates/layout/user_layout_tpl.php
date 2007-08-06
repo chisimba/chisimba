@@ -1,7 +1,7 @@
 <?php
 
 // Create an Instance of the CSS Layout
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 
 $objUserMenu = $this->getObject('usermenu', 'toolbar');
 

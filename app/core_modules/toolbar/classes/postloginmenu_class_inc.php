@@ -30,7 +30,7 @@ class postloginmenu extends object
     */
     function init()
     {
-        $this->objSideMenu =& $this->getObject('sidemenu','toolbar');
+        $this->objSideMenu = $this->getObject('sidemenu','toolbar');
     }
 
     /**

@@ -41,9 +41,9 @@ class contenttree extends object{
 	* Initialize method
 	*/
 	function init(){
-		$this->objDBContentNodes = &$this->newObject('dbcontentnodes','context');
-		$this->objDBContext = &$this->newObject('dbcontext','context');
-		$this->objSkin = & $this->getObject('skin','skin');
+		$this->objDBContentNodes = $this->newObject('dbcontentnodes','context');
+		$this->objDBContext = $this->newObject('dbcontext','context');
+		$this->objSkin =  $this->getObject('skin','skin');
 		 //the tree classes
         $this->loadClass('treemenu','tree');
         $this->loadClass('treenode','tree');        

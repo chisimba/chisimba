@@ -2,10 +2,10 @@
 //View template for table: tbl_stories
 
 //Set up the button class to make the edit, add and delet icons
-$objButtons = & $this->getObject('navbuttons', 'navigation');
+$objButtons =  $this->getObject('navbuttons', 'navigation');
 
 // Create an instance of the css layout class
-$cssLayout = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
+$cssLayout =  $this->newObject('csslayout', 'htmlelements');// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 // Check if the text should be changed.
@@ -16,7 +16,7 @@ $leftSideColumn = $this->objLanguage->code2Txt("mod_".$textModule."_mainleftside
 
 // Add Left column
 $cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
+$this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=3; //Heading <h3>
 $this->objH->str=ucwords($objLanguage->code2Txt("mod_".$textModule."_title", "stories"));
 
@@ -77,7 +77,7 @@ $objTrLink = $this->newObject('link', 'htmlelements');
 //Create the table header for display
 $this->Table->addHeader($tableHd, "heading");
 //Instantiate the classe for checking expiration
-$objExp = & $this->getObject('dateandtime', 'utilities');
+$objExp =  $this->getObject('dateandtime', 'utilities');
 //Loop through and display the records
 $rowcount = 0;
 if (isset($ar)) {
@@ -147,7 +147,7 @@ if (isset($ar)) {
               'action' => 'delete',
               'confirm' => 'yes',
               'id' => $line['id']));
-            $objConfirm = & $this->newObject('confirm','utilities');
+            $objConfirm =  $this->newObject('confirm','utilities');
             $rep = array('ITEM' => $line['id']);
             $delText = $this->objLanguage->code2Txt("mod_stories_confirm", $rep);
             $objConfirm->setConfirm($objDelIcon->show(),$delLink,$delText);

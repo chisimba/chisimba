@@ -36,9 +36,9 @@ class parse4display extends object {
     function init()
     {
         //Get the smiley parser
-        $this->objParse4smileys = &$this->getObject('parse4smileys', 'filters');
+        $this->objParse4smileys = $this->getObject('parse4smileys', 'filters');
         //Create an instance of the URL object to link URLs in the string
-        $this->objUrl = &$this->getObject('url', 'strings'); 
+        $this->objUrl = $this->getObject('url', 'strings'); 
     }
     
     /**

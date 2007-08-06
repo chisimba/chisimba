@@ -23,19 +23,19 @@ class toolbar extends controller
     */
     function init()
     {
-        $this->objPage =& $this->getObject('page');
-        $this->objRegister =& $this->getObject('register');
-        $this->objDbMenu =& $this->getObject('dbmenu');
-        $this->objPerms =& $this->getObject('permissions_model', 'permissions');
-        $this->objGroups =& $this->getObject('groupadminmodel', 'groupadmin');
-        $this->objModules =& $this->getObject('modules', 'modulecatalogue');
-        $this->objContext =& $this->getObject('dbcontext', 'context');
+        $this->objPage = $this->getObject('page');
+        $this->objRegister = $this->getObject('register');
+        $this->objDbMenu = $this->getObject('dbmenu');
+        $this->objPerms = $this->getObject('permissions_model', 'permissions');
+        $this->objGroups = $this->getObject('groupadminmodel', 'groupadmin');
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
+        $this->objContext = $this->getObject('dbcontext', 'context');
         if($this->objContext->isInContext()){
             $this->context = TRUE;
         }else{
             $this->context = FALSE;
         }
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
 
     /**

@@ -214,7 +214,7 @@ $table->endRow();
 // Country
 $table->startRow();
     //$objCountries=&$this->getObject('countries','utilities');
-    $objCountries=&$this->getObject('languagecode','language');
+    $objCountries=$this->getObject('languagecode','language');
     
     $table->addCell($this->objLanguage->languageText('word_country', 'system'));
     $table->addCell('&nbsp;');

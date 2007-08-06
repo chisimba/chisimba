@@ -64,13 +64,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * Constructor
      */
      function init(){
-        $this->objIcon = &$this->newObject('geticon', 'htmlelements');        
-        $this->form = &$this->newObject('form', 'htmlelements');        
-        $this->input = &$this->newObject('textinput', 'htmlelements');        
-        $this->link = &$this->newObject('link', 'htmlelements');        
-        $this->button = &$this->newObject('button', 'htmlelements');       
-        $this->objDBContext = & $this->newObject('dbcontext', 'context');
-        $this->objDBContentNodes = & $this->newObject('dbcontentnodes', 'context');        
+        $this->objIcon = $this->newObject('geticon', 'htmlelements');        
+        $this->form = $this->newObject('form', 'htmlelements');        
+        $this->input = $this->newObject('textinput', 'htmlelements');        
+        $this->link = $this->newObject('link', 'htmlelements');        
+        $this->button = $this->newObject('button', 'htmlelements');       
+        $this->objDBContext =  $this->newObject('dbcontext', 'context');
+        $this->objDBContentNodes =  $this->newObject('dbcontentnodes', 'context');        
      }
      
      /**
@@ -98,12 +98,12 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @return string 
      */
      function _makeNode($parentId, $menuText){
-        $this->objIcon = &$this->newObject('geticon', 'htmlelements');        
-        $this->form = &$this->newObject('form', 'htmlelements');        
-        $this->input = &$this->newObject('textinput', 'htmlelements');        
-        $this->link = &$this->newObject('link', 'htmlelements');        
-        $this->button = &$this->newObject('button', 'htmlelements');    
-        $this->radio = &$this->newObject('radio', 'htmlelements');    
+        $this->objIcon = $this->newObject('geticon', 'htmlelements');        
+        $this->form = $this->newObject('form', 'htmlelements');        
+        $this->input = $this->newObject('textinput', 'htmlelements');        
+        $this->link = $this->newObject('link', 'htmlelements');        
+        $this->button = $this->newObject('button', 'htmlelements');    
+        $this->radio = $this->newObject('radio', 'htmlelements');    
         $node = $this->objDBContentNodes->getRow('id', $parentId);
         if($menuText == '')
         {
@@ -228,7 +228,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      */
      function getListBox(){
          //create dropdown box
-         $dropdown = & $this->newObject('dropdown', 'htmlelements');
+         $dropdown =  $this->newObject('dropdown', 'htmlelements');
          $dropdown->name = 'sourceId';
          //get the root id
          $contextCode = $this->objDBContext->getContextCode();

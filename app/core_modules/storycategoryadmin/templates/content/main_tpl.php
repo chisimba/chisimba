@@ -3,10 +3,10 @@
 //View template for table: tbl_storycategory
 
 //Set up the button class to make the edit, add and delet icons
-$objButtons = & $this->getObject('navbuttons', 'navigation');
+$objButtons =  $this->getObject('navbuttons', 'navigation');
 
 // Create an instance of the css layout class
-$cssLayout = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
+$cssLayout =  $this->newObject('csslayout', 'htmlelements');// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 //Set the content of the left side column
@@ -16,7 +16,7 @@ $allowAdmin = True; //You need to write your security here
 
 // Add Left column
 $cssLayout->setLeftColumnContent($leftSideColumn);// Add the heading to the content
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
+$this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1; //Heading <h1>
 if ($allowAdmin) {
   $paramArray = array('action' => 'add');
@@ -84,7 +84,7 @@ if (isset($ar)) {
               'action' => 'delete',
               'confirm' => 'yes',
               'id' => $line['id']));
-            $objConfirm = & $this->newObject('confirm','utilities');
+            $objConfirm =  $this->newObject('confirm','utilities');
             $rep = array('ITEM' => $line['category']);
             $objConfirm->setConfirm($objDelIcon->show(),
             $delLink,$this->objLanguage->code2Txt("mod_storycategory_confirm", $rep));
@@ -104,7 +104,7 @@ if (isset($ar)) {
 //Add the table to the centered layer
 $rightSideColumn .= $this->Table->show();
 //Create add text link
-$objAddLink =& $this->getObject('link', 'htmlelements');
+$objAddLink = $this->getObject('link', 'htmlelements');
 $objAddLink->link($this->uri(array('action'=>'add')));
 $objAddLink->link=$objLanguage->code2Txt("mod_storycategoryadmin_addnew", "storycategoryadmin");
 //Add the link to the centered layer

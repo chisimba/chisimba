@@ -24,12 +24,12 @@ class sitestories extends dbTable {
     function init()
     {
         parent::init('tbl_stories');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->objDbStories = & $this->getObject('dbstories');
-        $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objDbStories =  $this->getObject('dbstories');
+        $this->objH = $this->getObject('htmlheading', 'htmlelements');
         //Get the smiley parser
-        $this->objParse = &$this->getObject('parse4display', 'strings');
+        $this->objParse = $this->getObject('parse4display', 'strings');
     }
 
     /**
@@ -69,10 +69,10 @@ class sitestories extends dbTable {
         $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
         $ret.=" <b>".$dateCreated."</b></p>";
         //Create an instance of the modulesadmin to check if registered
-        $this->objModule=&$this->getObject('modules','modulecatalogue');
+        $this->objModule=$this->getObject('modules','modulecatalogue');
         if ($this->objModule->checkIfRegistered('comment', 'comment')){
             //Create an instance of the comment link
-            $objComment = & $this->getObject('commentinterface', 'comment');
+            $objComment =  $this->getObject('commentinterface', 'comment');
             //Set the table name
             $objComment->set('tableName', 'tbl_stories');
             $objComment->set('sourceId', $id);
@@ -117,17 +117,17 @@ class sitestories extends dbTable {
         //Initialize the return string
         $ret="";
         //Instantiate the classe for checking expiration
-        $objExp = & $this->getObject('dateandtime','utilities');
+        $objExp =  $this->getObject('dateandtime','utilities');
         //Get an instance of the language code
-        $objLcode = & $this->getObject('languagecode', 'language');
+        $objLcode =  $this->getObject('languagecode', 'language');
         // Get Icon for stickylabel
         $objStIcon = $this->newObject('geticon', 'htmlelements');
 
         //Create an instance of the modulesadmin to check if registered
-        $this->objModule=&$this->getObject('modules','modulecatalogue');
+        $this->objModule=$this->getObject('modules','modulecatalogue');
         if ($this->objModule->checkIfRegistered('comment', 'comment')){
             //Create an instance of the comment link
-            $objComment = & $this->getObject('commentinterface', 'comment');
+            $objComment =  $this->getObject('commentinterface', 'comment');
             //Set the table name
             $objComment->set('tableName', 'tbl_stories');
             //Set the module code
@@ -254,7 +254,7 @@ class sitestories extends dbTable {
     */
     function putCategoryChooser()
     {
-        $objCat = & $this->getObject('dbstorycategory', 'storycategoryadmin');
+        $objCat =  $this->getObject('dbstorycategory', 'storycategoryadmin');
         $ar = $objCat->getAll();
         //Load the form class that I need
         $this->loadClass('form','htmlelements');

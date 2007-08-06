@@ -24,7 +24,7 @@ $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('label', 'htmlelements');
 
 // Set up language items
-$objLanguage =& $this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 $heading = $objLanguage->languageText('mod_toolbar_confmodulelinks','toolbar');
 $moduleLabel = $objLanguage->languageText('mod_toolbar_module','toolbar', 'Module');
 $toolbarLabel = $objLanguage->languageText('mod_toolbar_toolbar','toolbar');

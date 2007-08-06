@@ -47,7 +47,7 @@ class toolbar extends object
         $mod = $this->getParam('module');
         $act = $this->getParam('action');
         if(!($mod=="security" && $act=="logoff")){
-            $objSecurity=& $this->getObject("user","security");
+            $objSecurity= $this->getObject("user","security");
             $var = $objSecurity->isLoggedIn();
             return $var;
         }

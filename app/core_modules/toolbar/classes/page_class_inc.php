@@ -24,8 +24,8 @@ class page extends object
     */
     function init()
     {
-        $this->objDbMenu =& $this->getObject('dbmenu');
-        $this->objTools =& $this->getObject('tools');
+        $this->objDbMenu = $this->getObject('dbmenu');
+        $this->objTools = $this->getObject('tools');
     }
 
     /**
@@ -64,7 +64,7 @@ class page extends object
 
                     // Patch for contextadmin content import/delete links
                     if($category[0] == 'lecturer' && $line['module'] == 'contextadmin'){
-                        $objDBContentNodes =& $this->getObject('dbcontentnodes','context');
+                        $objDBContentNodes = $this->getObject('dbcontentnodes','context');
                         if($array[1] == 'delete' || $array[1] == 'exportcontent'){
                             if(!$objDBContentNodes->hasNodes()){
                                 $skip = TRUE;

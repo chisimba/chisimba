@@ -27,7 +27,7 @@ $this->loadClass('layer', 'htmlelements');
 $objSelectBox = $this->newObject('selectbox','htmlelements');
 
 // set up language items
-$objLanguage =& $this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 $linkPermLabel = $objLanguage->languageText('mod_toolbar_linkpermissions','toolbar', 'Link Permissions');
 $aclLabel = $objLanguage->languageText('mod_toolbar_selectacl','toolbar', 'Select an access control list (ACL)');
 $groupLabel = $objLanguage->languageText('mod_toolbar_selectgroup','toolbar', 'Select a group');

@@ -33,11 +33,11 @@ class storycategoryadmin extends controller
         //Retrieve the action parameter from the querystring
         $this->action = $this->getParam('action', Null);
         //Create an instance of the database class for this module
-        $this->objDbstorycategory = & $this->getObject("dbstorycategory");
+        $this->objDbstorycategory =  $this->getObject("dbstorycategory");
         //Create an instance of the User object
-        $this->objUser =  & $this->getObject("user", "security");
+        $this->objUser =   $this->getObject("user", "security");
         //Create an instance of the language object
-        $this->objLanguage = &$this->getObject("language", "language");
+        $this->objLanguage = $this->getObject("language", "language");
     }
 
     /**

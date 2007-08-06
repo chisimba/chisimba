@@ -74,7 +74,7 @@ $form->addToForm('<p><strong>Search for Users</strong>: '.$label->show().$dropdo
 echo $form->show();
 
 
-$objAlphabet =& $this->getObject('alphabet','navigation');
+$objAlphabet = $this->getObject('alphabet','navigation');
 
 if ($mode == 'useradmin') {
     $objAlphabet->highlightedItem = $letter;

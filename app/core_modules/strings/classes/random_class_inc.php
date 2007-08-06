@@ -11,7 +11,7 @@ class random extends object {
     */
     function init()
     {
-        $this->objUser = &$this->getObject("user", "security");
+        $this->objUser = $this->getObject("user", "security");
     } 
 
     /**

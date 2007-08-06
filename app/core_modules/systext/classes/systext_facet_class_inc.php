@@ -70,11 +70,11 @@ class systext_facet extends dbTable
     function init()
     {
     	parent::init('tbl_sysconfig_properties');
-    	$this -> _objSystemTypeDb =& $this -> getObject('dbsystem', 'systext');
-        $this -> _objTextItemDb =& $this -> getObject('dbtext', 'systext');
-        $this -> _objAbstractTextDb =& $this -> getObject('dbabstract', 'systext');
+    	$this -> _objSystemTypeDb = $this -> getObject('dbsystem', 'systext');
+        $this -> _objTextItemDb = $this -> getObject('dbtext', 'systext');
+        $this -> _objAbstractTextDb = $this -> getObject('dbabstract', 'systext');
 
-        $this -> _objConfig =& $this -> getObject('altconfig', 'config');
+        $this -> _objConfig = $this -> getObject('altconfig', 'config');
 
         // The abstract list is persistent for this session.
         // Initialize the abstract list for this instance.

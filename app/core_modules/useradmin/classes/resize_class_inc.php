@@ -48,7 +48,7 @@ class resize extends object
     function init()
     {
         if (!extension_loaded('gd')){
-            $objLanguage=&$this->getObject('language','language');
+            $objLanguage=$this->getObject('language','language');
             $msg=$objLanguage->languageText('mod_useradmin_nogd','Warning: KEWL.NextGen requires PHP to have the GD graphics module available in order to resize image files.');
             $this->objEngine->addMessage($msg);
         }

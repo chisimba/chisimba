@@ -1,6 +1,6 @@
 <?php
 //Create page header
-$pgTitle =& $this->getObject('htmlheading', 'htmlelements');
+$pgTitle = $this->getObject('htmlheading', 'htmlelements');
 $pgTitle->type = 1;
 if($mode == 'edit'){
 $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_edtxt",'sysconfig');

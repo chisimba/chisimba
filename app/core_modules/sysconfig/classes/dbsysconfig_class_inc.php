@@ -33,9 +33,9 @@ class dbsysconfig extends dbTable
         // false since configuration paramaters should not be mirrored.
         parent::init('tbl_sysconfig_properties', false);
         // Get an instance of the user object
-        $this->objUser = &$this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
         // Get an instance of the language object
-        $this->objConfig = &$this->getObject('altconfig','config');
+        $this->objConfig = $this->getObject('altconfig','config');
     }
 
     /**

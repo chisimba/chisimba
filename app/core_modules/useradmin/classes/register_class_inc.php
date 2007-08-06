@@ -38,7 +38,7 @@ class register extends object
         .$this->objLang->languageText('word_sincerely')."\n"
         .$this->objLang->languageText('mod_useradmin_greet5','useradmin')."\n";
         $subject=$this->objLang->languageText('mod_useradmin_greet6','useradmin');
-        $objUserAdmin = &$this->getObject('useradmin_model','security');
+        $objUserAdmin = $this->getObject('useradmin_model','security');
         $info=$this->objUserAdmin->siteURL();
         $emailtext=str_replace('Chisimba',$info['sitename'],$emailtext);
                 

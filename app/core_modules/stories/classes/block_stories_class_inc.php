@@ -34,8 +34,8 @@ class block_stories extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
-    		$this->title = &$this->objLanguage->languageText('word_stories');
+    		$this->objLanguage =  $this->getObject('language', 'language');
+    		$this->title = $this->objLanguage->languageText('word_stories');
     	} catch (customException $e) {
     		customException::cleanUp();
     	}
@@ -48,7 +48,7 @@ class block_stories extends object
     public function show()
     {
     	try {
-        	$objStories = &$this->getObject('sitestories', 'stories');
+        	$objStories = $this->getObject('sitestories', 'stories');
             return $objStories->fetchCategory('prelogin');
         } catch (customException $e) {
     		customException::cleanUp();

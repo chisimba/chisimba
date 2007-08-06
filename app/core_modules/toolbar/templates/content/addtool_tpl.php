@@ -19,11 +19,11 @@ $this->loadClass('button', 'htmlelements');
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
-$objTable =& $this->newObject('htmltable', 'htmlelements');
+$objTable = $this->newObject('htmltable', 'htmlelements');
 
 
 // set up language items
-$objLanguage =& $this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 $addHeading = $objLanguage->languageText('mod_toolbar_addnewlink', 'toolbar','Add New Link');
 $editHeading = $objLanguage->languageText('mod_toolbar_editlink', 'toolbar','Edit Link');
 $moduleLabel = $objLanguage->languageText('mod_toolbar_module', 'toolbar','Module');

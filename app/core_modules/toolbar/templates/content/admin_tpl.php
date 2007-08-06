@@ -10,14 +10,14 @@
 $this->setLayoutTemplate('admin_layout_tpl.php');
 
 // set up html elements
-$this->objLanguage =& $this->getObject('language','language');
-$tab =& $this->newObject('tabbedbox', 'htmlelements');
-$tabcontent =& $this->newObject('tabcontent', 'htmlelements');
-$objIcon =& $this->newObject('geticon', 'htmlelements');
-$objLink =& $this->newObject('link', 'htmlelements');
-$objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objSkin =& $this->newObject('skin', 'skin');
+$this->objLanguage = $this->getObject('language','language');
+$tab = $this->newObject('tabbedbox', 'htmlelements');
+$tabcontent = $this->newObject('tabcontent', 'htmlelements');
+$objIcon = $this->newObject('geticon', 'htmlelements');
+$objLink = $this->newObject('link', 'htmlelements');
+$objTable = $this->newObject('htmltable', 'htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
+$objSkin = $this->newObject('skin', 'skin');
 
 // set up language items
 $head = $this->objLanguage->languageText('mod_toolbar_siteadmin','toolbar');

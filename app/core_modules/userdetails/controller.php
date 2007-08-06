@@ -23,11 +23,11 @@ class userdetails extends controller
     */
     public function init()
     {
-        $this->objConfig =& $this->getObject('altconfig','config');
-        $this->objLanguage =& $this->getObject('language','language');
-        $this->objUserAdmin =& $this->getObject('useradmin_model2','security');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objFile =& $this->getObject('dbfile', 'filemanager');
+        $this->objConfig = $this->getObject('altconfig','config');
+        $this->objLanguage = $this->getObject('language','language');
+        $this->objUserAdmin = $this->getObject('useradmin_model2','security');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objFile = $this->getObject('dbfile', 'filemanager');
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         
         $this->objUrl = $this->getObject('url', 'strings');

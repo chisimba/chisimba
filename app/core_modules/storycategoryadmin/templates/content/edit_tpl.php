@@ -24,7 +24,7 @@ $objForm->setAction($formAction);
 //Set the displayType to 3 for freeform
 $objForm->displayType=3;
 // Create an instance of the css layout class
-$cssLayout = & $this->newObject('csslayout', 'htmlelements');// Set columns to 2
+$cssLayout =  $this->newObject('csslayout', 'htmlelements');// Set columns to 2
 $cssLayout->setNumColumns(2);
 
 //Set the content of the left side column
@@ -87,7 +87,7 @@ if (isset($title)) {
 
 
 //Create an instance of the fieldset object
-$objFieldset = & $this->getObject('fieldset', 'htmlelements');
+$objFieldset =  $this->getObject('fieldset', 'htmlelements');
 $objFieldset->legend=$fieldsetLabel;
 $objFieldset->contents="<table><tr><td align=\"right\">"
   . $catLabel->show()
@@ -113,7 +113,7 @@ $objCancel->setValue(' '.$this->objLanguage->languageText("mod_storycategoryadmi
 // Add the button to the form
 $objForm->addToForm('<br/>'.$objElement->show()."&nbsp;".$objCancel->show());
 //Add the heading to the layer
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
+$this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1; //Heading <h1>
 $this->objH->str=$objLanguage->languageText("mod_storycategoryadmin_title", "storycategoryadmin");
 $rightSideColumn = $this->objH->show();

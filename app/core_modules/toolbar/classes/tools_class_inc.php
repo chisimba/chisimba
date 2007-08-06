@@ -89,36 +89,36 @@ class tools extends object
 
     {
 
-        $this->objLanguage =& $this->getObject('language','language');
+        $this->objLanguage = $this->getObject('language','language');
 
-        $this->objConfig =& $this->getObject('altconfig','config');
-        $this->objSysConfig =& $this->getObject('dbsysconfig','sysconfig');
+        $this->objConfig = $this->getObject('altconfig','config');
+        $this->objSysConfig = $this->getObject('dbsysconfig','sysconfig');
 
-        $this->objUser =& $this->getObject('user', 'security');
-
-
-
-        $this->objIcon =& $this->newObject('geticon', 'htmlelements');
-
-        $this->objLink =& $this->newObject('link', 'htmlelements');
+        $this->objUser = $this->getObject('user', 'security');
 
 
 
-        $this->objSkin =& $this->newObject('skin','skin');
+        $this->objIcon = $this->newObject('geticon', 'htmlelements');
 
-        $this->moduleCheck =& $this->newObject('modules','modulecatalogue');
-
-        $this->objHelp =& $this->getObject('help', 'help');
+        $this->objLink = $this->newObject('link', 'htmlelements');
 
 
 
-        $this->objCond =& $this->newObject('contextCondition','contextpermissions');
+        $this->objSkin = $this->newObject('skin','skin');
 
-        $this->objPerm =& $this->newObject('permissions_model','permissions');
+        $this->moduleCheck = $this->newObject('modules','modulecatalogue');
+
+        $this->objHelp = $this->getObject('help', 'help');
 
 
 
-        $this->contextObject =& $this->getObject('dbcontext', 'context');
+        $this->objCond = $this->newObject('contextCondition','contextpermissions');
+
+        $this->objPerm = $this->newObject('permissions_model','permissions');
+
+
+
+        $this->contextObject = $this->getObject('dbcontext', 'context');
 
         $this->contextCode = $this->contextObject->getContextCode();
 
@@ -156,7 +156,7 @@ class tools extends object
 
         if(!($mod=="security" && $act=="logoff")){
 
-            $objSecurity=& $this->getObject("user","security");
+            $objSecurity= $this->getObject("user","security");
 
             $var = $objSecurity->isLoggedIn();
 

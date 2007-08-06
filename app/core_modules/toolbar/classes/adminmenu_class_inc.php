@@ -29,17 +29,17 @@ class adminmenu extends object
     {
         $this->objLanguage= $this->getObject('language','language');
         $this->moduleCheck=$this->newObject('modules','modulecatalogue');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
 
-        $this->objUserPic =& $this->getObject('imageupload', 'useradmin');
+        $this->objUserPic = $this->getObject('imageupload', 'useradmin');
 
         $this->globalTable=$this->newObject('htmltable','htmlelements');
         $this->globalTable->cellpadding=5;
         $this->globalTable->width='99%';
 
-        $objSkin = & $this->getObject('skin','skin');
+        $objSkin =  $this->getObject('skin','skin');
         $this->iconfolder=$objSkin->getSkinUrl()."icons/modules/";
-        $this->icon =& $this->getObject('geticon', 'htmlelements');
+        $this->icon = $this->getObject('geticon', 'htmlelements');
     }
 
     /**
@@ -49,7 +49,7 @@ class adminmenu extends object
     */
     function show()
     {
-        $userTitle =& $this->getObject('htmlheading', 'htmlelements');
+        $userTitle = $this->getObject('htmlheading', 'htmlelements');
         $userTitle->type=2;
         $userTitle->str=$this->objUser->fullName();
         $menu =  $userTitle->show();

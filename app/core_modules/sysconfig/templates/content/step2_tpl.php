@@ -19,7 +19,7 @@ $addLink=$this->uri(array('action' => 'add',
 $pgHd = $pmodule;
 if($pgHd == '_site_'){
 $pgHd = 'Site Parameters';
-$pgTitle =& $this->getObject('htmlheading', 'htmlelements');
+$pgTitle = $this->getObject('htmlheading', 'htmlelements');
 $pgTitle->type = 1;
 $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sysconfig')."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;".$pgHd;
 ?>
@@ -48,8 +48,8 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
 	
 	<?php
 //Create the table for the output
-    $objTable = &$this->newObject('htmltable', 'htmlelements');
-    $objConfig = &$this->newObject('altconfig','config');
+    $objTable = $this->newObject('htmltable', 'htmlelements');
+    $objConfig = $this->newObject('altconfig','config');
     $objTable->cellpadding = 5;
     //Get the special delete icon to work with confirm
     $objDelIcon = $this->newObject('geticon', 'htmlelements');
@@ -100,7 +100,7 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
 
 }else{
 //Create page header
-$pgTitle =& $this->getObject('htmlheading', 'htmlelements');
+$pgTitle = $this->getObject('htmlheading', 'htmlelements');
 $pgTitle->type = 1;
 $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sysconfig')."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;"."&nbsp;".$pgHd;
 

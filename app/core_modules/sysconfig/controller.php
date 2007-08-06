@@ -50,16 +50,16 @@ class sysconfig extends controller {
     function init()
     {
         //Get an instance of the configuration object
-        $this->objSysConfig = & $this->getObject('dbsysconfig');
+        $this->objSysConfig =  $this->getObject('dbsysconfig');
         //Get an instance of the interface helper object
-        $this->objInterface = & $this->getObject('sysconfiginterface');
+        $this->objInterface =  $this->getObject('sysconfiginterface');
         //Get an Instance of the language object
-        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         //Get an instance of the user object
-        $this->objUser = & $this->getObject('user', 'security');
+        $this->objUser =  $this->getObject('user', 'security');
         //Get the text abstract object
         //Kevin Cyster
-        $this -> objAbstract =& $this -> getObject('systext_facet', 'systext');
+        $this -> objAbstract = $this -> getObject('systext_facet', 'systext');
     }
 
     /**
@@ -78,7 +78,7 @@ class sysconfig extends controller {
             case NULL:
             case 'step1':
                  // Create page title
-                $pgTitle =& $this->getObject('htmlheading', 'htmlelements');
+                $pgTitle = $this->getObject('htmlheading', 'htmlelements');
                 $pgTitle->type = 1;
                 $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_firstep",'sysconfig');
                 //Set the title for the table
@@ -86,7 +86,7 @@ class sysconfig extends controller {
                 //Set the text instructions for the table
                 $this->setVar('step1', $this->objLanguage->languageText("mod_sysconfig_step1",'sysconfig'));
                 //Get list of registered modules
-                $this->objMods = & $this->getObject('modules', 'modulecatalogue');
+                $this->objMods =  $this->getObject('modules', 'modulecatalogue');
                 //Return an array of all modules
                 $this->setVar('ary', $this->objMods->getModules(1));
                 //Set the action for the form
@@ -175,7 +175,7 @@ class sysconfig extends controller {
     
     private function save()
     {
-    	$this->objConfig = & $this->getObject('altconfig','config');
+    	$this->objConfig =  $this->getObject('altconfig','config');
     	$result = $this->objConfig->updateParam($this->getParam('id'),'',$this->getParam('pvalue'));
     	return $result;
     	

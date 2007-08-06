@@ -21,8 +21,8 @@ class imageupload extends object
 
     public function init()
     {
-        $this->objConfig=&$this->getObject('altconfig','config');
-        $this->objUser=&$this->getObject('user','security');
+        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objUser=$this->getObject('user','security');
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
     }

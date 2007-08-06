@@ -15,8 +15,8 @@ class sysconfig_system_type extends object
     */
     public function init()
     { 
-        $this->objAbstract =& $this->getObject('systext_facet', 'systext');
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objAbstract = $this->getObject('systext_facet', 'systext');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     
     /**

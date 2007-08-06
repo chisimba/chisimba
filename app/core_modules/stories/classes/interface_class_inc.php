@@ -24,12 +24,12 @@ class storyinterface extends object {
     function init()
     {
         parent::init('tbl_stories');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->objDbStories = & $this->getObject('dbstories');
-        $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objDbStories =  $this->getObject('dbstories');
+        $this->objH = $this->getObject('htmlheading', 'htmlelements');
         //Get the smiley parser
-        $this->objParse = &$this->getObject('parse4display', 'strings');
+        $this->objParse = $this->getObject('parse4display', 'strings');
     }
 
     /**
@@ -118,7 +118,7 @@ class storyinterface extends object {
 
 
             //Instantiate the classe for checking expiration
-            $objExp = & $this->getObject('expiration', 'datetime');
+            $objExp =  $this->getObject('expiration', 'datetime');
 
             if ( $objExp->hasExpired($expirydate) ) {
                 $str .= '<td class="' . $oddOrEven

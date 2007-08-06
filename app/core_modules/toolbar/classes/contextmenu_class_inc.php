@@ -31,7 +31,7 @@ class contextmenu extends object
     */
     function init()
     {
-        $this->objSideMenu =& $this->getObject('sidemenu');
+        $this->objSideMenu = $this->getObject('sidemenu');
     }
 
     /**

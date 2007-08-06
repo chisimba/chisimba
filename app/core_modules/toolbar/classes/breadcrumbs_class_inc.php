@@ -30,7 +30,7 @@ class breadcrumbs extends object
 	*/
     public function init()
     {
-        $this->tools =& $this->getObject('tools');
+        $this->tools = $this->getObject('tools');
     }
 	
 	/**
