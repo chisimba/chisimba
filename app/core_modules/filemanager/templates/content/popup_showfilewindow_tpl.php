@@ -45,7 +45,7 @@ $value = new hiddeninput('value', $this->getParam('value'));
 $this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
 
 if (count($restrictions) != 0) {
-    $this->objUpload->formExtra .= '<br /><span class="warning minute"> Required File Types: ';
+    $this->objUpload->formExtra .= '<br /><span class="warning minute"> '.$this->objLanguage->languageText('mod_filemanager_requiredfiletypes', 'filemanager', 'Required File Types').': ';
     $comma = '';
     foreach ($restrictions as $restriction)
     {
@@ -71,17 +71,21 @@ echo '<h1>List of Files</h1>';
 
 if (count($files) == 0) {
     if (count($restrictions) == 0) {
-        echo 'You have not uploaded any files';
+        echo $this->objLanguage->languageText('mod_filemanager_youhavenotuploadedanyfiles', 'filemanager', 'You have not uploaded any files');
     } else {
-        echo 'You have not yet uploaded any ';
+        
+        $string = $this->objLanguage->languageText('mod_filemanager_youhavenotuploadedanytypeoffilesyet', 'filemanager', 'You have not yet uploaded any [-TYPE-] files yet');
+        
+        
         $comma = '';
+        $fileTypes = '';
         foreach ($restrictions as $restriction)
         {
-            echo $comma.strtoupper($restriction);
+            $fileTypes .= $comma.strtoupper($restriction);
             $comma = ', ';
         }
         
-        echo ' files yet.';
+        echo str_replace('[-TYPE-]', $fileTypes, $string);
     }
 } else {
         
@@ -98,10 +102,10 @@ if (count($files) == 0) {
     {
         $link = new link ("javascript:previewFile('".$file['id']."', '".$count."');");
         $link->link = htmlentities($file['filename']);
-        $link->title = 'Preview File';
+        $link->title = $this->objLanguage->languageText('mod_filemanager_previewfile', 'filemanager', 'Preview file');
         
         $selectLink = new link ("javascript:selectFile('".$file['id']."', '".$count."');");
-        $selectLink->link = 'Select';
+        $selectLink->link = $this->objLanguage->languageText('word_select', 'system', 'Select');
         
         $icon = $objFileIcon->getFileIcon($file['filename']);
         //echo '<li>'.$icon.' '.$link->show().'</li>';

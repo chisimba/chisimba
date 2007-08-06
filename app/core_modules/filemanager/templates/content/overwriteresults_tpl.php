@@ -1,7 +1,7 @@
 <?php
 $this->loadClass('link', 'htmlelements');
 
-echo '<h1>Overwrite Results</h1>';
+echo '<h1>'.$this->objLanguage->languageText('mod_filemanager_overwriteresults', 'filemanager', 'Overwrite Results').'</h1>';
 
 $results = explode('____', $results);
 
@@ -21,10 +21,10 @@ foreach ($results as $result)
             switch ($result[1])
             {
                 case 'overwrite':
-                    $list[] = '<span class="confirm">'.$link->show().' - file has been overwritten</span>';
+                    $list[] = '<span class="confirm">'.$link->show().' - '.$this->objLanguage->languageText('mod_filemanager_filehasbeenoverwritten', 'filemanager', 'file has been overwritten').'</span>';
                     break;
                 default:
-                    $list[] = $link->show().' - file has been not been overwritten';
+                    $list[] = $link->show().' - '.$this->objLanguage->languageText('mod_filemanager_filehasnotbeenoverwritten', 'filemanager', 'file has been not been overwritten');
                     break;
             }
         }

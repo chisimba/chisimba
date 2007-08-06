@@ -1,5 +1,5 @@
 <?php
-echo '<h1>Tag Cloud</h1>';
+echo '<h1>'.$this->objLanguage->languageText('phrase_tagcloud', 'filemanager', 'Tag Cloud').'</h1>';
 
 
 if (count($tagCloudItems) > 0) {

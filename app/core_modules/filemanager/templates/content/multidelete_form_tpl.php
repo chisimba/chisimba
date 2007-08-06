@@ -14,9 +14,12 @@ $this->loadClass('hiddeninput', 'htmlelements');
 
 
 if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
-    echo '<div class="noRecordsMessage">No Files Were Selected</div>';
-    echo '<p><a href="javascript:history.back()">Back to Previous Page</a> / ';
-    echo '<a href="'.$this->uri(NULL).'">Return to File Manager</a></p>';
+    echo '<div class="noRecordsMessage">'.$this->objLanguage->languageText('mod_filemanager_nofileswereselected', 'filemanager', 'No Files Were Selected').'</div>';
+    echo '<p><a href="javascript:history.back()">'.$this->objLanguage->languageText('mod_filemanager_backtopreviouspage', 'filemanager', 'Back to Previous Page').'</a> / ';
+    echo '<a href="'.$this->uri(NULL).'">'.$this->objLanguage->languageText('mod_filemanager_returntofilemanager', 'filemanager', 'Return to File Manager').'</a></p>';
+    
+    
+    
 } else {
     
     
@@ -65,7 +68,7 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
     
     $form->addToForm ('</ul>');
     
-    $button = new button ('submitform', 'Confirm Delete Selected Items');
+    $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_confirmdeleteselecteditems', 'filemanager', 'Confirm Delete Selected Items'));
     $button->setToSubmit();
     
     $form->addToForm ($button->show());
@@ -76,12 +79,12 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
     $form->addToForm($folderInput->show());
     
     if ($counter > 0) {
-        echo '<h1>Confirm Delete Files?</h1>';
-        echo '<p>Are you sure you want to delete these files/folders?</p>';
+        echo '<h1>'.$this->objLanguage->languageText('mod_filemanager_confirmdeletefiles', 'filemanager', 'Confirm Delete Files').'?</h1>';
+        echo '<p>'.$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager', 'Are you sure you want to delete these files/folders?').'</p>';
         echo $form->show();
     } else {
-        echo '<h1 class="error">Error:</h1>';
-        echo '<p>The files/folders you have attempted to delete no longer exist.</p>';
+        echo '<h1 class="error">'.$this->objLanguage->languageText('word_error', 'system', 'Error').':</h1>';
+        echo '<p>'.$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager', 'The files/folders you have attempted to delete no longer exist').'.</p>';
     }
 }
       

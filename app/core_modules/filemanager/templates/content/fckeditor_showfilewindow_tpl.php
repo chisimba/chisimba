@@ -59,7 +59,7 @@ echo '<h1>List of Files</h1>';
 //echo '<br /><br />';
 
 if (count($files) == 0) {
-    echo ' No files matching criteria found';
+    echo ' '.$this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager', 'No files matching criteria found');
 } else {
         
     $count = 0;
@@ -76,13 +76,12 @@ if (count($files) == 0) {
     {
         $link = new link ("javascript:previewFile('".$file['id']."', '".$count."');");
         $link->link = htmlentities($file['filename']);
-        $link->title = 'Preview File';
+        $link->title = $this->objLanguage->languageText('mod_filemanager_previewfile', 'filemanager', 'Preview file');
         
         $selectLink = new link ("javascript:selectFile('".$file['id']."', '".$count."');");
-        $selectLink->link = 'Select';
+        $selectLink->link = $this->objLanguage->languageText('word_select', 'system', 'Select');
         
         $icon = $objFileIcon->getFileIcon($file['filename']);
-        //echo '<li>'.$icon.' '.$link->show().'</li>';
         
         $table->startRow();
         $table->addCell($icon, 16);

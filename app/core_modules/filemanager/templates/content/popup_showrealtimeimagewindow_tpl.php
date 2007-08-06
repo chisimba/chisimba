@@ -8,7 +8,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 
 echo '
 <div style="position:absolute; bottom: 0px; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
-echo '<h1>Upload File</h1>';
+echo '<h1>'.$this->objLanguage->languageText('phrase_uploadfile', 'system', 'Upload file').'</h1>';
 
 $this->objUpload->formaction = $this->uri(array('action'=>'selectfileuploads'));
 $this->objUpload->numInputs = 1;
@@ -20,6 +20,12 @@ $workgroup = new hiddeninput('workgroup', $this->getParam('workgroup'));
 $restrict = new hiddeninput('restrict', $this->getParam('restrict'));
 $value = new hiddeninput('value', $this->getParam('value'));
 
+$listImages = $this->objLanguage->languageText('mod_filemanager_listofimages', 'filemanager');
+$noMatch = $this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager');
+$previewFile = $this->objLanguage->languageText('mod_filemanager_previewfile', 'filemanager');
+$insertImage = $this->objLanguage->languageText('mod_filemanager_insertimage', 'filemanager');
+$uploadFile = $this->objLanguage->languageText('phrase_uploadfile');
+
 
 $this->objUpload->formExtra = $mode->show().$name->show().$context->show().$workgroup->show().$value->show().$restrict->show();
 
@@ -29,10 +35,13 @@ echo '</div>';
 
 echo '<div style="width: 100%; top: 0; left: 0; position: absolute; overflow-y:scroll; overflow-x:hidden; bottom: 120px;  z-index:1; padding-bottom: 100px;">';
 
-echo '<h1>List of Images</h1>';
+$objHeading = new htmlheading();
+$objHeading->str = $listImages;
+$objHeading->type = 1;
+echo $objHeading->show();
 
 if (count($files) == 0) {
-    echo ' No files matching criteria found';
+    echo $this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager', 'No files matching criteria found');
 } else {
         
     $count = 0;
@@ -44,14 +53,16 @@ if (count($files) == 0) {
     
     $defaultItem = array();
     
+    
+    
     foreach ($files as $file)
     {
         $link = new link ("javascript:previewFile('".$file['id']."', '".$count."');");
         $link->link = htmlentities($file['filename']);
-        $link->title = 'Preview File';
+        $link->title = $previewFile;
         
         $selectLink = new link ("javascript:selectImage('".$file['id']."', '".$count."');");
-        $selectLink->link = 'Insert Image';
+        $selectLink->link = $insertImage;
         
         
         $thumbImg = $objThumbnail->getThumbnail($file['id'], $file['filename']);

@@ -69,6 +69,22 @@ class filemanager extends controller
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
     }
+    
+    /**
+	 * Ovveride the login object in the parent class
+	 *
+	 * @param void
+	 * @return bool
+	 * @access public
+	 */
+	public function requiresLogin($action)
+	{
+		if ($action == 'file') {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
 
     /**
 	* Method to process actions to be taken
@@ -199,7 +215,7 @@ class filemanager extends controller
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE || $file['filename'] != $filename) {
-            die('No Record of Such a File Exists.');
+            die($this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists').'.');
         }
         
         $filePath = $this->objConfig->getcontentPath().$file['path'];
@@ -218,8 +234,8 @@ class filemanager extends controller
                 $originalImage = $this->objConfig->getcontentBasePath().$file['path'];
                 $this->objCleanUrl->cleanUpUrl($originalImage);
                 
-                $this->objCleanUrl->cleanUpUrl($filePath);
-                $this->objCleanUrl->cleanUpUrl($fileBasePath);
+                $this->objCleanUrl->cleanUpUrl($forceMaxFilePath);
+                $this->objCleanUrl->cleanUpUrl($forceMaxFileBasePath);
                 
                 
                 
@@ -609,7 +625,7 @@ function checkWindowOpener()
         $file = $this->objFiles->getFileInfo($fileId);
 
         if ($file == FALSE) {
-            echo 'No Such File Exists '.$fileId;
+            echo $this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists').' '.$fileId;
             echo '<pre>';
             print_r($_GET);
             echo '</pre>';
@@ -618,7 +634,7 @@ function checkWindowOpener()
             $link = new link("javascript:selectFile('".$fileId."', ".$jsId.");");
             $link->link = 'Select';
 
-            echo '<h1>Preview of: '.$file['filename'].' ('.$link->show().')</h1>';
+            echo '<h1>'.$this->objLanguage->languageText('mod_filemanager_previewof', 'filemanager', 'Preview of').': '.$file['filename'].' ('.$link->show().')</h1>';
             echo $this->objFilePreview->previewFile($fileId);
         }
     }
@@ -787,21 +803,7 @@ function checkWindowOpener()
         return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
     }
 
-    /**
-	 * Ovveride the login object in the parent class
-	 *
-	 * @param void
-	 * @return bool
-	 * @access public
-	 */
-	public function requiresLogin($action)
-	{
-		if ($action == 'file') {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
+    
     
     /**
     * Method to show a folder, and list of files in the folder.

@@ -10,13 +10,13 @@ $this->loadClass('button', 'htmlelements');
 
 $header = new htmlheading();
 $header->type = 1;
-$header->str = 'Upload Files';//$this->objLanguage->languageText('mod_filemanager_listof'.$category, 'filemanager');
+$header->str = $this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files');
 
 echo $header->show();
 
-echo '<p class="warning">Warning:</p>';
+echo '<p class="warning">'.$this->objLanguage->languageText('word_warning', 'system', 'Warning').':</p>';
 echo '<ul>';
-echo '<li>Please remove all apostraphes from file names as they may corrupt the file upload name</li>';
+echo '<li>'.$this->objLanguage->languageText('mod_filemanager_removeallapostraphesfromfilenames', 'filemanager', 'Please remove all apostraphes from file names as they may corrupt the file upload name').'</li>';
 echo '</ul>';
 
 $this->objUpload->numInputs = 5;

@@ -11,14 +11,14 @@ $this->loadClass('textarea', 'htmlelements');
 
 $heading = new htmlheading();
 $heading->type = 1;
-$heading->str = 'Edit File Details: '.$file['filename'];
+$heading->str = $this->objLanguage->languageText('mod_filemanager_editfiledetails', 'filemanager', 'Edit File Details').': '.$file['filename'];
 echo $heading->show();
 
 $form = new form ('updatefiledetails', $this->uri(array('action'=>'updatefiledetails')));
 
 $table = $this->newObject('htmltable', 'htmlelements');
 $table->startRow();
-$label = new label ('Description:', 'input_description');
+$label = new label ($this->objLanguage->languageText('word_description', 'system', 'Description').':', 'input_description');
 $table->addCell($label->show());
 $description = new textarea('description');
 $description->value = $file['description'];
@@ -26,7 +26,7 @@ $table->addCell($description->show());
 $table->endRow();
 
 $table->startRow();
-$label = new label ('Keywords/Tags:<br />Separate with commas', 'input_keywords');
+$label = new label ($this->objLanguage->languageText('mod_filemanager_keywordstags', 'filemanager', 'Keywords/Tags').':<br />'.$this->objLanguage->languageText('mod_filemanager_separatewithcommas', 'filemanager', 'Separate with commas'), 'input_keywords');
 $table->addCell($label->show());
 $keywords = new textarea('keywords');
 
@@ -48,7 +48,7 @@ $objModules = $this->getObject('modules', 'modulecatalogue');
         
 if ($objModules->checkIfRegistered('creativecommons')) {
     $table->startRow();
-    $table->addCell('File License:');
+    $table->addCell($this->objLanguage->languageText('mod_filemanager_filelicense', 'filemanager', 'File License').':');
     $licensechooser = $this->newObject('licensechooser', 'creativecommons');
     $licensechooser->defaultValue = $file['license'];
     $table->addCell($licensechooser->show());
@@ -57,7 +57,7 @@ if ($objModules->checkIfRegistered('creativecommons')) {
 
 $form->addToForm($table->show());
 
-$button = new button ('submitform', 'Update File Info');
+$button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_updatefileinfo', 'filemanager', 'Update File Info'));
 $button->setToSubmit();
 
 $form->addToForm($button->show());

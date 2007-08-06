@@ -22,9 +22,9 @@ if  ($overwriteMessage == '') {
             $folderLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])));
             
             if ($folder['folderlevel'] == 2) {
-                $folderLink->link = 'Return to <strong>My Files</strong> Folder';
+                $folderLink->link = $this->objLanguage->languageText('mod_filemanager_returntomyfilesfolder', 'filemanager', 'Return to <strong>My Files</strong> Folder');
             } else {
-                $folderLink->link = 'Return to <strong>'.basename($folder['folderpath']).'</strong> Folder';
+                $folderLink->link = $this->objLanguage->languageText('mod_filemanager_returnto', 'filemanager', 'Return to').' <strong>'.basename($folder['folderpath']).'</strong> Folder';
             }
             
             echo ' / '.$folderLink->show();

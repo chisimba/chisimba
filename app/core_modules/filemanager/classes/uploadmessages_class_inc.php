@@ -217,7 +217,7 @@ class uploadmessages extends object
         return $errorMessage;
     }
     
-        /**
+    /**
     * Method to process Error Upload Messages
     * @return string Confirmation message of error uploads
     */

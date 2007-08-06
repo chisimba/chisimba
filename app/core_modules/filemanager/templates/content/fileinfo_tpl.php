@@ -27,12 +27,12 @@ $editLink->link = $objIcon->show();
 
 echo '<h1>'.$objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename'])).$editLink->show().'</h1>';
 
-echo '<br /><p><strong>Description:</strong> <em>'.$file['filedescription'].'</em></p>';
+echo '<br /><p><strong>'.$this->objLanguage->languageText('word_description', 'system', 'Description').':</strong> <em>'.$file['filedescription'].'</em></p>';
 
-echo '<p><strong>Tags:</strong> ';
+echo '<p><strong>'.$this->objLanguage->languageText('word_tags', 'system', 'Tags').':</strong> ';
 
 if (count($tags) == 0) {
-    echo '<em>no tags</em>';
+    echo '<em>'.$this->objLanguage->languageText('phrase_notags', 'system', 'no tags').'</em>';
 } else {
     $comma = '';
     foreach ($tags as $tag)
@@ -72,9 +72,9 @@ echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
 if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
     $form = new form ('extractarchive', $this->uri(array('action'=>'extractarchive')));
-    $form->addToForm('Extract Archive to: '.$this->objFolders->getTreedropdown($folderId));
+    $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to').': '.$this->objFolders->getTreedropdown($folderId));
     
-    $button = new button ('submitform', 'Extract Files');
+    $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_extractfiles', 'filemanager', 'Extract Files'));
     $button->setToSubmit();
     
     $form->addToForm($button->show());

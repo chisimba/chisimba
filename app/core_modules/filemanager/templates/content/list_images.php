@@ -13,7 +13,7 @@ $this->objThumbnails = $this->getObject('thumbnails');
 $objFileEmbed = $this->getObject('fileembed');
 
 if (count($files) == 0) {
-    echo '<p>No Images uploaded</p>';
+    echo '<p>'.$this->objLanguage->languageText('mod_filemanager_noimagesuploaded', 'filemanager', 'No Images uploaded').'</p>';
 } else {
 
     foreach ($files as $file)
