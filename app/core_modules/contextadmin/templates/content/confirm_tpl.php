@@ -1,10 +1,10 @@
 <?php
-    $objLang=& $this->getObject('language', 'language');
-	$this->table=& $this->getObject('htmltable','htmlelements');
-	$this->textbox=&new textinput();
-    $this->form=& $this->getObject('form','htmlelements');
-    $this->button=& $this->getObject('button', 'htmlelements');
-    $this->button1=& $this->getObject('button', 'htmlelements');
+    $objLang= $this->getObject('language', 'language');
+	$this->table= $this->getObject('htmltable','htmlelements');
+	$this->textbox=new textinput();
+    $this->form= $this->getObject('form','htmlelements');
+    $this->button= $this->getObject('button', 'htmlelements');
+    $this->button1= $this->getObject('button', 'htmlelements');
 	
 
 $this->form->name="confirm";

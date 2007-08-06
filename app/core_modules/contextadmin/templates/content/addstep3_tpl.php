@@ -49,8 +49,8 @@ $objForm->addToForm('<fieldset>');
 $objForm->addToForm($objH->show());
 $objForm->addToForm('<div id="resultslist-wrap"><ol>');
 
-$objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
-$objModules = & $this->newObject('modules', 'modulecatalogue');
+$objModuleFile =  $this->newObject('modulefile', 'modulecatalogue');
+$objModules =  $this->newObject('modules', 'modulecatalogue');
 $arrModules = $objModules->getModules(2);
 
 

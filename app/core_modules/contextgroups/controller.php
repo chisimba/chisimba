@@ -86,10 +86,10 @@ class contextgroups extends controller
     */
     function init()
     {
-        $this->_objGroupAdmin = &$this->newObject('groupadminmodel','groupadmin');
-        $this->_objDBContext = &$this->newObject('dbcontext','context');
-        $this->_objLanguage = &$this->newObject('language','language');
-        $this->_objContextCondition = &$this->newObject('contextcondition','contextpermissions');
+        $this->_objGroupAdmin = $this->newObject('groupadminmodel','groupadmin');
+        $this->_objDBContext = $this->newObject('dbcontext','context');
+        $this->_objLanguage = $this->newObject('language','language');
+        $this->_objContextCondition = $this->newObject('contextcondition','contextpermissions');
 
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Lecturers' ) );
         $this->studGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getContextCode(), 'Students' ) );
@@ -161,7 +161,7 @@ class contextgroups extends controller
     function showMain( )
     {
     	//$this->setVar('pagesuppressxml', TRUE);
-        $objMembers = &$this->newObject('groupadmin_members','groupadmin');
+        $objMembers = $this->newObject('groupadmin_members','groupadmin');
         $objMembers->setHeaders( array( 'Firstname', 'Surname') );
         $this->setVarByRef('objMembers2',$objMembers);
 		 //$objMembers->setGroupId( $this->lectGroupId );
@@ -211,7 +211,7 @@ class contextgroups extends controller
            
             // Get the original member ids
             $fields = array ( 'tbl_users.id' );
-            $memberList = &$this->_objGroupAdmin->getGroupUsers( $groupId, $fields );
+            $memberList = $this->_objGroupAdmin->getGroupUsers( $groupId, $fields );
             $oldList = $this->_objGroupAdmin->getField( $memberList, 'id' );
             // Get the added member ids
             $addList = array_diff( $list, $oldList );
@@ -286,7 +286,7 @@ class contextgroups extends controller
             $lstUsers->addOption( $userPKId, $fullName );
 
         }
-		$tblLayoutU= &$this->newObject( 'htmltable', 'htmlelements' );
+		$tblLayoutU= $this->newObject( 'htmltable', 'htmlelements' );
 		$tblLayoutU->row_attributes = 'align="center"';
 		$tblLayoutU->width = '100px';
 		$tblLayoutU->startRow();
@@ -418,11 +418,11 @@ class contextgroups extends controller
     {
         $lblContextHome = $this->_objLanguage->languageText( "word_course" ) . ' ' . $this->_objLanguage->languageText( "word_home" );
 
-        $icnContextHome = &$this->newObject( 'geticon', 'htmlelements' );
+        $icnContextHome = $this->newObject( 'geticon', 'htmlelements' );
         $icnContextHome->setIcon( 'home' );
         $icnContextHome->alt = $lblContextHome;
 
-        $lnkContextHome = &$this->newObject( 'link', 'htmlelements' );
+        $lnkContextHome = $this->newObject( 'link', 'htmlelements' );
         $lnkContextHome->href = $this->uri( array(), 'context' );
         $lnkContextHome->link = $icnContextHome->show() . $lblContextHome;
         return $lnkContextHome->show();

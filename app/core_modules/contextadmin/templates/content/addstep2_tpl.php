@@ -14,7 +14,7 @@ $objForm = new form();
 
 $inpContextCode =  new textinput();
 $inpMenuText = new textinput();
-$inpAbout = & $this->newObject('htmlarea','htmlelements');
+$inpAbout =  $this->newObject('htmlarea','htmlelements');
 $inpButton =  new button();
 
 $objH->str = $this->_objLanguage->languageText('word_step').' 2: '.$this->_objLanguage->code2Txt("mod_contextadmin_aboutthecontext",'contextadmin');

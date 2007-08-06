@@ -1,6 +1,6 @@
 <?php
 
-         $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+         $this->objH = $this->getObject('htmlheading', 'htmlelements');
     $this->objH->type=1;
     $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_editcontext','contextadmin',array('context'=>'course')));
  
@@ -11,14 +11,14 @@ if($this->objDBContext->isInContext())
 {
       $this->setVar('footerStr',$this->getContextLinks().'&nbsp;'.$this->getContentLinks());
 }
-        $table=& $this->newObject('htmltable','htmlelements');
-        $form= &$this->newObject('form', 'htmlelements');
+        $table= $this->newObject('htmltable','htmlelements');
+        $form= $this->newObject('form', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('radio', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');
-        $editor=&$this->newObject('htmlarea','htmlelements');
-         $objHelp=& $this->getObject('helplink','help');
+        $editor=$this->newObject('htmlarea','htmlelements');
+         $objHelp= $this->getObject('helplink','help');
         if (!$this->getParam('contextCode')) {
             // if no context code is parsed then try to use the course you are logged in
             $contextCode = $this->objDBContext->getContextCode();            
@@ -31,7 +31,7 @@ if($this->objDBContext->isInContext())
             $contextRS = $this->objDBContext->getRow('contextCode', $contextCode);
             //start the form
             // Header
-            $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+            $this->objH = $this->getObject('htmlheading', 'htmlelements');
             $this->objH->type=1;
             $this->objH->str=$this->objLanguage->languageText('word_edit').' '.$contextRS['title'];
          
@@ -128,7 +128,7 @@ if($this->objDBContext->isInContext())
             $showedit= $form->show();
             //add  link  
             
-    $objLink = & $this->newObject('link','htmlelements');
+    $objLink =  $this->newObject('link','htmlelements');
     $objLink->cssClass = 'pseudbutton';
     $objLink->href = $this->uri(array(), 'contextadmin');
     $objLink->link = $this->objLanguage->languageText("word_back");
@@ -156,7 +156,7 @@ if($this->objDBContext->isInContext())
     $center =     $this->objH->show();
         
     $center  .= $showedit;
-    $this->contentNav = & $this->newObject('layer','htmlelements');
+    $this->contentNav =  $this->newObject('layer','htmlelements');
     $this->contentNav->id = "content";
     $this->contentNav->addToStr($center);
     echo $this->contentNav->show();

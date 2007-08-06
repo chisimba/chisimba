@@ -1,13 +1,13 @@
 <?php
-$table=&$this->newObject('htmltable','htmlelements');
-$form=&$this->newObject('form','htmlelements');
+$table=$this->newObject('htmltable','htmlelements');
+$form=$this->newObject('form','htmlelements');
 $form->name='modulelist';
 $form->setAction($this->uri(array('action'=>'savemodules'),'contextadmin'));
 $form->setDisplayType(3);
 
-$button=&$this->newObject('navbuttons','navigation');
+$button=$this->newObject('navbuttons','navigation');
 
-$objIcon=&$this->newObject('geticon','htmlelements');
+$objIcon=$this->newObject('geticon','htmlelements');
 $objIcon->setModuleIcon("modulelist");
 $objIcon->alt=$this->objLanguage->languageText("mod_context_unregisteredfeature",'contextadmin');
 $objIcon->align = "absmiddle";

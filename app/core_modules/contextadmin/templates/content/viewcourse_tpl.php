@@ -1,7 +1,7 @@
 <?php
 
-$objH = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
+$objH =  $this->newObject('htmlheading','htmlelements');
+$objForm =  $this->newObject('form','htmlelements');
 $inpButton =  $this->newObject('button','htmlelements');
 $this->loadClass('label','htmlelements');
 $this->loadClass('textinput','htmlelements');

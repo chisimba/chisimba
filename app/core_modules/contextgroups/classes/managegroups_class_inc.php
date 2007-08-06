@@ -89,10 +89,10 @@ class manageGroups extends object
     */
     function init()
     {
-        $this->_objDBContext = &$this->getObject('dbcontext','context');
-        $this->_objGroupAdmin = &$this->getObject('groupadminmodel','groupadmin');
-        $this->_objPermissions = &$this->getObject('permissions_model','permissions');
-        $this->_objUser = &$this->getObject('user','security');
+        $this->_objDBContext = $this->getObject('dbcontext','context');
+        $this->_objGroupAdmin = $this->getObject('groupadminmodel','groupadmin');
+        $this->_objPermissions = $this->getObject('permissions_model','permissions');
+        $this->_objUser = $this->getObject('user','security');
 
         $this->currentUser = $this->_objUser->PKId();
         $this->lectGroupId = $this->_objGroupAdmin->getLeafId( array( $this->_objDBContext->getcontextcode(), 'Lecturers' ) );
@@ -260,7 +260,7 @@ class manageGroups extends object
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
         // Get all contextcodes
-        $objContext = &$this->getObject('dbcontext','context');
+        $objContext = $this->getObject('dbcontext','context');
         $arrcontextcodeRows = $objContext->getAll('ORDER BY contextcode');
         $arrcontextcodes = array();
         // Now check for membership
@@ -289,7 +289,7 @@ class manageGroups extends object
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
 
-        $objContext = &$this->getObject('dbcontext','context');
+        $objContext = $this->getObject('dbcontext','context');
         // Get all contextcodes
         if (empty($fields))
             $fields[]="*";
@@ -334,7 +334,7 @@ class manageGroups extends object
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
         // Get all contextcodes
-        $objContext = &$this->getObject('dbcontext','context');
+        $objContext = $this->getObject('dbcontext','context');
         $arrcontextcodeRows = $objContext->getAll();
         // Now check for membership
         foreach( $arrcontextcodeRows as $row ) {
@@ -386,7 +386,7 @@ class manageGroups extends object
         // Get the users PKId.
         $userId = $this->_objUser->PKId( $userId );
         // Get all contextcodes
-        $objContext = &$this->getObject('dbcontext','context');
+        $objContext = $this->getObject('dbcontext','context');
 
         if (empty($fields))
             $fields[]="*";

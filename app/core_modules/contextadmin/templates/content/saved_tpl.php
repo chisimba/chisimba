@@ -5,8 +5,8 @@ $str='<h3>&nbsp;&nbsp;'.$this->objLanguage->languageText("mod_context_succsave")
 
 echo $str;
 
-$link = &$this->newObject('link','htmlelements');
-$icon = &$this->newObject('geticon','htmlelements');
+$link = $this->newObject('link','htmlelements');
+$icon = $this->newObject('geticon','htmlelements');
 $icon->setIcon('prev');
 
 $link->link = $icon->show();

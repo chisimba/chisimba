@@ -9,12 +9,12 @@ $this->loadClass('htmlarea', 'htmlelements');
 
 $tt = $this->newObject('domtt', 'htmlelements');
 
-$cssLayout = &$this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 $objSideBar = $this->newObject('sidebar', 'navigation');
 
 // Set columns to 3
 $cssLayout->setNumColumns(3);
-$leftMenu = &$this->newObject('usermenu', 'toolbar');
+$leftMenu = $this->newObject('usermenu', 'toolbar');
 $rightSideColumn = NULL;
 $leftCol = NULL;
 $middleColumn = NULL;

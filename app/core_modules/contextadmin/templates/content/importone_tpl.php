@@ -1,16 +1,16 @@
 <?php
 // First page for import
-$form = & $this->newObject('form', 'htmlelements');
-$radio = & $this->newObject('radio', 'htmlelements');
-$table = & $this->newObject('htmltable', 'htmlelements');
-$button = & $this->newObject('button', 'htmlelements');
+$form =  $this->newObject('form', 'htmlelements');
+$radio =  $this->newObject('radio', 'htmlelements');
+$table =  $this->newObject('htmltable', 'htmlelements');
+$button =  $this->newObject('button', 'htmlelements');
 
     $form->name = 'import_one';
 	$form->id = 'import_one';
     $form->setAction($this->uri(array('action' => 'import_type')));
     $form->setDisplayType(2);
     
-      $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+      $this->objH = $this->getObject('htmlheading', 'htmlelements');
       $this->objH->type=1;
       $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent','contextadmin');
          

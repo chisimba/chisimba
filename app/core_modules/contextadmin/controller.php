@@ -79,7 +79,7 @@ class contextadmin extends controller
     	// Load Export IMS class.
     	$this->objExportIMSContent = $this->newObject('exportimspackage','contextadmin');
     	// Load Import Export Utilities class.
-    	$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
+    	$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
         $this->objConf = $this->getObject('altconfig','config');
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
 	$this->setVar('pageSuppressXML',TRUE);

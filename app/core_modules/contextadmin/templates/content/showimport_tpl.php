@@ -1,10 +1,10 @@
 <?php
 
-$form = & $this->newObject('form', 'htmlelements');
-$radio = & $this->newObject('radio', 'htmlelements');
-$table = & $this->newObject('htmltable', 'htmlelements');
-$button = & $this->newObject('button', 'htmlelements');
-   $fileInput=&$this->newObject('textinput','htmlelements');
+$form =  $this->newObject('form', 'htmlelements');
+$radio =  $this->newObject('radio', 'htmlelements');
+$table =  $this->newObject('htmltable', 'htmlelements');
+$button =  $this->newObject('button', 'htmlelements');
+   $fileInput=$this->newObject('textinput','htmlelements');
    
    //setup form
     $form->name = 'import_do';
@@ -15,7 +15,7 @@ $button = & $this->newObject('button', 'htmlelements');
     $form->setDisplayType(2);
     
     //give a heading
-      $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+      $this->objH = $this->getObject('htmlheading', 'htmlelements');
       $this->objH->type=1;
       $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent');
       $heading = $this->objH->show();

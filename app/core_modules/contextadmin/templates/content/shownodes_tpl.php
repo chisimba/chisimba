@@ -1,12 +1,12 @@
 <?php
 echo $this->getJavascriptFile('TreeMenu.js','tree');
-$tree = & $this->newObject('sharednodes', 'contextcontent');
-$objHeading = & $this->newObject('htmlheading','htmlelements');
-$objForm = & $this->newObject('form','htmlelements');
-$objInput = & $this->newObject('textinput','htmlelements');
-$button=& $this->newObject ('button','htmlelements');
+$tree =  $this->newObject('sharednodes', 'contextcontent');
+$objHeading =  $this->newObject('htmlheading','htmlelements');
+$objForm =  $this->newObject('form','htmlelements');
+$objInput =  $this->newObject('textinput','htmlelements');
+$button= $this->newObject ('button','htmlelements');
 
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
+$this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1;
 $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent');
 print $this->objH->show();

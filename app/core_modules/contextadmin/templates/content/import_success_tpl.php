@@ -1,9 +1,9 @@
 <?php
-$table = & $this->newObject('htmltable', 'htmlelements');
-$link = & $this->newObject('link', 'htmlelements');
+$table =  $this->newObject('htmltable', 'htmlelements');
+$link =  $this->newObject('link', 'htmlelements');
 
 
-$this->objH =& $this->getObject('htmlheading', 'htmlelements');
+$this->objH = $this->getObject('htmlheading', 'htmlelements');
 $this->objH->type=1;
 $this->objH->str=$this->objLanguage->languageText('mod_contextadmin_importcontent','contextadmin');
 

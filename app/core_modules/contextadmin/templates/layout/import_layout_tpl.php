@@ -1,7 +1,7 @@
 <?php
 
 // Create an Instance of the CSS Layout
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
   $cssLayout->setNumColumns(3);
 // Set the Content of middle column
 if(isset($txt))

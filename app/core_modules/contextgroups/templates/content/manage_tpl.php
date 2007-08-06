@@ -19,7 +19,7 @@ $this->setLayoutTemplate('contextgroups_layout_tpl.php');
 $this->appendArrayVar('headerParams',$this->getJavascriptFile('selectbox.js','groupadmin') );
 ?>
 <?php
-    $tblLayout = &$this->newObject( 'htmltable', 'htmlelements' );
+    $tblLayout = $this->newObject( 'htmltable', 'htmlelements' );
     $tblLayout->row_attributes = 'align="center"';
     $tblLayout->width = '99%';
     $tblLayout->startRow();

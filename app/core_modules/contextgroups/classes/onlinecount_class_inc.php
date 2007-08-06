@@ -107,8 +107,8 @@ class onlineCount extends dbTable
     */
     function init()
     {
-        $this->_objDBContext = &$this->getObject('dbcontext','context');
-        $this->_objGroupAdmin = &$this->getObject('groupAdminModel','groupadmin');
+        $this->_objDBContext = $this->getObject('dbcontext','context');
+        $this->_objGroupAdmin = $this->getObject('groupAdminModel','groupadmin');
         $this->_icons = array(
             'Lecturers'=>'lecturer',
             'Students' =>'student',
@@ -202,7 +202,7 @@ class onlineCount extends dbTable
     */
     public function getUserCount($contextCode)
     {
-        $objManageGroups = & $this->newObject('managegroups', 'contextgroups');
+        $objManageGroups =  $this->newObject('managegroups', 'contextgroups');
 
         $cnt =  count($objManageGroups->contextUsers('Students', $contextCode));
 
@@ -219,7 +219,7 @@ class onlineCount extends dbTable
         $icon     = $this->_icons[$this->_contextGroup] ;
         $langText = $this->_langText[$this->_contextGroup];
 
-        $objLanguage = &$this->getObject('language', 'language');
+        $objLanguage = $this->getObject('language', 'language');
         $label = $objLanguage->code2Txt( $langText,array('authors'=>'','readonlys'=>'') );
         
         $objIcon = $this->newObject('geticon','htmlelements');

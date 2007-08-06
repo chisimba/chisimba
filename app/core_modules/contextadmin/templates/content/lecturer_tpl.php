@@ -9,13 +9,13 @@
 */
 
 // set up html elements
-$this->objLanguage =& $this->getObject('language','language');
-$tab =& $this->newObject('tabbedbox', 'htmlelements');
-$objIcon =& $this->newObject('geticon', 'htmlelements');
-$objLink =& $this->newObject('link', 'htmlelements');
-$objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objSkin =& $this->newObject('skin', 'skin');
+$this->objLanguage = $this->getObject('language','language');
+$tab = $this->newObject('tabbedbox', 'htmlelements');
+$objIcon = $this->newObject('geticon', 'htmlelements');
+$objLink = $this->newObject('link', 'htmlelements');
+$objTable = $this->newObject('htmltable', 'htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
+$objSkin = $this->newObject('skin', 'skin');
 
 // language items
 $heading = ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextmanagement','contextadmin'));
@@ -100,8 +100,8 @@ if(!empty($modules)){
 
 $this->objIcon->extra='';
 $this->setVar('footerStr', $this->getContextLinks().$this->getContentLinks());
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
-$leftMenu =& $this->newObject('contextmenu','toolbar');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
+$leftMenu = $this->newObject('contextmenu','toolbar');
 
 $cssLayout->setLeftColumnContent($leftMenu->show());
 $cssLayout->setMiddleColumnContent($str);

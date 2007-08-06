@@ -1,12 +1,12 @@
 <?php
 
-    $this->objH =& $this->getObject('htmlheading', 'htmlelements');
+    $this->objH = $this->getObject('htmlheading', 'htmlelements');
     $this->objH->type=1;
     $this->objH->str=ucwords($this->objLanguage->code2Txt('mod_contextadmin_addnewcontext', 'contextadmin', array('context'=>'course')));
     
 
     //setting up the instances of the htmlelements to be used in creating tables, buttons, textfield, buttons etc.
-    $objLang=& $this->getObject('language', 'language');
+    $objLang= $this->getObject('language', 'language');
     
     
     $this->loadClass('radio','htmlelements');
@@ -14,9 +14,9 @@
     $this->loadClass('textinput','htmlelements');
     $this->loadClass('checkbox','htmlelements');                    
     $this->loadClass('button','htmlelements');                    
-    $editor=&$this->newObject('htmlarea','htmlelements');
-    $table=& $this->newObject('htmltable','htmlelements');
-    $tabbedbox = & $this->newObject('multitabbedbox', 'htmlelements');
+    $editor=$this->newObject('htmlarea','htmlelements');
+    $table= $this->newObject('htmltable','htmlelements');
+    $tabbedbox =  $this->newObject('multitabbedbox', 'htmlelements');
     echo $tabbedbox->show();
     
     //setup form
@@ -94,7 +94,7 @@
     $table->endRow();
     
     //add  link  
-    $objLink = & $this->newObject('link','htmlelements');
+    $objLink =  $this->newObject('link','htmlelements');
     $objLink->cssClass = 'pseudbutton';
     $objLink->href = $this->uri(array(), 'contextadmin');
     $objLink->link = $this->objLanguage->languageText("word_back");
@@ -104,7 +104,7 @@
     $center .=  $objForm->show();
     $center .=  $objLink->show();
     
-    $this->contentNav = & $this->newObject('layer','htmlelements');
+    $this->contentNav =  $this->newObject('layer','htmlelements');
     $this->contentNav->id = "content";
     $this->contentNav->addToStr($center);
     echo $this->contentNav->show();
