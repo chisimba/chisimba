@@ -163,7 +163,7 @@ class viewContextCondition extends viewCondition
     {
         $function = 'isMember | ';
         // Groups dropdown selection
-        $objGroups = &$this->getObject('groupadminmodel','groupadmin');
+        $objGroups = $this->getObject('groupadminmodel','groupadmin');
         $objDropDown =  new dropdown('value');
 
         $lblSelectGroup = $this->objLanguage->languageText('mod_contextpermissions_lblSelectGroup','contextpermissions',"[-- Select a group --]");
@@ -194,7 +194,7 @@ class viewContextCondition extends viewCondition
     {
         $function = 'hasPermission | ';
         // Permissions dropdown selection
-        $objPerms = &$this->getObject('permissions_model','permissions');
+        $objPerms = $this->getObject('permissions_model','permissions');
         $objDropDown =  new dropdown('value');
 
         $lblSelectACL = $this->objLanguage->languageText('mod_contextpermissions_lblSelectACL','contextpermissions',"[-- Select an access control list --]");

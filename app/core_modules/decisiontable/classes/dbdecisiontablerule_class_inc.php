@@ -165,7 +165,7 @@ class dbDecisionTableRule extends dbTable {
      * @param  object The decisionTable object.
      * @return id     of rule for this decisionTable
      */
-     public function retrieveId( &$objRule, &$objDecisionTable )
+     public function retrieveId( $objRule, $objDecisionTable )
      {
          // Get the action for this decisionTable
          $join = $this->join( 'INNER JOIN', $objRule->_tableName, array( 'ruleid'=>'id' ) );

@@ -67,8 +67,8 @@ class licensechooserdropdown extends object
     public function init()
     {
         // Load the Creative Commons Object
-        $this->objCC =& $this->getObject('dbcreativecommons');
-        $this->objSysConfig =& $this->getObject('dbsysconfig', 'sysconfig');
+        $this->objCC = $this->getObject('dbcreativecommons');
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         
         // Load the GetIcon Object
         $this->objIcon = $this->newObject('geticon', 'htmlelements');

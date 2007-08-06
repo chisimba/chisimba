@@ -140,7 +140,7 @@ class decisionTableBase extends dbTable
      * @param  object  Reference name for the object
      * @return nothing
      */
-    function connect( &$object )
+    function connect( $object )
     {
     }
 

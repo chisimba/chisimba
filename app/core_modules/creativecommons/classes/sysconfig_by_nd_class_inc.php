@@ -40,7 +40,7 @@ class sysconfig_by_nd extends object
     */
     function init()
     {
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     
     /**

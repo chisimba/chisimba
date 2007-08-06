@@ -146,9 +146,9 @@ class viewTable extends object
      * @author Jonathan Abrahams
      * @return nothing
      */
-    function connect(&$object, $properties )
+    function connect($object, $properties )
     {
-        $this->_objDecisionTable = &$object;
+        $this->_objDecisionTable = $object;
         $this->_properties = $properties;
     }
 

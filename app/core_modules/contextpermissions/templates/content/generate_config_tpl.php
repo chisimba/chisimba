@@ -48,7 +48,7 @@
                 break;
             case 'hasPermission' : 
                 $list = array();
-                $objACL = &$this->getObject( 'permissions_model', 'permissions');
+                $objACL = $this->getObject( 'permissions_model', 'permissions');
                 foreach ( $params as $acl ) {
                     $aclId = $objACL->getId( $acl[0] );
                     $arrGroups = $objACL->getAclGroups($aclId);

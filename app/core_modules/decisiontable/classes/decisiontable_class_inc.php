@@ -142,7 +142,7 @@ $GLOBALS['kewl_entry_point_run']) {
     * @param  object    the view element object.
     * @return HTML|NULL shows the view element if required otherwise returns null.
     */
-    public function showElement( &$objElement )
+    public function showElement( $objElement )
     {
        // JC return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
 	   return $this->isValid( $objElement->name ) ? $objElement->show() : NULL;
@@ -194,7 +194,7 @@ $GLOBALS['kewl_entry_point_run']) {
         }
 
         $arrRules = $this->_objDBDecisionTableRule->retrieve($this);
-        $objRule = &$this->newObject('rule');
+        $objRule = $this->newObject('rule');
         $objRule->connect($this);
         foreach( $arrRules as $dbRule ) {
             $objRule->create($dbRule['name']);
@@ -289,7 +289,7 @@ $GLOBALS['kewl_entry_point_run']) {
      * @param  $objRule
      * @return array   
      */
-    public function retrieveRuleId( &$objRule )
+    public function retrieveRuleId( $objRule )
     {
         // Retrieve the decision table rule
         $objRule->_id = $this->_objDBDecisionTableRule->retrieveId( $objRule, $this );

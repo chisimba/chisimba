@@ -7,9 +7,9 @@
 * Layout template for the contextgroups module
 */
 
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
-$leftMenu =& $this->newObject('contextmenu','toolbar');
-$objHead =& $this->newObject('htmlheading','htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
+$leftMenu = $this->newObject('contextmenu','toolbar');
+$objHead = $this->newObject('htmlheading','htmlelements');
 
 if(!isset($heading))
     $heading= $title;//"HEADING";//$objLanguage->languageText('mod_test_name');

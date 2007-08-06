@@ -111,10 +111,10 @@ class contextCondition extends condition
      */
     function init()
     {
-        $this->_objGroupAdmin = &$this->getObject('groupadminmodel','groupadmin');
-        $this->_objUser = &$this->getObject('user','security');
-        $this->_objPermissions = &$this->getObject('permissions_model','permissions');
-        $this->_objDBContext = &$this->getObject('dbcontext','context');
+        $this->_objGroupAdmin = $this->getObject('groupadminmodel','groupadmin');
+        $this->_objUser = $this->getObject('user','security');
+        $this->_objPermissions = $this->getObject('permissions_model','permissions');
+        $this->_objDBContext = $this->getObject('dbcontext','context');
         parent::init();
         // Store the class type.
         $this->_class = 'contextcondition';

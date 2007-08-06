@@ -70,14 +70,14 @@ class contextpermissions extends controller {
      */
     function init()
     {
-        $this->objDecisionTable = &$this->getObject( 'decisiontable', 'decisiontable' );
-        $this->objLanguage = &$this->getObject( 'language', 'language' );
+        $this->objDecisionTable = $this->getObject( 'decisiontable', 'decisiontable' );
+        $this->objLanguage = $this->getObject( 'language', 'language' );
         
-        $this->objAction = &$this->getObject( 'action', 'decisiontable' );        
+        $this->objAction = $this->getObject( 'action', 'decisiontable' );        
         $this->objAction->connect( $this->objDecisionTable );
-        $this->objRule = &$this->getObject( 'rule', 'decisiontable' );
+        $this->objRule = $this->getObject( 'rule', 'decisiontable' );
         $this->objRule->connect( $this->objDecisionTable );        
-        $this->objCond = &$this->getObject( 'condition', 'decisiontable' );
+        $this->objCond = $this->getObject( 'condition', 'decisiontable' );
         
     }
     /**
@@ -160,7 +160,7 @@ class contextpermissions extends controller {
     function isValid( $action, $default = TRUE )
     {
         // Super user has access to all actions
-        $objUser =& $this->getObject('user', 'security');
+        $objUser = $this->getObject('user', 'security');
         if( $objUser->isAdmin() )
             return TRUE;
             
@@ -513,7 +513,7 @@ class contextpermissions extends controller {
     */
     function processUpdatePerms()
     {
-        $objRegister =& $this->getObject('register','toolbar');
+        $objRegister = $this->getObject('register','toolbar');
         $moduleName = $this->getSession( 'module_name' );
         $objRegister->setDefaultPermissions($moduleName);
         return $this->nextAction('show_main', array() );
@@ -539,7 +539,7 @@ class contextpermissions extends controller {
     * @param  string The action to perform for the create icon link.
     * @return string The result of geticon, it returns the icon as HTML.
     */
-    function &lnkIcnCreate($action)
+    function lnkIcnCreate($action)
     {
         $icn = $this->newObject( 'geticon', 'htmlelements' );
         $href = $this->uri ( array( 'action' => $action ) );

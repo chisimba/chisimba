@@ -70,10 +70,10 @@ class rule extends decisionTableAggregate
      */
     function init()
     {
-        $this->_objParts = &$this->newObject( 'dbdecisiontablerule','decisiontable'  );
-        $this->_objChild = &$this->newObject('dbrulecondition','decisiontable' );
-        $this->_objActionRule = &$this->newObject('dbactionrule','decisiontable' );
-        $this->_objCreated = &$this->newObject( 'condition','decisiontable'  );
+        $this->_objParts = $this->newObject( 'dbdecisiontablerule','decisiontable'  );
+        $this->_objChild = $this->newObject('dbrulecondition','decisiontable' );
+        $this->_objActionRule = $this->newObject('dbactionrule','decisiontable' );
+        $this->_objCreated = $this->newObject( 'condition','decisiontable'  );
         $this->_dbFK =  'conditionid';
         parent::init('tbl_decisiontable_rule' );
     }
@@ -92,7 +92,7 @@ class rule extends decisionTableAggregate
         // Test all conditions.
         foreach( $this->_arrChildren as $condition ) {
             // Rule FAILS when one condition is FALSE.
-            $result &= $condition->isValid();
+            $result = $condition->isValid();
         }
         // Return the result of the evaluation.
         return $result;

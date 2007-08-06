@@ -94,7 +94,7 @@ class editgrid extends viewgrid {
      * @author Jonathan Abrahams
      * @return Show   'X' if TRUE , otherwise '-'
      */
-    function showX( &$objLookup, $id )
+    function showX( $objLookup, $id )
     {
         $isFound = $objLookup->hasID($id);
         if( $isFound ) {
@@ -155,7 +155,7 @@ class editgrid extends viewgrid {
 
             $lnkText = $tinName->show();
             if( get_class( $objLink ) == 'condition' ) {
-                $lnkEdit = &$this->newObject( 'link', 'htmlelements' );
+                $lnkEdit = $this->newObject( 'link', 'htmlelements' );
                 $lnkEdit->href = '#';
                 $lnkEdit->link = 'Edit';
                 $lnkEdit->extra = 'onClick ="javascript:';

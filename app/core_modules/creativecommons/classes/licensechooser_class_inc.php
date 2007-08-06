@@ -74,10 +74,10 @@ class licensechooser extends object
     public function init()
     {
         // Load the Creative Commons Object
-        $this->objCC =& $this->getObject('dbcreativecommons');
+        $this->objCC = $this->getObject('dbcreativecommons');
         
         // Load the Sysconfig Object
-        $this->objSysConfig =& $this->getObject('dbsysconfig', 'sysconfig');
+        $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
         
         // Load the Radio Button Class
         $this->loadClass('radio', 'htmlelements');

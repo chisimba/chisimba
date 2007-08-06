@@ -93,9 +93,9 @@ class viewCondition extends classParser
      * @author Jonathan Abrahams
      * @return nothing
      */
-    function connect( &$objCondition )
+    function connect( $objCondition )
     {
-        $this->_objCondition = &$objCondition;
+        $this->_objCondition = $objCondition;
     }
 
     /**

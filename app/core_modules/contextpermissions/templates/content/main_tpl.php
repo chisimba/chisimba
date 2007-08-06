@@ -5,7 +5,7 @@ $this->loadClass('form', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
 
 // Get all modules
-$objModAdmin = &$this->getObject('modules','modulecatalogue');
+$objModAdmin = $this->getObject('modules','modulecatalogue');
 $modules = $objModAdmin->getAll('ORDER BY module_id');
 $ddbModules = new dropdown('module_name');
 $ddbModules->extra = ' onchange="document.frmMod.submit();"';
@@ -15,7 +15,7 @@ foreach ( $modules as $aModule ) {
 $ddbModules->setSelected( $this->getSession('module_name') );
 
 // Select a module:
-$lblSelectModule = &$this->objLanguage->languageText("mod_contextpermissions_lblSelectModule",'contextpermissions',"[Select a module: ]");
+$lblSelectModule = $this->objLanguage->languageText("mod_contextpermissions_lblSelectModule",'contextpermissions',"[Select a module: ]");
 $objLabel = new label( $lblSelectModule, 'input_module_name' );
 
 $frmMod = new form();
@@ -39,7 +39,7 @@ $properties['lblRule'] = $lblRule;
 $properties['lblCondition'] = $lblCondition;
 $properties['colWidth'] = '10%';
 
-$objViewGrid = &$this->getObject( 'editGrid','contextpermissions');
+$objViewGrid = $this->getObject( 'editGrid','contextpermissions');
 $objViewGrid->connect( $this->objDecisionTable, $properties );
 $objViewGrid->name = $this->getParam('id');
 $objViewGrid->class = $this->getParam('class');

@@ -111,9 +111,9 @@ class decisionTableAggregate extends decisionTableBase
      * @param  object Reference name for the object
      * @return void  
      */
-    public function connect( &$object )
+    public function connect( $object )
     {
-        $this->_objParent = &$object;
+        $this->_objParent = $object;
         $this->_objCreated->connect( $object );
     }
 

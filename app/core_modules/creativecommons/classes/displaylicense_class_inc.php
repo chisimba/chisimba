@@ -72,7 +72,7 @@ class displaylicense extends object
     public function init()
     {
         // Load the Creative Commons Object
-        $this->objCC =& $this->getObject('dbcreativecommons');
+        $this->objCC = $this->getObject('dbcreativecommons');
         
         // Load the GetIcon Object
         $this->objIcon = $this->newObject('geticon', 'htmlelements');

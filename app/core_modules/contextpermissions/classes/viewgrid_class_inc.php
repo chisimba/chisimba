@@ -322,7 +322,7 @@ class viewGrid extends object
      * @author Jonathan Abrahams
      * @return Show   'X' if TRUE , otherwise '-'
      */
-    function showX( &$objLookup, $id )
+    function showX( $objLookup, $id )
     {
         $isFound = $objLookup->hasID($id);
         if( $isFound ) {
@@ -378,7 +378,7 @@ class viewGrid extends object
      * @author Jonathan Abrahams
      * @return nothing
      */
-    function connect(&$object, $properties )
+    function connect($object, $properties )
     {
         $decisionTable = $object->retrieve();
         
@@ -390,14 +390,14 @@ class viewGrid extends object
 		//var_dump($this->_arrActions);
         
         foreach( $decisionTable->_objDBDecisionTableRule->retrieve($decisionTable) as $rule ) {
-			$objRule = &$this->newObject( 'rule', 'decisiontable' ); 
+			$objRule = $this->newObject( 'rule', 'decisiontable' ); 
 			$objRule->connect( $object );
             $aRule = $objRule->create( $rule['name'] );
             $this->_arrRules[$aRule->_name] = $aRule->retrieve();
         }
 
         foreach( $this->objCond->getAll() as $cond ) {
-			$objCond = &$this->newObject( 'condition', 'decisiontable' );
+			$objCond = $this->newObject( 'condition', 'decisiontable' );
             $aCond = $objCond->create( $cond['name'] );
             $this->_arrConditions[$aCond->_name] = $aCond->retrieve();
         }
@@ -417,7 +417,7 @@ class viewGrid extends object
     */
     function lnkText($objLink, $action, $id ){
 
-        $objLnk =& $this->newObject('link','htmlelements');
+        $objLnk = $this->newObject('link','htmlelements');
         $objLnk->href = $this->uri(array('action'=>$action,'class'=>$action,'id'=>$id ));
         $objLnk->link = $id;//$objLink->_name;
         $valid = $objLink->isValid() ? 'Valid' : 'Invalid';

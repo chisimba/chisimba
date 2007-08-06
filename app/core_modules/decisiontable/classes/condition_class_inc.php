@@ -92,9 +92,9 @@ class condition extends decisionTableBase
     {
         // Store the class type.
         parent::init('tbl_decisiontable_condition');
-        $this->objConditionType = &$this->newObject( 'conditiontype', 'decisiontable' );
+        $this->objConditionType = $this->newObject( 'conditiontype', 'decisiontable' );
 
-        $this->_objRuleCondition = &$this->newObject( 'dbrulecondition', 'decisiontable' );
+        $this->_objRuleCondition = $this->newObject( 'dbrulecondition', 'decisiontable' );
 
     }
 
