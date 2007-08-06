@@ -1,24 +1,65 @@
 <?php
+
+/**
+ * Content nodes
+ * 
+ * Class to handle the content nodes in Chisimba context
+ * 
+ * PHP versions 4 and 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 } 
 // end security check
-/**
- * Class dbcontentnode
- * This object handles the contentnodes table and all the
- * operations that takes place with the content nodes
- * @author Wesley Nitsckie
- * @version $Id$ 
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @package context
- **/
 
+
+/**
+ * Content nodes
+ * 
+ * Class to handle the content nodes in Chisimba context
+ * 
+ * @category  Chisimba
+ * @package   context
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @copyright 2007 Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
  class dbcontentnodes extends dbtable{
  
      /**
-     * @var  string $userId : The id of the user currently logged in
+     * @var string $userId : The id of the user currently logged in
      */
     var $userId;
     
@@ -32,8 +73,18 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     var $deleteList=array();
     
+    /**
+     * Description for var
+     * @var    object
+     * @access public
+     */
     var $objDBParents; 
     
+    /**
+     * Description for var
+     * @var    unknown
+     * @access public 
+     */
     var $objDBParentContext;
     
     /**
@@ -41,19 +92,19 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     */
     function init(){
         parent::init('tbl_context_nodes');
-        $user=&$this->newObject('user','security');
-        $this->objDBContext=&$this->newObject('dbcontext','context');
-        $this->objDBParent = & $this->newObject('dbparentnodes', 'context');
-        $this->objDBParentContext = & $this->newObject('dbcontextparentnodes', 'context');
+        $user=$this->newObject('user','security');
+        $this->objDBContext=$this->newObject('dbcontext','context');
+        $this->objDBParent =  $this->newObject('dbparentnodes', 'context');
+        $this->objDBParentContext =  $this->newObject('dbcontextparentnodes', 'context');
         $this->userId=$user->userId();
     }
     
     /**
     * Method that retrieves the
     * child nodes from a give nodeId
-    * @param $nodeId int: the Node ID
+    * @param  $nodeId     int: the Node ID
     * @return bool|array: The list of child nodes
-    * @access public
+    * @access public     
     */
     function getChildNodes($nodeId, $orderBy = NULL){        
         //Check if a node id was sent
@@ -77,10 +128,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to get a field from the
     * current table 
-    * @param $fiedname string : the name of the field
-    * @param $nodeId int : the node id
+    * @param  $fiedname  string : the name of the field
+    * @param  $nodeId    int    : the node id
     * @return array|bool : The value of the field
-    * @access public
+    * @access public    
     */
     function getField($fiedname,$nodeId){    
         $this->resetTable();
@@ -95,7 +146,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     *Method to save a node after editing
-    * @return null
+    * @return null  
     * @access public
     */
     function saveEdit(){
@@ -119,6 +170,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @return string : The page Id
     * @access public
     */    
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $nodeId Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function getPageId($nodeId){
          $line=$this->getArray("SELECT * FROM tbl_context_page_content WHERE tbl_context_nodes_id = '$nodeId'");         
         if ($line[0]['id']){
@@ -130,11 +191,11 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to save a Node
-    * @param $mode string : Either edit or add mode
-    * @param $userId int : The user id
-    * @param $parentNodeId int : The parent Node Id
-    * @return null
-    * @access public
+    * @param  $mode         string : Either edit or add mode
+    * @param  $userId       int    : The user id
+    * @param  $parentNodeId int    : The parent Node Id
+    * @return null         
+    * @access public       
     */
     function saveNode($mode)
     {    
@@ -142,7 +203,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $nodeId = $this->getParam('nodeId');
         $body = $this->getParam('body');      
         $body = stripslashes($body);
-        $objMMedia =& $this->getObject('parse4mmedia','filters');
+        $objMMedia = $this->getObject('parse4mmedia','filters');
         $body = $objMMedia->parseAll($body);
         //$body = addslashes($body);
         $script = $this->getParam('script');
@@ -153,8 +214,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $menutext = $this->getParam('label');        
         $hasmetadata = $this->getParam('hasmetadata'); 
         
-        $dublincore = & $this->newObject('dublincore','dublincoremetadata');
-        $creativecommons = & $this->newObject('dbcreativecommons','creativecommons');
+        $dublincore =  $this->newObject('dublincore','dublincoremetadata');
+        $creativecommons =  $this->newObject('dbcreativecommons','creativecommons');
         $this->resetTable();
     
         switch($mode){
@@ -254,6 +315,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         }
     }
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $parentId  Parameter description (if any) ...
+     * @param  number  $sortIndex Parameter description (if any) ...
+     * @return mixed   Return description (if any) ...
+     * @access public 
+     */
     function getNewPrev($parentId , $sortIndex){
         $arrPrevNode = $this->getNode($parentId , ($sortIndex-1));
       //  print_r($arrPrevNode);
@@ -269,6 +340,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     }
     
     
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  unknown $parentId  Parameter description (if any) ...
+     * @param  unknown $sortIndex Parameter description (if any) ...
+     * @return unknown Return description (if any) ...
+     * @access public 
+     */
     function getNewNext($parentId , $sortIndex){
         return NULL;
     }
@@ -276,8 +357,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to delete a node
-    * @param $nodeId int : The node id
-    * @return bool
+    * @param  $nodeId int : The node id
+    * @return bool   
     * @access private
     */
     function _deleteNode($nodeId)
@@ -288,9 +369,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to delete a node
     * with its children recursively
-    * @param $nodeId int : the node id
-    * @return bool 
-    * @access public
+    * @param  $nodeId int : the node id
+    * @return bool   
+    * @access public 
     */
     function deleteNodeRecursively($nodeId)
     {
@@ -304,8 +385,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to biuld the delete list 
-    * @param $nodeId int : the node id
-    * @return NULL 
+    * @param  $nodeId int : the node id
+    * @return NULL   
     * @access private
     */
     function _biuldDeleteList($nodeId){
@@ -321,7 +402,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Method to get the Title for the context root Node
     * @return string $title : The title
     * @access public
-    * @param string $rootNodeId : The id for the root node
+    * @param  string $rootNodeId : The id for the root node
     */
     function getRootTitle($rootNodeId){    
         $this->changeTable('tbl_context_parentnodes');
@@ -333,7 +414,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     *Method to get the body for a given node
-    * @param string $nodeId : The node id of the body field
+    * @param  string $nodeId : The node id of the body field
     * @access public
     * @return string : The body ,
     */
@@ -351,7 +432,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get the first peice of content for a course
-    * @access prive
+    * @access prive 
     * @return string $nodeId
     */
     function _getFirstContentNodeId(){
@@ -368,7 +449,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * MEthod to check if a node has content
-    * @param string $nodeId The node ID
+    * @param  string  $nodeId The node ID
     * @return boolean
     */
     function _hasContent($nodeId, $nodesArr){
@@ -385,7 +466,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
      /**
     *Method to get the title or menu text for a given node
-    * @param string $nodeId : The node id of the body field
+    * @param  string $nodeId : The node id of the body field
     * @access public
     * @return string : The menu text , 
     */
@@ -399,8 +480,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     *Method to change the working table
-    * @param string $tName : The name of the table
-    * @return null
+    * @param  string $tName : The name of the table
+    * @return null  
     * @access public
     */
     function changeTable($tName)
@@ -410,7 +491,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     *Method to reset the working table to 'tbl_context'
-    * @return null
+    * @return null  
     * @access public
     */
     function resetTable()
@@ -420,7 +501,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to check whether a node is the first node
-    * @return null
+    * @return null  
     * @access public
     */
     function isFirstNode($nodeId)
@@ -431,7 +512,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     *Method to get a Parent Id
-    * @param string $nodeId : The nodeId
+    * @param  string $nodeId : The nodeId
     * @access public
     * @return string : The parent Id
     */
@@ -505,9 +586,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to insert a new shared node
-    * @param string $sharedNodeId The Shared Node ID
-    * @param string $currentContextNodeId The current node  ID
-    * @param string $contextId The content Id 
+    * @param  string $sharedNodeId         The Shared Node ID
+    * @param  string $currentContextNodeId The current node  ID
+    * @param  string $contextId            The content Id 
     * @return string the new id that was generated
     */
     function shareNodes($sharedNodeId, $currentContextNodeId, $contextId=NULL){
@@ -530,8 +611,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get a list of shared nodes from the database
-    * @param string $rootNodeId The Root node id of course        
-    * @return array The list of shared nodes
+    * @param  string $rootNodeId The Root node id of course        
+    * @return array  The list of shared nodes
     */
     function getSharedList($rootNodeId){
         $this->changeTable('tbl_context_sharednodes');
@@ -564,6 +645,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     * @param string  $parentId The  parent Id
     * @return int
     */
+
+    /**
+     * Short description for function
+     * 
+     * Long description (if any) ...
+     * 
+     * @param  string $parentId Parameter description (if any) ...
+     * @return string Return description (if any) ...
+     * @access public
+     */
     function getMaxOrderIndex($parentId = NULL)
     {
         $this->resetTable();
@@ -578,8 +669,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get the next Sort Index
-    * @param string PArentID The PArent Id
-    * @return int
+    * @param  string PArentID The PArent Id
+    * @return int   
     */
     function getNextOrderIndex($parentId = NULL)
     {
@@ -590,8 +681,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get a sorted array of nodes for a parent
-    * @param string  $parentId The  parent Id
-    * @return array
+    * @param  string $parentId The  parent Id
+    * @return array 
     */
     
     function getSortedNodes($parentId = NULL){
@@ -601,9 +692,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * Method to get the next Sort Index node Id
-    * @param string parentId The ParentId
-    * @param int sortIdex The Sort Index
-    * @return array node
+    * @param  string parentId The ParentId
+    * @param  int    sortIdex The Sort Index
+    * @return array  node
     */
     function getNode($parentId = NULL, $sortIndex = NULL)
     {
@@ -619,7 +710,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to check if a node is the first node
     * @param string $nodeId The NodeId
-    * return bool
+    *                       return bool
     */
     function isFirstSibling($nodeId){
         $line = $this->getRow('id', $nodeId);
@@ -649,7 +740,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      /**
     * Method to check if a node is the last node
     * @param string $nodeId The NodeId
-    * return bool
+    *                       return bool
     */
     function isLastSibling($nodeId){
         $line = $this->getRow('id', $nodeId);
@@ -669,9 +760,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     
     /**
     * MEthod to check if a node is part another node
-    * @param string $sourceId The source
-    * @param string $destinationId The destination
-    * @return bool
+    * @param  string $sourceId      The source
+    * @param  string $destinationId The destination
+    * @return bool  
     */
     function isFamily($sourceId, $destinationId)
     {
@@ -695,9 +786,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to check if a 
     * node is a child 
-    * @param string $parentId The source
-    * @param string $childId The destination
-     * @return bool
+    * @param  string $parentId The source
+    * @param  string $childId  The destination
+     * @return bool  
     */
     function isChild($parentId = NULL, $childId = NULL)
     {
@@ -728,8 +819,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     /**
     * Method to check if a 
     * node has children
-    * @param string parentId The parent Id
-    * @return bool
+    * @param  string parentId The parent Id
+    * @return bool  
     */
     function hasChildren($parentId)
     {

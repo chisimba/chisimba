@@ -64,8 +64,8 @@ class dbcontextmodules extends dbTable{
      public function init(){
         parent::init('tbl_contextmodules');
 
-        $this->_objModule = & $this->newObject('modules', 'modulecatalogue');
-        $this->_objDBContext = & $this->newObject('dbcontext', 'context');
+        $this->_objModule =  $this->newObject('modules', 'modulecatalogue');
+        $this->_objDBContext =  $this->newObject('dbcontext', 'context');
     }
     
     /**
@@ -176,8 +176,8 @@ class dbcontextmodules extends dbTable{
     {
     	try{
 	        $contextCode = $this->_objDBContext->getContextCode();
-	        $objModules = & $this->newObject('modules', 'modulecatalogue');
-	        $objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
+	        $objModules =  $this->newObject('modules', 'modulecatalogue');
+	        $objModuleFile =  $this->newObject('modulefile', 'modulecatalogue');
 	        $modList = $objModules->getModules(2);
 	        //dump all the modules
 	        $this->delete('contextcode', $contextCode);

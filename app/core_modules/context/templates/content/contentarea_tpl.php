@@ -14,13 +14,13 @@ echo $this->getJavascriptFile('domTT_drag.js','htmlelements');
 echo $this->getJavascriptFile('windowpopup.js','htmlelements');
 
 
-$objTree = & $this->newObject('contenttree','tree');
-$layer = & $this->newObject('layer', 'htmlelements');
+$objTree =  $this->newObject('contenttree','tree');
+$layer =  $this->newObject('layer', 'htmlelements');
 $layer->width = '200';
 $layer->overflow = 'auto';
 $layer->str = $objTree->show();
 
-$myTable=&$this->newObject('htmltable','htmlelements');
+$myTable=$this->newObject('htmltable','htmlelements');
 $myTable->width="100%";
        $myTable->border="0";
       $myTable->cellpadding="0";      

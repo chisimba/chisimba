@@ -78,7 +78,7 @@ class block_context extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
+    		$this->objLanguage =  $this->getObject('language', 'language');
     		$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
     	} catch (customException $e) {
     		customException::cleanUp();
@@ -92,7 +92,7 @@ class block_context extends object
     public function show()
     {
     	try {
-        $objContext =& $this->getObject('dbcontext', 'context');
+        $objContext = $this->getObject('dbcontext', 'context');
         $courses = $objContext->getListOfPublicContext();
         if (count($courses)==0) {
             $msg = $this->objLanguage->code2Txt('mod_context_nocontexts','context');

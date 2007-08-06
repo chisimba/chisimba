@@ -82,9 +82,9 @@ class block_loginstats extends object
     public function init()
     {
 		//Create an instance of the user object
-        $this->objUser =& $this->getObject('user','security');
+        $this->objUser = $this->getObject('user','security');
 		//Create an instance of the language object
-        $this->objLanguage =& $this->getObject('language','language');
+        $this->objLanguage = $this->getObject('language','language');
         //Set the title
         $this->title="Login Stats";//$this->objLanguage->languageText("mod_reports_loginstats");
     }

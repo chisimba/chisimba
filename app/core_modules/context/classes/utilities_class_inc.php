@@ -78,15 +78,15 @@ class utilities extends object
     * Constructor method to define the table
     */
     function init() {
-        $this->objDBContext = & $this->getObject('dbcontext', 'context');        
-        $this->objLink = & $this->getObject('link', 'htmlelements');        
-        $this->objIcon = & $this->getObject('geticon', 'htmlelements');        
-        $this->objConfig = &$this->getObject('config', 'config');
-        $this->objDBContextModules = & $this->getObject('dbcontextmodules', 'context');        
-        $this->objDBContextParams = & $this->getObject('dbcontextparams', 'context');        
-        $this->objLanguage = & $this->getObject('language', 'language');        
+        $this->objDBContext =  $this->getObject('dbcontext', 'context');        
+        $this->objLink =  $this->getObject('link', 'htmlelements');        
+        $this->objIcon =  $this->getObject('geticon', 'htmlelements');        
+        $this->objConfig = $this->getObject('config', 'config');
+        $this->objDBContextModules =  $this->getObject('dbcontextmodules', 'context');        
+        $this->objDBContextParams =  $this->getObject('dbcontextparams', 'context');        
+        $this->objLanguage =  $this->getObject('language', 'language');        
         $this->contextCode = $this->objDBContext->getContextCode();
-        $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
+        $this->_objContextModules =  $this->getObject('dbcontextmodules', 'context');
         
     }
     
@@ -120,7 +120,7 @@ class utilities extends object
 		}
         
         
-        $objFeatureBox = & $this->getObject('featurebox', 'navigation');
+        $objFeatureBox =  $this->getObject('featurebox', 'navigation');
         return $objFeatureBox->show('Toolbox', $str,'contexttoolbox');
       
     }
@@ -138,9 +138,9 @@ class utilities extends object
     	
     	
     	$objSideBar = $this->newObject('sidebar' , 'navigation');
-    	$objModule = & $this->newObject('modules', 'modulecatalogue');
+    	$objModule =  $this->newObject('modules', 'modulecatalogue');
     	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
-    	$objIcon = & $this->getObject('geticon', 'htmlelements');
+    	$objIcon =  $this->getObject('geticon', 'htmlelements');
     	
     	$arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
     	$isregistered = '';
@@ -221,7 +221,7 @@ class utilities extends object
     public function getContextContentNavigation($selectedLink = Null)
     {
         $objSideBar = $this->getObject('sidebar' , 'navigation');
-        $objModule = & $this->getObject('dbcontextmodules', 'context');
+        $objModule =  $this->getObject('dbcontextmodules', 'context');
     	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
         //create the nodes array
 		$nodes = array();
@@ -401,7 +401,7 @@ class utilities extends object
 			
 			//initiate the objects
 			$objSideBar = $this->newObject('sidebar', 'navigation');
-			$objModules = & $this->newObject('modules', 'modulecatalogue');
+			$objModules =  $this->newObject('modules', 'modulecatalogue');
 			
 			//get the contextCode
 			$this->objDBContext->getContextCode();	

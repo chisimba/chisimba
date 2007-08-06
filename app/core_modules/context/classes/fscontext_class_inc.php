@@ -79,8 +79,8 @@ $GLOBALS['kewl_entry_point_run']) {
      */
      function init()
      {
-         $this->objConfig=&$this->newObject('altconfig','config');
-         $this->objZip=&$this->newObject('depzip','utilities');
+         $this->objConfig=$this->newObject('altconfig','config');
+         $this->objZip=$this->newObject('depzip','utilities');
      }
  
      /**

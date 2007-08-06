@@ -2,9 +2,9 @@
 
 
 $objFeatureBox = $this->newObject('featurebox', 'navigation');
-$objBlocks = & $this->newObject('blocks', 'blocks');
-$objLucene = & $this->newObject('results', 'lucene');
-$objContextUtils = & $this->newObject('utilities' , 'context');
+$objBlocks =  $this->newObject('blocks', 'blocks');
+$objLucene =  $this->newObject('results', 'lucene');
+$objContextUtils =  $this->newObject('utilities' , 'context');
 
 /**
 * Method that formats the date to DDMMYYY
@@ -168,8 +168,8 @@ $this->contentNav->addToStr($centre);
 // ???
 //echo "[$about]<br/>";
 
-$tabs = & $this->newObject('tabpane', 'htmlelements');
-$objModules = & $this->newObject('modules', 'modulecatalogue');
+$tabs =  $this->newObject('tabpane', 'htmlelements');
+$objModules =  $this->newObject('modules', 'modulecatalogue');
 
 foreach($modules as $module)
 {
@@ -188,7 +188,7 @@ $contextInfo = 'Instructors: <br />';
 $contextInfo .= 'No. Registered Students: <br/>'; 
 $contextInfo .= 'Last Accessed: '; 
 $contextInfo = $objFeatureBox->show('Course Info', $contextInfo);
-$objContextPostloginUtils = & $this->newObject('utils', 'contextpostlogin');
+$objContextPostloginUtils =  $this->newObject('utils', 'contextpostlogin');
 if($this->objUser->isLoggedIn())
 {
 	$leftSide = $objContextPostloginUtils->getUserPic();
@@ -201,7 +201,7 @@ if(!$this->getParam('query') == '')
 	$searchResults = $objLucene->show($this->getParam('query'));
 }
        
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
        $cssLayout->setNumColumns(3);
        $cssLayout->setLeftColumnContent($leftSide);
        $cssLayout->setMiddleColumnContent($str);

@@ -64,7 +64,7 @@ class dbcontextparams extends dbTable{
      function init(){
         parent::init('tbl_contextparams');
         
-        $this->_objDBContext = & $this->newObject('dbcontext', 'context');
+        $this->_objDBContext =  $this->newObject('dbcontext', 'context');
     }
     
    

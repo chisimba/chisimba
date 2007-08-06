@@ -73,8 +73,8 @@ $GLOBALS['kewl_entry_point_run']) {
     */
     public function init(){
         parent::init('tbl_context');
-        $this->objUser=&$this->newObject('user','security');
-		$this->objFSContext=&$this->newObject('fscontext','context');
+        $this->objUser=$this->newObject('user','security');
+		$this->objFSContext=$this->newObject('fscontext','context');
     }
 
     /**
@@ -224,7 +224,7 @@ $GLOBALS['kewl_entry_point_run']) {
         $isActive = $this->getParam('isactive');
         $isClosed = $this->getParam('isclosed');
 
-        $objMMedia =& $this->getObject('parse4mmedia','filters');
+        $objMMedia = $this->getObject('parse4mmedia','filters');
         $about = $objMMedia->parseAll($about);
         $about = addslashes($about);
 
@@ -291,7 +291,7 @@ $GLOBALS['kewl_entry_point_run']) {
                 }
             }
             
-            $contextGroups=&$this->getObject('manageGroups','contextgroups');
+            $contextGroups=$this->getObject('manageGroups','contextgroups');
             $contextGroups->createGroups($contextCode, $title);
             
             $fields = array(
@@ -328,8 +328,8 @@ $GLOBALS['kewl_entry_point_run']) {
     public function OLD_createContext()
     {
         $this->changeTable('tbl_context');
-		$objDBParentNodes = & $this->getObject('dbparentnodes', 'context');
-        $objDBParentBridge = & $this->getObject('dbcontextparentnodes', 'context');
+		$objDBParentNodes =  $this->getObject('dbparentnodes', 'context');
+        $objDBParentBridge =  $this->getObject('dbcontextparentnodes', 'context');
 
         $contextCode = $this->getParam('contextCode');
         if ($this->objFSContext->createContextFolder($contextCode))
@@ -359,7 +359,7 @@ $GLOBALS['kewl_entry_point_run']) {
 
 			$this->resetTable();
 			//create groups
-			$contextGroups=&$this->getObject('manageGroups','contextgroups');
+			$contextGroups=$this->getObject('manageGroups','contextgroups');
             $contextGroups->createGroups($contextCode, $title);
 
 			return $contextId;
@@ -427,9 +427,9 @@ $GLOBALS['kewl_entry_point_run']) {
         $this->unsetSession('contextIsClosed');
         $this->unsetSession('contextDateCreated');
         $this->unsetSession('contextCreatorId');
-        $objModule =& $this->getObject('modules','modulecatalogue');
+        $objModule = $this->getObject('modules','modulecatalogue');
        	if ($objModule->checkIfRegistered('workgroup', 'workgroup')) {
-            $objDbWorkgroup =& $this->getObject('dbWorkgroup', 'workgroup');
+            $objDbWorkgroup = $this->getObject('dbWorkgroup', 'workgroup');
             $objDbWorkgroup->unsetWorkgroupId();
 		}
    	}
@@ -549,7 +549,7 @@ $GLOBALS['kewl_entry_point_run']) {
             $contextCode=$this->getContextCode();
         }
          include_once("XML/sql2xml.php");
-        $objDBConfig=&$this->newObject('dbconfig','config');
+        $objDBConfig=$this->newObject('dbconfig','config');
         //create a sql2xml object and parse the database connection
         $sql2xmlclass = new xml_sql2xml($objDBConfig->dbConString());
         //get the xml with the given sql
@@ -573,7 +573,7 @@ $GLOBALS['kewl_entry_point_run']) {
     public function deleteContext($contextCode){
         $this->delete('contextCode',$contextCode);
     	//delete groups
-        $contextGroups=&$this->getObject('manageGroups','contextgroups');
+        $contextGroups=$this->getObject('manageGroups','contextgroups');
         $contextGroups->deleteGroups($contextCode);
 
    		$this->objFSContext->deleletContextFolder($contextCode);

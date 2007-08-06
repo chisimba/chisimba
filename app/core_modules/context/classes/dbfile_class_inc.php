@@ -78,8 +78,8 @@ $GLOBALS['kewl_entry_point_run']) {
      */
      function init(){
          parent::init('tbl_context_file');
- 		 $this->objDBContext = & $this->newObject('dbcontext', 'context');
-         $this->objDBFileData = & $this->newObject('dbfiledata', 'context');
+ 		 $this->objDBContext =  $this->newObject('dbcontext', 'context');
+         $this->objDBFileData =  $this->newObject('dbfiledata', 'context');
      }
 	 
 	  /**
@@ -88,7 +88,7 @@ $GLOBALS['kewl_entry_point_run']) {
 	 * @return array
 	 */
 	 function getFiles($contextCode=NULL, $category=NULL, $orderBy='filedate DESC'){
-		$objDBParentNode = & $this->newObject('dbparentnodes', 'context');
+		$objDBParentNode =  $this->newObject('dbparentnodes', 'context');
 		if(!isset($contextCode)){
 			
 			$contextCode = $this->objDBContext->getContextCode();

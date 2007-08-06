@@ -190,13 +190,13 @@ class context extends controller
     */
     public function init(){
 
-        $this->objSkin = & $this->newObject('skin','skin');
-        $this->objLanguage=& $this->newObject('language', 'language');
-        $this->objDBContext=& $this->newObject('dbcontext');
-        $this->objUser= & $this->newObject('user','security');
-        $this->objDBContextModules=&$this->newObject('dbcontextmodules','context');
-        $this->objUtils =  & $this->newObject('utilities', 'context');
-        $this->objModule = & $this->newObject('modules', 'modulecatalogue');
+        $this->objSkin =  $this->newObject('skin','skin');
+        $this->objLanguage= $this->newObject('language', 'language');
+        $this->objDBContext= $this->newObject('dbcontext');
+        $this->objUser=  $this->newObject('user','security');
+        $this->objDBContextModules=$this->newObject('dbcontextmodules','context');
+        $this->objUtils =   $this->newObject('utilities', 'context');
+        $this->objModule =  $this->newObject('modules', 'modulecatalogue');
 		$this->setVar('pageSuppressXML',TRUE);
         /*      
         $this->objDBContentNodes=& $this->getObject('dbcontentnodes');
@@ -266,7 +266,7 @@ class context extends controller
             case 'contenthome':
 
                 //get the default module for this context
-            	$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+            	$objDBContextParams =  $this->newObject('dbcontextparams', 'context');
             	$moduleid = $objDBContextParams->getParamValue($this->objDBContext->getContextCode(), 'defaultmodule');
             	if( $moduleid != '')
             	{
@@ -414,7 +414,7 @@ class context extends controller
     */
     public function showContent(){
         $nodeid=$this->nodeId;
-        $heading=&$this->newObject('htmlheading','htmlelements');
+        $heading=$this->newObject('htmlheading','htmlelements');
         $heading->type=5;
 
         //if nodeis is null then get the root node id
@@ -429,13 +429,13 @@ class context extends controller
             $line=$this->objDBContentNodes->getRow('id',$nodeid);
 			if ($this->objModule->checkIfRegistered('', 'creativecommons'))
 			{
-				$objCC = & $this->newObject('dbcreativecommons', 'creativecommons');
+				$objCC =  $this->newObject('dbcreativecommons', 'creativecommons');
 				$licence = '<center>'.$objCC->checkLicence($nodeid).'</center>';
 			}
                 $heading->str=stripslashes($line['title']);
             //parse the content through the glossary if the module is registered
             if ($this->objModule->checkIfRegistered('', 'glossary')){
-                $glossary=&$this->newObject('dbglossary','glossary');
+                $glossary=$this->newObject('dbglossary','glossary');
                 return $heading->show().
 					stripslashes(
 						$glossary->parse(
@@ -578,7 +578,7 @@ class context extends controller
                 $this->objIcon->align = "absmiddle";
 
                 $uri=$this->URI(array('action' => 'delete','nodeid' => $this->nodeId));
-                $objConfirm = &$this->newObject('confirm','utilities');
+                $objConfirm = $this->newObject('confirm','utilities');
                 $objConfirm->setConfirm($this->objIcon->show(),$uri,$this->objLanguage->languageText("mod_context_delmessnode",'context'));
                 $str .= $objConfirm->show();
 
@@ -642,7 +642,7 @@ class context extends controller
         {
             $this->objDBContentNodes->resetTable();
             $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
-            $objStr = & $this->newObject('contenttree', 'tree');
+            $objStr =  $this->newObject('contenttree', 'tree');
 
             // CREATE THE NAVIGATION BUTTONS
 
@@ -818,20 +818,20 @@ class context extends controller
     {
 
         //check if the nettel module is registered
-        $objModules = & $this->getObject('modules', 'modulecatalogue');
+        $objModules =  $this->getObject('modules', 'modulecatalogue');
         if($objModules->checkIfRegistered(NULL, 'nettel'))
         {
              // check if the course is closed
            // $line =  $this->objDBContext->getRow('contextCode', $this->objDBContext->getContextCode());
              //print $line['isClosed'];
-             $objContextCondtition = & $this->getObject('contextcondition', 'contextpermissions');
+             $objContextCondtition =  $this->getObject('contextcondition', 'contextpermissions');
              if($objContextCondtition->isContextMember())
              {
-                 $objDBContextAgreement = & $this->getObject('dbcontextagreements', 'nettel');
+                 $objDBContextAgreement =  $this->getObject('dbcontextagreements', 'nettel');
                  if($objDBContextAgreement->hasAgreement())
                  {
                      //check if the user has agreed
-                       $objDBUserAgreement = & $this->getObject('dbuseragreements', 'nettel');
+                       $objDBUserAgreement =  $this->getObject('dbuseragreements', 'nettel');
                        if(!$objDBUserAgreement->hasAgreed())
                        {
                            //show the agreement

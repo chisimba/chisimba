@@ -80,8 +80,8 @@ $GLOBALS['kewl_entry_point_run']) {
      */
      function init(){
          parent::init('tbl_context_parentnodes');
-		 $this->objDBContext = & $this->newObject('dbcontext', 'context');
-         $this->objUser = & $this->newObject('user', 'security');
+		 $this->objDBContext =  $this->newObject('dbcontext', 'context');
+         $this->objUser =  $this->newObject('user', 'security');
      }
      
 	  /**

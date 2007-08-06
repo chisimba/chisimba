@@ -1,12 +1,12 @@
 <?php
 
-$table=&$this->newObject('htmltable','htmlelements');
-$form=&$this->newObject('form','htmlelements');
-$ta=&$this->newObject('textarea','htmlelements');
-$saveBut=&$this->newObject('button','htmlelements');
-$idInput=&$this->newObject('textinput','htmlelements');
-$modeInput=&$this->newObject('textinput','htmlelements');
-$nodeIdInput=&$this->newObject('textinput','htmlelements');
+$table=$this->newObject('htmltable','htmlelements');
+$form=$this->newObject('form','htmlelements');
+$ta=$this->newObject('textarea','htmlelements');
+$saveBut=$this->newObject('button','htmlelements');
+$idInput=$this->newObject('textinput','htmlelements');
+$modeInput=$this->newObject('textinput','htmlelements');
+$nodeIdInput=$this->newObject('textinput','htmlelements');
 //echo $ta->value;
 
 $ta->setColumns(40);

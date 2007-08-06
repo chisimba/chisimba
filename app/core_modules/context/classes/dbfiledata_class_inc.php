@@ -68,7 +68,7 @@ $GLOBALS['kewl_entry_point_run']) {
 	 */
      function init(){
          parent::init('tbl_context_filedata');
- 		 $this->objDBContext = & $this->newObject('dbcontext', 'context');
+ 		 $this->objDBContext =  $this->newObject('dbcontext', 'context');
 
 	 }
      

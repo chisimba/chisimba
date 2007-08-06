@@ -14,11 +14,11 @@ $this->loadClass('textarea','htmlelements');
 $this->loadClass('textinput','htmlelements');
 $this->loadClass('button','htmlelements');
 $this->loadClass('form','htmlelements');
-$editor=&$this->newObject('htmlarea','htmlelements');
-$objLink = & $this->newObject('link','htmlelements');
-$h3=&$this->newObject('htmlheading','htmlelements');
-$multiTab  = & $this->newObject('multitabbedbox','htmlelements');
-$table  = & $this->newObject('htmltable','htmlelements');
+$editor=$this->newObject('htmlarea','htmlelements');
+$objLink =  $this->newObject('link','htmlelements');
+$h3=$this->newObject('htmlheading','htmlelements');
+$multiTab  =  $this->newObject('multitabbedbox','htmlelements');
+$table  =  $this->newObject('htmltable','htmlelements');
 
 
 $this->objDBContentNodes->resetTable();
@@ -46,7 +46,7 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         else
             $action='save_add';
 
-        $this->objHelp=& $this->getObject('helplink','help');
+        $this->objHelp= $this->getObject('helplink','help');
         //Add the help link to the output
        $strTitle = '';
        $strBody = '';
@@ -166,12 +166,12 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
 
        //=================================
        //CREATIVE COMMOMS TAB
-       $objModule =& $this->getObject('modules','modulecatalogue');
+       $objModule = $this->getObject('modules','modulecatalogue');
        if($objModule->checkIfRegistered('creativecommons','creativecommons'))
        {
-           $objCreativeCommons = & $this->newObject('dbcreativecommons','creativecommons');
-		   $objConfig = & $this->newObject('config', 'config');
-		   $objSkin = & $this->newObject('skin', 'skin');
+           $objCreativeCommons =  $this->newObject('dbcreativecommons','creativecommons');
+		   $objConfig =  $this->newObject('config', 'config');
+		   $objSkin =  $this->newObject('skin', 'skin');
 
            $ccStr ='<center><h1>'.$this->objLanguage->languageText("mod_creativecommons_title",'context').'</h1>';
            $ccStr .= $objCreativeCommons->getLisences($nodeId);
@@ -190,7 +190,7 @@ $line=$this->objDBContentNodes->getRow('id',$this->nodeId);
         $center =  $h3->show();
         $center .=  $objForm->show();
 
- $this->contentNav = & $this->newObject('layer','htmlelements');
+ $this->contentNav =  $this->newObject('layer','htmlelements');
     $this->contentNav->id = "content2";
     $this->contentNav->height = '600px';
     $this->contentNav->addToStr($center);
