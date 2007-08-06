@@ -798,9 +798,17 @@ class engine
 		{
 			$filename = "core_modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
 			$engine =& $this;
-			require_once($filename);
-			$this->_objConfig = new altconfig;
-			return;
+			if(!$this->_objConfig instanceof altconfig )
+			{
+				// log_debug("autoloading config again");
+				require_once($filename);
+				$this->_objConfig = new altconfig;
+				return;
+			}
+			else {
+				// log_debug("config autoloaded");
+				return;
+			}
 		}
 		if(in_array($moduleName, $this->coremods))
 		{
@@ -862,15 +870,14 @@ class engine
      * @param  $moduleName string The name of the module to load the class from
      * @return mixed       The object asked for
      */
-	public function &newObject($name, $moduleName)
+	public function newObject($name, $moduleName)
 	{
 		$this->loadClass($name, $moduleName);
 		// Fix to allow developers to load htmlelements which do not inherit from class 'object'
-		//$parents = class_parents($name);
-		//if (in_array('object',$parents)) {
 		if (is_subclass_of($name, 'object')) {
 			// Class inherits from class 'object', so pass it the expected parameters
 			$objNew = new $name($this, $moduleName);
+			
 		}
 		else {
 			// Class does not inherit from class 'object', so don't pass it any parameters
@@ -899,7 +906,7 @@ class engine
      * @param  $moduleName string The name of the module to load the class from
      * @return mixed       The object asked for
      */
-	public function &getObject($name, $moduleName)
+	public function getObject($name, $moduleName)
 	{
 		$instance = NULL;
 		if (isset($this->_cachedObjects[$moduleName][$name]))
@@ -914,11 +921,17 @@ class engine
 			//if (in_array('object',$parents)) {
 			if (is_subclass_of($name, 'object')) {
 				// Class inherits from class 'object', so pass it the expected parameters
-				$instance = new $name($this, $moduleName);
+				if($instance instanceof $name == FALSE)
+				{
+					$instance = new $name($this, $moduleName);
+				}
 			}
 			else {
 				// Class does not inherit from class 'object', so don't pass it any parameters
-				$instance = new $name();
+				if($instance instanceof $name == FALSE)
+				{
+					$instance = new $name();
+				}
 			}
 			//$instance = new $name($this, $moduleName);
 			if (is_null($instance)) {
@@ -930,7 +943,7 @@ class engine
 				$this->_cachedObjects[$moduleName] = array();
 			}
 			// now store the instance in the map
-			$this->_cachedObjects[$moduleName][$name] =& $instance;
+			$this->_cachedObjects[$moduleName][$name] = $instance;
 		}
 		return $instance;
 	}

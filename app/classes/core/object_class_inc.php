@@ -285,7 +285,7 @@ class object
      * @param  string $moduleName The name of the module to load the class from
      * @return mixed  The reference to the new object asked for
      */
-    public function &newObject($name, $moduleName='')
+    public function newObject($name, $moduleName='')
     {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
@@ -305,7 +305,7 @@ class object
      * @param  string $moduleName The name of the module to load the class from (optional)
      * @return mixed  The object asked for
      */
-    public function &getObject($name, $moduleName = '')
+    public function getObject($name, $moduleName = '')
     {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
