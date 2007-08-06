@@ -66,7 +66,7 @@ class access extends object
      * @param  string    $moduleName The module name
      * @return construct for access
      */
-    public function __construct(&$objEngine, $moduleName)
+    public function __construct($objEngine, $moduleName)
     {
         parent::__construct($objEngine, $moduleName);
     }
@@ -79,7 +79,7 @@ class access extends object
      * @param  string The action param passed to the dispatch method
      * @return array  The next action to be done
      */
-    public function dispatchControl( &$module, $action )
+    public function dispatchControl( $module, $action )
     {
         // Extract isRegistered
         extract( $this->getModuleInformation( 'decisiontable' ) );
@@ -88,7 +88,7 @@ class access extends object
             return $module->dispatch( $action );
         }
         // Get an instance of the decisiontable object.
-        $this->objDT = &$this->getObject( 'decisiontable','decisiontable' );
+        $this->objDT = $this->getObject( 'decisiontable','decisiontable' );
         // Create the decision table for the current module
         $this->objDT->create( $this->moduleName );
         // Collect information from the database.
@@ -125,7 +125,7 @@ class access extends object
      */
     public function getModuleInformation($moduleName)
     {
-        $objModAdmin = &$this->getObject( 'modules', 'modulecatalogue' );
+        $objModAdmin = $this->getObject( 'modules', 'modulecatalogue' );
         $array = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
         $info =array();
         $info['isRegistered'] = isset( $array[0] );
@@ -150,14 +150,14 @@ class access extends object
         }
         // The module is admin only, allow only admin users.
         if( $isAdminMod ) {
-            $objUser =& $this->getObject('user', 'security');
+            $objUser = $this->getObject('user', 'security');
             if(!$objUser->isAdmin()){
                 return $this->nextAction( 'nopermission', array('modname'=>$moduleName), 'redirect' );
             }
         }
         // The module depends on being in a context, redirect if not in a context.
         if( $isContextMod ) {
-            $objContext =& $this->getObject('dbcontext','context');
+            $objContext = $this->getObject('dbcontext','context');
             if(!$this->objContext->isInContext()){
                 return $this->nextAction( 'nocontext', array('modname'=>$moduleName), 'redirect' );
             }
