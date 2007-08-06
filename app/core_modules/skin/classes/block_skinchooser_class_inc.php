@@ -25,7 +25,7 @@ class block_skinchooser extends object
     function init()
     {
  		//Create an instance of the language object
-        $this->objLanguage =& $this->getObject('language','language');
+        $this->objLanguage = $this->getObject('language','language');
         //Set the title
         $this->title=$this->objLanguage->languageText('mod_skin_name', 'skin');
     }

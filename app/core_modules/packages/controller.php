@@ -75,9 +75,9 @@ class packages extends controller
         try {
            $this->objConfig = $this->getObject('altconfig','config');
            $this->objLanguage = $this->getObject('language','language');
-           $this->objModule = &$this->getObject('modules', 'modulecatalogue');
+           $this->objModule = $this->getObject('modules', 'modulecatalogue');
             //the class for reading register.conf files
-           $this->objModFile = &$this->getObject('modulefile', 'modulecatalogue');
+           $this->objModFile = $this->getObject('modulefile', 'modulecatalogue');
            $this->objRpcServer = $this->getObject('rpcserver'); 
            $this->objRpcClient = $this->getObject('rpcclient'); 
 

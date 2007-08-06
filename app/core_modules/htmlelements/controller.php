@@ -60,7 +60,7 @@ class htmlelements extends controller
      */
     function init()
     {
-		$this->objDBUser=& $this->getObject('user','security');
+		$this->objDBUser= $this->getObject('user','security');
         $this->loadClass('radio', 'htmlelements');
 		$this->loadClass('dropdown', 'htmlelements');
 		$this->loadClass('checkbox', 'htmlelements');

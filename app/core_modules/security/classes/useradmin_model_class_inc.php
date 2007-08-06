@@ -13,9 +13,9 @@ class useradmin_model extends dbtable
     public function init()
     {
 	    parent::init('tbl_users');
-        $this->objConfig=&$this->getObject('altconfig','config');
-        $this->objUser=&$this->getObject('user','security');
-        $this->objLanguage=&$this->getObject('language','language');
+        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objUser=$this->getObject('user','security');
+        $this->objLanguage=$this->getObject('language','language');
     }
 
     /**
@@ -56,7 +56,7 @@ class useradmin_model extends dbtable
     {
         $password=$this->getParam('password');
         if ($password==''){
-            $objPassword=&$this->getObject('passwords','useradmin');
+            $objPassword=$this->getObject('passwords','useradmin');
             $password=$objPassword->createPassword();
         }
         $cryptpassword=sha1($password);

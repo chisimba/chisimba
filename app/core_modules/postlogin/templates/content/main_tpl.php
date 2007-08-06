@@ -10,7 +10,7 @@ if ($objUser->isAdmin()) {
 // START of the Left Column
 
 // Create an instance of the postlogin menu on the side
-$userMenu  = &$this->newObject('postloginmenu','toolbar');
+$userMenu  = $this->newObject('postloginmenu','toolbar');
 $objFeatureBox = $this->newObject('featurebox', 'navigation');
 // Add Post login menu to left column
 $leftSideColumn ='';;
@@ -24,7 +24,7 @@ $storyCategory = $this->getParam('storycategory', 'postlogin');
 
 /******************* BEGIN LEFTSIDE BLOCKS ******************************/
 //Put a block to test the blocks module
-$objBlocks = & $this->newObject('blocks', 'blocks');
+$objBlocks =  $this->newObject('blocks', 'blocks');
 //Add loginhistory block
 $leftSideColumn .= $objBlocks->showBlock('loginstats', 'reports');
 //Add guestbook block
@@ -63,7 +63,7 @@ $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
 //$this->setVar('rightSideColumn', $rightSideColumn);
 
 // Create an instance of the css layout class
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 // Set columns to 3
 $cssLayout->setNumColumns(3);
 

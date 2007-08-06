@@ -35,7 +35,7 @@ class block_register extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
+    		$this->objLanguage =  $this->getObject('language', 'language');
 			$this->objUser = $this->getObject('user', 'security');
 			$this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
@@ -63,7 +63,7 @@ class block_register extends object
     		    if(empty($regModule)){
     		        $regModule = 'userregistration';
     		    }
-	    		$regLink = &$this->newObject('link','htmlelements');
+	    		$regLink = $this->newObject('link','htmlelements');
 	    		$regLink->link = $this->objLanguage->languageText('word_register');
 	    		$regLink->link($this->uri(array('action' => 'showregister'), $regModule));
 	    		return $regLink->show();

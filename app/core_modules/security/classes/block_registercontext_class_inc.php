@@ -35,7 +35,7 @@ class block_registercontext extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
+    		$this->objLanguage =  $this->getObject('language', 'language');
 			$this->objUser = $this->getObject('user', 'security');
   			$this->title = $this->objLanguage->languageText("word_registration");
 
@@ -51,7 +51,7 @@ class block_registercontext extends object
     public function show()
     {
     	try {
-	    		$regLink = &$this->newObject('link','htmlelements');
+	    		$regLink = $this->newObject('link','htmlelements');
 	    		$regLink->link = $this->objLanguage->languageText('word_register');
 	    		$regLink->link($this->uri(NULL,'userregistration'));
 	    		return $regLink->show();

@@ -13,9 +13,9 @@ class sqlUsers extends dbtable
     function init()
     {
 	parent::init('tbl_users');
-        $this->objConfig=&$this->getObject('config','config');
-        $this->objUser=&$this->getObject('user','security');
-        $this->objLanguage=&$this->getObject('language','language');
+        $this->objConfig=$this->getObject('config','config');
+        $this->objUser=$this->getObject('user','security');
+        $this->objLanguage=$this->getObject('language','language');
     }
 
     /**
@@ -58,7 +58,7 @@ class sqlUsers extends dbtable
     {
         $password=$this->getParam('password');
         if ($password==''){
-            $objPassword=&$this->getObject('passwords','useradmin');
+            $objPassword=$this->getObject('passwords','useradmin');
             $password=$objPassword->createPassword();
         }
         $cryptpassword=sha1($password);
@@ -234,7 +234,7 @@ class sqlUsers extends dbtable
             $firstname=$result[0]['firstname']; 
             $surname=$result[0]['surname']; 
             if ($password!=(sha1('--LDAP--'))){ 
-                $objPassword=&$this->getObject('passwords','useradmin'); 
+                $objPassword=$this->getObject('passwords','useradmin'); 
                 $newpassword=$objPassword->createPassword(); 
                 $cryptpassword=sha1($newpassword); 
                 $this->update('userId',$userId,array('password'=>$cryptpassword)); 

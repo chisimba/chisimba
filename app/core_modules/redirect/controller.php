@@ -46,10 +46,10 @@ class redirect extends controller
     */
     function init()
     {
-        $this->objLanguage =& $this->getObject('language','language');
-        $this->objDBContext =& $this->getObject('dbcontext','context');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objManageGroups =& $this->getObject('managegroups','contextgroups');
+        $this->objLanguage = $this->getObject('language','language');
+        $this->objDBContext = $this->getObject('dbcontext','context');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objManageGroups = $this->getObject('managegroups','contextgroups');
     }
 
     /**
@@ -144,7 +144,7 @@ class redirect extends controller
     */
     function noContext()
     {        
-        $objLabel =& $this->newObject('label','htmlelements');
+        $objLabel = $this->newObject('label','htmlelements');
         
         $title = $this->getParam('title');
         $msg = $this->getParam('msg');
@@ -184,9 +184,9 @@ class redirect extends controller
     */
     function showDropDown()
     {
-        $objForm =& $this->newObject('form', 'htmlelements');
-        $objButton =& $this->newObject('button', 'htmlelements');
-        $objDropDown =& $this->newObject('dropdown', 'htmlelements');
+        $objForm = $this->newObject('form', 'htmlelements');
+        $objButton = $this->newObject('button', 'htmlelements');
+        $objDropDown = $this->newObject('dropdown', 'htmlelements');
         
         $go = $this->objLanguage->languageText('word_go');
         
@@ -224,7 +224,7 @@ class redirect extends controller
         $msg = $this->getParam('msg');
         $menu = $this->getParam('menu');
         
-        $objLink =& $this->newObject('link','htmlelements');
+        $objLink = $this->newObject('link','htmlelements');
         
         if(isset($title)){
             $heading = $this->objLanguage->languageText($title);

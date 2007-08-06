@@ -19,15 +19,15 @@ class splashscreen extends object
     function init()
     {
         // Get an instance of the config object
-        $this->objConfig=& $this->getObject('config','config');
+        $this->objConfig= $this->getObject('config','config');
         //Get an instance of the language object
-        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         //Get an instance of the skin
-        $this->objSkin = &$this->getObject('skin', 'skin');
+        $this->objSkin = $this->getObject('skin', 'skin');
         //Get an instance of the help object
-        $this->objHelp=& $this->getObject('helplink','help');
+        $this->objHelp= $this->getObject('helplink','help');
         //Create an instance of the module object
-        $this->objModule=& $this->getObject('modules','modulecatalogue');
+        $this->objModule= $this->getObject('modules','modulecatalogue');
         $this->server = $this->objConfig->serverName();
     }
 
@@ -125,7 +125,7 @@ class splashscreen extends object
         //Create an instance of the module object
 	    $this->objModule=& $this->getObject('modules','modulecatalogue');
         if($this->objModule->checkIfRegistered('stories','stories')){
-            $this->objStories=& $this->getObject('sitestories', 'stories');
+            $this->objStories= $this->getObject('sitestories', 'stories');
             $ts_content=str_replace('[-PRELOGINSTORIES-]', $this->objStories->fetchCategory('prelogin'), $ts_content);
             $ts_content=str_replace('[-PRELOGINSTORIESFOOTER-]', $this->objStories->fetchCategory('preloginfooter', NULL, FALSE), $ts_content);
         } else {
@@ -141,28 +141,28 @@ class splashscreen extends object
 	* @author Wesley Nitsckie
 	*/
 	function getContextDropDown(){
-		$objModule = & $this->newObject('modules','modulecatalogue');
-		$objDBContext = & $this->newObject('dbcontext','context');
-		$dropdown = & $this->newObject('dropdown','htmlelements');
+		$objModule =  $this->newObject('modules','modulecatalogue');
+		$objDBContext =  $this->newObject('dbcontext','context');
+		$dropdown =  $this->newObject('dropdown','htmlelements');
 		$str = '';
 
-		$frmContext=& $this->newObject('form','htmlelements');
+		$frmContext= $this->newObject('form','htmlelements');
 		$frmContext->name='joincontext';
 		$frmContext->setAction($this->uri(array('action'=>'joincontext'),'context'));
 		$frmContext->setDisplayType(3);
 
-		$objLeaveButton=&$this->getObject('geticon','htmlelements');
+		$objLeaveButton=$this->getObject('geticon','htmlelements');
 		$objLeaveButton->setIcon('close');
 		$objLeaveButton->alt=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
 		$objLeaveButton->title=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
 
-		$objLeaveLink=&$this->getObject('link','htmlelements');
+		$objLeaveLink=$this->getObject('link','htmlelements');
 		$objLeaveLink->href=$this->uri(array('action'=>'leavecontext'));
 		$objLeaveLink->link=$objLeaveButton->show();
 
 		if ($objModule->checkIfRegistered('', 'context')){
 		// Get Context Code & Title
-			$contextObject =& $this->getObject('dbcontext', 'context');
+			$contextObject = $this->getObject('dbcontext', 'context');
 			$contextCode = $contextObject->getContextCode();
 
 			$this->loadClass('link', 'htmlelements');

@@ -32,7 +32,7 @@ class logshow extends dbTable
     {
         try {
             parent::init('tbl_logger');
-            $this->objUser = &$this->getObject('user', 'security');
+            $this->objUser = $this->getObject('user', 'security');
         }catch(Exception $e) {
             throw customException($e->getMessage());
             exit();

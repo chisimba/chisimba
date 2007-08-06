@@ -45,8 +45,8 @@ class dbmoduleblocks extends dbTable
     	try {
     		parent::init('tbl_module_blocks');
     		//Config and Language Objects
-    		$this->objLanguage =& $this->getObject('language', 'language');
-    		$this->objConfig =& $this->getObject('altconfig','config');
+    		$this->objLanguage = $this->getObject('language', 'language');
+    		$this->objConfig = $this->getObject('altconfig','config');
     	} catch (Exception $e) {
     		echo customException::cleanUp();
     		exit();

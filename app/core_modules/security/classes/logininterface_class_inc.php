@@ -27,10 +27,10 @@ class loginInterface extends object
     {
     	try {
     		// Create an instance of the language object
-    		$this->objLanguage = &$this->getObject('language', 'language');
+    		$this->objLanguage = $this->getObject('language', 'language');
     		//initialise config obect
-    		$this->objConfig = &$this->getObject('altconfig','config');
-    		$this->objHelp=& $this->getObject('help','help');
+    		$this->objConfig = $this->getObject('altconfig','config');
+    		$this->objHelp= $this->getObject('help','help');
 
     	} catch (Exception $e) {
     		customException::cleanUp();

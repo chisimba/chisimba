@@ -70,8 +70,8 @@ class modules extends dbTable
     	try {
     		parent::init('tbl_modules');
     		//Config and Language Objects
-    		$this->objLanguage =& $this->getObject('language', 'language');
-    		$this->objConfig =& $this->getObject('altconfig','config');
+    		$this->objLanguage = $this->getObject('language', 'language');
+    		$this->objConfig = $this->getObject('altconfig','config');
     	} catch (Exception $e) {
     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
     		exit();

@@ -13,7 +13,7 @@ class ldaplogin extends object
     public function init()
     {
         if (defined('KEWL_LDAP_SERVER')){
-            $dbconfig=&$this->getObject('altconfig','config');
+            $dbconfig=$this->getObject('altconfig','config');
             $this->ldapserver=$dbconfig->ldapServer();
         }
     }

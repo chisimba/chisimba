@@ -3,7 +3,7 @@
 *  TEMPLATE TO DISPLAY AN LIST OF MODULES LOGGED                *
 * **************************************************************/
 //Grab a language instance
-$objLanguage = &$this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 //Loop through and build up the new array
 foreach($ar as $line) {
     $modline = array();

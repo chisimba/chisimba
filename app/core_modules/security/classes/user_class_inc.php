@@ -26,11 +26,11 @@ class user extends dbTable
     public function init()
     {
         parent::init('tbl_users');
-        $this->objConfig=&$this->getObject('altconfig','config');
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->loggedInUsers =& $this->getObject('loggedInUsers');
-        $this->userLoginHistory =& $this->getObject('userLoginHistory');
-        $this->objSkin = &$this->getObject('skin', 'skin');
+        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->loggedInUsers = $this->getObject('loggedInUsers');
+        $this->userLoginHistory = $this->getObject('userLoginHistory');
+        $this->objSkin = $this->getObject('skin', 'skin');
 
         $this->imagePath = $this->objConfig->getsiteRootPath().'/user_images/';
         $this->imageUrl = $this->objConfig->getsiteRoot().'user_images/';
@@ -128,7 +128,7 @@ class user extends dbTable
                 return false;
             }
             if ($line['pass']==sha1('--LDAP--')){
-                $objldap=&$this->newObject('ldaplogin','security');
+                $objldap=$this->newObject('ldaplogin','security');
                 $info=$objldap->tryLogin($username,$password);
                 if (is_array($info)){
                     $this->_record = $line;
@@ -318,7 +318,7 @@ class user extends dbTable
     */
     public function addLecturer($id)
     {
-        $this->objGroups=&$this->getObject('groupadminmodel','groupadmin');
+        $this->objGroups=$this->getObject('groupadminmodel','groupadmin');
         $groupId=$this->objGroups->getLeafId(array('Lecturers'));
         $this->objGroups->addGroupUser($groupId,$id);
     }
@@ -405,7 +405,7 @@ class user extends dbTable
     */
     public function inAdminGroup($userId,$group='Site Admin')
     {
-        $objGroupModel=&$this->getObject('groupadminmodel','groupadmin');
+        $objGroupModel=$this->getObject('groupadminmodel','groupadmin');
         $id=$this->PKid($userId);
         $groupId=$objGroupModel->getId($group);
         $return=$objGroupModel->isGroupMember($id,$groupId);
@@ -827,7 +827,7 @@ class user extends dbTable
     */
     public function isContextAuthor()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->hasContextPermission( 'isAuthor' );
     }
 
@@ -839,7 +839,7 @@ class user extends dbTable
     */
     public function isContextEditor()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->hasContextPermission( 'isEditor' );
     }
 
@@ -851,7 +851,7 @@ class user extends dbTable
     */
     public function isContextReader()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->hasContextPermission( 'isReader' );
     }
 
@@ -865,7 +865,7 @@ class user extends dbTable
     public function isContextLecturer($userId = NULL, $contextCode = NULL)
     {
         if($userId == NULL && $contextCode == NULL){
-            $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+            $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
             return $objContextPermissions->isContextMember( 'Lecturers' );
         }else{
             $userId = isset($userId) ? $userId : $this->userId();
@@ -899,7 +899,7 @@ class user extends dbTable
     */
     public function isContextStudent()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->isContextMember( 'Students' );
     }
 
@@ -911,7 +911,7 @@ class user extends dbTable
     */
     public function isContextGuest()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->isContextMember( 'Guest' );
     }
 
@@ -923,7 +923,7 @@ class user extends dbTable
     */
     public function isLecturer()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->isMember( 'Lecturers' );
     }
 
@@ -935,7 +935,7 @@ class user extends dbTable
     */
     public function isStudent()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->isMember( 'Students' );
     }
 
@@ -947,14 +947,14 @@ class user extends dbTable
     */
     public function isGuest()
     {
-        $objContextPermissions = &$this->getObject('contextcondition','contextpermissions');
+        $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
         return $objContextPermissions->isMember( 'Guest' );
     }
 
     public function getUserPic()
       {
-        $objUserPic =& $this->getObject('imageupload', 'useradmin');
-        $objBox = & $this->newObjecT('featurebox', 'navigation');
+        $objUserPic = $this->getObject('imageupload', 'useradmin');
+        $objBox =  $this->newObjecT('featurebox', 'navigation');
         $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
         return $objBox->show($this->fullName(), $str);
       }

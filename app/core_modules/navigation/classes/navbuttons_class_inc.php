@@ -15,8 +15,8 @@ class navbuttons extends object
 	*/
 	function init()
 	{
-		$this->objLanguage =& $this->getObject('language', 'language');
-		$this->objConfig =& $this->getObject('config', 'config');
+		$this->objLanguage = $this->getObject('language', 'language');
+		$this->objConfig = $this->getObject('config', 'config');
     }
 
 	/**

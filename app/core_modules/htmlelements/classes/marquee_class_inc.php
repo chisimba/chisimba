@@ -184,11 +184,11 @@ class marquee extends object implements ifhtml
 		/**
 		* establish the necessary routines for identifying administrators
 		*/
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
         $this->isAdmin=$this->objUser->isAdmin();
-		$this->objHref=& $this->getObject('href','htmlelements');
-		$this->objGetIcon =& $this->getObject('geticon', 'htmlelements');	
-		$this->objLanguage = & $this->getObject('language', 'language'); 
+		$this->objHref= $this->getObject('href','htmlelements');
+		$this->objGetIcon = $this->getObject('geticon', 'htmlelements');	
+		$this->objLanguage =  $this->getObject('language', 'language'); 
 		/**
 		* defaulted to only 1
 		* for the firefox browser esp, this shall ensure

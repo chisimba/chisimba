@@ -1,7 +1,7 @@
 <?php
 
     // Table to display the texts
-    $objButtons=&$this->getObject('navbuttons','navigation');
+    $objButtons=$this->getObject('navbuttons','navigation');
     $objTblclass=$this->newObject('htmltable','htmlelements');
     $objTblclass->width='';
     $objTblclass->attributes=" align='center' border='0'";
@@ -39,7 +39,7 @@
 
 
     // Table for the navigation buttons
-    $objButtons=&$this->getObject('navbuttons','navigation');
+    $objButtons=$this->getObject('navbuttons','navigation');
     $objTbl2=$this->newObject('htmltable','htmlelements');
     $objTbl2->attributes=" align='center' border='0'";
     $objTbl2->cellspacing='2';

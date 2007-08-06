@@ -107,7 +107,7 @@ class language extends dbTable {
 	        $this->loadClass('dropdown', 'htmlelements');
 	        $this->loadClass('button', 'htmlelements');
 	          
-	        $this->objAbstract =& $this -> getObject('systext_facet', 'systext');
+	        $this->objAbstract = $this -> getObject('systext_facet', 'systext');
 	        $this->abstractList = $this->objAbstract->getSession('systext');
     	}catch (Exception $e){
     		$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
@@ -314,7 +314,7 @@ class language extends dbTable {
                 $var = $_SESSION["language"];
                 $this->lang->setLang("{$var}");
             } else {
-                $this->objConfig = &$this->getObject('altconfig','config');
+                $this->objConfig = $this->getObject('altconfig','config');
                 $var = $this->objConfig->getdefaultLanguageAbbrev();
                 $this->lang->setLang("{$var}");
             }

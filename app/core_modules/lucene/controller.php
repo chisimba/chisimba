@@ -144,7 +144,7 @@ class lucene extends controller
 	            case 'searchresults':
 	            	$this->requiresLogin(FALSE);
 	            	$query = $this->getParam('query');
-	            	$objLucene = & $this->newObject('results');
+	            	$objLucene =  $this->newObject('results');
 	            	$searchResults = $objLucene->show($query);
 					// echo $searchResults; die();
 					$searchResults = str_replace('&','&amp;', $searchResults);

@@ -41,7 +41,7 @@ class block_w3link extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
+    		$this->objLanguage =  $this->getObject('language', 'language');
     		$this->blockType = 'none';
     	} catch (customException $e) {
     		customException::cleanUp();
@@ -55,7 +55,7 @@ class block_w3link extends object
     public function show()
     {
     	try {
-    		$icon = &$this->getObject('geticon','htmlelements');
+    		$icon = $this->getObject('geticon','htmlelements');
     		$icon->alt = "Valid XHTML 1.0 Transitional";
     		$icon->extra = ' height="31" width="88"';
     		return "<center>".$icon->getLinkedIcon("http://validator.w3.org/check?uri=referer",'valid-xhtml10','png')."</center>";

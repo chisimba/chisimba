@@ -113,11 +113,11 @@ class modulesadmin extends dbTableManager
             parent::init('tbl_modules');
             $this->objLanguage = $this->getObject('language','language');
             $this->objConfig = $this->getObject('altconfig','config');
-            $this->objModules = &$this->getObject('modules');
-            $this->objModFile = &$this->getObject('modulefile');
-            $this->objUser = &$this->getObject('user','security');
-            $this->objModuleBlocks = &$this->getObject('dbmoduleblocks','modulecatalogue');
-            $this->objSystext = &$this->getObject('systext_facet','systext');
+            $this->objModules = $this->getObject('modules');
+            $this->objModFile = $this->getObject('modulefile');
+            $this->objUser = $this->getObject('user','security');
+            $this->objModuleBlocks = $this->getObject('dbmoduleblocks','modulecatalogue');
+            $this->objSystext = $this->getObject('systext_facet','systext');
        } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
@@ -369,7 +369,7 @@ class modulesadmin extends dbTableManager
 
                 // Create a condition type
                 if(isset($registerdata['CONDITION_TYPE'][0])){
-                    $objType =& $this->getObject('conditiontype','decisiontable');
+                    $objType = $this->getObject('conditiontype','decisiontable');
                     $array = array(); $class = ''; $types = array();
                     foreach($registerdata['CONDITION_TYPE'] as $val){
                         $array = explode('|', $val);
@@ -393,7 +393,7 @@ class modulesadmin extends dbTableManager
 
                     $array = array(); $list = ''; $paramList = array(); $name = ''; $params = '';
                     foreach($registerdata['CONDITION'] as $condition){
-                        $objCond =& $this->newObject('condition','decisiontable');
+                        $objCond = $this->newObject('condition','decisiontable');
                         $paramList = array(); $array = array(); $list = '';
 
                         $array = explode('|', $condition);
@@ -443,7 +443,7 @@ class modulesadmin extends dbTableManager
 
                 // Use existing conditions
                 if(isset($registerdata['USE_CONDITION'][0])){
-                    $objCond =& $this->getObject('condition','decisiontable');
+                    $objCond = $this->getObject('condition','decisiontable');
                     $name = ''; $array = array();
                     foreach($registerdata['USE_CONDITION'] as $condition){
                         $array = explode('|', $condition);
@@ -460,10 +460,10 @@ class modulesadmin extends dbTableManager
                     Add the condition object to the rule object.
                 */
                 if(isset($registerdata['RULE'][0])){
-                    $objDecisionTable =& $this->getObject('decisiontable','decisiontable');
-                    $objAction =& $this->getObject('action','decisiontable');
+                    $objDecisionTable = $this->getObject('decisiontable','decisiontable');
+                    $objAction = $this->getObject('action','decisiontable');
                     $objAction->connect($objDecisionTable);
-                    $objRule =& $this->getObject('rule','decisiontable');
+                    $objRule = $this->getObject('rule','decisiontable');
                     $objRule->connect($objDecisionTable);
                     $i = 1;
                     $ruleName = ''; $array = array(); $actionList = array(); $conditionList = array();
@@ -620,7 +620,7 @@ class modulesadmin extends dbTableManager
                 // Here we pass CONFIG data to the sysconfig module
                 if (isset($registerdata['CONFIG']))
                 {
-                    $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
+                    $this->objSysConfig=$this->getObject('dbsysconfig','sysconfig');
                     $this->objSysConfig->updateFlag=TRUE;
                     $this->objSysConfig->registerModuleParams($moduleId,$registerdata['CONFIG']);
                 }
@@ -745,14 +745,14 @@ class modulesadmin extends dbTableManager
                 }
 
                 // Remove decisiontable rules and actions
-                $objDecisionTable =& $this->getObject('decisiontable','decisiontable');
+                $objDecisionTable = $this->getObject('decisiontable','decisiontable');
                 $objDecisionTable->create($moduleId);
                 $objDecisionTable->retrieve();
                 $objDecisionTable->delete();
 
                 // Remove module specific conditions
                 if(isset($registerdata['CONDITION'])){
-                    $objCond =& $this->getObject('condition','decisiontable');
+                    $objCond = $this->getObject('condition','decisiontable');
                     foreach($registerdata['CONDITION'] as $condition){
                         $array = explode('|', $condition);
                         $name = $array[0];
@@ -771,7 +771,7 @@ class modulesadmin extends dbTableManager
                 $this->objModules->delete('module',$moduleId,'tbl_menu_category');
 
                 // Here we remove CONFIG data from the sysconfig module
-                $this->objSysConfig=&$this->getObject('dbsysconfig','sysconfig');
+                $this->objSysConfig=$this->getObject('dbsysconfig','sysconfig');
                 $this->objSysConfig->deleteModuleValues($moduleId);
 
                 // Drop tables
@@ -801,8 +801,8 @@ class modulesadmin extends dbTableManager
     private function makeTable($table,$moduleId='NONE')
     {
         try {
-            $this->objKeyMaker=&$this->newObject('primarykey','modulecatalogue');
-            $this->objTableInfo=&$this->newObject('tableinfo','modulecatalogue');
+            $this->objKeyMaker=$this->newObject('primarykey','modulecatalogue');
+            $this->objTableInfo=$this->newObject('tableinfo','modulecatalogue');
             if ($moduleId=='NONE'){
                 $moduleId=$this->module_id;
             }

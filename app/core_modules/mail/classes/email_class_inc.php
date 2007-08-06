@@ -78,7 +78,7 @@ class email extends absendmail implements ifsendmail
     {
     	$this->objBaseMail = new PHPMailer;
 	    //Get an instance of the config object
-        $objConfig=&$this->newObject('altconfig','config');
+        $objConfig=$this->newObject('altconfig','config');
         //Get the value of the delimiter
         $method = $objConfig->getValue('MAIL_SEND_METHOD', 'mail');
         switch ($method) {

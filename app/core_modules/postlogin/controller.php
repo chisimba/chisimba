@@ -33,27 +33,27 @@ class postlogin extends controller
     function init()
     {
         // Create an instance of the user object
-        $this->objUser = &$this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
         // Create an instance of the module object
-        $this->objModule = &$this->getObject('modules', 'modulecatalogue');
+        $this->objModule = $this->getObject('modules', 'modulecatalogue');
         // Create an instance of the buttons object
-        $this->objButtons = &$this->getObject('navbuttons', 'navigation');
+        $this->objButtons = $this->getObject('navbuttons', 'navigation');
         // Create an instance of the language object
-        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         // Create the configuration object
-        $this->objConfig = &$this->getObject('config', 'config');
+        $this->objConfig = $this->getObject('config', 'config');
         // Create an instance of the skin object
-        $this->objSkin = &$this->getObject('skin', 'skin');
+        $this->objSkin = $this->getObject('skin', 'skin');
 
-        $this->ContextAdminUtils = & $this->getObject('contextadminutils', 'contextadmin');
+        $this->ContextAdminUtils =  $this->getObject('contextadminutils', 'contextadmin');
 
         if ($this->objModule->checkIfRegistered('', 'stories')) {
             // Create an instance of the stories class
-            $this->objStories = &$this->getObject('sitestories', 'stories');
+            $this->objStories = $this->getObject('sitestories', 'stories');
         }
         if ($this->objModule->checkIfRegistered('', 'context')) {
             // Create an instance of the dbcontext object
-            $this->objDBContext = &$this->getObject('dbcontext', 'context');
+            $this->objDBContext = $this->getObject('dbcontext', 'context');
             // Create a Context Object
             //$this->objContext= & $this->getObject('contextutil','context');
         }
@@ -63,7 +63,7 @@ class postlogin extends controller
         $this->loadClass('form', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
         // Create a Form object
-        $this->Form = &$this->newObject('form', 'htmlelements');
+        $this->Form = $this->newObject('form', 'htmlelements');
     }
 
     /**

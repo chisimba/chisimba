@@ -15,9 +15,9 @@ if (!isset($result)) {
 }
 
 $missingModules = false;
-$icon = &$this->getObject('geticon', 'htmlelements');
+$icon = $this->getObject('geticon', 'htmlelements');
 
-$objTable = &$this->getObject('htmltable','htmlelements');
+$objTable = $this->getObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 
 $objTable->id = 'unpadded';
@@ -88,11 +88,11 @@ if ($modules) {
         $objRemoteTable->endRow();
     }
 
-    $topTable = &$this->newObject('htmltable','htmlelements');
+    $topTable = $this->newObject('htmltable','htmlelements');
     $topTable->cellpadding = 2;
     $topTable->addRow(array($batchChange),null,'align="right"');
     $top = $topTable->show();
-    $bottomTable = &$this->newObject('htmltable','htmlelements');
+    $bottomTable = $this->newObject('htmltable','htmlelements');
     $bottomTable->cellpadding = 2;
     $bottomTable->startRow();
     $bottomTable->addCell($batchAction,null,null,'right',null);
@@ -226,7 +226,7 @@ if (($output=$this->getSession('output'))!=null) {
 	    $error = $this->getParam('lastError');
 	}
 	if (!isset($error)) {
-	    $timeoutMsg = &$this->getObject('timeoutmessage','htmlelements');
+	    $timeoutMsg = $this->getObject('timeoutmessage','htmlelements');
 	    if (is_array($output)) {
 	        $timeoutMsg->setMessage(implode('<br />',$output));
 	    } else {

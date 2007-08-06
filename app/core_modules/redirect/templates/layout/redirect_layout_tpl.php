@@ -7,12 +7,12 @@
 * Layout template for the redirect module
 */
 
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 
 if(isset($menu)){
-    $leftMenu =& $this->newObject($menu.'menu','toolbar');
+    $leftMenu = $this->newObject($menu.'menu','toolbar');
 }else{
-    $leftMenu =& $this->newObject('usermenu','toolbar');
+    $leftMenu = $this->newObject('usermenu','toolbar');
 }
 
 $cssLayout->setLeftColumnContent($leftMenu->show());

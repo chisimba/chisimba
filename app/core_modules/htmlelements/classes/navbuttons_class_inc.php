@@ -62,8 +62,8 @@ class navbuttons extends object implements ifhtml
 	*/
 	public function init() 
 	{
-		$this->objLanguage =& $this->getObject('language', 'language');
-		$this->objConfig =& $this->getObject('config', 'config');
+		$this->objLanguage = $this->getObject('language', 'language');
+		$this->objConfig = $this->getObject('config', 'config');
     }
 
 	/**

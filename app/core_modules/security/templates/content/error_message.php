@@ -9,7 +9,7 @@ $this->loadClass('checkbox', 'htmlelements');
 $this->loadClass('tabbedbox', 'htmlelements');
 
 
-$Header =& $this->getObject('htmlheading', 'htmlelements');
+$Header = $this->getObject('htmlheading', 'htmlelements');
 $Header->type=1;
 $Header->cssClass = 'error';
 

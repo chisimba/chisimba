@@ -1,24 +1,24 @@
 <?php
     // First the language Object
-    $this->objLanguage=&$this->getObject('language','language');
+    $this->objLanguage=$this->getObject('language','language');
 
     // Now 3 table objects, two will go inside the other
     // The first is the main table
-    $objTblClass=&$this->newObject('htmltable','htmlelements');
+    $objTblClass=$this->newObject('htmltable','htmlelements');
     $objTblClass->width='';
     $objTblClass->attributes=" align='center' border='0'";
     $objTblClass->cellspacing='10';
     $objTblClass->cellpadding='2';
 
     // The second table will have the register.conf main data
-    $objTbl2=&$this->newObject('htmltable','htmlelements');
+    $objTbl2=$this->newObject('htmltable','htmlelements');
     $objTbl2->width='';
     $objTbl2->attributes=" align='center' border='0'";
     $objTbl2->cellspacing='2';
     $objTbl2->cellpadding='2';
 
     // The 3rd table has a list of the SQL tables the module added to the database.
-    $objTbl3=&$this->newObject('htmltable','htmlelements');
+    $objTbl3=$this->newObject('htmltable','htmlelements');
 
     $this->modname = $this->getParam('mod');
 

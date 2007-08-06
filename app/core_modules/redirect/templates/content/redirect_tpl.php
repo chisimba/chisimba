@@ -9,7 +9,7 @@
 
 $this->setLayoutTemplate('redirect_layout_tpl.php');
 
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
 
 if(isset($heading)){
     $objHead->str = $heading;

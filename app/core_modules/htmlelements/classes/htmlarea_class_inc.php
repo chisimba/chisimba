@@ -80,7 +80,7 @@ class htmlarea extends object
         $this->css='textarea';
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
-        $objConfig=&$this->getObject('altconfig','config');
+        $objConfig=$this->getObject('altconfig','config');
         $siteRoot=$objConfig->getsiteRoot();
         //$siteRootPath = "http://".$_SERVER['HTTP_HOST']."/nextgen/";
         //$this->setSiteRootPath($siteRoot);
@@ -153,7 +153,7 @@ class htmlarea extends object
     {
 		require_once($this->getResourcePath('fckeditor_2.4.2/fckeditor.php', 'htmlelements'));
         
-        $objConfig = & $this->newObject('altconfig', 'config');
+        $objConfig =  $this->newObject('altconfig', 'config');
 
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
         $sBasePath = $sitePath['dirname'];

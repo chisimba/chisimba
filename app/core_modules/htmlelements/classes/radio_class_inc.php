@@ -252,7 +252,7 @@ class radio extends abhtmlbase implements ifhtml
     */
     public function showTable()
     {
-        $table =& new htmltable();
+        $table = new htmltable();
         $table->startRow();
         $table->cellpadding  = 1;
         

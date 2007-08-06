@@ -39,7 +39,7 @@ class block_login extends object
     public function init()
     {
     	try {
-			$this->objLanguage = & $this->getObject('language', 'language');
+			$this->objLanguage =  $this->getObject('language', 'language');
 			$this->objUser = $this->getObject('user', 'security');
 			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
 				$this->blockType="invisible";
@@ -61,7 +61,7 @@ class block_login extends object
 			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
 			    return NULL;
 			} else {
-				$objLogin = & $this->getObject('logininterface', 'security');
+				$objLogin =  $this->getObject('logininterface', 'security');
 				return $objLogin->renderLoginBox();			    
 			}
 		} catch (customException $e) {

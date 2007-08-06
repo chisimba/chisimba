@@ -31,7 +31,7 @@ $lMods = array_merge($registeredModules, $localModules);
 $lMods = array_unique($lMods);
 sort($lMods);
 
-$objTable = &$this->newObject('htmltable','htmlelements');
+$objTable = $this->newObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 $objTable->id = 'unpadded';
 $objTable->width='100%';

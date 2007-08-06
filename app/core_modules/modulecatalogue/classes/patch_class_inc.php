@@ -39,9 +39,9 @@ class patch extends dbtable {
     public function init() {
         try {
             parent::init('tbl_modules');
-            $this->objConfig = &$this->getObject('altconfig','config');
-            $this->objModFile = &$this->getObject('modulefile','modulecatalogue');
-            $this->objLanguage = &$this->getObject('language','language');
+            $this->objConfig = $this->getObject('altconfig','config');
+            $this->objModFile = $this->getObject('modulefile','modulecatalogue');
+            $this->objLanguage = $this->getObject('language','language');
         } catch (Exception $e) {
             echo customException::cleanUp($e->getMessage());
             exit(0);
@@ -116,9 +116,9 @@ class patch extends dbtable {
     function applyUpdates($modname) {
         try {
             // Find the updates file
-            $this->objModule = &$this->getObject('modules','modulecatalogue');
-            $this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
-            $this->objModfile = &$this->getObject('modulefile','modulecatalogue');
+            $this->objModule = $this->getObject('modules','modulecatalogue');
+            $this->objModuleAdmin = $this->getObject('modulesadmin','modulecatalogue');
+            $this->objModfile = $this->getObject('modulefile','modulecatalogue');
             //check that there are no new unmet dependencies
             $rData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
             if (isset($rData['DEPENDS'])) {

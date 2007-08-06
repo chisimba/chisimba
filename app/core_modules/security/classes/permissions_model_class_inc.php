@@ -87,7 +87,7 @@ class permissions_model extends dbTable
     // these are set for the current user.( for testing purposes )
     //$this->capabilityList = array ( 'admin','lecturer','student' );
     // Get the users acls from the permissions acl class.
-    $acls =& $this->getObject('permissions_acl','permissions');
+    $acls = $this->getObject('permissions_acl','permissions');
 
     $this->capabilityList = $acls->getUserAcls( $_SESSION['userId'] );
     

@@ -33,9 +33,9 @@ class useradmin_model2 extends dbtable
     public function init()
     {
 	    parent::init('tbl_users');
-        $this->objConfig=&$this->getObject('altconfig','config');
-        $this->objUser=&$this->getObject('user','security');
-        $this->objLanguage=&$this->getObject('language','language');
+        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objUser=$this->getObject('user','security');
+        $this->objLanguage=$this->getObject('language','language');
     }
 
 

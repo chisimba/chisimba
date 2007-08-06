@@ -33,7 +33,7 @@ require_once("ifhtml_class_inc.php");
 * @author    Wesley Nitsckie
 * @author    Tohir Solomons
 * @example: 
-*            $this->objButton=&new button('buttonname');
+*            $this->objButton=new button('buttonname');
 *            $this->objButton->setValue('Button Value');
 *            $this->objButton->setOnClick('alert(\'An onclick Event\')');
 *            $this->objButton->setToSubmit();  //If you want to make the button a submit button 

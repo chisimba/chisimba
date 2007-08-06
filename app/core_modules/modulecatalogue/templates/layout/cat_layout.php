@@ -1,6 +1,6 @@
 <?php
 //create an instance of the css layout class
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
 
 //set columns to 2
 $cssLayout->setNumColumns(2);

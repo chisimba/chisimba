@@ -80,7 +80,7 @@ class permissionsdisplay extends object
         $this->objIcon = $this->newObject('geticon', 'htmlelements');
         $this->objUser = $this->getObject('user', 'security');
         $this->objTab = $this->newObject('tabber', 'htmlelements');
-        $objTabbedbox = &$this->loadClass('tabbedbox', 'htmlelements');
+        $objTabbedbox = $this->loadClass('tabbedbox', 'htmlelements');
         
         $this->objIcon->setIcon('green_bullet');
         $this->objIcon->extra = 'style="vertical-align: middle;"';

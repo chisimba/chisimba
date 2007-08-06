@@ -35,7 +35,7 @@ class modulefile extends object {
 	 *
 	 */
 	public function init() {
-		$this->config = &$this->getObject('altconfig','config');
+		$this->config = $this->getObject('altconfig','config');
 	}
 
 	/**

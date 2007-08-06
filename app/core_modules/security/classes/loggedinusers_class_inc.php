@@ -10,7 +10,7 @@ class loggedInUsers extends dbTable
     public function init()
     {
         parent::init('tbl_loggedinusers');
-        $this->objConfig=&$this->getObject('altconfig','config');
+        $this->objConfig=$this->getObject('altconfig','config');
         $this->systemTimeOut=$this->objConfig->getsystemTimeout();
     }
 

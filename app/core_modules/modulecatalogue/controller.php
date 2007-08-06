@@ -109,21 +109,21 @@ class modulecatalogue extends controller
     public function init() {
         try {
             set_time_limit(0);
-            $this->objRPCServer = &$this->getObject('rpcserver','packages');
-            $this->objRPCClient = &$this->getObject('rpcclient','packages');
-            $this->objUser = &$this->getObject('user','security');
-            $this->objConfig = &$this->getObject('altconfig','config');
-            $this->objLanguage = &$this->getObject('language','language');
-            $this->objModuleAdmin = &$this->getObject('modulesadmin','modulecatalogue');
-            $this->objModule = &$this->getObject('modules');
+            $this->objRPCServer = $this->getObject('rpcserver','packages');
+            $this->objRPCClient = $this->getObject('rpcclient','packages');
+            $this->objUser = $this->getObject('user','security');
+            $this->objConfig = $this->getObject('altconfig','config');
+            $this->objLanguage = $this->getObject('language','language');
+            $this->objModuleAdmin = $this->getObject('modulesadmin','modulecatalogue');
+            $this->objModule = $this->getObject('modules');
             //the class for reading register.conf files
-            $this->objModFile = &$this->getObject('modulefile');
-            $this->objPatch = &$this->getObject('patch','modulecatalogue');
-            $this->objCatalogueConfig = &$this->getObject('catalogueconfig','modulecatalogue');
+            $this->objModFile = $this->getObject('modulefile');
+            $this->objPatch = $this->getObject('patch','modulecatalogue');
+            $this->objCatalogueConfig = $this->getObject('catalogueconfig','modulecatalogue');
             if (!file_exists($this->objConfig->getSiteRootPath().'config/catalogue.xml')) {
                 $this->objCatalogueConfig->writeCatalogue();
             }
-            $this->objSideMenu = &$this->getObject('catalogue','modulecatalogue');
+            $this->objSideMenu = $this->getObject('catalogue','modulecatalogue');
             $this->objSideMenu->addNodes(array('updates','remote','all'));
             $sysTypes = $this->objCatalogueConfig->getCategories();
             //$xmlCat = $this->objCatalogueConfig->getNavParam('category');
@@ -293,7 +293,7 @@ class modulecatalogue extends controller
                     return $this->nextAction('list');
 
                 case 'firsttimeregistration':
-                    $this->objSysConfig = &$this->getObject('dbsysconfig','sysconfig');
+                    $this->objSysConfig = $this->getObject('dbsysconfig','sysconfig');
                     $sysType = $this->getParam('sysType','Basic System Only');
                     $check = $this->objSysConfig->getValue('firstreg_run','modulecatalogue');
                     if (!$check){

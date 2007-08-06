@@ -13,7 +13,7 @@ $h2->type=3;
 $h2->str = $this->objLanguage->languageText('mod_modulecatalogue_newupdates','modulecatalogue').':';
 //$fname = $this->objModFile->findregisterfile($patch['modname']);
 
-$updateAll = &$this->getObject('link','htmlelements');
+$updateAll = $this->getObject('link','htmlelements');
 $updateAll->link($this->uri(array('action'=>'makepatch')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepatch','modulecatalogue');
 $makePatch = $updateAll->show();
@@ -25,14 +25,14 @@ $updateXML = $updateAll->show();
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
-$objTable = &$this->getObject('htmltable','htmlelements');
+$objTable = $this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
 $objTable->addCell($updateAll->show()."<br />$updateXML",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if (isset($output)) {
-	$msg = &$this->getObject('timeoutmessage','htmlelements');
+	$msg = $this->getObject('timeoutmessage','htmlelements');
 	$msg->message = '';
 	if (isset($output['unMetDep'])) {
 
@@ -74,7 +74,7 @@ if (isset($output)) {
 }
 $out = $this->getParam('message');
 if (isset($out)) {
-	$msg = &$this->getObject('timeoutmessage','htmlelements');
+	$msg = $this->getObject('timeoutmessage','htmlelements');
 	$msg->message = $out;
 	$tString = $msg->show();
 }
@@ -84,7 +84,7 @@ if (isset($error)) {
 
 $updateAll->link($this->uri(array('action'=>'patchall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_patchall','modulecatalogue');
-$objT2 = &$this->newObject('htmltable','htmlelements');
+$objT2 = $this->newObject('htmltable','htmlelements');
 $objT2->startRow();
 $objT2->addCell($updateAll->show(),null,null,'right');
 $objT2->endRow();
@@ -94,7 +94,7 @@ if (!empty($patchArray)) {
 	foreach ($patchArray as $patch) {
 		$uri = $this->uri(array('action'=>'update','mod'=>$patch['module_id'],'patchver'=>$patch['new_version']),'modulecatalogue');
 		$link = &new Link($uri);
-		$pIcon = &$this->getObject('geticon','htmlelements');
+		$pIcon = $this->getObject('geticon','htmlelements');
 		$pIcon->setModuleIcon($patch['module_id']);
 		$modIcon=$pIcon->show();
 		$pIcon->setModuleIcon('update');

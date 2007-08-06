@@ -22,12 +22,12 @@ class security extends controller
 
     function init()
     {
-        $this->objUser =& $this->getObject('user');
-        $this->objUserModel =& $this->getObject('useradmin_model2');
-        $this->objLanguage =& $this->getObject('language','language');
+        $this->objUser = $this->getObject('user');
+        $this->objUserModel = $this->getObject('useradmin_model2');
+        $this->objLanguage = $this->getObject('language','language');
         //Get an instance of the skin
-        $this->objSkin = &$this->getObject('skin', 'skin');
-        $this->objConfig = &$this->getObject('altconfig', 'config');
+        $this->objSkin = $this->getObject('skin', 'skin');
+        $this->objConfig = $this->getObject('altconfig', 'config');
     }
 
     function requiresLogin($action)

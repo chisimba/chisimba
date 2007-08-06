@@ -102,8 +102,8 @@ class catalogueconfig extends object {
    		// instantiate object
         try{
         $this->_objPearConfig = new Config();
-        $this->objConfig = &$this->getObject('altconfig','config');
-        $this->objLanguage = &$this->getObject('language','language');
+        $this->objConfig = $this->getObject('altconfig','config');
+        $this->objLanguage = $this->getObject('language','language');
         }catch (Exception $e){
         $this->errorCallback('Caught exception: '.$e->getMessage());
         	exit();
@@ -164,7 +164,7 @@ class catalogueconfig extends object {
     {
     	// set xml root element
     	try {
-    		$objModFile = &$this->getObject('modulefile','modulecatalogue');
+    		$objModFile = $this->getObject('modulefile','modulecatalogue');
     		$xmlStr = "<?xml version='1.0' encoding='ISO-8859-1'?>\n<settings xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='catalogue.xsd'>\n";
     		$this->_path = "{$this->objConfig->getsiteRootPath()}/config/";
 

@@ -15,15 +15,15 @@ class skin extends object
 
     public function init()
     {
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         $this->loadClass('form','htmlelements');
         $this->loadClass('dropdown','htmlelements');
         $this->loadClass('button','htmlelements');
-        $this->objConfig =& $this->getObject('altconfig','config');
-        //$this->server =& $this->objConfig->serverName();
+        $this->objConfig = $this->getObject('altconfig','config');
+        //$this->server = $this->objConfig->serverName();
 
         // Browser Detection Class
-        $this->browserInfo =& $this->getObject('browser');
+        $this->browserInfo = $this->getObject('browser');
     }
 
     /**

@@ -51,9 +51,9 @@ class permissions_model extends dbTable
     */
     function init()
     {
-        $this->_objAcl = &$this->getObject( 'permissions_acl', 'permissions' );
-        $this->_objUserDb = &$this->getObject( 'user', 'security' );
-        $this->_objAclDescriptionDb = &$this->getObject( 'acl_descriptiondb', 'permissions' ); 
+        $this->_objAcl = $this->getObject( 'permissions_acl', 'permissions' );
+        $this->_objUserDb = $this->getObject( 'user', 'security' );
+        $this->_objAclDescriptionDb = $this->getObject( 'acl_descriptiondb', 'permissions' ); 
         // The capabilityList is persistent for this session.
         // Initialize the capabilityList for this instance.
         if ( $this->getSession( 'permissions' ) ) {

@@ -56,11 +56,11 @@ class prelogin extends controller {
 
 	public function init() {
 		try {
-			$this->objBlocks = &$this->getObject('blocks','blocks');
-			$this->objPLBlocks = &$this->getObject('preloginblocks');
-			$this->objUser = &$this->getObject('user','security');
-			$this->objLanguage = &$this->getObject('language','language');
-			$this->objSysconfig = &$this->getObject('dbsysconfig','sysconfig');
+			$this->objBlocks = $this->getObject('blocks','blocks');
+			$this->objPLBlocks = $this->getObject('preloginblocks');
+			$this->objUser = $this->getObject('user','security');
+			$this->objLanguage = $this->getObject('language','language');
+			$this->objSysconfig = $this->getObject('dbsysconfig','sysconfig');
 			if($this->objPLBlocks->dbType == "pgsql") {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';

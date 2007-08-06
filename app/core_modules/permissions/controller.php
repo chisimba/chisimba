@@ -39,8 +39,8 @@ class permissions extends controller
     */
     function init( )
     {
-        $this->objGAModel  =& $this->getObject('groupAdminModel','groupadmin');
-        $this->objPermAcl  =& $this->getObject('permissions_model', 'permissions');
+        $this->objGAModel  = $this->getObject('groupAdminModel','groupadmin');
+        $this->objPermAcl  = $this->getObject('permissions_model', 'permissions');
     }
 
     /**

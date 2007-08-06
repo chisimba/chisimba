@@ -5,7 +5,7 @@
 //Create an instance of the htmlHeading object
 $objHeading = $this->newObject('htmlheading', 'htmlelements');
 //Grab a language instance
-$objLanguage = &$this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 //Add the heading text to the heading object, defaults to H3
 $objHeading->str = $objLanguage->languageText("mod_logger_menutitle", "logger");
 //Add the heading to the content string

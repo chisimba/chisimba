@@ -11,7 +11,7 @@ $objTable->arrayToTable($ar);
 //Show the table
 echo $objTable->show();
 //Grab a language instance
-$objLanguage = &$this->getObject('language', 'language');
+$objLanguage = $this->getObject('language', 'language');
 //Create an instance of the link object
 $objLink = $this->newObject('link', 'htmlelements');
 //Set up the link URL for sortbydate

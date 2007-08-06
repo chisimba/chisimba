@@ -26,7 +26,7 @@ class preloginBlocks extends dbTable {
 	public function init() {
 		try {
 			parent::init('tbl_prelogin_blocks');
-			$this->objUser = &$this->getObject('user','security');
+			$this->objUser = $this->getObject('user','security');
 			if ($this->dbType == "pgsql") {
 				$this->TRUE = 't';
 				$this->FALSE = 'f';

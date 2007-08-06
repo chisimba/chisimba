@@ -125,7 +125,7 @@ class languagecode extends object
     function init()
     { 
     	try {
-    	 	$this->objConfig = &$this->getObject('altconfig','config');
+    	 	$this->objConfig = $this->getObject('altconfig','config');
     	 	if(!class_exists('I18Nv2_Country'))
     	 	{
     	 		//echo "no country class yet...";

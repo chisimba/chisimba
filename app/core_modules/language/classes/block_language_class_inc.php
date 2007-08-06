@@ -68,7 +68,7 @@ class block_language extends object
     public function init()
     {
     	try {
-    		$this->objLanguage = & $this->getObject('language', 'language');
+    		$this->objLanguage =  $this->getObject('language', 'language');
     		$this->title = $this->objLanguage->languageText("word_languages");
     	} catch (customException $e) {
     		customException::cleanUp();
