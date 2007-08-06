@@ -46,10 +46,10 @@ class importu extends dbTable
         //set initial table
         parent::init('tbl_context');
         //get the user object
-        $this->objUser= & $this->getObject('user','security');    
-        $this->objMetadata= & $this->getObject('dublincore','dublincoremetadata');    
-        $this->objDBContentNodes= & $this->getObject('dbcontentnodes','context');    
-        $this->objDBContext= & $this->getObject('dbcontext','context');    
+        $this->objUser=  $this->getObject('user','security');    
+        $this->objMetadata=  $this->getObject('dublincore','dublincoremetadata');    
+        $this->objDBContentNodes=  $this->getObject('dbcontentnodes','context');    
+        $this->objDBContext=  $this->getObject('dbcontext','context');    
         $this->userId=$this->objUser->userId();
     }
     
@@ -385,7 +385,7 @@ class importu extends dbTable
     function addImages($path, $rootId)
     {
         $hndl = opendir($path);
-        $objFSContext=&$this->getObject('fscontext','context');
+        $objFSContext=$this->getObject('fscontext','context');
         $objFSContext->createContextFolder($this->objDBContext->getContextCode());
         while( ($SrcPathFile = readdir($hndl)) )
         {    
@@ -500,7 +500,7 @@ class importu extends dbTable
     function changeLinkUrl()
     {      
         $rootId = $this->rootId;
-        $objContentNodes = & $this->newObject('dbcontentnodes', 'context');
+        $objContentNodes =  $this->newObject('dbcontentnodes', 'context');
         $objContentNodes->resetTable();
         $nodes = $objContentNodes->getAll('WHERE tbl_context_parentnodes_id="'.$rootId.'"');
        

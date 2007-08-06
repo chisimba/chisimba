@@ -47,11 +47,11 @@ class exportimspackage extends dbTable
 	*/
 	function init()
 	{
-        	$this->objUser =& $this->getObject('user', 'security');
-		$this->objConf = & $this->newObject('altconfig','config');
-		$this->objDir = & $this->newObject('dircreate','utilities');
-		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
-		$this->objIMSTools = & $this->newObject('imstools','contextadmin');
+        	$this->objUser = $this->getObject('user', 'security');
+		$this->objConf =  $this->newObject('altconfig','config');
+		$this->objDir =  $this->newObject('dircreate','utilities');
+		$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
+		$this->objIMSTools =  $this->newObject('imstools','contextadmin');
 	}
 
 	/**

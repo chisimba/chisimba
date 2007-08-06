@@ -44,10 +44,10 @@ class export extends object
 	
     function init()
     {
-        $this->objDBContentNodes = & $this->newObject('dbcontentnodes','context');
-        $this->objDBContext = &$this->newObject('dbcontext','context');
-        $this->objConfig = & $this->newObject('altconfig','config');
-	$this->objWZip = &$this->newObject('wzip','utilities');
+        $this->objDBContentNodes =  $this->newObject('dbcontentnodes','context');
+        $this->objDBContext = $this->newObject('dbcontext','context');
+        $this->objConfig =  $this->newObject('altconfig','config');
+	$this->objWZip = $this->newObject('wzip','utilities');
     }
     
     /**
@@ -61,8 +61,8 @@ class export extends object
         //$contextCode = $this->getParam('contextcode');      
         $contextCode = $this->objDBContext->getContextCode();
         
-        $objConfig = & $this->newObject('config','config');
-        $dircreate = & $this->newObject('dircreate','utilities');
+        $objConfig =  $this->newObject('config','config');
+        $dircreate =  $this->newObject('dircreate','utilities');
          //check if the course folder exist
          if(!is_dir($objConfig->siteRootPath().'usrfiles')){
              $dircreate->makeFolder('usrfiles',$objConfig->siteRootPath());
@@ -98,7 +98,7 @@ class export extends object
         $this->copyImages($imagesFolder,$rootnodeid);
         
         //copy the stylesheet
-        $objSkin = & $this->newObject('skin','skin');
+        $objSkin =  $this->newObject('skin','skin');
         copy($objSkin->getSkinLocation().'/kewl_css.php',$this->staticFolder.'/kewl.css');       
 
         //copy banners
@@ -127,7 +127,7 @@ class export extends object
     */   
     function createNodes($nodesArr,$rootNodeId)
     {
-        $objDublinCore = & $this->newObject('dublincore','dublincoremetadata');
+        $objDublinCore =  $this->newObject('dublincore','dublincoremetadata');
         
         foreach ( $nodesArr as $list)
         {
@@ -178,7 +178,7 @@ class export extends object
     */
     function createTreeFile($nodesArr)
     {       
-        $objTree = & $this->newObject('contenttree','tree');        
+        $objTree =  $this->newObject('contenttree','tree');        
         
         $fp=@fopen($this->staticFolder.'/treedata.js',"wb");
         if ($fp==FALSE)
@@ -198,7 +198,7 @@ class export extends object
     */
     function createIndexFile($nodesArr)
     {
-        $objTree = & $this->newObject('contenttree','tree');
+        $objTree =  $this->newObject('contenttree','tree');
         
         $str = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html>
                 <head>
@@ -394,7 +394,7 @@ class export extends object
     */
     function _getNavButtons($prevId = NULL, $nextId = NULL)
     {
-        $objStr = & $this->newObject('contenttree', 'tree');
+        $objStr =  $this->newObject('contenttree', 'tree');
         $str = '';
         
         if(!$prevId == NULL)   
@@ -454,7 +454,7 @@ class export extends object
                         $id = str_replace('contextdownload&id=','',$m);
                         
                         //get the filename from the matched id
-                        $objFile = & $this->newObject('dbfile', 'context');
+                        $objFile =  $this->newObject('dbfile', 'context');
                         $line = $objFile->getRow('id',$id);
                         $imgName = $line['name'];
                         

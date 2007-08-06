@@ -24,10 +24,10 @@ class utils extends object
     public function init()
     {
 
-            $this->_objContextModules = & $this->getObject('dbcontextmodules', 'context');
-	        $this->_objLanguage = & $this->getObject('language', 'language');
-	        $this->_objUser = & $this->getObject('user', 'security');
-	        $this->_objDBContext = & $this->getObject('dbcontext', 'context');
+            $this->_objContextModules =  $this->getObject('dbcontextmodules', 'context');
+	        $this->_objLanguage =  $this->getObject('language', 'language');
+	        $this->_objUser =  $this->getObject('user', 'security');
+	        $this->_objDBContext =  $this->getObject('dbcontext', 'context');
 		
 			// Load HTML Elements
 			$this->loadClass('form', 'htmlelements');
@@ -60,7 +60,7 @@ class utils extends object
 			return  $contexts;
 		}
 
-	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
+	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
 	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
 
 
@@ -91,7 +91,7 @@ class utils extends object
 			return  $arch;
 		} 
 
-	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
+	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
 	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
 
 		//if the user is lecturer in the archived context then show it
@@ -131,7 +131,7 @@ class utils extends object
 	  public function getOtherContextList()
 	  {
 
-	  	$objGroups = & $this->newObject('managegroups', 'contextgroups');
+	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
 	  	return null;//$objGroups->usercontextcodes($this->_objUser->userId());
 	  }
 
@@ -143,7 +143,7 @@ class utils extends object
 	  public function getLeftContent()
 	  {
 	  	//Put a block to test the blocks module
-		$objBlocks = & $this->newObject('blocks', 'blocks');
+		$objBlocks =  $this->newObject('blocks', 'blocks');
        //$userPic  = &$this->newObject('userutils', 'contextpostlogin');
        $leftSideColumn = $this->_objUser->getUserPic();//$userMenu->show();;
         //Add loginhistory block
@@ -181,7 +181,7 @@ class utils extends object
 	  public function getRightContent()
 	  {
 	     $rightSideColumn = "";
-         $objBlocks = & $this->newObject('blocks', 'blocks');
+         $objBlocks =  $this->newObject('blocks', 'blocks');
         //Add the getting help block
         $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
         //Add a block for the google api search
@@ -223,9 +223,9 @@ class utils extends object
 	  {
 	  	$str = '';
 	  	$arr = $this->_objContextModules->getContextModules($contextCode);
-	  	$objIcon = & $this->newObject('geticon', 'htmlelements');
+	  	$objIcon =  $this->newObject('geticon', 'htmlelements');
         $objLink = new link();
-	  	$objModule = & $this->newObject('modules', 'modulecatalogue');
+	  	$objModule =  $this->newObject('modules', 'modulecatalogue');
 	  	if(is_array($arr))
 	  	{
 	  		foreach($arr as $plugin)
@@ -270,7 +270,7 @@ class utils extends object
 		$objH = new htmlheading();
 		$inpContextCode =  new textinput();
 		$inpMenuText = new textinput();
-		$objDBContextParams = & $this->newObject('dbcontextparams', 'context');
+		$objDBContextParams =  $this->newObject('dbcontextparams', 'context');
 		$featureBox = $this->getObject('featurebox', 'navigation');
 
 		//list of modules for this context
@@ -308,8 +308,8 @@ class utils extends object
 		$objForm->addToForm($objH->show());
 		$objForm->addToForm('<div id="resultslist-wrap"><ol>');
 
-		$objModuleFile = & $this->newObject('modulefile', 'modulecatalogue');
-		$objModules = & $this->newObject('modules', 'modulecatalogue');
+		$objModuleFile =  $this->newObject('modulefile', 'modulecatalogue');
+		$objModules =  $this->newObject('modules', 'modulecatalogue');
 		$arrModules = $objModules->getModules(2);
 
 
@@ -401,8 +401,8 @@ class utils extends object
 			$objIcon =  $this->newObject('geticon','htmlelements');
 			$dropAccess = new dropdown();
 			//$radioStatus = new radio();
-			$objStartDate =  & $this->newObject('datepicker', 'htmlelements');
-            $objFinishDate =  & $this->newObject('datepicker', 'htmlelements');
+			$objStartDate =   $this->newObject('datepicker', 'htmlelements');
+            $objFinishDate =   $this->newObject('datepicker', 'htmlelements');
 
             $objIcon->setIcon('help');
 
@@ -586,10 +586,10 @@ class utils extends object
 
             //manage context users for the course that you are in only
             $objLink =  new link();
-            $icon =  & $this->newObject('geticon', 'htmlelements');
-            $table = & $this->newObject('htmltable' , 'htmlelements');
-            $objGroups = & $this->newObject('managegroups', 'contextgroups');
-            $box =  & $this->newObject('featurebox', 'navigation');
+            $icon =   $this->newObject('geticon', 'htmlelements');
+            $table =  $this->newObject('htmltable' , 'htmlelements');
+            $objGroups =  $this->newObject('managegroups', 'contextgroups');
+            $box =   $this->newObject('featurebox', 'navigation');
             //lecturers
             $lecturerArr = $objGroups->contextUsers('Lecturers');
             $str = '';
@@ -623,7 +623,7 @@ class utils extends object
 
             //students list
             $studentArr = $objGroups->contextUsers('Students');
-            $table = & $this->newObject('htmltable' , 'htmlelements');
+            $table =  $this->newObject('htmltable' , 'htmlelements');
             //table headings
             $table->width = '60%';
             $rowcount = 0;
@@ -655,7 +655,7 @@ class utils extends object
 
 
 
-            $table = & $this->newObject('htmltable' , 'htmlelements');
+            $table =  $this->newObject('htmltable' , 'htmlelements');
             //lecturers
             $guestArr = $objGroups->contextUsers('Guest');
 
@@ -797,7 +797,7 @@ class utils extends object
 	  {
 
 	  	try {
-	  		$objAlphabet=& $this->getObject('alphabet','navigation');
+	  		$objAlphabet= $this->getObject('alphabet','navigation');
 	  		$linkarray=array('filter'=>'LETTER');
 			$url=$this->uri($linkarray,'contextpostlogin');
 	  		$str = $objAlphabet->putAlpha($url);

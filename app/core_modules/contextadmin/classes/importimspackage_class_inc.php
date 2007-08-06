@@ -121,7 +121,7 @@ class importIMSPackage extends dbTable
 		// Load System classes.
 		$this->objConf = $this->newObject('altconfig','config');
         	$this->objDBContext = $this->newObject('dbcontext', 'context');
-		$this->objContextModules = & $this->getObject('dbcontextmodules', 'context');
+		$this->objContextModules =  $this->getObject('dbcontextmodules', 'context');
         	$this->objUser = $this->getObject('user', 'security');
 		// Load Inner classes.
 		$this->objIEUtils = $this->newObject('importexportutils','contextadmin');
@@ -641,7 +641,7 @@ class importIMSPackage extends dbTable
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
 				$tempdir .= '/'.$name.'_'.$this->objIEUtils->generateUniqueId();
 				$this->folder=$tempdir;
-				$objWZip=&$this->getObject('wzip','utilities');
+				$objWZip=$this->getObject('wzip','utilities');
 				$objWZip->unzip($tempfile,$this->folder);
 			}
 		}

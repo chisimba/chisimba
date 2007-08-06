@@ -31,7 +31,7 @@ class import extends dbTable
 		//set initial table
 		parent::init('tbl_context');
 		//get the user object
-		$this->objUser= & $this->getObject('user','security');	
+		$this->objUser=  $this->getObject('user','security');	
 		$this->userId=$this->objUser->userId();
 	}
 	

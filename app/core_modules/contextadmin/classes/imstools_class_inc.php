@@ -38,9 +38,9 @@ class imstools extends object
 	*/
 	function init()
 	{
-        	$this->objUser =& $this->getObject('user', 'security');
+        	$this->objUser = $this->getObject('user', 'security');
 		//Load Import Export Utilities class
-		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
+		$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
 	}
 
 	function createResource($dom, $lom, $eduCommons)

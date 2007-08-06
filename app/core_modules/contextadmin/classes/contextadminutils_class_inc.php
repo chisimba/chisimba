@@ -93,20 +93,20 @@ class contextadminutils extends object {
     */
     function init()
     {
-        $this->objDBContextModules=&$this->getObject('dbcontextmodules','context');
-        $this->objButtons = &$this->getObject('navbuttons', 'navigation');
-        $this->objDBContext = &$this->getObject('dbcontext', 'context');
-        $this->objUser = &$this->getObject('user', 'security');
-        $this->objLanguage = &$this->getObject('language', 'language');
-        $this->objDBContentNodes = &$this->getObject('dbcontentnodes', 'context');
-        $this->objConfig = &$this->getObject('config', 'config');
-        $this->Table = &$this->getObject('htmltable', 'htmlelements');        
-        $this->objModule=& $this->getObject('modules','modulecatalogue');  
+        $this->objDBContextModules=$this->getObject('dbcontextmodules','context');
+        $this->objButtons = $this->getObject('navbuttons', 'navigation');
+        $this->objDBContext = $this->getObject('dbcontext', 'context');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objDBContentNodes = $this->getObject('dbcontentnodes', 'context');
+        $this->objConfig = $this->getObject('config', 'config');
+        $this->Table = $this->getObject('htmltable', 'htmlelements');        
+        $this->objModule= $this->getObject('modules','modulecatalogue');  
         $this->loadClass('checkbox','htmlelements');
-        $this->objConfirm=&$this->newObject('confirm','utilities');
-        $this->objExportContent = & $this->newObject('export','contextadmin');
-        $this->objIcon = & $this->newObject('geticon','htmlelements');
-        $this->objLink = & $this->newObject('link','htmlelements');
+        $this->objConfirm=$this->newObject('confirm','utilities');
+        $this->objExportContent =  $this->newObject('export','contextadmin');
+        $this->objIcon =  $this->newObject('geticon','htmlelements');
+        $this->objLink =  $this->newObject('link','htmlelements');
         
         $this->contextCode = $this->objDBContext->getContextCode();
     } 
@@ -120,7 +120,7 @@ class contextadminutils extends object {
      * return $string
      */
      function displayData($arrList, $arrHeadings=array(), $arrAdminLinks=TRUE, $orderBy = 'id'){
-        $H3 = & $this->newObject('htmlheading', 'htmlelements');
+        $H3 =  $this->newObject('htmlheading', 'htmlelements');
         $H3->str = $this->objLanguage->languageText("mod_contextadmin_name",'contextadmin');
         $addIcon = $this->objIcon->getAddIcon($this->uri( array('action' => 'add'), "contextadmin"));
      //   print_r($arrList);
@@ -218,7 +218,7 @@ class contextadminutils extends object {
         $where = 'WHERE (isClosed <> 1 OR isNull(isClosed)) AND (isNull(isActive) OR isActive=1)';
         if($this->objModule->checkIfRegistered('contextgroups', 'contextgroups'))
         {
-            $group = & $this->newObject('managegroups', 'contextgroups');
+            $group =  $this->newObject('managegroups', 'contextgroups');
             $codes = $group->userContextCodes($this->objUser->userId());
             $memberOf = "'".implode("', '", $codes )."'";
             $where .= " OR contextCode IN ($memberOf)";

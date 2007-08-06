@@ -67,19 +67,19 @@ class importKNGPackage extends dbTable
 	function init()
 	{
 		//Load Import Export Utilities class.
-		$this->objIEUtils = & $this->newObject('importexportutils','contextadmin');
+		$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
 		//Load Filemanager class.
-		$this->objIndex =& $this->getObject('indexfileprocessor', 'filemanager');
+		$this->objIndex = $this->getObject('indexfileprocessor', 'filemanager');
 		//Load System classes.
-		$this->objConfig = &$this->getObject('altconfig','config');
-		$this->objUser =& $this->getObject('user', 'security');
+		$this->objConfig = $this->getObject('altconfig','config');
+		$this->objUser = $this->getObject('user', 'security');
 		//Load Chapter classes.
-		$this->objChapters =& $this->getObject('db_contextcontent_chapters','contextcontent');
-		$this->objContextChapters =& $this->getObject('db_contextcontent_contextchapter','contextcontent');
+		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
+		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
 		//Load context classes.
-	        $this->objContentOrder =& $this->getObject('db_contextcontent_order','contextcontent');
-        	$this->objContentTitles =& $this->getObject('db_contextcontent_titles','contextcontent');
-        	$this->objDBContext = & $this->newObject('dbcontext', 'context');
+	        $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
+        	$this->objContentTitles = $this->getObject('db_contextcontent_titles','contextcontent');
+        	$this->objDBContext =  $this->newObject('dbcontext', 'context');
 		$this->objDebug = FALSE;
 	}
 

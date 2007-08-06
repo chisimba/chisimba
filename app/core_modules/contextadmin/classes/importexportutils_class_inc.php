@@ -68,11 +68,11 @@ class importexportutils extends dbTable
 	public function init()
 	{
 		// Load Configuration class.
-		$this->objConf = &$this->getObject('altconfig','config');
+		$this->objConf = $this->getObject('altconfig','config');
         	// language object.
         	$this->objLanguage = $this->getObject('language', 'language');
-		$this->objDBContext = & $this->newObject('dbcontext', 'context');
-		$this->objFiles =& $this->getObject('dbfile','filemanager');
+		$this->objDBContext =  $this->newObject('dbcontext', 'context');
+		$this->objFiles = $this->getObject('dbfile','filemanager');
 		// Load Chapter Classes.
 		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
