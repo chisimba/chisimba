@@ -175,7 +175,7 @@ class dbTable extends object
             $this->_db = $pearDb;
         }
 
-        $this->objDBConfig=&$this->getObject('altconfig','config');
+        $this->objDBConfig=$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
         //check if debugging is enabled
         if($this->objDBConfig->geterror_reporting() == "developer")
@@ -752,7 +752,7 @@ class dbTable extends object
      * @return mixed  a result handle or MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function &executeStoredProc($name, $params = null, $types = null, $result_class = true, $result_wrap_class = false)
+    public function executeStoredProc($name, $params = null, $types = null, $result_class = true, $result_wrap_class = false)
     {
     	return $this->_db->executeStoredProc($name, $params, $types, $result_class, $result_wrap_class);
     }

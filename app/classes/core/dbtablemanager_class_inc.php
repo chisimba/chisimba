@@ -152,7 +152,7 @@ class dbTableManager extends object
         }
 
         //Load up the config object and get the servername
-        $this->objDBConfig=&$this->getObject('altconfig','config');
+        $this->objDBConfig=$this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
         //instantiate the MDB2 Management module
@@ -271,7 +271,7 @@ class dbTableManager extends object
      * @param  string    $message
      * @return string    message
      */
-    private function printQueries(&$db, $scope, $message)
+    private function printQueries($db, $scope, $message)
     {
         if ($scope == 'query')
         {

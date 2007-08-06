@@ -426,9 +426,9 @@ class engine
 		//initialise the db factory method of MDB2_Schema
 		$this->getDbManagementObj();
 		//the user security module
-		$this->_objUser =& $this->getObject('user', 'security');
+		$this->_objUser = $this->getObject('user', 'security');
 		//the language elements module
-		$this->_objLanguage =& $this->getObject('language', 'language');
+		$this->_objLanguage = $this->getObject('language', 'language');
 
 		//check that the user is logged in and update the login
 		if ($this->_objUser->isLoggedIn())
@@ -524,7 +524,7 @@ class engine
 		//do the checks that the db object gets instantiated once, then
 		//let MDB2 take over for the on-demand construction
 		if ($this->_objDb == NULL || $_globalObjDb == NULL) {
-			$this->_objDbConfig =& $this->getObject('altconfig', 'config');
+			$this->_objDbConfig = $this->getObject('altconfig', 'config');
 			//set up the DSN. Some RDBM's do not operate with the string style DSN (most noticeably Oracle)
 			//so we parse the DSN to an array and then send that to the object instantiation to be safe
 			$dsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
@@ -556,7 +556,7 @@ class engine
 				return $_globalObjDb;
 			}
 			// keep a copy as a field as well
-			$this->_objDb =& $_globalObjDb;
+			$this->_objDb = $_globalObjDb;
 
 			//Load up some of the extra MDB2 modules:
 			MDB2::loadFile('Date');
@@ -564,7 +564,7 @@ class engine
 
 			// install the error handler with our custom callback on error
 			$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
-			array(&$this, '_pearErrorCallback'));
+			array($this, '_pearErrorCallback'));
 			// set the default fetch mode for the DB to assoc, as that's
 			// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
 			$this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
@@ -593,7 +593,7 @@ class engine
     * @access public
     * @return kngConfig The config object
     */
-	public function &getDbManagementObj()
+	public function getDbManagementObj()
 	{
 		//global for the management object
 		global $_globalObjDbManager;
@@ -602,7 +602,7 @@ class engine
 		//let MDB2 take over for the on-demand construction
 		if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
 			//load the config object (same as the db Object)
-			$this->_objDbConfig =& $this->getObject('altconfig', 'config');
+			$this->_objDbConfig = $this->getObject('altconfig', 'config');
 			$mdsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
 			$this->mdsn = $this->parseDSN($mdsn);
 			// Connect to the database
@@ -620,10 +620,10 @@ class engine
 				return $_globalObjDbManager;
 			}
 			// keep a copy as a field as well
-			$this->_objDbManager =& $_globalObjDbManager;
+			$this->_objDbManager = $_globalObjDbManager;
 			// install the error handler with our custom callback on error
 			$this->_objDbManager->setErrorHandling(PEAR_ERROR_CALLBACK,
-			array(&$this, '_pearErrorCallback'));
+			array($this, '_pearErrorCallback'));
 
 		}
 		//return the local copy
@@ -797,7 +797,7 @@ class engine
 		if ($name == 'altconfig' && $moduleName == 'config' && !$this->_objConfig)
 		{
 			$filename = "core_modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
-			$engine =& $this;
+			$engine = $this;
 			if(!$this->_objConfig instanceof altconfig )
 			{
 				// log_debug("autoloading config again");
@@ -852,7 +852,7 @@ class engine
 			}
 			throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 		}
-		$engine =& $this;
+		$engine = $this;
 		require_once($filename);
 	}
 
@@ -986,7 +986,7 @@ class engine
     * @param  $name  string The name of the reference variable
     * @return mixed  The value of the reference variable, or NULL if unset
     */
-	public function &getVarByRef($name)
+	public function getVarByRef($name)
 	{
 		return isset($this->_templateRefs[$name])
 		? $this->_templateRefs[$name]
@@ -1001,9 +1001,9 @@ class engine
     * @param  $name  string The name of the reference variable
     * @param  $ref   mixed  A reference to the object to set the reference variable to
     */
-	public function setVarByRef($name, &$ref)
+	public function setVarByRef($name, $ref)
 	{
-		$this->_templateRefs[$name] =& $ref;
+		$this->_templateRefs[$name] = $ref;
 	}
 
 	/**
@@ -1092,7 +1092,7 @@ class engine
 	* @return array
 	* @access public
 	*/
-	public function install_stripslashes_array(&$array, $strip_keys=false)
+	public function install_stripslashes_array($array, $strip_keys=false)
 	{
 		if(is_string($array)) return stripslashes($array);
 		$keys_to_replace = Array();
@@ -1108,7 +1108,7 @@ class engine
 		}
 		// now replace any of the keys that needed strip slashing
 		foreach($keys_to_replace as $from => $to) {
-			$array[$to]   = &$array[$from];
+			$array[$to]   = $array[$from];
 			unset($array[$from]);
 		}
 		return $array;
@@ -1579,7 +1579,7 @@ class engine
     * @param  $action              string              The action parameter
     * @return string               Template name returned from dispatch method
     */
-	private function _dispatchToModule(&$module, $action)
+	private function _dispatchToModule($module, $action)
 	{
 		if ($module) {
 			$tpl = $this->_enableAccessControl

@@ -79,7 +79,7 @@ class controller extends access
      * @param object $objEngine  by reference from Engine
      * @param string $moduleName
      */
-    public function __construct(&$objEngine, $moduleName)
+    public function __construct($objEngine, $moduleName)
     {
     	$this->controllerName = get_class($this);
         try {
@@ -184,7 +184,7 @@ class controller extends access
      * @param  string $name The name of the reference variable.
      * @return mixed  The value of the reference variable, or NULL if unset.
      */
-    public function &getVarByRef($name)
+    public function getVarByRef($name)
     {
         return $this->objEngine->getVarByRef($name);
     }
@@ -197,7 +197,7 @@ class controller extends access
      * @param  mixed  $ref  A reference to the object to set the reference variable to.
      * @return void  
      */
-    public function setVarByRef($name, &$ref)
+    public function setVarByRef($name, $ref)
     {
         $this->objEngine->setVarByRef($name, $ref);
     }
@@ -315,7 +315,7 @@ class controller extends access
         if ($buffer) {
             ob_start();
         }
-        require $path;
+        include $path; //was require
         if ($buffer) {
             $pageContent = ob_get_contents();
             ob_end_clean();

@@ -88,9 +88,9 @@ class object
      * @param  mixed  $moduleName The name of the module
      * @return object instantiation against the engine object
      */
-    public function __construct(&$objEngine, $moduleName)
+    public function __construct($objEngine, $moduleName)
     {
-        $this->objEngine = &$objEngine;
+        $this->objEngine = $objEngine;
         $this->moduleName = $moduleName;
         $this->init();
     }
