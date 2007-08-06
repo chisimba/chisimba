@@ -54,7 +54,7 @@ class utils extends object
 
 		//if the user is an administrator of the site then show him all the courses
 		
-		$contexts = $this->_objDBContext->getAll("WHERE isNull(archive) or archive=0");
+		$contexts = $this->_objDBContext->getAll("WHERE archive=Null or archive=0");
 	  	if ($this->_objUser->isAdmin())
 		{
 			return  $contexts;
@@ -70,7 +70,7 @@ class utils extends object
 	  		$arr[] = $this->_objDBContext->getRow('contextcode',$code);
 
 	  	}
-	  	var_dump($arr);
+	  
 	  	return $arr;
 	  }
 	  
@@ -79,7 +79,7 @@ class utils extends object
 	  * 
 	  * @return array
 	  */
-	  public function geteArchivedContext()
+	  public function getArchivedContext()
 	  {
 		$arr = array();
 

@@ -109,7 +109,7 @@ class contextadmin extends controller
 	            $this->setVar('contextList', $this->_objUtils->getContextList());
 	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
 	            $this->setVar('filter', $this->_objUtils->getFilterList($this->_objUtils->getContextList()));
-	            $this->setVar('archivedCourses', $this->_objUtils->geteArchivedContext());
+	            $this->setVar('archivedCourses', $this->_objUtils->getArchivedContext());
 
 	            return 'main_tpl.php';
                 
