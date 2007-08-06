@@ -2,6 +2,21 @@
 /**
  * The class exportIMSPackage that manages the export of IMS specification content
  * 
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
  * @category  Chisimba
  * @package   contextadmin
  * @author    Jarrett Jordaan
@@ -66,6 +81,7 @@ class exportimspackage extends dbTable
 		$orgId = 'ORG'.$this->objIEUtils->generateUniqueId();
 		$organizations->setAttribute('default', $orgId);
 		$resources = $manifest->appendChild($dom->createElement('resources'));
+//		$resources->appendChild($this->objIMSTools->createResource($dom));
 		// Retrieve data within context.
 		$courseData = $this->objIEUtils->getCourse($contextcode, 'new');
 		// Course id.
@@ -104,8 +120,31 @@ class exportimspackage extends dbTable
 		$courseResId = 'RES'.$this->objIEUtils->generateUniqueId();
 		// Add Items to Organization.
 		$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
+		// lom values
+		
+		// eduCommons values
+		$objectType = 'Course';
+		$copyright = '';
+		$licenseName = '';
+		$licenseUrl = '';
+		$licenseIconUrl = '';
+		$clearedCopyright = 'false';
+		$courseId = $contextcode;
+		$term = '';
+		$displayInstructorEmail = 'false';
+		$name = $fileLocation;
+		$eduCommons = array('objectType' => $objectType,
+				'copyright' => $copyright,
+				'licenseName' => $licenseName,
+				'licenseUrl' => $licenseUrl,
+				'licenseIconUrl' => $licenseIconUrl,
+				'clearedCopyright' => $clearedCopyright,
+				'courseId' => $courseId,
+				'term' => $term,
+				'displayInstructorEmail' => $displayInstructorEmail,
+				'name' => $name);
 		// Add Course Resource.
-		$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Course', $courseResId));
+		$resources->appendChild($this->objIMSTools->createResource($dom, $lom, $eduCommons, $support));
 		// Write Images to specified directory (resources folder).
 		if(count($courseImageNames) > 0)
 		{
@@ -116,7 +155,7 @@ class exportimspackage extends dbTable
 				// File location in package.
 				$fileLocation = $resourceFolder.'/'.$courseImageName;
 				// Add Course Resource.
-				$resources->appendChild($this->createResource($dom, $courseImageName, $contextcode, $fileLocation, 'Image', $resId));
+//				$resources->appendChild($this->createResource($dom, $courseImageName, $contextcode, $fileLocation, 'Image', $resId));
 			}
 		}
 		//.Write Resources to specified directory (resources folder).
@@ -146,7 +185,7 @@ class exportimspackage extends dbTable
 				// File location in package.
 				$fileLocation = $resourceFolder.'/'.$imageName;
 				// Add Course Resource.
-				$resources->appendChild($this->createResource($dom, $imageName, $contextcode, $fileLocation, 'Image', $resId));
+//				$resources->appendChild($this->createResource($dom, $imageName, $contextcode, $fileLocation, 'Image', $resId));
 			}
 		}
 		// Write Resources to specified directory (resources folder).
@@ -167,11 +206,11 @@ class exportimspackage extends dbTable
 					$pageDetails = $this->objIEUtils->pageContent($page['titleid']);
 					$courseTitle = $pageDetails['menutitle'];
 					// Add Items to Organization.
-					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
+//					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
 					// File location in package.
 					$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
 					// Add Course Resource.
-					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
+//					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
 					$i++;
 				}
 				else
@@ -179,7 +218,7 @@ class exportimspackage extends dbTable
 					// File location in package.
 					$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
 					// Add Course Resource.
-					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
+//					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
 					$i++;
 				}
 			}
