@@ -62,7 +62,7 @@ class groupadmin_members extends object {
      * @return void  
      */
     public function init(){
-        $this->_objGroupAdmin =& $this->newObject('groupAdminModel', 'groupadmin');
+        $this->_objGroupAdmin = $this->newObject('groupAdminModel', 'groupadmin');
         $_groupDirectMembers = array();
         $_groupSubMembers = array();
         $_tableHeaders = array();
@@ -90,7 +90,7 @@ class groupadmin_members extends object {
     */
     private function _sortedTable( $list, $table = 't' ) {
 
-    	$myTable = & $this->newObject('htmltable', 'htmlelements');
+    	$myTable =  $this->newObject('htmltable', 'htmlelements');
     	$myTable->width='60%';
         $myTable->border='0';
         $myTable->cellspacing='1';

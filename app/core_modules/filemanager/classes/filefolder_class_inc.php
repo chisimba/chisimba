@@ -57,7 +57,7 @@ class filefolder extends object
     */
     function init()
     {
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
     }
     
     /**

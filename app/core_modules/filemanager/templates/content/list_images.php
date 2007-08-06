@@ -10,7 +10,7 @@ echo $header->show();
 
 $this->objThumbnails = $this->getObject('thumbnails');
 
-$objFileEmbed =& $this->getObject('fileembed');
+$objFileEmbed = $this->getObject('fileembed');
 
 if (count($files) == 0) {
     echo '<p>No Images uploaded</p>';

@@ -12,7 +12,7 @@ $this->helpDiv = $this->newObject('layer','htmlelements');
 $this->helpDiv->cssClass = "box";
 
 //Create an instance of the htmlHeading object
-$this->objHeading = &$this->newObject('htmlheading', 'htmlelements');
+$this->objHeading = $this->newObject('htmlheading', 'htmlelements');
 //Set the heading to 5 which displays the tab
 $this->objHeading->type="5";
 //Add the label to the tab

@@ -56,10 +56,10 @@ class dbfolder extends dbTable
     {
         parent::init('tbl_files_folders');
         
-        $this->objFiles =& $this->getObject('dbfile');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
+        $this->objFiles = $this->getObject('dbfile');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objCleanUrl = $this->getObject('cleanurl');
         
 		$this->loadClass('treemenu', 'tree');
 		$this->loadClass('treenode', 'tree');

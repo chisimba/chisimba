@@ -62,7 +62,7 @@ class cleanurl extends object
     * Method to clean up a url
     * @param string $url Url to clean up
     */
-    public function cleanUpUrl(&$url)
+    public function cleanUpUrl($url)
     {
         $url = str_replace ('\\', '/', $url); // Convert backstrokes to forward strokes
         

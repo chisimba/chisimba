@@ -85,22 +85,22 @@ class upload extends object
         $this->formExtra = '';
         
         // Load All Necessary Objects
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objFile =& $this->getObject('dbfile');
-        $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objMetadataScripts =& $this->getObject('dbmetadatascripts');
-        $this->objFileFolder =& $this->getObject('filefolder');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objFile = $this->getObject('dbfile');
+        $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
+        $this->objMetadataScripts = $this->getObject('dbmetadatascripts');
+        $this->objFileFolder = $this->getObject('filefolder');
         
-        $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
+        $this->objAnalyzeMediaFile = $this->getObject('analyzemediafile');
         
-        $this->objThumbnails =& $this->getObject('thumbnails');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        $this->objThumbnails = $this->getObject('thumbnails');
+        $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
         
         // Load the Language Object
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         
         // Check that Upload Folders exist
         $objFolderCheck = $this->getObject('userfoldercheck');

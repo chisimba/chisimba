@@ -14,15 +14,15 @@ $header->str = $this->objLanguage->languageText('mod_filemanager_listof'.$catego
 
 echo $header->show();
 
-$this->objFormatDateTime =& $this->getObject('datetime', 'utilities');
+$this->objFormatDateTime = $this->getObject('datetime', 'utilities');
 $objIcon = $this->getObject('geticon', 'htmlelements');
 
 echo $successMessage;
 echo $errorMessage;
 
-$objFilePreview =& $this->getObject('filepreview');
+$objFilePreview = $this->getObject('filepreview');
 
-$objFileIcons =& $this->getObject('fileicons', 'files');
+$objFileIcons = $this->getObject('fileicons', 'files');
 
 if (count($files) == 0) {
     echo '<p>'.$this->objLanguage->languageText('mod_filemanager_nofilesuploaded', 'filemanager', 'No files uploaded').'</p>';

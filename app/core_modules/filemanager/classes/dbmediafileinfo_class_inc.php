@@ -54,7 +54,7 @@ class dbmediafileinfo extends dbTable
     function init()
     {
         parent::init('tbl_files_metadata_media');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**

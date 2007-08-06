@@ -15,9 +15,9 @@ $this->setVar('folderId', $folderId);
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
 
-$objFilePreview =& $this->getObject('filepreview');
+$objFilePreview = $this->getObject('filepreview');
 
-$objFileIcons =& $this->getObject('fileicons', 'files');
+$objFileIcons = $this->getObject('fileicons', 'files');
 $objFileIcons->size = 'large';
 
 $objIcon->setIcon('edit');

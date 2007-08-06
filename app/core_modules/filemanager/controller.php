@@ -53,20 +53,20 @@ class filemanager extends controller
     */
     public function init()
     {
-        $this->objFiles =& $this->getObject('dbfile');
-        $this->objFolders =& $this->getObject('dbfolder');
+        $this->objFiles = $this->getObject('dbfile');
+        $this->objFolders = $this->getObject('dbfolder');
         $this->objFileTags = $this->getObject('dbfiletags');
-        $this->objFileOverwrite =& $this->getObject('checkoverwrite');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
-        $this->objUpload =& $this->getObject('upload');
-        $this->objFilePreview =& $this->getObject('filepreview');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objFileOverwrite = $this->getObject('checkoverwrite');
+        $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objUpload = $this->getObject('upload');
+        $this->objFilePreview = $this->getObject('filepreview');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objUser = $this->getObject('user', 'security');
 
-        $this->objUploadMessages =& $this->getObject('uploadmessages');
+        $this->objUploadMessages = $this->getObject('uploadmessages');
 
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->objMenuTools =& $this->getObject('tools', 'toolbar');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
     }
 
@@ -182,7 +182,7 @@ class filemanager extends controller
         $files = $this->objFiles->getFolderFiles($folderpath);
         $this->setVarByRef('files', $files);
         
-        $objPreviewFolder =& $this->getObject('previewfolder');
+        $objPreviewFolder = $this->getObject('previewfolder');
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
                 
         return 'showfolder.php';
@@ -830,7 +830,7 @@ function checkWindowOpener()
         $files = $this->objFiles->getFolderFiles($folder['folderpath']);
         $this->setVarByRef('files', $files);
         
-        $objPreviewFolder =& $this->getObject('previewfolder');
+        $objPreviewFolder = $this->getObject('previewfolder');
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
         
         $breadcrumbs = $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $folder['folderpath']);
@@ -869,7 +869,7 @@ function checkWindowOpener()
         }
         
         
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
         
         $path = $this->objConfig->getcontentBasePath().'/'.$folderpath.'/'.$foldername;
             
@@ -1065,7 +1065,7 @@ function checkWindowOpener()
         
         $this->setVarByRef('files', $files);
         
-        $objPreviewFolder =& $this->getObject('previewfolder');
+        $objPreviewFolder = $this->getObject('previewfolder');
         $table = $objPreviewFolder->previewContent(array(), $files);
         $this->setVarByRef('table', $table);
         

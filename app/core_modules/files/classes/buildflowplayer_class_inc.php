@@ -104,7 +104,7 @@ class buildflowplayer extends object
     {
 
         //Set up the path for the error file
-        $this->objConfig = &$this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         //Set the width and height, defaulting to 500 X 400
         $this->width = $this->getParam('width', '500');
         $this->height= $this->getParam('height', '400');

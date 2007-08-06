@@ -55,12 +55,12 @@ class uploadmessages extends object
     */
     public function init()
     {
-        $this->objFiles =& $this->getObject('dbfile');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
-        $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objLanguage =& $this->getObject('language', 'language');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objFiles = $this->getObject('dbfile');
+        $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         
         $this->loadClass('radio', 'htmlelements');
         $this->loadClass('form', 'htmlelements');

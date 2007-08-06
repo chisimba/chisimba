@@ -114,9 +114,9 @@ class upload extends object
     function init()
     {
         //Create an instance of the User object
-        $this->objUser =  & $this->getObject("user", "security");
+        $this->objUser =   $this->getObject("user", "security");
         //Instantiate the language object
-        $this->objLanguage = & $this->getObject('language', 'language');
+        $this->objLanguage =  $this->getObject('language', 'language');
         //Set the permitted file types
         $this->permittedTypes = array("mp3");
         //Set the default max filesize

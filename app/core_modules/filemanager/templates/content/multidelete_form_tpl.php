@@ -1,6 +1,6 @@
 <?php
 
-$this->objFileIcons =& $this->getObject('fileicons', 'files');
+$this->objFileIcons = $this->getObject('fileicons', 'files');
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('checkbox', 'htmlelements');
 $this->loadClass('label', 'htmlelements');

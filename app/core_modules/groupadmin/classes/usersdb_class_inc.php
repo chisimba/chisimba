@@ -36,7 +36,7 @@ class usersdb extends dbTable
     */
     function init( ) {
         parent::init('tbl_users');
-        $this->_objUser = &$this->getObject( 'user', 'security' );
+        $this->_objUser = $this->getObject( 'user', 'security' );
     }
 
     /**

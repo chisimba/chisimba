@@ -66,8 +66,8 @@ class fileembed extends object
     function init()
     {
         $this->loadClass('link', 'htmlelements');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objConfig = $this->getObject('altconfig', 'config');
     }
     
     /**

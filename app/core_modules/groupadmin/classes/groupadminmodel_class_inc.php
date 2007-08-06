@@ -81,11 +81,11 @@ class groupAdminModel extends dbTable
     public function init()
     {
         // Create instance of groupusersDb object, and connect back to groupsDb
-        $this->_objGroupUsers =& $this->getObject( 'groupusersdb', 'groupadmin' );
+        $this->_objGroupUsers = $this->getObject( 'groupusersdb', 'groupadmin' );
         $this->_objGroupUsers->connectGroups( $this );
 
         // Create instance of usersDb object, and connect groupusersDb to usersDb
-        $this->_objUsers =& $this->getObject( 'usersdb', 'groupadmin' );
+        $this->_objUsers = $this->getObject( 'usersdb', 'groupadmin' );
         $this->_objGroupUsers->connectUsers( $this->_objUsers );
 
         // Use the tbl_groupadmin_group table to store the group data.

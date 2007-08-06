@@ -80,7 +80,7 @@ class buildsoundplayer extends object
     {
         
         //Set up the path for the error file
-        $this->objConfig = &$this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         //Load the sound file from the URL in the querystring 
         $this->loadSound();
         

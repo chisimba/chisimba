@@ -89,7 +89,7 @@ class groupadmin_tree extends object {
         $this->loadClass('tree_dropdown','groupadmin');
         
         // Initialise icons
-        $this->objSkin =& $this->getObject( 'skin', 'skin' );
+        $this->objSkin = $this->getObject( 'skin', 'skin' );
         $this->_treeIcons = 'icons/tree/';
 
         $this->_arrTreeIcons = array();
@@ -107,10 +107,10 @@ class groupadmin_tree extends object {
         // Enable/Disable Context sensitive tree
         $this->_contextSensitive = false;
         
-        $this->_objGroupAdminModel =& $this->getObject( 'groupAdminModel', 'groupadmin' );
+        $this->_objGroupAdminModel = $this->getObject( 'groupAdminModel', 'groupadmin' );
         
         // Load Language Class
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         
         // Create an array of words to abstract
         $this->abstractionArray = array(
@@ -151,7 +151,7 @@ class groupadmin_tree extends object {
     {
         // Context Aware;
         $icons = $this->_arrTreeIcons;
-        $objDBContext = &$this->getObject('dbcontext','context');
+        $objDBContext = $this->getObject('dbcontext','context');
         if( $this->_contextSensitive && $objDBContext->isInContext()){
             $contextCode = $objDBContext->getContextCode();
             $groupId = $this->_objGroupAdminModel->getLeafId(array($contextCode));

@@ -28,9 +28,9 @@ foreach ($this->abstractionArray as $name=>$value)
 <script src="core_modules/groupadmin/resources/sorttable.js" language="JavaScript" type="text/javascript"></script>
 
 <?php
-$objTable =& $this->newObject('htmltable', 'htmlelements');
-$objHead =& $this->newObject('htmlheading', 'htmlelements');
-$objLayer =& $this->newObject('layer', 'htmlelements');
+$objTable = $this->newObject('htmltable', 'htmlelements');
+$objHead = $this->newObject('htmlheading', 'htmlelements');
+$objLayer = $this->newObject('layer', 'htmlelements');
 
 $leftCol = $treeNav.$treeControls;
 $rightCol = $info;

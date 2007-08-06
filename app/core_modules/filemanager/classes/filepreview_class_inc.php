@@ -48,12 +48,12 @@ class filepreview extends object
     */
     function init()
     {
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objFiles =& $this->getObject('dbfile');
-        $this->objCleanurl =& $this->getObject('cleanurl');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objFiles = $this->getObject('dbfile');
+        $this->objCleanurl = $this->getObject('cleanurl');
         $this->objThumbnails = $this->getObject('thumbnails');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objFileEmbed =& $this->getObject('fileembed');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objFileEmbed = $this->getObject('fileembed');
         $this->loadClass('link', 'htmlelements');
     }
     

@@ -55,14 +55,14 @@ class checkoverwrite extends object
     */
     public function init()
     {
-        $this->objUser =& $this->getObject('user', 'security');
-        $this->objFile =& $this->getObject('dbfile');
-        $this->objUserFolder =& $this->getObject('userfoldercheck');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objFile = $this->getObject('dbfile');
+        $this->objUserFolder = $this->getObject('userfoldercheck');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objThumbnails = $this->getObject('thumbnails');
-        $this->objFileEmbed =& $this->getObject('fileembed');
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objFormatDateTime =& $this->getObject('dateandtime', 'utilities');
+        $this->objFileEmbed = $this->getObject('fileembed');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objFormatDateTime = $this->getObject('dateandtime', 'utilities');
         
         
         // HTML Elements

@@ -73,7 +73,7 @@ class parse4format extends object {
         '[/S6]' => '</font>',
         );
  
-        $objIcon = &$this->getObject('geticon', 'htmlelements');
+        $objIcon = $this->getObject('geticon', 'htmlelements');
         /* 
         *  Loop through the array and make the arrays for 
         *  $test and $replace for the regex. This is done because

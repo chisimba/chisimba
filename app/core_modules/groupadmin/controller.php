@@ -80,7 +80,7 @@ class groupadmin extends controller {
         $this->objMembers = $this->getObject( 'groupadmin_members', 'groupadmin' );
 
         $this->setVarByRef( 'objGroupAdminModel', $this->objGroupAdminModel );
-        $this->setVarByRef( 'objLanguage', $this->objLangauge ); 
+        $this->setVarByRef( 'objLanguage', $this->objLanguage ); 
         
         // Create an array of words to abstract
          // Create an array of words to abstract

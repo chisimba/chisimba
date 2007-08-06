@@ -3,8 +3,8 @@
 $this->loadClass('link', 'htmlelements');
 
 // Create an Instance of the CSS Layout
-$cssLayout =& $this->newObject('csslayout', 'htmlelements');
-$objTreeFilter =& $this->getObject('dbfolder');
+$cssLayout = $this->newObject('csslayout', 'htmlelements');
+$objTreeFilter = $this->getObject('dbfolder');
 
 $leftColumn = '<h3>File Manager</h3>';
 

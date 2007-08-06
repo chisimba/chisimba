@@ -49,7 +49,7 @@ class previewfolder extends object
     */
     public function init()
     {
-        $this->objFileIcons =& $this->getObject('fileicons', 'files');
+        $this->objFileIcons = $this->getObject('fileicons', 'files');
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('label', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');

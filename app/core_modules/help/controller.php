@@ -23,7 +23,7 @@ class help extends controller
     */
     public function init()
     {
-        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         $this->setVarByRef('objLanguage', $this->objLanguage);
         //$this->objConfig = &$this->getObject('altconfig', 'config');
         $this->loadClass('layer','htmlelements');
@@ -32,7 +32,7 @@ class help extends controller
         //Log this module call
         //$this->objLog->log();
 
-        $this->objSkin =&$this->getObject('skin', 'skin');
+        $this->objSkin =$this->getObject('skin', 'skin');
 
         //Create an instance of the icon obhect
         $this->icon = $this->newObject('geticon','htmlelements');

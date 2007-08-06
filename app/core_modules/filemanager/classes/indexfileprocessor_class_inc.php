@@ -49,17 +49,17 @@ class indexfileprocessor extends object
     */
     function init()
     {
-        $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objMimetype = $this->getObject('mimetypes', 'files');
-        $this->objFile =& $this->getObject('dbfile');
-        $this->objFolders =& $this->getObject('dbfolder');
-        $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objFileFolder =& $this->getObject('filefolder');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
-        $this->objUpload =& $this->getObject('upload');
-        $this->objThumbnails =& $this->getObject('thumbnails');
+        $this->objFile = $this->getObject('dbfile');
+        $this->objFolders = $this->getObject('dbfolder');
+        $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
+        $this->objFileFolder = $this->getObject('filefolder');
+        $this->objCleanUrl = $this->getObject('cleanurl');
+        $this->objUpload = $this->getObject('upload');
+        $this->objThumbnails = $this->getObject('thumbnails');
         $this->objIndexFiles = $this->getObject('indexfiles');
-        $this->objAnalyzeMediaFile =& $this->getObject('analyzemediafile');
+        $this->objAnalyzeMediaFile = $this->getObject('analyzemediafile');
     }
     
     /**

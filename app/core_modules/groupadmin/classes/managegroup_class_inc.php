@@ -44,7 +44,7 @@ class manageGroup extends object
         $this->viewType = 'dropdown';
         $this->objElement = NULL;
         
-        $this->objGroupAdmin = &$this->getObject( 'groupadminmodel', 'groupadmin' );
+        $this->objGroupAdmin = $this->getObject( 'groupadminmodel', 'groupadmin' );
     }
     
     /**
@@ -90,7 +90,7 @@ class manageGroup extends object
     */      
     function setDropDown()
     {
-        $this->objElement = &$this->getObject( 'dropdown', 'htmlelements' );
+        $this->objElement = $this->getObject( 'dropdown', 'htmlelements' );
         $this->objElement->name = 'manage_group';
         
         $data = $this->getUsers();

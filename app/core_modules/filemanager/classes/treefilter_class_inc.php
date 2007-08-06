@@ -50,13 +50,13 @@ class treefilter extends object
     */
     public function init()
     {
-        $this->objFile =& $this->getObject('dbfile');
-        $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objFile = $this->getObject('dbfile');
+        $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
+        $this->objUser = $this->getObject('user', 'security');
 		$this->loadClass('treemenu','tree');
 		$this->loadClass('treenode','tree');
         $this->loadClass('htmllist','tree');
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         $this->loadClass('dropdown', 'htmlelements');
     }
     

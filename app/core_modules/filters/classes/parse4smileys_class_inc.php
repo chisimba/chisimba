@@ -121,7 +121,10 @@ class parse4smileys extends object {
         ':-s' => 'worried', ':-S' => 'worried',
 
         );
-        $objIcon = &$this->getObject('geticon', 'htmlelements');
+        $objIcon = NULL;
+        $objIcon = $this->getObject('geticon', 'htmlelements');
+        
+        //$objIcon = &$this->getObject('geticon', 'htmlelements');
         /* 
         *  Loop through the array and make the arrays for 
         *  $test and $replace for the regex. This is done because

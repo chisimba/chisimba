@@ -63,11 +63,11 @@ class archivehandler extends object
 
     {
 
-        $this->objConfig =& $this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
 
-        $this->objZip =& $this->getObject('wzip', 'utilities');
+        $this->objZip = $this->getObject('wzip', 'utilities');
 
-        $this->objFileIcons =& $this->getObject('fileicons', 'files');
+        $this->objFileIcons = $this->getObject('fileicons', 'files');
 
         $this->objFileIcons->size = 'small';
 

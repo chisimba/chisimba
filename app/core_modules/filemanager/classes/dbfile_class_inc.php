@@ -60,18 +60,18 @@ class dbfile extends dbTable
     public function init()
     {
         parent::init('tbl_files');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
         
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
         
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objCleanUrl =& $this->getObject('cleanurl');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objCleanUrl = $this->getObject('cleanurl');
         
-        $this->objMediaFileInfo =& $this->getObject('dbmediafileinfo');
-        $this->objFileFolder =& $this->getObject('filefolder');
-        $this->objMimetypes =& $this->getObject('mimetypes', 'files');
+        $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
+        $this->objFileFolder = $this->getObject('filefolder');
+        $this->objMimetypes = $this->getObject('mimetypes', 'files');
         
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
         
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('formatfilesize', 'files');
@@ -92,7 +92,7 @@ class dbfile extends dbTable
             $file = $this->getRow('id', $fileId);
             
             if ($file != FALSE) {
-                $this->currentFile =& $file;
+                $this->currentFile = $file;
             }
             
             return $file;

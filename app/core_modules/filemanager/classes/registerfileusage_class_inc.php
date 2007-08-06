@@ -50,7 +50,7 @@ class registerfileusage extends dbTable
     public function init()
     {
         parent::init('tbl_files_usage');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**

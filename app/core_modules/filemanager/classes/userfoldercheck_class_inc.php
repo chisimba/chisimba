@@ -61,8 +61,8 @@ class userfoldercheck extends object
     */
     public function init()
     {
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
         
         // List of Subfolders to be created in Path
         // $this->subFolders = array('images', 'audio', 'video', 'documents', 'flash', 'freemind', 'archives', 'temp', 'other', 'obj3d', 'scripts');

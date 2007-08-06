@@ -59,7 +59,7 @@ class help extends object  {
     {
         $this->objHelpIcon = $this->newObject('geticon','htmlelements');
         $this->rootModule = $this->getParam('module', NULL);
-        $this->objLanguage = &$this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
 
     /**
@@ -81,7 +81,7 @@ class help extends object  {
     */
     public function show($helpItem = FALSE, $module = FALSE, $helpText = FALSE)
     {
-        $objSkin = & $this->getObject('skin','skin');
+        $objSkin =  $this->getObject('skin','skin');
         $getAction = FALSE;
 
         if(!($helpText === FALSE)){
@@ -121,7 +121,7 @@ class help extends object  {
 
         if ($getAction){
             //Popup window
-            $this->objPop=& $this->getObject('windowpop','htmlelements');
+            $this->objPop= $this->getObject('windowpop','htmlelements');
             $location=$this->uri(array(
                 'action'=>'view',
                 'helpid'=>$helpItem,

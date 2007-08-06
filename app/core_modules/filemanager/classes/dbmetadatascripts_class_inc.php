@@ -54,7 +54,7 @@ class dbmetadatascripts extends dbTable
     function init()
     {
         parent::init('tbl_files_metadata_scripts');
-        $this->objUser =& $this->getObject('user', 'security');
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**

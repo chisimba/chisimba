@@ -103,11 +103,11 @@ class fileuploader extends object
      */
     public function init()
     {
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objFileFolder =& $this->getObject('filefolder', 'filemanager');
-        $this->objCleanUrl =& $this->getObject('cleanurl', 'filemanager');
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objFileFolder = $this->getObject('filefolder', 'filemanager');
+        $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
     }
     
     /**

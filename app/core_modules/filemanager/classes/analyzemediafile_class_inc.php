@@ -56,9 +56,9 @@ class analyzemediafile extends object
     */
     function init()
     {
-        $this->objGetId3 =& $this->getObject('getid3analyzer', 'files');
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
-        $this->objXMLSerializer =& $this->getObject('xmlserial', 'utilities');
+        $this->objGetId3 = $this->getObject('getid3analyzer', 'files');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
+        $this->objXMLSerializer = $this->getObject('xmlserial', 'utilities');
         $this->objSingleArray = $this->getObject('singlearray');
         $this->objOggReader = $this->getObject('oggreader');
     }

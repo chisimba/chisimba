@@ -59,11 +59,11 @@ class helplink extends object  {
             $this->rootModule = $module;
         }
         
-        $objSkin = & $this->getObject('skin','skin');
+        $objSkin =  $this->getObject('skin','skin');
         $this->objHelpIcon->setModuleIcon('help');
         //Popup window
         //$this->objPop=&new windowpop;
-        $this->objPop=& $this->getObject('windowpop','htmlelements');
+        $this->objPop= $this->getObject('windowpop','htmlelements');
         $location=$this->uri(array(
           'helpid'=>$helpid,
           'rootModule'=>$this->rootModule, 

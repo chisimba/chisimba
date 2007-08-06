@@ -56,10 +56,10 @@ class thumbnails extends object
     public function init()
     {
         $this->name = 'fileupload';
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
-        $this->objImageResize =& $this->getObject('imageresize', 'files');
-        $this->objFileParts =& $this->getObject('fileparts', 'files');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
+        $this->objImageResize = $this->getObject('imageresize', 'files');
+        $this->objFileParts = $this->getObject('fileparts', 'files');
         $this->objCleanUrl = $this->getObject('cleanurl');
     }
     

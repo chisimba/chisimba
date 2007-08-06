@@ -62,7 +62,7 @@ class dir extends object
     function init()
     {
         // Create an instance of the language object
-        $this->objLanguage = &$this->getObject('language', 'language'); 
+        $this->objLanguage = $this->getObject('language', 'language'); 
     }
 
     /**

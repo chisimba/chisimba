@@ -43,11 +43,11 @@ class filters extends controller {
     function init()
     { 
         // Get the multimedia parser
-        $this->objParse4Mmedia = &$this->getObject('parse4mmedia'); 
+        $this->objParse4Mmedia = $this->getObject('parse4mmedia'); 
         // Get the multimedia parser
-        $this->objParse4KngText = &$this->getObject('parse4kngtext'); 
+        $this->objParse4KngText = $this->getObject('parse4kngtext'); 
         // Get the smiley parser
-        $this->objParse4smileys = &$this->getObject('parse4smileys'); 
+        $this->objParse4smileys = $this->getObject('parse4smileys'); 
     } 
 
     /**
