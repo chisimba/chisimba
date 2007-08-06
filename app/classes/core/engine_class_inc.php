@@ -512,7 +512,7 @@ class engine
     * @access public
     * @return kngConfig The config object
     */
-	public function &getDbObj()
+	public function getDbObj()
 	{
 		// I'm keeping $_globalObjDb as a global for now, as it's so convenient to
 		// just pick it up wherever its needed. I'd like to think of a better
