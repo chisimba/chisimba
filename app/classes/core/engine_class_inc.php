@@ -877,7 +877,7 @@ class engine
 		if (is_subclass_of($name, 'object')) {
 			// Class inherits from class 'object', so pass it the expected parameters
 			$objNew = new $name($this, $moduleName);
-			
+
 		}
 		else {
 			// Class does not inherit from class 'object', so don't pass it any parameters
@@ -887,6 +887,14 @@ class engine
 		if (is_null($objNew)) {
 			throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 		}
+		// Now cache the object in case getObject needs it.
+		// first check that the map for the given module exists
+		if (!isset($this->_cachedObjects[$moduleName]))
+		{
+			$this->_cachedObjects[$moduleName] = array();
+		}
+		// now store the instance in the map
+		$this->_cachedObjects[$moduleName][$name] = $objNew;
 		return $objNew;
 	}
 
@@ -921,17 +929,17 @@ class engine
 			//if (in_array('object',$parents)) {
 			if (is_subclass_of($name, 'object')) {
 				// Class inherits from class 'object', so pass it the expected parameters
-				if($instance instanceof $name == FALSE)
-				{
+				//if($instance instanceof $name == FALSE)
+				//{
 					$instance = new $name($this, $moduleName);
-				}
+				//}
 			}
 			else {
 				// Class does not inherit from class 'object', so don't pass it any parameters
-				if($instance instanceof $name == FALSE)
-				{
+				//if($instance instanceof $name == FALSE)
+				//{
 					$instance = new $name();
-				}
+				//}
 			}
 			//$instance = new $name($this, $moduleName);
 			if (is_null($instance)) {
