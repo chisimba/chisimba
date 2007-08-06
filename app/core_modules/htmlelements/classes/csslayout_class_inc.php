@@ -41,7 +41,7 @@ require_once("ifhtml_class_inc.php");
 * @version   1
 * @author    Tohir Solomons
 * @example  
-*            $cssLayout =& $this->newObject('csslayout', 'htmlelements');
+*            $cssLayout = $this->newObject('csslayout', 'htmlelements');
 *            $cssLayout->setNumColumns(3);
 *            $cssLayout->setLeftColumnContent('Content in Left Column');
 *            $cssLayout->setMiddleColumnContent('Content in Middle Column');
