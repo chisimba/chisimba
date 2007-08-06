@@ -154,9 +154,9 @@ class ini extends object
     function init() {
     	    //pull in our objects
     		$this->objConf = new Config();
-    		$this->sysconf = & $this->getObject('altconfig','config');
-            $this->objUser = & $this->getObject("user", "security");
-             $this->Text = &$this->newObject('language','language');
+    		$this->sysconf =  $this->getObject('altconfig','config');
+            $this->objUser =  $this->getObject("user", "security");
+             $this->Text = $this->newObject('language','language');
             
     }
      /**

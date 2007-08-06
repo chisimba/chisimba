@@ -77,7 +77,7 @@ class blocks extends object
         //Create an instance of the modulesadmin class for checking
         // if a module is registered
         try {
-        	$this->objModule=&$this->getObject('modules','modulecatalogue');
+        	$this->objModule=$this->getObject('modules','modulecatalogue');
         }
         catch (customException $e)
         {
@@ -114,11 +114,11 @@ class blocks extends object
     {
         if ($this->objModule->checkIfRegistered($module, $module)){
             //Create an instance of the module's particular block
-            $objBlock = & $this->getObject('block_'.$block, $module);
+            $objBlock =  $this->getObject('block_'.$block, $module);
             //Get the title and wrap it
             $title = $objBlock->title;
             if($wrapStr){
-                $objWrap = & $this->getObject('trimstr', 'strings');
+                $objWrap =  $this->getObject('trimstr', 'strings');
                 $title = $objWrap->wrapString($title, $titleLength);
             }
             if (isset($objBlock->blockType)) {
@@ -126,7 +126,7 @@ class blocks extends object
             }
             switch ($blockType) {
                 case NULL:
-                	$objFeatureBox = & $this->newObject('featurebox', 'navigation');
+                	$objFeatureBox =  $this->newObject('featurebox', 'navigation');
                 	if($showToggle){
                 	   return $objFeatureBox->show($title, $objBlock->show(),$block, $hidden, TRUE);
                 	}else{
