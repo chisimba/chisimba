@@ -82,9 +82,9 @@ class captcha extends object
 	function init()
     {
         require_once($this->getResourcePath('captcha/hn_captcha.class.php'));
-        $this->objConfig =& $this->getObject('altconfig', 'config');
-        $this->objMkdir =& $this->getObject('mkdir', 'files');
-        $this->objCleanUrl =& $this->getObject('cleanurl', 'filemanager');
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objMkdir = $this->getObject('mkdir', 'files');
+        $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         
         // Check whether directory exists
         $path = $this->objConfig->getcontentBasePath().'/captcha/';

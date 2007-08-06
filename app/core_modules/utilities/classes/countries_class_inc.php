@@ -35,7 +35,7 @@ class countries extends object
     public function init()
     {
         $this->setupCountries();
-        $this->objConfig =& $this->getObject('altconfig','config');
+        $this->objConfig = $this->getObject('altconfig','config');
         $this->loadClass('dropdown', 'htmlelements');
     }
 	

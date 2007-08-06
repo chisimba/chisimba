@@ -27,9 +27,9 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Initialize method
     */
      function init(){
-     	$this->objConfig= &$this->newObject('altconfig','config');
+     	$this->objConfig= $this->newObject('altconfig','config');
      	// Load Countries Table
-     	$this->objCountries=& $this->getObject('countries', 'utilities');
+     	$this->objCountries= $this->getObject('countries', 'utilities');
      }
     
     /**

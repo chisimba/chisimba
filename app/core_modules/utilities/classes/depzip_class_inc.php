@@ -25,7 +25,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     *Initialize method
     */
      function init(){
-         $this->objConfig= &$this->newObject('config','config');
+         $this->objConfig= $this->newObject('config','config');
      }
      
      /**

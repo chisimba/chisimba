@@ -16,7 +16,7 @@ class kngemail extends object
         // Init function
 	function init()
 	{
-		$this->objLanguage = &$this->getObject('language','language');
+		$this->objLanguage = $this->getObject('language','language');
 		$this->setup();
 	}
 

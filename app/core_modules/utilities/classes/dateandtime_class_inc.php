@@ -161,8 +161,8 @@ class dateandtime extends object
      */
     public function init()
     {
-        $this->objConfig=&$this->getObject('altconfig','config');
-        $this->objLanguage = & $this->getObject("language", "language");
+        $this->objConfig=$this->getObject('altconfig','config');
+        $this->objLanguage =  $this->getObject("language", "language");
     }
 
     /**
@@ -250,7 +250,7 @@ class dateandtime extends object
         		return "12";
         		break;
         	default:
-                $this->objLanguage = & $this->getObject("language", "language");
+                $this->objLanguage =  $this->getObject("language", "language");
         		die($this->objLanguage->languageText("mod_datetime_unrecogmont").": ".$mo."!");
                 break;
         } // switch
@@ -429,7 +429,7 @@ class dateandtime extends object
             $rep=array('kng' => $this->objConfig->getsiteName());
             $subject = $this->objLanguage->code2Txt('mod_datetime_contentexpired', $rep);
             $mailBody = $title . "\n\n\n". $body;
-            $objMail = & $this->getObject('kngemail', 'utilities');
+            $objMail =  $this->getObject('kngemail', 'utilities');
             $objMail->sendMail('1', $toId, $subject, $mailBody);
             //Add the current date to the expNotifDate field
             $save=array('notificationDate' => date('Y-m-d H:m:s'));
@@ -708,7 +708,7 @@ class dateandtime extends object
             $dayMonth_end = 7;
         }
         // formating output as a table using the htmltable object of the KNG framework
-        $this->objTable=& $this->newObject('htmltable', 'htmlelements');
+        $this->objTable= $this->newObject('htmltable', 'htmlelements');
         // Use the table with property to control the width of the calendar
         $this->objTable->width = $this->calWidth;
         // Use the cal-main CSS entry to control the look of the calendar
@@ -823,9 +823,9 @@ class dateandtime extends object
         $linkNx=$this->uri(array_merge($nextAr, $this->queryItems), $this->callingModule);
         $linkPv=$this->uri(array_merge($prevAr, $this->queryItems), $this->callingModule);
         //Create the anchor link object
-        $this->objAnchor=&$this->newObject('link', 'htmlelements');
+        $this->objAnchor=$this->newObject('link', 'htmlelements');
         // Add the next link
-        $this->objIcon=& $this->newObject('geticon', 'htmlelements');
+        $this->objIcon= $this->newObject('geticon', 'htmlelements');
         $this->objIcon->setIcon("next");
         $this->objAnchor->href = $linkNx;
         $this->objAnchor->link = $this->objIcon->show();

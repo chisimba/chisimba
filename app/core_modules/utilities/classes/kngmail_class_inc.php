@@ -14,7 +14,7 @@ class kngmail extends object
 	
 	function init($from,$fromName,$host)
 	{
-		$this->objLanguage = &$this->getObject('language','language');
+		$this->objLanguage = $this->getObject('language','language');
 		$this->objMailer = new mailer($from, $fromName, $host, $mailer = 'sendmail', $wordWrap = '75');
 
 	}

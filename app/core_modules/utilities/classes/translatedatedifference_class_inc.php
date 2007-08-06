@@ -22,8 +22,8 @@ class translatedatedifference extends object
     */
     public function init()
     {
-        $this->objLanguage=& $this->getObject('language', 'language');
-        $this->objDateFunctions =& $this->getObject('datefunctions', 'calendarbase');
+        $this->objLanguage= $this->getObject('language', 'language');
+        $this->objDateFunctions = $this->getObject('datefunctions', 'calendarbase');
     }
     
     /**
