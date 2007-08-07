@@ -420,7 +420,7 @@ class engine
 		if(extension_loaded('memcache'))
 		{
 			require_once 'classes/core/chisimbacache_class_inc.php';
-			$this->objMemcache = TRUE;
+			$this->objMemcache = FALSE;
 		}
 
 		// initialise member objects that *this object* is dependent on, and thus
