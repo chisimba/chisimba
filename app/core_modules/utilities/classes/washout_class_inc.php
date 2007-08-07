@@ -6,10 +6,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
-*  
-* A class to run filters on text before display. This will call 
+*
+* A class to run filters on text before display. This will call
 * all common parsers to parse audio links to display the file, etc.
-* 
+*
 * It is called a washout because it id designed to parse the
 * what comes out of the washing machine.
 *
@@ -20,13 +20,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 class washout extends object
 {
 	/**
-	* 
-	* @var array parsers 
+	*
+	* @var array parsers
 	* @access public
-	*  
+	*
 	*/
 	public $classes;
-	
+
 	public $bbcode;
 
     /*
@@ -43,19 +43,23 @@ class washout extends object
 	 * @access public
 	 * @param void
 	 * @return exception on error
-	 * 
+	 *
 	 */
 	public function init()
 	{
 		try {
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			// save cwd
+			$savedDir = getcwd();
 			//load up all of the parsers from filters
 			$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
 			chdir($filterDir);
 			$parsers = glob("parse4*_class_inc.php");
+			// restore path
+			chdir($savedDir);
 			$mathMlLoaded = $this->objModules->checkIfRegistered('mathml');
- 
+
 			foreach ($parsers as $parser)
 			{
 				if($parser == 'parse4mathml_class_inc.php'){
@@ -76,11 +80,11 @@ class washout extends object
 	}
 
 	/**
-	 * Method to parse the washing 
+	 * Method to parse the washing
 	 *
 	 * @param string $txt
 	 * @return string The text after it has been parsed
-	 *  
+	 *
 	 */
 	public function parseText($txt)
 	{
