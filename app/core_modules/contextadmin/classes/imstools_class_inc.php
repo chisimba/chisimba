@@ -43,7 +43,7 @@ class imstools extends object
 		$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
 	}
 
-	function createResource($dom, $lom, $eduCommons)
+	function createResource($dom, $lomValues, $eduCommonsValues)
 	{
 		$support = $this->lomSupported();
 		// LOM Structure
@@ -86,7 +86,7 @@ class imstools extends object
 		// Revised
 		// Unavailable
 		$statusDefault = 'Unavailable';
-		// LOM Defined Vocabularies for <role>:
+		// LOM Defined Vocabularies for <general><role>:
 		// Author
 		// Publisher Unknown
 		// Initiator
@@ -100,7 +100,17 @@ class imstools extends object
 		// Educational Validator
 		// Script Writer
 		// Instructional Designer 
-		$roleDefault = 'Author';
+		if(strlen($lomValues['role']) < 1)
+			$roleDefault = 'Author';
+		else
+			$roleDefault = $lomValues['role'];
+		// LOM Defined Vocabularies for <metametadata><role>:
+		// Creator.
+		// Validator.
+		if(strlen($lomValues['metaRole']) < 1)
+			$metaRoleDefault = 'Creator';
+		else
+			$metaRoleDefault = $lomValues['metaRole'];
 		// LOM Defined Vocabularies for <requirment><type>:
 		// Operating System.
 		// Browser 
@@ -190,7 +200,7 @@ class imstools extends object
 		// LOM Defined Vocabularies for <copyrighandotherrestrictions>:
 		// yes.
 		// no.
-		$copyrighAndOtherRestrictionsDefault = 'no';
+		$copyrighAndOtherRestrictionsDefault = 'yes';
 		// LOM Defined Vocabularies for <kind>:
 		// IsPartOf.
 		// HasPart.
@@ -216,11 +226,14 @@ class imstools extends object
 		// Security Level.
 		$purposeDefault = 'Educational Objective';
 		// Retrieve resource data from system.
-		$locationURI = '';
+		if(strlen($lomValues['location']) < 1)
+			$locationURI = 'Unknown';
+		else
+			$locationURI = $lomValues['location'];
 		$resource = $dom->createElement('resource');
-		$resource->setAttribute('identifier', $resId);
+		$resource->setAttribute('identifier', $lomValues['resourceId']);
 		$resource->setAttribute('type', 'webcontent');
-		$resource->setAttribute('href', $location);
+		$resource->setAttribute('href', $lomValues['packageLocation']);
 		$metadata = $resource->appendChild($dom->createElement('metadata'));
 		// Name : <lom> Element in <metadata>.
 		// Description : General information that describes the learning object as a whole.
@@ -241,7 +254,7 @@ class imstools extends object
 		$lom->setAttribute('xmlns', 'http://www.imsglobal.org/xsd/imsmd_v1p2');
 		if($support['general'])
 		{
-			$generalSupport = $this->lomGeneral();
+			$generalSupport = $this->lomGeneral($eduCommonsValues['objectType']);
 		// SECTION 1
 		// Name : <general> Element in <lom>.
 		// Description : General information that describes the learning object as a whole.
@@ -268,7 +281,7 @@ class imstools extends object
 		// none.
 		// Attributes Contained in <identifier>:
 		// none.
-				$identifier = $general->appendChild($dom->createElement('identifier'));
+				$identifier = $general->appendChild($dom->createElement('identifier', $lomValues['identifier']));
 			}
 			if($generalSupport['title'])
 			{
@@ -287,7 +300,7 @@ class imstools extends object
 		// xml:lang.
 		// Elements Contained in <langstring>:
 		// none.
-				$langstring = $title->appendChild($dom->createElement('langstring'));
+				$langstring = $title->appendChild($dom->createElement('langstring', $lomValues['title']));
 				$langstring->setAttribute('xml:lang', $languageDefault);
 			}
 			if($generalSupport['catalogentry'])
@@ -336,7 +349,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <language>:
 		// none.
-				$language = $general->appendChild($dom->createElement('language'));
+				$language = $general->appendChild($dom->createElement('language', $lomValues['language']));
 			}
 			if($generalSupport['description'])
 			{
@@ -355,7 +368,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <langstring>:
 		// none.
-				$langstring = $description->appendChild($dom->createElement('langstring'));
+				$langstring = $description->appendChild($dom->createElement('langstring', $lomValues['description']));
 			}
 			if($generalSupport['keyword'])
 			{
@@ -366,7 +379,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <keyword>:
 		// <langstring>.
-				$keyword = $general->appendChild($dom->createElement('keyword'));
+			$keyword = $general->appendChild($dom->createElement('keyword', $lomValues['keyword']));
 		// Name : <langstring> Element in <keyword>.
 		// Description : Entry language.
 		// Multiplicity : The <langstring> element can be repeated 1 or more times within the <general> element.
@@ -568,8 +581,9 @@ class imstools extends object
 		// none.
 		// Elements Contained in <centity>:
 		// <vcard>.
+				$vardDetails = 'BEGIN:VCARD FN:'.$lomValues['name'].' EMAIL;INTERNET:'.$lomValues['email'].' END:VCARD';
 				$centity = $contribute->appendChild($dom->createElement('centity'));
-				$vcard = $centity->appendChild($dom->createElement('vcard'));
+				//$vcard = $centity->appendChild($dom->createElement('vcard', $vardDetails));
 		// Name : <date> Element in <contribute>.
 		// Description : This data element describes date of the contribution.
 		// Multiplicity : The <date> element occurs 0 or 1 time within the <contribute> element.
@@ -579,13 +593,13 @@ class imstools extends object
 		// <datetime>.
 		// <description>.
 				$date = $contribute->appendChild($dom->createElement('date'));
-				$datetime = $date->appendChild($dom->createElement('datetime'));
-				$description = $date->appendChild($dom->createElement('description'));
+				$datetime = $date->appendChild($dom->createElement('datetime', $lomValues['datecreated']));
+				$description = $date->appendChild($dom->createElement('description', $lomValues['dateDescription']));
 			}
 		}
 		if($support['metametadata'])
 		{
-			$metametadataSupport = $this->lomMetametadata();
+			$metametadataSupport = $this->lomMetametadata($eduCommonsValues['objectType']);
 		// SECTION 3
 		// Name : <metametadata> Element in <lom>.
 		// Description : Groups information about the meta-data instance itself.
@@ -628,7 +642,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <catalog>:
 		// none.
-				$catalog = $catalogentry->appendChild($dom->createElement('catalog'));
+				$catalog = $catalogentry->appendChild($dom->createElement('catalog', $lomValues['email']));
 		// Name : <entry> Element in <catalogentry>.
 		// Description : Actual string value of the entry within the catalog.
 		// Multiplicity : The <entry> element occurs 1 and only 1 time with the <catalogentry> element. If the <catalogentry> element is used.
@@ -644,7 +658,7 @@ class imstools extends object
 		// xml:lang.
 		// Elements Contained in <langstring>:
 		// none.
-				$langstring = $entry->appendChild($dom->createElement('langstring'));
+				$langstring = $entry->appendChild($dom->createElement('langstring', $lomValues['courseFilename']));
 				$langstring->setAttribute('xml:lang', $languageDefault);
 			}
 			if($metametadataSupport['contribute'])
@@ -684,7 +698,7 @@ class imstools extends object
 		// xml:lang.
 		// Elements Contained in <value>:
 		// none.
-				$value = $role->appendChild($dom->createElement('value', $roleDefault));
+				$value = $role->appendChild($dom->createElement('value', $metaRoleDefault));
 				$value->setAttribute('xml:lang', $languageDefault);
 		// Name : <centity> Element in <contribute>.
 		// Description : This data element is the identification of and information about people or organizations contributing to this learning object, most relevant first.
@@ -693,8 +707,9 @@ class imstools extends object
 		// none.
 		// Elements Contained in <centity>:
 		// <vcard>.
+				$vardDetails = 'BEGIN:VCARD FN:'.$lomValues['name'].' EMAIL;INTERNET:'.$lomValues['email'].' END:VCARD';
 				$centity = $contribute->appendChild($dom->createElement('centity'));
-				$vcard = $centity->appendChild($dom->createElement('vcard'));
+				$vcard = $centity->appendChild($dom->createElement('vcard', $vardDetails));
 		// Name : <date> Element in <contribute>.
 		// Description : This data element describes date of the contribution.
 		// Multiplicity : The <date> element occurs 0 or 1 time within the <contribute> element.
@@ -704,8 +719,8 @@ class imstools extends object
 		// <datetime>.
 		// <description>.
 				$date = $contribute->appendChild($dom->createElement('date'));
-				$datetime = $date->appendChild($dom->createElement('datetime'));
-				$description = $date->appendChild($dom->createElement('description'));
+				$datetime = $date->appendChild($dom->createElement('datetime', $lomValues['datecreated']));
+				$description = $date->appendChild($dom->createElement('description', $lomValues['dateDescription']));
 			}
 			if($metametadataSupport['metadatascheme'])
 			{
@@ -757,7 +772,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <format>:
 		// none.
-				$format = $technical->appendChild($dom->createElement('format'));
+				$format = $technical->appendChild($dom->createElement('format', $lomValues['format']));
 			}
 			if($technicalSupport['size'])
 			{
@@ -768,7 +783,7 @@ class imstools extends object
 		// none.
 		// Elements Contained in <size>:
 		// none.
-				$size = $technical->appendChild($dom->createElement('size'));
+				$size = $technical->appendChild($dom->createElement('size', $lomValues['size']));
 			}
 			if($technicalSupport['location'])
 			{
@@ -781,8 +796,7 @@ class imstools extends object
 		// TEXT - simple textual description of where the resource is located.
 		// Elements Contained in <location>:
 		// none.
-				$location = $technical->appendChild($dom->createElement('location'));
-				$location->setAttribute('type', $locationURI);
+				$location = $technical->appendChild($dom->createElement('location', $locationURI));
 			}
 			if($technicalSupport['requirement'])
 			{
@@ -1577,38 +1591,42 @@ class imstools extends object
 		// eduCommons Structure.
 		// Some Notes:
 		// eduCommons specific fields not represented in standard metadata sets. Used to set specific eduCommons options on content objects.
+		$eduSupported = $this->eduSupported($eduCommonsValues['objectType']);
 		// eduCommons Defined Vocabularies for <objectType>:
 		// Course.
 		// Document.
 		// File.
 		// Image.
 		// Link.
-		$objectType = $eduCommons['objectType'];
+		$objectType = $eduCommonsValues['objectType'];
 		// eduCommons Defined Vocabularies for <copyright>:
 		// The field should specify both the copyright and the date. e. g. "Copyright 2006". This field is optional. If it is not included, the site default copyright string will be used instead.
-		$copyright = $eduCommons['copyright'];
+		$copyright = $eduCommonsValues['copyright'];
+		// eduCommons Defined Vocabularies for <category>:
+		// The category field is also used as a label by eduCommons to allow a user to select a copyright license for a content object. It is a required field.
+		$category = $eduCommonsValues['category'];
 		// eduCommons Defined Vocabularies for <licenseName>:
 		// This name will be used in the copyright byline, and should slot into the following sentence: This resource is licensed under a ____________. This is an optional field only if "(site default)" is chosen. Otherwise it must be specified.
-		$licenseName = $eduCommons['licenseName'];
+		$licenseName = $eduCommonsValues['licenseName'];
 		// eduCommons Defined Vocabularies for <licenseUrl>:
 		// It allows the license name in the copyright byline to be linked directly to the definition. It is optional.
-		$licenseUrl = $eduCommons['licenseUrl'];
+		$licenseUrl = $eduCommonsValues['licenseUrl'];
 		// eduCommons Defined Vocabularies for <licenseIconUrl>:
 		// This field is optional, and likely not to be included, unless the license includes a representative icon. An example where you would want to include this field would be to specify a creative commons icon along with the license.
-		$licenseIconUrl = $eduCommons['licenseIconUrl'];
+		$licenseIconUrl = $eduCommonsValues['licenseIconUrl'];
 		// eduCommons Defined Vocabularies for <clearedCopyright>:
 		// Should either be set to true or false, and is set to "false" by default.
-		$clearedCopyright = $eduCommons['clearedCopyright'];
+		$clearedCopyright = $eduCommonsValues['clearedCopyright'];
 		// eduCommons Defined Vocabularies for <courseId>:
 		// Although this tag not required, is highly recommended.
-		$courseId = $eduCommons['courseId'];
+		$courseId = $eduCommonsValues['courseId'];
 		// eduCommons Defined Vocabularies for <term>:
 		// Although this tag is not required, it is highly recommended. e. g. "Summer 2006"
-		$term = $eduCommons['term'];
+		$term = $eduCommonsValues['term'];
 		// eduCommons Defined Vocabularies for <displayInstructorEmail>:
 		// It can be set to "true" or "false". This tag is optional and defaults to "false".
-		$displayInstructorEmail = $eduCommons['displayInstructorEmail'];
-		$name = $eduCommons['name'];
+		$displayInstructorEmail = $eduCommonsValues['displayInstructorEmail'];
+		$name = $eduCommonsValues['name'];
 		$eduCommons = $metadata->appendChild($dom->createElement('eduCommons'));
 		$eduCommons->setAttribute('xmlns', 'http://cosl.usu.edu/xsd/eduCommonsv1.1');
 		// Name : <objectType> Element in <eduCommons>.
@@ -1617,6 +1635,7 @@ class imstools extends object
 		// none
 		// Elements Contained in <objectType>:
 		// none
+		if($eduSupported['objectType'])
 		if($objectType)
 			$objectType = $eduCommons->appendChild($dom->createElement('objectType', $objectType));
 		// Name : <copyright> Element in <eduCommons>.
@@ -1625,10 +1644,9 @@ class imstools extends object
 		// none
 		// Elements Contained in <copyright>:
 		// none
+		if($eduSupported['copyright'])
 		if($copyright)
 		$copyright = $eduCommons->appendChild($dom->createElement('copyright', $copyright));
-		if($license)
-		{
 		// Name : <license> Element in <eduCommons>.
 		// Description : The license tag is used to assign a copyright license to a content object. It is also used to render a copyright byline for an object.
 		// Attributes Contained in <license>:
@@ -1637,38 +1655,39 @@ class imstools extends object
 		// <licenseName>
 		// <licenseUrl>
 		// <licenseIconUrl>
-			$license = $eduCommons->appendChild($dom->createElement('license'));
+		$license = $eduCommons->appendChild($dom->createElement('license'));
+		$license->setAttribute('category', $category);
 		// Name : <licenseName> Element in <license>.
 		// Description : The licenseName tag is used to identify the name of the license.
 		// Attributes Contained in <licenseName>:
 		// none
 		// Elements Contained in <licenseName>:
 		// none
-			if($licenseName)
-				$licenseName = $license->appendChild($dom->createElement('licenseName', $licenseName));
+		if($licenseName)
+			$licenseName = $license->appendChild($dom->createElement('licenseName', $licenseName));
 		// Name : <licenseUrl> Element in <license>.
 		// Description : The licenseUrl tag is used to specify a public web site where the legal definition of the license is displayed.
 		// Attributes Contained in <licenseUrl>:
 		// none
 		// Elements Contained in <licenseUrl>:
 		// none
-			if($licenseUrl)
-				$licenseUrl = $license->appendChild($dom->createElement('licenseUrl', $licenseUrl));
+		if($licenseUrl)
+			$licenseUrl = $license->appendChild($dom->createElement('licenseUrl', $licenseUrl));
 		// Name : <licenseIconUrl> Element in <license>.
 		// Description : The licenseIconUrl tag is used to specify a public icon image that represents the content license.
 		// Attributes Contained in <licenseIconUrl>:
 		// none
 		// Elements Contained in <licenseIconUrl>:
 		// none
-			if($licenseIconUrl)
-				$licenseIconUrl = $license->appendChild($dom->createElement('licenseIconUrl', $licenseIconUrl));
-		}
+		if($licenseIconUrl)
+			$licenseIconUrl = $license->appendChild($dom->createElement('licenseIconUrl', $licenseIconUrl));
 		// Name : <clearedCopyright> Element in <eduCommons>.
 		// Description : The clearedCoypright field is used by eduCommons to keep track of whether or not a content object has been cleared for publication in an open content environment.
 		// Attributes Contained in <clearedCopyright>:
 		// none
 		// Elements Contained in <clearedCopyright>:
 		// none
+		if($eduSupported['clearedCopyright'])
 		if($clearedCopyright)
 		$clearedCopyright = $eduCommons->appendChild($dom->createElement('clearedCopyright', $clearedCopyright));
 		// Name : <courseId> Element in <eduCommons>.
@@ -1677,6 +1696,7 @@ class imstools extends object
 		// none
 		// Elements Contained in <courseId>:
 		// none
+		if($eduSupported['courseId'])
 		if($courseId)
 		$courseId = $eduCommons->appendChild($dom->createElement('courseId', $courseId));
 		// Name : <term> Element in <eduCommons>.
@@ -1685,6 +1705,7 @@ class imstools extends object
 		// none
 		// Elements Contained in <term>:
 		// none
+		if($eduSupported['term'])
 		if($term)
 		$term = $eduCommons->appendChild($dom->createElement('term', $term));
 		// Name : <displayInstructorEmail> Element in <eduCommons>.
@@ -1693,6 +1714,7 @@ class imstools extends object
 		// none
 		// Elements Contained in <displayInstructorEmail>:
 		// none
+		if($eduSupported['displayInstructorEmail'])
 		if($displayInstructorEmail)
 		$displayInstructorEmail = $eduCommons->appendChild($dom->createElement('displayInstructorEmail', $displayInstructorEmail));
 		// Name : <file> Element in <resource>.
@@ -1703,8 +1725,8 @@ class imstools extends object
 		// none
 		if($name)
 		{
-			$file = $resource->appendChild($dom->createElement('file', $file));
-			$file->setAttribute('href', $name);
+			$file = $resource->appendChild($dom->createElement('file'));
+			$file->setAttribute('href', $lomValues['courseFilename']);
 		}
 
 
@@ -1713,28 +1735,53 @@ class imstools extends object
 	}
 
 	// The following functions are merely truth tables holding keys to which nodes are supported.
+	function eduSupported($objectType = '')
+	{
+		// eduCommons supported lom fields
+		$eduSupport = array('objectType' => true,
+				'license' => true,
+				'clearedCopyright' => true,
+				);
+		if($objectType == 'Course')
+		{
+			$eduSupport['copyright'] = true;
+			$eduSupport['courseId'] = true;
+			$eduSupport['term'] = true;
+			$eduSupport['displayInstructorEmail'] = true;
+		}
+
+		return $eduSupport;
+	}
+
 	function lomSupported()
 	{
 		// eduCommons supported lom fields
-		$support = array('general' => true,
+		$lomSupport = array('general' => true,
 				'lifecycle' => true ,
 				'metametadata' => true,
 				'technical' => true,
 				'rights' => true
 				);
 
-		return $support;
+		return $lomSupport;
 	}
 
-	function lomGeneral()
+	function lomGeneral($objectType = '')
 	{
 		// eduCommons supported lom fields
 		$generalSupport = array('identifier' => true,
 				'title' => true ,
-				'language' => true,
-				'description' => true,
-				'keyword' => true
+				'language' => true
 				);
+		if($objectType == 'Course')
+		{
+			$generalSupport['description'] = true;
+			$generalSupport['keyword'] = true;
+		}
+		if($objectType == 'Document')
+		{
+			$generalSupport['keyword'] = true;
+		}
 
 		return $generalSupport;
 	}
@@ -1748,14 +1795,17 @@ class imstools extends object
 		return $lifecycleSupport;
 	}
 
-	function lomMetametadata()
+	function lomMetametadata($objectType = '')
 	{
 		// eduCommons supported lom fields
 		$metametadataSupport = array('catalogentry' => true,
-				'contribute' => true ,
 				'metadatascheme' => true,
 				'language' => true
 				);
+		if($objectType == 'Course')
+		{
+			$metametadataSupport['contribute'] = true;
+		}
 
 		return $metametadataSupport;
 	}

@@ -543,6 +543,8 @@ class importexportutils extends dbTable
 	{
 		if(!(preg_match('/\./',$fileType)))
 			$fileType = '.'.$fileType;
+		$courseTitle = str_replace(' ','',$courseTitle);
+		$courseTitle = str_replace('_','',$courseTitle);
 		$i = 0;
 		if(count($htmlPages) == 1)
 		{

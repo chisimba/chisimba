@@ -112,7 +112,11 @@ class exportimspackage extends dbTable
 		// Write Course Html to specified directory (resources folder).
 		$courseFilenames = $this->objIEUtils->writeFiles($courseHtml, $tempDirectory, $courseTitle,'html');
 		// File location in package.
-		$fileLocation = $tempDirectory.'/'.$courseFilenames[0].'.html';
+		$courseFilename = $courseFilenames[0].'.html';
+		$fileLocation = $tempDirectory.'/'.$courseFilename;
+		//$packageLocation = "..".$temp.'/'.$contextcode.'/';
+		$packageLocation = $contextcode.'/';
+		$relativeLocation = $packageLocation.'/'.$courseFilename;
 		// Add Course Organization (Chapter).
 		$organization = $organizations->appendChild($this->createOrganization($dom, $orgId));
 		// Can only create one course resource
@@ -121,7 +125,27 @@ class exportimspackage extends dbTable
 		// Add Items to Organization.
 		$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
 		// lom values
-		
+		$username = $this->objUser->userName($this->objUser->userId());
+		$userDetails = $this->objUser->lookupData($username);
+		$userEmail = $userDetails['emailaddress'];
+		$fileSize = filesize($fileLocation);
+		$lomValues = array('resourceId' => $courseResId,
+			'identifier' => $contextcode,
+			'title' => $courseTitle,
+			'language' => 'en',
+			'description' => 'Course Home Page',
+			'keyword' => 'Home Page',
+			'role' => 'Author',
+			'name' => $username,
+			'email' => $userEmail,
+			'datecreated' => $courseData['datecreated'],
+			'dateDescription' => 'Course Creation Date',
+			'metaRole' => 'Creator',
+			'courseFilename' => $courseFilename,
+			'format' => 'text/html',
+			'size' => $fileSize,
+			'location' => $relativeLocation,
+			'packageLocation' => $packageLocation);
 		// eduCommons values
 		$objectType = 'Course';
 		$copyright = '';
@@ -133,8 +157,9 @@ class exportimspackage extends dbTable
 		$term = '';
 		$displayInstructorEmail = 'false';
 		$name = $fileLocation;
-		$eduCommons = array('objectType' => $objectType,
+		$eduCommonsValues = array('objectType' => $objectType,
 				'copyright' => $copyright,
+				'category' => 'Creative Commons License',
 				'licenseName' => $licenseName,
 				'licenseUrl' => $licenseUrl,
 				'licenseIconUrl' => $licenseIconUrl,
@@ -144,7 +169,7 @@ class exportimspackage extends dbTable
 				'displayInstructorEmail' => $displayInstructorEmail,
 				'name' => $name);
 		// Add Course Resource.
-		$resources->appendChild($this->objIMSTools->createResource($dom, $lom, $eduCommons, $support));
+		$resources->appendChild($this->objIMSTools->createResource($dom, $lomValues, $eduCommonsValues));
 		// Write Images to specified directory (resources folder).
 		if(count($courseImageNames) > 0)
 		{
@@ -154,8 +179,32 @@ class exportimspackage extends dbTable
 				$resId = 'RES'.$this->objIEUtils->generateUniqueId();
 				// File location in package.
 				$fileLocation = $resourceFolder.'/'.$courseImageName;
-				// Add Course Resource.
-//				$resources->appendChild($this->createResource($dom, $courseImageName, $contextcode, $fileLocation, 'Image', $resId));
+				$fileSize = filesize($fileLocation);
+				$imageName = preg_replace('/\..*/','',$courseImageName);
+				$relativeLocation = $packageLocation.$contextcode.'/'.$courseImageName;
+				// lom values
+				$lomValues = array('resourceId' => $resId,
+					'identifier' => $courseImageName,
+					'title' => $imageName,
+					'language' => 'en',
+					'role' => 'rights holder',
+					'name' => $username,
+					'email' => $userEmail,
+					'datecreated' => $courseData['datecreated'],
+					'dateDescription' => 'Image Creation Date',
+					'metaRole' => 'Creator',
+					'courseFilename' => $courseImageName,
+					'format' => 'image/jpeg',
+					'size' => $fileSize,
+					'location' => $relativeLocation,
+					'packageLocation' => $packageLocation);
+				// eduCommons values
+				$eduCommonsValues = array('objectType' => 'Image',
+					'category' => 'Site Default',
+					'clearedCopyright' => 'true',
+					'name' => $fileLocation);
+				// Add Resource.
+				$resources->appendChild($this->objIMSTools->createResource($dom, $lomValues, $eduCommonsValues));
 			}
 		}
 		//.Write Resources to specified directory (resources folder).
@@ -184,8 +233,32 @@ class exportimspackage extends dbTable
 				$resId = 'RES'.$this->objIEUtils->generateUniqueId();
 				// File location in package.
 				$fileLocation = $resourceFolder.'/'.$imageName;
-				// Add Course Resource.
-//				$resources->appendChild($this->createResource($dom, $imageName, $contextcode, $fileLocation, 'Image', $resId));
+				$fileSize = filesize($fileLocation);
+				$imageNameMod = preg_replace('/\..*/','',$imageName);
+				$relativeLocation = $packageLocation.$contextcode.'/'.$imageName;
+				// lom values
+				$lomValues = array('resourceId' => $resId,
+					'identifier' => $imageName,
+					'title' => $imageNameMod,
+					'language' => 'en',
+					'role' => 'rights holder',
+					'name' => $username,
+					'email' => $userEmail,
+					'datecreated' => $courseData['datecreated'],
+					'dateDescription' => 'Image Creation Date',
+					'metaRole' => 'Creator',
+					'courseFilename' => $imageName,
+					'format' => 'image/jpeg',
+					'size' => $fileSize,
+					'location' => $relativeLocation,
+					'packageLocation' => $packageLocation);
+				// eduCommons values
+				$eduCommonsValues = array('objectType' => 'Image',
+					'category' => 'Site Default',
+					'clearedCopyright' => 'true',
+					'name' => $fileLocation);
+				// Add Resource.
+				$resources->appendChild($this->objIMSTools->createResource($dom, $lomValues, $eduCommonsValues));
 			}
 		}
 		// Write Resources to specified directory (resources folder).
@@ -204,13 +277,39 @@ class exportimspackage extends dbTable
 					$itemId = 'ITM'.$this->objIEUtils->generateUniqueId();
 					$resId = 'RES'.$this->objIEUtils->generateUniqueId();
 					$pageDetails = $this->objIEUtils->pageContent($page['titleid']);
-					$courseTitle = $pageDetails['menutitle'];
+					$menuTitle = $pageDetails['menutitle'];
 					// Add Items to Organization.
-//					$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $itemId, $resId));
+					$organization->appendChild($this->createItem($dom, $menuTitle, 'true', $itemId, $resId));
 					// File location in package.
 					$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
+					$fileName = preg_replace('/\..*/','',$htmlFilenames[$i]);
+					$fileSize = filesize($fileLocation);
+					$relativeLocation = $packageLocation.$contextcode.'/'.$htmlFilenames[$i];
 					// Add Course Resource.
-//					$resources->appendChild($this->createResource($dom, $courseTitle, $contextcode, $fileLocation, 'Document', $resId));
+					// lom values
+					$lomValues = array('resourceId' => $resId,
+						'identifier' => $fileName,
+						'title' => $menuTitle,
+						'language' => 'en',
+						'keyword' => 'Assignments',
+						'role' => 'rights holder',
+						'name' => $username,
+						'email' => $userEmail,
+						'datecreated' => $courseData['datecreated'],
+						'dateDescription' => 'Document Creation Date',
+						'metaRole' => 'Creator',
+						'courseFilename' => $fileName,
+						'format' => 'text/html',
+						'size' => $fileSize,
+						'location' => $relativeLocation,
+						'packageLocation' => $packageLocation);
+					// eduCommons values
+					$eduCommonsValues = array('objectType' => 'Document',
+						'category' => 'Site Default',
+						'clearedCopyright' => 'true',
+						'name' => $fileLocation);
+					// Add Resource.
+					$resources->appendChild($this->objIMSTools->createResource($dom, $lomValues, $eduCommonsValues));
 					$i++;
 				}
 				else
