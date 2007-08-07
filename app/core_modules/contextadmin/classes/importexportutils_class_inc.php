@@ -624,7 +624,7 @@ class importexportutils extends dbTable
 					$pageContents[$i] = $aPage[$field];
 					$i++;
 				}
-			}		
+			}
 		}
 		else if($allFilesLocation)
 		{

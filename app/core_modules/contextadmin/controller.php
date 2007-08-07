@@ -186,10 +186,15 @@ class contextadmin extends controller
 		if($create == 'on')
 		{
 			// Instantiate the Import of IMS package.
-			$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
-			$this->setVar('uploadStatus',$uploadStatus);
+			$this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
 
-			return 'uploadstatus_tpl.php';
+			return $this->nextAction('default');
+// Comment the above two lines and,
+// uncomment the three lines below to switch on error checking.
+			//$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
+//			$this->setVar('uploadStatus',$uploadStatus);
+
+//			return 'uploadstatus_tpl.php';
 		}
 		else
 		{
@@ -220,12 +225,16 @@ class contextadmin extends controller
 		$package = $this->getSession('packageType');
 		$fileDetails = $this->getSession('fileDetails');
 		$fileDetails['upload']['tmp_name'] = $this->getSession('tmpLocation');
-		// Instantiate the Import of IMS package.
-		$uploadStatus = $this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
-		$this->setVar('uploadStatus',$uploadStatus);
-		$this->setVar('choice',$choice);
+		$this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
 
-		return 'uploadstatus_tpl.php';
+		return $this->nextAction('default');
+// Comment the above two lines and,
+// uncomment the three lines below to switch on error checking.
+//		$uploadStatus = $this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
+//		$this->setVar('uploadStatus',$uploadStatus);
+//		$this->setVar('choice',$choice);
+
+//		return 'uploadstatus_tpl.php';
 	break;
 	/**
 	 * Retrieves a list of courses from a remote server
@@ -256,10 +265,15 @@ class contextadmin extends controller
 	case 'uploadKNG':
 		$choice = $this->getParam('dropdownchoice');
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
-		$this->setVar('uploadStatus',$uploadStatus);
+		$this->objImportKNGContent->importKNGcontent($choice);
 
-		return 'uploadstatus_tpl.php';
+		return $this->nextAction('default');
+// Comment the above two lines and,
+// uncomment the three lines below to switch on error checking.
+//		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
+//		$this->setVar('uploadStatus',$uploadStatus);
+
+//		return 'uploadstatus_tpl.php';
 	break;
 	/**
 	 * Executes the Downloading of IMS package from Chisimba
@@ -268,10 +282,14 @@ class contextadmin extends controller
 		$this->setLayoutTemplate('uploadstatus_tpl.php');
 		$choice = $this->getParam('dropdownchoice');
 		// Instantiate the Import of KNG package.
-		$uploadStatus = $this->objExportIMSContent->exportContent($choice);
-		$this->setVar('uploadStatus',$uploadStatus);
+		$this->objExportIMSContent->exportContent($choice);
 
-		return 'uploadstatus_tpl.php';
+		return $this->nextAction('default');
+// Comment the above two lines and,
+// uncomment the three lines below to switch on error checking.
+//		$uploadStatus = $this->objExportIMSContent->exportContent($choice);
+//		$this->setVar('uploadStatus',$uploadStatus);
+//		return 'uploadstatus_tpl.php';
 	break;
 	default:
 		return $this->nextAction(null);

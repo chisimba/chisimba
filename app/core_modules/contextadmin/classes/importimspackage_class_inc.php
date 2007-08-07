@@ -45,6 +45,10 @@ class importIMSPackage extends dbTable
 	*/
 	public $objDBContext;
 	/**
+	 * @var object $objWZip
+	*/
+	public $objWZip;
+	/**
 	 * @var object $objDebug - debugging flag to display information
 	*/
 	public $objDebug;
@@ -124,14 +128,16 @@ class importIMSPackage extends dbTable
 		$this->objContextModules =  $this->getObject('dbcontextmodules', 'context');
         	$this->objUser = $this->getObject('user', 'security');
 		// Load Inner classes.
-		$this->objIEUtils = $this->newObject('importexportutils','contextadmin');
-		// Load Chapter Classes.
+		$this->objIEUtils = $this->newObject('importexportutils');
+		// Load Chapter Classes from contextcontent.
 		$this->objChapters = $this->getObject('db_contextcontent_chapters','contextcontent');
 		$this->objContextChapters = $this->getObject('db_contextcontent_contextchapter','contextcontent');
-		// Load context classes.
+		// Load Context classes from contextcontent.
         	$this->objContentPages = $this->getObject('db_contextcontent_pages','contextcontent');
 	        $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
         	$this->objContentTitles = $this->getObject('db_contextcontent_titles','contextcontent');
+		// Load zip utilities
+		$this->objWZip = $this->getObject('wzip','utilities');
 		// Initialize Flags.
 		$this->fileMod = FALSE;
 		$this->objDebug = FALSE;
@@ -641,8 +647,7 @@ class importIMSPackage extends dbTable
 				$tempdir=substr($tempfile,0,strrpos($tempfile,'/'));
 				$tempdir .= '/'.$name.'_'.$this->objIEUtils->generateUniqueId();
 				$this->folder=$tempdir;
-				$objWZip=$this->getObject('wzip','utilities');
-				$objWZip->unzip($tempfile,$this->folder);
+				$this->objWZip->unzip($tempfile,$this->folder);
 			}
 		}
 
@@ -1278,7 +1283,7 @@ class importIMSPackage extends dbTable
 				// Remove whitespaces for comparison.
 				$objectType = trim($objectType);
 				// Write Course to Chisimba database.
-				if($i > $numVisibleItems)
+				if($i > ($numVisibleItems-1))
 					$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode,$i,'N');
 				else
 					$menutitle = $this->passPage($xmlResource, $fileContents, $contextCode,$i,'Y');

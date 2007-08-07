@@ -22,7 +22,7 @@ echo $objH->show();
 
 
 	$uploadTemplate = $this->objIEUtils->uploadTemplate();
-	//$downloadTemplate = $this->objIEUtils->downloadTemplate();
+	$downloadTemplate = $this->objIEUtils->downloadTemplate();
 
 $str = '';
 $other = '';
@@ -261,7 +261,7 @@ if(count($archivedCourses) > 0)
 }
 
 $tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_uploadheading","contextadmin"),$uploadTemplate)));
-//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
+$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
 
 echo $tabBox->show();
 
