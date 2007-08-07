@@ -95,6 +95,7 @@ class folderbot extends object
             chdir($path); // make it current path
             $handle = opendir($path); // open current folder
             if (!$handle) {
+                chdir($currentDir);
                 return 0; // this normally happens when you don't have permission to the folder
             } 
             // reset($stack);	This is left here from my debugging :)
