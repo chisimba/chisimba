@@ -76,8 +76,11 @@ $fields = array(
 		),
 	'finishdate' => array(
 		'type' => 'date'
-		),   
-
+		),
+	'archive' => array(
+		'type' => 'integer',
+		'length' => 10
+)
     );
 
 $name = 'contextcode';
