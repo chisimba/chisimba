@@ -893,8 +893,10 @@ class engine
 		{
 			$this->_cachedObjects[$moduleName] = array();
 		}
-		// now store the instance in the map
-		$this->_cachedObjects[$moduleName][$name] = $objNew;
+		// now store the instance in the map if not already there
+		if (!isset($this->_cachedObjects[$moduleName][$name])) {
+		  	$this->_cachedObjects[$moduleName][$name] = $objNew;
+		}
 		return $objNew;
 	}
 
