@@ -392,6 +392,10 @@ class engine
 	'userregistration',
 	'utilities',
 	);
+	
+	public $objMemcache = FALSE;
+	
+	protected $cacheTTL = 600;
 
 	/**
      * Constructor.
@@ -411,15 +415,21 @@ class engine
 		if (isset($_REQUEST[session_name()])) {
 			$this->sessionStart();
 		}
+		
+		// check for memcache
+		if(extension_loaded('memcache'))
+		{
+			require_once 'classes/core/chisimbacache_class_inc.php';
+			$this->objMemcache = TRUE;
+		}
 
 		// initialise member objects that *this object* is dependent on, and thus
 		// must be created on every request
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
-
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		//and we need a general system config too
-		$this->_objConfig = $this->_objDbConfig;
+		$this->_objConfig = clone $this->_objDbConfig;
 		ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
 		//initialise the db factory method of MDB2
 		$this->getDbObj();
@@ -800,42 +810,26 @@ class engine
 			$engine = $this;
 			if( !($this->_objConfig instanceof altconfig) )
 			{
-				// log_debug("autoloading config again");
 				require_once($filename);
 				$this->_objConfig = new altconfig;
 				return;
 			}
 			else {
-				// log_debug("config autoloaded");
 				return;
 			}
 		}
 		if(in_array($moduleName, $this->coremods))
 		{
-			//log_debug("Loading core module $name from $moduleName");
 			$filename = $this->_objConfig->getSiteRootPath() . "core_modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
-			//log_debug($filename);
 		}
 		elseif ($moduleName == '_core') {
 			$filename = "classes/core/".strtolower($name)."_class_inc.php";
 		}
-		/*elseif($this->_objConfig->geterror_reporting() == 'cvs')
-		{
-		$filename = $this->_objConfig->getModulePath() . $moduleName."/classes/".strtolower($name)."_class_inc.php";
-		}*/
 		else {
-			//modified from "modules/".
 			$filename = $this->_objConfig->getModulePath().$moduleName."/classes/".strtolower($name)."_class_inc.php";
 		}
 		// add the site root path to make an absolute path if the config object has
-		// sbeen loaded
-		if($this->_objConfig && $this->_objConfig->geterror_reporting() == 'cvs')
-		{
-			$filename = $filename;
-		}
-		elseif ($this->_objConfig && $this->_objConfig->geterror_reporting() != 'cvs') {
-			$filename = $filename; //$this->_objConfig->getsiteRootPath() . $filename;
-		}
+		// been loaded
 		if (!file_exists($filename)) {
 			if ($this->_objConfig->geterror_reporting() == "developer")
 			{
@@ -845,7 +839,7 @@ class engine
 					throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 				}
 				else {
-					throw new Exception("Could not load class $name from module $moduleName: filename $filename ");
+					throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 				}
 
 				die();
@@ -853,7 +847,13 @@ class engine
 			throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 		}
 		$engine = $this;
-		require_once($filename);
+		$this->__autoload($filename);
+		//require_once($filename);
+	}
+	
+	public function __autoload($class_name) 
+	{
+    	require_once $class_name;
 	}
 
 	/**
@@ -873,29 +873,40 @@ class engine
 	public function newObject($name, $moduleName)
 	{
 		$this->loadClass($name, $moduleName);
-		// Fix to allow developers to load htmlelements which do not inherit from class 'object'
-		if (is_subclass_of($name, 'object')) {
-			// Class inherits from class 'object', so pass it the expected parameters
-			$objNew = new $name($this, $moduleName);
-
+		if($this->objMemcache == TRUE)
+		{
+			if(chisimbacache::getMem()->get($name))
+			{
+				$objNew = chisimbacache::getMem()->get($name);
+				return $objNew;
+			}
+			else {
+				$this->loadClass($name, $moduleName);
+				if (is_subclass_of($name, 'object')) {
+					$objNew = new $name($this, $moduleName);
+					//chisimbacache::getMem()->set($name, $objNew, FALSE, $this->cacheTTL);
+				}
+				else {
+					$objNew = new $name();
+					chisimbacache::getMem()->set($name, $objNew, FALSE, $this->cacheTTL);
+				}
+			}
 		}
 		else {
-			// Class does not inherit from class 'object', so don't pass it any parameters
-			$objNew = new $name();
-		}
-		//$objNew = new $name($this, $moduleName);
-		if (is_null($objNew)) {
-			throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
-		}
-		// Now cache the object in case getObject needs it.
-		// first check that the map for the given module exists
-		if (!isset($this->_cachedObjects[$moduleName]))
-		{
-			$this->_cachedObjects[$moduleName] = array();
-		}
-		// now store the instance in the map if not already there
-		if (!isset($this->_cachedObjects[$moduleName][$name])) {
-		  	$this->_cachedObjects[$moduleName][$name] = $objNew;
+			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
+			if (is_subclass_of($name, 'object')) {
+				// Class inherits from class 'object', so pass it the expected parameters
+				$objNew = new $name($this, $moduleName);
+
+			}
+			else {
+				// Class does not inherit from class 'object', so don't pass it any parameters
+				$objNew = new $name();
+			}
+			//$objNew = new $name($this, $moduleName);
+			if (is_null($objNew)) {
+				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
+			}
 		}
 		return $objNew;
 	}
@@ -925,25 +936,36 @@ class engine
 		}
 		else
 		{
-			$this->loadClass($name, $moduleName);
-			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
-			//$parents = class_parents($name);
-			//if (in_array('object',$parents)) {
-			if (is_subclass_of($name, 'object')) {
-				// Class inherits from class 'object', so pass it the expected parameters
-				//if($instance instanceof $name == FALSE)
-				//{
-					$instance = new $name($this, $moduleName);
-				//}
+			//$this->loadClass($name, $moduleName);
+			if($this->objMemcache == TRUE)
+			{
+				if(chisimbacache::getMem()->get($name))
+				{
+					$instance = chisimbacache::getMem()->get($name);
+					return $instance;
+				}
+				else {
+					$this->loadClass($name, $moduleName);
+					if (is_subclass_of($name, 'object')) {
+						$instance = new $name($this, $moduleName);
+						//chisimbacache::getMem()->set($name, $instance, FALSE, $this->cacheTTL);
+					}
+					else {
+						$instance = new $name();
+						chisimbacache::getMem()->set($name, $instance, FALSE, $this->cacheTTL);
+					}
+				}
 			}
 			else {
-				// Class does not inherit from class 'object', so don't pass it any parameters
-				//if($instance instanceof $name == FALSE)
-				//{
+				$this->loadClass($name, $moduleName);
+				if (is_subclass_of($name, 'object')) {
+					$instance = new $name($this, $moduleName);
+				}
+				else {
 					$instance = new $name();
-				//}
+				}
+				//$instance = new $name($this, $moduleName);
 			}
-			//$instance = new $name($this, $moduleName);
 			if (is_null($instance)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}

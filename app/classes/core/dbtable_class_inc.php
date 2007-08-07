@@ -63,10 +63,6 @@ require_once "lib/logging.php";
  */
 class dbTable extends object
 {
-    /**
-     * @todo add in developer/production debug levels to methods..
-     */
-
 	/**
      * Whether or not to use prepared statements
      *
