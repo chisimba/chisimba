@@ -54,9 +54,10 @@ class utils extends object
 
 		//if the user is an administrator of the site then show him all the courses
 		
-		$contexts = $this->_objDBContext->getAll("WHERE archive=Null or archive=0");
+		//$contexts = $this->_objDBContext->getAll("WHERE archive=Null or archive=0");
+		$contexts = $this->_objDBContext->getAll();
 	  	if ($this->_objUser->isAdmin())
-		{
+ 		{
 			return  $contexts;
 		}
 

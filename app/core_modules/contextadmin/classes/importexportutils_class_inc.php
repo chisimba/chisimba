@@ -168,31 +168,38 @@ class importexportutils extends dbTable
         	switch ($server) 
 		{
 			case 'fsiu':
-                		$this->dsn = 'mysql:// reader:reader@172.16.203.173/fsiu';
+                		//$this->dsn = 'mysql:// reader:reader@172.16.203.173/fsiu';
+				$this->dsn = 'mysql:// reader:reader@172.16.203.173/fsiu';
 		                return $this->dsn;
                 	break;
             		case 'elearn':
-                		$this->dsn = 'mysql:// reader:reader@172.16.203.210/nextgen';
+                		//$this->dsn = 'mysql:// reader:reader@172.16.203.210/nextgen';
+				$this->dsn = 'mysql:// reader:reader@172.16.203.210/nextgen';
 		                return $this->dsn;
                 	break;
             		case 'santec':
-                		$this->dsn = 'mysql:// reader:reader@172.16.203.173/santec';
+                		//$this->dsn = 'mysql:// reader:reader@172.16.203.173/santec';
+				$this->dsn = 'mysql:// fsiu:fsiu_ro@172.16.203.173/santec';
 				return $this->dsn;
                 	break;
             		case 'freecourseware':
-            			$this->dsn = 'mysql:// next:n3xt@172.16.203.178/ocw';
+            			//$this->dsn = 'mysql:// next:n3xt@172.16.203.178/ocw';
+				$this->dsn = 'mysql:// fsiu:fsiu_ro@172.16.203.178/ocw';
 		            	return $this->dsn;
             		break;
 			case '5ive':
-            			$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimba';
+            			//$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimba';
+				$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimba';
 		            	return $this->dsn;
             		break;
 			case 'pear':
-		            	$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimbademo';
+		            	//$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimbademo';
+				$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/chisimbademo';
 	            		return $this->dsn;
             		break;
 			case 'dfx':
-            			$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/dfx';
+            			//$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/dfx';
+				$this->dsn = 'mysql:// root:0h5h1t.pear@196.21.45.41/dfx';
 		            	return $this->dsn;
 			break;
 			default:
@@ -643,6 +650,12 @@ class importexportutils extends dbTable
 		return $pageContents;
 	}
 
+	function getHtmlPageId($resourceId)
+	{
+		
+		
+	}
+
 	function getImageNames($htmlPages, $packageType = '')
 	{
 		if($packageType == 'exe')
@@ -779,7 +792,7 @@ class importexportutils extends dbTable
 		{
 			// Check if its Course Home Page.
 			if($staticPackage == '2')
-				$newLink = '"../'.$contextCode.'/'.$contextCode;
+				$newLink = '"'.$contextCode;
 			foreach($fileNames as $fileName)
 			{
 				$regex = '/'.$fileName.'/';
@@ -1182,7 +1195,7 @@ class importexportutils extends dbTable
 		$pakRadio = new radio('packageType');
 		$pakRadio->addOption('default','eduCommons');
 		$pakRadio->addOption('mit','MIT');
-		// $pakRadio->addOption('exe','eXe');
+		$pakRadio->addOption('exe','eXe');
 		$pakRadio->setSelected('default');
 		$checkLabel = new label($this->objLanguage->languageText("mod_contextadmin_createCourse","contextadmin"),"");
 		// Checkbox.

@@ -82,7 +82,7 @@ class exportimspackage extends dbTable
 		$manifest->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 		$manifest->setAttribute('xsi:schemaLocation', 'http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p2.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd http://cosl.usu.edu/xsd/eduCommonsv1.1 eduCommonsv1.1.xsd');
 		$metadata = $manifest->appendChild($dom->createElement('metadata'));
-		$metadata = $this->getMetadata($dom, $metadata);
+		$metadata = $this->objIMSTools->getMetadata($dom, $metadata);
 		$organizations = $manifest->appendChild($dom->createElement('organizations'));
 		$orgId = 'ORG'.$this->objIEUtils->generateUniqueId();
 		$organizations->setAttribute('default', $orgId);
@@ -123,12 +123,12 @@ class exportimspackage extends dbTable
 		$packageLocation = $contextcode.'/';
 		$relativeLocation = $packageLocation.$courseFilename;
 		// Add Course Organization (Chapter).
-		$organization = $organizations->appendChild($this->createOrganization($dom, $orgId));
+		$organization = $organizations->appendChild($this->objIMSTools->createOrganization($dom, $orgId));
 		// Can only create one course resource
 		$courseItemId = 'ITM'.$this->objIEUtils->generateUniqueId();
 		$courseResId = 'RES'.$this->objIEUtils->generateUniqueId();
 		// Add Items to Organization.
-		$organization->appendChild($this->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
+		$organization->appendChild($this->objIMSTools->createItem($dom, $courseTitle, 'true', $courseItemId, $courseResId));
 		// lom values for course
 		$username = $this->objUser->userName($this->objUser->userId());
 		$userDetails = $this->objUser->lookupData($username);
@@ -220,14 +220,13 @@ class exportimspackage extends dbTable
 		$htmlPages = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'pagecontent');
 		// Remove course page.
 		array_shift($htmlPages);
-		// Retrieve Html page menutitles.
-		$menutitles = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'menutitle');
+		// Retrieve Html page html Id's.
+		$htmlIds = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'id');
+		array_shift($htmlIds);
 		// Retrieve Html images.
 		$imageNames = $this->objIEUtils->getImageNames($htmlPages);
-		// Retrieve Html file links.
-		$resourceIds = $this->objIEUtils->getResourceIds($htmlPages);
 		// Re-write Htmls.
-		$htmlPages = $this->rebuildHtml($contextcode, $htmlPages, $imageNames, $resourceIds);
+		$htmlPages = $this->rebuildHtml($contextcode, $htmlPages, $imageNames, $htmlIds);
 		// Write Htmls to specified directory (resources folder).
 		$htmlFilenames = $this->objIEUtils->writeFiles($htmlPages, $resourceFolder,'','html');
 		// Write Images to specified directory (resources folder).
@@ -271,7 +270,7 @@ class exportimspackage extends dbTable
 		if(count($resourceIds) > 0)
 			$resourceNames = $this->objIEUtils->writeResources($resourceIds, $resourceFolder);
 		$chapterOrder = $this->objIEUtils->chapterOrder($contextcode);
-		$i = 1;
+		$i = 0;
 		foreach($chapterOrder as $chapter)
 		{
 			$pageOrder = $this->objIEUtils->pageOrder($contextcode, $chapter['chapterid']);
@@ -284,7 +283,7 @@ class exportimspackage extends dbTable
 				$menuTitle = $pageDetails['menutitle'];
 				// Add Items to Organization.
 				if($page["isbookmarked"] == 'Y')
-					$organization->appendChild($this->createItem($dom, $menuTitle, 'true', $itemId, $resId));
+					$organization->appendChild($this->objIMSTools->createItem($dom, $menuTitle, 'true', $itemId, $resId));
 				// File location in package.
 				$fileLocation = $resourceFolder.'/'.$htmlFilenames[$i];
 				$fileName = preg_replace('/\..*/','',$htmlFilenames[$i]);
@@ -326,54 +325,39 @@ class exportimspackage extends dbTable
 		return TRUE;
 	}
 
-	function getMetadata($dom, $metadata)
-	{
-		$schema = $metadata->appendChild($dom->createElement('schema', 'IMS CONTENT'));
-		$schemaversion = $metadata->appendChild($dom->createElement('schemaversion', '1.2'));
-
-		return $metadata;
-	}
-
-	function createOrganization($dom, $orgId)
-	{
-		$organization = $dom->createElement('organization');
-		$organization->setAttribute('identifier', $orgId);
-
-		return $organization;
-	}
-
-	function createItem($dom, $menutitle, $bookmark, $itemId, $resId)
-	{
-		$item = $dom->createElement('item');
-		$item->setAttribute('isvisible', $bookmark);
-		$item->setAttribute('identifier', $itemId);
-		$item->setAttribute('identifierref', $resId);
-		$title = $item->appendChild($dom->createElement('title', $menutitle));
-
-		return $item;
-	}
-
 	function rebuildHtml($contextcode, $htmlPages, $courseImageNames, $courseResourceIds)
 	{
 		$i = 0;
 		// Check if its Course Home Page
 		if(count($htmlPages) == 1)
 		{
+			// Rewrite images source in html.
 			if(count($courseImageNames) > 0)
 				$htmlPages = $this->objIEUtils->changeImageSRC($htmlPages, $contextcode, $courseImageNames,'','2');
+			// Rewrite links source in html.
 			if(count($courseResourceIds) > 0)
 				$htmlPages = $this->changeLinkUrl($contextcode, $htmlPages, $courseResourceIds);
+			// Rewrite internal links source in html.
+
+			// Rewrite data links source in html.
+
 			$htmlsModified = $htmlPages;
 		}
 		else
 		{
 			foreach($htmlPages as $htmlPage)
 			{
+				// Rewrite images source in html.
 				if(count($courseImageNames) > 0)
 					$htmlPage = $this->objIEUtils->changeImageSRC($htmlPage, $contextcode, $courseImageNames,'',TRUE);
+				// Rewrite links source in html.
 				if(count($courseResourceIds) > 0)
 					$htmlPage = $this->changeLinkUrl($htmlPage, $courseResourceIds);
 				$htmlsModified[$i] = $htmlPage;
+				// Rewrite internal links source in html.
+
+				// Rewrite data links source in html.
+
 				$i++;
 			}
 		}
@@ -381,15 +365,19 @@ class exportimspackage extends dbTable
 		return $htmlsModified;
 	}
 
-	function changeLinkUrl($htmlPages, $courseResourceIds)
+	function changeLinkUrl($htmlPage, $resourceIds)
 	{
-		$newLink = '"../'.$contextcode;
-		foreach($courseResourceIds as $courseResourceId)
+		for($i = 0; $i < count($resourceIds); $i++)
 		{
-			
+			echo $resourceIds[$i].' ';
+			$resourceId = $this->objIEUtils->getHtmlPageId($resourceIds[$i]);
+			$regReplace = '/(href=".*'.$resourceId.'.*?")/i';
+			echo $regReplace.'<br />';
+			$replacement = '"resource'.$i.'html"';
+			$htmlPage = preg_replace($regReplace, $replacement, $htmlPage);
 		}
-
-		return $htmlPages;
+die;
+		return $htmlPage;
 	}
 
 	/**

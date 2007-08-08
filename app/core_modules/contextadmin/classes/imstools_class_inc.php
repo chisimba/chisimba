@@ -43,6 +43,33 @@ class imstools extends object
 		$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
 	}
 
+	function getMetadata($dom, $metadata)
+	{
+		$schema = $metadata->appendChild($dom->createElement('schema', 'IMS CONTENT'));
+		$schemaversion = $metadata->appendChild($dom->createElement('schemaversion', '1.2'));
+
+		return $metadata;
+	}
+
+	function createOrganization($dom, $orgId)
+	{
+		$organization = $dom->createElement('organization');
+		$organization->setAttribute('identifier', $orgId);
+
+		return $organization;
+	}
+
+	function createItem($dom, $menutitle, $bookmark, $itemId, $resId)
+	{
+		$item = $dom->createElement('item');
+		$item->setAttribute('isvisible', $bookmark);
+		$item->setAttribute('identifier', $itemId);
+		$item->setAttribute('identifierref', $resId);
+		$title = $item->appendChild($dom->createElement('title', $menutitle));
+
+		return $item;
+	}
+
 	function createResource($dom, $lomValues, $eduCommonsValues)
 	{
 		$support = $this->lomSupported();
@@ -233,7 +260,10 @@ class imstools extends object
 		$resource = $dom->createElement('resource');
 		$resource->setAttribute('identifier', $lomValues['resourceId']);
 		$resource->setAttribute('type', 'webcontent');
-		$resource->setAttribute('href', $lomValues['packageLocation']);
+		if($eduCommonsValues['objectType'] == 'Course')
+			$resource->setAttribute('href', $lomValues['packageLocation']);
+		else
+			$resource->setAttribute('href', $lomValues['location']);
 		$metadata = $resource->appendChild($dom->createElement('metadata'));
 		// Name : <lom> Element in <metadata>.
 		// Description : General information that describes the learning object as a whole.
@@ -1742,7 +1772,7 @@ class imstools extends object
 		if($name)
 		{
 			$file = $resource->appendChild($dom->createElement('file'));
-			$file->setAttribute('href', $lomValues['courseFilename']);
+			$file->setAttribute('href', $lomValues['location']);
 		}
 
 
