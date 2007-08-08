@@ -1407,7 +1407,7 @@ class engine
      */
     public function getPearResource($resourceFile)
     {
-    	log_debug($this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile);
+    	//log_debug($this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile);
        	return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
     }
 
