@@ -148,6 +148,10 @@ class dbTable extends object
      * @access public 
      */
     public $adm = FALSE;
+    
+    public $objMemcache = FALSE;
+	
+	protected $cacheTTL = 600;
 
 
     /**
@@ -163,6 +167,13 @@ class dbTable extends object
     public function init($tableName, $pearDb = null,
         $errorCallback = "globalPearErrorCallback")
     {
+    	// check for memcache
+		if(extension_loaded('memcache'))
+		{
+			require_once 'chisimbacache_class_inc.php';
+			$this->objMemcache = TRUE;
+			//log_debug("loaded up memcache!");
+		}
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
         if ($pearDb == null) {
@@ -200,20 +211,47 @@ class dbTable extends object
         	$table = $this->_tableName;
         }
     	$sql = "SELECT COUNT(*) AS fcount FROM $table WHERE $field='$value'";
-        if($this->debug == TRUE)
-        {
-        	log_debug("$sql");
-        }
-    	$rs = $this->query($sql);
-        if (!$rs) {
-            $ret = false;
-        } else {
-            if ($rs[0]['fcount'] > 0) {
-                $ret = true;
-            } else {
-                $ret = false;
-            }
-        }
+    	if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($sql)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($sql));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug("$sql");
+        		}
+    			$rs = $this->query($sql);
+        		if (!$rs) {
+            		$ret = false;
+        		} else {
+            		if ($rs[0]['fcount'] > 0) {
+                		$ret = true;
+            		} else {
+                		$ret = false;
+            		}
+        		}
+        		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+		else {
+        	if($this->debug == TRUE)
+        	{
+        		log_debug("$sql");
+        	}
+    		$rs = $this->query($sql);
+        	if (!$rs) {
+            	$ret = false;
+        	} else {
+            	if ($rs[0]['fcount'] > 0) {
+                	$ret = true;
+            	} else {
+                	$ret = false;
+            	}
+        	}
+		}
 
         return $ret;
     }
@@ -228,27 +266,32 @@ class dbTable extends object
     */
     public function getAll($filter = null)
     {
-		/*
-		$fields=null;
-	 	if (!is_null($fields) && is_array($fields)) {
- 			$sql = '';
- 	        $comma = '';
- 			foreach ($fields as $field) {
- 				$sql .= "{$comma}{$field}";
- 				$comma = ', ';
- 			}
-    	    $stmt = "SELECT $sql FROM {$this->_tableName} $filter";
+		$stmt = "SELECT * FROM {$this->_tableName} $filter";
+		if($this->objMemcache == TRUE)
+		{
+			if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+        		$ret = $this->getArray($stmt);
+        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
 		}
 		else {
-	        $stmt = "SELECT * FROM {$this->_tableName} $filter";
+			if($this->debug == TRUE)
+        	{
+        		log_debug($stmt);
+        	}
+        	$ret = $this->getArray($stmt);
 		}
-		*/
-		$stmt = "SELECT * FROM {$this->_tableName} $filter";
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
-        return $this->getArray($stmt);
+		
+		return $ret;
     }
 
     /**
@@ -264,11 +307,30 @@ class dbTable extends object
     {
         $pk_value = addslashes($pk_value);
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
-		if($this->debug == TRUE)
+        if($this->objMemcache == TRUE)
         {
-        	log_debug($stmt);
+        	if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+				if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+        		$ret = $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
         }
-        return $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        else {
+        	if($this->debug == TRUE)
+        	{
+        		log_debug($stmt);
+        	}
+        	$ret = $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        }
+        return $ret;
     }
 
     /**
@@ -280,17 +342,38 @@ class dbTable extends object
     */
     public function getArray($stmt)
     {
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
-    	//var_dump($this->_db);
-    	$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
-        if (PEAR::isError($ret)) {
-            $ret = false;
-        }
-
-        return $ret;
+    	if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+    			//var_dump($this->_db);
+    			$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+        		if (PEAR::isError($ret)) {
+            		$ret = false;
+        		}
+        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+    	else {
+    		if($this->debug == TRUE)
+    		{
+    			log_debug($stmt);
+    		}
+    		//var_dump($this->_db);
+    		$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    		if (PEAR::isError($ret)) {
+    			$ret = false;
+    		}
+    	}
+    	return $ret;
     }
 
     /**
@@ -304,23 +387,43 @@ class dbTable extends object
     */
     public function getArrayWithLimit($stmt, $first, $count)
     {
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
-    	$this->_db->setLimit($first, $count);
-        $rs = $this->_db->exec($stmt);
-        if (PEAR::isError($rs)) {
-            $ret = false;
-        } else {
-        	$ret = $rs;
-            //$ret = array();
-            //while ($row = $rs->fetchRow()) {
-            //    $ret[] = $row;
-            //}
-        }
+    	if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+    			$this->_db->setLimit($first, $count);
+        		$rs = $this->_db->exec($stmt);
+        		if (PEAR::isError($rs)) {
+            		$ret = false;
+        		} else {
+        			$ret = $rs;
+        			chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		}
+			}
+    	}
+    	else {
+    		if($this->debug == TRUE)
+    		{
+    			log_debug($stmt);
+    		}
+    		$this->_db->setLimit($first, $count);
+    		$rs = $this->_db->exec($stmt);
+    		if (PEAR::isError($rs)) {
+    			$ret = false;
+    		} else {
+    			$ret = $rs;
+    		}
+    	}
 
-        return $ret;
+       return $ret;
     }
 
     /**
@@ -336,11 +439,30 @@ class dbTable extends object
     public function fetchAll($filter = null)
     {
         $stmt = "SELECT * FROM {$this->_tableName} " . $filter;
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
-        return $this->query($stmt);
+        if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+        		$ret = $this->query($stmt);
+        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+    	else {
+    		if($this->debug == TRUE)
+    		{
+    			log_debug($stmt);
+    		}
+    		$ret = $this->query($stmt);
+    	}
+    	return $ret;
     }
 
     /**
@@ -354,12 +476,32 @@ class dbTable extends object
     public function getRecordCount($filter = null)
     {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
-        if($this->debug == TRUE)
-        {
-        	log_debug($sql);
-        }
-        $rs = $this->query($sql);
-	    return $rs[0]['rc'];
+        if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($sql)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($sql));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($sql);
+        		}
+        		$rs = $this->query($sql);
+	    		$ret = $rs[0]['rc'];
+	    		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+    	else {
+    		if($this->debug == TRUE)
+    		{
+    			log_debug($sql);
+    		}
+    		$rs = $this->query($sql);
+    		$ret = $rs[0]['rc'];
+    	}
+    	return $ret;
     }
 
     /**
@@ -641,14 +783,35 @@ class dbTable extends object
     */
     public function query($stmt)
     {
-        if($this->debug == TRUE)
-        {
-        	log_debug($stmt);
-        }
-    	$ret = $this->_db->queryAll($stmt);
-        if (PEAR::isError($ret)) {
-            $ret = false;
-        }
+    	if($this->objMemcache == TRUE)
+    	{
+    		if(chisimbacache::getMem()->get(md5($stmt)))
+			{
+				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$ret = unserialize($cache);
+			}
+			else {
+        		if($this->debug == TRUE)
+        		{
+        			log_debug($stmt);
+        		}
+    			$ret = $this->_db->queryAll($stmt);
+        		if (PEAR::isError($ret)) {
+            		$ret = false;
+        		}
+        		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+			}
+    	}
+    	else {
+    		if($this->debug == TRUE)
+    		{
+    			log_debug($stmt);
+    		}
+    		$ret = $this->_db->queryAll($stmt);
+    		if (PEAR::isError($ret)) {
+    			$ret = false;
+    		}
+    	}
 
         return $ret;
     }

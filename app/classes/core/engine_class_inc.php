@@ -395,7 +395,7 @@ class engine
 	
 	public $objMemcache = FALSE;
 	
-	protected $cacheTTL = 600;
+	protected $cacheTTL = 6;
 
 	/**
      * Constructor.
@@ -407,6 +407,12 @@ class engine
      */
 	public function __construct()
 	{
+		// check for memcache
+		if(extension_loaded('memcache'))
+		{
+			require_once 'classes/core/chisimbacache_class_inc.php';
+			$this->objMemcache = TRUE;
+		}
 		// we only initiate session handling here if a session already exists;
 		// the session is only created once a successful login has taken place.
 		// this has the small security benefit (albeit an obscurity based one)
@@ -415,18 +421,11 @@ class engine
 		if (isset($_REQUEST[session_name()])) {
 			$this->sessionStart();
 		}
-		
-		// check for memcache
-		if(extension_loaded('memcache'))
-		{
-			require_once 'classes/core/chisimbacache_class_inc.php';
-			$this->objMemcache = FALSE;
-		}
-
 		// initialise member objects that *this object* is dependent on, and thus
 		// must be created on every request
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
+		//$this->loadClass('altconfig', 'config');
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		//and we need a general system config too
 		$this->_objConfig = clone $this->_objDbConfig;
@@ -436,6 +435,7 @@ class engine
 		//initialise the db factory method of MDB2_Schema
 		$this->getDbManagementObj();
 		//the user security module
+		//$this->loadClass('user', 'security');
 		$this->_objUser = $this->getObject('user', 'security');
 		//the language elements module
 		$this->_objLanguage = $this->getObject('language', 'language');
@@ -457,6 +457,7 @@ class engine
 		$this->_cachedObjects = array();
 
 		//Load the Skin Object
+		//$this->loadClass('skin', 'skin');
 		$this->_objSkin = $this->getObject('skin', 'skin');
 		//Get default page template
 		$this->_pageTemplate = $this->_objSkin->getPageTemplate();
@@ -706,6 +707,19 @@ class engine
 
 		$parsed['hostspec'] = str_replace("+","/",$parsed['hostspec']);
 
+		if($this->objMemcache == TRUE)
+		{
+			if(chisimbacache::getMem()->get('dsn'))
+			{
+				$parsed = chisimbacache::getMem()->get('dsn');
+				$parsed = unserialize($parsed);
+				return $parsed;
+			}
+			else {
+				chisimbacache::getMem()->set('dsn', serialize($parsed), FALSE, $this->cacheTTL);
+				return $parsed;
+			}
+		}
 		return $parsed;
 	}
 
@@ -873,7 +887,7 @@ class engine
 	public function newObject($name, $moduleName)
 	{
 		$this->loadClass($name, $moduleName);
-		if($this->objMemcache == TRUE)
+		/*if($this->objMemcache == TRUE)
 		{
 			if(chisimbacache::getMem()->get($name))
 			{
@@ -892,7 +906,7 @@ class engine
 				}
 			}
 		}
-		else {
+		else {*/
 			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
 			if (is_subclass_of($name, 'object')) {
 				// Class inherits from class 'object', so pass it the expected parameters
@@ -907,7 +921,7 @@ class engine
 			if (is_null($objNew)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
-		}
+		//}
 		return $objNew;
 	}
 
@@ -930,33 +944,37 @@ class engine
 	public function getObject($name, $moduleName)
 	{
 		$instance = NULL;
+		//$this->loadClass($name, $moduleName);
+		//$this->__autoload($name.'_class_inc.php');
 		if (isset($this->_cachedObjects[$moduleName][$name]))
 		{
 			$instance = $this->_cachedObjects[$moduleName][$name];
 		}
 		else
 		{
-			//$this->loadClass($name, $moduleName);
+			/* //$this->loadClass($name, $moduleName);
 			if($this->objMemcache == TRUE)
 			{
-				if(chisimbacache::getMem()->get($name))
+				if(chisimbacache::getMem()->get(md5($name)))
 				{
-					$instance = chisimbacache::getMem()->get($name);
+					$instance = chisimbacache::getMem()->get(md5($name));
+					$instance = unserialize($instance);
+					//log_debug($instance);
 					return $instance;
 				}
 				else {
 					$this->loadClass($name, $moduleName);
 					if (is_subclass_of($name, 'object')) {
 						$instance = new $name($this, $moduleName);
-						//chisimbacache::getMem()->set($name, $instance, FALSE, $this->cacheTTL);
+						chisimbacache::getMem()->set(md5($name), serialize($instance), MEMCACHE_COMPRESSED, $this->cacheTTL);
 					}
 					else {
 						$instance = new $name();
-						chisimbacache::getMem()->set($name, $instance, FALSE, $this->cacheTTL);
+						chisimbacache::getMem()->set(md5($name), serialize($instance), MEMCACHE_COMPRESSED, $this->cacheTTL);
 					}
 				}
-			}
-			else {
+			} */
+			//else {
 				$this->loadClass($name, $moduleName);
 				if (is_subclass_of($name, 'object')) {
 					$instance = new $name($this, $moduleName);
@@ -965,7 +983,7 @@ class engine
 					$instance = new $name();
 				}
 				//$instance = new $name($this, $moduleName);
-			}
+			//}
 			if (is_null($instance)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
