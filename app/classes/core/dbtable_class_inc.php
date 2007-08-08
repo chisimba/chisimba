@@ -799,7 +799,7 @@ class dbTable extends object
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
-        		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	else {
