@@ -427,29 +427,11 @@ class engine
 		//all configs now live in one place, referencing the config.xml file in the config directory
 		//$this->loadClass('altconfig', 'config');
 		
-		if($this->objMemcache == TRUE)
-    	{
-    		if(chisimbacache::getMem()->get(md5('altconfig')))
-			{
-				$cache = chisimbacache::getMem()->get(md5('altconfig'));
-				$this->_objConfig = unserialize($cache);
-				log_debug("engine altconfig from cache!");
-			}
-			else {
-				$this->_objDbConfig = $this->getObject('altconfig', 'config');
-				log_debug("engine load of altconfig");
-				//and we need a general system config too
-				$this->_objConfig = $this->_objDbConfig;
-				chisimbacache::getMem()->set(md5('altconfig'), serialize($this->_objDbConfig), MEMCACHE_COMPRESSED, $this->cacheTTL);
-			}
-    	}
-    	else {
-    		$this->_objDbConfig = $this->getObject('altconfig', 'config');
-			//log_debug("engine load of altconfig");
-			//and we need a general system config too
-			$this->_objConfig = clone $this->_objDbConfig;	
-    	}
-		ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
+		$this->_objDbConfig = $this->getObject('altconfig', 'config');
+		//log_debug("engine load of altconfig");
+		//and we need a general system config too
+		$this->_objConfig = clone $this->_objDbConfig;	
+    	ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
 		//initialise the db factory method of MDB2
 		$this->getDbObj();
 		//initialise the db factory method of MDB2_Schema
@@ -478,23 +460,8 @@ class engine
 
 		//Load the Skin Object
 		//$this->loadClass('skin', 'skin');
-		if($this->objMemcache == TRUE)
-    	{
-    		if(chisimbacache::getMem()->get(md5('skin')))
-			{
-				$cache = chisimbacache::getMem()->get(md5('skin'));
-				$this->_objSkin = unserialize($cache);
-				log_debug("engine skin obj from cache!");
-			}
-			else {
-				$this->_objSkin = $this->getObject('skin', 'skin');
-				log_debug("engine load of skin obj");
-				chisimbacache::getMem()->set(md5('skin'), serialize($this->_objSkin), MEMCACHE_COMPRESSED, $this->cacheTTL);
-			}
-    	}
-    	else {
-    		$this->_objSkin = $this->getObject('skin', 'skin');
-    	}
+		$this->_objSkin = $this->getObject('skin', 'skin');
+    	
 		//Get default page template
 		$this->_pageTemplate = $this->_objSkin->getPageTemplate();
 		// Get Layout Template from Config files
@@ -858,11 +825,29 @@ class engine
 		{
 			$filename = "core_modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
 			$engine = $this;
-			if( !($this->_objConfig instanceof altconfig) )
+			if(!($this->_objConfig instanceof altconfig))
 			{
 				require_once($filename);
-				$this->_objConfig = new altconfig;
-				return;
+				$this->_objConfig = new altconfig();
+				if($this->objMemcache == TRUE)
+				{
+					if(chisimbacache::getMem()->get('altconfig'))
+					{
+						$this->_objConfig = chisimbacache::getMem()->get('altconfig');
+						return $this->_objConfig;
+					}
+					else {
+						require_once($filename);
+						$this->_objConfig = new altconfig();
+						chisimbacache::getMem()->set('altconfig', $this->_objConfig, MEMCACHE_COMPRESSED, $this->cacheTTL);
+						return $this->_objConfig;
+					}
+				}
+				else {
+					require_once($filename);
+					$this->_objConfig = new altconfig();
+					return $this->_objConfig;
+				}
 			}
 			else {
 				return;
