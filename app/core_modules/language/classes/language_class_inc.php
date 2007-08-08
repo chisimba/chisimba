@@ -101,7 +101,7 @@ class language extends dbTable {
     	try {
 	    	parent::init('tbl_languagelist');
 	        $this->objConfig = $this->getObject('altconfig','config');
-	        $this->lang = $this->newObject('languageConfig','language');
+	        $this->lang = $this->getObject('languageConfig','language');
 	        $this->lang = &$this->lang->setup();
 	        $this->loadClass('form', 'htmlelements');
 	        $this->loadClass('dropdown', 'htmlelements');

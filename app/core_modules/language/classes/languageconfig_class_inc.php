@@ -76,6 +76,10 @@ class languageConfig extends object
      * @var    string
      */
     public $_errorCallback;
+    
+    public $objMemcache;
+    
+    public $cacheTTL = 6;
 
 	/**
      * Constructor for the languageConf class.
@@ -84,7 +88,12 @@ class languageConfig extends object
 
 	public function init(){
 		try {
-			require_once $this->getPearResource('Translation2.php');
+			if(extension_loaded('memcache'))
+			{
+				require_once 'classes/core/chisimbacache_class_inc.php';
+				$this->objMemcache = TRUE;
+			}
+			require_once ('Translation2.php'); //$this->getPearResource('Translation2.php');
 		}
 		catch (customException $e)
 		{
@@ -108,6 +117,7 @@ class languageConfig extends object
      */
 	public function setup()
 	{
+		
 		try {
 			//Define table properties so that MDB2 knows about them
 			$params = array(
@@ -129,10 +139,11 @@ class languageConfig extends object
 			//instantiate class
 			$this->_siteConf = $this->getObject('altconfig','config');
 			$dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
-//echo KEWL_DB_DSN; die();
-			$this->lang =& Translation2::factory($driver, $dsn, $params);
+			$this->lang = &Translation2::factory($driver, $dsn, $params);
+			$this->lang =& $this->lang->getDecorator('CacheMemory');
+			$this->lang->setOption('prefetch', true); //default value is true
 			if (PEAR::isError($this->lang)) {
-echo $this->lang->getMessage(); die();
+				echo $this->lang->getMessage(); die();
 			//	throw new Exception('Could not load Translation class');
 			}
 			// set primary language
@@ -149,8 +160,23 @@ echo $this->lang->getMessage(); die();
 			$this->lang = & $this->lang->getDecorator('DefaultText');
 			// replace the empty string with its stringID
 
-			// use a custom fallback text
-			return $this->lang;
+			/*if($this->objMemcache == TRUE)
+			{
+				if(chisimbacache::getMem()->get(md5('translation2')))
+				{
+					$this->lang = chisimbacache::getMem()->get(md5('translation2'));
+					$this->lang = unserialize($this->lang);
+					return $this->lang;
+				}
+				else {
+					chisimbacache::getMem()->set(md5('translation2'), serialize($this->lang), MEMCACHE_COMPRESSED, $this->cacheTTL);
+					return $this->lang;;
+				}
+			}
+			else {*/
+				// use a custom fallback text
+				return $this->lang;
+			//}
 		}catch (Exception $e){
                     // Alterations by jsc on advice from paulscott
 			//$this->errorCallback ('Caught exception: '.$e->getMessage());
