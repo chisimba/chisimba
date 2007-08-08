@@ -79,7 +79,7 @@ class languageConfig extends object
     
     public $objMemcache;
     
-    public $cacheTTL = 6;
+    public $cacheTTL = 3600;
 
 	/**
      * Constructor for the languageConf class.

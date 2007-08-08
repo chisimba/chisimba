@@ -395,7 +395,7 @@ class engine
 	
 	public $objMemcache = FALSE;
 	
-	protected $cacheTTL = 600;
+	protected $cacheTTL = 3600;
 
 	/**
      * Constructor.
@@ -1407,6 +1407,7 @@ class engine
      */
     public function getPearResource($resourceFile)
     {
+    	log_debug($this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile);
        	return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
     }
 

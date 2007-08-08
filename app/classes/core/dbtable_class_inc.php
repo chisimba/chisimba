@@ -151,7 +151,7 @@ class dbTable extends object
     
     public $objMemcache = FALSE;
 	
-	protected $cacheTTL = 600;
+	protected $cacheTTL = 3600;
 
 
     /**
