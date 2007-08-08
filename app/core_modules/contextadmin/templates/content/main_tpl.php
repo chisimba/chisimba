@@ -30,7 +30,6 @@ $lects = '';
 $conf = '';
 
 $currentContextCode = $this->_objDBContext->getContextCode();
-
 //registered courses
 if (isset($contextList))
 {	
