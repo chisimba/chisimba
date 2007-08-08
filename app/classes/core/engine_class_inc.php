@@ -908,26 +908,27 @@ class engine
 	public function newObject($name, $moduleName)
 	{
 		$this->loadClass($name, $moduleName);
-		/*if($this->objMemcache == TRUE)
+		if($this->objMemcache == TRUE)
 		{
-			if(chisimbacache::getMem()->get($name))
+			if(chisimbacache::getMem()->get(md5($name)))
 			{
-				$objNew = chisimbacache::getMem()->get($name);
+				$objNew = chisimbacache::getMem()->get(md5($name));
 				return $objNew;
 			}
 			else {
 				$this->loadClass($name, $moduleName);
 				if (is_subclass_of($name, 'object')) {
 					$objNew = new $name($this, $moduleName);
-					//chisimbacache::getMem()->set($name, $objNew, FALSE, $this->cacheTTL);
+					chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
+					//log_debug("loaded $name from cache - yipee!");
 				}
 				else {
 					$objNew = new $name();
-					chisimbacache::getMem()->set($name, $objNew, FALSE, $this->cacheTTL);
+					chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
 				}
 			}
 		}
-		else {*/
+		else {
 			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
 			if (is_subclass_of($name, 'object')) {
 				// Class inherits from class 'object', so pass it the expected parameters
@@ -942,7 +943,7 @@ class engine
 			if (is_null($objNew)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
-		//}
+		}
 		return $objNew;
 	}
 
