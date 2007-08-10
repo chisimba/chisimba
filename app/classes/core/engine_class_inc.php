@@ -913,17 +913,20 @@ class engine
 			if(chisimbacache::getMem()->get(md5($name)))
 			{
 				$objNew = chisimbacache::getMem()->get(md5($name));
+				//log_debug("retrieve $name from cache...new object");
 				return $objNew;
 			}
 			else {
-				$this->loadClass($name, $moduleName);
+				//$this->loadClass($name, $moduleName);
 				if (is_subclass_of($name, 'object')) {
 					$objNew = new $name($this, $moduleName);
-					chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
-					//log_debug("loaded $name from cache - yipee!");
+					//chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
+					//log_debug("added $name to cache - yipee!");
+					return $objNew;
 				}
 				else {
 					$objNew = new $name();
+					//log_debug("setting newObject $name from cache...");
 					chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
 				}
 			}
@@ -966,46 +969,19 @@ class engine
 	public function getObject($name, $moduleName)
 	{
 		$instance = NULL;
-		//$this->loadClass($name, $moduleName);
-		//$this->__autoload($name.'_class_inc.php');
 		if (isset($this->_cachedObjects[$moduleName][$name]))
 		{
 			$instance = $this->_cachedObjects[$moduleName][$name];
 		}
 		else
 		{
-			/* //$this->loadClass($name, $moduleName);
-			if($this->objMemcache == TRUE)
-			{
-				if(chisimbacache::getMem()->get(md5($name)))
-				{
-					$instance = chisimbacache::getMem()->get(md5($name));
-					$instance = unserialize($instance);
-					//log_debug($instance);
-					return $instance;
-				}
-				else {
-					$this->loadClass($name, $moduleName);
-					if (is_subclass_of($name, 'object')) {
-						$instance = new $name($this, $moduleName);
-						chisimbacache::getMem()->set(md5($name), serialize($instance), MEMCACHE_COMPRESSED, $this->cacheTTL);
-					}
-					else {
-						$instance = new $name();
-						chisimbacache::getMem()->set(md5($name), serialize($instance), MEMCACHE_COMPRESSED, $this->cacheTTL);
-					}
-				}
-			} */
-			//else {
-				$this->loadClass($name, $moduleName);
-				if (is_subclass_of($name, 'object')) {
-					$instance = new $name($this, $moduleName);
-				}
-				else {
-					$instance = new $name();
-				}
-				//$instance = new $name($this, $moduleName);
-			//}
+			$this->loadClass($name, $moduleName);
+			if (is_subclass_of($name, 'object')) {
+				$instance = new $name($this, $moduleName);
+			}
+			else {
+				$instance = new $name();
+			}
 			if (is_null($instance)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
