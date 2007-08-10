@@ -650,10 +650,20 @@ class importexportutils extends dbTable
 		return $pageContents;
 	}
 
+	/**
+ 	 * Retrieves the resulting page id in table tbl_contextcontent_order
+ 	 * 
+	 * @param string $resourceId - titleid from tbl_contextcontent_page
+	 *
+	 * @return string $id - id in table tbl_contextcontent_order
+	*/
 	function getHtmlPageId($resourceId)
 	{
-		
-		
+		parent::init('tbl_contextcontent_order');
+		$filter = "WHERE titleid = '$resourceId'";
+		$id = $this->getAll($filter);
+
+		return $id['0']['id'];
 	}
 
 	function getImageNames($htmlPages, $packageType = '')

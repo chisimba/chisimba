@@ -221,7 +221,7 @@ class exportimspackage extends dbTable
 		// Remove course page.
 		array_shift($htmlPages);
 		// Retrieve Html page html Id's.
-		$htmlIds = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'id');
+		$htmlIds = $this->objIEUtils->getHtmlPages($contextcode, '', '', '', 'titleid');
 		array_shift($htmlIds);
 		// Retrieve Html images.
 		$imageNames = $this->objIEUtils->getImageNames($htmlPages);
@@ -369,14 +369,12 @@ class exportimspackage extends dbTable
 	{
 		for($i = 0; $i < count($resourceIds); $i++)
 		{
-			echo $resourceIds[$i].' ';
-			$resourceId = $this->objIEUtils->getHtmlPageId($resourceIds[$i]);
-			$regReplace = '/(href=".*'.$resourceId.'.*?")/i';
-			echo $regReplace.'<br />';
-			$replacement = '"resource'.$i.'html"';
+			$id = $this->objIEUtils->getHtmlPageId($resourceIds[$i]);
+			$regReplace = '/(href=".*'.$id.'.*?")/i';
+			$replacement = 'href="resource'.$i.'.html"';
 			$htmlPage = preg_replace($regReplace, $replacement, $htmlPage);
 		}
-die;
+
 		return $htmlPage;
 	}
 
