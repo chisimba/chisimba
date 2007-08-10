@@ -23,7 +23,12 @@ class chisimbacache extends Memcache
 		{
 			self::$objMem = new Memcache;
 			//connect to the memcache server(s)
-			self::$objMem->addServer('localhost', 11211) or die("cant connect to memcached server!");
+			self::$objMem->addServer('localhost', 11211);
+			self::$objMem->addServer('localhost', 11212);
+			self::$objMem->addServer('localhost', 11213);
+			self::$objMem->addServer('localhost', 11214);
+			self::$objMem->addServer('localhost', 11215);
+			self::$objMem->addServer('localhost', 11216);
 		}
 		
 		return self::$objMem;
