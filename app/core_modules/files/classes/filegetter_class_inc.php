@@ -1,13 +1,24 @@
 <?php
 
 /**
- * Short description for file
+ * Filegetter class
  * 
- * Long description (if any) ...
+ * Class to load a file into a string
  * 
- * PHP version 3
+ * PHP version 5
  * 
- * The license text...
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * 
  * @category  Chisimba
  * @package   files
@@ -16,14 +27,13 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 
 
 /**
- * Short description for class
+ * Filegetter class
  * 
- * Long description (if any) ...
+ * A single-function class to load files into strings
  * 
  * @category  Chisimba
  * @package   files
@@ -32,7 +42,6 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 class filegetter
 {
