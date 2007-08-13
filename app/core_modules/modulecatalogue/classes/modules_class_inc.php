@@ -1,4 +1,37 @@
 <?php
+
+/**
+ * The class representing the modules table, handling all non-administrative
+ * operations on the table.
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @author    Sean Legassick <fsiu@uwc.ac.za>
+ * @author    Jeremy O'Connor <joconnor@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       modulesadmin class for administrative operations
+ */
+
 /* ------------------- modules class extends dbTable ------------- */
 // security check - must be included in all scripts
 if (!
@@ -13,58 +46,51 @@ $GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
-* The class representing the modules table, handling all non-administrative
-* operations on the table.
-* @see      modulesadmin class for administrative operations
-* @author   Nic Appleby
-* @author   Derek Keats
-* @author   Sean Legassick
-* @author   Jeremy O'Connor
-* @category Chisimba
-* @package  Modulecatalogue
-* @version  $Id$
-*/
+ * The modules class which is used to read data from
+ * the modules table. This data includes module versions, release dates
+ * and other module metadata
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @author    Sean Legassick <fsiu@uwc.ac.za>
+ * @author    Jeremy O'Connor <joconnor@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       modulesadmin class for administrative operations
+ */
 
 // Constants for $getType parameter of getModules
 
 class modules extends dbTable
 {
-    //no more constants
-	//const GET_ALL = 1;
-    //const GET_VISIBLE = 2;
-    //const GET_USERVISIBLE = 3;
-
-
     /**
-     * Description for private
-     * @var    object 
+     * The language object for multilingualisation
+     * @var    object $objlanguage
      * @access private
      */
     private $objLanguage;
-    //private $objConfig;
 
 
     /**
-     * Description for public
-     * @var    unknown
-     * @access public 
+     * The system configuration object
+     * @var    object $objConfig
+     * @access public
      */
     public $objConfig;
 
     /**
-     * Description for public
-     * @var    unknown
-     * @access public 
+     * string used for user feedback and error messages
+     * @var    string $output
+     * @access public
      */
     public $output;
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return void  
-     * @access public
+     * Standard object init function
      */
     public function init() {
     	try {
@@ -193,7 +219,7 @@ class modules extends dbTable
     }
 
     /**
-     * Method to return a list of names of all locall installed modules
+     * Method to return a list of names of all locally installed modules
      *
      * @return array
      */

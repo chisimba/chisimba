@@ -1,4 +1,33 @@
 <?php
+/**
+ *
+ * This class is used to access the register.conf file of a module
+ * and read module specificdata from it
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -11,15 +40,31 @@ $GLOBALS['kewl_entry_point_run']){
 }
 
 /**
-* Class for manipulating modules on the filesystem
-*
-* @author    Nic Appleby
-* @category  Chisimba
-* @package   Modulecatalogue
-* @copyright AVOIR
-* @license   GNU/GPL
-* @version   $Id$
-*/
+
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
 
 class modulefile extends object {
 
@@ -138,13 +183,11 @@ class modulefile extends object {
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $moduleId Parameter description (if any) ...
-     * @return boolean Return description (if any) ...
-     * @access public 
+     * Method to determine whether a module is context aware
+     *
+     * @param  string $moduleId The id of the module in question
+     * @return boolean TRUE|FALSE
+     * @access public
      */
     public function contextAware($moduleId) {
     	try {
@@ -166,13 +209,11 @@ class modulefile extends object {
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $moduleId Parameter description (if any) ...
-     * @return boolean Return description (if any) ...
-     * @access public 
+     * Method to check whether a module is a context plugin
+     *
+     * @param  string $moduleId The id of the module
+     * @return boolean TRUE|FALSE
+     * @access public
      */
     public function contextPlugin($moduleId) {
     	try {
@@ -194,11 +235,9 @@ class modulefile extends object {
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return array  Return description (if any) ...
+     * This method returns a list of context aware modules
+     *
+     * @return array  List of modules
      * @access public
      */
     public function getContextAwareModules() {

@@ -1,4 +1,35 @@
 <?php
+/**
+ * Class for building and reading the xml catalogue used by modulecatalogue.
+ * It is based as adaptor around the PEAR Config Object
+ *
+ * This class will provide the catalogue configuration for module registration
+ *
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -12,32 +43,21 @@ $GLOBALS['kewl_entry_point_run']){
 
 /**
  * Adaptor Pattern around the PEAR::Config Object
- * This class will provide the catalogue configuration for module registration
  *
  *
- * @author  Prince Mbekwa
- * @todo    sysconfig properties' set and get
- * @todo    module config (especially from module admin)
- * @package catalogue
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Prince Mbekwa <pmbekwa@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
  */
+
 //grab the pear::Config properties
 // include class
 require_once 'Config.php';
 
-/**
- * Short description for class
- * 
- * Long description (if any) ...
- * 
- * @category  Chisimba
- * @package   modulecatalogue
- * @author    Nic Appleby <nappleby@uwc.ac.za>
- * @copyright 2007 Nic Appleby
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   Release: @package_version@
- * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
- */
 class catalogueconfig extends object {
 
 	/**
@@ -59,21 +79,21 @@ class catalogueconfig extends object {
      * The root object for configs read
      *
      * @access private
-     * @var    string 
+     * @var    string
     */
     protected $_root;
     /**
      * The root object for properties read
      *
      * @access private
-     * @var    string 
+     * @var    string
     */
     protected $_property;
     /**
      * The options value for altconfig read / write
      *
      * @access private
-     * @var    string 
+     * @var    string
     */
     protected $_options;
 
@@ -81,7 +101,7 @@ class catalogueconfig extends object {
      * The catalogueconfig object for catalogueconfig storage
      *
      * @access private
-     * @var    array  
+     * @var    array
      */
     protected $_catalogueconfigVars;
 
@@ -121,7 +141,7 @@ class catalogueconfig extends object {
      *                             1. PHPArray
      *                             2. XML
      * @return boolean   True/False result.
-     *                   
+     *
      */
     protected function readCatalogue($property)
     {
@@ -154,11 +174,11 @@ class catalogueconfig extends object {
      * Method to wirte catalogue options.
      * For use when writing catalogue options
      *
-     * @access public 
+     * @access public
      * @param  string  values   to be saved
      * @param  string  property used to set property value of incoming catalogue string
      * @return boolean TRUE for success / FALSE fail .
-     *                 
+     *
      */
     public function writeCatalogue()
     {
@@ -484,11 +504,10 @@ class catalogueconfig extends object {
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return array  Return description (if any) ...
+     * Method to return the list of categories stored in
+     * the catalogue xml document
+     *
+     * @return array Categories within the document
      * @access public
      */
     public function getCategories() {
@@ -507,12 +526,11 @@ class catalogueconfig extends object {
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  string $category Parameter description (if any) ...
-     * @return array  Return description (if any) ...
+     * This method returns a list of all the modules present in
+     * a specified category
+     *
+     * @param  string $category The category in question.
+     * @return array  List of modules
      * @access public
      */
     public function getCategoryList($category) {
@@ -552,7 +570,7 @@ class catalogueconfig extends object {
      * The error callback function, defers to configured error handler
      *
      * @param  string $error
-     * @return void  
+     * @return void
      */
     public function errorCallback($exception)
     {

@@ -1,4 +1,31 @@
 <?php
+/**
+ * This file contains the modulesadmin class
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 /* -------------------- dbTable class for dbmanagerdb ----------------*/
 // security check - must be included in all scripts
 if (!
@@ -13,15 +40,19 @@ $GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
-* Class for manipulating modules with administrative functionality.
-* Dividing the class in two like this avoids loading this
-* file when only the basic user functionality is needed.
-* @author    Nic Appleby
-* @copyright AVOIR
-* @license   GNU/GPL
-* @category  Chisimba
-* @package   modulecatalogue
-* @version   $Id$
+ * This class is used to for manipulating modules with administrative functionality.
+ * Installation and uninstallation of modules is carried out through this module
+ * Dividing the module class in two like this avoids loading this
+ * file when only the basic user functionality is needed.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       modules class for non-administrative operations
 */
 
 class modulesadmin extends dbTableManager
@@ -61,12 +92,6 @@ class modulesadmin extends dbTableManager
      */
     private $_lastError;
 
-    /**
-     * Object interface to KeyMaker class
-     *
-     * @var object $objKeyMaker
-     */
-    private $objKeyMaker;
 
     /**
      * Description for public
@@ -801,7 +826,6 @@ class modulesadmin extends dbTableManager
     private function makeTable($table,$moduleId='NONE')
     {
         try {
-            $this->objKeyMaker=$this->newObject('primarykey','modulecatalogue');
             $this->objTableInfo=$this->newObject('tableinfo','modulecatalogue');
             if ($moduleId=='NONE'){
                 $moduleId=$this->module_id;
@@ -1037,7 +1061,7 @@ class modulesadmin extends dbTableManager
     }
 
     /**
-    * This is a method to build an array based on another one.
+    * This method separates the array of text elements based on their type (TEXT|USES).
     * @param   array  $rdata
     * @param   string $index type of text to be added
     * @returns FALSE or array $texts
@@ -1050,7 +1074,9 @@ class modulesadmin extends dbTableManager
                     //list($code,$description,$content) = explode('|',$line);
                     $cdc = explode('|',$line);
                     if (count($cdc) != 3) {
-                        throw new customException("Error in register.conf file of module {$rdata['MODULE_ID']} on element {$cdc[0]}");
+                        $error = str_replace('[MODULE]',$rdata['MODULE_ID'],$this->objLanguage->languageText('mod_modulecatalogue_regerror','modulecatalgoue'));
+                        $error = str_replace('[ELEMENT]',$cdc[0],$error);
+                        throw new customException($error);
                     }
                     //echo "{$cdc[2]}<br/>";
                     if ($cdc[2]){
@@ -1295,25 +1321,10 @@ class modulesadmin extends dbTableManager
      * The error callback function, defers to configured error handler
      *
      * @param  string $exception
-     * @return void  
+     * @return void
      */
     public function errorCallback($exception) {
         echo customException::cleanUp($exception);
-    }
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $stmt   Parameter description (if any) ...
-     * @param  array   $params Parameter description (if any) ...
-     * @return void   
-     * @access public 
-     */
-    public function _execute($stmt, $params = array())
-    {
-        dbtable::_execute($stmt, $params);
     }
 }
 ?>

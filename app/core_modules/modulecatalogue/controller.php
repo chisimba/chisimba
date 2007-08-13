@@ -1,13 +1,45 @@
 <?php
 /**
- * Module administration with catalogue interface. Allows installation and Un-installation of modules
- * via a cagtalogue interface which groups similar modules. Also incorporates module patching.
+ * This file houses modulecatalogue controller class.
  *
- * @author    Nic Appleby
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
  * @category  Chisimba
  * @package   modulecatalogue
- * @version   1.0
- * @copyright GNU/GPL UWC 2006
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
+
+/**
+ * The modulecatalogue class extends the controller class and as such is the controller
+ * for the modulecatalogue module. The main fucntions of this module are module administration
+ * with a catalogue interface. Allows installation and Un-installation of modules
+ * via a cagtalogue interface which groups similar modules. Also incorporates module patching.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class modulecatalogue extends controller
@@ -141,9 +173,9 @@ class modulecatalogue extends controller
     }
 
     /**
-     * Dispatch function
+     * The dispatch function which handles the execution path od the module
      *
-     * @return mixed
+     * @return mixed template names to be displayed by the engine
      */
     public function dispatch() {
         try {
@@ -728,7 +760,7 @@ class modulecatalogue extends controller
      * The error callback function, defers to configured error handler
      *
      * @param  string $exception
-     * @return void  
+     * @return void
      */
     public function errorCallback($exception) {
         echo customException::cleanUp($exception);

@@ -1,4 +1,38 @@
 <?php
+
+/**
+ * Class for building the catalogue navigation for module catalogue.
+ * The class makes use of nodes in an array to keep track of the different categories
+ * and the show() function renders the array as a navigation menu.
+ *
+ * The class builds a css style navigation menu
+ *
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -11,15 +45,20 @@ $GLOBALS['kewl_entry_point_run']){
 }
 
 /**
-* Class for building the catalogue navigation for module catalogue.
-*
-* The class builds a css style navigation menu
-*
-* @author    Nic Appleby
-* @copyright (c)2006 UWC
-* @version   $Id
-* @package   modulecatalogue
-*/
+ * Class for building the catalogue navigation for module catalogue.
+ * The class makes use of nodes in an array to keep track of the different categories
+ * and the shoe() function renders the array as a navigation menu.
+ *
+ * The class builds a css style navigation menu
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
 
 class catalogue extends object {
 
@@ -47,7 +86,7 @@ class catalogue extends object {
     /**
      * Method to add content to the navigation list
      *
-     * @param array $nodes An array containing key for category
+     * @param array $nodes An array of nodes to be added as categories
      */
     public function addNodes($nodes) {
     	try {
@@ -77,10 +116,11 @@ class catalogue extends object {
     }
 
     /**
-     * Method to display the navigation menu
+     * Method to render the navigation menu
      *
-     * @param  string $activeNode
-     * @return string
+     * @param  string $activeNode The node which should appear
+     *         to be currently selected
+     * @return string The rendered navigation menu
      */
     public function show($activeNode = null) {
     	try {

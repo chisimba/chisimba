@@ -1,13 +1,31 @@
 <?php
 /**
-* Class which handles patches to modules
-* @author    Nic Appleby
-* @copyright AVOIR
-* @license   GNU/GPL
-* @category  Chisimba
-* @package   modulecatalogue
-* @version   $Id$
-*/
+ * The patch class is used to read and write module version information,
+ *  as well as to apply patches to modules
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   modulecatalogue
+ * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
 
 class patch extends dbtable {
 
@@ -111,7 +129,7 @@ class patch extends dbtable {
     * This method calls a function to read the XML file
     * and walks through it, processing each update
     * @param string $modname the name of the module
-    *                        
+    *
     */
     function applyUpdates($modname) {
         try {
@@ -292,7 +310,7 @@ class patch extends dbtable {
     * This method reads a register.conf file
     * And returns the module version number
     * @param string $module the module id
-    *                       $returns string $version
+    * @return string The module version
     */
     private function readVersion($module) {
         try {
