@@ -419,14 +419,27 @@ class viewGrid extends object
 
         $objLnk = $this->newObject('link','htmlelements');
         $objLnk->href = $this->uri(array('action'=>$action,'class'=>$action,'id'=>$id ));
-        $objLnk->link = $id;//$objLink->_name;
+        
+        // Cater for empty text
+        if ($id == '') {
+            $objLnk->link = '<em>Empty Field</em>';
+        } else {
+            $objLnk->link = $id;//$objLink->_name;
+        }
+        
+        
         $valid = $objLink->isValid() ? 'Valid' : 'Invalid';
         if( isset( $objLink->_params ) ) {
             $objLnk->extra = sprintf( " title='%s - %s'", $valid, $objLink->_params );
         } else {
             $objLnk->extra = sprintf( " title='%s'", $valid );
         }
-        return $objLnk->show();
+        
+        if ($id == '') {
+            return 'Warning - '.$objLnk->show();
+        } else {
+            return $objLnk->show();
+        }
     }
     
 } /* end of class viewTable */
