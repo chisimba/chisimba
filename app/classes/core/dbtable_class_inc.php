@@ -614,6 +614,10 @@ class dbTable extends object
 				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         	}
         }
+        if($this->objMemcache == TRUE)
+    	{
+    		chisimbacache::getMem()->flush();
+    	}
         return $ret ? $id : false;
     }
 
@@ -665,6 +669,10 @@ class dbTable extends object
         	}
         }
 
+        if($this->objMemcache == TRUE)
+    	{
+    		chisimbacache::getMem()->flush();
+    	}
         return $ret;
     }
 
@@ -704,6 +712,10 @@ class dbTable extends object
 				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         	}
         }
+        if($this->objMemcache == TRUE)
+    	{
+    		chisimbacache::getMem()->flush();
+    	}
         return $ret;
     }
 
