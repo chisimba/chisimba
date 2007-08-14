@@ -1,4 +1,34 @@
 <?php
+ /**
+ * Marquee class for Chisimba
+ * 
+ * Marquee class acts as base class for the scrolling objects
+ * 
+ * PHP version 5
+ *  
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * 
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Elijah Omwenga and Otim Samuel
+ * @copyright 2004-2007, University of the Western Cape & AVOIR Project
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 /* -------------------- marquee class extends object ----------------*/
 // security check - must be included in all scripts
 if (!
@@ -207,11 +237,9 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property moduleName
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $moduleName Parameter description (if any) ...
+     * @param  unknown $moduleName
      * @return void   
      * @access public 
      */
@@ -221,11 +249,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property elements
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $elements Parameter description (if any) ...
+     * @param  unknown $elements 
      * @return void   
      * @access public 
      */
@@ -235,11 +262,9 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property behaviour
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $behavior Parameter description (if any) ...
+     * @param  unknown $behavior 
      * @return void   
      * @access public 
      */
@@ -249,11 +274,9 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to set class property align
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $align Parameter description (if any) ...
+     * @param  unknown $align 
      * @return void   
      * @access public 
      */
@@ -263,11 +286,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to set class property direction
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $direction Parameter description (if any) ...
+     * @param  unknown $direction
      * @return void   
      * @access public 
      */
@@ -277,12 +299,9 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property height 
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $height Parameter description (if any) ...
-     * @return void   
+     * @param  unknown $height 
      * @access public 
      */
 	public function setHeight($height)
@@ -291,11 +310,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property scrollAmount
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $scrollAmount Parameter description (if any) ...
+     * @param  unknown $scrollAmount 
      * @return void   
      * @access public 
      */
@@ -305,11 +323,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property scrollDelay
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $scrollDelay Parameter description (if any) ...
+     * @param  unknown $scrollDelay 
      * @return void   
      * @access public 
      */
@@ -319,11 +336,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to set class property onMouseOver
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $onMouseOver Parameter description (if any) ...
+     * @param  unknown $onMouseOver 
      * @return void   
      * @access public 
      */
@@ -333,11 +349,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to set class property onMouseOut
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $onMouseOut Parameter description (if any) ...
+     * @param  unknown $onMouseOut 
      * @return void   
      * @access public 
      */
@@ -356,11 +371,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to return class property moduleName 
      * 
-     * Long description (if any) ...
      * 
-     * @return unknown Return description (if any) ...
+     * @return unknown Return 
      * @access public 
      */
 	public function getModuleName()
@@ -369,11 +383,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to return class property elements
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getElements()
@@ -382,11 +395,10 @@ class marquee extends object implements ifhtml
 	}
 	
     /**
-     * Short description for function
+     * Method to return class property behaviour
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getBehavior()
@@ -395,11 +407,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property align
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getAlign()
@@ -408,11 +419,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property direction
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getDirection()
@@ -421,11 +431,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property height 
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getHeight()
@@ -434,11 +443,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property ScrollAmount
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getScrollAMount()
@@ -447,11 +455,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property scrollDelay 
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getScrollDelay()
@@ -460,11 +467,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property onMouseOver
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getOnMouseOver()
@@ -473,11 +479,10 @@ class marquee extends object implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to return class property onMouseOut
      * 
-     * Long description (if any) ...
      * 
-     * @return string Return description (if any) ...
+     * @return string Return 
      * @access public
      */
 	public function getOnMouseOut()
