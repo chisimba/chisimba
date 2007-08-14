@@ -1,4 +1,25 @@
 <?php
+/**
+ * This file contains the button class which is used to generate
+ * HTML button elements for forms
+ *
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ */
 // security check - must be included in all scripts
 if (!
 /**
@@ -24,20 +45,21 @@ require_once("abhtmlbase_class_inc.php");
 require_once("ifhtml_class_inc.php");
 
 /**
-* Button class controls the rendering of buttons on webpage or forms
-* @package   button
-* @category  HTML Controls
-* @version   $Id$
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @author    Wesley Nitsckie
-* @author    Tohir Solomons
-* @example: 
-*            $this->objButton=new button('buttonname');
-*            $this->objButton->setValue('Button Value');
-*            $this->objButton->setOnClick('alert(\'An onclick Event\')');
-*            $this->objButton->setToSubmit();  //If you want to make the button a submit button 
-*/
+ * Button class controls the rendering of buttons on webpages or forms
+ * @category  Chisimba
+ * @package   htmlelements
+ * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @example:
+ *            $this->objButton=new button('buttonname');
+ *            $this->objButton->setValue('Button Value');
+ *            $this->objButton->setOnClick('alert(\'An onclick Event\')');
+ *            $this->objButton->setToSubmit();  //If you want to make the button a submit button
+ */
 class button extends abhtmlbase implements ifhtml
 {
 
@@ -51,10 +73,10 @@ class button extends abhtmlbase implements ifhtml
     *           button or not.
     */
     public $issubmitbutton;
-    
+
     /**
     * Initialization method to set default values
-    * 
+    *
     * @param string $name    : name of the button
     * @param string $value   optional :value of the button
     * @param string $onclick optional :javascript function that will be called
@@ -66,87 +88,64 @@ class button extends abhtmlbase implements ifhtml
         $this->onclick = $onclick;
         $this->cssClass = 'button';
 		//$this->cssId = 'input_'.$name;
-    } 
-
-    /*
-	* Method to set the onclick 
-	* event for the button
-	* @param string $onclick
-	*/
+    }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $onclick Parameter description (if any) ...
-     * @return void   
-     * @access public 
+	 * Method to set the action for the onclick event
+	 * for the button
+	 *
+	 * @param string $onclick
+     * @return void
+     * @access public
      */
     public function setOnClick($onclick)
     {
         $this->onclick = $onclick;
-    } 
-
-    /*
-	* Method to set the cssClass class 
-	* @param string $cssClass
-	*/
+    }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $cssClass Parameter description (if any) ...
-     * @return void   
-     * @access public 
+	 * Method to set the cssClass private variable
+	 * which determines the DOM class of the button as
+	 * definied in the CSS
+	 *
+	 * @param string $cssClass the class
+     * @return void
+     * @access public
      */
     function setCSS($cssClass)
     {
         $this->cssClass = $cssClass;
     }
-	
-	/*
-	* Method to set the cssId class 
-	* @param string $cssId
-	*/
 
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $cssId Parameter description (if any) ...
-     * @return void   
-     * @access public 
+	/**
+	 * Method to set the cssId private member
+	 * which determines the DOM id of the button
+	 *
+	 * @param string $cssId the Id
+     * @return void
+     * @access public
      */
     public function setId($cssId)
     {
         $this->cssId = $cssId;
-    } 
-
-    /*
-	* function to set the button to
-	* a submit button
-	*/
+    }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return void  
+	 * Method used to set the button as
+	 * a submit button for a form
+     *
+     * @return void
      * @access public
      */
     public function setToSubmit()
     {
         $this->issubmitbutton = true;
-    } 
-    
+    }
+
     /**
-    * Method to show the button
-	* @return $str string : Returns the button's html
+    * Method to render the button as an HTML string
+    *
+	* @return string Returns the button's html
     */
     public function show()
     {
@@ -157,26 +156,26 @@ class button extends abhtmlbase implements ifhtml
             $str .= ' type="submit"';
         } else {
             $str .= ' type="button"';
-        } 
+        }
         if ($this->name) {
             $str .= ' name="' . $this->name . '"';
         }
 		if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
-        }		
+        }
         if ($this->cssClass) {
             $str .= ' class="' . $this->cssClass . '"';
-        } 
+        }
         if ($this->onclick) {
             $str .= ' onclick="' . $this->onclick . '"';
-        } 
+        }
         if ($this->extra) {
             $str .= ' '.$this->extra;
-        } 
+        }
         $str .= ' />';
 
         return $str;
-    } 
-} 
+    }
+}
 
 ?>
