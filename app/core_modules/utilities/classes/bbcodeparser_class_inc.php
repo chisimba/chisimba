@@ -5,8 +5,24 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 }
 // end security check
 
+/**
+ * This class to convert a string to a XHTML compliant string with divs
+ *
+ * @category  Chisimba
+ * @package   utitilies
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 class bbcodeparser extends object
 {
+	/**
+	* Constructor
+	*/
 	public function init()
 	{
 		if(!class_exists('HTML_BBCodeParser'))

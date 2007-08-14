@@ -1,10 +1,14 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
-
 // end security check
 
 /**
@@ -12,9 +16,16 @@ if (!$GLOBALS['kewl_entry_point_run'])
  * Please note, this is NOT a replacement for rowlocking, but rather a way to track
  * users that are working on records at the application level.  IE, it does not 
  * provide protection at the database level
+ *
+ * @category  Chisimba
+ * @package   utilities
  * @author Ryan Whitney, ryan@greenlikeme.org 
  * @author Kevin Cyster 
  * @copyright GNU, 2007
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 class dbeditlock extends dbTable 
 {

@@ -35,7 +35,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * The output of the Gunning-Fox Index
 * 
 * 
-* @author Derek Keats 
+* @category  Chisimba
+ * @package   <module name>
+ * @author Derek Keats 
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
 */
 class readingease extends object {
   

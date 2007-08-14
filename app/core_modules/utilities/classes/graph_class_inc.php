@@ -5,11 +5,17 @@ ini_set("error_reporting", E_ALL & ~E_NOTICE & ~E_WARNING);
 //include the pear class that we need
 require_once('Image/Graph.php');
 
-// security check - must be included in all Chisimba scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 // end security check
+
 
 /**
  * Graphing class
@@ -18,10 +24,14 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * It can be used to graph data in a simple and easy way, in a number of different graph formats
  *
  * @access public
- * @author Paul Scott
+ * @author Paul Scott <pscott@uwc.ac.za>
  * @category chisimba
  * @package utilities
  * @copyright AVOIR 2006
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 class graph extends object
 {

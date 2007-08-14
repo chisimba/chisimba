@@ -9,24 +9,68 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * Class for calculating stats on strings. Main use in analysing text
 * such as discussion forums
 * 
-* @uses 
-* 
+* @category  Chisimba
 * @author Derek Keats 
+* @package   utilities
+* @author    Paul Scott <pscott@uwc.ac.za>
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
 class textstats extends object {
 
+    /**
+    * @var $evaluation_string
+    * Property to hold the string being evaluated
+    */
     var $evaluation_string;
-    
+    /**
+    * @var $words
+    * Property to hold the amount of words
+    */
     var $words;
+    /**
+    * @var $letters
+    * Property to hold the amount of letters
+    */
     var $letters;
+    /**
+    * @var $sentences
+    * Property to hold the amount of sentences
+    */
     var $sentences;
+    /**
+    * @var $length
+    * Property to hold the length
+    */
     var $length;
+    /**
+    * @var $sentences_arr
+    * Property to hold the string into and array on sentences
+    */
     var $sentences_arr=array();
+    /**
+    * @var $avg_sentence_words
+    * Property to hold the average words in a sentence
+    */
     var $avg_sentence_words;
+    /**
+    * @var $max_sentence_words
+    * Property to hold the maximum words in a sentence
+    */
     var $max_sentence_words;
+    /**
+    * @var $min_sentence_words
+    * Property to hold the minimum words in a sentence
+    */
     var $min_sentence_words;
+    /**
+    * @var $std_sentence_words
+    * Property to hold the standard sentence words
+    */
     var $std_sentence_words;
-
   
     /**
     * Method to construct the class

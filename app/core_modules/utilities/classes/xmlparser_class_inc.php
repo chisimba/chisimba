@@ -1,4 +1,10 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,11 +24,16 @@
  *
  * Parses an XML document into an object structure much like the SimpleXML extension.
  *
+ * @category  Chisimba
+ * @package   utilities
  * @author Adam A. Flynn <adamaflynn@phppal.com>
  * @copyright Copyright (c) 2006, Adam A. Flynn
- *
- * @version 1.2.0
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
+
 class XMLParser
 {
     /**

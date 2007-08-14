@@ -1,4 +1,17 @@
 <?php
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
+}
+// end security check
+
+
 /**
 * Curl is a tool for transferring files with URL syntax
 *
@@ -6,12 +19,19 @@
 * Chisimba's Proxy Configurations. Developers can simply instantiate
 * this class and request the page they want.
 *
+* @category  Chisimba
+* @package   utilities
+* @author Tohir Solomons
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 * Example:
 *   $objCurl = $this->getObject('curl', 'utilities');
 *    echo $objCurl->exec('http://ws.geonames.org/search?name_equals=Walvisbaai&style=full');
-*
-* @author Tohir Solomons
 */
+
 class curl extends object
 {
     /**

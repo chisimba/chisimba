@@ -2,19 +2,35 @@
 /* -------------------- countries class ----------------*/
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
-	die("You cannot view this page directly");
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
 }
 // end security check
 
-/**
-* Class for the country codes
-*
-* This class provides a list of country codes, 
-* and allows conversion between country codes to country names
-* This class can also be used to get Country Flags
-*/
+ /**
+ * Class for the country codes
+ *
+ * This class provides a list of country codes, 
+ * and allows conversion between country codes to country names
+ * This class can also be used to get Country Flags
+ *
+ * @category  Chisimba
+ * @package   utilities
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
+
 class countries extends object
 {
 

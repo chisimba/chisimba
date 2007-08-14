@@ -1,19 +1,28 @@
 <?php
 /* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 // end security check
+
 /**
-* Class to create a Diroectory on the File Sysmtem
-* @package utilities
+* Class to create a Directory on the File System
+*
 * @category context
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version
+* @package utilities
 * @author Wesley  Nitsckie
-* @example :
+* @copyright 2004, University of the Western Cape & AVOIR Project
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version $Id$
+* @link      http://avoir.uwc.ac.za
 */
 
 class dircreate extends object

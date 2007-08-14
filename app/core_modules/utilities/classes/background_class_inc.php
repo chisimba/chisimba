@@ -6,13 +6,17 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 
 /**
- * Background object
  * This class is a means to access the connection handling API.
  * Ported to Chisimba by Ryan Whitney, ryan@greenlikeme.org
- * @author Paul Scott
- * @copyright GNU/GPL AVOIR/UWC 2006
- * @package utilities
  *
+ * @category  Chisimba
+ * @package   utilities
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright GNU/GPL AVOIR/UWC 2006
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  * @example
  * <?php
  * //include the class source
@@ -32,8 +36,8 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * //fork the process and create the child process and call the callback function when done
  * $call2 = $b->setCallBack("jdoe@example.com", "Your long thing is done", "The long running process that you requested is finished");
  * ?>
- *
  */
+
 class background extends object
 {
 	/**

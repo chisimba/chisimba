@@ -1,12 +1,25 @@
 <?php
-/**
-* Class to Generate a Random Color
-* @author Tohir Solomons
-*
-* Found at: http://www.zend.com/tips/tips.php?id=243&single=1
-* It's setup to create colors on the lighter side of the spectrum so you
-* can use them with darker colors for the text.  
-*/ 
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
+
+ /**
+ * Class to Generate a Random Color
+ *
+ * @category  Chisimba
+ * @package   <module name>
+ * @author Tohir Solomons
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ * Found at: http://www.zend.com/tips/tips.php?id=243&single=1
+ * It's setup to create colors on the lighter side of the spectrum so you
+ * can use them with darker colors for the text.  
+ */ 
 class randomcolorgenerator extends object
 {
 

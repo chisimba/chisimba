@@ -1,14 +1,24 @@
 <?php
+$GLOBALS['kewl_entry_point_run'])
+{
+       die("You cannot view this page directly");
+}
+// end security check
 
 /**
- * Stupid toy class to create ascii art from images found on websites.
+ * Toy class is used to create ascii art from images found on websites.
  * There is probably not many use cases for this, so do what you will with it
- * I wrote this because I was bored one night.
- * 
- * @author Paul Scott
+ *
+ * @category  Chisimba
+ * @package   utilities
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @author based on code by Jonathan Ford
- * @copyright AVOIR  GNU/GPL
- * @package utilites
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ * @see       Any relevant section
  */
 
 class asciiart extends object
@@ -210,7 +220,11 @@ class asciiart extends object
 				$pixel_color = imagecolorat($img, $x, $y); // Get pixel color at x,y
 				$rgb = imagecolorsforindex($img, $pixel_color); // Make the color into an array we can use
 
-				// Do some more color processing stuff
+			/**
+	 * The image that we are converting
+	 *
+	 * @var string
+	 */	// Do some more color processing stuff
 				if($this->color === true)
 				{
 					// Work out if the last pixel is the same as this one
@@ -220,11 +234,19 @@ class asciiart extends object
 					}
 					// Or if it's not...
 					else
-					{
+			/**
+	 * The image that we are converting
+	 *
+	 * @var string
+	 */		{
 						$char = '</span><span style="color: ' . $this->rgbtohex($rgb['red'], $rgb['green'], $rgb['blue']) . ';">#';
 					}
 				}
-				// Work out the "brighness" by adding up the RGB values and doing some division
+			/**
+	 * The image that we are converting
+	 *
+	 * @var string
+	 */	// Work out the "brighness" by adding up the RGB values and doing some division
 				else
 				{
 					$brightness = $rgb['red'] + $rgb['green'] + $rgb['blue'];

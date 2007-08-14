@@ -7,11 +7,15 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 // end security check
 /**
 * Class to verify a string contains no script attacks
+*
+* @category  Chisimba
 * @package utilities
 * @copyright 2006, University of the Western Cape & AVOIR Project
-* @license GNU GPL
-* @version
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version $Id$
 * @author Nic Appleby
+* @link      http://avoir.uwc.ac.za
 */
 
 class script extends object

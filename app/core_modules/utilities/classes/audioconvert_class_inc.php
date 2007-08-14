@@ -4,18 +4,24 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-
 /**
  * Audio file converter class
  * WMA 2 Ogg
  * MP3 2 Ogg
  *
+ * @category  Chisimba
  * @access public
- * @author Paul Scott
+ * @package   utilities
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
  * @copyright Paul Scott
  * @link http://directory.fsf.org/all/mp32ogg.html
  * @link http://www.mplayerhq.hu/design7/news.html
  * @link http://directory.fsf.org/OggEnc.html
+ * @link http://avoir.uwc.ac.za
  */
 
 class audioconvert extends object

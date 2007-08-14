@@ -13,9 +13,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * It is called a washout because it id designed to parse the
 * what comes out of the washing machine.
 *
+* @category  Chisimba
 * @author Derek Keats
-* @author Paul Scott
+* @author Paul Scott <pscott@uwc.ac.za>
 * @copyright UWC and AVOIR under the GPL
+* @package   utilities
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
 class washout extends object
 {
@@ -27,9 +34,15 @@ class washout extends object
 	*/
 	public $classes;
 
+	/**
+	*
+	* @var $bbcode
+	* @access public
+	*
+	*/
 	public $bbcode;
 
-    /*
+    /**
     * @var object $objModules: The modules class in the modulecatalogue module
     * @access private
     */

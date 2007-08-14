@@ -11,12 +11,23 @@
 //
 // License: LGPL, see LICENSE
 ////////////////////////////////////////////////////
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
 
 /**
  * PHPMailer - PHP email transport class
- * @package PHPMailer
+ *
+ * @category  Chisimba
+ * @package utilities
  * @author Brent R. Matzelle
  * @copyright 2001 - 2003 Brent R. Matzelle
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 class PHPMailer
 {

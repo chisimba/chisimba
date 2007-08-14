@@ -2,26 +2,30 @@
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 // end security check
 
-/*
-*
-* The confirmation is uses the javascript confirm
- * the contexts
- * @package confirmation
- * @category confirmation
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
- * @version
+/**
+ * This class is used to show a confirmation box, it uses the javascript confirm 
+ *
+ * @category  Chisimba
+ * @package   utilities
  * @author Wesley Nitsckie
-*
-*
-*
-*/
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 class confirm extends object{
 
 	/**

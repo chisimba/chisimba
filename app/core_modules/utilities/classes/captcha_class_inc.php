@@ -2,29 +2,41 @@
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 // end security check
 
 /**
-* Class to generate CAPTCHA images
-*
-* This class is a wrapper to the one written by Horst Nogajski
-* http://hn273.users.phpclasses.org/browse/package/1569.html
-*
-* @author Tohir Solomons
-*
-* Usage:
-*     $objCaptcha = $this->getObject('captcha', 'utilities');
-*     echo $objCaptcha->show();
-*
-* Instantiate this class, give it another [name] if required, and run the show() method.
-*
-* On your validation, check that [user input] = md5(strtoupper[name])
-*
-*/
+ * Class to generate CAPTCHA images
+ *
+ * This class is a wrapper to the one written by Horst Nogajski
+ * http://hn273.users.phpclasses.org/browse/package/1569.html
+ *
+ * @category  Chisimba
+ * @package   utilities
+ * @author    Tohir Solomons
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ * Usage:
+ *     $objCaptcha = $this->getObject('captcha', 'utilities');
+ *     echo $objCaptcha->show();
+ *
+ * Instantiate this class, give it another [name] if required, and run the show() method.
+ *
+ * On your validation, check that [user input] = md5(strtoupper[name])
+ *
+ */
+
 class captcha extends object
 {
 
@@ -79,6 +91,10 @@ class captcha extends object
     */
     private $tempFolder;
     
+    /**
+    * Standard init function
+    *
+    */
 	function init()
     {
         require_once($this->getResourcePath('captcha/hn_captcha.class.php'));
@@ -101,6 +117,10 @@ class captcha extends object
         $this->loadClass('hiddeninput', 'htmlelements');
 	}
     
+    /** 
+    * This is a method to display the CAPTCHA images
+    * 
+    */
     function show()
     {
         

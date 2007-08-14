@@ -11,10 +11,15 @@ if (!$GLOBALS['kewl_entry_point_run'])
  * Class to handle and produce a re-usable object to handle Javascript alerts in a
  * standards compliant way.
  * 
- * @author Paul Scott
+ * @category  Chisimba
+ * @author Paul Scott <pscott@uwc.ac.za>
  * @copyright AVOIR UWC GNU/GPL
  * @package utilities
- * $Id $
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class jsalerts extends object

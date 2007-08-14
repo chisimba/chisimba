@@ -1,14 +1,23 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
 
 /**
  * Top level class for parsing and returning proxy information to be used within the Chisimba Framework
  *
- * @author Paul Scott
+ * @author Paul Scott <pscott@uwc.ac.za>
  * @access public
  * @copyright AVOIR, GNU/GPL 2007
  * @package utilities
  * @category chisimba
  * @filesource
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class proxyparser extends object

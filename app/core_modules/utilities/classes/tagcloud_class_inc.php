@@ -9,11 +9,16 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * Tag Cloud class
  * This is an adaptor pattern that wraps the functionality found in PEAR::HTML_TagCloud
  *
+ * @category  Chisimba
  * @access public
- * @author Paul Scott
+ * @package   utilities
+ * @author Paul Scott <pscott@uwc.ac.za>
  * @copyright AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
  * @link http://pear.php.net/package/html_tagcloud
- * @filesource
+ * @link      http://avoir.uwc.ac.za
  */
 
 class tagcloud extends object

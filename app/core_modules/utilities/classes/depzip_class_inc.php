@@ -1,19 +1,32 @@
 <?php
 /* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
-} 
+}
 // end security check
 
 /**
  * Class to manage zipped files *
  * in to the database
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license GNU GPL
+ *
+ * @license GNU GPL\
+ * @category  Chisimba
  * @author Wesley Nitsckie
  * @package utilities
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
+
  class depzip extends object{
  
      /**

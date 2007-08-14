@@ -1,13 +1,23 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 /**
  * apache log file parser class
  * This is a utility class that may be useful. It was written for the apache log module that has now been removed from cvs.
  *
- * @author Paul Scott
+ * @category  Chisimba
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @package utilities
- * @category chisimba
- * @copyright AVOIR
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class logparser extends object

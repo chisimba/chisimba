@@ -1,25 +1,90 @@
 <?php
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
 * Class fileupload based on a script by Harish Chauhan
-* @package filemanager
-* @author Paul Scott
+*
+* @category  Chisimba
+* @package   utilities
+* @author    Paul Scott <pscott@uwc.ac.za>
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id
+* @link      http://avoir.uwc.ac.za
+* @see       Any relevant section
 */
+
 
 class fileupload extends object
 {
+    /**
+    * @var object $objLanguage
+    */
     var $objLanguage;
+    /**
+    * @var $directory_name
+    * Property to hold the directory name
+    */
     var $directory_name;
+    /**
+    * @var $max_filesize
+    * Property to hold the maximum filesize
+    */
     var $max_filesize;
+    /**
+    * @var $error
+    * Property to hold an error
+    */
     var $error;
+    /**
+    * @var $file_name
+    * Property to hold the file name
+    */
     var $file_name;
+    /**
+    * @var $full_name
+    * Property to hold the full name
+    */
     var $full_name;
+    /**
+    * @var $file_size
+    * Property to hold the file size
+    */
     var $file_size;
+    /**
+    * @var $file_type
+    * Property to hold the file type
+    */
     var $file_type;
+    /**
+    * @var $check_file_type
+    * Property to hold the checked file type
+    */
     var $check_file_type;
+    /**
+    * @var $thumb_name
+    * Property to hold the thumb name
+    */
     var $thumb_name;
+    /**
+    * @var $tmp_name
+    * Property to hold the temporary name
+    */
     var $tmp_name;
 
-
+    /**
+    * Standard Constructor
+    */
     public function init()
     {
     	$this->objLanguage = $this->getObject('language', 'language');
@@ -221,6 +286,9 @@ class fileupload extends object
        }
     }
 
+    /**
+    * Method to return an error
+    */
     function checkError($code)
     {
         return $this->objLanguage->languageText("mod_utilities_fileuploaderror_$code");

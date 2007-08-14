@@ -1,13 +1,23 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
 * A class to do translate the difference between two dates into a human readable format.
 *
 * Example: This message was sent 4 minutes ago, instead of having it in a number format.
-*  
+* 
+* @category  Chisimba 
 * @author Tohir Solomons
 * @package utilities
-* @version 1.0
-* 
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
 class translatedatedifference extends object 
 {

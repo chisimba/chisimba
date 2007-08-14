@@ -1,4 +1,16 @@
 <?php
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
  * Utilities package datetime
  * The utilities are a set of objects that extends the core::object package
@@ -6,10 +18,15 @@
  * the filesystem, email, date and time functions etc
  * Please take a look at the roadmap for further reference.
  *
+ * @category  Chisimba
  * @package utilities
- * @copyright GNU/GPL AVOIR UWC 2006
- * @author Paul Scott
+ * @author Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
  * @access public
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class dateandtime extends object

@@ -1,4 +1,15 @@
 <?php
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
+}
+// end security check
 
 /**
 * Class to check whether Class/Object file exists.
@@ -6,8 +17,17 @@
 * In the Chisimba framework, classes exist in a specified file format in modules.
 * This class checks whether the FILE exist
 * It does not test/throw exceptions whether the object has been/can be instantiated.
-* @author Tohir Solomons
+*
+* @category  Chisimba
+* @package   utilities
+* @author    Tohir Solomons
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
+
 class checkobject extends object
 {
     

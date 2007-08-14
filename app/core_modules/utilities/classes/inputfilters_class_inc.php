@@ -1,19 +1,28 @@
 <?php
 
-// security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
-// end security check
+// end security check/**
 
 /**
  * Input filters class
  *
+ * @category  Chisimba
  * @author Paul Scott based on methods found in the Zend Framework 0.1.4 pre-release
  * @copyright AVOIR UWC GNU/GPL
  * @package utilities
  * @filesource
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class inputfilters extends object

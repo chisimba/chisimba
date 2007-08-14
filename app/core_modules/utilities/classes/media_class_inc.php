@@ -4,11 +4,27 @@ if (!$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
+/**
+ * This class is used to convert different kinds of media files using ffmpeg
+ *
+ * @category  Chisimba
+ * @package   utilities
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
 
 class media extends object 
 {
 	public $ffmpeg;
 	
+	/**
+        * standard init function
+        *
+        */
 	public function init()
 	{
 		try {
@@ -22,6 +38,12 @@ class media extends object
 		}
 	}
 	
+	/**
+        * convert 3gp to flv
+        *
+	* @param string $file The name of the file
+	* @param string $savepath The name of the path to save the new file
+        */
 	public function convert3gp2flv($file, $savepath)
 	{
 		$rfile = basename($file, ".3gp");
@@ -36,6 +58,12 @@ class media extends object
 		}
 	}
 	
+	/**
+        * convert Amr to Mp3
+        *
+	* @param string $file The name of the file
+	* @param string $savepath The name of the path to save the new file
+        */
 	public function convertAmr2Mp3($file, $savepath)
 	{
 		$rfile = basename($file, ".amr");
@@ -51,6 +79,12 @@ class media extends object
 		
 	}
 	
+	/**
+        * convert Mp3 to Amr
+        *
+	* @param string $file The name of the file
+	* @param string $savepath The name of the path to save the new file
+        */
 	public function convertMp32Amr($file, $savepath)
 	{
 		$rfile = basename($file, ".mp3");
@@ -66,6 +100,12 @@ class media extends object
 		
 	}
 	
+	/**
+        * convert Avi to Flv
+        *
+	* @param string $file The name of the file
+	* @param string $savepath The name of the path to save the new file
+        */
 	public function convertAvi2Flv($file, $savepath)
 	{
 		$rfile = basename($file, ".avi");
@@ -81,6 +121,12 @@ class media extends object
 		
 	}
 	
+	/**
+        * convert Mp4 to Flv
+        *
+	* @param string $file The name of the file
+	* @param string $savepath The name of the path to save the new file
+        */
 	public function convertMp42flv($file, $savepath)
 	{
 		$rfile = basename($file, ".mp4");

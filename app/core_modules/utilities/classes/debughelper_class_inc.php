@@ -1,7 +1,12 @@
 <?php
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
     die("You cannot view this page directly");
 }
 // end security check
@@ -9,9 +14,14 @@ if (!$GLOBALS['kewl_entry_point_run'])
 /**
  * Debug helper class
  * 
+ * @category  Chisimba
  * @package utilities
- * @copyright AVOIR UWC GNU/GPL
- * @author Paul Scott
+ * @author    Paul Scott <pscott@uwc.ac.za>
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 class debughelper extends object 

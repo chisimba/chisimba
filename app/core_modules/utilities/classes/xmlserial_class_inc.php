@@ -1,10 +1,24 @@
 <?php
+// security check - must be included in all scripts
+if (!$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+// end security check
+
  /**
  * Class for reading and writing arrays in XML
  * The Serialize and Unserialize classes extend PEAR
  * This is a wrapper class for them, that extends object
  *
+ 
+ * @category  Chisimba
+ * @package   utilities
  * @author James Scoble
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  */
 
 require_once('XML/Unserializer.php');

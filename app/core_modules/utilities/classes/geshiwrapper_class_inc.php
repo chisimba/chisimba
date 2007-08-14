@@ -1,4 +1,15 @@
 <?php
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']){
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
 * 
 * This is a KINKY wrapper for the geshi syntax hilighting class. 
@@ -10,13 +21,18 @@
 * adapter class. 
 *
 * For usage see the examples provided in the wrapgeshi module controller and templates
-* 
-* @author Derek Keats
 *
+* @category  Chisimba
+* @package   utilities
+* @author Derek Keats
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
 * @version $Id$
 * @copyright 2005 GNU GPL
-*
-**/
+* @link      http://avoir.uwc.ac.za
+*/
+
 require_once($this->getResourcePath('geshi/geshi.php', 'utilities'));
 
 class geshiwrapper extends object

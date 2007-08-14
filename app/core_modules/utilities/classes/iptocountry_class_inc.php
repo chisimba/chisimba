@@ -11,11 +11,18 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * This class gets a country's abbreviation code by providing the IP Address of a user
 * It works  by splitting the IP and then including files containing arrays.
 * Found at: http://www.phptutorial.info/iptocountry/the_script.html
+*
 * @copyright 2004, University of the Western Cape & AVOIR Project
-* @license GNU GPL
+* @category  Chisimba
 * @author Tohir Solomons
 * @package utilities
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
+
+
  class iptocountry extends object{
  
      /**
