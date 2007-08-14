@@ -1,22 +1,31 @@
 <?php
-
 /**
- * Short description for file
+ * TimeoutMessage class
  * 
- * Long description (if any) ...
+ * Used to create messages with a timer
  * 
  * PHP version 5
  * 
- * The license text...
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
  * 
  * @category  Chisimba
  * @package   htmlelements
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @author    Jonathan Abrahams
+ * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 // security check - must be included in all scripts
 if (!
@@ -86,30 +95,13 @@ class timeoutMessage extends object {
 	* Method to set the message
 	* @param string
 	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $message Parameter description (if any) ...
-     * @return void   
-     * @access public 
-     */
     public function setMessage( $message ) {
         $this->message = $message;
     }
 
     /*
-	* Method to set the timeout.
-	* @param integer unit in miliseconds.
-	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+	 * Method to set the timeout.
+	 * @param integer unit in miliseconds.
      * @param  unknown $miliSec Parameter description (if any) ...
      * @return void   
      * @access public 
@@ -119,14 +111,7 @@ class timeoutMessage extends object {
     }
 
     /*
-	* Method to set the hide type to Hidden.
-	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+	 * Method to set the hide type to Hidden.
      * @return void  
      * @access public
      */
@@ -135,33 +120,19 @@ class timeoutMessage extends object {
     }
 
     /*
-	* Method to set the hide type to Hidden.
-	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+	 * Method to set the hide type to Hidden.
      * @return void  
      * @access public
-     */
+    */
     public function setHideTypeToNone( ) {
         $this->typeHide = 'none';
     }
 
     /*
-	* Private method to insert the java script function.
-	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+	 * Private method to insert the java script function.
      * @return string Return description (if any) ...
      * @access public
-     */
+    */
     public function _jscript() {
         static $count = 0;
         $jscript = '<script type="text/javascript">';
@@ -185,14 +156,7 @@ class timeoutMessage extends object {
     }
 
     /*
-	* Method to show jscript in header.
-	*/
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+	 * Method to show jscript in header.
      * @return void  
      * @access public
      */
@@ -200,15 +164,9 @@ class timeoutMessage extends object {
 	{
         $this->appendArrayVar('headerParams', $this->_jscript() );
     }
-    /*
-	* Method to show the message.
-	*/
 
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
+    /*
+	 * Method to show the message.
      * @return string Return description (if any) ...
      * @access public
      */

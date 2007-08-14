@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Link class extends abhtmlbase implements ifhtml
  * 
@@ -180,6 +179,7 @@ class link extends abhtmlbase implements ifhtml
 
     /**
     * Method to build the link from the parameters
+    * returns string $ret
     */
     private function _buildLink()
     {
