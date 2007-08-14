@@ -1,22 +1,31 @@
 <?php
-
 /**
- * Short description for file
+ * Validator class
  * 
- * Long description (if any) ...
+ * Form validation class for NextGen/Chisimba - outputs JavaScript for client-side data-integrity tests.
  * 
  * PHP version 5
  * 
- * The license text...
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * 
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 
 // security check - must be included in all scripts
@@ -31,18 +40,16 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 
 /**
- * Short description for class
+ * Validator class
  * 
- * Long description (if any) ...
  * 
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 class Validator extends controller {
 
@@ -171,32 +178,25 @@ class Validator extends controller {
         }
     }
 
-    // Return a string containing a list of errors found,
-    // Seperated by a given deliminator
-
-
-    /**
-     * Short description for function
+    /*
+     * Return a string containing a list of errors found,
+     * Seperated by a given deliminator...
      * 
-     * Long description (if any) ...
-     * 
-     * @param  string $delim Parameter description (if any) ...
-     * @return mixed  Return description (if any) ...
+     * @param  string $delim 
+     * @return mixed  Return 
      * @access public
      */
     public function listErrors($delim = ' '){
         return implode($delim,$this->errors);
     }
 
-    // Manually add something to the list of errors
+    
 
 
-    /**
-     * Short description for function
+    /*
+     * Manually add something to the list of errors
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $description Parameter description (if any) ...
+     * @param  unknown $description 
      * @return void   
      * @access public 
      */
