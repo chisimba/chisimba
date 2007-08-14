@@ -1,5 +1,34 @@
 <?php
-/* -------------------- dbTable class ----------------*/
+/**
+ * This file contains the domtt class which is used to display popup tooltips
+ * over anchors in an HTML page
+ *
+ *
+ * PHP version 5
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * @category  Chisimba
+ * @package   htmlelements
+ * @copyright 2007 AVOIR
+ * @author    Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -10,29 +39,37 @@ if (!
 $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
-// end security check
+
+
 /**
-* The DomTT is a tool tip script that displays useful information using a <a> tag
-* @package   domtt
-* @category  htmlelement
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @version  
-* @author    Wesley Nitsckie
-* @example   :
-*/
+ * domtt class
+ *
+ * The DomTT is a class that displays a useful toot-tip popup over an
+ * HTML anchor tag, when the user triggers a mouseover event
+ *
+ * @category  Chisimba
+ * @package   htmlelements
+ * @copyright 2007 AVOIR
+ * @author    Wesley Nitsckie
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
 
 class domtt extends object
 {
 
 
 	/**
-     * Method to show the domTT Item
-     *
-     * @return string
-     * @access public
-     * @author Wesley Nitsckie
-     */
+	 * Method to render the domtt object as HTML and javascript code
+	 *
+	 * @param string $title The title of the object
+	 * @param string $message The message that will pop up to the user on a mouseover event
+	 * @param string $linkText The text of the anchor tag
+	 * @param string $url The url the tag points toward
+	 * @param string $extra Any extra html that needs to be added to the anchor
+	 * @return string The rendered object in displayable code
+	 */
     public function show($title = 'Chisimba', $message = 'replace this message' , $linkText = "replace this link text", $url = "#" , $extra = null )
     {
     	$this->putScripts();
@@ -49,11 +86,12 @@ class domtt extends object
     }
 
 	 /**
-     * Method to get the javaScript files
+     * Method to get the javaScript that
+     * needs to be added to the page header
+     * for the tooltips to work
      *
      * @access public
-     * @author Wesley Nitsckie
-     * @return null  
+     * @return string The javascript that must go in the header
      */
     public function putScripts()
     {
