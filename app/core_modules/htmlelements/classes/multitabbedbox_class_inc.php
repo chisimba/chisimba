@@ -28,18 +28,22 @@ require_once("ifhtml_class_inc.php");
 * The style sheet class is >box<.
 * 
 * 
-* @abstract 
-* @package   multitabbed Box
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @author    Wesley ?Nitsckie
+* @package   htmlelements
+* @category  Chisimba
+* @author    Wesley Nitsckie
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 * @example  
 *            $objElement =new multitabbedbox(100,500);
 *            $objElement->addTab(array('name'=>'First','url'=>'http://localhost','content' => $form,'default' => true));
 *            $objElement->addTab(array('name'=>'Second','url'=>'http://localhost','content' => $check.$radio.$calendar));
-*            $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' => '300','width' => '600'));		
+*            $objElement->addTab(array('name'=>'Third','url'=>'http://localhost','content' => $tab,'height' =>
+*	     '300','width' => '600'));		
 */
+
 class multitabbedbox extends abhtmlbase implements ifhtml
 {
 	/**
@@ -69,7 +73,7 @@ class multitabbedbox extends abhtmlbase implements ifhtml
 	}
 	
 	/**
-	* Method that addes a tab
+	* Method that add a tab
 	* @param $properties array : Can hold the following values
 	* name string
 	* content string

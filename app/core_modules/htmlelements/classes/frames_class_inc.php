@@ -1,13 +1,10 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * Description for require_once
  * 
  * PHP version 3
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -16,7 +13,6 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 // security check - must be included in all scripts
 if (!
@@ -30,26 +26,8 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 
 // Include the HTML interface class
-
-/**
- * Description for require_once
- */
 require_once("ifhtml_class_inc.php");
 
-/**
- * Short description for class
- * 
- * Long description (if any) ...
- * 
- * @category  Chisimba
- * @package   htmlelements
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   Release: @package_version@
- * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
- */
 class frames
 {
    //var $rows = array();
@@ -58,11 +36,9 @@ class frames
 
 
     /**
-     * Short description for function
+     * A method to display the chosen url
      * 
-     * Long description (if any) ...
-     * 
-     * @return unknown Return description (if any) ...
+     * @return the frame of the url
      * @access public 
      */
 	function show()
@@ -74,12 +50,10 @@ class frames
 
 
     /**
-     * Short description for function
+     * A method to set the frame columns
      * 
-     * Long description (if any) ...
-     * 
-     * @param  array  $cols Parameter description (if any) ...
-     * @return string Return description (if any) ...
+     * @param  array  $cols 
+     * @return string Return frameset columns
      * @access public
      */
     function FrameSetCols($cols = array())
@@ -104,12 +78,10 @@ class frames
 
 
     /**
-     * Short description for function
+     * A method to set the frame columns
      * 
-     * Long description (if any) ...
-     * 
-     * @param  array  $rows Parameter description (if any) ...
-     * @return string Return description (if any) ...
+     * @param  array  $rows
+     * @return string Return frameset rows
      * @access public
      */
     function FrameSetRows($rows = array())
@@ -130,24 +102,21 @@ class frames
 		return $row;
     }
 
-    
-	// the frame tag to define the page to load
 
 
     /**
-     * Short description for function
+     * A method to create the frame tag to define the page to load
      * 
-     * Long description (if any) ...
      * 
-     * @param  unknown $url          Parameter description (if any) ...
-     * @param  unknown $name         Parameter description (if any) ...
-     * @param  unknown $noresize     Parameter description (if any) ...
-     * @param  unknown $scrolling    Parameter description (if any) ...
-     * @param  unknown $frameborder  Parameter description (if any) ...
-     * @param  unknown $longdesc     Parameter description (if any) ...
-     * @param  unknown $marginheight Parameter description (if any) ...
-     * @param  unknown $marginwidth  Parameter description (if any) ...
-     * @return string  Return description (if any) ...
+     * @param  unknown $url
+     * @param  unknown $name
+     * @param  unknown $noresize
+     * @param  unknown $scrolling
+     * @param  unknown $frameborder
+     * @param  unknown $longdesc
+     * @param  unknown $marginheight
+     * @param  unknown $marginwidth
+     * @return string  Return frame tag
      * @access public 
      */
 	function Frame($url, $name = -1, $noresize = -1, $scrolling = -1, $frameborder = -1, $longdesc = -1,
@@ -173,15 +142,11 @@ class frames
     return $frame;
 	 }
 
-    // the tag to close the frameset
-
 
     /**
-     * Short description for function
+     * A method to create the tag to close the frameset
      * 
-     * Long description (if any) ...
-     * 
-     * @return string Return description (if any) ...
+     * @return string Return tag
      * @access public
      */
     function FrameSetEnd()
@@ -191,14 +156,12 @@ class frames
     }
 
     /**
-     * Short description for function
+     * A method to build the frame
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $cols Parameter description (if any) ...
-     * @param  unknown $rows Parameter description (if any) ...
-     * @param  unknown $url  Parameter description (if any) ...
-     * @return string  Return description (if any) ...
+     * @param  unknown $cols
+     * @param  unknown $rows
+     * @param  unknown $url
+     * @return string  Return frame
      * @access private
      */
 	function _buildFrame($cols,$rows,$url)

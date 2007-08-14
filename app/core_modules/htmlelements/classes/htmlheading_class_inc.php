@@ -1,21 +1,24 @@
 <?php 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
- * 
+ * Class to create and display headings using the <Hn> tag where n=1 to 6
+ * This can be used to insert text into the appropriate heading, and can also
+ * specify the cssClass to use. It defaults to <H3>.
+ *
+ * The main purpose for creating this class was  to provide a simple example
+ * of how to extend the framework with header classes, and demonstrate how to
+ * use these extensions in writing code.
+ *
  * PHP version 5
- * 
- * The license text...
- * 
+ *
+ *
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author Derek Keats
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 
 // security check - must be included in all scripts
@@ -35,17 +38,7 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 require_once("ifhtml_class_inc.php");
 
-/**
-* Class to create and display headings using the <Hn> tag where n=1 to 6
-* This can be used to insert text into the appropriate heading, and can also
-* specify the cssClass to use. It defaults to <H3>.
-* 
-* The main purpose for creating this class was  to provide a simple example
-* of how to extend the framework with header classes, and demonstrate how to
-* use these extensions in writing code.
-* 
-* @author Derek Keats
-*/
+
 
 class htmlHeading implements ifhtml
 {

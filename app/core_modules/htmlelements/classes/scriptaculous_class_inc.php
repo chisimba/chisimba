@@ -6,12 +6,19 @@
 * This class merely loads the JavaScript for Prototype and Scriptaculous effects
 * It is not a wrapper. Developers still need to code their own JS functions
 *
+* @category  Chisimba
 * @author  Tohir Solomons
 * @package htmlelements
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
+
 class scriptaculous extends object
 {
-    /**
+        /**
 	* Constructor
 	*/
 	public function init()
@@ -22,7 +29,7 @@ class scriptaculous extends object
 	* Method to load the Scriptaculous JavaScript
 	*
 	* @param string $mimetype Mime Type of Page
-    * @return string Scriptaculous JavaScript
+        * @return string Scriptaculous JavaScript
 	*/
 	public function show($mimetype)
 	{

@@ -28,74 +28,78 @@ require_once("ifhtml_class_inc.php");
  * Used to create links with a Tooltip 
  * This object mis need to display the glossary items
  * 
+ * @category  Chisimba
  * @author    Wesley Nitsckie
- *            
+ * @package   htmlelements 
  * @version   $Id$
- * @copyright 2003
- * @package   mouseoverpopup
- * @category  HTML Controls
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license   GNU GPL
+ * @copyright 2007 AVOIR
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
  * @example  
  *            $mop = new mouseoverpopup('url with caption','Content with caption , this tooltip uses a nice fade in ','asdfdsaf');
  *            $mop->caption='this is a caption';
  *            $mop->show();
- *            */
+ *
+ * Release: @package_version@
+ */
+
  class mouseoverpopup extends abhtmlbase implements ifhtml
  {
  	
     /**
-     * Description for public
-     * @var    string
+     * Holds the text for the url
+     * @var    string $urltext
      * @access public
      */
 	public $urltext;
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the caption for the tooltip
+     * @var    string $caption
      * @access public
      */
 	public $caption;
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the url
+     * @var    string $url
      * @access public
      */
 	public $url;
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the content for the tooltip
+     * @var    string $content
      * @access public
      */
 	public $content;
 	
     /**
-     * Description for public
-     * @var    string
+     * Holds the iframe url
+     * @var    string $iframeUrl
      * @access public
      */
 	public $iframeUrl='';
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the iframe caption
+     * @var    string $iframeCaption
      * @access public
      */
 	public $iframeCaption;
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the iframe width
+     * @var    string $iframeWidth
      * @access public
      */
 	public $iframeWidth;
 
     /**
-     * Description for public
-     * @var    string
+     * Holds the iframe height
+     * @var    string $iframeHeight
      * @access public
      */
 	public $iframeHeight;
@@ -115,11 +119,9 @@ require_once("ifhtml_class_inc.php");
 	}
 	
     /**
-     * Short description for function
+     * This method is used to display a tooltip
      * 
-     * Long description (if any) ...
-     * 
-     * @return string Return description (if any) ...
+     * @return string Return string for tooltip
      * @access public
      */
 	public function show()

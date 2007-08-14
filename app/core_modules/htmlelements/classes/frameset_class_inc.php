@@ -26,14 +26,17 @@ require_once("ifhtml_class_inc.php");
 
 /**
  * HTML control class to create layers (<DIV>) tags
- * @package   iframe
- * @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @version   1
-* @author    Wesley Nitsckie
-* @example  
-*/
+ *
+ *
+ * @package   htmlelements
+ * @category  Chisimba
+ * @author    Wesley Nitsckie
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 class frameset extends abhtmlbase implements ifhtml
 {
     /**

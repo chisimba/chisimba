@@ -1,17 +1,29 @@
 <?php
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
 
 /**
 * textare class to use to make textarea inputs.
 * 
-* @package   htmlTextarea
+* @package   htmlelements
 * @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @version   $Id:
 * @author    Wesley Nitsckie
-* @example  
+* @copyright 2004, University of the Western Cape & AVOIR Project
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 * @todo      -c HTML Editor that will extend this object
 */
+
 //require_once("htmlbase_class_inc.php");
 class htmlarea extends object
  {

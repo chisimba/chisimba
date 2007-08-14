@@ -1,13 +1,21 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
- * 
+ * Sort Direction Class
+ *
+ * This class is used to detect which column is being sorted by, and allow reverse sorting
+ * Explanation: Often you want to have links that sort columns, e.g.
+ *
+ * http://nextgen/index.php?module=something&sort=firstname
+ *
+ * Then you want to reverse it to
+ *
+ * http://nextgen/index.php?module=something&sort=firstname&direction= DESC
+ *
+ * This function will help you achieve that
+ *
  * PHP version 5
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -31,21 +39,6 @@ $GLOBALS['kewl_entry_point_run'])
     die("You cannot view this page directly");
 }
 
-/**
-* Sort Direction Class
-*
-* This class is used to detect which column is being sorted by, and allow reverse sorting
-* Explanation: Often you want to have links that sort columns, e.g.
-*
-* http://nextgen/index.php?module=something&sort=firstname
-*
-* Then you want to reverse it to
-*
-* http://nextgen/index.php?module=something&sort=firstname&direction= DESC
-*
-* This function will help you achieve that
-*
-*/
 class sortdirection extends object
 {
     

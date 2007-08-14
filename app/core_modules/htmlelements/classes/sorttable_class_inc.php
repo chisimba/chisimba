@@ -10,17 +10,18 @@ $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 /**
-* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
+* Wrapper class for sorttable.js
+*
+*
+* @category  Chisimba
 * @package    htmlelements
-* @subpackage view
-* @version    0.1
-* @since      28 February 2005
 * @author     Jonathan Abrahams
-* @filesource
-*/
-
-/**
-* Wrapper class for sorttable.js.
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
+* @see
 *
 * Example of use:<code>
 * $tblEntries = $this->newObject( 'sorttable','htmlelements' );
@@ -54,8 +55,8 @@ $GLOBALS['kewl_entry_point_run']) {
 * }
 * echo $tblEntries->show();
 * </code>
-* @author Jonathan Abrahams
 */
+
 class sortTable extends object
 {
     /**

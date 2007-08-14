@@ -23,15 +23,16 @@ require_once("ifhtml_class_inc.php");
 * Files are in the /kngicon/ folder as specified in the configuration
 * Icons are named file.type (e.g. home.gif)
 *
-* @package   getIcon
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @version   $Id$;
+* @package   htmlelements
+* @category  Chisimba
 * @author    Derek Keats
 * @author    Megan Watson
 * @author    Wesley Nitsckie
-* @example   :
+* @copyright 2004, University of the Western Cape & AVOIR Project
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$;
+* @link      http://avoir.uwc.ac.za
 */
 class getIcon extends object implements ifhtml
 {

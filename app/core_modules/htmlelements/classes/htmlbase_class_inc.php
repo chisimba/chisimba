@@ -1,4 +1,14 @@
 <?php
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
 
 /**
  * HTML Base Class forms the base for 
@@ -6,13 +16,17 @@
  * common functionality and variables needed for 
  * a html object
  *
- * @version   $Id$
- * @package   htmlbase
  * @category  HTML Controls
- * @copyright 2004, University of the Western Cape & AVOIR Project
- * @license   GNU GPL
+
+ * @package   htmlelements
  * @author    Wesley Nitsckie
- *            */
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+ * @version   $Id$
+ * @link      http://avoir.uwc.ac.za
+ */
+
 class htmlbase extends object
 {
 

@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * Class to Prepare and Show a Switch Menu
+ *
+ * A Switch Menu is a series of blocks with a title and text.
+ * The switch menu shows one block at a time.
  * 
  * PHP version 5
  * 
@@ -12,11 +13,24 @@
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author Tohir Solomons
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
+ * @see
+ *
+ * Adapted From: http://www.dynamicdrive.com/dynamicindex1/switchmenu.htm
+ *
+ * Example:
+ *
+ * $switchmenu = $this->newObject('switchmenu', 'htmlelements');
+ * $switchmenu->addBlock('Title 1', 'Block Text 1 <br /> Block Text 1 <br /> Block Text 1'); 
+ * $switchmenu->addBlock('Title 2', 'Block Text 2 <br /> Block Text 2 <br /> Block Text 2', 'confirm'); // Adds 
+ * a CSS Style
+ * $switchmenu->addBlock('Title 3', 'Block Text 3 <br /> Block Text 3 <br /> Block Text 3');
+ *
+ * echo $switchmenu->show();
  */
 /* ----------- data class extends dbTable for tbl_blog------------*/
 // security check - must be included in all scripts
@@ -31,28 +45,6 @@ $GLOBALS['kewl_entry_point_run'])
         die("You cannot view this page directly");
     }
 
-
-/**
-*
-* Class to Prepare and Show a Switch Menu
-*
-* A Switch Menu is a series of blocks with a title and text.
-* The switch menu shows one block at a time.
-*
-* Adapted From: http://www.dynamicdrive.com/dynamicindex1/switchmenu.htm
-*
-* Example:
-*
-* $switchmenu = $this->newObject('switchmenu', 'htmlelements');
-* $switchmenu->addBlock('Title 1', 'Block Text 1 <br /> Block Text 1 <br /> Block Text 1');
-* $switchmenu->addBlock('Title 2', 'Block Text 2 <br /> Block Text 2 <br /> Block Text 2', 'confirm'); // Adds a CSS Style
-* $switchmenu->addBlock('Title 3', 'Block Text 3 <br /> Block Text 3 <br /> Block Text 3');
-*
-* echo $switchmenu->show();
-*
-* @author Tohir Solomons
-*         
-*/
 class switchmenu extends object
 {
     /**

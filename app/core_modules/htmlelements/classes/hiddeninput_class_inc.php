@@ -1,13 +1,9 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * This class is used to hold, use and diplay hidden input
  * 
  * PHP version 5
- * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -16,7 +12,6 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 // security check - must be included in all scripts
 if (!
@@ -52,16 +47,19 @@ class hiddeninput extends abhtmlbase implements ifhtml
 {
 
     /**
+    * Holds the name of the text input
     * @var string $name
     */
     public $name;
     
     /**
+    * Holds the value in the text input
     * @var string $value
     */
     public $value;
     
     /**
+    * Holds extra information
     * @var string $extra
     */
     public $extra;

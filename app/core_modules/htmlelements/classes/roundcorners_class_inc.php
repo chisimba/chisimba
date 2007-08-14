@@ -15,29 +15,29 @@ $GLOBALS['kewl_entry_point_run']){
 *
 * The class builds a css style div rounded corners box 
 *
+* @category  Chisimba
 * @author    Prince Mbekwa
-* @copyright (c)2004 UWC
-* @package   div class
-* @version   0.1
+* @package   htlmelements
+* @version   $Id$
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @link      http://avoir.uwc.ac.za
 */
 
 class roundcorners extends object 
 {
 
     /**
-     * Description for public
+     * Holds the content of the box
      * @var    string
      * @access public
      */
     public $content;
     
     /**
-     * Short description for function
+     * Constructor
      * 
-     * Long description (if any) ...
-     * 
-     * @return void  
-     * @access public
      */
 	function init(){
 		
@@ -45,12 +45,10 @@ class roundcorners extends object
 	
 	
     /**
-     * Short description for function
+     * Method to display the box
      * 
-     * Long description (if any) ...
-     * 
-     * @param  string $content Parameter description (if any) ...
-     * @return string Return description (if any) ...
+     * @param  string $content
+     * @return string Return box
      * @access public
      */
 	function show($content='')

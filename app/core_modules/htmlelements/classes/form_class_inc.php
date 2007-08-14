@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
- * 
+ * Class Form
+ * The Form class creates a form object
+ * that has the ability to  contain other
+ * html objects
  * PHP version 5
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -16,38 +15,8 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
- */
-// security check - must be included in all scripts
-if (!
-/**
- * Description for $GLOBALS
- * @global unknown $GLOBALS['kewl_entry_point_run']
- * @name   $kewl_entry_point_run
- */
-$GLOBALS['kewl_entry_point_run']) {
-    die("You cannot view this page directly");
-}
-
-// Include the HTML interface class
-
-/**
- * Description for require_once
- */
-require_once("ifhtml_class_inc.php");
-
-
-/**
- * Class Form
- * The Form class creates a form object
- * that has the ability to  contain other
- * html objects
- *
- * @author    Wesley Nitsckie
- * @version   $Id$
- * @copyright 2003
-
- *            
+ * @see       
+ * *            
  *            Example using type 4 form.
  *            
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
@@ -71,14 +40,26 @@ require_once("ifhtml_class_inc.php");
 	$objForm->endFieldset();
 	echo $objForm->show();
 
- *            
- *            
- *            
- *            
- *            
- *            
- *            
  */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global unknown $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
+    die("You cannot view this page directly");
+}
+
+// Include the HTML interface class
+
+/**
+ * Description for require_once
+ */
+require_once("ifhtml_class_inc.php");
+
+
 
 class form implements ifhtml
 {
@@ -202,13 +183,10 @@ class form implements ifhtml
     }
 
     /**
-     * Short description for function
+     * Method to add label to form
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $label Parameter description (if any) ...
-     * @param  unknown $field Parameter description (if any) ...
-     * @return void   
+     * @param  string $label string to add to form
+     * @param  $field string: the name of the field
      * @access public 
      */
 	public function addToFormEx($label,$field=NULL)
@@ -222,12 +200,9 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to create and array of elements
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $legend Parameter description (if any) ...
-     * @return void   
+     * @param string $legend
      * @access public 
      */
 	public function beginFieldset($legend)
@@ -236,9 +211,7 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * Method to end the field set array
      * 
      * @return void  
      * @access public
@@ -574,9 +547,7 @@ class form implements ifhtml
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * Method to add a form rule
      * 
      * @return void  
      * @access public
@@ -586,9 +557,7 @@ class form implements ifhtml
     }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * Method to get the validator scripts
      * 
      * @return string  Return description (if any) ...
      * @access private
@@ -759,13 +728,10 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to validate the email
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $fieldname Parameter description (if any) ...
-     * @param  unknown $errormsg  Parameter description (if any) ...
-     * @return void   
+     * @param  $fieldname string: name of the field
+     * @param  $errormsg string: the error message
      * @access private
      */
 	private function _valEmail($fieldname,$errormsg)
@@ -775,13 +741,10 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to validate the letters of an email only
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $fieldname Parameter description (if any) ...
-     * @param  unknown $errormsg  Parameter description (if any) ...
-     * @return void   
+     * @param  $fieldname string: name of the field
+     * @param  $errormsg string: the error message
      * @access private
      */
 	private function _valLettersOnly($fieldname,$errormsg)
@@ -791,12 +754,10 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to validate the maximum number
      * 
-     * Long description (if any) ...
-     * 
-     * @param  array   $mix      Parameter description (if any) ...
-     * @param  unknown $errormsg Parameter description (if any) ...
+     * @param $mix array :Should include a field name and length
+     * @param  $errormsg string: the error message
      * @return void   
      * @access private
      */
@@ -807,13 +768,10 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to validate the minimum number
      * 
-     * Long description (if any) ...
-     * 
-     * @param  array   $mix      Parameter description (if any) ...
-     * @param  unknown $errormsg Parameter description (if any) ...
-     * @return void   
+     * @param $mix array :Should include a field name and length
+     * @param  $errormsg string: the error message
      * @access private
      */
 	private function _valMinNumber($mix,$errormsg)
@@ -823,13 +781,10 @@ class form implements ifhtml
 	}
 
     /**
-     * Short description for function
+     * Method to validate the selection
      * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $fieldname Parameter description (if any) ...
-     * @param  unknown $errormsg  Parameter description (if any) ...
-     * @return void   
+     * @param  $fieldname string: name of the field
+     * @param  $errormsg  string: the error message.
      * @access private
      */
 	private function _valSelect($fieldname,$errormsg)

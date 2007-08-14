@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * A set of button objects to create interface buttons
  * 
  * PHP version 5
  * 
@@ -18,6 +16,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -36,22 +35,19 @@ $GLOBALS['kewl_entry_point_run']) {
 require_once("ifhtml_class_inc.php");
 
 
-/**
-* A set of button objects to create interface buttons
-*/
 class navbuttons extends object implements ifhtml
 {
 
     /**
-     * Description for public
-     * @var    mixed 
+     * 
+     * @var  object $objLanguage
      * @access public
      */
      public $objLanguage;
 
     /**
-     * Description for public
-     * @var    unknown
+     *
+     * @var    object $objConfig
      * @access public 
      */
      public $objConfig;

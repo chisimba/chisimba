@@ -23,13 +23,17 @@ require_once("ifhtml_class_inc.php");
 * Used to create frameset that helps
 * grouped items
 * 
-* @package   frameset
+* @package   htmlelements
 * @category  HTML Controls
 * @copyright 2004, University of the Western Cape & AVOIR Project
 * @license   GNU GPL
 * @author    Wesley Nitsckie updated by Derek Keats 2004 03 16
-* @example   :
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
 */
+
 class fieldsetex extends object implements ifhtml
 {
 	/**
@@ -45,11 +49,11 @@ class fieldsetex extends object implements ifhtml
 	*@var $content The contents of the frameset
 	*/
 	public $contents;
-    /**
+        /**
 	*@var $width The width attribute
 	*/
 	public $width;
-    /**
+        /**
 	*@var $extra Any other extra items that needs to be added 
 	*/
 	public $extra;
@@ -69,8 +73,8 @@ class fieldsetex extends object implements ifhtml
 	
 	/**
 	*The show Method
-    * @return null  
-    * @access public
+        * @return null  
+        * @access public
 	*/
 	public function show()
 	{
@@ -109,15 +113,12 @@ class fieldsetex extends object implements ifhtml
 	}
 	
 	
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  object $label Parameter description (if any) ...
-     * @return void  
-     * @access public
-     */
+	/**
+	* Method to add a label
+	* 
+	* @param  $label string: to be added to the label 
+	* @access public
+	*/
 	public function addLabel($label){
         if (is_object($label)) {
             $str = $label->show();
@@ -127,16 +128,13 @@ class fieldsetex extends object implements ifhtml
 		$this->contents.='<tr><td align="left" colspan="2">'.$str.'</td></tr>';
 	}
 	
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  object $label Parameter description (if any) ...
-     * @param  object $field Parameter description (if any) ...
-     * @return void  
-     * @access public
-     */
+	/**
+	* Method to add a label field
+	* 
+	* @param  $label string: to be added to the label field
+	* @param  $field string: the name of the field
+	* @access public
+	*/
 	public function addLabelledField($label,$field){
         if (is_object($label)) {
             $str1 = $label->show();
@@ -153,8 +151,8 @@ class fieldsetex extends object implements ifhtml
 
 	/**
 	*Method to reset the fields
-    * @return null  
-    * @access public
+        * @return null  
+        * @access public
 	*/
 	public function reset(){
 		$this->contents=null;
@@ -164,18 +162,18 @@ class fieldsetex extends object implements ifhtml
 	/**
 	*Method to add the legend
 	*@param $legend string  The legend to be added to the fieldset
-    * @return null  
-    * @access public
+        * @return null  
+        * @access public
 	*/
 	public function setLegend($legend){
 		$this->legend=$legend;
 	}
     
-    /**
+        /**
 	*Method to add extra parameters
 	*@param $parameters string  String of parameters that can be added
-    * @return null  
-    * @access public
+        * @return null  
+        * @access public
 	*/
 	public function setExtra($parameters){
 		$this->extra=$parameters;

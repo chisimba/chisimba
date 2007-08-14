@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
- * 
+ * Sub Modal Window
+ *
+ * This class is a wrapper to JavaScript to create a submodal window.
+ *
  * PHP version 5
  * 
  * The license text...
@@ -12,11 +12,40 @@
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author Tohir Solomons
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
+ * @see
+ *
+ * Q&A
+ *
+ * 1) What is a Sub Modal Window?
+ * A sub modal window is similar to a popup window with a view differences. 
+ * A submodal window pops up in the current page, and disables any functionality on the opener page.
+ * A popup window opens in a separate window, and users are still able to access any functionality on the
+ * opener page
+ *
+ * 2) Any real life examples
+ * Sub Modal Windows are common in desktop applications. Consider 'Open File' in a word processor. When this 
+ * window is open,
+ * all other functionality is disabled. This is a type of Sub Modal Window
+ *
+ * 3) How common is Sub Modal Windows in web applications
+ * Microsoft was the first to implement a proprietary JS solution with a function called showModalDialog.
+ * More info at: http://msdn.microsoft.com/workshop/author/dhtml/reference/methods/showmodaldialog.asp
+ *
+ * Since then, many others have developed cross-browser solutions to this. This implementation was released by 
+ * Todd Huss,
+ * and is available at: http://gabrito.com/files/subModal/
+ *
+ * Example:
+ *         $objSubModalWindow = $this->getObject('submodalwindow');
+ *         echo $objSubModalWindow->show('Click this Button', 
+ * $this->uri(array('action'=>'submodalexample_content')), 'button');
+ *         echo $objSubModalWindow->show('Click this Link', 
+ * $this->uri(array('action'=>'submodalexample_content')), 'link');
  */
 // security check - must be included in all scripts
 if (!
@@ -37,35 +66,8 @@ $GLOBALS['kewl_entry_point_run']) {
 require_once("ifhtml_class_inc.php");
 
 /**
-* Sub Modal Window
-*
-* This class is a wrapper to JavaScript to create a submodal window.
-*
-* Q&A
-*
-* 1) What is a Sub Modal Window?
-* A sub modal window is similar to a popup window with a view differences. 
-* A submodal window pops up in the current page, and disables any functionality on the opener page.
-* A popup window opens in a separate window, and users are still able to access any functionality on the opener page
-*
-* 2) Any real life examples
-* Sub Modal Windows are common in desktop applications. Consider 'Open File' in a word processor. When this window is open,
-* all other functionality is disabled. This is a type of Sub Modal Window
-*
-* 3) How common is Sub Modal Windows in web applications
-* Microsoft was the first to implement a proprietary JS solution with a function called showModalDialog.
-* More info at: http://msdn.microsoft.com/workshop/author/dhtml/reference/methods/showmodaldialog.asp
-*
-* Since then, many others have developed cross-browser solutions to this. This implementation was released by Todd Huss,
-* and is available at: http://gabrito.com/files/subModal/
-*
-*
-* @author Tohir Solomons
-*         
-*         Example:
-*         $objSubModalWindow = $this->getObject('submodalwindow');
-*         echo $objSubModalWindow->show('Click this Button', $this->uri(array('action'=>'submodalexample_content')), 'button');
-*         echo $objSubModalWindow->show('Click this Link', $this->uri(array('action'=>'submodalexample_content')), 'link');
+
+
 */
 class submodalwindow extends object implements ifhtml
 {

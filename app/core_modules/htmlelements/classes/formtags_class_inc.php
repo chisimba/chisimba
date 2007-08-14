@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ * Simple class to output start and end tags for form elements
+ *
  * 
  * PHP version 3
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -16,13 +14,8 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 
-/**
-* Simple class to output start and end tags for form elements
-*
-*/
 
 class formtags
 {

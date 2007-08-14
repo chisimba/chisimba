@@ -28,11 +28,13 @@ require_once("ifhtml_class_inc.php");
 *   in the table or any other HTML object.
 *
 * @package   htmlelements
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
+* @category  Chisimba
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
 * @version   $Id$;
 * @author    Derek Keats
+* @link      http://avoir.uwc.ac.za
 * @example  
 *            $myTable=$this->newObject('htmltable','htmlelements');
 *            $myTable->width='60%';

@@ -18,16 +18,18 @@ $GLOBALS['kewl_entry_point_run']) {
 require_once("ifhtml_class_inc.php");
 
 /**
-* @copyright  (c) 2000-2004, Kewl.NextGen ( http://kngforge.uwc.ac.za )
-* @package    htmlelements
-* @subpackage view
-* @version    0.1
-* @since      28 February 2005
-* @author     Jonathan Abrahams
-* @filesource
-*/
-/**
 * Class used to generate the select using javascript selectbox.js.
+*
+*
+* @category  Chisimba
+* @package    htmlelements
+* @author     Jonathan Abrahams
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
+Public License
+* @version   $Id$
+* @link      http://avoir.uwc.ac.za
+* @see
 *
 * Using the selectbox:
 *   Example of code found in the module content template.
@@ -68,6 +70,9 @@ require_once("ifhtml_class_inc.php");
 *   }
 * </code>
 */
+
+
+
 class selectbox extends object implements ifhtml
 {
 

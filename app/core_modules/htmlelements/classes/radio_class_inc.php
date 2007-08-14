@@ -39,12 +39,14 @@ require_once('htmltable_class_inc.php');
 * 
 * 
 * @abstract 
-* @package   multitabbed Box
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
+* @package   htmlelements
+* @category  Chisimba
 * @author    Wesley Nitsckie
 * @author    Tohir Solomons
+* @copyright 2007 AVOIR
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+* @version   Release: @package_version@
+* @link      http://avoir.uwc.ac.za
 * @example  
 *            //Radio button Group
 *            	$objElement = new radio('sex_radio');
@@ -53,35 +55,35 @@ require_once('htmltable_class_inc.php');
 *            	$objElement->addOption('n','Seaweed');
 *            	$objElement->setSelected('f');
 *            	echo $objElement->show().'<br>';
-*            
 */
+
 class radio extends abhtmlbase implements ifhtml
 {
   
     /**
-     * Description for public
-     * @var    array 
+     * Array of radio buttons
+     * @var    array $options
      * @access public
      */
     public $options = array();
 
     /**
-     * Description for public
-     * @var    unknown
+     * Selected radio button
+     * @var    boolean $selected
      * @access public 
      */
     public $selected;
 
     /**
-     * Description for public
-     * @var    string
+     * String to hold a space
+     * @var    string $breakSpace
      * @access public
      */
     public $breakSpace = '';
 
     /**
-     * Description for public
-     * @var    number
+     * Holds the number of table columns
+     * @var    integer $tableColumns
      * @access public
      */
     public $tableColumns = 3;
@@ -122,43 +124,23 @@ class radio extends abhtmlbase implements ifhtml
         $this->cssId = $cssId;
     } 
   
-    /*
+    /**
     * Method that adds a options to 
     * the radio group
     * @param string $label : The label that goes with the option
     * @param string $value : The value for a give option
     
     */
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $value Parameter description (if any) ...
-     * @param  unknown $label Parameter description (if any) ...
-     * @return void   
-     * @access public 
-     */
     public function addOption($value,$label)
     {
         $this->options[$value] = $label;
     }
   
-    /*Method to set the an
+    /**
+    * Method to set the an
     * option to be selected
     * @param string $value : Sets the option to 'checked'
     */
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @param  unknown $value Parameter description (if any) ...
-     * @return void   
-     * @access public 
-     */
     public function setSelected($value)
     {
         if(isset($this->options[$value]))
@@ -167,18 +149,9 @@ class radio extends abhtmlbase implements ifhtml
         }	
     }
   
-    /*
+    /**
     * Method to show the option group
     */
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return unknown Return description (if any) ...
-     * @access public 
-     */
     public function show()
     {
         if (strtolower($this->breakSpace) == 'table') {
@@ -188,18 +161,9 @@ class radio extends abhtmlbase implements ifhtml
         }
     }
 
-    /*
+    /**
     * Method to show the option group with the given breakspace (not table)
     */
-
-    /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
-     * 
-     * @return string Return description (if any) ...
-     * @access public
-     */
     public function showNormal()
     {
         $str='';

@@ -1,13 +1,10 @@
 <?php
 
 /**
- * Short description for file
- * 
- * Long description (if any) ...
+ /* Simple class for outputting '<a href' links>
  * 
  * PHP version 5
  * 
- * The license text...
  * 
  * @category  Chisimba
  * @package   htmlelements
@@ -16,7 +13,6 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
  */
 // security check - must be included in all scripts
 if (!
@@ -36,61 +32,39 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 require_once("ifhtml_class_inc.php");
 
-    /* Simple class for outputting '<a href' links
-    * @author James Scoble
-    * @param $link
-    * @param $text
-    * @param $other
-    */
 
-/**
- * Short description for class
- * 
- * Long description (if any) ...
- * 
- * @category  Chisimba
- * @package   htmlelements
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   Release: @package_version@
- * @link      http://avoir.uwc.ac.za
- * @see       References to other sections (if any)...
- */
 class href implements ifhtml
 {
 
     /**
-     * Description for public
+     * Holds the href link
      * @var    string
      * @access public
      */
         public $link;
 
     /**
-     * Description for public
+     * Holds the text for the link
      * @var    string
      * @access public
      */
         public $text;
 
     /**
-     * Description for public
+     * Holds other information in  a string
      * @var    string
      * @access public
      */
         public $other;
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * A method to set the href link
      * 
      * @param  unknown $link  Parameter description (if any) ...
      * @param  unknown $text  Parameter description (if any) ...
      * @param  unknown $other Parameter description (if any) ...
-     * @return void   
-     * @access public 
+     * @return void href
+     * @access public.
      */
         public function href($link=Null,$text=Null,$other=Null)
         {
@@ -100,11 +74,9 @@ class href implements ifhtml
         }
 
     /**
-     * Short description for function
+     * A method to show the href link
      * 
-     * Long description (if any) ...
-     * 
-     * @return string Return description (if any) ...
+     * @return string Return href link
      * @access public
      */
         public function show()
@@ -114,14 +86,12 @@ class href implements ifhtml
         }
 
     /**
-     * Short description for function
-     * 
-     * Long description (if any) ...
+     * A method to display the link
      * 
      * @param  string $link  Parameter description (if any) ...
      * @param  string $text  Parameter description (if any) ...
      * @param  string $other Parameter description (if any) ...
-     * @return string Return description (if any) ...
+     * @return string Return link
      * @access public
      */
         public function showlink($link,$text,$other=Null)
