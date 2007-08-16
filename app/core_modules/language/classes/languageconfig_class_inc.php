@@ -141,6 +141,14 @@ class languageConfig extends object
 			$dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
 			$this->lang = &Translation2::factory($driver, $dsn, $params);
 			$this->lang =& $this->lang->getDecorator('CacheMemory');
+			
+			$this->lang =& $this->lang->getDecorator('SpecialChars');
+			// control the charset to use
+			$this->lang->setOption('charset', 'iso-8859-1');
+			// add a UTF-8 decorator to automatically decode UTF-8 strings
+			$this->lang =& $this->lang->getDecorator('UTF8');
+			// add a default text decorator to deal with empty strings
+			$this->lang = & $this->lang->getDecorator('DefaultText');
 			$this->lang->setOption('prefetch', true); //default value is true
 			if (PEAR::isError($this->lang)) {
 				echo $this->lang->getMessage(); die();
@@ -149,33 +157,19 @@ class languageConfig extends object
 			// set primary language
 			if(!is_object($this->lang)) throw new Exception('Translation class not loaded');
 			$this->lang->setLang("en");
-
+			
 			// set the group of strings you want to fetch from
 			$this->lang->setPageID('defaultGroup');
 			$this->caller = $this->moduleName;
 			// add a Lang decorator to provide a fallback language
 			$this->lang =& $this->lang->getDecorator('Lang');
 			$this->lang->setOption('fallbackLang', 'en');
-			// add a default text decorator to deal with empty strings
-			$this->lang = & $this->lang->getDecorator('DefaultText');
+			$this->lang->getDecorator('CacheLiteFunction');
+			$this->lang->setOption('cacheDir', 'cache/');
+			$this->lang->setOption('lifeTime', 86400);
 			// replace the empty string with its stringID
 
-			/*if($this->objMemcache == TRUE)
-			{
-				if(chisimbacache::getMem()->get(md5('translation2')))
-				{
-					$this->lang = chisimbacache::getMem()->get(md5('translation2'));
-					$this->lang = unserialize($this->lang);
-					return $this->lang;
-				}
-				else {
-					chisimbacache::getMem()->set(md5('translation2'), serialize($this->lang), MEMCACHE_COMPRESSED, $this->cacheTTL);
-					return $this->lang;;
-				}
-			}
-			else {*/
-				// use a custom fallback text
-				return $this->lang;
+			return $this->lang;
 			//}
 		}catch (Exception $e){
                     // Alterations by jsc on advice from paulscott
