@@ -358,7 +358,7 @@ class language extends dbTable {
     private function _match( $tag )
     {
         return "/\[\-".$tag."\-\]/isU";
-        $this->languageText
+        $this->languageText;
     }
 
     /**
