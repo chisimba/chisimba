@@ -73,10 +73,10 @@ class proxy extends object
         // if it exists
         if( !empty($proxy) ) {
             // Extract
-    		$first = explode("@",$proxy);
-    		$a = explode(":",$first[0]);
-    		$b = explode(":",$first[1]);
-    		$c = str_replace("//","",$a[1]);
+    		@$first = explode("@",$proxy);
+    		@$a = explode(":",$first[0]);
+    		@$b = explode(":",$first[1]);
+    		@$c = str_replace("//","",$a[1]);
     		//build the associative array
     		$proxycomponents['proxyserver'] =  $this->port = $b[0];
     		$proxycomponents['proxyport'] =  $this->server = $b[1];
