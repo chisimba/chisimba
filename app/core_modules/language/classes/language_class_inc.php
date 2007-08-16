@@ -47,6 +47,8 @@
 * language items which are then converted to any translated language .
 *
 */
+require_once 'I18Nv2.php';
+require_once 'I18Nv2/Negotiator.php';
 class language extends dbTable {
 	/**
 	 * New form object
@@ -86,6 +88,13 @@ class language extends dbTable {
     */
     public $_errorCallback;
     /**
+     * Set environment to the specified locale.
+     * Provides locale settings for Chisimba
+     * @access public
+     * @var object
+     */
+    public $locale;
+    /**
     * abstractList array of text items and their abstracts
     * @access public
     * @var    object
@@ -103,6 +112,7 @@ class language extends dbTable {
 	        $this->objConfig = $this->getObject('altconfig','config');
 	        $this->lang = $this->getObject('languageConfig','language');
 	        $this->lang = &$this->lang->setup();
+	        $neg = new I18Nv2_Negotiator;
 	        $this->loadClass('form', 'htmlelements');
 	        $this->loadClass('dropdown', 'htmlelements');
 	        $this->loadClass('button', 'htmlelements');
@@ -305,18 +315,31 @@ class language extends dbTable {
     public function currentLanguage()
     {
     	try {
+    		$this->objConfig = $this->getObject('altconfig','config');
+    		$ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
+    		$country = $this->objConfig->getCountry();
+    		$country = $ab."_".$country;
         if (isset($_POST['Languages'])) {
             $_SESSION["language"] = $_POST['Languages'];
             $var = $_POST['Languages'];
+            $this->locale = &I18Nv2::createLocale("{$country}");
             $this->lang->setLang("{$var}");
+            
         } else {
             if (isset($_SESSION["language"])) {
-                $var = $_SESSION["language"];
+                $var = strtolower($_SESSION["language"]);
+                $country = $this->objConfig->getCountry();
+                $country = $var."_".$country;
+                $this->locale = &I18Nv2::createLocale("{$country}");
                 $this->lang->setLang("{$var}");
             } else {
-                $this->objConfig = $this->getObject('altconfig','config');
-                $var = $this->objConfig->getdefaultLanguageAbbrev();
+              
+                $var = strtolower($this->objConfig->getdefaultLanguageAbbrev());
+                $country = $this->objConfig->getCountry();
+                $country = $var."_".$country;
+                $this->locale = &I18Nv2::createLocale("{$country}");
                 $this->lang->setLang("{$var}");
+                
             }
         }
         return $var;
@@ -335,6 +358,7 @@ class language extends dbTable {
     private function _match( $tag )
     {
         return "/\[\-".$tag."\-\]/isU";
+        $this->languageText
     }
 
     /**
