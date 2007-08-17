@@ -322,7 +322,7 @@ class language extends dbTable {
         if (isset($_POST['Languages'])) {
             $_SESSION["language"] = $_POST['Languages'];
             $var = $_POST['Languages'];
-            $this->locale = &I18Nv2::createLocale("{$country}");
+            @$this->locale = &I18Nv2::createLocale("{$country}");
             $this->lang->setLang("{$var}");
             
         } else {
@@ -330,14 +330,14 @@ class language extends dbTable {
                 $var = strtolower($_SESSION["language"]);
                 $country = $this->objConfig->getCountry();
                 $country = $var."_".$country;
-                $this->locale = &I18Nv2::createLocale("{$country}");
+                @$this->locale = &I18Nv2::createLocale("{$country}");
                 $this->lang->setLang("{$var}");
             } else {
               
                 $var = strtolower($this->objConfig->getdefaultLanguageAbbrev());
                 $country = $this->objConfig->getCountry();
                 $country = $var."_".$country;
-                $this->locale = &I18Nv2::createLocale("{$country}");
+                @$this->locale = &I18Nv2::createLocale("{$country}", FALSE);
                 $this->lang->setLang("{$var}");
                 
             }
