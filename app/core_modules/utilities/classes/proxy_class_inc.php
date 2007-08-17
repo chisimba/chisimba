@@ -79,8 +79,8 @@ class proxy extends object
     		@$c = str_replace("//","",$a[1]);
     		//build the associative array
     		$proxycomponents['proxyserver'] =  $this->port = $b[0];
-    		$proxycomponents['proxyport'] =  $this->server = $b[1];
-    		$proxycomponents['proxypassword'] =  $this->password = $a[2];
+    		$proxycomponents['proxyport'] =  @$this->server = $b[1];
+    		$proxycomponents['proxypassword'] =  @$this->password = $a[2];
     		$proxycomponents['proxyusername'] =  $this->username = $c;
     	}
 		return $proxycomponents;
