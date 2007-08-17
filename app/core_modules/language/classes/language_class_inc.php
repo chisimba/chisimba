@@ -114,13 +114,8 @@ class language extends dbTable {
 	        $this->lang = &$this->lang->setup();
 	        $ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
     		$country = $this->objConfig->getCountry();
-    		$country = $ab."_".$country;
-    		$this->locale = &I18Nv2::createNegotiator('en', 'UTF-8', 'ZA');
-    		$this->locale = &I18Nv2::autoConv('UTF-8');
-    		//$this->locale->setLocale($country);
-    		//$this->locale->createNegotiator('en', 'UTF-8', 'ZA');
-    		//var_dump($this->locale); die();
-    		//$neg = &new I18Nv2_Negotiator;
+    		$country = $ab."_".$country.".1252";
+            $this->locale = &I18Nv2::createLocale("{$country}");
 	        $this->loadClass('form', 'htmlelements');
 	        $this->loadClass('dropdown', 'htmlelements');
 	        $this->loadClass('button', 'htmlelements');
@@ -326,28 +321,25 @@ class language extends dbTable {
     		$this->objConfig = $this->getObject('altconfig','config');
     		$ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
     		$country = $this->objConfig->getCountry();
-    		$country = $ab."_".$country.".UTF-8";
+    		$country = $ab."_".$country.".1252";
         if (isset($_POST['Languages'])) {
             $_SESSION["language"] = $_POST['Languages'];
             $var = $_POST['Languages'];
-            @$this->locale = &I18Nv2::createLocale("{$country}");
+            $this->locale = &I18Nv2::createLocale("{$country}");
             $this->lang->setLang("{$var}");
             
         } else {
             if (isset($_SESSION["language"])) {
                 $var = strtolower($_SESSION["language"]);
                 $country = $this->objConfig->getCountry();
-                $country = $var."_".$country.".UTF-8";
+                $country = $var."_".$country.".1252";
                 $this->locale = &I18Nv2::createLocale("{$country}");
                 $this->lang->setLang("{$var}");
             } else {
               
                 $var = strtolower($this->objConfig->getdefaultLanguageAbbrev());
-                $country = $this->objConfig->getCountry();
-                $country = $var."_".$country.".UTF-8";
-                $this->locale = &I18Nv2::createLocale("{$country}");
-                //var_dump($this->locale);
                 $this->lang->setLang("{$var}");
+                 
             }
         }
         return $var;
