@@ -114,9 +114,13 @@ class language extends dbTable {
 	        $this->lang = &$this->lang->setup();
 	        $ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
     		$country = $this->objConfig->getCountry();
-    		$country = $ab."_".$country.".UTF-8";
-    		@$this->locale = &I18Nv2::createLocale($country);
-    		$neg = &new I18Nv2_Negotiator;
+    		$country = $ab."_".$country;
+    		$this->locale = &I18Nv2::createNegotiator('en', 'UTF-8', 'ZA');
+    		$this->locale = &I18Nv2::autoConv('UTF-8');
+    		//$this->locale->setLocale($country);
+    		//$this->locale->createNegotiator('en', 'UTF-8', 'ZA');
+    		//var_dump($this->locale); die();
+    		//$neg = &new I18Nv2_Negotiator;
 	        $this->loadClass('form', 'htmlelements');
 	        $this->loadClass('dropdown', 'htmlelements');
 	        $this->loadClass('button', 'htmlelements');
@@ -342,6 +346,7 @@ class language extends dbTable {
                 $country = $this->objConfig->getCountry();
                 $country = $var."_".$country.".UTF-8";
                 $this->locale = &I18Nv2::createLocale("{$country}");
+                //var_dump($this->locale);
                 $this->lang->setLang("{$var}");
             }
         }
