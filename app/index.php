@@ -1,7 +1,16 @@
 <?php
 
+if (!function_exists('getMicrotime')) {
+		function getMicrotime() {
+			list($usec, $sec) = explode(" ", microtime());
+			return ((float)$usec + (float)$sec);
+		}
+	}
+
+$TIME_START = getMicrotime();
+
 /**
-* index.php 
+* index.php
 *
 * The entry point into the Chisimba application
 *

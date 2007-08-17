@@ -3,7 +3,7 @@ if (!isset($pageSuppressToolbar)) {
    // get toolbar object
    $menu = $this->getObject('menu','toolbar');
    $toolbar = $menu->show();
-   
+
    // get any header params or body onload parameters for objects on the toolbar
    $menu->getParams(&$headerParams, &$bodyOnLoad);
 }
@@ -64,8 +64,8 @@ if (!isset($pageTitle)) {
 ?>
     <head>
         <title>
-<?php 
-    echo $pageTitle; 
+<?php
+    echo $pageTitle;
 ?>
         </title>
 <?php
@@ -84,10 +84,10 @@ if (!isset($pageTitle)) {
         foreach ($jsLoad as $script) {
 ?>
         <script type="text/javascript" src="<?php echo $objConfig->getSiteRoot().$script?>" />
-<?php 
+<?php
         }
     }
-    
+
     $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
     echo $scriptaculous->show($mime);
 
@@ -124,14 +124,14 @@ if (!isset($pageTitle)) {
         <div id="header">
             <h1 id="sitename">
                 <span>
-<?php 
+<?php
         echo '<a href="'.$objConfig->getSiteRoot().'">'.$objConfig->getsiteName().'</a>';
 ?>
                 </span>
             </h1>
-<?php 	 
+<?php
         if (!isset($pageSuppressSearch)) {
-        	
+
         	echo $objSkin->siteSearchBox();
 
         }
@@ -139,6 +139,7 @@ if (!isset($pageTitle)) {
             //$menu= $this->getObject('menu','toolbar');
 		  echo $toolbar; //$menu->show();
         }
+	    echo '['.KEWL_DB_DSN.']';
 ?>
         </div>
 
@@ -146,7 +147,7 @@ if (!isset($pageTitle)) {
     }
     // get content
     echo $this->getLayoutContent();
-    
+
     if (!isset($suppressFooter)) {
          // Create the bottom template area
         $this->footerNav = & $this->newObject('layer', 'htmlelements');
@@ -166,8 +167,12 @@ if (!isset($pageTitle)) {
     }
     if (!isset($pageSuppressContainer)) {
 	   echo '</div>';
-    }  
+    }
     $this->putMessages();
+?>
+<?php
+global $TIME_START;
+echo "<!-- Page loaded in " . round(getMicrotime() - $TIME_START, 4) . "s -->";
 ?>
     </body>
 </html>
