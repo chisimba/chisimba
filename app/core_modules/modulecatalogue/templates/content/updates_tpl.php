@@ -34,6 +34,7 @@ $tString = '';
 if (isset($output)) {
 	$msg = $this->getObject('timeoutmessage','htmlelements');
 	$msg->message = '';
+
 	if (isset($output['unMetDep'])) {
 
 		$msg->message = $this->objLanguage->languageText('mod_modulecatalogue_unmetdependencies','modulecatalogue').":<br />";
@@ -66,10 +67,17 @@ if (isset($output)) {
 					$success = str_replace('[NEWVER]',"<b>{$value['current']}</b>",$success);
 					$msg->message .= "<b>{$value['modname']}</b> $success<br />";
 
+				} else {
+				    $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
+	                $tString .= "<span class='error'>$pError: $value</span><br />";
 				}
 			}
 		}
-		$tString = $msg->show();
+		$tString .= $msg->show();
+	}
+	if (!is_array($output)) {
+	    $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
+	    $tString = "<span class='error'>$pError: $output</span>";
 	}
 }
 $out = $this->getParam('message');

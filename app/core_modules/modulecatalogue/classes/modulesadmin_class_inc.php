@@ -1252,19 +1252,14 @@ class modulesadmin extends dbTableManager
         try {
             switch ($this->_lastError) {
                 case 1001:
-                    return 'Cannot find moduleid in register.conf';
                 case 1002:
-                    return 'Module already registered';
                 case 1003:
-                    return 'Module dependency check failed';
                 case 1004:
-                    return 'Could not get info to create table';
                 case 1005:
-                    return 'Could not write to table tbl_modules';
                 case 1006:
-                    return 'No default data found for module';
+                    return $this->objLanguage->languageText("mod_modulecatalogue_error$this->_lastError",'modulecatalogue');
                 default:
-                    return "Unknown error code: '$this->_lastError'.";
+                    return $this->objLanguage->languageText('mod_modulecatalogue_defaulterror','modulecatalogue').": '$this->_lastError'";
             }
         } catch (Exception $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());

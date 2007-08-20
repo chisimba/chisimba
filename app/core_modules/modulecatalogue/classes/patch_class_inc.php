@@ -294,7 +294,9 @@ class patch extends dbtable {
             }
             //update version info in db
             $regData = $this->objModfile->readRegisterFile($this->objModfile->findregisterfile($modname));
-            $this->objModuleAdmin->installModule($regData,TRUE);
+            if (!$this->objModuleAdmin->installModule($regData,TRUE)) {
+                return $this->objModuleAdmin->getLastError();
+            }
             $result['current'] = $this->getVersion($modname);
             $result['old'] = $oldversion;
             $result['modname'] = $modname;
