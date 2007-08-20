@@ -164,7 +164,7 @@ class xmlrpcapi extends object
                 		  
                 		  'metaWeblog.editPost' => array('function' => array($this, 'metaWeblogEditPost'),
    											      'signature' => array(
-                         											array('boolean', 'string', 'string', 'string', 'string', 'string', 'boolean'),
+                         											array('boolean', 'string', 'string', 'string', 'struct', 'boolean'),
                      											 ),
                 								  'docstring' => 'edit post'),
                 		  
@@ -176,13 +176,13 @@ class xmlrpcapi extends object
                 		  
                 		  'metaWeblog.getRecentPosts' => array('function' => array($this, 'metaWeblogGetRecentPosts'),
                 		   						   'signature' => array(
-                		   						   					array('array', 'string', 'string', 'string', 'string', 'int'),
+                		   						   					array('array', 'string', 'string', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get recent posts'),
                 		  
                 		  'metaWeblog.getCategories' => array('function' => array($this, 'metaWeblogGetCategories'),
                 		   						   'signature' => array(
-                		   						   					array('array', 'string', 'string', 'string', 'string'),
+                		   						   					array('struct', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
                 		  
@@ -523,7 +523,7 @@ class xmlrpcapi extends object
      */
 	public function bloggerGetCategories()
 	{
-		$val = new XML_RPC_Value('a returned string', 'string');
+		$val = new XML_RPC_Value('Not implemented', 'string');
 		return new XML_RPC_Response($val);
 	}
 	
@@ -712,6 +712,78 @@ class xmlrpcapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
+	/**
+     * blogger edit post
+     * 
+     * Edit a post
+     * 
+     * @param  object $params Parameters
+     * @return object Return
+     * @access public
+     */
+	public function metaWeblogEditPost($params)
+	{
+		log_debug("editing post - metaweblog style baby!");
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$postid = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$password = $param->scalarval();
+    	
+    	$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$postcontent = $param->scalarval();
+    	
+    	$param = $params->getParam(4);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$publish = $param->scalarval();
+    	if($publish)
+    	{
+    		$published = 0;
+    	}
+    	else {
+    		$published = 1;
+    	}
+    	
+    	$userid = $this->objUser->getUserId($username);
+    	//insert to the db now and return the generated id as a string
+    	$postarray = array(
+                'userid' => $userid,
+                'post_date' => date('r') ,
+                'post_content' => addslashes($postcontent) , 
+                // 'post_title' => '', //$this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
+                'post_category' => '0',
+                'post_excerpt' => '',
+                'post_status' => $published,
+                'comment_status' => 'on',
+                'post_modified' => date('r'),
+                'comment_count' => '0',
+                'post_ts' => time() ,
+                'post_lic' => '',
+                'stickypost' => '0',
+                'showpdf' => '1'
+            );
+    	$ret = $this->objDbBlog->updatePostAPI($blogid, $postarray);
+		$val = new XML_RPC_Value(TRUE, 'boolean');
+   		return new XML_RPC_Response($val);
+	}
+	
     /**
      * delete a post
      * 
@@ -739,9 +811,67 @@ class xmlrpcapi extends object
 	public function metaWeblogGetCategories($params)
 	{
 		log_debug("getting metaweblog categories!");
-		$val = new XML_RPC_Value('a returned string', 'string');
-		return new XML_RPC_Response($val);
+		//$val = new XML_RPC_Value('a returned string', 'string');
+		//return new XML_RPC_Response($val);
+		
+		$myStruct = new XML_RPC_Value(array(
+    		"blogid" => new XML_RPC_Value($userid, 'string'),
+    		"blogName" => new XML_RPC_Value($prf, "string"),
+    		"url" => new XML_RPC_Value($url, "string")), "struct");
+    	
+    	//$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
+    	return new XML_RPC_Response($myStruct);
 	}
+	
+	public function metaWeblogGetRecentPosts($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$postid = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$password = $param->scalarval();
+    	
+    	$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$numposts = $param->scalarval();
+    	$userid = $this->objUser->getUserId($username);
+    	$resarr = $this->objDbBlog->getLastPosts($numposts, $userid);
+    	foreach($resarr as $results)
+    	{
+    		$url = $this->uri(array('action'=>'viewsingle', 'postid' => $results['id'], 'userid' => $results['userid']), 'blog');
+    		// returns an array of structs...so build one.
+    		$myStruct = new XML_RPC_Value(array(
+    			"dateCreated" => new XML_RPC_Value($results['post_date'], 'string'),
+    			"userid" => new XML_RPC_Value($userid, "string"),
+    			"postid" => new XML_RPC_Value($results['id'], "string"),
+    			"description" => new XML_RPC_Value($results['post_content'], "string"),
+    			"title" => new XML_RPC_Value($results['post_title'], "string"),
+    			"link" => new XML_RPC_Value($url, "string"),
+    			"permaLink" => new XML_RPC_Value($url, "string"),
+    			"categories" => new XML_RPC_Value('things', "string"),
+    			), "struct");
+    		$arrofStructs[] = $myStruct; 
+    	}
+    	$arrofStructs = new XML_RPC_Value($arrofStructs, "array");
+    	log_debug($arrofStructs);
+    	return new XML_RPC_Response($arrofStructs);
+	}
+	
+	
 	
 }
 ?>
