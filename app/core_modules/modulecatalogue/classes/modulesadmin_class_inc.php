@@ -534,7 +534,7 @@ class modulesadmin extends dbTableManager
                         $menu_category=strtolower($menu_category);
                         $catArray = array('category'=>$menu_category,'module'=>$moduleId,
                                     'adminonly'=>$isAdmin,'permissions'=>$aclList,'dependscontext'=>$isContext);
-                        if ($id = $this->existsInToolbarMenu($moduleId)) {
+                        if ($id = $this->existsInToolbarMenu($moduleId,$catArray['category'])) {
                             $this->objModules->update('id',$id,$catArray,'tbl_menu_category');
                         } else {
                             $this->objModules->insert($catArray,'tbl_menu_category');
@@ -1301,8 +1301,8 @@ class modulesadmin extends dbTableManager
      * @param  string $moduleId module to check for
      * @return id     of the record in the db|FALSE
      */
-    function existsInToolbarMenu($moduleId) {
-        $sql = "SELECT id FROM tbl_menu_category WHERE module = '$moduleId' AND NOT (category LIKE 'menu_%') AND NOT (category LIKE 'page_%') ";
+    function existsInToolbarMenu($moduleId,$category) {
+        $sql = "SELECT id FROM tbl_menu_category WHERE module = '$moduleId' AND category = '$category' ";
         $rs = $this->objModules->getArray($sql);
         if (!$rs) {
             $ret = false;

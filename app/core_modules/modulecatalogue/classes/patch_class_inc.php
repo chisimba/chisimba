@@ -276,10 +276,10 @@ class patch extends dbtable {
 
                                 //var_dump($pData);
                                 if ($this->objModuleAdmin->alterTable($update->table,$pData,true) == true) {
-                                    $this->objModuleAdmin->alterTable($update->table,$pData,false);
-                                    //if ($this->objModuleAdmin->alterTable($update->table,$pData,false)!=MDB2_OK) {
-                                    //    return FALSE;
-                                    //}
+                                    //$this->objModuleAdmin->alterTable($update->table,$pData,false);
+                                    if ($this->objModuleAdmin->alterTable($update->table,$pData,false)!=MDB2_OK) {
+                                        return FALSE;
+                                    }
                                     $patch = array('moduleid'=>$modname,'version'=>$ver,'tablename'=>$update->table,
                                     'patchdata'=>$pData,'applied'=>$this->objModule->now());
                                     $this->objModule->insert($patch,'tbl_module_patches');

@@ -357,21 +357,28 @@ class modulecatalogue extends controller
                 case 'update':
                     $modname = $this->getParam('mod');
                     if (($this->output = $this->objPatch->applyUpdates($modname))===FALSE) {
-                        $this->output = array();
-                        $this->setVar('error',str_replace('[MODULE]',$mod['module_id'],$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
+                        $this->setVar('error',str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
+                    } else {
+                        $this->setVar('output',$this->output);
                     }
-
-                    $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());
                     return 'updates_tpl.php';
 
                 case 'patchall':
                     $mods = $this->objPatch->checkModules();
                     $this->output = array();
+                    $error = '';
                     foreach ($mods as $mod) {
+                        $success = true;
                         if (($this->output[] = $this->objPatch->applyUpdates($mod['module_id'])) === FALSE) {
-                            $this->setVar('error',str_replace('[MODULE]',$mod['module_id'],$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
+                            $success = false;
+                            $error .= str_replace('[MODULE]',$mod['module_id'],$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue'))."<br />";
                         }
+                    }
+                    //var_dump($error);
+                    //var_dump($this->output);
+                    if (!$success) {
+                        $this->setVar('error',$error);
                     }
                     $this->setVar('output',$this->output);
                     $this->setVar('patchArray',$this->objPatch->checkModules());

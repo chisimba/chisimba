@@ -74,9 +74,10 @@ if (isset($output)) {
 }
 $out = $this->getParam('message');
 if (isset($out)) {
+    //var_dump($out);
 	$msg = $this->getObject('timeoutmessage','htmlelements');
 	$msg->message = $out;
-	$tString = $msg->show();
+	$tString .= "<br />".$msg->show();
 }
 if (isset($error)) {
     $tString .= "<br /><span class='error'>$error</span>";
