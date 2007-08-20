@@ -139,7 +139,6 @@ if (!isset($pageTitle)) {
             //$menu= $this->getObject('menu','toolbar');
 		  echo $toolbar; //$menu->show();
         }
-	    echo '['.KEWL_DB_DSN.']';
 ?>
         </div>
 
@@ -170,9 +169,6 @@ if (!isset($pageTitle)) {
     }
     $this->putMessages();
 ?>
-<?php
-global $TIME_START;
-echo "<!-- Page loaded in " . round(getMicrotime() - $TIME_START, 4) . "s -->";
-?>
+
     </body>
 </html>
