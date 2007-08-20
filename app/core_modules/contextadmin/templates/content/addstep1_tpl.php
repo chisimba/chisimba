@@ -15,6 +15,7 @@ $objH = new htmlheading();
 $objForm = new form();
 
 $inpContextCode =  new textinput();
+$inpContextCode3 =  new textinput();
 $inpContextCode2 = new textinput();
 $inpMenuText = new textinput();
 $inpTitle = new textinput();
@@ -35,16 +36,22 @@ $objForm->extra = 'class="f-wrap-1"';
 $objForm->displayType = 3;
 
 $inpContextCode->name = 'contextcode';
-$inpContextCode->cssId = 'contextcode';
+$inpContextCode->cssId = 'input_contextcode';
 $inpContextCode->value = '';
 $inpContextCode->cssClass = 'f-name';
-$inpContextCode->extra = 'onkeyup="updateFolder(this, \'contextcode2\', \'autogen\');" ';
+$inpContextCode->fldType = 'hidden';
 
 $inpContextCode2->name = 'contextcode2';
-$inpContextCode2->cssId = 'contextcode2';
+$inpContextCode2->cssId = 'input_contextcode2';
 $inpContextCode2->value = '';
 $inpContextCode2->cssClass = 'f-name';
-$inpContextCode2->extra = 'disabled="true"  onkeyup="validateFolder(this);"';
+$inpContextCode2->extra = 'onkeyup="updateFolder(this, \'input_contextcode3\', \'autogen\');"';
+
+$inpContextCode3->name = 'contextcode3';
+$inpContextCode3->cssId = 'input_contextcode3';
+$inpContextCode3->value = '';
+$inpContextCode3->cssClass = 'f-name';
+$inpContextCode3->extra = '  disabled="true"  onkeyup="validateFolder(this);"';
 
 $inpTitle->name = 'title';
 $inpTitle->cssId = 'input_title';
@@ -91,12 +98,13 @@ $drop = '<fieldset class="f-radio-wrap">
 			</fieldset>';
 
 $inpButton->setToSubmit();
+$inpButton->extra = 'onclick=" this.form.contextcode.value = this.form.contextcode3.value;"';
 $inpButton->cssClass = 'f-submit';
 $inpButton->value = $this->_objLanguage->languageText("word_next");
 
 
 //validation
-$objForm->addRule('contextcode',$this->_objLanguage->code2Txt("mod_contextadmin_err_requrecontextcode",'contexadmin',array('context'=>'Course')), 'required');
+$objForm->addRule('contextcode2',$this->_objLanguage->code2Txt("mod_contextadmin_err_requrecontextcode",'contexadmin',array('context'=>'Course')), 'required');
 $objForm->addRule('menutext',$this->_objLanguage->languageText("mod_contextadmin_err_requiremenutext",'contextadmin'), 'required!');
 $objForm->addRule('title',$this->_objLanguage->languageText("mod_contextadmin_err_requiretitle",'contextadmin'), 'required!');
 
@@ -109,7 +117,7 @@ if($error)
 $objForm->addToForm($objH->show());
 
 $objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b>');
-$objForm->addToForm($inpContextCode->show(). $inpContextCode2->show().'<br /></label>');
+$objForm->addToForm($inpContextCode->show().$inpContextCode2->show(). $inpContextCode3->show().'<br /></label>');
 
 $objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
 $objForm->addToForm($inpTitle->show().'<br /></label>');
