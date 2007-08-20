@@ -92,7 +92,7 @@ if (isset($contextList))
 		      $heading = preg_replace('/_.*/', '', $context['contextcode']);
 			$other .= '&nbsp;'.$featureBox->show($heading .' - '.$title.'   '.$conf, $content ).'<hr />';
 		} else {
-			$str .= '&nbsp;'.$featureBox->show($heading .' - '.$title.'   '.$conf, $content ).'<hr />';
+			$str .= '&nbsp;'.$featureBox->show($context['contextcode'] .' - '.$title.'   '.$conf, $content ).'<hr />';
 		}
 		
 		//$icon = null;
