@@ -63,6 +63,7 @@ foreach ($arrModules as $module)
         $checkbox->cssId = 'mod_'.$module['module_id'];
         $checkbox->name = 'mod_'.$module['module_id'];
         $checkbox->cssClass = 'f-checkbox';
+        $checkbox->setChecked(TRUE);
         
         $icon = $this->newObject('geticon', 'htmlelements');
         $icon->setModuleIcon($module['module_id']);
