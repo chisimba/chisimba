@@ -337,7 +337,7 @@ class utils extends object
 		        $icon->setModuleIcon($module['module_id']);
 		        
 		        $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
-		        $objForm->addToForm('<dd  class="subdued">'.$module['description'].'</dd>');
+		        $objForm->addToForm('<dd  class="subdued">'.$this->_objLanguage->abstractText($module['description']).'</dd>');
 		        $objForm->addToForm('</ul>');
 		    }
 

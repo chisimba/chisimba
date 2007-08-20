@@ -5,13 +5,17 @@ $this->loadClass('textinput', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('htmlheading', 'htmlelements');
+$objConfig = $this->getObject('altconfig', 'config');
 
+$scriptFile = $this->getJavascriptFile('admin.js','htmlelements');
+$this->appendArrayVar('headerParams',$this->getJavascriptFile('admin.js','htmlelements'));
 
 //add step 1 template
 $objH = new htmlheading();
 $objForm = new form();
 
 $inpContextCode =  new textinput();
+$inpContextCode2 = new textinput();
 $inpMenuText = new textinput();
 $inpTitle = new textinput();
 $inpButton =  new button();
@@ -31,9 +35,16 @@ $objForm->extra = 'class="f-wrap-1"';
 $objForm->displayType = 3;
 
 $inpContextCode->name = 'contextcode';
-$inpContextCode->cssId = 'input_contextcode';
+$inpContextCode->cssId = 'contextcode';
 $inpContextCode->value = '';
 $inpContextCode->cssClass = 'f-name';
+$inpContextCode->extra = 'onkeyup="updateFolder(this, \'contextcode2\', \'autogen\');" ';
+
+$inpContextCode2->name = 'contextcode2';
+$inpContextCode2->cssId = 'contextcode2';
+$inpContextCode2->value = '';
+$inpContextCode2->cssClass = 'f-name';
+$inpContextCode2->extra = 'disabled="true"  onkeyup="validateFolder(this);"';
 
 $inpTitle->name = 'title';
 $inpTitle->cssId = 'input_title';
@@ -98,7 +109,7 @@ if($error)
 $objForm->addToForm($objH->show());
 
 $objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b>');
-$objForm->addToForm($inpContextCode->show().'<br /></label>');
+$objForm->addToForm($inpContextCode->show(). $inpContextCode2->show().'<br /></label>');
 
 $objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
 $objForm->addToForm($inpTitle->show().'<br /></label>');
@@ -119,4 +130,30 @@ $objForm->addToForm($inpButton->show());
 
 print $objForm->show().'<br/>';
 
+if(!isset($list))
+{
+	$list = NULL;
+}
+
+$contextArr = $this->_objDBContext->getAll();
+
+$cnt = count($contextArr);
+$i = 0;
+
+foreach ($contextArr as $context)
+{
+ 	$i++;
+	$list .="'".$context['contextcode']."'";
+	$list = ($i < $cnt && $cnt!=1) ? $list.', ': $list;
+}
+$str = "<script type=\"text/javascript\">
+        window.totalinputs = 5;
+        // Array of album names for javascript functions.
+        var albumArray = new Array ( ".$list." );
+      
+      </script>";
+      
+echo  $str;
+
 ?>
+<input type="checkbox" name="autogenfolder" id="autogen" checked="true" onClick="toggleAutogen('folderdisplay', 'albumtitle', this);" style="display:none">
