@@ -34,3 +34,4 @@ class chisimbacache extends Memcache
 		return self::$objMem;
 	}
 }
+?>
