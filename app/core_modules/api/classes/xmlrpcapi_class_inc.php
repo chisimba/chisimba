@@ -693,7 +693,7 @@ class xmlrpcapi extends object
     	$postarray = array(
                 'userid' => $userid,
                 'post_date' => date('r') ,
-                'post_content' => addslashes($postcontent->string) , 
+                'post_content' => addslashes(nl2br($postcontent->string)) , 
                 'post_title' => addslashes($title->string),
                 'post_category' => '0',
                 'post_excerpt' => $excerpt->string,
@@ -713,7 +713,7 @@ class xmlrpcapi extends object
 	}
 	
 	/**
-     * blogger edit post
+     * metaWeblog edit post
      * 
      * Edit a post
      * 
@@ -723,7 +723,6 @@ class xmlrpcapi extends object
      */
 	public function metaWeblogEditPost($params)
 	{
-		log_debug("editing post - metaweblog style baby!");
 		$param = $params->getParam(0);
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -746,8 +745,24 @@ class xmlrpcapi extends object
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	$postcontent = $param->scalarval();
-    	
+    	$content = $param->serialize($param);
+    	$cont = new SimpleXMLElement($content);
+    	$cont = $cont->struct;
+    	foreach($cont->member as $members)
+    	{
+    		if($members->name == 'title')
+    		{
+    			$title = $members->value;
+    		}
+    		elseif($members->name == 'description')
+    		{
+    			$postcontent = $members->value;
+    		}
+    		elseif($members->name == 'mt_excerpt')
+    		{
+    			$excerpt = $members->value;
+    		}
+    	}
     	$param = $params->getParam(4);
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -760,16 +775,16 @@ class xmlrpcapi extends object
     	else {
     		$published = 1;
     	}
-    	
+    	log_debug($postcontent.$publish);
     	$userid = $this->objUser->getUserId($username);
     	//insert to the db now and return the generated id as a string
     	$postarray = array(
                 'userid' => $userid,
                 'post_date' => date('r') ,
-                'post_content' => addslashes($postcontent) , 
-                // 'post_title' => '', //$this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
+                'post_content' => addslashes($postcontent->string) , 
+                'post_title' => $title->string, //$this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
                 'post_category' => '0',
-                'post_excerpt' => '',
+                'post_excerpt' => $excerpt->string,
                 'post_status' => $published,
                 'comment_status' => 'on',
                 'post_modified' => date('r'),
@@ -779,7 +794,8 @@ class xmlrpcapi extends object
                 'stickypost' => '0',
                 'showpdf' => '1'
             );
-    	$ret = $this->objDbBlog->updatePostAPI($blogid, $postarray);
+        log_debug($postarray);
+    	$ret = $this->objDbBlog->updatePostAPI($postid, $postarray);
 		$val = new XML_RPC_Value(TRUE, 'boolean');
    		return new XML_RPC_Response($val);
 	}
@@ -867,7 +883,6 @@ class xmlrpcapi extends object
     		$arrofStructs[] = $myStruct; 
     	}
     	$arrofStructs = new XML_RPC_Value($arrofStructs, "array");
-    	log_debug($arrofStructs);
     	return new XML_RPC_Response($arrofStructs);
 	}
 	
