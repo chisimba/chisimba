@@ -268,7 +268,6 @@ class metaweblogapi extends object
 	public function metaWeblogDeletePost($params)
 	{
 		$bloggerapi = $this->getObject("bloggerapi");
-		return $bloggerapi->bloggerDeletePost($params);
 	}
 	
     /**

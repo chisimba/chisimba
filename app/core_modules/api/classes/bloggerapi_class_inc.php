@@ -517,13 +517,8 @@ class bloggerapi extends object
     	}
     	$pass = $param->scalarval();
     	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
+    	$this->objDbBlog->deletePost($postid);
     	
-    	$this->objDbBlog->deletePost($blogid);
 		$val = new XML_RPC_Value(TRUE, 'boolean');
 		return new XML_RPC_Response($val);
 	}
