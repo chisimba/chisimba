@@ -314,7 +314,7 @@ class metaweblogapi extends object
     			"description" => new XML_RPC_Value($res['cat_name'], "string")), "struct");
     	}
     	//$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
-    	log_debug($catStruct);
+    	//log_debug($catStruct);
     	return new XML_RPC_Response($catStruct);
 	}
 	
