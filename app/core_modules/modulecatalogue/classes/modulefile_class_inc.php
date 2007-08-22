@@ -425,7 +425,6 @@ class modulefile extends object {
 						case 'MODULE_NAME':
 						case 'MODULE_DESCRIPTION':
 						case 'MODULE_AUTHORS':
-						case 'MODULE_RELEASEDATE':
 						case 'MODULE_VERSION':
 						case 'MODULE_PATH':
 						case 'MODULE_ISADMIN':
@@ -434,8 +433,14 @@ class modulefile extends object {
 						case 'MODULE_LANGTERMS':
 						case 'CONTEXT_AWARE':
 						case 'DEPENDS_CONTEXT':
+						case 'MODULE_RELEASEDATE':
 							$registerdata[$params[0]]=rtrim($params[1]);
 							break;
+//						case 'MODULE_RELEASEDATE':
+//							$temp_releasedate=rtrim($params[1]);
+//							str_replace(' ', '-', $temp_releasedate);
+//							$registerdata[$params[0]] = $temp_releasedate;
+//							break;
 						case 'ICON': 				//images for each module
 						case 'NEWPAGE': 			//Add a new page
 						case 'NEWPAGECATEGORY': 	//Add a new page category
