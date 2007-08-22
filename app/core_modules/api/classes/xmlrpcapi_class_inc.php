@@ -66,8 +66,18 @@ class xmlrpcapi extends object
      */
 	public $objDbBlog;
 	
+	/**
+     * Blogger API object
+     * @var    object
+     * @access public
+     */
 	public $objBlogger;
 	
+	/**
+     * MetaWebLog API object
+     * @var    object
+     * @access public
+     */
 	public $objMetaWebLog;
 	
     /**
@@ -85,13 +95,15 @@ class xmlrpcapi extends object
 			require_once($this->getPearResource('XML/RPC/Dump.php'));
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
-			//database abstraction object
+			// database abstraction object
         	$this->objDbBlog = $this->getObject('dbblog', 'blog');
+        	// User Object
         	$this->objUser = $this->getObject('user', 'security');
         	
         	// API abstraction objects
         	// Blogger
         	$this->objBlogger = $this->getObject('bloggerapi');
+        	// MetaWebLog API
         	$this->objMetaWebLog = $this->getObject('metaweblogapi');
 		}
 		catch (customException $e)
