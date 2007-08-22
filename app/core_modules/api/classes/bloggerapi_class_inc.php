@@ -399,10 +399,38 @@ class bloggerapi extends object
      * @return object 
      * @access public
      */
-	public function bloggerGetCategories()
+	public function bloggerGetCategories($params)
 	{
-		$val = new XML_RPC_Value('Not implemented', 'string');
-		return new XML_RPC_Response($val);
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$blogid = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$pass = $param->scalarval();
+		
+    	// lets fetch the categories for the user...
+    	$userid = $this->objUser->getUserId($username);
+    	$resarr = $this->objDbBlog->getParentCats($userid);
+    	$url = $this->uri(array('action'=>'viewsingle', 'postid' => $results['id'], 'userid' => $results['userid']), 'blog');
+    	foreach($resarr as $res)
+    	{
+			$catStruct[] = new XML_RPC_Value(array(
+    			"htmlUrl" => new XML_RPC_Value($url, "string"),
+    			"rssUrl" => new XML_RPC_Value($url, "string"),
+    			"description" => new XML_RPC_Value($res['cat_name'], "string")), "struct");
+    	}
+    	return new XML_RPC_Response($catStruct);
 	}
 	
     /**

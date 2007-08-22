@@ -267,39 +267,8 @@ class metaweblogapi extends object
      */
 	public function metaWeblogDeletePost($params)
 	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$postid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	
-    	$this->objDbBlog->deletePost($blogid);
-		$val = new XML_RPC_Value(TRUE, 'boolean');
-		return new XML_RPC_Response($val);
+		$bloggerapi = $this->getObject("bloggerapi");
+		return $bloggerapi->bloggerDeletePost($params);
 	}
 	
     /**
