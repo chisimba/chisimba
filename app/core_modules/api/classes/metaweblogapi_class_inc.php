@@ -313,17 +313,40 @@ class metaweblogapi extends object
      */
 	public function metaWeblogGetCategories($params)
 	{
-		log_debug("getting metaweblog categories!");
-		//$val = new XML_RPC_Value('a returned string', 'string');
-		//return new XML_RPC_Response($val);
-		
-		$myStruct = new XML_RPC_Value(array(
-    		"blogid" => new XML_RPC_Value($userid, 'string'),
-    		"blogName" => new XML_RPC_Value($prf, "string"),
-    		"url" => new XML_RPC_Value($url, "string")), "struct");
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$blogid = $param->scalarval();
     	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$pass = $param->scalarval();
+		
+    	// The struct returned contains one struct for each category, containing the following elements: description, htmlUrl and rssUrl.
+    	
+    	// lets fetch the categories for the user...
+    	$userid = $this->objUser->getUserId($username);
+    	$resarr = $this->objDbBlog->getParentCats($userid);
+    	$url = $this->uri(array('action'=>'viewsingle', 'postid' => $results['id'], 'userid' => $results['userid']), 'blog');
+    	foreach($resarr as $res)
+    	{
+			$catStruct[] = new XML_RPC_Value(array(
+    			"htmlUrl" => new XML_RPC_Value($url, "string"),
+    			"rssUrl" => new XML_RPC_Value($url, "string"),
+    			"description" => new XML_RPC_Value($res['cat_name'], "string")), "struct");
+    	}
     	//$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
-    	return new XML_RPC_Response($myStruct);
+    	log_debug($catStruct);
+    	return new XML_RPC_Response($catStruct);
 	}
 	
 	public function metaWeblogGetRecentPosts($params)

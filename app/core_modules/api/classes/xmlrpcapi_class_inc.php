@@ -203,7 +203,7 @@ class xmlrpcapi extends object
                 		  
                 		  'metaWeblog.getCategories' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetCategories'),
                 		   						   'signature' => array(
-                		   						   					array('struct', 'string', 'string', 'string', 'string'),
+                		   						   					array('struct', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
                 		  
