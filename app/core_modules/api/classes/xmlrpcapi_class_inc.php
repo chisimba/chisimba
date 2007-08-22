@@ -66,6 +66,10 @@ class xmlrpcapi extends object
      */
 	public $objDbBlog;
 	
+	public $objBlogger;
+	
+	public $objMetaWebLog;
+	
     /**
      * init method
      * 
@@ -84,6 +88,11 @@ class xmlrpcapi extends object
 			//database abstraction object
         	$this->objDbBlog = $this->getObject('dbblog', 'blog');
         	$this->objUser = $this->getObject('user', 'security');
+        	
+        	// API abstraction objects
+        	// Blogger
+        	$this->objBlogger = $this->getObject('bloggerapi');
+        	$this->objMetaWebLog = $this->getObject('metaweblogapi');
 		}
 		catch (customException $e)
 		{
@@ -106,49 +115,49 @@ class xmlrpcapi extends object
 	{
 		// map web services to methods
 		$server = new XML_RPC_Server(
-   					array('blogger.newPost' => array('function' => array($this, 'bloggerNewPost'),
+   					array('blogger.newPost' => array('function' => array($this->objBlogger, 'bloggerNewPost'),
    											      'signature' => array(
                          											array('string', 'string', 'string', 'string','string', 'string', 'boolean'),
                      											 ),
                 								  'docstring' => 'new post'),
                 		  
-                		  'blogger.editPost' => array('function' => array($this, 'bloggerEditPost'),
+                		  'blogger.editPost' => array('function' => array($this->objBlogger, 'bloggerEditPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'string', 'string', 'boolean'),
                      											 ),
                 								  'docstring' => 'edit post'),
                 		  
-                		  'blogger.getPost' => array('function' => array($this, 'bloggerGetPost'),
+                		  'blogger.getPost' => array('function' => array($this->objBlogger, 'bloggerGetPost'),
    											      'signature' => array(
                          											array('struct', 'string', 'string', 'string', 'string'),
                      											 ),
                 								  'docstring' => 'get post'),
                 		  
-                		  'blogger.getRecentPosts' => array('function' => array($this, 'bloggerGetRecentPosts'),
+                		  'blogger.getRecentPosts' => array('function' => array($this->objBlogger, 'bloggerGetRecentPosts'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get recent posts'),
                 		  
-                		  'blogger.getCategories' => array('function' => array($this, 'bloggerGetCategories'),
+                		  'blogger.getCategories' => array('function' => array($this->objBlogger, 'bloggerGetCategories'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
                 		  
-                		  'blogger.getUsersBlogs' => array('function' => array($this, 'bloggerGetUsersBlogs'),
+                		  'blogger.getUsersBlogs' => array('function' => array($this->objBlogger, 'bloggerGetUsersBlogs'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user blogs'),
                 		   						   
-                		   'blogger.getUserInfo' => array('function' => array($this, 'bloggerGetUserInfo'),
+                		   'blogger.getUserInfo' => array('function' => array($this->objBlogger, 'bloggerGetUserInfo'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user info'),
                 		   						   
-                		   'blogger.deletePost' => array('function' => array($this, 'bloggerDeletePost'),
+                		   'blogger.deletePost' => array('function' => array($this->objBlogger, 'bloggerDeletePost'),
                 		   						   'signature' => array(
                 		   						   					array('boolean', 'string', 'string', 'string', 'string', 'boolean'),
                 		   						   					),
@@ -156,43 +165,43 @@ class xmlrpcapi extends object
                 		   						   
                 		   						   
                 		   // metaweblog section
-                		   'metaWeblog.newPost' => array('function' => array($this, 'metaWeblogNewPost'),
+                		   'metaWeblog.newPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogNewPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'struct', 'boolean'),
                      											 ),
                 								  'docstring' => 'new post'),
                 		  
-                		  'metaWeblog.editPost' => array('function' => array($this, 'metaWeblogEditPost'),
+                		  'metaWeblog.editPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogEditPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'struct', 'boolean'),
                      											 ),
                 								  'docstring' => 'edit post'),
                 		  
-                		  'metaWeblog.getPost' => array('function' => array($this, 'metaWeblogGetPost'),
+                		  'metaWeblog.getPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetPost'),
    											      'signature' => array(
                          											array('struct', 'string', 'string', 'string'),
                      											 ),
                 								  'docstring' => 'get post'),
                 		  
-                		  'metaWeblog.getRecentPosts' => array('function' => array($this, 'metaWeblogGetRecentPosts'),
+                		  'metaWeblog.getRecentPosts' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetRecentPosts'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get recent posts'),
                 		  
-                		  'metaWeblog.getCategories' => array('function' => array($this, 'metaWeblogGetCategories'),
+                		  'metaWeblog.getCategories' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetCategories'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
                 		  
-                		  'metaWeblog.getUsersBlogs' => array('function' => array($this, 'metaWeblogGetUsersBlogs'),
+                		  'metaWeblog.getUsersBlogs' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetUsersBlogs'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user blogs'),
                 		   						   
-                		  'metaWeblog.deletePost' => array('function' => array($this, 'metaWeblogDeletePost'),
+                		  'metaWeblog.deletePost' => array('function' => array($this->objMetaWebLog, 'metaWeblogDeletePost'),
                 		   						   'signature' => array(
                 		   						   					array('boolean', 'string', 'string', 'string', 'string', 'boolean'),
                 		   						   					),
@@ -203,690 +212,5 @@ class xmlrpcapi extends object
 
 		return $server;
 	}
-	
-    /**
-     * blogger new post
-     * 
-     * Create a new post
-     * 
-     * @param  object $params parameters
-     * @return object Return 
-     * @access public
-     */
-	public function bloggerNewPost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$blogid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$content = $param->scalarval();
-    	
-    	$param = $params->getParam(5);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	if($publish)
-    	{
-    		$published = 0;
-    	}
-    	else {
-    		$published = 1;
-    	}
-    	
-    	$userid = $this->objUser->getUserId($username);
-    	
-    	//insert to the db now and return the generated id as a string
-    	$postarray = array(
-                'userid' => $userid,
-                'post_date' => date('r') ,
-                'post_content' => addslashes($content) , 
-                'post_title' => $this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
-                'post_category' => '0',
-                'post_excerpt' => '',
-                'post_status' => $published,
-                'comment_status' => 'on',
-                'post_modified' => date('r'),
-                'comment_count' => '0',
-                'post_ts' => time() ,
-                'post_lic' => '',
-                'stickypost' => '0',
-                'showpdf' => '1'
-            );
-        
-    	$ret = $this->objDbBlog->insertPostAPI($userid, $postarray);
-		$val = new XML_RPC_Value($ret, 'string');
-		return new XML_RPC_Response($val);
-	}
-	
-    /**
-     * blogger edit post
-     * 
-     * Edit a post
-     * 
-     * @param  object $params Parameters
-     * @return object Return
-     * @access public
-     */
-	public function bloggerEditPost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$blogid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$content = $param->scalarval();
-    	
-    	$param = $params->getParam(5);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	if($publish)
-    	{
-    		$published = 0;
-    	}
-    	else {
-    		$published = 1;
-    	}
-    	
-    	$userid = $this->objUser->getUserId($username);
-    	//insert to the db now and return the generated id as a string
-    	$postarray = array(
-                'userid' => $userid,
-                'post_date' => date('r') ,
-                'post_content' => addslashes($content) , 
-                'post_title' => $this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
-                'post_category' => '0',
-                'post_excerpt' => '',
-                'post_status' => $published,
-                'comment_status' => 'on',
-                'post_modified' => date('r'),
-                'comment_count' => '0',
-                'post_ts' => time() ,
-                'post_lic' => '',
-                'stickypost' => '0',
-                'showpdf' => '1'
-            );
-    	$ret = $this->objDbBlog->updatePostAPI($blogid, $postarray);
-		$val = new XML_RPC_Value(TRUE, 'boolean');
-   		return new XML_RPC_Response($val);
-	}
-	
-    /**
-     * blogger get post
-     * 
-     * Get a post by its ID
-     * 
-     * @param  object $params Parameters
-     * @return object Return 
-     * @access public
-     */
-	public function bloggerGetPost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$blogid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	//go get the post
-    	$post = $this->objDbBlog->getPostById($blogid);
-    	$post = $post[0];
-    	//log_debug($post);
-		$postStruct = new XML_RPC_Value(array(
-    		"content" => new XML_RPC_Value($post['post_content'], "base64"),
-    		"userid" => new XML_RPC_Value($post['userid'], "string"),
-    		"postid" => new XML_RPC_Value($post['id'], "string"),
-    		"dateCreated" => new XML_RPC_Value($post['post_date'], "string")), "struct");
-    	return new XML_RPC_Response($postStruct);
-	}
-	
-    /**
-     * Recent posts
-     * 
-     * Get recent posts
-     * 
-     * @param  object $params Parameters
-     * @return object Return
-     * @access public
-     */
-	public function bloggerGetRecentPosts($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$blogid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$noPosts = $param->scalarval();
-    	$userid = $this->objUser->getUserId($username);
-    
-		$recentposts = $this->objDbBlog->getLastPosts($noPosts, $userid);
-		foreach($recentposts as $recentpost)
-		{
-			$myStruct = new XML_RPC_Value(array(
-    			"content" => new XML_RPC_Value($recentpost['post_content']),
-    			"userId" => new XML_RPC_Value($recentpost['userid'], "string"),
-    			"postId" => new XML_RPC_Value($recentpost['id'], "string"),
-    			"dateCreated" => new XML_RPC_Value($recentpost['post_date'], "string")), "struct");
-    	
-    		$arrofStructs[] = $myStruct;
-		}
-    	$ret = new XML_RPC_Value($arrofStructs, "array");
-    	return new XML_RPC_Response($ret);
-	}
-	
-    /**
-     * get user info
-     * 
-     * gets the user info - email address, url, etc
-     * 
-     * @param  object $params Parameters
-     * @return object Return 
-     * @access public
-     */
-	public function bloggerGetUserInfo($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$userid = $this->objUser->getUserId($username);
-    	$email = $this->objUser->email($userid);
-    	$firstname = $this->objUser->getFirstname($userid);
-    	//we are using the username as the nickname here...
-    	$url = $this->uri(array('action' => 'randblog', 'userid' => $userid), 'blog');
-    	$lastname = $this->objUser->getSurname($userid);
-    	
-    	//return a struct of members about the user
-    	$userStruct = new XML_RPC_Value(array(
-    		"userid" => new XML_RPC_Value($userid, 'string'),
-    		"email" => new XML_RPC_Value($email, "string"),
-    		"firstname" => new XML_RPC_Value($firstname, "string"),
-    		"nickname" => new XML_RPC_Value($username, "string"),
-    		"url" => new XML_RPC_Value($url, "string"),
-    		"lastname" => new XML_RPC_Value($lastname, "string"),
-    		), "struct");
-    	return new XML_RPC_Response($userStruct);	
-        
-	}
-
-    /**
-     * get Categories
-     * 
-     * Gets a list of blog categories for a user
-     * 
-     * @return object 
-     * @access public
-     */
-	public function bloggerGetCategories()
-	{
-		$val = new XML_RPC_Value('Not implemented', 'string');
-		return new XML_RPC_Response($val);
-	}
-	
-    /**
-     * get users blogs
-     * 
-     * Gets a list of the users blogs
-     * 
-     * @param  object $params Parameters
-     * @return object Return
-     * @access public
-     */
-	public function bloggerGetUsersBlogs($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-		$userid = $this->objUser->getUserId($username);
-		$prf = $this->objDbBlog->checkProfile($userid);
-		$prf = $prf['blog_name']; 
-		if(!$prf)
-		{
-			$prf = htmlentities($this->objUser->fullname($userid));
-		}
-		else {
-			$prf = htmlentities($prf);
-		}
-		$url = $this->uri(array('action' => 'randblog', 'userid' => $userid), 'blog');
-		$myStruct = new XML_RPC_Value(array(
-    		"blogid" => new XML_RPC_Value($userid, 'string'),
-    		"blogName" => new XML_RPC_Value($prf, "string"),
-    		"url" => new XML_RPC_Value($url, "string")), "struct");
-    	
-    	$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
-    	return new XML_RPC_Response($arrofStructs);
-	}
-	
-    /**
-     * delete post
-     * 
-     * Deletes a post
-     * 
-     * @param  object $params Parameters 
-     * @return object Return
-     * @access public
-     */
-	public function bloggerDeletePost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$postid = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	
-    	$this->objDbBlog->deletePost($blogid);
-		$val = new XML_RPC_Value(TRUE, 'boolean');
-		return new XML_RPC_Response($val);
-	}
-	
-	/**
-	 * Metaweblog section - functions
-	 */
-	
-	
-	public function metaWeblogNewPost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$blogid = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$pass = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$content = $param->serialize($param);
-    	//$cont = simplexml_load_string($content);
-    	$cont = new SimpleXMLElement($content);
-    	$cont = $cont->struct;
-    	foreach($cont->member as $members)
-    	{
-    		if($members->name == 'title')
-    		{
-    			$title = $members->value;
-    		}
-    		elseif($members->name == 'description')
-    		{
-    			$postcontent = $members->value;
-    		}
-    		elseif($members->name == 'mt_excerpt')
-    		{
-    			$excerpt = $members->value;
-    		}
-    	}
-    	//log_debug($member);
-    	
-
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	
-    	if($publish)
-    	{
-    		$published = 0;
-    	}
-    	else {
-    		$published = 1;
-    	}
-    	
-    	$userid = $this->objUser->getUserId($username);
-    	
-    	//insert to the db now and return the generated id as a string
-    	$postarray = array(
-                'userid' => $userid,
-                'post_date' => date('r') ,
-                'post_content' => addslashes(nl2br($postcontent->string)) , 
-                'post_title' => addslashes($title->string),
-                'post_category' => '0',
-                'post_excerpt' => $excerpt->string,
-                'post_status' => $published,
-                'comment_status' => 'on',
-                'post_modified' => date('r'),
-                'comment_count' => '0',
-                'post_ts' => time() ,
-                'post_lic' => '',
-                'stickypost' => '0',
-                'showpdf' => '1'
-            );
-        //log_debug($postarray);
-    	$ret = $this->objDbBlog->insertPostAPI($userid, $postarray);
-		$val = new XML_RPC_Value($ret, 'string');
-		return new XML_RPC_Response($val);
-	}
-	
-	/**
-     * metaWeblog edit post
-     * 
-     * Edit a post
-     * 
-     * @param  object $params Parameters
-     * @return object Return
-     * @access public
-     */
-	public function metaWeblogEditPost($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$postid = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$password = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$content = $param->serialize($param);
-    	$cont = new SimpleXMLElement($content);
-    	$cont = $cont->struct;
-    	foreach($cont->member as $members)
-    	{
-    		if($members->name == 'title')
-    		{
-    			$title = $members->value;
-    		}
-    		elseif($members->name == 'description')
-    		{
-    			$postcontent = $members->value;
-    		}
-    		elseif($members->name == 'mt_excerpt')
-    		{
-    			$excerpt = $members->value;
-    		}
-    	}
-    	$param = $params->getParam(4);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$publish = $param->scalarval();
-    	if($publish)
-    	{
-    		$published = 0;
-    	}
-    	else {
-    		$published = 1;
-    	}
-    	log_debug($postcontent.$publish);
-    	$userid = $this->objUser->getUserId($username);
-    	//insert to the db now and return the generated id as a string
-    	$postarray = array(
-                'userid' => $userid,
-                'post_date' => date('r') ,
-                'post_content' => addslashes($postcontent->string) , 
-                'post_title' => $title->string, //$this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
-                'post_category' => '0',
-                'post_excerpt' => $excerpt->string,
-                'post_status' => $published,
-                'comment_status' => 'on',
-                'post_modified' => date('r'),
-                'comment_count' => '0',
-                'post_ts' => time() ,
-                'post_lic' => '',
-                'stickypost' => '0',
-                'showpdf' => '1'
-            );
-        log_debug($postarray);
-    	$ret = $this->objDbBlog->updatePostAPI($postid, $postarray);
-		$val = new XML_RPC_Value(TRUE, 'boolean');
-   		return new XML_RPC_Response($val);
-	}
-	
-    /**
-     * delete a post
-     * 
-     * Delete a post from the users blog
-     * 
-     * @param  unknown $params Parameters 
-     * @return object  Return
-     * @access public 
-     */
-	public function metaWeblogDeletePost($params)
-	{
-		$val = new XML_RPC_Value(TRUE, 'boolean');
-		return new XML_RPC_Response($val);
-	}
-	
-    /**
-     * get categories
-     * 
-     * Gets a list of categories for a user
-     * 
-     * @param  unknown $params Parameters
-     * @return object  Return
-     * @access public 
-     */
-	public function metaWeblogGetCategories($params)
-	{
-		log_debug("getting metaweblog categories!");
-		//$val = new XML_RPC_Value('a returned string', 'string');
-		//return new XML_RPC_Response($val);
-		
-		$myStruct = new XML_RPC_Value(array(
-    		"blogid" => new XML_RPC_Value($userid, 'string'),
-    		"blogName" => new XML_RPC_Value($prf, "string"),
-    		"url" => new XML_RPC_Value($url, "string")), "struct");
-    	
-    	//$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
-    	return new XML_RPC_Response($myStruct);
-	}
-	
-	public function metaWeblogGetRecentPosts($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$postid = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$username = $param->scalarval();
-    	
-    	$param = $params->getParam(2);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$password = $param->scalarval();
-    	
-    	$param = $params->getParam(3);
-		if (!XML_RPC_Value::isValue($param)) {
-            log_debug($param);
-    	}
-    	$numposts = $param->scalarval();
-    	$userid = $this->objUser->getUserId($username);
-    	$resarr = $this->objDbBlog->getLastPosts($numposts, $userid);
-    	foreach($resarr as $results)
-    	{
-    		$url = $this->uri(array('action'=>'viewsingle', 'postid' => $results['id'], 'userid' => $results['userid']), 'blog');
-    		// returns an array of structs...so build one.
-    		$myStruct = new XML_RPC_Value(array(
-    			"dateCreated" => new XML_RPC_Value($results['post_date'], 'string'),
-    			"userid" => new XML_RPC_Value($userid, "string"),
-    			"postid" => new XML_RPC_Value($results['id'], "string"),
-    			"description" => new XML_RPC_Value($results['post_content'], "string"),
-    			"title" => new XML_RPC_Value($results['post_title'], "string"),
-    			"link" => new XML_RPC_Value($url, "string"),
-    			"permaLink" => new XML_RPC_Value($url, "string"),
-    			"categories" => new XML_RPC_Value('things', "string"),
-    			), "struct");
-    		$arrofStructs[] = $myStruct; 
-    	}
-    	$arrofStructs = new XML_RPC_Value($arrofStructs, "array");
-    	return new XML_RPC_Response($arrofStructs);
-	}
-	
-	
-	
 }
 ?>
