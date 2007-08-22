@@ -250,7 +250,7 @@ class metaweblogapi extends object
                 'stickypost' => '0',
                 'showpdf' => '1'
             );
-        log_debug($postarray);
+        //log_debug($postarray);
     	$ret = $this->objDbBlog->updatePostAPI($postid, $postarray);
 		$val = new XML_RPC_Value(TRUE, 'boolean');
    		return new XML_RPC_Response($val);
@@ -267,6 +267,37 @@ class metaweblogapi extends object
      */
 	public function metaWeblogDeletePost($params)
 	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$appkey = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$postid = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$pass = $param->scalarval();
+    	
+    	$param = $params->getParam(4);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$publish = $param->scalarval();
+    	
+    	$this->objDbBlog->deletePost($blogid);
 		$val = new XML_RPC_Value(TRUE, 'boolean');
 		return new XML_RPC_Response($val);
 	}
@@ -331,6 +362,7 @@ class metaweblogapi extends object
     			"userid" => new XML_RPC_Value($userid, "string"),
     			"postid" => new XML_RPC_Value($results['id'], "string"),
     			"description" => new XML_RPC_Value($results['post_content'], "string"),
+    			"content" => new XML_RPC_Value($results['post_content'], "string"),
     			"title" => new XML_RPC_Value($results['post_title'], "string"),
     			"link" => new XML_RPC_Value($url, "string"),
     			"permaLink" => new XML_RPC_Value($url, "string"),
@@ -339,7 +371,50 @@ class metaweblogapi extends object
     		$arrofStructs[] = $myStruct; 
     	}
     	$arrofStructs = new XML_RPC_Value($arrofStructs, "array");
+    	//log_debug($arrofStructs);
     	return new XML_RPC_Response($arrofStructs);
+	}
+	
+	/**
+     * Metaweblog get post
+     * 
+     * Get a post by its ID
+     * 
+     * @param  object $params Parameters
+     * @return object Return 
+     * @access public
+     */
+	public function metaWeblogGetPost($params)
+	{
+		log_debug("getting single post..... - metaweblog");
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$postid = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$pass = $param->scalarval();
+
+    	//go get the post
+    	$post = $this->objDbBlog->getPostById($postid);
+    	$post = $post[0];
+    	//log_debug($post);
+		$postStruct = new XML_RPC_Value(array(
+    		"description" => new XML_RPC_Value($post['post_content'], "string"),
+    		"userid" => new XML_RPC_Value($post['userid'], "string"),
+    		"postid" => new XML_RPC_Value($post['id'], "string"),
+    		"dateCreated" => new XML_RPC_Value($post['post_date'], "string")), "struct");
+    	return new XML_RPC_Response($postStruct);
 	}
 }
 ?>
