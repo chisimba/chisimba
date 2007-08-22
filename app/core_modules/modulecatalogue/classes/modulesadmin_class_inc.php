@@ -667,7 +667,11 @@ class modulesadmin extends dbTableManager
                 $sql_arr = array(
                     'module_id' => $moduleId
                     ,'module_authors' => addslashes($authors)
-                    ,'module_releasedate' => $releasedate
+                    // Begin JC
+                    // Fixed bug in patching with MySQL 5.0
+                    // mysql  Ver 14.12 Distrib 5.0.45, for Win32 (ia32).
+                    ,'module_releasedate' => str_replace(' ','-',$releasedate)
+                    // End JC
                     ,'module_version' => $version
                     ,'module_path' => $modPath
                     ,'isadmin' => $adm
