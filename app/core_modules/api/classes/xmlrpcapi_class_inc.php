@@ -80,6 +80,13 @@ class xmlrpcapi extends object
      */
 	public $objMetaWebLog;
 	
+	/**
+     * Packages API object
+     * @var    object
+     * @access public
+     */
+	public $objPackages;
+	
     /**
      * init method
      * 
@@ -105,6 +112,8 @@ class xmlrpcapi extends object
         	$this->objBlogger = $this->getObject('bloggerapi');
         	// MetaWebLog API
         	$this->objMetaWebLog = $this->getObject('metaweblogapi');
+        	// Packages module abstraction
+        	$this->objPackages = $this->getObject('packagesapi');
 		}
 		catch (customException $e)
 		{
@@ -218,6 +227,30 @@ class xmlrpcapi extends object
                 		   						   					array('boolean', 'string', 'string', 'string', 'string', 'boolean'),
                 		   						   					),
                 		   						   'docstring' => 'delete a post'),
+                		  
+                		  
+                		  // Packages module for modulecatalogue functions...
+                		  				   
+                		  'getModuleZip' => array('function' => array($this->objPackages, 'getModuleZip'),
+   											      'signature' =>
+                     									array(
+                         									array('string', 'string'),
+                     									),
+                								  'docstring' => 'Grab a module'),
+                								  
+                		  'getModuleDescription' => array('function' => array($this->objPackages, 'getModuleDescription'),
+   											      'signature' =>
+                     									array(
+                         									array('string', 'string'),
+                     									),
+                								  'docstring' => 'Grab a module description'),
+
+                		  'getModuleList' => array('function' => array($this->objPackages, 'getModuleList'),
+                								  'docstring' => 'Grab the module list'),
+
+
+      			  		  'getModuleDetails' => array('function' => array($this->objPackages, 'getModuleDetails'),
+                								  'docstring' => 'Grab the module list'),
                 		   						   
    					), 1, 0);
    					
