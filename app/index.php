@@ -1,5 +1,7 @@
 <?php
 
+// For timing. Please leave in.
+
 if (!function_exists('getMicrotime')) {
 		function getMicrotime() {
 			list($usec, $sec) = explode(" ", microtime());
