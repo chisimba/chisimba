@@ -2,24 +2,24 @@
 
 /**
  * Controller object
- * 
+ *
  * Top level controller
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -45,9 +45,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * controller class (top level)
- * 
+ *
  * Controller controls the business logic of the Chisimba applicatipon (The C in MVC)
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -72,6 +72,12 @@ class controller extends access
      * @access public
      */
     public $footerStr = NULL;
+
+    /**
+    * @var		object
+    * @access 	public
+    */
+    private $_objLanguage;
 
     /**
      * Constructor for the controller class.
@@ -106,11 +112,29 @@ class controller extends access
     {
     }
 
+	/**
+	* Method to return a language text element.
+	*
+    * @param  	string 	$itemName   The language code for the item to be looked up
+    * @param  	string 	$modulename The module name that owns the string
+    * @param 	bool	$default	Default text
+    * #return 	string	The language element
+	*/
+	protected function l($itemName,$modulename=NULL,$default = false)
+	{
+	  if (!defined('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED')) {
+       	define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED',true);
+        $this->_objLanguage =& $this->getObject('language','language');
+	  }
+	   $module = is_null($modulename)?$this->moduleName:$modulename;
+	   return $this->_objLanguage->languageText($itemName, $module, $default);
+	}
+
     /**
      * Method to return current page content.
      * For use within layout templates.
      *
-     * @param  void  
+     * @param  void
      * @return string Content of rendered content script.
      */
     public function getContent()
@@ -121,7 +145,7 @@ class controller extends access
     /**
      * Method to return the content of the rendered layout template.
      *
-     * @param  void  
+     * @param  void
      * @return string Content of rendered layout script.
      */
     public function getLayoutContent()
@@ -170,7 +194,7 @@ class controller extends access
      *
      * @param  string $name The name of the variable.
      * @param  mixed  $val  The value to set the variable to.
-     * @return void  
+     * @return void
      */
     public function setVar($name, $val)
     {
@@ -195,7 +219,7 @@ class controller extends access
      *
      * @param  string $name The name of the reference variable.
      * @param  mixed  $ref  A reference to the object to set the reference variable to.
-     * @return void  
+     * @return void
      */
     public function setVarByRef($name, $ref)
     {
@@ -208,7 +232,7 @@ class controller extends access
      *
      * @param  string $name  The name of the variable holding an array.
      * @param  mixed  $value The value to append to the array.
-     * @return void  
+     * @return void
      */
     public function appendArrayVar($name, $value)
     {
@@ -219,7 +243,7 @@ class controller extends access
      * Method to set the name of the layout template to use.
      *
      * @param  string $templateName The name of the layout template to use.
-     * @return void  
+     * @return void
      */
     public function setLayoutTemplate($templateName)
     {
@@ -230,7 +254,7 @@ class controller extends access
      * Method to set the name of the page template to use.
      *
      * @param  string $templateName The name of the page template to use.
-     * @return void  
+     * @return void
      */
     public function setPageTemplate($templateName)
     {
@@ -242,7 +266,7 @@ class controller extends access
      *
      * @param  string $action Action to perform next.
      * @param  array  $params Parameters to pass to action.
-     * @return NULL  
+     * @return NULL
      */
     public function nextAction($action, $params = array(), $module=NULL)
     {
