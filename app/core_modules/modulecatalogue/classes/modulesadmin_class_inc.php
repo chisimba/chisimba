@@ -845,6 +845,9 @@ class modulesadmin extends dbTableManager
                 return FALSE;
             }
             include($sqlfile);
+            if (!isset($tablename) || !isset($fields) || !isset($options)) {
+                return FALSE;
+            }
             $this->createTable($tablename,$fields,$options);
             if (isset($indexes)) {
                 $this->createTableIndex($tablename,$name,$indexes);
