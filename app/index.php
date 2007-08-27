@@ -1,5 +1,7 @@
 <?php
 
+/*
+// Commented out by Jeremy O'Connor 27/8/7
 // For timing. Please leave in.
 
 if (!function_exists('getMicrotime')) {
@@ -10,6 +12,7 @@ if (!function_exists('getMicrotime')) {
 	}
 
 $TIME_START = getMicrotime();
+*/
 
 /**
 * index.php
