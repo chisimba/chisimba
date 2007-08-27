@@ -8,6 +8,8 @@ $this->loadClass('htmlheading', 'htmlelements');
 $this->loadClass('checkbox', 'htmlelements');
 $this->loadClass('link', 'htmlelements');
 
+$this->_objLanguage = $this->getObject('language', 'language');
+
 $tabBox = $this->newObject('tabpane', 'htmlelements');
 $featureBox = $this->newObject('featurebox', 'navigation');
 $objLink =  new link();
