@@ -118,7 +118,7 @@ class controller extends access
     * @param  	string 	$itemName   The language code for the item to be looked up
     * @param  	string 	$modulename The module name that owns the string
     * @param 	bool	$default	Default text
-    * #return 	string	The language element
+    * @return 	string	The language element
 	*/
 	protected function l($itemName,$modulename=NULL,$default = false)
 	{
