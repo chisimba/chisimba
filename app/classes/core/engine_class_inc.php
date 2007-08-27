@@ -407,12 +407,6 @@ class engine
      */
 	public function __construct()
 	{
-		// check for memcache
-		if(extension_loaded('memcache'))
-		{
-			require_once 'classes/core/chisimbacache_class_inc.php';
-			$this->objMemcache = TRUE;
-		}
 		// we only initiate session handling here if a session already exists;
 		// the session is only created once a successful login has taken place.
 		// this has the small security benefit (albeit an obscurity based one)
@@ -425,14 +419,26 @@ class engine
 		// must be created on every request
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
-		//$this->loadClass('altconfig', 'config');
-		
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
-		//log_debug("engine load of altconfig");
+		// check for memcache
+		if(extension_loaded('memcache'))
+		{
+			require_once 'classes/core/chisimbacache_class_inc.php';
+			if($this->_objDbConfig->getenable_memcache() == 'TRUE')
+			{
+				log_debug("using memcache - engine");
+				$this->objMemcache = TRUE;
+			}
+			else {
+				log_debug("not using memcache - engine");
+				$this->objMemcache = FALSE;
+			}
+		}
+		
 		//and we need a general system config too
 		$this->_objConfig = clone $this->_objDbConfig;	
     	ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
-		//initialise the db factory method of MDB2
+    	//initialise the db factory method of MDB2
 		$this->getDbObj();
 		//initialise the db factory method of MDB2_Schema
 		$this->getDbManagementObj();

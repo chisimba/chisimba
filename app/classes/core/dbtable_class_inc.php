@@ -167,13 +167,6 @@ class dbTable extends object
     public function init($tableName, $pearDb = null,
         $errorCallback = "globalPearErrorCallback")
     {
-    	// check for memcache
-		if(extension_loaded('memcache'))
-		{
-			require_once 'chisimbacache_class_inc.php';
-			$this->objMemcache = TRUE;
-			//log_debug("loaded up memcache!");
-		}
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
         if ($pearDb == null) {
@@ -183,6 +176,20 @@ class dbTable extends object
         }
 
         $this->objDBConfig=$this->getObject('altconfig','config');
+        // check for memcache
+		if(extension_loaded('memcache'))
+		{
+			require_once 'chisimbacache_class_inc.php';
+			if($this->objDBConfig->getenable_memcache() == 'TRUE')
+			{
+				log_debug("using memcache - dbtable");
+				$this->objMemcache = TRUE;
+			}
+			else {
+				log_debug("not using memcache - dbtable");
+				$this->objMemcache = FALSE;
+			}
+		}
         $this->_serverName = $this->objDBConfig->serverName();
         //check if debugging is enabled
         if($this->objDBConfig->geterror_reporting() == "developer")

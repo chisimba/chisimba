@@ -17,18 +17,18 @@ class chisimbacache extends Memcache
 {
 	static private $objMem = NULL;
 	
-	static function getMem()
+	static function getMem($servers = array())
 	{
 		if(self::$objMem == NULL)
 		{
 			self::$objMem = new Memcache;
 			//connect to the memcache server(s)
 			self::$objMem->addServer('localhost', 11211);
-			self::$objMem->addServer('localhost', 11212);
-			self::$objMem->addServer('localhost', 11213);
-			self::$objMem->addServer('localhost', 11214);
-			self::$objMem->addServer('localhost', 11215);
-			self::$objMem->addServer('localhost', 11216);
+			//self::$objMem->addServer('localhost', 11212);
+			//self::$objMem->addServer('localhost', 11213);
+			//self::$objMem->addServer('localhost', 11214);
+			//self::$objMem->addServer('localhost', 11215);
+			//self::$objMem->addServer('localhost', 11216);
 		}
 		
 		return self::$objMem;
