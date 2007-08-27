@@ -182,11 +182,9 @@ class dbTable extends object
 			require_once 'chisimbacache_class_inc.php';
 			if($this->objDBConfig->getenable_memcache() == 'TRUE')
 			{
-				log_debug("using memcache - dbtable");
 				$this->objMemcache = TRUE;
 			}
 			else {
-				log_debug("not using memcache - dbtable");
 				$this->objMemcache = FALSE;
 			}
 		}

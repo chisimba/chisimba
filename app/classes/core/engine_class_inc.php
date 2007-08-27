@@ -426,11 +426,9 @@ class engine
 			require_once 'classes/core/chisimbacache_class_inc.php';
 			if($this->_objDbConfig->getenable_memcache() == 'TRUE')
 			{
-				log_debug("using memcache - engine");
 				$this->objMemcache = TRUE;
 			}
 			else {
-				log_debug("not using memcache - engine");
 				$this->objMemcache = FALSE;
 			}
 		}
