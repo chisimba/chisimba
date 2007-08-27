@@ -1283,9 +1283,37 @@ class altconfig extends object
     	return $getenable_adm;
 
     }
+    
+    /**
+     * Gets enable memcache Setting
+     *
+     * @access public   
+     * @return getenable adm setting
+     */
+
+    public function getenable_adm()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "ENABLE_MEMCACHE");
+    	//var_dump($SettingsDirective);
+    	if($SettingsDirective == FALSE)
+    	{
+    		$newsettings = array("ENABLE_MEMCACHE" => "FALSE");
+    		$this->appendToConfig($newsettings);
+    		return FALSE;
+    	}
+    	//finally unearth whats inside
+    	$getenable_memcache = $SettingsDirective->getContent();
+
+    	return $getenable_memcache;
+
+    }
 
     /**
-     * Gets enable adm Setting
+     * Gets enable proxy Setting
      *
      * @access public   
      * @return getenable adm setting
@@ -1593,6 +1621,11 @@ class altconfig extends object
 		$dsn = NULL;
 
 		return $parsed;
+	}
+	
+	public function __destruct()
+	{
+		
 	}
 
 
