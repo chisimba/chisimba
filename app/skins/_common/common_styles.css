@@ -2046,3 +2046,9 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
 /*
 	END - Styles for the Modern Brick Menu
 */
+
+
+ul.bookmarkedpages li {
+	background-image:url('icons/pushpin.gif');
+	background-repeat: no-repeat;
+}
