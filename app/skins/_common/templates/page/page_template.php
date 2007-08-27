@@ -175,8 +175,9 @@ if (!isset($pageTitle)) {
     $this->putMessages();
 ?>
 <?php
-global $TIME_START;
-echo "<!--Page loaded in " . round(getMicrotime() - $TIME_START, 4) . "s-->";
+// Commented out by Jeremy O'Connor 27/8/7
+//global $TIME_START;
+//echo "<!--Page loaded in " . round(getMicrotime() - $TIME_START, 4) . "s-->";
 ?>
 
     </body>
