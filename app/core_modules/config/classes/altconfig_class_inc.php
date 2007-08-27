@@ -1291,7 +1291,7 @@ class altconfig extends object
      * @return getenable adm setting
      */
 
-    public function getenable_adm()
+    public function getenable_memcache()
     {
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
     	//Lets get the parent node section first
