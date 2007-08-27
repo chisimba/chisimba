@@ -431,6 +431,7 @@ class engine
 			else {
 				$this->objMemcache = FALSE;
 			}
+			$this->cacheTTL = $this->_objDbConfig->getmemcache_ttl();
 		}
 		
 		//and we need a general system config too

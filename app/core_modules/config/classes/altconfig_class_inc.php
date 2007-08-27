@@ -1311,6 +1311,34 @@ class altconfig extends object
     	return $getenable_memcache;
 
     }
+    
+    /**
+     * Gets memcache TTL Setting
+     *
+     * @access public   
+     * @return getenable adm setting
+     */
+
+    public function getmemcache_ttl()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "MEMCACHE_TTL");
+    	//var_dump($SettingsDirective);
+    	if($SettingsDirective == FALSE)
+    	{
+    		$newsettings = array("MEMCACHE_TTL" => "3600");
+    		$this->appendToConfig($newsettings);
+    		return FALSE;
+    	}
+    	//finally unearth whats inside
+    	$memcache_ttl = $SettingsDirective->getContent();
+
+    	return $memcache_ttl;
+
+    }
 
     /**
      * Gets enable proxy Setting

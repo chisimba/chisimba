@@ -187,6 +187,7 @@ class dbTable extends object
 			else {
 				$this->objMemcache = FALSE;
 			}
+			$this->cacheTTL = $this->objDBConfig->getmemcache_ttl();
 		}
         $this->_serverName = $this->objDBConfig->serverName();
         //check if debugging is enabled
