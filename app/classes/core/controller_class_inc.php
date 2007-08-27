@@ -75,9 +75,9 @@ class controller extends access
 
     /**
     * @var		object
-    * @access 	public
+    * @access 	protected
     */
-    private $_objLanguage;
+    protected $_objLanguage;
 
     /**
      * Constructor for the controller class.
@@ -124,7 +124,7 @@ class controller extends access
 	{
 	  if (!defined('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED')) {
        	define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED',true);
-        $this->_objLanguage =& $this->getObject('language','language');
+        $this->_objLanguage = $this->getObject('language','language');
 	  }
 	   $module = is_null($modulename)?$this->moduleName:$modulename;
 	   return $this->_objLanguage->languageText($itemName, $module, $default);
