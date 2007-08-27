@@ -24,6 +24,8 @@ class skin extends object
 
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
+        
+        $this->skinRoot = $this->objConfig->getskinRoot();
     }
 
     /**
@@ -43,7 +45,7 @@ class skin extends object
     public function getSkinLocation()
     {
         $this->validateSkinSession();
-        return $this->objConfig->getsiteRootPath().'/skins/'.$this->getSession('skin').'/';
+        return $this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSession('skin').'/';
     }
 
     /**
@@ -74,7 +76,7 @@ class skin extends object
 
         //Check for a change of skin
         if (isset($_POST['skinlocation']) && $_POST['skinlocation'] != '') {
-            $mySkinLocation=$this->objConfig->getsiteRootPath().'skins/'.$_POST['skinlocation'].'/';
+            $mySkinLocation=$this->objConfig->getsiteRootPath().$this->skinRoot.$_POST['skinlocation'].'/';
 
             //Test if stylesheet exists in the skinlocation
             if (file_exists($mySkinLocation.$this->skinFile)) {
@@ -106,7 +108,7 @@ class skin extends object
         $objDropdown = new dropdown('skinlocation');
         $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
         //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->getsiteRootPath()."skins/";
+        $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
@@ -114,7 +116,7 @@ class skin extends object
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
                 if (is_dir($file) && file_exists($basedir.$file.'/'.$this->skinFile)) {
 
-                    $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
+                    $skinnameFile=$this->objConfig->getsiteRootPath().$this->skinRoot.$file.'/skinname.txt';
 
                     if (file_exists($skinnameFile)) {
                         $ts=fopen($skinnameFile,'r');
@@ -150,14 +152,14 @@ class skin extends object
     {
         $currentDir = getcwd();
         //loop through the folders and build an array of available skins
-        $basedir=$this->objConfig->getsiteRootPath()."skins/";
+        $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
         while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
             if ($file != '.' && $file != '..' && strtolower($file)!='cvs') {
                 if (is_dir($file) && file_exists($basedir.$file.'/stylesheet.css')) {
-                    $skinnameFile=$this->objConfig->getsiteRootPath().'skins/'.$file.'/skinname.txt';
+                    $skinnameFile=$this->objConfig->getsiteRootPath().$this->skinRoot.$file.'/skinname.txt';
                     if (file_exists($skinnameFile)) {
                         $ts=fopen($skinnameFile,'r');
                         $ts_content=fread($ts, filesize($skinnameFile));
@@ -223,15 +225,15 @@ class skin extends object
     public function putSkinCssLinks()
     {
         $stylesheet = '
-        <link rel="stylesheet" type="text/css" href="skins/_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/_common/print.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/stylesheet.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="skins/'.$this->getSkin().'/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/print.css" media="print" />
 				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '
         <!--[if lte IE 7]>
-            <link rel="stylesheet" type="text/css" href="skins/_common/ie6_or_less.css" />
+            <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
         <![endif]-->';
         }
         return $stylesheet;
@@ -270,10 +272,10 @@ class skin extends object
     */
     public function getPageTemplate()
     {
-        if (file_exists($this->objConfig->getsiteRootPath().'skins/'.$this->getSkin().'/templates/page/page_template.php')) {
-            return 'skins/'.$this->getSkin().'/templates/page/page_template.php';
+        if (file_exists($this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSkin().'/templates/page/page_template.php')) {
+            return $this->skinRoot.$this->getSkin().'/templates/page/page_template.php';
         } else {
-            return 'skins/_common/templates/page/page_template.php'; 
+            return $this->skinRoot.'_common/templates/page/page_template.php'; 
         }
     }
     
@@ -286,13 +288,13 @@ class skin extends object
     */
     public function getLayoutTemplate()
     {
-        if (file_exists($this->objConfig->getsiteRootPath().'skins/'.$this->getSkin().'/templates/layout/layout_template.php')) {
-            return 'skins/'.$this->getSkin().'/templates/layout/layout_template.php';
+        if (file_exists($this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSkin().'/templates/layout/layout_template.php')) {
+            return $this->skinRoot.$this->getSkin().'/templates/layout/layout_template.php';
         } else {
-            return 'skins/_common/templates/layout/layout_template.php'; 
+            return $this->skinRoot.'_common/templates/layout/layout_template.php'; 
         }
         
-        return 'skins/_common/templates/layout/layout_template.php';
+        return $this->skinRoot.'_common/templates/layout/layout_template.php';
     }
     
     public function siteSearchBox()
