@@ -538,6 +538,9 @@ class form implements ifhtml
 						case 'regex':
 						case 'nopunctuaion';
             case 'nonzero';
+            case 'url';
+            	$this->_validateURL($mix,$errormsg);
+            	break;	
             case 'uploadedfile';
             case 'maxfilesize';
             case 'filename';
@@ -555,7 +558,21 @@ class form implements ifhtml
     public function addFormRule()
     {
     }
-
+    
+    /**
+     * Method to validate URL's
+     * 
+     * @return if true (boolean) else string error message
+     * @access private
+     */
+	private function _validateURL($url,$message)
+	{	
+		if (!preg_match('/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?\//i', $url, $message)) {
+     		return true;
+		} else {
+    		return $message;
+		} 	
+	}
     /**
      * Method to get the validator scripts
      * 
