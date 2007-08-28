@@ -324,7 +324,7 @@ if (strtolower($user['howcreated']) != 'ldap') {
 
 $form->addToForm($table->show());
 
-$button = new button ('submitform', $this->objLanguage->languageText('mod_useradmin_updatedetails', 'userdetails'));
+$button = new button ('submitform', $this->objLanguage->languageText('mod_userdetails_updatedetails'));
 $button->setToSubmit();
 // $button->setOnClick('validateForm()');
 
