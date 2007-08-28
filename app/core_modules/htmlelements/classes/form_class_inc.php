@@ -538,7 +538,7 @@ class form implements ifhtml
 						case 'regex':
 						case 'nopunctuaion';
             case 'nonzero';
-            case 'url';
+            case 'url':
             	$this->_validateURL($mix,$errormsg);
             	break;	
             case 'uploadedfile';
