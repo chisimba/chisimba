@@ -605,9 +605,13 @@ class PEARCheckAction extends StepAction
 
         
         $_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
-
-        // check if the pear classes exist
-
+		$db = array();
+        // check if the pear DB classes exist
+         if($_SESSION['allowed_db']['MDB2_Driver_mysql']==TRUE) $db = array('MDB2_Driver_mysql'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));
+         if($_SESSION['allowed_db']['MDB2_Driver_mysqli']==TRUE)$db = array('MDB2_Driver_mysqli'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));
+		 if($_SESSION['allowed_db']['MDB2_Driver_pgsql']==TRUE)$db = array('MDB2_Driver_pgsql'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));	
+		 $this->required_packages = array_merge($this->required_packages,$db);
+		 	
         if ($_SESSION['pear_path'] == '') {
 
             //$this->errors[] = 'Could not find the PEAR registry. You can still proceed with install, '.
@@ -679,7 +683,46 @@ class PEARCheckAction extends StepAction
                 $this->required_packages['Log']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
             }
+            
+            $allowed_db = isset($_SESSION['allowed_db'])? $_SESSION['allowed_db']:NULL;
+			
+          
+            if($allowed_db['MDB2_Driver_mysql']==TRUE) {
 
+            	@include('MDB2_Driver_mysql');
+            	if (!class_exists('MDB2_Driver_mysql')) {
+            		$this->errors[] = '<span class="errors">Could not find PEAR::MDB2_Driver_mysql </span>';
+
+                	$this->required_packages['MDB2_Driver_mysql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            	}else{ 
+            		$this->required_packages['MDB2_Driver_mysql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';	
+            	}
+            	
+            }
+            if ($allowed_db['MDB2_Driver_mysqli']==TRUE) {
+               @include('MDB2_Driver_mysqli');
+            	if (!class_exists('MDB2_Driver_mysqli')) {
+            		$this->errors[] = '<span class="errors">Could not find PEAR::MDB2_Driver_mysqli </span>';
+
+                	$this->required_packages['MDB2_Driver_mysqli']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            	}else{
+            		$this->required_packages['MDB2_Driver_mysqli']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';	
+            	}
+            }
+            if($allowed_db['MDB2_Driver_pgsql']==TRUE) {
+               @include('MDB2_Driver_pgsql');
+            	if (!class_exists('MDB2_Driver_pgsql')) {
+            		$this->errors[] = '<span class="errors">Could not find PEAR::MDB2_Driver_mysqli </span>';
+
+                	$this->required_packages['MDB2_Driver_pgsql']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            	}else{
+            		$this->required_packages['MDB2_Driver_pgsql']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';	
+            	}
+            }
+            
         } else { //end if registry not found
 
             include_once 'PEAR/Registry.php';
