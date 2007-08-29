@@ -51,6 +51,7 @@ class DatabaseName extends Step
 	{
 
 		$this->actions[] = new DbNameAction(get_class($this));
+		$this->conf_required = true;
 
 		$this->step_title = 'Database Name';
 
@@ -127,7 +128,7 @@ class DbNameAction extends FiveStepAction
 	{
 
 		//$this->FiveStepAction($ps);
-		$this->conf_required = true;
+		
 		$this->db_prefix = $pr;
 
 		$this->step_help = "db name action,";
