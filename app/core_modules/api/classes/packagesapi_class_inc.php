@@ -96,12 +96,13 @@ class packagesapi extends object
 		$mod = $module->getParam(0);
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
-		log_debug("grabbing $path");
+		//log_debug("grabbing $path");
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);
+		log_debug($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
 		return new XML_RPC_Response($val);
