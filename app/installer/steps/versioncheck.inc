@@ -803,8 +803,8 @@ class PEARCheckAction extends StepAction
         echo $tpl->fetch();
 
 
-
-        $pear_dir  = $this->_findPEARPath();
+		
+        $pear_dir  = isset($_POST['pear_path']) ? $_POST['pear_path'] : $this->_findPEARPath();
 
         $textbox = '<br><p></br>' .
 
