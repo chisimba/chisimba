@@ -56,7 +56,7 @@ class parse4youtube extends object
      */
     function init()
     {
-
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     
     /**
@@ -109,16 +109,21 @@ class parse4youtube extends object
         //See if the youtube API module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('youtube', 'youtube');
         if ($isRegistered){
-            //Parse the youtube page tags
-            $counter = 0;
-            //Instantiate the youtubeapi class
-            $objYouTube = $this->getObject('youtubeapi', 'youtube');
-            //Get the view class for youtubeapi
-            $vw = $this->getObject('youtubetpl','youtube');
-            foreach ($results3[0] as $item) {
-                $exPat = $results3[1][$counter];
-                //Get an array containing the param=value data
-                //The format is [YOUTUBE: by_tag,tag,2,1,24]
+            $flagOk = TRUE;
+        } else {
+            $flagOk = FALSE;
+        }
+        //Parse the youtube page tags
+        $counter = 0;
+        //Instantiate the youtubeapi class
+        $objYouTube = $this->getObject('youtubeapi', 'youtube');
+        //Get the view class for youtubeapi
+        $vw = $this->getObject('youtubetpl','youtube');
+        foreach ($results3[0] as $item) {
+            $exPat = $results3[1][$counter];
+            //Get an array containing the param=value data
+            //The format is [YOUTUBE: by_tag,tag,2,1,24]
+            if ($flagOk == TRUE) {
                 $arCodes = $this->extractYoutubeCodes(&$exPat);
                 $ytmethod = $arCodes['ytmethod'];
                 $identifier = $arCodes['ytidentifier'];
@@ -135,10 +140,13 @@ class parse4youtube extends object
                 //$objYouTube->ytIdentifier = $identifier;
                 $apiXml = $objYouTube->show($objYouTube->setupCall());
                 $replacement = $vw->showVideos($apiXml);
-                //$replacement = $identifier . " " . $objYouTube->setupCall();
-                $str = str_replace($item, $replacement, $str);
-                $counter++;
+            } else {
+                $replacement = $item . "<br .<span class=\"error\">"
+                  .  $this->objLanguage->languageText('mod_filters_error_noyoutube', 'filters')
+                  . "</span>";
             }
+            $str = str_replace($item, $replacement, $str);
+            $counter++;
         }
         return $str;
     }
