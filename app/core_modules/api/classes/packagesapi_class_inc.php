@@ -100,6 +100,7 @@ class packagesapi extends object
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
+		log_debug($zipfile);
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);
 		log_debug($filetosend);
