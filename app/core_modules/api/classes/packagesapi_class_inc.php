@@ -99,7 +99,7 @@ class packagesapi extends object
 		//log_debug("grabbing $path");
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
-		log_debug("got wzip...");
+		log_debug($objZip->addArchive($path, $filepath, $this->objConfig->getModulePath()));
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
 		log_debug($zipfile);
 		$filetosend = file_get_contents($zipfile);
