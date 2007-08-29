@@ -251,6 +251,13 @@ class xmlrpcapi extends object
 
       			  		  'getModuleDetails' => array('function' => array($this->objPackages, 'getModuleDetails'),
                 								  'docstring' => 'Grab the module list'),
+                								  
+                		  'getMsg' => array('function' => array($this->objPackages, 'getMessage'),
+      			  		  					'signature' =>
+                     							array(
+                         							array('string', 'string'),
+                     							),
+                								'docstring' => 'What would you like to see?')
                 		   						   
    					), 1, 0);
    					
