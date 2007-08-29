@@ -103,7 +103,7 @@ class packagesapi extends object
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
-		log_debug("Sent $mod to client");
+		log_debug("Sent ".$mod->scalarval()." to client");
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
