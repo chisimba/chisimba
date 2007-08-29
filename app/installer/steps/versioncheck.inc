@@ -804,7 +804,7 @@ class PEARCheckAction extends StepAction
 
 
 		
-        $pear_dir  = isset($_POST['pear_path']) ? $_POST['pear_path'] : $this->_findPEARPath();
+        $pear_dir  = isset($_SESSION['pear_path']) ? $_SESSION['pear_path'] : $this->_findPEARPath();
 
         $textbox = '<br><p></br>' .
 
