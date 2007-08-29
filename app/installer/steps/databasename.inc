@@ -127,7 +127,7 @@ class DbNameAction extends FiveStepAction
 	{
 
 		//$this->FiveStepAction($ps);
-
+		$this->conf_required = true;
 		$this->db_prefix = $pr;
 
 		$this->step_help = "db name action,";
@@ -204,6 +204,8 @@ class DbNameAction extends FiveStepAction
 						return false;
 
 					} else {
+						
+						$this->errors[] ='<span style="color: Green">Connected to '.(isset($_SESSION['dsn']) ? $_SESSION['dsn'] : '').'</span>';
 
 						$this->success = true;
 
@@ -423,7 +425,19 @@ class DbNameAction extends FiveStepAction
 
 	}//end paintAction()
 
+/**
 
+	* Show what stuff was saved. Make note about the  lowercase url
+
+	*
+
+	* @return void
+
+	* @access public
+
+	*/
+
+	
 
 
 
