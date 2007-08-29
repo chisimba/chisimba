@@ -607,9 +607,9 @@ class PEARCheckAction extends StepAction
         $_SESSION['pear_path'] = isset($_POST['pear_path']) ? $_POST['pear_path'] : '';
 		$db = array();
         // check if the pear DB classes exist
-         if($_SESSION['allowed_db']['MDB2_Driver_mysql']==TRUE) $db = array('MDB2_Driver_mysql'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));
-         if($_SESSION['allowed_db']['MDB2_Driver_mysqli']==TRUE)$db = array('MDB2_Driver_mysqli'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));
-		 if($_SESSION['allowed_db']['MDB2_Driver_pgsql']==TRUE)$db = array('MDB2_Driver_pgsql'=> Array('version'=>'2.0.2','available'=>false,'message' => ''));	
+         if($_SESSION['allowed_db']['MDB2_Driver_mysql']==TRUE) $db = array('MDB2_Driver_mysql'=> Array('version'=>'1.0.0','available'=>false,'message' => ''));
+         if($_SESSION['allowed_db']['MDB2_Driver_mysqli']==TRUE)$db = array('MDB2_Driver_mysqli'=> Array('version'=>'1.0.0','available'=>false,'message' => ''));
+		 if($_SESSION['allowed_db']['MDB2_Driver_pgsql']==TRUE)$db = array('MDB2_Driver_pgsql'=> Array('version'=>'1.0.0','available'=>false,'message' => ''));	
 		 $this->required_packages = array_merge($this->required_packages,$db);
 		 	
         if ($_SESSION['pear_path'] == '') {
