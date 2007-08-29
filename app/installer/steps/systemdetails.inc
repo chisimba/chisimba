@@ -320,13 +320,8 @@ class RootUserAction extends StepAction
 
 		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'Chisimba';
 
-		if(!isset($server_name))
-		{
-			$server_name = NULL;
-		}
-
-		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : $server_name;
-
+		
+		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : '';
 
 
 		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
@@ -399,9 +394,9 @@ class RootUserAction extends StepAction
 		
 		
 		$this_url = $ksr;
-        $this_server = $_SERVER['HTTP_HOST']; //$urlarray['host'];
+        $this_server = isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$_SERVER['HTTP_HOST']; //$urlarray['host'];
 		
-		// $this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
+		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$ksr;
 
 		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
 
@@ -453,11 +448,7 @@ class RootUserAction extends StepAction
 
 			ob_clean();
 
-
-			if(!isset($serverName))
-			{
-				$serverName = NULL;
-			}
+		
 			text_box('serverName',$serverName,'20','',false,'tabindex="2"');
 
 			normal_button('getServerName','Generate','javascript:generateServerName();','tabindex="2"');
@@ -1381,12 +1372,10 @@ class RootUserAction extends StepAction
 
 		if ($log_enable==1)
 		{
-			$_SESSION['log_enable'] = "TRUE";
 			$log_enable = "TRUE";
 
 		}else {
 
-			$_SESSION['log_enable'] = "FALSE";
 			$log_enable = "FALSE";
 		}
 
