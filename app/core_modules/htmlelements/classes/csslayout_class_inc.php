@@ -183,8 +183,9 @@ class csslayout extends object implements ifhtml
     */
     public function bodyOnLoadScript()
     {
-        return 'xAddEventListener(window, "resize", adjustLayout, false);
-          adjustLayout();';
+        return
+            'xAddEventListener(window, "resize", adjustLayout, false);'."\n"
+            .'adjustLayout();'."\n";
     }
 
     /**
@@ -197,7 +198,7 @@ class csslayout extends object implements ifhtml
     {
         $fixLayoutScript ='
         <script type="text/javascript">
-
+        // <![CDATA[
         function adjustLayout()
         {
              // Get natural heights
@@ -215,7 +216,7 @@ class csslayout extends object implements ifhtml
             xHeight("left", maxHeight);
             xHeight("right", maxHeight);
         }
-
+        // ]]>
         </script>';
 
         return $fixLayoutScript;
@@ -231,7 +232,7 @@ class csslayout extends object implements ifhtml
     {
         $fixLayoutScript = '
         <script type="text/javascript">
-
+        // <![CDATA[
         function adjustLayout()
         {
              // Get natural heights
@@ -249,7 +250,7 @@ class csslayout extends object implements ifhtml
             xHeight("left", maxHeight);
             xHeight("right", maxHeight);
         }
-
+        // ]]>
         </script>';
 
         return $fixLayoutScript;
