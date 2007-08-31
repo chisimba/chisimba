@@ -36,6 +36,20 @@ Public License
 class graph extends object
 {
 	/**
+	 * @example 
+	 * 
+	 * // graph example...
+     *      	$this->objGraph->setup(300, 300);
+     *       	$this->objGraph->addPlotArea();
+     *       	$data = array('month' => 'june', 'hits' => '1000');
+     *       	$param = 'month';
+     *       	$value = 'hits';
+     *       	$this->objGraph->addSimpleData($data, $param, $value);
+     *       	$this->objGraph->labelAxes('hits', 'months');
+     *       	echo $this->objGraph->show('/var/www/testgraph.png');
+	 */
+	
+	/**
 	 * Public graph variable
 	 *
 	 * @var object
