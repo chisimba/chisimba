@@ -43,7 +43,8 @@
  
 /**
 *
-* Class to Extract parameter from a list
+* Class to Extract parameter from a list. It returns an array, as well as 
+* setting properties corresponding to each parameter.
 *
 * @author Derek Keats
 *         
@@ -56,6 +57,17 @@ class extractparams extends object
         
     }
     
+    /**
+     * 
+     * Method to take a delimited string of parameter and value pairs
+     * and return an array of key=>value as well as set a property of
+     * this class equal to each parameter and value.
+     * 
+     * @param string $str A delimited string of parameters
+     * @param string $delim A delimiter to separate the pairs
+     * @return string array An array of key=>values 
+     *  
+     */
     public function getArrayParams($str, $delim=",")
     {
         $ar = explode($delim, $str);
