@@ -2,24 +2,24 @@
 
 /**
  * Object Top level file
- * 
+ *
  * Object class that is extended throughout the framework
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <<pscott@uwc.ac.za>>
@@ -45,9 +45,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Object class
- * 
+ *
  * Object class that is extended throughout the framework
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -100,8 +100,8 @@ class object
      *
      * @access   public
      * @abstract Override in subclasses.
-     * @param    void  
-     * @return   void  
+     * @param    void
+     * @return   void
      */
     public function init()
     {
@@ -194,7 +194,7 @@ class object
      * modules. As long as setSession is used to store values, this will be invisible to the
      * module author.
      *
-     * @access public 
+     * @access public
      * @param  string  $name   Name of session parameter to unset
      * @param  string  $module default to _MODULE_ if unset
      * @return session set to NULL in engine object
@@ -217,7 +217,7 @@ class object
     * Method to create installation-specific key for Session variables
     *
     * @access public
-    * @param  void  
+    * @param  void
     * @return string $key
     */
     public function sessionKey()
@@ -246,12 +246,12 @@ class object
      * @param  string $omitServerName flag to produce relative URLs
      * @return mixed  Returns the application URI
      */
-    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE)
+    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
     {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
-        return $this->objEngine->uri($params, $moduleName, $uriMode,$omitServerName);
+        return $this->objEngine->uri($params, $moduleName, $uriMode,$omitServerName, $javascriptCompatibility);
     }
 
     /**
@@ -330,7 +330,7 @@ class object
         }
         return $this->objEngine->getResourceUri($resourcePath, $moduleName);
     }
-    
+
     /**
      * Method to generate the path to a static resource stored in a module.
      * The resource should be stored within the 'resources' subdirectory of
@@ -362,7 +362,7 @@ class object
     {
         return $this->objEngine->getPearResource($resourcePath);
     }
-    
+
 	/**
 	 * Method that generates a URI to a static javascrict
 	 * file that is stored in the resources folder in the subdirectory
@@ -386,7 +386,7 @@ class object
     * Method to append a value to a template variable holding an array. If the
     * array does not exist, it is created
     *
-    * @access public                
+    * @access public
     * @param  string                 $name  The name of the variable holding an array
     * @param  mixed                  $value The value to append to the array
     * @return Engine::AppendarrayVar

@@ -392,9 +392,9 @@ class engine
 	'userregistration',
 	'utilities',
 	);
-	
+
 	public $objMemcache = FALSE;
-	
+
 	protected $cacheTTL = 3600;
 
 	/**
@@ -433,9 +433,9 @@ class engine
 			}
 			$this->cacheTTL = $this->_objDbConfig->getmemcache_ttl();
 		}
-		
+
 		//and we need a general system config too
-		$this->_objConfig = clone $this->_objDbConfig;	
+		$this->_objConfig = clone $this->_objDbConfig;
     	ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
     	//initialise the db factory method of MDB2
 		$this->getDbObj();
@@ -466,7 +466,7 @@ class engine
 		//Load the Skin Object
 		//$this->loadClass('skin', 'skin');
 		$this->_objSkin = $this->getObject('skin', 'skin');
-    	
+
 		//Get default page template
 		$this->_pageTemplate = $this->_objSkin->getPageTemplate();
 		// Get Layout Template from Config files
@@ -890,8 +890,8 @@ class engine
 		$this->__autoload($filename);
 		//require_once($filename);
 	}
-	
-	public function __autoload($class_name) 
+
+	public function __autoload($class_name)
 	{
     	require_once $class_name;
 	}
@@ -1272,9 +1272,10 @@ class engine
     * @param   string $module         Name of module to point to (blank for core actions)
     * @param   string $mode           The URI mode to use, must be one of 'push', 'pop', or 'preserve'
     * @param   string $omitServerName flag to produce relative URLs
+    * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
     * @returns string $uri the URL
     */
-	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE)
+	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
 	{
 		if (!empty($action)) {
 			$params['action'] = $action;
@@ -1325,7 +1326,7 @@ class engine
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
-			$uri .= '?'.implode('&amp;', $output);
+			$uri .= '?'.implode($javascriptCompatibility?'&':'&amp;', $output);
 			// TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
 		}
 		return $uri;
