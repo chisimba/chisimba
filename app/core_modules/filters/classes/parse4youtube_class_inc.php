@@ -121,6 +121,7 @@ class parse4youtube extends object
             //Get an array containing the param=value data
             //The format is [YOUTUBE: by_tag,tag,2,1,24]
             if ($flagOk == TRUE) {
+            	// moved the instantiation to inside the flag check as per bug #0002236
             	//Instantiate the youtubeapi class
         		$objYouTube = $this->getObject('youtubeapi', 'youtube');
         		//Get the view class for youtubeapi
