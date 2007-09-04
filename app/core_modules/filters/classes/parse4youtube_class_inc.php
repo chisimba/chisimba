@@ -115,16 +115,18 @@ class parse4youtube extends object
         }
         //Parse the youtube page tags
         $counter = 0;
-        //Instantiate the youtubeapi class
-        $objYouTube = $this->getObject('youtubeapi', 'youtube');
-        //Get the view class for youtubeapi
-        $vw = $this->getObject('youtubetpl','youtube');
+        
         foreach ($results3[0] as $item) {
             $exPat = $results3[1][$counter];
             //Get an array containing the param=value data
             //The format is [YOUTUBE: by_tag,tag,2,1,24]
             if ($flagOk == TRUE) {
-                $arCodes = $this->extractYoutubeCodes(&$exPat);
+            	//Instantiate the youtubeapi class
+        		$objYouTube = $this->getObject('youtubeapi', 'youtube');
+        		//Get the view class for youtubeapi
+        		$vw = $this->getObject('youtubetpl','youtube');
+                
+        		$arCodes = $this->extractYoutubeCodes(&$exPat);
                 $ytmethod = $arCodes['ytmethod'];
                 $identifier = $arCodes['ytidentifier'];
                 $cols = $arCodes['cols'];
