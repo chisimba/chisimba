@@ -90,25 +90,30 @@ class loginInterface extends object
     		$this->loadClass('checkbox', 'htmlelements');
     		$this->loadClass('link','htmlelements');
     		$this->loadClass('label','htmlelements');
+    		$this->loadClass('fieldset','htmlelements');
 
     		// Create a Form object
     		$objForm = new form('loginform', $formAction);
+    		$objFields = new fieldset();
     		//Set the displayType to 3 for freeform
-    		$objForm->displayType=3;
+    		//$objForm->displayType=2;
 
     		//--Create an element for the username
     		$objInput = new textinput('username', '', '','15');
     		$objLabel = new label($this->objLanguage->languageText('word_username'), 'input_username');
     		//Add validation for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'login'),'required');
+    		
     		//Add the username box to the form
-    		$objForm->addToForm($objLabel->show().': '.$objInput->show());
+    		$objFields->addContent($objLabel->show().': '.$objInput->show().'<br/>');
+    		//$objForm->addToForm();
 
     		//--- Create an element for the password
     		$objInput = new textinput('password', '', 'password', '15');
     		$objLabel = new label($this->objLanguage->languageText('word_password'), 'input_password');
     		//Add the password box to the form
-    		$objForm->addToForm('<br/>'.$objLabel->show() . ': ' . $objInput->show().'<br/>');
+    		//$objForm->addToForm();
+    		$objFields->addContent('<br/>'.$objLabel->show() . ': ' . $objInput->show().'<br/>');
 
     		//--- Create an element for the network login radio
     		$objElement = new checkbox("useLdap");
@@ -117,6 +122,7 @@ class loginInterface extends object
     		$ldap = '';
     		if ($this->objConfig->getuseLDAP()) {
     			$ldap .= $objElement->label.' '.$objElement->show();
+    			
     		}
 
 
@@ -125,15 +131,18 @@ class loginInterface extends object
     		// Set the button type to submit
     		$objButton->setToSubmit();
     		// Add the button to the form
-    		$objForm->addToForm($ldap.'<br/>'.$objButton->show().'<br/>');
+    		$objFields->addContent($ldap.'<br/>'.$objButton->show().'<br/>');
+    		//$objForm->addToForm();
+    		
 
     		$helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
         	$helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);
         	$resetLink = new Link($this->uri(array('action'=>'needpassword'),'security'));
         	$resetLink->link = $this->objLanguage->languageText('mod_security_forgotpassword');
         	// the help link
-        	$p = $resetLink->show().'<br />'.$helpIcon;
-        	$objForm->addToForm($p);
+        	$p = '<br/>'.$resetLink->show().'<br />'.$helpIcon;
+        	$objFields->addContent($p);
+        	$objForm->addToForm($objFields->show());
 
     		return $objForm->show();
     	} catch (Exception $e) {
