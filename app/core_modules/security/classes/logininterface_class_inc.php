@@ -100,20 +100,20 @@ class loginInterface extends object
 
     		//--Create an element for the username
     		$objInput = new textinput('username', '', '','15');
-    		$objLabel = new label($this->objLanguage->languageText('word_username'), 'input_username');
+    		$objLabel = new label($this->objLanguage->languageText('word_username').': ', 'input_username');
     		//Add validation for username
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'login'),'required');
     		
     		//Add the username box to the form
-    		$objFields->addContent($objLabel->show().': '.$objInput->show().'<br/>');
+    		$objFields->addContent($objLabel->show().$objInput->show().'<br/>');
     		//$objForm->addToForm();
 
     		//--- Create an element for the password
     		$objInput = new textinput('password', '', 'password', '15');
-    		$objLabel = new label($this->objLanguage->languageText('word_password'), 'input_password');
+    		$objLabel = new label($this->objLanguage->languageText('word_password'). ': ', 'input_password');
     		//Add the password box to the form
     		//$objForm->addToForm();
-    		$objFields->addContent('<br/>'.$objLabel->show() . ': ' . $objInput->show().'<br/>');
+    		$objFields->addContent('<br/>'.$objLabel->show(). $objInput->show().'<br/>');
 
     		//--- Create an element for the network login radio
     		$objElement = new checkbox("useLdap");
