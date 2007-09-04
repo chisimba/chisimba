@@ -92,7 +92,6 @@ class parse4wiki extends object
             } else {
                 $page="MainPage";
             }
-            $replacement = 
             $page = $objWiki->showPage($wiki, $page);
             $replacement = $page;
             $txt = str_replace($item, $replacement, $txt);
