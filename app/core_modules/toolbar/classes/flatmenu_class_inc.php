@@ -46,7 +46,7 @@ class flatmenu extends object
     	$logoutLabel = $this->objLanguage->languageText('word_logout');
     	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
         
-        $postlogin = $this->objConfig->getdefaultModuleName();
+        $postlogin = 'cms';//$this->objConfig->getdefaultModuleName();
         $home = $this->objConfig->getPrelogin();
         $showLogout = FALSE;
         
