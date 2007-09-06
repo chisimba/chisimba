@@ -72,30 +72,37 @@ class parse4wiki extends object
     */
     public function parse($txt)
     {
-        //Match filters based on a wordpress style
-        preg_match_all('/\\[WIKI:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-        //Get all the ones in links
-        $counter = 0;
-        //Get the wiki display object
-        $objWiki = $this->newObject('wikidisplay', 'wiki');
-        foreach ($results[0] as $item)
+    	//Instantiate the modules class to check if youtube is registered
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the youtube API module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('wikidisplay', 'wiki');
+        if($isRegistered)
         {
-            $str = $results[1][$counter];
-            $ar= $this->objExpar->getArrayParams($str, ",");
-            if (isset($this->objExpar->wiki)) {
-                $wiki = $this->objExpar->wiki;
-            } else {
-                $wiki="Default wiki";
-            }
-            if (isset($this->objExpar->page)) {
-                $page = $this->objExpar->page;
-            } else {
-                $page="MainPage";
-            }
-            $page = $objWiki->showPage($wiki, $page);
-            $replacement = $page;
-            $txt = str_replace($item, $replacement, $txt);
-            $counter++;
+        	//Match filters based on a wordpress style
+        	preg_match_all('/\\[WIKI:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        	//Get all the ones in links
+        	$counter = 0;
+        	//Get the wiki display object
+        	$objWiki = $this->newObject('wikidisplay', 'wiki');
+        	foreach ($results[0] as $item)
+        	{
+            	$str = $results[1][$counter];
+            	$ar= $this->objExpar->getArrayParams($str, ",");
+            	if (isset($this->objExpar->wiki)) {
+                	$wiki = $this->objExpar->wiki;
+            	} else {
+                	$wiki="Default wiki";
+            	}
+            	if (isset($this->objExpar->page)) {
+                	$page = $this->objExpar->page;
+            	} else {
+                	$page="MainPage";
+            	}
+            	$page = $objWiki->showPage($wiki, $page);
+            	$replacement = $page;
+            	$txt = str_replace($item, $replacement, $txt);
+            	$counter++;
+        	}
         }
         return $txt;
     }
