@@ -184,23 +184,23 @@ class InstallDirectoryAction extends StepAction
 			chmod($module_path, 0700);
 			if(is_writeable($module_path))
 			{
-				
+
 				//$this->errors[] = 'Could not find the directory specified '.$module_path.' but created it for you';
 			}
 			else {
 				$this->errors[] = 'Could not find the directory specified '.$module_path.'. The installer is unable to create this directory, as it does not have sufficient permissions. Please create it manually.';
 			}
-				
+
 			$this->success = false;
 			return false;
 		}
-                
+
 
 		$module_URI = str_replace('\\', '/',$module_URI);
                 //Add a final '/'
                 $module_URI.='/';
                 $module_URI=str_replace('//','/',$module_URI);
-                // again 
+                // again
                 $module_URI=str_replace('//','/',$module_URI);
 		//if (!is_dir($module_URI)) {
 		//	$this->errors[] = 'Could not find the directory specified '.$module_URI;
@@ -367,6 +367,7 @@ class InstallDirectoryAction extends StepAction
 
 	{
 
+                //$sys_root=str_replace('//','/',$sys_root);
 		$check_dir = $sys_root;
 
 		$dirs = Array('usrfiles','user_images','usrfiles/users');
@@ -376,7 +377,11 @@ class InstallDirectoryAction extends StepAction
 		//make sure we can write to web root
        if(is_dir($sys_root)) {
 
-				$fp = @fopen($check_dir.'/tmpinstallfile', "w");
+                //echo $check_dir.'tmpinstallfile';
+                //die;
+
+                // Use str_replace to get rid of the //'s
+				$fp = fopen(str_replace('//','/',$check_dir.'/tmpinstallfile'), "w");
 
 				if ($fp==false) {
 
@@ -421,7 +426,8 @@ class InstallDirectoryAction extends StepAction
 
 		foreach($dirs as $dir) {
 
-			$check_dir = $sys_root.'/'.$dir;
+                // Use str_replace to get rid of the //'s
+			$check_dir = str_replace('//','/',$sys_root.'/'.$dir);
 
 
 
@@ -488,7 +494,7 @@ class InstallDirectoryAction extends StepAction
     			chmod($check_dir,0700);
 
 				$success = true;
-				
+
 				$check_dir = str_replace('//', '/', $check_dir);
 				$this->errors[] = '<span class="success">Could not find required directory '.$check_dir.',but the system created it anyway</span>';
 
@@ -552,19 +558,19 @@ class InstallDirectoryAction extends StepAction
                 // take a smart guess, and check for other options
                 $guess=str_replace('/chisimba_framework/app/installer',"",$path).'/chisimba_modules/';
 
-                
+
                 if (isset($_SESSION['module_path']) && is_dir($_SESSION['module_path'])){
-                    
+
                     $newmodulepath=$_SESSION['module_path'];
-                    
+
                 } else if (file_exists($abspath.'/core_modules/chisimba_modules.txt')){
-                    
+
                     $newmodulepath=$abspath.'/core_modules/';
-                    
+
                 } else if (is_dir($guess)){
-                    
+
                     $newmodulepath=$guess;
-                    
+
                 } else {
                     $newmodulepath=$abspath.'/core_modules/';
                     $this->errors[]="The default value for the module path is supplied, be sure to check that this is accurate!";
@@ -572,7 +578,7 @@ class InstallDirectoryAction extends StepAction
                 // module URI
                 if (isset($_SESSION['module_URI']) && is_dir($_SERVER['DOCUMENT_ROOT'].'/'.$_SESSION['module_URI'])){
                     $module_URI=$_SESSION['module_URI'];
-                } else if (($newmodulepath=='')||( strlen($newmodulepath) < strlen($abspath)) ){                    
+                } else if (($newmodulepath=='')||( strlen($newmodulepath) < strlen($abspath)) ){
                     //$uriSearch=$this->globr($_SERVER['DOCUMENT_ROOT'],'/chisimba_modules.txt',GLOB_NOSORT);
                     //if (count($uriSearch)>0){
                     //    $module_URI=substr($uriSearch[0],strlen($_SERVER['DOCUMENT_ROOT']),-strlen('chisimba_modules.txt'));
@@ -594,21 +600,21 @@ class InstallDirectoryAction extends StepAction
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'\" size="50"  class="sq-form-field" />';
-           
+
         }else{
         	echo '<input type="text" id="sys_root" name="sys_root"
 				value="'.$abspath.'/" size="50"  class="sq-form-field" />';
 				$box = ob_get_contents();
                                 $box2 = '<input type="text" id="module_path" name="module_path"'
                                 .'value="'.$newmodulepath.'" size="50"  class="sq-form-field" />';
-                         
+
         }
 		ob_end_clean();
 
 
 
 		$tpl->set('install_box',$box);
-	
+
 		echo $tpl->fetch();
 
 
@@ -636,7 +642,7 @@ class InstallDirectoryAction extends StepAction
 	{
 
 		echo '<p>System Root has been set to '.$_SESSION['sys_root'].'</p>';
-		
+
 	}//end confirmAction()
 
 
