@@ -91,7 +91,7 @@ class controller extends access
         try {
         	parent::__construct($objEngine, $moduleName);
         	$version = $objEngine->version;
-        	$this->footerStr = "<center>Powered by Chisimba version " .$version . "</center>";
+        	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za">Chisimba</a> version ' .$version . "</center>";
         }
         catch (customException $e)
         {
