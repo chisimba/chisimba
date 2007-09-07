@@ -381,7 +381,7 @@ class InstallDirectoryAction extends StepAction
                 //die;
 
                 // Use str_replace to get rid of the //'s
-				$fp = fopen(str_replace('//','/',$check_dir.'/tmpinstallfile'), "w");
+				$fp = @fopen(str_replace('//','/',$check_dir.'/tmpinstallfile'), "w");
 
 				if ($fp==false) {
 
