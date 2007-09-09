@@ -1,6 +1,7 @@
 <?php
 /**
-* Class to parse a string (e.g. page content) and fetch relevant data and links to wikipedia pages
+* Class to parse a string (e.g. page content) that contains a wikipedia
+* keyword, and return the page of content inside the Chisimba page
 * 
 * PHP version 5
 * 
@@ -19,8 +20,8 @@
 * 
 * @category  Chisimba
 * @package   filters
-* @author    Paul Scott <pscott@uwc.ac.za>
-* @copyright 2007 Paul Scott
+* @author    Derek Keats <dkeats@uwc.ac.za>
+* @copyright 2007 Derek Keats
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
@@ -30,9 +31,10 @@
  
 /**
 *
-* Class to parse a string (e.g. page content) and fetch relevant data and links to wikipedia pages
+* Class to parse a string (e.g. page content) that contains a link
+* to a yout tube video and render the video in the page
 *
-* @author Paul Scott
+* @author Derek Keats
 *         
 */
 
@@ -44,8 +46,6 @@ class parse4wikipedia extends object
 	* @accesss private 
 	*/
 	private $errorMessage;
-	
-	private $enableparser;
     
     /**
      * 
@@ -57,7 +57,6 @@ class parse4wikipedia extends object
      */
     function init()
     {
-        $this->objLanguage = $this->getObject('language', 'language');
         //Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
     }
@@ -66,69 +65,88 @@ class parse4wikipedia extends object
     *
     * Method to parse the string
     * @param  String $str The string to parse
-    * @return The parsed string
+    * @return The    parsed string
     *                
     */
     public function parse($txt)
     {
-    	// check that the sysadmin has enabled this filter...
-    	$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-        $this->enableparser = $this->sysConfig->getValue('mod_filters_wikipediaparser', 'filters');
-    	
-        if($this->enableparser == 'ON')
+        //Match filters based on a wordpress style
+        preg_match_all('/\\[WIKIPEDIA:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        //Get all the ones in links
+        $counter = 0;
+        foreach ($results[0] as $item)
         {
-        	$tarr = explode(" ", strip_tags($txt));
-        	foreach($tarr as $words)
-        	{
-        		$words = trim($words);
-        		if($words != '' || !isset($words) || !empty($words))
-        		{
-        			// do the wikipedia lookup
-        			$url = 'http://en.wikipedia.org/w/api.php?action=query&prop=revisions&titles='.trim($words).'&rvprop=content&format=xml';
-        			// set up for a cURL...
-        			$this->objProxy = $this->getObject('proxyparser', 'utilities');
-        			$proxyArr = $this->objProxy->getProxy();
-        			$ch = curl_init();
-        			curl_setopt($ch, CURLOPT_URL, $url);
-        			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-        			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        			if (!empty($proxyArr) && $proxyArr['proxy_protocol'] != '') {
-            			curl_setopt($ch, CURLOPT_PROXY, $proxyArr['proxy_host'] . ":" . $proxyArr['proxy_port']);
-            			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyArr['proxy_user'] . ":" . $proxyArr['proxy_pass']);
-        			}
-        			$code = curl_exec($ch);
-        			curl_close($ch);
-        			// use simplexml to load the string...
-        			$xml = simplexml_load_string($code);
-        			// $xml->error will exist on bad pages (i.e. no page exists)
-        			if($xml->error)
-        			{
-        				continue;
-        			}
-        			else {
-        				$page = $xml->query;
-        				if($page->normalized || $page->pages)
-        				{
-        					$title = $page->pages->page['title'];
-        					$linker = new href('http://en.wikipedia.org/wiki/'.$title, $words, " target=_blank");
-        					$link[] = array('word' => $words, 'url' => $linker->show());
-        				}
-        			}
-        			
-        		}
-        		else {
-        			continue;
-        		}
-        	}
-        	// look for and replace the word (linked) in the text.
-        	foreach($link as $thing)
-        	{
-        		$orig = $thing['word'];
-        		$txt = preg_replace("/ $orig /", " ".$thing['url']." ", $txt);
-        	}
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
+            if (isset($this->objExpar->topic)) {
+                $topic = $this->objExpar->topic;
+            } else {
+                $topic="";
+            }
+            //Check if it is a valid link, if not return an error message
+            if ($this->isWikipedia($str)) {
+                $link = "http://en.wikipedia.org/wiki/" . trim($topic);
+            	$replacement = $this->getWikiContents($link);
+            } else {
+            	$replacement = $this->errorMessage;
+            }
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
         }
         return $txt;
     }
+    
+    /**
+     * Method that uses curl to return the Wikipedia page
+     * as a string
+     * 
+     * @param string $link The Wikipedia URL
+     * @return string The page as a string cleaned for display
+     * @access public
+     */
+    function getWikiContents($link)
+    {
+        $objCurl = $this->getObject('curl', 'utilities');
+        $page = $objCurl->exec($link);
+        if (preg_match("/<body.*>(.*)<\/body>/iseU", $page, $elems)) { 
+            $page = $elems[1];
+            //Remove the edit tags
+            $rep = "";
+            preg_match_all('/<span class=\"editsection\">(.*?)<\/span>/', $page, $matches, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($matches[0] as $item) {
+                $page = str_replace($item, $rep, $page);
+            }
+            //Remove the generic stuff
+            if (preg_match("/<div id=\"globalWrapper\">(.*)<div class=\"printfooter\">/iseU", $page, $elems)) { 
+                 $page = $elems[1];
+                 $page = "<div id=\"globalWrapper\">" . $page; 
+            }
+            $page = str_replace("<div", "<span", $page);
+            $page = str_replace("</div>", "</span>", $page);
+            $page = str_replace("<a href=\"/", "<a href=\"http://en.wikipedia.org/", $page);
+        } else {
+            $page = NULL;
+        }
+        return $page;
+    }
+    
+    
+    /**
+    *
+    *  A method to validate a keyword as a valid wikipedia keyword
+    * 
+    * @param  string  $keyWord The link to check
+    * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
+    * 
+    * @Todo - implement this.
+    *                 
+    */
+    private function isWikipedia($keyWord)
+    {
+    	$keyWord=strtolower($keyWord);
+   		return TRUE;
+    }
+    
 }
 ?>
