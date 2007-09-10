@@ -53,10 +53,8 @@ class DatabaseDetails extends Step
 
 		$this->actions[] = new DbDetailsAction(get_class($this));
 
-
-
+		
 		$this->step_title = 'Database Details';
-
 		$this->title_logo = 'database_details.gif';
 
 		$this->help_topic = 'toc6';
@@ -276,11 +274,11 @@ class DbDetailsAction extends FiveStepAction
 
 		$conn = 'Untested';
 
-		if ($this->isRequired()) {
+	//	if ($this->isRequired()) {
 
-			$conn = '<span style="color: Green">Connected to '.(isset($_SESSION['dsn']) ? $_SESSION['dsn'] : '').'</span>';
+	//		$conn = '<span style="color: Green">Connected to '.(isset($_SESSION['dsn']) ? $_SESSION['dsn'] : '').'</span>';
 
-		}
+	//	}
 
 
 
