@@ -323,42 +323,42 @@ class controller extends access
      * @param  TRUE   $           |FALSE $buffer If TRUE buffer output and return as string, else send to browser.
      * @return string |NULL If buffering returns output, else returns NULL.
      */
-    public function callTemplate($tpl, $type, $buffer = FALSE)
+    public function callTemplate($_magic__tpl, $_magic__type, $_magic__buffer = FALSE)
     {
         // objects that almost every template will use
         $this->setVarByRef('objConfig', $this->getObject('altconfig', 'config'));
         $this->setVarByRef('objSkin', $this->getObject('skin', 'skin'));
         $this->setVarByRef('objUser', $this->getObject('user', 'security'));
         $this->setVarByRef('objLanguage', $this->getObject('language', 'language'));
-        $path = $this->objEngine->_findTemplate($tpl, $this->moduleName, $type);
+        $_magic__path = $this->objEngine->_findTemplate($_magic__tpl, $this->moduleName, $_magic__type);
         // extract the template vars
         // TODO: think some more about the extract flags to use
         extract($this->objEngine->_templateVars, EXTR_SKIP);
         extract($this->objEngine->_templateRefs, EXTR_SKIP | EXTR_REFS);
 
-        if ($buffer) {
+        if ($_magic__buffer) {
             ob_start();
         }
-        include $path; //was require
-        if ($buffer) {
-            $pageContent = ob_get_contents();
+        include $_magic__path; //was require
+        if ($_magic__buffer) {
+            $_magic__pageContent = ob_get_contents();
             ob_end_clean();
 
-
+            /*
+            // Tidy
             //call on tidy to clean up...
             // Specify tidy configuration
             $config = array(
                 'indent'        => true,
                 'output-xhtml'  => true,
                 'wrap'          => 200);
-
-            // Tidy
-           /* $tidy = new tidy;
+            $tidy = new tidy;
             $tidy->parseString($pageContent, $config, 'utf8');
             $tidy->cleanRepair();
-            */
             //return $tidy;
-            return $pageContent;
+            */
+
+            return $_magic__pageContent;
         } else {
             return NULL; // just to be explicit
         }
