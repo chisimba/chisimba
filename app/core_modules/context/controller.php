@@ -378,11 +378,11 @@ class context extends controller
     */
     public function contextArea()
     {
-        if(!$this->objDBContentNodes->hasNodes())
+        /*if(!$this->objDBContentNodes->hasNodes())
         {
             $this->objDBContentNodes->createParentNode();
         }
-
+		*/
         $this->setVar('content',$this->showContentArea());
     }
 
