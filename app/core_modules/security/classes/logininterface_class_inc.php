@@ -103,7 +103,7 @@ class loginInterface extends object
     		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'login'),'required');
     		
     		//Add the username box to the form
-    		$objFields->addContent($objLabel->show());
+    		$objFields->addContent($objLabel->show().'<p />');
     		$objFields->addContent($objInput->show());
     		//$objForm->addToForm();
 
@@ -112,7 +112,7 @@ class loginInterface extends object
     		$objLabel = new label($this->objLanguage->languageText('word_password'). ': ', 'input_password');
     		//Add the password box to the form
     		//$objForm->addToForm();
-    		$objFields->addContent('<br/>'.$objLabel->show());
+    		$objFields->addContent('<br/>'.$objLabel->show().'<p />');
 			$objFields->addContent($objInput->show().'<br/>');
     		//--- Create an element for the network login radio
     		$objElement = new checkbox("useLdap");
