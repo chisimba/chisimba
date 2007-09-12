@@ -104,7 +104,7 @@ class loginInterface extends object
     		
     		//Add the username box to the form
     		$objFields->addContent($objLabel->show().'<br />');
-    		$objFields->addContent($objInput->show());
+    		$objFields->addContent($objInput->show().'<br />');
     		//$objForm->addToForm();
 
     		//--- Create an element for the password
