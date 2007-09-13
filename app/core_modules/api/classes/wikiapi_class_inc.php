@@ -94,7 +94,7 @@ class wikiapi extends object
 	 */
 	public function getRPCVersionSupported()
 	{
-		$val = new XML_RPC_Value(1, 'integer');
+		$val = new XML_RPC_Value(1, 'int');
 		return new XML_RPC_Response($val);
 	}
 	
