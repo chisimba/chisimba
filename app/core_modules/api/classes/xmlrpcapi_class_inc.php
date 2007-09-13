@@ -87,6 +87,13 @@ class xmlrpcapi extends object
      */
 	public $objPackages;
 	
+	/**
+     * Wiki API object
+     * @var    object
+     * @access public
+     */
+	public $objWikiApi;
+	
     /**
      * init method
      * 
@@ -114,6 +121,8 @@ class xmlrpcapi extends object
         	$this->objMetaWebLog = $this->getObject('metaweblogapi');
         	// Packages module abstraction
         	$this->objPackages = $this->getObject('packagesapi');
+        	// Wiki module abstraction
+        	$this->objWikiApi = $this->getObject('wikiapi');
 		}
 		catch (customException $e)
 		{
@@ -237,7 +246,13 @@ class xmlrpcapi extends object
                          									array('string', 'string'),
                      									),
                 								  'docstring' => 'Grab a module'),
-                								  
+                		  'getMultiModuleZip' => array('function' => array($this->objPackages, 'getMultiModuleZip'),
+   											      'signature' =>
+                     									array(
+                         									array('array', 'string'),
+                     									),
+                								  'docstring' => 'Grab a set of modules'),
+                								  					  
                 		  'getModuleDescription' => array('function' => array($this->objPackages, 'getModuleDescription'),
    											      'signature' =>
                      									array(
@@ -257,8 +272,70 @@ class xmlrpcapi extends object
                      							array(
                          							array('string', 'string'),
                      							),
-                								'docstring' => 'What would you like to see?')
+                								'docstring' => 'What would you like to see?'),
+                								
+                		  
+                		  // wiki xml-rpc interface - see http://jspwiki.org/wiki/WikiRPCInterface
+                		  'wiki.getRPCVersionSupported' => array('function' => array($this->objWikiApi, 'getRPCVersionSupported'),
+                		  						'signature' => 
+                		  						    array(
+                		  						        array('int'),
+                		  						        ),
+                		  						     'docstring' => 'Return the API version'),
+                		  						     
+                		  'wiki.getRecentChanges' => array('function' => array($this->objWikiApi, 'getRecentChanges'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki recent changes list'),
+                		   	
+                		  'wiki.getPage' => array('function' => array($this->objWikiApi, 'getPage'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page'),
                 		   						   
+                		  'wiki.getPageVersion' => array('function' => array($this->objWikiApi, 'getPageVersion'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'int'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page version'),					   
+                		  
+                		  'wiki.getPageHTML' => array('function' => array($this->objWikiApi, 'getPageHTML'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page HTML'),	
+                		   						   
+                		  'wiki.getPageHTMLVersion' => array('function' => array($this->objWikiApi, 'getPageHTMLVersion'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'int'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page HTML version'),
+                		   						   
+                		  'wiki.getAllPages' => array('function' => array($this->objWikiApi, 'getAllPages'),
+                		   						   'signature' => array(
+                		   						   					array('array'),
+                		   						   					),
+                		   						   'docstring' => 'returns an array of all wiki pages'),	
+                		   						   
+                		  'wiki.getPageInfo' => array('function' => array($this->objWikiApi, 'getPageInfo'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'returns page info'),
+                		   						   
+                		  'wiki.getPageInfoVersion' => array('function' => array($this->objWikiApi, 'getPageInfoVersion'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string', 'int'),
+                		   						   					),
+                		   						   'docstring' => 'returns page info versions'), 		   
+                		   						   
+                		  'wiki.listLinks' => array('function' => array($this->objWikiApi, 'listLinks'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Lists all links for a given page'), 		
    					), 1, 0);
    					
 

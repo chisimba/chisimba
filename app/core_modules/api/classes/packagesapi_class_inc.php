@@ -110,6 +110,33 @@ class packagesapi extends object
 	}
 
 	/**
+	 * Method to grab a specified set of modules as a zip file
+	 *
+	 * @param array $module
+	 * @return string - base64 encoded string of the zipfile
+	 */
+	public function getMultiModuleZip($module)
+	{
+		//grab the module array
+		$mod = $module->getParam(0);
+		$mod = $mod->scalarval();
+		log_debug($mod);
+		$path = $this->objConfig->getModulePath();
+		//zip up the module
+		$objZip = $this->getObject('wzip', 'utilities');
+		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
+		$filetosend = file_get_contents($zipfile);
+		$filetosend = base64_encode($filetosend);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		unlink($filepath);
+		log_debug("Sent ".$mod->scalarval()." to client");
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+	}
+
+	
+	/**
 	 * Method to grab a specified module's description
 	 *
 	 * @param string $module
