@@ -94,6 +94,13 @@ class xmlrpcapi extends object
      */
 	public $objWikiApi;
 	
+	/**
+     * Chisimba Wiki API object
+     * @var    object
+     * @access public
+     */
+	public $objChisWikiApi;
+	
     /**
      * init method
      * 
@@ -123,6 +130,8 @@ class xmlrpcapi extends object
         	$this->objPackages = $this->getObject('packagesapi');
         	// Wiki module abstraction
         	$this->objWikiApi = $this->getObject('wikiapi');
+        	// Chisimba Wiki module abstraction
+        	$this->objChisWikiApi = $this->getObject('chiswikiapi');
 		}
 		catch (customException $e)
 		{
@@ -334,6 +343,69 @@ class xmlrpcapi extends object
                 		  'wiki.listLinks' => array('function' => array($this->objWikiApi, 'listLinks'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Lists all links for a given page'),
+                		   						   
+                		   						   
+                		  // chisimba wiki implementation - including wiki namespaces
+                		  'chiswiki.getRPCVersionSupported' => array('function' => array($this->objChisWikiApi, 'getRPCVersionSupported'),
+                		  						'signature' => 
+                		  						    array(
+                		  						        array('int'),
+                		  						        ),
+                		  						     'docstring' => 'Return the API version'),
+                		  						     
+                		  'chiswiki.getRecentChanges' => array('function' => array($this->objChisWikiApi, 'getRecentChanges'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki recent changes list'),
+                		   	
+                		  'chiswiki.getPage' => array('function' => array($this->objChisWikiApi, 'getPage'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page'),
+                		   						   
+                		  'chiswiki.getPageVersion' => array('function' => array($this->objChisWikiApi, 'getPageVersion'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'int', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page version'),					   
+                		  
+                		  'chiswiki.getPageHTML' => array('function' => array($this->objChisWikiApi, 'getPageHTML'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page HTML'),	
+                		   						   
+                		  'chiswiki.getPageHTMLVersion' => array('function' => array($this->objChisWikiApi, 'getPageHTMLVersion'),
+                		   						   'signature' => array(
+                		   						   					array('base64', 'string', 'int', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get wiki page HTML version'),
+                		   						   
+                		  'chiswiki.getAllPages' => array('function' => array($this->objChisWikiApi, 'getAllPages'),
+                		   						   'signature' => array(
+                		   						   					array('array'),
+                		   						   					),
+                		   						   'docstring' => 'returns an array of all wiki pages'),	
+                		   						   
+                		  'chiswiki.getPageInfo' => array('function' => array($this->objChisWikiApi, 'getPageInfo'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'returns page info'),
+                		   						   
+                		  'chiswiki.getPageInfoVersion' => array('function' => array($this->objChisWikiApi, 'getPageInfoVersion'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string', 'int', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'returns page info versions'), 		   
+                		   						   
+                		  'chiswiki.listLinks' => array('function' => array($this->objChisWikiApi, 'listLinks'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Lists all links for a given page'), 		
    					), 1, 0);
