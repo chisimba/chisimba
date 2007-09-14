@@ -119,6 +119,7 @@ class wikiapi extends object
             log_debug($param);
     	}
     	$timestamp = $param->scalarval();
+    	$timestamp = (int)$timestamp;
     	$date = date('Y-m-d H:i:s', $timestamp);
     	// grab the data from the wiki database
     	$ret = $this->objDbWiki->getRecentlyUpdatedAPI($date);
