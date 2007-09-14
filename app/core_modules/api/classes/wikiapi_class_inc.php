@@ -119,7 +119,6 @@ class wikiapi extends object
             log_debug($param);
     	}
     	$timestamp = $param->scalarval();
-    	log_debug("TIME: ".$timestamp);
     	$date = date('Y-m-d H:i:s', $timestamp);
     	// grab the data from the wiki database
     	$ret = $this->objDbWiki->getRecentlyUpdatedAPI($date);
@@ -127,7 +126,6 @@ class wikiapi extends object
     	{
     		foreach($ret as $recs)
     		{
-    			//log_debug($recs);
     			$pgstruct[] = new XML_RPC_Value(array(
     			"name" => new XML_RPC_Value($recs['page_name'], "string"),
     			"lastModified" => new XML_RPC_Value($recs['date_created'], "string"),
@@ -138,7 +136,6 @@ class wikiapi extends object
     	else {
     		$pgstruct = new XML_RPC_Value(array(), "struct");
     	}
-    	 log_debug($pgstruct); //die();
     	return new XML_RPC_Response($pgstruct);
 	}
 	
