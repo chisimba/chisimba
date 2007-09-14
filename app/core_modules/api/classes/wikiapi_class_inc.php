@@ -188,7 +188,7 @@ class wikiapi extends object
     	
     	$data = $this->objDbWiki->getPage($pagename, $ver);
     	
-    	$val = $data[0]['page_content'];
+    	$val = $data['page_content'];
     	// send it back as a base64 encoded value
     	$val2send = new XML_RPC_Value($val, "base64");
     	return new XML_RPC_Response($val2send);
@@ -209,7 +209,7 @@ class wikiapi extends object
     	$pagename = $param->scalarval();
     	
     	$data = $this->objDbWiki->getPage($pagename);
-    	$val = $data[0]['page_content'];
+    	$val = $data['page_content'];
     	// load up the wiki parser
     	$objParser = $this->getObject('wikitextparser', 'wiki');
     	$val = $objParser->transform($val);
@@ -239,7 +239,7 @@ class wikiapi extends object
     	$ver = $param->scalarval();
     	
     	$data = $this->objDbWiki->getPage($pagename, $ver);
-    	$val = $data[0]['page_content'];
+    	$val = $data['page_content'];
     	// load up the wiki parser
     	$objParser = $this->getObject('wikitextparser', 'wiki');
     	$val = $objParser->transform($val);
