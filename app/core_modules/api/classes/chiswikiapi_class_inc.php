@@ -170,10 +170,10 @@ class chiswikiapi extends object
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	$wikiid = $param->scalarval();
-    	$this->objDbWiki->wikiId = $wikiid;
+    	$wikiname = $param->scalarval();
+    	//$this->objDbWiki->wikiId = $wikiid;
     	
-    	$data = $this->objDbWiki->getPage($pagename);
+    	$data = $this->objDbWiki->getWikiPage($wikiname, $pagename);
     	$val = $data['page_content'];
     	// send it back as a base64 encoded value
     	$val2send = new XML_RPC_Value($val, "base64");
