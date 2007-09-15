@@ -22,7 +22,7 @@
 
 option {
 
-	padding-right: 10px;
+    padding-right: 10px;
 
 }
 
@@ -42,9 +42,9 @@ blockquote {
 
 html, body {
 
-	width: 100%;
+    width: 100%;
 
-	height: 100%;
+    height: 100%;
 
 }
 
@@ -54,7 +54,7 @@ html, body {
 
 body {
 
-	font-size: 14px;
+    font-size: 14px;
 
 }
 
@@ -62,9 +62,9 @@ body {
 
 a:link, a:visited {
 
-	color: #000099;
+    color: #000099;
 
-	text-decoration:none; 
+    text-decoration:none;
 
 }
 
@@ -72,11 +72,11 @@ a:link, a:visited {
 
 a:hover {
 
-	color: #CC0000;
+    color: #CC0000;
 
-	text-decoration:underline; 
+    text-decoration:underline;
 
-	background-color:yellow;
+    background-color:yellow;
 
 }
 
@@ -200,7 +200,7 @@ a:hover {
 
     z-index: 101;
 
-	width: 130px; /* Customizable*/
+    width: 130px; /* Customizable*/
 
 }
 
@@ -520,7 +520,7 @@ h6 {font-size: 96%}
 
 ul {margin: .3em 0 1.5em 0;list-style-type:none}
 
-	ul.related {margin-top: -1em}
+    ul.related {margin-top: -1em}
 
 ol {margin: .5em .5em 1.5em}
 
@@ -652,15 +652,15 @@ fieldset.tabbox ul, fieldset.tabbox ol {
 
 table.overflowtable {
 
-	table-layout:fixed;
+    table-layout:fixed;
 
 }
 
 table.overflowtable td.overflowcolumn {
 
-	overflow:hidden;
+    overflow:hidden;
 
-	white-space:nowrap;
+    white-space:nowrap;
 
  }
 
@@ -676,9 +676,9 @@ table.overflowtable td.overflowcolumn {
 
 fieldset.tabbox {
 
-	border: 1px solid #626262;
+    border: 1px solid #626262;
 
-	margin:0;
+    margin:0;
 
     margin-bottom: 10px;
 
@@ -686,13 +686,13 @@ fieldset.tabbox {
 
 legend.tabbox {
 
-	background-color:white;
+    background-color:white;
 
-	border: 1px solid #626262;
+    border: 1px solid #626262;
 
-	color:#000000;
+    color:#000000;
 
-	font-family:Times, serif;
+    font-family:Times, serif;
 
     font-weight:bold;
 
@@ -806,95 +806,95 @@ fieldset.tabbox ul {
 
 /* SECONDARY NAVIGATION - vertical navigation */
 
-	#nav-secondary, #nav-secondary ul {position:static}
+    #nav-secondary, #nav-secondary ul {position:static}
 
-	#nav-secondary, #nav-secondary li {list-style: none;margin:0;padding:0;background:#fff}
+    #nav-secondary, #nav-secondary li {list-style: none;margin:0;padding:0;background:#fff}
 
-	#nav-secondary {padding-top:0;border-top: 1px solid #ccc;margin-top: 1px}
+    #nav-secondary {padding-top:0;border-top: 1px solid #ccc;margin-top: 1px}
 
-	#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff;font: bold 86% arial;display:block}
+    #nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff;font: bold 86% arial;display:block}
 
-	#nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer;}
+    #nav-secondary a, #nav-secondary a:link, #nav-secondary a:visited, #nav-secondary a:hover, #nav-secondary a:active {text-decoration:none;cursor:pointer;}
 
-	#nav-secondary a:link {color:#000}
+    #nav-secondary a:link {color:#000}
 
-	#nav-secondary a:visited {color:#000}
+    #nav-secondary a:visited {color:#000}
 
-	#nav-secondary a:hover {color:#c00;background: #fee}
+    #nav-secondary a:hover {color:#c00;background: #fee}
 
-	#nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#c00}
+    #nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#c00}
 
-	#nav-secondary li {border-top: 1px solid #fff;border-bottom: 1px solid #ccc}
+    #nav-secondary li {border-top: 1px solid #fff;border-bottom: 1px solid #ccc}
 
 
 
 /* SECONDARY NAVIGATION - 2nd TIER */
 
-	#nav-secondary ul {margin: 0 0 1em 23px;padding:0}
+    #nav-secondary ul {margin: 0 0 1em 23px;padding:0}
 
-	#nav-secondary li.active li a, #nav-secondary li.active li a:link, #nav-secondary li.active li a:visited {line-height:1.5;background-color: #fff ;padding:0 0 0 12px;font-weight:normal;width:auto;color:#000;width:130px;display:block}
+    #nav-secondary li.active li a, #nav-secondary li.active li a:link, #nav-secondary li.active li a:visited {line-height:1.5;background-color: #fff ;padding:0 0 0 12px;font-weight:normal;width:auto;color:#000;width:130px;display:block}
 
-	#nav-secondary li.active li a:hover, #nav-secondary li.active li a:active {color: #c00}
+    #nav-secondary li.active li a:hover, #nav-secondary li.active li a:active {color: #c00}
 
-	#nav-secondary li.active li {border: none;margin:0}
+    #nav-secondary li.active li {border: none;margin:0}
 
 
 
-	#nav-secondary li.active li.active a:link,
+    #nav-secondary li.active li.active a:link,
 
-	#nav-secondary li.active li.active a:visited,
+    #nav-secondary li.active li.active a:visited,
 
-	#nav-secondary li.active li.active a:hover,
+    #nav-secondary li.active li.active a:hover,
 
-	#nav-secondary li.active li.active a:active {font-weight:bold}
+    #nav-secondary li.active li.active a:active {font-weight:bold}
 
 
 
 /* SECONDARY NAVIGATION - 3rd TIER */
 
-	#nav-secondary ul ul {margin: 0 0 1em 13px;padding:0}
+    #nav-secondary ul ul {margin: 0 0 1em 13px;padding:0}
 
-	#nav-secondary li.active li.active li a, #nav-secondary li.active li.active li a:link, #nav-secondary li.active li.active li a:visited {width:117px}
+    #nav-secondary li.active li.active li a, #nav-secondary li.active li.active li a:link, #nav-secondary li.active li.active li a:visited {width:117px}
 
-	#nav-secondary li.active li.active li a:link,
+    #nav-secondary li.active li.active li a:link,
 
-	#nav-secondary li.active li.active li a:visited,
+    #nav-secondary li.active li.active li a:visited,
 
-	#nav-secondary li.active li.active li a:hover,
+    #nav-secondary li.active li.active li a:hover,
 
-	#nav-secondary li.active li.active li a:active {font-weight:normal}
+    #nav-secondary li.active li.active li a:active {font-weight:normal}
 
-	#nav-secondary li.active li.active li.active a:link,
+    #nav-secondary li.active li.active li.active a:link,
 
-	#nav-secondary li.active li.active li.active a:visited,
+    #nav-secondary li.active li.active li.active a:visited,
 
-	#nav-secondary li.active li.active li.active a:hover,
+    #nav-secondary li.active li.active li.active a:hover,
 
-	#nav-secondary li.active li.active li.active a:active {font-weight:bold}
+    #nav-secondary li.active li.active li.active a:active {font-weight:bold}
 
 
 
 /* SECONDARY NAVIGATION - 4th TIER */
 
-	#nav-secondary ul ul ul {margin: 0 0 1em 13px;padding:0}
+    #nav-secondary ul ul ul {margin: 0 0 1em 13px;padding:0}
 
-	#nav-secondary li.active li.active li.active li a, #nav-secondary li.active li.active li.active li a:link, #nav-secondary li.active li.active li.active li a:visited {width:104px}
+    #nav-secondary li.active li.active li.active li a, #nav-secondary li.active li.active li.active li a:link, #nav-secondary li.active li.active li.active li a:visited {width:104px}
 
-	#nav-secondary li.active li.active li.active li a:link,
+    #nav-secondary li.active li.active li.active li a:link,
 
-	#nav-secondary li.active li.active li.active li a:visited,
+    #nav-secondary li.active li.active li.active li a:visited,
 
-	#nav-secondary li.active li.active li.active li a:hover,
+    #nav-secondary li.active li.active li.active li a:hover,
 
-	#nav-secondary li.active li.active li.active li a:active {font-weight:normal}
+    #nav-secondary li.active li.active li.active li a:active {font-weight:normal}
 
-	#nav-secondary li.active li.active li.active li.active a:link,
+    #nav-secondary li.active li.active li.active li.active a:link,
 
-	#nav-secondary li.active li.active li.active li.active a:visited,
+    #nav-secondary li.active li.active li.active li.active a:visited,
 
-	#nav-secondary li.active li.active li.active li.active a:hover,
+    #nav-secondary li.active li.active li.active li.active a:hover,
 
-	#nav-secondary li.active li.active li.active li.active a:active {font-weight:bold}
+    #nav-secondary li.active li.active li.active li.active a:active {font-weight:bold}
 
 
 
@@ -1282,7 +1282,7 @@ content: close-quote;
 
  */
 
- 
+
 
  /***
 
@@ -1292,121 +1292,121 @@ content: close-quote;
 
  #popupMask {
 
-	display:none;
+    display:none;
 
-	position:absolute;
+    position:absolute;
 
-	top:0;
+    top:0;
 
-	left:0;
+    left:0;
 
-	width:100%;
+    width:100%;
 
-	height:100%;
+    height:100%;
 
-	z-index:200;
+    z-index:200;
 
-	background-color:#000;
+    background-color:#000;
 
-	-moz-opacity: 0.7;
+    -moz-opacity: 0.7;
 
-	opacity:.70;
+    opacity:.70;
 
-	filter: alpha(opacity=70);
+    filter: alpha(opacity=70);
 
 }
 
 #popupContainer {
 
-	position: absolute;
+    position: absolute;
 
-	z-index: 201;
+    z-index: 201;
 
-	top: 0px;
+    top: 0px;
 
-	left: 0px;
+    left: 0px;
 
-	display:none;
+    display:none;
 
-	padding: 0px;
+    padding: 0px;
 
 }
 
 #popupInner {
 
-	border: 1px solid #000000;
+    border: 1px solid #000000;
 
-	background-color: #FFFFFF;
+    background-color: #FFFFFF;
 
 }
 
 #popupFrame {
 
-	margin: 0px;
+    margin: 0px;
 
-	width: 100%;
+    width: 100%;
 
-	height: 100%;
+    height: 100%;
 
-	position: relative;
+    position: relative;
 
-	z-index: 202;
+    z-index: 202;
 
 }
 
 #popupTitleBar {
 
-	background-color: #333344;
+    background-color: #333344;
 
-	color: #FFFFFF;
+    color: #FFFFFF;
 
-	font-weight: bold;
+    font-weight: bold;
 
-	height: 1.3em;
+    height: 1.3em;
 
-	padding: 5px;
+    padding: 5px;
 
-	border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #000000;
 
-	border-top: 1px solid #78A3F2;
+    border-top: 1px solid #78A3F2;
 
-	border-left: 1px solid #78A3F2;
+    border-left: 1px solid #78A3F2;
 
-	border-right: 1px solid #204095;
+    border-right: 1px solid #204095;
 
-	position: relative;
+    position: relative;
 
-	z-index: 203;
+    z-index: 203;
 
 }
 
 #popupTitle {
 
-	float:left;
+    float:left;
 
-	font-size: 1.1em;
+    font-size: 1.1em;
 
 }
 
 #popupControls {
 
-	float: right;
+    float: right;
 
-	cursor: pointer;
+    cursor: pointer;
 
 }
 
 #popupControls a span {
 
-	display: block;
+    display: block;
 
-	height: 14px;
+    height: 14px;
 
-	width: 16px;
+    width: 16px;
 
-	text-indent: -9000px;
+    text-indent: -9000px;
 
-	background: url('icons/close_button.gif') no-repeat;
+    background: url('icons/close_button.gif') no-repeat;
 
 }
 
@@ -1528,69 +1528,69 @@ label br {clear:left}
 
 /* FORMS - general classes */
 
-	input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
+    input.f-submit {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
 
-	input.button {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
+    input.button {padding: 1px 3px;background:#666;color:#fff;font-weight:bold;font-size:96%}
 
 
 
 /* FORMS - f-wrap-1 - simple form, headings on left, form elements on right */
 
-	form.f-wrap-1 {width:100%;padding: .5em 0;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;border-top: 1px solid #d7d7d7;position:relative}
+    form.f-wrap-1 {width:100%;padding: .5em 0;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;border-top: 1px solid #d7d7d7;position:relative}
 
-		form.f-wrap-1 fieldset {width:auto;margin: 0 1em}
+        form.f-wrap-1 fieldset {width:auto;margin: 0 1em}
 
-		form.f-wrap-1 h3 {margin:0 0 .6em;font: bold 155% arial;color:#c00}
+        form.f-wrap-1 h3 {margin:0 0 .6em;font: bold 155% arial;color:#c00}
 
-		form.f-wrap-1 label {clear:left;float:left;width:100%;border-top: 1px solid #fff}
-
-
-
-		/* hide from IE mac \*/
-
-		form.f-wrap-1 label {float:none}
-
-		/* end hiding from IE5 mac */
+        form.f-wrap-1 label {clear:left;float:left;width:100%;border-top: 1px solid #fff}
 
 
 
-		form.f-wrap-1 label input, form.f-wrap-1 label textarea, form.f-wrap-1 label select {width:15em;float:left;margin-left:10px}
+        /* hide from IE mac \*/
+
+        form.f-wrap-1 label {float:none}
+
+        /* end hiding from IE5 mac */
 
 
 
-		form.f-wrap-1 label b {float:left;width:8em;line-height: 1.7;display:block;position:relative}
-
-		form.f-wrap-1 label b .req {color:#c00;font-size:150%;font-weight:normal;position:absolute;top:-0.1em;line-height: 1.2;left:-.4em;width:.3em;height:.3em}
-
-		form.f-wrap-1 div.req {color:#666;font-size:96%;font-weight:normal;position:absolute;top:.4em;right:.4em;left:auto;width:13em;text-align:right}
-
-		form.f-wrap-1 div.req b {color:#c00;font-size:140%}
-
-		form.f-wrap-1 label select {width: 15.5em}
-
-		form.f-wrap-1 label textarea.f-comments {width: 20em}
-
-		form.f-wrap-1 div.f-submit-wrap {padding: 5px 0 5px 8em}
-
-		form.f-wrap-1 input.f-submit {margin: 0 0 0 10px}
+        form.f-wrap-1 label input, form.f-wrap-1 label textarea, form.f-wrap-1 label select {width:15em;float:left;margin-left:10px}
 
 
 
-		form.f-wrap-1 fieldset.f-checkbox-wrap, form.f-wrap-1 fieldset.f-radio-wrap {clear:left;float:left;width:32em;border:none;margin:0;padding-bottom:.7em}
+        form.f-wrap-1 label b {float:left;width:8em;line-height: 1.7;display:block;position:relative}
 
-		form.f-wrap-1 fieldset.f-checkbox-wrap b, form.f-wrap-1 fieldset.f-radio-wrap b {float:left;width:8em;line-height: 1.7;display:block;position:relative;padding-top:.3em}
+        form.f-wrap-1 label b .req {color:#c00;font-size:150%;font-weight:normal;position:absolute;top:-0.1em;line-height: 1.2;left:-.4em;width:.3em;height:.3em}
 
-		form.f-wrap-1 fieldset.f-checkbox-wrap fieldset, form.f-wrap-1 fieldset.f-radio-wrap fieldset {float:left;width:13em;margin: 3px 0 0 10px}
+        form.f-wrap-1 div.req {color:#666;font-size:96%;font-weight:normal;position:absolute;top:.4em;right:.4em;left:auto;width:13em;text-align:right}
 
-		form.f-wrap-1 fieldset.f-checkbox-wrap label, form.f-wrap-1 fieldset.f-radio-wrap label {float:left;width:13em;border:none;margin:0;padding:2px 0;margin-right:-3px}
+        form.f-wrap-1 div.req b {color:#c00;font-size:140%}
 
-		form.f-wrap-1 label input.f-checkbox, form.f-wrap-1 label input.f-radio {width:auto;float:none;margin:0;padding:0}
+        form.f-wrap-1 label select {width: 15.5em}
+
+        form.f-wrap-1 label textarea.f-comments {width: 20em}
+
+        form.f-wrap-1 div.f-submit-wrap {padding: 5px 0 5px 8em}
+
+        form.f-wrap-1 input.f-submit {margin: 0 0 0 10px}
 
 
 
-		form.f-wrap-1 label span.errormsg {position:absolute;top:0;right:-10em;left:auto;display:block;width:16em;background: transparent url(images/errormsg_bg.gif) no-repeat 0 0}
+        form.f-wrap-1 fieldset.f-checkbox-wrap, form.f-wrap-1 fieldset.f-radio-wrap {clear:left;float:left;width:32em;border:none;margin:0;padding-bottom:.7em}
 
-		form.f-wrap-1 label span.errormsg b {padding: 10px 0;margin: 0 10px 0 30px;color:#B30800;font-weight:bold;display:block;width:auto;float:none;line-height:1.3}
+        form.f-wrap-1 fieldset.f-checkbox-wrap b, form.f-wrap-1 fieldset.f-radio-wrap b {float:left;width:8em;line-height: 1.7;display:block;position:relative;padding-top:.3em}
+
+        form.f-wrap-1 fieldset.f-checkbox-wrap fieldset, form.f-wrap-1 fieldset.f-radio-wrap fieldset {float:left;width:13em;margin: 3px 0 0 10px}
+
+        form.f-wrap-1 fieldset.f-checkbox-wrap label, form.f-wrap-1 fieldset.f-radio-wrap label {float:left;width:13em;border:none;margin:0;padding:2px 0;margin-right:-3px}
+
+        form.f-wrap-1 label input.f-checkbox, form.f-wrap-1 label input.f-radio {width:auto;float:none;margin:0;padding:0}
+
+
+
+        form.f-wrap-1 label span.errormsg {position:absolute;top:0;right:-10em;left:auto;display:block;width:16em;background: transparent url(images/errormsg_bg.gif) no-repeat 0 0}
+
+        form.f-wrap-1 label span.errormsg b {padding: 10px 0;margin: 0 10px 0 30px;color:#B30800;font-weight:bold;display:block;width:auto;float:none;line-height:1.3}
 
 
 
@@ -1605,19 +1605,19 @@ label br {clear:left}
 }
 
 #selectblocks div.dropleft {
-    border: 1px dashed black; 
-    background-color: lightyellow; 
-    z-index: 1; 
+    border: 1px dashed black;
+    background-color: lightyellow;
+    z-index: 1;
     float: left;
-    position: relative; 
+    position: relative;
     margin-right: 10px;
     margin-bottom: 10px;
     padding: 4px;
 }
 
 #selectblocks div.leftblocks {
-    border: 1px solid lightgray; 
-    padding: 5px; 
+    border: 1px solid lightgray;
+    padding: 5px;
     width:150px;
     /*float: left;*/
     z-index:1000;
@@ -1625,29 +1625,29 @@ label br {clear:left}
 }
 
 #selectblocks div.dropblock {
-    border: 1px dashed black; 
-    background-color: lightyellow; 
-    z-index: 1; 
+    border: 1px dashed black;
+    background-color: lightyellow;
+    z-index: 1;
     float: left;
-    position: relative; 
-    padding: 4px; 
+    position: relative;
+    padding: 4px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
 
 #selectblocks div.usedblock {
-    border: 1px solid lightgray; 
-    padding: 5px; 
-    width:150px; 
+    border: 1px solid lightgray;
+    padding: 5px;
+    width:150px;
    /* float: left; */
     z-index:1000;
     margin: 0;
 }
 
 #selectblocks div.deleteblock {
-    border: 1px dashed black; 
-    background-color: lightyellow; 
-    position: relative; 
+    border: 1px dashed black;
+    background-color: lightyellow;
+    position: relative;
     padding: 4px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -1655,9 +1655,9 @@ label br {clear:left}
 }
 
 #selectblocks div.addblocks {
-    border: 1px solid lightgray; 
-    padding: 5px; 
-    width:150px; 
+    border: 1px solid lightgray;
+    padding: 5px;
+    width:150px;
    /* float: left; */
     z-index:1000;
     margin: 0;
@@ -1674,7 +1674,7 @@ label br {clear:left}
 
     color: #FFF;
 
-	font-size: 90%;
+    font-size: 90%;
 
     margin: 2px;
 
@@ -1701,7 +1701,7 @@ label br {clear:left}
 }
 
 .menuBtnOn:hover, .menuBtnOn a:hover, .menuBtnOn a:link:hover, .menuBtnOn a:visited:hover {
-	background:#3E19FF;
+    background:#3E19FF;
 }
 
 
@@ -1709,7 +1709,7 @@ label br {clear:left}
 
     font-family: arial,tahoma,verdana,sans-serif;
 
-	font-size: 90%; 
+    font-size: 90%;
 
     margin: 2px;
 
@@ -1739,23 +1739,23 @@ label br {clear:left}
 
 #cpanel div.icon {
 
-	border: 1px solid #A0A0A0;
+    border: 1px solid #A0A0A0;
 
-	height: 97px;
+    height: 97px;
 
-	width: 108px;
+    width: 108px;
 
-	text-align: center;
+    text-align: center;
 
-	font-size: 95%;
+    font-size: 95%;
 
-	line-height: 97%;
+    line-height: 97%;
 
-	margin-right: 5px;
+    margin-right: 5px;
 
-	float: left;
+    float: left;
 
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 
 }
 
@@ -1763,21 +1763,21 @@ label br {clear:left}
 
 #cpanel div.icon a {
 
-	display: block;
+    display: block;
 
-	float: left;
+    float: left;
 
-	border: 1px solid #f0f0f0;
+    border: 1px solid #f0f0f0;
 
-	line-height: 100%;
+    line-height: 100%;
 
-	height: 97px;
+    height: 97px;
 
-	width: 108px;
+    width: 108px;
 
-	vertical-align: middle;
+    vertical-align: middle;
 
-	text-decoration: none;
+    text-decoration: none;
 
 }
 
@@ -1785,15 +1785,15 @@ label br {clear:left}
 
 #cpanel div.icon a:hover {
 
-	border-left: 1px solid #eee;
+    border-left: 1px solid #eee;
 
-	border-top: 1px solid #eee;
+    border-top: 1px solid #eee;
 
-	border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 
-	border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 
-	background: #f9f9f9;
+    background: #f9f9f9;
 
 }
 
@@ -1811,21 +1811,21 @@ label br {clear:left}
 
 .smallicon {
 
-	height: 75px;
+    height: 75px;
 
-	width: 85px;
+    width: 85px;
 
-	text-align: center;
+    text-align: center;
 
-	font-size: 110%;
+    font-size: 110%;
 
-	line-height: 100%;
+    line-height: 100%;
 
-	float: left; 
+    float: left;
 
-	padding: 0px;
+    padding: 0px;
 
-	margin: 2px;
+    margin: 2px;
 
 }
 
@@ -1833,29 +1833,29 @@ label br {clear:left}
 
 .smallicon a, .smallicon a:visited {
 
-	display: block;
+    display: block;
 
-	float: left;
+    float: left;
 
-	border: 1px solid #f0f0f0;
+    border: 1px solid #f0f0f0;
 
-	height: 75px;
+    height: 75px;
 
-	width: 85px;
+    width: 85px;
 
-	vertical-align: middle;
+    vertical-align: middle;
 
-	font-size: 70%;
+    font-size: 70%;
 
-	line-height: 100%;
+    line-height: 100%;
 
-	text-decoration: none;
+    text-decoration: none;
 
-	padding: 0px;
+    padding: 0px;
 
-	margin: 0px;
+    margin: 0px;
 
-	background: #fffef3;
+    background: #fffef3;
 
 }
 
@@ -1863,15 +1863,15 @@ label br {clear:left}
 
 .smallicon a:hover {
 
-	border-left: 1px solid #eee;
+    border-left: 1px solid #eee;
 
-	border-top: 1px solid #eee;
+    border-top: 1px solid #eee;
 
-	border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 
-	border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 
-	background: #f9f9f9;
+    background: #f9f9f9;
 
 }
 
@@ -1921,9 +1921,9 @@ option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3
 
 .feedhopper {
 
-	height: 400px;
+    height: 400px;
 
-	overflow: scroll;
+    overflow: scroll;
 
 }
 
@@ -1954,7 +1954,7 @@ option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3
 */
 
 .wiki_table {
-	border-collapse: collapse;
+    border-collapse: collapse;
     border: 2px ridge black;
 }
 .wiki_td {
@@ -1972,7 +1972,7 @@ option.gnu-fdl {padding-left:90px;background-image: url(icons/creativecommons_v3
 */
 
 .wiki_ul {
-	list-style: disc inside none;
+    list-style: disc inside none;
 }
 .wiki_ol {
     list-style:decimal inside none;
@@ -1991,144 +1991,168 @@ http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
 */
 
 #modernbricksmenu{
-	padding: 0;
-	width: 100%;
-	background: transparent;
-	voice-family: "\"}\"";
-	voice-family: inherit;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    voice-family: "\"}\"";
+    voice-family: inherit;
 }
 
 #modernbricksmenu ul{
-	font: bold 11px Arial;
-	margin:0;
-	margin-left: 40px; /*margin between first menu item and left browser edge*/
-	padding: 0;
-	list-style: none;
+    font: bold 11px Arial;
+    margin:0;
+    margin-left: 40px; /*margin between first menu item and left browser edge*/
+    padding: 0;
+    list-style: none;
 }
 
 #modernbricksmenu li{
-	display: inline;
-	margin: 0 2px 0 0;
-	padding: 0;
-	text-transform:uppercase;
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    text-transform:uppercase;
 }
 
 #modernbricksmenu a{
-	float: left;
-	display: block;
-	color: white;
-	margin: 0 1px 0 0; /*Margin between each menu item*/
-	padding: 5px 10px;
-	text-decoration: none;
-	letter-spacing: 1px;
-	background-color: black; /*Default menu color*/
-	border-bottom: 1px solid white;
+    float: left;
+    display: block;
+    color: white;
+    margin: 0 1px 0 0; /*Margin between each menu item*/
+    padding: 5px 10px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    background-color: black; /*Default menu color*/
+    border-bottom: 1px solid white;
 }
 
 #modernbricksmenu a:hover{
-	background-color: gray; /*Menu hover bgcolor*/
+    background-color: gray; /*Menu hover bgcolor*/
 }
 
 #modernbricksmenu #current a{ /*currently selected tab*/
-	background-color: #CC0000; /*Red color theme*/ 
-	border-color: #CC0000; /*Red color theme*/ 
+    background-color: #CC0000; /*Red color theme*/
+    border-color: #CC0000; /*Red color theme*/
 }
 
 #modernbricksmenuline{
-	clear: both;
-	padding: 0;
-	width: 100%;
-	height: 5px;
-	line-height: 5px;
-	background: #CC0000; /*Red color theme*/ 
+    clear: both;
+    padding: 0;
+    width: 100%;
+    height: 5px;
+    line-height: 5px;
+    background: #CC0000; /*Red color theme*/
 }
 
 /*
-	END - Styles for the Modern Brick Menu
+    END - Styles for the Modern Brick Menu
 */
 
 
 ul.bookmarkedpages li {
-	background-image:url('icons/pushpin.gif');
-	background-repeat: no-repeat;
+    background-image:url('icons/pushpin.gif');
+    background-repeat: no-repeat;
 }
 
 #cmsnavigation li {
-	background-image: none;
-	margin-left: 0;
-	padding-left: 5px;
+    background-image: none;
+    margin-left: 0;
+    padding-left: 5px;
 }
 
 #cmsnavigation li a {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 h1 {
-	/*18px via YUI Fonts CSS foundation*/
-	font-size:138.5%;  
+    /*18px via YUI Fonts CSS foundation*/
+    font-size:138.5%;
 }
 h2 {
-	/*16px via YUI Fonts CSS foundation*/
-	font-size:123.1%; 
+    /*16px via YUI Fonts CSS foundation*/
+    font-size:123.1%;
 }
 h3 {
-	/*14px via YUI Fonts CSS foundation*/
-	font-size:108%;  
+    /*14px via YUI Fonts CSS foundation*/
+    font-size:108%;
 }
 h1,h2,h3 {
-	/* top & bottom margin based on font size */
-	margin:1em 0;
+    /* top & bottom margin based on font size */
+    margin:1em 0;
 }
 h1,h2,h3,h4,h5,h6,strong {
-	/*bringing boldness back to headers and the strong element*/
-	font-weight:bold; 
+    /*bringing boldness back to headers and the strong element*/
+    font-weight:bold;
 }
 abbr,acronym {
-	/*indicating to users that more info is available */
-	border-bottom:1px dotted #000;
-	cursor:help;
-} 
+    /*indicating to users that more info is available */
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
 em {
-	/*bringing italics back to the em element*/
-	font-style:italic;
+    /*bringing italics back to the em element*/
+    font-style:italic;
 }
 blockquote,ul,ol,dl {
-	/*giving blockquotes and lists room to breath*/
-	margin:1em;
+    /*giving blockquotes and lists room to breath*/
+    margin:1em;
 }
 ol,ul,dl {
-	/*bringing lists on to the page with breathing room */
-	margin-left:2em;
+    /*bringing lists on to the page with breathing room */
+    margin-left:2em;
 }
 ol li {
-	/*giving OL's LIs generated numbers*/
-	list-style: decimal outside;	
+    /*giving OL's LIs generated numbers*/
+    list-style: decimal outside;
 }
 ul li {
-	/*giving UL's LIs generated disc markers*/
-	
+    /*giving UL's LIs generated disc markers*/
+
 }
 dl dd {
-	/*giving UL's LIs generated numbers*/
-	margin-left:1em;
+    /*giving UL's LIs generated numbers*/
+    margin-left:1em;
 }
 th,td {
-	/*borders and padding to make the table readable*/
-	
-	padding:.5em;
+    /*borders and padding to make the table readable*/
+
+    padding:.5em;
 }
 th {
-	/*distinguishing table headers from data cells*/
-	font-weight:bold;
-	text-align:center;
+    /*distinguishing table headers from data cells*/
+    font-weight:bold;
+    text-align:center;
 }
 caption {
-	/*coordinated marking to match cell's padding*/
-	margin-bottom:.5em;
-	/*centered so it doesn't blend in to other content*/
-	text-align:center;
+    /*coordinated marking to match cell's padding*/
+    margin-bottom:.5em;
+    /*centered so it doesn't blend in to other content*/
+    text-align:center;
 }
 p,fieldset,table {
-	/*so things don't run into each other*/
-	margin-bottom:1em;
+    /*so things don't run into each other*/
+    margin-bottom:1em;
 }
+
+ul.presentationslides
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.presentationslides li
+{
+    display: inline;
+    margin: 0;
+    padding: 0;
+    background-image: none;
+    float: left;
+    margin-right: 10px;
+}
+
+ul.presentationslides li img
+{
+    border: 1px solid #000;
+}
+
+
