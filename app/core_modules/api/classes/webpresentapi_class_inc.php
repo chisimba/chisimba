@@ -61,6 +61,7 @@ class webpresentapi extends object
 	
 	public $objDbTags;
     public $objDbFiles;
+    public $objDbSlides;
     
 	/**
      * init method
@@ -78,6 +79,7 @@ class webpresentapi extends object
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objDbTags = $this->getObject('dbwebpresenttags','webpresent');
         	$this->objDbFiles = $this->getObject('dbwebpresentfiles','webpresent');
+        	$this->objDbSlides = $this->getObject('dbwebpresentslides','webpresent');
         	
 		}
 		catch (customException $e)
@@ -309,5 +311,30 @@ class webpresentapi extends object
 		
 	}
 	
+	public function getNumSlidesAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+		
+    	$data = $this->objDbSlides->getNumSlides($id);
+    	
+    	return new XML_RPC_Response(new XML_RPC_Value($data, 'int'));
+	}
+	
+	public function getSlidesAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+		
+    	$data = $this->objDbSlides->getSlides($id);
+    	log_debug($data);
+    	//return new XML_RPC_Response(new XML_RPC_Value($data, 'int'));
+	}
 }
 ?>
