@@ -1285,6 +1285,37 @@ class altconfig extends object
     }
     
     /**
+    * Gets flag to disable XML
+    * @access public
+    * @returns string
+    */
+    public function getNoXML()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "NO_XML");
+    	//var_dump($SettingsDirective);
+    	if ($SettingsDirective == FALSE)
+    	{
+            // Little hack here to get around a strange quirk with the config
+            if (defined('NO_XML_FLAG')){
+    		$newsettings = array("NO_XML" => "0");
+    		$this->appendToConfig($newsettings);
+            } else {
+                define('NO_XML_FLAG',1);
+            }
+    		return FALSE;
+    	}
+    	//finally unearth whats inside
+    	$noXML = $SettingsDirective->getContent();
+
+    	return $noXML;
+
+    }
+    
+    /**
      * Gets enable memcache Setting
      *
      * @access public   
@@ -1301,8 +1332,8 @@ class altconfig extends object
     	//var_dump($SettingsDirective);
     	if($SettingsDirective == FALSE)
     	{
-    		$newsettings = array("ENABLE_MEMCACHE" => "FALSE");
-    		$this->appendToConfig($newsettings);
+                $newsettings = array("ENABLE_MEMCACHE" => "FALSE");
+                $this->appendToConfig($newsettings);
     		return FALSE;
     	}
     	//finally unearth whats inside
