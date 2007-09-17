@@ -101,6 +101,13 @@ class xmlrpcapi extends object
      */
 	public $objChisWikiApi;
 	
+	/**
+     * Chisimba Web Present API object
+     * @var    object
+     * @access public
+     */
+	public $objWebPresentApi;
+	
     /**
      * init method
      * 
@@ -132,6 +139,7 @@ class xmlrpcapi extends object
         	$this->objWikiApi = $this->getObject('wikiapi');
         	// Chisimba Wiki module abstraction
         	$this->objChisWikiApi = $this->getObject('chiswikiapi');
+        	$this->objWebPresentApi = $this->getObject('webpresentapi');
 		}
 		catch (customException $e)
 		{
@@ -407,7 +415,34 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'Lists all links for a given page'), 		
+                		   						   'docstring' => 'Lists all links for a given page'), 
+                		   						   
+                		  // Web Present API
+                		  // tagging options
+                		  'presentation.getAllTags' => array('function' => array($this->objWebPresentApi, 'getAllTagsAPI'),
+                		   						   'signature' => array(
+                		   						   					array('array'),
+                		   						   					),
+                		   						   'docstring' => 'Lists all web present tags'),
+                		   						    
+                		  'presentation.getTagCloud' => array('function' => array($this->objWebPresentApi, 'getTagCloudAPI'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'Lists all web present tags as a tag cloud in HTML'),
+                		   				 
+                		  'presentation.getTagsPerFile' => array('function' => array($this->objWebPresentApi, 'getTagsPerFileAPI'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Lists all web present tags attached to a specific fileid'), 
+                		  
+                		  'presentation.getFilesPerTag' => array('function' => array($this->objWebPresentApi, 'getFilesPerTagAPI'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'array'),
+                		   						   					),
+                		   						   'docstring' => 'gets all the files associated with a tag'),  
+                		  		
    					), 1, 0);
    					
 
