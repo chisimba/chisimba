@@ -196,7 +196,7 @@ class webpresentapi extends object
     	$fileid = $param->scalarval();
     	
     	$files = $this->objDbFiles->getFile($fileid);
-    	log_debug($files);
+    	// log_debug($files);
     	if(!empty($files))
     	{
     			$fStruct[] = new XML_RPC_Value(array(
