@@ -336,5 +336,18 @@ class webpresentapi extends object
     	log_debug($data);
     	//return new XML_RPC_Response(new XML_RPC_Value($data, 'int'));
 	}
+	
+	public function getSlideThumbnailAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+    	
+    	$data = $this->objDbSlides->getSlideThumbnail($id);
+    	
+		return new XML_RPC_Response(new XML_RPC_Value($data, 'string'));
+	}
 }
 ?>
