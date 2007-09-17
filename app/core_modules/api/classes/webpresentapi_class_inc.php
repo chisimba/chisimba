@@ -333,7 +333,7 @@ class webpresentapi extends object
     	$id = $param->scalarval();
 		
     	$data = $this->objDbSlides->getSlides($id);
-    	log_debug($data);
+    	//log_debug($data);
     	return new XML_RPC_Response(new XML_RPC_Value("not yet implemented - sorry!", 'string'));
 	}
 	
