@@ -19,7 +19,7 @@ $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_makepat
 $makePatch = $updateAll->show();
 
 $updateAll->link($this->uri(array('action'=>'updatexml')));
-$updateAll->link = str_replace('[DATE]',date('Y/m/d',filectime($this->objConfig->getsiteRootPath()."config/catalogue.xml")),$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
+$updateAll->link = str_replace('[DATE]',date('Y/m/d',filemtime($this->objConfig->getsiteRootPath()."config/catalogue.xml")),$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
 $updateXML = $updateAll->show();
 
 $updateAll->link($this->uri(array('action'=>'updateall')));
