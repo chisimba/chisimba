@@ -166,7 +166,7 @@ class modulecatalogue extends controller
             $this->objSideMenu->addNodes($sysTypes);
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -523,7 +523,7 @@ class modulecatalogue extends controller
                     throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
                     break;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -555,7 +555,7 @@ class modulecatalogue extends controller
                 $this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
                 return FALSE;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -582,7 +582,7 @@ class modulecatalogue extends controller
                 $this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
                 return FALSE;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -603,7 +603,7 @@ class modulecatalogue extends controller
                 }
             }
             return TRUE;
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -643,7 +643,7 @@ class modulecatalogue extends controller
                 $this->output .= $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue')."\n";
                 return FALSE;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -661,7 +661,7 @@ class modulecatalogue extends controller
                 }
             }
             return TRUE;
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -701,7 +701,7 @@ class modulecatalogue extends controller
                 $this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
                 return FALSE;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -757,7 +757,7 @@ class modulecatalogue extends controller
             $this->objSysConfig->insertParam('firstreg_run','modulecatalogue',TRUE,'mod_modulecatalogue_firstreg_run_desc');
             log_debug('first time registration performed, variable set. First time registration cannot be performed again unless system variable \'firstreg_run\' is unset.');
 
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -785,7 +785,7 @@ class modulecatalogue extends controller
             } else {
                 return TRUE;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
@@ -805,7 +805,7 @@ class modulecatalogue extends controller
             } else {
                 return $res;
             }
-        } catch (Exception $e) {
+        } catch (customException $e) {
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
