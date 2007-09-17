@@ -180,8 +180,8 @@ class InstallDirectoryAction extends StepAction
                 $module_path.='/';
                 $module_path=str_replace('//','/',$module_path);
 		if (!is_dir($module_path)) {
-			mkdir($module_path);
-			chmod($module_path, 0700);
+			@mkdir($module_path);
+			@chmod($module_path, 0700);
 			if(is_writeable($module_path))
 			{
 
