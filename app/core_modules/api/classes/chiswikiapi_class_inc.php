@@ -240,7 +240,7 @@ class chiswikiapi extends object
     	$wikiid = $param->scalarval();
     	$this->objDbWiki->wikiId = $wikiid;
     	    	
-    	$data = $this->objDbWiki->getPage($pagename);
+    	$data = $this->objDbWiki->getWikiPage($wikiid, $pagename);
     	$val = $data['page_content'];
     	// load up the wiki parser
     	$objParser = $this->getObject('wikitextparser', 'wiki');
