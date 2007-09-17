@@ -349,5 +349,16 @@ class webpresentapi extends object
     	
 		return new XML_RPC_Response(new XML_RPC_Value($data, 'string'));
 	}
+	
+	public function getPresentationSlidesFormattedAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+    	$data = $this->objDbSlides->getPresentationSlidesFormatted($id);
+		return new XML_RPC_Response(new XML_RPC_Value($data, 'string'));
+	}
 }
 ?>

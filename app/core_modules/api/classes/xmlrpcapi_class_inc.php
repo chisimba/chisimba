@@ -485,6 +485,12 @@ class xmlrpcapi extends object
                 		   						   					),
                 		   						   'docstring' => 'gets a specific slide thumbnail'),
                 		   						   
+                		   'presentation.getPresentationSlidesFormatted' => array('function' => array($this->objWebPresentApi, 'getPresentationSlidesFormattedAPI'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'gets formatted slides'),
+                		   						   
                 		  		
    					), 1, 0);
    					
