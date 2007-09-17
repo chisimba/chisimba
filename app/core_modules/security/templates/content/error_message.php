@@ -64,8 +64,13 @@ $middleContent .= ' ('.$sysAdminEmail->show().'). </p>';
 $newPasswordLink = new link ($this->uri(array('action'=>'needpassword')));
 $newPasswordLink->link = $this->objLanguage->languageText('mod_security_requestnewpassword', 'security');
 
-$registerModule=$this->objConfig->getValue('SELFREGISTER_MODULE') or $registerModule='userregistration';
-$registerLink = new link ($this->uri(array('action'=>'register'), $registerModule));
+//$registerModule=$this->objConfig->getValue('REGISTRATION_MODULE') or $registerModule='userregistration';
+
+$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+$registerModule = $objSysConfig->getValue('REGISTRATION_MODULE', 'security');
+$registerModule= !empty($registerModule) ? $registerModule : 'userregistration';
+
+$registerLink = new link ($this->uri(array('action'=>'showregister'), $registerModule));
 $registerLink->link = $this->objLanguage->languageText('word_register');
 
 $backHomeLink = new link ($this->uri(NULL, $this->objConfig->getValue('KEWL_PRELOGIN_MODULE')));
