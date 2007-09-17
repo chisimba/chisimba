@@ -439,7 +439,7 @@ class xmlrpcapi extends object
                 		  
                 		  'presentation.getFilesPerTag' => array('function' => array($this->objWebPresentApi, 'getFilesPerTagAPI'),
                 		   						   'signature' => array(
-                		   						   					array('array', 'array'),
+                		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets all the files associated with a tag'),  
                 		  		
