@@ -2,7 +2,7 @@
 /* -------------------- SKIN CLASS ----------------*/
 
 /**
-* Skin class for KEWL.NextGen (still needs work). This class
+* Skin class for KEWL.NextGen/Chisimba (still needs work). This class
 * is based on the skin functionality of KEWL 1.2 and is fully
 * compatible with KEWL 1.2 skins.
 * @author Derek Keats
@@ -20,6 +20,10 @@ class skin extends object
         $this->loadClass('dropdown','htmlelements');
         $this->loadClass('button','htmlelements');
         $this->objConfig = $this->getObject('altconfig','config');
+        //Option to suppress XML
+        if ($this->objConfig->getNoXML()=='1'){
+            $this->setVar('pageSuppressXML',TRUE);
+        }
         //$this->server = $this->objConfig->serverName();
 
         // Browser Detection Class
