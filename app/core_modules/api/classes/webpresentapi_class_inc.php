@@ -225,5 +225,89 @@ class webpresentapi extends object
 	}
 	
 	
+	public function getLatestAPI()
+	{
+		$data = $this->objDbFiles->getLatestPresentations();
+		
+		if(!empty($data))
+    	{
+    		foreach($data as $files)
+    		{
+    			$fStruct[] = new XML_RPC_Value(array(
+    			"id" => new XML_RPC_Value($files['id'], "string"),
+    			"processstage" => new XML_RPC_Value($files['processstage'], "string"),
+    			"inprocess" => new XML_RPC_Value($files['inprocess'], "string"),
+    			"filename" => new XML_RPC_Value($files['filename'], "string"),
+    			"mimetype" => new XML_RPC_Value($files['mimetype'], "string"),
+    			"title" => new XML_RPC_Value($files['title'], "string"),
+    			"description" => new XML_RPC_Value($files['description'], "string"),
+    			"filetype" => new XML_RPC_Value($files['filetype'], "string"),
+    			"cclicense" => new XML_RPC_Value($files['cclicense'], "string"),
+    			"creatorid" => new XML_RPC_Value($files['creatorid'], "string"),
+    			"dateuploaded" => new XML_RPC_Value($files['dateuploaded'], "string"),
+    			), "struct");
+    		}
+    		return new XML_RPC_Response(new XML_RPC_Value($fStruct, "struct"));
+    	}
+    	else {
+    		$filearr = new XML_RPC_Value(array(), "struct");
+    		return new XML_RPC_Response(new XML_RPC_Value($filearr, "array"));
+    	}
+	}
+	
+	public function getByUserAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$userid = $param->scalarval();
+    	
+    	$data = $this->objDbFiles->getByUser($userid);
+    	if(!empty($data))
+    	{
+    		foreach($data as $files)
+    		{
+    			$fStruct[] = new XML_RPC_Value(array(
+    			"id" => new XML_RPC_Value($files['id'], "string"),
+    			"processstage" => new XML_RPC_Value($files['processstage'], "string"),
+    			"inprocess" => new XML_RPC_Value($files['inprocess'], "string"),
+    			"filename" => new XML_RPC_Value($files['filename'], "string"),
+    			"mimetype" => new XML_RPC_Value($files['mimetype'], "string"),
+    			"title" => new XML_RPC_Value($files['title'], "string"),
+    			"description" => new XML_RPC_Value($files['description'], "string"),
+    			"filetype" => new XML_RPC_Value($files['filetype'], "string"),
+    			"cclicense" => new XML_RPC_Value($files['cclicense'], "string"),
+    			"creatorid" => new XML_RPC_Value($files['creatorid'], "string"),
+    			"dateuploaded" => new XML_RPC_Value($files['dateuploaded'], "string"),
+    			), "struct");
+    		}
+    		return new XML_RPC_Response(new XML_RPC_Value($fStruct, "struct"));
+    	}
+    	else {
+    		$filearr = new XML_RPC_Value(array(), "struct");
+    		return new XML_RPC_Response(new XML_RPC_Value($filearr, "array"));
+    	}
+	}
+	
+	public function getThumbnailAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+    	
+    	$data = $this->objDbFiles->getPresentationThumbnail($id);
+    	if(!empty($data))
+    	{
+    		return new XML_RPC_Response(new XML_RPC_Value($data, 'string'));
+    	}
+    	else {
+    		return new XML_RPC_Response(new XML_RPC_Value("no data", 'string'));
+    	}
+		
+	}
+	
 }
 ?>

@@ -441,7 +441,33 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'gets all the files associated with a tag'),  
+                		   						   'docstring' => 'gets all the files associated with a tag'), 
+                		   						   
+                		   'presentation.getFile' => array('function' => array($this->objWebPresentApi, 'getFileAPI'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'gets info on a file'), 
+                		   						   
+                		   'presentation.getLatest' => array('function' => array($this->objWebPresentApi, 'getLatestAPI'),
+                		   						   'signature' => array(
+                		   						   					array('struct'),
+                		   						   					),
+                		   						   'docstring' => 'gets latest list (10)'), 
+                		   						   
+                		   'presentation.getByUser' => array('function' => array($this->objWebPresentApi, 'getByUserAPI'),
+                		   						   'signature' => array(
+                		   						   					array('struct', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'gets latest list by userid'),
+                		   						   
+                		   'presentation.getThumbnail' => array('function' => array($this->objWebPresentApi, 'getThumbnailAPI'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'gets thumbnail of specific file'),
+                		   						   
+                		   						   
                 		  		
    					), 1, 0);
    					
