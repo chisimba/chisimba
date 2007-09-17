@@ -334,7 +334,7 @@ class webpresentapi extends object
 		
     	$data = $this->objDbSlides->getSlides($id);
     	log_debug($data);
-    	//return new XML_RPC_Response(new XML_RPC_Value($data, 'int'));
+    	return new XML_RPC_Response(new XML_RPC_Value("not yet implemented - sorry!", 'string'));
 	}
 	
 	public function getSlideThumbnailAPI($params)
