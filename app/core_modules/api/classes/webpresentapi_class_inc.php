@@ -60,7 +60,8 @@ class webpresentapi extends object
 {
 	
 	public $objDbTags;
-
+    public $objDbFiles;
+    
 	/**
      * init method
      * 
@@ -76,6 +77,8 @@ class webpresentapi extends object
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objDbTags = $this->getObject('dbwebpresenttags','webpresent');
+        	$this->objDbFiles = $this->getObject('dbwebpresentfiles','webpresent');
+        	
 		}
 		catch (customException $e)
 		{
@@ -179,8 +182,46 @@ class webpresentapi extends object
     	else {
     		$filearr = new XML_RPC_Value(array(), "array");
     	}
+    	//log_debug($filearr);
     	return new XML_RPC_Response(new XML_RPC_Value($filearr, "array"));
 		
+	}
+	
+	public function getFileAPI($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$fileid = $param->scalarval();
+    	
+    	$files = $this->objDbFiles->getFile($fileid);
+    	log_debug($files);
+    	if(!empty($files))
+    	{
+    			$fStruct[] = new XML_RPC_Value(array(
+    			"id" => new XML_RPC_Value($files['id'], "string"),
+    			"processstage" => new XML_RPC_Value($files['processstage'], "string"),
+    			"inprocess" => new XML_RPC_Value($files['inprocess'], "string"),
+    			"filename" => new XML_RPC_Value($files['filename'], "string"),
+    			"mimetype" => new XML_RPC_Value($files['mimetype'], "string"),
+    			"title" => new XML_RPC_Value($files['title'], "string"),
+    			"description" => new XML_RPC_Value($files['description'], "string"),
+    			"filetype" => new XML_RPC_Value($files['filetype'], "string"),
+    			"cclicense" => new XML_RPC_Value($files['cclicense'], "string"),
+    			"creatorid" => new XML_RPC_Value($files['creatorid'], "string"),
+    			"dateuploaded" => new XML_RPC_Value($files['dateuploaded'], "string"),
+    			), "struct");
+	    	
+    		//$arrofStructs = new XML_RPC_Value(array($myStruct), "array");
+    		//log_debug($catStruct);
+    		return new XML_RPC_Response(new XML_RPC_Value($fStruct, "struct"));
+    	}
+    	else {
+    		$filearr = new XML_RPC_Value(array(), "struct");
+    		//log_debug($filearr);
+    		return new XML_RPC_Response(new XML_RPC_Value($filearr, "array"));
+    	}
 	}
 	
 	
