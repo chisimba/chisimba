@@ -2148,6 +2148,9 @@ ul.presentationslides li
     background-image: none;
     float: left;
     margin-right: 10px;
+    width: 162px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 ul.presentationslides li img
