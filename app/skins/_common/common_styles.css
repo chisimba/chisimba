@@ -2059,10 +2059,7 @@ ul.bookmarkedpages li {
     padding-left: 5px;
 }
 
-#cmsnavigation li a {
-    display: block;
-    width: 100%;
-}
+
 h1 {
     /*18px via YUI Fonts CSS foundation*/
     font-size:138.5%;
