@@ -60,11 +60,21 @@ body {
 
 
 
-a:link, a:visited {
-
-    color: #000099;
+a:link{
+	
+	color: #000099;
 
     text-decoration:none;
+
+
+}
+
+
+a:visited {
+
+    color: red;
+
+    text-decoration:bold;
 
 }
 
@@ -76,8 +86,7 @@ a:hover {
 
     text-decoration:underline;
 
-    background-color:yellow;
-
+    
 }
 
 
