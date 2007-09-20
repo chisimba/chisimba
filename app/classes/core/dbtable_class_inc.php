@@ -913,7 +913,8 @@ class dbTable extends object
      */
     public function setDatabaseTo($name)
     {
-        $ret = $this->setDatabase($name);
+    	PEAR::popErrorHandling();
+        $ret = $this->_db->setDatabase($name);
         return $ret;
     }
 
