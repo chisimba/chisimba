@@ -83,6 +83,8 @@ class parse4wpresent extends object
         $isRegistered = $objModule->checkIfRegistered('webpresent', 'webpresent');
         if($isRegistered)
         {
+            // Get the viewer object.
+            $objView = $this->getObject("viewer", "webpresent");
         	//Match filters based on a wordpress style
         	preg_match_all('/\\[WPRESENT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
         	//Get all the ones in links
@@ -109,7 +111,7 @@ class parse4wpresent extends object
                     case "_default":
                     default:
                         $this->setupPage();
-                        $replacement = $this->getLocalFlash($this->id);
+                        $replacement = $objView->showFlash($this->id);
                         break;
                 }
             	$txt = str_replace($item, $replacement, $txt);
@@ -119,6 +121,13 @@ class parse4wpresent extends object
         return $txt;
     }
 
+    /**
+     * 
+     * Method to set up the parameter / value pairs for th efilter
+     * @access public
+     * @return VOID
+     * 
+     */
     public function setUpPage()
     {
         if (isset($this->objExpar->id)) {
@@ -128,12 +137,6 @@ class parse4wpresent extends object
         }
     }
     
-    public function getLocalFlash($id)
-    {
-        // Show the flash file using the viewer class
-        $objView = $this->getObject("viewer", "webpresent");
-        return $objView->showFlash($id);
-    }
 
     public function getByApi()
     {
