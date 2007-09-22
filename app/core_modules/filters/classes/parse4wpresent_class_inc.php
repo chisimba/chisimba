@@ -65,7 +65,7 @@ class parse4wpresent extends object
         $this->objExpar = $this->getObject("extractparams", "utilities");
         // Load the XML_RPC PEAR Class
         require_once($this->getPearResource('XML/RPC/Server.php'));
-        $this->objConfig = $this->getObject('altconfig', 'config');
+       // $this->objConfig = $this->getObject('altconfig', 'config');
     }
     
     /**
@@ -130,19 +130,9 @@ class parse4wpresent extends object
     
     public function getLocalFlash($id)
     {
-         $flashFile = $this->objConfig->getcontentBasePath().'webpresent/'. $id .'/' . $id.'.swf';
-         if (file_exists($flashFile)) {
-             $flashFile = $this->objConfig->getcontentPath().'webpresent/' .$id .'/'. $id.'.swf';
-             $flashContent = '
-             <div style="border: 1px solid #000; width: 534px; height: 402px; text-align: center;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="540" height="400">
-             <param name="movie" value="'.$flashFile.'">
-             <param name="quality" value="high">
-             <embed src="'.$flashFile.'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="534" height="402"></embed>
-            </object></div>';
-        } else {
-            $flashContent = '<div class="noRecordsMessage" style="border: 1px solid #000; width: 540px; height: 302px; text-align: center;">Flash Version of Presentation being converted</div>';
-        }
-        return $flashContent;
+        // Show the flash file using the viewer class
+        $objView = $this->getObject("viewer", "webpresent");
+        return $objView->showFlash($id);
     }
 
     public function getByApi()
