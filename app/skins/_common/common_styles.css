@@ -61,8 +61,8 @@ body {
 
 
 a:link{
-	
-	color: #000099;
+
+    color: #000099;
 
     text-decoration:none;
 
@@ -86,7 +86,7 @@ a:hover {
 
     text-decoration:underline;
 
-    
+
 }
 
 
@@ -2068,77 +2068,96 @@ ul.bookmarkedpages li {
     padding-left: 5px;
 }
 
+/*
+
+YAHOO User Interface CSS
+
+*/
+
+/*
 
 h1 {
-    /*18px via YUI Fonts CSS foundation*/
+    /*18px via YUI Fonts CSS foundation* /
     font-size:138.5%;
 }
 h2 {
-    /*16px via YUI Fonts CSS foundation*/
+    /*16px via YUI Fonts CSS foundation* /
     font-size:123.1%;
 }
 h3 {
-    /*14px via YUI Fonts CSS foundation*/
+    /*14px via YUI Fonts CSS foundation* /
     font-size:108%;
 }
 h1,h2,h3 {
-    /* top & bottom margin based on font size */
+    /* top & bottom margin based on font size * /
     margin:1em 0;
 }
 h1,h2,h3,h4,h5,h6,strong {
-    /*bringing boldness back to headers and the strong element*/
+    /*bringing boldness back to headers and the strong element* /
     font-weight:bold;
 }
 abbr,acronym {
-    /*indicating to users that more info is available */
+    /*indicating to users that more info is available * /
     border-bottom:1px dotted #000;
     cursor:help;
 }
 em {
-    /*bringing italics back to the em element*/
+    /*bringing italics back to the em element* /
     font-style:italic;
 }
 blockquote,ul,ol,dl {
-    /*giving blockquotes and lists room to breath*/
+    /*giving blockquotes and lists room to breath* /
     margin:1em;
 }
 ol,ul,dl {
-    /*bringing lists on to the page with breathing room */
+    /*bringing lists on to the page with breathing room * /
     margin-left:2em;
 }
 ol li {
-    /*giving OL's LIs generated numbers*/
+    /*giving OL's LIs generated numbers* /
     list-style: decimal outside;
 }
 ul li {
-    /*giving UL's LIs generated disc markers*/
+    /*giving UL's LIs generated disc markers* /
 
 }
 dl dd {
-    /*giving UL's LIs generated numbers*/
+    /*giving UL's LIs generated numbers* /
     margin-left:1em;
 }
 th,td {
-    /*borders and padding to make the table readable*/
+    /*borders and padding to make the table readable* /
 
     padding:.5em;
 }
 th {
-    /*distinguishing table headers from data cells*/
+    /*distinguishing table headers from data cells* /
     font-weight:bold;
     text-align:center;
 }
 caption {
-    /*coordinated marking to match cell's padding*/
+    /*coordinated marking to match cell's padding* /
     margin-bottom:.5em;
-    /*centered so it doesn't blend in to other content*/
+    /*centered so it doesn't blend in to other content* /
     text-align:center;
 }
 p,fieldset,table {
-    /*so things don't run into each other*/
+    /*so things don't run into each other* /
     margin-bottom:1em;
 }
+*/
+/*
 
+END - YAHOO User Interface CSS
+
+*/
+
+
+/*
+
+WebPresent Styles
+
+*/
 ul.presentationslides
 {
     list-style-type: none;
