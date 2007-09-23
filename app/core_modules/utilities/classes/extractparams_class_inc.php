@@ -74,7 +74,7 @@ class extractparams extends object
         try {
             foreach ($ar as $item) {
                 //Split them up in to a string representing each pair
-                $tmpAr = explode("=", $item);
+                $tmpAr = explode("=", trim($item));
                 //Make sure that there is a pair
                 if (count($tmpAr) == 2) {
                     $pName = trim($tmpAr[0]);
