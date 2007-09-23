@@ -21,7 +21,7 @@
  * @category  Chisimba
  * @package   filters
  * @author    Paul Scott <pscott@uwc.ac.za>
- * @copyright 2007 Paul Scott
+ * @copyright 2007 Paul Scott & Derek Keats 
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
@@ -53,6 +53,8 @@ class parse4flv extends object
     function init()
     {
     	$this->objConfig = $this->getObject('altconfig', 'config');
+        // Get an instance of the params extractor
+        $this->objExpar = $this->getObject("extractparams", "utilities");
         
     }
     
@@ -63,19 +65,44 @@ class parse4flv extends object
     * @return The    parsed string
     *                
     */
-    public function parse($str)
+    public function parse($txt)
     {
-        preg_match_all('/\[FLV\](.*)\[\/FLV\]/U', $str, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/\[FLV\](.*)\[\/FLV\]/U', $txt, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/\\[FLV:(.*?)\\]/', $txt, $results2, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[1] as $item)
         {
             $videoId = $item;
             $replacement = $this->getVideoObject($videoId);
-            $str = str_replace($results[0][$counter], $replacement, $str);
+            $str = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
         
-        return $str;
+        //Get all the ones [FLV: xx=yy] tags (added by Derek 2007 09 23)
+        $counter = 0;
+        foreach ($results2[0] as $item)
+        {
+            $this->item=$item;
+            $str = $results2[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
+            if (isset($this->objExpar->width)) {
+                $width = $this->objExpar->width;
+            } else {
+                $width=320;
+            }
+            if (isset($this->objExpar->height)) {
+                $height = $this->objExpar->height;
+            } else {
+                $height=240;
+            }
+            if (isset($this->objExpar->url)) {
+                $url = $this->objExpar->url;
+            }
+            $replacement = $this->getVideoObject($url, $width, $height);
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
+        }
+        return $txt;
     }
     
     /**
@@ -86,12 +113,12 @@ class parse4flv extends object
      * @access private
      *                 
      */
-    private function getVideoObject($videoId)
+    private function getVideoObject($videoId, $width=320, $height=240)
     {
     	$player = $this->objConfig->getsiteRoot().$this->getResourceUri('flvplay.swf');
     	$skin = $this->objConfig->getsiteRoot().$this->getResourceUri('flvskin.swf');
     	$sskin = str_replace(".swf",'',$skin);
-        return '<object width="320" height="240" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
+        return '<object width="' . $width . '" height="' . $height . '" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
         		codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"> 
         		<param name="salign" value="lt"> 
         		<param name="quality" value="high">   
@@ -99,10 +126,34 @@ class parse4flv extends object
         		<param name="wmode" value="transparent"> 
         		<param name="movie" value="'.$player.'"> 
         		<param name="FlashVars" value="&amp;streamName='.$videoId.'&amp;skinName='.$sskin.'&amp;autoPlay=false&amp;autoRewind=true">  
-        		<embed width="320" height="240" flashvars="&amp;streamName='.$videoId.'&amp;autoPlay=false&amp;autoRewind=true&amp;skinName='.$sskin.'" 
+        		<embed width="' . $width . '" height="' . $height . '" flashvars="&amp;streamName='.$videoId.'&amp;autoPlay=false&amp;autoRewind=true&amp;skinName='.$sskin.'" 
         		quality="high" scale="noscale" salign="LT" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" 
         		src="'.$player.'" wmode="transparent"> </embed>
         		</object>';
+    }
+    
+    /**
+     * 
+     * Method to set up the parameter / value pairs for th efilter
+     * @access public
+     * @return VOID
+     * 
+     */
+    public function setUpPage()
+    {
+        if (isset($this->objExpar->url)) {
+            $this->id = $this->objExpar->url;
+        } else {
+            $this->id=NULL;
+        }
+        
+        if (isset($this->objExpar->width)) {
+            $this->id = $this->objExpar->width;
+        } else {
+            $this->id=NULL;
+        }
+        
+        
     }
     
 }
