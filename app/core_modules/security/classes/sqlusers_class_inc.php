@@ -63,14 +63,23 @@ class sqlUsers extends dbtable
         $sdata['userId']=$info['userId'];
         $sdata['username']=$info['username'];
         $sdata['title']=$info['title'];
-        $sdata['firstname']=$info['firstName'];
+        //Workaround for possible inconsistancy in array index conventions and SQL fields
+        if (isset($info['firstName'])){
+            $sdata['firstname']=$info['firstName'];
+        } else {
+            $sdata['firstname']=$info['firstname'];
+        }
         $sdata['surname']=$info['surname'];
         $sdata['PASS']=sha1($info['password']);
         $sdata['CreationDate']=$cdate;
         if (isset($info['howCreated'])){
             $sdata['howCreated']=$info['howCreated'];
         }
-        $sdata['emailAddress']=$info['emailAddress'];
+        if (isset($info['emailAddress'])){
+            $sdata['emailaddress']=$info['emailAddress'];
+        } else {
+            $sdata['emailaddress']=$info['emailaddress'];
+        }
         $sdata['sex']=$info['sex'];
         $sdata['country']=$info['country'];
         

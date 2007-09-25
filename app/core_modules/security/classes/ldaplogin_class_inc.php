@@ -130,8 +130,8 @@ class ldaplogin extends object
         $data=ldap_get_entries($ldapconn, $find);
         $results['username']=$username;
         $results['surname']=$data[0]['surname'][0];
-        $results['firstName']=$data[0]['givenname'][0];
-        $results['emailAddress']=$data[0]['mail'][0];
+        $results['firstname']=$data[0]['givenname'][0];
+        $results['emailaddress']=$data[0]['mail'][0];
         if (isset($data[0][$this->usernumber][0]) && is_numeric($data[0][$this->usernumber][0]))
         {
             $results['userid']=$data[0][$this->usernumber][0];

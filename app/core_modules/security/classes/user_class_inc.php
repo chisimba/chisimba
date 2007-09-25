@@ -260,14 +260,14 @@ class user extends dbTable
         if (is_array($info)) // if LDAP has confirmed login
         {
             $data=$this->lookupData($username);
-            if (is_array($data) || $this->valueExists('userId',$info['userId']))// if we already have this user
+            if (is_array($data) || $this->valueExists('userid',$info['userid']))// if we already have this user
             {
                 $this->_record=$data;
             } else { // new user
                 // Build up an array of the user's info
-                if ($info['userId']==FALSE)
+                if ($info['userid']==FALSE)
                 {
-                    $info['userId']=mt_rand(1000,9999).date('ymd');
+                    $info['userid']=mt_rand(1000,9999).date('ymd');
                     $info['sex']='';
                     $info['accessLevel']='guests';
                     $info['howCreated']='LDAP';
@@ -282,7 +282,7 @@ class user extends dbTable
                         $objAlumni=$this->getObject('alumniusers','useradmin');
                         $objAlumni->insert(
                             array(
-                                'userid'=>$info['userId'],
+                                'userid'=>$info['userid'],
                                 'firstname'=>$info['firstName'],
                                 'surname'=>$info['surname']
                             )
