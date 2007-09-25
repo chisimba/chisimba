@@ -105,28 +105,7 @@ class washout extends object
 		foreach ($this->classes as $parser) {
 			try {
 				$currentParser = $parser;
-				//The timeline parser needs the timeline module's class
-				if($currentParser == 'parse4timeline')
-				{
-					if(file_exists($this->objConfig->getModulePath() . 'timeline/classes/'))
-					{
-						$objCurrentParser = $this->getObject($currentParser, 'filters');
-					}
-					else {
-						continue;
-					}
-				}
-				//The simplemap parser needs the simplemap module's class
-				if($currentParser == 'parse4simplemap')
-				{
-					if(file_exists($this->objConfig->getModulePath() . 'simplemap/classes/'))
-					{
-						$objCurrentParser = $this->getObject($currentParser, 'filters');
-					}
-					else {
-						continue;
-					}
-				}
+                // Note: check for timeline and simplemap removed as it is now in the filter iteself
 				$objCurrentParser = $this->getObject($currentParser, 'filters');
 				$txt = $objCurrentParser->parse($txt);
 			}
