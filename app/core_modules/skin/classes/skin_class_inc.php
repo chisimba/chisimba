@@ -21,7 +21,8 @@ class skin extends object
         $this->loadClass('button','htmlelements');
         $this->objConfig = $this->getObject('altconfig','config');
         //Option to suppress XML
-        if ($this->objConfig->getNoXML()=='1'){
+        $xmlflag=$this->objConfig->getNoXML();
+        if (($xmlflag=='1')||($xmlflag==TRUE)||($xmlflag=='TRUE')){
             $this->setVar('pageSuppressXML',TRUE);
         }
         //$this->server = $this->objConfig->serverName();
