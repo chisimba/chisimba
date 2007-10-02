@@ -386,26 +386,26 @@ class dbTable extends object
             $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')"
             if($this->_db->phptype == 'mysql')
             {
-            	$ret = $this->_execute($sql, '');
+            	$this->_execute($sql, '');
             }
             else {
-            	$ret = $this->_db->query($sql);
+            	$this->_db->query($sql);
             }
             $last_id = -1;
         }
         else {
             $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='$tablename'";
             $_ret = $this->_db->queryRow($sql, array());
-            $last_id = $_ret[0]['last_id']
+            $last_id = $_ret[0]['last_id'];
         }
         ++$lastid;
         $sql = "UPDATE sys_autoincr SET last_id = '{$last_id}' WHERE table_name = '{$tablename}'";
         if($this->_db->phptype == 'mysql')
         {
-        	$ret = $this->_execute($sql, '');
+        	$this->_execute($sql, '');
         }
         else {
-        	$ret = $this->_db->query($sql);
+        	$this->_db->query($sql);
         }
         if (empty($fields['id'])) {
             $id = "init" . "_" . $last_id;
