@@ -384,12 +384,12 @@ class dbTable extends object
         $fieldValues = '';
         $params = '';
 
-        if (empty($fields['id'])) {
-            $id = "init" . "_" . rand(1000,9999) . "_" . time();
-            $fields['id'] = $id;
-        } else {
-            $id = $fields['id'];
-        }
+        //if (empty($fields['id'])) {
+        //    $id = "init" . "_" . rand(1000,9999) . "_" . time();
+        //    $fields['id'] = $id;
+        //} else {
+        //    $id = $fields['id'];
+        //}
         $keys = array_keys($fields);
         $comma = "";
         foreach($keys as $key) {
