@@ -383,7 +383,7 @@ class dbTable extends object
         $sql = "SELECT COUNT(*) AS count FROM sys_autoincr WHERE table_name='{$tablename}'";
         $rs = $this->_db->queryAll($sql);
         if ($rs[0]['count'] == 0) {
-            $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')"
+            $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')";
             if($this->_db->phptype == 'mysql')
             {
             	$this->_execute($sql, '');
