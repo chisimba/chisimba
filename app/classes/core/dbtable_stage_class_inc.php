@@ -394,11 +394,11 @@ class dbTable extends object
             $last_id = -1;
         }
         else {
-            $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='$tablename'";
+            $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='{$tablename}'";
             $_ret = $this->_db->queryRow($sql, array());
             $last_id = $_ret[0]['last_id'];
         }
-        $last_id = $last_id++;
+        $last_id = $last_id + 1;
         $sql = "UPDATE sys_autoincr SET last_id = '{$last_id}' WHERE table_name = '{$tablename}'";
         if($this->_db->phptype == 'mysql')
         {
