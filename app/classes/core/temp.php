@@ -380,16 +380,44 @@ class dbTable extends object
             $tablename = $this->_tableName;
         }
 
-        $fieldnames = '';
-        $fieldValues = '';
-        $params = '';
-
+        $sql = "SELECT COUNT(*) AS count FROM sys_autoincr WHERE table_name='{$tablename}'";
+        $rs = $this->_db->queryAll($sql);
+        if ($rs[0]['count'] == 0) {
+            $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')"
+            if($this->_db->phptype == 'mysql')
+            {
+            	$ret = $this->_execute($sql, '');
+            }
+            else {
+            	$ret = $this->_db->query($sql);
+            }
+            $last_id = -1;
+        }
+        else {
+            $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='$tablename'";
+            $_ret = $this->_db->queryRow($sql, array());
+            $last_id = $_ret[0]['last_id']
+        }
+        ++$lastid;
+        $sql = "UPDATE sys_autoincr SET last_id = '{$last_id}' WHERE table_name = '{$tablename}'";
+        if($this->_db->phptype == 'mysql')
+        {
+        	$ret = $this->_execute($sql, '');
+        }
+        else {
+        	$ret = $this->_db->query($sql);
+        }
         if (empty($fields['id'])) {
-            $id = "init" . "_" . rand(1000,9999) . "_" . time();
+            $id = "init" . "_" . $last_id;
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
         }
+
+        $fieldnames = '';
+        $fieldValues = '';
+        $params = '';
+
         $keys = array_keys($fields);
         $comma = "";
         foreach($keys as $key) {
