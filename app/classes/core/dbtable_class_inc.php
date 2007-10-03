@@ -2,24 +2,24 @@
 
 /**
  * dbTable Class
- * 
+ *
  * Database abstraction layer.
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -49,9 +49,9 @@ require_once "lib/logging.php";
 
 /**
  * dbTable class
- * 
+ *
  * This class encapsulates all database functions and methods. All modules that require database access should extend this base class.
- * 
+ *
  * @category  Chisimba
  * @package   core
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -99,7 +99,7 @@ class dbTable extends object
      * The db object
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
     private $_db = null;
 
@@ -114,7 +114,7 @@ class dbTable extends object
      * Are we in a transaction?
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
     private $_inTransaction = false;
 
@@ -122,7 +122,7 @@ class dbTable extends object
      * property to hold the last id inserted into the db
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
     private $_lastId = null;
 
@@ -130,7 +130,7 @@ class dbTable extends object
      * Property to hold the portability object for queries against multiple RDBM's
      *
      * @access private
-     * @var    object 
+     * @var    object
      */
     private $_portability;
 
@@ -138,31 +138,31 @@ class dbTable extends object
      * Property to handle the error reporting
      *
      * @access private
-     * @var    string 
+     * @var    string
      */
     private $debug = FALSE;
-    
+
     /**
      * Description for public
      * @var    boolean
-     * @access public 
+     * @access public
      */
     public $adm = FALSE;
-    
+
     public $objMemcache = FALSE;
-	
+
 	protected $cacheTTL = 3600;
 
 
     /**
     * Method to initialise the dbTable object.
     *
-    * @access public  
+    * @access public
     * @param  string   $tableName     The name of the table this object encapsulates
     * @param  boolean  $mirror        Whether to mirror these operations (defaults to TRUE)
     * @param  PEAR     $              ::MDB2 $pearDb The PEAR::MDB2 object to use (defaults to use the global connection)
     * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
-    * @return void    
+    * @return void
     */
     public function init($tableName, $pearDb = null,
         $errorCallback = "globalPearErrorCallback")
@@ -296,7 +296,7 @@ class dbTable extends object
         	}
         	$ret = $this->getArray($stmt);
 		}
-		
+
 		return $ret;
     }
 
@@ -516,8 +516,8 @@ class dbTable extends object
     * of a single conceptual operation.
     *
     * @access public
-    * @param  void  
-    * @return void  
+    * @param  void
+    * @return void
     */
     public function beginTransaction()
     {
@@ -530,7 +530,7 @@ class dbTable extends object
     /**
     * Method to commit a transaction.
     *
-    * @param  void  
+    * @param  void
     * @return set    property _inTransaction
     * @access public
     */
@@ -547,8 +547,8 @@ class dbTable extends object
     /**
     * Method to rollback a transaction.
     *
-    * @param  void  
-    * @return void  
+    * @param  void
+    * @return void
     * @access public
     */
     public function rollbackTransaction()
@@ -573,16 +573,59 @@ class dbTable extends object
             $tablename = $this->_tableName;
         }
 
-        $fieldnames = '';
-        $fieldValues = '';
-        $params = '';
+        /*
+        // Implement a proper auto-generated id.
+        // Note that the table sys_autoincr needs
+        // to exist for this solution to work.
+
+        $sql = "SELECT COUNT(*) AS count FROM sys_autoincr WHERE table_name='{$tablename}'";
+        $rs = $this->_db->queryAll($sql);
+        if ($rs[0]['count'] == 0) {
+            $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')";
+            if($this->_db->phptype == 'mysql')
+            {
+            	$this->_execute($sql, '');
+            }
+            else {
+            	$this->_db->query($sql);
+            }
+            $last_id = -1;
+        }
+        else {
+            $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='{$tablename}'";
+            $_ret = $this->_db->queryRow($sql, array());
+            $last_id = $_ret['last_id'];
+        }
+        $last_id = $last_id + 1;
+        $sql = "UPDATE sys_autoincr SET last_id = '{$last_id}' WHERE table_name = '{$tablename}'";
+        echo "[$sql]";
+        if($this->_db->phptype == 'mysql')
+        {
+        	$this->_execute($sql, '');
+        }
+        else {
+        	$this->_db->query($sql);
+        }
+        if (empty($fields['id'])) {
+            $id = "init" . "_" . $last_id;
+            $fields['id'] = $id;
+        } else {
+            $id = $fields['id'];
+        }
+        */
 
         if (empty($fields['id'])) {
+            //$id = $this->_serverName . "_" . $last_id;
             $id = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
         }
+
+        $fieldnames = '';
+        $fieldValues = '';
+        $params = '';
+
         $keys = array_keys($fields);
         $comma = "";
         foreach($keys as $key) {
@@ -771,7 +814,7 @@ class dbTable extends object
     * Method to fetch the primary key value of the last insert operation
     *
     * @return mixed  Primary key value of last insert.
-    * @param  void  
+    * @param  void
     * @access public
     */
     public function getLastInsertId()
@@ -783,7 +826,7 @@ class dbTable extends object
     * The error callback function, defers to configured error handler
     *
     * @param  string $error
-    * @return void  
+    * @return void
     * @access public
     */
     public function errorCallback($error)
@@ -873,7 +916,7 @@ class dbTable extends object
     * appended.
     *
     * @return string The generated ID
-    * @param  void  
+    * @param  void
     * @access public
     */
     public function generateId()
