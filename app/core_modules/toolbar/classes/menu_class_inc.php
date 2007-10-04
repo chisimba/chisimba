@@ -29,7 +29,7 @@ class menu extends object
     * @access private
     */
     private $contextCode = '';
-    
+
     /**
     * Method to construct the class.
     **/
@@ -69,7 +69,7 @@ class menu extends object
     function menuBar()
     {
         $access = 2;
-        
+
         if($this->objUser->isAdmin()){
             $access = 1;
         }
@@ -113,14 +113,14 @@ class menu extends object
     function isVisible($data)
     {
         $i=0; $menu=array(); $visModules = array();
-        
+
         if($this->context){
             $visibleMod = $this->objDbConMod->getContextModules($this->contextCode);
             foreach($visibleMod as $vis){
                 $visModules[] = $vis['moduleid'];
             }
         }
-        
+
         foreach($data as $item){
             if($this->tools->checkPermissions($item, $this->context)){
                 if(!empty($item['category'])){
@@ -136,7 +136,7 @@ class menu extends object
                                 $menu[$item['category']][]=$item['module'];
                             }
                             break;
-                        
+
                         default:
                             $menu[$item['category']][]=$item['module'];
                     }
@@ -187,7 +187,7 @@ class menu extends object
                 $action = isset($catArr[1]) ? $catArr[1] : '';
                 $catArr2 = explode('_', $catArr[0]);
                 $category = isset($catArr2[1]) ? strtolower($catArr2[1]) : strtolower($item['module']);
-                
+
                 $text = $this->objLanguage->code2Txt('mod_'.$module.'_'.$category, $module);
                 $this->flatMenu->addItem($module, $text, $action);
             }
@@ -209,7 +209,7 @@ class menu extends object
                 $objToolMod = $this->getObject('newtoolbar', $toolBar);
                 return $objToolMod->createToolbar();
             }
-            
+
             $toolbarType = $this->objSysConfig->getValue('TOOLBAR_TYPE', 'toolbar');
             switch(strtolower($toolbarType)){
                 case 'flat':
@@ -237,23 +237,23 @@ class menu extends object
             $this->unsetSession('toolbar');
         }
     }
-    
+
     /**
     * Method to create a flat toolbar
-    * 
+    *
     * @access private
     */
     private function createFlatToolbar()
     {
         $access = 2;
-        
+
         if($this->objUser->isAdmin()){
             $access = 1;
         }
-        
+
         $modList = $this->dbmenu->getFlatModules($access, $this->context);
         $modules = array();
-        
+
         // Check permissions
         if(!empty($modList)){
             foreach($modList as $item){
@@ -263,11 +263,11 @@ class menu extends object
             }
         }
         $menu = $this->buildFlatMenu($modules);
-        
+
         $navbar = '<div id="menu">'.$menu.'</div>';
         return $navbar;
     }
-    
+
     /**
     * Method to create the standard toolbar
     */
@@ -293,7 +293,7 @@ class menu extends object
         if($pause){
             $iconList .= $pause.'&nbsp;&nbsp;';
         }
-        
+
         $helpBtn = $this->tools->getHelp();
         if($helpBtn){
             $iconList .= $helpBtn.'&nbsp;&nbsp;';
@@ -305,7 +305,7 @@ class menu extends object
 
         return $navbar;
     }
-    
+
     /**
     * Method to get extra parameters
     *
@@ -314,11 +314,11 @@ class menu extends object
     * @param array $bodyOnload The array of parameters for body onload
     * @return
     */
-    public function getParams($headerParams = array(), $bodyOnLoad = array())
+    public function getParams(&$headerParams, &$bodyOnLoad)
     {
         // get from the tools class
         $params = $this->tools->params;
-        
+
         if(!empty($params)){
             foreach($params as $key => $item){
                 // append new parameter
@@ -333,7 +333,7 @@ class menu extends object
                             $headerParams[] = $item;
                         }
                         break;
-                        
+
                     case 'bodyOnLoad':
                         if(!is_array($bodyOnLoad) || empty($bodyOnLoad)){
                             $bodyOnLoad = array();

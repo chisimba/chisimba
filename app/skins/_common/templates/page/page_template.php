@@ -5,7 +5,7 @@ if (!isset($pageSuppressToolbar)) {
    $toolbar = $menu->show();
 
    // get any header params or body onload parameters for objects on the toolbar
-   $menu->getParams(&$headerParams, &$bodyOnLoad);
+   $menu->getParams($headerParams, $bodyOnLoad);
 }
 
 
