@@ -140,6 +140,10 @@ class languageConfig extends object
 			$this->_siteConf = $this->getObject('altconfig','config');
 			$dsn = $this->_parseDSN(KEWL_DB_DSN); //$this->_siteConf->getDsn());
 			$this->lang = &Translation2::factory($driver, $dsn, $params);
+			if (PEAR::isError($this->lang)) {
+				// echo $this->lang->getMessage(); die();
+				throw new customException($this->lang->getMessage());
+			}
 			$this->lang =& $this->lang->getDecorator('CacheMemory');
 			
 			$this->lang =& $this->lang->getDecorator('SpecialChars');
