@@ -143,6 +143,7 @@ class languageConfig extends object
 			if (PEAR::isError($this->lang)) {
 				// echo $this->lang->getMessage(); die();
 				throw new customException($this->lang->getMessage());
+				die();
 			}
 			$this->lang =& $this->lang->getDecorator('CacheMemory');
 			
