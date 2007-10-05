@@ -219,56 +219,56 @@ class dateandtime extends object
     {
         $mo=strtolower($mo);
         switch($mo){
-        	case "jan":
+            case "jan":
             case "january":
-        		return "01";
-        		break;
-        	case "feb":
+                return "01";
+                break;
+            case "feb":
             case "february":
-        		return "02";
-        		break;
-        	case "mar":
+                return "02";
+                break;
+            case "mar":
             case "march":
-        		return "03";
-        		break;
-        	case "apr":
+                return "03";
+                break;
+            case "apr":
             case "april":
-        		return "04";
-        		break;
-        	case "may":
-        		return "05";
-        		break;
-        	case "jun":
+                return "04";
+                break;
+            case "may":
+                return "05";
+                break;
+            case "jun":
             case "june":
-        		return "06";
-        		break;
-        	case "jul":
+                return "06";
+                break;
+            case "jul":
             case "july":
-        		return "07";
-        		break;
-        	case "aug":
+                return "07";
+                break;
+            case "aug":
             case "august":
-        		return "08";
-        		break;
-        	case "sep":
+                return "08";
+                break;
+            case "sep":
             case "september":
-        		return "09";
-        		break;
-        	case "oct":
+                return "09";
+                break;
+            case "oct":
             case "october":
-        		return "10";
-        		break;
-        	case "nov":
+                return "10";
+                break;
+            case "nov":
             case "november":
-        		return "11";
-        		break;
-        	case "dec":
+                return "11";
+                break;
+            case "dec":
             case "december":
-        		return "12";
-        		break;
-        	default:
+                return "12";
+                break;
+            default:
                 $this->objLanguage =  $this->getObject("language", "language");
-        		die($this->objLanguage->languageText("mod_datetime_unrecogmont").": ".$mo."!");
+                die($this->objLanguage->languageText("mod_datetime_unrecogmont").": ".$mo."!");
                 break;
         } // switch
     } //function numericMonth
@@ -537,9 +537,9 @@ class dateandtime extends object
     {
         if($numMonth < 1 || $numMonth > 12)
         {
-        	return FALSE;
+            return FALSE;
         }
-    	$calMes["01"] = $this->objLanguage->languageText("mod_datetime_january" );
+        $calMes["01"] = $this->objLanguage->languageText("mod_datetime_january" );
         $calMes["1"] = $this->objLanguage->languageText("mod_datetime_january" );
         $calMes["02"] = $this->objLanguage->languageText("mod_datetime_february" );
         $calMes["2"] = $this->objLanguage->languageText("mod_datetime_february" );
@@ -946,13 +946,13 @@ class dateandtime extends object
     *
     * @example $time_start = microtime_float();
     *
-    * 	// Sleep for a while
-    * 	usleep(100);
+    *     // Sleep for a while
+    *     usleep(100);
     *
-    * 	$time_end = microtime_float();
-    * 	$time = $time_end - $time_start;
+    *     $time_end = microtime_float();
+    *     $time = $time_end - $time_start;
     *
-    * 	echo "Did nothing in $time seconds\n";
+    *     echo "Did nothing in $time seconds\n";
     * @access public
     * @param void
     * @return void
@@ -981,7 +981,7 @@ class dateandtime extends object
                 break;
         }
     }
-    
+
     /**
      * Function to convert seconds into a time format
      *
@@ -992,15 +992,15 @@ class dateandtime extends object
     {
         $seconds = $time % 60;
         $minutes = ($time - $seconds) / 60;
-        
+
         if ($seconds < 10) {
             $seconds = '0'.$seconds;
         }
-        
+
         if ($minutes < 10) {
             $minutes = '0'.$minutes;
         }
-        
+
         if ($minutes > 59) {
             $hour = ($minutes - ($minutes % 60)) / 60;
             $minutes = $minutes % 60;
@@ -1013,48 +1013,48 @@ class dateandtime extends object
     /**
     * Calculates the difference for two given dates, and returns the result
     * in specified unit.
-	* Formats supported
-	* 		unitts = unix timestamp
-	*		dbts	= database timestamp (not date format) [YYYY-mm-dd hh:mm:ss]
-	*		default = [dd-mm-YYYY hh:mm:ss]
+    * Formats supported
+    *         unitts = unix timestamp
+    *        dbts    = database timestamp (not date format) [YYYY-mm-dd hh:mm:ss]
+    *        default = [dd-mm-YYYY hh:mm:ss]
     *
     * @access public
     * @param string $ Initial date (format: [dd-mm-YYYY hh:mm:ss], hh is in 24hrs format)
     * @param string $ Last date (format: [dd-mm-YYYY hh:mm:ss], hh is in 24hrs format)
     * @param char $ 'd' to obtain results as days, 'h' for hours, 'm' for minutes, 's' for seconds, and 'a' to get an indexed array of days, hours, minutes, and seconds
-	* @param string format for the source dates 
+    * @param string format for the source dates
     * @return mixed The result in the unit specified (float for all cases, except when unit='a', in which case an indexed array), or null if it could not be obtained
     */
     public function getDateDifference($dateFrom, $dateTo, $unit = 'd', $format = 'default')
     {
-		$date1 = null;
-		$date2 = null;
+        $date1 = null;
+        $date2 = null;
         $difference = null;
-		
-		switch($format) {
-			case "unixts":
-				$date1 = $dateFrom;
-				$date2 = $dateTo;
-				break;
 
-			case "dbts":
-				$date1 = $this->sqlToUnixTime($dateFrom);
-				$date2 = $this->sqlToUnixTime($dateTo);
-				break;
+        switch($format) {
+            case "unixts":
+                $date1 = $dateFrom;
+                $date2 = $dateTo;
+                break;
 
-			default:
-        		$dateFromElements = split(' ', $dateFrom);
-		        $dateToElements = split(' ', $dateTo);
+            case "dbts":
+                $date1 = $this->sqlToUnixTime($dateFrom);
+                $date2 = $this->sqlToUnixTime($dateTo);
+                break;
 
-		        $dateFromDateElements = split('-', $dateFromElements[0]);
-       			$dateFromTimeElements = split(':', $dateFromElements[1]);
-		        $dateToDateElements = split('-', $dateToElements[0]);
-   				$dateToTimeElements = split(':', $dateToElements[1]);
-				// Get unix timestamp for both dates
-				$date1 = mktime($dateFromTimeElements[0], $dateFromTimeElements[1], $dateFromTimeElements[2], $dateFromDateElements[1], $dateFromDateElements[0], $dateFromDateElements[2]);
-				$date2 = mktime($dateToTimeElements[0], $dateToTimeElements[1], $dateToTimeElements[2], $dateToDateElements[1], $dateToDateElements[0], $dateToDateElements[2]);
-				break;
-		}
+            default:
+                $dateFromElements = split(' ', $dateFrom);
+                $dateToElements = split(' ', $dateTo);
+
+                $dateFromDateElements = split('-', $dateFromElements[0]);
+                   $dateFromTimeElements = split(':', $dateFromElements[1]);
+                $dateToDateElements = split('-', $dateToElements[0]);
+                   $dateToTimeElements = split(':', $dateToElements[1]);
+                // Get unix timestamp for both dates
+                $date1 = mktime($dateFromTimeElements[0], $dateFromTimeElements[1], $dateFromTimeElements[2], $dateFromDateElements[1], $dateFromDateElements[0], $dateFromDateElements[2]);
+                $date2 = mktime($dateToTimeElements[0], $dateToTimeElements[1], $dateToTimeElements[2], $dateToDateElements[1], $dateToDateElements[0], $dateToDateElements[2]);
+                break;
+        }
 
 
         if ($date1 > $date2) {
@@ -1150,23 +1150,296 @@ class dateandtime extends object
         return $difference;
     }
 
-	/** 
-	* Return MySQL or PostGresSQL timestamps as Unix timestamps
-	* taken from comments in http://www.php.net/manual/en/function.mktime.php
-	* 
-	* @access public
-	* @param string database timestamp
-	* @return string unix timestamp
-	*/
-	public function sqlToUnixTime($timestamp)
-	{
-		$date_time = split(' ', $timestamp);
+    /**
+    * Return MySQL or PostGresSQL timestamps as Unix timestamps
+    * taken from comments in http://www.php.net/manual/en/function.mktime.php
+    *
+    * @access public
+    * @param string database timestamp
+    * @return string unix timestamp
+    */
+    public function sqlToUnixTime($timestamp)
+    {
+        $date_time = split(' ', $timestamp);
 
-		$date = split('-', $date_time[0]);
-		$time = split(':', $date_time[1]);
+        $date = split('-', $date_time[0]);
+        $time = split(':', $date_time[1]);
 
-		return mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
-	}
+        return mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
+    }
+
+    /**
+    * Method to convert a date to a timestamp
+    *
+    * @access public
+    * @param date $givenDate Date to convert
+    * @return string Timestamp of the date
+    */
+    public function convertDateToTimestamp ($givenDate = NULL)
+    {
+        if(is_null($givenDate))
+        {
+            return $givenDate;
+        }
+        $date = explode('-',$givenDate);
+
+        return mktime('0','0','0',$date[1], $date[2], $date[0]);
+    }
+
+    /**
+    * Method to convert a timestamp to a date
+    *
+    * @access public
+    * @param string $timestamp Timestamp to convert
+    * @param string $format format the date should be returned in
+    * @return string formatted date
+    */
+    public function convertTimestampToDate ($timestamp, $format=NULL)
+    {
+        if (!isset($format)) {
+            $format = 'Y-m-d';
+        }
+        return date ($format, $timestamp);
+    }
+
+    /**
+    * Method to find the last date for a month
+    *
+    * @access public
+    * @param int $month Month Number
+    * @param int $year Year to find the date in.
+    * @param string $format format the date should be returned in
+    * @return string formatted date
+    */
+    public function lastDateMonth ($month, $year, $format=NULL)
+    {
+        // set the date to be the first date of the last month
+        $newdate = $year.'-'.($month+1).'-1';
+
+        // convert this date to a timestamp
+        $timestamp = $this->convertDateToTimestamp($newdate);
+
+        // subtract one day from the timestamp
+        $lastdaytimestamp = $timestamp - $this->secondsInDay(1);
+
+        // convert back to a readable format
+        return $this->convertTimestampToDate($lastdaytimestamp, $format);
+    }
+
+    /**
+    * Method to find the previous date for a given date
+    *
+    * @access public
+    * @param string $date Given Date for the day
+    * @param string $format format the date should be returned in
+    * @return string formatted date containing previous date
+    */
+    public function previousDay($date, $format=NULL)
+    {
+        $timestamp = $this->convertDateToTimestamp($date); // convert this date to a timestamp
+        $timestamp = $timestamp - $this->secondsInDay(1);    // subtract one day from the timestamp
+        return $this->convertTimestampToDate($timestamp, $format); // convert back to a readable format
+    }
+
+    /**
+    * Method to find the next date for a given date
+    *
+    * @access public
+    * @param string $date Given Date for the day
+    * @param string $format format the date should be returned in
+    * @return string formatted date containing next date
+    */
+    public function nextDay($date, $format=NULL)
+    {
+        // convert this date to a timestamp
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        // subtract one day from the timestamp
+        $timestamp = $timestamp + $this->secondsInDay(1);
+
+        // convert back to a readable format
+        return $this->convertTimestampToDate($timestamp, $format);
+    }
+
+    /**
+    * Method to find the day of a month for a given date
+    *
+    * @access public
+    * @param string $date Given Date for the day
+    * @return int Day of the Month
+    */
+    public function dayofMonth($date)
+    {
+        // convert this date to a timestamp
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        return $this->convertTimestampToDate($timestamp, 'j');
+    }
+
+    /**
+    * Method to find the month number for a given date
+    *
+    * @access public
+    * @param string $date Given Date for the day
+    * @return int Month number
+    */
+    public function getMonthNumber($date)
+    {
+        // convert this date to a timestamp
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        return $this->convertTimestampToDate($timestamp, 'n');
+    }
+
+    /**
+    * Method to find the year for a given date
+    *
+    * @access public
+    * @param string $date Given Date for the day
+    * @return int Year number
+    */
+    public function getYearNumber($date)
+    {
+        // convert this date to a timestamp
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        return $this->convertTimestampToDate($timestamp, 'Y');
+    }
+
+    /**
+    * This function calculate the amount of seconds in a day for the given number of days.
+    * Used to add / subtract in timestamps
+    *
+    * @access public
+    * @param int $numDays Number of Days
+    * @return int Number of seconds
+    */
+    public function secondsInDay ($numDays = 1)
+    {
+        // multiply by hours, minutes, seconds
+        return $numDays * 24 * 60 * 60;
+    }
+
+    /**
+    * Method to find the previous month and year
+    *
+    * @access public
+    * @param string $month Current Month
+    * @param string $year Current Year
+    * @return array Array with previous month and year
+    */
+    public function previousMonthYear($month, $year)
+    {
+        $month = $month-1;
+        if ($month == 0) {
+            $month = 12;
+            $year = $year-1;
+        }
+
+        return array('month'=>$month, 'year'=>$year);
+    }
+
+    /**
+    * Method to find the next month and year
+    *
+    * @access public
+    * @param string $month Current Month
+    * @param string $year Current Year
+    * @return array Array with next month and year
+    */
+    public function nextMonthYear($month, $year)
+    {
+        $month = $month+1;
+        if ($month == 13) {
+            $month = 1;
+            $year = $year+1;
+        }
+
+        return array('month'=>$month, 'year'=>$year);
+    }
+
+    /**
+    * Method to find the month and year for a given date
+    *
+    * @access public
+    * @param string $date Current Date
+    * @return array Array with month and year
+    */
+    public function getMonthYear($date)
+    {
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        $month = $this->convertTimestampToDate($timestamp, 'n');
+
+        $year = $this->convertTimestampToDate($timestamp, 'Y');
+
+        return array('month'=>$month, 'year'=>$year);
+    }
+
+    /**
+     * Method to reformat date string
+     *
+     * @access public
+     * @param string $date
+     * @return string date
+     */
+    public function reformatDateSmallMonth ($date)
+    {
+        $timestamp = $this->convertDateToTimestamp($date);
+
+        $month = $this->convertTimestampToDate($timestamp, 'n');
+        $year = $this->convertTimestampToDate($timestamp, 'Y');
+        $day = $this->convertTimestampToDate($timestamp, 'j');
+
+        $return = $day.' '.$this->months3letter[($month-1)];
+
+        if ($year != date('Y')) {
+            $return .= ' '.$year;
+        }
+        return $return;
+    }
+
+    /**
+    * Method to find the difference between two dates
+    *
+    * @access public
+    * @param string $date1 First Date
+    * @param string $date1 Second Date
+    * @return array Array containing difference in terms of days, hours, minutes and seconds
+    */
+    public function dateDifference($date1, $date2) {
+        $s = strtotime($date2)-strtotime($date1);
+        $d = intval($s/86400);
+        $s -= $d*86400;
+        $h = intval($s/3600);
+        $s -= $h*3600;
+        $m = intval($s/60);
+        $s -= $m*60;
+        return array("d"=>$d,"h"=>$h,"m"=>$m,"s"=>$s);
+    }
+
+    /**
+    * This functions takes two dates, and checks if the latter is greater than the former.
+    * If not, swop them around to make it so.
+    *
+    * @access public
+    * @param string $date1 First Date
+    * @param string $date1 Second Date
+    * @return void
+    */
+    public function smallDateBigDate(&$date1, &$date2)
+    {
+        $date1timestamp = $this->convertDateToTimestamp($date1);
+        $date2timestamp = $this->convertDateToTimestamp($date2);
+
+        if ($date1timestamp > $date2timestamp) {
+            $temp = $date1;
+            $date1 = $date2;
+            $date2 = $temp;
+        }
+
+        return;
+    }
 
     /*------------------------- PRIVATE METHODS BELOW LINE ---------------------*/
 
