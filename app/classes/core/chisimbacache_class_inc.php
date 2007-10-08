@@ -16,6 +16,7 @@ $GLOBALS['kewl_entry_point_run'])
 class chisimbacache extends Memcache
 {
 	static private $objMem = NULL;
+	static private $objServers = array();
 	
 	/**
 	 * Singleton method for memcache servers
@@ -25,31 +26,37 @@ class chisimbacache extends Memcache
 	 * @param array $servers
 	 * @return memcahed instance
 	 */
-	static function getMem($servers = array(array('ip' => 'localhost', 'port' => 11211)))
+	static function getMem()
 	{
+		$servers = self::getServers();
 		if(self::$objMem == NULL)
 		{
 			self::$objMem = new Memcache;
+			// connect to the memcache server(s)
 			foreach($servers as $cache)
 			{
-				self::$objMem->addServer($cache['ip'], $cache['port']);
-			}
-			//connect to the memcache server(s)
-			//self::$objMem->addServer('172.16.65.208', 11211);
-            //self::$objMem->addServer('172.16.65.208', 11212);
-			//self::$objMem->addServer('172.16.65.208', 11213);
-			//self::$objMem->addServer('172.16.65.208', 11214);
-			//self::$objMem->addServer('172.16.65.208', 11215);
-			//self::$objMem->addServer('172.16.65.208', 11216);
-			//self::$objMem->addServer('localhost', 11211);
-			//self::$objMem->addServer('localhost', 11212);
-			//self::$objMem->addServer('localhost', 11213);
-			//self::$objMem->addServer('localhost', 11214);
-			//self::$objMem->addServer('localhost', 11215);
-			//self::$objMem->addServer('localhost', 11216);
+				self::$objMem->addServer($cache['ip'], (int)$cache['port']);
+			}	
 		}
 		
 		return self::$objMem;
+	}
+	
+	public function getServers()
+	{
+		$filename = 'cache.config';
+		if(!file_exists($filename))
+		{
+			touch($filename);
+			chmod($filename, 0777);
+		}
+		$servarr = file($filename);
+		foreach($servarr as $servers)
+		{
+			$serv = explode(', ', $servers);
+			$cache[] = array('ip' => $serv[0], 'port' => $serv[1]);
+		}
+		return $cache;
 	}
 }
 ?>
