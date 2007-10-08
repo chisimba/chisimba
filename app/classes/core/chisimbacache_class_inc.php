@@ -29,14 +29,17 @@ class chisimbacache extends Memcache
 	static function getMem()
 	{
 		$servers = self::getServers();
-		if(self::$objMem == NULL)
+		if(!empty($servers))
 		{
-			self::$objMem = new Memcache;
-			// connect to the memcache server(s)
-			foreach($servers as $cache)
+			if(self::$objMem == NULL)
 			{
-				self::$objMem->addServer($cache['ip'], (int)$cache['port']);
-			}	
+				self::$objMem = new Memcache;
+				// connect to the memcache server(s)
+				foreach($servers as $cache)
+				{
+					self::$objMem->addServer($cache['ip'], (int)$cache['port']);
+				}		
+			}
 		}
 		
 		return self::$objMem;
@@ -51,6 +54,11 @@ class chisimbacache extends Memcache
 			chmod($filename, 0777);
 		}
 		$servarr = file($filename);
+		if(empty($servarr))
+		{
+			$cache = array(array('ip' => 'localhost', 'port' => 11211));
+			return $cache;
+		}
 		foreach($servarr as $servers)
 		{
 			$serv = explode(', ', $servers);
