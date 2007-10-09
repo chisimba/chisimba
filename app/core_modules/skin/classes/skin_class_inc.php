@@ -305,7 +305,7 @@ class skin extends object
     public function siteSearchBox()
     {
     	$this->loadClass('label', 'htmlelements');
-    	$slabel = new label($this->objLanguage->languageText('mod_lucene_sitesearch', 'lucene') .':', 'input_sitesearch');
+    	$slabel = new label($this->objLanguage->languageText('mod_lucene_sitesearch', 'lucene') .':', 'input_query');
     	$this->loadClass('textinput', 'htmlelements');
         $sform = new form('query', $this->uri(array('action' => 'searchresults'),'lucene'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
