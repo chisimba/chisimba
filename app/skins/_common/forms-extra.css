@@ -1,0 +1,116 @@
+/* Text inputs */
+
+input[type=text],
+input[type=password],
+input:not([type]),
+textarea {
+  border: 1px solid ThreeDShadow;
+  margin: 2px;
+  padding: 3px 3px;
+}
+
+/* Buttons */
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+select {
+  color: ButtonText !important;
+  background-color: Window !important;
+  background: Window url("form-widgets/button.png") repeat-x bottom right !important;
+  border: 2px solid ThreeDShadow !important;
+  -moz-border-top-colors: ThreeDShadow ThreeDHighlight;
+  -moz-border-right-colors: ThreeDShadow Window;
+  -moz-border-bottom-colors: ThreeDShadow Window;
+  -moz-border-left-colors: ThreeDShadow ThreeDHighlight;
+  margin: 2px !important;
+  padding: 0px 1px !important;
+  -moz-border-radius: 1px !important;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover {
+  background-color: ThreeDHighlight !important;
+}
+
+/* Radio buttons */
+
+input[type="radio"] {
+  width: 13px !important;
+  background-image: url("form-widgets/radio.png") !important;
+  -moz-border-radius: 0 !important;
+  border: none !important;
+  background-color: inherit !important;
+}
+
+input[type="radio"]:focus:not([class]):not([id]):not([style]) {
+  border:none !important;
+}
+
+input[type="radio"]:focus {
+  border:none !important;
+}
+
+input[type="radio"]:active:focus {
+  border:none !important;
+}
+
+input[type="radio"]:checked {
+  background-image: url("form-widgets/radio-checked.png") !important;
+}
+
+input[type="radio"][disabled],
+input[type="radio"][disabled]:hover {
+  border: none !important;
+}
+
+*::-moz-radio {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+/* Checkboxes */
+
+input[type="checkbox"] {
+  width: 12px !important;
+  height: 12px !important;
+  border-width: 0 !important;
+  background-image: url("form-widgets/checkbox.png") !important;
+  background-color: -moz-Field !important;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url("form-widgets/checkbox-checked.png") !important;
+}
+
+/* Dropdowns  */
+
+select,
+select:not([size]),
+select[size="0"],
+select[size="1"] {
+  color: ButtonText !important;
+  background-color: Window !important;
+  background: Window url("form-widgets/button.png") repeat-x bottom right !important;
+  border: 2px solid ThreeDShadow !important;
+  -moz-border-top-colors: ThreeDShadow ThreeDHighlight;
+  -moz-border-right-colors: ThreeDShadow Window;
+  -moz-border-bottom-colors: ThreeDShadow Window;
+  -moz-border-left-colors: ThreeDShadow ThreeDHighlight;
+  margin: 2px !important;
+  padding: 0px 1px !important;
+  -moz-border-radius: 1px !important;
+}
+
+select > input[type="button"]{
+  width: 6px !important;
+  border: none !important;
+  background: transparent url("form-widgets/droparrow.png") no-repeat center center !important;
+}
+
+select > input[type="button"]:focus {
+}
+
