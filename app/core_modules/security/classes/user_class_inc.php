@@ -73,6 +73,7 @@ class user extends dbTable
 
     /**
     * Get the desired login type.
+    * This method is currently not in use - 2007-10-11
     * @return the login method to use, currently ldap or default
     */
     public function loginMethod()
@@ -103,7 +104,13 @@ class user extends dbTable
     public function authenticateUser($username, $password)
     {
         $username = trim($username);
-        //$password = sha1(trim($password)); //we don't do this here, we do it later.
+        $this->objAuth=$this->getObject('authenticate');
+        $result= $this->objAuth->authenticateUser($username,$password);
+       
+        return $result;
+
+
+        /** 
         // Login via the chosen method
         switch($this->loginMethod()) {
             case 'ldap':
@@ -113,6 +120,7 @@ class user extends dbTable
             default:
                 die('Unknown login method');
         }
+        **/
     }
 
     /**
@@ -150,6 +158,7 @@ class user extends dbTable
    /**
    * Method to do the database login based on the passed
    * values of username and password
+   * Depreciated 2007-10-11
    * @param string $username The username supplied in the login
    * @param string $password The password supplied in the login
    * @return TRUE|FALSE Boolean indication of success of login
@@ -250,6 +259,7 @@ class user extends dbTable
 
     /**
     * Method to do the LDAP login against an LDAP database
+    * Depreciated 2007-10-11
     * @param string $username The username supplied in the login
     * @param string $password The password supplied in the login
     */
@@ -277,17 +287,6 @@ class user extends dbTable
                     // To create the new user on the KNG system.
                     $tbl=$this->newObject('sqlusers','security');
                     $id=$tbl->addUser($info);
-                    //Check for Alumni status and add to table accordingly
-                    if ($this->objConfig->isAlumni()){
-                        $objAlumni=$this->getObject('alumniusers','useradmin');
-                        $objAlumni->insert(
-                            array(
-                                'userid'=>$info['userid'],
-                                'firstname'=>$info['firstName'],
-                                'surname'=>$info['surname']
-                            )
-                        );
-                    }
                     // If LDAP confirms the user is an Academic,
                     // add as a site-lecturer in KNG groups.
                     if ($objldap->isAcademic($username)){

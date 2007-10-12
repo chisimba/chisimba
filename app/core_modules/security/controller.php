@@ -85,7 +85,9 @@ class security extends controller
                 // php version must be >=4.3.3 for this to work
                 session_regenerate_id();
             }
-            $this->objUser->storeInSession();
+            // Session is now handled by authentication classes.
+            //$this->objUser->storeInSession();
+            
             //Validate the current skin Session or set it if not present
             //Skin is also passed as a hidden input
             $this->objSkin->validateSkinSession();

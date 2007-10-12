@@ -5,7 +5,7 @@
 * 
 * Plugin authenticatoin class to authenticate a user via a database
 * 
-* @author Derek Keats
+* @author Derek Keats, James Scoble
 * @category Chisimba
 * @package security
 * @copyright AVOIR
