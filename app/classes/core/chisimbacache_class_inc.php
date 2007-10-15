@@ -57,32 +57,21 @@ class chisimbacache extends Memcache
 		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
     		$num = count($data);
     		for ($c=0; $c < $num; $c++) {
-        			$serv = explode('|', $data[$c]);
-					$cache[] = array('ip' => $serv[0], 'port' => $serv[1]); 
+					$cache[] = array('ip' => $data[0], 'port' => $data[1]); 
     		}
 		}
 		fclose($handle);
 		if(empty($cache))
 		{
 			$cache = array('ip' => 'localhost', 'port' => 11211);
-			$cacherec = array("localhost|11211");
+			$cacherec = array($cache);
 			$handle = fopen($filename, 'wb');
-			fputcsv($handle, $cacherec);
+			foreach($cacherec as $rec)
+			{
+				fputcsv($handle, $rec);
+			}
 			fclose($handle);
 		}
-		/*
-		$servarr = //file($filename); //maybe do this as a csv? speed issues?
-		if(empty($servarr))
-		{
-			$cache = array(array('ip' => 'localhost', 'port' => 11211));
-			return $cache;
-		}
-		foreach($servarr as $servers)
-		{
-			$serv = explode(', ', $servers);
-			$cache[] = array('ip' => $serv[0], 'port' => $serv[1]);
-		} */
-		//print_r($cache); die();
 		return $cache;
 	}
 }
