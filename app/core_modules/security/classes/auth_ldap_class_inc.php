@@ -39,7 +39,7 @@ class auth_ldap extends abauth implements ifauth
         $this->ldapwhere = $this->objConfig->getValue('MOD_SECURITY_LDAPWHERE', 'security');
         if (strlen($this->ldapserver)<3){
             $this->ldapserver="192.102.9.68"; // hard-coded for now - will be changed later
-            $this->usernumber='generationqualifier';
+            $this->ldapuservarname='generationqualifier';
             $this->ldapWhere = "o=UWC";
        }
        // Have to call the parent to init the class properties for sessions
@@ -197,16 +197,16 @@ class auth_ldap extends abauth implements ifauth
     public function getInfo($ldapconn,$username)
     {
         $filter='cn='.$username;
-        $look=array('surname','givenname','mail',$this->usernumber);
+        $look=array('surname','givenname','mail',$this->ldapuservarname);
         $find=ldap_search($ldapconn, $this->ldapWhere, $filter, $look);
         $data=ldap_get_entries($ldapconn, $find);
         $results['username']=$username;
         $results['surname']=$data[0]['surname'][0];
         $results['firstname']=$data[0]['givenname'][0];
         $results['emailaddress']=$data[0]['mail'][0];
-        if (isset($data[0][$this->usernumber][0]) && is_numeric($data[0][$this->usernumber][0]))
+        if (isset($data[0][$this->ldapuservarname][0]) && is_numeric($data[0][$this->ldapuservarname][0]))
         {
-            $results['userid']=$data[0][$this->usernumber][0];
+            $results['userid']=$data[0][$this->ldapuservarname][0];
         } else {
             $results['userid']=FALSE;
         }
