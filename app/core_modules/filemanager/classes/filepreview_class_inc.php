@@ -181,6 +181,8 @@ class filepreview extends object
             case 'avi': return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
             case 'flv': return $this->objFileEmbed->embed($this->file['fullpath'], 'flv', $width, $height+26);
             case 'ogg': return $this->objFileEmbed->embed($this->file['fullpath'], 'ogg', $width, $height+12);
+            case 'mpg':
+            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullpath'], 'mpg', $width, $height+12);
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }

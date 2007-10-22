@@ -107,6 +107,9 @@ class fileembed extends object
                 return $this->showWMV($file, $width, $height);
             case 'avi':
                 return $this->showAVI($file, $width, $height);
+            case 'mpg':
+            case 'mpeg':
+                return $this->showMPG($file, $width, $height);
             case 'flv':
                 return $this->showFLV($file, $width, $height);
             case 'ogg':
@@ -344,6 +347,24 @@ class fileembed extends object
         return '<object data="'.$file.'" width="'.$width.'" height="'.$height.'"
 type="image/svg+xml"
 codebase="http://www.adobe.com/svg/viewer/install/" />';
+    }
+
+    /**
+    * Method to show a MPEG Moview
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
+    * @param string $height Height of Object
+    */
+    function showMPG($file, $width='100%', $height='400')
+    {
+
+        return '<object ID="MediaPlayer" width="'.$width.'" height="'.$height.'"
+CLASSID="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
+STANDBY="Loading Windows Media Player components..."
+TYPE="application/x-oleobject">
+<param name="FileName" value="'.$file.'" />
+<embed TYPE="application/x-mplayer2" src="'.$file.'" name="MediaPlayer"
+width="'.$width.'" height="'.$height.'"></embed></object>';
     }
 
 
