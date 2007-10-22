@@ -2,58 +2,58 @@
 
 /**
  * Class to handle interaction with table tbl_files
- * 
+ *
  * This table lists all files that were uploaded to the system
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       
+ * @see
  */
 
 
 /**
  * Class to handle interaction with table tbl_files
- * 
+ *
  * This table lists all files that were uploaded to the system
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
- * @see       
+ * @see
  */
 class dbfile extends dbTable
 {
-    
+
     /**
     * @var    array   $currentFile Record of Current File working on
     * @access private
     */
     private $currentFile;
-    
+
     /**
     * Constructor
     */
@@ -61,22 +61,22 @@ class dbfile extends dbTable
     {
         parent::init('tbl_files');
         $this->objUser = $this->getObject('user', 'security');
-        
+
         $this->objFileParts = $this->getObject('fileparts', 'files');
-        
+
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objCleanUrl = $this->getObject('cleanurl');
-        
+
         $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
         $this->objFileFolder = $this->getObject('filefolder');
         $this->objMimetypes = $this->getObject('mimetypes', 'files');
-        
+
         $this->objLanguage = $this->getObject('language', 'language');
-        
+
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('formatfilesize', 'files');
     }
-    
+
     /**
     * Method to get the record containing file details
     * @access Public
@@ -90,40 +90,40 @@ class dbfile extends dbTable
             return $this->currentFile;
         } else {
             $file = $this->getRow('id', $fileId);
-            
+
             if ($file != FALSE) {
                 $this->currentFile = $file;
             }
-            
+
             return $file;
         }
-        
+
     }
-    
+
     /**
     * Method to get a single piece of information from a file
     * @access private
     * @param  string  $part   Piece to get
     * @param  string  $fileId Record Id of the File
-    * @return mixed  
+    * @return mixed
     */
     private function getPart($part, $fileId)
     {
         $file = $this->getFile($fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         } else {
-            
+
             if (array_key_exists($part, $file)) {
                 return $file[$part];
             } else {
                 return FALSE;
             }
-            
+
         }
     }
-    
+
     /**
     * Method to get the filename of a file
     * @access public
@@ -134,7 +134,7 @@ class dbfile extends dbTable
     {
         return $this->getPart('filename', $fileId);
     }
-    
+
     /**
     * Method to get the size of a file
     * @access public
@@ -145,7 +145,7 @@ class dbfile extends dbTable
     {
         return $this->getPart('filesize', $fileId);
     }
-    
+
     /**
     * Method to get the version number of a file
     * @access public
@@ -156,7 +156,7 @@ class dbfile extends dbTable
     {
         return $this->getPart('version', $fileId);
     }
-    
+
     /**
     * Method to get the mimetype of a file
     * @access public
@@ -167,7 +167,7 @@ class dbfile extends dbTable
     {
         return $this->getPart('mimetype', $fileId);
     }
-    
+
     /**
     * Method to get the local path to a file
     * @access public
@@ -177,12 +177,12 @@ class dbfile extends dbTable
     public function getFilePath($fileId)
     {
         $path = $this->objConfig->getcontentPath().$this->getPart('path', $fileId);
-        
-        $this->objCleanUrl->cleanUpUrl($path);
-        
+
+        $path = $this->objCleanUrl->cleanUpUrl($path);
+
         return $path;
     }
-    
+
     /**
     * Method to get the absolute path to a file
     * @access public
@@ -192,12 +192,12 @@ class dbfile extends dbTable
     public function getFullFilePath($fileId)
     {
         $path = $this->objConfig->getcontentBasePath().$this->getPart('path', $fileId);
-        
-        $this->objCleanUrl->cleanUpUrl($path);
-        
+
+        $path = $this->objCleanUrl->cleanUpUrl($path);
+
         return $path;
     }
-    
+
     /**
     * Method to add a file
     * @param  string $filename    Name of the File
@@ -217,10 +217,10 @@ class dbfile extends dbTable
         if ($userId == NULL) {
             $userId = $this->objUser->userId();
         }
-        
+
         // Determine extension
         $datatype = $this->objFileParts->getExtension($filename);
-        
+
         return $this->insert(array(
                 'userid' => $userId,
                 'filename' => $filename,
@@ -241,7 +241,7 @@ class dbfile extends dbTable
                 )
             );
     }
-    
+
     /**
     * Method to get All the Files of a User
     * @param  string  $userId            User Id of the User
@@ -253,49 +253,49 @@ class dbfile extends dbTable
     public function getUserFiles($userId, $category=NULL, $restrictfiletype=NULL, $latestVersionOnly=FALSE)
     {
         $where = ' WHERE userid=\''.$userId.'\'';
-        
-        
+
+
         if ($category != NULL) {
             $where .= ' AND category=\''.$category.'\'';
         }
-        
+
         if ($restrictfiletype != NULL && is_array($restrictfiletype) && count($restrictfiletype) > 0) {
-            
+
             $where .= ' AND (';
             $or = '';
-            
+
             foreach ($restrictfiletype as $type)
             {
                 $where .= $or.'datatype = \''.$type.'\' ';
                 $or = ' OR ';
             }
-            
+
             $where .= ')';
         }
-        
+
         $where .= ' ORDER BY version DESC, filename';
-        
+
         $results = $this->getAll($where);
-        
-        
+
+
         // if (!$latestVersionOnly) {
             // $finalResults =& $results;
         // } else {
             // Need to do some processing to get only the latest results
-            
+
             // $finalResults = array();
-            
+
             // foreach ($results as $item)
             // {
-                // if (!array_key_exists($item['filename'], $finalResults)) { 
+                // if (!array_key_exists($item['filename'], $finalResults)) {
                     // $finalResults[$item['filename']] = $item;
-                // } 
+                // }
             // }
         // }
-        
+
         return ($results);
     }
-    
+
     /**
     * Method to get the total number of files for a user
     *
@@ -307,7 +307,7 @@ class dbfile extends dbTable
     {
         return $this->getRecordCount(' WHERE userid=\''.$userId.'\' AND category != \'temp\'');
     }
-    
+
     /**
     * Method to get the total number of unique files for a user, exclude overwrites
     *
@@ -321,7 +321,7 @@ class dbfile extends dbTable
         $result = $this->getArray($sql);
         return count($result);
     }
-    
+
     /**
     * Method to get the categories of files that have been uploaded
     *
@@ -331,10 +331,10 @@ class dbfile extends dbTable
     public function getUserCategories($userId)
     {
         $sql = 'SELECT category FROM tbl_files WHERE userid = \''.$userId.'\' AND category != \'temp\' GROUP BY category ORDER BY category';
-        
+
         return $this->getArray($sql);
     }
-    
+
     /**
     * An alternative way to get information about a file by providing the path
     *
@@ -345,7 +345,7 @@ class dbfile extends dbTable
     {
         return $this->getRow('path', $path);
     }
-    
+
     /**
     * Method to delete a temporary file
     * @param string $id Record Id of the Original File
@@ -353,13 +353,13 @@ class dbfile extends dbTable
     public function deleteTemporaryFile($id)
     {
         $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$id;
-        
+
         if (file_exists($tempFilePath)) {
             unlink($tempFilePath);
         }
-        
+
     }
-    
+
     /**
     * Method to delete a temporary file by providing the path to the file
     * THis function deletes the record as well as the file
@@ -369,7 +369,7 @@ class dbfile extends dbTable
     {
         // Get List of File(s) - Note: User Id is stored in path, hence not required
         $list = $this->getAll(' WHERE path="'.$path.'"');
-        
+
         // Loop through list
         foreach ($list as $item)
         {
@@ -378,21 +378,21 @@ class dbfile extends dbTable
                 $this->delete('id', $item['id']);
                 // Delete Temp Media File Info
                 $this->objMediaFileInfo->delete('fileid', $item['id']);
-                
+
                 // Todo: Delete Temp Document File Info
-                
+
                 // Delete Thumbnail
                 $thumbnail = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$item['id'].'.jpg';
-                
+
                 if (file_exists($thumbnail)) {
                     unlink($thumbnail);
                 }
             }
         }
-        
+
         return;
     }
-    
+
     /**
     * Method to get a list of temporary files for a user
     * @param  string $userId Record Id of the User
@@ -402,7 +402,7 @@ class dbfile extends dbTable
     {
         return $this->getAll('WHERE category = \'temp\' AND userid =\''.$userId.'\'');
     }
-    
+
     /**
     * Method to get the latest version of a file
     * It ignores previous versions, as well as temporary files
@@ -419,7 +419,7 @@ class dbfile extends dbTable
             return FALSE;
         }
     }
-    
+
     /**
     * Method to update the details of a file
     * @param  string  $fileId   Record Id of the File
@@ -440,7 +440,7 @@ class dbfile extends dbTable
                 )
             );
     }
-    
+
     /**
     * Method to get information about a file
     * This function not only gets information about a file,
@@ -452,15 +452,15 @@ class dbfile extends dbTable
     public function getFileInfo($fileId)
     {
         $file = $this->getFile($fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         }
-        
+
         $description = $file['description'];
-        
+
         $mediaInfo = $this->objMediaFileInfo->getRow('fileId', $fileId);
-        
+
         if ($mediaInfo == FALSE) {
             $file['filedescription'] = $description;
             return $file;
@@ -469,9 +469,9 @@ class dbfile extends dbTable
             $result['id'] = $file['id'];
             $result['filedescription'] = $description;
             return $result;
-        } 
+        }
     }
-    
+
     /**
     * Method to get information about a file
     * and return the result in table display format
@@ -481,46 +481,46 @@ class dbfile extends dbTable
     public function getFileInfoTable($fileId)
     {
         $file = $this->getFileInfo($fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         }
-        
+
         $objFileSize = new formatfilesize();
-        
+
         $objTable = $this->newObject('htmltable', 'htmlelements');
-        
+
         $objTable->startRow();
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filetype', 'filemanager', 'File Type').'</strong>', '25%');
         $objTable->addCell(ucwords($file['datatype']), '25%');
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filesize', 'filemanager', 'File Size').'</strong>', '25%');
         $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%');
         $objTable->endRow();
-        
+
         $objTable->startRow();
         // $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_fileversion', 'filemanager', 'File Version').'</strong>', '25%');
         // $objTable->addCell($file['version'], '25%');
-        
+
         $objTable->addCell('<strong>License:</strong>', '25%');
-        
+
         $licenseDisplay = $this->getObject('displaylicense', 'creativecommons');
         $objTable->addCell($licenseDisplay->show($file['license']), '25%');
-        
+
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'filemanager', 'File Category').'</strong>', '25%');
         $objTable->addCell(ucwords($file['category']), '25%');
         $objTable->endRow();
-        
+
         $objTable->startRow();
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_mimetype', 'filemanager', 'Mime Type').'</strong>', '25%');
         $objTable->addCell($file['mimetype'], '25%');
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_dateuploaded', 'filemanager', 'DateUploaded').'</strong>', '25%');
         $objTable->addCell(ucwords($file['datecreated'].' '.$file['timecreated']), '25%');
         $objTable->endRow();
-        
-        
+
+
         return $objTable->show();
     }
-    
+
     /**
     * Method to get media information about a file
     * and return the result in table display format
@@ -530,31 +530,31 @@ class dbfile extends dbTable
     public function getFileMediaInfoTable($fileId)
     {
         $file = $this->getFileInfo($fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         }
-        
+
         if (!array_key_exists('width', $file)) {
             return FALSE;
         }
-        
+
         $objFileSize = new formatfilesize();
-        
+
         $mediaInfoArray = array();
-        
+
         if ($file['width'] != 0) {
             $mediaInfoArray['info_width'] = $file['width'];
         }
-        
+
         if ($file['height'] != 0) {
             $mediaInfoArray['info_height'] = $file['height'];
         }
-        
+
         if ($file['playtime'] != 0) {
             $seconds = $file['playtime'] % 60;
             $minutes = ($file['playtime'] - $seconds) / 60;
-            
+
             if ($minutes > 59) {
                 $hour = ($minutes - ($minutes % 60)) / 60;
                 $minutes = $minutes % 60;
@@ -564,50 +564,50 @@ class dbfile extends dbTable
             }
             $mediaInfoArray['info_playtime'] = $str;
         }
-        
+
         if ($file['framerate'] != 0) {
             $mediaInfoArray['info_framerate'] = $file['framerate'];
         }
-        
+
         if ($file['bitrate'] != 0) {
             $mediaInfoArray['info_bitrate'] = $file['bitrate'];
         }
-        
+
         if ($file['samplerate'] != 0) {
             $mediaInfoArray['info_samplerate'] = $file['samplerate'];
         }
-        
+
         if ($file['title'] != '') {
             $mediaInfoArray['info_title'] = $file['title'];
         }
-        
+
         if ($file['artist'] != '') {
             $mediaInfoArray['info_artist'] = $file['artist'];
         }
-        
+
         if ($file['year'] != '') {
             $mediaInfoArray['info_year'] = $file['year'];
         }
-        
+
         if ($file['url'] != '') {
             $mediaInfoArray['info_url'] = $file['url'];
         }
-        
+
         if (count($mediaInfoArray) < 1) {
             return FALSE;
         } else {
             $objTable = $this->newObject('htmltable', 'htmlelements');
             $objTable->startRow();
             $rowStarted = TRUE;
-            
+
             $count = 0;
-            
+
             foreach ($mediaInfoArray as $item=>$value)
             {
                 $objTable->addCell($this->objLanguage->languageText('mod_filemanager_'.$item, 'filemanager'), '25%');
                 $objTable->addCell($value, '25%');
                 $count++;
-                
+
                 if ($count % 2 == 0) {
                     $objTable->endRow();
                     $rowStarted = FALSE;
@@ -616,9 +616,9 @@ class dbfile extends dbTable
                         $rowStarted = TRUE;
                     }
                 }
-                
+
             }
-            
+
             if ($rowStarted) {
                 if ($count % 2 == 1) {
                     $objTable->addCell('&nbsp;', '25%');
@@ -626,12 +626,12 @@ class dbfile extends dbTable
                 }
                 $objTable->endRow();
             }
-            
+
             return $objTable->show();
         }
-        
+
     }
-    
+
     /**
     * Method to get the versios of a file.
     * @param  string $fileId Record Id of the File
@@ -640,13 +640,13 @@ class dbfile extends dbTable
     public function getFileHistorySQL($fileId)
     {
         $file = $this->getRow('id', $fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         }
         return $this->getAll(' WHERE filename=\''.$file['filename'].'\' AND userid=\''.$file['userid'].'\' AND category != \'temp\' ORDER BY version DESC');
     }
-    
+
     /**
     * Method to get information about the version history of a file
     * and return the result in table display format
@@ -656,39 +656,39 @@ class dbfile extends dbTable
     public function getFileHistory($fileId)
     {
         $historyList = $this->getFileHistorySQL($fileId);
-        
+
         if ($historyList == FALSE) {
             return FALSE;
         }
-        
+
         $objTable = $this->newObject('htmltable', 'htmlelements');
-        
+
         $objTable->startHeaderRow();
         $objTable->addHeaderCell($this->objLanguage->languageText('word_version', 'filemanager', 'Version'), '25%', NULL, 'center');
         $objTable->addHeaderCell($this->objLanguage->languageText('word_size', 'filemanager', 'Size'), '25%', NULL, 'center');
         $objTable->addHeaderCell($this->objLanguage->languageText('phrase_dateuploaded', 'filemanager', 'Date Uploaded'), '25%', NULL, 'center');
         $objTable->addHeaderCell($this->objLanguage->languageText('phrase_timeuploaded', 'filemanager', 'Time Uploaded'), '25%', NULL, 'center');
         $objTable->endHeaderRow();
-        
+
         $objFileSize = new formatfilesize();
-        
+
         foreach ($historyList as $file)
         {
             $objTable->startRow();
-            
+
             $link = new link($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'], 'filename'=>$file['filename'])));
             $link->link = $this->objLanguage->languageText('word_version', 'filemanager', 'Version').' '.$file['version'];
-            
+
             $objTable->addCell($link->show(), '25%', NULL, 'center');
             $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%', NULL, 'center');
             $objTable->addCell($file['datecreated'], '25%', NULL, 'center');
             $objTable->addCell($file['timecreated'], '25%', NULL, 'center');
             $objTable->endRow();
         }
-        
+
         return $objTable->show();
     }
-    
+
     /**
      * Method to delete a file
      *
@@ -699,14 +699,14 @@ class dbfile extends dbTable
     public function deleteFile($fileId, $includeArchives=FALSE)
     {
         $file = $this->getFile($fileId);
-        
+
         if ($file == FALSE) {
             return FALSE;
         }
-        
+
         if ($includeArchives) {
             $otherFiles = $this->getAll('WHERE filename=\''.$file['filename'].'\' AND userid=\''.$file['userid'].'\' AND id != \''.$fileId.'\'');
-            
+
             if (count($otherFiles) > 0) {
                 foreach ($otherFiles as $otherfile)
                 {
@@ -714,10 +714,10 @@ class dbfile extends dbTable
                 }
             }
         }
-        
+
         return $this->removeFile($file['id'], $file['path']);
     }
-    
+
     /**
      * Method to remove a file from the filesystem
      *
@@ -729,41 +729,42 @@ class dbfile extends dbTable
     {
         // Get Path to File
         $fullFilePath = $this->objConfig->getcontentPath().$filePath;
-        $this->objCleanUrl->cleanUpUrl($filePath);
-        
+        $filePath = $this->objCleanUrl->cleanUpUrl($filePath);
+        $fullFilePath = $this->objCleanUrl->cleanUpUrl($fullFilePath);
+
         // Delete File if it exists
         if (file_exists($fullFilePath)) {
             unlink($fullFilePath);
         }
-        
+
         // Get thumbnail path
         $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
-        $this->objCleanUrl->cleanUpUrl($thumbnailPath);
-        
+        $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
+
         // Delete thumbnail if it exists
         if (file_exists($thumbnailPath)) {
             unlink($thumbnailPath);
         }
-        
+
         // Get html preview path
         $htmlPreviewPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.htm';
-        $this->objCleanUrl->cleanUpUrl($htmlPreviewPath);
-        
+        $htmlPreviewPath = $this->objCleanUrl->cleanUpUrl($htmlPreviewPath);
+
         // Delete thumbnail if it exists
         if (file_exists($htmlPreviewPath)) {
             unlink($htmlPreviewPath);
         }
-        
+
         $objFileTags = $this->getObject('dbfiletags');
-        
-        
+
+
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
         return $this->delete('id', $fileId);
-        
-        
+
+
     }
-    
+
     /**
     * Method to Change the Mimetype of a File
     * @param  string  $fileId,  Record Id of the File
@@ -774,19 +775,19 @@ class dbfile extends dbTable
     {
         // First Check that mimetype is valid and not empty
         if ($mimetype != '' && $this->objMimetypes->isValidMimeType($mimetype)) {
-            
+
             // Next Get the filename
             $filename = $this->getFileName($fileId);
-            
+
             // If file exists, continue
             if ($filename != FALSE) {
-            
+
                 // Get new category based on new mimetype
                 $category = $this->objFileFolder->getFileFolder($filename, $mimetype);
-                
+
                 // Update Database
                 return $this->update('id', $fileId, array('mimetype'=>$mimetype, 'category'=>$category));
-                
+
             } else { // Return False
                 return FALSE;
             }
@@ -794,7 +795,7 @@ class dbfile extends dbTable
             return FALSE;
         }
     }
-    
+
     /**
     * Added function to move a file to another category
     * @param  string  $fileId   Record Id of the File
@@ -806,7 +807,7 @@ class dbfile extends dbTable
         return $this->update('id', $fileId, array('category'=>$category));
     }
 
-    
+
     /**
     * Method to update the paths of files that do not have the filefolder item set
     * This is due to a patch added
@@ -814,103 +815,103 @@ class dbfile extends dbTable
     public function updateFilePath()
     {
         $files = $this->getAll(' WHERE filefolder IS NULL OR filefolder=\'\'');
-        
+
         if (count($files) > 0) {
             foreach ($files as $file) {
                 $this->update('id', $file['id'], array('filefolder'=>dirname($file['path'])));
             }
         }
     }
-    
+
     /**
     * Method to get all files in a particular folder
     * @param  string $folder folderpath
-    * @return array 
+    * @return array
     */
     public function getFolderFiles($folder)
     {
         return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
     }
-    
-	/**
-	* Method to update the license and description of a file
-	* @param string $id Record Id of the File
-	* @param string $description Description of the File
-	* @param string $license License of the File
-	*/
+
+    /**
+    * Method to update the license and description of a file
+    * @param string $id Record Id of the File
+    * @param string $description Description of the File
+    * @param string $license License of the File
+    */
     public function updateDescriptionLicense($id, $description, $license)
     {
         return $this->update('id', $id, array('description'=>$description, 'license'=>$license));
     }
-	
-	/**
-	* Method to get the list of Open Files for a Site
-	*
-	* At the moment, it treats open files as those that are not copyrighted.
-	* @param string/array $category List of Category(s) files should come from. Either array or string
-	* @param string/array $fileTypes List of Filetype(s) files should come from. Either array or string
-	* @return array;
-	*/
-	public function getAllOpenFiles($category=NULL, $fileTypes=NULL)
-	{
-		$categoryWhere = '';
-		
-		if ($category != NULL) {
-			if (is_array($category)) {
-				$categoryWhere = ' AND ( ';
-				$divider = '';
-				
-				foreach ($category as $item)
-				{
-					$categoryWhere .= $divider.' category=\''.$item.'\' ';
-					$divider = ' OR ';
-				}
-				
-				$categoryWhere .= ' ) ';
-			} else {
-				$categoryWhere = ' AND category=\''.$category.'\'';
-			}
-		}
-		
-		$fileTypesWhere = '';
-		
-		if ($fileTypes != NULL) {
-			if (is_array($fileTypes)) {
-				$fileTypesWhere = ' AND ( ';
-				$divider = '';
-				
-				foreach ($fileTypes as $item)
-				{
-					$fileTypesWhere .= $divider.' datatype=\''.$item.'\' ';
-					$divider = ' OR ';
-				}
-				
-				$fileTypesWhere .= ' ) ';
-			} else {
-				$fileTypesWhere = ' AND datatype=\''.$category.'\'';
-			}
-		}
-		
-		return $this->getAll('WHERE license != \'copyright\' '.$categoryWhere.' '.$fileTypesWhere);
-	}
-	
-	/**
-	* Method to get all the open site images
-	* @return array
-	*/
-	public function getAllOpenImages()
-	{
-		return $this->getAllOpenFiles('images');
-	}
-	
-	/**
-	* Method to get all the open site images that can display in a web browser
-	* @return array
-	*/
-	public function getAllOpenWebImages()
-	{
-		return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
-	}
+
+    /**
+    * Method to get the list of Open Files for a Site
+    *
+    * At the moment, it treats open files as those that are not copyrighted.
+    * @param string/array $category List of Category(s) files should come from. Either array or string
+    * @param string/array $fileTypes List of Filetype(s) files should come from. Either array or string
+    * @return array;
+    */
+    public function getAllOpenFiles($category=NULL, $fileTypes=NULL)
+    {
+        $categoryWhere = '';
+
+        if ($category != NULL) {
+            if (is_array($category)) {
+                $categoryWhere = ' AND ( ';
+                $divider = '';
+
+                foreach ($category as $item)
+                {
+                    $categoryWhere .= $divider.' category=\''.$item.'\' ';
+                    $divider = ' OR ';
+                }
+
+                $categoryWhere .= ' ) ';
+            } else {
+                $categoryWhere = ' AND category=\''.$category.'\'';
+            }
+        }
+
+        $fileTypesWhere = '';
+
+        if ($fileTypes != NULL) {
+            if (is_array($fileTypes)) {
+                $fileTypesWhere = ' AND ( ';
+                $divider = '';
+
+                foreach ($fileTypes as $item)
+                {
+                    $fileTypesWhere .= $divider.' datatype=\''.$item.'\' ';
+                    $divider = ' OR ';
+                }
+
+                $fileTypesWhere .= ' ) ';
+            } else {
+                $fileTypesWhere = ' AND datatype=\''.$category.'\'';
+            }
+        }
+
+        return $this->getAll('WHERE license != \'copyright\' '.$categoryWhere.' '.$fileTypesWhere);
+    }
+
+    /**
+    * Method to get all the open site images
+    * @return array
+    */
+    public function getAllOpenImages()
+    {
+        return $this->getAllOpenFiles('images');
+    }
+
+    /**
+    * Method to get all the open site images that can display in a web browser
+    * @return array
+    */
+    public function getAllOpenWebImages()
+    {
+        return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
+    }
 
 
 }

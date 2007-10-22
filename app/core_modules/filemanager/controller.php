@@ -2,29 +2,29 @@
 
 /**
  * Filemanager Controller
- * 
+ *
  * Top level controller for the Chisimba File Manager
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
@@ -33,14 +33,14 @@
 
 /**
  * Filemanager Controller
- * 
+ *
  * Top level controller for the Chisimba File Manager
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
  * @see       core
@@ -69,32 +69,32 @@ class filemanager extends controller
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
     }
-    
-    /**
-	 * Ovveride the login object in the parent class
-	 *
-	 * @param void
-	 * @return bool
-	 * @access public
-	 */
-	public function requiresLogin($action)
-	{
-		if ($action == 'file') {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
 
     /**
-	* Method to process actions to be taken
+     * Ovveride the login object in the parent class
+     *
+     * @param void
+     * @return bool
+     * @access public
+     */
+    public function requiresLogin($action)
+    {
+        if ($action == 'file') {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    /**
+    * Method to process actions to be taken
     *
     * @param string $action String indicating action to be taken
-	*/
+    */
     public function dispatch($action)
     {
         $this->setLayoutTemplate('filemanager_layout_tpl.php');
-        
+
         $this->objFiles->updateFilePath();
 
         switch ($action)
@@ -162,7 +162,7 @@ class filemanager extends controller
                 return $this->filesHome();
         }
     }
-    
+
     /**
     * Method to show the File Manager Home Page
     */
@@ -170,37 +170,37 @@ class filemanager extends controller
     {
         // Get Folder Details
         $folderpath = 'users/'.$this->objUser->userId();
-        
+
         $folderId = $this->objFolders->getFolderId($folderpath);
-        
+
         // Get Folder Details
         $folder = $this->objFolders->getFolder($folderId);
         $this->setVarByRef('folder', $folder);
-        
+
         if ($folderId == FALSE) {
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
 
             $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
-        
+
         }
-        
+
         // update the paths of files that do not have the filefolder item set
         // This is due to a patch added
         $this->objFiles->updateFilePath();
-        
+
         $this->setVar('breadcrumbs', 'My Files');
         $this->setVar('folderpath', 'My Files');
         $this->setVar('folderId', $folderId);
-        
+
         $subfolders = $this->objFolders->getSubFoldersFromPath($folderpath);
         $this->setVarByRef('subfolders', $subfolders);
-        
+
         $files = $this->objFiles->getFolderFiles($folderpath);
         $this->setVarByRef('files', $files);
-        
+
         $objPreviewFolder = $this->getObject('previewfolder');
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
-                
+
         return 'showfolder.php';
     }
 
@@ -211,76 +211,76 @@ class filemanager extends controller
     */
     public function showFile($id, $filename)
     {
-		$this->requiresLogin(FALSE);
+        $this->requiresLogin(FALSE);
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE || $file['filename'] != $filename) {
             die($this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists').'.');
         }
-        
+
         $filePath = $this->objConfig->getcontentPath().$file['path'];
-        $this->objCleanUrl->cleanUpUrl($filePath);
-        
+        $filePath = $this->objCleanUrl->cleanUpUrl($filePath);
+
         if ($file['category'] == 'images') {
-            
+
             $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-            
+
             if ($objSysConfig->getValue('FORCEMAXMODE', 'filemanager') == 'Y') {
-                
-                
-                
+
+
+
                 $forceMaxFilePath = $this->objConfig->getcontentPath().'/filemanager_forcemax/'.$id.'.jpg';
                 $forceMaxFileBasePath = $this->objConfig->getcontentBasePath().'/filemanager_forcemax/'.$id.'.jpg';
                 $originalImage = $this->objConfig->getcontentBasePath().$file['path'];
-                $this->objCleanUrl->cleanUpUrl($originalImage);
-                
-                $this->objCleanUrl->cleanUpUrl($forceMaxFilePath);
-                $this->objCleanUrl->cleanUpUrl($forceMaxFileBasePath);
-                
-                
-                
+                $originalImage = $this->objCleanUrl->cleanUpUrl($originalImage);
+
+                $forceMaxFilePath = $this->objCleanUrl->cleanUpUrl($forceMaxFilePath);
+                $forceMaxFileBasePath = $this->objCleanUrl->cleanUpUrl($forceMaxFileBasePath);
+
+
+
                 // To do: Build in Security on whether user can view file
                 if (file_exists($forceMaxFileBasePath)) {
                     $filePath = $forceMaxFilePath;
                 } else {
                     $width = $objSysConfig->getValue('FORCEMAXWIDTH', 'filemanager');
                     $height = $objSysConfig->getValue('FORCEMAXHEIGHT', 'filemanager');
-                    
+
                     if ($file['width'] == '' || $file['height'] == '') {
                         $fileInfo = getimagesize($originalImage);
-                        
+
                         if ($fileInfo != FALSE) {
                             $file['width'] = $fileInfo[0];
                             $file['height'] = $fileInfo[1];
-                            
+
                             $objMediaFileInfo = $this->getObject('dbmediafileinfo');
                             $objMediaFileInfo->updateWidthHeight($id, $fileInfo[0], $fileInfo[1]);
                         }
                     }
-                    
+
                     if ($file['width'] > $width || $file['height'] > $height) {
                         $imageResize = $this->getObject('imageresize', 'files');
                         $imageResize->setImg($originalImage);
                         $imageResize->resize($width, $height);
-                        
+
                         $objMkDir = $this->newObject('mkdir', 'files');
                         $objMkDir->mkdirs(dirname($forceMaxFileBasePath));
-                        
+
                         $imageResize->store($forceMaxFileBasePath);
-                        
+
                         $filePath = $forceMaxFilePath;
-                        
+
                     } else {
                         $filePath = $this->objConfig->getcontentPath().$file['path'];
                         $this->objCleanUrl->cleanUpUrl($filePath);
                     }
                 }
-            } 
+            }
         }
-        
-        
-        
-        
+
+
+
+
         // To do: Build in Security on whether user can view file
         if (file_exists($filePath)) {
             //echo $filePath;
@@ -288,7 +288,7 @@ class filemanager extends controller
         } else {
             die ('File does not exist');
         }
-    
+
     }
 
 
@@ -310,10 +310,10 @@ class filemanager extends controller
         }
 
         $this->setVarByRef('file', $file);
-        
+
         $tags = $this->objFileTags->getFileTags($id);
         $this->setVarByRef('tags', $tags);
-        
+
         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
         return 'fileinfo_tpl.php';
     }
@@ -323,16 +323,16 @@ class filemanager extends controller
     */
     public function handleUploads()
     {
-        
+
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
-        
+
         if ($folder != FALSE) {
             $this->objUpload->setUploadFolder($folder['folderpath']);
         }
-        
+
         // Upload Files
         $results = $this->objUpload->uploadFiles();
-        
+
         // Check if User entered page by typing in URL
         if ($results == FALSE) {
             return $this->nextAction(NULL);
@@ -348,7 +348,7 @@ class filemanager extends controller
         $messages['folder'] = $this->getParam('folder');
 
         return $this->nextAction('uploadresults', $messages);
-        
+
     }
 
     /**
@@ -359,11 +359,11 @@ class filemanager extends controller
 
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
         $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-        
+
         $this->setVar('overwriteMessage', $this->objUploadMessages->processOverwriteMessages());
 
         $this->objMenuTools->addToBreadCrumbs(array('Upload Results'));
-        
+
         return 'list_uploadresults_tpl.php';
     }
 
@@ -373,7 +373,7 @@ class filemanager extends controller
     public function checkFileOverwrite()
     {
         $this->objMenuTools->addToBreadCrumbs(array('Overwrite Files?'));
-        
+
         return 'list_fileoverwrite_tpl.php';
     }
 
@@ -403,16 +403,16 @@ class filemanager extends controller
     {
         // Create Array of Files that are affected
         $listItem = explode('__', $this->getParam('listitems'));
-        
+
         // Create Array for Results
         $resultInfo = array();
-        
+
         // Loop through each files
         foreach ($listItem as $item)
         {
             // Get the option user has decided - either delete temp or overwrite
             $option = $this->getParam($item);
-            
+
             // Check that Option is Valid
             if ($item != '') {
                 // Take Action based on option
@@ -427,31 +427,31 @@ class filemanager extends controller
                     case 'overwrite':
                         // Create Path to Temp File
                         $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$item;
-                        
+
                         // Get File Record
                         $fileInfo = $this->objFiles->getFileInfo($item);
-                        
+
                         // If Temp File exists and Record Exists
                         // Perform Overwrite
                         if ($fileInfo != FALSE && file_exists($tempFilePath)) {
-                        
+
                             // Generate Path to Existing File
                             $filePath = $this->objConfig->getcontentBasePath().$fileInfo['path'];
-                            
+
                             // Delete Existing File if it exists
                             if (file_exists($filePath)) {
                                 unlink($filePath);
                             }
-                            
+
                             // Move Overwrite File
                             rename($tempFilePath, $filePath);
-                            
+
                             // Todo: Reindex Metadata
-                            
+
                             $resultInfo[$item] = 'overwrite';
                         } else {
                             $this->objFiles->deleteTemporaryFile($item);
-                            
+
                             $resultInfo[$item] = 'cannotoverwrite';
                         }
                         break;
@@ -461,11 +461,11 @@ class filemanager extends controller
                 }
             }
         }
-        
+
         // Generate Flag For Results
         $result = '';
         $divider = '';
-        
+
         if (count($resultInfo) > 0) {
             foreach ($resultInfo as $item=>$action)
             {
@@ -473,13 +473,13 @@ class filemanager extends controller
                 $divider = '____';
             }
         }
-        
+
         $nextAction = $this->getParam('nextaction');
         $nextParams = $this->getParam('nextparams');
 
         return $this->nextAction('overwriteresults', array('result'=>$result, 'nextaction'=>$nextAction, 'nextparams'=>$nextParams));
     }
-    
+
     /**
     * Method to show the Results of the Upload
     *
@@ -487,7 +487,7 @@ class filemanager extends controller
     public function showOverwriteResults()
     {
         $results = $this->getParam('result');
-        
+
         if ($results == '') {
             return $this->nextAction(NULL, 'overwriteresultproblematic');
         } else {
@@ -512,24 +512,24 @@ class filemanager extends controller
     {
         // echo '<pre>';
         // print_r($_POST);
-        
+
         if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
             return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete'));
         } else {
             $files = $this->getParam('files');
-            
+
             $numFiles = 0;
             $numFolders = 0;
-            
+
             $objBackground = $this->newObject('background', 'utilities');
-            
+
             //check the users connection status,
-            //only needs to be done once, then it becomes internal 
+            //only needs to be done once, then it becomes internal
             $status = $objBackground->isUserConn();
 
             //keep the user connection alive, even if browser is closed!
-            $callback = $objBackground->keepAlive(); 
-            
+            $callback = $objBackground->keepAlive();
+
             foreach ($files as $file)
             {
                 if (substr($file, 0, 8) == 'folder__') {
@@ -538,7 +538,7 @@ class filemanager extends controller
                     $numFolders++;
                 } else {
                     $fileDetails = $this->objFiles->getFile($file);
-                    
+
                     // Check if User, and so be able to delete files
                     if ($fileDetails['userid'] = $this->objUser->userId()) {
                         $this->objFiles->deleteFile($file, TRUE);
@@ -546,7 +546,7 @@ class filemanager extends controller
                     }
                 }
             }
-            
+
             $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
 
             if ($this->getParam('folder') != '') {
@@ -575,7 +575,7 @@ class filemanager extends controller
         } else {
             $restriction = explode('____', $this->getParam('restrict'));
         }
-        
+
         $this->setVarByRef('restrictions', $restriction);
 
         if ($this->getParam('mode') == 'fileupload') {
@@ -614,7 +614,7 @@ function checkWindowOpener()
         //$this->setVar('pageSuppressXML', TRUE);
         return 'popup_showfilewindow_tpl.php';
     }
-    
+
     /**
     * Ajax function to send preview of files
     * @param string $fileId Record Id of the File
@@ -638,7 +638,7 @@ function checkWindowOpener()
             echo $this->objFilePreview->previewFile($fileId);
         }
     }
-    
+
     /**
     * Method to show the a window with previews to select an image
     * @param boolean $showFullLinks Flag whether to show full link to file or not
@@ -680,8 +680,8 @@ function checkWindowOpener()
 
         $this->setLayoutTemplate(NULL);
         $this->setVar('pageSuppressBanner', TRUE);
-        
-        
+
+
         if ($showFullLinks) {
             return 'popup_showrealtimeimagewindow_tpl.php';
         } else {
@@ -778,7 +778,7 @@ function checkWindowOpener()
         $settingsArray['value'] = $this->getParam('value');
         $settingsArray['restrict'] = $this->getParam('restrict');
 
-        
+
         // Check if no files were provided
         if ($results['errorcode'] == '4') {
             $settingsArray['error'] = 'nofilesprovided';
@@ -803,8 +803,8 @@ function checkWindowOpener()
         return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
     }
 
-    
-    
+
+
     /**
     * Method to show a folder, and list of files in the folder.
     * @param string $id Record Id of the folder
@@ -812,71 +812,71 @@ function checkWindowOpener()
     function showFolder($id)
     {
         // TODO: Check permission to enter folder
-        
+
         // Get Folder Details
         $folder = $this->objFolders->getFolder($id);
-        
+
         if ($folder == FALSE) {
             return $this->nextAction(NULL);
         }
-        
+
         $this->setVarByRef('folder', $folder);
-        
+
         $this->setVarByRef('folderpath', basename($folder['folderpath']));
-        
+
         $this->setVar('folderId', $id);
-        
+
         $subfolders = $this->objFolders->getSubFolders($id);
         $this->setVarByRef('subfolders', $subfolders);
-        
+
         $files = $this->objFiles->getFolderFiles($folder['folderpath']);
         $this->setVarByRef('files', $files);
-        
+
         $objPreviewFolder = $this->getObject('previewfolder');
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
-        
+
         $breadcrumbs = $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);
-        
+
         return 'showfolder.php';
     }
-    
+
     /**
     * Method to create a folder
     */
     function createFolder()
     {
-        
+
         $parentId = $this->getParam('parentfolder', 'ROOT');
         $foldername = $this->getParam('foldername');
-        
+
         // If no folder name is given, res
         if (trim($foldername) == '') {
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'nofoldernameprovided'));
         }
-        
+
         if (preg_match('/\\\|\/|\\||:|\\*|\\?|"|<|>/', $foldername)) {
-        	return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'illegalcharacters'));
+            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'illegalcharacters'));
         }
-        
+
         if ($parentId == 'ROOT') {
             $folderpath = 'users/'.$this->objUser->userId();
         } else {
             $folder = $this->objFolders->getFolder($parentId);
-            
+
             if ($folder == FALSE) {
                 return $this->nextAction(NULL, array('error'=>'couldnotfindparentfolder'));
             }
             $folderpath = $folder['folderpath'];
         }
-        
-        
+
+
         $this->objMkdir = $this->getObject('mkdir', 'files');
-        
+
         $path = $this->objConfig->getcontentBasePath().'/'.$folderpath.'/'.$foldername;
-            
+
         $result = $this->objMkdir->mkdirs($path);
-        
+
         if ($result) {
             $folderId = $this->objFolders->indexFolder($path);
             return $this->nextAction('viewfolder', array('folder'=>$folderId, 'message'=>'foldercreated'));
@@ -884,7 +884,7 @@ function checkWindowOpener()
             return $this->nextAction(NULL, array('error'=>'couldnotcreatefolder'));
         }
     }
-    
+
     /**
     * Method to delete a folder
     * @param string $id Record Id of the Folder
@@ -893,106 +893,106 @@ function checkWindowOpener()
     {
         // Get the Folder Path
         $folder = $this->objFolders->getFolderPath($id);
-        
+
         $objBackground = $this->newObject('background', 'utilities');
-            
+
         //check the users connection status,
-        //only needs to be done once, then it becomes internal 
+        //only needs to be done once, then it becomes internal
         $status = $objBackground->isUserConn();
 
         //keep the user connection alive, even if browser is closed!
-        $callback = $objBackground->keepAlive(); 
-        
+        $callback = $objBackground->keepAlive();
+
         // Delete the Folder
         $result = $this->objFolders->deleteFolder($id);
-        
+
         //
         $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
-        
-        
+
+
         if ($result == 'norecordoffolder') {
             return $this->nextAction(NULL, array('error'=>'norecordoffolder'));
         }
-        
+
         $resultmessage = $result ? 'folderdeleted' : 'couldnotdeletefolder';
-        
+
         // Get Parent Id based on the Folder Path
         $parentId = $this->objFolders->getFolderId(dirname($folder));
-        
+
         // Redirect to Parent Folder
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
-    
+
     /**
     * Method to extract the contents of an archive
     */
     function extractArchive()
     {
-        
+
         $archiveFileId = $this->getParam('file');
-        
+
         $file = $this->objFiles->getFullFilePath($archiveFileId);
-        
+
         if ($file == FALSE) {
-            return $this->nextAction('viewfolder', array('folder'=>$this->getParam('parentfolder'), 'error'=>'couldnotfindarchive')); 
+            return $this->nextAction('viewfolder', array('folder'=>$this->getParam('parentfolder'), 'error'=>'couldnotfindarchive'));
         } else {
-        
+
             $parentId = $this->getParam('parentfolder');
-            
+
             if ($parentId == 'ROOT') {
                 $parentId = $this->objFolders->getFolderId('users/'.$this->objUser->userId());
             }
-            
+
             $folder = $this->objFolders->getFullFolderPath($parentId);
-            
+
             //echo $folder;
-            
+
             $objBackground = $this->newObject('background', 'utilities');
-            
+
             //check the users connection status,
-            //only needs to be done once, then it becomes internal 
+            //only needs to be done once, then it becomes internal
             $status = $objBackground->isUserConn();
 
             //keep the user connection alive, even if browser is closed!
-            $callback = $objBackground->keepAlive(); 
+            $callback = $objBackground->keepAlive();
 
             $objZip = $this->newObject('wzip', 'utilities');
             $objZip->unzip($file, $folder);
-            
+
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
             $objIndexFileProcessor->indexFolder($folder, $this->objUser->userId());
-            
-            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!"); 
-            
-            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId)); 
+
+            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+
+            return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId));
         }
     }
-    
+
     /**
     * Method to Scan the File System and Index files that are not in the database
     */
     protected function indexFiles()
     {
         $objBackground = $this->newObject('background', 'utilities');
-            
+
         //check the users connection status,
-        //only needs to be done once, then it becomes internal 
+        //only needs to be done once, then it becomes internal
         $status = $objBackground->isUserConn();
 
         //keep the user connection alive, even if browser is closed!
-        $callback = $objBackground->keepAlive(); 
-        
+        $callback = $objBackground->keepAlive();
+
         $objIndexFileProcessor = $this->getObject('indexfileprocessor');
 
         $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
-        
+
         $this->setVarByRef('list', $list);
-        
+
         $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
-        
+
         return 'indexfiles_tpl.php';
     }
-    
+
     /**
     * Method to edit the details of a file
     * @param string $id Record Id of the File
@@ -1000,7 +1000,7 @@ function checkWindowOpener()
     protected function editFileDetails($id)
     {
         $file = $this->objFiles->getFile($id);
-        
+
         if ($file == FALSE) {
             return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
         } else {
@@ -1010,7 +1010,7 @@ function checkWindowOpener()
             return 'editfiledetails_tpl.php';
         }
     }
-    
+
     /**
     * Method to update the details of a file
     */
@@ -1020,21 +1020,21 @@ function checkWindowOpener()
         $description = $this->getParam('description');
         $license = $this->getParam('creativecommons');
         $keywords = $this->getParam('keywords');
-        
+
         if ($id == '') {
             return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
         } else {
             $result = $this->objFiles->updateDescriptionLicense($id, $description, $license);
-            
+
             if ($result) {
                 $this->objFileTags->addFileTags($id, $keywords);
             }
-            
+
             return $this->nextAction('fileinfo', array('id'=>$id, 'message'=>'filedetailsupdated'));
         }
-        
+
     }
-    
+
     /**
     * Method to show a tag cloud for a user's files
     */
@@ -1042,10 +1042,10 @@ function checkWindowOpener()
     {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
         $this->setVarByRef('tagCloudItems', $tagCloudItems);
-        
-        return 'tagcloud_tpl.php';  
+
+        return 'tagcloud_tpl.php';
     }
-    
+
     /**
     * Method to view user's files for a tag
     * @param string $tag
@@ -1055,25 +1055,25 @@ function checkWindowOpener()
         if (trim($tag) == '') {
             return $this->nextAction('tagcloud', array('error'=>'notag'));
         }
-        
+
         $this->setVarByRef('tag', $tag);
-        
+
         $files = $this->objFileTags->getFilesWithTag($this->objUser->userId(), $tag);
         $this->setVarByRef('files', $files);
-        
+
         if (count($files) == 0) {
             return $this->nextAction('tagcloud', array('error'=>'nofileswithtag', 'tag'=>$tag));
         }
-        
+
         $this->setVarByRef('files', $files);
-        
+
         $objPreviewFolder = $this->getObject('previewfolder');
         $table = $objPreviewFolder->previewContent(array(), $files);
         $this->setVarByRef('table', $table);
-        
+
         return 'showfileswithtags_tpl.php';
     }
-    
+
     /**
     * Method to get the thumbnail path of a file
     * @param string $id Record Id of the File
@@ -1082,26 +1082,26 @@ function checkWindowOpener()
     {
         // Get the File Details of the File
         $file = $this->objFiles->getFile($id);
-        
+
         // Check that File Exists
         if ($file == FALSE) {
             return FALSE;
         } else {
             // Load Thumbnails Class
             $objThumbnail = $this->getObject('thumbnails', 'filemanager');
-            
+
             // Get Thumbnail
             $thumb = $objThumbnail->getThumbnail($id, $file['filename']);
-            
+
             // If thumbnail does not exist
             if ($thumb == FALSE) {
                 // Re/create it
                 $objThumbnail->createThumbailFromFile($this->objConfig->getcontentBasePath().'/'.$file['path'], $id);
-                
+
                 // Get Thumbnail
                 $thumb = $objThumbnail->getThumbnail($id, $file['filename']);
             }
-            
+
             // Redirect to thumnail
             header('Location:'.$thumb);
         }

@@ -43,30 +43,30 @@ echo $objHeading->show();
 if (count($files) == 0) {
     echo $this->objLanguage->languageText('mod_filemanager_nomatch', 'filemanager', 'No files matching criteria found');
 } else {
-        
+
     $count = 0;
-    
+
     $fileIdArray = 'fileId = new Array('.count($files).');';
     $filenameArray = 'fileName = new Array('.count($files).');';
-    
+
     $table = $this->newObject('htmltable', 'htmlelements');
-    
+
     $defaultItem = array();
-    
-    
-    
+
+
+
     foreach ($files as $file)
     {
         $link = new link ("javascript:previewFile('".$file['id']."', '".$count."');");
         $link->link = htmlentities($file['filename']);
         $link->title = $previewFile;
-        
+
         $selectLink = new link ("javascript:selectImage('".$file['id']."', '".$count."');");
         $selectLink->link = $insertImage;
-        
-        
+
+
         $thumbImg = $objThumbnail->getThumbnail($file['id'], $file['filename']);
-        
+
         echo '
 <div style="width: 120px; margin-bottom:20px;" class="floatlangdir">
     <div style="line-height:120px; vertical-align:center; text-align:center;">
@@ -77,46 +77,46 @@ if (count($files) == 0) {
     </div>
 </div>
 ';
-        
+
         $path = $this->objConfig->getcontentBasePath().$file['path'];
-        $this->objCleanUrl->cleanUpUrl($path);
-        
+        $path = $this->objCleanUrl->cleanUpUrl($path);
+
         $fileIdArray .= 'fileId['.$count.'] = "'.htmlentities($path).'";';
         $filenameArray .= 'fileName['.$count.'] = \''.$thumbImg.'\';';
-        
+
         if ($count ==0) {
             $defaultItem['id'] = $file['id'];
             $defaultItem['count'] = $count;
         }
-        
+
         if ($defaultValue == $file['id']) {
             $defaultItem['id'] = $file['id'];
             $defaultItem['count'] = $count;
         }
-        
+
         $count++;
     }
     //echo $table->show();
-    
+
     if (count($defaultItem) > 0) {
         //$this->appendArrayVar('bodyOnLoad', "previewFile('".$defaultItem['id']."', '".$defaultItem['count']."');");
     }
-    
+
     $script = '<script type="text/javascript">
 
     '.$fileIdArray.'
-    
+
     '.$filenameArray.'
 </script>';
 
     $this->appendArrayVar('headerParams', $script);
-    
+
     $checkOpenerScript = '
 <script type="text/javascript">
 function selectImage(file, id)
 {
     if (window.opener) {
-        
+
         //alert(fileName[id]);
         window.opener.document.getElementById("imagepreview_'.$inputname.'").src = fileName[id];
         //window.opener.document.getElementById("selectfile_'.$inputname.'").value = fileName[id];
@@ -132,10 +132,10 @@ function selectImage(file, id)
 }
 </script>
         ';
-        
+
         $this->appendArrayVar('headerParams', $checkOpenerScript);
-        
-        
+
+
 }
 
 

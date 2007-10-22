@@ -29,7 +29,7 @@ if (count($files) == 0) {
 } else {
 
     $this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', 'htmlelements'));
-    
+
     $table = $this->newObject('htmltable', 'htmlelements');
     $table->cellpadding = '3';
 
@@ -47,38 +47,38 @@ if (count($files) == 0) {
 
     $objIcon->setIcon('download');
     $downloadIcon = $objIcon->show();
-    
+
     $userfilespath = $this->objConfig->getcontentPath();
 
         foreach ($files as $file)
         {
             $link = new link ($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'], 'type'=>$file['category'], 'filename'=>$file['filename'])));
             $link->link = htmlentities(str_replace('_', ' ', $file['filename']));
-            
+
             $table->startRow();
-            
+
             $checkbox = new checkbox('files[]');
             $checkbox->value = $file['id'];
             $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
-            
+
             $table->addCell($checkbox->show(), 20);
-            
+
             $label = new label($objFileIcons->getFileIcon($file['filename']), htmlentities('input_files_'.$file['filename']));
             $table->addCell($label->show(), 20);
             $table->addCell($link->show());
-            
+
             $table->addCell($filesize->formatsize($file['filesize']), '60', NULL, 'right', 'nowrap');
             //$table->addCell($file['description']);
             //$table->addCell($this->objFormatDateTime->formatDateOnly($file['datecreated']).' - '.$this->objFormatDateTime->formatTime($file['timecreated']), NULL, NULL, 'right', 'nowrap');
-            
+
             $fileDownloadPath = $userfilespath.$file['path'];
-            $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
-            
+            $fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+
             $link = new link ($fileDownloadPath);
             $link->link = $downloadIcon;
-            
+
             $table->addCell($link->show(), '30');
-            
+
             $table->endRow();
         }
 
@@ -87,10 +87,10 @@ if (count($files) == 0) {
 
     $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_deleteselecteditems', 'filemanager', 'Delete Selected Items'));
     $button->setToSubmit();
-    
+
     $selectallbutton = new button ('selectall', $this->objLanguage->languageText('phrase_selectall', 'system', 'Select All'));
     $selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
-    
+
     $deselectallbutton = new button ('deselectall', $this->objLanguage->languageText('phrase_deselectall', 'system', 'Deselect all'));
     $deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
 

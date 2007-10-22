@@ -39,7 +39,7 @@ if (count($tags) == 0) {
     {
         $tagLink = new link ($this->uri(array('action'=>'viewbytag', 'tag'=>$tag)));
         $tagLink->link = $tag;
-        
+
         echo $comma.$tagLink->show();
         $comma = ', ';
     }
@@ -58,8 +58,8 @@ if (array_key_exists('width', $file)) {
 }
 
 $fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
-$this->objCleanUrl->cleanUpUrl($fileDownloadPath);
-            
+$fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+
 $objIcon->setIcon('download');
 $link = new link ($fileDownloadPath);
 $link2 = new link ($fileDownloadPath);
@@ -73,12 +73,12 @@ echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
     $form = new form ('extractarchive', $this->uri(array('action'=>'extractarchive')));
     $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to').': '.$this->objFolders->getTreedropdown($folderId));
-    
+
     $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_extractfiles', 'filemanager', 'Extract Files'));
     $button->setToSubmit();
-    
+
     $form->addToForm($button->show());
-    
+
     $hiddeninput = new hiddeninput ('file', $file['id']);
     $form->addToForm($hiddeninput->show());
     echo $form->show();

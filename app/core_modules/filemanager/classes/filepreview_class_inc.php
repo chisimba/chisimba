@@ -2,44 +2,44 @@
 
 /**
  * Class to present a preview of files
- * 
+ *
  * PHP versions 4 and 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       
+ * @see
  */
 
 
 /**
  * Class to present a preview of files
- * 
+ *
  * @category  Chisimba
  * @package   filemanager
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
- * @see       
+ * @see
  */
 class filepreview extends object
 {
@@ -56,7 +56,7 @@ class filepreview extends object
         $this->objFileEmbed = $this->getObject('fileembed');
         $this->loadClass('link', 'htmlelements');
     }
-    
+
     /**
     * Method to determine which sub folder a file should be placed in
     *
@@ -70,18 +70,18 @@ class filepreview extends object
     function previewFile($fileId)
     {
         $preview = 'No Preview Available';
-        $this->file = $this->objFiles->getFileInfo($fileId);  
+        $this->file = $this->objFiles->getFileInfo($fileId);
         $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
         $this->file['fullpath'] = $this->objConfig->getsiteRoot().$this->file['path'];
         // Fix Up - Try to get file using controller, instead of hard linking to file
-        $this->objCleanurl->cleanUpUrl($this->file['path']);
-        $this->objCleanurl->cleanUpUrl($this->file['fullpath']);
-        
+        $this->file['path'] = $this->objCleanurl->cleanUpUrl($this->file['path']);
+        $this->file['fullpath'] = $this->objCleanurl->cleanUpUrl($this->file['fullpath']);
+
         // Restore Double Slash for http://
         $this->file['fullpath'] = str_replace('http:/', 'http://', $this->file['fullpath']);
-        
+
         $this->file['linkname'] = $this->uri(array('action'=>'file', 'id'=>$this->file['id'], 'filename'=>$this->file['filename']), 'filemanager');
-        
+
         switch ($this->file['category'])
         {
             case 'images': $preview = $this->showImage(); break;
@@ -98,7 +98,7 @@ class filepreview extends object
         }
         return $preview;
     }
-    
+
     /**
     * Method to preview an image
     */
@@ -112,10 +112,10 @@ class filepreview extends object
                 $objImageResize = $this->getObject('imageresize', 'files');
                 $objImageResize->setImg($this->file['path']);
                 $objImageResize->resize(imagesx($objImageResize->image), imagesy($objImageResize->image), TRUE);
-                
+
                 $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/standard_'.$this->file['id'].'.jpg';
                 $objImageResize->store($img);
-                
+
                 return $this->objFileEmbed->embed($this->objConfig->getcontentPath().'filemanager_thumbnails/standard_'.$this->file['id'].'.jpg', 'image');
             }
         } else if ($this->file['datatype'] == 'svg') {
@@ -125,7 +125,7 @@ class filepreview extends object
         }
         //width="270" height="270"'<img src="'.$this->file['linkname'].'"  />';//
     }
-    
+
     /**
     * Method to preview a 3d Object
     */
@@ -139,7 +139,7 @@ class filepreview extends object
             default: return $this->objFileEmbed->embed($this->file['path'], 'unknown');
         }
     }
-    
+
     /**
     * Method to preview a Freemind Map
     */
@@ -147,7 +147,7 @@ class filepreview extends object
     {
         return $this->objFileEmbed->embed($this->file['linkname'], 'freemind');
     }
-    
+
     /**
     * Method to preview an Audio File
     */
@@ -155,24 +155,24 @@ class filepreview extends object
     {
         return $this->objFileEmbed->embed($this->file['linkname'], 'audio');
     }
-    
+
     /**
     * Method to preview a Video
     */
     function showVideo()
     {
         if (array_key_exists('width', $this->file) && $this->file['width'] != '') {
-            $width = $this->file['width'] < 200 ? '200' : $this->file['width']; 
+            $width = $this->file['width'] < 200 ? '200' : $this->file['width'];
         } else {
             $width = '100%';
         }
-        
+
         if (array_key_exists('height', $this->file) && $this->file['height'] != '') {
-            $height = $this->file['height'] < 200 ? '200' : $this->file['height']; 
+            $height = $this->file['height'] < 200 ? '200' : $this->file['height'];
         } else {
             $height = '100%';
         }
-        
+
         switch ($this->file['datatype'])
         {
             case 'mov': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
@@ -184,7 +184,7 @@ class filepreview extends object
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
-    
+
     /**
     * Method to preview a Flash file
     */
@@ -195,16 +195,16 @@ class filepreview extends object
         } else {
             $width = '100%';
         }
-        
+
         if (array_key_exists('height', $this->file) && $this->file['height'] != '') {
             $height = $this->file['height'];
         } else {
             $height = '100%';
         }
-        
+
         return $this->objFileEmbed->embed($this->file['linkname'], 'flash', $width, $height);
     }
-    
+
     /**
     * Method to preview a Script
     */
@@ -212,7 +212,7 @@ class filepreview extends object
     {
         // Get Extension
         $filetype = $this->objFileParts->getExtension($this->file['filename']);
-        
+
         // Convert Extension to Language
         switch ($filetype)
         {
@@ -221,38 +221,38 @@ class filepreview extends object
             case 'js': $filetype = 'javascript'; break;
             case 'py': $filetype = 'python'; break;
         }
-        
+
         // Check if file has been rendered
         if (file_exists($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm')) {
             return '<div style="margin-left: 30px;">'.file_get_contents($this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm').'</div>';
         } else {
             // Open File, Read Contents, Close
-            $handle = fopen ($this->file['path'], "r"); 
-            $contents = fread ($handle, filesize ($this->file['path'])); 
+            $handle = fopen ($this->file['path'], "r");
+            $contents = fread ($handle, filesize ($this->file['path']));
             fclose ($handle);
-            
+
             $objGeshi = $this->getObject('geshiwrapper', 'utilities');
             $objGeshi->source = $contents;
             $objGeshi->language = $filetype;
-            
+
             $objGeshi->startGeshi();
             $objGeshi->enableLineNumbers(2);
-            
+
             $content = stripslashes($objGeshi->show());
-            
+
             $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
             $content = $objCleaner->cleanHtml($content);
-            
+
             // Write to File to Prevent Server Straim
             $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
             $handle = fopen($filename, 'w');
             fwrite($handle, $content);
             fclose($handle);
-            
+
             return $content;
         }
     }
-    
+
     /**
     * Method to show a document
     */
@@ -265,61 +265,61 @@ class filepreview extends object
                     break;
                 } else {
                     // Open File, Read Contents, Close
-                    $handle = fopen ($this->file['path'], "r"); 
-                    $contents = fread ($handle, filesize ($this->file['path'])); 
+                    $handle = fopen ($this->file['path'], "r");
+                    $contents = fread ($handle, filesize ($this->file['path']));
                     fclose ($handle);
-                   
+
                     $this->objFeed = $this->getObject('feeds', 'feed');
                     $feed = $this->objFeed->importString($contents);
-                    
+
                     $link = new link ($feed->link());
                     $link->link = $feed->title();
                     $link->title = $feed->description();
-                    
+
                     // Some replacement to make it XHTML compliant
                     $url = str_replace('&amp;', '&', $link->show());
                     $url = str_replace('&', '&amp;', $url);
-                        
+
                     $content = '<h1>'.$url.'</h1>';
-                    
+
                     foreach ($feed->items as $item)
                     {
                         $link = new link ($item->link());
                         $link->link = $item->title();
-                        
+
                         // Some replacement to make it XHTML compliant
                         $url = str_replace('&amp;', '&', $link->show());
                         $url = str_replace('&', '&amp;', $url);
-                        
+
                         $content .= '<p><strong>'.$url.'</strong><br />';
                         $content .= $item->description().'</p>';
-					}
-                    
+                    }
+
                     $objCleaner = $this->newObject('htmlcleaner' , 'utilities');
                     $content = $objCleaner->cleanHtml($content);
-                    
+
                     // Write to File to Prevent Server Straim
                     $filename = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                     $handle = fopen($filename, 'w');
                     fwrite($handle, $content);
                     fclose($handle);
-                    
+
                     return $content;
                     break;
                 }
             case 'txt':
             case 'html':
             case 'htm':
-            	return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
-            default: 
+                return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+            default:
                 return NULL;
         }
-        
+
     }
-    
-	/**
-	* Method to Preview a Zip File
-	*/
+
+    /**
+    * Method to Preview a Zip File
+    */
     function showArchive()
     {
         if ($this->file['datatype'] == 'zip') {
@@ -329,12 +329,12 @@ class filepreview extends object
             return 'No Preview Available';
         }
     }
-    
+
     /**
      * Short description for function
-     * 
+     *
      * Long description (if any) ...
-     * 
+     *
      * @return string Return description (if any) ...
      * @access public
      */
@@ -342,12 +342,12 @@ class filepreview extends object
     {
         return 'saffas';
     }
-    
+
     /**
      * Short description for function
-     * 
+     *
      * Long description (if any) ...
-     * 
+     *
      * @return object Return description (if any) ...
      * @access public
      */
