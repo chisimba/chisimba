@@ -102,20 +102,6 @@ $objHelp = new domtt();
 	</td>
 
 </tr>
-
-<tr valign="top">
-
-	<td>
-		<?php echo $objHelp->show('Post Login Module','This module will be used after a user logs into the system');?>
-	</td>
-	<td >
-	Default postlogin module?
-	</td>
-	<td>
-	<?php echo $postLogin?>
-	</td>
-
-</tr>
 <tr valign="top">
 	<td>
 	 <?php echo $objHelp->show('Chisimba System Type:','This will determine the set of modules to be registered');?>
