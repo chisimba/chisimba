@@ -300,7 +300,7 @@ class logactivity extends dbTable
         $objMod = $this->getObject('modules', 'modulecatalogue');
         $version = $objMod->getVersion('logger');
         
-        if($version == '0.7'){
+        if($version >= '0.7'){
             // Else Add Additional Fields
             $logArray['previous_id'] = $previousId;
             $logArray['action'] = $action;
