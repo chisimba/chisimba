@@ -56,7 +56,7 @@ class socialbookmarking extends object {
         if ($url == '') {
             return $this->url;
         } else {
-            returnurlencode($url);
+            return urlencode($url);
         }
     }
 
