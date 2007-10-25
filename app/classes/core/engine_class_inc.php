@@ -1275,7 +1275,7 @@ class engine
     * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
     * @returns string $uri the URL
     */
-	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = TRUE)
+	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
 	{
 		if (!empty($action)) {
 			$params['action'] = $action;
@@ -1326,7 +1326,7 @@ class engine
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
-			$uri .= '?'.implode($javascriptCompatibility?'&#38;':'&amp;', $output);
+			$uri .= '?'.implode($javascriptCompatibility?'&'/*'&#38;'*/:'&amp;', $output);
 			// TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
 		}
 		return $uri;
