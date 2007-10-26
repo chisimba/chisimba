@@ -1326,7 +1326,7 @@ class engine
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
-			$uri .= '?'.implode($javascriptCompatibility?'&'/*'&#38;'*/:'&amp;', $output);
+			$uri .= '?'.implode($javascriptCompatibility?'&#38;':'&amp;', $output);
 			// TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
 		}
 		return $uri;
