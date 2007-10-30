@@ -1,3 +1,6 @@
+Options +FollowSymLinks
+Options +Indexes
+
 RewriteEngine on
 
 # Rule for module
