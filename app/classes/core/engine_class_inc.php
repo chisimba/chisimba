@@ -1594,6 +1594,7 @@ class engine
     */
 	private function _loadModule($moduleName)
 	{
+		$moduleName = str_replace("/","", $moduleName);
 		if ($moduleName == '_default') {
             if ($this->_objUser->isLoggedIn()) {
                 $moduleName = $this->_objConfig->getdefaultModuleName();
