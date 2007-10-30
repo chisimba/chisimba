@@ -17,3 +17,6 @@ RewriteRule ^([^,]+),action_([^,]+),id_([^,]+)$ index.php?module=$1&action=$2&id
 #RewriteRule ^m_([^,]+),action_([^,]+)(.+)$ index.php?module=$1&action=$2&%{QUERY_STRING}
 #RewriteRule ^m_([^,]+),action_([^,]+),id_([^,]+)(.+)$ index.php?module=$1&action=$2&id=$3&%{QUERY_STRING} [R]
 
+# Rule to map http://domain.com to http://www.domain.com etc NOTE: Uncomment and Change the URL to suit your install...
+#RewriteCond %{HTTP_HOST} !^www.domain.com$ [NC]
+#RewriteRule ^(.*)$ http://www.domain.com/$1 [R,L]
