@@ -141,7 +141,8 @@ if (isSet($bodyParams)) {
 
 
 			<div id="header">
-				<h1 id="sitename"><span><?php echo $objConfig->getsiteName();?></span></h1>
+			     <img src="skins/sems/images/banner_small.jpg">
+				<!--<h1 id="sitename"><span><?php //echo $objConfig->getsiteName();?></span></h1>-->
 				<?php if ($this->objUser->isLoggedIn()) { ?>
 				<div id="search">
 					<form action="">
