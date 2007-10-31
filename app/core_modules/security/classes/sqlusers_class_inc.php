@@ -82,9 +82,6 @@ class sqlUsers extends dbtable
         }
         $sdata['sex']=$info['sex'];
         $sdata['country']=$info['country'];
-        if (isset($info['staffnumber'])){
-            $sdata['staffnumber']=$info['staffnumber'];
-        }
         
         $id=$this->insert($sdata);
         // No longer creating user folders at this stage - might be used later

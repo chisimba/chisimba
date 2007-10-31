@@ -16,63 +16,22 @@ $GLOBALS['kewl_entry_point_run'])
 class chisimbacache extends Memcache
 {
 	static private $objMem = NULL;
-	static private $objServers = array();
 	
-	/**
-	 * Singleton method for memcache servers
-	 * 
-	 * The Servers array should contain arrays of servers (IP and Port)
-	 *
-	 * @param array $servers
-	 * @return memcahed instance
-	 */
-	static function getMem()
+	static function getMem($servers = array())
 	{
-		$servers = self::getServers();
-		if(!empty($servers))
+		if(self::$objMem == NULL)
 		{
-			if(self::$objMem == NULL)
-			{
-				self::$objMem = new Memcache;
-				// connect to the memcache server(s)
-				foreach($servers as $cache)
-				{
-					self::$objMem->addServer($cache['ip'], (int)$cache['port']);
-				}		
-			}
+			self::$objMem = new Memcache;
+			//connect to the memcache server(s)
+			self::$objMem->addServer('localhost', 11211);
+			//self::$objMem->addServer('localhost', 11212);
+			//self::$objMem->addServer('localhost', 11213);
+			//self::$objMem->addServer('localhost', 11214);
+			//self::$objMem->addServer('localhost', 11215);
+			//self::$objMem->addServer('localhost', 11216);
 		}
 		
 		return self::$objMem;
-	}
-	
-	public function getServers()
-	{
-		$filename = 'cache.config';
-		if(!file_exists($filename))
-		{
-			touch($filename);
-			chmod($filename, 0777);
-		}
-		$handle = fopen($filename, "r");
-		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-    		$num = count($data);
-    		for ($c=0; $c < $num; $c++) {
-					$cache[] = array('ip' => $data[0], 'port' => $data[1]); 
-    		}
-		}
-		fclose($handle);
-		if(empty($cache))
-		{
-			$cache = array('ip' => 'localhost', 'port' => 11211);
-			$cacherec = array($cache);
-			$handle = fopen($filename, 'wb');
-			foreach($cacherec as $rec)
-			{
-				fputcsv($handle, $rec);
-			}
-			fclose($handle);
-		}
-		return $cache;
 	}
 }
 ?>

@@ -10,7 +10,7 @@
 */
 class skin extends object
 {
-
+    
     public $skinFile = 'stylesheet.css';
 
     public function init()
@@ -29,7 +29,7 @@ class skin extends object
 
         // Browser Detection Class
         $this->browserInfo = $this->getObject('browser');
-
+        
         $this->skinRoot = $this->objConfig->getskinRoot();
     }
 
@@ -148,7 +148,7 @@ class skin extends object
         return $objNewForm->show();
 
     }
-
+    
     /**
     * Method to get the list of skins available
     * @return array List of available skins
@@ -177,7 +177,7 @@ class skin extends object
         }
         closedir($dh);
         chdir($currentDir);
-
+        
         return $dirList;
     }
 
@@ -232,8 +232,6 @@ class skin extends object
         $stylesheet = '
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/common_styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/print.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms-extra.css" media="print" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/stylesheet.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/print.css" media="print" />
 				';
@@ -253,7 +251,7 @@ class skin extends object
     {
         return $this->putSkinCssLinks();
     }
-
+    
     /**
     * Method to get the Path to a Skin Template
     * @param string $type Type of Template - Either 'page' or 'layout'
@@ -269,7 +267,7 @@ class skin extends object
         }
         return $this->objConfig->getsiteRootPath().$template;
     }
-
+    
     /**
     * Method to get the Page Template of a Skin
     *
@@ -282,10 +280,10 @@ class skin extends object
         if (file_exists($this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSkin().'/templates/page/page_template.php')) {
             return $this->skinRoot.$this->getSkin().'/templates/page/page_template.php';
         } else {
-            return $this->skinRoot.'_common/templates/page/page_template.php';
+            return $this->skinRoot.'_common/templates/page/page_template.php'; 
         }
     }
-
+    
     /**
     * Method to get the Layout Template of a Skin
     *
@@ -298,16 +296,16 @@ class skin extends object
         if (file_exists($this->objConfig->getsiteRootPath().$this->skinRoot.$this->getSkin().'/templates/layout/layout_template.php')) {
             return $this->skinRoot.$this->getSkin().'/templates/layout/layout_template.php';
         } else {
-            return $this->skinRoot.'_common/templates/layout/layout_template.php';
+            return $this->skinRoot.'_common/templates/layout/layout_template.php'; 
         }
-
+        
         return $this->skinRoot.'_common/templates/layout/layout_template.php';
     }
-
+    
     public function siteSearchBox()
     {
     	$this->loadClass('label', 'htmlelements');
-    	$slabel = new label($this->objLanguage->languageText('mod_lucene_sitesearch', 'lucene') .':', 'input_query');
+    	$slabel = new label($this->objLanguage->languageText('mod_lucene_sitesearch', 'lucene') .':', 'input_sitesearch');
     	$this->loadClass('textinput', 'htmlelements');
         $sform = new form('query', $this->uri(array('action' => 'searchresults'),'lucene'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
@@ -319,7 +317,7 @@ class skin extends object
         $this->objSButton->setToSubmit();
         $sform->addToForm($this->objSButton->show());
         $sform = '<div id="search">'.$sform->show().'</div>';
-
+        
         return $sform;
     }
 

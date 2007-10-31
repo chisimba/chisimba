@@ -246,7 +246,7 @@ class object
      * @param  string $omitServerName flag to produce relative URLs
      * @return mixed  Returns the application URI
      */
-    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility=FALSE)
+    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
     {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
