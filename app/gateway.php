@@ -5,7 +5,7 @@
 *
 * The entry point into the Chisimba flash remoting functionality
 *
-* @author Derek Keats based on Paul Scott's index.php 
+* @author Derek Keats based on Paul Scott's index.php
 *   which was based on methods by Sean Legassick
 *
 */
@@ -23,6 +23,6 @@ require_once 'classes/core/engine_class_inc.php';
 $_globalObjEngine = new engine;
 
 // engine object created by core_classes_inc.php
-$_globalObjEngine->run("flashremote", "browser");
+$_globalObjEngine->run("flashremote", "gateway");
 
 ?>
