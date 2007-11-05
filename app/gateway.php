@@ -19,8 +19,10 @@ if ( !file_exists( 'config/config.xml' ) ) {
 $GLOBALS['kewl_entry_point_run'] = true;
 
 // initialise the engine object
-require_once 'classes/core/engine_class_inc.php';
-$_globalObjEngine = new engine;
+//require_once 'classes/core/engine_class_inc.php';
+require_once 'classes/core/bridge_class_inc.php';
+$objBridge = new bridge;
+$_globalObjEngine = $objBridge->startBridge();
 
 // engine object created by core_classes_inc.php
 $_globalObjEngine->run("flashremote", "gateway");
