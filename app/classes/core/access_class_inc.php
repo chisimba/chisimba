@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Access Class
+ * Access Class.
  * 
  * The Access class handles some of the user authentication and permissions system access.
  * 
@@ -20,16 +19,16 @@
  * Free Software Foundation, Inc., 
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * 
- * @category  Chisimba
- * @package   core
- * @author    Paul Scott <pscott@uwc.ac.za>
- * @copyright 2007 Paul Scott
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
- * @link      http://avoir.uwc.ac.za
- * @see       core
+ * @version    CVS: $Id$
+ * @package    core
+ * @subpackage access
+ * @author     Paul Scott <pscott@uwc.ac.za>
+ * @copyright  2006-2007 AVOIR
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @link       http://avoir.uwc.ac.za
+ * @see        core
  */
-/* -------------------- accesscontrol class ----------------*/
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -42,9 +41,8 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 // end security check
 
-
 /**
- * Access class to control access
+ * Access class to control access.
  * 
  * Access class to control user access and the user ACL and permissions system
  * 
@@ -62,9 +60,8 @@ class access extends object
     /**
      * Constructor for the access class.
      *
-     * @param  object    $objEngine  the engine object reference
-     * @param  string    $moduleName The module name
-     * @return construct for access
+     * @param object $objEngine  the engine object reference
+     * @param string $moduleName The module name
      */
     public function __construct($objEngine, $moduleName)
     {
@@ -73,11 +70,13 @@ class access extends object
 
     /**
      * Method to control access to the module.
+     * 
      * Called by engine before the dispatch method.
      *
-     * @param  object The module controller.
-     * @param  string The action param passed to the dispatch method
-     * @return array  The next action to be done
+     * @param object $module The module controller.
+     * @param string $action The action param passed to the dispatch method
+     * 
+     * @return array The next action to be done
      */
     public function dispatchControl( $module, $action )
     {
@@ -98,7 +97,7 @@ class access extends object
             // Is the action allowed?
             if ( !$this->isValid( $action ) ) {
                 // redirect and indicate the user does not have sufficient access.
-                return $this->nextAction( 'noaction', array('modname'=>$this->moduleName, 'actionname'=>$action), 'redirect' );
+                return $this->nextAction( 'noaction', array('modname' => $this->moduleName, 'actionname' => $action), 'redirect' );
             }
         }
         // Action allowed continue.
@@ -106,12 +105,13 @@ class access extends object
     }
 
     /**
-    * Method to test if the action is valid.
-    *
-    * @param  string the action.
-    * @param  string the default to be used if action does not exist.
-    * @return bool   true|false True if action valid, otherwise False.
-    */
+     * Method to test if the action is valid.
+     *
+     * @param string $action  the action.
+     * @param string $default the default to be used if action does not exist.
+     * 
+     * @return bool true|false True if action valid, otherwise False.
+     */
     public function isValid( $action, $default = TRUE )
     {
         return $this->objDT->isValid($action, $default);
@@ -120,7 +120,8 @@ class access extends object
     /**
      * Method to gather information about the given module.
      *
-     * @param  string The module name.
+     * @param string $moduleName The module name.
+     * 
      * @return string $info
      */
     public function getModuleInformation($moduleName)
@@ -137,8 +138,9 @@ class access extends object
     /**
      * Method to control access to the module based on the modules configuration parameters.
      *
-     * @param  string The module name.
-     * @return array  the next action to be completed.
+     * @param string $moduleName The module name.
+     * 
+     * @return array the next action to be completed.
      */
     public function getPermissions($moduleName)
     {
@@ -146,20 +148,20 @@ class access extends object
         extract( $this->getModuleInformation( $moduleName ) );
         // The module is not registered redirect with option to register.
         if( !$isRegistered ){
-            return $this->nextAction( 'notregistered', array('modname'=>$moduleName), 'redirect' );
+            return $this->nextAction( 'notregistered', array('modname' => $moduleName), 'redirect' );
         }
         // The module is admin only, allow only admin users.
         if( $isAdminMod ) {
             $objUser = $this->getObject('user', 'security');
             if(!$objUser->isAdmin()){
-                return $this->nextAction( 'nopermission', array('modname'=>$moduleName), 'redirect' );
+                return $this->nextAction( 'nopermission', array('modname' => $moduleName), 'redirect' );
             }
         }
         // The module depends on being in a context, redirect if not in a context.
         if( $isContextMod ) {
             $objContext = $this->getObject('dbcontext','context');
             if(!$this->objContext->isInContext()){
-                return $this->nextAction( 'nocontext', array('modname'=>$moduleName), 'redirect' );
+                return $this->nextAction( 'nocontext', array('modname' => $moduleName), 'redirect' );
             }
         }
     }
