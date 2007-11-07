@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /index.php?action=makepdf
+Disallow: /index.php
+
