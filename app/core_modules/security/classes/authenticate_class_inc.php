@@ -45,7 +45,7 @@ class authenticate extends object
 	* login, or reaches the end and login fails.
 	* 
 	*/
-	protected $authChainOfCommand=array('database','ldap');
+	protected $authChainOfCommand=array('database');
 	
     /**
     * 
