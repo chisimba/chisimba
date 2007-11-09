@@ -206,10 +206,19 @@ class auth_ldap extends abauth implements ifauth
         $results['emailaddress']=$data[0]['mail'][0];
         if (isset($data[0][$this->ldapuservarname][0]) && is_numeric($data[0][$this->ldapuservarname][0]))
         {
-            $results['userid']=$data[0][$this->ldapuservarname][0];
+            $usernumber=$data[0][$this->ldapuservarname][0];
         } else {
-            $results['userid']=FALSE;
+            $usernumber=FALSE;
         }
+	// Check for existing account
+	// if the final value is FALSE, a value will be auto-genned later on.
+	$localId=$this->objUser->getUserId($username);
+	if ($localId!=FALSE){
+            $results['userid']=$localId;
+	} else {
+	    $results['userid']=$usernumber;
+	}
+
         $results['title']='';
         $results['logins']='0';
         $results['password']='--LDAP--';
