@@ -1,61 +1,63 @@
 <?php
 /**
 * Class to parse a string (e.g. page content) that contains a presentation
-* item from the a webpresent module, whether local or remote API 
-*  
+* item from the a webpresent module, whether local, URL or remote API
+*
 * PHP version 5
-* 
-* This program is free software; you can redistribute it and/or modify 
-* it under the terms of the GNU General Public License as published by 
-* the Free Software Foundation; either version 2 of the License, or 
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* This program is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* You should have received a copy of the GNU General Public License 
-* along with this program; if not, write to the 
-* Free Software Foundation, Inc., 
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the
+* Free Software Foundation, Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-* 
+*
 * @category  Chisimba
 * @package   filters
 * @author    Derek Keats <dkeats@uwc.ac.za>
 * @copyright 2007 Derek Keats
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
- 
- 
- 
+
+
+
 /**
 *
 * Class to parse a string (e.g. page content) that contains a presentation
-* item from the a webpresent module, whether local or remote API
+* item from the a webpresent module, whether local, URL or remote API
 *
 * @author Derek Keats
-*         
+*
 */
 class parse4wpresent extends object
 {
 	/**
-	* 
+	*
 	* String to hold an error message
-	* @accesss private 
+	* @accesss private
 	*/
 	private $errorMessage;
     public $objConfig;
     public $objLanguage;
     public $objExpar;
-    
+    public $id;
+    public $url;
+
     /**
-     * 
+     *
      * Constructor for the wikipedia parser
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
-     * 
+     *
      */
     function init()
     {
@@ -67,13 +69,13 @@ class parse4wpresent extends object
         require_once($this->getPearResource('XML/RPC/Server.php'));
        // $this->objConfig = $this->getObject('altconfig', 'config');
     }
-    
+
     /**
     *
     * Method to parse the string
     * @param  String $str The string to parse
     * @return The parsed string
-    *                
+    *
     */
     public function parse($txt)
     {
@@ -89,7 +91,7 @@ class parse4wpresent extends object
         	preg_match_all('/\\[WPRESENT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
         	//Get all the ones in links
         	$counter = 0;
-        	
+
         	foreach ($results[0] as $item)
         	{
                 $this->item=$item;
@@ -106,7 +108,10 @@ class parse4wpresent extends object
                     case "remote":
                         $this->setUpPage();
                         $replacement = $this->getByApi();
-                        break; 
+                        break;
+                    case "byurl":
+                        $replacement = $objView->showFlashUrl($this->url);
+                        break;
                     //Default if no type specified is an internal page
                     case "_default":
                     default:
@@ -122,11 +127,11 @@ class parse4wpresent extends object
     }
 
     /**
-     * 
+     *
      * Method to set up the parameter / value pairs for th efilter
      * @access public
      * @return VOID
-     * 
+     *
      */
     public function setUpPage()
     {
@@ -135,8 +140,13 @@ class parse4wpresent extends object
         } else {
             $this->id=NULL;
         }
+        if (isset($this->objExpar->url)) {
+            $this->url = $this->objExpar->url;
+        } else {
+            $this->url=NULL;
+        }
     }
-    
+
 
     public function getByApi()
     {
