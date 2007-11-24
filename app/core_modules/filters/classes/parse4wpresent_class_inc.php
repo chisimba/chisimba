@@ -110,7 +110,7 @@ class parse4wpresent extends object
                         $replacement = $this->getByApi();
                         break;
                     case "byurl":
-                        $replacement = $objView->showFlashUrl($this->url);
+                        $replacement = $this->showFlashUrl($this->url);
                         break;
                     //Default if no type specified is an internal page
                     case "_default":
@@ -145,6 +145,26 @@ class parse4wpresent extends object
         } else {
             $this->url=NULL;
         }
+    }
+
+    /**
+     *
+     * A method to return the flash presentation for rendering in the page
+     * @param string $uri The URL of the flash file to show
+     * @return string the flash file rendered for viewing within a div
+     * @access public
+     *
+     */
+    public function showFlashUrl($uri)
+    {
+         $flashFile = $uri;
+         $flashContent = '
+           <div style="border: 1px solid #000; width: 534px; height: 402px; text-align: center;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="540" height="400">
+           <param name="movie" value="'.$flashFile.'">
+           <param name="quality" value="high">
+           <embed src="'.$flashFile.'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="534" height="402"></embed>
+          </object></div>';
+        return $flashContent;
     }
 
 
