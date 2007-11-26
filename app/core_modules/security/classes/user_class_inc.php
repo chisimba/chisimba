@@ -559,24 +559,22 @@ class user extends dbTable
     */
     public function fullname($userId=NULL) //use NULL as the default and evaluate
     {
-        if (!$userId) {
+        if ($userId==NULL) {
             $fullname=$this->getSession('name');
-            if ($fullname) {
-                $result = $fullname;
-            } else {
+            if ($fullname == NULL) {
                 $result = $this->objLanguage->languageText("error_notloggedin", 'security');
+            } else {
+                $result = $fullname;
             }
         } else {
             //look up third part numeric ID
-
-
             $line = $this->getRow('userid', $userId);
-
-            if ($line)
+			
+            if ($line == FALSE)
             {
-                $result=$line['firstname'].' '.$line['surname'];
-            } else {
                 $result=$this->objLanguage->languageText("error_datanotfound", 'security');
+            } else {
+                $result=$line['firstname'].' '.$line['surname'];
             }
         }
         return $result;
