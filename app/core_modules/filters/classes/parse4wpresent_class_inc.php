@@ -82,7 +82,7 @@ class parse4wpresent extends object
     	//Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the webpresent API module is registered and set a param
-        $isRegistered = $objModule->checkIfRegistered('webpresent', 'webpresent');
+        $isRegistered = TRUE;//$objModule->checkIfRegistered('webpresent', 'webpresent');
         if($isRegistered)
         {
             // Get the viewer object.
@@ -97,13 +97,9 @@ class parse4wpresent extends object
                 $this->item=$item;
             	$str = $results[1][$counter];
             	$ar= $this->objExpar->getArrayParams($str, ",");
+                $this->setupPage();
                 //See what type of call we are making
-                if (isset($this->objExpar->type)) {
-                    $type = $this->objExpar->type;
-                } else {
-                    $type="_default";
-                }
-                switch ($type)
+                switch ($this->type)
                 {
                     case "remote":
                         $this->setUpPage();
@@ -115,7 +111,6 @@ class parse4wpresent extends object
                     //Default if no type specified is an internal page
                     case "_default":
                     default:
-                        $this->setupPage();
                         $replacement = $objView->showFlash($this->id);
                         break;
                 }
@@ -144,6 +139,11 @@ class parse4wpresent extends object
             $this->url = $this->objExpar->url;
         } else {
             $this->url=NULL;
+        }
+        if (isset($this->objExpar->type)) {
+            $this->type = $this->objExpar->type;
+        } else {
+            $this->type="_default";
         }
     }
 
