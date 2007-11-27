@@ -1,60 +1,60 @@
 <?php
 /**
 * Class to parse a string (e.g. page content) that contains a Wiki
-* item from the local wiki, and return the content inside the Chisimba 
+* item from the local wiki, and return the content inside the Chisimba
 * page
-* 
+*
 * PHP version 5
-* 
-* This program is free software; you can redistribute it and/or modify 
-* it under the terms of the GNU General Public License as published by 
-* the Free Software Foundation; either version 2 of the License, or 
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* This program is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* You should have received a copy of the GNU General Public License 
-* along with this program; if not, write to the 
-* Free Software Foundation, Inc., 
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the
+* Free Software Foundation, Inc.,
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-* 
+*
 * @category  Chisimba
 * @package   filters
 * @author    Derek Keats <dkeats@uwc.ac.za>
 * @copyright 2007 Derek Keats
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
- 
- 
- 
+
+
+
 /**
 *
 * Class to parse a string (e.g. page content) that contains a link
 * to a local Wiki page and render the desired content.
 *
 * @author Derek Keats
-*         
+*
 */
 
 class parse4wiki extends object
 {
 	/**
-	* 
+	*
 	* String to hold an error message
-	* @accesss private 
+	* @accesss private
 	*/
 	private $errorMessage;
-    
+
     /**
-     * 
+     *
      * Constructor for the wikipedia parser
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
-     * 
+     *
      */
     function init()
     {
@@ -62,20 +62,20 @@ class parse4wiki extends object
         //Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
     }
-    
+
     /**
     *
     * Method to parse the string
     * @param  String $str The string to parse
     * @return The parsed string
-    *                
+    *
     */
     public function parse($txt)
     {
     	//Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the youtube API module is registered and set a param
-        $isRegistered = $objModule->checkIfRegistered('wikidisplay', 'wiki');
+        $isRegistered = $objModule->checkIfRegistered('wiki', 'wiki');
         if($isRegistered)
         {
         	//Match filters based on a wordpress style
