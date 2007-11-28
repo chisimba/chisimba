@@ -442,6 +442,13 @@ class engine
 			if($this->_objDbConfig->getenable_apc() == 'TRUE')
 			{
 				$this->objAPC = TRUE;
+				// dunno if this is a good idea or not, but lets try compile all the core
+				// classes as bytecode in APC now...
+				$this->_objDbConfig->getSiteRootPath().'classes/core/';
+				foreach(glob($this->_objDbConfig->getSiteRootPath().'classes/core/*.php') as $coreClasses)
+				{
+					apc_compile_file($coreClasses);
+				}
 			}
 			else {
 				$this->objAPC = FALSE;
