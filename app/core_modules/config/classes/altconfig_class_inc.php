@@ -1344,30 +1344,58 @@ class altconfig extends object
     }
     
     /**
-     * Gets memcache TTL Setting
+     * Gets enable APC Setting
      *
      * @access public   
-     * @return getenable adm setting
+     * @return getenable APC setting
      */
 
-    public function getmemcache_ttl()
+    public function getenable_apc()
     {
     	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
     	//Lets get the parent node section first
     	$Settings =& $this->_root->getItem("section", "Settings");
     	//Now onto the directive node
-    	$SettingsDirective =& $Settings->getItem("directive", "MEMCACHE_TTL");
+    	$SettingsDirective =& $Settings->getItem("directive", "ENABLE_APC");
     	//var_dump($SettingsDirective);
     	if($SettingsDirective == FALSE)
     	{
-    		$newsettings = array("MEMCACHE_TTL" => "3600");
+            $newsettings = array("ENABLE_APC" => "FALSE");
+            $this->appendToConfig($newsettings);
+    		return FALSE;
+    	}
+    	//finally unearth whats inside
+    	$getenable_apc = $SettingsDirective->getContent();
+
+    	return $getenable_apc;
+
+    }
+    
+    /**
+     * Gets cache TTL Setting
+     *
+     * @access public   
+     * @return getenable adm setting
+     */
+
+    public function getcache_ttl()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+    	//Lets get the parent node section first
+    	$Settings =& $this->_root->getItem("section", "Settings");
+    	//Now onto the directive node
+    	$SettingsDirective =& $Settings->getItem("directive", "CACHE_TTL");
+    	//var_dump($SettingsDirective);
+    	if($SettingsDirective == FALSE)
+    	{
+    		$newsettings = array("CACHE_TTL" => "3600");
     		$this->appendToConfig($newsettings);
     		return FALSE;
     	}
     	//finally unearth whats inside
-    	$memcache_ttl = $SettingsDirective->getContent();
+    	$cache_ttl = $SettingsDirective->getContent();
 
-    	return $memcache_ttl;
+    	return $cache_ttl;
 
     }
 

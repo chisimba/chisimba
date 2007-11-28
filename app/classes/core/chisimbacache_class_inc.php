@@ -17,6 +17,7 @@ class chisimbacache extends Memcache
 {
 	static private $objMem = NULL;
 	static private $objServers = array();
+	static private $objAPC = NULL;
 	
 	/**
 	 * Singleton method for memcache servers

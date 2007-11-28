@@ -150,8 +150,12 @@ class dbTable extends object
     public $adm = FALSE;
 
     public $objMemcache = FALSE;
+    
+    public $objAPC = FALSE;
 
 	protected $cacheTTL = 3600;
+	
+	public $objYaml;
 
 
     /**
@@ -175,7 +179,7 @@ class dbTable extends object
             $this->_db = $pearDb;
         }
 
-        $this->objDBConfig=$this->getObject('altconfig','config');
+        $this->objDBConfig = $this->getObject('altconfig','config');
         // check for memcache
 		if(extension_loaded('memcache'))
 		{
@@ -187,8 +191,21 @@ class dbTable extends object
 			else {
 				$this->objMemcache = FALSE;
 			}
-			$this->cacheTTL = $this->objDBConfig->getmemcache_ttl();
+			$this->cacheTTL = $this->objDBConfig->getcache_ttl();
 		}
+		// check for APC
+		if(extension_loaded('apc'))
+		{
+			if($this->objDBConfig->getenable_apc() == 'TRUE')
+			{
+				$this->objAPC = TRUE;
+			}
+			else {
+				$this->objAPC = FALSE;
+			}
+			$this->cacheTTL = $this->objDBConfig->getcache_ttl();
+		}
+		
         $this->_serverName = $this->objDBConfig->serverName();
         //check if debugging is enabled
         if($this->objDBConfig->geterror_reporting() == "developer")
@@ -242,6 +259,24 @@ class dbTable extends object
         		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($sql);
+    		if($ret == FALSE)
+    		{
+    			$rs = $this->query($sql);
+        		if (!$rs) {
+            		$ret = false;
+        		} else {
+            		if ($rs[0]['fcount'] > 0) {
+                		$ret = true;
+            		} else {
+                		$ret = false;
+            		}
+        		}
+    			apc_store($sql, $ret, $this->cacheTTL);
+    		}
+    	}
 		else {
         	if($this->debug == TRUE)
         	{
@@ -289,6 +324,15 @@ class dbTable extends object
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
 		}
+		elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$ret = $this->getArray($stmt);
+    			apc_store($stmt, $ret, $this->cacheTTL);
+    		}
+    	}
 		else {
 			if($this->debug == TRUE)
         	{
@@ -329,6 +373,15 @@ class dbTable extends object
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
         }
+        elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$ret = $this->_db->queryRow($stmt, array());
+    			apc_store($stmt, $ret, $this->cacheTTL);
+    		}
+    	}
         else {
         	if($this->debug == TRUE)
         	{
@@ -367,6 +420,18 @@ class dbTable extends object
         		}
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
+    	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+        		if (PEAR::isError($ret)) {
+            		$ret = false;
+        		}
+    			apc_store($stmt, $ret, $this->cacheTTL);
+    		}
     	}
     	else {
     		if($this->debug == TRUE)
@@ -415,6 +480,21 @@ class dbTable extends object
         		}
 			}
     	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$this->_db->setLimit($first, $count);
+        		$rs = $this->_db->exec($stmt);
+        		if (PEAR::isError($rs)) {
+            		$ret = false;
+        		} else {
+        			$ret = $rs;
+    				apc_store($stmt, $ret, $this->cacheTTL);
+        		}
+    		}
+    	}
     	else {
     		if($this->debug == TRUE)
     		{
@@ -461,6 +541,15 @@ class dbTable extends object
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$ret = $this->query($stmt);
+    			apc_store($stmt, $ret, $this->cacheTTL);
+    		}
+    	}
     	else {
     		if($this->debug == TRUE)
     		{
@@ -498,6 +587,16 @@ class dbTable extends object
 	    		$ret = $rs[0]['rc'];
 	    		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
+    	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$rs = $this->query($sql);
+	    		$ret = $rs[0]['rc'];
+    			apc_store($sql, $ret, $this->cacheTTL);
+    		}
     	}
     	else {
     		if($this->debug == TRUE)
@@ -667,6 +766,10 @@ class dbTable extends object
     	{
     		chisimbacache::getMem()->flush();
     	}
+    	if($this->objAPC == TRUE)
+    	{
+    		apc_clear_cache("user");
+    	}
         return $ret ? $id : false;
     }
 
@@ -722,6 +825,10 @@ class dbTable extends object
     	{
     		chisimbacache::getMem()->flush();
     	}
+    	if($this->objAPC == TRUE)
+    	{
+    		apc_clear_cache("user");
+    	}
         return $ret;
     }
 
@@ -764,6 +871,10 @@ class dbTable extends object
         if($this->objMemcache == TRUE)
     	{
     		chisimbacache::getMem()->flush();
+    	}
+    	if($this->objAPC == TRUE)
+    	{
+    		apc_clear_cache("user");
     	}
         return $ret;
     }
@@ -862,6 +973,18 @@ class dbTable extends object
         		}
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
+    	}
+    	elseif($this->objAPC == TRUE)
+    	{
+    		$ret = apc_fetch($stmt);
+    		if($ret == FALSE)
+    		{
+    			$ret = $this->_db->queryAll($stmt);
+        		if (PEAR::isError($ret)) {
+            		$ret = false;
+        		}
+    			apc_store($stmt, $ret, $this->cacheTTL);
+    		}
     	}
     	else {
     		if($this->debug == TRUE)

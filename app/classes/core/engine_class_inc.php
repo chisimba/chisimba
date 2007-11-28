@@ -394,6 +394,8 @@ class engine
 	);
 
 	public $objMemcache = FALSE;
+	
+	public $objAPC = FALSE;
 
 	protected $cacheTTL = 3600;
 
@@ -431,8 +433,22 @@ class engine
 			else {
 				$this->objMemcache = FALSE;
 			}
-			$this->cacheTTL = $this->_objDbConfig->getmemcache_ttl();
+			$this->cacheTTL = $this->_objDbConfig->getcache_ttl();
 		}
+		
+		// check for APC
+		if(extension_loaded('apc'))
+		{
+			if($this->_objDbConfig->getenable_apc() == 'TRUE')
+			{
+				$this->objAPC = TRUE;
+			}
+			else {
+				$this->objAPC = FALSE;
+			}
+			$this->cacheTTL = $this->_objDbConfig->getcache_ttl();
+		}
+
 
 		//and we need a general system config too
 		$this->_objConfig = clone $this->_objDbConfig;
