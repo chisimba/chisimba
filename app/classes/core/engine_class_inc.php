@@ -357,11 +357,11 @@ class engine
 	'contextadmin',
 	'contextgroups',
 	'contextpermissions',
-        'creativecommons',
+    'creativecommons',
 	'decisiontable',
 	'errors',
 	'files',
-        'filemanager',
+    'filemanager',
 	'filters',
 	'groupadmin',
 	'help',
@@ -376,8 +376,8 @@ class engine
 	'permissions',
 	'postlogin',
 	'prelogin',
-        'redirect',
-     'packages',
+    'redirect',
+    'packages',
 	'security',
 	'skin',
 	'stories',
@@ -751,6 +751,14 @@ class engine
 				return $parsed;
 			}
 		}
+		//elseif($this->objAPC == TRUE)
+    	//{
+    	//	$parsed = apc_fetch('dsn');
+    	//	if($parsed == FALSE)
+    	//	{
+    	//		apc_store('dsn', $parsed, $this->cacheTTL);
+    	//	}
+    	//}
 		return $parsed;
 	}
 
@@ -871,6 +879,15 @@ class engine
 						return $this->_objConfig;
 					}
 				}
+				elseif($this->objAPC == TRUE)
+    			{
+    				$this->_objConfig = apc_fetch('altconfig');
+    				if($this->_objConfig == FALSE)
+    				{
+    					$this->_objConfig = new altconfig();
+    					apc_store('altconfig', $this->_objConfig, $this->cacheTTL);
+    				}
+    			}
 				else {
 					require_once($filename);
 					$this->_objConfig = new altconfig();
@@ -959,6 +976,23 @@ class engine
 				}
 			}
 		}
+		elseif($this->objAPC == TRUE)
+    	{
+    		$objNew = apc_fetch($name);
+    		if($objNew == FALSE)
+    		{
+    			if (is_subclass_of($name, 'object')) {
+					$objNew = new $name($this, $moduleName);
+					//chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
+					//log_debug("added $name to cache - yipee!");
+					return $objNew;
+				}
+				else {
+					$objNew = new $name();
+					apc_store($name, $objNew, $this->cacheTTL);
+				}
+    		}
+    	}
 		else {
 			// Fix to allow developers to load htmlelements which do not inherit from class 'object'
 			if (is_subclass_of($name, 'object')) {
