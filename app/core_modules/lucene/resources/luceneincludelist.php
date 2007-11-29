@@ -41,6 +41,8 @@ require_once('10.2/Search/Lucene/Index/DictionaryLoader.php');
 require_once('10.2/Search/Lucene/Index/SegmentMerger.php');
 require_once('10.2/Search/Lucene/Index/SegmentWriter/DocumentWriter.php');
 require_once('10.2/Search/Lucene/Index/SegmentWriter/StreamWriter.php');
+
+
 require_once('10.2/Search/Lucene/Search/QueryEntry.php');
 require_once('10.2/Search/Lucene/Search/Similarity.php');
 require_once('10.2/Search/Lucene/Search/QueryLexer.php');
@@ -67,6 +69,8 @@ require_once('10.2/Search/Lucene/Search/Query/Boolean.php');
 require_once('10.2/Search/Lucene/Search/Query/MultiTerm.php');
 require_once('10.2/Search/Lucene/Search/Query/Phrase.php');
 require_once('10.2/Search/Lucene/Search/Similarity/Default.php');
+
+
 require_once('10.2/Search/Lucene/Storage/File.php');
 require_once('10.2/Search/Lucene/Storage/Directory.php');
 require_once('10.2/Search/Lucene/Storage/File/Filesystem.php');
