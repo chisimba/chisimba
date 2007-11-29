@@ -150,6 +150,13 @@ class lucene extends controller
 					$searchResults = str_replace('&','&amp;', $searchResults);
 					$this->setVarByRef('searchResults', $searchResults);
 					return 'searchresults_tpl.php';
+				case 'search2':
+                    return 'search2.php';
+				case 'tohirtest':
+					return $this->tohirTest();
+					
+				case 'buildincludes':
+					return $this->buildIncludes();
 	        }
 		}
 		catch (customException $e){
@@ -157,5 +164,31 @@ class lucene extends controller
         	exit();
         }
 	}
+	
+	function tohirTest()
+	{
+		$objIndexData = $this->getObject('indexdata', 'lucene');
+		$objIndexData->tohirTest();
+	}
+	
+	
+	function buildIncludes()
+	{
+		$objBuildIncludes = $this->getObject('buildincludes');
+		
+		$subFolder = '10.2';
+		
+		$folder = $this->getResourcePath($subFolder);
+		
+		$results = $objBuildIncludes->scanDirectory($folder);
+		
+		foreach ($results as $item)
+		{
+			$item = str_replace($folder, $subFolder, $item);
+			
+			echo 'require_once(\''.$item.'\');<br />';
+		}
+	}
+	
 }
 ?>
