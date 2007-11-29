@@ -590,7 +590,7 @@ class dbTable extends object
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($sql);
     		if($ret == FALSE)
     		{
     			$rs = $this->query($sql);
