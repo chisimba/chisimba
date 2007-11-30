@@ -51,9 +51,15 @@ class searchresults extends object
         $phrase = $text;
         
         if ($module != NULL) {
+            
+            if ($text != '') {
+                $phrase .= ' AND ';
+            }
             $phrase .= ' module:'.$module;
             
         }
+        
+        echo $phrase;
         
         $query = Zend_Search_Lucene_Search_QueryParser::parse($phrase);
 		
