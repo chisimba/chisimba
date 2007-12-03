@@ -50,29 +50,47 @@ class utils extends object
 	   */
 	  public function getContextList()
 	  {
-		$arr = array();
+		
 
 		//if the user is an administrator of the site then show him all the courses
 		
-		//$contexts = $this->_objDBContext->getAll("WHERE archive=Null or archive=0");
-		$contexts = $this->_objDBContext->getAll();
 	  	if ($this->_objUser->isAdmin())
  		{
-			return  $contexts;
-		}
-
-	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
-	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
-
-
-	  	foreach ($contextCodes as $code)
-	  	{
-	  	 	
-	  		$arr[] = $this->_objDBContext->getRow('contextcode',$code);
-
-	  	}
-	  
-	  	return $arr;
+			$newContexts = array();
+            $contexts = $this->_objDBContext->getAll();
+            
+            if (count($contexts) > 0) {
+                foreach ($contexts as $context)
+                {
+                    if ($context['archive'] != '1') {
+                        if ($context['archive'] == 0) {
+                            $newContexts[] = $context;
+                        }
+                    }
+                };
+            }
+            return  $newContexts;
+        
+		} else {
+            $arr = array();
+            
+            $objGroups =  $this->newObject('managegroups', 'contextgroups');
+            $contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
+            
+            foreach ($contextCodes as $code)
+            {
+                
+                $context = $this->_objDBContext->getRow('contextcode',$code);
+                
+                if ($context != FALSE) {
+                    if ($context['archive'] == 0) {
+                        $arr[] = $context;
+                    }
+                }
+            };
+          
+            return $arr;
+        }
 	  }
 	  
 	  /**
