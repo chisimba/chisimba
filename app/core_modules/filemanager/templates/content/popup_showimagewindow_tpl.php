@@ -88,7 +88,7 @@ if (count($files) == 0) {
         $string .= $objLayer->show();
 
         $fileIdArray .= 'fileId['.$count.'] = "'.$file['id'].'";';
-        $filenameArray .= 'fileName['.$count.'] = \''.$thumbImg.'\';';
+        $filenameArray .= 'fileName['.$count.'] = \''.str_replace('&amp;', '&', $thumbImg).'\';';
         
         if ($count ==0) {
             $defaultItem['id'] = $file['id'];
