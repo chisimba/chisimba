@@ -2184,3 +2184,30 @@ ul.presentationslides li img
 }
 
 
+/*
+
+Styles for a timepicker
+
+*/
+select.timepicker, select.timepicker option { text-align:right;}
+
+img.storyimage {
+	float: left;
+	margin-right: 5px;
+	
+}
+
+.newsblock {
+	width: 120px;
+	margin-right: 10px;
+	
+	float: left;
+	text-align: center;
+	
+}
+
+.newsblockimage {
+	height: 100px;
+	vertical-align: text-bottom;
+	
+}
