@@ -483,6 +483,10 @@ class modulefile extends object {
 						case 'USESTEXT': 			//Languagetext items not loaded but used.
 						$registerdata['USES'][]=$params[1];
 						break;
+						case 'TAGS': 				// Tags
+							$tagArray=explode('|',$params[1]);
+							$registerdata['TAGS'] = $tagArray;
+							break;
 						default:
 					} //  end of switch()
 				} //    end of foreach
@@ -495,5 +499,29 @@ class modulefile extends object {
 			exit(0);
 		}
 	}
+	
+	/**
+     * Method to check whether a module has tags
+     *
+     * @param  string $moduleId The id of the module
+     * @return array $tags array of tags
+     * @access public
+     */
+    public function moduleTags($moduleId) {
+    	try {
+    		if (($fn = $this->findregisterfile($moduleId)) && (filesize($fn)>0)) {
+    			$fh = fopen($fn,"r");
+    			$content = fread($fh,filesize($fn));
+    			fclose($fh);
+    			if (preg_match('/TAGS:\s*([a-z0-9\-_]*)/i',$content,$match)) {
+    				$tags = $match[1];
+    			}
+    		}
+    		return $tags;
+		} catch (Exception $e) {
+			$this->config->errorCallback('Caught Exception: '.$e->getMessage());
+        	exit();
+		}
+    }
 }
 ?>

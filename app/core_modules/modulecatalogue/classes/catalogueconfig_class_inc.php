@@ -240,13 +240,22 @@ class catalogueconfig extends object {
     					$module_version = '';
     					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_VERSION $from $module_name");
     				}
-
+    				if (isset($reg['TAGS'])){
+    					foreach($reg['TAGS'] as $tags)
+    					{
+    						$module_tags .= htmlentities($tags).", ";
+    					}
+    				} else {
+    					$module_tags = '';
+    					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_TAGS $from $module_name");
+    				}
     				$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_name>$module_name</module_name>
     	<module_authors>$module_authors</module_authors>
         <module_releasedate>$module_releasedate</module_releasedate>
         <module_description>$module_description</module_description>
-        <module_version>$module_version</module_version>\n";
+        <module_version>$module_version</module_version>
+        <module_tags>$module_tags</module_tags>\n";
     				if (isset($reg['MODULE_CATEGORY'])) {
     					foreach ($reg['MODULE_CATEGORY'] as $cat) {
     						$cat = htmlentities($cat);

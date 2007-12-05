@@ -60,6 +60,16 @@
         $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_depend1','modulecatalogue').':</b>',$str));
     }
 
+    // and the tags
+    if (isset($this->registerdata['TAGS'])){
+        $str="<em>";
+        foreach ($this->registerdata['TAGS'] as $line)
+        {
+            $str.=" ".$line." ";
+        }
+        $str.="</em>\n";
+        $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_tags','modulecatalogue').':</b>',$str));
+    }
 
     $str='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_tables','modulecatalogue').":</b>\n";
     if (isset($this->registerdata['TABLE'])){
