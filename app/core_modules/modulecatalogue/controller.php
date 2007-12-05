@@ -549,6 +549,7 @@ class modulecatalogue extends controller
                         $this->output = $this->registerdata['WARNING'];
                         return FALSE;
                     }
+                    // var_dump($this->registerdata); die();
                     return $this->objModuleAdmin->installModule($this->registerdata);
                 }
             } else {

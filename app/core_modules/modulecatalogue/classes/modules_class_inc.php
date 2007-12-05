@@ -257,5 +257,47 @@ class modules extends dbTable
     		exit();
     	}
     }
+    
+    public function insertTags($tagarr, $status, $mod)
+    {
+    	// user id hard coded to admin for firsttime reg...
+    	$userid = '1';
+    	$itemid = $status;
+    	$metakey = 'moduletag_'.$mod;
+    	$module = 'modulecatalogue';
+    	if(empty($tagarr))
+    	{
+    		return;
+    	}
+    	foreach($tagarr as $tags)
+    	{
+    		$insarr = array('userid' => $userid, 
+    	    	            'item_id' => $itemid, 
+    	        	        'meta_key' => $metakey, 
+    	            	    'meta_value' => $tags,
+    	                	'module' => $module,
+    	                	'uri' => '',
+    	                	);
+    	    $this->insert($insarr, 'tbl_tags');
+    	}
+    	return;
+    }
+    
+    public function removeTags($mod)
+    {
+    	$metakey = 'moduletag_'.$mod;
+    	$module = 'modulecatalogue';
+    	parent::init('tbl_tags');
+    	$tagstodel = $this->getAll("WHERE meta_key = '$metakey'");
+    	if(empty($tagstodel))
+    	{
+    		return;
+    	}
+    	foreach($tagstodel as $tags)
+    	{
+    		$this->delete('id', $tags['id'], 'tbl_tags');
+    	}
+    	return;
+    }
 }
 ?>

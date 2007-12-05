@@ -684,13 +684,21 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['DEPENDS_CONTEXT'])){
                     $sql_arr['dependscontext']=$registerdata['DEPENDS_CONTEXT'];
                 }
+                if (isset($registerdata['TAGS'])){
+                    $tagsql = $registerdata['TAGS'];
+                }
                 if ($update) {
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
                 } else {
-                    if (!$this->objModules->insert($sql_arr,'tbl_modules')) {
+                	$status = $this->objModules->insert($sql_arr,'tbl_modules');
+                	if (!$status) {
                            $this->_lastError = 1005;
                         return FALSE;
                     }
+                    if(!$this->objModules->insertTags($tagsql, $status, $moduleId)){
+                		$this->_lastError = 1005;
+                        return FALSE;
+                	}
                 }
                 //put the language information for name and description
                 $this->registerModuleLanguageElements();
@@ -810,6 +818,10 @@ class modulesadmin extends dbTableManager
                 $this->objModules->delete('module_id',$moduleId,'tbl_language_modules');
                 $this->objModules->delete('module_id',$moduleId,'tbl_modules_dependencies');
                 $this->objModules->delete('module_id',$moduleId,'tbl_modules');
+                
+                // finally clean up the module tags in tbl_tags
+                $this->objModules->removeTags($moduleId);
+                
                 //$this->objModules->commitTransaction();//End the transaction;
 
                 return TRUE;
