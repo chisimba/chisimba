@@ -172,7 +172,13 @@ class modulecatalogue extends controller
             $this->tagCloud = $this->objCatalogueConfig->getModuleTags();
             $tagscl = $this->processTags();
             //var_dump($tagscl); die();
-            $this->objTagCloud = $this->objTagCloud->buildCloud($tagscl);
+            if($tagscl != NULL)
+            {
+            	$this->objTagCloud = $this->objTagCloud->buildCloud($tagscl);
+            }
+            else {
+            	$this->objTagCloud = NULL;
+            }
             //$this->tagCloud = $this->objTagCloud->exampletags();
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
@@ -832,6 +838,10 @@ class modulecatalogue extends controller
     		}
     	}
     	$tags = NULL;
+    	if(empty($tagarr))
+    	{
+    		return NULL;
+    	}
     	foreach($tagarr as $tagger)
     	{
     		foreach($tagger as $tagged)
