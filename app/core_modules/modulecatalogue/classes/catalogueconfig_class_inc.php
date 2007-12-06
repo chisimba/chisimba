@@ -376,6 +376,42 @@ class catalogueconfig extends object {
     }
 
 
+   /**
+    * Method to get basic module tags for all modules.
+    *
+    * @return array of key module_tasg with values being the module tags
+    */
+    public function getModuleTags()
+    {
+    	try {
+				$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+				$xml = simplexml_load_file($this->_path);
+				$entries = $xml->xpath("//module");
+				foreach ($entries as $moduletags) {
+					$moduleName = $this->objLanguage->abstractText((string)$moduletags->module_name);
+					$moduleTag = $this->objLanguage->abstractText((string)$moduletags->module_tags);
+					if (empty($moduleName)) {
+						$result[] = array('id' => (string)$moduletags->module_id,
+										  'tags' => (string)$moduletags->module_tags,
+										  'name' => (string)$moduletags->module_name
+										  );
+					} else {
+						$result[] = array('id' => (string)$moduletags->module_id,'name' => ucwords($moduleName),'tags' => (string)$moduleTag);
+					}
+				}
+				if (!isset($result)) {
+        			return FALSE;
+        		}else {
+       				return $result;
+        		}
+
+    	}catch (Exception $e){
+    		$this->errorCallback('Caught exception: '.$e->getMessage());
+        	exit();
+    	}
+    }
+    
+    
      /**
     * Method to get modulelist for catalogue categories.
     *
@@ -395,6 +431,9 @@ class catalogueconfig extends object {
 						break;
 					case 'description':
 						$query = "//module[contains(module_description,'$str')]";
+						break;
+					case 'tags':
+						$query = "//module[contains(module_tags, '$str')]";
 						break;
 					default:
 						$query = "//module[contains(module_id,'$str') or contains(module_description,'$str') or contains(module_name,'$str')]";

@@ -1,4 +1,5 @@
 <?php
+//print_r($this->tagCloud); die();
 //create an instance of the css layout class
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 
@@ -6,7 +7,7 @@ $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(2);
 
 //add left column
-$cssLayout->setLeftColumnContent($this->objSideMenu->show($activeCat));
+$cssLayout->setLeftColumnContent($this->objSideMenu->show($activeCat)); //.$this->tagCloud);
 
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());

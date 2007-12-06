@@ -134,6 +134,10 @@ class modulecatalogue extends controller
      * @var object $objPatch
      */
     protected $objPatch;
+    
+    public $tagCloud;
+    
+    protected $objTagCloud;
 
     /**
      * Standard initialisation function
@@ -164,6 +168,10 @@ class modulecatalogue extends controller
             //natcasesort($catArray);
             //$this->objSideMenu->addNodes($catArray);
             $this->objSideMenu->addNodes($sysTypes);
+            $this->objTagCloud = $this->getObject('tagcloud', 'utilities');
+            $this->tagCloud = $this->objCatalogueConfig->getModuleTags();
+            $this->processTags();
+            //$this->tagCloud = $this->objTagCloud->exampletags();
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
         } catch (customException $e) {
@@ -810,6 +818,20 @@ class modulecatalogue extends controller
             $this->errorCallback('Caught exception: '.$e->getMessage());
             exit();
         }
+    }
+    
+    public function processTags()
+    {
+    	
+    	foreach($this->tagCloud as $arrs)
+    	{
+    		if(!empty($arrs['tags']))
+    		{
+    			$arrs['tags'] = explode(',', ereg_replace(' +', '', $arrs['tags']));
+    		}
+    		$tagarr[] = $arrs;
+    	}
+    	//var_dump($tagarr); die();
     }
 }
 ?>

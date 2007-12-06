@@ -260,6 +260,7 @@ $srchType = &new dropdown('srchtype');
 $srchType->addOption('name',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'));
 $srchType->addOption('description',$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'));
 $srchType->addOption('both',$this->objLanguage->languageText('word_all'));
+$srchType->addOption('tags',$this->objLanguage->languageText('mod_modulecatalogue_tags', 'modulecatalogue'));
 $srchType->setSelected($this->getParam('srchtype'));
 $srch = $srchType->show().$srchButton->show();
 
