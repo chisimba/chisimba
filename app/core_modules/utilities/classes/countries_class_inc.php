@@ -341,7 +341,7 @@ class countries extends object
            $flagsrc = 'core_modules/utilities/resources/flags/-.gif';
         }
 
-        return '<img src="'.$flagsrc.'" alt="'.$this->getCountryName($code).'" title="'.$this->getCountryName($code).'" />';
+        return '<img src="'.$flagsrc.'" alt="'.htmlentities(stripslashes($this->getCountryName($code))).'" title="'.htmlentities(stripslashes($this->getCountryName($code))).'" />';
     }
     
     /**
@@ -357,7 +357,7 @@ class countries extends object
         
         foreach ($this->countries as $code=>$country)
         {
-            $dropdown->addOption($code, $country);
+            $dropdown->addOption($code, htmlentities($country));
         }
         
         if ($defaultCountry != NULL)
