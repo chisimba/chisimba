@@ -698,10 +698,7 @@ class modulesadmin extends dbTableManager
                            $this->_lastError = 1005;
                         return FALSE;
                     }
-                    if(!$this->objModules->insertTags($tagsql, $status, $moduleId)){
-                		$this->_lastError = 1005;
-                        return FALSE;
-                	}
+                    $this->objModules->insertTags($tagsql, $status, $moduleId);
                 }
                 //put the language information for name and description
                 $this->registerModuleLanguageElements();
