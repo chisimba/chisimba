@@ -687,6 +687,9 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['TAGS'])){
                     $tagsql = $registerdata['TAGS'];
                 }
+                else {
+                	$tagsql = NULL;
+                }
                 if ($update) {
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
                 } else {
