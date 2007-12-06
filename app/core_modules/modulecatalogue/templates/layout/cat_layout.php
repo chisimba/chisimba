@@ -7,7 +7,7 @@ $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $cssLayout->setNumColumns(2);
 
 //add left column
-$cssLayout->setLeftColumnContent($this->objSideMenu->show($activeCat)); //.$this->tagCloud);
+$cssLayout->setLeftColumnContent($this->objSideMenu->show($activeCat).$this->objTagCloud);
 
 //set middle content
 $cssLayout->setMiddleColumnContent($this->getContent());

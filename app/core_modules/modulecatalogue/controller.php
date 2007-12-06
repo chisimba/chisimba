@@ -170,7 +170,9 @@ class modulecatalogue extends controller
             $this->objSideMenu->addNodes($sysTypes);
             $this->objTagCloud = $this->getObject('tagcloud', 'utilities');
             $this->tagCloud = $this->objCatalogueConfig->getModuleTags();
-            $this->processTags();
+            $tagscl = $this->processTags();
+            //var_dump($tagscl); die();
+            $this->objTagCloud = $this->objTagCloud->buildCloud($tagscl);
             //$this->tagCloud = $this->objTagCloud->exampletags();
             $this->objLog = $this->getObject('logactivity','logger');
             $this->objLog->log();
@@ -822,16 +824,37 @@ class modulecatalogue extends controller
     
     public function processTags()
     {
-    	
     	foreach($this->tagCloud as $arrs)
     	{
     		if(!empty($arrs['tags']))
     		{
-    			$arrs['tags'] = explode(',', ereg_replace(' +', '', $arrs['tags']));
+    			$tagarr[] = explode(',', ereg_replace(' +', '', $arrs['tags']));
     		}
-    		$tagarr[] = $arrs;
     	}
-    	//var_dump($tagarr); die();
+    	$tags = NULL;
+    	foreach($tagarr as $tagger)
+    	{
+    		foreach($tagger as $tagged)
+    		{
+    			$tags .= $tagged.",";
+    		}
+    	}
+    	$tags = str_replace(',,', ',', $tags);
+    	$tagarray = explode(',',$tags);
+    	$basetags = array_unique($tagarray);
+    	foreach($basetags as $q)
+    	{
+    		$numbers = array_count_values($tagarray);
+			$weight = $numbers[$q];
+    		$entry[] = array('name' => $q, 
+    		                 'url' => $this->uri(array('action' => 'search', 'srchstr' => $q, 'srchtype' => 'tags'), 'modulecatalogue'), 
+    		                 'weight' => $weight*1000, 
+    		                 'time' => time()
+    		                 );
+    	}
+    	// var_dump($entry); die();
+    	return $entry;
     }
+
 }
 ?>
