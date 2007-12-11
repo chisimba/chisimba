@@ -111,13 +111,16 @@ if ($modules) {
             $class = ($count % 2 == 0)? 'even' : 'odd';
             $count++;
             $desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
+            
 
             if (isset($desc[0])) {
                 $desc = (string)$desc[0];
             } else {
                 $desc = $this->objLanguage->languageText('mod_modulecatalogue_nodesc','modulecatalogue');
             }
-            $desc = $this->objLanguage->abstractText(htmlentities($desc));
+            $desc = $this->objLanguage->abstractText(($desc));
+            $objWasher = $this->getObject('bbcodeparser', 'utilities');
+    		$desc = $objWasher->parse4BBcode($desc);
             $infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
             $link = $moduleName = ucfirst($moduleName);

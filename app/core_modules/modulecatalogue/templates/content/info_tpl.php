@@ -35,6 +35,8 @@
     $version=$this->registerdata['MODULE_VERSION'];
     $longName=$this->registerdata['MODULE_NAME'];
     $desc=$this->registerdata['MODULE_DESCRIPTION'];
+    $objWasher = $this->getObject('washout', 'utilities');
+    $desc = $objWasher->parseText($desc);
 
     // Loading the data into the tables
     $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue').':</b>',$longName));
