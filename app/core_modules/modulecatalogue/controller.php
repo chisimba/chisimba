@@ -490,6 +490,7 @@ class modulecatalogue extends controller
                     $modName = $this->getParam('moduleId');
                     if (!$this->installModule($modName)) {
                         header('HTTP/1.0 500 Internal Server Error');
+                        $this->objModuleAdmin->output = strip_tags($this->objModuleAdmin->output);
                         echo "$this->output\n{$this->objModuleAdmin->output}";
                         break;
                     }
