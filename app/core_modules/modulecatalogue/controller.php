@@ -857,7 +857,7 @@ class modulecatalogue extends controller
     		$numbers = array_count_values($tagarray);
 			$weight = $numbers[$q];
     		$entry[] = array('name' => $q, 
-    		                 'url' => $this->uri(array('action' => 'search', 'srchstr' => $q, 'srchtype' => 'tags'), 'modulecatalogue'), 
+    		                 'url' => $this->uri(array('action' => 'search', 'srchstr' => $q, 'srchtype' => 'tags', 'cat' => 'all'), 'modulecatalogue'), 
     		                 'weight' => $weight*1000, 
     		                 'time' => time()
     		                 );
