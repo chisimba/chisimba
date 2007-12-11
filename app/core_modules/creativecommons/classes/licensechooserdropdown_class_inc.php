@@ -106,7 +106,7 @@ class licensechooserdropdown extends object
                     $selected = ($license['code'] == $this->defaultValue) ? ' selected="selected"' : '';
                     
                     // Add to Radio Group
-                    $options .= '<option value="'.$license['code'].'" class="'.$license['code'].'" '.$selected.'>'.$title.'</option>';
+                    $options .= '<option value="'.$license['code'].'" class="'.str_replace('/', '_', $license['code']).'" '.$selected.'>'.$title.'</option>';
                 }
             }
             
