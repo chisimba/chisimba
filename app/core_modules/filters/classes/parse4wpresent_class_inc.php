@@ -84,7 +84,9 @@ class parse4wpresent extends object
         //See if the webpresent API module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('webpresent', 'webpresent');
         // Get the viewer object.
-        $objView = $this->getObject("viewer", "webpresent");
+        if($isRegistered){
+        	$objView = $this->getObject("viewer", "webpresent");
+        }
     	//Match filters based on a wordpress style
     	preg_match_all('/\\[WPRESENT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
     	//Get all the ones in links
