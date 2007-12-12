@@ -7,7 +7,7 @@ $leftBlocks = $this->objPLBlocks->getVisibleBlocks('left');
 if (isset($leftBlocks)) {
 	if (is_array($leftBlocks)) {
 		foreach ($leftBlocks as $block) {
-			if ($block['isblock']== '1') {
+			if ($block['isblock']== $this->TRUE) {
 					$leftContent .= $this->objBlocks->showBlock($block['blockname'], $block['blockmodule']);
 			} else {
 				$objFeatureBox = &$this->newObject('featurebox', 'navigation');
