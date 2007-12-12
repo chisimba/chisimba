@@ -210,17 +210,12 @@ class htmlarea extends object
         
         //$this->setVar('pageSuppressXML', TRUE);
         
-        //$this->showFCKEditorWakeupJS();
+        $this->showFCKEditorWakeupJS();
         
-        return $oFCKeditor->CreateHtml();
+        //return $oFCKeditor->CreateHtml();
         
-        /*
-        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>
-<script type="text/javascript">
-//<![CDATA[
-    setInterval(\'copyFCKData("'.$this->name.'")\', 2000);
-//]]>
-</script>';*/
+        
+        return '<span onmouseover="wakeUpFireFoxFckeditor(\''.$this->name.'\');">'.$oFCKeditor->CreateHtml().'</span>';
         // Addition for Testing Purposes
         // <div id="content_'.$this->name.'"></div>
     }
