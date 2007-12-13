@@ -83,7 +83,7 @@
         <category>
             <categoryname>Communications</categoryname>
             <module>messaging</module>
-            <module>email</module>
+            <module>internalmail</module>
             <module>wiki</module>
         </category>
 
@@ -97,7 +97,7 @@
             <module>contextpermissions</module>
             <module>contextprelogin</module>
             <module>contextpostlogin</module>
-            <module>email</module>
+            <module>internalmail</module>
             <module>essay</module>
             <module>essayadmin</module>
             <module>gradebook</module>
