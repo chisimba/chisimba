@@ -241,6 +241,7 @@ class catalogueconfig extends object {
     					log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_VERSION $from $module_name");
     				}
     				if (isset($reg['TAGS'])){
+    				 	$module_tags = '';
     					foreach($reg['TAGS'] as $tags)
     					{
     						$module_tags .= htmlentities($tags).", ";
