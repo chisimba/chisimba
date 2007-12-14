@@ -95,7 +95,7 @@ class indexdata extends object
 		$document->addField(Zend_Search_Lucene_Field::Text('title', $title));
 		
         // Contents
-		$document->addField(Zend_Search_Lucene_Field::UnStored('contents', strtolower(strip_tags($title.' '.$contents))));
+		$document->addField(Zend_Search_Lucene_Field::UnStored('contents', strtolower(stripslashes(strip_tags($title.' '.$contents)))));
 		
 		// Teaser
 		$document->addField(Zend_Search_Lucene_Field::Text('teaser', $teaser));
@@ -122,9 +122,9 @@ class indexdata extends object
 		if (is_array($extra)) {
             
             // Todo: check that fields dont clash with existing
-			foreach ($extra as $item->$value)
+			foreach ($extra as $item=>$value)
 			{
-				$document->addField(Zend_Search_Lucene_Field::Keyword($item, $value));
+                $document->addField(Zend_Search_Lucene_Field::Keyword($item, $value));
 			}
 		}
 		
