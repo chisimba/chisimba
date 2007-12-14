@@ -893,7 +893,7 @@ class dateandtime extends object
         $array = explode(' ', $date);
 
         $date = explode('-', $array[0]);
-        $format = $date[2].' ';
+        $format = ($date[2]*1).' ';
         $format .= $this->monthFull($date[1]).' ';
         $format .= $date[0];
 
