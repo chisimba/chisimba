@@ -167,6 +167,7 @@ class InstallDirectoryAction extends StepAction
 		$sys_root = str_replace('\\', '/',$sys_root);
                 $sys_root.='/';
                 $sys_root=str_replace('//','/',$sys_root);
+                @chmod($sys_root,0700);
 		if (!is_dir($sys_root)) {
 			mkdir($sys_root);
 			chmod($sys_root,0700);
