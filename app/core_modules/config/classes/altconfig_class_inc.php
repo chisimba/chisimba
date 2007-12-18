@@ -1300,8 +1300,8 @@ class altconfig extends object
     	if ($SettingsDirective == FALSE)
     	{
             // Little hack here to get around a strange quirk with the config
-            if (defined('NO_XML_FLAG')){
-    		$newsettings = array("NO_XML" => "0");
+            if (!defined('NO_XML_FLAG')){
+    		$newsettings = array("NO_XML" => "1");
     		$this->appendToConfig($newsettings);
             } else {
                 define('NO_XML_FLAG',1);
