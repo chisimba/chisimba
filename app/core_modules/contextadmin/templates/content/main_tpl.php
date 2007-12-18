@@ -261,8 +261,8 @@ if(count($archivedCourses) > 0)
 	$tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_myacrivedcontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
 }
 
-$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_uploadheading","contextadmin"),$uploadTemplate)));
-$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
+//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_uploadheading","contextadmin"),$uploadTemplate)));
+//$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
 
 echo $tabBox->show();
 
