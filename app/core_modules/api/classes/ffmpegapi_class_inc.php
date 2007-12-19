@@ -115,8 +115,8 @@ class ffmpegapi extends object
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/');
 			@chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
 		}
-		$localfile = $this->objConfig->getContentBasePath().'apitmp/';
-		$orig = $localfile.$file;
+		$localfile = $this->objConfig->getContentBasePath().'apitmp/'.rand(1,999);
+		$orig = $localfile.'.3gp';
 		$conv = $localfile;
 		file_put_contents($orig, $file);
 		$newfile = $this->objMedia->convert3gp2flv($orig, $conv);
