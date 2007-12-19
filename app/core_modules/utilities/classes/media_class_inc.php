@@ -49,6 +49,7 @@ class media extends object
 		$rfile = basename($file, ".3gp");
 		$newfile = $rfile.time().".flv";
 		system("$this->ffmpeg -i $file -acodec mp3 -ar 22050 -ab 32 -f flv -s 320x240 $newfile", $results);
+		log_debug("$this->ffmpeg -i $file -acodec mp3 -ar 22050 -ab 32 -f flv -s 320x240 $newfile");
 		if($results == 0)
 		{
 			return $savepath.$newfile; //$siteroot.'usrfiles/mediaconverter/'.$newfile;
