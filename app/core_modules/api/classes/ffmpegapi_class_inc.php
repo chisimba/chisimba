@@ -123,8 +123,8 @@ class ffmpegapi extends object
 		$filetosend = file_get_contents($newfile);
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		//unlink($orig);
-		//unlink($conv);
+		unlink($orig);
+		unlink($conv);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
