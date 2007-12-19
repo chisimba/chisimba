@@ -54,7 +54,7 @@ class media extends object
 			return $savepath.$newfile; //$siteroot.'usrfiles/mediaconverter/'.$newfile;
 		}
 		else {
-			return FALSE;
+			return FALSE; // "$this->ffmpeg -i $file -acodec mp3 -ar 22050 -ab 32 -f flv -s 320x240 $newfile";
 		}
 	}
 	
