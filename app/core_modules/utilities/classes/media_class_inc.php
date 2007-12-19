@@ -52,7 +52,7 @@ class media extends object
 		log_debug("$this->ffmpeg -i $file -acodec mp3 -ar 22050 -ab 32 -f flv -s 320x240 $newfile");
 		if($results == 0)
 		{
-			return $savepath.$newfile; //$siteroot.'usrfiles/mediaconverter/'.$newfile;
+			return $newfile; //$siteroot.'usrfiles/mediaconverter/'.$newfile;
 		}
 		else {
 			return FALSE; // "$this->ffmpeg -i $file -acodec mp3 -ar 22050 -ab 32 -f flv -s 320x240 $newfile";
@@ -93,7 +93,7 @@ class media extends object
 		system("$this->ffmpeg -i $file -ac 1 -ab 8 -ar 8000 -f amr -acodec amr_nb $newfile", $results);
 		if($results == 0)
 		{
-			return $newfile;
+			return $savepath.$newfile;
 		}
 		else {
 			return FALSE;
