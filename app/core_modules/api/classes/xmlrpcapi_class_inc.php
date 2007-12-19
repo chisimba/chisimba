@@ -108,6 +108,20 @@ class xmlrpcapi extends object
      */
 	public $objWebPresentApi;
 	
+	/**
+	 * Chisimba ADM API for high priority requests
+	 * @var    object
+	 * @access public
+	 */
+	public $objAdmApi;
+	
+	/**
+	 * Chisimba FFMPEG API 
+	 * @var    object
+	 * @access public
+	 */
+	public $objFfmpeg;
+	
     /**
      * init method
      * 
@@ -139,7 +153,12 @@ class xmlrpcapi extends object
         	$this->objWikiApi = $this->getObject('wikiapi');
         	// Chisimba Wiki module abstraction
         	$this->objChisWikiApi = $this->getObject('chiswikiapi');
+        	// Web Present API
         	$this->objWebPresentApi = $this->getObject('webpresentapi');
+        	// ADM API
+        	$this->objAdmApi = $this->getObject('admapi');
+        	// ffmpeg API
+        	$this->objFfmpeg = $this->getObject('ffmpegapi');
 		}
 		catch (customException $e)
 		{
@@ -490,7 +509,21 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets formatted slides'),
+                		   	
+                		   // ADM API Start
+                		   'adm.getData' => array('function' => array($this->objAdmApi, 'getDataAPI'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'gets data for specified module'),			
                 		   						   
+                		   						   
+                		  // media API Start
+                		   'media.3gp2flv' => array('function' => array($this->objFfmpeg, 'convert3GPtoFLV'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'converts a 3gp file to a flv and returns a base64 encoded string.'),						   
                 		  		
    					), 1, 0);
    					
