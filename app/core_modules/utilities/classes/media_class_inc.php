@@ -93,7 +93,7 @@ class media extends object
 		system("$this->ffmpeg -i $file -ac 1 -ab 8 -ar 8000 -f amr -acodec amr_nb $newfile", $results);
 		if($results == 0)
 		{
-			return $savepath.$newfile;
+			return $newfile;
 		}
 		else {
 			return FALSE;
