@@ -118,7 +118,6 @@ class ffmpegapi extends object
 		$conv = $localfile;
 		file_put_contents($orig, $file);
 		$newfile = $this->objMedia->convert3gp2flv($orig, $conv);
-		return new XML_RPC_Response(var_dump($newfile));
 		$filetosend = file_get_contents($newfile);
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
