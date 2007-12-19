@@ -100,21 +100,23 @@ class ffmpegapi extends object
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	// check the api key for validity
+    	
+    	$file = $param->scalarval();
+		$file = base64_decode($file);
+		
+		// check the api key for validity
     	if($this->checkApiKey($appkey) != TRUE)
     	{
     		return new XML_RPC_Response("Incorrect API Key!");
     	}
     	
-    	$file = $param->scalarval();
-		$file = base64_decode($file);
 		if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
 		{
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/');
 			@chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
 		}
-		$localfile = $this->objConfig->getContentBasePath().'apitmp/'.time().rand(1,999);
-		$orig = $localfile.'.3gp';
+		$localfile = $this->objConfig->getContentBasePath().'apitmp/';
+		$orig = $localfile.$file;
 		$conv = $localfile;
 		file_put_contents($orig, $file);
 		$newfile = $this->objMedia->convert3gp2flv($orig, $conv);
