@@ -74,7 +74,7 @@ class parse4flv extends object
         {
             $videoId = $item;
             $replacement = $this->getVideoObject($videoId);
-            $str = str_replace($results[0][$counter], $replacement, $txt);
+            $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
         
@@ -102,6 +102,7 @@ class parse4flv extends object
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
         }
+        
         return $txt;
     }
     
