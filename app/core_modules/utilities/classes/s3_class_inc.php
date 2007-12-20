@@ -1,7 +1,8 @@
 <?php
-class s3 extends object
+class s3 //extends object
 {
-	public $mime_types = array("323" => "text/h323", 
+	public $mime_types = array(
+	"323" => "text/h323", 
 	"acx" => "application/internet-property-stream", 
 	"ai" => "application/postscript", 
 	"aif" => "audio/x-aiff", 
@@ -188,9 +189,9 @@ class s3 extends object
 	"z" => "application/x-compress", 
 	"zip" => "application/zip"
 	);
-	private $_key        = "";
-	private $_secret     = "";
-	private $_server     = "http://s3.amazonaws.com";
+	private $_key;
+	private $_secret;
+	private $_server     = "s3.amazonaws.com";
 	private $_pathToCurl = "";
 	private $_date       = null;
 	private $_error      = null;
@@ -354,9 +355,7 @@ class s3 extends object
 		);
 		
 		$result = $this->sendRequest($req);
-
 		preg_match_all("@<Name>(.*?)</Name>@", $result, $matches);
-		
 		return $matches[1];
 	}
 
@@ -365,11 +364,13 @@ class s3 extends object
 		$req = array(	"verb" => "PUT",
 		"md5" => null,
 		"type" => null,
-		"headers" => null,
+		"headers" => array("Content-Length" => "0",), //null,
 		"resource" => "/$bucket",
 		);
-		
+		//$this->_server = "http://".$bucket.".".$this->_server;
+		//var_dump($req); die();
 		$result = $this->sendRequest($req);
+		//var_dump($result);
 		
 		return $this->isOk($result);
 	}
@@ -559,6 +560,7 @@ class s3 extends object
 		{
 			$curl .= ' -o "' . $req['download'] . '"';
 		}
+		//echo $curl; die();
 		return `$curl`;
 	}
 
@@ -632,6 +634,9 @@ class s3 extends object
 
 	public function base64($str)
 	{
+		//return base64_encode(urlencode($str));
+		
+		
 		$ret = "";
 		for($i = 0; $i < strlen($str); $i += 2)
 		{
