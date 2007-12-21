@@ -121,7 +121,7 @@ class screenapi extends object
 			$result = str_replace(substr($result, -1), '', $result);
 		}
 		
-		file_put_contents($this->objConfig->getContentBasePath().'apitmp/screenshots/queue/'.$result, 'url '.$url);
+		file_put_contents($this->objConfig->getContentBasePath().'apitmp/screenshots/queue/'.$result, "url $url");
 		$val = new XML_RPC_Value('URL added to queue!', 'string');
 		return new XML_RPC_Response($val);
 	}
