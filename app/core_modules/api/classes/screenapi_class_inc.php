@@ -123,7 +123,7 @@ class screenapi extends object
 		
 		$result = time().rand(1,999);
 		file_put_contents($this->objConfig->getContentBasePath().'apitmp/screenshots/queue/'.$result, 'url "'.$url.'"');
-		$val = new XML_RPC_Value('URL '.$result.' added to the queue', 'string');
+		$val = new XML_RPC_Value($result, 'string');
 		return new XML_RPC_Response($val);
 	}
 	
