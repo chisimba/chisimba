@@ -163,21 +163,25 @@ class screenapi extends object
     	}
     	$url = $param->scalarval();
     	chdir($this->objConfig->getContentBasePath().'apitmp/screenshots/output/');
-    	$filename = str_replace('http://', '', $url);
-		$filename = str_replace('https://', '', $url);
-		$filename = str_replace('ftp://', '', $url);
+   
+    	$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
+		if(substr($result, -1) == '/')
+		{
+			$result = str_replace(substr($result, -1), '', $result);
+		}
 		
-		$filetosend = @file_get_contents($filename.'.png');
+		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
 		{
-			$this->requestShot($url);
+			$val = new XML_RPC_Value('This shot does not exist, please request it', 'string');
+			return new XML_RPC_Response($val);
 		}
 		else {
 			$filetosend = base64_encode($filename);
 			$val = new XML_RPC_Value($filetosend, 'string');
-		return new XML_RPC_Response($val);
-		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+			return new XML_RPC_Response($val);
+			// Ooops, couldn't open the file so return an error message.
+			return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 		}		
 	}
 }
