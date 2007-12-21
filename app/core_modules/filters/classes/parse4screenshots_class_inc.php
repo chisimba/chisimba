@@ -70,7 +70,8 @@ class parse4screenshots extends object
         foreach ($results[1] as $item)
         {
             $replacement = $this->getShotFromCache($item);
-            $txt = str_replace($results[0][$counter], $replacement, $txt);
+            echo $replacement; 
+            //$txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
         return $txt;
@@ -90,10 +91,10 @@ class parse4screenshots extends object
 			//echo filesize($this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png"); die();
 			if(file_exists($checkfile) && (filesize($checkfile)))
 			{
-				return '<img src="'.$this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png".'">';
+				return $url; //'<img src="'.$this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png".'">';
 			}
 			else {
-				return $this->getShotFromService($url);
+				return $url; //$this->getShotFromService($url);
 			}
 		}
     	
@@ -117,17 +118,17 @@ class parse4screenshots extends object
 		// bomb off the message to the server
 		$resp = $cli->send($msg);
 		if (!$resp) {
-    		return FALSE;
+    		return $url;
 		}
 		if (!$resp->faultCode()) {
 			$val = $resp->value();
     		$val = XML_RPC_decode($val);
     		// write the file back to the "cache"
-    		file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
-    		return TRUE;
+    		@file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
+    		return $url;
 		}
 		else {
-			return FALSE;
+			return $url;
 		}
     }
 }
