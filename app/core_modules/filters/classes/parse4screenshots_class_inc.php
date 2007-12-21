@@ -54,6 +54,8 @@ class parse4screenshots extends object
     function init()
     {
     	$this->objConfig = $this->getObject('altconfig', 'config');
+    	//require_once($this->getPearResource('XML/RPC.php'));
+    	//require_once($this->getPearResource('XML/RPC/Dump.php'));
     }
     
     /**
@@ -70,6 +72,10 @@ class parse4screenshots extends object
         foreach ($results[1] as $item)
         {
             $replacement = $this->getShotFromCache($item);
+            if($replacement == FALSE)
+            {
+            	$replacement = $this->getShotFromService($item);
+            }
             $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
@@ -82,6 +88,7 @@ class parse4screenshots extends object
 		{
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
 			@chmod($this->objConfig->getContentBasePath().'apitmp/cache/', 0777);
+			log_debug("getting screenshot of $url from service...");
 			return $this->getShotFromService($url);
 		}
 		else {
@@ -93,7 +100,10 @@ class parse4screenshots extends object
 				return $url; //'<img src="'.$this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png".'">';
 			}
 			else {
-				return $url; //$this->getShotFromService($url);
+				//log_debug("getting screenshot of $url from service...");
+				//$this->getShotFromService($url);
+				return FALSE;
+				//return $url; //$this->getShotFromService($url);
 			}
 		}
     	
@@ -101,7 +111,39 @@ class parse4screenshots extends object
     
     public function getShotFromService($url)
     {
-    	require_once($this->getPearResource('XML/RPC.php'));
+    	//include('XML/RPC.php');
+    	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
+		{
+			mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
+			chmod($this->objConfig->getContentBasePath().'apitmp/cache/', 0777);
+		}
+    	$params = array(new XML_RPC_Value($url, "string"));
+    	// Construct the method call (message). 
+		$msg = new XML_RPC_Message('screenshot.grabShot', $params);
+		// The server is the 2nd arg, the path to the API module is the 1st.
+		$cli = new XML_RPC_Client('/app/index.php?module=api', 'chameleon.uwc.ac.za');
+		// set the debug level to 0 for no debug, 1 for debug mode...
+		$cli->setDebug(0);
+		// bomb off the message to the server
+		$resp = $cli->send($msg);
+		if (!$resp) {
+    		return $url;
+		}
+		if (!$resp->faultCode()) {
+			$val = $resp->value();
+    		$val = XML_RPC_decode($val);
+    		// write the file back to the "cache"
+    		file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
+    		return $url;
+		}
+		else {
+			return $url;
+		}
+    }
+    
+    public function requestShotFromService($url)
+    {
+    	
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
 		{
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
@@ -123,7 +165,7 @@ class parse4screenshots extends object
 			$val = $resp->value();
     		$val = XML_RPC_decode($val);
     		// write the file back to the "cache"
-    		@file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
+    		//file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
     		return $url;
 		}
 		else {
