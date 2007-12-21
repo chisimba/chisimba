@@ -148,7 +148,7 @@ class screenapi extends object
 			return new XML_RPC_Response($val);
 		}
 		else {
-			$filetosend = base64_encode($filename);
+			$filetosend = base64_encode($filetosend);
 			$val = new XML_RPC_Value($filetosend, 'string');
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
@@ -174,7 +174,7 @@ class screenapi extends object
 			return new XML_RPC_Response($val);
 		}
 		else {
-			$filetosend = base64_encode($filename);
+			$filetosend = base64_encode($filetosend);
 			$val = new XML_RPC_Value($filetosend, 'string');
 			return new XML_RPC_Response($val);
 			// Ooops, couldn't open the file so return an error message.
