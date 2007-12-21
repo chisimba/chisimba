@@ -121,7 +121,7 @@ class screenapi extends object
 		//	$result = str_replace(substr($result, -1), '', $result);
 		//}
 		
-		$result = time().rand(1,999);
+		$result = md5($url);
 		file_put_contents($this->objConfig->getContentBasePath().'apitmp/screenshots/queue/'.$result, 'url "'.$url.'"');
 		$val = new XML_RPC_Value($result, 'string');
 		return new XML_RPC_Response($val);
@@ -133,14 +133,14 @@ class screenapi extends object
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	$result = $param->scalarval();
+    	$url = $param->scalarval();
     	chdir($this->objConfig->getContentBasePath().'apitmp/screenshots/output/resized/');
     	//$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
 		//if(substr($result, -1) == '/')
 		//{
 		//	$result = str_replace(substr($result, -1), '', $result);
 		//}
-		
+		$result = md5($url);
 		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
 		{
@@ -165,11 +165,7 @@ class screenapi extends object
     	$url = $param->scalarval();
     	chdir($this->objConfig->getContentBasePath().'apitmp/screenshots/output/');
    
-    	$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
-		if(substr($result, -1) == '/')
-		{
-			$result = str_replace(substr($result, -1), '', $result);
-		}
+    	$result = md5($url);
 		
 		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
