@@ -122,6 +122,12 @@ class xmlrpcapi extends object
 	 */
 	public $objFfmpeg;
 	
+	/**
+	 * Chisimba Screenshot API 
+	 * @var    object
+	 * @access public
+	 */
+	public $objScreenShots;
     /**
      * init method
      * 
@@ -159,6 +165,8 @@ class xmlrpcapi extends object
         	$this->objAdmApi = $this->getObject('admapi');
         	// ffmpeg API
         	$this->objFfmpeg = $this->getObject('ffmpegapi');
+        	// Screenshot API
+        	$this->objScreenShots = $this->getObject('screenapi');
 		}
 		catch (customException $e)
 		{
@@ -524,6 +532,26 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'converts a 3gp file to a flv and returns a base64 encoded string.'),						   
+                		   						   
+                		   						   
+                		  // screenshot API Start
+                		  'screenshot.requestShot' => array('function' => array($this->objScreenShots, 'requestShot'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Request a screenshot of a URL'),			
+                		   						   
+                		  'screenshot.grabShot' => array('function' => array($this->objScreenShots, 'grabShot'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Grabs a screenshot of a URL'),
+                		   						   
+                		  'screenshot.grabHiResShot' => array('function' => array($this->objScreenShots, 'grabHiResShot'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Grab a hi res screenshot of a URL'),									   
                 		  		
    					), 1, 0);
    					
