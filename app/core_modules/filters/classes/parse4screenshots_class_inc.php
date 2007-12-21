@@ -70,8 +70,7 @@ class parse4screenshots extends object
         foreach ($results[1] as $item)
         {
             $replacement = $this->getShotFromCache($item);
-            echo $replacement; 
-            //$txt = str_replace($results[0][$counter], $replacement, $txt);
+            $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
         return $txt;
