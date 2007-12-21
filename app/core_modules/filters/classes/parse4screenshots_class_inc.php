@@ -109,7 +109,7 @@ class parse4screenshots extends object
 		}
     	@$params = array(new XML_RPC_Value($url, "string"));
     	// Construct the method call (message). 
-		$msg = new XML_RPC_Message('screenshot.grabShot', $params);
+		$msg = new XML_RPC_Message('screenshot.requestShot', $params);
 		// The server is the 2nd arg, the path to the API module is the 1st.
 		$cli = new XML_RPC_Client('/app/index.php?module=api', 'chameleon.uwc.ac.za');
 		// set the debug level to 0 for no debug, 1 for debug mode...
