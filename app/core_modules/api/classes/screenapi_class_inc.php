@@ -115,13 +115,13 @@ class screenapi extends object
 			@chmod($this->objConfig->getContentBasePath().'apitmp/screenshots/output/resized/', 0777);
 		}
 		
-		$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
-		if(substr($result, -1) == '/')
-		{
-			$result = str_replace(substr($result, -1), '', $result);
-		}
+		//$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
+		//if(substr($result, -1) == '/')
+		//{
+		//	$result = str_replace(substr($result, -1), '', $result);
+		//}
 		
-		$result = time();
+		$result = time().rand(1,999);
 		file_put_contents($this->objConfig->getContentBasePath().'apitmp/screenshots/queue/'.$result, 'url "'.$url.'"');
 		$val = new XML_RPC_Value('URL '.$result.' added to the queue', 'string');
 		return new XML_RPC_Response($val);
@@ -133,13 +133,13 @@ class screenapi extends object
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	$url = $param->scalarval();
+    	$result = $param->scalarval();
     	chdir($this->objConfig->getContentBasePath().'apitmp/screenshots/output/resized/');
-    	$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
-		if(substr($result, -1) == '/')
-		{
-			$result = str_replace(substr($result, -1), '', $result);
-		}
+    	//$result = preg_replace("/((http|ftp)+(s)?:(\/\/))/i", "", $url);
+		//if(substr($result, -1) == '/')
+		//{
+		//	$result = str_replace(substr($result, -1), '', $result);
+		//}
 		
 		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
