@@ -72,10 +72,14 @@ class parse4screenshots extends object
         foreach ($results[1] as $item)
         {
             $replacement = $this->getShotFromCache($item);
-            if($replacement == FALSE)
+            /*if($replacement == FALSE)
             {
             	$replacement = $this->getShotFromService($item);
-            }
+            	if($replacement == FALSE)
+            	{	
+            		$replacement = $this->requestShotFromService($item);
+            	}
+            }*/
             $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
@@ -95,14 +99,24 @@ class parse4screenshots extends object
 			$file = $this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png";
 			$checkfile = $this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png";
 			//echo filesize($this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png"); die();
-			if(file_exists($checkfile) && (filesize($checkfile)))
+			if(file_exists($checkfile) && (filesize($checkfile) < 30))
 			{
+				unlink($checkfile);
+				$req = $this->getShotFromService($url);
+				if($req == FALSE)
+				{
+					$this->requestShotFromService($url);
+				}
 				return $url; //'<img src="'.$this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png".'">';
 			}
 			else {
 				//log_debug("getting screenshot of $url from service...");
-				//$this->getShotFromService($url);
-				return FALSE;
+				$req = $this->getShotFromService($url);
+				if($req == FALSE)
+				{
+					$this->requestShotFromService($url);
+				}
+				return $url;
 				//return $url; //$this->getShotFromService($url);
 			}
 		}
@@ -111,7 +125,7 @@ class parse4screenshots extends object
     
     public function getShotFromService($url)
     {
-    	//include('XML/RPC.php');
+    	require_once($this->getPearResource('XML/RPC.php'));
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
 		{
 			mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
@@ -134,6 +148,21 @@ class parse4screenshots extends object
     		$val = XML_RPC_decode($val);
     		// write the file back to the "cache"
     		file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
+    		$file = $this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png";
+			$checkfile = $this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png";
+			//echo filesize($this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png"); die();
+			if(file_exists($checkfile) && (filesize($checkfile) < 30))
+			{
+				unlink($checkfile);
+				$this->requestShotFromService($url);
+				return $url;
+			}
+			else {
+				//log_debug("getting screenshot of $url from service...");
+				//$this->getShotFromService($url);
+				return $url;
+				//return $url; //$this->getShotFromService($url);
+			}
     		return $url;
 		}
 		else {
@@ -143,7 +172,6 @@ class parse4screenshots extends object
     
     public function requestShotFromService($url)
     {
-    	
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
 		{
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
@@ -165,7 +193,7 @@ class parse4screenshots extends object
 			$val = $resp->value();
     		$val = XML_RPC_decode($val);
     		// write the file back to the "cache"
-    		//file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
+    		file_put_contents($this->objConfig->getContentBasePath().'/apitmp/cache/'.md5($url).'.png', base64_decode($val));
     		return $url;
 		}
 		else {
