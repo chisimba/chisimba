@@ -144,7 +144,7 @@ class screenapi extends object
 		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
 		{
-			$val = new XML_RPC_Value('This shot does not exist, please request it', 'string');
+			$val = new XML_RPC_Value('FALSE', 'string');
 			return new XML_RPC_Response($val);
 		}
 		else {
@@ -170,7 +170,7 @@ class screenapi extends object
 		$filetosend = @file_get_contents($result.'.png');
 		if(!$filetosend)
 		{
-			$val = new XML_RPC_Value('This shot does not exist, please request it', 'string');
+			$val = new XML_RPC_Value('FALSE', 'string');
 			return new XML_RPC_Response($val);
 		}
 		else {
