@@ -42,63 +42,76 @@
 
 class parse4screenshots extends object
 {
+	/**
+	 * The Config object (altconfig)
+	 * 
+	 * @access public
+	 * @var    object
+	 */
+    public $objConfig;
+    
+    /**
+     * DomTT container object
+     *
+     * @access  public
+     * @var     object
+     */
+    public $objTT;
     
     /**
      * init
      * 
      * Standard Chisimba init function
      * 
-     * @return void  
      * @access public
      */
     function init()
     {
     	$this->objConfig = $this->getObject('altconfig', 'config');
-    	//require_once($this->getPearResource('XML/RPC.php'));
-    	//require_once($this->getPearResource('XML/RPC/Dump.php'));
+    	$this->objTT = $this->getObject('domtt', 'htmlelements');
     }
     
     /**
-    *
-    * Method to parse the string
-    * @param  String $str The string to parse
-    * @return The    parsed string
-    *                
-    */
+     * Method to parse the string
+     *
+     * @param  String $txt The string to parse
+     * @return string $txt The parsed string                
+     */
     public function parse($txt)
     {
+    	// match all occurrances of the filter text
         preg_match_all('/\[SCREENSHOT\](.*)\[\/SCREENSHOT\]/U', $txt, $results, PREG_PATTERN_ORDER);
         $counter = 0;
+        // loop through the resultset
         foreach ($results[1] as $item)
         {
+        	// replace the tags with the shots
             $replacement = $this->getShotFromCache($item);
-            /*if($replacement == FALSE)
-            {
-            	$replacement = $this->getShotFromService($item);
-            	if($replacement == FALSE)
-            	{	
-            		$replacement = $this->requestShotFromService($item);
-            	}
-            }*/
             $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
+        // return the parsed string
         return $txt;
     }
     
+    /**
+     * Get a screenshot from the local cache
+     *
+     * @param  string $url the url to be captured
+     * @return string $js  The rendered javascript | the next action
+     */
     public function getShotFromCache($url)
     {
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
 		{
 			@mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
 			@chmod($this->objConfig->getContentBasePath().'apitmp/cache/', 0777);
-			log_debug("getting screenshot of $url from service...");
+			//log_debug("getting screenshot of $url from service...");
 			return $this->getShotFromService($url);
 		}
 		else {
 			$file = $this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png";
 			$checkfile = $this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png";
-			//echo filesize($this->objConfig->getsiteRootPath()."usrfiles/apitmp/cache/".md5($url).".png"); die();
 			if(file_exists($checkfile) && (filesize($checkfile) < 30))
 			{
 				unlink($checkfile);
@@ -106,23 +119,69 @@ class parse4screenshots extends object
 				if($req == FALSE)
 				{
 					$this->requestShotFromService($url);
+					// shot is NOT in cache and is now in the request queue
+					// return a domTT thing with a message...
+					$ret = $this->objTT->show();
+					echo "SHOWING TT1";
+					return $ret;
 				}
-				return $url; //'<img src="'.$this->objConfig->getsiteRoot()."usrfiles/apitmp/cache/".md5($url).".png".'">';
+				else {
+					//shot has been processed on the server, but is not in the local cache
+					// return a domTT thing with the image.
+					$ret = $this->objTT->show();
+					echo "SHOWING TT2";
+					return $ret;					
+					return $url;
+				}
+			}
+			elseif(file_exists($checkfile) && (filesize($checkfile) > 30)) 
+			{
+				$id = md5($url);
+				$turl = '<div id="'.$id.'">'.$url.'</div>';
+				//shot is all OK, return the domtt thing with it in
+				$script = "<script type='text/javascript'>".$this->getResourceUri('prototip1.2.0_pre1/js/prototip.js')."</script>";
+				$script .= '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri('prototip1.2.0_pre1/css/prototip.css').'" />';
+				
+				
+				$this->appendArrayVar('headerParams',$script);
+				$scripts = '<script type="text/javascript">';
+				
+				$scripts .= "new Tip($turl, 'content', {title: 'this tooltip has a title'});";
+				$scripts .= '</script>';
+				//$this->objTT->linkText = $url;
+				//$ret = $this->objTT->show('Screenshot!', 'message text');
+				return '<a href="'.$url.'"> <img src="'.$file.'"> </a>';
 			}
 			else {
-				//log_debug("getting screenshot of $url from service...");
 				$req = $this->getShotFromService($url);
 				if($req == FALSE)
 				{
 					$this->requestShotFromService($url);
+					// return a domTT thing with a message...
+					$ret = $this->objTT->show();
+					echo "SHOWING TT4";
+					return $ret;
+					return $url;
 				}
-				return $url;
-				//return $url; //$this->getShotFromService($url);
+				else {
+					//shot has been processed on the server, but is not in the local cache
+					// return a domTT thing with the image.
+					$ret = $this->objTT->show();
+					echo "SHOWING TT5";
+					return $ret;
+					return $url;
+				}
 			}
 		}
     	
     }
     
+    /**
+     * Method to get an already rendered shot from the service server
+     *
+     * @param  string $url the url to capture
+     * @return string $url the rendered url code
+     */
     public function getShotFromService($url)
     {
     	require_once($this->getPearResource('XML/RPC.php'));
@@ -170,6 +229,12 @@ class parse4screenshots extends object
 		}
     }
     
+    /**
+     * Method to request a screenshot from the service
+     *
+     * @param  string $url the url to be rendered
+     * @return string $url the request return (md5 hash of the url)
+     */
     public function requestShotFromService($url)
     {
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
