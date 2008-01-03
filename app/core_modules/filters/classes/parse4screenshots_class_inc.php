@@ -221,12 +221,13 @@ class parse4screenshots extends object
     	// Construct the method call (message). 
 		$msg = new XML_RPC_Message('screenshot.grabShot', $params);
 		// The server is the 2nd arg, the path to the API module is the 1st.
-		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv);
+		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv); //'/app/index.php?module=api', 'chameleon.uwc.ac.za');
 		// set the debug level to 0 for no debug, 1 for debug mode...
 		$cli->setDebug(0);
 		// bomb off the message to the server
 		$resp = $cli->send($msg);
 		if (!$resp) {
+			log_debug("No response from RPC Server (Screenshots)");
     		return $url;
 		}
 		if (!$resp->faultCode()) {
@@ -273,7 +274,7 @@ class parse4screenshots extends object
     	// Construct the method call (message). 
 		$msg = new XML_RPC_Message('screenshot.requestShot', $params);
 		// The server is the 2nd arg, the path to the API module is the 1st.
-		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv);
+		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv); //'/app/index.php?module=api', 'chameleon.uwc.ac.za');
 		// set the debug level to 0 for no debug, 1 for debug mode...
 		$cli->setDebug(0);
 		// bomb off the message to the server
@@ -289,6 +290,7 @@ class parse4screenshots extends object
     		return $url;
 		}
 		else {
+			log_debug("Screenshot service error...");
 			return $url;
 		}
     }
