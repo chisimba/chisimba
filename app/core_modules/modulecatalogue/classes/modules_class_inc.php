@@ -226,12 +226,12 @@ class modules extends dbTable
     public function getModuleNames() {
         try {
             $ret = array();
-            $sql = "SELECT module_id FROM tbl_modules";
+            $sql = "SELECT module_id, module_version FROM tbl_modules";
             $rs = $this->getArray($sql);
             foreach ($rs as $result) {
-                $ret[] = $result['module_id'];
+                $ret[] = $result['module_id']; //."(".$result['module_version'].")";
             }
-            return $ret;
+            return $rs; //$ret;
         } catch (Exception $e) {
     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
     		exit();

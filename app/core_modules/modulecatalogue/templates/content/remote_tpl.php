@@ -28,9 +28,13 @@ $hTable->addCell('&nbsp;');
 $hTable->endRow();
 
 $registeredModules = $this->objModule->getModuleNames();
+//var_dump($registeredModules); die();
 $localModules = $this->objModFile->getLocalModuleList();
+//var_dump($localModules); die();
 $lMods = array_merge($registeredModules, $localModules);
+// var_dump($lMods); die();
 $lMods = array_unique($lMods);
+// var_dump($lMods); die();
 sort($lMods);
 
 $objTable = $this->newObject('htmltable','htmlelements');
@@ -74,6 +78,11 @@ foreach ($modules as $module) {
 		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
 		$objTable->endRow();
     }
+}
+foreach ($modules as $umod)
+{
+	// check the versions too...
+	//print_r($module);
 }
 if (empty($newMods)) {
     $objTable->startRow();
