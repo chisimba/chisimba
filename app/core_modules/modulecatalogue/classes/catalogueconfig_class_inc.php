@@ -561,7 +561,13 @@ class catalogueconfig extends object {
      */
     public function getCategories() {
         try {
-            $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
+        	if(!file_exists($this->objConfig->getsiteRootPath()."config/systemtypes.xml"))
+            	{
+            		copy($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml", $this->objConfig->getsiteRootPath()."config/systemtypes.xml");
+            		unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
+            	}
+                $sysTypes = $this->objConfig->getsiteRootPath()."config/systemtypes.xml";
+            // $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
             $doc = simplexml_load_file($sysTypes);
             $types = array();
             for ($i=1;$i<count($doc->systemtypes->category);$i++) {
@@ -593,7 +599,12 @@ class catalogueconfig extends object {
                     $types[(string)$mod->module_id] = $this->objLanguage->abstractText((string)$mod->module_name);
                 }
             } else {
-                $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
+            	if(!file_exists($this->objConfig->getsiteRootPath()."config/systemtypes.xml"))
+            	{
+            		copy($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml", $this->objConfig->getsiteRootPath()."config/systemtypes.xml");
+            		unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
+            	}
+                $sysTypes = $this->objConfig->getsiteRootPath()."config/systemtypes.xml";
                 $doc = simplexml_load_file($sysTypes);
                 $modules = $doc->xpath("//category[categoryname='$category']");
                 foreach ($modules[0]->module as $mod) {
