@@ -144,7 +144,12 @@ $hTable->addCell($srch,null,'top','right');
 $hTable->endRow();
 $searchForm->addToForm($hTable->show());
 
-$content = $searchForm->show().$tString.$objTable->show().$str.$patchAll;
+$ins_path = $this->objConfig->getsiteRootPath().'installer/';
+if(file_exists($ins_path) || is_writable($ins_path))
+{
+	$err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
+}
+$content = $searchForm->show().$err.$tString.$objTable->show().$str.$patchAll;
 echo $content;
 
 ?>
