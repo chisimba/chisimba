@@ -59,6 +59,30 @@ class parse4screenshots extends object
     public $objTT;
     
     /**
+     * DB Sysconfig container object
+     *
+     * @access  public
+     * @var     object
+     */
+    public $sysConfig;
+    
+    /**
+     * Screenshot server
+     *
+     * @access  public
+     * @var     object
+     */
+    public $shotserv;
+    
+    /**
+     * screenshot url
+     *
+     * @access  public
+     * @var     object
+     */
+    public $shoturl;
+    
+    /**
      * init
      * 
      * Standard Chisimba init function
@@ -69,6 +93,9 @@ class parse4screenshots extends object
     {
     	$this->objConfig = $this->getObject('altconfig', 'config');
     	$this->objTT = $this->getObject('domtt', 'htmlelements');
+    	$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+    	$this->shotserv = $this->sysConfig->getValue('screenshot_server', 'filters');
+		$this->shoturl = $this->sysConfig->getValue('screenshot_url', 'filters');
     }
     
     /**
@@ -122,15 +149,15 @@ class parse4screenshots extends object
 					// shot is NOT in cache and is now in the request queue
 					// return a domTT thing with a message...
 					$ret = $this->objTT->show();
-					echo "SHOWING TT1";
+					//echo "SHOWING TT1";
 					return $ret;
 				}
 				else {
 					//shot has been processed on the server, but is not in the local cache
 					// return a domTT thing with the image.
 					$ret = $this->objTT->show();
-					echo "SHOWING TT2";
-					return $ret;					
+					//echo "SHOWING TT2";
+					//return $ret;					
 					return $url;
 				}
 			}
@@ -159,16 +186,16 @@ class parse4screenshots extends object
 					$this->requestShotFromService($url);
 					// return a domTT thing with a message...
 					$ret = $this->objTT->show();
-					echo "SHOWING TT4";
-					return $ret;
+					//echo "SHOWING TT4";
+					//return $ret;
 					return $url;
 				}
 				else {
 					//shot has been processed on the server, but is not in the local cache
 					// return a domTT thing with the image.
 					$ret = $this->objTT->show();
-					echo "SHOWING TT5";
-					return $ret;
+					//echo "SHOWING TT5";
+					//return $ret;
 					return $url;
 				}
 			}
@@ -194,7 +221,7 @@ class parse4screenshots extends object
     	// Construct the method call (message). 
 		$msg = new XML_RPC_Message('screenshot.grabShot', $params);
 		// The server is the 2nd arg, the path to the API module is the 1st.
-		$cli = new XML_RPC_Client('/app/index.php?module=api', 'chameleon.uwc.ac.za');
+		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv);
 		// set the debug level to 0 for no debug, 1 for debug mode...
 		$cli->setDebug(0);
 		// bomb off the message to the server
@@ -246,7 +273,7 @@ class parse4screenshots extends object
     	// Construct the method call (message). 
 		$msg = new XML_RPC_Message('screenshot.requestShot', $params);
 		// The server is the 2nd arg, the path to the API module is the 1st.
-		$cli = new XML_RPC_Client('/app/index.php?module=api', 'chameleon.uwc.ac.za');
+		$cli = new XML_RPC_Client($this->shoturl, $this->shotserv);
 		// set the debug level to 0 for no debug, 1 for debug mode...
 		$cli->setDebug(0);
 		// bomb off the message to the server
