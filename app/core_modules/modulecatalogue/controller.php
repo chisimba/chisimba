@@ -434,6 +434,7 @@ class modulecatalogue extends controller
     		 				$modulesarray[$i]['id'] = (string)$modobj->array->data->value[0]->string;
     		 				$modulesarray[$i]['name'] = (string)$modobj->array->data->value[1]->string;
     		 				$modulesarray[$i]['desc'] = (string)$modobj->array->data->value[2]->string;
+    		 				$modulesarray[$i]['ver'] = (string)$modobj->array->data->value[3]->string;
     		 			}
     		 			$i++;
     		 		}

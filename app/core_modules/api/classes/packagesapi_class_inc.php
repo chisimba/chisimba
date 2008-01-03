@@ -219,6 +219,7 @@ class packagesapi extends object
 	       $det[0] = new XML_RPC_Value($mod[0], 'string');
 	       $det[1] = new XML_RPC_Value($mod[1], 'string');
 	       $det[2] = new XML_RPC_Value($mod[2], 'string');
+	       $det[3] = new XML_RPC_Value($mod[3], 'string');
 	       $data[] = new XML_RPC_Value($det, 'array');
 	    }
 	    $val = new XML_RPC_Value($data,'array');

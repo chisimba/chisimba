@@ -358,10 +358,11 @@ class catalogueconfig extends object {
 			foreach ($entries as $module) {
 				$moduleDesc = $this->objLanguage->abstractText((string)$module->module_description);
 				$moduleName = $this->objLanguage->abstractText((string)$module->module_name);
+				$moduleVer  = (string)$module->module_version;
 				if (empty($moduleName)) {
 					$result[] = array((string)$module->module_id,ucfirst((string)$module->module_id),ucfirst((string)$module->module_id));
 				} else {
-					$result[] = array((string)$module->module_id,ucwords($moduleName),ucfirst($moduleDesc));
+					$result[] = array((string)$module->module_id,ucwords($moduleName),ucfirst($moduleDesc),$moduleVer);
 				}
 			}
 			if (!isset($result)) {
