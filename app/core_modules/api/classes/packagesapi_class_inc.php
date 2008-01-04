@@ -100,7 +100,8 @@ class packagesapi extends object
 		{
 			// try the core modules....
 			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
-			$filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
+			// $filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
+			$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		}
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
