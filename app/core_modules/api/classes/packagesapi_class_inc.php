@@ -98,6 +98,7 @@ class packagesapi extends object
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))
 		{
+			log_debug("grabbing a core module -> ".$mod->scalarval());
 			// try the core modules....
 			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
 			// $filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
