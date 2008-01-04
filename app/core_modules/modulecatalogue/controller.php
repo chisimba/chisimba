@@ -447,6 +447,7 @@ class modulecatalogue extends controller
                 case 'ajaxdownload':
                     $start = microtime(true);
                     $modName = $this->getParam('moduleId');
+                    log_debug("Downloading $modName from remote...");
                     if (!file_exists("$modName.zip")) {
                         if (!$encodedZip = $this->objRPCClient->getModuleZip($modName)) {
                             header('HTTP/1.0 500 Internal Server Error');
@@ -477,12 +478,26 @@ class modulecatalogue extends controller
                     $modName = $this->getParam('moduleId');
                     if (!is_dir($this->objConfig->getModulePath().$modName)) {
                         $objZip = $this->getObject('wzip', 'utilities');
-                        if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
+                        if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath())) {
                             header('HTTP/1.0 500 Internal Server Error');
                             echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
                             echo "<br /> $objZip->error";
+                            //unlink("$modName.zip");
                             break;
                         }
+                    }
+                    elseif(is_dir($this->objConfig->getModulePath().$modName)) 
+                    {
+                       	log_debug("replacing module...$modName");
+                       	// unlink($this->objConfig->getModulePath().$modName);
+                       	$objZip = $this->getObject('wzip', 'utilities');
+                       	if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
+                           	header('HTTP/1.0 500 Internal Server Error');
+                           	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                           	echo "<br /> $objZip->error";
+                           	//unlink("$modName.zip");
+                           	break;
+                       }
                     }
                     echo $this->objLanguage->languageText('phrase_installing');
                     break;
