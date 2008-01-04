@@ -99,7 +99,7 @@ class washout extends object
 	 * @return string The text after it has been parsed
 	 *
 	 */
-	public function parseText($txt)
+	public function parseText($txt, $bbcode = TRUE)
 	{
 		//Loop over all parsers and run them on $txt
 		foreach ($this->classes as $parser) {
@@ -115,7 +115,7 @@ class washout extends object
 				exit;
 			}
 		}
-		return $this->bbcode->parse4bbcode($txt);
+			return $this->bbcode->parse4bbcode($txt);
 	}
 }
 ?>

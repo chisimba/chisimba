@@ -338,6 +338,7 @@ class s3 //extends object
 		);
 		
 		$result = $this->sendRequest($req);
+		return $result;
 	}
 
 	public function bucketExists($bucket)

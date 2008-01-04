@@ -491,7 +491,9 @@ class modulecatalogue extends controller
                        	log_debug("replacing module...$modName");
                        	// unlink($this->objConfig->getModulePath().$modName);
                        	$objZip = $this->getObject('wzip', 'utilities');
-                       	if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getModulePath())) {
+                       	//$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath());
+                       	if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath())) {
+                       		log_debug("unzipping failed!");
                            	header('HTTP/1.0 500 Internal Server Error');
                            	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
                            	echo "<br /> $objZip->error";
@@ -504,6 +506,7 @@ class modulecatalogue extends controller
 
                 case 'ajaxinstall':
                     $modName = $this->getParam('moduleId');
+                    log_debug("Prepping to install $modName");
                     if (!$this->installModule($modName)) {
                         header('HTTP/1.0 500 Internal Server Error');
                         $this->objModuleAdmin->output = strip_tags($this->objModuleAdmin->output);
@@ -512,6 +515,21 @@ class modulecatalogue extends controller
                     }
                     unlink("$modName.zip");
                     echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
+                    break;
+                    
+                case 'ajaxupgrade':
+                    $modName = $this->getParam('moduleId');
+                    log_debug("Preparing to upgrade $modName");
+                    if (!$this->installModule($modName, TRUE)) {
+                        header('HTTP/1.0 500 Internal Server Error');
+                        $this->objModuleAdmin->output = strip_tags($this->objModuleAdmin->output);
+                        echo "$this->output\n{$this->objModuleAdmin->output}";
+                        break;
+                    }
+                    unlink("$modName.zip");
+                    echo "<b>".$this->objLanguage->languageText('word_upgraded')."</b>";
+                    sleep(5);
+                    $this->nextAction(array());
                     break;
 
                 case 'uploadarchive':
@@ -571,7 +589,7 @@ class modulecatalogue extends controller
     * @param  string $modname the module_id of the module to be used
     * @return string $regResult
     */
-    private function installModule($modname) {
+    private function installModule($modname, $upgrade = FALSE) {
         try {
             $filepath = $this->objModFile->findRegisterFile($modname);
             if ($filepath) { // if there were no file it would be FALSE
@@ -583,7 +601,13 @@ class modulecatalogue extends controller
                         return FALSE;
                     }
                     // var_dump($this->registerdata); die();
-                    return $this->objModuleAdmin->installModule($this->registerdata);
+                    if($upgrade == TRUE)
+                    {
+                    	return $this->objPatch->applyUpdates($modname);
+                    }
+                    else {
+                    	return $this->objModuleAdmin->installModule($this->registerdata);
+                    }
                 }
             } else {
                 $this->output = $this->objLanguage->languageText('mod_modulecatalogue_errnofile','modulecatalogue');
