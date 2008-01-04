@@ -565,7 +565,7 @@ class catalogueconfig extends object {
 			if(!file_exists($this->objConfig->getsiteRootPath()."config/systemtypes.xml"))
 			{
 				copy($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml", $this->objConfig->getsiteRootPath()."config/systemtypes.xml");
-				unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
+				//unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
 			}
 			$sysTypes = $this->objConfig->getsiteRootPath()."config/systemtypes.xml";
 			// $sysTypes = $this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml";
@@ -603,7 +603,7 @@ class catalogueconfig extends object {
 				if(!file_exists($this->objConfig->getsiteRootPath()."config/systemtypes.xml"))
 				{
 					copy($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml", $this->objConfig->getsiteRootPath()."config/systemtypes.xml");
-					unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
+					//unlink($this->objConfig->getsiteRootPath()."installer/dbhandlers/systemtypes.xml");
 				}
 				$sysTypes = $this->objConfig->getsiteRootPath()."config/systemtypes.xml";
 				$doc = simplexml_load_file($sysTypes);
