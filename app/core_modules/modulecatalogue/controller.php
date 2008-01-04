@@ -528,8 +528,8 @@ class modulecatalogue extends controller
                     }
                     unlink("$modName.zip");
                     echo "<b>".$this->objLanguage->languageText('word_upgraded')."</b>";
-                    sleep(5);
-                    $this->nextAction(array());
+                    //sleep(5);
+                    //$this->nextAction(array());
                     break;
 
                 case 'uploadarchive':
