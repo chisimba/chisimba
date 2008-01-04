@@ -96,6 +96,12 @@ class packagesapi extends object
 		$mod = $module->getParam(0);
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
+		if(!file_exists($path))
+		{
+			// try the core modules....
+			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
+			$filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
+		}
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
