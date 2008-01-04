@@ -150,7 +150,7 @@ class RootUserAction extends StepAction
 
 		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
 
-		//$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
+		$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
 
 		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : 'postlogin';
 
@@ -490,9 +490,9 @@ class RootUserAction extends StepAction
 			ob_clean();
 
                         // Module path has been moved to earlier in the installer.
-			//text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
-			//$module_path = ob_get_contents();
-			//ob_clean();
+			text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
+			$module_path = ob_get_contents();
+			ob_clean();
 
 			combo_box('serverLocation',
 
