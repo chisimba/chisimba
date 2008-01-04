@@ -120,5 +120,45 @@ class wzip extends object{
             return $list;
         }
     }
+    
+    
+    /**
+     * zip extension zip create
+     *
+     * @param zip filename $zipFN
+     * @param array of files to zip up $files
+     * @param remove path? $removepath
+     * @param move the files into the zip? $movefiles2zip
+     * @return zipfile
+     */
+    public function packFilesZip($zipFN, $files, $removepath=TRUE, $movefiles2zip=TRUE)
+	{
+		if (!extension_loaded('zip')) {
+			throw new customException($this->objLanguage->languageText("mod_utilities_nozipext", "utilities"));
+		}
+		$zip = new ZipArchive();
+		if ($zip->open($zipFN, ZIPARCHIVE::CREATE)!==TRUE) {
+			log_debug("Zip pack Error: cannot open <$zipFN>\n");
+			throw new customException($this->objLanguage->languageText("mod_utilities_nozipcreate", "utilities"));
+		}
+		foreach ($files as $f) {
+			$localFN = $removepath ? basename($f) : $f;
+			$zip->addFile($f, $localFN);
+		}
+		$zip->close();
+		return $zipFN;
+	}
+
+	public function unPackFilesFromZip($zipfile, $dest)
+	{
+		$zip = new ZipArchive;
+		if ($zip->open($zipfile) === TRUE) {
+			$zip->extractTo($dest);
+			$zip->close();
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
 ?>
