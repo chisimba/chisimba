@@ -95,6 +95,7 @@ class packagesapi extends object
 		//grab the module name
 		$mod = $module->getParam(0);
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
+		log_debug("$path set.");
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))
 		{
