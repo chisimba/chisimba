@@ -222,6 +222,7 @@ class packagesapi extends object
 	}
 
 	public function getModuleDetails() {
+		$this->objCatalogueConfig->writeCatalogue();
 	    $mArray = $this->objCatalogueConfig->getModuleDetails();
 	    $data = array();
 	    foreach ($mArray as $mod) {
