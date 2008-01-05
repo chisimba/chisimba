@@ -22,13 +22,18 @@ $updateAll->link($this->uri(array('action'=>'updatexml')));
 $updateAll->link = str_replace('[DATE]',date('Y/m/d',filemtime($this->objConfig->getsiteRootPath()."config/catalogue.xml")),$this->objLanguage->languageText('mod_modulecatalogue_updatexml','modulecatalogue'));
 $updateXML = $updateAll->show();
 
+// update the system types from the server
+$this->loadClass('href', 'htmlelements');
+$updateSys = new href($this->uri(array('action'=>'updatesystypes')), $this->objLanguage->languageText("mod_modulecatalogue_updatesystypes", "modulecatalogue"));
+$updateSys = $updateSys->show();
+
 $updateAll->link($this->uri(array('action'=>'updateall')));
 $updateAll->link = $this->objLanguage->languageText('mod_modulecatalogue_updateall','modulecatalogue');
 
 $objTable = $this->getObject('htmltable','htmlelements');
 $objTable->startRow();
 $objTable->addCell($h2->show(),null,null,'left');
-$objTable->addCell($updateAll->show()."<br />$updateXML",null,null,'right');//<br/>$makePatch
+$objTable->addCell($updateAll->show()."<br />$updateXML<br />$updateSys",null,null,'right');//<br/>$makePatch
 $objTable->endRow();
 $tString = '';
 if (isset($output)) {

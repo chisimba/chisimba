@@ -257,9 +257,18 @@ class packagesapi extends object
 
 	}
 
-	public function checkVersion($modulename)
+	/**
+	 * Method to update the systemtypes.xml document
+	 *
+	 */
+	public function updateSystemTypesFile()
 	{
-
+		$types = $this->objConfig->getsiteRootPath().'/config/systemtypes.xml';
+		$contents = file_get_contents($types);
+		$filetosend = base64_encode($contents);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		log_debug("Sent systemtypes.xml to client");
+		return new XML_RPC_Response($val);
 	}
 }
 ?>

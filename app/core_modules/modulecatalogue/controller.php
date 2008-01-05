@@ -533,6 +533,9 @@ class modulecatalogue extends controller
                     //$this->nextAction(array());
                     break;
 
+                case 'updatesystypes':
+                	$newfile = $this->objRPCClient->updateSysTypes();
+                	var_dump($newfile); die();
                 case 'uploadarchive':
                     $file = $_FILES['archive']['name'];
                     $module = substr($file,0,strpos($file,'.'));
