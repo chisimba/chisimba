@@ -535,7 +535,15 @@ class modulecatalogue extends controller
 
                 case 'updatesystypes':
                 	$newfile = $this->objRPCClient->updateSysTypes();
-                	var_dump($newfile); die();
+                	$file = simplexml_load_string($newfile);
+                    $repfile = base64_decode($file->string);
+                	//var_dump($repfile); die();
+                	// delete the old and replace it with the new...
+                	unlink($this->objConfig->getsiteRootPath().'config/systemtypes.xml');
+                	file_put_contents($this->objConfig->getsiteRootPath().'config/systemtypes.xml', $repfile);
+                	// echo date('r', filemtime($this->objConfig->getsiteRootPath().'config/systemtypes.xml'));
+                	$this->nextAction('');
+                	break;
                 case 'uploadarchive':
                     $file = $_FILES['archive']['name'];
                     $module = substr($file,0,strpos($file,'.'));
