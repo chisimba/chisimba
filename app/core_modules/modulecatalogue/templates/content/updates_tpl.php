@@ -24,7 +24,8 @@ $updateXML = $updateAll->show();
 
 // update the system types from the server
 $this->loadClass('href', 'htmlelements');
-$updateSys = new href($this->uri(array('action'=>'updatesystypes')), $this->objLanguage->languageText("mod_modulecatalogue_updatesystypes", "modulecatalogue"));
+$syslinktxt = $this->objLanguage->languageText("mod_modulecatalogue_updatesystypes", "modulecatalogue")." (".$this->objLanguage->languageText('mod_modulecatalogue_lastupdated', 'modulecatalogue').date('Y/m/d', filemtime('config/systemtypes.xml')).")";
+$updateSys = new href($this->uri(array('action'=>'updatesystypes')), $syslinktxt);
 $updateSys = $updateSys->show();
 
 $updateAll->link($this->uri(array('action'=>'updateall')));
