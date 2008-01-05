@@ -263,7 +263,7 @@ class packagesapi extends object
 	 */
 	public function updateSystemTypesFile()
 	{
-		$types = $this->objConfig->getsiteRootPath().'/config/systemtypes.xml';
+		$types = $this->objConfig->getsiteRootPath().'config/systemtypes.xml';
 		$contents = file_get_contents($types);
 		$filetosend = base64_encode($contents);
 		$val = new XML_RPC_Value($filetosend, 'string');
