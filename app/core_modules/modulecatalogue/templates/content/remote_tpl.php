@@ -28,13 +28,9 @@ $hTable->addCell('&nbsp;');
 $hTable->endRow();
 
 $registeredModules = $this->objModule->getModuleNames();
-//var_dump($registeredModules); die();
 $localModules = $this->objModFile->getLocalModuleList();
-//var_dump($localModules); die();
 $lMods = array_merge($registeredModules, $localModules);
-// var_dump($lMods); die();
 $lMods = array_unique($lMods);
-// var_dump($lMods); die();
 sort($lMods);
 
 $objTable = $this->newObject('htmltable','htmlelements');
@@ -79,7 +75,6 @@ foreach ($modules as $module) {
 		$objTable->endRow();
 	}
 }
-//var_dump($registeredModules);
 
 $objTable2 = $this->newObject('htmltable','htmlelements');
 $objTable2->cellpadding = 2;
@@ -104,20 +99,14 @@ foreach ($modules as $umod)
 	// $umod are the remote mods
 	foreach($registeredModules as $regmods)
 	{
-		//echo "Checking ".$regmods['module_id']." <br />";
 		if($umod['id'] == $regmods['module_id'])
 		{
-			//echo "Found updataebale module ".$umod['id'];
 			// check the version floats
 			$umod['ver'] = (float)$umod['ver'];
 			$regmods['module_version'] = (float)$regmods['module_version'];
-			//var_dump($umod['ver']);
-			//var_dump($regmods['module_version']);
-			//var_dump($umod['id']);
 			if($umod['ver'] > $regmods['module_version'])
 			{
 				$upgradables = TRUE;
-				//echo "updating ".$umod['id'];
 				log_debug($umod['name']." can be upgraded!");
 				$link2->link('javascript:;');
 				$link2->extra = "onclick = 'javascript:downloadModuleUpgrade(\"{$umod['id']}\",\"{$umod['name']}\");'";
@@ -144,7 +133,6 @@ foreach ($modules as $umod)
 
 
 		}
-		//var_dump($umod);
 	}
 }
 	if (empty($newMods)) {
