@@ -349,7 +349,7 @@ class engine
      *
      * @var array
      */
-	protected $coremods = array(
+	public $coremods = array(
 	'api',
 	'blocks',
 	'config',
