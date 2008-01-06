@@ -536,6 +536,43 @@ class altconfig extends object
         return $bool;
 
     }
+    
+    /**
+    * The property get name of the System type
+    * @access public
+    * @return the    name of the systemtype as string
+    */
+    public function getSystemType()
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+        //Lets get the parent node section first
+        $Settings =& $this->_root->getItem("section", "Settings");
+        //Now onto the directive node
+        $SettingsDirective =& $Settings->getItem("directive", "KEWL_SYSTEM_TYPE");
+        //finally unearth whats inside
+        $systemtype = $SettingsDirective->getContent();
+        return $ystemtype;
+    }
+    
+    /**
+    * The property set name of the Systemtype
+    * @access public
+    * @param  value  of the change to be made
+    * @return bool   true / false
+    */
+    public function setSystemType($value)
+    {
+    	if(!is_object($this->_root))$this->_root= &$this->readConfig('','XML');
+        //return $this->getValue("sitename");
+        $Settings =& $this->_root->getItem("section", "Settings");
+        //Now onto the directive node
+        $SettingsDirective =& $Settings->getItem("directive", "KEWL_SYSTEM_TYPE");
+        //finally save value
+        $SettingsDirective->setContent($value);
+        $bool = $this->_objPearConfig->writeConfig();
+        return $bool;
+    }
+    
     /**
     * Get short name of the institutionShortName
     * @access public
