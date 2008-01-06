@@ -551,7 +551,7 @@ class altconfig extends object
         $SettingsDirective =& $Settings->getItem("directive", "KEWL_SYSTEM_TYPE");
         //finally unearth whats inside
         $systemtype = $SettingsDirective->getContent();
-        return $ystemtype;
+        return $systemtype;
     }
     
     /**
