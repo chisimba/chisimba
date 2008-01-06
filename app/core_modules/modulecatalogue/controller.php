@@ -479,13 +479,16 @@ class modulecatalogue extends controller
                     if (!is_dir($this->objConfig->getModulePath().$modName)) {
                     	log_debug("looks like we have a core module upgrade!");
                         $objZip = $this->getObject('wzip', 'utilities');
-    //                  if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
-                        if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
-                            header('HTTP/1.0 500 Internal Server Error');
-                            echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
-                            echo "<br /> $objZip->error";
-                            //unlink("$modName.zip");
-                            break;
+                        if(in_array($modName, $this->objEngine->coremods))
+                        {
+    //                  	if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                        	if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                            	header('HTTP/1.0 500 Internal Server Error');
+                            	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                            	echo "<br /> $objZip->error";
+                            	//unlink("$modName.zip");
+                            	break;
+                        	}
                         }
                     }
                     elseif(is_dir($this->objConfig->getModulePath().$modName)) 
@@ -557,7 +560,19 @@ class modulecatalogue extends controller
                 	
                 	// read the systemtypes doc for modules needed...
                 	$mods = $this->objCatalogueConfig->getCategoryList($type);
-                	var_dump($mods); die();
+                	$objZip = $this->getObject('wzip', 'utilities');
+                	// loop through the found modules and download them.
+                	$modules = array_keys($mods);
+                	foreach($modules as $dls)
+                	{
+                		log_debug("getting $dls from remote...");
+                		$encodedZip = $this->objRPCClient->getModuleZip($dls);
+                		log_debug("Unzipping $dls...");
+                		$objZip->unZipArchive("$dls.zip", $this->objConfig->getModulePath());
+                	}
+                	
+                	//var_dump($modules); die();
+                	var_dump($this->objEngine->coremods);
                 	echo $type; die();
                 	
                 	break;

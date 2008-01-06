@@ -186,15 +186,15 @@ $objTable3->endRow();
 
 foreach ($types as $type)
 {
-	$link3->link('javascript:;');
-	$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
+	$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
+	//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
 	$class3 = ($class3 == 'even')? 'odd' : 'even';
 	$newMods3[] = $type;
 	$itype = str_replace(' ','_', $type);
 	$itype = strtolower($itype);
 	$icon3->setModuleIcon($itype);
 	$modCheck3 = new checkbox('arrayList[]');
-	$modCheck3->cssId = 'checkbox_'.$type;
+	$modCheck3->cssId = 'checkbox_'.$itype;
 	$modCheck3->setValue($type);
 				
 	$objTable3->startRow();

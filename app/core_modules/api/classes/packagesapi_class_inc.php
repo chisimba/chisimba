@@ -102,8 +102,20 @@ class packagesapi extends object
 			log_debug("grabbing a core module -> ".$mod->scalarval());
 			// try the core modules....
 			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
-			// $filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
-			$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
+			$filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
+			// $filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
+			//zip up the module
+			$objZip = $this->getObject('wzip', 'utilities');
+			//$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
+			$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath().'core_modules/');
+			$filetosend = file_get_contents($zipfile);
+			$filetosend = base64_encode($filetosend);
+			$val = new XML_RPC_Value($filetosend, 'string');
+			unlink($filepath);
+			log_debug("Sent ".$mod->scalarval()." to client");
+			return new XML_RPC_Response($val);
+			// Ooops, couldn't open the file so return an error message.
+			return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 		}
 		//zip up the module
 		$objZip = $this->getObject('wzip', 'utilities');
@@ -112,7 +124,7 @@ class packagesapi extends object
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		//unlink($filepath);
+		unlink($filepath);
 		log_debug("Sent ".$mod->scalarval()." to client");
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
