@@ -17,6 +17,7 @@ contextpermissions
 storycategoryadmin
 stories
 language
+tagging
 #contextabstract - module not in cvs
 help
 strings
