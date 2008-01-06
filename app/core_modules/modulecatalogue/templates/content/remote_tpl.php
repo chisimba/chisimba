@@ -13,6 +13,22 @@ $objH2 = $this->newObject('htmlheading','htmlelements');
 $objH2->type=3;
 $objH2->str = $this->objLanguage->languageText('mod_modulecatalogue_remoteheading','modulecatalogue');
 
+// system type header
+$objH3 = $this->newObject('htmlheading','htmlelements');
+$objH3->type=3;
+$objH3->str = $this->objLanguage->languageText('mod_modulecatalogue_systypeheading','modulecatalogue')." ".$this->objConfig->getSystemType();
+
+// upgrades header
+$objH4 = $this->newObject('htmlheading','htmlelements');
+$objH4->type=3;
+$objH4->str = $this->objLanguage->languageText('mod_modulecatalogue_availableupgrades','modulecatalogue');
+
+// new modules header
+$objH5 = $this->newObject('htmlheading','htmlelements');
+$objH5->type=3;
+$objH5->str = $this->objLanguage->languageText('mod_modulecatalogue_newmodules','modulecatalogue');
+
+
 $hTable = $this->getObject('htmltable','htmlelements');
 $hTable->cellpadding = 2;
 $hTable->id = 'unpadded';
@@ -135,16 +151,66 @@ foreach ($modules as $umod)
 		}
 	}
 }
-	if (empty($newMods)) {
-		$objTable->startRow();
-		$objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremotemods','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
-		$objTable->endRow();
-	}
-	if ($upgradables != TRUE) {
-		$objTable2->startRow();
-		$objTable2->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremoteupgrades','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
-		$objTable2->endRow();
-	}
-	echo $hTable->show().$objTable2->show()."<br />".$objTable->show();
+
+// system types one click install
+$objTable3 = $this->newObject('htmltable','htmlelements');
+$objTable3->cellpadding = 2;
+$objTable3->id = 'unpadded';
+$objTable3->width='100%';
+
+$masterCheck3 = new checkbox('arrayList[]');
+//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
+
+$head3 = array($masterCheck3->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_sysname','modulecatalogue'),
+$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
+$objTable3->addHeader($head3,'heading','align="left"');
+$newMods3 = array();
+$class3 = 'odd';
+
+$link3 = new link();
+$link3->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue');
+$icon3 = $this->newObject('getIcon','htmlelements');
+
+// get the system types...
+$types = array();
+
+// add in the current type
+$objTable3->startRow();
+	$objTable3->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+	$objTable3->addCell($icon3->show(),30,null,null,$class3);
+	$objTable3->addCell("<div id='link_basicsysonly'><b>Basic System Only</b></div>",null,null,null,$class3);
+	$objTable3->addCell("INSTALLED!"); //"<div id='download_{$type['id']}'>".$link3->show()."</div>",'40%',null,null,$class3);
+	$objTable3->endRow();
+foreach ($types as $type)
+{
+	$objTable3->startRow();
+	$objTable3->addCell($modCheck3->show(),20,null,null,$class3);
+	$objTable3->addCell($icon3->show(),30,null,null,$class3);
+	$objTable3->addCell("<div id='link_{$type['id']}'><b>{$type['name']}</b></div>",null,null,null,$class3);
+	$objTable3->addCell("<div id='download_{$type['id']}'>".$link3->show()."</div>",'40%',null,null,$class3);
+	$objTable3->endRow();
+	$objTable3->startRow();
+	$objTable3->addCell('&nbsp;',20,null,'left',$class3);
+	$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+	$objTable3->addCell($type['desc'].'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+	$objTable3->endRow();
+}
+
+if (empty($newMods)) {
+	$objTable->startRow();
+	$objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremotemods','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+	$objTable->endRow();
+}
+if ($upgradables != TRUE) {
+	$objTable2->startRow();
+	$objTable2->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremoteupgrades','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+	$objTable2->endRow();
+}
+if (empty($types)) {
+	$objTable3->startRow();
+	$objTable3->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_nosystypesavail','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+	$objTable->endRow();
+}
+echo $hTable->show().$objH4->show().$objTable2->show()."<br />".$objH5->show().$objTable->show()."<br />".$objH3->show().$objTable3->show();
 
 ?>
