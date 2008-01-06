@@ -171,28 +171,43 @@ $link3 = new link();
 $link3->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue');
 $icon3 = $this->newObject('getIcon','htmlelements');
 
+$iconcheck = $this->newObject('getIcon', 'htmlelements');
+$iconcheck->setIcon('greentick');
 // get the system types...
 $types = array();
-
+$types = $this->objCatalogueConfig->getCategories();
 // add in the current type
 $objTable3->startRow();
-	$objTable3->addCell(''); //$modCheck3->show(),20,null,null,$class3);
-	$objTable3->addCell($icon3->show(),30,null,null,$class3);
-	$objTable3->addCell("<div id='link_basicsysonly'><b>Basic System Only</b></div>",null,null,null,$class3);
-	$objTable3->addCell("INSTALLED!"); //"<div id='download_{$type['id']}'>".$link3->show()."</div>",'40%',null,null,$class3);
-	$objTable3->endRow();
+$objTable3->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+$objTable3->addCell($icon3->show(),30,null,null,$class3);
+$objTable3->addCell("<div id='link_basicsysonly'><b>Basic System Only</b></div>",null,null,null,$class3);
+$objTable3->addCell($iconcheck->show()); //"<div id='download_{$type['id']}'>".$link3->show()."</div>",'40%',null,null,$class3);
+$objTable3->endRow();
+
 foreach ($types as $type)
 {
+	$link3->link('javascript:;');
+	$link3->extra = "onclick = 'javascript:downloadSystemType(\"{$type}\");'";
+	$class3 = ($class3 == 'even')? 'odd' : 'even';
+	$newMods3[] = $type;
+	$itype = str_replace(' ','_', $type);
+	$itype = strtolower($itype);
+	$icon3->setModuleIcon($itype);
+	$modCheck3 = new checkbox('arrayList[]');
+	$modCheck3->cssId = 'checkbox_'.$type;
+	$modCheck3->setValue($type);
+				
 	$objTable3->startRow();
-	$objTable3->addCell($modCheck3->show(),20,null,null,$class3);
+	$objTable3->addCell('&nbsp;',20,null,null,$class3);
 	$objTable3->addCell($icon3->show(),30,null,null,$class3);
-	$objTable3->addCell("<div id='link_{$type['id']}'><b>{$type['name']}</b></div>",null,null,null,$class3);
-	$objTable3->addCell("<div id='download_{$type['id']}'>".$link3->show()."</div>",'40%',null,null,$class3);
+	$objTable3->addCell("<div id='link_{$type}'><b>{$type}</b></div>",null,null,null,$class3);
+	$objTable3->addCell("<div id='download_{$type}'>".$link3->show()."</div>",'40%',null,null,$class3);
 	$objTable3->endRow();
 	$objTable3->startRow();
 	$objTable3->addCell('&nbsp;',20,null,'left',$class3);
 	$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-	$objTable3->addCell($type['desc'].'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+	$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+	$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
 	$objTable3->endRow();
 }
 
