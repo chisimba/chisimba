@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_tags</table>
+        <version>0.3</version>
+        <description>added new column for uri</description>
+        <data>
+            <add>
+                <name>uri</name>
+                <type>text</type>
+                <length>255</length>                
+            </add>
+        </data>
+    </update>
+</updates>
