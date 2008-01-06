@@ -477,8 +477,10 @@ class modulecatalogue extends controller
                 case 'ajaxunzip':
                     $modName = $this->getParam('moduleId');
                     if (!is_dir($this->objConfig->getModulePath().$modName)) {
+                    	log_debug("looks like we have a core module upgrade!");
                         $objZip = $this->getObject('wzip', 'utilities');
-                        if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getModulePath())) {
+    //                  if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                        if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                             header('HTTP/1.0 500 Internal Server Error');
                             echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
                             echo "<br /> $objZip->error";
@@ -528,7 +530,7 @@ class modulecatalogue extends controller
                         break;
                     }
                     unlink("$modName.zip");
-                    echo "<b>".$this->objLanguage->languageText('word_upgraded')."</b>";
+                    echo "<b>".$this->objLanguage->languageText('word_upgraded', "modulecatalogue")."</b>";
                     //sleep(5);
                     //$this->nextAction(array());
                     break;
@@ -537,12 +539,27 @@ class modulecatalogue extends controller
                 	$newfile = $this->objRPCClient->updateSysTypes();
                 	$file = simplexml_load_string($newfile);
                     $repfile = base64_decode($file->string);
-                	//var_dump($repfile); die();
                 	// delete the old and replace it with the new...
                 	unlink($this->objConfig->getsiteRootPath().'config/systemtypes.xml');
                 	file_put_contents($this->objConfig->getsiteRootPath().'config/systemtypes.xml', $repfile);
-                	// echo date('r', filemtime($this->objConfig->getsiteRootPath().'config/systemtypes.xml'));
                 	$this->nextAction('');
+                	break;
+                	
+                case 'downloadsystemtype':
+                	$type = $this->getParam('type');
+                	// make sure that the systemtypes.xml doc is up to date for dependencies
+                	$newfile = $this->objRPCClient->updateSysTypes();
+                	$file = simplexml_load_string($newfile);
+                    $repfile = base64_decode($file->string);
+                	// delete the old and replace it with the new...
+                	unlink($this->objConfig->getsiteRootPath().'config/systemtypes.xml');
+                	file_put_contents($this->objConfig->getsiteRootPath().'config/systemtypes.xml', $repfile);
+                	
+                	// read the systemtypes doc for modules needed...
+                	$mods = $this->objCatalogueConfig->getCategoryList($type);
+                	var_dump($mods); die();
+                	echo $type; die();
+                	
                 	break;
                 case 'uploadarchive':
                     $file = $_FILES['archive']['name'];
