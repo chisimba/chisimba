@@ -41,17 +41,10 @@
 */
 class parse4mindmeister extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
-    public $objConfig;
-    public $objLanguage;
     public $objExpar;
     public $id;
-    public $url;
+    public $width;
+    public $height;
 
     /**
      *
@@ -63,8 +56,6 @@ class parse4mindmeister extends object
      */
     function init()
     {
-        // Get an instance of the language object
-        $this->objLanguage = $this->getObject('language', 'language');
         // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
     }
@@ -82,13 +73,8 @@ class parse4mindmeister extends object
         $objModule = $this->getObject('modules','modulecatalogue');
     	//Match filters based on a wordpress style
     	preg_match_all('/\\[MINDMEISTER:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-
-
-
-
     	//Get all the ones in links
     	$counter = 0;
-
     	foreach ($results[0] as $item) {
             $this->item=$item;
         	$str = $results[1][$counter];
