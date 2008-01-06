@@ -51,7 +51,7 @@ sort($lMods);
 
 $objTable = $this->newObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
-$objTable->id = 'unpadded';
+$objTable->id = 'unpadded1';
 $objTable->width='100%';
 
 $masterCheck = new checkbox('arrayList[]');
@@ -94,7 +94,7 @@ foreach ($modules as $module) {
 
 $objTable2 = $this->newObject('htmltable','htmlelements');
 $objTable2->cellpadding = 2;
-$objTable2->id = 'unpadded';
+$objTable2->id = 'unpadded2';
 $objTable2->width='100%';
 
 $masterCheck2 = new checkbox('arrayList[]');
@@ -155,7 +155,7 @@ foreach ($modules as $umod)
 // system types one click install
 $objTable3 = $this->newObject('htmltable','htmlelements');
 $objTable3->cellpadding = 2;
-$objTable3->id = 'unpadded';
+$objTable3->id = 'unpadded3';
 $objTable3->width='100%';
 
 $masterCheck3 = new checkbox('arrayList[]');
@@ -187,7 +187,7 @@ $objTable3->endRow();
 foreach ($types as $type)
 {
 	$link3->link('javascript:;');
-	$link3->extra = "onclick = 'javascript:downloadSystemType(\"{$type}\");'";
+	$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
 	$class3 = ($class3 == 'even')? 'odd' : 'even';
 	$newMods3[] = $type;
 	$itype = str_replace(' ','_', $type);
@@ -200,8 +200,8 @@ foreach ($types as $type)
 	$objTable3->startRow();
 	$objTable3->addCell('&nbsp;',20,null,null,$class3);
 	$objTable3->addCell($icon3->show(),30,null,null,$class3);
-	$objTable3->addCell("<div id='link_{$type}'><b>{$type}</b></div>",null,null,null,$class3);
-	$objTable3->addCell("<div id='download_{$type}'>".$link3->show()."</div>",'40%',null,null,$class3);
+	$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
+	$objTable3->addCell("<div id='download_{$itype}'>".$link3->show()."</div>",'40%',null,null,$class3);
 	$objTable3->endRow();
 	$objTable3->startRow();
 	$objTable3->addCell('&nbsp;',20,null,'left',$class3);
