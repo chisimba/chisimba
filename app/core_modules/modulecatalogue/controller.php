@@ -609,11 +609,12 @@ class modulecatalogue extends controller
 						}
 					}
 					// finally install all of the mods
-					foreach($modules as $installables)
+					$this->batchRegister($modules); 
+					/*foreach($modules as $installables)
 					{
 						log_debug("Installing module $installables as part of system");
 						$this->smartRegister($installables);
-					}
+					}*/
 					// clean up after ourselves
 					foreach($modules as $deleteables)
 					{
