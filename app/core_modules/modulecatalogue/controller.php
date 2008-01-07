@@ -483,6 +483,7 @@ class modulecatalogue extends controller
 					if(in_array($modName, $this->objEngine->coremods))
 					{
 						//if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+						$objZip = $this->getObject('wzip', 'utilities');
 						if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
 							header('HTTP/1.0 500 Internal Server Error');
 							echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
