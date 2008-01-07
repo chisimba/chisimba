@@ -600,6 +600,11 @@ class modulecatalogue extends controller
                 		log_debug("Installing module $installables as part of system");
                 		$this->installModule($installables);
                 	}
+                	// clean up after ourselves
+                	foreach($modules as $deleteables)
+                	{
+                		unlink($deleteables);
+                	}
                     echo $this->objLanguage->languageText('phrase_installing');
                 	break;
                 	
