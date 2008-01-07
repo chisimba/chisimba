@@ -612,7 +612,7 @@ class modulecatalogue extends controller
 					foreach($modules as $installables)
 					{
 						log_debug("Installing module $installables as part of system");
-						$this->installModule($installables);
+						$this->smartRegister($installables);
 					}
 					// clean up after ourselves
 					foreach($modules as $deleteables)
