@@ -30,6 +30,6 @@
  * @see       http://lucene.apache.org/java/docs/
  */
 
-require_once 'core_modules/lucene/resources/luceneincludelist.php';
+require_once 'core_modules/search/resources/luceneincludelist.php';
 
 ?>
