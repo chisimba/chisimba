@@ -575,6 +575,7 @@ class modulecatalogue extends controller
                 		// check for core modules and install them where they should go
                 		if(in_array($dls, $this->objEngine->coremods))
                         {
+                        	log_debug("upgrading core module $dls as part of system type...");
     //                  	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                         	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                             	header('HTTP/1.0 500 Internal Server Error');
