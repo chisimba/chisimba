@@ -203,7 +203,7 @@ class DbCreateAction extends StepAction
 	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_decisiontable.sql');
 	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule_condition.sql');
 	$this->_installDb32('core_modules/decisiontable/sql/tbl_decisiontable_rule.sql');
-
+	$this->_installDb32('core_modules/tagging/sql/tbl_tags.sql');
 	//OK now lets dump in the default data from the xml files...
 	//get an array of the directories that we need to look through for the default files...
 	$defaults = array('security' => 'core_modules/security/sql/users.xml',
