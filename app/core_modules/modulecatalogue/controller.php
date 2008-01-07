@@ -20,6 +20,7 @@
  * @category  Chisimba
  * @package   modulecatalogue
  * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
@@ -36,6 +37,7 @@
  * @category  Chisimba
  * @package   modulecatalogue
  * @author    Nic Appleby <nappleby@uwc.ac.za>
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
@@ -567,15 +569,33 @@ class modulecatalogue extends controller
                 	{
                 		log_debug("getting $dls from remote...");
                 		$encodedZip = $this->objRPCClient->getModuleZip($dls);
+                		$zipContents = base64_decode(strip_tags($encodedZip));
+                		file_put_contents($dls.".zip", $zipContents);
                 		log_debug("Unzipping $dls...");
-                		$objZip->unZipArchive("$dls.zip", $this->objConfig->getModulePath());
-                	}
-                	
-                	//var_dump($modules); die();
-                	var_dump($this->objEngine->coremods);
-                	echo $type; die();
-                	
+                		// check for core modules and install them where they should go
+                		if(in_array($dls, $this->objEngine->coremods))
+                        {
+    //                  	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                        	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                            	header('HTTP/1.0 500 Internal Server Error');
+                            	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                            	echo "<br /> $objZip->error";
+                            	break;
+                        	}
+                        }
+                        elseif (!$objZip->unZipArchive("$dls.zip", $this->objConfig->getModulePath())) 
+                        {
+                       		log_debug("unzipping failed!");
+                           	header('HTTP/1.0 500 Internal Server Error');
+                           	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+                           	echo "<br /> $objZip->error";
+                           	//unlink("$modName.zip");
+                           	break;
+                        }
+                    }
+                    echo $this->objLanguage->languageText('phrase_installing');
                 	break;
+                	
                 case 'uploadarchive':
                     $file = $_FILES['archive']['name'];
                     $module = substr($file,0,strpos($file,'.'));
