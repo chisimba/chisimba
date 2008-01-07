@@ -484,7 +484,7 @@ class modulecatalogue extends controller
                         if(in_array($modName, $this->objEngine->coremods))
                         {
     //                  	if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
-                        	if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                        	if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                             	header('HTTP/1.0 500 Internal Server Error');
                             	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
                             	echo "<br /> $objZip->error";
@@ -577,7 +577,7 @@ class modulecatalogue extends controller
                         {
                         	log_debug("upgrading core module $dls as part of system type...");
     //                  	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
-                        	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                        	if (!$objZip->unZipArchive("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                             	header('HTTP/1.0 500 Internal Server Error');
                             	echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
                             	echo "<br /> $objZip->error";
