@@ -621,6 +621,8 @@ class modulecatalogue extends controller
 						unlink($deleteables.".zip");
 					}
 					// echo $this->objLanguage->languageText('phrase_installing');
+					// now set the system type to this type in the config.xml
+					$this->objConfig->setSystemType($type);
 					$this->nextAction('');
 					break;
 

@@ -264,6 +264,6 @@ if (empty($types)) {
 	$objTable3->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_nosystypesavail','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
 	$objTable->endRow();
 }
-echo $hTable->show().$objH4->show().$objTable2->show()."<br />".$objH5->show().$objTable->show()."<br />".$objH3->show().$objTable3->show();
+echo $hTable->show()."<br />".$objH4->show().$objTable2->show()."<br />".$objH3->show().$objTable3->show()."<br />".$objH5->show().$objTable->show();
 
 ?>
