@@ -593,6 +593,12 @@ class modulecatalogue extends controller
                            	break;
                         }
                     }
+                    // finally install all of the mods
+                    foreach($modules as $installables)
+                	{
+                		log_debug("Installing module $installables as part of system");
+                		$this->installModule($installables);
+                	}
                     echo $this->objLanguage->languageText('phrase_installing');
                 	break;
                 	
