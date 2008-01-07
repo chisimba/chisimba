@@ -635,7 +635,7 @@ class dbTable extends object
     */
     public function commitTransaction()
     {
-        if ($this->db->in_transaction)
+        if ($this->_db->in_transaction)
         {
             $this->_db->commit();
             $this->_inTransaction = false;
