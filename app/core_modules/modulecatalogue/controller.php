@@ -603,7 +603,7 @@ class modulecatalogue extends controller
                 	// clean up after ourselves
                 	foreach($modules as $deleteables)
                 	{
-                		unlink($deleteables);
+                		unlink($deleteables.".zip");
                 	}
                     echo $this->objLanguage->languageText('phrase_installing');
                 	break;
