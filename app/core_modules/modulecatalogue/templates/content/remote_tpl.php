@@ -186,29 +186,67 @@ $objTable3->endRow();
 
 foreach ($types as $type)
 {
-	$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
-	//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
-	$class3 = ($class3 == 'even')? 'odd' : 'even';
-	$newMods3[] = $type;
-	$itype = str_replace(' ','_', $type);
-	$itype = strtolower($itype);
-	$icon3->setModuleIcon($itype);
-	$modCheck3 = new checkbox('arrayList[]');
-	$modCheck3->cssId = 'checkbox_'.$itype;
-	$modCheck3->setValue($type);
+	// grab a list of all modules in the category for the check.
+	$catmods[$type] = array_keys($this->objCatalogueConfig->getCategoryList($type));
+	// loop through the modules in the cat to check if they are all installed.
+	foreach($catmods[$type] as $checks)
+	{
+		//echo $checks;
+		$check[] = $this->objModule->checkIfRegistered($checks);
+	}
+	// check for a false in the array and if there is one, download else show tick
+	if(in_array(false, $check))
+	{
+		$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
+		//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
+		$class3 = ($class3 == 'even')? 'odd' : 'even';
+		$newMods3[] = $type;
+		$itype = str_replace(' ','_', $type);
+		$itype = strtolower($itype);
+		$icon3->setModuleIcon($itype);
+		$modCheck3 = new checkbox('arrayList[]');
+		$modCheck3->cssId = 'checkbox_'.$itype;
+		$modCheck3->setValue($type);
 				
-	$objTable3->startRow();
-	$objTable3->addCell('&nbsp;',20,null,null,$class3);
-	$objTable3->addCell($icon3->show(),30,null,null,$class3);
-	$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
-	$objTable3->addCell("<div id='download_{$itype}'>".$link3->show()."</div>",'40%',null,null,$class3);
-	$objTable3->endRow();
-	$objTable3->startRow();
-	$objTable3->addCell('&nbsp;',20,null,'left',$class3);
-	$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-	$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-	$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
-	$objTable3->endRow();
+		$objTable3->startRow();
+		$objTable3->addCell('&nbsp;',20,null,null,$class3);
+		$objTable3->addCell($icon3->show(),30,null,null,$class3);
+		$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
+		$objTable3->addCell("<div id='download_{$itype}'>".$link3->show()."</div>",'40%',null,null,$class3);
+		$objTable3->endRow();
+		$objTable3->startRow();
+		$objTable3->addCell('&nbsp;',20,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+		$objTable3->endRow();
+	}
+	else {
+		// no falses in the array which means that all the relevant modules are installed already
+		$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
+		//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
+		$class3 = ($class3 == 'even')? 'odd' : 'even';
+		$newMods3[] = $type;
+		$itype = str_replace(' ','_', $type);
+		$itype = strtolower($itype);
+		$icon3->setModuleIcon($itype);
+		$modCheck3 = new checkbox('arrayList[]');
+		$modCheck3->cssId = 'checkbox_'.$itype;
+		$modCheck3->setValue($type);
+				
+		$objTable3->startRow();
+		$objTable3->addCell('&nbsp;',20,null,null,$class3);
+		$objTable3->addCell($icon3->show(),30,null,null,$class3);
+		$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
+		$objTable3->addCell("<div id='download_{$itype}'>".$iconcheck->show()."</div>",'40%',null,null,$class3);
+		$objTable3->endRow();
+		$objTable3->startRow();
+		$objTable3->addCell('&nbsp;',20,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
+		$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+		$objTable3->endRow();
+	}
 }
 
 if (empty($newMods)) {
