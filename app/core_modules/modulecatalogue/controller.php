@@ -479,6 +479,7 @@ class modulecatalogue extends controller
 
                 case 'ajaxunzip':
                     $modName = $this->getParam('moduleId');
+                    chmod($this->objConfig->getModulePath(), 0777);
                     if (!is_dir($this->objConfig->getModulePath().$modName)) {
                     	log_debug("looks like we have a core module upgrade!");
                         $objZip = $this->getObject('wzip', 'utilities');
