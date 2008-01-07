@@ -619,7 +619,8 @@ class modulecatalogue extends controller
 					{
 						unlink($deleteables.".zip");
 					}
-					echo $this->objLanguage->languageText('phrase_installing');
+					// echo $this->objLanguage->languageText('phrase_installing');
+					$this->nextAction('');
 					break;
 
 				case 'uploadarchive':
