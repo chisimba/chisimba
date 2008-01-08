@@ -28,6 +28,7 @@ $masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
 $head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 			/*$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),*/
+			ucwords($this->objLanguage->languageText("mod_modulecatalogue_modstability", "modulecatalogue")),
 			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
 			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
 			,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
@@ -81,10 +82,10 @@ if ($modules) {
     $objRemoteTable->addHeader($rhead,'heading','align="left"');
     if (!$connected) {
         $objRemoteTable->startRow();
-        $objRemoteTable->addCell('<i>'.$this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue').'</i>',null,null,'left',null,'colspan="4"');
+        $objRemoteTable->addCell('<i>'.$this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue').'</i>',null,null,'left',null,'colspan="5"');
         $objRemoteTable->endRow();
         $objRemoteTable->startRow();
-        $objRemoteTable->addCell('&nbsp;',null,null,'left',null,'colspan="4"');
+        $objRemoteTable->addCell('&nbsp;',null,null,'left',null,'colspan="5"');
         $objRemoteTable->endRow();
     }
 
@@ -170,7 +171,8 @@ if ($modules) {
             $objTable->startRow();
             $objTable->addCell($checkBox,null,null,'left',$class);
             $objTable->addCell($icon->show(),null,null,'left',$class);
-            $objTable->addCell('<strong>'.$link." (".$this->objLanguage->languageText("mod_modulecatalogue_modstability", "modulecatalogue")." ".$status.')</strong>',null,null,'left',$class);
+            $objTable->addCell('<strong>'.$link.'</strong>',null,null,'left',$class);
+            $objTable->addCell('<em>'.ucwords($status).'</em>',null,null,'left',$class);
             $objTable->addCell($instButtonShow,null,null,'left',$class);
             $objTable->addCell($texts,null,null,'left',$class);
             $objTable->addCell($info,null,null,'left',$class);
@@ -178,7 +180,7 @@ if ($modules) {
             $objTable->startRow();
             $objTable->addCell('&nbsp;',20,null,'left',$class);
             $objTable->addCell('&nbsp;',30,null,'left',$class);
-            $objTable->addCell($desc.'<br />&nbsp;',null,null,'left',$class, 'colspan="4"');
+            $objTable->addCell($desc.'<br />&nbsp;',null,null,'left',$class, 'colspan="5"');
 
 
             $objTable->endRow();
