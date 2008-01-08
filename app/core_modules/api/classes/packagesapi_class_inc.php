@@ -98,7 +98,7 @@ class packagesapi extends object
 		// lets check to see if this module has dependencies...
 		$depends = $this->objCatalogueConfig->getModuleDeps($mod->scalarval());
 		log_debug($depends);
-		$depends = $depends[0];
+		//$depends = $depends[0];
 		$depends = explode(',', $depends);
 		log_debug($depends);
 		// Recursively download the dependencies
