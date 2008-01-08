@@ -530,7 +530,8 @@ class modulecatalogue extends controller
 				case 'ajaxinstall':
 					$modName = $this->getParam('moduleId');
 					log_debug("Prepping to install $modName");
-					if (!$this->installModule($modName)) {
+					// if (!$this->installModule($modName)) {
+					if (!$this->smartRegister($modName)) {
 						header('HTTP/1.0 500 Internal Server Error');
 						$this->objModuleAdmin->output = strip_tags($this->objModuleAdmin->output);
 						echo "$this->output\n{$this->objModuleAdmin->output}";

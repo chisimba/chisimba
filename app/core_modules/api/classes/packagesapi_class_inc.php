@@ -74,6 +74,7 @@ class packagesapi extends object
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objCatalogueConfig = $this->getObject('catalogueconfig','modulecatalogue');
+        	$this->objModules = $this->getObject('modules', 'modulecatalogue');
 		}
 		catch (customException $e)
 		{
@@ -94,8 +95,49 @@ class packagesapi extends object
 	{
 		//grab the module name
 		$mod = $module->getParam(0);
+		// lets check to see if this module has dependencies...
+		$depends = $this->objCatalogueConfig->getModuleDeps($mod->scalarval());
+		$depends = $depends[0];
+		$depends = explode(',', $depends);
+		log_debug($depends);
+		// Recursively download the dependencies
+		// generate a list of paths to zip up
+		foreach($depends as $paths)
+		{
+			$paths = trim($paths);
+			$path = $this->objConfig->getModulePath().$paths.'/';
+			if(file_exists($path))
+			{
+				$dep[] = $this->objConfig->getModulePath().$paths.'/';
+			}
+			elseif(file_exists($this->objConfig->getsiteRootPath().'core_modules/'.$paths.'/'))
+			{
+				$dep[] = $this->objConfig->getsiteRootPath().'core_modules/'.$paths.'/';
+			}
+			else {
+				$dep[] = FALSE;
+			}
+		}
+		// add the actual module path in there too
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
-		log_debug("$path set.");
+		$dep[] = $path;
+		//log_debug($dep);
+		foreach($dep as $deps)
+		{
+			if(substr($deps, -2) == '//')
+			{
+				unset($deps);
+			}
+			//check for core_modules and unset that too
+			if(preg_match("/core_modules/i", $deps))
+			{
+				unset($deps);
+			}
+			$depe[] = $deps;
+		}
+		$depe = array_filter($depe);
+		//log_debug($depe);
+		
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))
 		{
@@ -103,7 +145,6 @@ class packagesapi extends object
 			// try the core modules....
 			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
 			$filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
-			// $filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 			//zip up the module
 			$objZip = $this->getObject('wzip', 'utilities');
 			//$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
@@ -117,18 +158,33 @@ class packagesapi extends object
 			// Ooops, couldn't open the file so return an error message.
 			return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 		}
-		//zip up the module
-		$objZip = $this->getObject('wzip', 'utilities');
+		//zip up the module(s)
+		// finally zip up the mods needed and send to client...
+		$filetosend = $this->zipDependencies($depe, $mod->scalarval());
+		
+		/*$objZip = $this->getObject('wzip', 'utilities');
 		//$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
 		$filetosend = file_get_contents($zipfile);
-		$filetosend = base64_encode($filetosend);
+		$filetosend = base64_encode($filetosend);*/
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
 		log_debug("Sent ".$mod->scalarval()." to client");
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+	}
+	
+	public function zipDependencies($modulesarr, $mod)
+	{
+		$objZip = $this->getObject('wzip', 'utilities');
+		$filepath = $this->objConfig->getModulePath().$mod.'.zip';
+		$modulesarr = implode(',', $modulesarr);
+		log_debug($modulesarr);
+		$zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
+		$filetosend = file_get_contents($zipfile);
+		$filetosend = base64_encode($filetosend);
+		return $filetosend;
 	}
 
 	/**

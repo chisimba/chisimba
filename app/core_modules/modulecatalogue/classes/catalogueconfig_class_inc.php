@@ -429,34 +429,13 @@ class catalogueconfig extends object {
     *
     * @return array of key module_deps with values being the module deps
     */
-	public function getModuleDeps()
+	public function getModuleDeps($module)
 	{
-		try {
 			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
 			$xml = simplexml_load_file($this->_path);
-			$entries = $xml->xpath("//module");
-			foreach ($entries as $moduledeps) {
-				$moduleName = $this->objLanguage->abstractText((string)$moduledeps->module_name);
-				$moduleDep = $this->objLanguage->abstractText((string)$moduledeps->module_dependency);
-				if (empty($moduleName)) {
-					$result[] = array('id' => (string)$moduledeps->module_id,
-					'deps' => (string)$moduletags->module_dependency,
-					'name' => (string)$moduletags->module_name
-					);
-				} else {
-					$result[] = array('id' => (string)$moduledeps->module_id,'name' => ucwords($moduleName),'deps' => (string)$moduleDep);
-				}
-			}
-			if (!isset($result)) {
-				return FALSE;
-			}else {
-				return $result;
-			}
-
-		}catch (Exception $e){
-			$this->errorCallback('Caught exception: '.$e->getMessage());
-			exit();
-		}
+			$entries = $xml->xpath("//module[module_id='{$module}']");
+			//log_debug($entries[0]->module_dependency[0]);
+			return $entries[0]->module_dependency[0];
 	}
 
 
