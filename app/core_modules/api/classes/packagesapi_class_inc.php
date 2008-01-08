@@ -99,7 +99,7 @@ class packagesapi extends object
 		$depends = $this->objCatalogueConfig->getModuleDeps($mod->scalarval());
 		$depends = $depends[0];
 		$depends = explode(',', $depends);
-		log_debug($depends);
+		//log_debug($depends);
 		// Recursively download the dependencies
 		// generate a list of paths to zip up
 		foreach($depends as $paths)
@@ -180,7 +180,7 @@ class packagesapi extends object
 		$objZip = $this->getObject('wzip', 'utilities');
 		$filepath = $this->objConfig->getModulePath().$mod.'.zip';
 		$modulesarr = implode(',', $modulesarr);
-		log_debug($modulesarr);
+		// log_debug($modulesarr);
 		$zipfile = $objZip->addArchive($modulesarr, $filepath, $this->objConfig->getModulePath());
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);

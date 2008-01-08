@@ -258,7 +258,7 @@ class catalogueconfig extends object {
 							}
 						} else {
 							$module_deps = '';
-							log_debug($this->objLanguage->languageText('mod_modulecatalogue_nodeps','modulecatalogue').": MODULE_DEPENDS $from $module_name");
+							// log_debug($this->objLanguage->languageText('mod_modulecatalogue_nodeps','modulecatalogue').": MODULE_DEPENDS $from $module_name");
 						}
 						$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_name>$module_name</module_name>
