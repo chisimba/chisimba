@@ -72,6 +72,14 @@
         $str.="</em>\n";
         $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_tags','modulecatalogue').':</b>',$str));
     }
+    
+    // and then the status
+    if (isset($this->registerdata['MODULE_STATUS'])){
+        $str="<b>";
+        $str .= $this->registerdata['MODULE_STATUS'];
+        $str.="</b>\n";
+        $objTbl2->addRow(array('<b>'.$this->objLanguage->languageText('mod_modulecatalogue_status','modulecatalogue').':</b>',$str));
+    }
 
     $str='<b>'.$this->objLanguage->languageText('mod_modulecatalogue_tables','modulecatalogue').":</b>\n";
     if (isset($this->registerdata['TABLE'])){

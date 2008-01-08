@@ -111,7 +111,7 @@ if ($modules) {
             $class = ($count % 2 == 0)? 'even' : 'odd';
             $count++;
             $desc = $this->objCatalogueConfig->getModuleDescription($moduleId);
-            
+            $status = $this->objCatalogueConfig->getModuleStatus($moduleId);
 
             if (isset($desc[0])) {
                 $desc = (string)$desc[0];
@@ -170,7 +170,7 @@ if ($modules) {
             $objTable->startRow();
             $objTable->addCell($checkBox,null,null,'left',$class);
             $objTable->addCell($icon->show(),null,null,'left',$class);
-            $objTable->addCell('<strong>'.$link.'</strong>',null,null,'left',$class);
+            $objTable->addCell('<strong>'.$link." (".$this->objLanguage->languageText("mod_modulecatalogue_modstability", "modulecatalogue")." ".$status.')</strong>',null,null,'left',$class);
             $objTable->addCell($instButtonShow,null,null,'left',$class);
             $objTable->addCell($texts,null,null,'left',$class);
             $objTable->addCell($info,null,null,'left',$class);

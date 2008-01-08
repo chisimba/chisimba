@@ -260,6 +260,12 @@ class catalogueconfig extends object {
 							$module_deps = '';
 							// log_debug($this->objLanguage->languageText('mod_modulecatalogue_nodeps','modulecatalogue').": MODULE_DEPENDS $from $module_name");
 						}
+						if (isset($reg['MODULE_STATUS'])){
+							$module_stats = $reg['MODULE_STATUS'];
+						} else {
+							$module_stats = 'pre-alpha';
+							log_debug($this->objLanguage->languageText('mod_modulecatalogue_nodeps','modulecatalogue').": MODULE_STATUS $from $module_name");
+						}
 						$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_name>$module_name</module_name>
     	<module_authors>$module_authors</module_authors>
@@ -267,7 +273,8 @@ class catalogueconfig extends object {
         <module_description>$module_description</module_description>
         <module_version>$module_version</module_version>
         <module_tags>$module_tags</module_tags>
-        <module_dependency>$module_deps</module_dependency>\n";
+        <module_dependency>$module_deps</module_dependency>
+        <module_status>$module_stats</module_status>\n";
 						if (isset($reg['MODULE_CATEGORY'])) {
 							foreach ($reg['MODULE_CATEGORY'] as $cat) {
 								$cat = htmlentities($cat);
@@ -438,6 +445,19 @@ class catalogueconfig extends object {
 			return $entries[0]->module_dependency[0];
 	}
 
+	/**
+    * Method to get module status.
+    *
+    * @return array of key module_status
+    */
+	public function getModuleStatus($module)
+	{
+			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+			$xml = simplexml_load_file($this->_path);
+			$status = $xml->xpath("//module[module_id='{$module}']");
+			//var_dump($status[0]->module_status);
+			return $status[0]->module_status;
+	}
 
 	/**
     * Method to get modulelist for catalogue categories.
