@@ -136,7 +136,7 @@ class packagesapi extends object
 			$depe[] = $deps;
 		}
 		$depe = array_filter($depe);
-		//log_debug($depe);
+		log_debug($depe);
 		
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))
