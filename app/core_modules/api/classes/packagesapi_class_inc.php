@@ -121,7 +121,7 @@ class packagesapi extends object
 		// add the actual module path in there too
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
 		$dep[] = $path;
-		//log_debug($dep);
+		log_debug($dep);
 		foreach($dep as $deps)
 		{
 			if(substr($deps, -2) == '//')
