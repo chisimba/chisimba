@@ -248,7 +248,7 @@ class catalogueconfig extends object {
 							}
 						} else {
 							$module_tags = '';
-							log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_TAGS $from $module_name");
+							// log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_TAGS $from $module_name");
 						}
 						if (isset($reg['DEPENDS'])){
 							$module_deps = '';
