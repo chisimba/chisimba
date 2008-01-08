@@ -487,6 +487,8 @@ class modulefile extends object {
 							$tagArray=explode('|',$params[1]);
 							$registerdata['TAGS'] = $tagArray;
 							break;
+						case 'MODULE_STATUS':
+							$registerdata['MODULE_STATUS'] = $params[1];
 						default:
 					} //  end of switch()
 				} //    end of foreach
