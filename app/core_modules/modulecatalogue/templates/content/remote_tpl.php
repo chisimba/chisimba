@@ -52,10 +52,10 @@ $objTable->cellpadding = 2;
 $objTable->id = 'unpadded1';
 $objTable->width='100%';
 
-$masterCheck = new checkbox('arrayList[]');
+$masterCheck = '&nbsp;'; // new checkbox('arrayList[]');
 //$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-$head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
+$head = array($masterCheck,'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 $objTable->addHeader($head,'heading','align="left"');
 $newMods = array();
@@ -71,13 +71,13 @@ foreach ($modules as $module) {
 		$class = ($class == 'even')? 'odd' : 'even';
 		$newMods[] = $module['id'];
 		$icon->setModuleIcon($module['id']);
-		$modCheck = new checkbox('arrayList[]');
-		$modCheck->cssId = 'checkbox_'.$module['id'];
-		$modCheck->setValue($module['id']);
+		$modCheck = '&nbsp;'; // new checkbox('arrayList[]');
+		//$modCheck->cssId = 'checkbox_'.$module['id'];
+		//$modCheck->setValue($module['id']);
 		//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
 		$objTable->startRow();
-		$objTable->addCell($modCheck->show(),20,null,null,$class);
+		$objTable->addCell($modCheck,20,null,null,$class);
 		$objTable->addCell($icon->show(),30,null,null,$class);
 		$objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",null,null,null,$class);
 		$objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'40%',null,null,$class);
@@ -95,10 +95,10 @@ $objTable2->cellpadding = 2;
 $objTable2->id = 'unpadded2';
 $objTable2->width='100%';
 
-$masterCheck2 = new checkbox('arrayList[]');
+$masterCheck2 = '&nbsp;'; // new checkbox('arrayList[]');
 //$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-$head2 = array($masterCheck2->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
+$head2 = array($masterCheck2,'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
 $this->objLanguage->languageText('mod_modulecatalogue_upgrade','modulecatalogue'));
 $objTable2->addHeader($head2,'heading','align="left"');
 $newMods2 = array();
@@ -127,13 +127,13 @@ foreach ($modules as $umod)
 				$class2 = ($class2 == 'even')? 'odd' : 'even';
 				$newMods2[] = $umod['id'];
 				$icon2->setModuleIcon($umod['id']);
-				$modCheck2 = new checkbox('arrayList[]');
-				$modCheck2->cssId = 'checkbox_'.$umod['id'];
-				$modCheck2->setValue($umod['id']);
+				$modCheck2 = '&nbsp;'; // new checkbox('arrayList[]');
+				//$modCheck2->cssId = 'checkbox_'.$umod['id'];
+				//$modCheck2->setValue($umod['id']);
 				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
 				$objTable2->startRow();
-				$objTable2->addCell($modCheck2->show(),20,null,null,$class2);
+				$objTable2->addCell($modCheck2,20,null,null,$class2);
 				$objTable2->addCell($icon2->show(),30,null,null,$class2);
 				$objTable2->addCell("<div id='link_{$umod['id']}'><b>{$umod['name']}</b></div>",null,null,null,$class2);
 				$objTable2->addCell("<div id='download_{$umod['id']}'>".$link2->show()."</div>",'40%',null,null,$class2);
@@ -156,10 +156,10 @@ $objTable3->cellpadding = 2;
 $objTable3->id = 'unpadded3';
 $objTable3->width='100%';
 
-$masterCheck3 = new checkbox('arrayList[]');
+$masterCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
 //$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-$head3 = array($masterCheck3->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_sysname','modulecatalogue'),
+$head3 = array($masterCheck3,'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_sysname','modulecatalogue'),
 $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 $objTable3->addHeader($head3,'heading','align="left"');
 $newMods3 = array();
@@ -202,9 +202,9 @@ foreach ($types as $type)
 		$itype = str_replace(' ','_', $type);
 		$itype = strtolower($itype);
 		$icon3->setModuleIcon($itype);
-		$modCheck3 = new checkbox('arrayList[]');
-		$modCheck3->cssId = 'checkbox_'.$itype;
-		$modCheck3->setValue($type);
+		$modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
+		//$modCheck3->cssId = 'checkbox_'.$itype;
+		//$modCheck3->setValue($type);
 				
 		$objTable3->startRow();
 		$objTable3->addCell('&nbsp;',20,null,null,$class3);
@@ -228,9 +228,9 @@ foreach ($types as $type)
 		$itype = str_replace(' ','_', $type);
 		$itype = strtolower($itype);
 		$icon3->setModuleIcon($itype);
-		$modCheck3 = new checkbox('arrayList[]');
-		$modCheck3->cssId = 'checkbox_'.$itype;
-		$modCheck3->setValue($type);
+		$modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
+		//$modCheck3->cssId = 'checkbox_'.$itype;
+		//$modCheck3->setValue($type);
 				
 		$objTable3->startRow();
 		$objTable3->addCell('&nbsp;',20,null,null,$class3);
