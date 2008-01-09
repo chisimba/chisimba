@@ -581,13 +581,24 @@ class modulecatalogue extends controller
 					break;
 					
 				case 'ajaxunzipskin':
-					
-					
+					$skin = $this->getParam('skinname');
+					$objZip = $this->getObject('wzip', 'utilities');
+                    if (!$objZip->unZipArchive("$skin.zip", $this->objConfig->getSkinRoot())) 
+                    {
+						log_debug("unzipping failed!");
+						header('HTTP/1.0 500 Internal Server Error');
+						echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+						echo "<br /> $objZip->error";
+						//unlink("$modName.zip");
+						break;
+					}
+					echo $this->objLanguage->languageText('phrase_installing');
 					break;
 					
 				case 'ajaxinstallskin':
-					
-					
+					$skin = $this->getParam('skinname');
+					//unlink("$skin.zip");
+					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
 					
 				case 'ajaxdownloadskin':
