@@ -307,23 +307,49 @@ class packagesapi extends object
 	}
 
 	/**
-	 * Method to grab a specific system type (blog, elearn, cms etc)
-	 *
-	 * @param string $systemType
-	 */
-	public function getSystemType($systemType)
-	{
-
-	}
-
-	/**
 	 * Method to grab a specified skin from the RPC Server
 	 *
 	 * @param string $skinName
 	 */
 	public function getSkin($skinName)
 	{
-
+		//grab the module array
+		$skin = $skinName->getParam(0);
+		$skin = $skin->scalarval();
+		// log_debug($skin);
+		// grok the skin path...
+		$path = $this->objConfig->getskinRoot();
+		$filepath = $this->objConfig->getskinRoot().$skin.".zip";
+		//zip up the skin
+		$objZip = $this->getObject('wzip', 'utilities');
+		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getSkinRoot());
+		$filetosend = file_get_contents($zipfile);
+		$filetosend = base64_encode($filetosend);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		unlink($filepath);
+		log_debug("Sent Skin: ".$skin->scalarval()." to client");
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+	}
+	
+	/**
+	 * Method to return a list of available skins for remote download
+	 *
+	 */
+	public function getSkinList()
+	{
+		$path = $this->objConfig->getskinRoot();
+		chdir($path);
+		foreach(glob('*') as $skins)
+		{
+			$sklist .= $skins."|";
+		}	
+		$val = new XML_RPC_Value($sklist, 'string');
+		log_debug("Sent Skin List to client");
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
 
 	/**
