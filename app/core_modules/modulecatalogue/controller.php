@@ -579,6 +579,47 @@ class modulecatalogue extends controller
 					//sleep(5);
 					//$this->nextAction(array());
 					break;
+					
+				case 'ajaxunzipskin':
+					
+					
+					break;
+					
+				case 'ajaxinstallskin':
+					
+					
+					break;
+					
+				case 'ajaxdownloadskin':
+					$start = microtime(true);
+					$skinName = $this->getParam('skinname');
+					log_debug("Downloading $skinName from remote...");
+					if (!file_exists("$skinName.zip")) {
+						if (!$encodedZip = $this->objRPCClient->getSkinZip($skinName)) {
+							header('HTTP/1.0 500 Internal Server Error');
+							echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+							break;
+						}
+						if (!$zipContents = base64_decode(strip_tags($encodedZip))) {
+							header('HTTP/1.0 500 Internal Server Error');
+							echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+							break;
+						}
+						if (!$fh = fopen("$skinName.zip",'wb')) {
+							header('HTTP/1.0 500 Internal Server Error');
+							echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+							break;
+						}
+						if (!fwrite($fh,$zipContents)) {
+							header('HTTP/1.0 500 Internal Server Error');
+							echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+							break;
+						}
+						fclose($fh);
+					}
+					chmod($skinName.".zip", 0777);
+					echo $this->objLanguage->languageText('phrase_unzipping');
+					break;
 
 				case 'updatesystypes':
 					$newfile = $this->objRPCClient->updateSysTypes();

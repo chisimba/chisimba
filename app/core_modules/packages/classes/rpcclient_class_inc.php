@@ -121,6 +121,8 @@ class rpcclient extends object
 		}
 	}
 	
+	
+	
 	/**
 	 * Method to get a list of available modules from the rpc server
 	 *
@@ -226,6 +228,44 @@ class rpcclient extends object
 	public function getModuleZip($modulename)
 	{
 		$msg = new XML_RPC_Message('getModuleZip', array(new XML_RPC_Value($modulename, "string")));
+		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli->setDebug(0);
+
+		// send the request message
+		$resp = $cli->send($msg);
+		//log_debug($resp);
+		if (!$resp)
+		{
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+			exit;
+		}
+		if (!$resp->faultCode())
+		{
+			$val = $resp->value();
+			return $val->serialize($val);
+		}
+		else
+		{
+			/*
+			* Display problems that have been gracefully caught and
+			* reported by the xmlrpc server class.
+			*/
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		}
+	}
+	
+	
+	/**
+	 * Grab a zip file of a skin from the RPC Server
+	 *
+	 * @param string $modulename
+	 * @return serialized base64 encoded string
+	 */
+	public function getSkinZip($skinname)
+	{
+		$msg = new XML_RPC_Message('getSkin', array(new XML_RPC_Value($skinname, "string")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
 		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
