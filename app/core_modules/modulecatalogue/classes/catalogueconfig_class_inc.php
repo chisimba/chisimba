@@ -761,8 +761,8 @@ class catalogueconfig extends object {
 				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
 				$objTable->startRow();
-				$objTable->addCell(20,null,null,$class);
-				$objTable->addCell(30,null,null,$class);
+				$objTable->addCell('&nbsp;',20,null,null,$class);
+				$objTable->addCell('&nbsp;',30,null,null,$class);
 				$objTable->addCell("<div id='link_{$skin}'><b>{$skin}</b></div>",null,null,null,$class);
 				$objTable->addCell("<div id='download_{$skin}'>".$link->show()."</div>",'40%',null,null,$class);
 				$objTable->endRow();
