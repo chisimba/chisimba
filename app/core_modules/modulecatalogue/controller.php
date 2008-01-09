@@ -234,7 +234,16 @@ class modulecatalogue extends controller
 						$skins = $doc->string;
 						$skins = explode("|", $skins);
 						$skins = array_filter($skins);
-						$this->setVarByRef('skins',$skins);
+						foreach($skins as $skin)
+						{
+							if($skin == 'CVS' || $skin == 'CVSROOT' || $skin == '_common' || $skin == 'cache.config' || $skin == 'error_log')
+							{
+								unset($skin);
+							}
+							$skinner[] = $skin;
+						}
+						$skinner = array_filter($skinner);
+						$this->setVarByRef('skins',$skinner);
 						$t = microtime(true) - $s;
 						log_debug ("Web service discovered $count skins in $t seconds");
 						return 'skins_tpl.php';
