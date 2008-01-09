@@ -317,7 +317,7 @@ class packagesapi extends object
 		$skin = $skin->scalarval();
 		// log_debug($skin);
 		// grok the skin path...
-		$path = $this->objConfig->getskinRoot().$skinName.'/';
+		$path = $this->objConfig->getskinRoot().$skin.'/';
 		log_debug($path." is being zipped up...");
 		$filepath = $this->objConfig->getskinRoot().$skin.".zip";
 		log_debug("Zip is at $filepath");
