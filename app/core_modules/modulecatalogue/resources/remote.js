@@ -43,6 +43,45 @@ function downloadModuleUpgrade(module,name) {
     });
 }
 
+function downloadSkin(skin) {
+    var target = "download_"+skin;
+    $(target).innerHTML='Downloading...';
+    var pars = "module=modulecatalogue&action=ajaxdownloadskin&skinname="+skin;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                unzipSkin(skin);
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not download skin: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
+function unzipSkin(skin) {
+    var target = "download_"+skin;
+    var pars = "module=modulecatalogue&action=ajaxunzipskin&skinname="+skin;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                installSkin(skin);
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not unzip skin: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
 function unzipModule(module,name) {
     var target = "download_"+module;
     var pars = "module=modulecatalogue&action=ajaxunzip&moduleId="+module;
@@ -97,6 +136,26 @@ function installModule(module,name) {
             onFailure: function(transport){
                 var response = transport.responseText || "no response text";
                 alert('Could not install module: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
+function installSkin(skin) {
+    var target = "download_"+skin;
+    var link = "link_"+skin;
+    var pars = "module=modulecatalogue&action=ajaxinstallskin&skinname="+skin;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                $(link).innerHTML = "<a href='index.php'><b>"+skin+"</b></a>";
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not install skin: '+response);
                 $(target).innerHTML = '<b>Failed</b>';
             }
     });
