@@ -318,14 +318,16 @@ class packagesapi extends object
 		// log_debug($skin);
 		// grok the skin path...
 		$path = $this->objConfig->getskinRoot().$skinName.'/';
+		log_debug($path." is being zipped up...");
 		$filepath = $this->objConfig->getskinRoot().$skin.".zip";
+		log_debug("Zip is at $filepath");
 		//zip up the skin
 		$objZip = $this->getObject('wzip', 'utilities');
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getSkinRoot());
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		unlink($filepath);
+		//unlink($filepath);
 		log_debug("Sent Skin: ".$skin->scalarval()." to client");
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
