@@ -739,7 +739,7 @@ class catalogueconfig extends object {
 		$masterCheck = new checkbox('arrayList[]');
 		//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-		$head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_skinname','modulecatalogue'),
+		$head = array(/*$masterCheck->show()*/'&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_skinname','modulecatalogue'),
 		$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 		$objTable->addHeader($head,'heading','align="left"');
 		$newMods = array();
