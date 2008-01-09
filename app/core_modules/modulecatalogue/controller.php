@@ -598,6 +598,8 @@ class modulecatalogue extends controller
 				case 'ajaxinstallskin':
 					$skin = $this->getParam('skinname');
 					unlink("$skin.zip");
+					// this doesn't seem to work correctly...
+					$this->objConfig->setdefaultSkin($skin);
 					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
 					
