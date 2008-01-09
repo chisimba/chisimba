@@ -755,22 +755,22 @@ class catalogueconfig extends object {
 				$class = ($class == 'even')? 'odd' : 'even';
 				$newMods[] = $skin;
 				//$icon->setModuleIcon($module['id']);
-				$modCheck = new checkbox('arrayList[]');
-				$modCheck->cssId = 'checkbox_'.$skin;
-				$modCheck->setValue($skin);
+				//$modCheck = new checkbox('arrayList[]');
+				//$modCheck->cssId = 'checkbox_'.$skin;
+				//$modCheck->setValue($skin);
 				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
 				$objTable->startRow();
-				$objTable->addCell($modCheck->show(),20,null,null,$class);
+				$objTable->addCell('&nbsp;'/*$modCheck->show()*/,20,null,null,$class);
 				$objTable->addCell('&nbsp;',30,null,null,$class);
 				$objTable->addCell("<div id='link_{$skin}'><b>{$skin}</b></div>",null,null,null,$class);
 				$objTable->addCell("<div id='download_{$skin}'>".$link->show()."</div>",'40%',null,null,$class);
 				$objTable->endRow();
-				$objTable->startRow();
+				/*$objTable->startRow();
 				$objTable->addCell('&nbsp;',20,null,'left',$class);
 				$objTable->addCell('&nbsp;',30,null,'left',$class);
 				$objTable->addCell('&nbsp;'.'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
-				$objTable->endRow();
+				$objTable->endRow();*/
 			}
 		}
 
