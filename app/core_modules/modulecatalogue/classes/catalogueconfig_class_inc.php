@@ -696,7 +696,7 @@ class catalogueconfig extends object {
 		$lSkins = array_filter($lSkins);
 		foreach($lSkins as $lskin)
 		{
-			if($lskin == 'CVS' || $lskin == 'CVSROOT' || $lskin == '_common' || $lskin == 'cache.config' || $lskin == 'error_log')
+			if($lskin == 'CVS' || $lskin == 'CVSROOT' || $lskin == '_common' || $lskin == 'cache.config' || $lskin == 'error_log' || $lskin == 'icons2')
 			{
 				unset($lskin);
 			}
