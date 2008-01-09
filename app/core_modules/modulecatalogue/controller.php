@@ -247,6 +247,7 @@ class modulecatalogue extends controller
 						$this->setVarByRef('skins',$skinner);
 						$t = microtime(true) - $s;
 						log_debug ("Web service discovered $count skins in $t seconds");
+						//$this->setLayoutTemplate('cat_layout');
 						return 'skins_tpl.php';
 					}
 					else {

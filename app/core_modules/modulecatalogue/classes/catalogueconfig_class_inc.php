@@ -430,7 +430,7 @@ class catalogueconfig extends object {
 			exit();
 		}
 	}
-	
+
 	/**
     * Method to get basic module dependencies.
     *
@@ -438,11 +438,11 @@ class catalogueconfig extends object {
     */
 	public function getModuleDeps($module)
 	{
-			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
-			$xml = simplexml_load_file($this->_path);
-			$entries = $xml->xpath("//module[module_id='{$module}']");
-			//log_debug($entries[0]->module_dependency[0]);
-			return $entries[0]->module_dependency[0];
+		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+		$xml = simplexml_load_file($this->_path);
+		$entries = $xml->xpath("//module[module_id='{$module}']");
+		//log_debug($entries[0]->module_dependency[0]);
+		return $entries[0]->module_dependency[0];
 	}
 
 	/**
@@ -452,11 +452,11 @@ class catalogueconfig extends object {
     */
 	public function getModuleStatus($module)
 	{
-			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
-			$xml = simplexml_load_file($this->_path);
-			$status = $xml->xpath("//module[module_id='{$module}']");
-			//var_dump($status[0]->module_status);
-			return $status[0]->module_status;
+		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+		$xml = simplexml_load_file($this->_path);
+		$status = $xml->xpath("//module[module_id='{$module}']");
+		//var_dump($status[0]->module_status);
+		return $status[0]->module_status;
 	}
 
 	/**
@@ -682,6 +682,105 @@ class catalogueconfig extends object {
 	{
 		echo customException::cleanUp($exception);
 		exit();
+	}
+
+	public function skinRemoter($skins)
+	{
+		$path = $this->objConfig->getskinRoot();
+		chdir($path);
+		foreach(glob('*') as $s)
+		{
+			$lSkins .= $s."|";
+		}
+		$lSkins = explode("|", $lSkins);
+		$lSkins = array_filter($lSkins);
+		foreach($lSkins as $lskin)
+		{
+			if($lskin == 'CVS' || $lskin == 'CVSROOT' || $lskin == '_common' || $lskin == 'cache.config' || $lskin == 'error_log')
+			{
+				unset($lskin);
+			}
+			$skinner[] = $lskin;
+		}
+		$lSkin = array_filter($skinner);
+
+		$this->loadClass('checkbox','htmlelements');
+		$this->loadClass('link','htmlelements');
+
+		$objH = $this->getObject('htmlheading','htmlelements');
+		$objH->type=2;
+		$objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
+
+		$objH2 = $this->newObject('htmlheading','htmlelements');
+		$objH2->type=3;
+		$objH2->str = $this->objLanguage->languageText('mod_modulecatalogue_remoteskinheading','modulecatalogue');
+
+		$hTable = $this->getObject('htmltable','htmlelements');
+		$hTable->cellpadding = 2;
+		$hTable->id = 'unpadded';
+		$hTable->width='100%';
+		$hTable->startRow();
+		$hTable->addCell($objH->show());
+		$hTable->endRow();
+		$hTable->startRow();
+		$hTable->addCell($objH2->show());
+		$hTable->endRow();
+		$hTable->startRow();
+		$hTable->addCell('&nbsp;');
+		$hTable->endRow();
+
+		sort($skins);
+
+		$objTable = $this->newObject('htmltable','htmlelements');
+		$objTable->cellpadding = 2;
+		$objTable->id = 'unpadded1';
+		$objTable->width='100%';
+
+		$masterCheck = new checkbox('arrayList[]');
+		//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
+
+		$head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_skinname','modulecatalogue'),
+		$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
+		$objTable->addHeader($head,'heading','align="left"');
+		$newMods = array();
+		$class = 'odd';
+
+		$link = new link();
+		$link->link = $this->objLanguage->languageText('mod_modulecatalogue_dlandinstall','modulecatalogue');
+		$icon = '&nbsp;'; //$this->newObject('getIcon','htmlelements');
+		foreach ($skins as $skin) {
+			if (!in_array($skin,$lSkins)) {
+				$link->link('javascript:;');
+				$link->extra = "onclick = 'javascript:downloadSkin(\"{$skin}\");'";
+				$class = ($class == 'even')? 'odd' : 'even';
+				$newMods[] = $skin;
+				//$icon->setModuleIcon($module['id']);
+				$modCheck = new checkbox('arrayList[]');
+				$modCheck->cssId = 'checkbox_'.$skin;
+				$modCheck->setValue($skin);
+				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
+
+				$objTable->startRow();
+				$objTable->addCell($modCheck->show(),20,null,null,$class);
+				$objTable->addCell('&nbsp;',30,null,null,$class);
+				$objTable->addCell("<div id='link_{$skin}'><b>{$skin}</b></div>",null,null,null,$class);
+				$objTable->addCell("<div id='download_{$skin}'>".$link->show()."</div>",'40%',null,null,$class);
+				$objTable->endRow();
+				$objTable->startRow();
+				$objTable->addCell('&nbsp;',20,null,'left',$class);
+				$objTable->addCell('&nbsp;',30,null,'left',$class);
+				$objTable->addCell('&nbsp;'.'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
+				$objTable->endRow();
+			}
+		}
+
+		if (empty($newMods)) {
+			$objTable->startRow();
+			$objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremoteskins','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+			$objTable->endRow();
+		}
+
+		return $hTable->show()."<br />".$objTable->show();
 	}
 
 }
