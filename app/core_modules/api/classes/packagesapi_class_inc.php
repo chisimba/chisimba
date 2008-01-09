@@ -122,7 +122,7 @@ class packagesapi extends object
 		// add the actual module path in there too
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
 		$dep[] = $path;
-		log_debug($dep);
+		//log_debug($dep);
 		foreach($dep as $deps)
 		{
 			if(substr($deps, -2) == '//')
@@ -137,7 +137,7 @@ class packagesapi extends object
 			$depe[] = $deps;
 		}
 		$depe = array_filter($depe);
-		log_debug($depe);
+		//log_debug($depe);
 		
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))

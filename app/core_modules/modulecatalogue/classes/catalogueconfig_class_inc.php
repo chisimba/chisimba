@@ -264,7 +264,7 @@ class catalogueconfig extends object {
 							$module_stats = $reg['MODULE_STATUS'];
 						} else {
 							$module_stats = 'pre-alpha';
-							log_debug($this->objLanguage->languageText('mod_modulecatalogue_nodeps','modulecatalogue').": MODULE_STATUS $from $module_name");
+							log_debug($this->objLanguage->languageText('mod_modulecatalogue_missingtag','modulecatalogue').": MODULE_STATUS $from $module_name");
 						}
 						$xmlStr .= "		<module_id>$module_id</module_id>
     	<module_name>$module_name</module_name>
