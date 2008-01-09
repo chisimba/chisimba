@@ -328,7 +328,7 @@ class packagesapi extends object
 		$filetosend = base64_encode($filetosend);
 		// log_debug($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		//unlink($filepath);
+		unlink($filepath);
 		log_debug("Sent Skin: ".$skin." to client");
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
