@@ -243,6 +243,7 @@ class modulecatalogue extends controller
 							$skinner[] = $skin;
 						}
 						$skinner = array_filter($skinner);
+						$count = count($skinner);
 						$this->setVarByRef('skins',$skinner);
 						$t = microtime(true) - $s;
 						log_debug ("Web service discovered $count skins in $t seconds");
