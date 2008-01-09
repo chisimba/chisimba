@@ -233,6 +233,7 @@ class modulecatalogue extends controller
 						$doc = simplexml_load_string($skins);
 						$skins = $doc->string;
 						$skins = explode("|", $skins);
+						$skins = array_filter($skins);
 						$this->setVarByRef('skins',$skins);
 						$t = microtime(true) - $s;
 						log_debug ("Web service discovered $count skins in $t seconds");
