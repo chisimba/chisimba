@@ -323,7 +323,10 @@ class xmlrpcapi extends object
                      							array(
                          							array('string'),
                      							),
-                								'docstring' => 'Replace and update your systemtypes.xml document'),				
+                								'docstring' => 'Replace and update your systemtypes.xml document'),	
+                								
+                		    'getSkinList' => array('function' => array($this->objPackages, 'getSkinList'),
+                								  'docstring' => 'Grab the skins list'),			
                 		  
                 		  // wiki xml-rpc interface - see http://jspwiki.org/wiki/WikiRPCInterface
                 		  'wiki.getRPCVersionSupported' => array('function' => array($this->objWikiApi, 'getRPCVersionSupported'),

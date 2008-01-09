@@ -86,6 +86,42 @@ class rpcclient extends object
 	}
 
 	/**
+	 * Method to get a list of available skins from the rpc server
+	 *
+	 * @param void
+	 * @return string
+	 */
+	public function getSkinList()
+	{
+		$msg = new XML_RPC_Message('getSkinList');
+		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli->setDebug(0);
+
+		// send the request message
+		$resp = $cli->send($msg);
+		if (!$resp)
+		{
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+			exit;
+		}
+		if (!$resp->faultCode())
+		{
+			$val = $resp->value();
+			return $val->serialize($val);
+		}
+		else
+		{
+			/*
+			* Display problems that have been gracefully caught and
+			* reported by the xmlrpc server class.
+			*/
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode() . $this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		}
+	}
+	
+	/**
 	 * Method to get a list of available modules from the rpc server
 	 *
 	 * @param void

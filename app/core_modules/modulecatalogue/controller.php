@@ -162,7 +162,7 @@ class modulecatalogue extends controller
 				$this->objCatalogueConfig->writeCatalogue();
 			}
 			$this->objSideMenu = $this->getObject('catalogue','modulecatalogue');
-			$this->objSideMenu->addNodes(array('updates','remote','all'));
+			$this->objSideMenu->addNodes(array('updates','remote','all','skins'));
 			$sysTypes = $this->objCatalogueConfig->getCategories();
 			//$xmlCat = $this->objCatalogueConfig->getNavParam('category');
 			//get list of categories
@@ -226,7 +226,19 @@ class modulecatalogue extends controller
 					if (strtolower($activeCat) == 'updates') {
 						$this->setVar('patchArray',$this->objPatch->checkModules());
 						return 'updates_tpl.php';
-					} else {
+					}
+					elseif(strtolower($activeCat == 'skins')) {
+						$s = microtime(true);
+						$skins = $this->objRPCClient->getSkinList();
+						$doc = simplexml_load_string($skins);
+						$skins = $doc->string;
+						$skins = explode("|", $skins);
+						$this->setVarByRef('skins',$skins);
+						$t = microtime(true) - $s;
+						log_debug ("Web service discovered $count skins in $t seconds");
+						return 'skins_tpl.php';
+					}
+					else {
 						return 'front_tpl.php';
 					}
 				case 'uninstall':

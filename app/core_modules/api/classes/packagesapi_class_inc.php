@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Packages interface class
  * 
