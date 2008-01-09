@@ -265,6 +265,7 @@ class rpcclient extends object
 	 */
 	public function getSkinZip($skinname)
 	{
+		log_debug("Getting skin $skinname");
 		$msg = new XML_RPC_Message('getSkin', array(new XML_RPC_Value($skinname, "string")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');

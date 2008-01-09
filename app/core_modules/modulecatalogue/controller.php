@@ -597,7 +597,7 @@ class modulecatalogue extends controller
 					
 				case 'ajaxinstallskin':
 					$skin = $this->getParam('skinname');
-					//unlink("$skin.zip");
+					unlink("$skin.zip");
 					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
 					
