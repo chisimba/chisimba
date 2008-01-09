@@ -739,7 +739,7 @@ class catalogueconfig extends object {
 		$masterCheck = new checkbox('arrayList[]');
 		//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
-		$head = array(/*$masterCheck->show()*/'&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_skinname','modulecatalogue'),
+		$head = array('&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_skinname','modulecatalogue'),
 		$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 		$objTable->addHeader($head,'heading','align="left"');
 		$newMods = array();
@@ -761,8 +761,8 @@ class catalogueconfig extends object {
 				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
 				$objTable->startRow();
-				$objTable->addCell('&nbsp;'/*$modCheck->show()*/,20,null,null,$class);
-				$objTable->addCell('&nbsp;',30,null,null,$class);
+				$objTable->addCell(20,null,null,$class);
+				$objTable->addCell(30,null,null,$class);
 				$objTable->addCell("<div id='link_{$skin}'><b>{$skin}</b></div>",null,null,null,$class);
 				$objTable->addCell("<div id='download_{$skin}'>".$link->show()."</div>",'40%',null,null,$class);
 				$objTable->endRow();
