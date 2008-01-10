@@ -204,8 +204,6 @@ class languagecode extends object
      */
     public function country($country=NULL)
     {
-		// set a selected entry
-		$language = strtoupper($this->objConfig->getCountry());
 		$this->objselect->attributes['select']['name'] = 'country';
 		// set a selected entry
 		if ($country) {
@@ -218,6 +216,35 @@ class languagecode extends object
 		return  $this->objselect->getAllCodes();
     }
 
+    /**
+    *
+    * Method to return an alphabetical select box
+    * of countries
+    *
+    * @param string $tongue the two letter code for the language to be
+    *    selected in the select box
+    * @return string The select box for countries
+    * @access Public
+    */
+    public function countryAlpha($tongue=NULL)
+    {
+        $ar = $this->countryListArr();
+        asort($ar);
+        $this->loadClass('dropdown','htmlelements');
+        $objSelect = new dropdown('country');
+        // set a selected entry
+        if ($tongue) {
+            $language = $tongue;
+        }else{
+            $language = strtoupper($this->objConfig->getCountry());
+        }
+        foreach ($ar as $code=>$country) {
+            $objSelect->addOption($code, $country);
+        }
+        $objSelect->setSelected($language);
+        return $objSelect->show();
+    }
+
      /**
      *  Function provides country and language lists.
      *
@@ -225,8 +252,6 @@ class languagecode extends object
      */
     public function countryListArr($country=NULL)
     {
-		// set a selected entry
-		$language = strtoupper($this->objConfig->getCountry());
 		$this->objselect->attributes['select']['name'] = 'country';
 		// set a selected entry
 		if ($country) {
