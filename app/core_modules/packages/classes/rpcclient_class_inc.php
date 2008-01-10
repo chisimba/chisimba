@@ -34,6 +34,22 @@ class rpcclient extends object
 	 * @var object
 	 */
 	public $sysConfig;
+	
+	/**
+	 * Port
+	 */
+	public $port = 80;
+	
+	/**
+	 * Proxy info
+	 */
+	public $proxy;
+	
+	/**
+	 * Proxy object
+	 */
+	public $objProxy;
+	
 
 	/**
 	 * Standard init function
@@ -47,6 +63,26 @@ class rpcclient extends object
 		$this->objConfig = $this->getObject('altconfig', 'config');
 		$this->objLanguage = $this->getObject('language', 'language');
 		$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+		$this->objProxy = $this->getObject('proxy', 'utilities');
+		
+		// get the proxy info if set
+        $proxyArr = $this->objProxy->getProxy(NULL);
+        if (!empty($proxyArr)) {
+            $this->proxy = array(
+                'proxy_host' => $proxyArr['proxyserver'],
+                'proxy_port' => $proxyArr['proxyport'],
+                'proxy_user' => $proxyArr['proxyusername'],
+                'proxy_pass' => $proxyArr['proxypassword']
+            );
+        }
+        else {
+        	$this->proxy = array(
+                'proxy_host' => '',
+                'proxy_port' => '',
+                'proxy_user' => '',
+                'proxy_pass' => '',
+            );
+        }
 	}
 
 	/**
@@ -60,7 +96,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getModuleList');
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -96,7 +132,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getSkinList');
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -134,7 +170,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getModuleDetails');
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -169,7 +205,7 @@ class rpcclient extends object
 	    $msg = new XML_RPC_Message('getModuleDescription', array(new XML_RPC_Value($moduleName, "string")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -198,7 +234,7 @@ class rpcclient extends object
 	    $msg = new XML_RPC_Message('getMsg',array(new XML_RPC_Value('connected?','string')));
 	    $mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -230,7 +266,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getModuleZip', array(new XML_RPC_Value($modulename, "string")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -269,7 +305,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getSkin', array(new XML_RPC_Value($skinname, "string")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
@@ -306,7 +342,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('getMultiModuleZip', array(new XML_RPC_Value($modulename, "array")));
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(1);
 
 		// send the request message
@@ -342,7 +378,7 @@ class rpcclient extends object
 		$msg = new XML_RPC_Message('updateSystemTypes');
 		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
 		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
-		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv);
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
 		$cli->setDebug(0);
 
 		// send the request message
