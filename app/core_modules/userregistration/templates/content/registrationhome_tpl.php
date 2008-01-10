@@ -55,7 +55,7 @@ $usernameContents = new label($this->objLanguage->languageText('phrase_usernamem
 
 if ($mode == 'addfixup') {
     $username->value = $this->getParam('register_username');
-    
+
     if ($this->getParam('register_username') == '') {
         $messages[] = $this->objLanguage->languageText('phrase_enterusername', 'system', 'Please enter a username');
     }
@@ -118,7 +118,7 @@ $firstnameLabel = new label($this->objLanguage->languageText('phrase_firstname',
 
 if ($mode == 'addfixup') {
     $firstname->value = $this->getParam('register_firstname');
-    
+
     if ($this->getParam('register_firstname') == '') {
         $messages[] = $this->objLanguage->languageText('mod_userdetails_enterfirstname', 'userdetails');
     }
@@ -134,7 +134,7 @@ $surnameLabel = new label($this->objLanguage->languageText('word_surname', 'syst
 
 if ($mode == 'addfixup') {
     $surname->value = $this->getParam('register_surname');
-    
+
     if ($this->getParam('register_surname') == '') {
         $messages[] = $this->objLanguage->languageText('mod_userdetails_entersurname', 'userdetails');
     }
@@ -190,9 +190,9 @@ $table->startRow();
     $objCountries=&$this->getObject('languagecode','language');
     $table->addCell($this->objLanguage->languageText('word_country', 'system').'&nbsp;', 150, NULL, 'right');
     if ($mode == 'addfixup') {
-        $table->addCell($objCountries->country($this->getParam('country')));
+        $table->addCell($objCountries->countryAlpha($this->getParam('country')));
     } else {
-        $table->addCell($objCountries->country());
+        $table->addCell($objCountries->countryAlpha());
     }
 $table->endRow();
 
@@ -262,7 +262,7 @@ if ($mode == 'addfixup') {
 
 if ($mode == 'addfixup' && count($messages) > 0) {
     echo '<ul><li><span class="error">'.$this->objLanguage->languageText('mod_userdetails_infonotsavedduetoerrors', 'userdetails').'</span>';
-    
+
     echo '<ul>';
         foreach ($messages as $message)
         {
@@ -270,7 +270,7 @@ if ($mode == 'addfixup' && count($messages) > 0) {
                 echo '<li class="error">'.$message.'</li>';
             }
         }
-        
+
     echo '</ul></li></ul>';
 }
 
