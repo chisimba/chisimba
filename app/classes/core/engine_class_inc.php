@@ -386,6 +386,7 @@ class engine
 	'strings',
 	'sysconfig',
 	'systext',
+    'tagging',
 	'toolbar',
 	'tree',
 	'useradmin',
