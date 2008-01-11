@@ -102,6 +102,26 @@ function unzipSkin(skin) {
     });
 }
 
+function unzipCoreUpgrade(core) {
+    var target = "download_"+core;
+    var pars = "module=modulecatalogue&action=ajaxunzipcore&moduleId="+core;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                installCore(core);
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not unzip core upgrade: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
+
 function unzipModule(module,name) {
     var target = "download_"+module;
     var pars = "module=modulecatalogue&action=ajaxunzip&moduleId="+module;
@@ -176,6 +196,26 @@ function installSkin(skin) {
             onFailure: function(transport){
                 var response = transport.responseText || "no response text";
                 alert('Could not install skin: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
+function installCore(core) {
+    var target = "download_"+core;
+    var link = "link_"+core;
+    var pars = "module=modulecatalogue&action=ajaxinstallskin&moduleId="+core;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                $(link).innerHTML = "<a href='index.php?module=security&action=logout'><b>Logout</b></a>";
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not install core upgrade: '+response);
                 $(target).innerHTML = '<b>Failed</b>';
             }
     });
