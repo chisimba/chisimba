@@ -367,5 +367,16 @@ class packagesapi extends object
 		log_debug("Sent systemtypes.xml to client");
 		return new XML_RPC_Response($val);
 	}
+	
+	/**
+	 * Method to get the remote engine version for core upgrade
+	 *
+	 */
+	public function getEngineVersion()
+	{
+		$ver = $this->objCatalogueConfig->getEngineVer();
+		$val = new XML_RPC_Value($ver, 'string');
+		return new XML_RPC_Response($val);
+	}
 }
 ?>

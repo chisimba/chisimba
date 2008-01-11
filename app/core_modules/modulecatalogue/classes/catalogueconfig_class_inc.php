@@ -289,6 +289,7 @@ class catalogueconfig extends object {
 					$id++;
 				}
 			}
+			$xmlStr .= '    <engine_version>'.$this->objEngine->version."</engine_version>\n";
 			$xmlStr .= '</settings>';
 			if(!file_exists($this->_path))
 			{
@@ -781,6 +782,30 @@ class catalogueconfig extends object {
 		}
 
 		return $hTable->show()."<br />".$objTable->show();
+	}
+	
+	/**
+     * Method to get engine version from the catalogue
+     *
+     * @author Paul Scott <pscott@uwc.ac.za>
+     * @return  string $enginever engine version
+     */
+	public function getEngineVer() {
+		try {
+			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
+			$xml = simplexml_load_file($this->_path);
+			$query = "//engine_version";
+			$enginever = $xml->xpath($query);
+
+			if (!isset($enginever)) {
+				return FALSE;
+			} else {
+				return $enginever;
+			}
+		} catch (Exception $e){
+			$this->errorCallback('Caught exception: '.$e->getMessage());
+			exit();
+		}
 	}
 
 }

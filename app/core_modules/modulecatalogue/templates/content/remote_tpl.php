@@ -47,6 +47,9 @@ $lMods = array_merge($registeredModules, $localModules);
 $lMods = array_unique($lMods);
 sort($lMods);
 
+$localenginever = $this->objEngine->version;
+log_debug("local engine version is $localenginever");
+
 $objTable = $this->newObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
 $objTable->id = 'unpadded1';
