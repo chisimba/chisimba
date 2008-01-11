@@ -543,7 +543,7 @@ class modulecatalogue extends controller
 					//$this->deltree($this->objConfig->getsiteRootPath().'classes/');
 					// ok now we can unzip the new code...
 					$objZip = $this->getObject('wzip', 'utilities');
-					if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getsiteRootPath())) {
+					if (!$objZip->unZipArchive("core.zip", $this->objConfig->getsiteRootPath())) {
 						log_debug("Unzipping new core...");
 						header('HTTP/1.0 500 Internal Server Error');
 						echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
