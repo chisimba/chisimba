@@ -204,7 +204,7 @@ function installSkin(skin) {
 function installCore(core) {
     var target = "download_"+core;
     var link = "link_"+core;
-    var pars = "module=modulecatalogue&action=ajaxinstallskin&moduleId="+core;
+    var pars = "module=modulecatalogue&action=ajaxinstallcore&moduleId="+core;
     new Ajax.Request('index.php',{
             method:'post',
             parameters: pars,

@@ -531,6 +531,28 @@ class modulecatalogue extends controller
 					echo $this->objLanguage->languageText('phrase_unzipping');
 					break;
 
+				case 'ajaxunzipcore':
+					$modName = $this->getParam('moduleId');
+					if($modName != 'core')
+					{
+						echo $this->objLanguage->languageText('mod_modulecatalogue_notcore','modulecatalogue');
+						break;
+					}
+					// clean up the core classes directory and prep for upgrade
+					log_debug($this->objLanguage->languageText("mod_modulecatalogue_prepupcore", "modulecatalogue"));
+					$this->deltree($this->objConfig->getsiteRootPath().'classes/');
+					// ok now we can unzip the new code...
+					$objZip = $this->getObject('wzip', 'utilities');
+					if (!$objZip->unZipArchive("$modName.zip", $this->objConfig->getsiteRootPath().'classes/')) {
+						log_debug("Unzipping new core...");
+						header('HTTP/1.0 500 Internal Server Error');
+						echo $this->objLanguage->languageText('mod_modulecatalogue_unziperror','modulecatalogue');
+						echo "<br /> $objZip->error";
+						break;
+					}
+					echo $this->objLanguage->languageText('phrase_installing');
+					break;
+
 				case 'ajaxunzip':
 					$modName = $this->getParam('moduleId');
 					chmod($this->objConfig->getModulePath(), 0777);
@@ -599,6 +621,13 @@ class modulecatalogue extends controller
 					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
 
+				case 'ajaxinstallcore':
+					$modName = $this->getParam('moduleId');
+					log_debug("Prepping to install $modName");
+					unlink("$modName.zip");
+					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
+					break;
+					
 				case 'ajaxupgrade':
 					$modName = $this->getParam('moduleId');
 					log_debug("Preparing to upgrade $modName");
