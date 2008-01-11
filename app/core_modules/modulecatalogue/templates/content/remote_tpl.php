@@ -287,7 +287,7 @@ $class4 = 'odd';
 $link4 = new link();
 $link4->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue');
 $link4->link('javascript:;');
-$link4->extra = "onclick = 'javascript:downloadCoreUpgrade(core);'";
+$link4->extra = "onclick = 'javascript:downloadCoreUpgrade(\"core\");'";
 
 $icon4 = $this->newObject('getIcon','htmlelements');
 
