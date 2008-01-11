@@ -167,8 +167,6 @@ class xmlrpcapi extends object
         	$this->objFfmpeg = $this->getObject('ffmpegapi');
         	// Screenshot API
         	$this->objScreenShots = $this->getObject('screenapi');
-        	// Security API
-        	$this->objSecurityApi = $this->getObject('securityapi');
 		}
 		catch (customException $e)
 		{
