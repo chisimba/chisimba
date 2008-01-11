@@ -497,7 +497,7 @@ class modulecatalogue extends controller
 						}
 						fclose($fh);
 					}
-					chmod($modName.".zip", 0777);
+					@chmod($modName.".zip", 0777);
 					echo $this->objLanguage->languageText('phrase_unzipping');
 					break;
 
