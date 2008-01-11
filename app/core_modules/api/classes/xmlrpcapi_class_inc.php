@@ -342,6 +342,14 @@ class xmlrpcapi extends object
                      							),
                 								'docstring' => 'return the engine version of the package server'),			
                 		  
+                		  'getEngineUpgrade' => array('function' => array($this->objPackages, 'getEngUpgrade'),
+      			  		  					'signature' =>
+                     							array(
+                         							array('string'),
+                     							),
+                								'docstring' => 'return the engine upgardes available on the package server'),
+                								
+                								
                 		  // wiki xml-rpc interface - see http://jspwiki.org/wiki/WikiRPCInterface
                 		  'wiki.getRPCVersionSupported' => array('function' => array($this->objWikiApi, 'getRPCVersionSupported'),
                 		  						'signature' => 

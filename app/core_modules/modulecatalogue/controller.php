@@ -473,6 +473,36 @@ class modulecatalogue extends controller
 				case 'ajaxdownload':
 					$start = microtime(true);
 					$modName = $this->getParam('moduleId');
+					if($modName == 'core')
+					{
+						log_debug("Downloading $modName from remote...");
+						if (!file_exists("$modName.zip")) {
+							if (!$encodedZip = $this->objRPCClient->getCoreZip($modName)) {
+								header('HTTP/1.0 500 Internal Server Error');
+								echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+								break;
+							}
+							if (!$zipContents = base64_decode(strip_tags($encodedZip))) {
+								header('HTTP/1.0 500 Internal Server Error');
+								echo $this->objLanguage->languageText('mod_modulecatalogue_rpcerror','modulecatalogue');
+								break;
+							}
+							if (!$fh = fopen("$modName.zip",'wb')) {
+								header('HTTP/1.0 500 Internal Server Error');
+								echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+								break;
+							}
+							if (!fwrite($fh,$zipContents)) {
+								header('HTTP/1.0 500 Internal Server Error');
+								echo $this->objLanguage->languageText('mod_modulecatalogue_fileerror','modulecatalogue');
+								break;
+							}
+							fclose($fh);
+						}
+						@chmod($modName.".zip", 0777);
+						echo $this->objLanguage->languageText('phrase_unzipping');
+						break;
+					}
 					log_debug("Downloading $modName from remote...");
 					if (!file_exists("$modName.zip")) {
 						if (!$encodedZip = $this->objRPCClient->getModuleZip($modName)) {
@@ -508,7 +538,7 @@ class modulecatalogue extends controller
 					{
 						//if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
 						// clean the dir first
-                        $this->deltree($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/');
+						$this->deltree($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/');
 						// chmod($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/', 0777);
 						//chdir($this->objConfig->getsiteRootPath());
 						$objZip = $this->getObject('wzip', 'utilities');

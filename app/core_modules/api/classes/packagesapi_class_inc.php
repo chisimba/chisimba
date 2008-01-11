@@ -359,7 +359,7 @@ class packagesapi extends object
 	 *
 	 */
 	public function updateSystemTypesFile()
-	{
+	{ModulePath
 		$types = $this->objConfig->getsiteRootPath().'config/systemtypes.xml';
 		$contents = file_get_contents($types);
 		$filetosend = base64_encode($contents);
@@ -379,6 +379,24 @@ class packagesapi extends object
 		log_debug("Remote/local engine is $ver");
 		$val = new XML_RPC_Value($ver, 'string');
 		return new XML_RPC_Response($val);
+	}
+	
+	public function getEngUpgrade()
+	{
+		$objZip = $this->getObject('wzip', 'utilities');
+		$filepath = $this->objConfig->getsiteRootPath().'core.zip';
+		$path = $this->objConfig->getsiteRootPath().'classes/';
+		
+		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getsiteRootPath());
+		$filetosend = file_get_contents($zipfile);
+		$filetosend = base64_encode($filetosend);
+		
+		$val = new XML_RPC_Value($filetosend, 'string');
+		unlink($filepath);
+		log_debug("Sent core upgrade to client");
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
 }
 ?>

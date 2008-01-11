@@ -48,9 +48,25 @@ $lMods = array_unique($lMods);
 sort($lMods);
 
 $localenginever = $this->objEngine->version;
-log_debug("local engine version is $localenginever");
 $remoteEngVer = $this->objRPCClient->getRemoteEngineVer();
+$remoteEngVer = simplexml_load_string($remoteEngVer);
+$remoteEngVer = $remoteEngVer->string;
+//$remoteEngVer = floatval($remoteEngVer);
+//$localenginever = floatval($localenginever);
 log_debug("Remote engine version is $remoteEngVer");
+log_debug("local engine version is $localenginever");
+$remoteEng = explode('.', $remoteEngVer);
+$localEng = explode('.', $localenginever);
+$rmajor = intval($remoteEng[0]);
+$rminor = intval($remoteEng[1]);
+$rrel = intval($remoteEng[2]);
+
+$lmajor = intval($localEng[0]);
+$lminor = intval($localEng[1]);
+$lrel = intval($localEng[2]);
+
+$localEngVer = intval($lmajor.$lminor.$lrel);
+$remEngVer = intval($rmajor.$rminor.$rrel);
 
 $objTable = $this->newObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;
@@ -252,6 +268,54 @@ foreach ($types as $type)
 	}
 }
 
+
+// Engine version check (i.e. classes/core upgrades
+$objTable4 = $this->newObject('htmltable','htmlelements');
+$objTable4->cellpadding = 2;
+$objTable4->id = 'unpadded4';
+$objTable4->width='100%';
+
+$masterCheck4 = '&nbsp;'; // new checkbox('arrayList[]');
+//$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
+
+$head4 = array($masterCheck4,'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_coreupgrade','modulecatalogue'),
+$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
+$objTable4->addHeader($head4,'heading','align="left"');
+$newMods4 = array();
+$class4 = 'odd';
+
+$link4 = new link();
+$link4->link = $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue');
+$link4->link('javascript:;');
+$link4->extra = "onclick = 'javascript:downloadCoreUpgrade(core);'";
+
+$icon4 = $this->newObject('getIcon','htmlelements');
+
+$iconcheck4 = $this->newObject('getIcon', 'htmlelements');
+$iconcheck4->setIcon('greentick');
+
+$iconcheckno4 = $this->newObject('getIcon', 'htmlelements');
+$iconcheckno4->setIcon('redcross');
+
+$engCheck = $remEngVer - $localEngVer; 
+if( $engCheck === 0)
+{
+	$objTable->startRow();
+	$objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+	$objTable4->addCell($iconcheck4->show(),30,null,null,$class4);
+	$objTable4->addCell("<div id='link_noengup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_nocoreupgrades","modulecatalogue")."</b></div>",null,null,null,$class4);
+	$objTable->endRow();
+}
+else {
+	$objTable4->startRow();
+	$objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+	$objTable4->addCell($iconcheckno4->show(),30,null,null,$class4);
+	$objTable4->addCell("<div id='link_engup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_coreupgradeavail", "modulecatalogue")."</b></div>",null,null,null,$class4);
+	$objTable4->addCell("<div id='download_core'>".$link4->show()."</div>",'40%',null,null,null,$class4);
+	$objTable4->endRow();
+}
+
+
 if (empty($newMods)) {
 	$objTable->startRow();
 	$objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremotemods','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
@@ -267,6 +331,6 @@ if (empty($types)) {
 	$objTable3->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_nosystypesavail','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
 	$objTable->endRow();
 }
-echo $hTable->show()."<br />".$objH4->show().$objTable2->show()."<br />".$objH3->show().$objTable3->show()."<br />".$objH5->show().$objTable->show();
+echo $hTable->show()."<br />".$objH4->show().$objTable4->show()."<br />".$objTable2->show()."<br />".$objH3->show().$objTable3->show()."<br />".$objH5->show().$objTable->show();
 
 ?>

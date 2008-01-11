@@ -43,6 +43,26 @@ function downloadModuleUpgrade(module,name) {
     });
 }
 
+function downloadCoreUpgrade(module) {
+    var target = "download_"+module;
+    $(target).innerHTML='Downloading...';
+    var pars = "module=modulecatalogue&action=ajaxdownload&moduleId="+module;
+    new Ajax.Request('index.php',{
+            method:'post',
+            parameters: pars,
+            onSuccess: function(transport){
+                var response = transport.responseText || "no response text";
+                $(target).innerHTML = response;
+                unzipCoreUpgrade(module);
+            },
+            onFailure: function(transport){
+                var response = transport.responseText || "no response text";
+                alert('Could not download core upgrade: '+response);
+                $(target).innerHTML = '<b>Failed</b>';
+            }
+    });
+}
+
 function downloadSkin(skin) {
     var target = "download_"+skin;
     $(target).innerHTML='Downloading...';

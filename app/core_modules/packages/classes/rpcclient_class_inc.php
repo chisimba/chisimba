@@ -435,5 +435,37 @@ class rpcclient extends object
 		}
 		
 	}
+	
+	public function getCoreZip($modName)
+	{
+		$msg = new XML_RPC_Message('getEngineUpgrade');
+		$mirrorserv = $this->sysConfig->getValue('package_server', 'packages');
+		$mirrorurl = $this->sysConfig->getValue('package_url', 'packages');
+		$cli = new XML_RPC_Client($mirrorurl, $mirrorserv, $this->port, $this->proxy['proxy_host'], $this->proxy['proxy_port'], $this->proxy['proxy_user'], $this->proxy['proxy_pass']);
+		$cli->setDebug(0);
+
+		// send the request message
+		$resp = $cli->send($msg);
+		//log_debug($resp);
+		if (!$resp)
+		{
+			throw new customException($this->objLanguage->languageText("mod_packages_commserr", "packages").": ".$cli->errstr);
+			exit;
+		}
+		if (!$resp->faultCode())
+		{
+			$val = $resp->value();
+			return $val->serialize($val);
+		}
+		else
+		{
+			/*
+			* Display problems that have been gracefully caught and
+			* reported by the xmlrpc server class.
+			*/
+			throw new customException($this->objLanguage->languageText("mod_packages_faultcode", "packages").": ".$resp->faultCode().$this->objLanguage->languageText("mod_packages_faultreason", "packages").": ".$resp->faultString());
+		}
+		
+	}
 }
 ?>
