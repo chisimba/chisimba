@@ -377,7 +377,7 @@ class packagesapi extends object
 		$ver = $this->objCatalogueConfig->getEngineVer();
 		$ver = $ver[0];
 		log_debug("Remote/local engine is $ver");
-		$val = new XML_RPC_Value($ver, 'string');
+		$val = new XML_RPC_Value($ver, 'float');
 		return new XML_RPC_Response($val);
 	}
 }
