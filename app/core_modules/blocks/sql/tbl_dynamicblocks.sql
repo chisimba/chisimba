@@ -71,8 +71,9 @@ $indexes = array(
                 	'function' => array(),                    
                 	'parameter' => array(),                    
                 	'title' => array(),                    
-                	'context' => array(),                    
-                	'size' => array(),                    
+                	'typeofblock' => array(),                    
+                	'userorcontextorworkgroupcode' => array(),                    
+                	'blocksize' => array(),                    
                 )
         );
 ?>
