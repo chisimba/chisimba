@@ -167,6 +167,8 @@ class xmlrpcapi extends object
         	$this->objFfmpeg = $this->getObject('ffmpegapi');
         	// Screenshot API
         	$this->objScreenShots = $this->getObject('screenapi');
+        	// Security API
+        	$this->objSecurityApi = $this->getObject('securityapi');
 		}
 		catch (customException $e)
 		{
@@ -333,7 +335,14 @@ class xmlrpcapi extends object
                      									array(
                          									array('array', 'string'),
                      									),
-                								  'docstring' => 'Grab a skin as a zip file'),			
+                								  'docstring' => 'Grab a skin as a zip file'),	
+                								  
+                		    'getEngineVer' => array('function' => array($this->objPackages, 'getEngineVersion'),
+      			  		  					'signature' =>
+                     							array(
+                         							array('string'),
+                     							),
+                								'docstring' => 'return the engine version of the package server'),			
                 		  
                 		  // wiki xml-rpc interface - see http://jspwiki.org/wiki/WikiRPCInterface
                 		  'wiki.getRPCVersionSupported' => array('function' => array($this->objWikiApi, 'getRPCVersionSupported'),
@@ -567,7 +576,9 @@ class xmlrpcapi extends object
                 		  						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'Grab a hi res screenshot of a URL'),									   
+                		   						   'docstring' => 'Grab a hi res screenshot of a URL'),
+                		   						   
+                		  							   
                 		  		
    					), 1, 0);
    					

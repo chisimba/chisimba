@@ -49,6 +49,8 @@ sort($lMods);
 
 $localenginever = $this->objEngine->version;
 log_debug("local engine version is $localenginever");
+$remoteEngVer = $this->objRPCClient->getRemoteEngineVer();
+log_debug("Remote engine version is $remoteEngVer");
 
 $objTable = $this->newObject('htmltable','htmlelements');
 $objTable->cellpadding = 2;

@@ -375,6 +375,7 @@ class packagesapi extends object
 	public function getEngineVersion()
 	{
 		$ver = $this->objCatalogueConfig->getEngineVer();
+		log_debug("Remote/local engine is $ver");
 		$val = new XML_RPC_Value($ver, 'string');
 		return new XML_RPC_Response($val);
 	}
