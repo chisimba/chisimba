@@ -398,10 +398,10 @@ class ini extends object
 		}
 		// write the server list file
 		$cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
-		//if(!file_exists($cfile))
-		//{
-			$conf_serv =& new Config_Container('section', $servarray['name']);
-			//$conf_serv =& $conf->createSection($servarray['name']);
+		if(!file_exists($cfile))
+		{
+			$conf =& new Config_Container('section', 'adm'); //$servarray['name']);
+			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
 			$conf_serv->createDirective('serverapiurl', $servarray['url']);
 			$conf_serv->createDirective('serveremail', $servarray['email']);
@@ -411,20 +411,21 @@ class ini extends object
 			$config->setRoot($conf_serv);
 			// write the container to an XML document
   			$config->writeConfig($cfile, 'XML');
-		//}
-		//else {
+		}
+		else {
 			// update the xml with the new server
-			//$conf_serv =& $conf->addSection($servarray['name'], array('bottom'));
-			//$conf_serv->createDirective('servername', $servarray['name']);
-			//$conf_serv->createDirective('serverapiurl', $servarray['url']);
-			//$conf_serv->createDirective('serveremail', $servarray['email']);
-			//$conf_serv->createDirective('regtime', date('r'));
+			$conf =& new Config_Container('section', 'adm'/$servarray['name']);
+			$conf_serv =& $conf->createSection($servarray['name'], array('bottom'));
+			$conf_serv->createDirective('servername', $servarray['name']);
+			$conf_serv->createDirective('serverapiurl', $servarray['url']);
+			$conf_serv->createDirective('serveremail', $servarray['email']);
+			$conf_serv->createDirective('regtime', date('r'));
 			
-			//$config = new Config();
-			//$config->setRoot($conf);
+			$config = new Config();
+			$config->setRoot($conf);
 			// write the container to an XML document
-  			//$config->writeConfig($cfile, 'XML');
-		//}
+  			$config->writeConfig($cfile, 'XML');
+		}
 		
     }
     /**
