@@ -576,7 +576,7 @@ class xmlrpcapi extends object
                 		   						   
                 		   'adm.registerServer' => array('function' => array($this->objAdmApi, 'registerServerApi'),
                 		   						   'signature' => array(
-                		   						   					array('string', 'string', 'string'),
+                		   						   					array('string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'register a server for mirroring'),						   
                 		   						   
