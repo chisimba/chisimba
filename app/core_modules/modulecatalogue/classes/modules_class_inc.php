@@ -299,5 +299,27 @@ class modules extends dbTable
     	}
     	return;
     }
+    
+    
+    /**
+     * Method to get a list of context plugins
+     * @param array List of Modules that are context plugsins
+     */
+    public function getContextPlugins()
+    {
+        $modules = $this->getModules(2);
+        $contextPlugins = array();
+        
+        $objModuleFile = $this->getObject('modulefile');
+        
+        foreach ($modules as $module)
+        {
+            if ($objModuleFile->contextPlugin($module['module_id'])) {
+                $contextPlugins[] = $module['module_id'];
+            }
+        }
+        
+        return $contextPlugins;
+    }
 }
 ?>
