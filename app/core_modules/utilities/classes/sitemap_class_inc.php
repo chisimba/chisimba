@@ -69,7 +69,7 @@ class sitemap extends object
       				 <loc>".htmlentities($vals['url'], ENT_QUOTES)."</loc>
       				 <lastmod>".$vals['lastmod']."</lastmod>
       			     <changefreq>".$vals['changefreq']."</changefreq>
-      				 <priority>.".$vals['priority']."</priority>
+      				 <priority>".$vals['priority']."</priority>
    					 </url>\n";
 		}
 		$str .= "</urlset>";
