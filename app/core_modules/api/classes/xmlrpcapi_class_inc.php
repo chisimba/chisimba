@@ -572,7 +572,13 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'returns last successful mirror time to remote'),					   
+                		   						   'docstring' => 'returns last successful mirror time to remote'),
+                		   						   
+                		   'adm.registerServer' => array('function' => array($this->objAdmApi, 'registerServerApi'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'register a server for mirroring'),						   
                 		   						   
                 		  // media API Start
                 		   'media.3gp2flv' => array('function' => array($this->objFfmpeg, 'convert3GPtoFLV'),

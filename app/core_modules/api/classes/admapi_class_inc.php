@@ -108,5 +108,26 @@ class admapi extends object
 		$val = new XML_RPC_Value('not yet implemented', 'string');
 		return new XML_RPC_Response($val);
 	}
+	
+	public function registerServerApi($server)
+	{
+		$serv = $server->getParam(0);
+		$serv = $serv->scalarval();
+		
+		// write the server list file
+		if(!file_exists($this->objConfig->getcontentBasePath().'admserverlist'))
+		{
+			touch($this->objConfig->getcontentBasePath().'admserverlist');
+			chmod($this->objConfig->getcontentBasePath().'admserverlist', 0777);
+			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $serv);
+		}
+		else {
+			$exists = file_get_contents($this->objConfig->getcontentBasePath().'admserverlist');
+			$exists = $exists."\n".$serv;
+			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $exists);
+		}
+		$val = new XML_RPC_Value('TRUE', 'string');
+		return new XML_RPC_Response($val);
+	}
 }
 ?>
