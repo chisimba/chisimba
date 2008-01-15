@@ -409,5 +409,18 @@ class object
     {
         return $this->objEngine->setVar($name, $value);
     }
+    
+    /**
+     * Method to return a template variable.
+     * These are used to pass information from module to template.
+     *
+     * @param  string $name    The name of the variable.
+     * @param  mixed  $default The value to return if the variable is unset (optional).
+     * @return mixed  The value of the variable, or $default if unset.
+     */
+    public function getVar($name, $default = NULL)
+    {
+        return $this->objEngine->getVar($name, $default);
+    }
 }
 ?>
