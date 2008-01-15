@@ -405,6 +405,7 @@ class ini extends object
 			$conf_serv->createDirective('servername', $servarray['name']);
 			$conf_serv->createDirective('serverapiurl', $servarray['url']);
 			$conf_serv->createDirective('serveremail', $servarray['email']);
+			$conf_serv->createDirective('regtime', date('r'));
 			
 			$config = new Config();
 			$config->setRoot($conf);
@@ -414,8 +415,10 @@ class ini extends object
 		else {
 			// update the xml with the new server
 			$config = new Config();
-			$root =& $config->parseConfig($cfile, 'xml');
-			$conf =& new Config_Container('section', 'ADM');
+			$root =& $config->parseConfig($cfile, 'PHPArray');
+			$arr = $root->toArray();
+			log_debug($arr);
+			/*$conf =& new Config_Container('section', 'ADM');
 			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
@@ -423,7 +426,7 @@ class ini extends object
 			$conf_serv->createDirective('serveremail', $servarray['email']);
 			$conf_serv->setRoot($root);
 			// write the container to an XML document
-  			$config->writeConfig($cfile, 'XML');
+  			$config->writeConfig($cfile, 'XML');*/
 		}
 		
     }
