@@ -415,7 +415,7 @@ class ini extends object
 		else {
 			// update the xml with the new server
 			$config = new Config();
-			$root =& $config->parseConfig($cfile, 'PHPArray');
+			$root =& $config->parseConfig($cfile, 'XML');
 			$arr = $root->toArray();
 			log_debug($arr);
 			/*$conf =& new Config_Container('section', 'ADM');
