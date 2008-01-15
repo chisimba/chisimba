@@ -414,7 +414,6 @@ class ini extends object
 		}
 		else {
 			// update the xml with the new server
-			$config = new Config();
 			$root =& $config->parseConfig($cfile, 'XML', array('name' => 'adm'));
 			$conf_serv =& $root->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
@@ -423,7 +422,7 @@ class ini extends object
 			$conf_serv->createDirective('regtime', date('r'));
 			
 			$config = new Config();
-			$config->setRoot($root);
+			//$config->setRoot($root);
 			// write the container to an XML document
   			$config->writeConfig($cfile, 'XML');
 		}
