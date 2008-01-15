@@ -304,6 +304,11 @@ class skin extends object
         return $this->skinRoot.'_common/templates/layout/layout_template.php';
     }
 
+
+    /**
+     * Method to generate a form for a site-wide search
+     * @return str Search Form
+     */
     public function siteSearchBox()
     {
     	$this->loadClass('label', 'htmlelements');
@@ -321,6 +326,52 @@ class skin extends object
         $sform = '<div id="search">'.$sform->show().'</div>';
 
         return $sform;
+    }
+    
+    /**
+     * Method to return the common JavaScript that is used and needs to go into the page templates
+     * This loads Prototype and JavaScript into the page templates
+     *
+     * @param string $mime Mimetype of Page - Either text/html or application/xhtml+xml
+     */
+    public function putJavaScript($mime='text/html')
+    {
+        if ($mime != 'application/xhtml+xml') {
+            $mime = 'text/html';
+        }
+        
+        $str = '';
+        
+        // Add Scriptaculous
+        $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+        $str .= $scriptaculous->show($mime);
+        
+        // Add JQuery
+        $jquery = $this->getObject('jquery', 'htmlelements');
+        $str .= $jquery->show();
+        
+        // Get HeaderParams
+        $headerParams = $this->getVar('headerParams');
+        
+        if (is_array($headerParams)) {
+            foreach ($headerParams as $headerParam) {
+                $str .= $headerParam."\n\n";
+            }
+        }
+        
+        // Get Body On Load
+        $bodyOnLoad = $this->getVar('bodyOnLoad');
+        
+        if (is_array($bodyOnLoad)) {
+            $str .= '<script type="text/javascript" language="javascript">
+        jQuery(document).ready(function(){'."\n\n";
+            foreach ($bodyOnLoad as $bodyParam) {
+                $str .= $bodyParam."\n\n";
+            }
+            $str .= '}); </script>'."\n\n";
+        }
+        
+        return $str;
     }
 
 } # End of class
