@@ -86,34 +86,9 @@ if (!isset($pageTitle)) {
 ';
         }
     }
-    if (isset($jsLoad)) {
-        foreach ($jsLoad as $script) {
-?>
-        <script type="text/javascript" src="<?php echo $objConfig->getSiteRoot().$script?>" />
-<?php
-        }
-    }
-
-    $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
-    echo $scriptaculous->show($mime);
-
-    if (isset($headerParams)) {
-        if (is_array($headerParams)) {
-            foreach ($headerParams as $headerParam) {
-                echo $headerParam."\n\n";
-            }
-        } else {
-            echo $headerParams;
-        }
-    }
-    if (isset($bodyOnLoad)) {
-        echo '<script type="text/javascript" language="javascript">
-    window.onload = function () {'."\n\n";
-        foreach ($bodyOnLoad as $bodyParam) {
-            echo $bodyParam."\n\n";
-        }
-        echo '}</script>';
-    }
+    
+    echo $objSkin->putJavaScript($mime);
+    
 ?>
     </head>
 <?php
