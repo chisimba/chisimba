@@ -82,9 +82,31 @@ class admapi extends object
 	}
 	
 	
-	public function checkVersion()
+	public function checkVersionApi()
 	{
-		
+		$version = $this->objEngine->version;
+		$val = new XML_RPC_Value($version, 'string');
+		return new XML_RPC_Response($val);
+		// Ooops, couldn't open the file so return an error message.
+		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+	}
+	
+	public function getFullLogApi()
+	{
+		$val = new XML_RPC_Value('not yet implemented', 'string');
+		return new XML_RPC_Response($val);
+	}
+	
+	public function sendLogFileApi()
+	{
+		$val = new XML_RPC_Value('not yet implemented', 'string');
+		return new XML_RPC_Response($val);
+	}
+	
+	public function getLastMirrorTimeApi()
+	{
+		$val = new XML_RPC_Value('not yet implemented', 'string');
+		return new XML_RPC_Response($val);
 	}
 }
 ?>

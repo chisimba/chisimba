@@ -550,12 +550,29 @@ class xmlrpcapi extends object
                 		   						   'docstring' => 'gets formatted slides'),
                 		   	
                 		   // ADM API Start
-                		   'adm.getData' => array('function' => array($this->objAdmApi, 'getDataAPI'),
+                		   'adm.getVersion' => array('function' => array($this->objAdmApi, 'checkVersionApi'),
                 		   						   'signature' => array(
-                		   						   					array('string', 'string'),
+                		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'gets data for specified module'),			
+                		   						   'docstring' => 'gets the current version of remote'),	
                 		   						   
+                		   'adm.getFullLog' => array('function' => array($this->objAdmApi, 'getFullLogApi'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'gets data for SQL Mirror'),
+                		   						   
+                		   'adm.sendLog' => array('function' => array($this->objAdmApi, 'sendLogFileApi'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'Sends the log file to remote'),
+                		   						   			
+                		   'adm.getLastMirrorTime' => array('function' => array($this->objAdmApi, 'getLastMirrorTimeApi'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'returns last successful mirror time to remote'),					   
                 		   						   
                 		  // media API Start
                 		   'media.3gp2flv' => array('function' => array($this->objFfmpeg, 'convert3GPtoFLV'),
