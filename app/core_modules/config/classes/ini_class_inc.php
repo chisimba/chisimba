@@ -414,17 +414,18 @@ class ini extends object
 		}
 		else {
 			// update the xml with the new server
-			$config = new Config();
 			$root =& $config->parseConfig($cfile, 'XML');
-			$arr = $root->toArray();
-			//log_debug($arr);
-			$name = $servarray['name'];
-			$arr['root']['ADM'][$name] = array('servername' => $name, 
-											   'serverapiurl' => $servarray['url'], 
-											   'serveremail' => $servarray['email'], 
-											   'regtime' => date('r'));
-											   
-		    $config->writeConfig($cfile, 'XML');
+			$conf =& new Config_Container('section', 'ADM');
+			$conf_serv =& $conf->addSection($servarray['name'], array('bottom'));
+			$conf_serv->createDirective('servername', $servarray['name']);
+			$conf_serv->createDirective('serverapiurl', $servarray['url']);
+			$conf_serv->createDirective('serveremail', $servarray['email']);
+			$conf_serv->createDirective('regtime', date('r'));
+			
+			$config = new Config();
+			$config->setRoot($conf);
+			// write the container to an XML document
+  			$config->writeConfig($cfile, 'XML');
 		}
 		
     }
