@@ -94,9 +94,21 @@ class searchresults extends object
         {
             $permissionOk = $this->checkPermission($item);
             
-            $startDateOK = $this->checkStartDate($item->dateavailable);
-            $endDateOK = $this->checkEndDate($item->dateunavailable);            
+            // Check Start Date
+            if (isset($item->dateavailable)) {
+                $startDateOK = $this->checkStartDate($item->dateavailable);
+            } else {
+                $startDateOK = TRUE;
+            }
             
+            // Check End Date
+            if (isset($item->dateunavailable)) {
+                $endDateOK = $this->checkEndDate($item->dateavailable);
+            } else {
+                $endDateOK = TRUE;
+            }
+            
+            // Check if OK to add
             if ($permissionOk && $startDateOK && $endDateOK) {
                 $filteredResults[] = $item;
             }
