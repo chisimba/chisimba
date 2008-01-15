@@ -408,14 +408,14 @@ class ini extends object
 			$conf_serv->createDirective('regtime', date('r'));
 			
 			$config = new Config();
-			$config->setRoot($conf_serv);
+			$config->setRoot($conf);
 			// write the container to an XML document
   			$config->writeConfig($cfile, 'XML');
 		}
 		else {
 			// update the xml with the new server
-			$conf =& new Config_Container('section', 'adm'/$servarray['name']);
-			$conf_serv =& $conf->createSection($servarray['name'], array('bottom'));
+			$conf =& new Config_Container('section', 'adm');
+			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
 			$conf_serv->createDirective('serverapiurl', $servarray['url']);
 			$conf_serv->createDirective('serveremail', $servarray['email']);
