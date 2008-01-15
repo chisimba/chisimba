@@ -424,16 +424,7 @@ class ini extends object
 											   'serveremail' => $servarray['email'], 
 											   'regtime' => date('r'));
 											   
-		    log_debug($arr); 
-			/*$conf =& new Config_Container('section', 'ADM');
-			$conf_serv =& $conf->createSection($servarray['name']);
-			$conf_serv =& $conf->createSection($servarray['name']);
-			$conf_serv->createDirective('servername', $servarray['name']);
-			$conf_serv->createDirective('serverapiurl', $servarray['url']);
-			$conf_serv->createDirective('serveremail', $servarray['email']);
-			$conf_serv->setRoot($root);
-			// write the container to an XML document
-  			$config->writeConfig($cfile, 'XML');*/
+		    $config->writeConfig($cfile, 'XML');
 		}
 		
     }
