@@ -78,7 +78,7 @@ class authenticate extends object
     {
 		foreach ($this->authChainOfCommand as $authMethod) {
    			try {
-   			    $authClass = "auth_" . $authMethod;
+   			    $authClass = "auth_" . trim($authMethod);
    			    $objAuth = $this->getObject($authClass, "security");
    			    if ($objAuth->authenticate($username, $password)) {
    			        //Authentication succeeded
