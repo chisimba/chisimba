@@ -113,30 +113,40 @@ class thumbnails extends object
 
     /**
     * Method to get the thumbnail for a file
+    *
+    * Second parameter is optional. If provided and thumbnail does not exist, it will return an image
+    * saying "unable to create thumbnail for {filetype}
+    *
+    * Otherwise it will just return FALSE
+    * 
     * @param  string $fileId   Record Id of the File
     * @param  string $filename Filename of the file
     * @return string Path to the thumbnail or False
     */
-    public function getThumbnail($fileId, $filename)
+    public function getThumbnail($fileId, $filename=NULL)
     {
-        $extension = $this->objFileParts->getExtension($filename);
-
+        // Check if thumbnail exist
         if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg')) {
 
             $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
             $url = $this->objCleanUrl->cleanUpUrl($url);
 
             return $url;
-        } else if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg')){
-
-            $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
-            $url = $this->objCleanUrl->cleanUpUrl($url);
-
-            return $url;
-
-        } else {
-            return FALSE;
         }
+        
+        if ($filename == NULL) {
+            return FALSE;
+        } else {
+            $extension = $this->objFileParts->getExtension($filename);
+            
+            if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg')){
+                $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$extension.'.jpg';
+                $url = $this->objCleanUrl->cleanUpUrl($url);
+                return $url;
+            } else {
+                return FALSE;
+            }
+    }
     }
 
 
