@@ -113,17 +113,19 @@ class admapi extends object
 	{
 		$serv = $server->getParam(0);
 		$serv = $serv->scalarval();
+		$surl = $server->getParam(1);
+		$surl = $surl->scalarval();
 		
 		// write the server list file
 		if(!file_exists($this->objConfig->getcontentBasePath().'admserverlist'))
 		{
 			touch($this->objConfig->getcontentBasePath().'admserverlist');
 			chmod($this->objConfig->getcontentBasePath().'admserverlist', 0777);
-			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $serv);
+			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $serv.",".$surl);
 		}
 		else {
 			$exists = file_get_contents($this->objConfig->getcontentBasePath().'admserverlist');
-			$exists = $exists."\n".$serv;
+			$exists = $exists."\n".$serv.",".$surl;
 			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $exists);
 		}
 		$val = new XML_RPC_Value('TRUE', 'string');
