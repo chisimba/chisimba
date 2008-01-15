@@ -417,7 +417,14 @@ class ini extends object
 			$config = new Config();
 			$root =& $config->parseConfig($cfile, 'XML');
 			$arr = $root->toArray();
-			log_debug($arr);
+			//log_debug($arr);
+			$name = $servarray['name'];
+			$arr['root']['ADM'][$name] = array('servername' => $name, 
+											   'serverapiurl' => $servarray['url'], 
+											   'serveremail' => $servarray['email'], 
+											   'regtime' => date('r'));
+											   
+		    log_debug($arr); 
 			/*$conf =& new Config_Container('section', 'ADM');
 			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv =& $conf->createSection($servarray['name']);
