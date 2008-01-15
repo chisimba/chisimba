@@ -624,7 +624,7 @@ class modulecatalogue extends controller
 				case 'ajaxinstallcore':
 					$modName = $this->getParam('moduleId');
 					log_debug("Prepping to install $modName");
-					// unlink("$modName.zip");
+					unlink("$modName.zip");
 					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
 					
@@ -637,7 +637,7 @@ class modulecatalogue extends controller
 						echo "$this->output\n{$this->objModuleAdmin->output}";
 						break;
 					}
-					// unlink("$modName.zip");
+					unlink("$modName.zip");
 					echo "<b>".$this->objLanguage->languageText('word_upgraded', "modulecatalogue")."</b>";
 					//sleep(5);
 					//$this->nextAction(array());
