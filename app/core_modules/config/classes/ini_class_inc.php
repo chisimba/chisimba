@@ -415,11 +415,13 @@ class ini extends object
 			// update the xml with the new server
 			$config = new Config();
 			$root =& $config->parseConfig($cfile, 'xml');
-			$root =& $root->createSection($servarray['name']);
-			$root->createDirective('servername', $servarray['name']);
-			$root->createDirective('serverapiurl', $servarray['url']);
-			$root->createDirective('serveremail', $servarray['email']);
-			$config->setRoot($root);
+			$conf =& new Config_Container('section', 'ADM');
+			$conf_serv =& $conf->createSection($servarray['name']);
+			$conf_serv =& $conf->createSection($servarray['name']);
+			$conf_serv->createDirective('servername', $servarray['name']);
+			$conf_serv->createDirective('serverapiurl', $servarray['url']);
+			$conf_serv->createDirective('serveremail', $servarray['email']);
+			$conf_serv->setRoot($root);
 			// write the container to an XML document
   			$config->writeConfig($cfile, 'XML');
 		}
