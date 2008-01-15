@@ -414,7 +414,7 @@ class ini extends object
 		}
 		else {
 			// update the xml with the new server
-			$conf =& new Config_Container('section', 'adm');
+			$conf =& new Config_Container('section', 'adm2');
 			$conf_serv =& $conf->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
 			$conf_serv->createDirective('serverapiurl', $servarray['url']);
