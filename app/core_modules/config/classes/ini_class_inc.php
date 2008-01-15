@@ -415,7 +415,7 @@ class ini extends object
 		else {
 			// update the xml with the new server
 			$root =& $config->parseConfig($cfile, 'XML', array('name' => 'adm'));
-			log_debug($root->toArray());
+			log_debug($root);
 			$conf_serv =& $root->createSection($servarray['name']);
 			$conf_serv->createDirective('servername', $servarray['name']);
 			$conf_serv->createDirective('serverapiurl', $servarray['url']);
