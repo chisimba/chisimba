@@ -73,6 +73,7 @@ class admapi extends object
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objAdmOps = $this->getObject('admops', 'adm');
+        	$this->objIni = $this->getObject('ini', 'config');
 		}
 		catch (customException $e)
 		{
@@ -118,18 +119,8 @@ class admapi extends object
 		$semail = $server->getParam(2);
 		$semail = $semail->scalarval();
 		
-		// write the server list file
-		if(!file_exists($this->objConfig->getcontentBasePath().'admserverlist'))
-		{
-			touch($this->objConfig->getcontentBasePath().'admserverlist');
-			chmod($this->objConfig->getcontentBasePath().'admserverlist', 0777);
-			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $serv.",".$surl.",".$semail);
-		}
-		else {
-			$exists = file_get_contents($this->objConfig->getcontentBasePath().'admserverlist');
-			$exists = $exists."\n".$serv.",".$surl.",".$semail;
-			file_put_contents($this->objConfig->getcontentBasePath().'admserverlist', $exists);
-		}
+		$serverarr = array('name' => $serv, 'url' => $surl, 'email' => $semail);
+		$this->objIni->createAdmConfig($serverarr);
 		$val = new XML_RPC_Value('TRUE', 'string');
 		return new XML_RPC_Response($val);
 	}

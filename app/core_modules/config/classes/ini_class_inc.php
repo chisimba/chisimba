@@ -157,6 +157,7 @@ class ini extends object
     		$this->sysconf =  $this->getObject('altconfig','config');
             $this->objUser =  $this->getObject("user", "security");
              $this->Text = $this->newObject('language','language');
+            $this->objConfig = $this->sysconf;
             
     }
      /**
@@ -387,6 +388,43 @@ class ini extends object
     		exit();
     	}
     } #function setItem
+    
+    public function createAdmConfig($servarray)
+    {
+    	//check for the directory structure
+		if(!file_exists($this->objConfig->getcontentBasePath().'adm/'))
+		{
+			mkdir($this->objConfig->getcontentBasePath().'adm/', 0777);
+		}
+		// write the server list file
+		$cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
+		if(!file_exists($cfile))
+		{
+			$conf =& new Config_Container('section', 'ADM');
+			$conf_serv =& $conf->createSection($servarray['name']);
+			$conf_serv->createDirective('servername', $servarray['name']);
+			$conf_serv->createDirective('serverapiurl', $servarray['url']);
+			$conf_serv->createDirective('serveremail', $servarray['email']);
+			
+			$config = new Config();
+			$config->setRoot($conf);
+			// write the container to an XML document
+  			$config->writeConfig($cfile, 'XML');
+		}
+		else {
+			// update the xml with the new server
+			$config = new Config();
+			$root =& $config->parseConfig($cfile, 'xml');
+			$root =& $root->createSection($servarray['name']);
+			$root->createDirective('servername', $servarray['name']);
+			$root->createDirective('serverapiurl', $servarray['url']);
+			$root->createDirective('serveremail', $servarray['email']);
+			$config->setRoot($root);
+			// write the container to an XML document
+  			$config->writeConfig($cfile, 'XML');
+		}
+		
+    }
     /**
     * The error callback function, defers to configured error handler
     *
