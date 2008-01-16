@@ -156,6 +156,31 @@ class dbTable extends object
 	protected $cacheTTL = 3600;
 	
 	public $objYaml;
+	
+	public $nonmirrored = array(
+								'tbl_logger',
+								'tbl_sysconfig_properties',
+								// 'tbl_decisiontable_action',
+								// 'tbl_decisiontable_action_rule',
+								// 'tbl_decisiontable_condition',
+								// 'tbl_decisiontable_conditiontype',
+								// 'tbl_decisiontable_decisiontable',
+								// 'tbl_decisiontable_decisiontable_action',
+								// 'tbl_decisiontable_decisiontable_rule',
+								// 'tbl_decisiontable_rule',
+								// 'tbl_decisiontable_rule_condition',
+								// 'tbl_groupadmin_group',
+								// 'tbl_groupadmin_groupuser',
+								'tbl_menu_category',
+								'tbl_module_blocks',
+								'tbl_module_patches',
+								'tbl_modules',
+								'tbl_modules_dependencies',
+								'tbl_modules_owned_tables',
+								'tbl_permissions_acl',
+								'tbl_permissions_acl_description',
+								'tbl_prelogin_blocks'
+								);
 
 
     /**
@@ -757,7 +782,7 @@ class dbTable extends object
         }
         if($this->adm == TRUE)
         {
-        	if($tablename != 'tbl_logger')
+        	if(!in_array($tablename, $this->nonmirrored))
         	{
 				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         	}
@@ -815,7 +840,7 @@ class dbTable extends object
         }
 		if($this->adm == TRUE)
         {
-        	if($tablename != 'tbl_logger')
+        	if(!in_array($tablename, $this->nonmirrored))
         	{
 				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         	}
@@ -863,7 +888,7 @@ class dbTable extends object
         }
         if($this->adm == TRUE)
         {
-        	if($tablename != 'tbl_logger')
+        	if(!in_array($tablename, $this->nonmirrored))
         	{
 				sql_log("[SQLDATA]".$sql."[/SQLDATA]");
         	}
