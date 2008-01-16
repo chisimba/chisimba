@@ -140,6 +140,10 @@ class admapi extends object
 			$this->objXMLThing->writeElement('regtime', date('r'));
 			$this->objXMLThing->endElement(); // server
 			$this->objXMLThing->endElement(); // adm
+			
+			$this->objXMLThing->endDTD();
+			$string = $this->objXMLThing->dumpXML();
+			file_put_contents($cfile, $string);
 		}
 		else {
 			// the file does exist - i.e. not the first record
