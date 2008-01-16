@@ -14,6 +14,7 @@ class xmlthing extends object
 		$this->xw = new xmlWriter();
     	$this->xw->openMemory();
    	    $this->xw->startDocument('1.0','UTF-8');
+   	    $this->xw->setIndent(TRUE);
 	}
 	
 	public function addDTD($type='html', $dtd="-//WAPFORUM//DTD XHTML Mobile 1.0//EN', 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd")

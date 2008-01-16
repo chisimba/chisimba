@@ -151,6 +151,7 @@ class admapi extends object
 			$xml = new SimpleXMLElement($xmlstr);
 			foreach($xml->server as $server)
 			{
+				log_debug($server);
 				$admopts[] = $server['servername'];
 				$admopts[] .= $server['serverapiurl'];
 				$admopts[] .= $server['serveremail'];
