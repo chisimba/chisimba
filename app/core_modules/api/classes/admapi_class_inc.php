@@ -162,17 +162,24 @@ class admapi extends object
 			// now rebuild the file
 			$this->objXMLThing->createDoc();
 			$this->objXMLThing->startElement('adm');
-			foreach($admopts as $serverarr)
+			foreach($admopts as $old)
 			{
 				$this->objXMLThing->startElement('server');
-				$this->objXMLThing->writeElement('servername', $serverarr['name']);
-				$this->objXMLThing->writeElement('serverapiurl', $serverarr['url']);
-				$this->objXMLThing->writeElement('serveremail', $serverarr['email']);
-				$this->objXMLThing->writeElement('regtime', date('r'));
+				$this->objXMLThing->writeElement('servername', $old['name']);
+				$this->objXMLThing->writeElement('serverapiurl', $old['url']);
+				$this->objXMLThing->writeElement('serveremail', $old['email']);
+				$this->objXMLThing->writeElement('regtime', $old['regtime']);
 				$this->objXMLThing->endElement(); // server
 			}
-			$this->objXMLThing->endElement(); // adm
+			// now add the new one to the end
+			$this->objXMLThing->startElement('server');
+			$this->objXMLThing->writeElement('servername', $serverarr['name']);
+			$this->objXMLThing->writeElement('serverapiurl', $serverarr['url']);
+			$this->objXMLThing->writeElement('serveremail', $serverarr['email']);
+			$this->objXMLThing->writeElement('regtime', date('r'));
+			$this->objXMLThing->endElement(); // server
 			
+			$this->objXMLThing->endElement(); // adm
 			$this->objXMLThing->endDTD();
 			$string = $this->objXMLThing->dumpXML();
 			unlink($cfile);
