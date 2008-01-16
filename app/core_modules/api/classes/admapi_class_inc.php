@@ -166,7 +166,7 @@ class admapi extends object
 				$this->objXMLThing->writeElement('serverapiurl', $old['url']);
 				$this->objXMLThing->writeElement('serveremail', $old['email']);
 				$this->objXMLThing->writeElement('regtime', $old['regtime']);
-				$this->objXMLThing->writeElement('lastupdate', NULL);
+				$this->objXMLThing->writeElement('lastupdate', 'never');
 				$this->objXMLThing->endElement(); // server
 			}
 			// now add the new one to the end
@@ -175,7 +175,7 @@ class admapi extends object
 			$this->objXMLThing->writeElement('serverapiurl', $serverarr['url']);
 			$this->objXMLThing->writeElement('serveremail', $serverarr['email']);
 			$this->objXMLThing->writeElement('regtime', date('r'));
-			$this->objXMLThing->writeElement('lastupdate', NULL);
+			$this->objXMLThing->writeElement('lastupdate', 'never');
 			$this->objXMLThing->endElement(); // server
 			
 			$this->objXMLThing->endElement(); // adm
