@@ -188,7 +188,7 @@ class admapi extends object
 	
 	public function grabList()
 	{
-		$list = $cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
+		$list = $this->objConfig->getcontentBasePath().'adm/adm.xml';
 		$contents = file_get_contents($list);
 		$filetosend = base64_encode($contents);
 		$val = new XML_RPC_Value($filetosend, 'string');
