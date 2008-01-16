@@ -152,7 +152,11 @@ class admapi extends object
 			foreach($xml->server as $server)
 			{
 				//log_debug($server);
-				$admopts[] = array($server->servername, $server->serverapiurl, $server->serveremail, $server->regtime);
+				$admopts[] = array('name' => $server->servername, 
+								   'url' => $server->serverapiurl, 
+								   'email' => $server->serveremail, 
+								   'regtime' => $server->regtime
+								   );
 			}
 			log_debug($admopts);
 		}
