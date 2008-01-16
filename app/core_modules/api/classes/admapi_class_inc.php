@@ -121,7 +121,6 @@ class admapi extends object
 		$semail = $semail->scalarval();
 		
 		$serverarr = array('name' => $serv, 'url' => $surl, 'email' => $semail);
-		//$this->objIni->createAdmConfig($serverarr);
 		//check for the directory structure
 		if(!file_exists($this->objConfig->getcontentBasePath().'adm/'))
 		{
@@ -151,14 +150,12 @@ class admapi extends object
 			$xml = new SimpleXMLElement($xmlstr);
 			foreach($xml->server as $server)
 			{
-				//log_debug($server);
 				$admopts[] = array('name' => $server->servername, 
 								   'url' => $server->serverapiurl, 
 								   'email' => $server->serveremail, 
 								   'regtime' => $server->regtime
 								   );
 			}
-			log_debug($admopts);
 			// now rebuild the file
 			$this->objXMLThing->createDoc();
 			$this->objXMLThing->startElement('adm');
@@ -185,8 +182,6 @@ class admapi extends object
 			unlink($cfile);
 			file_put_contents($cfile, $string);
 		}
-		
-		
 		$val = new XML_RPC_Value('TRUE', 'string');
 		return new XML_RPC_Response($val);
 	}
