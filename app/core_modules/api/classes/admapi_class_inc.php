@@ -95,7 +95,11 @@ class admapi extends object
 	
 	public function getFullLogApi()
 	{
-		$val = new XML_RPC_Value('not yet implemented', 'string');
+		$lfile = $this->objConfig->getsiteRootPath().'error_log/sqllog.log';
+		$contents = file_get_contents($lfile);
+		$filetosend = base64_encode($contents);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		log_debug("Sent ENTIRE sqllog.log (Full log update) to client");
 		return new XML_RPC_Response($val);
 	}
 	
