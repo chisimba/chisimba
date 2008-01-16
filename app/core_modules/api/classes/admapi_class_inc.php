@@ -159,6 +159,24 @@ class admapi extends object
 								   );
 			}
 			log_debug($admopts);
+			// now rebuild the file
+			$this->objXMLThing->createDoc();
+			$this->objXMLThing->startElement('adm');
+			foreach($admopts as $serverarr)
+			{
+				$this->objXMLThing->startElement('server');
+				$this->objXMLThing->writeElement('servername', $serverarr['name']);
+				$this->objXMLThing->writeElement('serverapiurl', $serverarr['url']);
+				$this->objXMLThing->writeElement('serveremail', $serverarr['email']);
+				$this->objXMLThing->writeElement('regtime', date('r'));
+				$this->objXMLThing->endElement(); // server
+			}
+			$this->objXMLThing->endElement(); // adm
+			
+			$this->objXMLThing->endDTD();
+			$string = $this->objXMLThing->dumpXML();
+			unlink($cfile);
+			file_put_contents($cfile, $string);
 		}
 		
 		
