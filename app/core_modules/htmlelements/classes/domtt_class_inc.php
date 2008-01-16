@@ -59,6 +59,10 @@ $GLOBALS['kewl_entry_point_run']) {
 class domtt extends object
 {
 
+    public $url;
+    public $linkText;
+    public $message;
+    public $title;
 
 	/**
 	 * Method to render the domtt object as HTML and javascript code
@@ -70,17 +74,22 @@ class domtt extends object
 	 * @param string $extra Any extra html that needs to be added to the anchor
 	 * @return string The rendered object in displayable code
 	 */
-    public function show($title = 'Chisimba', $message = 'replace this message' , $linkText = "replace this link text", $url = "#" , $extra = null )
+    public function show($title = NULL, $message = NULL, $linkText = NULL, $url = NULL, $extra = NULL)
     {
     	$this->putScripts();
-        $this->url = $url;
 
-        $this->linkText = $linkText;
-
-        $this->message = $message;
-
-        $this->title = $title;
-
+        if ($url) {
+            $this->url = $url;
+        }
+        if ($linkText) {
+            $this->linkText = $linkText;
+        }
+        if ($message) {
+            $this->message = $message;
+        }
+        if ($title) {
+            $this->title = $title;
+        }
         $str = "<a  ".$extra."  href=\"".$this->url."\" onmouseover=\"this.style.color = '#D17E62'; domTT_activate(this, event, 'content', '".$this->title."&lt;p&gt;".$this->message."&lt;/p&gt;', 'trail', true, 'fade', 'both', 'fadeMax', 87, 'styleClass', 'niceTitle');\" onmouseout=\"this.style.color = ''; domTT_mouseout(this, event);\">".$this->linkText."</a>";
         return $str;
     }
@@ -96,18 +105,18 @@ class domtt extends object
     public function putScripts()
     {
 
-       $str = '<script type="text/javascript" language="javascript" src="installer/domtt/domLib.js"></script>
-        <script type="text/javascript" language="javascript" src="installer/domtt/fadomatic.js"></script>
-        <script type="text/javascript" language="javascript" src="installer/domtt/domTT.js"></script>
-        <script>
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('domtt/domLib.js'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('domtt/fadomatic.js'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('domtt/domTT.js'));
+        $str = '        <script>
             var domTT_styleClass = \'domTTOverlib\';
             var domTT_oneOnly = true;
         </script>
-        <link rel="stylesheet" href="installer/domtt/example.css" type="text/css" />';
+        <link rel="stylesheet" href="core_modules/htmlelements/resources/domtt/example.css" type="text/css" />';
 
         $this->appendArrayVar('headerParams',$str );
 
-        return $str;
+        return TRUE;
 
     }
 }
