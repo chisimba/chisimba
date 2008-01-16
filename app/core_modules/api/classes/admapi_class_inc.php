@@ -185,5 +185,15 @@ class admapi extends object
 		$val = new XML_RPC_Value('TRUE', 'string');
 		return new XML_RPC_Response($val);
 	}
+	
+	public function grabList()
+	{
+		$list = $cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
+		$contents = file_get_contents($list);
+		$filetosend = base64_encode($contents);
+		$val = new XML_RPC_Value($filetosend, 'string');
+		log_debug("Sent adm.xml (server list) to client");
+		return new XML_RPC_Response($val);
+	}
 }
 ?>

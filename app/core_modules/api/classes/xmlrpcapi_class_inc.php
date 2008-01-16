@@ -578,7 +578,13 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('string', 'string', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'register a server for mirroring'),						   
+                		   						   'docstring' => 'register a server for mirroring'),			
+                		   						   
+                		   'adm.getServerList' => array('function' => array($this->objAdmApi, 'grabList'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'Grab the updated server list for mirroring'),						   
                 		   						   
                 		  // media API Start
                 		   'media.3gp2flv' => array('function' => array($this->objFfmpeg, 'convert3GPtoFLV'),
