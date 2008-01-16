@@ -74,6 +74,7 @@ class admapi extends object
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objAdmOps = $this->getObject('admops', 'adm');
         	$this->objIni = $this->getObject('ini', 'config');
+        	$this->objXMLThing = $this->getObject('xmlthing', 'utilities');
 		}
 		catch (customException $e)
 		{
@@ -120,7 +121,41 @@ class admapi extends object
 		$semail = $semail->scalarval();
 		
 		$serverarr = array('name' => $serv, 'url' => $surl, 'email' => $semail);
-		$this->objIni->createAdmConfig($serverarr);
+		//$this->objIni->createAdmConfig($serverarr);
+		//check for the directory structure
+		if(!file_exists($this->objConfig->getcontentBasePath().'adm/'))
+		{
+			mkdir($this->objConfig->getcontentBasePath().'adm/', 0777);
+		}
+		// write the server list file
+		$cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
+		if(!file_exists($cfile))
+		{
+			$this->objXMLThing->createDoc();
+			$this->objXMLThing->startElement('adm');
+			$this->objXMLThing->startElement('server');
+			$this->objXMLThing->writeElement('servername', $serverarr['name']);
+			$this->objXMLThing->writeElement('serverapiurl', $serverarr['url']);
+			$this->objXMLThing->writeElement('serveremail', $serverarr['email']);
+			$this->objXMLThing->writeElement('regtime', date('r'));
+			$this->objXMLThing->endElement(); // server
+			$this->objXMLThing->endElement(); // adm
+		}
+		else {
+			// the file does exist - i.e. not the first record
+			$xmlstr = file_get_contents($cfile);
+			$xml = new SimpleXMLElement($xmlstr);
+			foreach($xml->server as $server)
+			{
+				$admopts[] = $server['servername'];
+				$admopts[] .= $server['serverapiurl'];
+				$admopts[] .= $server['serveremail'];
+				$admopts[] .= $server['regtime'];
+			}
+			log_debug($admopts);
+		}
+		
+		
 		$val = new XML_RPC_Value('TRUE', 'string');
 		return new XML_RPC_Response($val);
 	}
