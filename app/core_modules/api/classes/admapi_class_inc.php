@@ -105,9 +105,15 @@ class admapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
-	public function getLastMirrorTimeApi()
+	public function getLastMirrorTimeApi($serv)
 	{
-		$val = new XML_RPC_Value('not yet implemented', 'string');
+		$servername = $serv->getParam(0);
+		$servname = $servername->scalarval();
+		$cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
+		$xml = simplexml_load_file($cfile);
+		$query = "//server[servername='{$serv}']";
+		$res = $xml->xpath($query);
+		$val = new XML_RPC_Value($res->lastupdate, 'string');
 		return new XML_RPC_Response($val);
 	}
 	

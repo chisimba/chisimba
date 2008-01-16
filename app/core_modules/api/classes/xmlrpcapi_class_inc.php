@@ -570,7 +570,7 @@ class xmlrpcapi extends object
                 		   						   			
                 		   'adm.getLastMirrorTime' => array('function' => array($this->objAdmApi, 'getLastMirrorTimeApi'),
                 		   						   'signature' => array(
-                		   						   					array('string'),
+                		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'returns last successful mirror time to remote'),
                 		   						   
