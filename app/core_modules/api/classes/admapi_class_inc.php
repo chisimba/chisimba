@@ -154,7 +154,8 @@ class admapi extends object
 				$admopts[] = array('name' => $server->servername, 
 								   'url' => $server->serverapiurl, 
 								   'email' => $server->serveremail, 
-								   'regtime' => $server->regtime
+								   'regtime' => $server->regtime,
+								   'lastupdate' => $server->lastupdate,
 								   );
 			}
 			// now rebuild the file
@@ -167,7 +168,7 @@ class admapi extends object
 				$this->objXMLThing->writeElement('serverapiurl', $old['url']);
 				$this->objXMLThing->writeElement('serveremail', $old['email']);
 				$this->objXMLThing->writeElement('regtime', $old['regtime']);
-				$this->objXMLThing->writeElement('lastupdate', 'never');
+				$this->objXMLThing->writeElement('lastupdate', $old['lastupdate']);
 				$this->objXMLThing->endElement(); // server
 			}
 			// now add the new one to the end
