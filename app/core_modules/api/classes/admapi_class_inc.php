@@ -206,7 +206,7 @@ class admapi extends object
 		$contents = file_get_contents($list);
 		$filetosend = base64_encode($contents);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		log_debug("Sent adm.xml (server list) to client");
+		// log_debug("Sent adm.xml (server list) to client");
 		return new XML_RPC_Response($val);
 	}
 }
