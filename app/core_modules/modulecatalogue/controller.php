@@ -560,7 +560,7 @@ class modulecatalogue extends controller
 					{
 						//if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
 						// clean the dir first
-						$this->deltree($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/');
+						//$this->deltree($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/');
 						// chmod($this->objConfig->getsiteRootPath().'core_modules/'.$modName.'/', 0777);
 						//chdir($this->objConfig->getsiteRootPath());
 						$objZip = $this->getObject('wzip', 'utilities');
