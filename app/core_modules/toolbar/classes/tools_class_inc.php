@@ -311,8 +311,13 @@ class tools extends object
         // Return the linked help icon
 
         $help = $this->objHelp->show($action, $module);
+        
+        $layer = $this->newObject('layer', 'htmlelements');
+        $layer->cssClass='bannerhelp';
+        $layer->id='bannerhelp';
+        $layer->str=$help;
 
-        return $help;
+        return $layer->show();
 
     }
 
