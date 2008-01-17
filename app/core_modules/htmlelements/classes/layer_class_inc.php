@@ -194,7 +194,7 @@ class layer extends object implements ifhtml
         $this->textalign = null;
         $this->clear = null;
         $this->cursor = 'default';
-        $this->display = 'block';
+        $this->display = null;
     }
 
     /**
