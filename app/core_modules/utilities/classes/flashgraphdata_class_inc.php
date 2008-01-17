@@ -242,7 +242,7 @@ class flashgraphdata extends object
         $colors = array();
         
         // Transfer Data from Data Sets to Arrays
-        foreach ($this->dataSets as $dataSet)
+        foreach ($this->pieDataSets as $dataSet)
         {
             $data[] = $dataSet['data'];
             $legends[] = $dataSet['legend'];
