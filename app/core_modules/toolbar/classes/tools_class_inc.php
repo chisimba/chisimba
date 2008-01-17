@@ -316,6 +316,8 @@ class tools extends object
         $layer->cssClass='bannerhelp';
         $layer->id='bannerhelp';
         $layer->str=$help;
+        $layer->display = NULL;
+        $layer->cursor = NULL;
 
         return $layer->show();
 

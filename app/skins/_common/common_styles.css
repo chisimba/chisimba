@@ -112,6 +112,8 @@ a:hover {
     padding-left: 10px;
 
     z-index: 100;
+    
+    float:left;
 
 }
 
@@ -371,6 +373,11 @@ div#wrapper{float:left;width:100%}
 
     color: red;
 
+}
+
+input.inputerror {
+    background-color: red;
+    color: white;
 }
 
 
@@ -2212,4 +2219,19 @@ img.storyimage {
 	height: 100px;
 	vertical-align: text-bottom;
 	
+}
+
+
+#breadcrumbs {
+    clear:both;
+}
+
+#tooliconslist {
+    float:right;
+    padding-right: 10px;
+}
+
+#tooliconslist div {
+
+    display: inline;
 }
