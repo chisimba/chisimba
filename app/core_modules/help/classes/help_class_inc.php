@@ -123,10 +123,10 @@ class help extends object  {
             //Popup window
             $this->objPop= $this->getObject('windowpop','htmlelements');
             $location=$this->uri(array(
-                'action'=>'view',
-                'helpid'=>$helpItem,
-                'rootModule'=>$this->rootModule,
-                'module'=>'help'));
+            'action'=>'view',
+            'helpid'=>$helpItem,
+            'rootModule'=>$this->rootModule)
+                , 'help', '', FALSE, TRUE);
 
             $this->objPop->set('window_name','help');
             $this->objPop->set('location',$location);
