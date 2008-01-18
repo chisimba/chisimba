@@ -229,16 +229,22 @@ class skin extends object
     }
 
     /**
+    * 
     * Method to output CSS to the header based on browser
+    * 
+    * @param string $theme Parameter to hold the stylesheet to be loaded
+    * @return string The list of CSS links formatted for inclusion in the page header
+    * @access Public
+    * 
     */
-    public function putSkinCssLinks()
+    public function putSkinCssLinks($theme="stylesheet")
     {
         $stylesheet = '
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/common_styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/print.css" media="print" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms.css" media="print" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms-extra.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/stylesheet.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/print.css" media="print" />
 				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
