@@ -135,6 +135,10 @@ class skin extends object
             }
         }
         closedir($dh);
+        
+        // Sort Alphabetically
+        
+        asort($dirList);
 
         foreach ($dirList as $element=> $value) {
            $objDropdown->addOption($element,$value);
@@ -312,13 +316,13 @@ class skin extends object
     public function siteSearchBox()
     {
     	$this->loadClass('label', 'htmlelements');
-    	$slabel = new label($this->objLanguage->languageText('mod_lucene_sitesearch', 'lucene') .':', 'input_query');
+    	$slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search') .':', 'input_query');
     	$this->loadClass('textinput', 'htmlelements');
-        $sform = new form('query', $this->uri(array('action' => 'searchresults'),'lucene'));
+        $sform = new form('query', $this->uri(NULL,'search'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
-        $query = new textinput('query');
+        $query = new textinput('search');
         $query->size = 15;
-        $sform->addToForm($slabel->show().$query->show());
+        $sform->addToForm($slabel->show().' '.$query->show().' ');
         $this->objSButton = &new button($this->objLanguage->languageText('word_go', 'system'));
         $this->objSButton->setValue($this->objLanguage->languageText('word_go', 'system'));
         $this->objSButton->setToSubmit();
@@ -333,8 +337,10 @@ class skin extends object
      * This loads Prototype and JavaScript into the page templates
      *
      * @param string $mime Mimetype of Page - Either text/html or application/xhtml+xml
+     * @param array $headerParams List of items that needs to go into the header of the page
+     * @param array $bodyOnLoad List of items that needs to go into the bodyOnLoad section of the page
      */
-    public function putJavaScript($mime='text/html')
+    public function putJavaScript($mime='text/html', $headerParams=NULL, $bodyOnLoad=NULL)
     {
         if ($mime != 'application/xhtml+xml') {
             $mime = 'text/html';
@@ -351,7 +357,9 @@ class skin extends object
         $str .= $jquery->show();
         
         // Get HeaderParams
-        $headerParams = $this->getVar('headerParams');
+        if ($headerParams == NULL) {
+            $headerParams = $this->getVar('headerParams');
+        }
         
         if (is_array($headerParams)) {
             foreach ($headerParams as $headerParam) {
@@ -360,7 +368,9 @@ class skin extends object
         }
         
         // Get Body On Load
-        $bodyOnLoad = $this->getVar('bodyOnLoad');
+        if ($bodyOnLoad == NULL) {
+            $bodyOnLoad = $this->getVar('bodyOnLoad');
+        }
         
         if (is_array($bodyOnLoad)) {
             $str .= '<script type="text/javascript" language="javascript">

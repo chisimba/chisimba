@@ -87,7 +87,7 @@ if (!isset($pageTitle)) {
         }
     }
     
-    echo $objSkin->putJavaScript($mime);
+    echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
     
 ?>
     </head>
