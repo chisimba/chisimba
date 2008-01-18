@@ -148,6 +148,27 @@ class modules extends dbTable
     		exit();
     	}
     }
+    
+    
+    /**
+     * Method to get the Title of a Module
+     * @param string $moduleId Module Id
+     * @return string
+     */
+    public function getModuleTitle($moduleId)
+    {
+        return $this->objLanguage->languagetext('mod_'.$moduleId.'_name', $moduleId);
+    }
+    
+    /**
+     * Method to get the Description of a Module
+     * @param string $moduleId Module Id
+     * @return string
+     */
+    public function getModuleDescription($moduleId)
+    {
+        return $this->objLanguage->languagetext('mod_'.$moduleId.'_desc', $moduleId);
+    }
 
     /**
     * Method to check if a module is Admin-only or not.
@@ -303,7 +324,7 @@ class modules extends dbTable
     
     /**
      * Method to get a list of context plugins
-     * @param array List of Modules that are context plugsins
+     * @param array List of Modules that are context plugins
      */
     public function getContextPlugins()
     {
@@ -316,6 +337,27 @@ class modules extends dbTable
         {
             if ($objModuleFile->contextPlugin($module['module_id'])) {
                 $contextPlugins[] = $module['module_id'];
+            }
+        }
+        
+        return $contextPlugins;
+    }
+    
+    /**
+     * Method to get a list of context plugins with information of the modules
+     * @param array List of Modules that are context plugins along with information of the modules
+     */
+    public function getListContextPlugins()
+    {
+        $modules = $this->getModules(2);
+        $contextPlugins = array();
+        
+        $objModuleFile = $this->getObject('modulefile');
+        
+        foreach ($modules as $module)
+        {
+            if ($objModuleFile->contextPlugin($module['module_id'])) {
+                $contextPlugins[] = $module;
             }
         }
         
