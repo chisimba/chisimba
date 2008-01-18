@@ -95,6 +95,7 @@ class loginInterface extends object
     		// Create a Form object
     		$objForm = new form('loginform', $formAction);
     		$objFields = new fieldset();
+    		$objFields->setLegend('');
     		
     		//--Create an element for the username
     		$objInput = new textinput('username', '', 'text','15');
