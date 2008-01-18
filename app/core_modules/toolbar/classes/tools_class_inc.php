@@ -265,9 +265,9 @@ class tools extends object
             $this->objIcon->alt='mod_pause_stayonline';
             $this->objIcon->title = $this->objLanguage->languageText('mod_keepsessionalive_stayonline','keepsessionalive');
 
-            $this->objLink = new link('#');
+            $this->objLink = new link('javascript:;');
             $this->objLink->link = $this->objIcon->show();
-            $url = $this->uri(array('action'=>'stayonline'),'keepsessionalive');
+            $url = $this->uri(array('action'=>'stayonline'),'keepsessionalive', '', FALSE, TRUE);
             $this->objLink->extra = " onclick=\"javascript:openWindow('{$url}','stayon','scrollbars=yes,width=340,height=130')\" ";
             return $this->objLink->show();
         }

@@ -54,25 +54,6 @@ class toolbar extends object
         return false;
     }
 
-    /**
-    * Method to add the instant messaging icon.
-    * The onclick method for the icon opens a new window containing the instant messaging page.
-    * @return string $objLink The linked icon
-    */
-    function addIM()
-    {
-        $this->objIcon->setIcon('im');
-        $this->objIcon->alt="instant messaging";
-        $this->objIcon->title = $this->objLanguage->languageText("mod_toolbar_instantmessaging"
-               ,'toolbar',"Instant Messaging");
-
-        $this->objIcon->extra=" onclick=\"javascript:window.open('" .$this->uri(array('action'=>'showUsers'),'instantmessaging')."', 'IM', 'width=300, height=394, scrollbars=1')\" ";
-
-        $this->objLink->style='cursor:hand';
-        $this->objLink->link('javascript:;');
-        $this->objLink->link=$this->objIcon->show();
-        return $this->objLink->show();
-    }
 
     /**
     * Method to provide the breadcrumbs on the menu.

@@ -273,35 +273,46 @@ class menu extends object
     */
     function createToolbar()
     {
-        $im = ''; $menu = FALSE; $iconList = '';
+        $menu = FALSE;
+        $iconList = array();
 
         // get slide out menus
         $modules = $this->menuBar();
         $menu = $this->buildMenu($modules);
 
-        if(!$menu)
+        if(!$menu) {
             $menu='';
+        }
+        
         // get breadcrumbs
         $crumbs=$this->tools->navigation();
 
         $im = $this->tools->addIM();
         if($im){
-            $iconList .= $im.'&nbsp;&nbsp;';
+            $iconList[] = $im;
         }
 
         $pause = $this->tools->addPause();
         if($pause){
-            $iconList .= $pause.'&nbsp;&nbsp;';
+            $iconList[] = $pause;
         }
 
         $helpBtn = $this->tools->getHelp();
         if($helpBtn){
-            $iconList .= $helpBtn.'&nbsp;&nbsp;';
+            $iconList[] = $helpBtn;
+        }
+        
+        $iconsStr = '';
+        $divider = '';
+        
+        foreach ($iconList as $icon)
+        {
+            $iconsStr .= $divider.$icon;
+            $divider = '&nbsp;';
         }
 
         //removed id="menu" from the div because it looks crap
-        $navbar = '<div  id="menu">'.$menu.'</div><div id="tooliconslist">'.$iconList.'</div><div id="breadcrumbs">'.$crumbs.'</div>';
-//        $navbar = '<div id="menu">'.$this->objTable->show().'</div><div id="breadcrumbs">'.$crumbs.'</div>';
+        $navbar = '<div  id="menu">'.$menu.'</div><div id="tooliconslist">'.$iconsStr.'</div><div id="breadcrumbs">'.$crumbs.'</div>';
 
         return $navbar;
     }
