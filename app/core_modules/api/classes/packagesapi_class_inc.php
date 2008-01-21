@@ -99,30 +99,52 @@ class packagesapi extends object
 		// log_debug($depends);
 		//$depends = $depends[0];
 		$depends = explode(',', $depends);
-		// log_debug($depends);
+		foreach($depends as $dep)
+		{
+			// get 2nd level deps as well
+			$dep2 = $this->objCatalogueConfig->getModuleDeps($dep);
+			$dep2 = explode(',', $dep2);
+			$depos[] = $dep2;
+			
+		}
+		//log_debug($depos);
+		foreach($depos as $d2)
+		{
+			$depends = array_merge($d2, $depends);
+		}
+		$depends = array_filter($depends);
+		log_debug($depends);
 		// Recursively download the dependencies
 		// generate a list of paths to zip up
 		foreach($depends as $paths)
 		{
 			$paths = trim($paths);
+			//log_debug("Grabbing path: $paths");
 			$path = $this->objConfig->getModulePath().$paths.'/';
 			if(file_exists($path))
 			{
-				$dep[] = $this->objConfig->getModulePath().$paths.'/';
+				//log_debug("Found $paths in regular modules");
+				$d12[] = $this->objConfig->getModulePath().$paths.'/';
+				// continue;
 			}
 			elseif(file_exists($this->objConfig->getsiteRootPath().'core_modules/'.$paths.'/'))
 			{
-				$dep[] = $this->objConfig->getsiteRootPath().'core_modules/'.$paths.'/';
+				//log_debug("Found $paths in core modules");
+				//$dep[] = $this->objConfig->getsiteRootPath().'core_modules/'.$paths.'/';
+				$d12[] = FALSE;
+				//continue;
 			}
 			else {
-				$dep[] = FALSE;
+				//log_debug("No $paths Found!");
+				$d12[] = FALSE;
+				//continue;
 			}
 		}
 		// add the actual module path in there too
 		$path = $this->objConfig->getModulePath().$mod->scalarval().'/';
-		$dep[] = $path;
-		//log_debug($dep);
-		foreach($dep as $deps)
+		$d12[] = $path;
+		//log_debug($d12);
+		foreach($d12 as $deps)
 		{
 			if(substr($deps, -2) == '//')
 			{
