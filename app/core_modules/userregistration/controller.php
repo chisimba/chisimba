@@ -86,6 +86,10 @@ class userregistration extends controller
                 return $this->saveNewUser();
             case 'detailssent':
                 return $this->detailsSent();
+            case 'invitefriend':
+            	$this->setLayoutTemplate(NULL);
+            	return 'invite_tpl.php';
+            	break;
         }
     }
     
@@ -94,6 +98,8 @@ class userregistration extends controller
     */
     protected function registrationHome()
     {
+    	$userstring = $this->getParam('user');
+    	$this->setVar('userstring', $userstring);
         $this->setVar('mode', 'add');
         return 'registrationhome_tpl.php';
     }
