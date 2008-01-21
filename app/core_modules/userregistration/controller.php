@@ -90,6 +90,12 @@ class userregistration extends controller
             	$this->setLayoutTemplate(NULL);
             	return 'invite_tpl.php';
             	break;
+            case 'sendinvite':
+            	$fn = $this->getParam('friend_firstname');
+            	$sn = $this->getParam('friend_surname');
+            	$msg = $this->getParam('friend_msg');
+            	
+            	echo $fn, $sn, $msg; die();
         }
     }
     

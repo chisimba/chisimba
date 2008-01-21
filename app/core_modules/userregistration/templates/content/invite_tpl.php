@@ -48,7 +48,17 @@ $friendmsg->toolbarSet = 'simple';
 $table->addCell($friendmsg->show());
 $table->endRow();
 
-$middleColumnContent .= $table->show();
+$fieldset = $this->newObject('fieldset', 'htmlelements');
+$fieldset->legend = ''; // $this->objLanguage->languageText('phrase_invitefriend', 'userregistration');
+$fieldset->contents = $table->show();
+// add the form to the fieldset
+$form->addToForm($fieldset->show());
+
+$button = new button ('submitform', 'Complete Invitation');
+$button->setToSubmit();
+$form->addToForm('<p align="center"><br />'.$button->show().'</p>');
+
+$middleColumnContent .= $form->show();
 $cssLayout = $this->getObject('csslayout', 'htmlelements');
 $cssLayout->setLeftColumnContent("DUDE!");
 $cssLayout->setMiddleColumnContent($middleColumnContent);
