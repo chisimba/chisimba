@@ -20,7 +20,15 @@ function showResponse (originalRequest) {
 //]]>
 </script>
 <?php
-
+// check if the site signup user string is set, if so, use it to populate the fields
+if(isset($userstring))
+{
+	$userstring = base64_decode($userstring);
+	$userstring = explode(',', $userstring);
+}
+else {
+	$userstring = NULL;
+}
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
 $this->loadClass('radio', 'htmlelements');
@@ -123,6 +131,10 @@ if ($mode == 'addfixup') {
         $messages[] = $this->objLanguage->languageText('mod_userdetails_enterfirstname', 'userdetails');
     }
 }
+if (isset($userstring) && $mode == 'add')
+{
+	$firstname->value = $userstring[0];
+}
 
 $table->startRow();
 $table->addCell($firstnameLabel->show(), 150, NULL, 'right');
@@ -138,6 +150,10 @@ if ($mode == 'addfixup') {
     if ($this->getParam('register_surname') == '') {
         $messages[] = $this->objLanguage->languageText('mod_userdetails_entersurname', 'userdetails');
     }
+}
+if (isset($userstring) && $mode == 'add')
+{
+	$surname->value = $userstring[1];
 }
 
 $table->startRow();
@@ -218,6 +234,11 @@ $emailInfoLabel = new label('Please Enter a Valid Email Address', 'input_registe
 if ($mode == 'addfixup') {
     $email->value = $this->getParam('register_email');
     $confirmEmail->value = $this->getParam('register_confirmemail');
+}
+if (isset($userstring) && $mode == 'add')
+{
+	$email->value = $userstring[2];
+	$confirmEmail->value = $userstring[2];
 }
 
 $table->addCell($emailInfoLabel->show(), 150, NULL, 'right');
