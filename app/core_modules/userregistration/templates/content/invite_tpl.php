@@ -54,7 +54,7 @@ $fieldset->contents = $table->show();
 // add the form to the fieldset
 $form->addToForm($fieldset->show());
 
-$button = new button ('submitform', 'Complete Invitation');
+$button = new button ('submitform', $this->objLanguage->languageText("mod_userregistration_completeinvite", "userregistration"));
 $button->setToSubmit();
 $form->addToForm('<p align="center"><br />'.$button->show().'</p>');
 
