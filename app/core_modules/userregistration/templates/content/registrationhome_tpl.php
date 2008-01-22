@@ -21,6 +21,7 @@ function showResponse (originalRequest) {
 </script>
 <?php
 // check if the site signup user string is set, if so, use it to populate the fields
+
 if(isset($userstring))
 {
 	$userstring = base64_decode($userstring);

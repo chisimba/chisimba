@@ -22,6 +22,7 @@ $form->addRule('friend_firstname', $this->objLanguage->languageText("mod_userreg
 $form->addRule('friend_email', $this->objLanguage->languageText("mod_userregistration_needfriendemail", "userregistration"), 'email');
 
 // form elements
+
 // friend name
 $table = $this->newObject('htmltable', 'htmlelements');
 $table->startRow();

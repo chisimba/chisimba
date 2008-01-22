@@ -98,9 +98,7 @@ class userregistration extends controller
             	$userthing = $fn.",".$sn.",".$fe;
             	$code = base64_encode($userthing);
             	// construct the url
-            	//$url = $this->uri(array('user' => $code), 'userregistration');
             	$url = $this->objConfig->getSiteRoot() . "index.php?module=userregistration&user=".$code;
-            	//$url = urldecode($url);
             	$msg = $msg."<br />".$url;
             	// bang off the email now
             	$objMailer = $this->getObject('email', 'mail');
