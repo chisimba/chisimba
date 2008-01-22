@@ -98,13 +98,13 @@ class contextadminutils extends object {
         $this->objDBContext = $this->getObject('dbcontext', 'context');
         $this->objUser = $this->getObject('user', 'security');
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->objDBContentNodes = $this->getObject('dbcontentnodes', 'context');
+        //$this->objDBContentNodes = $this->getObject('dbcontentnodes', 'context');
         $this->objConfig = $this->getObject('config', 'config');
         $this->Table = $this->getObject('htmltable', 'htmlelements');        
         $this->objModule= $this->getObject('modules','modulecatalogue');  
         $this->loadClass('checkbox','htmlelements');
         $this->objConfirm=$this->newObject('confirm','utilities');
-        $this->objExportContent =  $this->newObject('export','contextadmin');
+        //$this->objExportContent =  $this->newObject('export','contextadmin');
         $this->objIcon =  $this->newObject('geticon','htmlelements');
         $this->objLink =  $this->newObject('link','htmlelements');
         
