@@ -792,7 +792,7 @@ class user extends dbTable
     * @param string $userId User Id of the user
     * @return string Image of User
     */
-    public function getUserImage($userId=NULL, $forceRefresh=FALSE)
+    public function getUserImage($userId=NULL, $forceRefresh=FALSE, $alt=NULL)
     {
         if (!$userId) {
             $userId=$this->userId();
@@ -801,11 +801,18 @@ class user extends dbTable
         if ($forceRefresh) {
             $forceRefresh = '?'.mktime();
         }
+        
+        if ($alt == NULL) {
+            $alt = '';
+        } else {
+            $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
+        }
+        
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" alt="'.$userId.'" />';
+            return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
         } else {
-            return '<img src="'.$this->imageUrl.'default.jpg" alt="'.$userId.'" />';
+            return '<img src="'.$this->imageUrl.'default.jpg" '.$alt.' />';
         }
     }
 
@@ -835,18 +842,25 @@ class user extends dbTable
     /**
     * Method to return a path to the small user's image
     * @param string $userId User Id of the user
+    * @param string $alt Alt Text and Title for the Image
     * @return string Small Image of User
     */
-    public function getSmallUserImage($userId=NULL)
+    public function getSmallUserImage($userId=NULL, $alt=NULL)
     {
         if (!$userId) {
             $userId=$this->userId();
         }
-
-        if (file_exists($this->imagePath.$userId.'.jpg')){
-            return '<img src="'.$this->imageUrl.$userId.'_small.jpg" />';
+        
+        if ($alt == NULL) {
+            $alt = '';
         } else {
-            return '<img src="'.$this->imageUrl.'default_small.jpg" />';
+            $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
+        }
+        
+        if (file_exists($this->imagePath.$userId.'.jpg')){
+            return '<img src="'.$this->imageUrl.$userId.'_small.jpg" '.$alt.'/>';
+        } else {
+            return '<img src="'.$this->imageUrl.'default_small.jpg" '.$alt.'/>';
         }
     }
 
@@ -990,6 +1004,11 @@ class user extends dbTable
         $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
         return $objBox->show($this->fullName(), $str);
       }
+	  
+	public function getUserDetails($userId)
+	{
+		return $this->getRow('userid', $userId);
+	}
 
 }
 ?>
