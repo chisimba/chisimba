@@ -91,11 +91,26 @@ class userregistration extends controller
             	return 'invite_tpl.php';
             	break;
             case 'sendinvite':
-            	$fn = $this->getParam('friend_firstname');
-            	$sn = $this->getParam('friend_surname');
+            	$fn = ucwords($this->getParam('friend_firstname'));
+            	$sn = ucwords($this->getParam('friend_surname'));
             	$msg = $this->getParam('friend_msg');
-            	
-            	echo $fn, $sn, $msg; die();
+            	$fe = $this->getParam('friend_email');
+            	$userthing = $fn.",".$sn.",".$fe;
+            	$code = base64_encode($userthing);
+            	// construct the url
+            	//$url = $this->uri(array('user' => $code), 'userregistration');
+            	$url = $this->objConfig->getSiteRoot() . "index.php?module=userregistration&user=".$code;
+            	//$url = urldecode($url);
+            	$msg = $msg."<br />".$url;
+            	// bang off the email now
+            	$objMailer = $this->getObject('email', 'mail');
+				$objMailer->setValue('to', array($fe));
+				$objMailer->setValue('from', $this->objConfig->getsiteEmail());
+				$objMailer->setValue('fromName', $this->objConfig->getSiteName()." ".$this->objLanguage->languageText("mod_userregistration_emailfromname", "userregistration"));
+				$objMailer->setValue('subject', $this->objLanguage->languageText("mod_userregistration_emailsub", "userregistration")." ".$this->objConfig->getSiteName());
+				$objMailer->setValue('body', strip_tags($msg));
+				$objMailer->send();
+		   		$this->nextAction('',array(),'_default');
         }
     }
     
