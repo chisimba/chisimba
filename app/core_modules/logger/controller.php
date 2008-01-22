@@ -148,7 +148,28 @@ class logger extends controller
                 return 'popup_tpl.php';
                 break;
                 
-
+            case 'modulestats':
+                
+                $stats = $this->showLog->showStatsByModule();
+                
+                $objFlashGraphData = $this->newObject('flashgraphdata', 'utilities');
+                $objColorGenerator = $this->getObject('randomcolorgenerator', 'utilities');
+                
+                $objFlashGraphData->graphType = 'pie';
+                foreach ($stats as $stat)
+                {
+                    $objFlashGraphData->addPieDataSet($stat['calls'], '#'.$objColorGenerator->generateColor(), $stat['module']);
+                }
+                
+                /*
+                foreach ($stats as $stat)
+                {
+                    $objFlashGraphData->addDataSet(array($stat['calls']), '#'.$objColorGenerator->generateColor(), 5, 'bar', $stat['module']);
+                }*/
+                
+                echo $objFlashGraphData->show();
+                
+                break;
             default:
                 $display = $this->logDisplay->show();
                 $this->setVarByRef('display', $display);
