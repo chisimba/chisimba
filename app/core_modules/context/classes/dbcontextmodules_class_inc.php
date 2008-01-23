@@ -22,8 +22,8 @@
  * 
  * @category  Chisimba
  * @package   context
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2008 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
@@ -50,36 +50,38 @@ $GLOBALS['kewl_entry_point_run']) {
  * 
  * @category  Chisimba
  * @package   context
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2008 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class dbcontextmodules extends dbTable{
-     /**
-    *Initialize by send the table name to be accessed 
+class dbcontextmodules extends dbTable
+{
+    /**
+    * Constructor
     */
-     public function init(){
+     public function init()
+     {
         parent::init('tbl_contextmodules');
-
         $this->_objModule =  $this->newObject('modules', 'modulecatalogue');
-        $this->_objDBContext =  $this->newObject('dbcontext', 'context');
     }
     
     /**
-    * Method to lookup if
-    * a module is visible to
-    * the current context
+    * Method to lookup if a module is visible to the current context
     * @param      $moduleId    string  The moduleId
     * @param      $contextCode $string The context Code
     * @return     $ret         boolean Returns true if an enty was found or false when not found
     * @access     public      
     * @deprecated
     */
-    public function isVisible($moduleId,$contextCode){
-        $rsArr=$this->getAll("WHERE contextCode = '".$contextCode."' AND moduleId='".$moduleId."'");
+    public function isVisible($moduleId,$contextCode)
+    {
+        
+        // Rename to use getRecordCount
+        
+        $rsArr=$this->getAll("WHERE contextcode = '".$contextCode."' AND moduleid='".$moduleId."'");
         $ret=true;
         if ($rsArr){
             foreach($rsArr as $ar)
@@ -97,16 +99,16 @@ class dbcontextmodules extends dbTable{
     /**
     * Method to make a
     * module available to a context 
-    * @param      $moduleId    string: The moduleId
-    * @param      $contextCode $string : The context Code
-    * @return     string       : The new Id
+    * @param string $moduleId The moduleId
+    * @param string $contextCode The Context Code
+    * @return string  The new Id
     * @access     public      
     * @deprecated
     */
     public function setVisible($moduleId,$contextCode){
         return $this->insert(array(
                 'moduleId' => $moduleId,
-                'contextCode' => $contextCode));    
+                'contextCode' => $contextCode));
     }
     
     /**
@@ -165,7 +167,15 @@ class dbcontextmodules extends dbTable{
     public function getContextModules($contextCode)
     {
         
-        return $this->getAll("WHERE contextcode='".$contextCode."'");
+        $contextModules = $this->getAll("WHERE contextcode='".$contextCode."'");
+        
+        $newArray = array();
+        foreach ($contextModules as $module)
+        {
+            $newArray[] = $module['moduleid'];
+        }
+        
+        return $newArray;
     }
     
     /**
