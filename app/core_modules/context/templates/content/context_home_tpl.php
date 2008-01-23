@@ -19,7 +19,8 @@ if ($this->isValid('addblock')) {
 #editmode {padding: 20px; text-align:center; }
 </style>
 <script type="text/javascript">
-    
+// <![CDATA[
+
     // Flag Variable - Update message or not
     var doUpdateMessage = false;
     
@@ -256,7 +257,7 @@ if ($this->isValid('addblock')) {
         adjustLayout();
     }
 
-    
+// ]]>
 </script>
 <?php
 
