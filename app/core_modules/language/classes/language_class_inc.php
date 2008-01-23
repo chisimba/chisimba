@@ -221,14 +221,15 @@ class language extends dbTable {
     * @param   string $str       the language text code.
     * @param   string modulename
     * @param   array  $arrOfRep  An associative array of [-TAG-], replacement pairs
+    * @param   string $default Default Text to use if item does not exist
     * @return  string $ret The array parsed
     * @access  public
     * @author  Jonathan Abrahams, Derek Keats
     */
-    public function code2Txt($str,$modulename = "system",$arrOfRep=NULL)
+    public function code2Txt($str,$modulename = "system",$arrOfRep=NULL, $default=NULL)
     {
     	try {
-	        $ret=$this->languageText($str,"{$modulename}");
+	        $ret=$this->languageText($str,"{$modulename}", $default);
 	        //$abstractList = $this->objAbstract->getSession('systext');
 			foreach($this->abstractList as $textItem => $abstractText){
 	            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
