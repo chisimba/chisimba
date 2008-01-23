@@ -229,6 +229,25 @@ class context extends controller
     }
     
     /**
+     * Method to join a context
+     */
+    protected function __gotomodule()
+    {
+        $contextCode = $this->getParam('contextcode');
+        $module = $this->getParam('moduleid', 'context');
+        
+        if ($contextCode == '') {
+            return $this->nextAction('join', array('error'=>'nocontext'));
+        } else {
+            if ($this->objContext->joinContext($contextCode)) {
+                return $this->nextAction(NULL, NULL, $module);
+            } else {
+                return $this->nextAction('join', array('error'=>'unabletoenter'));
+            }
+        }
+    }
+    
+    /**
      * Method to prevent access to certain portions without being logged into a context
      */
     private function _preventRootAccess()
