@@ -104,12 +104,16 @@ if (isset($contextList))
 }
 
 
-
+// Turned Off by Tohir - Use Control Panel Instead
+/*
 if ($this->_objDBContext->isInContext()) {
 	$other .= $this->_objUtils->getContextAdminToolBox();
 	$tabBox->addTab(array('name'=> $this->_objDBContext->getTitle(). ' Admin','content' => $other));	
 }
+
 $tabBox->addTab(array('name'=>ucwords($this->_objLanguage->code2Txt('mod_contextadmin_mycontext','contextadmin',array('contexts' => 'Courses'))),'content' => $str));
+*/
+echo $str;
 
 // if the user is admin then show him all the other courses as well.
 if($this->_objUser->isAdmin())
@@ -264,7 +268,7 @@ if(count($archivedCourses) > 0)
 //$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_import"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_uploadheading","contextadmin"),$uploadTemplate)));
 //$tabBox->addTab(array('name'=> $this->_objLanguage->languageText("word_export"), 'content' => $featureBox->show($this->_objLanguage->languageText("mod_contextadmin_downloadheading","contextadmin"),$downloadTemplate)));
 
-echo $tabBox->show();
+//echo $tabBox->show();
 
 
 ?>

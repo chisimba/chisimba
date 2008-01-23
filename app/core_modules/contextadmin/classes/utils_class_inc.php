@@ -250,13 +250,13 @@ class utils extends object
 	  		foreach($arr as $plugin)
 	  		{
 
-	  			$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
+	  			$modInfo =$objModule->getModuleInfo($plugin);
 
-	  			$objIcon->setModuleIcon($plugin['moduleid']);
+	  			$objIcon->setModuleIcon($plugin);
 	  			$objIcon->alt = $modInfo['name'];
 	  			//$str .= $objIcon->show().'   ';
 
-                $objLink->href = $this->uri(array ('action' => 'gotomodule', 'moduleid' => $plugin['moduleid'], 'contextcode' => $contextCode), 'context');
+                $objLink->href = $this->uri(array ('action' => 'gotomodule', 'moduleid' => $plugin, 'contextcode' => $contextCode), 'context');
                 $objLink->link = $objIcon->show();
                 $str .= $objLink->show().'   ';
 	  		}

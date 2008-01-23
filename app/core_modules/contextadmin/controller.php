@@ -123,7 +123,12 @@ class contextadmin extends controller
                 
                 return 'addstep1_tpl.php';
             case 'savestep1':
-                 if($this->_objDBContext->createContext() != FALSE)
+                $contextCode = $this->getParam('contextcode2');
+                $title = $this->getParam('title');
+                $status = $this->getParam('status');
+                $access = $this->getParam('access');
+                
+                 if($this->_objDBContext->createContext($contextCode, $title, $status, $access) != FALSE)
                  {
                      $this->_objDBContext->joinContext($this->getParam('contextcode'));
                      
@@ -142,9 +147,20 @@ class contextadmin extends controller
                 return 'addstep3_tpl.php';
                 
             case 'savestep3':
-                $this->_objDBContextModules->save();
-                $this->_objDBContext->setLastUpdated();
-                return $this->nextAction('default');
+                $plugins = $this->getParam('modules');
+                
+                $objContextModules = $this->getObject('dbcontextmodules', 'context');
+                $objContextModules->deleteModulesForContext($this->_objDBContext->getContextCode());
+                
+                
+                if (is_array($plugins) && count($plugins) > 0) {
+                    foreach ($plugins as $plugin)
+                    {
+                        $objContextModules->addModule($this->_objDBContext->getContextCode(), $plugin);
+                    }
+                }
+                //$this->_objDBContext->setLastUpdated();
+                return $this->nextAction(NULL, NULL, 'context');
            
                 
             // the next steps deals with actions coming from the.

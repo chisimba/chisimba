@@ -58,10 +58,9 @@ foreach ($arrModules as $module)
 {
     if($objModuleFile->contextPlugin($module['module_id']))
     {
-        $checkbox = new checkbox('mod_'.$module['module_id']);
+        $checkbox = new checkbox('modules[]');
         $checkbox->value=$module['module_id'];
         $checkbox->cssId = 'mod_'.$module['module_id'];
-        $checkbox->name = 'mod_'.$module['module_id'];
         $checkbox->cssClass = 'f-checkbox';
         $checkbox->setChecked(TRUE);
         
