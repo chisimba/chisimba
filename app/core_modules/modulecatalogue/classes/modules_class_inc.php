@@ -138,8 +138,8 @@ class modules extends dbTable
     			$_module = array();
     			$_module['module_id'] = $module['module_id'];
     			$_module['module_path'] = $module['module_path'];
-    			$_module['title'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_name',$module['module_id']);
-    			$_module['description'] = $this->objLanguage->languagetext('mod_' . $module['module_id'] . '_desc',$module['module_id']);
+    			$_module['title'] = ucwords($this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_name',$module['module_id']));
+    			$_module['description'] = $this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_desc',$module['module_id']);
     			$_modules[] = $_module;
     		}
     		return !empty($_modules) ? $_modules : FALSE;
@@ -157,7 +157,7 @@ class modules extends dbTable
      */
     public function getModuleTitle($moduleId)
     {
-        return $this->objLanguage->languagetext('mod_'.$moduleId.'_name', $moduleId);
+        return ucwords($this->objLanguage->code2Txt('mod_'.$moduleId.'_name', $moduleId));
     }
     
     /**
@@ -167,7 +167,7 @@ class modules extends dbTable
      */
     public function getModuleDescription($moduleId)
     {
-        return $this->objLanguage->languagetext('mod_'.$moduleId.'_desc', $moduleId);
+        return $this->objLanguage->code2Txt('mod_'.$moduleId.'_desc', $moduleId);
     }
 
     /**
