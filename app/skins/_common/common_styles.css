@@ -2235,3 +2235,13 @@ img.storyimage {
 
     display: inline;
 }
+
+
+ul.htmlliststyle {
+    overflow: auto;
+    padding-bottom: 5px;
+}
+
+ul.htmlliststyle li {
+    white-space: nowrap;
+}
