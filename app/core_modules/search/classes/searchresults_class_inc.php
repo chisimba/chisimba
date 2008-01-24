@@ -43,17 +43,21 @@ class searchresults extends object
      * and is unpolished as it doesn't check permission issues, etc.
      * 
      * @access private
-     * @param string $text Text to search for     * 
+     * @param string $text Text to search for
      * @param string $module Module to search items for
+     * @param string $context Context in which to search
      * @return object
      */
-    private function search($text, $module=NULL)	
+    private function search($text, $module=NULL, $context=NULL)
     {
         $objIndexData = $this->getObject('indexdata');
         
         $indexer = $objIndexData->checkIndexPath();
         
-        $phrase = $text;
+        // Some cllean up till we can find a better way
+        $phrase = trim(str_replace(':', ' ', $text));
+        $phrase = trim(str_replace('+', ' ', $phrase));
+        $phrase = trim(str_replace('-', ' ', $phrase));
         
         if ($module != NULL) {
             
@@ -61,6 +65,15 @@ class searchresults extends object
                 $phrase .= ' AND ';
             }
             $phrase .= ' module:'.$module;
+            
+        }
+        
+        if ($context != NULL) {
+            
+            if ($text != '') {
+                $phrase .= ' AND ';
+            }
+            $phrase .= ' context:'.$context;
             
         }
         
@@ -77,14 +90,15 @@ class searchresults extends object
      * as they desire.
      * 
      * @access public
-     * @param string $text Text to search for     * 
+     * @param string $text Text to search for
      * @param string $module Module to search items for
+     * @param string $context Context in which to search
      * @return object
      */
-    public function getSearchResults($text, $module=NULL)
+    public function getSearchResults($text, $module=NULL, $context=NULL)
     {
         // Get Results
-        $results = $this->search($text, $module);
+        $results = $this->search($text, $module, $context);
         
         // Create New array
         $filteredResults = array();
@@ -93,6 +107,26 @@ class searchresults extends object
         foreach ($results as $item)
         {
             $permissionOk = $this->checkPermission($item);
+            
+            if ($module == NULL) {
+                $moduleOk = TRUE;
+            } else {
+                if ($module == $item->module) {
+                    $moduleOk = TRUE;
+                } else {
+                    $moduleOk = FALSE;
+                }
+            }
+            
+            if ($context == NULL) {
+                $contextOk = TRUE;
+            } else {
+                if ($context == $item->context) {
+                    $contextOk = TRUE;
+                } else {
+                    $contextOk = FALSE;
+                }
+            }
             
             // Check Start Date
             if (isset($item->dateavailable)) {
@@ -109,7 +143,7 @@ class searchresults extends object
             }
             
             // Check if OK to add
-            if ($permissionOk && $startDateOK && $endDateOK) {
+            if ($permissionOk && $startDateOK && $endDateOK && $contextOk && $moduleOk) {
                 $filteredResults[] = $item;
             }
         }
@@ -189,13 +223,14 @@ class searchresults extends object
      * Given a search query, this method will retrieve results and format it for display
      *
      * @access public
-     * @param string $text Text to search for     * 
+     * @param string $text Text to search for
      * @param string $module Module to search items for
+     * @param string $context Context in which to search
      * @return string Formatted Results
      */
-    public function displaySearchResults($text, $module=NULL)
+    public function displaySearchResults($text, $module=NULL, $context=NULL)
     {
-        $results = $this->getSearchResults($text, $module);
+        $results = $this->getSearchResults($text, $module, $context);
         
         $return = '<ol>';
         foreach ($results as $hit)
