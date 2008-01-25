@@ -8,7 +8,7 @@ if (!in_array($showModule, $modules)) {
     $showModule = 'all';
 }
 
-$objFreeMind = $this->getObject('flashfreemind', 'freemind');
+$objFreeMind = $this->getObject('flashfreemind', 'files');
 $objFreeMind->setMindMap($this->uri(array('action'=>'visualmap', 'showmodule'=>$showModule)));
 
 if ($showModule == 'all') {
