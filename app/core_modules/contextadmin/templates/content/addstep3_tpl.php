@@ -18,7 +18,7 @@ $inpMenuText = new textinput();
 
 $inpButton =  new button();
 
-$objH->str = $this->_objLanguage->languageText('word_step').' 3: '.$this->_objLanguage->code2Txt("mod_contextadmin_selectcontextplugins",'contextadmin');
+$objH->str = $this->_objLanguage->languageText('word_step').' 3: '.ucwords($this->_objLanguage->code2Txt("mod_contextadmin_selectcontextplugins",'contextadmin'));
 $objH->type = 3;
 
 //setup the form

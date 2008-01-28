@@ -57,7 +57,7 @@ class utils extends object
 	  	if ($this->_objUser->isAdmin())
  		{
 			$newContexts = array();
-            $contexts = $this->_objDBContext->getAll();
+            $contexts = $this->_objDBContext->getAll(' ORDER BY title');
             
             if (count($contexts) > 0) {
                 foreach ($contexts as $context)
