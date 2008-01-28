@@ -398,17 +398,36 @@ class dbcontext extends dbTable
     
     
     /**
-    * Method to delete a course
+    * Method to delete a context
     * @param  string $contextCode: The Context Code
-    * @return array 
+    * @return boolean 
     * @access public
     */
     public function deleteContext($contextCode)
     {
-        $this->delete('contextCode',$contextCode);
-        //delete groups
-        $contextGroups=$this->getObject('manageGroups','contextgroups');
-        $contextGroups->deleteGroups($contextCode);
+        $result = $this->delete('contextCode',$contextCode);
+        
+        if ($result) {
+            //delete groups
+            $contextGroups=$this->getObject('manageGroups','contextgroups');
+            $contextGroups->deleteGroups($contextCode);
+        }
+        
+        return $result;
+    }
+    
+    /**
+    * Method to archive a context - at the moment it deletes a it, not archives
+    *
+    * Done this way because of method call at the moment
+    * 
+    * @param  string $contextCode: The Context Code
+    * @return boolean 
+    * @access public
+    */
+    public function archiveContext($contextCode)
+    {
+        return $this->deleteContext($contextCode);
     }
     
     
