@@ -90,6 +90,9 @@ class dbcontextblocks extends dbTable
            
             $str = '';
             
+            $objBlocks = $this->getObject('blocks', 'blocks');
+            $objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+            
             foreach ($results as $result)
             {
                 $block = explode('|', $result['block']);
@@ -98,7 +101,7 @@ class dbcontextblocks extends dbTable
                 
                 // At the moment, only blocks are catered for, not yet dynamic blocks
                 if ($block[0] == 'block') {
-                    $objBlocks = $this->getObject('blocks', 'blocks');
+                    
                     
                     $blockStr = $objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE);
                     
@@ -106,6 +109,10 @@ class dbcontextblocks extends dbTable
                     //$blockStr = preg_replace('/type\ *=\ *"submit"/i', 'type="button"', $blockStr);
                     //$blockStr = preg_replace('/href\ *=\ *".*?"/i', 'href="javascript:alert(\'Disabled\');"', $blockStr);
                     
+                    $str .= '<div id="'.$result['id'].'" class="block">'.$blockStr.'</div>';
+                } else if ($block[0] == 'dynamicblock') {
+                    $block = explode('|', $result['block']);
+                    $blockStr = $objDynamicBlocks->showBlock($block[1]);
                     $str .= '<div id="'.$result['id'].'" class="block">'.$blockStr.'</div>';
                 }
            }

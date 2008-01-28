@@ -87,6 +87,7 @@ class context extends controller
         $this->objUser = $this->getObject('user', 'security');
         
         $this->objContextBlocks = $this->getObject('dbcontextblocks');
+        $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
     }
     
     /**
@@ -191,6 +192,12 @@ class context extends controller
         
         $allContextBlocks = $this->objContextBlocks->getContextBlocksArray($this->contextCode);
         $this->setVarByRef('allContextBlocks', $allContextBlocks);
+        
+        $smallDynamicBlocks = $this->objDynamicBlocks->getSmallContextBlocks($this->contextCode);
+        $this->setVarByRef('smallDynamicBlocks', $smallDynamicBlocks);
+        
+        $wideDynamicBlocks = $this->objDynamicBlocks->getWideContextBlocks($this->contextCode);
+        $this->setVarByRef('wideDynamicBlocks', $wideDynamicBlocks);
         
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
         $smallBlocks = $objBlocks->getBlocks('normal');
@@ -338,7 +345,7 @@ class context extends controller
             $objBlocks = $this->getObject('blocks', 'blocks');
             echo '<div id="'.$blockId.'" class="block">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
         } if ($block[0] == 'dynamicblock') {
-            
+            echo '<div id="'.$blockId.'" class="block">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
         } else {
             echo '';
         }
@@ -354,7 +361,7 @@ class context extends controller
         
         $block = explode('|', $blockId);
         
-        if ($block[0] == 'block') {
+        if ($block[0] == 'block' || $block[0] == 'dynamicblock') {
             // Add Block
             $result = $this->objContextBlocks->addBlock($blockId, $side, $this->contextCode, $block[2]);
             
@@ -363,9 +370,6 @@ class context extends controller
             } else {
                 echo $result;
             }
-            
-        } if ($block[0] == 'dynamicblock') {
-            
         } else {
             echo '';
         }

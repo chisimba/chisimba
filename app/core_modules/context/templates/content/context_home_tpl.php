@@ -270,19 +270,24 @@ $this->loadClass('htmlheading', 'htmlelements');
 $objCssLayout = $this->getObject('csslayout', 'htmlelements');
 $objCssLayout->setNumColumns(3);
 
-
 if ($this->isValid('addblock')) {
 
     $smallBlocksDropDown = new dropdown ('rightblocks');
     $smallBlocksDropDown->cssId = 'ddrightblocks';
     $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
     
+    
+    foreach ($smallDynamicBlocks as $smallBlock)
+    {
+        $smallBlocksDropDown->addOption('dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module'], htmlentities($smallBlock['title']));
+    }
+    
     foreach ($smallBlocks as $smallBlock)
     {
         $block = $this->newObject('block_'.$smallBlock['blockname'], $smallBlock['moduleid']);
         $title = $block->title;
         
-        $smallBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], $title);
+        $smallBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], htmlentities($title));
     }
     
     
@@ -290,12 +295,17 @@ if ($this->isValid('addblock')) {
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
     $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
     
+    foreach ($wideDynamicBlocks as $wideBlock)
+    {
+        $wideBlocksDropDown->addOption('dynamicblock|'.$wideBlock['id'].'|'.$wideBlock['module'], htmlentities($wideBlock['title']));
+    }
+    
     foreach ($wideBlocks as $wideBlock)
     {
         $block = $this->newObject('block_'.$wideBlock['blockname'], $wideBlock['moduleid']);
         $title = $block->title;
         
-        $wideBlocksDropDown->addOption('block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid'], $title);
+        $wideBlocksDropDown->addOption('block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid'], htmlentities($title));
     }
     
     
