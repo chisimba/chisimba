@@ -79,7 +79,7 @@ class blocks extends controller
      */
     public function dispatch()
     {
-        $blocks = $this->objDynamicBlocks->getSiteBlocks();
+        $blocks = $this->objDynamicBlocks->getAll();
         $this->setVarByRef('blocks', $blocks);
         return 'dump_tpl.php';
     }

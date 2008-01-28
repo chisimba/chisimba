@@ -253,7 +253,7 @@ class dynamicblocks extends dbTable
         }
         
         if ($size != NULL) {
-            $where .= ' AND userorcontextorworkgroupcode=\''.$size.'\'';
+            $where .= ' AND blocksize=\''.$size.'\'';
         }
         
         if ($module != NULL) {
