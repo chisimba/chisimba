@@ -113,11 +113,11 @@ class utilities extends object
         $content = $this->getContextContentNavigation();
         if($content != '')
         {
-			$str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide', adjustLayout());\">".$contentIcon." Content</a>";
+            $str .= "<br/><a href=\"#\" onclick=\"Effect.toggle('contextmenucontent','slide', adjustLayout());\">".$contentIcon." Content</a>";
         $str .='<div id="contextmenucontent"  style="width:150px;overflow: hidden;display:'.$showOrHideContent.';"> ';
         $str .= $content;
         $str .= '</div>';
-		}
+        }
         
         
         $objFeatureBox =  $this->getObject('featurebox', 'navigation');
@@ -135,79 +135,80 @@ class utilities extends object
      */
     public function getPluginNavigation($selectedModule = null)
     {
-    	
-    	
-    	$objSideBar = $this->newObject('sidebar' , 'navigation');
-    	$objModule =  $this->newObject('modules', 'modulecatalogue');
-    	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
-    	$objIcon =  $this->getObject('geticon', 'htmlelements');
-    	
-    	$arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
-    	$isregistered = '';
-    	
-    	//create the nodes array
-		$nodes = array();
-	    $children = array();
-	    $nodes[] = array('text' => $this->objDBContext->getMenuText() .' - Home', 'uri' => $this->uri(null,'context'),  'nodeid' => 'context');
-    	if(is_array($arr))
-	  	{
-	  		foreach($arr as $contextModule)
-	  		{
-	  			
-	  			//$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
-	  			if($contextModule['moduleid'] == 'cms')
-	  			{
-	  			    $isregistered = true;
-	  			} else {
-    	  			
-    	  			$modInfo = $objModule->getModuleInfo($contextModule['moduleid']);
-    	  			
-    				$moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
-    				
-    				$nodes[] = array('text' => ucwords($modInfo['name']), 'uri' => $moduleLink,  'nodeid' => $contextModule['moduleid']);
-    				
-	  			}
+        
+        
+        $objSideBar = $this->newObject('sidebar' , 'navigation');
+        $objModule =  $this->newObject('modules', 'modulecatalogue');
+        //$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
+        $objIcon =  $this->getObject('geticon', 'htmlelements');
+        
+        $arr = $this->_objContextModules->getContextModules($this->objDBContext->getContextCode());
+        $isregistered = '';
+        
+        //create the nodes array
+        $nodes = array();
+        $children = array();
+        $nodes[] = array('text' => $this->objDBContext->getMenuText() .' - Home', 'uri' => $this->uri(null,'context'),  'nodeid' => 'context');
+        if(is_array($arr))
+        {
+            foreach($arr as $contextModule)
+            {
+                
+                //$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
+                if($contextModule['moduleid'] == 'cms')
+                {
+                    $isregistered = true;
+                } else {
+                    
+                    $modInfo = $objModule->getModuleInfo($contextModule['moduleid']);
+                    
+                    $moduleLink = $this->uri(null,$contextModule['moduleid']);//$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
+                    
+                    $nodes[] = array('text' => ucwords($modInfo['name']), 'uri' => $moduleLink,  'nodeid' => $contextModule['moduleid']);
+                    
+                }
 
-	  			
-	  		}
-	  		
-	  		if($isregistered)
-	  			{
-	  			    
-	  			    $linksArr = $objContentLinks->getPublishedContextLinks();
-	  			    if($linksArr != FALSE)
-	  			    {
-    	  			    foreach($linksArr as $link)
-    	  			    {
-    	  			        $objIcon->setModuleIcon($link['moduleid']);
-    	  			        
-    	  			        $params = array();
-    	  			        $temp = spliti(',',$link['params']);
-    	  			       
-    	  			        foreach($temp as $value)
-    	  			        {
-    	  			            if(!$value=='')
-    	  			            {
-        	  			            
-        	  			            $fel = spliti('=>', $value);
-        	  			            
-        	  			            $params[$fel[0]] = $fel[1];
-        	  			           
-    	  			            }
-    	  			        }
-    	  			       
-    	  			        $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
-    	  			        
-    	  			    }
-	  			    }
-	  			    //$nodes[] = array('text' => $this->objLanguage->languageText("mod_context_content",'context'), 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
-	  			    $isregistered = false;
-	  			}
-	  			
-	  		return $objSideBar->show($nodes, $selectedModule);
-	  	} else {
-	  		return '';
-	  	}
+                
+            }
+            
+            /*
+            if($isregistered)
+                {
+                    
+                    $linksArr = $objContentLinks->getPublishedContextLinks();
+                    if($linksArr != FALSE)
+                    {
+                        foreach($linksArr as $link)
+                        {
+                            $objIcon->setModuleIcon($link['moduleid']);
+                            
+                            $params = array();
+                            $temp = spliti(',',$link['params']);
+                           
+                            foreach($temp as $value)
+                            {
+                                if(!$value=='')
+                                {
+                                    
+                                    $fel = spliti('=>', $value);
+                                    
+                                    $params[$fel[0]] = $fel[1];
+                                   
+                                }
+                            }
+                           
+                            $children[] = array('text' => $objIcon->show().' '.$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
+                            
+                        }
+                    }
+                    //$nodes[] = array('text' => $this->objLanguage->languageText("mod_context_content",'context'), 'uri' => $moduleLink,  'sectionid' => $contextModule['moduleid'], 'haschildren' => $children);
+                    $isregistered = false;
+                }*/
+                
+            return $objSideBar->show($nodes, $selectedModule);
+        } else {
+            return '';
+        }
     }
     
     /**
@@ -222,48 +223,50 @@ class utilities extends object
     {
         $objSideBar = $this->getObject('sidebar' , 'navigation');
         $objModule =  $this->getObject('dbcontextmodules', 'context');
-    	$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
+        //$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
         //create the nodes array
-		$nodes = array();
-		if($objModule->isContextPlugin($this->objDBContext->getContextCode(),'contextcontent'))
-	  	{
-	  			    
-	  			    $linksArr = $objContentLinks->getPublishedContextLinks();
-	  			    if($linksArr != FALSE)
-	  			    {
-    	  			    foreach($linksArr as $link)
-    	  			    {
-    	  			        //$objIcon->setModuleIcon($link['moduleid']);
-    	  			        
-    	  			        $params = array();
-    	  			        $temp = spliti(',',$link['params']);
-    	  			       
-    	  			        foreach($temp as $value)
-    	  			        {
-    	  			            if(!$value=='')
-    	  			            {
-        	  			            
-        	  			            $fel = spliti('=>', $value);
-        	  			            
-        	  			            $params[$fel[0]] = $fel[1];
-        	  			           
-    	  			            }
-    	  			        }
-    	  			       
-    	  			        $nodes[] = array('text' => /*$objIcon->show().' '.*/$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
-    	  			        
-    	  			    }
-	  			    } else {
-						return '';
-					}
-	  			   
-	  			    $isregistered = false;
-	  	} else {
-			return '';
-		}
-	  	$objSideBar->showHomeLink = FALSE;
-		return $objSideBar->show($nodes, $selectedLink);
-        
+        $nodes = array();
+        /*
+        if($objModule->isContextPlugin($this->objDBContext->getContextCode(),'contextcontent'))
+        {
+                    
+                    $linksArr = $objContentLinks->getPublishedContextLinks();
+                    if($linksArr != FALSE)
+                    {
+                        foreach($linksArr as $link)
+                        {
+                            //$objIcon->setModuleIcon($link['moduleid']);
+                            
+                            $params = array();
+                            $temp = spliti(',',$link['params']);
+                           
+                            foreach($temp as $value)
+                            {
+                                if(!$value=='')
+                                {
+                                    
+                                    $fel = spliti('=>', $value);
+                                    
+                                    $params[$fel[0]] = $fel[1];
+                                   
+                                }
+                            }
+                           
+                            $nodes[] = array('text' => /*$objIcon->show().' '.* /$link['menutext'], 'uri' => $this->uri($params,$link['moduleid']),  'sectionid' => 'contextcontent');
+                            
+                        }
+                    } else {
+                        return '';
+                    }
+                   
+                    $isregistered = false;
+        } else {
+            return '';
+        }
+        $objSideBar->showHomeLink = FALSE;
+        return $objSideBar->show($nodes, $selectedLink);
+        */
+        return '';
     }
     
     /**
@@ -276,16 +279,16 @@ class utilities extends object
      */
     public function canJoin($contextCode)
     {
-    	//TODO
-    	
-    	//check if the user is logged in to access an open context
-    	
-    	//check if the user is registered to the context and he is logged in
-    	
-    	//if the context is public then the user can access the context , but only limited access
-    	
-    	
-    	return true;
+        //TODO
+        
+        //check if the user is logged in to access an open context
+        
+        //check if the user is registered to the context and he is logged in
+        
+        //if the context is public then the user can access the context , but only limited access
+        
+        
+        return true;
     }
     
     
@@ -394,76 +397,76 @@ class utilities extends object
     */
     public function getContextMenu()
     {
-    	
-    	
-    	
-    	try {
-			
-			//initiate the objects
-			$objSideBar = $this->newObject('sidebar', 'navigation');
-			$objModules =  $this->newObject('modules', 'modulecatalogue');
-			
-			//get the contextCode
-			$this->objDBContext->getContextCode();	
-			
-			//create the nodes array
-			$nodes = array();
-			
-			//get the section id
-			$section = $this->getParam('id');
-			
-			//create the home for the context
-			$nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' -  '.$this->objLanguage->languageText("word_home"), 'uri' => $this->uri(null,"_default"));
-						
-			
-			
-			//get the registered modules for this context
-			/*$arrContextModules = array(
-			                         array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 
-			                         array('moduleid' => 'chat', 'title' =>  'Chat'),
-			                         array('moduleid' => 'contextcmscontent', 'title' => 'Course Content'));
-			                         */
-			$arrContextModules = $this->objDBContextModules->getContextModules($this->contextCode);
-			
-			foreach($arrContextModules as $contextModule)
-			{
-				$modInfo = $objModules->getModuleInfo($contextModule['moduleid']);
-				
-				$nodes[] = array('text' => $modInfo['name'], 'uri' => $this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid'])),  'sectionid' => $contextModule['moduleid']);
-			}
-			/*
-			//start looping through the sections
-			foreach ($arrSections as $section)
-			{
-				
-				//add the sections
-		        if(($this->getParam('action') ==  'showsection') && ($this->getParam('id') == $section['id']) || $this->getParam('sectionid') == $section['id'])
-		        {
-		        	
-		        	$pagenodes = array();
-		        	$arrPages = $this->_objContent->getAll('WHERE sectionid = "'.$section['id'].'" AND published=1 ORDER BY ordering');
-		        	
-		        	foreach( $arrPages as $page)
-		        	{
-		        		$pagenodes[] = array('text' => $page['menutext'] , 'uri' =>$this->uri(array('action' => 'showfulltext', 'id' => $page['id'], 'sectionid' => $section['id']), 'cms'));
-		        		
-		        	}
-		        	
-		        	$nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id'], 'haschildren' => $pagenodes);
-		        	$pagenodes = null;
-		        	
-		        } else {
-		        	$nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id']);	
-		        }
-				
-			}
-			//add the admin link
-			$nodes[] = array('text' => 'Administration', 'uri' =>$this->uri(null, 'cmsadmin'));
-						*/
-			return $objSideBar->show($nodes, $this->getParam('id'));
-		}catch (Exception $e){
-       		echo 'Caught exception: ',  $e->getMessage();
-        	exit();
+        
+        
+        
+        try {
+            
+            //initiate the objects
+            $objSideBar = $this->newObject('sidebar', 'navigation');
+            $objModules =  $this->newObject('modules', 'modulecatalogue');
+            
+            //get the contextCode
+            $this->objDBContext->getContextCode();	
+            
+            //create the nodes array
+            $nodes = array();
+            
+            //get the section id
+            $section = $this->getParam('id');
+            
+            //create the home for the context
+            $nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' -  '.$this->objLanguage->languageText("word_home"), 'uri' => $this->uri(null,"_default"));
+                        
+            
+            
+            //get the registered modules for this context
+            /*$arrContextModules = array(
+                                     array('moduleid' => 'forum', 'title' => 'Disussion Forum'), 
+                                     array('moduleid' => 'chat', 'title' =>  'Chat'),
+                                     array('moduleid' => 'contextcmscontent', 'title' => 'Course Content'));
+                                     */
+            $arrContextModules = $this->objDBContextModules->getContextModules($this->contextCode);
+            
+            foreach($arrContextModules as $contextModule)
+            {
+                $modInfo = $objModules->getModuleInfo($contextModule['moduleid']);
+                
+                $nodes[] = array('text' => $modInfo['name'], 'uri' => $this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid'])),  'sectionid' => $contextModule['moduleid']);
+            }
+            /*
+            //start looping through the sections
+            foreach ($arrSections as $section)
+            {
+                
+                //add the sections
+                if(($this->getParam('action') ==  'showsection') && ($this->getParam('id') == $section['id']) || $this->getParam('sectionid') == $section['id'])
+                {
+                    
+                    $pagenodes = array();
+                    $arrPages = $this->_objContent->getAll('WHERE sectionid = "'.$section['id'].'" AND published=1 ORDER BY ordering');
+                    
+                    foreach( $arrPages as $page)
+                    {
+                        $pagenodes[] = array('text' => $page['menutext'] , 'uri' =>$this->uri(array('action' => 'showfulltext', 'id' => $page['id'], 'sectionid' => $section['id']), 'cms'));
+                        
+                    }
+                    
+                    $nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id'], 'haschildren' => $pagenodes);
+                    $pagenodes = null;
+                    
+                } else {
+                    $nodes[] = array('text' =>$section['menutext'], 'uri' => $this->uri(array('action' => 'showsection', 'id' => $section['id']), 'cms'), 'sectionid' => $section['id']);	
+                }
+                
+            }
+            //add the admin link
+            $nodes[] = array('text' => 'Administration', 'uri' =>$this->uri(null, 'cmsadmin'));
+                        */
+            return $objSideBar->show($nodes, $this->getParam('id'));
+        }catch (Exception $e){
+            echo 'Caught exception: ',  $e->getMessage();
+            exit();
         }
     }
 } 
