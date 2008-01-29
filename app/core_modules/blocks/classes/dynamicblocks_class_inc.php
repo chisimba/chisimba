@@ -234,7 +234,7 @@ class dynamicblocks extends dbTable
         if (count($results) > 0) {
             foreach ($results as $result)
             {
-                $this->update('id', array('title'=>$title));
+                $this->update('id', $result['id'], array('title'=>$title));
             }
         }
     }
