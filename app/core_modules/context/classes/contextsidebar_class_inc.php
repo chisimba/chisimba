@@ -154,12 +154,19 @@ class contextsidebar extends object
         $this->loadClass('form', 'htmlelements');
         $this->loadClass('textinput', 'htmlelements');
         $this->loadClass('button', 'htmlelements');
+        $this->loadClass('hiddeninput', 'htmlelements');
         
         $form = new form('contextsearch', $this->uri(array('action'=>'search'), 'context'));
+        $form->method = 'GET';
+        
+        $module = new hiddeninput('module', 'context');
+        $action = new hiddeninput('action', 'search');
+        
+        $form->addToForm($module->show().$action->show());
         
         $textinput = new textinput('search', $this->getParam('search'));
         
-        $button = new button ('search', ucwords($this->objLanguage->code2Txt('mod_context_searchcontext', 'context', NULL, 'Search [-context-]')));
+        $button = new button ('searchButton', ucwords($this->objLanguage->code2Txt('mod_context_searchcontext', 'context', NULL, 'Search [-context-]')));
         $button->setToSubmit();
         
         $form->addToForm('<p align="center">'.$textinput->show().'<br />'.$button->show().'</p>');

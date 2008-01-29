@@ -455,6 +455,22 @@ class context extends controller
         }
     }
     
+    /**
+     * Add Context Search
+     */
+    protected function __search()
+    {
+        $search = $this->getParam('search');
+        
+        $objSearchResults = $this->getObject('searchresults', 'search');
+        $searchResults = $objSearchResults->displaySearchResults($search, NULL, $this->contextCode);
+        
+        $this->setVarByRef('searchResults', $searchResults);
+        $this->setVarByRef('searchText', $search);
+        
+        return 'searchresults_tpl.php';
+    }
+    
 }
 
 
