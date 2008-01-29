@@ -126,7 +126,7 @@ class utils extends object
 			}
 	  	 
 	  	}
-	  var_dump($contextCodes);
+        //var_dump($contextCodes);
 	  	return $arr;
 	  }
 
