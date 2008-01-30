@@ -386,7 +386,7 @@ class packagesapi extends object
 		$contents = file_get_contents($types);
 		$filetosend = base64_encode($contents);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		log_debug("Sent systemtypes.xml to client");
+		log_debug("Sent systemtypes.xml to client at ".$_SERVER['REMOTE_ADDR']);
 		return new XML_RPC_Response($val);
 	}
 	
