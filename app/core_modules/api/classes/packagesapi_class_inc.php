@@ -113,7 +113,7 @@ class packagesapi extends object
 			$depends = array_merge($d2, $depends);
 		}
 		$depends = array_filter($depends);
-		log_debug($depends);
+		//log_debug($depends);
 		// Recursively download the dependencies
 		// generate a list of paths to zip up
 		foreach($depends as $paths)
@@ -175,7 +175,7 @@ class packagesapi extends object
 			$filetosend = base64_encode($filetosend);
 			$val = new XML_RPC_Value($filetosend, 'string');
 			unlink($filepath);
-			log_debug("Sent ".$mod->scalarval()." to client");
+			log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
 			return new XML_RPC_Response($val);
 			// Ooops, couldn't open the file so return an error message.
 			return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -191,7 +191,7 @@ class packagesapi extends object
 		$filetosend = base64_encode($filetosend);*/
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
-		log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['HTTP_REFERRER']);
+		log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -351,7 +351,7 @@ class packagesapi extends object
 		// log_debug($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
-		log_debug("Sent Skin: ".$skin." to client");
+		log_debug("Sent Skin: ".$skin." to client at ".$_SERVER['REMOTE_ADDR']);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -415,7 +415,7 @@ class packagesapi extends object
 		
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
-		log_debug("Sent core upgrade to client");
+		log_debug("Sent core upgrade to client at ".$_SERVER['REMOTE_ADDR']);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
