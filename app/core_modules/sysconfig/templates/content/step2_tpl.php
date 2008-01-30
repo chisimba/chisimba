@@ -89,7 +89,7 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
             $objTable->startRow();
             // addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
             $objTable->addCell($line, "40%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($value, "30%", NULL, NULL, $oddOrEven);
+            $objTable->addCell(htmlentities($value), "30%", NULL, NULL, $oddOrEven);
             $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
             $objTable->endRow();
             //Set rowcount for bitwise determination of odd or even
@@ -166,7 +166,7 @@ $pgTitle->str = $this->objLanguage->languageText("mod_sysconfig_secondstep",'sys
             // addCell($str, $width=null, $valign="top", $align=null, $class=null, $attrib=Null)
             $objTable->addCell($line['pname'], "20%", NULL, NULL, $oddOrEven);
             $objTable->addCell($this->objLanguage->languageText($line['pdesc'],$line['pmodule']), "60%", NULL, NULL, $oddOrEven);
-            $objTable->addCell($line['pvalue'], "20%", NULL, NULL, $oddOrEven);
+            $objTable->addCell(htmlentities($line['pvalue']), "20%", NULL, NULL, $oddOrEven);
             $objTable->addCell($objIcon->getEditIcon($edLink), "60%", NULL, "RIGHT", $oddOrEven);
             $objTable->endRow();
             //Set rowcount for bitwise determination of odd or even
