@@ -5,6 +5,7 @@ $objThumbnail = $this->getObject('thumbnails', 'filemanager');
 
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
 
 echo '
 <div style="position:absolute; bottom: 0px; z-index: 100; left: 0; height: 100px; margin-bottom: 20px;">';
