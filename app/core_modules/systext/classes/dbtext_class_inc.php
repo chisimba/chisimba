@@ -13,7 +13,7 @@ if(!$GLOBALS['kewl_entry_point_run']){
 
 class dbtext extends dbTable
 {
-    public public function init()
+    public function init()
     {
         parent::init('tbl_systext_text');
         $this -> table = 'tbl_systext_text';

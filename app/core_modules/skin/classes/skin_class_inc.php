@@ -135,9 +135,9 @@ class skin extends object
             }
         }
         closedir($dh);
-        
+
         // Sort Alphabetically
-        
+
         asort($dirList);
 
         foreach ($dirList as $element=> $value) {
@@ -215,7 +215,7 @@ class skin extends object
     /**
      * Method to put a logout link on the page
      */
-    public public function putLogout()
+    public function putLogout()
     {
         $logout=$this->objLanguage->languageText('word_logout','security','Logout');
         $objConfirm =& $this->getObject('confirm', 'utilities');
@@ -229,13 +229,13 @@ class skin extends object
     }
 
     /**
-    * 
+    *
     * Method to output CSS to the header based on browser
-    * 
+    *
     * @param string $theme Parameter to hold the stylesheet to be loaded
     * @return string The list of CSS links formatted for inclusion in the page header
     * @access Public
-    * 
+    *
     */
     public function putSkinCssLinks($theme="stylesheet")
     {
@@ -337,7 +337,7 @@ class skin extends object
 
         return $sform;
     }
-    
+
     /**
      * Method to return the common JavaScript that is used and needs to go into the page templates
      * This loads Prototype and JavaScript into the page templates
@@ -351,33 +351,33 @@ class skin extends object
         if ($mime != 'application/xhtml+xml') {
             $mime = 'text/html';
         }
-        
+
         $str = '';
-        
+
         // Add Scriptaculous
         $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
         $str .= $scriptaculous->show($mime);
-        
+
         // Add JQuery
         $jquery = $this->getObject('jquery', 'htmlelements');
         $str .= $jquery->show();
-        
+
         // Get HeaderParams
         if ($headerParams == NULL) {
             $headerParams = $this->getVar('headerParams');
         }
-        
+
         if (is_array($headerParams)) {
             foreach ($headerParams as $headerParam) {
                 $str .= $headerParam."\n\n";
             }
         }
-        
+
         // Get Body On Load
         if ($bodyOnLoad == NULL) {
             $bodyOnLoad = $this->getVar('bodyOnLoad');
         }
-        
+
         if (is_array($bodyOnLoad)) {
             $str .= '<script type="text/javascript" language="javascript">
         jQuery(document).ready(function(){'."\n\n";
@@ -386,7 +386,7 @@ class skin extends object
             }
             $str .= '}); </script>'."\n\n";
         }
-        
+
         return $str;
     }
 
