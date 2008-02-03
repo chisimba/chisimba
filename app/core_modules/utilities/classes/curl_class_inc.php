@@ -97,12 +97,14 @@ class curl extends object
         }
     }
     
+    public function 
+    
     /**
     * Method to transfer/get contents of a page
     * @param string $url URL of the Page
     * @return string contents of the page
     */
-    public function exec($url)
+    public function exec($url, $postargs=FALSE)
     {
         // Setup URL for Curl
         $ch = curl_init($url);
@@ -131,6 +133,11 @@ class curl extends object
             }
             
             curl_setopt ($ch, CURLOPT_PROXYUSERPWD, $userNamePassword);
+        }
+        
+        if($postargs !== FALSE){
+            curl_setopt ($ch, CURLOPT_POST, true);
+            curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
         }
         
         // Get the page
