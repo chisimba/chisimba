@@ -39,12 +39,14 @@
 */
 class parse4twitter extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+
+    /**
+    * 
+    * @var string $objLanguage String object property for holding the 
+    * language object
+    * @access public
+    * 
+    */
     public $objLanguage;
     
     /**
