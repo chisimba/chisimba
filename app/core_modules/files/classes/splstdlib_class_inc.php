@@ -16,14 +16,14 @@ class splstdlib extends object
 
 		return $files;
 	}
-	
+
 	public function dirFilterDots($dir)
 	{
 		$it = new DirectoryFilterDots($dir);
 		foreach($it as $path) {
 			$files[] = $path;
 		}
-		
+
 		return $files;
 	}
 
@@ -79,48 +79,48 @@ class splstdlib extends object
 		'lines'       => $count_lines,
 		'directories' => $count_directories);
 	}
-	
+
 	public function fileInformationDir($dir)
 	{
 		$dir = new SmartDirectoryIterator($dir);
-		foreach ( $dir as $file ) 
+		foreach ( $dir as $file )
 		{
-    		$filearr[] = $file;
+			$filearr[] = $file;
 		}
 		return $filearr;
 	}
-	
+
 	public function dirDeleter($dir)
 	{
-   		$iterator = new RecursiveDirectoryIterator($dir);
-   		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
-   		{
-      		if ($file->isDir()) {
-         		rmdir($file->getPathname());
-      		} else {
-         		unlink($file->getPathname());
-      		}
-   		}
-   		rmdir($dir);
+		$iterator = new RecursiveDirectoryIterator($dir);
+		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
+		{
+			if ($file->isDir()) {
+				rmdir($file->getPathname());
+			} else {
+				unlink($file->getPathname());
+			}
+		}
+		rmdir($dir);
 	}
-	
+
 	public function fileFinder($path, $regex)
 	{
 		$fileList = new DirMach($path, $regex);
 		foreach ($fileList as $file) {
-  			$match[] = $file;
+			$match[] = $file;
 		}
 		return $match;
 	}
-	
-	
+
+
 	public function fileExtension($path, $ext)
 	{
 		$filtered = new ExtensionFilter(
-                new DirectoryIterator($path), $ext);
+		new DirectoryIterator($path), $ext);
 
 		foreach ( $filtered as $file ) {
-    		// Do something with $file
+			// Do something with $file
 		}
 	}
 }

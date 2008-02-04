@@ -127,170 +127,169 @@ class DirectoryGraphIterator extends DirectoryTreeIterator
 	function __construct($path)
 	{
 		RecursiveIteratorIterator::__construct(
-			new RecursiveCachingIterator(
-				new ParentIterator(
-					new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::KEY_AS_FILENAME
-						)
-					),
-				CachingIterator::CALL_TOSTRING|CachingIterator::CATCH_GET_CHILD
-			),
-			parent::SELF_FIRST
+		new RecursiveCachingIterator(
+		new ParentIterator(
+		new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::KEY_AS_FILENAME
+		)
+		),
+		CachingIterator::CALL_TOSTRING|CachingIterator::CATCH_GET_CHILD
+		),
+		parent::SELF_FIRST
 		);
 	}
 }
 
-class SmartDirectoryIterator implements Iterator 
+class SmartDirectoryIterator implements Iterator
 {
-    
-    protected $key;
-    protected $current;
-    protected $valid;
-    
-    protected $path;
-    protected $handle;
 
-    public function __construct($path) {
-        $this->handle = opendir($path);
-        $this->path = $path;
-    }
+	protected $key;
+	protected $current;
+	protected $valid;
 
-    private function getFile() {
-        if ( false !== ($file = readdir($this->handle)) ) {
-            $path = $this->path . $file;
-            $this->current['name'] = $file;
-            $this->current['size'] = filesize($path);
-            $this->current['modified'] = filemtime($path);
-            return true;
-        } else {
-            return false;
-        }
-    }
+	protected $path;
+	protected $handle;
 
-    public function next() {
-        $this->valid = $this->getFile();
-        $this->key++;
-    }
+	public function __construct($path) {
+		$this->handle = opendir($path);
+		$this->path = $path;
+	}
 
-    public function rewind() {
-        $this->key = 0;
-        rewinddir($this->handle);
-        $this->valid = $this->getFile();
-    }
+	private function getFile() {
+		if ( false !== ($file = readdir($this->handle)) ) {
+			$path = $this->path . $file;
+			$this->current['name'] = $file;
+			$this->current['size'] = filesize($path);
+			$this->current['modified'] = filemtime($path);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public function valid() {
-        return $this->valid;
-    }
+	public function next() {
+		$this->valid = $this->getFile();
+		$this->key++;
+	}
 
-    public function key() {
-        return $this->key;
-    }
+	public function rewind() {
+		$this->key = 0;
+		rewinddir($this->handle);
+		$this->valid = $this->getFile();
+	}
 
-    public function current() {
-        return $this->current;
-    }
+	public function valid() {
+		return $this->valid;
+	}
 
-    public function __destruct( ) {
-        closedir($this->handle);
-    }
+	public function key() {
+		return $this->key;
+	}
+
+	public function current() {
+		return $this->current;
+	}
+
+	public function __destruct( ) {
+		closedir($this->handle);
+	}
 
 }
 
 class KeyFilter extends FilterIterator
 {
-  private $_rx;
- 
-  function __construct(Iterator $it, $regex)
-  {
-    parent::__construct($it);
-    $this->_rx= $regex;
-  }
+	private $_rx;
 
-  function accept()
-  {
-    return preg_match($this->_rx,$this->getInnerIterator()->key());
-  }
+	function __construct(Iterator $it, $regex)
+	{
+		parent::__construct($it);
+		$this->_rx= $regex;
+	}
 
-  protected function __clone() {
-    return false;
-  }
+	function accept()
+	{
+		return preg_match($this->_rx,$this->getInnerIterator()->key());
+	}
+
+	protected function __clone() {
+		return false;
+	}
 }
 
 class DirMach extends KeyFilter
 {
-  function __construct($path , $regex)
-  {
-    parent::__construct(
-    new DirTreeIterator($path), $regex);
-  }
+	function __construct($path , $regex)
+	{
+		parent::__construct(
+		new DirTreeIterator($path), $regex);
+	}
 
-  function current()
-  {
-    return parent::key();
-  }
+	function current()
+	{
+		return parent::key();
+	}
 
-  function key()
-  {
-    return parent::key();
-  }
+	function key()
+	{
+		return parent::key();
+	}
 }
 
 class DirTreeIterator extends RecursiveIteratorIterator
 {
-    /** Construct from a path.
+	/** Construct from a path.
      * @param $path directory to iterate
      */
-    function __construct($path)
-    {
-     try {
-      parent::__construct(
-            new RecursiveCachingIterator(
-                new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::KEY_AS_FILENAME
-                ),
-                CachingIterator::CALL_TOSTRING|CachingIterator::CATCH_GET_CHILD
-            ),
-            parent::SELF_FIRST
-        );
-     } catch(Exception $e) {
-       echo $e->getMessage();
-       exit;
-     }
-    }
+	function __construct($path)
+	{
+		try {
+			parent::__construct(
+			new RecursiveCachingIterator(
+			new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::KEY_AS_FILENAME
+			),
+			CachingIterator::CALL_TOSTRING|CachingIterator::CATCH_GET_CHILD
+			),
+			parent::SELF_FIRST
+			);
+		} catch(Exception $e) {
+			echo $e->getMessage();
+			exit;
+		}
+	}
 
-    /** @return the current element prefixed with ASCII graphics
+	/** @return the current element prefixed with ASCII graphics
      */   
-    function current()
-    {
-      if ($this->hasChildren())
-        $this->next(); 
-      return $this->key();
-    }
+	function current()
+	{
+		if ($this->hasChildren())
+		$this->next();
+		return $this->key();
+	}
 
-    /** Aggregates the inner iterator
+	/** Aggregates the inner iterator
      */   
-    function __call($func, $params)
-    {
-      return call_user_func_array(array($this->getSubIterator(), $func), $params);
-    }
+	function __call($func, $params)
+	{
+		return call_user_func_array(array($this->getSubIterator(), $func), $params);
+	}
 }
 
 class ExtensionFilter extends FilterIterator {
-    
-    private $ext;
-    private $it;
-    
-    public function __construct(DirectoryIterator $it, $ext) {
-        parent::__construct($it);
-        $this->it = $it;
-        $this->ext = $ext;
-    }
-    
-    public function accept() {
-        if ( ! $this->it->isDir() ) {
-            $ext = array_pop(explode('.', $this->current()));
-            return $ext != $this->ext;
-        }
-        return true;
-    }
-}
 
+	private $ext;
+	private $it;
+
+	public function __construct(DirectoryIterator $it, $ext) {
+		parent::__construct($it);
+		$this->it = $it;
+		$this->ext = $ext;
+	}
+
+	public function accept() {
+		if ( ! $this->it->isDir() ) {
+			$ext = array_pop(explode('.', $this->current()));
+			return $ext != $this->ext;
+		}
+		return true;
+	}
+}
 ?>
