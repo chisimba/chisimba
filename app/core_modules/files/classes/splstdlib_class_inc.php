@@ -1,10 +1,11 @@
 <?php
 
-class splstdlib extends object
+class splstdlib //extends object
 {
 	public function init()
 	{
-		require_once($this->getResourcePath('stdlib_class_inc.php', 'files'));
+		//require_once($this->getResourcePath('stdlib_class_inc.php', 'files'));
+		require_once('/var/www/chisimba_framework/app/core_modules/files/resources/stdlib_class_inc.php');
 	}
 
 	public function dirTree($dir)
@@ -47,6 +48,31 @@ class splstdlib extends object
 		}
 	}
 
+	public function frontPageDirCleaner($directory, $filter = array('_vti_cnf', '_vti_private', '_vti_txt', '_private', '_themes', 'msupdate', 'vti_pvt', 'vti_script', '_vti_log', '_template','Thumbs.db'))
+	{
+		$iterator = new RecursiveDirectoryIterator($directory);
+		foreach(new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
+		{
+			// prune empty dirs
+			echo $file->getPath()." is ".$file->getSize()." at ".$file->getFileName()."<br />";
+			if(sizeof($file->getSize()) == 0)
+			{
+				unlink($file->getPath());
+			}
+			if($file->getFileName() == 'Thumbs.db' || $file->getFileName() == 'top_menubar.htm' || $file->getFileName() == 'navigation.htm')
+			{
+				unlink($file->getPath()."/".$file->getFilename());
+				echo "Deleting: ".$file->getPath()."/".$file->getFilename();
+			}
+			$parts = explode("/",$file->getPath());
+			if(in_array(end($parts), $filter))
+			{
+				$this->dirDeleter($file->getPath());
+				$this->recursiveRemoveDirectory($file->getPath());
+			}
+			
+		}
+	}
 
 	public function fileCounter($directory, $filter = array('php', 'xsl', 'xml', 'htm', 'html','css'))
 	{
@@ -97,12 +123,38 @@ class splstdlib extends object
 		{
 			if ($file->isDir()) {
 				rmdir($file->getPathname());
+				// $this->dirDeleter($file->getPathname());
 			} else {
 				unlink($file->getPathname());
+				@rmdir($dir);
 			}
 		}
-		rmdir($dir);
+		@rmdir($dir);
 	}
+	
+	public function recursiveRemoveDirectory($path)
+    {   
+        $dir = new RecursiveDirectoryIterator($path);
+        //Remove all files
+        foreach(new RecursiveIteratorIterator($dir) as $file)
+        {
+            unlink($file);
+        }
+        //Remove all subdirectories
+        foreach($dir as $subDir)
+        {
+            //If a subdirectory can't be removed, it's because it has subdirectories, so recursiveRemoveDirectory is called again passing the subdirectory as path
+            if(!@rmdir($subDir)) //@ suppress the warning message
+            {
+                recursiveRemoveDirectory($subDir);
+                rmdir($subDir);
+                unlink($subDir);
+            }
+        }
+
+        //Remove main directory
+        @rmdir($path);
+    }
 
 	public function fileFinder($path, $regex)
 	{
