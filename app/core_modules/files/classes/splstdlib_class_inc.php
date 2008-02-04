@@ -1,11 +1,11 @@
 <?php
 
-class splstdlib //extends object
+class splstdlib extends object
 {
 	public function init()
 	{
-		//require_once($this->getResourcePath('stdlib_class_inc.php', 'files'));
-		require_once('/var/www/chisimba_framework/app/core_modules/files/resources/stdlib_class_inc.php');
+		require_once($this->getResourcePath('stdlib_class_inc.php', 'files'));
+		//require_once('/var/www/chisimba_framework/app/core_modules/files/resources/stdlib_class_inc.php');
 	}
 
 	public function dirTree($dir)
@@ -22,10 +22,17 @@ class splstdlib //extends object
 	{
 		$it = new DirectoryFilterDots($dir);
 		foreach($it as $path) {
-			$files[] = $path;
+			if($path->isDir())
+			{
+				$str = $path->getFilename();
+				if($str{0} !== '_')
+				{
+					$dirs[] = $path->getPath()."/".$path->getFilename();
+				}
+			}
 		}
 
-		return $files;
+		return $dirs;
 	}
 
 	public function recDir($dir, $type='files')
