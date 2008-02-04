@@ -916,23 +916,7 @@ fieldset.tabbox ul {
 
 
 
-#left h3, #left h1 {
 
-    width: 100%;
-
-    overflow:hidden;
-
-}
-
-
-
-/* Hide the Instant Messenger Iframe */
-
-#IM {
-
-    display: none;
-
-}
 
 
 
@@ -1634,7 +1618,7 @@ label br {clear:left}
 #selectblocks div.leftblocks {
     border: 1px solid lightgray;
     padding: 5px;
-    width:150px;
+    width: 190px;
     /*float: left;*/
     z-index:1000;
     margin: 0;
@@ -1654,7 +1638,7 @@ label br {clear:left}
 #selectblocks div.usedblock {
     border: 1px solid lightgray;
     padding: 5px;
-    width:150px;
+    width: 190px;
    /* float: left; */
     z-index:1000;
     margin: 0;
@@ -1673,7 +1657,7 @@ label br {clear:left}
 #selectblocks div.addblocks {
     border: 1px solid lightgray;
     padding: 5px;
-    width:150px;
+    width: 190px;
    /* float: left; */
     z-index:1000;
     margin: 0;
@@ -2244,4 +2228,5 @@ ul.htmlliststyle {
 
 ul.htmlliststyle li {
     white-space: nowrap;
+    background: transparent url("icons/text.gif") no-repeat 6px 0 ;
 }
