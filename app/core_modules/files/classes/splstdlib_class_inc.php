@@ -54,7 +54,6 @@ class splstdlib //extends object
 		foreach(new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
 		{
 			// prune empty dirs
-			echo $file->getPath()." is ".$file->getSize()." at ".$file->getFileName()."<br />";
 			if(sizeof($file->getSize()) == 0)
 			{
 				unlink($file->getPath());
@@ -62,7 +61,6 @@ class splstdlib //extends object
 			if($file->getFileName() == 'Thumbs.db' || $file->getFileName() == 'top_menubar.htm' || $file->getFileName() == 'navigation.htm')
 			{
 				unlink($file->getPath()."/".$file->getFilename());
-				echo "Deleting: ".$file->getPath()."/".$file->getFilename();
 			}
 			$parts = explode("/",$file->getPath());
 			if(in_array(end($parts), $filter))
