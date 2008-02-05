@@ -270,12 +270,24 @@ class modulesadmin extends dbTableManager
                 $groupArray2 = array();
                 if(isset($registerdata['BLOCK'])) {
                     foreach ($registerdata['BLOCK'] as $block) {
-                        $this->objModuleBlocks->addBlock($moduleId,$block,'normal');
+                        
+                        $blockInfo = explode('|', $block);
+                        if (!isset($blockInfo[1])) {
+                            $blockInfo[1] = 'site';
+                        }
+                        
+                        $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0], 'normal', $blockInfo[1]);
                     }
                 }
                 if(isset($registerdata['WIDEBLOCK'])) {
                     foreach ($registerdata['WIDEBLOCK'] as $block) {
-                        $this->objModuleBlocks->addBlock($moduleId,$block,'wide');
+                        
+                        $blockInfo = explode('|', $block);
+                        if (!isset($blockInfo[1])) {
+                            $blockInfo[1] = 'site';
+                        }
+                        
+                        $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0],'wide', $blockInfo[1]);
                     }
                 }
                 if(isset($registerdata['MODULE_ISADMIN'])){

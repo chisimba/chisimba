@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<updates>
+    <update>
+        <table>tbl_module_blocks</table>
+        <version>2.031</version>
+        <description>Added column for type of block </description>
+        <data>
+            <add>
+                <name>blocktype</name>
+                <type>text</type>
+                <length>150</length>
+                <default>site</default>
+            </add>
+        </data>
+    </update>
+</updates>

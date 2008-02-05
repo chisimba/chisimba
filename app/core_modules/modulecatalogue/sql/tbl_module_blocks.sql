@@ -27,6 +27,11 @@ $fields = array(
 		'notnull' => TRUE,
 		'default' => 'normal'
 		)
+    'blocktype' => array(
+		'type' => 'text',
+        'length' => 150,
+        'default' => 'site',
+		),
     );
 
 //create other indexes here...
@@ -35,7 +40,8 @@ $name = 'moduleid_index';
 
 $indexes = array(
                 'fields' => array(
-                	'moduleid' => array()
+                    'moduleid' => array(),
+                    'blocktype' => array(),
                 )
         );
 ?>

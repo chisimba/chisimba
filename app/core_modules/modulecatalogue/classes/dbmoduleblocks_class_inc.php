@@ -81,35 +81,59 @@ class dbmoduleblocks extends dbTable
      * standard init function
      *
      */
-    public function init() {
-    	try {
-    		parent::init('tbl_module_blocks');
-    		//Config and Language Objects
-    		$this->objLanguage = $this->getObject('language', 'language');
-    		$this->objConfig = $this->getObject('altconfig','config');
-    	} catch (Exception $e) {
-    		echo customException::cleanUp();
-    		exit();
-    	}
+    public function init()
+    {
+        try {
+            parent::init('tbl_module_blocks');
+            //Config and Language Objects
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objConfig = $this->getObject('altconfig','config');
+        } catch (Exception $e) {
+            echo customException::cleanUp();
+            exit();
+        }
     }
 
     /**
      * This method returns a list of all the blocks currently
      * registered with the system
      *
-     * @param  string $type (optional) The type of blocks to be
+     * @param  string $widrh (optional) The width of blocks to be
      *          searched for (normal or wide) leaving this out
-     *          returns all blocks returned
+     *          returns all blocks
+     * @param  string $type (optional) The type of blocks to be
+     *          searched for (site, context, workgroup, etc) 
+     *          leaving this out returns all blocks
      * @return array An array of all the blocks
      * @access public
      */
-    public function getBlocks($type = NULL) {
-    	if ($type == NULL) {
-    		$filter = '';
-    	} else {
-    		$filter = "WHERE blockwidth = '$type'";
-    	}
-    	return $this->getAll($filter);
+    public function getBlocks($width=NULL, $type=NULL)
+    {
+        $filter = array();
+        
+        if ($width != NULL) {
+            $filter[] = "blockwidth = '$width'";
+        }
+        
+        if ($type != NULL) {
+            $filter[] = "blocktype = '$type'";
+        }
+        
+        $filterStr = '';
+        
+        if (count($filter) > 0) {
+            
+            $filterStr = 'WHERE';
+            $divider = '';
+            
+            foreach ($filter as $item) {
+                $filterStr .= $divider." {$item}";
+                $divider = ' AND ';
+            }
+        }
+        
+        
+        return $this->getAll($filterStr);
     }
 
     /**
@@ -117,16 +141,18 @@ class dbmoduleblocks extends dbTable
      *
      * @param  string $moduleid  The id of the owning module
      * @param  string $blockName A unique name for the block
-     * @param  string $width     The type of block (wide|normal)
+     * @param  string $width     The width of block (wide|normal)
+     * @param  string $type     The type of block, like site, user, context, workgroup, etc.
      * @return void
      * @access public
      */
-    public function addBlock($moduleid,$blockName,$width) {
+    public function addBlock($moduleid,$blockName,$width, $type='site')
+    {
         $exists = $this->getAll(" WHERE moduleid = '$moduleid' AND blockname = '$blockName' AND blockwidth = '$width'");
-    	if (count($exists) < 1) {
-    		$arrData = array('moduleid'=>$moduleid,'blockname'=>$blockName,'blockwidth'=>$width);
-    		$this->insert($arrData);
-    	}
+        if (count($exists) < 1) {
+            $arrData = array('moduleid'=>$moduleid, 'blockname'=>$blockName, 'blockwidth'=>$width, 'blocktype'=>$type);
+            $this->insert($arrData);
+        }
     }
 
     /**
@@ -137,11 +163,12 @@ class dbmoduleblocks extends dbTable
      * @return void
      * @access public
      */
-    public function deleteModuleBlocks($moduleid) {
-    	$record = $this->getAll("WHERE moduleid = '$moduleid'");
-    	foreach($record as $block) {
-    		$this->delete('id',$block['id']);
-    	}
+    public function deleteModuleBlocks($moduleid)
+    {
+        $record = $this->getAll("WHERE moduleid = '$moduleid'");
+        foreach($record as $block) {
+            $this->delete('id',$block['id']);
+        }
     }
 
     /**
@@ -152,12 +179,13 @@ class dbmoduleblocks extends dbTable
      * @return void
      * @access public
      */
-    public function deleteBlock($moduleid,$blockname) {
-    	$record = $this->getAll("WHERE moduleid = '$moduleid' AND blockname = '$blockname'");
-    	if (is_array($record)) {
-    		$record = current($record);
-    	}
-    	$this->delete('id',$record['id']);
+    public function deleteBlock($moduleid,$blockname)
+    {
+        $record = $this->getAll("WHERE moduleid = '$moduleid' AND blockname = '$blockname'");
+        if (is_array($record)) {
+            $record = current($record);
+        }
+        $this->delete('id',$record['id']);
     }
 }
 ?>
