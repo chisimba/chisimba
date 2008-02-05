@@ -156,6 +156,7 @@ function selectFile(file, id)
         //alert(fileName[id]);
         window.opener.document.getElementById("input_selectfile_'.$inputname.'").value = fileName[id];
         window.opener.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
+	
         window.close();
         window.opener.focus();
     } else {
