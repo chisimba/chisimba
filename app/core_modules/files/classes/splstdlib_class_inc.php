@@ -177,7 +177,26 @@ class splstdlib extends object
 		new DirectoryIterator($path), $ext);
 
 		foreach ( $filtered as $file ) {
-			// Do something with $file
+			$files[] = $file;
 		}
+		return $files;
 	}
+	
+	public function fileLister($dir)
+	{
+		$files = new DirectoryFilterDots($dir);
+		foreach ($files as $file)
+		{
+			if($file->isDir())
+			{
+				continue;
+			}
+			else {
+				$file = $file->getFilename();
+				$ret[] = $file;
+			}
+		}
+		return $ret;
+	}
+	
 }
