@@ -125,6 +125,8 @@ class filemanager extends controller
                 return $this->showImageWindow(FALSE);
             case 'selectrealtimeimagewindow':
                 return $this->showImageWindow(TRUE);
+            case 'selectpresentationwindow':
+                return $this->showPresentationWindow();
             case 'sendpreview':
                 return $this->sendPreview($this->getParam('id'), $this->getParam('jsId'));
             case 'selectfileuploads':
@@ -589,14 +591,14 @@ class filemanager extends controller
 
         // Script to Close Window automatically if opener does not exist
         $checkOpenerScript = '
-<script type="text/javascript">
-function checkWindowOpener()
-{
-    if (!window.opener) {
-        window.close();
-    }
-}
-</script>
+        <script type="text/javascript">
+        function checkWindowOpener()
+        {
+         if (!window.opener) {
+          window.close();
+        }
+        }
+        </script>
         ';
 
         $this->appendArrayVar('headerParams', $checkOpenerScript);
@@ -658,14 +660,14 @@ function checkWindowOpener()
 
         // Script to Close Window automatically if opener does not exist
         $checkOpenerScript = '
-<script type="text/javascript">
-function checkWindowOpener()
-{
-    if (!window.opener) {
+        <script type="text/javascript">
+        function checkWindowOpener()
+        {
+        if (!window.opener) {
         window.close();
-    }
-}
-</script>
+        }
+        }
+        </script>
         ';
 
         $this->appendArrayVar('headerParams', $checkOpenerScript);
@@ -687,6 +689,52 @@ function checkWindowOpener()
         } else {
             return 'popup_showimagewindow_tpl.php';
         }
+    }
+
+
+    /**
+     * Added by David Wafula 2008-02-03
+    * Method to show the a window with previews to select a presentation file
+    * @param boolean $showFullLinks Flag whether to show full link to file or not
+    */
+    public function showPresentationWindow()
+    {
+        $restriction = array('odp','ppt');
+
+        if ($this->getParam('mode') == 'fileupload') {
+            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
+            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
+        }
+
+        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
+
+        $this->setVarByRef('files', $files);
+
+        // Script to Close Window automatically if opener does not exist
+        $checkOpenerScript = '
+        <script type="text/javascript">
+        function checkWindowOpener()
+         {
+          if (!window.opener) {
+           window.close();
+         }
+        }
+        </script>
+        ';
+
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
+        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
+
+        $inputname = $this->getParam('name');
+        $this->setVarByRef('inputname', $inputname);
+
+        $defaultValue = $this->getParam('value');
+        $this->setVarByRef('defaultValue', $defaultValue);
+
+        $this->setLayoutTemplate(NULL);
+        $this->setVar('pageSuppressBanner', TRUE);
+        return 'popup_showpresentationwindow_tpl.php';
     }
 
     /**
