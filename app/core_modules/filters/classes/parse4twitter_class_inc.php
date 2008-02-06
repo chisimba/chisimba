@@ -106,8 +106,7 @@ class parse4twitter extends object
         $this->objLanguage = $this->getObject('language', 'language');
         // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
-        // Create an instance of the twitterremote class
-        $this->objTwitterRemote = & $this->getObject('twitterremote', 'twitter');
+
     }
 
     /**
@@ -125,6 +124,10 @@ class parse4twitter extends object
         $isRegistered = $objModule->checkIfRegistered('twitter', 'twitter');
        	//Match filters based on a wordpress style
        	preg_match_all('/\\[TWITTER:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        if($isRegistered) {
+            // Create an instance of the twitterremote class
+            $this->objTwitterRemote = & $this->getObject('twitterremote', 'twitter');
+        }
        	//Get all the ones in links
        	$counter = 0;
        	foreach ($results[0] as $item) {
