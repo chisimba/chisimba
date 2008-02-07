@@ -162,17 +162,15 @@ class curlwrapper extends object
 
     public function sendData($url, $postargs=false)
     {
-        $this->initializeCurl($url);
-        $this->setProxy();
-
+        $this->ch = curl_init($url);
+        //$this->setProxy();
         if($postargs !== false){
             curl_setopt ($this->ch, CURLOPT_POST, true);
             curl_setopt ($this->ch, CURLOPT_POSTFIELDS, $postargs);
         }
-
-        if($this->username !== false && $this->password !== false)
+        if($this->username !== false && $this->password !== false) {
             curl_setopt($this->ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
-
+        }
         curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
         curl_setopt($this->ch, CURLOPT_NOBODY, 0);
         curl_setopt($this->ch, CURLOPT_HEADER, 0);
@@ -180,9 +178,7 @@ class curlwrapper extends object
         curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION,1);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, $this->headers);
-
         $response = curl_exec($this->ch);
-
         $this->responseInfo=curl_getinfo($this->ch);
         curl_close($this->ch);
         if(intval($this->responseInfo['http_code'])==200){
@@ -196,6 +192,46 @@ class curlwrapper extends object
             return false;
         }
     }
+
+
+    private function process($url,$postargs=false)
+    {
+        $ch = curl_init($url);
+
+        if($postargs !== false){
+            curl_setopt ($ch, CURLOPT_POST, true);
+            curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
+        }
+
+        if($this->username !== false && $this->password !== false)
+            curl_setopt($ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
+
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_NOBODY, 0);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+
+        $response = curl_exec($ch);
+
+        $this->responseInfo=curl_getinfo($ch);
+        curl_close($ch);
+
+
+        if(intval($this->responseInfo['http_code'])==200){
+            if(class_exists('SimpleXMLElement')){
+                $xml = new SimpleXMLElement($response);
+                return $xml;
+            }else{
+                return $response;
+            }
+        }else{
+            return false;
+        }
+    }
+
 
     /**
     * Method to transfer/get contents of a page
