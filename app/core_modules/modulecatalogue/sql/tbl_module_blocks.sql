@@ -26,12 +26,12 @@ $fields = array(
 		'length' => 10,
 		'notnull' => TRUE,
 		'default' => 'normal'
-		)
+		),
     'blocktype' => array(
 		'type' => 'text',
         'length' => 150,
         'default' => 'site',
-		),
+		)
     );
 
 //create other indexes here...
