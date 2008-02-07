@@ -96,8 +96,7 @@ class curl extends object
             $this->proxyInfo['port'] = isset($serverInfo[1]) ? $serverInfo[1] : '';
         }
     }
-    
-    public function 
+
     
     /**
     * Method to transfer/get contents of a page
