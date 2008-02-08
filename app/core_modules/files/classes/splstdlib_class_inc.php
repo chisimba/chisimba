@@ -8,6 +8,12 @@ class splstdlib extends object
 		//require_once('/var/www/chisimba_framework/app/core_modules/files/resources/stdlib_class_inc.php');
 	}
 
+	/**
+	 * Create a tree representation of a directory recursively
+	 *
+	 * @param string $dir
+	 * @return string
+	 */
 	public function dirTree($dir)
 	{
 		$it = new DirectoryTreeIterator($dir);
@@ -18,6 +24,12 @@ class splstdlib extends object
 		return $files;
 	}
 
+	/**
+	 * List a directory omitting the . and .. directories
+	 *
+	 * @param string $dir
+	 * @return array
+	 */
 	public function dirFilterDots($dir)
 	{
 		$it = new DirectoryFilterDots($dir);
@@ -35,6 +47,13 @@ class splstdlib extends object
 		return $dirs;
 	}
 
+	/**
+	 * recursively list directory contents
+	 *
+	 * @param string $dir
+	 * @param string $type
+	 * @return array
+	 */
 	public function recDir($dir, $type='files')
 	{
 		$iterator = new RecursiveDirectoryIterator($dir);
@@ -55,6 +74,12 @@ class splstdlib extends object
 		}
 	}
 
+	/**
+	 * Use SPL to clean up frontpage directories
+	 *
+	 * @param string $directory
+	 * @param array $filter
+	 */
 	public function frontPageDirCleaner($directory, $filter = array('_vti_cnf', '_vti_private', '_vti_txt', '_private', '_themes', 'msupdate', 'vti_pvt', 'vti_script', '_vti_log', '_template','Thumbs.db'))
 	{
 		$iterator = new RecursiveDirectoryIterator($directory);
@@ -79,6 +104,13 @@ class splstdlib extends object
 		}
 	}
 
+	/**
+	 * Method to get information about all the files in a directory (recursive)
+	 *
+	 * @param string $directory
+	 * @param array $filter
+	 * @return array
+	 */
 	public function fileCounter($directory, $filter = array('php', 'xsl', 'xml', 'htm', 'html','css'))
 	{
 		$count_directories = 0;
@@ -111,6 +143,12 @@ class splstdlib extends object
 		'directories' => $count_directories);
 	}
 
+	/**
+	 * return information about the files in a dir
+	 *
+	 * @param string $dir
+	 * @return array
+	 */
 	public function fileInformationDir($dir)
 	{
 		$dir = new SmartDirectoryIterator($dir);
@@ -121,6 +159,11 @@ class splstdlib extends object
 		return $filearr;
 	}
 
+	/**
+	 * Recursively delete a directory and all subdirs
+	 *
+	 * @param string $dir
+	 */
 	public function dirDeleter($dir)
 	{
 		$iterator = new RecursiveDirectoryIterator($dir);
@@ -137,6 +180,11 @@ class splstdlib extends object
 		@rmdir($dir);
 	}
 	
+	/**
+	 * Recursively remove a directory
+	 *
+	 * @param string $path
+	 */
 	public function recursiveRemoveDirectory($path)
     {   
         $dir = new RecursiveDirectoryIterator($path);
@@ -161,6 +209,13 @@ class splstdlib extends object
         @rmdir($path);
     }
 
+    /**
+     * Find a file by regex in a directory
+     *
+     * @param string $path
+     * @param string $regex
+     * @return array
+     */
 	public function fileFinder($path, $regex)
 	{
 		$fileList = new DirMach($path, $regex);
@@ -171,6 +226,13 @@ class splstdlib extends object
 	}
 
 
+	/**
+	 * List files of a certain extension
+	 *
+	 * @param string $path
+	 * @param string $ext
+	 * @return array
+	 */
 	public function fileExtension($path, $ext)
 	{
 		$filtered = new ExtensionFilter(
@@ -182,6 +244,12 @@ class splstdlib extends object
 		return $files;
 	}
 	
+	/**
+	 * List files in a directory
+	 *
+	 * @param string $dir
+	 * @return array
+	 */
 	public function fileLister($dir)
 	{
 		$files = new DirectoryFilterDots($dir);
@@ -200,3 +268,4 @@ class splstdlib extends object
 	}
 	
 }
+?>
