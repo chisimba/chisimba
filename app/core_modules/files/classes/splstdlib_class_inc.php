@@ -86,19 +86,28 @@ class splstdlib extends object
 		foreach(new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
 		{
 			// prune empty dirs
-			if(sizeof($file->getSize()) == 0)
+			if(file_exists($file->getFilename()))
 			{
-				unlink($file->getPath());
+				if(sizeof($file->getSize()) == 0)
+				{
+					unlink($file->getPath());
+				}
 			}
 			if($file->getFileName() == 'Thumbs.db' || $file->getFileName() == 'top_menubar.htm' || $file->getFileName() == 'navigation.htm')
 			{
-				unlink($file->getPath()."/".$file->getFilename());
+				if(file_exists($file->getPath()."/".$file->getFilename()))
+				{
+					unlink($file->getPath()."/".$file->getFilename());
+				}
 			}
 			$parts = explode("/",$file->getPath());
 			if(in_array(end($parts), $filter))
 			{
-				$this->dirDeleter($file->getPath());
-				$this->recursiveRemoveDirectory($file->getPath());
+				if(file_exists($file->getPath()))
+				{
+					//$this->dirDeleter($file->getPath());
+					$this->recursiveRemoveDirectory($file->getPath());
+				}
 			}
 			
 		}
@@ -187,26 +196,30 @@ class splstdlib extends object
 	 */
 	public function recursiveRemoveDirectory($path)
     {   
-        $dir = new RecursiveDirectoryIterator($path);
-        //Remove all files
-        foreach(new RecursiveIteratorIterator($dir) as $file)
-        {
-            unlink($file);
-        }
-        //Remove all subdirectories
-        foreach($dir as $subDir)
-        {
-            //If a subdirectory can't be removed, it's because it has subdirectories, so recursiveRemoveDirectory is called again passing the subdirectory as path
-            if(!@rmdir($subDir)) //@ suppress the warning message
-            {
-                recursiveRemoveDirectory($subDir);
-                rmdir($subDir);
-                unlink($subDir);
-            }
-        }
+        	$dir = new RecursiveDirectoryIterator($path);
+        	//Remove all files
+        	foreach(new RecursiveIteratorIterator($dir) as $file)
+        	{
+        		if(file_exists($file))
+        		{
+            		unlink($file);
+        		}
+        	}
+        	//Remove all subdirectories
+        	foreach($dir as $subDir)
+        	{
+            	//If a subdirectory can't be removed, it's because it has subdirectories, so recursiveRemoveDirectory is called again passing the subdirectory as path
+            	if(!@rmdir($subDir)) //@ suppress the warning message
+            	{
+               	 $this->recursiveRemoveDirectory($subDir);
+               	 @rmdir($subDir);
+               	 @unlink($subDir);
+            	}
+        	}
 
-        //Remove main directory
-        @rmdir($path);
+        	//Remove main directory
+        	@rmdir($path);
+    	
     }
 
     /**
