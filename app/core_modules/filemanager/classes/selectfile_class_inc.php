@@ -121,8 +121,8 @@ class selectfile extends object
 
 function clearFileInputJS(name)
 {
-    document.getElementById(\'input_selectfile_\'+name).value = \'\';
-    document.getElementById(\'hidden_\'+name).value = \'\';
+    jQuery(\'#input_selectfile_\'+name).value = \'\';
+    jQuery(\'#hidden_\'+name).value = \'\';
 }
 </script>';
 
@@ -187,7 +187,7 @@ function clearFileInputJS(name)
         $location = $this->uri(array('action'=>'selectfilewindow', 'restrict'=>$ext, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
-        $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
+        $location .= '&amp;value=\'+jQuery(\'#hidden_'.$this->name.'\').value+\'&amp;';
 
         $objPop->set('location', $location);
 
