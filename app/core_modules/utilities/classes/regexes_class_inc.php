@@ -73,11 +73,9 @@ class regexes extends object
 
 	// retrieve page title
 	public function get_doc_title($file){
-		$h1tags = preg_match('/<title> ?.* <\/title>/isx',$file,$patterns);
-		$res = array();
-		array_push($res,$patterns[0]);
-		array_push($res,count($patterns[0]));
-		return $res;
+		preg_match_all('/\<title>(.*)\<\/title\>/U', $file, $tresults, PREG_PATTERN_ORDER);
+		$title = $tresults[1][0];
+		return $title;
 	}
 
 	// retrieve keywords
