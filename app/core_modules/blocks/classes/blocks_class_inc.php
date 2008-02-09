@@ -115,7 +115,7 @@ class blocks extends object
     {
         if ($this->objModule->checkIfRegistered($module, $module)){
             $blockfile = $this->objConfig->getModulePath() . $module . '/classes/block_'. $block . '_class_inc.php';
-            if (file_exists($blockfile)) {
+            if ($this->blockExists($block, $module)) {
                 //Create an instance of the module's particular block
                 $objBlock =  $this->getObject('block_'.$block, $module);
                 //Get the title and wrap it
@@ -175,11 +175,40 @@ class blocks extends object
                     	//Render boxes like login invisible when logged in
                     	return NULL;
                 }
-            } else {
+           } else {
                 return NULL;
-            }
+           }
         } else {
             return NULL;
+        }
+    }
+
+    public function blockExists($block, $module)
+    {
+        if ($this->isCoreBlock($block, $module) || $this->isModuleBlock(&$block, &$module)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function isCoreBlock(&$block, &$module)
+    {
+        $blockfile = $this->objConfig->getsiteRootPath() . "core_modules/"  . $module . '/classes/block_'. $block . '_class_inc.php';
+        if (file_exists($blockfile)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function isModuleBlock(&$block, &$module)
+    {
+        $blockfile = $this->objConfig->getModulePath() . $module . '/classes/block_'. $block . '_class_inc.php';
+        if (file_exists($blockfile)) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 } //end of class
