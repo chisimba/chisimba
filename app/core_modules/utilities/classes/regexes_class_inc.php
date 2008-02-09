@@ -64,10 +64,8 @@ class regexes extends object
 
 	// retrieve doctype of document
 	public function get_doctype($file){
-		$h1tags = preg_match('/<!DOCTYPE (\w.*)dtd">/is',$file,$patterns);
-		$res = array();
-		array_push($res,$patterns[0]);
-		array_push($res,count($patterns[0]));
+		preg_match_all('/<!DOCTYPE (\w.*)dtd">/is', $file, $tresults, PREG_PATTERN_ORDER);
+		$res = $tresults[1][0];
 		return $res;
 	}
 
