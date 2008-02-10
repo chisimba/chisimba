@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Class to do a recursive Tree Iterator
+ *
+ */
 class RecursiveTreeIterator extends RecursiveIteratorIterator
 {
 	const BYPASS_CURRENT = 0x00000004;
@@ -67,6 +70,10 @@ class RecursiveTreeIterator extends RecursiveIteratorIterator
 	}
 }
 
+/**
+ * Directory iterator class - filters out the . and .. directories
+ *
+ */
 class DirectoryFilterDots extends RecursiveFilterIterator
 {
 	/** Construct from a path.
@@ -92,6 +99,10 @@ class DirectoryFilterDots extends RecursiveFilterIterator
 	}
 }
 
+/**
+ * Directory Tree iterator - creates an ASCII tree representation of a directory structure
+ *
+ */
 class DirectoryTreeIterator extends RecursiveIteratorIterator
 {
 	function __construct($path)

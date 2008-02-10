@@ -290,10 +290,12 @@ class regexes extends object
 
 	// retrieve images on the site
 	public function get_images($file){
-		$h1count = preg_match_all('/(<img)\s (src="([a-zA-Z0-9\.;:\/\?&=_|\r|\n]{1,})")/isxmU',$file,$patterns);
-		$res = array();
-		array_push($res,$patterns[3]);
-		array_push($res,count($patterns[3]));
+		$pattern = "/<a\s(.*)?href=(\"|')[a-z0-9\/\._-]*\.(jpe?g|png|gif)(\"|')><img\s(.*)?src=(\"|')[a-z0-9\/\._-]*\.(jpe?g|png|gif)(\"|')(\s\/)?>/i"; //'/(<img)\s (src="([a-zA-Z0-9\.;:\/\?&=_|\r|\n]{1,})")/i';
+		//preg_match_all($pattern, $file, $images);
+		//echo $file;
+		//return $images;
+		preg_match_all('/(<img)\s (src="([a-zA-Z0-9\.;:\/\?&=_|\r|\n]{1,})")/isxmU', $file, $results, PREG_PATTERN_ORDER);
+		$res = $results;
 		return $res;
 	}
 
