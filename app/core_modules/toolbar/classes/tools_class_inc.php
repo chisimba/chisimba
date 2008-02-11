@@ -50,9 +50,9 @@ if (!$GLOBALS['kewl_entry_point_run']){
 
 * 10) addText($module) Method to get the module name in the correct language.
 
-* 11) addLink($module, $text = NULL, $divider = '&nbsp;&raquo;&nbsp;') Method to add a link to the breadcrumbs, add the divider in front.
+* 11) addLink($module, $text = NULL, $divider = ' &raquo; ') Method to add a link to the breadcrumbs, add the divider in front.
 
-* 12) divide($link, $divider = '&nbsp;&raquo;&nbsp;') Method to add a specified divider in front of a link or text.
+* 12) divide($link, $divider = ' &raquo; ') Method to add a specified divider in front of a link or text.
 
 *
 
@@ -726,7 +726,7 @@ class tools extends object
 
     */
 
-    function addLink($module, $modlink = FALSE, $text = NULL, $divider = '&nbsp;&raquo;&nbsp;')
+    function addLink($module, $modlink = FALSE, $text = NULL, $divider = ' &raquo; ')
 
     {
 
@@ -768,7 +768,7 @@ class tools extends object
 
     */
 
-    function divide($link, $divider = '&nbsp;&raquo;&nbsp;')
+    function divide($link, $divider = ' &raquo; ')
 
     {
 
