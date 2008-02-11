@@ -185,7 +185,7 @@ class blocks extends object
 
     public function blockExists(&$block, &$module)
     {
-        if ($this->isCoreBlock(&$block, &$module) || $this->isModuleBlock(&$block, &$module)) {
+        if ($this->isCoreBlock($block, $module) || $this->isModuleBlock($block, $module)) {
             return TRUE;
         } else {
             return FALSE;
