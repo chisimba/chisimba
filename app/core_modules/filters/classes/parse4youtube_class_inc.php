@@ -3,30 +3,30 @@
 /**
  * Class to parse a string (e.g. page content) that contains a link
  * to a yout tube video and render the video in the page
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   filters
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 Derek Keats
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       
+ * @see
  */
 /**
 *
@@ -34,37 +34,37 @@
 * to a yout tube video and render the video in the page
 *
 * @author Derek Keats
-*         
+*
 */
 
 class parse4youtube extends object
 {
 	/**
-	* 
+	*
 	* String to hold an error message
-	* @accesss private 
+	* @accesss private
 	*/
 	private $errorMessage;
-    
+
     /**
      * Short description for function
-     * 
+     *
      * Long description (if any) ...
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
     function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
     }
-    
+
     /**
     *
     * Method to parse the string
     * @param  String $str The string to parse
     * @return The    parsed string
-    *                
+    *
     */
     public function parse($str)
     {
@@ -115,7 +115,7 @@ class parse4youtube extends object
         }
         //Parse the youtube page tags
         $counter = 0;
-        
+
         foreach ($results3[0] as $item) {
             $exPat = $results3[1][$counter];
             //Get an array containing the param=value data
@@ -126,8 +126,8 @@ class parse4youtube extends object
         		$objYouTube = $this->getObject('youtubeapi', 'youtube');
         		//Get the view class for youtubeapi
         		$vw = $this->getObject('youtubetpl','youtube');
-                
-        		$arCodes = $this->extractYoutubeCodes(&$exPat);
+
+        		$arCodes = $this->extractYoutubeCodes($exPat);
                 $ytmethod = $arCodes['ytmethod'];
                 $identifier = $arCodes['ytidentifier'];
                 $cols = $arCodes['cols'];
@@ -153,16 +153,16 @@ class parse4youtube extends object
         }
         return $str;
     }
-    
+
     /**
-    * 
+    *
     * Method to extract the video code from a youtube video link
     * The video link is after ?v=CODE, so we can extract the params
     * by splitting on ? and then the link by splitting on =
     * @param  string $link The youtube video link
     * @return string The video code on Youtube
     * @access public
-    *                
+    *
     */
     public function getVideoCode($link)
     {
@@ -172,32 +172,32 @@ class parse4youtube extends object
         $vTxt = $vCode[1];
         return $vTxt;
     }
-    
+
     /**
-    * 
+    *
     * Method to build the youtube video object code
     * @param  string $videoId The id of the Youtube video
     * @return String The object code
     * @access public
-    *                
+    *
     */
     public function getVideoObject($videoId)
     {
-        return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/" 
+        return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/"
           .  $videoId . "\"></param><param name=\"wmode\" value=\"transparent\"></param>"
-		  . "<embed src=\"http://www.youtube.com/v/" . $videoId . "\" type=\"application/x-shockwave-flash\"" 
+		  . "<embed src=\"http://www.youtube.com/v/" . $videoId . "\" type=\"application/x-shockwave-flash\""
 		  .	" wmode=\"transparent\" width=\"425\" height=\"350\"></embed></object>";
     }
-    
+
     /**
     *
-    *  A method to validate a link as a valid Youtube video link. It should start with http, 
+    *  A method to validate a link as a valid Youtube video link. It should start with http,
     *  and have v= in it. It sets the value of the errorMessage property to be the appropriate
     *  error.
-    * 
+    *
     * @param  string  $link The link to check
     * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
-    *                 
+    *
     */
     private function isYoutube($link)
     {
@@ -206,29 +206,29 @@ class parse4youtube extends object
     		return TRUE;
     	} else {
    			$objLanguage = $this->getObject('language', 'language');
-    		$this->errorMessage = "[YOUTUBE] <span class=\"error\">" 
+    		$this->errorMessage = "[YOUTUBE] <span class=\"error\">"
     	  	  . $objLanguage->languageText("mod_filters_error_notyoutube", "filters")
     	  	  . "</span> [/YOUTUBE]";
     		return FALSE;
     	}
- 
+
     }
-    
+
     /**
-    * 
-    * Method to build an array of keys and values to build the call to 
+    *
+    * Method to build an array of keys and values to build the call to
     * the youtube API
-    * 
+    *
     * The tag format is [YOUTUBE: ytmethod, identifier, page, hitsperpage]
     * Example: [YOUTUBE: by_tag, digitalfreedom, cols, 1, 12]
-    * 
+    *
     * @param  string $exPat The extracted pattern containing a comma delimited
     *                       string in the form: ytmethod, identifier, page, hitsperpag
-    *                       
+    *
     * @return string array An arrray of keys and values
-    *                
+    *
     */
-    public function extractYoutubeCodes(&$exPat)
+    public function extractYoutubeCodes($exPat)
     {
         $arCodes = explode(",", $exPat);
         $arRet = array(
@@ -239,6 +239,6 @@ class parse4youtube extends object
           'hitsperpage' => $arCodes[4]);
         return $arRet;
     }
-    
+
 }
 ?>
