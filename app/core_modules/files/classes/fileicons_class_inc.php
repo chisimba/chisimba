@@ -135,6 +135,7 @@ class fileicons extends object
             case 'htm' : $imagename = 'htm'; $filedesc = 'HTML Document'; break;
             case 'java' : $imagename = 'java'; break;
             case 'jpg' : $imagename = 'jpg'; break;
+            case 'jpeg' : $imagename = 'jpg'; break;
             case 'js' : $imagename = 'js'; break;
             case 'mdb' : $imagename = 'mdb'; break;
             case 'mht' : $imagename = 'mht'; break;
