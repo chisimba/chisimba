@@ -150,7 +150,7 @@ class parse4twitter extends object
 
     /**
     *
-    * Method to set up the parameter / value pairs for th efilter
+    * Method to set up the parameter / value pairs for the filter
     * @access public
     * @return VOID
     *
@@ -183,6 +183,14 @@ class parse4twitter extends object
         }
     }
 
+	/**
+	 * 
+	 * Method to retrieve the status from Twitter based on the
+	 * settings in the filter
+	 * @access private
+	 * @return String The formatted twitter status
+	 * 
+	 */
     private function getTweets()
     {    	
         $this->objTwitterRemote->initializeConnection($this->username, $this->password);
