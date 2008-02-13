@@ -699,7 +699,7 @@ class engine
 			// Connect to the database
 			require_once $this->getPearResource('MDB2/Schema.php');
 			//MDB2 has a factory method, so lets use it now...
-			$_globalObjDbManager = &MDB2_Schema::factory($this->mdsn);
+			$_globalObjDbManager = &MDB2::singleton($this->dsn); //&MDB2_Schema::factory($this->mdsn);
 
 			//Check for errors
 			if (PEAR::isError($_globalObjDbManager)) {
