@@ -2,7 +2,7 @@
 /*Template for prelogin*/
 
 /************ LEFT COLUMN **************/
-$leftContent ='';
+$leftContent = NULL;
 $leftBlocks = $this->objPLBlocks->getVisibleBlocks('left');
 if (isset($leftBlocks)) {
 	if (is_array($leftBlocks)) {
@@ -18,7 +18,7 @@ if (isset($leftBlocks)) {
 }
 
 /************ MIDDLE COLUMN **************/
-$middleContent = '';
+$middleContent = NULL;
 $middleBlocks = $this->objPLBlocks->getVisibleBlocks('middle');
 if (isset($middleBlocks)) {
 	if (is_array($middleBlocks)) {
@@ -34,7 +34,7 @@ if (isset($middleBlocks)) {
 }
 
 /************ RIGHT COLUMN **************/
-$rightContent ='';
+$rightContent =NULL;
 $rightBlocks = $this->objPLBlocks->getVisibleBlocks('right');
 if (isset($rightBlocks)) {
 	if (is_array($rightBlocks)) {

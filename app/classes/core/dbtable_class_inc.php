@@ -1252,7 +1252,8 @@ class dbTable extends object
     {
     	if($this->dbLayer === 'MDB2')
     	{
-    		$this->_db->queryRow($query, array());
+    		$ret = $this->_db->queryRow($query, array());
+    		return $ret;
     	}
     	elseif($this->dbLayer === 'PDO')
     	{
