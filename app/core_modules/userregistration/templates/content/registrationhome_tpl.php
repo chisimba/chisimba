@@ -152,7 +152,7 @@ if ($mode == 'addfixup') {
         $messages[] = $this->objLanguage->languageText('mod_userdetails_entersurname', 'userdetails');
     }
 }
-if (isset($userstring) && $mode == 'add')
+if (isset($userstring[1]) && $mode == 'add')
 {
 	$surname->value = $userstring[1];
 }
@@ -236,7 +236,7 @@ if ($mode == 'addfixup') {
     $email->value = $this->getParam('register_email');
     $confirmEmail->value = $this->getParam('register_confirmemail');
 }
-if (isset($userstring) && $mode == 'add')
+if (isset($userstring[2]) && $mode == 'add')
 {
 	$email->value = $userstring[2];
 	$confirmEmail->value = $userstring[2];
