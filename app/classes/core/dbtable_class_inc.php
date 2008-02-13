@@ -1253,5 +1253,10 @@ class dbTable extends object
     		return $row;
     	}
     }
+    
+    public function queryRow($query)
+    {
+    	return $this->_queryRow($query);
+    }
 } // end of dbTable class
 ?>
