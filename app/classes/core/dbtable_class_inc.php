@@ -1218,6 +1218,7 @@ class dbTable extends object
     		{
     			$query = "SHOW /*!50002 FULL*/ TABLES";
        			if (!is_null($this->objEngine->pdsn['database'])) {
+       				$database = $this->objEngine->pdsn['database'];
             		$query .= " FROM $database";
         		}
         		$query.= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
