@@ -195,13 +195,14 @@ class dbTable extends object
     * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
     * @return void
     */
-    public function init($tableName, $pearDb = null,
-        $errorCallback = "globalPearErrorCallback")
+    public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback")
     {
+    	// global $_globalObjDb;
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
         if ($pearDb == null) {
             $this->_db = $this->objEngine->getDbObj();
+            $pearDb = $this->_db;
         } else {
             $this->_db = $pearDb;
         }
@@ -1256,6 +1257,7 @@ class dbTable extends object
     		$stmt->execute();
     		$ret = $stmt->fetchAll();
     		$stmt->closeCursor();
+    		//$this->_db = NULL;
     	}
     
     	return $ret;	
@@ -1275,6 +1277,7 @@ class dbTable extends object
     		$stmt->execute();
     		$row = $stmt->fetch();
     		$stmt->closeCursor();
+    		//$this->_db = NULL;
     		return $row;
     	}
     }

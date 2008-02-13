@@ -652,14 +652,20 @@ class engine
 					throw new customException("You must install the PDO extension before trying to use it!");
 				}
 				// dsn is in the form of 'mysql:host=localhost;dbname=test', $user, $pass
-				$this->_objDb = new PDO($this->dsn['phptype'].":".
+				if($this->_objDb === NULL)
+				{
+					$this->_objDb = new PDO($this->dsn['phptype'].":".
 										"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'], 
 										$this->dsn['username'], 
 										$this->dsn['password']
 								);
-				$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
-				$this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+					$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+				    $this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+				    $this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
 				
+				}
+				
+				//$_globalObjDb = $this->_objDb;
 			}
 			
 			//return the local copy
@@ -1777,6 +1783,18 @@ class engine
     * @return __destruct object db
     */
 	private function _finish()
+	{
+		if($this->_dbabs === 'MDB2')
+		{
+			$this->_objDb->disconnect();
+		}
+		elseif($this->_dbabs === 'PDO')
+		{
+			$this->_objDb = NULL;
+		}
+	}
+	
+	public function __destruct()
 	{
 		if($this->_dbabs === 'MDB2')
 		{
