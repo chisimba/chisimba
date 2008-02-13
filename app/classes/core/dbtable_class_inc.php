@@ -786,12 +786,19 @@ class dbTable extends object
         	log_debug($sql);
         	log_debug("dbtable insert into {$tablename}");
         }
-        if($this->_db->phptype == 'mysql')
+        if($this->dbLayer === 'MDB2')
         {
-        	$ret = $this->_execute($sql, $params);
+        	if($this->_db->phptype == 'mysql')
+        	{
+        		$ret = $this->_execute($sql, $params);
+        	}
+        	else {
+        		$ret = $this->_db->query($sql);
+        	}
         }
-        else {
-        	$ret = $this->_db->query($sql);
+        elseif($this->dbLayer === 'PDO')
+        {
+        	$ret = $this->query($sql);
         }
         if($this->adm == TRUE)
         {
@@ -844,12 +851,19 @@ class dbTable extends object
         	log_debug($sql);
         }
 
-        if($this->_db->phptype == 'mysql')
+        if($this->dbLayer === 'MDB2')
         {
-        	$ret = $this->_execute($sql, $params);
+        	if($this->_db->phptype == 'mysql')
+        	{
+        		$ret = $this->_execute($sql, $params);
+        	}
+        	else {
+        		$ret = $this->_db->query($sql);
+        	}
         }
-        else {
-        	$ret = $this->_db->query($sql);
+        elseif($this->dbLayer === 'PDO')
+        {
+        	$ret = $this->query($sql);
         }
 		if($this->adm == TRUE)
         {
