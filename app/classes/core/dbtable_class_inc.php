@@ -1223,8 +1223,14 @@ class dbTable extends object
         		}
         		$query.= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
 
-        		$table_names = $this->query($query);
-        		return $table_names;
+        		$ret = $this->query($query);
+        		foreach($ret as $tables)
+    			{
+    				$tbls[] = $tables['table_name'];
+    			}
+    			return $tbls;
+        		
+        		return $tbls;
     		}
     	}
     	
