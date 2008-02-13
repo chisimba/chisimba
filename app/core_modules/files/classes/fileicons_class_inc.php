@@ -87,17 +87,9 @@ class fileicons extends object
     */
     public function getExtension($filename)
     {
-        // get base name of the filename provided by user
-        $filename = basename($filename);
-        
-        // break file into parts seperated by .
-        $filename = explode('.', $filename);
-        
-        // take the last part of the file to get the file extension
-        $extension = $filename[count($filename)-1];
-        
-        return $extension;
-    }
+        $pathInfo = pathinfo($filename);
+ 		return strtolower($pathInfo['extension']);     
+     }
     
     /**
     * Method to get a file icon by providing the extension of the file
