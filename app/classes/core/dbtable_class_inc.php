@@ -1228,9 +1228,7 @@ class dbTable extends object
     			{
     				$tbls[] = $tables['table_name'];
     			}
-    			return $tbls;
-        		
-        		return $tbls;
+    			return $ret;
     		}
     	}
     	
