@@ -157,6 +157,8 @@ class dbTable extends object
 	
 	public $objYaml;
 	
+	public $dbLayer;
+	
 	public $nonmirrored = array(
 								'tbl_logger',
 								'tbl_sysconfig_properties',
@@ -242,6 +244,7 @@ class dbTable extends object
         	$this->adm = TRUE;
         }
         $this->dbType = $this->_db->phptype;
+        $this->dbLayer = $this->objDBConfig->getenable_dbabs();
 
     }
 
@@ -394,7 +397,7 @@ class dbTable extends object
         		{
         			log_debug($stmt);
         		}
-        		$ret = $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        		$ret = $this->_queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
         		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
         }
@@ -403,7 +406,7 @@ class dbTable extends object
     		$ret = apc_fetch($stmt);
     		if($ret == FALSE)
     		{
-    			$ret = $this->_db->queryRow($stmt, array());
+    			$ret = $this->_queryRow($stmt, array());
     			apc_store($stmt, $ret, $this->cacheTTL);
     		}
     	}
@@ -412,7 +415,7 @@ class dbTable extends object
         	{
         		log_debug($stmt);
         	}
-        	$ret = $this->_db->queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        	$ret = $this->_queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
         }
         return $ret;
     }
@@ -439,7 +442,7 @@ class dbTable extends object
         			log_debug($stmt);
         		}
     			//var_dump($this->_db);
-    			$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    			$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
@@ -451,7 +454,7 @@ class dbTable extends object
     		$ret = apc_fetch($stmt);
     		if($ret == FALSE)
     		{
-    			$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    			$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
@@ -464,7 +467,7 @@ class dbTable extends object
     			log_debug($stmt);
     		}
     		//var_dump($this->_db);
-    		$ret = $this->_db->queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    		$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
     		if (PEAR::isError($ret)) {
     			$ret = false;
     		}
@@ -703,7 +706,7 @@ class dbTable extends object
         // to exist for this solution to work.
 
         $sql = "SELECT COUNT(*) AS count FROM sys_autoincr WHERE table_name='{$tablename}'";
-        $rs = $this->_db->queryAll($sql);
+        $rs = $this->_queryAll($sql);
         if ($rs[0]['count'] == 0) {
             $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')";
             if($this->_db->phptype == 'mysql')
@@ -717,7 +720,7 @@ class dbTable extends object
         }
         else {
             $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='{$tablename}'";
-            $_ret = $this->_db->queryRow($sql, array());
+            $_ret = $this->_queryRow($sql, array());
             $last_id = $_ret['last_id'];
         }
         $last_id = $last_id + 1;
@@ -992,7 +995,7 @@ class dbTable extends object
         		{
         			log_debug($stmt);
         		}
-    			$ret = $this->_db->queryAll($stmt);
+    			$ret = $this->_queryAll($stmt);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
@@ -1004,7 +1007,7 @@ class dbTable extends object
     		$ret = apc_fetch($stmt);
     		if($ret == FALSE)
     		{
-    			$ret = $this->_db->queryAll($stmt);
+    			$ret = $this->_queryAll($stmt);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
@@ -1016,7 +1019,7 @@ class dbTable extends object
     		{
     			log_debug($stmt);
     		}
-    		$ret = $this->_db->queryAll($stmt);
+    		$ret = $this->_queryAll($stmt);
     		if (PEAR::isError($ret)) {
     			$ret = false;
     		}
@@ -1138,7 +1141,15 @@ class dbTable extends object
      */
     public function now()
     {
-    	return MDB2_Date::mdbNow();
+    	if($this->dbLayer === 'MDB2')
+    	{
+    		return MDB2_Date::mdbNow();
+    	}
+    	elseif ($this->dbLayer === 'PDO')
+    	{
+    		return date('Y-m-d H:i:s');
+    	}
+    	
     }
 
     /**
@@ -1149,9 +1160,98 @@ class dbTable extends object
      */
     public function listDbTables()
     {
-    	$ret = $this->_db->mgListTables();
-    	return $ret;
+    	if($this->dbLayer === 'MDB2')
+    	{
+    		$ret = $this->_db->mgListTables();
+    		return $ret;
+    	}
+    	elseif ($this->dbLayer === 'PDO')
+    	{
+    		// echo "using pdo... with ".$this->objEngine->pdsn['phptype']; die();
+    		if($this->objEngine->pdsn['phptype'] == 'pgsql')
+    		{
+    			$sql = "select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE'";
+    			$ret = $this->query($sql);
+    			foreach($ret as $tables)
+    			{
+    				$tbls[] = $tables['table_name'];
+    			}
+    			return $tbls;
+    		}
+    		elseif($this->objEngine->pdsn['phptype'] == 'mysql' || $this->objEngine->pdsn['phptype'] == 'mysqli')
+    		{
+    			$query = "SHOW /*!50002 FULL*/ TABLES";
+       			if (!is_null($this->objEngine->pdsn['database'])) {
+            		$query .= " FROM $database";
+        		}
+        		$query.= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
+
+        		$table_names = $this->query($query);
+        		return $table_names;
+    		}
+    	}
+    	
+    }
+    
+     /**
+     * Execute the specified query, fetch all the rows of the result set into
+     * a two dimensional array and then frees the result set.
+     *
+     * @param   string  the SELECT query statement to be executed.
+     * @param   array   optional array argument that specifies a list of
+     *       expected datatypes of the result set columns, so that the eventual
+     *       conversions may be performed. The default list of datatypes is
+     *       empty, meaning that no conversion is performed.
+     * @param   int     how the array data should be indexed
+     * @param   bool    if set to true, the $all will have the first
+     *       column as its first dimension
+     * @param   bool    used only when the query returns exactly
+     *       two columns. If true, the values of the returned array will be
+     *       one-element arrays instead of scalars.
+     * @param   bool    if true, the values of the returned array is
+     *       wrapped in another array.  If the same key value (in the first
+     *       column) repeats itself, the values will be appended to this array
+     *       instead of overwriting the existing values.
+     *
+     * @return  mixed   MDB2_OK or data array on success, a MDB2 error on failure
+     *
+     * @access  public
+     */
+    private function _queryAll($query, $types = array())
+    {
+    	if($this->dbLayer === 'MDB2')
+    	{
+    		$ret = $this->_db->queryAll($query, $types);	
+    		if (PEAR::isError($ret)) {
+    			$ret = false;
+    		}
+    	}
+    	elseif ($this->dbLayer === 'PDO')
+    	{
+    		$stmt = $this->_db->prepare($query);
+    		$stmt->execute();
+    		$ret = $stmt->fetchAll();
+    		$stmt->closeCursor();
+    	}
+    
+    	return $ret;	
     }
 
+
+    private function _queryRow($query)
+    {
+    	if($this->dbLayer === 'MDB2')
+    	{
+    		$this->_db->queryRow($query, array());
+    	}
+    	elseif($this->dbLayer === 'PDO')
+    	{
+    		$stmt = $this->_db->prepare($query);
+    		$stmt->execute();
+    		$row = $stmt->fetch();
+    		$stmt->closeCursor();
+    		return $row;
+    	}
+    }
 } // end of dbTable class
 ?>

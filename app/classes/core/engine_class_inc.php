@@ -160,6 +160,14 @@ class engine
      * @access public
      */
 	public $_templateRefs = NULL;
+	
+	/**
+     * Database abstraction method - can be MDB2 or PDO
+     *
+     * @var    string
+     * @access public
+     */
+	public $_dbabs;
 
 	/**
      * database object (global)
@@ -334,6 +342,13 @@ class engine
      * @var string
      */
 	protected $dsn = KEWL_DB_DSN;
+	
+	/**
+     * DSN - Data Source Name for the database connection object
+     *
+     * @var string
+     */
+	public $pdsn;
 
 	/**
      * DSN - Data Source Name for the database management object
@@ -425,6 +440,8 @@ class engine
 		//the config objects
 		//all configs now live in one place, referencing the config.xml file in the config directory
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
+		// check for which db abstraction to use - MDB2 or PDO
+		$this->_dbabs = $this->_objDbConfig->getenable_dbabs();
 		// check for memcache
 		if(extension_loaded('memcache'))
 		{
@@ -574,58 +591,79 @@ class engine
 			//so we parse the DSN to an array and then send that to the object instantiation to be safe
 			$dsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
 			$this->dsn = $this->parseDSN($dsn);
+			$this->pdsn = $this->dsn;
 
-			// Connect to the database
-			require_once ('MDB2.php');
-			//MDB2 has a factory method, so lets use it now...
-			$_globalObjDb = &MDB2::singleton($this->dsn);
-
-			//Check for errors on the factory method
-			if (PEAR::isError($_globalObjDb)) {
-				$this->_pearErrorCallback($_globalObjDb);
-				//return the db object for use globally
-				return $_globalObjDb;
-			}
-			// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
-			$_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
-			//set the options for portability!
-			$_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
-
-			//Check for errors
-			if (PEAR::isError($_globalObjDb)) {
-				// manually call the callback function here,
-				// as we haven't had a chance to install it as
-				// the error handler
-				$this->_pearErrorCallback($_globalObjDb);
-				//return the db object for use globally
-				return $_globalObjDb;
-			}
-			// keep a copy as a field as well
-			$this->_objDb = $_globalObjDb;
-
-			//Load up some of the extra MDB2 modules:
-			MDB2::loadFile('Date');
-			MDB2::loadFile('Iterator');
-
-			// install the error handler with our custom callback on error
-			$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
-			array($this, '_pearErrorCallback'));
-			// set the default fetch mode for the DB to assoc, as that's
-			// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
-			$this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
-			if($this->_objDb->phptype == 'oci8')
+			// now check whether to use PDO or MDB2
+			if($this->_dbabs === 'MDB2')
 			{
-				$this->_objDb->setOption('field_case', CASE_LOWER);
-				//oracle numRows() hack plus some extras
-				$this->_objDb->setOption('portability',MDB2_PORTABILITY_NUMROWS | MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_ALL);
+				// Connect to the database
+				require_once ('MDB2.php');
+				//MDB2 has a factory method, so lets use it now...
+				$_globalObjDb = &MDB2::singleton($this->dsn);
+
+				//Check for errors on the factory method
+				if (PEAR::isError($_globalObjDb)) {
+					$this->_pearErrorCallback($_globalObjDb);
+					//return the db object for use globally
+					return $_globalObjDb;
+				}
+				// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+				$_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
+				//set the options for portability!
+				$_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
+
+				//Check for errors
+				if (PEAR::isError($_globalObjDb)) {
+					// manually call the callback function here,
+					// as we haven't had a chance to install it as
+					// the error handler
+					$this->_pearErrorCallback($_globalObjDb);
+					//return the db object for use globally
+					return $_globalObjDb;
+				}
+				// keep a copy as a field as well
+				$this->_objDb = $_globalObjDb;
+
+				//Load up some of the extra MDB2 modules:
+				MDB2::loadFile('Date');
+				MDB2::loadFile('Iterator');
+
+				// install the error handler with our custom callback on error
+				$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
+				array($this, '_pearErrorCallback'));
+				// set the default fetch mode for the DB to assoc, as that's
+				// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+				$this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
+				if($this->_objDb->phptype == 'oci8')
+				{
+					$this->_objDb->setOption('field_case', CASE_LOWER);
+					//oracle numRows() hack plus some extras
+					$this->_objDb->setOption('portability',MDB2_PORTABILITY_NUMROWS | MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_ALL);
+				}
+				else {
+					$this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
+				}
+				// include the dbtable base class for future use
 			}
-			else {
-				$this->_objDb->setOption('portability',MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
+			elseif($this->_dbabs === 'PDO') {
+				// PDO stuff
+				if(!extension_loaded('PDO'))
+				{
+					throw new customException("You must install the PDO extension before trying to use it!");
+				}
+				// dsn is in the form of 'mysql:host=localhost;dbname=test', $user, $pass
+				$this->_objDb = new PDO($this->dsn['phptype'].":".
+										"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'], 
+										$this->dsn['username'], 
+										$this->dsn['password']
+								);
+				$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 			}
-			// include the dbtable base class for future use
+			
+			//return the local copy
+			return $this->_objDb;
 		}
-		//return the local copy
-		return $this->_objDb;
+		
 	}//end function
 
 
@@ -1738,7 +1776,14 @@ class engine
     */
 	private function _finish()
 	{
-		$this->_objDb->disconnect();
+		if($this->_dbabs === 'MDB2')
+		{
+			$this->_objDb->disconnect();
+		}
+		elseif($this->_dbabs === 'PDO')
+		{
+			$this->_objDb = NULL;
+		}
 	}
 }
 ?>
