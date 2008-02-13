@@ -658,6 +658,8 @@ class engine
 										$this->dsn['password']
 								);
 				$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+				$this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+				
 			}
 			
 			//return the local copy
