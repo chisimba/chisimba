@@ -689,9 +689,16 @@ class catalogueconfig extends object {
 	{
 		$path = $this->objConfig->getskinRoot();
 		chdir($path);
+		$lSkins = NULL;
 		foreach(glob('*') as $s)
 		{
-			$lSkins .= $s."|";
+			if($s = NULL)
+			{
+				continue;
+			}
+			else {
+				$lSkins .= $s."|";
+			}
 		}
 		$lSkins = explode("|", $lSkins);
 		$lSkins = array_filter($lSkins);
@@ -702,6 +709,10 @@ class catalogueconfig extends object {
 				unset($lskin);
 			}
 			$skinner[] = $lskin;
+		}
+		if(empty($skinner))
+		{
+			$skinner = array();
 		}
 		$lSkin = array_filter($skinner);
 

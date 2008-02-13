@@ -234,13 +234,20 @@ class modulecatalogue extends controller
 						$skins = $doc->string;
 						$skins = explode("|", $skins);
 						$skins = array_filter($skins);
-						foreach($skins as $skin)
+						if(!empty($skins))
 						{
-							if($skin == 'CVS' || $skin == 'CVSROOT' || $skin == '_common' || $skin == 'cache.config' || $skin == 'error_log')
+							foreach($skins as $skin)
 							{
-								unset($skin);
+								if($skin == 'CVS' || $skin == 'CVSROOT' || $skin == '_common' || $skin == 'cache.config' || $skin == 'error_log')
+								{
+									unset($skin);
+									continue;
+								}
+								$skinner[] = $skin;
 							}
-							$skinner[] = $skin;
+						}
+						else {
+							$skinner = array();
 						}
 						$skinner = array_filter($skinner);
 						$count = count($skinner);
