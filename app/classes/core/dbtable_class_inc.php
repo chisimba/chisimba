@@ -243,8 +243,18 @@ class dbTable extends object
         {
         	$this->adm = TRUE;
         }
-        $this->dbType = $this->_db->phptype;
         $this->dbLayer = $this->objDBConfig->getenable_dbabs();
+        if($this->dbLayer === 'MDB2')
+        {
+        	$this->dbType = $this->_db->phptype;
+        }
+        elseif($this->dbLayer === 'PDO')
+        {
+        	$this->dbType = $this->objEngine->pdsn['phptype'];
+        }
+        
+        // $this->dbLayer = $this->objDBConfig->getenable_dbabs();
+        
 
     }
 
