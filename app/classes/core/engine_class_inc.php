@@ -663,12 +663,8 @@ class engine
 				    $this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
 				    $this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
 				    $this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				
 				}
-				
-				//$_globalObjDb = $this->_objDb;
 			}
-			
 			//return the local copy
 			return $this->_objDb;
 		}
