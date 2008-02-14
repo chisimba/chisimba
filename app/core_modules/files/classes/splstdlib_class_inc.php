@@ -1,5 +1,4 @@
 <?php
-
 class splstdlib extends object
 {
 	public function init()
