@@ -649,7 +649,7 @@ class engine
 				// PDO stuff
 				if(!extension_loaded('PDO'))
 				{
-					throw new customException("You must install the PDO extension before trying to use it!");
+					die("You must install the PDO extension before trying to use it!");
 				}
 				// dsn is in the form of 'mysql:host=localhost;dbname=test', $user, $pass
 				if($this->_objDb === NULL)
