@@ -42,8 +42,13 @@ class splstdlib extends object
 				}
 			}
 		}
-
-		return $dirs;
+		if(isset($dirs))
+		{
+			return $dirs;
+		}
+		else {
+			return NULL;
+		}
 	}
 
 	/**
@@ -264,7 +269,7 @@ class splstdlib extends object
 	 */
 	public function fileLister($dir)
 	{
-		$files = new DirectoryFilterDots($dir);
+		$files = new DirectoryFilterDots($dir."/");
 		foreach ($files as $file)
 		{
 			if($file->isDir())
@@ -276,7 +281,13 @@ class splstdlib extends object
 				$ret[] = $file;
 			}
 		}
-		return $ret;
+		if(isset($ret))
+		{
+			return $ret;
+		}
+		else {
+			$ret = NULL;
+		}
 	}
 	
 }

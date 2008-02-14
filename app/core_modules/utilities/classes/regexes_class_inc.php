@@ -72,7 +72,13 @@ class regexes extends object
 	// retrieve page title
 	public function get_doc_title($file){
 		preg_match_all('/\<title>(.*)\<\/title\>/U', $file, $tresults, PREG_PATTERN_ORDER);
-		$title = $tresults[1][0];
+		if(isset($tresults[1][0]))
+		{
+			$title = $tresults[1][0];
+		}
+		else {
+			$title = "Title Missing!";
+		}
 		return $title;
 	}
 
