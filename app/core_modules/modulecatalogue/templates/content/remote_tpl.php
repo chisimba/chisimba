@@ -1,4 +1,8 @@
 <?php
+if(!isset($upgradables))
+{
+	$upgradables = NULL;
+}
 $this->appendArrayVar('headerParams',"<script type='text/javascript' src='core_modules/modulecatalogue/resources/remote.js'></script>");
 $this->loadClass('checkbox','htmlelements');
 $this->loadClass('link','htmlelements');
