@@ -662,7 +662,10 @@ class engine
 					$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 				    $this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
 				    $this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
-				    $this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				    if($this->dsn['phptype'] == 'pgsql')
+				    {
+				    	$this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				    }
 				}
 			}
 			//return the local copy
