@@ -710,50 +710,7 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-
-        /*
-        // Implement a proper auto-generated id.
-        // Note that the table sys_autoincr needs
-        // to exist for this solution to work.
-
-        $sql = "SELECT COUNT(*) AS count FROM sys_autoincr WHERE table_name='{$tablename}'";
-        $rs = $this->_queryAll($sql);
-        if ($rs[0]['count'] == 0) {
-            $sql = "INSERT INTO sys_autoincr (table_name, last_id) VALUES ('{$tablename}','0')";
-            if($this->_db->phptype == 'mysql')
-            {
-            	$this->_execute($sql, '');
-            }
-            else {
-            	$this->_db->query($sql);
-            }
-            $last_id = -1;
-        }
-        else {
-            $sql = "SELECT last_id FROM sys_autoincr WHERE table_name='{$tablename}'";
-            $_ret = $this->_queryRow($sql, array());
-            $last_id = $_ret['last_id'];
-        }
-        $last_id = $last_id + 1;
-        $sql = "UPDATE sys_autoincr SET last_id = '{$last_id}' WHERE table_name = '{$tablename}'";
-        echo "[$sql]";
-        if($this->_db->phptype == 'mysql')
-        {
-        	$this->_execute($sql, '');
-        }
-        else {
-        	$this->_db->query($sql);
-        }
         if (empty($fields['id'])) {
-            $id = "init" . "_" . $last_id;
-            $fields['id'] = $id;
-        } else {
-            $id = $fields['id'];
-        }
-        */
-
-        if (empty($fields['id'])) {
-            //$id = $this->_serverName . "_" . $last_id;
             $id = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
         } else {
@@ -768,7 +725,6 @@ class dbTable extends object
         $comma = "";
         foreach($keys as $key) {
         	$fieldnames .= "{$comma}{$key}";
-        	//$fieldValues .= "{$comma}:{$key}";  - for full prepared statement support need to work out how to get the field types
 	        $comma = ", ";
         }
         $comma = "";
@@ -799,7 +755,15 @@ class dbTable extends object
         }
         elseif($this->dbLayer === 'PDO')
         {
-        	$ret = $this->query($sql);
+        	try{
+        		$ret = $this->query($sql);
+        	}
+        	catch (PDOException $e)
+    		{
+    			throw new customException($e->getMessage());
+    			customException::cleanUp();
+    			exit;
+    		}
         }
         if($this->adm == TRUE)
         {
@@ -864,7 +828,15 @@ class dbTable extends object
         }
         elseif($this->dbLayer === 'PDO')
         {
-        	$ret = $this->query($sql);
+        	try {
+        		$ret = $this->query($sql);
+        	}
+        	catch (PDOException $e)
+    		{
+    			throw new customException($e->getMessage());
+    			customException::cleanUp();
+    			exit;
+    		}
         }
 		if($this->adm == TRUE)
         {
@@ -919,7 +891,15 @@ class dbTable extends object
         }
         elseif($this->dbLayer === 'PDO')
         {
-        	$ret = $this->query($sql);
+        	try {
+        		$ret = $this->query($sql);
+        	}
+        	catch (PDOException $e)
+    		{
+    			throw new customException($e->getMessage());
+    			customException::cleanUp();
+    			exit;
+    		}
         }
         
         else {
@@ -1203,11 +1183,18 @@ class dbTable extends object
     	}
     	elseif ($this->dbLayer === 'PDO')
     	{
-    		// echo "using pdo... with ".$this->objEngine->pdsn['phptype']; die();
     		if($this->objEngine->pdsn['phptype'] == 'pgsql')
     		{
     			$sql = "select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE'";
-    			$ret = $this->query($sql);
+    			try {
+    				$ret = $this->query($sql);
+    			}
+    			catch (PDOException $e)
+    			{
+    				throw new customException($e->getMessage());
+    				customException::cleanUp();
+    				exit;
+    			}
     			foreach($ret as $tables)
     			{
     				$tbls[] = $tables['table_name'];
@@ -1222,9 +1209,15 @@ class dbTable extends object
             		$query .= " FROM $database";
         		}
         		$query.= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
-
-        		$ret = $this->query($query);
-                
+        		try {
+        			$ret = $this->query($query);
+        		}
+        		catch (PDOException $e)
+    			{
+    				throw new customException($e->getMessage());
+    				customException::cleanUp();
+    				exit;
+    			}
         		foreach($ret as $tables)
     			{
     				$tbls[] = $tables[0];
@@ -1270,11 +1263,18 @@ class dbTable extends object
     	}
     	elseif ($this->dbLayer === 'PDO')
     	{
-    		$stmt = $this->_db->prepare($query);
-    		$stmt->execute();
-    		$ret = $stmt->fetchAll();
-    		$stmt->closeCursor();
-    		//$this->_db = NULL;
+    		try {
+    			$stmt = $this->_db->prepare($query);
+    			$stmt->execute();
+    			$ret = $stmt->fetchAll();
+    			$stmt->closeCursor();
+    		}
+    		catch (PDOException $e)
+    		{
+    			throw new customException($e->getMessage());
+    			customException::cleanUp();
+    			exit;
+    		}
     	}
     
     	return $ret;	
@@ -1290,11 +1290,18 @@ class dbTable extends object
     	}
     	elseif($this->dbLayer === 'PDO')
     	{
-    		$stmt = $this->_db->prepare($query);
-    		$stmt->execute();
-    		$row = $stmt->fetch();
-    		$stmt->closeCursor();
-    		//$this->_db = NULL;
+    		try {
+    			$stmt = $this->_db->prepare($query);
+    			$stmt->execute();
+    			$row = $stmt->fetch();
+    			$stmt->closeCursor();
+    		}
+    		catch (PDOException $e)
+    		{
+    			throw new customException($e->getMessage());
+    			customException::cleanUp();
+    			exit;
+    		}
     		return $row;
     	}
     }

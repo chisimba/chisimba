@@ -143,7 +143,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '2.0.0';
+	public $version = '2.0.1';
 
 	/**
      * Template variable
@@ -662,6 +662,7 @@ class engine
 					$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 				    $this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
 				    $this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
+				    $this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				
 				}
 				
