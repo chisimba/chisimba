@@ -107,7 +107,8 @@ class parse4files extends object
         	$str = $results[1][$counter];
         	$ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
-            $replacement = $this->getFiles($this->userId, $item);
+            $replacement = $this->getFiles();
+            //$replacement = htmlentities($replacement);
         	$txt = str_replace($item, $replacement, $txt);
         	$counter++;
         }
@@ -150,11 +151,16 @@ class parse4files extends object
 	 * @return the parased item with the linked files replacing the filter tags
 	 * 
 	 */
-    private function getFiles($dirname, &$item)
+    private function getFiles()
     {
         $oF = $this->getObject('dbfile', 'filemanager');
+        if ($this->folder == "/") {
+           	$this->folder = NULL;
+        } else {
+        	$this->folder = "/" . $this->folder;
+        }
         $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId 
-          . "' AND filefolder = 'users/" . $this->userId . "/" . $this->folder . "'";
+          . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
         $ar = $oF->getArray($sql);
 		$ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
 		$objConfig = $this->getObject('altconfig', 'config');
@@ -173,21 +179,4 @@ class parse4files extends object
         $ret .= "</table>";
         return $ret;
     }
-    
-    //This is temporary
-    public function getIconFromMime($filename)
-    {
-    //	getFileIcon($filename)
-    	
-    	$pathInfo = pathinfo($filename);
-        $mimeType = strtolower($pathInfo['extension']);
-    	$this->oIcon->alt=$mimeType;
-    	if ($mimeType="jpeg") {
-    		$mimeType = "jpg";
-		}
-        $this->oIcon->setIcon($mimeType,'gif','icons/filetypes/');
-        //$this->oIcon->align = 'middle';
-        return $this->oIcon->show();
-    }
-
 }
