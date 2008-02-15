@@ -346,11 +346,11 @@ class controller extends access
         if(extension_loaded('apc'))
 		{
 			$this->objConfig = $this->getObject('altconfig', 'config');
-			apc_compile_file($this->objConfig);
+			// apc_compile_file($this->objConfig);
 			if($this->objConfig->getenable_apc() == 'TRUE')
 			{
 				apc_compile_file($_magic__path);
-				apc_compile_file($_magic__tpl);
+				//apc_compile_file($_magic__tpl);
 			}
 			else {
 				$this->objAPC = FALSE;
