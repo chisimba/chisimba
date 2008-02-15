@@ -326,7 +326,7 @@ class controller extends access
      * @param  TRUE   $           |FALSE $buffer If TRUE buffer output and return as string, else send to browser.
      * @return string |NULL If buffering returns output, else returns NULL.
      */
-    public function callTemplate($_magic__tpl, $_magic__type, $_magic__buffer = FALSE)
+    public function callTemplate($_magic__tpl, $_magic__type, $_magic__buffer = TRUE)
     {
         // objects that almost every template will use
         $this->setVarByRef('objConfig', $this->getObject('altconfig', 'config'));
