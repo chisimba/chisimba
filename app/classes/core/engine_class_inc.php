@@ -654,18 +654,25 @@ class engine
 				// dsn is in the form of 'mysql:host=localhost;dbname=test', $user, $pass
 				if($this->_objDb === NULL)
 				{
-					$this->_objDb = new PDO($this->dsn['phptype'].":".
-										"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'], 
-										$this->dsn['username'], 
-										$this->dsn['password']
-								);
-					$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
-				    $this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-				    $this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
-				    if($this->dsn['phptype'] == 'pgsql')
-				    {
-				    	$this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				    }
+					try {
+						$this->_objDb = new PDO($this->dsn['phptype'].":".
+											"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'], 
+											$this->dsn['username'], 
+											$this->dsn['password']
+										);
+						$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+				    	$this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+				    	$this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
+				    	if($this->dsn['phptype'] == 'pgsql')
+				    	{
+				    		$this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				    	}
+					}
+					catch (PDOException $e)
+					{
+						echo $e->getMessage();
+    					exit;
+					}
 				}
 			}
 			//return the local copy
@@ -699,7 +706,7 @@ class engine
 			// Connect to the database
 			require_once $this->getPearResource('MDB2/Schema.php');
 			//MDB2 has a factory method, so lets use it now...
-			$_globalObjDbManager = &MDB2::singleton($this->dsn); //&MDB2_Schema::factory($this->mdsn);
+			$_globalObjDbManager = &MDB2::connect($this->dsn); //&MDB2_Schema::factory($this->mdsn);
 
 			//Check for errors
 			if (PEAR::isError($_globalObjDbManager)) {
