@@ -1,9 +1,8 @@
 <?php
-
 /**
- * Controller object
+ * Controller object.
  *
- * Top level controller
+ * Top level controller.
  *
  * PHP version 5
  *
@@ -29,6 +28,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
+
 /* -------------------- controller class ----------------*/
 // security check - must be included in all scripts
 if (!
@@ -42,9 +42,8 @@ $GLOBALS['kewl_entry_point_run']) {
 }
 // end security check
 
-
 /**
- * controller class (top level)
+ * controller class (top level).
  *
  * Controller controls the business logic of the Chisimba applicatipon (The C in MVC)
  *
@@ -62,7 +61,8 @@ class controller extends access
     /**
      * Public variable to hold the derived controller name
      *
-     * @var string
+     * @var    string
+     * @access public
      */
     public $controllerName;
 
@@ -74,8 +74,8 @@ class controller extends access
     public $footerStr = NULL;
 
     /**
-    * @var		object
-    * @access 	protected
+    * @var	  object
+    * @access protected
     */
     protected $_objLanguage;
 
@@ -85,7 +85,7 @@ class controller extends access
      * @param object $objEngine  by reference from Engine
      * @param string $moduleName
      */
-    public function __construct($objEngine, $moduleName)
+    public function __construct(&$objEngine, $moduleName)
     {
     	$this->controllerName = get_class($this);
         try {
@@ -105,8 +105,6 @@ class controller extends access
      * Method to initialise the controller object.
      * Override in subclasses.
      *
-     * @param  void
-     * @return void
      */
     public function init()
     {
@@ -118,6 +116,7 @@ class controller extends access
     * @param  	string 	$itemName   The language code for the item to be looked up
     * @param  	string 	$modulename The module name that owns the string
     * @param 	bool	$default	Default text
+    * 
     * @return 	string	The language element
 	*/
 	protected function l($itemName,$modulename=NULL,$default = false)
@@ -134,7 +133,6 @@ class controller extends access
      * Method to return current page content.
      * For use within layout templates.
      *
-     * @param  void
      * @return string Content of rendered content script.
      */
     public function getContent()
@@ -145,7 +143,6 @@ class controller extends access
     /**
      * Method to return the content of the rendered layout template.
      *
-     * @param  void
      * @return string Content of rendered layout script.
      */
     public function getLayoutContent()
@@ -156,8 +153,9 @@ class controller extends access
     /**
      * Method to be overridden if the controller doesn't require a user login for this request.
      *
-     * @param  string $action The action for this request
-     * @return bool   TRUE|FALSE Does this controller require login.
+     * @param string $action The action for this request
+     * 
+     * @return bool TRUE|FALSE Does this controller require login.
      */
     public function requiresLogin($action)
     {
@@ -168,7 +166,8 @@ class controller extends access
      * Method to be overridden if the controller doesn't require no-cache headers to be sent.
      *
      * @param  string $action The action for this request.
-     * @return bool   TRUE|FALSE Does this controller want no-cache headers to be sent
+     * 
+     * @return bool TRUE|FALSE Does this controller want no-cache headers to be sent
      */
     public function sendNoCacheHeaders($action)
     {
@@ -177,11 +176,13 @@ class controller extends access
 
     /**
      * Method to return a template variable.
+     * 
      * These are used to pass information from module to template.
      *
      * @param  string $name    The name of the variable.
      * @param  mixed  $default The value to return if the variable is unset (optional).
-     * @return mixed  The value of the variable, or $default if unset.
+     * 
+     * @return mixed The value of the variable, or $default if unset.
      */
     public function getVar($name, $default = NULL)
     {
@@ -190,11 +191,13 @@ class controller extends access
 
     /**
      * Method to set a template variable.
+     * 
      * These are used to pass information from module to template.
      *
      * @param  string $name The name of the variable.
      * @param  mixed  $val  The value to set the variable to.
-     * @return void
+     * 
+     * @return NULL
      */
     public function setVar($name, $val)
     {
@@ -340,6 +343,20 @@ class controller extends access
             ob_start();
         }
         include $_magic__path; //was require
+        if(extension_loaded('apc'))
+		{
+			$this->objConfig = $this->getObject('altconfig', 'config');
+			apc_compile_file($this->objConfig);
+			if($this->objConfig->getenable_apc() == 'TRUE')
+			{
+				apc_compile_file($_magic__path);
+				apc_compile_file($_magic__tpl);
+			}
+			else {
+				$this->objAPC = FALSE;
+			}
+			$this->cacheTTL = $this->objConfig->getcache_ttl();
+		}
         if ($_magic__buffer) {
             $_magic__pageContent = ob_get_contents();
             ob_end_clean();
