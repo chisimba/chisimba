@@ -162,19 +162,34 @@ class parse4files extends object
         $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId 
           . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
         $ar = $oF->getArray($sql);
-		$ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
-		$objConfig = $this->getObject('altconfig', 'config');
-		$siteRoot = $objConfig->getSiteRoot();
-		$this->oIcon = $this->getObject('fileicons', 'files');
+        return $this->renderFiles($ar);
+    }
+    
+    /**
+    * 
+    * Method to return a formatted list of files from the array passed to it
+    * by the getFiles method.
+    * 
+    * @access private
+    * @param string array $ar An array of files and descriptions
+    * @return String the parased item with the linked files and their descriptions
+    * 
+    */
+    private function renderFiles(& $ar)
+    {
+    	$ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
+        $objConfig = $this->getObject('altconfig', 'config');
+        $siteRoot = $objConfig->getSiteRoot();
+        $this->oIcon = $this->getObject('fileicons', 'files');
         foreach ($ar as $file) {
-        	$description = $file['description'];
-        	if ($description==""){
-        		$description = $this->objLanguage->languageText("mod_filters_file_nodesc", "filters");
-        	}
-        	$path = $siteRoot . "/usrfiles/" . "/" . $file['path'];
-			$icon = $this->oIcon->getFileIcon($file['filename']);
-        	$ret .= "<tr><td>" . $icon . "</td><td>&nbsp;<a href=\"" . $path . "\">" 
-        	  . $file['filename'] . "</a></td><td>" . $description . "</td></tr>";
+            $description = $file['description'];
+            if ($description==""){
+                $description = $this->objLanguage->languageText("mod_filters_file_nodesc", "filters");
+            }
+            $path = $siteRoot . "/usrfiles/" . "/" . $file['path'];
+            $icon = $this->oIcon->getFileIcon($file['filename']);
+            $ret .= "<tr><td>" . $icon . "</td><td>&nbsp;<a href=\"" . $path . "\">" 
+              . $file['filename'] . "</a></td><td>&nbsp;&nbsp;&nbsp;" . $description . "</td></tr>";
         }
         $ret .= "</table>";
         return $ret;
