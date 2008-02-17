@@ -3,7 +3,8 @@
  *
  * A class to wrap the Tinyurl api from tinyurl.com
  *
- * This class provides an interface to the tinyurl api for Chisimba
+ * This class provides an interface to the tinyurl api for Chisimba. It is 
+ * based on studying the Services/TinyURL pear class by Joe Stump 
  *
  *
  * PHP version 5
@@ -63,14 +64,7 @@ $GLOBALS['kewl_entry_point_run'])
 */
 class tinyurlapi extends object
 {
-	 /**
-     * URL location for the TinyURL API
-     *
-     * @var string $tinyApi URL of TinyURL API location
-     * @static
-     */
-    static $tinyApi;
-    
+    public $objLanguage;
     private $tinyUrlError;
 
     /**
@@ -104,22 +98,67 @@ class tinyurlapi extends object
     		} else {
     			return $this->tinyUrlError;
     		}
-    		
     	} catch(customException $e) {
             customException::cleanUp();
             exit();
         }
     }
-    
-    public function simulateCreate($url)
+
+    /**
+    * Do a reverse lookup of a TinyURL
+    *
+    * @access public
+    * @param string $url TinyURL to look up
+    * @return string The destination URL of the TinyURL
+    * 
+    */
+    public function lookupTinyUrl($url)
     {
-    	//Simulate a curl string being returned
-    	$result = "http://tinyurl.com/dfsdf";
-    	if ($this->isValidResult($result)) {
-    		return $result;
-    	} else {
-    		return $this->tinyUrlError;
-    	}
+        if ($this->isTinyUrl($url)) {
+            try {
+                $oCh = $this->getObject("curlwrapper", "utilities");
+                $oCh->initializeCurl($url);
+                $oCh->setProxy();
+        	    $oCh->setopt(CURLOPT_URL, $url);
+                $oCh->setopt(CURLOPT_FOLLOWLOCATION, TRUE);
+                $oCh->setopt(CURLOPT_HEADER, TRUE);
+                $oCh->setopt(CURLOPT_NOBODY, TRUE);
+                $oCh->setopt(CURLOPT_RETURNTRANSFER, TRUE);
+                $ret = $oCh->getUrl();
+                $oCh->closeCurl();
+                $m = array();
+                if (preg_match("/Location: (.*)\n/", $ret, $m)) {
+                    if (isset($m[1]) && preg_match('/^https?:\/\//i', $m[1])) {
+                        return trim($m[1]);
+                    }
+                }
+                return $this->objLanguage->languageText("mod_utilities_notinyredirect", "utilities")
+                  . "<br /><br />" . htmlentities($ret);
+            } catch(customException $e) {
+                customException::cleanUp();
+                exit();
+            }
+        } else {
+        	return $this->objLanguage->languageText("mod_utilities_invaldtinyurl", "utilities") 
+              . ": " . $url;
+        }
+     }
+    
+    /**
+    * 
+    * Validates a tinyurl url
+    * @param string $url The url to check
+    * @return TRUE|FALSE
+    * @access public
+    * 
+    */
+    public function isTinyUrl($url)
+    {
+        if (!preg_match('/^http:\/\/tinyurl.com\/[a-z0-9]+/i', $url)) {
+            return FALSE;
+        } else {
+        	return TRUE;
+        }
     }
     
     

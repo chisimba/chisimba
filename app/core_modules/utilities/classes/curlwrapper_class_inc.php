@@ -104,13 +104,13 @@ class curlwrapper extends object
         }
     }
 
-    function initializeCurl($url)
+    public function initializeCurl($url)
     {
         // Setup URL for Curl
         $this->ch = curl_init($url);
     }
 
-    function closeCurl()
+    public function closeCurl()
     {
         // Close the CURL
         curl_close($this->ch);
@@ -124,7 +124,7 @@ class curlwrapper extends object
     * @param mixed $theValue the value of the curl option.
     *
     */
-    function setopt($theOption, $theValue)
+    public function setopt($theOption, $theValue)
     {
         curl_setopt($this->ch, $theOption, $theValue) ;
         $this->options[$theOption] = $theValue ;
@@ -151,11 +151,16 @@ class curlwrapper extends object
         }
     }
 
+    /**
+     * 
+     * Make sure all the options are set first
+     * 
+     */
     public function getUrl()
     {
         // Get the page
-        curl_setopt($this->ch, CURLOPT_HEADER, FALSE);
-        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        //curl_setopt($this->ch, CURLOPT_HEADER, FALSE);
+        //curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
         $data = curl_exec($this->ch);
         return $data;
     }
