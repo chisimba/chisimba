@@ -52,7 +52,9 @@ class parse4mmedia extends object {
      */
     function parseMov($str)
     {
-        $search = '/<a(.*?)href=\"([^<]+)\.mov\"([^>]*)>(.*?)<\/a>/isU';
+        //$search = '/<a(.*?)href=\"([^<]+)\.mov\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.mov\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0*/$replace = '<p class="mediaplugin"><object classid="CLSID:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"';
         $replace .= '        codebase="http://www.apple.com/qtactivex/qtplugin.cab" ';
         $replace .= '        height="300" width="400"';
@@ -83,10 +85,12 @@ class parse4mmedia extends object {
      */
     function parseWmv($str)
     {
-        $search = '/<a(.*?)href=\"([^<]+)\.wmv\"([^>]*)>(.*?)<\/a>/isU';
+        //$search = '/<a(.*?)href=\"([^<]+)\.wmv\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.wmv\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0*/$replace = '<p class="mediaplugin"><object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
-        $replace .= ' standby="Loading Microsoft� Windows� Media Player components..." ';
+        $replace .= ' standby="Loading Microsoft Windows Media Player components..." ';
         $replace .= ' id="msplayer" align="" type="application/x-oleobject">';
         $replace .= "<param name=\"Filename\" value=\"\\2.wmv\">";
         $replace .= '<param name="ShowControls" value=true />';
@@ -118,7 +122,9 @@ class parse4mmedia extends object {
      */
     function parseWmm($str)
     {
-        $search = '/<a(.*?)href=\"([^<]+)\.swf\"([^>]*)>(.*?)<\/a>/isU';
+        //$search = '/<a(.*?)href=\"([^<]+)\.swf\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.swf\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0*/$replace = '<p class="mediaplugin"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"';
         $replace .= ' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" ';
         $replace .= ' width="400" height="300" id="mp3player" align="">';
@@ -144,7 +150,9 @@ class parse4mmedia extends object {
      */
     function parseMpeg($str)
     {
-        $search = '/<a(.*?)href=\"([^<]+)\.(mpe?g)\"([^>]*)>(.*?)<\/a>/isU';
+        //$search = '/<a(.*?)href=\"([^<]+)\.(mpe?g)\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.(mpe?g)\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0*/$replace = '<p class="mediaplugin"><object width="240" height="180">';
         $replace .= '<param name="src" value="\\2.\\3">';
         $replace .= '<param name="controller" value="true">';
@@ -165,7 +173,9 @@ class parse4mmedia extends object {
      */
     function parseAvi($str)
     {
-        $search = '/<a(.*?)href=\"([^<]+)\.avi\"([^>]*)>(.*?)<\/a>/isU';
+        //$search = '/<a(.*?)href=\"([^<]+)\.avi\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.avi\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0*/$replace = '<p class="mediaplugin"><object width="240" height="180">';
         $replace .= '<param name="src" value="\\2.avi" />';
         $replace .= '<param name="controller" value="1" />';
@@ -190,7 +200,10 @@ class parse4mmedia extends object {
         // Get the configuration object for site root
         $objConfig = $this->getObject('altconfig', 'config');
         $player = $objConfig->getsiteRoot() . "core_modules/filters/resources/mp3player.swf?src=";
-        $search = '/<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*?)<\/a>/isU';
+        
+        //$search = '/<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*?)<\/a>/isU';
+        $search = '/\[EMBED\]\s*<a(.*?)href=\"([^<]+)\.mp3\"([^>]*)>(.*)<\/a>\s*\[\/EMBED\]/isU';
+        
         /*\\0&nbsp;\n\n*/$replace = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"";
         
         $replace = ' <applet code="javazoom.jlGui.TinyPlayer" archive="tinyplayer.jar,jl020.jar"
