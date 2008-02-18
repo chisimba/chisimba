@@ -94,7 +94,7 @@ class parse4flickr extends object
 
                 case "feed":
                     $this->objRss = $this->getObject('rssreader', 'feed');
-                    $replacement = "<div class=\"feedhoppe\" id=\"feedhopper" . $counter . "\">" . $this->getFeed() . "</div>";
+                    $replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->getFeed() . "</div>";
                     break;
 
                 default:
