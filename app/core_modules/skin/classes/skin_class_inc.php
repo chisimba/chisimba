@@ -114,6 +114,10 @@ class skin extends object
         $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
         //loop through the folders and build an array of available skins
         $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
+        
+        // Get Current Working Directory
+        $currentDir = getcwd();
+        
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
@@ -135,6 +139,9 @@ class skin extends object
             }
         }
         closedir($dh);
+        
+        // Return to Current Working Directory
+        chdir($currentDir);
 
         // Sort Alphabetically
 
