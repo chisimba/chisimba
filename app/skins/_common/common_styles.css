@@ -2389,3 +2389,91 @@ table.eventslist td { border: 1px solid #000; padding: 4px;}
     background: #000;
     color: #fff;
 }
+
+
+
+
+#stepmenu {
+    display: block;
+}
+#stepmenu li{
+    height:71px;
+    list-style:none;
+    float:left;
+    background-color:#EBEBEB;
+    background-image: url(stepmenu/navBtn.gif);
+    background-repeat: no-repeat;
+    background-position: right top;
+    margin: 0;
+    line-height: 110%;
+}
+
+#stepmenu li.current{
+    background-color:#C36615;
+    background-image: url(stepmenu/navCurrentBtn.gif);
+}
+
+#stepmenu li.lastdone{
+    background-color:#7C8437;
+    background-image: url(stepmenu/navLastDoneBtn.gif);
+}
+
+#stepmenu li.done{
+    background-color:#7C8437;
+    background-image: url(stepmenu/navDoneBtn.gif);
+}
+
+#stepmenu li a, #stepmenu li a:link, #stepmenu li a:visited, #stepmenu li a:hover, #stepmenu li a:active {
+color:#ccc;
+}
+
+#stepmenu li.lastdone a, #stepmenu li.lastdone a:link, #stepmenu li.lastdone a:visited, #stepmenu li.lastdone a:hover, #stepmenu li.lastdone a:active, #stepmenu li.current a, #stepmenu li.current a:link, #stepmenu li.current a:visited, #stepmenu li.current a:hover, #stepmenu li.current a:active, #stepmenu li.done a, #stepmenu li.done a:link, #stepmenu li.done a:visited, #stepmenu li.done a:hover, #stepmenu li.done a:active {
+color:#fff;
+}
+
+#stepmenu li.done a:hover, #stepmenu li.lastdone a:hover  {
+color:#FFFF99;
+cursor:hand;
+}
+
+#stepmenu li a em{
+width:150px;
+display:block;
+margin:6px 0 0 10px;
+font-style:normal;
+font-weight:bold;
+}
+
+#stepmenu li a span{
+width:140px;
+display:block;
+margin-left:10px;
+font-weight:normal;
+}
+
+#stepmenu li.mainNavNoBg{
+background-image:none;
+}
+
+#stepmenu li a{
+height:71px;
+display:block;
+}
+
+/* #stepmenu.fiveStep */
+#stepmenu.stepmenu5 li{width:182px;}
+#stepmenu.stepmenu5 li a{width:182px;}
+
+/* #stepmenu.fourStep */
+#stepmenu.stepmenu4 li{width:227px;}
+#stepmenu.stepmenu4 li.mainNavNoBg{width:229px;}
+#stepmenu.stepmenu4 li a{width:227px;}
+
+/* #stepmenu.threeStep */
+#stepmenu.stepmenu3 li{width:303px;}
+#stepmenu.stepmenu3 li.mainNavNoBg{width:304px;}
+#stepmenu.stepmenu3 li a{width:303px;}
+
+/* #stepmenu.twoStep */
+#stepmenu.stepmenu2 li{width:455px;}
+#stepmenu.stepmenu2 li a{width:455px;}
