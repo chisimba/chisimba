@@ -163,7 +163,7 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-		require_once($this->getResourcePath('fckeditor_2.4.2/fckeditor.php', 'htmlelements'));
+		require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
         
         $objConfig =  $this->newObject('altconfig', 'config');
 
@@ -177,7 +177,7 @@ class htmlarea extends object
 			$sBasePath .= '/';
 		}
 		
-		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.4.2/';
+		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
         
 
         $oFCKeditor = new FCKeditor($this->name) ;
@@ -197,8 +197,8 @@ class htmlarea extends object
         
         $oFCKeditor->SiteRoot = $siteRootPath;
         
-        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/silver/' ;     
-        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'kngconfig.js'  ;
+        $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/' ;     
+        $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'chisimba_config.js'  ;
         
         if ($this->context) {
             $oFCKeditor->Context = 'Yes';
