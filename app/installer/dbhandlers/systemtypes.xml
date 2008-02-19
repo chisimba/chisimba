@@ -31,7 +31,6 @@
             <module>htmlelements</module>
             <module>language</module>
             <module>logger</module>
-            <module>lucene</module>
             <module>navigation</module>
             <module>postlogin</module>
             <module>prelogin</module>
