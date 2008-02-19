@@ -382,18 +382,18 @@ class modulecatalogue extends controller
 						$this->firstRegister($sysType);
 						log_debug('First time registration complete');
 						//the config object
-						$this->objConfig = $this->getObject('altconfig','config');
+						//$this->objConfig = $this->getObject('altconfig','config');
 						//the lucene document object
-						$this->doc = $this->getObject('doc', 'lucene');
+						//$this->doc = $this->getObject('doc', 'lucene');
 						//lucene indexing object
-						$this->index = $this->getObject('indexer','lucene');
-						log_debug('Creating the initial Lucene index');
+						//$this->index = $this->getObject('indexer','lucene');
+						//log_debug('Creating the initial Lucene index');
 						//set the path to index
-						$this->index->indexPath = $this->objConfig->getcontentBasePath();
-						$this->indexPath = $this->index->indexPath;
+						//$this->index->indexPath = $this->objConfig->getcontentBasePath();
+						//$this->indexPath = $this->index->indexPath;
 						//do the indexing - note this indexes an ENTIRE tree, not a single doc
-						$this->index->doIndex($this->doc);
-						log_debug('done creating Lucene index');
+						//$this->index->doIndex($this->doc);
+						//log_debug('done creating Lucene index');
 
 
 					} else {
