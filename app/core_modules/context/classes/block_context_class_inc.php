@@ -100,7 +100,7 @@ class block_context extends object
             
         } else {
             $form = new form('joincontext', $this->uri(array('action'=>'joincontext'), 'context'));
-            $dropdown = new dropdown ('contextCode');
+            $dropdown = new dropdown ('contextcode');
             foreach ($courses AS $course)
             {
                 $dropdown->addOption($course['contextcode'], $course['menutext']);
