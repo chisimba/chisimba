@@ -11,70 +11,205 @@ if (!$GLOBALS['kewl_entry_point_run']) {
 * KEWL_POSTLOGIN_MODULE from 'postlogin' to the name of any other
 * module.
 *
-* @author Derek Keats
+* @author Derek Keats, Tohir Solomons
 */
 class postlogin extends controller
 {
-    var $objButtons;
-    var $objUser;
-    var $objLanguage;
-    var $objConfig;
-    var $objStories;
-    var $objLayers;
-    var $objDBContext;
-    var $objContext;
-    var $layerClass;
-    var $objModule;
-    var $objForm;
 
     /**
     * init method to instantiate the class
     */
     function init()
     {
-        // Create an instance of the user object
-        $this->objUser = $this->getObject('user', 'security');
         // Create an instance of the module object
         $this->objModule = $this->getObject('modules', 'modulecatalogue');
-        // Create an instance of the buttons object
-        $this->objButtons = $this->getObject('navbuttons', 'navigation');
-        // Create an instance of the language object
-        $this->objLanguage = $this->getObject('language', 'language');
-        // Create the configuration object
-        $this->objConfig = $this->getObject('config', 'config');
-        // Create an instance of the skin object
-        $this->objSkin = $this->getObject('skin', 'skin');
+        
+        $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
+        $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+        
+        $this->contextCode = 'root';
+    }
+    
+    /**
+    * Standard Dispatch Function for Controller
+    *
+    * @access public
+    * @param string $action Action being run
+    * @return string Filename of template to be displayed
+    */
+    public function dispatch($action)
+    {
+        // Method to set the layout template for the given action
+        $this->setLayoutTemplate('contextlayout_tpl.php');
+        
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery/jquery.livequery.js', 'htmlelements'));
 
-        $this->ContextAdminUtils =  $this->getObject('contextadminutils', 'contextadmin');
-
-        if ($this->objModule->checkIfRegistered('', 'stories')) {
-            // Create an instance of the stories class
-            $this->objStories = $this->getObject('sitestories', 'stories');
+        /*
+        * Convert the action into a method (alternative to
+        * using case selections)
+        */
+        $method = $this->getMethod($action);
+        /*
+        * Return the template determined by the method resulting
+        * from action
+        */
+        return $this->$method();
+    }
+    
+    /**
+    *
+    * Method to convert the action parameter into the name of
+    * a method of this class.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return string the name of the method
+    *
+    */
+    protected function getMethod(& $action)
+    {
+        if ($this->validAction($action)) {
+            return '__'.$action;
+        } else {
+            return '__home';
         }
-        if ($this->objModule->checkIfRegistered('', 'context')) {
-            // Create an instance of the dbcontext object
-            $this->objDBContext = $this->getObject('dbcontext', 'context');
-            // Create a Context Object
-            //$this->objContext= & $this->getObject('contextutil','context');
-        }
+    }
 
-        $this->loadClass('tabbedbox', 'htmlelements');
-        $this->loadClass('dropdown', 'htmlelements');
-        $this->loadClass('form', 'htmlelements');
-        $this->loadClass('button', 'htmlelements');
-        // Create a Form object
-        $this->Form = $this->newObject('form', 'htmlelements');
+    /**
+    *
+    * Method to check if a given action is a valid method
+    * of this class preceded by double underscore (__). If it __action
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return boolean TRUE|FALSE
+    *
+    */
+    protected function validAction(& $action)
+    {
+        if (method_exists($this, '__'.$action)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     /**
     * Dispatch method to return the template populated with
     * the output
     */
-    function dispatch()
+    protected function __home()
     {
-        if ($this->getParam('action') == 'leavecontext')
-            $this->objDBContext->leaveContext();
+        $leftBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'left');
+        $this->setVarByRef('leftBlocksStr', $leftBlocks);
+        
+        $rightBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'right');
+        $this->setVarByRef('rightBlocksStr', $rightBlocks);
+        
+        $middleBlocks = $this->objContextBlocks->getContextBlocks($this->contextCode, 'middle');
+        $this->setVarByRef('middleBlocksStr', $middleBlocks);
+        
+        $smallDynamicBlocks = $this->objDynamicBlocks->getSmallSiteBlocks();
+        $this->setVarByRef('smallDynamicBlocks', $smallDynamicBlocks);
+        
+        $wideDynamicBlocks = $this->objDynamicBlocks->getWideSiteBlocks();
+        $this->setVarByRef('wideDynamicBlocks', $wideDynamicBlocks);
+        
+        $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
+        $smallBlocks = $objBlocks->getBlocks('normal', 'site|user');
+        $this->setVarByRef('smallBlocks', $smallBlocks);
+        
+        $wideBlocks = $objBlocks->getBlocks('wide', 'site|user');
+        $this->setVarByRef('wideBlocks', $wideBlocks);
+        
         return 'main_tpl.php';
+    }
+    
+    /**
+     * Method to render a block
+     */
+    protected function __renderblock()
+    {
+        $blockId = $this->getParam('blockid');
+        $side = $this->getParam('side');
+        
+        $block = explode('|', $blockId);
+        
+        
+        $blockId = $side.'___'.str_replace('|', '___', $blockId);
+        
+        if ($block[0] == 'block') {
+            $objBlocks = $this->getObject('blocks', 'blocks');
+            echo '<div id="'.$blockId.'" class="block">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
+        } if ($block[0] == 'dynamicblock') {
+            echo '<div id="'.$blockId.'" class="block">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
+        } else {
+            echo '';
+        }
+    }
+    
+    /**
+     * Method to add a block
+     */
+    protected function __addblock()
+    {
+        $blockId = $this->getParam('blockid');
+        $side = $this->getParam('side');
+        
+        $block = explode('|', $blockId);
+        
+        if ($block[0] == 'block' || $block[0] == 'dynamicblock') {
+            // Add Block
+            $result = $this->objContextBlocks->addBlock($blockId, $side, $this->contextCode, $block[2]);
+            
+            if ($result == FALSE) {
+                echo '';
+            } else {
+                echo $result;
+            }
+        } else {
+            echo '';
+        }
+    }
+    
+    /**
+     * Method to remove a context block
+     */
+    protected function __removeblock()
+    {
+        $blockId = $this->getParam('blockid');
+        
+        
+        $result = $this->objContextBlocks->removeBlock($blockId);
+        
+        if ($result) {
+            echo 'ok';
+        } else {
+            echo 'notok';
+        }
+    }
+    
+    /**
+     * Method to move a context block
+     */
+    protected function __moveblock()
+    {
+        $blockId = $this->getParam('blockid');
+        $direction = $this->getParam('direction');
+        
+        if ($direction == 'up') {
+            $result = $this->objContextBlocks->moveBlockUp($blockId, $this->contextCode);
+        } else {
+            $result = $this->objContextBlocks->moveBlockDown($blockId, $this->contextCode);
+        }
+        
+        if ($result) {
+            echo 'ok';
+        } else {
+            echo 'notok';
+        }
     }
 }
 ?>
