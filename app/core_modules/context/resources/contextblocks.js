@@ -21,26 +21,22 @@
             '<a class="deleteblock" href="javascript:;">'+deleteIcon+'</a> </div>');
         
         if (inEditMode) {
+            jQuery("#leftaddblock").show();
             jQuery("#rightaddblock").show();
             jQuery("#middleaddblock").show();
             jQuery(".blockoptions").show();
         } else {
+            jQuery("#leftaddblock").hide();
             jQuery("#rightaddblock").hide();
             jQuery("#middleaddblock").hide();
             jQuery(".blockoptions").hide();
         }
         
         
+        setUpSide('left');
         setUpSide('right');
+        setUpSide('middle');
         
-        
-        jQuery("#ddmiddleblocks").bind('change', function() {
-            getPreview(jQuery("#ddmiddleblocks").attr('value'), 'middle');
-        });
-        jQuery("#middlebutton").hide();
-        jQuery("#middlebutton").bind('click', function() {
-            addBlock(middleBlock, 'middle')
-        });
         
         
         
@@ -64,21 +60,6 @@
         
         
         
-        
-        jQuery("#middleblocks > :first-child").livequery(function() {
-            jQuery('#middleblocks .moveup').show();
-            jQuery('#middleblocks .movedown').show();
-            jQuery("#middleblocks > :first-child a.moveup").hide();
-            jQuery("#middleblocks > :last-child a.movedown").hide();
-        });
-        
-        jQuery("#middleblocks > :last-child").livequery(function() {
-            jQuery('#middleblocks .moveup').show();
-            jQuery('#middleblocks .movedown').show();
-            jQuery("#middleblocks > :last-child a.movedown").hide();
-            jQuery("#middleblocks > :first-child a.moveup").hide();
-        });
-        
         adjustLayout();
         
         
@@ -87,7 +68,7 @@
     function setUpSide(side)
     {
         jQuery("#dd"+side+"blocks").bind('change', function() {
-            getPreview(jQuery("#dd"+side+"blocks").attr('value'), 'right');
+            getPreview(jQuery("#dd"+side+"blocks").attr('value'), side);
         });
         
         jQuery("#"+side+"button").hide();
@@ -116,7 +97,7 @@
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
-            data: "module=context&action=moveblock&blockid="+blockId+'&direction='+direction,
+            data: "module="+theModule+"&action=moveblock&blockid="+blockId+'&direction='+direction,
             success: function(msg){
             
                 if (msg == 'ok') {
@@ -144,7 +125,7 @@
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
-            data: "module=context&action=removeblock&blockid="+blockId,
+            data: "module="+theModule+"&action=removeblock&blockid="+blockId,
             success: function(msg){
             
                 if (msg == 'ok') {
@@ -164,7 +145,7 @@
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
-            data: "module=context&action=addblock&blockid="+blockid+"&side="+side, 
+            data: "module="+theModule+"&action=addblock&blockid="+blockid+"&side="+side, 
             success: function(msg){
             
                 if (msg == '') {
@@ -204,14 +185,16 @@
             jQuery.ajax({
                 type: "GET", 
                 url: "index.php", 
-                data: "module=context&action=renderblock&blockid="+blockid+"&side="+side, 
+                data: "module="+theModule+"&action=renderblock&blockid="+blockid+"&side="+side, 
                 success: function(msg){
                 
                     jQuery("#"+side+"previewcontent").show();
                     jQuery("#"+side+"previewcontent").html(msg);
                     
+                    if (side == 'left') {leftBlock = blockid; }
                     if (side == 'right') {rightBlock = blockid; }
                     if (side == 'middle') {middleBlock = blockid; }
+                    
                     
                     if (msg != "") {
                         jQuery("#"+side+"button").show();
@@ -227,6 +210,7 @@
     function switchEditMode()
     {
         if (inEditMode) {
+            jQuery("#leftaddblock").hide();
             jQuery("#rightaddblock").hide();
             jQuery("#middleaddblock").hide();
             jQuery("#editmodeswitchbutton").attr('value', turnEditingOn);
@@ -234,6 +218,7 @@
             
             inEditMode = false;
         } else {
+            jQuery("#leftaddblock").show();
             jQuery("#rightaddblock").show();
             jQuery("#middleaddblock").show();
             jQuery("#editmodeswitchbutton").attr('value', turnEditingOff);
