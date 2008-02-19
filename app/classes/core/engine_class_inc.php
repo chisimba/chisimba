@@ -383,7 +383,6 @@ class engine
 	'htmlelements',
 	'language',
 	'logger',
-	'lucene',
 	'mail',
 	'modulecatalogue',
 	'navigation',
