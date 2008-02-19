@@ -2477,3 +2477,8 @@ display:block;
 /* #stepmenu.twoStep */
 #stepmenu.stepmenu2 li{width:455px;}
 #stepmenu.stepmenu2 li a{width:455px;}
+
+
+/* Styles needed for managing blocks in context and postlogin*/
+.blockoptions { text-align: right; }
+#editmode {padding: 20px; text-align:center; }
