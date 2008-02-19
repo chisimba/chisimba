@@ -345,7 +345,7 @@ class dynamicblocks extends dbTable
      * Method to get a of all wide site blocks
      * @return array List of Blocks
      */
-    public function getWideSiteBlocks($contextCode)
+    public function getWideSiteBlocks()
     {
         return $this->getBlocks('site', NULL, 'wide');
     }
@@ -372,7 +372,7 @@ class dynamicblocks extends dbTable
      * Method to get a of all wide admin blocks
      * @return array List of Blocks
      */
-    public function getWideAdminBlocks($contextCode)
+    public function getWideAdminBlocks()
     {
         return $this->getBlocks('admin', NULL, 'wide');
     }
