@@ -189,7 +189,7 @@ class InstallDirectoryAction extends StepAction
 				//$this->errors[] = 'Could not find the directory specified '.$module_path.' but created it for you';
 			}
 			else {
-				$this->errors[] = 'Could not find the directory specified '.$module_path.'. The installer is unable to create this directory, as it does not have sufficient permissions. Please create it manually.';
+				$this->errors[] = 'Could not find the directory specified '.$module_path.'. The installer is unable to create this directory, as it does not have sufficient permissions. Please check that '.$sys_root.' is writeable.';
 			}
 
 			$this->success = false;
