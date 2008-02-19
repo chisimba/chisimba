@@ -104,6 +104,8 @@ class dbmoduleblocks extends dbTable
      * @param  string $type (optional) The type of blocks to be
      *          searched for (site, context, workgroup, etc) 
      *          leaving this out returns all blocks
+     *          Another option is to separate by pipe.
+     *          E.g. site|user - This will return all site and user blocks
      * @return array An array of all the blocks
      * @access public
      */
@@ -116,7 +118,19 @@ class dbmoduleblocks extends dbTable
         }
         
         if ($type != NULL) {
-            $filter[] = "blocktype = '$type'";
+            $type = explode('|', $type);
+            
+            $typeFilter = '(';
+            $divider = '';
+            foreach ($type as $param)
+            {
+                $typeFilter .= $divider." blocktype = '{$param}'";
+                $divider = ' OR ';
+            }
+            
+            $typeFilter .= ')';
+            
+            $filter[] = $typeFilter;
         }
         
         $filterStr = '';
@@ -131,7 +145,6 @@ class dbmoduleblocks extends dbTable
                 $divider = ' AND ';
             }
         }
-        
         
         return $this->getAll($filterStr);
     }
