@@ -165,6 +165,7 @@ class fileicons extends object
             case 'rpm' : $imagename = 'rpm'; break;
             case 'rss' : $imagename = 'rss'; break;
             case 'rtf' : $imagename = 'rtf'; break;
+            case 'sharedfolder' : $imagename = 'sharedfolder'; break;
             case 'shockwave' : $imagename = 'shockwave'; break; // check right extension
             case 'swf' : $imagename = 'swf'; break;
             case 'sxc' : $imagename = 'oo-calc'; break;
