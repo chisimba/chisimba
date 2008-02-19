@@ -54,7 +54,7 @@ class displaylicense extends object
      *
      * @var string
      */
-    public $icontype = 'big'; // or big
+    public $icontype = 'big'; // or small
     
     /**
     * @var string $license
