@@ -26,6 +26,7 @@ class postlogin extends controller
         
         $this->objContextBlocks = $this->getObject('dbcontextblocks', 'context');
         $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+        $this->objUser = $this->getObject('user', 'security');
         
         $this->contextCode = 'root';
     }
@@ -132,21 +133,23 @@ class postlogin extends controller
      */
     protected function __renderblock()
     {
-        $blockId = $this->getParam('blockid');
-        $side = $this->getParam('side');
-        
-        $block = explode('|', $blockId);
-        
-        
-        $blockId = $side.'___'.str_replace('|', '___', $blockId);
-        
-        if ($block[0] == 'block') {
-            $objBlocks = $this->getObject('blocks', 'blocks');
-            echo '<div id="'.$blockId.'" class="block">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
-        } if ($block[0] == 'dynamicblock') {
-            echo '<div id="'.$blockId.'" class="block">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
-        } else {
-            echo '';
+        if ($this->objUser->isAdmin()) {
+            $blockId = $this->getParam('blockid');
+            $side = $this->getParam('side');
+            
+            $block = explode('|', $blockId);
+            
+            
+            $blockId = $side.'___'.str_replace('|', '___', $blockId);
+            
+            if ($block[0] == 'block') {
+                $objBlocks = $this->getObject('blocks', 'blocks');
+                echo '<div id="'.$blockId.'" class="block">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
+            } if ($block[0] == 'dynamicblock') {
+                echo '<div id="'.$blockId.'" class="block">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
+            } else {
+                echo '';
+            }
         }
     }
     
@@ -155,22 +158,24 @@ class postlogin extends controller
      */
     protected function __addblock()
     {
-        $blockId = $this->getParam('blockid');
-        $side = $this->getParam('side');
-        
-        $block = explode('|', $blockId);
-        
-        if ($block[0] == 'block' || $block[0] == 'dynamicblock') {
-            // Add Block
-            $result = $this->objContextBlocks->addBlock($blockId, $side, $this->contextCode, $block[2]);
+        if ($this->objUser->isAdmin()) {
+            $blockId = $this->getParam('blockid');
+            $side = $this->getParam('side');
             
-            if ($result == FALSE) {
-                echo '';
+            $block = explode('|', $blockId);
+            
+            if ($block[0] == 'block' || $block[0] == 'dynamicblock') {
+                // Add Block
+                $result = $this->objContextBlocks->addBlock($blockId, $side, $this->contextCode, $block[2]);
+                
+                if ($result == FALSE) {
+                    echo '';
+                } else {
+                    echo $result;
+                }
             } else {
-                echo $result;
+                echo '';
             }
-        } else {
-            echo '';
         }
     }
     
@@ -179,15 +184,16 @@ class postlogin extends controller
      */
     protected function __removeblock()
     {
-        $blockId = $this->getParam('blockid');
-        
-        
-        $result = $this->objContextBlocks->removeBlock($blockId);
-        
-        if ($result) {
-            echo 'ok';
-        } else {
-            echo 'notok';
+        if ($this->objUser->isAdmin()) {
+            $blockId = $this->getParam('blockid');
+            
+            $result = $this->objContextBlocks->removeBlock($blockId);
+            
+            if ($result) {
+                echo 'ok';
+            } else {
+                echo 'notok';
+            }
         }
     }
     
@@ -196,19 +202,21 @@ class postlogin extends controller
      */
     protected function __moveblock()
     {
-        $blockId = $this->getParam('blockid');
-        $direction = $this->getParam('direction');
-        
-        if ($direction == 'up') {
-            $result = $this->objContextBlocks->moveBlockUp($blockId, $this->contextCode);
-        } else {
-            $result = $this->objContextBlocks->moveBlockDown($blockId, $this->contextCode);
-        }
-        
-        if ($result) {
-            echo 'ok';
-        } else {
-            echo 'notok';
+        if ($this->objUser->isAdmin()) {
+            $blockId = $this->getParam('blockid');
+            $direction = $this->getParam('direction');
+            
+            if ($direction == 'up') {
+                $result = $this->objContextBlocks->moveBlockUp($blockId, $this->contextCode);
+            } else {
+                $result = $this->objContextBlocks->moveBlockDown($blockId, $this->contextCode);
+            }
+            
+            if ($result) {
+                echo 'ok';
+            } else {
+                echo 'notok';
+            }
         }
     }
 }
