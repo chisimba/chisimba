@@ -2437,7 +2437,7 @@ cursor:hand;
 }
 
 #stepmenu li a em{
-width:150px;
+
 display:block;
 margin:6px 0 0 10px;
 font-style:normal;
@@ -2445,7 +2445,7 @@ font-weight:bold;
 }
 
 #stepmenu li a span{
-width:140px;
+
 display:block;
 margin-left:10px;
 font-weight:normal;
@@ -2482,3 +2482,74 @@ display:block;
 /* Styles needed for managing blocks in context and postlogin*/
 .blockoptions { text-align: right; }
 #editmode {padding: 20px; text-align:center; }
+
+/* Styles for an alert box */
+#facebox .b {
+  background:url(alertbox/b.png);
+}
+
+#facebox .tl {
+  background:url(alertbox/tl.png);
+}
+
+#facebox .tr {
+  background:url(alertbox/tr.png);
+}
+
+#facebox .bl {
+  background:url(alertbox/bl.png);
+}
+
+#facebox .br {
+  background:url(alertbox/br.png);
+}
+
+#facebox {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left;
+}
+
+#facebox .popup {
+  position: relative;
+}
+
+#facebox table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+#facebox .body {
+  padding: 10px;
+  background: #fff;
+  width: 600px;
+}
+
+#facebox .loading {
+  text-align: center;
+}
+
+#facebox .image {
+  text-align: center;
+}
+
+#facebox img {
+  border: 0;
+}
+
+#facebox .footer {
+  border-top: 1px solid #DDDDDD;
+  padding-top: 5px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+#facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+  padding: 0;
+}
