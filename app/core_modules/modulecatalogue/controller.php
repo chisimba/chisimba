@@ -427,7 +427,6 @@ class modulecatalogue extends controller
 					$patchver = $this->getParam('patchver');
 					$modname = $this->getParam('mod');
 					$ins = $this->getPatchObject($modname);
-					$ins = $this->getPatchObject($mod);
 					if(method_exists($ins, 'preinstall'))
 					{
 						$ins->preinstall();
@@ -439,7 +438,7 @@ class modulecatalogue extends controller
 						$this->setVar('output',$this->output);
 					}
 					// postinstall
-					$ins = $this->getPatchObject($mod);
+					$ins = $this->getPatchObject($modname);
 					if(method_exists($ins, 'postinstall'))
 					{
 						$ins->postinstall();
