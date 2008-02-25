@@ -1,0 +1,22 @@
+# Sample Rewrite Engine for Chisimba
+
+# Turn Rewrite Engine On 
+RewriteEngine on
+
+# Go to the Blog module
+RewriteRule ^blog$ index.php?module=blog [T=application/x-httpd-php]
+# Go to the Blog module - This like the above but caters for trailing slash
+RewriteRule ^blog/$ index.php?module=blog [T=application/x-httpd-php]
+
+# View by User
+RewriteRule ^blog/user/([^.]+)$ index.php?module=blog&action=randblog&userid=$1 [T=application/x-httpd-php]
+# View by User - This like the above but caters for trailing slash
+RewriteRule ^blog/user/([^.]+)/$ index.php?module=blog&action=randblog&userid=$1 [T=application/x-httpd-php]
+
+# Blog Posts
+RewriteRule ^blog/user/([^.]+)/post/([^.]+)$ index.php?module=blog&action=viewsingle&userid=$1&postid=$2 [T=application/x-httpd-php]
+# Blog Posts - This like the above but caters for trailing slash
+RewriteRule ^blog/user/([^.]+)/post/([^.]+)/$ index.php?module=blog&action=viewsingle&userid=$1&postid=$2 [T=application/x-httpd-php]
+
+
+
