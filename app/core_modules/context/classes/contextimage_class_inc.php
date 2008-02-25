@@ -121,6 +121,22 @@ class contextimage extends object
             }
         }
     }
+    
+    /**
+     * Method to remove an existing context image
+     * @param string $contextCode Context Code
+     * @return boolean Whether the image has been successfully removed or not
+     */
+    public function removeContextImage($contextCode)
+    {
+        $destination = $this->objConfig->getcontentPath().'/contextimage/'.$contextCode.'.jpg';
+        
+        if (file_exists($destination)) {
+            return unlink($destination);
+        } else {
+            return TRUE;
+        }
+    }
    
     /**
     * Method to check that the user folder for uploads, and subfolders exist
