@@ -161,10 +161,15 @@ class dbmoduleblocks extends dbTable
      */
     public function addBlock($moduleid,$blockName,$width, $type='site')
     {
+    	$arrData = array('moduleid'=>$moduleid, 'blockname'=>$blockName, 'blockwidth'=>$width, 'blocktype'=>$type);
         $exists = $this->getAll(" WHERE moduleid = '$moduleid' AND blockname = '$blockName' AND blockwidth = '$width'");
         if (count($exists) < 1) {
-            $arrData = array('moduleid'=>$moduleid, 'blockname'=>$blockName, 'blockwidth'=>$width, 'blocktype'=>$type);
+            
             $this->insert($arrData);
+        }
+        else {
+        	$rec = $this->getAll("WHERE blockname = '$blockName'");
+        	$this->update('id', $rec[0]['id'], $arrData);
         }
     }
 

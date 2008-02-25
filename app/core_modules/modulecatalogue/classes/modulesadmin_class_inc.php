@@ -275,8 +275,9 @@ class modulesadmin extends dbTableManager
                         if (!isset($blockInfo[1])) {
                             $blockInfo[1] = 'site';
                         }
+                        //var_dump($blockInfo); die();
                         
-                        $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0], 'normal', $blockInfo[1]);
+                       $this->objModuleBlocks->addBlock($moduleId, $blockInfo[0], 'normal', $blockInfo[1]);
                     }
                 }
                 if(isset($registerdata['WIDEBLOCK'])) {
