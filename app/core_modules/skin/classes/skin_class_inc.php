@@ -246,13 +246,15 @@ class skin extends object
     */
     public function putSkinCssLinks($theme="stylesheet")
     {
+        $skinRoot = $this->objConfig->getsiteRoot().$this->skinRoot;
+        
         $stylesheet = '
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/common_styles.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/print.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/forms-extra.css" media="print" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.$this->getSkin().'/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
 				';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '
