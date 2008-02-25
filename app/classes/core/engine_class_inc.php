@@ -889,6 +889,33 @@ class engine
 		$this->_pageTemplate = $templateName;
 	}
 
+	
+	public function getPatchObject($name, $moduleName = '')
+	{
+		$engine = $this;
+		$objname = $name."_installscripts";
+		$filename = $this->_objConfig->getModulePath().$name."/patches/installscripts_class_inc.php";
+		if(file_exists($filename))
+		{
+			require_once($filename);
+			if (is_subclass_of($objname, 'object')) {
+				// Class inherits from class 'object', so pass it the expected parameters
+				$objNew = new $objname($this, $objname);
+			}
+			else {
+				// Class does not inherit from class 'object', so don't pass it any parameters
+				$objNew = new $objname();
+			}
+			if (is_null($objNew)) {
+				throw new customException("Could not instantiate patch class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
+			}
+			return $objNew;
+		}
+		else {
+			return NULL;
+		}
+	}
+	
 	/**
      * Method to load a class definition from the given module.
      * Used when you wish to instantiate objects of the class yourself.
@@ -970,7 +997,7 @@ class engine
 			{
 				if(extension_loaded("xdebug"))
 				{
-					var_dump(xdebug_get_function_stack());
+					//var_dump(xdebug_get_function_stack());
 					throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 				}
 				else {
@@ -1112,6 +1139,8 @@ class engine
 		}
 		return $instance;
 	}
+	
+	
 
 	/**
     * Method to return a template variable. These are used to pass

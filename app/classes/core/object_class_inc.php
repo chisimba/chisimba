@@ -313,6 +313,13 @@ class object
         return $this->objEngine->getObject($name, $moduleName);
     }
 
+    public function getPatchObject($name, $moduleName = '')
+    {
+        /*if (empty($moduleName)) {
+            $moduleName = $this->moduleName;
+        }*/
+        return $this->objEngine->getPatchObject($name, $moduleName);
+    }
     /**
      * Method to generate a URI to a static resource stored in a module.
      * The resource should be stored within the 'resources' subdirectory of

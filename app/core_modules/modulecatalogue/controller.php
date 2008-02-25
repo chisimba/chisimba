@@ -281,30 +281,12 @@ class modulecatalogue extends controller
 					$srchStr = $this->getParam('srchstr');
 					$lastAction = $this->getParam('lastaction');
 					$srchType = $this->getParam('srchtype');
-					// check for a patch directory for pre/postinstall scripts
-					if(file_exists($this->objConfig->getModulePath().$mod.'/patches'))
+					$ins = $this->getPatchObject($mod);
+					if(method_exists($ins, 'preinstall'))
 					{
-						$patchDir = TRUE;
-						$pscriptsdir = $this->objConfig->getModulePath().$mod.'/patches/';
+						$ins->preinstall();
 					}
-					else {
-						$patchDir = FALSE;
-						$pscriptsdir = NULL;
-					}
-					// run the preinstall script(s)
-					if(file_exists($pscriptsdir.'installscripts_class_inc.php') && $patchDir === TRUE)
-					{
-						include($pscriptsdir.'installscripts_class_inc.php');
-						$mod_install = $mod."_installscripts";
-						$ins = new $mod_install;
-						if(method_exists($ins, 'preinstall'))
-						{
-							var_dump($ins->preinstall());
-						}
-					}
-					else {
-						$ins = NULL;
-					}
+					
 					$regResult = $this->installModule(trim($mod));
 					if ($regResult){
 						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));    //success
@@ -316,12 +298,9 @@ class modulecatalogue extends controller
 						}
 					}
 					// run the postinstall script(s)
-					if(isset($mod_install) && class_exists($mod_install, TRUE))
+					if(method_exists($ins, 'postinstall'))
 					{
-						if(method_exists($ins, 'postinstall'))
-						{
-							$ins->postinstall();
-						}
+						$ins->postinstall();
 					}
 					
 					$this->setSession('output',$this->output);
@@ -447,29 +426,11 @@ class modulecatalogue extends controller
 				case 'update':
 					$patchver = $this->getParam('patchver');
 					$modname = $this->getParam('mod');
-					// check for a patch directory for pre/postinstall scripts
-					if(file_exists($this->objConfig->getModulePath().$modname.'/patches'))
+					$ins = $this->getPatchObject($modname);
+					$ins = $this->getPatchObject($mod);
+					if(method_exists($ins, 'preinstall'))
 					{
-						$patchDir = TRUE;
-						$pscriptsdir = $this->objConfig->getModulePath().$modname.'/patches/';
-					}
-					else {
-						$patchDir = FALSE;
-						$pscriptsdir = NULL;
-					}
-					// preinstall script execution:
-					if(file_exists($pscriptsdir.'installscripts_class_inc.php') && $patchDir === TRUE)
-					{
-						include($pscriptsdir.'installscripts_class_inc.php');
-						$mod_install = $modname."_installscripts";
-						$ins = new $mod_install;
-						if(method_exists($ins, 'preinstall'))
-						{
-							$ins->preinstall($patchver);
-						}
-					}
-					else {
-						$ins = NULL;
+						$ins->preinstall();
 					}
 					
 					if (($this->output = $this->objPatch->applyUpdates($modname))===FALSE) {
@@ -478,13 +439,12 @@ class modulecatalogue extends controller
 						$this->setVar('output',$this->output);
 					}
 					// postinstall
-					if(isset($mod_install) && class_exists($mod_install, TRUE))
+					$ins = $this->getPatchObject($mod);
+					if(method_exists($ins, 'postinstall'))
 					{
-						if(method_exists($ins, 'postinstall'))
-						{
-							$ins->postinstall($patchver);
-						}
+						$ins->postinstall();
 					}
+					
 					$this->setVar('patchArray',$this->objPatch->checkModules());
 					return 'updates_tpl.php';
 
