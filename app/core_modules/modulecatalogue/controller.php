@@ -274,9 +274,14 @@ class modulecatalogue extends controller
 					}
 					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
+				
 				case 'install':
 					$error = false;
 					$mod = $this->getParm('mod');
+					$srchStr = $this->getParam('srchstr');
+					$lastAction = $this->getParam('lastaction');
+					$srchType = $this->getParam('srchtype');
+					
 					$regResult = $this->installModule(trim($mod));
 					if ($regResult){
 						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));    //success
@@ -288,6 +293,10 @@ class modulecatalogue extends controller
 						}
 					}
 					$this->setSession('output',$this->output);
+					if($lastAction != NULL)
+					{
+						return $this->nextAction('search',array('cat'=>$activeCat,'lastError'=>$error, 'srchtype' => $srchType, 'srchstr' => $srchStr));
+					}
 					return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
 				case 'installwithdeps':
 					$error = false;

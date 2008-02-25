@@ -3,7 +3,9 @@ $this->loadClass('link','htmlelements');
 $this->loadClass('textinput','htmlelements');
 $this->loadClass('dropdown','htmlelements');
 $this->loadClass('checkbox','htmlelements');
-
+$srchStr = $this->getParam('srchstr', NULL);
+$srchType = $this->getParam('srchtype', NULL);
+$lastAction = $this->getParam('action');
 $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
@@ -134,7 +136,7 @@ if ($modules) {
                 $texts = $textButton->show();
                 $info = $infoButton->show();
                 if (!(in_array($moduleId,$rMods))) { //not registered
-                    $instButton = &new Link($this->uri(array('action'=>'install','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
+                    $instButton = &new Link($this->uri(array('action'=>'install','mod'=>$moduleId,'cat'=>$activeCat,'srchstr' => $srchStr, 'srchtype' => $srchType, 'lastaction' => $lastAction),'modulecatalogue'));
                     $instButton->link = $this->objLanguage->languageText('word_install');
                     $instButtonShow = $instButton->show();
                     if (!$batchuninstall) {
