@@ -63,17 +63,36 @@ class displaycontext extends object
     * @var object $objUser : The user Object
     */
     public $objUser;
- 
- 
+    
+    /**
+     * @var string $module Module to go to when editing/deleting a course
+     */
+    public $module='contextadmin';
+    
+    /**
+     * @var $noImage - Image to display when no course image is available
+     */
+    private $noImage;
+    
+    
     /**
     *Initialize by send the table name to be accessed
     */
     public function init()
     {
         $this->objContextImage = $this->getObject('contextimage');
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objUserContext = $this->getObject('usercontext');
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('htmlheading', 'htmlelements');
         $this->objLanguage = $this->getObject('language', 'language');
+        
+        $objIcon = $this->getObject('geticon', 'htmlelements');
+        $objIcon->setIcon('imagepreview');
+        
+        $this->noImage = $objIcon->show();
+        
+        
     }
     
     /**
@@ -81,35 +100,55 @@ class displaycontext extends object
      * @param array $context
      * @return string
      */
-    public function formatContextDisplayBlock($context)
+    public function formatContextDisplayBlock($context, $showEditDeleteLinks=TRUE)
     {
-        $heading = new htmlheading();
-        $heading->type = 3;
+        $canEdit = FALSE;
         
         $link = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
         $link->link = $context['title'];
         
         // Add Permissions
         
+        $objFeatureBox = $this->newObject('featurebox', 'navigation');
         
-        $heading->str = $link->show();//.' ('.($context['contextcode']).')';
         
-        $str = $heading->show();
+        
+        
+        $str = '';
         
         // Get Context Image
         $contextImage = $this->objContextImage->getContextImage($context['contextcode']);
         
         // Show if it has an image
-        if ($contextImage != FALSE) {
-            // And the about field DOES NOT have any images, objects (flash) or iframes
-            if (!preg_match('/<img|<embed|<object|<iframe/', $context['about'])) {
-                $str .= '<div style="float:left; width: 100px; text-align:center; border: 1px solid #555; padding: 10px; margin-left: 5px; margin-right: 5px;"><img src="'.$contextImage.'" /></div>';
-            }
+        if ($contextImage == FALSE) {
+            $contextImage = $this->noImage;
+        } else {
+            $contextImage = '<img src="'.$contextImage.'" />';
         }
         
-        $str .= $context['about'];
+        $contextImage = '<div style="float:left; width: 100px; text-align:center;  margin-left: 10px; margin-right: 10px;">'.$contextImage.'</div>';
         
+        $str = '';
         
+        $str .= '<p><strong>Course Code</strong>: '.$context['contextcode'].'</p>';
+        
+        //$str .= $context['about'];
+        
+        $lecturers = $this->objUserContext->getContextLecturers($context['contextcode']);
+        if (count($lecturers) > 0) {
+            $str .= '<p><strong>Lecturers</strong>: ';
+            $divider = '';
+            
+            foreach ($lecturers as $lecturer)
+            {
+                $str .= $divider.$lecturer['firstname'].' '.$lecturer['surname'];
+                $divider = ', ';
+                
+                if ($this->objUser->userId() == $lecturer['userid']) {
+                    $canEdit = TRUE;
+                }
+            }
+        }
         
         switch (strtolower($context['access']))
         {
@@ -118,10 +157,40 @@ class displaycontext extends object
             default: $access = $this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members'); break;            
         }
         
-        $str .= '<p><strong>'.ucwords($this->objLanguage->languageText('mod_context_accessettings', 'context', 'Access Settings')).'</strong>: '.$access.'</p>';
+        $str .= '<p><strong>'.ucwords($this->objLanguage->languageText('mod_context_accessettings', 'context', 'Access Settings')).'</strong>: '.$context['access'].' - '.$access.'</p>';
         //$str .= '<p><strong>Contact</strong>: '.$access.'</p>';      
         
-        return $str;
+        $content = $contextImage.'<div style="float: left;">'.$str.'</div>';
+        $content .= '<br clear="both" />';
+        
+        $title = '';
+        
+        if ($this->objUser->isAdmin()) {
+            $canEdit = TRUE;
+        }
+        
+        if ($showEditDeleteLinks && $canEdit) {
+            $objIcon = $this->newObject('geticon', 'htmlelements');
+            $objIcon->setIcon('edit');
+            
+            $editLink = new link ($this->uri(array('action'=>'edit', 'contextcode'=>$context['contextcode']), $this->module));
+            $editLink->link = $objIcon->show();
+            
+            $editOptions = ' '.$editLink->show();
+            
+            $objIcon->setIcon('delete');
+            
+            $deleteLink = new link ($this->uri(array('action'=>'delete', 'contextcode'=>$context['contextcode']), $this->module));
+            $deleteLink->link = $objIcon->show();
+            
+            $editOptions .= ' '.$deleteLink->show();
+            
+            $title = '<div style="float: right">'.$editOptions.'</div>';
+        }
+        
+        $title .= $link->show();
+        
+        return $objFeatureBox->show($title, $content);
     }
 
 }
