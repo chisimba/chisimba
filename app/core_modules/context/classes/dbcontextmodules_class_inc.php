@@ -130,7 +130,8 @@ class dbcontextmodules extends dbTable
     * @access     public
     * @deprecated
     */
-    public function deleteModulesForContext($contextCode){
+    public function deleteModulesForContext($contextCode)
+    {
         $this->delete('contextCode',$contextCode);
     }
 
