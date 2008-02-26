@@ -84,8 +84,7 @@ class usercontext extends object
      */
     public function getUserContext($userId)
     {
-       $objGroups =  $this->newObject('managegroups', 'contextgroups');
-       return $objGroups->usercontextcodes($userId);
+       return $this->objGroups->usercontextcodes($userId);
     }
     
     
@@ -109,7 +108,7 @@ class usercontext extends object
             foreach ($contextCodes as $code)
             {
                 
-                $context = $this->objContext->getContext($code);
+                $context = $this->objContext->getContextDetails($code);
                 
                 if ($context != FALSE) {
                     $arr[strtolower(trim($context['title']))] = $objDisplayContext->formatContextDisplayBlock($context);
@@ -127,12 +126,27 @@ class usercontext extends object
                 
                 foreach ($arr as $item=>$str)
                 {
-                   $returnStr .= $str.'<br />';
+                   $returnStr .= $str;
                 }
                 
                 return $returnStr;
             }
         }
+    }
+    
+    public function getContextLecturers($contextCode)
+    {
+        return $this->objGroups->contextUsers('Lecturers', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
+    }
+    
+    public function getContextStudents($contextCode)
+    {
+        return $this->objGroups->contextUsers('Students', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
+    }
+    
+    public function getContextGuests($contextCode)
+    {
+        return $this->objGroups->contextUsers('Guests', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
     }
 
 }
