@@ -86,9 +86,20 @@ class dbcontext extends dbTable
     */
     public function getContextDetails($contextCode)
     {
-       return $this->getRow('contextcode',$contextCode);
+       return $this->getContext($contextCode);
     }
     
+    /**
+    * Method to get the details for a given
+    * context
+    * @param  string    $contextCode
+    * @return array 
+    * @access public
+    */
+    public function getContext($contextCode)
+    {
+       return $this->getRow('contextcode',$contextCode);
+    }
     
     /**
     * Method to get a field from the
@@ -158,35 +169,8 @@ class dbcontext extends dbTable
             
             // If Successful
             if ($result) {
-                // Prepare to add context to search index
-                $objIndexData = $this->getObject('indexdata', 'search');
                 
-                $docId = 'context_contextcode_'.$contextCode;
-                
-                $docDate = date('Y-m-d H:M:S');
-                $url = $this->uri(array('action'=>'joincontext', 'contextcode'=>$contextCode), 'context');
-                $title = $title;
-                $contents = $title.' '.$about;
-                $teaser = $about;
-                $userId = $this->objUser->userId();
-                $module = 'context';
-                
-                // Todo - Set permissions on entering course, e.g. iscontextmember.
-                $permissions = NULL;
-                
-                if (strtolower($access) == 'private') {
-                    $permissions = 'iscontextmember';
-                }
-                
-                if (strtolower($status) == 'unpublished') {
-                    $permissions = 'iscontextlecturer';
-                }
-                
-                $extra = array('status'=>$status, 'access'=>$access, 'contextcode'=>$contextCode);
-                
-                $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra);
-                
-                
+                $this->_indexContext($contextCode);
                 
                 // Create Groups
                 $contextGroups=$this->getObject('managegroups','contextgroups');
@@ -215,7 +199,7 @@ class dbcontext extends dbTable
     */
     public function updateContext($contextCode, $title, $status, $access, $about)
     {
-        return $this->update('contextcode', $contextCode, array(
+        $result = $this->update('contextcode', $contextCode, array(
             'title' => $title,
             'menutext' => $title,
             'access' => $access,
@@ -224,9 +208,30 @@ class dbcontext extends dbTable
             'updated' => date("Y-m-d H:i:s"),
             'lastupdatedby' => $this->objUser->userId()
         ));
+    
+        if ($result) {
+            $this->_indexContext($contextCode);
+        }
+        
+        return $result;
     }
    
-   
+   /**
+    * Method to update the title of a context
+    * 
+    * @param  string $contextCode: The Context Code
+    * @param  string $about: About a Course
+    * @return boolean 
+    * @access public
+    */
+    public function updateTitle($contextCode, $about)
+    {
+        $result = $this->update('contextcode', $contextCode, array('about'=>$about));
+        
+        if ($result) {
+            $this->_indexContext($contextCode);
+        }
+    }
    
    
     /**
@@ -413,6 +418,18 @@ class dbcontext extends dbTable
             $contextGroups->deleteGroups($contextCode);
         }
         
+        // Remove from Search Results
+        $objIndexData = $this->getObject('indexdata', 'search');
+        $objIndexData->removeIndex('context_contextcode_'.$contextCode);
+        
+        // Clear List of Modules
+        $objContextModules = $this->getObject('dbcontextmodules');
+        $objContextModules->deleteModulesForContext($contextCode);
+        
+        // Remove Context Blocks
+        $objContextBlocks = $this->getObject('dbcontextblocks');
+        $objContextBlocks->removeContextBlocks($contextCode);
+        
         return $result;
     }
     
@@ -431,5 +448,54 @@ class dbcontext extends dbTable
     }
     
     
+    
+    
+    public function searchContext($search)
+    {
+        return $this->getAll(" WHERE title LIKE '%{$search}%' OR contextcode LIKE '%{$search}%' OR about LIKE '%{$search}%' ORDER BY title");
+    }
+    
+    public function getContextStartingWith($letter, $limit=10, $page=1)
+    {
+        return $this->getAll(" WHERE title LIKE '{$letter}%'  ORDER BY title");
+    }
+    
+    private function _indexContext($contextCode)
+    {
+        $context = $this->getContext($contextCode);
+        
+        if ($context != FALSE) {
+            $objIndexData = $this->getObject('indexdata', 'search');
+            
+            $docId = 'context_contextcode_'.$context['contextcode'];
+            
+            //if ($context['updated'] != NULL) {
+                //$docDate = strftime('%Y-%m-%d %H:%M:%S', $context['updated']);
+            //} else {
+                $docDate = date('Y-m-d H:M:S');
+            //}
+            $url = $this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode']), 'context');
+            $title = $context['title'];
+            $contents = $context['title'].' '.$context['about'];
+            $teaser = $context['about'];
+            $userId = $context['userid'];                
+            $module = 'context';
+            
+            // Todo - Set permissions on entering course, e.g. iscontextmember.
+            $permissions = NULL;
+            
+            if (strtolower($context['access']) == 'private') {
+                $permissions = 'iscontextmember';
+            }
+            
+            if (strtolower($context['status']) == 'unpublished') {
+                $permissions = 'iscontextlecturer';
+            }
+            
+            $extra = array('status'=>$context['status'], 'access'=>$context['access'], 'contextcode'=>$context['contextcode']);
+            
+            $objIndexData->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, NULL, NULL, 'root', NULL, $permissions, NULL, NULL, $extra);
+        }
+    }
 }
 ?>
