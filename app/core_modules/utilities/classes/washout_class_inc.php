@@ -66,7 +66,9 @@ class washout extends object
 			// save cwd
 			$savedDir = getcwd();
 			//load up all of the parsers from filters
-			$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
+			//$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
+            $filterDir = $this->objConfig->getModulePath() . "filters/classes/";
+            die($filterDir);
 			chdir($filterDir);
 			$parsers = glob("parse4*_class_inc.php");
 			// restore path
