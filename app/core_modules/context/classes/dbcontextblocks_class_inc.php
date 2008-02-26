@@ -207,6 +207,15 @@ class dbcontextblocks extends dbTable
     }
     
     /**
+     * Method to remove a block
+     * @param string $id Block Id
+     */
+    public function removeContextBlocks($contextCode)
+    {
+        return $this->delete('contextcode', $contextCode);
+    }
+    
+    /**
      * Method to move a block up
      *
      * @param string $id Block Id
