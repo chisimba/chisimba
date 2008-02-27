@@ -184,7 +184,9 @@ class language extends dbTable {
 						return "This language item is missing";
 					} else {
 						// fetch a string not translated into Italian (test fallback language)
-						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
+                        $langError = $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
+                        log_debug($langError);
+						return $langError;
 						//return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
 					}
 				}
