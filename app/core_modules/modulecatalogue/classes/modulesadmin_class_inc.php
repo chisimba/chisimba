@@ -1116,7 +1116,7 @@ class modulesadmin extends dbTableManager
                         $texts[$cdc[0]]['desc']=$cdc[1];
                     } else {
                         $module=$rdata['MODULE_ID'];
-                        $errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalgoue');
+                        $errorText = $this->objLanguage->languageText('mod_modulecatalogue_textproblem','modulecatalogue');
                         $errorText = str_replace("{MODULE}",$module,$errorText);
                         $errorText = str_replace("{CODE}",$cdc[0],$errorText);
                         $this->errorText .= $errorText;
