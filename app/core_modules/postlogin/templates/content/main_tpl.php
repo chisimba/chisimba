@@ -44,7 +44,7 @@ if ($objUser->isAdmin()) {
 
     $smallBlocksDropDown = new dropdown ('rightblocks');
     $smallBlocksDropDown->cssId = 'ddrightblocks';
-    $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
+    $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
     
     
     foreach ($smallDynamicBlocks as $smallBlock)
@@ -69,7 +69,7 @@ if ($objUser->isAdmin()) {
     
     $wideBlocksDropDown = new dropdown ('middleblocks');
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
-    $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
+    $wideBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'context', 'Select One').'...');
     
     foreach ($wideDynamicBlocks as $wideBlock)
     {
@@ -85,12 +85,12 @@ if ($objUser->isAdmin()) {
     }
     
     
-    $button = new button ('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
+    $button = new button ('addrightblock', $objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
     $button->cssId = 'rightbutton';
     
     $rightButton = $button->show();
     
-    $button = new button ('addleftblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
+    $button = new button ('addleftblock', $objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
     $button->cssId = 'leftbutton';
     
     $leftButton = $button->show();
@@ -130,7 +130,7 @@ if ($objUser->isAdmin()) {
     $objCssLayout->rightColumnContent .= '</div>';
 }
 
-$button = new button ('addmiddleblock', $objLanguage->languageText('mod_prelogin_addblock', 'prelogin', 'Add Block'));
+$button = new button ('addmiddleblock', $objLanguage->languageText('mod_prelogin_addblock', 'system', 'Add Block'));
 $button->cssId = 'middlebutton';
 
 $objCssLayout->middleColumnContent = '<div id="middleblocks">'.$middleBlocksStr.'</div>';
