@@ -178,15 +178,17 @@ class language extends dbTable {
 				if (($line!=null)&&($line!=$itemName)) {
 					return stripslashes($line);
 				} else {
+                    $langError = " Language item not found: $itemName from $modulename";
+                    log_debug($langError);
 					if ($default != false) {
 						return $default;
 					} else if ($itemName == 'error_languageitemmissing') { // test to prevent recursive loop
 						return "This language item is missing";
 					} else {
 						// fetch a string not translated into Italian (test fallback language)
-                        $langError = $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
-                        log_debug($langError);
-						return $langError;
+                        
+                        
+						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
 						//return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
 					}
 				}
