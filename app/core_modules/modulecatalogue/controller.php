@@ -343,21 +343,35 @@ class modulecatalogue extends controller
 				case 'addtext':
 					$modname = $this->getParm('mod');
 					$texts = $this->objModuleAdmin->moduleText($modname,'fix');
+                    return $this->nextAction('textelements', array('mod'=>$modname, 'cat'=>$this->getParam('cat'), 'message'=>'textadded'));
+                    
+                    /*
+                        // Redirect back to textelements action
+                     
 					$texts = $this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$modname);
 					return 'textelements_tpl.php';
+                    */
 				case 'replacetext':
 					$modname = $this->getParm('mod');
 					$texts=$this->objModuleAdmin->moduleText($modname,'replace');
+                    
+                    return $this->nextAction('textelements', array('mod'=>$modname, 'cat'=>$this->getParam('cat'), 'message'=>'textreplaced'));
+                    
+                    /*
+                        // Redirect back to textelements action
+                    
 					$texts=$this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
 					$this->setVar('moduledata',$texts);
 					$this->setVar('modname',$modname);
 					return 'textelements_tpl.php';
+                    */
+                    
 				case 'batchinstall':
 					$error = false;
 					$selectedModules=$this->getArrayParam('arrayList');
