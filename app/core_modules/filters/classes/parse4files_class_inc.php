@@ -137,6 +137,12 @@ class parse4files extends object
         } else {
             $this->userId=NULL;
         }
+        //Get directory
+        if (isset($this->objExpar->newline)) {
+            $this->newLine = $this->objExpar->newline;
+        } else {
+            $this->newLine=NULL;
+        }
 
     }
 
@@ -188,8 +194,12 @@ class parse4files extends object
             }
             $path = $siteRoot . "/usrfiles/" . "/" . $file['path'];
             $icon = $this->oIcon->getFileIcon($file['filename']);
-            $ret .= "<tr><td>" . $icon . "</td><td>&nbsp;<a href=\"" . $path . "\">" 
-              . $file['filename'] . "</a></td><td>&nbsp;&nbsp;&nbsp;" . $description . "</td></tr>";
+            $ret .= "<tr><td>" . $icon . "&nbsp;<a href=\"" . $path . "\">" 
+              . $file['filename'] . "</a></td>";
+            if ($this->newLine == "true" || $this->newLine==TRUE) {
+                $ret .= "</tr><tr>";
+            }
+            $ret .= "<td>&nbsp;&nbsp;&nbsp;" . $description . "</td></tr>";
         }
         $ret .= "</table>";
         return $ret;
