@@ -8,7 +8,7 @@ $cssLayout->setNumColumns(2);
 
 
 //Insert the left column content
-$desc = $this->objLanguage->languageText("mod_sysconfig_about",'sysconfig');
+$desc = $this->objLanguage->languageText("help_sysconfig_about",'sysconfig');
 $cssLayout->setLeftColumnContent($desc);
 unset($desc);
 
