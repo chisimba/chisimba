@@ -60,7 +60,7 @@ foreach ($modules as $module)
 $this->loadClass('htmlheading', 'htmlelements');
 $header = new htmlheading();
 $header->type = 1;
-$header->str = $this->objLanguage->languageText("mod_sysconfig_title",'sysconfig');
+$header->str = $this->objLanguage->languageText("help_sysconfig_about_title",'sysconfig');
 
 $cssLayout->setMiddleColumnContent($header->show() . "<br />" . $table->show());
 echo $cssLayout->show();

@@ -73,7 +73,7 @@ class sysconfig extends controller {
             return 'main_tpl.php';
         }
         $action = $this->getParam('action', NULL);
-        $title=$this->objLanguage->languageText("mod_sysconfig_title",'sysconfig');
+        $title=$this->objLanguage->languageText("help_sysconfig_about_title",'sysconfig');
         switch ($action) {
             case NULL:
             case 'step1':
@@ -136,7 +136,7 @@ class sysconfig extends controller {
             case 'save':
                 //Get the module for the parameter
                 $pmodule = TRIM($_POST['pmodule']);
-                
+
                 if ($pmodule=='_site_') {
                 	$this->save();
                 }
@@ -161,7 +161,7 @@ class sysconfig extends controller {
                 //Set the mode variable to edit
                 $this->setVar('mode', 'edit');
                 //Get the form
-                
+
                 $this->setVar('str', $this->objInterface->showEditAddForm($pmodule,"edit"));
                 //Return the edit template
                 return "edit_add_tpl.php";
@@ -172,13 +172,13 @@ class sysconfig extends controller {
         } #switch
 
     }
-    
+
     private function save()
     {
     	$this->objConfig =  $this->getObject('altconfig','config');
     	$result = $this->objConfig->updateParam($this->getParam('id'),'',$this->getParam('pvalue'));
     	return $result;
-    	
+
     }
 
 
