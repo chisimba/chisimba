@@ -45,6 +45,13 @@ class sysconfiginterface extends object
         //$this -> objAbstract = $this -> getObject('systext_facet', 'systext');
     }
 
+
+
+
+
+
+
+
     /**
     * Method to render an add form to a template
     *
@@ -118,7 +125,7 @@ class sysconfiginterface extends object
         $objForm->addToForm('<p><b>'. $this->objLanguage->languageText("mod_sysconfig_paramname",'sysconfig'). '</b>: ' . $pname.'</p>');
 
         // Check in Config folder if module is gives as _site_
-       
+
         if ($pmodule == '_site_') {
             $moduleToCheck = 'config';
         } else {
@@ -144,7 +151,8 @@ class sysconfiginterface extends object
             if (isset($pvalue)) {
                 $objParamValue->setValue($pvalue);
             } #if
-        }
+        }//Create text add link
+
         $objForm->addToForm($objParamValue->show()."<br /><br />");
         // Create an instance of the button object and add a save button to the form
         $this->loadClass('button', 'htmlelements');
