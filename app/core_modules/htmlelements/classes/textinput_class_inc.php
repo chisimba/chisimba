@@ -2,11 +2,11 @@
 
 /**
  * Class textinput extends abhtmlbase implements ifhtml
- * 
+ *
  * This class defines the text input objects used by forms in the interface.
- * 
+ *
  * PHP version 5
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -19,12 +19,12 @@
  * along with this program; if not, write to the
  * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
@@ -94,6 +94,22 @@ class textinput extends abhtmlbase implements ifhtml
      	$this->cssId = 'input_'.$name;
     }
     /**
+    * Set the name.
+    * @param string Name
+    */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    /**
+    * Set the type.
+    * @param string Type
+    */
+    public function setType($type)
+    {
+        $this->fldType=$type;
+    }
+    /**
     * Method to set the css class
     *
     * @param      string $css
@@ -116,12 +132,12 @@ class textinput extends abhtmlbase implements ifhtml
 
     /**
      * Short description for function
-     * 
+     *
      * Long description (if any) ...
-     * 
+     *
      * @param  unknown $cssId Parameter description (if any) ...
-     * @return void   
-     * @access public 
+     * @return void
+     * @access public
      */
     public function setId($cssId)
     {
@@ -130,12 +146,12 @@ class textinput extends abhtmlbase implements ifhtml
 
     /**
      * Short description for function
-     * 
+     *
      * Long description (if any) ...
-     * 
+     *
      * @param  unknown $value Parameter description (if any) ...
-     * @return void   
-     * @access public 
+     * @return void
+     * @access public
      */
     public function setValue($value)
     {
