@@ -137,7 +137,7 @@ $messages = array();
 
     $email = new textinput ('useradmin_email');
     $email->size = 30;
-    $email->extra = ' maxlength="25"';
+    $email->extra = ' maxlength="100"';
     $email->value = $user['emailaddress'];
 
     if ($mode == 'addfixup') {
@@ -457,7 +457,7 @@ $table->endRow();
 
 $form->addToForm($table->show());
 
-$button = new button ('submitform', $this->objLanguage->languageText('mod_useradmin_updatedetails'));
+$button = new button ('submitform', $this->objLanguage->languageText('mod_useradmin_updatedetails','system'));
 $button->setToSubmit();
 // $button->setOnClick('validateForm()');
 
