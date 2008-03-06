@@ -115,8 +115,10 @@ class dropdown extends abhtmlbase implements ifhtml
   * @param string $name : The name of the dropdown
   */
   public function dropdown($name=NULL){
-  	$this->name=$name;
-	$this->cssId = 'input_'.$name;
+    if (!is_object($name)) {
+      	$this->name=$name;
+    	$this->cssId = 'input_'.$name;
+    }
   }
 
   /**
