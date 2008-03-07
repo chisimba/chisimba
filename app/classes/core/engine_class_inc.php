@@ -160,7 +160,7 @@ class engine
      * @access public
      */
 	public $_templateRefs = NULL;
-	
+
 	/**
      * Database abstraction method - can be MDB2 or PDO
      *
@@ -342,7 +342,7 @@ class engine
      * @var string
      */
 	protected $dsn = KEWL_DB_DSN;
-	
+
 	/**
      * DSN - Data Source Name for the database connection object
      *
@@ -411,7 +411,7 @@ class engine
 	);
 
 	public $objMemcache = FALSE;
-	
+
 	public $objAPC = FALSE;
 
 	protected $cacheTTL = 3600;
@@ -454,7 +454,7 @@ class engine
 			}
 			$this->cacheTTL = $this->_objDbConfig->getcache_ttl();
 		}
-		
+
 		// check for APC
 		if(extension_loaded('apc'))
 		{
@@ -655,8 +655,8 @@ class engine
 				{
 					try {
 						$this->_objDb = new PDO($this->dsn['phptype'].":".
-											"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'], 
-											$this->dsn['username'], 
+											"host=".$this->dsn['hostspec'].";dbname=".$this->dsn['database'],
+											$this->dsn['username'],
 											$this->dsn['password']
 										);
 						$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
@@ -677,7 +677,7 @@ class engine
 			//return the local copy
 			return $this->_objDb;
 		}
-		
+
 	}//end function
 
 
@@ -889,7 +889,7 @@ class engine
 		$this->_pageTemplate = $templateName;
 	}
 
-	
+
 	public function getPatchObject($name, $moduleName = '')
 	{
 		$engine = $this;
@@ -915,7 +915,7 @@ class engine
 			return NULL;
 		}
 	}
-	
+
 	/**
      * Method to load a class definition from the given module.
      * Used when you wish to instantiate objects of the class yourself.
@@ -1139,8 +1139,8 @@ class engine
 		}
 		return $instance;
 	}
-	
-	
+
+
 
 	/**
     * Method to return a template variable. These are used to pass
@@ -1492,7 +1492,7 @@ class engine
 		}
 		$moduleURI = $this->_objConfig->getModuleURI()."/$moduleName/resources/$resourceFile";
         // Convert back slashes to forward slashes.
-        $moduleURI = preg_replace('/\\\\/', '/', $moduleURI);
+        $moduleURI = preg_replace('/\\/', '/', $moduleURI);
         // Replace multiple instances of forward slashes with single ones.
         $moduleURI = preg_replace('/\/+/', '/', $moduleURI);
         return $moduleURI;
@@ -1828,7 +1828,7 @@ class engine
 			$this->_objDb = NULL;
 		}
 	}
-	
+
 	public function __destruct()
 	{
 		if($this->_dbabs === 'MDB2')
