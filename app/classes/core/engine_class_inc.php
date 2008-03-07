@@ -1492,7 +1492,7 @@ class engine
 		}
 		$moduleURI = $this->_objConfig->getModuleURI()."/$moduleName/resources/$resourceFile";
         // Convert back slashes to forward slashes.
-        $moduleURI = preg_replace('/\\/', '/', $moduleURI);
+        $moduleURI = preg_replace('/\\\\/', '/', $moduleURI);
         // Replace multiple instances of forward slashes with single ones.
         $moduleURI = preg_replace('/\/+/', '/', $moduleURI);
         return $moduleURI;
