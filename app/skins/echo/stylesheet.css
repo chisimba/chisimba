@@ -297,9 +297,10 @@ td.widelink a:hover {
 
 /* Feature Box */
 .featurebox {color:#333;padding: 15px 15px 10px; border-top: 1px solid #d7d7d7;margin: 0 0 1.5em;background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%}
-.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {margin: 0 0 .3em;border-bottom: 1px solid #c00;color:#c00; background-color: transparent;}
+.featurebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {margin: 0 0 .3em; background-color: transparent;}
 .featurebox p {border:none;margin: 0 0 1em;color:#444}
 .featurebox a {font-weight:bold; text-decoration:none;}
+.featureboxheader { border-bottom: 1px solid #0033FF;color:#c00;}
 /*.featurebox select {width: 100%; }*/
 
 /** BEGIN: Content Feature Box as used for the blocks that appear in the page body  **/
@@ -313,7 +314,6 @@ td.widelink a:hover {
 
 .contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
 	margin: 0 0 .3em;
-	border-bottom: 1px solid #0033FF;
 	color: #003366;
 	background-color: transparent;
 }
