@@ -98,9 +98,11 @@ class displaycontext extends object
     /**
      * Method to display the information of a context in a block
      * @param array $context
+     * @param boolean $showEditDeleteLinks - Show Edit Links if applicable. THis function will determine it
+     * @param boolean $includeFeatureBox - Display in a feature box or not
      * @return string
      */
-    public function formatContextDisplayBlock($context, $showEditDeleteLinks=TRUE)
+    public function formatContextDisplayBlock($context, $showEditDeleteLinks=TRUE, $includeFeatureBox=TRUE)
     {
         $canEdit = FALSE;
         
@@ -109,7 +111,7 @@ class displaycontext extends object
         
         // Add Permissions
         
-        $objFeatureBox = $this->newObject('featurebox', 'navigation');
+        
         
         
         
@@ -130,13 +132,13 @@ class displaycontext extends object
         
         $str = '';
         
-        $str .= '<p><strong>Course Code</strong>: '.$context['contextcode'].'</p>';
+        $str .= '<p><strong>'.ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-context-] Code')).'</strong>: '.$context['contextcode'].'</p>';
         
         //$str .= $context['about'];
         
         $lecturers = $this->objUserContext->getContextLecturers($context['contextcode']);
         if (count($lecturers) > 0) {
-            $str .= '<p><strong>Lecturers</strong>: ';
+            $str .= '<p><strong>'.ucwords($this->objLanguage->code2Txt('word_lecturers', 'system', NULL, '[-authors-]')).'</strong>: ';
             $divider = '';
             
             foreach ($lecturers as $lecturer)
@@ -190,7 +192,16 @@ class displaycontext extends object
         
         $title .= $link->show();
         
-        return $objFeatureBox->show($title, $content);
+        if ($includeFeatureBox) {
+            $objFeatureBox = $this->newObject('featurebox', 'navigation');
+            return $objFeatureBox->show($title, $content);
+        } else {
+            $header = new htmlHeading();
+            $header->type = 3;
+            $header->str = $title;
+            return $header->show().$content;
+        }
+        
     }
 
 }
