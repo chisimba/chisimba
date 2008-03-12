@@ -240,9 +240,8 @@ class tools extends object
     function addIM()
     {
         $showIM = $this->objSysConfig->getValue('DISPLAY_IM', 'messaging');
-        if($this->moduleCheck->checkIfRegistered('messaging') && $showIM == 'TRUE'){         
-            $imLabel = $this->objLanguage->languageText("mod_toolbar_instantmessaging",'toolbar');
-            
+        if($this->moduleCheck->checkIfRegistered('messaging') && $showIM == 'TRUE')
+        {
             $objIm = $this->getObject('chatdisplay', 'messaging');
             // Get the additional parameters (headerparams and bodyonload), save in a global variable
             $this->params = $objIm->imParams();
