@@ -22,12 +22,13 @@ if ($mode == 'edit') {
 }
 $objStepMenu->addStep(str_replace('[-num-]', 2, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')).' - '.ucwords($this->objLanguage->code2Txt('mod_contextadmin_contextinformation', 'contextadmin', NULL, '[-context-] Information')), $this->objLanguage->code2Txt('mod_contextadmin_enterinfoaboutcontext', 'contextadmin', NULL, 'Enter more information about your [-context-] and select a [-context-] image'));
 $objStepMenu->addStep(str_replace('[-num-]', 3, $this->objLanguage->code2Txt('mod_contextadmin_stepnumber', 'contextadmin', NULL, 'Step [-num-]')).' - '.ucwords($this->objLanguage->code2Txt('mod_context_contextplugins', 'context', NULL, '[-context-] Plugins')), $this->objLanguage->code2Txt('mod_contextadmin_selectpluginsforcontext', 'contextadmin', NULL, 'Select the plugins you would like to use in this [-context-]'));
+$objStepMenu->setCurrent(2);
 echo $objStepMenu->show();
 
 
 $header = new htmlheading();
 $header->type = 1;
-$header->str = $headerTitle;
+$header->str = ucwords($headerTitle);
 
 echo $header->show();
 

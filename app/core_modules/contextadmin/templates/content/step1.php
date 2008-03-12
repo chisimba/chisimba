@@ -198,7 +198,7 @@ $table = $this->newObject('htmltable', 'htmlelements');
 
 if ($mode == 'edit') {
     $table->startRow();
-    $table->addCell($this->objLanguage->code2Txt('mod_context_contextcode', 'system', NULL, '[-context-] Code'), 100);
+    $table->addCell($this->objLanguage->code2Txt('mod_context_contextcode', 'context', NULL, '[-context-] Code'), 100);
     $table->addCell('<strong title="'.$this->objLanguage->code2Txt('mod_contextadmin_contextcodecannotbechanged', 'contextadmin', NULL, '[-context-] code can not be changed').'">'.strtoupper($context['contextcode']).'</strong>');
     $table->endRow();
     $hiddenInput = new hiddeninput('editcontextcode', $context['contextcode']);
