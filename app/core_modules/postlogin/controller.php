@@ -119,10 +119,10 @@ class postlogin extends controller
         $this->setVarByRef('wideDynamicBlocks', $wideDynamicBlocks);
         
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
-        $smallBlocks = $objBlocks->getBlocks('normal', 'site|user');
+        $smallBlocks = $objBlocks->getBlocks('normal', 'site|user|postlogin');
         $this->setVarByRef('smallBlocks', $smallBlocks);
         
-        $wideBlocks = $objBlocks->getBlocks('wide', 'site|user');
+        $wideBlocks = $objBlocks->getBlocks('wide', 'site|user|postlogin');
         $this->setVarByRef('wideBlocks', $wideBlocks);
         
         return 'main_tpl.php';
