@@ -1,375 +1,487 @@
 <?php
+
 /**
- * Class to access the ContextModules Tables 
- *
+ * Context Admin Controller
+ * 
+ * Controller class for the Context Creation/Management in Chisimba
+ * 
  * PHP version 5
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the
- * Free Software Foundation, Inc.,
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
+ * 
  * @category  Chisimba
  * @package   contextadmin
- * @author    Wesley  Nitsckie, Jarrett Jordaan
- * @copyright 2007 AVOIR
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2008 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       any other relevant section
+ * @see       core
  */
-/* -------------------- dbTable class ----------------*/
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run']) {
+if (!
+/**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
-} 
+}
 // end security check
 
-class contextadmin extends controller 
+
+/**
+ * Context Admin Controller
+ * 
+ * Controller class for the Context Creation/Management in Chisimba
+ * 
+ * @category  Chisimba
+ * @package   contextadmin
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2008 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       core
+ */
+class contextadmin extends controller
 {
-   /*
-    * @var object objExportContent
-    */
-    public $objExportContent;
-
+    
     /**
-     * Import object
-     *
-     * @var object
-     */
-    public $objImport;
- 
-     /**
-     * File handler
-     *
-     * @var object
-     */
-    public $objConf;
-
-     /**
-     * 
-     *
-     * @var object
-     */
-    public $objImportIMSContent;
-
-    /**
-     * The constructor
+     * Constructor
      */
     public function init()
     {
-        $this->_objDBContext = $this->getObject('dbcontext', 'context');
-        $this->_objDBContextModules = $this->getObject('dbcontextmodules', 'context');
-        $this->_objUser = $this->getObject('user', 'security');
-        $this->_objLanguage = $this->getObject('language', 'language');
-        $this->_objUtils = $this->getObject('utils', 'contextadmin');
-        $this->_objDBContextParams = $this->getObject('dbcontextparams', 'context');
-    	// Load Import IMS class.
-    	$this->objImportIMSContent = $this->newObject('importimspackage','contextadmin');
-    	// Load Import KNG class.
-    	$this->objImportKNGContent = $this->newObject('importkngpackage','contextadmin');
-    	// Load Export IMS class.
-    	$this->objExportIMSContent = $this->newObject('exportimspackage','contextadmin');
-    	// Load Import Export Utilities class.
-    	$this->objIEUtils =  $this->newObject('importexportutils','contextadmin');
-        $this->objConf = $this->getObject('altconfig','config');
-        $this->objModules = $this->getObject('modules', 'modulecatalogue');
-	$this->setVar('pageSuppressXML',TRUE);
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objContext = $this->getObject('dbcontext', 'context');        
+        $this->objUserContext = $this->getObject('usercontext', 'context');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     
+    
+    /**
+    * Standard Dispatch Function for Controller
+    *
+    * @access public
+    * @param string $action Action being run
+    * @return string Filename of template to be displayed
+    */
+    public function dispatch($action)
+    {
+        // Method to set the layout template for the given action
+        $this->setLayoutTemplate('contextadmin_layout.php');
+
+        /*
+        * Convert the action into a method (alternative to
+        * using case selections)
+        */
+        $method = $this->getMethod($action);
+        /*
+        * Return the template determined by the method resulting
+        * from action
+        */
+        return $this->$method();
+    }
+    
+    /**
+    *
+    * Method to convert the action parameter into the name of
+    * a method of this class.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return string the name of the method
+    *
+    */
+    private function getMethod(& $action)
+    {
+        if ($this->validAction($action)) {
+            return '__'.$action;
+        } else {
+            return '__home';
+        }
+    }
 
     /**
-     * The standard dispatch function
-     */
-    public function dispatch()
+    *
+    * Method to check if a given action is a valid method
+    * of this class preceded by double underscore (__). If it __action
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return boolean TRUE|FALSE
+    *
+    */
+    private function validAction(& $action)
     {
-        $action = $this->getParam('action');
-
-
-        if(!$this->hasPerms())
-        {
-         	$this->setLayoutTemplate('layout_tpl.php');
-			return 'error_tpl.php';	
-		}
-
-        switch ($action)
-        {
-
-            case '':
-	        case 'default':
-	            $this->setLayoutTemplate('main_layout_tpl.php');
-	            $this->setVar('contextList', $this->_objUtils->getContextList());
-	            $this->setVar('otherCourses', $this->_objUtils->getOtherContextList());
-	            $this->setVar('filter', $this->_objUtils->getFilterList($this->_objUtils->getContextList()));
-	            $this->setVar('archivedCourses', $this->_objUtils->getArchivedContext());
-
-	            return 'main_tpl.php';
-                
-            //the following cases deals with adding a context.
-            
-            //use a layout template for this wizard.
-
-            case 'addstep1':
-                $this->setLayoutTemplate('layout_tpl.php');
-                $this->setVar('error', $this->getParam('error'));
-                
-                return 'addstep1_tpl.php';
-            case 'savestep1':
-                $contextCode = $this->getParam('contextcode2');
-                $title = $this->getParam('title');
-                $status = $this->getParam('status');
-                $access = $this->getParam('access');
-                
-                 if($this->_objDBContext->createContext($contextCode, $title, $status, $access) != FALSE)
-                 {
-                     $this->_objDBContext->joinContext($this->getParam('contextcode'));
-                     
-                     return $this->nextAction('addstep2');
-                 } else {
-                     return $this->nextAction('addstep1', array('error' => $this->_objLanguage->languageText("mod_context_error_createcontext",'context') ));
-                 }
-            case 'addstep2':
-                $this->setLayoutTemplate('layout_tpl.php');
-                return 'addstep2_tpl.php';
-            case 'savestep2':
-                $this->_objDBContext->update('contextcode', $this->_objDBContext->getContextCode(), array('about' => $this->getParam('about')));
-                return $this->nextAction('addstep3');
-            case 'addstep3':
-                $this->setLayoutTemplate('layout_tpl.php');
-                return 'addstep3_tpl.php';
-                
-            case 'savestep3':
-                $plugins = $this->getParam('modules');
-                
-                $objContextModules = $this->getObject('dbcontextmodules', 'context');
-                $objContextModules->deleteModulesForContext($this->_objDBContext->getContextCode());
-                
-                
-                if (is_array($plugins) && count($plugins) > 0) {
-                    foreach ($plugins as $plugin)
-                    {
-                        $objContextModules->addModule($this->_objDBContext->getContextCode(), $plugin);
-                    }
-                }
-                //$this->_objDBContext->setLastUpdated();
-                return $this->nextAction(NULL, NULL, 'context');
-           
-                
-            // the next steps deals with actions coming from the.
-            // config page.
-            case 'saveedit';
-            	$this->_objDBContext->saveEdit();
-            	 return $this->nextAction('default');
-           	case 'saveaboutedit';
-            	$this->_objDBContext->saveAboutEdit();
-            	 return $this->nextAction('default');
-            case 'savedefaultmod':
-            	$this->_objDBContextParams->setParam($this->_objDBContext->getContextCode(), 'defaultmodule',$this->getParam('defaultmodule'));
-             	return $this->nextAction('default');
-           	case 'admincontext':
-           		$this->_objDBContext->joinContext($this->getParam('contextcode'));
-           		return $this->nextAction('default');
-           		
-           	case 'delete':
-           		$this->_objUtils->deleteContext($this->getParam('contextcode'));
-           		return $this->nextAction('default');
-           	case 'undeletecontext':
-           		$this->_objUtils->undeleteContext($this->getParam('contextcode'));
-           		return $this->nextAction('default');
-	/**
-	Author : Jarrett Jordaan
-	Update : Import and Export of IMS Content
-	*/
-
-	/**
-	 * Executes the Uploading of IMS package into Chisimba.
-	*/
-        case 'uploadIMS':
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$package = $this->getParam('packageType');
-		$create = $this->getParam('createCourse');
-		$this->setSession('packageType', $package);
-		$this->setSession('fileDetails', $_FILES);
-		$this->setSession('mod_contextcontent','contextcontent');
-		if($create == 'on')
-		{
-			// Instantiate the Import of IMS package.
-			$this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
-
-			return $this->nextAction('default');
-// Comment the above two lines and,
-// uncomment the three lines below to switch on error checking.
-			//$uploadStatus = $this->objImportIMSContent->importIMScontent($_FILES, $package,'',TRUE);
-//			$this->setVar('uploadStatus',$uploadStatus);
-
-//			return 'uploadstatus_tpl.php';
-		}
-		else
-		{
-			// Skip course creation.
-			$zipfile = file_get_contents($_FILES['upload']['tmp_name']);
-			$tmpLocation = '/tmp/'.$_FILES['upload']['name'];
-			$fp = fopen($tmpLocation, 'w');
-			if((fwrite($fp, $zipfile) === FALSE))
-				return  "writeResourcesError";
-			fclose($fp);
-			$this->setSession('tmpLocation', $tmpLocation);
-			$tableName = "tbl_context";
-			$sql = "SELECT * from tbl_context";
-			$dsn = $this->objConf->getDsn();
-			$dbData = $this->objIEUtils->importDBData($dsn, $tableName, $sql);
-			$this->setVarByRef('dbData',$dbData);
-			$this->setVar('newCourse',FALSE);
-
-			return 'importcourse_tpl.php';
-		}	
-	break;
-	/**
-	 * Executes the Uploading of IMS package into existing Chisimba course.
-	*/
-	case 'uploadIMSIntoExisting':
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$choice = $this->getParam('dropdownchoice');
-		$package = $this->getSession('packageType');
-		$fileDetails = $this->getSession('fileDetails');
-		$fileDetails['upload']['tmp_name'] = $this->getSession('tmpLocation');
-		$this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
-
-		return $this->nextAction('default');
-// Comment the above two lines and,
-// uncomment the three lines below to switch on error checking.
-//		$uploadStatus = $this->objImportIMSContent->importIMScontent($fileDetails, $package, $choice, FALSE);
-//		$this->setVar('uploadStatus',$uploadStatus);
-//		$this->setVar('choice',$choice);
-
-//		return 'uploadstatus_tpl.php';
-	break;
-	/**
-	 * Retrieves a list of courses from a remote server
-	*/
-	case 'uploadFromServer':
-		$this->setLayoutTemplate('importcourse_tpl.php');
-		$server = $this->getParam('server');
-		$localhost = $this->getParam('Localhost');
-		$exception = 'mysql://username:password@localhost/Database Name';
-		if(strlen($localhost) > 1 && $localhost != $exception)
-			$server = $localhost;
-		if(strlen($server) < 1)
-			$server = $this->getSession('choice');
-		$tableName = "tbl_context";
-		// set up the query.
-		$sql = "SELECT * from tbl_context";
-		$dbData = $this->objIEUtils->importDBData($server, $tableName, $sql);
-		$this->setVarByRef('dbData',$dbData);
-		$this->setSession('dbData',$dbData);
-		$this->setSession('server', $server);
-		$this->setVar('newCourse',TRUE);
-
-		return 'importcourse_tpl.php';
-	break;
-	/**
-	 * Executes the Uploading of KNG package into Chisimba from remote server
-	*/
-	case 'uploadKNG':
-		$choice = $this->getParam('dropdownchoice');
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$this->objImportKNGContent->importKNGcontent($choice);
-
-		return $this->nextAction('default');
-// Comment the above two lines and,
-// uncomment the three lines below to switch on error checking.
-//		$uploadStatus = $this->objImportKNGContent->importKNGcontent($choice);
-//		$this->setVar('uploadStatus',$uploadStatus);
-
-//		return 'uploadstatus_tpl.php';
-	break;
-	/**
-	 * Executes the Downloading of IMS package from Chisimba
-	*/
-        case 'downloadChisimba':
-		$this->setLayoutTemplate('uploadstatus_tpl.php');
-		$choice = $this->getParam('dropdownchoice');
-		// Instantiate the Import of KNG package.
-		$this->objExportIMSContent->exportContent($choice);
-
-		return $this->nextAction('default');
-// Comment the above two lines and,
-// uncomment the three lines below to switch on error checking.
-//		$uploadStatus = $this->objExportIMSContent->exportContent($choice);
-//		$this->setVar('uploadStatus',$uploadStatus);
-//		return 'uploadstatus_tpl.php';
-	break;
-	default:
-		return $this->nextAction(null);
+        if (method_exists($this, '__'.$action)) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
     
-
     /**
-     * Method to load an HTML element's class.
-     * @param string $name The name of the element
-     * @return The element object
+     * Context Admin Home
      */
-     public function loadHTMLElement($name)
-     {
-         return $this->loadClass($name, 'htmlelements');
-     }
- 
-    /**
-     * Method to get the left widget
-     * @return string
-     * 
-     */
-    public function getLeftWidgets()
+    private function __home()
     {
-    	
-    	$str = $this->_objUtils->getLeftContent();
-    	
-    	return $str;
-    }
-    
-    
-    
-    /**
-     * Method to get right left widget
-     * @return string
-     * 
-     */
-    public function getRightWidgets()
-    {
-    	
-    	$str = $this->_objUtils->getRightContent();
-    	
-    	return $str;
+        $content = $this->objUserContext->getUserContextsFormatted($this->objUser->userId());
+        
+        $this->setVarByRef('content', $content);
+        
+        $title = $this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]');
+        
+        $this->setVarByRef('title', $title);
+        
+        return 'main.php';
     }
     
     /**
-    * Method to check the permissions
-    * for a user. Only Lecturers and Administrators
-    * are allowed here
-    * @access public
-    */
-    public function hasPerms()
+     * Method to create a new context
+     */
+    private function __add()
     {
-     	
-		if($this->_objUser->isAdmin() || $this->_objUser->isLecturer())
-		{
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-			
-		
-	}
+        $this->setVar('mode', 'add');
+        return 'step1.php';
+    }
     
-
+    /**
+     * Method to save step 1 of creating a context - context details
+     */
+    private function __savestep1()
+    {
+        $mode = $this->getParam('mode');
+        $contextCode = $this->getParam('contextcode');
+        $title = $this->getParam('title');
+        $status = $this->getParam('status');
+        $access = $this->getParam('access');
+        $about = '';
+        
+        if ($contextCode == '') {
+            $result = FALSE;
+        } else {
+            $result = $this->objContext->createContext($contextCode, $title, $status, $access, $about);
+        }
+        
+        // If successfully created
+        if ($result) {
+            
+            $this->setSession('fixup', NULL);
+            $this->setSession('contextCode', $contextCode);
+            return $this->nextAction('step2', array('mode'=>'add'));
+        
+        } else { // Else fix up errors
+        
+            $fixup = array ('contextcode'=>$contextCode, 'title'=>$title, 'status'=>$status, 'access'=>$access);
+            $this->setSession('fixup', $fixup);
+            
+            return $this->nextAction('add', array('mode'=>'fixup'));
+        
+        }
+    }
+    
+    /**
+     * Step 2 of Creating a Context - Adding About Info and Image
+     */
+    private function __step2()
+    {
+        $contextCode = $this->getSession('contextCode');
+        
+        $context = $this->objContext->getContext($contextCode);
+        
+        if ($context == FALSE) {
+            return $this->nextAction(NULL);
+        }
+        
+        $this->setVar('mode', $this->getParam('mode'));
+        $this->setVar('contextCode', $contextCode);
+        $this->setVar('context', $context);
+        
+        return 'step2.php';
+    }
+    
+    /**
+     * Method to save step 2 of creating a context - about info and image
+     */
+    private function __savestep2()
+    {
+        if ($this->getParam('contextCode') != $this->getSession('contextCode')) {
+            return $this->nextAction(NULL);
+        } else {
+            $contextCode = $this->getSession('contextCode');
+            
+            $about = $this->getParam('about');
+            $image = $this->getParam('imageselect');
+            $mode = $this->getParam('mode');
+            
+            // Check Context Image
+            if ($image != '') {
+                $objContextImage = $this->getObject('contextimage', 'context');
+                $objContextImage->setContextImage($contextCode, $image);
+            }
+            
+            $this->objContext->updateTitle($contextCode, $about);
+            
+            return $this->nextAction('step3', array('mode'=>$mode));
+        }
+    }
+    
+    /**
+     * Step 3 - Selecting modules to be used in context
+     */
+    private function __step3()
+    {
+        $contextCode = $this->getSession('contextCode');
+        
+        $contextTitle = $this->objContext->getTitle($contextCode);
+        
+        if ($contextTitle == FALSE) {
+            return $this->nextAction(NULL);
+        }
+        
+        $this->setVar('mode', $this->getParam('mode'));
+        $this->setVar('contextCode', $contextCode);
+        $this->setVar('contextTitle', $contextTitle);
+        
+        $objContextModules = $this->getObject('dbcontextmodules', 'context');
+        $objModules = $this->getObject('modules', 'modulecatalogue');
+        
+        $contextModules = $objContextModules->getContextModules($contextCode);
+        $plugins = $objModules->getListContextPlugins();
+        
+        $this->setVarByRef('contextModules', $contextModules);
+        $this->setVarByRef('plugins', $plugins);
+        
+        return 'step3.php';
+    }
+    
+    /**
+     * Method to save step 3 of creating a context - module selection
+     */
+    private function __savestep3()
+    {
+        if ($this->getParam('contextCode') != $this->getSession('contextCode')) {
+            return $this->nextAction(NULL);
+        } else {
+            $plugins = $this->getParam('plugins');
+            $contextCode = $this->getParam('contextCode');
+            $mode = $this->getParam('mode');
+            
+            $objContextModules = $this->getObject('dbcontextmodules', 'context');
+            $objContextModules->deleteModulesForContext($contextCode);
+            
+            
+            if (is_array($plugins) && count($plugins) > 0) {
+                foreach ($plugins as $plugin)
+                {
+                    $objContextModules->addModule($contextCode, $plugin);
+                }
+            }
+            
+            if ($mode == 'add') {
+                return $this->nextAction(NULL, array('message'=>'contextsetup'), 'context');
+            } else {
+                $this->setSession('contextcode', NULL);
+                $this->setSession('displayconfirmationmessage', TRUE);
+                return $this->nextAction(NULL, array('message'=>'contextupdated', 'contexcode'=>$contextCode));
+            }
+        }
+    }
+    
+    /**
+     * Method to show a form to update a context
+     */
+    private function __edit()
+    {
+        $contextCode = $this->getParam('contextcode');
+        $context = $this->objContext->getContext($contextCode);
+        
+        if ($context == FALSE) {
+            return $this->nextAction(NULL);
+        }
+        
+        // Todo - Check Permissions
+        $this->setVarByRef('context', $context);
+        $this->setSession('contextCode', $contextCode);
+        
+        $this->setVar('mode', 'edit');
+        return 'step1.php';
+    }
+    
+    /**
+     * Method to update the details of a context
+     */
+    private function __updatecontext()
+    {
+        $contextCode = $this->getParam('editcontextcode');
+        $title = $this->getParam('title');
+        $status = $this->getParam('status');
+        $access = $this->getParam('access');
+        $mode = $this->getParam('mode');
+        
+        if ($contextCode != $this->getSession('contextCode')) {
+            $newContext = $this->getSession('contextCode');
+            return $this->nextAction(NULL, array('message'=>'contextswitch', 'context1'=>$contextCode, 'context2'=>$newContext));
+        } else {
+            
+            $context = $this->objContext->getContext($contextCode);
+            
+            if ($context == FALSE) {
+                return $this->nextAction(NULL, array('message'=>'editnonexistingcontext'));
+            } else {
+                $this->objContext->updateContext($contextCode, $title, $status, $access, $context['about']);
+                
+                return $this->nextAction('step2', array('mode'=>'edit'));
+            }
+        }
+        
+    }
+    
+    /**
+     * Method to delete a context
+     */
+    private function __delete()
+    {
+        $contextCode = $this->getParam('contextcode');
+        
+        $context = $this->objContext->getContext($contextCode);
+        
+        if ($context == FALSE) {
+            return $this->nextAction(NULL, array('error'=>'deletenoneexistingcourse', 'context'=>$contextCode));
+        } else {
+            $this->setVarByRef('context', $context);
+            $this->setSession('deletecontext', $context['contextcode']);
+            
+            return 'delete.php';
+        }
+    }
+    
+    /**
+     * Method to process delete confirmation
+     */
+    private function __deleteconfirm()
+    {
+        
+        $contextCode = $this->getParam('contextcode');
+        
+        $context = $this->objContext->getContext($contextCode);
+        
+        if ($context == FALSE) {
+            return $this->nextAction(NULL, array('error'=>'deletenoneexistingcourse', 'context'=>$contextCode));
+        } else {
+            
+            if ($contextCode != $this->getSession('deletecontext')) {
+                return $this->nextAction(NULL, array('error'=>'incompletedelete', 'context'=>$contextCode));
+            }
+            
+            $deleteConfirm = $this->getParam('deleteconfirm', 'no');
+            if ($deleteConfirm == 'yes') {
+                $result = $this->objContext->deleteContext($contextCode);
+                $result = $result ? 'y' : 'n';
+                return $this->nextAction(NULL, array('message'=>'contextdeleted', 'context'=>$contextCode, 'title'=>$context['title'], 'result'=>$result));
+            } else {
+                return $this->nextAction(NULL, array('message'=>'deletecancelled', 'context'=>$contextCode));
+            }
+        }
+    }
+    
+    /**
+     * Ajax function to detect whether a context code has been taken already or not
+     */
+    private function __checkcode()
+    {
+        $this->setPageTemplate(NULL);
+        $this->setLayoutTemplate(NULL);
+        
+        $code = $this->getParam('code');
+        
+        switch(strtolower($code))
+        {
+            case NULL:
+                break;
+            case 'root':
+                echo 'reserved';
+                break;
+            default:
+                if ($this->objContext->contextExists($code)) {
+                    echo 'exists';
+                } else {
+                    echo 'ok';
+                }
+        }
+    }
+    
+    /**
+     * Ajax function to remove a context image
+     */
+    private function __removeimage()
+    {
+        $contextCode = $this->getParam('contextcode');
+        
+        if ($contextCode != $this->getSession('contextCode')) {
+            echo 'notok';
+        } else {
+            $objContextImage = $this->getObject('contextimage', 'context');
+            if ($objContextImage->removeContextImage($contextCode)) {
+                echo 'ok';
+            } else {
+                echo 'notok';
+            }
+        }
+    }
+    
+    /**
+     * Method to browse for contexts
+     */
+    private function __browseother()
+    {
+        $letter = $this->getParam('letter', 'A');
+        
+        $results = $this->objContext->getContextStartingWith($letter);
+        
+        if (count($results) == 0) {
+            $this->setVar('content', 'No search results for '.$letter);
+        } else {
+            $this->setVarByRef('contexts', $results);
+        }
+        $this->setVar('title', ucfirst($this->objLanguage->code2Txt('mod_contextadmin_contextsstartingwith', 'contextadmin', NULL, '[-contexts-] starting with')).' '.$letter);
+        
+        return 'main.php';
+    }
+    
+    /**
+     * Method to search for contexts
+     */
+    private function __search()
+    {
+        $search = $this->getParam('search');
+        $results = $this->objContext->searchContext($search);
+        
+        if (count($results) == 0) {
+            $this->setVar('content', $this->objLanguage->languageText('mod_contextadmin_nosearchresultsfor', 'contextadmin', 'No search results for').' '.$search);
+        } else {
+            $this->setVarByRef('contexts', $results);
+        }
+        $this->setVar('title', $this->objLanguage->languageText('phrase_searchresultsfor', 'system', 'Search Results for').' <em>'.$search.'</em>');
+        
+        return 'main.php';
+    }
+    
 }
+
 ?>
