@@ -8,14 +8,19 @@ $header->str = $title;
 
 echo $header->show();
 
-if ($this->getParam('message') != '' && $this->getSession('displayconfirmationmessage', FALSE)) {
+//if ($this->getParam('message') != '' && $this->getSession('displayconfirmationmessage', FALSE)) {
+if ($this->getParam('message') != '' ) {
     switch ($this->getParam('message'))
     {
         default:
             $message = '';
             break;
         case 'contextupdated':
-            $message = $this->objLanguage->languageText('mod_contextadmin_successfullyupdated', 'contextadmin', 'has been successfully updated').'!';
+            $title = $this->objContext->getTitle($this->getParam('contextcode'));
+            $message = $title.' '.$this->objLanguage->languageText('mod_contextadmin_successfullyupdated', 'contextadmin', 'has been successfully updated').'!';
+            break;
+        case 'contextdeleted':
+            $message = $this->getParam('title').' '.$this->objLanguage->languageText('mod_contextadmin_hasbeendeleted', 'contextadmin', 'has been successfully deleted');
             break;
     }
     

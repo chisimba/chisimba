@@ -12,7 +12,7 @@ $objIcon = $this->newObject('geticon', 'htmlelements');
 $objIcon->setIcon('loader');
 
 $formAction = 'savestep3';
-$headerTitle = $contextTitle.' - '.uc_words($this->objLanguage->code2Txt('mod_context_contextplugins', 'context', NULL, '[-context-] Plugins'));
+$headerTitle = $contextTitle.' - '.ucwords($this->objLanguage->code2Txt('mod_context_contextplugins', 'context', NULL, '[-context-] Plugins'));
 $formButton = ' '.$this->objLanguage->languageText('mod_contextadmin_next', 'contextadmin', 'Next').' ';
 
 

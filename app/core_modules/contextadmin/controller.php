@@ -298,7 +298,7 @@ class contextadmin extends controller
             } else {
                 $this->setSession('contextcode', NULL);
                 $this->setSession('displayconfirmationmessage', TRUE);
-                return $this->nextAction(NULL, array('message'=>'contextupdated', 'contexcode'=>$contextCode));
+                return $this->nextAction(NULL, array('message'=>'contextupdated', 'contextcode'=>$contextCode));
             }
         }
     }
