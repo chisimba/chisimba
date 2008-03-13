@@ -264,55 +264,60 @@ class csslayout extends object implements ifhtml
     */
     public function show()
     {
+        /*
         // Depending on the number of columns, load appropriate script to fix the column heights
         if ($this->numColumns == 2) {
             $this->putTwoColumnFixInHeader();
         } else {
             // else, load the three column javascript fix
-            $this->putThreeColumnFixInHeader();
+           $this->putThreeColumnFixInHeader();
         }
-
+        */
+        
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
             $result = '
-<div id="twocolumn">
-	<div id="wrapper">
-		<div id="content">
-			<div id="contentcontent">
-                '.$this->middleColumnContent.'
-			</div>
-		</div>
-	</div>';
-            $result .= '
-    <div id="left">
-		<div id="leftcontent">
-		  '.$this->leftColumnContent.'
-		</div>
-	</div>
+<div class="colmask leftmenu">
+    <div class="colright">
+        <div class="col1wrap">
+            <div class="col1">
+                <!-- Column 2 start -->
+                    '.$this->middleColumnContent.'
+                <!-- Column 2 end -->
+            </div>
+        </div>
+        <div class="col2">
+            <!-- Column 1 start -->
+                '.$this->leftColumnContent.'
+            <!-- Column 1 end -->
+        </div>
+    </div>
 </div>';
         } else {
             // for a three column layout, first load the right column, then the middle column
             $result = '
-<div id="threecolumn">
-	<div id="wrapper">
-		<div id="content">
-			<div id="contentcontent">
-                '.$this->middleColumnContent.'
-			</div>
-		</div>
-	</div>';
-            $result .= '
-    <div id="left">
-		<div id="leftcontent">
-		  '.$this->leftColumnContent.'
-		</div>
-	</div>';
-            $result .= '
-    <div id="right">
-		<div id="rightcontent">
-            '.$this->rightColumnContent.'
-		</div>
-	</div>
+<div class="colmask holygrail">
+    <div class="colmid">
+        <div class="colleft">
+            <div class="col1wrap">
+                <div class="col1">
+                    <!-- Column 1 start -->
+                        '.$this->middleColumnContent.'
+                    <!-- Column 1 end -->
+                </div>
+            </div>
+            <div class="col2">
+                <!-- Column 2 start -->
+                    '.$this->leftColumnContent.'
+                <!-- Column 2 end -->
+            </div>
+            <div class="col3">
+                <!-- Column 3 start -->
+                    '.$this->rightColumnContent.'
+                <!-- Column 3 end -->
+            </div>
+        </div>
+    </div>
 </div>';
         }
 
