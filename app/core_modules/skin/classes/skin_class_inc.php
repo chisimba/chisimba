@@ -388,14 +388,14 @@ class skin extends object
         }
 
         if (is_array($bodyOnLoad)) {
-            $str .= '<script type="text/javascript" language="javascript">
-        jQuery(document).ready(function(){'."\n\n";
+            $str .= '<script type="text/javascript" language="javascript">';
+            $str .= 'window.onload = function() {'."\n";
+            $str .= 'jQuery.noConflict();'."\n";
             foreach ($bodyOnLoad as $bodyParam) {
-                $str .= $bodyParam."\n\n";
+                $str .= $bodyParam."\n";
             }
-            $str .= '}); </script>'."\n\n";
+            $str .= '}; </script>'."\n\n";
         }
-
         return $str;
     }
 
