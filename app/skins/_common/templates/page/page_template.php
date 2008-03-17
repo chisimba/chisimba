@@ -1,4 +1,7 @@
 <?php
+// Get the site breadcrumbs
+$tools = $this->getObject('tools','toolbar');
+$siteBreadcrumbs = $tools->siteNavigation();
 if (!isset($pageSuppressToolbar)) {
    // get toolbar object
    $menu = $this->getObject('menu','toolbar');
@@ -67,6 +70,7 @@ print $prolog_type;
 if (!isset($pageTitle)) {
     $pageTitle = $objConfig->getSiteName();
 }
+$pageTitle .= ($siteBreadcrumbs==''?'':' [ '.$siteBreadcrumbs.' ] ');
 ?>
     <head>
         <title>
@@ -86,9 +90,9 @@ if (!isset($pageTitle)) {
 ';
         }
     }
-    
+
     echo $objSkin->putJavaScript($mime, $headerParams, $bodyOnLoad);
-    
+
 ?>
     </head>
 <?php

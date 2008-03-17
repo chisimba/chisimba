@@ -77,7 +77,7 @@ class tools extends object
     * @access public
     */
     public $params = array();
-    
+
 
     /**
 
@@ -310,7 +310,7 @@ class tools extends object
         // Return the linked help icon
 
         $help = $this->objHelp->show($action, $module);
-        
+
         $layer = $this->newObject('layer', 'htmlelements');
         $layer->cssClass='bannerhelp';
         $layer->id='bannerhelp';
@@ -674,7 +674,7 @@ class tools extends object
         $this->unsetSession('crumb');
 
         $this->unsetSession('modlink');
-        
+
         $this->unsetSession('replaceBreadcrumbs');
 
         return $nav;
@@ -772,6 +772,233 @@ class tools extends object
     {
 
         return $divider.$link;
+
+    }
+
+    /**
+
+    * Method to provide the breadcrumbs for the page title.
+
+    * @return string $nav The breadcrumbs
+
+    */
+
+    function siteNavigation()
+
+    {
+        /*
+		$replaceCrumbs = $this->getSession('replacebreadcrumbs');
+
+         if(isset($replaceCrumbs) && !empty($replaceCrumbs)){
+             $this->unsetSession('replacebreadcrumbs');
+             return $replaceCrumbs;
+         }
+         */
+
+
+        // Language
+
+        $home = $this->objLanguage->languageText('word_home');
+
+        /*
+		$welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');
+		*/
+
+
+
+        // Get the module name
+
+        $module = $this->getParam('module');
+
+
+
+        // Get settings information for the module
+
+        $moduleInfo = $this->moduleCheck->getRow('module_id', $module);
+
+
+
+        if(empty($moduleInfo) && !($module == '_default' || $module == 'postlogin' || $module == '')){
+
+		  /*
+            $noModule = $this->objLanguage->code2Txt('mod_toolbar_modnotfound', 'toolbar', array('module'=>"<b>$module</b>"));
+        */
+
+            return '';
+
+        }
+
+
+
+        // If the module is the default module
+
+        if($module == '_default' || $module == 'postlogin' || $module == ''){
+
+            $nav = '';
+
+        }else{
+
+            // set the link to the default module
+
+			/*
+            $this->objLink = new link($this->uri('', '_default'));
+
+            $this->objLink->link = $home;
+
+            $home = $this->objLink->show();
+			*/
+
+            $nav = $this->makeSiteBreadCrumbs($home, $module, $moduleInfo);
+
+        }
+
+        return $nav;
+
+    }
+
+    /**
+
+    * Method to make the site breadcrumbs.
+
+    * The context title is displayed if the module is context aware. The title is a link back to
+
+    * the context module.
+
+    * The name of the current module is displayed as text or as a link when an action has been
+
+    * performed.
+
+    * @param object $home A link to the home or front page of the site.
+
+    * @param string $module The module or string to be added to the breadcrumbs.
+
+    * @param array $moduleInfo The module information - to check context sensitivity, etc.
+
+    */
+
+    function makeSiteBreadCrumbs($home, $module, $moduleInfo)
+
+    {
+
+        $nav = $home;
+
+        $action = $this->getParam('action');
+
+        $extra = $this->getSession('breadcrumbs', NULL);
+
+        $insert = $this->getSession('crumb', NULL);
+
+        $modlink = $this->getSession('modlink', FALSE);
+
+
+
+        // Add extra links if available
+
+        if(!empty($extra)){
+
+            $action = $extra;
+
+        }
+
+
+
+        // If this is the context module and the user is in a context
+
+        if (isset($this->contextCode) && $module == 'context'){
+
+            if (!empty($action)) {
+
+                $nav .= $this->siteDivide($this->contextMenu).$this->siteDivide($action);
+
+            } else {
+
+                $nav .= $this->siteDivide($this->contextTitle);
+
+            }
+
+
+
+        // if in a context and module is context aware
+
+        }else if (isset($this->contextCode) && $moduleInfo['iscontextaware'] == '1' ){
+
+            if(!empty($action)){
+
+                $modulePart = $this->siteDivide($this->addText($module)).$this->siteDivide($action);
+
+            }else{
+
+                $modulePart = $this->siteDivide($this->addText($module));
+
+            }
+
+
+
+            $nav .= $this->siteDivide($this->contextMenu);
+
+            if(!empty($insert)){
+
+                $nav .= $this->siteDivide($insert);
+
+            }
+
+            $nav .= $modulePart;
+
+
+
+        // if not in a context or module is not context aware/dependent
+
+        }else {
+
+            if(!empty($action)){
+
+                $modulePart = $this->siteDivide($this->addText($module)).$this->siteDivide($action);
+
+            }else{
+
+                $modulePart = $this->siteDivide($this->addText($module));
+
+            }
+
+            if(!empty($insert)){
+
+                $nav .= $this->divide($insert);
+
+            }
+
+            $nav .= $modulePart;
+
+        }
+
+		/*
+        $this->unsetSession('breadcrumbs');
+
+        $this->unsetSession('crumb');
+
+        $this->unsetSession('modlink');
+
+        $this->unsetSession('replaceBreadcrumbs');
+        */
+
+        return $nav;
+
+    }
+
+    /**
+
+    * Method to add a specified divider in front of a link or text.
+
+    * @param string $link The text.
+
+    * @param string $divider The divider. Default = >>
+
+    */
+
+    function siteDivide($crumb, $divider = ' | ')
+
+    {
+
+        return $divider.$crumb;
 
     }
 
