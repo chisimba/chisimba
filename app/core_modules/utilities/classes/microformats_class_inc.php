@@ -70,6 +70,32 @@ class microformats extends object
     {
     	return phpMicroformats::createHCard($personalData);
     }
+    
+    /**
+     * Create an HCalendar
+     *
+     * @param array $event
+     * @example 
+     * $myEvent = array(
+	'name' 		=> 'Release party of Chisimba',
+	'begin'		=> time(),
+	'end'		=> time()+2*60*60, // duration: 2 hours
+
+	'location'	=> array (
+		'street'	=> '15z Main street',
+		'town'		=> 'Jonestown',
+		'zip'		=> '22912',
+		'state'		=> 'Western Cape',
+		'country'	=> 'South Africa'	
+	),
+
+	'url'		=> 'http://chisimba.uwc.ac.za'
+);
+     */
+    public function showHcalendar($event)
+    {
+    	return phpMicroformats::createHCalendar($event);
+    }
 
 }
 ?>
