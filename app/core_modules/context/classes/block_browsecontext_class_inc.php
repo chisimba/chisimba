@@ -79,7 +79,7 @@ class block_browsecontext extends object
     {
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
-            $this->title = 'Browse Contexts';
+            $this->title = ucwords($this->objLanguage->code2Txt('phrase_browsecourses', 'system', NULL, 'Browse [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
             
             
@@ -96,7 +96,7 @@ class block_browsecontext extends object
     public function show()
     {
         $objNav = $this->getObject('contextadminnav', 'contextadmin');
-        $str = 'Browse: '.$objNav->getAlphaListingAjax();
+        $str = $this->objLanguage->languageText('word_browse', 'glossary', 'Browse').': '.$objNav->getAlphaListingAjax();
         
         $str .= '<div id="browsecontextcontent"></div>';
         
