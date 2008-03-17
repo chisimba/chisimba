@@ -74,20 +74,26 @@ class context extends controller
      */
     public function init()
     {
-        $this->objContext = $this->getObject('dbcontext');
-        
-        
-        $this->contextCode = $this->objContext->getContextCode();
-        $this->setVarByRef('contextCode', $this->contextCode);
-        
-        $this->contextTitle = $this->objContext->getTitle();
-        $this->setVarByRef('contextTitle', $this->contextTitle);
-        
-        $this->objLanguage = $this->getObject('language', 'language');
-        $this->objUser = $this->getObject('user', 'security');
-        
-        $this->objContextBlocks = $this->getObject('dbcontextblocks');
-        $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+        try {
+            $this->objContext = $this->getObject('dbcontext');
+            
+            
+            $this->contextCode = $this->objContext->getContextCode();
+            $this->setVarByRef('contextCode', $this->contextCode);
+            
+            $this->contextTitle = $this->objContext->getTitle();
+            $this->setVarByRef('contextTitle', $this->contextTitle);
+            
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            
+            $this->objContextBlocks = $this->getObject('dbcontextblocks');
+            $this->objDynamicBlocks = $this->getObject('dynamicblocks', 'blocks');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -200,10 +206,10 @@ class context extends controller
         $this->setVarByRef('wideDynamicBlocks', $wideDynamicBlocks);
         
         $objBlocks = $this->getObject('dbmoduleblocks', 'modulecatalogue');
-        $smallBlocks = $objBlocks->getBlocks('normal');
+        $smallBlocks = $objBlocks->getBlocks('normal', 'context|site');
         $this->setVarByRef('smallBlocks', $smallBlocks);
         
-        $wideBlocks = $objBlocks->getBlocks('wide');
+        $wideBlocks = $objBlocks->getBlocks('wide', 'context|site');
         $this->setVarByRef('wideBlocks', $wideBlocks);
         
         return 'context_home_tpl.php';
@@ -214,6 +220,7 @@ class context extends controller
      */
     protected function __join()
     {
+        // Under construction
         echo 'join';
     }
     
@@ -469,6 +476,35 @@ class context extends controller
         $this->setVarByRef('searchText', $search);
         
         return 'searchresults_tpl.php';
+    }
+    
+    function __contextcreatedmessage()
+    {
+        echo '<h3>'.$this->objLanguage->code2Txt('mod_context_congratscontextcreated', 'context', NULL, 'Congratulations! Your [-context-] has been created').'.</h3>
+        <p>'.$this->objLanguage->code2Txt('mod_context_contextcreatedmessage1', 'context', NULL, 'This is the home page of your [-context-] You can modify the contents of the page, by clicking "Turn Editing On"').'.
+        '.$this->objLanguage->languageText('mod_context_contextcreatedmessage2', 'context', 'This will allow you to add different types of content blocks to this page').'.</p>
+        <p>'.$this->objLanguage->code2Txt('mod_context_contextcreatedmessage3', 'context', NULL, 'To add [-readonlys-] to your [-context-], or to add/remove [-context-] plugins, go to the [-context-] control panel').'.</p>
+        ';
+        
+    }
+    
+    
+    function __ajaxgetcontexts()
+    {
+        $letter = $this->getParam('letter');
+        
+        $contexts = $this->objContext->getContextStartingWith($letter);
+        
+        if (count($contexts) == 0) {
+            
+        } else {
+            $objDisplayContext = $this->getObject('displaycontext', 'context');
+        
+            foreach ($contexts as $context)
+            {
+                echo $objDisplayContext->formatContextDisplayBlock($context, FALSE, FALSE).'<br />';
+            }
+        }
     }
     
 }
