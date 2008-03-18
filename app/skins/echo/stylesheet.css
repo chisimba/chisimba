@@ -34,6 +34,15 @@ div#header div#msg {
     right: 0px;
     width: 80px;
 }
+div#header h1 a:link, h1 a:visited {
+    color: white;
+    text-decoration: none
+}
+div#header h1 a:link:hover, h1 a:visited:hover {
+    color: silver;
+    text-decoration: none
+}
+
 #breadcrumbs {
 	font-size: 80%;
 }
