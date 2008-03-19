@@ -138,7 +138,8 @@ class displaylicense extends object
         if (trim($licenseInfo['url']) == '') {
             return $iconList.$this->getRdf($this->license);//$radio->show();
         } else {
-            //$link = new link ($licenseInfo['url']);
+		//$link = new link ($licenseInfo['url']);
+	    $this->loadClass('href', 'htmlelements');
             $link = new href($licenseInfo['url'], NULL, 'rel="license"');
             $link->link = $iconList;
             return $link->show().$this->getRdf($this->license);
