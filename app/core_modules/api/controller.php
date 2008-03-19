@@ -94,6 +94,11 @@ class api extends controller
     public function dispatch($action = Null) 
     {
         switch ($action) {
+        	case "serveapi":
+        		$this->requiresLogin(FALSE);
+            	// start the server.
+            	$this->objRPC->serve(); 
+            	break;
             default:
             	// cannot require any login, as remote clients use this. Auth is done internally
             	$this->requiresLogin(FALSE);

@@ -128,6 +128,21 @@ class xmlrpcapi extends object
 	 * @access public
 	 */
 	public $objScreenShots;
+	
+	/**
+	 * Chisimba internalmail API 
+	 * @var    object
+	 * @access public
+	 */
+	public $objInternalMail;
+
+	/**
+	 * Chisimba internalmail API 
+	 * @var    object
+	 * @access public
+	 */
+	public $objForum;
+	
     /**
      * init method
      * 
@@ -167,6 +182,10 @@ class xmlrpcapi extends object
         	$this->objFfmpeg = $this->getObject('ffmpegapi');
         	// Screenshot API
         	$this->objScreenShots = $this->getObject('screenapi');
+        	// Internal Mail API
+        	$this->objInternalMail = $this->getObject('internalmailapi');
+        	// Forum API
+        	$this->objForum = $this->getObject('forumapi');
 		}
 		catch (customException $e)
 		{
@@ -612,7 +631,43 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Grab a hi res screenshot of a URL'),
+   						  'internalmail.getAll' => array('function' => array($this->objInternalMail, 'internalMailGetAll'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'get all internal mail for a user'),
+   						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'get all forums for a user'),
+	   					  'forum.getAllTopics' => array('function' => array($this->objForum, 'forumGetAllTopics'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get all the topics in a forum'),
                 		   						   
+	   					  'forum.search' => array('function' => array($this->objForum, 'forumSearch'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'search for the search terms in a specific forum'),
+                		   						   
+                		  'forum.getPosts' => array('function' => array($this->objForum, 'forumGetPosts'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get all the posts in a specific topic'), 	
+   						  'forum.insertTopic' => array('function' => array($this->objForum, 'forumInsertTopic'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'insert a new topic into the database'), 					   					
+    		   			  'forum.getPostForReply' => array('function' => array($this->objForum, 'forumGetPostForReply'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get the post in which you have selected to reply to'), 	
                 		  							   
                 		  		
    					), 1, 0);
