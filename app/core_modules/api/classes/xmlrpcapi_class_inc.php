@@ -2,24 +2,24 @@
 
 /**
  * XML-RPC interface class
- * 
+ *
  * XML-RPC (Remote Procedure call) class
- * 
+ *
  * PHP version 5
- * 
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   api
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -44,9 +44,9 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * XML-RPC Class
- * 
+ *
  * Class to provide XML-RPC functionality to Chisimba
- * 
+ *
  * @category  Chisimba
  * @package   api
  * @author    Paul Scott <pscott@uwc.ac.za>
@@ -65,90 +65,90 @@ class xmlrpcapi extends object
      * @access public
      */
 	public $objDbBlog;
-	
+
 	/**
      * Blogger API object
      * @var    object
      * @access public
      */
 	public $objBlogger;
-	
+
 	/**
      * MetaWebLog API object
      * @var    object
      * @access public
      */
 	public $objMetaWebLog;
-	
+
 	/**
      * Packages API object
      * @var    object
      * @access public
      */
 	public $objPackages;
-	
+
 	/**
      * Wiki API object
      * @var    object
      * @access public
      */
 	public $objWikiApi;
-	
+
 	/**
      * Chisimba Wiki API object
      * @var    object
      * @access public
      */
 	public $objChisWikiApi;
-	
+
 	/**
      * Chisimba Web Present API object
      * @var    object
      * @access public
      */
 	public $objWebPresentApi;
-	
+
 	/**
 	 * Chisimba ADM API for high priority requests
 	 * @var    object
 	 * @access public
 	 */
 	public $objAdmApi;
-	
+
 	/**
-	 * Chisimba FFMPEG API 
+	 * Chisimba FFMPEG API
 	 * @var    object
 	 * @access public
 	 */
 	public $objFfmpeg;
-	
+
 	/**
-	 * Chisimba Screenshot API 
+	 * Chisimba Screenshot API
 	 * @var    object
 	 * @access public
 	 */
 	public $objScreenShots;
-	
+
 	/**
-	 * Chisimba internalmail API 
+	 * Chisimba internalmail API
 	 * @var    object
 	 * @access public
 	 */
 	public $objInternalMail;
 
 	/**
-	 * Chisimba internalmail API 
+	 * Chisimba internalmail API
 	 * @var    object
 	 * @access public
 	 */
-	public $objForum;
-	
+	//public $objForum;
+
     /**
      * init method
-     * 
+     *
      * Standard Chisimba init method
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
 	public function init()
@@ -162,7 +162,7 @@ class xmlrpcapi extends object
         	$this->objDbBlog = $this->getObject('dbblog', 'blog');
         	// User Object
         	$this->objUser = $this->getObject('user', 'security');
-        	
+
         	// API abstraction objects
         	// Blogger
         	$this->objBlogger = $this->getObject('bloggerapi');
@@ -185,7 +185,7 @@ class xmlrpcapi extends object
         	// Internal Mail API
         	$this->objInternalMail = $this->getObject('internalmailapi');
         	// Forum API
-        	$this->objForum = $this->getObject('forumapi');
+        	//$this->objForum = $this->getObject('forumapi');
 		}
 		catch (customException $e)
 		{
@@ -195,12 +195,12 @@ class xmlrpcapi extends object
 			exit;
 		}
 	}
-	
+
     /**
      * server method
-     * 
+     *
      * Create and deploy the XML-RPC server for use on an URL
-     * 
+     *
      * @return object server object
      * @access public
      */
@@ -213,96 +213,96 @@ class xmlrpcapi extends object
                          											array('string', 'string', 'string', 'string','string', 'string', 'boolean'),
                      											 ),
                 								  'docstring' => 'new post'),
-                		  
+
                 		  'blogger.editPost' => array('function' => array($this->objBlogger, 'bloggerEditPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'string', 'string', 'boolean'),
                      											 ),
                 								  'docstring' => 'edit post'),
-                		  
+
                 		  'blogger.getPost' => array('function' => array($this->objBlogger, 'bloggerGetPost'),
    											      'signature' => array(
                          											array('struct', 'string', 'string', 'string', 'string'),
                      											 ),
                 								  'docstring' => 'get post'),
-                		  
+
                 		  'blogger.getRecentPosts' => array('function' => array($this->objBlogger, 'bloggerGetRecentPosts'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get recent posts'),
-                		  
+
                 		  'blogger.getCategories' => array('function' => array($this->objBlogger, 'bloggerGetCategories'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
-                		  
+
                 		  'blogger.getUsersBlogs' => array('function' => array($this->objBlogger, 'bloggerGetUsersBlogs'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user blogs'),
-                		   						   
+
                 		   'blogger.getUserInfo' => array('function' => array($this->objBlogger, 'bloggerGetUserInfo'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user info'),
-                		   						   
+
                 		   'blogger.deletePost' => array('function' => array($this->objBlogger, 'bloggerDeletePost'),
                 		   						   'signature' => array(
                 		   						   					array('boolean', 'string', 'string', 'string', 'string', 'boolean'),
                 		   						   					),
                 		   						   'docstring' => 'delete a post'),
-                		   						   
-                		   						   
+
+
                 		   // metaweblog section
                 		   'metaWeblog.newPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogNewPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'struct', 'boolean'),
                      											 ),
                 								  'docstring' => 'new post'),
-                		  
+
                 		  'metaWeblog.editPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogEditPost'),
    											      'signature' => array(
                          											array('boolean', 'string', 'string', 'string', 'struct', 'boolean'),
                      											 ),
                 								  'docstring' => 'edit post'),
-                		  
+
                 		  'metaWeblog.getPost' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetPost'),
    											      'signature' => array(
                          											array('struct', 'string', 'string', 'string'),
                      											 ),
                 								  'docstring' => 'get post'),
-                		  
+
                 		  'metaWeblog.getRecentPosts' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetRecentPosts'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get recent posts'),
-                		  
+
                 		  'metaWeblog.getCategories' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetCategories'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get categories'),
-                		  
+
                 		  'metaWeblog.getUsersBlogs' => array('function' => array($this->objMetaWebLog, 'metaWeblogGetUsersBlogs'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get user blogs'),
-                		   						   
+
                 		  'metaWeblog.deletePost' => array('function' => array($this->objMetaWebLog, 'metaWeblogDeletePost'),
                 		   						   'signature' => array(
                 		   						   					array('boolean', 'string', 'string', 'string', 'string', 'boolean'),
                 		   						   					),
                 		   						   'docstring' => 'delete a post'),
-                		  
-                		  
+
+
                 		  // Packages module for modulecatalogue functions...
-                		  				   
+
                 		  'getModuleZip' => array('function' => array($this->objPackages, 'getModuleZip'),
    											      'signature' =>
                      									array(
@@ -315,7 +315,7 @@ class xmlrpcapi extends object
                          									array('array', 'string'),
                      									),
                 								  'docstring' => 'Grab a set of modules'),
-                								  					  
+
                 		  'getModuleDescription' => array('function' => array($this->objPackages, 'getModuleDescription'),
    											      'signature' =>
                      									array(
@@ -329,171 +329,171 @@ class xmlrpcapi extends object
 
       			  		  'getModuleDetails' => array('function' => array($this->objPackages, 'getModuleDetails'),
                 								  'docstring' => 'Grab the module list'),
-                								  
+
                 		  'getMsg' => array('function' => array($this->objPackages, 'getMessage'),
       			  		  					'signature' =>
                      							array(
                          							array('string', 'string'),
                      							),
                 								'docstring' => 'What would you like to see?'),
-                				
+
                 		   'updateSystemTypes' => array('function' => array($this->objPackages, 'updateSystemTypesFile'),
       			  		  					'signature' =>
                      							array(
                          							array('string'),
                      							),
-                								'docstring' => 'Replace and update your systemtypes.xml document'),	
-                								
+                								'docstring' => 'Replace and update your systemtypes.xml document'),
+
                 		    'getSkinList' => array('function' => array($this->objPackages, 'getSkinList'),
                 								  'docstring' => 'Grab the skins list'),
-                								  
+
                 			'getSkin' => array('function' => array($this->objPackages, 'getSkin'),
    											      'signature' =>
                      									array(
                          									array('array', 'string'),
                      									),
-                								  'docstring' => 'Grab a skin as a zip file'),	
-                								  
+                								  'docstring' => 'Grab a skin as a zip file'),
+
                 		    'getEngineVer' => array('function' => array($this->objPackages, 'getEngineVersion'),
       			  		  					'signature' =>
                      							array(
                          							array('string'),
                      							),
-                								'docstring' => 'return the engine version of the package server'),			
-                		  
+                								'docstring' => 'return the engine version of the package server'),
+
                 		   'getEngineUpgrade' => array('function' => array($this->objPackages, 'getEngUpgrade'),
       			  		  					'signature' =>
                      							array(
                          							array('string'),
                      							),
-                								'docstring' => 'return the engine upgardes available on the package server'), 
-                								
-                								
+                								'docstring' => 'return the engine upgardes available on the package server'),
+
+
                 		  // wiki xml-rpc interface - see http://jspwiki.org/wiki/WikiRPCInterface
                 		  'wiki.getRPCVersionSupported' => array('function' => array($this->objWikiApi, 'getRPCVersionSupported'),
-                		  						'signature' => 
+                		  						'signature' =>
                 		  						    array(
                 		  						        array('int'),
                 		  						        ),
                 		  						     'docstring' => 'Return the API version'),
-                		  						     
+
                 		  'wiki.getRecentChanges' => array('function' => array($this->objWikiApi, 'getRecentChanges'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki recent changes list'),
-                		   	
+
                 		  'wiki.getPage' => array('function' => array($this->objWikiApi, 'getPage'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki page'),
-                		   						   
+
                 		  'wiki.getPageVersion' => array('function' => array($this->objWikiApi, 'getPageVersion'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'int'),
                 		   						   					),
-                		   						   'docstring' => 'get wiki page version'),					   
-                		  
+                		   						   'docstring' => 'get wiki page version'),
+
                 		  'wiki.getPageHTML' => array('function' => array($this->objWikiApi, 'getPageHTML'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get wiki page HTML'),	
-                		   						   
+                		   						   'docstring' => 'get wiki page HTML'),
+
                 		  'wiki.getPageHTMLVersion' => array('function' => array($this->objWikiApi, 'getPageHTMLVersion'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'int'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki page HTML version'),
-                		   						   
+
                 		  'wiki.getAllPages' => array('function' => array($this->objWikiApi, 'getAllPages'),
                 		   						   'signature' => array(
                 		   						   					array('array'),
                 		   						   					),
-                		   						   'docstring' => 'returns an array of all wiki pages'),	
-                		   						   
+                		   						   'docstring' => 'returns an array of all wiki pages'),
+
                 		  'wiki.getPageInfo' => array('function' => array($this->objWikiApi, 'getPageInfo'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'returns page info'),
-                		   						   
+
                 		  'wiki.getPageInfoVersion' => array('function' => array($this->objWikiApi, 'getPageInfoVersion'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'int'),
                 		   						   					),
-                		   						   'docstring' => 'returns page info versions'), 		   
-                		   						   
+                		   						   'docstring' => 'returns page info versions'),
+
                 		  'wiki.listLinks' => array('function' => array($this->objWikiApi, 'listLinks'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Lists all links for a given page'),
-                		   						   
-                		   						   
+
+
                 		  // chisimba wiki implementation - including wiki namespaces
                 		  'chiswiki.getRPCVersionSupported' => array('function' => array($this->objChisWikiApi, 'getRPCVersionSupported'),
-                		  						'signature' => 
+                		  						'signature' =>
                 		  						    array(
                 		  						        array('int'),
                 		  						        ),
                 		  						     'docstring' => 'Return the API version'),
-                		  						     
+
                 		  'chiswiki.getRecentChanges' => array('function' => array($this->objChisWikiApi, 'getRecentChanges'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki recent changes list'),
-                		   	
+
                 		  'chiswiki.getPage' => array('function' => array($this->objChisWikiApi, 'getPage'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki page'),
-                		   						   
+
                 		  'chiswiki.getPageVersion' => array('function' => array($this->objChisWikiApi, 'getPageVersion'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'int', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get wiki page version'),					   
-                		  
+                		   						   'docstring' => 'get wiki page version'),
+
                 		  'chiswiki.getPageHTML' => array('function' => array($this->objChisWikiApi, 'getPageHTML'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get wiki page HTML'),	
-                		   						   
+                		   						   'docstring' => 'get wiki page HTML'),
+
                 		  'chiswiki.getPageHTMLVersion' => array('function' => array($this->objChisWikiApi, 'getPageHTMLVersion'),
                 		   						   'signature' => array(
                 		   						   					array('base64', 'string', 'int', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get wiki page HTML version'),
-                		   						   
+
                 		  'chiswiki.getAllPages' => array('function' => array($this->objChisWikiApi, 'getAllPages'),
                 		   						   'signature' => array(
                 		   						   					array('array'),
                 		   						   					),
-                		   						   'docstring' => 'returns an array of all wiki pages'),	
-                		   						   
+                		   						   'docstring' => 'returns an array of all wiki pages'),
+
                 		  'chiswiki.getPageInfo' => array('function' => array($this->objChisWikiApi, 'getPageInfo'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'returns page info'),
-                		   						   
+
                 		  'chiswiki.getPageInfoVersion' => array('function' => array($this->objChisWikiApi, 'getPageInfoVersion'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string', 'int', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'returns page info versions'), 		   
-                		   						   
+                		   						   'docstring' => 'returns page info versions'),
+
                 		  'chiswiki.listLinks' => array('function' => array($this->objChisWikiApi, 'listLinks'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'Lists all links for a given page'), 
-                		   						   
+                		   						   'docstring' => 'Lists all links for a given page'),
+
                 		  // Web Present API
                 		  // tagging options
                 		  'presentation.getAllTags' => array('function' => array($this->objWebPresentApi, 'getAllTagsAPI'),
@@ -501,131 +501,131 @@ class xmlrpcapi extends object
                 		   						   					array('array'),
                 		   						   					),
                 		   						   'docstring' => 'Lists all web present tags'),
-                		   						    
+
                 		  'presentation.getTagCloud' => array('function' => array($this->objWebPresentApi, 'getTagCloudAPI'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'Lists all web present tags as a tag cloud in HTML'),
-                		   				 
+
                 		  'presentation.getTagsPerFile' => array('function' => array($this->objWebPresentApi, 'getTagsPerFileAPI'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'Lists all web present tags attached to a specific fileid'), 
-                		  
+                		   						   'docstring' => 'Lists all web present tags attached to a specific fileid'),
+
                 		  'presentation.getFilesPerTag' => array('function' => array($this->objWebPresentApi, 'getFilesPerTagAPI'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'gets all the files associated with a tag'), 
-                		   						   
+                		   						   'docstring' => 'gets all the files associated with a tag'),
+
                 		   'presentation.getFile' => array('function' => array($this->objWebPresentApi, 'getFileAPI'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'gets info on a file'), 
-                		   						   
+                		   						   'docstring' => 'gets info on a file'),
+
                 		   'presentation.getLatest' => array('function' => array($this->objWebPresentApi, 'getLatestAPI'),
                 		   						   'signature' => array(
                 		   						   					array('struct'),
                 		   						   					),
-                		   						   'docstring' => 'gets latest list (10)'), 
-                		   						   
+                		   						   'docstring' => 'gets latest list (10)'),
+
                 		   'presentation.getByUser' => array('function' => array($this->objWebPresentApi, 'getByUserAPI'),
                 		   						   'signature' => array(
                 		   						   					array('struct', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets latest list by userid'),
-                		   						   
+
                 		   'presentation.getThumbnail' => array('function' => array($this->objWebPresentApi, 'getThumbnailAPI'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets thumbnail of specific file'),
-                		   						   
+
                 		   'presentation.getNumSlides' => array('function' => array($this->objWebPresentApi, 'getNumSlidesAPI'),
                 		   						   'signature' => array(
                 		   						   					array('int', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets number of slides of specific file'),
-                		   						   
+
                 		   'presentation.getSlides' => array('function' => array($this->objWebPresentApi, 'getSlidesAPI'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets slides of specific file'),
-                		   						   
+
                 		   'presentation.getSlideThumbnail' => array('function' => array($this->objWebPresentApi, 'getSlideThumbnailAPI'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets a specific slide thumbnail'),
-                		   						   
+
                 		   'presentation.getPresentationSlidesFormatted' => array('function' => array($this->objWebPresentApi, 'getPresentationSlidesFormattedAPI'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'gets formatted slides'),
-                		   	
+
                 		   // ADM API Start
                 		   'adm.getVersion' => array('function' => array($this->objAdmApi, 'checkVersionApi'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'gets the current version of remote'),	
-                		   						   
+                		   						   'docstring' => 'gets the current version of remote'),
+
                 		   'adm.getFullLog' => array('function' => array($this->objAdmApi, 'getFullLogApi'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'gets data for SQL Mirror'),
-                		   						   
+
                 		   'adm.sendLog' => array('function' => array($this->objAdmApi, 'sendLogFileApi'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'Sends the log file to remote'),
-                		   						   			
+
                 		   'adm.getLastMirrorTime' => array('function' => array($this->objAdmApi, 'getLastMirrorTimeApi'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'returns last successful mirror time to remote'),
-                		   						   
+
                 		   'adm.registerServer' => array('function' => array($this->objAdmApi, 'registerServerApi'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'register a server for mirroring'),			
-                		   						   
+                		   						   'docstring' => 'register a server for mirroring'),
+
                 		   'adm.getServerList' => array('function' => array($this->objAdmApi, 'grabList'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'Grab the updated server list for mirroring'),						   
-                		   						   
+                		   						   'docstring' => 'Grab the updated server list for mirroring'),
+
                 		  // media API Start
                 		   'media.3gp2flv' => array('function' => array($this->objFfmpeg, 'convert3GPtoFLV'),
                 		   						   'signature' => array(
                 		   						   					array('string', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'converts a 3gp file to a flv and returns a base64 encoded string.'),						   
-                		   						   
-                		   						   
+                		   						   'docstring' => 'converts a 3gp file to a flv and returns a base64 encoded string.'),
+
+
                 		  // screenshot API Start
                 		  'screenshot.requestShot' => array('function' => array($this->objScreenShots, 'requestShot'),
                 		  						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'Request a screenshot of a URL'),			
-                		   						   
+                		   						   'docstring' => 'Request a screenshot of a URL'),
+
                 		  'screenshot.grabShot' => array('function' => array($this->objScreenShots, 'grabShot'),
                 		  						   'signature' => array(
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Grabs a screenshot of a URL'),
-                		   						   
+
                 		  'screenshot.grabHiResShot' => array('function' => array($this->objScreenShots, 'grabHiResShot'),
                 		  						   'signature' => array(
                 		   						   					array('string', 'string'),
@@ -635,7 +635,8 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'get all internal mail for a user'),
+                		   						   'docstring' => 'get all internal mail for a user')
+/*
    						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
@@ -646,32 +647,33 @@ class xmlrpcapi extends object
                 		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get all the topics in a forum'),
-                		   						   
+
 	   					  'forum.search' => array('function' => array($this->objForum, 'forumSearch'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'search for the search terms in a specific forum'),
-                		   						   
+
                 		  'forum.getPosts' => array('function' => array($this->objForum, 'forumGetPosts'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get all the posts in a specific topic'), 	
+                		   						   'docstring' => 'get all the posts in a specific topic'),
    						  'forum.insertTopic' => array('function' => array($this->objForum, 'forumInsertTopic'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'insert a new topic into the database'), 					   					
+                		   						   'docstring' => 'insert a new topic into the database'),
     		   			  'forum.getPostForReply' => array('function' => array($this->objForum, 'forumGetPostForReply'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get the post in which you have selected to reply to'), 	
-                		  							   
-                		  		
+                		   						   'docstring' => 'get the post in which you have selected to reply to'),
+*/
+
+
    					), 1, 0);
-   					
+
 
 		return $server;
 	}
