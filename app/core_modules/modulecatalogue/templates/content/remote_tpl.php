@@ -105,6 +105,7 @@ foreach ($modules as $module) {
 		$objTable->addCell($modCheck,20,null,null,$class);
 		$objTable->addCell($icon->show(),30,null,null,$class);
 		$objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",null,null,null,$class);
+		$objTable->addCell("<div id='link_{$module['status']}'><b>{$module['status']}</b></div>",null,null,null,$class);
 		$objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'40%',null,null,$class);
 		$objTable->endRow();
 		$objTable->startRow();

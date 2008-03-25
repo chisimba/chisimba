@@ -511,11 +511,12 @@ class modulecatalogue extends controller
 					{
 						$modobj = $doc->array->data->value[$i];
 						if(is_object($modobj))
-						{
+						{ 
 							$modulesarray[$i]['id'] = (string)$modobj->array->data->value[0]->string;
 							$modulesarray[$i]['name'] = (string)$modobj->array->data->value[1]->string;
 							$modulesarray[$i]['desc'] = (string)$modobj->array->data->value[2]->string;
 							$modulesarray[$i]['ver'] = (string)$modobj->array->data->value[3]->string;
+							$modulesarray[$i]['status'] = (string)$modobj->array->data->value[4]->string;
 						}
 						$i++;
 					}
