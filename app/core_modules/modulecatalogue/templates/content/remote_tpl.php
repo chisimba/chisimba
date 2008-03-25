@@ -81,7 +81,7 @@ $masterCheck = '&nbsp;'; // new checkbox('arrayList[]');
 //$masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
 $head = array($masterCheck,'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
-$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
+'&nbsp;', $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
 $objTable->addHeader($head,'heading','align="left"');
 $newMods = array();
 $class = 'odd';
@@ -112,6 +112,7 @@ foreach ($modules as $module) {
 		$objTable->addCell('&nbsp;',20,null,'left',$class);
 		$objTable->addCell('&nbsp;',30,null,'left',$class);
 		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
+		$objTable->addCell('&nbsp;',20,null,'left',$class);
 		$objTable->endRow();
 	}
 }
