@@ -87,8 +87,10 @@ class fileicons extends object
     */
     public function getExtension($filename)
     {
-        $pathInfo = pathinfo($filename);
- 		return strtolower($pathInfo['extension']);     
+       // $pathInfo = pathinfo($filename);
+ 	//	return strtolower($pathInfo['extension']);    
+       return substr(strrchr($filename, '.'), 1);
+ 
      }
     
     /**
