@@ -2,6 +2,8 @@
 //$this->objScriptaculous =& $this->getObject('scriptaculous', 'ajaxwrapper');
 //$this->objScriptaculous->show();
 
+$this->setVar('bodyParams', ' class="popupwindow"');
+
 $script = '
 <script type="text/javascript">
 //<![CDATA[

@@ -52,7 +52,7 @@ class help extends controller
         $this->setVar('pageSuppressToolbar', TRUE);
         $this->setVar('pageSuppressBanner', TRUE);
 
-        $bodyParams = 'class="help-popup" onLoad="window.focus();"';
+        $bodyParams = 'class="popupwindow help-popup" onLoad="window.focus();"';
 
         $this->setVar('bodyParams', $bodyParams);
 
