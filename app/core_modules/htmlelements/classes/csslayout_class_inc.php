@@ -271,7 +271,11 @@ class csslayout extends object implements ifhtml
             // else, load the three column javascript fix
             $this->putThreeColumnFixInHeader();
         }
-
+        
+        // Send the number of columns to the page template
+        // Useful for modifications on that level
+        $this->setVar('numColumns', $this->numColumns);
+        
         // Depending on the number of columns, use approprate css styles.
         if ($this->numColumns == 2) {
             $result = '
