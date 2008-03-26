@@ -15,6 +15,11 @@ if (!isset($bodyOnLoad)) {
     $bodyOnLoad = array();
 }
 
+// Set Number of Columns if not defined
+if (!isset($numColumns)) {
+    $numColumns = 0;
+}
+
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 function isMSIE($useragent)
 {
