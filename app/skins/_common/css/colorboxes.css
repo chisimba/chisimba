@@ -1,0 +1,55 @@
+/** COLOR BOXES TO GO WITH THE COLORBOXES FILTER */
+
+.colorbox {
+    margin-top:1em;
+    margin-bottom:1em;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding:0 0.5em;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    color: #000;
+}
+.greenbox {
+    border:1px solid #98be10;
+    background:#f6feda;
+}
+
+.yellowbox {
+    border:1px solid #F2FF00;
+    background:#FBFDDB;
+}
+.redbox {
+    border:1px solid #FF4232;
+    background: #FFD2CE;
+}
+.bluebox {
+    border:1px solid #110AFA;
+    background: #DEDDFD;
+}
+.pinkbox {
+    border:1px solid #DB00DC;
+    background: #FFDFFF;
+}
+.purplebox {
+    border:1px solid #920CEF;
+    background: #F2DFFF;
+}
+.orangebox {
+    border:1px solid #FF9E06;
+    background: #F6DBB8;
+}
+.greybox {
+    border:1px solid #A2A2A2;
+    background: #F0F0F0;
+}
+.bwbox {
+    border:1px solid #000;
+    background: #fff;
+
+}
+.wbbox {
+    border:1px solid #fff;
+    background: #000;
+    color: #fff;
+}
