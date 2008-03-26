@@ -30,7 +30,7 @@ ul.shadetabs li a {
     margin-right: 3px;
     border: 1px solid #778;
     color: #2d2b2b;
-    background: white url(../_common/images/tabcontent/shade.gif) top left repeat-x;
+    background: white url(../tabcontent/shade.gif) top left repeat-x;
 }
 
 ul.shadetabs li a:visited{
@@ -48,7 +48,7 @@ ul.shadetabs li.selected{
 }
 
 ul.shadetabs li.selected a{ /*selected main tab style */
-    background-image: url(../_common/images/tabcontent/shadeactive.gif);
+    background-image: url(../tabcontent/shadeactive.gif);
     border-bottom-color: white;
 }
 
