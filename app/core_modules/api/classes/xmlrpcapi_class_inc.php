@@ -141,7 +141,7 @@ class xmlrpcapi extends object
 	 * @var    object
 	 * @access public
 	 */
-	//public $objForum;
+	public $objForum;
 
     /**
      * init method
@@ -185,7 +185,7 @@ class xmlrpcapi extends object
         	// Internal Mail API
         	$this->objInternalMail = $this->getObject('internalmailapi');
         	// Forum API
-        	//$this->objForum = $this->getObject('forumapi');
+        	$this->objForum = $this->getObject('forumapi');
 		}
 		catch (customException $e)
 		{
@@ -673,7 +673,7 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get the post in which you have selected to reply to'),
+                		   						   'docstring' => 'inserts the post reply to a topic into the database'),
 
    					), 1, 0);
 
