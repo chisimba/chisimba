@@ -635,8 +635,8 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
-                		   						   'docstring' => 'get all internal mail for a user')
-/*
+                		   						   'docstring' => 'get all internal mail for a user'),
+	   					  //Forum API Start
    						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
@@ -668,9 +668,12 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
+                		   						   'docstring' => 'get the post in which you have selected to reply to'), 	
+		   				  'forum.insertPost' => array('function' => array($this->objForum, 'forumInsertPost'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					),
                 		   						   'docstring' => 'get the post in which you have selected to reply to'),
-*/
-
 
    					), 1, 0);
 

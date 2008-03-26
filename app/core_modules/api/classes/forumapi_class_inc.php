@@ -442,7 +442,7 @@ class forumapi extends object
      * @return object 
      * @access public
      */
-	public function forumInsertTopic($params)
+	public function forumInsertPost($params)
 	{
 		try{
 			
