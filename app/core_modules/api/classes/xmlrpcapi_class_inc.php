@@ -674,6 +674,11 @@ class xmlrpcapi extends object
                 		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'inserts the post reply to a topic into the database'),
+   						  'forum.getLanguageList' => array('function' => array($this->objForum, 'forumGetLanguageList'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'gets a list of all the languages that can be selected when creating a message'),
 
    					), 1, 0);
 

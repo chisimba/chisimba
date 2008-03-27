@@ -420,7 +420,7 @@ class forumapi extends object
 		$struct = new XML_RPC_Value(array(
 			new XML_RPC_Value($res['id'], "string"),
 			new XML_RPC_Value($res['topic_id'], "string"),
-			new XML_RPC_Value($res['post_title'], "string"),    			
+			new XML_RPC_Value($res['post_title'], "string"),
 			new XML_RPC_Value($subject, "string"),
 			new XML_RPC_Value($username, "string"),
 			new XML_RPC_Value($res['datelastupdated'], "string"),
@@ -510,6 +510,41 @@ class forumapi extends object
     	//$postArray = new XML_RPC_Value($postStruct,"array");
 
         return new XML_RPC_Response($postStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	
+	/**
+     * get language names
+     * 
+     * Gets a list of all language names
+     * 
+     * @return object 
+     * @access public
+     */
+	public function forumGetLanguageList($params)
+	{
+		try{
+		    $languageCodes = & $this->newObject('languagecode','language');
+		    
+		    // Sort Associative Array by Language, not ISO Code
+		    $languageList = $languageCodes->iso_639_2_tags->codes;
+		    $languageStruct = array();
+		    asort($languageList);
+		    
+			foreach($languageList as $key => $value)
+	    	{
+	    		$struct = new XML_RPC_Value(array(
+					new XML_RPC_Value($key, "string"),
+	    			new XML_RPC_Value($value, "string")), "array");
+	    		$languageStruct[] = $struct;
+	    	}
+	    	$languageArray = new XML_RPC_Value($languageStruct,"array");
+			//var_dump($languageArray);
+	    	return new XML_RPC_Response($languageArray);
 		} catch(customException $e) {
             echo customException::cleanUp();
             die($e);
