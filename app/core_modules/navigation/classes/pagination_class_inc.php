@@ -51,6 +51,13 @@ class pagination extends object
     * @access public
     */
     public $numPageLinks;
+    
+    /**
+    *
+    * @var array $extra: Array of any additional parameters
+    * @access public
+    */
+    public $extra;
 
     /**
     * Method to construct the class.
@@ -61,6 +68,7 @@ class pagination extends object
         $this->module = 'navigation';
         $this->action = 'testpage';
         $this->numPageLinks = 20;
+        $this->extra = array();
     }
 
     /**
@@ -77,6 +85,15 @@ class pagination extends object
         $str = '<div id="paginationresults_'.$this->id.'">...</div>';
         $str .= '<div id="pagination_'.$this->id.'" class="pagination"></div><br style="clear:both;" />';
         
+        // Cater for extra parameters
+        $params = "module={$this->module}&action={$this->action}";
+        if (is_array($this->extra) && count($this->extra) > 0) {
+            foreach ($this->extra as $extraParam=>$extraValue)
+            {
+                $params .= "&{$extraParam}={$extraValue}";
+            }
+        }
+        
         $str .= '
 <script language="JavaScript" type="text/javascript" >
 
@@ -85,7 +102,7 @@ class pagination extends object
         jQuery.ajax({
             type: "GET", 
             url: "index.php", 
-            data: "module='.$this->module.'&action='.$this->action.'&page="+page_id,
+            data: "'.$params.'&page="+page_id,
             success: function(msg){
                 jQuery("#paginationresults_'.$this->id.'").html(msg);
             }
@@ -101,7 +118,7 @@ class pagination extends object
     });
     
     // Load First Page
-    loadPagination_'.$this->id.'(0);
+    loadPaginationResults_'.$this->id.'(0);
 
 </script>
 ';
