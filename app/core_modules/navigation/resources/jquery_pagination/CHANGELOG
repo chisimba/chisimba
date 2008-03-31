@@ -1,0 +1,8 @@
+CHANGELOG
+=========
+
+2008-01-11 - Version 1.1
+Fixed a bug when the click on a pagination item was propagated to the browser.
+
+2008-01-05 - Version 1.0
+First release
