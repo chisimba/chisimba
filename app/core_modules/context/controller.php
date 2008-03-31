@@ -507,6 +507,13 @@ class context extends controller
         }
     }
     
+    
+    function __leavecontext()
+    {
+        $this->objContext->leaveContext();
+        return $this->nextAction(NULL, NULL, '_default');
+    }
+    
 }
 
 

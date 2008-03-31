@@ -103,7 +103,7 @@ class contextsidebar extends object
         
         $nodes = array();
         
-        $nodes[] = array('text'=>'Course Home', 'uri'=>$this->uri(NULL, 'context'), 'nodeid'=>'context');
+        $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'uri'=>$this->uri(NULL, 'context'), 'nodeid'=>'context');
         
         if (count($contextModules) > 0) {
             foreach ($contextModules as $module)
@@ -123,10 +123,11 @@ class contextsidebar extends object
             // Is the action allowed?
             if ( $this->objDT->isValid( 'controlpanel' ) ) {
                 // redirect and indicate the user does not have sufficient access.
-                $nodes[] = array('text'=>'Course Control Panel', 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
+                $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
             }
         }
         
+        $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('phrase_leavecourse', 'system', NULL, 'Leave [-context-]')), 'uri'=>$this->uri(array('action'=>'leavecontext'), 'context'), 'nodeid'=>'leavecontext');
         
         $objSideBar = $this->getObject('sidebar', 'navigation');
         $objSideBar->showHomeLink = FALSE;
