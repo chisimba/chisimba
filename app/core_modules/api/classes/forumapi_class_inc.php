@@ -109,26 +109,27 @@ class forumapi extends object
 	      	foreach($resarr as $res)
 	    	{
 	    		$lastPost = $this->objPost->getLastPost($res['id']);
+
 	    		if (preg_match('/<p>(.*)<\/p>/i',$lastPost['post_text'],$match)) {
 	    			$subject = $match[1];
 	    		} else {
 	    			$subject = '';
 	    		}
 	    		
-	    		
 	    		if ($lastPost['firstname'] != '') {
 	                $user = 'By: '.$lastPost['firstname'].' '.$lastPost['surname'].' - ';
-	       		} else {
-	            	$user = '';
+
+			        if ($this->objDateTime->formatDateOnly($lastPost['datelastupdated']) == date('j F Y')) {
+			            $datefield = $this->objLanguage->languageText('mod_forum_todayat', 'forum').' '.$this->objDateTime->formatTime($lastPost['datelastupdated']);
+			        } else {
+			            $datefield = $this->objDateTime->formatDateOnly($lastPost['datelastupdated']).' - '.$this->objDateTime->formatTime($lastPost['datelastupdated']);
+			        }
+		    		
+			        $postDetails = $user.$datefield;
+		        } else {
+	            	$postDetails = '';
 		        }
 		        
-		        if ($this->objDateTime->formatDateOnly($lastPost['datelastupdated']) == date('j F Y')) {
-		            $datefield = $this->objLanguage->languageText('mod_forum_todayat', 'forum').' '.$this->objDateTime->formatTime($lastPost['datelastupdated']);
-		        } else {
-		            $datefield = $this->objDateTime->formatDateOnly($lastPost['datelastupdated']).' - '.$this->objDateTime->formatTime($lastPost['datelastupdated']);
-		        }
-	    		
-		        $postDetails = $user.$datefield;
 	
 				$struct = new XML_RPC_Value(array(			
 					new XML_RPC_Value($res['id'], "string"),

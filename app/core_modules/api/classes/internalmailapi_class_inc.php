@@ -75,6 +75,7 @@ class internalmailapi extends object
 			//database abstraction object
         	$this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
         	$this->objUser = $this->getObject('user', 'security');
+        	$this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
 		}
 		catch (customException $e)
 		{
@@ -120,6 +121,74 @@ class internalmailapi extends object
             echo customException::cleanUp();
             die($e);
         }*/
+	}
+	
+    /**
+     * Get a list of all folders 
+     * 
+     * Method for listing all rows for the current user
+     * 
+     * @return object 
+     * @access public
+     */
+	public function mailListFolders($params)
+	{
+		try{
+	    	$mailStruct = array();
+	    	$resarr = $this->objDbFolders->listFoldersForUser("1");
+	    	//var_dump($resarr);
+	      	foreach($resarr as $res)
+	    	{
+				$struct = new XML_RPC_Value(array(
+	    			new XML_RPC_Value($res['id'], "string"),
+	    			new XML_RPC_Value($res['user_id'], "string"),
+	    			new XML_RPC_Value($res['folder_name'], "string"),
+	    			new XML_RPC_Value($res['updated'], "string"),
+	    			new XML_RPC_Value($res['puid'], "string"),
+	    			new XML_RPC_Value($res['allmail'], "string"),
+	    			new XML_RPC_Value($res['unreadmail'], "string")), "array");
+	    		$foldersStruct[] = $struct;
+	    	}
+	    	$foldersArray = new XML_RPC_Value($foldersStruct,"array");
+			//var_dump($foldersArray);
+	    	return new XML_RPC_Response($foldersArray);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
+     * Adds a new folder to the database
+     * 
+     * Method for adding a row to the database.
+     * 
+     * @return object 
+     * @access public
+     */
+	public function mailAddfolder($params)
+	{
+		try{
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$folderName = $param->scalarval();
+	    	
+	    	$mailStruct = array();
+	    	$this->objDbFolders->addFolder($folderName);
+	    	
+	    	$struct = new XML_RPC_Value(array(
+	    			new XML_RPC_Value("success", "string")), "array");
+	    	$mailStruct[] = $struct;
+
+	    	$responce = new XML_RPC_Value($mailStruct, "array");
+			//var_dump($foldersArray);
+	    	return new XML_RPC_Response($responce);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
 	}
 }
 ?>
