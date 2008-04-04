@@ -76,6 +76,17 @@ if (isset($pageSuppressXML)) {
     $mime = "text/html";
 }
 
+if (!isset($pageSuppressSkin)) {
+        if (!isset($pageSuppressToolbar)) {
+            $headerParams[] = '<!--[if lte IE 6]>
+                <style type="text/css">
+                    body { behavior:url("skins/_common/js/ADxMenu_prof.htc"); }
+                </style>
+            <![endif]-->
+';
+        }
+    }
+
 if($mime == "application/xhtml+xml")
 {
     $prolog_type = "<?xml version=\"1.0\" encoding=\"$charset\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$pageLanguage\" lang=\"$pageLanguage\">\n";
