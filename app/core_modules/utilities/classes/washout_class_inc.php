@@ -28,7 +28,7 @@ class washout extends object
 {
 	/**
 	*
-	* @var array parsers
+	* @var string array $classes An array to hold all the parser classes
 	* @access public
 	*
 	*/
@@ -36,11 +36,19 @@ class washout extends object
 
 	/**
 	*
-	* @var $bbcode
+	* @var string object $bbcode String to hold the bbcode parser object
 	* @access public
 	*
 	*/
 	public $bbcode;
+
+    /**
+    *
+    * @var string object $objUrl String to hold the url parser object
+    * @access public
+    *
+    */
+    public $objUrl;
 
     /**
     * @var object $objModules: The modules class in the modulecatalogue module
@@ -72,7 +80,6 @@ class washout extends object
 			// restore path
 			chdir($savedDir);
 			$mathMlLoaded = $this->objModules->checkIfRegistered('mathml');
-
 			foreach ($parsers as $parser)
 			{
 				if($parser == 'parse4mathml_class_inc.php'){
@@ -84,6 +91,7 @@ class washout extends object
                 }
 			}
 			$this->bbcode = $this->getObject('bbcodeparser', 'utilities');
+            $this->objUrl = $this->getObject('url', 'strings');
 		}
 		catch (customException $e)
 		{
@@ -115,7 +123,8 @@ class washout extends object
 				exit;
 			}
 		}
-			return $this->bbcode->parse4bbcode($txt);
+		$txt = $this->bbcode->parse4bbcode($txt);
+        return $this->objUrl->tagExtLinks($this->objUrl->makeClickableLinks($txt));
 	}
 }
 ?>
