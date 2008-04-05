@@ -83,55 +83,48 @@ class podcastapi extends object
 	}
 	
 	
-	public function convert3GPtoFLV($params)
+	public function grabPodcast($params)
 	{
 		$param = $params->getParam(0);
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
-    	$appkey = $param->scalarval();
+    	$username = $param->scalarval();
     	
     	$param = $params->getParam(1);
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
     	}
+    	$password = $param->scalarval();
     	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
     	$file = $param->scalarval();
 		$file = base64_decode($file);
-		
-		// check the api key for validity
-    	if($this->checkApiKey($appkey) != TRUE)
-    	{
-    		return new XML_RPC_Response("Incorrect API Key!");
-    	}
     	
-		if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
+		$userid = $this->objUser->getUserId($username);
+		
+		if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
 		{
-			@mkdir($this->objConfig->getContentBasePath().'apitmp/');
-			@chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
+			@mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
+			@chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
 		}
-		$localfile = $this->objConfig->getContentBasePath().'apitmp/'.rand(1,999);
-		$orig = $localfile.'.3gp';
-		$conv = $localfile;
-		file_put_contents($orig, $file);
-		$newfile = $this->objMedia->convert3gp2flv($orig, $conv);
-		$filetosend = file_get_contents($newfile);
-		$filetosend = base64_encode($filetosend);
-		$val = new XML_RPC_Value($filetosend, 'string');
-		unlink($orig);
-		unlink($newfile);
+		
+		$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$filename = $param->scalarval();
+    	
+		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
+		file_put_contents($file, $localfile);
+		
+		$val = new XML_RPC_Value("File saved to $localfile", 'string');
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
-	}
-	
-	
-	
-	
-	private function checkApiKey($key)
-	{
-		// just returning a true for now, will implement this later.
-		return TRUE;
 	}
 }
 ?>
