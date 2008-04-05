@@ -186,6 +186,8 @@ class xmlrpcapi extends object
         	$this->objInternalMail = $this->getObject('internalmailapi');
         	// Forum API
         	$this->objForum = $this->getObject('forumapi');
+        	// Podcast API
+        	$this->objPodcasts = $this->getObject('podcastapi');
 		}
 		catch (customException $e)
 		{
@@ -679,7 +681,12 @@ class xmlrpcapi extends object
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'gets a list of all the languages that can be selected when creating a message'),
-
+                		   						   
+                		  // Podcast API for python tool
+                		  'podcast.uploader' => array('function' => array($this->objPodcasts, 'grabPodcast'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string', 'string', 'string', 'string')),
+                		   						   'docstring' => 'uploads a file to the server'),
    					), 1, 0);
 
 
