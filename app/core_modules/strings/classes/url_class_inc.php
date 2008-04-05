@@ -3,14 +3,14 @@
  * Class for manipulating URLs and anchor tags in text strings.
  * It is mainly used for parsing strings to activate URLS, or to
  * tag external links with an icon indicating that they are off site.
- * 
+ *
  * The following methods are provided:
  *   makeClickableLinks -> Turns plain text links into clickable links
  *   removeLinks -> Removes active links in the string
  *   isValidFormedUrl -> Tests if a URL is a validly formed URL
  *   tagExtLinks -> Provides a method to tag links that go off site with an icon
- * 
- * @author Derek Keats 
+ *
+ * @author Derek Keats
  * @version $Id$
  * @copyright 2003 GPL
  */
@@ -18,21 +18,21 @@ class url extends object {
     /**
      * Method to take a string and return it with URLS with http:// or ftp://
      * and email addresses as active links
-     * 
+     *
      * @param string $str The string to be parsed
      * @return the parsed string
      */
     function makeClickableLinks($str)
-    { 
+    {
         // Exclude matched inside anchor tags
-        $not_anchor = '(?<!"|href=|href\s=\s|href=\s|href\s=)'; 
+        $not_anchor = '(?<!"|href=|href\s=\s|href=\s|href\s=)';
         // Match he protocol with ://, e.g. http://
         $protocol = '(http|ftp|https):\/\/';
         $domain = '[\w]+(.[\w]+)';
         $subdir = '([\w\-\.;,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?';
-        $test = '/' . $not_anchor . $protocol . $domain . $subdir . '/i'; 
+        $test = '/' . $not_anchor . $protocol . $domain . $subdir . '/i';
         // Match and replace where there is a protocol and no anchor
-        $ret = preg_replace($test, "<a href='$0' title='$0'>$0</a>", $str); 
+        $ret = preg_replace($test, "<a href='$0' title='$0'>$0</a>", $str);
         // Now match things beginning with www.
         $not_anchor = '(?<!"|href=|href\s=\s|href=\s|href\s=)';
         $not_http = '(?<!:\/\/)';
@@ -40,35 +40,35 @@ class url extends object {
         $subdir = '([\w\-\.;,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?';
         $test = '/' . $not_anchor . $not_http . $domain . $subdir . '/is';
         return preg_replace($test, "<a href='http://$0' title='http://$0'>$0</a>", $ret);
-    } 
+    }
 
     /**
      * Method to unlink URLs in text. The numbers in the comments refer
      * to the backreferences for matches inside parentheses ()
-     * 
+     *
      * @param string $str The string to be parsed
      * @return the parsed string
      */
     function removeLinks($str)
     {
-        $test="/(<a\s+href=)"       //1: Match the start of the anchor tag followed by 
+        $test="/(<a\s+href=)"       //1: Match the start of the anchor tag followed by
                                     //   any number of spaces followed by href followed
           ."([\"\'])"              //2: Match either of " or ' and remember it as \2 for a backreference
-          . "(.*[\"'])"            //3: Match any characters up to the next " or ' 
+          . "(.*[\"'])"            //3: Match any characters up to the next " or '
           . "(.*>)"                //4: Anything else followed by the closing >
           . "(.+)"                 //5: Match any string of 1 or more characters
           . "(<\/a>)"               //6: Match the closing </a> tag
-          . "/isU";                //Make it case insensitive (i), treat across newlines (s) 
+          . "/isU";                //Make it case insensitive (i), treat across newlines (s)
                                     //and make it Ungreedy (U)
-          return preg_replace($test, "\$5", $str); 
-          
-    } 
+          return preg_replace($test, "\$5", $str);
+
+    }
 
     /**
      * Checks if a URL is validly formed based on the code in
      * PHP Classes by Lennart Groetzbach <lennartg_at_web_dot_de>
      * Adapted to KINKY by Derek
-     * 
+     *
      * @param String $str The Url to validate
      * @param boolean $strict Enforce strict checking?
      * @return boolean TRUE|FALSE
@@ -80,10 +80,10 @@ class url extends object {
             $test .= "/^http:\\/\\/([A-Za-z-\\.]*)\\//";
         } else {
             $test .= "/^http:\\/\\/([A-Za-z-\\.]*)/";
-        } 
+        }
         return @preg_match($test, $str);
     }
-    
+
     /**
     * Method to check if Email is valid
     *
@@ -103,12 +103,12 @@ class url extends object {
 
     /**
      * Method to add something to the end of an external link
-     * where external is defined as one that starts with http:// 
+     * where external is defined as one that starts with http://
      * or ftp://
      * It uses a perl type regular expression
-     * Ir was made with help from participants in the 
-     * Undernet IRC channel #phphelp 
-     * @author Derek Keats 
+     * Ir was made with help from participants in the
+     * Undernet IRC channel #phphelp
+     * @author Derek Keats
      * @param String $str The string to be tagged
      * @param String $activ Whether to make the $repl or icon active, default TRUE
      * @param String $repl The string to add to the end of the link
@@ -145,13 +145,13 @@ class url extends object {
               ."(\"|\')" //7: Match a closing single or double quote (helps pull out the URL)
               ."(.*)" // 8: Match any further characters
               ."<\/a>/isU"; // 9: Match the closing anchor
-            return preg_replace($test, 
-              " \${0} <a href=\"\${3}\${4}\${5}\" 
+            return preg_replace($test,
+              " \${0} <a href=\"\${3}\${4}\${5}\"
               target=\"_BLANK\">" . $repl . "</a>", $str);
         }
-        
+
     }
-    
+
     /**
     * Method to activate image links. Note that this will have to be called
     * before the tagExtLinks method, otherwise the images will appear as links
@@ -165,10 +165,10 @@ class url extends object {
           . '[\w]+(.[\w]+)' // match the domain
           . '([\w\-\.;,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?' //match any number of subdirectories
           . '(gif|jpg|png)'; // match the file extension
-        return preg_replace($test, 
+        return preg_replace($test,
               "<img src=\"${0}\"/>", $str);
 
     }
-} 
+}
 
 ?>
