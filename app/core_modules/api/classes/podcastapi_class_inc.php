@@ -102,6 +102,7 @@ class podcastapi extends object
             log_debug($param);
     	}
     	$file = $param->scalarval();
+    	log_debug($file);
 		$file = base64_decode($file);
     	
 		$userid = $this->objUser->getUserId($username);
@@ -118,8 +119,10 @@ class podcastapi extends object
     	}
     	$filename = $param->scalarval();
     	
+    	log_debug("getting $filename from python");
+    	log_debug($file);
 		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
-		file_put_contents($file, $localfile);
+		file_put_contents($localfile, $file);
 		
 		$val = new XML_RPC_Value("File saved to $localfile", 'string');
 		return new XML_RPC_Response($val);
