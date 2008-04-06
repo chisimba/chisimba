@@ -119,6 +119,18 @@ class podcastapi extends object
     	}
     	$filename = $param->scalarval();
     	
+    	$param = $params->getParam(4);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$idtitle = $param->scalarval();
+    	
+    	$param = $params->getParam(5);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$idcomment = $param->scalarval();
+
     	log_debug("getting $filename from python");
     	//log_debug($file);
 		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
@@ -132,7 +144,9 @@ class podcastapi extends object
 		// convert to mp3 via lame and oggenc (please make sure that these are installed on the server.
 		$media = $this->getObject('media', 'utilities');
 		log_debug("Converting $localfile...");
-		$media->convertOgg2Mp3($localfile, $this->objConfig->getContentBasePath().'users/'.$userid."/");
+		$idauthor = $this->objUser->fullName($userid);
+		
+		$media->convertOgg2Mp3($localfile, $this->objConfig->getContentBasePath().'users/'.$userid."/", $idauthor, $idtitle, $idcomment);
 		//sleep(60); //fake a 60 second process
  		
 		//fork the process and create the child process and call the callback function when done
