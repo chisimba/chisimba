@@ -685,7 +685,7 @@ class xmlrpcapi extends object
                 		  // Podcast API for python tool
                 		  'podcast.uploader' => array('function' => array($this->objPodcasts, 'grabPodcast'),
                 		  						   'signature' => array(
-                		   						   					array('string', 'string', 'string', 'string', 'string')),
+                		   						   					array('string', 'string', 'string', 'string', 'string', 'string', 'string')),
                 		   						   'docstring' => 'uploads a file to the server'),
    					), 1, 0);
 
