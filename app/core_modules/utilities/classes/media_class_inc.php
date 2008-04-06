@@ -141,5 +141,21 @@ class media extends object
 			return FALSE;
 		}	
 	}
+	
+	public function convertOgg2Mp3($file, $savepath)
+	{
+		$rfile = basename($file, ".ogg");
+		$newfile = $savepath."/".$rfile.".mp3";
+		// oggdec -Q /home/paul/zola.ogg -o - | lame --quiet --replaygain-fast - /home/paul/outfile.mp3
+		system("oggdec -Q $file -o - | lame --quiet --replaygain-fast - $newfile", $results);
+		if($results == 0)
+		{
+			return $savepath.$newfile;
+		}
+		else {
+			return FALSE;
+		}
+		
+	}
 }
 ?>
