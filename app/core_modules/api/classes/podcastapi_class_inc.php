@@ -120,10 +120,23 @@ class podcastapi extends object
     	$filename = $param->scalarval();
     	
     	log_debug("getting $filename from python");
-    	log_debug($file);
+    	//log_debug($file);
 		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
 		file_put_contents($localfile, $file);
 		
+		// Convert the OGG Vorbis file to an MP3 as a background process, just in case it's huge
+		$b = $this->getObject('background', 'utilities');
+		$status = $b->isUserConn();
+		$callback = $b->keepAlive();
+		
+		// convert to mp3 via lame and oggenc (please make sure that these are installed on the server.
+		$media = $this->getObject('media', 'utilities');
+		log_debug("Converting $localfile...");
+		$media->convertOgg2Mp3($localfile, $this->objConfig->getContentBasePath().'users/'.$userid."/");
+		//sleep(60); //fake a 60 second process
+ 		
+		//fork the process and create the child process and call the callback function when done
+		$call2 = $b->setCallBack($this->objUser->email($userid), "Podcast has been processed", "Your podcast is now available on the server.");
 		$val = new XML_RPC_Value("File saved to $localfile", 'string');
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
