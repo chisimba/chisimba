@@ -142,12 +142,14 @@ class media extends object
 		}	
 	}
 	
-	public function convertOgg2Mp3($file, $savepath)
+	public function convertOgg2Mp3($file, $savepath, $idauthor = NULL, $idtitle = NULL, $idcomment = NULL)
 	{
 		$rfile = basename($file, ".ogg");
 		$newfile = $savepath."/".$rfile.".mp3";
-		// oggdec -Q /home/paul/zola.ogg -o - | lame --quiet --replaygain-fast - /home/paul/outfile.mp3
-		system("oggdec -Q $file -o - | lame --quiet --replaygain-fast - $newfile", $results);
+		$iddate = date('Y');
+		// oggdec -Q /home/paul/Desktop/music/zola.ogg -o - | lame --vbr-new --replaygain-fast --quiet --ta "Paul Scott" --tg "Other" --tt "Title of file" --tc "Comment that I am making" --ty "2008" - /home/paul/outfile.mp3
+		system("oggdec -Q $file -o - | lame --vbr-new --replaygain-fast --quiet --replaygain-fast --ta '$idauthor' --tg 'Other' --tt '$idtitle' --tc '$idcomment' --ty '$iddate' - $newfile", $results);
+		log_debug($results);
 		if($results == 0)
 		{
 			return $savepath.$newfile;
