@@ -1,0 +1,451 @@
+//SANORD2
+#container {
+    background-color: #F5F0E6;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #c65d0a;
+}
+
+li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
+
+div#header {
+	background: #F5F0E6 url("sanordImages/DSC09575.jpg") bottom repeat-x;
+}
+
+#sitename span {
+    visibility: hidden;
+}
+#sitename {
+	font-size: 30px;
+	width: 950px;
+	height: 125px;
+	color: #96B442;
+	margin: 10px 0 0 0px;
+	padding: 0;
+	background: #F5F0E6 url("newimages/sanordlogo.gif") no-repeat;
+}
+
+	
+div#header div#search {
+	position: absolute;
+	color:#000;
+	float: right;
+	 top: 5px;
+	 right: 0;
+	 width: 300px;
+}
+#breadcrumbs {
+	font-size: 80%;
+	color:#000;
+    padding: 3px;
+}
+#breadcrumbs a:link, #breadcrumbs a:visited {
+	color: #00ff00;
+	text-decoration: none;
+}
+#breadcrumbs a:hover {
+	color: #D58532;
+	text-decoration: underline;
+}
+
+#footer {
+    background: #fff url("newimages/FSIUFOOTER_strip.jpg") bottom repeat-x;
+    text-align:center;
+    color:#8FBC8F;
+	padding-bottom: 10px;
+}
+
+#footer p {margin:0}
+#footer a:link {color:#000000}
+	
+/* Menu */
+
+#menuwrapper {
+	background-color: #8FBC8F;
+	padding: 4px;
+}
+
+ul#menuList  li {
+        display:block;
+	background-color: #2E8B57;
+	padding: 2px;
+	background-image: none;
+
+	border-bottom: none;
+	font-weight: bold;
+}
+
+ul#menuList  li:hover {
+	
+	background-color: #F5F0E6;
+}
+
+/* Top Row*/
+ul#menuList  li a {
+	
+	color: #000000;
+	text-decoration: none;
+	padding-right: 30px;
+}
+
+/* Items on menu*/
+ul#menuList  li li a {
+	color: #000;
+	text-decoration: none;
+	padding: 3px;
+}
+
+ul#menuList  li li a img{
+	border-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul#menuList  li li a span{
+    margin-left: 27px;
+    margin-right: 0px;
+    
+}
+
+ul#menuList  li  li{
+    border-style: none;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-weight: normal;
+    padding: 0;
+}
+
+ul#menuList  li  li:hover{
+    border-style: none;
+    background-color: #3E6E22;
+    color: #fff;
+}
+
+ul#menuList  li  li:hover a {
+    color: #fff;
+}
+
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
+ul#menuList  li  ul{
+    margin-top: 2px;
+}
+
+
+
+
+
+
+
+div#twocolumn, div#threecolumn {
+    margin-top: 0px;
+}
+
+#wrapper, #contentlayout {
+    background: #F5F0E6 repeat-x ;
+}
+
+#contentlayout {
+	//clear: left;
+	background: #F5F0E6;
+}
+
+#left {
+	background: #F5F0E6 url("newimages/right_end_test.jpg") no-repeat top left;
+	border-right: 2px solid #ffffff;
+}
+
+#leftcontent {
+    background: #F5F0E6 url("newimages/triangle.gif") no-repeat 2px 2px;
+    margin: 0 0px 0 10px;
+    padding: 5px 15px 5px 0px;
+}
+
+#rightcontent
+{
+    margin-right: 10px;
+    padding: 5px 13px 5px 5px;
+    background: url("newimages/triangle.gif") no-repeat 2px 2px;
+    
+}
+
+#right {
+	background: #F5F0E6 url("newimages/right_end_test.jpg") no-repeat top right ;
+	border-left: 2px solid #ffffff;
+}
+
+#contentcontent {
+    padding: 10px;
+    background-color: #F5F0E6;
+}
+
+
+
+#twocolumn #content {
+    margin-right: 10px;
+    padding: 5px 7px 5px 5px;
+    background: #F5F0E6 url("newimages/right_end_test.jpg") no-repeat top right ;
+    
+}
+
+
+/* Feature Box */
+
+.featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+    margin: 0 0 .3em; 
+    color:#000; 
+    background-color: #c6c9c0;
+    padding: 3px;
+}
+.featurebox {
+    margin-bottom: 20px;
+}
+
+.featurebox p {border:2px;margin: 0 0 1em;color:#444}
+.featurebox a {font-weight:bold}
+.featurebox select {width: 100%; }
+.contentfeaturebox {
+	color: #333333;
+	padding: 15px 20px 20px;
+	border-top: 4px solid #FDC800;
+	margin: 0 0 1.5em;
+	background: url("images/featurebox_bg.jpg") no-repeat 100% 100%;
+}
+
+.featureboxheader {
+    padding: 3px;
+    padding-left: 34px;
+    border-bottom: 0px solid #fff;
+    color:#000; 
+    background: #DEB887 ://url("newimages/bg_yellow2.gif") no-repeat;
+	text-align:center;
+    text-decoration: none;
+}
+.contentfeaturebox p, .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em;
+	border-bottom: 0px solid #F4A460;
+	color: #003366;
+	background-color: #DEB887;
+}
+.contenttest {color: #003366}
+.contentfeaturebox p {
+	border:none;
+	margin: 0 0 1em;
+	color: #F5F0E6;
+}
+
+.contentfeaturebox a {
+	font-weight:bold;
+}
+
+.contentfeaturebox select {
+	width: 100%;
+}
+/* End featurebox */
+
+/* Secondary Navigation */
+#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff url("images/sprites.gif") no-repeat 10px -695px;font: bold 86% arial, sans-serif; color: #000; display:block}
+#nav-secondary a:hover {color:#c00;background: #A97102 url("images/sprites.gif") no-repeat 10px -695px} 
+
+.menuBtn { 
+    background-color: #C8CE35;//#95B441;
+}
+
+.menuBtn:hover { 
+    background-color: #95B441;
+}
+
+.menuBtn a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menuBtnOn {
+    background-color: #E9B52D;
+}
+
+.menuBtnOn:hover {
+    background-color: #D58532;
+}
+
+.menuBtnOn a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+
+#sanordmenu{
+	margin-top: 10px;
+	padding-right: 10px;
+	background-color: #D8DBD2;
+	
+}
+
+#sanordmenu ul{
+	background-color: #D8DBD2;
+	margin:0;
+	margin-left: 220px; /*margin between first menu item and left browser edge*/
+	padding:0;
+	list-style: none;
+	text-transform: lowercase;
+}
+
+#sanordmenu li{
+	display: inline;
+	margin: 0 2px 0 0;
+	padding:0;
+}
+
+#sanordmenu li a{
+	float: left;
+	display: block;
+	color: #8FBC8F;
+	margin: 0 5px 0 0; /*Margin between each menu item*/
+	padding: 2px 4px 0 4px;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #EDEFEC; /*Default menu color*/
+	border-right: 2px solid #DCDFD6;
+}
+
+#sanordmenu li a:hover{
+	color: #000;
+}
+
+#sanordmenu #current a{ /*currently selected tab*/
+	background-color: #FFF; /*Brown color theme*/ 
+	border-right: 2px solid #DCDFD6;
+	color: #000;
+}
+
+/* Three Column Layout */
+#threecolumn div#wrapper div#content{margin: 0 199px 0 190px}
+#threecolumn div#left{float:left;width:180px;margin-left:-99%}
+#threecolumn div#right{float:left;width:200px;margin-left:-201px}
+
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{margin: 0 0 0 190px}
+#twocolumn div#left{float:left;width:180px;margin-left:-99%}
+#twocolumn div#right{display:none}
+
+
+#left {
+	background: #f7f8f5 url("newimages/left_end_test.jpg") no-repeat top right ;
+}
+
+/**
+Turn off round corners
+*/
+
+
+
+div.rounded2 {
+
+  background: transparent none;
+
+  margin-bottom: 0px;
+
+}
+
+div.rounded2 div {
+  
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: transparent none;
+    padding-bottom: 4px;
+    padding-right: 4px;
+    
+}
+
+div.rounded2 div div {
+
+  background: transparent none;
+
+}
+
+div.rounded2 div div div {
+
+  background: transparent none;
+
+  padding: 5px;
+
+}
+
+#textresize {
+	padding-top: 80px;
+	padding-right: 20px;
+	float: right;
+}
+h1 {
+	/*18px via YUI Fonts CSS foundation*/
+	font-size:138.5%;  
+}
+h2 {
+	/*16px via YUI Fonts CSS foundation*/
+	font-size:123.1%; 
+}
+h3 {
+	/*14px via YUI Fonts CSS foundation*/
+	font-size:108%;  
+}
+h1,h2,h3 {
+	/* top & bottom margin based on font size */
+	margin:1em 0;
+}
+h1,h2,h3,h4,h5,h6,strong {
+	/*bringing boldness back to headers and the strong element*/
+	font-weight:bold; 
+}
+abbr,acronym {
+	/*indicating to users that more info is available */
+	border-bottom:1px dotted #000;
+	cursor:help;
+} 
+em {
+	/*bringing italics back to the em element*/
+	font-style:italic;
+}
+blockquote,ul,ol,dl {
+	/*giving blockquotes and lists room to breath*/
+	margin:1em;
+}
+ol,ul,dl {
+	/*bringing lists on to the page with breathing room */
+	margin-left:2em;
+}
+ol li {
+	/*giving OL's LIs generated numbers*/
+	list-style: decimal outside;	
+}
+ul li {
+	/*giving UL's LIs generated disc markers*/
+	
+}
+dl dd {
+	/*giving UL's LIs generated numbers*/
+	margin-left:1em;
+}
+th,td {
+	/*borders and padding to make the table readable*/
+	
+	padding:.5em;
+}
+th {
+	/*distinguishing table headers from data cells*/
+	font-weight:bold;
+	text-align:center;
+}
+caption {
+	/*coordinated marking to match cell's padding*/
+	margin-bottom:.5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align:center;
+}
+p,fieldset,table {
+	/*so things don't run into each other*/
+	margin-bottom:1em;
+}
