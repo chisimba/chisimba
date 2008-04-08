@@ -124,6 +124,7 @@ class washout extends object
 			}
 		}
 		$txt = $this->bbcode->parse4bbcode($txt);
+        // comment it out for now
         //return $this->objUrl->tagExtLinks($this->objUrl->makeClickableLinks($txt));
         //return $this->objUrl->makeClickableLinks($txt);
         return $txt;
