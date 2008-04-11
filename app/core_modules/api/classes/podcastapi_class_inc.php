@@ -58,6 +58,10 @@ $GLOBALS['kewl_entry_point_run']) {
 class podcastapi extends object
 {
 	public $objMedia;
+	public $objFiles;
+	public $objUser;
+	public $objConfig;
+	public $objLanguage;
 
 	/**
      * init method
@@ -73,7 +77,7 @@ class podcastapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
-        	//$this->objMedia = $this->getObject('media', 'utilities');
+        	$this->objFiles = $this->getObject('dbfile', 'filemanager');
 		}
 		catch (customException $e)
 		{
@@ -102,7 +106,7 @@ class podcastapi extends object
             log_debug($param);
     	}
     	$file = $param->scalarval();
-    	log_debug($file);
+    	//log_debug($file);
 		$file = base64_decode($file);
     	
 		$userid = $this->objUser->getUserId($username);
@@ -131,8 +135,15 @@ class podcastapi extends object
     	}
     	$idcomment = $param->scalarval();
 
-    	log_debug("getting $filename from python");
-    	//log_debug($file);
+    	// log homeboy in
+    	// NOTE: This does not work - fails on initiateSession() in dbauth class...
+    	//$auth = $this->objUser->authenticateUser($username, $password);
+    	//if($auth != 1)
+    	//{
+    	//	log_debug("Authentication Failed!");
+    	//	return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    	//}
+    	
 		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
 		file_put_contents($localfile, $file);
 		
@@ -146,15 +157,30 @@ class podcastapi extends object
 		log_debug("Converting $localfile...");
 		$idauthor = $this->objUser->fullName($userid);
 		
-		$media->convertOgg2Mp3($localfile, $this->objConfig->getContentBasePath().'users/'.$userid."/", $idauthor, $idtitle, $idcomment);
-		//sleep(60); //fake a 60 second process
- 		
+		$mp3 = $media->convertOgg2Mp3($localfile, $this->objConfig->getContentBasePath().'users/'.$userid, $idauthor, $idtitle, $idcomment);
+		
+		$fmname = basename($filename, ".ogg");
+		$fmname = $fmname.".mp3"; 
+		$fmpath = 'users/'.$userid.'/'.$fmname;
+		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
+		
+		$filesize = filesize($mp3);
+		$mimetype = mime_content_type($mp3);
+		$category = '';
+		$version =1;
+		
 		//fork the process and create the child process and call the callback function when done
 		$call2 = $b->setCallBack($this->objUser->email($userid), "Podcast has been processed", "Your podcast is now available on the server.");
-		$val = new XML_RPC_Value("File saved to $localfile", 'string');
+
+		// add the MP3 to the user's filemanager set
+		$fileId = $this->objFiles->addFile($fmname, $fmpath, $filesize, $mimetype, $category, $version, $userid, $idcomment);
+		
+		// now take the generated FileID and insert the podcast to the podcast module.
+		$pod = $this->getObject('dbpodcast', 'podcast');
+		$ret = $pod->addPodcast($fileId, $userid, $idtitle);
+
+		$val = new XML_RPC_Value("File saved to localfile", 'string');
 		return new XML_RPC_Response($val);
-		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
 	}
 }
 ?>
