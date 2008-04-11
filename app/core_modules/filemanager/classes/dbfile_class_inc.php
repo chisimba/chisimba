@@ -234,8 +234,8 @@ class dbfile extends dbTable
                 'category' => $category,
                 'license' => $license,
                 'moduleuploaded' => $this->getParam('module'),
-                'creatorid' => $this->objUser->userId(),
-                'modifierid' => $this->objUser->userId(),
+                'creatorid' => $userId,
+                'modifierid' => $userId,
                 'datecreated' => strftime('%Y-%m-%d', mktime()),
                 'timecreated' => strftime('%H:%M:%S', mktime())
                 )
