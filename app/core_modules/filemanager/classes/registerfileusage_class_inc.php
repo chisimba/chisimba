@@ -69,8 +69,12 @@ class registerfileusage extends dbTable
     * @param  boolean $fileLock  Flag whether to apply a lock on the file - prevents file from being deleted
     * @return string  Color in Hexadecimal format
     */
-    private function addItem ($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE)
+    private function addItem ($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE, $userId = NULL)
     {
+    	if($userId == NULL)
+    	{
+    		$userId = $this->objUser->userId();
+    	}
         $fileLock = $fileLock ? 'Y' : 'N';
         
         $insertId = $this->insert(array(
@@ -82,7 +86,7 @@ class registerfileusage extends dbTable
                 'context' => $context,
                 'workgroup' => $workgroup,
                 'filelock' => $fileLock,
-                'creatorid' => $this->objUser->userId(),
+                'creatorid' => $userId,
                 'datecreated' => strftime('%Y-%m-%d', mktime()),
                 'timecreated' => strftime('%H:%M:%S', mktime())
         ));
@@ -114,11 +118,11 @@ class registerfileusage extends dbTable
     * @param  boolean $fileLock  Flag whether to apply a lock on the file - prevents file from being deleted
     * @return string  Color in Hexadecimal format
     */
-    public function registerUse($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE)
+    public function registerUse($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE, $userid = NULL)
     {
         $this->deregisterUse($module, $table, $recordId, $column);
         
-        $this->addItem ($fileId, $module, $table, $recordId, $column, $context, $workgroup, $fileLock);
+        $this->addItem ($fileId, $module, $table, $recordId, $column, $context, $workgroup, $fileLock, $userid);
     }
     
     /**
