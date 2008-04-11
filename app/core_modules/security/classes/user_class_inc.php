@@ -105,7 +105,7 @@ class user extends dbTable
     {
         $username = trim($username);
         $this->objAuth=$this->getObject('authenticate');
-        $result= $this->objAuth->authenticateUser($username,$password);
+        $result = $this->objAuth->authenticateUser($username,$password);
        
         return $result;
 
