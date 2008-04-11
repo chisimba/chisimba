@@ -149,10 +149,9 @@ class media extends object
 		$iddate = date('Y');
 		// oggdec -Q /home/paul/Desktop/music/zola.ogg -o - | lame --vbr-new --replaygain-fast --quiet --ta "Paul Scott" --tg "Other" --tt "Title of file" --tc "Comment that I am making" --ty "2008" - /home/paul/outfile.mp3
 		system("oggdec -Q $file -o - | lame --vbr-new --replaygain-fast --quiet --replaygain-fast --ta '$idauthor' --tg 'Other' --tt '$idtitle' --tc '$idcomment' --ty '$iddate' - $newfile", $results);
-		log_debug($results);
 		if($results == 0)
 		{
-			return $savepath.$newfile;
+			return $newfile;
 		}
 		else {
 			return FALSE;
