@@ -633,11 +633,22 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Grab a hi res screenshot of a URL'),
+		   				  // Internal Mail API Start
    						  'internalmail.getAll' => array('function' => array($this->objInternalMail, 'internalMailGetAll'),
                 		   						   'signature' => array(
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'get all internal mail for a user'),
+                		  'internalmail.listFolders' => array('function' => array($this->objInternalMail, 'mailListFolders'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+                		   						   'docstring' => 'Get a list of all folders '),
+   						  'internalmail.addFolder' => array('function' => array($this->objInternalMail, 'mailAddfolder'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Insert a new folder into the database'),
 	   					  //Forum API Start
    						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
                 		   						   'signature' => array(
@@ -681,7 +692,26 @@ class xmlrpcapi extends object
                 		   						   					array('string'),
                 		   						   					),
                 		   						   'docstring' => 'gets a list of all the languages that can be selected when creating a message'),
-                		   						   
+						  'forum.setDefaultForum' => array('function' => array($this->objForum, 'forumSetDefaultForum'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'This method sets a forum as the default forum for a context'),
+                		  'forum.insertForum' => array('function' => array($this->objForum, 'insertForum'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'inserts a new forum into the database'),
+						  'forum.updateForum' => array('function' => array($this->objForum, 'updateForum'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'inserts a new forum into the database'),
+                		  'forum.getForum' => array('function' => array($this->objForum, 'forumGetForum'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'get the forum row'),    		   						   
                 		  // Podcast API for python tool
                 		  'podcast.uploader' => array('function' => array($this->objPodcasts, 'grabPodcast'),
                 		  						   'signature' => array(

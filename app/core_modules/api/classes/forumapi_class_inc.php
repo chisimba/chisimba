@@ -90,7 +90,6 @@ class forumapi extends object
 	}
 	
 
-
     /**
      * get all forums
      * 
@@ -105,7 +104,8 @@ class forumapi extends object
 
 	    	$forumStruct = array();
 	    	$resarr = $this->objdbforum->getContextForums(null);
-	    	//var_dump($resarr);
+	    	$defaultForum = $this->objdbforum->getDefaultForum("root");
+	    	//var_dump($defaultForum["id"]);
 	      	foreach($resarr as $res)
 	    	{
 	    		$lastPost = $this->objPost->getLastPost($res['id']);
@@ -130,6 +130,12 @@ class forumapi extends object
 	            	$postDetails = '';
 		        }
 		        
+		        if($res['archivedate'] == null) {
+		        	$archive = "n/a";
+		        } else {
+		        	$archive = $res['archivedate'];
+		        }
+		        
 	
 				$struct = new XML_RPC_Value(array(			
 					new XML_RPC_Value($res['id'], "string"),
@@ -143,12 +149,253 @@ class forumapi extends object
 	    			new XML_RPC_Value($subject, "string"),
 	    			new XML_RPC_Value($lastPost['firstname'], "string"),
 	    			new XML_RPC_Value($lastPost['surname'], "string"),
-	    			new XML_RPC_Value($postDetails, "string")), "array");
+	    			new XML_RPC_Value($postDetails, "string"),
+	    			new XML_RPC_Value($res['forum_visible'], "string"),
+	    			new XML_RPC_Value($res['ratingsenabled'], "string"),
+	    			new XML_RPC_Value($res['studentstarttopic'], "string"),
+	    			new XML_RPC_Value($res['attachments'], "string"),
+	    			new XML_RPC_Value($res['subscriptions'], "string"),
+	    			new XML_RPC_Value($archive, "string"),
+	    			new XML_RPC_Value($defaultForum["id"], "string")), "array");
 	    		$forumStruct[] = $struct;
 	    	}
 	    	$forumArray = new XML_RPC_Value($forumStruct,"array");
 			//var_dump($forumArray);
 	    	return new XML_RPC_Response($forumArray);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
+     * get the forum row from the Id which is passed as a parameter
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function forumGetForum($params)
+	{
+		try{
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$forumId = $param->scalarval();
+	    
+	    	$res = $this->objdbforum->getForum($forumId);
+	    	//$resarr = $this->objdbforum->getForum("gen14Srv37Nme26_1218_1207650375");
+			//var_dump($resarr['id']);
+
+    		$forumStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value($res['id'], "string"),
+    			new XML_RPC_Value($res['forum_context'], "string"),
+    			new XML_RPC_Value($res['forum_workgroup'], "string"),    			
+    			new XML_RPC_Value($res['forum_type'], "string"),
+    			new XML_RPC_Value($res['forum_name'], "string"),
+    			new XML_RPC_Value($res['forum_description'], "string"),
+    			new XML_RPC_Value($res['forum_visible'], "string"),
+    			new XML_RPC_Value($res['defaultforum'], "string"),
+    			new XML_RPC_Value($res['forumlocked'], "string"),
+    			new XML_RPC_Value($res['ratingsenabled'], "string"),
+    			new XML_RPC_Value($res['studentstarttopic'], "string"),
+    			new XML_RPC_Value($res['attachments'], "string"),
+    			new XML_RPC_Value($res['subscriptions'], "string"),
+    			new XML_RPC_Value($res['moderation'], "string"),
+    			new XML_RPC_Value($res['archivedate'], "string")), "array");
+	    	
+	    	return new XML_RPC_Response($forumStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
+     * Set the Default Forum 
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function forumSetDefaultForum($params)
+	{
+		try{
+			
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$forumId = $param->scalarval();
+        
+        $defaultForum = $this->objdbforum->setDefaultForum($forumId, "root");
+        
+        $postStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value("success", "string")), "array");
+    	//$postStruct[] = $struct;
+    	
+    	//$postArray = new XML_RPC_Value($postStruct,"array");
+
+        return new XML_RPC_Response($postStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
+     * Insert new Forum into database
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function insertForum($params)
+	{
+		try{
+			
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$forumName = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$description = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$visible = $param->scalarval();
+    	
+    	$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$ratePosts = $param->scalarval();
+    	
+    	$param = $params->getParam(4);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$studentStart = $param->scalarval();
+    	
+    	$param = $params->getParam(5);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$attachment = $param->scalarval();
+    	
+    	$param = $params->getParam(6);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+        $email = $param->scalarval();
+        
+        $forum = $this->objdbforum->insertSingle("root", null, $forumName, $description, 'N', $visible, 'Y', $ratePosts, $studentStart, $attachment, $email, 'Y', 'Y', 'N');
+        //$forum = $this->objdbforum->insertSingle("root", null, "hello", "wat", 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N');
+        
+        $forumStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value("success", "string")), "array");
+    	//$postStruct[] = $struct;
+    	
+    	//$postArray = new XML_RPC_Value($postStruct,"array");
+//var_dump($forumStruct);
+        return new XML_RPC_Response($forumStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
+     *  update the Forum row in the database
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function updateForum($params)
+	{
+		try{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$forumId = $param->scalarval();	
+		
+		$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$forumName = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$description = $param->scalarval();
+    	
+    	$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$visible = $param->scalarval();
+    	
+    	$param = $params->getParam(4);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$ratePosts = $param->scalarval();
+    	
+    	$param = $params->getParam(5);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$studentStart = $param->scalarval();
+    	
+    	$param = $params->getParam(6);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$attachment = $param->scalarval();
+    	
+    	$param = $params->getParam(7);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+        $email = $param->scalarval();
+        
+        $this->objdbforum->update('id', $forum_id, array(
+                'forum_name' => $forumName,
+                'forum_description' => $description,
+                'forum_visible' => $visible,
+                'ratingsenabled' => $ratePosts,
+                'studentstarttopic' => $studentStart,
+                'attachments' => $attachment,
+                'subscriptions' => $email,
+        ));
+		/*$this->objdbforum->update('id', 'gen14Srv37Nme26_6627_1207821573', array(
+                'forum_name' => 'brent',
+                'forum_description' => 'hello',
+                'forum_visible' => 'N',
+                'ratingsenabled' => 'N',
+                'studentstarttopic' => 'N',
+                'attachments' => 'N',
+                'subscriptions' => 'N',
+        ));*/
+        $forumStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value("success", "string")), "array");
+    	//$postStruct[] = $struct;
+    	
+    	//$postArray = new XML_RPC_Value($postStruct,"array");
+//var_dump($forumStruct);
+        return new XML_RPC_Response($forumStruct);
 		} catch(customException $e) {
             echo customException::cleanUp();
             die($e);
@@ -207,9 +454,8 @@ class forumapi extends object
 	
 	
 	/**
-     * get topics
+     * search for a specific term within the forum database and return the posts containing the search term
      * 
-     * Gets a list of all topics for a forum
      * 
      * @return object 
      * @access public
