@@ -10,18 +10,19 @@
 */
 class sitestories extends dbTable {
 
-    var $objUser;
-    var $objLanguage;
-    var $objDbStories;
-    var $objH;
-    var $objParse;
+    public $objUser;
+    public $objLanguage;
+    public $objDbStories;
+    public $objH;
+    public $objParse;
+    public $objWashout;
 
     /**
     *
     * Constructor method to define the table
     *
     */
-    function init()
+    public function init()
     {
         parent::init('tbl_stories');
         $this->objUser = $this->getObject('user', 'security');
@@ -30,6 +31,7 @@ class sitestories extends dbTable {
         $this->objH = $this->getObject('htmlheading', 'htmlelements');
         //Get the smiley parser
         $this->objParse = $this->getObject('parse4display', 'strings');
+        $this->objWashout = $this->getObject('washout', 'utilities');
     }
 
     /**
@@ -45,7 +47,9 @@ class sitestories extends dbTable {
         $isActive = stripslashes($ar['isActive']);
         $title =stripslashes($ar['title']);
         $abstract = stripslashes($ar['abstract']);
-        $mainText = $this->objParse->prepare(stripslashes($ar['mainText']));
+        $mainText = $this->objWashout->parseText(
+                stripslashes($ar['mainText'])
+            );
         $dateCreated = stripslashes($ar['dateCreated']);
         $expirationDate = stripslashes($ar['expirationDate']);
         $notificationDate = stripslashes($ar['notificationDate']);
@@ -147,7 +151,9 @@ class sitestories extends dbTable {
             $isActive = stripslashes($line['isactive']);
             $title = stripslashes($line['title']);
             $abstract = stripslashes($line['abstract']);
-            $mainText = $this->objParse->prepare(stripslashes($line['maintext']));
+            $mainText = $this->objWashout->parseText(
+                stripslashes($line['maintext'])
+            );
             $dateCreated = stripslashes($line['datecreated']);
             $expirationDate = stripslashes($line['expirationdate']);
             $notificationDate = stripslashes($line['notificationdate']);
