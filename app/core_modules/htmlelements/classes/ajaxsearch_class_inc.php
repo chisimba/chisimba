@@ -87,6 +87,12 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     */
 	//private $name;
 
+    /**
+    * @var string The parameters to be passed.
+    * @access private
+    */
+	private $params;
+
 	/**
 	* @var string Callback class that will supply the data.
 	* @access private
@@ -99,6 +105,12 @@ class ajaxsearch extends abhtmlbase implements ifhtml
 	*/
 	private $callback_module;
 
+	/**
+	* @var string ID of submit button.
+	* @access private
+	*/
+    private $submitButton;
+
     /**
     * Constructor
     *
@@ -106,13 +118,17 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     * @param string Callback class that will supply the data
     * @param string Callback module
     */
-    public function ajaxsearch($name, $callback_class, $callback_module)
+    public function ajaxsearch($name, $params, $callback_class, $callback_module, $submitButton=NULL)
     {
 	    global $_globalObjEngine;
 	    $this->object = new object($_globalObjEngine, 'htmlelements');
         $this->name = $name;
+        $this->params = $params;
         $this->callback_class = $callback_class;
         $this->callback_module = $callback_module;
+        if (!is_null($submitButton)) {
+            $this->submitButton = $submitButton;
+        }
     }
 
     /**
@@ -123,6 +139,13 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     public function show()
     {
 
+        $javascript_activatesearch = isset($this->submitButton)?"
+            $('input_{$this->submitButton}').disabled = 'disabled';
+        ":"";
+
+        $javascript_searchsuccess = isset($this->submitButton)?"
+            $('input_{$this->submitButton}').disabled = '';
+        ":"";
 		$Javascript = "
 			<script type=\"text/javascript\">
 			var firsttimefocus = true;
@@ -135,13 +158,18 @@ class ajaxsearch extends abhtmlbase implements ifhtml
 			 	if (ajaxoperated) {
 			 		$('searchResultsDiv').innerHTML = '';
 			 		ajaxoperated = false;
+			 		{$javascript_activatesearch}
 			 	}
 			}
 			function dosearch(q)
 			{
 			    //$('indicatorSpan').style.display='inline';
 			    $('indicatorSpan').style.visibility='visible';
-			    new Ajax.Updater('searchResultsDiv', 'index.php', {parameters: 'module=htmlelements&action=composelist&_search='+q+'&name={$this->name}&callback_module={$this->callback_module}&callback_class={$this->callback_class}', onComplete: searchcomplete});
+			    new Ajax.Updater('searchResultsDiv', 'index.php', {parameters:'module=htmlelements&action=composelist&_search='+q+'&name={$this->name}&params='+encodeURI('{$this->params}')+'&callback_module={$this->callback_module}&callback_class={$this->callback_class}', onSuccess:searchsuccess, onComplete:searchcomplete});
+			}
+			function searchsuccess(req)
+			{
+			     {$javascript_searchsuccess}
 			}
 			function searchcomplete(req)
 			{
@@ -175,7 +203,7 @@ class ajaxsearch extends abhtmlbase implements ifhtml
 		$objLayer->id = 'searchResultsDiv';
 		$Layer = $objLayer->show();
 
-		$objButton = new button('_dosearch','Go search...',"javascript:dosearch($('input__search').value);");
+		$objButton = new button('_dosearch','Go',"javascript:dosearch($('input__search').value);");
 		$Search = $objButton->show();
 
 		$objFieldset = $this->object->newObject('fieldset','htmlelements');
@@ -185,6 +213,14 @@ class ajaxsearch extends abhtmlbase implements ifhtml
 		$Fieldset = $objFieldset->show();
 
 		$str = $Javascript.$Fieldset;
+
+        /*
+        .isset($this->submitButton)?"
+			<script type=\"text/javascript\">
+            $('input_{$this->submitButton}').disabled = 'disabled';
+			</script>
+        ":"";
+        */
 
 		return $str;
     }
