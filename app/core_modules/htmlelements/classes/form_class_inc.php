@@ -6,19 +6,19 @@
  * that has the ability to  contain other
  * html objects
  * PHP version 5
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2007 Wesley Nitsckie
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       
- * *            
+ * @see
+ * *
  *            Example using type 4 form.
- *            
+ *
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 4;
 	$objForm->addToFormEx($objLanguage->languageText('informational1'));
@@ -27,9 +27,9 @@
 	$objForm->addToFormEx($objLanguage->languageText('label3'),new textinput('name3'));
 	echo $objForm->show();
 
- *            
+ *
  *            Example using type 5 form. -- deprecated; use the fieldset class.
- *            
+ *
 	$objForm = new form('formname',$this->uri(array('action'=>'actiontotake')));
 	$objForm->displayType = 5;
 	$objForm->beginFieldset('legend');
@@ -184,10 +184,10 @@ class form implements ifhtml
 
     /**
      * Method to add label to form
-     * 
+     *
      * @param  string $label string to add to form
      * @param  $field string: the name of the field
-     * @access public 
+     * @access public
      */
 	public function addToFormEx($label,$field=NULL)
 	{
@@ -201,9 +201,9 @@ class form implements ifhtml
 
     /**
      * Method to create and array of elements
-     * 
+     *
      * @param string $legend
-     * @access public 
+     * @access public
      */
 	public function beginFieldset($legend)
 	{
@@ -212,8 +212,8 @@ class form implements ifhtml
 
     /**
      * Method to end the field set array
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
 	public function endFieldset()
@@ -476,7 +476,7 @@ class form implements ifhtml
      * @param $mix      mix    : This variable can hold anything
      * @param $errormsg string : The error message
      * @param $valcmd   string : the validation type
-     *                         
+     *
      *                         * the following rules apply
      *                         required
      *                         maxlength
@@ -540,42 +540,45 @@ class form implements ifhtml
             case 'nonzero';
             case 'url':
             	$this->_validateURL($mix,$errormsg);
-            	break;	
+            	break;
             case 'uploadedfile';
             case 'maxfilesize';
             case 'filename';
             case 'mimetype';
+            case 'fieldexists':
+                $this->_fieldExists($mix);
+                break;
 
         }
     }
 
     /**
      * Method to add a form rule
-     * 
-     * @return void  
+     *
+     * @return void
      * @access public
      */
     public function addFormRule()
     {
     }
-    
+
     /**
      * Method to validate URL's
-     * 
+     *
      * @return if true (boolean) else string error message
      * @access private
      */
 	private function _validateURL($url,$message)
-	{	
+	{
 		if (!preg_match('/^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?\//i', $url, $message)) {
      		return true;
 		} else {
     		return $message;
-		} 	
+		}
 	}
     /**
      * Method to get the validator scripts
-     * 
+     *
      * @return string  Return description (if any) ...
      * @access private
      */
@@ -746,7 +749,7 @@ class form implements ifhtml
 
     /**
      * Method to validate the email
-     * 
+     *
      * @param  $fieldname string: name of the field
      * @param  $errormsg string: the error message
      * @access private
@@ -759,7 +762,7 @@ class form implements ifhtml
 
     /**
      * Method to validate the letters of an email only
-     * 
+     *
      * @param  $fieldname string: name of the field
      * @param  $errormsg string: the error message
      * @access private
@@ -772,10 +775,10 @@ class form implements ifhtml
 
     /**
      * Method to validate the maximum number
-     * 
+     *
      * @param $mix array :Should include a field name and length
      * @param  $errormsg string: the error message
-     * @return void   
+     * @return void
      * @access private
      */
 	private function _valMaxNumber($mix,$errormsg)
@@ -786,7 +789,7 @@ class form implements ifhtml
 
     /**
      * Method to validate the minimum number
-     * 
+     *
      * @param $mix array :Should include a field name and length
      * @param  $errormsg string: the error message
      * @access private
@@ -799,7 +802,7 @@ class form implements ifhtml
 
     /**
      * Method to validate the selection
-     * 
+     *
      * @param  $fieldname string: name of the field
      * @param  $errormsg  string: the error message.
      * @access private
@@ -810,5 +813,19 @@ class form implements ifhtml
 		$this->_addValidationScript($jmethod, $errormsg, $fieldname);
 
 	}
+    /**
+     * Method to check if a field exists
+     *
+     * @param  $fieldname string: name of the field
+     * @param  $errormsg  string: the error message.
+     * @access private
+     */
+	private function _fieldExists($fieldname)
+	{
+	   $this->javascript .="
+	       if (document.getElementById('input_".$fieldname."')==undefined)
+            return false;
+	   ";
+    }
 }
 ?>
