@@ -111,9 +111,10 @@ class htmlelements extends controller
             case 'composelist':
                 $search = $this->getParam('_search');
                 $name = $this->getParam('name');
+                $params = $this->getParam('params');
                 $callback_module = $this->getParam('callback_module');
 				$callback_class = $this->getParam('callback_class');
-                $this->composeList($search, $name, $callback_module, $callback_class);
+                $this->composeList($search, $name, $params, $callback_module, $callback_class);
                 //echo "OK";
 	            return;
 
@@ -345,14 +346,14 @@ class htmlelements extends controller
 
 	}
 
-    public function composeList($search, $name, $module, $class)
+    public function composeList($search, $name, $params, $module, $class)
     {
         $response = '';
         $response .= "Search results for: '{$search}' ...<br />";
 		$object = $this->newObject($class, $module);
-		$arrList = $object->callback($search);
+		$arrList = $object->callback($params, $search);
         if (!empty($arrList)) {
-            $response .= '<select name="'.$name.'">';
+            $response .= '<select id="input_'.$name.'"name="'.$name.'">';
             foreach ($arrList as $value=>$text) {
                 $response .= '<option value="'.$value.'">';
                 $response .= "$text";
