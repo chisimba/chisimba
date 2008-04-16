@@ -3,7 +3,7 @@
 *
 * Class to parse a string (e.g. page content) that contains a filter
 * tag to rais an alert box
-* 
+*
 * It takes the form
 * [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
 *
@@ -37,7 +37,7 @@
 *
 * Class to parse a string (e.g. page content) that contains a filter
 * tag to rais an alert box
-* 
+*
 * It takes the form
 * [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
 *
@@ -131,10 +131,11 @@ class parse4alertbox extends object
     {
         //Get url
         if (isset($this->objExpar->url)) {
-            $this->url = $this->objExpar->url;
+            $this->url = urldecode($this->objExpar->url);
         } else {
             $this->url=NULL;
         }
+        //die( $this->url);
     }
 
     private function getAlert($url, &$item)
