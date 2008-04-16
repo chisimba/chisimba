@@ -135,7 +135,6 @@ class parse4alertbox extends object
         } else {
             $this->url=NULL;
         }
-        //die( $this->url);
     }
 
     private function getAlert($url, &$item)
