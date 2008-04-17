@@ -443,8 +443,8 @@ class catalogueconfig extends object {
 		$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
 		$xml = simplexml_load_file($this->_path);
 		$entries = $xml->xpath("//module[module_id='{$module}']");
-		//log_debug($entries[0]->module_dependency[0]);
-		return $entries[0]->module_dependency[0];
+		//log_debug($entries[0]->module_dependency);
+		return @$entries[0]->module_dependency;
 	}
 
 	/**
