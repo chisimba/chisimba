@@ -94,13 +94,14 @@ class wzip extends object{
     */
     function addArchive($path, $filename, $removePath = NULL)
     {
-
+log_debug("Entering wzip");
         $archive = new PclZip($filename);
+        log_debug("created new archive $filename");
         $v_list = $archive->create($path, PCLZIP_OPT_REMOVE_PATH, $removePath);
           if ($v_list == 0) {
             die("Error : ".$archive->errorInfo(true));
           }
-
+log_debug("archive complete...");
           return $filename;
 
     }
