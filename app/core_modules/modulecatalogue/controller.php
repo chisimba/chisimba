@@ -611,7 +611,7 @@ class modulecatalogue extends controller
 
 				case 'ajaxunzip':
 					$modName = $this->getParam('moduleId');
-					chmod($this->objConfig->getModulePath(), 0777);
+					@chmod($this->objConfig->getModulePath(), 0777);
 					if(in_array($modName, $this->objEngine->coremods))
 					{
 						//if (!$objZip->unPackFilesFromZip("$modName.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
