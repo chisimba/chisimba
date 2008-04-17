@@ -174,7 +174,7 @@ class packagesapi extends object
 			$filetosend = file_get_contents($zipfile);
 			$filetosend = base64_encode($filetosend);
 			$val = new XML_RPC_Value($filetosend, 'string');
-			unlink($filepath);
+			//unlink($filepath);
 			log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
 			return new XML_RPC_Response($val);
 			// Ooops, couldn't open the file so return an error message.
@@ -189,8 +189,9 @@ class packagesapi extends object
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
 		$filetosend = file_get_contents($zipfile);
 		$filetosend = base64_encode($filetosend);*/
+		//log_debug($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
-		unlink($filepath);
+		//unlink($filepath);
 		log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
