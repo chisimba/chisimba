@@ -140,8 +140,12 @@ class dynamicblocks extends dbTable
      *                  If $typeofblock is admin, this is not required
      * @param string $blocksize Size of the Block - either small or wide
      */
-    public function addBlock($module, $object, $function, $parameterValue, $title, $typeofblock='context', $userOrContextOrWorkgroupCode, $blocksize='small')
+    public function addBlock($module, $object, $function, $parameterValue, $title, $typeofblock='context', $userOrContextOrWorkgroupCode, $blocksize='small', $creatorId = NULL)
     {
+    	if($creatorId == NULL)
+    	{
+    		$creatorId = $this->objUser->userId();
+    	}
         // First Check if block exists
         if ($this->blockExists($module, $object, $function, $parameterValue, $typeofblock)) {
             return TRUE;
@@ -155,7 +159,7 @@ class dynamicblocks extends dbTable
                     'typeofblock' => $typeofblock,
                     'userorcontextorworkgroupcode' => $userOrContextOrWorkgroupCode,
                     'blocksize' => strtolower($blocksize),
-                    'creatorid' => $this->objUser->userId(),
+                    'creatorid' => $creatorId,
                     'datecreated' => strftime('%Y-%m-%d %H:%M:%S', mktime())
                     
                 ));
