@@ -165,7 +165,16 @@ class podcastapi extends object
 		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
 		
 		$filesize = filesize($mp3);
-		$mimetype = mime_content_type($mp3);
+		if(extension_loaded('fileinfo'))
+                            {
+                            	$finfo = finfo_open(FILEINFO_MIME);
+                            	$type = finfo_file($finfo, $filename);
+                            }
+                            else {
+                            	$type = mime_content_type($filename);
+                            }
+                            
+		$mimetype = $type; //mime_content_type($mp3);
 		$category = '';
 		$version =1;
 		
