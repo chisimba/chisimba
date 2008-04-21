@@ -2055,11 +2055,13 @@ ul.bookmarkedpages li {
     background-repeat: no-repeat;
 }
 
+/*
 #cmsnavigation li {
     background-image: none;
     margin-left: 0;
     padding-left: 5px;
 }
+*/
 
 /*
 
@@ -2552,117 +2554,4 @@ display:block;
   width: 10px;
   overflow: hidden;
   padding: 0;
-}
-
-/* column container */
-.colmask {
-    position:relative;		/* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
-    clear:both;
-    float:left;
-    width:100%;				/* width of whole page */
-    overflow:hidden;		/* This chops off any overhanging divs */
-}
-/* holy grail 3 column settings */
-.holygrail {
-    background:#fff;    	/* Right column background colour */
-}
-.holygrail .colmid {
-    float:left;
-    width:200%;
-    margin-left:-250px; 	/* Width of right column */
-    position:relative;
-    right:100%;
-    background:#fff;    	/* Centre column background colour */
-                              
-    /* If desired, add left border of right column here*/
-    border-right: 1px solid #F4F4F4; 
-}
-.holygrail .colleft {
-    float:left;
-    width:100%;
-    margin-left:-50%;
-    position:relative;
-    left:500px;         	/* Left column width + right column width */
-    background:#FFF;    	/* Left column background colour */
-    
-    /* If desired, add right border of left column here*/
-    border-right: 1px solid #F4F4F4; 
-}
-.holygrail .col1wrap {
-    float:left;
-    width:50%;
-    position:relative;
-    right:250px;        	/* Width of left column */
-    padding-bottom:1em; 	/* Centre column bottom padding. Leave it out if it's zero */
-}
-.holygrail .col1 {
-    margin:0 260px;     	/* Centre column side padding:
-                            Left padding = left column width + centre column left padding width
-                            Right padding = right column width + centre column right padding width */
-    position:relative;
-    left:200%;
-    overflow:hidden;
-}
-
-
-.holygrail .col2 {
-    float:left;
-    float:right;			/* This overrides the float:left above */
-    width:230px;        	/* Width of left column content (left column width minus left and right padding) */
-    position:relative;
-    right:10px;         	/* Width of the left-had side padding on the left column */
-}
-.holygrail .col3 {
-    float:left;
-    float:right;			/* This overrides the float:left above */
-    width:230px;        	/* Width of right column content (right column width minus left and right padding) */
-    margin-right:30px;  	/* Width of right column right-hand padding + left column left and right padding */
-    position:relative;
-    left:50%;
-}
-
-/* 2 column left menu settings */
-.leftmenu {
-    background:#FFF; /* left column color */
-}
-.leftmenu .colright {
-    float:left;
-    width:200%;
-    position:relative;
-    left:230px; /* total width of left */
-    background:#fff; /* middle column color */
-    
-     /* If desired, add right border of left column here*/
-    border-left: 1px solid #F4F4F4; 
-}
-.leftmenu .col1wrap {
-    float:right;
-    width:50%;
-    position:relative;
-    right:230px; /* total width of left */
-    padding-bottom:1em;
-    
-   
-}
-.leftmenu .col1 {
-    margin:0 10px 0 240px; /* right margin
-                             total left width + margin
-                             */
-    position:relative;
-    right:100%;
-    overflow:hidden;
-    
-    
-}
-.leftmenu .col2 {
-    float:left;
-    width:210px; /* Inner Width*/
-    position:relative;
-    right:220px; /* Inner Width + margin */
-    
-    
-}
-    
-.col1, .col2, .col3 {
-    padding-top: 10px;
 }
