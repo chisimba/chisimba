@@ -162,7 +162,7 @@ class modulecatalogue extends controller
 				$this->objCatalogueConfig->writeCatalogue();
 			}
 			$this->objSideMenu = $this->getObject('catalogue','modulecatalogue');
-			$this->objSideMenu->addNodes(array('updates','remote','all','skins'));
+			$this->objSideMenu->addNodes(array('updates','remote','all','skins','languages'));
 			$sysTypes = $this->objCatalogueConfig->getCategories();
 			//$xmlCat = $this->objCatalogueConfig->getNavParam('category');
 			//get list of categories
@@ -182,6 +182,7 @@ class modulecatalogue extends controller
 				$this->objTagCloud = NULL;
 			}
 			//$this->tagCloud = $this->objTagCloud->exampletags();
+			$this->objPOFile = $this->getObject('pofile');
 			$this->objLog = $this->getObject('logactivity','logger');
 			$this->objLog->log();
 		} catch (customException $e) {
@@ -257,6 +258,9 @@ class modulecatalogue extends controller
 						//$this->setLayoutTemplate('cat_layout');
 						return 'skins_tpl.php';
 					}
+					else if (strtolower($activeCat == 'languages')) {
+					   return 'languages_tpl.php';
+                    }
 					else {
 						return 'front_tpl.php';
 					}
@@ -274,7 +278,7 @@ class modulecatalogue extends controller
 					}
 					$this->setSession('output',$this->output);
 					return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
-				
+
 				case 'install':
 					$error = false;
 					$mod = $this->getParm('mod');
@@ -286,7 +290,7 @@ class modulecatalogue extends controller
 					{
 						$ins->preinstall();
 					}
-					
+
 					$regResult = $this->installModule(trim($mod));
 					if ($regResult){
 						$this->output = str_replace('[MODULE]',$mod,$this->objLanguage->languageText('mod_modulecatalogue_installsuccess','modulecatalogue'));    //success
@@ -302,7 +306,7 @@ class modulecatalogue extends controller
 					{
 						$ins->postinstall();
 					}
-					
+
 					$this->setSession('output',$this->output);
 					if($lastAction != NULL)
 					{
@@ -344,10 +348,10 @@ class modulecatalogue extends controller
 					$modname = $this->getParm('mod');
 					$texts = $this->objModuleAdmin->moduleText($modname,'fix');
                     return $this->nextAction('textelements', array('mod'=>$modname, 'cat'=>$this->getParam('cat'), 'message'=>'textadded'));
-                    
+
                     /*
                         // Redirect back to textelements action
-                     
+
 					$texts = $this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
@@ -358,12 +362,12 @@ class modulecatalogue extends controller
 				case 'replacetext':
 					$modname = $this->getParm('mod');
 					$texts=$this->objModuleAdmin->moduleText($modname,'replace');
-                    
+
                     return $this->nextAction('textelements', array('mod'=>$modname, 'cat'=>$this->getParam('cat'), 'message'=>'textreplaced'));
-                    
+
                     /*
                         // Redirect back to textelements action
-                    
+
 					$texts=$this->objModuleAdmin->moduleText($modname);
 					$this->output=$this->objModule->output;
 					$this->setVar('output',$this->output);
@@ -371,7 +375,7 @@ class modulecatalogue extends controller
 					$this->setVar('modname',$modname);
 					return 'textelements_tpl.php';
                     */
-                    
+
 				case 'batchinstall':
 					$error = false;
 					$selectedModules=$this->getArrayParam('arrayList');
@@ -445,7 +449,7 @@ class modulecatalogue extends controller
 					{
 						$ins->preinstall();
 					}
-					
+
 					if (($this->output = $this->objPatch->applyUpdates($modname))===FALSE) {
 						$this->setVar('error',str_replace('[MODULE]',$modname,$this->objLanguage->languageText('mod_modulecatalogue_failed','modulecatalogue')));
 					} else {
@@ -457,7 +461,7 @@ class modulecatalogue extends controller
 					{
 						$ins->postinstall();
 					}
-					
+
 					$this->setVar('patchArray',$this->objPatch->checkModules());
 					return 'updates_tpl.php';
 
@@ -511,7 +515,7 @@ class modulecatalogue extends controller
 					{
 						$modobj = $doc->array->data->value[$i];
 						if(is_object($modobj))
-						{ 
+						{
 							$modulesarray[$i]['id'] = (string)$modobj->array->data->value[0]->string;
 							$modulesarray[$i]['name'] = (string)$modobj->array->data->value[1]->string;
 							$modulesarray[$i]['desc'] = (string)$modobj->array->data->value[2]->string;
@@ -683,7 +687,7 @@ class modulecatalogue extends controller
 					unlink("$modName.zip");
 					echo "<b>".$this->objLanguage->languageText('word_installed')."</b>";
 					break;
-					
+
 				case 'ajaxupgrade':
 					$modName = $this->getParam('moduleId');
 					log_debug("Preparing to upgrade $modName");
@@ -862,7 +866,16 @@ class modulecatalogue extends controller
 						}
 					}
 					return $this->nextAction('install',array('cat'=>$activeCat,'mod'=>$module));
-
+                case 'downloadpo':
+        			$this->setPageTemplate(NULL);
+        			$this->setLayoutTemplate(NULL);
+                    $langName = $_POST['langname'];
+                    header("Content-type: text/plain");
+                    //header("Content-length: 0");
+                    header("Content-Disposition: attachment; filename=$langName.po");
+                    //header("Content-Description: PHP Generated Data");
+                    $this->objPOFile->export($langName);
+                    break;
 				default:
 					throw new customException($this->objLanguage->languageText('mod_modulecatalogue_unknownaction','modulecatalogue').': '.$action);
 					break;
