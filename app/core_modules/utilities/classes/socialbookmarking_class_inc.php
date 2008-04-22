@@ -204,7 +204,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $addThis = new link ('http://www.addthis.com/bookmark.php?pub=&amp;url='.$url);
-        $addThis->link = '<img src="http://www.addme.com/images/button1-bm.gif" width="125" height="16" border="0" />';
+        $addThis->link = '<img src="'.$this->getResourceURI('socialbookmarking/button1-bm.gif').'" width="125" height="16" border="0" />';
 
         return $addThis->show();
     }
