@@ -47,7 +47,8 @@
  * @link      http://avoir.uwc.ac.za
  * @see      
  */
-class uploadmessages extends object
+$this->loadClass('filemanagerobject', 'filemanager');
+class uploadmessages extends filemanagerobject
 {
     
     /**

@@ -113,6 +113,24 @@ class dbfolder extends dbTable
     {
         return $this->insert(array('folderpath'=> $folder, 'folderlevel'=>count(explode('/', $folder))));
     }
+    
+    /**
+     * Method to override the uri function to include automatic inclusion
+     * of mode and restriction
+    *
+    * @access  public
+    * @param   array  $params         Associative array of parameter values
+    * @param   string $module         Name of module to point to (blank for core actions)
+    * @param   string $mode           The URI mode to use, must be one of 'push', 'pop', or 'preserve'
+    * @param   string $omitServerName flag to produce relative URLs
+    * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
+    * @returns string $uri the URL
+    */
+    public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
+    {
+        $objFileManagerObject = $this->getObject('filemanagerobject');
+        return $objFileManagerObject->uri($params, $module, $mode, $omitServerName, $javascriptCompatibility);
+    }
 
 
     /**

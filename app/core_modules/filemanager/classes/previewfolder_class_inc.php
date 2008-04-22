@@ -41,7 +41,9 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
-class previewfolder extends object
+
+$this->loadClass('filemanagerobject', 'filemanager');
+class previewfolder extends filemanagerobject
 {
 
     /**

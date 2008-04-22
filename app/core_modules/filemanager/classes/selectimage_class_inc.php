@@ -168,7 +168,7 @@ function clearFileInputJS(name)
         }
 
 
-        $location = $this->uri(array('action'=>'selectimagewindow', 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
+        $location = $this->uri(array('mode'=>'selectimagewindow', 'restriction'=>'jpg_gif_png_jpeg', 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
         $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
@@ -188,7 +188,7 @@ function clearFileInputJS(name)
         $objPop->set('width','750');
         $objPop->set('height','500');
         $objPop->set('resizable','yes');
-        $objPop->set('scrollbars','auto');
+        $objPop->set('scrollbars','yes');
         $objPop->set('left','50');
         $objPop->set('top','100');
         $objPop->set('status','yes');

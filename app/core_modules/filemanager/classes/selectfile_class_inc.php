@@ -41,7 +41,8 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
-class selectfile extends object
+$this->loadClass('filemanagerobject', 'filemanager');
+class selectfile extends filemanagerobject
 {
     /**
     * @var string $name Name of the File Selector Input
@@ -184,7 +185,7 @@ function clearFileInputJS(name)
         }
 
 
-        $location = $this->uri(array('action'=>'selectfilewindow', 'restrict'=>$ext, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
+        $location = $this->uri(array('mode'=>'selectfilewindow', 'restriction'=>$ext, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
         $location .= '&amp;value=\'+jQuery(\'#hidden_'.$this->name.'\').value+\'&amp;';
@@ -203,7 +204,7 @@ function clearFileInputJS(name)
         $objPop->set('width','750');
         $objPop->set('height','500');
         $objPop->set('resizable','yes');
-        $objPop->set('scrollbars','auto');
+        $objPop->set('scrollbars','yes');
         $objPop->set('left','50');
         $objPop->set('top','100');
         $objPop->set('status','yes');

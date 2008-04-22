@@ -25,7 +25,7 @@ switch ($this->getParam('message'))
     case 'foldercreated':
         echo '<span class="confirm">'.$this->objLanguage->languageText('mod_filemanager_folderhasbeencreated', 'filemanager', 'Folder has been created').' </span>'; break;
     case 'filesdeleted':
-        echo '<span class="confirm">'.$this->objLanguage->languageText('mod_filemanager_fileshavebeendeleted', 'filemanager', 'File(s) have been deleted').' </span>'; break;
+        echo '<span class="confirm">'.$this->getParam('numfiles').' '.$this->objLanguage->languageText('mod_filemanager_fileshavebeendeleted', 'filemanager', 'File(s) have been deleted').' </span>'; break;
     case 'folderdeleted':
         echo '<span class="confirm"><strong>'.$this->getParam('ref').'</strong> '.$this->objLanguage->languageText('mod_filemanager_folderhasbeendeleted', 'filemanager', 'folder has been deleted').' </span>'; break;
 }
@@ -69,5 +69,9 @@ echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Up
 echo $this->objUpload->show($folderId);
 
 echo $this->objFolders->showCreateFolderForm($folderId);
+
+//$objSWFUpload = $this->newObject('swfupload');
+//$objSWFUpload->additionalParams['folder'] = $folderId;
+//echo $objSWFUpload->show();
 
 ?>

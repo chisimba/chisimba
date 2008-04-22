@@ -50,7 +50,9 @@
  * @link      http://avoir.uwc.ac.za
  * @see       References to other sections (if any)...
  */
-class upload extends object
+
+$this->loadClass('filemanagerobject', 'filemanager');
+class upload extends filemanagerobject
 {
 
     /**

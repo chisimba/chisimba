@@ -1,11 +1,13 @@
 <?php
+
 $this->loadClass('link', 'htmlelements');
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
 $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
+$this->loadClass('htmlheading', 'htmlelements');
 
-echo $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $file['path']);
+echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $file['path']).'</div>';
 
 // Get Folder Id of Item
 $folderId = $this->objFolders->getFolderId(dirname($file['path']));
@@ -25,7 +27,100 @@ $objIcon->setIcon('edit');
 $editLink = new link ($this->uri(array('action'=>'editfiledetails', 'id'=>$file['id'])));
 $editLink->link = $objIcon->show();
 
-echo '<h1>'.$objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename'])).$editLink->show().'</h1>';
+$header = new htmlheading();
+$header->type = 1;
+$header->str = $objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename']));
+
+if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+    if (in_array($file['datatype'], $restrictions)) {
+        $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
+    }
+    
+    if ($mode == 'fckimage' || $mode == 'fckflash') {
+        if (isset($file['width']) && isset($file['height'])) {
+            $widthHeight = ', '.$file['width'].', '.$file['height'];
+        }else {
+            $widthHeight = '';
+        }
+    } else {
+        $widthHeight = '';
+    }
+    
+    if ($mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+        
+        //var_dump($file);
+        
+        $checkOpenerScript = '
+        <script type="text/javascript">
+        //<![CDATA[
+        function selectFile()
+        {
+            if (window.opener) {
+                window.top.opener.SetUrl("'.htmlspecialchars_decode($this->uri(array('action'=>'file', 'id'=>$file['id'], 'filename'=>$file['filename'], 'type'=>'.'.$file['datatype']), 'filemanager', '', TRUE, FALSE, TRUE)).'"'.$widthHeight.') ;
+                window.top.close() ;
+                window.top.opener.focus() ;
+            }
+        }
+        //]]>
+        </script>
+                ';
+        
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        
+    } else if ($mode == 'selectfilewindow') {
+        $checkOpenerScript = '
+        <script type="text/javascript">
+        function selectFile()
+        {
+            if (window.opener) {
+                
+                //alert(fileName[id]);
+                window.opener.document.getElementById("input_selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
+                window.opener.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
+            
+                window.close();
+                window.opener.focus();
+            } else {
+                window.parent.document.getElementById("input_selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
+                window.parent.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
+                window.parent.hidePopWin();
+            }
+        }
+        </script>
+                ';
+        
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+        
+    } else if ($mode == 'selectimagewindow') {
+        
+        $objThumbnails = $this->getObject('thumbnails');
+        
+        $checkOpenerScript = '
+        <script type="text/javascript">
+        function selectFile()
+        {
+            if (window.opener) {
+                window.opener.document.getElementById("imagepreview_'.$this->getParam('name').'").src = "'.$objThumbnails->getThumbnail($file['id'], $file['filename']).'";
+                //window.opener.document.getElementById("selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
+                window.opener.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
+                window.close();
+                window.opener.focus();
+            } else {
+                window.parent.document.getElementById("selectfile_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['filename']).'";
+                window.parent.document.getElementById("hidden_'.$this->getParam('name').'").value = "'.htmlspecialchars_decode($file['id']).'";
+                window.parent.hidePopWin();
+            }
+        }
+        </script>
+                ';
+        
+        $this->appendArrayVar('headerParams', $checkOpenerScript);
+    }
+}
+
+$header->str .= $editLink->show();
+
+echo $header->show();
 
 echo '<br /><p><strong>'.$this->objLanguage->languageText('word_description', 'system', 'Description').':</strong> <em>'.$file['filedescription'].'</em></p>';
 

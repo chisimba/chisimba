@@ -1,77 +1,118 @@
 <?php
-
 /**
- * Filemanager Controller
- *
- * Top level controller for the Chisimba File Manager
- *
+ * 
+ * File Manager
+ * 
+ * File Manager
+ * 
  * PHP version 5
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the
- * Free Software Foundation, Inc.,
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
+ * 
  * @category  Chisimba
- * @package   filemanager
- * @author    Tohir Solomons <tsolomons@uwc.ac.za>
- * @copyright 2007 Tohir Solomons
+ * @package   helloforms
+ * @author    Tohir Solomons tsolomons@uwc.ac.za
+ * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za
- * @see       core
  */
-
+ 
+// security check - must be included in all scripts
+if (!
+/**
+ * The $GLOBALS is an array used to control access to certain constants.
+ * Here it is used to check if the file is opening in engine, if not it
+ * stops the file from running.
+ * 
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ *         
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+        die("You cannot view this page directly");
+}
+// end security check
 
 /**
- * Filemanager Controller
- *
- * Top level controller for the Chisimba File Manager
- *
- * @category  Chisimba
- * @package   filemanager
- * @author    Tohir Solomons <tsolomons@uwc.ac.za>
- * @copyright 2007 Tohir Solomons
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   Release: @package_version@
- * @link      http://avoir.uwc.ac.za
- * @see       core
- */
+* 
+* Controller class for Chisimba for the module filemanager2
+*
+* @author Tohir Solomons
+* @package filemanager2
+*
+*/
 class filemanager extends controller
 {
+    
+    /**
+    * 
+    * @var string $objConfig String object property for holding the 
+    * configuration object
+    * @access public;
+    * 
+    */
+    public $objConfig;
+    
+    /**
+    * 
+    * @var string $objLanguage String object property for holding the 
+    * language object
+    * @access public
+    * 
+    */
+    public $objLanguage;
+    /**
+    *
+    * @var string $objLog String object property for holding the 
+    * logger object for logging user activity
+    * @access public
+    * 
+    */
+    public $objLog;
 
     /**
-    * Constructor
+    * 
+    * Intialiser for the filemanager2 controller
+    * @access public
+    * 
     */
     public function init()
     {
-        $this->objFiles = $this->getObject('dbfile');
-        $this->objFolders = $this->getObject('dbfolder');
-        $this->objFileTags = $this->getObject('dbfiletags');
-        $this->objFileOverwrite = $this->getObject('checkoverwrite');
-        $this->objCleanUrl = $this->getObject('cleanurl');
-        $this->objUpload = $this->getObject('upload');
-        $this->objFilePreview = $this->getObject('filepreview');
+        // File Manager Classes
+        $this->objFiles = $this->getObject('dbfile', 'filemanager');
+        $this->objFolders = $this->getObject('dbfolder', 'filemanager');
+        $this->objFileTags = $this->getObject('dbfiletags', 'filemanager');
+        $this->objFileOverwrite = $this->getObject('checkoverwrite', 'filemanager');
+        $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
+        $this->objUpload = $this->getObject('upload', 'filemanager');
+        $this->objFilePreview = $this->getObject('filepreview', 'filemanager');
+        
+        $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
+        
+        // Other Classes
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objUser = $this->getObject('user', 'security');
-
-        $this->objUploadMessages = $this->getObject('uploadmessages');
-
+        
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
     }
-
+    
     /**
-     * Ovveride the login object in the parent class
+     * Override the login object in the parent class
      *
      * @param void
      * @return bool
@@ -85,90 +126,144 @@ class filemanager extends controller
             return TRUE;
         }
     }
-
+    
     /**
-    * Method to process actions to be taken
+     * Method to override the nextAction function to include automatic inclusion
+     * of mode and restriction
+     *
+     * @param  string $action Action to perform next.
+     * @param  array  $params Parameters to pass to action.
+     * @return NULL
+     */
+    public function nextAction($action, $params = array(), $module='filemanager')
+    {
+        if ($params == NULL) {
+            $params = array();
+        }
+        
+        if (is_array($params) && !array_key_exists('mode', $params) && $this->getParam('mode') != '') {
+            $params['mode'] = $this->getParam('mode');
+        }
+        
+        if (is_array($params) && !array_key_exists('restriction', $params) && $this->getParam('restriction') != '') {
+            $params['restriction'] = $this->getParam('restriction');
+        }
+        
+        //var_dump($params);
+        
+        return parent::nextAction($action, $params, $module);
+    }
+    
+    /**
+     * Method to override the uri function to include automatic inclusion
+     * of mode and restriction
     *
-    * @param string $action String indicating action to be taken
+    * @access  public
+    * @param   array  $params         Associative array of parameter values
+    * @param   string $module         Name of module to point to (blank for core actions)
+    * @param   string $mode           The URI mode to use, must be one of 'push', 'pop', or 'preserve'
+    * @param   string $omitServerName flag to produce relative URLs
+    * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
+    * @returns string $uri the URL
     */
-    public function dispatch($action)
+    public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE, $omitExtraParams=FALSE)
+    {
+        $objFileManagerObject = $this->getObject('filemanagerobject');
+        return $objFileManagerObject->uri($params, $module, $mode, $omitServerName, $javascriptCompatibility, $omitExtraParams);
+    }
+    
+    /**
+     * 
+     * The standard dispatch method for the filemanager2 module.
+     * The dispatch method uses methods determined from the action 
+     * parameter of the  querystring and executes the appropriate method, 
+     * returning its appropriate template. This template contains the code 
+     * which renders the module output.
+     * 
+     */
+    public function dispatch($action='home')
     {
         $this->setLayoutTemplate('filemanager_layout_tpl.php');
-
-        $this->objFiles->updateFilePath();
-
-        switch ($action)
-        {
-            case 'upload':
-                return $this->handleUploads();
-            case 'checkoverwrite':
-                return $this->checkFileOverwrite();
-            case 'fixtempfiles':
-                return $this->fixTempFiles();
-            case 'overwriteresults':
-                return $this->showOverwriteResults();
-            case 'file':
-                return $this->showFile($this->getParam('id'), $this->getParam('filename'));
-            case 'fileinfo':
-                return $this->showFileInfo($this->getParam('id'), $this->getParam('filename'));
-            case 'uploadresults':
-                return $this->showUploadResults();
-            case 'multidelete':
-                return $this->showMultiDelete();
-            case 'multideleteconfirm':
-                return $this->multiDeleteConfirm();
-            case 'selecttest':
-                return $this->selecttest();
-            case 'selectfilewindow':
-                return $this->showFileWindow();
-            case 'selectimagewindow':
-                return $this->showImageWindow(FALSE);
-            case 'selectrealtimeimagewindow':
-                return $this->showImageWindow(TRUE);
-            case 'selectpresentationwindow':
-                return $this->showPresentationWindow();
-            case 'sendpreview':
-                return $this->sendPreview($this->getParam('id'), $this->getParam('jsId'));
-            case 'selectfileuploads':
-                return $this->selectFileUploads();
-            case 'fckimage':
-                return $this->showFCKImages();
-            case 'fckflash':
-                return $this->showFCKFlash();
-            case 'fcklink':
-                return $this->showFCKEditorInterface();
-            case 'uploadfiles':
-                $this->objMenuTools->addToBreadCrumbs(array('Upload Files'));
-                return 'multipleupload_tpl.php';
-            case 'indexfiles':
-                return $this->indexFiles();
-            case 'viewfolder':
-                return $this->showFolder($this->getParam('folder'));
-            case 'createfolder':
-                return $this->createFolder();
-            case 'deletefolder':
-                return $this->deleteFolder($this->getParam('id'));
-            case 'extractarchive':
-                return $this->extractArchive();
-            case 'editfiledetails':
-                return $this->editFileDetails($this->getParam('id'));
-            case 'updatefiledetails':
-                return $this->updateFileDetails();
-            case 'tagcloud':
-                return $this->showTagCloud();
-            case 'viewbytag':
-                return $this->viewByTag($this->getParam('tag'));
-            case 'thumbnail':
-                return $this->getThumbnail($this->getParam('id'));
-            default:
-                return $this->filesHome();
+        
+        // retrieve the mode (edit/add/translate) from the querystring
+        $mode = $this->getParam("mode", null);
+        
+        if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+            $this->setVar('pageSuppressBanner', TRUE);
+            $this->setVar('suppressFooter', TRUE);
+            $this->setVar('mode', $mode);
+        } else {
+            $this->setVar('mode', NULL);
+        }
+        
+        $restrictions = explode("_", $this->getParam("restriction"));
+        $this->setVar('restrictions', $restrictions);
+        
+        /*
+        * Convert the action into a method (alternative to 
+        * using case selections)
+        */
+        $method = $this->__getMethod($action);
+        /*
+        * Return the template determined by the method resulting 
+        * from action
+        */
+        return $this->$method();
+    }
+    
+    
+    /**
+    * 
+    * Method to check if a given action is a valid method
+    * of this class preceded by double underscore (__). If it __action 
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    * 
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return boolean TRUE|FALSE
+    * 
+    */
+    function __validAction(& $action)
+    {
+        if (method_exists($this, "__".$action)) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
+    
+    /**
+    * 
+    * Method to convert the action parameter into the name of 
+    * a method of this class.
+    * 
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return stromg the name of the method
+    * 
+    */
+    function __getMethod(& $action)
+    {
+        if ($this->__validAction($action)) {
+            return "__" . $action;
+        } else {
+            return "__home";
+        }
+    }
+    
+    
+    
+    /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
     /**
-    * Method to show the File Manager Home Page
+    * 
+    * Method corresponding to the view action. It fetches the stories
+    * into an array and passes it to a main_tpl content template.
+    * @access private
+    * 
     */
-    public function filesHome()
+    private function __home()
     {
         // Get Folder Details
         $folderpath = 'users/'.$this->objUser->userId();
@@ -205,15 +300,12 @@ class filemanager extends controller
 
         return 'showfolder.php';
     }
-
-    /**
-    * Method to download a file
-    * @param string $id       Record Id of the File
-    * @param string $filename Filename of the File
-    */
-    public function showFile($id, $filename)
+    
+    private function __file()
     {
-        $this->requiresLogin(FALSE);
+        $id = $this->getParam('id');
+        $filename = $this->getParam('filename');
+        
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE || $file['filename'] != $filename) {
@@ -290,17 +382,14 @@ class filemanager extends controller
         } else {
             die ('File does not exist');
         }
-
     }
-
-
-    /**
-    * Method to Show Information about a file
-    * @param string $id       Record Id of the File
-    * @param string $filename Filename of the File
-    */
-    public function showFileInfo($id, $filename)
+    
+    
+    private function __fileinfo()
     {
+        $id = $this->getParam('id');
+        $filename = $this->getParam('filename');
+        
         $file = $this->objFiles->getFileInfo($id);
 
         if ($file == FALSE) {
@@ -319,13 +408,9 @@ class filemanager extends controller
         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
         return 'fileinfo_tpl.php';
     }
-
-    /**
-    * Method to Handle Uploads
-    */
-    public function handleUploads()
+    
+    private function __upload()
     {
-
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
 
         if ($folder != FALSE) {
@@ -350,15 +435,25 @@ class filemanager extends controller
         $messages['folder'] = $this->getParam('folder');
 
         return $this->nextAction('uploadresults', $messages);
-
     }
-
-    /**
-    * Method to Show the Results of File Uploads
-    */
-    public function showUploadResults()
+    
+    private function __ajaxupload()
     {
+        $folder = $this->objFolders->getFolder($this->getParam('folder'));
 
+        if ($folder != FALSE) {
+            $this->objUpload->setUploadFolder($folder['folderpath']);
+        }
+
+        // Upload Files
+        $results = $this->objUpload->uploadFiles();
+        
+        header("HTTP/1.0 200 OK");
+        
+    }
+    
+    private function __uploadresults()
+    {
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
         $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
 
@@ -368,40 +463,8 @@ class filemanager extends controller
 
         return 'list_uploadresults_tpl.php';
     }
-
-    /**
-    * Method to show the File Overwrite Checker
-    */
-    public function checkFileOverwrite()
-    {
-        $this->objMenuTools->addToBreadCrumbs(array('Overwrite Files?'));
-
-        return 'list_fileoverwrite_tpl.php';
-    }
-
-    /**
-    * Method to show the File Overwrite Checker, but in a popup window
-    */
-    public function checkFileOverwritePopup()
-    {
-        $this->setVar('pageSuppressToolbar', TRUE);
-        $this->setVar('pageSuppressContainer', TRUE);
-
-        $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-        $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-
-        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $this->setLayoutTemplate(NULL);
-
-        return 'fileoverwrite_tpl.php';
-    }
-
-
-    /**
-    * Method to handle temporary file overwrites
-    */
-    public function fixTempFiles()
+    
+    private function __fixtempfiles()
     {
         // Create Array of Files that are affected
         $listItem = explode('__', $this->getParam('listitems'));
@@ -481,12 +544,8 @@ class filemanager extends controller
 
         return $this->nextAction('overwriteresults', array('result'=>$result, 'nextaction'=>$nextAction, 'nextparams'=>$nextParams));
     }
-
-    /**
-    * Method to show the Results of the Upload
-    *
-    */
-    public function showOverwriteResults()
+    
+    private function __overwriteresults()
     {
         $results = $this->getParam('result');
 
@@ -497,26 +556,26 @@ class filemanager extends controller
             return 'overwriteresults_tpl.php';
         }
     }
-
-    /**
-    * Method to show the Multi Delete Confirmation Page
-    */
-    public function showMultiDelete()
+    
+    
+    private function __multidelete()
     {
         $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
         return 'multidelete_form_tpl.php';
     }
-
-    /**
-    * Method to Delete Multiple Files
-    */
-    public function multiDeleteConfirm()
+    
+    private function __multideleteconfirm()
     {
         // echo '<pre>';
         // print_r($_POST);
 
         if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || count($this->getParam('files')) == 0) {
-            return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete'));
+            
+            if ($this->getParam('folder') != '') {
+                return $this->nextAction('viewfolder', array('message'=>'nofilesconfirmedfordelete', 'folder'=>$this->getParam('folder')));
+            } else {
+                return $this->nextAction(NULL, array('message'=>'nofilesconfirmedfordelete', 'folder'=>$this->getParam('folder')));
+            }
         } else {
             $files = $this->getParam('files');
 
@@ -549,7 +608,7 @@ class filemanager extends controller
                 }
             }
 
-            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+            //$call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
 
             if ($this->getParam('folder') != '') {
                 return $this->nextAction('viewfolder', array('folder'=>$this->getParam('folder'), 'message'=>'filesdeleted', 'numfiles'=>$numFiles, 'numfolders'=>$numFolders));
@@ -558,307 +617,12 @@ class filemanager extends controller
             }
         }
     }
-
-    /**
-    * Method to demo the File Selector
-    */
-    public function selecttest()
+    
+    
+    function __viewfolder()
     {
-        return 'demo_showfilewindow_tpl.php';
-    }
-
-    /**
-    * Method to Show the File Selector Pop Up Window
-    */
-    public function showFileWindow()
-    {
-        if ($this->getParam('restrict') == '') {
-            $restriction = array();
-        } else {
-            $restriction = explode('____', $this->getParam('restrict'));
-        }
-
-        $this->setVarByRef('restrictions', $restriction);
-
-        if ($this->getParam('mode') == 'fileupload') {
-            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-        }
-
-        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
-
-        $this->setVarByRef('files', $files);
-
-        // Script to Close Window automatically if opener does not exist
-        $checkOpenerScript = '
-        <script type="text/javascript">
-        function checkWindowOpener()
-        {
-         if (!window.opener) {
-          window.close();
-        }
-        }
-        </script>
-        ';
-
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
-        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $inputname = $this->getParam('name');
-        $this->setVarByRef('inputname', $inputname);
-
-        $defaultValue = $this->getParam('value');
-        $this->setVarByRef('defaultValue', $defaultValue);
-
-        $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressBanner', TRUE);
-        //$this->setVar('pageSuppressXML', TRUE);
-        return 'popup_showfilewindow_tpl.php';
-    }
-
-    /**
-    * Ajax function to send preview of files
-    * @param string $fileId Record Id of the File
-    * @param string $jsId   JavaScript Id of the File
-    */
-    public function sendPreview($fileId, $jsId)
-    {
-        $file = $this->objFiles->getFileInfo($fileId);
-
-        if ($file == FALSE) {
-            echo $this->objLanguage->languageText('mod_filemanager_norecordofsuchafile', 'filemanager', 'No Record of Such a File Exists').' '.$fileId;
-            echo '<pre>';
-            print_r($_GET);
-            echo '</pre>';
-        } else {
-
-            $link = new link("javascript:selectFile('".$fileId."', ".$jsId.");");
-            $link->link = 'Select';
-
-            echo '<h1>'.$this->objLanguage->languageText('mod_filemanager_previewof', 'filemanager', 'Preview of').': '.$file['filename'].' ('.$link->show().')</h1>';
-            echo $this->objFilePreview->previewFile($fileId);
-        }
-    }
-
-    /**
-    * Method to show the a window with previews to select an image
-    * @param boolean $showFullLinks Flag whether to show full link to file or not
-    */
-    public function showImageWindow($showFullLinks=FALSE)
-    {
-        $restriction = array('gif', 'jpg', 'jpeg', 'png');
-
-        if ($this->getParam('mode') == 'fileupload') {
-            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-        }
-
-        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
-
-        $this->setVarByRef('files', $files);
-
-        // Script to Close Window automatically if opener does not exist
-        $checkOpenerScript = '
-        <script type="text/javascript">
-        function checkWindowOpener()
-        {
-        if (!window.opener) {
-        window.close();
-        }
-        }
-        </script>
-        ';
-
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
-        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $inputname = $this->getParam('name');
-        $this->setVarByRef('inputname', $inputname);
-
-        $defaultValue = $this->getParam('value');
-        $this->setVarByRef('defaultValue', $defaultValue);
-
-        $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressBanner', TRUE);
-
-
-        if ($showFullLinks) {
-            return 'popup_showrealtimeimagewindow_tpl.php';
-        } else {
-            return 'popup_showimagewindow_tpl.php';
-        }
-    }
-
-
-    /**
-     * Added by David Wafula 2008-02-03
-    * Method to show the a window with previews to select a presentation file
-    * @param boolean $showFullLinks Flag whether to show full link to file or not
-    */
-    public function showPresentationWindow()
-    {
-        $restriction = array('odp','ppt');
-
-        if ($this->getParam('mode') == 'fileupload') {
-            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-        }
-
-        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
-
-        $this->setVarByRef('files', $files);
-
-        // Script to Close Window automatically if opener does not exist
-        $checkOpenerScript = '
-        <script type="text/javascript">
-        function checkWindowOpener()
-         {
-          if (!window.opener) {
-           window.close();
-         }
-        }
-        </script>
-        ';
-
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
-        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $inputname = $this->getParam('name');
-        $this->setVarByRef('inputname', $inputname);
-
-        $defaultValue = $this->getParam('value');
-        $this->setVarByRef('defaultValue', $defaultValue);
-
-        $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressBanner', TRUE);
-        return 'popup_showpresentationwindow_tpl.php';
-    }
-
-    /**
-    * Method to show the FCKEditor Interface For Images
-    */
-    public function showFCKImages()
-    {
-        $restriction = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
-
-        return $this->showFCKEditorInterface($restriction, 'fckimage');
-    }
-
-    /**
-    * Method to show the FCKEditor Interface For Flash
-    */
-    public function showFCKFlash()
-    {
-        $restriction = array('swf');
-
-        return $this->showFCKEditorInterface($restriction, 'fckflash');
-    }
-
-
-    /**
-    * Method to show the FCKEditor Interface
-    * @param array $restriction List of FileTypes to Restrict to.
-    */
-    public function showFCKEditorInterface($restriction=array(), $action='fcklink')
-    {
-
-
-        if ($this->getParam('mode') == 'fileupload') {
-            $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
-            $this->setVar('errorMessage', $this->objUploadMessages->processErrorMessages());
-        }
-
-        $files = $this->objFiles->getUserFiles($this->objUser->userId(), NULL, $restriction, TRUE);
-
-        $this->setVarByRef('files', $files);
-
-        $this->setVar('modeAction', $action);
-
-        // Script to Close Window automatically if opener does not exist
-        $checkOpenerScript = '
-<script type="text/javascript">
-function checkWindowOpener()
-{
-    if (!window.opener) {
-        window.close();
-    }
-}
-</script>
-        ';
-
-        $this->appendArrayVar('headerParams', $checkOpenerScript);
-        $this->appendArrayVar('bodyOnLoad', 'checkWindowOpener();');
-        $this->appendArrayVar('bodyOnLoad', 'window.focus();');
-
-        $inputname = $this->getParam('name');
-        $this->setVarByRef('inputname', $inputname);
-
-        $defaultValue = $this->getParam('value');
-        $this->setVarByRef('defaultValue', $defaultValue);
-
-        $this->setLayoutTemplate(NULL);
-        $this->setVar('pageSuppressBanner', TRUE);
-        $this->setVar('suppressFooter', TRUE);
-        return 'fckeditor_showfilewindow_tpl.php';
-    }
-
-
-    /**
-    * Method to Handle Uploads From the File Selector Popup
-    */
-    public function selectFileUploads()
-    {
-        // Upload Files
-        if ($this->getParam('restrict') == '') {
-            $results = $this->objUpload->uploadFile('fileupload1');
-        } else {
-            $uploadRestrict = explode('____', $this->getParam('restrict'));
-            $results = $this->objUpload->uploadFile('fileupload1', $uploadRestrict);
-        }
-
-        $settingsArray = array();
-        $settingsArray['name'] = $this->getParam('name');
-        $settingsArray['context'] = $this->getParam('context');
-        $settingsArray['workgroup'] = $this->getParam('workgroup');
-        $settingsArray['value'] = $this->getParam('value');
-        $settingsArray['restrict'] = $this->getParam('restrict');
-
-
-        // Check if no files were provided
-        if ($results['errorcode'] == '4') {
-            $settingsArray['error'] = 'nofilesprovided';
-        } else {
-            // Put Message into Array
-            $messages = $this->objUploadMessages->processMessageUrl(array($results));
-
-            $settingsArray = array_merge($settingsArray, $messages);
-
-            $settingsArray['mode'] = 'fileupload';
-
-            if (array_key_exists('success', $results) && $results['success']) {
-                $settingsArray['value'] = $results['fileid'];
-            }
-
-            if (isset($results['overwrite']) && $results['overwrite']) {
-                $settingsArray['overwrite'] = $results['overwrite'];
-                $settingsArray['value'] = $results['fileid'];
-            }
-        }
-
-        return $this->nextAction($this->getParam('mode', 'selectfilewindow'), $settingsArray);
-    }
-
-
-
-    /**
-    * Method to show a folder, and list of files in the folder.
-    * @param string $id Record Id of the folder
-    */
-    function showFolder($id)
-    {
+        $id = $this->getParam('folder');
+        
         // TODO: Check permission to enter folder
 
         // Get Folder Details
@@ -888,13 +652,9 @@ function checkWindowOpener()
 
         return 'showfolder.php';
     }
-
-    /**
-    * Method to create a folder
-    */
-    function createFolder()
+    
+    function __createfolder()
     {
-
         $parentId = $this->getParam('parentfolder', 'ROOT');
         $foldername = $this->getParam('foldername');
 
@@ -932,13 +692,11 @@ function checkWindowOpener()
             return $this->nextAction(NULL, array('error'=>'couldnotcreatefolder'));
         }
     }
-
-    /**
-    * Method to delete a folder
-    * @param string $id Record Id of the Folder
-    */
-    private function deleteFolder($id)
+    
+    function __deletefolder()
     {
+        $id = $this->getParam('id');
+        
         // Get the Folder Path
         $folder = $this->objFolders->getFolderPath($id);
 
@@ -970,13 +728,9 @@ function checkWindowOpener()
         // Redirect to Parent Folder
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
-
-    /**
-    * Method to extract the contents of an archive
-    */
-    function extractArchive()
+    
+    function __extractarchive()
     {
-
         $archiveFileId = $this->getParam('file');
 
         $file = $this->objFiles->getFullFilePath($archiveFileId);
@@ -1015,40 +769,13 @@ function checkWindowOpener()
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId));
         }
     }
-
-    /**
-    * Method to Scan the File System and Index files that are not in the database
-    */
-    protected function indexFiles()
+    
+    function __editfiledetails()
     {
-        $objBackground = $this->newObject('background', 'utilities');
-
-        //check the users connection status,
-        //only needs to be done once, then it becomes internal
-        $status = $objBackground->isUserConn();
-
-        //keep the user connection alive, even if browser is closed!
-        $callback = $objBackground->keepAlive();
-
-        $objIndexFileProcessor = $this->getObject('indexfileprocessor');
-
-        $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
-
-        $this->setVarByRef('list', $list);
-
-        $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
-
-        return 'indexfiles_tpl.php';
-    }
-
-    /**
-    * Method to edit the details of a file
-    * @param string $id Record Id of the File
-    */
-    protected function editFileDetails($id)
-    {
+        $id = $this->getParam('id');
+        
         $file = $this->objFiles->getFile($id);
-
+        
         if ($file == FALSE) {
             return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
         } else {
@@ -1058,11 +785,8 @@ function checkWindowOpener()
             return 'editfiledetails_tpl.php';
         }
     }
-
-    /**
-    * Method to update the details of a file
-    */
-    protected function updateFileDetails()
+    
+    function __updatefiledetails()
     {
         $id = $this->getParam('id');
         $description = $this->getParam('description');
@@ -1080,26 +804,21 @@ function checkWindowOpener()
 
             return $this->nextAction('fileinfo', array('id'=>$id, 'message'=>'filedetailsupdated'));
         }
-
     }
-
-    /**
-    * Method to show a tag cloud for a user's files
-    */
-    protected function showTagCloud()
+    
+    
+    function __tagcloud()
     {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
         $this->setVarByRef('tagCloudItems', $tagCloudItems);
 
         return 'tagcloud_tpl.php';
     }
-
-    /**
-    * Method to view user's files for a tag
-    * @param string $tag
-    */
-    protected function viewByTag($tag)
+    
+    function __viewbytag()
     {
+        $tag = $this->getParam('tag');
+        
         if (trim($tag) == '') {
             return $this->nextAction('tagcloud', array('error'=>'notag'));
         }
@@ -1121,13 +840,11 @@ function checkWindowOpener()
 
         return 'showfileswithtags_tpl.php';
     }
-
-    /**
-    * Method to get the thumbnail path of a file
-    * @param string $id Record Id of the File
-    */
-    protected function getThumbnail($id)
+    
+    function __thumbnail()
     {
+        $id = $this->getParam('id');
+        
         // Get the File Details of the File
         $file = $this->objFiles->getFile($id);
 
@@ -1154,6 +871,25 @@ function checkWindowOpener()
             header('Location:'.$thumb);
         }
     }
-}
+    
+    
+    function __fckimage()
+    {
+        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg'));
+    }
+    
+    function __fckflash()
+    {
+        return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf'));
+    }
+    
+    function __fcklink()
+    {
+        return $this->nextAction(NULL, array('mode'=>'fcklink'));
+    }
+    
+    /*------------- END: Set of methods to replace case selection ------------*/
+    
 
+}
 ?>
