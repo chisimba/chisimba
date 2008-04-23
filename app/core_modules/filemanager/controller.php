@@ -95,7 +95,6 @@ class filemanager extends controller
         $this->objFiles = $this->getObject('dbfile', 'filemanager');
         $this->objFolders = $this->getObject('dbfolder', 'filemanager');
         $this->objFileTags = $this->getObject('dbfiletags', 'filemanager');
-        $this->objFileOverwrite = $this->getObject('checkoverwrite', 'filemanager');
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         $this->objUpload = $this->getObject('upload', 'filemanager');
         $this->objFilePreview = $this->getObject('filepreview', 'filemanager');
@@ -137,19 +136,33 @@ class filemanager extends controller
      */
     public function nextAction($action, $params = array(), $module='filemanager')
     {
+        // If parameters is NULL, convert to array
         if ($params == NULL) {
             $params = array();
         }
         
+        // Add Param for Mode
         if (is_array($params) && !array_key_exists('mode', $params) && $this->getParam('mode') != '') {
             $params['mode'] = $this->getParam('mode');
         }
         
+        // Add Param for Restriction
         if (is_array($params) && !array_key_exists('restriction', $params) && $this->getParam('restriction') != '') {
             $params['restriction'] = $this->getParam('restriction');
         }
         
-        //var_dump($params);
+        // Add Param for Name - File/Image Select
+        if (is_array($params) && !array_key_exists('name', $params) && $this->getParam('name') != '') {
+            $params['name'] = $this->getParam('name');
+        }
+        
+        if (is_array($params) && !array_key_exists('context', $params) && $this->getParam('context') != '') {
+            $params['context'] = $this->getParam('context');
+        }
+        
+        if (is_array($params) && !array_key_exists('workgroup', $params) && $this->getParam('workgroup') != '') {
+            $params['workgroup'] = $this->getParam('workgroup');
+        }
         
         return parent::nextAction($action, $params, $module);
     }
