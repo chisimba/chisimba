@@ -96,6 +96,13 @@ class modulecatalogue extends controller
 	public $objLanguage;
 
 	/**
+     * ISO language codes object for multilingual support
+     *
+     * @var object $objLanguageCode
+     */
+	public $objLanguageCode;
+	
+	/**
      * The site configuration object
      *
      * @var object $config
@@ -152,6 +159,7 @@ class modulecatalogue extends controller
 			$this->objUser = $this->getObject('user','security');
 			$this->objConfig = $this->getObject('altconfig','config');
 			$this->objLanguage = $this->getObject('language','language');
+			$this->objLanguageCode = $this->getObject('languagecode','language');
 			$this->objModuleAdmin = $this->getObject('modulesadmin','modulecatalogue');
 			$this->objModule = $this->getObject('modules');
 			//the class for reading register.conf files
