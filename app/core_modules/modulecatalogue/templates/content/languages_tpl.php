@@ -9,7 +9,6 @@ $form = new form('language',$this->uri(array('action'=>'downloadpo')));
 $dropdown = $this->newObject('dropdown','htmlelements');
 $dropdown->name = 'langname';
 $langs = $this->objLanguage->languagelist();
-$objLanguageCode = $this->getObject('languagecode','language');
 //echo '<pre>';
 //var_dump($langs);
 //var_dump($objLanguageCode->iso_639_2_tags->codes);
@@ -18,7 +17,7 @@ foreach ($langs as /*$key=>*/$lang) {
     $langName = $lang['languagename'];
     //$_langName = strtolower($langName);
     $langCode = 'unknown';
-    foreach ($objLanguageCode->iso_639_2_tags->codes as $ISO=>$language) {
+    foreach ($this->objLanguageCode->iso_639_2_tags->codes as $ISO=>$language) {
         if ($langName == $language) {
             $langCode = $ISO;
             break;
