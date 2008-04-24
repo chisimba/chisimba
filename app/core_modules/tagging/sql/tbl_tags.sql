@@ -34,6 +34,14 @@ $fields = array(
 		'type' => 'text',
 		'length' => 255,
 		),
+    'context' => array(
+		'type' => 'text',
+		'length' => 255,
+		),
+    'searchkey' => array(
+		'type' => 'text',
+		'length' => 255,
+		),
 	);
 
 //create other indexes here...
@@ -42,7 +50,11 @@ $name = 'userid';
 
 $indexes = array(
                 'fields' => array(
-                	'userid' => array(),
+                    'userid' => array(),
+                    'meta_value' => array(),
+                    'module' => array(),
+                    'context' => array(),
+                    'searchkey' => array(),
                 )
         );
 ?>

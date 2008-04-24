@@ -47,6 +47,28 @@ class tagging extends controller
             case 'importblogs':
             	$this->objDbTags->migrateBlogTags();
             	break;
+            case 'gettags':
+                $tag = trim($this->getParam('tag'));
+                if ($tag == '') {
+                    echo '';
+                } else {
+                    $tags = $this->objDbTags->getSimilarTags($tag);
+                    
+                    if (count($tags) == 0) {
+                        echo '';
+                    } else {
+                        $array = array();
+                        foreach ($tags as $tagItem)
+                        {
+                            $array[] = $tagItem['meta_value'];
+                        }
+                        echo json_encode($array);
+                    }
+                }
+                break;
+            case 'ajaxtags':
+                return 'ajaxtagsdemo_tpl.php';
+                break;
         }
     }
     

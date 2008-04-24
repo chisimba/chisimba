@@ -2,13 +2,37 @@
 <updates>
     <update>
         <table>tbl_tags</table>
-        <version>0.3</version>
+        <version>0.03</version>
         <description>added new column for uri</description>
         <data>
             <add>
                 <name>uri</name>
                 <type>text</type>
-                <length>255</length>                
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_tags</table>
+        <version>0.04</version>
+        <description>added new column for context</description>
+        <data>
+            <add>
+                <name>context</name>
+                <type>text</type>
+                <length>255</length>
+            </add>
+        </data>
+    </update>
+    <update>
+        <table>tbl_tags</table>
+        <version>0.05</version>
+        <description>added new column for searchid</description>
+        <data>
+            <add>
+                <name>searchkey</name>
+                <type>text</type>
+                <length>255</length>
             </add>
         </data>
     </update>
