@@ -51,12 +51,13 @@ class featurebox extends object
         if(!empty($id) && $showToggle)
         {
   		    $objIcon->setIcon('toggle');
-            $toggle = "<a href=\"#\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
+            $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
+            $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$title."</a>";
         }
         
-		$sidebar .= '	<h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
-		$sidebar .= '<div class="featureboxcontent"';
-		if($id != NULL){
+        $sidebar .= '   <h5 class="featureboxheader">'.$toggle.'  '.$title.'</h5>';
+        $sidebar .= '<div class="featureboxcontent"';
+        if($id != NULL){
             $sidebar .= ' id="'.$id.'" style="overflow: hidden;display:'.$hidden.';" >';
         }else{
             $sidebar .= '>';
