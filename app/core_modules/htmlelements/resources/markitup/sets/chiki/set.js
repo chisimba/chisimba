@@ -22,6 +22,8 @@ mySettings = {
 		{name:'Bold', key:'B', openWith:"**", closeWith:"**"}, 
 		{name:'Italic', key:'I', openWith:"//", closeWith:"//"}, 
 		{name:'Stroke through', key:'S', openWith:'@@---', closeWith:'@@'}, 
+		{name:'Insert text', key:'R', openWith:'@@+++', closeWith:'@@'}, 
+		{name:'Teletype text', key:'T', openWith:'{{', closeWith:'}}'}, 
 		{separator:'---------------' },
 		{name:'Bulleted list', openWith:'(!(* |!|*)!)'}, 
 		{name:'Numeric list', openWith:'(!(# |!|#)!)'}, 
@@ -31,7 +33,8 @@ mySettings = {
 		{name:'Url', key:"U", replaceWith:"[[![Url:!:http://]!] [![Link text]!]]"}, 
 		{separator:'---------------' },
 		{name:'Quotes', openWith:'(!(> |!|>)!)', placeHolder:''},
-		{name:'Code', openWith:'(!([CODE lang="[![Language:!:php]!]"]|!|<pre>)!)', closeWith:'(!([/CODE]|!|</pre>)!)'}, 
+		{name:'Code', openWith:'(!(<code type="[![Language:!:php]!]">|!|)!)', closeWith:'(!(</code>|!|)!)'}, 
+		{name:'Literal (backticks)', key:'L', openWith:"``", closeWith:"``"},
 		{separator:'---------------' },
 		{name:'Preview', call:'preview', className:'preview'}
 	]
