@@ -58,24 +58,59 @@ class markitup extends object
         return $ret;
     }
 
-    public function getMarkitUpScript()
+    /**
+    *
+    * Method to return the markit up javascript for adding to
+    * the page header
+    *
+    * @access private
+    * @return string A string contiaing the SCRIPT tags
+    *
+    */
+    private function getMarkitUpScript()
     {
         return $this->getJavascriptFile('markitup/jquery.markitup.js','htmlelements')."\n";
     }
-
-    public function getSet()
+    /**
+    *
+    * Method to return the markitup set javascript for adding to
+    * the page header
+    *
+    * @access private
+    * @return string A string contiaing the SCRIPT tags
+    *
+    */
+    private function getSet()
     {
         return $this->getJavascriptFile('markitup/sets/' . $this->set .'/set.js','htmlelements')."\n";
     }
 
-    public function getMarkItUpCss()
+    /**
+    *
+    * Method to return the markit up CSS for the set for adding to
+    * the page header
+    *
+    * @access private
+    * @return string A string contiaing the set CSS STYLE tags
+    *
+    */
+    private function getMarkItUpCss()
     {
         return "<link rel=\"stylesheet\" type=\"text/css\" href=\""
           . $this->getResourceUri('markitup/skins/markitup/style.css', 'htmlelements')
           . "\" />\n";
     }
 
-    public function getSetCss()
+    /**
+    *
+    * Method to return the markit up CSS for adding to
+    * the page header
+    *
+    * @access private
+    * @return string A string contiaing the CSS STYLE tags
+    *
+    */
+    private function getSetCss()
     {
         $styleSet = "markitup/sets/$this->set/style.css";
         return "<link rel=\"stylesheet\" type=\"text/css\" href=\""
@@ -83,7 +118,17 @@ class markitup extends object
           . "\" />\n";
     }
 
-    public function getMarkit($what=NULL, $name=NULL)
+    /**
+    *
+    * Method to return the markitup script for turning on the
+    * markup editor for the actual TEXTAREA for adding to
+    * the page header
+    *
+    * @access private
+    * @return string A string contiaing the marketup script
+    *
+    */
+    private function getMarkit($what=NULL, $name=NULL)
     {
         switch ($what) {
             case "all":
@@ -100,7 +145,6 @@ class markitup extends object
         if ($name==NULL) {
             $name = "markItUp";
         }
-
 
         return '<script type="text/javascript" >
           jQuery(document).ready(function() {
