@@ -4,6 +4,13 @@
 *
 * Class to load the JQuery markitup editor
 *
+* markItUp! is a JavaScript plugin built on the jQuery library.
+* It allows you to turn any textarea into a markup editor. Html,
+* Textile, Wiki Syntax, Markdown, BBcode or even your own Markup
+* system can be easily implemented.
+*
+* Its website is http://markitup.jaysalvat.com/home/
+*
 * @category  Chisimba
 * @author  Derek Keats
 * @package htmlelements
