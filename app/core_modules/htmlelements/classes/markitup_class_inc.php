@@ -33,6 +33,10 @@ class markitup extends object
     */
     public $set;
 
+
+    public $validTypes = array('chiki','html', 'default');
+    public $objLanguage;
+
     /**
     * Constructor
     */
@@ -40,10 +44,19 @@ class markitup extends object
     {
         //Set the default set to wiki
         $this->set = "default";
+        $this->objLanguage = $this->getObject('language','language');
     }
 
-    public function setType($value) {
-        $this->set = $value;
+    public function setType($value)
+    {
+        if (in_array($value, $this->validTypes)) {
+            $this->set = $value;
+        } else {
+            $msg=$this->objLanguage->languageText('mod_htmlements_error_markitup_illegalset', 'htmlelements')
+              . ": " . $value;
+            throw new customException($msg);
+        }
+
     }
 
 
