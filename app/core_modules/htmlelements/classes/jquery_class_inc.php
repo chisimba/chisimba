@@ -23,8 +23,8 @@ class jquery extends object
     */
     public function init()
     { }
-    
-    
+
+
     /**
     * Method to load the JQuery JavaScript
     *
@@ -33,12 +33,12 @@ class jquery extends object
     public function show()
     {
         // Load JQuery
-        $returnStr = $this->getJavascriptFile('jquery/1.2.1/jquery-1.2.1.min.js','htmlelements')."\n";
-        
+        $returnStr = $this->getJavascriptFile('jquery/1.2.2/jquery-1.2.2.pack.js','htmlelements')."\n";
+
         $returnStr .= '<script language="JavaScript" type="text/javascript" >
                 jQuery.noConflict();
         </script>'."\n"."\n";
-        
+
         return $returnStr;
     }
 
