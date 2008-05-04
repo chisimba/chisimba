@@ -1,0 +1,21 @@
+/* Switch menu styles */
+
+.menutitle{
+    cursor:pointer;
+    margin-bottom: 5px;
+    background-color:#ECECFF;
+    color:#000000;
+    width:98%;
+    padding:2px;
+    text-align:center;
+    font-weight:bold;
+    /*/*/border:1px solid #000000;/* */
+}
+
+
+.submenu{
+    margin-bottom: 0.5em;
+    background-color:#FFFFFF;
+}
+
+/* End - Switch menu styles */
