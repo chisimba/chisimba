@@ -2555,3 +2555,16 @@ display:block;
   overflow: hidden;
   padding: 0;
 }
+
+/* JQUery Tags  */
+span.tagMatches {
+    margin-left: 10px;
+}
+
+span.tagMatches span {
+    padding: 2px;
+    margin-right: 4px;
+    background-color: #0000AB;
+    color: #fff;
+    cursor: pointer;
+}
