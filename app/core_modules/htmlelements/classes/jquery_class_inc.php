@@ -33,7 +33,7 @@ class jquery extends object
     public function show()
     {
         // Load JQuery
-        $returnStr = $this->getJavascriptFile('jquery/1.2.2/jquery-1.2.2.pack.js','htmlelements')."\n";
+        $returnStr = $this->getJavascriptFile('jquery/1.2.3/jquery-1.2.3.pack.js','htmlelements')."\n";
 
         $returnStr .= '<script language="JavaScript" type="text/javascript" >
                 jQuery.noConflict();

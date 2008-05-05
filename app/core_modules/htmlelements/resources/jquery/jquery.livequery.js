@@ -2,9 +2,9 @@
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  *
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires jQuery 1.1.3+
- * Docs: http://brandonaaron.net/docs/livequery/
+ * Docs: http://docs.jquery.com/Plugins/livequery
  */
 
 (function($) {
@@ -77,7 +77,7 @@ $.livequery = function(selector, context, type, fn, fn2) {
 	return this;
 };
 
-$.extend($.livequery.prototype, {
+$.livequery.prototype = {
 	stop: function() {
 		var query = this;
 		
@@ -134,7 +134,7 @@ $.extend($.livequery.prototype, {
 				});
 		}
 	}
-});
+};
 
 $.extend($.livequery, {
 	guid: 0,
@@ -243,5 +243,8 @@ $.prototype.init = function(a,c) {
 	// Return the result
 	return r;
 };
+
+// Give the init function the jQuery prototype for later instantiation (needed after Rev 4091)
+$.prototype.init.prototype = $.prototype;
 	
 })(jQuery);
