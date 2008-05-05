@@ -46,9 +46,10 @@ class searchresults extends object
      * @param string $text Text to search for
      * @param string $module Module to search items for
      * @param string $context Context in which to search
+     * @param array $extra Any additional items
      * @return object
      */
-    private function search($text, $module=NULL, $context=NULL)
+    private function search($text, $module=NULL, $context=NULL, $extra=array())
     {
         $objIndexData = $this->getObject('indexdata');
         
@@ -64,18 +65,30 @@ class searchresults extends object
             if ($text != '') {
                 $phrase .= ' AND ';
             }
-            $phrase .= ' module:'.$module;
+            $phrase .= ' module:'.$module.' ';
             
         }
         
         if ($context != NULL) {
             
-            if ($text != '') {
+            if ($phrase != '') {
                 $phrase .= ' AND ';
             }
-            $phrase .= ' context:'.$context;
+            $phrase .= ' context:'.$context.' ';
             
         }
+        
+        if (is_array($extra) && count($extra) > 0) {
+            foreach ($extra as $item=>$value)
+            {
+                if ($phrase != '') {
+                    $phrase .= ' AND ';
+                }
+                $phrase .=  $item.':'.$value.' ';
+            }
+        }
+        
+        //echo $phrase;
         
         $query = Zend_Search_Lucene_Search_QueryParser::parse($phrase);
         
@@ -93,12 +106,19 @@ class searchresults extends object
      * @param string $text Text to search for
      * @param string $module Module to search items for
      * @param string $context Context in which to search
+     * @param array $extra Any additional items
      * @return object
      */
-    public function getSearchResults($text, $module=NULL, $context=NULL)
+    public function getSearchResults($text, $module=NULL, $context=NULL, $extra=array())
     {
         // Get Results
-        $results = $this->search($text, $module, $context);
+        $results = $this->search($text, $module, $context, $extra);
+        
+        /*
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        */
         
         // Create New array
         $filteredResults = array();
@@ -226,11 +246,12 @@ class searchresults extends object
      * @param string $text Text to search for
      * @param string $module Module to search items for
      * @param string $context Context in which to search
+     * @param array $extra Any additional items
      * @return string Formatted Results
      */
-    public function displaySearchResults($text, $module=NULL, $context=NULL)
+    public function displaySearchResults($text, $module=NULL, $context=NULL, $extra=array())
     {
-        $results = $this->getSearchResults($text, $module, $context);
+        $results = $this->getSearchResults($text, $module, $context, $extra);
         
         $return = '<ol>';
         foreach ($results as $hit)

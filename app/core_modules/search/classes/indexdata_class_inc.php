@@ -60,10 +60,14 @@ class indexdata extends object
      * @param string $contents Contents of the Document
      * @param string $teaser Short Overview of Contents - Appears in Search Results
      * @param string $module Module Item is coming from
+     * @param string $userId User adding the item
+     * @param array $tags Tags for the story
      * @param string $license License applicable to the content
      * @param string $context Context content is being created in, duplicate if used in various contexts
      * @param string $workgroup Workgroup content is being created in, duplicate if used in various workgroups
      * @param string $permissions Permissions to be checked before being displayed in Search Results. module|action, which could then be used as $this->isValid('action', 'module')
+     * @param date/time $dateAvailable Date story becomes available
+     * @param date/time $dateUnavailable Date story expires
      * $param array $extra Any extra fields that might be peculiar to a module, in the format of $item=>$value,
      *
      * The last one is useful for categories, eg. forum. $extra = array('forum'=>'id') allows one to do a search in a particular forum
