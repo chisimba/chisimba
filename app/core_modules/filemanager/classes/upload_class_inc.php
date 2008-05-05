@@ -161,7 +161,7 @@ class upload extends filemanagerobject
         if ($this->numInputs == 1) {
             $form .= ' <input type="submit" name="submitform" class="button" value="'.$this->objLanguage->languageText('phrase_uploadfile', 'filemanager', 'Upload File').'" />';
         } else {
-            $form .= ' <input type="submit" name="submitform" class="button" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'filemanager', 'Upload Files').'" />';
+            $form .= ' <input type="submit" name="submitform" class="button" value="'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'" />';
         }
 
         if ($folderId != '') {

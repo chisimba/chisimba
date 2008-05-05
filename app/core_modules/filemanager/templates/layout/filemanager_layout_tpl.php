@@ -1,26 +1,50 @@
 <?php
 
 $this->loadClass('link', 'htmlelements');
+$this->loadClass('form', 'htmlelements');
+$this->loadClass('textinput', 'htmlelements');
+$this->loadClass('hiddeninput', 'htmlelements');
+$this->loadClass('button', 'htmlelements');
+$this->loadClass('htmlheading', 'htmlelements');
+
+$searchForm = new form('filesearch', $this->uri(array('action'=>'search')));
+$searchForm->method = 'GET';
+$hiddenInput = new hiddeninput('module', 'filemanager');
+$searchForm->addToForm($hiddenInput->show());
+
+$hiddenInput = new hiddeninput('action', 'search');
+$searchForm->addToForm($hiddenInput->show());
+
+$textinput = new textinput('filequery', $this->getParam('filequery'));
+$searchForm->addToForm($textinput->show());
+
+$button = new button ('search', $this->objLanguage->languageText('word_search', 'system', 'Search'));
+$button->setToSubmit();
+$searchForm->addToForm($button->show());
+
+
+
 
 // Create an Instance of the CSS Layout
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
-$objTreeFilter = $this->getObject('dbfolder');
+$objFolders = $this->getObject('dbfolder');
 
-$leftColumn = '<h3>File Manager</h3>';
+$header = new htmlheading();
+$header->type = 3;
+$header->str = $this->objLanguage->languageText('mod_filemanager_name', 'filemanager', 'File Manager');
 
-$indexLink = new link ($this->uri(array('action'=>'indexfiles')));
-$indexLink->link = 'Index Files';
+$leftColumn = $header->show();
 
 $tagCloudLink = new link ($this->uri(array('action'=>'tagcloud')));
 $tagCloudLink->link = 'Tag Cloud';
 
-$leftColumn .= '<ul><li>Search</li><li>'.$tagCloudLink->show().'</li><li>'.$indexLink->show().'</li></ul>';
+$leftColumn .= $searchForm->show().'<ul><li>'.$tagCloudLink->show().'</li></ul>';
 
 if (!isset($folderId)) {
     $folderId = '';
 }
 
-$leftColumn .= $objTreeFilter->showUserFolders($folderId);
+$leftColumn .= $objFolders->showUserFolders($folderId);
 
 $cssLayout->setLeftColumnContent($leftColumn);
 

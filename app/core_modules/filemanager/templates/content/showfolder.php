@@ -37,7 +37,7 @@ switch ($this->getParam('error'))
     case 'nofoldernameprovided':
         echo '<span class="error">'.$this->objLanguage->languageText('mod_filemanager_folderwasnotcreatednoname', 'filemanager', 'Folder was not created. No name provided').'</span>'; break;
     case 'illegalcharacters':
-        echo '<span class="error">'.$this->objLanguage->languageText('mod_filemanager_folderwasnotcreatedillegalcharacters', 'filemanager', 'Folder was not created. Folders cannot contain any of the following characters').': \ / : * ? &quot; &lt; &gt; |</span>'; break;
+        echo '<span class="error">'.$this->objLanguage->languageText('mod_filemanager_folderwasnotcreatedillegalchars', 'filemanager', 'Folder was not created. Folders cannot contain any of the following characters').': \ / : * ? &quot; &lt; &gt; |</span>'; break;
 }
 
 echo '<h1>'.$folderpath.' '.$icon.'</h1>';

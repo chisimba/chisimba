@@ -220,8 +220,8 @@ class dbfile extends dbTable
 
         // Determine extension
         $datatype = $this->objFileParts->getExtension($filename);
-
-        return $this->insert(array(
+        
+        $file = array(
                 'userid' => $userId,
                 'filename' => $filename,
                 'datatype' => $datatype,
@@ -238,8 +238,74 @@ class dbfile extends dbTable
                 'modifierid' => $userId,
                 'datecreated' => strftime('%Y-%m-%d', mktime()),
                 'timecreated' => strftime('%H:%M:%S', mktime())
-                )
-            );
+                );
+        $id =  $this->insert($file);
+        
+        if ($id != FALSE) {
+            $file['id'] = $id;
+            $this->indexFile($file);
+        }
+        
+        return $id;
+    }
+    
+    /**
+     * Method to add a file to the search index
+     * @param array $file Array with File Details
+     */
+    private function indexFile($file)
+    {
+        $docId = 'filemanager_file_'.$file['id'];
+        $docDate = $file['datecreated'];
+        $url = $this->uri(array('action'=>'fileinfo', 'id'=>$file['id']), 'filemanager');
+        $title = $file['filename'];
+        $contents = $file['description'];
+        $teaser = $file['description'];
+        $module = 'filemanager';
+        $userId = $file['creatorid'];
+        
+        $tags = NULL; // fix up
+        
+        $license = $file['license'];
+        
+        $folder = explode('/', $file['filefolder']);
+        
+        switch ($folder[0])
+        {
+            case 'context':
+                // check
+                $context=$folder[1];
+                $workgroup='noworkgroup';
+                $permissions='contextonly';
+                break;
+            case 'users':
+            default:
+                $context='nocontext';
+                $workgroup='noworkgroup';
+                $permissions='useronly';
+                break;
+        }
+        
+        
+        $dateAvailable=NULL;
+        $dateUnavailable=NULL;
+        
+        $extra= array('basefolder'=>$folder[0].'/'.$folder[1]);
+        
+        $objLucene = $this->getObject('indexdata', 'search');
+        $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
+    }
+    
+    public function updateFileSearch()
+    {
+        $files = $this->getAll();
+        
+        if (count($files) > 0) {
+            foreach ($files as $file)
+            {
+                $this->indexFile($file);
+            }
+        }
     }
 
     /**
@@ -277,21 +343,6 @@ class dbfile extends dbTable
 
         $results = $this->getAll($where);
 
-
-        // if (!$latestVersionOnly) {
-            // $finalResults =& $results;
-        // } else {
-            // Need to do some processing to get only the latest results
-
-            // $finalResults = array();
-
-            // foreach ($results as $item)
-            // {
-                // if (!array_key_exists($item['filename'], $finalResults)) {
-                    // $finalResults[$item['filename']] = $item;
-                // }
-            // }
-        // }
 
         return ($results);
     }
@@ -760,9 +811,14 @@ class dbfile extends dbTable
 
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
-        return $this->delete('id', $fileId);
-
-
+        $result = $this->delete('id', $fileId);
+        
+        if ($result) {
+            $objLucene = $this->getObject('indexdata', 'search');
+            $objLucene->removeIndex('filemanager_file_'.$fileId);
+        }
+        
+        return $result;
     }
 
     /**
@@ -841,7 +897,14 @@ class dbfile extends dbTable
     */
     public function updateDescriptionLicense($id, $description, $license)
     {
-        return $this->update('id', $id, array('description'=>$description, 'license'=>$license));
+        $result = $this->update('id', $id, array('description'=>$description, 'license'=>$license));
+        
+        if ($result) {
+            $file = $this->getFile($id);
+             $this->indexFile($file);
+        }
+        
+        return $result;
     }
 
     /**

@@ -901,6 +901,17 @@ class filemanager extends controller
         return $this->nextAction(NULL, array('mode'=>'fcklink'));
     }
     
+    function __indexsearchfiles()
+    {
+        $this->objFiles->updateFileSearch();
+        return $this->nextAction(NULL, array('message'=>'searchindexupdated'));
+    }
+    
+    function __search()
+    {
+        return 'search_tpl.php';
+    }
+    
     /*------------- END: Set of methods to replace case selection ------------*/
     
 

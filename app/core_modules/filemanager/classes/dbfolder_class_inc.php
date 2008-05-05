@@ -204,7 +204,12 @@ class dbfolder extends dbTable
      */
     function getUserFolders($userId)
     {
-        return $this->getAll(' WHERE folderpath LIKE \'users/'.$userId.'/%\' ORDER BY folderlevel, folderpath');
+        return $this->getFolders('users', $userId);
+    }
+    
+    function getFolders($type, $id)
+    {
+        return $this->getAll(' WHERE folderpath LIKE \''.$type.'/'.$id.'/%\' ORDER BY folderlevel, folderpath');
     }
 
 
