@@ -7,7 +7,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
 $this->loadClass('htmlheading', 'htmlelements');
 
-echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $file['path']).'</div>';
+echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadCrumbs($file['path']).'</div>';
 
 // Get Folder Id of Item
 $folderId = $this->objFolders->getFolderId(dirname($file['path']));

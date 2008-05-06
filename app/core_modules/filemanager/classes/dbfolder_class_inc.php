@@ -60,6 +60,8 @@ class dbfolder extends dbTable
         $this->objUser = $this->getObject('user', 'security');
         $this->objConfig = $this->getObject('altconfig', 'config');
         $this->objCleanUrl = $this->getObject('cleanurl');
+        
+        $this->objLanguage = $this->getObject('language', 'language');
 
         $this->loadClass('treemenu', 'tree');
         $this->loadClass('treenode', 'tree');
@@ -362,59 +364,79 @@ class dbfolder extends dbTable
     {
         return $this->getAll(' WHERE folderpath LIKE \''.$path.'/%\' AND folderlevel = '.($level+1).' ORDER BY folderpath');
     }
-
+    
+    
     /**
-     * Short description for function
-     *
-     * Long description (if any) ...
-     *
-     * @param  string  $userId Parameter description (if any) ...
-     * @param  unknown $path   Parameter description (if any) ...
-     * @return string  Return description (if any) ...
-     * @access public
+     * Method to convert a user path into a set of breadcrumbs
+     * @param string $path Folder Path
+     * @return string Generated Breadcrumbs
      */
-    public function generateBreadcrumbsFromUserPath($userId, $path)
+    public function generateBreadCrumbs($path)
     {
-        // users/1/archives/error_log/error_log
-        $userPath = 'users/'.$userId;
+        $parts = explode('/', $path);
         
-        //echo $path;
-        
-        $regex = '/\\Ausers\/'.$userId.'\/';
-
-        $remainderPath = preg_replace($regex.'/', '', $path);
-
-        $homeLink = new link ($this->uri(NULL));
-        $homeLink->link = 'My Files';
-
-        $breadcrumbs = $homeLink->show();
-
-        $items = explode('/', $remainderPath);
-
-        $itemCount = count($items);
-
-        if ($itemCount > 0) {
-            $counter = 1;
-            foreach ($items as $item)
-            {
-                $userPath .= '/'.$item;
-
-                if ($counter == $itemCount) {
-                    $breadcrumbs .= ' &gt; '.$item;
-                } else {
-
-                    $itemLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$this->getFolderId($userPath))));
-                    $itemLink->link = $item;
-
-                    $breadcrumbs .= ' &gt; '.$itemLink->show();
-                }
-
-
-                $counter++;
-            }
+        switch ($parts[0])
+        {
+            case 'users':
+                    if ($parts[1] == $this->objUser->userId()) {
+                        $title = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
+                        $href = $this->uri(NULL, 'filemanager');
+                    } else {
+                        // Detect whether folder is public
+                        $title = $this->objUser->fullName($parts[1])."'s Files";
+                        $href = $this->uri(array('action'=>'viewfolder', 'id'=>$this->getFolderId('users/'.$parts[1])), 'filemanager');
+                        
+                    }
+                    break;
+            case 'context': // fix up here
+            default:
+                $title = 'unknown';
+                $href = $this->uri(NULL, 'filemanager');
+                break;
         }
-
-        return $breadcrumbs;
+        
+        
+        $breadcrumbs = array();
+        $breadcrumbs[] = array('link'=>$href, 'title'=>$title);
+        
+        if (count($parts) > 2) {
+            
+            $current = $parts[0].'/'.$parts[1];
+            
+            for ($i=2; $i<=(count($parts)-1); $i++)
+            {
+                $current .= '/'.$parts[$i];
+                $folderId = $this->getFolderId($current);
+                
+                if ($folderId == FALSE) {
+                    
+                } else {
+                    $href = $href = $this->uri(array('action'=>'viewfolder', 'id'=>$folderId), 'filemanager');
+                    $breadcrumbs[] = array('link'=>$href, 'title'=>$parts[$i]);
+                }
+            }
+            
+        }
+        
+        $breadcrumbStr = '';
+        $numBreadCrumbs = count($breadcrumbs);
+        $counter = 1;
+        
+        foreach ($breadcrumbs as $breadcrumb)
+        {
+            if ($counter == $numBreadCrumbs){
+                $breadcrumbStr .= $breadcrumb['title'];
+            } else {
+                $link = new link ($breadcrumb['link']);
+                $link->link = $breadcrumb['title'];
+                
+                $breadcrumbStr .= $link->show().' &gt; ';
+            }
+            
+            $counter++;
+        }
+        
+        return $breadcrumbStr;
     }
 
     /**

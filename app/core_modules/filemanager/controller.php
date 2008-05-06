@@ -298,8 +298,8 @@ class filemanager extends controller
         // This is due to a patch added
         $this->objFiles->updateFilePath();
 
-        $this->setVar('breadcrumbs', 'My Files');
-        $this->setVar('folderpath', 'My Files');
+        $this->setVar('breadcrumbs', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
+        $this->setVar('folderpath', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
         $this->setVar('folderId', $folderId);
 
         $subfolders = $this->objFolders->getSubFoldersFromPath($folderpath);
@@ -660,9 +660,9 @@ class filemanager extends controller
         $objPreviewFolder = $this->getObject('previewfolder');
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
 
-        $breadcrumbs = $this->objFolders->generateBreadcrumbsFromUserPath($this->objUser->userId(), $folder['folderpath']);
+        $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);
-
+        
         return 'showfolder.php';
     }
     
