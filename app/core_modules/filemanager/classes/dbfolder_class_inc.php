@@ -149,8 +149,6 @@ class dbfolder extends dbTable
 
         $allFilesNode = new treenode(array('text' => 'My Files', 'link' => $this->uri(NULL), 'icon' => $icon, 'expandedIcon' => $expandedIcon));
 
-
-
         $refArray = array();
 
         $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
@@ -379,7 +377,9 @@ class dbfolder extends dbTable
     {
         // users/1/archives/error_log/error_log
         $userPath = 'users/'.$userId;
-
+        
+        //echo $path;
+        
         $regex = '/\\Ausers\/'.$userId.'\/';
 
         $remainderPath = preg_replace($regex.'/', '', $path);
@@ -608,8 +608,6 @@ class dbfolder extends dbTable
             //echo "removing $dir\n";
         }
     }
-
-
 
 
 
