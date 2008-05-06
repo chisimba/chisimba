@@ -188,6 +188,8 @@ class xmlrpcapi extends object
         	$this->objForum = $this->getObject('forumapi');
         	// Podcast API
         	$this->objPodcasts = $this->getObject('podcastapi');
+        	// XULtools API
+        	$this->objXULtools = $this->getObject('xultoolsapi');
 		}
 		catch (customException $e)
 		{
@@ -633,6 +635,13 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Grab a hi res screenshot of a URL'),
+                		  // Test connection for XULtools
+						  'getMsg' => array('function' => array($this->objXULtools, 'getMessage'),
+      			  		  					'signature' =>
+                     							array(
+                         							array('string', 'string'),
+                     							),
+                								'docstring' => 'Return a given string'),
 		   				  // Internal Mail API Start
    						  'internalmail.getAll' => array('function' => array($this->objInternalMail, 'internalMailGetAll'),
                 		   						   'signature' => array(
@@ -711,7 +720,17 @@ class xmlrpcapi extends object
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get the forum row'),    		   						   
+                		   						   'docstring' => 'get the forum row'),    
+						  'forum.forumDeleteForum' => array('function' => array($this->objForum, 'forumDeleteForum'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'delete the selected forum from the database'),  	
+   						  'forum.visibleForum' => array('function' => array($this->objForum, 'forumVisibility'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'update the visibility of the forum'), 	   						   
                 		  // Podcast API for python tool
                 		  'podcast.uploader' => array('function' => array($this->objPodcasts, 'grabPodcast'),
                 		  						   'signature' => array(

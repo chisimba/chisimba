@@ -213,6 +213,69 @@ class forumapi extends object
 	}
 	
 	/**
+     * Delete forum from database
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function forumDeleteForum($params)
+	{
+		try{
+			
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$forumId = $param->scalarval();
+        
+        $result = $this->objdbforum->deleteForum($id); // Delete Forum
+        
+        $postStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value("success", "string")), "array");
+
+        return new XML_RPC_Response($postStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+		/**
+     * Change the visibility of a forum
+     * 
+     * 
+     * @return object 
+     * @access public
+     */
+	public function forumVisibility($params)
+	{
+		try{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$visibility = $param->scalarval();	
+		
+		$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$id = $param->scalarval();
+    	
+        $result = $this->objdbforum->updateForumVisibility($id, $visibility);
+        
+        $postStruct = new XML_RPC_Value(array(
+				new XML_RPC_Value("success", "string")), "array");
+
+        return new XML_RPC_Response($postStruct);
+		} catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
+	}
+	
+	/**
      * Set the Default Forum 
      * 
      * 
@@ -477,7 +540,8 @@ class forumapi extends object
     	$forum = $param->scalarval();
     	
     	$searchStruct = array();
-    	$resarr = $this->objsearch->searchForumAPI($term, $forum);
+    	$resarr = $this->objsearch->searchForumNoHTML($term, $forum);
+    	//$resarr = $this->objsearch->searchForumNoHTML("ok", "all");
     	//var_dump($resarr);
 		foreach($resarr as $res)
     	{
@@ -486,8 +550,8 @@ class forumapi extends object
     		} else {
     			$subject = '';
     		}
-    		$countTitle = substr_count($res['post_title'], "test");
-    		$countSub = substr_count($subject, "test");
+    		$countTitle = substr_count($res['post_title'], $term);
+    		$countSub = substr_count($subject, $term);
     		$matches = $countTitle + $countSub;
     		
 			$struct = new XML_RPC_Value(array(
