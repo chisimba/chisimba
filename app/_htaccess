@@ -19,4 +19,22 @@ RewriteRule ^blog/user/([^.]+)/post/([^.]+)$ index.php?module=blog&action=viewsi
 RewriteRule ^blog/user/([^.]+)/post/([^.]+)/$ index.php?module=blog&action=viewsingle&userid=$1&postid=$2 [T=application/x-httpd-php]
 
 
+# Go to the Podcast module
+RewriteRule ^podcast$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module - This like the above but caters for trailing slash
+RewriteRule ^podcast/$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module
+RewriteRule ^podcast/user/$ index.php?module=podcast [T=application/x-httpd-php]
+# Go to the Podcast module - This like the above but caters for trailing slash
+RewriteRule ^podcast/user$ index.php?module=podcast [T=application/x-httpd-php]
 
+
+# View by User
+RewriteRule ^podcast/user/([^./]+)$ index.php?module=podcast&action=byuser&id=$1 [T=application/x-httpd-php]
+# View by User - This like the above but caters for trailing slash
+RewriteRule ^podcast/user/([^./]+)/$ index.php?module=podcast&action=byuser&id=$1 [T=application/x-httpd-php]
+
+# Podcast Posts
+RewriteRule ^podcast/user/([^./]+)/post/([^./]+)$ index.php?module=podcast&action=viewpodcast&userid=$1&id=$2 [T=application/x-httpd-php]
+# Podcast Posts - This like the above but caters for trailing slash
+RewriteRule ^podcast/([^./]+)/post/([^./]+)/$ index.php?module=podcast&action=viewpodcast&userid=$1&id=$2 [T=application/x-httpd-php]
