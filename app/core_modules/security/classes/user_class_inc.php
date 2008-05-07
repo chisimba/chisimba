@@ -929,7 +929,7 @@ class user extends dbTable
     */
     public function isCourseAdmin()
     {
-        if($this->isContextLecturer || $this->IsAdmin())
+        if($this->isContextLecturer() || $this->IsAdmin())
         {
             return true;
         } else {
