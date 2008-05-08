@@ -111,8 +111,10 @@ class domtt extends object
         $str = '        <script>
             var domTT_styleClass = \'domTTOverlib\';
             var domTT_oneOnly = true;
-        </script>
-        <link rel="stylesheet" href="core_modules/htmlelements/resources/domtt/example.css" type="text/css" />';
+        </script>';
+        
+        // Left Out Stylesheet - not required
+        // <link rel="stylesheet" href="core_modules/htmlelements/resources/domtt/example.css" type="text/css" />
 
         $this->appendArrayVar('headerParams',$str );
 
