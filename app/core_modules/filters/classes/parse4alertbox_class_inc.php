@@ -87,6 +87,8 @@ class parse4alertbox extends object
     public function init()
     {
         // Get an instance of the language object
+        $this->objLanguage = $this->getObject('language', 'language');
+        // Instantiate the alertbox class
         $this->objAlert = $this->getObject('alertbox', 'htmlelements');
         // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
@@ -104,7 +106,7 @@ class parse4alertbox extends object
        	//Match filters based on a wordpress style
         //Note the ? in the regex is important to enable the multiline
         //   feature, else it greedy
-        preg_match_all('/(\\[ALERT:)(.*?)\\](.*?)(\\[\\/ALERT\\])/ism', $txt, $results);
+        preg_match_all('/(\\[ALERT:)(.*?)\\](.*?)(\\[\\/ALERT\\])/iusm', $txt, $results);
        	$counter = 0;
        	foreach ($results[3] as $item) {
             //Parse for the parameters
@@ -142,7 +144,9 @@ class parse4alertbox extends object
         if (isset($url) && $url !== NULL) {
             return $this->objAlert->show($item, $url);
         } else {
-        	return "URL NOT SET:";
+        	return "<span class=\"error\">"
+              . $this->objLanguage->languageText("mod_filters_error_alert_nourl", "filters")
+              . "</span>";
         }
     }
 }
