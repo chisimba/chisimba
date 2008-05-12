@@ -46,6 +46,9 @@ $this->loadClass('filemanagerobject', 'filemanager');
 class previewfolder extends filemanagerobject
 {
 
+
+    public $editPermission = TRUE;
+    
     /**
     * Constructor
     */
@@ -89,7 +92,9 @@ class previewfolder extends filemanagerobject
         $objTable = $this->newObject('htmltable', 'htmlelements');
         
         $objTable->startHeaderRow();
-        $objTable->addHeaderCell('&nbsp;', '20');
+        if ($this->editPermission) {
+            $objTable->addHeaderCell('&nbsp;', '20');
+        }
         $objTable->addHeaderCell('&nbsp;', '20');
         $objTable->addHeaderCell('Name');
         $objTable->addHeaderCell('Size', 60);
@@ -109,11 +114,14 @@ class previewfolder extends filemanagerobject
                 foreach ($subFolders as $folder)
                 {
                     $objTable->startRow();
-                    $checkbox = new checkbox('files[]');
-                    $checkbox->value = 'folder__'.$folder['id'];
-                    $checkbox->cssId = htmlentities('input_files_'.basename($folder['folderpath']));
                     
-                    $objTable->addCell($checkbox->show(), 20);
+                    if ($this->editPermission) {
+                        $checkbox = new checkbox('files[]');
+                        $checkbox->value = 'folder__'.$folder['id'];
+                        $checkbox->cssId = htmlentities('input_files_'.basename($folder['folderpath']));
+                        
+                        $objTable->addCell($checkbox->show(), 20);
+                    }
                     
                     $objTable->addCell($folderIcon);
                     
@@ -131,11 +139,13 @@ class previewfolder extends filemanagerobject
                 foreach ($files as $file)
                 {
                     $objTable->startRow();
-                    $checkbox = new checkbox('files[]');
-                    $checkbox->value = $file['id'];
-                    $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
-                    
-                    $objTable->addCell($checkbox->show(), 20);
+                    if ($this->editPermission) {
+                        $checkbox = new checkbox('files[]');
+                        $checkbox->value = $file['id'];
+                        $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
+                        
+                        $objTable->addCell($checkbox->show(), 20);
+                    }
                     
                     $label = new label ($this->objFileIcons->getFileIcon($file['filename']), htmlentities('input_files_'.$file['filename']));
                     $objTable->addCell($label->show());

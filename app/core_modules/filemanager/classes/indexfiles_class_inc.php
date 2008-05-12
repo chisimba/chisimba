@@ -62,6 +62,8 @@ class indexfiles extends folderbot
     */
     protected $folderIndex;
     
+    public $recurse = TRUE;
+    
     /**
     * Method to scan a directory
     * @param  string $directory Directory to Scan
@@ -69,7 +71,7 @@ class indexfiles extends folderbot
     */
     public function scanDirectory($directory)
     {
-        $this->set_recurse(true); // set to false to only list the folder without subfolder.
+        $this->set_recurse($this->recurse); // set to false to only list the folder without subfolder.
         $this->scan($directory);
         
         return array($this->fileIndex, $this->folderIndex);

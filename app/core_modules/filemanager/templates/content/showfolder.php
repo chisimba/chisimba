@@ -10,10 +10,11 @@ $this->appendArrayVar('headerParams', $this->getJavascriptFile('selectall.js', '
 
 if ($folder['folderlevel'] == 2) {
     $icon = '';
-    $folderpath = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
-    $breadcrumbs = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
-} else {
+    $folderpath = $breadcrumbs;
+} else if ($folderPermission) {
     $icon = $objIcon->getDeleteIconWithConfirm($folderId, array('action'=>'deletefolder', 'id'=>$folderId), 'filemanager', $this->objLanguage->languageText('mod_filemanager_confirmdeletefolder', 'filemanager', 'Are you sure wou want to remove this folder?'));
+} else {
+    $icon = '';
 }
 
 echo '<p>'.$breadcrumbs.'</p>';
@@ -42,7 +43,7 @@ switch ($this->getParam('error'))
 
 echo '<h1>'.$folderpath.' '.$icon.'</h1>';
 
-if (count($files) > 0 || count($subfolders) > 0) {
+if ((count($files) > 0 || count($subfolders) > 0) && $folderPermission) {
     $form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
     $form->addToForm($table);
 
@@ -65,13 +66,16 @@ if (count($files) > 0 || count($subfolders) > 0) {
     echo $table;
 }
 
-echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
-echo $this->objUpload->show($folderId);
 
-echo $this->objFolders->showCreateFolderForm($folderId);
-
-//$objSWFUpload = $this->newObject('swfupload');
-//$objSWFUpload->additionalParams['folder'] = $folderId;
-//echo $objSWFUpload->show();
+if ($folderPermission) {
+    echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
+    echo $this->objUpload->show($folderId);
+    
+    echo $this->objFolders->showCreateFolderForm($folderId);
+    
+    //$objSWFUpload = $this->newObject('swfupload');
+    //$objSWFUpload->additionalParams['folder'] = $folderId;
+    //echo $objSWFUpload->show();
+}
 
 ?>

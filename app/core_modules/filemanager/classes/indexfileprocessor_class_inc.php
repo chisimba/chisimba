@@ -44,6 +44,9 @@
 class indexfileprocessor extends object
 {
 
+    public $recurseFolder = TRUE;
+    public $debug = FALSE;
+
     /**
     * Constructor
     */
@@ -72,11 +75,19 @@ class indexfileprocessor extends object
      * @return unknown Return description (if any) ...
      * @access public
      */
-    function indexFolder($folder, $userId)
+    function indexFolder($type, $id, $folder, $userId)
     {
+        $this->objIndexFiles->recurse = $this->recurseFolder;
         $results = $this->objIndexFiles->scanDirectory($folder);
-
-        return $this->processResults($results, $userId);
+        
+        if ($this->debug) {
+            echo 'Folder to index';
+            var_dump($folder);
+            echo 'Scanned Files';
+            var_dump($results);
+        }
+        
+        return $this->processResults($type, $id, $results, $userId);
     }
 
     /**
@@ -86,7 +97,17 @@ class indexfileprocessor extends object
     */
     function indexUserFiles($userId='1')
     {
-        return $this->indexFolder($this->objConfig->getcontentBasePath().'users/'.$userId.'/', $userId);
+        return $this->indexFolder('users', $userId, $this->objConfig->getcontentBasePath().'users/'.$userId.'/', $userId);
+    }
+    
+    /**
+    * Method to Scan and index the files of a user
+    * @param  string $userId User Id whose folder should be scanned
+    * @return array  List of Files that were indexed
+    */
+    function indexFiles($type, $id='1')
+    {
+        return $this->indexFolder($type, $id, $this->objConfig->getcontentBasePath().$type.'/'.$id.'/', $id);
     }
 
     /**
@@ -99,26 +120,26 @@ class indexfileprocessor extends object
      * @return unknown Return description (if any) ...
      * @access public
      */
-    function processResults($results, $userId)
+    function processResults($type, $id, $results, $userid)
     {
         // Split Folders from Results
         $folders = $results[1];
         // Add User Folder
-        $folders[] = $this->objConfig->getcontentBasePath().'users/'.$userId.'/';
+        $folders[] = $this->objConfig->getcontentBasePath().$type.'/'.$id.'/';
         // Process Files
         $this->processFolderResults($folders);
-
+        
         // Split files from results
         $files = $results[0];
         // Process Files
-        $indexedFiles = $this->processFileResults($files, $userId);
-
+        $indexedFiles = $this->processFileResults($files, $id, $userid, $type);
+        
         // Clean up any broken records
         $this->objMediaFileInfo->cleanUpMismatchedMediaFiles();
-
+        
         return $indexedFiles;
     }
-
+    
     /**
      * Short description for function
      *
@@ -137,7 +158,7 @@ class indexfileprocessor extends object
             }
         }
     }
-
+    
     /**
      * Short description for function
      *
@@ -147,23 +168,31 @@ class indexfileprocessor extends object
      * @return array   Return description (if any) ...
      * @access private
      */
-    private function generateUserFilesArray($userId)
+    private function generateFilesArray($userId, $type)
     {
-        $files = $this->objFile->getUserFiles($userId);
-
+        $files = $this->objFile->getPathFiles($type, $userId);
+        
+        if ($this->debug) {
+            var_dump($files);
+        }
+        
         $list = array();
-
+        
         if (count($files) > 0) {
             foreach ($files as $file)
             {
                 $list[] = $file['path'];
             }
         }
-
+        
+        if ($this->debug) {
+            echo ' List of Files';
+            var_dump($list);
+        }
+        
         return $list;
-
     }
-
+    
     /**
      * Short description for function
      *
@@ -174,36 +203,26 @@ class indexfileprocessor extends object
      * @return array   Return description (if any) ...
      * @access private
      */
-    private function processFileResults($files, $userId)
+    private function processFileResults($files, $id, $userId, $type)
     {
         $indexedFiles = array();
-
-        $userFiles = $this->generateUserFilesArray($userId);
-
+        $userFiles = $this->generateFilesArray($id, $type);
+        
         if (count($files) > 0) {
             foreach ($files as $file)
             {
-                    preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
-                    $path = $regs[0];
-                    $path = $this->objCleanUrl->cleanUpUrl($path);
-
-                    if (!in_array($path, $userFiles)) {
-                        $indexedFiles[] = $this->processIndexedFile($path, $userId);
-                        //echo $path.' - ';
-                    }
-                    // $record = $this->objFile->getFileDetailsFromPath($path);
-
-                    // if ($record == FALSE) {
-                        // $indexedFiles[] = $this->processIndexedFile($path, $userId);
-                    // } else {
-
-                    // }
+                preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
+                $path = $regs[0];
+                $path = $this->objCleanUrl->cleanUpUrl($path);
+                
+                if (!in_array($path, $userFiles)) {
+                    $indexedFiles[] = $this->processIndexedFile($path, $userId);
+                }
             }
         }
-
         return $indexedFiles;
     }
-
+    
     /**
     * Method to take a file that is not in the index, process its data
     * and add it to the database
@@ -277,20 +296,19 @@ class indexfileprocessor extends object
         } else if ($category == 'scripts' && $mimetype == 'application/xml') {
                 /*
                 $objCatalogueConfig = $this->getObject('catalogueconfig', 'modulecatalogue');
-
+                
                 if ($objCatalogueConfig->getModuleName('timeline') != FALSE) {
                     // Load Timeline Parser
                     $objTimeline = $this->getObject('timelineparser', 'timeline');
-
+                    
                     // Check if Valid
                     if ($objTimeline->isValidTimeline($savepath)) {
                         // If yes, change category to timeline
                         $this->objFile->updateFileCategory($fileId, 'timeline');
                     }
                 }*/
-
         }
-
+        
         return $fileId;
     }
 } // end class

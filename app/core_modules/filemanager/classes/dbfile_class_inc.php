@@ -975,7 +975,12 @@ class dbfile extends dbTable
     {
         return $this->getAllOpenFiles('images', array('gif', 'jpg', 'jpeg', 'png'));
     }
-
+    
+    public function getPathFiles($type, $id)
+    {
+        $sql = " WHERE path LIKE '{$type}/{$id}/%' ";
+        return $this->getAll($sql);
+    }
 
 }
 

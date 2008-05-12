@@ -44,9 +44,18 @@ if (!isset($folderId)) {
     $folderId = '';
 }
 
-$leftColumn .= $objFolders->showUserFolders($folderId);
+//$leftColumn .= $objFolders->showUserFolders($folderId);
+$leftColumn .= $objFolders->getTree('users', $this->objUser->userId(), 'dhtml', $folderId);
+
+$leftColumn .= '<br /><br /><br />';
+
+if ($this->contextCode != '' && $this->getParam('context') != 'no') {
+    $leftColumn .= $objFolders->getTree('context', $this->contextCode, 'dhtml', $folderId);
+}
+
 
 $cssLayout->setLeftColumnContent($leftColumn);
+
 
 // Set the Content of middle column
 $cssLayout->setMiddleColumnContent($this->getContent());

@@ -7,7 +7,7 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
 $this->loadClass('htmlheading', 'htmlelements');
 
-echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadCrumbs($file['path']).'</div>';
+echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadCrumbs($file['path'], TRUE).$file['filename'].'</div>';
 
 // Get Folder Id of Item
 $folderId = $this->objFolders->getFolderId(dirname($file['path']));
@@ -166,8 +166,12 @@ echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
 
 if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
+    
+    $folderParts = explode('/', $file['filefolder']);
+    //getTree($folderType='users', $id, $treeType='dhtml', $selected='')
+    
     $form = new form ('extractarchive', $this->uri(array('action'=>'extractarchive')));
-    $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to').': '.$this->objFolders->getTreedropdown($folderId));
+    $form->addToForm($this->objLanguage->languageText('mod_filemanager_extractarchiveto', 'filemanager', 'Extract Archive to').': '.$this->objFolders->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
 
     $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_extractfiles', 'filemanager', 'Extract Files'));
     $button->setToSubmit();

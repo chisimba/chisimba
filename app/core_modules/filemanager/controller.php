@@ -82,6 +82,8 @@ class filemanager extends controller
     * 
     */
     public $objLog;
+    
+    public $debug = FALSE;
 
     /**
     * 
@@ -108,6 +110,35 @@ class filemanager extends controller
         $this->objLanguage = $this->getObject('language', 'language');
         $this->objMenuTools = $this->getObject('tools', 'toolbar');
         $this->loadClass('link', 'htmlelements');
+        
+        
+        $this->userId = $this->objUser->userId();
+        
+        if ($this->userId != '') {
+            // Setup User Folder
+            $folderpath = 'users/'.$this->userId;
+            
+            $folderId = $this->objFolders->getFolderId($folderpath);
+            
+            
+            
+            if ($folderId == FALSE) {
+                $objIndexFileProcessor = $this->getObject('indexfileprocessor');
+                $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
+            }
+        }
+        
+        $this->objContext = $this->getObject('dbcontext', 'context');
+        $this->contextCode = $this->objContext->getContextCode();
+        if ($this->contextCode != '') {
+            $folderpath = 'context/'.$this->contextCode;
+            
+            $folderId = $this->objFolders->getFolderId($folderpath);
+            if ($folderId == FALSE) {
+                $objIndexFileProcessor = $this->getObject('indexfileprocessor');
+                $list = $objIndexFileProcessor->indexFiles('context', $this->contextCode);
+            }
+        }
     }
     
     /**
@@ -286,17 +317,8 @@ class filemanager extends controller
         // Get Folder Details
         $folder = $this->objFolders->getFolder($folderId);
         $this->setVarByRef('folder', $folder);
-
-        if ($folderId == FALSE) {
-            $objIndexFileProcessor = $this->getObject('indexfileprocessor');
-
-            $list = $objIndexFileProcessor->indexUserFiles($this->objUser->userId());
-
-        }
-
-        // update the paths of files that do not have the filefolder item set
-        // This is due to a patch added
-        $this->objFiles->updateFilePath();
+        
+        $this->setVar('folderPermission', TRUE);
 
         $this->setVar('breadcrumbs', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
         $this->setVar('folderpath', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
@@ -644,12 +666,17 @@ class filemanager extends controller
         if ($folder == FALSE) {
             return $this->nextAction(NULL);
         }
+        
+        $folderParts = explode('/', $folder['folderpath']);
+
+        $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
         $this->setVarByRef('folder', $folder);
 
         $this->setVarByRef('folderpath', basename($folder['folderpath']));
 
         $this->setVar('folderId', $id);
+        $this->setVar('folderPermission', $folderPermission);
 
         $subfolders = $this->objFolders->getSubFolders($id);
         $this->setVarByRef('subfolders', $subfolders);
@@ -658,6 +685,7 @@ class filemanager extends controller
         $this->setVarByRef('files', $files);
 
         $objPreviewFolder = $this->getObject('previewfolder');
+        $objPreviewFolder->editPermission = $folderPermission;
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
@@ -745,8 +773,13 @@ class filemanager extends controller
     function __extractarchive()
     {
         $archiveFileId = $this->getParam('file');
-
+        
         $file = $this->objFiles->getFullFilePath($archiveFileId);
+        
+        if ($this->debug) {
+            echo 'Zip Files Detail';
+            var_dump($file);
+        }
 
         if ($file == FALSE) {
             return $this->nextAction('viewfolder', array('folder'=>$this->getParam('parentfolder'), 'error'=>'couldnotfindarchive'));
@@ -757,11 +790,26 @@ class filemanager extends controller
             if ($parentId == 'ROOT') {
                 $parentId = $this->objFolders->getFolderId('users/'.$this->objUser->userId());
             }
+            
+            if ($this->debug) {
+                echo 'Posted Variables';
+                var_dump($_POST);
+                
+                echo 'Folder ID';
+                var_dump($parentId);
+            }
+            
+            $folder = $this->objFolders->getFolderPath($parentId);
+            $fullFolderPath = $this->objFolders->getFullFolderPath($parentId);
 
-            $folder = $this->objFolders->getFullFolderPath($parentId);
-
-            //echo $folder;
-
+            $folderParts = explode('/', $folder);
+            
+            if ($this->debug) {
+                echo 'FolderParts';
+                var_dump($folder);
+                var_dump($folderParts);
+            }
+            
             $objBackground = $this->newObject('background', 'utilities');
 
             //check the users connection status,
@@ -772,13 +820,18 @@ class filemanager extends controller
             $callback = $objBackground->keepAlive();
 
             $objZip = $this->newObject('wzip', 'utilities');
-            $objZip->unzip($file, $folder);
-
+            $objZip->unzip($file, $fullFolderPath);
+            
+            if ($this->debug) {
+                echo 'Full Folder Path';
+                var_dump($fullFolderPath);
+            }
+            
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
-            $objIndexFileProcessor->indexFolder($folder, $this->objUser->userId());
-
+            $objIndexFileProcessor->indexFolder($folderParts[0], $folderParts[1], $fullFolderPath, $this->objUser->userId());
+            
             $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
-
+            
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId));
         }
     }

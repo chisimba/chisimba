@@ -133,86 +133,128 @@ class dbfolder extends dbTable
         $objFileManagerObject = $this->getObject('filemanagerobject');
         return $objFileManagerObject->uri($params, $module, $mode, $omitServerName, $javascriptCompatibility);
     }
-
-
+    
     /**
-    * Method to show the folders of the current user as a DHTML Tree
-    * @param  string $default Record Id of the Current Folder to highlight
-    * @return string
-    */
-    function showUserFolders($default='')
+     *
+     *
+     */
+    function getFolders($type, $id)
+    {
+        return $this->getAll(' WHERE folderpath LIKE \''.$type.'/'.$id.'/%\' ORDER BY folderlevel, folderpath');
+    }
+    
+    /**
+     * Method to generate a folder tree
+     * @param string $folderType Type of Folders - either users, context, workgroup, or group
+     * @param string $id Either User Id of Context Code
+     * @param string $treeType Type of Tree - Either dhtml or htmldropdown
+     * @param string $selected Record Id of default selected node
+     */
+    function getTree($folderType='users', $id, $treeType='dhtml', $selected='')
     {
         //Create a new tree
         $menu  = new treemenu();
 
-
         $icon         = 'folder.gif';
         $expandedIcon = 'folder-expanded.gif';
-
-        $allFilesNode = new treenode(array('text' => 'My Files', 'link' => $this->uri(NULL), 'icon' => $icon, 'expandedIcon' => $expandedIcon));
-
+        
+        $baseFolder = $folderType.'/'.$id;
+        $baseFolderId = $this->getFolderId($baseFolder);
+        
+        if ($baseFolderId == $selected) {
+            $folderText = '<strong>'.$this->getFolderType($folderType, $id).'</strong>';
+            $cssClass = 'confirm';
+        } else {
+            $folderText = $this->getFolderType($folderType, $id);
+            $cssClass = '';
+        }
+        
+        
+        
+        if ($treeType == 'htmldropdown') {
+            $allFilesNode = new treenode(array('text' => strip_tags($folderText), 'link' => $baseFolderId));
+        } else {
+            $allFilesNode = new treenode(array('text' => $folderText, 'link' => $this->uri(array('action'=>'viewfolder', 'folder'=>$baseFolderId)), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
+        }
+        
         $refArray = array();
+        $refArray[$baseFolder] =& $allFilesNode;
 
-        $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
-
-        $folders = $this->getUserFolders($this->objUser->userId());
-
+        $folders = $this->getFolders($folderType, $id);
+        
         if (count($folders) > 0) {
             foreach ($folders as $folder)
             {
                 $folderText = basename($folder['folderpath']);
 
-                if ($folder['id'] == $default) {
+                if ($folder['id'] == $selected) {
                     $folderText = '<strong>'.$folderText.'</strong>';
                     $cssClass = 'confirm';
                 } else {
                     $cssClass = '';
                 }
+                
+                if ($treeType == 'htmldropdown') {
+                    $node =& new treenode(array('text' => $folderText, 'link' => $folder['id'], 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
+                } else {
+                    $node =& new treenode(array('text' => $folderText, 'link' => $this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
+                }
+                
 
-                $node =& new treenode(array('text' => $folderText, 'link' => $this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])), 'icon' => $icon, 'expandedIcon' => $expandedIcon, 'cssClass'=>$cssClass));
-
-                $parent = '/'.dirname($folder['folderpath']);
+                $parent = dirname($folder['folderpath']);
 
                 //echo $folder['folderpath'].' - '.$parent.'<br />';
                 if (array_key_exists($parent, $refArray)) {
-                    $refArray['/'.dirname($folder['folderpath'])]->addItem($node);
+                    $refArray[dirname($folder['folderpath'])]->addItem($node);
                 }
 
-                $refArray['/'.$folder['folderpath']] =& $node;
+                $refArray[$folder['folderpath']] =& $node;
             }
         }
-
+        
         $menu->addItem($allFilesNode);
-
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('TreeMenu.js', 'tree'));
-        $this->setVar('pageSuppressXML', TRUE);
-
-        $objSkin =& $this->getObject('skin', 'skin');
-        $treeMenu = &new dhtml($menu, array('images' => 'skins/_common/icons/tree', 'defaultClass' => 'treeMenuDefault'));
+        
+        if ($treeType == 'htmldropdown') {
+            $treeMenu = &new htmldropdown($menu, array('inputName'=> 'parentfolder', 'id'=>'input_parentfolder','selected'=>$selected));
+        } else {
+            $this->appendArrayVar('headerParams', $this->getJavascriptFile('TreeMenu.js', 'tree'));
+            $this->setVar('pageSuppressXML', TRUE);
+            
+            $objSkin =& $this->getObject('skin', 'skin');
+            $treeMenu = &new dhtml($menu, array('images' => 'skins/_common/icons/tree', 'defaultClass' => 'treeMenuDefault'));
+        }
+        
+        
+        
         return $treeMenu->getMenu();
     }
-
-
-    /**
-     * Short description for function
-     *
-     * Long description (if any) ...
-     *
-     * @param  string $userId Parameter description (if any) ...
-     * @return string Return description (if any) ...
-     * @access public
-     */
-    function getUserFolders($userId)
+    
+    function getFolderType($folderType, $id)
     {
-        return $this->getFolders('users', $userId);
+        switch ($folderType)
+        {
+            case 'users':
+                if ($id == $this->objUser->userId()) {
+                    $title = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
+                } else {
+                    // Detect whether folder is public
+                    $title = $this->objUser->fullName($id)."'s Files";
+                }
+                break;
+            case 'context': // fix up here
+                $objContext = $this->getObject('dbcontext', 'context');
+                $title = $objContext->getTitle().' - Files';
+                break;
+            default:
+                $title = 'unknown';
+                break;
+            
+            return $title;
+        }
+        
+        return $title;
     }
     
-    function getFolders($type, $id)
-    {
-        return $this->getAll(' WHERE folderpath LIKE \''.$type.'/'.$id.'/%\' ORDER BY folderlevel, folderpath');
-    }
-
-
     /**
      * Short description for function
      *
@@ -371,7 +413,7 @@ class dbfolder extends dbTable
      * @param string $path Folder Path
      * @return string Generated Breadcrumbs
      */
-    public function generateBreadCrumbs($path)
+    public function generateBreadCrumbs($path, $linkLast=FALSE)
     {
         $parts = explode('/', $path);
         
@@ -379,16 +421,18 @@ class dbfolder extends dbTable
         {
             case 'users':
                     if ($parts[1] == $this->objUser->userId()) {
-                        $title = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
+                        $title = $this->getFolderType($parts[0], $parts[1]);
                         $href = $this->uri(NULL, 'filemanager');
                     } else {
                         // Detect whether folder is public
-                        $title = $this->objUser->fullName($parts[1])."'s Files";
-                        $href = $this->uri(array('action'=>'viewfolder', 'id'=>$this->getFolderId('users/'.$parts[1])), 'filemanager');
-                        
+                        $title = $this->getFolderType($parts[0], $parts[1]);
+                        $href = $this->uri(array('action'=>'viewfolder', 'folder'=>$this->getFolderId('users/'.$parts[1])), 'filemanager');
                     }
                     break;
             case 'context': // fix up here
+                $title = $this->getFolderType($parts[0], $parts[1]);
+                $href = $this->uri(array('action'=>'viewfolder', 'folder'=>$this->getFolderId('context/'.$parts[1])), 'filemanager');
+                break;
             default:
                 $title = 'unknown';
                 $href = $this->uri(NULL, 'filemanager');
@@ -411,7 +455,7 @@ class dbfolder extends dbTable
                 if ($folderId == FALSE) {
                     
                 } else {
-                    $href = $href = $this->uri(array('action'=>'viewfolder', 'id'=>$folderId), 'filemanager');
+                    $href = $href = $this->uri(array('action'=>'viewfolder', 'folder'=>$folderId), 'filemanager');
                     $breadcrumbs[] = array('link'=>$href, 'title'=>$parts[$i]);
                 }
             }
@@ -419,21 +463,33 @@ class dbfolder extends dbTable
         }
         
         $breadcrumbStr = '';
-        $numBreadCrumbs = count($breadcrumbs);
-        $counter = 1;
         
-        foreach ($breadcrumbs as $breadcrumb)
-        {
-            if ($counter == $numBreadCrumbs){
-                $breadcrumbStr .= $breadcrumb['title'];
-            } else {
+        if ($linkLast) {
+            foreach ($breadcrumbs as $breadcrumb)
+            {
                 $link = new link ($breadcrumb['link']);
                 $link->link = $breadcrumb['title'];
                 
                 $breadcrumbStr .= $link->show().' &gt; ';
             }
+        } else {
             
-            $counter++;
+            $numBreadCrumbs = count($breadcrumbs);
+            $counter = 1;
+            
+            foreach ($breadcrumbs as $breadcrumb)
+            {
+                if ($counter == $numBreadCrumbs){
+                    $breadcrumbStr .= $breadcrumb['title'];
+                } else {
+                    $link = new link ($breadcrumb['link']);
+                    $link->link = $breadcrumb['title'];
+                    
+                    $breadcrumbStr .= $link->show().' &gt; ';
+                }
+                
+                $counter++;
+            }
         }
         
         return $breadcrumbStr;
@@ -446,41 +502,7 @@ class dbfolder extends dbTable
     */
     function getTreedropdown($selected = '')
     {
-        //Create a new tree
-        $menu  = new treemenu();
-
-        $allFilesNode = new treenode(array('text' => 'My Files', 'link' => 'ROOT'));
-
-        $refArray = array();
-
-        $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
-
-        $folders = $this->getUserFolders($this->objUser->userId());
-
-        if (count($folders) > 0) {
-            foreach ($folders as $folder)
-            {
-                $node =& new treenode(array('text' => basename($folder['folderpath']), 'link' => $folder['id']));
-
-                $parent = '/'.dirname($folder['folderpath']);
-
-                //echo $folder['folderpath'].' - '.$parent.'<br />';
-                if (array_key_exists($parent, $refArray)) {
-                    $refArray['/'.dirname($folder['folderpath'])]->addItem($node);
-                }
-
-                $refArray['/'.$folder['folderpath']] =& $node;
-            }
-        }
-
-        $menu->addItem($allFilesNode);
-
-        $this->appendArrayVar('headerParams', $this->getJavascriptFile('TreeMenu.js', 'tree'));
-        $this->setVar('pageSuppressXML', TRUE);
-
-        $objSkin =& $this->getObject('skin', 'skin');
-        $treeMenu = &new htmldropdown($menu, array('inputName'=> 'parentfolder', 'id'=>'input_parentfolder','selected'=>$selected));
-        return $treeMenu->getMenu();
+        return '';
     }
 
     /**
@@ -494,13 +516,21 @@ class dbfolder extends dbTable
      */
     function showCreateFolderForm($folderId)
     {
+        $folderPath = $this->getFolderPath($folderId);
+        
+        if ($folderPath == FALSE) {
+            return '';
+        }
+        
+        $folderParts = explode('/', $folderPath);
+        
         $form = new form ('createfolder', $this->uri(array('action'=>'createfolder')));
 
         $label = new label ('Create a subfolder in: ', 'input_parentfolder');
-
-        $form->addToForm($label->show().$this->getTreedropdown($folderId));
-
-
+        
+        
+        $form->addToForm($label->show().$this->getTree($folderParts[0], $folderParts[1], 'htmldropdown', $folderId));
+        
         // $objInputMasks = $this->getObject('inputmasks', 'htmlelements');
         // echo $objInputMasks->show();
 
@@ -553,7 +583,7 @@ class dbfolder extends dbTable
                     preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
 
                     // Clean up portion - esp convert backslash to forward slash
-                    $path = $this->objCleanUrl->cleanUpUrl($path);
+                    $path = $this->objCleanUrl->cleanUpUrl($file);
 
                     // Check if there is a record of the file
                     $fileInfo = $this->objFiles->getFileDetailsFromPath($path);
@@ -629,6 +659,36 @@ class dbfolder extends dbTable
             rmdir($dir);
             //echo "removing $dir\n";
         }
+    }
+    
+    
+    public function checkPermissionUploadFolder($type, $id)
+    {
+        switch ($type)
+        {
+            case 'users':
+                if ($id == $this->objUser->userId()) {
+                    return TRUE;
+                } else {
+                    return FALSE;
+                }
+                break;
+            case 'context':
+                $objContext = $this->getObject('dbcontext', 'context');
+                if ($id == $objContext->getContextCode()) {
+                    return $this->objUser->isCourseAdmin();
+                } else {
+                    return FALSE;
+                }
+                break;
+            default:
+                return FALSE;
+        }
+    }
+    
+    public function checkPermissionAccessFolder($type, $id)
+    {
+        return TRUE;
     }
 
 
