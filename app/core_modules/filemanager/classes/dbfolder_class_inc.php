@@ -577,17 +577,27 @@ class dbfolder extends dbTable
             // File Results
             // If there are files in the directory, delete them one by one
             if (count($results[0]) > 0) {
+                
+                //var_dump ($results[0]);
+                
                 foreach ($results[0] as $file)
                 {
                     // Remove the usrfiles portion from the file
                     preg_match('/(?<=usrfiles(\\\|\/)).*/', $file, $regs);
-
+                    
+                    /*
+                    echo 'File';
+                    var_dump($file);
+                    echo 'Regs';
+                    var_dump($regs);
+                    */
+                    
                     // Clean up portion - esp convert backslash to forward slash
-                    $path = $this->objCleanUrl->cleanUpUrl($file);
-
+                    $path = $this->objCleanUrl->cleanUpUrl($regs[0]);
+                    
                     // Check if there is a record of the file
                     $fileInfo = $this->objFiles->getFileDetailsFromPath($path);
-
+                    
                     // If there is no record of the file, simply delete them from file system
                     if ($fileInfo == FALSE) {
                         @unlink($file);
@@ -611,8 +621,9 @@ class dbfolder extends dbTable
                     preg_match('/(?<=usrfiles(\\\|\/)).*/', $subfolder, $regs);
 
                     // Clean up portion - esp convert backslash to forward slash
-                    $path = $this->objCleanUrl->cleanUpUrl($path);
-
+                    $path = $this->objCleanUrl->cleanUpUrl($regs[0]);
+                    
+                    
                     // Remove Directory
                     if (rmdir($subfolder.'/')) {
                         // Clear Record
@@ -620,7 +631,8 @@ class dbfolder extends dbTable
                     }
                 }
             }
-
+            
+            
             // Now delete the folder itself
             if (!file_exists($folder)) { // If folder does not exist, delete record.
                 $this->delete('id', $id);
@@ -629,6 +641,8 @@ class dbfolder extends dbTable
             } else {
                 return FALSE;
             }
+            
+            return FALSE;
         }
     }
 
