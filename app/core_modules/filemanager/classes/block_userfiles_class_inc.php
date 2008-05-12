@@ -3,9 +3,6 @@
 
 class block_userfiles extends object
 {
-   
-
-    public $userFolder;
 
     /**
     *Initialize by send the table name to be accessed
@@ -13,7 +10,9 @@ class block_userfiles extends object
     public function init()
     {
         $this->objFolder = $this->getObject('dbfolder');
-        $this->title = 'User Files';
+        $this->objUser = $this->getObject('user', 'security');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->title = $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files');
     }
    
     /**
@@ -21,12 +20,14 @@ class block_userfiles extends object
      */
     public function show()
     {
-        return $this->objFolder->showUserFolders($this->userFolder);
+        $userId = $this->objUser->userId();
+        
+        if ($userId == NULL || $userId == '') {
+            return '';
+        } else {
+            return $this->objFolder->getTree('users', $this->objUser->userId(), 'dhtml');
+        }
     }
-
-
-
-
-
+    
 }
 ?>
