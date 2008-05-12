@@ -36,7 +36,7 @@ class sitemap extends controller
     {
         // Provisional List of Modules with module links classes
         // Note: This will in future comes from keywords
-        $this->modulesWithLinks = array('forum', 'podcast', 'cmsadmin');
+        $this->modulesWithLinks = array('forum', 'podcast', 'cmsadmin', 'announcements');
         
         $this->objLanguage =& $this->getObject('language', 'language');
     }
