@@ -167,11 +167,13 @@ class tabcontent extends object
                         $selected = ($tab['selected']) ? 'class="selected"' : '';
                     }
                     
+                    $selectedDiv = ($selected == '') ? '' : ' tabcontentselected';
+                    
                     // Add Tab Label
                     $tabnavigation .= '<li '.$selected.'><a href="javascript:;" rel="'.$this->name.'_tcontent'.$counter.'">'.$tab['label'].'</a></li>';
                     
                     // Add Tab Content
-                    $tabcontent .= '<div id="'.$this->name.'_tcontent'.$counter.'" class="tabcontent">'.$tab['content'].'</div>';
+                    $tabcontent .= '<div id="'.$this->name.'_tcontent'.$counter.'" class="tabcontent'.$selectedDiv.'">'.$tab['content'].'</div>';
                     
                     // Increase Counter for next tab
                     $counter++;
