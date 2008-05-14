@@ -100,7 +100,7 @@ class block_elearnlogin extends object
         $form->addToForm('<br />'.$username->show());
         
         $label = new label ($this->objLanguage->languageText('word_password', 'system', 'Password').':', 'username');
-        $form->addToForm($label->show());
+        $form->addToForm('<br />'.$label->show());
         $password = new textinput('password');
         $password->fldType = 'password';
         $form->addToForm('<br />'.$password->show());
