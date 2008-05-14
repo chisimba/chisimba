@@ -1196,6 +1196,10 @@ display:none;
 
 }
 
+div.tabcontentselected {
+    display: block;
+}
+
 
 
 @media print {

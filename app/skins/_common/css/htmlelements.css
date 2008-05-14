@@ -68,6 +68,10 @@ div.tabcontent{
     display:none;
 }
 
+div.tabcontentselected {
+    display: block;
+}
+
 
 /******************************************************************************************
 *  MOUSE OVER POPUP
