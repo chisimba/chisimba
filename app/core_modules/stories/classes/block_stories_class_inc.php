@@ -48,8 +48,15 @@ class block_stories extends object
     public function show()
     {
     	try {
+    		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+    		$useSummaries = $objSysConfig->getValue('USESUMMARIES', 'stories');
         	$objStories = $this->getObject('sitestories', 'stories');
-            return $objStories->fetchCategory('prelogin');
+        	
+        	if($useSummaries == 'Y'){
+        		return $objStories->fetchPreLoginCategory('prelogin', 4);
+        	} else {
+        		return $objStories->fetchCategory('prelogin');
+        	}
         } catch (customException $e) {
     		customException::cleanUp();
     	}

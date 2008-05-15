@@ -56,6 +56,8 @@ class stories extends controller
         // retrieve the sort order from the querystring
         $order = $this->getParam("order", null);
         switch ($action) {
+        	case 'test':
+        		return 'test.php';
             case null:
             case "view":
                 $filter = NULL;
@@ -95,6 +97,8 @@ class stories extends controller
                 $objStories =  $this->getObject('sitestories');
                 $this->setVar('str', $objStories->fetchStory($id));
                 return 'dump_tpl.php';
+            case "readmore":
+            	return 'showstories_tpl.php';
             default:
                 $this->setVar('str', "<h3>"
                   . $this->objLanguage->languageText("phrase_unrecognizedaction",'stories')
@@ -174,6 +178,15 @@ class stories extends controller
             $ret .= ' '.$time;
         }
         return $ret;
+    }
+    
+    function requiresLogin($action)
+    {
+    	if ($action == 'readmore') {
+    		return FALSE;
+    	} else {
+    		return TRUE;
+    	}
     }
 
 }

@@ -301,6 +301,194 @@ class sitestories extends dbTable {
         $sql="SELECT * FROM tbl_stories " . $where . " ";
 		return $this->objDbStories->getArrayWithLimit($sql, $first, $num);
 	} #function getMostRecent
+	
+	
+	
+	 /**
+    *
+    * Method to fetch a story by story category
+    *
+    * @param string $category The category of the stories to return
+    * @param integer $limit The number of stories to return
+    * @todo -cstories Implement remove hard coding of en and replace with site default.
+    *
+    */
+    function fetchPreLoginCategory($category, $limit=NULL, $showAuthor=TRUE, $language=NULL)
+    {
+        if (!$language) {
+            $language = 'en';
+        }
+        //Set up the where clause to return only the category
+        $where=" WHERE category='" . $category
+          . "' AND isActive='1' AND language='"
+          . $language . "' ORDER BY isSticky DESC, dateCreated DESC ";
+        //Get an array of the stories in the requested category
+        $ar=$this->objDbStories->getAll($where);
+       
+        /*Count the number of elements returned, used to
+        * determine whether or not to display a horizontal
+        * rule after the entry
+        */
+        $elems=count($ar);
+        //Initialize counter
+        $count=0;
+        //Initialize the return string
+        $ret="";
+        //Instantiate the classe for checking expiration
+        $objExp =  $this->getObject('dateandtime','utilities');
+        //Get an instance of the language code
+        $objLcode =  $this->getObject('languagecode', 'language');
+        // Get Icon for stickylabel
+        $objStIcon = $this->newObject('geticon', 'htmlelements');
+
+        //Create an instance of the modulesadmin to check if registered
+        $this->objModule=$this->getObject('modules','modulecatalogue');
+        if ($this->objModule->checkIfRegistered('comment', 'comment')){
+            //Create an instance of the comment link
+            $objComment =  $this->getObject('commentinterface', 'comment');
+            //Set the table name
+            $objComment->set('tableName', 'tbl_stories');
+            //Set the module code
+            $objComment->set('moduleCode', 'stories');
+            //Load the link class
+            $this->loadClass('link','htmlelements');
+            $comReg=TRUE;
+        } else {
+            $comReg=FALSE;
+        }
+        $curModule = $this->getParam('module', NULL);
+        //Loop through and build the output string
+        
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery.jtruncate.pack.js'));
+         $this->appendArrayVar('headerParams', $this->getJavascriptFile('minMaxStories.js'));
+            
+        foreach ($ar as $line) {
+            $count=$count+1;
+            // If the array as reached the set limit of stories then it returns the string
+            if( $limit != null){
+	            if ($count > $limit){            	
+	            	$link = $this->uri(array('action' => 'readmore'));
+	            	$readMore = $this->objLanguage->languageText('mod_stories_readmore', 'stories');
+	            	$language = "<a href=\"" . $link . "\"</a>";
+	        		$ret .= "&nbsp;&nbsp;" . $language;
+	        		return $ret;
+	            }
+            }
+            $id = $line['id'];
+            $creatorId = $line['creatorid'];
+            $isActive = stripslashes($line['isactive']);
+            $title = stripslashes($line['title']);
+            $abstract = stripslashes($line['abstract']);
+            $mainText = $this->objWashout->parseText(
+                stripslashes($line['maintext'])
+            );
+            $dateCreated = stripslashes($line['datecreated']);
+            $expirationDate = stripslashes($line['expirationdate']);
+            $notificationDate = stripslashes($line['notificationdate']);
+            $commentCount = $line['commentcount'];
+
+            //Check is sticky and replace with isSticky icon
+            $isSticky = $line['issticky'];
+            if ($isSticky == 1) {
+                $objStIcon->setIcon('sticky_yes');
+                $title = $objStIcon->show() . $title;
+            }
+
+            //Check if expired, if so change font, add icon, & email owner
+            if ( $objExp->hasExpired($expirationDate) ) {
+                //put it in an error span
+                $mainText = "<span class=\"error\">"
+                  . $mainText . "</span>&nbsp;"
+                  //add the expired clock icon
+                  . $objExp->getExpiredIcon();
+                if ($isActive==1) {
+                    //Send an email to the owner of the content
+                    $objExp->sendExpiredMsg('dbstories', 'stories',
+                      $creatorId, $title, $abstract, $id);
+                }
+            }
+            //Add the heading
+            $this->objH->type=3;
+            $this->objH->str=$title;
+            $ret .= $this->objH->show();
+            //Add the abstract
+            $ret .= "<p class=\"minute\">".$abstract."</p>";
+            //Add the main text		
+
+            
+            $this->appendArrayVar('bodyOnLoad', 'jQuery("#'.$line['id'].'").jTruncate({  
+				length: 150,  
+				minTrail: 0,  
+				moreText: "[see all]",  
+				lessText: "[hide extra]",  
+				ellipsisText: "...",  
+				moreAni: "fast",  
+				lessAni: 2000  
+			});  ');
+            
+            $ret .= "<div id=\"{$line['id']}\">".$mainText;
+            if ($this->objUser->isAdmin()) {
+                $editArray = array(
+                  'action' => 'edit',
+                  'id' => $id,
+                  'comefrom' => $curModule);
+                $objGetIcon = $this->newObject('geticon', 'htmlelements');
+                $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
+            }
+            $ret .= "</div>";
+
+            if ($showAuthor) {
+                //Add the author and date
+                $ret.="<p class=\"minute\">".$this->objLanguage->languageText("phrase_postedby");
+                $ret.=" <b>".$this->objUser->fullname($creatorId)."</b> ".$this->objLanguage->languageText("word_on");
+                $ret.=" <b>".$dateCreated."</b>";
+            }
+
+            //Insert a comment link with view comments if the user is logged in
+            if ($comReg){
+                if ($this->objUser->isLoggedIn()) {
+                    $objComment->set('sourceId', $id);
+                    $ret .= $objComment->addCommentLink();
+                    if ($commentCount>0) {
+                        $ccStr = $commentCount . " "
+                        . strtolower($this->objLanguage->languageText("word_comments"));
+                        //Set the location
+                        $ccLocation = $this->uri(array(
+                          'action' => 'viewstory',
+                          'id' => $id), 'stories');
+                        $ret .= $objComment->addViewLink($ccLocation, $ccStr);
+                    }
+                }
+            }
+
+            //Insert a horizontal rule
+            if ($elems>1 && $count != $elems) {
+                $ret.="</p><hr /><p>";
+            }
+            //Check for translations
+            $ar = $this->getTranslations($id);
+            if (count($ar) > 0 ) {
+                $ret .= "&nbsp;&nbsp;&nbsp;" .
+                  $this->objLanguage->languageText("mod_stories_alsoavailable",'stories');
+                foreach ($ar as $line) {
+                    $lcode = $line['language'];
+                    $id = $line['id'];
+                    $link = $this->uri(array('action' => 'viewstory',
+                      'language' => $lcode,
+                      'id' => $id));
+                    $language = "<a href=\"" . $link . "\" target=\"_blank\">"
+                      . $objLcode->getLanguage($lcode) . "</a>";
+                    $ret .= "&nbsp;&nbsp;" . $language;
+                }
+            }
+            $ret .= "</p>";
+        }
+        $link = $this->uri(array('action' => 'readmore'));
+        $language = "<a href=\"" . $link . "\" target=\"_blank\">"
+                      . $this->objLanguage->languageText('mod_stories_readmore', 'stories') . "</a>";
+		$ret .= $language;
+        return $ret;
+    } #function fetchCategory
 
 }  #end of class
 ?>
