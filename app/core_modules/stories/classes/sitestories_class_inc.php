@@ -408,7 +408,7 @@ class sitestories extends dbTable {
                 }
             }
             //Add the heading
-            $this->objH->type=3;
+            $this->objH->type=4;
             $this->objH->str=$title;
             $ret .= $this->objH->show();
             //Add the abstract
