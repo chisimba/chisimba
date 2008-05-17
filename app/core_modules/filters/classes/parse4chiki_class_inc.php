@@ -40,6 +40,8 @@
 class parse4chiki extends object
 {
 
+    private $chikiStr;
+
     /**
      * Short description for function
      *
@@ -50,7 +52,7 @@ class parse4chiki extends object
      */
     public function init()
     {
-        //Nothing to do here
+        $this->objLanguage = $this->getObject('language', 'language');
     }
 
     /**
@@ -78,11 +80,183 @@ class parse4chiki extends object
         		$width = "100%";
         		$repl = $results[1][$counter];
         	}*/
-    		$replacement = "<span class=\"error\">CHIKI FOUND</span>";
+            $chikiStr =strtolower($results[1][$counter]);
+            $chikiStr = $this->executeChikiCmd($chikiStr);
+    		$replacement = $chikiStr;
             $str = str_replace($item, $replacement, $str);
        		$counter++;
         }
         return $str;
+    }
+
+    /**
+    *
+    * Execute the command identified by the chiki (single word string
+    * enclosed in {{curly braces}})
+    *
+    * @access private
+    * @param string $chikiStr The chiki string
+    * @return string The parsed chiki
+    *
+    */
+    private function executeChikiCmd(& $chikiStr)
+    {
+        $method = $this->__getMethod($chikiStr);
+        return $this->$method();
+    }
+
+    /**
+    *
+    * Developer method for testing the chiki parser
+    * @access private
+    * @return string The parsed chiki for this method
+    */
+    private function __chikitest()
+    {
+        return "<span class='warning'>Chiki test was successful!</span>";
+    }
+    /**
+    *
+    * Method to return a link to blog
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __blog()
+    {
+        return $this->getModuleLink("blog");
+    }
+    /**
+    *
+    * Method to return a link to wiki
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __wiki()
+    {
+        return $this->getModuleLink("wiki");
+    }
+    /**
+    *
+    * Method to return a link to cms
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __cms()
+    {
+        return $this->getModuleLink("cms");
+    }
+    /**
+    *
+    * Method to return a link to forum
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __forum()
+    {
+        return $this->getModuleLink("forum");
+    }
+    /**
+    *
+    * Method to return a link to podcast
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __podcast()
+    {
+        return $this->getModuleLink("podcast");
+    }
+    /**
+    *
+    * Method to return a link to filemanager
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __filemanager()
+    {
+        return $this->getModuleLink("filemanager");
+    }
+
+
+
+    /**
+    *
+    * Method to return a link to a module as used by the above methods
+    * @access private
+    * @return string The link to the module with the module code as the link text
+    *
+    */
+    private function getModuleLink($modCode)
+    {
+        $uri = $this->uri(array(), $modCode);
+        $objLink = $this->getObject("link", "htmlelements");
+        $objLink->href = $uri;
+        $objLink->title = $modCode;
+        $objLink->link = $modCode;
+        return $objLink->show();
+    }
+
+//-------------------------- Class methods for validation -------------//
+    /**
+    *
+    * Method to convert a chiki string into the name of
+    * a private method of this class.
+    *
+    * @access private
+    * @param string $chikiStr The chiki string passed byref
+    * @return string the name of the method
+    *
+    */
+    function __getMethod(& $chikiStr)
+    {
+        $this->chikiStr = $chikiStr;
+        if ($this->__validChiki($chikiStr)) {
+            return "__" . $chikiStr;
+        } else {
+            return "__chikiError";
+        }
+    }
+
+    /**
+    *
+    * Method to check if a given chiki is a valid method
+    * of this class preceded by double underscore (__). If __chikiStr
+    * is not a valid method it returns FALSE, if it is a valid method
+    * of this class it returns TRUE.
+    *
+    * @access private
+    * @param string $action The action parameter passed byref
+    * @return boolean TRUE|FALSE
+    *
+    */
+    function __validChiki(& $chikiStr)
+    {
+        if (method_exists($this, "__".$chikiStr)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+    *
+    * Method to return an error when the chiki string is not a valid
+    * method of this class
+    *
+    * @access private
+    * @return string The dump template populated with the error message
+    *
+    */
+    private function __chikiError()
+    {
+        return " <span class='error'>"
+          . $this->objLanguage->languageText("phrase_unrecognizedchiki")
+          .": " . $this->chikiStr . "</span> ";
     }
 }
 ?>
