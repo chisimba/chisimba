@@ -444,6 +444,12 @@ class filemanager extends controller
         return 'fileinfo_tpl.php';
     }
     
+    private function __ajaxfilepreview()
+    {
+        $id = $this->getParam('id');
+        
+    }
+    
     private function __upload()
     {
         $folder = $this->objFolders->getFolder($this->getParam('folder'));

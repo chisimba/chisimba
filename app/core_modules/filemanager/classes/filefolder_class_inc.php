@@ -129,6 +129,7 @@ class filefolder extends object
             case 'odg':
             case 'odm':
             case 'odp':
+            case 'ods':
             case 'odt':
             case 'otg':
             case 'oth':

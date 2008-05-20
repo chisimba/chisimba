@@ -313,6 +313,76 @@ class filepreview extends object
             case 'html':
             case 'htm':
                 return '<iframe src="'.$this->file['linkname'].'" width="99%" height="300"></iframe>';
+            case 'pdf':
+                // Check if registered
+                //Instantiate the modules class to check if simplemap is registered
+                $objModule = $this->getObject('modules','modulecatalogue');
+                //See if the simple map module is registered and set a param
+                $isRegistered = $objModule->checkIfRegistered('swftools');
+                if ($isRegistered){
+                    $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
+                    $filename = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                    $filename2 = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                    $filename3 = 'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                    
+                    if (file_exists($filename)) {
+                        return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                    } else {
+                    
+                        if ($objPDF2Flash->convert2PDF($this->file['path'], $filename3)) {
+                            return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                        } else {
+                            return NULL;
+                        }
+                    }
+                } else {
+                    return NULL;
+                }
+            case 'odt':
+            case 'sxw':
+            case 'rtf':
+            case 'doc':
+            case 'wpd':
+            case 'ods':
+            case 'sxc':
+            case 'xls':
+            case 'odp':
+            case 'sxi':
+            case 'ppt':
+                // Check if registered
+                //Instantiate the modules class to check if simplemap is registered
+                $objModule = $this->getObject('modules','modulecatalogue');
+                //See if the simple map module is registered and set a param
+                $isRegistered = $objModule->checkIfRegistered('documentconverter');
+                if ($isRegistered){
+                    
+                    $objConvertDoc = $this->getObject('convertdoc', 'documentconverter');
+                    
+                    $destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.pdf';
+                    
+                    $objConvertDoc->convert($this->file['path'], $destination);
+                    
+                    $isRegistered = $objModule->checkIfRegistered('swftools');
+                    if ($isRegistered){
+                        $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
+                        $filename = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                        $filename2 = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                        $filename3 = 'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                        
+                        if (file_exists($filename)) {
+                            return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                        } else {
+                        
+                            if ($objPDF2Flash->convert2PDF($destination, $filename3)) {
+                                return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                            } else {
+                                return NULL;
+                            }
+                        }
+                    }
+                } else {
+                    return NULL;
+                }
             default:
                 return NULL;
         }
@@ -358,6 +428,11 @@ class filepreview extends object
         $objTimeline =& $this->getObject('timelineparser', 'timeline');
         $objTimeline->setTimelineUri($this->file['path']);
         return $objTimeline->show();
+    }
+    
+    function noPreviewAvailble()
+    {
+        return 'No Preview Available';
     }
 }
 ?>

@@ -787,25 +787,21 @@ class dbfile extends dbTable
         if (file_exists($fullFilePath)) {
             unlink($fullFilePath);
         }
-
-        // Get thumbnail path
-        $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
-        $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
-
-        // Delete thumbnail if it exists
-        if (file_exists($thumbnailPath)) {
-            unlink($thumbnailPath);
+        
+        $availablePreviews = array('jpg', 'htm', 'pdf', 'swf', 'mp3', 'flv', 'txt');
+        
+        foreach ($availablePreviews as $format)
+        {
+            // Get thumbnail path
+            $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.'.$format;
+            $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
+    
+            // Delete thumbnail if it exists
+            if (file_exists($thumbnailPath)) {
+                unlink($thumbnailPath);
+            }
         }
-
-        // Get html preview path
-        $htmlPreviewPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.htm';
-        $htmlPreviewPath = $this->objCleanUrl->cleanUpUrl($htmlPreviewPath);
-
-        // Delete thumbnail if it exists
-        if (file_exists($htmlPreviewPath)) {
-            unlink($htmlPreviewPath);
-        }
-
+        
         $objFileTags = $this->getObject('dbfiletags');
 
 
