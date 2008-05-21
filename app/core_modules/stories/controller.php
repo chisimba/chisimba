@@ -97,6 +97,42 @@ class stories extends controller
                 return 'dump_tpl.php';
             case "readmore":
             	return 'showstories_tpl.php';
+            case "getfullstory":
+            	$id = $this->getParam('id', null);
+            	$objStories =  $this->getObject('sitestories');
+            	$textRow = $objStories->getRow('id', $id);
+				$mainText = $textRow['maintext'];
+
+				$ret .= "<div id=\"$id\">".$mainText;
+	            $ret .= "<a href=\"javascript:getTrimStory('$id');\">[Read Less]</a>";
+	            $ret .= "</div>";
+				echo $ret;
+            	break;
+            case "gettrunctstory":
+            	$id = $this->getParam('id', null);
+            	$objStories =  $this->getObject('sitestories');
+            	$textRow = $objStories->getRow('id', $id);
+				$mainText = $textRow['maintext'];
+				$mainText = substr($mainText, 0, 150);
+            	$mainText = $mainText."...";
+            	
+				$ret .= "<div id=\"$id\">".$mainText;
+	            $ret .= "<a href=\"javascript:getFullStory('$id');\">[Read More]</a>";
+	            $ret .= "</div>";
+            	echo $ret;
+            	break;
+            case "getallstories":
+            	$objStories =  $this->getObject('sitestories');
+            	$limit = $this->getParam('limit', null);
+            	$ret = $objStories->createAllStories($limit);
+            	echo $ret;
+            	break;
+            case "getlessstories":
+            	$objStories =  $this->getObject('sitestories');
+            	$limit = $this->getParam('limit', null);
+            	$ret = $objStories->fetchPreLoginCategory('prelogin', $limit);
+            	echo $ret;
+            	break;
             default:
                 $this->setVar('str', "<h3>"
                   . $this->objLanguage->languageText("phrase_unrecognizedaction",'stories')
@@ -180,12 +216,12 @@ class stories extends controller
     
     function requiresLogin($action)
     {
-    	if ($action == 'readmore') {
+    	$notrequiredAction = array('getfullstory', 'readmore', 'gettrunctstory', 'getallstories', 'getlessstories');
+    	if (in_array($action, $notrequiredAction)) {
     		return FALSE;
     	} else {
     		return TRUE;
     	}
     }
-
 }
 ?>
