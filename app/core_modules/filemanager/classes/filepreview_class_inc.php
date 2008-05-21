@@ -71,17 +71,21 @@ class filepreview extends object
     {
         $preview = 'No Preview Available';
         $this->file = $this->objFiles->getFileInfo($fileId);
+        $this->file['fullpath'] = $this->objConfig->getcontentBasePath().$this->file['path'];
         $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
-        $this->file['fullpath'] = $this->objConfig->getsiteRoot().$this->file['path'];
+        $this->file['fullurl'] = $this->objConfig->getsiteRoot().$this->file['path'];
         // Fix Up - Try to get file using controller, instead of hard linking to file
         $this->file['path'] = $this->objCleanurl->cleanUpUrl($this->file['path']);
+        $this->file['fullurl'] = $this->objCleanurl->cleanUpUrl($this->file['fullurl']);
         $this->file['fullpath'] = $this->objCleanurl->cleanUpUrl($this->file['fullpath']);
 
         // Restore Double Slash for http://
-        $this->file['fullpath'] = str_replace('http:/', 'http://', $this->file['fullpath']);
+        $this->file['fullurl'] = str_replace('http:/', 'http://', $this->file['fullurl']);
 
         $this->file['linkname'] = $this->uri(array('action'=>'file', 'id'=>$this->file['id'], 'filename'=>$this->file['filename']), 'filemanager');
-
+        
+        //var_dump($this->file);
+        
         switch ($this->file['category'])
         {
             case 'images': $preview = $this->showImage(); break;
@@ -179,10 +183,10 @@ class filepreview extends object
             case '3gp': return $this->objFileEmbed->embed($this->file['linkname'], 'quicktime', $width, $height);
             case 'wmv': return $this->objFileEmbed->embed($this->file['linkname'], 'wmv', $width, $height);
             case 'avi': return $this->objFileEmbed->embed($this->file['linkname'], 'avi', $width, $height);
-            case 'flv': return $this->objFileEmbed->embed($this->file['fullpath'], 'flv', $width, $height+26);
-            case 'ogg': return $this->objFileEmbed->embed($this->file['fullpath'], 'ogg', $width, $height+12);
+            case 'flv': return $this->objFileEmbed->embed($this->file['fullurl'], 'flv', $width, $height+26);
+            case 'ogg': return $this->objFileEmbed->embed($this->file['fullurl'], 'ogg', $width, $height+12);
             case 'mpg':
-            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullpath'], 'mpg', $width, $height+12);
+            case 'mpeg': return $this->objFileEmbed->embed($this->file['fullurl'], 'mpg', $width, $height+12);
             default: return $this->objFileEmbed->embed($this->file['linkname'], 'unknown');
         }
     }
@@ -360,7 +364,7 @@ class filepreview extends object
                     
                     $destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.pdf';
                     
-                    $objConvertDoc->convert($this->file['path'], $destination);
+                    $objConvertDoc->convert($this->file['fullpath'], $destination);
                     
                     $isRegistered = $objModule->checkIfRegistered('swftools');
                     if ($isRegistered){
