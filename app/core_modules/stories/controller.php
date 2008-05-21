@@ -102,8 +102,17 @@ class stories extends controller
             	$objStories =  $this->getObject('sitestories');
             	$textRow = $objStories->getRow('id', $id);
 				$mainText = $textRow['maintext'];
+				$curModule = $this->getParam('module', NULL);
 
 				$ret .= "<div id=\"$id\">".$mainText;
+				if ($this->objUser->isAdmin()) {
+                $editArray = array(
+                  'action' => 'edit',
+                  'id' => $id,
+                  'comefrom' => $curModule);
+                $objGetIcon = $this->newObject('geticon', 'htmlelements');
+                $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
+            	}
 	            $ret .= "<a href=\"javascript:getTrimStory('$id');\">[Read Less]</a>";
 	            $ret .= "</div>";
 				echo $ret;
@@ -115,8 +124,17 @@ class stories extends controller
 				$mainText = $textRow['maintext'];
 				$mainText = substr($mainText, 0, 150);
             	$mainText = $mainText."...";
+            	$curModule = $this->getParam('module', NULL);
             	
 				$ret .= "<div id=\"$id\">".$mainText;
+				if ($this->objUser->isAdmin()) {
+                $editArray = array(
+                  'action' => 'edit',
+                  'id' => $id,
+                  'comefrom' => $curModule);
+                $objGetIcon = $this->newObject('geticon', 'htmlelements');
+                $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
+            	}
 	            $ret .= "<a href=\"javascript:getFullStory('$id');\">[Read More]</a>";
 	            $ret .= "</div>";
             	echo $ret;

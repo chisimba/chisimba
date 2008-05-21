@@ -53,7 +53,7 @@ class block_stories extends object
         	$objStories = $this->getObject('sitestories', 'stories');
         	
         	if($useSummaries == 'Y'){
-        		return $objStories->fetchPreLoginCategory('prelogin', 4);
+        		return $objStories->fetchPreLoginCategory('prelogin', 3);
         	} else {
         		return $objStories->fetchCategory('prelogin');
         	}
