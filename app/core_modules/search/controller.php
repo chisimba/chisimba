@@ -117,15 +117,20 @@ class search extends controller
 	{
 		$objBuildIncludes = $this->getObject('buildincludes');
 		
-		$subFolderVersion = '1.0.3';
+		$subFolderVersion = '1.5.2';
 		
 		$folder = $this->getResourcePath($subFolderVersion);
 		
 		$results = $objBuildIncludes->scanDirectory($folder);
+        
+        
+        echo "// Load Exception Class<br />";
+        echo "require_once('Exception.php');<br /><br />";
 		
+        echo "// Rest of Classes<br />";
 		foreach ($results as $item)
 		{
-			$item = str_replace($folder, $subFolder, $item);
+			$item = str_replace($folder, $subFolderVersion, $item);
 			
 			echo 'require_once(\''.$item.'\');<br />';
 		}
