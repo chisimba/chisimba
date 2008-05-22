@@ -70,7 +70,7 @@ print $prolog_type;
 if (!isset($pageTitle)) {
     $pageTitle = $objConfig->getSiteName();
 }
-$pageTitle .= ($siteBreadcrumbs==''?'':' [ '.$siteBreadcrumbs.' ] ');
+$pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ');
 ?>
     <head>
         <title>

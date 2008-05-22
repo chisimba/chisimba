@@ -6,7 +6,7 @@
     list-style:none;
     float:left;
     background-color:#EBEBEB;
-    background-image: url(../_common/stepmenu/navBtn.gif);
+    background-image: url(../stepmenu/navBtn.gif);
     background-repeat: no-repeat;
     background-position: right top;
     margin: 0;
@@ -15,17 +15,17 @@
 
 #stepmenu li.current{
     background-color:#C36615;
-    background-image: url(../_common/stepmenu/navCurrentBtn.gif);
+    background-image: url(../stepmenu/navCurrentBtn.gif);
 }
 
 #stepmenu li.lastdone{
     background-color:#7C8437;
-    background-image: url(../_common/stepmenu/navLastDoneBtn.gif);
+    background-image: url(../stepmenu/navLastDoneBtn.gif);
 }
 
 #stepmenu li.done{
     background-color:#7C8437;
-    background-image: url(../_common/stepmenu/navDoneBtn.gif);
+    background-image: url(../stepmenu/navDoneBtn.gif);
 }
 
 #stepmenu li a, #stepmenu li a:link, #stepmenu li a:visited, #stepmenu li a:hover, #stepmenu li a:active {
@@ -42,7 +42,7 @@ cursor:hand;
 }
 
 #stepmenu li a em{
-width:150px;
+width:200px;
 display:block;
 margin:6px 0 0 10px;
 font-style:normal;
@@ -50,7 +50,7 @@ font-weight:bold;
 }
 
 #stepmenu li a span{
-width:140px;
+width:200px;
 display:block;
 margin-left:10px;
 font-weight:normal;

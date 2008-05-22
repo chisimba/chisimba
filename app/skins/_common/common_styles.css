@@ -467,7 +467,7 @@ input.inputerror {
 .wrapperLightBkg {
 
     background-color: #FFFFFF;
-
+    color: #000;
     padding: 3px;
 
 }
