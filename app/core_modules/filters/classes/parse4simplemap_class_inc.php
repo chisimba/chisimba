@@ -68,7 +68,7 @@ class parse4simplemap extends object
     	//Instantiate the modules class to check if simplemap is registered
     	$objModule = $this->getObject('modules','modulecatalogue');
     	//See if the simple map module is registered and set a param
-    	$isRegistered = $objModule->checkIfRegistered('simplemap', 'simplemap');
+    	$isRegistered = $objModule->checkIfRegistered('simplemap');
     	if ($isRegistered){
 	    	//Instantiate the simplemap parser
 	    	$objSMParser = $this->getObject('smapparser', 'simplemap');
