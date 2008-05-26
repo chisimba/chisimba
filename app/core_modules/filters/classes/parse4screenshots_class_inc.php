@@ -214,7 +214,8 @@ class parse4screenshots extends object
     	require_once($this->getPearResource('XML/RPC.php'));
     	if(!file_exists($this->objConfig->getContentBasePath().'apitmp/cache/'))
 		{
-			mkdir($this->objConfig->getContentBasePath().'apitmp/cache/');
+			$objMkdir = $this->getObject('mkdir', 'files');
+            $objMkdir->mkdirs($this->objConfig->getContentBasePath().'apitmp/cache/');
 			chmod($this->objConfig->getContentBasePath().'apitmp/cache/', 0777);
 		}
     	$params = array(new XML_RPC_Value($url, "string"));
