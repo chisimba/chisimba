@@ -69,8 +69,14 @@ class filepreview extends object
     */
     function previewFile($fileId)
     {
-        $preview = 'No Preview Available';
+        $preview = '';
+        
         $this->file = $this->objFiles->getFileInfo($fileId);
+        
+        if ($this->file == FALSE) {
+            return 'asfsa';
+        }
+        
         $this->file['fullpath'] = $this->objConfig->getcontentBasePath().$this->file['path'];
         $this->file['path'] = $this->objConfig->getcontentPath().$this->file['path'];
         $this->file['fullurl'] = $this->objConfig->getsiteRoot().$this->file['path'];
@@ -325,16 +331,24 @@ class filepreview extends object
                 $isRegistered = $objModule->checkIfRegistered('swftools');
                 if ($isRegistered){
                     $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
-                    $filename = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                    $filename2 = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                    $filename3 = 'filemanager_thumbnails/'.$this->file['id'].'.swf';
                     
-                    if (file_exists($filename)) {
-                        return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                    $fullFlashPath = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                    $finalFlash = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                    $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+                    
+                    if (file_exists($htmlFileDestination)) {
+                        //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+                        return file_get_contents($htmlFileDestination);
                     } else {
                     
-                        if ($objPDF2Flash->convert2PDF($this->file['path'], $filename3)) {
-                            return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                        if ($objPDF2Flash->convert2SWF($this->file['path'], $fullFlashPath)) {
+                            
+                            
+                            
+                            $objPDF2Flash->generateHTMLWrapper($fullFlashPath, $finalFlash, $htmlFileDestination);
+                            
+                            
+                            return file_get_contents($htmlFileDestination);
                         } else {
                             return NULL;
                         }
@@ -353,39 +367,65 @@ class filepreview extends object
             case 'odp':
             case 'sxi':
             case 'ppt':
-                // Check if registered
-                //Instantiate the modules class to check if simplemap is registered
-                $objModule = $this->getObject('modules','modulecatalogue');
-                //See if the simple map module is registered and set a param
-                $isRegistered = $objModule->checkIfRegistered('documentconverter');
-                if ($isRegistered){
+                
+                // Local path to file
+                $finalFlash = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                
+                // Full path to flash preview thumbnail file
+                $fullFlashPath = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
+                
+                $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
+                
+                // Check if preview exists already
+                if (file_exists($htmlFileDestination)) {
+                    return file_get_contents($htmlFileDestination);
+                } else {
                     
-                    $objConvertDoc = $this->getObject('convertdoc', 'documentconverter');
+                    // Preview needs to be generated
+                    // First step is to convert document to PDF
+                    // Then we use swftools to convert PDF to Flash
                     
-                    $destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.pdf';
+                    // Check if registered
+                    //Instantiate the modules class to check if documentconverter is registered
+                    $objModule = $this->getObject('modules','modulecatalogue');
                     
-                    $objConvertDoc->convert($this->file['fullpath'], $destination);
+                    //See if the documentconverter module is registered and set a param
+                    $isDocumentConverterRegistered = $objModule->checkIfRegistered('documentconverter');
+                    $isSWFToolsRegistered = $objModule->checkIfRegistered('documentconverter');
                     
-                    $isRegistered = $objModule->checkIfRegistered('swftools');
-                    if ($isRegistered){
+                    if ($isDocumentConverterRegistered && $isSWFToolsRegistered){
+                        
+                        $objConvertDoc = $this->getObject('convertdoc', 'documentconverter');
+                        
+                        $pdfFile = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.pdf';
+                        
+                        // If PDF does not already exist
+                        if (!file_exists($pdfFile)) {
+                            $objConvertDoc->convert($this->file['fullpath'], $pdfFile);
+                        }
+                        
+                        
+                        // Break if PDF is not generated
+                        if (!file_exists($pdfFile)) {
+                            return '';
+                        }
+                        
                         $objPDF2Flash = $this->getObject('pdf2flash', 'swftools');
-                        $filename = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                        $filename2 = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
-                        $filename3 = 'filemanager_thumbnails/'.$this->file['id'].'.swf';
                         
-                        if (file_exists($filename)) {
-                            return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                        if (file_exists($fullFlashPath)) {
+                            return $this->objFileEmbed->embed($finalFlash, 'flash', '100%', 700);
                         } else {
-                        
-                            if ($objPDF2Flash->convert2PDF($destination, $filename3)) {
-                                return $this->objFileEmbed->embed($filename2, 'flash', '100%', 700);
+                            //echo $pdfFile.' - '.$fullFlashPath.' - '.$finalFlash;
+                            if ($objPDF2Flash->convert2SWF($pdfFile, $fullFlashPath)) {
+                                $objPDF2Flash->generateHTMLWrapper($fullFlashPath, $finalFlash, $htmlFileDestination);
+                                return file_get_contents($htmlFileDestination);
                             } else {
                                 return NULL;
                             }
                         }
+                    } else {
+                        return NULL;
                     }
-                } else {
-                    return NULL;
                 }
             default:
                 return NULL;
@@ -432,11 +472,6 @@ class filepreview extends object
         $objTimeline =& $this->getObject('timelineparser', 'timeline');
         $objTimeline->setTimelineUri($this->file['path']);
         return $objTimeline->show();
-    }
-    
-    function noPreviewAvailble()
-    {
-        return 'No Preview Available';
     }
 }
 ?>

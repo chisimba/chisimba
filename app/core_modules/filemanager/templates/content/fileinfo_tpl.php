@@ -17,7 +17,7 @@ $this->setVar('folderId', $folderId);
 
 $objIcon = $this->newObject('geticon', 'htmlelements');
 
-$objFilePreview = $this->getObject('filepreview');
+
 
 $objFileIcons = $this->getObject('fileicons', 'files');
 $objFileIcons->size = 'large';
@@ -187,7 +187,8 @@ if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
 // echo $this->objFiles->getFileHistory($file['id']);
 
 echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h3>';
-echo $objFilePreview->previewFile($file['id']);
+
+echo $preview;
 
 
 ?>

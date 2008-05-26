@@ -201,7 +201,7 @@ class fileembed extends object
     */
     function showFlash($file, $width='100%', $height='400')
     {
-        return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="32" height="32">
+        return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="'.$width.'" height="'.$height.'">
   <param name="movie" value="'.$file.'" />
   <param name="quality" value="high" />
   <embed src="'.$file.'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'"></embed>
@@ -251,7 +251,7 @@ class fileembed extends object
 
         $replace = '<object classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95"';
         $replace .= ' codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" ';
-        $replace .= ' standby="Loading Microsoft� Windows� Media Player components..." ';
+        $replace .= ' standby="Loading Microsoft Windows Media Player components..." ';
         $replace .= ' id="msplayer" align="" type="application/x-oleobject">';
         $replace .= "<param name=\"Filename\" value=\"{$file}\" />";
         $replace .= '<param name="ShowControls" value="true" />';

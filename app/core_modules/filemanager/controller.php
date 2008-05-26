@@ -441,6 +441,33 @@ class filemanager extends controller
         $this->setVarByRef('tags', $tags);
 
         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
+        
+        $this->setLayoutTemplate('filemanager_3collayout_tpl.php');
+        
+        $objFilePreview = $this->getObject('filepreview');
+        $preview = $objFilePreview->previewFile($file['id']);
+        
+        $this->setVarByRef('preview', $preview);
+        
+        if (trim($preview) == '') {
+            $right = '';
+        } else {
+            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h3>';
+            
+            $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
+            $right .= '<form name="formtocopy">
+    <textarea name="texttocopy" readonly="readonly" style="width:100%" rows="5">[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]</textarea>';
+            $right .= '<br>
+    <input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
+    </form>';
+        }
+        
+        
+        $this->setVarByRef('rightColumn', $right);
+        
+        $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
+        $objCopy->show();
+        
         return 'fileinfo_tpl.php';
     }
     

@@ -542,9 +542,9 @@ class dbfile extends dbTable
         $objTable = $this->newObject('htmltable', 'htmlelements');
 
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filetype', 'filemanager', 'File Type').'</strong>', '25%');
+        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filetype', 'system', 'File Type').'</strong>', '25%');
         $objTable->addCell(ucwords($file['datatype']), '25%');
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filesize', 'filemanager', 'File Size').'</strong>', '25%');
+        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filesize', 'system', 'File Size').'</strong>', '25%');
         $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%');
         $objTable->endRow();
 
@@ -557,14 +557,14 @@ class dbfile extends dbTable
         $licenseDisplay = $this->getObject('displaylicense', 'creativecommons');
         $objTable->addCell($licenseDisplay->show($file['license']), '25%');
 
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'filemanager', 'File Category').'</strong>', '25%');
+        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'system', 'File Category').'</strong>', '25%');
         $objTable->addCell(ucwords($file['category']), '25%');
         $objTable->endRow();
 
         $objTable->startRow();
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_mimetype', 'filemanager', 'Mime Type').'</strong>', '25%');
-        $objTable->addCell($file['mimetype'], '25%');
-        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_dateuploaded', 'filemanager', 'DateUploaded').'</strong>', '25%');
+        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_mimetype', 'system', 'Mime Type').'</strong>', '25%');
+        $objTable->addCell($file['mimetype'].'&nbsp;', '25%');
+        $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_dateuploaded', 'system', 'Date Uploaded').'</strong>', '25%');
         $objTable->addCell(ucwords($file['datecreated'].' '.$file['timecreated']), '25%');
         $objTable->endRow();
 
@@ -882,7 +882,7 @@ class dbfile extends dbTable
     */
     public function getFolderFiles($folder)
     {
-        return $this->getAll(' WHERE filefolder=\''.$folder.'\'');
+        return $this->getAll(' WHERE filefolder=\''.$folder.'\' ORDER BY filename');
     }
 
     /**
