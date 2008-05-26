@@ -214,6 +214,9 @@ class menu extends object
             switch(strtolower($toolbarType)){
                 case 'flat':
                     return $this->createFlatToolbar();
+                case 'elearning':
+                    $elearnToolbar = $this->getObject('toolbar_elearn');
+                    return $elearnToolbar->show();
                 default:
                     return $this->createToolbar();
             }

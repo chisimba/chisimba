@@ -42,8 +42,8 @@ class postloginmenu extends object
     	//split the side menu into the menu items and the context login and user image
     	$menu = '';
     	
-    	$menu .= $this->objSideMenu->getPostLoginMenuItems();
-    	$menu .= '<br />'.$this->objSideMenu->userDetails();
+    	$menu .= $this->objSideMenu->userDetails();
+    	$menu .= $this->objSideMenu->getPostLoginMenuItems().'<br />';
 		//$menu .= $this->objSideMenu->contextDetails();
     	
         return $menu;
