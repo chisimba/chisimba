@@ -43,6 +43,12 @@ div#wrapper{float:left;width:100%}
 #rightcolumn div#left{display:none}
 #rightcolumn div#right{float:left; width:220px; margin-left:-220px}
 
+
+div#leftcontent select, div#rightcontent select {
+    max-width: 100%;
+}
+
+
 /* Footer */
 #footer {
     clear:both;
