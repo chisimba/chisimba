@@ -106,8 +106,22 @@ $header = new htmlheading();
 $header->type = 3;
 $header->str = $objLanguage->languageText('mod_context_addablock', 'context', 'Add a Block');
 
-$userMenu  = $this->newObject('postloginmenu','toolbar');
-$objCssLayout->setLeftColumnContent($userMenu->show());
+
+$objSysConfig = $this->getObject('dbsysconfig','sysconfig');
+$postLoginSideMenu = $objSysConfig->getValue('SIDEMENU', 'postlogin');
+switch(strtolower($postLoginSideMenu))
+{
+    case 'elearnpostlogin':
+        $userMenu  = $this->newObject('usermenu','toolbar');
+        $objCssLayout->setLeftColumnContent($userMenu->show());
+        break;
+    default:
+        $postLoginMenu  = $this->newObject('postloginmenu','toolbar');
+        $objCssLayout->setLeftColumnContent($postLoginMenu->show());
+        break;
+}
+
+
 
 $objCssLayout->leftColumnContent .= '<div id="leftblocks">'.$leftBlocksStr.'</div>';
 
