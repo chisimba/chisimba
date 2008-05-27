@@ -279,7 +279,7 @@ class buildflowplayer extends object
             //<param name="flashvars" value="config={ videoFile: 'river.flv' }" />
             case "FLASHVARS":
                 return "    <param name = \"flashvars\" "
-                  . "value = \"config={ videoFile: '" . $this->movie . "'}\" />\n";
+                  . "value = \"config={ videoFile: '" . $this->movie . "', loop:false, autoPlay:false}\" />\n";
              default:
                 return NULL;
                 break;
