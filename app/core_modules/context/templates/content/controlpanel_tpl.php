@@ -51,4 +51,5 @@ if (count($right) > 0) {
     echo '</div>';
 }
 
+echo '<br clear="all" />';
 ?>

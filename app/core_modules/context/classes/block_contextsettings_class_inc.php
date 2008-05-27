@@ -80,7 +80,7 @@ class block_contextsettings extends object
         $this->loadClass('link', 'htmlelements');
         $this->objLanguage = $this->getObject('language', 'language');
         
-        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextsettings', 'context'));
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextsettings', 'context', NULL, '[-context-] Settings'));
    }
    
    /**
