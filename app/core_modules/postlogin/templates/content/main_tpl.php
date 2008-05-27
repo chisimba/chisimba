@@ -112,8 +112,8 @@ $postLoginSideMenu = $objSysConfig->getValue('SIDEMENU', 'postlogin');
 switch(strtolower($postLoginSideMenu))
 {
     case 'elearnpostlogin':
-        $userMenu  = $this->newObject('usermenu','toolbar');
-        $objCssLayout->setLeftColumnContent($userMenu->show());
+        $elearnPostLoginMenu  = $this->newObject('postloginmenu_elearn','toolbar');
+        $objCssLayout->setLeftColumnContent($elearnPostLoginMenu->show());
         break;
     default:
         $postLoginMenu  = $this->newObject('postloginmenu','toolbar');
