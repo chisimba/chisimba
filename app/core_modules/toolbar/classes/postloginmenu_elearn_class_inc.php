@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Class to generate the elearning postlogin side menu
+ * 
+ * PHP version 5
+ * 
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation; either version 2 of the License, or 
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the 
+ * Free Software Foundation, Inc., 
+ * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ * @category  Chisimba
+ * @package   toolbar
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   CVS: $Id: checkoverwrite_class_inc.php,v 1.4 2007-08-06 13:11:19 paulscott Exp $
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+/**
+ * Class to generate the elearning postlogin side menu
+ * 
+ * @category  Chisimba
+ * @package   toolbar
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @version   Release: @package_version@
+ * @link      http://avoir.uwc.ac.za
+ * @see       
+ */
+
+class postloginmenu_elearn extends object
+{
+    /**
+    * Method to construct the class
+    */
+    function init()
+    {
+        $this->loadClass('link','htmlelements');
+        $this->objMenu = $this->getObject('dbmenu');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->sideMenu = $this->getObject('sidemenu');
+    }
+    
+    /**
+     * Method to generate the postlogin side menu
+     * @return string Generated menu
+     */
+    public function show()
+    {
+        // Get menu items
+        $options = $this->objMenu->getSideMenus('elearnpostlogin');
+        
+        // First add user pic
+        $str = $this->sideMenu->userDetails();
+        
+        // If menu items exist
+        if (count($options) > 0) {
+            
+            $menuItems = array();
+            
+            foreach ($options as $option)
+            {
+                $name = ucwords($this->objLanguage->code2Txt('mod_'.$option['module'].'_name', $option['module']));
+                
+                $link = new link ($this->uri(NULL, $option['module']));
+                $link->link = $name;
+                
+                $menuItems[$name] = $link->show();
+                
+            }
+            
+            ksort($menuItems);
+            
+            $str .= '<ul id="nav-secondary">';
+            
+            foreach ($menuItems as $item=>$link)
+            {
+                $str .= '<li>'.$link.'</li>';
+            }
+            
+            $str .= '</ul><br />';
+            
+            
+        }
+        
+        return $str;
+    }
+
+}
+?>
