@@ -28,7 +28,7 @@ class socialbookmarking extends object {
 
     public $includeTextLink = TRUE;
 
-    public $options = array('stumbleUpon', 'delicious', 'newsvine', 'reddit', 'muti', 'facebook', 'addThis', 'diggThis');
+    public $options = array('stumbleUpon', 'delicious', 'newsvine', 'reddit', 'muti', 'facebook', 'addThis');
 
     /**
      * Constructor
@@ -59,6 +59,21 @@ class socialbookmarking extends object {
             return urlencode($url);
         }
     }
+    
+    /**
+     * Method to show social bookmarking for all options besides Digg
+     */
+    public function show()
+    {
+        $str = '';
+        
+        foreach ($this->options as $option)
+        {
+            $str .= $this->$option().' &nbsp; ';
+        }
+        
+        return $str;
+    }
 
     /**
      * Method to create a link for users to bookmark the page at Stumble Upon
@@ -72,7 +87,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $stumbleUpon = new link ('http://www.stumbleupon.com/submit?url='.$url);
-        $stumbleUpon->link = '<img src="'.$this->getResourceURI('socialbookmarking/stumbleupon.png').'" alt="Stumble Upon" title="Stumble Upon" />';
+        $stumbleUpon->link = '<img src="'.$this->getResourceURI('socialbookmarking/stumbleupon.png').'" border="0" alt="Stumble Upon" title="Stumble Upon" />';
 
         if ($this->includeTextLink) {
             $stumbleUpon->link .= ' Stumble Upon';
@@ -94,7 +109,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $delicious = new link ('http://del.icio.us/post?url='.$url);
-        $delicious->link = '<img src="'.$this->getResourceURI('socialbookmarking/delicious.png').'" alt="del.icio.us" title="del.icio.us" />';
+        $delicious->link = '<img src="'.$this->getResourceURI('socialbookmarking/delicious.png').'" border="0" alt="del.icio.us" title="del.icio.us" />';
 
         if ($this->includeTextLink) {
             $delicious->link .= ' del.icio.us';
@@ -116,7 +131,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $newsvine = new link ('http://www.newsvine.com/_tools/seed&amp;save?u='.$url);
-        $newsvine->link = '<img src="'.$this->getResourceURI('socialbookmarking/newsvine.png').'" alt="Newsvine" title="Newsvine" />';
+        $newsvine->link = '<img src="'.$this->getResourceURI('socialbookmarking/newsvine.png').'" border="0" alt="Newsvine" title="Newsvine" />';
 
         if ($this->includeTextLink) {
             $newsvine->link .= ' Newsvine';
@@ -138,7 +153,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $reddit = new link ('http://reddit.com/submit?url='.$url);
-        $reddit->link = '<img src="'.$this->getResourceURI('socialbookmarking/reddit.png').'" alt="Reddit" title="Reddit" />';
+        $reddit->link = '<img src="'.$this->getResourceURI('socialbookmarking/reddit.png').'" border="0" alt="Reddit" title="Reddit" />';
 
         if ($this->includeTextLink) {
             $reddit->link .= ' Reddit';
@@ -160,7 +175,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $muti = new link ("javascript:location.href='http://muti.co.za/submit?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title)");
-        $muti->link = '<img src="'.$this->getResourceURI('socialbookmarking/muti.png').'" alt="muti.co.za" title="muti.co.za" />';
+        $muti->link = '<img src="'.$this->getResourceURI('socialbookmarking/muti.png').'" border="0" alt="muti.co.za" title="muti.co.za" />';
 
         if ($this->includeTextLink) {
             $muti->link .= ' muti';
@@ -182,7 +197,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $facebook = new link ('http://www.facebook.com/share.php?u='.$url);
-        $facebook->link = '<img src="'.$this->getResourceURI('socialbookmarking/facebook_share_icon.gif').'" alt="Facebook" title="Facebook" />';
+        $facebook->link = '<img src="'.$this->getResourceURI('socialbookmarking/facebook_share_icon.gif').'" border="0" alt="Facebook" title="Facebook" />';
 
         if ($this->includeTextLink) {
             $facebook->link .= ' Facebook';
@@ -204,7 +219,7 @@ class socialbookmarking extends object {
 
         // Create Link
         $addThis = new link ('http://www.addthis.com/bookmark.php?pub=&amp;url='.$url);
-        $addThis->link = '<img src="'.$this->getResourceURI('socialbookmarking/button1-bm.gif').'" width="125" height="16" border="0" />';
+        $addThis->link = '<img src="'.$this->getResourceURI('socialbookmarking/button1-bm.gif').'" border="0" width="125" height="16" border="0" />';
 
         return $addThis->show();
     }
