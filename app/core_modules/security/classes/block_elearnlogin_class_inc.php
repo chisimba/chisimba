@@ -94,7 +94,7 @@ class block_elearnlogin extends object
         
         $form = new form ('elearnlogin', $this->uri(array('action'=>'login'), 'security'));
         
-        $label = new label ($this->objLanguage->languageText('mod_security_staffstudentnumber', 'security', 'Staff/Student Number').':', 'username');
+        $label = new label ($this->objLanguage->languageText('word_username', 'system', 'Username').':', 'username');
         $form->addToForm($label->show());
         $username = new textinput('username');
         $form->addToForm('<br />'.$username->show());
