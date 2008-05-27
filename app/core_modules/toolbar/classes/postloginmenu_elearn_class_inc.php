@@ -69,21 +69,28 @@ class postloginmenu_elearn extends object
         // If menu items exist
         if (count($options) > 0) {
             
+            // Prepare items - will be sorted alphabetically
             $menuItems = array();
             
+            // Loop through items
             foreach ($options as $option)
             {
+                // Get proper name of module
                 $name = ucwords($this->objLanguage->code2Txt('mod_'.$option['module'].'_name', $option['module']));
                 
+                // Create link
                 $link = new link ($this->uri(NULL, $option['module']));
                 $link->link = $name;
                 
+                // add to array
                 $menuItems[$name] = $link->show();
                 
             }
             
+            // Sort alphabetically
             ksort($menuItems);
             
+            // Generated proper menu
             $str .= '<ul id="nav-secondary">';
             
             foreach ($menuItems as $item=>$link)

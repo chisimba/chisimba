@@ -34,18 +34,28 @@ class toolbar_elearn extends object
         $this->objUser = $this->getObject('user', 'security');
         $this->contextCode = $this->objContext->getContextCode();
         
-        $this->menuItems['home'] = array('text'=>'Home', 'link'=>$this->uri(NULL, '_default'));
+        
+        $this->objLanguage = $this->getObject('language', 'language');
+        
+        $this->objModule = $this->getObject('modules','modulecatalogue');
+        
+        $this->menuItems['home'] = array('text'=>$this->objLanguage->languageText('word_home', 'system', 'Home'), 'link'=>$this->uri(NULL, '_default'));
     }
     
     public function getParams()
     {
         
     }
-
+    
+    /**
+     * Method to display the elearn toolbar
+     */
     public function show()
     {
         $objBreadcrumbs = $this->getObject('breadcrumbs');
         
+        // Take Decision on this
+        // Should something be shown to not logged in users
         if ($this->objUser->isLoggedIn()) {
             return $this->generateMenu().$objBreadcrumbs->show();
         } else {
@@ -55,23 +65,25 @@ class toolbar_elearn extends object
         
     }
     
-    
+    /**
+     * Method to generate the elearn toolbar
+     */
     private function generateMenu()
     {
-        $this->menuItems['personalspace'] = array('text'=>'My Home Space', 'link'=>$this->uri(NULL, 'personalspace'));
+        $isRegistered = $this->objModule->checkIfRegistered('personalspace');
         
-        
-        if ($this->contextCode != '') {
-            $this->menuItems['context'] = array('text'=>'Course Home', 'link'=>$this->uri(NULL, 'context'));
-            //$this->menuItems['resources'] = array('text'=>'Resources', 'link'=>$this->uri(array('action'=>'resources'), 'context'));
-            $this->menuItems['contextadmin'] = array('text'=>'My Courses', 'link'=>$this->uri(NULL, 'contextadmin'));
-        } else {
-            $this->menuItems['contextadmin'] = array('text'=>'My Courses', 'link'=>$this->uri(NULL, 'contextadmin'));
-            //$this->menuItems['resources'] = array('text'=>'Resources', 'link'=>$this->uri(array('action'=>'resources'), 'toolbar'));
+        if ($isRegistered) {
+            $this->menuItems['personalspace'] = array('text'=>$this->objLanguage->languageText('mod_personalspace_myworkspace', 'personalspace', 'My Work Space'), 'link'=>$this->uri(NULL, 'personalspace'));
         }
         
+        if ($this->contextCode != '') {
+            $this->menuItems['context'] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'link'=>$this->uri(NULL, 'context'));
+        }
+        
+        $this->menuItems['contextadmin'] = array('text'=>ucwords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), 'link'=>$this->uri(NULL, 'contextadmin'));
+        
         if ($this->objUser->isAdmin()) {
-            $this->menuItems['admin'] = array('text'=>'Admin', 'link'=>$this->uri(NULL, 'toolbar'));
+            $this->menuItems['admin'] = array('text'=>$this->objLanguage->languageText('category_admin', 'toolbar', 'Admin'), 'link'=>$this->uri(NULL, 'toolbar'));
         }
         
         
@@ -86,52 +98,66 @@ class toolbar_elearn extends object
         {
             case 'sitemap':
                 $this->default = 'sitemap';
-                break;
+                break; return;
+            case 'contextadmin':
+                $this->default = 'contextadmin';
+                break; return;
+            case 'context':
+                $this->default = 'context';
+                break; return;
+            
             case 'blog':
             case 'podcast':
             case 'personalspace':
                 $this->default = 'personalspace';
-                break;
-            case 'contextadmin':
-                $this->default = 'contextadmin';
-                break;
+                break; return;
+            
             case 'context':
                 $this->default = 'context';
-                break;
+                break; return;
             case 'contextcontent':
             case 'forum':
             case 'contextgroups':
                 $this->default = 'context';
-                break;
+                break; return;
             case 'forum':
             case 'blog':
             case 'wiki':
                 $this->default = 'resources';
-                break;
+                break; return;
             case 'toolbar':
                 if ($this->getParam('action') == '') {
                     $this->default = 'admin';
                 } else {
                     $this->default = 'resources';
                 }
-                break;
+                break; return;
             case 'modulecatalogue':
             case 'sysconfig':
             case 'stories':
             case 'prelogin':
             case 'systext':
                 $this->default = 'admin';
-                break;
+                break; return;
             default:
-                break;
+                break; return;
+            
+            echo 'hello';
         }
     }
     
     private function generateOutput()
     {
+        //See if the site map module is registered
+        
+        $isRegistered = $this->objModule->checkIfRegistered('sitemap');
+        
+        if ($isRegistered) {
+            $this->menuItems['sitemap'] = array('text'=>$this->objLanguage->languageText('phrase_sitemap', 'sitemap', 'Site Map'), 'link'=>$this->uri(NULL, 'sitemap'));
+        }
+        
         // Logout is always last
-        $this->menuItems['sitemap'] = array('text'=>'Site Map', 'link'=>$this->uri(NULL, 'sitemap'));
-        $this->menuItems['logout'] = array('text'=>'Logout', 'link'=>$this->uri(array('action'=>'logoff'), 'security'));
+        $this->menuItems['logout'] = array('text'=>$this->objLanguage->languageText('word_logout', 'system', 'Logout'), 'link'=>$this->uri(array('action'=>'logoff'), 'security'));
         
         $str = '<ul class="glossytabs">';
         
