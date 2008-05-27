@@ -134,6 +134,9 @@ class blocks extends object
                             $hidden = 'none';
                         }
                         
+                        if (!$showToggle && $hidden != 'default') {
+                            $showToggle = TRUE;
+                        }
                         
                     	if($showToggle){
                     	   return $objFeatureBox->show($title, $objBlock->show(),$block, $hidden, TRUE);
