@@ -13,6 +13,12 @@ $GLOBALS['kewl_entry_point_run'])
 }
 // end security check
 
+/**
+ * Chisimba cache class
+ * 
+ * @author Paul Scott <pscott@uwc.ac.za>
+ * @package core
+ */
 class chisimbacache extends Memcache
 {
 	static private $objMem = NULL;
