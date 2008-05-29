@@ -39,17 +39,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
      * @var input;
      */
      var $input;
-       /**
-     * @var counter;
-     */
-     var $counter;
+    
        /**
      * @var objIcon;
      */
  
      var $objIcon;
      
-     var $link;
        /**
      * @var string  module;
      */
