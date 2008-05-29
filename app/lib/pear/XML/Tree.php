@@ -13,7 +13,7 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Bernd Römer <berndr@bonn.edu>                               |
+// | Authors: Bernd Rï¿½mer <berndr@bonn.edu>                               |
 // |          Sebastian Bergmann <sb@sebastian-bergmann.de>               |
 // |          Tomas V.V.Cox <cox@idecnet.com> (tree mapping from xml file)|
 // +----------------------------------------------------------------------+
@@ -42,7 +42,7 @@ require_once 'XML/Tree/Node.php';
 *    header('Content-Type: text/xml');
 *    $tree->dump();
 *
-* @author  Bernd Römer <berndr@bonn.edu>
+* @author  Bernd Rï¿½mer <berndr@bonn.edu>
 * @package XML
 * @version $Version$ - 1.0
 */
@@ -294,7 +294,7 @@ class XML_Tree extends XML_Parser
     * @return object XML_Tree
     * @access public
     */
-    function clone() {
+    function clone1() {
         $clone=new XML_Tree($this->filename,$this->version);
         $clone->root=$this->root->clone();
 
