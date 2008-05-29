@@ -84,7 +84,7 @@ class frameset extends abhtmlbase implements ifhtml
         $ret .= ">";
         
         foreach($this->frameList as $list){
-            $list[]->show();
+            $list->show();
         }
         
         $ret = "</iframe>";
