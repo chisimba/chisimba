@@ -96,7 +96,7 @@ class frameset extends abhtmlbase implements ifhtml
     * @param object $frame The frame object
     */
     public function addFrame($objFrame){
-       array_ push($this->frameList, $objFrame);
+       array_push($this->frameList, $objFrame);
     }
 }
 
