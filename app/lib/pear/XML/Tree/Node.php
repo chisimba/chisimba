@@ -13,9 +13,9 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Bernd Römer <berndr@bonn.edu>                               |
+// | Authors: Bernd Rï¿½mer <berndr@bonn.edu>                               |
 // |          Sebastian Bergmann <sb@sebastian-bergmann.de>               |
-// |          Christian Kühn <ck@chkuehn.de> (escape xml entities)        |
+// |          Christian Kï¿½hn <ck@chkuehn.de> (escape xml entities)        |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -24,7 +24,7 @@
 /**
 * PEAR::XML_Tree_Node
 *
-* @author  Bernd Römer <berndr@bonn.edu>
+* @author  Bernd Rï¿½mer <berndr@bonn.edu>
 * @package XML_Tree
 * @version 1.0  16-Aug-2001
 */
@@ -109,7 +109,7 @@ class XML_Tree_Node {
     *
     * @return object reference to the clone-node
     */
-    function &clone() {
+    function &clone1() {
         $clone=new XML_Tree_Node($this->name,$this->content,$this->attributes);
 
         $max_child=count($this->children);
@@ -317,9 +317,9 @@ class XML_Tree_Node {
     * @access  private
     */
     function _xml_entities($xml) {
-        $xml = str_replace(array('ü', 'Ü', 'ö',
-                                 'Ö', 'ä', 'Ä',
-                                 'ß'
+        $xml = str_replace(array('ï¿½', 'ï¿½', 'ï¿½',
+                                 'ï¿½', 'ï¿½', 'ï¿½',
+                                 'ï¿½'
                                 ),
                            array('&#252;', '&#220;', '&#246;',
                                  '&#214;', '&#228;', '&#196;',
