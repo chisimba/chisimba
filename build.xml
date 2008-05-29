@@ -113,7 +113,7 @@
   <!-- Generate the API dox -->
   <target name="apidocs" depends="init, svnexport, lint">
     <phpdoc title="API Documentation" destdir="apidocs" sourcecode="no" output="HTML:Smarty:PHP">
-     <fileset dir="${build.dir}/app/classes/core/">
+     <fileset dir="${build.dir}/app/">
         <include name="**/*.php" />
      </fileset>
      <projdocfileset dir=".">
