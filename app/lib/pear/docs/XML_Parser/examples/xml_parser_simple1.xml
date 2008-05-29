@@ -1,9 +1,0 @@
-<!-- $Id$ -->
-<foo>
-    <bar>content of bar</bar>
-    <empty/>
-    <argh foo="bar">
-        test
-        <tomato>pizza</tomato>
-    </argh>
-</foo>
