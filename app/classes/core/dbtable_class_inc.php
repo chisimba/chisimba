@@ -159,6 +159,8 @@ class dbTable extends object
 	
 	public $dbLayer;
 	
+	public $cachePrefix;
+	
 	public $nonmirrored = array(
 								'tbl_logger',
 								'tbl_sysconfig_properties',
@@ -197,6 +199,7 @@ class dbTable extends object
     */
     public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback")
     {
+    	$modname = $this->objEngine->_moduleName;
     	// global $_globalObjDb;
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
@@ -235,6 +238,9 @@ class dbTable extends object
 		}
 		
         $this->_serverName = $this->objDBConfig->serverName();
+        // set up the cache prefix for this instance
+        $this->cachePrefix = $this->_serverName."_".$modname."_";
+        
         //check if debugging is enabled
         if($this->objDBConfig->geterror_reporting() == "developer")
         {
@@ -275,9 +281,9 @@ class dbTable extends object
     	$sql = "SELECT COUNT(*) AS fcount FROM $table WHERE $field='$value'";
     	if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($sql)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$sql)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($sql));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$sql));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -295,12 +301,12 @@ class dbTable extends object
                 		$ret = false;
             		}
         		}
-        		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($sql);
+    		$ret = apc_fetch($this->cachePrefix.$sql);
     		if($ret == FALSE)
     		{
     			$rs = $this->query($sql);
@@ -313,7 +319,7 @@ class dbTable extends object
                 		$ret = false;
             		}
         		}
-    			apc_store($sql, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$sql, $ret, $this->cacheTTL);
     		}
     	}
 		else {
@@ -349,9 +355,9 @@ class dbTable extends object
 		$stmt = "SELECT * FROM {$this->_tableName} $filter";
 		if($this->objMemcache == TRUE)
 		{
-			if(chisimbacache::getMem()->get(md5($stmt)))
+			if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -360,16 +366,16 @@ class dbTable extends object
         			log_debug($stmt);
         		}
         		$ret = $this->getArray($stmt);
-        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
 		}
 		elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$ret = $this->getArray($stmt);
-    			apc_store($stmt, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
     	}
 		else {
@@ -398,9 +404,9 @@ class dbTable extends object
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
         if($this->objMemcache == TRUE)
         {
-        	if(chisimbacache::getMem()->get(md5($stmt)))
+        	if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -409,16 +415,16 @@ class dbTable extends object
         			log_debug($stmt);
         		}
         		$ret = $this->_queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
-        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
         }
         elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$ret = $this->_queryRow($stmt, array());
-    			apc_store($stmt, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
     	}
         else {
@@ -442,9 +448,9 @@ class dbTable extends object
     {
     	if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($stmt)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -457,19 +463,19 @@ class dbTable extends object
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
-        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
-    			apc_store($stmt, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
     	}
     	else {
@@ -499,9 +505,9 @@ class dbTable extends object
     {
     	if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($stmt)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -515,13 +521,13 @@ class dbTable extends object
             		$ret = false;
         		} else {
         			$ret = $rs;
-        			chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        			chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
         		}
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$this->_db->setLimit($first, $count);
@@ -530,7 +536,7 @@ class dbTable extends object
             		$ret = false;
         		} else {
         			$ret = $rs;
-    				apc_store($stmt, $ret, $this->cacheTTL);
+    				apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
         		}
     		}
     	}
@@ -566,9 +572,9 @@ class dbTable extends object
         $stmt = "SELECT * FROM {$this->_tableName} " . $filter;
         if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($stmt)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -577,16 +583,16 @@ class dbTable extends object
         			log_debug($stmt);
         		}
         		$ret = $this->query($stmt);
-        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$ret = $this->query($stmt);
-    			apc_store($stmt, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
     	}
     	else {
@@ -612,9 +618,9 @@ class dbTable extends object
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($sql)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$sql)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($sql));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$sql));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -624,17 +630,17 @@ class dbTable extends object
         		}
         		$rs = $this->query($sql);
 	    		$ret = $rs[0]['rc'];
-	    		chisimbacache::getMem()->set(md5($sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+	    		chisimbacache::getMem()->set(md5($this->cachePrefix.$sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($sql);
+    		$ret = apc_fetch($this->cachePrefix.$sql);
     		if($ret == FALSE)
     		{
     			$rs = $this->query($sql);
 	    		$ret = $rs[0]['rc'];
-    			apc_store($sql, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$sql, $ret, $this->cacheTTL);
     		}
     	}
     	else {
@@ -1001,9 +1007,9 @@ class dbTable extends object
     {
     	if($this->objMemcache == TRUE)
     	{
-    		if(chisimbacache::getMem()->get(md5($stmt)))
+    		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
-				$cache = chisimbacache::getMem()->get(md5($stmt));
+				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
 			else {
@@ -1015,19 +1021,19 @@ class dbTable extends object
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
-        		chisimbacache::getMem()->set(md5($stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
+        		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
     	}
     	elseif($this->objAPC == TRUE)
     	{
-    		$ret = apc_fetch($stmt);
+    		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
     			$ret = $this->_queryAll($stmt);
         		if (PEAR::isError($ret)) {
             		$ret = false;
         		}
-    			apc_store($stmt, $ret, $this->cacheTTL);
+    			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
     	}
     	else {
