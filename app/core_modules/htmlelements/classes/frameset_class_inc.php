@@ -98,6 +98,6 @@ class frameset extends abhtmlbase implements ifhtml
     public function addFrame($objFrame){
        array_ push($this->frameList, $objFrame);
     }
-    
+}
 
 ?>
