@@ -41,7 +41,7 @@ class camelcase extends object {
         }
         return $ret;
 
-    
+    }
     
 } // end class
 ?>
