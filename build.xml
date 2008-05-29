@@ -96,6 +96,30 @@
        todir="${exportdir}"/>
   </target>
   
+  <!-- Perform lintian task on the code - HALT on Failure! -->
+  <target name="lint">
+    <phplint haltonfailure="true">
+      <fileset dir=".">
+        <include name="**/*.php"/>
+      </fileset>
+    </phplint>
+  </target>
+  
+  <!-- Generate the API dox -->
+  <target name="apidocs">
+    <phpdoc title="API Documentation" destdir="apidocs" sourcecode="no" output="HTML:Smarty:PHP">
+     <fileset dir="app/">
+        <include name="**/*.php" />
+     </fileset>
+     <projdocfileset dir=".">
+        <include name="README" />
+        <include name="INSTALL" />
+        <include name="CHANGELOG" />
+     </projdocfileset>
+    </phpdoc>
+  </target>
+
+  <!-- Start the actual build(s) -->
   <target name="build" description="Generates .tgz and .zip file containing framework" 
           depends="init, svnexport, build-tgz, build-zip">
   </target>
@@ -112,6 +136,8 @@
     </zip>
   </target>
   
+  <!-- Deploy targets - local first, then remotes -->
+  <!-- Local build target -->
   <target name="deploy-local" description="Copies archives to local folder" depends="init,build">
     <copy file="${tarfile}" todir="${build.dir}" overwrite="true"/>
     <copy file="${zipfile}" todir="${build.dir}" overwrite="true"/>
