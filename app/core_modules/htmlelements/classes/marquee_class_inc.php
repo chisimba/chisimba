@@ -161,12 +161,6 @@ class marquee extends object implements ifhtml
      */
 	public $objLanguage;
 
-    /**
-     * marquee elements
-     * @var    string $elements
-     * @access public
-     */
-	public $elements;
 
     /**
      * number of marquee elements
