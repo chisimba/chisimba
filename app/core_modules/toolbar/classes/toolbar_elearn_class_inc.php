@@ -57,9 +57,9 @@ class toolbar_elearn extends object
         // Take Decision on this
         // Should something be shown to not logged in users
         if ($this->objUser->isLoggedIn()) {
-            return $this->generateMenu().$objBreadcrumbs->show();
+            return $this->generateMenu().'<div id="breadcrumbs">'.$objBreadcrumbs->show().'</div>';
         } else {
-            return $objBreadcrumbs->show();
+            return '<div id="breadcrumbs">'.$objBreadcrumbs->show().'</div>';
         }
         
         
