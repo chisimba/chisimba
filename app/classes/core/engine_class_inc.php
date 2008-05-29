@@ -279,7 +279,7 @@ class engine
      * @access private
      * @var    string
      */
-	private $_moduleName = NULL;
+	public $_moduleName = NULL;
 
 	/**
      * The currently active controller
