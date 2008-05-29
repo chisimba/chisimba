@@ -16,7 +16,7 @@
 * Created on 02 Nov 2007
 *
 * @author Derek keats
-* @package Chisimba
+* @package core
 *
 */
 
