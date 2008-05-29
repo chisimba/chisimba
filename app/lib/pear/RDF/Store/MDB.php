@@ -206,7 +206,7 @@ class RDF_Store_MDB extends RDF_Object
     function close()
     {
         $this->dbConn->disconnect();
-        $this = null;
+        // $this = null;
     }
     // =============================================================================
     // **************************** private methods ********************************
