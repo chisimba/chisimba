@@ -63,7 +63,7 @@ class File_Archive_Writer_AddBaseName
      */
     function newFromTempFile($tmpfile, $filename, $stat = array(), $mime = "application/octet-stream")
     {
-        $this->writer->newFromTempFile($tmpfilen $this->baseName.$filename, $stat, $mime);
+        $this->writer->newFromTempFile($tmpfilen, $this->baseName.$filename, $stat, $mime);
     }
 
     /**
