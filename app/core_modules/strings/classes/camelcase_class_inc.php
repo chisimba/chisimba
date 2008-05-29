@@ -7,7 +7,7 @@
 * 
 */
 
-class case extends object {
+class camelcase extends object {
     /**
     * Standard constructor for KEWL.NextGen, instantiates
     * the user object
