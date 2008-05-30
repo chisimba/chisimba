@@ -66,22 +66,6 @@
     <exclude name="update.sh"/>
     <exclude name=".svn" />
     
-  <!-- set of files that should and shouldn't be documented by phpDoc -->
-  <fileset dir="${build.dir}/app/" id="apidoc.files">
-    <include name="**/**"/>
-    <exclude name="CVS/**"/>
-    <exclude name="CVSROOT/**"/>
-    <exclude name="build/**"/>
-    <exclude name="build.xml"/>
-    <exclude name="countlines.pl"/>
-    <exclude name="cvs2cl"/>
-    <exclude name="cvschangelogbuilder.pl"/>
-    <exclude name="package-config.php"/>
-    <exclude name="pearpacker.php"/>
-    <exclude name="update.sh"/>
-    <exclude name=".svn" />
-    <exclude name="app/lib/pear/" />
-    
     <!-- we only want echo skin but no way to exclude all skins except echo, so instead
          we have to explicitly exclude the others -->
     <exclude name="app/skins/alien/**"/>
@@ -141,9 +125,11 @@
   
   <!-- Generate the API dox -->
   <target name="apidocs" description="Generates the PHPDocumetor API docs for the framework" depends="init, svnexport, lint">
-    <phpdoc title="API Documentation" destdir="apidocs" sourcecode="no" output="HTML:Smarty:PHP">
+    <phpdoc title="API Documentation" destdir="apidocs" sourcecode="yes" output="HTML:Smarty:PHP">
      <fileset dir="${build.dir}/app/">
         <include name="**/*.php" />
+        <!-- exclude the pear stuff -->
+        <exclude name="app/lib/pear/" />
      </fileset>
      <projdocfileset dir=".">
         <include name="README" />
