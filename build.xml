@@ -111,7 +111,7 @@
 
   <!-- Start the actual build(s) -->
   <target name="build" description="Generates .tgz and .zip file containing framework" 
-          depends="init, lint, apidocs, build-tgz, build-zip">
+          depends="init, lint, apidocs, build-tgz, build-zip, apidoc-zip, apidoc-tgz">
   </target>
   
   <!-- Perform lintian task on the code - HALT on Failure! -->
