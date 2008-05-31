@@ -396,6 +396,26 @@ class tracrpcclient extends object
 	 * ticket.status - Interface to ticket status.
 	 */
 	
+	/**
+	 * Get a list of all ticket status names.
+	 *
+	 * @return array
+	 */
+	public function getAllTicketStatusNames()
+	{
+		
+	}
+	
+	/**
+	 * Get a ticket status.
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	public function getTicketStatus($name)
+	{
+		
+	}
 }
 
 ?>
