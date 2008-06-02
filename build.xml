@@ -125,7 +125,7 @@
   
   <!-- Generate the API dox -->
   <target name="apidocs" description="Generates the PHPDocumetor API docs for the framework" depends="init, svnexport, lint">
-    <phpdoc title="API Documentation" destdir="apidocs" sourcecode="yes" output="HTML:Smarty:PHP">
+    <phpdoc title="Chisimba API Documentation" destdir="apidocs" sourcecode="true" output="HTML:Smarty:PHP" defaultpackagename="chisimba" defaultcategoryname="chisimba">
      <fileset dir="${build.dir}/app/" id="apidox">
         <include name="**/*.php" />
 	<!-- exclude the pear stuff -->
