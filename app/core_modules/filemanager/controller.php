@@ -240,7 +240,12 @@ class filemanager extends controller
             $this->setVar('mode', NULL);
         }
         
-        $restrictions = explode("_", strtolower($this->getParam("restriction")));
+        if ($this->getParam("restriction") == '') {
+            $restrictions = array();
+        } else {
+            $restrictions = explode("_", strtolower($this->getParam("restriction")));
+        }
+        
         $this->setVar('restrictions', $restrictions);
         
         /*
