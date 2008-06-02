@@ -129,7 +129,6 @@
      <fileset dir="${build.dir}/app/" id="apidox">
         <include name="**/*.php" />
 	<!-- exclude the pear stuff -->
-	<echo "excluding pear" />
 	<exclude name="lib/pear/**" />
      </fileset>
      <projdocfileset dir=".">
