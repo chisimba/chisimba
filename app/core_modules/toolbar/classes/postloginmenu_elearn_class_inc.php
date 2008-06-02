@@ -66,6 +66,9 @@ class postloginmenu_elearn extends object
         // First add user pic
         $str = $this->sideMenu->userDetails();
         
+        $objBlock = $this->getObject('blocks', 'blocks');
+        $str .= $objBlock->showBlock('mycontexts', 'context', NULL, 20, TRUE, FALSE);
+        
         // If menu items exist
         if (count($options) > 0) {
             
