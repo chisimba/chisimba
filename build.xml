@@ -129,7 +129,7 @@
      <fileset dir="${build.dir}/app/">
         <include name="**/*.php" />
         <!-- exclude the pear stuff -->
-	<exclude name="${build.dir}/app/lib/pear/" />
+	<exclude name="${build.dir}/app/lib/pear/**" />
      </fileset>
      <projdocfileset dir=".">
         <include name="README" />
