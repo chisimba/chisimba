@@ -126,10 +126,11 @@
   <!-- Generate the API dox -->
   <target name="apidocs" description="Generates the PHPDocumetor API docs for the framework" depends="init, svnexport, lint">
     <phpdoc title="API Documentation" destdir="apidocs" sourcecode="yes" output="HTML:Smarty:PHP">
-     <fileset dir="${build.dir}/app/">
+     <fileset dir="${build.dir}/app/" id="apidox">
         <include name="**/*.php" />
-        <!-- exclude the pear stuff -->
-	<exclude name="${build.dir}/app/lib/pear/**" />
+	<!-- exclude the pear stuff -->
+	<echo "excluding pear" />
+	<exclude name="lib/pear/**" />
      </fileset>
      <projdocfileset dir=".">
         <include name="README" />
