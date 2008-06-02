@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Context blocks
+ * My Contexts block
  * 
- * Chisimba Context blocks class
+ * A block to show the list of contexts a user belongs to
  * 
  * PHP version 5
  * 
@@ -22,10 +22,10 @@
  * 
  * @category  Chisimba
  * @package   context
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
+ * @version   CVS: $Id: block_context_class_inc.php 3591 2008-02-19 13:33:48Z tohir $
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
@@ -40,26 +40,26 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
 
 /**
- * Context blocks
+ * My Contexts block
  * 
- * Chisimba Context blocks class
+ * A block to show the list of contexts a user belongs to
  * 
  * @category  Chisimba
  * @package   context
- * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
- * @copyright 2007 Wesley Nitsckie
+ * @author    Tohir Solomons <tsolomons@uwc.ac.za>
+ * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class block_context extends object
+class block_mycontexts extends object
 {
     /**
     * @var string $title The title of the block
@@ -77,17 +77,21 @@ class block_context extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-    		$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->objUserContext = $this->getObject('usercontext', 'context');
+            $this->objUser = $this->getObject('user', 'security');
+            $this->objContext =  $this->getObject('dbcontext');
+            $this->title = ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]'));
             
             // HTML Elements
             $this->loadClass('form', 'htmlelements');
             $this->loadClass('dropdown', 'htmlelements');
             $this->loadClass('button', 'htmlelements');
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+            
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -95,21 +99,34 @@ class block_context extends object
     */
     public function show()
     {
-    	try {
-        $objContext = $this->getObject('dbcontext', 'context');
-        $courses = $objContext->getListOfPublicContext();
-        if (count($courses)==0) {
-            $msg = $this->objLanguage->code2Txt('mod_context_nocontexts','context');
-            return "<span class='noRecordsMessage'>$msg</span>";
-            
+        // Get all user contents
+        $contexts = $this->objUserContext->getUserContext($this->objUser->userId());
+        
+        if (count($contexts) == 0) {
+            return $this->objLanguage->code2Txt('mod_context_youdonotbelongtocontexts', 'context', NULL, 'You do not belong to any [-contexts-]');
         } else {
+        
             $form = new form('joincontext', $this->uri(array('action'=>'joincontext'), 'context'));
             $dropdown = new dropdown ('contextcode');
-            foreach ($courses AS $course)
+            
+            $contextArray = array();
+            
+            foreach ($contexts AS $contextCode)
             {
-                $dropdown->addOption($course['contextcode'], $course['menutext']);
+                $contextDetails = $this->objContext->getContextDetails($contextCode);
+                
+                $contextArray[$contextDetails['title']] = $contextCode;
             }
-            $dropdown->setSelected($objContext->getContextCode());
+            
+            ksort($contextArray);
+            
+            foreach ($contextArray as $title=>$code)
+            {
+                $dropdown->addOption($code, $title);
+            }
+            
+            $dropdown->setSelected($this->objContext->getContextCode());
+            
             $button = new button ('submitform', ucwords($this->objLanguage->code2Txt('mod_context_entercourse', 'context', NULL, 'Enter [-context-]')));
             $button->setToSubmit();
             
@@ -117,10 +134,6 @@ class block_context extends object
             
             return $form->show();
         }
-
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
     }
 }
 ?>
