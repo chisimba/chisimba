@@ -73,9 +73,6 @@ if ($folderPermission) {
     
     echo $this->objFolders->showCreateFolderForm($folderId);
     
-    //$objSWFUpload = $this->newObject('swfupload');
-    //$objSWFUpload->additionalParams['folder'] = $folderId;
-    //echo $objSWFUpload->show();
 }
 
 ?>
