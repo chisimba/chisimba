@@ -8,7 +8,7 @@
 */
 
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
-$leftMenu = $this->newObject('contextmenu','toolbar');
+$leftMenu = $this->newObject('contextsidebar','context');
 $objHead = $this->newObject('htmlheading','htmlelements');
 
 if(!isset($heading))
