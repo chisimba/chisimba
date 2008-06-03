@@ -54,3 +54,35 @@ div.today {
     background-color: #31528E;
     color: #FFFF00;
 }
+
+.bigDayNum {
+    font-size: 200%;
+}
+
+table.eventslist td{
+    padding-bottom: 40px;
+}
+
+div.eventlist {
+    padding-left: 40px;
+}
+
+div.event_user {
+    background: url('../calendar/user.gif') no-repeat top left;
+}
+
+div.event_site {
+    background: url('../calendar/site.gif') no-repeat top left;
+}
+
+div.event_context {
+    background: url('../calendar/context.gif') no-repeat top left;
+}
+
+div.event_othercontext {
+    background: url('../calendar/othercontext.gif') no-repeat top left;
+}
+
+div.event_workgroup {
+    background: url('../calendar/workgroup.gif') no-repeat top left;
+}

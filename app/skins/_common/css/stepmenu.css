@@ -1,8 +1,9 @@
 #stepmenu {
     display: block;
+    padding-bottom: 10px;
 }
 #stepmenu li{
-    height:71px;
+    height:51px;
     list-style:none;
     float:left;
     background-color:#EBEBEB;
@@ -11,6 +12,7 @@
     background-position: right top;
     margin: 0;
     line-height: 110%;
+    padding: 10px;
 }
 
 #stepmenu li.current{
@@ -29,40 +31,38 @@
 }
 
 #stepmenu li a, #stepmenu li a:link, #stepmenu li a:visited, #stepmenu li a:hover, #stepmenu li a:active {
-color:#ccc;
+    color:#ccc;
 }
 
 #stepmenu li.lastdone a, #stepmenu li.lastdone a:link, #stepmenu li.lastdone a:visited, #stepmenu li.lastdone a:hover, #stepmenu li.lastdone a:active, #stepmenu li.current a, #stepmenu li.current a:link, #stepmenu li.current a:visited, #stepmenu li.current a:hover, #stepmenu li.current a:active, #stepmenu li.done a, #stepmenu li.done a:link, #stepmenu li.done a:visited, #stepmenu li.done a:hover, #stepmenu li.done a:active {
-color:#fff;
+    color:#fff;
 }
 
 #stepmenu li.done a:hover, #stepmenu li.lastdone a:hover  {
-color:#FFFF99;
-cursor:hand;
+    color:#FFFF99;
+    cursor: default;
 }
 
 #stepmenu li a em{
-width:200px;
-display:block;
-margin:6px 0 0 10px;
-font-style:normal;
-font-weight:bold;
+    width:95%;
+    display:block;
+    font-style:normal;
+    font-weight:bold;
 }
 
 #stepmenu li a span{
-width:200px;
-display:block;
-margin-left:10px;
-font-weight:normal;
+    width:95%;
+    display:block;
+    font-weight:normal;
 }
 
 #stepmenu li.mainNavNoBg{
-background-image:none;
+    background-image:none;
 }
 
 #stepmenu li a{
-height:71px;
-display:block;
+    height:51px;
+    display:block;
 }
 
 /* #stepmenu.fiveStep */
@@ -75,9 +75,9 @@ display:block;
 #stepmenu.stepmenu4 li a{width:227px;}
 
 /* #stepmenu.threeStep */
-#stepmenu.stepmenu3 li{width:303px;}
-#stepmenu.stepmenu3 li.mainNavNoBg{width:304px;}
-#stepmenu.stepmenu3 li a{width:303px;}
+#stepmenu.stepmenu3 li{width:30%;}
+#stepmenu.stepmenu3 li.mainNavNoBg{width:30%;}
+#stepmenu.stepmenu3 li a{width:100%;}
 
 /* #stepmenu.twoStep */
 #stepmenu.stepmenu2 li{width:455px;}

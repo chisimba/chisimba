@@ -195,6 +195,11 @@ table.overflowtable td.overflowcolumn {
 
 
 
-.featureboxheader h5 {
+h5.featureboxheader {
     font-size: 100%;
+}
+
+
+.highlightblock {
+    border: 1px dashed red;
 }

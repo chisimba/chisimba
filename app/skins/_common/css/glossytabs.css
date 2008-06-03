@@ -31,7 +31,7 @@
 .glossytabs li a strong{
     float: left;
     display: block;
-    padding: 0 24px 0 8px; /*Padding of menu items*/
+    padding: 0 16px 0 0px; /*Padding of menu items*/
 }
 
 .glossytabs li.current a, .glossytabs li a:hover{
