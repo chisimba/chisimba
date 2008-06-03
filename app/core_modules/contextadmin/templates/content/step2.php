@@ -30,7 +30,7 @@ $header = new htmlheading();
 $header->type = 1;
 $header->str = ucwords($headerTitle);
 
-echo $header->show();
+echo '<br />'.$header->show();
 
 
 

@@ -134,9 +134,9 @@ echo $objStepMenu->show();
 
 $header = new htmlheading();
 $header->type = 1;
-$header->str = $headerTitle;
+$header->str = ucwords($headerTitle);
 
-echo $header->show();
+echo '<br />'.$header->show();
 
 
 // CREATE FORM
@@ -238,7 +238,7 @@ $button = new button ('savecontext', $this->objLanguage->languageText('mod_conte
 $button->cssId = 'savebutton';
 $button->setToSubmit();
 
-$form->addToForm($table->show().'<p>'.$button->show().'</p>');
+$form->addToForm($table->show().'<p><br />'.$button->show().'</p>');
 
 $hiddenInput = new hiddeninput('mode', $mode);
 $form->addToForm($hiddenInput->show());

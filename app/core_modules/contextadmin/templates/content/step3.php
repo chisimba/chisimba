@@ -33,7 +33,7 @@ $header = new htmlheading();
 $header->type = 1;
 $header->str = $headerTitle;
 
-echo $header->show();
+echo '<br />'.$header->show();
 
 echo '<p>'.$this->objLanguage->code2Txt('mod_context_selectcontextplugins', 'context', NULL, 'Select the plugins you would like to use in your [-context-]').':</p>';
 
@@ -45,7 +45,16 @@ $objIcon = $this->newObject('geticon', 'htmlelements');
 
 $counter = 0;
 
+$newPlugins = array();
+
 foreach ($plugins as $plugin)
+{
+    $newPlugins[$plugin['title']] = $plugin;
+}
+
+ksort($newPlugins);
+
+foreach ($newPlugins as $plugin)
 {
     $counter++;
     

@@ -77,11 +77,38 @@ class contextadminnav extends object
      */
     public function show()
     {
+        $str = '';
+        
         $heading = new htmlheading();
         $heading->type = 3;
         $heading->str = ucwords($this->objLanguage->code2Txt('mod_contextadmin_name', 'contextadmin', NULL, '[-context-] Admin'));
         
         $str = $heading->show();
+        
+        $str .= '<ul id="nav-secondary">';
+        
+        $mycoursesLink = new link ($this->uri(NULL));
+        $mycoursesLink->link = ucwords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]'));
+        
+        $str .= '<li>'.$mycoursesLink->show().'</li>';
+        
+        $objUser = $this->getObject('user', 'security');
+        
+        if ($objUser->isAdmin() || $objUser->isLecturer()) {
+        
+            $createCourse = new link ($this->uri(array('action'=>'add')));
+            $createCourse->link = ucwords($this->objLanguage->code2Txt('mod_contextadmin_createcontext', 'contextadmin', NULL, 'Create [-context-]'));
+            
+            $str .= '<li>'.$createCourse->show().'</li>';
+        }
+        
+        $str .= '</ul>';
+        
+        $heading = new htmlheading();
+        $heading->type = 3;
+        $heading->str = ucwords($this->objLanguage->code2Txt('mod_contextadmin_searchforcontext', 'contextadmin', NULL, 'Search for [-context-]'));
+        
+        $str .= '<br />'.$heading->show();
         
         $form = new form ('searchform', $this->uri(array('action'=>'search')));
         $form->method = 'GET';
@@ -97,19 +124,7 @@ class contextadminnav extends object
         
         $str .= $form->show();
         
-        $str .= '<ul>';
         
-        $mycoursesLink = new link ($this->uri(NULL));
-        $mycoursesLink->link = ucwords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]'));
-        
-        $str .= '<li>'.$mycoursesLink->show().'</li>';
-        
-        $createCourse = new link ($this->uri(array('action'=>'add')));
-        $createCourse->link = ucwords($this->objLanguage->code2Txt('mod_contextadmin_createcontext', 'contextadmin', NULL, 'Create [-context-]'));
-        
-        $str .= '<li>'.$createCourse->show().'</li>';
-        
-        $str .= '</ul>';
         
         $heading = new htmlheading();
         $heading->type = 3;
