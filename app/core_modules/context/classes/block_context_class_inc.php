@@ -79,7 +79,7 @@ class block_context extends object
     {
     	try {
     		$this->objLanguage =  $this->getObject('language', 'language');
-    		$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
+    		$this->title = ucWords($this->objLanguage->code2Txt('mod_context_allcontexts', 'context', NULL, 'All [-contexts-]'));
             
             // HTML Elements
             $this->loadClass('form', 'htmlelements');

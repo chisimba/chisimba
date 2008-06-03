@@ -216,6 +216,10 @@
             jQuery("#editmodeswitchbutton").attr('value', turnEditingOn);
             jQuery(".blockoptions").hide();
             
+            jQuery(".blockoptions").hide();
+            
+            jQuery(".block").removeClass('highlightblock');
+            
             inEditMode = false;
         } else {
             jQuery("#leftaddblock").show();
@@ -223,6 +227,8 @@
             jQuery("#middleaddblock").show();
             jQuery("#editmodeswitchbutton").attr('value', turnEditingOff);
             jQuery(".blockoptions").show();
+            
+            jQuery(".block").addClass('highlightblock');
             
             inEditMode = true;
         }
