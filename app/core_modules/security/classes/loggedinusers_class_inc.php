@@ -216,6 +216,18 @@ class loggedInUsers extends dbTable
             return false;
         }
     }
+    
+    /**
+    * Method to get a list of logged in users
+    * @param string $order Order Clause
+    * @return array List of Users Online
+    */
+    function getListOnlineUsers($order = 'WhenLastActive DESC')
+    {
+        $sql = 'SELECT DISTINCT tbl_users.userId, username, firstName, surname FROM tbl_loggedinusers INNER JOIN tbl_users ON (tbl_loggedinusers.userId = tbl_users.userId) ORDER BY '.$order;
+        
+        return $this->getArray($sql);
+    }
 
 }
 ?>
