@@ -8,7 +8,7 @@
 */
 
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
-$leftMenu = $this->newObject('usermenu','toolbar');
+$leftMenu = $this->newObject('adminmenu','toolbar');
 $rightMenu = $this->getObject('userLoginHistory','security');
 $tabpane = $this->newObject('tabpane', 'htmlelements');
 $objTable = $this->newObject('htmltable', 'htmlelements');
