@@ -61,6 +61,7 @@ div.today {
 
 table.eventslist td{
     padding-bottom: 40px;
+    
 }
 
 div.eventlist {
@@ -68,21 +69,21 @@ div.eventlist {
 }
 
 div.event_user {
-    background: url('../calendar/user.gif') no-repeat top left;
+    background: url('../calendar/user.gif') no-repeat 10px;
 }
 
 div.event_site {
-    background: url('../calendar/site.gif') no-repeat top left;
+    background: url('../calendar/site.gif') no-repeat 10px;
 }
 
 div.event_context {
-    background: url('../calendar/context.gif') no-repeat top left;
+    background: url('../calendar/context.gif') no-repeat 10px;
 }
 
 div.event_othercontext {
-    background: url('../calendar/othercontext.gif') no-repeat top left;
+    background: url('../calendar/othercontext.gif') no-repeat 10px;
 }
 
 div.event_workgroup {
-    background: url('../calendar/workgroup.gif') no-repeat top left;
+    background: url('../calendar/workgroup.gif') no-repeat 10px;
 }

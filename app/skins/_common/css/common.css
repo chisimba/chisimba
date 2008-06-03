@@ -203,3 +203,10 @@ h5.featureboxheader {
 .highlightblock {
     border: 1px dashed red;
 }
+
+ul.htmlliststyle li {
+    background: transparent url("../icons/text.gif") no-repeat 0 4px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
+}
