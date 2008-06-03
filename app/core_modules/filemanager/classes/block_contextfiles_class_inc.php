@@ -11,7 +11,7 @@ class block_contextfiles extends object
         $this->objFolder = $this->getObject('dbfolder');
         $this->objContext = $this->getObject('dbcontext', 'context');
         $this->objLanguage = $this->getObject('language', 'language');
-        $this->title = $this->objLanguage->code2Txt('mod_filemanager_contextfiles', 'filemanager', NULL, '[-context-] Files').': '.$this->objContext->getTitle();
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_filemanager_contextfiles', 'filemanager', NULL, '[-context-] Files').': '.$this->objContext->getTitle());
         $this->loadClass('link', 'htmlelements');
     }
    
