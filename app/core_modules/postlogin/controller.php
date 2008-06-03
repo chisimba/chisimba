@@ -144,9 +144,9 @@ class postlogin extends controller
             
             if ($block[0] == 'block') {
                 $objBlocks = $this->getObject('blocks', 'blocks');
-                echo '<div id="'.$blockId.'" class="block">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
+                echo '<div id="'.$blockId.'" class="block highlightblock">'.$objBlocks->showBlock($block[1], $block[2], NULL, 20, TRUE, FALSE).'</div>';
             } if ($block[0] == 'dynamicblock') {
-                echo '<div id="'.$blockId.'" class="block">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
+                echo '<div id="'.$blockId.'" class="block highlightblock">'.$this->objDynamicBlocks->showBlock($block[1]).'</div>';
             } else {
                 echo '';
             }
