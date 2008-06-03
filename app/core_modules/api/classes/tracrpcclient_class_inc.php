@@ -58,7 +58,7 @@ class tracrpcclient extends object
 	{
 		if(!function_exists('xml_rpc_se'))
 		{
-			require_once($this->getPearResource('XML/RPC.php'));
+			//require_once($this->getPearResource('XML/RPC.php'));
 		}
 		$this->objConfig = $this->getObject('altconfig', 'config');
 		$this->objLanguage = $this->getObject('language', 'language');
