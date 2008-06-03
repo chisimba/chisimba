@@ -66,7 +66,7 @@ class graph
 		$this->line_default['values'] = '3,#87421F';
 		$this->js_line_default = 'so.addVariable("line","3,#87421F");';
 		
-		$this->bg_colour = '';
+		$this->bg_colour = '#FFFFFF';
 		$this->bg_image = '';
 	
 		$this->inner_bg_colour = '';
