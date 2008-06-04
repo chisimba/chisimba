@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$+PJzB"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.0b5"
+                   NS1:maxVersion="3.0b5" />
+  <RDF:Description RDF:about="urn:mozilla:item:langpack-en-GB@xulrunner-1.9.ubuntu.com"
+                   NS1:installLocation="gre-global"
+                   NS1:version="1.9b5"
+                   NS1:name="Xulrunner (en-GB)"
+                   NS1:creator="http://translations.launchpad.net">
+    <NS1:type NC:parseType="Integer">8</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$0QJzB"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"
+                   NS1:installLocation="gre-global"
+                   NS1:version="2.0"
+                   NS1:internalName="classic/1.0"
+                   NS1:locked="true"
+                   NS1:appManaged="true"
+                   NS1:name="Firefox (default)"
+                   NS1:description="The default theme"
+                   NS1:creator="Gerich and Horlander"
+                   NS1:contributor="Mozilla Contributors">
+    <NS1:type NC:parseType="Integer">4</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$+PJzB"/>
+  </RDF:Description>
+  <RDF:Seq RDF:about="urn:mozilla:item:root">
+    <RDF:li RDF:resource="urn:mozilla:item:langpack-en-GB@xulrunner-1.9.ubuntu.com"/>
+    <RDF:li RDF:resource="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"/>
+    <RDF:li RDF:resource="urn:mozilla:item:langpack-en-GB@firefox-3.0.ubuntu.com"/>
+    <RDF:li RDF:resource="urn:mozilla:item:ubufox@ubuntu.com"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="rdf:#$.PJzB"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.0b3"
+                   NS1:maxVersion="3.0b5" />
+  <RDF:Description RDF:about="urn:mozilla:item:ubufox@ubuntu.com"
+                   NS1:installLocation="app-global"
+                   NS1:version="0.5"
+                   NS1:iconURL="chrome://ubufox/content/ubuntulogo32.png"
+                   NS1:name="Ubuntu Firefox Modifications"
+                   NS1:description="Ubuntu configuration defaults and apt support for firefox extensions/plugins."
+                   NS1:creator="Canonical Ltd.">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>Alexander Sack &lt;asac@ubuntu.com&gt;</NS1:contributor>
+    <NS1:contributor>Sasa Bodiroza &lt;jazzva@gmail.com&gt;</NS1:contributor>
+    <NS1:contributor>Daniel Abramov &lt;ex@vingrad.ru&gt;</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$ZPJzB"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$ZPJzB"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.0.*" />
+  <RDF:Description RDF:about="rdf:#$0QJzB"
+                   NS1:id="toolkit@mozilla.org"
+                   NS1:minVersion="1.9b3"
+                   NS1:maxVersion="1.9b5" />
+  <RDF:Description RDF:about="urn:mozilla:item:langpack-en-GB@firefox-3.0.ubuntu.com"
+                   NS1:installLocation="app-global"
+                   NS1:version="3.0b5"
+                   NS1:name="Firefox (en-GB)"
+                   NS1:creator="http://translations.launchpad.net">
+    <NS1:type NC:parseType="Integer">8</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$.PJzB"/>
+  </RDF:Description>
+</RDF:RDF>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<note version="0.3" xmlns:link="http://beatniksoftware.com/tomboy/link" xmlns:size="http://beatniksoftware.com/tomboy/size" xmlns="http://beatniksoftware.com/tomboy">
+  <title>XUL</title>
+  <text xml:space="preserve"><note-content version="0.1">XUL
+
+Get info on the XUL Tools from Brent then get the examples and code from Nick</note-content></text>
+  <last-change-date>2008-06-04T13:19:24.1755420+02:00</last-change-date>
+  <last-metadata-change-date>2008-06-04T13:19:24.1755420+02:00</last-metadata-change-date>
+  <create-date>2008-06-04T13:18:38.7846080+02:00</create-date>
+  <cursor-position>82</cursor-position>
+  <width>450</width>
+  <height>360</height>
+  <x>0</x>
+  <y>0</y>
+  <open-on-startup>False</open-on-startup>
+</note>

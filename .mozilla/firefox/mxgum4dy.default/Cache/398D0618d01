@@ -1,0 +1,2625 @@
+/* General */
+body
+{
+	background: #fff;
+	padding: 0;
+	margin: 0;
+	font-family: arial, sans-serif;
+	font-size: 100%;
+	color: #000;
+}
+
+a, .link
+{
+	text-decoration: none;
+	color: #03c;
+}
+
+a:visited, .linked
+{
+	text-decoration: none;
+	color: #039;
+}
+
+a:hover, .link:hover, .link:hover
+{
+	text-decoration: underline;
+	color: #36f;
+}
+
+a.selected
+{
+	font-weight: bold;
+	color: #345;
+}
+
+img { border: none; }
+
+fieldset, legend, label
+{
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+input:focus, a:focus {overflow: hidden}
+.jump, .jump li {margin: 0; padding: 0}
+.jump li {text-indent: -7000em; position: absolute; list-style: none}
+.pagetitle {margin: .5em 0; color: #89a; font-size: 100%; }
+
+#kahuna legend, .topnav form label, #kahuna form label { display: none !important; }
+.nobreak { white-space: nowrap; }
+.basic { font-weight: normal; }
+
+/* phase 0 hacks */
+#frame table tr td, #frame p table tr td p,
+#frame p table tr td h3, #frame p table tr td,
+#frame p table tr td table tr td { font-size: 100%; }
+#frame table table tr td { font-size: 85%; }
+
+.my_tasks table td, .my_donations table td, .site_mailings table td, .my_projects table td, .my_subscription table td, 
+.developer_page table td, .preferences table td  {font-size: 85% !important;}
+
+.flow {width: 15.8em !important}
+
+/* Masthead */
+#hd * {margin: 0; padding: 0;}
+#masthead {position: relative; height: 60px;}
+#hd h1, #masthead h1
+{
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        padding: 0; margin: 0;
+        z-index: 0;
+        width: 255px;
+        height: 50px;
+        background: url("http://images.sourceforge.net/sfx_logo2.png") no-repeat -5px -5px;
+}
+
+#hd h1 a, #masthead h1 a
+{
+        text-indent: -700em;
+        text-decoration: none;
+        left: 0;
+        position: absolute;
+        width: 255px;
+}
+
+#hd h1 a:hover, #masthead h1 a:hover { text-decoration: none !important; }
+
+/* Mainnav */
+body {padding-top: 2.4em}
+ul#mainnav { margin: 0 0 -1px 0; white-space: nowrap; text-align: center; padding: .2em 0; background: #fff url("http://images.sourceforge.net/dark_fade_10.png") repeat-x bottom;}
+ul#mainnav li {list-style: none; display: inline; position: relative; z-index: 2; margin: 0 .2em; padding: .2em 0; background: #fff url("http://images.sourceforge.net/dark_fade_g.png") repeat-x bottom;}
+ul#mainnav li a {padding: .4em 1.2em; color: #334455; font-size: 80%; font-weight: bold;}
+ul#mainnav li.selected a {color: #fff}
+ul#mainnav li a sup {position: absolute; top: -6.5px; right: 3px; z-index: 3;}
+ul#mainnav li a sup b {text-indent: -7000em; position: absolute; top: 0; right: 0; width: 31px; height: 12px;}
+ul#mainnav li.selected, ul#mainnav li:hover.selected {background: #ED5929 url("http://images.sourceforge.net/crush.png") repeat-x top; position: relative} 
+ul#mainnav li:hover {background: #fff url("http://images.sourceforge.net/dark_dwn_fade_g.png") repeat-x top left;}
+
+.beta a sup b { background: url('http://images.sourceforge.net/icons/beta_sm.png') 0 -5px no-repeat !important;}
+.new a sup b { background: url('http://images.sourceforge.net/icons/new_sm.png') 0 -5px no-repeat !important}
+
+/* Search and user account */
+#topuser {position: absolute; right: 5px; top: 10px; z-index: 1; background: #fff; margin-left: 260px; font-size: 75% !important; color: #345; padding-bottom: .3em; white-space:nowrap}
+#topuser a {text-decoration: underline; padding-right: .5em}
+#topuser .menu1 {border-left: 1px solid #bcd; padding-left: .8em}
+#topuser select {font-size: 95%; padding: .1em; border: 1px solid #aaa;}
+
+#kahuna legend, .topnav form label, #kahuna form label { display: none !important; }
+#kahuna {position: relative; z-index: 4; clear: both; border-top: 3px solid #ED5929; padding: .375em; border-bottom: 1px solid #aaa; background: #fff url("http://images.sourceforge.net/dark_fade_g.png") repeat-x bottom; text-align: center;}
+#kahuna form {margin: 0; padding: 0; white-space: nowrap;}
+#kahuna a {text-decoration: underline; font-size: 75%; height: 100%}
+#kahuna form input#searchbox { font-size: 80%; padding: .15em .2em; border: 1px solid #aaa; width: 23em !important;}
+#kahuna form input#searchsubmit {font-size: 80%; margin: 0 0 0 .2em; padding: .1em .6em;  background: #ED5929 url("http://images.sourceforge.net/crush.png") repeat-x top;  border: 1px solid #ED5929; border-bottom: 1px solid #c30; border-right: 1px solid #c30; color: #fff; font-weight: bold}
+#kahuna form input#searchsubmit.test { background: #ED5929; color: #fed; border: 1px solid #c30; border-bottom: 1px solid #fc9; border-right: 1px solid #fc9;}
+#kahuna form select {font-size: 80%; padding: .1em; background: #fff; border: 1px solid #aaa;}
+
+#kahuna form fieldset, #kahuna form label
+{
+        border: none;
+        margin: 0;
+        padding: 0;
+        display: inline;
+}
+
+
+#myfav {display: inline;}
+.nohost, .website a
+{
+	background: transparent url("http://images.sourceforge.net/icons/silk/link_external.png") no-repeat right !important;
+	padding: 0 22px 0 0 !important;
+	margin: 0 .5em 0 0 !important;
+}
+
+.down
+{
+	line-height: 140%;
+	background: url("http://images.sourceforge.net/sfx/icon_down.gif") no-repeat left;
+	padding: 0 0 2px 20px;
+}
+
+
+/* Breadcrumb */
+#breadcrumb {padding: 0 0 1em 0; margin: 0; font-size: 85%;}
+#breadcrumb li
+{
+	display: inline;
+	padding: 0;
+	margin: 0;
+	color: #789;
+	list-style: none;
+}
+
+#breadcrumb li:before { content: "\00BB \0020"; }
+#breadcrumb li:first-child:before { content: ""; }
+#breadcrumb li a { color: #56626d; }
+#breadcrumb li.selected a { font-weight: bold; }
+
+#frame {clear: both;}
+#innerframe { clear: both; padding: 1em 2em;}
+.welcome p, .project p {padding: 0 .6em;}
+
+/* Titlebars */
+.titlebar, .tbar h3, .tbarhigh h3 {border-top: 1px solid #bcd; background: #eef0f3 url("http://images.sourceforge.net/sfx/sfx_titlebar_bg2.png") repeat-x bottom left; font-size: 82.3%; color: #345; padding: .3em .5em 1.7em .5em; margin: 0 0 -.5em 0;}
+.titlebar_orange {border-top: 1px solid #ffb667; background: #ffdcb7 url("http://images.sourceforge.net/titlebar_orange2.png") repeat-x bottom left; font-size: 82.3%; color: #930; padding: .3em .5em 2.1em .5em; margin: 0 0 -1.5em 0;}
+.tbar b, .tbarhigh b {display: none;margin: 0; padding: 0;}
+.downloadbar {position: relative; border-top: 1px solid #008000; background: #0a0 url("http://images.sourceforge.net/sfx/sfx_dl_bg2.png") repeat-x bottom left; font-size: 82.3%; color: #345; padding: .3em 4.5em 1.7em .5em !important; margin: 0 0 -.5em 1em; width: 17em;}
+.downloadbar a {color: #fff !important; margin: 0 3.5em 0 0 !important}
+.downloadbar a:hover {color: #efe !important;}
+.downloadbar small
+{
+        color: #fff;
+        padding: 20px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: url("http://images.sourceforge.net/sfx/sfx_dl_arrow2.png")  bottom left no-repeat;
+}
+.titlebar small
+{
+        padding: 10px;
+        position: absolute;
+        right: .3em;
+        top: .2em;
+}
+.titlebar small a {text-indent: -7000em; position: absolute; right: 0; top: 0;}
+.linkbar {padding: .3em 1em; background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -41px repeat-x;}
+.linkbar {padding: .3em 1em; background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -41px repeat-x;}
+
+
+/* Hide lists */
+#pdetails li span, #parea li span
+{
+	display: inline;
+	padding: .1em;
+}
+
+.welcome .column li { list-style: none; }
+.welcome .column li span { font-size: 85%; }
+
+.welcome .column
+{
+	float: left;
+	width: 21%;
+	margin: .5em 0 1em 1em;
+	padding: 0;
+	border: none;
+	position: relative;
+}
+
+.welcome .column li, #frame #pdetails li, #frame #parea li
+{
+	padding: .3em 0 .3em 1.2em;
+	position: relative;
+}
+
+#frame #pdetails li, #frame #parea li
+{
+	padding: .3em 0;
+	position: static;
+}
+
+/* Marquee */
+#sfmarquee
+{
+	padding: 1.1em 0 0 70px;
+	background: transparent url("http://images.sourceforge.net/sfx/marquee.gif") no-repeat;
+	position: relative;
+}
+
+#sfmarquee h4
+{
+	font-size: 90%;
+	font-weight: normal;
+	float: left;
+	width: 51%;
+	padding: .5em 0 0 0;
+	margin: -.5em 0 .6em 0;
+	color: #56626d !important;
+	position: relative;
+}
+
+#sfmarquee h4 strong
+{
+	font-size: 120%;
+	font-weight: bold;
+}
+
+#sfmarquee h4 strong span
+{
+	display: block;
+	padding: 0 0 0 1em;
+}
+
+#sfmarquee h4 a { color: #56626d; }
+#sfmarquee h4 a:hover { text-decoration: none; }
+
+#frame .onewidetop .highlights
+{
+	border: none;
+	float: right;
+	width: 49%;
+	margin: -.8em 0 0 0;
+}
+
+#frame .highlights li
+{
+	font-size: 70%;
+	color: #56626d;
+	text-align: right;
+	margin: 0;
+}
+
+#frame .highlights li a
+{
+	font-weight: bold;
+	font-size: 100%;
+	color: #56626d;
+}
+
+#frame .highlights li.bottom { border: none; }
+
+div.stats
+{
+	margin: .5em 0 -.5em 0;
+	color: #56626d;
+	clear: both;
+	font-size: 70%;
+	text-align: center;
+}
+
+div.stats a { color: #56626d; }
+
+#frame ol li
+{
+	border: none;
+	list-style: decimal;
+	padding: .1em 0;
+}
+
+#frame ol
+{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#frame.view_artifact textarea#details { width: 80%; }
+#ad34
+{
+	width: 300px;
+	float: left;
+	position: relative;
+	z-index: 0 !important;
+}
+
+.dual { margin: 0 0 0 300px; }
+
+#ad7,#ostgservices
+{
+	float: left;
+	width: 48%;
+	margin: 0 0 0 2%;
+}
+.pricegrabber small {font-size: 75%;}
+.subtitle, #fad19 h3, #fad24 h3
+{
+	border-bottom: 2px solid #789;
+	margin: 0;
+	font-weight: bold;
+	font-size: 85%;
+	color: #789;
+	position: relative;
+	clear: left;
+}
+
+#fad2sm h3
+{
+	border-bottom: 2px solid #789;
+	margin: 0 0 -1px .4em;
+	font-weight: bold;
+	font-size: 85%;
+	color: #789;
+	position: relative;
+	clear: left;
+}
+
+#fad19 h3, #fad24 h3
+{
+	margin-top: 1em;
+	font-size: 70% !important;
+}
+
+#fad19 p, #fad24 p
+{
+	border: none !important;
+	margin: 0 2% 0 0 !important;
+	float: left;
+	width: 28%;
+}
+
+#fad19 p small , #fad24 p small { font-size: 85% !important; }
+
+#fad1p
+{
+	width: 728px;
+	height: 90px;
+}
+
+#fad2p
+{
+	float: right;
+	text-align: center;
+	width: 20%;
+}
+
+#fad36p
+{
+	height: 90px;
+	width: 360px;
+	float: right;
+	clear: right;
+}
+
+#fad6p
+{
+	height: 410px;
+	float: right;
+}
+.welcome #fad6p {height: 380px}
+
+#fad24p
+{
+	height: 12em;
+	z-index: 0;
+	position: relative;
+}
+
+#fadbtmp
+{
+	height: 23em;
+	clear: both;
+}
+#sponsored_dl div.left div, #sponsored_dl div.right div, #sponsored_dl div.center div, #sponsored_dl div.left .left, #sponsored_dl div.right .right, #sponsored_dl div.center .center
+{
+	float: none;
+	width: 100%;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+#sponsored_dl div.left, #sponsored_dl div.right, #sponsored_dl div.center
+{
+	padding: .3em 0;
+	margin: .3em 0 1em 0;
+	width: 30%;
+	float: left;
+	text-align: left;
+	display: block;
+}
+.post_download #sponsored_dl {line-height: 100%;}
+#sponsored_dl div.right { border-left: 10px #fff solid; }
+#sponsored_dl div.left { border-right: 10px #fff solid; }
+
+#sponsored_dl div.center
+{
+	padding: .3em 10px;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+}
+
+#sponsored_dl
+{
+	line-height: 140%;
+	font-size: 80%;
+	display: block;
+	position: relative;
+	height: 90px;
+	margin-top: -2em !important;
+	padding: 0 0 0 .6em;
+	border-top: 1px solid #ddd;
+	z-index: 0;
+}
+
+.software_map #sponsored_dl, .search #sponsored_dl { margin: 1.5em 0; }
+
+.sponsortitle
+{
+	text-align: center;
+	background: transparent;
+	font-size: 70%;
+	border: none;
+	color: #abc;
+}
+.sponsortitle b {background: #fff; padding: 0 1em; position: relative; z-index: 1;}
+
+
+#sponsored_dl strong { position: relative; }
+
+#fad1
+{
+	position: absolute;
+	top: 6.6em;
+	left: 0;
+	overflow: hidden;
+	width: 100%;
+	z-index: 1 !important;
+	display: block;
+}
+
+#fad1 div
+{
+	width: 728px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+#fad1 div div
+{
+	width: 100%;
+	margin: 0;
+	text-align: left;
+}
+
+#fad2sm { z-index: 1; }
+.search #fad2 {position: absolute; right: 1em; top: 17em; width: 160px;}
+#fad36
+{
+	position: absolute;
+	top: 170px;
+        z-index: 1 !important;
+	right: 2em !important;
+	padding-top: 2.6em;
+}
+#adpowerbar div.pow_note {height: 11px !important; overflow: hidden;}
+.filespackage #fad36, .platformdownload #fad36, .files #fad36, .project_summary #fad36 {padding-top: 8.5em}
+
+#fad36 #adpowerbar
+{
+	display: block;
+	width: 300px;
+}
+.filespackage #fad6p {height: 315px !important;}
+.files #fad6p {height: 390px !important;}
+#fad6
+{
+	display: block;
+	position: absolute;
+	top: 245px;
+	padding-top: 2.6em;
+	right: 2em !important;
+	z-index: 0 !important;
+	height: 280px;
+	width: 336px;
+	margin: 0 auto;
+}
+
+.post_download #fad6 { top: 270px; right: 270px !important; }
+/* download layering */
+.post_download #fad6 { top: 270px; right: 270px !important; }
+.post_download #fad36p { z-index: 3 !important; }
+.post_download #innerframe { z-index: inherit }
+.post_download #fad6 div { position: relative; z-index: 3 !important; }
+.post_download h2, .post_download p, .post_download .titlebar_orange { position: relative; z-index: 2; margin-right: 340px; }
+
+#fad6 div
+{
+	float: right;
+        position: relative;
+        z-index: 0 !important;
+	margin: 0 auto;
+}
+
+#fad6 div div { text-align: left; width: 100%;}
+#fad6 div div div {margin: 0 0 .5em 0 !important; float: none;}
+.filespackage #fad6, .files #fad6, .project_summary #fad6, .platformdownload #fad6 {padding-top: 8.5em;}
+.filespackage #fad6 {top: 170px;}
+
+.project_search #fad19, #fad24
+{
+	position: absolute;
+	margin: -48em 2em 0 0 !important;
+	left: 2.5em;
+	width: 74.5%;
+	font-size: 85%;
+	z-index: 0;
+}
+
+#fadbtm
+{
+	position: absolute;
+	margin: -28em 2em 0 0;
+	left: 2em;
+	width: auto;
+	height: auto;
+}
+
+/* Layout */
+.sponsor
+{
+	text-align: center;
+}
+
+.onewide { margin: 0 230px 0 0; }
+.onewidetop { margin: 0 330px 0 0; }
+.onewidedl { margin: 0 180px 0 0; }
+
+.onewidebtm
+{
+	margin: 0;
+	clear: both;
+}
+
+.one
+{
+	float: left;
+	width: 98%;
+	margin: 0;
+	position: relative;
+}
+
+.two
+{
+	float: left;
+	width: 48%;
+}
+
+.three
+{
+	float: left;
+	width: 48%;
+	padding: 0 0 0 1em;
+}
+
+.project .two, .potm .two
+{
+	float: left;
+	width: 55%;
+	clear: left;
+}
+
+.project .three, .potm .three
+{
+	float: left;
+	width: 38%;
+	margin: 0 0 0 1em;
+}
+
+.four
+{
+	float: right;
+	width: 220px;
+	clear: right;
+}
+
+.five
+{
+	float: right;
+	width: 328px;
+	clear: right;
+}
+
+.six
+{
+	float: right;
+	width: 220px;
+}
+
+.seven
+{
+	float: left;
+	width: 25%;
+	margin: 0;
+}
+
+.eight
+{
+	float: left;
+	width: 46%;
+	margin: 0 2%;
+}
+
+#frame #btmad ul { border: none; }
+#btmad { clear: left; }
+
+/* Messaging */
+.pending, .error, .warning, .message { color: #000; }
+h3.info, h3.error, h3.warning, h3.message { font-size: 90%}
+.error
+{
+	background: #fdd url("http://images.sourceforge.net/icons/silk/delete.png") no-repeat 10px 3px;
+	border: 1px solid #fbb;
+	padding: .2em 40px;
+	margin: .5em 0 1em 0;
+	position: relative;
+}
+#frame.error, #adbatch.error {margin: 0; padding: 0; background: transparent; border: none; position: static}
+.warning, .pending, .WikiBanner, .WikiNotice {background: #ffd url("http://images.sourceforge.net/sfx/icon_warning.gif") no-repeat 10px 3px; border: 1px solid #fe6; padding: .2em 40px; margin: .5em 0 1em 0; position: relative; }
+
+.message
+{
+	background: #dfd url("http://images.sourceforge.net/icons/silk/accept.png") no-repeat 10px 3px;
+	border: 1px solid #bfb;
+	padding: .2em 40px;
+	margin: .5em 0 1em 0;
+	position: relative;
+}
+.pending {background: #ffd url("http://images.sourceforge.net/ajax-loader.gif") no-repeat 10px 3px;}
+
+.info
+{
+	background: #def url("http://images.sourceforge.net/icons/silk/information.png") no-repeat 10px 3px;
+	border: 1px solid #9cf;
+	padding: .2em 40px;
+	margin: .5em 0 1em 0;
+	position: relative;
+}
+
+/* Sectional header and project header */
+.topnav
+{
+	position: relative;
+	z-index: 10000 !important;
+}
+
+.potm h2 small
+{
+	font-weight: bold;
+	position: absolute;
+	right: 1em;
+	vertical-align: middle;
+}
+
+.potm h2 span.rss
+{
+	font-size: 65%;
+	font-weight: normal;
+	border: 1px solid #f40;
+	background: #f60;
+	text-shadow: none;
+	padding: 0 .2em;
+}
+
+.potm h2 small a { padding: 0 .2em; }
+.topnav h2 span { padding: 0 20em 0 0; }
+.topnav h2 span a { color: #000; }
+
+.topnav h2
+{
+	margin: -.5em 0 0 0;
+	font-size: 115%;
+}
+
+.potm h2
+{
+	font-size: 115%;
+	border-bottom: 1px solid #789;
+	margin: -.5em 0 0 0;
+	padding: 0 0 .1em 0;
+}
+
+a.potm
+{
+	background: url("http://images.sourceforge.net/sfx/potm.gif") right no-repeat;
+	padding: 0 1.5em 0 0;
+}
+a.notice
+{
+        background: url("http://images.sourceforge.net/icons/silk/transmit_blue.png") right no-repeat !important;
+        padding: 5px 20px;
+}
+.projectsearch, .preview
+{
+	background: url("http://images.sourceforge.net/icons/silk/magnifier.png") 6px 4px no-repeat;
+	padding: 0 0 .4em 30px;
+}
+
+.services
+{
+	background: url("http://images.sourceforge.net/icons/silk/medal_gold_1.png") no-repeat;
+	padding: 0 0 10px 20px;
+}
+
+.google_checkout
+{
+	background: url("http://images.sourceforge.net/sfx/badge.gif") no-repeat right top;
+	padding: 1px 30px 10px 0;
+}
+
+.paypal
+{
+	background: url("http://images.sourceforge.net/sfx/logo_paypalPP_16x16.gif") no-repeat right top;
+	padding: 1px 20px 10px 0;
+}
+.about
+{
+        background: url("http://images.sourceforge.net/icons/silk/user.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+.print
+{
+        background: url("http://images.sourceforge.net/icons/silk/printer.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+.newitem
+{
+        background: url("http://images.sourceforge.net/icons/silk/asterisk_orange.png") no-repeat;
+        padding: 0 0 10px 20px;
+text-indent: -7000em; display: block;
+}
+.action
+{
+        background: url("http://images.sourceforge.net/icons/silk/flag_red.png") no-repeat;
+        padding: 0 0 10px 20px;
+text-indent: -7000em; display: block;
+}
+
+.read
+{
+        background: url("http://images.sourceforge.net/icons/silk/email_open.png") no-repeat;
+        padding: 0 0 10px 20px;
+text-indent: -7000em; display: block;
+}
+.unread
+{
+        background: url("http://images.sourceforge.net/icons/silk/email.png") no-repeat;
+        padding: 0 0 10px 20px;
+text-indent: -7000em; display: block;
+}
+
+#detail, #detailsToggle
+{
+	background: url("http://images.sourceforge.net/icons/silk/cog.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+#detail.sel, #detailsToggle.sel
+{
+        background: url("http://images.sourceforge.net/icons/silk/cog_add.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+#images
+{
+        background: url("http://images.sourceforge.net/icons/silk/image_delete.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+#images.sel
+{
+        background: url("http://images.sourceforge.net/icons/silk/image_add.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+
+.profile
+{
+        background: url("http://images.sourceforge.net/icons/silk/vcard.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+.contact
+{
+        background: url("http://images.sourceforge.net/icons/silk/user_comment.png") no-repeat;
+        padding: 0 0 10px 20px;
+}
+
+.pdf
+{
+        background: url("http://images.sourceforge.net/icons/silk/page_white_acrobat.png") no-repeat right;
+        padding: 5px 20px 5px 0;
+        width: 16px;
+}
+a.donate
+{
+	background: url("http://images.sourceforge.net/icons/silk/money.png") no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+a.rss
+{
+	background: url("http://images.sourceforge.net/icons/silk/feed.png") no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+a.acceptdonate
+{
+	background: url("http://images.sourceforge.net/icons/silk/money_add.png") no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+.security
+{
+	background: url("http://images.sourceforge.net/icons/silk/lock.png") no-repeat;
+        padding: 5px 0 5px 20px;
+        margin-left: 1em;
+}
+
+small a.help
+{
+	background: url("http://images.sourceforge.net/sfx/help.gif") 6px 0px no-repeat;
+	padding: 0 0 0 2em;
+}
+
+a.sitestats
+{
+	background: url("http://images.sourceforge.net/icons/silk/chart_curve.png") 0px 0px no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+.monitor
+{
+	background: url("http://images.sourceforge.net/icons/silk/email_add.png") no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+a.monitor_stop
+{
+	background: url("http://images.sourceforge.net/icons/silk/email_delete.png") no-repeat;
+	padding: 0 0 20px 20px;
+	margin-left: 1em;
+	line-height: 180%;
+}
+
+.changelog { background: url("http://images.sourceforge.net/icons/silk/book.png") no-repeat right; }
+.notes { background: url("http://images.sourceforge.net/icons/silk/paste_plain.png") no-repeat right; }
+.mirrors { background: url("http://images.sourceforge.net/icons/silk/layers.png") no-repeat right; }
+
+.changelog, .notes, .mirrors
+{
+	text-indent: -7000em;
+	padding: 20px 0;
+}
+
+.mup
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/arrow_up.png") no-repeat;
+	width: 16px;
+}
+
+.mdown
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/arrow_down.png") no-repeat;
+	width: 16px;
+}
+
+.delete
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/delete.png") no-repeat;
+	width: 16px;
+}
+
+.online
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/status_online.png") no-repeat;
+	width: 16px;
+}
+
+.offline
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/status_offline.png") no-repeat;
+	width: 16px;
+}
+
+.forum div .delete
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.forum td div { padding: 0 30px 0 0 !important; }
+
+.forum_message div a.delete
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.forum_message td div { padding: 0 30px 0 0 !important; }
+
+.add
+{
+	text-indent: -7000em;
+	padding: 0 0 0 20px;
+	background: url("http://images.sourceforge.net/icons/silk/add.png") no-repeat;
+	width: 16px;
+}
+
+.forum div .add
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.forum_message div .add
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.editing h4
+{
+	padding: 0;
+	margin: 0;
+	color: #789;
+}
+
+
+#navigation .titlebar div
+{
+        padding-right: 10em;
+        display: inline;
+}
+
+#navigation input { width: 14em; }
+#navigation .active tbody tr:hover { background: #eee; }
+
+#navigation .options
+{
+        padding: 5px 30px;
+        position: relative; border: none;
+}
+#navigation tr th {padding: .3em; font-size: 85%}
+#navigation tr td {padding: .3em; font-size: 85% !important;}
+#navigation .options a
+{
+        top: 1px;
+        display: block;
+        position: absolute;
+}
+#navigation .divider,
+#navigation .vis {border: none; text-align: center;}
+#navigation .active { }
+#navigation .add { margin-left: 5px; }
+#navigation .delete { left: 0px; }
+#navigation .mup { left: 25px; }
+#navigation .mdown { left: 40px; }
+
+#frame div.forum
+{
+	position: relative;
+	left: 0;
+	top: 0;
+}
+
+.mail_archive div a.delete
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.mail_archive td div { padding: 0 30px 0 0 !important; }
+
+.mail_archive div a.add
+{
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+.help
+{
+	background: url("http://images.sourceforge.net/icons/silk/help.png") no-repeat left;
+	padding: 0 16px 0 20px;
+}
+
+.edit
+{
+	background: url("http://images.sourceforge.net/icons/silk/pencil.png") no-repeat left;
+	padding: 0 16px 0 20px;
+}
+
+.browse
+{
+	background: url("http://images.sourceforge.net/icons/silk/find.png") no-repeat left;
+	padding: 0 16px 0 20px;
+}
+
+.editing
+{
+	padding: 1em;
+	border: 1px dotted #ccc;
+	margin: .5em;
+}
+
+textarea.intro { width: 27em; }
+
+.project li a.potm
+{
+	background: url("http://images.sourceforge.net/sfx/potm.gif") no-repeat;
+	padding: 0 0 0 1em;
+}
+
+/* Project */
+#frame p.brief
+{
+	margin: 1em 0;
+	padding: 0 0 0 1.6em;
+	line-height: 130%;
+	font-size: 70%;
+	color: #56626d;
+}
+
+#frame p.brief a { color: #56626d; }
+
+/* Tables */
+table { empty-cells: show; }
+.zebra tr td {border-top: 1px solid #bcd !important; border-right: 1px solid #bcd !important; border-bottom: 1px solid #eee !important}
+
+.smlist thead tr th {border-bottom: 2px solid #ddd; color: #444;}
+.smlist tbody tr td {border-bottom: 1px solid #efefef}
+.smlist tfoot tr td {border-top: 2px solid #ddd}
+.smlist thead th {font-size: 85%}
+.smlist thead th, 
+.smlist tbody td, 
+.smlist tfoot td {padding: .8em 2em .8em 1em; text-align: left}
+.smlist tbody td a, .smlist tfoot td a {min-height: 20px; margin: 0 !important; padding: 0 0 1px 20px !important; text-indent: 0;}
+
+#frelease {width: 94% !important; margin: 1em 0;}
+
+table caption { display: none; }
+#frelease col {width: 20%}
+#frelease col.package tr td { font-weight: bold; }
+#frelease td.download { background: #093; text-align: center;}
+
+#frelease td.download a
+{
+	color: #fff;
+	font-weight: bold;
+
+}
+
+#stripes tr, #frelease tr, .zebra tr {position: relative !important}
+
+#stripes, #frelease, .zebra
+{
+	border: 1px solid #345;
+	font-family: arial, sans-serif;
+	font-size: 80%;
+	width: 100%;
+}
+
+#stripes tr th, #frelease tr th, .zebra tr th
+{
+	padding: .2em;
+	background: #46525d;
+	color: #fff;
+	text-align: left;
+}
+#frelease tr th {text-align: center}
+
+#stripes tr.package td
+{
+	background: url("http://images.sourceforge.net/sfx/main_select_bg.gif") top repeat-x #789;
+	color: #fff;
+	font-size: 130%;
+	font-weight: bold;
+}
+
+#stripes tr.package td a
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+#stripes td, #frelease td, .zebra td { padding: .1em .2em; }
+#stripes tbody tr.release { display: table-row; }
+
+#stripes tbody tr td, .zebra tbody tr td {background: #fff;}
+#frelease tbody tr td {border-top: 1px #fff solid; text-align: center;}
+#frelease tbody tr.package td {text-align: left;}
+
+#stripes tbody tr.release td
+{
+	background: #fff;
+	font-weight: bold;
+	padding: .2em;
+	border-top: 1px solid #789;
+	border-bottom: 1px solid #789;
+}
+
+#stripes tbody tr td.even, #frelease tbody tr td, .zebra tbody tr td.even { background: #f3f4f6; }
+#stripes th small, #frelease th small, .zebra th small  { color: #fff; }
+#stripes small, #frelease small, .zebra small { font-weight: normal; }
+#stripes col, .zebra col { width: 10%; }
+#stripes col.filename { width: 40%; }
+
+#stripes tfoot, .zebra tfoot
+{
+	background: #89a;
+	color: #fff;
+	font-weight: bold;
+}
+
+#stripes tbody tr td small { padding: 4px 14px 0 2px; }
+#stripes .changelog, #stripes .notes, #stripes .mirrors
+{
+        position: relative;
+        padding: 10px 20px 10px 0px;
+	margin-left: 0;
+}
+#stripes .changelog a, #stripes .notes a, #stripes .mirrors a
+{
+	position: absolute;
+        text-indent: -7000em;
+        padding: 10px 20px 10px 0px;
+}
+
+
+.show { }
+#stripes tbody tr.current td { background: #dfd; }
+
+/* POTM */
+.potm img { float: right; }
+.potm p { clear: both; }
+
+.potm div.tagline
+{
+	background: url("http://images.sourceforge.net/sfx/potm_50x50.gif") left no-repeat;
+	padding: 25px 0 25px 70px;
+	font-size: 80%;
+}
+
+.potm h3.tagline
+{
+	background: url("http://images.sourceforge.net/sfx/potm_50x50.gif") left no-repeat;
+	padding: 25px 0 25px 70px;
+	margin: 0;
+	color: #56626d;
+}
+
+.potm h3.tagline img
+{
+	float: right;
+	margin: 0;
+}
+
+.potm h2 span { padding: 0 12em 0 0; }
+.topnav h2 span { padding: 0 12em 0 0; }
+
+/* General formating */
+.shadow, #frame table#searchtable td.description img
+{
+	padding-bottom: 25px;
+	background: url("http://images.sourceforge.net/sfx/ss_shadow.gif") no-repeat bottom;
+}
+
+#frame p
+{
+	font-size: 82.3%;
+	line-height: 130%;
+}
+
+#frame .onewidetop p, #frame .onewide p,  #frame .onewidebtm p, #frame .four p, #frame p.sfx { margin: .5em 1.4em 1em 1.4em; }
+#frame li, #fadbtm li { font-size: 82.3%; }
+
+.onewidetop ul, .onewide ul, ul.clean
+{
+	margin: .5em 1em 1em 1em;
+	padding: 0;
+	border: 1px solid #fff;
+	border-top: 1px solid #c1cacf;
+}
+
+.onewidetop ul li, .onewide ul li, ul.clean li
+{
+	margin: 0;
+	padding: .5em .1em;
+	list-style: none;
+	border: 1px solid #fff;
+	border-bottom: 1px solid #c1cacf;
+}
+
+.break { clear: both; }
+.breakleft { clear: left; }
+
+.screenshot
+{
+	float: right;
+	border: 15px solid #fff;
+	position: relative;
+	z-index: 1000;
+}
+
+/* Docs */
+div#innerframe.docs h2
+{
+	background: transparent;
+	text-align: center;
+	border: none;
+	font-size: 120%;
+}
+
+div#innerframe.docs h2 a#top
+{
+	color: #000;
+	background: transparent;
+	text-align: center;
+	border: none;
+}
+
+.SD li
+{
+	padding: 0 0 .5em 0;
+	border: none;
+}
+
+.SD dt
+{
+	padding: 0 0 0 3.7em;
+	border: none;
+}
+div.SDleftcol a {text-decoration: none; color: #ccc; font-size: 80%; line-height: 90%;}
+div.SDleftcol
+{
+	font-size: 120%;
+	font-weight: bold;
+}
+
+
+div.SDbottom
+{
+	margin: 4em auto;
+	width: 70%;
+	padding: .5em 0;
+	background: #ccc;
+	border: 3px groove #666;
+}
+
+div.SDtoc
+{
+	background: #ccc;
+	border: 1px solid #999;
+	margin: 0 auto 2em auto;
+	width: 70%;
+}
+
+div.SDtoc p
+{
+	font-weight: bold;
+	text-align: center;
+}
+
+/* Footer */
+#footer
+{
+	clear: both;
+	margin: 1em;
+	text-align: center;
+	position: relative;
+	z-index: 1000;
+	background: #fff;
+}
+
+#footer ul
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#footer ul li
+{
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+#footer ul li a, #footer p
+{
+	font-size: 70%;
+	margin: 0;
+	padding: 0 .6em;
+	display: inline;
+}
+
+/* Example */
+#formname
+{
+	margin: 0 0 1em 1.3em;
+	font-size: 80%;
+}
+
+form label
+{
+	margin: 0;
+	padding: 0;
+}
+
+form label small
+{
+	display: block;
+	margin: .2em;
+}
+
+form small { white-space: normal; }
+
+/* Misc stuff */
+.date { white-space: nowrap; }
+
+.tag
+{
+	font-size: 75%;
+	color: #56626d;
+	font-weight: bold;
+	margin: .3em 0 .6em 200px;
+	float: left;
+}
+
+#frame .seven ul.clean { border: none; }
+pre { font-size: 130%; }
+
+/* Advance Search */
+div.filteroptions
+{
+	text-align: right;
+	border: 1px solid #9faab0;
+	border-bottom: none;
+	clear: both;
+        background: url("http://images.sourceforge.net/sfx/main_select_bg.gif") top repeat-x #789;
+}
+
+.search form label { display: inline; }
+
+.null
+{
+	padding: 0 0 0 15px;
+	z-index: 1;
+}
+
+/* Left Content */
+.left_column { width: 69%; }
+
+.left_column p
+{
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+/* Right Content Trove */
+.right_column
+{
+	float: right;
+	width: 28%;
+	margin: 1em 0 0 1em;
+}
+
+.right_column p { margin: 0 0 1em 1em; }
+.right_column .tbar { margin: 0 0 .5em 0; }
+
+.right_column ul
+{
+	margin: 0 0 .8em .3em;
+	padding: 0;
+}
+
+#frame ol { padding: 0 0 0 1.8em; }
+
+.right_column li
+{
+	border-bottom: #ddd solid 1px;
+	padding: .2em 0 .3em;
+	list-style: none;
+}
+
+.right_column li a:hover { color: #039; }
+
+/* Project Tree */
+#frame .catmap li { list-style: none; }
+#frame .catmap ul li { border: none; }
+#frame .pmap ul li, #frame .catmap ul li { font-size: 100%; }
+
+#frame .pmap ul li
+{
+	border: none;
+	background: url("http://images.sourceforge.net/sfx/icon_drop5.gif") no-repeat top left;
+	padding: 0 0 0 1em;
+	margin: 0 0 0 -2.4em;
+	position: relative;
+}
+
+#frame .pmap ul li input, #frame .pmap ul li a { margin-left: 1.5em; }
+
+#frame .pmap ul li.end
+{
+	padding-bottom: .3em;
+	background: url("http://images.sourceforge.net/sfx/icon_drop4.gif") no-repeat top left;
+}
+
+#frame .pmap ul
+{
+	background: url("http://images.sourceforge.net/sfx/icon_drop3.gif") repeat-y top left;
+	padding: 0 0 0 2.4em;
+	margin: 0;
+}
+
+#frame .pmap, #frame .pmap ul { position: relative; }
+
+#frame .pmap ul span
+{
+	left: 1.2em;
+	position: absolute;
+}
+
+#frame #miss0_1 .pmap ul li { padding: .1em 2em; }
+#frame #miss0_1 .pmap li input { margin: 0 0 0 -.1em; }
+#frame #miss0_1 .pmap, #frame #miss0_1 .pmap li { border: none; }
+.current { font-weight: bold; }
+.current ul li { font-weight: normal; }
+.advancedpage p, .advancedpage .subtitle { margin-left: 1em; }
+
+.adv
+{
+	background: url("http://images.sourceforge.net/sfx/icon_adv.gif") no-repeat left;
+	padding: 2px 0 2px 20px;
+}
+
+h2 span.adv
+{
+	position: absolute;
+	right: 0;
+	padding: 0;
+}
+
+h2 span.adv a
+{
+	margin: 0 0 0 20px;
+	font-size: 70%;
+	font-weight: normal;
+}
+
+.filteroptions
+{
+	padding: .1em;
+	color: #789;
+	font-size: 80%;
+	font-weight: bold;
+}
+
+small.options
+{
+	margin: -.2em 0 1em 0;
+	float: right;
+	font-size: 70%;
+}
+
+table .filteroptions { clear: none !important; }
+
+#secondwave li
+{
+	list-style: none;
+	display: inline;
+}
+
+#secondwave
+{
+	margin: .8em 0 0 0;
+	padding: 0 0 0 1em;
+	border-bottom: 1px solid #adb9c4;
+}
+
+#secondwave li a
+{
+	background: #adb9c4;
+	color: #fff;
+	border: 1px solid #96a3b1;
+	border-bottom: 1px solid #a4b1bd;
+	padding: 0 1em;
+}
+
+#secondwave li#current a, #secondwave li.selected a
+{
+	font-weight: bold;
+	color: #789;
+	border: 1px solid #adb9c4;
+	border-bottom: none;
+	background: #fff;
+	padding: .3em 1em 2px 1em;
+}
+
+#secondwave ul
+{
+	position: absolute;
+	left: 0;
+	margin: 0;
+	padding: .3em 0;
+	border: none;
+}
+
+#secondwave li ul li a
+{
+	background: transparent;
+	margin: 0;
+	padding: 0;
+	border: none !important;
+	font-weight: normal !important;
+	font-size: 120% !important;
+}
+
+#secondwave ul li.selected a
+{
+	border: none;
+	font-weight: bold !important;
+}
+
+.searchin
+{
+	left: 30em;
+	position: absolute;
+}
+
+.topform label
+{
+	width: 14em;
+	float: left;
+	clear: left;
+	text-align: left;
+	margin: 0 .5em 0 0;
+}
+
+.topform input { width: 11em; }
+
+.btmform label
+{
+	position: absolute;
+	left: 2.6em;
+}
+
+.btmform p { margin-left: 12em; }
+#sortselect_pm span { white-space: nowrap; }
+#sortselect_pm { padding: 0 3em 0 0; }
+.btmform span small { padding: .2em 0 0 0; }
+
+#soptions, #soptions1
+{
+	float: left;
+	padding-left: .3em;
+	color: #789;
+	font-size: 70%;
+	font-weight: bold;
+}
+
+.new
+{
+	padding-left: 1.3em;
+	margin-left: 1em;
+	background: url("http://images.sourceforge.net/sfx/widget_sep.gif") no-repeat top left;
+}
+
+.cal
+{
+	line-height: 140%;
+	background: url("http://images.sourceforge.net/sfx/icon_cal.gif") no-repeat right;
+	padding: 2px 20px 3px 0;
+	margin: 0 1em 0 0;
+}
+
+.cal input { width: 7em; }
+#f-calendar-trigger-1 img, #f-calendar-trigger-2 img, #f-calendar-trigger-3 img, #f-calendar-trigger-4 img { margin: -.8em 0 0 .2em; }
+
+a.advanced, a.advanced:visited { font-size: 70%; font-weight: normal;}
+
+.projectsearch, .tright
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: -.3em 0 0 0;
+}
+
+.topnav form .advanced { font-size: 70%; }
+.projectsearch input { font-size: 70%; }
+
+input.passive
+{
+	color: #789;
+	width: 8em;
+}
+
+input.active
+{
+	color: #000;
+	width: 8em;
+}
+
+#frame .project .clean { border: none; }
+
+.user
+{
+	padding: 0 0 2px 20px;
+	background: url("http://images.sourceforge.net/sfx/icon_user.gif") no-repeat;
+}
+
+#filter0_2 .user
+{
+	padding: 0 0 2px 20px;
+	background: url("http://images.sourceforge.net/sfx/icon_user2.gif") no-repeat;
+}
+
+/* User options save popup */
+.lookma
+{
+	text-align: left;
+	z-index: 1000;
+	position: absolute;
+	float: left;
+	left: 23em;
+	margin-top: -1em;
+	padding: .3em;
+	border: 3px solid #fd0;
+	background: #ffc;
+}
+
+.searchma
+{
+	text-align: left;
+	z-index: 1000;
+	position: absolute;
+	float: left;
+	left: 15em;
+	margin-top: -1em;
+	padding: .3em;
+	border: 3px solid #fd0;
+	background: #ffc;
+}
+
+.lookma input, .searchma input
+{
+	display: block;
+	margin: .6em;
+}
+
+.lookma span, .searchma span
+{
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: .2em;
+	border: 1px solid #fc0;
+	background: #fb0;
+	padding: 0 .2em;
+	font-size: 1em;
+	width: .7em;
+	color: #ffc;
+}
+
+#ranktable { font-size: 80%; }
+
+#frame table tr td.rankcalc
+{
+	font-size: 80%;
+	font-family: arial, sans-serif;
+}
+
+
+/* Navigation */
+.firstwave li
+{
+	display: inline;
+	list-style: none;
+	font-size: 75% !important;
+}
+
+.firstwave .nav
+{
+	margin: .5em 0;
+	padding: 0;
+	z-index: 10000 !important;
+	position: relative;
+}
+
+.firstwave li a, .firstwave li span
+{
+	background: #9ab url("http://images.sourceforge.net/sfx/nav_dwn.gif") no-repeat right bottom;
+	padding-right: 14px !important;
+	color: #fff !important;
+	border: 1px solid #89a;
+	border-bottom: 1px solid #789;
+}
+.firstwave li a.nosub {background-image: none !important; padding-right: .4em !important;}
+
+.firstwave li#current a, .firstwave li.selected a, .firstwave li.selected span, .firstwave li#current span, .firstwave li.admin.selected a
+{
+	font-weight: bold;
+	color: #345 !important;
+	border: 1px solid #789;
+	border-bottom: 1px solid #fff;
+	background: #fff url("http://images.sourceforge.net/sfx/nav_dwn.gif") no-repeat right bottom;
+	padding: .3em .5em 2px .5em;
+	position: relative;
+}
+
+.firstwave li.admin.selected a { padding: .1em .5em 1px .5em; }
+.firstwave ul { padding: .3em 0; }
+
+.firstwave li ul li a
+{
+	background: transparent;
+	margin: 0;
+        padding: .3em .5em 2px .5em;
+	border: none !important;
+	font-weight: normal !important;
+	margin-bottom: .4em;
+	color: #cde !important;
+}
+
+.firstwave ul li.selected a { font-weight: bold !important; }
+
+.firstwave .nav li
+{
+	float: left;
+	margin: 0 0 -1.1px .4em;
+	padding: 0;
+	position: relative;
+}
+.firstwave .nav li li { margin: 0; padding: 0 !important}
+.firstwave li li { margin: .6em .2em .6em 0 !important; display: block !important; font-size: 100% !important;}
+.firstwave .nav li a, .firstwave .nav li span{padding: .1em .4em;text-decoration: none;display: block}
+
+.firstwave .nav li a:hover,
+.firstwave .nav li.admin a:hover,
+.firstwave .nav li span:hover,
+.firstwave .nav li.admin span:hover
+{
+	background: #345 url("http://images.sourceforge.net/sfx/nav_dwn1.gif") no-repeat right bottom;
+	color: #fff !important;
+	border: 1px solid #234;
+	border-bottom: 1px solid #345;
+}
+
+.firstwave li:hover a,
+.firstwave li.admin:hover a,
+.firstwave li.sfHover a,
+.firstwave li:hover span,
+.firstwave li.admin:hover span,
+.firstwave li.sfHover span
+{
+	background: #345 url("http://images.sourceforge.net/sfx/nav_dwn1.gif") no-repeat right bottom;
+	color: #fff !important;
+	border: 1px solid #234;
+	border-bottom: 1px solid #345;
+}
+
+.firstwave li.admin:hover ul a,
+.firstwave li:hover ul a,
+.firstwave li.sfHover ul a
+{
+	background: #345 !important;
+	color: #cde !important;
+	border-top: 1px solid #345 !important;
+	border-bottom: 1px solid #345 !important;
+	padding: .1em 0 .1em 20px !important;
+	font-weight: normal !important;
+
+}
+
+.firstwave li:hover ul a:hover,
+.firstwave li.sfHover ul a:hover
+{
+	background: #89a !important;
+	border-top: 1px solid #9ab !important;
+	border-bottom: 1px solid #234 !important;
+	color: #fff !important;
+}
+
+.firstwave .nav ul
+{
+	background: #345;
+	border: 1px solid #234;
+	border-top: none;
+	list-style: none;
+	margin: 0;
+	position: absolute;
+	top: -999em;
+	left: 0px;
+	padding-top: .5em;
+	z-index: 10002 !important;
+}
+
+.firstwave .nav li:hover ul,
+.firstwave .nav li.sfHover ul
+{
+	top: 1.45em;
+	width: 14em;
+}
+
+.firstwave .nav ul li { float: none; }
+
+.firstwave .nav ul a:hover
+{
+	background: #456;
+	color: #fff;
+}
+
+.firstwave .nav ul li.tools div,
+.firstwave .nav ul li.toolsadmin div,
+.firstwave .nav ul li.subdiv div
+{
+	border-top: 1px solid #678 !important;
+	border-bottom: 1px solid #234 !important;
+	color: #789 !important;
+	padding: 0 0 0 5px !important;
+}
+
+.firstwave .nav ul li.tools span,
+.firstwave .nav ul li.toolsadmin span,
+.firstwave .nav ul li.subdiv span
+{
+	background: #345;
+	color: #789 !important;
+	position: relative;
+	border: none;
+	margin: -.7em 0 10px 0;
+	width: 2.5em;
+	padding: 0 5px;
+	font-weight: bold;
+	font-size: 80%;
+}
+
+.firstwave .nav ul li.subdiv span { background: transparent; }
+
+.firstwave li.website
+{
+	float: right !important;
+	padding: 0 !important;
+	margin: -3px -9px 0 0 !important;
+}
+.firstwave .nav li.website a:hover,
+.firstwave .nav li.webiste span:hover,
+.firstwave li.website a
+{
+	border: none !important;
+	color: #03c !important;
+	font-size: 95% !important;
+	padding: 3px 20px 0 0 !important;
+}
+
+/* Admin */
+.firstwave li.admin a
+{
+	background: #800 url("http://images.sourceforge.net/sfx/nav_dwn3.gif") no-repeat right bottom;
+	border: 1px #700 solid;
+}
+
+#thirdwave
+{
+	clear: both;
+	padding: .3em 0 0 0;
+	border-top: 1px solid #789;
+}
+
+#thirdwave ul
+{
+	list-style: none;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#thirdwave li { display: inline; }
+#thirdwave li a { padding: 0 16px 0 0; }
+#thirdwave li.selected a {font-weight: bold; color: #345}
+
+#thirdwave li.begin a
+{
+	padding: 0 16px 0 10px;
+	border: none;
+}
+/* FRS */
+#frs .filename {color: #789;}
+#frs .changelog, #frs .notes, #frs .mirrors
+{
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 16px;
+	height: 16px;
+	min-height: 16px;
+	text-indent: -7000em;
+}
+
+#frs .changelog
+{
+	z-index: 3;
+	left: 10px;
+}
+
+#frs .notes
+{
+	z-index: 2;
+	left: 30px;
+}
+
+#frs .mirrors
+{
+	z-index: 1;
+	left: 50px;
+}
+
+#frs .downloadbar small a
+{
+	padding: 0;
+	color: #fff;
+	width: 16px;
+}
+
+#frs .downloadbar small
+{
+	right: -14em;
+	top: .3em;
+	position: absolute !important;
+}
+
+#additional_files small
+{
+	background: transparent;
+	position: relative;
+}
+
+#frs #additional_files .changelog, #frs #additional_files .notes, #frs #additional_files .mirrors { top: -22px; }
+#frs #additional_files, #frs #primary_file { position: relative; }
+#frs.editing textarea { width: 60%; }
+.editing .edit, .editing .delete {position: absolute; text-indent: -7000em; width: 16px;}
+.editing .delete {margin-left: 20px;}
+.editing #filename_id, #additional_file_links span span {margin-left: 40px;}
+.editing a #filename_id {margin-left: 0}
+.sethide { color: #039; }
+
+.apple
+{
+	line-height: 140%;
+	background: url("http://images.sourceforge.net/sfx/icon_apple.gif") no-repeat top left;
+	padding: 0 0 1px 20px;
+	width: 16px;
+}
+
+.windows
+{
+	line-height: 140%;
+	background: url("http://images.sourceforge.net/sfx/icon_windows.gif") no-repeat top left;
+	padding: 0 0 1px 20px;
+	width: 16px;
+}
+
+#innerframe .linux
+{
+	line-height: 140%;
+	background: url("http://images.sourceforge.net/sfx/icon_linux.gif") no-repeat top left;
+	padding: 0 0 1px 20px;
+	width: 16px;
+}
+
+.default, .other
+{
+	line-height: 140%;
+	padding: 0 0 1px 20px;
+}
+
+/* Documentation */
+.docman pre { font-size: 100%; }
+
+/* Mirror */
+.dynimo li label { font-weight: normal; }
+
+/* Forum */
+.new_forum_message:after { content: ' (New) '; }
+.addbutton {margin: .5em 0 ; display: block; position: relative}
+.questionbox {
+        float: right;
+        height: 200px;
+        width: 340px;
+        background-color: #151115;
+	/* border: 1px solid #000; */
+        color: #c60;
+	font-family: "Courier New", Courier, monospace;
+	margin: 10px;
+	padding: 5px 10px;
+}
+.questiontitle {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 150%;
+	font-weight: bold;
+	color: #b00;
+}
+.answerfootnote {
+	font-size: 60%;
+	text-align: right;
+}
+.expanded
+{
+	font-size: 80%;
+	cursor: pointer;
+	padding: 0 0 0 20px !important;
+	background: url("http://images.sourceforge.net/icons/icon_expand.gif") no-repeat top left;
+}
+
+.contracted
+{
+	font-size: 80%;
+	cursor: pointer;
+	padding: 0 0 0 20px !important;
+	background: url("http://images.sourceforge.net/icons/icon_contract.gif") no-repeat top left;
+}
+
+a.krugle_link
+{
+	background: url('http://images.sourceforge.net/icons/silk/page_white_code_red.png') no-repeat !important;
+	white-space: nowrap;
+	text-decoration: none;
+	line-height: 140%;
+	padding: 0 0 2px 20px !important;
+}
+
+a.krugle_link:hover { text-decoration: underline; }
+
+.firstwave iframe { width:14.2em; }
+#fad36 iframe {width: 300px;}
+.firstwave iframe, #fad36 iframe
+{
+        position:absolute;
+        top: -1px;
+        left: -1px;
+        z-index: -1;
+        height: 100%;
+        border: none;
+        opacity: 0;
+}
+
+
+
+
+/* Create */
+code {background: #eee; border: 1px dotted #ddd; width: 80%; padding: 1em; margin: 1em; display: block;}
+table tbody tr td i {color: #789 !important}
+table#reputation_calc tbody tr td, table#searchtable tbody tr td {background: #fff url("http://images.sourceforge.net/sfx/sfxm_bg.png") repeat-x;}
+table tbody tr td.description {background: #fff; border-top: none !important; padding: 0 !important;}
+table.ratings {overflow: hidden}
+table#searchtable td.iselect, table#searchtable th.iselect {width: 1% !important; text-align: center;}
+table#searchtable.ratings td, table#searchtable.ratings th {width: 15%}
+table#searchtable.ratings td.project, table#searchtable.ratings th.project {width: 40% !important; }
+table td.project .rateorder {float: left; }
+table td .rateorder {position: relative;}
+table td .rateorder span {margin-left: 10px}
+table#searchtable.ratings ol li {font-size: 100%; margin-bottom: 1em; position: relative;}
+table#searchtable.notifications td, table#searchtable.notifications th {width: 5%}
+table#searchtable.notifications td.project, table#searchtable.notifications th.project {width: 80% !important; }
+table#searchtable.notifications td.project {font-size: 75%;}
+#searchtable_topBanner { width: 98%; padding-top: 4px; padding-bottom: 12px; border-top: 1px solid #c1cacf; border-bottom: 1px solid #c1cacf; }
+#searchtable_bottomBanner { width: 98%; margin-top: 5px; padding-top: 4px; padding-bottom: 12px; border-top: 1px solid #c1cacf; border-bottom: 1px solid #c1cacf; }
+
+/* Callbox */
+.callbox {background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -21px repeat-x; margin: 0 1.6em; text-align: center; border: 1px solid #abc;}
+.callbox.securebox {background: #fff url("http://images.sourceforge.net/sfx/secure_bg.png") 0 -21px repeat-x;  margin-top: .5em !important; border: 1px solid #fc0;}
+.secure_shield {background: url("http://images.sourceforge.net/sfx/secure_shield.png") no-repeat; width: 30px; height: 50px; text-indent: -7000em;}
+.callbox h4 { color: #789; border-bottom: 1px solid #abc; padding-bottom: .3em; margin: .5em 0;}
+.callbox .clean li {padding-left: 2em; background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -41px repeat-x; border: none;}
+.callbox .clean {margin: 0 -1em !important;}
+.callbox div {position: relative}
+.dogear
+{
+        background: url("http://images.sourceforge.net/sfx/dogear.png") no-repeat; padding: 5px 10px 53px 55px; width: 60px; text-align: right; position: absolute; z-index: 0; top: 0; right: 0; float: right; color: #abc !important; font-size: 12.5px; font-weight: bold;
+}
+.summary .right .callbox {text-align: left; margin: 0;}
+.wizard p {width: 30%; font-size: 85%; padding: .5em 1.5%; float: left; background: #eee;}
+.wizard p.selected {font-weight: bold; background: #ddd;}
+.wizard hr {visibility: hidden; margin: 0; padding: 0; clear: both;}
+.blink {text-align: center; display: block;}
+.blink a {padding: .5em 1em; margin: 0 1em; background: #ffd; border: 1px solid #fe6; white-space: nowrap;}
+.callbox div, .blink div, .mycreate div, .mycreate1 div {border: 4px solid #fff;padding: 0 1em; }
+.mylogin, .mylogins {padding: 2em 1em; float: right; width: 40%; margin: 1em 0; background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -41px repeat-x; }
+.mylogins {text-align: center}
+.mylogin p {padding: 0 2em}
+.mylogins fieldset, .mylogin fieldset, .login fieldset {border: none !important;}
+.mylogins legend, .mylogin legend, .login legend {display: none !important;}
+.mycreate, .mycreate1 {background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -21px repeat-x; border: 1px solid #abc; margin: 1em 0; color: #456; float: left;}
+.mycreate {width: 50%;}
+.mycreate div {height: 25em; }
+.big {font-size: 135%; margin: 2em;}
+.mycreate1 {background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -21px repeat-x; border: 1px solid #abc; margin: .5em 0 2em 0; color: #456; float:none; width: 100%;}
+.actionb {color: #300; border: 1px solid #ffe; border-bottom: 1px solid #c93;  border-right: 1px solid #c93; background: #ffb331 url("http://images.sourceforge.net/sfx/sfx_bg_y.png") repeat-x; text-align: center; padding: .2em 1em;}
+a.actionb {cursor:pointer}
+a.actionb:hover {color: #600;}
+.actionb_disabled {color: #fff; border: 1px solid #ffe; border-bottom: 1px solid #000;  border-right: 1px solid #000; background: #eeeeee url("http://images.sourceforge.net/sfx/sfx_bg_b.png") repeat-x; text-align: center; padding: .2em 1em;}
+.disabled {color: #ccc !important; }
+.actionbc {color: #ffd; background: #ffb331; border: 1px solid #c93; border-bottom: 1px solid #fff; border-right: 1px solid #fff;}
+.expand,.collapse {padding: 0 0 0 16px;}
+.expand {background: url("http://images.sourceforge.net/icons/icon_expand.gif") no-repeat;}
+.collapse {background: url("http://images.sourceforge.net/icons/icon_contract.gif") no-repeat;}
+.buttons {font-size: 100% !important; text-align: left !important; margin-top: 2em; clear: both !important; padding: 2px; background: #fff url("http://images.sourceforge.net/sfx/sfx_bg2.png") 0 -21px repeat-x; border: 1px solid #bcd;}
+td.actions {font-size: 110% !important; color: #ddd; font-weight: normal; text-align: left !important; padding: 2px 2px 1em 2px !important; border: none  !important; border-top: 1px solid #789 !important;}
+.right {float: right; clear: right; width: 45%; padding-left: 5%;}
+.buy_service .right, .sell_service .right, .sell_service .right {border-left: 1px solid #abc}
+.sell_service select, .sell_service  input.text, .sell_service select, .sell_service  input.text {width: 40%;}
+.buy_service select, .buy_service  input.text {width: 90%;}
+
+.sell_service .left select, .sell_service .left input.text {width: 60%;}
+.sell_service .special input.text {width: 40%; margin: .2em 0 .4em 0;}
+.sell_service .special select {width:90%; margin: .2em 0 .4em 0;}
+.sell_service .special textarea, #paymenttypes textarea  {width:90%; margin: .2em 0 .4em 0;}
+.sell_service textarea {width: 50%;}
+.sell_service textarea#project_and_specialties {width: 40%;}
+#innerframe fieldset, .services_create2 #innerframe.sell_service fieldset {border-top: 1px solid #789;  margin: 0 0 1em 0;}
+#innerframe legend, .services_create2 #innerframe legend {display: block; font-weight: bold; margin: 0 0 1em -1em; padding: 1em 1em 0 0; color: #345; height: 2em}
+#innerframe.buy_service legend, .services_create2 legend {display: block !important;}
+
+.helptippable {
+	width: 100%;
+	border: 1px solid #ffffff;
+	margin-left: -.5em;
+	padding: .2em .5em 1em .5em;
+	position: relative;
+	background-color: #ffffff;
+}
+
+.helptip {
+	background: #def;
+	border: 1px solid #9cf;
+}
+
+.helptip small {
+    background: url("http://images.sourceforge.net/icons/silk/information.png") no-repeat 10px 3px;
+    padding: .2em 40px;
+    position: absolute;
+    right: 0;
+    height: 5.1em;
+    top: 0;
+    width: 33%;
+    overflow:auto;
+}
+.paytip {
+    font-size:82.3% !important;
+    padding: .5em;
+    padding-left: 2.5em;
+    background: #def url("http://images.sourceforge.net/icons/silk/information.png") no-repeat 10px 3px
+}
+.note, .notemulti {clear: both;}
+.multiplefield {height: 2em;}
+label {font-weight: normal;}
+.special {margin-bottom: 1em;}
+.left {float: left; width: 45%; margin-bottom: 2em; margin-left: .6em; z-index: 0;}
+.limitselect {width: auto !important}
+select.service {display: inline}
+li p {font-size: 100% !important}
+.right .clean, .left .clean {margin: 0; padding: 0;}
+.right p, .left p {padding-left: .3em}
+.summary .left {margin-bottom: 0;}
+.summary .left p strong , .summary .left p label { margin-left: -11em; font-weight: normal; position: relative; float: left; clear: left; width: 11em !important;}
+.summary .left p {margin-left: 10em;}
+.summary .right p strong {margin-left: -9em; font-weight: normal; position: relative; float: left; clear: left; width: 9em !important;}
+.summary .right .seller {margin-top: -0.5em;}
+.summary .right .seller p strong {margin-left: -11em; width: 11em !important;}
+.summary .right .seller div {margin-left: 8em; font-weight: normal; font-size:82.3% !important;}
+
+#firstname input, #lastname input {width: 16em}
+#orgname input, #street input {width: 34em}
+#paymenttypes .info input {width: 60%}
+#state, #city, #firstname, #lastname, #zip {float: left; margin: 0 1em 1em 0;}
+#username, #paymenttypes, #phone, #orgname, #country, #supportedlanguage, #timezone, #age, #siteupdate, #password {clear: left !important; margin-top: 0; display: block !important;}
+.service_details .summary .right p  {margin-left: 5em;}
+.service_details .summary .right p strong {margin-left: -5em; font-weight: normal; position: relative; float: left; clear: left; width: 5em !important;}
+fieldset {padding-left: 1em;}
+.summary .right p {margin-left: 9em;}
+.center {text-align: center}
+.col2
+{
+	padding: 0 !important;
+        position: relative;
+	z-index: 0 !important;
+	overflow: hidden;
+}
+.col2 h3
+{
+	margin: .2em 0 !important;
+        position: relative;
+	font-size: 120%;
+}
+.col2 ul.clean, .col2 .col
+{
+	float: left;
+	width: 45%;
+	margin: 0 3% 1em 0 !important;
+	padding: 0 !important;
+        position: relative;
+	text-align: left;
+        overflow: hidden;
+}
+.col3 .col {
+        float: left;
+        width: 28%;
+        margin: 0 3% 1em 0 !important;
+        padding: 0 !important;
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+}
+.col1 .col {
+        float: left;
+        width: 100%;
+        margin: 0 3% 1em 0 !important;
+        padding: 0 !important;
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+}
+.col2 .col ol
+{
+        margin: 0 3% 1em 0 !important;
+        text-align: left;
+	position: relative;
+}
+.col2 ul.clean li
+{
+	font-size: 70% !important;
+	position: relative;
+}
+.col2 .col ul
+{
+	float: none;
+	width: 100%;
+}
+.col td  { font-size: 70% !important; }
+.col ul.clean li { font-size: 80% !important; }
+.col .ratings th, .col .ratings td
+{
+	width: 20%;
+	text-align: center;
+}
+.col th { font-size: 70% !important; }
+.col td .rate
+{
+	position: relative; display: block;
+}
+td .rate { top: 0pt; }
+.balance {height: 14em;}
+
+/* Rating */
+.rate
+{
+text-indent: -7000em;
+position: absolute;
+background: url("http://images.sourceforge.net/sfx/rating_smx.gif") no-repeat;
+font-size: 11px !important;
+width: 46px;
+margin-left: .2em;
+}
+.ratehow {margin: 0 0 0 46px; padding: 0 .2em 0 .3em; position: relative;}
+.rateorder {line-height: 140%; white-space: nowrap; }
+.ratemath {position: absolute; z-index: 1000; height: 100px; width: 100px; border: 2px solid #abc; background: #bcd;}
+.info small .rate, .error small .rate, .warning small .rate, .message small .rate {
+margin-left:0.4em !important;
+margin-top:-2px;
+}
+.r0half {background-position: 0px -797px}
+.r1 {background-position: 0px 4px}
+.r1half {background-position: 0px -997px}
+.r2 {background-position: 0px -197px}
+.r2half {background-position: 0px -1197px}
+.r3 {background-position: 0px -397px}
+.r3half {background-position: 0px -1397px}
+.r4 {background-position: 0px -597px}
+.r4half {background-position: 0px -1597px}
+.r5 {background-position: 0px -1797px}
+
+.desc_left {float: left; line-height: 160%; font-size: 90%; width: 18em; display: block;}
+.desc_right {border-left: 1px solid #eee; padding: .3em; line-height: 160%; font-size: 95%; margin-left: 17em; padding-left: 1em;}
+
+.star0 {text-indent: -7000em; display: block; float: left; width: 30px;  padding: 7px 5px; background: url("http://images.sourceforge.net/sfx/stars0.gif") no-repeat;}
+.star1 {text-indent: -7000em; display: block; float: left; width: 30px;  padding: 7px 5px; background: url("http://images.sourceforge.net/sfx/stars1.gif") no-repeat;}
+.star1half {text-indent: -7000em; display: block; float: left; width: 30px;  padding: 7px 5px; background: url("http://images.sourceforge.net/sfx/stars1half.gif") no-repeat;}
+
+p.options {clear: left}
+
+.required b {padding-left: .2em; color: #900;}
+.service_key {float: right;}
+.service_key span {border: 1px solid #345; height: 10px; width: 10px; padding: 0 5px; margin: 0 .3em}
+.endorsed, .endorsed td {background: #AAE0A1 url("http://images.sourceforge.net/sfx/sfxm_g_bg.png") repeat-x;}
+.exclusive, .exclusive td {background: #ffc383 url("http://images.sourceforge.net/sfx/sfxm_y_bg.png") repeat-x;}
+.not_endorsed {background: #fff url("http://images.sourceforge.net/sfx/sfxm_bg.png") repeat-x;}
+
+pre.wordwrapped {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.faq {font-size: 85%; padding: 0 1em;}
+.faq dt big {color: #000}
+.faq dt {margin-top: 1em}
+.faq dd {margin-top: .5em}
+
+.getservices {color: #300; float: left; width: 330px; font-size: 14px; height: 45px; padding: 8px 1px 8px 8px; z-index: 1; background: url('http://images.sourceforge.net/sfx/getExpert.png') no-repeat; color: white;}
+.getservices h3 {font-size: 16px; margin: 0; color: white;}
+.wrappedproject {float:left; width: 55%;}
+
+.servicebar {position: relative; border-top: 1px solid #4b5d6b; background: #5d7486 url("http://images.sourceforge.net/sfx/srv.png") repeat-x bottom left; font-size: 82.3%; color: #345; padding: .3em 4.5em 1.7em .5em !important; margin: 0 0 -.5em 1em; width: 17em;}
+.servicebar a {color: #fff !important; margin: 0 3.5em 0 0 !important}
+.servicebar a:hover {color: #eee !important;}
+.servicebar small
+{
+    color: #fff;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: url("http://images.sourceforge.net/sfx/srvArrow.png") bottom left no-repeat;
+}
+.getserviceslogo {
+    background:transparent url("http://images.sourceforge.net/sfx/marketplaceLogo.png") no-repeat top right;
+    float: right;
+    margin: .3em -4em 0 0;
+    height:33px;
+    width:150px;
+    z-index:1;
+}
+
+.firstwave li a sup b {position: absolute; top: 0; left: 0; text-indent: -7000px;  padding:  15px; width: 30px}
+.firstwave li a sup  { position: relative; font-size: smaller; vertical-align: baseline;  padding: 6px 15px}
+.beta a sup b { background: url('http://images.sourceforge.net/icons/beta_sm.png') 0 -5px no-repeat !important;}
+.new a sup b { background: url('http://images.sourceforge.net/icons/new_sm.png') 0 -5px no-repeat !important}
+
+#rate_pop .rateorder {position: static}
+
+.bg_gloss
+{
+	float: right; width:225px; margin-left: 30px; color: #345; padding: 25px; border: none; text-align: center; line-height: 140%; background: url('http://images.sourceforge.net/bg_gloss.png') no-repeat;
+}
+
+.button_gloss
+{
+	background: url('http://images.sourceforge.net/button_gloss.png') left center no-repeat;
+	padding: 15px 20px; margin: 0; font-size: 12px; text-align: center;
+}
+
+.button_gloss_gold {
+background:transparent url('http://images.sourceforge.net/button_gold2.png') no-repeat scroll left center;
+font-size:12px !important;
+margin:0pt;
+padding:12px 25px 15px 15px !important;
+text-align:center;
+}
+
+.button_gloss_dark {
+	background:transparent url('http://images.sourceforge.net/button_gloss_dark.png') no-repeat scroll left center;
+	font-size:12px;
+	margin:0pt;
+	padding:15px 20px;
+	text-align:center;
+}
+
+.button_gloss_dark a {color: #fff}
+
+.button_gold
+{
+        background: url('http://images.sourceforge.net/button_gold.png') left center no-repeat;
+        padding: 15px 25px 15px 15px; margin: 0; font-size: 12px; text-align: center; width: 220px;
+}
+.button_gloss a { color: #345; }
+.button_gloss_gold a, .button_gold a, a.button_gloss_gold_link { color: #300; }
+
+.button_gloss_gold a, .button_gold a, a.button_gloss_gold_link { color: #300; }
+
+.past
+{
+	background:transparent url("http://images.sourceforge.net/icons/silk/time.png") no-repeat scroll left center;
+	padding:0pt 0pt 0pt 18px;
+}
+
+#sf_register_project_align_wrapper {
+margin-left: 20px;
+margin-bottom: 25px;
+}
+
+#sf_register_project_stage1_table { width: 100%; }
+
+#sf_register_project_trove_widget_wrapper{
+width: 100%;
+ overflow: auto;
+ border: 1px solid #999999; 
+margin: 10px 0;
+ height: 215px;
+ }
+
+#sf_register_project_trove_widget { 
+ width: 350%;
+ }
+
+#sf_register_project_trove_widget_form { 
+width: 100%;
+}
+
+.sf_register_project_select_box {
+float: left; 
+clear: none;
+ display: inline;
+ min-width: 189px;
+ }
+
+.sf_register_project_select_box option {
+  font-size: 12px;
+  font-weight: bold;
+ padding: 3px 3px;
+}
+
+.sf_register_project_top_level { font-weight: normal; color: #444444; }
+.sf_register_project_top_level_selected { font-weight: normal; color: #999999; }
+
+#sf_register_project_trove_categories {list-style-position: inside !important; padding: 0 !important; width: 100%; margin: 0;}
+
+#sf_register_project_trove_categories li { background: #EBF4FF; margin: 4px 0;  list-style-position: inside !important; padding: 4px 0 4px 10px  !important;  }
+
+#sf_register_project_add_box { background: #ccebcc; margin: 4px 0; width: 100%; list-style-position: inside !important; padding: 4px 0 4px 10px  !important; height: 22px; font-size:82.3%;}
+
+#sf_register_project_add_box form { display: inline !important; }
+
+#sf_register_project_trove_categories li form { display: inline !important; }
+
+#sf_register_project_trove_categories li .sf_register_project_trove_cat_name { vertical-align: middle;padding-left: 20px;  }
+
+#sf_register_project_trove_categories li .delete { 
+position: absolute; text-indent: -7000em; width: 16px; margin-left: 3px;  }
+#sf_register_project_header_top { width: 100%; background-image: url(/images/register-project/header_background.png); background-repeat: repeat-x; height: 23px; color: white; padding: 5px 0 0 20px !important; }
+
+#sf_register_project_header_bottom { width: 100%; background: #E6E6E6; height: 23px; padding: 2px 0 4px 20px !important; }
+
+.sf_register_project_bottom_buttons { padding-left: 30px; padding-top: 10px;}
+
+.sf_register_project_bottom_buttons form {float: left; clear: none; margin-right: 3px;}
+
+#sf_register_project_stage1_table {}
+#sf_register_project_stage1_table tr td {padding-bottom: 10px; }
+
+.sf_register_project_stage1_row {font-size: 14px !important; width: 100%; float: left; clear: both; padding-bottom: 10px;}
+.sf_register_project_stage1_left_col { width: 15%; float: left;}
+.sf_register_project_stage1_right_col {float: left; clear: none;}
+
+.sf_register_project_stage1_tricky_do {float: left; clear: none;}
+
+.sf_register_project_stage1_extra_question {height: 20px; margin-right: -3px; }
+
+#sf_register_project_stage2_table {font-size: 14px !important;}
+
+#sf_register_project_stage2_table2 {font-size: 14px !important; margin-left: 180px;}
+
+#sf_register_project_stage2_extra_licenses {font-size: 14px !important; width: 100%; text-align: right; }
+
+.sf_register_project_li_required {  background-image: url('http://images.sourceforge.net/star.png') !important; background-repeat: no-repeat !important;  background-position: 20px 2px !important;}
+
+.sf_register_project_single_trove_category_added { }
+.sf_register_project_li_required span { color: black; }
+
+.sf_register_project_cancel_button {padding-left: 15px !important;font-size: 9px !important; }
+
+.sf_register_notconfirmed {
+	background:transparent url("http://images.sourceforge.net/icons/checkoff.png") no-repeat scroll left center;
+        padding:0pt 0pt 0pt 18px;
+}
+.sf_register_confirmed {
+	background:transparent url("http://images.sourceforge.net/icons/silk/accept.png") no-repeat scroll left center;
+        padding:0pt 0pt 0pt 18px;
+}
+.sf_register_namesuggest {
+	position: relative;
+	left: 170px;
+	width: 300px;
+	background-color: #DDDDDD;
+	font-size: 80%;
+        font-family: arial, sans-serif;
+}
+.sf_register_invalid {
+	background-color: #fbb;
+}
+div.sf_register_buttons {
+	text-align: left !important;
+}
+
+.cluetip-jtip h3#cluetip-title {
+  margin: 0 0 5px;
+  padding: 2px 5px 2px 25px;
+  font-size: 14px;
+  font-weight: bold;
+        background: #def url("http://images.sourceforge.net/icons/silk/information.png") no-repeat 5px 2px;   
+        color: #369;
+}
+
+span.login, .openid, .openid_url_input {
+    background: url("http://images.sourceforge.net/openid/openid_small_logo.png") no-repeat 0 50%;
+    padding-left: 18px !important;
+    padding-top: .2em !important;
+}
+.openid_splash
+{
+	background: url("http://images.sourceforge.net/icons/silk/information.png") no-repeat 10px 3px;
+	border: 1px solid #9cf;
+	padding: .2em 40px;
+	margin: .5em 0 1em 0;
+	width: 25em;
+	text-align: center;
+}
+#sf_login_text {
+}
+#openid_logo_text {
+    background: url("http://images.sourceforge.net/openid/openid_logo_text.png") no-repeat scroll right top;
+    padding-left: 60px;
+}
+#login_box {
+    width: 49%; 
+    float: left; 
+    border-right: #eee solid 1px; 
+    text-align: center;
+    margin-bottom: 3em;
+}
+#openid_box {
+    float: left;
+    width: 49%;
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.idp_button {
+    width: 20px;
+    height: 20px;
+}
+#yahoo_id {
+    background: url("http://images.sourceforge.net/openid/yahoo_id.png") no-repeat scroll;
+    width: 199px;
+    height: 33px;
+}
+
+.project_admin_file_releases small .warning {
+    padding-bottom: .5em;
+    margin-bottom: .5em;
+}

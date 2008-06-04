@@ -1,0 +1,3 @@
+<Addins host-reference="/usr/lib/tomboy/Tomboy.exe">
+  <Directory shared="false">/usr/lib/tomboy</Directory>
+</Addins>

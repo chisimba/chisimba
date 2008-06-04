@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="search_window_height" mtime="1212578385" type="string">
+                <stringvalue>400</stringvalue>
+        </entry>
+        <entry name="search_window_width" mtime="1212578385" type="string">
+                <stringvalue>450</stringvalue>
+        </entry>
+        <entry name="search_window_y_pos" mtime="1212578385" type="string">
+                <stringvalue>25</stringvalue>
+        </entry>
+        <entry name="search_window_x_pos" mtime="1212578385" type="string">
+                <stringvalue>0</stringvalue>
+        </entry>
+        <entry name="start_note" mtime="1212578299" type="string">
+                <stringvalue>note://tomboy/882a86ad-89d1-4024-856d-8e0921d8cb9a</stringvalue>
+        </entry>
+</gconf>

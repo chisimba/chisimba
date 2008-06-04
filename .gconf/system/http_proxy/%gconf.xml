@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="host" mtime="1212577685" type="string">
+                <stringvalue>cache.uwc.ac.za</stringvalue>
+        </entry>
+        <entry name="use_same_proxy" mtime="1212577677" type="bool" value="true">
+        </entry>
+        <entry name="use_http_proxy" mtime="1212577675" type="bool" value="true">
+        </entry>
+</gconf>

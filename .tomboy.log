@@ -1,0 +1,81 @@
+2008/06/04 01:18:17 PM [DEBUG]: NoteManager created with note path "/home/wesley/.tomboy".
+2008/06/04 01:18:17 PM [INFO]: Initializing Mono.Addins
+2008/06/04 01:18:18 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.Tomboy
+2008/06/04 01:18:18 PM [DEBUG]: 	       Name: Tomboy.Tomboy,0.10
+2008/06/04 01:18:18 PM [DEBUG]: 	Description: 
+2008/06/04 01:18:18 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:18 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:18 PM [DEBUG]: 	       File: /usr/lib/tomboy/Tomboy.exe
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.ExportToHtmlAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Export to HTML
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: Exports individual notes to HTML.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/ExportToHtml.dll
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.PrintNotesAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Printing Support
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: Allows you to print a note.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/PrintNotes.dll
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.BacklinksAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Backlinks
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: See which notes link to the one you're currently viewing.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/Backlinks.dll
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.EvolutionAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Evolution Mail Integration
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: Allows you to drag an email from Evolution into a tomboy note.  The message subject is added as a link in the note.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/Evolution.dll
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.FixedWidthAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Fixed Width
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: Adds fixed-width font style.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/FixedWidth.dll
+2008/06/04 01:18:19 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.StickyNoteImportAddin
+2008/06/04 01:18:19 PM [DEBUG]: 	       Name: Sticky Notes Importer
+2008/06/04 01:18:19 PM [DEBUG]: 	Description: Import your notes from the Sticky Notes applet.
+2008/06/04 01:18:19 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:19 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:19 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/StickyNoteImport.dll
+2008/06/04 01:18:19 PM [DEBUG]: StickyNoteImporter: Sticky Notes XML file does not exist or is invalid!
+2008/06/04 01:18:19 PM [DEBUG]: Creating Buffer for 'Start Here'...
+2008/06/04 01:18:19 PM [DEBUG]: Matching Note title 'Using Links in Tomboy' at 386-407...
+2008/06/04 01:18:19 PM [DEBUG]: Matching Note title 'Using Links in Tomboy' at 439-460...
+2008/06/04 01:18:19 PM [DEBUG]: Start Here tags:
+2008/06/04 01:18:20 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.WebDavSyncServiceAddin
+2008/06/04 01:18:20 PM [DEBUG]: 	       Name: WebDav Sync Service Add-in
+2008/06/04 01:18:20 PM [DEBUG]: 	Description: Synchronize Tomboy Notes to a WebDav URL
+2008/06/04 01:18:20 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:20 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:20 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/WebDavSyncService.dll
+2008/06/04 01:18:20 PM [DEBUG]: AddinManager.OnAddinLoaded: Tomboy.FileSystemSyncServiceAddin
+2008/06/04 01:18:20 PM [DEBUG]: 	       Name: Local Directory Sync Service Add-in
+2008/06/04 01:18:20 PM [DEBUG]: 	Description: Synchronize Tomboy Notes to a local file system path
+2008/06/04 01:18:20 PM [DEBUG]: 	  Namespace: Tomboy
+2008/06/04 01:18:20 PM [DEBUG]: 	    Enabled: True
+2008/06/04 01:18:20 PM [DEBUG]: 	       File: /usr/lib/tomboy/addins/FileSystemSyncService.dll
+2008/06/04 01:18:20 PM [DEBUG]: Unable to locate 'gnomesu' in your PATH
+2008/06/04 01:18:20 PM [DEBUG]: Using '/usr/bin/gksu' as GUI 'su' tool
+2008/06/04 01:18:20 PM [DEBUG]: Successfully found all system tools
+2008/06/04 01:18:20 PM [DEBUG]: Unable to locate 'wdfs' in your PATH
+2008/06/04 01:18:20 PM [DEBUG]: Tomboy remote control active.
+2008/06/04 01:18:20 PM [DEBUG]: EnableDisable Called: enabling... True
+2008/06/04 01:18:20 PM [DEBUG]: Binding key '<Alt>F12' for '/apps/tomboy/global_keybindings/show_note_menu'
+2008/06/04 01:18:20 PM [DEBUG]: Binding key '<Alt>F11' for '/apps/tomboy/global_keybindings/open_start_here'
+2008/06/04 01:18:23 PM [DEBUG]: Saving 'Using Links in Tomboy'...
+2008/06/04 01:18:24 PM [DEBUG]: Saving 'Start Here'...
+2008/06/04 01:18:38 PM [DEBUG]: Creating Buffer for 'New Note 3'...
+2008/06/04 01:18:38 PM [DEBUG]: New Note 3 tags:
+2008/06/04 01:18:39 PM [DEBUG]: Saving 'Start Here'...
+2008/06/04 01:19:23 PM [DEBUG]: Saving 'New Note 3'...
+2008/06/04 01:19:24 PM [DEBUG]: Renaming note from New Note 3 to XUL
+2008/06/04 01:19:29 PM [DEBUG]: Saving 'XUL'...
+2008/06/04 01:19:29 PM [DEBUG]: Creating Buffer for 'Using Links in Tomboy'...
+2008/06/04 01:19:29 PM [DEBUG]: Using Links in Tomboy tags:
+2008/06/04 01:19:35 PM [DEBUG]: Deleting note 'Using Links in Tomboy'.
+2008/06/04 01:19:39 PM [DEBUG]: Deleting note 'Start Here'.

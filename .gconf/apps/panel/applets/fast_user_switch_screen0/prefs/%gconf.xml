@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="use_xnest" mtime="1212577264" schema="/schemas/apps/fast-user-switch-applet/per-applet/use_xnest"/>
+        <entry name="display_style" mtime="1212577264" schema="/schemas/apps/fast-user-switch-applet/per-applet/display_style"/>
+        <entry name="lock_screen_after_switch" mtime="1212577264" schema="/schemas/apps/fast-user-switch-applet/per-applet/lock_screen_after_switch"/>
+</gconf>

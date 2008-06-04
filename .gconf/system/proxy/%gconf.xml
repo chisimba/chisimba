@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<gconf>
+        <entry name="socks_port" mtime="1212577677" type="int" value="8080">
+        </entry>
+        <entry name="socks_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="ftp_port" mtime="1212577677" type="int" value="8080">
+        </entry>
+        <entry name="ftp_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="secure_port" mtime="1212577677" type="int" value="8080">
+        </entry>
+        <entry name="secure_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="old_socks_port" mtime="1212577677" type="int" value="0">
+        </entry>
+        <entry name="old_socks_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="old_ftp_port" mtime="1212577677" type="int" value="0">
+        </entry>
+        <entry name="old_ftp_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="old_secure_port" mtime="1212577677" type="int" value="0">
+        </entry>
+        <entry name="old_secure_host" mtime="1212577677" type="string">
+                <stringvalue></stringvalue>
+        </entry>
+        <entry name="mode" mtime="1212577675" type="string">
+                <stringvalue>manual</stringvalue>
+        </entry>
+</gconf>

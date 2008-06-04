@@ -1,0 +1,464 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link REL="icon" HREF="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="text/xml" title="RSS .92" href="http://www.apachefriends.org/rss.php?lang=en">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="content-language" content="en">
+<title>apache friends - xampp for linux</title>
+<link href="/af.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/javascript" src="/af.js"></script>
+<script language="JavaScript" type="text/javascript" src="/r.js"></script>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-76894-1";
+urchinTracker();
+</script>
+</head>
+
+<body bgcolor=#acacc9>
+
+
+<div id="langsel">
+<a  href="/de/xampp-linux.html">deutsch</a> &middot; <a class="on" href="/en/xampp-linux.html">english</a> &middot; <a  href="/fr/xampp-linux.html">fran&ccedil;ais</a> &middot; <a  href="/it/xampp-linux.html">italiano</a> &middot; <a  href="/pt_br/xampp-linux.html">portugu&ecirc;s (brasil)</a> &middot; <a title="japanese"  href="/jp/xampp-linux.html">&#26085;&#26412;&#35486;</a> &middot; <a title="traditional chinese"  href="/zh_tw/xampp-linux.html">&#32321;&#39636;&#20013;&#25991;</a> &middot; <a title="simplified chinese"  href="/zh_cn/xampp-linux.html">&#31616;&#20307;&#20013;&#25991;</a></div>
+
+<table id=basetab border=0 cellpadding=0 cellspacing=0>
+<tr><td bgcolor=#000000>
+<table border=0 cellpadding=0 cellspacing=1>
+<tr><td bgcolor=#ffffff><img SRC="http://www.apachefriends.org/img8/spacer.gif" alt="" width=1 height=10></td></tr>
+<tr><td>
+
+<script>
+function changeImages(a,b) {
+	document[a].src = 'http://www.apachefriends.org/'+b;
+}
+</script>
+
+<table width="600" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+			<img alt="AF LOGO" src="http://www.apachefriends.org/img8/logo_on-en.jpg" width="112" height="46"></td>
+		<td>
+			<a href="/en/index.html"
+				onmouseover="changeImages('start_on_de', 'img8/start_on-en-03.jpg'); return true;"
+				onmouseout="changeImages('start_on_de', 'img8/start_on-en.jpg'); return true;">
+				<img title="Homepage" name="start_on_de" src="http://www.apachefriends.org/img8/start_on-en.jpg" width="46" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/news.html"
+				onmouseover="changeImages('news_on_de', 'img8/news_on-en-05.jpg'); return true;"
+				onmouseout="changeImages('news_on_de', 'img8/news_on-en.jpg'); return true;">
+				<img title="News" name="news_on_de" src="http://www.apachefriends.org/img8/news_on-en.jpg" width="46" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/team.html"
+				onmouseover="changeImages('team_on_de', 'img8/team_on-en-07.jpg'); return true;"
+				onmouseout="changeImages('team_on_de', 'img8/team_on-en.jpg'); return true;">
+				<img title="Team" name="team_on_de" src="http://www.apachefriends.org/img8/team_on-en.jpg" width="52" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/projects.html"
+				onmouseover="changeImages('projects_on_de', 'img8/projects_on-en-09.jpg'); return true;"
+				onmouseout="changeImages('projects_on_de', 'img8/projects_on-en-09.jpg'); return true;">
+				<img title="Projects" name="projects_on_de" src="http://www.apachefriends.org/img8/projects_on-en-09.jpg" width="51" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/faq-xampp.html"
+				onmouseover="changeImages('texts_on_de', 'img8/texts_on-en-11.jpg'); return true;"
+				onmouseout="changeImages('texts_on_de', 'img8/texts_on-en.jpg'); return true;">
+				<img title="Documentation" name="texts_on_de" src="http://www.apachefriends.org/img8/texts_on-en.jpg" width="50" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/extra.html"
+				onmouseover="changeImages('extras_on_de', 'img8/extras_on-en-13.jpg'); return true;"
+				onmouseout="changeImages('extras_on_de', 'img8/extras_on-en.jpg'); return true;">
+				<img title="Extras" name="extras_on_de" src="http://www.apachefriends.org/img8/extras_on-en.jpg" width="46" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/press-echo.html"
+				onmouseover="changeImages('press_on_de', 'img8/press_on-en-15.jpg'); return true;"
+				onmouseout="changeImages('press_on_de', 'img8/press_on-en.jpg'); return true;">
+				<img title="Press" name="press_on_de" src="http://www.apachefriends.org/img8/press_on-en.jpg" width="55" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/partner-friends.html"
+				onmouseover="changeImages('partner_on_de', 'img8/partner_on-en-17.jpg'); return true;"
+				onmouseout="changeImages('partner_on_de', 'img8/partner_on-en.jpg'); return true;">
+				<img title="Links and Partner" name="partner_on_de" src="http://www.apachefriends.org/img8/partner_on-en.jpg" width="46" height="46" border="0"></a></td>
+		<td>
+			<a href="/en/contact.html"
+				onmouseover="changeImages('contact_on_de', 'img8/contact_on-en-19.jpg'); return true;"
+				onmouseout="changeImages('contact_on_de', 'img8/contact_on-en.jpg'); return true;">
+				<img title="Contact and Help" name="contact_on_de" src="http://www.apachefriends.org/img8/contact_on-en.jpg" width="52" height="46" border="0"></a></td>
+		<td>
+				<img src="http://www.apachefriends.org/img8/language-en.jpg" width="44" height="46" border="0"></td>
+	</tr>
+</table>
+</td></tr>
+
+
+<tr><td><table width=600 border=0 cellpadding=20 cellspacing=0><tr><td bgcolor=#eeeeee><div style="float:right; margin-top: 20px; margin-left: 20px; margin-bottom: 0px;"><a href="https://sourceforge.net/awards/cca/?group_id=61776"><img border="0" src="http://images.sourceforge.net/cca/cca_234x60_nominate.png"></a></div><b>Support XAMPP, Vote for XAMPP! :)</b><p>If you enjoy using XAMPP, please spread the word and nominate us for the Source Forge Community Choice Awards 2008.</td></tr></table></td></tr><tr><td><table width=600 border=0 cellpadding=20 cellspacing=0><tr><td bgcolor=#ffffff><center>
+<div style="width: 468px;font-family: Verdana; font-size: 10px; text-align: left;">
+Ads<br>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7749903015639869";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</center>
+<p>
+<table cellpadding=0 cellspacing=0 border=0>
+<tr align=top>
+<td><img style="margin-top: 1px;" width=200 height=59 src="/img/xampp-logo-new.gif"></td>
+<td><img src="/img/blank.gif" width=6 height=1></td>
+<td><img width=47 height=35 src="/img/head-for.gif"></td>
+<td><img src="/img/blank.gif" width=10 height=1></td>
+<td><img width=90 height=35 src="/img/head-linux.gif"></td>
+</tr>
+</table><img title="XAMPP for Linux" align=right src="http://www.apachefriends.org/images/371.jpg">
+<b>Welcome to the Linux version of XAMPP<br>
+(on x86-compatible processors)</b><p>
+
+By the way: In the past this software was called LAMPP but to avoid misconceptions we renamed it to »XAMPP for Linux«. So if you are seeking for LAMPP you're on the right track. ;)<p>
+
+If you encounter any problems with XAMPP please feel free to get in touch with us. This will help us to improve XAMPP and make it more useful for everybody. 
+</td></tr></table></td></tr><tr><td><table width=600 border=0 cellpadding=20 cellspacing=0><tr><td bgcolor=#eeeeee><blockquote><h2 class=off>Jump-off point</h2><p><a href="#372"><img src="/img/link.gif" border=0> Pictures of XAMPP for Linux</a><br><p><b>Installation in 4 Steps</b><p><a href="#374"><img src="/img/link.gif" border=0> Step 1: Download</a><br><a href="#377"><img src="/img/link.gif" border=0> Step 2: Installation</a><br><a href="#378"><img src="/img/link.gif" border=0> Step 3: Start</a><br><a href="#379"><img src="/img/link.gif" border=0> Step 4: Test</a><br><p><b>READ ME</b><p><a href="#381"><img src="/img/link.gif" border=0> A matter of security (A MUST READ!)</a><br><a href="#611"><img src="/img/link.gif" border=0> PHP 4 or PHP 5?</a><br><a href="#382"><img src="/img/link.gif" border=0> Advanced start and stop parameters</a><br><a href="#385"><img src="/img/link.gif" border=0> What is where?</a><br><a href="#387"><img src="/img/link.gif" border=0> Stopping XAMPP</a><br><a href="#388"><img src="/img/link.gif" border=0> Uninstall</a><br></blockquote>
+
+</td></tr></table></td></tr><tr><td><table width=600 border=0 cellpadding=20 cellspacing=0><tr><td bgcolor=#ffffff><a name=372><h2><a href="/en/xampp-linux-screenshots.html"><img border=0 alt="*" src="/img/afbullet.gif"> Pictures of XAMPP for Linux <img alt="" src="/img/link.gif" border=0></a></h2></a>As the old saying goes, a picture is worth a thousand words. Here you can take a look at
+some screen shots of a XAMPP installation.<a name=373><h1><img alt="Installation in 4 Steps" src="/cache/341a70686412aa4a3997b429786688bf.png"></h1></a><a name=374><h2><img border=0 alt="*" src="/img/afbullet.gif"> Step 1: Download</h2></a>Simply click on one of the links below. It's a good idea to get the latest version. :)<p>
+
+<p>A complete list of downloads (older versions) is available at <a class='link' href="http://sourceforge.net/project/showfiles.php?group_id=61776&package_id=60248"><img alt="" src=/img/link.gif border=0> SourceForge</a>.<p>
+
+<p>A detailed overview over the changes and contents of all XAMPP releases is available
+in the <a class='link' href="/LAMPP-RELEASENOTES.txt"><img alt="" src=/img/link.gif border=0> RELEASE NOTES</a>.</td></tr>
+</table>
+
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=3 cellspacing=0>
+
+<tr valign=top><td bgcolor=#47478F class=white colspan=4>XAMPP for Linux 1.6.6, 2008/2/11</td></tr>
+<tr valign=top>
+<td class=small bgcolor=#dddddd><img src=img/blank.gif width=200 height=1><br>Version</td>
+<td align=right class=small bgcolor=#dddddd><img src=img/blank.gif width=50 height=1><br>Size</td>
+<td class=small bgcolor=#dddddd><img src=img/blank.gif width=330 height=1><br>Notice</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><a class='link' href="/download.php?xampp-linux-1.6.6.tar.gz"><img alt="" src=/img/link.gif border=0> XAMPP Linux 1.6.6</a></td>
+<td align=right bgcolor=#ffffff>58 MB</td>
+<td class=smaller bgcolor=#ffffff>
+Apache 2.2.8, MySQL 5.0.51a, PHP 5.2.5 & 4.4.8 & PEAR + SQLite 2.8.17/3.3.17 + multibyte (mbstring) support, Perl 5.10.0, ProFTPD 1.3.1, phpMyAdmin 2.11.4, OpenSSL 0.9.8e, GD 2.0.1, Freetype2 2.1.7, libjpeg 6b, libpng 1.2.12, gdbm 1.8.0, zlib 1.2.3, expat 1.2, Sablotron 1.0, libxml 2.6.31, Ming 0.3, Webalizer 2.01, pdf class 009e, ncurses 5.8, mod_perl 2.0.2, FreeTDS 0.63, gettext 0.11.5, IMAP C-Client 2004e, OpenLDAP (client) 2.3.11, mcrypt 2.5.7, mhash 0.8.18, eAccelerator 0.9.5.2, cURL 7.17.1, libxslt 1.1.8, phpSQLiteAdmin 0.2, libapreq 2.08, FPDF 1.53, XAMPP Control Panel 0.6
+<br>MD5 checsum: e534fbfd0a9d1553a4abecb73784828f
+</td></tr>
+
+
+<tr valign=top>
+<td bgcolor=#ffffff><a class='link' href="/download.php?xampp-linux-upgrade-1.6.5a-1.6.6.tar.gz"><img alt="" src=/img/link.gif border=0> Upgrade 1.6.5a to 1.6.6</a></td>
+<td align=right bgcolor=#ffffff>31 MB</td>
+<td class=smaller bgcolor=#ffffff>
+Upgrade package.  <a href="faq-xampp-linux.html#upgrade"><img src="img/link.gif" border=0> How to upgrade?</a>
+<br>MD5 checksum: 8e37b22e8288456e46fc9ed38c35ad75
+</td></tr> 
+
+
+
+
+
+<tr valign=top>
+<td bgcolor=#ffffff><a class='link' href="/download.php?xampp-linux-devel-1.6.6.tar.gz"><img alt="" src=/img/link.gif border=0> Development package</a></td>
+<td align=right bgcolor=#ffffff>27 MB</td>
+<td class=smaller bgcolor=#ffffff>
+The development package contains all files you need if you want to compile other software packages for XAMPP by yourself and the Unix manual pages. Install this package like the normal XAMPP distribution:<br>
+tar xvfz xampp-linux-devel-1.6.6.tar.gz -C /opt
+<br>MD5 checksum: 8a8fb14556b281f396f90833c4583c42
+</td></tr>
+</table>
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=20 cellspacing=0>
+<tr>
+<td bgcolor=#ffffff>
+<b>Attention:</b>
+If you download these files on a Windows system and you're running McAfee virus scanner you may get a false positive virus warning. This is a problem with McAfee and gzip-compressed files, it should be ignored.<a name=377><h2><img border=0 alt="*" src="/img/afbullet.gif"> Step 2: Installation</h2></a>After downloading simply type in the following commands:<p>
+<ol>
+<li>Go to a Linux shell and login as the system administrator root:<p>
+<tt>su</tt><p>
+<li>Extract the downloaded archive file to /opt:<p>
+<tt>tar xvfz xampp-linux-1.6.6.tar.gz -C /opt</tt><p>
+<b>Warning:</b> Please use only this command to install XAMPP. DON'T use any Microsoft Windows tools to extract the archive, it won't work.<p>
+<b>Warning 2:</b> already installed XAMPP versions get overwritten by this command.<p>
+</ol>
+
+That's all. XAMPP is now installed below the
+<tt>/opt/lampp</tt> directory.<a name=378><h2><img border=0 alt="*" src="/img/afbullet.gif"> Step 3: Start</h2></a>To start XAMPP simply call this command:<p>
+<tt>/opt/lampp/lampp start</tt><p>
+You should now see something like this on your screen:<p>
+<tt>
+Starting XAMPP 1.6.6...<br>
+LAMPP: Starting Apache...<br>
+LAMPP: Starting MySQL...<br>
+LAMPP started.<br>
+</tt><p>
+Ready. Apache and MySQL are running.<p>
+
+If you get any error messages please take a look at the
+<a href="/en/faq-xampp-linux.html#start"><img src="img/link.gif" border=0> Linux FAQ</a>.<a name=379><h2><img border=0 alt="*" src="/img/afbullet.gif"> Step 4: Test</h2></a>OK, that was easy but how can you check that everything really works? Just type in the following URL at your favourite web browser:
+<p>
+
+<tt>http://localhost</tt><p>
+
+Now you should see the start page of XAMPP containing some links to check
+the status of the installed software and some small programming examples.<p><img border=0 title="screenshot" src="http://www.apachefriends.org/images/380.jpg"><p>The Instant Art example: A small PHP/GD program (since 0.9.6pre1 also a flashy PHP/Ming example,
+see screenshot). Thanks to <a target=extern href="http://www.anke-art.de/"><img src="img/link.gif" border=0> Anke Arnold</a> for her font
+»AnkeCalligraph«.<a name=390><h1><img alt="READ ME" src="/cache/c544f3340b998e38b2c662703d362283.png"></h1></a><center>
+<div style="width: 336px;font-family: Verdana; font-size: 10px; text-align: left;">
+Ads<br>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7749903015639869";
+google_ad_width = 336;
+google_ad_height = 280;
+google_ad_format = "336x280_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+  </script>
+ </div>
+</center>
+<p>
+<a name=381><h2><img border=0 alt="*" src="/img/afbullet.gif"> A matter of security (A MUST READ!)</h2></a>As mentioned before, XAMPP is not meant for production use but only for developers in a development environment. The way XAMPP is configured is to be open as possible and allowing the developer anything he/she wants. For development environments this is great but in a production environment it could be fatal.
+<p>
+
+Here a list of missing security in XAMPP:
+<p>
+<ol>
+<li>The MySQL administrator (root) has <b>no</b> password.
+<li>The MySQL daemon is accessible via network.
+<li>ProFTPD uses the password "lampp" for user "nobody".
+<li>PhpMyAdmin is accessible via network.
+<li>Examples are accessible via network.
+<li>MySQL and Apache running under the same user (nobody).
+</ol>
+<p>
+
+To fix most of the security weaknesses simply call the following command:
+<pre>/opt/lampp/lampp security</pre>
+It starts a small security check and makes your XAMPP installation more secure.
+<a name=611><h2><img border=0 alt="*" src="/img/afbullet.gif"> PHP 4 or PHP 5?</h2></a>Because such very new versions like PHP 5 always should be handled with care we decided to include both current versions of PHP into XAMPP since version 1.4.7: PHP 5.x and PHP 4.x. If you find out your PHP application doesn't work with PHP 5 you will be able to switch back easily to PHP 4.<p>
+
+By the following command you can switch "back" to PHP 4.x:
+
+<pre>/opt/lampp/lampp php4</pre>
+
+And with the following command you can switch back to PHP 5.x:
+
+<pre>/opt/lampp/lampp php5</pre>
+
+If you forgot which version of PHP is in use simply use phpinfo() or call this
+command:
+
+<pre>/opt/lampp/lampp phpstatus</pre>
+<a name=382><h2><img border=0 alt="*" src="/img/afbullet.gif"> Advanced start and stop parameters</h2></a>Until version 0.9.4 <tt>/opt/lampp/lampp</tt> could only start and stop XAMPP. Since version
+0.9.5 it learned a lot of new things to do.</td></tr>
+</table>
+
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=3 cellspacing=0>
+
+<tr valign=top><td bgcolor=#47478F class=white colspan=4>START AND STOP PARAMETERS</td></tr>
+<tr valign=top>
+<td bgcolor=#dddddd>Parameter</td>
+<td bgcolor=#dddddd>Description</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>start</tt></td>
+<td bgcolor=#ffffff>Starts XAMPP.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>stop</tt></td>
+<td bgcolor=#ffffff>Stops XAMPP.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>restart</tt></td>
+<td bgcolor=#ffffff>Stops and starts XAMPP.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>startapache</tt></td>
+<td bgcolor=#ffffff>Starts only the Apache.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>startssl</tt></td>
+<td bgcolor=#ffffff>
+Starts the Apache SSL support. This command activates the SSL support permanently, e.g. if you restarts XAMPP in the future
+SSL will stay activated.
+</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>startmysql</tt></td>
+<td bgcolor=#ffffff>Starts only the MySQL database.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>startftp</tt></td>
+<td bgcolor=#ffffff>
+Starts the ProFTPD server. Via FTP you can upload files for your web server (user "nobody", password "lampp").
+This command activates the ProFTPD permanently, e.g. if you restarts XAMPP in the future FTP will stay activated.
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>stopapache</tt></td>
+<td bgcolor=#ffffff>Stops the Apache.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>stopssl</tt></td>
+<td bgcolor=#ffffff>Stops the Apache SSL support.
+This command deactivates the SSL support permanently, e.g. if you restarts XAMPP in the future SSL will stay deactivated.
+</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>stopmysql</tt></td>
+<td bgcolor=#ffffff>Stops the MySQL database.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>stopftp</tt></td>
+<td bgcolor=#ffffff>Stops the ProFTPD server.  This command deactivates the ProFTPD permanently, e.g. if you restarts XAMPP in the future FTP will stay deactivated.
+</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>security</tt></td>
+<td bgcolor=#ffffff>Starts a small security check programm.
+</td>
+</tr>
+</table>
+
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=20 cellspacing=0>
+<tr>
+<td bgcolor=#ffffff>
+For example: To start Apache with SSL support simply type in the following command (as root):
+<pre>
+/opt/lampp/lampp startssl
+</pre>
+<p>
+You can also access your Apache server via SSL under https://localhost.<a name=385><h2><img border=0 alt="*" src="/img/afbullet.gif"> What is where?</h2></a>What is where? A big question of our existens, here are some answers! ;)</td></tr>
+</table>
+
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=3 cellspacing=0>
+
+<tr valign=top><td bgcolor=#47478F class=white colspan=4>IMPORTANT FILES AND DIRECTORIES</td></tr>
+<tr valign=top>
+<td bgcolor=#dddddd>File/Directory</td>
+<td bgcolor=#dddddd>Purpose</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/bin/</tt></td>
+<td bgcolor=#ffffff>The XAMPP commands home. /opt/lampp/bin/mysql calls for example the MySQL monitor.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/htdocs/</tt></td>
+<td bgcolor=#ffffff>The Apache DocumentRoot directory.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/etc/httpd.conf</tt></td>
+<td bgcolor=#ffffff>The Apache configuration file.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/etc/my.cnf</tt></td>
+<td bgcolor=#ffffff>The MySQL configuration file.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/etc/php.ini</tt></td>
+<td bgcolor=#ffffff>The PHP configuration file.</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/etc/proftpd.conf</tt></td>
+<td bgcolor=#ffffff>The ProFTPD configuration file. (since 0.9.5)</td>
+</tr>
+<tr valign=top>
+<td bgcolor=#ffffff><tt>/opt/lampp/phpmyadmin/config.inc.php</tt></td>
+<td bgcolor=#ffffff>The phpMyAdmin configuration file.</td>
+</tr>
+</table>
+
+</td></tr>
+<tr><td>
+
+<table width=600 border=0 cellpadding=20 cellspacing=0>
+<tr>
+<td bgcolor=#ffffff>
+<a name=387><h2><img border=0 alt="*" src="/img/afbullet.gif"> Stopping XAMPP</h2></a>To stop XAMPP simply call this command:<p>
+<tt>/opt/lampp/lampp stop</tt><p>
+You should now see:<p>
+<tt>
+Stopping LAMPP 1.6.6...<br>
+LAMPP: Stopping Apache...<br>
+LAMPP: Stopping MySQL...<br>
+LAMPP stopped.<br>
+</tt><p>
+And XAMPP for Linux is stopped.
+<a name=388><h2><img border=0 alt="*" src="/img/afbullet.gif"> Uninstall</h2></a>To uninstall XAMPP just type in this command:<p>
+<tt>rm -rf /opt/lampp
+</tt>
+<p>The end.
+<br>&nbsp;<p>
+
+</td></tr></table>
+</td></tr>
+
+</table>
+</td></tr></table>
+<table id=basefoot width=600 border=0 cellpadding=5 cellspacing=0>
+<tr valign=top>
+<td>
+Author: 
+<a href="http://oswaldism.de"><img alt="" src="/img/linkblack.gif" border=0> </a><a class=black href="http://oswaldism.de">Kai 'Oswald' Seidler</a><br>
+Last modification: 
+Tue 20 May 2008 06:57:13 PM CEST<br>
+&copy; 2002-2008 Apache Friends
+
+
+
+</td>
+<td align=right width=1%>
+</td>
+	<td align=right width=1%>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+	<input type="hidden" name="cmd" value="_xclick">
+	<input type="hidden" name="business" value="xampp@apachefriends.org">
+	<input type="hidden" name="item_name" value="Apache Friends XAMPP">
+	<input type="hidden" name="no_shipping" value="1">
+	<input type="hidden" name="return" value="http://www.apachefriends.org">
+	<input type="hidden" name="no_note" value="1">
+	<input type="hidden" name="lc" value="US">
+	<input type="hidden" name="currency_code" value="USD">
+	<input type="hidden" name="tax" value="0">
+	<input type="hidden" name="bn" value="PP-DonationsBF">
+	<input style="margin: 0px; border: 0px;" type="image" src="/img/en_US-x-click-but04.gif" border="0" name="submit" alt="DONATE!">
+	</form>
+	</td>
+<td align=right width=1%>
+</td></tr></table>
+&nbsp;<p>
+</body>
+</html>
