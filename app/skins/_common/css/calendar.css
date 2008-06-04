@@ -69,21 +69,57 @@ div.eventlist {
 }
 
 div.event_user {
-    background: url('../calendar/user.gif') no-repeat 10px;
+    background: url('../calendar/user.gif') no-repeat 10px 3px;
 }
 
 div.event_site {
-    background: url('../calendar/site.gif') no-repeat 10px;
+    background: url('../calendar/site.gif') no-repeat 10px 3px;
 }
 
 div.event_context {
-    background: url('../calendar/context.gif') no-repeat 10px;
+    background: url('../calendar/context.gif') no-repeat 10px 3px;
 }
 
 div.event_othercontext {
-    background: url('../calendar/othercontext.gif') no-repeat 10px;
+    background: url('../calendar/othercontext.gif') no-repeat 10px 3px;
 }
 
 div.event_workgroup {
-    background: url('../calendar/workgroup.gif') no-repeat 10px;
+    background: url('../calendar/workgroup.gif') no-repeat 10px 3px;
+}
+
+
+li.event_user {
+    background: url('../calendar/event_user.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_site {
+    background: url('../calendar/event_site.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_context {
+    background: url('../calendar/event_context.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_othercontext {
+    background: url('../calendar/event_other.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li.event_workgroup {
+    background: url('../calendar/event_workgroup.gif') no-repeat 0 7px;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
 }

@@ -82,7 +82,7 @@ class contextsidebar extends object
         $this->loadClass('htmlheading', 'htmlelements');
         
         $header = new htmlheading();
-        $header->type = 1;
+        $header->type = 2;
         $header->str = $this->objContext->getTitle();
         
         $str .= $header->show();
@@ -91,7 +91,7 @@ class contextsidebar extends object
         $contextImage = $objContextImage->getContextImage($this->contextCode);
         
         if ($contextImage != FALSE) {
-            $str .= '<p align="center"><img src="'.$contextImage.'" /></p>';
+            $str .= '<p align="center"><img src="'.$contextImage.'" /></p><br />';
         }
         
         $str .= $this->searchForm();

@@ -49,9 +49,11 @@ class postloginmenu_elearn extends object
     function init()
     {
         $this->loadClass('link','htmlelements');
+        $this->loadClass('htmlheading','htmlelements');
         $this->objMenu = $this->getObject('dbmenu');
         $this->objLanguage = $this->getObject('language', 'language');
         $this->sideMenu = $this->getObject('sidemenu');
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**
@@ -63,8 +65,19 @@ class postloginmenu_elearn extends object
         // Get menu items
         $options = $this->objMenu->getSideMenus('elearnpostlogin');
         
+        $objUserPic = $this->getObject('imageupload', 'useradmin');
+        
+        $header = new htmlHeading();
+        $header->type = 2;
+        $header->str = $this->objUser->fullName();
+        
+        $str = $header->show();
+        
+        $str .= '<p align="center"><img src="'.$objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
+        
+        $str .= '<br />';
         // First add user pic
-        $str = $this->sideMenu->userDetails();
+        //$str = $this->sideMenu->userDetails();
         
         $objBlock = $this->getObject('blocks', 'blocks');
         $str .= $objBlock->showBlock('mycontexts', 'context', NULL, 20, TRUE, FALSE);

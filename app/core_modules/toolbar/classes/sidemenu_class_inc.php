@@ -64,7 +64,7 @@ class sidemenu extends object
         $this->objLink = $this->getObject('link','htmlelements');
 
         $this->objHead = $this->newObject('htmlheading','htmlelements');
-        $this->objHead->type=3;
+        $this->objHead->type=2;
 
         // Create a global table - Other methods are allowed to add to this table
         $this->globalTable=$this->newObject('htmltable','htmlelements');
@@ -133,7 +133,7 @@ class sidemenu extends object
         $this->objHead->str = $this->objUser->fullName();
         $menu = $this->objHead->show();
 
-        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
+        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p><br />';
 
         $menu .= $this->getMenuList($menus);
         return $menu;

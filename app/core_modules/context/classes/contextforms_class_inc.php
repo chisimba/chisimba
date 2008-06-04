@@ -169,6 +169,7 @@ class contextforms extends object
         
         
         $objSelectImage = $this->getObject('selectimage', 'filemanager');
+        $objSelectImage->context = TRUE;
         
         $table2 = $this->newObject('htmltable', 'htmlelements');
         $table2->startRow();

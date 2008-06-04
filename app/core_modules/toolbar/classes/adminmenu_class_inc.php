@@ -53,7 +53,7 @@ class adminmenu extends object
         $userTitle->type=2;
         $userTitle->str=$this->objUser->fullName();
         $menu =  $userTitle->show();
-        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" /></p>';
+        $menu .= '<p align="center"><img src="'.$this->objUserPic->userpicture($this->objUser->userId() ).'" /></p><br />';
         $menu .= $this->createMenuTable();
 
         return $menu;
