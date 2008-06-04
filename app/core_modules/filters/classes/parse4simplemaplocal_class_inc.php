@@ -75,22 +75,23 @@ class parse4simplemaplocal extends object
     	//If the module is registered then instantiate it
     	if ($isRegistered) {
     	    $this->objSMParser = $this->getObject('smapparser', 'simplemap');
-    	}
-    	preg_match_all('/\\[SIMPLEMAP_LOCAL](.*?)\\[\/SIMPLEMAP_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
-        $counter = 0;
-        foreach ($results[0] as $item)
-	    {
-	    	if ($isRegistered) {
-	            $replacement = $this->objSMParser->getLocal($results[1][$counter]);
-    		} else {
-    			$objLanguage = $this->getObject('language', 'language');
-    	    	$replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
-    	      	  . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
-    	      	  . "</h3></div>";
-	    	}    	      	  
-            $str = str_replace($item, $replacement, $str);
-            $counter++;
-    	}
+    	
+            preg_match_all('/\\[SIMPLEMAP_LOCAL](.*?)\\[\/SIMPLEMAP_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($results[0] as $item)
+            {
+                if ($isRegistered) {
+                    $replacement = $this->objSMParser->getLocal($results[1][$counter]);
+                } else {
+                    $objLanguage = $this->getObject('language', 'language');
+                    $replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
+                      . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
+                      . "</h3></div>";
+                }    	      	  
+                $str = str_replace($item, $replacement, $str);
+                $counter++;
+            }
+        }
         return $str;
     }
 

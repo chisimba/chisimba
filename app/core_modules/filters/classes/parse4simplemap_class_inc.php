@@ -72,22 +72,23 @@ class parse4simplemap extends object
     	if ($isRegistered){
 	    	//Instantiate the simplemap parser
 	    	$objSMParser = $this->getObject('smapparser', 'simplemap');
-    	}
-	    //Extract the URL
-    	preg_match_all('/\\[SIMPLEMAP]<a.*?href="(?P<simplemaplink>.*?)".*?>.*?<\/a>\\[\/SIMPLEMAP]/', $str, $results, PREG_PATTERN_ORDER);
-	    $counter = 0;
-	    foreach ($results[0] as $item) {
-	    	if ($isRegistered) {
-	            $replacement = $objSMParser->getRemote($results['simplemaplink'][$counter]);
-	    	} else {
-    			$objLanguage = $this->getObject('language', 'language');
-    	    	$replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
-    	      	  . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
-    	      	  . "</h3></div>";
-	    	}
-            $str = str_replace($item, $replacement, $str);
-            $counter++;
-    	}
+            
+            //Extract the URL
+            preg_match_all('/\\[SIMPLEMAP]<a.*?href="(?P<simplemaplink>.*?)".*?>.*?<\/a>\\[\/SIMPLEMAP]/', $str, $results, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($results[0] as $item) {
+                if ($isRegistered) {
+                    $replacement = $objSMParser->getRemote($results['simplemaplink'][$counter]);
+                } else {
+                    $objLanguage = $this->getObject('language', 'language');
+                    $replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
+                      . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
+                      . "</h3></div>";
+                }
+                $str = str_replace($item, $replacement, $str);
+                $counter++;
+            }
+        }
         return $str;
     }
 

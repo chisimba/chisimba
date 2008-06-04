@@ -59,7 +59,7 @@
 */
 class parse4mathml extends object
 {
-	
+    
     /**
     * @var string $renderType Mode to render MathML: either image or iframe
     */
@@ -70,17 +70,6 @@ class parse4mathml extends object
     */
     public function init()
     {
-        try {
-            // Load the Class to Render MathML as Images
-            $this->objMathImg = $this->getObject('mathimg','mathml');
-            // Load the Iframe Class for Rendering as Iframe
-            $this->loadClass('iframe','htmlelements');
-            
-            //$this->objMathMLParser = $this->getObject('mathmlparser','mathml');
-        } catch(customException $e) {
-            echo customException::cleanUp();
-            die();
-        }
     }
     
     /**
@@ -89,33 +78,42 @@ class parse4mathml extends object
     * @return string String with MathML expressions rendered as either iframes or images
     */
     public function parseAll($str)
-	{
-		// Search for all items in [MATH] Tags
-		$search = '/\[MATH\](.*)\[\/MATH\]/U';
-        
-        // Get All Matches
-		preg_match_all($search, $str, $matches, PREG_PATTERN_ORDER);
-        
-        // Check whether there are matches
-		if (!empty($matches)) {
-            // Go Through Matches
-		    foreach ($matches[1] as $match)
-            {
-                // Render Result
-                if ($this->renderType == 'iframe') { // Either Iframe
-                    $replace = $this->renderAsIframe($match);
-                } else { // Or Image
-                    $replace = $this->renderAsImage($match);
+    {
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the mathml module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('youtube');
+        if ($isRegistered){
+            
+            $this->objMathImg = $this->getObject('mathimg','mathml');
+            
+            // Search for all items in [MATH] Tags
+            $search = '/\[MATH\](.*)\[\/MATH\]/U';
+            
+            // Get All Matches
+            preg_match_all($search, $str, $matches, PREG_PATTERN_ORDER);
+            
+            // Check whether there are matches
+            if (!empty($matches)) {
+                // Go Through Matches
+                foreach ($matches[1] as $match)
+                {
+                    // Render Result
+                    if ($this->renderType == 'iframe') { // Either Iframe
+                        $replace = $this->renderAsIframe($match);
+                    } else { // Or Image
+                        $replace = $this->renderAsImage($match);
+                    }
+                    
+                    // Replace Text
+                    $str = preg_replace('/'.preg_quote('[MATH]'.$match.'[/MATH]','/').'/', $replace, $str);
                 }
-                
-                // Replace Text
-				$str = preg_replace('/'.preg_quote('[MATH]'.$match.'[/MATH]','/').'/', $replace, $str);
-			}
-		}
+            }
+        
+        }
         
         // Return String
-		return $str;
-	}
+        return $str;
+    }
     
     /**
     * Method to Render a MathML expression as iframe
@@ -156,7 +154,7 @@ class parse4mathml extends object
      */
     public function parse($str)
     {
-    	return $this->parseAll($str);
+        return $this->parseAll($str);
     }
 }
 ?>
