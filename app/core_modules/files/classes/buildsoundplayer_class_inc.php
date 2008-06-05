@@ -95,6 +95,31 @@ class buildsoundplayer extends object
         
     }
     
+    function show()
+    {
+        return $this->showFlashVersion();
+    }
+    
+    function showFlashVersion()
+    {
+        $str = '<object type="application/x-shockwave-flash" data="[-FLASHFILE-]" id="audioplayer1" height="24" width="290">
+<param name="movie" value="[-FLASHFILE-]" />
+<param name="FlashVars" value="playerID=1&amp;soundFile=[-MP3FILE-]"/>
+<param name="quality" value="high" />
+<param name="menu" value="false" />
+
+<param name="wmode" value="transparent" />
+<embed src="[-FLASHFILE-]" width="290" height="24" flashvars="playerID=1&amp;soundFile=[-MP3FILE-]" quality="high" menu="false" wmode="transparent"></embed>
+</object>';
+
+        $str = str_replace('[-FLASHFILE-]', $this->getResourceUri('flashmp3/player.swf'), $str);
+        $str = str_replace('[-MP3FILE-]', str_replace('&amp;', '&', $this->soundFile), $str);
+        
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('flashmp3/audio-player.js'));
+        
+        return $str;
+    }
+    
     /**
     * 
     * Method to render the music player
@@ -102,7 +127,7 @@ class buildsoundplayer extends object
     * @return The    player applet code
     *                
     */
-    function show()
+    function showJavaVersion()
     {
         if (!$this->soundFile=="") {
             return $this->__startApplet()
@@ -321,4 +346,5 @@ class buildsoundplayer extends object
     	return strtr ($str, $trans_tbl);
     }
 } #end of class
+
 ?>
