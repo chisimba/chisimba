@@ -38,7 +38,11 @@ class sitemap extends controller
         // Note: This will in future comes from keywords
         $this->modulesWithLinks = array('forum', 'podcast', 'cmsadmin', 'announcements', 'assignment', 'assignmentadmin');
         
-        $this->objLanguage =& $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $objContext = $this->getObject('dbcontext', 'context');
+        $this->contextCode = $objContext->getContextCode();
+        
+        $this->contextModule = $this->getObject('dbcontextmodules', 'context');
     }
     
     /**
@@ -62,9 +66,28 @@ class sitemap extends controller
         // Loop through modules
         foreach ($this->modulesWithLinks as $module)
         {
-            // If registered, add to list
-            if ($objModules->checkIfRegistered($module) == TRUE && $objClassCheck->objectFileExists('modulelinks_'.$module, $module)) {
-                $modules[] = $module;
+            // First check if module is registered
+            $moduleInfo = $objModules->getRow('module_id', $module);
+            if ($moduleInfo != FALSE) {
+                
+                // Then check if class exists
+                if ($objClassCheck->objectFileExists('modulelinks_'.$module, $module)) {
+                    
+                    // If site module add
+                    if ($moduleInfo['iscontextaware'] == 0) {
+                        $modules[] = $module;
+                    } else {
+                        
+                        // Check that module does not depend context
+                        if ($this->contextCode == '' && $moduleInfo['dependscontext'] == '0') {
+                            $modules[] = $module;
+                            
+                        // Lastly, check that is plugin for root
+                        } else if ($this->contextModule->isVisible($module, $this->contextCode)) {
+                            $modules[] = $module;
+                        }
+                    }
+                }
             }
         }
         
