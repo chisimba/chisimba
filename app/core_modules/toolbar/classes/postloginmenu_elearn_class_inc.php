@@ -71,7 +71,7 @@ class postloginmenu_elearn extends object
         $header->type = 2;
         $header->str = $this->objUser->fullName();
         
-        $str = $header->show();
+        $str = '';//$header->show();
         
         $str .= '<p align="center"><img src="'.$objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
         
