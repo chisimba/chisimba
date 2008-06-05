@@ -124,6 +124,18 @@ $header->str .= $editLink->show();
 
 echo $header->show();
 
+$fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
+$fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+
+$objIcon->setIcon('download');
+$link = new link ($fileDownloadPath);
+$link2 = new link ($fileDownloadPath);
+
+$link->link = $objIcon->show();
+$link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
+
+echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
+
 echo '<br /><p><strong>'.$this->objLanguage->languageText('word_description', 'system', 'Description').':</strong> <em>'.$file['filedescription'].'</em></p>';
 
 echo '<p><strong>'.$this->objLanguage->languageText('word_tags', 'system', 'Tags').':</strong> ';
@@ -144,27 +156,21 @@ if (count($tags) == 0) {
 
 echo '</p>';
 
-echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information').'</h3>';
+echo $embedCode;
+
+echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information').'</h2>';
 
 echo $this->objFiles->getFileInfoTable($file['id']);
 
 
 if (array_key_exists('width', $file)) {
-    echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_mediainfo', 'filemanager', 'Media Information').'</h3>';
+    echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_mediainfo', 'filemanager', 'Media Information').'</h2>';
     echo $this->objFiles->getFileMediaInfoTable($file['id']);
 }
 
-$fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
-$fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
 
-$objIcon->setIcon('download');
-$link = new link ($fileDownloadPath);
-$link2 = new link ($fileDownloadPath);
 
-$link->link = $objIcon->show();
-$link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
 
-echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
 
 if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
@@ -188,7 +194,7 @@ if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
 // echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filehistory', 'filemanager', 'File History').'</h3>';
 // echo $this->objFiles->getFileHistory($file['id']);
 
-echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h3>';
+echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h2>';
 
 echo $preview;
 

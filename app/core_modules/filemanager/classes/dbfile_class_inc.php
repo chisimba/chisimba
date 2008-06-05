@@ -555,6 +555,7 @@ class dbfile extends dbTable
         $objTable->addCell('<strong>License:</strong>', '25%');
 
         $licenseDisplay = $this->getObject('displaylicense', 'creativecommons');
+        $licenseDisplay->icontype = 'small';
         $objTable->addCell($licenseDisplay->show($file['license']), '25%');
 
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filecategory', 'system', 'File Category').'</strong>', '25%');

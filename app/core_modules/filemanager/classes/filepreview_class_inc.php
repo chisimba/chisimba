@@ -163,7 +163,7 @@ class filepreview extends object
     */
     function showAudio()
     {
-        return $this->objFileEmbed->embed($this->file['linkname'], 'audio');
+        return $this->objFileEmbed->embed($this->file['path'], 'audio');
     }
 
     /**

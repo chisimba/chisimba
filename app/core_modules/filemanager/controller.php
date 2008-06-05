@@ -447,7 +447,7 @@ class filemanager extends controller
 
         $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
         
-        $this->setLayoutTemplate('filemanager_3collayout_tpl.php');
+        //$this->setLayoutTemplate('filemanager_3collayout_tpl.php');
         
         $objFilePreview = $this->getObject('filepreview');
         $preview = $objFilePreview->previewFile($file['id']);
@@ -457,18 +457,22 @@ class filemanager extends controller
         if (trim($preview) == '') {
             $right = '';
         } else {
-            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h3>';
+            $right = '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h3>';
             
             $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
+            
+            $value = htmlentities('[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]');
+            
             $right .= '<form name="formtocopy">
-    <textarea name="texttocopy" readonly="readonly" style="width:100%" rows="5">[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]</textarea>';
-            $right .= '<br>
+            
+    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="'.$value.'" />';
+            $right .= '
     <input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
     </form>';
         }
         
         
-        $this->setVarByRef('rightColumn', $right);
+        $this->setVarByRef('embedCode', $right);
         
         $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
         $objCopy->show();
