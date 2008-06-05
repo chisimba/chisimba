@@ -123,3 +123,38 @@ li.event_workgroup {
     margin: 0;
     padding-left: 10px;
 }
+
+table.mainTable {
+    width: 100%;
+}
+
+
+table.mainTable td.otherday_sunday, table.mainTable td.otherday_saturday {
+    background-color: #FFFFFF;
+}
+
+table.mainTable td.otherday_monday, table.mainTable td.otherday_tuesday, table.mainTable td.otherday_wednesday, table.mainTable td.otherday_thursday, table.mainTable td.otherday_friday {
+    background-color: #FFFFFF;
+}
+
+table.mainTable td {
+    font-weight: bold;
+    padding: 0;
+    text-align: center;
+}
+
+table.mainTable div.daynum {
+    background-color: transparent;
+    color: #000;
+    font-weight: normal;
+}
+
+table.mainTable div.today {
+    background-color: yellow;
+    color: #000;
+    font-weight: normal;
+}
+
+#left table.eventslist td, #right table.eventslist td {
+    padding-bottom: 20px;
+}

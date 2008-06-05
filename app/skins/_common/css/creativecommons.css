@@ -3,12 +3,12 @@
 ******************************************************************************************/
 
 
-option.copyright {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/copyright.gif');background-repeat: no-repeat; }
-option.by {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by.gif');background-repeat: no-repeat;}
-option.by-sa {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-sa.gif');background-repeat: no-repeat;}
-option.by-nd {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-nd.gif');background-repeat: no-repeat;}
-option.by-nc {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-nc.gif');background-repeat: no-repeat;}
-option.by-nc-sa {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-nc-sa.gif');background-repeat: no-repeat;}
-option.by-nc-nd {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-nc-nd.gif');background-repeat: no-repeat;}
-option.gnu-fdl {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/gnu-fdl.gif');background-repeat: no-repeat;}
-option.by-sa_gnu-fdl {padding-left:90px;background-image: url('../_common/icons/creativecommons_v3/by-sa_gnu-fdl.gif');background-repeat: no-repeat;}
+option.copyright {padding-left:90px;background-image: url('../icons/creativecommons_v3/copyright.gif');background-repeat: no-repeat; }
+option.by {padding-left:90px;background-image: url('../icons/creativecommons_v3/by.gif');background-repeat: no-repeat;}
+option.by-sa {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-sa.gif');background-repeat: no-repeat;}
+option.by-nd {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-nd.gif');background-repeat: no-repeat;}
+option.by-nc {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-nc.gif');background-repeat: no-repeat;}
+option.by-nc-sa {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-nc-sa.gif');background-repeat: no-repeat;}
+option.by-nc-nd {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-nc-nd.gif');background-repeat: no-repeat;}
+option.gnu-fdl {padding-left:90px;background-image: url('../icons/creativecommons_v3/gnu-fdl.gif');background-repeat: no-repeat;}
+option.by-sa_gnu-fdl {padding-left:90px;background-image: url('../icons/creativecommons_v3/by-sa_gnu-fdl.gif');background-repeat: no-repeat;}
