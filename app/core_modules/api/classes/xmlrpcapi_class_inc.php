@@ -143,6 +143,21 @@ class xmlrpcapi extends object
 	 */
 	public $objForum;
 
+
+	/**
+	 * Chisimba user API
+	 * @var    object
+	 * @access public
+	 */
+	public $objUser;
+
+	/**
+	 * Chisimba context API
+	 * @var    object
+	 * @access public
+	 */
+	public $objContext;
+
     /**
      * init method
      *
@@ -190,6 +205,10 @@ class xmlrpcapi extends object
         	$this->objPodcasts = $this->getObject('podcastapi');
         	// XULtools API
         	$this->objXULtools = $this->getObject('xultoolsapi');
+			// User API
+			$this->objUser = $this->getObject('userapi');
+			// Context API
+			$this->objContext = $this->getObject('contextapi');
 		}
 		catch (customException $e)
 		{
@@ -736,6 +755,18 @@ class xmlrpcapi extends object
                 		  						   'signature' => array(
                 		   						   					array('string', 'string', 'string', 'string', 'string', 'string', 'string')),
                 		   						   'docstring' => 'uploads a file to the server'),
+						 	//User API						
+							'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+													'docstring' => 'authenticate the user'),
+							//Context API						
+							'user.getContextList' => array('function' => array($this->objContext, 'getContextList'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+													'docstring' => 'get a list of contexts for this user'),
    					), 1, 0);
 
 
