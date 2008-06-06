@@ -128,6 +128,23 @@ class controller extends access
 	   $module = is_null($modulename)?$this->moduleName:$modulename;
 	   return $this->_objLanguage->languageText($itemName, $module, $default);
 	}
+	
+	public function dumpText($data)
+	{
+		if (isset($data) && !is_array($data)) {
+   			return $data; 
+		}
+		if (isset($data) && is_array($data)) {
+    		//Create an instance of the table object
+    		$objTable = $this->newObject('htmltable', 'htmlelements');
+    		//Turn on active rows
+    		$objTable->active_rows=TRUE;
+    		//Turn the array into a table
+    		$objTable->arrayToTable($data);
+    		//Show the table
+    		return $objTable->show();
+		}
+	}
 
     /**
      * Method to return current page content.
