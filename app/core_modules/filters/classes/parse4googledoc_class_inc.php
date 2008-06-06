@@ -80,10 +80,8 @@ class parse4googledoc extends object
             $str = trim($results[2][$counter]);
             //The whole match must be replaced
             $replaceable = $results[0][$counter];
-            //echo "!!!$str!!!<br/>";
             $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
-            //$replacement = $this->getBox($this->boxtype, $item);
             $replacement =  $this->getDoc($item);
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
