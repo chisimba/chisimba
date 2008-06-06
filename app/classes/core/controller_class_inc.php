@@ -131,7 +131,7 @@ class controller extends access
 	
 	public function dumpText($data)
 	{
-		if (isset($data) && !is_array($data)) {
+		if (isset($data) && !is_array($data)) { 
    			return $data; 
 		}
 		if (isset($data) && is_array($data)) {
