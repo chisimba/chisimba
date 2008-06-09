@@ -336,7 +336,7 @@ class filepreview extends object
                     $finalFlash = $this->objConfig->getcontentPath().'filemanager_thumbnails/'.$this->file['id'].'.swf';
                     $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                     
-                    if (file_exists($htmlFileDestination)) {
+                    if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
                         //$destination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                         return file_get_contents($htmlFileDestination);
                     } else {
@@ -377,7 +377,7 @@ class filepreview extends object
                 $htmlFileDestination = $this->objConfig->getcontentBasePath().'filemanager_thumbnails/'.$this->file['id'].'.htm';
                 
                 // Check if preview exists already
-                if (file_exists($htmlFileDestination)) {
+                if (file_exists($htmlFileDestination) && file_exists($fullFlashPath)) {
                     return file_get_contents($htmlFileDestination);
                 } else {
                     
