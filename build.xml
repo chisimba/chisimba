@@ -267,7 +267,7 @@
   
   <!-- Deploy targets - local first, then remotes -->
   <!-- Local build target -->
-  <target name="deploy-local" description="Copies archives to local folder" depends="init"> <!-- took out build -->
+  <target name="deploy-local" description="Copies archives to local folder" depends="init, build">
     <copy file="${tarfile}" todir="./final" overwrite="true"/>
     <copy file="${zipfile}" todir="./final" overwrite="true"/>
     <copy file="${apidoczipfile}" todir="./final" overwrite="true"/>
