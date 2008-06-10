@@ -73,9 +73,9 @@ class postloginmenu_elearn extends object
         
         $str = '';//$header->show();
         
-        $str .= '<p align="center"><img src="'.$objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" /></p>';
+        $str .= '<p align="center"><img src="'.$objUserPic->userpicture($this->objUser->userId() ).'" alt="User Image" style="margin-bottom: 2px;" /></p>';
         
-        $str .= '<br />';
+        //$str .= '<br />';
         // First add user pic
         //$str = $this->sideMenu->userDetails();
         
