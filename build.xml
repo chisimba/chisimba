@@ -183,7 +183,7 @@
   
   <target name="sortdocs" description="Sorts the docs and generates different formats through OO.o" depends="docsvnexport">
       <!-- Sort docs target - python OO.o UNO bridge script to do conversions -->
-      <exec command="conv.sh" dir="${build.dir}/docs/" passthru="TRUE" />
+      <exec command="${build.dir}/docs/conv.sh" dir="${build.dir}/docs/" passthru="TRUE" />
       <!-- end build docs via OO.o -->
   </target>
   
