@@ -128,7 +128,8 @@ class displaycontext extends object
             $contextImage = '<img src="'.$contextImage.'" />';
         }
         
-        $contextImage = '<div style="float:left; width: 100px; text-align:center;  margin-left: 10px; margin-right: 10px;">'.$contextImage.'</div>';
+        $contextImageLink = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
+        $contextImageLink->link = $contextImage;
         
         $str = '';
         
@@ -162,8 +163,15 @@ class displaycontext extends object
         $str .= '<p><strong>'.ucwords($this->objLanguage->languageText('mod_context_accessettings', 'context', 'Access Settings')).'</strong>: '.$context['access'].' - '.$access.'</p>';
         //$str .= '<p><strong>Contact</strong>: '.$access.'</p>';      
         
-        $content = $contextImage.'<div style="float: left;">'.$str.'</div>';
-        $content .= '<br clear="both" />';
+        //$content = $contextImage.'<div style="float: left;">'.$str.'</div>';
+        //$content .= '<br clear="both" />';
+        
+        $table = $this->newObject('htmltable', 'htmlelements');
+        $table->startRow();
+        $table->addCell($contextImageLink->show(), 120);
+        $table->addCell($str);
+        
+        $content = $table->show();
         
         $title = '';
         

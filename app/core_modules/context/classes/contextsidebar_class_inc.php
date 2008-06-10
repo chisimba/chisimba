@@ -108,8 +108,12 @@ class contextsidebar extends object
         if (count($contextModules) > 0) {
             foreach ($contextModules as $module)
             {
+                $moduleInfo = $objModules->getModuleInfo($module);
                 
-                $nodes[] = array('text'=>$objModules->getModuleTitle($module), 'uri'=>$this->uri(NULL, $module), 'nodeid'=>$module);
+                if ($moduleInfo['isreg']) {
+                    $nodes[] = array('text'=>ucwords($moduleInfo['name']), 'uri'=>$this->uri(NULL, $module), 'nodeid'=>$module);
+                }
+                
             }
         }
         

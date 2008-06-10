@@ -121,24 +121,45 @@ class block_contextmodules extends object
             
             $objIcon = $this->newObject('geticon', 'htmlelements');
             
+            $counter = 0;
+            
             foreach ($modules as $module)
             {
-                $table->startRow();
+                $moduleInfo = $this->objModules->getModuleInfo($module);
                 
-                $objIcon->setModuleIcon($module);
-                $moduleTitle = $this->objModules->getModuleTitle($module);
-                $objIcon->alt = $moduleTitle;
-                $objIcon->title = $moduleTitle;
-                
-                $link = new link ($this->uri(NULL, $module));
-                $link->link = $objIcon->show();
-                
-                
-                $table->addCell($link->show(), 40);
-                
-                $link->link = $moduleTitle;
-                $table->addCell($link->show().' - '.$this->objModules->getModuleDescription($module).'<br /><br />');
-                
+                if ($moduleInfo['isreg']) {
+                    
+                    if ($counter % 2 == 0) {
+                        $table->startRow();
+                    }
+                    
+                    
+                    $objIcon->setModuleIcon($module);
+                    $moduleTitle = $this->objModules->getModuleTitle($module);
+                    $objIcon->alt = $moduleTitle;
+                    $objIcon->title = $moduleTitle;
+                    
+                    $link = new link ($this->uri(NULL, $module));
+                    $link->link = $objIcon->show();
+                    
+                    
+                    $table->addCell($link->show(), 25);
+                    
+                    $link->link = $moduleTitle;
+                    $table->addCell($link->show().'<br /><br />', '45%');
+                    
+                    
+                    $counter++;
+                    
+                    if ($counter % 2 == 0) {
+                        $table->endRow();
+                    }
+                }
+            }
+            
+            if ($counter % 2 == 1) {
+                $table->addCell('&nbsp;');
+                $table->addCell('&nbsp;');
                 $table->endRow();
             }
             
