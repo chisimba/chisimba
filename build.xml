@@ -267,17 +267,19 @@
   
   <!-- Deploy targets - local first, then remotes -->
   <!-- Local build target -->
-  <target name="deploy-local" description="Copies archives to local folder" depends="init,build">
-    <copy file="${tarfile}" todir="final" overwrite="true"/>
-    <copy file="${zipfile}" todir="final" overwrite="true"/>
-    <copy file="${apidoczipfile}" todir="final" overwrite="true"/>
-    <copy file="${apidoctarfile}" todir="final" overwrite="true"/>
-    <copy file="${docdoctarfile}" todir="final" overwrite="true"/>
-    <copy file="${docdoczipfile}" todir="final" overwrite="true"/>
-    <copy file="${odtdoctarfile}" todir="final" overwrite="true"/>
-    <copy file="${odtdoczipfile}" todir="final" overwrite="true"/>
-    <copy file="${pdfdoctarfile}" todir="final" overwrite="true"/>
-    <copy file="${pdfdoczipfile}" todir="final" overwrite="true"/>
+  <target name="deploy-local" description="Copies archives to local folder" depends="init"> <!-- took out build -->
+    <copy file="${tarfile}" todir="./final" overwrite="true"/>
+    <copy file="${zipfile}" todir="./final" overwrite="true"/>
+    <copy file="${apidoczipfile}" todir="./final" overwrite="true"/>
+    <copy file="${apidoctarfile}" todir="./final" overwrite="true"/>
+    <copy file="${docdoctarfile}" todir="./final" overwrite="true"/>
+    <copy file="${docdoczipfile}" todir="./final" overwrite="true"/>
+    <copy file="${odtdoctarfile}" todir="./final" overwrite="true"/>
+    <copy file="${odtdoczipfile}" todir="./final" overwrite="true"/>
+    <copy file="${pdfdoctarfile}" todir="./final" overwrite="true"/>
+    <copy file="${pdfdoczipfile}" todir="./final" overwrite="true"/>
+    <!-- Clean up -->
+    <delete dir="./build" includeemptydirs="true" verbose="true" failonerror="true" />
   </target>
 
 </project>
