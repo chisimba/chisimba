@@ -5,7 +5,7 @@ body {
     font: 80% "Trebuchet MS", Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
     font:83%/1.5 arial,tahoma,verdana,sans-serif;
     line-height: 200%;
-    background-image: url('images/site_bg.jpg');
+    background-image: url('images/site_bkg.jpg');
 }
 
 #container {
@@ -149,11 +149,8 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid #c4ebe3;
 }
 
-h1#sitename span {
-    display: none;
-}
+
 
 h1#sitename {
-    background: url(images/headerlogo.jpg) no-repeat;
-    height: 119px;
+    padding: 20px;
 }

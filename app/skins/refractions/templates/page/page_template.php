@@ -27,7 +27,7 @@ if (!isset($pageSuppressToolbar)) {
         </title>
 <?php
     if (!isset($pageSuppressSkin)) {
-        echo '<link rel="stylesheet" type="text/css" href="skins/refractions/base.css">
+        echo '<link rel="stylesheet" type="text/css" href="skins/_common/base.css">
         <link rel="stylesheet" type="text/css" href="skins/refractions/stylesheet.css">';
     }
     
