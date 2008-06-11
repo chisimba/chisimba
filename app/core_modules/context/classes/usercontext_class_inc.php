@@ -134,19 +134,64 @@ class usercontext extends object
         }
     }
     
+    /**
+     * Method to get the list of lecturers for a context
+     * @param string $contextCode Context Code
+     * @return array List of Lecturers for given context
+     */
     public function getContextLecturers($contextCode)
     {
         return $this->objGroups->contextUsers('Lecturers', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
     }
     
+    /**
+     * Method to get the list of students for a context
+     * @param string $contextCode Context Code
+     * @return array List of students for given context
+     */
     public function getContextStudents($contextCode)
     {
         return $this->objGroups->contextUsers('Students', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
     }
     
+    /**
+     * Method to get the list of guests for a context
+     * @param string $contextCode Context Code
+     * @return array List of guests for given context
+     */
     public function getContextGuests($contextCode)
     {
         return $this->objGroups->contextUsers('Guests', $contextCode, array('tbl_users.userId', 'firstname', 'surname'));
+    }
+    
+    /**
+     * Method to get a list of all contexts where the user is a lecturer
+     * @param string $userId User Id of User
+     * @return array List of contexts where lecturer
+     */
+    public function getContextWhereLecturer($userId)
+    {
+        return $this->objGroups->rolecontextcodes($userId, 'Lecturers');
+    }
+    
+    /**
+     * Method to get a list of all contexts where the user is a student
+     * @param string $userId User Id of User
+     * @return array List of contexts where student
+     */
+    public function getContextWhereStudent($userId)
+    {
+        return $this->objGroups->rolecontextcodes($userId, 'Students');
+    }
+    
+    /**
+     * Method to get a list of all contexts where the user is a guest
+     * @param string $userId User Id of User
+     * @return array List of contexts where guest
+     */
+    public function getContextWhereGuest($userId)
+    {
+        return $this->objGroups->rolecontextcodes($userId, 'Guest');
     }
 
 }
