@@ -81,7 +81,7 @@ class parse4mathml extends object
     {
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the mathml module is registered and set a param
-        $isRegistered = $objModule->checkIfRegistered('youtube');
+        $isRegistered = $objModule->checkIfRegistered('mathml');
         if ($isRegistered){
             
             $this->objMathImg = $this->getObject('mathimg','mathml');
