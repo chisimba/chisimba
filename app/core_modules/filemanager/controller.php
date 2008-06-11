@@ -457,7 +457,7 @@ class filemanager extends controller
         if (trim($preview) == '') {
             $right = '';
         } else {
-            $right = '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h3>';
+            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h2>';
             
             $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
             
@@ -467,7 +467,7 @@ class filemanager extends controller
             
     <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="'.$value.'" />';
             $right .= '
-    <input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
+    <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
     </form>';
         }
         
@@ -872,7 +872,7 @@ class filemanager extends controller
             $objIndexFileProcessor = $this->getObject('indexfileprocessor');
             $objIndexFileProcessor->indexFolder($folderParts[0], $folderParts[1], $fullFolderPath, $this->objUser->userId());
             
-            $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+            //$call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
             
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>'archiveextracted', 'archivefile'=>$archiveFileId));
         }

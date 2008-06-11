@@ -543,7 +543,7 @@ class dbfile extends dbTable
 
         $objTable->startRow();
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filetype', 'system', 'File Type').'</strong>', '25%');
-        $objTable->addCell(ucwords($file['datatype']), '25%');
+        $objTable->addCell($file['datatype'], '25%');
         $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_filesize', 'system', 'File Size').'</strong>', '25%');
         $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%');
         $objTable->endRow();
@@ -552,7 +552,7 @@ class dbfile extends dbTable
         // $objTable->addCell('<strong>'.$this->objLanguage->languageText('phrase_fileversion', 'filemanager', 'File Version').'</strong>', '25%');
         // $objTable->addCell($file['version'], '25%');
 
-        $objTable->addCell('<strong>License:</strong>', '25%');
+        $objTable->addCell('<strong>License</strong>', '25%');
 
         $licenseDisplay = $this->getObject('displaylicense', 'creativecommons');
         $licenseDisplay->icontype = 'small';
@@ -596,17 +596,21 @@ class dbfile extends dbTable
         $mediaInfoArray = array();
 
         if ($file['width'] != 0) {
-            $mediaInfoArray['info_width'] = $file['width'];
+            $mediaInfoArray['info_width'] = $file['width'].' px';
         }
 
         if ($file['height'] != 0) {
-            $mediaInfoArray['info_height'] = $file['height'];
+            $mediaInfoArray['info_height'] = $file['height'].' px';
         }
 
         if ($file['playtime'] != 0) {
             $seconds = $file['playtime'] % 60;
             $minutes = ($file['playtime'] - $seconds) / 60;
-
+            
+            if ($seconds < 10) {
+                $seconds = '0'.$seconds;
+            }
+            
             if ($minutes > 59) {
                 $hour = ($minutes - ($minutes % 60)) / 60;
                 $minutes = $minutes % 60;
@@ -622,11 +626,11 @@ class dbfile extends dbTable
         }
 
         if ($file['bitrate'] != 0) {
-            $mediaInfoArray['info_bitrate'] = $file['bitrate'];
+            $mediaInfoArray['info_bitrate'] = $objFileSize->formatsize($file['bitrate']);
         }
 
         if ($file['samplerate'] != 0) {
-            $mediaInfoArray['info_samplerate'] = $file['samplerate'];
+            $mediaInfoArray['info_samplerate'] = $objFileSize->formatsize($file['samplerate']);
         }
 
         if ($file['title'] != '') {
@@ -656,7 +660,7 @@ class dbfile extends dbTable
 
             foreach ($mediaInfoArray as $item=>$value)
             {
-                $objTable->addCell($this->objLanguage->languageText('mod_filemanager_'.$item, 'filemanager'), '25%');
+                $objTable->addCell('<strong>'.$this->objLanguage->languageText('mod_filemanager_'.$item, 'filemanager').'</strong>', '25%');
                 $objTable->addCell($value, '25%');
                 $count++;
 

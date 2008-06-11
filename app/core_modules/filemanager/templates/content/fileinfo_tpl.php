@@ -31,6 +31,18 @@ $header = new htmlheading();
 $header->type = 1;
 $header->str = $objFileIcons->getFileIcon($file['filename']).' '.str_replace('_', ' ', htmlentities($file['filename']));
 
+$fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
+$fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
+
+$objIcon->setIcon('download');
+$link = new link ($fileDownloadPath);
+$link2 = new link ($fileDownloadPath);
+
+$link->link = $objIcon->show();
+$link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
+
+$header->str .= ' '.$link->show().' ';
+
 if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
     if (count($restrictions) == 0) {
         $header->str .= ' (<a href="javascript:selectFile();">'.$this->objLanguage->languageText('mod_filemanager_selectfile', 'filemanager', 'Select File').'</a>) ';
@@ -124,17 +136,7 @@ $header->str .= $editLink->show();
 
 echo $header->show();
 
-$fileDownloadPath = $this->objConfig->getcontentPath().$file['path'];
-$fileDownloadPath = $this->objCleanUrl->cleanUpUrl($fileDownloadPath);
 
-$objIcon->setIcon('download');
-$link = new link ($fileDownloadPath);
-$link2 = new link ($fileDownloadPath);
-
-$link->link = $objIcon->show();
-$link2->link = $this->objLanguage->languageText('phrase_downloadfile', 'filemanager', 'Download File');
-
-echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
 echo '<br /><p><strong>'.$this->objLanguage->languageText('word_description', 'system', 'Description').':</strong> <em>'.$file['filedescription'].'</em></p>';
 
@@ -156,17 +158,56 @@ if (count($tags) == 0) {
 
 echo '</p>';
 
-echo $embedCode;
+$tabContent = $this->newObject('tabcontent', 'htmlelements');
+$tabContent->width = '90%';
+if ($preview != '') {
+    
+    
+    
+    
+    
+    if ($file['category'] == 'images') {
+        $this->appendArrayVar('headerParams', $this->getJavaScriptFile('jquery/jquery.imagefit_0.2.js', 'htmlelements'));
+        $this->appendArrayVar('bodyOnLoad', "jQuery('#filemanagerimagepreview').imagefit();");
+        
+        $preview = '<div id="filemanagerimagepreview">'.$preview.'</div>';
+    }
+    
+    $previewContent = '<h2>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h2>'.$preview;
+    
+    
+    $tabContent->addTab($this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), $previewContent);
+    $tabContent->addTab($this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'), $embedCode);
+}
 
-echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information').'</h2>';
+$fileInfo = $this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information');
 
-echo $this->objFiles->getFileInfoTable($file['id']);
+$fileInfoContent = '<h2>'.$fileInfo.'</h2>'.$this->objFiles->getFileInfoTable($file['id']);
+
 
 
 if (array_key_exists('width', $file)) {
-    echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_mediainfo', 'filemanager', 'Media Information').'</h2>';
-    echo $this->objFiles->getFileMediaInfoTable($file['id']);
+    
+    
+    $mediaInfo = $this->objLanguage->languageText('mod_filemanager_mediainfo', 'filemanager', 'Media Information');
+    
+    $fileInfoContent .= '<br /><h2>'.$mediaInfo.'</h2>'.$this->objFiles->getFileMediaInfoTable($file['id']);
 }
+
+$tabContent->addTab($fileInfo, $fileInfoContent);
+
+
+echo $tabContent->show();
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -194,9 +235,10 @@ if ($file['category'] == 'archives' && $file['datatype'] == 'zip') {
 // echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_filehistory', 'filemanager', 'File History').'</h3>';
 // echo $this->objFiles->getFileHistory($file['id']);
 
-echo '<br /><h2>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h2>';
 
-echo $preview;
+
+
+echo '<p><br />'.$link->show().' '.$link2->show().'</p>';
 
 
 ?>
