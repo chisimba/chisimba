@@ -336,6 +336,9 @@ class manageGroups extends object
         // Get all contextcodes
         $objContext = $this->getObject('dbcontext','context');
         $arrcontextcodeRows = $objContext->getAll();
+        
+        $arrcontextcodes = array();
+        
         // Now check for membership
         foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
