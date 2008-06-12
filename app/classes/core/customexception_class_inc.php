@@ -66,8 +66,7 @@ class customException extends Exception
 	 *
 	 * @param call stack $m
 	 */
-    function __construct($m)
-    {
+    function __construct($m) {
     	$msg = urlencode($m);
     	//log the exception
     	log_debug($m);
@@ -84,8 +83,7 @@ class customException extends Exception
      * @param  void  
      * @return string
      */
-    public function diePage($msg)
-    {
+    public function diePage($msg) {
     	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=syserr&msg=".$msg;
     	header("Location: $this->uri");
     }
@@ -96,10 +94,9 @@ class customException extends Exception
      * @param  call stack $msg
      * @return url 
      */
-    public function dbDeath($msg)
-    {
-    	$usrmsg = urlencode($msg[0]);
-    	$devmsg = urlencode($msg[1]);
+    public function dbDeath($msg) {
+    	$usrmsg    = urlencode($msg[0]);
+    	$devmsg    = urlencode($msg[1]);
     	$this->uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] . "?module=errors&action=dberror&usrmsg=".$usrmsg."&devmsg=".$devmsg;
     	header("Location: $this->uri");
     }
@@ -110,14 +107,10 @@ class customException extends Exception
      * @param  void
      * @return void
      */
-    public function cleanUp()
-    {
+    public function cleanUp() {
         // generic cleanup code here
         //for now, we can output a message?
 
     }
-
-
-
 }
 ?>
