@@ -63,8 +63,7 @@ class access extends object
      * @param object $objEngine  the engine object reference
      * @param string $moduleName The module name
      */
-    public function __construct($objEngine, $moduleName)
-    {
+    public function __construct($objEngine, $moduleName) {
         parent::__construct($objEngine, $moduleName);
     }
 
@@ -78,8 +77,7 @@ class access extends object
      * 
      * @return array The next action to be done
      */
-    public function dispatchControl( $module, $action )
-    {
+    public function dispatchControl( $module, $action ) {
         // Extract isRegistered
         extract( $this->getModuleInformation( 'decisiontable' ) );
         // Safety net if the decision table module has not been registered.
@@ -112,8 +110,7 @@ class access extends object
      * 
      * @return bool true|false True if action valid, otherwise False.
      */
-    public function isValid( $action, $default = TRUE )
-    {
+    public function isValid( $action, $default = TRUE ) {
         return $this->objDT->isValid($action, $default);
     }
 
@@ -124,13 +121,12 @@ class access extends object
      * 
      * @return string $info
      */
-    public function getModuleInformation($moduleName)
-    {
-        $objModAdmin = $this->getObject( 'modules', 'modulecatalogue' );
-        $array = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
-        $info =array();
+    public function getModuleInformation($moduleName) {
+        $objModAdmin          = $this->getObject( 'modules', 'modulecatalogue' );
+        $array                = $objModAdmin->getArray('SELECT isadmin, dependscontext FROM tbl_modules WHERE module_id=\''.$moduleName.'\'');
+        $info                 = array();
         $info['isRegistered'] = isset( $array[0] );
-        $info['isAdminMod'] = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;
+        $info['isAdminMod']   = $info['isRegistered'] ? $array[0]['isadmin'] : NULL;
         $info['isContextMod'] = $info['isRegistered'] ? $array[0]['dependscontext'] : NULL;
         return $info;
     }
@@ -142,8 +138,7 @@ class access extends object
      * 
      * @return array the next action to be completed.
      */
-    public function getPermissions($moduleName)
-    {
+    public function getPermissions($moduleName) {
         // Extract isRegistered, isAdminMod, isContextMod
         extract( $this->getModuleInformation( $moduleName ) );
         // The module is not registered redirect with option to register.
