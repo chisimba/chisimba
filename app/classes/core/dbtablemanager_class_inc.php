@@ -76,7 +76,7 @@ class dbTableManager extends object
      * @access public
      * @var    string - default null
      */
-    public $_tableName = null;
+    public $_tableName = NULL;
 
     /**
      * The current database that we are working with
