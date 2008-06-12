@@ -38,8 +38,7 @@ class bridge
 {
     public function __construct() {}
 
-    public function startBridge()
-    {
+    public function startBridge() {
         return $this->getInstance("engine");
     }
 
@@ -51,8 +50,7 @@ class bridge
     * @param string The class handle
     *
     */
-    public function getInstance ($class)
-    {
+    public function getInstance ($class) {
         //array of instance names
         static $instances = array();
         if (!array_key_exists($class, $instances)) {
