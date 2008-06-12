@@ -21,9 +21,9 @@ $GLOBALS['kewl_entry_point_run'])
  */
 class chisimbacache extends Memcache
 {
-	static private $objMem = NULL;
+	static private $objMem     = NULL;
 	static private $objServers = array();
-	static private $objAPC = NULL;
+	static private $objAPC     = NULL;
 	
 	/**
 	 * Singleton method for memcache servers
@@ -33,8 +33,7 @@ class chisimbacache extends Memcache
 	 * @param array $servers
 	 * @return memcahed instance
 	 */
-	static function getMem()
-	{
+	static function getMem() {
 		$servers = self::getServers();
 		if(!empty($servers))
 		{
@@ -52,8 +51,7 @@ class chisimbacache extends Memcache
 		return self::$objMem;
 	}
 	
-	public function getServers()
-	{
+	public function getServers() {
 		$filename = 'cache.config';
 		if(!file_exists($filename))
 		{
@@ -64,15 +62,21 @@ class chisimbacache extends Memcache
 		while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
     		$num = count($data);
     		for ($c=0; $c < $num; $c++) {
-					$cache[] = array('ip' => $data[0], 'port' => $data[1]); 
+					$cache[] = array(
+					            'ip'   => $data[0], 
+					            'port' => $data[1],
+					           ); 
     		}
 		}
 		fclose($handle);
 		if(empty($cache))
 		{
-			$cache = array('ip' => 'localhost', 'port' => 11211);
+			$cache    = array(
+			             'ip'   => 'localhost', 
+			             'port' => 11211,
+			            );
 			$cacherec = array($cache);
-			$handle = fopen($filename, 'wb');
+			$handle   = fopen($filename, 'wb');
 			foreach($cacherec as $rec)
 			{
 				fputcsv($handle, $rec);
