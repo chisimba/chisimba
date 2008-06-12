@@ -74,7 +74,7 @@ class dbTableManager extends object
      * The current table name that we are working with
      *
      * @access public
-     * @var    string - default null
+     * @var    string - default NULL
      */
     public $_tableName = NULL;
 
@@ -82,9 +82,9 @@ class dbTableManager extends object
      * The current database that we are working with
      *
      * @access public
-     * @var    string - default null
+     * @var    string - default NULL
      */
-    public $_dbName = null;
+    public $_dbName = NULL;
 
     /**
      * The global error callback for dbTable errors
@@ -108,7 +108,7 @@ class dbTableManager extends object
      * @access private
      * @var    object 
      */
-    private $_dbmanager = null;
+    private $_dbmanager = NULL;
 
     /**
      * The non Schema DB Object
@@ -131,11 +131,11 @@ class dbTableManager extends object
     * @param  callback $errorCallback The name of a custom error callback function (defaults to the global)
     * @return void    
     */
-    public function init($dbName = NULL, $pearDbManager = null,
+    public function init($dbName = NULL, $pearDbManager = NULL,
         $errorCallback = "globalPearErrorCallback")
     {
         $this->_errorCallback = $errorCallback;
-        if ($pearDbManager == null) {
+        if ($pearDbManager == NULL) {
             $this->_dbmanager = $this->objEngine->getDbManagementObj();
             $this->_db = $this->objEngine->getDbObj();
         } else {
@@ -302,7 +302,7 @@ class dbTableManager extends object
      * </pre>
      *
      * since we are on php5 we can use the magic __call() method to:
-     * - load the manager module: $_db->loadModule('Manager', null, true);
+     * - load the manager module: $_db->loadModule('Manager', NULL, true);
      * - redirect the method call to the manager module: $_db->manager->createTable('sometable', $fields);
      *
      * @param string $tableName
