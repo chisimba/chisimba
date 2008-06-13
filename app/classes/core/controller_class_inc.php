@@ -29,7 +29,7 @@
  * @see       core
  */
 
-/* -------------------- controller class ----------------*/
+// -------------------- controller class ----------------
 // security check - must be included in all scripts
 if (!
 /**
@@ -357,21 +357,7 @@ class controller extends access
         if ($_magic__buffer) {
             $_magic__pageContent = ob_get_contents();
             ob_end_clean();
-
-            /*
-            // Tidy
-            //call on tidy to clean up...
-            // Specify tidy configuration
-            $config = array(
-                'indent'        => TRUE,
-                'output-xhtml'  => TRUE,
-                'wrap'          => 200);
-            $tidy = new tidy;
-            $tidy->parseString($pageContent, $config, 'utf8');
-            $tidy->cleanRepair();
-            //return $tidy;
-            */
-
+            
             return $_magic__pageContent;
         } else {
             return NULL; // just to be explicit
