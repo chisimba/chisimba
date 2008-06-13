@@ -142,8 +142,8 @@ class dbTableManager extends object
             $this->_db        = $pearDb;
         }
 
-        //check for PEAR Var_dump and initialise it,
-        //otherwise just use regular PHP var_dump();
+        // check for PEAR Var_dump and initialise it,
+        // otherwise just use regular PHP var_dump();
         if (class_exists('Var_Dump')) {
             $var_dump = array(
                          'Var_Dump', 
@@ -153,14 +153,14 @@ class dbTableManager extends object
             $var_dump = 'var_dump';
         }
 
-        //Load up the config object and get the servername
+        // Load up the config object and get the servername
         $this->objDBConfig = $this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
-        //instantiate the MDB2 Management module
+        // instantiate the MDB2 Management module
        // $this->_db = $this->_db->loadModule('Manager');
 
-        //call_user_func($var_dump, $this->_dbmanager);
+        // call_user_func($var_dump, $this->_dbmanager);
     }
 
     /**
@@ -208,7 +208,7 @@ class dbTableManager extends object
      * @return bool  
      */
     public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile) {
-        //lets set a time limit on this
+        // lets set a time limit on this
         set_time_limit(0);
 
         if ($option == 'dump')
@@ -317,17 +317,17 @@ class dbTableManager extends object
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
         	$this->_db->setOption('default_table_type', 'INNODB');
-            //do the table create.
-            //we call on the actual MDB object, NOT the MDB::Schema object to do this.
+            // do the table create.
+            // we call on the actual MDB object, NOT the MDB::Schema object to do this.
             $this->_db->mgCreateTable($tableName, $fields, $options);
-            //create the "primary" index
+            // create the "primary" index
             $this->createPK($tableName);
-            //return a TRUE, simply because MDB::CreateTable returns void (wtf?)
+            // return a TRUE, simply because MDB::CreateTable returns void (wtf?)
             return TRUE;
         }
         else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
-            //create the "primary" index
+            // create the "primary" index
             $this->createPK($tableName);
             return TRUE;
         }
@@ -785,7 +785,7 @@ class dbTableManager extends object
     		return $ret->getMessage();
     	}
     	else {
-    		//var_dump($ret);
+    		// var_dump($ret);
     		return $ret;
     	}
     }
