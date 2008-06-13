@@ -77,11 +77,9 @@ class errorhandler extends PEAR
      * @return void   
      * @access public 
      */
-    public function __construct($errstr, $errno, $object)
-    {
+    public function __construct($errstr, $errno, $object){
         $error = new PEAR_Error($errstr, $errno);
-        if (PEAR::isError($object))
-        {
+        if (PEAR::isError($object)){
             $this->error = $object->getMessage();
         }
     }
@@ -94,8 +92,7 @@ class errorhandler extends PEAR
      * @return string Return error string in human readable format
      * @access public 
      */
-    public function handleError()
-    {
+    public function handleError(){
         return $this->error;
     }
 
