@@ -33,7 +33,7 @@
 // increase memory_limit - added 28.07.06 by nappleby
 ini_set('memory_limit','500M');
 
-/* --------------------------- engine class ------------------------*/
+// --------------------------- engine class ------------------------
 
 // security check - must be included in all scripts
 if (!
