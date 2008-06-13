@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PEAR Error handler
  * 
@@ -50,7 +49,6 @@ require_once('PEAR.php');
  * @see       http://pear.php.net/
  */
 class errorhandler extends PEAR {
-
     /**
      * The error
      * @var    mixed
@@ -94,6 +92,5 @@ class errorhandler extends PEAR {
     public function handleError() {
         return $this->error;
     }
-
 }
 ?>
