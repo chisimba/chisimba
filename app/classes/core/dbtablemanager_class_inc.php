@@ -132,27 +132,29 @@ class dbTableManager extends object
     * @return void    
     */
     public function init($dbName = NULL, $pearDbManager = NULL,
-        $errorCallback = "globalPearErrorCallback")
-    {
+        $errorCallback = "globalPearErrorCallback") {
         $this->_errorCallback = $errorCallback;
         if ($pearDbManager == NULL) {
             $this->_dbmanager = $this->objEngine->getDbManagementObj();
-            $this->_db = $this->objEngine->getDbObj();
+            $this->_db        = $this->objEngine->getDbObj();
         } else {
             $this->_dbmanager = $pearDbManager;
-            $this->_db = $pearDb;
+            $this->_db        = $pearDb;
         }
 
         //check for PEAR Var_dump and initialise it,
         //otherwise just use regular PHP var_dump();
         if (class_exists('Var_Dump')) {
-            $var_dump = array('Var_Dump', 'display');
+            $var_dump = array(
+                         'Var_Dump', 
+                         'display',
+                         );
         } else {
             $var_dump = 'var_dump';
         }
 
         //Load up the config object and get the servername
-        $this->objDBConfig=$this->getObject('altconfig','config');
+        $this->objDBConfig = $this->getObject('altconfig','config');
         $this->_serverName = $this->objDBConfig->serverName();
 
         //instantiate the MDB2 Management module
@@ -171,13 +173,12 @@ class dbTableManager extends object
      *                                       used in the schema description.
      * @param  bool   $fail_on_invalid_names (optional) make function fail on invalid
      *                                       names
-     * @return mixed  true on success, or a MDB2 error object
+     * @return mixed  TRUE on success, or a MDB2 error object
      * @access public
      */
-    public function parseDbDefFile($input_file, $variables = array(), $fail_on_invalid_names = TRUE)
-    {
+    public function parseDbDefFile($input_file, $variables = array(), $fail_on_invalid_names = TRUE) {
         return $this->_dbmanager->parseDatabaseDefinitionFile($input_file, $variables,
-        $fail_on_invalid_names, $structure = false);
+        $fail_on_invalid_names, $structure = FALSE);
 
     }
 
@@ -189,8 +190,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK or array with all ambiguities on success, or a MDB2 error object
      * @access public
      */
-    public function getDefFromDb()
-    {
+    public function getDefFromDb() {
         return $this->_dbmanager->getDefinitionFromDatabase();
     }
 
@@ -207,8 +207,7 @@ class dbTableManager extends object
      * @param  string $dumpfile
      * @return bool  
      */
-    public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile)
-    {
+    public function dumpDatabaseToFile($option = 'dump', $dumptype = 'all', $dumpfile) {
         //lets set a time limit on this
         set_time_limit(0);
 
@@ -250,8 +249,7 @@ class dbTableManager extends object
      * @param  string $table
      * @return array 
      */
-    public function getTableSchema($table)
-    {
+    public function getTableSchema($table) {
         $dbdef = $this->getDefFromDb();
         if(array_key_exists($table, $dbdef['tables']))
         {
@@ -271,8 +269,7 @@ class dbTableManager extends object
      * @param  string    $message
      * @return string    message
      */
-    private function printQueries($db, $scope, $message)
-    {
+    private function printQueries($db, $scope, $message) {
         if ($scope == 'query')
         {
             return $message.$db->getOption('log_line_break');
@@ -287,8 +284,8 @@ class dbTableManager extends object
      *   'id' => array(
      *   'type'     => 'char',
      *   'length'   => 32
-     *   'unsigned' => true,
-     *   'autoincrement'  => false,
+     *   'unsigned' => TRUE,
+     *   'autoincrement'  => FALSE,
      *  ),
      *  'somename' => array(
      *   'type'     => 'text',
@@ -302,19 +299,18 @@ class dbTableManager extends object
      * </pre>
      *
      * since we are on php5 we can use the magic __call() method to:
-     * - load the manager module: $_db->loadModule('Manager', NULL, true);
+     * - load the manager module: $_db->loadModule('Manager', NULL, TRUE);
      * - redirect the method call to the manager module: $_db->manager->createTable('sometable', $fields);
      *
      * @param string $tableName
      * @param array  $fields   
      */
-    public function createTable($tableName, $fields, $options)
-    {
+    public function createTable($tableName, $fields, $options) {
     	$puid = array(
             	'puid' => array(
 				'type' => 'integer',
 				'length' => 50,
-				'autoincrement'  => true,
+				'autoincrement'  => TRUE,
 				));
 		$fields = array_merge($fields, $puid);
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
@@ -325,7 +321,7 @@ class dbTableManager extends object
             $this->_db->mgCreateTable($tableName, $fields, $options);
             //create the "primary" index
             $this->createPK($tableName);
-            //return a true, simply because MDB::CreateTable returns void (wtf?)
+            //return a TRUE, simply because MDB::CreateTable returns void (wtf?)
             return TRUE;
         }
         else {
@@ -344,8 +340,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function dropTable($name)
-    {
+    public function dropTable($name) {
         $ret = $this->_db->mgDropTable($name);
         return $ret;
     }
@@ -358,10 +353,9 @@ class dbTableManager extends object
      * @param  string $tableName
      * @param  string $keyname  
      * @param  array  $index    
-     * @return bool   true on success | False on failure
+     * @return bool   TRUE on success | FALSE on failure
      */
-    public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE)
-    {
+    public function createTableIndex($tableName, $keyname, $index, $trunc = FALSE) {
     	if($trunc != FALSE)
     	{
     		$this->_db->mgCreateIndex($tableName,$keyname,$index);
@@ -380,15 +374,14 @@ class dbTableManager extends object
      *
      * @access public
      * @param  mixed  $tableName
-     * @return bool   true
+     * @return bool   TRUE
      */
-    public function createPK($tableName)
-    {
+    public function createPK($tableName) {
         $primindex = array(
         	'fields' => array(
         	'id' => array('sorting' => 'ascending', ),
          	),
-        	'primary' => true
+        	'primary' => TRUE
 		 );
 
 		$pname = 'pk' . rand(0,999);
@@ -402,11 +395,10 @@ class dbTableManager extends object
      * create a new database
      *
      * @param  string $db name of the database that should be created
-     * @return bool   true on success
+     * @return bool   TRUE on success
      * @access public
      */
-    public function createDb($db)
-    {
+    public function createDb($db) {
     	$ret = $this->_db->mgCreateDatabase($db);
     	return $ret;
     }
@@ -415,11 +407,10 @@ class dbTableManager extends object
      * drop an existing database
      *
      * @param  string $db of the database that should be dropped
-     * @return bool   True on success
+     * @return bool   TRUE on success
      * @access public
      */
-    public function dropDb($db)
-    {
+    public function dropDb($db) {
     	$ret = $this->_db->mgDropDatabase($db);
     	return $ret;
     }
@@ -430,8 +421,7 @@ class dbTableManager extends object
      * @return mixed  data array on success
      * @access public
      */
-    public function listDatabases()
-    {
+    public function listDatabases() {
     	$ret = $this->_db->mgListDatabases();
     	return $ret;
     }
@@ -442,8 +432,7 @@ class dbTableManager extends object
      * @return mixed  data array on success
      * @access public
      */
-    public function listDbUsers()
-    {
+    public function listDbUsers() {
     	$ret = $this->_db->mgListUsers();
     	return $ret;
     }
@@ -454,8 +443,7 @@ class dbTableManager extends object
      * @return mixed  data array on success
      * @access public
      */
-    public function listDbViews()
-    {
+    public function listDbViews() {
     	$ret = $this->_db->mgListViews();
     	return $ret;
     }
@@ -466,8 +454,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listDbFunctions()
-    {
+    public function listDbFunctions() {
     	$ret = $this->_db->mgListFunctions();
     	return $ret;
     }
@@ -478,8 +465,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listDbTables()
-    {
+    public function listDbTables() {
     	$ret = $this->_db->mgListTables();
     	return $ret;
     }
@@ -491,8 +477,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listTableFields($table)
-    {
+    public function listTableFields($table) {
     	$ret = $this->_db->mgListTableFields($table);
     	return $ret;
     }
@@ -529,8 +514,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function createIndex($table, $name, $definition)
-    {
+    public function createIndex($table, $name, $definition) {
     	$ret = $this->_db->mgCreateIndex($table, $name, $definition);
     	return $ret;
     }
@@ -543,8 +527,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function dropIndex($table, $name)
-    {
+    public function dropIndex($table, $name) {
     	$ret = $this->_db->mgDropIndex($table, $name);
     	return $ret;
     }
@@ -556,8 +539,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listTableIndexes($table)
-    {
+    public function listTableIndexes($table) {
     	$ret = $this->_db->mgListTableIndexes($table);
     	return $ret;
     }
@@ -584,8 +566,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function createConstraint($table, $name, $definition)
-    {
+    public function createConstraint($table, $name, $definition) {
     	$ret = $this->_db->mgCreateConstraint($table, $name, $definition);
     	return $ret;
     }
@@ -598,8 +579,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function dropConstraint($table, $name)
-    {
+    public function dropConstraint($table, $name) {
     	$ret = $this->_db->mgDropConstraint($table, $name);
     	return $ret;
     }
@@ -611,8 +591,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listTableConstraints($table)
-    {
+    public function listTableConstraints($table) {
     	$ret = $this->_db->mgListTableConstraints($table);
     	return $ret;
     }
@@ -625,8 +604,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function createSequence($seq_name, $start = 1)
-    {
+    public function createSequence($seq_name, $start = 1) {
     	$ret = $this->_db->mgCreateSequence($seq_name, $start);
     	return $ret;
     }
@@ -638,8 +616,7 @@ class dbTableManager extends object
      * @return mixed  MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function dropSequence($name)
-    {
+    public function dropSequence($name) {
     	$ret = $this->_db->mgDropSequence($name);
     	return $ret;
     }
@@ -650,8 +627,7 @@ class dbTableManager extends object
      * @return mixed  data array on success, a MDB2 error on failure
      * @access public
      */
-    public function listSequences()
-    {
+    public function listSequences() {
     	$ret = $this->_db->mgListSequences();
     	return $ret;
     }
@@ -659,12 +635,11 @@ class dbTableManager extends object
     /**
      * Log out and disconnect from the database.
      *
-     * @return mixed  true on success, false if not connected and error
+     * @return mixed  TRUE on success, FALSE if not connected and error
      *                object on error
      * @access public
      */
-    public function disconnectDb()
-    {
+    public function disconnectDb() {
         return $this->_db->disconnect();
     }
 
@@ -675,8 +650,7 @@ class dbTableManager extends object
      * @return string name of the database previously connected to
      * @access public
      */
-    public function setDatabase($name)
-    {
+    public function setDatabase($name) {
         return $this->_db->setDatabase($name);
     }
 
@@ -686,8 +660,7 @@ class dbTableManager extends object
      * @return string name of the database
      * @access public
      */
-    public function getDatabase()
-    {
+    public function getDatabase() {
         return $this->_db->getDatabase();
     }
 
@@ -698,8 +671,7 @@ class dbTableManager extends object
      * @return mixed  array with versoin information or row string
      * @access public
      */
-    public function getServerVersion($native = false)
-    {
+    public function getServerVersion($native = FALSE) {
         return $this->_db->getServerVersion($native);
     }
 
@@ -787,14 +759,13 @@ class dbTableManager extends object
      *                          )
      *                          
      * @param  boolean $check   indicates whether the function should just check if the DBMS driver
-     *                          can perform the requested table alterations if the value is true or
+     *                          can perform the requested table alterations if the value is TRUE or
      *                          actually perform them otherwise.
      * @access public 
      *                 
       * @return mixed   MDB2_OK on success, a MDB2 error on failure
      */
-    function alterTable($name, $changes, $check)
-    {
+    function alterTable($name, $changes, $check) {
         // If the change is an insert - insert the data, otherwise alter the table
         if(isset($changes['insert'])){
             // insert data through db table
@@ -817,6 +788,5 @@ class dbTableManager extends object
     		return $ret;
     	}
     }
-
 }
 ?>
