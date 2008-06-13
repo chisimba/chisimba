@@ -148,7 +148,7 @@ class dbTableManager extends object
             $var_dump = array(
                          'Var_Dump', 
                          'display',
-                         );
+                        );
         } else {
             $var_dump = 'var_dump';
         }
@@ -229,11 +229,11 @@ class dbTableManager extends object
             }
 
             $dump_config = array(
-                'output_mode' => 'file',
-                'output' => $dumpfile
-            );
-			$definition = $this->_dbmanager->getDefinitionFromDatabase();
-            $operation = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
+                            'output_mode' => 'file',
+                            'output'      => $dumpfile,
+                           );
+			$definition           = $this->_dbmanager->getDefinitionFromDatabase();
+            $operation   = $this->_dbmanager->dumpDatabase($definition, $dump_config, $dump_what);
             if (PEAR::isError($operation)) {
                 die($operation->getMessage() . ' ' . $operation->getUserInfo());
             }
@@ -307,12 +307,13 @@ class dbTableManager extends object
      */
     public function createTable($tableName, $fields, $options) {
     	$puid = array(
-            	'puid' => array(
-				'type' => 'integer',
-				'length' => 50,
-				'autoincrement'  => TRUE,
-				));
-		$fields = array_merge($fields, $puid);
+            	 'puid' => array(
+				                     'type'          => 'integer',
+				                     'length'        => 50,
+				                     'autoincrement' => TRUE,
+				                    ),
+				         );
+		$fields  = array_merge($fields, $puid);
         if($this->_db->phptype == 'mysql' || $this->_db->phptype == 'mysqli')
         {
         	$this->_db->setOption('default_table_type', 'INNODB');
@@ -378,11 +379,11 @@ class dbTableManager extends object
      */
     public function createPK($tableName) {
         $primindex = array(
-        	'fields' => array(
-        	'id' => array('sorting' => 'ascending', ),
-         	),
-        	'primary' => TRUE
-		 );
+        	             'fields'  => array(
+        	                           'id' => array('sorting' => 'ascending'),
+         	                         ),
+        	             'primary' => TRUE,
+		                   );
 
 		$pname = 'pk' . rand(0,999);
 
