@@ -57,8 +57,7 @@ $GLOBALS['kewl_entry_point_run']) {
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class object
-{
+class object {
     /**
      * The reference to the Engine object
      *
@@ -88,8 +87,7 @@ class object
      * @param  mixed  $moduleName The name of the module
      * @return object instantiation against the engine object
      */
-    public function __construct($objEngine, $moduleName)
-    {
+    public function __construct($objEngine, $moduleName) {
         $this->objEngine = $objEngine;
         $this->moduleName = $moduleName;
         $this->init();
@@ -103,8 +101,7 @@ class object
      * @param    void
      * @return   void
      */
-    public function init()
-    {
+    public function init() {
     }
 
     /**
@@ -117,8 +114,7 @@ class object
      * @param  mixed  $default The value to return if the parameter is unset. (optional)
      * @return mixed  The value of the parameter, or $default if unset
      */
-    public function getParam($name, $default = NULL)
-    {
+    public function getParam($name, $default = NULL) {
         return $this->objEngine->getParam($name, $default);
     }
 
@@ -131,8 +127,7 @@ class object
     * @param  mixed  $default The value to return if the parameter is unset. (optional)
     * @return mixed  The value of the parameter, or $default if unset
     */
-    public function getArrayParam($name,$default=NULL)
-    {
+    public function getArrayParam($name,$default = NULL) {
         return $this->objEngine->getArrayParam($name,$default);
     }
 
@@ -148,17 +143,16 @@ class object
      * @param  string $module  default to _MODULE_ if unset
      * @return mixed  The value of the named session parameter or $default if unset
      */
-    public function getSession($name, $default = NULL,$module='_MODULE_')
-    {
-        if ($module=='_MODULE_'){
-            $key=$this->moduleName."~".$name;
+    public function getSession($name, $default = NULL,$module='_MODULE_') {
+        if ($module =='_MODULE_') {
+            $key = $this->moduleName."~".$name;
         } else {
-            $key=$module."~".$name;
+            $key = $module."~".$name;
         }
-        if (($module=='')||($module=='_site')){
-            $key=$name;
+        if (($module == '')||($module == '_site')) {
+            $key = $name;
         }
-        $key=$this->sessionKey().$key;
+        $key = $this->sessionKey().$key;
         return $this->objEngine->getSession($key, $default);
     }
 
@@ -174,17 +168,16 @@ class object
      * @param  string $module default to _MODULE_ if unset
      * @return set    engine session property
      */
-    public function setSession($name, $value,$module='_MODULE_')
-    {
-        if ($module=='_MODULE_'){
-            $key=$this->moduleName."~".$name;
+    public function setSession($name, $value,$module='_MODULE_') {
+        if ($module == '_MODULE_') {
+            $key = $this->moduleName."~".$name;
         } else {
-            $key=$module."~".$name;
+            $key = $module."~".$name;
         }
-        if (($module=='')||($module=='_site')){
-            $key=$name;
+        if (($module == '')||($module == '_site')) {
+            $key = $name;
         }
-        $key=$this->sessionKey().$key;
+        $key = $this->sessionKey().$key;
         $this->objEngine->setSession($key, $value);
     }
 
@@ -199,17 +192,16 @@ class object
      * @param  string  $module default to _MODULE_ if unset
      * @return session set to NULL in engine object
      */
-    public function unsetSession($name,$module='_MODULE_')
-    {
-        if ($module=='_MODULE_'){
-            $key=$this->moduleName."~".$name;
+    public function unsetSession($name,$module='_MODULE_') {
+        if ($module == '_MODULE_') {
+            $key = $this->moduleName."~".$name;
         } else {
-            $key=$module."~".$name;
+            $key = $module."~".$name;
         }
-        if (($module=='')||($module=='_site')){
-            $key=$name;
+        if (($module == '')||($module == '_site')) {
+            $key = $name;
         }
-        $key=$this->sessionKey().$key;
+        $key = $this->sessionKey().$key;
         $this->objEngine->unsetSession($key);
     }
 
@@ -220,11 +212,10 @@ class object
     * @param  void
     * @return string $key
     */
-    public function sessionKey()
-    {
-        if (!isset($this->sessionkey)){
-            $str=md5($_SERVER['SCRIPT_NAME']);
-            $this->sessionkey=substr($str,0,5).'~';
+    public function sessionKey() {
+        if (!isset($this->sessionkey)) {
+            $str = md5($_SERVER['SCRIPT_NAME']);
+            $this->sessionkey = substr($str,0,5).'~';
         }
         return $this->sessionkey;
     }
@@ -246,8 +237,7 @@ class object
      * @param  string $omitServerName flag to produce relative URLs
      * @return mixed  Returns the application URI
      */
-    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility=FALSE)
-    {
+    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE) {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -264,8 +254,7 @@ class object
      * @param  string $moduleName The name of the module to load the class from (optional)
      * @return The    class reference in the engine parent
      */
-    public function loadClass($name, $moduleName = '')
-    {
+    public function loadClass($name, $moduleName = '') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -285,8 +274,7 @@ class object
      * @param  string $moduleName The name of the module to load the class from
      * @return mixed  The reference to the new object asked for
      */
-    public function newObject($name, $moduleName='')
-    {
+    public function newObject($name, $moduleName = '') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -305,16 +293,14 @@ class object
      * @param  string $moduleName The name of the module to load the class from (optional)
      * @return mixed  The object asked for
      */
-    public function getObject($name, $moduleName = '')
-    {
+    public function getObject($name, $moduleName = '') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
         return $this->objEngine->getObject($name, $moduleName);
     }
 
-    public function getPatchObject($name, $moduleName = '')
-    {
+    public function getPatchObject($name, $moduleName = '') {
         /*if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }*/
@@ -330,8 +316,7 @@ class object
      * @param  string $ The name of the module the resource belongs to (optional)
      * @return mixed  The URI of the resource asked for.
      */
-    public function getResourceUri($resourcePath, $moduleName = '')
-    {
+    public function getResourceUri($resourcePath, $moduleName = '') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -348,8 +333,7 @@ class object
      * @param  string $ The name of the module the resource belongs to (optional)
      * @return mixed  The path of the resource asked for.
      */
-    public function getResourcePath($resourcePath, $moduleName = '')
-    {
+    public function getResourcePath($resourcePath, $moduleName = '') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -365,8 +349,7 @@ class object
      * @param  string $ The path to the file within the resources subdirectory of the module
      * @return mixed  The path of the resource asked for.
      */
-    public function getPearResource($resourcePath)
-    {
+    public function getPearResource($resourcePath) {
         return $this->objEngine->getPearResource($resourcePath);
     }
 
@@ -380,10 +363,9 @@ class object
 	 * @param string $moduleName : The name of the module that the script is in
 	 * @return javascript file to engine::getJavaScriptFile()
 	 */
-	public function getJavascriptFile($javascriptFile,$moduleName='')
-	{
+	public function getJavascriptFile($javascriptFile,$moduleName = '') {
 		if(empty($moduleName)){
-			$moduleName=$this->moduleName;
+			$moduleName = $this->moduleName;
 		}
 		return $this->objEngine->getJavascriptFile($javascriptFile,$moduleName);
 
@@ -398,8 +380,7 @@ class object
     * @param  mixed                  $value The value to append to the array
     * @return Engine::AppendarrayVar
     */
-    public function appendArrayVar($name, $value)
-    {
+    public function appendArrayVar($name, $value) {
         return $this->objEngine->appendArrayVar($name, $value);
     }
 
@@ -412,8 +393,7 @@ class object
     * @param  $val   mixed  The value to set the variable to
     * @return string as associative array of template name
     */
-    public function setVar($name, $value)
-    {
+    public function setVar($name, $value) {
         return $this->objEngine->setVar($name, $value);
     }
     
@@ -425,8 +405,7 @@ class object
      * @param  mixed  $default The value to return if the variable is unset (optional).
      * @return mixed  The value of the variable, or $default if unset.
      */
-    public function getVar($name, $default = NULL)
-    {
+    public function getVar($name, $default = NULL) {
         return $this->objEngine->getVar($name, $default);
     }
 }
