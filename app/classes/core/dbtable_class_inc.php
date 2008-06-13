@@ -240,7 +240,7 @@ class dbTable extends object
         // set up the cache prefix for this instance
         $this->cachePrefix = $this->_serverName."_".$modname."_";
         
-        //check if debugging is enabled
+        // check if debugging is enabled
         if($this->objDBConfig->geterror_reporting() == "developer")
         {
         	$this->debug = TRUE;
@@ -410,7 +410,7 @@ class dbTable extends object
         		{
         			log_debug($stmt);
         		}
-        		$ret = $this->_queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        		$ret = $this->_queryRow($stmt, array()); // , DB_FETCHMODE_ASSOC);
         		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
         }
@@ -428,7 +428,7 @@ class dbTable extends object
         	{
         		log_debug($stmt);
         	}
-        	$ret = $this->_queryRow($stmt, array()); //, DB_FETCHMODE_ASSOC);
+        	$ret = $this->_queryRow($stmt, array()); // , DB_FETCHMODE_ASSOC);
         }
         return $ret;
     }
@@ -453,8 +453,8 @@ class dbTable extends object
         		{
         			log_debug($stmt);
         		}
-    			//var_dump($this->_db);
-    			$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    			// var_dump($this->_db);
+    			$ret = $this->_queryAll($stmt, array()); // , MDB2_FETCHMODE_ASSOC);
         		if (PEAR::isError($ret)) {
             		$ret = FALSE;
         		}
@@ -466,7 +466,7 @@ class dbTable extends object
     		$ret = apc_fetch($this->cachePrefix.$stmt);
     		if($ret == FALSE)
     		{
-    			$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    			$ret = $this->_queryAll($stmt, array()); // , MDB2_FETCHMODE_ASSOC);
         		if (PEAR::isError($ret)) {
             		$ret = FALSE;
         		}
@@ -478,8 +478,8 @@ class dbTable extends object
     		{
     			log_debug($stmt);
     		}
-    		//var_dump($this->_db);
-    		$ret = $this->_queryAll($stmt, array()); //, MDB2_FETCHMODE_ASSOC);
+    		// var_dump($this->_db);
+    		$ret = $this->_queryAll($stmt, array()); // , MDB2_FETCHMODE_ASSOC);
     		if (PEAR::isError($ret)) {
     			$ret = FALSE;
     		}
@@ -931,8 +931,8 @@ class dbTable extends object
     */
     public function _execute($stmt, $params = array()) {
         return $this->_db->query($stmt);
-    	//$sh = $this->_db->prepare($stmt);
-        //return ($sh->execute($params));
+    	// $sh = $this->_db->prepare($stmt);
+        // return ($sh->execute($params));
     }
 
     /**
