@@ -705,31 +705,31 @@ class dbTable extends object
             $tablename = $this->_tableName;
         }
         if (empty($fields['id'])) {
-            $id = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
+            $id           = $this->_serverName . "_" . rand(1000,9999) . "_" . time();
             $fields['id'] = $id;
         } else {
             $id = $fields['id'];
         }
 
-        $fieldnames = '';
+        $fieldnames  = '';
         $fieldValues = '';
-        $params = '';
+        $params      = '';
 
-        $keys = array_keys($fields);
+        $keys  = array_keys($fields);
         $comma = "";
         foreach($keys as $key) {
         	$fieldnames .= "{$comma}{$key}";
-	        $comma = ", ";
+	        $comma       = ", ";
         }
         $comma = "";
         foreach ($fields as $fieldName => $fieldValue) {
-			$fieldValue = $this->_db->quote($fieldValue);
+			$fieldValue         = $this->_db->quote($fieldValue);
         	$fieldValues .= "{$comma}{$fieldValue}";
-	        $comma = ", ";
+	        $comma        = ", ";
         }
-		$fieldnames = "($fieldnames)";
-        $fieldValues = "VALUES ($fieldValues)";
-        $sql = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
+		$fieldnames          = "($fieldnames)";
+        $fieldValues   = "VALUES ($fieldValues)";
+        $sql           = "INSERT INTO {$tablename} {$fieldnames} {$fieldValues}";
         $this->_lastId = $id;
         if($this->debug == TRUE) {
         	log_debug("dbtable insert into {$tablename}");
@@ -791,12 +791,12 @@ class dbTable extends object
         if (empty($tablename)) {
             $tablename = $this->_tableName;
         }
-        $sql = "UPDATE {$tablename} SET ";
-        $comma = "";
+        $sql    = "UPDATE {$tablename} SET ";
+        $comma  = "";
         $params = array();
         foreach ($fields as $fieldName => $fieldValue) {
             if ($this->USE_PREPARED_STATEMENTS) {
-                $sql .= "{$comma}{$fieldName}=?";
+                $sql     .= "{$comma}{$fieldName}=?";
                 $params[] = $this->_db->quote($fieldValue);
             } else {
                 $sql .= "{$comma}{$fieldName}=". $this->_db->quote($fieldValue);
@@ -991,7 +991,7 @@ class dbTable extends object
     		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))
 			{
 				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
-				$ret = unserialize($cache);
+				$ret   = unserialize($cache);
 			}
 			else {
         		if($this->debug == TRUE)
@@ -1047,14 +1047,14 @@ class dbTable extends object
     */
     public function join($sqlJoinType, $tblJoinTo, $join, $tblJoinFrom = NULL) {
         $tblJoinFrom = (is_NULL($tblJoinFrom)) ? $this->_tableName : $tblJoinFrom ;
-        $strSQL = "{$sqlJoinType} {$tblJoinTo}";
+        $strSQL      = "{$sqlJoinType} {$tblJoinTo}";
         // Condtions of the join
         $insertON = TRUE;
         foreach ($join as $key => $value) {
-            $strSQL .= ($insertON) ? " ON ( " : " OR ( ";
+            $strSQL  .= ($insertON) ? " ON ( " : " OR ( ";
             $insertON = FALSE;
-            $strSQL .= "{$tblJoinFrom}.{$key} = {$tblJoinTo}.{$value}";
-            $strSQL .= " )";
+            $strSQL  .= "{$tblJoinFrom}.{$key} = {$tblJoinTo}.{$value}";
+            $strSQL  .= " )";
         }
         if($this->debug == TRUE)
         {
@@ -1185,10 +1185,10 @@ class dbTable extends object
     		{
     			$query = "SHOW /*!50002 FULL*/ TABLES";
        			if (!is_NULL($this->objEngine->pdsn['database'])) {
-       				$database = $this->objEngine->pdsn['database'];
+       				$database  = $this->objEngine->pdsn['database'];
             		$query .= " FROM $database";
         		}
-        		$query.= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
+        		$query .= "/*!50002  WHERE Table_type = 'BASE TABLE'*/";
         		try {
         			$ret = $this->query($query);
         		}
