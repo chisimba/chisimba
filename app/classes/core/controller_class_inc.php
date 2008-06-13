@@ -85,12 +85,11 @@ class controller extends access
      * @param object $objEngine  by reference from Engine
      * @param string $moduleName
      */
-    public function __construct(&$objEngine, $moduleName)
-    {
+    public function __construct(&$objEngine, $moduleName) {
     	$this->controllerName = get_class($this);
         try {
         	parent::__construct($objEngine, $moduleName);
-        	$version = $objEngine->version;
+        	$version         = $objEngine->version;
         	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' .$version . "</center>";
         }
         catch (customException $e)
@@ -106,8 +105,7 @@ class controller extends access
      * Override in subclasses.
      *
      */
-    public function init()
-    {
+    public function init() {
     }
 
 	/**
@@ -119,29 +117,27 @@ class controller extends access
     * 
     * @return 	string	The language element
 	*/
-	protected function l($itemName,$modulename=NULL,$default = false)
-	{
+	protected function l($itemName,$modulename=NULL,$default = FALSE) {
 	  if (!defined('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED')) {
-       	define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED',true);
+       	define('CHISIMBA_CONTROLLER_OBJLANGUAGE_CREATED',TRUE);
         $this->_objLanguage = $this->getObject('language','language');
 	  }
-	   $module = is_null($modulename)?$this->moduleName:$modulename;
+	   $module = is_NULL($modulename)?$this->moduleName:$modulename;
 	   return $this->_objLanguage->languageText($itemName, $module, $default);
 	}
 	
-	public function dumpText($data)
-	{
+	public function dumpText($data) {
 		if (isset($data) && !is_array($data)) { 
    			return $data; 
 		}
 		if (isset($data) && is_array($data)) {
-    		//Create an instance of the table object
+    		// Create an instance of the table object
     		$objTable = $this->newObject('htmltable', 'htmlelements');
-    		//Turn on active rows
-    		$objTable->active_rows=TRUE;
-    		//Turn the array into a table
+    		// Turn on active rows
+    		$objTable->active_rows = TRUE;
+    		// Turn the array into a table
     		$objTable->arrayToTable($data);
-    		//Show the table
+    		// Show the table
     		return $objTable->show();
 		}
 	}
@@ -152,8 +148,7 @@ class controller extends access
      *
      * @return string Content of rendered content script.
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->objEngine->getContent();
     }
 
@@ -162,8 +157,7 @@ class controller extends access
      *
      * @return string Content of rendered layout script.
      */
-    public function getLayoutContent()
-    {
+    public function getLayoutContent() {
         return $this->objEngine->getLayoutContent();
     }
 
@@ -174,8 +168,7 @@ class controller extends access
      * 
      * @return bool TRUE|FALSE Does this controller require login.
      */
-    public function requiresLogin($action)
-    {
+    public function requiresLogin($action) {
         return TRUE;
     }
 
@@ -186,8 +179,7 @@ class controller extends access
      * 
      * @return bool TRUE|FALSE Does this controller want no-cache headers to be sent
      */
-    public function sendNoCacheHeaders($action)
-    {
+    public function sendNoCacheHeaders($action) {
         return TRUE;
     }
 
@@ -201,8 +193,7 @@ class controller extends access
      * 
      * @return mixed The value of the variable, or $default if unset.
      */
-    public function getVar($name, $default = NULL)
-    {
+    public function getVar($name, $default = NULL) {
         return $this->objEngine->getVar($name, $default);
     }
 
@@ -216,8 +207,7 @@ class controller extends access
      * 
      * @return NULL
      */
-    public function setVar($name, $val)
-    {
+    public function setVar($name, $val) {
         $this->objEngine->setVar($name, $val);
     }
 
@@ -228,8 +218,7 @@ class controller extends access
      * @param  string $name The name of the reference variable.
      * @return mixed  The value of the reference variable, or NULL if unset.
      */
-    public function getVarByRef($name)
-    {
+    public function getVarByRef($name) {
         return $this->objEngine->getVarByRef($name);
     }
 
@@ -241,8 +230,7 @@ class controller extends access
      * @param  mixed  $ref  A reference to the object to set the reference variable to.
      * @return void
      */
-    public function setVarByRef($name, $ref)
-    {
+    public function setVarByRef($name, $ref) {
         $this->objEngine->setVarByRef($name, $ref);
     }
 
@@ -254,8 +242,7 @@ class controller extends access
      * @param  mixed  $value The value to append to the array.
      * @return void
      */
-    public function appendArrayVar($name, $value)
-    {
+    public function appendArrayVar($name, $value) {
         $this->objEngine->appendArrayVar($name, $value);
     }
 
@@ -265,8 +252,7 @@ class controller extends access
      * @param  string $templateName The name of the layout template to use.
      * @return void
      */
-    public function setLayoutTemplate($templateName)
-    {
+    public function setLayoutTemplate($templateName) {
         $this->objEngine->setLayoutTemplate($templateName);
     }
 
@@ -276,8 +262,7 @@ class controller extends access
      * @param  string $templateName The name of the page template to use.
      * @return void
      */
-    public function setPageTemplate($templateName)
-    {
+    public function setPageTemplate($templateName) {
         $this->objEngine->setPageTemplate($templateName);
     }
 
@@ -288,9 +273,8 @@ class controller extends access
      * @param  array  $params Parameters to pass to action.
      * @return NULL
      */
-    public function nextAction($action, $params = array(), $module=NULL)
-    {
-        //list($template, $_) = $this->_dispatch($action, $this->_moduleName);
+    public function nextAction($action, $params = array(), $module=NULL) {
+        // list($template, $_) = $this->_dispatch($action, $this->_moduleName);
 		$params['action'] = $action;
 		header('Location: '.html_entity_decode($this->uri($params,$module)));
         return NULL;
@@ -302,8 +286,7 @@ class controller extends access
      * @param  string $msg The message.
      * @return Global error message to engine
      */
-    public function addMessage($msg)
-    {
+    public function addMessage($msg) {
         return $this->objEngine->addMessage($msg);
     }
 
@@ -314,8 +297,7 @@ class controller extends access
      * @param  string $field    The name of the field the error applies to (optional).
      * @return bool   TRUE |FALSE
      */
-    public function setErrorMessage($msg, $field = '')
-    {
+    public function setErrorMessage($msg, $field = '') {
         return $this->objEngine->setErrorMessage($msg, $field);
     }
 
@@ -327,8 +309,7 @@ class controller extends access
      * @param  void
      * @return void
      */
-    public function putMessages()
-    {
+    public function putMessages() {
         $this->objEngine->putMessages();
     }
 
@@ -343,8 +324,7 @@ class controller extends access
      * @param  TRUE   $           |FALSE $buffer If TRUE buffer output and return as string, else send to browser.
      * @return string |NULL If buffering returns output, else returns NULL.
      */
-    public function callTemplate($_magic__tpl, $_magic__type, $_magic__buffer = TRUE)
-    {
+    public function callTemplate($_magic__tpl, $_magic__type, $_magic__buffer = TRUE) {
         // objects that almost every template will use
         $this->setVarByRef('objConfig', $this->getObject('altconfig', 'config'));
         $this->setVarByRef('objSkin', $this->getObject('skin', 'skin'));
@@ -359,7 +339,7 @@ class controller extends access
         if ($_magic__buffer) {
             ob_start();
         }
-        include $_magic__path; //was require
+        include $_magic__path; // was require
         if(extension_loaded('apc'))
 		{
 			$this->objConfig = $this->getObject('altconfig', 'config');
@@ -367,7 +347,7 @@ class controller extends access
 			if($this->objConfig->getenable_apc() == 'TRUE')
 			{
 				apc_compile_file($_magic__path);
-				//apc_compile_file($_magic__tpl);
+				// apc_compile_file($_magic__tpl);
 			}
 			else {
 				$this->objAPC = FALSE;
@@ -383,8 +363,8 @@ class controller extends access
             //call on tidy to clean up...
             // Specify tidy configuration
             $config = array(
-                'indent'        => true,
-                'output-xhtml'  => true,
+                'indent'        => TRUE,
+                'output-xhtml'  => TRUE,
                 'wrap'          => 200);
             $tidy = new tidy;
             $tidy->parseString($pageContent, $config, 'utf8');
