@@ -51,7 +51,7 @@ class bridge
     *
     */
     public function getInstance ($class) {
-        //array of instance names
+        // array of instance names
         static $instances = array();
         if (!array_key_exists($class, $instances)) {
             // instance does not exist, so create it
