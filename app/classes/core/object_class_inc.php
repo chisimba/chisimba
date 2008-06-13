@@ -29,7 +29,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-/* -------------------- object class ----------------*/
+// -------------------- object class ----------------
 // security check - must be included in all scripts
 if (!
 /**
@@ -57,7 +57,8 @@ $GLOBALS['kewl_entry_point_run']) {
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-class object {
+class object
+{
     /**
      * The reference to the Engine object
      *
@@ -88,7 +89,7 @@ class object {
      * @return object instantiation against the engine object
      */
     public function __construct($objEngine, $moduleName) {
-        $this->objEngine = $objEngine;
+        $this->objEngine  = $objEngine;
         $this->moduleName = $moduleName;
         $this->init();
     }
@@ -120,14 +121,14 @@ class object {
 
 
     /**
-    * Similar to getParam above, but for arrays.
-    *
-    * @access public
-    * @param  string $name    The name of the parameter.
-    * @param  mixed  $default The value to return if the parameter is unset. (optional)
-    * @return mixed  The value of the parameter, or $default if unset
-    */
-    public function getArrayParam($name,$default = NULL) {
+     * Similar to getParam above, but for arrays.
+     *
+     * @access public
+     * @param  string $name    The name of the parameter.
+     * @param  mixed  $default The value to return if the parameter is unset. (optional)
+     * @return mixed  The value of the parameter, or $default if unset
+     */
+    public function getArrayParam($name,$default=NULL) {
         return $this->objEngine->getArrayParam($name,$default);
     }
 
@@ -144,12 +145,12 @@ class object {
      * @return mixed  The value of the named session parameter or $default if unset
      */
     public function getSession($name, $default = NULL,$module='_MODULE_') {
-        if ($module =='_MODULE_') {
+        if ($module == '_MODULE_'){
             $key = $this->moduleName."~".$name;
         } else {
             $key = $module."~".$name;
         }
-        if (($module == '')||($module == '_site')) {
+        if (($module == '')||($module == '_site')){
             $key = $name;
         }
         $key = $this->sessionKey().$key;
@@ -168,13 +169,13 @@ class object {
      * @param  string $module default to _MODULE_ if unset
      * @return set    engine session property
      */
-    public function setSession($name, $value,$module='_MODULE_') {
-        if ($module == '_MODULE_') {
+    public function setSession($name, $value,$module = '_MODULE_') {
+        if ($module == '_MODULE_'){
             $key = $this->moduleName."~".$name;
         } else {
             $key = $module."~".$name;
         }
-        if (($module == '')||($module == '_site')) {
+        if (($module == '')||($module == '_site')){
             $key = $name;
         }
         $key = $this->sessionKey().$key;
@@ -192,13 +193,13 @@ class object {
      * @param  string  $module default to _MODULE_ if unset
      * @return session set to NULL in engine object
      */
-    public function unsetSession($name,$module='_MODULE_') {
-        if ($module == '_MODULE_') {
+    public function unsetSession($name,$module = '_MODULE_') {
+        if ($module == '_MODULE_'){
             $key = $this->moduleName."~".$name;
         } else {
             $key = $module."~".$name;
         }
-        if (($module == '')||($module == '_site')) {
+        if (($module == '')||($module == '_site')){
             $key = $name;
         }
         $key = $this->sessionKey().$key;
@@ -206,15 +207,15 @@ class object {
     }
 
     /**
-    * Method to create installation-specific key for Session variables
-    *
-    * @access public
-    * @param  void
-    * @return string $key
-    */
+     * Method to create installation-specific key for Session variables
+     *
+     * @access public
+     * @param  void
+     * @return string $key
+     */
     public function sessionKey() {
-        if (!isset($this->sessionkey)) {
-            $str = md5($_SERVER['SCRIPT_NAME']);
+        if (!isset($this->sessionkey)){
+            $str              = md5($_SERVER['SCRIPT_NAME']);
             $this->sessionkey = substr($str,0,5).'~';
         }
         return $this->sessionkey;
@@ -237,7 +238,7 @@ class object {
      * @param  string $omitServerName flag to produce relative URLs
      * @return mixed  Returns the application URI
      */
-    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE) {
+    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility=FALSE) {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -274,7 +275,7 @@ class object {
      * @param  string $moduleName The name of the module to load the class from
      * @return mixed  The reference to the new object asked for
      */
-    public function newObject($name, $moduleName = '') {
+    public function newObject($name, $moduleName='') {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
@@ -301,9 +302,6 @@ class object {
     }
 
     public function getPatchObject($name, $moduleName = '') {
-        /*if (empty($moduleName)) {
-            $moduleName = $this->moduleName;
-        }*/
         return $this->objEngine->getPatchObject($name, $moduleName);
     }
     /**
@@ -363,7 +361,7 @@ class object {
 	 * @param string $moduleName : The name of the module that the script is in
 	 * @return javascript file to engine::getJavaScriptFile()
 	 */
-	public function getJavascriptFile($javascriptFile,$moduleName = '') {
+	public function getJavascriptFile($javascriptFile,$moduleName='') {
 		if(empty($moduleName)){
 			$moduleName = $this->moduleName;
 		}
@@ -372,27 +370,27 @@ class object {
 	}
 
     /**
-    * Method to append a value to a template variable holding an array. If the
-    * array does not exist, it is created
-    *
-    * @access public
-    * @param  string                 $name  The name of the variable holding an array
-    * @param  mixed                  $value The value to append to the array
-    * @return Engine::AppendarrayVar
-    */
+     * Method to append a value to a template variable holding an array. If the
+     * array does not exist, it is created
+     *
+     * @access public
+     * @param  string                 $name  The name of the variable holding an array
+     * @param  mixed                  $value The value to append to the array
+     * @return Engine::AppendarrayVar
+     */
     public function appendArrayVar($name, $value) {
         return $this->objEngine->appendArrayVar($name, $value);
     }
 
     /**
-    * Method to set a template variable. These are used to pass
-    * information from module to template.
-    *
-    * @access public
-    * @param  $name  string The name of the variable
-    * @param  $val   mixed  The value to set the variable to
-    * @return string as associative array of template name
-    */
+     * Method to set a template variable. These are used to pass
+     * information from module to template.
+     *
+     * @access public
+     * @param  $name  string The name of the variable
+     * @param  $val   mixed  The value to set the variable to
+     * @return string as associative array of template name
+     */
     public function setVar($name, $value) {
         return $this->objEngine->setVar($name, $value);
     }
