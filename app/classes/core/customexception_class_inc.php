@@ -68,11 +68,11 @@ class customException extends Exception
 	 */
     function __construct($m) {
     	$msg = urlencode($m);
-    	//log the exception
+    	// log the exception
     	log_debug($m);
-    	//do the cleanup
+    	// do the cleanup
         $this->cleanUp();
-        //send out the pretty error page
+        // send out the pretty error page
 		$this->diePage($msg);
     }
 
@@ -109,7 +109,7 @@ class customException extends Exception
      */
     public function cleanUp() {
         // generic cleanup code here
-        //for now, we can output a message?
+        // for now, we can output a message?
 
     }
 }
