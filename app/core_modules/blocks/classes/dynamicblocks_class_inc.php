@@ -29,7 +29,6 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-/* ----------- data class extends dbTable for tbl_blog------------*/
 // security check - must be included in all scripts
 if (!
     /**
