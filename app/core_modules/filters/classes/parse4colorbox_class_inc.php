@@ -137,3 +137,4 @@ class parse4colorbox extends object
     }
 
 }
+?>

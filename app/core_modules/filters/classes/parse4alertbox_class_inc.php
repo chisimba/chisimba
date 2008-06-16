@@ -150,3 +150,4 @@ class parse4alertbox extends object
         }
     }
 }
+?>

@@ -110,3 +110,4 @@ class parse4filepreview extends object
     }
 
 }
+?>
