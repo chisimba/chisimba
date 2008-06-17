@@ -57,6 +57,7 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class admapi extends object
 {
+	public $isReg;
 
 	/**
      * init method
@@ -69,10 +70,16 @@ class admapi extends object
 	public function init()
 	{
 		try {
+			$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('adm');
+			if($this->isReg === TRUE)
+			{
+				$this->objAdmOps = $this->getObject('admops', 'adm');
+			}
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
-        	$this->objAdmOps = $this->getObject('admops', 'adm');
+        	
         	$this->objIni = $this->getObject('ini', 'config');
         	$this->objXMLThing = $this->getObject('xmlthing', 'utilities');
 		}
