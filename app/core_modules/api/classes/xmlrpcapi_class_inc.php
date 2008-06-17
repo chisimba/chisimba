@@ -177,7 +177,6 @@ class xmlrpcapi extends object
         	$this->objDbBlog = $this->getObject('dbblog', 'blog');
         	// User Object
         	$this->objUser = $this->getObject('user', 'security');
-
         	// API abstraction objects
         	// Blogger
         	$this->objBlogger = $this->getObject('bloggerapi');

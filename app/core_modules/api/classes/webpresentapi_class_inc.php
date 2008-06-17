@@ -77,9 +77,14 @@ class webpresentapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
-        	$this->objDbTags = $this->getObject('dbwebpresenttags','webpresent');
-        	$this->objDbFiles = $this->getObject('dbwebpresentfiles','webpresent');
-        	$this->objDbSlides = $this->getObject('dbwebpresentslides','webpresent');
+        	$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('webpresent');
+			if($this->isReg === TRUE)
+			{
+        		$this->objDbTags = $this->getObject('dbwebpresenttags','webpresent');
+        		$this->objDbFiles = $this->getObject('dbwebpresentfiles','webpresent');
+        		$this->objDbSlides = $this->getObject('dbwebpresentslides','webpresent');
+			}
         	
 		}
 		catch (customException $e)

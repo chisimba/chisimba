@@ -73,9 +73,15 @@ class internalmailapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
 			//database abstraction object
-        	$this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
+			$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('internalmail');
+			if($this->isReg === TRUE)
+			{
+        		$this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
+        		$this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
+			}
         	$this->objUser = $this->getObject('user', 'security');
-        	$this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
+        	
 		}
 		catch (customException $e)
 		{

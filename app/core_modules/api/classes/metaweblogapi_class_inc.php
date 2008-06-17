@@ -73,7 +73,12 @@ class metaweblogapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
 			//database abstraction object
-        	$this->objDbBlog = $this->getObject('dbblog', 'blog');
+			$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('blog');
+			if($this->isReg === TRUE)
+			{
+        		$this->objDbBlog = $this->getObject('dbblog', 'blog');
+			}
         	$this->objUser = $this->getObject('user', 'security');
 		}
 		catch (customException $e)

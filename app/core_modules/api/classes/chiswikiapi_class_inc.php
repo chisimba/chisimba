@@ -75,7 +75,12 @@ class chiswikiapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
-        	$this->objDbWiki = $this->getObject('dbwiki','wiki');
+        	$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('wiki');
+			if($this->isReg === TRUE)
+			{
+        		$this->objDbWiki = $this->getObject('dbwiki','wiki');
+			}
 		}
 		catch (customException $e)
 		{

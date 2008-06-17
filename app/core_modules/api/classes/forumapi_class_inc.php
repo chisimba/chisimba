@@ -73,14 +73,20 @@ class forumapi extends object
 			$this->objConfig = $this->getObject('altconfig', 'config');
 			$this->objLanguage = $this->getObject('language', 'language');
 			//database abstraction object
-        	$this->objdbforum = $this->getObject('dbForum', 'forum');
-        	$this->objdbtopic = $this->getObject('dbtopic', 'forum');
-        	$this->objUser = $this->getObject('user', 'security');
-        	$this->objPost =& $this->getObject('dbpost', 'forum');
-        	$this->objsearch =& $this->getObject('forumsearch', 'forum');
-        	$this->objPostText =& $this->getObject('dbposttext', 'forum');
-        	$this->objDateTime =& $this->getObject('dateandtime', 'utilities');
-        	$this->objdbtopicRead = $this->getObject('dbtopicread', 'forum');
+			$this->objModules = $this->getObject('modules', 'modulecatalogue');
+			$this->isReg = $this->objModules->checkIfRegistered('forum');
+			if($this->isReg === TRUE)
+			{
+        		$this->objdbforum = $this->getObject('dbForum', 'forum');
+        		$this->objdbtopic = $this->getObject('dbtopic', 'forum');
+        	
+        		$this->objUser = $this->getObject('user', 'security');
+        		$this->objPost =& $this->getObject('dbpost', 'forum');
+        		$this->objsearch =& $this->getObject('forumsearch', 'forum');
+        		$this->objPostText =& $this->getObject('dbposttext', 'forum');
+        		$this->objDateTime =& $this->getObject('dateandtime', 'utilities');
+        		$this->objdbtopicRead = $this->getObject('dbtopicread', 'forum');
+			}
 		}
 		catch (customException $e)
 		{
