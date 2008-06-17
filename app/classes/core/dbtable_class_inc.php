@@ -375,7 +375,7 @@ class dbTable extends object
         $pk_value = addslashes($pk_value);
         $stmt = "SELECT * FROM {$this->_tableName} WHERE {$pk_field}='{$pk_value}'";
         if($this->objMemcache == TRUE) {
-        	if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)) {
+        	if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt))) {
 				$cache = chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt));
 				$ret = unserialize($cache);
 			}
@@ -1071,7 +1071,7 @@ class dbTable extends object
     				customException::cleanUp();
     				exit;
     			}
-    			foreach($ret as $tables)n{
+    			foreach($ret as $tables) {
     				$tbls[] = $tables['table_name'];
     			}
     			return $tbls;
