@@ -30,7 +30,7 @@ $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $objFolders = $this->getObject('dbfolder');
 
 $header = new htmlheading();
-$header->type = 3;
+$header->type = 2;
 $header->str = $this->objLanguage->languageText('mod_filemanager_name', 'filemanager', 'File Manager');
 
 $leftColumn = $header->show();
