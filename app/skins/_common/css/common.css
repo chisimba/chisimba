@@ -32,8 +32,8 @@ div#wrapper{float:left;width:100%}
 
 
 /* Two Column Layout */
-#twocolumn div#wrapper div#content{margin: 0 0 0 200px}
-#twocolumn div#left{float:left;width:200px;margin-left:-100%}
+#twocolumn div#wrapper div#content{margin: 0 0 0 220px}
+#twocolumn div#left{float:left;width:220px;margin-left:-100%}
 #twocolumn div#right{display:none}
 
 
