@@ -542,6 +542,7 @@ class tools extends object
             $this->objLink = new link($this->uri('', '_default'));
 
             $this->objLink->link = $home;
+            $this->objLink->cssClass = 'homelink';
 
             $home = $this->objLink->show();
 

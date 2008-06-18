@@ -39,7 +39,7 @@ class toolbar_elearn extends object
         
         $this->objModule = $this->getObject('modules','modulecatalogue');
         
-        $this->menuItems['home'] = array('text'=>$this->objLanguage->languageText('word_home', 'system', 'Home'), 'link'=>$this->uri(NULL, '_default'));
+        $this->menuItems['home'] = array('text'=>$this->objLanguage->languageText('word_home', 'system', 'Home'), 'link'=>$this->uri(NULL, '_default'), 'class'=>'homelink');
     }
     
     public function getParams()
@@ -77,7 +77,7 @@ class toolbar_elearn extends object
         }
         
         if ($this->contextCode != '') {
-            $this->menuItems['context'] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'link'=>$this->uri(NULL, 'context'));
+            $this->menuItems['context'] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'link'=>$this->uri(NULL, 'context'), 'title'=>$this->objContext->getTitle());
         }
         
         $this->menuItems['contextadmin'] = array('text'=>ucwords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')), 'link'=>$this->uri(NULL, 'contextadmin'));
@@ -88,62 +88,104 @@ class toolbar_elearn extends object
         
         
         
-        $this->determineDefault();
+        $this->determineDefault($this->getParam('module', '_default'));
         return $this->generateOutput();
     }
     
-    private function determineDefault()
+    function addContextLogoutJS()
     {
-        switch ($this->getParam('module'))
+        $contextUri = str_replace('&amp;', '&', $this->uri(array('action'=>'leavecontext'), 'context'));
+        $homeUri = $this->uri(NULL, '_default');
+        return "
+<script type=\"text/javascript\">
+// <![CDATA[
+// Change Link to javascript
+jQuery('.homelink').attr('href', 'javascript:;');
+// Bind a confirmation to link
+jQuery('.homelink').bind('click', function() {
+        
+        if (confirm('Would you like to log out of this course?')) {
+            window.location.href = '{$contextUri}';
+        } else {
+            window.location.href = '{$homeUri}';
+        }
+    });
+
+// ]]>
+</script>
+            ";
+    }
+    
+    private function determineDefault($module)
+    {
+        switch ($module)
         {
             case 'sitemap':
                 $this->default = 'sitemap';
-                break; return;
+                return;
             case 'contextadmin':
                 $this->default = 'contextadmin';
-                break; return;
+                return;
             case 'context':
                 $this->default = 'context';
-                break; return;
+                return;
             
             case 'blog':
+            case 'buddies':
+            case 'homepage':
+            case 'kbookmark':
+            case 'internalmail':
             case 'podcast':
             case 'personalspace':
                 $this->default = 'personalspace';
-                break; return;
+                return;
             
             case 'context':
                 $this->default = 'context';
-                break; return;
+                return;
             case 'contextcontent':
-            case 'forum':
             case 'contextgroups':
                 $this->default = 'context';
-                break; return;
-            case 'forum':
-            case 'blog':
-            case 'wiki':
-                $this->default = 'resources';
-                break; return;
+                return;
             case 'toolbar':
-                if ($this->getParam('action') == '') {
-                    $this->default = 'admin';
-                } else {
-                    $this->default = 'resources';
-                }
-                break; return;
+                $this->default = 'admin';
+                return;
             case 'modulecatalogue':
             case 'sysconfig':
             case 'stories':
             case 'prelogin':
             case 'systext':
+            case 'useradmin':
+            case 'groupadmin':
+            case 'permissions':
                 $this->default = 'admin';
-                break; return;
+                return;
+            case '_default':
+                $this->default = 'home';
+                return;
+            case 'calendar':
+            case 'filemanager':
+                if ($this->contextCode == '') {
+                    $this->default = 'personalspace';
+                } else {
+                    $this->default = 'context';
+                }
+                return;
             default:
-                break; return;
-            
-            echo 'hello';
+                break;
         }
+        
+        if ($this->objModule->dependsContext($module)) {
+            $this->default = 'context';
+            return;
+        }
+        
+        if ($this->objModule->isContextAware($module) && $this->contextCode != '') {
+            $this->default = 'context';
+            return;
+        }
+        
+        return;
     }
     
     private function generateOutput()
@@ -166,12 +208,19 @@ class toolbar_elearn extends object
             $link = new link ($menuInfo['link']);
             $link->link = '<strong>'.$menuInfo['text'].'</strong>';
             
+            if (isset($menuInfo['class'])) {
+                $link->cssClass = $menuInfo['class'];
+            }
+            
             $css = ($this->default == $menuItem) ? ' class="current"' : '';
             $str .= '<li '.$css.'>'.$link->show().'</li>';
         }
         
         $str .= '</ul>';
         
+        if ($this->contextCode != '') {
+            $str .= $this->addContextLogoutJS();
+        }
         return $str;
     }
     
