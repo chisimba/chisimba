@@ -80,7 +80,7 @@ class contextadminnav extends object
         $str = '';
         
         $heading = new htmlheading();
-        $heading->type = 3;
+        $heading->type = 2;
         $heading->str = ucwords($this->objLanguage->code2Txt('mod_contextadmin_name', 'contextadmin', NULL, '[-context-] Admin'));
         
         $str = $heading->show();

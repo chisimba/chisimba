@@ -4,7 +4,7 @@ $this->loadClass('htmlheading', 'htmlelements');
 
 $header = new htmlheading();
 $header->type = 1;
-$header->str = $title;
+$header->str = ucwords($title);
 
 echo $header->show();
 
