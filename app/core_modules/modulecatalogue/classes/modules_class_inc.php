@@ -363,5 +363,38 @@ class modules extends dbTable
         
         return $contextPlugins;
     }
+    
+    /**
+     * Method to check whether a module is contextaware
+     * @param string $moduleId Module Id
+     * @return boolean
+     */
+    public function isContextAware($moduleId)
+    {
+        $row = $this->getRow('module_id',$moduleId);
+        
+        if ($row == FALSE) {
+            return FALSE;
+        } else {
+            return $row['iscontextaware'] == 1 ? TRUE : FALSE;
+        }
+    }
+    
+    /**
+     * Method to check whether a module depends context
+     * i.e. should only be run if a user is in a context
+     * @param string $moduleId Module Id
+     * @return boolean
+     */
+    public function dependsContext($moduleId)
+    {
+        $row = $this->getRow('module_id',$moduleId);
+        
+        if ($row == FALSE) {
+            return FALSE;
+        } else {
+            return $row['dependscontext'] == 1 ? TRUE : FALSE;
+        }
+    }
 }
 ?>
