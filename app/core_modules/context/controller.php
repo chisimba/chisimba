@@ -220,8 +220,8 @@ class context extends controller
      */
     protected function __join()
     {
-        // Under construction
-        echo 'join';
+        $this->setLayoutTemplate(NULL);
+        return 'needtojoin_tpl.php';
     }
     
     /**

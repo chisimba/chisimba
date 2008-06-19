@@ -257,6 +257,17 @@ class dbcontext extends dbTable
             $this->leaveContext();
             $line = $this->getRow('contextCode', $contextCode);
             
+            if ($line == FALSE) {
+                return FALSE;
+            }
+            
+            if ($line['access'] == 'Private') {
+                $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
+                if (!$objContextPermissions->isContextMember()) {
+                    return FALSE;
+                }
+            }
+            
             $this->setSession('contextId', $line['id']);
             $this->setSession('contextCode', $contextCode);
             return TRUE;

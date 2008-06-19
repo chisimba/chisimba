@@ -10,7 +10,9 @@
             data: "module=context&action=ajaxgetcontexts&letter="+letter,
             success: function(msg){
                 jQuery('#browsecontextcontent').html(msg);
-                adjustLayout();
+                if ('function' == typeof window.adjustLayout) {
+                    adjustLayout();
+                }
             }
         });
         
