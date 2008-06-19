@@ -206,7 +206,7 @@ class indexdata extends object
             $indexPath = $this->objConfig->getcontentBasePath().'searchindexes/'.$this->indexName;
             
             // Check if index exists
-            if (file_exists($indexPath . '/segments')) {
+            if (file_exists($indexPath)) {
                 
                 // Set directory as writeable
                 @chmod($indexPath, 0777);
