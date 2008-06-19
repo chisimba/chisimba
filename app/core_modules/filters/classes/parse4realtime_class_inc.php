@@ -89,8 +89,10 @@
             // create a new cURL resource
             $ch = curl_init();
 
+            $url= $siteRoot."/index.php?module=webpresent&action=runslideserver&slideServerId=".$slideServerId;
+            
             // set URL and other appropriate options
-            curl_setopt($ch, CURLOPT_URL, $siteRoot."/index.php?module=webpresent&action=runslideserver&slideServerId=".$slideServerId);
+            curl_setopt($ch, CURLOPT_URL,$url);
             curl_setopt($ch, CURLOPT_HEADER, 0);
 
             // grab URL and pass it to the browser
@@ -159,9 +161,12 @@
                     preg_match_all('/slideServerId\ *?=\ *?"(?P<slideServerId>.*?)"/six', $strReplace, $xslideServerId, PREG_PATTERN_ORDER);
                     $slideServerId = $xslideServerId['slideServerId'];
                   
-                    preg_match_all('/siteRoot\ *?=\ *?"(?P<slideServerId>.*?)"/six', $strReplace, $siteRootId, PREG_PATTERN_ORDER);
-                    $siteRoot = $siteRoot['siteRoot'];
+                    preg_match_all('/siteRoot\ *?=\ *?"(?P<siteRoot>.*?)"/six', $strReplace, $siteRootId, PREG_PATTERN_ORDER);
+                    $siteRoot = $siteRootId['siteRoot'];
       
+                    
+                    //var_dump($siteRoot);
+                    //exit();
                     
                     $this->startSlideServer($siteRoot[0],$slideServerId[0]);
                     
