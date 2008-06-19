@@ -27,19 +27,19 @@
 */
 
 
-class parse4realtime extends object
-{
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
-    public $objConfig;
-    public $objLanguage;
-    public $objExpar;
-    public $id;
-    public $url;
+    class parse4realtime extends object
+    {
+        /**
+        *
+        * String to hold an error message
+        * @accesss private
+        */
+        private $errorMessage;
+        public $objConfig;
+        public $objLanguage;
+        public $objExpar;
+        public $id;
+        public $url;
 
     /**
      *
@@ -49,67 +49,131 @@ class parse4realtime extends object
      * @access public
      *
      */
-    function init()
-    {
-        // Get an instance of the language object
-        $this->objLanguage = $this->getObject('language', 'language');
-        // Get an instance of the params extractor
-        $this->objExpar = $this->getObject("extractparams", "utilities");
-        // Load the XML_RPC PEAR Class
-        require_once($this->getPearResource('XML/RPC/Server.php'));
-       // $this->objConfig = $this->getObject('altconfig', 'config');
-    }
+        function init()
+        {
+            // Get an instance of the language object
+            $this->objLanguage = $this->getObject('language', 'language');
+            // Get an instance of the params extractor
+            $this->objExpar = $this->getObject("extractparams", "utilities");
+            // Load the XML_RPC PEAR Class
+            require_once($this->getPearResource('XML/RPC/Server.php'));
+            // $this->objConfig = $this->getObject('altconfig', 'config');
+        }
+    /**
+     * This function generates a random string. This is used as id for the java slides server as well as
+     * the client (applet)
+     * @param <type> $length
+     * @return <type>
+     */ 
+        public function randomString($length)
+        {
+            // Generate random 32 charecter string
+            $string = md5(time());
 
+            // Position Limiting
+            $highest_startpoint = 32-$length;
+
+            // Take a random starting point in the randomly
+            // Generated String, not going any higher then $highest_startpoint
+            $randomString = substr($string,rand(0,$highest_startpoint),$length);
+
+            return $randomString;
+
+        }
+        
+        /**
+         * This starts the slide server on the remote server. Needed for the applet
+         * to run
+         */
+        public function startSlideServer($siteRoot,$slideServerId){
+            // create a new cURL resource
+            $ch = curl_init();
+
+            // set URL and other appropriate options
+            curl_setopt($ch, CURLOPT_URL, $siteRoot."/index.php?module=webpresent&action=runslideserver&slideServerId=".$slideServerId);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+
+            // grab URL and pass it to the browser
+            curl_exec($ch);
+
+            // close cURL resource, and free up system resources
+            curl_close($ch);
+        }
       /**
-    *
-    * Method to parse the string
-    * @param  string $str The string to parse
-    * @return string The parsed string
-    *
-    */
-    public function parse($txt)
-    {
-        // Match all [FILEPREVIEW /] tags
-        preg_match_all('%\[REALTIME.*?/\]%six', $txt, $result, PREG_PATTERN_ORDER);
-
-        $result = $result[0];
+        *
+        * Method to parse the string
+        * @param  string $str The string to parse
+        * @return string The parsed string
+        *
+        */
+        public function parse($txt)
+        {
+            // Match all [FILEPREVIEW /] tags
+            preg_match_all('%\[REALTIME.*?/\]%six', $txt, $result, PREG_PATTERN_ORDER);
+           
+            $result = $result[0];
         
-        // Combine duplicates
-        $result = array_unique($result);
+            // Combine duplicates
+            $result = array_unique($result);
         
-        // If there are any matches
-        if (count($result) > 0) {
+            // If there are any matches
+            if (count($result) > 0) {
             
-            // Load Preview Class
-            $realtime = $this->getObject('realtimestarter', 'realtime');
-            
-            // Go through each result
-            foreach ($result as $str)
-            {
-                // Fix required - Replace &quot; with "
-                $strReplace = str_replace ('&quot;', '"', $str);
+                // Load Preview Class
+                $realtime = $this->getObject('realtimestarter', 'realtime');
+                // Go through each result
+                foreach ($result as $str)
+                {
+                    // Fix required - Replace &quot; with "
+                    $strReplace = str_replace ('&quot;', '"', $str);
                 
-                // Match ids
-                preg_match_all('/id\ *?=\ *?"(?P<id>.*?)"/six', $strReplace, $resultId, PREG_PATTERN_ORDER);
-                $resultId = $resultId['id'];
-                
-                // If ID is specified
-                if (isset($resultId[0])) {
-                    // get preview
-                    $preview = $realtime->generateURL($resultId[0],'testagenda');
-                } else {
-                    // else set preview as nothing
-                    $preview = '';
-                }
-                
-                // Replace filter code with preview
-                $txt = str_replace($str, $preview, $txt);
+                    //($id,$agenda,$resourcesPath,$appletCodeBase,$slidesDir,$username,$fullnames,$userLevel,$runSlideServerCommand,$slideServerId)
+                    
+                    // Match ids
+                    preg_match_all('/id\ *?=\ *?"(?P<id>.*?)"/six', $strReplace, $resultId, PREG_PATTERN_ORDER);
+                    $sessionId = $resultId['id'];
+                    
+                    //the agenda:
+                    preg_match_all('/agenda\ *?=\ *?"(?P<agenda>.*?)"/six', $strReplace, $agendaId, PREG_PATTERN_ORDER);
+                    $agenda = $agendaId['agenda'];                    
+                    
+                    //resources path
+                    preg_match_all('/resourcesPath\ *?=\ *?"(?P<resourcesPath>.*?)"/six', $strReplace, $resourcesId, PREG_PATTERN_ORDER);
+                    $resourcesPath = $resourcesId['resourcesPath'];
+                    
+                    preg_match_all('/appletCodeBase\ *?=\ *?"(?P<appletCodeBase>.*?)"/six', $strReplace, $appletCodeId, PREG_PATTERN_ORDER);
+                    $appletCodeBase = $appletCodeId['appletCodeBase'];
+                    
+                    preg_match_all('/slidesDir\ *?=\ *?"(?P<slidesDir>.*?)"/six', $strReplace, $slidesDirId, PREG_PATTERN_ORDER);
+                    $slidesDir = $slidesDirId['slidesDir'];
+                    
+                    preg_match_all('/username\ *?=\ *?"(?P<username>.*?)"/six', $strReplace, $usernameId, PREG_PATTERN_ORDER);
+                    $username = $usernameId['username'];
+                    
+                    preg_match_all('/fullnames\ *?=\ *?"(?P<fullnames>.*?)"/six', $strReplace, $fullnamesId, PREG_PATTERN_ORDER);
+                    $fullnames = $fullnamesId['fullnames'];
+                  
+                    preg_match_all('/userlevel\ *?=\ *?"(?P<userlevel>.*?)"/six', $strReplace, $userlevelId, PREG_PATTERN_ORDER);
+                    $userlevel = $userlevelId['userlevel'];
+                  
+                    preg_match_all('/slideServerId\ *?=\ *?"(?P<slideServerId>.*?)"/six', $strReplace, $xslideServerId, PREG_PATTERN_ORDER);
+                    $slideServerId = $xslideServerId['slideServerId'];
+                  
+                    preg_match_all('/siteRoot\ *?=\ *?"(?P<slideServerId>.*?)"/six', $strReplace, $siteRootId, PREG_PATTERN_ORDER);
+                    $siteRoot = $siteRoot['siteRoot'];
+      
+                    
+                    $this->startSlideServer($siteRoot[0],$slideServerId[0]);
+                    
+                    $preview = $realtime->generateURL($sessionId[0],$agenda[0],$resourcesPath[0],$appletCodeBase[0],$slidesDir[0],$username[0],$fullnames[0],$userLevel[0],$slideServerId[0]);
+                    // Replace filter code with preview
+                    $txt = str_replace($str, $preview, $txt);
 
-            } // End foreach
-        } // End if count
+                } // End foreach
+            } // End if count
        
-        // Return rendered text
-        return $txt;
+            // Return rendered text
+            return $txt;
+        }
     }
-}
 ?>
