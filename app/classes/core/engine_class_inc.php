@@ -30,10 +30,10 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
-// increase memory_limit - added 28.07.06 by nappleby
+//increase memory_limit - added 28.07.06 by nappleby
 ini_set('memory_limit','500M');
 
-// --------------------------- engine class ------------------------
+/* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
 if (!
@@ -223,7 +223,7 @@ class engine
      * @access private
      * @var    object
      */
-	private $_objDbConfig; // possibly deprecated (Prince check this out pls!)
+	private $_objDbConfig;
 
 	/**
      * The layout template default
@@ -239,7 +239,7 @@ class engine
      * @access private
      * @var    string
      */
-	private $_pageTemplate =NULL;
+	private $_pageTemplate =null;
 
 	/**
      * Has an error been generated?
@@ -334,7 +334,7 @@ class engine
      *
      * @var object
      */
-	private $_altconfig = NULL;
+	private $_altconfig = null;
 
 	/**
      * DSN - Data Source Name for the database connection object
@@ -365,50 +365,50 @@ class engine
      * @var array
      */
 	public $coremods = array(
-	                    'api',
-	                    'blocks',
-	                    'config',
-	                    'context',
-	                    'contextadmin',
-	                    'contextgroups',
-	                    'contextpermissions',
-	                    'creativecommons',
-	                    'decisiontable',
-	                    'errors',
-	                    'files',
-	                    'filemanager',
-	                    'filters',
-	                    'groupadmin',
-	                    'help',
-	                    'htmlelements',
-	                    'language',
-	                    'logger',
-	                    'mail',
-	                    'modulecatalogue',
-	                    'navigation',
-	                    'outputplugins',
-	                    'permissions',
-	                    'postlogin',
-	                    'prelogin',
-	                    'redirect',
-	                    'packages',
-	                    'search',
-	                    'security',
-	                    'sitemap',
-	                    'skin',
-	                    'stories',
-	                    'storycategoryadmin',
-	                    'strings',
-	                    'sysconfig',
-	                    'systext',
-	                    'tagging',
-	                    'toolbar',
-	                    'tree',
-	                    'useradmin',
-	                    'userdetails',
-	                    'userregistration',
-	                    'utilities',
-	                   );
+	'api',
+	'blocks',
+	'config',
+	'context',
+	'contextadmin',
+	'contextgroups',
+	'contextpermissions',
+    'creativecommons',
+	'decisiontable',
+	'errors',
+	'files',
+    'filemanager',
+	'filters',
+	'groupadmin',
+	'help',
+	'htmlelements',
+	'language',
+	'logger',
+	'mail',
+	'modulecatalogue',
+	'navigation',
+	'outputplugins',
+	'permissions',
+	'postlogin',
+	'prelogin',
+    'redirect',
+    'packages',
+	'search',
+	'security',
+    'sitemap',
+	'skin',
+	'stories',
+	'storycategoryadmin',
+	'strings',
+	'sysconfig',
+	'systext',
+    'tagging',
+	'toolbar',
+	'tree',
+	'useradmin',
+	'userdetails',
+	'userregistration',
+	'utilities',
+	);
 
 	public $objMemcache = FALSE;
 
@@ -424,19 +424,24 @@ class engine
      * @return void
      * @access public
      */
-	public function __construct() {
-		// we only initiate session handling here if a session already exists;
-		// the session is only created once a successful login has taken place.
-		// this has the small security benefit (albeit an obscurity based one)
-		// of concealing any information about the session id generator from
-		// unauthenticated users. (see Engine->do_login for session creation)
+	public function __construct()
+	{
+		/*
+		 * we only initiate session handling here if a session already exists;
+		 * the session is only created once a successful login has taken place.
+		 * this has the small security benefit (albeit an obscurity based one)
+		 * of concealing any information about the session id generator from
+		 * unauthenticated users. (see Engine->do_login for session creation)
+		 */
 		if (isset($_REQUEST[session_name()])) {
 			$this->sessionStart();
 		}
-		// initialise member objects that *this object* is dependent on, and thus
-		// must be created on every request
-		// the config objects
-		// all configs now live in one place, referencing the config.xml file in the config directory
+		/*
+		 * initialise member objects that *this object* is dependent on, and thus
+		 * must be created on every request
+		 * the config objects
+		 * all configs now live in one place, referencing the config.xml file in the config directory
+		 */
 		$this->_objDbConfig = $this->getObject('altconfig', 'config');
 		// check for which db abstraction to use - MDB2 or PDO
 		$this->_dbabs = $this->_objDbConfig->getenable_dbabs();
@@ -460,6 +465,7 @@ class engine
 			if($this->_objDbConfig->getenable_apc() == 'TRUE')
 			{
 				$this->objAPC = TRUE;
+				
 			}
 			else {
 				$this->objAPC = FALSE;
@@ -468,44 +474,42 @@ class engine
 		}
 
 
-		// and we need a general system config too
+		//and we need a general system config too
 		$this->_objConfig = clone $this->_objDbConfig;
     	ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
-    	// initialise the db factory method of MDB2
+    	//initialise the db factory method of MDB2
 		$this->getDbObj();
-		// initialise the db factory method of MDB2_Schema
+		//initialise the db factory method of MDB2_Schema
 		$this->getDbManagementObj();
-		// the user security module
-		// $this->loadClass('user', 'security');
+		//the user security module
 		$this->_objUser = $this->getObject('user', 'security');
-		// the language elements module
+		//the language elements module
 		$this->_objLanguage = $this->getObject('language', 'language');
 
-		// check that the user is logged in and update the login
+		//check that the user is logged in and update the login
 		if ($this->_objUser->isLoggedIn())
 		{
 			$this->_objUser->updateLogin();
 		}
 
 		// other fields
-		// set the messages array
+		//set the messages array
 		$this->_messages = array();
-		// array for the template vars
+		//array for the template vars
 		$this->_templateVars = array();
-		// the template references
+		//the template references
 		$this->_templateRefs = array();
-		// bust up the cached objects
+		//bust up the cached objects
 		$this->_cachedObjects = array();
 
-		// Load the Skin Object
-		// $this->loadClass('skin', 'skin');
+		//Load the Skin Object
 		$this->_objSkin = $this->getObject('skin', 'skin');
 
-		// Get default page template
+		//Get default page template
 		$this->_pageTemplate = $this->_objSkin->getPageTemplate();
 		// Get Layout Template from Config files
 		$this->_layoutTemplate = $this->_objSkin->getLayoutTemplate();
-	}// end function
+	}
 
 	/**
     * This method is for use by the application entry point. It dispatches the
@@ -517,11 +521,9 @@ class engine
     * @access public
     * @return void
     */
-	public function run($presetModuleName = NULL, $presetAction = NULL) {
-		// $mqmsg = NULL;
-		// if (get_magic_quotes_gpc()) {
-			// $mqmsg = "Please disable Magic Quotes in your PHP.ini, or by creating an .htaccess file containing the following line: php_flag magic_quotes_gpc Off";
-		// }
+	public function run($presetModuleName = NULL, $presetAction = NULL)
+	{
+		
 		if (empty($presetModuleName)) {
 			$requestedModule = strtolower($this->getParam('module', '_default'));
 		} else {
@@ -551,9 +553,8 @@ class engine
 				echo $this->_layoutContent;
 			}
 		}
-		// echo '<div class="warning"><center>'.$mqmsg.'</center></div>';
 		$this->_finish();
-	}// end function
+	}
 
 	/**
     * Method to return the db object. Evaluates lazily,
@@ -564,22 +565,21 @@ class engine
     * @access public
     * @return kngConfig The config object
     */
-	public function getDbObj() {
-		// I'm keeping $_globalObjDb as a global for now, as it's so convenient to
-		// just pick it up wherever its needed. I'd like to think of a better
-		// approach that doesn't involve it being a global, but until I do,
-		// it'll live here. I'll also have a member field _objDb for consistency
-		// with the other objects
+	public function getDbObj()
+	{
+		
 		global $_globalObjDb;
-
-		// do the checks that the db object gets instantiated once, then
-		// let MDB2 take over for the on-demand construction
+		/*
+		* do the checks that the db object gets instantiated once, then let MDB2 take over for the on-demand * *construction
+		*/
 		if ($this->_objDb == NULL || $_globalObjDb == NULL) {
 			$this->_objDbConfig = $this->getObject('altconfig', 'config');
-			// set up the DSN. Some RDBM's do not operate with the string style DSN (most noticeably Oracle)
-			// so we parse the DSN to an array and then send that to the object instantiation to be safe
-			$dsn        = KEWL_DB_DSN; // $this->_objDbConfig->getDsn();
-			$this->dsn  = $this->parseDSN($dsn);
+			/*
+			 * set up the DSN. Some RDBM's do not operate with the string style DSN (most noticeably Oracle)
+			 * so we parse the DSN to an array and then send that to the object instantiation to be safe
+			 */
+			$dsn = KEWL_DB_DSN;
+			$this->dsn = $this->parseDSN($dsn);
 			$this->pdsn = $this->dsn;
 
 			// now check whether to use PDO or MDB2
@@ -587,50 +587,46 @@ class engine
 			{
 				// Connect to the database
 				require_once ('MDB2.php');
-				// MDB2 has a factory method, so lets use it now...
 				$_globalObjDb = &MDB2::singleton($this->dsn);
 
-				// Check for errors on the factory method
+				//Check for errors on the factory method
 				if (PEAR::isError($_globalObjDb)) {
 					$this->_pearErrorCallback($_globalObjDb);
-					// return the db object for use globally
+					//return the db object for use globally
 					return $_globalObjDb;
 				}
 				// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
 				$_globalObjDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
-				// set the options for portability!
+				//set the options for portability!
 				$_globalObjDb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ALL);
 
-				// Check for errors
+				//Check for errors
 				if (PEAR::isError($_globalObjDb)) {
-					// manually call the callback function here,
-					// as we haven't had a chance to install it as
-					// the error handler
+					/*
+					* manually call the callback function here, as we haven't had a chance to install it as
+					* the error handler
+					*/
 					$this->_pearErrorCallback($_globalObjDb);
-					// return the db object for use globally
+					//return the db object for use globally
 					return $_globalObjDb;
 				}
 				// keep a copy as a field as well
 				$this->_objDb = $_globalObjDb;
 
-				// Load up some of the extra MDB2 modules:
+				//Load up some of the extra MDB2 modules:
 				MDB2::loadFile('Date');
 				MDB2::loadFile('Iterator');
 
 				// install the error handler with our custom callback on error
 				$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
-				array(
-				 $this, 
-				 '_pearErrorCallback',
-				)
-				);
-				// set the default fetch mode for the DB to assoc, as that's
-				// a much nicer mode than the default MDB2_FETCHMODE_ORDERED
+				array($this, '_pearErrorCallback'));
+				/* set the default fetch mode for the DB to assoc, as that's a much nicer mode than the default  * MDB2_FETCHMODE_ORDERED
+				 */
 				$this->_objDb->setFetchMode(MDB2_FETCHMODE_ASSOC);
 				if($this->_objDb->phptype == 'oci8')
 				{
 					$this->_objDb->setOption('field_case', CASE_LOWER);
-					// oracle numRows() hack plus some extras
+					//oracle numRows() hack plus some extras
 					$this->_objDb->setOption('portability',MDB2_PORTABILITY_NUMROWS | MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_ALL);
 				}
 				else {
@@ -653,9 +649,9 @@ class engine
 											$this->dsn['username'],
 											$this->dsn['password']
 										);
-						$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, TRUE);
+						$this->_objDb->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 				    	$this->_objDb->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-				    	$this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, TRUE);
+				    	$this->_objDb->setAttribute(PDO::ATTR_PERSISTENT, true);
 				    	if($this->dsn['phptype'] == 'pgsql')
 				    	{
 				    		$this->_objDb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -668,12 +664,12 @@ class engine
 					}
 				}
 			}
-			// return the local copy
+			//return the local copy
 			return $this->_objDb;
 		}
 
-	}// end function
- 
+	}
+
 
 	/**
     * Method to return the db management object. Evaluates lazily,
@@ -684,46 +680,45 @@ class engine
     * @access public
     * @return kngConfig The config object
     */
-	public function getDbManagementObj() {
-		// global for the management object
+	public function getDbManagementObj()
+	{
+		//global for the management object
 		global $_globalObjDbManager;
-
-		// do the checks that the db object gets instantiated once, then
-		// let MDB2 take over for the on-demand construction
+		/*
+		*do the checks that the db object gets instantiated once, then
+		*let MDB2 take over for the on-demand construction
+		*/
 		if ($this->_objDbManager == NULL || $_globalObjDbManager == NULL) {
-			// load the config object (same as the db Object)
+			//load the config object (same as the db Object)
 			$this->_objDbConfig = $this->getObject('altconfig', 'config');
-			$mdsn               = KEWL_DB_DSN; // $this->_objDbConfig->getDsn();
-			$this->mdsn         = $this->parseDSN($mdsn);
+			$mdsn = KEWL_DB_DSN; //$this->_objDbConfig->getDsn();
+			$this->mdsn = $this->parseDSN($mdsn);
 			// Connect to the database
 			require_once $this->getPearResource('MDB2/Schema.php');
-			// MDB2 has a factory method, so lets use it now...
-			$_globalObjDbManager = &MDB2::connect($this->dsn); // &MDB2_Schema::factory($this->mdsn);
+			//MDB2 has a factory method, so lets use it now...
+			$_globalObjDbManager = &MDB2::connect($this->dsn);
 
-			// Check for errors
+			//Check for errors
 			if (PEAR::isError($_globalObjDbManager)) {
-				// manually call the callback function here,
-				// as we haven't had a chance to install it as
-				// the error handler
+				/*	
+				 * manually call the callback function here,
+				 * as we haven't had a chance to install it as
+				 * the error handler
+				 */				
 				$this->_pearErrorCallback($_globalObjDbManager);
-				// return the db object for use globally
+				//return the db object for use globally
 				return $_globalObjDbManager;
 			}
 			// keep a copy as a field as well
 			$this->_objDbManager = $_globalObjDbManager;
 			// install the error handler with our custom callback on error
 			$this->_objDbManager->setErrorHandling(PEAR_ERROR_CALLBACK,
-			array(
-			 $this, 
-			 '_pearErrorCallback',
-			)
-			);
+			array($this, '_pearErrorCallback'));
 
 		}
-		// return the local copy
-		// var_dump($this->_objDbManager);
+		//return the local copy
 		return $this->_objDbManager;
-	}// end function
+	}
 
 	/**
      * Method to parse the DSN from a string style DSN to an array for portability reasons
@@ -733,26 +728,27 @@ class engine
      * @return void
      * @TODO   get the port settings too!
      */
-	public function parseDSN($dsn) {
+	public function parseDSN($dsn)
+	{
 		$parsed = NULL;
-		$arr    = NULL;
+		$arr = NULL;
 		if (is_array($dsn)) {
 			$dsn = array_merge($parsed, $dsn);
 			return $dsn;
 		}
-		// find the protocol
-		if (($pos = strpos($dsn, '://')) !== FALSE) {
+		//find the protocol
+		if (($pos = strpos($dsn, '://')) !== false) {
 			$str = substr($dsn, 0, $pos);
 			$dsn = substr($dsn, $pos + 3);
 		} else {
 			$str = $dsn;
-			$dsn = NULL;
+			$dsn = null;
 		}
 		if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
-			$parsed['phptype'] = $arr[1];
+			$parsed['phptype']  = $arr[1];
 			$parsed['phptype'] = !$arr[2] ? $arr[1] : $arr[2];
 		} else {
-			$parsed['phptype'] = $str;
+			$parsed['phptype']  = $str;
 			$parsed['phptype'] = $str;
 		}
 
@@ -760,32 +756,34 @@ class engine
 			return $parsed;
 		}
 		// Get (if found): username and password
-		if (($at = strrpos($dsn,'@')) !== FALSE) {
+		if (($at = strrpos($dsn,'@')) !== false) {
 			$str = substr($dsn, 0, $at);
 			$dsn = substr($dsn, $at + 1);
-			if (($pos = strpos($str, ':')) !== FALSE) {
+			if (($pos = strpos($str, ':')) !== false) {
 				$parsed['username'] = rawurldecode(substr($str, 0, $pos));
 				$parsed['password'] = rawurldecode(substr($str, $pos + 1));
 			} else {
 				$parsed['username'] = rawurldecode($str);
 			}
 		}
-		// server
-		if (($col = strrpos($dsn,':')) !== FALSE) {
+		//server
+		if (($col = strrpos($dsn,':')) !== false) {
 			$strcol = substr($dsn, 0, $col);
-			$dsn    = substr($dsn, $col + 1);
-			if (($pos = strpos($strcol, '+')) !== FALSE) {
+			$dsn = substr($dsn, $col + 1);
+			if (($pos = strpos($strcol, '+')) !== false) {
 				$parsed['hostspec'] = rawurldecode(substr($strcol, 0, $pos));
 			} else {
 				$parsed['hostspec'] = rawurldecode($strcol);
 			}
 		}
-
-		// now we are left with the port and databsource so we can just explode the string and clobber the arrays together
-		$pm                 = explode("/",$dsn);
+		/*
+		 * now we are left with the port and databsource so we can just explode the string 
+		 * and clobber the arrays together
+		 */	
+		$pm = explode("/",$dsn);
 		$parsed['hostspec'] = $pm[0];
 		$parsed['database'] = $pm[1];
-		$dsn                = NULL;
+		$dsn = NULL;
 
 		$parsed['hostspec'] = str_replace("+","/",$parsed['hostspec']);
 
@@ -812,7 +810,8 @@ class engine
      * @param  void
      * @return string Content of rendered content script
      */
-	public function getContent() {
+	public function getContent()
+	{
 		return $this->_content;
 	}
 
@@ -823,7 +822,8 @@ class engine
     * @param  void
     * @return string Name of layout template
     */
-	public function getLayoutTemplate() {
+	public function getLayoutTemplate()
+	{
 		return $this->_layoutTemplate;
 	}
 
@@ -834,7 +834,8 @@ class engine
     * @param  string $templateName The name of the layout template to use
     * @return string Name of the layout template
     */
-	public function setLayoutTemplate($templateName) {
+	public function setLayoutTemplate($templateName)
+	{
 		$this->_layoutTemplate = $templateName;
 	}
 
@@ -845,7 +846,8 @@ class engine
      * @param  void
      * @return string Content of rendered layout script
      */
-	public function getLayoutContent() {
+	public function getLayoutContent()
+	{
 		return $this->_layoutContent;
 	}
 
@@ -856,7 +858,8 @@ class engine
     * @param  void
     * @return string Name of layout template
     */
-	public function getPageTemplate() {
+	public function getPageTemplate()
+	{
 		return $this->_pageTemplate;
 	}
 
@@ -867,14 +870,16 @@ class engine
     * @param  string $templateName The name of the page template to use
     * @return string $templateName The name of the page template to use
     */
-	public function setPageTemplate($templateName) {
+	public function setPageTemplate($templateName)
+	{
 		$this->_pageTemplate = $templateName;
 	}
 
 
-	public function getPatchObject($name, $moduleName = '') {
-		$engine   = $this;
-		$objname  = $name."_installscripts";
+	public function getPatchObject($name, $moduleName = '')
+	{
+		$engine = $this;
+		$objname = $name."_installscripts";
 		$filename = $this->_objConfig->getModulePath().$name."/patches/installscripts_class_inc.php";
 		if(file_exists($filename))
 		{
@@ -887,7 +892,7 @@ class engine
 				// Class does not inherit from class 'object', so don't pass it any parameters
 				$objNew = new $objname();
 			}
-			if (is_NULL($objNew)) {
+			if (is_null($objNew)) {
 				throw new customException("Could not instantiate patch class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
 			return $objNew;
@@ -906,7 +911,8 @@ class engine
      * @param  $moduleName string The name of the module to load the class from (optional)
      * @return a           reference to the loaded object in engine ($this)
      */
-	public function loadClass($name, $moduleName = '') {
+	public function loadClass($name, $moduleName = '')
+	{
 		if ($name == 'config' && $moduleName == 'config' && $this->_objConfig) {
 			// special case: skip if config and objConfig exists, this means config
 			// class is already loaded using relative path, and an attempt to load with absolute
@@ -922,7 +928,7 @@ class engine
 		if ($name == 'altconfig' && $moduleName == 'config' && !$this->_objConfig)
 		{
 			$filename = "core_modules/".$moduleName."/classes/".strtolower($name)."_class_inc.php";
-			$engine   = $this;
+			$engine = $this;
 			if(!($this->_objConfig instanceof altconfig))
 			{
 				require_once($filename);
@@ -970,14 +976,12 @@ class engine
 		else {
 			$filename = $this->_objConfig->getModulePath().$moduleName."/classes/".strtolower($name)."_class_inc.php";
 		}
-		// add the site root path to make an absolute path if the config object has
-		// been loaded
+		// add the site root path to make an absolute path if the config object has been loaded
 		if (!file_exists($filename)) {
 			if ($this->_objConfig->geterror_reporting() == "developer")
 			{
 				if(extension_loaded("xdebug"))
 				{
-					// var_dump(xdebug_get_function_stack());
 					throw new customException("Could not load class $name from module $moduleName: filename $filename ");
 				}
 				else {
@@ -990,10 +994,10 @@ class engine
 		}
 		$engine = $this;
 		$this->__autoload($filename);
-		// require_once($filename);
 	}
 
-	public function __autoload($class_name) {
+	public function __autoload($class_name)
+	{
     	require_once $class_name;
 	}
 
@@ -1011,27 +1015,26 @@ class engine
      * @param  $moduleName string The name of the module to load the class from
      * @return mixed       The object asked for
      */
-	public function newObject($name, $moduleName) {
+	public function newObject($name, $moduleName)
+	{
 		$this->loadClass($name, $moduleName);
 		if($this->objMemcache == TRUE)
 		{
 			if(chisimbacache::getMem()->get(md5($name)))
 			{
+				//log_debug("retrieve $name from cache...new object");
 				$objNew = chisimbacache::getMem()->get(md5($name));
-				// log_debug("retrieve $name from cache...new object");
+				
 				return $objNew;
 			}
 			else {
-				// $this->loadClass($name, $moduleName);
 				if (is_subclass_of($name, 'object')) {
 					$objNew = new $name($this, $moduleName);
-					// chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
-					// log_debug("added $name to cache - yipee!");
 					return $objNew;
 				}
 				else {
 					$objNew = new $name();
-					// log_debug("setting newObject $name from cache...");
+					//log_debug("setting newObject $name from cache...");
 					chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
 				}
 			}
@@ -1043,8 +1046,6 @@ class engine
     		{
     			if (is_subclass_of($name, 'object')) {
 					$objNew = new $name($this, $moduleName);
-					// chisimbacache::getMem()->set(md5($name), $objNew, MEMCACHE_COMPRESSED, $this->cacheTTL);
-					// log_debug("added $name to cache - yipee!");
 					return $objNew;
 				}
 				else {
@@ -1064,8 +1065,7 @@ class engine
 				// Class does not inherit from class 'object', so don't pass it any parameters
 				$objNew = new $name();
 			}
-			// $objNew = new $name($this, $moduleName);
-			if (is_NULL($objNew)) {
+			if (is_null($objNew)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
 		}
@@ -1088,7 +1088,8 @@ class engine
      * @param  $moduleName string The name of the module to load the class from
      * @return mixed       The object asked for
      */
-	public function getObject($name, $moduleName) {
+	public function getObject($name, $moduleName)
+	{
 		$instance = NULL;
 		if (isset($this->_cachedObjects[$moduleName][$name]))
 		{
@@ -1103,7 +1104,7 @@ class engine
 			else {
 				$instance = new $name();
 			}
-			if (is_NULL($instance)) {
+			if (is_null($instance)) {
 				throw new customException("Could not instantiate class $name from module $moduleName " . __FILE__ . __CLASS__ . __FUNCTION__ . __METHOD__);
 			}
 			// first check that the map for the given module exists
@@ -1128,7 +1129,8 @@ class engine
     * @param  $default mixed  The value to return if the variable is unset (optional)
     * @return mixed    The value of the variable, or $default if unset
     */
-	public function getVar($name, $default = NULL) {
+	public function getVar($name, $default = NULL)
+	{
 		return isset($this->_templateVars[$name])
 		? $this->_templateVars[$name]
 		: $default;
@@ -1143,7 +1145,8 @@ class engine
     * @param  $val   mixed  The value to set the variable to
     * @return string as associative array of template name
     */
-	public function setVar($name, $val) {
+	public function setVar($name, $val)
+	{
 		$this->_templateVars[$name] = $val;
 	}
 
@@ -1155,7 +1158,8 @@ class engine
     * @param  $name  string The name of the reference variable
     * @return mixed  The value of the reference variable, or NULL if unset
     */
-	public function getVarByRef($name) {
+	public function getVarByRef($name)
+	{
 		return isset($this->_templateRefs[$name])
 		? $this->_templateRefs[$name]
 		: NULL;
@@ -1169,7 +1173,8 @@ class engine
     * @param  $name  string The name of the reference variable
     * @param  $ref   mixed  A reference to the object to set the reference variable to
     */
-	public function setVarByRef($name, $ref) {
+	public function setVarByRef($name, $ref)
+	{
 		$this->_templateRefs[$name] = $ref;
 	}
 
@@ -1182,7 +1187,8 @@ class engine
      * @param  mixed  $value The value to append to the array
      * @return string as associative array
      */
-	public function appendArrayVar($name, $value) {
+	public function appendArrayVar($name, $value)
+	{
 		if (!isset($this->_templateVars[$name])) {
 			$this->_templateVars[$name] = array();
 		}
@@ -1203,7 +1209,8 @@ class engine
     * @param  $default mixed  The value to return if the parameter is unset (optional)
     * @return mixed    The value of the parameter, or $default if unset
     */
-	public function getParam($name, $default = NULL) {
+	public function getParam($name, $default = NULL)
+	{
 		$result = isset($_REQUEST[$name])
 		? is_string($_REQUEST[$name])
 		? trim($_REQUEST[$name])
@@ -1222,7 +1229,8 @@ class engine
     * @param  $default mixed  The value to return if the parameter is unset (optional)
     * @return mixed    The value of the parameter, or $default if unset
     */
-	public function getArrayParam($name, $default = NULL) {
+	public function getArrayParam($name, $default = NULL)
+	{
 		if ((isset($_REQUEST[$name]))&&(is_array($_REQUEST[$name]))){
 			return $_REQUEST[$name];
 		} else {
@@ -1239,9 +1247,10 @@ class engine
 	* @return mixed
 	* @access public
 	*/
-	public function install_gpc_stripslashes($var) {
+	public function install_gpc_stripslashes($var)
+	{
 		if (get_magic_quotes_gpc()) {
-			if (is_array($var)) $this->install_stripslashes_array($var, TRUE);
+			if (is_array($var)) $this->install_stripslashes_array($var, true);
 			else $var = stripslashes($var);
 		}
 		return $var;
@@ -1255,9 +1264,10 @@ class engine
 	* @return array
 	* @access public
 	*/
-	public function install_stripslashes_array($array, $strip_keys=FALSE) {
+	public function install_stripslashes_array($array, $strip_keys=false)
+	{
 		if(is_string($array)) return stripslashes($array);
-		$keys_to_replace = array();
+		$keys_to_replace = Array();
 		foreach($array as $key => $value) {
 			if (is_string($value)) {
 				$array[$key] = stripslashes($value);
@@ -1270,7 +1280,7 @@ class engine
 		}
 		// now replace any of the keys that needed strip slashing
 		foreach($keys_to_replace as $from => $to) {
-			$array[$to] = $array[$from];
+			$array[$to]   = $array[$from];
 			unset($array[$from]);
 		}
 		return $array;
@@ -1284,7 +1294,8 @@ class engine
     * @param  $default mixed  The value to return if the session value is unset (optional)
     * @return mixed    the value of the parameter, or $default if unset
     */
-	public function getSession($name, $default = NULL) {
+	public function getSession($name, $default = NULL)
+	{
 		$val = $default;
 		if (isset($_SESSION[$name])) {
 			$val = $_SESSION[$name];
@@ -1300,7 +1311,8 @@ class engine
     * @param  $val   mixed  The value to set the session value to
     * @return void
     */
-	public function setSession($name, $val) {
+	public function setSession($name, $val)
+	{
 		if (!$this->_sessionStarted) {
 			$this->sessionStart();
 		}
@@ -1314,7 +1326,8 @@ class engine
     * @param  $name  string The name of the session parameter
     * @return void
     */
-	public function unsetSession($name) {
+	public function unsetSession($name)
+	{
 		unset($_SESSION[$name]);
 	}
 
@@ -1326,10 +1339,11 @@ class engine
     * @param  $field    string The name of the field the error applies to (optional)
     * @return FALSE
     */
-	public function setErrorMessage($errormsg, $field = NULL) {
+	public function setErrorMessage($errormsg, $field = NULL)
+	{
 		if (!$this->_hasError) {
 			$this->_errorMessage = $errormsg;
-			$this->_hasError     = TRUE;
+			$this->_hasError = TRUE;
 		}
 		if ($field) {
 			$this->_errorField = $field;
@@ -1345,7 +1359,8 @@ class engine
     * @param  $msg   string The message
     * @return string the message
     */
-	public function addMessage($msg) {
+	public function addMessage($msg)
+	{
 		$this->_messages[] = $msg;
 	}
 
@@ -1357,7 +1372,8 @@ class engine
      * @param  array  $params Parameters to pass to action
      * @return string template
      */
-	public function nextAction($action, $params = array()) {
+	public function nextAction($action, $params = array())
+	{
 		list($template, $_) = $this->_dispatch($action, $this->_moduleName);
 		return $template;
 	}
@@ -1378,12 +1394,13 @@ class engine
     * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
     * @returns string $uri the URL
     */
-	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE) {
+	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
+	{
 		if (!empty($action)) {
 			$params['action'] = $action;
 		}
 		if ($omitServerName){
-			$uri = $_SERVER['PHP_SELF'];
+			$uri=$_SERVER['PHP_SELF'];
 		} else {
 			$uri = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 		}
@@ -1395,18 +1412,14 @@ class engine
 			$params['action'] = $this->getParam('_pushed_action', '');
 		}
 		if (in_array($mode, array('push', 'pop', 'preserve'))) {
-			$excluded = array(
-			             'action', 
-			             'module',
-			            );
+			$excluded = array('action', 'module');
 			if ($mode == 'pop') {
 				$excluded[] = '_pushed_action';
 				$excluded[] = '_pushed_module';
 			}
 			foreach ($_GET as $key => $value) {
-				// echo "using GET";
+				//echo "using GET";
 				if (!isset($params[$key]) && !in_array($key, $excluded)) {
-					// TODO: prefix on pushed values to protect them
 					$params[$key] = $value;
 				}
 			}
@@ -1419,20 +1432,19 @@ class engine
 			throw new customException("Incorrect URI mode in Engine::uri");
 		}
 		if (count($params)>1){
-			$params = array_reverse($params,TRUE);
+			$params=array_reverse($params,TRUE);
 		}
 		$params['module'] = $module;
-		$params           = array_reverse($params,TRUE);
+		$params=array_reverse($params,TRUE);
 		if (!empty($params)) {
 			$output = array();
 
 			foreach ($params as $key => $item) {
-				if (!is_NULL($item)) {
+				if (!is_null($item)) {
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
 			$uri .= '?'.implode($javascriptCompatibility?'&#38;':'&amp;', $output);
-			// TODO: urlencode the whole caboodle to do &amp; entities thing?  DONE!!!
 		}
 		return $uri;
 	}
@@ -1448,7 +1460,8 @@ class engine
      * @param  string $moduleName   The name of the module the resource belongs to
      * @return string URI to a resource in the module
      */
-	public function getResourceUri($resourceFile, $moduleName) {
+	public function getResourceUri($resourceFile, $moduleName)
+	{
 		if(in_array($moduleName, $this->coremods))
 		{
 			return "core_modules/" . $moduleName."/resources/".$resourceFile;
@@ -1472,7 +1485,8 @@ class engine
      * @param  string $moduleName   The name of the module the resource belongs to
      * @return string Path to the Resource in a module
      */
-    public function getResourcePath($resourceFile, $moduleName) {
+    public function getResourcePath($resourceFile, $moduleName)
+    {
         if(in_array($moduleName, $this->coremods))
 		{
 			return $this->_objConfig->getsiteRootPath()."core_modules/" . $moduleName."/resources/".$resourceFile;
@@ -1490,8 +1504,8 @@ class engine
      *                              subdirectory of the module
      * @return string Path to the Resource in a module
      */
-    public function getPearResource($resourceFile) {
-    	// log_debug($this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile);
+    public function getPearResource($resourceFile)
+    {
        	return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
     }
 
@@ -1505,7 +1519,8 @@ class engine
      * @param  string $moduleName     The name of the module that the script is in
      * @return string Javascript headers
     */
-	public function getJavascriptFile($javascriptFile, $moduleName) {
+	public function getJavascriptFile($javascriptFile, $moduleName)
+	{
 		return '<script type="text/javascript" src="'
 		. $this->getResourceUri($javascriptFile, $moduleName)
 		. '"></script>';
@@ -1519,7 +1534,8 @@ class engine
     * @param  void
     * @return string
     */
-	public function putMessages() {
+	public function putMessages()
+	{
 		$str = '';
 		if ($this->_hasError) {
 			$str .= '<script language="JavaScript" type="text/javascript">'
@@ -1548,7 +1564,8 @@ class engine
     * @param  $type       string The type of template to load: 'content' or 'layout' are current options
     * @return string      The full path to the found template
     */
-	public function _findTemplate($tpl, $moduleName, $type) {
+	public function _findTemplate($tpl, $moduleName, $type)
+	{
 		$path = '';
 		if (!empty($moduleName)) {
 			if(in_array($moduleName, $this->coremods))
@@ -1557,13 +1574,11 @@ class engine
 			}
 			else {
 				$path = $this->_objConfig->getModulePath() . "${moduleName}/templates/${type}/${tpl}";
-				// $path = $this->_objConfig->getsiteRootPath() . "modules/${moduleName}/templates/${type}/${tpl}";
 			}
 		}
 		if (empty($path) || !file_exists($path)) {
 			$firstpath = $path;
-			$path      = $this->_objSkin->getTemplate($type);
-			// $path = $this->_objConfig->getsiteRootPath() . "templates/${type}/${tpl}";
+			$path = $this->_objSkin->getTemplate($type);
 			if (!file_exists($path))
 			{
 				throw new customException("Template $tpl not found (looked in $firstpath)!");
@@ -1577,9 +1592,10 @@ class engine
      *
      * @access public
      * @param  void
-     * @return set    property to TRUE
+     * @return set    property to true
      */
-	public function sessionStart() {
+	public function sessionStart()
+	{
 		session_start();
 		$this->_sessionStarted = TRUE;
 	}
@@ -1591,16 +1607,10 @@ class engine
      * @param  string $error
      * @return void   (die)
      */
-	public function _pearErrorCallback($error) {
-		// TODO: note $error->getMessage() returns a shorter and friendlier but
-		// less informative message, for production should use getMessage
+	public function _pearErrorCallback($error)
+	{
 		
-		// TODO: note 2: Appending the getUserinfo method from the PEAR
-		// error stack will give you the same detail as toString()
-		// but it will look decent and not confuse the crap out of users
-		// that being said, we should still go for just getMessage() in prod
-
-		$msg       = $error->getMessage() . ': ' . $error->getUserinfo();
+		$msg = $error->getMessage() . ': ' . $error->getUserinfo();
 		$errConfig = $this->_objConfig->geterror_reporting();
 		if($errConfig == "developer")
 		{
@@ -1613,10 +1623,7 @@ class engine
 			$usermsg = $error->getMessage();
 		}
 		log_debug(__LINE__ . "  " . $msg);
-		$messages = array(
-		             $usermsg, 
-		             $msg,
-		            );
+		$messages = array($usermsg, $msg);
 
 		return customException::dbDeath($messages);
 	}
@@ -1629,13 +1636,14 @@ class engine
      * @param  $str   string String to escape
      * @return string Escaped string
      */
-	public function javascript_escape($str) {
+	public function javascript_escape($str)
+	{
 		return addcslashes($str, "\0..\37\"\'\177..\377");
 	}
 
-	// ***********************************************************
-	// Private methods to implement module dispatch and templating
-	// ***********************************************************
+	/*
+	 * Private methods to implement module dispatch and templating
+	 */ 
 
 	/**
     * Main dispatch method. Called by run to dispatch this request
@@ -1647,7 +1655,8 @@ class engine
     * @param  string       $requestedModule
     * @return list(string, string) Template name and module name
     */
-	private function _dispatch($action, $requestedModule) {
+	private function _dispatch($action, $requestedModule)
+	{
 		$this->_action = $action;strtolower($this->getParam('action', ''));
 		if (!$this->_loadModule($requestedModule)) {
 			$this->_loadModule('_default');
@@ -1656,32 +1665,38 @@ class engine
 			}
 			$this->setErrorMessage("Module {$requestedModule} not found");
 		}
-
+		// ensure no caching
 		if ($this->_objActiveController->sendNoCacheHeaders($this->_action)) {
-			// ensure no caching
-			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");              // Date in the past
-			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
-			header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
-			header("Cache-Control: post-check=0, pre-check=0", FALSE);
-			header("Pragma: no-cache");                                    // HTTP/1.0
+			// Date in the past
+			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+			// always modified
+			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+			// HTTP/1.1
+			header("Cache-Control: no-store, no-cache, must-revalidate");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			// HTTP/1.0
+			header("Pragma: no-cache");
 		}
-
+		/*
+		 * TODO:note $error->getMessage() returns a shorter and friendlier but
+		 *      less informative message, for production should use getMessage
+		 * TODO:note 2: Appending the getUserinfo method from the PEAR
+		 *      error stack will give you the same detail as toString()
+		 *      but it will look decent and not confuse the crap out of users
+		 *      that being said, we should still go for just getMessage() in prod
+		 */
 		if ((!$this->_objActiveController->requiresLogin($this->_action))
 		|| ($this->_objUser->isLoggedIn())) {
-			return array(
-			        $this->_dispatchToModule($this->_objActiveController, $this->_action),
-			        $this->_moduleName,
-			       );
+			return array($this->_dispatchToModule($this->_objActiveController, $this->_action),
+			$this->_moduleName);
 		}
 		else {
 			if (!$this->_loadModule('security')) {
 				throw new customException("Security module not found!");
 			}
 			$this->_moduleName = 'security';
-			return array(
-			        $this->_dispatchToModule($this->_objActiveController, 'showlogin'),
-			        $this->_moduleName,
-			       );
+			return array($this->_dispatchToModule($this->_objActiveController, 'showlogin'),
+			$this->_moduleName);
 		}
 	}
 
@@ -1695,7 +1710,8 @@ class engine
      * @param  $moduleName         string The name of the module to load
      * @return controller-subclass The new module controller object
     */
-	private function _loadModule($moduleName) {
+	private function _loadModule($moduleName)
+	{
 		$moduleName = str_replace("/","", $moduleName);
 		if ($moduleName == '_default') {
             if ($this->_objUser->isLoggedIn()) {
@@ -1711,7 +1727,7 @@ class engine
 		}
 		else {
 			$controllerFile = $this->_objConfig->getModulePath() . $moduleName . "/controller.php";
-			// $controllerFile = "modules/" . $moduleName . "/controller.php";
+			//$controllerFile = "modules/" . $moduleName . "/controller.php";
 		}
 		$objActiveController = NULL;
 		if (file_exists($controllerFile)
@@ -1737,11 +1753,14 @@ class engine
     * @param  $action              string              The action parameter
     * @return string               Template name returned from dispatch method
     */
-	private function _dispatchToModule($module, $action) {
+	private function _dispatchToModule($module, $action)
+	{
 		if ($module) {
 			$tpl = $this->_enableAccessControl
-			? $module->dispatchControl($module,$action) // with module access control
-			: $module->dispatch($action); // without module access control
+			// with module access control
+			? $module->dispatchControl($module,$action)
+			// without module access control
+			: $module->dispatch($action);
 			return $tpl;
 		}
 		else {
@@ -1764,7 +1783,8 @@ class engine
     * @param  $buffer     TRUE|FALSE If TRUE buffer output and return as string, else send to browser
     * @return string|NULL If buffering returns output, else returns NULL
     */
-	private function _callTemplate($tpl, $moduleName, $type, $buffer = FALSE) {
+	private function _callTemplate($tpl, $moduleName, $type, $buffer = FALSE)
+	{
 		return $this->_objActiveController->callTemplate($tpl, $type, $buffer);
 	}
 
@@ -1776,7 +1796,8 @@ class engine
     * @param  void
     * @return __destruct object db
     */
-	private function _finish() {
+	private function _finish()
+	{
 		if($this->_dbabs === 'MDB2')
 		{
 			$this->_objDb->disconnect();
@@ -1787,7 +1808,8 @@ class engine
 		}
 	}
 
-	public function __destruct() {
+	public function __destruct()
+	{
 		if($this->_dbabs === 'MDB2')
 		{
 			$this->_objDb->disconnect();
