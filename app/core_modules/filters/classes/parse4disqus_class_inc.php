@@ -141,7 +141,9 @@ class parse4disqus extends object
 
     private function _errNotInst()
     {
-        return "<br /><span class='error'>mod_filters_error_disqusnotinst</span><br />";
+        return "<br /><span class='error'>"
+           . $this->objLanguage->languageText('mod_filters_error_disqusnotinst', 'filters')
+           . "</span><br />";
     }
 
     /**
@@ -183,8 +185,8 @@ class parse4disqus extends object
           . $this->_getInlineJs($url, $disqusDiv)
           . $this->getEmbedJs();
 
-        return nl2br(htmlentities($ret));
-        //return $ret;
+        //return nl2br(htmlentities($ret));
+        return $ret;
     }
 
     private function _getDiv(& $disqusDiv)
