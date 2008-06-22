@@ -94,10 +94,18 @@ class parse4disqus extends object
         $this->objLanguage = $this->getObject('language', 'language');
         // Instantiate the disqus elements class
         if ($this->_checkInstalled()) {
-            $this->objDq = $this->getObject('disquselems', 'disqus');
-            // Get an instance of the params extractor
-            $this->objExpar = $this->getObject("extractparams", "utilities");
-            $this->_ok=TRUE;
+            //Get an instance of the config object
+            $objConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $disqusEnabled = $objConfig->getValue('mod_disqus_enabled', 'disqus');
+            if ($disqusEnabled !=='FALSE') {
+                $this->disqusUser = $objConfig->getValue('mod_disqus_defaultuser', 'disqus');
+                $this->objDq = $this->getObject('disquselems', 'disqus');
+                // Get an instance of the params extractor
+                $this->objExpar = $this->getObject("extractparams", "utilities");
+                $this->_ok=TRUE;
+            } else {
+                $this->_ok=FALSE;
+            }
         } else {
             $this->_ok=FALSE;
         }
@@ -180,37 +188,13 @@ class parse4disqus extends object
 
     private function _getDisqus(& $url, & $disqusDiv)
     {
-
-        $ret = $this->_getDiv($disqusDiv)
-          . $this->_getInlineJs($url, $disqusDiv)
-          . $this->getEmbedJs();
+        $ret = $this->objDq->getDiv($disqusDiv)
+          . $this->objDq->getInlineJs($url, $disqusDiv)
+          . $this->objDq->getEmbedJs($this->disqusUser);
 
         //return nl2br(htmlentities($ret));
         return $ret;
     }
 
-    private function _getDiv(& $disqusDiv)
-    {
-        return "<div id=\"$disqusDiv\">&nbsp;</div>\n";
-    }
-
-    private function _getInlineJs(& $url, & $disqusDiv)
-    {
-        return "<script type=\"text/javascript\">\n"
-          . "var disqus_url='$url';\n"
-          . "var disqus_container_id = \"$disqusDiv\";\n"
-          . "</script>\n";
-    }
-
-    private function getEmbedJs()
-    {
-        $disqusUser = "dkeats";
-        $ret = "<script type=\"text/javascript\""
-          . "src=\"http://disqus.com/forums/$disqusUser/embed.js\">\n"
-          . "</script><noscript>\n"
-          . "<a href=\"http://$disqusUser.disqus.com/?url=ref\">"
-          . "View the forum thread.</a></noscript>";
-        return $ret;
-    }
-
 }
+?>
