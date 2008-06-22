@@ -1,32 +1,32 @@
 <?php
  /**
  * User class
- * 
+ *
  * User class for KEWL.NextGen. Provides login, logout, and basic user
  * related methods. This class provides the core of the user and permissions
  * management for KEWL.NextGen.
- * 
+ *
  * PHP version 5
- *  
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   security
  * @author James Scoble <jscoble@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
@@ -106,11 +106,11 @@ class user extends dbTable
         $username = trim($username);
         $this->objAuth=$this->getObject('authenticate');
         $result = $this->objAuth->authenticateUser($username,$password);
-       
+
         return $result;
 
 
-        /** 
+        /**
         // Login via the chosen method
         switch($this->loginMethod()) {
             case 'ldap':
@@ -562,14 +562,14 @@ class user extends dbTable
         if ($userId==NULL) {
             $fullname=$this->getSession('name');
             if ($fullname == NULL) {
-                $result = $this->objLanguage->languageText("error_notloggedin", 'system');
+                $result = $this->objLanguage->languageText("error_notloggedin", "security");
             } else {
                 $result = $fullname;
             }
         } else {
             //look up third part numeric ID
             $line = $this->getRow('userid', $userId);
-			
+
             if ($line == FALSE)
             {
                 $result=$this->objLanguage->languageText("error_datanotfound", 'security');
@@ -630,7 +630,7 @@ class user extends dbTable
             return false;
         }
     }
-    
+
     /**
     * This method returns the staff name of a given user. It takes
     * the userId of a user as a parameter but defaults to the
@@ -675,7 +675,7 @@ class user extends dbTable
             if ($email) {
                 $ret = $email;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin", 'system');
+                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
@@ -746,7 +746,7 @@ class user extends dbTable
             if ($logins){
                 $ret=$logins;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin", 'system');
+                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             $sql="SELECT logins FROM tbl_users WHERE userid='$userId'";
@@ -801,13 +801,13 @@ class user extends dbTable
         if ($forceRefresh) {
             $forceRefresh = '?'.mktime();
         }
-        
+
         if ($alt == NULL) {
             $alt = '';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
-        
+
 
         if (file_exists($this->imagePath.$userId.'.jpg')){
             return '<img src="'.$this->imageUrl.$userId.'.jpg'.$forceRefresh.'" '.$alt.' />';
@@ -850,13 +850,13 @@ class user extends dbTable
         if (!$userId) {
             $userId=$this->userId();
         }
-        
+
         if ($alt == NULL) {
             $alt = '';
         } else {
             $alt = ' alt="'.$alt.'" title="'.$alt.'" ';
         }
-        
+
         if (file_exists($this->imagePath.$userId.'.jpg')){
             return '<img src="'.$this->imageUrl.$userId.'_small.jpg" '.$alt.'/>';
         } else {
@@ -918,7 +918,7 @@ class user extends dbTable
             $contextCode = isset($contextCode) ? $contextCode : $this->getSession('contextCode');
             $objGroupAdmin = $this->getObject('groupadminmodel', 'groupadmin');
             $groupId = $objGroupAdmin->getLeafId(array($contextCode, 'Lecturers'));
-            return $objGroupAdmin->isGroupMember($this->PKId($userId), $groupId);            
+            return $objGroupAdmin->isGroupMember($this->PKId($userId), $groupId);
         }
     }
 
@@ -1004,7 +1004,7 @@ class user extends dbTable
         $str = '<p align="center"><img src="'.$objUserPic->userpicture($this->userId() ).'" alt="User Image" /></p>';
         return $objBox->show($this->fullName(), $str);
       }
-	  
+
 	public function getUserDetails($userId)
 	{
 		return $this->getRow('userid', $userId);
