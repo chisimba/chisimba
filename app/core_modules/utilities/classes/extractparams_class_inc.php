@@ -91,5 +91,45 @@ class extractparams extends object
         }
         return $ret;
     }
+
+    /**
+    *
+    * Extract the parameters from a quoted string, and avoid splitting on
+    * delimiters within the quotes. This allows for parameter / value pairs
+    * such as
+    *   url="http://site/index.php?module=something&foo=bar" or
+    *   text="Now, not later, is the time when foo=bar"
+    *
+    * @param string $str A delimited string of parameters
+    * @param string $delim A delimiter to separate the pairs
+    * @param string $quoteType THe type of quote (" or ')
+    * @return string array An array of key=>values
+    *
+    *
+    */
+    public function getParamsQuoted($subject, $delim=",", $quoteType="\"")
+    {
+        //preg_match_all('/(?P<params>\w*=".*?"),?/ix', $subject, $results, PREG_PATTERN_ORDER);
+        preg_match_all('/(?P<params>\w*=".*?")' . $delim . '?/ix', $subject, $results, PREG_PATTERN_ORDER);
+        $counter = 0;
+        foreach ($results['params'] as $item) {
+            $splitSource = $results[1][$counter];
+            preg_match_all('/(\w*).*?=.*?' . $quoteType . '(.*?) ' . $quoteType . '=?/ix', $splitSource, $ar, PREG_PATTERN_ORDER);
+            $paramCounter=0;
+            foreach ($ar[0] as $pair) {
+                $pName = trim($ar[1][$paramCounter]);
+                $pValue =  trim($ar[2][$paramCounter]);
+                //echo $pName . "--->" . $pValue . "<br />";
+                $paramCounter++;
+            }
+            $ret[$pName] = $pValue;
+            $this->$pName = $pValue;
+            $counter++;
+            $ar=array();
+        }
+        unset($results);
+        unset($splitsource);
+        return $ret;
+    }
 }
 ?>
