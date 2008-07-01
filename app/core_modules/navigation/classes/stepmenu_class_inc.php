@@ -7,12 +7,14 @@ if (!$GLOBALS['kewl_entry_point_run']){
 }
 
 /**
-* Class for building a feature box for KEWL.nextgen.
+* Class for building a step menu.
 *
-* The class builds a css style feature box
+* The class builds a css-based step menu to show users how many steps
+* a process is, what the steps are, and which is the current step they
+* are on
 *
-* @author Wesley Nitsckie
-* @copyright (c)2004 UWC
+* @author Tohir Solomons
+* @copyright (c)2008 UWC
 * @package featurebox
 * @verson 0.1
 */
