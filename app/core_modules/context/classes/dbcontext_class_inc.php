@@ -262,9 +262,13 @@ class dbcontext extends dbTable
             }
             
             if ($line['access'] == 'Private') {
-                $objContextPermissions = $this->getObject('contextcondition','contextpermissions');
-                if (!$objContextPermissions->isContextMember()) {
-                    return FALSE;
+                $objUserContext = $this->getObject('usercontext');
+                if (!$objUserContext->isContextMember($this->objUser->userId(), $contextCode)) {
+                    if ($this->objUser->isAdmin()) {
+                        return TRUE;
+                    } else {
+                        return FALSE;
+                    }
                 }
             }
             

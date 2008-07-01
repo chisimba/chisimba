@@ -87,6 +87,22 @@ class usercontext extends object
        return $this->objGroups->usercontextcodes($userId);
     }
     
+    /**
+     * Method to determine whether a user is a member of a context or not.
+     * @param string $userId User Id of User
+     * @param string $context Context Code
+     */
+    public function isContextMember($userId, $context)
+    {
+        $contexts = $this->getUserContext($userId);
+        
+        if (in_array($context, $contexts)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
     
     /**
      * Method to get the list of user contexts in a formatted display
