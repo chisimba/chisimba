@@ -157,6 +157,13 @@ class xmlrpcapi extends object
 	 * @access public
 	 */
 	public $objContext;
+	
+	/**
+	 * Chisimba annote API
+	 * @var    object
+	 * @access public
+	 */
+	public $objAnnote;
 
     /**
      * init method
@@ -208,6 +215,8 @@ class xmlrpcapi extends object
 			$this->objUser = $this->getObject('userapi');
 			// Context API
 			$this->objContext = $this->getObject('contextapi');
+			// Annote API
+			$this->objAnnote = $this->getObject('annoteapi');
 		}
 		catch (customException $e)
 		{
@@ -766,6 +775,13 @@ class xmlrpcapi extends object
                 		   						   					array('string'),
                 		   						   					),
 													'docstring' => 'get a list of contexts for this user'),
+													
+							// Annote API					
+							'annote.dumpXML' => array('function' => array($this->objAnnote, 'grabXMLDoc'),
+                		   						   'signature' => array(
+                		   						   					array('string'),
+                		   						   					),
+													'docstring' => 'Accepts an XML Document for the annote module'),
    					), 1, 0);
 
 
