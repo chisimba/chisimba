@@ -779,7 +779,7 @@ class xmlrpcapi extends object
 							// Annote API					
 							'annote.dumpXML' => array('function' => array($this->objAnnote, 'grabXMLDoc'),
                 		   						   'signature' => array(
-                		   						   					array('string'),
+                		   						   					array('boolean', 'string'),
                 		   						   					),
 													'docstring' => 'Accepts an XML Document for the annote module'),
    					), 1, 0);
