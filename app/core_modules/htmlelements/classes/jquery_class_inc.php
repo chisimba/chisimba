@@ -41,6 +41,30 @@ class jquery extends object
 
         return $returnStr;
     }
+    
+    /**
+     * Method to load the liveQuery plugin script files to the header
+     */
+    public function loadLiveQueryPlugin()
+    {
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/plugins/livequery/1.0.2/jquery.livequery.js', 'htmlelements'));
+    }
+    
+    /**
+     * Method to load the form plugin script files to the header
+     */
+    public function loadFormPlugin()
+    {
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/plugins/form/2.12/jquery.form.js', 'htmlelements'));
+    }
+    
+    /**
+     * Method to load the Image Fit plugin script files to the header
+     */
+    public function loadImageFitPlugin()
+    {
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('jquery/plugins/imagefit/0.2/jquery.imagefit_0.2.js', 'htmlelements'));
+    }
 
 }
 
