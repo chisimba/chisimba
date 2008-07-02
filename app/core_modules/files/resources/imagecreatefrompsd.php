@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 *    PHP PSD reader class, v1.1
 *

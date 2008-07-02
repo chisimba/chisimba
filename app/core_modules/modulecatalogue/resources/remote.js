@@ -261,6 +261,7 @@ function uploadArchive(filename,module) {
 
 function toggleChecked(oElement) {
     oForm = oElement.form;
+    alert(oElement.name);
     oElement = oForm.elements[oElement.name];
     if(oElement.length) {
         bChecked = true;

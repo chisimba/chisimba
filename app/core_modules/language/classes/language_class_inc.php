@@ -188,7 +188,7 @@ class language extends dbTable {
 						// fetch a string not translated into Italian (test fallback language)
                         
                         
-						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName from $modulename";
+						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName ".$this->lang->get('word_from','system',$var)." $modulename";
 						//return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
 					}
 				}
@@ -309,7 +309,7 @@ class language extends dbTable {
 			$objNewForm->addToForm($objDropdown->show());
 			$ret = $objNewForm->show();
 			return $ret;
-		}catch (Exception $e){
+		} catch (Exception $e){
 			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
 			exit();
 		}

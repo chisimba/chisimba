@@ -1,4 +1,4 @@
-<?
+<?php
 
 function ConvertBMP2GD($src, $dest = false)
 {

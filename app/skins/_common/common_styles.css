@@ -838,7 +838,7 @@ fieldset.tabbox ul {
 
     #nav-secondary a:hover {color:#c00;background: #fee}
 
-    #nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#c00}
+    /*#nav-secondary li.active a:link, #nav-secondary li.active a:visited, #nav-secondary li.active a:hover, #nav-secondary li.active a:active {color:#000}*/
 
     #nav-secondary li {border-top: 1px solid #fff;border-bottom: 1px solid #ccc}
 
