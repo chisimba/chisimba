@@ -87,19 +87,34 @@ class userapi extends object
 	* @access public
 	* @return array
 	*/
-	public function tryLogin($username, $password)
+	public function tryLogin($params)
 	{
 
 		try{
-$objAuth = $this->getObject('authenticate', 'security');
+            $param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$username = $param->scalarval();
+            
+            $param = $params->getParam(1);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$password = $param->scalarval();
+            $objAuth = $this->getObject('user', 'security');
 
 			//Authenticate the user
-			$result = $objAuth->authenticateUser($username, $password);
-			
+            
+            //$username = 'aaa'; $password = 'dd';
+			$result = (int) $objAuth->authenticateUser($username, $password);
+            //var_dump($result);
+			//$res = ($result) ? "some" : "thing";
+            //var_dump($res);
 			//set the session if the the user is authenticated
-			$this->setSession('isauthenticated', $result);
+			//$this->setSession('isauthenticated', $result);
 			
-			$postStruct = new XML_RPC_Value($result, "string");
+			$postStruct = new XML_RPC_Value($result, "int");
 		//var_dump($postStruct);    	
 
   			return new XML_RPC_Response($postStruct);

@@ -87,31 +87,47 @@ class contextapi extends object
 	* @access public
 	* @return array
 	*/
-	public function getContextList($username)
+	public function getContextList($params)
 	{
-
 		try{
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$username = $param->scalarval();
+			
+			//$username = $params;
+		
+			$objManageContext = $this->getObject('managegroups', 'contextgroups');
+			$objContextModules = $this->getObject('dbcontextmodules', 'context');
+			$contextList = $objManageContext->userContexts($this->objUser->getUserId($username));
+			$contextStruct = array();
 
-			if($this->getSession('isauthenticated'))
+			foreach($contextList as $context)
 			{
-				$objManageContext = $this->getObject('managegroups', 'contextgroups');
-				$contextList = $objManageContext->userContexts($this->objUser->getUserId($username));
-				$contextStruct = array();
-
-				foreach($contextList as $context)
+				//get the plugins for the context
+				$contextModules = $objContextModules->getContextModules($context['contextcode']);
+				$modStruct = array();
+				foreach($contextModules as $plugin)
 				{
-
-					$struct = new XML_RPC_Value(array(			
-						new XML_RPC_Value($context['contextcode'], "string"),
-						new XML_RPC_Value($context['menutext'], "string")), "array");
-		    		$contextStruct[] = $struct;
-							
+					$modStruct[] = new XML_RPC_Value($plugin, "string");
 				}
+				
+				
+				$struct = new XML_RPC_Value(array(
+					new XML_RPC_Value($context['contextcode'], "string"),
+					new XML_RPC_Value($context['menutext'], "string"),
+					new XML_RPC_Value($context['title'], "string"),
+					new XML_RPC_Value($modStruct, "array")
+					),"array");
 
-				$contextArray = new XML_RPC_Value($contextStruct,"array");
-				var_dump($contextArray);
-	    		return new XML_RPC_Response($contextArray);
+				$contextStruct[] = $struct;
 			}
+
+			$contextArray = new XML_RPC_Value($contextStruct,"array");
+			//var_dump($contextArray);
+			return new XML_RPC_Response($contextArray);
+			
 
 		}
 		catch (customException $e)
@@ -121,7 +137,35 @@ class contextapi extends object
 		}
 	}
 
-
+	public function isContextPlugin($params)
+	{
+		try{
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$contextCode = $param->scalarval();
+			
+			$param = $params->getParam(1);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$moduleId = $param->scalarval();
+			
+			$objContextModules = $this->getObject('dbcontextmodules', 'context');
+			$isPlugin = (int) $objContextModules->isContextPlugin($contextCode, $moduleId);
+			
+			$postStruct = new XML_RPC_Value($isPlugin, "int");
+			return new XML_RPC_Response($postStruct);
+		}
+		catch (customException $e)
+		{
+			customException::cleanUp();
+			exit;
+		}
+	}
+	
+	
 	/**
 	* Method to join a context
 	* @param $userId The userId

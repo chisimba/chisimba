@@ -109,7 +109,13 @@ class forumapi extends object
 		try{
 
 	    	$forumStruct = array();
-	    	$resarr = $this->objdbforum->getContextForums(null);
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+	            log_debug($param);
+	    	}
+	    	$contextCode = $param->scalarval();
+			
+	    	$resarr = $this->objdbforum->getContextForums($contextCode);
 	    	$defaultForum = $this->objdbforum->getDefaultForum("root");
 	    	//var_dump($defaultForum["id"]);
 	      	foreach($resarr as $res)
