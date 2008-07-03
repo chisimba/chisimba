@@ -17,7 +17,7 @@ if ($folder['folderlevel'] == 2) {
     $icon = '';
 }
 
-echo '<p>'.$breadcrumbs.'</p>';
+//echo '<p>'.$breadcrumbs.'</p>';
 
 switch ($this->getParam('message'))
 {
