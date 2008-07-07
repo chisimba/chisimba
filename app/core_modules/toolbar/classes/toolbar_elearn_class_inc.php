@@ -42,10 +42,12 @@ class toolbar_elearn extends object
         $this->menuItems['home'] = array('text'=>$this->objLanguage->languageText('word_home', 'system', 'Home'), 'link'=>$this->uri(NULL, '_default'), 'class'=>'homelink');
     }
     
+    /**
+     * Method to send any params the toolbar may need to send to the header
+     * This toolbar doesn't need to, so it does nothing
+     */
     public function getParams()
-    {
-        
-    }
+    {}
     
     /**
      * Method to display the elearn toolbar
@@ -66,7 +68,7 @@ class toolbar_elearn extends object
     }
     
     /**
-     * Method to generate the elearn toolbar
+     * Method to generate the elearn toolbar menu items
      */
     private function generateMenu()
     {
@@ -92,7 +94,10 @@ class toolbar_elearn extends object
         return $this->generateOutput();
     }
     
-    function addContextLogoutJS()
+    /**
+     * Method to place the logout JavaScript
+     */
+    public function addContextLogoutJS()
     {
         $contextUri = str_replace('&amp;', '&', $this->uri(array('action'=>'leavecontext'), 'context'));
         $homeUri = $this->uri(NULL, '_default');
@@ -104,7 +109,7 @@ jQuery('.homelink').attr('href', 'javascript:;');
 // Bind a confirmation to link
 jQuery('.homelink').bind('click', function() {
         
-        if (confirm('Would you like to log out of this course?')) {
+        if (confirm('".$this->objLanguage->code2Txt('mod_toolbar_requestcontextlogoutoption', 'toolbar', NULL, 'Would you like to log out of this [-context-]')."?')) {
             window.location.href = '{$contextUri}';
         } else {
             window.location.href = '{$homeUri}';
@@ -116,6 +121,10 @@ jQuery('.homelink').bind('click', function() {
             ";
     }
     
+    /**
+     * Method to determine which tab should be highlighted dependent on the current module being viewed
+     * @param string $module Name of the Current Module
+     */
     private function determineDefault($module)
     {
         switch ($module)
@@ -137,6 +146,7 @@ jQuery('.homelink').bind('click', function() {
             case 'internalmail':
             case 'podcast':
             case 'personalspace':
+            case 'userdetails':
                 $this->default = 'personalspace';
                 return;
             
@@ -188,6 +198,9 @@ jQuery('.homelink').bind('click', function() {
         return;
     }
     
+    /**
+     * Method to generate the actual toolbar
+     */
     private function generateOutput()
     {
         //See if the site map module is registered

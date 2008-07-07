@@ -294,7 +294,7 @@ class sidemenu extends object
             }
         }
         $objNav = $this->newObject('sidebar', 'navigation');
-        return $objNav->show($this->globalNodes);
+        return $objNav->show($this->globalNodes, $this->getParam('module'));
       //  return $this->globalTable->show();
     }
 
@@ -326,9 +326,15 @@ class sidemenu extends object
         $this->globalTable->addCell($moduleLink->show(), null, 'absmiddle');
 
         $this->globalTable->endRow();
+        
+        // Hack for UWC Elearning Skin
+        if ($module == 'personalspace') {
+            $cssClass = 'personalspace';
+        } else {
+            $cssClass = '';
+        }
 
-
-        $this->globalNodes[] = array('text' => $moduleName, 'uri' => $this->uri($linkArray, $module));
+        $this->globalNodes[] = array('text' => $moduleName, 'uri' => $this->uri($linkArray, $module), 'nodeid'=>$module, 'css'=>$cssClass);
     }
 
     /**
