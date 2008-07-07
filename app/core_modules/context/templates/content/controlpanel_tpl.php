@@ -15,9 +15,9 @@ $objBlocks = $this->getObject('blocks', 'blocks');
 
 
 $cpBlocks[] = $objBlocks->showBlock('contextsettings', 'context', NULL, 20, TRUE, FALSE);
-$cpBlocks[] = $objBlocks->showBlock('contextmembers', 'contextgroups', NULL, 20, TRUE, FALSE);/m-0AZ[]
 $cpBlocks[] = $objBlocks->showBlock('contextmodules', 'context', NULL, 20, TRUE, FALSE);
-$cpBlocks[] = $objBlocks->showBlock('contextstats', 'context', NULL, 20, TRUE, FALSE);
+$cpBlocks[] = $objBlocks->showBlock('contextmembers', 'contextgroups', NULL, 20, TRUE, FALSE);
+//$cpBlocks[] = $objBlocks->showBlock('contextstats', 'context', NULL, 20, TRUE, FALSE);
 
 
 $left = array();

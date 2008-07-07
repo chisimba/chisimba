@@ -103,7 +103,7 @@ class contextsidebar extends object
         
         $nodes = array();
         
-        $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'uri'=>$this->uri(NULL, 'context'), 'nodeid'=>'context');
+        $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contexthome', 'context', NULL, '[-context-] Home')), 'uri'=>$this->uri(NULL, 'context'), 'nodeid'=>'context', 'css'=>'sidebarhomelink');
         
         if (count($contextModules) > 0) {
             foreach ($contextModules as $module)
