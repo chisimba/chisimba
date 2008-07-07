@@ -50,9 +50,8 @@ require_once('PEAR.php');
  * @see       http://pear.php.net/
  */
 
-
-class errorhandler extends PEAR {
-
+class errorhandler extends PEAR 
+    {
     /**
      * The error
      * @var    mixed
