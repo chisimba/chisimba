@@ -20,7 +20,7 @@ if (!$GLOBALS['kewl_entry_point_run']){
 class sidebar extends object
 {
 
-	/**
+    /**
      * The nodes array
      *
      * @access private
@@ -43,11 +43,11 @@ class sidebar extends object
     **/
     public function init()
     {
-   		try{
-    		$this->nodes = array();
-    	}catch (Exception $e){
-       		echo 'Caught exception: ',  $e->getMessage();
-        	exit();
+        try{
+            $this->nodes = array();
+        }catch (Exception $e){
+            echo 'Caught exception: ',  $e->getMessage();
+            exit();
         }
     }
 
@@ -60,12 +60,12 @@ class sidebar extends object
      */
     public function setNodes($nodes)
     {
-    	try{
-	    	$this->nodes = $nodes;
-	    	return TRUE;
-    	}catch (Exception $e){
-       		echo 'Caught exception: ',  $e->getMessage();
-        	exit();
+        try{
+            $this->nodes = $nodes;
+            return TRUE;
+        }catch (Exception $e){
+            echo 'Caught exception: ',  $e->getMessage();
+            exit();
         }
     }
 
@@ -79,87 +79,99 @@ class sidebar extends object
      */
     public function show($nodes, $activeId = NULL, $uriaction = NULL, $urimodule = '_default', $homelink = "Home")
     {
-    	try{
-    		$cssClass = ' class="first" ';
-    		//var_dump($nodes);
-    		$str = '<ul id="nav-secondary">
-    										';
+        try{
+            $cssClass = ' class="first" ';
+            //var_dump($nodes);
+            $str = '<ul id="nav-secondary">
+                                            ';
 
-    		if ($this->showHomeLink) {
-        		 $str .='<li class="first">
-        		 			<a href="'.$this->uri($uriaction,$urimodule).'">'.$homelink.'</a>
-        		 		</li>
-        		 				';
-    		}
-    		//loop through the nodes
-    		foreach($nodes as $node)
-    		{
-    			if(!isset($node['nodeid']))
-    			{
-    				$node['nodeid'] = NULL;
-    			}
-				if($node['nodeid'] == $activeId || isset($node['haschildren']))
-				{
-					$cssClass = ' class="active" ';
-					$str .='<li '.$cssClass.'>
-								<a href="'.$node['uri'].'">'.$node['text'].'</a>
-								';
-				} else {
-					$str .='<li>
-								<a href="'.$node['uri'].'">'.$node['text'].'</a>
-								';
-				}
+            if ($this->showHomeLink) {
+                 $str .='<li class="first">
+                            <a href="'.$this->uri($uriaction,$urimodule).'">'.$homelink.'</a>
+                        </li>
+                                ';
+            }
+            //loop through the nodes
+            foreach($nodes as $node)
+            {
+                if(!isset($node['nodeid']))
+                {
+                    $node['nodeid'] = NULL;
+                }
+                
+                if (isset($node['css'])) {
+                    $nodeCss = ' '.$node['css'];
+                } else {
+                    $nodeCss = '';
+                }
+                
+                if($node['nodeid'] == $activeId || isset($node['haschildren']))
+                {
+                    $cssClass = ' class="active'.$nodeCss.'" ';
+                    $str .='<li '.$cssClass.'>
+                                <a href="'.$node['uri'].'">'.$node['text'].'</a>
+                                ';
+                } else {
+                    if ($nodeCss == '') {
+                        $cssClass = '';
+                    } else {
+                        $cssClass = ' class="'.$nodeCss.'"';
+                    }
+                    $str .='<li'.$cssClass.'>
+                                <a href="'.$node['uri'].'">'.$node['text'].'</a>
+                                ';
+                }
 
 
 
-				$cssClass2 = ' class="first" ';
-				if(isset($node['haschildren']))
-				{
+                $cssClass2 = ' class="first" ';
+                if(isset($node['haschildren']))
+                {
                     $cnt = $node['haschildren'];
                     $c = 0;
-					$str .= '<ul>
-								';
+                    $str .= '<ul>
+                                ';
 
-					foreach($node['haschildren'] as $child)
-					{
-					    $c++;
+                    foreach($node['haschildren'] as $child)
+                    {
+                        $c++;
 
-					    if($c == $cnt)
-    					{
-    						$cssClass2 = ' class="last" ';
-    					} else {
-    						$cssClass2 = '';
-    					}
+                        if($c == $cnt)
+                        {
+                            $cssClass2 = ' class="last" ';
+                        } else {
+                            $cssClass2 = '';
+                        }
 
-						$str .='<li '.$cssClass2.'>
-									<a href="'.$child['uri'].'">'.$child['text'].'</a>
-								</li>
-									';
-					}
+                        $str .='<li '.$cssClass2.'>
+                                    <a href="'.$child['uri'].'">'.$child['text'].'</a>
+                                </li>
+                                    ';
+                    }
 
-					//check for the last item in the arra
-
-
-					$str .= '</ul>
-								';
-
-					//$str .= $this->show($node['haschildren']);
-				}
-				$str .= '</li>'
-							;
-				//reset the cssclass
-				$cssClass = '';
-
-    		}
-
-    		$str .='</ul>
-    					';
-    		return $str;
+                    //check for the last item in the arra
 
 
-  		}catch (Exception $e){
-       		echo 'Caught exception: ',  $e->getMessage();
-        	exit();
+                    $str .= '</ul>
+                                ';
+
+                    //$str .= $this->show($node['haschildren']);
+                }
+                $str .= '</li>'
+                            ;
+                //reset the cssclass
+                $cssClass = '';
+
+            }
+
+            $str .='</ul>
+                        ';
+            return $str;
+
+
+        }catch (Exception $e){
+            echo 'Caught exception: ',  $e->getMessage();
+            exit();
         }
 
     }
