@@ -71,10 +71,7 @@ img {
 	border: none;
 	vertical-align: middle;
 }
-p {
-	margin: .4em 0 .5em 0;
-	line-height: 1.5em;
-}
+
 p img {
 	margin: 0;
 }
@@ -87,48 +84,8 @@ hr {
 	margin: .2em 0 .2em 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	color: black;
-	background: none;
-	font-weight: normal;
-	margin: 0;
-	padding-top: .5em;
-	padding-bottom: .17em;
-	border-bottom: 1px solid #aaa;
-}
-h1 { font-size: 188%; }
-h1 .editsection { font-size: 53%; }
-h2 { font-size: 150%; }
-h2 .editsection { font-size: 67%; }
-h3, h4, h5, h6 {
-	border-bottom: none;
-	font-weight: bold;
-}
-h3 { font-size: 132%; }
-h3 .editsection { font-size: 76%; font-weight: normal; }
-h4 { font-size: 116%; }
-h4 .editsection { font-size: 86%; font-weight: normal; }
-h5 { font-size: 100%; }
-h5 .editsection { font-weight: normal; }
-h6 { font-size: 80%;  }
-h6 .editsection { font-size: 125%; font-weight: normal; }
 
-ul {
-	line-height: 1.5em;
-	list-style-type: square;
-	margin: .3em 0 0 1.5em;
-	padding: 0;
-	list-style-image: url(bullet.gif);
-}
-ol {
-	line-height: 1.5em;
-	margin: .3em 0 0 3.2em;
-	padding: 0;
-	list-style-image: none;
-}
-li {
-	margin-bottom: .1em;
-}
+
 dt {
 	font-weight: bold;
 	margin-bottom: .1em;
@@ -880,18 +837,9 @@ li#ca-watch, li#ca-unwatch, li#ca-varlang-0, li#ca-print {
 ** footer
 */
 #footer {
-	background-color: white;
-	border-top: 1px solid #fabd23;
-	border-bottom: 1px solid #fabd23;
-	margin: .6em 0 1em 0;
-	padding: .4em 0 1.2em 0;
 	text-align: center;
-	font-size: 90%;
 }
-#footer li {
-	display: inline;
-	margin: 0 1.3em;
-}
+
 #f-poweredbyico, #f-copyrightico {
 	margin: 0 8px;
 	position: relative;
@@ -977,7 +925,7 @@ li#ca-watch, li#ca-unwatch, li#ca-varlang-0, li#ca-print {
 	margin-right: 2em;
 }
 .prefsection legend {
-	font-weight: bold;   
+	font-weight: bold;
 }
 .prefsection table, .prefsection legend {
 	background-color: #F9F9F9;
@@ -1109,7 +1057,11 @@ div#userloginForm .captcha {
 }
 
 .printfooter {
-	display: none;
+	/*display: none;*/
+}
+
+span.catlinks {
+    display: none;
 }
 
 .not-patrolled {
@@ -1436,7 +1388,7 @@ tr.sv-space td { display: none; }
 */
 .TablePager_nav a { text-decoration: none; }
 .TablePager { border-collapse: collapse; }
-.TablePager, .TablePager td, .TablePager th { 
+.TablePager, .TablePager td, .TablePager th {
 	border: 1px solid #aaaaaa;
 	padding: 0 0.15em 0 0.15em;
 }

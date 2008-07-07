@@ -120,6 +120,7 @@ class parse4wikipedia extends object
             $page = str_replace("</div>", "</span>", $page);
             $page = str_replace("#content", "#wikipediacontent", $page);
             $page = str_replace("<a href=\"/", "<a href=\"http://en.wikipedia.org/", $page);
+            //
             return $page;
         } else {
             return FALSE;
