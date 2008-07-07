@@ -99,7 +99,7 @@ class sidebar extends object
                     $node['nodeid'] = NULL;
                 }
                 
-                if (isset($node['css'])) {
+                if (isset($node['css']) && $node['css'] != '') {
                     $nodeCss = ' '.$node['css'];
                 } else {
                     $nodeCss = '';
