@@ -28,8 +28,12 @@ class stepmenu extends object
     */
     private $steps = array();
     
+    /**
+     * @var int $current Current Step to be highlighed
+     * @access public
+     */
     public $current = 1;
-
+    
     /**
     * Method to construct the class.
     **/
@@ -38,16 +42,30 @@ class stepmenu extends object
         $this->id = '';
     }
     
-    public function addStep($name, $description)
+    /**
+     * Method to add a step
+     * @param string $name Name of the step
+     * @param string $description Description of the step
+     * @param string $link Link to be applied to name (optional)
+     */
+    public function addStep($name, $description, $link='')
     {
-        $this->steps[] = array('name'=>$name, 'description'=>$description);
+        $this->steps[] = array('name'=>$name, 'description'=>$description, 'link'=>$link);
     }
     
+    /**
+     * Method to set the current step
+     * @param int $step Current Step
+     */
     public function setCurrent($current)
     {
         $this->current = $current;
     }
     
+    /**
+     * Method to display the step menu
+     * @return string
+     */
     public function show()
     {
         if ($this->current > count($this->steps)) {
@@ -78,7 +96,13 @@ class stepmenu extends object
                 $css = ' class="'.trim($css).'"';
             }
             
-            $str .= '<li'.$css.'><a title=""><em>'.$step['name'].'</em> <span>'.$step['description'].'</span></a></li>';
+            if ($step['link'] == '') {
+                $href = '';
+            } else {
+                $href = ' href="'.$step['link'].'"';
+            }
+            
+            $str .= '<li'.$css.'><a title=""'.$href.'><em>'.$step['name'].'</em> <span>'.$step['description'].'</span></a></li>';
             
             $counter++;
         }
