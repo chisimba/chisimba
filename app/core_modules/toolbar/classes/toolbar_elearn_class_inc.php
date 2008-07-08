@@ -221,6 +221,10 @@ jQuery('.homelink').bind('click', function() {
             $link = new link ($menuInfo['link']);
             $link->link = '<strong>'.$menuInfo['text'].'</strong>';
             
+            if (isset($menuInfo['title'])) {
+                $link->title = $menuInfo['title'];
+            }
+            
             if (isset($menuInfo['class'])) {
                 $link->cssClass = $menuInfo['class'];
             }
