@@ -890,7 +890,8 @@ class dateandtime extends object
     */
     public function formatDate($date)
     {
-        $array = explode(' ', $date);
+        /*
+         $array = explode(' ', $date);
 
         $date = explode('-', $array[0]);
         $format = ($date[2]*1).' ';
@@ -901,6 +902,9 @@ class dateandtime extends object
             $format .= ' '.substr($array[1],0,5);
         }
         return $format;
+        */
+        
+        return $this->formatDateOnly($date).' - '.$this->formatTime($date);
     }
 
     /**
