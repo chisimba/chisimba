@@ -106,17 +106,17 @@ $button->setToSubmit();
 
 $form = new form ('createcontext', $this->uri(array('action'=>$formAction)));
 
-
+$backUri = $this->uri(array('action'=>'edit','contextcode'=>$contextCode),'contextadmin');
+$backButton = new button('back', $this->objLanguage->languageText('word_back'),"document.location='$backUri'");
 
 $form->addToForm($table->show());
-$form->addToForm($button->show());
+$form->addToForm($backButton->show()." ".$button->show());
 
 $hiddenInput = new hiddeninput('mode', $mode);
 $form->addToForm($hiddenInput->show());
 
 $hiddenInput = new hiddeninput('contextCode', $contextCode);
 $form->addToForm($hiddenInput->show());
-
 
 echo $form->show();
 

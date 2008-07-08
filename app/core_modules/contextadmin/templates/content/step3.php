@@ -97,7 +97,10 @@ $form->addToForm($table->show());
 $button =  new button ('submitform', $this->objLanguage->languageText('mod_context_saveplugins', 'context', 'Save Plugins'));
 $button->setToSubmit();
 
-$form->addToForm($button->show());
+$backUri = $this->uri(array('action'=>'step2','mode'=>'edit','contextcode'=>$contextCode),'contextadmin');
+$backButton = new button('back', $this->objLanguage->languageText('word_back'),"document.location='$backUri'");
+
+$form->addToForm($backButton->show()." ".$button->show());
 
 $hiddenInput = new hiddeninput('mode', $mode);
 $form->addToForm($hiddenInput->show());
