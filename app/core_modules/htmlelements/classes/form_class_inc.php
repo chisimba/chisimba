@@ -173,7 +173,7 @@ class form implements ifhtml
     /**
      * Method to set the enctype
      *
-     * @param int $displayType : the value for the displayType
+     * @param int $encType : the name and value of the encType i.e enctype = 'multipart/form-data'
      */
     public function setencType($encType)
     {
