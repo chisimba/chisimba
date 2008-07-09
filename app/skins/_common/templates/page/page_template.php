@@ -1,4 +1,13 @@
 <?php
+
+// get any header params or body onload parameters for objects on the toolbar
+if (!isset($headerParams)) {
+    $headerParams = array();
+}
+if (!isset($bodyOnLoad)) {
+    $bodyOnLoad = array();
+}
+   
 // Get the site breadcrumbs
 $tools = $this->getObject('tools','toolbar');
 $siteBreadcrumbs = $tools->siteNavigation();
@@ -7,13 +16,7 @@ if (!isset($pageSuppressToolbar)) {
    $menu = $this->getObject('menu','toolbar');
    $toolbar = $menu->show();
 
-   // get any header params or body onload parameters for objects on the toolbar
-   if (!isset($headerParams)) {
-       $headerParams = array();
-   }
-   if (!isset($bodyOnLoad)) {
-       $bodyOnLoad = array();
-   }
+   
    $menu->getParams($headerParams, $bodyOnLoad);
 }
 

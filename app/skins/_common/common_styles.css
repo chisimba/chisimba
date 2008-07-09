@@ -2626,3 +2626,16 @@ span.tagMatches span {
 }
 
 /* END - CSS for Glossy Tabs*/
+
+
+div.sliderbackground {
+    background: url(css/images/slider/bg-fader.gif) no-repeat;
+    width:209px;
+    height:28px;
+    float: left;
+}
+
+div.sliderhandle {
+    background: url(css/images/slider/thumb-n.gif) no-repeat;
+    width:17px; height:21px; cursor:move;
+}

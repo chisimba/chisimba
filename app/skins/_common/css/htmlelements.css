@@ -188,3 +188,23 @@ div.domTTContent {
 /******************************
 * End - Submodal Window
 *******************************/
+
+/******************************
+* Slider Input
+*******************************/
+
+div.sliderbackground {
+    background: url('images/slider/bg-fader.gif') no-repeat;
+    width:209px;
+    height:28px;
+    float: left;
+}
+
+div.sliderhandle {
+    background: url('images/slider/thumb-n.gif') no-repeat;
+    width:17px; height:21px; cursor:move;
+}
+
+/******************************
+* End - Slider Input
+*******************************/
