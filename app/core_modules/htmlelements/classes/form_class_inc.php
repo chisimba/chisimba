@@ -128,7 +128,13 @@ class form implements ifhtml
 	*extra
 	*/
 	public $extra;
-
+   /**
+	*
+	* @var string $method
+	* sets the enctype of the form ,
+	* default is multipart/form-data
+	*/
+	public $encType;
     /**
      * **************END OF VARIABLES**************
      */
