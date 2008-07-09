@@ -175,7 +175,7 @@ class form implements ifhtml
      *
      * @param int $encType : the value of the encType i.e 'multipart/form-data'
      */
-    public function setEncType($encType)
+    public function setEncType($encType = "multipart/form-data")
     {
         $this->encType = $encType;
     }
