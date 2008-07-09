@@ -183,7 +183,7 @@ class form implements ifhtml
      */
     public function setEncType($encType = "application/x-www-form-urlencoded")
     {
-        $this->encType = $encType;
+        $this->encType = 'enctype = "'.$encType.'"';
     }
 
     /**
@@ -257,8 +257,8 @@ class form implements ifhtml
 					'.$id.'
 					name="' . $this->name . '"
 					action="' . $this->action . '"
-					enctype="'.$this->encType.'"
 					method="'.$this->method.'"
+					'.$this->encType.'
 					'.$submit.'
 					'.$this->extra.'
 					>';
