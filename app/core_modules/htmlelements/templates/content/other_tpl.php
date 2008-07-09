@@ -27,4 +27,10 @@ $mop3->iframeCaption='Google Search Engine';
 echo $mop->show();
 echo $mop2->show();
 echo $mop3->show();
+
+
+$objSlider = $this->newObject('slider');
+$objSlider->maxValue = 20;
+$objSlider->default = 7;
+echo $objSlider->show();
 ?>
