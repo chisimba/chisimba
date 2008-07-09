@@ -337,13 +337,15 @@ class logactivity extends dbTable
      */
     public function _monthlyCleanup()
     {
-    	$ts = time();
+    	$ts = intval(time()/86400)*86400;
     	$this->objConfig = $this->getObject('altconfig', 'config');
     	// rename the current log file to <date>_logger.log
     	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
     	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
-    	copy($curLog, $arkLog);
-    	unlink($curLog);
+        if (!file_exists($arklog)){
+            copy($curLog, $arkLog);
+            unlink($curLog);
+        }
     	// mail it to the sys admin?
     	
     	return TRUE;
