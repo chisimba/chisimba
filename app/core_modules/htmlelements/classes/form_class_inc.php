@@ -170,6 +170,15 @@ class form implements ifhtml
     {
         $this->displayType = $displayType;
     }
+    /**
+     * Method to set the enctype
+     *
+     * @param int $displayType : the value for the displayType
+     */
+    public function setencType($encType)
+    {
+        $this->encType = $encType;
+    }
 
     /**
      * Method to add a object of
@@ -242,6 +251,7 @@ class form implements ifhtml
 					'.$id.'
 					name="' . $this->name . '"
 					action="' . $this->action . '"
+					'.$this->encType.'
 					method="'.$this->method.'"
 					'.$submit.'
 					'.$this->extra.'
