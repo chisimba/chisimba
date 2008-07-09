@@ -48,18 +48,6 @@ $GLOBALS['kewl_entry_point_run']) {
 * @license   GNU GPL
 * @version   $Id$;
 * @author    Tohir Solomons
-* @example: 
-*            //Popup window
-*            $this->objPop=&new windowpop;
-*            $this->objPop->set('location','/modules/htmltabledemo/popup.htm');
-*            $this->objPop->set('linktext','Click me baby');
-*            $this->objPop->set('width','200');
-*            $this->objPop->set('height','200');
-*            $this->objPop->set('left','300');
-*            $this->objPop->set('top','400');
-*            //leave the rest at default values
-*            $this->objPop->putJs(); // you only need to do this once per page
-*            echo $this->objPop->show();
 */
 class timepicker extends object
 {
@@ -79,38 +67,45 @@ class timepicker extends object
     public function init()
     {
         $this->loadClass('dropdown');
-	}
-	
-	public function setSelectedNow()
-	{
-		$minute = date('i')-(date('i') % 15);
-		
-		if ($minute == 0) {
-			$minute = '00';
-		} else if (strlen($minute) == 1) {
-			$minute = '0'.$minute;
-		}
-		
-		$this->setSelected(date('G').':'.$minute);
-	}
-	
-	public function setSelected($time)
-	{
-		$time = explode(':', $time);
-		$hour = $time[0]*1;
-		
-		if (isset($time[1])) {
-			$minutes = $time[1]-($time[1] % 15);
-			
-			if ($minutes === 0) {
-				$minutes = '00';
-			}
-		} else {
-			$minues = '00';
-		}
-		
-		$this->value = $hour.':'.$minutes;
-	}
+    }
+    
+    /**
+     * Method to set the Current Time as the Default
+     */
+    public function setSelectedNow()
+    {
+        $minute = date('i')-(date('i') % 15);
+        
+        if ($minute == 0) {
+            $minute = '00';
+        } else if (strlen($minute) == 1) {
+            $minute = '0'.$minute;
+        }
+        
+        $this->setSelected(date('G').':'.$minute);
+    }
+    
+    /**
+     * Method to set a default time:
+     * @param string $time Default Time
+     */
+    public function setSelected($time)
+    {
+        $time = explode(':', $time);
+        $hour = $time[0]*1;
+        
+        if (isset($time[1])) {
+            $minutes = $time[1]-($time[1] % 15);
+            
+            if ($minutes === 0) {
+                $minutes = '00';
+            }
+        } else {
+            $minues = '00';
+        }
+        
+        $this->value = $hour.':'.$minutes;
+    }
 
     /**
     * Method to show the time picker
@@ -118,24 +113,24 @@ class timepicker extends object
     */
     public function show()
     {
-		$dropdown = new dropdown ($this->name);
-		$dropdown->cssClass = 'timepicker';
-		
-		for ($hour=0; $hour<24; $hour++)
-		{
-			$time =  $hour.':00';
-			$dropdown->addOption($time, $time);
-			
-			for ($minute=1; $minute<4;  $minute++)
-			{
-				$time =  $hour.':'.($minute*15);
-				$dropdown->addOption($time, $time);
-			}
-		}
-		
-		$dropdown->setSelected($this->value);
-		
-		return $dropdown->show();
+        $dropdown = new dropdown ($this->name);
+        $dropdown->cssClass = 'timepicker';
+        
+        for ($hour=0; $hour<24; $hour++)
+        {
+            $time =  $hour.':00';
+            $dropdown->addOption($time, $time);
+            
+            for ($minute=1; $minute<4;  $minute++)
+            {
+                $time =  $hour.':'.($minute*15);
+                $dropdown->addOption($time, $time);
+            }
+        }
+        
+        $dropdown->setSelected($this->value);
+        
+        return $dropdown->show();
     }
 }
 
