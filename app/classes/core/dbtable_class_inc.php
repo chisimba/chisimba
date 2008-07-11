@@ -75,9 +75,9 @@ class dbTable extends object
      * The current table name that we are working with
      *
      * @access public
-     * @var    string - default null
+     * @var    string - default NULL
      */
-    public $_tableName = null;
+    public $_tableName = NULL;
 
     /**
      * The global error callback for dbTable errors
@@ -101,7 +101,7 @@ class dbTable extends object
      * @access private
      * @var    object
      */
-    private $_db = null;
+    private $_db = NULL;
 
     /**
      * Static variable that holds the system database type
@@ -116,7 +116,7 @@ class dbTable extends object
      * @access private
      * @var    string
      */
-    private $_inTransaction = false;
+    private $_inTransaction = FALSE;
 
     /**
      * property to hold the last id inserted into the db
@@ -124,7 +124,7 @@ class dbTable extends object
      * @access private
      * @var    string
      */
-    private $_lastId = null;
+    private $_lastId = NULL;
 
     /**
      * Property to hold the portability object for queries against multiple RDBM's
@@ -202,7 +202,7 @@ class dbTable extends object
     	// global $_globalObjDb;
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
-        if ($pearDb == null) {
+        if ($pearDb == NULL) {
             $this->_db = $this->objEngine->getDbObj();
             $pearDb = $this->_db;
         } else {
@@ -259,8 +259,8 @@ class dbTable extends object
     * @param  mixed  $value the value to search for
     * @return bool   TRUE |FALSE if exists return TRUE, otherwise FALSE.
     */
-    public function valueExists($field, $value, $table=null) {
-        if ($table == null) {
+    public function valueExists($field, $value, $table=NULL) {
+        if ($table == NULL) {
         	$table = $this->_tableName;
         }
     	$sql = "SELECT COUNT(*) AS fcount FROM $table WHERE $field='$value'";
@@ -275,12 +275,12 @@ class dbTable extends object
         		}
     			$rs = $this->query($sql);
         		if (!$rs) {
-            		$ret = false;
+            		$ret = FALSE;
         		} else {
             			if ($rs[0]['fcount'] > 0) {
-                		$ret = true;
+                		$ret = TRUE;
             			} else {
-                		$ret = false;
+                		$ret = FALSE;
             			}
         		}
         	chisimbacache::getMem()->set(md5($this->cachePrefix.$sql), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
@@ -291,12 +291,12 @@ class dbTable extends object
     		if($ret == FALSE) {
     			$rs = $this->query($sql);
         		if (!$rs) {
-            		$ret = false;
+            		$ret = FALSE;
         		} else {
             			if ($rs[0]['fcount'] > 0) {
-                		$ret = true;
+                		$ret = TRUE;
             			} else {
-                		$ret = false;
+                		$ret = FALSE;
             			}
         		}
     			apc_store($this->cachePrefix.$sql, $ret, $this->cacheTTL);
@@ -309,12 +309,12 @@ class dbTable extends object
         	}
     		$rs = $this->query($sql);
         	if (!$rs) {
-            	$ret = false;
+            	$ret = FALSE;
         	} else {
             	if ($rs[0]['fcount'] > 0) {
-                	$ret = true;
+                	$ret = TRUE;
             	} else {
-                	$ret = false;
+                	$ret = FALSE;
             	}
         	}
 		}
@@ -330,7 +330,7 @@ class dbTable extends object
     * @param  string $filter a SQL WHERE clause (optional)
     * @return array  |FALSE Rows as an array of associative arrays, or FALSE on failure
     */
-    public function getAll($filter = null) {
+    public function getAll($filter = NULL) {
 		$stmt = "SELECT * FROM {$this->_tableName} $filter";
 		if($this->objMemcache == TRUE) {
 			if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt))) {
@@ -422,7 +422,7 @@ class dbTable extends object
         		}
     			$ret = $this->_queryAll($stmt, array());
         		if (PEAR::isError($ret)) {
-            		$ret = false;
+            		$ret = FALSE;
         		}
         		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
@@ -432,7 +432,7 @@ class dbTable extends object
     		if($ret == FALSE) {
     			$ret = $this->_queryAll($stmt, array());
         		if (PEAR::isError($ret)) {
-            		$ret = false;
+            		$ret = FALSE;
         		}
     			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
@@ -443,7 +443,7 @@ class dbTable extends object
     		}
     		$ret = $this->_queryAll($stmt, array());
     		if (PEAR::isError($ret)) {
-    			$ret = false;
+    			$ret = FALSE;
     		}
     	}
     	return $ret;
@@ -471,7 +471,7 @@ class dbTable extends object
     			$this->_db->setLimit($first, $count);
         		$rs = $this->_db->exec($stmt);
         		if (PEAR::isError($rs)) {
-            		$ret = false;
+            		$ret = FALSE;
         		} else {
         			$ret = $rs;
         			chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
@@ -484,7 +484,7 @@ class dbTable extends object
     			$this->_db->setLimit($first, $count);
         		$rs = $this->_db->exec($stmt);
         		if (PEAR::isError($rs)) {
-            		$ret = false;
+            		$ret = FALSE;
         		} else {
         			$ret = $rs;
     				apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
@@ -498,7 +498,7 @@ class dbTable extends object
     		$this->_db->setLimit($first, $count);
     		$rs = $this->_db->exec($stmt);
     		if (PEAR::isError($rs)) {
-    			$ret = false;
+    			$ret = FALSE;
     		} else {
     			$ret = $rs;
     		}
@@ -517,7 +517,7 @@ class dbTable extends object
     * @deprecated See getAll
     * @see        getAll
     */
-    public function fetchAll($filter = null) {
+    public function fetchAll($filter = NULL) {
         $stmt = "SELECT * FROM {$this->_tableName} " . $filter;
         if($this->objMemcache == TRUE) {
     		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$stmt)))	{
@@ -556,7 +556,7 @@ class dbTable extends object
     * @param  string $filter a SQL WHERE clause (optional)
     * @return int    number of records that matched
     */
-    public function getRecordCount($filter = null) {
+    public function getRecordCount($filter = NULL) {
         $sql = "SELECT COUNT(*) AS rc FROM {$this->_tableName} " . $filter;
         if($this->objMemcache == TRUE) {
     		if(chisimbacache::getMem()->get(md5($this->cachePrefix.$sql))) {
@@ -602,7 +602,7 @@ class dbTable extends object
     public function beginTransaction() {
         if ($this->_db->supports('transactions')) {
             $this->_db->beginTransaction();
-            $this->_inTransaction = true;
+            $this->_inTransaction = TRUE;
         }
     }
 
@@ -616,7 +616,7 @@ class dbTable extends object
     public function commitTransaction() {
         if ($this->_db->in_transaction) {
             $this->_db->commit();
-            $this->_inTransaction = false;
+            $this->_inTransaction = FALSE;
         }
 
     }
@@ -630,7 +630,7 @@ class dbTable extends object
     */
     public function rollbackTransaction() {
         $this->_db->rollback();
-        $this->_inTransaction = false;
+        $this->_inTransaction = FALSE;
     }
 
     /**
@@ -709,7 +709,7 @@ class dbTable extends object
     	if($this->objAPC == TRUE) {
     		apc_clear_cache("user");
     	}
-        return $ret ? $id : false;
+        return $ret ? $id : FALSE;
     }
 
     /**
@@ -858,7 +858,7 @@ class dbTable extends object
     */
     private function _executeMultiple($stmt, $data = array()) {
         if (!$this->condConnect()) {
-            return false;
+            return FALSE;
         }
         $sh = $this->_db->prepare($stmt);
         $this->_db->loadModule('Extended');
@@ -908,7 +908,7 @@ class dbTable extends object
         		}
     			$ret = $this->_queryAll($stmt);
         		if (PEAR::isError($ret)) {
-            		$ret = false;
+            		$ret = FALSE;
         		}
         		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 		}
@@ -918,7 +918,7 @@ class dbTable extends object
     		if($ret == FALSE) {
     			$ret = $this->_queryAll($stmt);
         		if (PEAR::isError($ret)) {
-            		$ret = false;
+            		$ret = FALSE;
         		}
     			apc_store($this->cachePrefix.$stmt, $ret, $this->cacheTTL);
     		}
@@ -929,7 +929,7 @@ class dbTable extends object
     		}
     		$ret = $this->_queryAll($stmt);
     		if (PEAR::isError($ret)) {
-    			$ret = false;
+    			$ret = FALSE;
     		}
     	}
 
@@ -950,14 +950,14 @@ class dbTable extends object
     * @return string the sql JOIN statement.
     * @access public
     */
-    public function join($sqlJoinType, $tblJoinTo, $join, $tblJoinFrom = null) {
-        $tblJoinFrom = (is_null($tblJoinFrom)) ? $this->_tableName : $tblJoinFrom ;
+    public function join($sqlJoinType, $tblJoinTo, $join, $tblJoinFrom = NULL) {
+        $tblJoinFrom = (is_NULL($tblJoinFrom)) ? $this->_tableName : $tblJoinFrom ;
         $strSQL = "{$sqlJoinType} {$tblJoinTo}";
         // Condtions of the join
-        $insertON = true;
+        $insertON = TRUE;
         foreach ($join as $key => $value) {
             $strSQL .= ($insertON) ? " ON ( " : " OR ( ";
-            $insertON = false;
+            $insertON = FALSE;
             $strSQL .= "{$tblJoinFrom}.{$key} = {$tblJoinTo}.{$value}";
             $strSQL .= " )";
         }
@@ -1026,7 +1026,7 @@ class dbTable extends object
      * @return mixed  a result handle or MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    public function executeStoredProc($name, $params = null, $types = null, $result_class = true, $result_wrap_class = false) {
+    public function executeStoredProc($name, $params = NULL, $types = NULL, $result_class = TRUE, $result_wrap_class = FALSE) {
     	return $this->_db->executeStoredProc($name, $params, $types, $result_class, $result_wrap_class);
     }
 
@@ -1078,7 +1078,7 @@ class dbTable extends object
     		}
     		elseif($this->objEngine->pdsn['phptype'] == 'mysql' || $this->objEngine->pdsn['phptype'] == 'mysqli') {
     			$query = "SHOW /*!50002 FULL*/ TABLES";
-       			if (!is_null($this->objEngine->pdsn['database'])) {
+       			if (!is_NULL($this->objEngine->pdsn['database'])) {
        				$database = $this->objEngine->pdsn['database'];
             		$query .= " FROM $database";
         		}
@@ -1109,12 +1109,12 @@ class dbTable extends object
      *       conversions may be performed. The default list of datatypes is
      *       empty, meaning that no conversion is performed.
      * @param   int     how the array data should be indexed
-     * @param   bool    if set to true, the $all will have the first
+     * @param   bool    if set to TRUE, the $all will have the first
      *       column as its first dimension
      * @param   bool    used only when the query returns exactly
-     *       two columns. If true, the values of the returned array will be
+     *       two columns. If TRUE, the values of the returned array will be
      *       one-element arrays instead of scalars.
-     * @param   bool    if true, the values of the returned array is
+     * @param   bool    if TRUE, the values of the returned array is
      *       wrapped in another array.  If the same key value (in the first
      *       column) repeats itself, the values will be appended to this array
      *       instead of overwriting the existing values.
@@ -1127,7 +1127,7 @@ class dbTable extends object
     	if($this->dbLayer === 'MDB2') {
     		$ret = $this->_db->queryAll($query, $types);	
     		if (PEAR::isError($ret)) {
-    			$ret = false;
+    			$ret = FALSE;
     		}
     	}
     	elseif ($this->dbLayer === 'PDO') {
