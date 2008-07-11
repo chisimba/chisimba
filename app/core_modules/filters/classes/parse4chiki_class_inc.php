@@ -181,6 +181,39 @@ class parse4chiki extends object
     {
         return $this->getModuleLink("filemanager");
     }
+    /**
+    *
+    * Method to return a link to worksheet
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __worksheet()
+    {
+        return $this->getModuleLink("worksheet");
+    }
+    /**
+    *
+    * Method to return a link to rubric
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __rubric()
+    {
+        return $this->getModuleLink("rubric");
+    }
+    /**
+    *
+    * Method to return a link to mcqtests
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __mcqtests()
+    {
+        return $this->getModuleLink("mcqtests");
+    }
 
 
 
@@ -255,7 +288,7 @@ class parse4chiki extends object
     private function __chikiError()
     {
         return " <span class='error'>"
-          . $this->objLanguage->languageText("phrase_unrecognizedchiki")
+          . $this->objLanguage->languageText("phrase_unrecognizedchiki", "filters")
           .": " . $this->chikiStr . "</span> ";
     }
 }
