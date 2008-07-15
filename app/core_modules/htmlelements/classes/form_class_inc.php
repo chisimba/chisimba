@@ -90,7 +90,12 @@ class form implements ifhtml
      *          the display of the elements on the form
      */
     public $displayType;
-
+    /**
+     *
+     * @var int target
+     *          the form target
+     */
+    public $target;
     /**
      *
      * @var boolean $autoshow
@@ -166,6 +171,15 @@ class form implements ifhtml
     {
         $this->action = $action;
     }
+    /**
+     * Method to set the Form Target
+     * 
+     * @Param string $target
+     */
+    public function setTarget($target)
+    {
+        $this->target = 'target = "'.$target.'"';
+    }
 
     /**
      * Method to set the display type
@@ -174,7 +188,7 @@ class form implements ifhtml
      */
     public function setDisplayType($displayType)
     {
-        $this->displayType = $displayType;
+        $this->displayType = $displayType; 
     }
     /**
      * Method to set the enctype
@@ -259,6 +273,7 @@ class form implements ifhtml
 					action="' . $this->action . '"
 					method="'.$this->method.'"
 					'.$this->encType.'
+					'.$this->target.'
 					'.$submit.'
 					'.$this->extra.'
 					>';
