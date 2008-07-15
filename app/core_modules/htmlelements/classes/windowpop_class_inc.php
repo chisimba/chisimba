@@ -241,7 +241,7 @@ class windowPop implements ifhtml
             
         } else {
             return $this->putJs()."<a href=\"javascript:openWindow('"
-         . $this->location . "','" . $this->window_name . "','" . $this->features . "')\" title=\"".$this->title."\">"
+         . $this->location . "','" . $this->window_name . "','" . $this->features . "');newwindow.moveTo(".$this->left.",".$this->top.")\" title=\"".$this->title."\">"
          . $this->linktext . "</a>";
          }
     }
