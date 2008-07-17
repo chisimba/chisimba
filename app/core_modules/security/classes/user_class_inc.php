@@ -530,7 +530,7 @@ class user extends dbTable
             if ($userName) {
                 $ret = $userName;
             } else {
-                $ret =  $this->objLanguage->languageText("error_notloggedin", 'system');
+                $ret =  $this->objLanguage->languageText("error_notloggedin", 'security');
             }
         } else {
             //look up third part numeric ID
