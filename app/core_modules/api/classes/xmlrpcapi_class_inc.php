@@ -688,9 +688,9 @@ class xmlrpcapi extends object
 	   					  //Forum API Start
    						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
                 		   						   'signature' => array(
-                		   						   					array('string'),
+                		   						   					array('string', 'string'),
                 		   						   					),
-                		   						   'docstring' => 'get all forums for a user'),
+                		   						   'docstring' => 'get all forums for a context'),
 	   					  'forum.getAllTopics' => array('function' => array($this->objForum, 'forumGetAllTopics'),
                 		   						   'signature' => array(
                 		   						   					array('array', 'string'),
@@ -766,13 +766,18 @@ class xmlrpcapi extends object
 						 	//User API						
 							'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
                 		   						   'signature' => array(
-                		   						   					array('string', 'string'),
+                		   						   					array('int', 'string', 'string'),
                 		   						   					),
 													'docstring' => 'authenticate the user'),
-							//Context API						
+							//Context API
+							'user.isContextPlugin' => array('function' => array($this->objContext, 'isContextPlugin'),
+                		   						   'signature' => array(
+                		   						   					array('int', 'string', 'string'),
+                		   						   					),
+													'docstring' => 'check if the plugin is installed for the context'),
 							'user.getContextList' => array('function' => array($this->objContext, 'getContextList'),
                 		   						   'signature' => array(
-                		   						   					array('string'),
+                		   						   					array('array', 'string'),
                 		   						   					),
 													'docstring' => 'get a list of contexts for this user'),
 													
