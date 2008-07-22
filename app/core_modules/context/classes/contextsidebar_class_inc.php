@@ -69,6 +69,7 @@ class contextsidebar extends object
         $this->objContext = $this->getObject('dbcontext');
         $this->contextCode = $this->objContext->getContextCode();
         $this->objLanguage = $this->getObject('language', 'language');
+        $this->objUser = $this->getObject('user', 'security');
     }
     
     /**
@@ -125,7 +126,7 @@ class contextsidebar extends object
         // Test the current action being requested, to determine if it requires access control.
         if( $this->objDT->hasAction( 'controlpanel' ) ) {
             // Is the action allowed?
-            if ( $this->objDT->isValid( 'controlpanel' ) ) {
+            if ( $this->objDT->isValid( 'controlpanel') || $this->objUser->isAdmin()) {
                 // redirect and indicate the user does not have sufficient access.
                 $nodes[] = array('text'=>ucwords($this->objLanguage->code2Txt('mod_context_contextcontrolpanel', 'context', NULL, '[-context-] Control Panel')), 'uri'=>$this->uri(array('action'=>'controlpanel'), 'context'), 'nodeid'=>'controlpanel');
             }

@@ -111,6 +111,20 @@ class context extends controller
     }
     
     /**
+     * Method to override isValid to enable administrators to perform certain action
+     * @param $action Action to be taken
+     * @return boolean
+     */
+    public function isValid($action)
+    {
+        if ($this->objUser->isAdmin()) {
+            return TRUE;
+        } else {
+            return parent::isValid($action);
+        }
+    }
+    
+    /**
     * Standard Dispatch Function for Controller
     *
     * @access public

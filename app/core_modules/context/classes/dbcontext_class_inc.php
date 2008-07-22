@@ -241,7 +241,6 @@ class dbcontext extends dbTable
     */
     public function joinContext($contextCode='')
     {
-        // TODO: Check ability to enter course
         
         if ($contextCode == '') {
             $contextCode = $this->getParam('contextCode');
@@ -264,9 +263,7 @@ class dbcontext extends dbTable
             if ($line['access'] == 'Private') {
                 $objUserContext = $this->getObject('usercontext');
                 if (!$objUserContext->isContextMember($this->objUser->userId(), $contextCode)) {
-                    if ($this->objUser->isAdmin()) {
-                        return TRUE;
-                    } else {
+                    if (!$this->objUser->isAdmin()) {
                         return FALSE;
                     }
                 }
