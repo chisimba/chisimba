@@ -71,6 +71,7 @@ if ($folderPermission) {
     echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
     echo $this->objUpload->show($folderId);
     
+    echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder').'</h3>';
     echo $this->objFolders->showCreateFolderForm($folderId);
     
 }
