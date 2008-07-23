@@ -138,12 +138,12 @@ class parse4flickr extends object
             $tag = NULL;
         }
         //Get and set the userid
-        if (isset($this->objExpar->userid)) {
+        if (isset($this->objExpar->userid)  && $this->objExpar->userid !== "") {
             $userid = $this->objExpar->userid;
             $what = "user_id=$userid";
         }
-        //Get and set the userid
-        if (isset($this->objExpar->groupid)) {
+        //Get and set the groupid
+        if (isset($this->objExpar->groupid) && $this->objExpar->groupid !== "") {
             $groupid = $this->objExpar->groupid;
             $what = "group_id=$groupid";
         }
