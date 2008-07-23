@@ -85,7 +85,6 @@ class parse4flickr extends object
             } else {
                 $type="error";
             }
-
             switch ($type)
             {
                 case "slideshow":
@@ -104,6 +103,13 @@ class parse4flickr extends object
             }
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
+            $this->objExpar->width = NULL;
+            $this->objExpar->height = NULL;
+            $this->objExpar->tag = NULL;
+            $this->objExpar->userid = NULL;
+            $this->objExpar->groupid = NULL;
+            
+            
         }
         return $txt;
     }
