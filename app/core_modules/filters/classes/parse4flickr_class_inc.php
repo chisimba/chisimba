@@ -135,18 +135,24 @@ class parse4flickr extends object
         if (isset($this->objExpar->tag)) {
             $tag = $this->objExpar->tag;
         } else {
-            $tag = "NOTFOUND";
+            $tag = NULL;
         }
         //Get and set the userid
         if (isset($this->objExpar->userid)) {
             $userid = $this->objExpar->userid;
-        } else {
-            $userid = "NOTFOUND";
+            $what = "user_id=$userid";
         }
+        //Get and set the userid
+        if (isset($this->objExpar->groupid)) {
+            $groupid = $this->objExpar->groupid;
+            $what = "group_id=$groupid";
+        }
+        
+        
 
         return "<object type=\"text/html\" "
-          . "data=\"http://www.flickr.com/slideShow/index.gne?user_id="
-          . "$userid&tags=$tag\" "
+          . "data=\"http://www.flickr.com/slideShow/index.gne?$what"
+          . "&tags=$tag\" "
           . "width=\"$width\" height=\"$height\" $extras> "
           . "</object>";
     }
