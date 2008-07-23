@@ -102,7 +102,7 @@ class previewfolder extends filemanagerobject
         
         $objTable->endHeaderRow();
         
-        if (count($subFolders) == 0 && count($files) == 0) {
+        if (count($subFolders) == 0 && count($files) == 0 && count($symlinks) == 0) {
             $objTable->startRow();
             $objTable->addCell('<em>No files or folders found</em>', NULL, NULL, NULL, 'noRecordsMessage', 'colspan="5"');
             $objTable->endRow();

@@ -43,7 +43,7 @@ switch ($this->getParam('error'))
 
 echo '<h1>'.$folderpath.' '.$icon.'</h1>';
 
-if ((count($files) > 0 || count($subfolders) > 0) && $folderPermission) {
+if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $folderPermission) {
     $form = new form('deletefiles', $this->uri(array('action'=>'multidelete')));
     $form->addToForm($table);
 
