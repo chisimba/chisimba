@@ -763,12 +763,12 @@ class filemanager extends controller
             return $this->nextAction(NULL);
         }
         
-        var_dump($folder);
+        //var_dump($folder);
         
         $folderParts = explode('/', $folder['folderpath']);
         
-        $quota = $this->objQuotas->getQuota($folder['folderpath']);
-        var_dump($quota);
+        //$quota = $this->objQuotas->getQuota($folder['folderpath']);
+        //var_dump($quota);
 
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
