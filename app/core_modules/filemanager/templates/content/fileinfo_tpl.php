@@ -7,10 +7,9 @@ $this->loadClass('hiddeninput', 'htmlelements');
 $this->loadClass('formatfilesize', 'files');
 $this->loadClass('htmlheading', 'htmlelements');
 
-echo '<div id="filemanagerbreadcrumbs">'.$this->objFolders->generateBreadCrumbs($file['path'], TRUE).$file['filename'].'</div>';
+echo '<div id="filemanagerbreadcrumbs">'.$fileBreadrumbs.'</div>';
 
-// Get Folder Id of Item
-$folderId = $this->objFolders->getFolderId(dirname($file['path']));
+
 
 // Set for Layout Template
 $this->setVar('folderId', $folderId);
@@ -132,7 +131,9 @@ if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fck
     }
 }
 
-$header->str .= $editLink->show();
+if ($folderPermission) {
+    $header->str .= $editLink->show();
+}
 
 echo $header->show();
 

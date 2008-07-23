@@ -49,6 +49,7 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
                 
                 $checkbox = new checkbox('files[]', $folderName, TRUE);
                 $checkbox->value = 'folder__'.$file;
+                $checkbox->cssId = 'folder__'.$file;
                 
                 $form->addToForm ('<li>'.$checkbox->show().' '.$folderIcon.' '.$folderName.'</li>');
             }
@@ -61,7 +62,25 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
                 
                 $checkbox = new checkbox('files[]', htmlentities($fileDetails['filename']), TRUE);
                 $checkbox->value = $file;
+                $checkbox->cssId = $file;
+                
                 $form->addToForm ('<li>'.$checkbox->show().' '.htmlentities($fileDetails['filename']).'</li>');
+            } else {
+                if (substr($file, 0, 9) == 'symlink__') {
+                    $symlinkId = substr($file, 9);
+                    
+                    $symlink = $this->objSymlinks->getFullSymlink($symlinkId);
+                    
+                    if ($symlink != FALSE) {
+                        $counter++;
+                        
+                        $checkbox = new checkbox('files[]', htmlentities($symlink['filename']), TRUE);
+                        $checkbox->cssId = $file;
+                        $checkbox->value = $file;
+                        $form->addToForm ('<li>'.$checkbox->show().' '.htmlentities($symlink['filename']).'</li>');
+                    }
+                    
+                }
             }
         }
     }
@@ -84,7 +103,7 @@ if ($this->getParam('files') == NULL || !is_array($this->getParam('files')) || c
         echo $form->show();
     } else {
         echo '<h1 class="error">'.$this->objLanguage->languageText('word_error', 'system', 'Error').':</h1>';
-        echo '<p>'.$this->objLanguage->languageText('mod_filemanager_areyousuredeletefiles', 'filemanager', 'The files/folders you have attempted to delete no longer exist').'.</p>';
+        echo '<p>'.$this->objLanguage->languageText('mod_filemanager_warnfilesnolonger', 'filemanager', 'The files/folders you have attempted to delete no longer exist').'.</p>';
     }
 }
       

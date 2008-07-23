@@ -562,6 +562,8 @@ class dbfolder extends dbTable
     {
         // Get Full Path of Folder
         $folder = $this->getFullFolderPath($id);
+        
+        $objSymlinks = $this->getObject('dbsymlinks');
 
         // If no record of folder, do nothing
         if ($folder == FALSE) {
@@ -627,7 +629,9 @@ class dbfolder extends dbTable
                     // Remove Directory
                     if (rmdir($subfolder.'/')) {
                         // Clear Record
+                        $objSymlinks->deleteSymlinksInFolder($this->getFolderId($path));
                         $this->delete('folderpath', $path);
+                        
                     }
                 }
             }
@@ -636,8 +640,10 @@ class dbfolder extends dbTable
             // Now delete the folder itself
             if (!file_exists($folder)) { // If folder does not exist, delete record.
                 $this->delete('id', $id);
+                $objSymlinks->deleteSymlinksInFolder($id);
             } else if (rmdir($folder)) { // Else delete folder, then record
                 $this->delete('id', $id);
+                $objSymlinks->deleteSymlinksInFolder($id);
             } else {
                 return FALSE;
             }

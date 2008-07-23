@@ -101,6 +101,7 @@ class filemanager extends controller
         $this->objUpload = $this->getObject('upload', 'filemanager');
         $this->objFilePreview = $this->getObject('filepreview', 'filemanager');
         $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
+        $this->objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
         
         $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
         
@@ -319,7 +320,10 @@ class filemanager extends controller
         $folderpath = 'users/'.$this->objUser->userId();
 
         $folderId = $this->objFolders->getFolderId($folderpath);
-
+        
+        return $this->__viewfolder($folderId);
+        
+        /*
         // Get Folder Details
         $folder = $this->objFolders->getFolder($folderId);
         $this->setVarByRef('folder', $folder);
@@ -340,6 +344,7 @@ class filemanager extends controller
         $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
 
         return 'showfolder.php';
+        */
     }
     
     
@@ -452,6 +457,15 @@ class filemanager extends controller
         }
 
         $this->setVarByRef('file', $file);
+        
+        $folderParts = explode('/', $file['filefolder']);
+        
+        if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
+            return $this->nextAction(NULL);
+        }
+        
+        $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
+        $this->setVar('folderPermission', $folderPermission);
 
         $tags = $this->objFileTags->getFileTags($id);
         $this->setVarByRef('tags', $tags);
@@ -484,6 +498,89 @@ class filemanager extends controller
         
         
         $this->setVarByRef('embedCode', $right);
+        
+        $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($file['path'], TRUE).$file['filename'];
+        $this->setVarByRef('fileBreadrumbs', $fileBreadrumbs);
+        
+        // Get Folder Id of Item
+        $folderId = $this->objFolders->getFolderId(dirname($file['path']));
+        $this->setVarByRef('folderId', $folderId);
+        
+        $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
+        $objCopy->show();
+        
+        return 'fileinfo_tpl.php';
+    }
+    
+    function __symlink()
+    {
+        $id = $this->getParam('id');
+        $symLink = $this->objSymlinks->getSymlink($id);
+        
+        if ($symLink == FALSE) {
+            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+        }
+        
+        $file = $this->objFiles->getFileInfo($symLink['fileid']);
+        
+        if ($file == FALSE) {
+            return $this->nextAction(NULL, array('error'=>'filedoesnotexist'));
+        }
+        
+        $symLinkFolder = $this->objFolders->getFolder($symLink['folderid']);
+        $this->setVarByRef('folderId', $symLink['folderid']);
+        
+        
+        if (array_key_exists('getid3info', $file)) {
+            unset ($file['getid3info']);
+        }
+
+        $this->setVarByRef('file', $file);
+
+        $tags = $this->objFileTags->getFileTags($id);
+        $this->setVarByRef('tags', $tags);
+
+        $this->objMenuTools->addToBreadCrumbs(array('File Information: '.$file['filename']));
+        
+        $folderParts = explode('/', $file['filefolder']);
+        
+        //$quota = $this->objQuotas->getQuota($folder['folderpath']);
+        //var_dump($quota);
+        
+        if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
+            return $this->nextAction(NULL);
+        }
+        
+        $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
+        $this->setVar('folderPermission', $folderPermission);
+        
+        $objFilePreview = $this->getObject('filepreview');
+        $preview = $objFilePreview->previewFile($file['id']);
+        
+        $this->setVarByRef('preview', $preview);
+        
+        if (trim($preview) == '') {
+            $right = '';
+        } else {
+            $right = '<h2>'.$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code').'</h2>';
+            
+            $right .= '<p>'.$this->objLanguage->languageText('mod_filemanager_embedinstructions', 'filemanager', 'Copy this code and paste it into any text box to display this file.').'</p>';
+            
+            $value = htmlentities('[FILEPREVIEW id="'.$file['id'].'" comment="'.$file['filename'].'" /]');
+            
+            $right .= '<form name="formtocopy">
+            
+    <input name="texttocopy" readonly="readonly" style="width:70%" type="text" value="'.$value.'" />';
+            $right .= '
+    <br /><input type="button" onclick="javascript:copyToClipboard(document.formtocopy.texttocopy);" value="Copy to Clipboard" />
+    </form>';
+        }
+        
+        
+        $this->setVarByRef('embedCode', $right);
+        
+        $fileBreadrumbs = $this->objFolders->generateBreadCrumbs($symLinkFolder['folderpath'].'/'.$file['filename'], TRUE).$file['filename'];
+        $this->setVarByRef('fileBreadrumbs', $fileBreadrumbs);
         
         $objCopy = $this->getObject('copytoclipboard', 'htmlelements');
         $objCopy->show();
@@ -682,9 +779,13 @@ class filemanager extends controller
      */
     private function __multidelete()
     {
+        if (isset($_POST['symlinkcontext'])) {
+            return $this->__symlinkcontext();
+        }
         $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
         return 'multidelete_form_tpl.php';
     }
+    
     
     /**
      *
@@ -724,6 +825,10 @@ class filemanager extends controller
                     $folder = substr($file, 8);
                     $this->objFolders->deleteFolder($folder);
                     $numFolders++;
+                } else if (substr($file, 0, 9) == 'symlink__') {
+                    $symlink = substr($file, 9);
+                    $this->objSymlinks->removeSymlink($symlink);
+                    $numFiles++;
                 } else {
                     $fileDetails = $this->objFiles->getFile($file);
 
@@ -750,9 +855,11 @@ class filemanager extends controller
      *
      *
      */
-    function __viewfolder()
+    function __viewfolder($id=NULL)
     {
-        $id = $this->getParam('folder');
+        if ($id == NULL) {
+            $id = $this->getParam('folder');
+        }
         
         // TODO: Check permission to enter folder
 
@@ -769,7 +876,11 @@ class filemanager extends controller
         
         //$quota = $this->objQuotas->getQuota($folder['folderpath']);
         //var_dump($quota);
-
+        
+        if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
+            return $this->nextAction(NULL);
+        }
+        
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
         $this->setVarByRef('folder', $folder);
@@ -784,10 +895,16 @@ class filemanager extends controller
 
         $files = $this->objFiles->getFolderFiles($folder['folderpath']);
         $this->setVarByRef('files', $files);
+        
+        $symlinks = $this->objSymlinks->getFolderSymlinks($id);
+        
+        
+        
+        $this->setVarByRef('symlinks', $symlinks);
 
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
-        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
+        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $symlinks));
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);
@@ -879,6 +996,33 @@ class filemanager extends controller
 
         // Redirect to Parent Folder
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
+    }
+    
+    
+    private function __symlinkcontext()
+    {
+        $this->objMenuTools->addToBreadCrumbs(array('Add to Course'));
+        return 'symlinkcontext_tpl.php';
+    }
+    
+    
+    private function __symlinkconfirm()
+    {
+        $files = $this->getParam('files');
+        $folder = $this->getParam('parentfolder');
+        $origFolder = $this->getParam('folder');
+        
+        if (count($files) > 0) {
+            
+            foreach ($files as $file)
+            {
+                $this->objSymlinks->addSymlink($file, $folder);
+            }
+            
+            return $this->nextAction('viewfolder', array('folder'=>$folder, 'message'=>'symlinksadded'));
+        } else {
+            return $this->nextAction('viewfolder', array('folder'=>$origFolder, 'message'=>'couldnotcreatesymlinks'));
+        }
     }
     
     /**

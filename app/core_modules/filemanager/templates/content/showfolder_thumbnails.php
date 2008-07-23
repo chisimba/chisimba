@@ -1,4 +1,4 @@
-<?php
+dsds<?php
 
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('button', 'htmlelements');
@@ -17,7 +17,7 @@ if ($folder['folderlevel'] == 2) {
     $icon = '';
 }
 
-//echo '<p>'.$breadcrumbs.'</p>';
+echo '<p>'.$breadcrumbs.'</p>';
 
 switch ($this->getParam('message'))
 {
@@ -49,22 +49,6 @@ if ((count($files) > 0 || count($subfolders) > 0) && $folderPermission) {
 
     $button = new button ('submitform', $this->objLanguage->languageText('mod_filemanager_deleteselecteditems', 'filemanager', 'Delete Selected Items'));
     $button->setToSubmit();
-    
-    // Set Ability to create symlinks to nothing - default no ability
-    $symlink = '';
-    
-    // Check ability to create symlinks
-    if ($this->contextCode != '' && $this->getParam('context') != 'no' && substr($folder['folderpath'], 0, 7) != 'context') {
-        
-        $folderPermission = $this->objFolders->checkPermissionUploadFolder('context', $this->contextCode);
-        
-        if ($folderPermission) {
-            $symlinkButton = new button ('symlinkcontext', $this->objLanguage->code2Txt('mod_filemanager_attachtocontext', 'filemanager', NULL, 'Attach to [-context-]'));
-            $symlinkButton->setToSubmit();
-            
-            $symlink = ' &nbsp; '.$symlinkButton->show();
-        }
-    }
 
     $selectallbutton = new button ('selectall', $this->objLanguage->languageText('phrase_selectall', 'system', 'Select All'));
     $selectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', true);");
@@ -72,7 +56,7 @@ if ((count($files) > 0 || count($subfolders) > 0) && $folderPermission) {
     $deselectallbutton = new button ('deselectall', $this->objLanguage->languageText('phrase_deselectall', 'system', 'Deselect all'));
     $deselectallbutton->setOnClick("javascript:SetAllCheckBoxes('deletefiles', 'files[]', false);");
 
-    $form->addToForm($button->show().$symlink.' &nbsp; &nbsp; '.$selectallbutton->show().' '.$deselectallbutton->show());
+    $form->addToForm($button->show().' &nbsp; &nbsp; '.$selectallbutton->show().' '.$deselectallbutton->show());
     
     $folderInput = new hiddeninput('folder', $folderId);
     $form->addToForm($folderInput->show());
@@ -87,10 +71,8 @@ if ($folderPermission) {
     echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
     echo $this->objUpload->show($folderId);
     
-    echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder').'</h3>';
     echo $this->objFolders->showCreateFolderForm($folderId);
     
 }
-
 
 ?>

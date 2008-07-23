@@ -71,9 +71,9 @@ class previewfolder extends filemanagerobject
      * @return unknown Return description (if any) ...
      * @access public 
      */
-    function previewContent($subFolders, $files)
+    function previewContent($subFolders, $files, $symlinks=array())
     {
-        return $this->previewLongView($subFolders, $files);
+        return $this->previewLongView($subFolders, $files, $symlinks);
     
     }
     
@@ -87,7 +87,7 @@ class previewfolder extends filemanagerobject
      * @return object Return description (if any) ...
      * @access public
      */
-    function previewLongView($subFolders, $files)
+    function previewLongView($subFolders, $files, $symlinks)
     {
         $objTable = $this->newObject('htmltable', 'htmlelements');
         
@@ -133,6 +133,10 @@ class previewfolder extends filemanagerobject
                 }
             }
             
+            if (is_array($symlinks)) {
+                $files = array_merge($files, $symlinks);
+            }
+            
             if (count($files) > 0) {
                 
                 $fileSize = new formatfilesize();
@@ -141,7 +145,13 @@ class previewfolder extends filemanagerobject
                     $objTable->startRow();
                     if ($this->editPermission) {
                         $checkbox = new checkbox('files[]');
-                        $checkbox->value = $file['id'];
+                        
+                        if (isset($file['symlinkid'])) {
+                            $checkbox->value = 'symlink__'.$file['symlinkid'];
+                        } else {
+                            $checkbox->value = $file['id'];
+                        }
+                        
                         $checkbox->cssId = htmlentities('input_files_'.$file['filename']);
                         
                         $objTable->addCell($checkbox->show(), 20);
@@ -150,7 +160,11 @@ class previewfolder extends filemanagerobject
                     $label = new label ($this->objFileIcons->getFileIcon($file['filename']), htmlentities('input_files_'.$file['filename']));
                     $objTable->addCell($label->show());
                     
-                    $fileLink = new link ($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'])));
+                    if (isset($file['symlinkid'])) {
+                        $fileLink = new link ($this->uri(array('action'=>'symlink', 'id'=>$file['symlinkid'])));
+                    } else {
+                        $fileLink = new link ($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'])));
+                    }
                     $fileLink->link = basename($file['filename']);
                     $objTable->addCell($fileLink->show());
                     $objTable->addCell($fileSize->formatsize($file['filesize']));

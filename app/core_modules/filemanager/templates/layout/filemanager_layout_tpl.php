@@ -45,12 +45,12 @@ if (!isset($folderId)) {
 }
 
 //$leftColumn .= $objFolders->showUserFolders($folderId);
-$leftColumn .= $objFolders->getTree('users', $this->objUser->userId(), 'dhtml', $folderId);
+$leftColumn .= '<div class="filemanagertree">'.$objFolders->getTree('users', $this->objUser->userId(), 'dhtml', $folderId).'</div>';
 
 $leftColumn .= '<br /><br /><br />';
 
 if ($this->contextCode != '' && $this->getParam('context') != 'no') {
-    $leftColumn .= $objFolders->getTree('context', $this->contextCode, 'dhtml', $folderId);
+    $leftColumn .= '<div class="filemanagertree">'.$objFolders->getTree('context', $this->contextCode, 'dhtml', $folderId).'</div>';
 }
 
 

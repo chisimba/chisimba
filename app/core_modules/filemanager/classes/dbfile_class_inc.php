@@ -812,8 +812,11 @@ class dbfile extends dbTable
         }
         
         $objFileTags = $this->getObject('dbfiletags');
-
-
+        
+        $objSymlinks = $this->getObject('dbsymlinks', 'filemanager');
+        $objSymlinks->deleteSymlinkFile($fileId);
+        
+        
         // Delete file record and Metadata
         $this->objMediaFileInfo->delete('fileid', $fileId);
         $result = $this->delete('id', $fileId);
