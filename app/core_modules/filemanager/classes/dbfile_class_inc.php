@@ -296,6 +296,10 @@ class dbfile extends dbTable
         $objLucene->luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags, $license, $context, $workgroup, $permissions, $dateAvailable, $dateUnavailable, $extra);
     }
     
+    /**
+     *
+     *
+     */
     public function updateFileSearch()
     {
         $files = $this->getAll();

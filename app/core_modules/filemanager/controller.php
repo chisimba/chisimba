@@ -100,6 +100,7 @@ class filemanager extends controller
         $this->objCleanUrl = $this->getObject('cleanurl', 'filemanager');
         $this->objUpload = $this->getObject('upload', 'filemanager');
         $this->objFilePreview = $this->getObject('filepreview', 'filemanager');
+        $this->objQuotas = $this->getObject('dbquotas', 'filemanager');
         
         $this->objUploadMessages = $this->getObject('uploadmessages', 'filemanager');
         
@@ -341,6 +342,12 @@ class filemanager extends controller
         return 'showfolder.php';
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     private function __file()
     {
         $id = $this->getParam('id');
@@ -424,7 +431,11 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     *
+     *
+     *
+     */
     private function __fileinfo()
     {
         $id = $this->getParam('id');
@@ -480,12 +491,22 @@ class filemanager extends controller
         return 'fileinfo_tpl.php';
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __ajaxfilepreview()
     {
         $id = $this->getParam('id');
         
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __upload()
     {
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
@@ -514,6 +535,11 @@ class filemanager extends controller
         return $this->nextAction('uploadresults', $messages);
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __ajaxupload()
     {
         $folder = $this->objFolders->getFolder($this->getParam('folder'));
@@ -529,6 +555,11 @@ class filemanager extends controller
         
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __uploadresults()
     {
         $this->setVar('successMessage', $this->objUploadMessages->processSuccessMessages());
@@ -541,6 +572,11 @@ class filemanager extends controller
         return 'list_uploadresults_tpl.php';
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __fixtempfiles()
     {
         // Create Array of Files that are affected
@@ -622,6 +658,11 @@ class filemanager extends controller
         return $this->nextAction('overwriteresults', array('result'=>$result, 'nextaction'=>$nextAction, 'nextparams'=>$nextParams));
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __overwriteresults()
     {
         $results = $this->getParam('result');
@@ -634,13 +675,22 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     *
+     *
+     *
+     */
     private function __multidelete()
     {
         $this->objMenuTools->addToBreadCrumbs(array('Confirm Delete'));
         return 'multidelete_form_tpl.php';
     }
     
+    /**
+     *
+     *
+     *
+     */
     private function __multideleteconfirm()
     {
         // echo '<pre>';
@@ -695,7 +745,11 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     *
+     *
+     *
+     */
     function __viewfolder()
     {
         $id = $this->getParam('folder');
@@ -709,7 +763,12 @@ class filemanager extends controller
             return $this->nextAction(NULL);
         }
         
+        var_dump($folder);
+        
         $folderParts = explode('/', $folder['folderpath']);
+        
+        $quota = $this->objQuotas->getQuota($folder['folderpath']);
+        var_dump($quota);
 
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
@@ -736,6 +795,11 @@ class filemanager extends controller
         return 'showfolder.php';
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __createfolder()
     {
         $parentId = $this->getParam('parentfolder', 'ROOT');
@@ -776,6 +840,11 @@ class filemanager extends controller
         }
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __deletefolder()
     {
         $id = $this->getParam('id');
@@ -812,6 +881,11 @@ class filemanager extends controller
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __extractarchive()
     {
         $archiveFileId = $this->getParam('file');
@@ -878,6 +952,11 @@ class filemanager extends controller
         }
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __editfiledetails()
     {
         $id = $this->getParam('id');
@@ -894,6 +973,11 @@ class filemanager extends controller
         }
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __updatefiledetails()
     {
         $id = $this->getParam('id');
@@ -914,7 +998,11 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     *
+     *
+     *
+     */
     function __tagcloud()
     {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
@@ -923,6 +1011,12 @@ class filemanager extends controller
         return 'tagcloud_tpl.php';
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     function __viewbytag()
     {
         $tag = $this->getParam('tag');
@@ -949,6 +1043,12 @@ class filemanager extends controller
         return 'showfileswithtags_tpl.php';
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     function __thumbnail()
     {
         $id = $this->getParam('id');
@@ -980,28 +1080,55 @@ class filemanager extends controller
         }
     }
     
-    
+    /**
+     *
+     *
+     *
+     */
     function __fckimage()
     {
         return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg'));
     }
     
+    /**
+     *
+     *
+     *
+     */
     function __fckflash()
     {
         return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf'));
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     function __fcklink()
     {
         return $this->nextAction(NULL, array('mode'=>'fcklink'));
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     function __indexsearchfiles()
     {
         $this->objFiles->updateFileSearch();
         return $this->nextAction(NULL, array('message'=>'searchindexupdated'));
     }
     
+    
+    /**
+     *
+     *
+     *
+     */
     function __search()
     {
         return 'search_tpl.php';
