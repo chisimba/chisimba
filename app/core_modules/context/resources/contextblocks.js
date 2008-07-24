@@ -181,11 +181,13 @@
             adjustLayout();
         } else {
         
+            
             // DO Ajax
             jQuery.ajax({
                 type: "GET", 
                 url: "index.php", 
-                data: "module="+theModule+"&action=renderblock&blockid="+blockid+"&side="+side, 
+                data: "module="+theModule+"&action=renderblock&blockid="+blockid+"&side="+side,
+                dataType: 'script',
                 success: function(msg){
                 
                     jQuery("#"+side+"previewcontent").show();
@@ -203,6 +205,27 @@
                     adjustLayout();
                 }
             });
+            
+            
+            /*
+            // DO Ajax
+            jQuery.get("index.php", { module: theModule, action: "renderblock", blockid: blockid, side: side },  function(msg){
+                
+                    jQuery("#"+side+"previewcontent").show();
+                    jQuery("#"+side+"previewcontent").html(msg);
+                    
+                    if (side == 'left') {leftBlock = blockid; }
+                    if (side == 'right') {rightBlock = blockid; }
+                    if (side == 'middle') {middleBlock = blockid; }
+                    
+                    
+                    if (msg != "") {
+                        jQuery("#"+side+"button").show();
+                    }
+                    
+                    adjustLayout();
+                }
+            );*/
         }
         
     }

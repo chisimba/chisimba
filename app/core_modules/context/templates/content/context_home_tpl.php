@@ -46,20 +46,39 @@ if ($this->isValid('addblock')) {
     $smallBlocksDropDown->cssId = 'ddrightblocks';
     $smallBlocksDropDown->addOption('', $objLanguage->languageText('phrase_selectone', 'phrase', 'Select One').'...');
     
+    // Create array for sorting
+    $smallBlockOptions = array();
     
+    // Add Small Dynamic Blocks
     foreach ($smallDynamicBlocks as $smallBlock)
     {
-        $smallBlocksDropDown->addOption('dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module'], htmlentities($smallBlock['title']));
+        $smallBlockOptions['dynamicblock|'.$smallBlock['id'].'|'.$smallBlock['module']] = htmlentities($smallBlock['title']);
     }
     
+    // Add Small Blocks
     foreach ($smallBlocks as $smallBlock)
     {
         $block = $this->newObject('block_'.$smallBlock['blockname'], $smallBlock['moduleid']);
         $title = $block->title;
         
-        $smallBlocksDropDown->addOption('block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid'], htmlentities($title));
+        if ($title == '') {
+            $title = $smallBlock['blockname'].'|'.$smallBlock['moduleid'];
+        }
+        
+        $smallBlockOptions['block|'.$smallBlock['blockname'].'|'.$smallBlock['moduleid']] = htmlentities($title);
     }
     
+    // Sort Alphabetically
+    asort($smallBlockOptions);
+    
+    // Add Small Blocks
+    foreach ($smallBlockOptions as $block=>$title)
+    {
+        $smallBlocksDropDown->addOption($block, $title);
+    }
+    
+    // Create array for sorting
+    $wideBlockOptions = array();
     
     $wideBlocksDropDown = new dropdown ('middleblocks');
     $wideBlocksDropDown->cssId = 'ddmiddleblocks';
@@ -67,7 +86,7 @@ if ($this->isValid('addblock')) {
     
     foreach ($wideDynamicBlocks as $wideBlock)
     {
-        $wideBlocksDropDown->addOption('dynamicblock|'.$wideBlock['id'].'|'.$wideBlock['module'], htmlentities($wideBlock['title']));
+        $smallBlockOptions['dynamicblock|'.$wideBlock['id'].'|'.$wideBlock['module']] = htmlentities($wideBlock['title']);
     }
     
     foreach ($wideBlocks as $wideBlock)
@@ -75,7 +94,20 @@ if ($this->isValid('addblock')) {
         $block = $this->newObject('block_'.$wideBlock['blockname'], $wideBlock['moduleid']);
         $title = $block->title;
         
-        $wideBlocksDropDown->addOption('block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid'], htmlentities($title));
+        if ($title == '') {
+            $title = $wideBlock['blockname'].'|'.$wideBlock['moduleid'];
+        }
+        
+        $wideBlockOptions['block|'.$wideBlock['blockname'].'|'.$wideBlock['moduleid']] = htmlentities($title);
+    }
+    
+    // Sort Alphabetically
+    asort($wideBlockOptions);
+    
+    // Add Small Blocks
+    foreach ($wideBlockOptions as $block=>$title)
+    {
+        $wideBlocksDropDown->addOption($block, $title);
     }
     
     
