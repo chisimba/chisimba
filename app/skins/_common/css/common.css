@@ -210,3 +210,8 @@ ul.htmlliststyle li {
     margin: 0;
     padding-left: 20px;
 }
+
+div.filemanagertree {
+    overflow: auto;
+    padding-bottom: 30px;
+}
