@@ -171,7 +171,8 @@ class displaycontext extends object
         $table->addCell($contextImageLink->show(), 120);
         $table->addCell($str);
         
-        $content = $table->show();
+        //$content = $table->show();
+        $content = $str;
         
         $title = '';
         
