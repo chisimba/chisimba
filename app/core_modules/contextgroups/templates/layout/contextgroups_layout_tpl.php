@@ -9,17 +9,10 @@
 
 $cssLayout = $this->newObject('csslayout', 'htmlelements');
 $leftMenu = $this->newObject('contextsidebar','context');
-$objHead = $this->newObject('htmlheading','htmlelements');
 
-if(!isset($heading))
-    $heading= $title;//"HEADING";//$objLanguage->languageText('mod_test_name');
-
-$objHead->str=$heading;
-$objHead->type=1;
-$head = $objHead->show();
 
 $cssLayout->setLeftColumnContent($leftMenu->show());
-$cssLayout->setMiddleColumnContent($head.$this->getContent());
+$cssLayout->setMiddleColumnContent($this->getContent());
 
 echo $cssLayout->show();
 ?>
