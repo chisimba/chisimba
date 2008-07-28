@@ -11,6 +11,7 @@
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
+ * @author2   Paul Mungai <pwando@uonbi.ac.ke>
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   CVS: $Id$
@@ -90,12 +91,7 @@ class form implements ifhtml
      *          the display of the elements on the form
      */
     public $displayType;
-    /**
-     *
-     * @var int target
-     *          the form target
-     */
-    public $target;
+
     /**
      *
      * @var boolean $autoshow
@@ -133,9 +129,17 @@ class form implements ifhtml
 	*extra
 	*/
 	public $extra;
+
+	/**
+	*
+	* @var string $extra
+	*extra
+	*/
+	public $submit;
+
    /**
 	*
-	* @var string $method
+	* @var string $encType
 	* sets the enctype of the form ,
 	* default is multipart/form-data
 	*/
@@ -172,6 +176,19 @@ class form implements ifhtml
         $this->action = $action;
     }
     /**
+     * Method to set the Form onSubmit function
+     *
+     * @Param string $submit
+     */
+//public function setOnSubmit($submit)
+    public function setOnSubmit($submit)
+    {
+	if(empty($submit)){
+		$submit=($this->hasRules) ? ' onsubmit=\"return validate_'.$this->name.'_form(this) \"' : '';
+	}
+        $this->onSubmit = 'onsubmit = "'.$submit.'"';
+    }
+    /**
      * Method to set the Form Target
      * 
      * @Param string $target
@@ -188,11 +205,11 @@ class form implements ifhtml
      */
     public function setDisplayType($displayType)
     {
-        $this->displayType = $displayType; 
+        $this->displayType = $displayType;
     }
     /**
      * Method to set the enctype
-     *
+     * 
      * @param int $encType : the value of the encType i.e 'multipart/form-data'
      */
     public function setEncType($encType = "application/x-www-form-urlencoded")
@@ -261,7 +278,7 @@ class form implements ifhtml
     public function show()
     {
 		$str = ($this->hasRules) ? $this->_getValidatorScripts() : '';
-		$submit=($this->hasRules) ? ' onsubmit="return validate_'.$this->name.'_form(this) "' : '';
+		//$submit=($this->hasRules) ? ' onsubmit="return validate_'.$this->name.'_form(this) "' : '';
         if(!empty($this->id)){
         	$id = ' id="'.$this->id.'"';
         } else {
@@ -274,7 +291,7 @@ class form implements ifhtml
 					method="'.$this->method.'"
 					'.$this->encType.'
 					'.$this->target.'
-					'.$submit.'
+					'.$this->onSubmit.'
 					'.$this->extra.'
 					>';
 
