@@ -184,7 +184,7 @@ class form implements ifhtml
     public function setOnSubmit($submit)
     {
 	if(empty($submit)){
-		$submit=($this->hasRules) ? ' onsubmit=\"return validate_'.$this->name.'_form(this) \"' : '';
+		$submit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this) ' : '';
 	}
         $this->onSubmit = 'onsubmit = "'.$submit.'"';
     }
