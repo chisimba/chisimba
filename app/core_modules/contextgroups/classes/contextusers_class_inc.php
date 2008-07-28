@@ -190,7 +190,7 @@ FROM tbl_users WHERE '.$field.' LIKE "'.$search.'%" GROUP BY userId ORDER BY '.$
                 } else {
                     $link = new link ($this->uri(array('action'=>'viewsearchresults', 'page'=>$i),$module));
                     
-                    $link->link = $this->objLanguage->languageText('word_page').' '.$i;
+                    $link->link = $this->objLanguage->languageText('mod_toolbar_page', 'toolbar', 'Page').' '.$i;
                     
                     $output .= $divider.$link->show();
                 }
