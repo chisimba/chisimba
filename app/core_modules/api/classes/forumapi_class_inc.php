@@ -646,7 +646,9 @@ class forumapi extends object
     public function forumInsertTopic($params)
     {
         try{
-            
+	
+	
+	
         $param = $params->getParam(0);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -676,14 +678,15 @@ class forumapi extends object
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $forum_name = $param->scalarval();
+        $username = $param->scalarval();
         
         $tangentParent = 0;
+	
         $topic_id = $this->objdbtopic->insertSingle(
             $forum_id,
             'init_1', //$type_id,
             $tangentParent, // tangent parent
-            "1" //user
+            $this->objUser->getUserId($username) //user
         );
 
         
@@ -700,7 +703,7 @@ class forumapi extends object
         $postStruct = new XML_RPC_Value(array(
                 new XML_RPC_Value($topic_id, "string"),
                 new XML_RPC_Value($post_title, "string"),
-                new XML_RPC_Value($forum_name, "string")), "array");
+                new XML_RPC_Value($post_id, "string")), "array");
         //$postStruct[] = $struct;
         
         //$postArray = new XML_RPC_Value($postStruct,"array");
@@ -798,8 +801,9 @@ class forumapi extends object
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $forum_name = $param->scalarval();
-        
+        $username = $param->scalarval();
+        $userId = $this->objUser->getUserId($username)
+	
         $param = $params->getParam(5);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -815,8 +819,8 @@ class forumapi extends object
         $parentPostDetails = $this->objPost->getRow('id', $parentPostId);
         $level = $parentPostDetails["level"] + 1;
         
-        $post_id = $this->objPost->insertSingle($parentPostId, 0, $forum_id, $topic_id,  0, $level);
-        $this->objPostText->insertSingle($post_id, $post_title, $post_text,  "em", 1, "1");
+        $post_id = $this->objPost->insertSingle($parentPostId, 0, $forum_id, $topic_id,  $userId, $level);
+        $this->objPostText->insertSingle($post_id, $post_title, $post_text,  "em", $userId, "1");
         
         $this->objTopic->updateLastPost($topic_id, $post_id);
         $this->objForum->updateLastPost($forum_id, $post_id);
