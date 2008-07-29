@@ -181,7 +181,7 @@ class textinput extends abhtmlbase implements ifhtml
         if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
         }
-        if ($this->onChange) {
+        if (isset($this->onChange)) {
             $str .= $this->onChange;
         }
         if ($this->extra) {
