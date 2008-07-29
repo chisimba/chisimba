@@ -7,6 +7,7 @@
 		<category>Content Management System</category>
 		<category>Communications</category>
 		<category>e-Learning Management System</category>
+		<category>Document Conversion</category>
 	</systemtypes>
 
     <modulelist>
@@ -88,24 +89,50 @@
 
         <category>
             <categoryname>e-Learning Management System</categoryname>
+            <module>announcements</module>
             <module>assignment</module>
             <module>assignmentadmin</module>
+            <module>blocks</module>
+            <module>blog</module>
+            <module>calendar</module>
             <module>context</module>
             <module>contextadmin</module>
+            <module>contextcontent</module>
             <module>contextgroups</module>
             <module>contextpermissions</module>
-            <module>contextprelogin</module>
-            <module>contextpostlogin</module>
+            <module>filemanager</module>
+            <module>filters</module>
             <module>internalmail</module>
             <module>essay</module>
             <module>essayadmin</module>
+            <module>faq</module>
+            <module>forum</module>
+            <module>glossary</module>
             <module>gradebook</module>
+            <module>mathml</module>
             <module>mcqtests</module>
             <module>pbl</module>
             <module>pbladmin</module>
+            <module>personalspace</module>
+            <module>podcast</module>
             <module>popupcalendar</module>
+            <module>rubric</module>
+            <module>simplemap</module>
+            <module>timeline</module>
+            <module>tutorials</module>
+            <module>websearch</module>
+            <module>wiki</module>
             <module>worksheet</module>
-            <module>worksheetadmin</module>
+            <module>youtube</module>
+        </category>
+        
+        <category>
+            <categoryname>Document Conversion</categoryname>
+            <module>documentconverter</module>
+            <module>htmldoc</module>
+            <module>imagemagick</module>
+            <module>mediaconverter</module>
+            <module>swftools</module>
         </category>
 
     </modulelist>
