@@ -84,7 +84,12 @@ class form implements ifhtml
      *             The action of the form
      */
     public $action;
-
+    /**
+     *
+     * @var string $target
+     *             The target of the form
+     */
+    public $target;
     /**
      *
      * @var int displayType
@@ -177,7 +182,7 @@ class form implements ifhtml
      *
      * @Param string $action
      */
-    public function setAction($action)
+    public function setAction($action = Null)
     {
         $this->action = $action;
     }
@@ -187,7 +192,7 @@ class form implements ifhtml
      * @Param string $submit
      */
 //public function setOnSubmit($submit)
-    public function setOnSubmit($submit)
+    public function setOnSubmit($submit = Null)
     {
 	if(empty($submit)){
 		$submit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this) ' : '';
@@ -199,7 +204,7 @@ class form implements ifhtml
      * 
      * @Param string $target
      */
-    public function setTarget($target)
+    public function setTarget($target = Null)
     {
         $this->target = 'target = "'.$target.'"';
     }
@@ -209,7 +214,7 @@ class form implements ifhtml
      *
      * @param int $displayType : the value for the displayType
      */
-    public function setDisplayType($displayType)
+    public function setDisplayType($displayType = Null)
     {
         $this->displayType = $displayType;
     }

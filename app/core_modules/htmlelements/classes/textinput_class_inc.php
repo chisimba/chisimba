@@ -157,7 +157,10 @@ class textinput extends abhtmlbase implements ifhtml
     {
         $this->value = $value;
     }
-
+    public function setOnChange($change)
+    {
+        $this->onChange = 'onChange ="'.$change.'"';
+    }
     /**
     * Method to return the text input for display on the form
     * @return string $str: the text element for display
@@ -177,6 +180,9 @@ class textinput extends abhtmlbase implements ifhtml
         }
         if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
+        }
+        if ($this->onChange) {
+            $str .= $this->onChange;
         }
         if ($this->extra) {
             $str .= ' '.$this->extra;
