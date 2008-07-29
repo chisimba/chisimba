@@ -161,7 +161,13 @@ class form implements ifhtml
         $this->elements = array();
         // set the default display type
         $this->displayType = 3;
-
+        
+        // Set Target to Null as default
+        $this->target = NULL;
+        
+        // // Set onSubmit to Null as default
+        $this->onSubmit = NULL;
+        
         $this->id = 'form_'.$name;
 
     }
