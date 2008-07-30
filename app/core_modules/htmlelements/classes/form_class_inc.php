@@ -166,13 +166,13 @@ class form implements ifhtml
         $this->elements = array();
         // set the default display type
         $this->displayType = 3;
-        
+
         // Set Target to Null as default
         $this->target = NULL;
-        
-        // // Set onSubmit to Null as default
-        $this->onSubmit = NULL;
-        
+
+        // // Set onSubmit to an empty string as default
+        $this->onSubmit = '';
+
         $this->id = 'form_'.$name;
 
     }
@@ -192,16 +192,15 @@ class form implements ifhtml
      * @Param string $submit
      */
 //public function setOnSubmit($submit)
-    public function setOnSubmit($submit = Null)
+    public function setOnSubmit($submit = NULL)
     {
-	if(empty($submit)){
-		$submit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this) ' : '';
-	}
-        $this->onSubmit = 'onsubmit = "'.$submit.'"';
+    	if (!is_null($submit)) {
+            $this->onSubmit = 'onsubmit="'.$submit.'"';
+        }
     }
     /**
      * Method to set the Form Target
-     * 
+     *
      * @Param string $target
      */
     public function setTarget($target = Null)
@@ -220,7 +219,7 @@ class form implements ifhtml
     }
     /**
      * Method to set the enctype
-     * 
+     *
      * @param int $encType : the value of the encType i.e 'multipart/form-data'
      */
     public function setEncType($encType = "application/x-www-form-urlencoded")
@@ -290,6 +289,7 @@ class form implements ifhtml
     {
 		$str = ($this->hasRules) ? $this->_getValidatorScripts() : '';
 		//$submit=($this->hasRules) ? ' onsubmit="return validate_'.$this->name.'_form(this) "' : '';
+    	$onSubmit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this) ' : $this->onSubmit;
         if(!empty($this->id)){
         	$id = ' id="'.$this->id.'"';
         } else {
@@ -302,7 +302,7 @@ class form implements ifhtml
 					method="'.$this->method.'"
 					'.$this->encType.'
 					'.$this->target.'
-					'.$this->onSubmit.'
+					'.$onSubmit.'
 					'.$this->extra.'
 					>';
 
