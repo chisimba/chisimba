@@ -802,7 +802,7 @@ class forumapi extends object
             log_debug($param);
         }
         $username = $param->scalarval();
-        $userId = $this->objUser->getUserId($username)
+        $userId = $this->objUser->getUserId($username);
 	
         $param = $params->getParam(5);
         if (!XML_RPC_Value::isValue($param)) {
