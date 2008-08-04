@@ -663,12 +663,12 @@ class xmlrpcapi extends object
                 		   						   					),
                 		   						   'docstring' => 'Grab a hi res screenshot of a URL'),
                 		  // Test connection for XULtools
-						  'getMsg' => array('function' => array($this->objXULtools, 'getMessage'),
+						  /*'getMsg' => array('function' => array($this->objXULtools, 'getMessage'),
       			  		  					'signature' =>
                      							array(
                          							array('string', 'string'),
                      							),
-                								'docstring' => 'Return a given string'),
+                								'docstring' => 'Return a given string'),*/
 		   				  // Internal Mail API Start
    						  'internalmail.getAll' => array('function' => array($this->objInternalMail, 'internalMailGetAll'),
                 		   						   'signature' => array(
@@ -763,6 +763,11 @@ class xmlrpcapi extends object
                 		  						   'signature' => array(
                 		   						   					array('string', 'string', 'string', 'string', 'string', 'string', 'string')),
                 		   						   'docstring' => 'uploads a file to the server'),
+                		   						   
+                		   'podcast.uploaderMp3' => array('function' => array($this->objPodcasts, 'grabPodcastAsMp3'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string', 'string', 'string', 'string')),
+                		   						   'docstring' => 'uploads an mp3 file to the server'),
 						 	//User API						
 							'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
                 		   						   'signature' => array(
