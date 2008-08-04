@@ -191,5 +191,83 @@ class podcastapi extends object
 		$val = new XML_RPC_Value("File saved to localfile", 'string');
 		return new XML_RPC_Response($val);
 	}
+	
+	public function grabPodcastAsMp3($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+    	
+    	$param = $params->getParam(1);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$password = $param->scalarval();
+    	
+    	$param = $params->getParam(2);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$file = $param->scalarval();
+    	//log_debug($file);
+		$file = base64_decode($file);
+    	
+		$userid = $this->objUser->getUserId($username);
+		
+		if(!file_exists($this->objConfig->getContentBasePath().'users/'.$userid."/"))
+		{
+			@mkdir($this->objConfig->getContentBasePath().'users/'.$userid."/");
+			@chmod($this->objConfig->getContentBasePath().'users/'.$userid."/", 0777);
+		}
+		
+		$param = $params->getParam(3);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$filename = $param->scalarval();
+    	
+    	// log homeboy in
+    	// NOTE: This does not work - fails on initiateSession() in dbauth class...
+    	//$auth = $this->objUser->authenticateUser($username, $password);
+    	//if($auth != 1)
+    	//{
+    	//	log_debug("Authentication Failed!");
+    	//	return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    	//}
+    	
+		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
+		file_put_contents($localfile, $file);
+		
+		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
+		
+		$filesize = filesize($localfile);
+		if(extension_loaded('fileinfo'))
+                            {
+                            	$finfo = finfo_open(FILEINFO_MIME);
+                            	$type = finfo_file($finfo, $filename);
+                            }
+                            else {
+                            	$type = mime_content_type($filename);
+                            }
+                            
+		$mimetype = $type; //mime_content_type($mp3);
+		$category = '';
+		$version = 1;
+		$fmname = basename($filename);
+		$fmpath = 'users/'.$userid.'/'.$fmname;
+		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
+		
+		// add the MP3 to the user's filemanager set
+		$fileId = $this->objFiles->addFile($fmname, $fmpath, $filesize, $mimetype, $category, $version, $userid, 'PodderLive! Podcast');
+		
+		// now take the generated FileID and insert the podcast to the podcast module.
+		$pod = $this->getObject('dbpodcast', 'podcast');
+		$ret = $pod->addPodcast($fileId, $userid, $idtitle);
+
+		$val = new XML_RPC_Value("File saved to localfile", 'string');
+		return new XML_RPC_Response($val);
+	}
 }
 ?>
