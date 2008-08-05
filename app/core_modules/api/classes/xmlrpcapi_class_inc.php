@@ -768,12 +768,31 @@ class xmlrpcapi extends object
                 		  						   'signature' => array(
                 		   						   					array('string', 'string', 'string', 'string', 'string')),
                 		   						   'docstring' => 'uploads an mp3 file to the server'),
+                		   	
+                		   	'podcast.grabAll' => array('function' => array($this->objPodcasts, 'grabAllByUser'),
+                		  						   'signature' => array(
+                		   						   					array('array', 'string')),
+                		   						   'docstring' => 'returns a list of podcasts by a particular user.'),	
+                		   						   
+                		   	'podcast.download' => array('function' => array($this->objPodcasts, 'downloadPodcast'),
+                		  						   'signature' => array(
+                		   						   					array('string', 'string')),
+                		   						   'docstring' => 'downloads a podcast from the path given'),				   
+                		   						   
 						 	//User API						
 							'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
                 		   						   'signature' => array(
                 		   						   					array('int', 'string', 'string'),
                 		   						   					),
 													'docstring' => 'authenticate the user'),
+						
+							'user.getid' => array('function' => array($this->objUser, 'getUserIdFromName'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+													'docstring' => 'returns the users id from a username'),
+													
+													
 							//Context API
 							'user.isContextPlugin' => array('function' => array($this->objContext, 'isContextPlugin'),
                 		   						   'signature' => array(
