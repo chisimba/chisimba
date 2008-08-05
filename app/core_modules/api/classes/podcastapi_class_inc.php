@@ -269,5 +269,43 @@ class podcastapi extends object
 		$val = new XML_RPC_Value("File saved to localfile", 'string');
 		return new XML_RPC_Response($val);
 	}
+	
+	public function grabAllByUser($params)
+	{
+		$pod = $this->getObject('dbpodcast', 'podcast');
+		
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$username = $param->scalarval();
+
+    	$uid = $this->objUser->getUserId($username);
+    	$res = $pod->getAllUserPodcasts($uid);
+    	
+    	foreach($res as $result)
+    	{
+    		$return[] = new XML_RPC_Value($result['path'], 'string');
+    	}
+    	log_debug($return);
+    	$val = new XML_RPC_Value($return, 'array');
+		return new XML_RPC_Response($val);
+	}
+	
+	public function downloadPodcast($params)
+	{
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+    	}
+    	$file = $param->scalarval();
+    	
+    	$fullpath = $this->objConfig->getContentBasePath().$file;
+    	
+    	$return = base64_encode(file_get_contents($fullpath));
+    	
+    	$val = new XML_RPC_Value($return, 'string');
+		return new XML_RPC_Response($val);
+	}
 }
 ?>
