@@ -127,7 +127,20 @@ class userapi extends object
 	}
 
 
-	
+	public function getUserIdFromName($params)
+	{
+		$objAuth = $this->getObject('user', 'security');
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+	        log_debug($param);
+		}
+	    $username = $param->scalarval();
+            
+        $uid = $objAuth->getUserId($username);
+	    
+        $val = new XML_RPC_Value($uid, 'string');
+		return new XML_RPC_Response($val);
+	}
 
 }
 
