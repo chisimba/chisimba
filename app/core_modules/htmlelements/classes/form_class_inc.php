@@ -289,13 +289,13 @@ class form implements ifhtml
     {
 		$str = ($this->hasRules) ? $this->_getValidatorScripts() : '';
 		//$submit=($this->hasRules) ? ' onsubmit="return validate_'.$this->name.'_form(this) "' : '';
-    	$onSubmit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this);'.$this->onSubmit : $this->onSubmit;
-        
+    	$onSubmit=($this->hasRules) ? ' return validate_'.$this->name.'_form(this);' : $this->onSubmit; //.$this->onSubmit
+
         // Add onsubmit parameter around onsubmit options
         if (trim($onSubmit) != '') {
             $onSubmit = 'onsubmit="'.$onSubmit.'"';
         }
-        
+
         if(!empty($this->id)){
         	$id = ' id="'.$this->id.'"';
         } else {
