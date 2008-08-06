@@ -77,10 +77,10 @@ class internalmailapi extends object
 			$this->isReg = $this->objModules->checkIfRegistered('internalmail');
 			if($this->isReg === TRUE)
 			{
-        		$this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
-        		$this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
+			    $this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
+			    $this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
 			}
-        	$this->objUser = $this->getObject('user', 'security');
+			$this->objUser = $this->getObject('user', 'security');
         	
 		}
 		catch (customException $e)
@@ -102,31 +102,37 @@ class internalmailapi extends object
      */
 	public function internalMailGetAll($params)
 	{
-	//	try{
-			//$param = $params->getParam(0);
-		//if (!XML_RPC_Value::isValue($param)) {
-          //  log_debug($param);
-    	//}
-    	//$folderId = $param->scalarval();
-    	
-    	$mailStruct = array();
-    	$resarr = $this->objDbRouting->getAllMail("init_1", null, null);
-    	//var_dump($resarr);
-      	foreach($resarr as $res)
-    	{
-			$struct = new XML_RPC_Value(array(
-    			new XML_RPC_Value($res['fullName'], "string"),
-    			new XML_RPC_Value($res['subject'], "string"),
-    			new XML_RPC_Value($res['date_sent'], "string")), "array");
-    		$mailStruct[] = $struct;
-    	}
-    	$mailArray = new XML_RPC_Value($mailStruct,"array");
-	//var_dump($mailArray);
-    	return new XML_RPC_Response($mailArray);
-		/*} catch(customException $e) {
-            echo customException::cleanUp();
-            die($e);
-        }*/
+	    try{
+		$mailStruct = array();
+		$param = $params->getParam(0);
+		if (!XML_RPC_Value::isValue($param)) {
+		    log_debug($param);
+		}
+		$username = $param->scalarval();
+		$userId = $this->objUser->getUserId($username);
+		$mailStruct = array();
+		$resarr = $this->objDbRouting->getAllMail("init_1", array(
+				    0 => 'messageListTable',
+				    1 => 1,
+				    2 => 'DESC'
+				), null, $userId);
+		//var_dump($resarr);
+		foreach($resarr as $res)
+		{
+		    $struct = new XML_RPC_Value(array(
+				new XML_RPC_Value($res['fullName'], "string"),
+				new XML_RPC_Value($res['subject'], "string"),
+				new XML_RPC_Value($res['date_sent'], "string")),
+			    "array");
+		    $mailStruct[] = $struct;
+		}
+		$mailArray = new XML_RPC_Value($mailStruct,"array");
+		//var_dump($mailArray);
+		return new XML_RPC_Response($mailArray);
+	    } catch(customException $e) {
+		echo customException::cleanUp();
+		die($e);
+	    }
 	}
 	
     /**
