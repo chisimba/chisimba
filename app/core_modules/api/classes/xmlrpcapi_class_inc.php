@@ -672,7 +672,7 @@ class xmlrpcapi extends object
 		   				  // Internal Mail API Start
    						  'internalmail.getAll' => array('function' => array($this->objInternalMail, 'internalMailGetAll'),
                 		   						   'signature' => array(
-                		   						   					array('string'),
+                		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'get all internal mail for a user'),
                 		  'internalmail.listFolders' => array('function' => array($this->objInternalMail, 'mailListFolders'),
