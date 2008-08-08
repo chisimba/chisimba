@@ -160,14 +160,24 @@ class internalmailapi extends object
 	{
 		$newList = split("\|", $list);
 		//var_dump($newList);
-		$newArr = array();
+		$newArr = "";
+		$cnt = 0;
+		$max = count($newList);
 		foreach($newList as $item)
 		{
-			$newArr[] = $this->objUser->userName($item);
-		
+			$cnt++;
+			$newArr .= $this->objUser->userName($item);
+			if($max == 1)
+			{
+				return $newArr;
+			}
+			elseif ( $cnt != $max)
+			{
+				$newArr .= "|";
+			}
+			
 		}
-		return $newArr
-		
+		return $newArr;
 		
 	}
 	
