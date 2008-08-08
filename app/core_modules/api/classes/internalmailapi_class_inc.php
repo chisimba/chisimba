@@ -125,14 +125,13 @@ class internalmailapi extends object
 				//fullname
 				new XML_RPC_Value($res['fullName'], "string"),
 				//recipient_list
-				new XML_RPC_Value($this->_getUsernamesList($res['sender_id']), "string"),
-				
+				new XML_RPC_Value($this->_getUsernamesList($res['sender_id']), "string"),				
 				//subject
 				new XML_RPC_Value($res['subject'], "string"),
 				//message
 				new XML_RPC_Value($res['message'], "string"),
 				//date sent
-				new XML_RPC_Value($res['date_sent'], "string")
+				new XML_RPC_Value($res['date_sent'], "string"),
 				//folder_id
 				new XML_RPC_Value($res['folder_id'], "string"),
 				
