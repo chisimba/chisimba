@@ -120,9 +120,25 @@ class internalmailapi extends object
 		foreach($resarr as $res)
 		{
 		    $struct = new XML_RPC_Value(array(
+				//emai_id
+				new XML_RPC_Value($res['email_id'], "string"),
+				//fullname
 				new XML_RPC_Value($res['fullName'], "string"),
+				//recipient_list
+				new XML_RPC_Value($this->_getUsernamesList($res['sender_id']), "string"),
+				
+				//subject
 				new XML_RPC_Value($res['subject'], "string"),
-				new XML_RPC_Value($res['date_sent'], "string")),
+				//message
+				new XML_RPC_Value($res['message'], "string"),
+				//date sent
+				new XML_RPC_Value($res['date_sent'], "string")
+				//folder_id
+				new XML_RPC_Value($res['folder_id'], "string"),
+				
+				
+				),
+				
 			    "array");
 		    $mailStruct[] = $struct;
 		}
@@ -134,6 +150,28 @@ class internalmailapi extends object
 		die($e);
 	    }
 	}
+	
+	/**
+	* Method to build the recipient list
+	* @param string $list
+	* @access private
+	* @return string
+	*/
+	private function getUsernamesList($list)
+	{
+		$newList = split("\|", $list);
+		//var_dump($newList);
+		$newArr = array();
+		foreach($newList as $item)
+		{
+			$newArr[] = $this->objUser->userName($item);
+		
+		}
+		return $newArr
+		
+		
+	}
+	
 	
     /**
      * Get a list of all folders 
@@ -202,5 +240,23 @@ class internalmailapi extends object
             die($e);
         }
 	}
+	
+	
+	/**
+	* Method to insert  a mail
+	* @params array $params  
+	* @return int
+	* @access public
+	*/
+	public function sendMail($params)
+	{
+	
+	
+	
+	
+	
+	}
+	
+	
 }
 ?>
