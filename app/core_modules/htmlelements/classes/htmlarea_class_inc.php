@@ -163,7 +163,8 @@ class htmlarea extends object
     */
     function showFCKEditor()
     {
-		require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
+        //require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
+        require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'htmlelements'));
         
         $objConfig =  $this->newObject('altconfig', 'config');
 
@@ -177,7 +178,8 @@ class htmlarea extends object
 			$sBasePath .= '/';
 		}
 		
-		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
+		//$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
+		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor/fckeditor_2.6.3/';
         
 
         $oFCKeditor = new FCKeditor($this->name) ;
