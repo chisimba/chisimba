@@ -136,10 +136,10 @@ class internalmailapi extends object
 				new XML_RPC_Value($res['folder_id'], "string"),
 				//routing id
 				new XML_RPC_Value($res['routing_id'], "string"),
-				//sent id
-				new XML_RPC_Value($res['sent_mail'], "integer"),
+				//sent mail
+				new XML_RPC_Value((string)$res['sent_mail'], "string"),
 				//read mail
-				new XML_RPC_Value($res['read_mail'], "integer"),
+				new XML_RPC_Value((string)$res['read_mail'], "string"),
 				//date read
 				new XML_RPC_Value($res['date_read'], "string")
 				),
