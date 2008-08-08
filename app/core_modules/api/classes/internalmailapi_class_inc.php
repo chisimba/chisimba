@@ -154,7 +154,7 @@ class internalmailapi extends object
 	* @access private
 	* @return string
 	*/
-	private function getUsernamesList($list)
+	private function _getUsernamesList($list)
 	{
 		$newList = split("\|", $list);
 		//var_dump($newList);
