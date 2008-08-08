@@ -133,7 +133,15 @@ class internalmailapi extends object
 				//date sent
 				new XML_RPC_Value($res['date_sent'], "string"),
 				//folder_id
-				new XML_RPC_Value($res['folder_id'], "string")			
+				new XML_RPC_Value($res['folder_id'], "string"),
+				//routing id
+				new XML_RPC_Value($res['routing_id'], "string"),
+				//sent id
+				new XML_RPC_Value($res['sent_mail'], "string"),
+				//read mail
+				new XML_RPC_Value($res['read_mail'], "string"),
+				//date read
+				new XML_RPC_Value($res['date_read'], "string")
 				),
 				
 			    "array");
