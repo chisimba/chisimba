@@ -54,5 +54,33 @@ class dircreate extends object
             umask($oldumask);
         }
     }
+    
+    
+     /**
+     * Method to delete a folder recursively
+     * @param string $dir The full path to the folder
+     * @access public
+     * @return boolean
+     */
+     function deldir($dir) {
+         $dh=@opendir($dir);
+         while ($file=@readdir($dh)) {
+             if($file!="." && $file!="..") {
+                 $fullpath=$dir."/".$file;
+                 if(!is_dir($fullpath)) {
+                     unlink($fullpath);
+                 } else {
+                     $this->deldir($fullpath);
+                 }
+             }
+         }
+         @closedir($dh);
+         if(@rmdir($dir)) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+
 }
 ?>
