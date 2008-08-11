@@ -680,13 +680,22 @@ class forumapi extends object
         }
         $username = $param->scalarval();
         
+        $param = $params->getParam(5);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $newTopic_id = ($param->scalarval()) ? $param->scalarval( ? null;
+		
+		
         $tangentParent = 0;
 	
         $topic_id = $this->objdbtopic->insertSingle(
             $forum_id,
             'init_1', //$type_id,
             $tangentParent, // tangent parent
-            $this->objUser->getUserId($username) //user
+            $this->objUser->getUserId($username), //user
+			null,
+			$newTopic_id
         );
 
         
