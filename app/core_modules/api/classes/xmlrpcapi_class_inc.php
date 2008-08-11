@@ -239,7 +239,8 @@ class xmlrpcapi extends object
 	{
 		// map web services to methods
 		$server = new XML_RPC_Server(
-   					array('blogger.newPost' => array('function' => array($this->objBlogger, 'bloggerNewPost'),
+   					array(
+   						  'blogger.newPost' => array('function' => array($this->objBlogger, 'bloggerNewPost'),
    											      'signature' => array(
                          											array('string', 'string', 'string', 'string','string', 'string', 'boolean'),
                      											 ),
@@ -710,7 +711,7 @@ class xmlrpcapi extends object
                 		   						   'docstring' => 'get all the posts in a specific topic'),
    						  'forum.insertTopic' => array('function' => array($this->objForum, 'forumInsertTopic'),
                 		   						   'signature' => array(
-                		   						   					array('array', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'insert a new topic into the database'),
     		   			  'forum.getPostForReply' => array('function' => array($this->objForum, 'forumGetPostForReply'),
@@ -812,9 +813,9 @@ class xmlrpcapi extends object
                 		   						   					),
 													'docstring' => 'Accepts an XML Document for the annote module'),
    					), 1, 0);
-
-
+            
+    //$server = new XML_RPC_Server(	array(),1,1);
 		return $server;
+		
 	}
 }
-?>
