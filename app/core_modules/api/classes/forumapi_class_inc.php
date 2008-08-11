@@ -684,7 +684,7 @@ class forumapi extends object
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $newTopic_id = ($param->scalarval()) ? $param->scalarval( ? null;
+        $newTopic_id = ($param->scalarval()) ? $param->scalarval() ? null;
 		
 		
         $tangentParent = 0;
