@@ -1171,5 +1171,19 @@ class dbTable extends object
     public function queryRow($query) {
     	return $this->_queryRow($query);
     }
+    
+    /**
+     * Method to generate a substring query that is database independent
+     *
+     * @param string $value Field/Value that will be substring'ed
+     * @param int $postion Starting position for substring
+     * @param int $length Length of substring to capture
+     *
+     * @return string.
+     */
+    public function getSubstring($value, $postion, $length=NULL)
+    {
+        return $this->_db->subString($value, $postion, $length);
+    }
 }
 ?>

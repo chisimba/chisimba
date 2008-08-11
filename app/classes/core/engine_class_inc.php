@@ -143,7 +143,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '2.0.0';
+	public $version = '2.0.1';
 
 	/**
      * Template variable
@@ -616,6 +616,9 @@ class engine
 				//Load up some of the extra MDB2 modules:
 				MDB2::loadFile('Date');
 				MDB2::loadFile('Iterator');
+                
+                // Load the MDB2 Functions module
+                $_globalObjDb->loadModule('Function');
 
 				// install the error handler with our custom callback on error
 				$this->_objDb->setErrorHandling(PEAR_ERROR_CALLBACK,
