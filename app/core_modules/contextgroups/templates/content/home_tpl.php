@@ -103,6 +103,8 @@ if (count($lecturerDetails) > 0) {
     $objTable->endRow();
 }
 
+
+
 $objButton = new button('select', $this->objLanguage->languageText('phrase_selectall'));
 $objButton->extra='onclick="javascript:SetAllCheckBoxes(\'removelecturers\', \'lecturerId[]\', true)"';
 $buttons = $objButton->show();
@@ -125,7 +127,11 @@ if (count($lecturerDetails) > 1) {
 
 $objTabbedbox=new tabbedbox();
 $objTabbedbox->addTabLabel("<b>".ucfirst(strtolower($this->objLanguage->code2Txt('word_lecturers', 'system', NULL, '[-authors-]')))."</b>");
-$objTabbedbox->addBoxContent($objForm->show());
+if ($this->isValid('removeallusers')) {
+    $objTabbedbox->addBoxContent($objForm->show());
+} else {
+    $objTabbedbox->addBoxContent($objTable->show());
+}
 echo $objTabbedbox->show();
 
 
@@ -224,7 +230,11 @@ if (count($studentDetails) > 0) {
 
 $objTabbedbox=new tabbedbox();
 $objTabbedbox->addTabLabel("<b>".ucfirst(strtolower($this->objLanguage->code2Txt('word_students', 'system', NULL, '[-readonlys-]')))."</b>");
-$objTabbedbox->addBoxContent($objForm->show());
+if ($this->isValid('removeallusers')) {
+    $objTabbedbox->addBoxContent($objForm->show());
+} else {
+    $objTabbedbox->addBoxContent($objTable->show());
+}
 echo $objTabbedbox->show();
 
 
@@ -321,7 +331,11 @@ if (count($guestDetails) > 0) {
 
 $objTabbedbox=new tabbedbox();
 $objTabbedbox->addTabLabel("<b>".ucfirst(strtolower($this->objLanguage->languageText('mod_contextadmin_guests', 'contextadmin', 'Guests')))."</b>");
-$objTabbedbox->addBoxContent($objForm->show());
+if ($this->isValid('removeallusers')) {
+    $objTabbedbox->addBoxContent($objForm->show());
+} else {
+    $objTabbedbox->addBoxContent($objTable->show());
+}
 echo $objTabbedbox->show();
 
 

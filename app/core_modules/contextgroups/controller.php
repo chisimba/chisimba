@@ -114,6 +114,26 @@ class contextgroups extends controller
     }
     
     /**
+     * Method to place permissions handling
+     * @param string $action Action to be taken
+     * @return boolean Whether user has permission to access or not.
+     */
+    public function isValid($action)
+    {
+        $needPermissions = array('searchforusers', 'viewsearchresults', 'addusers', 'removeuser', 'removeallusers');
+        
+        if (in_array($action, $needPermissions)) {
+            if ($this->objUser->isAdmin() || $this->objUser->isContextLecturer()) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
     * Method to show the list of users in a context
     */
     private function groupsHome()
