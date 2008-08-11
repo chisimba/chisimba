@@ -128,7 +128,7 @@ echo $form->show();
 // --------------------------------
 
 if (count($results) == 0) {
-    echo '<div class="noRecordsMessage">'.$this->objLanguage->languageText('mod_contextgroups_nousersfoundsearchcriteria', 'contextgroups').'</div>';
+    echo '<div class="noRecordsMessage">'.$this->objLanguage->languageText('mod_contextgroups_nousersfoundsearchcriteria', 'contextgroups', 'No Users found with search criteria').'</div>';
 } else {
     
     $start = ($page-1)*$numresults+1;
