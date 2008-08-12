@@ -42,23 +42,29 @@ class formatfilesize
     
     /**
     * Method to format the size of a file
-    * @param  int    $size Size of the file
+    * @param  int    $bytes Size of the file
     * @return string Formatted Size of file
     */
-    function formatsize($size)
+    function formatsize($bytes)
     {
-        // bytes
-        if( $size < 1024 ) {
-            return $size . " bytes";
+        $size = $bytes / 1024;
+        if($size < 1024)
+        {
+            $size = number_format($size, 2);
+            $size .= 'k';
+        } else {
+            if($size / 1024 < 1024) 
+            {
+                $size = number_format($size / 1024, 2);
+                $size .= ' MB';
+            } 
+            else if ($size / 1024 / 1024 < 1024)  
+                {
+                $size = number_format($size / 1024 / 1024, 2);
+                $size .= ' GB';
+            } 
         }
-        // kilobytes
-        else if( $size < 1024000 ) {
-            return round( ( $size / 1024 ), 1 ) . "k";
-        }
-        // megabytes
-        else {
-            return round( ( $size / 1024000 ), 1 ) . " MB";
-        }
+        return $size; 
     }
     
 }
