@@ -408,6 +408,20 @@ class dbquotas extends dbTable
                 'datemodified' => strftime('%Y-%m-%d %H:%M:%S', mktime())
             ));
     }
+    
+    /**
+     * Method to determine the amount of space a user has left in his quota
+     */
+    public function getRemainingSpaceUser($userId)
+    {
+        $quota = $this->getQuota('users/'.$userId);
+        
+        if ($quota['quotausage'] > $quota['quota']) {
+            return 0;
+        } else {
+            return $quota['quota'] - $quota['quotausage'];
+        }
+    }
 
 }
 

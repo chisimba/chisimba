@@ -74,6 +74,12 @@ class upload extends filemanagerobject
     * @var boolean $useFileSubFolder Flag to set whether uploaded files should be placed in the Upload Folder +  a subfolder matching file type
     */
     private $useFileSubFolder = FALSE;
+    
+    /**
+     * @var boolean $enableOverwriteIncrement
+     * If a file called myinfo.txt is uploaded, but one exists, new file will be called 'myinfo_1.txt'
+     */
+    public $enableOverwriteIncrement = FALSE;
 
     /**
     * Constructor
@@ -125,8 +131,10 @@ class upload extends filemanagerobject
     */
     public function setUploadFolder($folder)
     {
-        $this->uploadFolder = $folder.'/';
-        $this->uploadFolder = $this->objCleanUrl->cleanUpUrl($this->uploadFolder); // Clean Up Folder
+        if (trim($folder) != '') {
+            $this->uploadFolder = $folder.'/';
+            $this->uploadFolder = $this->objCleanUrl->cleanUpUrl($this->uploadFolder); // Clean Up Folder
+        }
     }
 
     /**
@@ -297,7 +305,7 @@ class upload extends filemanagerobject
                     $path = $this->uploadFolder.$subfolder.'/';
 
                 } else {
-                                        // Create Full Server Path to Uploaded File
+                    // Create Full Server Path to Uploaded File
                     $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
 
                     // Create Path to File withour usrfiles prefix
@@ -322,30 +330,75 @@ class upload extends filemanagerobject
 
                 // Check if File Exists
                 if (file_exists($savepath)) {
-
+                    
                     // Check if the file details are recorded
                     $originalFile = $this->objFile->getFileDetailsFromPath($path);
-
+                    
                     // If file details are recorded, move file to temp file so long
                     if (is_array($originalFile)) {
-
+                        
+                        // Change Save Path 
                         $savePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$originalFile['id'];
-
+                        
+                        // Check if Overwrite Increment is enabled
+                        if ($this->enableOverwriteIncrement) {
+                            
+                            // Explode file to get file name and extension
+                            $fileparts = pathinfo($filename);
+                            
+                            // Set Default Values
+                            $match = FALSE;
+                            $counter = 1;
+                            
+                            // Create Full Server Path to Uploaded File
+                            $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
+                            // Create Path to File withour usrfiles prefix
+                            $path = $this->uploadFolder.'/';
+                            
+                            // Clean Up Paths
+                            $savepath = $this->objCleanUrl->cleanUpUrl($savepath);
+                            $path = $this->objCleanUrl->cleanUpUrl($path);
+                            
+                            // Do a loop until opening is file
+                            while ($match == FALSE)
+                            {
+                                // Generate new filename
+                                $filename = $fileparts['filename'].'_'.$counter.'.'.$fileparts['extension'];
+                                
+                                // If opening exists, update vars, and exit loop
+                                if (!file_exists($savepath.$filename)) {
+                                    $match = TRUE;
+                                    
+                                    $savepath .= $filename;
+                                    $path .= $filename;
+                                } else {
+                                    $counter++;
+                                }
+                            }
+                            
+                            // Move to new destination, mark as eligible to go into database
+                            if (move_uploaded_file($file['tmp_name'], $savepath)) {
+                                $addToDatabaseAndIndex = TRUE;
+                            } else {
+                                $addToDatabaseAndIndex = FALSE;
+                            }
+                            
                         // Move to Save Path
-                        if (move_uploaded_file($file['tmp_name'], $savePath)) {
+                        } else if (move_uploaded_file($file['tmp_name'], $savePath)) {
                             $fileInfoArray['overwrite'] = TRUE;
                             $fileInfoArray['success'] = FALSE;
                             $fileInfoArray['fileid'] = $originalFile['id'];
                             $fileInfoArray['reason'] = 'needsoverwrite';
+                            
+                            $addToDatabaseAndIndex = FALSE;
                         }
-
-
+                        
                     } else { // Overwrite and Index
                         if (move_uploaded_file($file['tmp_name'], $savepath)) {
                             $addToDatabaseAndIndex = TRUE;
                         }
                     }
-
+                    
                 // Check If File was successfully uploaded
                 } else if (move_uploaded_file($file['tmp_name'], $savepath)) {
                     $addToDatabaseAndIndex = TRUE;
@@ -358,7 +411,7 @@ class upload extends filemanagerobject
                 if ($addToDatabaseAndIndex) {
 
                     // 1) Add to Database
-                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, NULL));
+                    $fileId = $this->objFile->addFile($filename, $path, $file['size'], $file['type'], $subfolder, $version, $this->objUser->userId(), NULL, $this->getParam('creativecommons_'.$fileInputName, ''));
 
                     // 2) Start Analysis of File
                     if ($subfolder == 'images' || $subfolder == 'audio' || $subfolder == 'video' || $subfolder == 'flash' || $originalsubfolder == 'images') {
