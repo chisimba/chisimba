@@ -308,11 +308,9 @@ class filemanager extends controller
     /*------------- BEGIN: Set of methods to replace case selection ------------*/
 
     /**
-    * 
-    * Method corresponding to the view action. It fetches the stories
-    * into an array and passes it to a main_tpl content template.
+    * Default Action for File manager module
+    * It shows the list of folders of a user
     * @access private
-    * 
     */
     private function __home()
     {
@@ -322,36 +320,14 @@ class filemanager extends controller
         $folderId = $this->objFolders->getFolderId($folderpath);
         
         return $this->__viewfolder($folderId);
-        
-        /*
-        // Get Folder Details
-        $folder = $this->objFolders->getFolder($folderId);
-        $this->setVarByRef('folder', $folder);
-        
-        $this->setVar('folderPermission', TRUE);
-
-        $this->setVar('breadcrumbs', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
-        $this->setVar('folderpath', $this->objLanguage->languageText('mod_filemanager_myfiles', 'filemanager', 'My Files'));
-        $this->setVar('folderId', $folderId);
-
-        $subfolders = $this->objFolders->getSubFoldersFromPath($folderpath);
-        $this->setVarByRef('subfolders', $subfolders);
-
-        $files = $this->objFiles->getFolderFiles($folderpath);
-        $this->setVarByRef('files', $files);
-
-        $objPreviewFolder = $this->getObject('previewfolder');
-        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files));
-
-        return 'showfolder.php';
-        */
     }
     
     
     /**
-     *
-     *
-     *
+     * Method to view/download the actual file
+     * This approach is used to allow files to be move around without
+     * adjust links in content
+     * @access private
      */
     private function __file()
     {
@@ -372,9 +348,6 @@ class filemanager extends controller
             $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
 
             if ($objSysConfig->getValue('FORCEMAXMODE', 'filemanager') == 'Y') {
-
-
-
                 $forceMaxFilePath = $this->objConfig->getcontentPath().'/filemanager_forcemax/'.$id.'.jpg';
                 $forceMaxFileBasePath = $this->objConfig->getcontentBasePath().'/filemanager_forcemax/'.$id.'.jpg';
                 $originalImage = $this->objConfig->getcontentBasePath().$file['path'];
@@ -437,9 +410,8 @@ class filemanager extends controller
     }
     
     /**
-     *
-     *
-     *
+     * Method to view information about a file
+     * @access private
      */
     private function __fileinfo()
     {
@@ -512,7 +484,11 @@ class filemanager extends controller
         return 'fileinfo_tpl.php';
     }
     
-    function __symlink()
+    /**
+     * Method to view a file which is actually a symlink
+     * @access private
+     */
+    private function __symlink()
     {
         $id = $this->getParam('id');
         $symLink = $this->objSymlinks->getSymlink($id);
@@ -589,8 +565,8 @@ class filemanager extends controller
     }
     
     /**
-     *
-     *
+     * Underconstruction - method to return a preview of a file via ajax
+     * @access private
      *
      */
     private function __ajaxfilepreview()
@@ -600,9 +576,9 @@ class filemanager extends controller
     }
     
     /**
+     * Method to upload files to the server
      *
-     *
-     *
+     * @access private
      */
     private function __upload()
     {
@@ -633,9 +609,9 @@ class filemanager extends controller
     }
     
     /**
-     *
-     *
-     *
+     * Attempted ajax upload - doesnt work
+     * To be relooked
+     * @access private
      */
     private function __ajaxupload()
     {
@@ -653,9 +629,9 @@ class filemanager extends controller
     }
     
     /**
+     * Method to display the results of file uploads to the user
      *
-     *
-     *
+     * @access private
      */
     private function __uploadresults()
     {
@@ -670,9 +646,9 @@ class filemanager extends controller
     }
     
     /**
+     * Method to fix temp files. These are files that require user intervention to be overwritten
      *
-     *
-     *
+     * @access private
      */
     private function __fixtempfiles()
     {
@@ -756,9 +732,9 @@ class filemanager extends controller
     }
     
     /**
+     * Method to display the results of file overwriting to the user
      *
-     *
-     *
+     * @access private
      */
     private function __overwriteresults()
     {
@@ -773,9 +749,10 @@ class filemanager extends controller
     }
     
     /**
+     * Method to delete multiple files
+     * This step provides a form to request user confirmation
      *
-     *
-     *
+     * @access private
      */
     private function __multidelete()
     {
@@ -788,9 +765,9 @@ class filemanager extends controller
     
     
     /**
+     * Method to delete multiple files, once user confirmation is given
      *
-     *
-     *
+     * @access private
      */
     private function __multideleteconfirm()
     {
@@ -851,11 +828,11 @@ class filemanager extends controller
     }
     
     /**
+     * Method to view the contents of a folder
      *
-     *
-     *
+     * @access private
      */
-    function __viewfolder($id=NULL)
+    private function __viewfolder($id=NULL)
     {
         if ($id == NULL) {
             $id = $this->getParam('folder');
@@ -874,7 +851,7 @@ class filemanager extends controller
         
         $folderParts = explode('/', $folder['folderpath']);
         
-        //$quota = $this->objQuotas->getQuota($folder['folderpath']);
+        $quota = $this->objQuotas->getQuota($folder['folderpath']);
         //var_dump($quota);
         
         if ($folderParts[0] == 'context' && $folderParts[1] != $this->contextCode) {
@@ -884,6 +861,7 @@ class filemanager extends controller
         $folderPermission = $this->objFolders->checkPermissionUploadFolder($folderParts[0], $folderParts[1]);
 
         $this->setVarByRef('folder', $folder);
+        $this->setVarByRef('quota', $quota);
 
         $this->setVarByRef('folderpath', basename($folder['folderpath']));
 
@@ -913,11 +891,11 @@ class filemanager extends controller
     }
     
     /**
+     * Method to create a folder.
      *
-     *
-     *
+     * @access private
      */
-    function __createfolder()
+    private function __createfolder()
     {
         $parentId = $this->getParam('parentfolder', 'ROOT');
         $foldername = $this->getParam('foldername');
@@ -930,6 +908,9 @@ class filemanager extends controller
         if (preg_match('/\\\|\/|\\||:|\\*|\\?|"|<|>/', $foldername)) {
             return $this->nextAction('viewfolder', array('folder'=>$parentId, 'error'=>'illegalcharacters'));
         }
+        
+        // Replace spaces with underscores
+        $foldername = str_replace(' ', '_', $foldername);
 
         if ($parentId == 'ROOT') {
             $folderpath = 'users/'.$this->objUser->userId();
@@ -958,11 +939,11 @@ class filemanager extends controller
     }
     
     /**
+     * Method to delete a folder
      *
-     *
-     *
+     * @access private
      */
-    function __deletefolder()
+    private function __deletefolder()
     {
         $id = $this->getParam('id');
         
@@ -982,7 +963,7 @@ class filemanager extends controller
         $result = $this->objFolders->deleteFolder($id);
 
         //
-        $call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
+        //$call2 = $objBackground->setCallback("john.doe@tohir.co.za","Your Script","The really long running process that you requested is complete!");
 
 
         if ($result == 'norecordoffolder') {
@@ -998,14 +979,24 @@ class filemanager extends controller
         return $this->nextAction('viewfolder', array('folder'=>$parentId, 'message'=>$resultmessage, 'ref'=>basename($folder)));
     }
     
-    
+    /**
+     * Method to create a symlink to a file
+     * This presents a form to request user confirmation,
+     * as well as the link should be located.
+     *
+     * @access private
+     */
     private function __symlinkcontext()
     {
         $this->objMenuTools->addToBreadCrumbs(array('Add to Course'));
         return 'symlinkcontext_tpl.php';
     }
     
-    
+    /**
+     * Method to create the symlinks
+     *
+     * @access private
+     */
     private function __symlinkconfirm()
     {
         $files = $this->getParam('files');
@@ -1026,11 +1017,11 @@ class filemanager extends controller
     }
     
     /**
+     * Method to extract an archive, an index all files
      *
-     *
-     *
+     * @access private
      */
-    function __extractarchive()
+    private function __extractarchive()
     {
         $archiveFileId = $this->getParam('file');
         
@@ -1097,11 +1088,11 @@ class filemanager extends controller
     }
     
     /**
-     *
+     * Method to present a user with a form to update the details of a file
      *
      *
      */
-    function __editfiledetails()
+    private function __editfiledetails()
     {
         $id = $this->getParam('id');
         
@@ -1118,11 +1109,11 @@ class filemanager extends controller
     }
     
     /**
-     *
-     *
-     *
+     * Method to update the details such as description, tags
+     * and license of a file
+     * @access private
      */
-    function __updatefiledetails()
+    private function __updatefiledetails()
     {
         $id = $this->getParam('id');
         $description = $this->getParam('description');
@@ -1143,11 +1134,11 @@ class filemanager extends controller
     }
     
     /**
-     *
+     * Method to display a tag cloud of the current user's files
      *
      *
      */
-    function __tagcloud()
+    private function __tagcloud()
     {
         $tagCloudItems = $this->objFileTags->getTagCloudResults($this->objUser->userId());
         $this->setVarByRef('tagCloudItems', $tagCloudItems);
@@ -1157,11 +1148,11 @@ class filemanager extends controller
     
     
     /**
-     *
+     * Method to view all files that match a certain tag
      *
      *
      */
-    function __viewbytag()
+    private function __viewbytag()
     {
         $tag = $this->getParam('tag');
         
@@ -1189,11 +1180,11 @@ class filemanager extends controller
     
     
     /**
-     *
+     * Method to get a thumbnail preview of a file
      *
      *
      */
-    function __thumbnail()
+    private function __thumbnail()
     {
         $id = $this->getParam('id');
         
@@ -1225,43 +1216,43 @@ class filemanager extends controller
     }
     
     /**
-     *
+     * Method to show the fckeditor interface for inserting images
      *
      *
      */
-    function __fckimage()
+    private function __fckimage()
     {
         return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg'));
     }
     
     /**
-     *
+     * Method to show the fckeditor interface for inserting flash movies
      *
      *
      */
-    function __fckflash()
+    private function __fckflash()
     {
         return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf'));
     }
     
     
     /**
-     *
+     * Method to show the fckeditor interface to insert a link to a file in file manager
      *
      *
      */
-    function __fcklink()
+    private function __fcklink()
     {
         return $this->nextAction(NULL, array('mode'=>'fcklink'));
     }
     
     
     /**
-     *
+     * Method to update the search index for all files in filemanager
      *
      *
      */
-    function __indexsearchfiles()
+    private function __indexsearchfiles()
     {
         $this->objFiles->updateFileSearch();
         return $this->nextAction(NULL, array('message'=>'searchindexupdated'));
@@ -1273,9 +1264,101 @@ class filemanager extends controller
      *
      *
      */
-    function __search()
+   private  function __search()
     {
         return 'search_tpl.php';
+    }
+    
+    /**
+     *
+     *
+     *
+     */
+    private function __quotamanager()
+    {
+        return 'quotamanager_tpl.php';
+    }
+    
+    /**
+     *
+     *
+     *
+     */
+    private function __ajaxgetquotas()
+    {
+        $this->setLayoutTemplate(NULL);
+        $this->setPageTemplate(NULL);
+        
+        $searchType = $this->getParam('searchType');
+        $searchField = $this->getParam('searchField');
+        $searchFor = $this->getParam('searchFor');
+        $orderBy = $this->getParam('orderBy');
+        
+        if ($searchType == 'context') {
+            $defaultQuota = $this->objQuotas->getDefaultContextQuota();
+        } else {
+            $searchType = 'user';
+            $defaultQuota = $this->objQuotas->getDefaultUserQuota();
+        }
+        
+        $results = $this->objQuotas->getResults($searchType, $searchField, $searchFor, $orderBy);
+        $this->setVarByRef('results', $results);
+        $this->setVarByRef('searchType', $searchType);
+        $this->setVarByRef('defaultQuota', $defaultQuota);
+        
+        return 'quotaslist_tpl.php';
+    }
+    
+    private private function __editquota()
+    {
+        $id = $this->getParam('id');
+        
+        $quota = $this->objQuotas->getQuotaFromId($id);
+        
+        if ($quota == FALSE) {
+            return $this->nextAction('quotamanager', array('error'=>'unknownquota'));
+        } else {
+            $this->setVarByRef('quota', $quota);
+            return 'editquota_tpl.php';
+        }
+    }
+    
+    private function __updatequota()
+    {
+        // Get Values
+        $id = $this->getParam('id');
+        $quotatype = $this->getParam('quotatype');
+        $customquota = $this->getParam('customquota');
+        
+        // Are we setting default or custom value
+        if ($quotatype == 'Y') {
+            $this->objQuotas->setToUseDefaultQuota($id);
+        } else {
+            if ($customquota == '') {
+                return $this->nextAction('editquota', array('id'=>$id, 'error'=>'novalue'));
+            }
+            
+            if (!is_numeric($customquota)) {
+                return $this->nextAction('editquota', array('id'=>$id, 'error'=>'nonumber'));
+            } else {
+                $this->objQuotas->setToUseCustomQuota($id, $customquota);
+            }
+        }
+        
+        // Get quota
+        $quota = $this->objQuotas->getQuotaFromId($id);
+        
+        // If quota doesn't exist, redirect
+        if ($quota == FALSE) {
+            return $this->nextAction('quotamanager');
+        } else {
+            // Do an approximate search to quota that was update
+            if (substr($quota['path'], 0, 7) == 'context') {
+                return $this->nextAction('quotamanager', array('message'=>'quotatupdated', 'id'=>$quota['id'], 'searchType'=>'context', 'searchField_context'=>'contextcode', 'searchfor'=>substr($quota['path'], 8)));
+            } else {
+                return $this->nextAction('quotamanager', array('message'=>'quotatupdated', 'id'=>$quota['id'], 'searchType'=>'users', 'searchField_user'=>'firstname', 'searchfor'=>$this->objUser->getFirstname(substr($quota['path'], 6))));
+            }
+        }
     }
     
     /*------------- END: Set of methods to replace case selection ------------*/

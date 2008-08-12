@@ -85,7 +85,12 @@ if ((count($files) > 0 || count($subfolders) > 0 || count($symlinks) > 0) && $fo
 
 if ($folderPermission) {
     echo '<h3>'.$this->objLanguage->languageText('phrase_uploadfiles', 'system', 'Upload Files').'</h3>';
-    echo $this->objUpload->show($folderId);
+    
+    if ($quota['quotausage'] > $quota['quota']) {
+        echo '<p class="warning">'.$this->objLanguage->languageText('mod_filemanager_quotaexceeded', 'filemanager', 'Allocated Quota Exceeded. First delete some files and then try to upload again.').'</p>';
+    } else {
+        echo $this->objUpload->show($folderId, ($quota['quota'] - $quota['quotausage']));
+    }
     
     echo '<h3>'.$this->objLanguage->languageText('mod_filemanager_createafolder', 'filemanager', 'Create a Folder').'</h3>';
     echo $this->objFolders->showCreateFolderForm($folderId);

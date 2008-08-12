@@ -70,6 +70,8 @@ class dbfile extends dbTable
         $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
         $this->objFileFolder = $this->getObject('filefolder');
         $this->objMimetypes = $this->getObject('mimetypes', 'files');
+        
+        
 
         $this->objLanguage = $this->getObject('language', 'language');
 
@@ -245,6 +247,9 @@ class dbfile extends dbTable
             $file['id'] = $id;
             $this->indexFile($file);
         }
+        
+        $this->objQuota = $this->getObject('dbquotas');
+        $this->objQuota->updateUsage($path);
         
         return $id;
     }
@@ -824,6 +829,8 @@ class dbfile extends dbTable
         if ($result) {
             $objLucene = $this->getObject('indexdata', 'search');
             $objLucene->removeIndex('filemanager_file_'.$fileId);
+            $this->objQuota = $this->getObject('dbquotas');
+            $this->objQuota->updateUsage($filePath);
         }
         
         return $result;

@@ -133,7 +133,7 @@ class upload extends filemanagerobject
     * Method to show an upload form
     * @todo: use htmlelements
     */
-    public function show($folderId='')
+    public function show($folderId='', $fileSizeLimit='')
     {
         $form = '<form name="form1" id="form1" enctype="multipart/form-data" method="post" action="'.$this->formaction.'">';
 
@@ -141,7 +141,7 @@ class upload extends filemanagerobject
             $this->numInputs = 2;
         }
 
-        $break = '';
+        $break = '<br />';
 
         for ($i = 1; $i <= $this->numInputs; $i++)
         {
@@ -151,11 +151,11 @@ class upload extends filemanagerobject
             $objLicense->inputName = 'creativecommons_'.$this->name.$i;
 
 
-            $form .= $break . '<input type="file" name="'
+            $form .=  '<input type="file" name="'
               . $this->name . $i . '" '
               . 'id="'. $this->name . $i . '" '
-              . 'size="40" /> '.$objLicense->show();
-            $break = '<br />';
+              . 'size="40" /> '.$objLicense->show().$break;
+            //$break = '<br />';
         }
 
         if ($this->numInputs == 1) {
@@ -166,6 +166,10 @@ class upload extends filemanagerobject
 
         if ($folderId != '') {
             $form .= ' <input type="hidden" name="folder" value="'.$folderId.'" />';
+        }
+        
+        if ($fileSizeLimit != '') {
+            $form .= ' <input type="hidden" name="MAX_FILE_SIZE" value="'.$fileSizeLimit.'" />';
         }
 
         $form .= $this->formExtra;
