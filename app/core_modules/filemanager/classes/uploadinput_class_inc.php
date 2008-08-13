@@ -144,7 +144,12 @@ class uploadinput extends filemanagerobject
         $objUpload->enableOverwriteIncrement = $this->enableOverwriteIncrement;
         
         $restrictions = $this->getParam('restrictions__'.$name);
-        $restrictions = explode('___', $restrictions);
+        
+        if ($restrictions == '') {
+            $restrictions = NULL;
+        } else {
+            $restrictions = explode('___', $restrictions);
+        }
         
         $fileUploadResultsArray = array();
         
