@@ -215,3 +215,21 @@ div.filemanagertree {
     overflow: auto;
     padding-bottom: 30px;
 }
+
+/* Added styles to display quota - width is controlled by code */
+div.outerquota {
+    border: 1px solid #000;
+    background-color: #FFF;
+    font-size: 80%;
+    text-align: center;
+}
+
+div.innerquota {
+    background: #00FF00;
+    height: 16px;
+}
+
+div.quotaup {
+    background: red;
+    height: 16px;
+}

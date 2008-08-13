@@ -2639,3 +2639,29 @@ div.sliderhandle {
     background: url(css/images/slider/thumb-n.gif) no-repeat;
     width:17px; height:21px; cursor:move;
 }
+
+div.filemanagertree {
+    overflow: auto;
+    padding-bottom: 30px;
+}
+
+
+/* Added styles to display quota - width is controlled by code */
+div.outerquota {
+    border: 1px solid #000;
+    background-color: #FFF;
+    font-size: 80%;
+    text-align: center;
+    height: 16px;
+    overflow: hidden;
+}
+
+div.innerquota {
+    background: #00FF00;
+    height: 16px;
+}
+
+div.quotaup {
+    background: red;
+    height: 16px;
+}
