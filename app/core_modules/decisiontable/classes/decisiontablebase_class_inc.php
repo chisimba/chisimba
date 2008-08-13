@@ -196,6 +196,12 @@ class decisionTableBase extends dbTable
     function insert( )
     {
         @assert( $this->_name <> '' ); // Must check, otherwise inserts nulls
+        
+        // Ignore incorrect permissions
+        if ($this->_name == NULL) {
+            return NULL;
+        }
+        
         if ( !$this->checkDuplicate() ) {
             $this->_id = parent::insert( $this->_dbData );
             return $this->_id;
