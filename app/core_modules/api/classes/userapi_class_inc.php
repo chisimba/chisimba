@@ -162,6 +162,7 @@ class userapi extends object
             
            
             $userStruct = new XML_RPC_Value(array(
+                new XML_RPC_Value($res['username'], "string"),
                 new XML_RPC_Value($res['userid'], "string"),
                 new XML_RPC_Value($res['title'], "string"),
                 new XML_RPC_Value($res['firstname'], "string"),    			
