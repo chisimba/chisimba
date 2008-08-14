@@ -110,6 +110,8 @@ class fileembed extends object
             case 'mpg':
             case 'mpeg':
                 return $this->showMPG($file, $width, $height);
+            case 'mp4':
+                return $this->showMP4($file, $width, $height);
             case 'flv':
                 return $this->showFLV($file, $width, $height);
             case 'ogg':
@@ -365,6 +367,23 @@ TYPE="application/x-oleobject">
 <param name="FileName" value="'.$file.'" />
 <embed TYPE="application/x-mplayer2" src="'.$file.'" name="MediaPlayer"
 width="'.$width.'" height="'.$height.'"></embed></object>';
+    }
+    
+    /**
+    * Method to show a MP4 Movie
+    * @param string $file   Path to the File
+    * @param string $width  Width of Object
+    * @param string $height Height of Object
+    */
+    function showMP4($file, $width='100%', $height='400')
+    {
+        return '<object CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" 
+CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" WIDTH="'.$width.'" HEIGHT="'.$height.'" >
+<PARAM NAME="src" VALUE="'.$file.'" >
+<PARAM NAME="autoplay" VALUE="true" >
+<embed src="'.$file.'" TYPE="image/x-macpaint" 
+PLUGINSPAGE="http://www.apple.com/quicktime/download" WIDTH="'.$width.'" HEIGHT="'.$height.'" AUTOPLAY="false"></embed>
+</object>';
     }
 
 
