@@ -71,7 +71,7 @@ class userapi extends object
 	{
 		try{
 
-			
+			$this->objUser = $this->getObject('user', 'security');
 		}
 		catch (customException $e)
 		{
@@ -140,6 +140,45 @@ class userapi extends object
 	    
         $val = new XML_RPC_Value($uid, 'string');
 		return new XML_RPC_Response($val);
+	}
+	
+	/**
+	* Method to get the user details
+	* @params array $params
+	* @access public
+	* @return array
+	*/
+	public function getUserDetails($params)
+	{
+		try{
+			
+            $param = $params->getParam(0);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $username = $param->scalarval();
+            
+            $res = $this->objUser->lookupData($username);
+            
+           
+            $userStruct = new XML_RPC_Value(array(
+                new XML_RPC_Value($res['userid'], "string"),
+                new XML_RPC_Value($res['title'], "string"),
+                new XML_RPC_Value($res['firstname'], "string"),    			
+                new XML_RPC_Value($res['surname'], "string"),
+                new XML_RPC_Value($res['pass'], "string"),
+                new XML_RPC_Value($res['emailaddress'], "string"),
+                new XML_RPC_Value($res['isactive'], "string"),
+                new XML_RPC_Value($res['accesslevel'], "string")), "array");
+              
+            return new XML_RPC_Response($userStruct);
+		}
+		catch (customException $e)
+		{
+			customException::cleanUp();
+			exit;
+		}}
+	
 	}
 
 }

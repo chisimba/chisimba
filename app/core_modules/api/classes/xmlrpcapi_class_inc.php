@@ -793,6 +793,11 @@ class xmlrpcapi extends object
                 		   						   					),
 													'docstring' => 'returns the users id from a username'),
 													
+							'user.getUserDetails' => array('function' => array($this->objUser, 'getUserDetails'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string'),
+                		   						   					),
+													'docstring' => 'returns the user details for a given username'),
 													
 							//Context API
 							'user.isContextPlugin' => array('function' => array($this->objContext, 'isContextPlugin'),
