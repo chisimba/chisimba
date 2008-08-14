@@ -169,7 +169,8 @@ class userapi extends object
                 new XML_RPC_Value($res['pass'], "string"),
                 new XML_RPC_Value($res['emailaddress'], "string"),
                 new XML_RPC_Value($res['isactive'], "string"),
-                new XML_RPC_Value($res['accesslevel'], "string")), "array");
+                new XML_RPC_Value($res['accesslevel'], "string")
+                ), "array");
               
             return new XML_RPC_Response($userStruct);
 		}
@@ -177,7 +178,7 @@ class userapi extends object
 		{
 			customException::cleanUp();
 			exit;
-		}}
+		}
 	
 	}
 
