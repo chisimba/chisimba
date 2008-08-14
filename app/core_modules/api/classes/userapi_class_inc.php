@@ -167,9 +167,9 @@ class userapi extends object
                 new XML_RPC_Value($res['firstname'], "string"),    			
                 new XML_RPC_Value($res['surname'], "string"),
                 new XML_RPC_Value($res['pass'], "string"),
-                new XML_RPC_Value($res['emailaddress'], "string"),
-                new XML_RPC_Value($res['isactive'], "string"),
-                new XML_RPC_Value($res['accesslevel'], "string")
+                new XML_RPC_Value($res['emailaddress'], "string")
+               // new XML_RPC_Value($res['isactive'], "string"),
+                //new XML_RPC_Value($res['accesslevel'], "string")
                 ), "array");
               
             return new XML_RPC_Response($userStruct);
