@@ -686,6 +686,11 @@ class xmlrpcapi extends object
                 		   						   					array('array', 'string'),
                 		   						   					),
                 		   						   'docstring' => 'Insert a new folder into the database'),
+                		  'internalmail.sendMail' => array('function' => array($this->objInternalMail, 'sendMail'),
+                		   						   'signature' => array(
+                		   						   					array('array', 'string', 'string', 'string', 'string', 'string'),
+                		   						   					),
+                		   						   'docstring' => 'Insert a new mail into the database'),
 	   					  //Forum API Start
    						  'forum.getAll' => array('function' => array($this->objForum, 'forumGetAll'),
                 		   						   'signature' => array(

@@ -79,6 +79,7 @@ class internalmailapi extends object
 			{
 			    $this->objDbRouting = $this->getObject('dbrouting', 'internalmail');
 			    $this->objDbFolders = $this->getObject('dbfolders', 'internalmail');
+				$this->objDbEmail = $this->getObject('dbemail', 'internalmail');
 			}
 			$this->objUser = $this->getObject('user', 'security');
         	
@@ -123,7 +124,7 @@ class internalmailapi extends object
 				//emai_id
 				new XML_RPC_Value($res['email_id'], "string"),
 				//fullname
-				new XML_RPC_Value($res['fullName'], "string"),
+				new XML_RPC_Value($res['sender_id'], "string"),
 				//recipient_list
 				new XML_RPC_Value($this->_getUsernamesList($res['sender_id']), "string"),				
 				//subject
@@ -142,6 +143,7 @@ class internalmailapi extends object
 				new XML_RPC_Value((string)$res['read_mail'], "string"),
 				//date read
 				new XML_RPC_Value($res['date_read'], "string")
+				
 				),
 				
 			    "array");
@@ -265,7 +267,51 @@ class internalmailapi extends object
 	*/
 	public function sendMail($params)
 	{
-	
+		try{
+            
+			$param = $params->getParam(0);
+			if (!XML_RPC_Value::isValue($param)) {
+				log_debug($param);
+			}
+			$emailId = $param->scalarval();
+			
+			$param = $params->getParam(1);
+			if (!XML_RPC_Value::isValue($param)) {
+				log_debug($param);
+			}
+			$senderId = $param->scalarval();
+			$userId = $this->objUser->getUserId($senderId);
+			
+			$param = $params->getParam(2);
+			if (!XML_RPC_Value::isValue($param)) {
+				log_debug($param);
+			}
+			$recipientList = $param->scalarval();
+			
+			$param = $params->getParam(3);
+			if (!XML_RPC_Value::isValue($param)) {
+				log_debug($param);
+			}
+			$subject = $param->scalarval();
+			
+			$param = $params->getParam(4);
+			if (!XML_RPC_Value::isValue($param)) {
+				log_debug($param);
+			}
+			$message = $param->scalarval();
+			
+			
+			$attachement = "";
+			
+			$this->objDbEmail->sendMail($recipientList, $subject, $message, $attachment, $userId, $emailId);
+			$emailStruct = new XML_RPC_Value(array(
+					new XML_RPC_Value($emailId, "string")), "array");
+			
+			return new XML_RPC_Response($emailStruct);
+        } catch(customException $e) {
+            echo customException::cleanUp();
+            die($e);
+        }
 	
 	
 	
