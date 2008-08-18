@@ -233,3 +233,9 @@ div.quotaup {
     background: red;
     height: 16px;
 }
+
+
+/* Wrap Story Image */
+.storyimagewrapper {
+    float: left;
+}
