@@ -228,7 +228,9 @@ class modulesadmin extends dbTableManager
                 if (isset($registerdata['TABLE'])) {
                     foreach ($registerdata['TABLE'] as $table) {
                         if (!$this->objModules->valueExists('tablename',$table,'tbl_modules_owned_tables')) {
-                            if (!$this->makeTable($table)) {
+                            if (!$this->makeTable($table) || $this->makeTable($table) == FALSE) {
+                            	echo "table creation failed miserably";
+                            	die();
                                 $text=$this->objLanguage->languageText('mod_modulecatalogue_needinfo','modulecatalogue');
                                 $text=str_replace('{MODULE}',$table,$text);
                                 $this->output.='<b>'.$text.'</b><br />';
@@ -705,6 +707,9 @@ class modulesadmin extends dbTableManager
                 }
                 if ($update) {
                     $this->objModules->update('module_id',$moduleId,$sql_arr,'tbl_modules');
+                } elseif ($this->_lastError == 1004) {
+                	// We have an error condition...
+                	return FALSE;
                 } else {
                 	$status = $this->objModules->insert($sql_arr,'tbl_modules');
                 	if (!$status) {
@@ -873,6 +878,7 @@ class modulesadmin extends dbTableManager
             if (!isset($tablename) || !isset($fields) || !isset($options)) {
                 return FALSE;
             }
+            
             $this->createTable($tablename,$fields,$options);
             if (isset($indexes)) {
                 $this->createTableIndex($tablename,$name,$indexes);
