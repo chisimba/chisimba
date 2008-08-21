@@ -582,7 +582,8 @@ class PEARCheckAction extends StepAction
         'MDB2'             => Array('version'=>'2.0.2','available'=>false,'message' => ''),
         'MDB2_Schema'   => Array('version'=> '0.4.3','available'=>false,'message'=>''),
         'Config'         => Array('version'=>'1.0.0','available'=>false,'message' => ''),
-        'Log'         => Array('version'=>'1.0.0','available'=>false,'message' => '')
+        'Log'         => Array('version'=>'1.0.0','available'=>false,'message' => ''),
+        'XML_Util'         => Array('version'=>'1.1.4','available'=>false,'message' => '')
         );
 
 
@@ -681,6 +682,21 @@ class PEARCheckAction extends StepAction
             } else {
 
                 $this->required_packages['Log']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
+
+            }
+            
+            // Check for XML_Util
+            @include_once 'XML/Util';
+
+            if (!class_exists('XML_Util')) {
+
+                $this->errors[] = '<span class="errors">Could not find PEAR::XML_Util </span>';
+
+                $this->required_packages['XML_Util']['message'] =  '<img src="./extra/failed.png" border="0" alt="Failed" title="Failed"  />';
+
+            } else {
+
+                $this->required_packages['XML_Util']['message'] =  '<img src="./extra/ok.png" border="0" alt="OK" title="OK"  />';
 
             }
             
