@@ -319,22 +319,22 @@ class dbTableManager extends object
         	$this->_db->setOption('default_table_type', 'INNODB');
             // do the table create.
             // we call on the actual MDB object, NOT the MDB::Schema object to do this.
-            try {
+            //try {
             	$test = $this->_db->mgCreateTable($tableName, $fields, $options);
-            	if($test === true)
-            	{
+            	//if($test === true)
+            	//{
             		// create the "primary" index
             		$this->createPK($tableName);
             		// return a TRUE, simply because MDB::CreateTable returns void (wtf?)
             		return TRUE;
-            	}
-            	else {
-            		echo $test; die();
-            	}
-            }
-            catch(customException $e) {
-            	customException::cleanUp();
-            }
+            	//}
+            	//else {
+            	//	echo $test; die();
+            	//}
+            //}
+            //catch(customException $e) {
+            //	customException::cleanUp();
+            //}
         }
         else {
             $this->_db->mgCreateTable($tableName, $fields, $options);
