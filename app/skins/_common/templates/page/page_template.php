@@ -76,9 +76,11 @@ if (!isset($pageTitle)) {
 $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ');
 ?>
     <head>
+    
         <title>
 <?php
     echo $pageTitle;
+    
 ?>
         </title>
 <?php
@@ -101,9 +103,13 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 <?php
     if (isSet($bodyParams)) {
         echo '<body ' . $bodyParams . '>';
+        echo ' <!--This site is powered by Chisimba-->';
     } else {
         echo '<body>';
+        echo ' <!--This site is powered by Chisimba-->';
     }
+    // echo Chisimba
+    
     if (!isset($pageSuppressContainer)) {
         echo '<div id="container">';
     }
