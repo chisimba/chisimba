@@ -66,6 +66,11 @@ class block_register extends object
     		$this->objLanguage =  $this->getObject('language', 'language');
 			$this->objUser = $this->getObject('user', 'security');
 			$this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+			$this->objConf = $this->getObject('altconfig', 'config');
+			if($this->objConf->getallowSelfRegister() == 'FALSE')
+			{
+				$this->blockType="invisible";
+			}
 			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
 				$this->blockType="invisible";
 			} else { 
