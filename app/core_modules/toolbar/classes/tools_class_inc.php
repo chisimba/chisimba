@@ -533,7 +533,13 @@ class tools extends object
 
         if($module == '_default' || $module == 'postlogin' || $module == ''){
 
-            $nav = $welcome.' '.$this->objUser->fullname();
+            //$nav = $welcome.' ';
+            
+            if ($this->objUser->isLoggedIn()) {
+                $nav = $welcome.' '.$this->objUser->fullname();
+            } else {
+                $nav = '';
+            }
 
         }else{
 
