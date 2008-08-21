@@ -405,7 +405,7 @@ class CreateConfigsAction extends FiveStepAction
 
 			$this->_addConfigVar('LDAP_USED', 'FALSE');
 
-			$this->_addConfigVar('KEWL_ERROR_REPORTING', 'production'); //$_SESSION['debug_enable']);
+			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['debug_enable']);
 
 			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
 
