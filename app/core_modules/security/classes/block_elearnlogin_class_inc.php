@@ -73,6 +73,10 @@ class block_elearnlogin extends object
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
             $this->objUser = $this->getObject('user', 'security');
+            if($this->objUser->isLoggedIn())
+            {
+            	$this->blockType="invisible";
+            }
             $this->title = $this->objLanguage->languageText("word_login");
         } catch (customException $e) {
             customException::cleanUp();
