@@ -446,8 +446,13 @@ class dateandtime extends object
             $rep=array('kng' => $this->objConfig->getsiteName());
             $subject = $this->objLanguage->code2Txt('mod_datetime_contentexpired', $rep);
             $mailBody = $title . "\n\n\n". $body;
-            $objMail =  $this->getObject('kngemail', 'utilities');
-            $objMail->sendMail('1', $toId, $subject, $mailBody);
+            // deprecated
+            /*$objMail =  $this->getObject('kngemail', 'utilities');
+            $objMail->sendMail('1', $toId, $subject, $mailBody);*/
+            
+            // send the mail using the mail module.
+            $this->mailUser('1', $toId, $subject, $mailBody);       
+            
             //Add the current date to the expNotifDate field
             $save=array('notificationDate' => date('Y-m-d H:m:s'));
             $objDb->update("id", $itemId, $save);
@@ -457,6 +462,24 @@ class dateandtime extends object
         }
     }
 
+    public function mailUser($to, $toid, $subject, $mailbody)
+    {
+    	// $name, $subject, $email, $body, $html = TRUE, $attachment = NULL, $attachment_descrip=NULL
+    	$objMailer = $this->getObject('email', 'mail');
+		$objMailer->setValue('to', array($to));
+		$objMailer->setValue('from', 'noreply@uwc.ac.za');
+		$objMailer->setValue('fromName', $this->objLanguage->languageText("'mod_datetime_contentexpired", "utilities"));
+		$objMailer->setValue('subject', $toid);
+		$objMailer->setValue('body', $mailbody);
+		if ($objMailer->send()) {
+		  		return TRUE;
+		} else {
+		  		return FALSE;
+		}
+
+    }
+    
+    
    /**
     * Method to tag expired content
     *
