@@ -155,6 +155,15 @@ if(file_exists($ins_path) || is_writable($ins_path))
 {
 	$err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
 }
+
+// Check for default admin password and issue warning to change it!
+$objSec = $this->getObject('user', 'security');
+$details = $objSec->lookupData('admin');
+if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8')
+{
+	$err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
+}
+
 $content = $searchForm->show().$err.$tString.$objTable->show().$str.$patchAll;
 echo $content;
 
