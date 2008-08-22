@@ -158,12 +158,9 @@ class packagesapi extends object
 			$depe[] = $deps;
 		}
 		$depe = array_filter($depe);
-		//log_debug($depe);
-		
 		$filepath = $this->objConfig->getModulePath().$mod->scalarval().'.zip';
 		if(!file_exists($path))
 		{
-			log_debug("grabbing a core module -> ".$mod->scalarval());
 			// try the core modules....
 			$path = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'/';
 			$filepath = $this->objConfig->getsiteRootPath().'core_modules/'.$mod->scalarval().'.zip';
@@ -175,7 +172,18 @@ class packagesapi extends object
 			$filetosend = base64_encode($filetosend);
 			$val = new XML_RPC_Value($filetosend, 'string');
 			//unlink($filepath);
-			log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
+			if($this->objModules->checkIfRegistered('remotepopularity'))
+			{
+				$objDbPop = $this->getObject('dbpopularity', 'remotepopularity');
+				$recarr = array();
+				$recarr['ip'] = $_SERVER['REMOTE_ADDR'];
+				$recarr['module_name'] = $mod->scalarval();
+				$objDbPop->addRecord($recarr);
+			}
+			else {
+				log_debug("grabbing a core module -> ".$mod->scalarval());
+				log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
+			}
 			return new XML_RPC_Response($val);
 			// Ooops, couldn't open the file so return an error message.
 			return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -183,7 +191,6 @@ class packagesapi extends object
 		//zip up the module(s)
 		// finally zip up the mods needed and send to client...
 		$filetosend = $this->zipDependencies($depe, $mod->scalarval());
-		
 		/*$objZip = $this->getObject('wzip', 'utilities');
 		//$zipfile = $objZip->packFilesZip($filepath, $path, TRUE, FALSE);
 		$zipfile = $objZip->addArchive($path, $filepath, $this->objConfig->getModulePath());
@@ -192,7 +199,17 @@ class packagesapi extends object
 		//log_debug($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		//unlink($filepath);
-		log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
+		if($this->objModules->checkIfRegistered('remotepopularity'))
+		{
+			$objDbPop = $this->getObject('dbpopularity', 'remotepopularity');
+			$recarr = array();
+			$recarr['ip'] = $_SERVER['REMOTE_ADDR'];
+			$recarr['module_name'] = $mod->scalarval();
+			$objDbPop->addRecord($recarr);
+		}
+		else {
+			log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
+		}
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
@@ -230,7 +247,17 @@ class packagesapi extends object
 		$filetosend = base64_encode($filetosend);
 		$val = new XML_RPC_Value($filetosend, 'string');
 		unlink($filepath);
-		log_debug("Sent ".$mod->scalarval()." to client");
+		if($this->objModules->checkIfRegistered('remotepopularity'))
+		{
+			$objDbPop = $this->getObject('dbpopularity', 'remotepopularity');
+			$recarr = array();
+			$recarr['ip'] = $_SERVER['REMOTE_ADDR'];
+			$recarr['module_name'] = $mod->scalarval();
+			$objDbPop->addRecord($recarr);
+		}
+		else {
+			log_debug("Sent ".$mod->scalarval()." to client at ".$_SERVER['REMOTE_ADDR']);
+		}
 		return new XML_RPC_Response($val);
 		// Ooops, couldn't open the file so return an error message.
 		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
