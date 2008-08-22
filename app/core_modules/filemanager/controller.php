@@ -234,8 +234,11 @@ class filemanager extends controller
         // retrieve the mode (edit/add/translate) from the querystring
         $mode = $this->getParam("mode", null);
         
-        if ($mode == 'selectfilewindow' || $mode == 'selectimagewindow' || $mode == 'fckimage' || $mode == 'fckflash' || $mode == 'fcklink') {
+        // hide banner and footer for certain modes
+        $suppressModes = array ('selectfilewindow', 'selectimagewindow', 'fckimage', 'fckflash', 'fcklink');
+        if (in_array($mode, $suppressModes)) {
             $this->setVar('pageSuppressBanner', TRUE);
+            $this->setVar('pageSuppressToolbar', TRUE);
             $this->setVar('suppressFooter', TRUE);
             $this->setVar('mode', $mode);
         } else {
@@ -314,6 +317,9 @@ class filemanager extends controller
     */
     private function __home()
     {
+        if ($this->getParam('value') != '' && $this->getParam('value') != 'undefined') {
+            return $this->nextAction('fileinfo', array('id'=>$this->getParam('value')));
+        }
         // Get Folder Details
         $folderpath = 'users/'.$this->objUser->userId();
 
@@ -676,36 +682,7 @@ class filemanager extends controller
                         break;
                     // Overwrite File
                     case 'overwrite':
-                        // Create Path to Temp File
-                        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$item;
-
-                        // Get File Record
-                        $fileInfo = $this->objFiles->getFileInfo($item);
-
-                        // If Temp File exists and Record Exists
-                        // Perform Overwrite
-                        if ($fileInfo != FALSE && file_exists($tempFilePath)) {
-
-                            // Generate Path to Existing File
-                            $filePath = $this->objConfig->getcontentBasePath().$fileInfo['path'];
-
-                            // Delete Existing File if it exists
-                            if (file_exists($filePath)) {
-                                unlink($filePath);
-                            }
-
-                            // Move Overwrite File
-                            rename($tempFilePath, $filePath);
-
-                            // Todo: Reindex Metadata
-
-                            $resultInfo[$item] = 'overwrite';
-                        } else {
-                            $this->objFiles->deleteTemporaryFile($item);
-
-                            $resultInfo[$item] = 'cannotoverwrite';
-                        }
-                        break;
+                        $resultInfo[$item] = $this->objFiles->overwriteFile($item);
                     default:
                         $resultInfo[$item] = 'unknownaction';
                         break;
@@ -1222,7 +1199,7 @@ class filemanager extends controller
      */
     private function __fckimage()
     {
-        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg'));
+        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg', 'loadwindow'=>'yes', 'url'=>$this->getParam('url')));
     }
     
     /**
@@ -1232,7 +1209,7 @@ class filemanager extends controller
      */
     private function __fckflash()
     {
-        return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf'));
+        return $this->nextAction(NULL, array('mode'=>'fckflash', 'restriction'=>'swf', 'loadwindow'=>'yes'));
     }
     
     
@@ -1243,7 +1220,7 @@ class filemanager extends controller
      */
     private function __fcklink()
     {
-        return $this->nextAction(NULL, array('mode'=>'fcklink'));
+        return $this->nextAction(NULL, array('mode'=>'fcklink', 'loadwindow'=>'yes'));
     }
     
     

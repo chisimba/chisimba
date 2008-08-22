@@ -188,7 +188,7 @@ function clearFileInputJS(name)
         $location = $this->uri(array('mode'=>'selectfilewindow', 'restriction'=>$ext, 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
-        $location .= '&amp;value=\'+jQuery(\'#hidden_'.$this->name.'\').value+\'&amp;';
+        $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
 
         $objPop->set('location', $location);
 

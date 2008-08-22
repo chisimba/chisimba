@@ -86,17 +86,30 @@ class thumbnails extends object
     */
     public function createThumbailFromFile($filepath, $fileId)
     {
+        // Do a check if a thumbnail exists. No need to overwrite
+        $thumb = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.jpg';
+        $thumb = $this->objCleanUrl->cleanUpUrl($thumb);
+        
+        // Dont do anything if thumb exists.
+        if (file_exists($thumb)) {
+            return TRUE;
+        }
+        
+        
         // Check if folder exists
         $this->checkThumbnailFolder();
-
+        
+        $filepath = $this->objCleanUrl->cleanUpUrl($filepath);
+        
         // Send Image to Resize Class
         $this->objImageResize->setImg($filepath);
-
+        
         // Resize to 100x100 Maintaining Aspect Ratio
         $this->objImageResize->resize(100, 100, TRUE);
-
+        
         //$this->objImageResize->show(); // Uncomment for testing purposes
 
+        
         // Determine filename for file
         // If thumbnail can be created, give it a unique file name
         // Else resort to [ext].jpg - prevents clutter, other files with same type can reference this one file
@@ -105,7 +118,7 @@ class thumbnails extends object
         } else {
             $img = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$this->objImageResize->filetype.'.jpg';
         }
-
+        
         // Save File
         return $this->objImageResize->store($img);
     }
@@ -122,16 +135,19 @@ class thumbnails extends object
     * @param  string $filename Filename of the file
     * @return string Path to the thumbnail or False
     */
-    public function getThumbnail($fileId, $filename=NULL)
+    public function getThumbnail($fileId, $filename=NULL, $filePath=NULL)
     {
+        // Create thumbnail. If it exists, it will not be recreated.
+        if ($filePath != NULL) {
+            $this->createThumbailFromFile($this->objConfig->getcontentBasePath().'/'.$filePath, $fileId);
+        }
+        
         // Check if thumbnail exist
         if (file_exists($this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg')) {
-
             $url = $this->objConfig->getcontentPath().'/filemanager_thumbnails/'.$fileId.'.jpg';
             $url = $this->objCleanUrl->cleanUpUrl($url);
-
             return $url;
-        }
+        } 
         
         if ($filename == NULL) {
             return FALSE;
@@ -145,7 +161,7 @@ class thumbnails extends object
             } else {
                 return FALSE;
             }
-    }
+        }
     }
 
 

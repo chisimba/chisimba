@@ -481,27 +481,6 @@ class dbfile extends dbTable
     }
 
     /**
-    * Method to update the details of a file
-    * @param  string  $fileId   Record Id of the File
-    * @param  int     $version  Version of the File
-    * @param  string  $path     Path to File
-    * @param  string  $category Category of the File
-    * @return boolean Result of Update
-    */
-    public function updateOverwriteDetails($fileId, $version, $path, $category)
-    {
-        return $this->update('id', $fileId, array(
-                'version' => $version,
-                'path' => $path,
-                'filefolder'=>dirname($path),
-                'category' => $category,
-                'modifierid' => $this->objUser->userId(),
-                'datemodified' => strftime('%Y-%m-%d %H:%M:%S', mktime())
-                )
-            );
-    }
-
-    /**
     * Method to get information about a file
     * This function not only gets information about a file,
     * but also looks for details in the metadata tables
@@ -697,62 +676,6 @@ class dbfile extends dbTable
 
     }
 
-    /**
-    * Method to get the versios of a file.
-    * @param  string $fileId Record Id of the File
-    * @return array  list of Versions for a file
-    */
-    public function getFileHistorySQL($fileId)
-    {
-        $file = $this->getRow('id', $fileId);
-
-        if ($file == FALSE) {
-            return FALSE;
-        }
-        return $this->getAll(' WHERE filename=\''.$file['filename'].'\' AND userid=\''.$file['userid'].'\' AND category != \'temp\' ORDER BY version DESC');
-    }
-
-    /**
-    * Method to get information about the version history of a file
-    * and return the result in table display format
-    * @param  string $fileId Record Id of the File
-    * @return string Information about the file in a table format
-    */
-    public function getFileHistory($fileId)
-    {
-        $historyList = $this->getFileHistorySQL($fileId);
-
-        if ($historyList == FALSE) {
-            return FALSE;
-        }
-
-        $objTable = $this->newObject('htmltable', 'htmlelements');
-
-        $objTable->startHeaderRow();
-        $objTable->addHeaderCell($this->objLanguage->languageText('word_version', 'filemanager', 'Version'), '25%', NULL, 'center');
-        $objTable->addHeaderCell($this->objLanguage->languageText('word_size', 'filemanager', 'Size'), '25%', NULL, 'center');
-        $objTable->addHeaderCell($this->objLanguage->languageText('phrase_dateuploaded', 'filemanager', 'Date Uploaded'), '25%', NULL, 'center');
-        $objTable->addHeaderCell($this->objLanguage->languageText('phrase_timeuploaded', 'filemanager', 'Time Uploaded'), '25%', NULL, 'center');
-        $objTable->endHeaderRow();
-
-        $objFileSize = new formatfilesize();
-
-        foreach ($historyList as $file)
-        {
-            $objTable->startRow();
-
-            $link = new link($this->uri(array('action'=>'fileinfo', 'id'=>$file['id'], 'filename'=>$file['filename'])));
-            $link->link = $this->objLanguage->languageText('word_version', 'filemanager', 'Version').' '.$file['version'];
-
-            $objTable->addCell($link->show(), '25%', NULL, 'center');
-            $objTable->addCell($objFileSize->formatsize($file['filesize']), '25%', NULL, 'center');
-            $objTable->addCell($file['datecreated'], '25%', NULL, 'center');
-            $objTable->addCell($file['timecreated'], '25%', NULL, 'center');
-            $objTable->endRow();
-        }
-
-        return $objTable->show();
-    }
 
     /**
      * Method to delete a file
@@ -802,19 +725,7 @@ class dbfile extends dbTable
             unlink($fullFilePath);
         }
         
-        $availablePreviews = array('jpg', 'htm', 'pdf', 'swf', 'mp3', 'flv', 'txt');
-        
-        foreach ($availablePreviews as $format)
-        {
-            // Get thumbnail path
-            $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.'.$format;
-            $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
-    
-            // Delete thumbnail if it exists
-            if (file_exists($thumbnailPath)) {
-                unlink($thumbnailPath);
-            }
-        }
+        $this->deletePreviewFiles($fileId);
         
         $objFileTags = $this->getObject('dbfiletags');
         
@@ -995,6 +906,73 @@ class dbfile extends dbTable
     {
         $sql = " WHERE path LIKE '{$type}/{$id}/%' ";
         return $this->getAll($sql);
+    }
+    
+    
+    public function overwriteFile($id)
+    {
+        // Create Path to Temp File
+        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$id;
+
+        // Get File Record
+        $fileInfo = $this->getFileInfo($id);
+
+        // If Temp File exists and Record Exists
+        // Perform Overwrite
+        if ($fileInfo != FALSE && file_exists($tempFilePath)) {
+
+            // Generate Path to Existing File
+            $filePath = $this->objConfig->getcontentBasePath().$fileInfo['path'];
+
+            // Delete Existing File if it exists
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            // Move Overwrite File
+            rename($tempFilePath, $filePath);
+            
+            // Todo: Reindex Metadata
+            $this->deletePreviewFiles($id);
+            
+            return 'overwrite';
+        } else {
+            $this->deleteTemporaryFile($id);
+            
+            return 'cannotoverwrite';
+        }
+        break;
+    }
+    
+    /**
+     * Method to delete preview files like thumbnails, etc.
+     * @param string $fileId File Id
+     * @return void
+     */
+    private function deletePreviewFiles($fileId)
+    {
+        // Previews are in the following formats
+        $availablePreviews = array('jpg', 'htm', 'pdf', 'swf', 'mp3', 'flv', 'txt');
+        
+        // Check for each format and delete
+        foreach ($availablePreviews as $format)
+        {
+            // Get thumbnail path
+            $thumbnailPath = $this->objConfig->getcontentBasePath().'/filemanager_thumbnails/'.$fileId.'.'.$format;
+            $thumbnailPath = $this->objCleanUrl->cleanUpUrl($thumbnailPath);
+            
+            // Delete thumbnail if it exists
+            if (file_exists($thumbnailPath)) {
+                unlink($thumbnailPath);
+            }
+        }
+        
+        // Also delete temp file that may not have been overwritten
+        $tempFilePath = $this->objConfig->getcontentBasePath().'/filemanager_tempfiles/'.$fileId;
+        
+        if (file_exists($tempFilePath)) {
+            unlink($tempFilePath);
+        }
     }
 
 }

@@ -136,15 +136,18 @@ function clearFileInputJS(name)
         if ($this->defaultFile == '') {
             $defaultId = '';
             $defaultName = '';
+            $defaultPath = NULL;
         } else {
             $file = $this->objFile->getFile($this->defaultFile);
 
             if ($file == FALSE) {
                 $defaultId = '';
                 $defaultName = '';
+                $defaultPath = NULL;
             } else {
                 $defaultId = $file['id'];
                 $defaultName = $file['filename'];
+                $defaultPath = $file['path'];
             }
         }
 
@@ -202,7 +205,7 @@ function clearFileInputJS(name)
             $this->objIcon->extra = ' id="imagepreview_'.$this->name.'"';
             $previewImg = $this->objIcon->show();
         } else {
-            $img = $this->objThumbnails->getThumbnail($defaultId, $file['filename']);
+            $img = $this->objThumbnails->getThumbnail($defaultId, $file['filename'], $defaultPath);
 
             $previewImg = '<img src="'.$img.'" id="imagepreview_'.$this->name.'" />';
         }
