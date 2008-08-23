@@ -214,8 +214,53 @@ class parse4chiki extends object
     {
         return $this->getModuleLink("mcqtests");
     }
+    
+    /**
+    *
+    * Method to return insertlink statement
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __insertlink()
+    {
+        return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_insertlink", "filters"));
+    }
+    
+    /**
+    *
+    * Method to return updaterequired statement
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __updaterequired()
+    {
+        return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_updaterequired", "filters"));
+    }
 
-
+    /**
+    *
+    * Method to return linkbroken statement
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __linkbroken()
+    {
+        return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_linkbroken", "filters"));
+    }
+    /**
+    *
+    * Method to return needsedit statement
+    * @access private
+    * @return string The parsed chiki for this method
+    *
+    */
+    private function __needsedit()
+    {
+        return $this->__makeChikiText($this->objLanguage->languageText("mod_filters_chiki_needsedit", "filters"));
+    }
 
     /**
     *
@@ -288,8 +333,13 @@ class parse4chiki extends object
     private function __chikiError()
     {
         return " <span class='error'>"
-          . $this->objLanguage->languageText("phrase_unrecognizedchiki", "filters")
-          .": " . $this->chikiStr . "</span> ";
+          . $this->objLanguage->languageText("mod_filters_unrecognizedchiki", "filters")
+          .": <b>" . $this->chikiStr . "</b></span> ";
+    }
+    
+    private function __makeChikiText($txt)
+    {
+        return "<span class='error'>&lt;&lt;" . $txt . "</span>";
     }
 }
 ?>
