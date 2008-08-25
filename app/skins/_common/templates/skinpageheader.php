@@ -54,7 +54,7 @@ function fix_code($buffer)
     return (preg_replace("!\s*/>!", ">", $buffer));
 }
 
-if(stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
+if(isset($_SERVER["HTTP_ACCEPT"]) && stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"))
 {
     if(preg_match("/application\/xhtml\+xml;q=([01]|0\.\d{1,3}|1\.0)/i",$_SERVER["HTTP_ACCEPT"],$matches))
     {
