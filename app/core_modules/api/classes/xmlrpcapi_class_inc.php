@@ -217,6 +217,8 @@ class xmlrpcapi extends object
 			$this->objContext = $this->getObject('contextapi');
 			// Annote API
 			$this->objAnnote = $this->getObject('annoteapi');
+			// Remote Popularity API
+			$this->objPop = $this->getObject('popularityapi');
 		}
 		catch (customException $e)
 		{
@@ -341,6 +343,14 @@ class xmlrpcapi extends object
                          									array('string', 'string'),
                      									),
                 								  'docstring' => 'Grab a module'),
+                								  
+                		  'dlGraphFull' => array('function' => array($this->objPop, 'fullGraph'),
+   											      'signature' =>
+                     									array(
+                         									array('string'),
+                     									),
+                								  'docstring' => 'returns a pie chart of all module downloads'),
+                								  
                 		  'getMultiModuleZip' => array('function' => array($this->objPackages, 'getMultiModuleZip'),
    											      'signature' =>
                      									array(
