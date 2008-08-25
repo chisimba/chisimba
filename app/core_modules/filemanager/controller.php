@@ -683,6 +683,7 @@ class filemanager extends controller
                     // Overwrite File
                     case 'overwrite':
                         $resultInfo[$item] = $this->objFiles->overwriteFile($item);
+                        break;
                     default:
                         $resultInfo[$item] = 'unknownaction';
                         break;
