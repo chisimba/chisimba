@@ -91,7 +91,7 @@ class parse4modpopularity extends object
            	$data = $objPopClient->fullGraph();
            	// OK now bang up the flash graph
            	$objFlashGraph = $this->getObject('flashgraph', 'utilities');
- 			$objFlashGraph->dataSource = $this->uri(array('action' => 'getremotedata'), 'remotepopularity');
+ 			$objFlashGraph->dataSource = $this->uri(array('action' => 'getremotedatafull'), 'remotepopularity');
  			$graph = $objFlashGraph->show();
            	
            	$replacement = $graph;
