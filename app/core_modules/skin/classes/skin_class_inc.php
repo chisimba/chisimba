@@ -377,6 +377,7 @@ class skin extends object
         }
 
         if (is_array($headerParams)) {
+            $headerParams = array_unique($headerParams);
             foreach ($headerParams as $headerParam) {
                 $str .= $headerParam."\n\n";
             }
