@@ -336,9 +336,8 @@ class csslayout extends object implements ifhtml
     */
     public function putThreeColumnFixInHeader()
     {
-        $headerParams=$this->getJavascriptFile('x.js','htmlelements');
-        $headerParams .= $this->fixThreeColumnLayoutJavascript();
-        $this->appendArrayVar('headerParams',$headerParams);
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+        $this->appendArrayVar('headerParams', $this->fixThreeColumnLayoutJavascript());
         $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
     }
 
@@ -351,9 +350,8 @@ class csslayout extends object implements ifhtml
     */
     public function putTwoColumnFixInHeader()
     {
-        $headerParams=$this->getJavascriptFile('x.js','htmlelements');
-        $headerParams .= $this->fixTwoColumnLayoutJavascript();
-        $this->appendArrayVar('headerParams',$headerParams);
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('x_minified.js','htmlelements'));
+        $this->appendArrayVar('headerParams', $this->fixTwoColumnLayoutJavascript());
         $this->appendArrayVar('bodyOnLoad',$this->bodyOnLoadScript());
     }
 

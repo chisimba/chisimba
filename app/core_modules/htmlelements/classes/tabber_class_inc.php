@@ -85,7 +85,7 @@ class tabber extends object
     */    
     public function init()
     {
-        $headerParams = $this->getJavascriptFile('x.js', 'htmlelements');
+        $headerParams = $this->getJavascriptFile('x_minified.js', 'htmlelements');
         $this->appendArrayVar('headerParams', $headerParams);
         $headerParams = $this->getJavascriptFile('tabber.js', 'htmlelements');
         $this->appendArrayVar('headerParams', $headerParams);
