@@ -95,11 +95,17 @@ class buildsoundplayer extends object
         
     }
     
+    /**
+     * Method to render the audio file
+     */
     function show()
     {
         return $this->showFlashVersion();
     }
     
+    /**
+     * Method to render the audio player in flash
+     */
     function showFlashVersion()
     {
         $str = '<object type="application/x-shockwave-flash" data="[-FLASHFILE-]" id="audioplayer1" height="24" width="290">
