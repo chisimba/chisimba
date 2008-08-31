@@ -101,7 +101,10 @@ class previewfolder extends filemanagerobject
         $objTable->addHeaderCell($this->objLanguage->languageText('word_size', 'system', 'Size'), 60);
         $objTable->addHeaderCell('&nbsp;', '30');
         
-        //var_dump($restriction);
+        // Set Restriction as empty if it is none
+        if (count($restriction) == 1 && $restriction[0] == '') {
+            $restriction = array();
+        }
         
         $objTable->endHeaderRow();
         
