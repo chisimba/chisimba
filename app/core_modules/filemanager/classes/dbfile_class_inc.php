@@ -178,7 +178,13 @@ class dbfile extends dbTable
     */
     public function getFilePath($fileId)
     {
-        $path = $this->objConfig->getcontentPath().$this->getPart('path', $fileId);
+        $path = $this->getPart('path', $fileId);
+
+        if ($path == FALSE) {
+            return FALSE;
+        }
+        
+        $path = $this->objConfig->getcontentPath().$path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
 
@@ -193,7 +199,13 @@ class dbfile extends dbTable
     */
     public function getFullFilePath($fileId)
     {
-        $path = $this->objConfig->getcontentBasePath().$this->getPart('path', $fileId);
+        $path = $this->getPart('path', $fileId);
+        
+        if ($path == FALSE) {
+            return FALSE;
+        }
+        
+        $path = $this->objConfig->getcontentBasePath().$path;
 
         $path = $this->objCleanUrl->cleanUpUrl($path);
 

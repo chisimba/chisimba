@@ -860,7 +860,7 @@ class filemanager extends controller
 
         $objPreviewFolder = $this->getObject('previewfolder');
         $objPreviewFolder->editPermission = $folderPermission;
-        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $symlinks));
+        $this->setVarByRef('table', $objPreviewFolder->previewContent($subfolders, $files, $symlinks, explode('____', $this->getParam('restriction'))));
 
         $breadcrumbs = $this->objFolders->generateBreadCrumbs($folder['folderpath']);
         $this->setVarByRef('breadcrumbs', $breadcrumbs);

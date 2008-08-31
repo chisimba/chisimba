@@ -55,6 +55,7 @@ class previewfolder extends filemanagerobject
     public function init()
     {
         $this->objFileIcons = $this->getObject('fileicons', 'files');
+        $this->objLanguage = $this->getObject('language', 'language');
         $this->loadClass('link', 'htmlelements');
         $this->loadClass('label', 'htmlelements');
         $this->loadClass('checkbox', 'htmlelements');
@@ -71,9 +72,9 @@ class previewfolder extends filemanagerobject
      * @return unknown Return description (if any) ...
      * @access public 
      */
-    function previewContent($subFolders, $files, $symlinks=array())
+    function previewContent($subFolders, $files, $symlinks=array(), $restriction=array())
     {
-        return $this->previewLongView($subFolders, $files, $symlinks);
+        return $this->previewLongView($subFolders, $files, $symlinks, $restriction);
     
     }
     
@@ -87,7 +88,7 @@ class previewfolder extends filemanagerobject
      * @return object Return description (if any) ...
      * @access public
      */
-    function previewLongView($subFolders, $files, $symlinks)
+    function previewLongView($subFolders, $files, $symlinks, $restriction)
     {
         $objTable = $this->newObject('htmltable', 'htmlelements');
         
@@ -96,15 +97,19 @@ class previewfolder extends filemanagerobject
             $objTable->addHeaderCell('&nbsp;', '20');
         }
         $objTable->addHeaderCell('&nbsp;', '20');
-        $objTable->addHeaderCell('Name');
-        $objTable->addHeaderCell('Size', 60);
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_name', 'system', 'Name'));
+        $objTable->addHeaderCell($this->objLanguage->languageText('word_size', 'system', 'Size'), 60);
         $objTable->addHeaderCell('&nbsp;', '30');
+        
+        //var_dump($restriction);
         
         $objTable->endHeaderRow();
         
+        $hidden = 0;
+        
         if (count($subFolders) == 0 && count($files) == 0 && count($symlinks) == 0) {
             $objTable->startRow();
-            $objTable->addCell('<em>No files or folders found</em>', NULL, NULL, NULL, 'noRecordsMessage', 'colspan="5"');
+            $objTable->addCell('<em>'.$this->objLanguage->languageText('mod_filemanager_nofilesorfolders', 'filemanager', 'No files or folders found').'</em>', NULL, NULL, NULL, 'noRecordsMessage', 'colspan="5"');
             $objTable->endRow();
         } else {
         
@@ -128,7 +133,7 @@ class previewfolder extends filemanagerobject
                     $folderLink = new link ($this->uri(array('action'=>'viewfolder', 'folder'=>$folder['id'])));
                     $folderLink->link = basename($folder['folderpath']);
                     $objTable->addCell($folderLink->show());
-                    $objTable->addCell('<em>Folder</em>');
+                    $objTable->addCell('<em>'.$this->objLanguage->languageText('word_folder', 'system', 'Folder').'</em>');
                     $objTable->endRow();
                 }
             }
@@ -138,11 +143,22 @@ class previewfolder extends filemanagerobject
             }
             
             if (count($files) > 0) {
-                
+                //var_dump($files);
                 $fileSize = new formatfilesize();
                 foreach ($files as $file)
                 {
-                    $objTable->startRow();
+                    if (count($restriction) > 0) {
+                        if (!in_array($file['datatype'], $restriction)) {
+                            $objTable->startRow('hidefile');
+                            $hidden++;
+                        } else {
+                            $objTable->startRow();
+                        }
+                    } else {
+                        $objTable->startRow();
+                    }
+                    
+                    //$objTable->startRow();
                     if ($this->editPermission) {
                         $checkbox = new checkbox('files[]');
                         
@@ -172,7 +188,55 @@ class previewfolder extends filemanagerobject
                 }
             }
         }
-        return $objTable->show();
+        
+        if ($hidden > 0 && count($restriction) > 0) {
+            $str = '
+<script type="text/javascript">
+
+var onOrOff = "off";
+
+function turnOnFiles(value)
+{
+    if (onOrOff == \'off\') {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'table-row\';
+        });
+        onOrOff = "on";
+    } else {
+        jQuery(\'tr.hidefile\').each(function (i) {
+            this.style.display = \'none\';
+        });
+        onOrOff = "off";
+    }
+}
+
+</script>
+            '.'<style type="text/css">tr.hidefile {display:none;}</style>';
+            
+            $str .= $this->objLanguage->languageText('mod_filemanager_browsingfor', 'filemanager', 'Browsing for').': ';
+            $comma = '';
+            
+            foreach ($restriction as $restrict)
+            {
+                $str .= $comma.$restrict;
+                $comma = ', ';
+            }
+            
+            $str .= ' &nbsp; - ';
+            
+            $this->loadClass('checkbox', 'htmlelements');
+            $this->loadClass('label', 'htmlelements');
+            $checkbox = new checkbox ('showall');
+            $checkbox->extra = ' onclick="turnOnFiles();"';
+            
+            $label = new label($this->objLanguage->languageText('mod_filemanager_showallfiles', 'filemanager', 'Show All Files'), $checkbox->cssId);
+            
+            $str .= $checkbox->show().$label->show();
+        } else {
+            $str = '';
+        }
+        
+        return $str.$objTable->show();
     }
     
     
