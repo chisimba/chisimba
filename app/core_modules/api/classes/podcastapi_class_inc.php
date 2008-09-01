@@ -59,6 +59,7 @@ class podcastapi extends object
 {
 	public $objMedia;
 	public $objFiles;
+	public $objFileIndexer;
 	public $objUser;
 	public $objConfig;
 	public $objLanguage;
@@ -78,6 +79,7 @@ class podcastapi extends object
 			$this->objLanguage = $this->getObject('language', 'language');
         	$this->objUser = $this->getObject('user', 'security');
         	$this->objFiles = $this->getObject('dbfile', 'filemanager');
+            $this->objFileIndexer = $this->getObject('indexfileprocessor', 'filemanager');
 		}
 		catch (customException $e)
 		{
@@ -86,7 +88,10 @@ class podcastapi extends object
 		}
 	}
 	
-	
+	/**
+     * Method to retrieve a Podcast
+     * @param object $params RPC Parameters
+     */
 	public function grabPodcast($params)
 	{
 		$param = $params->getParam(0);
@@ -192,6 +197,10 @@ class podcastapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     *
+     *
+     */
 	public function grabPodcastAsMp3($params)
 	{
 		$param = $params->getParam(0);
@@ -237,9 +246,17 @@ class podcastapi extends object
     	//	return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
     	//}
     	
+        log_debug($filename);
+        
+        $objOverwriteIncrement = $this->getObject('overwriteincrement', 'filemanager');
+        $filename = $objOverwriteIncrement->checkfile($filename, 'users/'.$userid);
+        
 		$localfile = $this->objConfig->getContentBasePath().'users/'.$userid."/".$filename;
 		file_put_contents($localfile, $file);
 		
+        log_debug($filename);
+        
+        /*
 		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
 		
 		$filesize = filesize($localfile);
@@ -255,21 +272,33 @@ class podcastapi extends object
 		$mimetype = $type; //mime_content_type($mp3);
 		$category = '';
 		$version = 1;
+        */
 		$fmname = basename($filename);
 		$fmpath = 'users/'.$userid.'/'.$fmname;
-		$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
+		
+        //$path = $this->objConfig->getContentBasePath().'users/'.$userid."/";
 		
 		// add the MP3 to the user's filemanager set
-		$fileId = $this->objFiles->addFile($fmname, $fmpath, $filesize, $mimetype, $category, $version, $userid, 'PodderLive! Podcast');
+		//$fileId = $this->objFiles->addFile($fmname, $fmpath, $filesize, $mimetype, $category, $version, $userid, 'PodderLive! Podcast');
+        $fileId = $this->objFileIndexer->processIndexedFile($fmpath, $userid);
 		
+        log_debug($fileId);
+        
+        $fileInfo = $this->objFiles->getFileInfo($fileId);
+        $title = $fileInfo['title'];
+        
+        
 		// now take the generated FileID and insert the podcast to the podcast module.
 		$pod = $this->getObject('dbpodcast', 'podcast');
-		$ret = $pod->addPodcast($fileId, $userid, $idtitle);
+		$ret = $pod->addPodcast($fileId, $userid, $title);
 
 		$val = new XML_RPC_Value("File saved to localfile", 'string');
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     *
+     */
 	public function grabAllByUser($params)
 	{
 		$pod = $this->getObject('dbpodcast', 'podcast');
@@ -292,6 +321,9 @@ class podcastapi extends object
 		return new XML_RPC_Response($val);
 	}
 	
+    /**
+     *
+     */
 	public function downloadPodcast($params)
 	{
 		$param = $params->getParam(0);
