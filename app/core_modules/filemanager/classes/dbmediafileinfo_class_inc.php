@@ -67,8 +67,15 @@ class dbmediafileinfo extends dbTable
     {
         // Add File Id to Array
         $infoArray['fileid'] = $fileId;
-        $infoArray['creatorid'] = $this->objUser->userId();
-        $infoArray['modifierid'] = $this->objUser->userId();
+        
+        if (!isset($infoArray['creatorid'])) {
+            $infoArray['creatorid'] = $this->objUser->userId();
+        }
+        
+        if (!isset($infoArray['modifierid'])) {
+            $infoArray['modifierid'] = $this->objUser->userId();
+        }
+        
         $infoArray['datecreated'] = strftime('%Y-%m-%d', mktime());
         $infoArray['timecreated'] = strftime('%H:%M:%S', mktime());
         

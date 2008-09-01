@@ -59,7 +59,6 @@ class indexfileprocessor extends object
         $this->objMediaFileInfo = $this->getObject('dbmediafileinfo');
         $this->objFileFolder = $this->getObject('filefolder');
         $this->objCleanUrl = $this->getObject('cleanurl');
-        $this->objUpload = $this->getObject('upload');
         $this->objThumbnails = $this->getObject('thumbnails');
         $this->objIndexFiles = $this->getObject('indexfiles');
         $this->objAnalyzeMediaFile = $this->getObject('analyzemediafile');
@@ -231,7 +230,7 @@ class indexfileprocessor extends object
     * @param  string $mimetype Mimetype of the File (Optional)
     * @return string File Id
     */
-    private function processIndexedFile($filePath, $userId, $mimetype='')
+     function processIndexedFile($filePath, $userId, $mimetype='')
     {
         // Clean Up the File Path
         $filePath = $this->objCleanUrl->cleanUpUrl($filePath);
@@ -240,6 +239,7 @@ class indexfileprocessor extends object
         // Clean up the Full Path to the File
         $savePath = $this->objCleanUrl->cleanUpUrl($savePath);
 
+        log_debug($savePath);
 
         // Take filename, and create cleaned up version (no punctuation, etc.)
         $cleanFilename = $this->objCleanUrl->cleanFilename($filePath);
@@ -278,7 +278,8 @@ class indexfileprocessor extends object
         if ($category == 'images' || $category == 'audio' || $category == 'video' || $category == 'flash') {
             // Get Media Info
             $fileInfo = $this->objAnalyzeMediaFile->analyzeFile($savePath);
-
+            $fileInfo[0]['creatorid'] = $userId;
+            $fileInfo[0]['modifierid'] = $userId;
             // Add Information to Databse
             $this->objMediaFileInfo->addMediaFileInfo($fileId, $fileInfo[0]);
 

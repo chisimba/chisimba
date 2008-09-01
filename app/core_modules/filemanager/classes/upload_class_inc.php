@@ -343,12 +343,6 @@ class upload extends filemanagerobject
                         // Check if Overwrite Increment is enabled
                         if ($this->enableOverwriteIncrement) {
                             
-                            // Explode file to get file name and extension
-                            $fileparts = pathinfo($filename);
-                            
-                            // Set Default Values
-                            $match = FALSE;
-                            $counter = 1;
                             
                             // Create Full Server Path to Uploaded File
                             $savepath = $this->objConfig->getcontentBasePath().'/'.$this->uploadFolder.'/';
@@ -359,22 +353,12 @@ class upload extends filemanagerobject
                             $savepath = $this->objCleanUrl->cleanUpUrl($savepath);
                             $path = $this->objCleanUrl->cleanUpUrl($path);
                             
-                            // Do a loop until opening is file
-                            while ($match == FALSE)
-                            {
-                                // Generate new filename
-                                $filename = $fileparts['filename'].'_'.$counter.'.'.$fileparts['extension'];
-                                
-                                // If opening exists, update vars, and exit loop
-                                if (!file_exists($savepath.$filename)) {
-                                    $match = TRUE;
-                                    
-                                    $savepath .= $filename;
-                                    $path .= $filename;
-                                } else {
-                                    $counter++;
-                                }
-                            }
+                            $objOverwriteIncrement = $this->getObject('overwriteincrement');
+                            $filename = $objOverwriteIncrement->checkfile($filename, $path);
+                            
+                            $savepath .= $filename;
+                            $path .= $filename;
+
                             
                             // Move to new destination, mark as eligible to go into database
                             if (move_uploaded_file($file['tmp_name'], $savepath)) {
