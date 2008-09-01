@@ -171,7 +171,7 @@ function clearFileInputJS(name)
         }
 
 
-        $location = $this->uri(array('mode'=>'selectimagewindow', 'restriction'=>'jpg_gif_png_jpeg', 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
+        $location = $this->uri(array('mode'=>'selectimagewindow', 'restriction'=>'jpg____gif____png____jpeg', 'name'=>$this->name, 'context'=>$context, 'workgroup' => $workgroup), 'filemanager');
 
         // Couldnt do this via uri function due to embedded JS
         $location .= '&amp;value=\'+document.getElementById(\'hidden_'.$this->name.'\').value+\'&amp;';
