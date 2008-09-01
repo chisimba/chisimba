@@ -74,7 +74,7 @@ class filepreview extends object
         $this->file = $this->objFiles->getFileInfo($fileId);
         
         if ($this->file == FALSE) {
-            return 'asfsa';
+            return '';
         }
         
         $this->file['fullpath'] = $this->objConfig->getcontentBasePath().$this->file['path'];
