@@ -342,7 +342,7 @@ class logactivity extends dbTable
     	// rename the current log file to <date>_logger.log
     	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
     	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
-        if (!file_exists($arklog)){
+        if (!file_exists($arkLog)){
             copy($curLog, $arkLog);
             unlink($curLog);
         }
