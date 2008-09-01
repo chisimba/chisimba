@@ -155,6 +155,7 @@ class filefolder extends object
             case 'ace':
                 return 'archives'; break;
             case 'ogg':
+            case 'mp3':
                 return 'audio'; break;
             case 'rm';
             case '3gp':
