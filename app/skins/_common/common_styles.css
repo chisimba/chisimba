@@ -73,8 +73,7 @@ a:link{
 a:visited {
 
     color: red;
-
-    text-decoration:bold;
+    text-decoration: bold;
 
 }
 
@@ -1604,7 +1603,7 @@ label br {clear:left}
 
 ************************************************/
 
-// add/remove blocks
+/* add/remove blocks */
 #selectblocks {
 }
 
@@ -1927,12 +1926,16 @@ option.by-sa_gnu-fdl {padding-left:90px;background-image: url(icons/creativecomm
 
 .feedhopper {
 
-    height: 400px;
-
-    overflow: scroll;
+    max-height: 400px;
+    background-attachment: scroll;
+    overflow: auto;
+    border: 1px solid grey;
 
 }
 
+.feedhopper ul {
+    margin: 0.5em 0em;
+}
 /**
 
 * END: Styles for the FEED parser
