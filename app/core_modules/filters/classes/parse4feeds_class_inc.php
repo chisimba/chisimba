@@ -50,7 +50,7 @@ class parse4feeds extends object
      */
     public function init()
     {
-
+        $this->objModules = $this->getObject('modules','modulecatalogue');
     }
     
     /**
@@ -62,24 +62,45 @@ class parse4feeds extends object
     */
     public function parse($str)
     {
+        // Check that the feed module is present and registered, else dont parse the tag
         $str = stripslashes($str);
-        //Get all the tags that are in links into an array
-        preg_match_all('/\\[FEED]<a.*?href="(?P<feedlink>.*?)".*?>.*?<\/a>\\[\/FEED]/', $str, $results, PREG_PATTERN_ORDER);
-        //Get the ones that are just in URLs
-        preg_match_all('/\\[FEED](.*?)\\[\/FEED]/', $str, $results2, PREG_PATTERN_ORDER);
-        $counter = 0;
+        if (!$this->objModules->checkIfRegistered('feed')) {
+            return $str;
+        }
+        // Get all the tags that are in links into an array - REMOVED: not useful
+        /*preg_match_all('/\\[FEED]<a.*?href="(?P<feedlink>.*?)".*?>.*?<\/a>\\[\/FEED]/', $str, $results, PREG_PATTERN_ORDER);*/
+        /*$counter = 0;
         foreach ($results[0] as $item) {
         	$link = $results['feedlink'][$counter];
         	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link) . "</div>";
             $str = str_replace($item, $replacement, $str);
             $counter++;
-        }
-        //Get the ones that are straight URL links
+        }*/
+        // Get the ones that are straight URL links
+        preg_match_all('/\\[FEED\s*(limit=\d*)?\s*(display=[a-zA-Z]*)?\s*(limit=\d*)?\s*](.*?)\\[\/FEED]/', $str, $results2, PREG_PATTERN_ORDER);
         $counter = 0;
+
         foreach ($results2[0] as $item)
         {
-            $link = $results2[1][$counter];
-        	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link) . "</div>";
+            // check for a limit=x parameter
+            if ($results2[1][$counter] != "") {
+                $maxCount = intval(substr($results2[1][$counter],strpos($results2[1][$counter],"=")+1));
+            } else {
+                $maxCount = 0;
+            }
+            // check for a display=xx parameter
+            if (strtolower(substr($results2[2][$counter],strpos($results2[2][$counter],"=")+1)) == "titlesonly") {
+                $showDescription = "FALSE";
+            } else {
+                $showDescription = "TRUE";
+            }
+            // check for a limit=x parameter after a display param
+            if ($results2[2][$counter] != "" && $maxCount == 0) {
+                $maxCount = intval(substr($results2[3][$counter],strpos($results2[3][$counter],"=")+1));
+            }
+
+            $link = $results2[4][$counter];
+        	$replacement = "<div class=\"feedhopper\" id=\"feedhopper" . $counter . "\">" . $this->fetchFeed($link,$showDescription,$maxCount) . "</div>";
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -88,20 +109,24 @@ class parse4feeds extends object
     
     /**
      * 
-     * Method to use the feed module to get the feed
-     * @param  string $url The URL for the feed to process
+     * Method to use the feed module to get the feed data
+     * @param string $url The URL for the feed to process
+     * @param string $showDescription true|false whether or not
+     *  to display the description of the feed item
+     * @param int $maxCount number of entried from the feed to display
      * @return string The full feed with title, link, and description
      *                
      */
-    public function fetchFeed($url)
+    public function fetchFeed($url, $showDescription = "TRUE", $maxCount = 0)
     {
     	$url =  $this->cleanUrl($url);
         $objRss = $this->newObject('rssreader', 'feed');
         $objRss->parseRss($url);
-        $ar = $objRss->getRssItems();
+        //$ar = $objRss->getRssItems(); REMOVED - get items doesnt return all feed data
+        $ar = $objRss->getRssStruct();
         $total = count($ar);
-        //Do some layout of flickr images
-        $url = strtolower($url); //Make sure its lower case
+        // Do some layout of flickr images
+        $url = strtolower($url); // Make sure its lower case
         $pos = strpos($url, "flickr.com");
         if (!$pos === FALSE) {
             $isFlickr = TRUE;
@@ -115,32 +140,39 @@ class parse4feeds extends object
             $isFlickr = FALSE;
             $ret = "<ul>\n";
         }
-        //Loop and build the output string
+        // Loop and build the output string
         $counter=0;
 		foreach ($ar as $item) {
-			$counter++;
-			//var_dump($item);
-        	if(!isset($item['link'])) {
+            if ($maxCount != 0 && $counter >= $maxCount) {
+                break;
+            }
+			if(!isset($item['link'])) {
         		$item['link'] = NULL;
         	}
-        	if ($isFlickr == TRUE) {
-        		if ($this->isOdd($counter)==TRUE) {
-        		    @$ret .= "<tr><td><a href=\"" . htmlentities($item['link']) 
-		    		  . "\">" . htmlentities($item['title']) . "</a><br />\n"
-		    		  . $item['description'] . "</td>";  
-        		} else  {
-        		    @$ret .= "<td><a href=\"" . htmlentities($item['link']) 
-		    		  . "\">" . htmlentities($item['title']) . "</a><br />\n"
-		    		  . $item['description'] . "</td></tr>";  
-        		}
-        	} else {
-	    		@$ret .= "<li><a href=\"" . htmlentities($item['link']) 
-	    		  . "\">" . htmlentities($item['title']) . "</a></li>\n"
-	    		  . $item['description'] . "<br /><br />";  
-	        }
+            // ignore the channel data
+        	if ($item['type'] != "channel") {
+                $counter++;
+                if ($isFlickr == TRUE) {
+                    if ($this->isOdd($counter)==TRUE) {
+                        @$ret .= "<tr><td><a href=\"" . htmlentities($item['link']) 
+                    	  . "\">" . htmlentities($item['title']) . "</a><br />\n"
+                    	  . $item['description'] . "</td>";  
+                    } else  {
+                        @$ret .= "<td><a href=\"" . htmlentities($item['link']) 
+                    	  . "\">" . htmlentities($item['title']) . "</a><br />\n"
+                    	  . $item['description'] . "</td></tr>";  
+                    }
+                } else {
+                	@$ret .= "<li><a href=\"" . htmlentities($item['link']) 
+                	  . "\">" . htmlentities($item['title']) . "</a></li>\n";
+                      if (array_key_exists('description',$item) && $showDescription == "TRUE") {
+                        $ret .= "{$item['description']}<br />";
+                      }
+                }
+            }
 
 		}
-		//End the table or UL depending on if we are parsing a Flickr image feed or not
+		// End the table or UL depending on if we are parsing a Flickr image feed or not
 		if ($isFlickr) {
 		    $ret .= $closingCell . "</table>\n";
 		} else {
