@@ -530,7 +530,7 @@ class user extends dbTable
             if ($userName) {
                 $ret = $userName;
             } else {
-                $ret =  $this->objLanguage->languageText("error_notloggedin", 'security');
+                $ret =  $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
             //look up third part numeric ID
@@ -562,7 +562,7 @@ class user extends dbTable
         if ($userId==NULL) {
             $fullname=$this->getSession('name');
             if ($fullname == NULL) {
-                $result = $this->objLanguage->languageText("error_notloggedin", "security");
+                $result = $this->objLanguage->languageText("error_notloggedin");
             } else {
                 $result = $fullname;
             }
@@ -675,7 +675,7 @@ class user extends dbTable
             if ($email) {
                 $ret = $email;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
+                $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
             $sql="SELECT emailaddress FROM tbl_users WHERE userid='$userId'";
@@ -746,7 +746,7 @@ class user extends dbTable
             if ($logins){
                 $ret=$logins;
             } else {
-                $ret = $this->objLanguage->languageText("error_notloggedin", 'security');
+                $ret = $this->objLanguage->languageText("error_notloggedin");
             }
         } else {
             $sql="SELECT logins FROM tbl_users WHERE userid='$userId'";
