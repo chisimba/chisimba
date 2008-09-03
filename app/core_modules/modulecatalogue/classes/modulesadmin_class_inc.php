@@ -532,9 +532,9 @@ class modulesadmin extends dbTableManager
                         }
                         // Add the condition to the rule
                         foreach( $conditionList as $aCondition ) {
-
-                            $rule->add($conditions[$aCondition]);
-
+                            if (array_key_exists($aCondition,$conditions)){
+                                $rule->add($conditions[$aCondition]);
+                            }
                         }
                     }
                 }
