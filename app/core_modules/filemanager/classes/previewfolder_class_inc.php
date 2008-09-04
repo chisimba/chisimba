@@ -204,11 +204,13 @@ function turnOnFiles(value)
         jQuery(\'tr.hidefile\').each(function (i) {
             this.style.display = \'table-row\';
         });
+        adjustLayout();
         onOrOff = "on";
     } else {
         jQuery(\'tr.hidefile\').each(function (i) {
             this.style.display = \'none\';
         });
+        adjustLayout();
         onOrOff = "off";
     }
 }
