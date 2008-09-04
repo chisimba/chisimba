@@ -328,11 +328,12 @@ class logactivity extends dbTable
     
 
     /**
-     * Short description for function
+     * Monthly Cleanup of Log Files
      * 
-     * Long description (if any) ...
+     * Copies existing file "logger.log" to an old one names after that date, 
+     * if the file does not already exist.
      * 
-     * @return boolean Return description (if any) ...
+     * @return boolean Returns TRUE always
      * @access public 
      */
     public function _monthlyCleanup()
