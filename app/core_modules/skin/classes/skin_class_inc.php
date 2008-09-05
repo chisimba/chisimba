@@ -246,8 +246,8 @@ class skin extends object
     */
     public function putSkinCssLinks($theme="stylesheet")
     {
-        $skinRoot = $this->objConfig->getsiteRoot().$this->skinRoot;
-        
+        $skinRoot = $this->skinRoot;
+
         $stylesheet = '
         <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/common_styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/print.css" media="print" />
