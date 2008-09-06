@@ -826,6 +826,16 @@ class dbfile extends dbTable
     {
         return $this->getAll(' WHERE filefolder=\''.$folder.'\' ORDER BY filename');
     }
+    /**
+    * Method to get a file in a particular folder
+    * @param  string $folder folderpath
+    * @param  string $filename file name
+    * @return array
+    */
+    public function getFileFolder($filename, $folder)
+    {
+        return $this->getAll(' WHERE filefolder=\''.$folder.'\' AND filename = \''.$filename.'\'');
+    }
 
     /**
     * Method to update the license and description of a file
