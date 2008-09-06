@@ -2668,3 +2668,48 @@ div.quotaup {
     background: red;
     height: 16px;
 }
+
+/* For the RSS feeds */
+
+h3.feed_render_title {
+    background-color: #c5d3db;
+    padding-top:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.feed_render_default {
+    background-color: #efefef;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+p.feed_render_link {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+p.feed_render_description {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+p.feed_render_date {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.feed_render_top {
+
+}
+
+.feed_render_bottom {
+
+}
