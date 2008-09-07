@@ -1,10 +1,14 @@
 <?php
 
 /**
- * Class to parse a string (e.g. page content) that contains a request
+ * Class to parse a string (e.g. page content) with SEARCHRSS tag
  * 
  * Class to parse a string (e.g. page content) that contains a request
- * to load del.icio.us tags in the form [TAGS]username[TAGS]
+ * to load a search term via a RSS feed. It makes use of the Google Appengine
+ * code at http://uselever.com/ which allows for Search the web and get Atom 
+ * feed with relevant new results. The appengine code is written and provided
+ * by Ivo Danihelka. The app checks daily search results and adds just the 
+ * relevant ones into the feed. 
  * 
  * PHP version 5
  * 
@@ -33,7 +37,7 @@
 /**
 *
 * Class to parse a string (e.g. page content) that contains a request
-* to load del.icio.us tags in the form [TAGS]username[TAGS]
+* to load a daily search as ATOM feed.
 *
 * @author Derek Keats
 *         
@@ -52,8 +56,6 @@ class parse4searchrss extends object
     {
         // Use this object to check if the feed module is registered.
         $this->objModules = $this->getObject('modules','modulecatalogue');
-        //Load simple pie
-        //require_once($this->getResourcePath('simplepie.inc', "feed"));
         // Get the config object.
         $this->objConfig = $this->getObject('altconfig', 'config');
     }
@@ -61,8 +63,8 @@ class parse4searchrss extends object
     /**
     *
     * Method to parse the string
-    * @param  String $str The string to parse
-    * @return The    parsed string
+    * @param  string $str The string to parse
+    * @return string The parsed string
     *                
     */
     public function parse($str)
