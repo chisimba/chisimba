@@ -306,7 +306,7 @@ class logactivity extends dbTable
             $logArray['action'] = $action;
             $logArray['ipaddress'] = $ip;
             
-            logger_log($logArray);
+            // logger_log($logArray);
             $this->insert($logArray);
             
         } else if ($version == '0.6'){
