@@ -201,7 +201,7 @@ class parse4feeds extends object
     * Method to determine if a number is odd
     * 
     * @access public 
-    * @param  int     $num The number to test
+    * @param  int $num The number to test
     * @return boolean TRUE|FALSE depending on odd or even status of $num
     *                 
     */
