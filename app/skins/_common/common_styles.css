@@ -2671,9 +2671,23 @@ div.quotaup {
 
 /* For the RSS feeds */
 
-h3.feed_render_title {
+.feed_render_title {
     background-color: #d9d9d9;
     padding-top:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.feed_render_title_forcewhite {
+    background-color: white;
+    color: black;
+    border: 1px dashed;
+    border-color: #d9d9d9;
+    padding-top: 5px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
@@ -2701,9 +2715,10 @@ p.feed_render_description {
    margin-right: 10px;
 }
 
-p.feed_render_date {
-   margin-left: 10px;
+.feed_render_date {
+   margin-left: 12px;
    margin-right: 10px;
+   color: #686868;
 }
 
 .feed_render_top {
