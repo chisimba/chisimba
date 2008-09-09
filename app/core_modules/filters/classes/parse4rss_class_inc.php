@@ -52,6 +52,8 @@ class parse4rss extends object
         $this->objModules = $this->getObject('modules','modulecatalogue');
         // Get the config object.
         $this->objConfig = $this->getObject('altconfig', 'config');
+        // Get an instance of the params extractor
+        $this->objExpar = $this->getObject("extractparams", "utilities");
     }
 
     /**
@@ -61,24 +63,50 @@ class parse4rss extends object
     * @return string The parsed string
     *                
     */
-    public function parse($str)
+    public function parse($txt)
     {
         // Check that the feed module is present and registered, else dont parse the tag
-        $str = stripslashes($str);
         if (!$this->objModules->checkIfRegistered('feed')) {
-            return $str;
+            return $txt;
         } else {
-            $str = stripslashes($str);
-            //Get all the tags into an array
-            preg_match_all('/\\[RSS](.*?)\\[\/RSS]/', $str, $results, PREG_PATTERN_ORDER);
+            $txt = stripslashes($txt);
+            // Match filters based on a Chisimba style
+            preg_match_all('/(\\[RSS:)(.*?)\\](.*?)(\\[\\/RSS\\])/ism', $txt, $results);
+            // Match filters based on NIC style
+            preg_match_all('/\\[RSS\s*(limit=\d*)?\s*(display=[a-zA-Z]*)?\s*(limit=\d*)?\s*](.*?)\\[\/RSS]/', $txt, $results2, PREG_PATTERN_ORDER);
+
+            // Parse the first pattern
             $counter = 0;
-            foreach ($results[0] as $item)
-            {
-                $replacement = $this->getFeed($results[1][$counter]);
-                $str = str_replace($item, $replacement, $str);
+            foreach ($results[3] as $item) {
+                //Parse for the parameters
+                $str = trim($results[2][$counter]);
+                $this->objExpar->getArrayParams($str, ",");
+                //$this->objExpar->getParamsQuoted($str, ",", "'"); --- NOT WORKING YET
+                //The whole match must be replaced
+                $replaceable = $results[0][$counter];
+                $this->setupPage();
+                $replacement = $this->getFeed($item, $this->limit);
+                $txt = str_replace($replaceable, $replacement, $txt);
                 $counter++;
             }
-            return $str;
+            
+            
+            // Parse the second pattern pattern
+            $counter = 0;
+            foreach ($results2[0] as $item)
+            {
+                // check for a limit=x parameter
+                if ($results2[1][$counter] != "") {
+                    $limit = intval(substr($results2[1][$counter],strpos($results2[1][$counter],"=")+1));
+                } else {
+                    $limit = NULL;
+                }
+                $replacement = $this->getFeed($results2[4][$counter], $limit);
+                $txt = str_replace($item, $replacement, $txt);
+                $counter++;
+            }
+
+            return $txt;
         }
     }
     
@@ -90,17 +118,41 @@ class parse4rss extends object
     * @return string The rendered Feed.
     *                
     */
-    public function getFeed($url)
+    public function getFeed($url, $limit=NULL)
     {
         $url=str_replace("&amp;", "&", $url);
         $feed = $this->getObject('spie', 'feed');
+        if ($limit) {
+            $feed->setLimit($limit);
+        }
         // Get the feed using the smart display method
         $ret = $feed->getFeed($url, "displaySmart");
+        $feed->setLimit(NULL);
         unset($feed);
         return $ret;
     }
     
-    
+    /**
+     *
+     * Method to set up the parameter / value pairs for th efilter
+     * @access public
+     * @return VOID
+     *
+     */
+    public function setUpPage()
+    {
+        // Get data from fields='title, description, date'
+        if (isset($this->objExpar->fields)) {
+            $this->fields = $this->objExpar->fields;
+        } else {
+            $this->fields=FALSE;
+        }
+        if (isset($this->objExpar->limit)) {
+            $this->limit = $this->objExpar->limit;
+        } else {
+            $this->limit=NULL;
+        }
+    }
     
     
     
