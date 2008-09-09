@@ -271,7 +271,13 @@ class dbquotas extends dbTable
             $width = 100;
         } else {
             $cssClass = 'innerquota';
-            $width = round($usage / $quota * 100);
+            
+            if ($quota == 0) {
+                $width = 100;
+            } else {
+                $width = round($usage / $quota * 100);
+            }
+            
         }
         
         return '<div class="outerquota"><div class="'.$cssClass.'" style="width: '.$width.'%">'.$width.'%</div></div>';
@@ -416,7 +422,7 @@ class dbquotas extends dbTable
     {
         $quota = $this->getQuota('users/'.$userId);
         
-        if ($quota['quotausage'] > $quota['quota']) {
+        if ($quota['quotausage'] >= $quota['quota']) {
             return 0;
         } else {
             return $quota['quota'] - $quota['quotausage'];

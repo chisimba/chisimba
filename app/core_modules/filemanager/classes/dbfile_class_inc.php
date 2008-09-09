@@ -136,6 +136,17 @@ class dbfile extends dbTable
     {
         return $this->getPart('filename', $fileId);
     }
+    
+    /**
+    * Method to get the extension of a file
+    * @access public
+    * @param  string $fileId Record Id of the File
+    * @return string File Name
+    */
+    public function getType($fileId)
+    {
+        return $this->getPart('datatype', $fileId);
+    }
 
     /**
     * Method to get the size of a file
