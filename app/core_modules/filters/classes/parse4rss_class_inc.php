@@ -94,7 +94,8 @@ class parse4rss extends object
     {
         $url=str_replace("&amp;", "&", $url);
         $feed = $this->getObject('spie', 'feed');
-        $ret = $feed->getFeed($url);
+        // Get the feed using the smart display method
+        $ret = $feed->getFeed($url, "displaySmart");
         unset($feed);
         return $ret;
     }
