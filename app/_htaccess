@@ -1,6 +1,7 @@
-#
+# Turn on expires
 ExpiresActive On
 
+# Expires by a week
 ExpiresDefault A604800
 
 ExpiresByType image/gif A604800
