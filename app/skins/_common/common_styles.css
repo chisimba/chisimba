@@ -2669,7 +2669,7 @@ div.quotaup {
     height: 16px;
 }
 
-/* For the RSS feeds */
+/* -- For the RSS feeds used by spie_class_inc.php in the FEEDS module -- */
 
 .feed_render_title {
     background-color: #d9d9d9;
@@ -2721,10 +2721,22 @@ p.feed_render_description {
    color: #686868;
 }
 
-.feed_render_top {
+/*
+This batch are not used by default, but are here so that
+they can be over-ridden in a skin.
+*/
 
+/* appears at the top of a whole feeds */
+.feed_render_feedtop {
+}
+/* appears at the bottom of a whole feeds */
+.feed_render_feedbottom {
 }
 
-.feed_render_bottom {
+/* appears at the top of each entry in a feed */
+.feed_render_top {
+}
 
+/* appears at the bottom of each entry in a feed */
+.feed_render_bottom {
 }
