@@ -88,6 +88,18 @@ class slider extends object
     */
     public function show()
     {
+        if ($this->value == NULL) {
+            $this->value = 0;
+        }
+        
+        if ($this->value > $this->maxValue) {
+            $this->value = $this->maxValue;
+        }
+        
+        if ($this->value < $this->minValue) {
+            $this->value = $this->minValue;
+        }
+        
         // Generate JavaScript and send to header
         $this->appendArrayVar('bodyOnLoad', $this->generateJS());
         
