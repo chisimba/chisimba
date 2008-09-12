@@ -1200,7 +1200,7 @@ class filemanager extends controller
      */
     private function __fckimage()
     {
-        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg_gif_png_jpeg', 'loadwindow'=>'yes', 'url'=>$this->getParam('url')));
+        return $this->nextAction(NULL, array('mode'=>'fckimage', 'restriction'=>'jpg____gif____png____jpeg', 'loadwindow'=>'yes', 'url'=>$this->getParam('url')));
     }
     
     /**
