@@ -91,7 +91,7 @@ class filterinfo extends dbtable
         $parsers = glob("parse4*_class_inc.php");
         // restore path
         chdir($savedDir);
-        return $parshers;
+        return $parsers;
     }
 }
 ?>
