@@ -69,26 +69,11 @@ class washout extends object
 	public function init()
 	{
 		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objModules = $this->getObject('modules', 'modulecatalogue');
-			// save cwd
-			$savedDir = getcwd();
-			//load up all of the parsers from filters
-			$filterDir = $this->objConfig->getsiteRootPath() . "core_modules/filters/classes/";
-			chdir($filterDir);
-			$parsers = glob("parse4*_class_inc.php");
-			// restore path
-			chdir($savedDir);
-			$mathMlLoaded = $this->objModules->checkIfRegistered('mathml');
+            $objFilters = $this->getObject('filterinfo', 'filters');
+            $parsers = $objFilters->getFilters();
 			foreach ($parsers as $parser)
 			{
-				if($parser == 'parse4mathml_class_inc.php'){
-				    if($mathMlLoaded != FALSE){
-                        $this->classes[] = str_replace("_class_inc.php", "", $parser);
-                    }
-                }else{
-                    $this->classes[] = str_replace("_class_inc.php", "", $parser);
-                }
+                $this->classes[] = str_replace("_class_inc.php", "", $parser);
 			}
 			$this->bbcode = $this->getObject('bbcodeparser', 'utilities');
             $this->objUrl = $this->getObject('url', 'strings');
@@ -113,7 +98,6 @@ class washout extends object
 		foreach ($this->classes as $parser) {
 			try {
 				$currentParser = $parser;
-                // Note: check for timeline and simplemap removed as it is now in the filter iteself
 				$objCurrentParser = $this->getObject($currentParser, 'filters');
 				$txt = $objCurrentParser->parse($txt);
 			}
