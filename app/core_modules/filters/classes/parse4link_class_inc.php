@@ -56,14 +56,6 @@ class parse4link extends object
     function init()
     {
         $this->objLanguage = $this->getObject('language', 'language');
-        // Check that the PEAR RSS file is available...
-        if (!@include_once ($this->getPearResource('Validate.php'))) {
-            throw new customException($this->objLanguage->languageText("mod_filters_sanity_validatenotfound", "filters"));
-        }
-        /*else {
-            require_once $this->getPearResource("Validate.php");
-        }*/
-        $this->objVal = new Validate();
     }
 
     /**
