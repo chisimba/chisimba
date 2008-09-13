@@ -58,7 +58,7 @@ $GLOBALS['kewl_entry_point_run'])
 * @package filters
 *
 */
-class filterinfo extends dbtable
+class filterinfo extends object
 {
 
     /**
