@@ -83,15 +83,11 @@ class parse4mathml extends object
         //See if the mathml module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('mathml');
         if ($isRegistered){
-            
             $this->objMathImg = $this->getObject('mathimg','mathml');
-            
             // Search for all items in [MATH] Tags
             $search = '/\[MATH\](.*)\[\/MATH\]/U';
-            
             // Get All Matches
             preg_match_all($search, $str, $matches, PREG_PATTERN_ORDER);
-            
             // Check whether there are matches
             if (!empty($matches)) {
                 // Go Through Matches
@@ -103,14 +99,12 @@ class parse4mathml extends object
                     } else { // Or Image
                         $replace = $this->renderAsImage($match);
                     }
-                    
                     // Replace Text
                     $str = preg_replace('/'.preg_quote('[MATH]'.$match.'[/MATH]','/').'/', $replace, $str);
                 }
             }
         
         }
-        
         // Return String
         return $str;
     }
@@ -128,7 +122,6 @@ class parse4mathml extends object
         $iframe->height = 120;
         $iframe->src = $this->uri(array('action'=>'render','formula'=>$match),'mathml');
         $iframe->frameborder = '0';
-        
         return $iframe->show();
     }
     
