@@ -473,19 +473,20 @@ class catalogueconfig extends object {
 		try {
 			$this->_path = $this->objConfig->getsiteRootPath()."config/catalogue.xml";
 			//echo "$str $type<br/>";
+			$str = strtolower($str);
 			$xml = simplexml_load_file($this->_path);
 			switch ($type) {
 				case 'name':
-					$query = "//module[contains(module_id,'$str') or contains(module_name,'$str')]";
+					$query = "//module[contains(translate(module_id, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str') or contains(translate(module_name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str')]";
 					break;
 				case 'description':
-					$query = "//module[contains(module_description,'$str')]";
+					$query = "//module[contains(translate(module_description, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str')]";
 					break;
 				case 'tags':
-					$query = "//module[contains(module_tags, '$str')]";
+					$query = "//module[contains(translate(module_tags, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '$str')]";
 					break;
 				default:
-					$query = "//module[contains(module_id,'$str') or contains(module_description,'$str') or contains(module_name,'$str')]";
+					$query = "//module[contains(translate(module_id, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str') or contains(translate(module_description, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str') or contains(translate(module_name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),'$str')]";
 					break;
 			}
 			$entries = $xml->xpath($query);
