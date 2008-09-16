@@ -91,7 +91,7 @@ class usersdb extends dbTable
         // Get the information from the database
         $sql = "SELECT ";
         // Select the given fields or all the fields.
-        $sql.= $fields ? implode ( ',' , $fields ) : "id, 'firstName' || ' ' || 'surname' as fullname" ;
+        $sql.= $fields ? implode ( ',' , $fields ) : "id, CONCAT(firstName,' ',surname) as fullname" ;
         $sql.= " FROM $this->_tableName";
         
         $filter = $filter ? $filter : " ORDER BY UPPER(firstName)";
