@@ -124,7 +124,20 @@ class block_contextmembers extends object
         $link = new link ($this->uri(NULL, 'contextgroups'));
         $link->link = $this->objLanguage->code2Txt('mod_contextgroups_toolbarname','contextgroups');
         
-        $str .= $link->show();
+        $str .= '<p>'.$link->show();
+        
+        
+        
+        $objModules = $this->getObject('modules', 'modulecatalogue');
+        
+        if ($objModules->checkIfRegistered('userimport')) {
+            $link = new link ($this->uri(NULL, 'userimport'));
+            $link->link = $this->objLanguage->languageText('mod_contextgroups_importusers', 'contextgroups', 'Import Users');
+            
+            $str .= ' / '.$link->show();
+        }
+        
+        $str .= '</p>';
         
         return $str;
    }
