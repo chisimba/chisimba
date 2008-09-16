@@ -118,14 +118,23 @@ class permissions_acl extends dbTable
         $usersDb = 'tbl_users';
 
         $sql = "SELECT ";
-        $sql .= $fields ? implode( ",", $fields ) : " $usersDb.id, CONCAT($usersDb.firstName,' ',$usersDb.surname) as fullName";
+        $sql .= $fields ? implode( ",", $fields ) : " $usersDb.id, $usersDb.firstName as firstname, $usersDb.surname ";
         $sql .= " FROM $permission_aclDb";
         $join = " INNER JOIN $usersDb";
         $join .= " ON ( user_id = $usersDb.id )";
         $filter = " WHERE acl_id = '$aclId'";
 
-        $data=$this->getArray( $sql . $join . $filter );
-        return $data;
+        $data1=$this->getArray( $sql . $join . $filter );
+        if (!is_null($fields)){
+            // Jump out here if non-default fields were asked for
+            return $data1;
+        }
+        // Else build a new array with the needed fields
+        $data2=array();
+        foreach ($data1 as $line){
+            $data2[]=array('id'=>$line['id'],'fullName'=>$line['firstname'].' '.$line['surname']);
+        }
+        return $data2;
     } 
 
     /**

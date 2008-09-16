@@ -8,13 +8,13 @@
 //------ creatList function ------
 function createList ( $name, $list )
 {
-    $lst = "<SELECT size=5 style='width:100pt' name='$name'>";
+    $lst = "<SELECT size=5 style='width:100pt' name='$name'>\n";
     foreach (  $list as $item ){
         list( $key, $value )  = each ($item);
         list( $key, $option ) = each ($item);
-        $lst.= "<OPTION value='$value'>$option</OPTION>";
+        $lst.= "<OPTION value='$value'>$option</OPTION>\n";
     }
-    $lst.= "</SELECT>";
+    $lst.= "</SELECT>\n";
     return $lst;
 }
 //-------- showList function -------

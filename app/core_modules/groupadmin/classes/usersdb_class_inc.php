@@ -91,13 +91,24 @@ class usersdb extends dbTable
         // Get the information from the database
         $sql = "SELECT ";
         // Select the given fields or all the fields.
-        $sql.= $fields ? implode ( ',' , $fields ) : "id, CONCAT(firstName,' ',surname) as fullname" ;
+        $sql.= $fields ? implode ( ',' , $fields ) : "id, firstName as firstname, surname " ;
         $sql.= " FROM $this->_tableName";
         
         $filter = $filter ? $filter : " ORDER BY UPPER(firstName)";
         
         //Return the users
-        return $this->getArray($sql.$filter);
+        $data1= $this->getArray($sql.$filter);
+        
+        if (!is_null($fields)){
+            // Jump out here if non-default fields were asked for
+            return $data1;
+        }
+        // Else build a new array with the needed fields
+        $data2=array();
+        foreach ($data1 as $line){
+            $data2[]=array('id'=>$line['id'],'fullName'=>$line['firstname'].' '.$line['surname']);
+        }
+        return $data2;
     }
     
 }
