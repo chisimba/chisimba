@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <script src="../../jquery-latest.js"></script>
+   <script language="JavaScript" type="text/javascript" >
+                jQuery.noConflict();
+  </script>
+
+ <link rel="stylesheet" href="../css/flora.all.css" type="text/css" media="screen" title="Flora (Default)">
+  <script type="text/javascript" src="../ui.core.js"></script>
+  <script type="text/javascript" src="../ui.tabs.js"></script>
+
+
+  <script>
+  jQuery(document).ready(function(){
+    jQuery("#jQueryTab_5 > ul").tabs({
+		selected: 2
+	});
+	
+  });
+  </script>
+  
+</head>
+<body>
+  
+        <div id="jQueryTab_5" class="flora">
+<ul>
+
+<li><a href="#jqtabid0"><span>Basic</span></a></li>
+
+<li><a href="#jqtabid1"><span>Advanced</span></a></li>
+
+<li><a href="#jqtabid2"><span>Metadata</span></a></li>
+</ul>
+<div id = "jqtabid0" >
+
+<table cellspacing="0" cellpadding="0" width="99%"><tr></tr><tr><td valign="top"><label for="author_alias">Author alias:</label></td>
+
+<td valign="top"><input type="text" value="" name="author_alias" class="text" size="20" id="input_author_alias" /></td>
+
+</tr><tr><td valign="top"><label for="creator">Change author:</label></td>
+
+<td valign="top"><select name="creator" class="WCHhider"  id="input_creator" >
+<option value="1" selected="selected">User, Administrative</option>
+</select>
+</td>
+
+</tr><tr><td valign="top"><label for="overide_date">Override creation date:</label></td>
+
+<td valign="top"><input type="" value="" name="overide_date" class="text" size="16" id="input_overide_date"  readonly="readonly" />&#160;<a href="#"  onclick="javascript:window.open('http://localhost/fresh/index.php?module=popupcalendar&amp;field=overide_date&amp;fieldvalue=&amp;showtime=yes&amp;showmonths=no','popupcal','width=300,height=406,scrollbars=1,resizable=1')"><img src="skins/_common/icons/select_date.gif" border="0" alt="Language item not found: phrase_selectdate from system" title="Language item not found: phrase_selectdate from system" /></a></td>
+
+</tr><tr><td valign="top"><label for="publish_date">Start publishing:</label></td>
+
+<td valign="top"><input type="" value="" name="publish_date" class="text" size="16" id="input_publish_date"  readonly="readonly" />&#160;<a href="#"  onclick="javascript:window.open('http://localhost/fresh/index.php?module=popupcalendar&amp;field=publish_date&amp;fieldvalue=&amp;showtime=yes&amp;showmonths=no','popupcal','width=300,height=406,scrollbars=1,resizable=1')"><img src="skins/_common/icons/select_date.gif" border="0" alt="Language item not found: phrase_selectdate from system" title="Language item not found: phrase_selectdate from system" /></a></td>
+
+</tr><tr><td valign="top"><label for="end_date">End publishing:</label></td>
+
+<td valign="top"><input type="" value="" name="end_date" class="text" size="16" id="input_end_date"  readonly="readonly" />&#160;<a href="#"  onclick="javascript:window.open('http://localhost/fresh/index.php?module=popupcalendar&amp;field=end_date&amp;fieldvalue=&amp;showtime=yes&amp;showmonths=no','popupcal','width=300,height=406,scrollbars=1,resizable=1')"><img src="skins/_common/icons/select_date.gif" border="0" alt="Language item not found: phrase_selectdate from system" title="Language item not found: phrase_selectdate from system" /></a></td>
+
+</tr></table></div>
+<div id = "jqtabid1" >
+
+<table cellspacing="0" cellpadding="0" width="99%"><tr><td valign="top"><label for="show_auth">Show author:</label></td>
+
+<td valign="top"><select name="show_auth" class="WCHhider"  id="input_show_auth" >
+<option value="g" selected="selected">-Global-Option-</option>
+
+<option value="y">yes</option>
+<option value="n">no</option>
+</select>
+</td>
+
+</tr><tr><td valign="top"><label for="show_pdf">Show PDF icon:</label></td>
+
+<td valign="top"><select name="show_pdf" class="WCHhider"  id="input_show_pdf" >
+<option value="g" selected="selected">-Global-Option-</option>
+<option value="y">yes</option>
+<option value="n">no</option>
+
+</select>
+</td>
+
+</tr><tr><td valign="top"><label for="show_email">Show e-mail icon:</label></td>
+
+<td valign="top"><select name="show_email" class="WCHhider"  id="input_show_email" >
+<option value="g" selected="selected">-Global-Option-</option>
+<option value="y">yes</option>
+<option value="n">no</option>
+</select>
+</td>
+
+</tr><tr><td valign="top"><label for="show_print">Show print icon:</label></td>
+
+<td valign="top"><select name="show_print" class="WCHhider"  id="input_show_print" >
+<option value="g" selected="selected">-Global-Option-</option>
+<option value="y">yes</option>
+<option value="n">no</option>
+</select>
+</td>
+
+</tr></table></div>
+<div id = "jqtabid2" >
+
+<table cellspacing="0" cellpadding="0" width="99%"><tr><td valign="top"><label for="keyword">Keyword:</label></td>
+
+</tr><tr><td valign="top"><textarea name="keyword" id="input_keyword" rows="6" cols="50"></textarea></td>
+
+</tr><tr><td valign="top"><label for="description">Description:</label></td>
+
+</tr><tr><td valign="top"><textarea name="description" id="input_description" rows="6" cols="50"></textarea></td>
+
+</tr><tr><td valign="top"><input type="button" class="button" value="Add/Sect/Title" onclick="f=document.getElementById('form_addfrm');f.keyword.value=document.getElementById('form_addfrm').parent.options[document.getElementById('form_addfrm').parent.selectedIndex].text+', '+f.title.value+f.keyword.value;" /></td>
+
+</tr></table></div>
+</div>
+</body>
+</html>
