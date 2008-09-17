@@ -302,7 +302,22 @@ class htmlarea extends object
     function setDefaultToolBarSetWithoutSave(){
          $this->toolbarSet = 'DefaultWithoutSave';
     }
-    
+
+
+    /**
+    * Method to toolbar set to CMS Specific specific
+    */
+    function setCMSToolBar(){
+         $this->toolbarSet = 'cms';
+    }
+
+    /**
+    * Method to load the Content Templates
+    */
+    function loadContentTemplatesFromDB(){
+         $this->toolbarSet = 'cms';
+    }
+
     /**
     * Method to get the javascript files
     * @return string

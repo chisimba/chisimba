@@ -36,26 +36,27 @@ class scriptaculous extends object
 		$usingXHTML = ($mimetype == 'application/xhtml+xml') ? TRUE : FALSE;
         
         // Load Prototype
-        $returnStr = $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
+        //$returnStr = $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
+        $returnStr = $this->getJavascriptFile('prototype/1.6.0.1/prototype.js','htmlelements')."\n";
         
         // Load Builder
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/builder.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/builder.js','htmlelements')."\n";
         
         // Load Effects
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/effects.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/effects.js','htmlelements')."\n";
         
         // Load appropriate Drag-and-Drop
         if ($usingXHTML) {
-            $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/dragdrop_XHTML.js','htmlelements')."\n";
+            $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/dragdrop_XHTML.js','htmlelements')."\n";
         } else {
-            $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/dragdrop.js','htmlelements')."\n";
+            $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/dragdrop.js','htmlelements')."\n";
         }
         
         // Load Controls
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/controls.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/controls.js','htmlelements')."\n";
         
         // Load Slider
-        $returnStr .= $this->getJavascriptFile('scriptaculous/1.6.5/slider.js','htmlelements')."\n";
+        $returnStr .= $this->getJavascriptFile('scriptaculous/1.8.1/slider.js','htmlelements')."\n";
         
         
 //  Do not include the scriptaculous.js file
