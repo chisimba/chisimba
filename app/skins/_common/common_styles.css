@@ -2740,3 +2740,25 @@ they can be over-ridden in a skin.
 /* appears at the bottom of each entry in a feed */
 .feed_render_bottom {
 }
+
+/* ------- For the jabber IM output ----------*/
+.im_default {
+    background-color: #efefef;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+p.im_message {
+   margin-left: 30px;
+   margin-right: 10px;
+}
+
+p.im_source {
+   margin-left: 10px;
+   margin-right: 10px;
+   padding-left: 20px;
+   background-color: white;
+}
