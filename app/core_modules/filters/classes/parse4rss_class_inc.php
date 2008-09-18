@@ -126,13 +126,15 @@ class parse4rss extends object
             $feed->setLimit($limit);
         }
         // Get the feed using the smart display method
-        if ( count($this->fields) == 0 ) {
-            $ret = $feed->getFeed($url, "displaySmart");
-        } else {
-            // Extract the fields into an array
-            $fields=array();
-            // We have to call a method that will display only certain fields
-            $ret = $feed->getFields($url, $this->fields);
+        if (defined($this->fields) && isarray($this->fields)) {
+            if ( count($this->fields) == 0 ) {
+                $ret = $feed->getFeed($url, "displaySmart");
+            } else {
+                // Extract the fields into an array
+                $fields=array();
+                // We have to call a method that will display only certain fields
+                $ret = $feed->getFields($url, $this->fields);
+            }
         }
         unset($this->limit, $this->fields);
         $feed->setLimit(NULL);
