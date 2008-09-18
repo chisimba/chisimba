@@ -71,6 +71,7 @@ class extractparams extends object
     public function getArrayParams($str, $delim=",")
     {
         $ar = explode($delim, $str);
+        $ret = array();
         try {
             foreach ($ar as $item) {
                 //Split them up in to a string representing each pair
