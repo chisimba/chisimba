@@ -122,24 +122,25 @@ class parse4rss extends object
     {
         $url=str_replace("&amp;", "&", $url);
         $feed = $this->getObject('spie', 'feed');
+        $retStr = "";
         if ($limit) {
             $feed->setLimit($limit);
         }
         // Get the feed using the smart display method
-        if (defined($this->fields) && isarray($this->fields)) {
+        if (isset($this->fields) && is_array($this->fields)) {
             if ( count($this->fields) == 0 ) {
-                $ret = $feed->getFeed($url, "displaySmart");
+                $retStr = $feed->getFeed($url, "displaySmart");
             } else {
                 // Extract the fields into an array
                 $fields=array();
                 // We have to call a method that will display only certain fields
-                $ret = $feed->getFields($url, $this->fields);
+                $retStr = $feed->getFields($url, $this->fields);
             }
         }
         unset($this->limit, $this->fields);
         $feed->setLimit(NULL);
         unset($feed);
-        return $ret;
+        return $retStr;
     }
     
     /**
