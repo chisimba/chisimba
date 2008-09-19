@@ -160,7 +160,9 @@ if (count($tags) == 0) {
 
 echo '</p>';
 
-$tabContent = $this->newObject('tabcontent', 'htmlelements');
+//$tabContent = $this->newObject('tabcontent', 'htmlelements');
+//$tabContent = $this->newObject('jquerytabs', 'htmlelements');
+$tabContent = $this->newObject('tabber', 'htmlelements');
 $tabContent->width = '90%';
 if ($preview != '') {
     
@@ -178,8 +180,11 @@ if ($preview != '') {
     $previewContent = '<h2>'.$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview').'</h2>'.$preview;
     
     
-    $tabContent->addTab($this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), $previewContent);
-    $tabContent->addTab($this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'), $embedCode);
+    //$tabContent->addTab($this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), $previewContent);
+    $tabContent->addTab(array('name'=>$this->objLanguage->languageText('mod_filemanager_filepreview', 'filemanager', 'File Preview'), 'content'=>$previewContent));
+    
+    //$tabContent->addTab($this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'), $embedCode);
+    $tabContent->addTab(array('name'=>$this->objLanguage->languageText('mod_filemanager_embedcode', 'filemanager', 'Embed Code'),'content'=>$embedCode));
 }
 
 $fileInfo = $this->objLanguage->languageText('mod_filemanager_fileinfo', 'filemanager', 'File Information');
@@ -196,7 +201,8 @@ if (array_key_exists('width', $file)) {
     $fileInfoContent .= '<br /><h2>'.$mediaInfo.'</h2>'.$this->objFiles->getFileMediaInfoTable($file['id']);
 }
 
-$tabContent->addTab($fileInfo, $fileInfoContent);
+//$tabContent->addTab($fileInfo, $fileInfoContent);
+$tabContent->addTab(array('name'=>$fileInfo,'content'=>$fileInfoContent));
 
 
 echo $tabContent->show();
