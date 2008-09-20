@@ -79,11 +79,14 @@ jQuery.fn.pagination = function(maxentries, opts){
                 page_id = page_id<0?0:(page_id<np?page_id:np-1); // Normalize page id to sane value
                 appendopts = jQuery.extend({text:page_id+1, classes:""}, appendopts||{});
                 if(page_id == current_page){
-                    var lnk = jQuery("<span class='current'>"+(appendopts.text)+"</span>");
+                    var lnk = jQuery(document.createElement("span"))
+                        .addClass("current")
+                        .text(appendopts.text);
                 }
                 else
                 {
-                    var lnk = jQuery("<a>"+(appendopts.text)+"</a>")
+                    var lnk = jQuery(document.createElement("a"))
+                        .text(appendopts.text)
                         .bind("click", getClickHandler(page_id))
                         .attr('href', opts.link_to.replace(/__id__/,page_id));
                         
