@@ -60,6 +60,13 @@ class pagination extends object
     public $extra;
 
     /**
+    *
+    * @var int $currentPage: The number of the initial page to display
+    * @access public
+    */
+    public $currentPage;
+
+    /**
     * Method to construct the class.
     */
     public function init()
@@ -69,6 +76,7 @@ class pagination extends object
         $this->action = 'testpage';
         $this->numPageLinks = 20;
         $this->extra = array();
+        $this->currentPage = 0;
     }
 
     /**
@@ -114,11 +122,12 @@ class pagination extends object
         items_per_page: 1,
         num_edge_entries: 2,
         num_display_entries: 10,
+        current_page: '.$this->currentPage.',
         callback: loadPaginationResults_'.$this->id.'
     });
     
     // Load First Page
-    loadPaginationResults_'.$this->id.'(0);
+    loadPaginationResults_'.$this->id.'('.$this->currentPage.');
 
 </script>
 ';
