@@ -89,18 +89,23 @@ class block_register extends object
     public function show()
     {
     	try {
-    		if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-    			return NULL;
-    		} else {
-    		    $regModule = $this->objSysConfig->getValue('REGISTRATION_MODULE', 'security');
-    		    if(empty($regModule)){
-    		        $regModule = 'userregistration';
-    		    }
-	    		$regLink = $this->newObject('link','htmlelements');
-	    		$regLink->link = $this->objLanguage->languageText('word_register');
-	    		$regLink->link($this->uri(array('action' => 'showregister'), $regModule));
-	    		return $regLink->show();
-    		}
+            $allowRegistration =  strtolower($this->objSysConfig->getValue('MOD_SECURITY_ALLOWREGISTRATION', 'security'));
+            if ($allowRegistration !== "false") {
+        		if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+        			return NULL;
+        		} else {
+        		    $regModule = $this->objSysConfig->getValue('REGISTRATION_MODULE', 'security');
+        		    if(empty($regModule)){
+        		        $regModule = 'userregistration';
+        		    }
+    	    		$regLink = $this->newObject('link','htmlelements');
+    	    		$regLink->link = $this->objLanguage->languageText('word_register');
+    	    		$regLink->link($this->uri(array('action' => 'showregister'), $regModule));
+    	    		return $regLink->show();
+        		}
+            } else {
+                return NULL;
+            }
     	} catch (Exception $e) {
     		throw customException($e->getMessage());
     		exit();
