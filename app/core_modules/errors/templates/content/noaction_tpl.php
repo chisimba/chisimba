@@ -21,7 +21,7 @@ if($objUser->isLoggedIn())
 	$leftSideColumn = $userMenu->show();
 }
 else {
-	$linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", "system"));
+	$linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", 'system', 'Home'));
 	$leftSideColumn = $linkhome->show();
 }
 
