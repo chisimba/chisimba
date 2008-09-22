@@ -344,7 +344,7 @@ class tools extends object
 
         $this->objLink = new link($this->uri(array('action'=>'logout'),'security'));
 
-        $this->objLink->link = $this->objLanguage->languageText('word_logout','security');
+        $this->objLink->link = $this->objLanguage->languageText('word_logout','security', 'Logout');
 
         $logout = $this->objLink->show();
 
@@ -501,7 +501,7 @@ class tools extends object
 
         // Language
 
-        $home = $this->objLanguage->languageText('word_home');
+        $home = $this->objLanguage->languageText('word_home', 'system', 'Home');
 
         $welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');
 
@@ -805,7 +805,7 @@ class tools extends object
 
         // Language
 
-        $home = $this->objLanguage->languageText('word_home');
+        $home = $this->objLanguage->languageText('word_home', 'system', 'Home');
 
         /*
 		$welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');

@@ -42,8 +42,8 @@ class flatmenu extends object
     */
     public function show()
     {
-    	$homeLabel = $this->objLanguage->languageText('word_home');
-    	$logoutLabel = $this->objLanguage->languageText('word_logout');
+    	$homeLabel = $this->objLanguage->languageText('word_home', 'system', 'Home');
+    	$logoutLabel = $this->objLanguage->languageText('word_logout', 'system', 'Logout');
     	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
         
         $postlogin = 'cms';//$this->objConfig->getdefaultModuleName();
