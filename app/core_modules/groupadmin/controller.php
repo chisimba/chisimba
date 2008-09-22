@@ -613,7 +613,7 @@ class groupadmin extends controller {
             $fullPath = $errorMsg;
         } 
         // Context Home Icon
-        $lblContextHome = $this->objLanguage->languageText( "word_course" ) . ' ' . $this->objLanguage->languageText( "word_home" );
+        $lblContextHome = $this->objLanguage->languageText( "word_course" ) . ' ' . $this->objLanguage->languageText( "word_home", 'system', 'Home');
         $icnContextHome = $this->newObject( 'geticon', 'htmlelements' );
         $icnContextHome->setIcon( 'home' );
         $icnContextHome->alt = $lblContextHome;
