@@ -14,7 +14,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  * @author    Charl van Niekerk <charlvn@charlvn.za.net>
  * @copyright GNU/GPL AVOIR/UWC 2008
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: $
+ * @version   $Id : XXXXXX $
  * @link      http://avoir.uwc.ac.za
  */
 
