@@ -136,8 +136,8 @@ class parse4blogpost extends object
             $this->url = '/index.php?module=api';
         }*/
         
-        if (isset($this->objExpar->url)) {
-            $this->url = $this->objExpar->url;
+        if (isset($this->objExpar->endpoint)) {
+            $this->url = $this->objExpar->endpoint;
         } else {
             $this->url = '/chisimba_framework/app/index.php?module=api';
         }
