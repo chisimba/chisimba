@@ -25,17 +25,22 @@ class zend extends object
      */
     public function init()
     {
+        // Zend must be in the include path in order for its classes to load each other
         $includePath = get_include_path();
         $zendPath = $this->getResourcePath('zend');
         if (strpos($includePath, $zendPath) === false) {
             $includePath .= ":$zendPath";
             set_include_path($includePath);
         }
+
+        // Register the Zend autoloader for easy access to its libraries
         require_once 'Zend/Loader.php';
         Zend_Loader::registerAutoload();
     }
 }
 
+// The Zend Exception class is already used elsewhere in Chisimba
+// This is a temporary fix until the other copies have been migrated
 if (!class_exists('Zend_Exception')) {
     class Zend_Exception extends Exception {}
 }
