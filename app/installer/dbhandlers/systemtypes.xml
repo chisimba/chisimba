@@ -15,6 +15,7 @@
             <categoryname>Basic System Only</categoryname>
             <module>decisiontable</module>
             <module>modulecatalogue</module>
+            <module>redirect</module>
             <module>security</module>
             <module>systext</module>
             <module>sysconfig</module>
