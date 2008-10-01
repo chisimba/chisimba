@@ -162,7 +162,8 @@ class media extends object
 	public function convertWav2Mp3($file, $savepath)
 	{
 		$rfile = basename($file, ".wav");
-		$newfile = $rfile.time().".mp3";
+		$newfile = $rfile.".mp3";
+		$newfile = $savepath.$newfile;
 		system("$this->ffmpeg -i $file $newfile", $results);
 		if($results == 0)
 		{
