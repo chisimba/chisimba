@@ -158,5 +158,20 @@ class media extends object
 		}
 		
 	}
+	
+	public function convertWav2Mp3($file, $savepath)
+	{
+		$rfile = basename($file, ".wav");
+		$newfile = $rfile.time().".mp3";
+		system("$this->ffmpeg -i $file $newfile", $results);
+		if($results == 0)
+		{
+			return $savepath.$newfile;
+		}
+		else {
+			return FALSE;
+		}	
+	}
+	
 }
 ?>
