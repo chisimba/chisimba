@@ -344,8 +344,10 @@ class logactivity extends dbTable
     	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
     	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
         if (!file_exists($arkLog)){
-            @copy($curLog, $arkLog);
-            @unlink($curLog);
+            if(file_exists($curlog)) {
+        		@copy($curLog, $arkLog);
+            	@unlink($curLog);
+        	}
         }
     	// mail it to the sys admin?
     	
