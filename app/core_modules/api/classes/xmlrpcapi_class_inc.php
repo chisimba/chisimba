@@ -165,6 +165,13 @@ class xmlrpcapi extends object
 	 */
 	public $objAnnote;
 
+	/**
+	 * Chisimba Skype API
+	 * @var    object
+	 * @access public
+	 */
+	public $objSkype;
+
     /**
      * init method
      *
@@ -219,6 +226,8 @@ class xmlrpcapi extends object
 			$this->objAnnote = $this->getObject('annoteapi');
 			// Remote Popularity API
 			$this->objPop = $this->getObject('popularityapi');
+			// Skype API
+			$this->objSkype = $this->getObject('skypeapi');
 		}
 		catch (customException $e)
 		{
@@ -832,6 +841,19 @@ class xmlrpcapi extends object
                 		   						   					array('boolean', 'string'),
                 		   						   					),
 													'docstring' => 'Accepts an XML Document for the annote module'),
+													
+							// Skype API					
+							'skype.chatmsg' => array('function' => array($this->objSkype, 'chat'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string'),
+                		   						   					),
+													'docstring' => 'Bangs a Skype chat message sent through the Python Skype API to the IM module'),
+													
+							'skype.recording' => array('function' => array($this->objSkype, 'soundbite'),
+                		   						   'signature' => array(
+                		   						   					array('string', 'string', 'string'),
+                		   						   					),
+													'docstring' => 'Grabs a base64 encoded string from skype to save to users dir'),
    					), 1, 0);
             
     //$server = new XML_RPC_Server(	array(),1,1);
