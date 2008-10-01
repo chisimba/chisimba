@@ -164,9 +164,7 @@ class media extends object
 		$rfile = basename($file, ".wav");
 		$newfile = $rfile.".mp3";
 		$newfile = $savepath.$newfile;
-		log_debug("$this->ffmpeg -i $file $newfile");
 		system("$this->ffmpeg -i $file $newfile", $results);
-		log_debug($results);
 		if($results == 0)
 		{
 			return $newfile;
