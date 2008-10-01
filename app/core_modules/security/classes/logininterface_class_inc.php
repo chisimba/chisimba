@@ -101,7 +101,7 @@ class loginInterface extends object
     		$objInput = new textinput('username', '', 'text','15');
     		$objLabel = new label($this->objLanguage->languageText('word_username').': ', 'input_username');
     		//Add validation for username
-    		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'system', 'Please enter a username. A username is required in order to login.'),'required');
+    		$objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'security', 'Please enter a username. A username is required in order to login.'),'required');
     		
     		//Add the username box to the form
     		$objFields->addContent($objLabel->show().'<br />');

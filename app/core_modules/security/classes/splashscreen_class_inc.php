@@ -100,7 +100,7 @@ class splashscreen extends object
             .$this->objLanguage->languageText("phrase_networkid");
         //the variable to hold the login button
 
-        $jsWarning = '<noscript><span class="error"><strong>'.$this->objLanguage->languageText('mod_security_javascriptwarning').'</strong></span><br /></noscript>';
+        $jsWarning = '<noscript><span class="error"><strong>'.$this->objLanguage->languageText('mod_security_javascriptwarning','security').'</strong></span><br /></noscript>';
 
         $loginButton= $jsWarning.'<input name="Submit" type="submit" class="button"
           onclick="KEWL_validateForm(\'username\',\'\',\'R\',\'password\',\'\',\'R\');'
