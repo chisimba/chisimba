@@ -148,11 +148,11 @@ if ($modules) {
                     if ($this->objModFile->findController($moduleId)) {
                         $link = "<a href='{$this->uri(null,$moduleId)}'>$moduleName</a>";
                     }
-                    $instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
+                    $instButton = &new Link($this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat,'srchstr'=>$srchStr,'srchtype'=>$srchType,'lastaction'=>$lastAction),'modulecatalogue'));
                     $instButton->link = $this->objLanguage->languageText('word_uninstall');
                     $objConfirm = &$this->getObject('confirm','utilities');
                     $objConfirm->setConfirm($this->objLanguage->languageText('word_uninstall'),
-                    $this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'),
+                    $this->uri(array('action'=>'uninstall','mod'=>$moduleId,'cat'=>$activeCat,'srchstr'=>$srchStr,'srchtype'=>$srchType,'lastaction'=>$lastAction),'modulecatalogue'),
                     str_replace('MODULE',$moduleId,$this->objLanguage->languageText('mod_modulecatalogue_deregsure','modulecatalogue')));
                     $instButtonShow = $objConfirm->show();
                     if ($batchuninstall) {
