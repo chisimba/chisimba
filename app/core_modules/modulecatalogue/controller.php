@@ -273,6 +273,12 @@ class modulecatalogue extends controller
 						return 'front_tpl.php';
 					}
 				case 'uninstall':
+				
+               
+					$srchStr = $this->getParam('srchstr');
+					$lastAction = $this->getParam('lastaction');
+					$srchType = $this->getParam('srchtype');
+				
 					$error = false;
 					$mod = $this->getParm('mod');
 					if ($this->uninstallModule($mod)) {
@@ -285,6 +291,11 @@ class modulecatalogue extends controller
 						if (!$error) $error = -1;
 					}
 					$this->setSession('output',$this->output);
+					
+					if($lastAction != NULL)
+					{
+						return $this->nextAction('search',array('cat'=>$activeCat,'lastError'=>$error,'srchtype' => $srchType, 'srchstr' => $srchStr));
+					}
 					return $this->nextAction(null,array('cat'=>$activeCat,'lastError'=>$error));
 
 				case 'install':
