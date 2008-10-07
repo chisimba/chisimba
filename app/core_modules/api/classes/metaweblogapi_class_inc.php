@@ -382,7 +382,7 @@ class metaweblogapi extends object
      */
 	public function metaWeblogGetPost($params)
 	{
-		log_debug("getting single post..... - metaweblog");
+		//log_debug("getting single post..... - metaweblog");
 		$param = $params->getParam(0);
 		if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
