@@ -171,6 +171,13 @@ class xmlrpcapi extends object
 	 * @access public
 	 */
 	public $objSkype;
+    
+    /**
+     * Chisimba Document Conversion API
+     * @var    object
+     * @access public
+     */
+    public $objDocConvert;
 
     /**
      * init method
@@ -228,6 +235,8 @@ class xmlrpcapi extends object
 			$this->objPop = $this->getObject('popularityapi');
 			// Skype API
 			$this->objSkype = $this->getObject('skypeapi');
+            // Document Conversion API
+            $this->objDocConvert = $this->getObject('documentconversionapi');
 		}
 		catch (customException $e)
 		{
@@ -854,6 +863,12 @@ class xmlrpcapi extends object
                 		   						   					array('string', 'string', 'string'),
                 		   						   					),
 													'docstring' => 'Grabs a base64 encoded string from skype to save to users dir'),
+                            // Document Conversion
+                            'document.convertFile' => array('function' => array($this->objDocConvert, 'convertDoc'),
+                                                   'signature' => array(
+                                                                    array('array', 'string', 'string', 'string', 'string'),
+                                                                    ),
+                                                   'docstring' => 'Convert between various document formats using Open Office'),
    					), 1, 0);
             
     //$server = new XML_RPC_Server(	array(),1,1);
