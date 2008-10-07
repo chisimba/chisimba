@@ -99,11 +99,21 @@ class cleanurl extends object
         // Clean slashes
         $this->cleanUpUrl($filename);
         
+        // Clean up funny characters
         $filename = preg_replace('/[^-\\w\\s.()\/]/', '', $filename);
         $filename = preg_replace('/\\s/', '_', $filename);
         
         // Rename .php files to .phps
         $filename = preg_replace('/(\\.php)\\Z/', '.phps', $filename);
+        $filename = preg_replace('/(\\.php3)\\Z/', '.phps', $filename);
+        $filename = preg_replace('/(\\.php4)\\Z/', '.phps', $filename);
+        $filename = preg_replace('/(\\.php5)\\Z/', '.phps', $filename);
+        
+        // Various other possible characters that may cause problems
+        $filename = str_replace(' ', '_', $filename);
+        $filename = str_replace("'", '', $filename);
+        $filename = str_replace('"', '', $filename);
+        $filename = str_replace('?', '', $filename);
         
         return $filename;
     }

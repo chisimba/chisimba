@@ -475,16 +475,7 @@ class upload extends filemanagerobject
     */
     public function secureFileName($filename)
     {
-        $filename = str_replace("'", '', $filename);
-        $filename = str_replace('"', '', $filename);
-
-        // Security Measure - Rename file to phps if is a .php file
-        $filename = preg_replace('/^(.*)\.php$/i', '\\1.phps', $filename);
-
-        // Replace spaces in filename with underscores
-        $filename = str_replace(' ', '_', $filename);
-
-        return $filename;
+        return $this->objCleanUrl->cleanFilename($filename);
     }
 
     /**
