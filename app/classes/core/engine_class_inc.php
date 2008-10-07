@@ -465,7 +465,7 @@ class engine
 			if($this->_objDbConfig->getenable_apc() == 'TRUE')
 			{
 				$this->objAPC = TRUE;
-				
+
 			}
 			else {
 				$this->objAPC = FALSE;
@@ -523,7 +523,7 @@ class engine
     */
 	public function run($presetModuleName = NULL, $presetAction = NULL)
 	{
-		
+
 		if (empty($presetModuleName)) {
 			$requestedModule = strtolower($this->getParam('module', '_default'));
 		} else {
@@ -567,7 +567,7 @@ class engine
     */
 	public function getDbObj()
 	{
-		
+
 		global $_globalObjDb;
 		/*
 		* do the checks that the db object gets instantiated once, then let MDB2 take over for the on-demand * *construction
@@ -616,7 +616,7 @@ class engine
 				//Load up some of the extra MDB2 modules:
 				MDB2::loadFile('Date');
 				MDB2::loadFile('Iterator');
-                
+
                 // Load the MDB2 Functions module
                 $_globalObjDb->loadModule('Function');
 
@@ -703,11 +703,11 @@ class engine
 
 			//Check for errors
 			if (PEAR::isError($_globalObjDbManager)) {
-				/*	
+				/*
 				 * manually call the callback function here,
 				 * as we haven't had a chance to install it as
 				 * the error handler
-				 */				
+				 */
 				$this->_pearErrorCallback($_globalObjDbManager);
 				//return the db object for use globally
 				return $_globalObjDbManager;
@@ -780,9 +780,9 @@ class engine
 			}
 		}
 		/*
-		 * now we are left with the port and databsource so we can just explode the string 
+		 * now we are left with the port and databsource so we can just explode the string
 		 * and clobber the arrays together
-		 */	
+		 */
 		$pm = explode("/",$dsn);
 		$parsed['hostspec'] = $pm[0];
 		$parsed['database'] = $pm[1];
@@ -1027,7 +1027,7 @@ class engine
 			{
 				//log_debug("retrieve $name from cache...new object");
 				$objNew = chisimbacache::getMem()->get(md5($name));
-				
+
 				return $objNew;
 			}
 			else {
@@ -1397,7 +1397,7 @@ class engine
     * @param   bool   $javascriptCompatibility flag to produce javascript compatible URLs
     * @returns string $uri the URL
     */
-	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE)
+	public function uri($params = array(), $module = '', $mode = '', $omitServerName=FALSE, $javascriptCompatibility = FALSE, $Strict=FALSE)
 	{
 		if (!empty($action)) {
 			$params['action'] = $action;
@@ -1447,7 +1447,7 @@ class engine
 					$output[] = urlencode($key)."=".urlencode($item);
 				}
 			}
-			$uri .= '?'.implode($javascriptCompatibility?'&#38;':'&amp;', $output);
+			$uri .= '?'.implode($javascriptCompatibility?($Strict?'&':'&#38;'):'&amp;', $output);
 		}
 		return $uri;
 	}
@@ -1514,7 +1514,7 @@ class engine
         } else {
             return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
         }
-        
+
     }
 
 	/**
@@ -1617,7 +1617,7 @@ class engine
      */
 	public function _pearErrorCallback($error)
 	{
-		
+
 		$msg = $error->getMessage() . ': ' . $error->getUserinfo();
 		$errConfig = $this->_objConfig->geterror_reporting();
 		if($errConfig == "developer")
@@ -1651,7 +1651,7 @@ class engine
 
 	/*
 	 * Private methods to implement module dispatch and templating
-	 */ 
+	 */
 
 	/**
     * Main dispatch method. Called by run to dispatch this request

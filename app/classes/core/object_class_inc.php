@@ -238,11 +238,11 @@ class object
      * @param  string $omitServerName flag to produce relative URLs
      * @return mixed  Returns the application URI
      */
-    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility=FALSE) {
+    public function uri($params, $moduleName = '', $uriMode = '', $omitServerName=FALSE, $javascriptCompatibility=FALSE, $Strict=FALSE) {
         if (empty($moduleName)) {
             $moduleName = $this->moduleName;
         }
-        return $this->objEngine->uri($params, $moduleName, $uriMode,$omitServerName, $javascriptCompatibility);
+        return $this->objEngine->uri($params, $moduleName, $uriMode,$omitServerName, $javascriptCompatibility, $Strict);
     }
 
     /**
@@ -394,7 +394,7 @@ class object
     public function setVar($name, $value) {
         return $this->objEngine->setVar($name, $value);
     }
-    
+
     /**
      * Method to return a template variable.
      * These are used to pass information from module to template.
