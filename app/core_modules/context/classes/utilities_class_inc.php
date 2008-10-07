@@ -416,7 +416,7 @@ class utilities extends object
             $section = $this->getParam('id');
             
             //create the home for the context
-            $nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' -  '.$this->objLanguage->languageText("word_home"), 'uri' => $this->uri(null,"_default"));
+            $nodes[] = array('text' =>$this->objDBContext->getMenuText() . ' -  '.$this->objLanguage->languageText("word_home", 'system', 'Home'), 'uri' => $this->uri(null,"_default"));
                         
             
             

@@ -21,3 +21,8 @@
         
     }
     
+    function contextPrivate()
+    {
+        alert(contextPrivateMessage);
+    }
+    

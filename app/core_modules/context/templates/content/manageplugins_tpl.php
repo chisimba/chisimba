@@ -9,11 +9,11 @@ $this->loadClass('label', 'htmlelements');
 
 $header = new htmlheading();
 $header->type = 1;
-$header->str = $contextTitle.': '.$this->objLanguage->languageText('mod_context_manageplugins', 'context', 'Manage Plugins');
+$header->str = $contextTitle.': '.$this->objLanguage->code2Txt('mod_context_managepluginsabs', 'context', array('plugins'=>'plugins'), 'Manage [-plugins-]');
 
 echo $header->show();
 
-echo '<p>'.$this->objLanguage->code2Txt('mod_context_selectcontextplugins', 'context', NULL, 'Select the plugins you would like to use in your [-context-]').':</p>';
+echo '<p>'.$this->objLanguage->code2Txt('mod_context_selectcontextpluginsabs', 'context', array('plugins'=>'plugins'), 'Select the [-plugins-] you would like to use in your [-context-]').':</p>';
 
 $form = new form('updateplugins', $this->uri(array('action'=>'updateplugins')));
 
@@ -47,7 +47,7 @@ foreach ($plugins as $plugin)
 
 $form->addToForm($table->show());
 
-$button =  new button ('submitform', $this->objLanguage->languageText('mod_context_saveplugins', 'context', 'Save Plugins'));
+$button =  new button ('submitform', $this->objLanguage->code2Txt('mod_context_savepluginsabs', 'context', array('plugins'=>'plugins'), 'Save [-plugins-]'));
 $button->setToSubmit();
 
 $form->addToForm($button->show());

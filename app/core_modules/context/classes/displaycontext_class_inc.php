@@ -92,7 +92,13 @@ class displaycontext extends object
         
         $this->noImage = $objIcon->show();
         
+        if ($this->objUser->isLoggedIn()) {
+            $this->userContexts = $this->objUserContext->getUserContext($this->objUser->userId());
+        } else {
+            $this->userContexts = array();
+        }
         
+        //var_dump($this->userContexts);
     }
     
     /**
@@ -100,14 +106,31 @@ class displaycontext extends object
      * @param array $context
      * @param boolean $showEditDeleteLinks - Show Edit Links if applicable. THis function will determine it
      * @param boolean $includeFeatureBox - Display in a feature box or not
+     * @param boolean $disablePrivateAccess - Should a javascript warning be alert be shown instead of link
+     *                                        if context is private and user is not a member
      * @return string
      */
-    public function formatContextDisplayBlock($context, $showEditDeleteLinks=TRUE, $includeFeatureBox=TRUE)
+    public function formatContextDisplayBlock($context, $showEditDeleteLinks=TRUE, $includeFeatureBox=TRUE, $disablePrivateAccess=FALSE)
     {
         $canEdit = FALSE;
         
-        $link = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
-        $link->link = $context['title'];
+        // Flag on whether to show link for private courses
+        $showLink = $disablePrivateAccess;
+        
+        if (!$disablePrivateAccess) {
+            // If admin, show link
+            if ($this->objUser->isAdmin() || in_array($context['contextcode'], $this->userContexts)) {
+                $showLink = TRUE;
+            }
+        }
+        
+        if ($showLink) {
+            $link = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
+            $link->link = $context['title'];
+        } else {
+            $link = new link ('javascript:contextPrivate();');
+            $link->link = $context['title'];
+        }
         
         // Add Permissions
         
@@ -128,7 +151,11 @@ class displaycontext extends object
             $contextImage = '<img src="'.$contextImage.'" />';
         }
         
-        $contextImageLink = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
+        if ($showLink) {
+            $contextImageLink = new link ($this->uri(array('action'=>'joincontext', 'contextcode'=>$context['contextcode'])));
+        } else {
+            $contextImageLink = new link ('javascript:contextPrivate();');
+        }
         $contextImageLink->link = $contextImage;
         
         $str = '';

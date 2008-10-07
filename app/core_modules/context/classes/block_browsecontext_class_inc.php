@@ -79,7 +79,7 @@ class block_browsecontext extends object
     {
         try {
             $this->objLanguage =  $this->getObject('language', 'language');
-            $this->title = ucwords($this->objLanguage->code2Txt('phrase_browsecourses', 'system', NULL, 'Browse [-contexts-]'));
+            $this->title = ucwords($this->objLanguage->code2Txt('mod_context_browseallcontexts', 'context', NULL, 'Browse All [-contexts-]'));
             //$this->title = ucWords($this->objLanguage->code2Txt("mod_context_contexts",'context'));
             
             
@@ -103,6 +103,11 @@ class block_browsecontext extends object
         $str .= $this->getJavaScriptFile('contextbrowser.js');
         
         $this->appendArrayVar('bodyOnLoad', "getContexts('A');");
+        
+        
+        $this->appendArrayVar('headerParams', '<script type="text/javascript">contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
+        
+        
         
         return $str;
     }

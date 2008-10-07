@@ -91,7 +91,7 @@ class block_contextmodules extends object
         
         $this->objLanguage = $this->getObject('language', 'language');
         
-        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextplugins', 'context', NULL, '[-context-] Plugins'));
+        $this->title = ucwords($this->objLanguage->code2Txt('mod_context_contextpluginsabs', 'context', array('plugins'=>'plugins'), '[-context-] [-plugins-]'));
     }
    
     /**
@@ -114,7 +114,7 @@ class block_contextmodules extends object
         $modules = $this->objContextModules->getContextModules($this->contextCode);
         
         if (count($modules) == 0) {
-            $str = '<div class="noRecordsMessage">'.$this->objLanguage->code2Txt('mod_context_contexthasnoplugins', 'context', NULL, 'This [-context-] does not have any plugins enabled').'</div>';
+            $str = '<div class="noRecordsMessage">'.$this->objLanguage->code2Txt('mod_context_contexthasnopluginsabs', 'context', array('plugins'=>'plugins'), 'This [-context-] does not have any [-plugins-] enabled').'</div>';
         } else {
             
             $table = $this->newObject('htmltable', 'htmlelements');
@@ -166,11 +166,11 @@ class block_contextmodules extends object
             $str = $table->show();
         }
         
-        $str .= '<p align="right">'.$this->objLanguage->languageText('mod_context_unusedplugins', 'context', 'Unused Plugins').': '.($numModules-count($modules)).'</p>';
+        $str .= '<p align="right">'.$this->objLanguage->code2Txt('mod_context_unusedpluginsabs', 'context', array('plugins'=>'plugins'), 'Unused [-plugins-]').': '.($numModules-count($modules)).'</p>';
         
         
         $link = new link($this->uri(array('action'=>'manageplugins')));
-        $link->link = $this->objLanguage->languageText('mod_context_manageplugins', 'context', 'Manage Plugins');
+        $link->link = $this->objLanguage->code2Txt('mod_context_managepluginsabs', 'context', array('plugins'=>'plugins'), 'Manage [-plugins-]');
         
         return $str.'<p>'.$link->show().'</p>';
     }
