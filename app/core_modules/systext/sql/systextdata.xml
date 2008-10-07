@@ -622,4 +622,38 @@
         <dateCreated>2006-01-01 00:00:00</dateCreated>
         <canDelete>N</canDelete>
     </tbl_systext_abstract>
+    <!-- New One for Plugins - Column -->
+    <tbl_systext_text>
+        <id>init_13</id>
+        <textinfo>plugin</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <tbl_systext_text>
+        <id>init_14</id>
+        <textinfo>plugins</textinfo>
+        <creatorId>1</creatorId>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_text>
+    <!-- New One for Plugins - Abstraction -->
+    <tbl_systext_abstract>
+        <id>init_61</id>
+        <systemId>init_1</systemId>
+        <textId>init_13</textId>
+        <abstract>plugin</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
+    <tbl_systext_abstract>
+        <id>init_62</id>
+        <systemId>init_1</systemId>
+        <textId>init_14</textId>
+        <abstract>plugins</abstract>
+        <creatorId>1</creatorId>
+        <dateCreated>2006-01-01 00:00:00</dateCreated>
+        <canDelete>N</canDelete>
+    </tbl_systext_abstract>
 </defaultdata>
