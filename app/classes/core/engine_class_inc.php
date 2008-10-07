@@ -143,7 +143,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '2.0.3';
+	public $version = '2.0.4';
 
 	/**
      * Template variable
@@ -1509,7 +1509,12 @@ class engine
      */
     public function getPearResource($resourceFile)
     {
-       	return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
+        if (@include_once($resourceFile)) {
+            return $resourceFile;
+        } else {
+            return $this->_objConfig->getsiteRootPath()."lib/pear/".$resourceFile;
+        }
+        
     }
 
 	/**
