@@ -27,6 +27,8 @@ class markimage extends object
      */
     public $value=0;
     
+    public $percentage = FALSE;
+    
     /**
      * @var string $path Local Path to the image
      */
@@ -53,13 +55,19 @@ class markimage extends object
         // Setup Path
         $this->setupPaths();
         
+        $path = $this->value;
+        
+        if ($this->percentage) {
+            $path .= '%';
+        }
+        
         // If not already generated, generate it
-        if (!file_exists($this->fullPath.md5($this->value).'.png')) {
+        if (!file_exists($this->fullPath.md5($path).'.png')) {
             $this->generate($this->value);
         }
         
         // Return $path
-        return '<img src="'.$this->path.md5($this->value).'.png" />';
+        return '<img src="'.$this->path.md5($path).'.png" />';
     }
     
     /**
@@ -92,18 +100,25 @@ class markimage extends object
     private function generate($value)
     {
         // Font Size
-        $fontsize = 80;
+        $fontsize = 25;
         
         // Font
-        $font = $this->getResourcePath('markimage/daisy.ttf');
+        $font = $this->getResourcePath('markimage/SteveHand.ttf');
+        
+        if ($this->percentage) {
+            $value .= '%';
+        }
         
         // Some adjustment of left placement
         switch(strlen($value))
         {
-            case 1: $left = 30; break;
-            case 2: $left = 20; break;
-            case 3: $left = 10; break;
+            case 1: $left = 35; break;
+            case 2: $left = 30; break;
+            case 3: $left = 20; break;
+            default: $left = 5; break;
         }
+        
+        $top = 65;
         
         // Load Background Image
         $img = imagecreatefromgif($this->getResourcePath('markimage/bkg.gif'));
@@ -112,7 +127,7 @@ class markimage extends object
         $red = imagecolorallocate($img, 255, 0, 0);
         
         // Add mark
-        imagettftext($img, $fontsize, 0, $left, 85, $red, $font, $value);
+        imagettftext($img, $fontsize, 0, $left, $top, $red, $font, $value);
         
         // Store to file system
         imagepng($img, $this->fullPath.md5($value).'.png');
