@@ -864,7 +864,12 @@ class xmlrpcapi extends object
                 		   						   					),
 													'docstring' => 'Grabs a base64 encoded string from skype to save to users dir'),
                             // Document Conversion
-                            'document.convertFile' => array('function' => array($this->objDocConvert, 'convertDoc'),
+                            'document.convertFile' => array('function' => array($this->objDocConvert, 'convertOpenOffice'),
+                                                   'signature' => array(
+                                                                    array('string', 'string', 'string', 'string', 'string', 'string'),
+                                                                    ),
+                                                   'docstring' => 'Convert between various document formats using Open Office'),
+                            'document.convertPDF2SWF' => array('function' => array($this->objDocConvert, 'convertSWFTools'),
                                                    'signature' => array(
                                                                     array('string', 'string', 'string', 'string', 'string', 'string'),
                                                                     ),

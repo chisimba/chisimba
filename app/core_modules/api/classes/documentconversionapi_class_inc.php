@@ -88,12 +88,33 @@ class documentconversionapi extends object
     }
     
     /**
+     * Method to do an Open Office conversion
+     */
+    public function convertOpenOffice($params)
+    {
+        return $this->convertDoc($params, 'openoffice');
+    }
+    
+    /**
+     * Method to do an SWFTools conversion
+     */
+    public function convertSWFTools($params)
+    {
+        return $this->convertDoc($params, 'swftools');
+    }
+    
+    /**
      * Method to convert the document
      */
-    public function convertDoc($params)
+    public function convertDoc($params, $type)
     {
         $this->objModules = $this->getObject('modules', 'modulecatalogue');
-        $moduleRegistered = $this->objModules->checkIfRegistered('documentconverter');
+        
+        if ($type == 'swftools') {
+            $moduleRegistered = $this->objModules->checkIfRegistered('swftools');
+        } else {
+            $moduleRegistered = $this->objModules->checkIfRegistered('documentconverter');
+        }
         
         // If module is not registered, return 0, can't do anything
         if (!$moduleRegistered) {
@@ -158,8 +179,13 @@ class documentconversionapi extends object
         file_put_contents($dirToSave.'/'.$filename, base64_decode($contents));
         
         // Convert Files
-        $objDocumentConverter = $this->getObject('convertdoc', 'documentconverter');
-        $objDocumentConverter->convert($dirToSave.'/'.$filename, $dirToSave.'/'.$this->convertFilename);
+        if ($type == 'swftools') {
+            $objSWFTools = $this->getObject('pdf2flash', 'swftools');
+            $objSWFTools->convert2SWF($dirToSave.'/'.$filename, $dirToSave.'/'.$this->convertFilename);
+        } else {
+            $objDocumentConverter = $this->getObject('convertdoc', 'documentconverter');
+            $objDocumentConverter->convert($dirToSave.'/'.$filename, $dirToSave.'/'.$this->convertFilename);
+        }
         
         // Delete Original File
         unlink($dirToSave.'/'.$filename);
