@@ -84,6 +84,7 @@ class documentconversionapi extends object
     public function init()
     {
         $this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objSysconfig = $this->getObject('dbsysconfig', 'sysconfig');
     }
     
     /**
@@ -100,22 +101,38 @@ class documentconversionapi extends object
             return new XML_RPC_Response($noResponse);
         }
         
-        // get current filename
+        // get password
         $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $password = $param->scalarval();
+        
+        // get Required Password
+        $requiredPassword = $this->objSysconfig->getValue('REMOTEPASSWORD', 'documentconverter');
+        
+        // Check if match
+        if ($password != $requiredPassword) {
+            $noResponse = new XML_RPC_Value('0', 'string');
+            return new XML_RPC_Response($noResponse);
+        }
+        
+        // get current filename
+        $param = $params->getParam(1);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
         $filename = $param->scalarval();
         
         // get contents of file
-        $param = $params->getParam(1);
+        $param = $params->getParam(2);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
         $contents = $param->scalarval();
         
         // get filename of converted file
-        $param = $params->getParam(2);
+        $param = $params->getParam(3);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }

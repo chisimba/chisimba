@@ -866,7 +866,7 @@ class xmlrpcapi extends object
                             // Document Conversion
                             'document.convertFile' => array('function' => array($this->objDocConvert, 'convertDoc'),
                                                    'signature' => array(
-                                                                    array('array', 'string', 'string', 'string', 'string'),
+                                                                    array('string', 'string', 'string', 'string', 'string', 'string'),
                                                                     ),
                                                    'docstring' => 'Convert between various document formats using Open Office'),
    					), 1, 0);
