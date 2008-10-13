@@ -110,8 +110,8 @@ class action extends decisionTableAggregate
         // Delete by name
         $delObject = $name ? $this->create( $name ) : $this;
 
-        $this->_objChild->delete($delObject->_id, 'ruleId');
-        $this->_objParts->delete('ruleId', $delObject->_id);
+        $this->_objChild->delete($delObject->_id, 'id');
+        $this->_objParts->delete('id', $delObject->_id);
 
         return parent::delete( 'id', $delObject->_id );
     }
