@@ -25,7 +25,7 @@
  * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 Paul Scott
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
@@ -110,8 +110,8 @@ class action extends decisionTableAggregate
         // Delete by name
         $delObject = $name ? $this->create( $name ) : $this;
 
-        $this->_objChild->delete($delObject->_id, 'id');
-        $this->_objParts->delete('id', $delObject->_id);
+        $this->_objChild->delete($delObject->_id, $this->_dbFK);
+        $this->_objParts->delete($this->_dbFK, $delObject->_id);
 
         return parent::delete( 'id', $delObject->_id );
     }
