@@ -70,7 +70,7 @@ class action extends decisionTableAggregate
         $this->_objParts= $this->newObject( 'dbdecisiontableaction','decisiontable'  );
         $this->_objChild = $this->newObject('dbactionrule','decisiontable');
         $this->_objCreated = $this->newObject( 'rule','decisiontable' );
-        $this->_dbFK =  'ruleid';
+        $this->_dbFK =  'actionid';
         parent::init('tbl_decisiontable_action' );
     }
 
@@ -113,7 +113,7 @@ class action extends decisionTableAggregate
         $this->_objChild->delete($delObject->_id, $this->_dbFK);
         $this->_objParts->delete($this->_dbFK, $delObject->_id);
 
-        return parent::delete( 'id', $delObject->_id );
+        return parent::delete($name);
     }
 }
 ?>
