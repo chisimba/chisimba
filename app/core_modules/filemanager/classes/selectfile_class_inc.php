@@ -122,8 +122,11 @@ class selectfile extends filemanagerobject
 
 function clearFileInputJS(name)
 {
-    jQuery(\'#input_selectfile_\'+name).value = \'\';
-    jQuery(\'#hidden_\'+name).value = \'\';
+    //jQuery(\'#input_selectfile_\'+name).value = \'\';
+    //jQuery(\'#hidden_\'+name).value = \'\';
+    
+    jQuery(\'#input_selectfile_\'+name).attr(\'value\', \'\');
+    jQuery(\'#hidden_\'+name).attr(\'value\', \'\');
 }
 </script>';
 
