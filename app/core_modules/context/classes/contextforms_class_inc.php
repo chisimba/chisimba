@@ -139,6 +139,9 @@ class contextforms extends object
             $table->addCell('<strong>'.$context['contextcode'].'</strong>');
             $table->endRow();
         } else {
+            $code = new textinput('contextcode');
+            $codeLabel = new label (ucwords($this->objLanguage->code2Txt('mod_context_contextcode', 'context', NULL, '[-context-] Code')), 'input_contextcode');
+            
             $table->startRow();
             $table->addCell($codeLabel->show(), 100);
             $table->addCell($code->show().' <span id="contextcodemessage"></span>');
