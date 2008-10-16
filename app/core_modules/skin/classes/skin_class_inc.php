@@ -270,7 +270,13 @@ class skin extends object
     */
     public function putSimpleSkinCssLinks()
     {
-        return $this->putSkinCssLinks();
+        $skinRoot = $this->skinRoot;
+        
+        $stylesheet = '
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/base.css">
+        <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/stylesheet.css">';
+        
+        return $stylesheet;
     }
 
     /**
