@@ -68,11 +68,12 @@ class indexdata extends object
      * @param string $permissions Permissions to be checked before being displayed in Search Results. module|action, which could then be used as $this->isValid('action', 'module')
      * @param date/time $dateAvailable Date story becomes available
      * @param date/time $dateUnavailable Date story expires
-     * $param array $extra Any extra fields that might be peculiar to a module, in the format of $item=>$value,
+     * @param array $extra Any extra fields that might be peculiar to a module, in the format of $item=>$value,
+     * @param boolean $doOptimize Should Index be automatically optimized
      *
      * The last one is useful for categories, eg. forum. $extra = array('forum'=>'id') allows one to do a search in a particular forum
      */
-    public function luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags=NULL, $license=NULL, $context='nocontext', $workgroup='noworkgroup', $permissions=NULL, $dateAvailable=NULL, $dateUnavailable=NULL, $extra=NULL)
+    public function luceneIndex($docId, $docDate, $url, $title, $contents, $teaser, $module, $userId, $tags=NULL, $license=NULL, $context='nocontext', $workgroup='noworkgroup', $permissions=NULL, $dateAvailable=NULL, $dateUnavailable=NULL, $extra=NULL, $doOptimize=TRUE)
     {
         
         // Remove Index if it exists
@@ -158,7 +159,10 @@ class indexdata extends object
         $this->index->addDocument($document);
         
         //optimize the thing
-        $this->index->optimize();
+        if ($doOptimize) {
+            $this->index->optimize();
+        }
+        
     }
     
     /**
@@ -232,6 +236,18 @@ class indexdata extends object
         return $this->index;
         
         
+    }
+    
+    /**
+     * Method to Optimize the Index
+     * 
+     */
+    public function optimize()
+    {
+        // Get Indexer Object
+        $this->index = $this->checkIndexPath();
+        
+        $this->index->optimize();
     }
     
     /**
