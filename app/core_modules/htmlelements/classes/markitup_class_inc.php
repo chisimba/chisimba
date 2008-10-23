@@ -166,7 +166,7 @@ class markitup extends object
             $name = "markItUp";
         }
 
-        return '<script type="text/javascript" >
+        return '<script type="text/javascript" charset="utf-8">
           jQuery(document).ready(function() {
           jQuery("' . $what . $name . '").markItUp(mySettings);
           });
