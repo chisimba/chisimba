@@ -4,6 +4,7 @@
 // ------------------------------------------------------------------*/
 .markItUp * {
 	margin:0px; padding:0px;
+	outline:none;
 }
 .markItUp a:link,
 .markItUp a:visited {
@@ -28,9 +29,10 @@
 }
 .markItUpPreviewFrame	{
 	overflow:auto;
-	background-color:#FFFFFF;
+	background-color:#FFF;
 	width:99.9%;
 	height:300px;
+	margin:5px 0;
 }
 .markItUpFooter {
 	width:100%;
@@ -97,7 +99,7 @@
 .markItUpHeader ul a {
 	display:block;
 	width:16px; height:16px;
-	text-indent:-1000px;
+	text-indent:-10000px;
 	background-repeat:no-repeat;
 	padding:3px;
 	margin:0px;
