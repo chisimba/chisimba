@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a Wiki
 * item from the local wiki, and return the content inside the Chisimba
@@ -27,7 +28,18 @@
 * @version   CVS: $Id: parse4wiki_class_inc.php 3123 2007-11-27 13:01:19Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -41,12 +53,12 @@
 
 class parse4tracwiki extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      *

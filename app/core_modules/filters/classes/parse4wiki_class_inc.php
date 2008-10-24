@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a Wiki
 * item from the local wiki, and return the content inside the Chisimba
@@ -27,26 +28,37 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* to a local Wiki page and render the desired content.
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a local Wiki page and render the desired content.
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4wiki extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      *
@@ -64,12 +76,12 @@ class parse4wiki extends object
     }
 
     /**
-    *
-    * Method to parse the string
-    * @param  String $str The string to parse
-    * @return The parsed string
-    *
-    */
+     *
+     * Method to parse the string
+     * @param  String $str The string to parse
+     * @return The parsed string
+     *
+     */
     public function parse($txt)
     {
     	//Instantiate the modules class to check if youtube is registered
@@ -104,6 +116,7 @@ class parse4wiki extends object
             	$counter++;
         	}
         }
+
         return $txt;
     }
 }

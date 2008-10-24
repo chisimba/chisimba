@@ -34,6 +34,18 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+  // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 /**
 * Class for parsing kngtext, special text embeded in pseudo HTML
 * tags such as 
@@ -69,6 +81,7 @@ class parse4kngtext extends object
         // Match the code tag [code][/code]
         $search = "/(\[code\])(.+)(\[\/code\])/iseU"; 
         // Put a temporary replacepattern <putreturn></putreturn> for inserting BR tags
+
         return "DEPRECATED-------" . preg_replace($search, "'<div class=\"cdblk\">'.\$this->_nl2br('\\2').'</div>'", $str);
     } # end of function
     

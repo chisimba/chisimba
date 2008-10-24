@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) and fetch relevant data and links to wikipedia pages
 * 
@@ -25,28 +26,45 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
  
  
  
 /**
-*
-* Class to parse a string (e.g. page content) and fetch relevant data and links to wikipedia pages
-*
-* @author Paul Scott
-*         
-*/
+ *
+ * Class to parse a string (e.g. page content) and fetch relevant data and links to wikipedia pages
+ *
+ * @author Paul Scott
+ *
+ */
 
 class parse4wikipediawords extends object
 {
-	/**
-	* 
-	* String to hold an error message
-	* @accesss private 
-	*/
-	private $errorMessage;
-	
-	private $enableparser;
-    
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
+
+    /**
+     * flag to determine whether to enable the parse
+     *
+     * @var <type>
+     */
+    private $enableparser;
+
     /**
      * 
      * Constructor for the wikipedia parser
@@ -130,6 +148,7 @@ class parse4wikipediawords extends object
         		$txt = preg_replace("/ $orig /", " ".$thing['url']." ", $txt);
         	}
         }
+
         return $txt;
     }
 }

@@ -103,13 +103,13 @@ class input //extends object
      *
      * @var mixed
      */
-	protected $_source = NULL;
+    protected $_source = NULL;
 
-	/**
-	 * The filter object inherited from the filter class
-	 *
-	 * @var object
-	 */
+    /**
+     * The filter object inherited from the filter class
+     *
+     * @var object
+     */
     public $_filter;
 
     /**

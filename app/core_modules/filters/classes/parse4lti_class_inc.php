@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a presentation
 * item from the a webpresent module, whether local, URL or remote API
@@ -26,7 +27,18 @@
 * @version   CVS: $Id: parse4wpresent_class_inc.php 3156 2007-12-12 08:14:16Z kevinc $
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -39,18 +51,53 @@
 */
 class parse4lti extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-    * 
-	*/
-	private $errorMessage;
+   /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
+
+    /**
+     *
+     * pointer to the config module
+     */
     public $objConfig;
+
+   /**
+    * @var string $objLanguage String object property for holding the
+    * language object
+    * @access public
+    *
+    *
+    */
     public $objLanguage;
+
+   /**
+    *
+    * String object $objExpar is a string to hold the parameter extractor object
+    * @access public
+    */
     public $objExpar;
+
+    /**
+     *
+     * @var String
+     * @access public
+     */
     public $secret;
+
+    /**
+     *
+     * @var String
+     * @access public
+     */
     public $url;
+
+    /**
+     * used to check if module is registered
+     * @access public
+     */
     public $isRegistered;
 
     /**
@@ -131,6 +178,7 @@ class parse4lti extends object
             unset($this->type);
             unset($this->objExpar->type);
     	}
+
         return $txt;
     }
 
@@ -176,6 +224,7 @@ class parse4lti extends object
          $myXml = $this->objMsg->show();
          $this->objFetcher->set("xmlPacket", $myXml);
          $gotBack = $this->objFetcher->getUrl($this->url);
+
          return $this->objWrapper->show($gotBack);
          
     }

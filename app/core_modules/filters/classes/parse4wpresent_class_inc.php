@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a presentation
 * item from the a webpresent module, whether local, URL or remote API
@@ -26,29 +27,67 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a presentation
-* item from the a webpresent module, whether local, URL or remote API
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a presentation
+ * item from the a webpresent module, whether local, URL or remote API
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4wpresent extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
+    
+    /**
+     *
+     * pointer to the config module
+     */
     public $objConfig;
+
+    /**
+     *
+     * used to parse text text variables by replacing them with actual text
+     * from register.conf
+     */
     public $objLanguage;
+
+    /**
+     *
+     * used to extract parameter from a string
+     * @access public
+     */
     public $objExpar;
+
+    /**
+     *
+     * unique id of the presentation
+     */
     public $id;
+
+    /**
+     * link to the presentation
+     * @var String
+     */
     public $url;
 
     /**

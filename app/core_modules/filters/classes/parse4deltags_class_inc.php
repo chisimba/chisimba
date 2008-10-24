@@ -30,14 +30,26 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+     // security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a request
-* to load del.icio.us tags in the form [TAGS]username[TAGS]
-*
-* @author Derek Keats
-*         
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a request
+ * to load del.icio.us tags in the form [TAGS]username[TAGS]
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4deltags extends object
 {
@@ -72,6 +84,7 @@ class parse4deltags extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+
         return $str;
     }
     
@@ -89,6 +102,7 @@ class parse4deltags extends object
     	$ret = "<script type=\"text/javascript\" " 
 		  . "src=\"http://del.icio.us/feeds/js/tags/$deliciousUser?icon;size=12-35;"
 		  . "color=87ceeb-0000ff;title=my%20del.icio.us%20tags;name;showadd\"></script>";
+
         return $ret;
     }
 

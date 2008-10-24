@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a filter
 * code for including a TOKBOX widget
@@ -26,7 +27,18 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -39,14 +51,32 @@
 */
 class parse4tt extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
+
+    /**
+     * Object pointing to config module
+     * @access public
+     */
     public $objConfig;
+
+   /**
+    *
+    * @var string $objLanguage String object property for holding the
+    * language object
+    * @access public
+    *
+    */
     public $objLanguage;
+
+    /**
+     *
+     * @var <type> 
+     */
     public $objExpar;
 
     /**

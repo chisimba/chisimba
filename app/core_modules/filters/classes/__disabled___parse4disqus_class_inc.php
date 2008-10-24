@@ -1,4 +1,5 @@
 <?php
+
 /**
 *
 * Parser for disqus.com discussions
@@ -31,6 +32,17 @@
 * @link      http://avoir.uwc.ac.za
 *
 */
+// security check - must be included in all scripts
+if (! /**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS ['kewl_entry_point_run']) {
+    die ( "You cannot view this page directly" );
+}
+// end security check
+
 
 
 
@@ -40,7 +52,14 @@
 * tag to insert a discussion from disqus.com.  It takes the form
 * [DISQUS: url=http://somesite.com]
 *
-* @author Derek Keats
+* @category  Chisimba
+* @package   filters
+* @author    Derek Keats <dkeats@uwc.ac.za>
+* @copyright 2007 Derek Keats
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+* @version   CVS: $Id: parse4pdf_class_inc.php 2813 2007-08-03 09:29:14Z paulscott $
+* @link      http://avoir.uwc.ac.za
+* @see
 *
 */
 class parse4disqus extends object
@@ -144,9 +163,14 @@ class parse4disqus extends object
             unset($replacement);
         	$counter++;
         }
+
         return $txt;
     }
 
+    /**
+     * create notification message to display on filter when Disqus is not installed
+     * @return void
+     */
     private function _errNotInst()
     {
         return "<br /><span class='error'>"
@@ -183,6 +207,7 @@ class parse4disqus extends object
         //Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the disqus API module is registered and set a param
+
         return $objModule->checkIfRegistered('disqus', 'disqus');
     }
 
@@ -193,6 +218,7 @@ class parse4disqus extends object
           . $this->objDq->getEmbedJs($this->disqusUser);
 
         //return nl2br(htmlentities($ret));
+
         return $ret;
     }
 

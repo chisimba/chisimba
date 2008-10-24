@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to parse a string (e.g. page content) that contains a link
  * and creates an XML-RPC request to the screenshot server to get a thumbnail. 
@@ -27,27 +28,40 @@
  * @version   CVS: $Id$
  * @link      http://avoir.uwc.ac.za     
  */
+// security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* and creates an XML-RPC request to the screenshot server to get a thumbnail. 
-* This class will also create a local cache to save bandwidth
-*
-* @author    Paul Scott
-* @package   filters
-* @access    public
-* @copyright AVOIR GNU/GPL
-*            
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * and creates an XML-RPC request to the screenshot server to get a thumbnail.
+ * This class will also create a local cache to save bandwidth
+ *
+ * @author    Paul Scott
+ * @package   filters
+ * @access    public
+ * @copyright AVOIR GNU/GPL
+ *
+ */
 
 class parse4screenshots extends object
 {
-	/**
-	 * The Config object (altconfig)
-	 * 
-	 * @access public
-	 * @var    object
-	 */
+    /**
+     * The Config object (altconfig)
+     *
+     * @access public
+     * @var    object
+     */
     public $objConfig;
     
     /**
@@ -95,7 +109,7 @@ class parse4screenshots extends object
     	$this->objTT = $this->getObject('domtt', 'htmlelements');
     	$this->sysConfig = $this->getObject('dbsysconfig', 'sysconfig');
     	$this->shotserv = $this->sysConfig->getValue('screenshot_server', 'filters');
-		$this->shoturl = $this->sysConfig->getValue('screenshot_url', 'filters');
+	$this->shoturl = $this->sysConfig->getValue('screenshot_url', 'filters');
     }
     
     /**
@@ -117,6 +131,7 @@ class parse4screenshots extends object
             $txt = str_replace($results[0][$counter], $replacement, $txt);
             $counter++;
         }
+
         // return the parsed string
         return $txt;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a presentation
 * item from the a webpresent module, whether local, URL or remote API
@@ -25,7 +26,21 @@
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+/**
+ *
+ */
 
     class parse4realtime extends object
     {
@@ -35,10 +50,35 @@
         * @accesss private
         */
         private $errorMessage;
+
+        /**
+         *
+         * pointer to the config module
+         */
         public $objConfig;
+
+        /**
+         *
+         * @var <type>
+         */
         public $objLanguage;
+
+        /**
+         * used to extract params from a string
+         * @var <type>
+         */
         public $objExpar;
+
+        /**
+         * unique id
+         * @var <String
+         */
         public $id;
+
+        /**
+         * the url to play the realtime applet from
+         * @var String
+         */
         public $url;
 
     /**
@@ -59,12 +99,12 @@
             require_once($this->getPearResource('XML/RPC/Server.php'));
             // $this->objConfig = $this->getObject('altconfig', 'config');
         }
-    /**
-     * This function generates a random string. This is used as id for the java slides server as well as
-     * the client (applet)
-     * @param <type> $length
-     * @return <type>
-     */ 
+        /**
+         * This function generates a random string. This is used as id for the java slides server as well as
+         * the client (applet)
+         * @param <type> $length
+         * @return <type>
+         */
         public function randomString($length)
         {
             // Generate random 32 charecter string

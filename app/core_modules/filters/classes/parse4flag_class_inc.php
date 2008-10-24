@@ -1,4 +1,5 @@
 <?php
+
 /**
 *
 * Class to parse a string (e.g. page content) that contains a flag
@@ -27,22 +28,33 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+ // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a flag
-* for the enclosed text. For example,
-* [FLAG type=needrefs]Some text to flag.[/FLAG]
-*
-* This causes the text to be placed in a table with an image that
-* flags the surrounded text for attention, and generally for action
-* or feedback.
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a flag
+ * for the enclosed text. For example,
+ * [FLAG type=needrefs]Some text to flag.[/FLAG]
+ *
+ * This causes the text to be placed in a table with an image that
+ * flags the surrounded text for attention, and generally for action
+ * or feedback.
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4flag extends object
 {
 
@@ -115,6 +127,7 @@ class parse4flag extends object
         	$txt = str_replace($replaceable, $replacement, $txt);
         	$counter++;
         }
+
         return $txt;
     }
 
@@ -169,6 +182,7 @@ class parse4flag extends object
         $flagTable .= "<tr><td style=\"background:red;\">&nbsp;</td><td width=64 style=\"padding-left: 8px\">$iconImg</td><td style=\"padding-left: 8px;\"><span class=\"error\">$instrLangTxt</span></td></tr>";
         $flagTable .= "<tr><td style=\"background:red;\">&nbsp;</td><td colspan=2 style=\"padding-left: 8px; padding-bottom:8px;\">" .  $item .  "</td></tr>";
         $flagTable .= "</table>";
+
         return $flagTable;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a filter
 * code for including the enclosed text in a coloured box (pastel colours)
@@ -26,7 +27,18 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+ // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -40,7 +52,7 @@
 class parse4colorbox extends object
 {
 
-    /**
+   /**
     *
     * @var string $objLanguage String object property for holding the
     * language object
@@ -49,7 +61,7 @@ class parse4colorbox extends object
     */
     public $objLanguage;
 
-    /**
+   /**
     *
     * String object $objExpar is a string to hold the parameter extractor object
     * @access public
@@ -130,6 +142,12 @@ class parse4colorbox extends object
 
     }
 
+    /**
+     *
+     * @param <type> $boxtype
+     * @param <type> $
+     * @return <type>
+     */
     private function getBox($boxtype, &$item)
     {
         $oT = $this->getObject("colorbox", "utilities");

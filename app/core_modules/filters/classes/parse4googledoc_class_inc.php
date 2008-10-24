@@ -31,8 +31,20 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
+     // security check - must be included in all scripts
+if (!
 /**
-*
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+/**
+ *
  * Class to parse a string (e.g. page content) that contains a
  * URL for a shared google doc.
  *
@@ -86,6 +98,7 @@ class parse4googledoc extends object
             $txt = str_replace($replaceable, $replacement, $txt);
             $counter++;
         }
+
         return $txt;
     }
 

@@ -30,6 +30,19 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
 /**
  * Class for parsing anchored multimedia links and turning them
  * into embeded media links. This class is based on the similar filters
@@ -70,6 +83,7 @@ class parse4mmedia extends object {
         $replace .= ' pluginspage="http://quicktime.apple.com/">';
         $replace .= '</embed>';
         $replace .= '</object></p>';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -108,6 +122,7 @@ class parse4mmedia extends object {
         $replace .= ' pluginspage="http://www.microsoft.com/Windows/Downloads/Contents/Products/MediaPlayer/">';
         $replace .= '</embed>';
         $replace .= '</object></p>';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -136,6 +151,7 @@ class parse4mmedia extends object {
         $replace .= ' pluginspage="http://www.macromedia.com/go/getflashplayer">';
         $replace .= '</embed>';
         $replace .= '</object></p>';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -159,6 +175,7 @@ class parse4mmedia extends object {
         $replace .= '<param name="autoplay" value="false">';
         $replace .= '<embed src="\\2.\\3" width="240" height="180" controller="true" autoplay="false"> </embed>';
         $replace .= '</object></p>';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -182,6 +199,7 @@ class parse4mmedia extends object {
         $replace .= '<param name="autoplay" value="0" />';
         $replace .= '<embed src="\\2.avi" width="240" height="180" controller="1" autoplay="0" pluginspage ="http://www.microsoft.com/Windows/MediaPlayer/" type="video/x-ms-wvx" > </embed>';
         $replace .= '</object></p>';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -214,6 +232,7 @@ width="59" height="32" name="playerid" codebase="core_modules/files/resources/ti
 <param name="audioURL" value="'."\\2.mp3".'" />
 <param name="scriptable" value="true" />
 </applet> ';
+
         return preg_replace($search, $replace, $str);
     } # end of function
     
@@ -230,6 +249,7 @@ width="59" height="32" name="playerid" codebase="core_modules/files/resources/ti
         $str = $this->parseMp3($str);
         $str = $this->parseMpeg($str);
         $str = $this->parseWmm($str);
+
         return $this->parseWmv($str);
     } # end of function
     

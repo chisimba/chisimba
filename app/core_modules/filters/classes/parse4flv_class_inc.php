@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to parse a string (e.g. page content) that contains a link
  * to a flv (Flash video file) and render the video in the page, YouTube! style
@@ -27,17 +28,29 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+     // security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* to a flv (Flash video file) and render the video in the page, YouTube! style
-*
-* @author    Paul Scott
-* @package   filters
-* @access    public
-* @copyright AVOIR GNU/GPL
-*            
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a flv (Flash video file) and render the video in the page, YouTube! style
+ *
+ * @author    Paul Scott
+ * @package   filters
+ * @access    public
+ * @copyright AVOIR GNU/GPL
+ *
+ */
 
 class parse4flv extends object
 {

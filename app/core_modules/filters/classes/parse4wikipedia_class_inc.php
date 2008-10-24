@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a wikipedia
 * keyword, and return the page of content inside the Chisimba page
@@ -26,26 +27,37 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* to a yout tube video and render the video in the page
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a yout tube video and render the video in the page
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4wikipedia extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      *
@@ -62,12 +74,12 @@ class parse4wikipedia extends object
     }
 
     /**
-    *
-    * Method to parse the string
-    * @param  String $str The string to parse
-    * @return The    parsed string
-    *
-    */
+     *
+     * Method to parse the string
+     * @param  String $str The string to parse
+     * @return The    parsed string
+     *
+     */
     public function parse($txt)
     {
         //Match filters based on a wordpress style
@@ -93,9 +105,15 @@ class parse4wikipedia extends object
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
         }
+
         return $txt;
     }
 
+    /**
+     * gets the wiki content for the specified url
+     * @param String $link wiki link
+     * @return <type>
+     */
     function getWikiContents($link)
     {
         $objCurl = $this->getObject('curlwrapper', 'utilities');
@@ -161,6 +179,7 @@ class parse4wikipedia extends object
         } else {
             $page = NULL;
         }
+
         return $page;
     }
 
@@ -172,19 +191,20 @@ class parse4wikipedia extends object
 
 
     /**
-    *
-    *  A method to validate a keyword as a valid wikipedia keyword
-    *
-    * @param  string  $keyWord The link to check
-    * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
-    *
-    * @Todo - implement this.
-    *
-    */
+     *
+     *  A method to validate a keyword as a valid wikipedia keyword
+     *
+     * @param  string  $keyWord The link to check
+     * @return boolean TRUE|FALSE True if it is a valid link, false otherwise
+     *
+     * @Todo - implement this.
+     *
+     */
     private function isWikipedia($keyWord)
     {
     	$keyWord=strtolower($keyWord);
-   		return TRUE;
+
+   	return TRUE;
     }
 
 }

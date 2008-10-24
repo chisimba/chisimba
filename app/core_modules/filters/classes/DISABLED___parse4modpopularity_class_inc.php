@@ -25,6 +25,17 @@
 * @version   CVS: $Id:
 * @link      http://avoir.uwc.ac.za
 */
+// security check - must be included in all scripts
+if (! /**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS ['kewl_entry_point_run']) {
+    die ( "You cannot view this page directly" );
+}
+// end security check
+
 
 
 
@@ -33,18 +44,24 @@
 * Class to parse a string (e.g. page content) that contains a link
 * to a trac Wiki page and render the desired content.
 *
-* @author Paul Scott <pscott@uwc.ac.za>
+* @category  Chisimba
+* @package   filters
+* @author    Paul Scott <pscott@uwc.ac.za>
+* @copyright 2008 Paul Scott
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+* @version   CVS: $Id:
+* @link      http://avoir.uwc.ac.za
 *
 */
 
 class parse4modpopularity extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+   /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      *
@@ -61,7 +78,7 @@ class parse4modpopularity extends object
         $this->objExpar = $this->getObject("extractparams", "utilities");
     }
 
-    /**
+   /**
     *
     * Method to parse the string
     * @param  String $str The string to parse

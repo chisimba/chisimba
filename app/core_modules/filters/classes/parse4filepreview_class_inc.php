@@ -1,4 +1,5 @@
 <?php
+
 /**
 * 
 * Parse string for filter for file preview
@@ -30,7 +31,18 @@
 * @version   CVS: $Id: parse4files_class_inc.php 3630 2008-02-29 12:45:21Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
-
+ // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**

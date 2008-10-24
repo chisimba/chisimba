@@ -39,12 +39,12 @@
 
 class parse4sketchcast extends object
 {
-	/**
-	* 
-	* String to hold an error message
-	* @accesss private 
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      * Description for private
@@ -113,6 +113,7 @@ class parse4sketchcast extends object
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
         }
+
         return $txt;
     }
 

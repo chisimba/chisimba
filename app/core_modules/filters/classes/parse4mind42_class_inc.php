@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a reference to
 * a Mindmeister Mindmap from http://www.mindmeister.com/
@@ -26,24 +27,54 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a reference to
-* a Mindmeister Mindmap from http://www.mindmeister.com/
-*
-*
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a reference to
+ * a Mindmeister Mindmap from http://www.mindmeister.com/
+ *
+ *
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4mind42 extends object
 {
+    /**
+     * used to extract parameters from a string
+     * @var String
+     */
     public $objExpar;
+
+    /**
+     * unique id
+     * @var String
+     */
     public $id;
+
+    /**
+     *
+     * page width
+     */
     public $width;
+
+    /**
+     *
+     * page height
+     */
     public $height;
 
     /**

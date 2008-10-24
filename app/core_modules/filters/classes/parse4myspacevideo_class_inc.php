@@ -28,14 +28,27 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+    // security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* to a mySpace video and render the video in the page
-*
-* @author Derek Keats
-*         
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a mySpace video and render the video in the page
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4myspacevideo extends object
 {
@@ -104,6 +117,7 @@ class parse4myspacevideo extends object
         $vTxt = $vCode[1];
         $vCode = explode("=", $vTxt);
         $vTxt = $vCode[2];
+
         return $vTxt;
     }
     
@@ -120,6 +134,7 @@ class parse4myspacevideo extends object
 		$vid = "<embed src=\"http://lads.myspace.com/videos/vplayer.swf\" flashvars=\"m="
 		  . $videoId . "&amp;type=video\" type=\"application/x-shockwave-flash\""
 		  . " width=\"430\" height=\"346\"></embed>";
+
 		return $vid;
     }
     

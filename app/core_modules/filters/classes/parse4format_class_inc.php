@@ -27,6 +27,18 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+ // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 /**
  * Class for parsing smilies in a text string
  * @author    Kevin Cyster
@@ -83,6 +95,7 @@ class parse4format extends object {
             $test[] = $code;
             $replace[] = $tag;
         }
+
         return str_ireplace($test, $replace, $str);
 
     } # end of function

@@ -31,16 +31,29 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
 
 /**
-* Class to Parse for References and convert them into footnotes
-*
-* This class searches for references enclosed in [REF][/REF] tags.
-* Each of these references are then replaced by a superscript number
-* that links to an item in the footnote.
-*
-* @author Tohir Solomons
-*/
+ * Class to Parse for References and convert them into footnotes
+ *
+ * This class searches for references enclosed in [REF][/REF] tags.
+ * Each of these references are then replaced by a superscript number
+ * that links to an item in the footnote.
+ *
+ * @author Tohir Solomons
+ */
 class parse4reference extends object
 {
     /**
@@ -104,6 +117,7 @@ class parse4reference extends object
             //Add Reference Footnote below the text
             $string .= '<h3>References</h3><ol>'.$referencefooter.'</ol>';
         }
+
         return $string;
     }
 }

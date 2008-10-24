@@ -1,4 +1,5 @@
 <?php
+
 /**
 * 
 * Parse string for filter for directory contents
@@ -30,20 +31,31 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+ // security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Parse string for filter for directory contents
-*  
-* Class to parse a string (e.g. page content) that contains a filter
-* code for including the all files in a user directory as links with descriptions
-* where descriptions exist.
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Parse string for filter for directory contents
+ *
+ * Class to parse a string (e.g. page content) that contains a filter
+ * code for including the all files in a user directory as links with descriptions
+ * where descriptions exist.
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4files extends object
 {
 
@@ -112,6 +124,7 @@ class parse4files extends object
         	$txt = str_replace($item, $replacement, $txt);
         	$counter++;
         }
+
         return $txt;
     }
 
@@ -168,6 +181,7 @@ class parse4files extends object
         $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId 
           . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
         $ar = $oF->getArray($sql);
+
         return $this->renderFiles($ar);
     }
     
@@ -202,6 +216,7 @@ class parse4files extends object
             $ret .= "<td>&nbsp;&nbsp;&nbsp;" . $description . "</td></tr>";
         }
         $ret .= "</table>";
+
         return $ret;
     }
 }

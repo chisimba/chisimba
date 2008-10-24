@@ -1,4 +1,5 @@
 <?php
+
 /**
 *
 * Class to parse a string (e.g. page content) that contains a filter
@@ -30,23 +31,34 @@
 * @version   CVS: $Id: parse4flag_class_inc.php 3695 2008-03-29 21:39:23Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a filter
-* tag to rais an alert box
-*
-* It takes the form
-* [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
-*
-* This causes the text to be placed in a facebox alert using the alertbox
-* class in HTML elements. It needs the jQuery resources in HTMLelements.
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a filter
+ * tag to rais an alert box
+ *
+ * It takes the form
+ * [ALERT: url=http://somesite.com]The text of the alert[/ALERT]
+ *
+ * This causes the text to be placed in a facebox alert using the alertbox
+ * class in HTML elements. It needs the jQuery resources in HTMLelements.
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4oggstream extends object
 {
 
@@ -117,6 +129,7 @@ class parse4oggstream extends object
         	$txt = str_replace($replaceable, $replacement, $txt);
         	$counter++;
         }
+
         return $txt;
     }
 

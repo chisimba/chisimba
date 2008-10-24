@@ -28,23 +28,36 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
+// security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a link
-* to a yout tube video and render the video in the page
-*
-* @author Derek Keats
-*
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a link
+ * to a yout tube video and render the video in the page
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4youtube extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+     *
+     * String to hold an error message
+     * @accesss private
+     */
+    private $errorMessage;
 
     /**
      * Short description for function
@@ -151,6 +164,7 @@ class parse4youtube extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+
         return $str;
     }
 
@@ -170,6 +184,7 @@ class parse4youtube extends object
         $vTxt = $vCode[1];
         $vCode = explode("=", $vTxt);
         $vTxt = $vCode[1];
+
         return $vTxt;
     }
 
@@ -237,6 +252,7 @@ class parse4youtube extends object
           'cols' => $arCodes[2],
           'ytpage' => $arCodes[3],
           'hitsperpage' => $arCodes[4]);
+
         return $arRet;
     }
 

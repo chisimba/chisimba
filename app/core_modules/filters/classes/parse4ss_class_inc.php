@@ -29,24 +29,37 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+// security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a wordpress 
-* link to a slideshare slide presentation or a [SS][/SS] pair. The pattern
-* to match is [slideshare id=55016&doc=web2-seminar-22859&w=425]
-*
-* @author Derek Keats
-*         
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a wordpress
+ * link to a slideshare slide presentation or a [SS][/SS] pair. The pattern
+ * to match is [slideshare id=55016&doc=web2-seminar-22859&w=425]
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4ss extends object
 {
-	/**
-	* 
-	* String to hold an error message
-	* @accesss private 
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      * Description for private
@@ -115,6 +128,7 @@ class parse4ss extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+
         return $str;
     }
 

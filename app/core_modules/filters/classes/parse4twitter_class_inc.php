@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a filter
 * code for including a twitter widget (usually the latest twitter)
@@ -26,35 +27,46 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
-*
-* Class to parse a string (e.g. page content) that contains a filter
-* code for including a twitter widget (usually the latest twitter)
-*
-* @author Derek Keats
-*
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a filter
+ * code for including a twitter widget (usually the latest twitter)
+ *
+ * @author Derek Keats
+ *
+ */
 class parse4twitter extends object
 {
 
     /**
-    * 
-    * @var string $objLanguage String object property for holding the 
-    * language object
-    * @access public
-    * 
-    */
+     *
+     * @var string $objLanguage String object property for holding the
+     * language object
+     * @access public
+     *
+     */
     public $objLanguage;
     
     /**
-    *
-    * String object $objExpar is a string to hold the parameter extractor object
-    * @access public
-    *
-    */
+     *
+     * String object $objExpar is a string to hold the parameter extractor object
+     * @access public
+     *
+     */
     public $objExpar;
 
     /**
@@ -145,6 +157,7 @@ class parse4twitter extends object
         	$txt = str_replace($item, $replacement, $txt);
         	$counter++;
         }
+
         return $txt;
     }
 
@@ -210,6 +223,7 @@ class parse4twitter extends object
             default:
                 $str = $this->objTwitterRemote->showStatus(FALSE, $showImage);
         }
+
         return $str;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Class to parse a string (e.g. page content) that contains a
 * tag for displaying a Google AdSense ad at the point of the
@@ -27,7 +28,18 @@
 * @version   CVS: $Id$
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -39,16 +51,45 @@
 */
 class parse4adsense extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
+
+   /**
+    * language object
+    * @access public
+    */
     public $objConfig;
+
+   /**
+    *
+    * @var string $objLanguage String object property for holding the
+    * language object
+    * @access public
+    */
     public $objLanguage;
+
+    /**
+    *
+    * String object $objExpar is a string to hold the parameter extractor object
+    * @access public
+    *
+    */
     public $objExpar;
+
+    /**
+     *
+     * @var <type>
+     */
     public $key;
+
+    /**
+     *
+     * @var <type>
+     */
     public $type;
 
     /**
@@ -131,6 +172,7 @@ class parse4adsense extends object
         	$txt = str_replace($item, $replacement, $txt);
         	$counter++;
     	}
+
         return $txt;
     }
 

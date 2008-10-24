@@ -28,18 +28,35 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
+ // security check - must be included in all scripts
+if (!
 /**
-*
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+
+/**
+ *
  * Class to parse a string (e.g. page content) that contains a wiki
  * like tag such as {{Tag}}
-*
-* @author Derek Keats
-*
-*/
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4chiki extends object
 {
-
+    /**
+     *
+     * @var String chicki string
+     */
     private $chikiStr;
 
     /**
@@ -102,6 +119,7 @@ class parse4chiki extends object
     private function executeChikiCmd(& $chikiStr)
     {
         $method = $this->__getMethod($chikiStr);
+
         return $this->$method();
     }
 
@@ -276,6 +294,7 @@ class parse4chiki extends object
         $objLink->href = $uri;
         $objLink->title = $modCode;
         $objLink->link = $modCode;
+
         return $objLink->show();
     }
 
@@ -294,8 +313,10 @@ class parse4chiki extends object
     {
         $this->chikiStr = $chikiStr;
         if ($this->__validChiki($chikiStr)) {
+
             return "__" . $chikiStr;
         } else {
+
             return "__chikiError";
         }
     }
@@ -336,7 +357,11 @@ class parse4chiki extends object
           . $this->objLanguage->languageText("mod_filters_unrecognizedchiki", "filters")
           .": <b>" . $this->chikiStr . "</b></span> ";
     }
-    
+    /**
+     *
+     * @param String $txt create a chiki text
+     * @return String
+     */
     private function __makeChikiText($txt)
     {
         return "<span class='error'>&lt;&lt;" . $txt . "</span>";

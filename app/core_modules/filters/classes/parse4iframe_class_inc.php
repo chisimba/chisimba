@@ -28,14 +28,26 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+ // security check - must be included in all scripts
+ if (!
+ /**
+  * Description for $GLOBALS
+  * @global string $GLOBALS['kewl_entry_point_run']
+  * @name   $kewl_entry_point_run
+  */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 /**
-*
-* Class to parse a string (e.g. page content) that contains a request
-* to load a page into an iframe in the form [IFRAME]URL|width|height[/IFRAME]
-*
-* @author Derek Keats
-*         
-*/
+ *
+ * Class to parse a string (e.g. page content) that contains a request
+ * to load a page into an iframe in the form [IFRAME]URL|width|height[/IFRAME]
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4iframe extends object
 {
@@ -85,6 +97,7 @@ class parse4iframe extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+
         return $str;
     }
     

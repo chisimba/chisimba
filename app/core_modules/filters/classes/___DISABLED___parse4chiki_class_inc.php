@@ -28,61 +28,81 @@
  * @link      http://avoir.uwc.ac.za
  * @see
  */
+    // security check - must be included in all scripts
+    if (! /**
+ * Description for $GLOBALS
+ * @global entry point $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+        $GLOBALS ['kewl_entry_point_run']) {
+        die ( "You cannot view this page directly" );
+    }
+    // end security check
+
+
 /**
-*
+ *
  * Class to parse a string (e.g. page content) that contains a wiki
  * like tag such as {{Tag}}
-*
-* @author Derek Keats
-*
-*/
+ *
+ * @category  Chisimba
+ * @package   filters
+ * @author    Derek Keats <dkeats@uwc.ac.za>
+ * @copyright 2007 Derek Keats
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
+ * @version   CVS: $Id: parse4pdf_class_inc.php 2813 2007-08-03 09:29:14Z paulscott $
+ * @link      http://avoir.uwc.ac.za
+ * @see
+ *
+ */
 
-class parse4chiki extends object
-{
-
-    /**
-     * Short description for function
-     *
-     * Long description (if any) ...
-     *
-     * @return void
-     * @access public
-     */
-    public function init()
+    class parse4chiki extends object
     {
-        //Nothing to do here
-    }
 
-    /**
-    *
-    * Method to parse the string
-    * @param  String $str The string to parse
-    * @return The    parsed string
-    *
-    */
-    public function parse($str)
-    {
-    	$str = stripslashes($str);
-        preg_match_all('/\\{\\{(.*?)\\}\\}/', $str, $results, PREG_PATTERN_ORDER);
-        $counter = 0;
-        foreach ($results[0] as $item)
+        /**
+         * Short description for function
+         *
+         * Long description (if any) ...
+         *
+         * @return void
+         * @access public
+         */
+        public function init()
         {
-            $extracted = $results[1][$counter];
-        	/*if (strstr($extracted, "|")) {
-        		$arParams = explode("|", $results[1][$counter]);
-        		$repl = $arParams['0'];
-        		$width = isset($arParams['1']) ? $arParams['1'] : '100%';
-        	    $height = isset($arParams['2']) ? $arParams['2'] : '500';
-        	} else {
-        		$height = "500";
-        		$width = "100%";
-        		$repl = $results[1][$counter];
-        	}*/
-    		$replacement = "<span class=\"error\">CHIKI FOUND</span>";
-            $str = str_replace($item, $replacement, $str);
-       		$counter++;
+            //Nothing to do here
         }
-        return $str;
+
+        /**
+        *
+        * Method to parse the string
+        * @param  String $str The string to parse
+        * @return The    parsed string
+        *
+        */
+        public function parse($str)
+        {
+            $str = stripslashes($str);
+            preg_match_all('/\\{\\{(.*?)\\}\\}/', $str, $results, PREG_PATTERN_ORDER);
+            $counter = 0;
+            foreach ($results[0] as $item)
+            {
+                $extracted = $results[1][$counter];
+            /*if (strstr($extracted, "|")) {
+                    $arParams = explode("|", $results[1][$counter]);
+                    $repl = $arParams['0'];
+                    $width = isset($arParams['1']) ? $arParams['1'] : '100%';
+                $height = isset($arParams['2']) ? $arParams['2'] : '500';
+            } else {
+                    $height = "500";
+                    $width = "100%";
+                    $repl = $results[1][$counter];
+            }*/
+                $replacement = "<span class=\"error\">CHIKI FOUND</span>";
+                $str = str_replace($item, $replacement, $str);
+                $counter++;
+            }
+
+            return $str;
+        }
     }
-}
 ?>

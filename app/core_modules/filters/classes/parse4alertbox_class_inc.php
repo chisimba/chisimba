@@ -1,4 +1,5 @@
 <?php
+
 /**
 *
 * Class to parse a string (e.g. page content) that contains a filter
@@ -30,7 +31,18 @@
 * @version   CVS: $Id: parse4flag_class_inc.php 3695 2008-03-29 21:39:23Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
-
+// security check - must be included in all scripts
+if (!
+/**
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
 
 
 /**
@@ -119,6 +131,7 @@ class parse4alertbox extends object
         	$txt = str_replace($replaceable, $replacement, $txt);
         	$counter++;
         }
+
         return $txt;
     }
 

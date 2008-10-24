@@ -28,23 +28,35 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+     // security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a request
-* to load a google video in the form [GVID]username[/GVID]
-*
-* @author Derek Keats
-*         
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a request
+ * to load a google video in the form [GVID]username[/GVID]
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4googlevid extends object
 {
-	/**
-	* 
-	* String to hold an error message
-	* @accesss private 
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
     
     /**
      * 
@@ -120,6 +132,7 @@ class parse4googlevid extends object
         $vTxt = $vCode[1];
         $vCode = explode("=", $vTxt);
         $vTxt = $vCode[1];
+
         return $vTxt;
     }
     
@@ -136,6 +149,7 @@ class parse4googlevid extends object
 		  id=\"VideoPlayback\" type=\"application/x-shockwave-flash\" 
 		  src=\"http://video.google.com/googleplayer.swf?docId=$videoId&#38;hl=en\" 
 		  flashvars=\"playerMode=embedded\"> </embed>";
+
 	return $ret;   
     }
 

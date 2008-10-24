@@ -30,15 +30,28 @@
  * @link      http://avoir.uwc.ac.za
  * @see       
  */
+    // security check - must be included in all scripts
+if (!
 /**
-*
-* Class to parse a string (e.g. page content) that contains a request
-* to load a personal data item into a page in place of a pseudotag in the form
-* [PDATA]item[/PDATA]
-*
-* @author Derek Keats
-*         
-*/
+ * Description for $GLOBALS
+ * @global string $GLOBALS['kewl_entry_point_run']
+ * @name   $kewl_entry_point_run
+ */
+$GLOBALS['kewl_entry_point_run'])
+{
+    die("You cannot view this page directly");
+}
+// end security check
+
+/**
+ *
+ * Class to parse a string (e.g. page content) that contains a request
+ * to load a personal data item into a page in place of a pseudotag in the form
+ * [PDATA]item[/PDATA]
+ *
+ * @author Derek Keats
+ *
+ */
 
 class parse4pdata extends object
 {
@@ -74,6 +87,7 @@ class parse4pdata extends object
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
+
         return $str;
     }
     
@@ -107,6 +121,7 @@ class parse4pdata extends object
     	if ($ret == "") {
     	    $ret = "Guest";
     	}
+
         return $ret;
     }
 
@@ -121,6 +136,7 @@ class parse4pdata extends object
     	if ($ret == " ") {
     	    $ret = "Guest";
     	}
+
         return $ret;
     }
 
@@ -135,6 +151,7 @@ class parse4pdata extends object
     	if ($ret == "") {
     	    $ret = "Guest";
     	}
+
         return $ret;
     }
     
@@ -156,6 +173,7 @@ class parse4pdata extends object
     private function title()
     {
     	$pkId = $this->objUser->PKId($this->objUser->userId());
+
         return $this->objUser->getItemFromPkId($pkId, "title");
     }
 
