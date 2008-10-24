@@ -30,7 +30,7 @@
  * @author    Jonathan Abrahams <jabrahams@uwc.ac.za>
  * @copyright 2007 Jonathan Abrahams
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */

@@ -23,7 +23,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: onlinecount_class_inc.php 2835 2007-08-06 12:32:22Z paulscott $
+ * @version   $Id: onlinecount_class_inc.php 2835 2007-08-06 12:32:22Z paulscott $
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
