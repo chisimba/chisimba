@@ -24,7 +24,7 @@
  * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 Paul Scott
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: ffmpegapi_class_inc.php 3183 2007-12-19 10:01:02Z paulscott $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */

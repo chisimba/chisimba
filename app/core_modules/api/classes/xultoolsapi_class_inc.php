@@ -25,7 +25,7 @@
  * @author    Brent van Rensburg
  * @copyright 2008
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   $Id: forumapi_class_inc.php 8789 2008-04-11 08:21:36Z bvanrensburg $
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
