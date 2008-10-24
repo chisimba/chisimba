@@ -57,9 +57,9 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class ffmpegapi extends object
 {
-	public $objMedia;
+    public $objMedia;
 
-	/**
+    /**
      * init method
      * 
      * Standard Chisimba init method
@@ -67,76 +67,76 @@ class ffmpegapi extends object
      * @return void  
      * @access public
      */
-	public function init()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objLanguage = $this->getObject('language', 'language');
-        	$this->objUser = $this->getObject('user', 'security');
-        	$this->objMedia = $this->getObject('media', 'utilities');
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
-	public function checkVersion()
-	{
-		$message = "version 1.1.1";
-		return new XML_RPC_Response($message);
-	}
-	
-	public function convert3GPtoFLV($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
+    public function init()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            $this->objMedia = $this->getObject('media', 'utilities');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
+    public function checkVersion()
+    {
+        $message = "version 1.1.1";
+        return new XML_RPC_Response($message);
+    }
+    
+    public function convert3GPtoFLV($params)
+    {
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
-    	}
-    	$appkey = $param->scalarval();
-    	
-    	$param = $params->getParam(1);
-		if (!XML_RPC_Value::isValue($param)) {
+        }
+        $appkey = $param->scalarval();
+        
+        $param = $params->getParam(1);
+        if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
-    	}
-    	
-    	$file = $param->scalarval();
-		$file = base64_decode($file);
-		
-		// check the api key for validity
-    	if($this->checkApiKey($appkey) != TRUE)
-    	{
-    		return new XML_RPC_Response("Incorrect API Key!");
-    	}
-    	
-		if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
-		{
-			@mkdir($this->objConfig->getContentBasePath().'apitmp/');
-			@chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
-		}
-		$localfile = $this->objConfig->getContentBasePath().'apitmp/'.rand(1,999);
-		$orig = $localfile.'.3gp';
-		$conv = $localfile;
-		file_put_contents($orig, $file);
-		$newfile = $this->objMedia->convert3gp2flv($orig, $conv);
-		$filetosend = file_get_contents($newfile);
-		$filetosend = base64_encode($filetosend);
-		$val = new XML_RPC_Value($filetosend, 'string');
-		unlink($orig);
-		unlink($newfile);
-		return new XML_RPC_Response($val);
-		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
-	}
-	
-	
-	
-	
-	private function checkApiKey($key)
-	{
-		// just returning a true for now, will implement this later.
-		return TRUE;
-	}
+        }
+        
+        $file = $param->scalarval();
+        $file = base64_decode($file);
+        
+        // check the api key for validity
+        if($this->checkApiKey($appkey) != TRUE)
+        {
+            return new XML_RPC_Response("Incorrect API Key!");
+        }
+        
+        if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
+        {
+            @mkdir($this->objConfig->getContentBasePath().'apitmp/');
+            @chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
+        }
+        $localfile = $this->objConfig->getContentBasePath().'apitmp/'.rand(1,999);
+        $orig = $localfile.'.3gp';
+        $conv = $localfile;
+        file_put_contents($orig, $file);
+        $newfile = $this->objMedia->convert3gp2flv($orig, $conv);
+        $filetosend = file_get_contents($newfile);
+        $filetosend = base64_encode($filetosend);
+        $val = new XML_RPC_Value($filetosend, 'string');
+        unlink($orig);
+        unlink($newfile);
+        return new XML_RPC_Response($val);
+        // Ooops, couldn't open the file so return an error message.
+        return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    }
+    
+    
+    
+    
+    private function checkApiKey($key)
+    {
+        // just returning a true for now, will implement this later.
+        return TRUE;
+    }
 }
 ?>

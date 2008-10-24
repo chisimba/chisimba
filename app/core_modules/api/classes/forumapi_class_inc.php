@@ -149,7 +149,7 @@ class forumapi extends object
                 }
                 
     
-                $struct = new XML_RPC_Value(array(			
+                $struct = new XML_RPC_Value(array(            
                     new XML_RPC_Value($res['id'], "string"),
                     new XML_RPC_Value($res['forumlocked'], "string"),
                     new XML_RPC_Value($res['forum_name'], "string"),
@@ -203,7 +203,7 @@ class forumapi extends object
             $forumStruct = new XML_RPC_Value(array(
                 new XML_RPC_Value($res['id'], "string"),
                 new XML_RPC_Value($res['forum_context'], "string"),
-                new XML_RPC_Value($res['forum_workgroup'], "string"),    			
+                new XML_RPC_Value($res['forum_workgroup'], "string"),                
                 new XML_RPC_Value($res['forum_type'], "string"),
                 new XML_RPC_Value($res['forum_name'], "string"),
                 new XML_RPC_Value($res['forum_description'], "string"),
@@ -267,7 +267,7 @@ class forumapi extends object
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $visibility = $param->scalarval();	
+        $visibility = $param->scalarval();    
         
         $param = $params->getParam(1);
         if (!XML_RPC_Value::isValue($param)) {
@@ -402,7 +402,7 @@ class forumapi extends object
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
         }
-        $forumId = $param->scalarval();	
+        $forumId = $param->scalarval();    
         
         $param = $params->getParam(1);
         if (!XML_RPC_Value::isValue($param)) {
@@ -507,7 +507,7 @@ class forumapi extends object
                 $struct = new XML_RPC_Value(array(
                     new XML_RPC_Value($res['topic_id'], "string"),
                     new XML_RPC_Value($res['topicstatus'], "string"),
-                    new XML_RPC_Value($res['readtopic'], "string"),    			
+                    new XML_RPC_Value($res['readtopic'], "string"),                
                     new XML_RPC_Value($res['type_icon'], "string"),
                     new XML_RPC_Value($res['post_title'], "string"),
                     new XML_RPC_Value($res['firstname'], "string"),
@@ -619,7 +619,7 @@ class forumapi extends object
             $struct = new XML_RPC_Value(array(
                 new XML_RPC_Value($res['id'], "string"),
                 new XML_RPC_Value($res['topic_id'], "string"),
-                new XML_RPC_Value($res['post_title'], "string"),    			
+                new XML_RPC_Value($res['post_title'], "string"),                
                 new XML_RPC_Value($subject, "string"),
                 new XML_RPC_Value($username, "string"),
                 new XML_RPC_Value($res['datelastupdated'], "string"),
@@ -646,9 +646,9 @@ class forumapi extends object
     public function forumInsertTopic($params)
     {
         try{
-	
-	
-	
+    
+    
+    
         $param = $params->getParam(0);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
@@ -685,17 +685,17 @@ class forumapi extends object
             log_debug($param);
         }
         $newTopic_id = $param->scalarval() ;
-		
-		
+        
+        
         $tangentParent = 0;
-	
+    
         $topic_id = $this->objdbtopic->insertSingle(
             $forum_id,
             'init_1', //$type_id,
             $tangentParent, // tangent parent
             $this->objUser->getUserId($username), //user
-			null,
-			$newTopic_id
+            null,
+            $newTopic_id
         );
 
         
@@ -812,7 +812,7 @@ class forumapi extends object
         }
         $username = $param->scalarval();
         $userId = $this->objUser->getUserId($username);
-	
+    
         $param = $params->getParam(5);
         if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);

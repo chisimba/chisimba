@@ -57,8 +57,8 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class annoteapi extends object
 {
-	
-	/**
+    
+    /**
      * init method
      * 
      * Standard Chisimba init method
@@ -66,41 +66,41 @@ class annoteapi extends object
      * @return void  
      * @access public
      */
-	public function init()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objLanguage = $this->getObject('language', 'language');
-        	$this->objUser = $this->getObject('user', 'security');
-    	}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
-	
-	public function grabXMLDoc($params)
-	{
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
+    public function init()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
+    
+    public function grabXMLDoc($params)
+    {
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
             log_debug($param);
-    	}
-    	$doc = $param->scalarval();
-    	
-		if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
-		{
-			@mkdir($this->objConfig->getContentBasePath().'apitmp/');
-			@chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
-		}
-		$localfile = $this->objConfig->getContentBasePath().'apitmp/annote'.rand(1,999);
-		$ret = file_put_contents($doc, $localfile);
-		
-		$val = new XML_RPC_Value($ret, 'boolean');
-		return new XML_RPC_Response($val);
-		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
-	}
+        }
+        $doc = $param->scalarval();
+        
+        if(!file_exists($this->objConfig->getContentBasePath().'apitmp/'))
+        {
+            @mkdir($this->objConfig->getContentBasePath().'apitmp/');
+            @chmod($this->objConfig->getContentBasePath().'apitmp/', 0777);
+        }
+        $localfile = $this->objConfig->getContentBasePath().'apitmp/annote'.rand(1,999);
+        $ret = file_put_contents($doc, $localfile);
+        
+        $val = new XML_RPC_Value($ret, 'boolean');
+        return new XML_RPC_Response($val);
+        // Ooops, couldn't open the file so return an error message.
+        return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    }
 }
 ?>

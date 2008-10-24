@@ -58,10 +58,10 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class photogalleryapi extends object
 {
-	
-	public $objDbPhotos;
+    
+    public $objDbPhotos;
 
-	/**
+    /**
      * init method
      * 
      * Standard Chisimba init method
@@ -69,21 +69,21 @@ class photogalleryapi extends object
      * @return void  
      * @access public
      */
-	public function init()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objLanguage = $this->getObject('language', 'language');
-        	$this->objUser = $this->getObject('user', 'security');
-        	// $this->objDbPhotos = $this->getObject('db','photogallery');
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
+    public function init()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            // $this->objDbPhotos = $this->getObject('db','photogallery');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
 }
 
 ?>

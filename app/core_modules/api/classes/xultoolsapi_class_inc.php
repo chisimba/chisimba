@@ -59,7 +59,7 @@ $GLOBALS['kewl_entry_point_run']) {
 class xultoolsapi extends object
 {
 
-	/**
+    /**
      * init method
      * 
      * Standard Chisimba init method
@@ -67,31 +67,31 @@ class xultoolsapi extends object
      * @return void  
      * @access public
      */
-	public function init()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objLanguage = $this->getObject('language', 'language');
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
-	
-	/**
-	 * Method to return an XML-RPC message
-	 *
-	 * @param string $message
-	 * @return XML-RPC response object
-	 */
-	public function getMessage($message)
-	{
-		$message = $message->getParam(0);
-		return new XML_RPC_Response($message);
-	}
+    public function init()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            $this->objLanguage = $this->getObject('language', 'language');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
+    
+    /**
+     * Method to return an XML-RPC message
+     *
+     * @param string $message
+     * @return XML-RPC response object
+     */
+    public function getMessage($message)
+    {
+        $message = $message->getParam(0);
+        return new XML_RPC_Response($message);
+    }
 
  
 }

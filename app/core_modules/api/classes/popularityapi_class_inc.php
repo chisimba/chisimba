@@ -57,8 +57,8 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class popularityapi extends object
 {
-	
-	/**
+    
+    /**
      * init method
      * 
      * Standard Chisimba init method
@@ -66,37 +66,37 @@ class popularityapi extends object
      * @return void  
      * @access public
      */
-	public function init()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig', 'config');
-			$this->objLanguage = $this->getObject('language', 'language');
-        	$this->objUser = $this->getObject('user', 'security');
-        	$this->objModules = $this->getObject('modules', 'modulecatalogue');
-        	if($this->objModules->checkIfRegistered('remotepopularity'))
-        	{
-        		$this->objPopOps = $this->getObject('rempopops', 'remotepopularity');
-        	}
-        	else {
-        		return NULL;
-        	}
-    	}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
-	
-	public function fullGraph()
-	{
-		//$ret = $this->uri(array('action'=>'getdata'));
-		$ret = $this->objPopOps->getFullDataSrc();
-		$val = new XML_RPC_Value($ret, 'string');
-		return new XML_RPC_Response($val);
-		// Ooops, couldn't open the file so return an error message.
-		return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
-	}
+    public function init()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig', 'config');
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            $this->objModules = $this->getObject('modules', 'modulecatalogue');
+            if($this->objModules->checkIfRegistered('remotepopularity'))
+            {
+                $this->objPopOps = $this->getObject('rempopops', 'remotepopularity');
+            }
+            else {
+                return NULL;
+            }
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
+    
+    public function fullGraph()
+    {
+        //$ret = $this->uri(array('action'=>'getdata'));
+        $ret = $this->objPopOps->getFullDataSrc();
+        $val = new XML_RPC_Value($ret, 'string');
+        return new XML_RPC_Response($val);
+        // Ooops, couldn't open the file so return an error message.
+        return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+    }
 }
 ?>

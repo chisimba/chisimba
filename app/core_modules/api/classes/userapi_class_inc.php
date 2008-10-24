@@ -59,99 +59,99 @@ $GLOBALS['kewl_entry_point_run']) {
 class userapi extends object
 {
 
-	/**
-	* init method
+    /**
+    * init method
     * 
     * Standard Chisimba init method
     * 
     * @return void  
     * @access public
     */
-	public function init()
-	{
-		try{
+    public function init()
+    {
+        try{
 
-			$this->objUser = $this->getObject('user', 'security');
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+            $this->objUser = $this->getObject('user', 'security');
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	/**
-	* Try to login the user
-	* @param string $username The username 
-	* @param
-	* @access public
-	* @return array
-	*/
-	public function tryLogin($params)
-	{
+    /**
+    * Try to login the user
+    * @param string $username The username 
+    * @param
+    * @access public
+    * @return array
+    */
+    public function tryLogin($params)
+    {
 
-		try{
+        try{
             $param = $params->getParam(0);
-			if (!XML_RPC_Value::isValue($param)) {
-	            log_debug($param);
-	    	}
-	    	$username = $param->scalarval();
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $username = $param->scalarval();
             
             $param = $params->getParam(1);
-			if (!XML_RPC_Value::isValue($param)) {
-	            log_debug($param);
-	    	}
-	    	$password = $param->scalarval();
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $password = $param->scalarval();
             $objAuth = $this->getObject('user', 'security');
 
-			//Authenticate the user
+            //Authenticate the user
             
             //$username = 'aaa'; $password = 'dd';
-			$result = (int) $objAuth->authenticateUser($username, $password);
+            $result = (int) $objAuth->authenticateUser($username, $password);
             //var_dump($result);
-			//$res = ($result) ? "some" : "thing";
+            //$res = ($result) ? "some" : "thing";
             //var_dump($res);
-			//set the session if the the user is authenticated
-			//$this->setSession('isauthenticated', $result);
-			
-			$postStruct = new XML_RPC_Value($result, "int");
-		//var_dump($postStruct);    	
+            //set the session if the the user is authenticated
+            //$this->setSession('isauthenticated', $result);
+            
+            $postStruct = new XML_RPC_Value($result, "int");
+        //var_dump($postStruct);        
 
-  			return new XML_RPC_Response($postStruct);
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+              return new XML_RPC_Response($postStruct);
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
 
-	public function getUserIdFromName($params)
-	{
-		$objAuth = $this->getObject('user', 'security');
-		$param = $params->getParam(0);
-		if (!XML_RPC_Value::isValue($param)) {
-	        log_debug($param);
-		}
-	    $username = $param->scalarval();
+    public function getUserIdFromName($params)
+    {
+        $objAuth = $this->getObject('user', 'security');
+        $param = $params->getParam(0);
+        if (!XML_RPC_Value::isValue($param)) {
+            log_debug($param);
+        }
+        $username = $param->scalarval();
             
         $uid = $objAuth->getUserId($username);
-	    
+        
         $val = new XML_RPC_Value($uid, 'string');
-		return new XML_RPC_Response($val);
-	}
-	
-	/**
-	* Method to get the user details
-	* @params array $params
-	* @access public
-	* @return array
-	*/
-	public function getUserDetails($params)
-	{
-		try{
-			
+        return new XML_RPC_Response($val);
+    }
+    
+    /**
+    * Method to get the user details
+    * @params array $params
+    * @access public
+    * @return array
+    */
+    public function getUserDetails($params)
+    {
+        try{
+            
             $param = $params->getParam(0);
             if (!XML_RPC_Value::isValue($param)) {
                 log_debug($param);
@@ -165,7 +165,7 @@ class userapi extends object
                 new XML_RPC_Value($res['username'], "string"),
                 new XML_RPC_Value($res['userid'], "string"),
                 new XML_RPC_Value($res['title'], "string"),
-                new XML_RPC_Value($res['firstname'], "string"),    			
+                new XML_RPC_Value($res['firstname'], "string"),                
                 new XML_RPC_Value($res['surname'], "string"),
                 new XML_RPC_Value($res['pass'], "string"),
                 new XML_RPC_Value($res['emailaddress'], "string")
@@ -174,14 +174,14 @@ class userapi extends object
                 ), "array");
               
             return new XML_RPC_Response($userStruct);
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    
+    }
 
 }
 

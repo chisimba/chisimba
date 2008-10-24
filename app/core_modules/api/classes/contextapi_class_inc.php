@@ -59,166 +59,166 @@ $GLOBALS['kewl_entry_point_run']) {
 class contextapi extends object
 {
 
-	/**
-	* init method
+    /**
+    * init method
     * 
     * Standard Chisimba init method
     * 
     * @return void  
     * @access public
     */
-	public function init()
-	{
-		try {
+    public function init()
+    {
+        try {
 
-			$this->objUser = $this->getObject('user', 'security');
+            $this->objUser = $this->getObject('user', 'security');
 
-		} 
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        } 
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	/**
-	* Method to get the list of context for a user
-	* @param string $username The username 
-	* @access public
-	* @return array
-	*/
-	public function getContextList($params)
-	{
-		try{
-			$param = $params->getParam(0);
-			if (!XML_RPC_Value::isValue($param)) {
-	            log_debug($param);
-	    	}
-	    	$username = $param->scalarval();
-			
-			//$username = $params;
-		
-			$objManageContext = $this->getObject('managegroups', 'contextgroups');
-			$objContextModules = $this->getObject('dbcontextmodules', 'context');
-			$contextList = $objManageContext->userContexts($this->objUser->getUserId($username));
-			$contextStruct = array();
+    /**
+    * Method to get the list of context for a user
+    * @param string $username The username 
+    * @access public
+    * @return array
+    */
+    public function getContextList($params)
+    {
+        try{
+            $param = $params->getParam(0);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $username = $param->scalarval();
+            
+            //$username = $params;
+        
+            $objManageContext = $this->getObject('managegroups', 'contextgroups');
+            $objContextModules = $this->getObject('dbcontextmodules', 'context');
+            $contextList = $objManageContext->userContexts($this->objUser->getUserId($username));
+            $contextStruct = array();
 
-			foreach($contextList as $context)
-			{
-				//get the plugins for the context
-				$contextModules = $objContextModules->getContextModules($context['contextcode']);
-				$modStruct = array();
-				foreach($contextModules as $plugin)
-				{
-					$modStruct[] = new XML_RPC_Value($plugin, "string");
-				}
-				
-				
-				$struct = new XML_RPC_Value(array(
-					new XML_RPC_Value($context['contextcode'], "string"),
-					new XML_RPC_Value($context['menutext'], "string"),
-					new XML_RPC_Value($context['title'], "string"),
-					new XML_RPC_Value($modStruct, "array")
-					),"array");
+            foreach($contextList as $context)
+            {
+                //get the plugins for the context
+                $contextModules = $objContextModules->getContextModules($context['contextcode']);
+                $modStruct = array();
+                foreach($contextModules as $plugin)
+                {
+                    $modStruct[] = new XML_RPC_Value($plugin, "string");
+                }
+                
+                
+                $struct = new XML_RPC_Value(array(
+                    new XML_RPC_Value($context['contextcode'], "string"),
+                    new XML_RPC_Value($context['menutext'], "string"),
+                    new XML_RPC_Value($context['title'], "string"),
+                    new XML_RPC_Value($modStruct, "array")
+                    ),"array");
 
-				$contextStruct[] = $struct;
-			}
+                $contextStruct[] = $struct;
+            }
 
-			$contextArray = new XML_RPC_Value($contextStruct,"array");
-			//var_dump($contextArray);
-			return new XML_RPC_Response($contextArray);
-			
+            $contextArray = new XML_RPC_Value($contextStruct,"array");
+            //var_dump($contextArray);
+            return new XML_RPC_Response($contextArray);
+            
 
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	public function isContextPlugin($params)
-	{
-		try{
-			$param = $params->getParam(0);
-			if (!XML_RPC_Value::isValue($param)) {
-	            log_debug($param);
-	    	}
-	    	$contextCode = $param->scalarval();
-			
-			$param = $params->getParam(1);
-			if (!XML_RPC_Value::isValue($param)) {
-	            log_debug($param);
-	    	}
-	    	$moduleId = $param->scalarval();
-			
-			$objContextModules = $this->getObject('dbcontextmodules', 'context');
-			$isPlugin = (int) $objContextModules->isContextPlugin($contextCode, $moduleId);
-			
-			$postStruct = new XML_RPC_Value($isPlugin, "int");
-			return new XML_RPC_Response($postStruct);
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
-	
-	
-	/**
-	* Method to join a context
-	* @param $userId The userId
-	* @access public
-	* @return boolean
-	*/
-	public function joinContext($userId)
-	{
-		try{
+    public function isContextPlugin($params)
+    {
+        try{
+            $param = $params->getParam(0);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $contextCode = $param->scalarval();
+            
+            $param = $params->getParam(1);
+            if (!XML_RPC_Value::isValue($param)) {
+                log_debug($param);
+            }
+            $moduleId = $param->scalarval();
+            
+            $objContextModules = $this->getObject('dbcontextmodules', 'context');
+            $isPlugin = (int) $objContextModules->isContextPlugin($contextCode, $moduleId);
+            
+            $postStruct = new XML_RPC_Value($isPlugin, "int");
+            return new XML_RPC_Response($postStruct);
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
+    
+    
+    /**
+    * Method to join a context
+    * @param $userId The userId
+    * @access public
+    * @return boolean
+    */
+    public function joinContext($userId)
+    {
+        try{
 
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	/**
-	* Method to leave a context
-	* @param $userId The userId
-	* @access public
-	* @return boolean
-	*/
-	public function leaveContext($userId)
-	{
-		try{
+    /**
+    * Method to leave a context
+    * @param $userId The userId
+    * @access public
+    * @return boolean
+    */
+    public function leaveContext($userId)
+    {
+        try{
 
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	/**
-	* Method to the list of module that the context is using
-	* @param $contextCode The context Code
-	* @access public
-	* @return array
-	*/
-	public function getContextModules($contextCode)
-	{
-		try{
+    /**
+    * Method to the list of module that the context is using
+    * @param $contextCode The context Code
+    * @access public
+    * @return array
+    */
+    public function getContextModules($contextCode)
+    {
+        try{
 
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
 
 }
