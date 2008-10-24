@@ -5,7 +5,7 @@
  *
  * File database abstraction class for context
  *
- * PHP version 3
+ * PHP version 5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,6 +59,7 @@ $GLOBALS ['kewl_entry_point_run']) {
 class dbfile extends dbTable {
     /**
      * Context object
+     *
      * @var object objDBContext;
      */
     public $objDBContext;
