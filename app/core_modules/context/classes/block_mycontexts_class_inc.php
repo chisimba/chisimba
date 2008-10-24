@@ -25,7 +25,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: block_context_class_inc.php 3591 2008-02-19 13:33:48Z tohir $
+ * @version   $Id: block_context_class_inc.php 3591 2008-02-19 13:33:48Z tohir $
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
