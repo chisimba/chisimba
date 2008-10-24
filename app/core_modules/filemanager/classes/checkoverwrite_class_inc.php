@@ -27,7 +27,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id: checkoverwrite_class_inc.php,v 1.4 2007-08-06 13:11:19 paulscott Exp $
+ * @version   $Id: checkoverwrite_class_inc.php,v 1.4 2007-08-06 13:11:19 paulscott Exp $
  * @link      http://avoir.uwc.ac.za
  * @see       
  */

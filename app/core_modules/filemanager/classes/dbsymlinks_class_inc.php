@@ -26,7 +26,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id: dbfiletags_class_inc.php 2804 2007-08-03 06:33:05Z paulscott $
+ * @version   $Id: dbfiletags_class_inc.php 2804 2007-08-03 06:33:05Z paulscott $
  * @link      http://avoir.uwc.ac.za
  * @see       
  */

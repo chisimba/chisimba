@@ -27,7 +27,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: upload_class_inc.php 3082 2007-10-22 11:39:33Z tohir $
+ * @version   $Id: upload_class_inc.php 3082 2007-10-22 11:39:33Z tohir $
  * @link      http://avoir.uwc.ac.za
  * @see
  * @todo      Improve Code to Handle Large Files

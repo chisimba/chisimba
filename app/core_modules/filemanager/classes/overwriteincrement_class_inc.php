@@ -29,7 +29,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: overwriteincrement_class_inc.php 9097 2008-05-12 08:00:21Z tohir $
+ * @version   $Id: overwriteincrement_class_inc.php 9097 2008-05-12 08:00:21Z tohir $
  * @link      http://avoir.uwc.ac.za
  * @see
  */
