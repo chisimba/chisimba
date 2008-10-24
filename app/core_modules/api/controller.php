@@ -45,10 +45,10 @@ $GLOBALS['kewl_entry_point_run']) {
  * 
  * @category  Chisimba
  * @package   api
- * @author    Paul Scott <<pscott@uwc.ac.za>>
+ * @author    Paul Scott <pscott@uwc.ac.za>
  * @copyright 2007 Paul Scott
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   Release: @package_version@
+ * @version   $id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
@@ -57,6 +57,7 @@ class api extends controller
 
     /**
      * XML-RPC Object
+     *
      * @var    object
      * @access public
      */
@@ -75,8 +76,7 @@ class api extends controller
         try {
             $this->objRPC = $this->getObject('xmlrpcapi');
         }
-        catch(customException $e)
-        {
+        catch(customException $e) {
             customException::cleanUp();
             exit;
         }
@@ -91,10 +91,10 @@ class api extends controller
      * @return void   
      * @access public 
      */
-    public function dispatch($action = Null) 
+    public function dispatch($action = null)
     {
         switch ($action) {
-            case "serveapi":
+            case 'serveapi':
                 $this->requiresLogin(FALSE);
                 // start the server.
                 $this->objRPC->serve(); 
@@ -119,7 +119,7 @@ class api extends controller
      */
      public function requiresLogin() 
      {
-            return FALSE;
+            return false;
      }
 }
 ?>
