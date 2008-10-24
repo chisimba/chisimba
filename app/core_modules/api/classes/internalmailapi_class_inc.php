@@ -25,7 +25,7 @@
  * @author    Brent van Rensburg
  * @copyright 2008
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */

@@ -24,7 +24,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 Tohir Solomons
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: ffmpegapi_class_inc.php 3183 2007-12-19 10:01:02Z paulscott $
+ * @version   $Id: ffmpegapi_class_inc.php 3183 2007-12-19 10:01:02Z paulscott $
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
