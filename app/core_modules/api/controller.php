@@ -1,4 +1,5 @@
 <?php
+
 /**
  * API for Chisimba
  * 
@@ -28,6 +29,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       api
  */
+
 if (!
 /**
  * Description for $GLOBALS
@@ -54,7 +56,6 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class api extends controller
 {
-
     /**
      * XML-RPC Object
      *
@@ -75,8 +76,7 @@ class api extends controller
     {
         try {
             $this->objRPC = $this->getObject('xmlrpcapi');
-        }
-        catch(customException $e) {
+        } catch (customException $e) {
             customException::cleanUp();
             exit;
         }
@@ -95,13 +95,13 @@ class api extends controller
     {
         switch ($action) {
             case 'serveapi':
-                $this->requiresLogin(FALSE);
+                $this->requiresLogin(false);
                 // start the server.
-                $this->objRPC->serve(); 
+                $this->objRPC->serve();
                 break;
             default:
                 // cannot require any login, as remote clients use this. Auth is done internally
-                $this->requiresLogin(FALSE);
+                $this->requiresLogin(false);
                 // start the server.
                 $this->objRPC->serve();   
                 // break to be pedantic, although not strictly needed.    
@@ -122,4 +122,5 @@ class api extends controller
             return false;
      }
 }
+
 ?>
