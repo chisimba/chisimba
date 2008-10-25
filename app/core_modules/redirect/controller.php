@@ -96,6 +96,7 @@ class redirect extends controller
 
         $this->setVarByRef('heading', $heading);
         $this->setVarByRef('subhead', $subhead->show());
+
         return 'redirect_tpl.php';
     }
     
