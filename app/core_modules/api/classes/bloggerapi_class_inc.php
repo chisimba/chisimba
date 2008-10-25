@@ -29,6 +29,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -40,7 +41,6 @@ $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-
 
 /**
  * Blogger 1.0 XML-RPC Class
@@ -58,10 +58,7 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class bloggerapi extends object
 {
-
     /**
-     * init method
-     * 
      * Standard Chisimba init method
      * 
      * @return void  
@@ -75,20 +72,17 @@ class bloggerapi extends object
             //database abstraction object
             $this->objModules = $this->getObject('modules', 'modulecatalogue');
             $this->isReg = $this->objModules->checkIfRegistered('blog');
-            if($this->isReg === TRUE)
-            {
+            if ($this->isReg === TRUE) {
                 $this->objDbBlog = $this->getObject('dbblog', 'blog');
             }
             $this->objUser = $this->getObject('user', 'security');
-        }
-        catch (customException $e)
-        {
+        } catch (customException $e) {
             customException::cleanUp();
             exit;
         }
     }
     
-        /**
+    /**
      * blogger new post
      * 
      * Create a new post
@@ -134,11 +128,9 @@ class bloggerapi extends object
             log_debug($param);
         }
         $publish = $param->scalarval();
-        if($publish)
-        {
+        if ($publish) {
             $published = 0;
-        }
-        else {
+        } else {
             $published = 1;
         }
         
@@ -149,7 +141,7 @@ class bloggerapi extends object
                 'userid' => $userid,
                 'post_date' => date('r') ,
                 'post_content' => addslashes($content) , 
-                'post_title' => $this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
+                'post_title' => $this->objLanguage->languageText('mod_blog_word_apipost', 'blog'),
                 'post_category' => '0',
                 'post_excerpt' => '',
                 'post_status' => $published,
@@ -162,7 +154,8 @@ class bloggerapi extends object
                 'showpdf' => '1'
             );
         $ret = $this->objDbBlog->insertPostAPI($userid, $postarray);
-        $val = new XML_RPC_Value($ret, "string");
+        $val = new XML_RPC_Value($ret, 'string');
+
         return new XML_RPC_Response($val);
     }
     
@@ -212,11 +205,9 @@ class bloggerapi extends object
             log_debug($param);
         }
         $publish = $param->scalarval();
-        if($publish)
-        {
+        if ($publish) {
             $published = 0;
-        }
-        else {
+        } else {
             $published = 1;
         }
         
@@ -226,7 +217,7 @@ class bloggerapi extends object
                 'userid' => $userid,
                 'post_date' => date('r') ,
                 'post_content' => addslashes($content) , 
-                'post_title' => $this->objLanguage->languageText("mod_blog_word_apipost", "blog") ,
+                'post_title' => $this->objLanguage->languageText('mod_blog_word_apipost', 'blog'),
                 'post_category' => '0',
                 'post_excerpt' => '',
                 'post_status' => $published,
@@ -240,7 +231,8 @@ class bloggerapi extends object
             );
         $ret = $this->objDbBlog->updatePostAPI($blogid, $postarray);
         $val = new XML_RPC_Value(TRUE, 'boolean');
-           return new XML_RPC_Response($val);
+
+        return new XML_RPC_Response($val);
     }
     
     /**
@@ -283,10 +275,11 @@ class bloggerapi extends object
         $post = $post[0];
         //log_debug($post);
         $postStruct = new XML_RPC_Value(array(
-            "content" => new XML_RPC_Value($post['post_content'], "base64"),
-            "userid" => new XML_RPC_Value($post['userid'], "string"),
-            "postid" => new XML_RPC_Value($post['id'], "string"),
-            "dateCreated" => new XML_RPC_Value($post['post_date'], "string")), "struct");
+            'content' => new XML_RPC_Value($post['post_content'], 'base64'),
+            'userid' => new XML_RPC_Value($post['userid'], 'string'),
+            'postid' => new XML_RPC_Value($post['id'], 'string'),
+            'dateCreated' => new XML_RPC_Value($post['post_date'], 'string')), 'struct');
+
         return new XML_RPC_Response($postStruct);
     }
     
@@ -333,17 +326,17 @@ class bloggerapi extends object
         $userid = $this->objUser->getUserId($username);
     
         $recentposts = $this->objDbBlog->getLastPosts($noPosts, $userid);
-        foreach($recentposts as $recentpost)
-        {
+        foreach ($recentposts as $recentpost) {
             $myStruct = new XML_RPC_Value(array(
-                "content" => new XML_RPC_Value($recentpost['post_content']),
-                "userId" => new XML_RPC_Value($recentpost['userid'], "string"),
-                "postId" => new XML_RPC_Value($recentpost['id'], "string"),
-                "dateCreated" => new XML_RPC_Value($recentpost['post_date'], "string")), "struct");
+                'content' => new XML_RPC_Value($recentpost['post_content']),
+                'userId' => new XML_RPC_Value($recentpost['userid'], 'string'),
+                'postId' => new XML_RPC_Value($recentpost['id'], 'string'),
+                'dateCreated' => new XML_RPC_Value($recentpost['post_date'], 'string')), 'struct');
         
             $arrofStructs[] = $myStruct;
         }
-        $ret = new XML_RPC_Value($arrofStructs, "array");
+        $ret = new XML_RPC_Value($arrofStructs, 'array');
+
         return new XML_RPC_Response($ret);
     }
     
@@ -385,13 +378,14 @@ class bloggerapi extends object
         
         //return a struct of members about the user
         $userStruct = new XML_RPC_Value(array(
-            "userid" => new XML_RPC_Value($userid, 'string'),
-            "email" => new XML_RPC_Value($email, "string"),
-            "firstname" => new XML_RPC_Value($firstname, "string"),
-            "nickname" => new XML_RPC_Value($username, "string"),
-            "url" => new XML_RPC_Value($url, "string"),
-            "lastname" => new XML_RPC_Value($lastname, "string"),
-            ), "struct");
+            'userid' => new XML_RPC_Value($userid, 'string'),
+            'email' => new XML_RPC_Value($email, 'string'),
+            'firstname' => new XML_RPC_Value($firstname,'string'),
+            'nickname' => new XML_RPC_Value($username, 'string'),
+            'url' => new XML_RPC_Value($url, 'string'),
+            'lastname' => new XML_RPC_Value($lastname, 'string'),
+            ), 'struct');
+
         return new XML_RPC_Response($userStruct);    
         
     }
@@ -428,13 +422,13 @@ class bloggerapi extends object
         $userid = $this->objUser->getUserId($username);
         $resarr = $this->objDbBlog->getParentCats($userid);
         $url = $this->uri(array('action'=>'viewsingle', 'postid' => $results['id'], 'userid' => $results['userid']), 'blog');
-        foreach($resarr as $res)
-        {
+        foreach ($resarr as $res) {
             $catStruct[] = new XML_RPC_Value(array(
-                "htmlUrl" => new XML_RPC_Value($url, "string"),
-                "rssUrl" => new XML_RPC_Value($url, "string"),
-                "description" => new XML_RPC_Value($res['cat_name'], "string")), "struct");
+                'htmlUrl' => new XML_RPC_Value($url, 'string'),
+                'rssUrl' => new XML_RPC_Value($url, 'string'),
+                'description' => new XML_RPC_Value($res['cat_name'], 'string')), 'struct');
         }
+
         return new XML_RPC_Response($catStruct);
     }
     
@@ -470,20 +464,19 @@ class bloggerapi extends object
         $userid = $this->objUser->getUserId($username);
         $prf = $this->objDbBlog->checkProfile($userid);
         $prf = $prf['blog_name']; 
-        if(!$prf)
-        {
+        if (!$prf) {
             $prf = htmlentities($this->objUser->fullname($userid));
-        }
-        else {
+        } else {
             $prf = htmlentities($prf);
         }
         $url = $this->uri(array('action' => 'randblog', 'userid' => $userid), 'blog');
         $myStruct = new XML_RPC_Value(array(
-            "blogid" => new XML_RPC_Value($userid, 'string'),
-            "blogName" => new XML_RPC_Value($prf, "string"),
-            "url" => new XML_RPC_Value($url, "string")), "struct");
+            'blogid' => new XML_RPC_Value($userid, 'string'),
+            'blogName' => new XML_RPC_Value($prf, 'string'),
+            'url' => new XML_RPC_Value($url, 'string')), 'struct');
         
-        $arrofStructs = new XML_RPC_Value(array($myStruct), "array");
+        $arrofStructs = new XML_RPC_Value(array($myStruct), 'array');
+
         return new XML_RPC_Response($arrofStructs);
     }
     
@@ -525,6 +518,7 @@ class bloggerapi extends object
         $this->objDbBlog->deletePost($postid);
         
         $val = new XML_RPC_Value(TRUE, 'boolean');
+
         return new XML_RPC_Response($val);
     }
 
