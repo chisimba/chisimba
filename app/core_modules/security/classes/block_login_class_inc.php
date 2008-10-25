@@ -25,7 +25,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 
