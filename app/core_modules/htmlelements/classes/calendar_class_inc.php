@@ -25,7 +25,7 @@
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
 
@@ -46,7 +46,7 @@ require_once("ifhtml_class_inc.php");
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $id:$
+ * @version   $id:$
  * @link      http://avoir.uwc.ac.za
  */
 class calendar implements ifhtml {

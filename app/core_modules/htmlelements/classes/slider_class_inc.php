@@ -22,7 +22,7 @@
  * @author Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id: slider_class_inc.php 3162 2007-12-14 10:25:30Z tohir $
+ * @version   $Id: slider_class_inc.php 3162 2007-12-14 10:25:30Z tohir $
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts

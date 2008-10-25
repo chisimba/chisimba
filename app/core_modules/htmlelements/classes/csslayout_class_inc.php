@@ -65,7 +65,7 @@ require_once("ifhtml_class_inc.php");
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @link      http://www.sitepoint.com/print/exploring-limits-css-layout
  * @example

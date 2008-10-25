@@ -28,7 +28,7 @@
  * @author    Tohir Solomons <tsolomons@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: alertbox_class_inc.php 3601 2008-02-22 09:26:43Z tohir $
+ * @version   $Id: alertbox_class_inc.php 3601 2008-02-22 09:26:43Z tohir $
  * @link      http://avoir.uwc.ac.za
  */
 
@@ -45,7 +45,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 AVOIR
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: alertbox_class_inc.php 3601 2008-02-22 09:26:43Z tohir $
+ * @version   $Id: alertbox_class_inc.php 3601 2008-02-22 09:26:43Z tohir $
  * @link      http://www.reindel.com/truncate/
  * @link      http://avoir.uwc.ac.za
  */

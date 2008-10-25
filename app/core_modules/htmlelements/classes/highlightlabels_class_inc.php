@@ -14,7 +14,7 @@
  * @author Tohir Solomons
  * @copyright 2007 Wesley Nitsckie
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see	      
  * When designing HTML forms it's important to correlate a field's label with it's input, select or textarea element.

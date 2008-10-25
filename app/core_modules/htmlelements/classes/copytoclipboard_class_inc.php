@@ -28,7 +28,7 @@
  * @author  Tohir Solomons
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id: tooltip_class_inc.php 2878 2007-08-14 13:42:57Z jsc $
+ * @version   $Id: tooltip_class_inc.php 2878 2007-08-14 13:42:57Z jsc $
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
