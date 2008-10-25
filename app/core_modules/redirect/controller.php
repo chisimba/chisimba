@@ -42,27 +42,22 @@ if (!$GLOBALS['kewl_entry_point_run'])
 class redirect extends controller
 {
     /**
-    * Method to construct the class.
-    */
+     * Method to construct the class.
+     */
     function init()
     {
-        $this->objLanguage = $this->getObject('language','language');
-        $this->objDBContext = $this->getObject('dbcontext','context');
+        $this->objLanguage = $this->getObject('language', 'language');
+        $this->objDBContext = $this->getObject('dbcontext', 'context');
         $this->objUser = $this->getObject('user', 'security');
-        $this->objManageGroups = $this->getObject('managegroups','contextgroups');
+        $this->objManageGroups = $this->getObject('managegroups', 'contextgroups');
     }
 
     /**
-    * Standard dispatch method
-    */
+     * Standard dispatch method
+     */
     function dispatch($action)
     {
-        $title = '';
-        $msg = '';
-        
-        // Now the main switch for $action
-        switch($action)
-        {
+        switch($action) {
             case 'noaction':
                 return $this->noAction();
 
@@ -79,14 +74,15 @@ class redirect extends controller
                 return $this->noPermission();
         }
     }
+
     /**
-    * Method to display a template if the user does not have permission
-    * to invoke the action in the module.
-    * @author Jonathan Abrahams
-    */
+     * Method to display a template if the user does not have permission
+     * to invoke the action in the module.
+     * @author Jonathan Abrahams
+     */
     function noAction()
     {
-        $subhead = $this->newObject('link', 'htmlelements' );
+        $subhead = $this->newObject('link', 'htmlelements');
 
         $modname = $this->getParam('modname');
         $actionname = $this->getParam('actionname');
@@ -96,18 +92,18 @@ class redirect extends controller
 
         $subheadTxt = $this->objLanguage->languageText('word_back');
         $subhead->link = $subheadTxt;
-        $subhead->link( 'javascript: history.back();' );
+        $subhead->link('javascript: history.back();');
 
         $this->setVarByRef('heading', $heading);
-        $this->setVarByRef('subhead', $subhead->show() );
+        $this->setVarByRef('subhead', $subhead->show());
         return 'redirect_tpl.php';
     }
     
     /**
-    * Method to display a template if the user does not have permission
-    * to access the module.
-    * A default heading and message are set if the module does not provide one.
-    */
+     * Method to display a template if the user does not have permission
+     * to access the module.
+     * A default heading and message are set if the module does not provide one.
+     */
     function noPermission()
     {        
         $title = $this->getParam('title');
@@ -115,47 +111,48 @@ class redirect extends controller
         $menu = $this->getParam('menu');
         $modname = $this->getParam('modname');
 
-        if(isset($title)){
+        if (isset($title)) {
             $heading = $this->objLanguage->languageText($title);
-        }else{
+        } else {
             $heading = $this->objLanguage->languageText('mod_redirect_nopermission', 'redirect')
-            .' '.$this->objLanguage->languageText('mod_'.$modname.'_name');
+                .' '.$this->objLanguage->languageText('mod_'.$modname.'_name');
         }
 
-        if(isset($msg)){
+        if (isset($msg)) {
             $subhead = $this->objLanguage->languageText($msg);
-        }else{
+        } else {
             $subhead = $this->objLanguage->languageText('mod_redirect_contactadminaccess', 'redirect');
         }
 
-        if(isset($menu)){
-            $this->setVarByRef('menu',$menu);
+        if (isset($menu)) {
+            $this->setVarByRef('menu', $menu);
         }
 
         $this->setVarByRef('heading', $heading);
         $this->setVarByRef('subhead', $subhead);
+
         return 'redirect_tpl.php';
     }
     
     /**
-    * Method to display a template if the user is not in a context.
-    * The method is called for modules that are context dependent.
-    * A default heading and message are set if the module does not provide one.
-    */
+     * Method to display a template if the user is not in a context.
+     * The method is called for modules that are context dependent.
+     * A default heading and message are set if the module does not provide one.
+     */
     function noContext()
     {        
-        $objLabel = $this->newObject('label','htmlelements');
+        $objLabel = $this->newObject('label', 'htmlelements');
         
         $title = $this->getParam('title');
         $msg = $this->getParam('msg');
         $menu = $this->getParam('menu');
         $modname = $this->getParam('modname');
         
-        if(isset($title)){
+        if (isset($title)) {
             $heading = $this->objLanguage->languageText($title);
-        }else{
+        } else {
             $heading = $this->objLanguage->languageText('mod_redirect_nocourse', 'redirect').' '.
-            $this->objLanguage->languageText('mod_'.$modname.'_name');
+                $this->objLanguage->languageText('mod_'.$modname.'_name');
         }
 
         $subhead = $this->objLanguage->languageText('mod_redirect_entercourse', 'redirect');
@@ -164,24 +161,25 @@ class redirect extends controller
         
         $contexts = $this->showDropDown();
         
-        if(!$contexts){
+        if (!$contexts) {
             $subhead = $this->objLanguage->languageText('mod_redirect_nousercourses', 'redirect');
         }
         
-        if(isset($menu)){        
-            $this->setVarByRef('menu',$menu);
+        if (isset($menu)) {        
+            $this->setVarByRef('menu', $menu);
         }
         
         $this->setVarByRef('heading', $heading);
         $this->setVarByRef('subhead', $subhead);
         $this->setVarByRef('actions', $contexts);
+
         return 'redirect_tpl.php';
     }
     
     /**
-    * Method to get a list of contexts.
-    * The method returns a dropdown list of contexts in which the user is registered.
-    */
+     * Method to get a list of contexts.
+     * The method returns a dropdown list of contexts in which the user is registered.
+     */
     function showDropDown()
     {
         $objForm = $this->newObject('form', 'htmlelements');
@@ -194,23 +192,25 @@ class redirect extends controller
         $objDropDown->cssClass = 'coursechooser';
         
         $contexts = $this->objManageGroups->userContextCodes();
-        if(!empty($contexts)){
-            foreach($contexts as $code){
+        if (!empty($contexts)) {
+            foreach ($contexts as $code){
                 $menu = $this->objDBContext->getMenuText($code);
                 $objDropDown->addOption($code, $menu);
             }
             $objDropDown->extra = 'onchange="document.enter.submit();"';
             
             // submit button
-            $objButton = new button('go',$go);
+            $objButton = new button('go', $go);
             $objButton->setToSubmit();
             
             // Build form
             $objForm->form('enter', $this->uri(array('action'=>'joincontext'), 'context'));
             $objForm->addToForm($objDropDown->show());
             $objForm->addToForm($objButton->show());
+
             return $objForm->show();
         }
+
         return FALSE;        
     }
     
@@ -226,42 +226,44 @@ class redirect extends controller
         
         $objLink = $this->newObject('link','htmlelements');
         
-        if(isset($title)){
+        if (isset($title)) {
             $heading = $this->objLanguage->languageText($title);
-        }else{
+        } else {
             $heading = $modname.' '.
             $this->objLanguage->languageText('mod_redirect_notregistered');
         }
 
-        if(isset($msg)){
+        if (isset($msg)) {
             $subhead = $this->objLanguage->languageText($msg);
-        }else{
-            if($this->objUser->isAdmin()){
+        } else {
+            if ($this->objUser->isAdmin()) {
                 $subhead = $this->objLanguage->languageText('mod_redirect_registermodule', 'redirect');
-                if(isset($modname)){
-                    $linkAction = $this->uri(array('action'=>'register', 'modname'=>$modname),'moduleadmin');
+                if (isset($modname)) {
+                    $linkAction = $this->uri(array('action'=>'register', 'modname'=>$modname), 'moduleadmin');
                     $link = $this->objLanguage->languageText('mod_redirect_register', 'redirect')
-                    .' '.$modname;
-                }else{
-                    $linkAction = $this->uri(array(),'moduleadmin');
+                        .' '.$modname;
+                } else {
+                    $linkAction = $this->uri(array(), 'moduleadmin');
                     $link = $this->objLanguage->languageText('mod_moduleadmin_name');
                 }
                 $objLink = new link($linkAction);
                 $objLink->link = $link;
                 $actions = $objLink->show();
                 $this->setVarByRef('actions', $actions);
-            }else{
+            } else {
                 $subhead = $this->objLanguage->languageText('mod_redirect_contactadmin', 'redirect');
             }
         }        
         
-        if(isset($menu)){        
-            $this->setVarByRef('menu',$menu);
+        if (isset($menu)) {
+            $this->setVarByRef('menu', $menu);
         }
         
         $this->setVarByRef('heading', $heading);
         $this->setVarByRef('subhead', $subhead);
+
         return 'redirect_tpl.php';
     }
-}// end of class
+}
+
 ?>
