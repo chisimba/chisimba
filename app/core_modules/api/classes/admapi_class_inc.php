@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ADM interface class
  * 
@@ -28,6 +29,7 @@
  * @link      http://avoir.uwc.ac.za
  * @see       core
  */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -39,7 +41,6 @@ $GLOBALS['kewl_entry_point_run']) {
     die("You cannot view this page directly");
 }
 // end security check
-
 
 /**
  * ADM XML-RPC Class
@@ -60,8 +61,6 @@ class admapi extends object
     public $isReg;
 
     /**
-     * init method
-     * 
      * Standard Chisimba init method
      * 
      * @return void  
@@ -72,8 +71,7 @@ class admapi extends object
         try {
             $this->objModules = $this->getObject('modules', 'modulecatalogue');
             $this->isReg = $this->objModules->checkIfRegistered('adm');
-            if($this->isReg === TRUE)
-            {
+            if ($this->isReg === TRUE) {
                 $this->objAdmOps = $this->getObject('admops', 'adm');
             }
             $this->objConfig = $this->getObject('altconfig', 'config');
@@ -83,13 +81,11 @@ class admapi extends object
             $this->objIni = $this->getObject('ini', 'config');
             $this->objXMLThing = $this->getObject('xmlthing', 'utilities');
         }
-        catch (customException $e)
-        {
+        catch (customException $e) {
             customException::cleanUp();
             exit;
         }
     }
-    
     
     public function checkVersionApi()
     {
@@ -97,7 +93,7 @@ class admapi extends object
         $val = new XML_RPC_Value($version, 'string');
         return new XML_RPC_Response($val);
         // Ooops, couldn't open the file so return an error message.
-        return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText("mod_packages_fileerr", "packages"));
+        return new XML_RPC_Response(0, $XML_RPC_erruser+1, $this->objLanguage->languageText('mod_packages_fileerr', 'packages'));
     }
     
     public function getFullLogApi()
@@ -106,7 +102,7 @@ class admapi extends object
         $contents = file_get_contents($lfile);
         $filetosend = base64_encode($contents);
         $val = new XML_RPC_Value($filetosend, 'string');
-        log_debug("Sent ENTIRE sqllog.log (Full log update) to client");
+        log_debug('Sent ENTIRE sqllog.log (Full log update) to client');
         return new XML_RPC_Response($val);
     }
     
@@ -139,14 +135,12 @@ class admapi extends object
         
         $serverarr = array('name' => $serv, 'url' => $surl, 'email' => $semail);
         //check for the directory structure
-        if(!file_exists($this->objConfig->getcontentBasePath().'adm/'))
-        {
+        if (!file_exists($this->objConfig->getcontentBasePath().'adm/')) {
             mkdir($this->objConfig->getcontentBasePath().'adm/', 0777);
         }
         // write the server list file
         $cfile = $this->objConfig->getcontentBasePath().'adm/adm.xml';
-        if(!file_exists($cfile))
-        {
+        if (!file_exists($cfile)) {
             $this->objXMLThing->createDoc();
             $this->objXMLThing->startElement('adm');
             $this->objXMLThing->startElement('server');
@@ -161,13 +155,11 @@ class admapi extends object
             $this->objXMLThing->endDTD();
             $string = $this->objXMLThing->dumpXML();
             file_put_contents($cfile, $string);
-        }
-        else {
+        } else {
             // the file does exist - i.e. not the first record
             $xmlstr = file_get_contents($cfile);
             $xml = new SimpleXMLElement($xmlstr);
-            foreach($xml->server as $server)
-            {
+            foreach ($xml->server as $server) {
                 $admopts[] = array('name' => $server->servername, 
                                    'url' => $server->serverapiurl, 
                                    'email' => $server->serveremail, 
@@ -178,8 +170,7 @@ class admapi extends object
             // now rebuild the file
             $this->objXMLThing->createDoc();
             $this->objXMLThing->startElement('adm');
-            foreach($admopts as $old)
-            {
+            foreach ($admopts as $old) {
                 $this->objXMLThing->startElement('server');
                 $this->objXMLThing->writeElement('servername', $old['name']);
                 $this->objXMLThing->writeElement('serverapiurl', $old['url']);
@@ -217,4 +208,5 @@ class admapi extends object
         return new XML_RPC_Response($val);
     }
 }
+
 ?>
