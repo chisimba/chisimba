@@ -25,7 +25,7 @@
 * @author    Derek Keats <dkeats@uwc.ac.za>
 * @copyright 2007 Derek Keats
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id: parse4wiki_class_inc.php 3123 2007-11-27 13:01:19Z dkeats $
+* @version   $Id: parse4wiki_class_inc.php 3123 2007-11-27 13:01:19Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
 // security check - must be included in all scripts

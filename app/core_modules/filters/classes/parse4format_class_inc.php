@@ -23,7 +23,7 @@
  * @author    Kevin Cyster <kcyster@uwc.ac.za>
  * @copyright 2007 Kevin Cyster
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id$
+ * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  * @see       
  */

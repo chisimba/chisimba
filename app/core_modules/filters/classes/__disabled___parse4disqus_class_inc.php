@@ -28,7 +28,7 @@
 * @author    Derek Keats <dkeats@uwc.ac.za>
 * @copyright 2007 Derek Keats
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id: parse4disqus_class_inc.php 3695 2008-03-29 21:39:23Z dkeats $
+* @version   $Id: parse4disqus_class_inc.php 3695 2008-03-29 21:39:23Z dkeats $
 * @link      http://avoir.uwc.ac.za
 *
 */
@@ -57,7 +57,7 @@ $GLOBALS ['kewl_entry_point_run']) {
 * @author    Derek Keats <dkeats@uwc.ac.za>
 * @copyright 2007 Derek Keats
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id: parse4pdf_class_inc.php 2813 2007-08-03 09:29:14Z paulscott $
+* @version   $Id: parse4pdf_class_inc.php 2813 2007-08-03 09:29:14Z paulscott $
 * @link      http://avoir.uwc.ac.za
 * @see
 *

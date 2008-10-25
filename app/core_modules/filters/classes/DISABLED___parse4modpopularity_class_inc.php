@@ -22,7 +22,7 @@
 * @author    Paul Scott <pscott@uwc.ac.za>
 * @copyright 2008 Paul Scott
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id:
+* @version   $Id:
 * @link      http://avoir.uwc.ac.za
 */
 // security check - must be included in all scripts
@@ -49,7 +49,7 @@ $GLOBALS ['kewl_entry_point_run']) {
 * @author    Paul Scott <pscott@uwc.ac.za>
 * @copyright 2008 Paul Scott
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id:
+* @version   $Id:
 * @link      http://avoir.uwc.ac.za
 *
 */

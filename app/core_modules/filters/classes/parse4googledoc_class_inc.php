@@ -27,7 +27,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 Derek Keats
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: parse4iframe_class_inc.php 2808 2007-08-03 09:05:13Z paulscott $
+ * @version   $Id: parse4iframe_class_inc.php 2808 2007-08-03 09:05:13Z paulscott $
  * @link      http://avoir.uwc.ac.za
  * @see
  */

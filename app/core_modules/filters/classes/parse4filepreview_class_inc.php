@@ -28,7 +28,7 @@
 * @author    Tohir Solomons <tsolomons@uwc.ac.za>
 * @copyright 2007 Tohir Solomons
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
-* @version   CVS: $Id: parse4files_class_inc.php 3630 2008-02-29 12:45:21Z dkeats $
+* @version   $Id: parse4files_class_inc.php 3630 2008-02-29 12:45:21Z dkeats $
 * @link      http://avoir.uwc.ac.za
 */
  // security check - must be included in all scripts

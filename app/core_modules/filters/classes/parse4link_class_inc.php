@@ -24,7 +24,7 @@
  * @author    Derek Keats <dkeats@uwc.ac.za>
  * @copyright 2007 Derek Keats
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
- * @version   CVS: $Id: parse4youtube_class_inc.php 3526 2008-02-11 11:52:10Z dkeats $
+ * @version   $Id: parse4youtube_class_inc.php 3526 2008-02-11 11:52:10Z dkeats $
  * @link      http://avoir.uwc.ac.za
  * @see
  */
