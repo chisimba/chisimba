@@ -1398,20 +1398,22 @@ class altconfig extends object {
     public function getenable_dbabs() {
         if (! is_object ( $this->_root ))
             $this->_root = &$this->readConfig ( '', 'XML' );
-            //Lets get the parent node section first
+        
+        //Lets get the parent node section first
         $Settings = & $this->_root->getItem ( "section", "Settings" );
         //Now onto the directive node
         $SettingsDirective = & $Settings->getItem ( "directive", "DATABASE_ABSTRACTION" );
         //var_dump($SettingsDirective);
-        if ($SettingsDirective == FALSE) {
-            $newsettings = array ("DATABASE_ABSTRACTION" => "MDB2" );
-            $this->appendToConfig ( $newsettings );
-            return FALSE;
-        }
-        //finally unearth whats inside
-        $getenable_memcache = $SettingsDirective->getContent ();
+    	if($SettingsDirective == FALSE)
+    	{
+                $newsettings = array("DATABASE_ABSTRACTION" => "MDB2");
+                $this->appendToConfig($newsettings);
+                return "MDB2";
+    	}
+    	//finally unearth whats inside
+    	$getenable_memcache = $SettingsDirective->getContent();
 
-        return $getenable_memcache;
+    	return $getenable_memcache;
     }
 
     /**
