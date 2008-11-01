@@ -63,10 +63,10 @@ class logactivity extends dbTable
      * chat refresh.
      *
      * @var BOOLEAN $logOncePerSession @values TRUE|FALSE
-     *              
+     *
      */
     public $logOncePerSession;
-    
+
     /**
      * Constructor method
      */
@@ -80,13 +80,13 @@ class logactivity extends dbTable
             //  Get an instance of the user object
             $this->objUser = $this->getObject('user', 'security');
             $this->userId = $this->objUser->userId();
-            
+
         } catch(Exception $e) {
             throw customException($e->getMessage());
             exit();
         }
     } //function init
-    
+
 
 
     /**
@@ -97,14 +97,14 @@ class logactivity extends dbTable
     {
         // Check if logger is registered - save in session to prevent additional DB hits.
         if($this->checkIfReg()){
-            
+
             // Set the default value for eventcode - not been implemented yet
             $this->eventcode = "pagelog";
             $this->eventParamName = "parameters";
             $this->eventParamValue = $this->_cleanParams();
-            
+
             $module = $this->getParam('module');
-            
+
             //Check if its set to log once per session
             if ($this->logOncePerSession == TRUE) {
                 if (!$this->_isLoggedThisSession($module)) {
@@ -129,10 +129,10 @@ class logactivity extends dbTable
         $this->eventcode = $eventcode;
         $this->_logData();
     }
-    
+
     /********************* PRIVATE METHODS BELOW THIS LINE *****************/
-    
-    
+
+
     /**
     * Method to check if the module has been registered.
     * After the first check, the result is stored in session for additional checks
@@ -140,13 +140,13 @@ class logactivity extends dbTable
     *
     * @author Megan Watson
     * @access private
-    * @return bool   
+    * @return bool
     */
     private function checkIfReg()
     {
         $isReg = $this->getSession('logIsReg');
         $module = $this->getParam('module');
-        
+
         if(isset($isReg) && !empty($isReg) && $module != 'modulecatalogue'){
             if($isReg == 'true'){
                 return TRUE;
@@ -154,7 +154,7 @@ class logactivity extends dbTable
                 return FALSE;
             }
         }
-        
+
         $objMod = $this->getObject('modules', 'modulecatalogue');
         if ($objMod->checkIfRegistered('logger', 'logger')) {
             $this->setSession('logIsReg', 'true');
@@ -164,13 +164,13 @@ class logactivity extends dbTable
             return FALSE;
         }
     }
-    
+
     /**
      * Method to return the querystring with the module=modulecode
      * part removed. It builds this using $_GET to work on different servers
      */
     private function _cleanParams()
-    {   
+    {
         $str = '';
         $amp = '';
         foreach ($_GET as $item=>$value)
@@ -180,9 +180,9 @@ class logactivity extends dbTable
                 $amp = '&';
             }
         }
-        
+
         return $str;
-        
+
     } //function _cleanParams
 
     /**
@@ -200,7 +200,7 @@ class logactivity extends dbTable
      *
      * @param string $module The module to look up, usually the
      *                       current module
-     *                       
+     *
      */
     private function _isLoggedThisSession($module)
     {
@@ -213,7 +213,7 @@ class logactivity extends dbTable
      *
      * @param string $module The module to set, usually the
      *                       current module
-     *                       
+     *
      */
     private function _setSessionFlag($module)
     {
@@ -238,7 +238,7 @@ class logactivity extends dbTable
     *
     * @author Megan Watson
     * @access private
-    * @return void   
+    * @return void
     */
     private function setPreviousId($id)
     {
@@ -267,23 +267,23 @@ class logactivity extends dbTable
         $action = $this->getParam('action');
         $previousId = $this->getPreviousId();
         $ip = $_SERVER['REMOTE_ADDR'];
-     
+
         $module = $this->getParam('module');
         if($module == '_default' || $module == ''){
             $objConfig = $this->getObject('altconfig', 'config');
             $module = $objConfig->getdefaultModuleName();
         }
-            
+
         $referrer = '';
         if(isset($_SERVER['HTTP_REFERER'])) {
             $referrer = $_SERVER['HTTP_REFERER'];
             $check = strpos($referrer, 'module=errors');
-            
+
             if(!($check === FALSE)){
                 $referrer = substr($referrer, 0, $check+13);
             }
         }
-        
+
         // Create Array
         $logArray = array(
             'userid' => $this->userId,
@@ -295,46 +295,46 @@ class logactivity extends dbTable
             'datecreated' => $this->now(),
             'referrer' => $referrer
         );
-        
+
         // If Old Version, Log Current Details
         $objMod = $this->getObject('modules', 'modulecatalogue');
         $version = $objMod->getVersion('logger');
-        
+
         if($version >= '0.7'){
             // Else Add Additional Fields
             $logArray['previous_id'] = $previousId;
             $logArray['action'] = $action;
             $logArray['ipaddress'] = $ip;
-            
+
             // logger_log($logArray);
             $this->insert($logArray);
-            
+
         } else if ($version == '0.6'){
-            
+
             $logArray['action'] = $action;
             $logArray['ipaddress'] = $ip;
-            
+
             //logger_log($logArray);
             $this->insert($logArray);
-        
+
         }else{
-        	$id = $this->insert($logArray); 	 
+        	$id = $this->insert($logArray);
          	$this->setPreviousId($id);
         	//logger_log($logArray);
         }
-        
+
 
     } //function _logData
-    
+
 
     /**
      * Monthly Cleanup of Log Files
-     * 
-     * Copies existing file "logger.log" to an old one names after that date, 
+     *
+     * Copies existing file "logger.log" to an old one names after that date,
      * if the file does not already exist.
-     * 
+     *
      * @return boolean Returns TRUE always
-     * @access public 
+     * @access public
      */
     public function _monthlyCleanup()
     {
@@ -344,13 +344,13 @@ class logactivity extends dbTable
     	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
     	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
         if (!file_exists($arkLog)){
-            if(file_exists($curlog)) {
+            if(file_exists($curLog)) {
         		@copy($curLog, $arkLog);
             	@unlink($curLog);
         	}
         }
     	// mail it to the sys admin?
-    	
+
     	return TRUE;
     }
 
