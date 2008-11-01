@@ -239,7 +239,7 @@ class contextadmin extends controller
                 $objContextImage->setContextImage($contextCode, $image);
             }
             
-            $this->objContext->updateTitle($contextCode, $about);
+            $this->objContext->updateAbout($contextCode, $about);
             
             return $this->nextAction('step3', array('mode'=>$mode));
         }

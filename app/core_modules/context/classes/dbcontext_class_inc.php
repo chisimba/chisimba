@@ -190,19 +190,21 @@ class dbcontext extends dbTable {
     }
 
     /**
-     * Method to update the title of a context
+     * Method to update the about text of a context
      *
-     * @param  string $contextCode: The Context Code
-     * @param  string $about: About a Course
+     * @param  string $contextCode The context code
+     * @param  string $about The about text
      * @return boolean
      * @access public
      */
-    public function updateTitle($contextCode, $about) {
+    public function updateAbout($contextCode, $about) {
         $result = $this->update ( 'contextcode', $contextCode, array ('about' => $about ) );
 
         if ($result) {
             $this->_indexContext ( $contextCode );
         }
+
+        return $result;
     }
 
     /**
