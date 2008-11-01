@@ -179,8 +179,27 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of Update
      */
-    public function updateContext($contextCode, $title, $status, $access, $about) {
-        $result = $this->update ( 'contextcode', $contextCode, array ('title' => $title, 'menutext' => $title, 'access' => $access, 'status' => $status, 'about' => $about, 'updated' => date ( "Y-m-d H:i:s" ), 'lastupdatedby' => $this->objUser->userId () ) );
+    public function updateContext($contextCode, $title=false, $status=false, $access=false, $about=false) {
+        $fields = array();
+
+        $fields['updated'] = date ( 'Y-m-d H:i:s' );
+        $fields['lastupdatedby'] = $this->objUser->userId ();
+
+        if ($title !== false) {
+            $fields['title'] = $title;
+            $fields['menutext'] = $title;
+        }
+        if ($status !== false) {
+            $fields['status'] = $status;
+        }
+        if ($access !== false) {
+            $fields['access'] = $access;
+        }
+        if ($about !== false) {
+            $fields['about'] = $about;
+        }
+
+        $result = $this->update ( 'contextcode', $contextCode, $fields );
 
         if ($result) {
             $this->_indexContext ( $contextCode );
@@ -198,11 +217,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->update ( 'contextcode', $contextCode, array ('about' => $about ) );
-
-        if ($result) {
-            $this->_indexContext ( $contextCode );
-        }
+        $result = $this->updateContext ( $contextCode, false, false, false, $about );
 
         return $result;
     }
