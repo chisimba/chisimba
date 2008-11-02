@@ -109,7 +109,7 @@ class curl extends object
         $ch = curl_init($url);
         
         // More Curl settings
-        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         
         // Add Server Proxy if it exists
@@ -135,7 +135,7 @@ class curl extends object
         }
         
         if($postargs !== FALSE){
-            curl_setopt ($ch, CURLOPT_POST, true);
+            curl_setopt ($ch, CURLOPT_POST, TRUE);
             curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
         }
         
