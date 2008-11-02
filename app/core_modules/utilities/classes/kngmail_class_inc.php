@@ -61,14 +61,14 @@ class kngmail extends object
 	*@param string $attachment_descrip 
 	*@return boolean
         */
-	function sendMail($name, $subject, $email, $html = true, $body, $attachment = null, $attachment_descrip)
+	function sendMail($name, $subject, $email, $html = TRUE, $body, $attachment = NULL, $attachment_descrip)
 	{
 		//set the email address to nothing s that each user doesn't get 6000 mails!
 		$email = "";
 		
-		if($html != true)
+		if($html != TRUE)
 		{
-			$this->objMailer->isHTML = false;
+			$this->objMailer->isHTML = FALSE;
 		}
 		
 		$this->objMailer->AddAddress($email, $name);
@@ -102,7 +102,7 @@ class kngmail extends object
 		//OK mail is sent, so lets clear this recipient and attachment.
 		$this->objMailer->ClearAllRecipients();
 		$this->objMailer->ClearAttachments();
-		return true;
+		return TRUE;
 	}//end function
 	
 }//end class
