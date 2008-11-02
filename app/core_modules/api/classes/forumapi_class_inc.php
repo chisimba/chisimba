@@ -142,7 +142,7 @@ class forumapi extends object
                     $postDetails = '';
                 }
                 
-                if($res['archivedate'] == null) {
+                if($res['archivedate'] == NULL) {
                     $archive = "n/a";
                 } else {
                     $archive = $res['archivedate'];
@@ -372,8 +372,7 @@ class forumapi extends object
         }
         $email = $param->scalarval();
         
-        $forum = $this->objdbforum->insertSingle("root", null, $forumName, $description, 'N', $visible, 'Y', $ratePosts, $studentStart, $attachment, $email, 'Y', 'Y', 'N');
-        //$forum = $this->objdbforum->insertSingle("root", null, "hello", "wat", 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'N');
+        $forum = $this->objdbforum->insertSingle("root", NULL, $forumName, $description, 'N', $visible, 'Y', $ratePosts, $studentStart, $attachment, $email, 'Y', 'Y', 'N');
         
         $forumStruct = new XML_RPC_Value(array(
                 new XML_RPC_Value("success", "string")), "array");
@@ -694,7 +693,7 @@ class forumapi extends object
             'init_1', //$type_id,
             $tangentParent, // tangent parent
             $this->objUser->getUserId($username), //user
-            null,
+            NULL,
             $newTopic_id
         );
 

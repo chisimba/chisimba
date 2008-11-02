@@ -116,7 +116,7 @@ class internalmailapi extends object
                     0 => 'messageListTable',
                     1 => 1,
                     2 => 'DESC'
-                ), null, $userId);
+                ), NULL, $userId);
         //var_dump($resarr);
         foreach($resarr as $res)
         {
