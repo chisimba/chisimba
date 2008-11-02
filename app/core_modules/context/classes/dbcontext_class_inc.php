@@ -179,23 +179,23 @@ class dbcontext extends dbTable {
      *
      * @return boolean Result of Update
      */
-    public function updateContext($contextCode, $title=false, $status=false, $access=false, $about=false) {
+    public function updateContext($contextCode, $title=FALSE, $status=FALSE, $access=FALSE, $about=FALSE) {
         $fields = array();
 
         $fields['updated'] = date ( 'Y-m-d H:i:s' );
         $fields['lastupdatedby'] = $this->objUser->userId ();
 
-        if ($title !== false) {
+        if ($title !== FALSE) {
             $fields['title'] = $title;
             $fields['menutext'] = $title;
         }
-        if ($status !== false) {
+        if ($status !== FALSE) {
             $fields['status'] = $status;
         }
-        if ($access !== false) {
+        if ($access !== FALSE) {
             $fields['access'] = $access;
         }
-        if ($about !== false) {
+        if ($about !== FALSE) {
             $fields['about'] = $about;
         }
 
@@ -217,7 +217,7 @@ class dbcontext extends dbTable {
      * @access public
      */
     public function updateAbout($contextCode, $about) {
-        $result = $this->updateContext ( $contextCode, false, false, false, $about );
+        $result = $this->updateContext ( $contextCode, FALSE, FALSE, FALSE, $about );
 
         return $result;
     }
