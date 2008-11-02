@@ -91,17 +91,17 @@ class api extends controller
      * @return void   
      * @access public 
      */
-    public function dispatch($action = null)
+    public function dispatch($action = NULL)
     {
         switch ($action) {
             case 'serveapi':
-                $this->requiresLogin(false);
+                $this->requiresLogin(FALSE);
                 // start the server.
                 $this->objRPC->serve();
                 break;
             default:
                 // cannot require any login, as remote clients use this. Auth is done internally
-                $this->requiresLogin(false);
+                $this->requiresLogin(FALSE);
                 // start the server.
                 $this->objRPC->serve();   
                 // break to be pedantic, although not strictly needed.    
@@ -119,7 +119,7 @@ class api extends controller
      */
      public function requiresLogin() 
      {
-            return false;
+            return FALSE;
      }
 }
 
