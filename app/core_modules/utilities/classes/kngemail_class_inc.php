@@ -67,8 +67,8 @@ class kngemail extends object
         */
 	function sendMail($name, $subject, $email, $body, $html = TRUE, $attachment = NULL, $attachment_descrip=NULL)
 	{
-		if($html != true){
-			$this->objMailer->isHTML = false;
+		if($html != TRUE){
+			$this->objMailer->isHTML = FALSE;
 		}
 		
                 if (is_array($email)){
@@ -115,7 +115,7 @@ class kngemail extends object
 		//OK mail is sent, so lets clear this recipient and attachment.
 		$this->objMailer->ClearAllRecipients();
 		$this->objMailer->ClearAttachments();
-		return true;
+		return TRUE;
 	}//end function
     
     /**
