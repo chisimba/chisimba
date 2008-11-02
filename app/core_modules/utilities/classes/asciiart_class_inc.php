@@ -61,11 +61,11 @@ class asciiart extends object
 	public $quality = 2;
 
 	/**
-     * Default colour - yes or no? (true/false)
+     * Default colour - yes or no? (TRUE/FALSE)
      *
      * @var boolean
      */
-	public $color = false;
+	public $color = FALSE;
 
 	/**
      * Characters used to create the image(s) in black and white
@@ -113,11 +113,11 @@ class asciiart extends object
 
 		$context = stream_context_get_default($opts);
 		$this->headers = get_headers($this->url, 1);
-		if(strstr($this->headers[0], '200') !== false)
+		if(strstr($this->headers[0], '200') !== FALSE)
 		{
 			if($this->headers['Content-Length'] < self::max_filesize) // Check that the file isn't too big
 			{
-				if($this->is_image($this->headers['Content-Type']) !== false) // Makes sure that a content type was specified
+				if($this->is_image($this->headers['Content-Type']) !== FALSE) // Makes sure that a content type was specified
 				{
 					// Pretty self-explanatory - figure out which sort of image we're going to be processing and let GD know
 					switch($this->headers['Content-Type'])
@@ -178,10 +178,10 @@ class asciiart extends object
 				//case image_type_to_mime_type(IMAGETYPE_BMP): BMP doesn't work (yet?) :-(
 			case image_type_to_mime_type(IMAGETYPE_WBMP):
 			case image_type_to_mime_type(IMAGETYPE_XBM):
-				return true;
+				return TRUE;
 				break;
 			default:
-				return false;
+				return FALSE;
 				break;
 		}
 	}
@@ -194,7 +194,7 @@ class asciiart extends object
 	 */
 	public function draw($img = '')
 	{
-		if(empty($img) === true) 
+		if(empty($img) === TRUE) 
 		{
 			$img = $this->image; // Make sure there's *something* in the image
 		}
@@ -203,7 +203,7 @@ class asciiart extends object
 		$height = imagesy($img); // Work out the height
 
 		// If we're working in colour start our <span>s
-		if($this->color === true)
+		if($this->color === TRUE)
 		{
 			$pixel_color = imagecolorat($img, 1, 1);
 			$rgb = imagecolorsforindex($img, $pixel_color);
@@ -227,7 +227,7 @@ class asciiart extends object
 	 *
 	 * @var string
 	 */	// Do some more color processing stuff
-				if($this->color === true)
+				if($this->color === TRUE)
 				{
 					// Work out if the last pixel is the same as this one
 					if($x > $this->quality && $y > $this->quality && $pixel_color == imagecolorat($img, $x - $this->quality, $y))
@@ -261,7 +261,7 @@ class asciiart extends object
 		}
 
 		// Close our colorfulness
-		if($this->color === true)
+		if($this->color === TRUE)
 		{
 			$output .= '</span>';
 		}
