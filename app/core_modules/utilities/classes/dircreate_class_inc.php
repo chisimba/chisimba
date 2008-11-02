@@ -76,9 +76,9 @@ class dircreate extends object
          }
          @closedir($dh);
          if(@rmdir($dir)) {
-             return true;
+             return TRUE;
          } else {
-             return false;
+             return FALSE;
          }
      }
 
