@@ -284,7 +284,7 @@ class dateandtime extends object
     {
         $this->startDate = $this->_getAsCompDate($this->_getStartOfWeek());
         $this->endDate = $this->_getAsCompDate($this->_getDateTomorrow());
-        return true;
+        return TRUE;
     }
 
     /**
@@ -298,7 +298,7 @@ class dateandtime extends object
     {
         $this->startDate = $this->_getStartOfMonth();
         $this->endDate = $this->_getAsCompDate($this->_getDateTomorrow());
-        return true;
+        return TRUE;
     }
 
     /**
@@ -323,7 +323,7 @@ class dateandtime extends object
     *
     * @access public
     * @param int $shift The number of months to shift from the current month
-    * @return bool true on success
+    * @return bool TRUE on success
     */
     public function setMonthPair($shift)
     {
@@ -331,7 +331,7 @@ class dateandtime extends object
         $myDateUpper = mktime(0, 0, 0, date("n") + $shift + 1, 0, date("Y")); // last day of the month
         $this->startDate = $this->_getAsCompDate($myDateLower);
         $this->endDate = $this->_getAsCompDate($myDateUpper);
-        return true;
+        return TRUE;
     }
 
     /**
@@ -419,7 +419,7 @@ class dateandtime extends object
     * @param string $subject The subject of the message
     * @param string $body The body of the message
     * @param string $itemId The id field of the notification item
-    * @return bool true on success else false
+    * @return bool TRUE on success else FALSE
     *
     */
     public function sendExpiredMsg($dbClass, $pModule, $toId, $title, $body, $itemId)
@@ -1050,13 +1050,13 @@ class dateandtime extends object
     * @param string $ Last date (format: [dd-mm-YYYY hh:mm:ss], hh is in 24hrs format)
     * @param char $ 'd' to obtain results as days, 'h' for hours, 'm' for minutes, 's' for seconds, and 'a' to get an indexed array of days, hours, minutes, and seconds
     * @param string format for the source dates
-    * @return mixed The result in the unit specified (float for all cases, except when unit='a', in which case an indexed array), or null if it could not be obtained
+    * @return mixed The result in the unit specified (float for all cases, except when unit='a', in which case an indexed array), or NULL if it could not be obtained
     */
     public function getDateDifference($dateFrom, $dateTo, $unit = 'd', $format = 'default')
     {
-        $date1 = null;
-        $date2 = null;
-        $difference = null;
+        $date1 = NULL;
+        $date2 = NULL;
+        $difference = NULL;
 
         switch($format) {
             case "unixts":
@@ -1085,7 +1085,7 @@ class dateandtime extends object
 
 
         if ($date1 > $date2) {
-            return null;
+            return NULL;
         }
 
         $diff = $date2 - $date1;
