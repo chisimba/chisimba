@@ -165,15 +165,15 @@ class curlwrapper extends object
         return $data;
     }
 
-    public function sendData($url, $postargs=false)
+    public function sendData($url, $postargs=FALSE)
     {
         $this->ch = curl_init($url);
         //$this->setProxy();
-        if($postargs !== false){
-            curl_setopt ($this->ch, CURLOPT_POST, true);
+        if($postargs !== FALSE){
+            curl_setopt ($this->ch, CURLOPT_POST, TRUE);
             curl_setopt ($this->ch, CURLOPT_POSTFIELDS, $postargs);
         }
-        if($this->username !== false && $this->password !== false) {
+        if($this->username !== FALSE && $this->password !== FALSE) {
             curl_setopt($this->ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
         }
         curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
@@ -194,21 +194,21 @@ class curlwrapper extends object
                 return $response;
             }
         }else{
-            return false;
+            return FALSE;
         }
     }
 
 
-    private function process($url,$postargs=false)
+    private function process($url,$postargs=FALSE)
     {
         $ch = curl_init($url);
 
-        if($postargs !== false){
-            curl_setopt ($ch, CURLOPT_POST, true);
+        if($postargs !== FALSE){
+            curl_setopt ($ch, CURLOPT_POST, TRUE);
             curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
         }
 
-        if($this->username !== false && $this->password !== false)
+        if($this->username !== FALSE && $this->password !== FALSE)
             curl_setopt($ch, CURLOPT_USERPWD, $this->userName.':'.$this->password);
 
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
@@ -233,7 +233,7 @@ class curlwrapper extends object
                 return $response;
             }
         }else{
-            return false;
+            return FALSE;
         }
     }
 
@@ -249,7 +249,7 @@ class curlwrapper extends object
         $ch = curl_init($url);
 
         // More Curl settings
-        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
         // Add Server Proxy if it exists
