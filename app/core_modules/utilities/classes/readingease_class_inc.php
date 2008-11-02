@@ -199,12 +199,12 @@ class readingease extends object {
     
         $syllables = 0;
         foreach ($subsyl as $syl) {
-            if (strpos($word, $syl) !== false) {
+            if (strpos($word, $syl) !== FALSE) {
                 $syllables--;
             }
         }
         foreach ($addsyl as $syl) {
-            if (strpos($word, $syl) !== false) {
+            if (strpos($word, $syl) !== FALSE) {
                 $syllables++;
             }
         }
