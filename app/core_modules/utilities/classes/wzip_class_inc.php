@@ -40,10 +40,10 @@ class wzip extends object{
     * @author Nic Appleby
     * @param string $filename The path to the file
     * @param string $path The path to which the file will be unzipped
-    * @return true|false
+    * @return TRUE|FALSE
     */
     function unZipArchive($filename,$path){
-        $this->error = null;
+        $this->error = NULL;
         //if we are going to turn of reporting notices we should
         //put things back the way they were afterwards
         $error_reporting = ini_get('error_reporting');
@@ -52,10 +52,10 @@ class wzip extends object{
         //create a new instance of pclzip
         $archive = new PclZip($filename);
         if ($archive->extract(PCLZIP_OPT_PATH,$path,PCLZIP_OPT_REMOVE_PATH,'install/release') == 0) {
-            $ret = false;
-            $this->error = "Error : ".$archive->errorInfo(true);
+            $ret = FALSE;
+            $this->error = "Error : ".$archive->errorInfo(TRUE);
         } else {
-            $ret = true;
+            $ret = TRUE;
         }
         ini_set('error_reporting',$error_reporting);
         return $ret;
@@ -65,7 +65,7 @@ class wzip extends object{
     * Method used to deflate a compressed file
     * @param string $filename The path to the file
     * @param string $path The path to which the file will be unzipped
-    * @return null
+    * @return NULL
     * @deprecated Terrible error handling, rather use the method above
     */
     function unzip($filename,$path){
@@ -79,7 +79,7 @@ class wzip extends object{
         //$objZip->extract($path);
         if ($archive->extract(PCLZIP_OPT_PATH, $path,
                         PCLZIP_OPT_REMOVE_PATH, 'install/release') == 0) {
-            print ("Error : ".$archive->errorInfo(true));
+            print ("Error : ".$archive->errorInfo(TRUE));
         }
     }
 
@@ -90,14 +90,14 @@ class wzip extends object{
     * MEthod to add files to an archive
     * @param string $filename The path to the file
     * @param string $path The path to which the file will be unzipped
-    * @return null
+    * @return NULL
     */
     function addArchive($path, $filename, $removePath = NULL)
     {
         $archive = new PclZip($filename);
         $v_list = $archive->create($path, PCLZIP_OPT_REMOVE_PATH, $removePath);
           if ($v_list == 0) {
-            die("Error : ".$archive->errorInfo(true));
+            die("Error : ".$archive->errorInfo(TRUE));
           }
           return $filename;
 
