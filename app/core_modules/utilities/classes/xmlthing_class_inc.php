@@ -158,7 +158,7 @@ class xmlthing extends object
 	 */
 	public function dumpXML()
 	{
-		return $this->xw->outputMemory(true);
+		return $this->xw->outputMemory(TRUE);
 	}
 	
 }
