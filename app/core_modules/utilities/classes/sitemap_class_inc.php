@@ -116,7 +116,7 @@ class sitemap extends object
 	 *
 	 * @param sitemap xml $str
 	 * @param sitemap name $mapname
-	 * @return boolean true on success
+	 * @return boolean TRUE on success
 	 */
 	public function writeSitemap($str, $mapname)
 	{
@@ -188,7 +188,7 @@ class sitemap extends object
 		// Destroy variable $xml
 		unset($xml);
 
-		return true;
+		return TRUE;
 
 	}
 }
