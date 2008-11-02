@@ -74,7 +74,7 @@ class dbcontextparams extends dbTable {
      * @access public
      * @return bool
      */
-    public function setParam($contextCode, $param, $value = null) {
+    public function setParam($contextCode, $param, $value = NULL) {
         try {
             $fields = array ('param' => $param, 'value' => $value, 'contextcode' => $contextCode );
 
