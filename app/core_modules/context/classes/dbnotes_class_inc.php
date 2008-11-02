@@ -68,10 +68,10 @@ class dbnotes extends dbTable {
      *
      * @param  string $mode:  edit if coming from edit, add if coming from add
      * @param  string $userId : The id of the user
-     * @return null
+     * @return NULL
      * @access public
      */
-    public function saveRecord($userId, $mode = null) {
+    public function saveRecord($userId, $mode = NULL) {
         $id = addslashes ( TRIM ( $_POST ['id'] ) );
         $nodeId = addslashes ( TRIM ( $_POST ['nodeId'] ) );
         //$userId = addslashes(TRIM($_POST['userId']));
@@ -81,7 +81,7 @@ class dbnotes extends dbTable {
             $this->update ( "id", $id, array ('nodeId' => $nodeId, 'userId' => $userId, 'note' => $note ) );
         }
         // if add use insert
-        if ($mode == "add" || $more = null) {
+        if ($mode == "add" || $more = NULL) {
             $this->insert ( array ('nodeId' => $nodeId, 'userId' => $userId, 'note' => $note ) );
         }
     }
