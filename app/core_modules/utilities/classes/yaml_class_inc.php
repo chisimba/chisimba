@@ -61,7 +61,7 @@ class yaml extends object
 	 * @param string $array
 	 * @return saved Yaml file
 	 */
-	public function saveYaml($array,$indent = false,$wordwrap = false)
+	public function saveYaml($array,$indent = FALSE,$wordwrap = FALSE)
 	{
 		return $this->objYaml->dump($array, $indent, $wordwrap);
 	}
