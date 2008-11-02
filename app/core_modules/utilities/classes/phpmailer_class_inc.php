@@ -93,7 +93,7 @@ class PHPMailer
 
     /**
      * Sets the Body of the message.  This can be either an HTML or text body.
-     * If HTML then run IsHTML(true).
+     * If HTML then run IsHTML(TRUE).
      * @var string
      */
     var $Body               = "";
@@ -183,7 +183,7 @@ class PHPMailer
      *  Sets SMTP authentication. Utilizes the Username and Password variables.
      *  @var bool
      */
-    var $SMTPAuth     = false;
+    var $SMTPAuth     = FALSE;
 
     /**
      *  Sets SMTP username.
@@ -208,15 +208,15 @@ class PHPMailer
      *  Sets SMTP class debugging on or off.
      *  @var bool
      */
-    var $SMTPDebug    = false;
+    var $SMTPDebug    = FALSE;
 
     /**
      * Prevents the SMTP connection from being closed after each mail 
-     * sending.  If this is set to true then to close the connection 
+     * sending.  If this is set to TRUE then to close the connection 
      * requires an explicit call to SmtpClose(). 
      * @var bool
      */
-    var $SMTPKeepAlive = false;
+    var $SMTPKeepAlive = FALSE;
 
     /**#@+
      * @access private
@@ -245,7 +245,7 @@ class PHPMailer
      * @return void
      */
     function IsHTML($bool) {
-        if($bool == true)
+        if($bool == TRUE)
             $this->ContentType = "text/html";
         else
             $this->ContentType = "text/plain";
@@ -348,19 +348,19 @@ class PHPMailer
 
     /**
      * Creates message and assigns Mailer. If the message is
-     * not sent successfully then it returns false.  Use the ErrorInfo
+     * not sent successfully then it returns FALSE.  Use the ErrorInfo
      * variable to view description of the error.  
      * @return bool
      */
     function Send() {
         $header = "";
         $body = "";
-        $result = true;
+        $result = TRUE;
 
         if((count($this->to) + count($this->cc) + count($this->bcc)) < 1)
         {
             $this->SetError($this->Lang("provide_address"));
-            return false;
+            return FALSE;
         }
 
         // Set whether the message is multipart/alternative
@@ -372,7 +372,7 @@ class PHPMailer
         $header .= $this->CreateHeader();
         $body = $this->CreateBody();
 
-        if($body == "") { return false; }
+        if($body == "") { return FALSE; }
 
         // Choose the mailer
         switch($this->Mailer)
@@ -388,7 +388,7 @@ class PHPMailer
                 break;
             default:
             $this->SetError($this->Mailer . $this->Lang("mailer_not_supported"));
-                $result = false;
+                $result = FALSE;
                 break;
         }
 
@@ -409,7 +409,7 @@ class PHPMailer
         if(!@$mail = popen($sendmail, "w"))
         {
             $this->SetError($this->Lang("execute") . $this->Sendmail);
-            return false;
+            return FALSE;
         }
 
         fputs($mail, $header);
@@ -419,10 +419,10 @@ class PHPMailer
         if($result != 0)
         {
             $this->SetError($this->Lang("execute") . $this->Sendmail);
-            return false;
+            return FALSE;
         }
 
-        return true;
+        return TRUE;
     }
 
     /**
@@ -455,15 +455,15 @@ class PHPMailer
         if(!$rt)
         {
             $this->SetError($this->Lang("instantiate"));
-            return false;
+            return FALSE;
         }
 
-        return true;
+        return TRUE;
     }
 
     /**
      * Sends mail via SMTP using PhpSMTP (Author:
-     * Chris Ryan).  Returns bool.  Returns false if there is a
+     * Chris Ryan).  Returns bool.  Returns FALSE if there is a
      * bad MAIL FROM, RCPT, or DATA input.
      * @access private
      * @return bool
@@ -474,7 +474,7 @@ class PHPMailer
         $bad_rcpt = array();
 
         if(!$this->SmtpConnect())
-            return false;
+            return FALSE;
 
         $smtp_from = ($this->Sender == "") ? $this->From : $this->Sender;
         if(!$this->smtp->Mail($smtp_from))
@@ -482,7 +482,7 @@ class PHPMailer
             $error = $this->Lang("from_failed") . $smtp_from;
             $this->SetError($error);
             $this->smtp->Reset();
-            return false;
+            return FALSE;
         }
 
         // Attempt to send attach all recipients
@@ -512,25 +512,25 @@ class PHPMailer
             $error = $this->Lang("recipients_failed") . $error;
             $this->SetError($error);
             $this->smtp->Reset();
-            return false;
+            return FALSE;
         }
 
         if(!$this->smtp->Data($header . $body))
         {
             $this->SetError($this->Lang("data_not_accepted"));
             $this->smtp->Reset();
-            return false;
+            return FALSE;
         }
-        if($this->SMTPKeepAlive == true)
+        if($this->SMTPKeepAlive == TRUE)
             $this->smtp->Reset();
         else
             $this->SmtpClose();
 
-        return true;
+        return TRUE;
     }
 
     /**
-     * Initiates a connection to an SMTP server.  Returns false if the 
+     * Initiates a connection to an SMTP server.  Returns FALSE if the 
      * operation failed.
      * @access private
      * @return bool
@@ -544,7 +544,7 @@ class PHPMailer
         $connection = ($this->smtp->Connected()); 
 
         // Retry while there is no connection
-        while($index < count($hosts) && $connection == false)
+        while($index < count($hosts) && $connection == FALSE)
         {
             if(strstr($hosts[$index], ":"))
                 list($host, $port) = explode(":", $hosts[$index]);
@@ -568,10 +568,10 @@ class PHPMailer
                     {
                         $this->SetError($this->Lang("authenticate"));
                         $this->smtp->Reset();
-                        $connection = false;
+                        $connection = FALSE;
                     }
                 }
-                $connection = true;
+                $connection = TRUE;
             }
             $index++;
         }
@@ -597,7 +597,7 @@ class PHPMailer
     }
 
     /**
-     * Sets the language for all class error messages.  Returns false 
+     * Sets the language for all class error messages.  Returns FALSE 
      * if it cannot load the language file.  The default language type
      * is English.
      * @param string $lang_type Type of language (e.g. Portuguese: "br")
@@ -613,11 +613,11 @@ class PHPMailer
         else
         {
             $this->SetError("Could not load language file");
-            return false;
+            return FALSE;
         }
         $this->language = $PHPMAILER_LANG;
     
-        return true;
+        return TRUE;
     }
 
     /////////////////////////////////////////////////
@@ -666,7 +666,7 @@ class PHPMailer
      * @access private
      * @return string
      */
-    function WrapText($message, $length, $qp_mode = false) {
+    function WrapText($message, $length, $qp_mode = FALSE) {
         $soft_break = ($qp_mode) ? sprintf(" =%s", $this->LE) : $this->LE;
 
         $message = $this->FixEOL($message);
@@ -997,7 +997,7 @@ class PHPMailer
 
     /**
      * Adds an attachment from a path on the filesystem.
-     * Returns false if the file could not be found
+     * Returns FALSE if the file could not be found
      * or accessed.
      * @param string $path Path to the attachment.
      * @param string $name Overrides the attachment name.
@@ -1010,7 +1010,7 @@ class PHPMailer
         if(!@is_file($path))
         {
             $this->SetError($this->Lang("file_access") . $path);
-            return false;
+            return FALSE;
         }
 
         $filename = basename($path);
@@ -1023,11 +1023,11 @@ class PHPMailer
         $this->attachment[$cur][2] = $name;
         $this->attachment[$cur][3] = $encoding;
         $this->attachment[$cur][4] = $type;
-        $this->attachment[$cur][5] = false; // isStringAttachment
+        $this->attachment[$cur][5] = FALSE; // isStringAttachment
         $this->attachment[$cur][6] = "attachment";
         $this->attachment[$cur][7] = 0;
 
-        return true;
+        return TRUE;
     }
 
     /**
@@ -1181,7 +1181,7 @@ class PHPMailer
       } else {
         $encoding = 'Q';
         $encoded = $this->EncodeQ($str, $position);
-        $encoded = $this->WrapText($encoded, $maxlen, true);
+        $encoded = $this->WrapText($encoded, $maxlen, TRUE);
         $encoded = str_replace("=".$this->LE, "\n", trim($encoded));
       }
 
@@ -1209,7 +1209,7 @@ class PHPMailer
                   "'='.sprintf('%02X', ord('\\1')).'".$this->LE."'", $encoded);
 
         // Maximum line length of 76 characters before CRLF (74 + space + '=')
-        $encoded = $this->WrapText($encoded, 74, true);
+        $encoded = $this->WrapText($encoded, 74, TRUE);
 
         return $encoded;
     }
@@ -1262,7 +1262,7 @@ class PHPMailer
         $this->attachment[$cur][2] = $filename;
         $this->attachment[$cur][3] = $encoding;
         $this->attachment[$cur][4] = $type;
-        $this->attachment[$cur][5] = true; // isString
+        $this->attachment[$cur][5] = TRUE; // isString
         $this->attachment[$cur][6] = "attachment";
         $this->attachment[$cur][7] = 0;
     }
@@ -1286,7 +1286,7 @@ class PHPMailer
         if(!@is_file($path))
         {
             $this->SetError($this->Lang("file_access") . $path);
-            return false;
+            return FALSE;
         }
 
         $filename = basename($path);
@@ -1300,25 +1300,25 @@ class PHPMailer
         $this->attachment[$cur][2] = $name;
         $this->attachment[$cur][3] = $encoding;
         $this->attachment[$cur][4] = $type;
-        $this->attachment[$cur][5] = false; // isStringAttachment
+        $this->attachment[$cur][5] = FALSE; // isStringAttachment
         $this->attachment[$cur][6] = "inline";
         $this->attachment[$cur][7] = $cid;
     
-        return true;
+        return TRUE;
     }
     
     /**
-     * Returns true if an inline attachment is present.
+     * Returns TRUE if an inline attachment is present.
      * @access private
      * @return bool
      */
     function InlineImageExists() {
-        $result = false;
+        $result = FALSE;
         for($i = 0; $i < count($this->attachment); $i++)
         {
             if($this->attachment[$i][6] == "inline")
             {
-                $result = true;
+                $result = TRUE;
                 break;
             }
         }
@@ -1477,7 +1477,7 @@ class PHPMailer
     }
     
     /**
-     * Returns true if an error occurred.
+     * Returns TRUE if an error occurred.
      * @return bool
      */
     function IsError() {
