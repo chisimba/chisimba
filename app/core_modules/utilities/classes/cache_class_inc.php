@@ -120,7 +120,7 @@ class cache extends Object
     {
         // Check if File Lock E
         if (file_exists($this->sFileLock)) {
-            return true;
+            return TRUE;
         }
         return (file_exists($this->sFile) && ($this->iCacheTime == -1 || time() - filemtime($this->sFile) <= $this->iCacheTime));
     }
@@ -150,9 +150,9 @@ class cache extends Object
             if (file_exists($this->sFileLock)) {
                unlink($this->sFileLock);
             }
-            return true;
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     }
 
