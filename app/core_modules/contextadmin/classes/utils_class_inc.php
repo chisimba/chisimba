@@ -138,7 +138,7 @@ class utils extends object
 	public function getContextAdminList()
 	{
 
-		return null;
+		return NULL;
 	}
 
 	  /**
@@ -151,7 +151,7 @@ class utils extends object
 	  {
 
 	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
-	  	return null;//$objGroups->usercontextcodes($this->_objUser->userId());
+	  	return NULL;//$objGroups->usercontextcodes($this->_objUser->userId());
 	  }
 
 	  /**
@@ -277,7 +277,7 @@ class utils extends object
 	   *
 	   * @return string
 	   */
-	  public function getPluginForm($contextCode = null)
+	  public function getPluginForm($contextCode = NULL)
 	  {
 
 	  	if(empty($contextCode))
@@ -401,7 +401,7 @@ class utils extends object
 	   * @return string
 	   *
 	   */
-	  public function getEditContextForm($contextCode = null)
+	  public function getEditContextForm($contextCode = NULL)
 	  {
 	  	if(empty($contextCode))
 	  	{
@@ -726,8 +726,8 @@ class utils extends object
 
 	  	if($this->_objContextModules->isContextPlugin($this->_objDBContext->getContextCode(), 'contextcontent'))
 	  	{
-	  	    $objLink->href = $this->uri(null,'contextdesigner');
-	  	    $objLink2->href = $this->uri(null,'contextcontent');
+	  	    $objLink->href = $this->uri(NULL,'contextdesigner');
+	  	    $objLink2->href = $this->uri(NULL,'contextcontent');
 
 	  	    $objIcon2->setModuleIcon('contextcontent');
 	  	    $objIcon->setModuleIcon('contextdesigner');
