@@ -193,8 +193,8 @@ class s3 extends object
 	private $_secret;
 	private $_server     = "s3.amazonaws.com";
 	private $_pathToCurl = "";
-	private $_date       = null;
-	private $_error      = null;
+	private $_date       = NULL;
+	private $_error      = NULL;
 
 	public function init()
 	{
@@ -240,7 +240,7 @@ class s3 extends object
 		$foo = $this->getBucketContents($bucket, $prefix);
 		if(!is_array($foo))
 		{
-			return false;
+			return FALSE;
 		}
 		foreach($foo as $bar)
 		{
@@ -269,9 +269,9 @@ class s3 extends object
 			$object = "/$object";
 		}
 		$req = array(	"verb" => "DELETE",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket" . $object,
 		);
 
@@ -279,7 +279,7 @@ class s3 extends object
 		return !$this->objectExists($bucket, $object);
 	}
 
-	public function putObject($bucket, $object, $filename, $public = null, $disposition = null)
+	public function putObject($bucket, $object, $filename, $public = NULL, $disposition = NULL)
 	{
 		$info     = pathinfo($filename);
 		$basename = $info['basename'];
@@ -287,7 +287,7 @@ class s3 extends object
 
 		$type = isset($this->mime_types[$ext]) ? $this->mime_types[$ext] : "application/octet-stream";
 
-		$acl = isset($public) ? "public-read" : null;
+		$acl = isset($public) ? "public-read" : NULL;
 
 		if(substr($object, 0, 1) != "/" )
 		{
@@ -295,9 +295,9 @@ class s3 extends object
 		}
 
 		$req = array(	"verb" => "PUT",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket" . $object,
 		"upload" => $filename,
 		"type" => $type,
@@ -320,9 +320,9 @@ class s3 extends object
 		}
 
 		$req = array(	"verb" => "GET",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket" . $object,
 		);
 
@@ -339,9 +339,9 @@ class s3 extends object
 		}
 
 		$req = array(	"verb" => "GET",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket" . $object,
 		"download" => $saveTo,
 		);
@@ -358,9 +358,9 @@ class s3 extends object
 	public function getBuckets()
 	{
 		$req = array(	"verb" => "GET",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/",
 		);
 
@@ -372,9 +372,9 @@ class s3 extends object
 	public function createBucket($bucket)
 	{
 		$req = array(	"verb" => "PUT",
-		"md5" => null,
-		"type" => null,
-		"headers" => array("Content-Length" => "0",), //null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => array("Content-Length" => "0",),
 		"resource" => "/$bucket",
 		);
 		//$this->_server = "http://".$bucket.".".$this->_server;
@@ -385,12 +385,12 @@ class s3 extends object
 		return $this->isOk($result);
 	}
 
-	public function deleteBucket($bucket, $force = false)
+	public function deleteBucket($bucket, $force = FALSE)
 	{
 		$req = array(	"verb" => "DELETE",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket",
 		);
 
@@ -414,7 +414,7 @@ class s3 extends object
 
 	public function objectExists($bucket, $object)
 	{
-		return ($this->getObjectInfo($bucket, $object) !== false);
+		return ($this->getObjectInfo($bucket, $object) !== FALSE);
 	}
 
 	public function getObjectHead($bucket, $object)
@@ -425,9 +425,9 @@ class s3 extends object
 		}
 
 		$req = array(	"verb" => "HEAD",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket" . $object,
 		);
 
@@ -450,12 +450,12 @@ class s3 extends object
 		return $object[0];
 	}
 
-	public function getBucketContents($bucket, $prefix = null, $delim = null, $marker = null)
+	public function getBucketContents($bucket, $prefix = NULL, $delim = NULL, $marker = NULL)
 	{
 		$req = array(	"verb" => "GET",
-		"md5" => null,
-		"type" => null,
-		"headers" => null,
+		"md5" => NULL,
+		"type" => NULL,
+		"headers" => NULL,
 		"resource" => "/$bucket",
 		);
 
@@ -496,7 +496,7 @@ class s3 extends object
 		return $keys;
 	}
 
-	public function sendRequest($req, $params = null)
+	public function sendRequest($req, $params = NULL)
 	{
 		if(isset($req['resource']))
 		{
@@ -592,7 +592,7 @@ class s3 extends object
 		{
 			$key = trim(strtolower($key));
 			$val = trim($val);
-			if(strpos($key, "x-amz") !== false)
+			if(strpos($key, "x-amz") !== FALSE)
 			{
 				if(isset($arrHeaders[$key]))
 				{
@@ -656,7 +656,7 @@ class s3 extends object
 		return base64_encode($ret);
 	}
 
-	function sortKeys($keys, $first = null)
+	function sortKeys($keys, $first = NULL)
 	{
 		if(is_null($first))
 		{
