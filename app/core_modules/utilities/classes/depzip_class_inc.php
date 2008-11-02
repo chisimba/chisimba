@@ -78,14 +78,14 @@ Public License
                     $folder_content .= $temp;
             
                 if($folder_content == "..")
-                    return true;
+                    return TRUE;
                 else
-                    return false;
+                    return FALSE;
             
                 closedir($handle);
             }
             else
-                return true; // folder doesnt exist
+                return TRUE; // folder doesnt exist
         }
         
       /**
@@ -110,9 +110,9 @@ Public License
             @closedir($dh);
             
             if(@rmdir($dir)) {
-                return true;
+                return TRUE;
             } else {
-                return false;
+                return FALSE;
             }
         }
         
