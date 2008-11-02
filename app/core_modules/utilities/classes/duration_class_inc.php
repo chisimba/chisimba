@@ -34,7 +34,7 @@ class duration extends object
      * @param   int|array  $duration  Array of time segments or a number of seconds
      * @return  string
      */
-    function toString ($duration, $periods = null)
+    function toString ($duration, $periods = NULL)
     {
         if (!is_array($duration)) {
             $duration = Duration::int2array($duration, $periods);
@@ -50,7 +50,7 @@ class duration extends object
      * @param        int $seconds Number of seconds to be parsed
      * @return       mixed An array containing named segments
      */
-    function int2array ($seconds, $periods = null)
+    function int2array ($seconds, $periods = NULL)
     {        
         // Define time periods
         if (!is_array($periods)) {
@@ -80,7 +80,7 @@ class duration extends object
  
         // Return
         if (empty($values)) {
-            $values = null;
+            $values = NULL;
         }
  
         return $values;
@@ -97,7 +97,7 @@ class duration extends object
     function array2string ($duration)
     {
         if (!is_array($duration)) {
-            return false;
+            return FALSE;
         }
  
         foreach ($duration as $key => $value) {
