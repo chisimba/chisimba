@@ -28,7 +28,7 @@ class zend extends object
         // Zend must be in the include path in order for its classes to load each other
         $includePath = get_include_path();
         $zendPath = $this->getResourcePath('zend');
-        if (strpos($includePath, $zendPath) === false) {
+        if (strpos($includePath, $zendPath) === FALSE) {
             $includePath .= ":$zendPath";
             set_include_path($includePath);
         }
