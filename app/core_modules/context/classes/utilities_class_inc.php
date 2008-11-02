@@ -126,7 +126,7 @@ class utilities extends object {
      * @access public
      * @return string
      */
-    public function getPluginNavigation($selectedModule = null) {
+    public function getPluginNavigation($selectedModule = NULL) {
         $objSideBar = $this->newObject ( 'sidebar', 'navigation' );
         $objModule = $this->newObject ( 'modules', 'modulecatalogue' );
         //$objContentLinks = $this->getObject('dbcontextdesigner','contextdesigner');
@@ -138,7 +138,7 @@ class utilities extends object {
         //create the nodes array
         $nodes = array ();
         $children = array ();
-        $nodes [] = array ('text' => $this->objDBContext->getMenuText () . ' - Home', 'uri' => $this->uri ( null, 'context' ), 'nodeid' => 'context' );
+        $nodes [] = array ('text' => $this->objDBContext->getMenuText () . ' - Home', 'uri' => $this->uri ( NULL, 'context' ), 'nodeid' => 'context' );
         if (is_array ( $arr )) {
             foreach ( $arr as $contextModule ) {
                 //$modInfo =$objModule->getModuleInfo($plugin['moduleid']);
@@ -146,7 +146,7 @@ class utilities extends object {
                     $isregistered = TRUE;
                 } else {
                     $modInfo = $objModule->getModuleInfo ( $contextModule ['moduleid'] );
-                    $moduleLink = $this->uri ( null, $contextModule ['moduleid'] ); //$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
+                    $moduleLink = $this->uri ( NULL, $contextModule ['moduleid'] ); //$this->uri(array('action' => 'contenthome', 'moduleid' => $contextModule['moduleid']));
                     $nodes [] = array ('text' => ucwords ( $modInfo ['name'] ), 'uri' => $moduleLink, 'nodeid' => $contextModule ['moduleid'] );
                 }
             }
@@ -195,7 +195,7 @@ class utilities extends object {
         //if the context is public then the user can access the context , but only limited access
 
 
-        return true;
+        return TRUE;
     }
 
     /**
@@ -208,7 +208,7 @@ class utilities extends object {
         $this->objIcon->alt = $this->objLanguage->languageText ( "mod_context_coursehome", 'context' );
         $this->objIcon->align = "absmiddle";
 
-        $this->objLink->href = $this->URI ( null, 'context' );
+        $this->objLink->href = $this->URI ( NULL, 'context' );
         $this->objLink->link = $this->objIcon->show ();
         $str = $this->objLink->show ();
 
@@ -313,7 +313,7 @@ class utilities extends object {
             $section = $this->getParam ( 'id' );
 
             //create the home for the context
-            $nodes [] = array ('text' => $this->objDBContext->getMenuText () . ' -  ' . $this->objLanguage->languageText ( "word_home", 'system', 'Home' ), 'uri' => $this->uri ( null, "_default" ) );
+            $nodes [] = array ('text' => $this->objDBContext->getMenuText () . ' -  ' . $this->objLanguage->languageText ( "word_home", 'system', 'Home' ), 'uri' => $this->uri ( NULL, "_default" ) );
 
             //get the registered modules for this context
             $arrContextModules = $this->objDBContextModules->getContextModules ( $this->contextCode );
