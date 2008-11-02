@@ -72,7 +72,7 @@ class ga // extends object
 		$class = get_class($parent1);
 		if ($class != get_class($parent2)) 
 		{
-			return false;
+			return FALSE;
 		}
 		if (!is_array($cross_functions)) 
 		{
@@ -167,7 +167,7 @@ class ga // extends object
 			}
 			else {
 				$children[] = $this->crossover($obj1, $object, $this->crossover_functions);
-				$obj1 = null;
+				$obj1 = NULL;
 			}
 		}
 		return $children;
