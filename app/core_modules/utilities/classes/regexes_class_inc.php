@@ -335,8 +335,8 @@ class regexes extends object
 		$count = count($array);
 		for($i=0;$i<$count;$i++){
 			if(!empty($array[$i])){
-				if(strpos($array[$i],"www",0) === false){
-					if(strpos($array[$i],"http",0) === false){
+				if(strpos($array[$i],"www",0) === FALSE){
+					if(strpos($array[$i],"http",0) === FALSE){
 						array_push($result,$array[$i]);
 					}
 				}
@@ -351,8 +351,8 @@ class regexes extends object
 		$count = count($array);
 		for($i=0;$i<$count;$i++){
 			if(!empty($array[$i])){
-				if(strpos($array[$i],"www",0) !== false){
-					if(strpos($array[$i],"http",0) !== false){
+				if(strpos($array[$i],"www",0) !== FALSE){
+					if(strpos($array[$i],"http",0) !== FALSE){
 						array_push($result,$array[$i]);
 					}
 				}
