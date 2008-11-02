@@ -70,19 +70,19 @@ class dbcontextmodules extends dbTable {
      *
      * @param      $moduleId    string  The moduleId
      * @param      $contextCode $string The context Code
-     * @return     $ret         boolean Returns true if an enty was found or false when not found
+     * @return     $ret         boolean Returns TRUE if an enty was found or FALSE when not found
      * @access     public
      * @deprecated
      */
     public function isVisible($moduleId, $contextCode) {
         $rsArr = $this->getAll ( "WHERE contextcode = '" . $contextCode . "' AND moduleid='" . $moduleId . "'" );
-        $ret = true;
+        $ret = TRUE;
         if ($rsArr) {
             foreach ( $rsArr as $ar ) {
-                $ret = (isset ( $ar ['moduleId'] )) ? true : false;
+                $ret = (isset ( $ar ['moduleId'] )) ? TRUE : FALSE;
             }
         } else {
-            $ret = false;
+            $ret = FALSE;
         }
 
         return $ret;
