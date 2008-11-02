@@ -159,12 +159,12 @@ class proxyparser extends object
     		return $proxystring;
     	}
     	//find the protocol
-    	if (($pos = strpos($proxystring, '://')) !== false) {
+    	if (($pos = strpos($proxystring, '://')) !== FALSE) {
     		$str = substr($proxystring, 0, $pos);
     		$proxystring = substr($proxystring, $pos + 3);
     	} else {
     		$str = $proxystring;
-    		$proxystring = null;
+    		$proxystring = NULL;
     	}
     	if (preg_match('|^(.+?)\((.*?)\)$|', $str, $arr)) {
     		$parsed['proxy_protocol']  = $arr[1];
@@ -178,10 +178,10 @@ class proxyparser extends object
     		return $parsed;
     	}
     	// Get (if found): username and password
-    	if (($at = strrpos($proxystring,'@')) !== false) {
+    	if (($at = strrpos($proxystring,'@')) !== FALSE) {
     		$str = substr($proxystring, 0, $at);
     		$proxystring = substr($proxystring, $at + 1);
-    		if (($pos = strpos($str, ':')) !== false) {
+    		if (($pos = strpos($str, ':')) !== FALSE) {
     			$parsed['proxy_user'] = rawurldecode(substr($str, 0, $pos));
     			$parsed['proxy_pass'] = rawurldecode(substr($str, $pos + 1));
     		} else {
@@ -189,10 +189,10 @@ class proxyparser extends object
     		}
     	}
     	//server
-    	if (($col = strrpos($proxystring,':')) !== false) {
+    	if (($col = strrpos($proxystring,':')) !== FALSE) {
     		$strcol = substr($proxystring, 0, $col);
     		$proxystring = substr($proxystring, $col + 1);
-    		if (($pos = strpos($strcol, '+')) !== false) {
+    		if (($pos = strpos($strcol, '+')) !== FALSE) {
     			$parsed['proxy_host'] = rawurldecode(substr($strcol, 0, $pos));
     		} else {
     			$parsed['proxy_host'] = rawurldecode($strcol);
