@@ -43,10 +43,10 @@ class debughelper extends object
      * @param  string $label An optional label.
      * @return string
      */
-    static public function dump($var, $label=null, $echo=true)
+    static public function dump($var, $label=NULL, $echo=TRUE)
     {
         // format the label
-        $label = ($label===null) ? '' : rtrim($label) . ' ';
+        $label = ($label===NULL) ? '' : rtrim($label) . ' ';
 
         // var_dump the variable into a buffer and keep the output
         ob_start();
