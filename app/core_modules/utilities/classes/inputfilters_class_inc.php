@@ -334,7 +334,7 @@ class inputfilters extends object
 
         // check input against domain name schema
         $status = @preg_match('/^(?:[^\W_](?:[^\W_]|-){0,61}[^\W_]\.)+[a-zA-Z]{2,6}\.?$/', $value);
-        if ($status === false) {
+        if ($status === FALSE) {
             throw new customException('Internal error: DNS validation failed');
         }
 
