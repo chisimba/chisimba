@@ -103,7 +103,7 @@ class fileupload extends object
     * Method to set max uploadable file size
     * @access public
     * @param $max_file
-    * @return null
+    * @return NULL
     */
     function set_max_size($max_file = 300000000000)
     {
@@ -114,7 +114,7 @@ class fileupload extends object
     * Method to check for a directory
     * @access Public
     * @param void
-    * @return true
+    * @return TRUE
     */
     function check_for_directory()
     {
@@ -182,18 +182,18 @@ class fileupload extends object
     * 	$uploaddir : Directory Name in which uploaded file is placed
     * 	NOTE: file input type field name should be set to fileupload
     * 	$rename : you may pass string or boolean
-    * 			 true : rename the file if it already exists and returns the renamed file name.
+    * 			 TRUE : rename the file if it already exists and returns the renamed file name.
     * 			 String : rename the file to given string.
-    * 	$replace =true : replace the file if it is already existing
+    * 	$replace =TRUE : replace the file if it is already existing
     * 	$file_max_size : file size in bytes. 0 for default
     * 	$check_type : checks file type exp ."(jpg|gif|jpeg)"
     *
-    * @example UPLOAD::upload_file("temp","file",true,true,0,"jpg|jpeg|bmp|gif")
+    * @example UPLOAD::upload_file("temp","file",TRUE,TRUE,0,"jpg|jpeg|bmp|gif")
     *
-    * @return : On success it will return file name else return (boolean)false
+    * @return : On success it will return file name else return (boolean)FALSE
     */
 
-    function upload_file($uploaddir,$rename=null,$replace=false,$file_max_size=0,$check_type="")
+    function upload_file($uploaddir,$rename=NULL,$replace=FALSE,$file_max_size=0,$check_type="")
     {
 		if (!is_uploaded_file($_FILES['upload']['tmp_name'])) {
 			throw new CustomException($this->objLanguage->languageText('mod_utilities_errorupload'));
@@ -220,7 +220,7 @@ class fileupload extends object
         	{
 
             	$this->error();
-            	return false;
+            	return FALSE;
             }
         }
 
@@ -243,7 +243,7 @@ class fileupload extends object
         	else
         	{
             	$this->error=$this->objLanguage->languageText("word_file_exists");
-            	return false;
+            	return FALSE;
         	}
         }
 
@@ -252,7 +252,7 @@ class fileupload extends object
 
         	if($this->error!="") {
 				echo $this->error;
-        		return false;
+        		return FALSE;
 			}
         	else
         		return $this->file_name;
