@@ -126,7 +126,7 @@ class dbcontentnodes extends dbtable {
             //return the result set
             return $rs;
         } else
-            return false;
+            return FALSE;
     }
 
     /**
@@ -145,13 +145,13 @@ class dbcontentnodes extends dbtable {
         if ($line [$fiedname]) {
             return $line [$fiedname];
         } else
-            return false;
+            return FALSE;
     }
 
     /**
      * Method to save a node after editing
      *
-     * @return null
+     * @return NULL
      * @access public
      */
     public function saveEdit() {
@@ -179,7 +179,7 @@ class dbcontentnodes extends dbtable {
         if ($line [0] ['id']) {
             return $line [0] ['id'];
         } else {
-            return false;
+            return FALSE;
         }
     }
 
@@ -189,7 +189,7 @@ class dbcontentnodes extends dbtable {
      * @param  $mode         string : Either edit or add mode
      * @param  $userId       int    : The user id
      * @param  $parentNodeId int    : The parent Node Id
-     * @return null
+     * @return NULL
      * @access public
      */
     public function saveNode($mode) {
@@ -401,7 +401,7 @@ class dbcontentnodes extends dbtable {
         $this->resetTable ();
         $nodesArr = $this->getAll ( "WHERE tbl_context_parentnodes_id='$rootnodeid'" );
         foreach ( $nodesArr as $list ) {
-            if ($list ['parent_Node'] == null) {
+            if ($list ['parent_Node'] == NULL) {
                 return $this->_hasContent ( $list ['id'], $nodesArr );
             }
         }
@@ -444,7 +444,7 @@ class dbcontentnodes extends dbtable {
      * Method to change the working table
      *
      * @param  string $tName : The name of the table
-     * @return null
+     * @return NULL
      * @access public
      */
     public function changeTable($tName) {
@@ -454,7 +454,7 @@ class dbcontentnodes extends dbtable {
     /**
      * Method to reset the working table to 'tbl_context'
      *
-     * @return null
+     * @return NULL
      * @access public
      */
     public function resetTable() {
@@ -464,12 +464,12 @@ class dbcontentnodes extends dbtable {
     /**
      * Method to check whether a node is the first node
      *
-     * @return null
+     * @return NULL
      * @access public
      */
     public function isFirstNode($nodeId) {
         //INCOMPLETE .. I am still working on this one
-        return false;
+        return FALSE;
     }
 
     /**
@@ -687,7 +687,7 @@ class dbcontentnodes extends dbtable {
         } else {
             return FALSE;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -804,10 +804,10 @@ class dbcontentnodes extends dbtable {
      * @param string $rootNode The root Node
      */
     public function reOrderNodes($rootNode = NULL) {
-        $this->next_Node = null;
-        $prev_Node = null;
+        $this->next_Node = NULL;
+        $prev_Node = NULL;
         $cnt = 1;
-        $this->prevId = null;
+        $this->prevId = NULL;
 
         $this->resetTable ();
         if ($rootNode == NULL) {
@@ -852,8 +852,8 @@ class dbcontentnodes extends dbtable {
      * @param string $parentID The ParentId
      */
     public function _recursiveReOrderNodes($parentId) {
-        $next_Node = null;
-        $prev_Node = null;
+        $next_Node = NULL;
+        $prev_Node = NULL;
         $cnt = 1;
 
         $nodes = $this->getAll ( 'WHERE parent_Node = "' . $parentId . '" ORDER BY sortindex' );
