@@ -1,0 +1,605 @@
+/** SCNS - Based On Sanord Template **/
+
+#container a, a:link, a:visited {
+    color: #000;
+    text-decoration: none;
+}
+
+#container a:hover{
+    color: #5f7d9c;
+    text-decoration: none;
+
+}
+
+#container {
+    /*background-color: #E8E8E8;*/
+    background-color: #F7F7F7;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+}
+
+li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
+
+div#header {
+	background: #FFFFFF;
+}
+
+#sitename span {
+    visibility: hidden;
+}
+#sitename {
+	font-size: 30px;
+	width: 1025px;
+	height: 93px;
+	color: #F7F7F7;
+	margin: 0px 0 0 0px;
+	padding: 0;
+	background: #FFFFFF url("images/scns_header.png") no-repeat;
+}
+
+	
+div#search {
+	position: absolute;
+	color:#fff;
+	/*float: right;*/
+    top: 1px;
+    right: 0px;
+    width: 300px;
+    margin: 0;
+}
+
+#breadcrumbs {
+	font-size: 80%;
+	color:#000;
+    padding: 3px;
+    position:relative;
+    left: 20px;
+}
+#breadcrumbs a:link, #breadcrumbs a:visited {
+	color: #2c2c2c;
+	text-decoration: none;
+}
+#breadcrumbs a:hover {
+	color: #9c9c9c;
+	text-decoration: underline;
+}
+
+#footer {
+    background: #F7F7F7; 
+    text-align:center;
+    color:#999;
+	padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+#footer p {margin:0}
+#footer a:link {color:#000}
+	
+
+
+
+/* Menu */
+
+#menuwrapper {
+	background-color: #F7F7F7;
+	padding: 4px;
+}
+
+ul#menuList  li {
+    display:block;
+	background-color: #5f7d9c;
+	padding: 2px;
+	background-image: none;
+
+	border-bottom: none;
+	font-weight: bold;
+}
+
+ul#menuList  li:hover {
+	
+	background-color: #9ab2cb;
+}
+
+/* Top Row*/
+ul#menuList  li a {
+	
+	color: #FFF;
+	text-decoration: none;
+	padding-right: 30px;
+}
+
+/* Items on menu*/
+ul#menuList  li li a {
+	color: #000;
+	text-decoration: none;
+	padding: 3px;
+}
+
+ul#menuList  li li a img{
+	border-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul#menuList  li li a span{
+    margin-left: 27px;
+    margin-right: 0px;
+    
+}
+
+ul#menuList  li  li{
+    border-style: none;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-weight: normal;
+    padding: 0;
+    text-align: left;
+}
+
+ul#menuList  li  li:hover{
+    border-style: none;
+    background-color: #9ab2cb;
+    color: #fff;
+}
+
+ul#menuList  li  li:hover a {
+    color: #fff;
+}
+
+/* Increase padding on the last right item*/
+ul#menuList  li  li.last a{
+    padding-right: 8px;
+}
+
+ul#menuList  li  ul{
+    margin-top: 2px;
+}
+
+
+
+div#twocolumn, div#threecolumn {
+    margin-top: 0px;
+}
+
+#wrapper, #contentlayout {
+    background: #F7F7F7 repeat-x ;
+}
+
+#contentlayout {
+	/*clear: left;*/
+	background: #fff;
+}
+
+#left {
+	/*background: #999966 url("newimages/right_end_test.jpg") no-repeat top left;*/
+	background: #F7F7F7;
+	border-right: 1px solid #ffffff;
+    margin-bottom: 10px;
+}
+
+#leftcontent {
+   /** background: #999966;/*#FFFFFF;*/
+    margin: 0 0px 0px 5px;
+    padding: 0px 15px 5px 10px;
+}
+
+#rightcontent
+{
+    
+    margin-right: 10px;
+    padding: 5px 15px 5px 10px;
+}
+
+#right {
+	background: #F7F7F7 /*url("newimages/right_end_test.jpg") no-repeat top right ;*/
+	border-left: 1px solid #ffffff;
+	border-bottom:10px;
+}
+
+#contentcontent {
+/*
+    border-top: 0;
+    border-left: 5px solid #fff;
+    border-right: 5px solid #fff;
+    border-bottom: 5px solid #FFF;
+*/
+    padding: 10px;
+    background-color: #FFFFFF;
+}
+
+
+
+#twocolumn #content {
+    margin-right: 10px;
+    padding: 5px 7px 5px 5px;
+    background: #F7F7F7 /*url("newimages/right_end_test.jpg") no-repeat top right ;*/
+    
+}
+
+
+/* Feature Box */
+
+.featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+    margin: 0 0 .3em; 
+    color:#000; 
+    background-color: #ededed;
+    padding: 3px;
+}
+.featurebox {
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    color: #000;
+}
+
+.featurebox p {border:2px;margin: 0 0 1em;color:#444}
+.featurebox a {font-weight:bold}
+.featurebox select {width: 100%; }
+
+.featureboxheader {
+    padding: 3px;
+    padding-left: 34px;
+    border-bottom: 2px solid #fff;
+    color:#FFF;
+    background: #9ab2cb;
+	text-align:left;
+    text-decoration: none;
+}
+
+.featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
+	margin: 0 0 .3em;
+	border-bottom: 2px solid #fff;
+	color: #fff;
+	background-color: #9ab2cb;/*#E9B52D;*/
+    text-align: left;
+    padding-left: 10px;
+}
+
+.featureboxcontent p {
+	border:2px solid #fff;
+	margin: 0 0 1em;
+	color: #FFFFFF;
+    padding: 10px;
+}
+
+featurebox .featureboxheader a{
+	font-weight:bold;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.featureboxcontent a, a:link, a:hover, a:visited {
+	font-weight:bold;
+    color: #000;
+    text-decoration: none;
+}
+
+
+.featureboxcontent select {
+	width: 100%;
+}
+
+.featureboxcontent {
+    padding: 10px;
+}
+
+/* End featurebox */
+
+/* Secondary Navigation */
+#nav-secondary a {line-height:1.8;padding: 5px 0 5px 23px;background: #fff url("images/sprites.gif") no-repeat 10px -695px;font: bold 86% arial, sans-serif; color: #000; display:block}
+#nav-secondary a:hover {color:#000;background: #F7F7F7 url("images/sprites.gif") no-repeat 10px -695px} 
+
+.menuBtn {
+    padding: 0px 5px 0px 5px;
+    background-color: #5f7d9c;
+}
+
+.menuBtn:hover { 
+    background-color: #9ab2cb;
+}
+
+.menuBtn a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menuBtnOn {
+    padding: 0px 5px 0px 5px;
+    background-color: #5f7d9c;
+}
+
+.menuBtnOn:hover, .menuBtnOn a:hover, .menuBtnOn a:link:hover, .menuBtnOn a:visited:hover {
+    background-color: #9ab2cb;
+}
+
+.menuBtnOn a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+#sanordmenu{
+	margin-top: 10px;
+	padding-right: 10px;
+	background-color: #d2d6db;
+	
+}
+
+#sanordmenu ul{
+	background-color: #d2d6db;
+	margin:0;
+	margin-left: 220px; /*margin between first menu item and left browser edge*/
+	padding:0;
+	list-style: none;
+	text-transform: lowercase;
+}
+
+#sanordmenu li{
+	display: inline;
+	margin: 0 2px 0 0;
+	padding:0;
+}
+
+#sanordmenu li a{
+	float: left;
+	display: block;
+	color: #8f9dbc;
+	margin: 0 5px 0 0; /*Margin between each menu item*/
+	padding: 2px 4px 0 4px;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #EDEFEC; /*Default menu color*/
+	border-right: 2px solid #DCDFD6;
+}
+
+#sanordmenu li a:hover{
+	color: #000;
+}
+
+#sanordmenu #current a{ /*currently selected tab*/
+	background-color: #FFF; /*Brown color theme*/ 
+	border-right: 2px solid #DCDFD6;
+	color: #000;
+}
+
+/* Three Column Layout */
+#threecolumn div#wrapper div#content{margin: 0 199px 0 190px}
+#threecolumn div#left{float:left;width:180px;margin-left:-99%}
+#threecolumn div#right{float:left;width:200px;margin-left:-201px}
+
+/* Two Column Layout */
+#twocolumn div#wrapper div#content{margin: 0 0 0 190px}
+#twocolumn div#left{float:left;width:180px;margin-left:-99%}
+#twocolumn div#right{display:none}
+
+
+#left {
+    background-color: #F7F7F7;
+}
+
+/**
+Turn off round corners
+*/
+
+
+
+div.rounded2 {
+
+  background:  #FFF;
+
+  margin-bottom: 2px;
+
+}
+
+div.rounded2 div {
+  
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #d2d6db;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    
+}
+
+div.rounded2 div div {
+
+  background: #FFF;
+
+}
+
+div.rounded2 div div div {
+
+  background: #FFF;
+
+  padding: 2px;
+
+}
+
+#textresize {
+	padding-top: 80px;
+	padding-right: 20px;
+	float: right;
+}
+h1 {
+	/*18px via YUI Fonts CSS foundation*/
+	font-size:138.5%;  
+}
+h2 {
+	/*16px via YUI Fonts CSS foundation*/
+	font-size:123.1%; 
+}
+h3 {
+	/*14px via YUI Fonts CSS foundation*/
+	font-size:108%;  
+}
+h1,h2,h3 {
+	/* top & bottom margin based on font size */
+	margin:1em 0;
+}
+h1,h2,h3,h4,h5,h6,strong {
+	/*bringing boldness back to headers and the strong element*/
+	font-weight:bold; 
+}
+abbr,acronym {
+	/*indicating to users that more info is available */
+	border-bottom:1px dotted #000;
+	cursor:help;
+} 
+em {
+	/*bringing italics back to the em element*/
+	font-style:italic;
+}
+blockquote,ul,ol,dl {
+	/*giving blockquotes and lists room to breath*/
+	margin:1em;
+}
+ol,ul,dl {
+	/*bringing lists on to the page with breathing room */
+	margin-left:2em;
+}
+ol li {
+	/*giving OL's LIs generated numbers*/
+	list-style: decimal outside;	
+}
+ul li {
+	/*giving UL's LIs generated disc markers*/
+	
+}
+dl dd {
+	/*giving UL's LIs generated numbers*/
+	margin-left:1em;
+}
+th,td {
+	/*borders and padding to make the table readable*/
+	
+	padding:.5em;
+}
+th {
+	/*distinguishing table headers from data cells*/
+	font-weight:bold;
+	text-align:center;
+}
+caption {
+	/*coordinated marking to match cell's padding*/
+	margin-bottom:.5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align:center;
+}
+p,fieldset,table {
+	/*so things don't run into each other*/
+	margin-bottom:1em;
+}
+
+
+
+/***********************************************************************************************
+*  Horizontal, top-2-bottom menu
+*  Copyright Aleksandar Vacic, www.aplus.co.yu, some rights reserved http://creativecommons.org/licenses/by-sa/2.0/
+***********************************************************************************************/
+
+#menu {
+    display: block;
+    padding-left: 10px;
+    z-index: 100;
+    float:left;
+}
+
+#menu ul {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style-type: none;
+    color: #9c9c9c;
+}
+
+#menu li {
+    margin: 0;
+    border: 0;
+    display: block;
+    float: left;
+    position: relative;
+    width: 110px;
+    text-align:center;
+}
+
+
+
+#menu a {
+    display: block;
+    text-decoration: none;
+}
+
+#menu img {
+    float: left;
+    width: 17px;
+    height: 17px;
+}
+
+#menu span {
+    margin-left: 20px;
+    display: block;
+}
+
+
+
+
+
+
+/* fix the position for 2nd level submenus. first make sure no horizontal scrollbars are visible on initial page load... */
+
+#menu li li ul {
+    top: 0;
+    left: 0;
+}
+
+
+
+/* ...and then place it where it should be when shown */
+
+#menu li li:hover ul {
+    /*left: 100%;*/
+    z-index: 100;
+}
+
+/* initialy hide all sub menus */
+
+#menu li ul {
+    display: none;
+    position: absolute;
+    z-index: 101;
+    width: 130px; /* Customizable*/
+                    
+    background-color: #FFF;
+    border: 1px solid #fff;
+}
+
+/* display them on hover */
+#menu li:hover>ul {
+    display: block;
+    z-index: 101;
+}
+
+/* this is needed if you want to style #menu div - force containment of floated LIs inside of main UL */
+
+#menuList:after {
+    content: ".";
+    height: 0;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    clear: both;
+}
+
+/* Fix for IE5/Mac \*//*/
+#menu a {
+    float: left;
+}
+/* */
+
+
+.featurebox, #nav-secondary, body.help-popup {
+    background-color: #FFF;
+    border: 1px solid #CCCCCC;
+    padding-top: 10px;
+}
