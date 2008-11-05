@@ -59,6 +59,7 @@ class logger extends controller
             //$this->objLog->logOncePerSession = TRUE;
             //Log this module call
             $this->objLog->log();
+            $this->objUser = $this->getObject('user', 'security');
         } catch(Exception $e) {
             throw customException($e->getMessage());
             exit();
@@ -93,6 +94,32 @@ class logger extends controller
                 $ar = $this->showLog->showStatsByUser();
                 $this->setVarByRef('ar', $ar);
                 return "main_tpl.php";
+                break;
+
+            case 'showstatsbycontext':
+		$userId=$this->objUser->userId();
+                $display = $this->logDisplay->getVisitedPages($userId,$contextcode=NULL,$module='contextcontent');
+                $this->setVarByRef('display', $display);
+                return 'index_tpl.php';
+                break;
+
+            case 'statsbycontext':
+		$userId=$this->objUser->userId();
+		$contextCode = $this->getParam('contextcode');
+                $display = $this->logDisplay->getContextUsers($userId,$contextCode);
+                $this->setVarByRef('display', $display);
+                return 'index_tpl.php';
+                break;
+
+            case 'userstatsbycontext':
+		$userId = $this->getParam('userId');
+		if(empty($userId)){
+			$userId=$this->objUser->userId();
+		}
+		$contextCode = $this->getParam('contextcode');
+                $display = $this->logDisplay->getVisitedPages($userId,$contextCode, $module='contextcontent');
+                $this->setVarByRef('display', $display);
+                return 'index_tpl.php';
                 break;
 
             case 'showstatsbymodule':

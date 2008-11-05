@@ -125,6 +125,30 @@ class logshow extends dbTable
         $where = " WHERE datecreated >= '".$timeframe."' ";
         return $this->getAll($where);
     }
+    /**
+     * @param  string $userId userId
+     * @param  string $contextCode Context Code
+     * @param  string $module module name
+     * @return string Return description (if any) ...
+     * @access public
+     */
+    public function userLoggerDetails($userId=Null,$contextCode=Null, $module=Null)
+    {
+	if($userId==Null){
+		$userId=$this->objUser->userId();
+	}
+	if($contextCode==Null){
+	        $where = " WHERE userid = '".$userId."' and module = '".$module."'";
+	        return $this->getAll($where);
+	}elseif($module==Null){
+	        $where = " WHERE userid = '".$userId."' and context = '".$contextCode."'";
+	}else{
+	        $where = " WHERE userid = '".$userId."' and context = '".$contextCode."' and module = '".$module."'";
+	}
+//        $sql = "SELECT * FROM tbl_logger".$where;
+        return $this->getAll($where);
+//        return $this->getArray($sql);
+    }
 } //end of class
 
 ?>
