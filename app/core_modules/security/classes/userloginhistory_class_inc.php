@@ -88,6 +88,26 @@ class userLoginHistory extends dbTable {
         return $rs[0]['laston'];
     }
     /**
+    * Property returns the first login date for the user
+    * denoted by $userId
+    * @added by Paul Mungai 04-11-2008
+    * @param string $userId: The Unique userId of the user being looked up
+    */
+    public function doGetFirstLogin($userId)
+    {
+        $sql="SELECT 
+			MIN(lastLoginDateTime) AS firston 
+		FROM 
+			tbl_userloginhistory 
+		WHERE 
+			userid='$userId'
+		";
+        $rs = $this->query($sql);
+        //$line = $rs->fetchRow();
+        return $rs[0]['firston'];
+    }
+
+    /**
     * Property returns the last login date for the user
     * denoted by $userId
     * @param string $time: The time of the user being logged in
