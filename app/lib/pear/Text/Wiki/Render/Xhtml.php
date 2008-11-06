@@ -29,6 +29,7 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
     	'translate' => HTML_ENTITIES,
     	'quotes'    => ENT_COMPAT,
     	'charset'   => 'ISO-8859-1'
+    	//'charset'   => 'UTF-8' //Broken htmlentities doesn't work with this even though it claims to support it.
     );
 
     function pre()
@@ -39,6 +40,38 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
     function post()
     {
         return;
+    }
+
+    /**
+    * Method to set a config key
+    *
+    * @access public
+    * @param string $text the text to render
+    * @return rendered text
+    *
+    */
+
+    function setConf($key, $value)
+    {
+        $this->conf[$key] = $value;
+    }
+
+    /**
+    * Method to get the value at the specified config key
+    *
+    * @access public
+    * @param string $text the text to render
+    * @return rendered text
+    *
+    */
+
+    function getConf($key, $default)
+    {
+        if (isset($this->conf[$key])) {
+            return $this->conf[$key];
+        } else {
+            return $default;
+        }
     }
 
 
@@ -61,7 +94,6 @@ class Text_Wiki_Render_Xhtml extends Text_Wiki_Render {
 
         // have to check null and false because HTML_ENTITIES is a zero
         if ($type === HTML_ENTITIES) {
-
 			// keep a copy of the translated version of the delimiter
 			// so we can convert it back.
 			$new_delim = htmlentities($this->wiki->delim, $quotes, $charset);

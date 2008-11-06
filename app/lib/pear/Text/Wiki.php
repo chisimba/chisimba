@@ -912,10 +912,10 @@ class Text_Wiki {
     *
     */
 
-    function transform($text, $format = 'Xhtml')
+    function transform($text, $format = 'Xhtml', $encodeEntities = true)
     {
         $this->parse($text);
-        return $this->render($format);
+        return $this->render($format , $encodeEntities);
     }
 
 
@@ -961,6 +961,12 @@ class Text_Wiki {
     }
 
 
+
+public function mb_ucwords($str) {
+    $str = mb_convert_case($str, MB_CASE_TITLE, "UTF-8"); 
+    return ($str);
+} 
+
     /**
     *
     * Renders tokens back into the source text, based on the requested format.
@@ -975,10 +981,10 @@ class Text_Wiki {
     *
     */
 
-    function render($format = 'Xhtml')
+    function render($format = 'Xhtml', $encodeEntities = true)
     {
         // the rendering method we're going to use from each rule
-        $format = ucwords(strtolower($format));
+        $format = $this->mb_ucwords(strtolower($format));
 
         // the eventual output text
         $this->output = '';
@@ -994,6 +1000,11 @@ class Text_Wiki {
         $result = $this->loadFormatObj($format);
         if ($this->isError($result)) {
             return $result;
+        }
+
+        //Added option to disable entity encoding
+        if (!$encodeEntities) {
+            $this->formatObj[$format]->setConf('translate', false);
         }
 
         // pre-rendering activity
