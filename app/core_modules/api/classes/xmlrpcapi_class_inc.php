@@ -157,7 +157,7 @@ class xmlrpcapi extends object
      * @access public
      */
     public $objContext;
-    
+
     /**
      * Chisimba annote API
      * @var    object
@@ -171,7 +171,7 @@ class xmlrpcapi extends object
      * @access public
      */
     public $objSkype;
-    
+
     /**
      * Chisimba Document Conversion API
      * @var    object
@@ -237,6 +237,8 @@ class xmlrpcapi extends object
             $this->objSkype = $this->getObject('skypeapi');
             // Document Conversion API
             $this->objDocConvert = $this->getObject('documentconversionapi');
+            // IM API
+            $this->objImAPI = $this->getObject('imapi');
         }
         catch (customException $e)
         {
@@ -361,14 +363,14 @@ class xmlrpcapi extends object
                                                              array('string', 'string'),
                                                          ),
                                                   'docstring' => 'Grab a module'),
-                                                  
+
                           'dlGraphFull' => array('function' => array($this->objPop, 'fullGraph'),
                                                      'signature' =>
                                                          array(
                                                              array('string'),
                                                          ),
                                                   'docstring' => 'returns a pie chart of all module downloads'),
-                                                  
+
                           'getMultiModuleZip' => array('function' => array($this->objPackages, 'getMultiModuleZip'),
                                                      'signature' =>
                                                          array(
@@ -751,7 +753,7 @@ class xmlrpcapi extends object
                                                       'signature' => array(
                                                                           array('array', 'string'),
                                                                           ),
-                                                      'docstring' => 'get the post in which you have selected to reply to'),     
+                                                      'docstring' => 'get the post in which you have selected to reply to'),
                              'forum.insertPost' => array('function' => array($this->objForum, 'forumInsertPost'),
                                                       'signature' => array(
                                                                           array('array', 'string', 'string', 'string', 'string', 'string', 'string'),
@@ -781,57 +783,62 @@ class xmlrpcapi extends object
                                                       'signature' => array(
                                                                           array('array', 'string'),
                                                                           ),
-                                                      'docstring' => 'get the forum row'),    
+                                                      'docstring' => 'get the forum row'),
                           'forum.forumDeleteForum' => array('function' => array($this->objForum, 'forumDeleteForum'),
                                                       'signature' => array(
                                                                           array('array', 'string'),
                                                                           ),
-                                                      'docstring' => 'delete the selected forum from the database'),      
+                                                      'docstring' => 'delete the selected forum from the database'),
                              'forum.visibleForum' => array('function' => array($this->objForum, 'forumVisibility'),
                                                       'signature' => array(
                                                                           array('array', 'string', 'string'),
                                                                           ),
-                                                      'docstring' => 'update the visibility of the forum'),                                   
+                                                      'docstring' => 'update the visibility of the forum'),
                           // Podcast API for python tool
                           'podcast.uploader' => array('function' => array($this->objPodcasts, 'grabPodcast'),
                                                      'signature' => array(
                                                                           array('string', 'string', 'string', 'string', 'string', 'string', 'string')),
                                                       'docstring' => 'uploads a file to the server'),
-                                                      
+
                            'podcast.uploaderMp3' => array('function' => array($this->objPodcasts, 'grabPodcastAsMp3'),
                                                      'signature' => array(
                                                                           array('string', 'string', 'string', 'string', 'string')),
                                                       'docstring' => 'uploads an mp3 file to the server'),
-                               
+
+                           'podcast.fileup' => array('function' => array($this->objPodcasts, 'fileDrop'),
+                                                     'signature' => array(
+                                                                          array('string', 'string', 'string', 'string', 'string')),
+                                                      'docstring' => 'uploads a file to the server - takes uname, pas, filedata and filename as args'),
+
                                'podcast.grabAll' => array('function' => array($this->objPodcasts, 'grabAllByUser'),
                                                      'signature' => array(
                                                                           array('array', 'string')),
-                                                      'docstring' => 'returns a list of podcasts by a particular user.'),    
-                                                      
+                                                      'docstring' => 'returns a list of podcasts by a particular user.'),
+
                                'podcast.download' => array('function' => array($this->objPodcasts, 'downloadPodcast'),
                                                      'signature' => array(
                                                                           array('string', 'string')),
-                                                      'docstring' => 'downloads a podcast from the path given'),                   
-                                                      
-                             //User API                        
+                                                      'docstring' => 'downloads a podcast from the path given'),
+
+                             //User API
                             'user.trylogin' => array('function' => array($this->objUser, 'tryLogin'),
                                                       'signature' => array(
                                                                           array('int', 'string', 'string'),
                                                                           ),
                                                     'docstring' => 'authenticate the user'),
-                        
+
                             'user.getid' => array('function' => array($this->objUser, 'getUserIdFromName'),
                                                       'signature' => array(
                                                                           array('string', 'string'),
                                                                           ),
                                                     'docstring' => 'returns the users id from a username'),
-                                                    
+
                             'user.getUserDetails' => array('function' => array($this->objUser, 'getUserDetails'),
                                                       'signature' => array(
                                                                           array('array', 'string'),
                                                                           ),
                                                     'docstring' => 'returns the user details for a given username'),
-                                                    
+
                             //Context API
                             'user.isContextPlugin' => array('function' => array($this->objContext, 'isContextPlugin'),
                                                       'signature' => array(
@@ -843,21 +850,21 @@ class xmlrpcapi extends object
                                                                           array('array', 'string'),
                                                                           ),
                                                     'docstring' => 'get a list of contexts for this user'),
-                                                    
-                            // Annote API                    
+
+                            // Annote API
                             'annote.dumpXML' => array('function' => array($this->objAnnote, 'grabXMLDoc'),
                                                       'signature' => array(
                                                                           array('boolean', 'string'),
                                                                           ),
                                                     'docstring' => 'Accepts an XML Document for the annote module'),
-                                                    
-                            // Skype API                    
+
+                            // Skype API
                             'skype.chatmsg' => array('function' => array($this->objSkype, 'chat'),
                                                       'signature' => array(
                                                                           array('string', 'string'),
                                                                           ),
                                                     'docstring' => 'Bangs a Skype chat message sent through the Python Skype API to the IM module'),
-                                                    
+
                             'skype.recording' => array('function' => array($this->objSkype, 'soundbite'),
                                                       'signature' => array(
                                                                           array('string', 'string', 'string'),
@@ -874,10 +881,15 @@ class xmlrpcapi extends object
                                                                     array('string', 'string', 'string', 'string', 'string', 'string'),
                                                                     ),
                                                    'docstring' => 'Convert between various document formats using Open Office'),
+                            'im.add' => array('function' => array($this->objImAPI, 'addIm'),
+                                                      'signature' => array(
+                                                                          array('string', 'string', 'string'),
+                                                                          ),
+                                                    'docstring' => 'IM messages pushed through the python client'),
                        ), 1, 0);
-            
+
     //$server = new XML_RPC_Server(    array(),1,1);
         return $server;
-        
+
     }
 }
