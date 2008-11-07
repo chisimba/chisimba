@@ -1,7 +1,18 @@
 /** SCNS - Based On Sanord Template **/
 
-#container a, a:link, a:visited {
+body {
+    background-color: #E8E8E8;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
     color: #000;
+    font: 80% "Trebuchet MS", Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
+    line-height: 200%;
+}
+
+/*
+#container a, a:link, a:visited {
+    color: #92b9e1;
     text-decoration: none;
 }
 
@@ -10,16 +21,28 @@
     text-decoration: none;
 
 }
+*/
 
 #container {
     /*background-color: #E8E8E8;*/
     background-color: #F7F7F7;
+    width: 999px;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #000;
 }
 
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
+
+/*Fix For Wiki Lists*/
+.featureboxcontent li {
+    list-style-type:none;
+    line-height: 1.4em;
+    padding-left: 0px;
+    background: transparent;
+    padding-bottom: 5px;
+    font-size: 1em;
+}
 
 div#header {
 	background: #FFFFFF;
@@ -28,9 +51,10 @@ div#header {
 #sitename span {
     visibility: hidden;
 }
+
 #sitename {
 	font-size: 30px;
-	width: 1025px;
+	width: 100%;
 	height: 93px;
 	color: #F7F7F7;
 	margin: 0px 0 0 0px;
@@ -38,19 +62,19 @@ div#header {
 	background: #FFFFFF url("images/scns_header.png") no-repeat;
 }
 
-	
 div#search {
-	position: absolute;
-	color:#fff;
-	/*float: right;*/
+    position: absolute;
+    color:#000;
+    /*float: right;*/
     top: 1px;
-    right: 0px;
+    left: 360px;
     width: 300px;
     margin: 0;
 }
 
+
 #breadcrumbs {
-	font-size: 80%;
+	font-size: 1em;
 	color:#000;
     padding: 3px;
     position:relative;
@@ -175,21 +199,21 @@ div#twocolumn, div#threecolumn {
 #left {
 	/*background: #999966 url("newimages/right_end_test.jpg") no-repeat top left;*/
 	background: #F7F7F7;
-	border-right: 1px solid #ffffff;
+	/*border-right: 1px solid #ffffff;*/
     margin-bottom: 10px;
 }
 
 #leftcontent {
    /** background: #999966;/*#FFFFFF;*/
     margin: 0 0px 0px 5px;
-    padding: 0px 15px 5px 10px;
+    padding: 0px 10px 5px 5px;
 }
 
 #rightcontent
 {
     
     margin-right: 10px;
-    padding: 5px 15px 5px 10px;
+    padding: 0px 15px 5px 10px;
 }
 
 #right {
@@ -205,11 +229,13 @@ div#twocolumn, div#threecolumn {
     border-right: 5px solid #fff;
     border-bottom: 5px solid #FFF;
 */
-    padding: 10px;
     background-color: #FFFFFF;
+    padding: 10px;
 }
 
-
+#cmscontent {
+    /*padding: 10px 10px 10px 10px;*/
+}
 
 #twocolumn #content {
     margin-right: 10px;
@@ -259,17 +285,17 @@ div#twocolumn, div#threecolumn {
 .featureboxcontent p {
 	border:2px solid #fff;
 	margin: 0 0 1em;
-	color: #FFFFFF;
+	color: #000;
     padding: 10px;
 }
 
-featurebox .featureboxheader a{
+.featureboxheader a{
 	font-weight:bold;
     color: #FFF;
     text-decoration: none;
 }
 
-.featureboxcontent a, a:link, a:hover, a:visited {
+.featureboxcontent a a:link a:hover a:visited {
 	font-weight:bold;
     color: #000;
     text-decoration: none;
@@ -291,8 +317,9 @@ featurebox .featureboxheader a{
 #nav-secondary a:hover {color:#000;background: #F7F7F7 url("images/sprites.gif") no-repeat 10px -695px} 
 
 .menuBtn {
-    padding: 0px 5px 0px 5px;
-    background-color: #5f7d9c;
+    font-size: 0.8em;
+    line-height: 11px;
+    background-color: #7fa1c3;
 }
 
 .menuBtn:hover { 
@@ -300,13 +327,14 @@ featurebox .featureboxheader a{
 }
 
 .menuBtn a {
-    color: #fff;
+    color: #FFF;
     text-decoration: none;
 }
 
 .menuBtnOn {
-    padding: 0px 5px 0px 5px;
-    background-color: #5f7d9c;
+    font-size: 0.8em;
+    line-height: 11px;
+    background-color: #7fa1c3;
 }
 
 .menuBtnOn:hover, .menuBtnOn a:hover, .menuBtnOn a:link:hover, .menuBtnOn a:visited:hover {
@@ -456,7 +484,7 @@ blockquote,ul,ol,dl {
 }
 ol,ul,dl {
 	/*bringing lists on to the page with breathing room */
-	margin-left:2em;
+	margin-left:0.7em;
 }
 ol li {
 	/*giving OL's LIs generated numbers*/
@@ -464,7 +492,7 @@ ol li {
 }
 ul li {
 	/*giving UL's LIs generated disc markers*/
-	
+    list-style-type: none;
 }
 dl dd {
 	/*giving UL's LIs generated numbers*/
@@ -602,4 +630,8 @@ p,fieldset,table {
     background-color: #FFF;
     border: 1px solid #CCCCCC;
     padding-top: 10px;
+}
+
+#tooliconslist {
+    display: none;
 }
