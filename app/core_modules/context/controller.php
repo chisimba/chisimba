@@ -88,8 +88,16 @@ class context extends controller {
 
             $this->objContextBlocks = $this->getObject ( 'dbcontextblocks' );
             $this->objDynamicBlocks = $this->getObject ( 'dynamicblocks', 'blocks' );
+
+	    //Load Module Catalogue Class
+            $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
+
         } catch ( customException $e ) {
             customException::cleanUp ();
+
+	    //Load Module Catalogue Class
+            $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
+
         }
     }
 
