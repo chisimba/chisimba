@@ -7,7 +7,7 @@
 * It is not a wrapper. Developers still need to code their own JS functions
 *
 * @category  Chisimba
-* @author  Tohir Solomons
+* @author  Tohir Solomons, Charl Mert
 * @package htmlelements
 * @copyright 2007 AVOIR
 * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General
@@ -41,7 +41,6 @@ class jquery extends object
         //Default jQuery version (Global)
         $this->version = '1.2.3';
     }
-
 
     /**
     * Method to set the version of jQuery to load
@@ -133,7 +132,7 @@ class jquery extends object
 
     /**
      * Method to load the ddmenu plugin script files to the header
-	 * TODO: This menu conflicts with prototype, resolve the conflict
+     * TODO: This menu conflicts with prototype, resolve the conflict
      */
     public function loadDDMenuPlugin()
     {
@@ -157,7 +156,7 @@ class jquery extends object
 
     /**
      * Method to load the superfish menu plugin script files to the header
-	 * TODO: Add superfish menu class to abstractly produce it
+     * TODO: Add superfish php menu class to wrap it
      */
     public function loadSuperFishMenuPlugin($version = '1.4.8')
     {
@@ -172,9 +171,28 @@ class jquery extends object
         $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'supersubs.js', 'htmlelements'));
     }
 
+
+    /**
+     * Method to load the flexgrid
+     * - The flexgrid plugin draws a sortable by column click/multi selectable/configurable column display table
+     * Input : An HTML table
+     * OR
+     * Input : A Json object representing the table structure
+     *
+     * Output : Local Spreadsheet-like Grid View
+     * Depricated: use jqGrid instead
+     */
+    public function loadFlexgridPlugin($version = '')
+    {
+        $basePath = 'jquery/plugins/flexigrid/';
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'css/flexigrid/flexigrid.css'.'">'));
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'flexigrid.js', 'htmlelements'));
+    }
+
     /**
      * Method to load the jQuery Core API UI Tabbing library
-	 * 
+     * 
      */
     public function loadUITabbing($version = '')
     {
@@ -182,6 +200,85 @@ class jquery extends object
         $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'ui/css/flora.all.css'.'">'));
         $this->appendArrayVar('headerParams',$this->getJavascriptFile($basePath.'ui/ui.core.js'.'">', 'htmlelements'));
         $this->appendArrayVar('headerParams',$this->getJavascriptFile($basePath.'ui/ui.tabs.js'.'">', 'htmlelements'));
+    }
+
+    /**
+     * Method to load the Simple Tree Menu
+     * - The simple tree menu creates an explorer like tree menu that can load child elements on ajax requests
+     */
+    public function loadSimpleTreePlugin($version = '0.3', $theme = 'default')
+    {
+        $basePath = 'jquery/plugins/simpletree/'.$version.'/';
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.simple.tree.js'));
+        
+        //TODO: Add Styles
+        //$this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'themes/'.$theme.'/style.css'.'">'));
+
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'style.css'.'">'));
+
+    }
+
+    /**
+     * Method to load the jqGrid plugin.
+     * - The jqgrid plugin is a javascript grid plugin with more features than flexgrid e.g. editable grid cells.
+     * Input : An HTML table, XML, JSON
+     * Output : Spreadsheet-like Grid Control
+     * @var string $version
+     * @var string $theme This theme relates to the directory name. Can be found here : core_modules/htmlelements/resources/jquery/plugins/jqgrid/3.2.4/themes/[$theme]
+     */
+    public function loadJqGridPlugin($version = '3.2.4', $theme = 'basic')
+    {
+
+        $basePath = 'jquery/plugins/jqgrid/3.2.4/';
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'themes/'.$theme.'/grid.css'.'">'));
+        
+        //The supplied js includer breaks:
+        //$this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.jqGrid.js', 'htmlelements'));
+        
+        //Manually including the minified files here
+        
+        //Made Changes to the loader, gave it a facebook smack, Baa!
+        //$this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.base-min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/grid.base.js', 'htmlelements'));
+
+        //Edited delGridRow Behaviour to exclude modal window (using jquery box plugin instead: faster)
+        //$this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.formedit-min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/grid.formedit.js', 'htmlelements'));
+        
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.inlinedit-min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.subgrid-min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.custom-min.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/min/grid.postext-min.js', 'htmlelements'));
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/jqDnR.js', 'htmlelements'));
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'js/jqModal.js', 'htmlelements'));
+    }
+
+    /**
+     * Method to load the boxy plugin
+     * Allows for the creation of facebook style pop up windows/forms
+     */
+    public function loadBoxPlugin($version = '0.1.3', $theme = 'default')
+    {
+        $basePath = 'jquery/plugins/boxy/'.$version.'/';
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'javascripts/jquery.boxy.js'));
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'stylesheets/'.$theme.'/boxy.css'.'">'));
+
+    }
+
+    /**
+     * Method to load the facebox plugin
+     * Allows for the creation of facebook style notification windows/forms
+     */
+    public function loadFaceboxPlugin($version = '1.2', $theme = 'default')
+    {
+        $basePath = 'jquery/plugins/facebox/'.$version.'/';
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'facebox.js'));
+        $this->appendArrayVar('headerParams', '<link rel="stylesheet" type="text/css" href="'.$this->getResourceUri($basePath.'themes/'.$theme.'/facebox.css'.'">'));
+
     }
 
 
