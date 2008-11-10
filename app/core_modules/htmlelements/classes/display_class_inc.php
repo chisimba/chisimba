@@ -36,7 +36,7 @@ $siteSkin = "cil_blue_skin.php";
 include_once('../config/'.$siteSkin);
 ?>
 <link rel=StyleSheet href="../config/<?php echo $skincss ?>" type="text/css">
-<?
+<?php
 /**
  * Display Class
  *

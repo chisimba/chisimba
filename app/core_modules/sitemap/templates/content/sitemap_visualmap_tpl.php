@@ -1,4 +1,4 @@
-<?
+<?php
 
 $this->loadClass('treenode','tree');
 $this->loadClass('treemenu','tree');

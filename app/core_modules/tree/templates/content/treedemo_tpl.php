@@ -18,7 +18,7 @@
 //-->
 </script>
 
-<?
+<?php
 echo $treemenu;
 echo $listbox;
 ?>

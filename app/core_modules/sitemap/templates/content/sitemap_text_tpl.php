@@ -1,4 +1,4 @@
-<?
+<?php
 
 $this->loadClass('treemenu','tree');
 $this->loadClass('htmllist','tree');
