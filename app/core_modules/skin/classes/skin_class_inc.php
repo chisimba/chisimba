@@ -369,13 +369,22 @@ class skin extends object
 
         $str = '';
 
-        // Add Scriptaculous
-        $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
-        $str .= $scriptaculous->show($mime);
+        $supressPrototype = $this->getVar('SUPPRESS_PROTOTYPE', false);
+        $supressJQuery = $this->getVar('SUPPRESS_JQUERY', false);
+        $jQueryVersion = $this->getVar('JQUERY_VERSION', '1.2.3');
 
-        // Add JQuery
-        $jquery = $this->getObject('jquery', 'htmlelements');
-        $str .= $jquery->show();
+        if (!$supressPrototype){
+            // Add Scriptaculous
+            $scriptaculous = $this->getObject('scriptaculous', 'htmlelements');
+            $str .= $scriptaculous->show($mime);
+        }
+
+        if (!$supressJQuery){
+            // Add JQuery
+            $jquery = $this->getObject('jquery', 'htmlelements');
+            $jquery->setVersion($jQueryVersion);
+            $str .= $jquery->show();
+        }
 
         // Get HeaderParams
         if ($headerParams == NULL) {
