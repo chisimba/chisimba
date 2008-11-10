@@ -406,5 +406,27 @@ class object
     public function getVar($name, $default = NULL) {
         return $this->objEngine->getVar($name, $default);
     }
+
+   /**
+    * Method to set the Content-Type/MIME Type for content generated using the framework.
+    * e.g. You can use the framework to generate an xls spreadsheet and return as a downloadable
+    * file without including additional layout text i.e. showTemplate = false.
+    *
+    * @access private
+    * @author Charl Mert
+    * @param  $contentType  string   Name of template to call, including file extension but excluding path
+    * @return NULL
+    */
+    public function setContentType($contentType = 'text/html', $showTemplate = false)
+    {
+        if (!$showTemplate){
+            $this->setPageTemplate('');
+            $this->setLayoutTemplate('');
+        }
+        header("Content-type: $contentType");
+        return null;
+    }
+
+
 }
 ?>
