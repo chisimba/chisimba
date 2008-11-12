@@ -76,12 +76,21 @@ class htmlarea extends object
     * @var boolean $context Are we in a context aware mode.
     */
     var $context;
+
+   /**
+    * @var string $fck_version Which version of FCKEditor to load (2.5.1 vs 2.6.3)
+    */
+    public $fckVersion;
+
     
     /**
     * Method to establish the default values
     */
     function init($name=null,$value=null,$rows=4,$cols=50,$context=false)
      {
+        $this->sysConf = $this->getObject('dbsysconfig', 'sysconfig');
+        //Loading the default FCK version from config
+        $this->fckVersion = $this->sysConf->getValue('FCKEDITOR_VERSION', 'htmlelements');
         $this->height = '400px';
         $this->width = '100%';
         $this->toolbarSet='Default';
@@ -98,8 +107,16 @@ class htmlarea extends object
         //$this->setSiteRootPath($siteRoot);
         $this->context = $context;
         $this->toolbarSet = 'advanced';
-
         
+    }
+
+   /**
+    * Method to set the version of FCKEditor to load (2.5.1 vs 2.6.3)
+    *
+    */
+    public function setVersion($fckVersion)
+    {
+        $this->fckVersion = $fckVersion;
     }
 
     /**
@@ -161,11 +178,13 @@ class htmlarea extends object
     * Method to show the FCKEditor
     * @return string
     */
-    function showFCKEditor()
+    function showFCKEditor($version = '2.6.3')
     {
-        //require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
-        require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'htmlelements'));
-        
+        if ($this->fckVersion == '2.5.1') {
+            require_once($this->getResourcePath('fckeditor_2.5.1/fckeditor.php', 'htmlelements'));
+        } else {
+            require_once($this->getResourcePath('fckeditor/fckeditor_2.6.3/fckeditor_php5.php', 'htmlelements'));
+        }
         $objConfig =  $this->newObject('altconfig', 'config');
 
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
@@ -178,10 +197,12 @@ class htmlarea extends object
 			$sBasePath .= '/';
 		}
 		
-		//$sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
-		$sBasePath .= 'core_modules/htmlelements/resources/fckeditor/fckeditor_2.6.3/';
+        if ($this->fckVersion == '2.5.1') {
+            $sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
+        } else {
+            $sBasePath .= 'core_modules/htmlelements/resources/fckeditor/fckeditor_2.6.3/';
+        }
         
-
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
