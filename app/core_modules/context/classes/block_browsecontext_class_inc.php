@@ -95,21 +95,29 @@ class block_browsecontext extends object
     */
     public function show()
     {
+		$objTab = $this->newObject('tabpane', 'htmlelements');
         $objNav = $this->getObject('contextadminnav', 'contextadmin');
         $str = $this->objLanguage->languageText('word_browse', 'glossary', 'Browse').': '.$objNav->getAlphaListingAjax();
-        
+        $str2 = '<div id="browseusercontextcontent"></div>';
         $str .= '<div id="browsecontextcontent"></div>';
         
         $str .= $this->getJavaScriptFile('contextbrowser.js');
         
-        $this->appendArrayVar('bodyOnLoad', "getContexts('A');");
+        $this->appendArrayVar('bodyOnLoad', "getContexts('A');getUserContexts()");
         
         
         $this->appendArrayVar('headerParams', '<script type="text/javascript">contextPrivateMessage="'.$this->objLanguage->code2Txt('mod_context_privatecontextexplanation', 'context', NULL, 'This is a closed [-context-] only accessible to members').'"; </script>');
         
+        $objTab->addTab(array(
+				'name' =>ucWords($this->objLanguage->code2Txt('phrase_mycourses', 'system', NULL, 'My [-contexts-]')) ,
+				'content' => $str2
+			));
+		$objTab->addTab(array(
+				'name' =>ucWords($this->objLanguage->code2Txt('phrase_othercourses', 'system', NULL, 'Other [-contexts-]')) ,
+				'content' => $str
+			) );
         
-        
-        return $str;
+        return $objTab->show();
     }
 }
 ?>

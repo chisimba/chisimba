@@ -449,7 +449,7 @@ class dbcontext extends dbTable {
      * Context search method
      */
     public function getContextStartingWith($letter, $limit = 10, $page = 1) {
-        return $this->getAll ( " WHERE title LIKE '{$letter}%'  ORDER BY title" );
+        return $this->getAll ( " WHERE title LIKE '{$letter}%' and access != 'Private'  ORDER BY title  " );
     }
 
     /**

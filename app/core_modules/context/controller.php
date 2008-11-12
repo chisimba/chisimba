@@ -501,6 +501,35 @@ class context extends controller {
         }
     }
 
+	/**
+     * Method to get user contexts via ajax
+     */
+    protected function __ajaxgetusercontexts() {
+       
+		$objUser = $this->getObject('user', 'security');
+		$objUserContext = $this->getObject('usercontext', 'context');
+        $contexts = $objUserContext->getUserContext($objUser->userId());
+
+		$con = array();
+		if (count($contexts) > 0)
+		{
+			
+			foreach ($contexts as $context)
+			{
+				$con[] = $this->objContext->getContext($context);
+			}
+		}
+		$contexts = $con;
+        if (count ( $contexts ) == 0) {
+
+        } else {
+            $objDisplayContext = $this->getObject ( 'displaycontext', 'context' );
+
+            foreach ( $contexts as $context ) {
+                echo $objDisplayContext->formatContextDisplayBlock ( $context, FALSE, FALSE ) . '<br />';
+            }
+        }
+    }
     /**
      * Method to leave a context
      *
