@@ -282,8 +282,8 @@ class jquery extends object
     }
 
     /**
-     * Method to allow png transparency in IE 5.5 & 6
-     * Simply load the plugin and voila
+     * Method to load the pngFix that enables png transparency in IE 5.5 & 6
+     * Simply load the plugin and voila, all pngs maintain transparency
      */
     public function loadPngFixPlugin($version = '1.1')
     {
@@ -302,6 +302,20 @@ class jquery extends object
         $this->appendArrayVar('headerParams', $script);
     }
 
+   /**
+     * Method to load the jframe plugin
+     *
+     * This plugin enables any div with a 'src' <div src=""> attribute
+     * to behave as if it where an <iframe src=""> loading the content 
+     * via ajax.
+     * 
+     * Simply load the plugin and viola, all div's with src become ajax frames
+     */
+    public function loadJFramePlugin($version = '1.131')
+    {
+        $basePath = 'jquery/plugins/jframe/'.$version.'/';
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile($basePath.'jquery.jframe.js'));
+    }
 
 }
 
