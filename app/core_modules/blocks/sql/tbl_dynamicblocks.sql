@@ -65,15 +65,16 @@ $fields = array(
 $name = 'tbl_dynamicblocks_index';
 
 $indexes = array(
-                'fields' => array(
-                    'module' => array(),
-                    'object' => array(),                    
-                    'function' => array(),                    
-                    'parameter' => array(),                    
-                    'title' => array(),                    
-                    'typeofblock' => array(),                    
-                    'userorcontextorworkgroupcode' => array(),                    
-                    'blocksize' => array(),                    
-                )
-        );
+    'fields' => array(
+        'module' => array(),
+        'object' => array(),                    
+        'function' => array(),                    
+        'parameter' => array(),                    
+        'title' => array(),                    
+        'typeofblock' => array(),                    
+        'userorcontextorworkgroupcode' => array(),                    
+        'blocksize' => array(),                    
+    )
+);
+
 ?>
