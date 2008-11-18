@@ -74,7 +74,7 @@ $indexes = array(
         'typeofblock' => array(),                    
         'userorcontextorworkgroupcode' => array(),                    
         'blocksize' => array(),                    
-    )
-);
+        )
+    );
 
 ?>
