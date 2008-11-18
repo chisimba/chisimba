@@ -158,10 +158,10 @@ class ini extends object {
      * Method to create initial IniFile config elements. This method will create
      * blank ini params.
      * @example
-     *          	   $config_container ="MAIL"/"Settings"
+     *                 $config_container ="MAIL"/"Settings"
      *          $settings = array("name"=>"Bruce Banner","email"=> "hulk@angry.green.guy")
-     *          	   $iniPath = "/config/"
-     *          	   $iniName ="my.ini"
+     *                 $iniPath = "/config/"
+     *                 $iniName ="my.ini"
      * @param   string $config_container. This describes the main header section of the iniFile
      * @param   array  $settings.         The values that need initializing
      * @param   string $iniPath.          File path

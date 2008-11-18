@@ -1404,16 +1404,16 @@ class altconfig extends object {
         //Now onto the directive node
         $SettingsDirective = & $Settings->getItem ( "directive", "DATABASE_ABSTRACTION" );
         //var_dump($SettingsDirective);
-    	if($SettingsDirective == FALSE)
-    	{
+        if($SettingsDirective == FALSE)
+        {
                 $newsettings = array("DATABASE_ABSTRACTION" => "MDB2");
                 $this->appendToConfig($newsettings);
                 return "MDB2";
-    	}
-    	//finally unearth whats inside
-    	$getenable_memcache = $SettingsDirective->getContent();
+        }
+        //finally unearth whats inside
+        $getenable_memcache = $SettingsDirective->getContent();
 
-    	return $getenable_memcache;
+        return $getenable_memcache;
     }
 
     /**
