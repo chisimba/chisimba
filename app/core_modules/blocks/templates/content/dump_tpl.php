@@ -1,19 +1,19 @@
 <style type="text/css">
 .blockblock {
-	float: left;
-	margin: 5px;
+    float: left;
+    margin: 5px;
 }
 
 .infoblock {
-	display: none;
+    display: none;
 }
 
 .wideblock {
-	width: 500px;
+    width: 500px;
 }
 
 .smallblock {
-	width: 200px;
+    width: 200px;
 }
 </style>
 <?php
