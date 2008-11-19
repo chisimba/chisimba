@@ -1,4 +1,4 @@
-/** SCNS - Based On Sanord Template **/
+/** ICS Business Styles **/
 
 body {
     background-color: #EDEDED;
@@ -24,14 +24,18 @@ body {
 */
 
 #wrapper {
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
 }
 
 #container {
     /*background-color: #E8E8E8;*/
     background-color: #EDEDED;
     width: 956px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
 }
 h1, h2, h3, h4, h5, h6 {
     color: #000;
@@ -39,8 +43,8 @@ h1, h2, h3, h4, h5, h6 {
 
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
 
-div#header {
-	background: #FFFFFF;
+#header {
+	background: #EDEDED;
 }
 
 #sitename span {
@@ -55,7 +59,7 @@ div#header {
 }
 
 	
-div#search {
+#search {
 	position: absolute;
 	color:#000;
 	/*float: right;*/
@@ -95,9 +99,6 @@ div#search {
 
 #footer p {margin:0}
 #footer a:link {color:#000}
-	
-
-
 
 /* Menu */
 
@@ -105,9 +106,9 @@ div#search {
 	background-color: #e0e3ec;
     padding: 20px;
 
-    border-top: 2px solid #FFFFFF;
-    border-left: 2px solid #FFFFFF;
-    border-right: 2px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
     width: 916px;
 
 }
@@ -115,7 +116,7 @@ div#search {
 
 #icstoolbar {
     width : 910px;
-    background : #EDEDED;
+    background : #F5F5F5;
     padding-top: 10px;
     padding-bottom: 10px;
     border: 1px solid #b5b7c6;
@@ -124,6 +125,10 @@ div#search {
 
 #toolbarcontainer{
     text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 707px;
 }
 
 ul#menuList  li {
@@ -221,7 +226,7 @@ div#twocolumn, div#threecolumn {
 #leftcontent {
    /** background: #999966;/*#FFFFFF;*/
     margin: 0 0px 0px 5px;
-    padding: 0px 15px 5px 10px;
+    padding: 0px 11px 5px 3px;
 }
 
 #rightcontent
@@ -238,20 +243,20 @@ div#twocolumn, div#threecolumn {
 }
 
 #contentcontent {
-    border-top: 1px solid #b5b7c6;;
+    border-top: 1px solid #b5b7c6;
     border-left: 1px solid #b5b7c6;
     border-right: 1px solid #b5b7c6;
-    border-bottom: 0;
+    border-bottom: 1px solid #b5b7c6;
 
-    padding: 10px;
-    background-color: #FFFFFF;
+    padding: 0px 10px 10px 10px;
+    background-color: #F5F5F5;
 }
 
 
 
 #twocolumn #content {
     margin-right: 10px;
-    padding: 5px 7px 5px 5px;
+    padding: 0px 7px 5px 5px;
     background: #e0e3ec /*url("newimages/right_end_test.jpg") no-repeat top right ;*/
     
 }
@@ -261,35 +266,35 @@ div#twocolumn, div#threecolumn {
 
 .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
     margin: 0 0 .3em; 
-    color:#000; 
-    background-color: #ededed;
+    color: #475594;
+    background-color: #F5F5F5;
     padding: 3px;
 }
 .featurebox {
     margin-bottom: 20px;
-    background-color: #FFFFFF;
+    background-color: #F5F5F5;
     color: #000;
 }
 
-.featurebox p {border:2px;margin: 0 0 1em;color:#444}
+.featurebox p {border:2px;margin: 0 0 1em;color: #475594;}
 .featurebox a {font-weight:bold}
 .featurebox select {width: 100%; }
 
 .featureboxheader {
     padding: 3px;
     padding-left: 34px;
-    border-bottom: 2px solid #fff;
-    color:#FFF;
-    background: #9ab2cb;
+    border-bottom: 2px solid #F5F5F5;
+    color: #475594;
+    background: #F5F5F5;
 	text-align:left;
     text-decoration: none;
 }
 
 .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
 	margin: 0 0 .3em;
-	border-bottom: 2px solid #fff;
-	color: #fff;
-	background-color: #9ab2cb;/*#E9B52D;*/
+	border-bottom: 2px solid #F5F5F5;
+	color: #475594;
+	background-color: #F5F5F5;
     text-align: left;
     padding-left: 10px;
 }
@@ -297,13 +302,15 @@ div#twocolumn, div#threecolumn {
 .featureboxcontent p {
 	border:2px solid #fff;
 	margin: 0 0 1em;
-	color: #000;
+    color: #475594;
+    background-color: #F5F5F5;
     padding: 10px;
 }
 
 .featureboxheader a{
 	font-weight:bold;
-    color: #FFF;
+    color: #475594;
+    background-color: #F5F5F5;
     text-decoration: none;
 }
 
@@ -311,6 +318,7 @@ div#twocolumn, div#threecolumn {
 	font-weight:bold;
     color: #000;
     text-decoration: none;
+    background-color: #F5F5F5;
 }
 
 
@@ -319,6 +327,7 @@ div#twocolumn, div#threecolumn {
 }
 
 .featureboxcontent {
+    background-color: #F5F5F5;
     padding: 10px;
 }
 
@@ -542,7 +551,6 @@ p,fieldset,table {
     display: block;
     padding-left: 10px;
     z-index: 100;
-    float:left;
 }
 
 #menu ul {
@@ -639,7 +647,7 @@ p,fieldset,table {
 
 
 .featurebox, #nav-secondary, body.help-popup {
-    background-color: #FFF;
+    background-color: #F5F5F5;
     border: 1px solid #b5b7c6;
     padding-top: 10px;
 }

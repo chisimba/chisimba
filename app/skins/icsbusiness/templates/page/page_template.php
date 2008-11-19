@@ -264,9 +264,9 @@ if(document.getElementById && currentCSS!=null)  setCSS(currentCSS);
     </head>
 <?php
     if (isSet($bodyParams)) {
-        echo '<body ' . $bodyParams . ' style="background-color: WhiteSmoke; font-family: Tahoma; font-size: 12px;">';
+        echo '<body ' . $bodyParams . '>';
     } else {
-        echo '<body style="background-color: WhiteSmoke; font-family: Tahoma; font-size: 12px;">';
+        echo '<body>';
     }
     if (!isset($pageSuppressContainer)) {
         echo '<div id="container">';
