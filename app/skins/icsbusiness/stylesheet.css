@@ -659,7 +659,7 @@ p,fieldset,table {
 .featurebox, #nav-secondary, body.help-popup {
     /*background-color: #F5F5F5;*/
     /*border: 1px solid #b5b7c6;*/
-    padding-top: 12px;
+    /*padding-top: 12px;*/
 }
 
 
@@ -749,3 +749,17 @@ p,fieldset,table {
     height: 18px;
     background: url(images/featureboxheader_bright.gif) no-repeat;
 }
+
+/* Shifting Left and Right Content to Top*/
+#leftcontent {
+   position: relative;
+   top: -20px;
+   margin-bottom: 30px;
+}
+
+#rightcontent {
+   position: relative;
+   top: -20px;
+   margin-bottom: 30px;
+}
+
