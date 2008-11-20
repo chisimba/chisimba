@@ -5,9 +5,9 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
-    color: #000;
-    font: 80% "Trebuchet MS", Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
-    line-height: 200%;
+    color: 4b526d;
+    font: 10pt Arial, "Lucida Sans Unicode", Tahoma, sans-serif;
+    line-height: 180%;
 }
 
 /*
@@ -38,7 +38,7 @@ body {
 
 }
 h1, h2, h3, h4, h5, h6 {
-    color: #000;
+    color: #475594;
 }
 
 li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sprites.gif") no-repeat 0 0}
@@ -265,34 +265,34 @@ div#twocolumn, div#threecolumn {
 /* Feature Box */
 
 .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
-    margin: 0 0 .3em; 
+    margin: 0 0 0px;
     color: #475594;
     background-color: #F5F5F5;
     padding: 3px;
 }
 .featurebox {
     margin-bottom: 20px;
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
+    background-color: transparent;
     color: #000;
 }
 
 .featurebox p {border:2px;margin: 0 0 1em;color: #475594;}
-.featurebox a {font-weight:bold}
 .featurebox select {width: 100%; }
 
 .featureboxheader {
     padding: 3px;
     padding-left: 34px;
-    border-bottom: 2px solid #F5F5F5;
-    color: #475594;
-    background: #F5F5F5;
-	text-align:left;
+    color: #4156a5;
+    background: transparent;
+    font: 13pt Georgia, "Times New Roman", Times, serif;
+    text-align:left;
     text-decoration: none;
 }
 
 .featurebox h1, .featurebox h2, .featurebox h3, .featurebox h4, .featurebox h5, .featurebox h6 {
-	margin: 0 0 .3em;
-	border-bottom: 2px solid #F5F5F5;
+	margin: 0 0 0;
+	/*border-bottom: 2px solid #F5F5F5;*/
 	color: #475594;
 	background-color: #F5F5F5;
     text-align: left;
@@ -308,7 +308,6 @@ div#twocolumn, div#threecolumn {
 }
 
 .featureboxheader a{
-	font-weight:bold;
     color: #475594;
     background-color: #F5F5F5;
     text-decoration: none;
@@ -326,9 +325,20 @@ div#twocolumn, div#threecolumn {
 	width: 100%;
 }
 
-.featureboxcontent {
-    background-color: #F5F5F5;
+#leftcontent .featureboxcontent {
+    background: /*#F5F5F5*/ transparent url(images/featureboxmiddle_left.gif) repeat-y;
     padding: 10px;
+    line-height: 150%;
+    float: left;
+    width:139px; 
+}
+
+#rightcontent .featureboxcontent {
+    background: /*#F5F5F5*/ transparent url(images/featureboxmiddle_right.gif) repeat-y;
+    padding: 10px;
+    line-height: 150%; 
+    float: left;
+    width:145px;
 }
 
 /* End featurebox */
@@ -472,23 +482,23 @@ div.rounded2 div div div {
 }
 h1 {
 	/*18px via YUI Fonts CSS foundation*/
-	font-size:138.5%;  
+	font-size: 15pt;
 }
 h2 {
 	/*16px via YUI Fonts CSS foundation*/
-	font-size:123.1%; 
+	font-size: 14pt;
 }
 h3 {
 	/*14px via YUI Fonts CSS foundation*/
-	font-size:108%;  
+	font-size: 13pt;
 }
 h1,h2,h3 {
 	/* top & bottom margin based on font size */
 	margin:1em 0;
 }
 h1,h2,h3,h4,h5,h6,strong {
-	/*bringing boldness back to headers and the strong element*/
-	font-weight:bold; 
+    /*bringing boldness back to headers and the strong element*/
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 abbr,acronym {
 	/*indicating to users that more info is available */
@@ -647,7 +657,95 @@ p,fieldset,table {
 
 
 .featurebox, #nav-secondary, body.help-popup {
-    background-color: #F5F5F5;
-    border: 1px solid #b5b7c6;
-    padding-top: 10px;
+    /*background-color: #F5F5F5;*/
+    /*border: 1px solid #b5b7c6;*/
+    padding-top: 12px;
+}
+
+
+#leftcontent .featureboxheader {
+    float: left;
+    width:146px; 
+    background: url(images/featureboxmiddle_left.gif) repeat-y;
+}
+
+#rightcontent .featureboxheader {
+    float: left;
+    width:152px; 
+    background: url(images/featureboxmiddle_right.gif) repeat-y;
+}
+
+/* Featurebox Tightly Controlled Corners */
+
+.featureboxtopcontainer{
+    width: 100%;
+    display: block;
+    clear: right;
+}
+
+.featureboxtopleft {
+    float: left;
+    width: 10px;
+    height: 18px;
+    background: url(images/featureboxheader_tleft.gif) no-repeat;
+}
+
+#leftcontent .featureboxtopborder {
+    width: 139px;
+    float: left;
+    height: 18px;
+    background-color: red;
+    margin-right: auto;
+    margin-left: auto;
+    background: url(images/featureboxheader_tmiddle.gif) repeat-x;
+}
+
+#rightcontent .featureboxtopborder {
+    width: 145px;
+    float: left;
+    height: 18px;
+    background-color: red;
+    margin-right: auto;
+    margin-left: auto;
+    background: url(images/featureboxheader_tmiddle.gif) repeat-x;
+}
+
+.featureboxtopright {
+    float: right;
+    width: 10px;
+    height: 18px;
+    background: url(images/featureboxheader_tright.gif) no-repeat;
+}
+
+
+.featureboxbottomcontainer{
+    width: 100%;
+}
+
+.featureboxbottomleft {
+    float: left;
+    width: 10px;
+    height: 18px;
+    background: url(images/featureboxheader_bleft.gif) no-repeat;
+}
+
+#leftcontent .featureboxbottomborder {
+    float: left;
+    width: 139px;
+    height: 18px;
+    background: url(images/featureboxheader_bmiddle) repeat-x;
+}
+
+#rightcontent .featureboxbottomborder {
+    float: left;
+    width: 145px;
+    height: 18px;
+    background: url(images/featureboxheader_bmiddle) repeat-x;
+}
+
+.featureboxbottomright {
+    float: right;
+    width: 10px;
+    height: 18px;
+    background: url(images/featureboxheader_bright.gif) no-repeat;
 }
