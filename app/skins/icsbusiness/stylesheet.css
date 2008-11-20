@@ -752,6 +752,7 @@ p,fieldset,table {
 }
 
 /* Shifting Left and Right Content to Top*/
+/*
 #leftcontent {
    position: relative;
    top: -20px;
@@ -763,4 +764,4 @@ p,fieldset,table {
    top: -20px;
    margin-bottom: 30px;
 }
-
+*/
