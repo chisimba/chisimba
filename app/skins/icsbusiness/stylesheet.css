@@ -733,14 +733,14 @@ p,fieldset,table {
     float: left;
     width: 139px;
     height: 18px;
-    background: url(images/featureboxheader_bmiddle) repeat-x;
+    background: url(images/featureboxheader_bmiddle.gif) repeat-x;
 }
 
 #rightcontent .featureboxbottomborder {
     float: left;
     width: 145px;
     height: 18px;
-    background: url(images/featureboxheader_bmiddle) repeat-x;
+    background: url(images/featureboxheader_bmiddle.gif) repeat-x;
 }
 
 .featureboxbottomright {
