@@ -48,6 +48,15 @@ class featurebox extends object
   		$sidebar = '<div class="featurebox">';
   		$toggle = '';
   		
+        //Adding support for styling corners
+        $sidebar .= '<div class="featureboxtopcontainer">
+
+                        <div class="featureboxtopleft"></div>
+                        <div class="featureboxtopborder"></div>
+                        <div class="featureboxtopright"></div>
+                        
+                     </div>';
+
         if(!empty($id) && $showToggle)
         {
   		    $objIcon->setIcon('toggle');
@@ -67,6 +76,13 @@ class featurebox extends object
 		
 		$sidebar .= $content.'</div>';
 
+        $sidebar .= '<div class="featureboxbottomcontainer">
+
+                        <div class="featureboxbottomleft"></div>
+                        <div class="featureboxbottomborder"></div>
+                        <div class="featureboxbottomright"></div>
+                        
+                    </div>';
 
 		$sidebar .= '</div>';
   		return $sidebar;
