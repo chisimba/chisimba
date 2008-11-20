@@ -26,6 +26,7 @@ body {
 #wrapper {
     border-left: 1px solid #FFFFFF;
     border-right: 1px solid #FFFFFF;
+    padding-bottom: 20px;
 }
 
 #container {
