@@ -260,12 +260,12 @@ if(document.getElementById && currentCSS!=null)  setCSS(currentCSS);
         //echo $this->getJavascriptFile('tabview/tabview.js', 'yahoolib')."\n";
 
 
-//Quick hack to fix Forum Style   
+// Quick hack to fix Forum Style
 $currMod = $this->getParam('module');
 if ($currMod == 'forum' ||
     $currMod == 'search' ||
-    $currMod == 'buddies'||
-    $currMod == 'modulecatalogue'){
+    $currMod == 'buddies'
+    ){
     echo "<style>
 
 #contentlayout { 
