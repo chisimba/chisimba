@@ -74,8 +74,8 @@ li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sp
 	font-size: 80%;
 	color:#000;
     padding: 0px;
-    position:relative;
-    left: 20px;
+    /*position:relative;
+    left: 20px;*/
 }
 #breadcrumbs a:link, #breadcrumbs a:visited {
 	color: #2c2c2c;
@@ -128,8 +128,13 @@ li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sp
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 10px;
     display: block;
     width: 707px;
+}
+
+#tooliconslist {
+    display: none;
 }
 
 ul#menuList  li {

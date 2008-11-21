@@ -260,7 +260,7 @@ if(document.getElementById && currentCSS!=null)  setCSS(currentCSS);
         //echo $this->getJavascriptFile('tabview/tabview.js', 'yahoolib')."\n";
 
 
-// Quick hack to fix Forum Style
+// Quick hack to fix style's per module
 $currMod = $this->getParam('module');
 if ($currMod == 'forum' ||
     $currMod == 'search' ||
@@ -278,6 +278,17 @@ if ($currMod == 'forum' ||
          </style>";
 }
 ?>
+
+
+    <script type="text/javascript"> 
+    // Place the breadcrumb anywhere
+    jQuery(document).ready(function(){ 
+        jQuery('#breadcrumbs').insertBefore('#icstoolbar');
+    }); 
+    
+    </script>
+
+
     </head>
 <?php
     if (isSet($bodyParams)) {
@@ -316,7 +327,10 @@ if ($currMod == 'forum' ||
 <?php
         //if (!isset($pageSuppressToolbar)) {
             //$menu= $this->getObject('menu','toolbar');
-		  echo '<div id="menuwrapper"> <div id="icstoolbar"> Home | Welcome to ICS | Catalogue of Services | Strategies and Policies | Problems and Issues | UWC Portal'.$toolbar.' </div> </div>';
+		  echo '<div id="menuwrapper"> 
+                    <div id="icstoolbar"> Home | Welcome to ICS | Catalogue of Services | Strategies and Policies | Problems and Issues | UWC Portal</div>
+                    '.$toolbar.'
+                </div>';
         //}
     }
     // get content
