@@ -258,8 +258,25 @@ if(document.getElementById && currentCSS!=null)  setCSS(currentCSS);
         //echo  $this->getJavascriptFile('dom/dom.js', 'yahoolib')."\n";
         //echo $this->getJavascriptFile('element/element-beta.js', 'yahoolib')."\n";
         //echo $this->getJavascriptFile('tabview/tabview.js', 'yahoolib')."\n";
-   
 
+
+//Quick hack to fix Forum Style   
+$currMod = $this->getParam('module');
+if ($currMod == 'forum' ||
+    $currMod == 'search' ||
+    $currMod == 'buddies'||
+    $currMod == 'modulecatalogue'){
+    echo "<style>
+
+#contentlayout { 
+    padding: 20px;
+    border-bottom: 1px solid #FFFFFF;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+}
+
+         </style>";
+}
 ?>
     </head>
 <?php

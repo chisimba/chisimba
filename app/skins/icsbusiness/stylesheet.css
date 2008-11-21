@@ -95,7 +95,7 @@ li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sp
     height: 117px;
     position: relative;
     top: -10px;
-    border-top: 1px solid #FFFFFF;
+    border-top: none;
 }
 
 #footer p {margin:0}
@@ -331,7 +331,7 @@ div#twocolumn, div#threecolumn {
     padding: 10px;
     line-height: 150%;
     float: left;
-    width:139px; 
+    width:161px; 
 }
 
 #rightcontent .featureboxcontent {
@@ -339,7 +339,7 @@ div#twocolumn, div#threecolumn {
     padding: 10px;
     line-height: 150%; 
     float: left;
-    width:145px;
+    width:165px;
 }
 
 /* End featurebox */
@@ -424,13 +424,34 @@ div#twocolumn, div#threecolumn {
 }
 
 /* Three Column Layout */
+/*
 #threecolumn div#wrapper div#content{margin: 0 199px 0 190px}
 #threecolumn div#left{float:left;width:178px;margin-left:-99%}
 #threecolumn div#right{float:left;width:200px;margin-left:-201px}
-
+*/
 /* Two Column Layout */
+/*
 #twocolumn div#wrapper div#content{margin: 0 0 0 190px}
 #twocolumn div#left{float:left;width:180px;margin-left:-99%}
+#twocolumn div#right{display:none}
+*/
+
+/* Three Column Layout */
+
+#threecolumn div#wrapper div#content{margin: 0 220px 0 220px}
+
+#threecolumn div#left{float:left;width:200px;margin-left:-945px;}
+
+#threecolumn div#right{float:left;width:220px;margin-left:-220px}
+
+
+
+/* Two Column Layout */
+
+#twocolumn div#wrapper div#content{margin: 0 0 0 200px}
+
+#twocolumn div#left{float:left;width:200px;margin-left:-100%}
+
 #twocolumn div#right{display:none}
 
 
@@ -664,27 +685,28 @@ p,fieldset,table {
 }
 
 
+/* Middle of feature box repeat-y the background border*/
 #leftcontent .featureboxheader {
     float: left;
-    width:146px; 
+    width:168px; 
     background: url(images/featureboxmiddle_left.gif) repeat-y;
 }
 
 #rightcontent .featureboxheader {
     float: left;
-    width:152px; 
+    width:172px; 
     background: url(images/featureboxmiddle_right.gif) repeat-y;
 }
 
 /* Featurebox Tightly Controlled Corners */
 
-.featureboxtopcontainer{
+#leftcontent .featureboxtopcontainer, #rightcontent .featureboxtopcontainer{
     width: 100%;
     display: block;
     clear: right;
 }
 
-.featureboxtopleft {
+#leftcontent .featureboxtopleft, #rightcontent .featureboxtopleft {
     float: left;
     width: 10px;
     height: 18px;
@@ -692,7 +714,7 @@ p,fieldset,table {
 }
 
 #leftcontent .featureboxtopborder {
-    width: 139px;
+    width: 161px;
     float: left;
     height: 18px;
     background-color: red;
@@ -702,7 +724,7 @@ p,fieldset,table {
 }
 
 #rightcontent .featureboxtopborder {
-    width: 145px;
+    width: 165px;
     float: left;
     height: 18px;
     background-color: red;
@@ -711,7 +733,7 @@ p,fieldset,table {
     background: url(images/featureboxheader_tmiddle.gif) repeat-x;
 }
 
-.featureboxtopright {
+#leftcontent .featureboxtopright, #rightcontent .featureboxtopright {
     float: right;
     width: 10px;
     height: 18px;
@@ -719,11 +741,11 @@ p,fieldset,table {
 }
 
 
-.featureboxbottomcontainer{
+#leftcontent .featureboxbottomcontainer, #rightcontent .featureboxbottomcontainer{
     width: 100%;
 }
 
-.featureboxbottomleft {
+#leftcontent .featureboxbottomleft, #rightcontent .featureboxbottomleft {
     float: left;
     width: 10px;
     height: 18px;
@@ -732,19 +754,19 @@ p,fieldset,table {
 
 #leftcontent .featureboxbottomborder {
     float: left;
-    width: 139px;
+    width: 161px;
     height: 18px;
     background: url(images/featureboxheader_bmiddle.gif) repeat-x;
 }
 
 #rightcontent .featureboxbottomborder {
     float: left;
-    width: 145px;
+    width: 165px;
     height: 18px;
     background: url(images/featureboxheader_bmiddle.gif) repeat-x;
 }
 
-.featureboxbottomright {
+#leftcontent .featureboxbottomright, #rightcontent .featureboxbottomright {
     float: right;
     width: 10px;
     height: 18px;
@@ -765,3 +787,5 @@ p,fieldset,table {
    margin-bottom: 30px;
 }
 */
+
+
