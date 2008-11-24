@@ -32,7 +32,6 @@
  * @see
  */
 
-
 /**
  * Class to Handle Single Process Uploads outside of File Manager
  *
@@ -54,13 +53,13 @@ $this->loadClass('filemanagerobject', 'filemanager');
 class uploadinput extends filemanagerobject
 {
     /**
-    * @var string $name Name of the File Selector Input
-    */
+     * @var string $name Name of the File Selector Input
+     */
     public $name;
     
     /**
-    * @var array $restrictFileList Extensions to restrict the upload to
-    */
+     * @var array $restrictFileList Extensions to restrict the upload to
+     */
     public $restrictFileList;
     
     /**
@@ -76,8 +75,8 @@ class uploadinput extends filemanagerobject
     private $objUser;
     
     /**
-    * Constructor
-    */
+     * Constructor
+     */
     public function init()
     {
         $this->name = 'fileupload';
