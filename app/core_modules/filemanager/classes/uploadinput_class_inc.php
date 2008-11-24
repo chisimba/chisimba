@@ -134,8 +134,12 @@ class uploadinput extends filemanagerobject
      * @param string $name Name of the file input
      * @return array Details of the Upload
      */
-    public function handleUpload($name)
+    public function handleUpload($name=null)
     {
+        if ($name === null) {
+            $name = $this->name;
+        }
+
         $objFolder = $this->getObject('dbfolder');
         $uploadPath = $objFolder->getFolderPath($this->getParam('parentfolder'));
         
