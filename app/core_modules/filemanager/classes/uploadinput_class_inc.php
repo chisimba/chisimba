@@ -68,6 +68,12 @@ class uploadinput extends filemanagerobject
      * If a file called myinfo.txt is uploaded, but one exists, new file will be called 'myinfo_1.txt'
      */
     public $enableOverwriteIncrement = FALSE;
+
+    /**
+     * @access private
+     * @var object $objUser The user object.
+     */
+    private $objUser;
     
     /**
     * Constructor
