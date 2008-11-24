@@ -10,6 +10,15 @@ body {
     line-height: 180%;
 }
 
+a:link, a:visited {
+    color : #ce8922;
+    text-decoration: none;
+}
+
+a:hover {
+    color : #d2a459;
+}
+
 /*
 #container a, a:link, a:visited {
     color: #92b9e1;
@@ -105,7 +114,7 @@ li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sp
 
 #menuwrapper {
 	background-color: #e0e3ec;
-    padding: 20px;
+    padding: 6px 20px 23px 20px;
 
     border-top: 1px solid #FFFFFF;
     border-left: 1px solid #FFFFFF;
@@ -124,13 +133,26 @@ li {line-height: 1.4em;padding-left: 25px;background: transparent url("images/sp
     text-align: center;
 }
 
+/*Keeping it gold*/ /*  
+#icstoolbar a:link,#icstoolbar a:visited {
+    color : #000;
+    text-decoration: none;
+}
+
+#icstoolbar a:hover {
+    color : #000;
+    text-decoration: underline;
+}
+*/
+
 #toolbarcontainer{
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     padding-top: 10px;
     display: block;
-    width: 707px;
+    width: 757px;
 }
 
 #tooliconslist {
@@ -793,4 +815,29 @@ p,fieldset,table {
 }
 */
 
+#newswelcome a:link, #newswelcome a:visited {
+    color : #ce8922;
+}
 
+#newswelcome a:hover {
+    color : #d2a459;
+}
+
+#topnewsbar a:link{
+    background-color : #9ab2cb;
+}
+
+#topnewsbar #modernbricksmenu #current a{
+    color: #FFF;
+    background: #9ab2cb;
+    border: none;
+}
+
+#topnewsbar #modernbricksmenu a{
+    color: #FFF;
+    background: #5f7d9c;
+}
+
+#modernbricksmenuline {
+    background: #9ab2cb;
+}

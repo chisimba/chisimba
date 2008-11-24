@@ -17,10 +17,8 @@ require($objConfig->getsiteRootPath().'skins/_common/templates/skinpageheader.ph
    //$menu = $this->getObject('fsiumenu','fsiu');
    //$menu = $this->getObject('flatmenu','toolbar');
 
-
-
 $this->setVar('JQUERY_VERSION', '1.2.6');
-   
+
 $jQuery = $this->getObject('jquery', 'htmlelements');
 $jQuery->show('1.2.6');   
 $jQuery->loadSuperFishMenuPlugin();
@@ -328,7 +326,13 @@ if ($currMod == 'forum' ||
         //if (!isset($pageSuppressToolbar)) {
             //$menu= $this->getObject('menu','toolbar');
 		  echo '<div id="menuwrapper"> 
-                    <div id="icstoolbar"> Home | Welcome to ICS | Catalogue of Services | Strategies and Policies | Problems and Issues | UWC Portal</div>
+                    <div id="icstoolbar"> 
+                        <a href="http://ics.uwc.ac.za">Home</a> | 
+                        <a href="http://ics.uwc.ac.za/index.php?module=news">Welcome to ICS</a> | 
+                        <a href="http://ics.uwc.ac.za/index.php?module=cms&action=showsection&id=gen11Srv56Nme30_4330_1202376525&sectionid=gen11Srv56Nme30_4330_1202376525">Catalogue of Services</a> | 
+                        <a href="http://ics.uwc.ac.za/index.php?module=cms&action=showsection&id=gen11Srv56Nme30_4744_1212392546&sectionid=gen11Srv56Nme30_4744_1212392546">Problems and Issues</a> | 
+                        <a href="http://www.uwc.ac.za">UWC Portal</a>
+                    </div>
                     '.$toolbar.'
                 </div>';
         //}
