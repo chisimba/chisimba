@@ -1,7 +1,7 @@
 /*
 These are custom configurations for the FCKEditor in the Chisimba Project
  */
- 
+
 FCKConfig.ToolbarSets["Basic"] = [
 	['Source','Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink','-','About','FitWindow']
 ] ;
@@ -21,6 +21,38 @@ FCKConfig.ToolbarSets["advanced"] = [
 	'/',
     	['FontFormat','FontName','FontSize']
 	
+
+] ;
+
+FCKConfig.ToolbarSets["cms"] = [
+	['Source','-','Save','Preview', 'Templates'],
+	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
+	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
+	['OrderedList','UnorderedList','-','Outdent','Indent'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+    '/',
+	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
+	'/',
+    	['FontFormat','FontName','FontSize']
+	
+
+] ;
+
+FCKConfig.ToolbarSets["mcqtest"] = [
+    ['Source','-','Save','Preview', 'Templates'],
+    ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
+    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
+    ['OrderedList','UnorderedList','-','Outdent','Indent'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+    '/',
+    ['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
+    ['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
+    '/',
+        ['FontFormat','FontName','FontSize']
+    
 
 ] ;
 
