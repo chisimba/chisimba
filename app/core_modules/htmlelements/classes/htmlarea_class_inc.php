@@ -82,6 +82,11 @@ class htmlarea extends object
     */
     public $fckVersion;
 
+   /**
+    * @var string $templatePath Path to fckeditor templates
+    */
+    public $templatePath;
+
     
     /**
     * Method to establish the default values
@@ -99,6 +104,7 @@ class htmlarea extends object
         $this->rows=$rows;
         $this->cols=$cols;
         $this->css='textarea';
+        $this->templatePath = ''; //will load the default template path
         //$this->_objConfig =& $this->getObject('config', 'config');
         //$siteRootPath = $this->_objConfig->siteRootPath();
         $objConfig=$this->getObject('altconfig','config');
@@ -223,6 +229,12 @@ class htmlarea extends object
         $oFCKeditor->Config['SkinPath'] = $sBasePath . 'editor/skins/default/' ;     
         $oFCKeditor->Config['CustomConfigurationsPath'] = $sBasePath . 'chisimba_config.js'  ;
         
+        // Only setting the template path if one specified else leaving the config '' will
+        // continue default behaviour
+        if ($this->templatePath != ''){
+            $oFCKeditor->Config['TemplatesXmlPath'] = $this->templatePath;
+        }
+
         if ($this->context) {
             $oFCKeditor->Context = 'Yes';
         } else {
@@ -334,9 +346,13 @@ class htmlarea extends object
 
     /**
     * Method to load the Content Templates
+    * Loads content templates from usrfiles/cmstemplates/fcktemplates.xml
+    *
+    * This file gets manipulated via the cmsadmin template manager
     */
-    function loadContentTemplatesFromDB(){
-         $this->toolbarSet = 'cms';
+    function loadCMSTemplates(){
+         $objConfig =  $this->newObject('altconfig', 'config');
+         $this->templatePath = $objConfig->getSitePath().$objConfig->getcontentPath().'cmstemplates/'.$this->fckVersion.'/fcktemplates.xml';
     }
 
     /**
