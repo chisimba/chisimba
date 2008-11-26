@@ -154,3 +154,34 @@ h1, h2, h3, h4, h5, h6 {
 h1#sitename {
     padding: 20px;
 }
+
+/* ------- For the jabber IM output ----------*/
+.im_default {
+    background-color: #D8E9F6;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+p.im_message {
+   margin-left: 20px;
+   margin-right: 25px;
+   background-color: white/*#efefef*/;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   padding-left: 5px; 
+   margin-bottom: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+}
+
+p.im_source {
+   margin-left: 10px;
+   margin-right: 10px;
+   padding-left: 20px;
+-moz-border-radius: 8px;
+   border-radius: 8px;
+   background-color: white;
+}
