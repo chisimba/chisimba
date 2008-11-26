@@ -311,7 +311,7 @@ div#twocolumn, div#threecolumn {
     padding-left: 34px;
     color: #4156a5;
     background: transparent;
-    font: 13pt Georgia, "Times New Roman", Times, serif;
+    font: 13pt "Times New Roman", Times, serif;
     text-align:left;
     text-decoration: none;
 }
@@ -473,9 +473,9 @@ div#twocolumn, div#threecolumn {
 
 /* Two Column Layout */
 
-#twocolumn div#wrapper div#content{margin: 0 0 0 220px}
+#twocolumn div#wrapper div#content{margin: 0 0 0 200px}
 
-#twocolumn div#left{float:left;width:200px;margin-left:-945px}
+#twocolumn div#left{float:left;width:200px;margin-left:-100%}
 
 #twocolumn div#right{display:none}
 
@@ -545,7 +545,7 @@ h1,h2,h3 {
 }
 h1,h2,h3,h4,h5,h6,strong {
     /*bringing boldness back to headers and the strong element*/
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif;
 }
 abbr,acronym {
 	/*indicating to users that more info is available */
