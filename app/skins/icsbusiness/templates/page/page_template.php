@@ -358,6 +358,7 @@ if ($currMod == 'security'){
         $this->footerNav->cssClass='';
         $this->footerNav->position='';
         //$str = '<img id="ics_logo" src="skins/fsiu/newimages/FSIUFOOTER_icons.gif" alt="ICS logo" title="ICS" align="MIDDLE" />';
+        $str = '';
         if (isset($footerStr)) {
             $this->footerNav->str = $footerStr.$str;
         } else if ($objUser->isLoggedIn()) {
