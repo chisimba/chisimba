@@ -258,7 +258,7 @@ if(document.getElementById && currentCSS!=null)  setCSS(currentCSS);
         //echo $this->getJavascriptFile('tabview/tabview.js', 'yahoolib')."\n";
 
 
-// Quick hack to fix style's per module
+// Fix style's per module
 $currMod = $this->getParam('module');
 if ($currMod == 'forum' ||
     $currMod == 'search' ||
@@ -275,6 +275,17 @@ if ($currMod == 'forum' ||
 
          </style>";
 }
+
+if ($currMod == 'security'){
+    echo "<style>
+
+#contentlayout {
+    height: 320px;
+}
+
+         </style>";
+}
+
 ?>
 
 

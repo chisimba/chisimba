@@ -473,9 +473,9 @@ div#twocolumn, div#threecolumn {
 
 /* Two Column Layout */
 
-#twocolumn div#wrapper div#content{margin: 0 0 0 200px}
+#twocolumn div#wrapper div#content{margin: 0 0 0 220px}
 
-#twocolumn div#left{float:left;width:200px;margin-left:-100%}
+#twocolumn div#left{float:left;width:200px;margin-left:-945px}
 
 #twocolumn div#right{display:none}
 
