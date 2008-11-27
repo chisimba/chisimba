@@ -47,7 +47,7 @@ $allowAdmin = True; //You need to write your security here
 //Get the icon class and create an add, edit and delete instance
 $objAddIcon = $this->newObject('geticon', 'htmlelements');
 
-$objAddIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_addalt');
+$objAddIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_addalt',$textModule);
 
 if ($allowAdmin) {
     $addLink = $this->uri(array('action' => 'add'));
@@ -61,7 +61,7 @@ if ($allowAdmin) {
 $objEditIcon = $this->newObject('geticon', 'htmlelements');
 $objDelIcon = $this->newObject('geticon', 'htmlelements');
 
-$objDelIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_delalt');
+$objDelIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_delalt',$textModule);
 
 // Get Icon for Active / InActive?
 $objGetIcon = $this->newObject('geticon', 'htmlelements');
@@ -69,7 +69,7 @@ $objGetIcon = $this->newObject('geticon', 'htmlelements');
 //Icon for translate
 $objTrIcon = $this->newObject('geticon', 'htmlelements');
 
-$objTrIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_translate');
+$objTrIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_translate',$textModule);
 
 $objTrIcon->setIcon('translate');
 $objTrLink = $this->newObject('link', 'htmlelements');
@@ -89,10 +89,10 @@ if (isset($ar)) {
             $isActive = $line['isactive'];
             if ($isActive == 1) {
                 $objGetIcon->setIcon('online');
-                $objGetIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_isactivealt');
+                $objGetIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_isactivealt',$textModule);
             } else {
                 $objGetIcon->setIcon('offline');
-                $objGetIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_isnotactivealt');
+                $objGetIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_isnotactivealt',$textModule);
             }
             $isActive = $objGetIcon->show();
 
@@ -101,10 +101,10 @@ if (isset($ar)) {
             $isSticky = $line['issticky'];
             if ($isSticky == 1) {
                 $objGetIcon->setIcon('sticky_yes');
-                $objGetIcon->alt = ucfirst($this->objLanguage->code2Txt('mod_'.$textModule.'_alwaysontopalt'));
+                $objGetIcon->alt = ucfirst($this->objLanguage->code2Txt('mod_'.$textModule.'_alwaysontopalt',$textModule));
             } else {
                 $objGetIcon->setIcon('sticky_no');
-                $objGetIcon->alt = ucfirst($this->objLanguage->code2Txt('mod_'.$textModule.'_notalwaysontopalt'));
+                $objGetIcon->alt = ucfirst($this->objLanguage->code2Txt('mod_'.$textModule.'_notalwaysontopalt',$textModule));
             }
             $isSticky = $objGetIcon->show();
 
@@ -138,7 +138,7 @@ if (isset($ar)) {
             //The URL for the edit link
             $editLink=$this->uri(array('action' => 'edit',
               'id' =>$line['id']));
-            $objEditIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_editalt');
+            $objEditIcon->alt = $this->objLanguage->code2Txt('mod_'.$textModule.'_editalt',$textModule);
             $ed = $objEditIcon->getEditIcon($editLink);
 
             // The delete icon with link uses confirm delete utility
@@ -149,7 +149,7 @@ if (isset($ar)) {
               'id' => $line['id']));
             $objConfirm =  $this->newObject('confirm','utilities');
             $rep = array('ITEM' => $line['id']);
-            $delText = $this->objLanguage->code2Txt("mod_stories_confirm", $rep);
+            $delText = $this->objLanguage->code2Txt("mod_stories_confirm", $textModule, $rep);
             $objConfirm->setConfirm($objDelIcon->show(),$delLink,$delText);
             $conf = $objConfirm->show();
             $tableRow[]=$ed;
