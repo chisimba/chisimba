@@ -7,6 +7,7 @@
 * compatible with KEWL 1.2 skins.
 * @author Derek Keats
 * @author Tohir Solomons
+* @author Charl Mert
 */
 class skin extends object
 {
@@ -262,7 +263,9 @@ class skin extends object
             <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
         <![endif]-->';
         }
-        return $stylesheet;
+        
+        $result = $this->putMetaTags().$stylesheet;
+        return $result;
     }
 
     /**
@@ -270,13 +273,7 @@ class skin extends object
     */
     public function putSimpleSkinCssLinks()
     {
-        $skinRoot = $this->skinRoot;
-        
-        $stylesheet = '
-        <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/base.css">
-        <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/stylesheet.css">';
-        
-        return $stylesheet;
+        return $this->putSkinCssLinks();
     }
 
     /**
@@ -337,7 +334,7 @@ class skin extends object
     public function siteSearchBox()
     {
     	$this->loadClass('label', 'htmlelements');
-    	$slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_search');
+    	$slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_query');
     	$this->loadClass('textinput', 'htmlelements');
         $sform = new form('query', $this->uri(NULL,'search'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
@@ -412,6 +409,48 @@ class skin extends object
             $str .= '}
 </script>'."\n\n";
         }
+        return $str;
+    }
+
+
+   /**
+    *
+    * Method to output meta tags to the header (uses metaKeywords and metaDescriptions arrays)
+    *
+    * @return string The list of accumulated meta tags
+    * @access Public
+    * @author Charl Mert
+    */
+    public function putMetaTags()
+    {
+        $str = '';
+        $metaKeywords = '';
+        $metaDescriptions = '';
+
+        // Get metaKeywords
+        if ($metaKeywords == NULL) {
+            $metaKeywords = $this->getVar('metaKeywords');
+        }
+
+        // Get metaDescriptions
+        if ($metaDescriptions == NULL) {
+            $metaDescriptions = $this->getVar('metaDescriptions');
+        }
+
+        //Adding Keywords
+        if (is_array($metaKeywords)){
+            foreach ($metaKeywords as $key) {
+                $str .= "<META name='keywords' content='$key'>\n";
+            }
+        }
+
+        //Adding Descriptions
+        if (is_array($metaDescriptions)){
+            foreach ($metaDescriptions as $desc) {
+                $str .= "<META name='description' content='$desc'>\n";
+            }
+        }
+
         return $str;
     }
 
