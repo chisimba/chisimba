@@ -1,36 +1,35 @@
 <?php
- /**
+/**
  * Ldaplogin class
- * 
+ *
  * This class interacts with a remote LDAP server to get information about users.
- * 
+ *
  * PHP version 5
- *  
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   security
  * @author Tohir Solomons
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
-if (!$GLOBALS['kewl_entry_point_run'])
-{
-	die("You cannot view this page directly");
+if (! $GLOBALS ['kewl_entry_point_run']) {
+    die ( "You cannot view this page directly" );
 }
 // end security check
 
@@ -42,7 +41,7 @@ if (!$GLOBALS['kewl_entry_point_run'])
 * DO NOT use this class. It will replace useradmin_model and be removed afterwards
 *
 * Still work in progress
-* 
+*
 * @author Tohir Solomons
 */
 class useradmin_model2 extends dbtable
@@ -52,12 +51,12 @@ class useradmin_model2 extends dbtable
     * @var object $objConfig Config Object
     */
     public $objConfig;
-    
+
     /**
     * @var object $objUser User Object
     */
     private $objUser;
-    
+
     /**
     * @var object $objLanguage Language Object
     */
@@ -84,7 +83,7 @@ class useradmin_model2 extends dbtable
     {
         return $this->getRow('id', $id);
     }
-    
+
     /**
     * Method to remove the user's custom image
     * @param string $userId User Id of the User
@@ -92,23 +91,23 @@ class useradmin_model2 extends dbtable
     public function removeUserImage($userid)
     {
         $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'.jpg';
-        
+
         if (file_exists($image)) {
             unlink($image);
         }
-        
+
         $image = $this->objConfig->getsiteRootPath().'/user_images/'.$userid.'_small.jpg';
-        
+
         if (file_exists($image)) {
             unlink($image);
         }
-        
+
         return;
     }
-    
+
     /**
     * Method to add a user to the system
-    * 
+    *
     * @param string $userid        User Id
     * @param string $username      Username
     * @param string $password      Unencrypted password - This function will encrypt it
@@ -143,22 +142,22 @@ class useradmin_model2 extends dbtable
                 'howcreated' => $accountType,
                 'isactive' => $accountstatus
             );
-        
+
         if ($accountType == '') {
             $userArray['howCreated'] = $accountType;
-            
+
             if ($accountType=='ldap') {
                 $userArray['pass'] = sha1('--LDAP--'); // System indentifier to use LDAP Password
                 $userArray['howCreated'] = 'LDAP'; // Convert to lowercase
             }
         }
-        
+
         return $this->insert($userArray);
     }
-    
+
     /**
     * Method to update a user's details on the system
-    * 
+    *
     * @param string $id            Primary Key Id
     * @param string $username      Username
     * @param string $password      Unencrypted password - This function will encrypt it
@@ -190,31 +189,31 @@ class useradmin_model2 extends dbtable
                 'cellnumber' => $cellnumber,
                 'staffnumber' => $staffnumber
             );
-        
+
         if ($username != '') {
             $userArray['username'] = $username;
         }
-        
+
         if ($accountstatus != '') {
             $userArray['isactive'] = $accountstatus;
         }
-        
+
         if ($password != '') {
             $userArray['pass'] = sha1($password);
         }
-        
+
         if ($accountType != '') {
             $userArray['howCreated'] = $accountType;
-            
+
             if ($accountType=='ldap') {
                 $userArray['pass'] = sha1('--LDAP--'); // System indentifier to use LDAP Password
                 $userArray['howCreated'] = 'LDAP'; // Convert to lowercase
             }
         }
-        
+
         return $this->update('id', $id, $userArray);
     }
-    
+
     /**
     * Method to get a list of users from the system based on input criteria
     *
@@ -231,31 +230,31 @@ class useradmin_model2 extends dbtable
         if ($letter != 'listall') {
             $whereArray[] = $field.' LIKE \''.$letter.'%\'';
         }
-        
+
         if (!$inactive) {
             $whereArray[] = ' isactive=\'1\'';
         }
-        
+
         if (count($whereArray) == 0) {
             $where = '';
         } else {
             $and = '';
             $where = ' WHERE ';
-            
+
             foreach ($whereArray as $clause)
             {
                 $where .= $and.' ('.$clause.')';
                 $and = ' AND ';
             }
         }
-        
+
         if ($orderby != '') {
             $orderby = ' ORDER BY '.$orderby;
         }
-        
+
         return $this->getAll($where.$orderby);
     }
-    
+
     /**
     * Method to search for users
     *
@@ -271,15 +270,15 @@ class useradmin_model2 extends dbtable
             case 'endswith': $value = '%'.$value; break;
             default: $value = '%'.$value.'%'; break;
         }
-        
+
         $sql = ' WHERE '.$field.' LIKE \''.$value.'\' ORDER BY '.$orderby;
-        
+
         return $this->getAll($sql);
     }
-    
+
     /**
     * Method to check whether a username is available or not
-    * 
+    *
     * @param string $username Username to check for availability
     * @return boolean TRUE if available, else FALSE
     */
@@ -293,10 +292,10 @@ class useradmin_model2 extends dbtable
             return FALSE;
         }
     }
-    
+
     /**
     * Method to check whether a user email address is available or not
-    * 
+    *
     * @param string $email email to check for availability
     * @return boolean TRUE if available, else FALSE
     */
@@ -310,24 +309,24 @@ class useradmin_model2 extends dbtable
             return FALSE;
         }
     }
-    
+
     /**
     * Method to check whether a userId is available or not
-    * 
+    *
     * @param string $userid userId to check for availability
     * @return boolean TRUE if available, else FALSE
     */
     public function useridAvailable($userid)
     {
         $recordCount = $this->getRecordCount('WHERE userid=\''.$userid.'\'');
-        
+
         if ($recordCount == 0) {
             return TRUE;
         } else {
             return FALSE;
         }
     }
-    
+
     /**
     * Method to generate a userid
     * @return string
@@ -335,19 +334,19 @@ class useradmin_model2 extends dbtable
     public function generateUserId()
     {
         $available = FALSE;
-        
+
         $userId = '';
-        
-        // while ($available != TRUE) 
+
+        // while ($available != TRUE)
         // {
             $userId = mt_rand(1000,9999).date('ymd');
-            
+
             // $available = $this->useridAvailable($userId);
         // }
-        
+
         return $userId;
     }
-    
+
     /**
     * Method to get the details of a user by providing the username and password
     * @param string $username Username of the User
@@ -356,26 +355,40 @@ class useradmin_model2 extends dbtable
     public function getUserNeedPassword($username, $email)
     {
         $result = $this->getAll(" WHERE username='$username' AND emailaddress='$email' ");
-        
+
         if (count($result) == 0) {
             return FALSE;
         } else {
             return $result[0];
         }
     }
-    
+
     /**
     * Method to change the password of the user
-    * 
+    *
     * @param string $id Primary Key Id of the User
     * @param string $password Unencrypted password
     * @return boolean Result of Update
     */
     private function resetPassword($id, $password)
     {
+        // Lets check for FMP details too, we can update those.
+        $authMeth = $this->objConfig->getValue('MOD_SECURITY_AUTHMETHODS', 'security');
+        if (strstr($authMeth, ',')) {
+		    $this->authChainOfCommand = explode(",", $authMeth);
+		} else {
+		    $this->authChainOfCommand[] = trim($authMeth);
+		}
+		if(in_array('fmp', $this->authChainOfCommand)) {
+		    // try updating the fmp database first...
+            $objFMPro = $this->getObject('fmpro', 'filemakerpro');
+            // update the field with the new password
+
+            // return;
+		}
         return $this->update('id', $id, array('pass'=>sha1($password)));
     }
-    
+
     /**
     * Method to process the request for a new password
     *
@@ -388,14 +401,78 @@ class useradmin_model2 extends dbtable
     public function newPasswordRequest($id)
     {
         $user = $this->getUserDetails($id);
+        if ($user['pass'] == sha1('--FMP--')) {
+            $this->objFMPro = $this->getObject('fmpro', 'filemakerpro');
+            // This is a FMP based user, so use Find to get the users details
+            $layoutName = 'Form: Person';
+            $findCommand = $this->objFMPro->makeNewFindCommand ( $layoutName );
+            $findCommand->addFindCriterion ( 'UserName', $user['username'] );
+            $result = $findCommand->execute ();
+            if (FileMaker::isError ( $result )) {
+                // OK there is a horrible screwup, so lets continue on the the db so that it can handle it
+                // through the Chisimba customException Class.
+                continue;
+            } else {
+                $record = $result->getFirstRecord ();
+                $fmid = $record->getRecordId ();
+                $objPassword = $this->getObject('passwords', 'useradmin');
+        		$newPassword = $objPassword->createPassword();
+                $values['Password'] = $newPassword;
+        		// Update the FMP record...
+                $this->objFMPro->editRecord($layoutName, $fmid, $values );
+                // Then bang off a mail to the user.
+                $siteName = $this->objConfig->getSiteName();
+                $siteEmail = $this->objConfig->getsiteEmail();
+        		$message =
+'
+Dear [[FIRSTNAME]] [[SURNAME]]<br />
+<br />
+On [[DATE]], you requested a new password for the [[SITENAME]] website. Your details are here below:<br />
+<br />
+Username: [[USERNAME]]<br />
+New Password: [[PASSWORD]] <br />
+Email Address: [[EMAIL]]<br />
+<br />
+Sincerely,<br />
+[[SITENAME]] Registration System<br />
+[[SITEADDRESS]]
+<br />
+<br />
+IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
+
+            $message = str_replace('[[FIRSTNAME]]', $user['firstname'], $message);
+            $message = str_replace('[[SURNAME]]', $user['surname'], $message);
+            $message = str_replace('[[USERNAME]]', $user['username'], $message);
+            $message = str_replace('[[EMAIL]]', $user['emailaddress'], $message);
+            $message = str_replace('[[SITENAME]]', $siteName, $message);
+            $message = str_replace('[[PASSWORD]]', $newPassword, $message);
+            $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
+            $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
+
+            $objMailer = $this->getObject('email', 'mail');
+            $objMailer->setValue('to', array($user['emailaddress']));
+            $objMailer->setValue('from', $siteEmail);
+            $objMailer->setValue('fromName', $siteName.' Registration System');
+            $objMailer->setValue('subject', 'Password Request: '.$siteName);
+            $objMailer->setValue('body', strip_tags($message));
+            $objMailer->setValue('AltBody', strip_tags($message));
+
+            if ($objMailer->send()) {
+               return TRUE;
+            } else {
+               return FALSE;
+            }
+
+            }
+        } // end of the FMP case
         $siteName = $this->objConfig->getSiteName();
         $siteEmail = $this->objConfig->getsiteEmail();
-        
+
         $objPassword = $this->getObject('passwords', 'useradmin');
         $newPassword = $objPassword->createPassword();
-        
+
         $this->resetPassword($id, $newPassword);
-        
+
         $message =
 '
 Dear [[FIRSTNAME]] [[SURNAME]]<br />
@@ -421,7 +498,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $message = str_replace('[[PASSWORD]]', $newPassword, $message);
         $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
         $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
-        
+
         $objMailer = $this->getObject('email', 'mail');
         $objMailer->setValue('to', array($user['emailaddress']));
         $objMailer->setValue('from', $siteEmail);
@@ -429,14 +506,14 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $objMailer->setValue('subject', 'Password Request: '.$siteName);
         $objMailer->setValue('body', strip_tags($message));
         $objMailer->setValue('AltBody', strip_tags($message));
-        
+
         if ($objMailer->send()) {
            return TRUE;
         } else {
            return FALSE;
         }
     }
-    
+
     /**
     * Message to Send the User a Message on Successful Registration
     * @param string $id Record Id of User
@@ -447,7 +524,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $user = $this->getUserDetails($id);
         $siteName = $this->objConfig->getSiteName();
         $siteEmail = $this->objConfig->getsiteEmail();
-        
+
         $message = '
 Dear [[FIRSTNAME]] [[SURNAME]]<br />
 <br />
@@ -464,7 +541,7 @@ Sincerely,<br />
 <br />
 <br />
 IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
-        
+
         $message = str_replace('[[FIRSTNAME]]', $user['firstname'], $message);
         $message = str_replace('[[SURNAME]]', $user['surname'], $message);
         $message = str_replace('[[USERNAME]]', $user['username'], $message);
@@ -473,8 +550,8 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $message = str_replace('[[PASSWORD]]', $password, $message);
         $message = str_replace('[[SITEADDRESS]]', $this->objConfig->getsiteRoot(), $message);
         $message = str_replace('[[DATE]]', date('l dS \of F Y h:i:s A'), $message);
-        
-        $objMailer = $this->getObject('email', 'mail');//$user['emailaddress'], 
+
+        $objMailer = $this->getObject('email', 'mail');//$user['emailaddress'],
         $objMailer->setValue('to', array($user['emailaddress']));
         //$objMailer->setValue('to', array($user['emailaddress']));
         $objMailer->setValue('from', $siteEmail);
@@ -482,15 +559,15 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
         $objMailer->setValue('subject', 'Registration: '.$siteName);
         $objMailer->setValue('body', strip_tags($message));
         $objMailer->setValue('AltBody', strip_tags($message));
-        
+
         if ($objMailer->send()) {
            return TRUE;
         } else {
            return FALSE;
         }
-    
+
     }
-    
+
     /**
     * Method to Batch Process a Selected Action on a group of users
     * @param array $users User Accounts to be affected
@@ -507,7 +584,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
                 case 'ldap': $function = 'setUserLdap'; break;
                 default: $function = '';
             }
-            
+
             if ($function == '') {
                 return FALSE;
             } else {
@@ -518,7 +595,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
             }
         }
     }
-    
+
     /**
     * Method to Set an Account as Active
     * @param string $id User Id of the User
@@ -527,7 +604,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     {
         return $this->update('id', $id, array('isactive'=>'1'));
     }
-    
+
     /**
     * Method to Set an Account as Inactive
     * @param string $id User Id of the User
@@ -536,7 +613,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     {
         return $this->update('id', $id, array('isactive'=>'0'));
     }
-    
+
     /**
     * Method to Delete an User Account
     * @param string $id User Id of the User
@@ -550,7 +627,7 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
             return FALSE;
         }
     }
-    
+
     /**
     * Method to Set an Account to use Network Id
     * @param string $id User Id of the User
@@ -559,7 +636,8 @@ IP Address of Request: '.$_SERVER['REMOTE_ADDR'];
     {
         return $this->update('id', $id, array('howcreated'=>'LDAP', 'pass'=>sha1('--LDAP--')));
     }
-    
+
 } // end of class sqlUsers
+
 
 ?>
