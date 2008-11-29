@@ -32,9 +32,9 @@ class auth_fmp extends abauth implements ifauth {
 
     public function authenticate($username, $password) {
         $auth = $this->objFMPro->simpleAuth ( $username, $password );
-        if ( $auth != FALSE) {
-            $this->_record = $this->objFMPro->getUserInfo();
-            $this->createUser($username);
+        if ($auth != FALSE) {
+            $this->_record = $this->objFMPro->getUserInfo ();
+            $this->createUser ( $username );
             return TRUE;
         }
     }
@@ -44,35 +44,33 @@ class auth_fmp extends abauth implements ifauth {
     }
 
     public function createUser($username) {
-        $data = $this->objUser->lookupData($username);
-        $info = $this->getUserDataAsArray($username);
-        if (is_array($data) || $this->objUser->valueExists('userid',$info['userid']))
-        {
+        $data = $this->objUser->lookupData ( $username );
+        $info = $this->getUserDataAsArray ( $username );
+        if (is_array ( $data ) || $this->objUser->valueExists ( 'userid', $info ['userid'] )) {
             return TRUE;
         } else {
             // Build up an array of the user's info
-            if ($info['userid'] == FALSE)
-            {
-                $info['userid'] = mt_rand(1000,9999).date('ymd');
+            if ($info ['userid'] == FALSE) {
+                $info ['userid'] = mt_rand ( 1000, 9999 ) . date ( 'ymd' );
             } else {
-                $info['staffnumber'] = $info['userid'];
+                $info ['staffnumber'] = $info ['userid'];
             }
-            $info['userId'] = $info['userid'];
-            $info['sex'] = '';
-            $info['accessLevel'] = 'guests';
-            $info['howCreated'] = 'FMP';
-            $info['isactive'] = '1';
+            $info ['userId'] = $info ['userid'];
+            $info ['sex'] = '';
+            $info ['accessLevel'] = 'guests';
+            $info ['howCreated'] = 'FMP';
+            $info ['isactive'] = '1';
 
-            $objConf2 = $this->getObject('altconfig','config');
-            $info['country'] = $objConf2->getCountry();
+            $objConf2 = $this->getObject ( 'altconfig', 'config' );
+            $info ['country'] = $objConf2->getCountry ();
             // Instantiate the sqlusers class and call the adduser() function
             // To create the new user on the system.
-            $tbl = $this->newObject('sqlusers','security');
-            $id = $tbl->addUser($info);
+            $tbl = $this->newObject ( 'sqlusers', 'security' );
+            $id = $tbl->addUser ( $info );
             // If LDAP confirms the user is an Academic,
             // add as a site-lecturer in KNG groups.
-            if ($this->isAcademic($username)) {
-                $this->objUser->addLecturer($id);
+            if ($this->isAcademic ( $username )) {
+                $this->objUser->addLecturer ( $id );
             }
         }
     }
@@ -94,6 +92,5 @@ class auth_fmp extends abauth implements ifauth {
         return FALSE;
     }
 }
-
 
 ?>
