@@ -344,6 +344,10 @@ class logactivity extends dbTable
     	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
     	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
         if (!file_exists($arkLog)){
+            // Removing Notice: Undefined Variable
+            if (!isset($curlog)) {
+                $curlog = '';
+            }
             if(file_exists($curLog)) {
         		@copy($curLog, $arkLog);
             	@unlink($curLog);
