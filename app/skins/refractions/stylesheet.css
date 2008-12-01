@@ -185,3 +185,12 @@ p.im_source {
    border-radius: 8px;
    background-color: white;
 }
+
+p.im_reassign {
+   margin-left: 10px;
+   margin-right: 10px;
+   padding-left: 20px;
+-moz-border-radius: 8px;
+   border-radius: 8px;
+   background-color: #E5E5E5;
+}

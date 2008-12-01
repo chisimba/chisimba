@@ -2801,7 +2801,7 @@ they can be over-ridden in a skin.
 
 /* ------- For the jabber IM output ----------*/
 .im_default {
-    background-color: #efefef;
+    background-color: blue/*#efefef*/;
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 8px;
@@ -2812,6 +2812,7 @@ they can be over-ridden in a skin.
 p.im_message {
    margin-left: 30px;
    margin-right: 10px;
+   background-color: red;
 }
 
 p.im_source {
