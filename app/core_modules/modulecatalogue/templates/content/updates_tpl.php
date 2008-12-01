@@ -161,6 +161,9 @@ $objSec = $this->getObject('user', 'security');
 $details = $objSec->lookupData('admin');
 if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8')
 {
+    if (!isset($err)) {
+        $err = '';
+    }
 	$err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
 }
 
