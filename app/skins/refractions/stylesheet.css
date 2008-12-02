@@ -194,3 +194,26 @@ p.im_reassign {
    border-radius: 8px;
    background-color: #E5E5E5;
 }
+
+form.inplaceeditor-form { /* The form */
+ margin-left: 10px;
+   margin-right: 10px;
+   padding-left: 20px;
+-moz-border-radius: 8px;
+   border-radius: 8px;
+   background-color: white;
+}
+
+form.inplaceeditor-form input[type="text"] { /* Input box */
+}
+
+form.inplaceeditor-form textarea { /* Textarea, if multiple columns */
+}
+
+form.inplaceeditor-form input[type="submit"] { /* The submit button */
+  margin-left:1em;
+}
+
+form.inplaceeditor-form a { /* The cancel link */
+  margin-left:1em;
+}
