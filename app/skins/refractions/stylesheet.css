@@ -133,7 +133,7 @@ th {
 
 td {   
     margin-left: 10px;
-	color: #FFF;
+	/*color: #FFF;*/
 }
 
 th a {
@@ -274,7 +274,7 @@ form.inplaceeditor-form { /* The form */
  margin-left: 10px;
    margin-right: 10px;
    padding-left: 20px;
--moz-border-radius: 8px;
+	-moz-border-radius: 8px;
    border-radius: 8px;
    background-color: white;
 }
@@ -297,3 +297,9 @@ form.inplaceeditor-saving {
 	background: url(../_common/icons/loading.gif) bottom right no-repeat; 
 }
 
+input{
+ 	background-color: #E0E1E1;
+ 	border: 1px solid #599DF6; 
+	-moz-border-radius: 5px;
+   	border-radius: 5px;
+}
