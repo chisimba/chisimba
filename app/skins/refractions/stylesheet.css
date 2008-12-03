@@ -95,8 +95,11 @@
 
 fieldset {
     background-color: #FFF;
-    border: 1px solid #D8E9F6;
+    /*border: 1px solid #D8E9F6;*/	
+   border:1px solid #93B3F9;
     padding: 5px;
+	-moz-border-radius: 8px;
+    border-radius: 8px;
 }
 
 
@@ -117,19 +120,25 @@ a:hover, #footer a:hover {
 form {margin-bottom: 10px;}
 
 th {
-    background-color:#CACDD2;
+    /*background-color:#CACDD2;*/
+	background-color: #93B3F9;
+    border: 1px solid  #93B3F9 transparent;
     color: #FFF;
-    padding-left: 3px;
-    padding-right: 3px;
+	-moz-border-radius: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+	margin:10px;
+   
 }
 
-td {
-    padding-left: 3px;
-    padding-right: 3px;
+td {   
+    margin-left: 10px;
+	color: #FFF;
 }
 
 th a {
-    color: #c4ebe3;
+    /*color: #c4ebe3;*/
+	 color: #FFF;
 }
 
 #footer {
