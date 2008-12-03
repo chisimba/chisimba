@@ -13,9 +13,11 @@
     filter:alpha(opacity=90);-moz-opacity:.90;opacity:.90;
 	-moz-border-radius: 30px;
     border-radius: 30px;
- margin: 10px;
+	-webkit-border-radius: 30px;
+	-khtml-border-radius: 30px; 
+ 	margin: 10px;
     padding: 10px;
-	 border: 2px solid #599DF6;
+	border: 2px solid #599DF6;
 }
 
 #header {
@@ -38,16 +40,23 @@
 
 #leftcontent, #contentcontent, #rightcontent {
     margin: 10px;
+	margin-bottom:20px;
     padding: 10px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-khtml-border-radius: 8px; 
+	/*border: 1px solid  #93B3F9;;*/
 }
 #contentcontent{
  	background-color: #DEE2E7;
+	border:1px solid #93B3F9;
+	margin:10px;
+	margin-bottom:10px;
 }
 
-#contentcontent, .featurebox,  body.help-popup {
-	margin-top: 10px;
+.featurebox,  body.help-popup {
+	margin: 5px;
     background-color: #FFF;
     border: 2px solid  #93B3F9;
     /*padding: 10px;*/
@@ -108,7 +117,7 @@ a:hover, #footer a:hover {
 form {margin-bottom: 10px;}
 
 th {
-    background-color: #D8E9F6;
+    background-color:#CACDD2;
     color: #FFF;
     padding-left: 3px;
     padding-right: 3px;
@@ -129,6 +138,8 @@ th a {
     padding: 5px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
+ 	/*margin: 15px;
+	margin-top: 15px;*/
 }
 
 #footer a {
@@ -136,11 +147,11 @@ th a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 #breadcrumbs {
-    border-top: 1px solid #D8E9F6;
+    border-top: 1px solid #93B3F9;
     margin: 0;
     padding-left: 10px;
 }
