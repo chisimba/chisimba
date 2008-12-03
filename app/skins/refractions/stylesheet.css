@@ -39,8 +39,8 @@
 }
 
 #leftcontent, #contentcontent, #rightcontent {
-    margin: 10px;
-	margin-bottom:20px;
+    /*margin: 10px;*/
+	
     padding: 10px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
@@ -49,9 +49,9 @@
 	/*border: 1px solid  #93B3F9;;*/
 }
 #contentcontent{
- 	background-color: #DEE2E7;
+ 	background-color: #E7EAEF; /*#DEE2E7;*/
 	border:1px solid #93B3F9;
-	margin:10px;
+	/*margin:10px;*/
 	margin-bottom:10px;
 }
 
@@ -180,13 +180,13 @@ h1, h2, h3, h4, h5, h6 {
 	-moz-border-radius: 8px;
     border-radius: 8px;
 }
-
-#menu>ul>li:hover>a, #menu>ul>li:hover>a:hover {
+/*
+#menu>ul>li:hover>a, #menu>ul>li:hover>a:hover, #menu {
     color: #FFF;
 	-moz-border-radius: 8px;
     border-radius: 8px;
 }
-
+*/
 #menu img {
     padding-top: 5px;
 }
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-#menu li ul li:hover{
+#menu li ul li:hover, a:hover{
     background-color: #599DF6;
     border: 1px solid #599DF6;
 	-moz-border-radius: 8px;
