@@ -69,6 +69,7 @@ class textinput extends abhtmlbase implements ifhtml
     * @var integer $size: The width of the text input
     */
     public $size;
+    public $fldType;
 
 
 
