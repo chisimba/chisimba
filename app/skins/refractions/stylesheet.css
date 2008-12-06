@@ -9,12 +9,12 @@
 }
 
 #container {
-    background-color: #fff; 
+    background-color: #fff;
     filter:alpha(opacity=90);-moz-opacity:.90;opacity:.90;
 	-moz-border-radius: 30px;
     border-radius: 30px;
 	-webkit-border-radius: 30px;
-	-khtml-border-radius: 30px; 
+	-khtml-border-radius: 30px;
  	margin: 10px;
     padding: 10px;
 	border: 2px solid #599DF6;
@@ -40,12 +40,12 @@
 
 #leftcontent, #contentcontent, #rightcontent {
     /*margin: 10px;*/
-	
+
     padding: 10px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
 	-webkit-border-radius: 8px;
-	-khtml-border-radius: 8px; 
+	-khtml-border-radius: 8px;
 	/*border: 1px solid  #93B3F9;;*/
 }
 #contentcontent{
@@ -59,7 +59,8 @@
 	margin: 5px;
     background-color: #FFF;
     border: 2px solid  #93B3F9;
-    /*padding: 10px;*/
+    -webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
 	-moz-border-radius: 10px;
     border-radius: 10px;
 }
@@ -69,9 +70,11 @@
     padding: 10px;
 	-moz-border-radius: 10px;
     border-radius: 10px;
+    -webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
 }
 #nav-secondary>li{
-	padding-left: 5px;        
+	padding-left: 5px;
 	/*background-color: #599DF6;*/
 	border: 1px solid transparent;
 	/*-moz-border-radius: 8px;
@@ -88,18 +91,21 @@
 }
 
 .featureboxcontent
-{ 	
+{
 	padding: 5px;
 
 }
 
 fieldset {
     background-color: #FFF;
-    /*border: 1px solid #D8E9F6;*/	
+    /*border: 1px solid #D8E9F6;*/
    border:1px solid #93B3F9;
     padding: 5px;
-	-moz-border-radius: 8px;
-    border-radius: 8px;
+	-moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+
 }
 
 
@@ -116,7 +122,7 @@ a:hover, #footer a:hover {
     color: #C00;
 }
 
-    
+
 form {margin-bottom: 10px;}
 
 th {
@@ -128,10 +134,10 @@ th {
     border-radius: 5px;
     padding-left: 5px;
 	margin:10px;
-   
+
 }
 
-td {   
+td {
     margin-left: 10px;
 	/*color: #FFF;*/
 }
@@ -147,8 +153,8 @@ th a {
     padding: 5px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
- 	/*margin: 15px;
-	margin-top: 15px;*/
+    -webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
 }
 
 #footer a {
@@ -180,6 +186,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 30px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
+    -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+
 }
 
 #menu>ul>li:hover{
@@ -188,6 +197,9 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFF;
 	-moz-border-radius: 8px;
     border-radius: 8px;
+    -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+
 }
 /*
 #menu>ul>li:hover>a, #menu>ul>li:hover>a:hover, #menu {
@@ -203,12 +215,15 @@ h1, h2, h3, h4, h5, h6 {
 #menu li ul {
     border: 1px solid #599DF6;
     padding: 3px;
-	color: #FFF;    
+	color: #FFF;
 	padding-right: 5px;
     margin-left: -6px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
-	
+    -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+
+
 }
 
 #menu li {
@@ -222,6 +237,9 @@ h1, h2, h3, h4, h5, h6 {
 	-moz-border-radius: 8px;
     border-radius: 8px;
 	color: #FFF;
+    -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+
 }
 
 
@@ -238,6 +256,9 @@ h1#sitename {
     margin-bottom: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
+    -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+
 }
 
 p.im_message {
@@ -246,10 +267,12 @@ p.im_message {
    background-color: white/*#efefef*/;
    padding-top: 5px;
    padding-bottom: 5px;
-   padding-left: 5px; 
+   padding-left: 5px;
    margin-bottom: 8px;
    -moz-border-radius: 8px;
    border-radius: 8px;
+   -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
 }
 
 p.im_source {
@@ -258,6 +281,8 @@ p.im_source {
    padding-left: 20px;
 -moz-border-radius: 8px;
    border-radius: 8px;
+   -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
    background-color: white;
 }
 
@@ -267,6 +292,8 @@ p.im_reassign {
    padding-left: 20px;
 -moz-border-radius: 8px;
    border-radius: 8px;
+   -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
    background-color: #E5E5E5;
 }
 
@@ -276,6 +303,8 @@ form.inplaceeditor-form { /* The form */
    padding-left: 20px;
 	-moz-border-radius: 8px;
    border-radius: 8px;
+   -webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
    background-color: white;
 }
 
@@ -293,13 +322,15 @@ form.inplaceeditor-form a { /* The cancel link */
   margin-left:1em;
 }
 
-form.inplaceeditor-saving { 
-	background: url(../_common/icons/loading.gif) bottom right no-repeat; 
+form.inplaceeditor-saving {
+	background: url(../_common/icons/loading.gif) bottom right no-repeat;
 }
 
 input{
  	background-color: #E0E1E1;
- 	border: 1px solid #599DF6; 
+ 	border: 1px solid #599DF6;
 	-moz-border-radius: 5px;
    	border-radius: 5px;
+   	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
 }
