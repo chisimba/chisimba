@@ -1,11 +1,11 @@
 <?php
 /**
  * Validator class
- * 
+ *
  * Form validation class for NextGen/Chisimba - outputs JavaScript for client-side data-integrity tests.
- * 
+ *
  * PHP version 5
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,12 +18,12 @@
  * along with this program; if not, write to the
  * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
@@ -41,13 +41,13 @@ $GLOBALS['kewl_entry_point_run']) {
 
 /**
  * Validator class
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   htmlelements
  * @author    Wesley Nitsckie <wnitsckie@uwc.ac.za>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @version   Release: @package_version@
  * @link      http://avoir.uwc.ac.za
  */
@@ -55,7 +55,7 @@ class Validator extends controller {
 
     /**
      * Description for public
-     * @var    array 
+     * @var    array
      * @access public
      */
     public $errors; // A variable to store a list of error messages
@@ -83,7 +83,7 @@ class Validator extends controller {
             return true;
         }else{
             $this->errors[] = $description;
-            return false; 
+            return false;
         }
     }
 
@@ -96,7 +96,7 @@ class Validator extends controller {
             return true;
         }else{
             $this->errors[] = $description;
-            return false; 
+            return false;
         }
     }
 
@@ -109,7 +109,7 @@ class Validator extends controller {
             return true;
         }else{
             $this->errors[] = $description;
-            return false; 
+            return false;
         }
 
     }
@@ -120,7 +120,7 @@ class Validator extends controller {
     public function validateNumber($theinput,$description = ''){
         if (is_numeric($theinput)) {
             return true; // The value is numeric, return true
-        }else{ 
+        }else{
             $this->errors[] = $description; // Value not numeric! Add error description to list of errors
             return false; // Return false
         }
@@ -132,7 +132,7 @@ class Validator extends controller {
     public function validateMonth($theinput,$description = ''){
         if (is_numeric($theinput) && $theinput <= '12' && $theinput >= '1') {
             return true; // The value is numeric, return true
-        }else{ 
+        }else{
             $this->errors[] = $description; // Value not numeric! Add error description to list of errors
             return false; // Return false
         }
@@ -145,7 +145,7 @@ class Validator extends controller {
     public function validateDay($theinput,$description = ''){
         if (is_numeric($theinput) && $theinput <= '31' && $theinput >= '1') {
             return true; // The value is numeric, return true
-        }else{ 
+        }else{
             $this->errors[] = $description; // Value not numeric! Add error description to list of errors
             return false; // Return false
         }
@@ -181,28 +181,28 @@ class Validator extends controller {
     /*
      * Return a string containing a list of errors found,
      * Seperated by a given deliminator...
-     * 
-     * @param  string $delim 
-     * @return mixed  Return 
+     *
+     * @param  string $delim
+     * @return mixed  Return
      * @access public
      */
     public function listErrors($delim = ' '){
         return implode($delim,$this->errors);
     }
 
-    
+
 
 
     /*
      * Manually add something to the list of errors
-     * 
-     * @param  unknown $description 
-     * @return void   
-     * @access public 
+     *
+     * @param  unknown $description
+     * @return void
+     * @access public
      */
     public function addError($description){
         $this->errors[] = $description;
-    }	
+    }
 
 }//end class
 ?>
