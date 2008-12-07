@@ -43,40 +43,40 @@ require_once("ifhtml_class_inc.php");
 class htmlHeading implements ifhtml
 {
     /**
-    * 
-    * @var int $type The type of header to produce (H1, H2, etc)
-    */
+     * 
+     * @var int $type The type of header to produce (H1, H2, etc)
+     */
     public $type = 3;
 
     /**
-    * 
-    * @var string $id The CSS ID of the header if used
-    */
+     * 
+     * @var string $id The CSS ID of the header if used
+     */
     public $id;
 
     /**
-    * 
-    * @var string $cssClass The CSS class of the header if used
-    */
+     * 
+     * @var string $cssClass The CSS class of the header if used
+     */
     public $cssClass;
 
     /**
-    * 
-    * @var string $str The text to place between the header tags
-    */
+     * 
+     * @var string $str The text to place between the header tags
+     */
     public $str;
 
     /**
-    * @var string $align How the header should align on the page
-    *             Added 2005-04-07 by James Scoble
-    */
+     * @var string $align How the header should align on the page
+     *             Added 2005-04-07 by James Scoble
+     */
     public $align;
     
     /**
-    * Method to show the heading
-    * 
-    * @return The heading complete as a string
-    */
+     * Method to show the heading
+     * 
+     * @return The heading complete as a string
+     */
     public function show()
     {
         $ret = "<h" . $this->type;
