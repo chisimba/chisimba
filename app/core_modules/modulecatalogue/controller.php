@@ -476,6 +476,7 @@ class modulecatalogue extends controller {
                     $mods = $this->objPatch->checkModules ();
                     $this->output = array ();
                     $error = '';
+                    $success = true;
                     foreach ( $mods as $mod ) {
                         $success = true;
                         if (($this->output [] = $this->objPatch->applyUpdates ( $mod ['module_id'] )) === FALSE) {
