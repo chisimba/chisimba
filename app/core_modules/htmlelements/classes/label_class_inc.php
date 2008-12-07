@@ -82,7 +82,7 @@ class label implements ifhtml
      * @return void   
      * @access public 
      */
-    public function label($labelValue, $forId)
+    public function label($labelValue=null, $forId=null)
     {
         $this->labelValue=$labelValue;
         $this->forId=$forId;
