@@ -71,6 +71,19 @@ class htmlHeading implements ifhtml
      *             Added 2005-04-07 by James Scoble
      */
     public $align;
+
+    /**
+     * The constructor for the htmlheading class.
+     *
+     * @access public
+     * @param  string  $str  The heading content.
+     * @param  integer $type The heading level.
+     */
+    public function htmlheading($str=null, $type=3)
+    {
+        $this->str = $str;
+        $this->type = $type;
+    }
     
     /**
      * Method to show the heading
