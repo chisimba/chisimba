@@ -64,15 +64,15 @@ class label implements ifhtml
      * @var    string
      * @access public
      */
-	public $labelValue;
+    public $labelValue;
 
     /**
      * Description for public
      * @var    string
      * @access public
      */
-	public $forId;
-	
+    public $forId;
+    
     /**
      * Constructor function
      * 
@@ -81,31 +81,31 @@ class label implements ifhtml
      * @return void   
      * @access public 
      */
-	public function label($labelValue, $forId)
-	{
-		$this->labelValue=$labelValue;
-		$this->forId=$forId;
-	}
-	
+    public function label($labelValue, $forId)
+    {
+        $this->labelValue=$labelValue;
+        $this->forId=$forId;
+    }
+    
     /**
      * Standard display function - all htmlelements classes have one.
      * 
      * @return string Return 
      * @access public
      */
-	public function show()
-	{
-		$str='<label';
-		
-		if ($this->forId != '') {
-			$str.= ' for="'.$this->forId.'"';
-		}
-		
-		$str.='>';
-		$str.=$this->labelValue;
-		$str.='</label>';
-		return $str;
-	}
+    public function show()
+    {
+        $str='<label';
+        
+        if ($this->forId != '') {
+            $str.= ' for="'.$this->forId.'"';
+        }
+        
+        $str.='>';
+        $str.=$this->labelValue;
+        $str.='</label>';
+        return $str;
+    }
 
     /**
      * Method to set labelValue property
@@ -114,10 +114,10 @@ class label implements ifhtml
      * @return void   
      * @access public 
      */
-	public function setLabel($labelValue){
-		$this->labelValue =$labelValue;		
-	}
-	
+    public function setLabel($labelValue){
+        $this->labelValue =$labelValue;        
+    }
+    
     /**
      * Method to set forId property
      * 
@@ -126,8 +126,8 @@ class label implements ifhtml
      * @return void   
      * @access public 
      */
-	public function setForId($forId){
-		$this->forId=$forId;
-	}
+    public function setForId($forId){
+        $this->forId=$forId;
+    }
 }
 ?>
