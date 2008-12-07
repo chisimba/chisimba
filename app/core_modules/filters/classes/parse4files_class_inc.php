@@ -1,9 +1,9 @@
 <?php
 
 /**
-* 
+*
 * Parse string for filter for directory contents
-*  
+*
 * Class to parse a string (e.g. page content) that contains a filter
 * code for including the all files in a user directory as links with descriptions
 * where descriptions exist.
@@ -160,15 +160,15 @@ class parse4files extends object
     }
 
 	/**
-	 * 
+	 *
 	 * Method to return a formatted list of files in the directory specified in the filter
 	 * tag
-	 * 
+	 *
 	 * @access private
 	 * @param string $dirname The folder name
 	 * @param string $item Item within which the replacement should take place
 	 * @return the parased item with the linked files replacing the filter tags
-	 * 
+	 *
 	 */
     private function getFiles()
     {
@@ -178,25 +178,31 @@ class parse4files extends object
         } else {
         	$this->folder = "/" . $this->folder;
         }
-        $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId 
+        $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId
           . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
         $ar = $oF->getArray($sql);
 
         return $this->renderFiles($ar);
     }
-    
+
     /**
-    * 
+    *
     * Method to return a formatted list of files from the array passed to it
     * by the getFiles method.
-    * 
+    *
     * @access private
     * @param string array $ar An array of files and descriptions
     * @return String the parased item with the linked files and their descriptions
-    * 
+    *
     */
     private function renderFiles(& $ar)
     {
+        if(empty($ar)) {
+            $objheader = $this->getObject('htmlheading', 'htmlelements');
+            $objheader->str = '<em>'.$this->objLanguage->languageText("mod_filters_nofiles", "filters").'</em>';
+            $objheader->type = 3;
+            return $objheader->show();
+        }
     	$ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
         $objConfig = $this->getObject('altconfig', 'config');
         $siteRoot = $objConfig->getSiteRoot();
@@ -208,7 +214,7 @@ class parse4files extends object
             }
             $path = $siteRoot . "/usrfiles/" . "/" . $file['path'];
             $icon = $this->oIcon->getFileIcon($file['filename']);
-            $ret .= "<tr><td>" . $icon . "&nbsp;<a href=\"" . $path . "\">" 
+            $ret .= "<tr><td>" . $icon . "&nbsp;<a href=\"" . $path . "\">"
               . $file['filename'] . "</a></td>";
             if ($this->newLine == "true" || $this->newLine==TRUE) {
                 $ret .= "</tr><tr>";
