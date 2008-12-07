@@ -29,6 +29,7 @@
  * @version   $Id$
  * @link      http://avoir.uwc.ac.za
  */
+
 // security check - must be included in all scripts
 if (!
 /**
@@ -47,15 +48,15 @@ $GLOBALS['kewl_entry_point_run']) {
 require_once("ifhtml_class_inc.php");
 
 /**
-* 
-* Used to create labels for form elements
-* 
-* @category  HTML Controls
-* @copyright 2004, University of the Western Cape & AVOIR Project
-* @license   GNU GPL
-* @author    Tohir Solomons
-*            
-*/
+ * 
+ * Used to create labels for form elements
+ * 
+ * @category  HTML Controls
+ * @copyright 2004, University of the Western Cape & AVOIR Project
+ * @license   GNU GPL
+ * @author    Tohir Solomons
+ *            
+ */
 class label implements ifhtml
 {
 
