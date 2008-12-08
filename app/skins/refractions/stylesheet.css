@@ -219,14 +219,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 */
 #menu img {
-    padding-top: 5px;
+    /*padding-top: 5px;*/
 }
 
 #menu li ul {
     border: 1px solid #599DF6;
-    padding: 3px;
+   /* padding: 3px;*/
 	color: #FFF;
-	padding-right: 5px;
+	/*padding-left:5px;
+	padding-right: 5px;*/
     margin-left: -6px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
@@ -244,6 +245,8 @@ h1, h2, h3, h4, h5, h6 {
 #menu li ul li:hover a:hover{
     background-color: #599DF6;
     border: 1px solid #599DF6;
+	/*padding-left:3px;
+	padding-right: 3px;*/
 	-moz-border-radius: 8px;
     border-radius: 8px;
 	color: #FFF;
