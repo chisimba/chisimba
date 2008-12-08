@@ -86,8 +86,8 @@
     border: 1px solid  #93B3F9 transparent;
     color: #FFF;
 	padding: 5px;
-	/*-moz-border-radius: 8px;
-    border-radius: 8px;*/
+	-moz-border-radius-topleft: 8px;
+    border-radius-topleft: 8px;
 }
 
 .featureboxcontent
@@ -163,6 +163,7 @@ th a {
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 5px;
+	
 }
 
 #breadcrumbs {
@@ -191,10 +192,12 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-#menu>ul>li:hover{
+#menu>ul>li a:hover{
     background-color: #599DF6;
     border: 1px solid #599DF6;
     color: #FFF;
+	padding-left:5px;
+	padding-right:5px;
 	-moz-border-radius: 8px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -231,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-#menu li ul li:hover, a:hover{
+#menu li ul li:hover a:hover{
     background-color: #599DF6;
     border: 1px solid #599DF6;
 	-moz-border-radius: 8px;
@@ -336,3 +339,79 @@ input{
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
+
+/************ news stories tabs *************/
+
+/*
+
+Styles for the Modern Brick Menu
+Credits: Dynamic Drive CSS Library
+http://www.dynamicdrive.com/style/csslibrary/item/modern-bricks-menu/
+*/
+
+#modernbricksmenu{
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    voice-family: "\"}\"";
+    voice-family: inherit;
+}
+
+#modernbricksmenu ul{
+    /*font: bold 11px Arial;*/
+    margin:0;
+    margin-left: 40px; /*margin between first menu item and left browser edge*/
+    padding: 0;
+    list-style: none;
+}
+
+#modernbricksmenu li{
+    display: inline;
+    margin: 0 2px 0 0;
+    padding: 0;
+    text-transform:uppercase;
+}
+
+#modernbricksmenu a{
+    float: left;
+    display: block;
+    color: #084FAD;
+    margin: 0 1px 0 0; /*Margin between each menu item*/
+    padding: 5px 10px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    background-color: white; /*Default menu color*/
+    border-bottom: 1px solid white;
+}
+
+#modernbricksmenu a:hover{
+    background-color: #084FAD; /*Red color theme*/
+    border-color: #084FAD; /*Red color theme*/
+	color: white;
+}
+
+#modernbricksmenu #current a{ /*currently selected tab*/
+	color: white;
+    background-color: #084FAD; /*Red color theme*/
+    border-color: #084FAD; /*Red color theme*/
+	border-radius-topleft: 5px;
+	-moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+	-khtml-border-radius-topleft: 5px;
+
+	
+}
+
+#modernbricksmenuline{
+    clear: both;
+    padding: 0;
+    width: 100%;
+    height: 5px;
+    line-height: 5px;
+    background: #084FAD; /*Red color theme*/
+}
+
+/*
+    END - Styles for the Modern Brick Menu
+*/
