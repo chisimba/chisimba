@@ -15,7 +15,7 @@
     border-radius: 30px;
 	-webkit-border-radius: 30px;
 	-khtml-border-radius: 30px;
- 	margin: 10px;
+ 	margin: 5px;
     padding: 10px;
 	border: 2px solid #599DF6;
 }
@@ -26,6 +26,7 @@
     /*border: 1px solid #599DF6;
 	-moz-border-radius: 18px;
     border-radius: 18px;*/
+	
 }
 
 
@@ -47,13 +48,15 @@
     border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-khtml-border-radius: 8px;
-	/*border: 1px solid  #93B3F9;;*/
+	
 }
 #contentcontent{
  	background-color: #E7EAEF; /*#DEE2E7;*/
 	border:1px solid #93B3F9;
 	/*margin:10px;*/
-	margin-bottom:10px;
+	margin-bottom:1px;
+	
+	
 }
 
 .featurebox,  body.help-popup {
@@ -159,10 +162,17 @@ th a {
     background-color:#599DF6;
     color: #FFF;
     padding: 5px;
+	
 	-moz-border-radius: 8px;
     border-radius: 8px;
     -webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
+
+}
+
+#middlecontent{
+	
+
 }
 
 #footer a {

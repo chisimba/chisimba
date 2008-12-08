@@ -63,12 +63,12 @@ if (!isset($pageSuppressToolbar)) {
         }
 ?>
         </div>
-
+	
 <?php
     }
     
     // get content
-    echo $this->getLayoutContent();
+    echo $this->getLayoutContent().'<div id="middlecontent" class="middlecontent">&nbsp;</div>';
     
     if (!isset($suppressFooter)) {
          // Create the bottom template area
