@@ -66,7 +66,7 @@
 }
 #nav-secondary{
  	background-color: #FFF;
-    border: 2px solid #599DF6;
+    border: 1px solid #599DF6;
     padding: 10px;
 	-moz-border-radius: 10px;
     border-radius: 10px;
@@ -86,8 +86,15 @@
     border: 1px solid  #93B3F9 transparent;
     color: #FFF;
 	padding: 5px;
-	-moz-border-radius-topleft: 8px;
-    border-radius-topleft: 8px;
+	border-radius-topleft: 5px;
+	-moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+	-khtml-border-radius-topleft: 5px;
+
+	border-radius-topright: 5px;
+	-moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+	-khtml-border-radius-topright: 5px;
 }
 
 .featureboxcontent
