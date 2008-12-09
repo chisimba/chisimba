@@ -7,7 +7,7 @@ if (!isset($headerParams)) {
 if (!isset($bodyOnLoad)) {
     $bodyOnLoad = array();
 }
-   
+
 // Get the site breadcrumbs
 $tools = $this->getObject('tools','toolbar');
 $siteBreadcrumbs = $tools->siteNavigation();
@@ -33,8 +33,8 @@ if ($browser->isMSIE() || $browser->isSafari()) {
 }
 
 if (!isset($pageLanguage)) {
-    $languageClass =& $this->getObject('language', 'language');
-    $languageCode =& $this->getObject('languagecode', 'language');
+    $languageClass = $this->getObject('language', 'language');
+    $languageCode = $this->getObject('languagecode', 'language');
     $pageLanguage = $languageCode->getISO($languageClass->currentLanguage());
 }
 
@@ -148,7 +148,7 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 
     if (!isset($suppressFooter)) {
          // Create the bottom template area
-        $this->footerNav = & $this->newObject('layer', 'htmlelements');
+        $this->footerNav =  $this->newObject('layer', 'htmlelements');
         $this->footerNav->id = 'footer';
         $this->footerNav->cssClass='';
         $this->footerNav->position='';
@@ -167,11 +167,6 @@ $pageTitle .= ($siteBreadcrumbs==''?'':' [ '.strip_tags($siteBreadcrumbs).' ] ')
 	   echo '</div>';
     }
     $this->putMessages();
-?>
-<?php
-// Commented out by Jeremy O'Connor 27/8/7
-//global $TIME_START;
-//echo "<!--Page loaded in " . round(getMicrotime() - $TIME_START, 4) . "s-->";
 ?>
 
     </body>
