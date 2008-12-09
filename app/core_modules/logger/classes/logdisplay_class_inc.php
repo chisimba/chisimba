@@ -30,10 +30,15 @@ class logdisplay extends object
             $this->objUser = $this->getObject('user', 'security');
             $this->objLanguage = $this->getObject('language', 'language');
             $this->objCatalogue = $this->getObject('catalogueconfig', 'modulecatalogue');
+            $objModules = $this->getObject('modules', 'modulecatalogue');
             $this->objContext = $this->getObject('dbcontext', 'context');
 	    //Load ContextContent class
-            $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
-            
+            if ($objModules->checkIfRegistered('contextcontent')){
+                $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
+                $this->contextFlag=TRUE;
+            } else {
+                $this->contextFlag=FALSE;
+            }
             $this->objFeatureBox = $this->newObject('featurebox', 'navigation');
             $this->loadClass('htmlheading', 'htmlelements');
             $this->loadClass('htmltable', 'htmlelements');
@@ -221,9 +226,11 @@ class logdisplay extends object
         $objLink->link = $lnModules;
         $str .= '<li>'.$objLink->show().'</li>';
 
-        $objLink = new link($this->uri(array('action' => 'showstatsbycontext')));
-        $objLink->link = $lnCoursePages;
-        $str .= '<li>'.$objLink->show().'</li>';
+        if ($this->contextFlag){
+            $objLink = new link($this->uri(array('action' => 'showstatsbycontext')));
+            $objLink->link = $lnCoursePages;
+            $str .= '<li>'.$objLink->show().'</li>';
+        }
 	$hasAccess = $this->objEngine->_objUser->isLecturer();
 	if($hasAccess){
 		$userId=$this->objUser->userId();
@@ -377,8 +384,12 @@ class logdisplay extends object
 				$nameId = $strId[0];//id
 				$pageId= $strId[1];//gen5Srv7Nme24_5450_1216228562
 			}
-			//Get page title
-			$thisPageTitle = $this->objContentOrder->getPage($pageId, $thisContext);
+                        if ($this->contextFlag){
+                            //Get page title
+			 $thisPageTitle = $this->objContentOrder->getPage($pageId, $thisContext);
+                        } else {
+                            $thisPageTitle['menutitle']=array();
+                        }
 
 			$pageTitle = $thisPageTitle['menutitle'];
 			if(!empty($pageTitle)){
