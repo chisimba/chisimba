@@ -197,13 +197,13 @@ h1, h2, h3, h4, h5, h6 {
 #menu {
     margin-left: 0;
 
+
 }
 
 #menu>ul>li {
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 90px;
-    margin-right: 30px;
+    padding-left: 5px;    
+    
+    border: 1px solid WHITE;
 	-moz-border-radius: 8px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -215,7 +215,8 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #599DF6;
     border: 1px solid #599DF6;
     color: #FFF;
-	
+	padding-left: 5px;
+    
 	-moz-border-radius: 8px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -235,11 +236,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #menu li ul {
     border: 1px solid #599DF6;
-   /* padding: 3px;*/
+    padding: 1px;
 	color: #FFF;
-	/*padding-left:5px;
-	padding-right: 5px;*/
-    margin-left: -6px;
+	
 	-moz-border-radius: 8px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
