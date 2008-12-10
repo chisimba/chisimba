@@ -10,12 +10,12 @@
 
 #container {
     background-color: #fff;
-    
+   
 	-moz-border-radius: 30px;
     border-radius: 30px;
 	-webkit-border-radius: 30px;
 	-khtml-border-radius: 30px;
- 	margin: 5px;
+ 	margin: 25px;
     padding: 10px;
 	border: 2px solid #599DF6;
 }
@@ -32,7 +32,7 @@
 
 #search {
     margin: 0;
-	margin: 10px;
+	margin: 30px;
     padding: 10px;
 }
 
@@ -69,6 +69,7 @@
     border-radius: 10px;
 }
 #nav-secondary{
+    margin: 5px;
  	background-color: #FFF;
     border: 1px solid #599DF6;
     padding: 10px;
@@ -130,7 +131,7 @@ a {
     text-decoration: none;
 }
 a:hover, #footer a:hover {
-    color: #C00;
+    color: #0C386E;
 }
 
 
@@ -214,7 +215,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #599DF6;
     border: 1px solid #599DF6;
     color: #FFF;
-	
 	
 	-moz-border-radius: 8px;
     border-radius: 8px;
