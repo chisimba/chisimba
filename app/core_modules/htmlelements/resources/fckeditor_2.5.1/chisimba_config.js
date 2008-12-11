@@ -19,9 +19,7 @@ FCKConfig.ToolbarSets["advanced"] = [
 	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
 	['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
 	'/',
-    	['FontFormat','FontName','FontSize']
-	
-
+    ['FontFormat','FontName','FontSize']
 ] ;
 
 FCKConfig.ToolbarSets["cms"] = [
@@ -40,21 +38,23 @@ FCKConfig.ToolbarSets["cms"] = [
 
 ] ;
 
-FCKConfig.ToolbarSets["mcqtest"] = [
-    ['Source','-','Save','Preview', 'Templates'],
-    ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
-    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-    ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-    ['OrderedList','UnorderedList','-','Outdent','Indent'],
-    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+FCKConfig.ToolbarSets["forms"] = [
+	['Source','-','Save','Preview', 'Templates'],
+	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
+	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Form','Checkbox','Radio','TextField','Textarea','Select','Button','ImageButton','HiddenField'],
+	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
+	['OrderedList','UnorderedList','-','Outdent','Indent'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
     '/',
-    ['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
-    ['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
-    '/',
-        ['FontFormat','FontName','FontSize']
-    
+	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['TextColor','BGColor'],['Link','Unlink','Anchor','FitWindow'],
+	'/',
+    	['FontFormat','FontName','FontSize']
+	
 
 ] ;
+
 
 
 FCKConfig.ToolbarSets["Default"] = FCKConfig.ToolbarSets["advanced"];
