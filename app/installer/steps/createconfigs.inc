@@ -325,7 +325,6 @@ class CreateConfigsAction extends FiveStepAction
 
 
         $this->_addConfigVar ( 'KEWL_DEFAULT_SKIN', $_SESSION ['defaultskin'] );
-
         $this->_addConfigVar ( 'KEWL_DEFAULT_LANGUAGE', 'english' );
 
         $this->_addConfigVar ( 'KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN' );

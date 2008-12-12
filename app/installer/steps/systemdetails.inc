@@ -213,7 +213,7 @@ class RootUserAction extends StepAction
 
         }
 
-        if ($_SESSION ['defaultskin'] == 'echo') {
+        if ($_SESSION ['defaultskin'] == '') {
 
             $this->errors [] = 'You must select a default skin.';
 
@@ -1228,18 +1228,17 @@ class RootUserAction extends StepAction
         asort ( $dirskinList );
 
         closedir ( $dh );
-
         foreach ( $dirskinList as $key => $value ) {
-
             if ($key == $defaultskin) {
-
                 $defaultskin = $value;
                 $_SESSION ['defaultskin'] = $defaultskin;
-
+            }
+            else {
+                $_SESSION['defaultskin'] = strtolower($value);
+                break;
             }
 
         }
-
         $main_server = isset ( $_SESSION ['main_server'] ) ? $_SESSION ['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
         $contentPath = isset ( $_SESSION ['contentPath'] ) ? $_SESSION ['contentPath'] : '';
@@ -1307,7 +1306,7 @@ class RootUserAction extends StepAction
 
         $tpl->set ( 'module_path', $module_path );
 
-        $tpl->set ( 'defaultskin', $defaultskin );
+        $tpl->set ( 'defaultskin', $_SESSION['defaultskin'] );
 
         $tpl->set ( 'postLogin', $defaultpostlogin );
 
