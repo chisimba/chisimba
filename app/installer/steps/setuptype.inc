@@ -1,106 +1,85 @@
 <?php
 
+require_once INSTALL_DIR . '/step.inc';
 
+require_once INSTALL_DIR . '/5ivestepaction.inc';
 
-
-
-
-
-require_once INSTALL_DIR.'/step.inc';
-
-
-
-require_once INSTALL_DIR.'/5ivestepaction.inc';
-
-require_once INSTALL_DIR.'/html_form/html_form.inc';
-require_once INSTALL_DIR.'/dbhandlers/dbhandler.inc';
-
+require_once INSTALL_DIR . '/html_form/html_form.inc';
+require_once INSTALL_DIR . '/dbhandlers/dbhandler.inc';
 
 /**
 
-* SetupType
+ * SetupType
 
-*
+ *
 
-* This step determines what type of install is being performed, and
+ * This step determines what type of install is being performed, and
 
-* sets some variables that can be used for later install steps.
+ * sets some variables that can be used for later install steps.
 
-*
+ *
 
-* @author prince mbekwa
+ * @author prince mbekwa
 
-* @version $version$ - 1.0
+ * @version $version$ - 1.0
 
-* @package 5ive
+ * @package 5ive
 
-* @subpackage installer
+ * @subpackage installer
 
-*/
+ */
 
 class SetupType extends Step
 
 {
 
+    /**
+
+     * Set up this step's actions
+
+     *
+
+     * @return void
+
+     * @access public
+
+     */
+
+    function SetupType()
+
+    {
+
+        $this->actions [] = new SetupTypeAction ( get_class ( $this ) );
+
+        $this->step_title = 'Setup Type';
+
+        $this->title_logo = 'setup_type.gif';
+
+        $this->help_topic = 'setup_type';
+
+        $this->step_help = "Select the type of installation you want to do";
+
+    } //end SetupType()
 
 
-
-
-	/**
-
-	* Set up this step's actions
-
-	*
-
-	* @return void
-
-	* @access public
-
-	*/
-
-	function SetupType()
-
-	{
-
-		$this->actions[] = new SetupTypeAction(get_class($this));
-
-		$this->step_title = 'Setup Type';
-
-		$this->title_logo = 'setup_type.gif';
-
-		$this->help_topic = 'setup_type';
-
-		$this->step_help = "Select the type of installation you want to do";
-
-
-
-	}//end SetupType()
-
-
-
-
-
-}//end class
-
-
-
+} //end class
 
 
 /**
 
-* SetupTypeAction
+ * SetupTypeAction
 
-*
+ *
 
-* Asks the user what sort of install they want to perform. Will set some values
+ * Asks the user what sort of install they want to perform. Will set some values
 
-* to be used later in the install (ie checking if there's database tables already
+ * to be used later in the install (ie checking if there's database tables already
 
-* defined for an upgrade etc). There are currently 3 types of install;
+ * defined for an upgrade etc). There are currently 3 types of install;
 
-*
+ *
 
-*	- Install 		:- 	Installs a fresh checkout of 5ive. Assumes that there's been
+ *	- Install 		:- 	Installs a fresh checkout of 5ive. Assumes that there's been
 
 						no previous installation of the given system root.
 
@@ -112,402 +91,356 @@ class SetupType extends Step
 
 						'repair' install type becomes an 'upgrade' install type.
 
-*
+ *
 
-* @author prince mbekwa
+ * @author prince mbekwa
 
-* @version $version$ - 1.0
+ * @version $version$ - 1.0
 
-* @package 5ive
+ * @package 5ive
 
-* @subpackage installer
+ * @subpackage installer
 
-*/
+ */
 
 class SetupTypeAction extends FiveStepAction
 
 {
 
+    /**
 
+     * Check what install type was selected.
 
+     *
 
+     * @return boolean Whether all the database tables were created or not.
 
-	/**
+     * @access public
 
-	* Check what install type was selected.
+     */
 
-	*
+    function processAction()
 
-	* @return boolean Whether all the database tables were created or not.
+    {
 
-	* @access public
+        if (isset ( $_POST ['type'] )) {
 
-	*/
+            $_SESSION ['install_type'] = $_POST ['type'];
 
-	function processAction()
+            switch ($_POST ['type']) {
 
-	{
+                case 'install' :
+                    $this->success = $this->_installSystem ();
+                    break;
 
-		if (isset($_POST['type'])) {
+                case 'update' :
+                    $this->success = $this->_updateSystem ();
+                    break;
 
-			$_SESSION['install_type'] = $_POST['type'];
+                case 'repair' :
+                    $this->success = $this->_repairSystem ();
+                    break;
 
+                default :
+                    $this->success = false;
+                    break;
 
+            }
 
-			switch ($_POST['type']) {
+        } else {
 
-				case 'install': $this->success = $this->_installSystem(); break;
+            $this->errors [] = 'You must select an install type';
 
-				case 'update': $this->success = $this->_updateSystem(); break;
+            $this->success = false;
 
-				case 'repair': $this->success = $this->_repairSystem(); break;
+        }
 
-				default : $this->success = false; break;
+        return $this->success;
 
-			}
+    } //end processAction()
 
-		} else {
 
-			$this->errors[] = 'You must select an install type';
+    /**
 
-			$this->success = false;
+     * Make sure the system is in a state ready for a clean install (ie no files exist yet)
 
-		}
+     *
 
+     * If installing, the following file must NOT exist
 
+     *	- SYSTEM_ROOT/modules/config/config.xml
 
-		return $this->success;
+     * @return void
 
+     * @access private
 
+     */
 
-	}//end processAction()
+    function _installSystem()
 
+    {
 
+        $success = true;
 
+        // check existence of files. If the main.inc file exists, then this isn't a new install
 
 
-	/**
+        if (file_exists ( $_SESSION ['sys_root'] . '/modules/config/config.xml' )) {
 
-	* Make sure the system is in a state ready for a clean install (ie no files exist yet)
+            $this->errors [] = 'It appears the selected system root (' . $_SESSION ['sys_root'] . ') is an already existing Chisimba installation. ' .
 
-	*
+            'Please go back and select the upgrade or modify options for this installation.';
 
-	* If installing, the following file must NOT exist
+            $success = false;
 
-	*	- SYSTEM_ROOT/modules/config/config.xml
+        }
 
-	* @return void
+        return $success;
 
-	* @access private
+    } //end _installSystem()
 
-	*/
 
-	function _installSystem()
+    /**
 
-	{
+     * Make sure the current system is in an okay state to upgrade. Check that the main.xml
 
-		$success = true;
+     * file is in the sysroot, that a db connection can be made using the DSN values,
 
-		// check existence of files. If the main.inc file exists, then this isn't a new install
+     * that database tables exist already.
 
-		if (file_exists($_SESSION['sys_root'].'/modules/config/config.xml')) {
+     *
 
-			$this->errors[] = 'It appears the selected system root ('.$_SESSION['sys_root'].') is an already existing Chisimba installation. '.
+     * @return void
 
-								'Please go back and select the upgrade or modify options for this installation.';
+     * @access private
 
-			$success =  false;
+     */
 
-		}
+    function _updateSystem()
 
+    {
 
+        $success = true;
 
-		return $success;
+        $main_inc = $_SESSION ['sys_root'] . '/config/config.xml';
+        $dbinc = $_SESSION ['sys_root'] . '/config/dbdetails_inc.php';
 
+        // check existence of files. If the main.inc file exists, then this isn't a new install
 
 
-	}//end _installSystem()
+        if (! file_exists ( $main_inc ) || ! file_exists ( $dbinc )) {
 
+            $this->errors [] = 'The selected system root (' . $_SESSION ['sys_root'] . ') is missing one or more of ' . 'its configuration files. Please do a fresh install before proceeding, ' . 'or select Modify to attempt to reset an existing installation.';
 
+            $success = false;
 
+        } else {
 
+            //(defined(SQ_CONF_DB_DSN) && defined(SQ_CONF_DB_DSN2))
 
-	/**
 
-	* Make sure the current system is in an okay state to upgrade. Check that the main.xml
+            // include the main.inc to get all the defines.
 
-	* file is in the sysroot, that a db connection can be made using the DSN values,
 
-	* that database tables exist already.
+            require_once ($dbinc);
 
-	*
+            if (defined ( 'KEWL_DB_DSN' ) && defined ( 'KEWL_DB2_DSN' )) {
+                $_SESSION ['KEWL_DB_DSN'] = KEWL_DB_DSN;
+                $_SESSION ['KEWL_DB2_DSN'] = KEWL_DB2_DSN;
 
-	* @return void
+                $data = simplexml_load_file ( $main_inc );
+                if ($data == FALSE) {
+                    $this->errors [] = "Fatal Error! Something is wrong with the XML file that stores the information about the site.. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
+                    return FALSE;
+                }
 
-	* @access private
+                // test the two dsns
 
-	*/
 
-	function _updateSystem()
+                if (! $this->_testDSN ( KEWL_DB_DSN )) {
 
-	{
+                    $success = false;
 
-		$success = true;
+                }
 
-		$main_inc = $_SESSION['sys_root'].'/config/config.xml';
-                $dbinc=$_SESSION['sys_root'].'/config/dbdetails_inc.php';
+                if (! $this->_testDSN ( KEWL_DB2_DSN )) {
 
-		// check existence of files. If the main.inc file exists, then this isn't a new install
+                    $success = false;
 
-		if (!file_exists($main_inc) || !file_exists($dbinc)) {
+                }
 
-			$this->errors[] = 'The selected system root ('.$_SESSION['sys_root'].') is missing one or more of '
-                        .'its configuration files. Please do a fresh install before proceeding, '.
-                        'or select Modify to attempt to reset an existing installation.';
+                $handler = new DbHandler ( );
+                print KEWL_DB_DSN;
+                $conn = &$handler->getDbHandler ( $_SESSION ['KEWL_DB_DSN'] );
 
-			$success =  false;
+                // check whether database tables exist. Just select stuff from sq_asset which should have
 
-		} else {
 
-			//(defined(SQ_CONF_DB_DSN) && defined(SQ_CONF_DB_DSN2))
+                // a few results.
 
-			// include the main.inc to get all the defines.
 
-			require_once($dbinc);
+                //$sql = 'SELECT count(*) FROM sq_ast WHERE created_userid = 0';
 
-			if (defined('KEWL_DB_DSN') && defined('KEWL_DB2_DSN')) {
-                            $_SESSION['KEWL_DB_DSN']=KEWL_DB_DSN;
-                            $_SESSION['KEWL_DB2_DSN']=KEWL_DB2_DSN;
 
+                //$result = $conn->query($sql);
+                $result = $conn->listDbTables ();
 
-                            $data=simplexml_load_file($main_inc);
-                            if ($data==FALSE){ 
-                                $this->errors[]= "Fatal Error! Something is wrong with the XML file that stores the information about the site.. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
-                                return FALSE;
-                            }
-                                                
+                //if (DB::isError($result)) {
+                if (! is_array ( $result )) {
 
-				// test the two dsns
+                    //$this->errors[] = $result->getMessage();
+                    $this->errors [] = $result->getMessage ();
 
-				if (!$this->_testDSN(KEWL_DB_DSN)) {
+                    $success = false;
 
-					$success = false;
+                } else {
 
-				}
+                    //$row = $result->fetchRow();
 
-				if (!$this->_testDSN(KEWL_DB2_DSN)) {
 
-					$success = false;
+                    // ie there weren't any assets that were created by the system user
 
-				}
 
-				
-                                $handler = new DbHandler();
-                                print KEWL_DB_DSN;
-                                $conn = &$handler->getDbHandler($_SESSION['KEWL_DB_DSN']); 
+                    //if (!($row[0] > 0)) {
+                    if (count ( $result ) < 40) {
 
-				// check whether database tables exist. Just select stuff from sq_asset which should have
+                        //$this->errors[] = 'Could not find any assets. Please try running the Repair option.';
+                        $this->errors [] = 'Some tables are missing. Please try running the Repair Option.';
 
-				// a few results.
+                        $success = false;
 
-				//$sql = 'SELECT count(*) FROM sq_ast WHERE created_userid = 0';
+                    }
 
-				//$result = $conn->query($sql);
-                                $result=$conn->listDbTables();
+                }
 
-				//if (DB::isError($result)) {
-				if (!is_array($result)) {
+            } else {
 
-					//$this->errors[] = $result->getMessage();
-					$this->errors[] = $result->getMessage();
+                $this->errors [] = 'Could not find the DSN names required to upgrade. Please run Repair.';
 
-					$success = false;
+                $success = false;
 
-				} else {
+            }
 
-					//$row = $result->fetchRow();
+        }
 
-					// ie there weren't any assets that were created by the system user
+        if ($success) {
 
-					//if (!($row[0] > 0)) {
-					if (count($result)<40) {
+            $this->next_step = 'createconfigs';
 
-						//$this->errors[] = 'Could not find any assets. Please try running the Repair option.';
-						$this->errors[] = 'Some tables are missing. Please try running the Repair Option.';
+        }
 
-						$success = false;
+        return $success;
 
-					}
+    } //end _upgradeSystem()
 
-				}
 
+    /**
 
+     * Nuke some stuff so that the system can be repaired
 
-			} else {
+     *
 
-				$this->errors[] = 'Could not find the DSN names required to upgrade. Please run Repair.';
+     * @return boolean Whether the system is able to be repaired
 
-				$success = false;
+     * @access private
 
-			}
+     */
 
-		}
+    function _repairSystem()
 
+    {
 
+        $success = true;
 
-		if ($success) {
+        $main_inc = $_SESSION ['sys_root'] . '/config/config.xml';
 
-			$this->next_step = 'createconfigs';
+        // check existence of files. If the main.inc file exists, then this isn't a new install
 
-		}
 
+        if (! file_exists ( $main_inc )) {
 
+            $this->errors [] = 'The selected system root (' . $_SESSION ['sys_root'] . ') does not have a ' .
 
-		return $success;
+            'main configuration file. Please do a fresh install before proceeding';
 
+            $success = false;
 
+        }
 
-	}//end _upgradeSystem()
+        return $success;
 
+    } //end _repairSystem()
 
 
+    /**
 
+     * Ask what install type to use
 
-	/**
+     *
 
-	* Nuke some stuff so that the system can be repaired
+     * @return void
 
-	*
+     * @access public
 
-	* @return boolean Whether the system is able to be repaired
+     */
 
-	* @access private
+    function paintAction()
 
-	*/
+    {
 
-	function _repairSystem()
+        $tpl = new Template ( INSTALL_DIR . '/templates/setuptype.tpl' );
 
-	{
+        if (! isset ( $inst_type )) {
+            $inst_type = NULL;
+        }
+        $inst_type = isset ( $_SESSION ['install_type'] ) ? $_SESSION ['install_type'] : $inst_type;
 
-		$success = true;
+        if (file_exists ( $_SESSION ['sys_root'] . '/config/config.xml' )) {
 
-		$main_inc = $_SESSION['sys_root'].'/config/config.xml';
+            $hasConfigXML = TRUE;
 
-		// check existence of files. If the main.inc file exists, then this isn't a new install
+            $disable = '';
 
-		if (!file_exists($main_inc)) {
+        } else {
 
-			$this->errors[] = 'The selected system root ('.$_SESSION['sys_root'].') does not have a '.
+            $hasConfigXML = FALSE;
 
-								'main configuration file. Please do a fresh install before proceeding';
+            $disable = ' DISABLED ';
 
-			$success =  false;
+        }
 
-		}
+        ob_start ();
 
+        radio_button ( 'type', 'install', 'TRUE', null, '' );
 
+        $install = ob_get_contents ();
 
-		return $success;
+        ob_clean ();
 
+        radio_button ( 'type', 'update', NULL, '', $disable );
 
+        $update = ob_get_contents ();
 
-	}//end _repairSystem()
+        ob_clean ();
 
+        radio_button ( 'type', 'repair', NULL, '', $disable );
 
+        $repair = ob_get_contents ();
 
+        ob_end_clean ();
 
+        $tpl->set ( 'install', $install );
 
-	/**
+        $tpl->set ( 'update', $update );
 
-	* Ask what install type to use
+        $tpl->set ( 'repair', $repair );
 
-	*
+        echo $tpl->fetch ();
 
-	* @return void
+    } //end paintAction()
 
-	* @access public
 
-	*/
+} //end class
 
-	function paintAction()
-
-	{
-
-		$tpl = new Template(INSTALL_DIR.'/templates/setuptype.tpl');
-
-		if(!isset($inst_type))
-		{
-			$inst_type = NULL;
-		}
-		$inst_type = isset($_SESSION['install_type']) ? $_SESSION['install_type'] : $inst_type;
-
-		if(file_exists($_SESSION['sys_root'].'/config/config.xml'))
-		{
-
-		    $hasConfigXML = TRUE;
-
-		    $disable = '';
-
-		} else {
-
-		    $hasConfigXML = FALSE;
-
-		    $disable = ' DISABLED ';
-
-		}
-
-
-
-		ob_start();
-
-
-
-			radio_button('type', 'install', 'TRUE', null, '');
-
-			$install = ob_get_contents();
-
-			ob_clean();
-
-
-
-			radio_button('type', 'update', 	NULL, '', $disable);
-
-			$update = ob_get_contents();
-
-			ob_clean();
-
-
-
-			radio_button('type', 'repair', NULL , '', $disable);
-
-			$repair = ob_get_contents();
-
-
-
-		ob_end_clean();
-
-
-
-		$tpl->set('install', $install);
-
-
-
-		$tpl->set('update', $update);
-
-		$tpl->set('repair', $repair);
-
-
-
-		echo $tpl->fetch();
-
-
-
-	}//end paintAction()
-
-
-
-
-
-}//end class
 
 ?>

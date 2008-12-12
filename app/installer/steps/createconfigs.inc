@@ -1,232 +1,210 @@
 <?php
-require_once INSTALL_DIR.'/step.inc';
+require_once INSTALL_DIR . '/step.inc';
 
-require_once INSTALL_DIR.'/5ivestepaction.inc';
+require_once INSTALL_DIR . '/5ivestepaction.inc';
 
-require_once INSTALL_DIR.'/html_form/html_form.inc';
+require_once INSTALL_DIR . '/html_form/html_form.inc';
 
 require_once 'Config.php';
 
 /**
 
-* SystemSetup
+ * SystemSetup
 
-*
+ *
 
-* Initialises 5ive to be installed.
+ * Initialises 5ive to be installed.
 
-*
+ *
 
-* @author prince mbekwa
+ * @author prince mbekwa
 
-* @version $version$ - 1.0
+ * @version $version$ - 1.0
 
-* @package 5ive
+ * @package 5ive
 
-* @subpackage installer
+ * @subpackage installer
 
-*/
+ */
 
 class CreateConfigs extends Step
 
 {
 
-	/**
+    /**
 
-	* Set up this step's actions
+     * Set up this step's actions
 
-	*
+     *
 
-	* @return void
+     * @return void
 
-	* @access public
+     * @access public
 
-	*/
+     */
 
-	function CreateConfigs()
+    function CreateConfigs()
 
-	{
+    {
 
+        $this->actions [] = new CreateConfigsAction ( get_class ( $this ) );
 
+        $this->step_title = 'Create System Configuration ';
 
-		$this->actions[] = new CreateConfigsAction(get_class($this));
+        $this->conf_required = true;
 
-		$this->step_title = 'Create System Configuration ';
+        $this->title_logo = 'create_system_config.gif';
 
-		$this->conf_required = true;
+        $this->help_topic = 'toc10';
 
-		$this->title_logo = 'create_system_config.gif';
+        $this->can_cancel = false;
 
-		$this->help_topic = 'toc10';
+        $this->step_help = "Please allow Chisimba to create database and the configuration files";
 
-		$this->can_cancel = false;
-
-
-		$this->step_help = "Please allow Chisimba to create database and the configuration files";
-
-
-	}//end CreateConfigs()
+    } //end CreateConfigs()
 
 
-
-
-
-}//end class
-
-
-
+} //end class
 
 
 /**
 
-* SystemSetupAction
+ * SystemSetupAction
 
-*
+ *
 
-* Creates the main.inc defines file
+ * Creates the main.inc defines file
 
-*
+ *
 
-*/
+ */
 
 class CreateConfigsAction extends FiveStepAction
 
 {
 
+    protected $_root;
 
+    /**
 
-	protected  $_root;
+     * The output of the step01.php script
 
-	/**
+     * @var string
 
-	* The output of the step01.php script
+     */
 
-	* @var string
+    protected $init_output = '';
 
-	*/
+    /**
 
-	protected $init_output = '';
+     * The config variables to change
 
+     * @var array vars('define_name' => 'value');
 
+     */
 
-	/**
+    var $config_vars = Array ();
 
-	* The config variables to change
+    /**
 
-	* @var array vars('define_name' => 'value');
+     * Initialise the 5ive system.
 
-	*/
+     *
 
-	var $config_vars = Array();
+     * @return boolean Whether all the database tables were created or not.
 
+     * @access public
 
+     */
 
-	/**
+    function processAction()
 
-	* Initialise the 5ive system.
+    {
 
-	*
+        // if ignoring errors (ie the script has run, just want to proceed because the errors found
 
-	* @return boolean Whether all the database tables were created or not.
 
-	* @access public
+        // are ignoreable), the checkbox will have been clicked
 
-	*/
 
-	function processAction()
+        if (isset ( $_POST ['ignore_errors'] )) {
 
-	{
+            return true;
 
+        }
 
+        // make sure that SQ_SYSTEM_ROOT is defined before trying to execute the script.
 
-		// if ignoring errors (ie the script has run, just want to proceed because the errors found
 
-		// are ignoreable), the checkbox will have been clicked
+        if (isset ( $_SESSION ['sys_root'] )) {
 
-		if (isset($_POST['ignore_errors'])) {
+            $this->_addConfigVar ( 'KEWL_SITEROOT_PATH', $_SESSION ['sys_root'] );
 
-			return true;
+        } else {
 
-		}
+            $this->errors [] = 'The system root could not be found.';
 
+            $this->success = false;
 
+            return false;
 
-		// make sure that SQ_SYSTEM_ROOT is defined before trying to execute the script.
+        }
 
-		if (isset($_SESSION['sys_root'])) {
+        // make sure there is a DSN available for both the primary and secondary connections.
 
-			$this->_addConfigVar('KEWL_SITEROOT_PATH', $_SESSION['sys_root']);
 
-		} else {
+        if (! $this->_setDSN ()) {
 
-			$this->errors[] = 'The system root could not be found.';
+            $this->success = false;
 
-			$this->success = false;
+            return false;
 
-			return false;
+        }
 
-		}
+        // set the SQ_CONF_SYSTEM_ROOT_URLS define to $_SESSION['site_url']
 
 
+        $root_url = isset ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : false;
 
-		// make sure there is a DSN available for both the primary and secondary connections.
+        if ($root_url === false) {
 
-		if (!$this->_setDSN()) {
+            $this->success = false;
 
-			$this->success = false;
+            return false;
 
-			return false;
+        }
+        $root_url = (isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : '') . '/' . $root_url;
 
-		}
+        // if there is already a root url defined, check if it's already defined in the list of
 
 
+        // root urls.
 
-		// set the SQ_CONF_SYSTEM_ROOT_URLS define to $_SESSION['site_url']
 
-		$root_url = isset($_SESSION['site_url']) ? $_SESSION['site_url'] : false;
+        if (defined ( 'KEWL_SITE_ROOT' )) {
 
-		if ($root_url === false) {
+            if (strpos ( KEWL_SITE_ROOT, $root_url ) === false) {
 
-			$this->success = false;
+                $root_url = KEWL_SITE_ROOT . "\n$root_url";
 
-			return false;
+            } else {
 
-		}
-                $root_url=(isset($_SESSION['site_server_url']) ? $_SESSION['site_server_url']:'') .'/'.$root_url;
+                $root_url = KEWL_SITE_ROOT;
+                $root_url = $_SELF . '../index.php';
 
+            }
 
+        }
 
-		// if there is already a root url defined, check if it's already defined in the list of
+        $_SESSION ['end_url'] = $root_url;
 
-		// root urls.
+        // Filter out unwanted double or triple slashes
+        $finalurl = str_replace ( '///', '//', 'http://' . str_replace ( '//', '/', $root_url . '/' ) );
 
-		if (defined('KEWL_SITE_ROOT')) {
-
-			if (strpos(KEWL_SITE_ROOT, $root_url) === false) {
-
-				$root_url = KEWL_SITE_ROOT."\n$root_url";
-
-			} else {
-
-				$root_url = KEWL_SITE_ROOT;
-				$root_url = $_SELF . '../index.php';
-
-			}
-
-
-		}
-
-
-
-		$_SESSION['end_url'] = $root_url;
-
-                // Filter out unwanted double or triple slashes
-                $finalurl=str_replace('///','//','http://'.str_replace('//','/',$root_url.'/') );
-
-                /*
-                // Last minute sanity-check 
+        /*
+                // Last minute sanity-check
                 // If it says "localhost" it becomes a relative URL
-                // Same if there's no server-name 
+                // Same if there's no server-name
                 $urlarray=parse_url($finalurl);
                 if (substr_count($urlarray['host'],'.')==0){
                     $finalurl=str_replace('http://localhost','',$finalurl);
@@ -234,567 +212,518 @@ class CreateConfigsAction extends FiveStepAction
                 }
                 */
 
-		//$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
-		$this->_addConfigVar('KEWL_SITE_ROOT', $finalurl);
+        //$this->_addConfigVar('KEWL_SITE_ROOT', 'http://'. $root_url . '/');
+        $this->_addConfigVar ( 'KEWL_SITE_ROOT', $finalurl );
 
+        // was the database (re) created?
 
 
-		// was the database (re) created?
+        $database_created = isset ( $_SESSION ['create_db'] ) && $_SESSION ['create_db'];
 
-		$database_created = isset($_SESSION['create_db']) && $_SESSION['create_db'];
+        // if this is a Repair, and the database was recreated in the dbnameaction step,
 
 
+        // need to delete all the /data stuff and recreate the system's pre-install
 
-		// if this is a Repair, and the database was recreated in the dbnameaction step,
 
-		// need to delete all the /data stuff and recreate the system's pre-install
+        // state.
 
-		// state.
 
-		if (isset($_SESSION['install_type']) && ($_SESSION['install_type'] == 'repair') && $database_created) {
+        if (isset ( $_SESSION ['install_type'] ) && ($_SESSION ['install_type'] == 'repair') && $database_created) {
 
-			if (!$this->_restoreDirectories()) {
+            if (! $this->_restoreDirectories ()) {
 
-				$this->success = false;
+                $this->success = false;
 
-				return false;
+                return false;
 
-			}
+            }
 
-		}
+        }
 
+        // Create the configs
 
 
-		// Create the configs
+        $this->_createConfig ( $database_created );
 
-		$this->_createConfig($database_created);
+        // Check to see if the configs actually were created.
 
 
+        if (! $this->isRequired () == true) {
 
-		// Check to see if the configs actually were created.
+            $this->errors [] = 'Config files were NOT successfully created. The following output was given ' .
 
-		if (!$this->isRequired()==true) {
+            'by the config writing script';
 
-			$this->errors[] = 'Config files were NOT successfully created. The following output was given '.
+            $this->errors [] = $this->init_output;
 
-								'by the config writing script';
+        }
 
-			$this->errors[] = $this->init_output;
+        // if it was in repair mode, can now change to being in update mode because all the system settings
 
-		}
 
+        // have been updated.
 
 
-		// if it was in repair mode, can now change to being in update mode because all the system settings
+        if (strcmp ( $_SESSION ['install_type'], 'repair' ) == 0) {
 
-		// have been updated.
+            $_SESSION ['install_type'] = 'update';
 
-		if (strcmp($_SESSION['install_type'], 'repair') == 0) {
+        }
 
-			$_SESSION['install_type'] = 'update';
+        return true;
 
-		}
+    } //end processAction()
 
 
+    /**
 
-		return true;
+     * Create the config
 
+     *
 
+     * @param boolean $empty_database Whether the database is empty or not.
 
-	}//end processAction()
+     * @return void
 
+     * @access private
 
+     */
 
+    function _createConfig($empty_database = true)
 
+    {
 
-	/**
+        $ref = getenv ( 'HTTP_REFERER' );
+        if (preg_match ( "/\/installer/i", $ref )) {
 
-	* Create the config
+            $ksr = str_replace ( '/installer', "/", $ref );
+            $ksr = str_replace ( '/index.php', '', $ksr );
+            $ksr = str_replace ( 'app//', 'app/', $ksr );
+            // remove localhost
+        //$ksr = str_replace('http://localhost','',$ksr);
+        }
+        ob_start ();
 
-	*
+        $SQ_INCLUDE_PATH = defined ( 'SQ_INCLUDE_PATH' ) ? SQ_INCLUDE_PATH : $_SESSION ['sys_root'] . '/core/include';
 
-	* @param boolean $empty_database Whether the database is empty or not.
+        ini_set ( 'memory_limit', - 1 );
 
-	* @return void
+        error_reporting ( E_ALL & ~ E_NOTICE );
 
-	* @access private
+        define ( 'KEWL_SYSTEM_ROOT', dirname ( dirname ( realpath ( __FILE__ ) ) ) . '/' );
 
-	*/
+        $this->_addConfigVar ( 'KEWL_INSTITUTION_SHORTNAME', $_SESSION ['sys_owner'] );
 
-	function _createConfig($empty_database=true)
+        $this->_addConfigVar ( 'KEWL_INSTITUTION_NAME', $_SESSION ['sys_owner'] );
 
-	{
+        $this->_addConfigVar ( 'KEWL_PROXY', $_SESSION ['proxy'] );
 
-		$ref = getenv('HTTP_REFERER');
-		if (preg_match("/\/installer/i", $ref)) {
+        $this->_addConfigVar ( 'KEWL_SYSTEMTIMEOUT', 60 );
 
-			$ksr = str_replace('/installer',"/",$ref);
-			$ksr = str_replace('/index.php','',$ksr);
-			$ksr = str_replace('app//','app/',$ksr);
-                        // remove localhost
-			//$ksr = str_replace('http://localhost','',$ksr);
-		}
-		ob_start();
+        //$this->_addConfigVar('KEWL_DEFAULTICONFOLDER', '/icons/');
 
-			$SQ_INCLUDE_PATH = defined('SQ_INCLUDE_PATH') ? SQ_INCLUDE_PATH : $_SESSION['sys_root'].'/core/include';
 
-			ini_set('memory_limit', -1);
+        $this->_addConfigVar ( 'KEWL_DEFAULT_SKIN', $_SESSION ['defaultskin'] );
 
-			error_reporting(E_ALL & ~E_NOTICE);
+        $this->_addConfigVar ( 'KEWL_DEFAULT_LANGUAGE', 'english' );
 
-			define('KEWL_SYSTEM_ROOT',   dirname(dirname(realpath(__FILE__))).'/');
+        $this->_addConfigVar ( 'KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN' );
 
-			$this->_addConfigVar('KEWL_INSTITUTION_SHORTNAME',  $_SESSION['sys_owner']);
+        //$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
 
-			$this->_addConfigVar('KEWL_INSTITUTION_NAME',      $_SESSION['sys_owner']);
 
-			$this->_addConfigVar('KEWL_PROXY',     $_SESSION['proxy']);
+        $this->_addConfigVar ( 'KEWL_POSTLOGIN_MODULE', $_SESSION ['postLogin'] );
+        // Added by jsc
+        $this->_addConfigVar ( 'KEWL_SYSTEM_TYPE', $_SESSION ['SysType'] );
 
-			$this->_addConfigVar('KEWL_SYSTEMTIMEOUT', 60);
+        $this->_addConfigVar ( 'KEWL_MODULE_PATH', $_SESSION ['module_path'] );
 
-			//$this->_addConfigVar('KEWL_DEFAULTICONFOLDER', '/icons/');
+        $this->_addConfigVar ( 'MODULE_URI', $_SESSION ['module_URI'] );
 
-			$this->_addConfigVar('KEWL_DEFAULT_SKIN', $_SESSION['defaultskin']);
+        $this->_addConfigVar ( 'KEWL_PRELOGIN_MODULE', 'prelogin' );
 
-			$this->_addConfigVar('KEWL_DEFAULT_LANGUAGE', 'english');
+        //$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
 
-			$this->_addConfigVar('KEWL_DEFAULT_LANGUAGE_ABBREV', 'EN');
 
-			//$this->_addConfigVar('KEWL_BANNER_EXT', 'jpg');
+        //$this->_addConfigVar('KEWL_LOGIN_TEMPLATE', 'login_tpl.php');
 
-			$this->_addConfigVar('KEWL_POSTLOGIN_MODULE',  $_SESSION['postLogin']);
-                        // Added by jsc
-			$this->_addConfigVar('KEWL_SYSTEM_TYPE',  $_SESSION['SysType']);
 
-			$this->_addConfigVar('KEWL_MODULE_PATH',  $_SESSION['module_path']);
+        //$this->_addConfigVar('KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php');
 
-			$this->_addConfigVar('MODULE_URI',  $_SESSION['module_URI']);
 
-			$this->_addConfigVar('KEWL_PRELOGIN_MODULE', 'prelogin');
+        $this->_addConfigVar ( 'KEWL_PEAR_PATH', $_SESSION ['pear_path'] );
 
-			//$this->_addConfigVar('KEWL_DEFAULT_LAYOUT_TEMPLATE', 'default_layout_tpl.php');
+        $this->_addConfigVar ( 'KEWL_CONTENT_BASEPATH', $_SESSION ['contentPath'] );
 
-			//$this->_addConfigVar('KEWL_LOGIN_TEMPLATE', 'login_tpl.php');
+        $this->_addConfigVar ( 'KEWL_CONTENT_PATH', $_SESSION ['relContentPath'] );
 
-			//$this->_addConfigVar('KEWL_LOGGED_IN_TEMPLATE', 'loggedin_tpl.php');
+        $this->_addConfigVar ( 'KEWL_SITENAME', $_SESSION ['sys_name'] );
 
-			$this->_addConfigVar('KEWL_PEAR_PATH',  $_SESSION['pear_path']);
+        $this->_addConfigVar ( 'KEWL_SERVERNAME', $_SESSION ['serverName'] );
 
-			$this->_addConfigVar('KEWL_CONTENT_BASEPATH', $_SESSION['contentPath']);
+        $this->_addConfigVar ( 'KEWL_MAINSERVERNAME', $_SESSION ['main_server'] );
 
-			$this->_addConfigVar('KEWL_CONTENT_PATH', $_SESSION['relContentPath']);
+        $this->_addConfigVar ( 'KEWL_SERVERNAME_GENERATED', 'TRUE' );
 
-			$this->_addConfigVar('KEWL_SITENAME', $_SESSION['sys_name']);
+        $this->_addConfigVar ( 'KEWL_SKIN_ROOT', 'skins/' );
 
-			$this->_addConfigVar('KEWL_SERVERNAME', $_SESSION['serverName']);
+        $this->_addConfigVar ( 'KEWL_SERVERLOCATION', $_SESSION ['serverLocation'] );
 
-			$this->_addConfigVar('KEWL_MAINSERVERNAME', $_SESSION['main_server']);
+        $this->_addConfigVar ( 'KEWL_SITEROOT', $ksr ); //'http://'.$_SESSION['site_url'].'/');
 
-			$this->_addConfigVar('KEWL_SERVERNAME_GENERATED', 'TRUE');
 
-			$this->_addConfigVar('KEWL_SKIN_ROOT', 'skins/');
+        $this->_addConfigVar ( 'KEWL_ALLOW_SELFREGISTER', 'TRUE' );
 
-			$this->_addConfigVar('KEWL_SERVERLOCATION', $_SESSION['serverLocation']);
+        $this->_addConfigVar ( 'KEWL_ENABLE_LOGGING', $_SESSION ['log_enable'] );
 
-			$this->_addConfigVar('KEWL_SITEROOT', $ksr); //'http://'.$_SESSION['site_url'].'/');
+        $this->_addConfigVar ( 'LDAP_USED', 'FALSE' );
 
+        $this->_addConfigVar ( 'KEWL_ERROR_REPORTING', $_SESSION ['debug_enable'] );
 
-			$this->_addConfigVar('KEWL_ALLOW_SELFREGISTER','TRUE');
+        $this->_addConfigVar ( 'KEWL_SYSTEM_OWNER', $_SESSION ['sys_owner'] );
 
-			$this->_addConfigVar('KEWL_ENABLE_LOGGING', $_SESSION['log_enable']);
+        $this->_addConfigVar ( 'KEWL_SITEEMAIL', $_SESSION ['root_email'] );
 
-			$this->_addConfigVar('LDAP_USED', 'FALSE');
+        $this->_addConfigVar ( 'KEWL_TECH_EMAIL', $_SESSION ['tech_email'] );
 
-			$this->_addConfigVar('KEWL_ERROR_REPORTING', $_SESSION['debug_enable']);
+        $this->_addConfigVar ( 'KEWL_LOG_FILE', $_SESSION ['log_path'] );
 
-			$this->_addConfigVar('KEWL_SYSTEM_OWNER', $_SESSION['sys_owner']);
+        $this->_addConfigVar ( 'ENABLE_ADM', 'FALSE' );
 
-			$this->_addConfigVar('KEWL_SITEEMAIL', $_SESSION['root_email']);
+        $this->_addConfigVar ( 'NO_XML', '1' );
 
-			$this->_addConfigVar('KEWL_TECH_EMAIL',    $_SESSION['tech_email']);
+        //$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
 
-			$this->_addConfigVar('KEWL_LOG_FILE',    $_SESSION['log_path']);
-                        
-			$this->_addConfigVar('ENABLE_ADM','FALSE');
-			
-			$this->_addConfigVar('NO_XML','1');
 
-			//$this->_addConfigVar('KEWL_DEFAULT_PAGE_TEMPLATE', 'default_page_xml.php');
+        // if this is an install, then none of the config vars are going to be defined, so
 
-			// if this is an install, then none of the config vars are going to be defined, so
 
-			// go through and define them all before trying to save them.
+        // go through and define them all before trying to save them.
 
-			if ($_SESSION['install_type'] == 'install') {
 
-				foreach ($this->config_vars as $name => $val) {
+        if ($_SESSION ['install_type'] == 'install') {
 
-					if (!defined($name)) {
+            foreach ( $this->config_vars as $name => $val ) {
 
-						define($name, $val);
+                if (! defined ( $name )) {
 
-					}
+                    define ( $name, $val );
 
-				}
+                }
 
-			}
+            }
 
+        }
 
+        $GLOBALS ['SQ_INSTALL'] = true;
 
-			$GLOBALS['SQ_INSTALL'] = true;
+        // when saving with altered variables, the root user gets sent a message notifying
 
 
+        // of the changes. If the 5ive session is the current one, make sure the
 
-			// when saving with altered variables, the root user gets sent a message notifying
 
-			// of the changes. If the 5ive session is the current one, make sure the
+        // asset types are loaded so this message can be sent.
 
-			// asset types are loaded so this message can be sent.
 
-			if ($_SESSION['session_type'] == 'install' && !$empty_database) {
+        if ($_SESSION ['session_type'] == 'install' && ! $empty_database) {
 
-				$am = &$GLOBALS['SQ_SYSTEM']->am;
+            $am = &$GLOBALS ['SQ_SYSTEM']->am;
 
-				$am->_loadAssetTypes();
+            $am->_loadAssetTypes ();
 
-			}
+        }
 
+        $this->_root = new Config ( );
+        //initial setup of config options
+        $options = array ('name' => 'Settings' );
 
+        //parse the array values into config
+        $this->_root->parseConfig ( $this->config_vars, "PHPArray" );
+        //lets write the config
+        $path = $_SESSION ['sys_root'] . '/config/';
+        if (! file_exists ( $path )) {
+            mkdir ( $path );
+        }
 
-			$this->_root = new Config();
-			//initial setup of config options
-			$options = array('name' => 'Settings');
+        if (! is_file ( $path . 'config.xml' )) {
+            touch ( $path . 'config.xml' );
+            chmod ( $path . 'config.xml', 0666 );
+        }
+        $write = $this->_root->writeConfig ( "{$path}config.xml", 'XML', $options );
+        $GLOBALS ['SQ_INSTALL'] = false;
 
-			//parse the array values into config
-			$this->_root->parseConfig($this->config_vars,"PHPArray");
-			//lets write the config
-			$path = $_SESSION['sys_root'].'/config/';
-			if(!file_exists($path))
-			{
-				mkdir($path);
-			}
-				
-			if(!is_file($path . 'config.xml'))
-			{
-				touch($path . 'config.xml');
-				chmod($path . 'config.xml', 0666);
-				}
-			$write = $this->_root->writeConfig("{$path}config.xml",'XML', $options);
-		    $GLOBALS['SQ_INSTALL'] = false;
+        $result = ob_get_contents ();
 
-			$result = ob_get_contents();
+        ob_end_clean ();
 
-		ob_end_clean();
+        $this->init_output = $result;
 
-		$this->init_output = $result;
+    } //end _createConfig()
 
 
+    /**
 
-	}//end _createConfig()
+     * Restores the directory structure for a 5ive install to what it was previous to
 
+     * having the installer run the first time.
 
+     * @todo merge missing modules from cvs
 
+     * @return void
 
+     * @access private
 
-	/**
+     */
 
-	* Restores the directory structure for a 5ive install to what it was previous to
+    function _restoreDirectories()
 
-	* having the installer run the first time.
+    {
 
-	* @todo merge missing modules from cvs
+        // first off, delete the sysroot/data directory.
 
-	* @return void
 
-	* @access private
+        $sys_root = isset ( $_SESSION ['sys_root'] ) ? $_SESSION ['sys_root'] : false;
 
-	*/
+        if ($sys_root === false) {
 
-	function _restoreDirectories()
+            $this->errors [] = 'Could not find system root.';
 
-	{
+            return false;
 
-		// first off, delete the sysroot/data directory.
+        }
 
-		$sys_root = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'] : false;
+        /**
 
-		if ($sys_root === false) {
+         * @todo merge missing modules from cvs
 
-			$this->errors[] = 'Could not find system root.';
+         *
 
-			return false;
+         */
 
-		}
+        return true;
 
-		/**
+    } //end _restoreDirectories()
 
-		 * @todo merge missing modules from cvs
 
-		 *
+    /**
 
-		 */
+     * Set the DSN using the values collected earlier during the install
 
-		return true;
+     *
 
+     * @return boolean Whether the DSN could be set properly
 
+     * @access private
 
-	}//end _restoreDirectories()
+     */
 
+    function _setDSN()
 
+    {
 
+        $dsn = isset ( $_SESSION ['dsn'] ) ? $_SESSION ['dsn'] : false;
 
+        if ($dsn === false) {
 
-	/**
+            $this->errors [] = 'Data Source Name was not set correctly';
 
-	* Set the DSN using the values collected earlier during the install
+            return false;
 
-	*
+        }
 
-	* @return boolean Whether the DSN could be set properly
+        if (! $this->_testDSN ( $dsn )) {
 
-	* @access private
+            return false;
 
-	*/
+        }
 
-	function _setDSN()
+        //add the two dsn's to a php file, not the config file
+        //create a file to store the info as a heredoc
 
-	{
 
-		$dsn = isset($_SESSION['dsn']) ? $_SESSION['dsn'] : false;
-
-
-		if ($dsn === false) {
-
-			$this->errors[] = 'Data Source Name was not set correctly';
-
-			return false;
-
-		}
-
-
-
-		if (!$this->_testDSN($dsn)) {
-
-			return false;
-
-		}
-
-
-		//add the two dsn's to a php file, not the config file
-		//create a file to store the info as a heredoc
-
-		$str = <<<EOD
+        $str = <<<EOD
 <?php
 	define('KEWL_DB_DSN','{$dsn}');
 ?>
 EOD;
 
-		$path =  $_SESSION['sys_root'].'/config/';
-            try {
-		if(!file_exists($path)) {
-				mkdir($path);
-		}
-			
-		if (!is_file($path . 'dbdetails_inc.php')) {
-			if (@touch($path . 'dbdetails_inc.php')){
-                            chmod($path . 'dbdetails_inc.php', 0666);
-                        } else {
-                            throw new Exception ('The database details file could not be created.');
-                        }
-		}
-		$handle = fopen($path . 'dbdetails_inc.php', 'wb');
-		fwrite($handle, $str);
-		fclose($handle);
-                // Error check added by jsc
-                if (!file_exists($path.'dbdetails_inc.php')) {
-                    throw new Exception ('dbdetails file could not be created.');
-                }
-            } catch ( Exception $e) {
-                $this->errors[]= "The installer has encountered a fatal error: <b>".$e->getMessage()."</b><br />\n";
-                $this->errors[]="Check that the chisimba 'config' folder has the proper write permissions.<br />\n";
-                return FALSE;
+        $path = $_SESSION ['sys_root'] . '/config/';
+        try {
+            if (! file_exists ( $path )) {
+                mkdir ( $path );
             }
-		//define('KEWL_DB_DSN', $dsn);
-		//$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 
+            if (! is_file ( $path . 'dbdetails_inc.php' )) {
+                if (@touch ( $path . 'dbdetails_inc.php' )) {
+                    chmod ( $path . 'dbdetails_inc.php', 0666 );
+                } else {
+                    throw new Exception ( 'The database details file could not be created.' );
+                }
+            }
+            $handle = fopen ( $path . 'dbdetails_inc.php', 'wb' );
+            fwrite ( $handle, $str );
+            fclose ( $handle );
+            // Error check added by jsc
+            if (! file_exists ( $path . 'dbdetails_inc.php' )) {
+                throw new Exception ( 'dbdetails file could not be created.' );
+            }
+        } catch ( Exception $e ) {
+            $this->errors [] = "The installer has encountered a fatal error: <b>" . $e->getMessage () . "</b><br />\n";
+            $this->errors [] = "Check that the chisimba 'config' folder has the proper write permissions.<br />\n";
+            return FALSE;
+        }
+        //define('KEWL_DB_DSN', $dsn);
+        //$this->_addConfigVar('KEWL_DB2_DSN', $dsn2);
 
 
-		return true;
+        return true;
 
+    } //end _setDSN()
 
 
-	}//end _setDSN()
+    /**
 
+     * Add values to the config vars array
 
+     *
 
+     * @param string $var_name The name of the variable
 
+     * @param string $value The value to set
 
-	/**
+     * @return void
 
-	* Add values to the config vars array
+     * @access private
 
-	*
+     */
 
-	* @param string $var_name The name of the variable
+    function _addConfigVar($var_name, $value)
 
-	* @param string $value The value to set
+    {
 
-	* @return void
+        $this->config_vars [$var_name] = $value;
 
-	* @access private
+    } //end _addConfigVar()
 
-	*/
 
-	function _addConfigVar($var_name, $value)
+    /**
 
-	{
+     * Return whether this action is required or not
 
-		$this->config_vars[$var_name] = $value;
+     *
 
-	}//end _addConfigVar()
+     * if the sysconfig_properties file exists, then the user can skip this action
 
+     *
 
+     * @return boolean if this action is required to complete the step.
 
+     * @access public
 
+     */
 
-	/**
+    function isRequired()
 
-	* Return whether this action is required or not
+    {
 
-	*
+        $main_file = isset ( $_SESSION ['sys_root'] ) ? $_SESSION ['sys_root'] . '/conf/sysconfig_properties.xml' : false;
+        // if the file exists, try and delete it
 
-	* if the sysconfig_properties file exists, then the user can skip this action
 
-	*
+        if ($main_file !== false && is_file ( $main_file )) {
 
-	* @return boolean if this action is required to complete the step.
+            return false;
 
-	* @access public
+        }
 
-	*/
+        return true;
 
-	function isRequired()
+    } //end isRequired()
 
-	{
 
-		$main_file = isset($_SESSION['sys_root']) ? $_SESSION['sys_root'].'/conf/sysconfig_properties.xml' : false;
-		// if the file exists, try and delete it
+    /**
 
-		if ($main_file !== false && is_file($main_file)) {
+     * Display information about the creation status to the user
 
-			return false;
+     *
 
-		}
+     * @return void
 
+     * @access public
 
+     */
 
-		return true;
+    function paintAction()
 
+    {
 
+        $tpl = new Template ( INSTALL_DIR . '/templates/oldstep.tpl' );
 
-	}//end isRequired()
+        $warning_text = '';
 
+        $message = '';
 
+        $message = 'Chisimba will now create the initial setup files. If ' .
 
+        'you are running an update, this will save a backup of your ' .
 
+        'old configuration file to the same directory. ';
 
-	/**
+        $warning_text = 'Note that from this point on, if you do ' .
 
-	* Display information about the creation status to the user
+        'not complete the install you may corrupt ' .
 
-	*
+        'the Chisimba system. ';
 
-	* @return void
+        $tpl->set ( 'warnings', '<span style="color: #BB2222">' . $warning_text . '</span>' );
 
-	* @access public
+        $tpl->set ( 'message', $message );
 
-	*/
+        echo $tpl->fetch ();
 
-	function paintAction()
+    } //end paintAction()
 
-	{
 
-		$tpl = new Template(INSTALL_DIR.'/templates/oldstep.tpl');
+    /**
 
+     * Show the user what config settings were written.
 
+     *
 
-		$warning_text = '';
+     * @return void
 
-		$message = '';
+     * @access public
 
-		$message = 	'Chisimba will now create the initial setup files. If '.
+     */
 
-					'you are running an update, this will save a backup of your '.
+    function confirmAction()
 
-					'old configuration file to the same directory. ';
+    {
 
+        echo '<table id="configconf" cellpadding="2" cellspacing="0">';
 
+        echo '<tr><td colspan="2"><h4>The following configuration variables were saved to ' .
 
-		$warning_text = 'Note that from this point on, if you do '.
+        $_SESSION ['sys_root'] . '/config/ </h4></td></tr>';
 
-							'not complete the install you may corrupt '.
+        foreach ( $this->config_vars as $varname => $setting ) {
 
-							'the Chisimba system. ';
+            echo '<tr valign="top">';
 
-		$tpl->set('warnings', '<span style="color: #BB2222">'.$warning_text.'</span>');
+            echo "<td>$varname</td>";
 
-		$tpl->set('message', $message);
+            echo "<td>$setting</td>";
 
+            echo '</tr>';
 
+        }
 
-		echo $tpl->fetch();
+        echo '</table>';
 
+    } //end confirmAction()
 
 
-	}//end paintAction()
-
-
-
-
-
-	/**
-
-	* Show the user what config settings were written.
-
-	*
-
-	* @return void
-
-	* @access public
-
-	*/
-
-	function confirmAction()
-
-	{
-
-		echo '<table id="configconf" cellpadding="2" cellspacing="0">';
-
-		echo '<tr><td colspan="2"><h4>The following configuration variables were saved to '.
-
-				$_SESSION['sys_root'].'/config/ </h4></td></tr>';
-
-		foreach($this->config_vars as $varname => $setting) {
-
-			echo '<tr valign="top">';
-
-			echo "<td>$varname</td>";
-
-			echo "<td>$setting</td>";
-
-			echo '</tr>';
-
-		}
-
-		echo '</table>';
-
-
-
-	}//end confirmAction()
-
-
-
-
-
-}//end class
+} //end class
 ?>

@@ -2,1026 +2,941 @@
 
 /* -------------------- systemdetails class ----------------*/
 
-
-
-
-
 /**
 
-* Class to verify system details
+ * Class to verify system details
 
-*/
+ */
 
+require_once INSTALL_DIR . '/step.inc';
 
+require_once INSTALL_DIR . '/stepaction.inc';
 
-require_once INSTALL_DIR.'/step.inc';
+require_once INSTALL_DIR . '/webformat_class.inc';
 
-require_once INSTALL_DIR.'/stepaction.inc';
-
-
-
-require_once INSTALL_DIR.'/webformat_class.inc';
-
-require_once INSTALL_DIR.'/html_form/html_form.inc';
-
+require_once INSTALL_DIR . '/html_form/html_form.inc';
 
 require_once 'xml2array_class_inc.php';
 
-
 /**
 
-* SystemDetails
+ * SystemDetails
 
-*
+ *
 
-* This step collects some initial data about the system
+ * This step collects some initial data about the system
 
-*
+ *
 
-* @author prince mbekwa
+ * @author prince mbekwa
 
-* @version $version$ - 1.0
+ * @version $version$ - 1.0
 
-* @package 5ive
+ * @package 5ive
 
-* @subpackage installer
+ * @subpackage installer
 
-*/
+ */
 
 class SystemDetails extends Step
 
 {
 
-	var $server_name = null;
+    var $server_name = null;
+
+    /**
+
+     * Set up this step's actions
+
+     *
+
+     * @return void
+
+     * @access public
+
+     */
+
+    function SystemDetails()
+
+    {
+
+        $this->actions [] = new RootUserAction ( get_class ( $this ) );
+
+        $this->auth_required = false;
+
+        $this->conf_required = true;
+
+        $this->step_title = 'System Details';
+
+        $this->title_logo = 'system_details.gif';
+
+        $this->help_topic = 'toc3';
+
+        $this->step_help = "The Installer will now setup your system details. Please refer to the help for more info on each section,";
+
+    } //end SystemDetails()
 
 
-
-	/**
-
-	* Set up this step's actions
-
-	*
-
-	* @return void
-
-	* @access public
-
-	*/
-
-	function SystemDetails()
-
-	{
-
-		$this->actions[] = new RootUserAction(get_class($this));
-
-
-
-		$this->auth_required = false;
-
-		$this->conf_required = true;
-
-		$this->step_title = 'System Details';
-
-		$this->title_logo = 'system_details.gif';
-
-		$this->help_topic = 'toc3';
-
-		$this->step_help = "The Installer will now setup your system details. Please refer to the help for more info on each section,";
-
-
-	}//end SystemDetails()
-
-
-
-
-
-}//end class
-
-
-
+} //end class
 
 
 /**
 
-* RootUserAction
+ * RootUserAction
 
-*
+ *
 
-* Prompts the user for a root password and email address.
+ * Prompts the user for a root password and email address.
 
-*
+ *
 
-*/
+ */
 
 class RootUserAction extends StepAction
 
 {
 
+    /**
 
+     * Try and create all the needed database tables.
 
+     *
 
+     * @return boolean Whether all the database tables were created or not.
 
+     * @access public
 
-	/**
+     */
 
-	* Try and create all the needed database tables.
+    function processAction()
 
-	*
+    {
 
-	* @return boolean Whether all the database tables were created or not.
+        $_SESSION ['root_email'] = (isset ( $_POST ['root_email'] ) && (strlen ( $_POST ['root_email'] ) > 0)) ? $_POST ['root_email'] : '';
 
-	* @access public
+        $_SESSION ['tech_email'] = (isset ( $_POST ['tech_email'] ) && (strlen ( $_POST ['tech_email'] ) > 0)) ? $_POST ['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
-	*/
+        $_SESSION ['sys_name'] = (isset ( $_POST ['sys_name'] )) ? $_POST ['sys_name'] : '';
 
-	function processAction()
+        $_SESSION ['sys_owner'] = (isset ( $_POST ['sys_owner'] )) ? $_POST ['sys_owner'] : '';
 
-	{
+        $_SESSION ['log_path'] = (isset ( $_POST ['log_path'] )) ? $_POST ['log_path'] : '';
 
+        //$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
 
 
-		$_SESSION['root_email'] = (isset($_POST['root_email']) && (strlen($_POST['root_email']) > 0)) ? $_POST['root_email'] : '';
+        $_SESSION ['postLogin'] = (isset ( $_POST ['postLogin'] )) ? $_POST ['postLogin'] : 'postlogin';
 
-		$_SESSION['tech_email'] = (isset($_POST['tech_email']) && (strlen($_POST['tech_email']) > 0)) ? $_POST['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
+        $_SESSION ['SysType'] = (isset ( $_POST ['SysType'] )) ? $_POST ['SysType'] : '';
 
-		$_SESSION['sys_name'] = (isset($_POST['sys_name'])) ? $_POST['sys_name'] : '';
+        $_SESSION ['defaultskin'] = (isset ( $_POST ['defaultskin'] )) ? $_POST ['defaultskin'] : '';
 
-		$_SESSION['sys_owner'] = (isset($_POST['sys_owner'])) ? $_POST['sys_owner'] : '';
+        $_SESSION ['serverName'] = (isset ( $_POST ['serverName'] )) ? $_POST ['serverName'] : '';
 
-		$_SESSION['log_path'] = (isset($_POST['log_path'])) ? $_POST['log_path'] : '';
+        $_SESSION ['main_server'] = (isset ( $_POST ['main_server'] )) ? $_POST ['main_server'] : 'http://kngforge.uwc.ac.za/';
 
-		//$_SESSION['module_path'] = (isset($_POST['module_path'])) ? $_POST['module_path'] : '';
+        $_SESSION ['serverLocation'] = (isset ( $_POST ['serverLocation'] )) ? $_POST ['serverLocation'] : '';
 
-		$_SESSION['postLogin'] = (isset($_POST['postLogin'])) ? $_POST['postLogin'] : 'postlogin';
+        $_SESSION ['contentPath'] = (isset ( $_POST ['contentPath'] )) ? $_POST ['contentPath'] : $_SESSION ['contentPath'];
 
-		$_SESSION['SysType'] = (isset($_POST['SysType'])) ? $_POST['SysType'] : '';
+        $_SESSION ['relContentPath'] = (isset ( $_POST ['relContentPath'] )) ? $_POST ['relContentPath'] : $_SESSION ['relContentPath'];
 
-		$_SESSION['defaultskin'] = (isset($_POST['defaultskin'])) ? $_POST['defaultskin'] : '';
+        $_SESSION ['log_enable'] = (isset ( $_POST ['log_enable'] )) ? $_POST ['log_enable'] : '';
 
-		$_SESSION['serverName'] = (isset($_POST['serverName'])) ? $_POST['serverName'] : '';
+        $_SESSION ['debug_enable'] = (isset ( $_POST ['debug_enable'] )) ? $_POST ['debug_enable'] : '';
 
-		$_SESSION['main_server'] = (isset($_POST['main_server'])) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
+        $_SESSION ['proxy'] = (isset ( $_POST ['proxy'] )) ? $_POST ['proxy'] : '';
 
-		$_SESSION['serverLocation'] = (isset($_POST['serverLocation'])) ? $_POST['serverLocation'] : '';
+        // make sure the URL is lower case so that it matches the 5ive convention.
 
-		$_SESSION['contentPath'] = (isset($_POST['contentPath'])) ? $_POST['contentPath'] :$_SESSION['contentPath'] ;
 
-		$_SESSION['relContentPath'] = (isset($_POST['relContentPath'])) ? $_POST['relContentPath'] :$_SESSION['relContentPath'] ;
+        $_SESSION ['site_url'] = isset ( $_POST ['site_url'] ) ? strtolower ( $_POST ['site_url'] ) : '';
+        $_SESSION ['site_server_url'] = isset ( $_POST ['site_server_url'] ) ? strtolower ( $_POST ['site_server_url'] ) : '';
 
-		$_SESSION['log_enable'] = (isset($_POST['log_enable'])) ? $_POST['log_enable'] : '';
+        if ($_SESSION ['site_url'] == '') {
 
-		$_SESSION['debug_enable'] = (isset($_POST['debug_enable'])) ? $_POST['debug_enable'] : '';
+            $this->errors [] = 'You must define a site url.';
 
-		$_SESSION['proxy'] = (isset($_POST['proxy'])) ? $_POST['proxy'] : '';
+            $this->success = false;
 
+            return parent::processAction ();
 
+        }
 
+        // now check if there is the trailing / character at the end... if there is, strip it
 
 
+        $_SESSION ['site_url'] = rtrim ( $_SESSION ['site_url'], '/' );
 
+        // get rid of any http:// part
 
-		// make sure the URL is lower case so that it matches the 5ive convention.
 
-		$_SESSION['site_url'] = isset($_POST['site_url']) ? strtolower($_POST['site_url']) : '';
-		$_SESSION['site_server_url'] = isset($_POST['site_server_url']) ? strtolower($_POST['site_server_url']) : '';
+        $_SESSION ['site_url'] = str_replace ( 'http://', '', $_SESSION ['site_url'] );
 
+        if ($_SESSION ['sys_owner'] == 'Chisimba Framework') {
 
+            $this->errors [] = 'You must set a system owner that is not.' . $_SESSION ['sys_owner'];
 
-		if ($_SESSION['site_url'] == '') {
+            $this->success = false;
 
-			$this->errors[] = 'You must define a site url.';
+            return parent::processAction ();
 
-			$this->success = false;
+        }
 
-			return parent::processAction();
+        if (! valid_email ( $_SESSION ['root_email'] )) {
 
-		}
+            $this->errors [] = 'You must supply a root email address.';
 
+            $this->success = false;
 
+            return parent::processAction ();
 
-		// now check if there is the trailing / character at the end... if there is, strip it
+        }
 
-		$_SESSION['site_url'] = rtrim($_SESSION['site_url'], '/');
+        if ($_SESSION ['serverLocation'] == '--') {
 
+            $this->errors [] = 'You must select a server location.';
 
+            $this->success = false;
 
-		// get rid of any http:// part
+            return parent::processAction ();
 
-		$_SESSION['site_url'] = str_replace('http://', '', $_SESSION['site_url']);
+        }
 
+        if ($_SESSION ['main_server'] == '') {
 
+            $this->errors [] = 'You must supply which server is your main server';
 
-		if ($_SESSION['sys_owner']=='Chisimba Framework') {
+            $this->success = false;
 
-			$this->errors[] = 'You must set a system owner that is not.'.$_SESSION['sys_owner'];
+            return parent::processAction ();
 
-			$this->success = false;
+        }
 
-			return parent::processAction();
+        if ($_SESSION ['defaultskin'] == 'echo') {
 
-		}
+            $this->errors [] = 'You must select a default skin.';
 
+            $this->success = false;
 
+            return parent::processAction ();
 
-		if (!valid_email($_SESSION['root_email'])) {
+        }
 
-			$this->errors[] = 'You must supply a root email address.';
+        //if ($_SESSION['postLogin']=='postlogin') {
+        if ($_SESSION ['postLogin'] == '') {
 
-			$this->success = false;
+            $this->errors [] = 'You must select a post login module.';
 
-			return parent::processAction();
+            $this->success = false;
 
-		}
+            return parent::processAction ();
 
+        }
 
+        return true;
 
-		if ($_SESSION['serverLocation']=='--') {
+    } //end processAction()
 
-			$this->errors[] = 'You must select a server location.';
 
-			$this->success = false;
+    /**
 
-			return parent::processAction();
+     * Display information about the creation status to the user
 
-		}
+     *
 
-		if ($_SESSION['main_server']=='') {
+     * @return void
 
-			$this->errors[] = 'You must supply which server is your main server';
+     * @access public
 
-			$this->success = false;
+     */
 
-			return parent::processAction();
+    function paintAction()
 
-		}
+    {
 
-		if ($_SESSION['defaultskin']=='echo') {
+        $tpl = new Template ( INSTALL_DIR . '/templates/rootdetails.tpl' );
 
-			$this->errors[] = 'You must select a default skin.';
+        $def_email = isset ( $_SESSION ['root_email'] ) ? $_SESSION ['root_email'] : '';
 
-			$this->success = false;
+        $tech_email = isset ( $_SESSION ['tech_email'] ) ? $_SESSION ['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
-			return parent::processAction();
+        $def_sysname = isset ( $_SESSION ['sys_name'] ) ? $_SESSION ['sys_name'] : 'Chisimba';
 
-		}
+        $server_name = isset ( $_SESSION ['serverName'] ) ? $_SESSION ['serverName'] : '';
 
+        $serverLocation = isset ( $_SESSION ['serverLocation'] ) ? $_SESSION ['serverLocation'] : '';
 
+        $proxy = isset ( $_SESSION ['proxy'] ) ? $_SESSION ['proxy'] : '';
 
-		//if ($_SESSION['postLogin']=='postlogin') {
-		if ($_SESSION['postLogin']=='') {
+        //Get a list of modules to select
 
-			$this->errors[] = 'You must select a post login module.';
 
-			$this->success = false;
+        $defaultpostlogin = isset ( $_POST ['postLogin'] ) ? $_POST ['postLogin'] : 'postlogin';
 
-			return parent::processAction();
+        $defaultskin = isset ( $_POST ['defaultskin'] ) ? $_POST ['defaultskin'] : 'echo';
 
-		}
+        $main_server = isset ( $_POST ['main_server'] ) ? $_POST ['main_server'] : 'http://kngforge.uwc.ac.za/';
 
-		return true;
+        //Get content path
 
 
+        $absContentPath = $_SERVER ['SCRIPT_FILENAME'];
 
-	}//end processAction()
+        $relContentRoot = "usrfiles";
+        if (preg_match ( "/\/installer/i", "$absContentPath" )) {
 
+            $abspath = str_replace ( '/installer/index.php', "", $absContentPath );
+            $relContentPath = "usrfiles/";
 
+            $_SESSION ['relContentPath'] = $relContentPath;
 
+            $absContentPath = $abspath . '/' . $relContentRoot . '/';
 
+            $_SESSION ['contentPath'] = $absContentPath;
 
-	/**
+        } else {
 
-	* Display information about the creation status to the user
+            $abspath = str_replace ( '\installer', "", $absContentPath );
+            $relContentPath = "usrfiles\\";
 
-	*
+            $_SESSION ['relContentPath'] = $relContentPath;
 
-	* @return void
+            $absContentPath = $abspath . "\\" . $relContentRoot . "\\";
+            $contentPath = $absContentPath;
 
-	* @access public
+            $_SESSION ['contentPath'] = $absContentPath;
 
-	*/
+        }
 
-	function paintAction()
+        $def_sysowner = isset ( $_SESSION ['sys_owner'] ) ? $_SESSION ['sys_owner'] : 'Chisimba Owner';
 
-	{
+        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : True;
 
+        $debug_enable = isset ( $_SESSION ['debug_enable'] ) ? $_SESSION ['debug_enable'] : FALSE;
 
+        $urlarray = parse_url ( getenv ( 'HTTP_REFERER' ) );
+        $ref = $urlarray ['path'];
+        if (preg_match ( "/\/installer/i", $ref )) {
 
-		$tpl = new Template(INSTALL_DIR.'/templates/rootdetails.tpl');
+            $ksr = str_replace ( '/installer', "/", $ref );
+            $ksr = str_replace ( '/index.php', '', $ksr );
+            $ksr = str_replace ( 'http://', '', $ksr );
+            //$ksr = str_replace('localhost','',$ksr);
+        }
 
+        $this_url = $ksr;
+        $this_server = isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $_SERVER ['HTTP_HOST']; //$urlarray['host'];
 
 
-		$def_email = isset($_SESSION['root_email']) ? $_SESSION['root_email'] : '';
+        //$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$ksr;
 
 
+        $log_path = isset ( $_SESSION ['log_path'] ) ? $_SESSION ['log_path'] : $_SESSION ['sys_root'] . 'error_logs/error.log';
 
-		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
+        $module_path = isset ( $_SESSION ['module_path'] ) ? $_SESSION ['module_path'] : $_SESSION ['sys_root'] . 'core_modules/';
 
+        ob_start ();
 
+        text_box ( 'root_email', $def_email, '40', '', false, 'tabindex="5"' );
 
-		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : 'Chisimba';
+        $email = ob_get_contents ();
 
-		
-		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : '';
+        ob_clean ();
 
+        text_box ( 'proxy', $proxy, '40', '', false, 'tabindex="12"' );
 
-		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
+        $proxy = ob_get_contents ();
 
-		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] : '';
+        ob_clean ();
 
+        text_box ( 'tech_email', $tech_email, '40', '', true, 'tabindex="6"' );
 
+        $tech_email = ob_get_contents ();
 
-		//Get a list of modules to select
+        ob_clean ();
 
-		$defaultpostlogin = isset($_POST['postLogin']) ? $_POST['postLogin'] : 'postlogin';
+        check_box ( 'log_enable', 1, $log_enable, '', 'tabindex="7"' );
 
+        $log_enable = ob_get_contents ();
 
+        ob_clean ();
 
-		$defaultskin = isset($_POST['defaultskin']) ? $_POST['defaultskin'] : 'echo';
+        check_box ( 'debug_enable', 1, $debug_enable, '', 'tabindex="8"' );
 
+        $debug_enable = ob_get_contents ();
 
-		$main_server = isset($_POST['main_server']) ? $_POST['main_server'] : 'http://kngforge.uwc.ac.za/';
+        ob_clean ();
 
+        text_box ( 'sys_name', $def_sysname, '40', '', false, 'tabindex="1"' );
 
+        $sys_name = ob_get_contents ();
 
-		//Get content path
+        ob_clean ();
 
-		$absContentPath = $_SERVER['SCRIPT_FILENAME'];
+        text_box ( 'serverName', $serverName, '20', '', false, 'tabindex="2"' );
 
-		$relContentRoot = "usrfiles";
-		if (preg_match("/\/installer/i", "$absContentPath")) {
+        normal_button ( 'getServerName', 'Generate', 'javascript:generateServerName();', 'tabindex="2"' );
 
-			$abspath = str_replace('/installer/index.php',"",$absContentPath);
-			$relContentPath = "usrfiles/";
+        $server_name = ob_get_contents ();
 
-	        $_SESSION['relContentPath']=$relContentPath;
+        ob_clean ();
 
-	        $absContentPath = $abspath.'/'.$relContentRoot.'/';
+        text_box ( 'contentPath', $contentPath, '40', '', true, '' );
 
-	        $_SESSION['contentPath']= $absContentPath;
+        $contentPath = ob_get_contents ();
 
-		} else {
+        ob_clean ();
 
-			$abspath = str_replace('\installer',"",$absContentPath);
-			$relContentPath = "usrfiles\\";
+        text_box ( 'relContentPath', $relContentPath, '40', '', true, '' );
 
-	     	$_SESSION['relContentPath']=$relContentPath;
+        $rel_contentPath = ob_get_contents ();
 
-	     	$absContentPath = $abspath."\\".$relContentRoot."\\";
-                $contentPath=$absContentPath;
+        ob_clean ();
 
-	     	$_SESSION['contentPath']= $absContentPath;
+        text_box ( 'sys_owner', $def_sysowner, '40', '', false, 'tabindex="4"' );
 
+        $sys_owner = ob_get_contents ();
 
-		}
+        ob_clean ();
 
+        text_box ( 'log_path', $log_path, '40', '', false, 'tabindex="9"' );
 
-		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] : 'Chisimba Owner';
+        $log_path = ob_get_contents ();
 
+        ob_clean ();
 
-		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : True;
+        // Module path has been moved to earlier in the installer.
+        //text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
+        //$module_path = ob_get_contents();
+        //ob_clean();
 
-		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : FALSE;
 
-		$urlarray=parse_url(getenv('HTTP_REFERER'));
-		$ref = $urlarray['path'];
-		if (preg_match("/\/installer/i", $ref)) {
+        combo_box ( 'serverLocation',
 
-			$ksr = str_replace('/installer',"/",$ref);
-			$ksr = str_replace('/index.php','', $ksr);
-			$ksr = str_replace('http://','',$ksr);
-			//$ksr = str_replace('localhost','',$ksr);
-		}
-		
-		
-		$this_url = $ksr;
-        $this_server = isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$_SERVER['HTTP_HOST']; //$urlarray['host'];
-		
-		//$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$ksr;
+        Array ("ZA" => 'South Africa', 'AF' => 'Afghanistan',
 
-		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'error_logs/error.log';
+        'AL' => 'Albania',
 
-		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'core_modules/';
+        'DZ' => 'Algeria',
 
+        'AS' => 'American',
 
-		ob_start();
+        'AD' => 'Andorra ',
 
+        'AO' => 'Angola',
 
+        'AI' => 'Anguilla',
 
-			text_box('root_email', $def_email, '40', '', false, 'tabindex="5"');
+        'AQ' => 'Antarctica',
 
-			$email = ob_get_contents();
+        'AG' => 'Antigua and Barbuda ',
 
-			ob_clean();
+        'AR' => 'Argentina ',
 
-			text_box('proxy', $proxy, '40', '', false, 'tabindex="12"');
+        'AM' => 'Armenia ',
 
-			$proxy = ob_get_contents();
+        'AW' => 'Aruba ',
 
-			ob_clean();
+        'AU' => 'Australia ',
 
+        'AT' => 'Austria ',
 
+        'AZ' => 'Azerbaijan',
 
-			text_box('tech_email', $tech_email, '40', '', true, 'tabindex="6"');
+        'BS' => 'Bahamas ',
 
-			$tech_email = ob_get_contents();
+        'BH' => 'Bahrain ',
 
-			ob_clean();
+        'BD' => 'Bangladesh',
 
+        'BB' => 'Barbados',
 
+        'BY' => 'Belarus ',
 
-			check_box('log_enable', 1, $log_enable, '', 'tabindex="7"');
+        'BE' => 'Belgium ',
 
-			$log_enable = ob_get_contents();
+        'BZ' => 'Belize',
 
-			ob_clean();
+        'BJ' => 'Benin ',
 
-			check_box('debug_enable', 1, $debug_enable, '', 'tabindex="8"');
+        'BM' => 'Bermuda ',
 
-			$debug_enable = ob_get_contents();
+        'BT' => 'Bhutan',
 
-			ob_clean();
+        'BO' => 'Bolivia ',
 
+        'BA' => 'Bosnia and Herzegowina',
 
-			text_box('sys_name', $def_sysname, '40', '', false, 'tabindex="1"');
+        'BW' => 'Botswana',
 
-			$sys_name = ob_get_contents();
+        'BV' => 'Bouvet Island ',
 
-			ob_clean();
+        'BR' => 'Brazil',
 
-		
-			text_box('serverName',$serverName,'20','',false,'tabindex="2"');
+        'IO' => 'British Indian Ocean Territory',
 
-			normal_button('getServerName','Generate','javascript:generateServerName();','tabindex="2"');
+        'BN' => 'Brunei Darussalam ',
 
-			$server_name = ob_get_contents();
+        'BG' => 'Bulgaria',
 
-			ob_clean();
+        'BF' => 'Burkina Faso',
 
+        'BI' => 'Burundi ',
 
+        'KH' => 'Cambodia',
 
-			text_box('contentPath',$contentPath,'40','',true,'');
+        'CM' => 'Cameroon',
 
-			$contentPath = ob_get_contents();
+        'CA' => 'Canada',
 
-			ob_clean();
+        'CV' => 'Cape Verde',
 
+        'KY' => 'Cayman Islands',
 
+        'CF' => 'Central African Republic',
 
-			text_box('relContentPath',$relContentPath,'40','',true,'');
+        'TD' => 'Chad',
 
-			$rel_contentPath = ob_get_contents();
+        'CL' => 'Chile ',
 
-			ob_clean();
+        'CN' => 'China ',
 
+        'CX' => 'Christmas Island',
 
+        'CC' => 'Cocos (Keeling) Islands ',
 
-			text_box('sys_owner',$def_sysowner,'40','',false,'tabindex="4"');
+        'CO' => 'Colombia',
 
-			$sys_owner = ob_get_contents();
+        'KM' => 'Comoros ',
 
-			ob_clean();
+        'CG' => 'Congo ',
 
+        'CD' => 'Congo, the Democratic Republic of the ',
 
+        'CK' => 'Cook Islands',
 
-			text_box('log_path', $log_path, '40', '', false, 'tabindex="9"');
+        'CR' => 'Costa Rica',
 
-			$log_path = ob_get_contents();
+        'CI' => "Cote d'Ivoire ",
 
-			ob_clean();
+        'HR' => 'Croatia (Hrvatska)',
 
-                        // Module path has been moved to earlier in the installer.
-			//text_box('module_path', $module_path, '40', '', false, 'tabindex="9"');
-			//$module_path = ob_get_contents();
-			//ob_clean();
+        'CU' => 'Cuba',
 
-			combo_box('serverLocation',
+        'CY' => 'Cyprus',
 
-					Array("ZA"=>'South Africa','AF'=>'Afghanistan',
+        'CZ' => 'Czech Republic',
 
-						'AL'=>'Albania',
+        'DK' => 'Denmark ',
 
-					'DZ'=>'Algeria',
+        'DJ' => 'Djibouti',
 
-					'AS'=>'American',
+        'DM' => 'Dominica',
 
-					'AD'=>'Andorra ',
+        'DO' => 'Dominican Republic',
 
-					'AO'=>'Angola',
+        'TP' => 'East Timor',
 
-					'AI'=>'Anguilla',
+        'EC' => 'Ecuador ',
 
-					'AQ'=>'Antarctica',
+        'EG' => 'Egypt ',
 
-					'AG'=>'Antigua and Barbuda ',
+        'SV' => 'El Salvador ',
 
-					'AR'=>'Argentina ',
+        'GQ' => 'Equatorial Guinea ',
 
-					'AM'=>'Armenia ',
+        'ER' => 'Eritrea ',
 
-					'AW'=>'Aruba ',
+        'EE' => 'Estonia ',
 
-					'AU'=>'Australia ',
+        'ET' => 'Ethiopia',
 
-					'AT'=>'Austria ',
+        'FK' => 'Falkland Islands (Malvinas) ',
 
-					'AZ'=>'Azerbaijan',
+        'FO' => 'Faroe Islands ',
 
-					'BS'=>'Bahamas ',
+        'FJ' => 'Fiji',
 
-					'BH'=>'Bahrain ',
+        'FI' => 'Finland ',
 
-					'BD'=>'Bangladesh',
+        'FR' => 'France',
 
-					'BB'=>'Barbados',
+        'FX' => 'France, Metropolitan',
 
-					'BY'=>'Belarus ',
+        'GF' => 'French Guiana ',
 
-					'BE'=>'Belgium ',
+        'PF' => 'French Polynesia',
 
-					'BZ'=>'Belize',
+        'TF' => 'French Southern Territories ',
 
-					'BJ'=>'Benin ',
+        'GA' => 'Gabon ',
 
-					'BM'=>'Bermuda ',
+        'GM' => 'Gambia',
 
-					'BT'=>'Bhutan',
+        'GE' => 'Georgia ',
 
-					'BO'=>'Bolivia ',
+        'DE' => 'Germany ',
 
-					'BA'=>'Bosnia and Herzegowina',
+        'GH' => 'Ghana ',
 
-					'BW'=>'Botswana',
+        'GI' => 'Gibraltar ',
 
-					'BV'=>'Bouvet Island ',
+        'GR' => 'Greece',
 
-					'BR'=>'Brazil',
+        'GL' => 'Greenland ',
 
-					'IO'=>'British Indian Ocean Territory',
+        'GD' => 'Grenada ',
 
-					'BN'=>'Brunei Darussalam ',
+        'GP' => 'Guadeloupe',
 
-					'BG'=>'Bulgaria',
+        'GU' => 'Guam',
 
-					'BF'=>'Burkina Faso',
+        'GT' => 'Guatemala ',
 
-					'BI'=>'Burundi ',
+        'GN' => 'Guinea',
 
-					'KH'=>'Cambodia',
+        'GW' => 'Guinea-Bissau ',
 
-					'CM'=>'Cameroon',
+        'GY' => 'Guyana',
 
-					'CA'=>'Canada',
+        'HT' => 'Haiti ',
 
-					'CV'=>'Cape Verde',
+        'HM' => 'Heard and Mc Donald Islands ',
 
-					'KY'=>'Cayman Islands',
+        'VA' => 'Holy See (Vatican City State) ',
 
-					'CF'=>'Central African Republic',
+        'HN' => 'Honduras',
 
-					'TD'=>'Chad',
+        'HK' => 'Hong Kong ',
 
-					'CL'=>'Chile ',
+        'HU' => 'Hungary ',
 
-					'CN'=>'China ',
+        'IS' => 'Iceland ',
 
-					'CX'=>'Christmas Island',
+        'IN' => 'India ',
 
-					'CC'=>'Cocos (Keeling) Islands ',
+        'ID' => 'Indonesia ',
 
-					'CO'=>'Colombia',
+        'IR' => 'Iran (Islamic Republic of)',
 
-					'KM'=>'Comoros ',
+        'IQ' => 'Iraq',
 
-					'CG'=>'Congo ',
+        'IE' => 'Ireland ',
 
-					'CD'=>'Congo, the Democratic Republic of the ',
+        'IL' => 'Israel',
 
-					'CK'=>'Cook Islands',
+        'IT' => 'Italy ',
 
-					'CR'=>'Costa Rica',
+        'JM' => 'Jamaica ',
 
-					'CI'=>"Cote d'Ivoire ",
+        'JP' => 'Japan ',
 
-					'HR'=>'Croatia (Hrvatska)',
+        'JO' => 'Jordan',
 
-					'CU'=>'Cuba',
+        'KZ' => 'Kazakhstan',
 
-					'CY'=>'Cyprus',
+        'KE' => 'Kenya ',
 
-					'CZ'=>'Czech Republic',
+        'KI' => 'Kiribati',
 
-					'DK'=>'Denmark ',
+        'KP' => "Korea, Democratic People's Republic of",
 
-					'DJ'=>'Djibouti',
+        'KR' => 'Korea, Republic of',
 
-					'DM'=>'Dominica',
+        'KW' => 'Kuwait',
 
-					'DO'=>'Dominican Republic',
+        'KG' => 'Kyrgyzstan',
 
-					'TP'=>'East Timor',
+        'LA' => "Lao People's Democratic Republic",
 
-					'EC'=>'Ecuador ',
+        'LV' => 'Latvia',
 
-					'EG'=>'Egypt ',
+        'LB' => 'Lebanon ',
 
-					'SV'=>'El Salvador ',
+        'LS' => 'Lesotho ',
 
-					'GQ'=>'Equatorial Guinea ',
+        'LR' => 'Liberia ',
 
-					'ER'=>'Eritrea ',
+        'LY' => 'Libyan Arab Jamahiriya',
 
-					'EE'=>'Estonia ',
+        'LI' => 'Liechtenstein ',
 
-					'ET'=>'Ethiopia',
+        'LT' => 'Lithuania ',
 
-					'FK'=>'Falkland Islands (Malvinas) ',
+        'LU' => 'Luxembourg',
 
-					'FO'=>'Faroe Islands ',
+        'MO' => 'Macau ',
 
-					'FJ'=>'Fiji',
+        'MK' => 'Macedonia, The Former Yugoslav Republic of',
 
-					'FI'=>'Finland ',
+        'MG' => 'Madagascar',
 
-					'FR'=>'France',
+        'MW' => 'Malawi',
 
-					'FX'=>'France, Metropolitan',
+        'MY' => 'Malaysia',
 
-					'GF'=>'French Guiana ',
+        'MV' => 'Maldives',
 
-					'PF'=>'French Polynesia',
+        'ML' => 'Mali',
 
-					'TF'=>'French Southern Territories ',
+        'MT' => 'Malta ',
 
-					'GA'=>'Gabon ',
+        'MH' => 'Marshall Islands',
 
-					'GM'=>'Gambia',
+        'MQ' => 'Martinique',
 
-					'GE'=>'Georgia ',
+        'MR' => 'Mauritania',
 
-					'DE'=>'Germany ',
+        'MU' => 'Mauritius ',
 
-					'GH'=>'Ghana ',
+        'YT' => 'Mayotte ',
 
-					'GI'=>'Gibraltar ',
+        'MX' => 'Mexico',
 
-					'GR'=>'Greece',
+        'FM' => 'Micronesia, Federated States of ',
 
-					'GL'=>'Greenland ',
+        'MD' => 'Moldova, Republic of',
 
-					'GD'=>'Grenada ',
+        'MC' => 'Monaco',
 
-					'GP'=>'Guadeloupe',
+        'MN' => 'Mongolia',
 
-					'GU'=>'Guam',
+        'MS' => 'Montserrat',
 
-					'GT'=>'Guatemala ',
+        'MA' => 'Morocco ',
 
-					'GN'=>'Guinea',
+        'MZ' => 'Mozambique',
 
-					'GW'=>'Guinea-Bissau ',
+        'MM' => 'Myanmar ',
 
-					'GY'=>'Guyana',
+        'NA' => 'Namibia ',
 
-					'HT'=>'Haiti ',
+        'NR' => 'Nauru ',
 
-					'HM'=>'Heard and Mc Donald Islands ',
+        'NP' => 'Nepal ',
 
-					'VA'=>'Holy See (Vatican City State) ',
+        'NL' => 'Netherlands ',
 
-					'HN'=>'Honduras',
+        'AN' => 'Netherlands Antilles',
 
-					'HK'=>'Hong Kong ',
+        'NC' => 'New Caledonia ',
 
-					'HU'=>'Hungary ',
+        'NZ' => 'New Zealand ',
 
-					'IS'=>'Iceland ',
+        'NI' => 'Nicaragua ',
 
-					'IN'=>'India ',
+        'NE' => 'Niger ',
 
-					'ID'=>'Indonesia ',
+        'NG' => 'Nigeria ',
 
-					'IR'=>'Iran (Islamic Republic of)',
+        'NU' => 'Niue',
 
-					'IQ'=>'Iraq',
+        'NF' => 'Norfolk Island',
 
-					'IE'=>'Ireland ',
+        'MP' => 'Northern Mariana Islands',
 
-					'IL'=>'Israel',
+        'NO' => 'Norway',
 
-					'IT'=>'Italy ',
+        'OM' => 'Oman',
 
-					'JM'=>'Jamaica ',
+        'PK' => 'Pakistan',
 
-					'JP'=>'Japan ',
+        'PW' => 'Palau ',
 
-					'JO'=>'Jordan',
+        'PA' => 'Panama',
 
-					'KZ'=>'Kazakhstan',
+        'PG' => 'Papua New Guinea',
 
-					'KE'=>'Kenya ',
+        'PY' => 'Paraguay',
 
-					'KI'=>'Kiribati',
+        'PE' => 'Peru',
 
-					'KP'=>"Korea, Democratic People's Republic of",
+        'PH' => 'Philippines ',
 
-					'KR'=>'Korea, Republic of',
+        'PN' => 'Pitcairn',
 
-					'KW'=>'Kuwait',
+        'PL' => 'Poland',
 
-					'KG'=>'Kyrgyzstan',
+        'PT' => 'Portugal',
 
-					'LA'=>"Lao People's Democratic Republic",
+        'PR' => 'Puerto Rico ',
 
-					'LV'=>'Latvia',
+        'QA' => 'Qatar ',
 
-					'LB'=>'Lebanon ',
+        'RE' => 'Reunion ',
 
-					'LS'=>'Lesotho ',
+        'RO' => 'Romania ',
 
-					'LR'=>'Liberia ',
+        'RU' => 'Russian Federation',
 
-					'LY'=>'Libyan Arab Jamahiriya',
+        'RW' => 'Rwanda',
 
-					'LI'=>'Liechtenstein ',
+        'KN' => 'Saint Kitts and Nevis ',
 
-					'LT'=>'Lithuania ',
+        'LC' => 'Saint LUCIA ',
 
-					'LU'=>'Luxembourg',
+        'VC' => 'Saint Vincent and the Grenadines',
 
-					'MO'=>'Macau ',
+        'WS' => 'Samoa ',
 
-					'MK'=>'Macedonia, The Former Yugoslav Republic of',
+        'SM' => 'San Marino',
 
-					'MG'=>'Madagascar',
+        'ST' => 'Sao Tome and Principe ',
 
-					'MW'=>'Malawi',
+        'SA' => 'Saudi Arabia',
 
-					'MY'=>'Malaysia',
+        'SN' => 'Senegal ',
 
-					'MV'=>'Maldives',
+        'SC' => 'Seychelles',
 
-					'ML'=>'Mali',
+        'SL' => 'Sierra Leone',
 
-					'MT'=>'Malta ',
+        'SG' => 'Singapore ',
 
-					'MH'=>'Marshall Islands',
+        'SK' => 'Slovakia (Slovak Republic)',
 
-					'MQ'=>'Martinique',
+        'SI' => 'Slovenia',
 
-					'MR'=>'Mauritania',
+        'SB' => 'Solomon Islands ',
 
-					'MU'=>'Mauritius ',
+        'SO' => 'Somalia ',
 
-					'YT'=>'Mayotte ',
+        'ZA' => 'South Africa',
 
-					'MX'=>'Mexico',
+        'GS' => 'South Georgia and the South Sandwich Islands',
 
-					'FM'=>'Micronesia, Federated States of ',
+        'ES' => 'Spain ',
 
-					'MD'=>'Moldova, Republic of',
+        'LK' => 'Sri Lanka ',
 
-					'MC'=>'Monaco',
+        'SH' => 'St. Helena',
 
-					'MN'=>'Mongolia',
+        'PM' => 'St. Pierre and Miquelon ',
 
-					'MS'=>'Montserrat',
+        'SD' => 'Sudan ',
 
-					'MA'=>'Morocco ',
+        'SR' => 'Suriname',
 
-					'MZ'=>'Mozambique',
+        'SJ' => 'Svalbard and Jan Mayen Islands',
 
-					'MM'=>'Myanmar ',
+        'SZ' => 'Swaziland ',
 
-					'NA'=>'Namibia ',
+        'SE' => 'Sweden',
 
-					'NR'=>'Nauru ',
+        'CH' => 'Switzerland ',
 
-					'NP'=>'Nepal ',
+        'SY' => 'Syrian Arab Republic',
 
-					'NL'=>'Netherlands ',
+        'TW' => 'Taiwan, Province of China ',
 
-					'AN'=>'Netherlands Antilles',
+        'TJ' => 'Tajikistan',
 
-					'NC'=>'New Caledonia ',
+        'TZ' => 'Tanzania, United Republic of',
 
-					'NZ'=>'New Zealand ',
+        'TH' => 'Thailand',
 
-					'NI'=>'Nicaragua ',
+        'TG' => 'Togo',
 
-					'NE'=>'Niger ',
+        'TK' => 'Tokelau ',
 
-					'NG'=>'Nigeria ',
+        'TO' => 'Tonga ',
 
-					'NU'=>'Niue',
+        'TT' => 'Trinidad and Tobago ',
 
-					'NF'=>'Norfolk Island',
+        'TN' => 'Tunisia ',
 
-					'MP'=>'Northern Mariana Islands',
+        'TR' => 'Turkey',
 
-					'NO'=>'Norway',
+        'TM' => 'Turkmenistan',
 
-					'OM'=>'Oman',
+        'TC' => 'Turks and Caicos Islands',
 
-					'PK'=>'Pakistan',
+        'TV' => 'Tuvalu',
 
-					'PW'=>'Palau ',
+        'UG' => 'Uganda',
 
-					'PA'=>'Panama',
+        'UA' => 'Ukraine ',
 
-					'PG'=>'Papua New Guinea',
+        'AE' => 'United Arab Emirates',
 
-					'PY'=>'Paraguay',
+        'GB' => 'United Kingdom',
 
-					'PE'=>'Peru',
+        'US' => 'United States ',
 
-					'PH'=>'Philippines ',
+        'UM' => 'United States Minor Outlying Islands',
 
-					'PN'=>'Pitcairn',
+        'UY' => 'Uruguay ',
 
-					'PL'=>'Poland',
+        'UZ' => 'Uzbekistan',
 
-					'PT'=>'Portugal',
+        'VU' => 'Vanuatu ',
 
-					'PR'=>'Puerto Rico ',
+        'VE' => 'Venezuela ',
 
-					'QA'=>'Qatar ',
+        'VN' => 'Viet Nam',
 
-					'RE'=>'Reunion ',
+        'VG' => 'Virgin Islands (British)',
 
-					'RO'=>'Romania ',
+        'VI' => 'Virgin Islands (U.S.) ',
 
-					'RU'=>'Russian Federation',
+        'WF' => 'Wallis and Futuna Islands ',
 
-					'RW'=>'Rwanda',
+        'EH' => 'Western Sahara',
 
-					'KN'=>'Saint Kitts and Nevis ',
+        'YE' => 'Yemen ',
 
-					'LC'=>'Saint LUCIA ',
+        'YU' => 'Yugoslavia',
 
-					'VC'=>'Saint Vincent and the Grenadines',
+        'ZM' => 'Zambia',
 
-					'WS'=>'Samoa ',
+        'ZW' => 'Zimbabwe' ),
 
-					'SM'=>'San Marino',
+        false,
 
-					'ST'=>'Sao Tome and Principe ',
+        Array (isset ( $_SESSION ['serverLocation'] ) ? $_SESSION ['serverLocation'] : '' ),
 
-					'SA'=>'Saudi Arabia',
+        0,
 
-					'SN'=>'Senegal ',
+        'tabindex="3"' );
 
-					'SC'=>'Seychelles',
+        $cmbLocation = ob_get_contents ();
 
-					'SL'=>'Sierra Leone',
+        ob_clean ();
 
-					'SG'=>'Singapore ',
+        //loop through the folders and build an array of available modules
 
-					'SK'=>'Slovakia (Slovak Republic)',
 
-					'SI'=>'Slovenia',
+        $basedir = $_SESSION ['sys_root'] . "/core_modules/";
+        if (file_exists ( $basedir )) {
+            chdir ( $basedir );
+            $dh = opendir ( $basedir );
+            $dirList = array ();
+            while ( false !== ($file = readdir ( $dh )) ) { #see http://www.php.net/manual/en/function.readdir.php
+                if ($file != "." && $file != ".." && strtolower ( $file ) != "cvs") {
+                    if (is_dir ( $file ) && (file_exists ( $basedir . $file . '/controller.php' )) || (file_exists ( $basedir . $file . '/register.conf' ))) {
+                        //array_push($dirList, $file);
+                        $dirList [$file] = $file;
+                    }
+                }
+            }
+        }
 
-					'SB'=>'Solomon Islands ',
+        $basedir = $_SESSION ['module_path'];
+        if (file_exists ( $basedir )) {
+            chdir ( $basedir );
+            $dh = opendir ( $basedir );
+            while ( false !== ($file = readdir ( $dh )) ) { #see http://www.php.net/manual/en/function.readdir.php
+                if ($file != "." && $file != ".." && strtolower ( $file ) != "cvs") {
+                    if (is_dir ( $file ) && file_exists ( $basedir . $file . '/controller.php' )) {
+                        //array_push($dirList, $file);
+                        $dirList [$file] = $file;
+                    }
+                }
+            }
+        }
 
-					'SO'=>'Somalia ',
-
-					'ZA' =>'South Africa',
-
-					'GS'=>'South Georgia and the South Sandwich Islands',
-
-					'ES'=>'Spain ',
-
-					'LK'=>'Sri Lanka ',
-
-					'SH'=>'St. Helena',
-
-					'PM'=>'St. Pierre and Miquelon ',
-
-					'SD'=>'Sudan ',
-
-					'SR'=>'Suriname',
-
-					'SJ'=>'Svalbard and Jan Mayen Islands',
-
-					'SZ'=>'Swaziland ',
-
-					'SE'=>'Sweden',
-
-					'CH'=>'Switzerland ',
-
-					'SY'=>'Syrian Arab Republic',
-
-					'TW'=>'Taiwan, Province of China ',
-
-					'TJ'=>'Tajikistan',
-
-					'TZ'=>'Tanzania, United Republic of',
-
-					'TH'=>'Thailand',
-
-					'TG'=>'Togo',
-
-					'TK'=>'Tokelau ',
-
-					'TO'=>'Tonga ',
-
-					'TT'=>'Trinidad and Tobago ',
-
-					'TN'=>'Tunisia ',
-
-					'TR'=>'Turkey',
-
-					'TM'=>'Turkmenistan',
-
-					'TC'=>'Turks and Caicos Islands',
-
-					'TV'=>'Tuvalu',
-
-					'UG'=>'Uganda',
-
-					'UA'=>'Ukraine ',
-
-					'AE'=>'United Arab Emirates',
-
-					'GB'=>'United Kingdom',
-
-					'US'=>'United States ',
-
-					'UM'=>'United States Minor Outlying Islands',
-
-					'UY'=>'Uruguay ',
-
-					'UZ'=>'Uzbekistan',
-
-					'VU'=>'Vanuatu ',
-
-					'VE'=>'Venezuela ',
-
-					'VN'=>'Viet Nam',
-
-					'VG'=>'Virgin Islands (British)',
-
-					'VI'=>'Virgin Islands (U.S.) ',
-
-					'WF'=>'Wallis and Futuna Islands ',
-
-					'EH'=>'Western Sahara',
-
-					'YE'=>'Yemen ',
-
-					'YU'=>'Yugoslavia',
-
-					'ZM'=>'Zambia',
-
-					'ZW'=>'Zimbabwe'),
-
-					false,
-
-					Array(isset($_SESSION['serverLocation'])?$_SESSION['serverLocation']:''),
-
-					0,
-
-					'tabindex="3"');
-
-			$cmbLocation = ob_get_contents();
-
-			ob_clean();
-
-
-
-			//loop through the folders and build an array of available modules
-
-
-			$basedir= $_SESSION['sys_root']."/core_modules/";
-			if (file_exists($basedir)) {
-				chdir($basedir);
-				$dh=opendir($basedir);
-				$dirList=array();
-     			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
-						if (is_dir($file) && (file_exists($basedir.$file.'/controller.php'))||(file_exists($basedir.$file.'/register.conf')) ) {
-							//array_push($dirList, $file);
-							$dirList[$file]= $file;
-						}
-					}
-				}
-			}
- 
-			$basedir= $_SESSION['module_path'];
-			if (file_exists($basedir)) {
-				chdir($basedir);
-				$dh=opendir($basedir);
-     			        while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
-					if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
-						if (is_dir($file) && file_exists($basedir.$file.'/controller.php')) {
-							//array_push($dirList, $file);
-							$dirList[$file]= $file;
-						}
-					}
-				}
-			}
-
-                        
-			/*$basedir = //modules path
+        /*$basedir = //modules path
 			/*$basedir = //modules path
 			if (file_exists($basedir)) {
 			chdir($basedir);
@@ -1042,228 +957,198 @@ class RootUserAction extends StepAction
 			}
 			}*/
 
-			asort($dirList);
+        asort ( $dirList );
 
-		    closedir($dh);
+        closedir ( $dh );
 
+        $cmbpostLogin = ob_get_contents ();
 
+        ob_clean ();
 
-    	  	$cmbpostLogin = ob_get_contents();
-
-	ob_clean();
-
-      // Server Type
-      // Parse from XML using simpleXML
-      $data=simplexml_load_file($_SESSION['sys_root'].'/installer/dbhandlers/systemtypes.xml');
-      if ($data==FALSE){ //if (!is_array($data)){
-        $this->errors[]= "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
-        return FALSE;
-      }
-      $simbaTypes=array();
-      foreach ($data->systemtypes->category as $line){ 
-        // Force into string
-        $l2=''.$line;  
-        $simbaTypes[$l2]=$l2;
-      }
-      // Now remove those with missing modules
-      foreach ($data->modulelist->category as $line){
-        foreach ($line->module as $l2){
-            if (!(in_array($l2,$dirList))){
-                unset($simbaTypes[''.$line->categoryname]);
-                // check for core module problem
-                if ($line->categoryname=='Basic System Only'){
-                    $error= "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
-                    $error.= "The framework must have all of the following modules, and looks for them in a folder called 'core_modules'<br />\n";
-                    $error.= "<ul>\n";
-                    foreach ($line->module as $coreModule)
-                    {
-                        $error.= "<li>$coreModule</li>\n";
+        // Server Type
+        // Parse from XML using simpleXML
+        $data = simplexml_load_file ( $_SESSION ['sys_root'] . '/installer/dbhandlers/systemtypes.xml' );
+        if ($data == FALSE) { //if (!is_array($data)){
+            $this->errors [] = "Fatal Error! Something is wrong with the XML file that stores the lists of modules. It won't parse properly into an array. Installation cannot proceed until this is fixed.<br />\n";
+            return FALSE;
+        }
+        $simbaTypes = array ();
+        foreach ( $data->systemtypes->category as $line ) {
+            // Force into string
+            $l2 = '' . $line;
+            $simbaTypes [$l2] = $l2;
+        }
+        // Now remove those with missing modules
+        foreach ( $data->modulelist->category as $line ) {
+            foreach ( $line->module as $l2 ) {
+                if (! (in_array ( $l2, $dirList ))) {
+                    unset ( $simbaTypes ['' . $line->categoryname] );
+                    // check for core module problem
+                    if ($line->categoryname == 'Basic System Only') {
+                        $error = "Fatal Error! The installer cannot find one of the core modules needed for the framework to run. Installation cannot proceed until this is fixed.<br />\n";
+                        $error .= "The framework must have all of the following modules, and looks for them in a folder called 'core_modules'<br />\n";
+                        $error .= "<ul>\n";
+                        foreach ( $line->module as $coreModule ) {
+                            $error .= "<li>$coreModule</li>\n";
+                        }
+                        $error .= "</ul>\n";
+                        $this->errors [] = $error;
+                        return FALSE;
                     }
-                    $error.= "</ul>\n";
-                    $this->errors[]=$error;
-                    return FALSE;
+                    break;
                 }
-                break;
             }
         }
-      }
 
-      // Now display it in a drop-down
-        combo_box('SysType',$simbaTypes,false,
-        array(isset($_SESSION['SysType'])?$_SESSION['SysType']:'SysType'),
-        0, 'tabindex="1"');
-    	$cmbSysType = ob_get_contents();
-        ob_clean();
+        // Now display it in a drop-down
+        combo_box ( 'SysType', $simbaTypes, false, array (isset ( $_SESSION ['SysType'] ) ? $_SESSION ['SysType'] : 'SysType' ), 0, 'tabindex="1"' );
+        $cmbSysType = ob_get_contents ();
+        ob_clean ();
 
+        //loop through the folders and build an array of available skins
 
-    	//loop through the folders and build an array of available skins
 
-		$basedir= $_SESSION['sys_root']."/skins/";
+        $basedir = $_SESSION ['sys_root'] . "/skins/";
 
+        chdir ( $basedir );
 
+        $dh = opendir ( $basedir );
 
-		chdir($basedir);
+        $dirskinList = array ();
 
-		$dh=opendir($basedir);
+        while ( false !== ($file = readdir ( $dh )) ) { #see http://www.php.net/manual/en/function.readdir.php
 
-		$dirskinList=array();
 
-		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+            if ($file != "." && $file != ".." && strtolower ( $file ) != "cvs") {
 
-			if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
+                if (is_dir ( $file ) && file_exists ( $basedir . $file . '/stylesheet.css' )) {
 
-				if (is_dir($file) && file_exists($basedir.$file.'/stylesheet.css')) {
+                    array_push ( $dirskinList, $file );
 
-					array_push($dirskinList, $file);
+                }
 
-				}
+            }
 
-			}
+        }
 
-		}
+        asort ( $dirskinList );
 
-		asort($dirskinList);
+        closedir ( $dh );
 
-	    closedir($dh);
+        combo_box ( 'defaultskin',
 
-	    combo_box('defaultskin',
+        $dirskinList, false,
 
-    			  $dirskinList,false,
+        array (isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'echo' ),
 
-    			  array(isset($_SESSION['defaultskin'])?$_SESSION['defaultskin']:'echo'),
+        0, 'tabindex="13"' );
 
-    			  0,'tabindex="13"');
+        $cmbdefaultSkin = ob_get_contents ();
 
-    	$cmbdefaultSkin = ob_get_contents();
+        ob_clean ();
 
-		ob_clean();
+        text_box ( 'site_server_url', isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $this_server, '40', '', false, 'tabindex="11"' );
+        $serverbox = ob_get_contents ();
+        ob_clean ();
 
+        text_box ( 'site_url', isset ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : $this_url, '40', '', false, 'tabindex="11"' );
 
-        text_box('site_server_url', isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$this_server, '40', '', false, 'tabindex="11"');
-        $serverbox = ob_get_contents();
-        ob_clean();
+        $box = ob_get_contents ();
 
-		text_box('site_url', isset($_SESSION['site_url'])?$_SESSION['site_url']:$this_url, '40', '', false, 'tabindex="11"');
+        ob_end_clean ();
 
-		$box = ob_get_contents();
+        $tpl->set ( 'topic', $this->parent_step );
 
-		ob_end_clean();
+        $tpl->set ( 'site_url', $box );
+        $tpl->set ( 'site_server_url', $serverbox );
 
+        $tpl->set ( 'root_email', $email );
 
+        $tpl->set ( 'tech_email', $tech_email );
 
-		$tpl->set('topic',$this->parent_step);
+        if (! isset ( $rollback_enable )) {
+            $rollback_enable = FALSE;
+        }
 
-		$tpl->set('site_url',$box);
-		$tpl->set('site_server_url',$serverbox);
+        $tpl->set ( 'rollback_enable', $rollback_enable );
 
-		$tpl->set('root_email', $email);
+        $tpl->set ( 'sys_owner', $sys_owner );
 
-		$tpl->set('tech_email', $tech_email);
+        $tpl->set ( 'serverName', $server_name );
 
-		if(!isset($rollback_enable))
-		{
-			$rollback_enable = FALSE;
-		}
+        $tpl->set ( 'contentPath', $contentPath );
 
-		$tpl->set('rollback_enable', $rollback_enable);
+        $tpl->set ( 'relContentPath', $rel_contentPath );
 
-		$tpl->set('sys_owner', $sys_owner);
+        $tpl->set ( 'serverLocation', $cmbLocation );
 
-		$tpl->set('serverName', $server_name);
+        $tpl->set ( 'sys_name', $sys_name );
 
-		$tpl->set('contentPath', $contentPath);
+        $tpl->set ( 'log_path', $log_path );
 
-		$tpl->set('relContentPath', $rel_contentPath);
+        $tpl->set ( 'module_path', $module_path );
 
-		$tpl->set('serverLocation', $cmbLocation);
+        $tpl->set ( 'log_enable', $log_enable );
 
-		$tpl->set('sys_name', $sys_name);
+        $tpl->set ( 'debug_enable', $debug_enable );
 
-		$tpl->set('log_path', $log_path);
+        $tpl->set ( 'postLogin', $cmbpostLogin );
 
-		$tpl->set('module_path', $module_path);
+        $tpl->set ( 'SysType', $cmbSysType );
 
-		$tpl->set('log_enable',$log_enable);
+        $tpl->set ( 'defaultskin', $cmbdefaultSkin );
 
-		$tpl->set('debug_enable',$debug_enable);
+        $tpl->set ( 'proxy', $proxy );
 
-		$tpl->set('postLogin',$cmbpostLogin);
+        echo $tpl->fetch ();
 
-		$tpl->set('SysType',$cmbSysType);
+    } //end paintAction()
 
-		$tpl->set('defaultskin',$cmbdefaultSkin);
 
-		$tpl->set('proxy',$proxy);
+    /**
 
+     * Show what stuff was saved. Make note about the  lowercase url
 
+     *
 
-		echo $tpl->fetch();
+     * @return void
 
+     * @access public
 
+     */
 
-	}//end paintAction()
+    function confirmAction()
 
+    {
 
+        $tpl = new Template ( INSTALL_DIR . '/templates/rootdetails.tpl' );
 
-	/**
+        $def_email = isset ( $_SESSION ['root_email'] ) ? $_SESSION ['root_email'] : '';
 
-	* Show what stuff was saved. Make note about the  lowercase url
+        $tech_email = isset ( $_SESSION ['tech_email'] ) ? $_SESSION ['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
 
-	*
+        $def_sysname = isset ( $_SESSION ['sys_name'] ) ? $_SESSION ['sys_name'] : '';
 
-	* @return void
+        $server_name = isset ( $_SESSION ['serverName'] ) ? $_SESSION ['serverName'] : '';
 
-	* @access public
+        $serverLocation = isset ( $_SESSION ['serverLocation'] ) ? $_SESSION ['serverLocation'] : '';
 
-	*/
+        $proxy = isset ( $_SESSION ['proxy'] ) ? $_SESSION ['proxy'] : 'http://user:password@proxy.myhost.com:port';
 
-	function confirmAction()
+        //Get a list of modules to select
 
-	{
 
+        $defaultpostlogin = isset ( $_SESSION ['postLogin'] ) ? $_SESSION ['postLogin'] : '';
 
+        //We need to extract the actual value of the selected key
 
-		$tpl = new Template(INSTALL_DIR.'/templates/rootdetails.tpl');
 
+        //to match the real value of what was selected for post login
 
 
-		$def_email = isset($_SESSION['root_email']) ? $_SESSION['root_email'] : '';
+        $basedir = $_SESSION ['sys_root'] . "/core_modules/";
 
-
-
-		$tech_email = isset($_SESSION['tech_email']) ? $_SESSION['tech_email'] : 'nextgen-users@avoir.uwc.ac.za';
-
-
-		$def_sysname = isset($_SESSION['sys_name']) ? $_SESSION['sys_name'] : '';
-
-
-
-		$server_name = isset($_SESSION['serverName']) ? $_SESSION['serverName'] : '';
-
-
-
-		$serverLocation = isset($_SESSION['serverLocation']) ? $_SESSION['serverLocation'] : '';
-
-
-
-		$proxy = isset($_SESSION['proxy']) ? $_SESSION['proxy'] :'http://user:password@proxy.myhost.com:port';
-
-
-
-		//Get a list of modules to select
-
-
-
-		$defaultpostlogin = isset($_SESSION['postLogin']) ? $_SESSION['postLogin'] : '';
-
-		//We need to extract the actual value of the selected key
-
-		//to match the real value of what was selected for post login
-
-		$basedir= $_SESSION['sys_root']."/core_modules/";
-
-
-/**  // This section is no longer needed - I've changed the module form element to pass a string not a number.
+        /**  // This section is no longer needed - I've changed the module form element to pass a string not a number.
 
 		chdir($basedir);
 
@@ -1299,163 +1184,143 @@ class RootUserAction extends StepAction
 
 			}
 
-		}**/
+         **/
 
+        // Server Type
+        $SysType = isset ( $_SESSION ['SysType'] ) ? $_SESSION ['SysType'] : '';
 
-                // Server Type
-                $SysType = isset($_SESSION['SysType']) ? $_SESSION['SysType'] : '';
+        //save key for selected skin
 
 
+        $defaultskin = isset ( $_SESSION ['defaultskin'] ) ? $_SESSION ['defaultskin'] : 'echo';
 
-		//save key for selected skin
+        //We need to extract the actual value of the selected key
 
-		$defaultskin = isset($_SESSION['defaultskin']) ? $_SESSION['defaultskin'] : 'echo';
 
-		//We need to extract the actual value of the selected key
+        //to match the real value of what was selected for available skins
 
-		//to match the real value of what was selected for available skins
 
-		$basedir= $_SESSION['sys_root']."/skins/";
+        $basedir = $_SESSION ['sys_root'] . "/skins/";
 
+        chdir ( $basedir );
 
+        $dh = opendir ( $basedir );
 
-		chdir($basedir);
+        $dirskinList = array ();
 
-		$dh=opendir($basedir);
+        $dirskinList = array ('echo' => 'Echo' );
 
-		$dirskinList=array();
+        while ( false !== ($file = readdir ( $dh )) ) { #see http://www.php.net/manual/en/function.readdir.php
 
-		$dirskinList = array('echo'=>'Echo');
 
-		while (false !== ($file = readdir($dh))) { #see http://www.php.net/manual/en/function.readdir.php
+            if ($file != "." && $file != ".." && strtolower ( $file ) != "cvs") {
 
-			if ($file != "." && $file != ".." && strtolower($file)!="cvs") {
+                if (is_dir ( $file ) && file_exists ( $basedir . $file . '/stylesheet.css' )) {
 
-				if (is_dir($file) && file_exists($basedir.$file.'/stylesheet.css')) {
+                    array_push ( $dirskinList, $file );
 
-					array_push($dirskinList, $file);
+                }
 
-				}
+            }
 
-			}
+        }
 
-		}
+        asort ( $dirskinList );
 
-		asort($dirskinList);
+        closedir ( $dh );
 
-	    closedir($dh);
+        foreach ( $dirskinList as $key => $value ) {
 
-	    foreach ($dirskinList as $key => $value) {
+            if ($key == $defaultskin) {
 
-			if ($key ==$defaultskin) {
+                $defaultskin = $value;
+                $_SESSION ['defaultskin'] = $defaultskin;
 
-				$defaultskin =$value;
-				$_SESSION['defaultskin'] = $defaultskin;
+            }
 
-			}
+        }
 
-		}
+        $main_server = isset ( $_SESSION ['main_server'] ) ? $_SESSION ['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
 
-		$main_server = isset($_SESSION['main_server']) ? $_SESSION['main_server'] : 'http://kngforge.uwc.ac.za/kng_unstable';
+        $contentPath = isset ( $_SESSION ['contentPath'] ) ? $_SESSION ['contentPath'] : '';
 
+        $def_sysowner = isset ( $_SESSION ['sys_owner'] ) ? $_SESSION ['sys_owner'] : '';
 
+        $log_enable = isset ( $_SESSION ['log_enable'] ) ? $_SESSION ['log_enable'] : '';
 
-		$contentPath = isset($_SESSION['contentPath']) ? $_SESSION['contentPath'] :'';
+        if ($log_enable == 1) {
+            $log_enable = "TRUE";
 
+        } else {
 
+            $log_enable = "FALSE";
+        }
 
-		$def_sysowner = isset($_SESSION['sys_owner']) ? $_SESSION['sys_owner'] :'';
+        $debug_enable = isset ( $_SESSION ['debug_enable'] ) ? $_SESSION ['debug_enable'] : '';
 
+        if ($debug_enable == 1) {
+            $_SESSION ['debug_enable'] = "developer";
+            $debug_enable = "TRUE";
 
+        } else {
 
-		$log_enable = isset($_SESSION['log_enable']) ? $_SESSION['log_enable'] : '';
+            $_SESSION ['debug_enable'] = "production";
 
-		if ($log_enable==1)
-		{
-			$log_enable = "TRUE";
+            $debug_enable = "FALSE";
+        }
 
-		}else {
+        $this_url = isset ( $_SESSION ['site_url'] ) ? $_SESSION ['site_url'] : $_SERVER ['SERVER_NAME'];
+        $this_server = isset ( $_SESSION ['site_server_url'] ) ? $_SESSION ['site_server_url'] : $_SERVER ['SERVER_NAME'];
 
-			$log_enable = "FALSE";
-		}
+        $log_path = isset ( $_SESSION ['log_path'] ) ? $_SESSION ['log_path'] : $_SESSION ['sys_root'] . '/data/private/logs/error.log';
+        $module_path = isset ( $_SESSION ['module_path'] ) ? $_SESSION ['module_path'] : $_SESSION ['sys_root'] . '/modules/';
 
-		$debug_enable = isset($_SESSION['debug_enable']) ? $_SESSION['debug_enable'] : '';
+        $tpl->set ( 'topic', $this->parent_step );
 
-		if ($debug_enable==1)
-		{
-			$_SESSION['debug_enable'] = "developer";
-			$debug_enable = "TRUE";
+        $tpl->set ( 'site_url', $this_url . '<br/> (Please note that Chisimba treats all URLS as lower case)' );
+        $tpl->set ( 'site_server_url', $this_server );
 
-		}else {
+        $tpl->set ( 'root_email', $def_email );
 
-			$_SESSION['debug_enable'] = "production";
+        $tpl->set ( 'tech_email', $tech_email );
 
-			$debug_enable = "FALSE";
-		}
+        if (! isset ( $rollback )) {
+            $rollback = FALSE;
+        }
+        $tpl->set ( 'rollback_enable', $rollback );
 
-		$this_url = isset($_SESSION['site_url'])?$_SESSION['site_url']:$_SERVER['SERVER_NAME'];
-		$this_server = isset($_SESSION['site_server_url'])?$_SESSION['site_server_url']:$_SERVER['SERVER_NAME'];
+        $tpl->set ( 'sys_owner', $def_sysowner );
 
+        $tpl->set ( 'sys_name', $def_sysname );
 
+        $tpl->set ( 'serverName', $server_name );
 
-		$log_path = isset($_SESSION['log_path'])?$_SESSION['log_path']: $_SESSION['sys_root'].'/data/private/logs/error.log';
-		$module_path = isset($_SESSION['module_path'])?$_SESSION['module_path']: $_SESSION['sys_root'].'/modules/';
+        $tpl->set ( 'contentPath', $contentPath );
 
+        $tpl->set ( 'serverLocation', $serverLocation );
 
+        $tpl->set ( 'log_enable', $log_enable );
 
-		$tpl->set('topic',$this->parent_step);
+        $tpl->set ( 'debug_enable', $debug_enable );
 
-		$tpl->set('site_url',$this_url. '<br/> (Please note that Chisimba treats all URLS as lower case)');
-		$tpl->set('site_server_url',$this_server);
+        $tpl->set ( 'log_path', $log_path );
 
-		$tpl->set('root_email', $def_email);
+        $tpl->set ( 'module_path', $module_path );
 
-		$tpl->set('tech_email', $tech_email);
+        $tpl->set ( 'defaultskin', $defaultskin );
 
-		if(!isset($rollback))
-		{
-			$rollback = FALSE;
-		}
-		$tpl->set('rollback_enable', $rollback);
+        $tpl->set ( 'postLogin', $defaultpostlogin );
 
-		$tpl->set('sys_owner', $def_sysowner);
+        $tpl->set ( 'SysType', $SysType );
 
-		$tpl->set('sys_name', $def_sysname);
+        $tpl->set ( 'proxy', $proxy );
 
-		$tpl->set('serverName', $server_name);
+        echo $tpl->fetch ();
 
-		$tpl->set('contentPath', $contentPath);
+    } //end confirmAction()
 
-		$tpl->set('serverLocation', $serverLocation);
 
-		$tpl->set('log_enable',$log_enable);
+} //end class
 
-		$tpl->set('debug_enable',$debug_enable);
-
-		$tpl->set('log_path', $log_path);
-
-		$tpl->set('module_path', $module_path);
-
-		$tpl->set('defaultskin', $defaultskin);
-
-		$tpl->set('postLogin', $defaultpostlogin);
-
-                $tpl->set('SysType',$SysType);
-
-		$tpl->set('proxy',$proxy);
-
-
-
-		echo $tpl->fetch();
-
-
-
-	}//end confirmAction()
-
-
-
-
-
-}//end class
 
 ?>
