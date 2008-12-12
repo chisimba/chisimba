@@ -284,15 +284,18 @@ class getIcon extends object implements ifhtml
         return $objLink->show();
     }
 
-     /**
+   /**
     * Method to return upload linked icon
     * @param string $url The uri generated path for the task to be performed
     */
-    public function getViewIcon($url)
+    public function getViewIcon($url, $id = '')
     {
         $this->setIcon("bookopen");
         $objLink = $this->newObject('link', 'htmlelements');
         $objLink->href=$url;
+        if ($id != '') {
+            $objLink->cssId=$id;
+        }
         $objLink->link=$this->show();
         return $objLink->show();
     }
