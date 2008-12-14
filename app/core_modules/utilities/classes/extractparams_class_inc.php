@@ -85,12 +85,12 @@ class extractparams extends object
                     $this->$pName = $pValue;
                 }
             }
+            return $ret;
         } catch (Exception $e) {
                 throw customException($e->getMessage());
                 //customException::cleanUp();
                 exit;
         }
-        return $ret;
     }
 
     /**
