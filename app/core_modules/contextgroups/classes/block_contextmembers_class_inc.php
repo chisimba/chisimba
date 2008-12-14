@@ -94,7 +94,7 @@ class block_contextmembers extends object
         $str .= '<p><strong>'.ucwords($this->objLanguage->code2Txt('word_lecturers','system')).'</strong></p>';
         
         if (count($lecturers) == 0) {
-            $str .= '<p>'.$this->objLanguage->code2Txt('mod_groupadmin_nolects','contextgroups').'<p>';
+            $str .= '<p>'.$this->objLanguage->code2Txt('mod_contextgroups_nolecturers','contextgroups').'<p>';
         } else {
             $str .= '<p>';
             
