@@ -254,7 +254,19 @@ class dbfolder extends dbTable
         
         return $title;
     }
-    
+    /**
+     * Short description for function
+     *
+     * Long description (if any) ...
+     *
+     * @param  string $userId Parameter description (if any) ...
+     * @return string Return description (if any) ...
+     * @access public
+     */
+    function getUserFolders($userId)
+    {
+        return $this->getAll(' WHERE folderpath LIKE \'users/'.$userId.'/%\' ORDER BY folderlevel, folderpath');
+    }    
     /**
      * Short description for function
      *
@@ -502,7 +514,41 @@ class dbfolder extends dbTable
     */
     function getTreedropdown($selected = '')
     {
-        return '';
+        //Create a new tree
+        $menu  = new treemenu();
+
+        $allFilesNode = new treenode(array('text' => 'My Files', 'link' => 'ROOT'));
+
+        $refArray = array();
+
+        $refArray['/users/'.$this->objUser->userId()] =& $allFilesNode;
+
+        $folders = $this->getUserFolders($this->objUser->userId());
+
+        if (count($folders) > 0) {
+            foreach ($folders as $folder)
+            {
+                $node =& new treenode(array('text' => basename($folder['folderpath']), 'link' => $folder['id']));
+
+                $parent = '/'.dirname($folder['folderpath']);
+
+                //echo $folder['folderpath'].' - '.$parent.'<br />';
+                if (array_key_exists($parent, $refArray)) {
+                    $refArray['/'.dirname($folder['folderpath'])]->addItem($node);
+                }
+
+                $refArray['/'.$folder['folderpath']] =& $node;
+            }
+        }
+
+        $menu->addItem($allFilesNode);
+
+        $this->appendArrayVar('headerParams', $this->getJavascriptFile('TreeMenu.js', 'tree'));
+        $this->setVar('pageSuppressXML', TRUE);
+
+        $objSkin =& $this->getObject('skin', 'skin');
+        $treeMenu = &new htmldropdown($menu, array('inputName'=> 'parentfolder', 'id'=>'input_parentfolder','selected'=>$selected));
+        return $treeMenu->getMenu();
     }
 
     /**
