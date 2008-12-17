@@ -443,7 +443,18 @@ class InstallDirectoryAction extends StepAction
                 mkdir ( $check_dir );
 
                 chmod ( $check_dir, 0700 );
-
+                
+                //added by Wesley Nitsckie 17 Dec 2008
+                //creating the .htaccess file
+                if ($dir == 'usrfiles')
+                {
+                    $filename = 'wes_htaccess';
+                    $fpht = @fopen ( $check_dir  . '/'.$filename, "w" );
+                    @fclose ( $fpht );
+                    $this->errors [] = '<span class="success">Created ' . $check_dir . '/'.$filename.'</span>';
+                } else {
+                    $this->errors [] = '<span class="success">There was a problem creating ' . $check_dir . '/'.$filename'</span>';
+                }
                 $success = true;
 
                 $check_dir = str_replace ( '//', '/', $check_dir );
