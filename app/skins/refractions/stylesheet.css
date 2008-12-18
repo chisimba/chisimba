@@ -284,7 +284,7 @@ h1#sitename {
 
 }
 
-p.im_message {
+.im_message {
    margin-left: 20px;
    margin-right: 25px;
    background-color: white/*#efefef*/;
@@ -346,7 +346,7 @@ form.inplaceeditor-form a { /* The cancel link */
 }
 
 form.inplaceeditor-saving {
-	background: url(../_common/icons/loading.gif) bottom right no-repeat;
+	background: url(../_common/icons/loader.gif) bottom right no-repeat;
 }
 
 input{
