@@ -453,7 +453,7 @@ class InstallDirectoryAction extends StepAction
                     @fclose ( $fpht );
                     $this->errors [] = '<span class="success">Created ' . $check_dir . '/'.$filename.'</span>';
                 } else {
-                    $this->errors [] = '<span class="success">There was a problem creating ' . $check_dir . '/'.$filename'</span>';
+                    $this->errors [] = '<span class="success">There was a problem creating ' . $check_dir . '/'.$filename.'</span>';
                 }
                 $success = true;
 
