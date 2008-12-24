@@ -87,14 +87,14 @@ class button extends abhtmlbase implements ifhtml
         $this->value = $value;
         $this->onclick = $onclick;
         $this->cssClass = 'button';
-		//$this->cssId = 'input_'.$name;
+        //$this->cssId = 'input_'.$name;
     }
 
     /**
-	 * Method to set the action for the onclick event
-	 * for the button
-	 *
-	 * @param string $onclick
+     * Method to set the action for the onclick event
+     * for the button
+     *
+     * @param string $onclick
      * @return void
      * @access public
      */
@@ -104,11 +104,11 @@ class button extends abhtmlbase implements ifhtml
     }
 
     /**
-	 * Method to set the cssClass private variable
-	 * which determines the DOM class of the button as
-	 * definied in the CSS
-	 *
-	 * @param string $cssClass the class
+     * Method to set the cssClass private variable
+     * which determines the DOM class of the button as
+     * definied in the CSS
+     *
+     * @param string $cssClass the class
      * @return void
      * @access public
      */
@@ -117,11 +117,11 @@ class button extends abhtmlbase implements ifhtml
         $this->cssClass = $cssClass;
     }
 
-	/**
-	 * Method to set the cssId private member
-	 * which determines the DOM id of the button
-	 *
-	 * @param string $cssId the Id
+    /**
+     * Method to set the cssId private member
+     * which determines the DOM id of the button
+     *
+     * @param string $cssId the Id
      * @return void
      * @access public
      */
@@ -131,8 +131,8 @@ class button extends abhtmlbase implements ifhtml
     }
 
     /**
-	 * Method used to set the button as
-	 * a submit button for a form
+     * Method used to set the button as
+     * a submit button for a form
      *
      * @return void
      * @access public
@@ -145,14 +145,14 @@ class button extends abhtmlbase implements ifhtml
     /**
     * Method to render the button as an HTML string
     *
-	* @return string Returns the button's html
+    * @return string Returns the button's html
     */
     public function show()
     {
         $str = '<input';
         $str .= ' value="' . $this->value . '"';
         //check if the buttons is a submit button or a normal button
-		if ($this->issubmitbutton) {
+        if ($this->issubmitbutton) {
             $str .= ' type="submit"';
         } else {
             $str .= ' type="button"';
@@ -160,7 +160,7 @@ class button extends abhtmlbase implements ifhtml
         if ($this->name) {
             $str .= ' name="' . $this->name . '"';
         }
-		if ($this->cssId) {
+        if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
         }
         if ($this->cssClass) {
