@@ -151,7 +151,7 @@ class previewfolder extends filemanagerobject
                 foreach ($files as $file)
                 {
                     if (count($restriction) > 0) {
-                        if (!in_array($file['datatype'], $restriction)) {
+                        if (!in_array(strtolower($file['datatype']), $restriction)) {
                             $objTable->startRow('hidefile');
                             $hidden++;
                         } else {
