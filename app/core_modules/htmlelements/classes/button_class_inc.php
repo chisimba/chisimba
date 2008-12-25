@@ -75,6 +75,15 @@ class button extends abhtmlbase implements ifhtml
     public $issubmitbutton;
 
     /**
+     * If true, the button type should be set to "reset".
+     *
+     * @access protected
+     * @var $isresetbutton boolean
+     */
+    protected $isresetbutton;
+    
+
+    /**
     * Initialization method to set default values
     *
     * @param string $name    : name of the button
@@ -143,6 +152,16 @@ class button extends abhtmlbase implements ifhtml
     }
 
     /**
+     * Sets the button type to reset.
+     *
+     * @access public
+     */
+    public function setToReset()
+    {
+        $this->isresetbutton = true;
+    }
+
+    /**
     * Method to render the button as an HTML string
     *
     * @return string Returns the button's html
@@ -154,6 +173,8 @@ class button extends abhtmlbase implements ifhtml
         //check if the buttons is a submit button or a normal button
         if ($this->issubmitbutton) {
             $str .= ' type="submit"';
+        } elseif ($this->isresetbutton) {
+            $str .= ' type="reset"';
         } else {
             $str .= ' type="button"';
         }
