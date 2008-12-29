@@ -9,7 +9,7 @@ function insertWysiLink(link)
     if (window.opener) {
         
     window.top.opener.SetUrl(link) ;
-	window.close() ;
+    window.close() ;
     }
 }
 </script>
