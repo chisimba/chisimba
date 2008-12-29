@@ -98,7 +98,7 @@ class parse4simplemaplocal extends object
                     $replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
                       . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
                       . "</h3></div>";
-                }                    
+                }
                 $str = str_replace($item, $replacement, $str);
                 $counter++;
             }
