@@ -464,18 +464,18 @@ class dateandtime extends object
 
     public function mailUser($to, $toid, $subject, $mailbody)
     {
-    	// $name, $subject, $email, $body, $html = TRUE, $attachment = NULL, $attachment_descrip=NULL
-    	$objMailer = $this->getObject('email', 'mail');
-		$objMailer->setValue('to', array($to));
-		$objMailer->setValue('from', 'noreply@uwc.ac.za');
-		$objMailer->setValue('fromName', $this->objLanguage->languageText("'mod_datetime_contentexpired", "utilities"));
-		$objMailer->setValue('subject', $toid);
-		$objMailer->setValue('body', $mailbody);
-		if ($objMailer->send()) {
-		  		return TRUE;
-		} else {
-		  		return FALSE;
-		}
+        // $name, $subject, $email, $body, $html = TRUE, $attachment = NULL, $attachment_descrip=NULL
+        $objMailer = $this->getObject('email', 'mail');
+        $objMailer->setValue('to', array($to));
+        $objMailer->setValue('from', 'noreply@uwc.ac.za');
+        $objMailer->setValue('fromName', $this->objLanguage->languageText("'mod_datetime_contentexpired", "utilities"));
+        $objMailer->setValue('subject', $toid);
+        $objMailer->setValue('body', $mailbody);
+        if ($objMailer->send()) {
+                  return TRUE;
+        } else {
+                  return FALSE;
+        }
 
     }
     

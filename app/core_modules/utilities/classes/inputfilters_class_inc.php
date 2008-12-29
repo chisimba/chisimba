@@ -27,15 +27,15 @@ Public License
 
 class inputfilters extends object
 {
-	/**
-	 * Class to handle inputs and filter user input
-	 * This is a semi-validation class, but more of a sanitising object
-	 * for user inputs from forms etc
-	 *
-	 * @access public
-	 */
+    /**
+     * Class to handle inputs and filter user input
+     * This is a semi-validation class, but more of a sanitising object
+     * for user inputs from forms etc
+     *
+     * @access public
+     */
 
-	/**
+    /**
      * Options for isHostname() that specify which types of hostnames
      * to allow.
      *
@@ -51,19 +51,19 @@ class inputfilters extends object
     const HOST_ALLOW_LOCAL = 4;
     const HOST_ALLOW_ALL   = 7;
 
-	/**
-	 * Standard init function
-	 *
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function init()
-	{
+    /**
+     * Standard init function
+     *
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function init()
+    {
 
-	}
+    }
 
-	/**
+    /**
      * Returns only the alphabetic characters in value.
      *
      * @param mixed $value

@@ -23,12 +23,12 @@
 class duration extends object
 {
 
-	public function init()
-	{
-		
-	}
-	
-	/**
+    public function init()
+    {
+        
+    }
+    
+    /**
      * All in one method
      *
      * @param   int|array  $duration  Array of time segments or a number of seconds

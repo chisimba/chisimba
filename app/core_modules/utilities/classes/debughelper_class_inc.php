@@ -26,15 +26,15 @@ Public License
 
 class debughelper extends object 
 {
-	/**
-	 * Standard init method
-	 */
-	public function init()
-	{
-		
-	}
-	
-	/**
+    /**
+     * Standard init method
+     */
+    public function init()
+    {
+        
+    }
+    
+    /**
      * Debug helper function.  This is a wrapper for var_dump() that adds
      * the <pre /> tags, cleans up newlines and indents, and runs
      * htmlentities() before output.

@@ -127,7 +127,7 @@ class captcha extends object {
 'localfolder' => $this->localFolder, // string: relative path (with trailing slash!) to a writeable tempfolder which is also accessible via HTTP!
 'TTF_folder' => $this->getResourcePath ( 'captcha/' ), // string: absolute path (with trailing slash!) to folder which contains your TrueType-Fontfiles.
 // mixed (array or string): basename(s) of TrueType-Fontfiles
-        'TTF_RANGE' => $this->fonts, //	'TTF_RANGE'      => 'COMIC.TTF',
+        'TTF_RANGE' => $this->fonts, //    'TTF_RANGE'      => 'COMIC.TTF',
 
 
         'chars' => $this->numChars, // integer: number of chars to use for ID
@@ -161,21 +161,21 @@ class captcha extends object {
         $script = "<script type=\"text/javascript\">
 //<![CDATA[
 function init () {
-	$('input_redraw').onclick = function () {
-		redraw();
-	}
+    $('input_redraw').onclick = function () {
+        redraw();
+    }
 }
 function redraw () {
-	var url = 'index.php';
-	var pars = 'module=security&action=generatenewcaptcha';
-	var myAjax = new Ajax.Request( url, {method: 'get', parameters: pars, onComplete: showResponse} );
+    var url = 'index.php';
+    var pars = 'module=security&action=generatenewcaptcha';
+    var myAjax = new Ajax.Request( url, {method: 'get', parameters: pars, onComplete: showResponse} );
 }
 function showLoad () {
-	$('load').style.display = 'block';
+    $('load').style.display = 'block';
 }
 function showResponse (originalRequest) {
-	var newData = originalRequest.responseText;
-	$('captchaDiv').innerHTML = newData;
+    var newData = originalRequest.responseText;
+    $('captchaDiv').innerHTML = newData;
 }
 //]]>
 </script>";

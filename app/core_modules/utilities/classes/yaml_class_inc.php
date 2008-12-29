@@ -21,49 +21,49 @@ Public License
 
 class yaml extends object 
 {
-	/**
-	*
-	* @var $objYaml
-	* @access public
-	*
-	*/
-	public $objYaml;
-	
-	/**
-	 * Standard init method
-	 */
-	public function init()
-	{
-		include($this->getResourcePath('yaml/spyc.php'));
-		$this->objYaml = new Spyc;
-	}
-	
-	/**
-	 * Method to parse the file to the Yaml object
-	 *
-	 * @param string $file
-	 * @return loaded Yaml file
-	 */
-	public function parseYaml($file)
-	{
-		if(file_exists($file))
-		{
-			return $this->objYaml->load($file);
-		}
-		else {
-			return FALSE;
-		}
-	}
-	
-	/**
-	 * Method to save the Yaml file
-	 *
-	 * @param string $array
-	 * @return saved Yaml file
-	 */
-	public function saveYaml($array,$indent = FALSE,$wordwrap = FALSE)
-	{
-		return $this->objYaml->dump($array, $indent, $wordwrap);
-	}
+    /**
+    *
+    * @var $objYaml
+    * @access public
+    *
+    */
+    public $objYaml;
+    
+    /**
+     * Standard init method
+     */
+    public function init()
+    {
+        include($this->getResourcePath('yaml/spyc.php'));
+        $this->objYaml = new Spyc;
+    }
+    
+    /**
+     * Method to parse the file to the Yaml object
+     *
+     * @param string $file
+     * @return loaded Yaml file
+     */
+    public function parseYaml($file)
+    {
+        if(file_exists($file))
+        {
+            return $this->objYaml->load($file);
+        }
+        else {
+            return FALSE;
+        }
+    }
+    
+    /**
+     * Method to save the Yaml file
+     *
+     * @param string $array
+     * @return saved Yaml file
+     */
+    public function saveYaml($array,$indent = FALSE,$wordwrap = FALSE)
+    {
+        return $this->objYaml->dump($array, $indent, $wordwrap);
+    }
 }
 ?>

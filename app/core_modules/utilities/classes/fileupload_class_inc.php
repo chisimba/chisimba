@@ -87,7 +87,7 @@ class fileupload extends object
     */
     public function init()
     {
-    	$this->objLanguage = $this->getObject('language', 'language');
+        $this->objLanguage = $this->getObject('language', 'language');
     }
     /**
     * Method the set the directory that we want to work with
@@ -96,7 +96,7 @@ class fileupload extends object
     */
     function set_directory($dir_name = ".")
     {
-    	$this->directory_name = $dir_name;
+        $this->directory_name = $dir_name;
     }
 
     /**
@@ -107,7 +107,7 @@ class fileupload extends object
     */
     function set_max_size($max_file = 300000000000)
     {
-    	$this->max_filesize = $max_file;
+        $this->max_filesize = $max_file;
     }
 
     /**
@@ -132,7 +132,7 @@ class fileupload extends object
     */
     function error()
     {
-    	return $this->error();
+        return $this->error();
     }
 
     /**
@@ -140,7 +140,7 @@ class fileupload extends object
     */
     function set_file_size($file_size)
     {
-    	$this->file_size = $file_size;
+        $this->file_size = $file_size;
     }
 
     /**
@@ -148,7 +148,7 @@ class fileupload extends object
     */
     function set_file_type($file_type)
     {
-    	$this->file_type = $file_type;
+        $this->file_type = $file_type;
     }
 
     /**
@@ -156,7 +156,7 @@ class fileupload extends object
     */
     function get_file_type()
     {
-    	return $this->file_type;
+        return $this->file_type;
     }
 
     /**
@@ -164,7 +164,7 @@ class fileupload extends object
     */
     function set_temp_name($temp_name)
     {
-    	$this->tmp_name = $temp_name;
+        $this->tmp_name = $temp_name;
     }
 
     /**
@@ -179,14 +179,14 @@ class fileupload extends object
 /**
     * Method to upload the file...
     * @PARAMS :
-    * 	$uploaddir : Directory Name in which uploaded file is placed
-    * 	NOTE: file input type field name should be set to fileupload
-    * 	$rename : you may pass string or boolean
-    * 			 TRUE : rename the file if it already exists and returns the renamed file name.
-    * 			 String : rename the file to given string.
-    * 	$replace =TRUE : replace the file if it is already existing
-    * 	$file_max_size : file size in bytes. 0 for default
-    * 	$check_type : checks file type exp ."(jpg|gif|jpeg)"
+    *     $uploaddir : Directory Name in which uploaded file is placed
+    *     NOTE: file input type field name should be set to fileupload
+    *     $rename : you may pass string or boolean
+    *              TRUE : rename the file if it already exists and returns the renamed file name.
+    *              String : rename the file to given string.
+    *     $replace =TRUE : replace the file if it is already existing
+    *     $file_max_size : file size in bytes. 0 for default
+    *     $check_type : checks file type exp ."(jpg|gif|jpeg)"
     *
     * @example UPLOAD::upload_file("temp","file",TRUE,TRUE,0,"jpg|jpeg|bmp|gif")
     *
@@ -195,14 +195,14 @@ class fileupload extends object
 
     function upload_file($uploaddir,$rename=NULL,$replace=FALSE,$file_max_size=0,$check_type="")
     {
-		if (!is_uploaded_file($_FILES['upload']['tmp_name'])) {
-			throw new CustomException($this->objLanguage->languageText('mod_utilities_errorupload'));
-		}
-		else if ($_FILES['upload']['error'] != UPLOAD_ERR_OK) {
-			throw new CustomException($objFileUpload->checkError($_FILES['file']['error']));
-		}
+        if (!is_uploaded_file($_FILES['upload']['tmp_name'])) {
+            throw new CustomException($this->objLanguage->languageText('mod_utilities_errorupload'));
+        }
+        else if ($_FILES['upload']['error'] != UPLOAD_ERR_OK) {
+            throw new CustomException($objFileUpload->checkError($_FILES['file']['error']));
+        }
 
-		$this->set_file_name($_FILES['upload']['name']);
+        $this->set_file_name($_FILES['upload']['name']);
         $this->set_file_type($_FILES['upload']['type']);
         $this->set_file_size($_FILES['upload']['size']);
         $this->error=$_FILES['upload']['error'];
@@ -216,18 +216,18 @@ class fileupload extends object
 
         if(!empty($check_type))
         {
-        	if(!eregi("\.($check_type)$",$filename))
-        	{
+            if(!eregi("\.($check_type)$",$filename))
+            {
 
-            	$this->error();
-            	return FALSE;
+                $this->error();
+                return FALSE;
             }
         }
 
         if(!is_bool($rename)&&!empty($rename))
         {
             $matches = NULL;
-        	if(preg_match("/\..*+$/",$this->file_name,$matches))
+            if(preg_match("/\..*+$/",$this->file_name,$matches))
             $this->set_file_name($rename.$matches[0]);
         }
         elseif($rename && file_exists($this->full_name))
@@ -238,24 +238,24 @@ class fileupload extends object
 
         if(file_exists($this->full_name))
         {
-        	if($replace)
-            	@unlink($this->full_name);
-        	else
-        	{
-            	$this->error=$this->objLanguage->languageText("word_file_exists");
-            	return FALSE;
-        	}
+            if($replace)
+                @unlink($this->full_name);
+            else
+            {
+                $this->error=$this->objLanguage->languageText("word_file_exists");
+                return FALSE;
+            }
         }
 
 
         $this->start_upload($filename,$temp_name,$uploaddir);
 
-        	if($this->error!="") {
-				echo $this->error;
-        		return FALSE;
-			}
-        	else
-        		return $this->file_name;
+            if($this->error!="") {
+                echo $this->error;
+                return FALSE;
+            }
+            else
+                return $this->file_name;
     }
 
     /**
@@ -268,16 +268,16 @@ class fileupload extends object
     {
 
         if(!isset($filename))
-        	$this->error = FALSE;
+            $this->error = FALSE;
 
-    	if ($this->file_size <= 0)
-        	$this->error = FALSE;
+        if ($this->file_size <= 0)
+            $this->error = FALSE;
 
-    	if ($this->file_size > $this->max_filesize && $this->max_filesize!=0)
-        	$this->error = FALSE;
+        if ($this->file_size > $this->max_filesize && $this->max_filesize!=0)
+            $this->error = FALSE;
 
-    	if ($this->error=="0")
-    	{
+        if ($this->error=="0")
+        {
 
             $destination= $uploaddir . $filename;
 

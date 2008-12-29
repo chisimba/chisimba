@@ -34,9 +34,9 @@ Public License
     *Initialize method
     */
      function init(){
-     	$this->objConfig= $this->newObject('altconfig','config');
-     	// Load Countries Table
-     	$this->objCountries= $this->getObject('countries', 'utilities');
+         $this->objConfig= $this->newObject('altconfig','config');
+         // Load Countries Table
+         $this->objCountries= $this->getObject('countries', 'utilities');
      }
     
     /**
@@ -94,7 +94,7 @@ Public License
         
         $flagsrc = 'core_modules/utilities/resources/flags/'.strtolower($code).'.gif';
 
-	if (!file_exists($this->objConfig->getsiteRootPath().'/'.$flagsrc)) { 
+    if (!file_exists($this->objConfig->getsiteRootPath().'/'.$flagsrc)) { 
            $flagsrc = 'core_modules/utilities/resources/flags/unknown.gif';
         }
 

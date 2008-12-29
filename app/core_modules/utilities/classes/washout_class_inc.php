@@ -26,21 +26,21 @@ Public License
 */
 class washout extends object
 {
-	/**
-	*
-	* @var string array $classes An array to hold all the parser classes
-	* @access public
-	*
-	*/
-	public $classes;
+    /**
+    *
+    * @var string array $classes An array to hold all the parser classes
+    * @access public
+    *
+    */
+    public $classes;
 
-	/**
-	*
-	* @var string object $bbcode String to hold the bbcode parser object
-	* @access public
-	*
-	*/
-	public $bbcode;
+    /**
+    *
+    * @var string object $bbcode String to hold the bbcode parser object
+    * @access public
+    *
+    */
+    public $bbcode;
 
     /**
     *
@@ -56,62 +56,62 @@ class washout extends object
     */
     private $objModules;
 
-	/**
-	 * Constructor method, builds an array of standard parsers,
-	 * ones that for legacy reasons do not live in the outputparsers
-	 * module.
-	 *
-	 * @access public
-	 * @param void
-	 * @return exception on error
-	 *
-	 */
-	public function init()
-	{
-		try {
+    /**
+     * Constructor method, builds an array of standard parsers,
+     * ones that for legacy reasons do not live in the outputparsers
+     * module.
+     *
+     * @access public
+     * @param void
+     * @return exception on error
+     *
+     */
+    public function init()
+    {
+        try {
             $objFilters = $this->getObject('filterinfo', 'filters');
             $parsers = $objFilters->getFilters();
-			foreach ($parsers as $parser)
-			{
+            foreach ($parsers as $parser)
+            {
                 $this->classes[] = str_replace("_class_inc.php", "", $parser);
-			}
-			$this->bbcode = $this->getObject('bbcodeparser', 'utilities');
+            }
+            $this->bbcode = $this->getObject('bbcodeparser', 'utilities');
             $this->objUrl = $this->getObject('url', 'strings');
-		}
-		catch (customException $e)
-		{
-			customException::cleanUp();
-			exit;
-		}
-	}
+        }
+        catch (customException $e)
+        {
+            customException::cleanUp();
+            exit;
+        }
+    }
 
-	/**
-	 * Method to parse the washing
-	 *
-	 * @param string $txt
-	 * @return string The text after it has been parsed
-	 *
-	 */
-	public function parseText($txt, $bbcode = TRUE)
-	{
-		//Loop over all parsers and run them on $txt
-		foreach ($this->classes as $parser) {
-			try {
-				$currentParser = $parser;
-				$objCurrentParser = $this->getObject($currentParser, 'filters');
-				$txt = $objCurrentParser->parse($txt);
-			}
-			catch (customException $e)
-			{
-				customException::cleanUp();
-				exit;
-			}
-		}
-		$txt = $this->bbcode->parse4bbcode($txt);
+    /**
+     * Method to parse the washing
+     *
+     * @param string $txt
+     * @return string The text after it has been parsed
+     *
+     */
+    public function parseText($txt, $bbcode = TRUE)
+    {
+        //Loop over all parsers and run them on $txt
+        foreach ($this->classes as $parser) {
+            try {
+                $currentParser = $parser;
+                $objCurrentParser = $this->getObject($currentParser, 'filters');
+                $txt = $objCurrentParser->parse($txt);
+            }
+            catch (customException $e)
+            {
+                customException::cleanUp();
+                exit;
+            }
+        }
+        $txt = $this->bbcode->parse4bbcode($txt);
         // comment it out for now
         //return $this->objUrl->tagExtLinks($this->objUrl->makeClickableLinks($txt));
         //return $this->objUrl->makeClickableLinks($txt);
         return $txt;
-	}
+    }
 }
 ?>

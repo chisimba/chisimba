@@ -24,47 +24,47 @@ Public License
 
 class jsalerts extends object
 {
-	/**
-	 * Class to handle JavaScript alerts
-	 * 
-	 * @author Paul Scott
-	 * @access Public
-	 * @copyright AVOIR
-	 */
-	
-	/**
-	 * Variable to hold the return string
-	 *
-	 * @var mixed
-	 */
-	public $return;
-	
-	/**
-	 * Variable to hold the message to construct the alert
-	 *
-	 * @var mixed
-	 */
+    /**
+     * Class to handle JavaScript alerts
+     * 
+     * @author Paul Scott
+     * @access Public
+     * @copyright AVOIR
+     */
+    
+    /**
+     * Variable to hold the return string
+     *
+     * @var mixed
+     */
+    public $return;
+    
+    /**
+     * Variable to hold the message to construct the alert
+     *
+     * @var mixed
+     */
     public $msg;
-    	
-	/**
-	 * Method to initialize the class
-	 *
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function init()
-	{
-		
-	}
-	
-	/**
-	 * Set the message to be put into the alert
-	 *
-	 * @param mixed $value
-	 */
-	public function setMsg($value)
-	{
+        
+    /**
+     * Method to initialize the class
+     *
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function init()
+    {
+        
+    }
+    
+    /**
+     * Set the message to be put into the alert
+     *
+     * @param mixed $value
+     */
+    public function setMsg($value)
+    {
        $this->msg = $value;
     }
     

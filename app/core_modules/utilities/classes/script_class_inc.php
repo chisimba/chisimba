@@ -20,19 +20,19 @@ Public License
 
 class script extends object
 {
-	/**
+    /**
     * Method to remove script from a string
     *
     * @access public
     * @param string $str string to be checked
     * @return string the string without script tags
     */
-	public function removeScript($str) {
-		$pattern = '/<script(.*)<\/script>/i';
-		while (preg_match($pattern,$str,$match)) {
-			$str = str_replace($match,' ',$str);
-		}
-		return $str;
-	}
+    public function removeScript($str) {
+        $pattern = '/<script(.*)<\/script>/i';
+        while (preg_match($pattern,$str,$match)) {
+            $str = str_replace($match,' ',$str);
+        }
+        return $str;
+    }
 }
 ?>

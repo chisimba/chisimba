@@ -57,109 +57,109 @@ $GLOBALS['kewl_entry_point_run']) {
  */
 class xmlthing extends object
 {
-	/**
-	 * XML Object
-	 *
-	 * @var    object
-	 * @access public
-	 */
-	public $xw;
-	
-	/**
-	 * Standard init function
-	 *
-	 */
-	public function init()
-	{
-		
-	}
-	
-	/**
-	 * Method to create the initial document for manipulation
-	 *
-	 * @param string $version - xml doc version
-	 * @param string $encoding - the encoding of the document
-	 * @param bool   $indent - whether to indent or not. Default is to indent
-	 */
-	public function createDoc($version='1.0', $encoding='UTF-8', $indent=TRUE)
-	{
-		$this->xw = new xmlWriter();
-    	$this->xw->openMemory();
-   	    $this->xw->startDocument($version,$encoding);
-   	    $this->xw->setIndent($indent);
-	}
-	
-	/**
-	 * Method to add a DTD to the document
-	 *
-	 * @param string $type - dtd type (html)
-	 * @param string $dtd - the document type definition
-	 */
-	public function addDTD($type='html', $dtd="-//WAPFORUM//DTD XHTML Mobile 1.0//EN', 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd")
-	{
-		$this->xw->startDtd($type, $dtd);
-    	$this->xw->endDtd();
-	}
-	
-	/**
-	 * Method to start an element
-	 *
-	 * @param string $ele
-	 */
-	public function startElement($ele='html')
-	{
-		$this->xw->startElement($ele);
-	}
-	
-	/**
-	 * Method to write the element parts
-	 *
-	 * @param string $name the element name
-	 * @param string $value the element value
-	 */
-	public function writeElement($name, $value)
-	{
-		$this->xw->writeElement($name, $value);
-	}
-	
-	/**
-	 * Method to end an element (closes)
-	 *
-	 */
-	public function endElement()
-	{
-		$this->xw->endElement();
-	}
-	
-	/**
-	 * Method to create an attribute in an element
-	 *
-	 * @param string $name name of the attribute
-	 * @param string $value value
-	 */
-	public function writeAtrribute($name='xm:lang', $value='en')
-	{
-		$this->xw->writeAttribute($name, $value);
-	}
-	
-	/**
-	 * Method to close off the DTD
-	 *
-	 */
-	public function endDTD()
-	{
-		$this->xw->endDtd();
-	}
-	
-	/**
-	 * dumps the xml as a string
-	 *
-	 * @return string xml
-	 */
-	public function dumpXML()
-	{
-		return $this->xw->outputMemory(TRUE);
-	}
-	
+    /**
+     * XML Object
+     *
+     * @var    object
+     * @access public
+     */
+    public $xw;
+    
+    /**
+     * Standard init function
+     *
+     */
+    public function init()
+    {
+        
+    }
+    
+    /**
+     * Method to create the initial document for manipulation
+     *
+     * @param string $version - xml doc version
+     * @param string $encoding - the encoding of the document
+     * @param bool   $indent - whether to indent or not. Default is to indent
+     */
+    public function createDoc($version='1.0', $encoding='UTF-8', $indent=TRUE)
+    {
+        $this->xw = new xmlWriter();
+        $this->xw->openMemory();
+           $this->xw->startDocument($version,$encoding);
+           $this->xw->setIndent($indent);
+    }
+    
+    /**
+     * Method to add a DTD to the document
+     *
+     * @param string $type - dtd type (html)
+     * @param string $dtd - the document type definition
+     */
+    public function addDTD($type='html', $dtd="-//WAPFORUM//DTD XHTML Mobile 1.0//EN', 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd")
+    {
+        $this->xw->startDtd($type, $dtd);
+        $this->xw->endDtd();
+    }
+    
+    /**
+     * Method to start an element
+     *
+     * @param string $ele
+     */
+    public function startElement($ele='html')
+    {
+        $this->xw->startElement($ele);
+    }
+    
+    /**
+     * Method to write the element parts
+     *
+     * @param string $name the element name
+     * @param string $value the element value
+     */
+    public function writeElement($name, $value)
+    {
+        $this->xw->writeElement($name, $value);
+    }
+    
+    /**
+     * Method to end an element (closes)
+     *
+     */
+    public function endElement()
+    {
+        $this->xw->endElement();
+    }
+    
+    /**
+     * Method to create an attribute in an element
+     *
+     * @param string $name name of the attribute
+     * @param string $value value
+     */
+    public function writeAtrribute($name='xm:lang', $value='en')
+    {
+        $this->xw->writeAttribute($name, $value);
+    }
+    
+    /**
+     * Method to close off the DTD
+     *
+     */
+    public function endDTD()
+    {
+        $this->xw->endDtd();
+    }
+    
+    /**
+     * dumps the xml as a string
+     *
+     * @return string xml
+     */
+    public function dumpXML()
+    {
+        return $this->xw->outputMemory(TRUE);
+    }
+    
 }
 ?>

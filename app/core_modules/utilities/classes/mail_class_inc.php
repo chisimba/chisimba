@@ -60,11 +60,11 @@ class mailer extends phpmailer
     */
     function mailer($From, $FromName, $Host, $Mailer, $WordWrap)
     {
-    	$this->From = $From;
-		$this->FromName = $FromName;
-		$this->Host = $Host;
-		$this->Mailer = $Mailer;
-		$this->WordWrap = $WordWrap;
+        $this->From = $From;
+        $this->FromName = $FromName;
+        $this->Host = $Host;
+        $this->Mailer = $Mailer;
+        $this->WordWrap = $WordWrap;
     }
 
     

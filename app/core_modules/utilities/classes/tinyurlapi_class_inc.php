@@ -89,16 +89,16 @@ class tinyurlapi extends object
     */
     public function createTinyUrl($url)
     {
-    	$url = $this->tinyApi . '?url=' . $url;
-    	try {
-    		$oCh = $this->getObject("curl", "utilities");
-    		$result = $oCh->exec($url);
-    		if ($this->isValidResult($result)) {
-    			return $result;
-    		} else {
-    			return $this->tinyUrlError;
-    		}
-    	} catch(customException $e) {
+        $url = $this->tinyApi . '?url=' . $url;
+        try {
+            $oCh = $this->getObject("curl", "utilities");
+            $result = $oCh->exec($url);
+            if ($this->isValidResult($result)) {
+                return $result;
+            } else {
+                return $this->tinyUrlError;
+            }
+        } catch(customException $e) {
             customException::cleanUp();
             exit();
         }
@@ -119,7 +119,7 @@ class tinyurlapi extends object
                 $oCh = $this->getObject("curlwrapper", "utilities");
                 $oCh->initializeCurl($url);
                 $oCh->setProxy();
-        	    $oCh->setopt(CURLOPT_URL, $url);
+                $oCh->setopt(CURLOPT_URL, $url);
                 $oCh->setopt(CURLOPT_FOLLOWLOCATION, TRUE);
                 $oCh->setopt(CURLOPT_HEADER, TRUE);
                 $oCh->setopt(CURLOPT_NOBODY, TRUE);
@@ -139,7 +139,7 @@ class tinyurlapi extends object
                 exit();
             }
         } else {
-        	return $this->objLanguage->languageText("mod_utilities_invaldtinyurl", "utilities") 
+            return $this->objLanguage->languageText("mod_utilities_invaldtinyurl", "utilities") 
               . ": " . $url;
         }
      }
@@ -157,7 +157,7 @@ class tinyurlapi extends object
         if (!preg_match('/^http:\/\/tinyurl.com\/[a-z0-9]+/i', $url)) {
             return FALSE;
         } else {
-        	return TRUE;
+            return TRUE;
         }
     }
     
@@ -173,8 +173,8 @@ class tinyurlapi extends object
     */
     private function isValidResult(&$result)
     {
-    	//Check that we are getting back a valid tiny url
-    	if (!preg_match('/^http:\/\/tinyurl.com\/[a-z0-9]+/i', $result)) {
+        //Check that we are getting back a valid tiny url
+        if (!preg_match('/^http:\/\/tinyurl.com\/[a-z0-9]+/i', $result)) {
             $this->tinyUrlError = $this->objLanguage->languageText("mod_utilities_invaldtinyurl", "utilities") 
               . ": " . $result;
             return FALSE;
@@ -185,7 +185,7 @@ class tinyurlapi extends object
               . ": " . $result;
             
         }
-    	return TRUE;
+        return TRUE;
     }
 
 }

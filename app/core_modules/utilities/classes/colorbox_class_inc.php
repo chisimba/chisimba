@@ -69,17 +69,17 @@ class colorbox extends object
 {
 
 
-	/**
-	 * Constructor method. It does nothing here
-	 *
-	 * @access public
-	 * @param void
-	 * @return VOID
-	 *
-	 */
-	public function init()
-	{
-	}
+    /**
+     * Constructor method. It does nothing here
+     *
+     * @access public
+     * @param void
+     * @return VOID
+     *
+     */
+    public function init()
+    {
+    }
 
     public function show($boxColor, $txt)
     {

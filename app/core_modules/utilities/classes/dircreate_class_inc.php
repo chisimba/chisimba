@@ -27,14 +27,14 @@ Public License
 
 class dircreate extends object
 {
-	/**
-	* @var object $objConfig
-	*/
-	var  $objConfig;
+    /**
+    * @var object $objConfig
+    */
+    var  $objConfig;
 
-	function init(){
-		$this->objConfig=$this->newObject('altconfig','config');
-	}
+    function init(){
+        $this->objConfig=$this->newObject('altconfig','config');
+    }
 
     /**
     * method to create specified folder

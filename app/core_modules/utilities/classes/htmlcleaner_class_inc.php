@@ -29,9 +29,9 @@ require_once($this->getResourceUri('safehtml/safehtml.php', 'utilities'));
 class htmlcleaner  extends object
 {
    /**
-	 * @var object $_objSafeHtml The safehtml object
-	 * @access protected
-	 */
+     * @var object $_objSafeHtml The safehtml object
+     * @access protected
+     */
     protected $_objSafeHtml;
 
     /**

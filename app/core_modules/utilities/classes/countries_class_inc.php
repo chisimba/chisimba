@@ -45,16 +45,16 @@ class countries extends object
     private $countriesFlip;
     
     
-	/**
-	* Constructor
-	*/
+    /**
+    * Constructor
+    */
     public function init()
     {
         $this->setupCountries();
         $this->objConfig = $this->getObject('altconfig','config');
         $this->loadClass('dropdown', 'htmlelements');
     }
-	
+    
     /**
     * Method to setup the list of countries in an array
     */
@@ -305,7 +305,7 @@ class countries extends object
         
         // Create the Flipped Array
         $this->countriesFlip = array_flip($this->countries);
-	}
+    }
     
 
     
@@ -368,6 +368,6 @@ class countries extends object
         return $dropdown->show();
     }
     
-	
+    
 }  #end of class
 ?>

@@ -9,28 +9,28 @@ Options line for comments, encoding and character set
 $options = array('comment' => 'Table for dbedit_lock class', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-		'notnull' => 1
-		),
-	'table_name' => array(
-		'type' => 'text',
-		'length' => 100,
-		'notnull' => 1
-		),
-	'rowid' => array(
-		'type' => 'text',
-		'length' => 32,
-		'notnull' => 1
-		),
-	'lockownerid' => array(
-		'type' => 'text',
-		'length' => 25,
-		'notnull' => 1
-		),
-	'datelocked' => array(
-		'type' => 'timestamp'
-		)
-	);
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => 1
+        ),
+    'table_name' => array(
+        'type' => 'text',
+        'length' => 100,
+        'notnull' => 1
+        ),
+    'rowid' => array(
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => 1
+        ),
+    'lockownerid' => array(
+        'type' => 'text',
+        'length' => 25,
+        'notnull' => 1
+        ),
+    'datelocked' => array(
+        'type' => 'timestamp'
+        )
+    );
 ?>

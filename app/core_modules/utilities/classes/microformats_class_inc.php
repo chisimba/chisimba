@@ -20,14 +20,14 @@ Public License
 
 class microformats extends object
 {
-	/**
-	* Constructor
-	*/
+    /**
+    * Constructor
+    */
     public function init()
     {
-    	require_once($this->getResourcePath('microformats/phpMicroformats.class.php'));
-    	// others?
-    	
+        require_once($this->getResourcePath('microformats/phpMicroformats.class.php'));
+        // others?
+        
     }
     
     /**
@@ -38,37 +38,37 @@ class microformats extends object
      * @example 
      * 
      * $myPersonalData = array(
-	'name' 		=> 'John Doe',
-	'email' 	=> 'abuse-me@this-host-does-not-exist.info',
-	'org' 		=> array(
-		'name' 		=> 'The virtual company',
-		'title' 	=> 'General chief of all'
-	),
+    'name'         => 'John Doe',
+    'email'     => 'abuse-me@this-host-does-not-exist.info',
+    'org'         => array(
+        'name'         => 'The virtual company',
+        'title'     => 'General chief of all'
+    ),
 
-	'location'	=> array (
-		'street'	=> '15x Main street',
-		'town'		=> 'Jonestown',
-		'zip'		=> '22912',
-		'state'		=> 'Some country',
-		'country'	=> 'Big Country'	
-	),	
+    'location'    => array (
+        'street'    => '15x Main street',
+        'town'        => 'Jonestown',
+        'zip'        => '22912',
+        'state'        => 'Some country',
+        'country'    => 'Big Country'    
+    ),    
 
-	'phone'		=> array(
-		'home'		=> '+911 123 66 71 292',
-		'cell'		=> '+911 123 88 72 121'	
-	),
+    'phone'        => array(
+        'home'        => '+911 123 66 71 292',
+        'cell'        => '+911 123 88 72 121'    
+    ),
 
-	'photo'		=> 'http://url/to/some/depictionofme.png',
-		
-	'im'		=> array(
-		'skype'		=> 'echo',
-		'aim'		=> 'dudewithnolife'
-	)
+    'photo'        => 'http://url/to/some/depictionofme.png',
+        
+    'im'        => array(
+        'skype'        => 'echo',
+        'aim'        => 'dudewithnolife'
+    )
 );
      */
     public function showHcard($personalData)
     {
-    	return phpMicroformats::createHCard($personalData);
+        return phpMicroformats::createHCard($personalData);
     }
     
     /**
@@ -77,24 +77,24 @@ class microformats extends object
      * @param array $event
      * @example 
      * $myEvent = array(
-	'name' 		=> 'Release party of Chisimba',
-	'begin'		=> time(),
-	'end'		=> time()+2*60*60, // duration: 2 hours
+    'name'         => 'Release party of Chisimba',
+    'begin'        => time(),
+    'end'        => time()+2*60*60, // duration: 2 hours
 
-	'location'	=> array (
-		'street'	=> '15z Main street',
-		'town'		=> 'Jonestown',
-		'zip'		=> '22912',
-		'state'		=> 'Western Cape',
-		'country'	=> 'South Africa'	
-	),
+    'location'    => array (
+        'street'    => '15z Main street',
+        'town'        => 'Jonestown',
+        'zip'        => '22912',
+        'state'        => 'Western Cape',
+        'country'    => 'South Africa'    
+    ),
 
-	'url'		=> 'http://chisimba.uwc.ac.za'
+    'url'        => 'http://chisimba.uwc.ac.za'
 );
      */
     public function showHcalendar($event)
     {
-    	return phpMicroformats::createHCalendar($event);
+        return phpMicroformats::createHCalendar($event);
     }
 
 }
