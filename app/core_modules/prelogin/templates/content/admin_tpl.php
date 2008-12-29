@@ -4,7 +4,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -34,11 +34,11 @@ $head->str = $this->objLanguage->languageText('mod_prelogin_availableblocks','pr
 //if data has been changed inform user
 $submitMsg = '';
 switch ($this->getParam('change')) {
-	case '2':
-		$submitMsg1 = &$this->newObject('timeoutMessage','htmlelements');
-    	$submitMsg1->setMessage($this->objLanguage->languageText("mod_prelogin_success",'prelogin'));
-    	$submitMsg = '<br/>'.$submitMsg1->show().'<br />';
-    	break;
+    case '2':
+        $submitMsg1 = &$this->newObject('timeoutMessage','htmlelements');
+        $submitMsg1->setMessage($this->objLanguage->languageText("mod_prelogin_success",'prelogin'));
+        $submitMsg = '<br/>'.$submitMsg1->show().'<br />';
+        break;
 }
 
 //setup table headings
@@ -78,26 +78,26 @@ $table->addCell("<strong>".$this->objLanguage->languageText('mod_prelogin_leftba
 $table->endRow();
 $leftBlocks = $this->objPLBlocks->getBlocks('left');
 foreach ($leftBlocks as $block) {
-	$upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
-	$upLink->link = $objUpIcon->show();
-	$downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
-	$downLink->link = $objDownIcon->show();
-	$ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
-	$delLink = array('action' => 'delete', 'id' => $block['id']);
+    $upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
+    $upLink->link = $objUpIcon->show();
+    $downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
+    $downLink->link = $objDownIcon->show();
+    $ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
+    $delLink = array('action' => 'delete', 'id' => $block['id']);
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
-	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
-	$updated = date('d/m/y',strtotime($block['datelastupdated']));
-	$table->startRow();
-	$table->addCell($block['title'],NULL,NULL,'left',$style);
-	$table->addCell($visibility->show(),NULL,NULL,'left',$style);
-	$table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
-	$table->addCell($updated,NULL,NULL,'left',$style);
-	$table->addCell($actions,NULL,NULL,'left',$style);
-	$table->endRow();
-	($style == 'even')? $style = 'odd' : $style = 'even';
+    ($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
+    $visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
+    $updated = date('d/m/y',strtotime($block['datelastupdated']));
+    $table->startRow();
+    $table->addCell($block['title'],NULL,NULL,'left',$style);
+    $table->addCell($visibility->show(),NULL,NULL,'left',$style);
+    $table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
+    $table->addCell($updated,NULL,NULL,'left',$style);
+    $table->addCell($actions,NULL,NULL,'left',$style);
+    $table->endRow();
+    ($style == 'even')? $style = 'odd' : $style = 'even';
 }
 
 /************* MIDDLE CONTENT **************/
@@ -106,26 +106,26 @@ $table->addCell("<strong>".$this->objLanguage->languageText('mod_prelogin_middle
 $table->endRow();
 $middleBlocks = $this->objPLBlocks->getBlocks('middle');
 foreach ($middleBlocks as $block) {
-	$upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
-	$upLink->link = $objUpIcon->show();
-	$downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
-	$downLink->link = $objDownIcon->show();
-	$ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
-	$delLink = array('action' => 'delete', 'id' => $block['id']);
+    $upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
+    $upLink->link = $objUpIcon->show();
+    $downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
+    $downLink->link = $objDownIcon->show();
+    $ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
+    $delLink = array('action' => 'delete', 'id' => $block['id']);
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
-	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
-	$updated = date('d/m/y',strtotime($block['datelastupdated']));
-	$table->startRow();
-	$table->addCell($block['title'],NULL,NULL,'left',$style);
-	$table->addCell($visibility->show(),NULL,NULL,'left',$style);
-	$table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
-	$table->addCell($updated,NULL,NULL,'left',$style);
-	$table->addCell($actions,NULL,NULL,'left',$style);
-	$table->endRow();
-	($style == 'even')? $style = 'odd' : $style = 'even';
+    ($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
+    $visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
+    $updated = date('d/m/y',strtotime($block['datelastupdated']));
+    $table->startRow();
+    $table->addCell($block['title'],NULL,NULL,'left',$style);
+    $table->addCell($visibility->show(),NULL,NULL,'left',$style);
+    $table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
+    $table->addCell($updated,NULL,NULL,'left',$style);
+    $table->addCell($actions,NULL,NULL,'left',$style);
+    $table->endRow();
+    ($style == 'even')? $style = 'odd' : $style = 'even';
 }
 
 /************* RIGHT NAVBAR **************/
@@ -134,26 +134,26 @@ $table->addCell("<strong>".$this->objLanguage->languageText('mod_prelogin_rightb
 $table->endRow();
 $rightBlocks = $this->objPLBlocks->getBlocks('right');
 foreach ($rightBlocks as $block) {
-	$upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
-	$upLink->link = $objUpIcon->show();
-	$downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
-	$downLink->link = $objDownIcon->show();
-	$ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
-	$delLink = array('action' => 'delete', 'id' => $block['id']);
+    $upLink->link($this->uri(array('action'=>'moveup','id'=>$block['id'])));
+    $upLink->link = $objUpIcon->show();
+    $downLink->link($this->uri(array('action'=>'movedown','id'=>$block['id'])));
+    $downLink->link = $objDownIcon->show();
+    $ed = $edIconLink->getEditIcon($this->uri(array('action' => 'editblock','id' => $block['id'])));
+    $delLink = array('action' => 'delete', 'id' => $block['id']);
     $deletephrase = $objLanguage->languageText('phrase_delete');
     $conf = $objDelIcon->getDeleteIconWithConfirm('', $delLink, 'prelogin', $deletephrase);
     $actions = $upLink->show().' '.$downLink->show().' '.$ed.' '.$conf;
-	($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
-	$visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
-	$updated = date('d/m/y',strtotime($block['datelastupdated']));
-	$table->startRow();
-	$table->addCell($block['title'],NULL,NULL,'left',$style);
-	$table->addCell($visibility->show(),NULL,NULL,'left',$style);
-	$table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
-	$table->addCell($updated,NULL,NULL,'left',$style);
-	$table->addCell($actions,NULL,NULL,'left',$style);
-	$table->endRow();
-	($style == 'even')? $style = 'odd' : $style = 'even';
+    ($block['visible'] == $this->TRUE)? $visibile = TRUE : $visibile = FALSE;
+    $visibility = &new checkBox($block['id'].'_vis',$block['title'],$visibile);
+    $updated = date('d/m/y',strtotime($block['datelastupdated']));
+    $table->startRow();
+    $table->addCell($block['title'],NULL,NULL,'left',$style);
+    $table->addCell($visibility->show(),NULL,NULL,'left',$style);
+    $table->addCell($this->objUser->fullName($block['updatedby']),NULL,NULL,'left',$style);
+    $table->addCell($updated,NULL,NULL,'left',$style);
+    $table->addCell($actions,NULL,NULL,'left',$style);
+    $table->endRow();
+    ($style == 'even')? $style = 'odd' : $style = 'even';
 }
 
 $submitButton = &new button('update',$this->objLanguage->languageText('word_update'));
