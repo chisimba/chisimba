@@ -7,21 +7,21 @@ $options = array('comment' => 'Bridge table used to keep a list of rules and act
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-	),
-	'moduleid' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
     ),
-	'ruleid' => array(
-		'type' => 'text',
-		'length' => 32,
+    'moduleid' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
+    'ruleid' => array(
+        'type' => 'text',
+        'length' => 32,
     ),
     'actionid' => array(
-		'type' => 'text',
-		'length' => 32,
+        'type' => 'text',
+        'length' => 32,
     )
 );
 

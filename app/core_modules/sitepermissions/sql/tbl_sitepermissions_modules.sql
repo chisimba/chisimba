@@ -7,13 +7,13 @@ $options = array('comment' => 'Table used to keep a list of modules.', 'collate'
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-	),
-	'name' => array(
-		'type' => 'text',
-		'length' => 50,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
+    'name' => array(
+        'type' => 'text',
+        'length' => 50,
     ),
 );
 ?>

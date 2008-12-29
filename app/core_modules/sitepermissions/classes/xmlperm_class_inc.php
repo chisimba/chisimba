@@ -62,14 +62,14 @@ class xmlperm extends dbTable
     {
         $moduleName = $this->getSession('module_name');
         if(file_exists($this->objConfig->getModulePath()."/$moduleName")){
-        	$path = $this->objConfig->getModulePath()."/$moduleName/permissions.xml";
+            $path = $this->objConfig->getModulePath()."/$moduleName/permissions.xml";
         }else{
-        	$path = $this->objConfig->getSiteRootPath().'core_modules/'.$moduleName."/permissions.xml";
+            $path = $this->objConfig->getSiteRootPath().'core_modules/'.$moduleName."/permissions.xml";
         }
         if(file_exists($path)){
-        	return $path;
+            return $path;
         }else{
-        	return FALSE;
+            return FALSE;
         } 
     }
     

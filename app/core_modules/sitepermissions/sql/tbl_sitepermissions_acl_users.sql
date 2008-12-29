@@ -7,22 +7,22 @@ $options = array('comment' => 'Table used to keep a list of users for each acl.'
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-	),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
     'aclid' => array(
         'type' => 'text',
         'length' => 32,
     ),
-	'type' => array( // group, user
-		'type' => 'integer',
-		'length' => 1,
-	),
-	'typeid' => array(
-		'type' => 'text',
-		'length' => 32,
-	),
+    'type' => array( // group, user
+        'type' => 'integer',
+        'length' => 1,
+    ),
+    'typeid' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
 );
 //create other indexes here...
 

@@ -7,17 +7,17 @@ $options = array('comment' => 'Table used to keep a list of access control lists
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-	),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
     'name' => array(
         'type' => 'text',
         'length' => 50,
     ),
-	'description' => array(
-		'type' => 'text',
-		'length' => 255,
-	)
+    'description' => array(
+        'type' => 'text',
+        'length' => 255,
+    )
 );
 ?>

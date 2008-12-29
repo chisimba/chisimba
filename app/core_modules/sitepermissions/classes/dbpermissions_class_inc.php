@@ -25,131 +25,131 @@ class dbpermissions extends dbTable
     
 /* ----- Functions for changeing tables ----- */
 
-	/**
-	* Method to dynamically switch tables
-	*
-	* @access private
-	* @param string $table: The name of the table
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _changeTable($table)
-	{
-		try{
-			parent::init($table);
-			return TRUE;
-		}catch(customException $e){
-			customException::cleanUp();
-			return FALSE;
-		}
-	}
-	
-	/**
-	* Method to set the module table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setModules()
-	{
+    /**
+    * Method to dynamically switch tables
+    *
+    * @access private
+    * @param string $table: The name of the table
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _changeTable($table)
+    {
+        try{
+            parent::init($table);
+            return TRUE;
+        }catch(customException $e){
+            customException::cleanUp();
+            return FALSE;
+        }
+    }
+    
+    /**
+    * Method to set the module table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setModules()
+    {
         return $this->_changeTable('tbl_sitepermissions_modules');
     }
 
-	/**
-	* Method to set the rule table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setRule()
-	{
+    /**
+    * Method to set the rule table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setRule()
+    {
         return $this->_changeTable('tbl_sitepermissions_rule');
     }
 
-	/**
-	* Method to set the action table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setAction()
-	{
+    /**
+    * Method to set the action table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setAction()
+    {
         return $this->_changeTable('tbl_sitepermissions_action');
     }
     
-	/**
-	* Method to set the condition table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setCondition()
-	{
+    /**
+    * Method to set the condition table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setCondition()
+    {
         return $this->_changeTable('tbl_sitepermissions_condition');
     }
     
-	/**
-	* Method to set the conditiontype table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setConditiontype()
-	{
+    /**
+    * Method to set the conditiontype table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setConditiontype()
+    {
         return $this->_changeTable('tbl_sitepermissions_conditiontype');
     }
 
-	/**
-	* Method to set the rule condition table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setRuleCondition()
-	{
+    /**
+    * Method to set the rule condition table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setRuleCondition()
+    {
         return $this->_changeTable('tbl_sitepermissions_rule_condition');
     }
 
-	/**
-	* Method to set the action rule table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setActionRule()
-	{
+    /**
+    * Method to set the action rule table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setActionRule()
+    {
         return $this->_changeTable('tbl_sitepermissions_action_rule');
     }
 
-	/**
-	* Method to set the acl table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setAcl()
-	{
+    /**
+    * Method to set the acl table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setAcl()
+    {
         return $this->_changeTable('tbl_sitepermissions_acl');
     }
 
-	/**
-	* Method to set the acl users table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setAclUsers()
-	{
+    /**
+    * Method to set the acl users table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setAclUsers()
+    {
         return $this->_changeTable('tbl_sitepermissions_acl_users');
     }
 
-	/**
-	* Method to set the users table
-	*
-	* @access private
-	* @return boolean: TRUE on success FALSE on failure
-	*/
-	private function _setUsers()
-	{
+    /**
+    * Method to set the users table
+    *
+    * @access private
+    * @return boolean: TRUE on success FALSE on failure
+    */
+    private function _setUsers()
+    {
         return $this->_changeTable('tbl_users');
     }
 

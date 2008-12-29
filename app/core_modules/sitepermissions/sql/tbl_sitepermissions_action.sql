@@ -7,18 +7,18 @@ $options = array('comment' => 'Table used to keep a list of actions.', 'collate'
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-	),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+    ),
     'moduleid' => array(
         'type' => 'text',
         'length' => 32,
     ),
-	'name' => array(
-		'type' => 'text',
-		'length' => 50,
-	)
+    'name' => array(
+        'type' => 'text',
+        'length' => 50,
+    )
 );
 //create other indexes here...
 
