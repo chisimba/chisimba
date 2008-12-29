@@ -7,14 +7,14 @@ $options = array('comment' => 'List of text items to be abstracted', 'collate' =
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
 
-		),
+        ),
     'systemId' => array(
         'type' => 'text',
-		'length' => 32,
+        'length' => 32,
 
         ),
     'textId' => array (
@@ -28,18 +28,18 @@ $fields = array(
 
         ),
     'creatorId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
 
-		),
+        ),
     'dateCreated' => array(
-		'type' => 'timestamp',
+        'type' => 'timestamp',
 
-		),
+        ),
     'canDelete' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 3
-		)
+        )
     );
 
 //create other indexes here...
@@ -48,7 +48,7 @@ $name = 'creatorId';
 
 $indexes = array(
                 'fields' => array(
-                	'systemId' => array(),
+                    'systemId' => array(),
                     'textId' => array(),
                     'creatorId' => array()
                 )

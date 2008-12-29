@@ -69,8 +69,8 @@ class systext_facet extends dbTable
     */
     function init()
     {
-    	parent::init('tbl_sysconfig_properties');
-    	$this -> _objSystemTypeDb = $this -> getObject('dbsystem', 'systext');
+        parent::init('tbl_sysconfig_properties');
+        $this -> _objSystemTypeDb = $this -> getObject('dbsystem', 'systext');
         $this -> _objTextItemDb = $this -> getObject('dbtext', 'systext');
         $this -> _objAbstractTextDb = $this -> getObject('dbabstract', 'systext');
 

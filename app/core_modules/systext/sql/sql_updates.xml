@@ -5,53 +5,53 @@
         <version>1.1</version>
         <description>changed date fields in tbl_systext_abstract to timestamps</description>
         <data>
-        	<change>
-				<dateCreated>
-					<definition>
-						<type>timestamp</type>
-           			</definition>
-				</dateCreated>
-			</change>
-		</data>
+            <change>
+                <dateCreated>
+                    <definition>
+                        <type>timestamp</type>
+                       </definition>
+                </dateCreated>
+            </change>
+        </data>
     </update>
     <update>
         <table>tbl_systext_system</table>
         <version>1.2</version>
         <description>changed date fields in tbl_systext_system to timestamps</description>
         <data>
-        	<change>
-				<dateCreated>
-					<definition>
-						<type>timestamp</type>
-           			</definition>
-				</dateCreated>
-			</change>
-		</data>
+            <change>
+                <dateCreated>
+                    <definition>
+                        <type>timestamp</type>
+                       </definition>
+                </dateCreated>
+            </change>
+        </data>
     </update>
     <update>
         <table>tbl_systext_text</table>
         <version>1.3</version>
         <description>changed date fields in tbl_systext_text to timestamps</description>
         <data>
-        	<change>
-				<dateCreated>
-					<definition>
-						<type>timestamp</type>
-           			</definition>
-				</dateCreated>
-			</change>
-		</data>
+            <change>
+                <dateCreated>
+                    <definition>
+                        <type>timestamp</type>
+                       </definition>
+                </dateCreated>
+            </change>
+        </data>
     </update>
     <update>
         <table>tbl_systext_text</table>
         <version>1.7</version>
         <description>Replaced a reserved word field with a legal SQL entity in the table definition</description>
-		<data>
-		    <rename>
-		        <text>
-		            <name>textinfo</name>
-		        </text>
-		    </rename>
-		</data>
-	</update>
+        <data>
+            <rename>
+                <text>
+                    <name>textinfo</name>
+                </text>
+            </rename>
+        </data>
+    </update>
 </updates>

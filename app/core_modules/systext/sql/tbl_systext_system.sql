@@ -7,28 +7,28 @@ $options = array('comment' => 'Table to hold system types for text abstraction',
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
 
-		),
+        ),
     'systemType' => array(
         'type' => 'text',
-		'length' => 25
+        'length' => 25
         ),
     'creatorId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
 
-		),
+        ),
     'dateCreated' => array(
-		'type' => 'timestamp',
+        'type' => 'timestamp',
 
-		),
+        ),
     'canDelete' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 3
-		)
+        )
     );
 
 //create other indexes here...
@@ -37,7 +37,7 @@ $name = 'creatorId';
 
 $indexes = array(
                 'fields' => array(
-                	'creatorId' => array(),
+                    'creatorId' => array(),
                     'systemType' => array()
                 )
         );
