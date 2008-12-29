@@ -1,21 +1,21 @@
 <script type="text/javascript">
 //<![CDATA[
 function init () {
-	$('input_redraw').onclick = function () {
-		redraw();
-	}
+    $('input_redraw').onclick = function () {
+        redraw();
+    }
 }
 function redraw () {
-	var url = 'index.php';
-	var pars = 'module=security&action=generatenewcaptcha';
-	var myAjax = new Ajax.Request( url, {method: 'get', parameters: pars, onComplete: showResponse} );
+    var url = 'index.php';
+    var pars = 'module=security&action=generatenewcaptcha';
+    var myAjax = new Ajax.Request( url, {method: 'get', parameters: pars, onComplete: showResponse} );
 }
 function showLoad () {
-	$('load').style.display = 'block';
+    $('load').style.display = 'block';
 }
 function showResponse (originalRequest) {
-	var newData = originalRequest.responseText;
-	$('captchaDiv').innerHTML = newData;
+    var newData = originalRequest.responseText;
+    $('captchaDiv').innerHTML = newData;
 }
 //]]>
 </script>
@@ -24,11 +24,11 @@ function showResponse (originalRequest) {
 
 if(isset($userstring))
 {
-	$userstring = base64_decode($userstring);
-	$userstring = explode(',', $userstring);
+    $userstring = base64_decode($userstring);
+    $userstring = explode(',', $userstring);
 }
 else {
-	$userstring = NULL;
+    $userstring = NULL;
 }
 $this->loadClass('form', 'htmlelements');
 $this->loadClass('dropdown', 'htmlelements');
@@ -134,7 +134,7 @@ if ($mode == 'addfixup') {
 }
 if (isset($userstring) && $mode == 'add')
 {
-	$firstname->value = $userstring[0];
+    $firstname->value = $userstring[0];
 }
 
 $table->startRow();
@@ -154,7 +154,7 @@ if ($mode == 'addfixup') {
 }
 if (isset($userstring[1]) && $mode == 'add')
 {
-	$surname->value = $userstring[1];
+    $surname->value = $userstring[1];
 }
 
 $table->startRow();
@@ -238,8 +238,8 @@ if ($mode == 'addfixup') {
 }
 if (isset($userstring[2]) && $mode == 'add')
 {
-	$email->value = $userstring[2];
-	$confirmEmail->value = $userstring[2];
+    $email->value = $userstring[2];
+    $confirmEmail->value = $userstring[2];
 }
 
 $table->addCell($emailInfoLabel->show(), 150, NULL, 'right');
