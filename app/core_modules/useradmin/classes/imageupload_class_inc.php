@@ -10,13 +10,13 @@ class imageupload extends object
 {
     public $objConfig;
     private $objUser;
-	/**
-	* @var string The path of the file.
-	*/
+    /**
+    * @var string The path of the file.
+    */
     private $imagePath;
-	/**
-	* @var string The URL of the file.
-	*/
+    /**
+    * @var string The URL of the file.
+    */
     private $imageUrl;
 
     public function init()
@@ -40,11 +40,11 @@ class imageupload extends object
         $tmp_name=$_FILES['userFile']['tmp_name'];
 
         if (
-			($type=='image/jpeg')
-			||($type=='image/gif')
-			||($type=='image/png')
-			||($type=='image/bmp')
-		){
+            ($type=='image/jpeg')
+            ||($type=='image/gif')
+            ||($type=='image/png')
+            ||($type=='image/bmp')
+        ){
             $dirObj=$this->getObject('dircreate','utilities');
             $dirObj->makeFolder('user_images');
             $objResize=$this->getObject('imageresize', 'files');

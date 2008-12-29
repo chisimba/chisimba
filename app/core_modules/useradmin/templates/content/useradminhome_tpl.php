@@ -96,7 +96,7 @@ $browserByLabel = new label ('Browse by', 'input_field');
 
 $form = new form ('changefield', $this->uri(array('action'=>'changefield')));
     
-$form->addToForm('<p>'.$browserByLabel->show().' :'.$dropdown->show().$hiddeninput->show().' '.$objAlphabet->putAlpha($url, TRUE, $this->objLanguage->languageText('mod_useradmin_listallusers','useradmin')).'</p>');	
+$form->addToForm('<p>'.$browserByLabel->show().' :'.$dropdown->show().$hiddeninput->show().' '.$objAlphabet->putAlpha($url, TRUE, $this->objLanguage->languageText('mod_useradmin_listallusers','useradmin')).'</p>');    
 
 echo $form->show();
 
@@ -233,7 +233,7 @@ function doBatchProcess()
     } else if (document.getElementById('input_option').value == 'delete')
     {
         if(confirm('Are you sure you want to delete these users?'))
-		{
+        {
             document.getElementById('form_batchprocess').submit();
         }
     } else {

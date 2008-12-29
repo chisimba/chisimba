@@ -16,13 +16,13 @@
 # Dian Suryandari <dianhau_at_yahoo.com>
 /*############################################
 Sample :
-$thumb=new thumbnail("./shiegege.jpg");			// generate image_file, set filename to resize
-$thumb->size_width(100);				// set width for thumbnail, or
-$thumb->size_height(300);				// set height for thumbnail, or
-$thumb->size_auto(200);					// set the biggest width or height for thumbnail
-$thumb->jpeg_quality(75);				// [OPTIONAL] set quality for jpeg only (0 - 100) (worst - best), default = 75
-$thumb->show();						// show your thumbnail
-$thumb->save("./huhu.jpg");				// save your thumbnail to file
+$thumb=new thumbnail("./shiegege.jpg");            // generate image_file, set filename to resize
+$thumb->size_width(100);                // set width for thumbnail, or
+$thumb->size_height(300);                // set height for thumbnail, or
+$thumb->size_auto(200);                    // set the biggest width or height for thumbnail
+$thumb->jpeg_quality(75);                // [OPTIONAL] set quality for jpeg only (0 - 100) (worst - best), default = 75
+$thumb->show();                        // show your thumbnail
+$thumb->save("./huhu.jpg");                // save your thumbnail to file
 ----------------------------------------------
 Note :
 - GD must Enabled
@@ -87,46 +87,46 @@ class resize extends object
         * @param string $filename
         * @returbs Boolean TRUE|FALSE
         */
-	function loadimage($imgfile,$filename)
-	{
-		//detect image format
-		$this->img["format"]=ereg_replace(".*\.(.*)$","\\1",$filename); 
-		$this->img["format"]=strtoupper($this->img["format"]);
-		if ($this->img["format"]=="JPG" || $this->img["format"]=="JPEG") {
-			//JPEG
-			$this->img["format"]="JPEG";
-			$this->img["src"] = $this->callFunction('ImageCreateFromJPEG',$imgfile);
-		} elseif ($this->img["format"]=="PNG") {
-			//PNG
-			$this->img["format"]="PNG";
-			$this->img["src"] = $this->callFunction('ImageCreateFromPNG',$imgfile);
-		} elseif ($this->img["format"]=="GIF") {
-			//GIF
-			$this->img["format"]="GIF";
-			$this->img["src"] = $this->callFunction('ImageCreateFromGIF',$imgfile);
-		} elseif ($this->img["format"]=="WBMP") {
-			//WBMP
-			$this->img["format"]="WBMP";
-			$this->img["src"] = $this->callFunction('ImageCreateFromWBMP',$imgfile);
-		} else {
-			//DEFAULT
-			return FALSE;
-			exit();
-		}
-		@$this->img["lebar"] = $this->callFunction('imagesx',$this->img["src"]);
-		@$this->img["tinggi"] = $this->callFunction('imagesy',$this->img["src"]);
-		//default quality jpeg
-		$this->img["quality"]=75;
+    function loadimage($imgfile,$filename)
+    {
+        //detect image format
+        $this->img["format"]=ereg_replace(".*\.(.*)$","\\1",$filename); 
+        $this->img["format"]=strtoupper($this->img["format"]);
+        if ($this->img["format"]=="JPG" || $this->img["format"]=="JPEG") {
+            //JPEG
+            $this->img["format"]="JPEG";
+            $this->img["src"] = $this->callFunction('ImageCreateFromJPEG',$imgfile);
+        } elseif ($this->img["format"]=="PNG") {
+            //PNG
+            $this->img["format"]="PNG";
+            $this->img["src"] = $this->callFunction('ImageCreateFromPNG',$imgfile);
+        } elseif ($this->img["format"]=="GIF") {
+            //GIF
+            $this->img["format"]="GIF";
+            $this->img["src"] = $this->callFunction('ImageCreateFromGIF',$imgfile);
+        } elseif ($this->img["format"]=="WBMP") {
+            //WBMP
+            $this->img["format"]="WBMP";
+            $this->img["src"] = $this->callFunction('ImageCreateFromWBMP',$imgfile);
+        } else {
+            //DEFAULT
+            return FALSE;
+            exit();
+        }
+        @$this->img["lebar"] = $this->callFunction('imagesx',$this->img["src"]);
+        @$this->img["tinggi"] = $this->callFunction('imagesy',$this->img["src"]);
+        //default quality jpeg
+        $this->img["quality"]=75;
                 return TRUE;
-	}
+    }
 
         /**
         * method to set the output type
         * @param string $outputType
         */
-	function setOutput($outputType)
-	{
-		switch (strtoupper($outputType))
+    function setOutput($outputType)
+    {
+        switch (strtoupper($outputType))
             {
                 case 'JPG' : $this->outputType = 'JPG'; $this->outputContentType = 'JPEG'; break;
                 
@@ -139,69 +139,69 @@ class resize extends object
                 default :  break;
                 
             }
-	}
+    }
     
     /**
     * method to set the height
     * @param string $size
     */
     function size_height($size=100)
-	{
-		//height
-    	$this->img["tinggi_thumb"]=$size;
-    	@$this->img["lebar_thumb"] = ($this->img["tinggi_thumb"]/$this->img["tinggi"])*$this->img["lebar"];
-	}
+    {
+        //height
+        $this->img["tinggi_thumb"]=$size;
+        @$this->img["lebar_thumb"] = ($this->img["tinggi_thumb"]/$this->img["tinggi"])*$this->img["lebar"];
+    }
 
     /**
     * method to set the width
     * @param string $size
     */
     function size_width($size=100)
-	{
-		//width
-		$this->img["lebar_thumb"]=$size;
-    	@$this->img["tinggi_thumb"] = ($this->img["lebar_thumb"]/$this->img["lebar"])*$this->img["tinggi"];
-	}
+    {
+        //width
+        $this->img["lebar_thumb"]=$size;
+        @$this->img["tinggi_thumb"] = ($this->img["lebar_thumb"]/$this->img["lebar"])*$this->img["tinggi"];
+    }
 
     /**
     * method to autosize
     * @param string $size
     */
     function size_auto($size=100)
-	{
-		//size
-		if ($this->img["lebar"]>=$this->img["tinggi"]) {
-    		$this->img["lebar_thumb"]=$size;
-    		@$this->img["tinggi_thumb"] = ($this->img["lebar_thumb"]/$this->img["lebar"])*$this->img["tinggi"];
-		} else {
-	    	$this->img["tinggi_thumb"]=$size;
-    		@$this->img["lebar_thumb"] = ($this->img["tinggi_thumb"]/$this->img["tinggi"])*$this->img["lebar"];
- 		}
-	}
+    {
+        //size
+        if ($this->img["lebar"]>=$this->img["tinggi"]) {
+            $this->img["lebar_thumb"]=$size;
+            @$this->img["tinggi_thumb"] = ($this->img["lebar_thumb"]/$this->img["lebar"])*$this->img["tinggi"];
+        } else {
+            $this->img["tinggi_thumb"]=$size;
+            @$this->img["lebar_thumb"] = ($this->img["tinggi_thumb"]/$this->img["tinggi"])*$this->img["lebar"];
+         }
+    }
 
     /**
     * method to set jpeg quality
     * @param string $quality
     */
-	function jpeg_quality($quality=75)
-	{
-		//jpeg quality
-		$this->img["quality"]=$quality;
-	}
+    function jpeg_quality($quality=75)
+    {
+        //jpeg quality
+        $this->img["quality"]=$quality;
+    }
 
     /**
     * method to display
     */
-	function show()
-	{
-		//show thumb
-		@Header("Content-Type: image/".$this->outputContentType);
+    function show()
+    {
+        //show thumb
+        @Header("Content-Type: image/".$this->outputContentType);
 
-		/* change ImageCreateTrueColor to ImageCreate if your GD not supported ImageCreateTrueColor function*/
-		$this->img["des"] = ImageCreateTrueColor($this->img["lebar_thumb"],$this->img["tinggi_thumb"]);
-    		@imagecopyresized ($this->img["des"], $this->img["src"], 0, 0, 0, 0, $this->img["lebar_thumb"], $this->img["tinggi_thumb"], $this->img["lebar"], $this->img["tinggi"]);
+        /* change ImageCreateTrueColor to ImageCreate if your GD not supported ImageCreateTrueColor function*/
+        $this->img["des"] = ImageCreateTrueColor($this->img["lebar_thumb"],$this->img["tinggi_thumb"]);
+            @imagecopyresized ($this->img["des"], $this->img["src"], 0, 0, 0, 0, $this->img["lebar_thumb"], $this->img["tinggi_thumb"], $this->img["lebar"], $this->img["tinggi"]);
 
-		
+        
         switch (strtoupper($this->outputType))
         {
             case 'JPG' : $this->callFunction('imageJPEG',$this->img["des"],"",$this->img["quality"]); break;
@@ -215,16 +215,16 @@ class resize extends object
             default : $this->callFunction('imageJPEG',$this->img["des"],"",$this->img["quality"]); break;
             
         }
-	}
+    }
 
     /**
     * method to save to file
     * @param string $save
     */
-	function save($save="")
-	{
+    function save($save="")
+    {
         //save thumb
-		if (empty($save)){
+        if (empty($save)){
         $save=strtolower("./thumb.".$this->outputType);
         }
             /* change ImageCreateTrueColor to ImageCreate if your GD not supported ImageCreateTrueColor function*/
@@ -244,6 +244,6 @@ class resize extends object
                 
             }
             
-	}
+    }
 }
 ?>
