@@ -92,7 +92,7 @@ class del extends object
         $this->objLanguage = $this->getObject('language', 'language'); 
     }
     
-	/**
+    /**
     * 
     * Delete the file specified in $fullFilePath
     * inline {@internal checks the OS php is running on, and execute appropriate command}}
@@ -100,7 +100,7 @@ class del extends object
     * @param  string $type file | folder if its a file or a folder
     * @return bool   TRUE | FALSE, sets error if error occurs
     *                
-	*/
+    */
     function delete()
     {
         if ($this->fullFilePath != NULL) {

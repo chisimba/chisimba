@@ -140,7 +140,7 @@ class buildflowplayer extends object
     public function show()
     {
         if ($this->movie=="") {
-        	
+            
         } else {
             
         }
@@ -166,18 +166,18 @@ class buildflowplayer extends object
     public function loadMovie()
     {
 
-		//Get the movie file from the query string, set it to NULL if not found
+        //Get the movie file from the query string, set it to NULL if not found
         $this->movie = $this->getParam('movie', NULL);
         if ($this->movie==NULL) {
             $this->movie = $this->__getErrFile();
             return FALSE;
         } else {
-	        if (!$this->__isValidFile($this->movie)) {
-	            $this->movie = $this->__getErrFile($efile="invalidurl.jpg");
-	            return FALSE;
-	        } else {
-	            return TRUE;
-	        }  
+            if (!$this->__isValidFile($this->movie)) {
+                $this->movie = $this->__getErrFile($efile="invalidurl.jpg");
+                return FALSE;
+            } else {
+                return TRUE;
+            }  
         }
     }
 
@@ -194,23 +194,23 @@ class buildflowplayer extends object
         return TRUE;
     }
 
-	/*-------------------- PRIVATE METHODS ----------------------------------*/
-	
-	/**
-	 * 
-	 * Method to return the URL for the file to play in the event of an error
-	 * 
-	 * @access private
-	 * @return string The formatted URL for the error movie
-	 * 
-	 */
-	private function __getErrFile($efile="error.jpg")
-	{
-	    //Set a file to play if there is an error finding the file from the querystring
+    /*-------------------- PRIVATE METHODS ----------------------------------*/
+    
+    /**
+     * 
+     * Method to return the URL for the file to play in the event of an error
+     * 
+     * @access private
+     * @return string The formatted URL for the error movie
+     * 
+     */
+    private function __getErrFile($efile="error.jpg")
+    {
+        //Set a file to play if there is an error finding the file from the querystring
         return "http://" . $_SERVER['SERVER_NAME'] 
           . $this->objConfig->getsiteRoot()
           . "core_modules/files/resources/flowplayer/movies/" . $efile;
-	}
+    }
 
     /**
     *
@@ -223,7 +223,7 @@ class buildflowplayer extends object
     */
     private function __startApplet()
     {
-    	//die($this->objConfig->getValue('KEWL_SITE_ROOT'));
+        //die($this->objConfig->getValue('KEWL_SITE_ROOT'));
         return "<object type=\"application/x-shockwave-flash\" "
           . "data=\"" . $this->getResourceUri('flowplayer/FlowPlayerLP.swf', 'files'). "\" "
           . "width=\"" . $this->width . "\" "
@@ -268,7 +268,7 @@ class buildflowplayer extends object
             case "QUALITY":
                 return "    <param name = \"quality\" "
                   . "value = \"" . $this->quality . "\" />\n";
-			//<param name="scale" value="noScale" />";
+            //<param name="scale" value="noScale" />";
             case "SCALE":
                 return "    <param name = \"scale\" "
                   . "value = \"" . $this->scale . "\" />\n";
@@ -332,7 +332,7 @@ class buildflowplayer extends object
     *                    
     */
     private function __isUrl($url) {
-    	$objUrl = $this->getObject('url', 'strings');
+        $objUrl = $this->getObject('url', 'strings');
         if (!$objUrl->isValidFormedUrl($url)) {
             return FALSE;
         } else {
@@ -350,9 +350,9 @@ class buildflowplayer extends object
     */
     function __unhtmlentities($str)
     {
-    	$trans_tbl = get_html_translation_table(HTML_ENTITIES);
-    	$trans_tbl = array_flip ($trans_tbl);
-    	return strtr ($str, $trans_tbl);
+        $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+        $trans_tbl = array_flip ($trans_tbl);
+        return strtr ($str, $trans_tbl);
     }
 
 } #end of class

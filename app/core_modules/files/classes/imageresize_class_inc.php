@@ -65,16 +65,16 @@ include($this->getResourcePath('imagecreatefrompsd.php', 'files'));
  */
 class imageresize extends object
 {
-	
+    
     /**
     * @var string $image Imported Content of the Image
     */
-	var $image = '';
+    var $image = '';
     
     /**
     * @var string $temp Variable to Hold the resized image
     */
-	var $temp = '';
+    var $temp = '';
     
     /**
     * @var boolean $canCreateFromSouce A flag to indicate whether a thumbnail can be created from the file or not
@@ -89,12 +89,12 @@ class imageresize extends object
     {
         $this->objFileParts = $this->getObject('fileparts', 'files');
     }
-	
+    
     /**
     * Method to set the image to be resized
     * @param string $sourceFile Path of the Image to be resized
     */
-	function setImg($sourceFile)
+    function setImg($sourceFile)
     {
         // Check if File Exists
         if (file_exists($sourceFile))
@@ -129,11 +129,11 @@ class imageresize extends object
                     imagefilledrectangle ($this->image, 0, 0, 100, 100, $bgc);
                     break;
             }
-		} else {
-			return FALSE;
-		}
+        } else {
+            return FALSE;
+        }
 
-	}
+    }
     
     /**
     * Method to get the type of image
@@ -179,33 +179,33 @@ class imageresize extends object
             return $this->objFileParts->getExtension($sourceFile);
         }
     }
-	
+    
     /**
     * Method to resize an image
     * @param int     $width       Width of Thumbnail
     * @param int     $height      Height of Thumbnail
     * @param boolean $aspectratio Flag to indicate whether to main aspect ratio of image
     */
-	function resize($width = 100, $height = 100, $aspectratio = TRUE)
+    function resize($width = 100, $height = 100, $aspectratio = TRUE)
     {
-		// Get Original Width and Height
+        // Get Original Width and Height
         $o_wd = imagesx($this->image);
-		$o_ht = imagesy($this->image);
+        $o_ht = imagesy($this->image);
         
         // If Aspect Ratio is required, calculate width and height of thumbail
         // to fit in with given size
-		if(isset($aspectratio)&& $aspectratio) {
-			$w = round($o_wd * $height / $o_ht);
-			$h = round($o_ht * $width / $o_wd);
-			if(($height-$h)<($width-$w)){
-				$width =& $w;
-			} else {
-				$height =& $h;
-			}
-		}
+        if(isset($aspectratio)&& $aspectratio) {
+            $w = round($o_wd * $height / $o_ht);
+            $h = round($o_ht * $width / $o_wd);
+            if(($height-$h)<($width-$w)){
+                $width =& $w;
+            } else {
+                $height =& $h;
+            }
+        }
         
         // Create Thumbnail Image
-		$this->temp = imagecreatetruecolor($width,$height);
+        $this->temp = imagecreatetruecolor($width,$height);
         
         // Setup Interlacing, Progessive JPG
         imageinterlace($this->temp, 1);
@@ -217,7 +217,7 @@ class imageresize extends object
         // Check whether Thumnail image can be used
         if ($this->canCreateFromSouce) {
             // Add Original Image - Uses resample instead of resize which delivers a better image
-    		imagecopyresampled($this->temp, $this->image, 0, 0, 0, 0, $width, $height, $o_wd, $o_ht);
+            imagecopyresampled($this->temp, $this->image, 0, 0, 0, 0, $width, $height, $o_wd, $o_ht);
         } else {
             // Else add message 
             imagestring ($this->temp, 4, 5, 0, 'Unable to ', 0 );
@@ -228,62 +228,62 @@ class imageresize extends object
             imagestring ($this->temp, 4, 40, 80, 'File', 0 );
         }
         
-		$this->sync();
-		return;
-	}
-	
+        $this->sync();
+        return;
+    }
+    
     /**
     * Method to sync image variable
     */
-	function sync()
+    function sync()
     {
-		$this->image =& $this->temp;
-		unset($this->temp);
-		$this->temp = '';
-		return;
-	}
-	
+        $this->image =& $this->temp;
+        unset($this->temp);
+        $this->temp = '';
+        return;
+    }
+    
     /**
     * Method to show thumbnail in browser
     */
-	function show()
+    function show()
     {
-		$this->_sendHeader();
-		imagejpeg($this->image);
+        $this->_sendHeader();
+        imagejpeg($this->image);
         
-		return;
-	}
-	
+        return;
+    }
+    
     /**
     * Method to send Header Parameters.
     * @access private
     */
-	function _sendHeader(){
-		header('Content-Type: image/jpeg');
-	}
-	
+    function _sendHeader(){
+        header('Content-Type: image/jpeg');
+    }
+    
     /**
     * Method to save the image to the filesystem
     * @param string $file Name of the File
     */
-	function store($file)
+    function store($file)
     {
         if ($this->canCreateFromSouce) {
             return @imagejpeg($this->image, $file);
         } else {
             return @imagegif($this->image, $file); // Save as Gif if unable to create thumbnail, appears much clearer
         }
-	}
-	
+    }
+    
     /*
     // This function existed in the original file
-	function watermark($pngImage, $left = 0, $top = 0)
+    function watermark($pngImage, $left = 0, $top = 0)
     {
-		ImageAlphaBlending($this->image, true);
-		$layer = ImageCreateFromPNG($pngImage); 
-		$logoW = ImageSX($layer); 
-		$logoH = ImageSY($layer); 
-		ImageCopy($this->image, $layer, $left, $top, 0, 0, $logoW, $logoH); 
-	}*/
+        ImageAlphaBlending($this->image, true);
+        $layer = ImageCreateFromPNG($pngImage); 
+        $logoW = ImageSX($layer); 
+        $logoH = ImageSY($layer); 
+        ImageCopy($this->image, $layer, $left, $top, 0, 0, $logoW, $logoH); 
+    }*/
 }
 ?>

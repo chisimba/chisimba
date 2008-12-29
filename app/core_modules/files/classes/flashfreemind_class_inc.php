@@ -140,24 +140,24 @@ class flashfreemind extends object
         $this->appendArrayVar('headerParams', $this->getMindmapScript());
         
         return '<div id="flashcontent_'.$this->mindMapId.'" style="z-index:0; width:'.$this->width.'; height:'.$this->height.'">
-		 Flash plugin or Javascript are turned off.
-		 Activate both  and reload to view the mindmap
-	</div>
+         Flash plugin or Javascript are turned off.
+         Activate both  and reload to view the mindmap
+    </div>
     <script type="text/javascript">
-    		// <![CDATA[
-    		var fo = new FlashObject("'.$this->getResourceUri('visorFreemind.swf','freemind').'", "'.$this->mindMapId.'", "'.$this->width.'", "'.$this->height.'", 6, "#ffffff");
-    		fo.addParam("quality", "high");
-    		fo.addParam("bgcolor", "#ffffff");
-    		fo.addParam("wmode", "transparent");
-    		fo.addVariable("openUrl", "'.$this->openUrl.'");
-    		fo.addVariable("initLoadFile", "'.$this->mindMap.'");
-    		fo.addVariable("startCollapsedToLevel","'.$this->startCollapsedToLevel.'");
+            // <![CDATA[
+            var fo = new FlashObject("'.$this->getResourceUri('visorFreemind.swf','freemind').'", "'.$this->mindMapId.'", "'.$this->width.'", "'.$this->height.'", 6, "#ffffff");
+            fo.addParam("quality", "high");
+            fo.addParam("bgcolor", "#ffffff");
+            fo.addParam("wmode", "transparent");
+            fo.addVariable("openUrl", "'.$this->openUrl.'");
+            fo.addVariable("initLoadFile", "'.$this->mindMap.'");
+            fo.addVariable("startCollapsedToLevel","'.$this->startCollapsedToLevel.'");
             fo.addVariable("mainNodeShape","'.$this->mainNodeShape.'");
             fo.addVariable("defaultWordWrap","'.$this->defaultWordWrap.'");
             fo.addVariable("ShotsWidth","'.$this->ShotsWidth.'");
-    		fo.write("flashcontent_'.$this->mindMapId.'");
-    		// ]]>
-    	</script>';
+            fo.write("flashcontent_'.$this->mindMapId.'");
+            // ]]>
+        </script>';
     }
     
     /**

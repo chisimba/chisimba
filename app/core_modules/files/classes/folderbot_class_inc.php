@@ -108,7 +108,7 @@ class folderbot extends object
                 chdir($currentDir);
                 return 0; // this normally happens when you don't have permission to the folder
             } 
-            // reset($stack);	This is left here from my debugging :)
+            // reset($stack);    This is left here from my debugging :)
             while (($this->curfile = readdir($handle)) != false) { // as long as there are files in the folder
                 if (!strcmp(".", $this->curfile))continue; // this may not the most efficient way to detect the . and .. entries
                 if (!strcmp("..", $this->curfile))continue; // but it is the easiest to understand

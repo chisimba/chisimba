@@ -84,14 +84,14 @@ class mkdir extends object
         $this->objLanguage = $this->getObject('language', 'language'); 
     }
     
-	/**
+    /**
     * 
     * Create a folder. Needs fullFilePath to be set
     * to a valid directory before hand
     * 
     * @access Public
     *                
-	*/
+    */
     function makedir()
     {
         if ($this->fullFilePath != NULL) {
