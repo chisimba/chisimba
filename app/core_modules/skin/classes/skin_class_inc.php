@@ -156,7 +156,7 @@ class skin extends object
         // Set the current skin as the default selected skin
         $objDropdown->setSelected($this->getSession('skin'));
         $objDropdown->cssClass = 'coursechooser';
-		$objNewForm->addToForm($objDropdown->show());
+        $objNewForm->addToForm($objDropdown->show());
         return $objNewForm->show();
 
     }
@@ -256,7 +256,7 @@ class skin extends object
         <link rel="stylesheet" type="text/css" href="'.$skinRoot.'_common/forms-extra.css" media="print" />
         <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/' . $theme . '.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="'.$skinRoot.$this->getSkin().'/print.css" media="print" />
-				';
+                ';
         if (strtolower($this->browserInfo->getBrowser()) == 'msie') {
             $stylesheet .= '
         <!--[if lte IE 7]>
@@ -333,9 +333,9 @@ class skin extends object
      */
     public function siteSearchBox()
     {
-    	$this->loadClass('label', 'htmlelements');
-    	$slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_query');
-    	$this->loadClass('textinput', 'htmlelements');
+        $this->loadClass('label', 'htmlelements');
+        $slabel = new label($this->objLanguage->languageText('phrase_sitesearch', 'search', 'Site Search') .':', 'input_query');
+        $this->loadClass('textinput', 'htmlelements');
         $sform = new form('query', $this->uri(NULL,'search'));
         //$sform->addRule('searchterm', $this->objLanguage->languageText("mod_blog_phrase_searchtermreq", "blog") , 'required');
         $query = new textinput('search');

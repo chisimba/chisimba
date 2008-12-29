@@ -2,7 +2,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -24,7 +24,7 @@ class block_skinchooser extends object
     */
     function init()
     {
- 		//Create an instance of the language object
+         //Create an instance of the language object
         $this->objLanguage = $this->getObject('language','language');
         //Set the title
         $this->title=$this->objLanguage->languageText('mod_skin_name', 'skin');
@@ -34,7 +34,7 @@ class block_skinchooser extends object
     * Method to output a block with information on how help works
     */
     function show()
-	{
+    {
         $objSkin = $this->getObject('skin', 'skin');
         return $objSkin->putSkinChooser();
     }
