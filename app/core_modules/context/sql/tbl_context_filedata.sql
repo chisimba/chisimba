@@ -24,17 +24,17 @@ $tablename = 'tbl_context_filedata';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'tbl_context_parentnodes_id' => array(
-		'type' => 'text',
-		'length' => 64
-		),
-	'datatype' => array(
-		'type' => 'text',
-		'length' => 60
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'tbl_context_parentnodes_id' => array(
+        'type' => 'text',
+        'length' => 64
+        ),
+    'datatype' => array(
+        'type' => 'text',
+        'length' => 60
+        ),
     );
 ?>

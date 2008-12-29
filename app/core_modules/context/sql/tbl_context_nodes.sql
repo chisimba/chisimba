@@ -25,34 +25,34 @@ $tablename = 'tbl_context_nodes';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'tbl_context_parentnodes_id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'tbl_context_parentnodes_id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
-	'parent_Node' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+        ),
+    'parent_Node' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
     'prev_Node' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+        'type' => 'text',
+        'length' => 32
+        ),
     'next_Node' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => '32'
-		),
+        ),
     'title' => array(
-		'type' => 'text',
-		'length' => 255
-		),
+        'type' => 'text',
+        'length' => 255
+        ),
     'script' => array(
-		'type' => 'text'
-		),
+        'type' => 'text'
+        ),
     'sortindex' => array(
         'type' => 'integer',
         'default' => 1
@@ -66,7 +66,7 @@ $name = 'tbl_context_nodes_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'tbl_context_parentnodes_id' => array()
+                    'tbl_context_parentnodes_id' => array()
                 )
         );
 ?>

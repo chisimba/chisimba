@@ -40,7 +40,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -77,17 +77,17 @@ class block_context extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-    		$this->title = ucWords($this->objLanguage->code2Txt('mod_context_allcontexts', 'context', NULL, 'All [-contexts-]'));
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->title = ucWords($this->objLanguage->code2Txt('mod_context_allcontexts', 'context', NULL, 'All [-contexts-]'));
             
             // HTML Elements
             $this->loadClass('form', 'htmlelements');
             $this->loadClass('dropdown', 'htmlelements');
             $this->loadClass('button', 'htmlelements');
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -95,7 +95,7 @@ class block_context extends object
     */
     public function show()
     {
-    	try {
+        try {
         $objContext = $this->getObject('dbcontext', 'context');
         $courses = $objContext->getListOfPublicContext();
         if (count($courses)==0) {
@@ -118,9 +118,9 @@ class block_context extends object
             return $form->show();
         }
 
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
 }
 ?>

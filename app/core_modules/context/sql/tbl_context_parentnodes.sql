@@ -25,38 +25,38 @@ $tablename = 'tbl_context_parentnodes';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode' => array(
-		'type' => 'text',
-		'length' => 255,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode' => array(
+        'type' => 'text',
+        'length' => 255,
         'notnull' => TRUE
-		),
-	'tbl_context_parentnodes_has_tbl_context_tbl_context_id' => array(
-		'type' => 'text',
-		'length' => 32,
+        ),
+    'tbl_context_parentnodes_has_tbl_context_tbl_context_id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
+        ),
     'userId' => array(
-		'type' => 'text',
-		'length' => 255
-		),
+        'type' => 'text',
+        'length' => 255
+        ),
     'dateCreated' => array(
-		'type' => 'date'
-		),
-	'datemodified' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
+    'datemodified' => array(
+        'type' => 'date'
+        ),
     'menu_text' => array(
-		'type' => 'text',
-		'length' => 255
-		),
+        'type' => 'text',
+        'length' => 255
+        ),
     'title' => array(
-		'type' => 'text',
-		'length' => 255
-		),
+        'type' => 'text',
+        'length' => 255
+        ),
     'updated' => array(
         'type' => 'timestamp'
         )
@@ -66,7 +66,7 @@ $name = 'tbl_context_parentnodes_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode' => array(), 
+                    'tbl_context_parentnodes_has_tbl_context_tbl_context_contextCode' => array(), 
                     'tbl_context_parentnodes_has_tbl_context_tbl_context_id' => array()
                 )
         );

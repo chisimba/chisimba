@@ -5,10 +5,10 @@
         <version>1.15</version>
         <description>Added Archive Field</description>
         <data>
-        	<add>
-    			<name>archive</name>
-		    	<type>integer</type>    			
-			</add>
-		</data>
-	</update>	
+            <add>
+                <name>archive</name>
+                <type>integer</type>                
+            </add>
+        </data>
+    </update>    
 </updates>

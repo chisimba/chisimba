@@ -25,48 +25,48 @@ $tablename = 'tbl_contentnodes';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'parentNodeId' => array(
-		'type' => 'text',
-		'length' => 64
-		),
-	'prevNodeId' => array(
-		'type' => 'text',
-		'length' => 60
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'parentNodeId' => array(
+        'type' => 'text',
+        'length' => 64
+        ),
+    'prevNodeId' => array(
+        'type' => 'text',
+        'length' => 60
+        ),
     'nextNodeId' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'userId' => array(
-		'type' => 'text',
-		'length' => 25
-		),
-	'body' => array(
-		'type' => 'text',
-		'length' => 200
-		),
+        'type' => 'text',
+        'length' => 32
+        ),
+    'userId' => array(
+        'type' => 'text',
+        'length' => 25
+        ),
+    'body' => array(
+        'type' => 'text',
+        'length' => 200
+        ),
     'datecreated' => array(
-		'type' => 'date'
-		),
-	'datemodified' => array(
-		'type' => 'date'
-		),
-	'menutext' => array(
-		'type' => 'text',
-		'length' => 50
-		),
+        'type' => 'date'
+        ),
+    'datemodified' => array(
+        'type' => 'date'
+        ),
+    'menutext' => array(
+        'type' => 'text',
+        'length' => 50
+        ),
     'title' => array(
-		'type' => 'text'
-		),
-	'script' => array(
-		'type' => 'text'
-		),
-	'updated' => array(
-		'type' => 'timestamp'
-		)
+        'type' => 'text'
+        ),
+    'script' => array(
+        'type' => 'text'
+        ),
+    'updated' => array(
+        'type' => 'timestamp'
+        )
     );
 ?>

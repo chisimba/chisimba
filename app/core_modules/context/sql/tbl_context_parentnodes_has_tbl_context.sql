@@ -20,20 +20,20 @@ $tablename = 'tbl_context_parentnodes_has_tbl_context';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'tbl_context_contextCode' => array(
-		'type' => 'text',
-		'length' => 255,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'tbl_context_contextCode' => array(
+        'type' => 'text',
+        'length' => 255,
         'notnull' => TRUE
-		),
-	'tbl_context_id' => array(
-		'type' => 'text',
-		'length' => 32,
+        ),
+    'tbl_context_id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
+        ),
     'updated' => array(
         'type' => 'timestamp'
         )
@@ -43,7 +43,7 @@ $name = 'tbl_context_has_tbl_context_parentnodes_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'tbl_context_id' => array(), 
+                    'tbl_context_id' => array(), 
                     'tbl_context_contextCode' => array()
                 )
         );

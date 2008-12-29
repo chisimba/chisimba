@@ -163,37 +163,37 @@ if ($this->getParam('message') == 'contextsetup') {
  var browser=navigator.appName;
  var b_version=parseFloat(b_version);
  if(browser=='Microsoft Internet Explorer'){
-	alert('".$browserError."');
+    alert('".$browserError."');
  }else{
-	 jQuery.facebox(function() {
-	  jQuery.get('".str_replace('&amp;', '&', $this->uri(array('action'=>'contextcreatedmessage')))."', function(data) {
-	    jQuery.facebox(data);
-	  })
-	 })
+     jQuery.facebox(function() {
+      jQuery.get('".str_replace('&amp;', '&', $this->uri(array('action'=>'contextcreatedmessage')))."', function(data) {
+        jQuery.facebox(data);
+      })
+     })
  }
 </script>";
 }else{
-	//Check if poll module is installed
-	$pollInstalled = $this->objModuleCatalogue->checkIfRegistered('poll');
-	//get the version number
-	$pollModuleVer = $this->objModuleCatalogue->getVersion('poll');
-	//Display polls if poll is installed & version is higher than 0.121
-	if($pollModuleVer>='0.121' && $pollInstalled==True){
-			    $alertBox = $this->getObject('alertbox', 'htmlelements');
-			    $alertBox->putJs();
-			    echo "<script type='text/javascript'>
-				 var browser=navigator.appName;
-				 var b_version=parseFloat(b_version);
-				 if(browser=='Microsoft Internet Explorer'){
-					alert('".$browserError."');
-				 }else{
-					 jQuery.facebox(function() {
-					  jQuery.get('".str_replace('&amp;', '&', $this->uri(array('action'=>'happyeval'), 'poll'))."', function(data) {
-					    jQuery.facebox(data);
-					  })
-					})
-				}
-			</script>";
-	}
+    //Check if poll module is installed
+    $pollInstalled = $this->objModuleCatalogue->checkIfRegistered('poll');
+    //get the version number
+    $pollModuleVer = $this->objModuleCatalogue->getVersion('poll');
+    //Display polls if poll is installed & version is higher than 0.121
+    if($pollModuleVer>='0.121' && $pollInstalled==True){
+                $alertBox = $this->getObject('alertbox', 'htmlelements');
+                $alertBox->putJs();
+                echo "<script type='text/javascript'>
+                 var browser=navigator.appName;
+                 var b_version=parseFloat(b_version);
+                 if(browser=='Microsoft Internet Explorer'){
+                    alert('".$browserError."');
+                 }else{
+                     jQuery.facebox(function() {
+                      jQuery.get('".str_replace('&amp;', '&', $this->uri(array('action'=>'happyeval'), 'poll'))."', function(data) {
+                        jQuery.facebox(data);
+                      })
+                    })
+                }
+            </script>";
+    }
 } 
 ?>

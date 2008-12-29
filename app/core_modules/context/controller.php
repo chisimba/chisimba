@@ -89,13 +89,13 @@ class context extends controller {
             $this->objContextBlocks = $this->getObject ( 'dbcontextblocks' );
             $this->objDynamicBlocks = $this->getObject ( 'dynamicblocks', 'blocks' );
 
-	    //Load Module Catalogue Class
+        //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 
         } catch ( customException $e ) {
             customException::cleanUp ();
 
-	    //Load Module Catalogue Class
+        //Load Module Catalogue Class
             $this->objModuleCatalogue = $this->getObject('modules', 'modulecatalogue');
 
         }
@@ -501,25 +501,25 @@ class context extends controller {
         }
     }
 
-	/**
+    /**
      * Method to get user contexts via ajax
      */
     protected function __ajaxgetusercontexts() {
        
-		$objUser = $this->getObject('user', 'security');
-		$objUserContext = $this->getObject('usercontext', 'context');
+        $objUser = $this->getObject('user', 'security');
+        $objUserContext = $this->getObject('usercontext', 'context');
         $contexts = $objUserContext->getUserContext($objUser->userId());
 
-		$con = array();
-		if (count($contexts) > 0)
-		{
-			
-			foreach ($contexts as $context)
-			{
-				$con[] = $this->objContext->getContext($context);
-			}
-		}
-		$contexts = $con;
+        $con = array();
+        if (count($contexts) > 0)
+        {
+            
+            foreach ($contexts as $context)
+            {
+                $con[] = $this->objContext->getContext($context);
+            }
+        }
+        $contexts = $con;
         if (count ( $contexts ) == 0) {
 
         } else {

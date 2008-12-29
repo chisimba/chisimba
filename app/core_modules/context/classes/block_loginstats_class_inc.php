@@ -39,7 +39,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -81,9 +81,9 @@ class block_loginstats extends object
     */
     public function init()
     {
-		//Create an instance of the user object
+        //Create an instance of the user object
         $this->objUser = $this->getObject('user','security');
-		//Create an instance of the language object
+        //Create an instance of the language object
         $this->objLanguage = $this->getObject('language','language');
         //Set the title
         $this->title="Login Stats";//$this->objLanguage->languageText("mod_reports_loginstats");
@@ -94,7 +94,7 @@ class block_loginstats extends object
     * on data obtained via the user class
     */
     public function show()
-	{
+    {
     
         // Build the display table
         $this->rTable = $this->newObject('htmltable', 'htmlelements'); 

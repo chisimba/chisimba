@@ -112,7 +112,7 @@ class dbfile extends dbTable {
                 )";
             } elseif ($category == 'documents') {
                 $where .= " AND (
-				category='file'" . //for backward compatibility
+                category='file'" . //for backward compatibility
 " OR category='documents'
                 OR (category IS NULL
                     AND datatype != 'jpg'
