@@ -24,7 +24,7 @@
  * @author Charl Mert <charl.mert@gmail.com>
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
- * @version   CVS: $Id: tabber_class_inc.php 10308 2008-08-26 12:18:36Z tohir $
+ * @version   $Id: tabber_class_inc.php 10308 2008-08-26 12:18:36Z tohir $
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
