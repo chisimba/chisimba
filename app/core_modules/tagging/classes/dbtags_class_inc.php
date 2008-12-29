@@ -157,7 +157,7 @@ class dbtags extends dbTable
     {
         $sql = "SELECT DISTINCT meta_value FROM tbl_tags WHERE module='".$module."' and meta_key='tag'";
         
-        return $this->getArray($sql);	
+        return $this->getArray($sql);    
     }
     
     

@@ -38,15 +38,15 @@ class tagging extends controller
     {
         switch ($action) {
             default:
-            	//build a site wide tag cloud and display it
-            	$cloud = $this->siteTagCloud();
-            	$this->setVarByRef('cloud', $cloud);
-            	return 'sitecloud_tpl.php';
-            	break;
-            	
+                //build a site wide tag cloud and display it
+                $cloud = $this->siteTagCloud();
+                $this->setVarByRef('cloud', $cloud);
+                return 'sitecloud_tpl.php';
+                break;
+                
             case 'importblogs':
-            	$this->objDbTags->migrateBlogTags();
-            	break;
+                $this->objDbTags->migrateBlogTags();
+                break;
             case 'gettags':
                 $tag = trim($this->getParam('tag'));
                 if ($tag == '') {

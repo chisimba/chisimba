@@ -7,42 +7,42 @@ $options = array('comment' => 'tag metadata', 'collate' => 'utf8_general_ci', 'c
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'userid' => array(
-		'type' => 'text',
-		'length' => 50,
-		),
-	'item_id' => array(
-		'type' => 'text',
-		'length' => 32,
-		),
-	'meta_key' => array(
-		'type' => 'text',
-		'length' => 255,
-		),
-	'meta_value' => array(
-		'type' => 'clob',
-		),
-	'module' => array(
-		'type' => 'text',
-		'length' => 255,
-		),
-	'uri' => array(
-		'type' => 'text',
-		'length' => 255,
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'userid' => array(
+        'type' => 'text',
+        'length' => 50,
+        ),
+    'item_id' => array(
+        'type' => 'text',
+        'length' => 32,
+        ),
+    'meta_key' => array(
+        'type' => 'text',
+        'length' => 255,
+        ),
+    'meta_value' => array(
+        'type' => 'clob',
+        ),
+    'module' => array(
+        'type' => 'text',
+        'length' => 255,
+        ),
+    'uri' => array(
+        'type' => 'text',
+        'length' => 255,
+        ),
     'context' => array(
-		'type' => 'text',
-		'length' => 255,
-		),
+        'type' => 'text',
+        'length' => 255,
+        ),
     'searchkey' => array(
-		'type' => 'text',
-		'length' => 255,
-		),
-	);
+        'type' => 'text',
+        'length' => 255,
+        ),
+    );
 
 //create other indexes here...
 
