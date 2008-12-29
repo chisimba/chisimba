@@ -138,7 +138,7 @@ class sysconfig extends controller {
                 $pmodule = TRIM($_POST['pmodule']);
 
                 if ($pmodule=='_site_') {
-                	$this->save();
+                    $this->save();
                 }
                 $this->objSysConfig->updateSingle();
 
@@ -151,7 +151,7 @@ class sysconfig extends controller {
                     // $customSysConfig = $this->getObject(strtolower('sysconfig_'.$record['pname']), $pmodule);
                     // $customSysConfig->postUpdateActions();
                 // }
-				return $this->nextAction('step2', array('pmodule_id'=> $pmodule));
+                return $this->nextAction('step2', array('pmodule_id'=> $pmodule));
                 break;
             case 'edit':
                 //Get the module for the parameter
@@ -175,9 +175,9 @@ class sysconfig extends controller {
 
     private function save()
     {
-    	$this->objConfig =  $this->getObject('altconfig','config');
-    	$result = $this->objConfig->updateParam($this->getParam('id'),'',$this->getParam('pvalue'));
-    	return $result;
+        $this->objConfig =  $this->getObject('altconfig','config');
+        $result = $this->objConfig->updateParam($this->getParam('id'),'',$this->getParam('pvalue'));
+        return $result;
 
     }
 

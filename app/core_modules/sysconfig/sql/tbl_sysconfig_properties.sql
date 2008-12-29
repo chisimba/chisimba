@@ -8,45 +8,45 @@ $options = array('comment' => 'system properties', 'collate' => 'utf8_general_ci
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-		),
-	'pmodule' => array(
-		'type' => 'text',
-		'length' => 25,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
+        ),
+    'pmodule' => array(
+        'type' => 'text',
+        'length' => 25,
         'notnull' => TRUE,
         'default' => 'unknown'
-		),
+        ),
     'pname' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32,
         'notnull' => TRUE,
         'default' => 'novalue'
-		),
+        ),
     'pvalue' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255,
         'notnull' => TRUE,
         'default' => 'unknown'
-		),
-	'pdesc' => array(
-		'type' => 'clob'
-		),
+        ),
+    'pdesc' => array(
+        'type' => 'clob'
+        ),
     'creatorId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25
-		),
+        ),
     'dateCreated' => array(
-		'type' => 'timestamp',
-		),
+        'type' => 'timestamp',
+        ),
     'modifierId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25
-		),
+        ),
     'dateModified' => array(
-		'type' => 'timestamp'
-		)
+        'type' => 'timestamp'
+        )
     );
 
 

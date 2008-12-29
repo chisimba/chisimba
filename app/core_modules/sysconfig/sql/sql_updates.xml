@@ -5,23 +5,23 @@
         <version>0.3</version>
         <description>changed date fields in tbl_sysconfig_properties to timestamps</description>
         <data>
-        	<change>
-				<dateCreated>
-					<definition>
-						<type>timestamp</type>
-           			</definition> 
-				</dateCreated> 
-			</change>
-		</data>
-		<data>
-			<change>
-				<dateModified>
-					<definition>
-						<type>timestamp</type>
-           			</definition> 
-				</dateModified> 
-			</change>
-		</data>
+            <change>
+                <dateCreated>
+                    <definition>
+                        <type>timestamp</type>
+                       </definition> 
+                </dateCreated> 
+            </change>
+        </data>
+        <data>
+            <change>
+                <dateModified>
+                    <definition>
+                        <type>timestamp</type>
+                       </definition> 
+                </dateModified> 
+            </change>
+        </data>
     </update>
     <update>
         <table>tbl_sysconfig_properties</table>
@@ -29,15 +29,15 @@
         <description>change pvalue field length</description>
         <data>
             <change>
-		    	<pvalue>
-		    		<type>text</type>
-		    		<length>32</length>
-		        	<definition>
-		            	<type>text</type>
-		            	<length>255</length>
+                <pvalue>
+                    <type>text</type>
+                    <length>32</length>
+                    <definition>
+                        <type>text</type>
+                        <length>255</length>
                     </definition> 
-				</pvalue>
-	    </change>
+                </pvalue>
+        </change>
         </data>
     </update>
     <!-- update>
@@ -46,9 +46,9 @@
         <description>added description field for parameters</description>
         <data>
             <add>
-            	<name>pdesc</name>
-            	<type>clob</type>
-	    	</add>
+                <name>pdesc</name>
+                <type>clob</type>
+            </add>
         </data>
     </update -->
 </updates>
