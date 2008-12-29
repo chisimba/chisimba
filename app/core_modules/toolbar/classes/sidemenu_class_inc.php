@@ -46,14 +46,14 @@ class sidemenu extends object
     */
     function init()
     {
-    	$this->loadClass('form', 'htmlelements');
-		$this->loadClass('textinput', 'htmlelements');
-		$this->loadClass('textarea', 'htmlelements');
-		$this->loadClass('button', 'htmlelements');
-		$this->loadClass('dropdown', 'htmlelements');
-		$this->loadClass('label', 'htmlelements');
-		$this->loadClass('link', 'htmlelements');
-		
+        $this->loadClass('form', 'htmlelements');
+        $this->loadClass('textinput', 'htmlelements');
+        $this->loadClass('textarea', 'htmlelements');
+        $this->loadClass('button', 'htmlelements');
+        $this->loadClass('dropdown', 'htmlelements');
+        $this->loadClass('label', 'htmlelements');
+        $this->loadClass('link', 'htmlelements');
+        
         $this->dbMenu = $this->newObject('dbmenu', 'toolbar');
         $this->objTools = $this->newObject('tools', 'toolbar');
 
@@ -173,8 +173,8 @@ class sidemenu extends object
      */
     function userDetails()
     {
-    	/*$this->objHead->type = 4;
-    	$access = $this->checkAccess();
+        /*$this->objHead->type = 4;
+        $access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);*/
 
@@ -197,10 +197,10 @@ class sidemenu extends object
     function contextDetails()
 
     {
-    	$access = $this->checkAccess();
+        $access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
-    	$menu = $this->joinContext();
+        $menu = $this->joinContext();
         return $menu;
     }
 
@@ -211,7 +211,7 @@ class sidemenu extends object
      */
     function getPostLoginMenuItems()
     {
-    	$access = $this->checkAccess();
+        $access = $this->checkAccess();
         $menus = $this->dbMenu->getSideMenus('postlogin', $access, $this->context);
         $menus = $this->checkPerm($menus);
         $menu = $this->getMenuList($menus);
@@ -342,8 +342,8 @@ class sidemenu extends object
     */
     function joinContext()
     {
-    	
-    	
+        
+        
         $objModule = $this->getObject('modules','modulecatalogue');
         $contextAdminUtils = $this->getObject('contextadminutils','contextadmin');
         

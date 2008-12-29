@@ -24,23 +24,23 @@ if (!$GLOBALS['kewl_entry_point_run']){
 
 class breadcrumbs extends object
 {
-	/**
-	* Method to construct the class
-	* @access public
-	*/
+    /**
+    * Method to construct the class
+    * @access public
+    */
     public function init()
     {
         $this->tools = $this->getObject('tools');
     }
-	
-	/**
-	* Method to display the breadcrumbs
-	* @access public
-	* @return string
-	*/
-	public function show()
-	{
-		return $this->tools->navigation();
-	}
+    
+    /**
+    * Method to display the breadcrumbs
+    * @access public
+    * @return string
+    */
+    public function show()
+    {
+        return $this->tools->navigation();
+    }
 }
 ?>

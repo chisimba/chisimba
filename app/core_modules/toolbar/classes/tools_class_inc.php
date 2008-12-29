@@ -200,7 +200,7 @@ class tools extends object
         // if group = site, then give sitewide access.
         if(isset($array[1]) && !empty($array[1])){
             //var_dump($module); var_dump($array); //die;
-			if(strtolower($array[1]) == 'site'){
+            if(strtolower($array[1]) == 'site'){
                 return TRUE;
             }
             if(!(strpos($array[1], '_con_') === FALSE)){
@@ -794,7 +794,7 @@ class tools extends object
 
     {
         /*
-		$replaceCrumbs = $this->getSession('replacebreadcrumbs');
+        $replaceCrumbs = $this->getSession('replacebreadcrumbs');
 
          if(isset($replaceCrumbs) && !empty($replaceCrumbs)){
              $this->unsetSession('replacebreadcrumbs');
@@ -808,8 +808,8 @@ class tools extends object
         $home = $this->objLanguage->languageText('word_home', 'system', 'Home');
 
         /*
-		$welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');
-		*/
+        $welcome = $this->objLanguage->languageText('mod_toolbar_welcome','toolbar');
+        */
 
 
 
@@ -827,7 +827,7 @@ class tools extends object
 
         if(empty($moduleInfo) && !($module == '_default' || $module == 'postlogin' || $module == '')){
 
-		  /*
+          /*
             $noModule = $this->objLanguage->code2Txt('mod_toolbar_modnotfound', 'toolbar', array('module'=>"<b>$module</b>"));
         */
 
@@ -847,13 +847,13 @@ class tools extends object
 
             // set the link to the default module
 
-			/*
+            /*
             $this->objLink = new link($this->uri('', '_default'));
 
             $this->objLink->link = $home;
 
             $home = $this->objLink->show();
-			*/
+            */
 
             $nav = $this->makeSiteBreadCrumbs($home, $module, $moduleInfo);
 
@@ -977,7 +977,7 @@ class tools extends object
 
         }
 
-		/*
+        /*
         $this->unsetSession('breadcrumbs');
 
         $this->unsetSession('crumb');

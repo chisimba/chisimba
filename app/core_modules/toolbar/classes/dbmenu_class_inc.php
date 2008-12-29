@@ -62,10 +62,10 @@ class dbmenu extends dbtable
         $ret = $this->listDbTables(); //$this->getArray($sql);
         if(in_array($this->table, $ret))
         {
-        	$rows = TRUE;
+            $rows = TRUE;
         }
         else {
-        	unset($rows);
+            unset($rows);
         }
         if($rows){
             $sql = 'SELECT category, module, permissions, dependscontext FROM '.$this->table;
@@ -128,10 +128,10 @@ class dbmenu extends dbtable
         $ret = $this->listDbTables(); //$this->getArray($sql);
         if(in_array($this->table, $ret))
         {
-        	$rows = TRUE;
+            $rows = TRUE;
         }
         else {
-        	unset($rows);
+            unset($rows);
         }
 
         //$rows = $this->getArray($sql);

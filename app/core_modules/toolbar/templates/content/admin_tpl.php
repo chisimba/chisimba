@@ -63,7 +63,7 @@ if(!empty($modules)){
                 }else{
                     $icon = $line['module'];
                 }
-				// No need to check if the icon exists, done by geticon class.
+                // No need to check if the icon exists, done by geticon class.
                 $objIcon->setModuleIcon($icon);
 
                 // if an action is specified for the link
@@ -86,8 +86,8 @@ if(!empty($modules)){
             }
             
         }
-        	$objTable->endRow();
-			$tab->tabbedbox();
+            $objTable->endRow();
+            $tab->tabbedbox();
             $tab->addTabLabel($this->objLanguage->languageText('mod_toolbar_'.$category,'toolbar'));
             $tab->addBoxContent($objTable->show());
            

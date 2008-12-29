@@ -42,9 +42,9 @@ class flatmenu extends object
     */
     public function show()
     {
-    	$homeLabel = $this->objLanguage->languageText('word_home', 'system', 'Home');
-    	$logoutLabel = $this->objLanguage->languageText('word_logout', 'system', 'Logout');
-    	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
+        $homeLabel = $this->objLanguage->languageText('word_home', 'system', 'Home');
+        $logoutLabel = $this->objLanguage->languageText('word_logout', 'system', 'Logout');
+        $confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
         
         $postlogin = 'cms';//$this->objConfig->getdefaultModuleName();
         $home = $this->objConfig->getPrelogin();
@@ -89,7 +89,7 @@ class flatmenu extends object
         $str .= '</ul><br />';
         
         return $str;
-	}
+    }
 
     /**
     * Method to add a menu item.

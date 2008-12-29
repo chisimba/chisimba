@@ -39,13 +39,13 @@ class postloginmenu extends object
     */
     function show()
     {
-    	//split the side menu into the menu items and the context login and user image
-    	$menu = '';
-    	
-    	$menu .= $this->objSideMenu->userDetails();
-    	$menu .= $this->objSideMenu->getPostLoginMenuItems().'<br />';
-		//$menu .= $this->objSideMenu->contextDetails();
-    	
+        //split the side menu into the menu items and the context login and user image
+        $menu = '';
+        
+        $menu .= $this->objSideMenu->userDetails();
+        $menu .= $this->objSideMenu->getPostLoginMenuItems().'<br />';
+        //$menu .= $this->objSideMenu->contextDetails();
+        
         return $menu;
     }
 

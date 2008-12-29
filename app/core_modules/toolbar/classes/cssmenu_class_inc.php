@@ -45,11 +45,11 @@ class cssmenu extends object
     */
     function show()
     {
-    	$homeLabel = $this->objLanguage->languageText('word_home', 'system', 'Home');
-    	$logoutLabel = $this->objLanguage->languageText('word_logout', 'system', 'Logout');
-    	$confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
-    	
-    	$home = $this->objConfig->getdefaultModuleName();
+        $homeLabel = $this->objLanguage->languageText('word_home', 'system', 'Home');
+        $logoutLabel = $this->objLanguage->languageText('word_logout', 'system', 'Logout');
+        $confirmLabel = $this->objLanguage->languageText('phrase_confirmlogout');
+        
+        $home = $this->objConfig->getdefaultModuleName();
         /*$showLogout = FALSE;
         
         // Check if the user is logged in
@@ -61,8 +61,8 @@ class cssmenu extends object
         
         $str='<ul id="menuList" class="adxm">'; //this is not using this javascript menu. its using the css one
        // $str='<ul id="nav">';
-    	$str .= '<li class="first"><a href="'.$this->uri('', $home).'">'.$homeLabel.'</a></li>';
-		foreach($this->menu as $key=>$item){
+        $str .= '<li class="first"><a href="'.$this->uri('', $home).'">'.$homeLabel.'</a></li>';
+        foreach($this->menu as $key=>$item){
             $objLink = new link('#');
             $objLink->link=$key.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             $str.='<li>'.$objLink->show().'<ul>'."\n";
@@ -95,7 +95,7 @@ class cssmenu extends object
         $str .="</ul>";
         
         return $str;
-	}
+    }
 
     /**
     * Method to add a menu heading.

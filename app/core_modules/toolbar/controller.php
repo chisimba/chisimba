@@ -43,7 +43,7 @@ class toolbar extends controller
     */
     function dispatch($action)
     {
-    	 $this->setVar('pageSuppressXML',true);
+         $this->setVar('pageSuppressXML',true);
         switch($action){
             case 'editlinks':
                 $module = $this->getParam('modulename', NULL);
