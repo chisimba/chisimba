@@ -26,71 +26,71 @@ $tablename = 'tbl_files_usage';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
-        'notnull' => TRUE
-		),
-	'fileid' => array(
-		'type' => 'text',
-		'length' => 32,
-        'notnull' => TRUE
-		),
-    'module' => array(
-		'type' => 'text',
-        'length' => 255,
-        'notnull' => TRUE
-		),
-    'tablename' => array(
-		'type' => 'text',
-        'length' => 255,
-        'notnull' => TRUE
-		),
-    'columnname' => array(
-		'type' => 'text',
-        'length' => 255,
-        'notnull' => TRUE
-		),
-    'recordid' => array(
-		'type' => 'text',
+    'id' => array(
+        'type' => 'text',
         'length' => 32,
         'notnull' => TRUE
-		),
+        ),
+    'fileid' => array(
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => TRUE
+        ),
+    'module' => array(
+        'type' => 'text',
+        'length' => 255,
+        'notnull' => TRUE
+        ),
+    'tablename' => array(
+        'type' => 'text',
+        'length' => 255,
+        'notnull' => TRUE
+        ),
+    'columnname' => array(
+        'type' => 'text',
+        'length' => 255,
+        'notnull' => TRUE
+        ),
+    'recordid' => array(
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => TRUE
+        ),
     'context' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
+        ),
     'workgroup' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
+        ),
     'filelock' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 1,
         'default' => 'N'
-		),
+        ),
     'creatorid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datecreated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timecreated' => array(
-		'type' => 'time'
-		),
+        'type' => 'time'
+        ),
     'modifierid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datemodified' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timemodified' => array(
-		'type' => 'time'
-		)
+        'type' => 'time'
+        )
     );
 //create other indexes here...
 
@@ -98,14 +98,14 @@ $name = 'index_tbl_files_usage';
 
 $indexes = array(
                 'fields' => array(
-                	'fileid' => array(),
-                	'module' => array(),
-                	'tablename' => array(),
-                	'columnname' => array(),
-                	'recordid' => array(),
-                	'context' => array(),
-                	'workgroup' => array(),
-                	'filelock' => array()
+                    'fileid' => array(),
+                    'module' => array(),
+                    'tablename' => array(),
+                    'columnname' => array(),
+                    'recordid' => array(),
+                    'context' => array(),
+                    'workgroup' => array(),
+                    'filelock' => array()
                 )
         );
 

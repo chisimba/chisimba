@@ -59,31 +59,31 @@ class oggreader extends object
     {
         $f = fopen($file, 'rb');
         $page = array();
-    	$header = fread($f, 512);
-    	$page['magic'] = substr($header, 0, 4);
-    	$page['serial'] = substr($header, 14, 4);
-    	$page['segments'] = ord($header[26]);
-    	$page['packet_length'] = 0;
-    	for ($i = 0; $i < $page['segments']; $i++) {
+        $header = fread($f, 512);
+        $page['magic'] = substr($header, 0, 4);
+        $page['serial'] = substr($header, 14, 4);
+        $page['segments'] = ord($header[26]);
+        $page['packet_length'] = 0;
+        for ($i = 0; $i < $page['segments']; $i++) {
             $page['packet_length'] += ord($header[27+$i]);
-    	}
-    	$page['packet_magic'] = substr($header,27+$page['segments'],8);
-    	if (0 == strncmp($page['packet_magic'],"\x01vorbis",7)) {
+        }
+        $page['packet_magic'] = substr($header,27+$page['segments'],8);
+        if (0 == strncmp($page['packet_magic'],"\x01vorbis",7)) {
             $page['subtype'] = 'audio/x-vorbis';
-    	} elseif (0 == strncmp($page['packet_magic'],"\x80theora",7)) {
+        } elseif (0 == strncmp($page['packet_magic'],"\x80theora",7)) {
             $page['subtype'] = 'video/x-theora';
-    	} else {
+        } else {
             $page['subtype'] = 'unknown';
-    	}
-    	//echo " <tt>".$page['subtype']."</tt>";
-    	if ($page['subtype'] == 'audio/x-vorbis') {
+        }
+        //echo " <tt>".$page['subtype']."</tt>";
+        if ($page['subtype'] == 'audio/x-vorbis') {
             $page['channels'] = ord($header[27+$page['segments']+11]);
             $page['rate'] = ord($header[27+$page['segments']+15]);
             $page['rate'] = ($page['rate'] << 8) | ord($header[27+$page['segments']+14]);
             $page['rate'] = ($page['rate'] << 8) | ord($header[27+$page['segments']+13]);
             $page['rate'] = ($page['rate'] << 8) | ord($header[27+$page['segments']+12]);
             //echo " ".$page['channels']." channel ".$page['rate']."Hz";
-    	} elseif ($page['subtype'] == 'video/x-theora') {
+        } elseif ($page['subtype'] == 'video/x-theora') {
             $page['width'] = ord($header[27+$page['segments']+14]);
             $page['width'] = ($page['width'] << 8) | ord($header[27+$page['segments']+15]);
             $page['width'] = ($page['width'] << 8) | ord($header[27+$page['segments']+16]);
@@ -107,7 +107,7 @@ class oggreader extends object
             //echo " ".$page['rate']." fps";
             
             return $page;
-    	}
+        }
     }
     
     

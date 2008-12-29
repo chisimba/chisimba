@@ -7,14 +7,14 @@ $script = '
 //<![CDATA[
 
 function previewFile(id, jsId) {
-	var url = \'index.php\';
-	var pars = \'module=filemanager&action=sendpreview&id=\'+id+\'&jsId=\'+jsId;
-	var myAjax = new Ajax.Request( url, {method: \'get\', parameters: pars, onComplete: showResponse} );
+    var url = \'index.php\';
+    var pars = \'module=filemanager&action=sendpreview&id=\'+id+\'&jsId=\'+jsId;
+    var myAjax = new Ajax.Request( url, {method: \'get\', parameters: pars, onComplete: showResponse} );
 }
 
 function showResponse (originalRequest) {
-	var newData = originalRequest.responseText;
-	$(\'previewwindow\').innerHTML = newData;
+    var newData = originalRequest.responseText;
+    $(\'previewwindow\').innerHTML = newData;
 }
 //]]>
 </script>';
@@ -157,7 +157,7 @@ function selectFile(file, id)
         //alert(fileId[id]);
         //window.opener.document.getElementById("input_selectfile_'.$inputname.'").value = fileName[id];
         //window.opener.document.getElementById("hidden_'.$inputname.'").value = fileId[id];
-	var imageURL="'.$folderPath.'/"+fileName[id];
+    var imageURL="'.$folderPath.'/"+fileName[id];
         window.close();
         window.opener.passImageUrlToApplet(imageURL);
         window.opener.focus();

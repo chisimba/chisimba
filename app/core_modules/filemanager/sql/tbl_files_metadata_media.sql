@@ -30,91 +30,91 @@ $tablename = 'tbl_files_metadata_media';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
-	'fileid' => array(
-		'type' => 'text',
-		'length' => 32,
+        ),
+    'fileid' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
+        ),
     'width' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11,
         'default' => 0
-		),
+        ),
     'height' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11,
         'default' => 0
-		),
+        ),
     'playtime' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11,
         'default' => 0
-		),
+        ),
     'format' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 30
-		),
+        ),
     'framerate' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11
-		),
+        ),
     'bitrate' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11
-		),
+        ),
     'samplerate' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11
-		),
+        ),
     'title' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
+        ),
     'artist' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
-	'description' => array(
-		'type' => 'text'
-		),
+        ),
+    'description' => array(
+        'type' => 'text'
+        ),
     'year' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 10
-		),
+        ),
     'url' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
+        ),
     'getid3info' => array(
-		'type' => 'text'
-		),
+        'type' => 'text'
+        ),
     'creatorid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datecreated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timecreated' => array(
-		'type' => 'time'
-		),
+        'type' => 'time'
+        ),
     'modifierid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datemodified' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timemodified' => array(
-		'type' => 'time'
-		)
+        'type' => 'time'
+        )
     );
 //create other indexes here...
 
@@ -122,7 +122,7 @@ $name = 'index_tbl_files_metadata_media';
 
 $indexes = array(
                 'fields' => array(
-                	'fileid' => array()
+                    'fileid' => array()
                 )
         );
 

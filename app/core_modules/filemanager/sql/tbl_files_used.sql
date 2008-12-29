@@ -26,34 +26,34 @@ $tablename = 'tbl_files_used';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
+        ),
     'fileid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
+        ),
     'context' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
+        ),
     'workgroup' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
+        ),
     'creatorid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datecreated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timecreated' => array(
-		'type' => 'time'
-		)
+        'type' => 'time'
+        )
     );
 //create other indexes here...
 
@@ -61,9 +61,9 @@ $name = 'index_tbl_files_used';
 
 $indexes = array(
                 'fields' => array(
-                	'fileid' => array(),
-                	'context' => array(),
-                	'workgroup' => array()
+                    'fileid' => array(),
+                    'context' => array(),
+                    'workgroup' => array()
                 )
         );
 

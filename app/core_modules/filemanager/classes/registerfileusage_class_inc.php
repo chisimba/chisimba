@@ -71,10 +71,10 @@ class registerfileusage extends dbTable
     */
     private function addItem ($fileId, $module, $table, $recordId, $column, $context='', $workgroup='', $fileLock=FALSE, $userId = NULL)
     {
-    	if($userId == NULL)
-    	{
-    		$userId = $this->objUser->userId();
-    	}
+        if($userId == NULL)
+        {
+            $userId = $this->objUser->userId();
+        }
         $fileLock = $fileLock ? 'Y' : 'N';
         
         $insertId = $this->insert(array(

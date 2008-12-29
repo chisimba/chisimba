@@ -79,15 +79,15 @@ class archivehandler extends object
 
     /**
 
-	* Enter description here...
+    * Enter description here...
 
-	*
+    *
 
-	* @param string $path Path to the Zip File
+    * @param string $path Path to the Zip File
 
-	* @return string Preview of the Zip File
+    * @return string Preview of the Zip File
 
-	*/
+    */
 
     public function previewZip($path)
 

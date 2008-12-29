@@ -111,10 +111,10 @@ class swfupload extends object
         $script = '
             upload1 = new SWFUpload({
                 // Backend Settings
-                upload_url: "/chisimba/framework/app/index.php",	// Relative to the SWF file (or you can use absolute paths)
+                upload_url: "/chisimba/framework/app/index.php",    // Relative to the SWF file (or you can use absolute paths)
                 post_params: {[-POSTPARAMS-]},
                 // File Upload Settings
-                file_size_limit : "102400",	// 100MB
+                file_size_limit : "102400",    // 100MB
                 file_types : "*.*",
                 file_types_description : "All Files",
                 file_upload_limit : "10",
@@ -132,10 +132,10 @@ class swfupload extends object
                 upload_complete_handler : uploadComplete,
                 
                 // Flash Settings
-                flash_url : "[-SWFFILE-]",	// Relative to this file (or you can use absolute paths)
+                flash_url : "[-SWFFILE-]",    // Relative to this file (or you can use absolute paths)
                 
-                swfupload_element_id : "flashUI1",		// Setting from graceful degradation plugin
-                degraded_element_id : "degradedUI1",	// Setting from graceful degradation plugin
+                swfupload_element_id : "flashUI1",        // Setting from graceful degradation plugin
+                degraded_element_id : "degradedUI1",    // Setting from graceful degradation plugin
                 
                 custom_settings : {
                     progressTarget : "fsUploadProgress1",

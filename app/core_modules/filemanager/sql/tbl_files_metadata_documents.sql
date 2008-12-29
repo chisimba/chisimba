@@ -24,64 +24,64 @@ $tablename = 'tbl_files_metadata_documents';
 $options = array('collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
-	'fileid' => array(
-		'type' => 'text',
-		'length' => 32,
+        ),
+    'fileid' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
+        ),
     'title' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
+        ),
     'author' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
+        ),
     'subject' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255
-		),
+        ),
     'keywords' => array(
-		'type' => 'text'
-		),
+        'type' => 'text'
+        ),
     'documentdate' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'statwords' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11
-		),
+        ),
     'statchars' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11
-		),
+        ),
     'creatorid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datecreated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timecreated' => array(
-		'type' => 'time'
-		),
+        'type' => 'time'
+        ),
     'modifierid' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
         'notnull' => TRUE
-		),
+        ),
     'datemodified' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'timemodified' => array(
-		'type' => 'time'
-		)
+        'type' => 'time'
+        )
     );
 //create other indexes here...
 
@@ -89,7 +89,7 @@ $name = 'index_tbl_files_metadata_documents';
 
 $indexes = array(
                 'fields' => array(
-                	'fileid' => array()
+                    'fileid' => array()
                 )
         );
 
