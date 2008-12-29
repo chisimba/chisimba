@@ -31,77 +31,77 @@ $options = array('comment' => 'Used to hold stories as elements of text for disp
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'category' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'category' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE,
         'default' => 'hidden'
-		),
+        ),
     'isActive' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
         'default' => 0
-		),
+        ),
     'parentId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32,
         'default' => 'base'
-		),
+        ),
     'language' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 2,
         'default' => 'en'
-		),
+        ),
     'title' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 255,
-		),
+        ),
     'abstract' => array(
-		'type' => 'text'
-		),
+        'type' => 'text'
+        ),
     'mainText' => array(
-		'type' => 'text'
-		),
+        'type' => 'text'
+        ),
     'dateCreated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'creatorId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25
-		),
+        ),
     'expirationDate' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'notificationDate' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'isSticky' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 1,
         'notnull' => TRUE,
         'default' => '0'
-		),
+        ),
     'modified' => array(
-		'type' => 'timestamp'
-		),
+        'type' => 'timestamp'
+        ),
     'dateModified' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'modifierId' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25
-		),
+        ),
     'commentCount' => array(
-		'type' => 'integer',
+        'type' => 'integer',
         'length' => 11,
         'notnull' => TRUE,
         'default' => 0
-		)
+        )
     );
 
 

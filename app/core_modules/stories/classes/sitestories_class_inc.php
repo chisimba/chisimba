@@ -282,29 +282,29 @@ class sitestories extends dbTable {
         return $objForm->show();
     }
 
-	/**
+    /**
     *
-	* Method to return the most recent stories
+    * Method to return the most recent stories
     *
     * @param string $where A SQL where clause made up elsewhere.
     * @param integer $num The number of stories to return
     *
-	*/
-	function getMostRecent($where, $num=10)
+    */
+    function getMostRecent($where, $num=10)
     {
         $numOfStories=$this->objDbStories->getRecordCount($where);
-		if ($numOfStories > $num) {
-		    $first=$numOfStories - $num;
-		} else {
-			$first = 0;
-		}
+        if ($numOfStories > $num) {
+            $first=$numOfStories - $num;
+        } else {
+            $first = 0;
+        }
         $sql="SELECT * FROM tbl_stories " . $where . " ";
-		return $this->objDbStories->getArrayWithLimit($sql, $first, $num);
-	} #function getMostRecent
-	
-	
-	
-	 /**
+        return $this->objDbStories->getArrayWithLimit($sql, $first, $num);
+    } #function getMostRecent
+    
+    
+    
+     /**
     *
     * Method to fetch a story by story category
     *
@@ -360,70 +360,70 @@ class sitestories extends dbTable {
         //Loop through and build the output string
         
         $js = "<script type=\"text/javascript\" language=\"javascript\">
-		function getFullStory (id) {
-			var url = 'index.php';
-			var pars = 'module=stories&action=getfullstory&id='+id;
-			
-			jQuery.get('index.php', pars, function(data) {
-  			jQuery('#'+id).html(data);
-  			if ('function' == typeof window.adjustLayout) {
-			   adjustLayout();
-			}
-		});}
-		
-		function getTrimStory (id) {
-			var url = 'index.php';
-			var pars = 'module=stories&action=gettrunctstory&id='+id;
-			
-			jQuery.get('index.php', pars, function(data) {
-  			jQuery('#'+id).html(data);
-  			
-  			if ('function' == typeof window.adjustLayout) {
-			   adjustLayout();
-			}
-		});}
-			
-			function getAllStories (limit) {
-			var url = 'index.php';
-			var pars = 'module=stories&action=getallstories&limit='+limit;
-			
-			jQuery.get('index.php', pars, function(data) {
-  			jQuery('#'+'stories').html(data);
-  			if ('function' == typeof window.adjustLayout) {
-			   adjustLayout();
-			}
-		});}
-		
-		function getLessStories (limit) {
-			var url = 'index.php';
-			var pars = 'module=stories&action=getlessstories&limit='+limit;
-			
-			jQuery.get('index.php', pars, function(data) {
-  			jQuery('#'+'stories').html(data);
-  			
-  			if ('function' == typeof window.adjustLayout) {
-			   adjustLayout();
-			}
-		});}
+        function getFullStory (id) {
+            var url = 'index.php';
+            var pars = 'module=stories&action=getfullstory&id='+id;
+            
+            jQuery.get('index.php', pars, function(data) {
+              jQuery('#'+id).html(data);
+              if ('function' == typeof window.adjustLayout) {
+               adjustLayout();
+            }
+        });}
+        
+        function getTrimStory (id) {
+            var url = 'index.php';
+            var pars = 'module=stories&action=gettrunctstory&id='+id;
+            
+            jQuery.get('index.php', pars, function(data) {
+              jQuery('#'+id).html(data);
+              
+              if ('function' == typeof window.adjustLayout) {
+               adjustLayout();
+            }
+        });}
+            
+            function getAllStories (limit) {
+            var url = 'index.php';
+            var pars = 'module=stories&action=getallstories&limit='+limit;
+            
+            jQuery.get('index.php', pars, function(data) {
+              jQuery('#'+'stories').html(data);
+              if ('function' == typeof window.adjustLayout) {
+               adjustLayout();
+            }
+        });}
+        
+        function getLessStories (limit) {
+            var url = 'index.php';
+            var pars = 'module=stories&action=getlessstories&limit='+limit;
+            
+            jQuery.get('index.php', pars, function(data) {
+              jQuery('#'+'stories').html(data);
+              
+              if ('function' == typeof window.adjustLayout) {
+               adjustLayout();
+            }
+        });}
 
-		</script>";
+        </script>";
         
         $this->appendArrayVar('headerParams', $js);
-		
         
-		//set up stories div
-		$divId = "stories";
-		$ret .= "<div id=\"$divId\">";
-		
+        
+        //set up stories div
+        $divId = "stories";
+        $ret .= "<div id=\"$divId\">";
+        
         foreach ($ar as $line) {
             $count=$count+1;
             // If the array as reached the set limit of stories then it returns the string
             if( $limit != null){
-	            if ($count > $limit){            	
-	            	$ret .= "<a href=\"javascript:getAllStories('$limit');\">View Archives</a>";
-	        		$ret .= "</div>";
-	        		return $ret;
-	            }
+                if ($count > $limit){                
+                    $ret .= "<a href=\"javascript:getAllStories('$limit');\">View Archives</a>";
+                    $ret .= "</div>";
+                    return $ret;
+                }
             }
             $id = $line['id'];
             $creatorId = $line['creatorid'];
@@ -464,7 +464,7 @@ class sitestories extends dbTable {
             $ret .= $this->objH->show();
             //Add the abstract
             $ret .= "<p class=\"minute\">".$abstract."</p>";
-            //Add the main text		
+            //Add the main text        
             
             $mainText = substr($mainText, 0, 150);
             $mainText = $mainText."...";
@@ -526,8 +526,8 @@ class sitestories extends dbTable {
             }
             $ret .= "</p>";
         }
-		$ret .= "<a href=\"javascript:getAllStories('$limit');\">View Archives</a>"; 		
-		$ret .= "</div>";
+        $ret .= "<a href=\"javascript:getAllStories('$limit');\">View Archives</a>";         
+        $ret .= "</div>";
         return $ret;
     } #function fetchCategory
     
@@ -538,8 +538,8 @@ class sitestories extends dbTable {
     * @return string $ret The formatted div.
     */
     function createAllStories($limit) {
-    	$language = "en";
-    	$category = "prelogin";
+        $language = "en";
+        $category = "prelogin";
         //Set up the where clause to return only the category
         $where=" WHERE category='" . $category
           . "' AND isActive='1' AND language='"
@@ -580,10 +580,10 @@ class sitestories extends dbTable {
         }
         $curModule = $this->getParam('module', NULL);
     
-		//set up stories div
-		$divId = "stories";
-		$ret .= "<div id=\"$divId\">";
-		
+        //set up stories div
+        $divId = "stories";
+        $ret .= "<div id=\"$divId\">";
+        
         foreach ($ar as $line) {
             $count=$count+1;
             
@@ -626,7 +626,7 @@ class sitestories extends dbTable {
             $ret .= $this->objH->show();
             //Add the abstract
             $ret .= "<p class=\"minute\">".$abstract."</p>";
-            //Add the main text		
+            //Add the main text        
             
             $mainText = substr($mainText, 0, 150);
             $mainText = $mainText."...";
@@ -687,8 +687,8 @@ class sitestories extends dbTable {
             $ret .= "</p>";
         }
         $ret .= "<br />";
-		$ret .= "<a href=\"javascript:getLessStories('$limit');\">View Less Archives</a>"; 		
-		$ret .= "</div>";
+        $ret .= "<a href=\"javascript:getLessStories('$limit');\">View Less Archives</a>";         
+        $ret .= "</div>";
         return $ret;
     } #function fetchCategory
 

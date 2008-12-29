@@ -96,61 +96,61 @@ class stories extends controller
                 $this->setVar('str', $objStories->fetchStory($id));
                 return 'dump_tpl.php';
             case "readmore":
-            	return 'showstories_tpl.php';
+                return 'showstories_tpl.php';
             case "getfullstory":
-            	$id = $this->getParam('id', null);
-            	$objStories =  $this->getObject('sitestories');
-            	$textRow = $objStories->getRow('id', $id);
-				$mainText = $textRow['maintext'];
-				$curModule = $this->getParam('module', NULL);
+                $id = $this->getParam('id', null);
+                $objStories =  $this->getObject('sitestories');
+                $textRow = $objStories->getRow('id', $id);
+                $mainText = $textRow['maintext'];
+                $curModule = $this->getParam('module', NULL);
 
-				$ret .= "<div id=\"$id\">".$mainText;
-				if ($this->objUser->isAdmin()) {
+                $ret .= "<div id=\"$id\">".$mainText;
+                if ($this->objUser->isAdmin()) {
                 $editArray = array(
                   'action' => 'edit',
                   'id' => $id,
                   'comefrom' => $curModule);
                 $objGetIcon = $this->newObject('geticon', 'htmlelements');
                 $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
-            	}
-	            $ret .= "<a href=\"javascript:getTrimStory('$id');\">[Read Less]</a>";
-	            $ret .= "</div>";
-				echo $ret;
-            	break;
+                }
+                $ret .= "<a href=\"javascript:getTrimStory('$id');\">[Read Less]</a>";
+                $ret .= "</div>";
+                echo $ret;
+                break;
             case "gettrunctstory":
-            	$id = $this->getParam('id', null);
-            	$objStories =  $this->getObject('sitestories');
-            	$textRow = $objStories->getRow('id', $id);
-				$mainText = $textRow['maintext'];
-				$mainText = substr($mainText, 0, 150);
-            	$mainText = $mainText."...";
-            	$curModule = $this->getParam('module', NULL);
-            	
-				$ret .= "<div id=\"$id\">".$mainText;
-				if ($this->objUser->isAdmin()) {
+                $id = $this->getParam('id', null);
+                $objStories =  $this->getObject('sitestories');
+                $textRow = $objStories->getRow('id', $id);
+                $mainText = $textRow['maintext'];
+                $mainText = substr($mainText, 0, 150);
+                $mainText = $mainText."...";
+                $curModule = $this->getParam('module', NULL);
+                
+                $ret .= "<div id=\"$id\">".$mainText;
+                if ($this->objUser->isAdmin()) {
                 $editArray = array(
                   'action' => 'edit',
                   'id' => $id,
                   'comefrom' => $curModule);
                 $objGetIcon = $this->newObject('geticon', 'htmlelements');
                 $ret .= "&nbsp;" . $objGetIcon->getEditIcon($this->uri($editArray, "stories"));
-            	}
-	            $ret .= "<a href=\"javascript:getFullStory('$id');\">[Read More]</a>";
-	            $ret .= "</div>";
-            	echo $ret;
-            	break;
+                }
+                $ret .= "<a href=\"javascript:getFullStory('$id');\">[Read More]</a>";
+                $ret .= "</div>";
+                echo $ret;
+                break;
             case "getallstories":
-            	$objStories =  $this->getObject('sitestories');
-            	$limit = $this->getParam('limit', null);
-            	$ret = $objStories->createAllStories($limit);
-            	echo $ret;
-            	break;
+                $objStories =  $this->getObject('sitestories');
+                $limit = $this->getParam('limit', null);
+                $ret = $objStories->createAllStories($limit);
+                echo $ret;
+                break;
             case "getlessstories":
-            	$objStories =  $this->getObject('sitestories');
-            	$limit = $this->getParam('limit', null);
-            	$ret = $objStories->fetchPreLoginCategory('prelogin', $limit);
-            	echo $ret;
-            	break;
+                $objStories =  $this->getObject('sitestories');
+                $limit = $this->getParam('limit', null);
+                $ret = $objStories->fetchPreLoginCategory('prelogin', $limit);
+                echo $ret;
+                break;
             default:
                 $this->setVar('str', "<h3>"
                   . $this->objLanguage->languageText("phrase_unrecognizedaction",'stories')
@@ -234,12 +234,12 @@ class stories extends controller
     
     function requiresLogin($action)
     {
-    	$notrequiredAction = array('getfullstory', 'readmore', 'gettrunctstory', 'getallstories', 'getlessstories');
-    	if (in_array($action, $notrequiredAction)) {
-    		return FALSE;
-    	} else {
-    		return TRUE;
-    	}
+        $notrequiredAction = array('getfullstory', 'readmore', 'gettrunctstory', 'getallstories', 'getlessstories');
+        if (in_array($action, $notrequiredAction)) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 }
 ?>

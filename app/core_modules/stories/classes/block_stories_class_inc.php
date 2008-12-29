@@ -2,7 +2,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -33,12 +33,12 @@ class block_stories extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-    		$this->title = ucwords($this->objLanguage->code2Txt('word_stories', 'stories', NULL, '[-stories-]'));
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->title = ucwords($this->objLanguage->code2Txt('word_stories', 'stories', NULL, '[-stories-]'));
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -47,19 +47,19 @@ class block_stories extends object
     */
     public function show()
     {
-    	try {
-    		$objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-    		$useSummaries = $objSysConfig->getValue('USESUMMARIES', 'stories');
-        	$objStories = $this->getObject('sitestories', 'stories');
-        	
-        	if($useSummaries == 'Y'){
-        		return $objStories->fetchPreLoginCategory('prelogin', 3);
-        	} else {
-        		return $objStories->fetchCategory('prelogin');
-        	}
+        try {
+            $objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $useSummaries = $objSysConfig->getValue('USESUMMARIES', 'stories');
+            $objStories = $this->getObject('sitestories', 'stories');
+            
+            if($useSummaries == 'Y'){
+                return $objStories->fetchPreLoginCategory('prelogin', 3);
+            } else {
+                return $objStories->fetchCategory('prelogin');
+            }
         } catch (customException $e) {
-    		customException::cleanUp();
-    	}
+            customException::cleanUp();
+        }
     }
 }
 ?>
