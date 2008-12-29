@@ -122,8 +122,8 @@ class help extends controller
 
         $this->setVar('module', $module);
 
-		// The rich text and viewlets will be accessed via webservices - commented out till then
-		/*
+        // The rich text and viewlets will be accessed via webservices - commented out till then
+        /*
         $richHelp = $this->checkForRichHelp('help_'.$module.'_'.$helpItem, '.php');
 
         $this->setVar('richHelp', $richHelp);

@@ -24,7 +24,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -55,7 +55,7 @@ class block_gettinghelp extends object
     {
         //Create an instance of the help object
         $this->objHelp= $this->getObject('helplink','help');
- 		//Create an instance of the language object
+         //Create an instance of the language object
         $this->objLanguage = $this->getObject('language','language');
         //Set the title
         $this->title=$this->objLanguage->languageText("mod_postlogin_helptitle",'postlogin');
@@ -68,7 +68,7 @@ class block_gettinghelp extends object
     * @return string html The html content of the block
     */
     public function show()
-	{
+    {
         //Add the text tot he output
         $ret = $this->objLanguage->languageText("mod_postlogin_helphowto",'postlogin');
         //Create an instance of the help object
