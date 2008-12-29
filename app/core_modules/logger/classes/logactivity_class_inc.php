@@ -258,12 +258,12 @@ class logactivity extends dbTable
      */
     private function _logData()
     {
-    	if(date('d') == '01')
-    	{
-    		$this->_execute('TRUNCATE TABLE tbl_logger');
-    		// put in an event handler to do something with the log file
-    		$this->_monthlyCleanup();
-    	}
+        if(date('d') == '01')
+        {
+            $this->_execute('TRUNCATE TABLE tbl_logger');
+            // put in an event handler to do something with the log file
+            $this->_monthlyCleanup();
+        }
         $action = $this->getParam('action');
         $previousId = $this->getPreviousId();
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -318,9 +318,9 @@ class logactivity extends dbTable
             $this->insert($logArray);
 
         }else{
-        	$id = $this->insert($logArray);
-         	$this->setPreviousId($id);
-        	//logger_log($logArray);
+            $id = $this->insert($logArray);
+             $this->setPreviousId($id);
+            //logger_log($logArray);
         }
 
 
@@ -338,24 +338,24 @@ class logactivity extends dbTable
      */
     public function _monthlyCleanup()
     {
-    	$ts = intval(time()/86400)*86400;
-    	$this->objConfig = $this->getObject('altconfig', 'config');
-    	// rename the current log file to <date>_logger.log
-    	$curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
-    	$arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
+        $ts = intval(time()/86400)*86400;
+        $this->objConfig = $this->getObject('altconfig', 'config');
+        // rename the current log file to <date>_logger.log
+        $curLog = $this->objConfig->getSiteRootPath()."/error_log/logger.log";
+        $arkLog = $this->objConfig->getSiteRootPath()."/error_log/".$ts."_logger.log";
         if (!file_exists($arkLog)){
             // Removing Notice: Undefined Variable
             if (!isset($curlog)) {
                 $curlog = '';
             }
             if(file_exists($curLog)) {
-        		@copy($curLog, $arkLog);
-            	@unlink($curLog);
-        	}
+                @copy($curLog, $arkLog);
+                @unlink($curLog);
+            }
         }
-    	// mail it to the sys admin?
+        // mail it to the sys admin?
 
-    	return TRUE;
+        return TRUE;
     }
 
 } //end of class

@@ -97,26 +97,26 @@ class logger extends controller
                 break;
 
             case 'showstatsbycontext':
-		$userId=$this->objUser->userId();
+        $userId=$this->objUser->userId();
                 $display = $this->logDisplay->getVisitedPages($userId,$contextcode=NULL,$module='contextcontent');
                 $this->setVarByRef('display', $display);
                 return 'index_tpl.php';
                 break;
 
             case 'statsbycontext':
-		$userId=$this->objUser->userId();
-		$contextCode = $this->getParam('contextcode');
+        $userId=$this->objUser->userId();
+        $contextCode = $this->getParam('contextcode');
                 $display = $this->logDisplay->getContextUsers($userId,$contextCode);
                 $this->setVarByRef('display', $display);
                 return 'index_tpl.php';
                 break;
 
             case 'userstatsbycontext':
-		$userId = $this->getParam('userId');
-		if(empty($userId)){
-			$userId=$this->objUser->userId();
-		}
-		$contextCode = $this->getParam('contextcode');
+        $userId = $this->getParam('userId');
+        if(empty($userId)){
+            $userId=$this->objUser->userId();
+        }
+        $contextCode = $this->getParam('contextcode');
                 $display = $this->logDisplay->getVisitedPages($userId,$contextCode, $module='contextcontent');
                 $this->setVarByRef('display', $display);
                 return 'index_tpl.php';

@@ -17,64 +17,64 @@ $tablename = 'tbl_logger';
 $options = array('comment' => 'Table to hold the log events', 'collate' => 'utf8_general_ci', 'character_set' => 'utf8');
 
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
     'previous_id' => array(
         'type' => 'text',
         'length' => 32
         ),
-	'userid' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'module' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'eventcode' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+    'userid' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'module' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'eventcode' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
     'eventparamname' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+        'type' => 'text',
+        'length' => 32
+        ),
     'eventparamvalue' => array(
-		'type' => 'clob',
-		),
-	'context' => array(
-		'type' => 'text',
-		'length' => '32',
-		),
+        'type' => 'clob',
+        ),
+    'context' => array(
+        'type' => 'text',
+        'length' => '32',
+        ),
     'action' => array (
         'type' => 'text',
-		'length' => '50',
+        'length' => '50',
         ),
     'ipaddress' => array (
         'type' => 'text',
-		'length' => '50',
+        'length' => '50',
         ),
     'referrer' => array (
         'type' => 'clob',
-		
+        
         ),
-	'datecreated' => array(
-		'type' => 'timestamp',
-		)
-	);
+    'datecreated' => array(
+        'type' => 'timestamp',
+        )
+    );
 
 $name = 'tbl_logger_idx';
 
 $indexes = array(
                 'fields' => array(
-                	'userid' => array(),
-                	'previous_id' => array(),
-                	'module' => array(),
-                	'context' => array(),
-                	'action' => array(),
-                	'ipaddress' => array()
+                    'userid' => array(),
+                    'previous_id' => array(),
+                    'module' => array(),
+                    'context' => array(),
+                    'action' => array(),
+                    'ipaddress' => array()
                 )
         );
 ?>

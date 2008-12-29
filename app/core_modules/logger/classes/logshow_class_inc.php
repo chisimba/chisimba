@@ -134,17 +134,17 @@ class logshow extends dbTable
      */
     public function userLoggerDetails($userId=Null,$contextCode=Null, $module=Null)
     {
-	if($userId==Null){
-		$userId=$this->objUser->userId();
-	}
-	if($contextCode==Null){
-	        $where = " WHERE userid = '".$userId."' and module = '".$module."'";
-	        return $this->getAll($where);
-	}elseif($module==Null){
-	        $where = " WHERE userid = '".$userId."' and context = '".$contextCode."'";
-	}else{
-	        $where = " WHERE userid = '".$userId."' and context = '".$contextCode."' and module = '".$module."'";
-	}
+    if($userId==Null){
+        $userId=$this->objUser->userId();
+    }
+    if($contextCode==Null){
+            $where = " WHERE userid = '".$userId."' and module = '".$module."'";
+            return $this->getAll($where);
+    }elseif($module==Null){
+            $where = " WHERE userid = '".$userId."' and context = '".$contextCode."'";
+    }else{
+            $where = " WHERE userid = '".$userId."' and context = '".$contextCode."' and module = '".$module."'";
+    }
 //        $sql = "SELECT * FROM tbl_logger".$where;
         return $this->getAll($where);
 //        return $this->getArray($sql);

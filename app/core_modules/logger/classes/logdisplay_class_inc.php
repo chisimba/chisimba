@@ -32,7 +32,7 @@ class logdisplay extends object
             $this->objCatalogue = $this->getObject('catalogueconfig', 'modulecatalogue');
             $objModules = $this->getObject('modules', 'modulecatalogue');
             $this->objContext = $this->getObject('dbcontext', 'context');
-	    //Load ContextContent class
+        //Load ContextContent class
             if ($objModules->checkIfRegistered('contextcontent')){
                 $this->objContentOrder = $this->getObject('db_contextcontent_order','contextcontent');
                 $this->contextFlag=TRUE;
@@ -231,42 +231,42 @@ class logdisplay extends object
             $objLink->link = $lnCoursePages;
             $str .= '<li>'.$objLink->show().'</li>';
         }
-	$hasAccess = $this->objEngine->_objUser->isLecturer();
-	if($hasAccess){
-		$userId=$this->objUser->userId();
-		$role='Lecturers';
-		$objContextGroups = $this->getObject('managegroups','contextgroups');
-		$lectRole = $objContextGroups->rolecontextcodes($userId,$role);
-		if(!empty($lectRole)){
-			foreach($lectRole as $myLectRole){
-				$contextTitle = $this->objContext->getField('title',$myLectRole);
-			        $objLink = new link($this->uri(array('action' => 'userstats')));
-			        $objLink->link($this->uri(array(
-		                'module' => 'logger',
-		                'action' => 'statsbycontext',
-		                'contextcode' => $myLectRole
-		            	)));
+    $hasAccess = $this->objEngine->_objUser->isLecturer();
+    if($hasAccess){
+        $userId=$this->objUser->userId();
+        $role='Lecturers';
+        $objContextGroups = $this->getObject('managegroups','contextgroups');
+        $lectRole = $objContextGroups->rolecontextcodes($userId,$role);
+        if(!empty($lectRole)){
+            foreach($lectRole as $myLectRole){
+                $contextTitle = $this->objContext->getField('title',$myLectRole);
+                    $objLink = new link($this->uri(array('action' => 'userstats')));
+                    $objLink->link($this->uri(array(
+                        'module' => 'logger',
+                        'action' => 'statsbycontext',
+                        'contextcode' => $myLectRole
+                        )));
 
-			        $objLink->link = $contextTitle." ".$lnStatistics;
-			        $str .= '<li>'.$objLink->show().'</li>';			
-			}
-		}
-	}else{
-		$objContextGroups = $this->getObject('managegroups','contextgroups');		
-		$studRole = $objContextGroups->rolecontextcodes($userId,$role='Students');
-		foreach($studRole as $myStudRole){
-			$contextTitle = $this->objContext->getField('title',$myStudRole);
-		        $objLink = new link($this->uri(array('action' => 'userstats')));
-		        $objLink->link($this->uri(array(
-	                'module' => 'logger',
-	                'action' => 'userstatsbycontext',
-	                'userId' => $myStudRole['userid'],
-	                'contextcode' => $myStudRole
-	            	)));
-		        $objLink->link = $contextTitle." ".$lnStatistics;
-		        $str .= '<li>'.$objLink->show().'</li>';			
-		}
-	}
+                    $objLink->link = $contextTitle." ".$lnStatistics;
+                    $str .= '<li>'.$objLink->show().'</li>';            
+            }
+        }
+    }else{
+        $objContextGroups = $this->getObject('managegroups','contextgroups');        
+        $studRole = $objContextGroups->rolecontextcodes($userId,$role='Students');
+        foreach($studRole as $myStudRole){
+            $contextTitle = $this->objContext->getField('title',$myStudRole);
+                $objLink = new link($this->uri(array('action' => 'userstats')));
+                $objLink->link($this->uri(array(
+                    'module' => 'logger',
+                    'action' => 'userstatsbycontext',
+                    'userId' => $myStudRole['userid'],
+                    'contextcode' => $myStudRole
+                    )));
+                $objLink->link = $contextTitle." ".$lnStatistics;
+                $str .= '<li>'.$objLink->show().'</li>';            
+        }
+    }
         /*
         $objLink = new link($this->uri(array('action' => 'userstats')));
         $objLink->link = $lnUser;
@@ -287,54 +287,54 @@ class logdisplay extends object
     * @return string html
     */
     public function getVisitedPages($userId=NULL,$contextCode=NULL, $module=NULL){
-	$this->objUserLoginHistory = $this->getObject('userloginhistory','security');
+    $this->objUserLoginHistory = $this->getObject('userloginhistory','security');
         $hdCoursePages = $this->objLanguage->languageText('mod_logger_visitedpageshistory', 'logger');
-	$lbFullName =  $this->objLanguage->languageText('mod_logger_fullname', 'logger');
-	$lbUserAccesses =  $this->objLanguage->languageText('mod_logger_totalUserAccesses', 'logger');
-	$lbFirstLogin = $this->objLanguage->languageText('mod_logger_firstLogin', 'logger');
-	$lbLastLogin = $this->objLanguage->languageText('mod_logger_lastLogin', 'logger');
-	$lbWordNo = $this->objLanguage->languageText('mod_logger_wordNo', 'logger');
-	$lbPageName = $this->objLanguage->languageText('mod_logger_pageName', 'logger');
-	$lbAccessTime = $this->objLanguage->languageText('mod_logger_accessTime', 'logger');
-	if($userId==NULL){
-		$userId=$this->objUser->userId();
-	}
-	//get user login info
-	$userLastLogin = $this->objUserLoginHistory->doGetLastLogin($userId);
-	$userFirstLogin = $this->objUserLoginHistory->doGetFirstLogin($userId);
-	$userLookUp = $this->objUser->lookupData($this->objUser->userName($userId));
+    $lbFullName =  $this->objLanguage->languageText('mod_logger_fullname', 'logger');
+    $lbUserAccesses =  $this->objLanguage->languageText('mod_logger_totalUserAccesses', 'logger');
+    $lbFirstLogin = $this->objLanguage->languageText('mod_logger_firstLogin', 'logger');
+    $lbLastLogin = $this->objLanguage->languageText('mod_logger_lastLogin', 'logger');
+    $lbWordNo = $this->objLanguage->languageText('mod_logger_wordNo', 'logger');
+    $lbPageName = $this->objLanguage->languageText('mod_logger_pageName', 'logger');
+    $lbAccessTime = $this->objLanguage->languageText('mod_logger_accessTime', 'logger');
+    if($userId==NULL){
+        $userId=$this->objUser->userId();
+    }
+    //get user login info
+    $userLastLogin = $this->objUserLoginHistory->doGetLastLogin($userId);
+    $userFirstLogin = $this->objUserLoginHistory->doGetFirstLogin($userId);
+    $userLookUp = $this->objUser->lookupData($this->objUser->userName($userId));
 
-	$objTable = new htmltable();
-	$objTable->width='100%';
-	$objTable->border='0';
-	$objTable->cellspacing='0';
-	$objTable->cellpadding='10';
+    $objTable = new htmltable();
+    $objTable->width='100%';
+    $objTable->border='0';
+    $objTable->cellspacing='0';
+    $objTable->cellpadding='10';
 
-	$objTable->startRow();
-	$objTable->addCell("<b>".$lbFullName.": </b>".$this->objUser->fullname($userId), '40%', 'top', 'left');
-	$objTable->addCell("<b>".$lbUserAccesses.": </b>".$userLookUp['logins'], '60%', 'top', 'left');
-	$objTable->endRow();
-	$objTable->startRow();
-	$objTable->addCell("<b>".$lbFirstLogin.": </b>".$userFirstLogin, '40%', 'top', 'left');
-	$objTable->addCell("<b>".$lbLastLogin.": </b>".$userLastLogin, '60%', 'top', 'left');
-	$objTable->endRow();
-	if($contextCode==Null){
-		$sql = $this->logShow->userLoggerDetails($userId,$contextCode=Null, $module);
-	}elseif($module==Null){
-		$sql = $this->logShow->userLoggerDetails($userId,$contextCode, $module=Null);
-	}else{
-		$sql = $this->logShow->userLoggerDetails($userId,$contextCode, $module);
-	}
+    $objTable->startRow();
+    $objTable->addCell("<b>".$lbFullName.": </b>".$this->objUser->fullname($userId), '40%', 'top', 'left');
+    $objTable->addCell("<b>".$lbUserAccesses.": </b>".$userLookUp['logins'], '60%', 'top', 'left');
+    $objTable->endRow();
+    $objTable->startRow();
+    $objTable->addCell("<b>".$lbFirstLogin.": </b>".$userFirstLogin, '40%', 'top', 'left');
+    $objTable->addCell("<b>".$lbLastLogin.": </b>".$userLastLogin, '60%', 'top', 'left');
+    $objTable->endRow();
+    if($contextCode==Null){
+        $sql = $this->logShow->userLoggerDetails($userId,$contextCode=Null, $module);
+    }elseif($module==Null){
+        $sql = $this->logShow->userLoggerDetails($userId,$contextCode, $module=Null);
+    }else{
+        $sql = $this->logShow->userLoggerDetails($userId,$contextCode, $module);
+    }
 
-	$contexts=array();
-	$key = 0;
-	foreach($sql as $myContext){
-		$contexts[$key]=$myContext['context'];
-		$key = $key+1;
-	}
+    $contexts=array();
+    $key = 0;
+    foreach($sql as $myContext){
+        $contexts[$key]=$myContext['context'];
+        $key = $key+1;
+    }
 
-	//Remove duplicate values from the array
-	$userContexts = array_unique($contexts);
+    //Remove duplicate values from the array
+    $userContexts = array_unique($contexts);
 
         $objHead = new htmlheading();
         $objHead->str = ucwords($hdCoursePages);
@@ -342,74 +342,74 @@ class logdisplay extends object
         $objHead->align = 'center';
         $str = $objHead->show()."<br />".$objTable->show()."<br />";
 
-	$class='even';
-	foreach($userContexts as $thisContext){
-		$contextTitle = $this->objContext->getField('title',$thisContext);
-		$objTable = new htmltable();
-		$objTable->width='100%';
-		$objTable->border='0';
-		$objTable->cellspacing='0';
-		$objTable->cellpadding='10';
+    $class='even';
+    foreach($userContexts as $thisContext){
+        $contextTitle = $this->objContext->getField('title',$thisContext);
+        $objTable = new htmltable();
+        $objTable->width='100%';
+        $objTable->border='0';
+        $objTable->cellspacing='0';
+        $objTable->cellpadding='10';
 
-		$objTable->startRow();
-		$objTable->addHeaderCell("<b>".$contextTitle."</b>", '100%', 'top', 'left',Null,'colspan=3');
-		$objTable->endRow();	
-		$objTable->startRow();
-		$objTable->addCell("<b>".$lbWordNo.".</b>", '5%', 'top', 'left');
-		$objTable->addCell("<b>".$lbPageName."</b>", '75%', 'top', 'left');
-		$objTable->addCell("<b>".$lbAccessTime."</b>", '25%', 'top', 'left');
-		$objTable->endRow();
-		
-		$mySql = $this->logShow->userLoggerDetails($userId,$thisContext, $module='contextcontent');
-		$key = 1;
-		$eventparamvalue = array();
-		$dateCreated = array();
-		foreach($mySql as $myContext){
-			$eventparamvalue[$key]=$myContext['eventparamvalue'];
-			$dateCreated[$key]=$myContext['datecreated'];
-			$strEventParamValue = explode('=',$eventparamvalue[$key],2);
-			$action=$strEventParamValue[0];
-			$param=$strEventParamValue[1];
-			if($action=='id'){
-				$strParam = explode('&',$param,2);
-				$pageId=$strParam[0];//i.e. gen5Srv7Nme24_1731_1217434951
-				$paramMsg=$strParam[1];//i.e. message=&action=viewpage
-			}elseif($action!=='NULL'){
-				$action=$strEventParamValue[0];//i.e. action
-				$param=$strEventParamValue[1];//i.e. viewpage&id=gen5Srv7Nme24_54
-				$strParam = explode('&',$param,2);
-				$paramAction=$strParam[0];//viewpage
-				$paramId=$strParam[1];//id=gen5Srv7Nme24_5450_1216228562
-				$strId = explode('=',$paramId,2);
-				$nameId = $strId[0];//id
-				$pageId= $strId[1];//gen5Srv7Nme24_5450_1216228562
-			}
+        $objTable->startRow();
+        $objTable->addHeaderCell("<b>".$contextTitle."</b>", '100%', 'top', 'left',Null,'colspan=3');
+        $objTable->endRow();    
+        $objTable->startRow();
+        $objTable->addCell("<b>".$lbWordNo.".</b>", '5%', 'top', 'left');
+        $objTable->addCell("<b>".$lbPageName."</b>", '75%', 'top', 'left');
+        $objTable->addCell("<b>".$lbAccessTime."</b>", '25%', 'top', 'left');
+        $objTable->endRow();
+        
+        $mySql = $this->logShow->userLoggerDetails($userId,$thisContext, $module='contextcontent');
+        $key = 1;
+        $eventparamvalue = array();
+        $dateCreated = array();
+        foreach($mySql as $myContext){
+            $eventparamvalue[$key]=$myContext['eventparamvalue'];
+            $dateCreated[$key]=$myContext['datecreated'];
+            $strEventParamValue = explode('=',$eventparamvalue[$key],2);
+            $action=$strEventParamValue[0];
+            $param=$strEventParamValue[1];
+            if($action=='id'){
+                $strParam = explode('&',$param,2);
+                $pageId=$strParam[0];//i.e. gen5Srv7Nme24_1731_1217434951
+                $paramMsg=$strParam[1];//i.e. message=&action=viewpage
+            }elseif($action!=='NULL'){
+                $action=$strEventParamValue[0];//i.e. action
+                $param=$strEventParamValue[1];//i.e. viewpage&id=gen5Srv7Nme24_54
+                $strParam = explode('&',$param,2);
+                $paramAction=$strParam[0];//viewpage
+                $paramId=$strParam[1];//id=gen5Srv7Nme24_5450_1216228562
+                $strId = explode('=',$paramId,2);
+                $nameId = $strId[0];//id
+                $pageId= $strId[1];//gen5Srv7Nme24_5450_1216228562
+            }
                         if ($this->contextFlag){
                             //Get page title
-			 $thisPageTitle = $this->objContentOrder->getPage($pageId, $thisContext);
+             $thisPageTitle = $this->objContentOrder->getPage($pageId, $thisContext);
                         } else {
                             $thisPageTitle['menutitle']=array();
                         }
 
-			$pageTitle = $thisPageTitle['menutitle'];
-			if(!empty($pageTitle)){
-				$objTable->startRow();
-				$objTable->addCell($key, Null, 'top', 'left',$class);
-				$objTable->addCell($pageTitle, Null, 'top', 'left',$class);
-				$objTable->addCell($dateCreated[$key], Null, 'top', 'left',$class);
-				$objTable->endRow();
-				$key = $key+1;
-				
-				if($class=='odd'){
-					$class='even';
-				}else{
-					$class='odd';
-				}
-			}
-		}
-		$str .= $objTable->show()."<br />";
-	}
-	return $str."<br />";
+            $pageTitle = $thisPageTitle['menutitle'];
+            if(!empty($pageTitle)){
+                $objTable->startRow();
+                $objTable->addCell($key, Null, 'top', 'left',$class);
+                $objTable->addCell($pageTitle, Null, 'top', 'left',$class);
+                $objTable->addCell($dateCreated[$key], Null, 'top', 'left',$class);
+                $objTable->endRow();
+                $key = $key+1;
+                
+                if($class=='odd'){
+                    $class='even';
+                }else{
+                    $class='odd';
+                }
+            }
+        }
+        $str .= $objTable->show()."<br />";
+    }
+    return $str."<br />";
     }
     /**
     * Method to display the context users
@@ -424,49 +424,49 @@ class logdisplay extends object
         $objHead->str = ucwords($hdCoursePages." ".$this->objUser->fullname($userId));
         $objHead->type = 1;
 //        $str = $objHead->show();
-	$str = " ";
-	$contextTitle = $this->objContext->getField('title',$contextCode);
-	$objTable = new htmltable();
-	$objTable->width='100%';
-	$objTable->border='0';
-	$objTable->cellspacing='0';
-	$objTable->cellpadding='10';
+    $str = " ";
+    $contextTitle = $this->objContext->getField('title',$contextCode);
+    $objTable = new htmltable();
+    $objTable->width='100%';
+    $objTable->border='0';
+    $objTable->cellspacing='0';
+    $objTable->cellpadding='10';
 
-	$objTable->startRow();
-	$objTable->addHeaderCell("<b>".$contextTitle." ".$hdStatsUser."</b>", '100%', 'top', 'left',Null,'colspan=2');
-	$objTable->endRow();	
+    $objTable->startRow();
+    $objTable->addHeaderCell("<b>".$contextTitle." ".$hdStatsUser."</b>", '100%', 'top', 'left',Null,'colspan=2');
+    $objTable->endRow();    
 
-	if($userId==NULL){
-		$userId=$this->objUser->userId();
-	}
-	$objContextGroups = $this->getObject('managegroups','contextgroups');
-	$studRole = $objContextGroups->contextUsers( $role="Students", $contextCode, $fields=NULL );
-	$key = 1;
-	$class='odd';
-	foreach($studRole as $myStudRole){
-		$studentNames=$this->objUser->fullname($myStudRole['userid']);
-	        $objLink = &$this->getObject("link", "htmlelements");
-	        $objLink->link($this->uri(array(
+    if($userId==NULL){
+        $userId=$this->objUser->userId();
+    }
+    $objContextGroups = $this->getObject('managegroups','contextgroups');
+    $studRole = $objContextGroups->contextUsers( $role="Students", $contextCode, $fields=NULL );
+    $key = 1;
+    $class='odd';
+    foreach($studRole as $myStudRole){
+        $studentNames=$this->objUser->fullname($myStudRole['userid']);
+            $objLink = &$this->getObject("link", "htmlelements");
+            $objLink->link($this->uri(array(
                 'module' => 'logger',
                 'action' => 'userstatsbycontext',
                 'userId' => $myStudRole['userid'],
                 'contextcode' => $contextCode
-            	)));
-	        $objLink->link = $studentNames;
-		$objTable->startRow();
-		$objTable->addCell($key, '5%', 'top', 'left',$class);
-		$objTable->addCell($objLink->show(), '95%', 'top', 'left',$class);
-		$objTable->endRow();
-		$key = $key + 1;
-		if($class=='odd'){
-			$class='even';
-		}else{
-			$class='odd';
-		}
-	}
-	$str .= $objTable->show()."<br />";
+                )));
+            $objLink->link = $studentNames;
+        $objTable->startRow();
+        $objTable->addCell($key, '5%', 'top', 'left',$class);
+        $objTable->addCell($objLink->show(), '95%', 'top', 'left',$class);
+        $objTable->endRow();
+        $key = $key + 1;
+        if($class=='odd'){
+            $class='even';
+        }else{
+            $class='odd';
+        }
+    }
+    $str .= $objTable->show()."<br />";
 
-	return $str."<br />";
+    return $str."<br />";
     }
 }
 ?>

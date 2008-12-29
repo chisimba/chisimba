@@ -77,24 +77,24 @@
         <version>0.8</version>
         <description>lengthen fields</description>
         <data>
-        	<change>
-        		<eventparamvalue>
-        		<type>clob</type>
-        			<definition>
-		    			<type>clob</type>
-    				</definition>
-    			</eventparamvalue>
-			</change>
-		</data>
-		<data>
-        	<change>
-        		<referrer>
-        		<type>clob</type>
-        			<definition>
-		    			<type>clob</type>
-    				</definition>
-    			</referrer>
-			</change>
-		</data>
-	</update>
+            <change>
+                <eventparamvalue>
+                <type>clob</type>
+                    <definition>
+                        <type>clob</type>
+                    </definition>
+                </eventparamvalue>
+            </change>
+        </data>
+        <data>
+            <change>
+                <referrer>
+                <type>clob</type>
+                    <definition>
+                        <type>clob</type>
+                    </definition>
+                </referrer>
+            </change>
+        </data>
+    </update>
 </updates>
