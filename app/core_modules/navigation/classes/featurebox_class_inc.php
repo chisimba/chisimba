@@ -45,9 +45,9 @@ class featurebox extends object
     {
         $objIcon = $this->newObject('geticon', 'htmlelements');
 
-  		$sidebar = '<div class="featurebox">';
-  		$toggle = '';
-  		
+          $sidebar = '<div class="featurebox">';
+          $toggle = '';
+          
         //Adding support for styling corners
         $sidebar .= '<div class="featureboxtopcontainer">
 
@@ -59,7 +59,7 @@ class featurebox extends object
 
         if(!empty($id) && $showToggle)
         {
-  		    $objIcon->setIcon('toggle');
+              $objIcon->setIcon('toggle');
             $objIcon->extra = "style='vertical-align:middle'";
             $toggle = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$objIcon->show()."</a>";
             $title = "<a href=\"javascript:;\" onclick=\"Effect.toggle('".$id."','slide', adjustLayout());\">".$title."</a>";
@@ -72,9 +72,9 @@ class featurebox extends object
         }else{
             $sidebar .= '>';
         }
-	
-		
-		$sidebar .= $content.'</div>';
+    
+        
+        $sidebar .= $content.'</div>';
 
         $sidebar .= '<div class="featureboxbottomcontainer">
 
@@ -84,8 +84,8 @@ class featurebox extends object
                         
                     </div>';
 
-		$sidebar .= '</div>';
-  		return $sidebar;
+        $sidebar .= '</div>';
+          return $sidebar;
 
     }
 
@@ -99,12 +99,12 @@ class featurebox extends object
     public function showContent($title = null, $content = null)
     {
 
-  		$contentbox = '<div class="contentfeaturebox">';
-		$contentbox .= '	<h3>'.$title.'</h3>';
-		$contentbox .= $content;
-		$contentbox .= '</div>';
+          $contentbox = '<div class="contentfeaturebox">';
+        $contentbox .= '    <h3>'.$title.'</h3>';
+        $contentbox .= $content;
+        $contentbox .= '</div>';
 
-  		return $contentbox;
+          return $contentbox;
 
     }
     
@@ -118,12 +118,12 @@ class featurebox extends object
     public function showComment($title = null, $content = null)
     {
 
-  		$contentbox = '<div class="contentfeaturebox">';
-		$contentbox .= '	<h3>'.$title.'</h3>';
-		$contentbox .= $content;
-		$contentbox .= '</div>';
+          $contentbox = '<div class="contentfeaturebox">';
+        $contentbox .= '    <h3>'.$title.'</h3>';
+        $contentbox .= $content;
+        $contentbox .= '</div>';
 
-  		return $contentbox;
+          return $contentbox;
 
     }
 }
