@@ -103,7 +103,7 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $node = $this->objDBContentNodes->getRow('id', $parentId);
         if($menuText == '')
         {
-        	$menuText = '[TEXT NEEDED]';
+            $menuText = '[TEXT NEEDED]';
         }
                 
         //set the icon
@@ -129,10 +129,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
           //set move down icon
           if(!$this->objDBContentNodes->isLastSibling($parentId))
           {
-          		$this->objIcon->setIcon('mvdown');
-          		$str .='    
+                  $this->objIcon->setIcon('mvdown');
+                  $str .='    
                              <td><a href="'. $this->uri(array('action' =>'movedown' , 'nodeid' => $parentId), $this->module).'" >'.$this->objIcon->show().'</a></td>
-             	';
+                 ';
           }   
           
          //create a small form for moving straight to a node
@@ -142,13 +142,13 @@ if (!$GLOBALS['kewl_entry_point_run']) {
         $str .='<td>'.$this->radio->show().'</td>';
       
         $str .=' </tr></table>';
-	   
+       
          
          $str .= ' 
          <div id="'.$parentId.'" style="display: none; margin-left: 2em;">';
          $cnt = 0;
          $tmpstr = '';
-		 
+         
          //check for more children recursively
          $myArr = $this->objDBContentNodes->getSortedNodes($parentId);
          foreach ($myArr as $line) 
@@ -268,10 +268,10 @@ if (!$GLOBALS['kewl_entry_point_run']) {
             if($line['parent_Node']==$parentId)
             {
                 $text = $this->objDBContentNodes->getMenuText($line['id']);
-				if($text=='')
+                if($text=='')
                 {
-					$text = $line['title'];
-				}
+                    $text = $line['title'];
+                }
                  $dropdown->addOption($line['id'],$spaces.$text);
                  $this->addNode($nodeArr, $line['id'], $dropdown,$spaces.'&nbsp;&nbsp;');
             }

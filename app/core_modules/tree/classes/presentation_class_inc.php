@@ -43,21 +43,21 @@ class presentation
 
         echo $this->toHTML();
     }
-	
-	function getMenu($options = array())
-	{	
-	    foreach ($options as $option => $value) 
-		{
+    
+    function getMenu($options = array())
+    {    
+        foreach ($options as $option => $value) 
+        {
             $this->$option = $value;
         }
 
         return $this->toHTML();
-	}
+    }
 
-	function show()
-	{
+    function show()
+    {
         return $this->getMenu();
-	}
+    }
 
 }
 

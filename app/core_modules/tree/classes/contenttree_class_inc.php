@@ -14,61 +14,61 @@ if (!$GLOBALS['kewl_entry_point_run']) {
  **/
 class contenttree extends object{
 
-	/**
-	* @var object $objDBContext
-	*/
-	var $objDBContext;
-	/**
-	* @var object $objSkin
-	*/
-	var $objSkin ;
-	/**
-	* @var object $objDBContentNodes
-	*/
-	var $objDBContentNodes;
-	
-	/**
-	* @var string $module
-	*/
-	var $module;
+    /**
+    * @var object $objDBContext
+    */
+    var $objDBContext;
+    /**
+    * @var object $objSkin
+    */
+    var $objSkin ;
+    /**
+    * @var object $objDBContentNodes
+    */
+    var $objDBContentNodes;
+    
+    /**
+    * @var string $module
+    */
+    var $module;
 
-	/**
-	* @var boolean $publicTree
-	*/
-	var $publicTree;
-	
-	/**
-	* Initialize method
-	*/
-	function init(){
-		$this->objDBContentNodes = $this->newObject('dbcontentnodes','context');
-		$this->objDBContext = $this->newObject('dbcontext','context');
-		$this->objSkin =  $this->getObject('skin','skin');
-		 //the tree classes
+    /**
+    * @var boolean $publicTree
+    */
+    var $publicTree;
+    
+    /**
+    * Initialize method
+    */
+    function init(){
+        $this->objDBContentNodes = $this->newObject('dbcontentnodes','context');
+        $this->objDBContext = $this->newObject('dbcontext','context');
+        $this->objSkin =  $this->getObject('skin','skin');
+         //the tree classes
         $this->loadClass('treemenu','tree');
         $this->loadClass('treenode','tree');        
         $this->loadClass('dhtml','tree');      
          $this->loadClass('listbox','tree');
-		
-		$this->module='context';
-	}
-	
-	/**
-	* Method to show tree
-	* @access public
-	* @return string 
-	*/
-	function show($module='context', $contextCode = NULL){
-		$this->module=$module;
-		return $this->_biuldTree($contextCode) ;
-	}
-	
-	/**
-	* Method to show the biuld
-	* @access private
-	* @return string 
-	*/
-	 function _biuldTree($contextCode = NULL){
+        
+        $this->module='context';
+    }
+    
+    /**
+    * Method to show tree
+    * @access public
+    * @return string 
+    */
+    function show($module='context', $contextCode = NULL){
+        $this->module=$module;
+        return $this->_biuldTree($contextCode) ;
+    }
+    
+    /**
+    * Method to show the biuld
+    * @access private
+    * @return string 
+    */
+     function _biuldTree($contextCode = NULL){
         $icon = 'folder_up.gif';
         $expandedIcon = 'folder-expanded.gif';
         $link='';
@@ -86,11 +86,11 @@ class contenttree extends object{
         
         //create base node
         $basenode = new treenode(array('text' => $rootlabel, 'link' => $contentlink, 'icon' => 'base.gif', 'expandedIcon' => 'base.gif'));
-		
-		//$basenode = new treenode();    
+        
+        //$basenode = new treenode();    
         
         //get all the nodes for the course
-		$this->objDBContentNodes->resetTable();
+        $this->objDBContentNodes->resetTable();
         $nodesArr=$this->objDBContentNodes->getAll("WHERE tbl_context_parentnodes_id='$rootnodeid' ORDER BY sortindex");
         
         //get all the shared nodes
@@ -102,9 +102,9 @@ class contenttree extends object{
         foreach($nodesArr as $node){            
             if($node['parent_Node']==null){            
                 $text = $this->objDBContentNodes->getMenuText($node['id']);
-				if($text==''){
-					$text = $node['title'];
-				}
+                if($text==''){
+                    $text = $node['title'];
+                }
                 $basenode->addItem($this->getChildNodes($nodesArr, $node['id'], stripslashes($this->shortenString($text)), $sharedNodesArr ));
             }
         }
@@ -117,18 +117,18 @@ class contenttree extends object{
         $treeMenu = &new dhtml($menu, array('images' => $this->objSkin->getSkinURL().'treeimages/imagesAlt2', 'defaultClass' => 'treeMenuDefault'));
 
         
-		//Added by ghinde
-		//checks for publicTree var and removes
-		//context heading if TRUE
-		//else reverst to normal operation
-		if($this->publicTree==TRUE)
-		{
-			return $treeMenu->getMenu();
-		}
-		else
-		{
-			return '<h5>'.$this->objDBContext->getTitle($contextCode).'</h5>'.$treeMenu->getMenu();
-		}
+        //Added by ghinde
+        //checks for publicTree var and removes
+        //context heading if TRUE
+        //else reverst to normal operation
+        if($this->publicTree==TRUE)
+        {
+            return $treeMenu->getMenu();
+        }
+        else
+        {
+            return '<h5>'.$this->objDBContext->getTitle($contextCode).'</h5>'.$treeMenu->getMenu();
+        }
     }
     
     /**
@@ -152,10 +152,10 @@ class contenttree extends object{
          }
          
         //create a new tree node
-		if($title=='')
-		{
-			$title='-[missing title]-';
-		}
+        if($title=='')
+        {
+            $title='-[missing title]-';
+        }
         $basenode = new treenode(array('text' => stripslashes($title), 'link' => $link, 'icon' => $icon, 'expandedIcon' => NULL));        
         
         //add the shared nodes to the tree
@@ -186,13 +186,13 @@ class contenttree extends object{
         {   
             if($line['parent_Node']==$parentId){
                 $text = $this->objDBContentNodes->getMenuText($line['id']);
-				if($text==''){
-					$text = $line['title'];
-				}
-				$basenode->addItem(
-					$this->getChildNodes($nodeArr, $line['id'], 
-						$this->shortenString($text),
-						$sharedNodesArr));
+                if($text==''){
+                    $text = $line['title'];
+                }
+                $basenode->addItem(
+                    $this->getChildNodes($nodeArr, $line['id'], 
+                        $this->shortenString($text),
+                        $sharedNodesArr));
             }
         }
         return $basenode;
@@ -208,22 +208,22 @@ class contenttree extends object{
         //We need a way to make the menu text a bit short but then
         // it has to b e displayed elsewhere
 
-		
+        
         if(strlen($str)>10){
             //$str=substr($str, 0, 13)."..";
-			$i = 10;
-			$len = strlen($str);
-			while($i < $len){
-				if ($str[$i]==' ') {
-				    break;
-				}
-				$i++;
-			} // while
-			if ($i < $len) {
-				$str = substr($str,0,$i).'<br/>'.substr($str,$i);
-			}
+            $i = 10;
+            $len = strlen($str);
+            while($i < $len){
+                if ($str[$i]==' ') {
+                    break;
+                }
+                $i++;
+            } // while
+            if ($i < $len) {
+                $str = substr($str,0,$i).'<br/>'.substr($str,$i);
+            }
         }
-		
+        
             
         return $str;
     }
@@ -303,7 +303,7 @@ class contenttree extends object{
         //create base node
         $basenode = new treenode(array('text' => $rootlabel, 'link' => $contentlink, 'icon' => 'base.gif', 'expandedIcon' => 'base.gif'));    
         
-		$this->objDBContentNodes->resetTable();
+        $this->objDBContentNodes->resetTable();
         $nodesArr=$this->objDBContentNodes->getAll("WHERE tbl_context_parentnodes_id='$rootnodeid'");
         
         $this->objDBContentNodes->changeTable('tbl_context_nodes_has_tbl_context_page_content');

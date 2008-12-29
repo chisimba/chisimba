@@ -115,10 +115,10 @@ class htmllist extends presentation
         
         
         if (isset($node->liClass)) {
-			$html = '<li class="'.$node->liClass.'" ';
-		} else {
-			$html = '<li'.$this->allLiClasses;
-		}
+            $html = '<li class="'.$node->liClass.'" ';
+        } else {
+            $html = '<li'.$this->allLiClasses;
+        }
         
         $html .=' >';
         
@@ -136,9 +136,9 @@ class htmllist extends presentation
             $html .= '<span class="'.$node->cssClass.'">';
         }
         
-		if (isset($node->text)) {
-			$html .= $node->text;
-		}
+        if (isset($node->text)) {
+            $html .= $node->text;
+        }
         
         if (isset($node->cssClass) && trim($node->cssClass)) {
             $html .= '</span>';
