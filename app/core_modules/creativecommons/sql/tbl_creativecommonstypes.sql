@@ -8,34 +8,34 @@ $options = array('comment' => 'Used to hold list of Creative Commons plus other 
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
-	'code' => array(
-		'type' => 'text',
-		'length' => 32,
+        ),
+    'code' => array(
+        'type' => 'text',
+        'length' => 32,
         'notnull' => TRUE
-		),
-	'title' => array(
-		'type' => 'text',
+        ),
+    'title' => array(
+        'type' => 'text',
         'notnull' => TRUE
-		),
-	'description' => array(
-		'type' => 'text',
+        ),
+    'description' => array(
+        'type' => 'text',
         'notnull' => TRUE
-		),
-	'images' => array(
-		'type' => 'text'
-		),
-	'url' => array(
-		'type' => 'text',
-		'length' => 255
-		),
-	'updated' => array(
-		'type' => 'timestamp'
-		)
+        ),
+    'images' => array(
+        'type' => 'text'
+        ),
+    'url' => array(
+        'type' => 'text',
+        'length' => 255
+        ),
+    'updated' => array(
+        'type' => 'timestamp'
+        )
 
     );
 
@@ -45,7 +45,7 @@ $name = 'tbl_creativecommonstypes_idx';
 
 $indexes = array(
                 'fields' => array(
-                	'code' => array()
+                    'code' => array()
                 )
         );
 
