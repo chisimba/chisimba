@@ -8,64 +8,64 @@ $options = array('comment' => 'Primary user information', 'collate' => 'utf8_gen
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'userId' => array(
-		'type' => 'text',
-		'length' => 25,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'userId' => array(
+        'type' => 'text',
+        'length' => 25,
 
 
-		),
+        ),
     'username' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
 
-		),
+        ),
     'title' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 25,
 
-		),
+        ),
     'firstName' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 50,
 
-		),
+        ),
     'surname' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 50,
 
-		),
+        ),
     'pass' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 100,
 
-		),
+        ),
     'creationDate' => array(
-		'type' => 'date',
+        'type' => 'date',
 
-		),
+        ),
     'emailAddress' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 100,
 
-		),
+        ),
     'logins' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 11,
         'notnull' => TRUE,
         'default' => 0
-		),
+        ),
     'sex' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 10
-		),
+        ),
     'country' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 2
-		),
+        ),
     'staffnumber' => array(
         'type' => 'text',
         'length' => 25
@@ -75,21 +75,21 @@ $fields = array(
         'length' => 13
         ),
     'accesslevel' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 10,
 
-		),
+        ),
     'isActive' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 10,
 
-		),
+        ),
     'howCreated' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32,
          'notnull' => TRUE,
         'default' => 'unknown'
-		),
+        ),
     'updated' => array(
          'type' => 'date',
 
@@ -104,7 +104,7 @@ $name = 'userId';
 
 $indexes = array(
                 'fields' => array(
-                	'userId' => array()
+                    'userId' => array()
                 )
         );
 ?>

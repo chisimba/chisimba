@@ -31,7 +31,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -74,7 +74,7 @@ class ldaplogin extends object
         $data=ldap_get_entries($ldapconn, $find);
         ldap_close($ldapconn);
         if ($data['count']>0) {
-        	//print_r($data); die();
+            //print_r($data); die();
             return $data[0]['dn'];
         } else {
             return FALSE;
@@ -147,10 +147,10 @@ class ldaplogin extends object
         if(!empty($results) || !is_bool($results['userid']))
         {
 
-        	return $results; // send an array of the results
+            return $results; // send an array of the results
         }
         else {
-        	return false;
+            return false;
         }
     }
 

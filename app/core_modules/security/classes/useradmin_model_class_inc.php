@@ -30,7 +30,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 /**
@@ -46,7 +46,7 @@ class useradmin_model extends dbtable
 
     public function init()
     {
-	    parent::init('tbl_users');
+        parent::init('tbl_users');
         $this->objConfig=$this->getObject('altconfig','config');
         $this->objUser=$this->getObject('user','security');
         $this->objLanguage=$this->getObject('language','language');
@@ -57,7 +57,7 @@ class useradmin_model extends dbtable
     * @param array $info data for new user
     * @returns string $id the PKID of the new login
     */
-	
+    
     function addUser($info)
     {
         $sdata['userid']=$info['userId'];
@@ -78,14 +78,14 @@ class useradmin_model extends dbtable
         $id=$this->insert($sdata);
         return $id;
     }
-	
+    
 
     /**
     * Method to create a user account from getParam()
     * @param string $userId
     * @returns string $id
     */
-	
+    
     function createUserAccount($userId,$howcreated='selfregister')
     {
         $password=$this->getParam('password');
@@ -108,13 +108,13 @@ class useradmin_model extends dbtable
             'sex'=>$this->getParam('gender'),
             'country'=>$this->getParam('country'),
             'accesslevel' =>0,
-       		 'isActive'=>1
+                'isActive'=>1
             );
         $id=$this->insert($newdata);
         $this->emailPassword($newdata['userId'],$newdata['username'],$newdata['firstname'],$newdata['surname'],$newdata['emailaddress'], $password);
         return $id;
     }
-	
+    
 
     /**
     * Method to edit a user account using info from getParam()
@@ -122,7 +122,7 @@ class useradmin_model extends dbtable
     * @param string $userId
     * @returns string $id
     */
-	/*
+    /*
     function editUserAccount($userId)
     {
         $newdata=array(
@@ -144,7 +144,7 @@ class useradmin_model extends dbtable
         $id=$this->update('userId',$userId,$newdata);
         return $id;
     }
-	*/
+    */
 
     /**
     * method to lookup list of users for admin functions
@@ -154,50 +154,50 @@ class useradmin_model extends dbtable
     * @param string $match - the pattern to match for
     * returns array $r1
     */
- 	public function getUsers($how,$match,$exact=FALSE)
- 	{
- 		$sql="SELECT * FROM tbl_users";
- 		if (
-			($how=='username')
-			||($how=='surname')
-			||($how=='emailaddress')
-			||($how=='userid')
-			||($how=='creationdate')
-			||($how=='logins')
-			||($how=='isActive')
-		)
-		{
-			if ($match=='listall') {
+     public function getUsers($how,$match,$exact=FALSE)
+     {
+         $sql="SELECT * FROM tbl_users";
+         if (
+            ($how=='username')
+            ||($how=='surname')
+            ||($how=='emailaddress')
+            ||($how=='userid')
+            ||($how=='creationdate')
+            ||($how=='logins')
+            ||($how=='isActive')
+        )
+        {
+            if ($match=='listall') {
             }
-			else {
-				if ($exact===TRUE){
-				    $sql.=" WHERE $how = '$match'";
-				/*
-				} else if ($exact=='greater'){
-				    $sql.=" WHERE $how > '$match'";
-				} else if ($exact=='less'){
-				    $sql.=" WHERE $how < '$match'";
-				*/
-				} else {
-				    $sql.=" WHERE $how LIKE '$match%'";
-				}
-			}
-			$sql .= " ORDER BY $how";
-		}
+            else {
+                if ($exact===TRUE){
+                    $sql.=" WHERE $how = '$match'";
+                /*
+                } else if ($exact=='greater'){
+                    $sql.=" WHERE $how > '$match'";
+                } else if ($exact=='less'){
+                    $sql.=" WHERE $how < '$match'";
+                */
+                } else {
+                    $sql.=" WHERE $how LIKE '$match%'";
+                }
+            }
+            $sql .= " ORDER BY $how";
+        }
         if ($how=='notused'){
             $sixMonthsAgo=date('Y-m-d',time()-15552000);
             $sql.=" WHERE logins='0' AND creationdate<'$sixMonthsAgo' ORDER BY creationdate";
         }
-		$results=$this->getArray($sql);
-		$count = count($results);
-		for ($i=0;$i<$count;$i++) {
-			 $keys = array_keys($results[$i]);
-			 foreach ($keys as $key) {
-				$results[$i][$key] = stripslashes($results[$i][$key]);
-			 }
-		}		
-		return $results;
-	}
+        $results=$this->getArray($sql);
+        $count = count($results);
+        for ($i=0;$i<$count;$i++) {
+             $keys = array_keys($results[$i]);
+             foreach ($keys as $key) {
+                $results[$i][$key] = stripslashes($results[$i][$key]);
+             }
+        }        
+        return $results;
+    }
 
     /**
     * This is a method to delete a group of users at once
@@ -226,11 +226,11 @@ class useradmin_model extends dbtable
         $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE userId='$userId'";
         $count=$this->getArray($sql);
         if ($count[0]['thecount']>0) { 
-			return $this->objLanguage->languageText("userid_taken", 'useradmin');
-		}
-		else {
-	        return true;
-		}
+            return $this->objLanguage->languageText("userid_taken", 'useradmin');
+        }
+        else {
+            return true;
+        }
     }
 
     /**
@@ -242,11 +242,11 @@ class useradmin_model extends dbtable
         $sql="SELECT COUNT(*) AS thecount FROM tbl_users WHERE username='$username'";
         $count=$this->getArray($sql);
         if ($count[0]['thecount']>0) { 
-			return $this->objLanguage->languageText("username_taken", 'useradmin', 'This username is taken');
-		}
-		else {
-	        return true;
-		}
+            return $this->objLanguage->languageText("username_taken", 'useradmin', 'This username is taken');
+        }
+        else {
+            return true;
+        }
     }
 
     /**
@@ -263,7 +263,7 @@ class useradmin_model extends dbtable
     public function changePassword($userId,$oldpassword,$newpassword)
     {
         $data=$this->getUsers('userid',$userId,TRUE);
-		//print_r($data);
+        //print_r($data);
         if (strtolower($data[0]['pass'])==strtolower(sha1($oldpassword)))
         {
             // here we proceed to actually do the change
@@ -286,7 +286,7 @@ class useradmin_model extends dbtable
     * @param string $email
     * @returns string $status messagecode
     */
-	/*
+    /*
     function resetPassword($username,$email)
     {
         $username=trim($username);
@@ -316,7 +316,7 @@ class useradmin_model extends dbtable
         }
         return TRUE;
     }
-	*/
+    */
 
     /**
     * Method to compose and send email for resetting of password
@@ -328,7 +328,7 @@ class useradmin_model extends dbtable
     * @param string $email - data to send
     * @param string $password - data to send
     */
-	
+    
     function emailPassword($userId,$username,$firstname,$surname,$email,$password)
     {
         $info=$this->siteURL();
@@ -350,13 +350,13 @@ class useradmin_model extends dbtable
         $header="From: ".$this->objLanguage->languageText('mod_useradmin_greet5','useradmin').'<noreply@'.$info['server'].">\r\n";
         @mail($email,$subject,$emailtext,$header);
     }
-	
+    
 
     /**
     * Method to determine site URL for email and other purposes
     * @returns array $kngdata an array of the info on the site
     */
-	
+    
     function siteURL()
     {
         $KNGname=$this->objConfig->getSitename();
@@ -374,7 +374,7 @@ class useradmin_model extends dbtable
             'server'=>$WWWname
             );
     }
-	
+    
 
     /**
     * Is a user an LDAP user.
@@ -392,7 +392,7 @@ class useradmin_model extends dbtable
     * @author James Scoble, Paul Scott
     * @param string $userId
     */
-	/*
+    /*
     function makeUserFolder($userId)
     {
         // First we check that the 'userfiles' folder exists
@@ -410,7 +410,7 @@ class useradmin_model extends dbtable
             umask($oldumask);
         }
     }
-	*/
+    */
 
     /**
     * Method to set a user to Active or InActive status
@@ -419,7 +419,7 @@ class useradmin_model extends dbtable
     * @returns TRUE|FALSE
     */
 
-	/*
+    /*
     function setActive($userId,$newstate)
     {
         if ($this->valueExists('userid',$userId)){
@@ -428,7 +428,7 @@ class useradmin_model extends dbtable
             return FALSE;
         }
     }
-	*/
+    */
 } // end of class sqlUsers
 
 ?>

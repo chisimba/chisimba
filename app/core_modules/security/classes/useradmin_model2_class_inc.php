@@ -67,7 +67,7 @@ class useradmin_model2 extends dbtable
     */
     public function init()
     {
-	    parent::init('tbl_users');
+        parent::init('tbl_users');
         $this->objConfig=$this->getObject('altconfig','config');
         $this->objUser=$this->getObject('user','security');
         $this->objLanguage=$this->getObject('language','language');
@@ -375,17 +375,17 @@ class useradmin_model2 extends dbtable
         // Lets check for FMP details too, we can update those.
         $authMeth = $this->objConfig->getValue('MOD_SECURITY_AUTHMETHODS', 'security');
         if (strstr($authMeth, ',')) {
-		    $this->authChainOfCommand = explode(",", $authMeth);
-		} else {
-		    $this->authChainOfCommand[] = trim($authMeth);
-		}
-		if(in_array('fmp', $this->authChainOfCommand)) {
-		    // try updating the fmp database first...
+            $this->authChainOfCommand = explode(",", $authMeth);
+        } else {
+            $this->authChainOfCommand[] = trim($authMeth);
+        }
+        if(in_array('fmp', $this->authChainOfCommand)) {
+            // try updating the fmp database first...
             $objFMPro = $this->getObject('fmpro', 'filemakerpro');
             // update the field with the new password
 
             // return;
-		}
+        }
         return $this->update('id', $id, array('pass'=>sha1($password)));
     }
 
@@ -416,14 +416,14 @@ class useradmin_model2 extends dbtable
                 $record = $result->getFirstRecord ();
                 $fmid = $record->getRecordId ();
                 $objPassword = $this->getObject('passwords', 'useradmin');
-        		$newPassword = $objPassword->createPassword();
+                $newPassword = $objPassword->createPassword();
                 $values['Password'] = $newPassword;
-        		// Update the FMP record...
+                // Update the FMP record...
                 $this->objFMPro->editRecord($layoutName, $fmid, $values );
                 // Then bang off a mail to the user.
                 $siteName = $this->objConfig->getSiteName();
                 $siteEmail = $this->objConfig->getsiteEmail();
-        		$message =
+                $message =
 '
 Dear [[FIRSTNAME]] [[SURNAME]]<br />
 <br />

@@ -28,16 +28,16 @@
 */
 abstract class abauth extends dbtable
 {
-	/**
-	* 
-	* Property to hold the record of data for a user
-	* as an array.
-	*  
-	*/
-	public $_record;
-	public $userLoginHistory;
-	public $loggedInUsers;
-	
+    /**
+    * 
+    * Property to hold the record of data for a user
+    * as an array.
+    *  
+    */
+    public $_record;
+    public $userLoginHistory;
+    public $loggedInUsers;
+    
     public function init($dataTable) 
     {
         parent::init($dataTable);

@@ -8,20 +8,20 @@ $options = array('comment' => 'This table is used to maintain state and enable c
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
 
-		),
-	'userId' => array(
-		'type' => 'text',
-		'length' => 25,
+        ),
+    'userId' => array(
+        'type' => 'text',
+        'length' => 25,
 
 
-		),
+        ),
     'lastLoginDateTime' => array(
-		'type' => 'timestamp'
-		)
+        'type' => 'timestamp'
+        )
     );
 
 //create other indexes here...
@@ -30,7 +30,7 @@ $name = 'userId';
 
 $indexes = array(
                 'fields' => array(
-                	'userId' => array()
+                    'userId' => array()
                 )
         );
 ?>

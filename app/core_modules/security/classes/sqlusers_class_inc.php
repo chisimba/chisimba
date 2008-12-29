@@ -30,7 +30,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 /**
@@ -46,7 +46,7 @@ class sqlUsers extends dbtable
     
     function init()
     {
-	parent::init('tbl_users');
+    parent::init('tbl_users');
         $this->objConfig=$this->getObject('config','config');
         $this->objUser=$this->getObject('user','security');
         $this->objLanguage=$this->getObject('language','language');
@@ -165,14 +165,14 @@ class sqlUsers extends dbtable
     * @param string $match - the pattern to match for
     * returns array $r1
     */
- 	function getUsers($how,$match,$exact=FALSE)
- 	{
- 		//$sql="select userId,username,title,firstName,surname,emailAddress from tbl_users";
- 		$sql="select * from tbl_users";
- 		if (($how=='username')||($how=='surname')||($how=='emailAddress')||
+     function getUsers($how,$match,$exact=FALSE)
+     {
+         //$sql="select userId,username,title,firstName,surname,emailAddress from tbl_users";
+         $sql="select * from tbl_users";
+         if (($how=='username')||($how=='surname')||($how=='emailAddress')||
                     ($how=='userId')||($how=='creationDate')||($how=='logins')||($how=='isActive'))
-		{
-			if ($match=='listall') {
+        {
+            if ($match=='listall') {
                             $match='';
                         }
                         $match=addslashes($match);
@@ -185,15 +185,15 @@ class sqlUsers extends dbtable
                         } else {
                             $sql.=" where ".$how." like '".$match."%' order by ".$how;
                         }
-		}
+        }
                 if ($how=='notused'){
                     $sixMonthsAgo=date('Y-m-d',time()-15552000);
                     $sql.=" where logins='0' and creationDate<'$sixMonthsAgo' order by creationDate";
                 }
 
-		$r1=$this->getArray($sql);
-		return $r1;
-	}  // end of function getUsers
+        $r1=$this->getArray($sql);
+        return $r1;
+    }  // end of function getUsers
 
 
     /**

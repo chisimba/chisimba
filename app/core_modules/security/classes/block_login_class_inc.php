@@ -32,7 +32,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -68,17 +68,17 @@ class block_login extends object
     */
     public function init()
     {
-    	try {
-			$this->objLanguage =  $this->getObject('language', 'language');
-			$this->objUser = $this->getObject('user', 'security');
-			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-				$this->blockType="invisible";
-			} else {
-			    $this->title = $this->objLanguage->languageText("word_login");
-			}
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+                $this->blockType="invisible";
+            } else {
+                $this->title = $this->objLanguage->languageText("word_login");
+            }
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -86,17 +86,17 @@ class block_login extends object
     * class to render the login box
     */
     public function show()
-	{
-		try {
-			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-			    return NULL;
-			} else {
-				$objLogin =  $this->getObject('logininterface', 'security');
-				return $objLogin->renderLoginBox();			    
-			}
-		} catch (customException $e) {
-			customException::cleanUp();
-		}
+    {
+        try {
+            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+                return NULL;
+            } else {
+                $objLogin =  $this->getObject('logininterface', 'security');
+                return $objLogin->renderLoginBox();                
+            }
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
 }
 ?>

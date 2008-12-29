@@ -30,7 +30,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security che
 
@@ -61,11 +61,11 @@ class userLoginHistory extends dbTable {
     {
         $now = $this->now();
         $this->insert(
-			array(
-				'userid' => $userId,
+            array(
+                'userid' => $userId,
                 'lastLoginDateTime' => $now
-			)
-		);
+            )
+        );
     }
 
     /**
@@ -77,12 +77,12 @@ class userLoginHistory extends dbTable {
     public function doGetLastLogin($userId)
     {
         $sql="SELECT 
-			MAX(lastLoginDateTime) AS laston 
-		FROM 
-			tbl_userloginhistory 
-		WHERE 
-			userid='$userId'
-		";
+            MAX(lastLoginDateTime) AS laston 
+        FROM 
+            tbl_userloginhistory 
+        WHERE 
+            userid='$userId'
+        ";
         $rs = $this->query($sql);
         //$line = $rs->fetchRow();
         return $rs[0]['laston'];
@@ -96,12 +96,12 @@ class userLoginHistory extends dbTable {
     public function doGetFirstLogin($userId)
     {
         $sql="SELECT 
-			MIN(lastLoginDateTime) AS firston 
-		FROM 
-			tbl_userloginhistory 
-		WHERE 
-			userid='$userId'
-		";
+            MIN(lastLoginDateTime) AS firston 
+        FROM 
+            tbl_userloginhistory 
+        WHERE 
+            userid='$userId'
+        ";
         $rs = $this->query($sql);
         //$line = $rs->fetchRow();
         return $rs[0]['firston'];
@@ -116,13 +116,13 @@ class userLoginHistory extends dbTable {
     */
     public function getLastLogin($time)
     {
-    	$sql="SELECT user.username,user.userId,
-			MAX(last.lastLoginDateTime) AS laston 
-		FROM 
-			tbl_userloginhistory as last, tbl_users as user
-		WHERE 
-			 last.lastLoginDateTime <'$time' AND user.userId=last.userId Group by userId
-		";
+        $sql="SELECT user.username,user.userId,
+            MAX(last.lastLoginDateTime) AS laston 
+        FROM 
+            tbl_userloginhistory as last, tbl_users as user
+        WHERE 
+             last.lastLoginDateTime <'$time' AND user.userId=last.userId Group by userId
+        ";
         $rs = $this->query($sql);
        
         return $rs;
@@ -136,14 +136,14 @@ class userLoginHistory extends dbTable {
     */
     public function getnowLogin()
     {
-    	$now = date('Y-m-d H:');
+        $now = date('Y-m-d H:');
         $sql="SELECT users.username,users.userId,
-			MAX(last.lastLoginDateTime) AS laston 
-		FROM 
-			tbl_userloginhistory as last, tbl_users as users
-		WHERE 
-			 last.lastLoginDateTime >'$now'  AND users.userId=last.userId Group by users.username,users.userId
-		";
+            MAX(last.lastLoginDateTime) AS laston 
+        FROM 
+            tbl_userloginhistory as last, tbl_users as users
+        WHERE 
+             last.lastLoginDateTime >'$now'  AND users.userId=last.userId Group by users.username,users.userId
+        ";
         $rs = $this->query($sql);
        
         return $rs;

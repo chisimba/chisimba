@@ -22,16 +22,16 @@
 
 class permission {
 
-	/**
-	* Method do unpack a permission string into an array to
-	* be used in allocating permissions
-	* @param string $permissionString: a string of permissions 
-	* in the form ....TBD
-	*/
-	function unpack($permissionString) {
-		$permArray=explode(",", $permissionString);
-		return $permArray;
-	}
+    /**
+    * Method do unpack a permission string into an array to
+    * be used in allocating permissions
+    * @param string $permissionString: a string of permissions 
+    * in the form ....TBD
+    */
+    function unpack($permissionString) {
+        $permArray=explode(",", $permissionString);
+        return $permArray;
+    }
 
 }
 ?>

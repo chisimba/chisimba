@@ -31,7 +31,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -62,24 +62,24 @@ class block_register extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-			$this->objUser = $this->getObject('user', 'security');
-			$this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
-			$this->objConf = $this->getObject('altconfig', 'config');
-			if($this->objConf->getallowSelfRegister() == 'FALSE')
-			{
-				$this->blockType="invisible";
-			}
-			if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-				$this->blockType="invisible";
-			} else { 
-    			$this->title = $this->objLanguage->languageText("word_registration");
-			}
-    	} catch (Exception $e) {
-    	    throw customException($e->getMessage());
-    	    exit();
-    	}
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+            $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+            $this->objConf = $this->getObject('altconfig', 'config');
+            if($this->objConf->getallowSelfRegister() == 'FALSE')
+            {
+                $this->blockType="invisible";
+            }
+            if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+                $this->blockType="invisible";
+            } else { 
+                $this->title = $this->objLanguage->languageText("word_registration");
+            }
+        } catch (Exception $e) {
+            throw customException($e->getMessage());
+            exit();
+        }
     }
     
     /**
@@ -88,28 +88,28 @@ class block_register extends object
     */
     public function show()
     {
-    	try {
+        try {
             $allowRegistration =  strtolower($this->objSysConfig->getValue('MOD_SECURITY_ALLOWREGISTRATION', 'security'));
             if ($allowRegistration !== "false") {
-        		if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
-        			return NULL;
-        		} else {
-        		    $regModule = $this->objSysConfig->getValue('REGISTRATION_MODULE', 'security');
-        		    if(empty($regModule)){
-        		        $regModule = 'userregistration';
-        		    }
-    	    		$regLink = $this->newObject('link','htmlelements');
-    	    		$regLink->link = $this->objLanguage->languageText('word_register');
-    	    		$regLink->link($this->uri(array('action' => 'showregister'), $regModule));
-    	    		return $regLink->show();
-        		}
+                if($this->objUser->isLoggedIn() && $this->getParam('module', NULL)!=="cmsadmin") {
+                    return NULL;
+                } else {
+                    $regModule = $this->objSysConfig->getValue('REGISTRATION_MODULE', 'security');
+                    if(empty($regModule)){
+                        $regModule = 'userregistration';
+                    }
+                    $regLink = $this->newObject('link','htmlelements');
+                    $regLink->link = $this->objLanguage->languageText('word_register');
+                    $regLink->link($this->uri(array('action' => 'showregister'), $regModule));
+                    return $regLink->show();
+                }
             } else {
                 return NULL;
             }
-    	} catch (Exception $e) {
-    		throw customException($e->getMessage());
-    		exit();
-    	}
+        } catch (Exception $e) {
+            throw customException($e->getMessage());
+            exit();
+        }
     }
 }
 ?>

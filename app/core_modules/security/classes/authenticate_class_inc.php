@@ -34,18 +34,18 @@
 */
 class authenticate extends object
 {
-	private $username;
-	private $password;
+    private $username;
+    private $password;
 
-	/**
-	*
-	* An array to hold the chain of command list of authorized authentication
-	* methods. For example, array("database", "LDAP", "PAM", "Kerberos"). The
-	* authUser method then processes this array until it finds a successful
-	* login, or reaches the end and login fails.
-	*
-	*/
-	protected $authChainOfCommand=array('database');
+    /**
+    *
+    * An array to hold the chain of command list of authorized authentication
+    * methods. For example, array("database", "LDAP", "PAM", "Kerberos"). The
+    * authUser method then processes this array until it finds a successful
+    * login, or reaches the end and login fails.
+    *
+    */
+    protected $authChainOfCommand=array('database');
 
     /**
     *
@@ -58,14 +58,14 @@ class authenticate extends object
     */
     public function init()
     {
-    	//Instantiate the configuration object
+        //Instantiate the configuration object
         $objConfig = $this->getObject('dbsysconfig', 'sysconfig');
-		$authMeth = $objConfig->getValue('MOD_SECURITY_AUTHMETHODS', 'security');
-		if (strstr($authMeth, ',')) {
-		    $this->authChainOfCommand = explode(",", $authMeth);
-		} else {
-		    $this->authChainOfCommand[] = trim($authMeth);
-		}
+        $authMeth = $objConfig->getValue('MOD_SECURITY_AUTHMETHODS', 'security');
+        if (strstr($authMeth, ',')) {
+            $this->authChainOfCommand = explode(",", $authMeth);
+        } else {
+            $this->authChainOfCommand[] = trim($authMeth);
+        }
     }
 
     /**
@@ -76,26 +76,26 @@ class authenticate extends object
     */
     public function authenticateUser($username, $password)
     {
-		foreach ($this->authChainOfCommand as $authMethod) {
-   			try {
-   			    $authClass = "auth_" . trim($authMethod);
-   			    $objAuth = $this->getObject($authClass, "security");
-   			    if ($objAuth->authenticate($username, $password)) {
-   			        //Authentication succeeded
-   			        $objAuth->initiateSession();
-   			        $objAuth->storeInSession();
-   			        return TRUE;
-   			    } else {
-   			        //Authentication failed
-   			        continue;
-   			    }
-   			} catch (customException $e) {
-				customException::cleanUp();
-				return FALSE;
-   			}
-		}
-		//If it gets through them all then fail the login
-		return FALSE;
+        foreach ($this->authChainOfCommand as $authMethod) {
+               try {
+                   $authClass = "auth_" . trim($authMethod);
+                   $objAuth = $this->getObject($authClass, "security");
+                   if ($objAuth->authenticate($username, $password)) {
+                       //Authentication succeeded
+                       $objAuth->initiateSession();
+                       $objAuth->storeInSession();
+                       return TRUE;
+                   } else {
+                       //Authentication failed
+                       continue;
+                   }
+               } catch (customException $e) {
+                customException::cleanUp();
+                return FALSE;
+               }
+        }
+        //If it gets through them all then fail the login
+        return FALSE;
     }
 }
 ?>

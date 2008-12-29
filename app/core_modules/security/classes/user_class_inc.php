@@ -32,7 +32,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -1005,10 +1005,10 @@ class user extends dbTable
         return $objBox->show($this->fullName(), $str);
       }
 
-	public function getUserDetails($userId)
-	{
-		return $this->getRow('userid', $userId);
-	}
+    public function getUserDetails($userId)
+    {
+        return $this->getRow('userid', $userId);
+    }
 
 }
 ?>

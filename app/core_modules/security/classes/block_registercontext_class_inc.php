@@ -31,7 +31,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -62,14 +62,14 @@ class block_registercontext extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-			$this->objUser = $this->getObject('user', 'security');
-  			$this->title = $this->objLanguage->languageText("word_registration");
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->objUser = $this->getObject('user', 'security');
+              $this->title = $this->objLanguage->languageText("word_registration");
 
-    	} catch (customException $e) {
-    	customException::cleanUp();
-    	}
+        } catch (customException $e) {
+        customException::cleanUp();
+        }
     }
     
     /**
@@ -78,14 +78,14 @@ class block_registercontext extends object
     */
     public function show()
     {
-    	try {
-	    		$regLink = $this->newObject('link','htmlelements');
-	    		$regLink->link = $this->objLanguage->languageText('word_register');
-	    		$regLink->link($this->uri(NULL,'userregistration'));
-	    		return $regLink->show();
-   	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        try {
+                $regLink = $this->newObject('link','htmlelements');
+                $regLink->link = $this->objLanguage->languageText('word_register');
+                $regLink->link($this->uri(NULL,'userregistration'));
+                return $regLink->show();
+       } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
 }
 ?>

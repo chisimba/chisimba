@@ -30,7 +30,7 @@
 // security check - must be included in all scripts
 if (!$GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -144,7 +144,7 @@ class splashscreen extends object
         $skinChooser=$this->objSkin->putSkinChooser();
         $ts_content=str_replace("[-SKINCHOOSER-]", $skinChooser, $ts_content);
         $languageChooser=$this->objLanguage->putlanguageChooser();
-	$ts_content=str_replace("[-LANGUAGECHOOSER-]",$languageChooser, $ts_content);
+    $ts_content=str_replace("[-LANGUAGECHOOSER-]",$languageChooser, $ts_content);
         // Put registration link only if allowselfregister is true
         if ($this->objConfig->allowSelfRegister()) {
             $ts_content=str_replace("[-REGISTER-]", $registerLink, $ts_content);
@@ -156,7 +156,7 @@ class splashscreen extends object
         $ts_content=str_replace("[-NEWPASSWORD-]", $resetLink, $ts_content);
 
         //Create an instance of the module object
-	    $this->objModule=& $this->getObject('modules','modulecatalogue');
+        $this->objModule=& $this->getObject('modules','modulecatalogue');
         if($this->objModule->checkIfRegistered('stories','stories')){
             $this->objStories= $this->getObject('sitestories', 'stories');
             $ts_content=str_replace('[-PRELOGINSTORIES-]', $this->objStories->fetchCategory('prelogin'), $ts_content);
@@ -169,70 +169,70 @@ class splashscreen extends object
         return $ts_content;
     }
 
-	/**
-	*  Method to get the dropdown that contains all the public courses
-	* @author Wesley Nitsckie
-	*/
-	function getContextDropDown(){
-		$objModule =  $this->newObject('modules','modulecatalogue');
-		$objDBContext =  $this->newObject('dbcontext','context');
-		$dropdown =  $this->newObject('dropdown','htmlelements');
-		$str = '';
+    /**
+    *  Method to get the dropdown that contains all the public courses
+    * @author Wesley Nitsckie
+    */
+    function getContextDropDown(){
+        $objModule =  $this->newObject('modules','modulecatalogue');
+        $objDBContext =  $this->newObject('dbcontext','context');
+        $dropdown =  $this->newObject('dropdown','htmlelements');
+        $str = '';
 
-		$frmContext= $this->newObject('form','htmlelements');
-		$frmContext->name='joincontext';
-		$frmContext->setAction($this->uri(array('action'=>'joincontext'),'context'));
-		$frmContext->setDisplayType(3);
+        $frmContext= $this->newObject('form','htmlelements');
+        $frmContext->name='joincontext';
+        $frmContext->setAction($this->uri(array('action'=>'joincontext'),'context'));
+        $frmContext->setDisplayType(3);
 
-		$objLeaveButton=$this->getObject('geticon','htmlelements');
-		$objLeaveButton->setIcon('close');
-		$objLeaveButton->alt=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
-		$objLeaveButton->title=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
+        $objLeaveButton=$this->getObject('geticon','htmlelements');
+        $objLeaveButton->setIcon('close');
+        $objLeaveButton->alt=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
+        $objLeaveButton->title=$this->objLanguage->languageText("word_leave").' '.$this->objLanguage->languageText("word_course");
 
-		$objLeaveLink=$this->getObject('link','htmlelements');
-		$objLeaveLink->href=$this->uri(array('action'=>'leavecontext'));
-		$objLeaveLink->link=$objLeaveButton->show();
+        $objLeaveLink=$this->getObject('link','htmlelements');
+        $objLeaveLink->href=$this->uri(array('action'=>'leavecontext'));
+        $objLeaveLink->link=$objLeaveButton->show();
 
-		if ($objModule->checkIfRegistered('', 'context')){
-		// Get Context Code & Title
-			$contextObject = $this->getObject('dbcontext', 'context');
-			$contextCode = $contextObject->getContextCode();
+        if ($objModule->checkIfRegistered('', 'context')){
+        // Get Context Code & Title
+            $contextObject = $this->getObject('dbcontext', 'context');
+            $contextCode = $contextObject->getContextCode();
 
-			$this->loadClass('link', 'htmlelements');
-			$contextLink = new link($this->uri(null, 'context'));
-			$contextLink->link = $contextObject->getTitle();
+            $this->loadClass('link', 'htmlelements');
+            $contextLink = new link($this->uri(null, 'context'));
+            $contextLink->link = $contextObject->getTitle();
 
-			// Set Context Code to 'root' if not in context
-			if ($contextCode == ''){
-				$contextTitle = $this->objLanguage->languageText('mod_context_lobby');
-			} else {
-				$contextTitle = $contextLink->show().' '.$objLeaveLink->show();
-			}
+            // Set Context Code to 'root' if not in context
+            if ($contextCode == ''){
+                $contextTitle = $this->objLanguage->languageText('mod_context_lobby');
+            } else {
+                $contextTitle = $contextLink->show().' '.$objLeaveLink->show();
+            }
 
 
-		$contextTitle =  str_replace('{context}', '<strong>'.$contextTitle.'</strong>', $this->objLanguage->languageText('mod_postlogin_currentlyincontext'));
+        $contextTitle =  str_replace('{context}', '<strong>'.$contextTitle.'</strong>', $this->objLanguage->languageText('mod_postlogin_currentlyincontext'));
 
-		$str .= '<p>'.$contextTitle . '</p>';
-		}
+        $str .= '<p>'.$contextTitle . '</p>';
+        }
 
-		$dropdown->name='contextCode';
-		$dropdown->cssClass='coursechooser';
-		$dropdown->addFromDB($objDBContext->getAll(),'menutext','contextCode',$objDBContext->getContextCode());
+        $dropdown->name='contextCode';
+        $dropdown->cssClass='coursechooser';
+        $dropdown->addFromDB($objDBContext->getAll(),'menutext','contextCode',$objDBContext->getContextCode());
 
-		$button=new button();
-		$button->setToSubmit();
-		$button->setValue($this->objLanguage->languageText('word_go')); //mod_context_entercourse
+        $button=new button();
+        $button->setToSubmit();
+        $button->setValue($this->objLanguage->languageText('word_go')); //mod_context_entercourse
 
         $frmContext->addToForm($this->objLanguage->languageText('phrase_selectcourse').':<br/>');
-		$frmContext->addToForm($dropdown->show());
-		$frmContext->addToForm($button->show());
+        $frmContext->addToForm($dropdown->show());
+        $frmContext->addToForm($button->show());
 
         if (count($objDBContext->getAll()) == 0) {
             return NULL;
         } else {
             return $frmContext->show();
         }
-	}
+    }
 
 
 }  #end of class
