@@ -104,22 +104,22 @@ class parse4colorbox extends object
     */
     public function parse($txt)
     {
-       	//Match filters based on a wordpress style
+           //Match filters based on a wordpress style
         //Note the ? in the regex is important to enable the multiline
         //   feature, else it greedy
         preg_match_all('/(\\[COLORBOX:)(.*?)\\](.*?)(\\[\\/COLORBOX\\])/ism', $txt, $results);
-       	$counter = 0;
-       	foreach ($results[3] as $item) {
+           $counter = 0;
+           foreach ($results[3] as $item) {
             //Parse for the parameters
             $str = trim($results[2][$counter]);
             //The whole match must be replaced
             $replaceable = $results[0][$counter];
             //echo "!!!$str!!!<br/>";
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
-          	$replacement = $this->getBox($this->boxtype, $item);
-        	$txt = str_replace($replaceable, $replacement, $txt);
-        	$counter++;
+              $replacement = $this->getBox($this->boxtype, $item);
+            $txt = str_replace($replaceable, $replacement, $txt);
+            $counter++;
         }
         return $txt;
     }

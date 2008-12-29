@@ -98,9 +98,9 @@ class parse4wikipedia extends object
             //Check if it is a valid link, if not return an error message
             if ($this->isWikipedia($str)) {
                 $link = "http://en.wikipedia.org/wiki/" . trim($topic);
-            	$replacement = $this->getWikiContents($link);
+                $replacement = $this->getWikiContents($link);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $txt = str_replace($item, $replacement, $txt);
             $counter++;
@@ -202,9 +202,9 @@ class parse4wikipedia extends object
      */
     private function isWikipedia($keyWord)
     {
-    	$keyWord=strtolower($keyWord);
+        $keyWord=strtolower($keyWord);
 
-   	return TRUE;
+       return TRUE;
     }
 
 }

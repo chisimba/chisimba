@@ -111,18 +111,18 @@ class parse4files extends object
     */
     public function parse($txt)
     {
-       	//Match filters based on a wordpress style
-       	preg_match_all('/\\[FILES:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-       	$counter = 0;
-       	foreach ($results[0] as $item) {
+           //Match filters based on a wordpress style
+           preg_match_all('/\\[FILES:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+           $counter = 0;
+           foreach ($results[0] as $item) {
             //$this->item=$item;
-        	$str = $results[1][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             $replacement = $this->getFiles();
             //$replacement = htmlentities($replacement);
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
         }
 
         return $txt;
@@ -159,24 +159,24 @@ class parse4files extends object
 
     }
 
-	/**
-	 *
-	 * Method to return a formatted list of files in the directory specified in the filter
-	 * tag
-	 *
-	 * @access private
-	 * @param string $dirname The folder name
-	 * @param string $item Item within which the replacement should take place
-	 * @return the parased item with the linked files replacing the filter tags
-	 *
-	 */
+    /**
+     *
+     * Method to return a formatted list of files in the directory specified in the filter
+     * tag
+     *
+     * @access private
+     * @param string $dirname The folder name
+     * @param string $item Item within which the replacement should take place
+     * @return the parased item with the linked files replacing the filter tags
+     *
+     */
     private function getFiles()
     {
         $oF = $this->getObject('dbfile', 'filemanager');
         if ($this->folder == "/") {
-           	$this->folder = NULL;
+               $this->folder = NULL;
         } else {
-        	$this->folder = "/" . $this->folder;
+            $this->folder = "/" . $this->folder;
         }
         $sql = "SELECT filename, mimetype, path, filefolder, description FROM tbl_files WHERE userid = '" . $this->userId
           . "' AND filefolder = 'users/" . $this->userId . $this->folder . "'";
@@ -203,7 +203,7 @@ class parse4files extends object
             $objheader->type = 3;
             return $objheader->show();
         }
-    	$ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
+        $ret = "<table cellpadding=\"5\" cellspacing=\"2\" style=\"margin-left:10px\">";
         $objConfig = $this->getObject('altconfig', 'config');
         $siteRoot = $objConfig->getSiteRoot();
         $this->oIcon = $this->getObject('fileicons', 'files');

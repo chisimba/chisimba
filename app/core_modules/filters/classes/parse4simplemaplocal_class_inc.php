@@ -79,14 +79,14 @@ class parse4simplemaplocal extends object
      */
     public function parse($str)
     {
-    	//Instantiate the modules class to check if simplemap is registered
-    	$objModule = $this->getObject('modules','modulecatalogue');
-    	//See if the simple map module is registered and set a param
-    	$isRegistered = $objModule->checkIfRegistered('simplemap', 'simplemap');
-    	//If the module is registered then instantiate it
-    	if ($isRegistered) {
-    	    $this->objSMParser = $this->getObject('smapparser', 'simplemap');
-    	
+        //Instantiate the modules class to check if simplemap is registered
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the simple map module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('simplemap', 'simplemap');
+        //If the module is registered then instantiate it
+        if ($isRegistered) {
+            $this->objSMParser = $this->getObject('smapparser', 'simplemap');
+        
             preg_match_all('/\\[SIMPLEMAP_LOCAL](.*?)\\[\/SIMPLEMAP_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
             $counter = 0;
             foreach ($results[0] as $item)
@@ -98,7 +98,7 @@ class parse4simplemaplocal extends object
                     $replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
                       . $objLanguage->languageText("mod_filters_error_smapnotinstalled", "filters")
                       . "</h3></div>";
-                }    	      	  
+                }                    
                 $str = str_replace($item, $replacement, $str);
                 $counter++;
             }

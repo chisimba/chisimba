@@ -81,7 +81,7 @@ class parse4youtube extends object
     */
     public function parse($str)
     {
-    	//Match the ones that are in links
+        //Match the ones that are in links
         preg_match_all('/\\[YOUTUBE]<a.*?href="(?P<youtubelink>.*?)".*?>.*?<\/a>\\[\/YOUTUBE]/', $str, $results, PREG_PATTERN_ORDER);
         //Match straight URLs
         preg_match_all('/\\[YOUTUBE](.*?)\\[\/YOUTUBE]/', $str, $results2, PREG_PATTERN_ORDER);
@@ -94,10 +94,10 @@ class parse4youtube extends object
             $link = $results['youtubelink'][$counter];
             //Check if it is a valid link, if not return an error message
             if ($this->isYoutube($link)) {
-            	$videoId = $this->getVideoCode($link);
-            	$replacement = $this->getVideoObject($videoId);
+                $videoId = $this->getVideoCode($link);
+                $replacement = $this->getVideoObject($videoId);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
@@ -109,10 +109,10 @@ class parse4youtube extends object
             $link = $results2[1][$counter];
             //Check if it is a valid link, if not return an error message
             if ($this->isYoutube($link)) {
-            	$videoId = $this->getVideoCode($link);
-            	$replacement = $this->getVideoObject($videoId);
+                $videoId = $this->getVideoCode($link);
+                $replacement = $this->getVideoObject($videoId);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
@@ -134,13 +134,13 @@ class parse4youtube extends object
             //Get an array containing the param=value data
             //The format is [YOUTUBE: by_tag,tag,2,1,24]
             if ($flagOk == TRUE) {
-            	// moved the instantiation to inside the flag check as per bug #0002236
-            	//Instantiate the youtubeapi class
-        		$objYouTube = $this->getObject('youtubeapi', 'youtube');
-        		//Get the view class for youtubeapi
-        		$vw = $this->getObject('youtubetpl','youtube');
+                // moved the instantiation to inside the flag check as per bug #0002236
+                //Instantiate the youtubeapi class
+                $objYouTube = $this->getObject('youtubeapi', 'youtube');
+                //Get the view class for youtubeapi
+                $vw = $this->getObject('youtubetpl','youtube');
 
-        		$arCodes = $this->extractYoutubeCodes($exPat);
+                $arCodes = $this->extractYoutubeCodes($exPat);
                 $ytmethod = $arCodes['ytmethod'];
                 $identifier = $arCodes['ytidentifier'];
                 $cols = $arCodes['cols'];
@@ -200,8 +200,8 @@ class parse4youtube extends object
     {
         return "<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/"
           .  $videoId . "\"></param><param name=\"wmode\" value=\"transparent\"></param>"
-		  . "<embed src=\"http://www.youtube.com/v/" . $videoId . "\" type=\"application/x-shockwave-flash\""
-		  .	" wmode=\"transparent\" width=\"425\" height=\"350\"></embed></object>";
+          . "<embed src=\"http://www.youtube.com/v/" . $videoId . "\" type=\"application/x-shockwave-flash\""
+          .    " wmode=\"transparent\" width=\"425\" height=\"350\"></embed></object>";
     }
 
     /**
@@ -216,16 +216,16 @@ class parse4youtube extends object
     */
     private function isYoutube($link)
     {
-    	$link=strtolower($link);
-    	if (strstr($link,"http://") && strstr($link, "v=")) {
-    		return TRUE;
-    	} else {
-   			$objLanguage = $this->getObject('language', 'language');
-    		$this->errorMessage = "[YOUTUBE] <span class=\"error\">"
-    	  	  . $objLanguage->languageText("mod_filters_error_notyoutube", "filters")
-    	  	  . "</span> [/YOUTUBE]";
-    		return FALSE;
-    	}
+        $link=strtolower($link);
+        if (strstr($link,"http://") && strstr($link, "v=")) {
+            return TRUE;
+        } else {
+               $objLanguage = $this->getObject('language', 'language');
+            $this->errorMessage = "[YOUTUBE] <span class=\"error\">"
+                . $objLanguage->languageText("mod_filters_error_notyoutube", "filters")
+                . "</span> [/YOUTUBE]";
+            return FALSE;
+        }
 
     }
 

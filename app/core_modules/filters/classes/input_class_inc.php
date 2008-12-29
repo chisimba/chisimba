@@ -121,7 +121,7 @@ class input //extends object
     public function __construct(&$source = NULL, $strict = TRUE)
     {
         $this->_filter = $this->getObject('filter');
-    	$this->_source = $source;
+        $this->_source = $source;
 
         if ($strict) {
             $source = NULL;

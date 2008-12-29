@@ -137,11 +137,11 @@ class parse4lti extends object
     */
     public function parse($txt)
     {
-    	//Match filters based on a wordpress style
-    	preg_match_all('/\\[LTI:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-    	//Get all the ones in links
-    	$counter = 0;
-    	foreach ($results[0] as $item) {
+        //Match filters based on a wordpress style
+        preg_match_all('/\\[LTI:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        //Get all the ones in links
+        $counter = 0;
+        foreach ($results[0] as $item) {
             $this->item=$item;
             $str = $results[1][$counter];
             //See what type of call we are making
@@ -168,8 +168,8 @@ class parse4lti extends object
                   . $this->objLanguage->languageText("mod_filters_error_ltinotinstalled", "filters")
                   . "</span>";
             }
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
             //Clear the set params
             unset($this->id);
             unset($this->objExpar->secret);
@@ -177,7 +177,7 @@ class parse4lti extends object
             unset($this->objExpar->url);
             unset($this->type);
             unset($this->objExpar->type);
-    	}
+        }
 
         return $txt;
     }

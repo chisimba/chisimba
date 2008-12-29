@@ -71,7 +71,7 @@ class parse4formbuilder extends object
     function init()
     {
         $this->objForm = $this->getObject('dbforms', 'forms');
-    	$this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
 
         $this->loadClass('layer', 'htmlelements');
 

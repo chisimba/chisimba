@@ -139,18 +139,18 @@ class parse4tt extends object
     */
     public function parse($txt)
     {
-       	//Match filters based on a wordpress style
-       	preg_match_all('/\\[TT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-       	//Get all the ones in links
-       	$counter = 0;
-       	foreach ($results[0] as $item) {
+           //Match filters based on a wordpress style
+           preg_match_all('/\\[TT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+           //Get all the ones in links
+           $counter = 0;
+           foreach ($results[0] as $item) {
             $this->item=$item;
-        	$str = $results[1][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, "|");
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, "|");
             $this->setupPage();
             $replacement = $this->getTt();
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
         }
         return $txt;
     }

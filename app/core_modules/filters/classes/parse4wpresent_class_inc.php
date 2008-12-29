@@ -118,23 +118,23 @@ class parse4wpresent extends object
     */
     public function parse($txt)
     {
-    	//Instantiate the modules class to check if youtube is registered
+        //Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the webpresent API module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('webpresent', 'webpresent');
         // Get the viewer object.
         if($isRegistered){
-        	$objView = $this->getObject("viewer", "webpresent");
+            $objView = $this->getObject("viewer", "webpresent");
         }
-    	//Match filters based on a wordpress style
-    	preg_match_all('/\\[WPRESENT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-    	//Get all the ones in links
-    	$counter = 0;
+        //Match filters based on a wordpress style
+        preg_match_all('/\\[WPRESENT:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        //Get all the ones in links
+        $counter = 0;
 
-    	foreach ($results[0] as $item) {
+        foreach ($results[0] as $item) {
             $this->item=$item;
-        	$str = $results[1][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             //See what type of call we are making
             switch ($this->type)
@@ -156,8 +156,8 @@ class parse4wpresent extends object
                     }
                     break;
             }
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
             //Clear the set params
             unset($this->id);
             unset($this->objExpar->id);
@@ -166,7 +166,7 @@ class parse4wpresent extends object
             unset($this->type);
             unset($this->objExpar->type);
 
-    	}
+        }
 
         return $txt;
     }

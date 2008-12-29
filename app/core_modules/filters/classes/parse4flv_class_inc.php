@@ -65,7 +65,7 @@ class parse4flv extends object
      */
     function init()
     {
-    	$this->objConfig = $this->getObject('altconfig', 'config');
+        $this->objConfig = $this->getObject('altconfig', 'config');
         // Get an instance of the params extractor
         $this->objExpar = $this->getObject("extractparams", "utilities");
         
@@ -129,21 +129,21 @@ class parse4flv extends object
      */
     private function getVideoObject($videoId, $width=320, $height=240)
     {
-    	$player = $this->objConfig->getsiteRoot().$this->getResourceUri('flvplay.swf');
-    	$skin = $this->objConfig->getsiteRoot().$this->getResourceUri('flvskin.swf');
-    	$sskin = str_replace(".swf",'',$skin);
+        $player = $this->objConfig->getsiteRoot().$this->getResourceUri('flvplay.swf');
+        $skin = $this->objConfig->getsiteRoot().$this->getResourceUri('flvskin.swf');
+        $sskin = str_replace(".swf",'',$skin);
         return '<object width="' . $width . '" height="' . $height . '" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" 
-        		codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"> 
-        		<param name="salign" value="lt"> 
-        		<param name="quality" value="high">   
-        		<param name="scale" value="noscale"> 
-        		<param name="wmode" value="transparent"> 
-        		<param name="movie" value="'.$player.'"> 
-        		<param name="FlashVars" value="&amp;streamName='.$videoId.'&amp;skinName='.$sskin.'&amp;autoPlay=false&amp;autoRewind=true">  
-        		<embed width="' . $width . '" height="' . $height . '" flashvars="&amp;streamName='.$videoId.'&amp;autoPlay=false&amp;autoRewind=true&amp;skinName='.$sskin.'" 
-        		quality="high" scale="noscale" salign="LT" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" 
-        		src="'.$player.'" wmode="transparent"> </embed>
-        		</object>';
+                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"> 
+                <param name="salign" value="lt"> 
+                <param name="quality" value="high">   
+                <param name="scale" value="noscale"> 
+                <param name="wmode" value="transparent"> 
+                <param name="movie" value="'.$player.'"> 
+                <param name="FlashVars" value="&amp;streamName='.$videoId.'&amp;skinName='.$sskin.'&amp;autoPlay=false&amp;autoRewind=true">  
+                <embed width="' . $width . '" height="' . $height . '" flashvars="&amp;streamName='.$videoId.'&amp;autoPlay=false&amp;autoRewind=true&amp;skinName='.$sskin.'" 
+                quality="high" scale="noscale" salign="LT" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" 
+                src="'.$player.'" wmode="transparent"> </embed>
+                </object>';
     }
     
     /**

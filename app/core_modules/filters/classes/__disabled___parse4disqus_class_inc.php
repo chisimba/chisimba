@@ -143,8 +143,8 @@ class parse4disqus extends object
     {
         // Filter regex to match the filter
         preg_match_all('/(\\[DISQUS:)(.*?)(\\])/iusm', $txt, $results);
-       	$counter = 0;
-       	foreach ($results[2] as $item) {
+           $counter = 0;
+           foreach ($results[2] as $item) {
             // Parse for the parameters.
             $str = trim($results[2][$counter]);
             // The whole match must be replaced.
@@ -159,9 +159,9 @@ class parse4disqus extends object
             } else {
                 $replacement = $results[0][$counter] . $this->_errNotInst();
             }
-        	$txt = str_replace($replaceable, $replacement, $txt);
+            $txt = str_replace($replaceable, $replacement, $txt);
             unset($replacement);
-        	$counter++;
+            $counter++;
         }
 
         return $txt;

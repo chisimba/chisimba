@@ -86,13 +86,13 @@ class parse4googlevid extends object
         //Get all the ones in links
         $counter = 0;
         foreach ($results[0] as $item) {
-        	$link = $results['gvlink'][$counter];
-        	//Check if it is a valid link, if not return an error message
+            $link = $results['gvlink'][$counter];
+            //Check if it is a valid link, if not return an error message
             if ($this->isGoogleVideo($link)) {
-        		$videoId = $this->getVideoCode($link);
-        		$replacement = $this->getVideoObject($videoId);
+                $videoId = $this->getVideoCode($link);
+                $replacement = $this->getVideoObject($videoId);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
@@ -104,10 +104,10 @@ class parse4googlevid extends object
             $link = $results2[1][$counter];
             //Check if it is a valid link, if not return an error message
             if ($this->isGoogleVideo($link)) {
-            	$videoId = $this->getVideoCode($link);
-            	$replacement = $this->getVideoObject($videoId);
+                $videoId = $this->getVideoCode($link);
+                $replacement = $this->getVideoObject($videoId);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
@@ -145,12 +145,12 @@ class parse4googlevid extends object
      *                 
      */
     private function getVideoObject($videoId) {
-    	$ret = "<embed style=\"width:400px; height:326px;\" 
-		  id=\"VideoPlayback\" type=\"application/x-shockwave-flash\" 
-		  src=\"http://video.google.com/googleplayer.swf?docId=$videoId&#38;hl=en\" 
-		  flashvars=\"playerMode=embedded\"> </embed>";
+        $ret = "<embed style=\"width:400px; height:326px;\" 
+          id=\"VideoPlayback\" type=\"application/x-shockwave-flash\" 
+          src=\"http://video.google.com/googleplayer.swf?docId=$videoId&#38;hl=en\" 
+          flashvars=\"playerMode=embedded\"> </embed>";
 
-	return $ret;   
+    return $ret;   
     }
 
     /**
@@ -165,16 +165,16 @@ class parse4googlevid extends object
     */
     private function isGoogleVideo($link)
     {
-    	$link=strtolower($link);
-    	if (strstr($link,"http://") && strstr($link, "docid=")) {
-    		return TRUE;
-    	} else {
-   			$objLanguage = $this->getObject('language', 'language');
-    		$this->errorMessage = "[GVID] <span class=\"error\">" 
-    	  	  . $objLanguage->languageText("mod_filters_error_notgvid", "filters")
-    	  	  . "</span> [/GVID]";
-    		return FALSE;
-    	}
+        $link=strtolower($link);
+        if (strstr($link,"http://") && strstr($link, "docid=")) {
+            return TRUE;
+        } else {
+               $objLanguage = $this->getObject('language', 'language');
+            $this->errorMessage = "[GVID] <span class=\"error\">" 
+                . $objLanguage->languageText("mod_filters_error_notgvid", "filters")
+                . "</span> [/GVID]";
+            return FALSE;
+        }
  
     }
 }    

@@ -93,12 +93,12 @@ class parse4myspacevideo extends object
         //Get the ones that are straight URL links
         $counter = 0;
         foreach ($results2[0] as $item) {
-        	$link = $results2[1][$counter];
+            $link = $results2[1][$counter];
             $videoId = $this->getVideoCode($link);
             $replacement = $this->getVideoObject($videoId);
             $str = str_replace($item, $replacement, $str);
             $counter++;
-    	}
+        }
         
         return $str;
     }
@@ -131,11 +131,11 @@ class parse4myspacevideo extends object
      */
     private function getVideoObject($videoId)
     {
-		$vid = "<embed src=\"http://lads.myspace.com/videos/vplayer.swf\" flashvars=\"m="
-		  . $videoId . "&amp;type=video\" type=\"application/x-shockwave-flash\""
-		  . " width=\"430\" height=\"346\"></embed>";
+        $vid = "<embed src=\"http://lads.myspace.com/videos/vplayer.swf\" flashvars=\"m="
+          . $videoId . "&amp;type=video\" type=\"application/x-shockwave-flash\""
+          . " width=\"430\" height=\"346\"></embed>";
 
-		return $vid;
+        return $vid;
     }
     
 }

@@ -265,7 +265,7 @@ width="59" height="32" name="playerid" codebase="core_modules/files/resources/ti
      */
     public function parse($str)
     {
-    	return $this->parseAll($str);
+        return $this->parseAll($str);
     }
 } # end of class
 

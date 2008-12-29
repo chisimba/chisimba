@@ -79,7 +79,7 @@ class parse4tags extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	$replacement = $this->getTagJs($results[1][$counter]);
+            $replacement = $this->getTagJs($results[1][$counter]);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -97,9 +97,9 @@ class parse4tags extends object
      */
     function getTagJs($deliciousUser)
     {
-    	$ret = "<script type=\"text/javascript\"" 
-		  . "src=\"http://del.icio.us/feeds/js/tags/$deliciousUser?icon;size=12-35;"
-		  . "color=87ceeb-0000ff;title=my%20del.icio.us%20tags;name;showadd\"></script>";
+        $ret = "<script type=\"text/javascript\"" 
+          . "src=\"http://del.icio.us/feeds/js/tags/$deliciousUser?icon;size=12-35;"
+          . "color=87ceeb-0000ff;title=my%20del.icio.us%20tags;name;showadd\"></script>";
 
         return $ret;
     }

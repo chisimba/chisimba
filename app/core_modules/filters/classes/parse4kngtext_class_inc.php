@@ -97,8 +97,8 @@ class parse4kngtext extends object
      */
     public function parse($txt)
     {
-    	//class deprecated so no return, just here for the interface
-    	return $txt;
+        //class deprecated so no return, just here for the interface
+        return $txt;
     }
 
 

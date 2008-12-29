@@ -87,7 +87,7 @@ class parse4modpopularity extends object
     */
     public function parse($txt)
     {
-    	//Instantiate the modules class to check if youtube is registered
+        //Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         
         //Match filters based on a wordpress style
@@ -98,22 +98,22 @@ class parse4modpopularity extends object
         $objPopClient = $this->newObject('poprpcclient', 'api');
         foreach ($results[0] as $item)
         {
-           	$str = $results[1][$counter];
-           	$ar= $this->objExpar->getArrayParams($str, ",");
-           	if (isset($this->objExpar->type)) {
-               	$type = $this->objExpar->type;
-           	} else {
-               	$type = "full";
-           	}
-           	$data = $objPopClient->fullGraph();
-           	// OK now bang up the flash graph
-           	$objFlashGraph = $this->getObject('flashgraph', 'utilities');
- 			$objFlashGraph->dataSource = $this->uri(array('action' => 'getremotedatafull'), 'remotepopularity');
- 			$graph = $objFlashGraph->show();
-           	
-           	$replacement = $graph;
-           	$txt = str_replace($item, $replacement, $txt);
-           	$counter++;
+               $str = $results[1][$counter];
+               $ar= $this->objExpar->getArrayParams($str, ",");
+               if (isset($this->objExpar->type)) {
+                   $type = $this->objExpar->type;
+               } else {
+                   $type = "full";
+               }
+               $data = $objPopClient->fullGraph();
+               // OK now bang up the flash graph
+               $objFlashGraph = $this->getObject('flashgraph', 'utilities');
+             $objFlashGraph->dataSource = $this->uri(array('action' => 'getremotedatafull'), 'remotepopularity');
+             $graph = $objFlashGraph->show();
+               
+               $replacement = $graph;
+               $txt = str_replace($item, $replacement, $txt);
+               $counter++;
         }
        
        return $txt;

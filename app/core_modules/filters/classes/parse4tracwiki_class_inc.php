@@ -84,7 +84,7 @@ class parse4tracwiki extends object
     */
     public function parse($txt)
     {
-    	//Instantiate the modules class to check if youtube is registered
+        //Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         
         //Match filters based on a wordpress style
@@ -95,17 +95,17 @@ class parse4tracwiki extends object
         $objTracClient = $this->newObject('tracrpcclient', 'api');
         foreach ($results[0] as $item)
         {
-           	$str = $results[1][$counter];
-           	$ar= $this->objExpar->getArrayParams($str, ",");
-           	if (isset($this->objExpar->page)) {
-               	$page = $this->objExpar->page;
-           	} else {
-               	$page="WikiStart";
-           	}
-           	$page = $objTracClient->grabTracWikiPageHTML($page);
-           	$replacement = $page;
-           	$txt = str_replace($item, $replacement, $txt);
-           	$counter++;
+               $str = $results[1][$counter];
+               $ar= $this->objExpar->getArrayParams($str, ",");
+               if (isset($this->objExpar->page)) {
+                   $page = $this->objExpar->page;
+               } else {
+                   $page="WikiStart";
+               }
+               $page = $objTracClient->grabTracWikiPageHTML($page);
+               $replacement = $page;
+               $txt = str_replace($item, $replacement, $txt);
+               $counter++;
         }
        
        return $txt;

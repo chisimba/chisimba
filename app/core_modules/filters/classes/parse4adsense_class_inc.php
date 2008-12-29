@@ -121,7 +121,7 @@ class parse4adsense extends object
     */
     public function parse($txt)
     {
-    	// Instantiate the modules class to check if youtube is registered
+        // Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
         // See if the webpresent API module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('googleadsense', 'gootleadsense');
@@ -132,12 +132,12 @@ class parse4adsense extends object
         // Get an instance of the config object
         $objConfig = $this->getObject('dbsysconfig', 'sysconfig');
         $allowPersonalAds = $objConfig->getValue('GOOGLEADSENSE_PERSONAL_ENABLED', 'googleadsense');
-    	// Match filters based on a wordpress style
-    	preg_match_all('/\\[ADSENSE:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-    	// Get all the ones in links
-    	$counter = 0;
+        // Match filters based on a wordpress style
+        preg_match_all('/\\[ADSENSE:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        // Get all the ones in links
+        $counter = 0;
         // Loop over the results and extract each ad call
-    	foreach ($results[0] as $item) {
+        foreach ($results[0] as $item) {
             if ($isRegistered) {
                 if ($allowPersonalAds == "TRUE") {
                     $this->item=$item;
@@ -169,9 +169,9 @@ class parse4adsense extends object
                   . $this->objLanguage->languageText('mod_filters_adsensenotinstalled', 'filters')
                   . "</span>";
             }
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
-    	}
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
+        }
 
         return $txt;
     }

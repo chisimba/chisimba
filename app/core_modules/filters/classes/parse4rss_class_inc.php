@@ -218,6 +218,6 @@ class parse4rss extends object
     public function cleanUrl($url) 
     {
        return str_replace("&amp;", "&", $url);
-    }	
+    }    
 }
 ?>

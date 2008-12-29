@@ -78,13 +78,13 @@ class parse4simplemap extends object
     */
     public function parse($str)
     {
-    	//Instantiate the modules class to check if simplemap is registered
-    	$objModule = $this->getObject('modules','modulecatalogue');
-    	//See if the simple map module is registered and set a param
-    	$isRegistered = $objModule->checkIfRegistered('simplemap');
-    	if ($isRegistered){
-	    	//Instantiate the simplemap parser
-	    	$objSMParser = $this->getObject('smapparser', 'simplemap');
+        //Instantiate the modules class to check if simplemap is registered
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the simple map module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('simplemap');
+        if ($isRegistered){
+            //Instantiate the simplemap parser
+            $objSMParser = $this->getObject('smapparser', 'simplemap');
             
             //Extract the URL
             preg_match_all('/\\[SIMPLEMAP]<a.*?href="(?P<simplemaplink>.*?)".*?>.*?<\/a>\\[\/SIMPLEMAP]/', $str, $results, PREG_PATTERN_ORDER);

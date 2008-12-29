@@ -79,21 +79,21 @@ class parse4iframe extends object
         foreach ($results[0] as $item)
         {
             $extracted = $results[1][$counter];
-        	if (strstr($extracted, "|")) {
-	        	$arParams = explode("|", $extracted);
-	        	$url = $arParams['0'];
-	        	$width = $arParams['1'];
-	        	if (count($arParams) >= 2) {
-        			$height = $arParams['2'];
-	        	} else {
-	        		$height = "500";
-	        	}
-        	} else {
-        		$url = $results[1][$counter];
-        		$height = "450";
-        		$width = "800";
-        	}
-        	$replacement = $this-> getIframe($url, $width, $height);
+            if (strstr($extracted, "|")) {
+                $arParams = explode("|", $extracted);
+                $url = $arParams['0'];
+                $width = $arParams['1'];
+                if (count($arParams) >= 2) {
+                    $height = $arParams['2'];
+                } else {
+                    $height = "500";
+                }
+            } else {
+                $url = $results[1][$counter];
+                $height = "450";
+                $width = "800";
+            }
+            $replacement = $this-> getIframe($url, $width, $height);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -112,7 +112,7 @@ class parse4iframe extends object
     */
     public function getIframe($url, $width, $height)
     {
-    	return "<iframe src=\"$url\" width=\"$width\" height=\"$height\"></iframe>"; 
+        return "<iframe src=\"$url\" width=\"$width\" height=\"$height\"></iframe>"; 
     }
 
 }

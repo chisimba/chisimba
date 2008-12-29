@@ -167,7 +167,7 @@ class parse4smileys extends object {
      */
     public function parse($str)
     {
-    	return $this->parseSmiley($str);
+        return $this->parseSmiley($str);
     }
        
 } # end of class

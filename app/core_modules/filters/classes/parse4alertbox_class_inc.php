@@ -115,21 +115,21 @@ class parse4alertbox extends object
     */
     public function parse($txt)
     {
-       	//Match filters based on a wordpress style
+           //Match filters based on a wordpress style
         //Note the ? in the regex is important to enable the multiline
         //   feature, else it greedy
         preg_match_all('/(\\[ALERT:)(.*?)\\](.*?)(\\[\\/ALERT\\])/iusm', $txt, $results);
-       	$counter = 0;
-       	foreach ($results[3] as $item) {
+           $counter = 0;
+           foreach ($results[3] as $item) {
             //Parse for the parameters
             $str = trim($results[2][$counter]);
             //The whole match must be replaced
             $replaceable = $results[0][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             $replacement = $this->getAlert($this->url, $item);
-        	$txt = str_replace($replaceable, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($replaceable, $replacement, $txt);
+            $counter++;
         }
 
         return $txt;
@@ -157,7 +157,7 @@ class parse4alertbox extends object
         if (isset($url) && $url !== NULL) {
             return $this->objAlert->show($item, $url);
         } else {
-        	return "<span class=\"error\">"
+            return "<span class=\"error\">"
               . $this->objLanguage->languageText("mod_filters_error_alert_nourl", "filters")
               . "</span>";
         }

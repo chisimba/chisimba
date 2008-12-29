@@ -134,28 +134,28 @@ class parse4twitter extends object
         $objModule = $this->getObject('modules','modulecatalogue');
         //See if the youtube API module is registered and set a param
         $isRegistered = $objModule->checkIfRegistered('twitter', 'twitter');
-       	//Match filters based on a wordpress style
-       	preg_match_all('/\\[TWITTER:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+           //Match filters based on a wordpress style
+           preg_match_all('/\\[TWITTER:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
         if($isRegistered) {
             // Create an instance of the twitterremote class
             $this->objTwitterRemote = & $this->getObject('twitterremote', 'twitter');
         }
-       	//Get all the ones in links
-       	$counter = 0;
-       	foreach ($results[0] as $item) {
+           //Get all the ones in links
+           $counter = 0;
+           foreach ($results[0] as $item) {
             $this->item=$item;
-        	$str = $results[1][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             if($isRegistered) {
-            	$replacement = $this->getTweets();
+                $replacement = $this->getTweets();
             } else {
-            	$replacement = $item . "<br /><span class=\"error\">" 
+                $replacement = $item . "<br /><span class=\"error\">" 
                   . $this->objLanguage->languageText("mod_filters_twitternotinstalled", "filters")
                   . "</span>";
             }
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
         }
 
         return $txt;
@@ -196,21 +196,21 @@ class parse4twitter extends object
         }
     }
 
-	/**
-	 * 
-	 * Method to retrieve the status from Twitter based on the
-	 * settings in the filter
-	 * @access private
-	 * @return String The formatted twitter status
-	 * 
-	 */
+    /**
+     * 
+     * Method to retrieve the status from Twitter based on the
+     * settings in the filter
+     * @access private
+     * @return String The formatted twitter status
+     * 
+     */
     private function getTweets()
-    {    	
+    {        
         $this->objTwitterRemote->initializeConnection($this->username, $this->password);
         if (strtoupper($this->showimage) == "TRUE") {
             $showImage=TRUE;
         } else {
-        	$showImage=FALSE;
+            $showImage=FALSE;
         }
         switch ($this->type) {
             case null:

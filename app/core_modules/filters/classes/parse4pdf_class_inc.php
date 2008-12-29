@@ -77,26 +77,26 @@ class parse4pdf extends object
     */
     public function parse($str)
     {
-    	$str = stripslashes($str);
+        $str = stripslashes($str);
         preg_match_all('/\\[PDF](.*?)\\[\/PDF]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {
             $extracted = $results[1][$counter];
-        	if (strstr($extracted, "|")) {
-        		$arParams = explode("|", $results[1][$counter]);
-        		$repl = $arParams['0'];
-        		$width = isset($arParams['1']) ? $arParams['1'] : '100%';
-        	    $height = isset($arParams['2']) ? $arParams['2'] : '500';
-        	} else {
-        		$height = "500";
-        		$width = "100%";
-        		$repl = $results[1][$counter];
-        	}
-    		$replacement = "<EMBED src=\"" . $repl . "\" href=\"" 
-    		  . $repl ."\" width=\"$width\" height=\"$height\"></EMBED>";
-   	   		$str = str_replace($item, $replacement, $str);
-       		$counter++;
+            if (strstr($extracted, "|")) {
+                $arParams = explode("|", $results[1][$counter]);
+                $repl = $arParams['0'];
+                $width = isset($arParams['1']) ? $arParams['1'] : '100%';
+                $height = isset($arParams['2']) ? $arParams['2'] : '500';
+            } else {
+                $height = "500";
+                $width = "100%";
+                $repl = $results[1][$counter];
+            }
+            $replacement = "<EMBED src=\"" . $repl . "\" href=\"" 
+              . $repl ."\" width=\"$width\" height=\"$height\"></EMBED>";
+                  $str = str_replace($item, $replacement, $str);
+               $counter++;
         }
         return $str;
     }

@@ -80,7 +80,7 @@ class parse4searchrss extends object
             $counter = 0;
             foreach ($results[0] as $item)
             {
-            	$replacement = $this->getFeed($results[1][$counter]);
+                $replacement = $this->getFeed($results[1][$counter]);
                 $str = str_replace($item, $replacement, $str);
                 $counter++;
             }

@@ -143,7 +143,7 @@ class parse4googledoc extends object
     */
     public function getDoc($item)
     {
-    	return "<iframe src=\"$item\" width=\"$this->width\" frameborder=\"0\" height=\"$this->height\"></iframe>$this->caption";
+        return "<iframe src=\"$item\" width=\"$this->width\" frameborder=\"0\" height=\"$this->height\"></iframe>$this->caption";
     }
 
 }

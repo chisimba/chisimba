@@ -81,27 +81,27 @@ class parse4chiki extends object
     */
     public function parse($str)
     {
-    	$str = stripslashes($str);
+        $str = stripslashes($str);
         preg_match_all('/\\{\\{(.*?)\\}\\}/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {
             $extracted = $results[1][$counter];
-        	/*if (strstr($extracted, "|")) {
-        		$arParams = explode("|", $results[1][$counter]);
-        		$repl = $arParams['0'];
-        		$width = isset($arParams['1']) ? $arParams['1'] : '100%';
-        	    $height = isset($arParams['2']) ? $arParams['2'] : '500';
-        	} else {
-        		$height = "500";
-        		$width = "100%";
-        		$repl = $results[1][$counter];
-        	}*/
+            /*if (strstr($extracted, "|")) {
+                $arParams = explode("|", $results[1][$counter]);
+                $repl = $arParams['0'];
+                $width = isset($arParams['1']) ? $arParams['1'] : '100%';
+                $height = isset($arParams['2']) ? $arParams['2'] : '500';
+            } else {
+                $height = "500";
+                $width = "100%";
+                $repl = $results[1][$counter];
+            }*/
             $chikiStr =strtolower($results[1][$counter]);
             $chikiStr = $this->executeChikiCmd($chikiStr);
-    		$replacement = $chikiStr;
+            $replacement = $chikiStr;
             $str = str_replace($item, $replacement, $str);
-       		$counter++;
+               $counter++;
         }
         return $str;
     }

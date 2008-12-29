@@ -100,20 +100,20 @@ class parse4mind42 extends object
     */
     public function parse($txt)
     {
-    	//Instantiate the modules class to check if youtube is registered
+        //Instantiate the modules class to check if youtube is registered
         $objModule = $this->getObject('modules','modulecatalogue');
-    	//Match filters based on a wordpress style
-    	preg_match_all('/\\[MIND42:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
-    	//Get all the ones in links
-    	$counter = 0;
-    	foreach ($results[0] as $item) {
+        //Match filters based on a wordpress style
+        preg_match_all('/\\[MIND42:(.*?)\\]/', $txt, $results, PREG_PATTERN_ORDER);
+        //Get all the ones in links
+        $counter = 0;
+        foreach ($results[0] as $item) {
             $this->item=$item;
-        	$str = $results[1][$counter];
-        	$ar= $this->objExpar->getArrayParams($str, ",");
+            $str = $results[1][$counter];
+            $ar= $this->objExpar->getArrayParams($str, ",");
             $this->setupPage();
             $replacement = $this->showMap();
-        	$txt = str_replace($item, $replacement, $txt);
-        	$counter++;
+            $txt = str_replace($item, $replacement, $txt);
+            $counter++;
             //Clear the set params
             unset($this->id);
             unset($this->objExpar->id);
@@ -121,7 +121,7 @@ class parse4mind42 extends object
             unset($this->objExpar->width);
             unset($this->height);
             unset($this->objExpar->height);
-    	}
+        }
         return $txt;
     }
 

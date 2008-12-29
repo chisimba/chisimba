@@ -64,7 +64,7 @@ class parse4pdata extends object
      */
     public function init()
     {
-		$this->objUser = $this->getObject("user", "security");
+        $this->objUser = $this->getObject("user", "security");
     }
     
     /**
@@ -82,8 +82,8 @@ class parse4pdata extends object
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	$dataItem = $results[1][$counter];
-        	$replacement = $this->getReplacement($dataItem);
+            $dataItem = $results[1][$counter];
+            $replacement = $this->getReplacement($dataItem);
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }
@@ -102,12 +102,12 @@ class parse4pdata extends object
      */
     private function getReplacement($dataItem)
     {
-    	$dataMethod = strtolower($dataItem);
-    	if (method_exists($this, $dataMethod)) {
-    		return $this->$dataMethod();
-    	} else {
-    	    return "No corresponding method for: }}}$dataItem{{{";
-    	}
+        $dataMethod = strtolower($dataItem);
+        if (method_exists($this, $dataMethod)) {
+            return $this->$dataMethod();
+        } else {
+            return "No corresponding method for: }}}$dataItem{{{";
+        }
     }
     
     /**
@@ -117,10 +117,10 @@ class parse4pdata extends object
     */
     private function firstname()
     {
-    	$ret = $this->objUser->getFirstName($this->objUser->userId());
-    	if ($ret == "") {
-    	    $ret = "Guest";
-    	}
+        $ret = $this->objUser->getFirstName($this->objUser->userId());
+        if ($ret == "") {
+            $ret = "Guest";
+        }
 
         return $ret;
     }
@@ -132,10 +132,10 @@ class parse4pdata extends object
     */
     private function fullname()
     {
-    	$ret = $this->objUser->getFirstName($this->objUser->userId()) . " " . $this->objUser->getSurname($this->objUser->userId());
-    	if ($ret == " ") {
-    	    $ret = "Guest";
-    	}
+        $ret = $this->objUser->getFirstName($this->objUser->userId()) . " " . $this->objUser->getSurname($this->objUser->userId());
+        if ($ret == " ") {
+            $ret = "Guest";
+        }
 
         return $ret;
     }
@@ -147,10 +147,10 @@ class parse4pdata extends object
     */
     private function surname()
     {
-    	$ret = $this->objUser->getSurname($this->objUser->userId());
-    	if ($ret == "") {
-    	    $ret = "Guest";
-    	}
+        $ret = $this->objUser->getSurname($this->objUser->userId());
+        if ($ret == "") {
+            $ret = "Guest";
+        }
 
         return $ret;
     }
@@ -172,7 +172,7 @@ class parse4pdata extends object
     */
     private function title()
     {
-    	$pkId = $this->objUser->PKId($this->objUser->userId());
+        $pkId = $this->objUser->PKId($this->objUser->userId());
 
         return $this->objUser->getItemFromPkId($pkId, "title");
     }

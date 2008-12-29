@@ -75,27 +75,27 @@ class parse4timelinelocal extends object
     */
     public function parse($str)
     {
-    	//Instantiate the modules class to check if simplemap is registered
-    	$objModule = $this->getObject('modules','modulecatalogue');
-    	//See if the simple map module is registered and set a param
-    	$isRegistered = $objModule->checkIfRegistered('timeline', 'timeline');
-    	if ($isRegistered){
-	    	//Instantiate the timeline parser
-	    	$objTlParser = $this->getObject('timelineparser', 'timeline');
-    	}
-    	$str = stripslashes($str);
+        //Instantiate the modules class to check if simplemap is registered
+        $objModule = $this->getObject('modules','modulecatalogue');
+        //See if the simple map module is registered and set a param
+        $isRegistered = $objModule->checkIfRegistered('timeline', 'timeline');
+        if ($isRegistered){
+            //Instantiate the timeline parser
+            $objTlParser = $this->getObject('timelineparser', 'timeline');
+        }
+        $str = stripslashes($str);
         preg_match_all('/\\[TIMELINE_LOCAL](.*?)\\[\/TIMELINE_LOCAL]/', $str, $results, PREG_PATTERN_ORDER);
         $counter = 0;
         foreach ($results[0] as $item)
         {
-        	if ($isRegistered) {
-            	$replacement = $objTlParser->getLocal($results[1][$counter]);
-        	} else {
-    			$objLanguage = $this->getObject('language', 'language');
-    	    	$replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
-    	      	  . $objLanguage->languageText("mod_filters_error_timelinenotinst", "filters")
-    	      	  . "</h3></div>";
-        	}
+            if ($isRegistered) {
+                $replacement = $objTlParser->getLocal($results[1][$counter]);
+            } else {
+                $objLanguage = $this->getObject('language', 'language');
+                $replacement = $results[1][$counter] . "<br /><div class=\"error\"><h3>" 
+                    . $objLanguage->languageText("mod_filters_error_timelinenotinst", "filters")
+                    . "</h3></div>";
+            }
             $str = str_replace($item, $replacement, $str);
             $counter++;
         }

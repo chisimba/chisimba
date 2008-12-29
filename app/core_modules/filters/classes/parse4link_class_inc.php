@@ -38,12 +38,12 @@
 */
 class parse4link extends object
 {
-	/**
-	*
-	* String to hold an error message
-	* @accesss private
-	*/
-	private $errorMessage;
+    /**
+    *
+    * String to hold an error message
+    * @accesss private
+    */
+    private $errorMessage;
 
     /**
      * Short description for function
@@ -76,9 +76,9 @@ class parse4link extends object
             $link = trim($results2[1][$counter]);
             //Check if it is a valid link, if not return an error message
             if ($this->_isUrl($link)) {
-            	$replacement = $this->_makeActive($link);
+                $replacement = $this->_makeActive($link);
             } else {
-            	$replacement = $this->errorMessage;
+                $replacement = $this->errorMessage;
             }
             $str = str_replace($item, $replacement, $str);
             $counter++;
