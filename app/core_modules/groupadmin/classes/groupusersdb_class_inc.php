@@ -371,9 +371,9 @@ class groupusersdb extends dbTable
     public function getUserRoles($userId)
     {
         $sql = "WHERE user_id = '".$userId."' ";
-	       $arr = $this->getAll($sql);
-	       
-	       return  $arr;
+           $arr = $this->getAll($sql);
+           
+           return  $arr;
     }
 }
 ?>

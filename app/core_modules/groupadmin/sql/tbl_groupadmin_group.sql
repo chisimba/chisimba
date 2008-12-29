@@ -7,29 +7,29 @@ $options = array('comment' => 'The tbl_groupadmin_groups table is managed by the
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'parent_id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'parent_id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
     'name' => array(
-		'type' => 'text',
-		'length' => 32
-		),
+        'type' => 'text',
+        'length' => 32
+        ),
     'description' => array(
-		'type' => 'text',
-		'length' => 100
-		),
+        'type' => 'text',
+        'length' => 100
+        ),
     'last_updated' => array(
-		'type' => 'date'
-		),
+        'type' => 'date'
+        ),
     'last_updated_by' => array(
-		'type' => 'text',
-		'length' => 32
-		)
+        'type' => 'text',
+        'length' => 32
+        )
     );
 
 //create other indexes here...
@@ -38,7 +38,7 @@ $name = 'ind_groups_FK';
 
 $indexes = array(
                 'fields' => array(
-                	'parent_id' => array()
+                    'parent_id' => array()
                 )
         );
 ?>

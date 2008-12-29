@@ -244,7 +244,7 @@ class groupadmin extends controller {
         // Get icon info.
         $imageFolder = $objTree->_treeIcons;
         $arrFolders = $objTree->_arrTreeIcons;
-		
+        
         $arrFolders['empty']['meaning'] = $lblWhite;
         $arrFolders['context']['meaning'] = $lblGreen;
         $arrFolders['members']['meaning'] = $lblOrange;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <default_data>
-	<tbl_groupadmin_groupuser>
+    <tbl_groupadmin_groupuser>
         <id>init_1</id>
         <group_id>init_1</group_id>
         <user_id>init_1</user_id>

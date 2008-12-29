@@ -117,12 +117,12 @@ class groupadmin_members extends object {
     */
     private function _sortedTable( $list, $table = 't' ) {
 
-    	$myTable =  $this->newObject('htmltable', 'htmlelements');
-    	$myTable->width='60%';
+        $myTable =  $this->newObject('htmltable', 'htmlelements');
+        $myTable->width='60%';
         $myTable->border='0';
         $myTable->cellspacing='1';
         $myTable->cellpadding='10';
-    	//JS initialization started
+        //JS initialization started
         $lsbList = '<script language="javascript" type="text/javascript">
            //<![CDATA[
                       ';
@@ -136,12 +136,12 @@ class groupadmin_members extends object {
             $lsbList.= "$table.AddColumn('.$hdr.','','','');";
             $myTable->addHeaderCell($hdr);
         }
- 		$myTable->endHeaderRow();
- 		
+         $myTable->endHeaderRow();
+         
         // Construct the table rows
         $rowcount = 0;
         foreach( $list as $item) {
-        	$oddOrEven = ($rowcount == 0) ? "even" : "odd";
+            $oddOrEven = ($rowcount == 0) ? "even" : "odd";
             // Row data added
             $firstName = '"'.$item["firstname"].'"';
             $surname   = '"'.$item["surname"].'"';
@@ -151,11 +151,11 @@ class groupadmin_members extends object {
             
             //$lsbList.= "$table.AddLineProperties('class=\"$oddeven\"');";
             $myTable->startRow();
-	        $myTable->addCell($item["firstname"],null,null,null,$oddOrEven);
-	        $myTable->addCell($item["surname"],null,null,null,$oddOrEven);
-	        $myTable->endRow();
-	        
-	        $rowcount = ($rowcount == 0) ? 1 : 0;
+            $myTable->addCell($item["firstname"],null,null,null,$oddOrEven);
+            $myTable->addCell($item["surname"],null,null,null,$oddOrEven);
+            $myTable->endRow();
+            
+            $rowcount = ($rowcount == 0) ? 1 : 0;
         }
 
         $lsbList.= '
@@ -187,9 +187,9 @@ class groupadmin_members extends object {
         //return $lsbList;
         return $myTable->show();
         
-    	//$featureBox = & $this->newObject('featurebox', 'navigation');
-    	
-    	return 'SORT TABLE DOES  NOT WORK IN CHISIMBA';
+        //$featureBox = & $this->newObject('featurebox', 'navigation');
+        
+        return 'SORT TABLE DOES  NOT WORK IN CHISIMBA';
     }
 
     /**
