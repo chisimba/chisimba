@@ -115,22 +115,22 @@ abstract class abhtmlbase extends object
     */
     public $extra;
 
-	/**
-	* Constructor
-	*/
-	public function __construct($name)
-	{
-		//set the name of the element
-		$this->name=$name;
-	}
+    /**
+    * Constructor
+    */
+    public function __construct($name)
+    {
+        //set the name of the element
+        $this->name=$name;
+    }
 
   /**
   *  Function to set the value of an element
-  *	 @param $value the new value of the element
+  *     @param $value the new value of the element
   */
   public function setValue($value)
   {
-  	$this->value=$value;
+      $this->value=$value;
   }
 }
 

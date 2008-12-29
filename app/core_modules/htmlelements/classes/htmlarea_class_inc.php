@@ -195,14 +195,14 @@ class htmlarea extends object
 
         $sitePath = pathinfo($_SERVER['PHP_SELF']);
         $sBasePath = $sitePath['dirname'];
-		
+        
         $sBasePath = str_replace('\\', '/', $sBasePath);
         $sBasePath = preg_replace('/\/+/', '/', $sBasePath);
       
-		if (substr($sBasePath, -1, 1) != '/') {
-			$sBasePath .= '/';
-		}
-		
+        if (substr($sBasePath, -1, 1) != '/') {
+            $sBasePath .= '/';
+        }
+        
         if ($this->fckVersion == '2.5.1') {
             $sBasePath .= 'core_modules/htmlelements/resources/fckeditor_2.5.1/';
         } else {
@@ -212,7 +212,7 @@ class htmlarea extends object
         $oFCKeditor = new FCKeditor($this->name) ;
         $oFCKeditor->BasePath = $sBasePath ;
         $oFCKeditor->Width= $this->width ;
-		$oFCKeditor->Height=$this->height;
+        $oFCKeditor->Height=$this->height;
         $oFCKeditor->ToolbarSet=$this->toolbarSet;
         //$oFCKeditor->SiteRoot=$objConfig->getsiteRoot();
         
@@ -221,8 +221,8 @@ class htmlarea extends object
         
         
         if (substr($siteRootPath, -1, 1) != '/') {
-			$siteRootPath .= '/';
-		}
+            $siteRootPath .= '/';
+        }
         
         $oFCKeditor->SiteRoot = $siteRootPath;
         
@@ -307,11 +307,11 @@ class htmlarea extends object
     */
     function showTinyMCE()
     {      
-    	$str = '';
-    	$str =$this->getJavaScripts();
-    	$str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
-    	$str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
-    	return   $str;
+        $str = '';
+        $str =$this->getJavaScripts();
+        $str .='<form name="imgform"><input type="hidden" name="hiddentimg"/></form>';
+        $str .='<textarea id="'.$this->name.'" name="'.$this->name.'" rows="'.$this->rows.'" cols="'.$this->cols.'" style="width: 100%">'.$this->value.'</textarea>';
+        return   $str;
     }
     
     /**
@@ -361,51 +361,51 @@ class htmlarea extends object
     */
     public function getJavaScripts()
     {
-    	$str = '
-    			<script language="javascript" type="text/javascript" src="core_modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
-    			
-    			
-				<script language="javascript" type="text/javascript">
-				
-					tinyMCE.init({
-						mode : "textareas",
-						theme : "'.$this->toolbarSet.'",
-						plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable",
-						theme_advanced_buttons1_add_before : "save,newdocument,separator",
-						theme_advanced_buttons1_add : "fontselect,fontsizeselect",
-						theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,separator,forecolor,backcolor",
-						theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
-						theme_advanced_buttons3_add_before : "tablecontrols,separator",
-						theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
-						theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops",
-						theme_advanced_toolbar_location : "top",
-						theme_advanced_toolbar_align : "left",
-						theme_advanced_path_location : "bottom",
-						content_css : "example_full.css",
-					    plugin_insertdate_dateFormat : "%Y-%m-%d",
-					    plugin_insertdate_timeFormat : "%H:%M:%S",
-						extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-						external_link_list_url : "example_link_list.js",
-						external_image_list_url : "example_image_list.js",
-						flash_external_list_url : "example_flash_list.js",
-						file_browser_callback : "fileBrowserCallBack",
-						theme_advanced_resize_horizontal : false,
-						theme_advanced_resizing : true
-					});
-				
-					function fileBrowserCallBack(field_name, url, type, win) {
-						// This is where you insert your custom filebrowser logic
-						//alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
-						mywindow = window.open ("'.$this->uri(array('action' => 'showmedia'), 'mediamanager').'",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
-						
-						//alert(mywindow.document.forms[0].hideme.value);
-						// Insert new URL, this would normaly be done in a popup
-						win.document.forms[0].elements[hide'.$this->name.'].value = "'.$this->uri(array('action' => 'list'), 'mediamanager').'";
-					}
-				</script>
-					';
-    	$this->appendArrayVar('headerParams', $str);
-    	//return $str;
+        $str = '
+                <script language="javascript" type="text/javascript" src="core_modules/htmlelements/resources/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+                
+                
+                <script language="javascript" type="text/javascript">
+                
+                    tinyMCE.init({
+                        mode : "textareas",
+                        theme : "'.$this->toolbarSet.'",
+                        plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable",
+                        theme_advanced_buttons1_add_before : "save,newdocument,separator",
+                        theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+                        theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,separator,forecolor,backcolor",
+                        theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+                        theme_advanced_buttons3_add_before : "tablecontrols,separator",
+                        theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+                        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops",
+                        theme_advanced_toolbar_location : "top",
+                        theme_advanced_toolbar_align : "left",
+                        theme_advanced_path_location : "bottom",
+                        content_css : "example_full.css",
+                        plugin_insertdate_dateFormat : "%Y-%m-%d",
+                        plugin_insertdate_timeFormat : "%H:%M:%S",
+                        extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+                        external_link_list_url : "example_link_list.js",
+                        external_image_list_url : "example_image_list.js",
+                        flash_external_list_url : "example_flash_list.js",
+                        file_browser_callback : "fileBrowserCallBack",
+                        theme_advanced_resize_horizontal : false,
+                        theme_advanced_resizing : true
+                    });
+                
+                    function fileBrowserCallBack(field_name, url, type, win) {
+                        // This is where you insert your custom filebrowser logic
+                        //alert("Example of filebrowser callback: field_name: " + field_name + ", url: " + url + ", type: " + type);
+                        mywindow = window.open ("'.$this->uri(array('action' => 'showmedia'), 'mediamanager').'",  "imagewindow","location=1,status=1,scrollbars=0,  width=200,height=200");  mywindow.moveTo(0,0);
+                        
+                        //alert(mywindow.document.forms[0].hideme.value);
+                        // Insert new URL, this would normaly be done in a popup
+                        win.document.forms[0].elements[hide'.$this->name.'].value = "'.$this->uri(array('action' => 'list'), 'mediamanager').'";
+                    }
+                </script>
+                    ';
+        $this->appendArrayVar('headerParams', $str);
+        //return $str;
     }
  }
 

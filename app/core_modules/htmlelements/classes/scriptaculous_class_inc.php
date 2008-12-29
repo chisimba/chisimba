@@ -19,21 +19,21 @@ Public License
 class scriptaculous extends object
 {
         /**
-	* Constructor
-	*/
-	public function init()
+    * Constructor
+    */
+    public function init()
     { }
 
-	
-	/**
-	* Method to load the Scriptaculous JavaScript
-	*
-	* @param string $mimetype Mime Type of Page
+    
+    /**
+    * Method to load the Scriptaculous JavaScript
+    *
+    * @param string $mimetype Mime Type of Page
         * @return string Scriptaculous JavaScript
-	*/
-	public function show($mimetype)
-	{
-		$usingXHTML = ($mimetype == 'application/xhtml+xml') ? TRUE : FALSE;
+    */
+    public function show($mimetype)
+    {
+        $usingXHTML = ($mimetype == 'application/xhtml+xml') ? TRUE : FALSE;
         
         // Load Prototype
         //$returnStr = $this->getJavascriptFile('prototype/1.5.0_rc1/prototype.js','htmlelements')."\n";
@@ -65,7 +65,7 @@ class scriptaculous extends object
 //    echo $this->getJavascriptFile('scriptaculous/1.7.0/unittest.js','htmlelements')."\n";
         
         return $returnStr;
-	}
+    }
 
 }
 

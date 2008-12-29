@@ -13,7 +13,7 @@
 the following details were saved
 <br>
 <?php
-	echo $strSave;
-	echo '<br>'.$modes;
+    echo $strSave;
+    echo '<br>'.$modes;
 
 ?>

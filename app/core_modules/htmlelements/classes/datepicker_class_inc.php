@@ -128,7 +128,7 @@ class datepicker extends object
 
         $this->appendArrayVar('headerParams', $script);
 
-		$this->setVar('pageSuppressXML', TRUE);
+        $this->setVar('pageSuppressXML', TRUE);
 
         return "<script type=\"text/javascript\">
 //<![CDATA[

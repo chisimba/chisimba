@@ -86,13 +86,13 @@ class textinput extends abhtmlbase implements ifhtml
         if (!is_null($type)) {
             $this->fldType=$type;
         }
-		else {
-	        $this->fldType='text';
-		}
-   		if (!is_null($size)) {
-			$this->size = $size;
-		}
-     	$this->cssId = 'input_'.$name;
+        else {
+            $this->fldType='text';
+        }
+           if (!is_null($size)) {
+            $this->size = $size;
+        }
+         $this->cssId = 'input_'.$name;
     }
     /**
     * Set the name.
@@ -121,15 +121,15 @@ class textinput extends abhtmlbase implements ifhtml
         $this->cssClass = $css;
     }
     /*
-	* Method to set the value of the text box
-	* @param string $value
+    * Method to set the value of the text box
+    * @param string $value
     * @deprecated <----------------------------------------------------------
-	*/
+    */
 
-	/*
-	* Method to set the cssId class
-	* @param string $cssId
-	*/
+    /*
+    * Method to set the cssId class
+    * @param string $cssId
+    */
 
     /**
      * Short description for function

@@ -16,7 +16,7 @@
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
  * @version   $Id$
  * @link      http://avoir.uwc.ac.za
- * @see	      
+ * @see          
  * When designing HTML forms it's important to correlate a field's label with it's input, select or textarea element.
  * With this is mind, this page demos some javascript which enhances the UI of a form which uses correctly marked-up
  * inputs and
@@ -65,8 +65,8 @@ class highlightlabels extends object implements ifhtml
         // Define a style for the .checked style
         $this->css = '<style type="text/css" title="text/css">
 .checked {
-	background-color:yellow; border: 1px solid green;
-	padding: 3px;
+    background-color:yellow; border: 1px solid green;
+    padding: 3px;
 }
 </style>';
     }

@@ -89,19 +89,19 @@ class timeoutMessage extends object {
         // The default type of hide
         $this->typeHide = 'none';
         //hidden
-	}
+    }
 
     /*
-	* Method to set the message
-	* @param string
-	*/
+    * Method to set the message
+    * @param string
+    */
     public function setMessage( $message ) {
         $this->message = $message;
     }
 
     /*
-	 * Method to set the timeout.
-	 * @param integer unit in miliseconds.
+     * Method to set the timeout.
+     * @param integer unit in miliseconds.
      * @param  unknown $miliSec Parameter description (if any) ...
      * @return void   
      * @access public 
@@ -111,7 +111,7 @@ class timeoutMessage extends object {
     }
 
     /*
-	 * Method to set the hide type to Hidden.
+     * Method to set the hide type to Hidden.
      * @return void  
      * @access public
      */
@@ -120,7 +120,7 @@ class timeoutMessage extends object {
     }
 
     /*
-	 * Method to set the hide type to Hidden.
+     * Method to set the hide type to Hidden.
      * @return void  
      * @access public
     */
@@ -129,7 +129,7 @@ class timeoutMessage extends object {
     }
 
     /*
-	 * Private method to insert the java script function.
+     * Private method to insert the java script function.
      * @return string Return description (if any) ...
      * @access public
     */
@@ -156,22 +156,22 @@ class timeoutMessage extends object {
     }
 
     /*
-	 * Method to show jscript in header.
+     * Method to show jscript in header.
      * @return void  
      * @access public
      */
-	public function showJScript()
-	{
+    public function showJScript()
+    {
         $this->appendArrayVar('headerParams', $this->_jscript() );
     }
 
     /*
-	 * Method to show the message.
+     * Method to show the message.
      * @return string Return description (if any) ...
      * @access public
      */
-	public function show()
-	{
+    public function show()
+    {
         // Timeout script is Disable for invalid values
         if( $this->timeout > 0 ) {
             $this->showJScript();
@@ -179,7 +179,7 @@ class timeoutMessage extends object {
         $str = sprintf( "<%s id=\"%s\">", $this->htmlTag, $this->cssId );
         $str.= $this->message;
         $str.= "</$this->htmlTag>";
-		return $str;
-	}
+        return $str;
+    }
 }
 ?>

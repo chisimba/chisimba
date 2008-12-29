@@ -57,7 +57,7 @@ class calendar implements ifhtml {
      * @var    string $name
      * @access public
      */
-	public $name;
+    public $name;
 
     /**
      * variable used to store the css
@@ -66,7 +66,7 @@ class calendar implements ifhtml {
      * @var    string $css
      * @access public
      */
-	public $css;
+    public $css;
 
     /**
      * The initial value of the text
@@ -75,7 +75,7 @@ class calendar implements ifhtml {
      * @var    string $value
      * @access public
      */
-	public $value;
+    public $value;
 
     /**
      * The name of the calendar window
@@ -84,34 +84,34 @@ class calendar implements ifhtml {
      * @var    string $windowName
      * @access public
      */
-	public $windowName;
+    public $windowName;
 
     /**
      * Initialization method to set default values
-	 * @param string $name (optional) sets the name of the text input
-	 * @param string $value (optional) sets the default value of the input
+     * @param string $name (optional) sets the name of the text input
+     * @param string $value (optional) sets the default value of the input
      */
-	public function caledar($name=null,$value=null){
-		$this->name=$name;
-		$this->value=$value;
-		$this->css='textdisabled';
-	}
+    public function caledar($name=null,$value=null){
+        $this->name=$name;
+        $this->value=$value;
+        $this->css='textdisabled';
+    }
 
-	/**
-	* Method to set the css class
-	*
-	* @param string $css The desired css class
-	*/
-	public function setCss($css)
-	{
-		$this->css=$css;
-	}
+    /**
+    * Method to set the css class
+    *
+    * @param string $css The desired css class
+    */
+    public function setCss($css)
+    {
+        $this->css=$css;
+    }
 
-	/*function to set the date for calendar
-	* @param int $mth :the month
-	* @param int $day :the day
-	* @param int $year :the year
-	*/
+    /*function to set the date for calendar
+    * @param int $mth :the month
+    * @param int $day :the day
+    * @param int $year :the year
+    */
 
     /**
      * Function to set the date within the calendar popup
@@ -122,28 +122,28 @@ class calendar implements ifhtml {
      * @return void
      * @access public
      */
-	public function setDate($mth,$day,$year)
-	{
-		if(checkdate($mth,$day,$year))
-		{
-			$this->value=$mth.'/'.$day.'/'.$year;
-		}
-	}
+    public function setDate($mth,$day,$year)
+    {
+        if(checkdate($mth,$day,$year))
+        {
+            $this->value=$mth.'/'.$day.'/'.$year;
+        }
+    }
 
-	/**
-	* Method to render the textinput and popup window
-	*
-	* @return string The html of the textinput with onclick calendar popup
-	*/
-	public function show(){
-		$this->windowName = "win";
-		$str='<input type="text" value="'.$this->value.'" id="caltext"';
-		$str.=' name="'.$this->name.'"';
-		$str.=' class="'.$this->css.'"';
-		$str.=' />';
-		$str.="<a href=\"#\" onclick=\"window.open('core_modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"core_modules/htmlelements/resources/images/schedule_ico.gif\" /></a>";
-		return $str;
-	}
+    /**
+    * Method to render the textinput and popup window
+    *
+    * @return string The html of the textinput with onclick calendar popup
+    */
+    public function show(){
+        $this->windowName = "win";
+        $str='<input type="text" value="'.$this->value.'" id="caltext"';
+        $str.=' name="'.$this->name.'"';
+        $str.=' class="'.$this->css.'"';
+        $str.=' />';
+        $str.="<a href=\"#\" onclick=\"window.open('core_modules/htmlelements/classes/cal.php','win','width=350,height=200'); return false\"><img src=\"core_modules/htmlelements/resources/images/schedule_ico.gif\" /></a>";
+        return $str;
+    }
 
  }
 

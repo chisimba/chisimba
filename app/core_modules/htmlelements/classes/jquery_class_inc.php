@@ -132,7 +132,7 @@ class jquery extends object
 
     /**
      * Method to load the ddmenu plugin script files to the header
-	 * TODO: This menu conflicts with prototype, resolve the conflict
+     * TODO: This menu conflicts with prototype, resolve the conflict
      */
     public function loadDDMenuPlugin()
     {
@@ -156,7 +156,7 @@ class jquery extends object
 
     /**
      * Method to load the superfish menu plugin script files to the header
-	 * TODO: Add superfish php menu class to wrap it
+     * TODO: Add superfish php menu class to wrap it
      */
     public function loadSuperFishMenuPlugin($version = '1.4.8')
     {
@@ -192,7 +192,7 @@ class jquery extends object
 
     /**
      * Method to load the jQuery Core API UI Tabbing library
-	 * 
+     * 
      */
     public function loadUITabbing($version = '')
     {

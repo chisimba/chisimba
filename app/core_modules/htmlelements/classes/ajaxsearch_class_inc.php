@@ -79,36 +79,36 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     * @var object Holds an object.
     * @access private
     */
-	private $object;
+    private $object;
 
     /**
     * @var string The name of the element.
     * @access private
     */
-	//private $name;
+    //private $name;
 
     /**
     * @var string The parameters to be passed.
     * @access private
     */
-	private $params;
+    private $params;
 
-	/**
-	* @var string Callback class that will supply the data.
-	* @access private
-	*/
-	private $callback_class;
+    /**
+    * @var string Callback class that will supply the data.
+    * @access private
+    */
+    private $callback_class;
 
-	/**
-	* @var string Callback module.
-	* @access private
-	*/
-	private $callback_module;
+    /**
+    * @var string Callback module.
+    * @access private
+    */
+    private $callback_module;
 
-	/**
-	* @var string ID of submit button.
-	* @access private
-	*/
+    /**
+    * @var string ID of submit button.
+    * @access private
+    */
     private $submitButton;
 
     /**
@@ -120,8 +120,8 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     */
     public function ajaxsearch($name, $params, $callback_class, $callback_module, $submitButton=NULL)
     {
-	    global $_globalObjEngine;
-	    $this->object = new object($_globalObjEngine, 'htmlelements');
+        global $_globalObjEngine;
+        $this->object = new object($_globalObjEngine, 'htmlelements');
         $this->name = $name;
         $this->params = $params;
         $this->callback_class = $callback_class;
@@ -134,7 +134,7 @@ class ajaxsearch extends abhtmlbase implements ifhtml
     /**
     * Method to render the ajaxsearch as an HTML string
     *
-	* @return string Returns the html
+    * @return string Returns the html
     */
     public function show()
     {
@@ -146,83 +146,83 @@ class ajaxsearch extends abhtmlbase implements ifhtml
         $javascript_searchsuccess = isset($this->submitButton)?"
             $('input_{$this->submitButton}').disabled = '';
         ":"";
-		$Javascript = "
-			<script type=\"text/javascript\">
-			var firsttimefocus = true;
-			var ajaxoperated = false;
-			function activatesearch(e){
-			 	if (firsttimefocus) {
-			 		e.value = '';
-			 		firsttimefocus = false;
-			 	}
-			 	if (ajaxoperated) {
-			 		$('searchResultsDiv').innerHTML = '';
-			 		ajaxoperated = false;
-			 		{$javascript_activatesearch}
-			 	}
-			}
-			function dosearch(q)
-			{
-			    //$('indicatorSpan').style.display='inline';
-			    $('indicatorSpan').style.visibility='visible';
-			    new Ajax.Updater('searchResultsDiv', 'index.php', {parameters:'module=htmlelements&action=composelist&_search='+q+'&name={$this->name}&params='+encodeURI('{$this->params}')+'&callback_module={$this->callback_module}&callback_class={$this->callback_class}', onSuccess:searchsuccess, onComplete:searchcomplete});
-			}
-			function searchsuccess(req)
-			{
-			     {$javascript_searchsuccess}
-			}
-			function searchcomplete(req)
-			{
-			    //$('indicatorSpan').style.display='none';
-			    $('indicatorSpan').style.visibility='hidden';
-			    ajaxoperated = true;
-			}
-			/*
-			function verifysubmit()
-			{
-				 return ajaxoperated;
-			}
-			*/
-			</script>
-		";
+        $Javascript = "
+            <script type=\"text/javascript\">
+            var firsttimefocus = true;
+            var ajaxoperated = false;
+            function activatesearch(e){
+                 if (firsttimefocus) {
+                     e.value = '';
+                     firsttimefocus = false;
+                 }
+                 if (ajaxoperated) {
+                     $('searchResultsDiv').innerHTML = '';
+                     ajaxoperated = false;
+                     {$javascript_activatesearch}
+                 }
+            }
+            function dosearch(q)
+            {
+                //$('indicatorSpan').style.display='inline';
+                $('indicatorSpan').style.visibility='visible';
+                new Ajax.Updater('searchResultsDiv', 'index.php', {parameters:'module=htmlelements&action=composelist&_search='+q+'&name={$this->name}&params='+encodeURI('{$this->params}')+'&callback_module={$this->callback_module}&callback_class={$this->callback_class}', onSuccess:searchsuccess, onComplete:searchcomplete});
+            }
+            function searchsuccess(req)
+            {
+                 {$javascript_searchsuccess}
+            }
+            function searchcomplete(req)
+            {
+                //$('indicatorSpan').style.display='none';
+                $('indicatorSpan').style.visibility='hidden';
+                ajaxoperated = true;
+            }
+            /*
+            function verifysubmit()
+            {
+                 return ajaxoperated;
+            }
+            */
+            </script>
+        ";
 
-		$objInput = new textinput('_search','Type you search terms here','','100');
-		$objInput->extra = '';
-		$objInput->extra .= ' onfocus="javascript:activatesearch(this);"';
-		$Input = $objInput->show();
+        $objInput = new textinput('_search','Type you search terms here','','100');
+        $objInput->extra = '';
+        $objInput->extra .= ' onfocus="javascript:activatesearch(this);"';
+        $Input = $objInput->show();
 
-		$objIcon = $this->object->newObject('geticon','htmlelements');
-		$objIcon->setIcon('spinner');
-		$objIcon->alt = 'Working...';
-		$Spinner = $objIcon->show();
+        $objIcon = $this->object->newObject('geticon','htmlelements');
+        $objIcon->setIcon('spinner');
+        $objIcon->alt = 'Working...';
+        $Spinner = $objIcon->show();
 
-		//<img src="/images/spinner.gif" alt="Working..." />
-		$Indicator = '<span id="indicatorSpan" style="visibility: hidden;">'.$Spinner.'</span>';
+        //<img src="/images/spinner.gif" alt="Working..." />
+        $Indicator = '<span id="indicatorSpan" style="visibility: hidden;">'.$Spinner.'</span>';
 
-		$objLayer = new layer();
-		$objLayer->id = 'searchResultsDiv';
-		$Layer = $objLayer->show();
+        $objLayer = new layer();
+        $objLayer->id = 'searchResultsDiv';
+        $Layer = $objLayer->show();
 
-		$objButton = new button('_dosearch','Go',"javascript:dosearch($('input__search').value);");
-		$Search = $objButton->show();
+        $objButton = new button('_dosearch','Go',"javascript:dosearch($('input__search').value);");
+        $Search = $objButton->show();
 
-		$objFieldset = $this->object->newObject('fieldset','htmlelements');
-		$objFieldset->extra = 'class="tabbox"';
-		$objFieldset->setLegend('Search');
-		$objFieldset->addContent($Input.$Indicator.$Search.'<br />'.$Layer);
-		$Fieldset = $objFieldset->show();
+        $objFieldset = $this->object->newObject('fieldset','htmlelements');
+        $objFieldset->extra = 'class="tabbox"';
+        $objFieldset->setLegend('Search');
+        $objFieldset->addContent($Input.$Indicator.$Search.'<br />'.$Layer);
+        $Fieldset = $objFieldset->show();
 
-		$str = $Javascript.$Fieldset;
+        $str = $Javascript.$Fieldset;
 
         /*
         .isset($this->submitButton)?"
-			<script type=\"text/javascript\">
+            <script type=\"text/javascript\">
             $('input_{$this->submitButton}').disabled = 'disabled';
-			</script>
+            </script>
         ":"";
         */
 
-		return $str;
+        return $str;
     }
 }
 

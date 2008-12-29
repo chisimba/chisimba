@@ -39,9 +39,9 @@ class roundcorners extends object
      * Constructor
      *
      */
-	function init(){
+    function init(){
 
-	}
+    }
 
 
     /**
@@ -51,9 +51,9 @@ class roundcorners extends object
      * @return string Return box
      * @access public
      */
-	function show($content='')
+    function show($content='')
     {
-		if ($content != '') {
+        if ($content != '') {
             $this->content = $content;
         }
         
@@ -64,7 +64,7 @@ class roundcorners extends object
     })
     </script>");
          return '<div class="roundcorners">'.$this->content.'</div>';
-	}
+    }
 
 }
 ?>

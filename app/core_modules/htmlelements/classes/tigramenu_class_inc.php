@@ -322,10 +322,10 @@ class htmlTable extends object implements ifhtml
     public function startRow($class = NULL)
     {
         $this->content .= "<tr";
-		if (!is_null($class)) {
-		    $this->content .= " class=\"" . $class . "\"";
-		}
-		else if ($this->trClass) {
+        if (!is_null($class)) {
+            $this->content .= " class=\"" . $class . "\"";
+        }
+        else if ($this->trClass) {
             $this->content .= " class=\"" . $this->trClass . "\"";
         }
         if ($this->row_attributes) {
@@ -356,7 +356,7 @@ class htmlTable extends object implements ifhtml
         if ($width) {
             $this->content .= ' width="'.$width.'"';
         }
-	
+    
         if ($border) {
            $this->content .= ' border="'.$border.'"';
        }

@@ -9,7 +9,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // // Include the HTML base class
 
@@ -49,12 +49,12 @@ require_once('htmltable_class_inc.php');
 * @link      http://avoir.uwc.ac.za
 * @example  
 *            //Radio button Group
-*            	$objElement = new radio('sex_radio');
-*            	$objElement->addOption('m','Male');
-*            	$objElement->addOption('f','Female');
-*            	$objElement->addOption('n','Seaweed');
-*            	$objElement->setSelected('f');
-*            	echo $objElement->show().'<br>';
+*                $objElement = new radio('sex_radio');
+*                $objElement->addOption('m','Male');
+*                $objElement->addOption('f','Female');
+*                $objElement->addOption('n','Seaweed');
+*                $objElement->setSelected('f');
+*                echo $objElement->show().'<br>';
 */
 
 class radio extends abhtmlbase implements ifhtml
@@ -146,7 +146,7 @@ class radio extends abhtmlbase implements ifhtml
         if(isset($this->options[$value]))
         {
             $this->selected=$value;
-        }	
+        }    
     }
   
     /**

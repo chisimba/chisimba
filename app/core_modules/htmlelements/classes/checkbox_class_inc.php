@@ -88,11 +88,11 @@ class checkbox  extends abhtmlbase implements ifhtml
    * @param bool $ischecked whether or not the box is checkedd by default
    */
   public function checkbox($name,$label=NULL,$ischecked=false){
-  	$this->name=$name;
-	$this->ischecked=$ischecked;
-	$this->label=$label;
-	$this->cssClass='transparentbgnb';
-	$this->cssId = 'input_'.$name;
+      $this->name=$name;
+    $this->ischecked=$ischecked;
+    $this->label=$label;
+    $this->cssClass='transparentbgnb';
+    $this->cssId = 'input_'.$name;
   }
 
   /**
@@ -105,7 +105,7 @@ class checkbox  extends abhtmlbase implements ifhtml
    */
   public function setLabel($label)
   {
-  	$this->label=$label;
+      $this->label=$label;
   }
 
   /**
@@ -117,7 +117,7 @@ class checkbox  extends abhtmlbase implements ifhtml
   */
   public function setCSS($cssClass)
   {
-  	$this->cssClass=$cssClass;
+      $this->cssClass=$cssClass;
   }
 
   /**
@@ -141,20 +141,20 @@ class checkbox  extends abhtmlbase implements ifhtml
   */
   public function setChecked($isChecked)
   {
-  	$this->ischecked=$isChecked;
+      $this->ischecked=$isChecked;
   }
 
 
   /**
   * Function to set the value of a checkbox
   *
-  *	@param $value the new value of the checkbox
+  *    @param $value the new value of the checkbox
   * @return void
   * @access public
   */
   public function setValue($value)
   {
-  	$this->value=$value;
+      $this->value=$value;
   }
 
 
@@ -167,29 +167,29 @@ class checkbox  extends abhtmlbase implements ifhtml
   */
   public function show()
   {
-  	$str='<input type="checkbox"';
-	if($this->name){
-		$str.=' name="'.$this->name.'"';
-	}
-	if($this->cssClass){
-		$str.=' class="'.$this->cssClass.'"';
-	}
-	if ($this->cssId) {
+      $str='<input type="checkbox"';
+    if($this->name){
+        $str.=' name="'.$this->name.'"';
+    }
+    if($this->cssClass){
+        $str.=' class="'.$this->cssClass.'"';
+    }
+    if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
     }
-	if($this->ischecked){
-		$str.=' checked="checked" ';
-	}
-	if ($this->value) {
-	 	$str.= ' value="'.$this->value.'"';
-	}
-	if($this->extra){
-		$str.=' '.$this->extra;
-	}
-	$str.=' />';
-	//This position of the label will depend on the form's display type
-	//$str.=$this->label;
-	return $str;
+    if($this->ischecked){
+        $str.=' checked="checked" ';
+    }
+    if ($this->value) {
+         $str.= ' value="'.$this->value.'"';
+    }
+    if($this->extra){
+        $str.=' '.$this->extra;
+    }
+    $str.=' />';
+    //This position of the label will depend on the form's display type
+    //$str.=$this->label;
+    return $str;
   }
 }
 ?>

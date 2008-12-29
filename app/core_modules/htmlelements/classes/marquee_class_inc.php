@@ -74,84 +74,84 @@ class marquee extends object implements ifhtml
      * @var    string $align: Holds the alignment
      * @access public
      */
-	public $align;
+    public $align;
 
     /**
      * 
      * @var    string $direction: Hold the direction
      * @access public
      */
-	public $direction;
+    public $direction;
 
     /**
      * 
      * @var    string $height: Holds the height
      * @access public
      */
-	public $height;
+    public $height;
 
     /**
      * 
      * @var    string $scrollAmount: Holds the scroll amount
      * @access public
      */
-	public $scrollAmount;
+    public $scrollAmount;
 
     /**
      * 
      * @var    string $scrollDelay: Holds the scroll delay
      * @access public
      */
-	public $scrollDelay;
+    public $scrollDelay;
 
     /**
      * 
      * @var    string $onMouseOver: Holds where mouse is over
      * @access public
      */
-	public $onMouseOver;
+    public $onMouseOver;
 
     /**
      * 
      * @var    string $onMouseOut: Holds where mouse is out
      * @access public
      */
-	public $onMouseOut;
+    public $onMouseOut;
 
     /**
      * array variable to hold the elements of the marquee
      * @var    string $elements
      * @access public
      */
-	public $elements;
+    public $elements;
 
     /**
      * dbMarquee object class to use when adding content to the marquee
      * @var  object $objDbMarquee
      * @access public 
      */
-	public $objDbMarquee;
+    public $objDbMarquee;
 
     /**
      * user/administrator authentication
      * @var    boolean $isAdmin
      * @access public 
      */
-	public $isAdmin;
+    public $isAdmin;
 
     /**
      * link management
      * @var    object $objHref
      * @access public 
      */
-	public $objHref;
+    public $objHref;
 
     /**
      * icon object
      * @var object $objGetIcon
      * @access public 
      */
-	public $objGetIcon;
+    public $objGetIcon;
 
     /**
      * language object
@@ -159,7 +159,7 @@ class marquee extends object implements ifhtml
      *
      * @access public 
      */
-	public $objLanguage;
+    public $objLanguage;
 
 
     /**
@@ -167,45 +167,45 @@ class marquee extends object implements ifhtml
      * @var    integer $numElements
      * @access public 
      */
-	public $numElements;
+    public $numElements;
 
     /**
      * this class also requires the name of your module
      * @var    unknown $moduleName
      * @access public 
      */
-	public $moduleName;
-	
-	/**
-	* constructor to set default values
-	*/
-	public function init()
-	{
-		/**
-		* establish the necessary routines for identifying administrators
-		*/
+    public $moduleName;
+    
+    /**
+    * constructor to set default values
+    */
+    public function init()
+    {
+        /**
+        * establish the necessary routines for identifying administrators
+        */
         $this->objUser = $this->getObject('user', 'security');
         $this->isAdmin=$this->objUser->isAdmin();
-		$this->objHref= $this->getObject('href','htmlelements');
-		$this->objGetIcon = $this->getObject('geticon', 'htmlelements');	
-		$this->objLanguage =  $this->getObject('language', 'language'); 
-		/**
-		* defaulted to only 1
-		* for the firefox browser esp, this shall ensure
-		* no scrolling
-		*/
-		$this->numElements=1;
-	}	
-	
-	/**
-	* SET METHODS
-	*/
+        $this->objHref= $this->getObject('href','htmlelements');
+        $this->objGetIcon = $this->getObject('geticon', 'htmlelements');    
+        $this->objLanguage =  $this->getObject('language', 'language'); 
+        /**
+        * defaulted to only 1
+        * for the firefox browser esp, this shall ensure
+        * no scrolling
+        */
+        $this->numElements=1;
+    }    
+    
+    /**
+    * SET METHODS
+    */
 
-	public function setNumElements($numElements)
-	{
-		$this->numElements=$numElements;
-	}
-	
+    public function setNumElements($numElements)
+    {
+        $this->numElements=$numElements;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the module name
@@ -221,11 +221,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setModuleName($moduleName)
-	{
-		$this->moduleName=$moduleName;
-	}
-	
+    public function setModuleName($moduleName)
+    {
+        $this->moduleName=$moduleName;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the elements
@@ -242,11 +242,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setElements($elements)
-	{
-		$this->elements=$elements;
-	}
-	
+    public function setElements($elements)
+    {
+        $this->elements=$elements;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the behaviour
@@ -262,10 +262,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setBehavior($behavior)
-	{
-		$this->behavior=$behavior;
-	}
+    public function setBehavior($behavior)
+    {
+        $this->behavior=$behavior;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -282,10 +282,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setAlign($align)
-	{
-		$this->align=$align;
-	}
+    public function setAlign($align)
+    {
+        $this->align=$align;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -303,11 +303,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setDirection($direction)
-	{
-		$this->direction=$direction;
-	}
-	
+    public function setDirection($direction)
+    {
+        $this->direction=$direction;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the height
@@ -322,11 +322,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setHeight($height)
-	{
-		$this->height=$height;
-	}
-	
+    public function setHeight($height)
+    {
+        $this->height=$height;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the scoll amount
@@ -343,11 +343,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setScrollAmount($scrollAmount)
-	{
-		$this->scrollAmount=$scrollAmount;
-	}
-	
+    public function setScrollAmount($scrollAmount)
+    {
+        $this->scrollAmount=$scrollAmount;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the scroll delay
@@ -364,11 +364,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setScrollDelay($scrollDelay)
-	{
-		$this->scrollDelay=$scrollDelay;
-	}
-	
+    public function setScrollDelay($scrollDelay)
+    {
+        $this->scrollDelay=$scrollDelay;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Set the on mouse over
@@ -385,10 +385,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setOnMouseOver($onMouseOver)
-	{
-		$this->onMouseOver=$onMouseOver;
-	}
+    public function setOnMouseOver($onMouseOver)
+    {
+        $this->onMouseOver=$onMouseOver;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -406,19 +406,19 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function setOnMouseOut($onMouseOut)
-	{
-		$this->onMouseOut=$onMouseOut;
-	}
+    public function setOnMouseOut($onMouseOut)
+    {
+        $this->onMouseOut=$onMouseOut;
+    }
 
-	/**
-	* GET METHODS
-	*/
-	public function getNumElements()
-	{
-		return $this->numElements;
-	}
-	
+    /**
+    * GET METHODS
+    */
+    public function getNumElements()
+    {
+        return $this->numElements;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Get the module name
@@ -434,11 +434,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public 
      */
-	public function getModuleName()
-	{
-		return $this->moduleName;
-	}
-	
+    public function getModuleName()
+    {
+        return $this->moduleName;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Get the elements
@@ -454,11 +454,11 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getElements()
-	{
-		return $this->elements;
-	}
-	
+    public function getElements()
+    {
+        return $this->elements;
+    }
+    
     /**
 <<<<<<< marquee_class_inc.php
      * Get the behaviour
@@ -474,10 +474,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getBehavior()
-	{
-		return $this->behavior;
-	}
+    public function getBehavior()
+    {
+        return $this->behavior;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -494,10 +494,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getAlign()
-	{
-		return $this->align;
-	}
+    public function getAlign()
+    {
+        return $this->align;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -514,10 +514,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getDirection()
-	{
-		return $this->direction;
-	}
+    public function getDirection()
+    {
+        return $this->direction;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -534,10 +534,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getHeight()
-	{
-		return $this->height;
-	}
+    public function getHeight()
+    {
+        return $this->height;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -554,10 +554,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getScrollAMount()
-	{
-		return $this->scrollAmount;
-	}
+    public function getScrollAMount()
+    {
+        return $this->scrollAmount;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -574,10 +574,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getScrollDelay()
-	{
-		return $this->scrollDelay;
-	}
+    public function getScrollDelay()
+    {
+        return $this->scrollDelay;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -594,10 +594,10 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getOnMouseOver()
-	{
-		return $this->onMouseOver;
-	}
+    public function getOnMouseOver()
+    {
+        return $this->onMouseOver;
+    }
 
     /**
 <<<<<<< marquee_class_inc.php
@@ -614,48 +614,48 @@ class marquee extends object implements ifhtml
 >>>>>>> 1.7
      * @access public
      */
-	public function getOnMouseOut()
-	{
-		return $this->onMouseOut;
-	}
+    public function getOnMouseOut()
+    {
+        return $this->onMouseOut;
+    }
 
-	/**
-	* show function to display the marquee elements
-	*/
-	public function show()
-	{
-		if($this->getNumElements()>1) {
-			$str = "<marquee 
-				behavior='".$this->behavior."' 
-				align='".$this->align."' 
-				direction='".$this->direction."' 
-				height='".$this->height."' 
-				scrollAmount='".$this->scrollAmount."' 
-				scrollDelay='".$this->scrollDelay."' 
-				onMouseOver='".$this->onMouseOver."' 
-				onMouseOut='".$this->onMouseOut."'
-				>";
-		
-			//get the content to be displayec within the marquee
-			$str.=$this->elements;
-			$str.="</marquee><br />";
-		} else {
-			$str="";
-			$str.=$this->elements;
-			$str.="<br />";
-		}
-	
-		/**
-		* in accordance with framework standards, the add
-		* link should only be displayed within the corresponding
-		* administrative module
-		*
+    /**
+    * show function to display the marquee elements
+    */
+    public function show()
+    {
+        if($this->getNumElements()>1) {
+            $str = "<marquee 
+                behavior='".$this->behavior."' 
+                align='".$this->align."' 
+                direction='".$this->direction."' 
+                height='".$this->height."' 
+                scrollAmount='".$this->scrollAmount."' 
+                scrollDelay='".$this->scrollDelay."' 
+                onMouseOver='".$this->onMouseOver."' 
+                onMouseOut='".$this->onMouseOut."'
+                >";
+        
+            //get the content to be displayec within the marquee
+            $str.=$this->elements;
+            $str.="</marquee><br />";
+        } else {
+            $str="";
+            $str.=$this->elements;
+            $str.="<br />";
+        }
+    
+        /**
+        * in accordance with framework standards, the add
+        * link should only be displayed within the corresponding
+        * administrative module
+        *
         if ($this->isAdmin) {
             $paramArray = array('action' => 'add');
             $str .= $this->objGetIcon->getAddIcon($this->uri($paramArray, $this->moduleName));
         }
-		*/
-		return $str;
-	}
+        */
+        return $str;
+    }
 }
 ?>

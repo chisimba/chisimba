@@ -61,62 +61,62 @@ require_once("ifhtml_class_inc.php");
      * @var    unknown
      * @access public 
      */
- 	public $size;
+     public $size;
 
     /**
      * Description for public
      * @var    unknown
      * @access public 
      */
-	public $value;
+    public $value;
 
     /**
      * Description for public
      * @var    unknown
      * @access public 
      */
-	public $name;
+    public $name;
 
     /**
      * Description for public
      * @var    unknown
      * @access public 
      */
-	public $width;
+    public $width;
 
     /**
      * Description for public
      * @var    unknown
      * @access public 
      */
-	public $css;
-	
-	/**
+    public $css;
+    
+    /**
      * Initialization method to set default values
      *
-	function input ($name,$value,$size,$width){
-		$this->name=$name;
-		$this->value=$value;
-		if(!$size){
-			$this->size=10;
-		}else{
-			$this->size=$size;
-		}
-		if(!$width){
-			$this->width=10;
-		}else{
-			$this->width=$width;
-		}
-	}
-	*/
-	
+    function input ($name,$value,$size,$width){
+        $this->name=$name;
+        $this->value=$value;
+        if(!$size){
+            $this->size=10;
+        }else{
+            $this->size=$size;
+        }
+        if(!$width){
+            $this->width=10;
+        }else{
+            $this->width=$width;
+        }
+    }
+    */
+    
 /**************************************************************
 *         GET METHODS                                         *
 * *************************************************************/
-	public function getName(){
-		return $this->$name;
-	}
- 	
+    public function getName(){
+        return $this->$name;
+    }
+     
     /**
      * Short description for function
      * 
@@ -125,10 +125,10 @@ require_once("ifhtml_class_inc.php");
      * @return unknown Return description (if any) ...
      * @access public 
      */
-	public function getSize(){
-		return $this->$size;
-	}
- 	
+    public function getSize(){
+        return $this->$size;
+    }
+     
     /**
      * Short description for function
      * 
@@ -137,10 +137,10 @@ require_once("ifhtml_class_inc.php");
      * @return unknown Return description (if any) ...
      * @access public 
      */
-	public function getValue(){
-		return $this->$value;
-	}
-	
+    public function getValue(){
+        return $this->$value;
+    }
+    
     /**
      * Short description for function
      * 
@@ -149,10 +149,10 @@ require_once("ifhtml_class_inc.php");
      * @return unknown Return description (if any) ...
      * @access public 
      */
-	public function getCSS(){
-		return $this->css;
-	}
-	
+    public function getCSS(){
+        return $this->css;
+    }
+    
     /**
      * Short description for function
      * 
@@ -161,9 +161,9 @@ require_once("ifhtml_class_inc.php");
      * @return unknown Return description (if any) ...
      * @access public 
      */
-	public function getvType(){
-		return $this->vtype;
-	}
+    public function getvType(){
+        return $this->vtype;
+    }
 
 /**************************************************************
 *         SET METHODS                                         *
@@ -178,9 +178,9 @@ require_once("ifhtml_class_inc.php");
      * @return void   
      * @access public 
      */
-	public function setName($name){
-		$this->name=$name;
-	} 
+    public function setName($name){
+        $this->name=$name;
+    } 
 
     /**
      * Short description for function
@@ -191,9 +191,9 @@ require_once("ifhtml_class_inc.php");
      * @return void   
      * @access public 
      */
- 	public function setSize($size){
-		$this->size;
-	}
+     public function setSize($size){
+        $this->size;
+    }
 
     /**
      * Short description for function
@@ -204,10 +204,10 @@ require_once("ifhtml_class_inc.php");
      * @return void   
      * @access public 
      */
-	public function setValue($value){
-		$this->value=$value;
-	}
-	
+    public function setValue($value){
+        $this->value=$value;
+    }
+    
     /**
      * Short description for function
      * 
@@ -217,10 +217,10 @@ require_once("ifhtml_class_inc.php");
      * @return void   
      * @access public 
      */
-	public function setCss($css){
-		$this->class=$css;
-	}
-	
+    public function setCss($css){
+        $this->class=$css;
+    }
+    
     /**
      * Short description for function
      * 
@@ -230,8 +230,8 @@ require_once("ifhtml_class_inc.php");
      * @return void   
      * @access public 
      */
-	public function setvType($vtype){
-		$this->vtype=$vtype;
-	}
+    public function setvType($vtype){
+        $this->vtype=$vtype;
+    }
  }
 ?>

@@ -62,9 +62,9 @@ class div {
      * @return void
      * @access public
      */
-	function init(){
+    function init(){
 
-	}
+    }
 
 
     /**
@@ -74,14 +74,14 @@ class div {
      * @return string Return description (if any) ...
      * @access public
      */
-	function show(){
-		$str='<input type="something" value="'.$this->value.'"';
-		$str.=' name="'.$this->name.'"';
-		$str.=' size="'.$this->size.'"';
-		$str.=' width="'.$this->width.'"';
-		$str.=' class="'.$this->ccsclass.'"';
-		$str.='>';
-		return $str;
-	}
+    function show(){
+        $str='<input type="something" value="'.$this->value.'"';
+        $str.=' name="'.$this->name.'"';
+        $str.=' size="'.$this->size.'"';
+        $str.=' width="'.$this->width.'"';
+        $str.=' class="'.$this->ccsclass.'"';
+        $str.='>';
+        return $str;
+    }
 }
 ?>

@@ -138,14 +138,14 @@ class tabbedbox implements ifhtml
     */
     public function makeTabbedBox()
     {
-	$this->box='<fieldset class="tabbox" '.$this->extra.'>';
-	// JCA begin - allows for 0:M tabLabels
-	if (isset($this->tabLabel)) {
-    	    foreach($this->tabLabel as $tabLabel){
-    		$this->box.='<legend class="tabbox">'. $tabLabel.'</legend>';
-	    }
-	}
-	// JCA end - allow for 0:M tabLabels.
+    $this->box='<fieldset class="tabbox" '.$this->extra.'>';
+    // JCA begin - allows for 0:M tabLabels
+    if (isset($this->tabLabel)) {
+            foreach($this->tabLabel as $tabLabel){
+            $this->box.='<legend class="tabbox">'. $tabLabel.'</legend>';
+        }
+    }
+    // JCA end - allow for 0:M tabLabels.
         $this->box.=$this->boxContent.'</fieldset>';
     }
     

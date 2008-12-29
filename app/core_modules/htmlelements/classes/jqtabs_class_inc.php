@@ -97,13 +97,13 @@ class jqtabs extends object
     */    
     public function init()
     {
-		$jQuery = $this->newObject('jquery', 'htmlelements');
-		$jQuery->loadUITabbing();
+        $jQuery = $this->newObject('jquery', 'htmlelements');
+        $jQuery->loadUITabbing();
 
         $this->tabId = 'jQueryTab_'.rand(1,10);
-		$this->setSelected = 0;
+        $this->setSelected = 0;
 
- 		$script = '
+         $script = '
             <script>
             jQuery(document).ready(function(){
                 jQuery("#'.$this->tabId.' > ul").tabs({
@@ -131,9 +131,9 @@ class jqtabs extends object
     */    
     function addTab($name = NULL, $content = NULL){
 
-	    $tab['name'] = $name;
-    	$tab['content'] = $content;
-    	array_push($this->tabs,$tab);
+        $tab['name'] = $name;
+        $tab['content'] = $content;
+        array_push($this->tabs,$tab);
 
     }
 
@@ -149,12 +149,12 @@ class jqtabs extends object
     */    
     function removeTab($name = NULL){
 
-		$tmpTabs = array();
-		foreach ($this->tabs as $key => $value){
-			if ($this->tabs[$key]['name'] != $name){
-    			array_push($tmpTabs, $value);
-			}
-		}
+        $tmpTabs = array();
+        foreach ($this->tabs as $key => $value){
+            if ($this->tabs[$key]['name'] != $name){
+                array_push($tmpTabs, $value);
+            }
+        }
         $this->tabs = $tmpTabs;
 
     }
@@ -178,26 +178,26 @@ class jqtabs extends object
     * @return $str string
     */
     public function show(){
-	
+    
         if(isset($this->tabs) && is_array($this->tabs)){            
             $str = '<div id="'.$this->tabId.'" class="flora '. $this->cssClass .'">'."\n";
-			$str .= '<ul>'."\n";
+            $str .= '<ul>'."\n";
 
-			$counter = 0;
+            $counter = 0;
             foreach ($this->tabs as $key => $value){
-             	$str .= "\n".'<li><a href="#jqtabid'.$counter.'"><span>'.$this->tabs[$key]['name'].'</span></a></li>'."\n";
-				$counter++;
-			}	
+                 $str .= "\n".'<li><a href="#jqtabid'.$counter.'"><span>'.$this->tabs[$key]['name'].'</span></a></li>'."\n";
+                $counter++;
+            }    
 
             $str .= '</ul>'."\n";
 
-			$counter = 0;
+            $counter = 0;
             foreach ($this->tabs as $key => $value){
- 				$str .= '<div id = "jqtabid'.$counter.'" >';
-              			$str .= $this->tabs[$key]['content'];
-				$str .= '</div>'."\n";
-				$counter++;
- 			}
+                 $str .= '<div id = "jqtabid'.$counter.'" >';
+                          $str .= $this->tabs[$key]['content'];
+                $str .= '</div>'."\n";
+                $counter++;
+             }
 
            $str .= '</div>';
 

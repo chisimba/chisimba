@@ -64,19 +64,19 @@ class domtt extends object
     public $message;
     public $title;
 
-	/**
-	 * Method to render the domtt object as HTML and javascript code
-	 *
-	 * @param string $title The title of the object
-	 * @param string $message The message that will pop up to the user on a mouseover event
-	 * @param string $linkText The text of the anchor tag
-	 * @param string $url The url the tag points toward
-	 * @param string $extra Any extra html that needs to be added to the anchor
-	 * @return string The rendered object in displayable code
-	 */
+    /**
+     * Method to render the domtt object as HTML and javascript code
+     *
+     * @param string $title The title of the object
+     * @param string $message The message that will pop up to the user on a mouseover event
+     * @param string $linkText The text of the anchor tag
+     * @param string $url The url the tag points toward
+     * @param string $extra Any extra html that needs to be added to the anchor
+     * @return string The rendered object in displayable code
+     */
     public function show($title = NULL, $message = NULL, $linkText = NULL, $url = NULL, $extra = NULL)
     {
-    	$this->putScripts();
+        $this->putScripts();
 
         if ($url) {
             $this->url = $url;
@@ -94,7 +94,7 @@ class domtt extends object
         return $str;
     }
 
-	 /**
+     /**
      * Method to get the javaScript that
      * needs to be added to the page header
      * for the tooltips to work

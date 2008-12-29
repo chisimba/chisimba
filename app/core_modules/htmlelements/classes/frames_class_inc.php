@@ -31,8 +31,8 @@ require_once("ifhtml_class_inc.php");
 class frames
 {
    //var $rows = array();
-	//var $cols = array();
- 	//var $url = array(); 
+    //var $cols = array();
+     //var $url = array(); 
 
 
     /**
@@ -41,12 +41,12 @@ class frames
      * @return the frame of the url
      * @access public 
      */
-	function show()
+    function show()
     {
-		return $this->Frame($url);
+        return $this->Frame($url);
     }
 
-	 // the framesetCols tag defines a new set of frames sorted by column
+     // the framesetCols tag defines a new set of frames sorted by column
 
 
     /**
@@ -71,7 +71,7 @@ class frames
                 }
          $ret .= "\">\n" ;
         }
-		return $ret;
+        return $ret;
     }
 
     // the framesetrows tag defines a new set of frames sorted by rows
@@ -99,7 +99,7 @@ class frames
                 }
          $row .=  "\">\n" ;
         }
-		return $row;
+        return $row;
     }
 
 
@@ -119,7 +119,7 @@ class frames
      * @return string  Return frame tag
      * @access public 
      */
-	function Frame($url, $name = -1, $noresize = -1, $scrolling = -1, $frameborder = -1, $longdesc = -1,
+    function Frame($url, $name = -1, $noresize = -1, $scrolling = -1, $frameborder = -1, $longdesc = -1,
     $marginheight = -1, $marginwidth = -1)
     {
      $options = "" ;
@@ -140,7 +140,7 @@ class frames
                                                                                                                              
     $frame = "<FRAME SRC =\"$url\"" . $options . " />\n" ;
     return $frame;
-	 }
+     }
 
 
     /**
@@ -152,7 +152,7 @@ class frames
     function FrameSetEnd()
     {
      $ret = "</FRAMESET>\n" ;
-		return $ret;
+        return $ret;
     }
 
     /**
@@ -164,15 +164,15 @@ class frames
      * @return string  Return frame
      * @access private
      */
-	function _buildFrame($cols,$rows,$url)
-	{
-		$ret = $this->FrameSetCols($cols) ;
-		$ret .= $this->FrameSetRows($rows) ;
-		//$ret .= $this->Frame($url) ;
-		$ret .= $this->Frame($url) ;
-		$ret .= $this->FrameSetEnd() ;
-		return $ret;
-	}
+    function _buildFrame($cols,$rows,$url)
+    {
+        $ret = $this->FrameSetCols($cols) ;
+        $ret .= $this->FrameSetRows($rows) ;
+        //$ret .= $this->Frame($url) ;
+        $ret .= $this->Frame($url) ;
+        $ret .= $this->FrameSetEnd() ;
+        return $ret;
+    }
 
 }//end class
 ?>

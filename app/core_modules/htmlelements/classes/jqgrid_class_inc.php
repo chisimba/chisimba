@@ -125,7 +125,7 @@ class jqgrid extends object
     */    
     public function init()
     {
-		$this->jQuery = $this->newObject('jquery', 'htmlelements');
+        $this->jQuery = $this->newObject('jquery', 'htmlelements');
         $this->jQuery->loadLiveQueryPlugin();
         $this->loadClass('layer', 'htmlelements');
 
@@ -323,12 +323,12 @@ GRIDSCRIPT;
     function addColumn($name = NULL, $index = NULL, $width = '80', $align = 'left', $sortable = true){
         //{name:'options',index:'options', width:80,align:"left", sortable:false},
 
-	    $columns['name'] = $name;
+        $columns['name'] = $name;
         $columns['index'] = $index;
         $columns['width'] = $width;
         $columns['align'] = $align;
         $columns['sortable'] = $sortable;
-    	array_push($this->columns,$columns);
+        array_push($this->columns,$columns);
 
     }
 
@@ -341,12 +341,12 @@ GRIDSCRIPT;
     */    
     function removeColumn($index = NULL){
 
-		$tmpColumns = array();
-		foreach ($this->columns as $key => $value){
-			if ($this->columns[$key]['index'] != $name){
-    			array_push($tmpColumns, $value);
-			}
-		}
+        $tmpColumns = array();
+        foreach ($this->columns as $key => $value){
+            if ($this->columns[$key]['index'] != $name){
+                array_push($tmpColumns, $value);
+            }
+        }
         $this->columns = $tmpColumns;
     }
     

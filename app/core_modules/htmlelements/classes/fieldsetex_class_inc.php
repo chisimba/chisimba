@@ -36,48 +36,48 @@ Public License
 
 class fieldsetex extends object implements ifhtml
 {
-	/**
-	*@var $legend The heading of the frameset
-	*/
-	public $legend;
-	/**
-	*@var $legendalign The alignment for the legend
-	*/
-	public $legendalign;
+    /**
+    *@var $legend The heading of the frameset
+    */
+    public $legend;
+    /**
+    *@var $legendalign The alignment for the legend
+    */
+    public $legendalign;
 
-	/**
-	*@var $content The contents of the frameset
-	*/
-	public $contents;
+    /**
+    *@var $content The contents of the frameset
+    */
+    public $contents;
         /**
-	*@var $width The width attribute
-	*/
-	public $width;
+    *@var $width The width attribute
+    */
+    public $width;
         /**
-	*@var $extra Any other extra items that needs to be added 
-	*/
-	public $extra;
+    *@var $extra Any other extra items that needs to be added 
+    */
+    public $extra;
     
         /**
         * @var $align how the table is aligned - added 2005 03 31 by James Scoble
         */
         var $align;
 
-	/**
-	*Initialize
-	*/
-	public function init()
-	{
-		$this->contents="";
-	}
-	
-	/**
-	*The show Method
+    /**
+    *Initialize
+    */
+    public function init()
+    {
+        $this->contents="";
+    }
+    
+    /**
+    *The show Method
         * @return null  
         * @access public
-	*/
-	public function show()
-	{
+    */
+    public function show()
+    {
             $str="";
             //Add the width if it exists !added by derek
             $align='';
@@ -87,7 +87,7 @@ class fieldsetex extends object implements ifhtml
             if (isset($this->width)) {
                 $str.= "<table $align width=\"" . $this->width . "\"><tr><td>";
             }   
-	    $str .= '<fieldset';
+        $str .= '<fieldset';
         
         if (isset($this->extra)) {
             $str.=' '.$this->extra;
@@ -101,41 +101,41 @@ class fieldsetex extends object implements ifhtml
             }
             $str .= '>'.$this->legend.'</legend>';
         }
-		$str.="<table>";
-		$str.=$this->contents;
-		$str.="</table>";
-		$str.='</fieldset>';
+        $str.="<table>";
+        $str.=$this->contents;
+        $str.="</table>";
+        $str.='</fieldset>';
         //End the width if it exists !added by derek
         if (isset($this->width)) {
             $str.= "</td></tr></table>";
         }
-		return $str;
-	}
-	
-	
-	/**
-	* Method to add a label
-	* 
-	* @param  $label string: to be added to the label 
-	* @access public
-	*/
-	public function addLabel($label){
+        return $str;
+    }
+    
+    
+    /**
+    * Method to add a label
+    * 
+    * @param  $label string: to be added to the label 
+    * @access public
+    */
+    public function addLabel($label){
         if (is_object($label)) {
             $str = $label->show();
         } else {
             $str = $label;
         } 
-		$this->contents.='<tr><td align="left" colspan="2">'.$str.'</td></tr>';
-	}
-	
-	/**
-	* Method to add a label field
-	* 
-	* @param  $label string: to be added to the label field
-	* @param  $field string: the name of the field
-	* @access public
-	*/
-	public function addLabelledField($label,$field){
+        $this->contents.='<tr><td align="left" colspan="2">'.$str.'</td></tr>';
+    }
+    
+    /**
+    * Method to add a label field
+    * 
+    * @param  $label string: to be added to the label field
+    * @param  $field string: the name of the field
+    * @access public
+    */
+    public function addLabelledField($label,$field){
         if (is_object($label)) {
             $str1 = $label->show();
         } else {
@@ -146,37 +146,37 @@ class fieldsetex extends object implements ifhtml
         } else {
             $str2 = $field;
         } 
-		$this->contents.='<tr><td align="right">'.$str1.'</td><td align="left">'.$str2.'</td></tr>';
-	}
+        $this->contents.='<tr><td align="right">'.$str1.'</td><td align="left">'.$str2.'</td></tr>';
+    }
 
-	/**
-	*Method to reset the fields
+    /**
+    *Method to reset the fields
         * @return null  
         * @access public
-	*/
-	public function reset(){
-		$this->contents=null;
-		$this->legend=null;
-	}
-	
-	/**
-	*Method to add the legend
-	*@param $legend string  The legend to be added to the fieldset
+    */
+    public function reset(){
+        $this->contents=null;
+        $this->legend=null;
+    }
+    
+    /**
+    *Method to add the legend
+    *@param $legend string  The legend to be added to the fieldset
         * @return null  
         * @access public
-	*/
-	public function setLegend($legend){
-		$this->legend=$legend;
-	}
+    */
+    public function setLegend($legend){
+        $this->legend=$legend;
+    }
     
         /**
-	*Method to add extra parameters
-	*@param $parameters string  String of parameters that can be added
+    *Method to add extra parameters
+    *@param $parameters string  String of parameters that can be added
         * @return null  
         * @access public
-	*/
-	public function setExtra($parameters){
-		$this->extra=$parameters;
-	}
+    */
+    public function setExtra($parameters){
+        $this->extra=$parameters;
+    }
 }
 ?>

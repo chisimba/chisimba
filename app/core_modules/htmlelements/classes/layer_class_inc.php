@@ -105,7 +105,7 @@ class layer extends object implements ifhtml
     *           if position:absolute is used
     * @todo -clayer Implement layer: not yet properly implemented
     */
-	public $top;
+    public $top;
     /**
     * @var string $background_color: The background colour of the layer
     */
@@ -139,7 +139,7 @@ class layer extends object implements ifhtml
     /**
     * @var string $str: the final output string
     */
-	public $str;
+    public $str;
     /**
     * @var string $align: use to generate quick aligned layers (e.g. center, left, right
     */
@@ -183,7 +183,7 @@ class layer extends object implements ifhtml
         $this->zIndex = null;;
         $this->position = null;
         $this->left = null;
-		$this->top = null;
+        $this->top = null;
         $this->background_color = null;
         $this->visibility = null;
         $this->background_image = null;
@@ -237,58 +237,58 @@ class layer extends object implements ifhtml
         if ($this->cssClass) {
             $ret .= " class=\"" . $this->cssClass . "\" ";
         }
-		if ($this->checkForStyle()) {
-			$ret .= " style=\"";
-			if ($this->position) {
-			    $ret .= "position: ".$this->position."; ";
-			}
-			if ($this->floating) {
-			    $ret .= "float: ".$this->floating."; ";
-			}
-		    if ($this->textalign) {
-	            $ret .= "align: " . $this->align . "; ";
-	        }
-	        if ($this->width) {
-	            $ret .= "width: " . $this->width . "; ";
-	        }
-	        if ($this->height) {
-	            $ret .= "height: " . $this->height . "; ";
-	        }
-	        if ($this->left) {
-	            $ret .= "left: " . $this->left . "; ";
-	        }
-	        if ($this->top) {
-	            $ret .= "top: " . $this->top . "; ";
-	        }
-	        if ($this->background_color) {
-	            $ret .= " background-color: " . $this->background_color . "; ";
-	        }
-	        if ($this->background_image) {
-	            $ret .= "background_image: " . $this->background_image . "; ";
-	        }
-	        if ($this->border) {
-	            $ret .= "border: " . $this->border . "; ";
-	        }
-	        if ($this->padding) {
-	            $ret .= "padding: " . $this->padding . "; ";
-	        }
-	        if ($this->overflow) {
-	            $ret .= "overflow: " . $this->overflow . "; ";
-	        }
+        if ($this->checkForStyle()) {
+            $ret .= " style=\"";
+            if ($this->position) {
+                $ret .= "position: ".$this->position."; ";
+            }
+            if ($this->floating) {
+                $ret .= "float: ".$this->floating."; ";
+            }
+            if ($this->textalign) {
+                $ret .= "align: " . $this->align . "; ";
+            }
+            if ($this->width) {
+                $ret .= "width: " . $this->width . "; ";
+            }
+            if ($this->height) {
+                $ret .= "height: " . $this->height . "; ";
+            }
+            if ($this->left) {
+                $ret .= "left: " . $this->left . "; ";
+            }
+            if ($this->top) {
+                $ret .= "top: " . $this->top . "; ";
+            }
+            if ($this->background_color) {
+                $ret .= " background-color: " . $this->background_color . "; ";
+            }
+            if ($this->background_image) {
+                $ret .= "background_image: " . $this->background_image . "; ";
+            }
+            if ($this->border) {
+                $ret .= "border: " . $this->border . "; ";
+            }
+            if ($this->padding) {
+                $ret .= "padding: " . $this->padding . "; ";
+            }
+            if ($this->overflow) {
+                $ret .= "overflow: " . $this->overflow . "; ";
+            }
             if ($this->visibility) {
-	            $ret .= "visibility : " . $this->visibility . "; ";
-	        }
+                $ret .= "visibility : " . $this->visibility . "; ";
+            }
             if ($this->display) {
-	            $ret .= "display : " . $this->display . "; ";
-	        }
+                $ret .= "display : " . $this->display . "; ";
+            }
             if ($this->zIndex) {
-	            $ret .= "zIndex : " . $this->zIndex . "; ";
-	        }
+                $ret .= "zIndex : " . $this->zIndex . "; ";
+            }
             if ($this->cursor) {
-	            $ret .= "cursor : " . $this->cursor . "; ";
-	        }
-			$ret.="\"";
-		}
+                $ret .= "cursor : " . $this->cursor . "; ";
+            }
+            $ret.="\"";
+        }
         if ($this->align) {
             $ret .= " align=\"" . $this->align . "\"";
         }
@@ -299,10 +299,10 @@ class layer extends object implements ifhtml
         return $ret;
     }
 
-	/**
-	* Method to look at all the properties and see if we need
-	* to build a STYLE= element
-	*/
+    /**
+    * Method to look at all the properties and see if we need
+    * to build a STYLE= element
+    */
     public function checkForStyle()
     {
         $classVars = get_class_vars(get_class($this));
@@ -319,24 +319,24 @@ class layer extends object implements ifhtml
         return False;
     }
 
-	/**
-	* Method to add to the end of the output string
+    /**
+    * Method to add to the end of the output string
     * @var string $strn: The string to add to the end
-	*/
-	public function addToStr($strn)
-	{
-		$this->str .= $strn;
-	}
+    */
+    public function addToStr($strn)
+    {
+        $this->str .= $strn;
+    }
 
 
-	/**
-	* Method to add to the top of the output string
+    /**
+    * Method to add to the top of the output string
     * @var string $strn: The string to add to the top
-	*/
-	public function addToStrTop($strn)
-	{
-		$this->str = $strn.$this->str;
-	}
+    */
+    public function addToStrTop($strn)
+    {
+        $this->str = $strn.$this->str;
+    }
 }
 
 ?>

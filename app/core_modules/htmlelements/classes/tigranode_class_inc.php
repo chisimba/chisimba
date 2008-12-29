@@ -51,7 +51,7 @@ class tigraNode extends object
     */
     public function init()
     {
-		//Default CSS
+        //Default CSS
         $this->width = "99%";
         $this->border = 0;
         $this->cellpadding = 0;
@@ -64,11 +64,11 @@ class tigraNode extends object
     */
     public function tigranode($caption, $link = null, $scope = null)
     {
-	    $this->caption = $caption;
+        $this->caption = $caption;
         $this->link = $link;
         $this->scope = $scope;
         $this->children = null;
-	
+    
         return $this->init();
     }
 
@@ -78,24 +78,24 @@ class tigraNode extends object
     */
     public function show()
     {
-		$jscript = '';
+        $jscript = '';
 
 /* Text for entire node
-		var MENU_ITEMS = [
-        	['Home', '?module=cms', null],
-	        ['User', null, null,
-	                ['CMS', '?module=cms'],
-	                ['File Manager', '?module=filemanager']
-	        ],
-	        ['Admin', null, null,
-	
-	                ['CMS Admin', '?module=cmsadmin'],
-	                ['Logger', '?module=logger'],
-	                ['Module Catalogue', '?module=modulecatalogue'],
-	                ['Site Admin', '?module=toolbar']
-	        ],
-	        ['Logout', "javascript: if(confirm('Are you sure you want to logout?')) {document.location= '?module=security&action=logoff'};"]
-		];
+        var MENU_ITEMS = [
+            ['Home', '?module=cms', null],
+            ['User', null, null,
+                    ['CMS', '?module=cms'],
+                    ['File Manager', '?module=filemanager']
+            ],
+            ['Admin', null, null,
+    
+                    ['CMS Admin', '?module=cmsadmin'],
+                    ['Logger', '?module=logger'],
+                    ['Module Catalogue', '?module=modulecatalogue'],
+                    ['Site Admin', '?module=toolbar']
+            ],
+            ['Logout', "javascript: if(confirm('Are you sure you want to logout?')) {document.location= '?module=security&action=logoff'};"]
+        ];
 */
 
 
@@ -107,12 +107,12 @@ class tigraNode extends object
     *
     * @param array  $caption    : The caption of the menu item
     * @param string $link       : The link of the menu item
-    * @param string $scope 		: The scope of the menu item (target, tooltip, status bar message)
+    * @param string $scope         : The scope of the menu item (target, tooltip, status bar message)
     */
     public function addChild($caption, $link = null, $scope = null)
     {
-		$node = new tigranode($caption, $link, $scope);	
-		
+        $node = new tigranode($caption, $link, $scope);    
+        
     }
 
     /**
@@ -184,10 +184,10 @@ class tigraNode extends object
     public function startRow($class = NULL)
     {
         $this->content .= "<tr";
-		if (!is_null($class)) {
-		    $this->content .= " class=\"" . $class . "\"";
-		}
-		else if ($this->trClass) {
+        if (!is_null($class)) {
+            $this->content .= " class=\"" . $class . "\"";
+        }
+        else if ($this->trClass) {
             $this->content .= " class=\"" . $this->trClass . "\"";
         }
         if ($this->row_attributes) {
@@ -218,7 +218,7 @@ class tigraNode extends object
         if ($width) {
             $this->content .= ' width="'.$width.'"';
         }
-	
+    
         if ($border) {
            $this->content .= ' border="'.$border.'"';
        }

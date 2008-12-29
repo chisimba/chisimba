@@ -67,16 +67,16 @@ require_once("ifhtml_class_inc.php");
 */
  class textarea extends abhtmlbase implements ifhtml
  {
- 	/**
+     /**
     *
     * @var string $cols: The number of columns the textare will have
     */
-	public $cols;
-	/**
+    public $cols;
+    /**
     *
     * @var string $rows: The number of rows the textare will have
     */
-	public $rows;
+    public $rows;
     /**
     *
     * @var string $autoGrow Whether or not to autogrow the textarea
@@ -85,28 +85,28 @@ require_once("ifhtml_class_inc.php");
     private $autoGrow=FALSE;
 
 
-	/**
+    /**
     * Method to establish the default values
     */
-	public function textarea($name=null,$value='',$rows=4,$cols=50)
- 	{
-		$this->name=$name;
-		$this->value=$value;
-		$this->rows=$rows;
-		$this->cols=$cols;
-		$this->css='textarea';
-		$this->cssId = 'input_'.$name;
-	}
+    public function textarea($name=null,$value='',$rows=4,$cols=50)
+     {
+        $this->name=$name;
+        $this->value=$value;
+        $this->rows=$rows;
+        $this->cols=$cols;
+        $this->css='textarea';
+        $this->cssId = 'input_'.$name;
+    }
 
-	/**
+    /**
     * function to set the value of one of the properties of this class
     *
     * @var string $name: The name of the textare
     */
-	public function setName($name)
-	{
-		$this->name=$name;
-	}
+    public function setName($name)
+    {
+        $this->name=$name;
+    }
 
     /**
     *
@@ -120,10 +120,10 @@ require_once("ifhtml_class_inc.php");
         $this->cssClass = $cssClass;
     }
 
-	/*
-	* Method to set the cssId class
-	* @param string $cssId
-	*/
+    /*
+    * Method to set the cssId class
+    * @param string $cssId
+    */
 
     /**
      * Short description for function
@@ -139,33 +139,33 @@ require_once("ifhtml_class_inc.php");
         $this->cssId = $cssId;
     }
 
-	/**
+    /**
     * function to set the amount of rows
     * @var string $Rows: The number of rows of the textare
     *
     */
-	public function setRows($rows)
-	{
-		$this->rows=$rows;
-	}
-	/**
+    public function setRows($rows)
+    {
+        $this->rows=$rows;
+    }
+    /**
     * function to set the amount of cols
     * @var string $cols: The number of cols of the textare
     *
     */
-	public function setColumns($cols)
-	{
-		$this->cols=$cols;
-	}
+    public function setColumns($cols)
+    {
+        $this->cols=$cols;
+    }
 
-	/**
+    /**
     * function to set the content
     * @var string $content: The content of the textare
     */
-	public function setContent($value)
-	{
-		$this->value=$value;
-	}
+    public function setContent($value)
+    {
+        $this->value=$value;
+    }
 
     /**
     * Method to set the autogrow function
@@ -175,18 +175,18 @@ require_once("ifhtml_class_inc.php");
         $this->autoGrow=$value;
     }
 
- 	/**
+     /**
     * Method to show the textarea
     * @return string The formatted link
     */
-	public function show()
-	{
-		$str = '<textarea name="'.$this->name.'"';
+    public function show()
+    {
+        $str = '<textarea name="'.$this->name.'"';
 
-		if($this->cssClass){
-			$str.=' class="'.$this->cssClass.'"';
-		}
-		if ($this->cssId) {
+        if($this->cssClass){
+            $str.=' class="'.$this->cssClass.'"';
+        }
+        if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '"';
         }
 
@@ -197,14 +197,14 @@ require_once("ifhtml_class_inc.php");
             $str.=' cols="'.$this->cols.'"';
         }
 
-		if ($this->extra) {
+        if ($this->extra) {
             $str .= ' '.$this->extra;
         }
-		$str.='>';
-		$str.=$this->value;
-		$str.='</textarea>';
-		return $str;
-	}
+        $str.='>';
+        $str.=$this->value;
+        $str.='</textarea>';
+        return $str;
+    }
  }
 
 ?>

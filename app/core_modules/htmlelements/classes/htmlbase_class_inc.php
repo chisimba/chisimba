@@ -86,15 +86,15 @@ class htmlbase extends object
     *             as an additional style
     */
     var $extra;  
-	
-	/**
-	* Constructor
-	*/
-	function htmlbase($name)
-	{
-		//set the name of the element
-		$this->name=$name;
-	}
+    
+    /**
+    * Constructor
+    */
+    function htmlbase($name)
+    {
+        //set the name of the element
+        $this->name=$name;
+    }
 }
 
 ?>

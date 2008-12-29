@@ -116,8 +116,8 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function dropdown($name=NULL){
     if (!is_object($name)) {
-      	$this->name=$name;
-    	$this->cssId = 'input_'.$name;
+          $this->name=$name;
+        $this->cssId = 'input_'.$name;
     }
   }
 
@@ -135,8 +135,8 @@ class dropdown extends abhtmlbase implements ifhtml
     if ($label==null) {
         $label = $value;
     }
-  	$this->options[$value] = $label;
-	$this->extras[$value] = $extra;
+      $this->options[$value] = $label;
+    $this->extras[$value] = $extra;
   }
 
   /**
@@ -148,10 +148,10 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function setSelected($value)
   {
-	if(isset($this->options[$value]))
-	{
-		$this->selected=$value;
-	}
+    if(isset($this->options[$value]))
+    {
+        $this->selected=$value;
+    }
   }
 
   /**
@@ -161,18 +161,18 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function setMultiSelected($valueArr)
   {
-		$this->multipleselected=$valueArr;
+        $this->multipleselected=$valueArr;
   }
 
 
    /**
-	* Method to set the css Id
-	* @param string $cssId
-	*/
+    * Method to set the css Id
+    * @param string $cssId
+    */
   public function setId($cssId)
-	{
-		$this->cssId = $cssId;
-	}
+    {
+        $this->cssId = $cssId;
+    }
 
   /**
   * Method to show the dropdown
@@ -181,24 +181,24 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function show()
   {
-	/*
-	ob_start();
-	echo '<pre>';
-	print_r($this->extras);
-	echo '</pre>';
-  	$str = ob_get_contents();
-	ob_end_clean();
-	return $str;
-	*/
-	//
-  	if($this->multiple){
+    /*
+    ob_start();
+    echo '<pre>';
+    print_r($this->extras);
+    echo '</pre>';
+      $str = ob_get_contents();
+    ob_end_clean();
+    return $str;
+    */
+    //
+      if($this->multiple){
         $this->name = $this->name."[]";
     }
     $str = '<select name="'.$this->name.'"';
-	if($this->cssClass){
-		$str.=' class="'.$this->cssClass.'" ';
-	}
-	if ($this->cssId) {
+    if($this->cssClass){
+        $str.=' class="'.$this->cssClass.'" ';
+    }
+    if ($this->cssId) {
             $str .= ' id="' . $this->cssId . '" ';
     }
     if($this->multiple){
@@ -210,36 +210,36 @@ class dropdown extends abhtmlbase implements ifhtml
     if ($this->extra) {
         $str .= ' '.$this->extra;
     }
-	$str.='>'."\n";
-	foreach ($this->options as $opt => $lbl)
-	{
-		$str.='<option value="'.$opt.'"';
+    $str.='>'."\n";
+    foreach ($this->options as $opt => $lbl)
+    {
+        $str.='<option value="'.$opt.'"';
 
-		if($this->multipleselected)
-		{
-			foreach($this->multipleselected as $mselect)
-			{
-				if($mselect==$opt)
-				{
-					$str.=' selected="selected"';
-				}
-			}
-		}
-		else
-		{
-			if($this->selected==$opt){
-				$str.=' selected="selected"';
-			}
-		}
-	    if ($this->extras[$opt] != '') {
-	        $str .= ' '.$this->extras[$opt];
-	    }
-		$str.='>';
-		$str.=$lbl;
-		$str.='</option>'."\n";
-	}
-	$str .= '</select>'."\n";
-	return $str;
+        if($this->multipleselected)
+        {
+            foreach($this->multipleselected as $mselect)
+            {
+                if($mselect==$opt)
+                {
+                    $str.=' selected="selected"';
+                }
+            }
+        }
+        else
+        {
+            if($this->selected==$opt){
+                $str.=' selected="selected"';
+            }
+        }
+        if ($this->extras[$opt] != '') {
+            $str .= ' '.$this->extras[$opt];
+        }
+        $str.='>';
+        $str.=$lbl;
+        $str.='</option>'."\n";
+    }
+    $str .= '</select>'."\n";
+    return $str;
   }
 
   /**
@@ -252,18 +252,18 @@ class dropdown extends abhtmlbase implements ifhtml
   */
   public function addFromDB($array, $labelField=null, $valueField=null, $selectedValue=null)
   {
-  	if ($array)
-	{
-		//loop through the array
-		foreach($array as $line)
-		{
-			//add an option
-			$this->addOption($line[$valueField],$line[$labelField]);
-		}
-		if (!is_null($selectedValue)) {
-           	$this->setSelected($selectedValue);
-		}
-	}
+      if ($array)
+    {
+        //loop through the array
+        foreach($array as $line)
+        {
+            //add an option
+            $this->addOption($line[$valueField],$line[$labelField]);
+        }
+        if (!is_null($selectedValue)) {
+               $this->setSelected($selectedValue);
+        }
+    }
   }
 }
 ?>

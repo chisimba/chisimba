@@ -141,11 +141,11 @@ class getIcon extends object implements ifhtml
         } else {
             // else set folder to be the _common skin
             if (file_exists($this->_objConfig->getsiteRootPath().$this->_objConfig->getskinRoot().'_common/'.$filename)){
-            	$this->iconfolder = $this->_objConfig->getskinRoot().'_common/'.$folder;
+                $this->iconfolder = $this->_objConfig->getskinRoot().'_common/'.$folder;
             } else {
-            	$this->iconfolder = $this->_objConfig->getskinRoot().'_common/icons/';
-            	$this->name = 'default';
-            	$this->type = 'gif';
+                $this->iconfolder = $this->_objConfig->getskinRoot().'_common/icons/';
+                $this->name = 'default';
+                $this->type = 'gif';
             }
         }
     }
@@ -163,12 +163,12 @@ class getIcon extends object implements ifhtml
         $filename = $this->iconfolder.$this->name.'.'.$this->type;
         //if icon does not exist in modules folder, try one level up
         if (!file_exists($filename)) {
-        	$this->setIcon($name);
-        	$filename2 = $this->iconfolder.$this->name.'.'.$this->type;
-        	//if this doesnt exist, use default
-        	if (!file_exists($filename2)) {
-        		$this->setIcon('default');
-        	}
+            $this->setIcon($name);
+            $filename2 = $this->iconfolder.$this->name.'.'.$this->type;
+            //if this doesnt exist, use default
+            if (!file_exists($filename2)) {
+                $this->setIcon('default');
+            }
         }
     }
 
