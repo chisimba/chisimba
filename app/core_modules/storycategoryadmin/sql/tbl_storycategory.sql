@@ -29,35 +29,35 @@ $options = array('comment' => 'Table to hold story categories', 'collate' => 'ut
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'category' => array(
-		'type' => 'text',
-		'length' => 32,
-        'notnull' => TRUE
-		),
-    'title' => array(
-		'type' => 'text',
-        'length' => 250
-		),
-    'dateCreated' => array(
-		'type' => 'date'
-		),
-    'creatorId' => array(
-		'type' => 'text',
-        'length' => 25
-		),
-    'dateModified' => array(
-		'type' => 'date'
-		),
-    'modifierId' => array(
-		'type' => 'text',
+    'id' => array(
+        'type' => 'text',
         'length' => 32
-		),
+        ),
+    'category' => array(
+        'type' => 'text',
+        'length' => 32,
+        'notnull' => TRUE
+        ),
+    'title' => array(
+        'type' => 'text',
+        'length' => 250
+        ),
+    'dateCreated' => array(
+        'type' => 'date'
+        ),
+    'creatorId' => array(
+        'type' => 'text',
+        'length' => 25
+        ),
+    'dateModified' => array(
+        'type' => 'date'
+        ),
+    'modifierId' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
     'modified' => array(
-		'type' => 'timestamp'
-		)
+        'type' => 'timestamp'
+        )
     );
 ?>
