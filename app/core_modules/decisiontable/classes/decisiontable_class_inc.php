@@ -145,7 +145,7 @@ $GLOBALS['kewl_entry_point_run']) {
     public function showElement( $objElement )
     {
        // JC return $this->isValid( strtolower( $objElement->name ) ) ? $objElement->show() : NULL;
-	   return $this->isValid( $objElement->name ) ? $objElement->show() : NULL;
+       return $this->isValid( $objElement->name ) ? $objElement->show() : NULL;
     }
 
     /**
@@ -319,8 +319,8 @@ $GLOBALS['kewl_entry_point_run']) {
         $arrActions = $this->_objDBDecisionTableAction->retrieve( $this );
         // Create new action objects.
         foreach( $arrActions as $decisionTableAction ) {
-	        $objAction = $this->newObject('action','decisiontable' );
-	        $objAction->connect($this);
+            $objAction = $this->newObject('action','decisiontable' );
+            $objAction->connect($this);
             // Fetch the action.
             $actionRow = $objAction->getRow( 'id', $decisionTableAction['actionid'] );
            // Get the action

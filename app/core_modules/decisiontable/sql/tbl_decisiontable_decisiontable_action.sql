@@ -8,17 +8,17 @@ $options = array('comment' => 'Bridge table used to keep a list of actions and d
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'actionId' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'actionId' => array(
+        'type' => 'text',
+        'length' => 32,
         ),
     'decisiontableId' => array(
-		'type' => 'text',
-		'length' => 32,
+        'type' => 'text',
+        'length' => 32,
         )
     );
 
@@ -28,7 +28,7 @@ $name = 'decisiontableId';
 
 $indexes = array(
                 'fields' => array(
-                	'decisiontableId' => array(),
+                    'decisiontableId' => array(),
                     'actionid' => array()
                 )
         );

@@ -88,7 +88,7 @@ class dbDecisionTableRule extends dbTable {
     {
         $ret = $this->listDbTables();
         if(in_array($this->_tableName,$ret)) {
-        	$arrTableExists = $ret;
+            $arrTableExists = $ret;
         }
         if( empty ( $arrTableExists ) ) {
             $sqldata = array();
@@ -118,7 +118,7 @@ class dbDecisionTableRule extends dbTable {
         // Package it
         $arrDTaction = array();
 
-		$arrDTaction['decisiontableId'] = $decisionTable->_id;
+        $arrDTaction['decisiontableId'] = $decisionTable->_id;
         $arrDTaction['ruleId'] = $rule->_id;
         // Insert it
         return $this->insert( $arrDTaction );
@@ -154,7 +154,7 @@ class dbDecisionTableRule extends dbTable {
          // Get all Rules for this decisionTable
 
          $arr = $this->getAll($join.$filter, array( $objRule->_tableName.'id',  $objRule->_tableName.'name' ));
-		 return $arr;
+         return $arr;
      }
 
     /**

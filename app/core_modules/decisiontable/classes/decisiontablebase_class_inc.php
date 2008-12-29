@@ -115,15 +115,15 @@ class decisionTableBase extends dbTable
     {
         $ret = $this->listDbTables();
         if(in_array($this->_tableName,$ret)) {
-        	$arrTableExists = $ret;
+            $arrTableExists = $ret;
         }
         elseif (empty ( $arrTableExists )) {
-        	$sqldata = array();
+            $sqldata = array();
             @include_once './core_modules/decisiontable/sql/'.$this->_tableName.'.sql';
             $this->query( $sqldata[0] );
         }
-    	/*
-    	$sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
+        /*
+        $sqlTableExists = sprintf( 'SHOW TABLES LIKE "%s"', $this->_tableName);
         $arrTableExists = $this->getArray( $sqlTableExists );
         if( empty ( $arrTableExists ) ) {
             $sqldata = array();
@@ -157,7 +157,7 @@ class decisionTableBase extends dbTable
         // Set the name and reset other properties.
         $this->_id = NULL;
         // JC $this->_name = strtolower($name);
-		$this->_name = $name;
+        $this->_name = $name;
         $this->_dbData = array('name'=>$name);
         // Get the ID;
         if( $this->enableAutoInsertRetrieveId ) {

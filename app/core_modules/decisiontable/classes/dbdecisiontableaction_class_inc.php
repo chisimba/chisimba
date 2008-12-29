@@ -123,7 +123,7 @@ class dbDecisionTableAction extends dbTable {
          $statement = $join.$filter;
 
          $arr = $this->getAll($join.$filter, array( $objAction->_tableName.'id',  $objAction->_tableName.'name' ));
-		 return $arr;
+         return $arr;
      }
 
      /**

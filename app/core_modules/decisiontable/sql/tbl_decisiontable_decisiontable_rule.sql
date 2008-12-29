@@ -8,17 +8,17 @@ $options = array('comment' => 'Bridge table used to keep a list of rules and dec
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'ruleId' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'ruleId' => array(
+        'type' => 'text',
+        'length' => 32,
         ),
     'decisiontableId' => array(
-		'type' => 'text',
-		'length' => 255,
+        'type' => 'text',
+        'length' => 255,
         )
     );
 
@@ -28,7 +28,7 @@ $name = 'decisiontable_rule_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'decisiontableId' => array(),
+                    'decisiontableId' => array(),
                     'ruleId' => array()
                 )
         );

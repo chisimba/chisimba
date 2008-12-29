@@ -142,7 +142,7 @@ class dbRuleCondition extends dbTable {
          $filter = " WHERE ruleid = '".$objRule->_id."'";
          $fields = array( $objRule->_tableName.'id',  $objRule->_tableName.'name' );
          $arr = $this->getAll($join.$filter, $fields );
-		 return $arr;
+         return $arr;
      }
 }
 ?>

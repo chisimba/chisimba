@@ -7,17 +7,17 @@ $options = array('comment' => 'Bridge table used to keep a list of rules and act
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'ruleId' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'ruleId' => array(
+        'type' => 'text',
+        'length' => 32,
         ),
     'actionId' => array(
-		'type' => 'text',
-		'length' => 32,
+        'type' => 'text',
+        'length' => 32,
         )
     );
 
@@ -27,7 +27,7 @@ $name = 'action_rule_FKIndex1';
 
 $indexes = array(
                 'fields' => array(
-                	'actionId' => array(),
+                    'actionId' => array(),
                     'ruleId' => array()
                 )
         );

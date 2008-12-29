@@ -7,24 +7,24 @@ $options = array('comment' => 'Table used to keep a list of conditions and their
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32,
 
-		),
-	'name' => array(
-		'type' => 'text',
-		'length' => 50,
-		'notnull' => TRUE
+        ),
+    'name' => array(
+        'type' => 'text',
+        'length' => 50,
+        'notnull' => TRUE
         ),
     'params' => array(
-		'type' => 'text',
-		'length' => 255,
-		'notnull' => TRUE
+        'type' => 'text',
+        'length' => 255,
+        'notnull' => TRUE
         ),
     'class' => array(
-		'type' => 'text',
-		'length' => 255,
+        'type' => 'text',
+        'length' => 255,
         )
     );
 

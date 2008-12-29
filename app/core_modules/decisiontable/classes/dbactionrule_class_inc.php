@@ -143,7 +143,7 @@ class dbActionRule extends dbTable {
          $fields = array( $objAction->_tableName.'id',  $objAction->_tableName.'name' );
          // Get all Rules for this action
          $arr = $this->getAll($join.$filter, $fields );
-		 return $arr;
+         return $arr;
      }
 }
 ?>
