@@ -85,7 +85,7 @@ class contextpermissions extends controller {
      */
     function dispatch( $action )
     {
-		$this->setVar('pageSuppressXML',true);
+        $this->setVar('pageSuppressXML',true);
         
         // Test for first-time entry
         if( !$this->getSession( 'module_name' , FALSE ) ) {

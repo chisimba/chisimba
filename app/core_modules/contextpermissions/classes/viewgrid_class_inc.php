@@ -157,7 +157,7 @@ class viewGrid extends object
         $this->_arrRules = array();
         $this->_arrConditions = array();
         $this->objDecisionTable = null;
-		
+        
         $this->loadClass('form','htmlelements');
         $this->loadClass('textinput','htmlelements');
         $this->loadClass('checkbox','htmlelements');
@@ -387,17 +387,17 @@ class viewGrid extends object
 
         // Only action for this module
         $this->_arrActions = $decisionTable->_arrActions;
-		//var_dump($this->_arrActions);
+        //var_dump($this->_arrActions);
         
         foreach( $decisionTable->_objDBDecisionTableRule->retrieve($decisionTable) as $rule ) {
-			$objRule = $this->newObject( 'rule', 'decisiontable' ); 
-			$objRule->connect( $object );
+            $objRule = $this->newObject( 'rule', 'decisiontable' ); 
+            $objRule->connect( $object );
             $aRule = $objRule->create( $rule['name'] );
             $this->_arrRules[$aRule->_name] = $aRule->retrieve();
         }
 
         foreach( $this->objCond->getAll() as $cond ) {
-			$objCond = $this->newObject( 'condition', 'decisiontable' );
+            $objCond = $this->newObject( 'condition', 'decisiontable' );
             $aCond = $objCond->create( $cond['name'] );
             $this->_arrConditions[$aCond->_name] = $aCond->retrieve();
         }
