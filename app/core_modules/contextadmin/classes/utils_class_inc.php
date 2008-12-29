@@ -25,38 +25,38 @@ class utils extends object
     {
 
             $this->_objContextModules =  $this->getObject('dbcontextmodules', 'context');
-	        $this->_objLanguage =  $this->getObject('language', 'language');
-	        $this->_objUser =  $this->getObject('user', 'security');
-	        $this->_objDBContext =  $this->getObject('dbcontext', 'context');
-		
-			// Load HTML Elements
-			$this->loadClass('form', 'htmlelements');
-			$this->loadClass('textinput', 'htmlelements');
-			$this->loadClass('button', 'htmlelements');
-			$this->loadClass('dropdown', 'htmlelements');
-			$this->loadClass('htmlheading', 'htmlelements');
-			$this->loadClass('checkbox', 'htmlelements');
-			$this->loadClass('link', 'htmlelements');
-			$this->loadClass('radio', 'htmlelements');
+            $this->_objLanguage =  $this->getObject('language', 'language');
+            $this->_objUser =  $this->getObject('user', 'security');
+            $this->_objDBContext =  $this->getObject('dbcontext', 'context');
+        
+            // Load HTML Elements
+            $this->loadClass('form', 'htmlelements');
+            $this->loadClass('textinput', 'htmlelements');
+            $this->loadClass('button', 'htmlelements');
+            $this->loadClass('dropdown', 'htmlelements');
+            $this->loadClass('htmlheading', 'htmlelements');
+            $this->loadClass('checkbox', 'htmlelements');
+            $this->loadClass('link', 'htmlelements');
+            $this->loadClass('radio', 'htmlelements');
 
     }
 
     
     /**
-	   * Method to get the users context that he
-	   * is registered to
-	   * @return array
-	   * @access public
-	   */
-	  public function getContextList()
-	  {
-		
+       * Method to get the users context that he
+       * is registered to
+       * @return array
+       * @access public
+       */
+      public function getContextList()
+      {
+        
 
-		//if the user is an administrator of the site then show him all the courses
-		
-	  	if ($this->_objUser->isAdmin())
- 		{
-			$newContexts = array();
+        //if the user is an administrator of the site then show him all the courses
+        
+          if ($this->_objUser->isAdmin())
+         {
+            $newContexts = array();
             $contexts = $this->_objDBContext->getAll(' ORDER BY title');
             
             if (count($contexts) > 0) {
@@ -71,7 +71,7 @@ class utils extends object
             }
             return  $newContexts;
         
-		} else {
+        } else {
             $arr = array();
             
             $objGroups =  $this->newObject('managegroups', 'contextgroups');
@@ -91,91 +91,91 @@ class utils extends object
           
             return $arr;
         }
-	  }
-	  
-	  /**
-	  * Method to get the list of archived context
-	  * 
-	  * @return array
-	  */
-	  public function getArchivedContext()
-	  {
-		$arr = array();
+      }
+      
+      /**
+      * Method to get the list of archived context
+      * 
+      * @return array
+      */
+      public function getArchivedContext()
+      {
+        $arr = array();
 
-		//if the user is an administrator of the site then show him all the courses
-		
-		$arch = $this->_objDBContext->getAll("WHERE archive=1");
-	  	if ($this->_objUser->isAdmin())
-		{
-			return  $arch;
-		} 
+        //if the user is an administrator of the site then show him all the courses
+        
+        $arch = $this->_objDBContext->getAll("WHERE archive=1");
+          if ($this->_objUser->isAdmin())
+        {
+            return  $arch;
+        } 
 
-	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
-	  	$contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
+          $objGroups =  $this->newObject('managegroups', 'contextgroups');
+          $contextCodes = $objGroups->usercontextcodes($this->_objUser->userId());
 
-		//if the user is lecturer in the archived context then show it
-			
-	  	foreach ($contextCodes as $code)
-	  	{
-	  	 	foreach($arch as $a)
-	  	 	{
-				if($a['contextcode'] == $code['contextcode'])
-				{print $a['contextcode'];
-					$arr[] = $this->_objDBContext->getRow('contextcode',$code);		
-				}
-			}
-	  	 
-	  	}
+        //if the user is lecturer in the archived context then show it
+            
+          foreach ($contextCodes as $code)
+          {
+               foreach($arch as $a)
+               {
+                if($a['contextcode'] == $code['contextcode'])
+                {print $a['contextcode'];
+                    $arr[] = $this->_objDBContext->getRow('contextcode',$code);        
+                }
+            }
+           
+          }
         //var_dump($contextCodes);
-	  	return $arr;
-	  }
+          return $arr;
+      }
 
-	/**
-	* Method to get a list of courses that the user is an lecturer in
-	* @return array
-	* @access  public
-	*/
-	public function getContextAdminList()
-	{
+    /**
+    * Method to get a list of courses that the user is an lecturer in
+    * @return array
+    * @access  public
+    */
+    public function getContextAdminList()
+    {
 
-		return NULL;
-	}
+        return NULL;
+    }
 
-	  /**
-	   * Method to get the users context that he
-	   * is registered to
-	   * @return array
-	   * @access public
-	   */
-	  public function getOtherContextList()
-	  {
+      /**
+       * Method to get the users context that he
+       * is registered to
+       * @return array
+       * @access public
+       */
+      public function getOtherContextList()
+      {
 
-	  	$objGroups =  $this->newObject('managegroups', 'contextgroups');
-	  	return NULL;//$objGroups->usercontextcodes($this->_objUser->userId());
-	  }
+          $objGroups =  $this->newObject('managegroups', 'contextgroups');
+          return NULL;//$objGroups->usercontextcodes($this->_objUser->userId());
+      }
 
-	  /**
-	   * Method to get the left widgets
-	   * @return string
-	   * @access public
-	   */
-	  public function getLeftContent()
-	  {
-	  	//Put a block to test the blocks module
-		$objBlocks =  $this->newObject('blocks', 'blocks');
+      /**
+       * Method to get the left widgets
+       * @return string
+       * @access public
+       */
+      public function getLeftContent()
+      {
+          //Put a block to test the blocks module
+        $objBlocks =  $this->newObject('blocks', 'blocks');
        //$userPic  = &$this->newObject('userutils', 'contextpostlogin');
        $leftSideColumn = $this->_objUser->getUserPic();//$userMenu->show();;
         //Add loginhistory block
 
-		if($this->_objDBContext->isInContext())
+        if($this->_objDBContext->isInContext())
         {
             //$objContextUtils =  $this->getObject('utilities','context');
             $cm =''; //$objContextUtils->getHiddenContextMenu('home','none');
         } else {
-			$cm = '';
-		}    
-		$leftSideColumn .= $cm;
-	
+            $cm = '';
+        }    
+        $leftSideColumn .= $cm;
+    
 
         $leftSideColumn .= $objBlocks->showBlock('latest', 'blog');
 
@@ -188,18 +188,18 @@ class utils extends object
         $leftSideColumn .= $objBlocks->showBlock('contextchat', 'messaging');
 
 
-	      return $leftSideColumn;
-	  }
+          return $leftSideColumn;
+      }
 
 
-	  /**
-	   * Method to get the right widgets
-	   * @return string
-	   * @access public
-	   */
-	  public function getRightContent()
-	  {
-	     $rightSideColumn = "";
+      /**
+       * Method to get the right widgets
+       * @return string
+       * @access public
+       */
+      public function getRightContent()
+      {
+         $rightSideColumn = "";
          $objBlocks =  $this->newObject('blocks', 'blocks');
         //Add the getting help block
         $rightSideColumn .= $objBlocks->showBlock('dictionary', 'dictionary');
@@ -210,284 +210,284 @@ class utils extends object
         //Put a wikipedia search
         $rightSideColumn .= $objBlocks->showBlock('wikipedia', 'websearch');
         //Put a dictionary lookup
-		return $rightSideColumn;
-	  }
+        return $rightSideColumn;
+      }
 
 
-	  /**
-	   * Method to get the Lectures for a course
-	   * @param string $contextCode The context code
-	   * @return array
-	   * @access public
-	   */
-	  public function getContextLecturers($contextCode)
-	  {
-	  		$objLeaf = $this->newObject('groupadminmodel', 'groupadmin');
-	  		$leafId = $objLeaf->getLeafId(array($contextCode,'Lecturers'));
+      /**
+       * Method to get the Lectures for a course
+       * @param string $contextCode The context code
+       * @return array
+       * @access public
+       */
+      public function getContextLecturers($contextCode)
+      {
+              $objLeaf = $this->newObject('groupadminmodel', 'groupadmin');
+              $leafId = $objLeaf->getLeafId(array($contextCode,'Lecturers'));
 
-	  		$arr = $objLeaf->getGroupUsers($leafId);
+              $arr = $objLeaf->getGroupUsers($leafId);
 
-	  		return $arr;
+              return $arr;
 
-	  }
+      }
 
-	  /**
-	   * Method to get a plugins for a context
-	   * @param string $contextCode The Context Code
-	   * @return string
-	   * @access public
-	   *
-	   */
-	  public function getPlugins($contextCode)
-	  {
-	  	$str = '';
-	  	$arr = $this->_objContextModules->getContextModules($contextCode);
-	  	$objIcon =  $this->newObject('geticon', 'htmlelements');
+      /**
+       * Method to get a plugins for a context
+       * @param string $contextCode The Context Code
+       * @return string
+       * @access public
+       *
+       */
+      public function getPlugins($contextCode)
+      {
+          $str = '';
+          $arr = $this->_objContextModules->getContextModules($contextCode);
+          $objIcon =  $this->newObject('geticon', 'htmlelements');
         $objLink = new link();
-	  	$objModule =  $this->newObject('modules', 'modulecatalogue');
-	  	if(is_array($arr))
-	  	{
-	  		foreach($arr as $plugin)
-	  		{
+          $objModule =  $this->newObject('modules', 'modulecatalogue');
+          if(is_array($arr))
+          {
+              foreach($arr as $plugin)
+              {
 
-	  			$modInfo =$objModule->getModuleInfo($plugin);
+                  $modInfo =$objModule->getModuleInfo($plugin);
 
-	  			$objIcon->setModuleIcon($plugin);
-	  			$objIcon->alt = $modInfo['name'];
-	  			//$str .= $objIcon->show().'   ';
+                  $objIcon->setModuleIcon($plugin);
+                  $objIcon->alt = $modInfo['name'];
+                  //$str .= $objIcon->show().'   ';
 
                 $objLink->href = $this->uri(array ('action' => 'gotomodule', 'moduleid' => $plugin, 'contextcode' => $contextCode), 'context');
                 $objLink->link = $objIcon->show();
                 $str .= $objLink->show().'   ';
-	  		}
+              }
 
-	  		return $str;
-	  	} else {
-	  		return '';
-	  	}
+              return $str;
+          } else {
+              return '';
+          }
 
-	  }
-
-
-
-	  /**
-	   * Method to generate a form with the
-	   * plugin modules on
-	   * @param string $contextCode
-	   *
-	   * @return string
-	   */
-	  public function getPluginForm($contextCode = NULL)
-	  {
-
-	  	if(empty($contextCode))
-	  	{
-	  		$contextCode = $this->_objDBContext->getContextCode();
-	  	}
-	  	$objForm = new form();
-	  	$objFormMod = new form();
-		$objH = new htmlheading();
-		$inpContextCode =  new textinput();
-		$inpMenuText = new textinput();
-		$objDBContextParams =  $this->newObject('dbcontextparams', 'context');
-		$featureBox = $this->getObject('featurebox', 'navigation');
-
-		//list of modules for this context
-		$arrContextModules = $this->_objContextModules->getContextModules($contextCode);
-
-		$inpButton =  new button();
-			  	//setup the form
-		$objForm->name = 'addfrm';
-		$objForm->action = $this->uri(array('action' => 'savestep3'));		
-		$objForm->displayType = 3;
-
-		$objFormMod->name = 'modfrm';
-		$objFormMod->action = $this->uri(array('action' => 'savedefaultmod'));
-		$objFormMod->displayType = 1;
-
-		$inpAbout->name = 'about';
-		$inpAbout->id = 'about';
-		$inpAbout->value = '';
-		
-		$inpAbout->width = '20px';
+      }
 
 
-		$inpButton->setToSubmit();
-		$inpButton->cssClass = 'f-submit';
-		$inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
+
+      /**
+       * Method to generate a form with the
+       * plugin modules on
+       * @param string $contextCode
+       *
+       * @return string
+       */
+      public function getPluginForm($contextCode = NULL)
+      {
+
+          if(empty($contextCode))
+          {
+              $contextCode = $this->_objDBContext->getContextCode();
+          }
+          $objForm = new form();
+          $objFormMod = new form();
+        $objH = new htmlheading();
+        $inpContextCode =  new textinput();
+        $inpMenuText = new textinput();
+        $objDBContextParams =  $this->newObject('dbcontextparams', 'context');
+        $featureBox = $this->getObject('featurebox', 'navigation');
+
+        //list of modules for this context
+        $arrContextModules = $this->_objContextModules->getContextModules($contextCode);
+
+        $inpButton =  new button();
+                  //setup the form
+        $objForm->name = 'addfrm';
+        $objForm->action = $this->uri(array('action' => 'savestep3'));        
+        $objForm->displayType = 3;
+
+        $objFormMod->name = 'modfrm';
+        $objFormMod->action = $this->uri(array('action' => 'savedefaultmod'));
+        $objFormMod->displayType = 1;
+
+        $inpAbout->name = 'about';
+        $inpAbout->id = 'about';
+        $inpAbout->value = '';
+        
+        $inpAbout->width = '20px';
 
 
-		//validation
-		//$objForm->addRule('about','About is a required field!', 'required');
+        $inpButton->setToSubmit();
+        $inpButton->cssClass = 'f-submit';
+        $inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
 
 
-		//$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
-
-		$objForm->addToForm('<fieldset>');
-		$objForm->addToForm($objH->show());
-		$objForm->addToForm('<div id="resultslist-wrap"><ol>');
-
-		$objModuleFile =  $this->newObject('modulefile', 'modulecatalogue');
-		$objModules =  $this->newObject('modules', 'modulecatalogue');
-		$arrModules = $objModules->getModules(2);
+        //validation
+        //$objForm->addRule('about','About is a required field!', 'required');
 
 
-		foreach ($arrModules as $module)
-		{
-		    if($objModuleFile->contextPlugin($module['module_id']))
-		    {
-		        $checkbox = new checkbox('mod_'.$module['module_id']);
-		        $checkbox->value=$module['module_id'];
-		        $checkbox->cssId = 'mod_'.$module['module_id'];
-		        $checkbox->name = 'mod_'.$module['module_id'];
-		        $checkbox->cssClass = 'f-checkbox';
+        //$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
 
-		        foreach ($arrContextModules as $arr)
-		        {
-		        	if($arr['moduleid'] == $module['module_id'] )
-		        	{
-		        		$checkbox->setChecked(TRUE);
-		        		break 1;
-		        	}
-		        }
+        $objForm->addToForm('<fieldset>');
+        $objForm->addToForm($objH->show());
+        $objForm->addToForm('<div id="resultslist-wrap"><ol>');
 
-		        $icon = $this->newObject('geticon', 'htmlelements');
-		        $icon->setModuleIcon($module['module_id']);
-		        
-		        $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
-		        $objForm->addToForm('<dd  class="subdued">'.$this->_objLanguage->abstractText($module['description']).'</dd>');
-		        $objForm->addToForm('</ul>');
-		    }
-
-		}
+        $objModuleFile =  $this->newObject('modulefile', 'modulecatalogue');
+        $objModules =  $this->newObject('modules', 'modulecatalogue');
+        $arrModules = $objModules->getModules(2);
 
 
-		$objForm->addToForm('</ol></div><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
+        foreach ($arrModules as $module)
+        {
+            if($objModuleFile->contextPlugin($module['module_id']))
+            {
+                $checkbox = new checkbox('mod_'.$module['module_id']);
+                $checkbox->value=$module['module_id'];
+                $checkbox->cssId = 'mod_'.$module['module_id'];
+                $checkbox->name = 'mod_'.$module['module_id'];
+                $checkbox->cssClass = 'f-checkbox';
 
-		$dropDefaultModule = new dropdown();
+                foreach ($arrContextModules as $arr)
+                {
+                    if($arr['moduleid'] == $module['module_id'] )
+                    {
+                        $checkbox->setChecked(TRUE);
+                        break 1;
+                    }
+                }
 
-		$defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
+                $icon = $this->newObject('geticon', 'htmlelements');
+                $icon->setModuleIcon($module['module_id']);
+                
+                $objForm->addToForm('<ul><dt>'.$checkbox->show().'&nbsp;'.$icon->show().'&nbsp;'.ucwords($this->_objLanguage->code2Txt('mod_'.$module['module_id'].'_name',$module['module_id'],array('context' => 'Course'))).'</dt>');
+                $objForm->addToForm('<dd  class="subdued">'.$this->_objLanguage->abstractText($module['description']).'</dd>');
+                $objForm->addToForm('</ul>');
+            }
 
-		$drop = '<select id="defaultmodule" name="defaultmodule">';
-
-		$drop .= '<option value="">'.$this->_objLanguage->languageText("mod_context_setdefaultmodule",'context').'</option>';
-		
-		//$inpButton->value = $this->_objLanguage->languageText("mod_context_setasdefaultmodule",'context');
-	
-		foreach($arrContextModules as $mod)
-		{
-			$modInfo = $objModules->getModuleInfo($mod['moduleid']);
-
-			$drop .= '<option value="'.$mod['moduleid'].'"';
-			$drop .= ($defaultmoduleid == $mod['moduleid']) ? ' selected="selected" ' : '';
-			$drop .= '>'.ucwords($modInfo['name']).'</option>';
-		}
-		$drop .= '</select>';
-		$drop ='<div style="width:270px">'.$drop.$inpButton->show().'</div>';
-	
-	
-		
-		$objFormMod->addToForm($drop);
-		$objFormMod->addToForm('<span class="subdued">'.$this->_objLanguage->code2Txt("mod_contextadmin_defaultmodhelp",'context',array('context'=>'Course')).'</span>');
-
-		return  $featureBox->show($this->_objLanguage->languageText("mod_context_setdefaultmodule",'context'), $objFormMod->show()).
-				$featureBox->show('Plugin List',$objForm->show()).'<br/>';
+        }
 
 
-	  }
+        $objForm->addToForm('</ol></div><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
 
-	  /**
-	   * Get context edit form
-	   * @return string
-	   *
-	   */
-	  public function getEditContextForm($contextCode = NULL)
-	  {
-	  	if(empty($contextCode))
-	  	{
-	  		$contextCode = $this->_objDBContext->getContextCode();
-	  	}
+        $dropDefaultModule = new dropdown();
 
-	  	    $context = $this->_objDBContext->getRow('contextcode' , $contextCode);
+        $defaultmoduleid = $objDBContextParams->getParamValue($contextCode, 'defaultmodule');
 
-		    $objH = new htmlheading();
-			$objForm = new form();
+        $drop = '<select id="defaultmodule" name="defaultmodule">';
 
-			$inpContextCode =  new textinput();
-			$inpMenuText = new textinput();
-			$inpTitle = new textinput();
-			$inpButton =  new button();
-			$objIcon =  $this->newObject('geticon','htmlelements');
-			$dropAccess = new dropdown();
-			//$radioStatus = new radio();
-			$objStartDate =   $this->newObject('datepicker', 'htmlelements');
+        $drop .= '<option value="">'.$this->_objLanguage->languageText("mod_context_setdefaultmodule",'context').'</option>';
+        
+        //$inpButton->value = $this->_objLanguage->languageText("mod_context_setasdefaultmodule",'context');
+    
+        foreach($arrContextModules as $mod)
+        {
+            $modInfo = $objModules->getModuleInfo($mod['moduleid']);
+
+            $drop .= '<option value="'.$mod['moduleid'].'"';
+            $drop .= ($defaultmoduleid == $mod['moduleid']) ? ' selected="selected" ' : '';
+            $drop .= '>'.ucwords($modInfo['name']).'</option>';
+        }
+        $drop .= '</select>';
+        $drop ='<div style="width:270px">'.$drop.$inpButton->show().'</div>';
+    
+    
+        
+        $objFormMod->addToForm($drop);
+        $objFormMod->addToForm('<span class="subdued">'.$this->_objLanguage->code2Txt("mod_contextadmin_defaultmodhelp",'context',array('context'=>'Course')).'</span>');
+
+        return  $featureBox->show($this->_objLanguage->languageText("mod_context_setdefaultmodule",'context'), $objFormMod->show()).
+                $featureBox->show('Plugin List',$objForm->show()).'<br/>';
+
+
+      }
+
+      /**
+       * Get context edit form
+       * @return string
+       *
+       */
+      public function getEditContextForm($contextCode = NULL)
+      {
+          if(empty($contextCode))
+          {
+              $contextCode = $this->_objDBContext->getContextCode();
+          }
+
+              $context = $this->_objDBContext->getRow('contextcode' , $contextCode);
+
+            $objH = new htmlheading();
+            $objForm = new form();
+
+            $inpContextCode =  new textinput();
+            $inpMenuText = new textinput();
+            $inpTitle = new textinput();
+            $inpButton =  new button();
+            $objIcon =  $this->newObject('geticon','htmlelements');
+            $dropAccess = new dropdown();
+            //$radioStatus = new radio();
+            $objStartDate =   $this->newObject('datepicker', 'htmlelements');
             $objFinishDate =   $this->newObject('datepicker', 'htmlelements');
 
             $objIcon->setIcon('help');
 
             $objH->str = $this->_objLanguage->languageText("mod_context_step",'context').' 1: '.$this->_objLanguage->languageText("mod_context_addcontext",'context');
-			$objH->type = 3;
+            $objH->type = 3;
 
-			//setup the form
-			$objForm->name = 'addfrm';
-			$objForm->action = $this->uri(array('action' => 'saveedit'));
-			$objForm->extra = 'class="f-wrap-1"';
-			$objForm->displayType = 3;
+            //setup the form
+            $objForm->name = 'addfrm';
+            $objForm->action = $this->uri(array('action' => 'saveedit'));
+            $objForm->extra = 'class="f-wrap-1"';
+            $objForm->displayType = 3;
 
             //contextcode
-			$inpContextCode->name = 'contextcode';
-			$inpContextCode->id = 'contextcode';
-			$inpContextCode->value = '';
-			$inpContextCode->cssClass = 'f-name';
+            $inpContextCode->name = 'contextcode';
+            $inpContextCode->id = 'contextcode';
+            $inpContextCode->value = '';
+            $inpContextCode->cssClass = 'f-name';
 
             //title
-			$inpTitle->name = 'title';
-			$inpTitle->id = 'title';
-			$inpTitle->value = $context['title'];
-			$inpTitle->cssClass = 'f-name';
+            $inpTitle->name = 'title';
+            $inpTitle->id = 'title';
+            $inpTitle->value = $context['title'];
+            $inpTitle->cssClass = 'f-name';
 
             //menu text
-			$inpMenuText->value = $context['menutext'];
-			$inpMenuText->name = 'menutext';
-			$inpMenuText->id = 'menutext';
-			$inpMenuText->cssClass = 'f-name';
+            $inpMenuText->value = $context['menutext'];
+            $inpMenuText->name = 'menutext';
+            $inpMenuText->id = 'menutext';
+            $inpMenuText->cssClass = 'f-name';
 
-			//status
-			$dropAccess->name = 'status';
-			$dropAccess->addOption('Published',$this->_objLanguage->languageText("mod_context_published",'context'));
-			$dropAccess->addOption('Unpublished',$this->_objLanguage->languageText("mod_context_unpublished",'context'));
-			$dropAccess->setSelected(trim($context['status']));
-
-
-			//access
-			$checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
-			$drop = '<fieldset class="f-radio-wrap">
-
-						<b>'.$this->_objLanguage->languageText("mod_context_access",'context').':</b>
+            //status
+            $dropAccess->name = 'status';
+            $dropAccess->addOption('Published',$this->_objLanguage->languageText("mod_context_published",'context'));
+            $dropAccess->addOption('Unpublished',$this->_objLanguage->languageText("mod_context_unpublished",'context'));
+            $dropAccess->setSelected(trim($context['status']));
 
 
-							<fieldset>
+            //access
+            $checked = ($context['access'] == 'Public') ? ' checked = "checked" ' : '';
+            $drop = '<fieldset class="f-radio-wrap">
+
+                        <b>'.$this->_objLanguage->languageText("mod_context_access",'context').':</b>
 
 
-							<label for="Public">
-							<input id="Public" type="radio" name="access" '.$checked.'
-							value="Public" class="f-radio" tabindex="8" />
-							'.$this->_objLanguage->languageText("mod_context_public",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_publichelp",'context',array('context'=>'Course')).'</span></label>';
+                            <fieldset>
 
-			$checked = ($context['access'] == 'Open') ? ' checked = "checked" ' : '';
-			$drop .= 		'<label for="Open">
-							<input id="Open" type="radio" name="access" '.$checked.' value="Open" class="f-radio" tabindex="9" />
-							'.$this->_objLanguage->languageText("mod_context_open",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_openhelp",'context',array('context'=>'Course')).'</span></label>';
 
-			$checked = ($context['access'] == 'Private') ? ' checked = "checked" ' : '';
-			$drop .='		<label for="Private">
+                            <label for="Public">
+                            <input id="Public" type="radio" name="access" '.$checked.'
+                            value="Public" class="f-radio" tabindex="8" />
+                            '.$this->_objLanguage->languageText("mod_context_public",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_publichelp",'context',array('context'=>'Course')).'</span></label>';
 
-							<input id="Private" type="radio" name="access" '.$checked.' value="Private" class="f-radio" tabindex="10" />
-							'.$this->_objLanguage->languageText("mod_context_private",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_privatehelp",'context',array('context'=>'course')).'</span></label>
+            $checked = ($context['access'] == 'Open') ? ' checked = "checked" ' : '';
+            $drop .=         '<label for="Open">
+                            <input id="Open" type="radio" name="access" '.$checked.' value="Open" class="f-radio" tabindex="9" />
+                            '.$this->_objLanguage->languageText("mod_context_open",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_openhelp",'context',array('context'=>'Course')).'</span></label>';
 
-							</fieldset>
+            $checked = ($context['access'] == 'Private') ? ' checked = "checked" ' : '';
+            $drop .='        <label for="Private">
 
-						</fieldset>';
+                            <input id="Private" type="radio" name="access" '.$checked.' value="Private" class="f-radio" tabindex="10" />
+                            '.$this->_objLanguage->languageText("mod_context_private",'context').' <span class="caption">  -  '.$this->_objLanguage->code2Txt("mod_context_privatehelp",'context',array('context'=>'course')).'</span></label>
+
+                            </fieldset>
+
+                        </fieldset>';
             //start date
             $objStartDate->name = 'startdate';
             $objStartDate->value = $context['startdate'];
@@ -496,105 +496,105 @@ class utils extends object
             $objFinishDate->name = 'finishdate';
             $objFinishDate->value = $context['finishdate'];
 
-			//button
-			$inpButton->setToSubmit();
-			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
+            //button
+            $inpButton->setToSubmit();
+            $inpButton->cssClass = 'f-submit';
+            $inpButton->value = ucwords($this->_objLanguage->languageText("word_save"));
 
 
-			//validation
-			
-			$objForm->addRule('menutext',$this->_objLanguage->languageText("mod_contextadmin_err_requiremenutext",'contextadmin'), 'required!');
-			$objForm->addRule('title',$this->_objLanguage->languageText("mod_contextadmin_err_requiretitle",'contextadmin'), 'required!');
+            //validation
+            
+            $objForm->addRule('menutext',$this->_objLanguage->languageText("mod_contextadmin_err_requiremenutext",'contextadmin'), 'required!');
+            $objForm->addRule('title',$this->_objLanguage->languageText("mod_contextadmin_err_requiretitle",'contextadmin'), 'required!');
 
-			$objForm->addToForm('<div class="req"><b>*</b>'.$this->_objLanguage->languageText("mod_context_required",'context').'</div>');
-			$objForm->addToForm('<fieldset>');
-			
+            $objForm->addToForm('<div class="req"><b>*</b>'.$this->_objLanguage->languageText("mod_context_required",'context').'</div>');
+            $objForm->addToForm('<fieldset>');
+            
 
-			$objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b> <span class="highlight">');
-			$objForm->addToForm($this->_objDBContext->getContextCode().'</span><br /></label>');
+            $objForm->addToForm('<label for="contextcode"><b><span class="req">*</span>'.ucwords($this->_objLanguage->code2Txt("mod_context_contextcode",'context',array('context'=>'Course'))).':</b> <span class="highlight">');
+            $objForm->addToForm($this->_objDBContext->getContextCode().'</span><br /></label>');
 
-			$objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
-			$objForm->addToForm($inpTitle->show().'<br /></label>');
+            $objForm->addToForm('<label for="title"><b><span class="req">*</span>'.$this->_objLanguage->languageText("word_title").':</b>');
+            $objForm->addToForm($inpTitle->show().'<br /></label>');
 
-			$objForm->addToForm('<label for="menutext"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_menutext",'context').':</b>');
-			$objForm->addToForm($inpMenuText->show().'<br /></label>');
+            $objForm->addToForm('<label for="menutext"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_menutext",'context').':</b>');
+            $objForm->addToForm($inpMenuText->show().'<br /></label>');
 
-		
-			$objForm->addToForm('<label for="access"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_status",'context').':</b>');
+        
+            $objForm->addToForm('<label for="access"><b><span class="req">*</span>'.$this->_objLanguage->languageText("mod_context_status",'context').':</b>');
             $objForm->addToForm($dropAccess->show().'<br /></label>');
 
-			$objForm->addToForm($drop);
+            $objForm->addToForm($drop);
             $objForm->addToForm('<label>&nbsp;<br/></label>');
-			$objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
-			return  $objForm->show().'<br/>';
+            $objForm->addToForm('<br/><div class="f-submit-wrap">'.$inpButton->show().'</div></fieldset>');
+            return  $objForm->show().'<br/>';
 
-	  }
-	  /**
-	   * Method to get the about form
-	   * @return string
-	   * @param string $contextCode
-	   * @access public
-	   */
-	  public function getAboutForm($contextCode = '')
-	  {
+      }
+      /**
+       * Method to get the about form
+       * @return string
+       * @param string $contextCode
+       * @access public
+       */
+      public function getAboutForm($contextCode = '')
+      {
 
-			if(empty($contextCode))
-		  	{
-		  		$contextCode = $this->_objDBContext->getContextCode();
-		  	}
+            if(empty($contextCode))
+              {
+                  $contextCode = $this->_objDBContext->getContextCode();
+              }
 
-			//add step 1 template
-			$objH = new htmlheading();
-			$objForm = new form();
+            //add step 1 template
+            $objH = new htmlheading();
+            $objForm = new form();
 
-			$inpContextCode =  new textinput();
-			$inpMenuText = new textinput();
-			$inpAbout =  $this->newObject('htmlarea','htmlelements');
-			$inpButton =  new button();
+            $inpContextCode =  new textinput();
+            $inpMenuText = new textinput();
+            $inpAbout =  $this->newObject('htmlarea','htmlelements');
+            $inpButton =  new button();
 
-			$objH->str = $this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
-			$objH->type = 3;
+            $objH->str = $this->_objLanguage->code2Txt("mod_context_aboutthecontext",'context',array('context'=>'Course'));
+            $objH->type = 3;
 
-			//setup the form
-			$objForm->name = 'addfrm';
-			$objForm->action = $this->uri(array('action' => 'saveaboutedit'));
-			//$objForm->extra = 'class="f-wrap-1"';
-			$objForm->displayType = 3;
+            //setup the form
+            $objForm->name = 'addfrm';
+            $objForm->action = $this->uri(array('action' => 'saveaboutedit'));
+            //$objForm->extra = 'class="f-wrap-1"';
+            $objForm->displayType = 3;
 
-			$inpAbout->name = 'about';
-			$inpAbout->id = 'about';
-			$inpAbout->value = '';
-
-
-			$contextLine = $this->_objDBContext->getRow('contextcode', $this->_objDBContext->getContextCode());
-
-			$inpAbout->setContent($contextLine['about']);
-			//$inpAbout->cssClass = 'f-comments';
-
-			$inpButton->setToSubmit();
-			$inpButton->cssClass = 'f-submit';
-			$inpButton->value = $this->_objLanguage->languageText("word_save");
+            $inpAbout->name = 'about';
+            $inpAbout->id = 'about';
+            $inpAbout->value = '';
 
 
-			//validation
-			//$objForm->addRule('about','About is a required field!', 'required');
+            $contextLine = $this->_objDBContext->getRow('contextcode', $this->_objDBContext->getContextCode());
+
+            $inpAbout->setContent($contextLine['about']);
+            //$inpAbout->cssClass = 'f-comments';
+
+            $inpButton->setToSubmit();
+            $inpButton->cssClass = 'f-submit';
+            $inpButton->value = $this->_objLanguage->languageText("word_save");
 
 
-			//$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
-			//$objForm->addToForm('<fieldset>');
-
-			$objForm->addToForm($objH->show());
-
-			//$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
-			$objForm->addToForm($inpAbout->show());
+            //validation
+            //$objForm->addRule('about','About is a required field!', 'required');
 
 
-			$objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
-			return $objForm->show().'<br/>';
-			//return $inpAbout->show();
+            //$objForm->addToForm('<div class="req"><b>*</b> Indicates required field</div>');
+            //$objForm->addToForm('<fieldset>');
 
-	  }
+            $objForm->addToForm($objH->show());
+
+            //$objForm->addToForm('</fieldset><b><span class="req">*</span>About:</b>');
+            $objForm->addToForm($inpAbout->show());
+
+
+            $objForm->addToForm('<div class="f-submit-wrap">'.$inpButton->show().'<br /></div>');
+            return $objForm->show().'<br/>';
+            //return $inpAbout->show();
+
+      }
 
         /**
         * Method to get the context users
@@ -712,168 +712,168 @@ class utils extends object
             return $str;
         }
 
-	  /**
-	   * Method to generate the toolbox for the
-	   * the lecturer
-	   */
-	  public function getContextAdminToolBox()
-	  {
-	  
-	  	$objLink = $this->newObject('link','htmlelements');
-	  	$objLink2 = $this->newObject('link','htmlelements');
-	  	$objIcon = $this->newObject('geticon', 'htmlelements');
-	  	$objIcon2 = $this->newObject('geticon', 'htmlelements');
+      /**
+       * Method to generate the toolbox for the
+       * the lecturer
+       */
+      public function getContextAdminToolBox()
+      {
+      
+          $objLink = $this->newObject('link','htmlelements');
+          $objLink2 = $this->newObject('link','htmlelements');
+          $objIcon = $this->newObject('geticon', 'htmlelements');
+          $objIcon2 = $this->newObject('geticon', 'htmlelements');
 
-	  	if($this->_objContextModules->isContextPlugin($this->_objDBContext->getContextCode(), 'contextcontent'))
-	  	{
-	  	    $objLink->href = $this->uri(NULL,'contextdesigner');
-	  	    $objLink2->href = $this->uri(NULL,'contextcontent');
+          if($this->_objContextModules->isContextPlugin($this->_objDBContext->getContextCode(), 'contextcontent'))
+          {
+              $objLink->href = $this->uri(NULL,'contextdesigner');
+              $objLink2->href = $this->uri(NULL,'contextcontent');
 
-	  	    $objIcon2->setModuleIcon('contextcontent');
-	  	    $objIcon->setModuleIcon('contextdesigner');
+              $objIcon2->setModuleIcon('contextcontent');
+              $objIcon->setModuleIcon('contextdesigner');
 
-	  	    $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
-	  	    $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextcontent_about_title",'contextcontent',array('context'=>'Course')));
+              $objLink->link = $objIcon->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextdesigner_name",'contextdesigner',array('context'=>'Course')));
+              $objLink2->link = $objIcon2->show(). '  '.ucwords($this->_objLanguage->code2Txt("mod_contextcontent_about_title",'contextcontent',array('context'=>'Course')));
 
-	  	    $contentsection = '<div class="tab-page">
-				<h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.
-	  	            $objLink->show().
-				'<br/>'.$objLink2->show().
-	  	    '</div>';
-	  	} else {
-	  	    $contentsection = '';
-	  	}
-	  	$str = '<div class="tab-page">
+              $contentsection = '<div class="tab-page">
+                <h2 class="tab">'.ucwords($this->_objLanguage->languageText('mod_contextcontent_contentmanager','contextcontent')).'</h2>'.
+                      $objLink->show().
+                '<br/>'.$objLink2->show().
+              '</div>';
+          } else {
+              $contentsection = '';
+          }
+          $str = '<div class="tab-page">
 
 
 
-		<!-- id is not necessary unless you want to support multiple tabs with persistence -->
-		<div class="tab-pane" id="tabPane3">
+        <!-- id is not necessary unless you want to support multiple tabs with persistence -->
+        <div class="tab-pane" id="tabPane3">
 
-			<div class="tab-page">
-				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_plugins','contextadmin').'</h2>
+            <div class="tab-page">
+                <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_plugins','contextadmin').'</h2>
 
-				'. $this->getPluginForm().'
+                '. $this->getPluginForm().'
 
-			</div>
+            </div>
             <div class="tab-page">
                 <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_users','contextadmin').'</h2>
                 '.$this->getContextUsers().'
 
             </div>
-			<!--div class="tab-page">
-				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_communication','contextadmin').'</h2>
+            <!--div class="tab-page">
+                <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_communication','contextadmin').'</h2>
 
 
-				Send Email to class
+                Send Email to class
 
-			</div-->
+            </div-->
 
-			'.$contentsection.'
+            '.$contentsection.'
 
-			<!--div class="tab-page">
-				<h2 class="tab">Assessment Tools</h2>
-				Assessment Tools can go here
+            <!--div class="tab-page">
+                <h2 class="tab">Assessment Tools</h2>
+                Assessment Tools can go here
 
-			</div>
-			<div class="tab-page">
-				<h2 class="tab">Personal</h2>
-				my personal space can go here
+            </div>
+            <div class="tab-page">
+                <h2 class="tab">Personal</h2>
+                my personal space can go here
 
-			</div-->
+            </div-->
 
-			<div class="tab-page">
-				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_configure','contextadmin').'</h2>
-				'.$this->getEditContextForm().'
+            <div class="tab-page">
+                <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_configure','contextadmin').'</h2>
+                '.$this->getEditContextForm().'
 
-			</div>
+            </div>
 
-			<div class="tab-page">
-				<h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_about','contextadmin').'</h2>
-				'.$this->getAboutForm().'
+            <div class="tab-page">
+                <h2 class="tab">'.$this->_objLanguage->languageText('mod_contextadmin_about','contextadmin').'</h2>
+                '.$this->getAboutForm().'
 
-			</div>
-
-
-		</div>
-
-	</div>';
-	  	$objFeatureBox = $this->newObject('featurebox', 'navigation');
-	  	//$objFeatureBox->title = 'Tool Box';
-	  	return $objFeatureBox->show($this->_objDBContext->getTitle().' Tool Box', $str);
-	  	return $str;
-	  }
+            </div>
 
 
+        </div>
 
-	   /**
-	   * Method to get a filter list to filter the courses
-	   * @param array $courseList the list of courses
-	   * @return string
-	   * @access public
-	   */
-	  public function getFilterList($courseList)
-	  {
+    </div>';
+          $objFeatureBox = $this->newObject('featurebox', 'navigation');
+          //$objFeatureBox->title = 'Tool Box';
+          return $objFeatureBox->show($this->_objDBContext->getTitle().' Tool Box', $str);
+          return $str;
+      }
 
-	  	try {
-	  		$objAlphabet= $this->getObject('alphabet','navigation');
-	  		$linkarray=array('filter'=>'LETTER');
-			$url=$this->uri($linkarray,'contextpostlogin');
-	  		$str = $objAlphabet->putAlpha($url);
-	  		return $str;
 
-	  	}
-	  	catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
-	  }
-	  
-	  /**
-	  * Method to delete a context
-	  * 
-	  * @param string $contextCode
-	  * @return boolean
-	  */
-	  public function deleteContext($contextCode)
-	  {
-		try{
-					
-			//achive the context
-			$this->_objDBContext->archiveContext($contextCode);
-			
-		}
-		catch (customException $e)
-        {
-        	echo customException::cleanUp($e);
-        	die();
+
+       /**
+       * Method to get a filter list to filter the courses
+       * @param array $courseList the list of courses
+       * @return string
+       * @access public
+       */
+      public function getFilterList($courseList)
+      {
+
+          try {
+              $objAlphabet= $this->getObject('alphabet','navigation');
+              $linkarray=array('filter'=>'LETTER');
+            $url=$this->uri($linkarray,'contextpostlogin');
+              $str = $objAlphabet->putAlpha($url);
+              return $str;
+
+          }
+          catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
         }
-		
-			
-	  }
-	  
-	  
-	  /**
-	  * Method to delete a context
-	  * 
-	  * @param string $contextCode
-	  * @return boolean
-	  */
-	  public function undeleteContext($contextCode)
-	  {
-		try{
-					
-			//undelete the context
-			$this->_objDBContext->undeleteContext($contextCode);
-			
-		}
-		catch (customException $e)
-        {
-        	echo customException::cleanUp($e);
-        	die();
+      }
+      
+      /**
+      * Method to delete a context
+      * 
+      * @param string $contextCode
+      * @return boolean
+      */
+      public function deleteContext($contextCode)
+      {
+        try{
+                    
+            //achive the context
+            $this->_objDBContext->archiveContext($contextCode);
+            
         }
-		
-			
-	  }
+        catch (customException $e)
+        {
+            echo customException::cleanUp($e);
+            die();
+        }
+        
+            
+      }
+      
+      
+      /**
+      * Method to delete a context
+      * 
+      * @param string $contextCode
+      * @return boolean
+      */
+      public function undeleteContext($contextCode)
+      {
+        try{
+                    
+            //undelete the context
+            $this->_objDBContext->undeleteContext($contextCode);
+            
+        }
+        catch (customException $e)
+        {
+            echo customException::cleanUp($e);
+            die();
+        }
+        
+            
+      }
 }
 ?>
