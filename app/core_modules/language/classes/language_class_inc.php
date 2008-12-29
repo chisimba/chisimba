@@ -50,85 +50,85 @@
 require_once 'I18Nv2.php';
 require_once 'I18Nv2/Negotiator.php';
 class language extends dbTable {
-	/**
-	 * New form object
-	 *
-	 * @var $objNewForm
-	 */
-	private $objNewForm = null;
-	/**
+    /**
+     * New form object
+     *
+     * @var $objNewForm
+     */
+    private $objNewForm = null;
+    /**
      * Dropdown object
      *
      * @var objDropdown
      */
-	private $objDropdown = null;
-	/**
+    private $objDropdown = null;
+    /**
      * Buttons object
      *
      * @var objButtons
      */
-	private $objButtons = null;
-	/**
+    private $objButtons = null;
+    /**
      * Config object
      *
      * @var objConfig
      */
-	public $objConfig =  null;
-	/**
+    public $objConfig =  null;
+    /**
      * Language Translation2 object
      *
      * @var lang object
      */
-	public $lang = null;
-	/**
+    public $lang = null;
+    /**
      * The global error callback for altconfig errors
      *
      * @access public
      * @var    string
     */
-	public $_errorCallback;
-	/**
+    public $_errorCallback;
+    /**
      * Set environment to the specified locale.
      * Provides locale settings for Chisimba
      * @access public
      * @var object
      */
-	public $locale;
-	/**
+    public $locale;
+    /**
     * abstractList array of text items and their abstracts
     * @access public
     * @var    object
     */
 
-	public $abstractList;
+    public $abstractList;
 
-	/**
+    /**
     * Constructor method for the language class
     */
-	public function init()
-	{
-		try {
-			parent::init('tbl_languagelist');
-			$this->objConfig = $this->getObject('altconfig','config');
-			$this->lang = $this->getObject('languageConfig','language');
-			$this->lang = &$this->lang->setup();
-			$ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
-			$country = $this->objConfig->getCountry();
-			$country = $ab."_".$country.".1252";
-			@$this->locale = &I18Nv2::createLocale("{$country}");
-			$this->loadClass('form', 'htmlelements');
-			$this->loadClass('dropdown', 'htmlelements');
-			$this->loadClass('button', 'htmlelements');
+    public function init()
+    {
+        try {
+            parent::init('tbl_languagelist');
+            $this->objConfig = $this->getObject('altconfig','config');
+            $this->lang = $this->getObject('languageConfig','language');
+            $this->lang = &$this->lang->setup();
+            $ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
+            $country = $this->objConfig->getCountry();
+            $country = $ab."_".$country.".1252";
+            @$this->locale = &I18Nv2::createLocale("{$country}");
+            $this->loadClass('form', 'htmlelements');
+            $this->loadClass('dropdown', 'htmlelements');
+            $this->loadClass('button', 'htmlelements');
 
-			$this->objAbstract = $this -> getObject('systext_facet', 'systext');
-			$this->abstractList = $this->objAbstract->getSession('systext');
-		}catch (Exception $e){
-			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
-			exit();
-		}
-	}
+            $this->objAbstract = $this -> getObject('systext_facet', 'systext');
+            $this->abstractList = $this->objAbstract->getSession('systext');
+        }catch (Exception $e){
+            $this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
     * Method to return the language text when passed the language
     * text code. It looks up the language text for the current
     * language in the database.
@@ -138,70 +138,70 @@ class language extends dbTable {
     * @param  string $modulename : The module name that owns the string
     */
 
-	public function languageText($itemName,$modulename='system',$default = false)
+    public function languageText($itemName,$modulename='system',$default = false)
 
-	{
-		try {
-			//$abstractList = $this -> objAbstract -> getSession('systext');
-			$notFound = TRUE;
-			$arrName = explode("_", $itemName);
+    {
+        try {
+            //$abstractList = $this -> objAbstract -> getSession('systext');
+            $notFound = TRUE;
+            $arrName = explode("_", $itemName);
 
-			if(isset($arrName[2])){
+            if(isset($arrName[2])){
 
-				if($arrName[1] == "context"){
+                if($arrName[1] == "context"){
 
-					$check = array_key_exists($arrName[2], $this->abstractList);
+                    $check = array_key_exists($arrName[2], $this->abstractList);
 
-					if($check){
+                    if($check){
 
-						$notFound = FALSE;
+                        $notFound = FALSE;
 
-						return trim($this->abstractList[$arrName[2]]);
+                        return trim($this->abstractList[$arrName[2]]);
 
-					}
+                    }
 
-				}
+                }
 
-			}
+            }
 
-			if($notFound){
-				$var = $this->currentLanguage();
-				$var = strtolower($var);
-				$line = $this->lang->get($itemName, $modulename, "{$var}");
+            if($notFound){
+                $var = $this->currentLanguage();
+                $var = strtolower($var);
+                $line = $this->lang->get($itemName, $modulename, "{$var}");
 
-				if (strcmp($line,$itemName)) {
-					$found = true;
+                if (strcmp($line,$itemName)) {
+                    $found = true;
 
-				} else {
-					$found = false;
-				}
-				if (($line!=null)&&($line!=$itemName)) {
-					return stripslashes($line);
-				} else {
+                } else {
+                    $found = false;
+                }
+                if (($line!=null)&&($line!=$itemName)) {
+                    return stripslashes($line);
+                } else {
                     $langError = " Language item not found: $itemName from $modulename";
                     log_debug($langError);
-					if ($default != false) {
-						return $default;
-					} else if ($itemName == 'error_languageitemmissing') { // test to prevent recursive loop
-						return "This language item is missing";
-					} else {
-						// fetch a string not translated into Italian (test fallback language)
+                    if ($default != false) {
+                        return $default;
+                    } else if ($itemName == 'error_languageitemmissing') { // test to prevent recursive loop
+                        return "This language item is missing";
+                    } else {
+                        // fetch a string not translated into Italian (test fallback language)
                         
                         
-						return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName ".$this->lang->get('word_from','system',$var)." $modulename";
-						//return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
-					}
-				}
+                        return $this->lang->get('error_languageitemmissing','system',"{$var}").": $itemName ".$this->lang->get('word_from','system',$var)." $modulename";
+                        //return ($this->lang->get('error_languageitemmissing') . ":" . $itemName);
+                    }
+                }
 
-			}
-		}catch (Exception $e){
+            }
+        }catch (Exception $e){
 
-			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
-			exit();
-		}
-	}
+            $this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
     * Method to return a language element with a [-STRING-] tag replaced
     * with some text. This allows you to create a translatable element
     * with pseudotags, as we had in KEWL.
@@ -230,60 +230,60 @@ class language extends dbTable {
     * @access  public
     * @author  Jonathan Abrahams, Derek Keats
     */
-	public function code2Txt($str,$modulename = "system",$arrOfRep=NULL, $default=NULL)
-	{
-		try {
-			$ret=$this->languageText($str,"{$modulename}", $default);
-			//$abstractList = $this->objAbstract->getSession('systext');
-			foreach($this->abstractList as $textItem => $abstractText){
-				$ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
-			}
-			// Process other tags
-			if( $arrOfRep!=NULL ) {
-				foreach( $arrOfRep as $tag=>$rep ) {
-					$ret = preg_replace($this->_match($tag), $rep, $ret);
-				}
-			}
-			return $ret;
-		}catch (Exception $e){
-			$this->errorCallback ($this->languageText('word_caught_exception') .$e->getMessage());
-			exit();
-		}
-	}
+    public function code2Txt($str,$modulename = "system",$arrOfRep=NULL, $default=NULL)
+    {
+        try {
+            $ret=$this->languageText($str,"{$modulename}", $default);
+            //$abstractList = $this->objAbstract->getSession('systext');
+            foreach($this->abstractList as $textItem => $abstractText){
+                $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
+            }
+            // Process other tags
+            if( $arrOfRep!=NULL ) {
+                foreach( $arrOfRep as $tag=>$rep ) {
+                    $ret = preg_replace($this->_match($tag), $rep, $ret);
+                }
+            }
+            return $ret;
+        }catch (Exception $e){
+            $this->errorCallback ($this->languageText('word_caught_exception') .$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
      * Method to replace tagged strings with abstracted text. Similar to code2Txt only this
      * method works on strings (from the database) rather than language elements.
      *
      * @param  string $str the string to search for abstraction tags
      * @return the    abstracted string
      */
-	public function abstractText($str) {
-		$ret = $str;
-		//$abstractList = $this->objAbstract->getSession('systext');
-		foreach($this->abstractList as $textItem => $abstractText){
-			$ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
-		}
-		return $ret;
-	}
+    public function abstractText($str) {
+        $ret = $str;
+        //$abstractList = $this->objAbstract->getSession('systext');
+        foreach($this->abstractList as $textItem => $abstractText){
+            $ret = preg_replace($this -> _match($textItem), $abstractText, $ret);
+        }
+        return $ret;
+    }
 
-	/**
+    /**
     * Method to return Language list
     * @access public
     * @return array 
     */
-	public function languagelist()
-	{
-		try {
-			$sql = "Select languageName from tbl_languagelist";
-			return $this->getArray($sql);
-		}catch (Exception $e){
-			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
-			exit();
-		}
-	}
+    public function languagelist()
+    {
+        try {
+            $sql = "Select languageName from tbl_languagelist";
+            return $this->getArray($sql);
+        }catch (Exception $e){
+            $this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
     * Method to render Language Chooser on the
     * index page.
     * Construct a form and populate it with all available
@@ -291,81 +291,81 @@ class language extends dbTable {
     * @access public
     * @return form  
     */
-	public function putlanguageChooser()
-	{
-		try {
-			//$ret = $this->languageText("phrase_languagelist",'language') . ":<br />\n";
-			$script = $_SERVER['PHP_SELF'];
-			$objNewForm = new form('languageCheck', $script);
-			$objDropdown = new dropdown('Languages');
-			$objDropdown->extra = "onchange =\"document.forms['languageCheck'].submit();\"";
-			$results = $this->languagelist();
-			foreach ($results as $list) {
-				foreach($list as $key) {
-					$objDropdown->addOption($key, $key);
-				}
-			}
-			$objNewForm->addToForm($this->languageText("phrase_languagelist") . ":<br />\n");
-			$objNewForm->addToForm($objDropdown->show());
-			$ret = $objNewForm->show();
-			return $ret;
-		} catch (Exception $e){
-			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
-			exit();
-		}
-	}
+    public function putlanguageChooser()
+    {
+        try {
+            //$ret = $this->languageText("phrase_languagelist",'language') . ":<br />\n";
+            $script = $_SERVER['PHP_SELF'];
+            $objNewForm = new form('languageCheck', $script);
+            $objDropdown = new dropdown('Languages');
+            $objDropdown->extra = "onchange =\"document.forms['languageCheck'].submit();\"";
+            $results = $this->languagelist();
+            foreach ($results as $list) {
+                foreach($list as $key) {
+                    $objDropdown->addOption($key, $key);
+                }
+            }
+            $objNewForm->addToForm($this->languageText("phrase_languagelist") . ":<br />\n");
+            $objNewForm->addToForm($objDropdown->show());
+            $ret = $objNewForm->show();
+            return $ret;
+        } catch (Exception $e){
+            $this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
     * Method to return the default language
     * @access public 
     * @return default site language
     */
-	public function currentLanguage()
-	{
-		try {
-			$this->objConfig = $this->getObject('altconfig','config');
-			$ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
-			$country = $this->objConfig->getCountry();
-			$country = $ab."_".$country.".1252";
-			if (isset($_POST['Languages'])) {
-				$_SESSION["language"] = $_POST['Languages'];
-				$var = $_POST['Languages'];
-				@$this->locale = &I18Nv2::createLocale("{$country}");
-				$this->lang->setLang("{$var}");
+    public function currentLanguage()
+    {
+        try {
+            $this->objConfig = $this->getObject('altconfig','config');
+            $ab =  strtolower($this->objConfig->getdefaultLanguageAbbrev());
+            $country = $this->objConfig->getCountry();
+            $country = $ab."_".$country.".1252";
+            if (isset($_POST['Languages'])) {
+                $_SESSION["language"] = $_POST['Languages'];
+                $var = $_POST['Languages'];
+                @$this->locale = &I18Nv2::createLocale("{$country}");
+                $this->lang->setLang("{$var}");
 
-			} else {
-				if (isset($_SESSION["language"])) {
-					$var = strtolower($_SESSION["language"]);
-					$country = $this->objConfig->getCountry();
-					$country = $var."_".$country.".1252";
-					@$this->locale = &I18Nv2::createLocale("{$country}");
-					$this->lang->setLang("{$var}");
-				} else {
-					$var = strtolower($this->objConfig->getdefaultLanguageAbbrev());
-					$this->lang->setLang("{$var}");
+            } else {
+                if (isset($_SESSION["language"])) {
+                    $var = strtolower($_SESSION["language"]);
+                    $country = $this->objConfig->getCountry();
+                    $country = $var."_".$country.".1252";
+                    @$this->locale = &I18Nv2::createLocale("{$country}");
+                    $this->lang->setLang("{$var}");
+                } else {
+                    $var = strtolower($this->objConfig->getdefaultLanguageAbbrev());
+                    $this->lang->setLang("{$var}");
 
-				}
-			}
-			return $var;
-		}catch (Exception $e){
-			$this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
-			exit();
-		}
-	}
+                }
+            }
+            return $var;
+        }catch (Exception $e){
+            $this->errorCallback ($this->languageText('word_caught_exception').$e->getMessage());
+            exit();
+        }
+    }
 
-	/**
+    /**
     * Method to create code2Txt match expression.
     * @access private
     * @param  String  The tag
     * @return String  The regular expression with tag
     */
-	private function _match( $tag )
-	{
-		return "/\[\-".$tag."\-\]/isU";
-		$this->languageText;
-	}
+    private function _match( $tag )
+    {
+        return "/\[\-".$tag."\-\]/isU";
+        $this->languageText;
+    }
 
-	/**
+    /**
      * Check for system properties
      *
      * @param  string     $code    
@@ -373,28 +373,28 @@ class language extends dbTable {
      * @return TRUE/FALSE
      */
 
-	public function valueExists($code,$item)
-	{
-		$line = $this->lang->get($item, '', 'en');
-		if ($line != null) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
+    public function valueExists($code,$item)
+    {
+        $line = $this->lang->get($item, '', 'en');
+        if ($line != null) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
 
 
-	}
-	/**
+    }
+    /**
     * The error callback function, defers to configured error handler
     *
     * @param  string $error
     * @return void  
     * @access public
     */
-	public function errorCallback($exception)
-	{
-		echo customException::cleanUp($exception);
-	}
+    public function errorCallback($exception)
+    {
+        echo customException::cleanUp($exception);
+    }
 
 } #end of class
 

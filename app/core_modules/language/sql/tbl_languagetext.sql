@@ -7,16 +7,16 @@ $options = array('comment'=>'languagetext','collate' => 'utf8_general_ci', 'char
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'code' => array(
-		'type' => 'clob',
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'code' => array(
+        'type' => 'clob',
+        ),
     'description' => array(
-		'type' => 'clob',
-		)
+        'type' => 'clob',
+        )
     );
 
 ?>

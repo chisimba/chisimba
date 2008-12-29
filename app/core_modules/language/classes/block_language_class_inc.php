@@ -36,7 +36,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -67,12 +67,12 @@ class block_language extends object
     */
     public function init()
     {
-    	try {
-    		$this->objLanguage =  $this->getObject('language', 'language');
-    		$this->title = $this->objLanguage->languageText("word_languages");
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        try {
+            $this->objLanguage =  $this->getObject('language', 'language');
+            $this->title = $this->objLanguage->languageText("word_languages");
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
     
     /**
@@ -81,11 +81,11 @@ class block_language extends object
     */
     public function show()
     {
-    	try {
-    		return $this->objLanguage->putlanguageChooser();
-    	} catch (customException $e) {
-    		customException::cleanUp();
-    	}
+        try {
+            return $this->objLanguage->putlanguageChooser();
+        } catch (customException $e) {
+            customException::cleanUp();
+        }
     }
 }
 ?>

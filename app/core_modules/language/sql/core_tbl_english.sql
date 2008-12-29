@@ -6443,7 +6443,7 @@ INSERT INTO `tbl_en` VALUES ('mod_metasearch_prev', 'Previous\n', 'metasearch', 
 INSERT INTO `tbl_en` VALUES ('mod_metasearch_next', 'Next\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
 INSERT INTO `tbl_en` VALUES ('mod_metasearch_ResPage', 'Results Page:', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
 INSERT INTO `tbl_en` VALUES ('mod_metasearch_and', 'and\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
-INSERT INTO `tbl_en` VALUES ('help_metasearch_about', 'The Advanced Search allows you to search through information resources	\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
+INSERT INTO `tbl_en` VALUES ('help_metasearch_about', 'The Advanced Search allows you to search through information resources    \n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
 INSERT INTO `tbl_en` VALUES ('help_metasearch_about_title', 'About Advanced Search\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
 INSERT INTO `tbl_en` VALUES ('help_exp', 'Use the <b> With all the words</b> field to return results that include all the words specified<br><br>Use the <b> With all the words</b> field to return results that include all the words specified\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);
 INSERT INTO `tbl_en` VALUES ('help_metasearch_using_search_aw', 'Use the <b> With all the words</b> field to return results that include all the words specified\n', 'metasearch', NULL, '2004-06-23 19:46:00', '1', NULL, NULL);

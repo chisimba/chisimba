@@ -7,20 +7,20 @@ $options = array('comment' => 'language modules','collate' => 'utf8_general_ci',
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'module_id' => array(
-		'type' => 'text',
-		'length' => 50,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'module_id' => array(
+        'type' => 'text',
+        'length' => 50,
 
-		),
+        ),
     'code' => array(
-		'type' => 'text',
-		'length' => 50,
+        'type' => 'text',
+        'length' => 50,
 
-		)
+        )
     );
 
 ?>

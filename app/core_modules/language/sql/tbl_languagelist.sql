@@ -7,20 +7,20 @@ $options = array('commment' => 'Holds the list of languages that KEWL has', 'col
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'languageCode' => array(
-		'type' => 'text',
-		'length' => 100,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'languageCode' => array(
+        'type' => 'text',
+        'length' => 100,
 
-		),
+        ),
     'languageName' => array(
-		'type' => 'text',
-		'length' => 100,
+        'type' => 'text',
+        'length' => 100,
 
-		),
+        ),
     );
 
 ?>

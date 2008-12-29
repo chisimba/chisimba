@@ -77,7 +77,7 @@ require_once 'I18Nv2/DecoratedList/HtmlEntities.php';
  */
 class languagecode extends object
 {
-	/**
+    /**
      * Config object
      *
      * @var objConfig
@@ -124,21 +124,21 @@ class languagecode extends object
     */
     function init()
     {
-    	try {
-    	 	$this->objConfig = $this->getObject('altconfig','config');
-    	 	$this->lan = $this->objConfig->getdefaultLanguage();
-    	 	$neg = &new I18Nv2_Negotiator;
-    	 	$this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
-		 	$this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
-		 	$this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
-		 	$this->iso_639_2_tags = $neg->singleI18NLanguage();
-    	}
-    	catch(customException $e)
-    	{
-    		customException::cleanUp();
-    		die();
-    	}
-	}
+        try {
+             $this->objConfig = $this->getObject('altconfig','config');
+             $this->lan = $this->objConfig->getdefaultLanguage();
+             $neg = &new I18Nv2_Negotiator;
+             $this->objcountry = &new I18Nv2_Country("{$this->lan}", 'iso-8859-1');
+             $this->objentity = &new I18Nv2_DecoratedList_HtmlEntities($this->objcountry);
+             $this->objselect = &new I18Nv2_DecoratedList_HtmlSelect($this->objentity);
+             $this->iso_639_2_tags = $neg->singleI18NLanguage();
+        }
+        catch(customException $e)
+        {
+            customException::cleanUp();
+            die();
+        }
+    }
 
     /**
     * Method to get the name of a language by providing the ISO Code
@@ -171,7 +171,7 @@ class languagecode extends object
         // Upper Case the first letter of the Word
         $language = strtolower($language);
         if (array_key_exists($language, $tempArray)) {
-        	//$tempArray = array_flip($tempArray);
+            //$tempArray = array_flip($tempArray);
 
             return $language;
         } else {
@@ -185,16 +185,16 @@ class languagecode extends object
      *
      * @param string $ocs desired output character set
      * @param string $ics current intput character set
-	 * @return Returns TRUE on success, PEAR_Error on failure.
+     * @return Returns TRUE on success, PEAR_Error on failure.
      */
     public function autoConv($ocs,$ics)
     {
-    	try{
-    		I18Nv2::autoConv($ocs, $ics);
-    	}catch (Exception $e){
-    		$this->errorCallback ('Caught exception: '.$e->getMessage());
-    		 exit();
-    	}
+        try{
+            I18Nv2::autoConv($ocs, $ics);
+        }catch (Exception $e){
+            $this->errorCallback ('Caught exception: '.$e->getMessage());
+             exit();
+        }
 
     }//end function
     /**
@@ -204,16 +204,16 @@ class languagecode extends object
      */
     public function country($country=NULL)
     {
-		$this->objselect->attributes['select']['name'] = 'country';
-		// set a selected entry
-		if ($country) {
-			$language = $country;
-		}else{
+        $this->objselect->attributes['select']['name'] = 'country';
+        // set a selected entry
+        if ($country) {
+            $language = $country;
+        }else{
             $language = strtoupper($this->objConfig->getCountry());
-		}
-		$this->objselect->selected["{$language}"] = true;
-		// print a HTML safe select box
-		return  $this->objselect->getAllCodes();
+        }
+        $this->objselect->selected["{$language}"] = true;
+        // print a HTML safe select box
+        return  $this->objselect->getAllCodes();
     }
 
     /**
@@ -252,17 +252,17 @@ class languagecode extends object
      */
     public function countryListArr($country=NULL)
     {
-		$this->objselect->attributes['select']['name'] = 'country';
-		// set a selected entry
-		if ($country) {
-			$language = $country;
-		}else{
-		  $language = strtoupper($this->objConfig->getCountry());
-		}
-		$this->objselect->selected["{$language}"] = true;
+        $this->objselect->attributes['select']['name'] = 'country';
+        // set a selected entry
+        if ($country) {
+            $language = $country;
+        }else{
+          $language = strtoupper($this->objConfig->getCountry());
+        }
+        $this->objselect->selected["{$language}"] = true;
 
-		// print a HTML safe select box
-		return  $this->objentity->getAllCodes();
+        // print a HTML safe select box
+        return  $this->objentity->getAllCodes();
     }
 
     /**
@@ -272,16 +272,16 @@ class languagecode extends object
      */
     public function dec_country()
     {
-    	// set some attributes
-		$this->objselect->attributes['select']['name'] = 'country';
-		$this->objselect->attributes['select']['onchange'] = 'this.form.submit()';
+        // set some attributes
+        $this->objselect->attributes['select']['name'] = 'country';
+        $this->objselect->attributes['select']['onchange'] = 'this.form.submit()';
 
-		// set a selected entry
-		$language = strtoupper($this->objConfig->getCountry());
-		$this->objselect->selected["{$language}"] = true;
+        // set a selected entry
+        $language = strtoupper($this->objConfig->getCountry());
+        $this->objselect->selected["{$language}"] = true;
 
-		// print a HTML safe select box
-		return  $this->objselect->getAllCodes();
+        // print a HTML safe select box
+        return  $this->objselect->getAllCodes();
     }
 
     /**
@@ -292,7 +292,7 @@ class languagecode extends object
      */
     public function getName ($code){
 
-    	return $this->objcountry->getName($code);
+        return $this->objcountry->getName($code);
     }
     /**
     * The error callback function, defers to configured error handler
@@ -303,7 +303,7 @@ class languagecode extends object
     */
     public function errorCallback($exception)
     {
-    	echo customException::cleanUp($exception);
+        echo customException::cleanUp($exception);
     }
 } // End of Class
 ?>

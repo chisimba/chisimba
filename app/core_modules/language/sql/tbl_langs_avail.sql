@@ -20,25 +20,25 @@ $options = array('commment' => 'Holds the list of languages that KEWL has', 'col
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'name' => array(
-		'type' => 'text',
-		'length' => 100,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'name' => array(
+        'type' => 'text',
+        'length' => 100,
         'notnull' => TRUE
-		),
+        ),
     'meta' => array(
-		'type' => 'text',
-		'length' => 100,
+        'type' => 'text',
+        'length' => 100,
         'notnull' => TRUE
-		),
-	' error_text' => array(
-		'type' => 'text',
-		'length' => 100,
+        ),
+    ' error_text' => array(
+        'type' => 'text',
+        'length' => 100,
         'notnull' => TRUE
-		)
+        )
     );
 
 ?>
