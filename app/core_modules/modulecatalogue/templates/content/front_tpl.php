@@ -11,9 +11,9 @@ $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
 $notice = $top = $bot = '';
 if (!isset($result)) {
-	$modules = $this->objCatalogueConfig->getCategoryList($activeCat);
+    $modules = $this->objCatalogueConfig->getCategoryList($activeCat);
 } else {
-	$modules = $result; //search results
+    $modules = $result; //search results
 }
 
 $missingModules = false;
@@ -29,11 +29,11 @@ $masterCheck = new checkbox('arrayList[]');
 $masterCheck->extra = 'onclick="javascript:baseChecked(this);"';
 
 $head = array($masterCheck->show(),'&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
-			/*$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),*/
-			ucwords($this->objLanguage->languageText("mod_modulecatalogue_modstability", "modulecatalogue")),
-			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
-			,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
+            /*$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'),*/
+            ucwords($this->objLanguage->languageText("mod_modulecatalogue_modstability", "modulecatalogue")),
+            $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'),
+            $this->objLanguage->languageText('mod_modulecatalogue_textelement','modulecatalogue')
+            ,$this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue'));
 
 $count = 0;
 $localModules = $this->objModFile->getLocalModuleList();
@@ -42,7 +42,7 @@ $root = $this->objConfig->getsiteRootPath();
 //$defaults = file_get_contents($root.'installer/dbhandlers/default_modules.txt'); TODO: replace this with the xml list of core modules
 $registeredModules = $this->objModule->getAll();
 foreach ($registeredModules as $module) {
-	$rMods[]=$module['module_id'];
+    $rMods[]=$module['module_id'];
 }
 
 $alink = new link();
@@ -63,7 +63,7 @@ if ($modules) {
         $batchButton = &new button('formsub');
         $batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
         $batchButton->extra=' onclick="if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_confirmbatchuninst','modulecatalogue').'\'))
-							{document.getElementById(\'form_batchform\').submit();}"';
+                            {document.getElementById(\'form_batchform\').submit();}"';
         $batchAction = $batchButton->show();
     } else {
         $actiontotake = 'batchinstall';
@@ -80,7 +80,7 @@ if ($modules) {
     $objRemoteTable = $this->newObject('htmltable','htmlelements');
     $objRemoteTable->cellpadding = 2;
     $rhead = array('&nbsp;','&nbsp;',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'),
-			$this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
+            $this->objLanguage->languageText('mod_modulecatalogue_install','modulecatalogue'));
     $objRemoteTable->addHeader($rhead,'heading','align="left"');
     if (!$connected) {
         $objRemoteTable->startRow();
@@ -123,7 +123,7 @@ if ($modules) {
             }
             $desc = $this->objLanguage->abstractText(($desc));
             $objWasher = $this->getObject('bbcodeparser', 'utilities');
-    		$desc = $objWasher->parse4BBcode($desc);
+            $desc = $objWasher->parse4BBcode($desc);
             $infoButton = &new Link($this->uri(array('action'=>'info','mod'=>$moduleId,'cat'=>$activeCat),'modulecatalogue'));
             $infoButton->link = $this->objLanguage->languageText('mod_modulecatalogue_info2','modulecatalogue');
             $link = $moduleName = ucfirst($moduleName);
@@ -224,30 +224,30 @@ if ($modules) {
         }
     }
 } else {
-	$objTable->startRow();
-	$objTable->addCell('<span class="empty">'.$this->objLanguage->languageText('mod_modulecatalogue_noitems','modulecatalogue').'</span>');
-	$objTable->endRow();
+    $objTable->startRow();
+    $objTable->addCell('<span class="empty">'.$this->objLanguage->languageText('mod_modulecatalogue_noitems','modulecatalogue').'</span>');
+    $objTable->endRow();
 }
 if (($output=$this->getSession('output'))!=null) {
-	if (!isset($error)) {
-	    $error = $this->getParam('lastError');
-	}
-	if (!isset($error)) {
-	    $timeoutMsg = $this->getObject('timeoutmessage','htmlelements');
-	    if (is_array($output)) {
-	        $timeoutMsg->setMessage(implode('<br />',$output));
-	    } else {
-	        $timeoutMsg->setMessage($output);
-	    }
-	    $notice = $timeoutMsg->show();
-	} else {
-	    //var_dump($output);
-	    if (is_array($output)) {
-	        $output = implode('<br />',$output);
-	    }
-	    $notice = "<span class='error'>$output</span>";
-	}
-	$this->unsetSession('output');
+    if (!isset($error)) {
+        $error = $this->getParam('lastError');
+    }
+    if (!isset($error)) {
+        $timeoutMsg = $this->getObject('timeoutmessage','htmlelements');
+        if (is_array($output)) {
+            $timeoutMsg->setMessage(implode('<br />',$output));
+        } else {
+            $timeoutMsg->setMessage($output);
+        }
+        $notice = $timeoutMsg->show();
+    } else {
+        //var_dump($output);
+        if (is_array($output)) {
+            $output = implode('<br />',$output);
+        }
+        $notice = "<span class='error'>$output</span>";
+    }
+    $this->unsetSession('output');
 }
 
 $objForm = &new form('batchform',$this->uri(array('action'=>$actiontotake,'cat'=>$activeCat),'modulecatalogue'));

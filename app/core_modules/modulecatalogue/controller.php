@@ -359,12 +359,12 @@ class modulecatalogue extends controller {
                 /*
                         // Redirect back to textelements action
 
-					$texts = $this->objModuleAdmin->moduleText($modname);
-					$this->output=$this->objModule->output;
-					$this->setVar('output',$this->output);
-					$this->setVar('moduledata',$texts);
-					$this->setVar('modname',$modname);
-					return 'textelements_tpl.php';
+                    $texts = $this->objModuleAdmin->moduleText($modname);
+                    $this->output=$this->objModule->output;
+                    $this->setVar('output',$this->output);
+                    $this->setVar('moduledata',$texts);
+                    $this->setVar('modname',$modname);
+                    return 'textelements_tpl.php';
                     */
                 case 'replacetext' :
                     $modname = $this->getParm ( 'mod' );
@@ -375,12 +375,12 @@ class modulecatalogue extends controller {
                 /*
                         // Redirect back to textelements action
 
-					$texts=$this->objModuleAdmin->moduleText($modname);
-					$this->output=$this->objModule->output;
-					$this->setVar('output',$this->output);
-					$this->setVar('moduledata',$texts);
-					$this->setVar('modname',$modname);
-					return 'textelements_tpl.php';
+                    $texts=$this->objModuleAdmin->moduleText($modname);
+                    $this->output=$this->objModule->output;
+                    $this->setVar('output',$this->output);
+                    $this->setVar('moduledata',$texts);
+                    $this->setVar('modname',$modname);
+                    return 'textelements_tpl.php';
                     */
 
                 case 'batchinstall' :
@@ -789,7 +789,7 @@ class modulecatalogue extends controller {
                         // check for core modules and install them where they should go
                         if (in_array ( $dls, $this->objEngine->coremods )) {
                             log_debug ( "upgrading core module $dls as part of system type..." );
-                            //                  	if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
+                            //                      if (!$objZip->unPackFilesFromZip("$dls.zip", $this->objConfig->getsiteRootPath().'core_modules/')) {
                             if (! $objZip->unZipArchive ( "$dls.zip", $this->objConfig->getsiteRootPath () . 'core_modules/' )) {
                                 header ( 'HTTP/1.0 500 Internal Server Error' );
                                 echo $this->objLanguage->languageText ( 'mod_modulecatalogue_unziperror', 'modulecatalogue' );
@@ -808,10 +808,10 @@ class modulecatalogue extends controller {
                     // finally install all of the mods
                     $this->batchRegister ( $modules );
                     /*foreach($modules as $installables)
-					{
-					log_debug("Installing module $installables as part of system");
-					$this->smartRegister($installables);
-					}*/
+                    {
+                    log_debug("Installing module $installables as part of system");
+                    $this->smartRegister($installables);
+                    }*/
                     // clean up after ourselves
                     foreach ( $modules as $deleteables ) {
                         unlink ( $deleteables . ".zip" );

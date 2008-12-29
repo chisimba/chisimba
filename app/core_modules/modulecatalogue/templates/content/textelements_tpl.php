@@ -22,8 +22,8 @@
 
 
     $objTblclass->addRow(array($this->objLanguage->languageText('word_code'),$this->objLanguage->languageText('word_description'),
-    	$this->objLanguage->languageText('word_content'),$this->objLanguage->languageText('word_description'),
-    	$this->objLanguage->languageText('word_content')),'heading');
+        $this->objLanguage->languageText('word_content'),$this->objLanguage->languageText('word_description'),
+        $this->objLanguage->languageText('word_content')),'heading');
 
     // Now build up the table from the supplied array $moduledata
     foreach ($moduledata as $line)

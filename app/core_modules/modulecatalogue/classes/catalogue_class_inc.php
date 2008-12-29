@@ -62,25 +62,25 @@ $GLOBALS['kewl_entry_point_run']){
 
 class catalogue extends object {
 
-	/**
-	 * Nodes of navigation list
-	 *
-	 * @var array $nodes
-	 */
-	protected $nodes = array();
+    /**
+     * Nodes of navigation list
+     *
+     * @var array $nodes
+     */
+    protected $nodes = array();
 
-	/**
+    /**
     * Method to construct the class.
     */
     public function init()
     {
-   		try {
-    		$this->nodes = array();
-    	} catch (customException $e) {
-			echo customException::cleanUp($e);
-    		exit();
+           try {
+            $this->nodes = array();
+        } catch (customException $e) {
+            echo customException::cleanUp($e);
+            exit();
 
-		}
+        }
     }
 
     /**
@@ -89,17 +89,17 @@ class catalogue extends object {
      * @param array $nodes An array of nodes to be added as categories
      */
     public function addNodes($nodes) {
-    	try {
-    		if (is_array($nodes)) {
-    			foreach($nodes as $node) {
-    				$this->addNodes($node);
-    			}
-    		} else {
-    			array_push($this->nodes,$nodes);
-    		}
-    	} catch (customException $e) {
-			echo customException::cleanUp($e);
-    		exit();
+        try {
+            if (is_array($nodes)) {
+                foreach($nodes as $node) {
+                    $this->addNodes($node);
+                }
+            } else {
+                array_push($this->nodes,$nodes);
+            }
+        } catch (customException $e) {
+            echo customException::cleanUp($e);
+            exit();
         }
     }
 
@@ -107,12 +107,12 @@ class catalogue extends object {
      * Method to reset the nodelist
      */
     public function clearNodes() {
-    	try {
-    		$this->nodes = array();
-    	} catch (customException $e) {
-			echo customException::cleanUp($e);
-    		exit();
-		}
+        try {
+            $this->nodes = array();
+        } catch (customException $e) {
+            echo customException::cleanUp($e);
+            exit();
+        }
     }
 
     /**
@@ -123,30 +123,30 @@ class catalogue extends object {
      * @return string The rendered navigation menu
      */
     public function show($activeNode = null) {
-    	try {
-    		$un = $this->getParam('uninstall');
-    		$str = '<ul id="nav-secondary">';
-    		$cssClass = '';
-    		//loop through the nodes
-    		foreach($this->nodes as $node) {
-				if(strtolower($node) == strtolower($activeNode)) {
-					$cssClass = ' class="active" ';
-				}
-				$name = ucwords($node);
-				if ($un) {
-					$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node,'uninstall'=>'1'),'modulecatalogue')}'>{$name}</a></li>";
-				} else {
-					$str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node),'modulecatalogue')}'>{$name}</a></li>";
-				}
-				//reset the cssclass
-				$cssClass = '';
-    		}
-    		$str .='</ul>';
-    		return $str;
-    	} catch (customException $e) {
-			echo customException::cleanUp($e);
-    		exit();
-		}
+        try {
+            $un = $this->getParam('uninstall');
+            $str = '<ul id="nav-secondary">';
+            $cssClass = '';
+            //loop through the nodes
+            foreach($this->nodes as $node) {
+                if(strtolower($node) == strtolower($activeNode)) {
+                    $cssClass = ' class="active" ';
+                }
+                $name = ucwords($node);
+                if ($un) {
+                    $str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node,'uninstall'=>'1'),'modulecatalogue')}'>{$name}</a></li>";
+                } else {
+                    $str .="<li $cssClass><a href='{$this->uri(array('action'=>'list','cat'=>$node),'modulecatalogue')}'>{$name}</a></li>";
+                }
+                //reset the cssclass
+                $cssClass = '';
+            }
+            $str .='</ul>';
+            return $str;
+        } catch (customException $e) {
+            echo customException::cleanUp($e);
+            exit();
+        }
     }
 }
 ?>

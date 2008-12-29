@@ -1,7 +1,7 @@
 <?php
 if(!isset($upgradables))
 {
-	$upgradables = NULL;
+    $upgradables = NULL;
 }
 $this->appendArrayVar('headerParams',"<script type='text/javascript' src='core_modules/modulecatalogue/resources/remote.js'></script>");
 $this->loadClass('checkbox','htmlelements');
@@ -90,31 +90,31 @@ $link = new link();
 $link->link = $this->objLanguage->languageText('mod_modulecatalogue_dlandinstall','modulecatalogue');
 $icon = $this->newObject('getIcon','htmlelements');
 foreach ($modules as $module) {
-	if (!in_array($module['id'],$lMods)) {
-		$link->link('javascript:;');
-		$link->extra = "onclick = 'javascript:downloadModule(\"{$module['id']}\",\"{$module['name']}\");'";
-		$class = ($class == 'even')? 'odd' : 'even';
-		$newMods[] = $module['id'];
-		$icon->setModuleIcon($module['id']);
-		$modCheck = '&nbsp;'; // new checkbox('arrayList[]');
-		//$modCheck->cssId = 'checkbox_'.$module['id'];
-		//$modCheck->setValue($module['id']);
-		//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
+    if (!in_array($module['id'],$lMods)) {
+        $link->link('javascript:;');
+        $link->extra = "onclick = 'javascript:downloadModule(\"{$module['id']}\",\"{$module['name']}\");'";
+        $class = ($class == 'even')? 'odd' : 'even';
+        $newMods[] = $module['id'];
+        $icon->setModuleIcon($module['id']);
+        $modCheck = '&nbsp;'; // new checkbox('arrayList[]');
+        //$modCheck->cssId = 'checkbox_'.$module['id'];
+        //$modCheck->setValue($module['id']);
+        //$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
-		$objTable->startRow();
-		$objTable->addCell($modCheck,20,null,null,$class);
-		$objTable->addCell($icon->show(),30,null,null,$class);
-		$objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",null,null,null,$class);
-		$objTable->addCell("<div id='link_{$module['status']}'><b>{$module['status']}</b></div>",null,null,null,$class);
-		$objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'40%',null,null,$class);
-		$objTable->endRow();
-		$objTable->startRow();
-		$objTable->addCell('&nbsp;',20,null,'left',$class);
-		$objTable->addCell('&nbsp;',30,null,'left',$class);
-		$objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
-		$objTable->addCell('&nbsp;',20,null,'left',$class);
-		$objTable->endRow();
-	}
+        $objTable->startRow();
+        $objTable->addCell($modCheck,20,null,null,$class);
+        $objTable->addCell($icon->show(),30,null,null,$class);
+        $objTable->addCell("<div id='link_{$module['id']}'><b>{$module['name']}</b></div>",null,null,null,$class);
+        $objTable->addCell("<div id='link_{$module['status']}'><b>{$module['status']}</b></div>",null,null,null,$class);
+        $objTable->addCell("<div id='download_{$module['id']}'>".$link->show()."</div>",'40%',null,null,$class);
+        $objTable->endRow();
+        $objTable->startRow();
+        $objTable->addCell('&nbsp;',20,null,'left',$class);
+        $objTable->addCell('&nbsp;',30,null,'left',$class);
+        $objTable->addCell($module['desc'].'<br />&nbsp;',null,null,'left',$class, 'colspan="2"');
+        $objTable->addCell('&nbsp;',20,null,'left',$class);
+        $objTable->endRow();
+    }
 }
 
 $objTable2 = $this->newObject('htmltable','htmlelements');
@@ -136,45 +136,45 @@ $link2->link = $this->objLanguage->languageText('mod_modulecatalogue_upgrade','m
 $icon2 = $this->newObject('getIcon','htmlelements');
 foreach ($modules as $umod)
 {
-	// check the versions too...
-	// $umod are the remote mods
-	foreach($registeredModules as $regmods)
-	{
-		if($umod['id'] == $regmods['module_id'])
-		{
-			// check the version floats
-			$umod['ver'] = (float)$umod['ver'];
-			$regmods['module_version'] = (float)$regmods['module_version'];
-			if($umod['ver'] > $regmods['module_version'])
-			{
-				$upgradables = TRUE;
-				log_debug($umod['name']." can be upgraded!");
-				$link2->link('javascript:;');
-				$link2->extra = "onclick = 'javascript:downloadModuleUpgrade(\"{$umod['id']}\",\"{$umod['name']}\");'";
-				$class2 = ($class2 == 'even')? 'odd' : 'even';
-				$newMods2[] = $umod['id'];
-				$icon2->setModuleIcon($umod['id']);
-				$modCheck2 = '&nbsp;'; // new checkbox('arrayList[]');
-				//$modCheck2->cssId = 'checkbox_'.$umod['id'];
-				//$modCheck2->setValue($umod['id']);
-				//$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
+    // check the versions too...
+    // $umod are the remote mods
+    foreach($registeredModules as $regmods)
+    {
+        if($umod['id'] == $regmods['module_id'])
+        {
+            // check the version floats
+            $umod['ver'] = (float)$umod['ver'];
+            $regmods['module_version'] = (float)$regmods['module_version'];
+            if($umod['ver'] > $regmods['module_version'])
+            {
+                $upgradables = TRUE;
+                log_debug($umod['name']." can be upgraded!");
+                $link2->link('javascript:;');
+                $link2->extra = "onclick = 'javascript:downloadModuleUpgrade(\"{$umod['id']}\",\"{$umod['name']}\");'";
+                $class2 = ($class2 == 'even')? 'odd' : 'even';
+                $newMods2[] = $umod['id'];
+                $icon2->setModuleIcon($umod['id']);
+                $modCheck2 = '&nbsp;'; // new checkbox('arrayList[]');
+                //$modCheck2->cssId = 'checkbox_'.$umod['id'];
+                //$modCheck2->setValue($umod['id']);
+                //$modCheck->extra = 'onclick="javascript:toggleChecked(this);"';
 
-				$objTable2->startRow();
-				$objTable2->addCell($modCheck2,20,null,null,$class2);
-				$objTable2->addCell($icon2->show(),30,null,null,$class2);
-				$objTable2->addCell("<div id='link_{$umod['id']}'><b>{$umod['name']}</b></div>",null,null,null,$class2);
-				$objTable2->addCell("<div id='download_{$umod['id']}'>".$link2->show()."</div>",'40%',null,null,$class2);
-				$objTable2->endRow();
-				$objTable2->startRow();
-				$objTable2->addCell('&nbsp;',20,null,'left',$class2);
-				$objTable2->addCell('&nbsp;',30,null,'left',$class2);
-				$objTable2->addCell($umod['desc'].'<br />&nbsp;',null,null,'left',$class2, 'colspan="2"');
-				$objTable2->endRow();
-			}
+                $objTable2->startRow();
+                $objTable2->addCell($modCheck2,20,null,null,$class2);
+                $objTable2->addCell($icon2->show(),30,null,null,$class2);
+                $objTable2->addCell("<div id='link_{$umod['id']}'><b>{$umod['name']}</b></div>",null,null,null,$class2);
+                $objTable2->addCell("<div id='download_{$umod['id']}'>".$link2->show()."</div>",'40%',null,null,$class2);
+                $objTable2->endRow();
+                $objTable2->startRow();
+                $objTable2->addCell('&nbsp;',20,null,'left',$class2);
+                $objTable2->addCell('&nbsp;',30,null,'left',$class2);
+                $objTable2->addCell($umod['desc'].'<br />&nbsp;',null,null,'left',$class2, 'colspan="2"');
+                $objTable2->endRow();
+            }
 
 
-		}
-	}
+        }
+    }
 }
 
 // system types one click install
@@ -211,67 +211,67 @@ $objTable3->endRow();
 
 foreach ($types as $type)
 {
-	// grab a list of all modules in the category for the check.
-	$catmods[$type] = array_keys($this->objCatalogueConfig->getCategoryList($type));
-	// loop through the modules in the cat to check if they are all installed.
-	foreach($catmods[$type] as $checks)
-	{
-		//echo $checks;
-		$check[] = $this->objModule->checkIfRegistered($checks);
-	}
-	// check for a false in the array and if there is one, download else show tick
-	if(in_array(false, $check))
-	{
-		$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
-		//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
-		$class3 = ($class3 == 'even')? 'odd' : 'even';
-		$newMods3[] = $type;
-		$itype = str_replace(' ','_', $type);
-		$itype = strtolower($itype);
-		$icon3->setModuleIcon($itype);
-		$modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
-		//$modCheck3->cssId = 'checkbox_'.$itype;
-		//$modCheck3->setValue($type);
-				
-		$objTable3->startRow();
-		$objTable3->addCell('&nbsp;',20,null,null,$class3);
-		$objTable3->addCell($icon3->show(),30,null,null,$class3);
-		$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
-		$objTable3->addCell("<div id='download_{$itype}'>".$link3->show()."</div>",'40%',null,null,$class3);
-		$objTable3->endRow();
-		$objTable3->startRow();
-		$objTable3->addCell('&nbsp;',20,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
-		$objTable3->endRow();
-	}
-	else {
-		// no falses in the array which means that all the relevant modules are installed already
-		$link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
-		//$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
-		$class3 = ($class3 == 'even')? 'odd' : 'even';
-		$newMods3[] = $type;
-		$itype = str_replace(' ','_', $type);
-		$itype = strtolower($itype);
-		$icon3->setModuleIcon($itype);
-		$modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
-		//$modCheck3->cssId = 'checkbox_'.$itype;
-		//$modCheck3->setValue($type);
-				
-		$objTable3->startRow();
-		$objTable3->addCell('&nbsp;',20,null,null,$class3);
-		$objTable3->addCell($icon3->show(),30,null,null,$class3);
-		$objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
-		$objTable3->addCell("<div id='download_{$itype}'>".$iconcheck->show()."</div>",'40%',null,null,$class3);
-		$objTable3->endRow();
-		$objTable3->startRow();
-		$objTable3->addCell('&nbsp;',20,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3);
-		$objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
-		$objTable3->endRow();
-	}
+    // grab a list of all modules in the category for the check.
+    $catmods[$type] = array_keys($this->objCatalogueConfig->getCategoryList($type));
+    // loop through the modules in the cat to check if they are all installed.
+    foreach($catmods[$type] as $checks)
+    {
+        //echo $checks;
+        $check[] = $this->objModule->checkIfRegistered($checks);
+    }
+    // check for a false in the array and if there is one, download else show tick
+    if(in_array(false, $check))
+    {
+        $link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
+        //$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
+        $class3 = ($class3 == 'even')? 'odd' : 'even';
+        $newMods3[] = $type;
+        $itype = str_replace(' ','_', $type);
+        $itype = strtolower($itype);
+        $icon3->setModuleIcon($itype);
+        $modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
+        //$modCheck3->cssId = 'checkbox_'.$itype;
+        //$modCheck3->setValue($type);
+                
+        $objTable3->startRow();
+        $objTable3->addCell('&nbsp;',20,null,null,$class3);
+        $objTable3->addCell($icon3->show(),30,null,null,$class3);
+        $objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
+        $objTable3->addCell("<div id='download_{$itype}'>".$link3->show()."</div>",'40%',null,null,$class3);
+        $objTable3->endRow();
+        $objTable3->startRow();
+        $objTable3->addCell('&nbsp;',20,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+        $objTable3->endRow();
+    }
+    else {
+        // no falses in the array which means that all the relevant modules are installed already
+        $link3->link($this->uri(array('action' => 'downloadsystemtype', 'type' => $type, ))); //'javascript:;');
+        //$link3->extra = "onclick = 'javascript:alert(\"{$type}\");'";
+        $class3 = ($class3 == 'even')? 'odd' : 'even';
+        $newMods3[] = $type;
+        $itype = str_replace(' ','_', $type);
+        $itype = strtolower($itype);
+        $icon3->setModuleIcon($itype);
+        $modCheck3 = '&nbsp;'; // new checkbox('arrayList[]');
+        //$modCheck3->cssId = 'checkbox_'.$itype;
+        //$modCheck3->setValue($type);
+                
+        $objTable3->startRow();
+        $objTable3->addCell('&nbsp;',20,null,null,$class3);
+        $objTable3->addCell($icon3->show(),30,null,null,$class3);
+        $objTable3->addCell("<div id='link_{$itype}'><b>{$type}</b></div>",null,null,null,$class3);
+        $objTable3->addCell("<div id='download_{$itype}'>".$iconcheck->show()."</div>",'40%',null,null,$class3);
+        $objTable3->endRow();
+        $objTable3->startRow();
+        $objTable3->addCell('&nbsp;',20,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3);
+        $objTable3->addCell('&nbsp;',30,null,'left',$class3); //$type.'<br />&nbsp;',null,null,'left',$class3, 'colspan="2"');
+        $objTable3->endRow();
+    }
 }
 
 
@@ -306,36 +306,36 @@ $iconcheckno4->setIcon('redcross');
 $engCheck = $remEngVer - $localEngVer; 
 if( $engCheck === 0)
 {
-	$objTable->startRow();
-	$objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
-	$objTable4->addCell($iconcheck4->show(),30,null,null,$class4);
-	$objTable4->addCell("<div id='link_noengup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_nocoreupgrades","modulecatalogue")."</b></div>",null,null,null,$class4);
-	$objTable->endRow();
+    $objTable->startRow();
+    $objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+    $objTable4->addCell($iconcheck4->show(),30,null,null,$class4);
+    $objTable4->addCell("<div id='link_noengup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_nocoreupgrades","modulecatalogue")."</b></div>",null,null,null,$class4);
+    $objTable->endRow();
 }
 else {
-	$objTable4->startRow();
-	$objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
-	$objTable4->addCell($iconcheckno4->show(),30,null,null,$class4);
-	$objTable4->addCell("<div id='link_engup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_coreupgradeavail", "modulecatalogue")."</b></div>",null,null,null,$class4);
-	$objTable4->addCell("<div id='download_core'>".$link4->show()."</div>",'40%',null,null,null,$class4);
-	$objTable4->endRow();
+    $objTable4->startRow();
+    $objTable4->addCell(''); //$modCheck3->show(),20,null,null,$class3);
+    $objTable4->addCell($iconcheckno4->show(),30,null,null,$class4);
+    $objTable4->addCell("<div id='link_engup'><b>".$this->objLanguage->languageText("mod_modulecatalogue_coreupgradeavail", "modulecatalogue")."</b></div>",null,null,null,$class4);
+    $objTable4->addCell("<div id='download_core'>".$link4->show()."</div>",'40%',null,null,null,$class4);
+    $objTable4->endRow();
 }
 
 
 if (empty($newMods)) {
-	$objTable->startRow();
-	$objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremotemods','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
-	$objTable->endRow();
+    $objTable->startRow();
+    $objTable->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremotemods','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+    $objTable->endRow();
 }
 if ($upgradables != TRUE) {
-	$objTable2->startRow();
-	$objTable2->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremoteupgrades','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
-	$objTable2->endRow();
+    $objTable2->startRow();
+    $objTable2->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_noremoteupgrades','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+    $objTable2->endRow();
 }
 if (empty($types)) {
-	$objTable3->startRow();
-	$objTable3->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_nosystypesavail','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
-	$objTable->endRow();
+    $objTable3->startRow();
+    $objTable3->addCell("<span class='empty'>".$this->objLanguage->languageText('mod_modulecatalogue_nosystypesavail','modulecatalogue').'</span>',null,null,'left',null, 'colspan="4"');
+    $objTable->endRow();
 }
 echo $hTable->show()."<br />".$objH4->show().$objTable4->show()."<br />".$objTable2->show()."<br />".$objH3->show().$objTable3->show()."<br />".$objH5->show().$objTable->show();
 

@@ -60,7 +60,7 @@ class tableinfo extends dbtable
     */
     public function tablelist()
     {
-    	return $this->listDbTables();
+        return $this->listDbTables();
     }
 
     /**

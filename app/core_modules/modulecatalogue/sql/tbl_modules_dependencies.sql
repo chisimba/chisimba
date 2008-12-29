@@ -7,18 +7,18 @@ $options = array('comment' => 'module dependencies','collate' => 'utf8_general_c
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'module_id' => array(
-		'type' => 'text',
-		'length' => 50
-		),
-    'dependency' => array(
-		'type' => 'text',
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'module_id' => array(
+        'type' => 'text',
         'length' => 50
-		)
+        ),
+    'dependency' => array(
+        'type' => 'text',
+        'length' => 50
+        )
     );
 
 //create other indexes here...
@@ -27,7 +27,7 @@ $name = 'modules_dependencies';
 
 $indexes = array(
                 'fields' => array(
-                	'dependency' => array()
+                    'dependency' => array()
                 )
         );
 ?>

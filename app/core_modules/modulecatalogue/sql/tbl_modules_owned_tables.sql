@@ -7,21 +7,21 @@ $options = array('comment' => 'table of owned modules','collate' => 'utf8_genera
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'kng_module' => array(
-		'type' => 'text',
-		'length' => 50,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'kng_module' => array(
+        'type' => 'text',
+        'length' => 50,
         'notnull' => TRUE,
         'default' => '0'
-		),
+        ),
     'tablename' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 150,
 
-		)
+        )
     );
 
 //create other indexes here...
@@ -30,7 +30,7 @@ $name = 'module_tables';
 
 $indexes = array(
                 'fields' => array(
-                	'kng_module' => array()
+                    'kng_module' => array()
                 )
         );
 ?>

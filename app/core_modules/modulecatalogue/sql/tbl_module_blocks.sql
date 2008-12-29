@@ -7,31 +7,31 @@ $options = array('comment' => 'table of module owned blocks','collate' => 'utf8_
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'moduleid' => array(
-		'type' => 'text',
-		'length' => 50,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'moduleid' => array(
+        'type' => 'text',
+        'length' => 50,
         'notnull' => TRUE,
         'default' => '0'
-		),
+        ),
     'blockname' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 150,
-		),
-	'blockwidth' => array(
-		'type' => 'text',
-		'length' => 10,
-		'notnull' => TRUE,
-		'default' => 'normal'
-		),
+        ),
+    'blockwidth' => array(
+        'type' => 'text',
+        'length' => 10,
+        'notnull' => TRUE,
+        'default' => 'normal'
+        ),
     'blocktype' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 150,
         'default' => 'site',
-		)
+        )
     );
 
 //create other indexes here...

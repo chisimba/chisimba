@@ -7,31 +7,31 @@ $options = array('comment' => 'table of patches applied to modules','collate' =>
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'moduleid' => array(
-		'type' => 'text',
-		'length' => 50,
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'moduleid' => array(
+        'type' => 'text',
+        'length' => 50,
         'notnull' => TRUE,
         'default' => '0'
-		),
+        ),
     'version' => array(
-		'type' => 'text',
+        'type' => 'text',
         'length' => 32
-		),
-	'tablename' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'patchdata' => array(
-		'type' => 'text',
-		'length' => 255
-		),
-	'applied' => array(
-		'type' => 'date'
-		)
+        ),
+    'tablename' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'patchdata' => array(
+        'type' => 'text',
+        'length' => 255
+        ),
+    'applied' => array(
+        'type' => 'date'
+        )
     );
 
 //create other indexes here...

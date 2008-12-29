@@ -101,10 +101,10 @@
     $link2='';
     $space='';
     if ($this->objModFile->findController($this->modname)){
-    	$link2="<a href='".$this->uri(array(),$this->modname)."'>"
-    	.$this->objLanguage->languageText('mod_modulecatalogue_go','modulecatalogue')."&nbsp;<b>"
-    	.ucwords($this->modname)."</b></a>";
-    	$space='&nbsp;<b>/</b>&nbsp;';
+        $link2="<a href='".$this->uri(array(),$this->modname)."'>"
+        .$this->objLanguage->languageText('mod_modulecatalogue_go','modulecatalogue')."&nbsp;<b>"
+        .ucwords($this->modname)."</b></a>";
+        $space='&nbsp;<b>/</b>&nbsp;';
     }
     $link3 ="&nbsp;<b>/</b>&nbsp;<a href='".$this->uri(array('action'=>'reloaddefaultdata','moduleid'=>$this->registerdata['MODULE_ID']))."'>".$this->objLanguage->languageText('mod_modulecatalogue_reloaddefault','modulecatalogue')."</a>";
     

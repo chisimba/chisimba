@@ -93,15 +93,15 @@ class modules extends dbTable
      * Standard object init function
      */
     public function init() {
-    	try {
-    		parent::init('tbl_modules');
-    		//Config and Language Objects
-    		$this->objLanguage = $this->getObject('language', 'language');
-    		$this->objConfig = $this->getObject('altconfig','config');
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            parent::init('tbl_modules');
+            //Config and Language Objects
+            $this->objLanguage = $this->getObject('language', 'language');
+            $this->objConfig = $this->getObject('altconfig','config');
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -117,36 +117,36 @@ class modules extends dbTable
     * @return array    List of modules
     */
     public function getModules($getType) {
-    	try {
-    		switch ($getType) {
-    			case 3:
-    				$filter = "WHERE isVisible=1 AND isAdmin!=1 ";
-    				break;
-    			case 2:
-    				$filter = "WHERE isVisible=1 ";
-    				break;
-    			case 1:
-    				$filter = '';
-    				break;
-    			default:
-    				throw new customException("Invalid getType in modules::getModules");
-    		}
-    		$filter .= "ORDER BY module_id";
-    		$modules = $this->getAll($filter);
-    		$_modules = array();
-    		foreach ($modules as $module) {
-    			$_module = array();
-    			$_module['module_id'] = $module['module_id'];
-    			$_module['module_path'] = $module['module_path'];
-    			$_module['title'] = ucwords($this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_name',$module['module_id']));
-    			$_module['description'] = $this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_desc',$module['module_id']);
-    			$_modules[] = $_module;
-    		}
-    		return !empty($_modules) ? $_modules : FALSE;
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            switch ($getType) {
+                case 3:
+                    $filter = "WHERE isVisible=1 AND isAdmin!=1 ";
+                    break;
+                case 2:
+                    $filter = "WHERE isVisible=1 ";
+                    break;
+                case 1:
+                    $filter = '';
+                    break;
+                default:
+                    throw new customException("Invalid getType in modules::getModules");
+            }
+            $filter .= "ORDER BY module_id";
+            $modules = $this->getAll($filter);
+            $_modules = array();
+            foreach ($modules as $module) {
+                $_module = array();
+                $_module['module_id'] = $module['module_id'];
+                $_module['module_path'] = $module['module_path'];
+                $_module['title'] = ucwords($this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_name',$module['module_id']));
+                $_module['description'] = $this->objLanguage->code2Txt('mod_' . $module['module_id'] . '_desc',$module['module_id']);
+                $_modules[] = $_module;
+            }
+            return !empty($_modules) ? $_modules : FALSE;
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
     
     
@@ -176,13 +176,13 @@ class modules extends dbTable
     * @return Boolean TRUE|FALSE
     */
     public function isAdminModule($moduleId) {
-    	try {
-    		$row=$this->getRow('module_id',$moduleId);
-    		return !empty($row) ? $row['isAdmin'] : FALSE;
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            $row=$this->getRow('module_id',$moduleId);
+            return !empty($row) ? $row['isAdmin'] : FALSE;
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -193,13 +193,13 @@ class modules extends dbTable
     * @return boolen TRUE|FALSE
     */
      public function checkIfRegistered($moduleId) {
-     	try {
-     		$row = $this->getRow('module_id',$moduleId);
-     		return !empty($row);
-     	} catch (Exception $e) {
-     		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-     		exit();
-     	}
+         try {
+             $row = $this->getRow('module_id',$moduleId);
+             return !empty($row);
+         } catch (Exception $e) {
+             echo customException::cleanUp('Caught exception: '.$e->getMessage());
+             exit();
+         }
      }
 
     /**
@@ -210,13 +210,13 @@ class modules extends dbTable
     */
     public function getVersion($moduleId)
     {
-    	try {
-    		$row=$this->getRow('module_id',$moduleId);
-    		return !empty($row) ? $row['module_version'] : FALSE;
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            $row=$this->getRow('module_id',$moduleId);
+            return !empty($row) ? $row['module_version'] : FALSE;
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -225,18 +225,18 @@ class modules extends dbTable
      * @return mixed  the modules dependents
      */
     public function getDependencies($moduleId) {
-    	try {
-    		$sql = "SELECT module_id FROM tbl_modules_dependencies WHERE dependency='$moduleId'";
-    		$rs = $this->getArray($sql);
-    		$dep = array();
-    		foreach ($rs as $rec) {
-    			$dep[] = $rec['module_id'];
-    		}
-    		return $dep;
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            $sql = "SELECT module_id FROM tbl_modules_dependencies WHERE dependency='$moduleId'";
+            $rs = $this->getArray($sql);
+            $dep = array();
+            foreach ($rs as $rec) {
+                $dep[] = $rec['module_id'];
+            }
+            return $dep;
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -254,9 +254,9 @@ class modules extends dbTable
             }
             return $rs; //$ret;
         } catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
 
     /**
@@ -265,60 +265,60 @@ class modules extends dbTable
     * @returns array $result
     */
     public function getModuleInfo($moduleId) {
-    	try {
-    		if ($this->checkIfRegistered($moduleId)){
-    			$result = array('isreg'=>TRUE,
-    			'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name',"{$moduleId}"));
-    		} else {
-    			$result = array('isreg'=>FALSE,'name'=>'');
-    		}
-    		return $result;
-    	} catch (Exception $e) {
-    		echo customException::cleanUp('Caught exception: '.$e->getMessage());
-    		exit();
-    	}
+        try {
+            if ($this->checkIfRegistered($moduleId)){
+                $result = array('isreg'=>TRUE,
+                'name'=>$this->objLanguage->code2Txt('mod_'.$moduleId.'_name',"{$moduleId}"));
+            } else {
+                $result = array('isreg'=>FALSE,'name'=>'');
+            }
+            return $result;
+        } catch (Exception $e) {
+            echo customException::cleanUp('Caught exception: '.$e->getMessage());
+            exit();
+        }
     }
     
     public function insertTags($tagarr, $status, $mod)
     {
-    	// user id hard coded to admin for firsttime reg...
-    	$userid = '1';
-    	$itemid = $status;
-    	$metakey = 'moduletag_'.$mod;
-    	$module = 'modulecatalogue';
-    	if(empty($tagarr))
-    	{
-    		return;
-    	}
-    	foreach($tagarr as $tags)
-    	{
-    		$insarr = array('userid' => $userid, 
-    	    	            'item_id' => $itemid, 
-    	        	        'meta_key' => $metakey, 
-    	            	    'meta_value' => $tags,
-    	                	'module' => $module,
-    	                	'uri' => '',
-    	                	);
-    	    $this->insert($insarr, 'tbl_tags');
-    	}
-    	return;
+        // user id hard coded to admin for firsttime reg...
+        $userid = '1';
+        $itemid = $status;
+        $metakey = 'moduletag_'.$mod;
+        $module = 'modulecatalogue';
+        if(empty($tagarr))
+        {
+            return;
+        }
+        foreach($tagarr as $tags)
+        {
+            $insarr = array('userid' => $userid, 
+                            'item_id' => $itemid, 
+                            'meta_key' => $metakey, 
+                            'meta_value' => $tags,
+                            'module' => $module,
+                            'uri' => '',
+                            );
+            $this->insert($insarr, 'tbl_tags');
+        }
+        return;
     }
     
     public function removeTags($mod)
     {
-    	$metakey = 'moduletag_'.$mod;
-    	$module = 'modulecatalogue';
-    	parent::init('tbl_tags');
-    	$tagstodel = $this->getAll("WHERE meta_key = '$metakey'");
-    	if(empty($tagstodel))
-    	{
-    		return;
-    	}
-    	foreach($tagstodel as $tags)
-    	{
-    		$this->delete('id', $tags['id'], 'tbl_tags');
-    	}
-    	return;
+        $metakey = 'moduletag_'.$mod;
+        $module = 'modulecatalogue';
+        parent::init('tbl_tags');
+        $tagstodel = $this->getAll("WHERE meta_key = '$metakey'");
+        if(empty($tagstodel))
+        {
+            return;
+        }
+        foreach($tagstodel as $tags)
+        {
+            $this->delete('id', $tags['id'], 'tbl_tags');
+        }
+        return;
     }
     
     

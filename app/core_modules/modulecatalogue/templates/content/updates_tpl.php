@@ -38,60 +38,60 @@ $objTable->addCell($updateAll->show()."<br />$updateXML<br />$updateSys",null,nu
 $objTable->endRow();
 $tString = '';
 if (isset($output)) {
-	$msg = $this->getObject('timeoutmessage','htmlelements');
-	$msg->message = '';
+    $msg = $this->getObject('timeoutmessage','htmlelements');
+    $msg->message = '';
 
-	if (isset($output['unMetDep'])) {
+    if (isset($output['unMetDep'])) {
 
-		$msg->message = $this->objLanguage->languageText('mod_modulecatalogue_unmetdependencies','modulecatalogue').":<br />";
-		if (count($output['modules'])>0) {
-			$text = str_replace('{MODULE}',$output['unMetDep'],$this->objLanguage->languageText('mod_modulecatalogue_updatedeps','modulecatalogue'));
-			$link = "<a href='".$this->uri(array('action'=>'updatedeps','modname'=>$output['unMetDep']),'modulecatalogue')."'>".$text."</a>";
-			foreach ($output['modules'] as $dep) {
-				$dep = ucfirst($dep);
-				$msg->message .= "<b>$dep</b><br />";
-			}
-		}
-		if (count($output['missing']) > 0) {
-			$link = $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
-			foreach ($output['missing'] as $dep) {
-				$dep = ucfirst($dep);
-				$notPresent = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
-				$msg->message .= "<b>$dep</b> - $notPresent<br />";
-			}
-		}
-		$tString = "<span class='error'>$msg->message</span>$link";
-	} else {
-		if (array_key_exists('current',$output)) {
-				$success = str_replace('[OLDVER]',"<b>{$output['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
-				$success = str_replace('[NEWVER]',"<b>{$output['current']}</b>",$success);
-				$msg->message .= "<b>{$output['modname']}</b> $success<br />";
-		} else {
-			foreach ($output as $value) {
-				if (is_array($value)) {
-					$success = str_replace('[OLDVER]',"<b>{$value['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
-					$success = str_replace('[NEWVER]',"<b>{$value['current']}</b>",$success);
-					$msg->message .= "<b>{$value['modname']}</b> $success<br />";
+        $msg->message = $this->objLanguage->languageText('mod_modulecatalogue_unmetdependencies','modulecatalogue').":<br />";
+        if (count($output['modules'])>0) {
+            $text = str_replace('{MODULE}',$output['unMetDep'],$this->objLanguage->languageText('mod_modulecatalogue_updatedeps','modulecatalogue'));
+            $link = "<a href='".$this->uri(array('action'=>'updatedeps','modname'=>$output['unMetDep']),'modulecatalogue')."'>".$text."</a>";
+            foreach ($output['modules'] as $dep) {
+                $dep = ucfirst($dep);
+                $msg->message .= "<b>$dep</b><br />";
+            }
+        }
+        if (count($output['missing']) > 0) {
+            $link = $this->objLanguage->languageText('mod_modulecatalogue_downloadmissing','modulecatalogue');
+            foreach ($output['missing'] as $dep) {
+                $dep = ucfirst($dep);
+                $notPresent = $this->objLanguage->languageText('mod_modulecatalogue_needdownload','modulecatalogue');
+                $msg->message .= "<b>$dep</b> - $notPresent<br />";
+            }
+        }
+        $tString = "<span class='error'>$msg->message</span>$link";
+    } else {
+        if (array_key_exists('current',$output)) {
+                $success = str_replace('[OLDVER]',"<b>{$output['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
+                $success = str_replace('[NEWVER]',"<b>{$output['current']}</b>",$success);
+                $msg->message .= "<b>{$output['modname']}</b> $success<br />";
+        } else {
+            foreach ($output as $value) {
+                if (is_array($value)) {
+                    $success = str_replace('[OLDVER]',"<b>{$value['old']}</b>",$this->objLanguage->languageText('mod_modulecatalogue_updatesuccess','modulecatalogue'));
+                    $success = str_replace('[NEWVER]',"<b>{$value['current']}</b>",$success);
+                    $msg->message .= "<b>{$value['modname']}</b> $success<br />";
 
-				} else {
-				    $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
-	                $tString .= "<span class='error'>$pError: $value</span><br />";
-				}
-			}
-		}
-		$tString .= $msg->show();
-	}
-	if (!is_array($output)) {
-	    $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
-	    $tString = "<span class='error'>$pError: $output</span>";
-	}
+                } else {
+                    $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
+                    $tString .= "<span class='error'>$pError: $value</span><br />";
+                }
+            }
+        }
+        $tString .= $msg->show();
+    }
+    if (!is_array($output)) {
+        $pError = $this->objLanguage->languageText('mod_modulecatalogue_patcherror','modulecatalogue');
+        $tString = "<span class='error'>$pError: $output</span>";
+    }
 }
 $out = $this->getParam('message');
 if (isset($out)) {
     //var_dump($out);
-	$msg = $this->getObject('timeoutmessage','htmlelements');
-	$msg->message = $out;
-	$tString .= "<br />".$msg->show();
+    $msg = $this->getObject('timeoutmessage','htmlelements');
+    $msg->message = $out;
+    $tString .= "<br />".$msg->show();
 }
 if (isset($error)) {
     $tString .= "<br /><span class='error'>$error</span>";
@@ -106,23 +106,23 @@ $objT2->endRow();
 
 $str = '';
 if (!empty($patchArray)) {
-	foreach ($patchArray as $patch) {
-		$uri = $this->uri(array('action'=>'update','mod'=>$patch['module_id'],'patchver'=>$patch['new_version']),'modulecatalogue');
-		$link = &new Link($uri);
-		$pIcon = $this->getObject('geticon','htmlelements');
-		$pIcon->setModuleIcon($patch['module_id']);
-		$modIcon=$pIcon->show();
-		$pIcon->setModuleIcon('update');
-		$pIcon->alt = $link->link;
-		$link->link = $this->objLanguage->languageText('mod_modulecatalogue_applypatch','modulecatalogue');
-		$time = date("d/m/y",filemtime($this->objModFile->findRegisterFile($patch['module_id'])));
-		$str .= '<b>'.$modIcon.ucwords($patch['module_id'])." version:</b> {$patch['new_version']} - $time {$pIcon->show()}{$link->show()}<br />
-			<b>{$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue')}:</b> {$patch['desc']}<hr />";
-	}
-	$patchAll = $objT2->show();
+    foreach ($patchArray as $patch) {
+        $uri = $this->uri(array('action'=>'update','mod'=>$patch['module_id'],'patchver'=>$patch['new_version']),'modulecatalogue');
+        $link = &new Link($uri);
+        $pIcon = $this->getObject('geticon','htmlelements');
+        $pIcon->setModuleIcon($patch['module_id']);
+        $modIcon=$pIcon->show();
+        $pIcon->setModuleIcon('update');
+        $pIcon->alt = $link->link;
+        $link->link = $this->objLanguage->languageText('mod_modulecatalogue_applypatch','modulecatalogue');
+        $time = date("d/m/y",filemtime($this->objModFile->findRegisterFile($patch['module_id'])));
+        $str .= '<b>'.$modIcon.ucwords($patch['module_id'])." version:</b> {$patch['new_version']} - $time {$pIcon->show()}{$link->show()}<br />
+            <b>{$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue')}:</b> {$patch['desc']}<hr />";
+    }
+    $patchAll = $objT2->show();
 } else {
-	$str = $this->objLanguage->languageText('mod_modulecatalogue_noupdates','modulecatalogue');
-	$patchAll = '';
+    $str = $this->objLanguage->languageText('mod_modulecatalogue_noupdates','modulecatalogue');
+    $patchAll = '';
 }
 
 $searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
@@ -153,7 +153,7 @@ $searchForm->addToForm($hTable->show());
 $ins_path = $this->objConfig->getsiteRootPath().'installer/';
 if(file_exists($ins_path) || is_writable($ins_path))
 {
-	$err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
+    $err = '<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_installererror","modulecatalogue").'</div>';
 }
 
 // Check for default admin password and issue warning to change it!
@@ -164,7 +164,7 @@ if($details['pass'] === '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8')
     if (!isset($err)) {
         $err = '';
     }
-	$err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
+    $err = $err.'<div class="error">'.$this->objLanguage->languageText("mod_modulecatalogue_adminpasserr", "modulecatalogue").'</div>';
 }
 
 $content = $searchForm->show().$err.$tString.$objTable->show().$str.$patchAll;
