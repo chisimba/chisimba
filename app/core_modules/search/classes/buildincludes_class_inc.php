@@ -83,8 +83,8 @@ class buildincludes extends folderbot
     public function file_event()
     {
         if (preg_match('/.*?\.php/', $this->curfile)) {
-			$this->fileIndex[] = $this->curfile;
-		}
+            $this->fileIndex[] = $this->curfile;
+        }
     } 
     
     /**
