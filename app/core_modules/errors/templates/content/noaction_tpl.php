@@ -18,11 +18,11 @@ $header->str = $this->objLanguage->languageText('mod_errors_heading', 'errors');
 $leftSideColumn ='';
 if($objUser->isLoggedIn())
 {
-	$leftSideColumn = $userMenu->show();
+    $leftSideColumn = $userMenu->show();
 }
 else {
-	$linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", 'system', 'Home'));
-	$leftSideColumn = $linkhome->show();
+    $linkhome = new href($this->objConfig->getSiteRoot(), $this->objLanguage->languageText("word_home", 'system', 'Home'));
+    $leftSideColumn = $linkhome->show();
 }
 
 $midcol = $header->show();
