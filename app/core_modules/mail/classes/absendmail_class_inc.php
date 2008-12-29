@@ -8,7 +8,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -32,77 +32,77 @@ abstract class absendmail extends engine
     * @var string $to String or array to hold the value of the mail to address(s)
     *             
     */
-	 protected $to;
+     protected $to;
 
     /**
     *
     * @var string $cc String or array to hold the value of the mail cc address(s)
     *             
     */
-	 protected $cc;
+     protected $cc;
 
     /**
     *
     * @var string $bcc String or array to hold the value of the mail bcc address(s)
     *             
     */
-	 protected $bcc;
+     protected $bcc;
 
     /**
     *
     * @var string $from String to hold the value of the mail from address
     *             
     */
-	 protected $from;
+     protected $from;
 
     /**
     *
     * @var string $fromName String to hold the value of the mail from Name of person
     *             
     */
-	 protected $fromName;
+     protected $fromName;
 
     /**
     *
     * @var string $priority String to hold the value of the mail priority
     *             
     */
-	 protected $priority;
+     protected $priority;
 
     /**
     *
     * @var string $subject String to hold the value of the mail subject
     *             
     */
-	 protected $subject;
+     protected $subject;
 
     /**
     *
     * @var string $body String to hold the value of the mail body (in HTML)
     *             
     */
-	 protected $body;
+     protected $body;
 
     /**
     *
     * @var string $wordWrap String to hold the value of the word wrap length
     *             
     */
-	 protected $wordWrap;
+     protected $wordWrap;
 
     /**
     *
     * @var string $altBody String to hold the value of the mail body (in plain text)
     *             
     */
-	 protected $altBody;
+     protected $altBody;
 
     /**
     *
     * @var string $mailer String to hold the value of the mailer (smtp, sendmail, PHP mail)
     *             
     */
-	 protected $mailer;
+     protected $mailer;
 
 
     /**
@@ -116,12 +116,12 @@ abstract class absendmail extends engine
     */
     public function setValue($itemName, $itemValue)
     {
-		  if (property_exists($this,$itemName)) {
-		      $this->$itemName = $itemValue;
-		      return TRUE;
-		  } else {
-		      return FALSE;
-		  }
+          if (property_exists($this,$itemName)) {
+              $this->$itemName = $itemValue;
+              return TRUE;
+          } else {
+              return FALSE;
+          }
     }
 
     /**
@@ -133,7 +133,7 @@ abstract class absendmail extends engine
     */
     public function getValue($itemName)
     {
-    	  if (isset($this->$itemName)) {
+          if (isset($this->$itemName)) {
             return $this->$itemName;
         } else {
             return NULL;
@@ -141,16 +141,16 @@ abstract class absendmail extends engine
     }
 
 
-	/**
-	*
-	* Check if given email is valid
-	*
-	* @param string $email  email to be checked
-	*
-	*/
-	public static function isValid($email)
-	{
-		return eregi("^([-!#\$%&'*+./0-9=?A-Z^_`a-z{|}~])+@([-!#\$%&'*+/0-9=?A-Z^_`a-z{|}~]+\\.)+[a-zA-Z]{2,6}\$", $email) != 0;
-	}
+    /**
+    *
+    * Check if given email is valid
+    *
+    * @param string $email  email to be checked
+    *
+    */
+    public static function isValid($email)
+    {
+        return eregi("^([-!#\$%&'*+./0-9=?A-Z^_`a-z{|}~])+@([-!#\$%&'*+/0-9=?A-Z^_`a-z{|}~]+\\.)+[a-zA-Z]{2,6}\$", $email) != 0;
+    }
 }
 ?>

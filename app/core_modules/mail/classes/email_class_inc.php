@@ -8,7 +8,7 @@ if (!
  */
 $GLOBALS['kewl_entry_point_run'])
 {
-	die("You cannot view this page directly");
+    die("You cannot view this page directly");
 }
 // end security check
 
@@ -62,12 +62,12 @@ require_once("ifsendmail_class_inc.php");
 */
 class email extends absendmail implements ifsendmail
 {
-	/**
-	 *
-	 * @var string Object $objBaseMail String object to hold the mailer instance
-	 *
-	 */
-	private $objBaseMail;
+    /**
+     *
+     * @var string Object $objBaseMail String object to hold the mailer instance
+     *
+     */
+    private $objBaseMail;
 
     /**
     *
@@ -76,42 +76,42 @@ class email extends absendmail implements ifsendmail
     */
     function __construct()
     {
-    	$this->objBaseMail = new PHPMailer;
-	    //Get an instance of the config object
+        $this->objBaseMail = new PHPMailer;
+        //Get an instance of the config object
         $objConfig=$this->newObject('altconfig','config');
         //Get the value of the delimiter
         $method = $objConfig->getValue('MAIL_SEND_METHOD', 'mail');
         switch ($method) {
-        	//set up for SMTP
+            //set up for SMTP
             case "smtp":
-            	$this->objBaseMail->IsSMTP();
-            	$this->objBaseMail->Host = $objConfig->getValue('MAIL_SMTP_SERVER', 'mail');
-            	$smtpAuth = $objConfig->getValue('MAIL_SMTP_REQUIRESAUTH', 'mail');
-            	if ($smtpAuth == "true") {
-            		$this->objBaseMail->SMTPAuth = true;
-            	    $this->objBaseMail->Username = $objConfig->getValue('MAIL_SMTP_USER', 'mail');
-            	    $this->objBaseMail->Password = $objConfig->getValue('MAIL_SMTP_PASSWORD', 'mail');
-            	}
-            	break;
+                $this->objBaseMail->IsSMTP();
+                $this->objBaseMail->Host = $objConfig->getValue('MAIL_SMTP_SERVER', 'mail');
+                $smtpAuth = $objConfig->getValue('MAIL_SMTP_REQUIRESAUTH', 'mail');
+                if ($smtpAuth == "true") {
+                    $this->objBaseMail->SMTPAuth = true;
+                    $this->objBaseMail->Username = $objConfig->getValue('MAIL_SMTP_USER', 'mail');
+                    $this->objBaseMail->Password = $objConfig->getValue('MAIL_SMTP_PASSWORD', 'mail');
+                }
+                break;
 
             default:
-            	//Sets Mailer to send message using PHP mail() function.
-            	$this->objBaseMail->IsMail();
-            	$this->objBaseMail->Host = "localhost";
+                //Sets Mailer to send message using PHP mail() function.
+                $this->objBaseMail->IsMail();
+                $this->objBaseMail->Host = "localhost";
 
-            	//die ("still working on non-SMTP based methods");
+                //die ("still working on non-SMTP based methods");
                 break;
 
         }
         //Check if we should use HTML mail
         $useHTMLMail = $objConfig->getValue('MAIL_USE_HTML_AS_DEFAULT', 'mail');
         if ($useHTMLMail == "true") {
-        	$this->objBaseMail->IsHTML(TRUE);
+            $this->objBaseMail->IsHTML(TRUE);
         } else {
             $this->objBaseMail->IsHTML(FALSE);
         }
         //Set the default wordwrap
-		$this->objBaseMail->WordWrap = 50;
+        $this->objBaseMail->WordWrap = 50;
 
     }
 
@@ -123,48 +123,48 @@ class email extends absendmail implements ifsendmail
     */
     public function send($html = FALSE)
     {
-    	//override the parent for html mail
-    	if($html == TRUE)
-    	{
-    		$this->objBaseMail->IsHTML(TRUE);
-    	}
-		$this->objBaseMail->From =  $this->from;
-		$this->objBaseMail->FromName = $this->fromName;
-		$this->objBaseMail->Subject = $this->subject;
-		$this->objBaseMail->Body = $this->body;
-		$this->objBaseMail->AltBody = $this->altBody;
-		$this->objBaseMail->mailer = $this->mailer;
-		//Add the addresses to the mailer
-		if (is_array($this->to)) {
-			foreach($this->to as $addresses)
-			{
-				$this->objBaseMail->AddAddress($addresses);
-			}
+        //override the parent for html mail
+        if($html == TRUE)
+        {
+            $this->objBaseMail->IsHTML(TRUE);
+        }
+        $this->objBaseMail->From =  $this->from;
+        $this->objBaseMail->FromName = $this->fromName;
+        $this->objBaseMail->Subject = $this->subject;
+        $this->objBaseMail->Body = $this->body;
+        $this->objBaseMail->AltBody = $this->altBody;
+        $this->objBaseMail->mailer = $this->mailer;
+        //Add the addresses to the mailer
+        if (is_array($this->to)) {
+            foreach($this->to as $addresses)
+            {
+                $this->objBaseMail->AddAddress($addresses);
+            }
 
-		} else {
-		    $this->objBaseMail->AddAddress($this->to);
-		}
-		//Add the CC addresses to the mailer
-		if (isset($this->cc)) {
-			if (is_array($this->cc)) {
-			    foreach ($this->cc as $address) {
-			        $this->objBaseMail->AddCC($address);
-			    }
-			} else {
-			    $this->objBaseMail->AddCC($this->cc);
-			}
-		}
-		//Add the BCC addresses to the mailer
-		if (isset($this->bc)) {
-			if (is_array($this->bcc)) {
-			    foreach ($this->bcc as $address) {
-			        $this->objBaseMail->AddBCC($address);
-			    }
-			} else {
-			    $this->objBaseMail->AddBCC($this->bcc);
-			}
-		}
-		//Send it and let us know if it was sent
+        } else {
+            $this->objBaseMail->AddAddress($this->to);
+        }
+        //Add the CC addresses to the mailer
+        if (isset($this->cc)) {
+            if (is_array($this->cc)) {
+                foreach ($this->cc as $address) {
+                    $this->objBaseMail->AddCC($address);
+                }
+            } else {
+                $this->objBaseMail->AddCC($this->cc);
+            }
+        }
+        //Add the BCC addresses to the mailer
+        if (isset($this->bc)) {
+            if (is_array($this->bcc)) {
+                foreach ($this->bcc as $address) {
+                    $this->objBaseMail->AddBCC($address);
+                }
+            } else {
+                $this->objBaseMail->AddBCC($this->bcc);
+            }
+        }
+        //Send it and let us know if it was sent
         if ($this->objBaseMail->send()) {
             return TRUE;
         } else {
@@ -204,7 +204,7 @@ class email extends absendmail implements ifsendmail
      */
     public function clearAttachments()
     {
-    	$this->objBaseMail->ClearAttachments();
+        $this->objBaseMail->ClearAttachments();
     }
 
     /**
