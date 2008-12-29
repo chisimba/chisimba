@@ -205,7 +205,7 @@ class parse4twitter extends object
      * 
      */
     private function getTweets()
-    {        
+    {
         $this->objTwitterRemote->initializeConnection($this->username, $this->password);
         if (strtoupper($this->showimage) == "TRUE") {
             $showImage=TRUE;
