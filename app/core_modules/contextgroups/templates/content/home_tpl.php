@@ -73,7 +73,7 @@ if (count($lecturerDetails) > 0) {
         $objTable->startRow();
         if($this->isValid('removeallusers')){
             if($lecturer['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());		
+                $objTable->addCell($objCheck->show());        
             }else{
                 $objTable->addCell('');
             }
@@ -179,7 +179,7 @@ if (count($studentDetails) > 0) {
         $objTable->startRow();
         if($this->isValid('removeallusers')){
             if($student['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());		
+                $objTable->addCell($objCheck->show());        
             }else{
                 $objTable->addCell('');
             }
@@ -281,7 +281,7 @@ if (count($guestDetails) > 0) {
         $objTable->startRow();
         if($this->isValid('removeallusers')){
             if($guest['userid'] != $this->userId){
-                $objTable->addCell($objCheck->show());		
+                $objTable->addCell($objCheck->show());        
             }else{
                 $objTable->addCell('');
             }
@@ -378,7 +378,7 @@ if ($this->isValid('addusers')) {
     $table->startRow();
     
         //Ehb-added-begin
-            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');		
+            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');        
             $courseDropdown=new dropdown('course');
             $courseDropdown->addOption('all',$this->objLanguage->languageText('mod_contextgroups_allcourses', 'contextgroups'));
             for($i=0; $i<count($data); $i++){
@@ -386,7 +386,7 @@ if ($this->isValid('addusers')) {
         }
         $courseDropdown->setSelected($course);
         
-            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');		
+            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');        
             $groupDropdown=new dropdown('group');
             $groupDropdown->addOption('all','All groups');
             $groups=array("Lecturers","Students","Guest");

@@ -63,7 +63,7 @@ $table->startRow();
     $table->startRow();
     
         //Ehb-added-begin
-            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');		
+            $label=new label($this->objLanguage->languageText('mod_contextgroups_choosecourse', 'contextgroups'),'input_course');        
             $courseDropdown=new dropdown('course');
             $courseDropdown->addOption('all',$this->objLanguage->languageText('mod_contextgroups_allcourses', 'contextgroups'));
             for($i=0; $i<count($data); $i++){
@@ -71,7 +71,7 @@ $table->startRow();
         }
         $courseDropdown->setSelected($course);
         
-            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');		
+            $label2=new label($this->objLanguage->languageText('mod_contextgroups_choosegroup', 'contextgroups'),'input_group');        
             $groupDropdown=new dropdown('group');
             $groupDropdown->addOption('all','All groups');
             $groups=array("Lecturers","Students","Guest");

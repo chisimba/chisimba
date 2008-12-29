@@ -176,14 +176,14 @@ class onlineCount extends dbTable
     function getContextUsers($contextCode)
     {
         
-    	if( $this->_objDBContext->isInContext() ) 
-	{
-    		if($contextCode == '')
-    		{
-            	$this->_contextCode = $this->_objDBContext->getContextCode();
-    		} else {
-    			$this->_contextCode = $contextCode;
-    		}
+        if( $this->_objDBContext->isInContext() ) 
+    {
+            if($contextCode == '')
+            {
+                $this->_contextCode = $this->_objDBContext->getContextCode();
+            } else {
+                $this->_contextCode = $contextCode;
+            }
             $path = array( $this->_contextCode, $this->_contextGroup );
             $groupId = $this->_objGroupAdmin->getLeafId( $path );
             // Get userIds of members
@@ -195,7 +195,7 @@ class onlineCount extends dbTable
         }
     }
 
-	/**
+    /**
     * Method to get the user count for a context
     * @param  string $contextCode
     * @return int   

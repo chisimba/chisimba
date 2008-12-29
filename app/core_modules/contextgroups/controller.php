@@ -245,7 +245,7 @@ class contextgroups extends controller
         //Ehb-added-begin
         $currentContextCode=$this->objContext->getContextCode();
                 $where="where contextCode<>"."'".$currentContextCode."'";
-                $data=$this->objContext->getAll($where);			
+                $data=$this->objContext->getAll($where);            
                 $this->setVarByRef('data',$data);
                     //Ehb-added-End
         

@@ -307,7 +307,7 @@ class manageGroups extends object
             return $arrcontextcodeRows;
         }
         //$arrcontextcodes = array();
-		$arrContext = array();
+        $arrContext = array();
         // Now check for membership
         foreach( $arrcontextcodeRows as $row ) {
             // Corrosponding groupId
