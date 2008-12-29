@@ -46,7 +46,7 @@ $this->appendArrayVar('headerParams',$headerParams);
     echo ('<div id="contentHasLeftMenu">');
 
     // get content
-	echo $this->getContent(); 
+    echo $this->getContent(); 
     
     echo ('</div><!-- End div contentHasLeftMenu -->');
 ?>

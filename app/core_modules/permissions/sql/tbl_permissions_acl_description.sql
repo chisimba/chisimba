@@ -7,25 +7,25 @@ $options = array('comment' => 'This table stores access control list acl descrip
 
 // Fields
 $fields = array(
-	'id' => array(
-		'type' => 'text',
-		'length' => 32
-		),
-	'name' => array(
-		'type' => 'text',
-		'length' => 100
-		),
+    'id' => array(
+        'type' => 'text',
+        'length' => 32
+        ),
+    'name' => array(
+        'type' => 'text',
+        'length' => 100
+        ),
     'description' => array(
-		'type' => 'text',
-		'length' => 100
-		),
+        'type' => 'text',
+        'length' => 100
+        ),
     'last_updated' => array(
-		'type' => 'date',
-		),
+        'type' => 'date',
+        ),
     'last_updated_by' => array(
-		'type' => 'text',
-		'length' => 32
-		)
+        'type' => 'text',
+        'length' => 32
+        )
     );
 
 ?>

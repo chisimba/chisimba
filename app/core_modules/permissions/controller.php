@@ -51,7 +51,7 @@ class permissions extends controller
     */
     function dispatch( $action )
     {
-		$this->setVar('pageSuppressXML',true);
+        $this->setVar('pageSuppressXML',true);
         //$this->setLayoutTemplate("admin_layout_tpl.php");
         switch ($action) {
             case 'main' :
