@@ -20,12 +20,12 @@
 function isValidFormedUrl($str,$strict=false)
 {
     $test="";
-	if ($strict == true) {
-		$test .= "/^http:\\/\\/([A-Za-z-\\.]*)\\//";
-	} else {
-		$test .= "/^http:\\/\\/([A-Za-z-\\.]*)/";
-	}
-	return @preg_match($test, $str);
+    if ($strict == true) {
+        $test .= "/^http:\\/\\/([A-Za-z-\\.]*)\\//";
+    } else {
+        $test .= "/^http:\\/\\/([A-Za-z-\\.]*)/";
+    }
+    return @preg_match($test, $str);
 }
 
 
