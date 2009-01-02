@@ -156,19 +156,22 @@ class menu extends object
     function buildMenu($modules)
     {
         // build menu
-        foreach($modules as $key=>$item){
-            $category = strtolower($key);
-            $this->cssMenu->addHeader($this->objLanguage->languageText('category_'.$category,'toolbar', ucwords($category)));
-            foreach($item as $k=>$v){
-                if(!(strpos(strtolower($v), 'context')===FALSE)){
-                    $array = array('context'=>'course');
-                    $text = $this->objLanguage->code2Txt('mod_'.$v.'_toolbarname',$v);
-                }else{
-                    $text = $this->objLanguage->code2Txt('mod_'.$v.'_name',$v);
+        if(is_array($modules)) {
+            foreach($modules as $key=>$item){
+                $category = strtolower($key);
+                $this->cssMenu->addHeader($this->objLanguage->languageText('category_'.$category,'toolbar', ucwords($category)));
+                foreach($item as $k=>$v){
+                    if(!(strpos(strtolower($v), 'context')===FALSE)){
+                        $array = array('context'=>'course');
+                        $text = $this->objLanguage->code2Txt('mod_'.$v.'_toolbarname',$v);
+                    }else{
+                        $text = $this->objLanguage->code2Txt('mod_'.$v.'_name',$v);
+                    }
+                    $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar',ucwords($category)), ucwords($text),$v);
                 }
-                $this->cssMenu->addMenuItem($this->objLanguage->languageText('category_'.$category, 'toolbar',ucwords($category)), ucwords($text),$v);
             }
         }
+
         return $this->cssMenu->show();
     }
 
@@ -286,7 +289,7 @@ class menu extends object
         if(!$menu) {
             $menu='';
         }
-        
+
         // get breadcrumbs
         $crumbs=$this->tools->navigation();
 
@@ -304,10 +307,10 @@ class menu extends object
         if($helpBtn){
             $iconList[] = $helpBtn;
         }
-        
+
         $iconsStr = '';
         $divider = '';
-        
+
         foreach ($iconList as $icon)
         {
             $iconsStr .= $divider.$icon;
