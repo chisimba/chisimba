@@ -59,6 +59,14 @@ $GLOBALS['kewl_entry_point_run'])
 
 class parse4formbuilder extends object
 {
+
+    /**
+     * The modules object of the modulecatalogue module.
+     *
+     * @access protected
+     * @var object $objModules
+     */
+    protected $objModules;
     
     /**
      * init
@@ -70,7 +78,12 @@ class parse4formbuilder extends object
      */
     function init()
     {
-        $this->objForm = $this->getObject('dbforms', 'forms');
+        $this->objModules = $this->getObject('modules', 'modulecatalogue');
+
+        if ($this->objModules->checkIfRegistered('forms')) {
+            $this->objForm = $this->getObject('dbforms', 'forms');
+        }
+
         $this->objConfig = $this->getObject('altconfig', 'config');
 
         $this->loadClass('layer', 'htmlelements');
@@ -96,7 +109,12 @@ class parse4formbuilder extends object
         foreach ($results[1] as $item)
         {
             $videoId = $item;
-            $form = $this->objForm->getForm($videoId);
+
+            if ($this->objForm) {
+                $form = $this->objForm->getForm($videoId);
+            } else {
+                $form = array();
+            }
 
             if (!isset($form['body'])) {
                 $form['body'] = '';
