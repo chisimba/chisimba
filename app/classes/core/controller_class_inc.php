@@ -79,6 +79,8 @@ class controller extends access
     */
     protected $_objLanguage;
 
+    public $objLu;
+
     /**
      * Constructor for the controller class.
      *
@@ -90,6 +92,7 @@ class controller extends access
         try {
         	parent::__construct($objEngine, $moduleName);
         	$version         = $objEngine->version;
+        	$this->objLu     = $objEngine->lu;
         	$this->footerStr = '<center>Powered by <a href="http://avoir.uwc.ac.za/">Chisimba</a> version ' .$version . "</center>";
         }
         catch (customException $e)
@@ -114,7 +117,7 @@ class controller extends access
     * @param  	string 	$itemName   The language code for the item to be looked up
     * @param  	string 	$modulename The module name that owns the string
     * @param 	bool	$default	Default text
-    * 
+    *
     * @return 	string	The language element
 	*/
 	protected function l($itemName,$modulename=NULL,$default = FALSE) {
@@ -125,10 +128,10 @@ class controller extends access
 	   $module = is_NULL($modulename)?$this->moduleName:$modulename;
 	   return $this->_objLanguage->languageText($itemName, $module, $default);
 	}
-	
+
 	public function dumpText($data) {
-		if (isset($data) && !is_array($data)) { 
-   			return $data; 
+		if (isset($data) && !is_array($data)) {
+   			return $data;
 		}
 		if (isset($data) && is_array($data)) {
     		// Create an instance of the table object
@@ -165,7 +168,7 @@ class controller extends access
      * Method to be overridden if the controller doesn't require a user login for this request.
      *
      * @param string $action The action for this request
-     * 
+     *
      * @return bool TRUE|FALSE Does this controller require login.
      */
     public function requiresLogin($action) {
@@ -176,7 +179,7 @@ class controller extends access
      * Method to be overridden if the controller doesn't require no-cache headers to be sent.
      *
      * @param  string $action The action for this request.
-     * 
+     *
      * @return bool TRUE|FALSE Does this controller want no-cache headers to be sent
      */
     public function sendNoCacheHeaders($action) {
@@ -185,12 +188,12 @@ class controller extends access
 
     /**
      * Method to return a template variable.
-     * 
+     *
      * These are used to pass information from module to template.
      *
      * @param  string $name    The name of the variable.
      * @param  mixed  $default The value to return if the variable is unset (optional).
-     * 
+     *
      * @return mixed The value of the variable, or $default if unset.
      */
     public function getVar($name, $default = NULL) {
@@ -199,12 +202,12 @@ class controller extends access
 
     /**
      * Method to set a template variable.
-     * 
+     *
      * These are used to pass information from module to template.
      *
      * @param  string $name The name of the variable.
      * @param  mixed  $val  The value to set the variable to.
-     * 
+     *
      * @return NULL
      */
     public function setVar($name, $val) {
@@ -357,7 +360,7 @@ class controller extends access
         if ($_magic__buffer) {
             $_magic__pageContent = ob_get_contents();
             ob_end_clean();
-            
+
             return $_magic__pageContent;
         } else {
             return NULL; // just to be explicit

@@ -150,17 +150,17 @@ class dbTable extends object
     public $adm = FALSE;
 
     public $objMemcache = FALSE;
-    
+
     public $objAPC = FALSE;
 
 	protected $cacheTTL = 3600;
-	
+
 	public $objYaml;
-	
+
 	public $dbLayer;
-	
+
 	public $cachePrefix;
-	
+
 	public $nonmirrored = array(
 		'tbl_logger',
 		'tbl_sysconfig_properties',
@@ -186,6 +186,8 @@ class dbTable extends object
 		'tbl_prelogin_blocks'
 		);
 
+		public $objLu;
+
 
     /**
     * Method to initialise the dbTable object.
@@ -199,6 +201,7 @@ class dbTable extends object
     */
     public function init($tableName, $pearDb = NULL, $errorCallback = "globalPearErrorCallback") {
     	$modname = $this->objEngine->_moduleName;
+    	$this->objLu = $this->objEngine->lu;
     	// global $_globalObjDb;
         $this->_tableName = $tableName;
         $this->_errorCallback = $errorCallback;
@@ -231,7 +234,7 @@ class dbTable extends object
 			}
 			$this->cacheTTL = $this->objDBConfig->getcache_ttl();
 		}
-		
+
         $this->_serverName = $this->objDBConfig->serverName();
         // set up the cache prefix for this instance
         $this->cachePrefix = $this->_serverName."_".$modname."_";
@@ -383,7 +386,7 @@ class dbTable extends object
 				if($this->debug == TRUE) {
         			log_debug($stmt);
         			}
-        		$ret = $this->_queryRow($stmt, array()); 
+        		$ret = $this->_queryRow($stmt, array());
         		chisimbacache::getMem()->set(md5($this->cachePrefix.$stmt), serialize($ret), MEMCACHE_COMPRESSED, $this->cacheTTL);
 			}
         }
@@ -398,7 +401,7 @@ class dbTable extends object
         	if($this->debug == TRUE) {
         		log_debug($stmt);
         	}
-        	$ret = $this->_queryRow($stmt, array()); 
+        	$ret = $this->_queryRow($stmt, array());
         }
         return $ret;
     }
@@ -810,7 +813,7 @@ class dbTable extends object
     			exit;
     		}
         }
-        
+
         else {
         	$ret = $this->_db->query($sql);
         }
@@ -1046,7 +1049,7 @@ class dbTable extends object
     	}
     	elseif ($this->dbLayer === 'PDO') {
     		return date('Y-m-d H:i:s');
-    	}    	
+    	}
     }
 
     /**
@@ -1096,9 +1099,9 @@ class dbTable extends object
     			}
     			return $tbls;
     		}
-    	}    	
+    	}
     }
-    
+
      /**
      * Execute the specified query, fetch all the rows of the result set into
      * a two dimensional array and then frees the result set.
@@ -1125,7 +1128,7 @@ class dbTable extends object
      */
     private function _queryAll($query, $types = array()) {
     	if($this->dbLayer === 'MDB2') {
-    		$ret = $this->_db->queryAll($query, $types);	
+    		$ret = $this->_db->queryAll($query, $types);
     		if (PEAR::isError($ret)) {
     			$ret = FALSE;
     		}
@@ -1143,8 +1146,8 @@ class dbTable extends object
     			exit;
     		}
     	}
-    
-    	return $ret;	
+
+    	return $ret;
     }
 
     private function _queryRow($query) {
@@ -1167,11 +1170,11 @@ class dbTable extends object
     		return $row;
     	}
     }
-    
+
     public function queryRow($query) {
     	return $this->_queryRow($query);
     }
-    
+
     /**
      * Method to generate a substring query that is database independent
      *

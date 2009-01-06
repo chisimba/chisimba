@@ -80,6 +80,8 @@ class object
      */
     public $objConfig;
 
+    public $objLu;
+
     /**
      * Constructor for the object class
      *
@@ -91,6 +93,7 @@ class object
     public function __construct($objEngine, $moduleName) {
         $this->objEngine  = $objEngine;
         $this->moduleName = $moduleName;
+        $this->objLu = $this->objEngine->lu;
         $this->init();
     }
 

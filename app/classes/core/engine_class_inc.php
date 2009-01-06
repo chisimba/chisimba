@@ -143,7 +143,7 @@ class engine
      * Version Number of the software. (engine)
      *
      */
-	public $version = '2.0.4';
+	public $version = '2.0.5';
 
 	/**
      * Template variable
@@ -416,6 +416,7 @@ class engine
 
 	protected $cacheTTL = 3600;
 
+	protected $luConfig;
 	/**
      * Constructor.
      * For use by application entry point script (usually /index.php)
@@ -477,10 +478,16 @@ class engine
 		//and we need a general system config too
 		$this->_objConfig = clone $this->_objDbConfig;
     	ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.$this->_objConfig->getsiteRootPath().'lib/pear/');
+    	// Grab the LiveUser code now
+    	require_once($this->getPearResource('LiveUser.php'));
+    	// Grab the LiveUser Admin code
+        require_once($this->getPearResource('LiveUser/Admin.php'));
     	//initialise the db factory method of MDB2
 		$this->getDbObj();
 		//initialise the db factory method of MDB2_Schema
 		$this->getDbManagementObj();
+		// init LiveUser
+		$this->getLU();
 		//the user security module
 		$this->_objUser = $this->getObject('user', 'security');
 		//the language elements module
@@ -721,6 +728,94 @@ class engine
 		}
 		//return the local copy
 		return $this->_objDbManager;
+	}
+
+	public function getLU() {
+	    global $_lu;
+	    global $_luAdmin;
+	    $this->luConfig = array(
+        'debug' => false,
+        'session'  => array(
+            'name'     => 'PHPSESSION',           // liveuser session name
+            'varname'  => 'chisimbalu'                // liveuser session var name
+        ),
+        'login' => array(
+            'force'    => true                   // should the user be forced to login
+        ),
+        'logout' => array(
+            'destroy'  => true                    // whether to destroy the session on logout
+        ),
+        'cookie' => array(
+            'name' => 'loginInfo',  // name of the Remember me cookie
+            'lifetime' => 30,       // cookie lifetime in days
+            'path' => NULL,         // cookie path ?
+            'domain' => NULL,       // cookie domain ?
+            //'secret' => 'test',     // the encryption key for the RC4 algorithm
+            'savedir' => '/var/www/chisimba/framework/app',       // absolute path to writeable directory ?
+                                    // (no trailing slash)
+            'secure' => false,      // whether cookie only send over secure connection
+        ),
+
+        'authContainers' => array(
+            array(
+                'type'          => 'MDB2',        // auth container name
+                'expireTime'    => 3600,          // max lifetime of a session in seconds
+                'idleTime'      => 1800,          // max time between 2 requests
+                'allowDuplicateHandles' => 0,
+                'allowEmptyPasswords'   => 0,     // 0=false, 1=true
+                'passwordEncryptionMode'=> 'sha1',
+                'storage' => array(
+                    'dsn' => KEWL_DB_DSN,
+                    'prefix' => 'tbl_',
+                    'alias' => array(             // contains any additional or non-default field alias
+                        'lastlogin' => 'last_login',
+                        'auth_user_id' => 'userId',
+                        'is_active' => 'isActive',
+                        'handle'    => 'username',
+                        'owner_user_id' => 'owner_user_id',
+                        'owner_group_id' => 'owner_group_id',
+                        'email' => 'emailAddress',
+                        'sex' => 'sex',
+                        'passwd' => 'pass',
+                    ),
+                    'fields' => array(            // contains any additional
+                                                  // or non-default field types
+                        'lastlogin' => 'timestamp',
+                        'is_active' => 'text',
+                        'owner_user_id' => 'integer',
+                        'owner_group_id' => 'integer',
+                        'email' => 'text',
+                        'sex' => 'text',
+                    ),
+                    'tables' => array(            // contains additional tables
+                                                  // or fields in existing tables
+                        'tbl_users' => array(
+                            'fields' => array(
+                                'lastlogin' => false,
+                                'is_active' => false,
+                                'owner_user_id' => false,
+                                'owner_group_id' => false,
+                                'email' => true,
+                                'sex' => true,
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        $_lu = LiveUser::singleton($this->luConfig);
+        $this->lu = $_lu;
+        if (!$_lu->init()) {
+            var_dump($_lu->getErrors());
+            die();
+        }
+        // and then the admin part
+        $this->luAdmin = LiveUser_Admin::factory($this->luConfig);
+        $_luAdmin = $this->luAdmin;
+
+        return;
 	}
 
 	/**
@@ -1604,7 +1699,7 @@ class engine
      */
 	public function sessionStart()
 	{
-		session_start();
+		//session_start();
 		$this->_sessionStarted = TRUE;
 	}
 
