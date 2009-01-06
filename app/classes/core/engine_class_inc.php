@@ -751,7 +751,7 @@ class engine
             'path' => NULL,         // cookie path ?
             'domain' => NULL,       // cookie domain ?
             //'secret' => 'test',     // the encryption key for the RC4 algorithm
-            'savedir' => '/var/www/chisimba/framework/app',       // absolute path to writeable directory ?
+            'savedir' => '.',       // absolute path to writeable directory ?
                                     // (no trailing slash)
             'secure' => false,      // whether cookie only send over secure connection
         ),
