@@ -388,6 +388,7 @@ class LiveUser
      *      'path'     => 'Cookie path',
      *      'domain'   => 'Cookie domain',
      *      'secure'   => 'Cookie send only over secure connections',
+     *      'httponly' => 'HHTP only cookie, PHP 5.2.0+ only',
      *  ),
      * 'cache_perm' => if the permission data should be cached inside the session
      *  'login' => array(
@@ -407,6 +408,7 @@ class LiveUser
      *      'secret'   => 'Secret key used for cookie value encryption',
      *      'savedir'  => '/absolute/path/to/writeable/directory' // No trailing slash (/) !
      *      'secure'   => 'Cookie send only over secure connections',
+     *      'httponly' => 'HHTP only cookie, PHP 5.2.0+ only',
      *  ),
      *  'authContainers' => array(
      *      'name' => array(
@@ -418,7 +420,9 @@ class LiveUser
      *            'storage' => array(
      *                'dbc' => 'db connection object, use this or dsn',
      *                'dsn' => 'database dsn, use this or connection',
-     *                'handles' => 'array of handle fields to find a user on login; works with DB, MDB, MDB2 and PDO containers',
+     *                'handles' => 'array of handle fields to find a user on login, a user
+     *                  can login with his username, email or any field you set here;
+     *                  works with DB, MDB, MDB2 and PDO containers',
      *           ),
      *           'externalValues' => array(
      *                  'values'      => 'reference to an array',
@@ -748,12 +752,25 @@ class LiveUser
                 'path'     => '/',
                 'domain'   => '',
                 'secret'   => 'secret',
+                'httponly' => false,
             );
             if (is_array($this->_options['cookie'])) {
                 $this->_options['cookie'] =
                     LiveUser::arrayMergeClobber($cookie_default, $this->_options['cookie']);
             } else {
                 $this->_options['cookie'] = $cookie_default;
+            }
+        }
+
+        if (array_key_exists('session_cookie_params', $this->_options) && $this->_options['session_cookie_params']) {
+            $session_cookie_params_default = array(
+                'httponly' => false,
+            );
+            if (is_array($this->_options['session_cookie_params'])) {
+                $this->_options['session_cookie_params'] =
+                    LiveUser::arrayMergeClobber($session_cookie_params_default, $this->_options['cookie']);
+            } else {
+                $this->_options['session_cookie_params'] = $session_cookie_params_default;
             }
         }
 
@@ -830,6 +847,7 @@ class LiveUser
         }
 
         $passwordEncryptionMode = strtolower($passwordEncryptionMode);
+
         if ($passwordEncryptionMode === 'plain') {
             return $encryptedPW;
         }
@@ -1012,7 +1030,8 @@ class LiveUser
                 (LIVEUSER_DAY_SECONDS * $this->_options['session_cookie_params']['lifetime'])),
                 $this->_options['session_cookie_params']['path'],
                 $this->_options['session_cookie_params']['domain'],
-                $this->_options['session_cookie_params']['secure']);
+                $this->_options['session_cookie_params']['secure'],
+                $this->_options['session_cookie_params']['httponly']);
         }
         // Set the name of the current session
         session_name($this->_options['session']['name']);
@@ -1349,7 +1368,8 @@ class LiveUser
             (time() + (LIVEUSER_DAY_SECONDS * $this->_options['cookie']['lifetime'])),
             $this->_options['cookie']['path'],
             $this->_options['cookie']['domain'],
-            $this->_options['cookie']['secure']
+            $this->_options['cookie']['secure'],
+            $this->_options['cookie']['httponly']
         );
 
         if (!$setcookie) {
