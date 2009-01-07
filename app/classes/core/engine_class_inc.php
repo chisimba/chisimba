@@ -417,6 +417,8 @@ class engine
 	protected $cacheTTL = 3600;
 
 	protected $luConfig;
+
+	public $lu;
 	/**
      * Constructor.
      * For use by application entry point script (usually /index.php)
@@ -733,11 +735,19 @@ class engine
 	public function getLU() {
 	    global $_lu;
 	    global $_luAdmin;
+
+	    // get the configs from sysconfig that we will be needing
+	    $this->objSysConfig = $this->getObject('dbsysconfig', 'sysconfig');
+
+	    $sessname = $this->objSysConfig->getValue('sess_name', 'security');
+	    $sessvarname = $this->objSysConfig->getValue('sess_varname', 'security');
+	    $authcontype = $this->objSysConfig->getValue('auth_containertype', 'security');
+
 	    $this->luConfig = array(
         'debug' => false,
         'session'  => array(
             'name'     => 'PHPSESSION',           // liveuser session name
-            'varname'  => 'chisimbalu'                // liveuser session var name
+            'varname'  => 'chisimba',                // liveuser session var name
         ),
         'login' => array(
             'force'    => true                   // should the user be forced to login
@@ -750,7 +760,7 @@ class engine
             'lifetime' => 30,       // cookie lifetime in days
             'path' => NULL,         // cookie path ?
             'domain' => NULL,       // cookie domain ?
-            //'secret' => 'test',     // the encryption key for the RC4 algorithm
+            'secret' => 'test',     // the encryption key for the RC4 algorithm
             'savedir' => '.',       // absolute path to writeable directory ?
                                     // (no trailing slash)
             'secure' => false,      // whether cookie only send over secure connection
