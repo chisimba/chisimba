@@ -311,7 +311,8 @@ class user extends dbTable
     {
        $skin = $this->objSkin->getSkin();
        $this->loggedInUsers->doLogout($this->userId());
-       session_unset();
+       // session_unset();
+       $this->objLu->logout();
        $this->objSkin->setSession('skin', $skin);
     }
 
