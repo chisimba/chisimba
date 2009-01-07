@@ -121,7 +121,7 @@ class dbsysconfig extends dbTable
     * @var string $name The name of the parameter being set, use UPPER_CASE
     * @return only the value of the parameter
     */
-    function getValue($pname, $pmodule = "_site_")
+    function getValue($pname, $pmodule = "_site_", $default = NULL)
     {
         if (!isset($this->$pname)) {
             $this->setProperties($pmodule);
@@ -129,7 +129,7 @@ class dbsysconfig extends dbTable
         if (isset($this->$pname)) {
             return $this->$pname;
         } else {
-            return null;
+            return $default;
         }
     } #function getValue
 
