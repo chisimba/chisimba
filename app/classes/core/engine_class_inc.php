@@ -33,6 +33,7 @@
 //increase memory_limit - added 28.07.06 by nappleby
 ini_set ( 'memory_limit', '500M' );
 
+
 /* --------------------------- engine class ------------------------*/
 
 // security check - must be included in all scripts
@@ -1484,6 +1485,7 @@ class engine {
      * @return string Path to the Resource in a module
      */
     public function getPearResource($resourceFile) {
+        ini_set('include_path', ini_get('include_path').':'.$this->_objConfig->getsiteRootPath () . "lib/pear/");
         if (@include_once ($resourceFile)) {
             return $resourceFile;
         } else {
