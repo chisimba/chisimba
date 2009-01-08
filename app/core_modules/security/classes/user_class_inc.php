@@ -54,6 +54,7 @@ class user extends dbTable
 
     private $imagePath;
     private $imageUrl;
+    public $userData = NULL;
 
     /**
     * Constructor
@@ -199,6 +200,27 @@ class user extends dbTable
     private function storeUserSession()
     {
         $this->setSession('isLoggedIn',TRUE);
+        // set the line as a stdClass, serialize and store in session to lower db calls
+        $user = new stdClass();
+        // add the user info to the class
+        $user->username = $this->_record['username'];
+        $user->userid = $this->_record['userid'];
+        $user->title = $this->_record['title'];
+        $user->firstname = $this->_record['firstname'];
+        $user->surname = $this->_record['surname'];
+        $user->pass = NULL;
+        $user->creationdate = $this->_record['creationdate'];
+        $user->emailaddress = $this->_record['emailaddress'];
+        $user->logins = $this->_record['logins'];
+        $user->isactive = $this->_record['isactive'];
+
+        // store a local copy
+        $this->userData = $user;
+        // serialize the object to preserve structure etc
+        $user = serialize($user);
+        // set it into session to be used elsewhere (objUser mainly)
+        $this->setSession('userprincipal', $user);
+
         $username = $this->_record['username'];
         $this->setSession('username',$username);
         $this->setSession('userid', $this->_record['userid']);
@@ -240,6 +262,7 @@ class user extends dbTable
 
         $logins = $this->_record['logins'];
         $logins=$logins + 1;
+        $this->userData->logins = $logins;
         $this->setSession('logins',$logins);
 
         $this->setSession('context','lobby');

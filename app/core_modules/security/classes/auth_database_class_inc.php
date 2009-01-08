@@ -42,6 +42,23 @@ class auth_database extends abauth implements ifauth
 
         //Retrieve the users data from the database
         $line=$this->getUserDataAsArray($username);
+        // set the line as a stdClass, serialize and store in session to lower db calls
+        $user = new stdClass();
+        // add the user info to the class
+        $user->username = $line['username'];
+        $user->userid = $line['userid'];
+        $user->title = $line['title'];
+        $user->firstname = $line['firstname'];
+        $user->surname = $line['surname'];
+        $user->pass = NULL;
+        $user->creationdate = $line['creationdate'];
+        $user->emailaddress = $line['emailaddress'];
+        $user->logins = $line['logins'];
+        $user->isactive = $line['isactive'];
+        // serialize the object to preserve structure etc
+        $user = serialize($user);
+        // set it into session to be used elsewhere (objUser mainly)
+        $this->setSession('userprincipal', $user);
         if ($line) {
             if ($line['isactive']=='0'){
                 DEFINE('STATUS','inactive');
