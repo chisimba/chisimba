@@ -684,7 +684,14 @@ class engine {
                 'debug' => false,
                 'session' => array (
                     'name' => 'PHPSESSION',
-                    'varname' => 'chisimba'
+                    'varname' => 'chisimba',
+                ),
+                'session_cookie_params' => array(
+                    'lifetime' => 30,
+                    'path'     => NULL,
+                    'domain'   => NULL,
+                    'secure'   => false,
+                    'httponly' => false,
                 ),
                 'login' => array (
                     'force' => false
@@ -698,8 +705,8 @@ class engine {
                     'path' => NULL,
                     'domain' => NULL,
                     'secret' => 'test',
-                    'savedir' => '.',
-                    'secure' => false
+                    'savedir' => '/tmp',
+                    'secure' => false,
                 ),
                 'authContainers' => array (
                     'database_local' => array (
@@ -1485,8 +1492,6 @@ class engine {
      * @return string Path to the Resource in a module
      */
     public function getPearResource($resourceFile) {
-        //ini_set('include_path', ini_get('include_path').':'.$this->_objConfig->getsiteRootPath () . "lib/pear/");
-        //echo ini_get('include_path'); die();
         if (@include_once ($resourceFile)) {
             return $resourceFile;
         } else {
