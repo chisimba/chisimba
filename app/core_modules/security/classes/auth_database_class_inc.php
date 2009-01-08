@@ -38,7 +38,7 @@ class auth_database extends abauth implements ifauth
     */
     public function authenticate($username, $password)
     {
-        $auth = $this->objLu->login($username, $password);
+        $auth = $this->objLu->login($username, $password, true);
 
         //Retrieve the users data from the database
         $line=$this->getUserDataAsArray($username);
