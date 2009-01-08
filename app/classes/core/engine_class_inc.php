@@ -661,16 +661,40 @@ class engine {
 
             // login
             $loginforce = $this->objSysConfig->getValue ( 'auth_forcelogins', 'security', true );
+            if( $loginforce == 'true' || $loginforce == 'TRUE' || $loginforce == 'True') {
+                $loginforce = true;
+            }
+            else {
+                $loginforce = false;
+            }
             $logoutdestroy = $this->objSysConfig->getValue ( 'auth_logoutdestroy', 'security', true );
-
+            if( $logoutdestroy == 'true' || $logoutdestroy == 'TRUE' || $logoutdestroy == 'True') {
+                $logoutdestroy = true;
+            }
+            else {
+                $logoutdestroy = false;
+            }
             // cookies
             $cookiename = $this->objSysConfig->getValue ( 'auth_cookiename', 'security', 'chisimbaLogin' );
             $cookielifetime = $this->objSysConfig->getValue ( 'auth_cookielifetime', 'security', 30 );
             $cookiepath = $this->objSysConfig->getValue ( 'auth_cookiepath', 'security', NULL );
+            if( $cookiepath == 'NULL' || $cookiepath == 'Null' || $cookiepath == 'null') {
+                $cookiepath = NULL;
+            }
             $cookiedomain = $this->objSysConfig->getValue ( 'auth_cookiedomain', 'security', NULL );
+            if( $cookiedomain == 'NULL' || $cookiedomain == 'Null' || $cookiedomain == 'null') {
+                $cookiedomain = NULL;
+            }
+
             $cookiesecret = $this->objSysConfig->getValue ( 'auth_cookiesecret', 'security', 'test' );
             $cookiesavedir = $this->objSysConfig->getValue ( 'auth_cookiesavedir', 'security', '.' );
             $cookiesecure = $this->objSysConfig->getValue ( 'auth_cookiesecure', 'security', false );
+            if( $cookiesecure == 'true' || $cookiesecure == 'TRUE' || $cookiesecure == 'True') {
+                $cookiesecure = true;
+            }
+            else {
+                $cookiesecure = false;
+            }
 
             // Auth container(s)
             $authcontype = $this->objSysConfig->getValue ( 'auth_containertype', 'security', 'MDB2' );
@@ -683,39 +707,39 @@ class engine {
             $this->luConfig = array (
                 'debug' => false,
                 'session' => array (
-                    'name' => 'PHPSESSION',
-                    'varname' => 'chisimba',
+                    'name' => $sessname,
+                    'varname' => $sessvarname,
                 ),
                 'session_cookie_params' => array(
-                    'lifetime' => 30,
-                    'path'     => NULL,
-                    'domain'   => NULL,
-                    'secure'   => false,
+                    'lifetime' => intval($cookielifetime),
+                    'path'     => $cookiepath,
+                    'domain'   => $cookiedomain,
+                    'secure'   => $cookiesecure,
                     'httponly' => false,
                 ),
                 'login' => array (
-                    'force' => false
+                    'force' => $loginforce,
                 ),
                 'logout' => array (
-                    'destroy' => true
+                    'destroy' => $logoutdestroy,
                 ),
                 'cookie' => array (
-                    'name' => 'loginInfo',
-                    'lifetime' => 30,
-                    'path' => NULL,
-                    'domain' => NULL,
-                    'secret' => 'test',
-                    'savedir' => '/tmp',
-                    'secure' => false,
+                    'name' => $cookiename,
+                    'lifetime' => intval($cookielifetime),
+                    'path' => $cookiepath,
+                    'domain' => $cookiedomain,
+                    'secret' => $cookiesecret,
+                    'savedir' => $cookiesavedir,
+                    'secure' => $cookiesecure,
                 ),
                 'authContainers' => array (
                     'database_local' => array (
-                        'type' => 'MDB2',
-                        'expireTime' => 3600,
-                        'idleTime' => 1800,
-                        'allowDuplicateHandles' => 0,
-                        'allowEmptyPasswords' => 0,
-                        'passwordEncryptionMode' => 'sha1',
+                        'type' => $authcontype,
+                        'expireTime' => intval($authcontexptime),
+                        'idleTime' => intval($authcontidletime),
+                        'allowDuplicateHandles' => intval($duphandles),
+                        'allowEmptyPasswords' => intval($emptypw),
+                        'passwordEncryptionMode' => $pwenc,
                         'storage' => array (
                             'dsn' => KEWL_DB_DSN,
                             'prefix' => 'tbl_',
