@@ -1,30 +1,30 @@
 <?php
  /**
  * Logininterface class
- * 
+ *
  * Class to render login box, register links, and do other pre login duties
- * 
+ *
  * PHP version 5
- *  
- * This program is free software; you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation; either version 2 of the License, or 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the 
- * Free Software Foundation, Inc., 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the
+ * Free Software Foundation, Inc.,
  * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
- * 
+ *
+ *
  * @category  Chisimba
  * @package   security
  * @author FSIU
  * @copyright 2004-2007, University of the Western Cape & AVOIR Project
- * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License 
+ * @license   http://www.gnu.org/licenses/gpl-2.0.txt The GNU General Public License
  * @link      http://avoir.uwc.ac.za
  */
 // security check - must be included in all scripts
@@ -96,13 +96,13 @@ class loginInterface extends object
             $objForm = new form('loginform', $formAction);
             $objFields = new fieldset();
             $objFields->setLegend(' ');
-            
+
             //--Create an element for the username
             $objInput = new textinput('username', '', 'text','15');
             $objLabel = new label($this->objLanguage->languageText('word_username').': ', 'input_username');
             //Add validation for username
             $objForm->addRule('username',$this->objLanguage->languageText("mod_login_unrequired", 'security', 'Please enter a username. A username is required in order to login.'),'required');
-            
+
             //Add the username box to the form
             $objFields->addContent($objLabel->show().'<br />');
             $objFields->addContent($objInput->show().'<br />');
@@ -122,18 +122,22 @@ class loginInterface extends object
             $ldap = '';
             if ($this->objConfig->getuseLDAP()) {
                 $ldap .= $objElement->label.' '.$objElement->show();
-                
-            }
 
+            }
+            //--- Create an element for the remember me checkbox
+            $objRElement = new checkbox("remember");
+            $objRElement->setCSS("transparentbgnb");
+            $objRElement->label=$this->objLanguage->languageText("phrase_rememberme", "security");
+            $rem = $objRElement->label.' '.$objRElement->show();
 
             //--- Create a submit button
             $objButton = new button('submit',$this->objLanguage->languageText("word_login"));
             // Set the button type to submit
             $objButton->setToSubmit();
             // Add the button to the form
-            $objFields->addContent($ldap.'<br/>'.$objButton->show().'<br/>');
+            $objFields->addContent($ldap.'<br />'.$rem.'<br />'.$objButton->show().'<br/>');
             //$objForm->addToForm();
-            
+
 
             $helpText = strtoupper($this->objLanguage->languageText('word_help','system'));
             $helpIcon = $this->objHelp->show('register', 'useradmin', $helpText);

@@ -102,11 +102,11 @@ class user extends dbTable
     * @param $password The password given which should be checked
     * @return TRUE|FALSE Boolean value indicating success of authentication
     */
-    public function authenticateUser($username, $password)
+    public function authenticateUser($username, $password, $remember = NULL)
     {
         $username = trim($username);
         $this->objAuth=$this->getObject('authenticate');
-        $result = $this->objAuth->authenticateUser($username,$password);
+        $result = $this->objAuth->authenticateUser($username,$password, $remember);
 
         return $result;
 

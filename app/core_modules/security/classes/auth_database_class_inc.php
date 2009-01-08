@@ -36,9 +36,9 @@ class auth_database extends abauth implements ifauth
     * @param string $password The password supplied in the login
     * @return TRUE|FALSE Boolean indication of success of login
     */
-    public function authenticate($username, $password)
+    public function authenticate($username, $password, $remember = NULL)
     {
-        $auth = $this->objLu->login($username, $password, true);
+        $auth = $this->objLu->login($username, $password, $remember);
 
         //Retrieve the users data from the database
         $line=$this->getUserDataAsArray($username);

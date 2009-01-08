@@ -69,7 +69,14 @@ class security extends controller {
     function doLogin($module = NULL) {
         $username = $this->getParam ( 'username', '' );
         $password = $this->getParam ( 'password', '' );
-        if ($this->objUser->authenticateUser ( $username, $password )) {
+        $remember = $this->getParam( 'remember', 'off');
+        if($remember == 'on') {
+            $remember = true;
+        }
+        else {
+            $remember = false;
+        }
+        if ($this->objUser->authenticateUser ( $username, $password, $remember )) {
             // we hold off creating a new session until successful
             // (only is we didn't already have a session on the go,
             //  as if so it will already have been started in index.php)

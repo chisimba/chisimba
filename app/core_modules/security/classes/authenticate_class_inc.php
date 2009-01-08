@@ -74,13 +74,13 @@ class authenticate extends object
     * the possible authentication menthods until one succeeds, exiting when the first
     * one succeeds. If none succeeds then the login fails.
     */
-    public function authenticateUser($username, $password)
+    public function authenticateUser($username, $password, $remember = NULL)
     {
         foreach ($this->authChainOfCommand as $authMethod) {
                try {
                    $authClass = "auth_" . trim($authMethod);
                    $objAuth = $this->getObject($authClass, "security");
-                   if ($objAuth->authenticate($username, $password)) {
+                   if ($objAuth->authenticate($username, $password, $remember)) {
                        //Authentication succeeded
                        $objAuth->initiateSession();
                        $objAuth->storeInSession();
