@@ -1771,7 +1771,34 @@ class altconfig extends object {
 
         return $parsed;
     }
-
+    
+    /**
+     * Function to determine if a property exist in the config file or not, true if exist/false if doesn't exist - in a config file
+     * @param  string $propertyName is the property name eg SHOW_SEARCH_BOX
+     * @author Emmanuel Natalis
+     */
+      public function isPropertyExist($propertyName)
+      {
+         
+        if($this->getItem($propertyName)=="")
+        {
+           return 'FALSE';
+        } else
+        {
+           return 'TRUE';
+        }
+      }
+      
+      /**
+     * Function to get propaerty value returns false if doesn't exist in a config file
+     * @param  string $propertyName is the property name eg SHOW_SEARCH_BOX
+     * @author Emmanuel Natalis
+     */
+      public function getPropertyValue($propertyName)
+      {
+         return $this->getItem($propertyName);
+      }
+      
     /**
      * Destructor
      */

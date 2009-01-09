@@ -43,7 +43,14 @@ class sysconfig extends controller {
      * @var object
      */
     public $config;
-
+    /**
+    * array variable to append search box configurations
+    */
+    public $searchBoxPr;
+    /**
+    * object for altCofig class for serach box
+    */
+     public $objAltconfig;
     /**
     * Standard init function
     */
@@ -59,7 +66,9 @@ class sysconfig extends controller {
         $this->objUser =  $this->getObject('user', 'security');
         //Get the text abstract object
         //Kevin Cyster
-        $this -> objAbstract = $this -> getObject('systext_facet', 'systext');
+        $this->objAbstract = $this->getObject('systext_facet', 'systext');
+        
+        
     }
 
     /**
@@ -69,7 +78,7 @@ class sysconfig extends controller {
     {
         //Require the user to be admin
         if (!$this->objUser->isAdmin()) {
-            $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_reqadmin",'sysconfig'));
+         $this->setVar('str', $this->objLanguage->languageText("mod_sysconfig_reqadmin",'sysconfig'));
             return 'main_tpl.php';
         }
         $action = $this->getParam('action', NULL);
@@ -99,7 +108,16 @@ class sysconfig extends controller {
 
                 return "step1_tpl.php";
                 break;
-            case 'step2':
+                case 'step2':
+      //Append search box property if it doesn't exit in the configuration file
+      //By Emmanuel Natalis-udsm     
+      $this->searchBoxPr=array('SHOW_SEARCH_BOX'=>'TRUE');
+      $this->objAltconfig=$this->getObject('altconfig','config');
+      if($this->objAltconfig->isPropertyExist('SHOW_SEARCH_BOX')=='FALSE')
+       {
+          //property doesn't exist, we append it
+          $this->objAltconfig->appendToConfig($this->searchBoxPr);
+        }
                 $pmodule = $this->getParam('pmodule_id', NULL);
 
                 if ($this->objSysConfig->getValue("add_disabled", "sysconfig")=="TRUE") {
@@ -170,7 +188,7 @@ class sysconfig extends controller {
                 die($this->objLanguage->languageText("phrase_actionunknown").": ".$action);
                 break;
         } #switch
-
+      
     }
 
     private function save()

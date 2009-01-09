@@ -346,8 +346,28 @@ class skin extends object
         $this->objSButton->setToSubmit();
         $sform->addToForm($this->objSButton->show());
         $sform = '<div id="search">'.$sform->show().'</div>';
-
-        return $sform;
+        //Letus look at the configuration file file first
+        $objConfig = $this->newObject('altconfig','config');
+        //checking if configuration exist-By Emmanuel Natalis
+        if($objConfig->isPropertyExist('SHOW_SEARCH_BOX'))
+        {
+        //property exist, we check if it is set to true or false
+          $pvalue=$objConfig->getPropertyValue(SHOW_SEARCH_BOX);
+          if($pvalue=='FALSE')
+          {
+             //This is set to false we return nothing
+             return "";
+             
+          } else
+          {
+             //this is set to true
+             return $sform;
+          }
+        } else
+        {
+           //it doesn't exist, we just echo the search box
+           return $sform;
+        }  
     }
 
     /**
