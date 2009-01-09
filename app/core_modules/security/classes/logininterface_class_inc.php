@@ -114,7 +114,7 @@ class loginInterface extends object
             //Add the password box to the form
             //$objForm->addToForm();
             $objFields->addContent($objLabel->show().'<br />');
-            $objFields->addContent($objInput->show().'<br/>');
+            $objFields->addContent($objInput->show());
             //--- Create an element for the network login radio
             $objElement = new checkbox("useLdap");
             $objElement->setCSS("transparentbgnb");
@@ -128,7 +128,7 @@ class loginInterface extends object
             $objRElement = new checkbox("remember");
             $objRElement->setCSS("transparentbgnb");
             $objRElement->label=$this->objLanguage->languageText("phrase_rememberme", "security");
-            $rem = $objRElement->label.' '.$objRElement->show();
+            $rem = $objRElement->label.' '.$objRElement->show() . "<br />";
 
             //--- Create a submit button
             $objButton = new button('submit',$this->objLanguage->languageText("word_login"));
