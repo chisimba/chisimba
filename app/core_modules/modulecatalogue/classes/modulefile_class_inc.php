@@ -489,6 +489,10 @@ class modulefile extends object {
                             break;
                         case 'MODULE_STATUS':
                             $registerdata['MODULE_STATUS'] = $params[1];
+                            break;
+                        case 'UPDATE_DESCRIPTION':
+                            $registerdata['UPDATE_DESCRIPTION'] = $params[1];
+                            break;
                         default:
                     } //  end of switch()
                 } //    end of foreach
@@ -501,7 +505,7 @@ class modulefile extends object {
             exit(0);
         }
     }
-    
+
     /**
      * Method to check whether a module has tags
      *

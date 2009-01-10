@@ -82,7 +82,10 @@ class patch extends dbtable {
                 //echo "{$module['module_id']} $dbVersion >= $codeVersion<br/>";
                 if ($codeVersion>$dbVersion) {
                     //check for xml document
-                    $description = $this->objLanguage->languageText('mod_modulecatalogue_newlangitems','modulecatalogue');
+                    $description = $this->readUpdateDesc($module['module_id']);
+                    if(empty($description) || $description == '') {
+                        $description = $this->objLanguage->languageText('mod_modulecatalogue_newlangitems','modulecatalogue');
+                    }
                     if ($updateFile = $this->objModFile->findSqlXML($module['module_id'])) {
                         $check = file_get_contents($updateFile);
                         if(!empty($check)) {
@@ -90,12 +93,14 @@ class patch extends dbtable {
                                 throw new Exception($this->objLanguage->languageText('mod_modulecatalogue_badxml').' '.$updateFile);
                             }
                             $desc = $objXml->xpath("//update[version='{$codeVersion}']/description");
-                            $description = $desc[0];
+                            $description .= $desc[0];
                             //echo $desc[0]."<br/>";var_dump($desc);die();
                         } else {
                             log_debug("WARNING: module {$module['module_id']} has an invalid sql_updates.xml document. Ignoring.");
                         }
                     }
+                    // else add in the description from the register file
+
                     $modules[]=array('module_id'=>$module['module_id'],'old_version'=>$dbVersion,'new_version'=>$codeVersion,'desc'=>$description);
                 }
             }
@@ -320,11 +325,45 @@ class patch extends dbtable {
             if (!$regdata = file($this->objModFile->findRegisterFile($module))) {
                 return FALSE;
             }
+            //var_dump($regdata);
             // Now look up the version number from that file
             foreach  ($regdata as $line) {
                 $array = explode(': ',$line);
+                //var_dump($array); //die();
                 switch ($array[0]) {
                     case 'MODULE_VERSION':
+                        return $array[1];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } catch (Exception $e) {
+            echo customException::cleanUp($e->getMessage());
+            exit(0);
+        }
+    }
+
+   /**
+    * This method reads a register.conf file
+    * And returns the module update description
+    *
+    * @param string $module the module id
+    * @return string The module version
+    */
+    private function readUpdateDesc($module) {
+        try {
+            //Check that the register file is there.
+            if (!$regdata = file($this->objModFile->findRegisterFile($module))) {
+                return FALSE;
+            }
+            //var_dump($regdata);
+            // Now look up the description from that file
+            foreach  ($regdata as $line) {
+                $array = explode(': ',$line);
+                //var_dump($array); //die();
+                switch ($array[0]) {
+                    case 'UPDATE_DESCRIPTION':
                         return $array[1];
                         break;
                     default:
