@@ -115,10 +115,10 @@ class skin extends object
         $objDropdown->extra = "onchange =\"document.forms['ignorecheck'].submit();\"";
         //loop through the folders and build an array of available skins
         $basedir=$this->objConfig->getsiteRootPath().$this->skinRoot;
-        
+
         // Get Current Working Directory
         $currentDir = getcwd();
-        
+
         chdir($basedir);
         $dh=opendir($basedir);
         $dirList=array();
@@ -140,7 +140,7 @@ class skin extends object
             }
         }
         closedir($dh);
-        
+
         // Return to Current Working Directory
         chdir($currentDir);
 
@@ -263,7 +263,7 @@ class skin extends object
             <link rel="stylesheet" type="text/css" href="'.$this->skinRoot.'_common/ie6_or_less.css" />
         <![endif]-->';
         }
-        
+
         $result = $this->putMetaTags().$stylesheet;
         return $result;
     }
@@ -352,12 +352,12 @@ class skin extends object
         if($objConfig->isPropertyExist('SHOW_SEARCH_BOX'))
         {
         //property exist, we check if it is set to true or false
-          $pvalue=$objConfig->getPropertyValue(SHOW_SEARCH_BOX);
+          $pvalue=$objConfig->getPropertyValue('SHOW_SEARCH_BOX');
           if($pvalue=='FALSE')
           {
              //This is set to false we return nothing
              return "";
-             
+
           } else
           {
              //this is set to true
@@ -367,7 +367,7 @@ class skin extends object
         {
            //it doesn't exist, we just echo the search box
            return $sform;
-        }  
+        }
     }
 
     /**
