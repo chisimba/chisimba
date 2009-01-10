@@ -505,6 +505,7 @@ class modulecatalogue extends controller {
                     $str = $this->getParam ( 'srchstr' );
                     $type = $this->getParam ( 'srchtype' );
                     $result = $this->objCatalogueConfig->searchModuleList ( $str, $type );
+                    $this->setSession('modcatsearchresults', $result);
                     $this->setVar ( 'result', $result );
                     return 'front_tpl.php';
 

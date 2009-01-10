@@ -10,6 +10,9 @@ $objH = $this->getObject('htmlheading','htmlelements');
 $objH->type=2;
 $objH->str = $this->objLanguage->languageText('mod_modulecatalogue_heading','modulecatalogue');
 $notice = $top = $bot = '';
+
+$result = $this->getSession('modcatsearchresults');
+$this->setSession('modcatsearchresults', NULL);
 if (!isset($result)) {
     $modules = $this->objCatalogueConfig->getCategoryList($activeCat);
 } else {
@@ -56,11 +59,11 @@ if ($modules) {
     $batchuninstall = $this->getParm('uninstall');
     if ($batchuninstall) {
         $actiontotake = 'batchuninstall';
-        $batchButton = &new Link($this->uri(array('cat'=>$activeCat),'modulecatalogue'));
+        $batchButton = new Link($this->uri(array('cat'=>$activeCat),'modulecatalogue'));
         $batchButton->link = $this->objLanguage->languageText('mod_modulecatalogue_batchinstall','modulecatalogue');
         $batchButton->extra = "class='pseudobutton'";
         $batchChange = $batchButton->show();
-        $batchButton = &new button('formsub');
+        $batchButton = new button('formsub');
         $batchButton->setValue($this->objLanguage->languageText('mod_modulecatalogue_uninstallselected','modulecatalogue'));
         $batchButton->extra=' onclick="if(confirm(\''.$this->objLanguage->languageText('mod_modulecatalogue_confirmbatchuninst','modulecatalogue').'\'))
                             {document.getElementById(\'form_batchform\').submit();}"';
@@ -257,13 +260,13 @@ $objForm->addToForm($top);
 $objForm->addToForm($objTable->show());
 $objForm->addToForm($bot);
 
-$searchForm = &new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
+$searchForm = new form('searchform',$this->uri(array('action'=>'search','cat'=>'all'),'modulecatalogue'));
 $searchForm->displayType = 3;
-$srchStr = &new textinput('srchstr',$this->getParam('srchstr'),null,'21');
-$srchButton = &new button('search');
+$srchStr = new textinput('srchstr',$this->getParam('srchstr'),null,'21');
+$srchButton = new button('search');
 $srchButton->setValue($this->objLanguage->languageText('word_search'));
 $srchButton->setToSubmit();
-$srchType = &new dropdown('srchtype');
+$srchType = new dropdown('srchtype');
 $srchType->addOption('name',$this->objLanguage->languageText('mod_modulecatalogue_modname','modulecatalogue'));
 $srchType->addOption('description',$this->objLanguage->languageText('mod_modulecatalogue_description','modulecatalogue'));
 $srchType->addOption('both',$this->objLanguage->languageText('word_all'));
